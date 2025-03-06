@@ -1,0 +1,37 @@
+site_name: Cloning Tutorials
+site_url: https://your-username.github.io/cloning-tutorials/
+repo_url: https://github.com/your-username/cloning-tutorials
+
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - Tutorials:
+      - 1. DNA Basics: dna_basics.md
+      - 2. Sequence Editing Tools: sequence_tools.md
+      - 3. PCR Product Prediction: pcr_prediction.md
+      - 4. PCR Simulation: pcr_simulation.md
+      - 5. Basic Cloning: basic_cloning.md
+      - 6. Gibson Assembly: gibson.md
+      - 7. Golden Gate Cloning: golden_gate.md
+      - 8. Short Parts Construction: short_parts.md
+      - 9. Sequencing Analysis: sequencing.md
+  - About: about.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - tables
+  - fenced_code
+  - footnotes
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.emoji
+
+plugins:
+  - search
+  - table-reader
+  - awesome-pages
