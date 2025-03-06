@@ -21,9 +21,17 @@ mkdocs-env\Scripts\activate
 ```
 
 ### 2. Install Dependencies  
+Run the following command to install all required packages:
+
 ```sh
-pip install mkdocs mkdocs-material
+pip install -r requirements.txt
 ```
+
+This will install:
+- MkDocs
+- MkDocs Material theme
+- MkDocs Table Reader plugin
+- MkDocs Awesome Pages plugin
 
 ## Usage
 
@@ -56,6 +64,7 @@ cloning-tutorials/
   │   ├── tutorial1.md   # Example tutorial page
   ├── mkdocs.yml         # MkDocs configuration
   ├── main.py            # Script to run MkDocs commands
+  ├── requirements.txt   # List of dependencies
   ├── site/              # Auto-generated static site (DO NOT EDIT)
 ```
 
