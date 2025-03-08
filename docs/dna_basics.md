@@ -168,5 +168,48 @@ What is the **amino acid sequence** for the following DNA sequence?
  - **Shine-Dalgarno Sequence (SD)**: A ribosomal binding site in bacterial mRNA, located upstream of the start codon, which aligns the ribosome for efficient translation initiation.
  - **Kozak Sequence**: A sequence surrounding the start codon in eukaryotic mRNA that enhances ribosome recognition and translation efficiency.
 
-<button id="resetProgressBtn">Reset Progress</button>
-<script src="js/quiz_progress.js"></script>
+<script src="../js/progress_manager.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    function setupQuiz(quizId, answer, inputId, resultId, quizName) {
+        let button = document.getElementById(quizId);
+        let inputField = document.getElementById(inputId);
+        let resultField = document.getElementById(resultId);
+
+        if (button && inputField && resultField) {
+            button.addEventListener("click", function () {
+                let userInput = inputField.value.toUpperCase().trim();
+                let isCorrect = (userInput === answer);
+                resultField.innerHTML = isCorrect ? "✅ Correct!" : "❌ Try again.";
+                if (isCorrect) {
+                    progressManager.addCompletion(quizName, "correct");
+                }
+            });
+        }
+    }
+
+    // Set up quizzes using progressManager
+    setupQuiz("reverseBtn", "GTTCGA", "reverseInput", "reverseResult", "Reverse");
+    setupQuiz("complementBtn", "TCGAAC", "complementInput", "complementResult", "Complement");
+    setupQuiz("reverseCompBtn", "CTACCTG", "reverseCompInput", "reverseCompResult", "Reverse Complement");
+    setupQuiz("transcriptionBtn", "UCUGACUA", "transcriptionInput", "transcriptionResult", "Transcription");
+    setupQuiz("translateBtn", "MQVE", "translateInput", "translateResult", "Translation");
+
+    // Reset progress button
+    let resetButton = document.getElementById("resetProgressBtn");
+    if (resetButton) {
+        resetButton.addEventListener("click", function () {
+            progressManager.resetProgress();
+        });
+    }
+
+    // View progress button
+    let viewProgressButton = document.getElementById("viewProgressBtn");
+    if (viewProgressButton) {
+        viewProgressButton.addEventListener("click", function () {
+            progressManager.showProgress();
+        });
+    }
+});
+</script>
