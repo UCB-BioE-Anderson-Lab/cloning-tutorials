@@ -30,7 +30,7 @@ Example:
 - **Step 1 (Reverse)**: `5'- GACGTA -3'`
 - **Step 2 (Complement)**: `5'- CTGCAT -3'`
 
-Since DNA is double-stranded, the reverse complement operation essentially determines what the **partner strand** would look like. When we take the reverse complement of a sequence, we are simulating the process of reading the opposite strand in the correct 5' to 3' direction, just as it would naturally exist in a DNA molecule.
+Since DNA is double-stranded, the reverse complement operation essentially determines what the **partner strand** would look like. When we take the reverse complement of a sequence, we are simulating the process of reading the opposite strand in the correct 5' to 3' direction, just as it would naturally exist in a DNA molecule. Calculating the reverse complement is a very common operation when working with DNA sequence.  However, reverse and complement, individually, are only used in specialized scenarios.  It is important you understand what these operations are, but it is mainly so you understand the composite of the two.  For the purposes of this tutorial, you will never use individual reverse or complement operations again.
 
 ## Try it Yourself
 
