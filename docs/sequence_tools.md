@@ -3,39 +3,18 @@
 ## Introduction
 Sequence editing tools are essential for molecular biology and bioinformatics, allowing researchers to manipulate and analyze DNA sequences effectively. These tools range from graphical interfaces designed for ease of use to powerful command-line utilities and programming libraries.
 
-### Graphical User Interface (GUI) Tools
-- **ApE (A Plasmid Editor)**: A lightweight and free desktop tool designed for viewing, annotating, and editing DNA sequences.  
-  - **Pros**: Simple interface, efficient auto-annotation, supports multiple file formats.  
-  - **Cons**: Lacks cloud collaboration features, limited automation capabilities.  
+### Tools Overview
 
-- **Benchling**: A cloud-based platform that integrates various bioinformatics tools with collaborative features.  
-  - **Pros**: Real-time collaboration, extensive documentation, integrates well with other laboratory tools.  
-  - **Cons**: Requires an internet connection, subscription required for advanced features.  
-
-- **SnapGene**: A popular commercial tool for molecular biology sequence design, visualization, and cloning simulation.  
-  - **Pros**: User-friendly, excellent visualization tools, supports automatic primer design and cloning workflows.  
-  - **Cons**: Paid software with limited free version capabilities.  
-
-- **UGENE**: An open-source integrated bioinformatics toolkit that supports sequence analysis and alignment.  
-  - **Pros**: Free, supports a wide range of sequence analysis tools, allows scripting.  
-  - **Cons**: Interface can be complex for beginners.  
-
-### Command-Line and Scripting-Based Tools
-- **Biopython**: A powerful Python library for sequence analysis and bioinformatics automation.  
-  - **Pros**: Highly customizable, integrates well with other computational tools.  
-  - **Cons**: Requires programming knowledge.  
-
-- **EMBOSS (European Molecular Biology Open Software Suite)**: A collection of command-line tools for sequence analysis.  
-  - **Pros**: Wide range of utilities for sequence alignment, translation, and annotation.  
-  - **Cons**: Command-line interface can be intimidating for beginners.  
-
-- **Seqtk**: A lightweight and fast command-line toolkit for basic sequence processing tasks.  
-  - **Pros**: Extremely fast, suitable for large-scale datasets.  
-  - **Cons**: Limited functionality compared to larger toolkits.  
-
-- **Geneious**: A high-end bioinformatics suite that integrates multiple sequence analysis tools in a GUI and scripting environment.  
-  - **Pros**: Comprehensive features including primer design, alignment, and phylogenetics.  
-  - **Cons**: Paid software with a high subscription cost.  
+| Tool Name          | Pros                                                                                   | Cons                                         |
+|--------------------|----------------------------------------------------------------------------------------|----------------------------------------------|
+| **ApE (A Plasmid Editor)** | - Course demonstrations will be done in ApE.<br>- Simple interface<br>- Efficient auto-annotation<br>- Supports multiple file formats | - Lacks cloud collaboration features<br>- Limited automation capabilities. |
+| **Benchling**      | - Real-time collaboration<br>- Extensive documentation<br>- Integrates well with other laboratory tools. | - Requires an internet connection<br>- Subscription required for advanced features. |
+| **SnapGene**       | - User-friendly<br>- Excellent visualization tools<br>- Supports automatic primer design and cloning workflows. | - Paid software with limited free version capabilities. |
+| **UGENE**          | - Free<br>- Supports a wide range of sequence analysis tools<br>- Allows scripting. | - Interface can be complex for beginners. |
+| **Biopython**      | - Highly customizable<br>- Integrates well with other computational tools. | - Requires programming knowledge. |
+| **EMBOSS**         | - Wide range of utilities for sequence alignment, translation, and annotation. | - Command-line interface can be intimidating for beginners. |
+| **Seqtk**          | - Extremely fast<br>- Suitable for large-scale datasets. | - Limited functionality compared to larger toolkits. |
+| **Geneious**       | - Comprehensive features including primer design, alignment, and phylogenetics. | - Paid software with a high subscription cost. |
 
 ### Selection Guide
 - If you prefer a **simple graphical tool**, start with **ApE**.  
@@ -48,7 +27,8 @@ This document will focus on **ApE, Benchling, and Biopython**, providing tutoria
 
 ## Ontology of Operations
 - **_Search_**: Finding specific sequences or patterns within a larger sequence. Refer back to the tutorials for practical examples.
-- **_Copy_**: Duplicating a sequence or a portion of it for further use.
+- **_Copy_**: Duplicating a sequence or a portion of it to the clipboard for further use.
+- **_Paste_**: Inserting the content of the clipboard into your sequence.
 - **_Reverse Complement_**: Generating the reverse complement of a DNA sequence.
 - **_Translate_**: Converting a nucleotide sequence into its corresponding protein sequence using the genetic code.
 - **_Annotate_**: Adding biological information to a sequence, such as gene names or functional regions.
@@ -58,26 +38,56 @@ This document will focus on **ApE, Benchling, and Biopython**, providing tutoria
 
 ## ApE
 
-### Installation Instructions
-1. Download ApE from the [ApE download page](http://biologylabs.utah.edu/jorgensen/wayned/ape/).
-2. Install the application by following the on-screen instructions.
-3. Set up a dedicated storage folder for your features to keep them organized.
-4. Configure default directories for easier access to your feature files.
+### Download and Install ApE
 
-### Updating Features and Enzymes
-1. Update the feature library by following the provided instructions in the application.
-2. Test autoannotation using your configured features to ensure everything is working correctly.
+Download and install ApE from the official website:  
+[ApE Download Page](https://jorgensen.biology.utah.edu/wayned/ape/)
+
+### Update Features and Enzymes in ApE
+
+To ensure ApE recognizes the latest feature annotations and enzyme files, follow these steps:
+
+#### Step 1: Set Up a Storage Folder
+
+1. Create an empty folder on your computer to store the updated feature list.
+
+#### Step 2: Configure ApE Settings
+
+1. Open ApE and navigate to **ApE > Settings...**  
+2. Click the **Files** tab.  
+3. Under **Default Feature Directory**, click **Move Directory**, select the newly created folder, and click **OK**.  
+4. Repeat this for **Default Enzymes Directory**.  
+5. Click **OK** to close the settings window. ApE will generate default versions of these files in the folder.
+
+#### Step 3: Download and Replace Feature Files
+
+- Download and unzip the updated files:  
+  [Download Default Features](https://raw.githubusercontent.com/UCB-BioE-Anderson-Lab/cloning-tutorials/main/sequences/Default_Features.txt)
+
+#### Step 4: Load the Updated Feature Library
+
+1. In ApE, go to **Features > Open Feature Library...**  
+2. Navigate to `default_features.txt` in the unzipped folder and select it.  
+3. Click **OK** to confirm and exit.  
 
 ### Performing Operations in ApE
-- **Search**: Use the search tool in the toolbar to find specific sequences or patterns within a larger sequence.
-- **Copy**: Select the portion of the sequence and use the copy function from the toolbar or right-click menu.
-- **Reverse Complement**: Select the sequence and use the reverse complement tool from the toolbar.
-- **Translate**: Use the translate function in the toolbar to convert a nucleotide sequence into its corresponding protein sequence.
-- **Annotate**: Add biological information to a sequence using the annotation tools available in the interface.
-- **Digest**: Use the digest tool to cut a DNA sequence at specific sites using restriction enzymes.
-- **Rotate**: Shift the sequence in a circular manner using the rotate function in the toolbar.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
+
+- **Search**: Use **Edit > Find** in the toolbar or press **Command + F**. To search both strands, check the **Also find rev-com of string** option. You can use **N's as wildcards** in your search. Choose to either **select** or **highlight** the sequence using the provided button options.
+- **Copy**: Select the sequence using your mouse, then go to **Edit > Copy**, or press **Command + C**. To copy the **reverse complement**, use **Edit > Copy Rev Com**.
+- **Paste**: Place your cursor where you want to insert the clipboard contents, then go to **Edit > Paste**, or press **Command + V**.
+- **Reverse Complement**: Select the sequence and use **Edit > Reverse-Complement** to modify it directly. Alternatively, use **Edit > Copy Rev Com** to copy the reverse complement to the clipboard without modifying the original sequence.
+- **Translate**: Use **ORFs > Translate...** to translate the highlighted sequence. Options allow displaying **single-letter amino acids, triplet codes**, and including/excluding the original DNA sequence.
+- **Annotate**: Manually add a feature by highlighting a sequence, then go to **Features > New Feature** to name it and assign a color. Press **Command + K** to auto-annotate all features in the **Feature Library**. Add new features under **Features > Edit Feature Library...**.
+- **Digest**: Open **Enzyme > Enzyme Selector**, select enzymes of interest, and click **Highlight** to mark their cut sites.
+- **Rotate**: Place your cursor where you want the new origin, then go to **Edit > Set Origin**. This function is only available when the sequence is marked as **circular**, indicated by the **Linear/Circular toggle button** in the editor window.
+
+You can turn off the double-stranded view under **ApE > Settings** and uncheck the **Inline Features** option.
 
 ## Benchling
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
 
 ### Getting Started with Benchling
 - Create an account on Benchling and log in.
@@ -91,13 +101,45 @@ This document will focus on **ApE, Benchling, and Biopython**, providing tutoria
 - Save the library and use the **Auto-annotate** feature on a new sequence to apply the annotations.
 
 ### Performing Operations in Benchling
-- **Search**: Use the search functionality to find specific sequences.
-- **Copy**: Select and copy sequences using the toolbar options.
-- **Reverse Complement**: Access the reverse complement tool from the sequence manipulation options.
-- **Translate**: Convert nucleotide sequences to protein sequences using the translation feature.
-- **Annotate**: Utilize the annotation tools to add relevant information to your sequences.
-- **Digest**: Implement the digest feature to cut sequences at specified sites.
-- **Rotate**: Use the rotate function to shift sequences circularly.
+
+### **Search**
+1. Open your sequence in Benchling.
+2. Click on the **magnifying glass (🔍) icon** in the toolbar or press **Ctrl + F (Cmd + F on Mac)**.
+3. Type the sequence or pattern you want to find.
+4. To search both strands, enable the **"Search reverse complement"** option.
+5. Matching sequences will be highlighted; click **Next** or **Previous** to navigate between results.
+
+### **Copy**
+1. Click and drag to select a sequence region or use the sequence navigator.
+2. Right-click and select **Copy**, or press **Ctrl + C (Cmd + C on Mac)**.
+3. The copied sequence can now be pasted into another sequence, document, or external program.
+
+### **Reverse Complement**
+1. Select the sequence region you want to reverse complement.
+2. Click **More Tools (⚙️) > Reverse Complement** in the toolbar.
+3. The sequence will be transformed in place.
+
+### **Translate**
+1. Highlight the DNA sequence you wish to translate.
+2. Click **More Tools (⚙️) > Translate**.
+3. Select the reading frame (e.g., Frame 1, 2, 3).
+4. The translated amino acid sequence will appear below the DNA.
+
+### **Annotate**
+1. Highlight a region of your sequence.
+2. Click **Annotate** in the toolbar.
+3. Enter a **Feature Name**, select a **Feature Type**, and assign a **color**.
+4. Click **Save** to apply the annotation.
+
+### **Digest**
+1. Click **More Tools (⚙️) > Digest**.
+2. Select the **Restriction Enzymes** you want to use.
+3. Click **Digest** to visualize the cut sites on your sequence.
+
+### **Rotate**
+1. Click **More Tools (⚙️) > Set Origin**.
+2. Select a new position for the sequence origin.
+3. Click **Apply** to shift the sequence.
 
 ## Biopython
 Biopython provides programmatic sequence editing capabilities. For practical examples, refer to the Colab notebook: [Google Colab Biopython Tutorial](https://colab.research.google.com/drive/1fMsghEGnTtEdd3jF8iWhQtK6rB7CbKFd?usp=sharing). The Colab contains implementations of all described operations in Python.
