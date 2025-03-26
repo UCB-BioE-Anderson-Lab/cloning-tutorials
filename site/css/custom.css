@@ -1,0 +1,65 @@
+
+
+/* Custom CSS for Cloning Tutorials */
+ 
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+ 
+/* Header Styles */
+h1, h2, h3 {
+    color: #0056b3;
+}
+ 
+/* Links */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+ 
+a:hover {
+    text-decoration: underline;
+}
+ 
+/* Code Blocks */
+code {
+    background-color: #e8e8e8;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+ 
+/* Quiz Styling */
+form {
+    margin-top: 15px;
+}
+ 
+input {
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+ 
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+ 
+button:hover {
+    background-color: #218838;
+}
+ 
+/* Results Feedback */
+p#reverseCompResult, p#transcriptionResult, p#translateResult {
+    font-weight: bold;
+    margin-top: 10px;
+}
