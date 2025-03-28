@@ -86,7 +86,9 @@ This layout mirrors the workflow of a synthetic biology experiment—from planni
 
 - All naming and file conventions should match what is physically labeled in the lab.
 
-Proper formats reduce ordering errors, improve readability, and allow automated tools to validate or simulate designs. Genbank files should include full annotations for every promoter, CDS, terminator, origin, and sequencing primer site. TSV files should use standard fields as required by synthesis companies (e.g., IDT).
+Proper formats reduce ordering errors, improve readability, and allow automated tools to validate or simulate designs. Genbank files should include full annotations for every promoter, CDS, terminator, origin, and sequencing primer site. TSV files should use standard fields as required by synthesis companies (e.g., IDT). 
+
+Each sequence should only exist once in the repository. Avoid duplicating the same DNA sequence across multiple files or folders. Duplicates can easily drift apart — differing in name, annotation, or actual sequence — which leads to confusion and possible experimental error. Instead, reference the original file consistently throughout Construction Files and documentation.
 
 Following this structure allows for efficient collaboration, easier debugging, and better long-term data management.
 
