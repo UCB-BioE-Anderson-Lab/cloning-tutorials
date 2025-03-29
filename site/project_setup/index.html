@@ -22,7 +22,7 @@
     
     
       
-        <title>Project Design and Experiment Planning - Cloning Tutorials</title>
+        <title>Project Setup and Nomenclature - Cloning Tutorials</title>
       
     
     
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Project Design and Experiment Planning
+              Project Setup and Nomenclature
             
           </span>
         </div>
@@ -532,7 +532,7 @@
           
   
   <span class="md-ellipsis">
-    Project Design and Experiment Planning
+    Project Setup and Nomenclature
     
   </span>
   
@@ -544,7 +544,7 @@
         
   
   <span class="md-ellipsis">
-    Project Design and Experiment Planning
+    Project Setup and Nomenclature
     
   </span>
   
@@ -620,6 +620,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#optional-github-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional: GitHub Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional: GitHub Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started-with-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started with GitHub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documenting-experiments-with-github-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documenting Experiments with GitHub Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -640,7 +673,7 @@
         
   
   <span class="md-ellipsis">
-    Design Principles
+    Experimental Design Principles
     
   </span>
   
@@ -684,7 +717,7 @@
         
   
   <span class="md-ellipsis">
-    Oligo and GBlock Design
+    Choosing a Fabrication Strategy
     
   </span>
   
@@ -935,6 +968,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#optional-github-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional: GitHub Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional: GitHub Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started-with-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started with GitHub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documenting-experiments-with-github-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documenting Experiments with GitHub Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -955,7 +1021,7 @@
 
 
 <h1 id="project-setup-and-nomenclature">Project Setup and Nomenclature<a class="headerlink" href="#project-setup-and-nomenclature" title="Permanent link">&para;</a></h1>
-<p>This guide outlines conventions for setting up and organizing a synthetic biology project. These practices ensure consistency, reproducibility, and clarity across experiments and among collaborators.</p>
+<p>This guide outlines conventions for setting up and organizing a synthetic biology project. These conventions are intended to support clarity, reproducibility, and collaboration. The approach described here emphasizes a consistent, pre-planned structure for working with DNA and experiment metadata. While documentation systems vary across labs, any good system should have a clear scope, support structured naming, and promote project-wide consistency over time.</p>
 <h2 id="defining-a-project">Defining a Project<a class="headerlink" href="#defining-a-project" title="Permanent link">&para;</a></h2>
 <p>A <em>project</em> is an independent thread of research with a clear goal. Each project must have a unique, single-token name (e.g., <code>lycopene</code>). Avoid informal names or nicknames in documentation to maintain searchable and traceable records. </p>
 <p>When starting out, a project might begin with a narrow goal, but it will likely grow in complexity. Naming it consistently from the start ensures future experiments, constructs, and documentation stay aligned and searchable.</p>
@@ -966,9 +1032,15 @@
 <p>An <em>experiment</em> is a bundled set of procedures (e.g., cloning, assays) conducted under a specific goal within a project. Experiments are named sequentially and prefixed by the project name (e.g., <code>lycopene33</code> is the 33rd experiment in the <code>lycopene</code> project).</p>
 <p>This deterministic naming also aids automation, indexing, and archiving of experiments. If experiment names are consistent, you can sort and filter results by project or experiment ID with confidence.</p>
 <h2 id="plasmid-naming">Plasmid Naming<a class="headerlink" href="#plasmid-naming" title="Permanent link">&para;</a></h2>
-<p>Plasmids are named using a lowercase “p” and a project-specific prefix. Use sequential numbers:
-- Format: <code>pLYC1</code>, <code>pLYC2</code>, ...
-- Do <strong>not</strong> use descriptive names like <code>StrongPromoterGGPPS-pLYC22</code>.</p>
+<p>Plasmids are named using a lowercase “p” and a project-specific prefix. Use sequential numbers:</p>
+<ul>
+<li>
+<p>Format: <code>pLYC1</code>, <code>pLYC2</code>, ...</p>
+</li>
+<li>
+<p>Do <strong>not</strong> use descriptive names like <code>StrongPromoterGGPPS-pLYC22</code>.</p>
+</li>
+</ul>
 <p>Descriptive names, while initially helpful, tend to grow unwieldy and ambiguous. For example, what begins as 'StrongPromoterGGPPS-pLYC22' may later include more variables, making names long and inconsistent. Short names like pLYC22 can be reliably printed on tubes and cross-referenced with detailed annotations in maps and documentation.</p>
 <h2 id="naming-synthetic-dnas">Naming Synthetic DNAs<a class="headerlink" href="#naming-synthetic-dnas" title="Permanent link">&para;</a></h2>
 <p>Synthetic DNAs include oligos, gBlocks, and synthesized plasmids. Like plasmids, naming consistency here is vital. Prefixes help clarify type and origin at a glance, which is especially useful when scanning inventory files or browsing digital folders.</p>
@@ -981,7 +1053,7 @@
 <h2 id="folder-structure">Folder Structure<a class="headerlink" href="#folder-structure" title="Permanent link">&para;</a></h2>
 <p>On your computer, organize files by project and subfolders:</p>
 <p>To see a concrete example of this structure in practice, visit the example project directory in the course GitHub repository:<br />
-<strong><a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene">cloning-tutorials/examples/lycopene</a></strong>  </p>
+<strong><a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples">cloning-tutorials/examples/lycopene</a></strong>  </p>
 <p>All data should reside in a structured directory named exactly after the project. This top-level folder will house all planning documents, experimental results, and inventories.
 <div class="highlight"><pre><span></span><code>lycopene/
 ├── Docs/
@@ -993,10 +1065,18 @@
 <li><strong>Experiments</strong>: Each experiment has its own folder (<code>lycopene1</code>, <code>lycopene2</code>, ...)</li>
 <li><strong>Inventory</strong>: Track all physical materials, organized by freezer (Minus20, Minus80, Fridge)</li>
 </ul>
-<p>In the <code>lycopene</code> example:
-- <code>Docs/README.md</code> could contain a summary of the project goal or a link to relevant papers.
-- <code>Experiments/lycopene33/</code> holds folders like <code>Construction</code> and <code>Maps</code> where you'll see placeholders for your design and genbank files.
-- <code>Inventory/Minus20/README.md</code> can describe what box formats are used and which materials will be stored there.</p>
+<p>In the <code>lycopene</code> example:</p>
+<ul>
+<li>
+<p><code>Docs/README.md</code> could contain a summary of the project goal or a link to relevant papers.</p>
+</li>
+<li>
+<p><code>Experiments/lycopene33/</code> holds folders like <code>Construction</code> and <code>Maps</code> where you'll see placeholders for your design and genbank files.</p>
+</li>
+<li>
+<p><code>Inventory/Minus20/README.md</code> can describe what box formats are used and which materials will be stored there.</p>
+</li>
+</ul>
 <p>Example Experiment folder structure:
 <div class="highlight"><pre><span></span><code>lycopene33/
 ├── Construction/
@@ -1008,13 +1088,96 @@
 <p>This layout mirrors the workflow of a synthetic biology experiment—from planning (Construction), to execution (Maps, Sequencing), to analysis (Assays), and finally lab-specific logistics (LabSheets).</p>
 <h2 id="file-types-and-conventions">File Types and Conventions<a class="headerlink" href="#file-types-and-conventions" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Construction files: <code>.txt</code></li>
-<li>DNA sequences: TSV format (IDT-style) or annotated Genbank files (<code>.seq</code>, <code>.gb</code>, <code>.ape</code>)</li>
-<li>Oligos under 60bp: 25nm scale; 60+bp: 100nm</li>
-<li>All naming and file conventions should match what is physically labeled in the lab.</li>
+<li>
+<p>Construction files: <code>.txt</code></p>
+</li>
+<li>
+<p>DNA sequences: TSV format (IDT-style) or annotated Genbank files (<code>.seq</code>, <code>.gb</code>, <code>.ape</code>)</p>
+</li>
+<li>
+<p>Oligos under 60bp: 25nm scale; 60+bp: 100nm</p>
+</li>
+<li>
+<p>All naming and file conventions should match what is physically labeled in the lab.</p>
+</li>
 </ul>
-<p>Proper formats reduce ordering errors, improve readability, and allow automated tools to validate or simulate designs. Genbank files should include full annotations for every promoter, CDS, terminator, origin, and sequencing primer site. TSV files should use standard fields as required by synthesis companies (e.g., IDT).</p>
+<p>Proper formats reduce ordering errors, improve readability, and allow automated tools to validate or simulate designs. Genbank files should include full annotations for every promoter, CDS, terminator, origin, and sequencing primer site. TSV files should use standard fields as required by synthesis companies (e.g., IDT). </p>
+<p>Each sequence should only exist once in the repository. Avoid duplicating the same DNA sequence across multiple files or folders. Duplicates can easily drift apart — differing in name, annotation, or actual sequence — which leads to confusion and possible experimental error. Instead, reference the original file consistently throughout Construction Files and documentation.</p>
 <p>Following this structure allows for efficient collaboration, easier debugging, and better long-term data management.</p>
+<h2 id="optional-github-integration">Optional: GitHub Integration<a class="headerlink" href="#optional-github-integration" title="Permanent link">&para;</a></h2>
+<h3 id="getting-started-with-github">Getting Started with GitHub<a class="headerlink" href="#getting-started-with-github" title="Permanent link">&para;</a></h3>
+<p>If you are a BioE 140L student, you can ignore this entire GitHub section — it’s optional for your course. You will work locally on your computer and submit a zipped version of your project folder at the end of the term.</p>
+<p>For all other users (iGEM project leads, master's students, PhD students, or postdocs), you are expected to use GitHub to manage your project. You do <strong>not</strong> need to create a repository yourself — your instructor will create one for you using an academic GitHub account and invite you as a collaborator. This ensures the project is properly managed and free under academic terms.</p>
+<p>Once your account is added to the repo, you’ll be able to:</p>
+<ul>
+<li>
+<p>View your project from any browser</p>
+</li>
+<li>
+<p>Clone the repo to your computer</p>
+</li>
+<li>
+<p>Add new files, make edits, and sync them back to GitHub</p>
+</li>
+</ul>
+<p>If you are unfamiliar with GitHub, you do <strong>not</strong> need to learn command-line Git. Instead, use <a href="https://desktop.github.com/">GitHub Desktop</a>, a free graphical application.</p>
+<p>To get started:</p>
+<ol>
+<li>
+<p>Install GitHub Desktop.</p>
+</li>
+<li>
+<p>Visit your repository page (you will receive a link, click it when you see it because they expire).</p>
+</li>
+<li>
+<p>Click the green <strong>"Code"</strong> button and select <strong>"Open with GitHub Desktop"</strong>.</p>
+</li>
+<li>
+<p>Follow prompts to clone the repo to your computer.</p>
+</li>
+<li>
+<p>Make edits as usual, then use the GitHub Desktop interface to <strong>commit</strong> and <strong>push</strong> changes.</p>
+</li>
+</ol>
+<p><img alt="GitHub Repo Overview and Issues Tab" src="../images/github-screenshot.png" /></p>
+<p>To learn the essential GitHub vocabulary and actions, refer to this focused introduction:<br />
+<strong><a href="https://docs.github.com/en/get-started/quickstart/hello-world">GitHub: Hello World Guide</a></strong><br />
+It explains key concepts like “cloning a repository,” “committing changes,” and “pushing updates.” There are also many video tutorials online, and tools like ChatGPT can help if you get stuck.</p>
+<p>This tutorial site is itself hosted in a GitHub repository. You can view the course repo here:<br />
+<strong><a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials">cloning-tutorials GitHub repo</a></strong><br />
+And the example project directory:<br />
+<strong><a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples">examples/</a></strong></p>
+<h3 id="documenting-experiments-with-github-issues">Documenting Experiments with GitHub Issues<a class="headerlink" href="#documenting-experiments-with-github-issues" title="Permanent link">&para;</a></h3>
+<p>Each experiment (e.g., <code>lycopene33</code>) should have a corresponding GitHub <strong>Issue</strong> in your repository, which you can find by clicking the “Issues” tab at the top of the repo page (see screenshot above).</p>
+<ul>
+<li>
+<p>Add dated updates describing what you did in lab on a given day, including links to data files or images, and what you observed</p>
+</li>
+<li>
+<p>Upload photos of plates, gels, or cultures</p>
+</li>
+<li>
+<p>Record observations, commentary, and troubleshooting</p>
+</li>
+<li>
+<p>Discuss results or link to analysis charts</p>
+</li>
+</ul>
+<p>The first block in each issue should clearly explain the goal of the experiment. The writing should assume that another student may be reading it later, so:</p>
+<ul>
+<li>
+<p>Use proper names (e.g., <code>pLYC33</code> instead of “the plasmid”)</p>
+</li>
+<li>
+<p>Avoid internal shorthand that wouldn’t be clear to others</p>
+</li>
+<li>
+<p>Be specific about which clone or construct is being used</p>
+</li>
+</ul>
+<p>Although your repo may be private now, it may be made public in the future. Write with that audience in mind.</p>
+<p>An example issue for <code>lycopene33</code> is provided in the cloning repo: 
+<a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/issues/2">lycopene33 issue</a></p>
 
 
 
