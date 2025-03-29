@@ -1,0 +1,1370 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/sequence_analysis/">
+      
+      
+        <link rel="prev" href="../design_principles/">
+      
+      
+        <link rel="next" href="../oligo_design/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
+    
+    
+      
+        <title>Sequence Retrieval and Analysis - Cloning Tutorials</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sequence-retrieval-and-analysis" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Cloning Tutorials" class="md-header__button md-logo" aria-label="Cloning Tutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cloning Tutorials
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Sequence Retrieval and Analysis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Cloning Tutorials" class="md-nav__button md-logo" aria-label="Cloning Tutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Cloning Tutorials
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Cloning Techniques
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cloning Techniques
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dna_basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. DNA Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequence_tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Sequence Editing Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pcr_prediction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. PCR Product Prediction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pcr_simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. PCR Simulation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic_cloning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Basic Cloning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gibson/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Gibson Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../golden_gate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Golden Gate Cloning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../short_parts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Short Parts Construction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequencing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Sequencing Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Project Planning
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Project Planning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project_setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Setup and Nomenclature
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design_principles/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Experimental Design Principles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Sequence Retrieval and Analysis
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Sequence Retrieval and Analysis
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-Step Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step-by-Step Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-identify-your-starting-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Identify Your Starting Sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-translate-the-cds-to-protein" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Translate the CDS to Protein
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-a-blastp-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Run a BLASTP Search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-select-a-divergent-protein-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Select a Divergent Protein Sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-use-tblastn-to-find-the-dna" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Use TBLASTN to Find the DNA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-extend-the-genomic-region" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Extend the Genomic Region
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-confirm-the-gene-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Confirm the Gene Boundaries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#video-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      Video Walkthrough
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-ortholog-sequence-to-rc-part" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Ortholog Sequence to RC Part
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From Ortholog Sequence to RC Part">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-identify-the-rbs-region" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Identify the RBS Region
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-choose-a-5-linker" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Choose a 5′ Linker
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-choose-a-3-linker" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Choose a 3′ Linker
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-build-the-rc-part" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Build the RC Part
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oligo_design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Choosing a Fabrication Strategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../construction_files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloning Strategy & Construction Files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inventory_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inventory and File Organization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../simulation_checklist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simulation & Pre-experiment Checklist
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../execution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Experimental Execution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Management and Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../narrative_writing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Writing and Reflection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-Step Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step-by-Step Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-identify-your-starting-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Identify Your Starting Sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-translate-the-cds-to-protein" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Translate the CDS to Protein
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-a-blastp-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Run a BLASTP Search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-select-a-divergent-protein-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Select a Divergent Protein Sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-use-tblastn-to-find-the-dna" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Use TBLASTN to Find the DNA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-extend-the-genomic-region" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Extend the Genomic Region
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-confirm-the-gene-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Confirm the Gene Boundaries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#video-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      Video Walkthrough
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-ortholog-sequence-to-rc-part" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Ortholog Sequence to RC Part
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From Ortholog Sequence to RC Part">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-identify-the-rbs-region" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Identify the RBS Region
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-choose-a-5-linker" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Choose a 5′ Linker
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-choose-a-3-linker" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Choose a 3′ Linker
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-build-the-rc-part" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Build the RC Part
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="sequence-retrieval-and-analysis">Sequence Retrieval and Analysis<a class="headerlink" href="#sequence-retrieval-and-analysis" title="Permanent link">&para;</a></h1>
+<p>In this tutorial, you will learn how to retrieve the sequence of a gene from another organism and prepare it for cloning. Our goal is to perform an <strong>ortholog scan</strong> of the <em>dxs</em> gene as part of the <strong>Lycopene33</strong> optimization experiment. We will search for alternative versions of <em>dxs</em> from different species, extract their RBS.CDS sequences, and prepare those sequences to build RC parts that match the TP.RC part architecture.</p>
+<p>The process includes:</p>
+<ul>
+<li>
+<p>Identifying orthologs via BLAST</p>
+</li>
+<li>
+<p>Extracting upstream and downstream flanking sequences</p>
+</li>
+<li>
+<p>Verifying gene boundaries</p>
+</li>
+<li>
+<p>Preparing the sequence for cloning</p>
+</li>
+</ul>
+<hr />
+<h2 id="step-by-step-workflow">Step-by-Step Workflow<a class="headerlink" href="#step-by-step-workflow" title="Permanent link">&para;</a></h2>
+<h3 id="1-identify-your-starting-sequence">1. Identify Your Starting Sequence<a class="headerlink" href="#1-identify-your-starting-sequence" title="Permanent link">&para;</a></h3>
+<p>Begin with a known working version of the <em>dxs</em> gene from <em>E. coli</em> MG1655. You’ll need the CDS (coding DNA sequence), and ideally the 200 bp upstream (pre) and downstream (post) flanking sequences. These will help identify the ribosome binding site and define PCR primers if you’re cloning from genomic DNA.</p>
+<h3 id="2-translate-the-cds-to-protein">2. Translate the CDS to Protein<a class="headerlink" href="#2-translate-the-cds-to-protein" title="Permanent link">&para;</a></h3>
+<p>Using a sequence editor such as ApE, paste in the <em>dxs</em> CDS and use the "Translate" function to convert it to its corresponding amino acid sequence.</p>
+<h3 id="3-run-a-blastp-search">3. Run a BLASTP Search<a class="headerlink" href="#3-run-a-blastp-search" title="Permanent link">&para;</a></h3>
+<p>BLASTP is a search tool that compares your protein sequence to a vast database of known protein sequences maintained by NCBI. Nearly all public genomic and protein data are included in this database, and BLASTP has indexed these sequences in a way that allows it to quickly find similar entries.</p>
+<p>Go to <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE=Proteins">BLASTP</a> and:</p>
+<ul>
+<li>Paste in your protein sequence (e.g., the translated <em>dxs</em> from <em>E. coli</em>).</li>
+<li>Decide how broadly to search. You have several options:</li>
+<li><strong>Option 1:</strong> Leave the organism box blank to search across all known species. This is useful for broad ortholog discovery.</li>
+<li><strong>Option 2:</strong> Enter a species, genus, or higher-level taxon (e.g., <em>Arthrobacter</em>, <em>Firmicutes</em>) to limit your search.</li>
+<li><strong>Option 3:</strong> If you're cloning from a specific DNA source (e.g., genomic DNA in your freezer), constrain your search to that species.</li>
+<li><strong>Option 4:</strong> If you're synthesizing all sequences, a broad search is fine—you don’t need to limit to organisms with accessible DNA.</li>
+<li>Click <strong>BLAST</strong> to begin the search.</li>
+</ul>
+<p>When results appear, look for hits with the correct annotation (e.g., “1-deoxy-D-xylulose-5-phosphate synthase”). If the organism name seems unfamiliar, check whether it’s a renamed or synonymous species—taxonomy often evolves over time.</p>
+<h3 id="4-select-a-divergent-protein-sequence">4. Select a Divergent Protein Sequence<a class="headerlink" href="#4-select-a-divergent-protein-sequence" title="Permanent link">&para;</a></h3>
+<p>Sequence identity is a percentage score indicating how similar two proteins are based on their aligned amino acid sequences.</p>
+<p>Review the BLASTP results and avoid picking a 100% identity hit — those are usually redundant and uninformative. Instead, choose a result with high but not identical similarity (typically in the 70–95% identity range). Historically, a sequence identity of 95% or higher has been considered "substantially identical" in legal and patent contexts, potentially affecting novelty. Meanwhile, sequences around 70% identity are often functionally similar, though they may differ in properties like substrate specificity.</p>
+<p>In choosing which hits to pursue:</p>
+<ul>
+<li>
+<p>Avoid very high identity hits unless you're testing subtle variations.</p>
+</li>
+<li>
+<p>Prefer hits that retain the correct annotation (e.g., “1-deoxy-D-xylulose-5-phosphate synthase”), even at lower identities. These may be identified by more sophisticated gene prediction tools than BLAST alone.</p>
+</li>
+<li>
+<p>Consider building a phylogenetic tree to select hits from distinct clades. This helps you sample evolutionary space broadly and then refine with follow-up experiments.</p>
+</li>
+<li>
+<p>Consider using newer bioinformatics or AI tools.  This is a rapidly developing research topic.</p>
+</li>
+</ul>
+<p>Ultimately, the performance of orthologs in a heterologous host (like <em>E. coli</em>) is influenced by many factors — expression level, folding, temperature, pH, codon usage, RNA structure, and unknown interactions. Empirically testing a diverse panel is often the best approach.</p>
+<h3 id="5-use-tblastn-to-find-the-dna">5. Use TBLASTN to Find the DNA<a class="headerlink" href="#5-use-tblastn-to-find-the-dna" title="Permanent link">&para;</a></h3>
+<p>To proceed with cloning or part design, you’ll need the actual DNA sequence of the ortholog — including the untranslated upstream region if you're capturing the native ribosome binding site. While one option is to reverse-translate the protein sequence and design an RBS using a prediction algorithm, a more reliable strategy — especially when transferring genes from one prokaryote to another — is to use the native DNA sequence. This native sequence has already been shaped by evolutionary selection to function in its original context and is more likely to express successfully in <em>E. coli</em> than a synthetic design. Additionally, if you plan to amplify the sequence from genomic DNA or an existing plasmid, you must use the actual sequence so that your primers anneal correctly. </p>
+<p>In some cases, the protein’s NCBI entry may include a direct link to the gene or CDS that encodes it. If not, you can find the encoding DNA using a second BLAST search — specifically, TBLASTN — that takes your protein query and returns matching DNA hits.</p>
+<p>Go to <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch&amp;PROGRAM=tblastn">TBLASTN</a> and:</p>
+<ul>
+<li>
+<p>Paste in the protein sequence from the previous step.</p>
+</li>
+<li>
+<p>Run the search.</p>
+</li>
+</ul>
+<p>Look for a match with near 100% identity — this ensures you’re retrieving the exact DNA sequence that encodes your selected protein, not just a similar ortholog. Unlike the initial BLASTP search, where sequence variation was valuable, here we want the specific nucleotide sequence that produced the protein you selected, since this is the actual DNA you’ll need for synthesis or PCR. Click the link for the matching hit, then follow the GenBank link to access the full nucleotide record.</p>
+<h3 id="6-extend-the-genomic-region">6. Extend the Genomic Region<a class="headerlink" href="#6-extend-the-genomic-region" title="Permanent link">&para;</a></h3>
+<p>In the GenBank page, adjust the displayed sequence region to obtain 5' and 3' UTR:</p>
+<ul>
+<li>
+<p>Extend ~200 bp upstream and ~200 bp downstream from the gene (CDS) hit.</p>
+</li>
+<li>
+<p>Use the “Change region shown” box to set the coordinates.</p>
+</li>
+</ul>
+<p>Click <strong>Update View</strong>, then download the GenBank file using <strong>Send to &gt; File &gt; GenBank (full record)</strong>.</p>
+<h3 id="7-confirm-the-gene-boundaries">7. Confirm the Gene Boundaries<a class="headerlink" href="#7-confirm-the-gene-boundaries" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Ensure the CDS starts with ATG, GTG, or TTG.</p>
+</li>
+<li>
+<p>Confirm it ends with TAA, TAG, or TGA.</p>
+</li>
+<li>
+<p>Check that the orf is in the forward direction and not reverse complemented</p>
+</li>
+<li>
+<p>Translate the orf and confirm it matches your expectations.</p>
+</li>
+</ul>
+<p>Extract the pre, CDS, and post regions and paste them into your working spreadsheet.</p>
+<p>Also record the GenBank accession number and source organism.</p>
+<p>Extract the pre, CDS, and post regions and paste them into your working spreadsheet. Also record the GenBank accession number and source organism.</p>
+<p>We recommend organizing this data in a spreadsheet, such as Google Sheets, similar to the format shown in the video. The sheet should include columns for:</p>
+<ul>
+<li>
+<p>Organism name</p>
+</li>
+<li>
+<p>Whether an ortholog is present</p>
+</li>
+<li>
+<p>The 200 bp pre (upstream) region</p>
+</li>
+<li>
+<p>The CDS</p>
+</li>
+<li>
+<p>The 200 bp post (downstream) region</p>
+</li>
+<li>
+<p>Accession number</p>
+</li>
+</ul>
+<p>Here is an example of what the spreadsheet might look like:</p>
+<div class="highlight"><pre><span></span><code>organism    dxs?    pre200  CDS post200 accession
+E. coli MG1655  yes ttggtcattaag    atgagt  tccctactcc  CP032667.1
+</code></pre></div>
+<p>This spreadsheet can live outside of your GitHub repo (e.g., in Google Drive). While tools like Benchling or C6-tools may be used for sequence design and analysis, the essential outputs — Construction Files, LabSheets, and final sequence files — must be included in the GitHub repository. Any other design or analysis materials may be linked from your GitHub issues or stored separately, but we recommend downloading and archiving them in your <code>Docs/</code> folder for long-term preservation.</p>
+<p>For <strong>BioE 140L students</strong>: download your final Google Sheet when done and include it in your project folder as a backup.</p>
+<hr />
+<h2 id="video-walkthrough">Video Walkthrough<a class="headerlink" href="#video-walkthrough" title="Permanent link">&para;</a></h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QZex2r25tUg" title="How to Find Orthologs for Cloning" frameborder="0" allowfullscreen></iframe>
+
+<hr />
+<h2 id="from-ortholog-sequence-to-rc-part">From Ortholog Sequence to RC Part<a class="headerlink" href="#from-ortholog-sequence-to-rc-part" title="Permanent link">&para;</a></h2>
+<p>Once you’ve retrieved the ortholog sequence and its surrounding context (pre200, CDS, and post200), the next step is to construct an <strong>RC part</strong> that conforms to the TP.RC format used throughout this tutorial.</p>
+<p>Here’s how to do it:</p>
+<h3 id="1-identify-the-rbs-region">1. Identify the RBS Region<a class="headerlink" href="#1-identify-the-rbs-region" title="Permanent link">&para;</a></h3>
+<p>The ribosome binding site (RBS) is generally found within the final 30 bp of the pre200 region. It usually appears 8–15 bp upstream of the start codon (ATG, GTG, or TTG) and resembles a Shine-Dalgarno–like sequence such as <code>AGGAGG</code>. You'll want to include this entire RBS and its precise spacing to the start codon in your part.</p>
+<h3 id="2-choose-a-5-linker">2. Choose a 5′ Linker<a class="headerlink" href="#2-choose-a-5-linker" title="Permanent link">&para;</a></h3>
+<p>The linker is a 20 bp sequence upstream of the RBS that will serve as the forward PCR priming site and provide standard flanking homology. Search within the pre200 region, typically between −100 and −15 relative to the start codon, for a well-behaved primer binding sequence (good GC content, no hairpins, balanced melting temp, etc.). This will become your 5′ linker. The RBS is then defined as the sequence between the 5′ linker and the start codon.</p>
+<h3 id="3-choose-a-3-linker">3. Choose a 3′ Linker<a class="headerlink" href="#3-choose-a-3-linker" title="Permanent link">&para;</a></h3>
+<p>For the 3′ linker, look for a 20 bp sequence downstream of the CDS within the post200 region. This should lie beyond the stop codon and meet similar criteria for a good primer binding site.</p>
+<h3 id="4-build-the-rc-part">4. Build the RC Part<a class="headerlink" href="#4-build-the-rc-part" title="Permanent link">&para;</a></h3>
+<p>Once you’ve identified:</p>
+<p>Once you’ve defined your 5′ linker, RBS, CDS, and 3′ linker, you now have everything needed to construct an RC part compatible with the TP.RC system.</p>
+<p>The design and construction process is the same as described in the <a href="../design_principles/">Design Principles</a> tutorial. There, you practiced building an RC part using known sequences and assembling them into a standard format. In this case, you’ll apply that same process using the ortholog data you’ve just collected.</p>
+<p>To recap, your RC part will contain:</p>
+<ul>
+<li>
+<p>A 5′ BsaI recognition site followed by a sticky end (<code>TACT</code>)</p>
+</li>
+<li>
+<p>The 5′ linker sequence</p>
+</li>
+<li>
+<p>The RBS sequence</p>
+</li>
+<li>
+<p>The full CDS (starting with ATG/GTG/TTG, ending in a stop codon)</p>
+</li>
+<li>
+<p>The 3′ linker sequence</p>
+</li>
+<li>
+<p>A 3′ sticky end (<code>GCTT</code>) followed by the reverse BsaI recognition site</p>
+</li>
+</ul>
+<p>Make sure the full sequence has no internal BsaI sites. This is critical for Golden Gate assembly, as internal BsaI sites will cause unwanted cuts. If you're ordering a synthetic fragment (e.g., GBlock or clonal synthesis), you can eliminate all internal BsaI, BsmBI, and other Type IIS or common restriction sites (e.g., BglBrick, BioBrick) via silent mutations. C6-Tools include a <code>remove_sites</code> function to automate this cleanup.</p>
+<p>If you're cloning from genomic DNA, internal BsaI sites must be removed during cloning. A single site can often be mutated using SOEing or Gibson assembly with an altered primer. But if multiple sites are present, synthesis is usually easier and more reliable. Alternatively, you can choose orthologs that don’t contain problematic sites to avoid complications altogether.</p>
+<p>You can create this RC part in multiple ways:</p>
+<ul>
+<li>
+<p><strong>Synthetic gene block (GBlock)</strong> ordered with BsaI sites and tails</p>
+</li>
+<li>
+<p><strong>PCR</strong> from genomic or plasmid DNA using primers that extend the linkers and BsaI sites and 5' tails</p>
+</li>
+<li>
+<p><strong>Clonal synthesis</strong> through a gene synthesis vendor</p>
+</li>
+</ul>
+<p>Refer back to the RC part design quiz in the previous tutorial if you need a refresher on format logic. Once built, these RC parts can be mixed and matched in your construct to evaluate ortholog performance.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../js/C6-Align.js"></script>
+      
+        <script src="../js/C6-Gene.js"></script>
+      
+        <script src="../js/C6-Oligos.js"></script>
+      
+        <script src="../js/C6-Seq.js"></script>
+      
+        <script src="../js/C6-Sim.js"></script>
+      
+        <script src="../js/C6-Utils.js"></script>
+      
+        <script src="../js/progress_manager.js"></script>
+      
+    
+  </body>
+</html>
