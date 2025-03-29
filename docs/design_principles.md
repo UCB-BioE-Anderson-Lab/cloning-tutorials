@@ -49,14 +49,14 @@ In our example, **Lycopene33** is an optimization experiment in which we replace
 
 The relationship between prototyping and optimization can be thought of as a progression: prototyping produces a first working construct, and optimization refines it for better performance.
 
-![Prototyping vs. Optimization decision tree](../images/prototyping_vs_optimization.png)
+![Prototyping vs. Optimization decision tree](images/prototyping_vs_optimization.png)
 *Figure: A decision tree illustrating the progression from untested design to prototype, and from prototype to systematic part tuning and performance analysis. Optimization is an iterative process—improvements identified in each round are incorporated into the next cycle, refining the design over time. In contrast, prototyping is a more linear process aimed at achieving first functionality.*  
 
 ## The TP.RC System
 
 To simplify modular cloning, we group parts into two classes: Traditionally, gene expression units are built using four modular parts: Promoter, RBS, CDS, and Terminator. Each of these must be mixed and matched individually during optimization, resulting in long repetitive assemblies. The TP.RC system simplifies this by collapsing the four parts into two composite modules: TP (Terminator-Promoter) and RC (RBS-CDS). This reduces the number of interchangeable parts, standardizes junctions, and enables efficient assembly of expression units using fewer, more functional blocks.
 
-![Schematic showing TP.RC modular part layout](../images/tprc_modularity.png)
+![Schematic showing TP.RC modular part layout](images/tprc_modularity.png)
 *Figure: The TP.RC model replaces traditional 4-part gene units with streamlined 2-part modules. Each TP and RC part corresponds to untranscribed and transcribed regions of DNA, respectively—rather than neatly mapping to a single gene. This architecture enables construction of multicistronic operons by placing multiple RC units in sequence, and allows changes to transcriptional architecture via singular additions or removals of TP parts. The reduced part count simplifies optimization while preserving full design flexibility.*
 
 ## Planning an Optimization Experiment
@@ -91,7 +91,7 @@ In practice:
 
 - Clone them into the backbone using Golden Gate or Gibson
 
-![Ortholog Scan to Boost Yield](../images/ortholog_scan_cartoon.png)
+![Ortholog Scan to Boost Yield](images/ortholog_scan_cartoon.png)
 *Figure: A biosynthetic pathway made of multiple TP.RC units is shown. In this ortholog scan, a single RC unit is replaced with variants sourced from gorilla, orca, and alligator. Expression output (product titer) is quantified at right. The alligator ortholog significantly outperforms the others, demonstrating how targeted RC swaps can boost pathway productivity.*
 
 ## Anatomy of TP and RC Parts
@@ -116,7 +116,7 @@ These linkers allow:
 
 - Homology regions for Gibson, SOEing, or Yeast recombination-based cloning
 
-![TP and RC standardization with Golden Gate](../images/tprc_spacers_and_junctions.png)
+![TP and RC standardization with Golden Gate](images/tprc_spacers_and_junctions.png)
 
 *Figure: Layout of TP and RC parts showing the role of unique linkers and MoClo overhangs. Each part includes type IIS flanking sites and 5' overhangs for ordered assembly.*
 

@@ -157,6 +157,6 @@ For the Lycopene33 experiment, this results in:
 
 - 2 product GenBank files (one for each construct)
 
-- 1 gene synthesisized plasmid
+- 1 gene synthesized plasmid
 
 - 4 oligos
