@@ -19,7 +19,7 @@ You’ve already discussed this sequence, selected a suitable RBS, and formatted
 
 ![RC part graphic](../examples/lycopene33/RC_TpDxs_structure.png)
 
-The corresponding DNA sequence files is included in the **[Maps](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene33/Maps)** folder for reference.
+The corresponding DNA sequence files is included in the **[example Maps](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Experiments/lycopene33/Maps)** folder for reference.
 
 - **CP033902.seq:** The raw sequence of the region of the Trueperella genome containing the dxs CDS and flanking sequences
 - **gTpDXS.seq:** A GBlock encoding an RC (rbs.cds) part encoding the Trueperella sequence with restriction sites removed
@@ -74,7 +74,7 @@ There are three main fabrication routes based on the type of DNA product you'll 
 ```txt
 PCR GB5F GB5R pLYC72I backbone
 GoldenGate pTpDXS backbone BsaI gg
-Transform gg Mach1 Amp 37 pLYC76
+Transform gg Mach1 Amp 37 pLYC76I
 ```
 With these oligo sequences:
 ```txt
@@ -99,18 +99,14 @@ Where `pTpDXS` is the plasmid obtained by gene synthesis.
 ```txt
 PCR YB5F YB5R pLYC72I backbone
 Gibson gTpDXS backbone gg
-Transform gg Mach1 Amp 37 pLYC76
+Transform gg Mach1 Amp 37 pLYC76I
 ```
 With these oligo sequences:
 ```txt
 oligo YB5F  gcacagctggccgcctataggGCTTTGATCGATTCAACCTCTGATCA
 oligo YB5R  ccactgatcgaaagcatgacAGTACCTCTAAACACAACGACAACAG
-dsDNA gTpDXS  
 ```
-
-[todo: incomplete * Need to find a solution the issue that the template is funky in this region]
-
-Where `gTpDXS` is the synthesized dsDNA fragment encoding the RC part with appropriate overlaps.
+Where `gTpDXS` is the synthesized dsDNA fragment encoding the RC part with appropriate overlaps. It is available in the Maps folder.
 
 ---
 
@@ -125,7 +121,7 @@ Where `gTpDXS` is the synthesized dsDNA fragment encoding the RC part with appro
 PCR oTpDXSf oTpDXSr CP033902 pcrpdt
 PCR GB5F GB5R pLYC72I backbone
 GoldenGate pcrpdt backbone BsaI gg
-Transform gg Mach1 Amp 37 pLYC76
+Transform gg Mach1 Amp 37 pLYC76I
 ```
 With these oligo sequences:
 ```txt
@@ -135,6 +131,10 @@ oligo GB5F ccataGGTCTCaGCTTTGATCGATTCAACCTCTGATCA
 oligo GB5R cagttGGTCTCtAGTACCTCTAAACACAACGACAACAG
 ```
 
+In practice, our TpDXS gene has an internal BsaI site, so this particular construction file will not work.  We could use SOEing to take the site out during cloning.  However, following our decision tree, we should go with the clonal gene synthesis.  This is thus what is presented in the example folder.  The same process was also applied to the *Aliivibrio fischeri* (GenBank: CP160629.1) which lacks the BsaI site and satisfies the criteria for being cloned from genomic DNA.  Thus 2 plasmids are designed in this experiment:
+
+- **pLYC76I:** The *Trueperella* variant of *dxs* in pLYC72I
+- **pLYC76J:** The *Aliivibrio* variant of *dxs* in pLYC72I
 ---
 
 
@@ -142,11 +142,11 @@ oligo GB5R cagttGGTCTCtAGTACCTCTAAACACAACGACAACAG
 
 Construction Files use a standardized shorthand format. For more info, see:
 
-**[cf_shorthand_specification.md](../cf_shorthand_specification.md)**
+**[cf_shorthand_specification.md](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0294469)**
 
 The examples folder contains real CFs for the dxs ortholog scan in:
 
-**[cloning-tutorials/examples/lycopene33](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene33)**
+**[cloning-tutorials/examples/](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Experiments/)**
 
 Use those as templates for your own.
 
