@@ -17,7 +17,7 @@ Coordinates: 656655–658523
 
 You’ve already discussed this sequence, selected a suitable RBS, and formatted it as a standardized RC part following TP.RC conventions. A visual reminder of the completed part is shown below:
 
-![RC part graphic](../examples/lycopene33/RC_TpDxs_structure.png)
+![RC part graphic](images/RC_TpDxs_structure.png)
 
 The corresponding DNA sequence files is included in the **[example Maps](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Experiments/lycopene33/Maps)** folder for reference.
 
