@@ -1,0 +1,1438 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/design_principles/">
+      
+      
+        <link rel="prev" href="../project_setup/">
+      
+      
+        <link rel="next" href="../sequence_analysis/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
+    
+    
+      
+        <title>Experimental Design Principles - Cloning Tutorials</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#experimental-design-principles" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Cloning Tutorials" class="md-header__button md-logo" aria-label="Cloning Tutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cloning Tutorials
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Experimental Design Principles
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Cloning Tutorials" class="md-nav__button md-logo" aria-label="Cloning Tutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Cloning Tutorials
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Cloning Techniques
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cloning Techniques
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dna_basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. DNA Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequence_tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Sequence Editing Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pcr_prediction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. PCR Product Prediction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pcr_simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. PCR Simulation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic_cloning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Basic Cloning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gibson/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Gibson Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../golden_gate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Golden Gate Cloning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../short_parts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Short Parts Construction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequencing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Sequencing Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Project Planning
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Project Planning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project_setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Setup and Nomenclature
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Experimental Design Principles
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Experimental Design Principles
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Experiments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Experiments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-prototyping" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Prototyping
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Prototyping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#questions-to-ask" class="md-nav__link">
+    <span class="md-ellipsis">
+      Questions to Ask:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Strategies:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-tprc-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      The TP.RC System
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planning-an-optimization-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planning an Optimization Experiment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ortholog-scans-and-rc-replacement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ortholog Scans and RC Replacement
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anatomy-of-tp-and-rc-parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Anatomy of TP and RC Parts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anatomy of TP and RC Parts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tp-terminator-promoter-parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      TP (Terminator-Promoter) Parts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rc-rbs-cds-parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      RC (RBS-CDS) Parts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz-building-an-rc-part" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quiz: Building an RC Part
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quiz: Building an RC Part">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enter-your-rc-part-sequence-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✍️ Enter your RC part sequence here:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequence_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sequence Retrieval and Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oligo_design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Choosing a Fabrication Strategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../construction_files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloning Strategy & Construction Files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inventory_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inventory and File Organization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../simulation_checklist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simulation & Pre-experiment Checklist
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../execution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Experimental Execution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Management and Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../narrative_writing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Writing and Reflection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Experiments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Experiments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-prototyping" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Prototyping
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Prototyping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#questions-to-ask" class="md-nav__link">
+    <span class="md-ellipsis">
+      Questions to Ask:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Strategies:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-tprc-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      The TP.RC System
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planning-an-optimization-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planning an Optimization Experiment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ortholog-scans-and-rc-replacement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ortholog Scans and RC Replacement
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anatomy-of-tp-and-rc-parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Anatomy of TP and RC Parts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anatomy of TP and RC Parts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tp-terminator-promoter-parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      TP (Terminator-Promoter) Parts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rc-rbs-cds-parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      RC (RBS-CDS) Parts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz-building-an-rc-part" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quiz: Building an RC Part
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quiz: Building an RC Part">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enter-your-rc-part-sequence-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✍️ Enter your RC part sequence here:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="experimental-design-principles">Experimental Design Principles<a class="headerlink" href="#experimental-design-principles" title="Permanent link">&para;</a></h1>
+<p>Construction Files, Genbank sequences, and LabSheets are a general-purpose toolkit for documenting synthetic biology experiments. They do not tell you <em>what</em> to build—only <em>how to record it</em>. So the fundamental question at the start of every project is: <strong>What should you build and test?</strong></p>
+<h2 id="types-of-experiments">Types of Experiments<a class="headerlink" href="#types-of-experiments" title="Permanent link">&para;</a></h2>
+<p>Most synthetic biology experiments fall into two broad categories:</p>
+<h3 id="1-prototyping">1. Prototyping<a class="headerlink" href="#1-prototyping" title="Permanent link">&para;</a></h3>
+<p>In the prototyping stage, you are exploring new designs that haven't been tested in your system. You might have:</p>
+<ul>
+<li>
+<p>A gene from a database or literature</p>
+</li>
+<li>
+<p>A new combination of parts</p>
+</li>
+<li>
+<p>A hypothesis about how something will work in a cell</p>
+</li>
+</ul>
+<p>But no direct experience with the function in your hands.</p>
+<h4 id="questions-to-ask">Questions to Ask:<a class="headerlink" href="#questions-to-ask" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>What proteins/RNAs need to be expressed?</p>
+</li>
+<li>
+<p>What regulatory elements do I need?</p>
+</li>
+<li>
+<p>What assay tells me if it works?</p>
+</li>
+<li>
+<p>What controls are required for interpreting results?</p>
+</li>
+<li>
+<p>How many variants can I build/test given assay throughput?</p>
+</li>
+</ul>
+<h3 id="2-optimization">2. Optimization<a class="headerlink" href="#2-optimization" title="Permanent link">&para;</a></h3>
+<p>Once a prototype is functional, optimization improves performance: yield, growth, stability, etc.</p>
+<h4 id="strategies">Strategies:<a class="headerlink" href="#strategies" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Promoter Swap</strong>: Replace a promoter with variants</p>
+</li>
+<li>
+<p><strong>RBS Library</strong>: Tune translation rate</p>
+</li>
+<li>
+<p><strong>Ortholog Scan</strong>: Swap homologous coding sequences</p>
+</li>
+<li>
+<p><strong>Terminator Scan</strong>: Adjust transcript stability</p>
+</li>
+<li>
+<p><strong>Part Combination Screens</strong>: Combine multiple part variants</p>
+</li>
+</ul>
+<p>In our example, <strong>Lycopene33</strong> is an optimization experiment in which we replace the existing dxs gene in a multi-gene biosynthetic pathway with orthologous dxs genes from other organisms to assess the impact on pathway performance.</p>
+<p>The relationship between prototyping and optimization can be thought of as a progression: prototyping produces a first working construct, and optimization refines it for better performance.</p>
+<p><img alt="Prototyping vs. Optimization decision tree" src="../images/prototyping_vs_optimization.png" />
+<em>Figure: A decision tree illustrating the progression from untested design to prototype, and from prototype to systematic part tuning and performance analysis. Optimization is an iterative process—improvements identified in each round are incorporated into the next cycle, refining the design over time. In contrast, prototyping is a more linear process aimed at achieving first functionality.</em>  </p>
+<h2 id="the-tprc-system">The TP.RC System<a class="headerlink" href="#the-tprc-system" title="Permanent link">&para;</a></h2>
+<p>To simplify modular cloning, we group parts into two classes: Traditionally, gene expression units are built using four modular parts: Promoter, RBS, CDS, and Terminator. Each of these must be mixed and matched individually during optimization, resulting in long repetitive assemblies. The TP.RC system simplifies this by collapsing the four parts into two composite modules: TP (Terminator-Promoter) and RC (RBS-CDS). This reduces the number of interchangeable parts, standardizes junctions, and enables efficient assembly of expression units using fewer, more functional blocks.</p>
+<p><img alt="Schematic showing TP.RC modular part layout" src="../images/tprc_modularity.png" />
+<em>Figure: The TP.RC model replaces traditional 4-part gene units with streamlined 2-part modules. Each TP and RC part corresponds to untranscribed and transcribed regions of DNA, respectively—rather than neatly mapping to a single gene. This architecture enables construction of multicistronic operons by placing multiple RC units in sequence, and allows changes to transcriptional architecture via singular additions or removals of TP parts. The reduced part count simplifies optimization while preserving full design flexibility.</em></p>
+<h2 id="planning-an-optimization-experiment">Planning an Optimization Experiment<a class="headerlink" href="#planning-an-optimization-experiment" title="Permanent link">&para;</a></h2>
+<p>In practice, optimization is often performed without a specific hypothesis about what part is limiting. Instead, it is a form of sensitivity analysis—each position in a construct is systematically tested for influence on performance. Rather than identifying a bottleneck beforehand, you vary elements (e.g., promoters, RC units) at selected sites and measure the resulting impact. This allows you to discover which parts are rate-limiting or overly active and informs future engineering steps.</p>
+<p>The typical optimization workflow involves:</p>
+<ol>
+<li>
+<p>Selecting a position in the construct to diversify</p>
+</li>
+<li>
+<p>Choosing a part type to vary (e.g., promoter, RC unit)</p>
+</li>
+<li>
+<p>Designing a panel of alternative sequences</p>
+</li>
+<li>
+<p>Building variants using Construction Files</p>
+</li>
+<li>
+<p>Running assays and interpreting results</p>
+</li>
+<li>
+<p>Updating designs based on observed trends</p>
+</li>
+</ol>
+<p>These small focused scans yield interpretable results and inform future designs.</p>
+<h2 id="ortholog-scans-and-rc-replacement">Ortholog Scans and RC Replacement<a class="headerlink" href="#ortholog-scans-and-rc-replacement" title="Permanent link">&para;</a></h2>
+<p>An ortholog scan is a type of RC swap. The goal is to replace an existing RBS-CDS module with alternative homologs of the same protein from other organisms. Each ortholog is paired with a designed RBS to form a new RC unit.</p>
+<p>In practice:</p>
+<ul>
+<li>
+<p>You identify target orthologs using BLAST</p>
+</li>
+<li>
+<p>Design or adapt RBSs</p>
+</li>
+<li>
+<p>Clone them into the backbone using Golden Gate or Gibson</p>
+</li>
+</ul>
+<p><img alt="Ortholog Scan to Boost Yield" src="../images/ortholog_scan_cartoon.png" />
+<em>Figure: A biosynthetic pathway made of multiple TP.RC units is shown. In this ortholog scan, a single RC unit is replaced with variants sourced from gorilla, orca, and alligator. Expression output (product titer) is quantified at right. The alligator ortholog significantly outperforms the others, demonstrating how targeted RC swaps can boost pathway productivity.</em></p>
+<h2 id="anatomy-of-tp-and-rc-parts">Anatomy of TP and RC Parts<a class="headerlink" href="#anatomy-of-tp-and-rc-parts" title="Permanent link">&para;</a></h2>
+<p>The TP.RC system follows a standardized layout compatible with the MoClo Golden Gate standard. Each part includes flanking type IIS restriction sites and 5 bp overhangs that define junctions and ensure consistent assembly order.</p>
+<p>The diagram below illustrates the structure of TP and RC parts, showing BsaI sites, MoClo overhangs, and internal linkers for amplification and sequencing.</p>
+<h3 id="tp-terminator-promoter-parts">TP (Terminator-Promoter) Parts<a class="headerlink" href="#tp-terminator-promoter-parts" title="Permanent link">&para;</a></h3>
+<p>These combine a terminator from the previous gene with a promoter for the next one. The TP unit terminates transcription upstream and initiates transcription downstream. The sequence is flanked by linkers and BsaI sites to facilitate cloning.  There is also a 3rd unique linker between the promoter and terminator that serves as a site for sequencing over the promoter-RBS junction in the final construct.</p>
+<h3 id="rc-rbs-cds-parts">RC (RBS-CDS) Parts<a class="headerlink" href="#rc-rbs-cds-parts" title="Permanent link">&para;</a></h3>
+<p>These include a ribosome binding site and a coding sequence. The cassette is flanked by unique linker elements to facilitate modification of adjacent parts and terminated by BsaI sites on both ends.</p>
+<p>Each linker (sometimes also called a spacer) is a unique 20 bp DNA sequence chosen for its uniqueness and suitability for priming PCR. These regions are often derived from validated qPCR primer sets and placed at fixed positions in each part.</p>
+<p>These linkers allow:</p>
+<ul>
+<li>
+<p>Reliable cycle sequencing from fixed, well-placed anchor points</p>
+</li>
+<li>
+<p>Selective amplification of the backbone via PCR to modify individual parts</p>
+</li>
+<li>
+<p>Homology regions for Gibson, SOEing, or Yeast recombination-based cloning</p>
+</li>
+</ul>
+<p><img alt="TP and RC standardization with Golden Gate" src="../images/tprc_spacers_and_junctions.png" /></p>
+<p><em>Figure: Layout of TP and RC parts showing the role of unique linkers and MoClo overhangs. Each part includes type IIS flanking sites and 5' overhangs for ordered assembly.</em></p>
+<h2 id="quiz-building-an-rc-part">Quiz: Building an RC Part<a class="headerlink" href="#quiz-building-an-rc-part" title="Permanent link">&para;</a></h2>
+<p>Given the following design inputs, construct a valid RC part sequence for Golden Gate assembly. Use the following conventions:</p>
+<ul>
+<li>
+<p>5' BsaI site (recall you need 1 more base between this and the sticky end): <code>GGTCTC</code></p>
+</li>
+<li>
+<p>MoClo overhangs (sticky ends): <code>tact</code> (5') and <code>gctt</code> (3')</p>
+</li>
+<li>
+<p>5' Spacer: <code>CAAATGTACGGCCAGCAACG</code></p>
+</li>
+<li>
+<p>3' Spacer: <code>GCACACCGTGGAAACGGATG</code></p>
+</li>
+<li>
+<p>RBS: <code>gagaaagaggagaaatactag</code></p>
+</li>
+<li>
+<p>CDS (start to stop): <code>ATGGCGTCTGACAGGAGCGTAA</code></p>
+</li>
+<li>
+<p>Don't forget to add 5 bp tails on both ends of the DNA!</p>
+</li>
+</ul>
+<h3 id="enter-your-rc-part-sequence-here">✍️ Enter your RC part sequence here:<a class="headerlink" href="#enter-your-rc-part-sequence-here" title="Permanent link">&para;</a></h3>
+<textarea id="rcInput" rows="5" style="width: 100%;"></textarea>
+<p><br>
+<button id="rcQuizBtn">Check Answer</button></p>
+<p id="rcResult"></p>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    function setupQuiz(quizId, inputId, resultId, quizName) {
+        let button = document.getElementById(quizId);
+        let inputField = document.getElementById(inputId);
+        let resultField = document.getElementById(resultId);
+
+        if (button && inputField && resultField) {
+            button.addEventListener("click", function () {
+                let seq = inputField.value.toUpperCase().trim();
+                let feedback = [];
+
+                // Check forward BsaI site
+                const fwdSite = "GGTCTC";
+                const revSite = "GAGACC";
+                const fwdIndex = seq.indexOf(fwdSite);
+                const revIndex = seq.indexOf(revSite);
+                const fwdCount = (seq.match(/GGTCTC/g) || []).length;
+                const revCount = (seq.match(/GAGACC/g) || []).length;
+
+                if (fwdCount === 0) feedback.push("Missing forward BsaI site (GGTCTC).");
+                else if (fwdCount > 1) feedback.push("Too many forward BsaI sites (GGTCTC).");
+                else if (fwdIndex < 5) feedback.push("Not enough 5' tail before forward BsaI site.");
+
+                if (revCount === 0) feedback.push("Missing reverse BsaI site (GAGACC).");
+                else if (revCount > 1) feedback.push("Too many reverse BsaI sites (GAGACC).");
+                else if (seq.length - revIndex < 11) feedback.push("Not enough 3' tail after reverse BsaI site.");
+
+                if (fwdCount === 1 && revCount === 1) {
+                    // Check sticky ends
+                    const sticky5 = seq.substring(fwdIndex + 7, fwdIndex + 11);
+                    if (sticky5 !== "TACT") feedback.push("Incorrect 5' sticky end (should be TACT).");
+
+                    const sticky3 = seq.substring(revIndex - 5, revIndex - 1);
+                    if (sticky3 !== "GCTT") feedback.push("Incorrect 3' sticky end (should be GCTT).");
+
+                    // Define expected sequences and positions
+                    const expectedSeqs = {
+                        "5' Spacer": ["CAAATGTACGGCCAGCAACG", fwdIndex + 11],
+                        "RBS": ["GAGAAAGAGGAGAAATACTAG", fwdIndex + 31],
+                        "CDS": ["ATGGCGTCTGACAGGAGCGTAA", fwdIndex + 52],
+                        "3' Spacer": ["GCACACCGTGGAAACGGATG", fwdIndex + 74]
+                    };
+
+                    for (let [label, [expected, expectedPos]] of Object.entries(expectedSeqs)) {
+                        const foundIndex = seq.indexOf(expected);
+                        if (foundIndex === -1) {
+                            feedback.push(`${label} is missing.`);
+                        } else if (foundIndex !== expectedPos) {
+                            feedback.push(`${label} is at index ${foundIndex}, but expected at ${expectedPos}.`);
+                        }
+                    }
+                }
+
+                if (feedback.length === 0) {
+                    resultField.innerHTML = "✅ Correct!";
+                    progressManager.addCompletion(quizName, "correct");
+                } else {
+                    resultField.innerHTML = "❌ " + feedback.join(" ");
+                }
+            });
+        }
+    }
+
+    // Set up RC part quiz
+    setupQuiz("rcQuizBtn", "rcInput", "rcResult", "RC_Part_Quiz");
+});
+</script>
+
+<p>When designing synthetic biology experiments using the TP.RC system, you don’t need to make early decisions about exactly how each part will be used. As long as you follow the conventions for TP and RC design—using appropriate placed unique linkers, BsaI sites, and standardized overhangs—you can easily mix and match parts later. RC and TP units can be swapped, reordered, added, or removed without redesigning the parts. This flexibility simplifies both prototyping and optimization workflows.</p>
+<p>There are multiple valid strategies for constructing TP and RC parts. You can order them as synthetic gene blocks (GBlocks) with overhangs and tails already included, clone them from genomic DNA or existing plasmids using primers that append the necessary BsaI sites, or obtain them through clonal gene synthesis. Regardless of the method, the outcome is the same: a reusable TP or RC module that integrates seamlessly into modular assemblies, enabling rapid iteration and design reuse.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../js/C6-Align.js"></script>
+      
+        <script src="../js/C6-Gene.js"></script>
+      
+        <script src="../js/C6-Oligos.js"></script>
+      
+        <script src="../js/C6-Seq.js"></script>
+      
+        <script src="../js/C6-Sim.js"></script>
+      
+        <script src="../js/C6-Utils.js"></script>
+      
+        <script src="../js/progress_manager.js"></script>
+      
+    
+  </body>
+</html>

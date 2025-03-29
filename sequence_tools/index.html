@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/dna_basics/">
+        <link rel="canonical" href="https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/sequence_tools/">
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../dna_basics/">
       
       
-        <link rel="next" href="../sequence_tools/">
+        <link rel="next" href="../pcr_prediction/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>1. DNA Basics - Cloning Tutorials</title>
+        <title>2. Sequence Editing Tools - Cloning Tutorials</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dna-basics-and-molecular-biology-refresher" class="md-skip">
+        <a href="#sequence-tools" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              1. DNA Basics
+              2. Sequence Editing Tools
             
           </span>
         </div>
@@ -275,6 +275,28 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../dna_basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. DNA Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -291,7 +313,7 @@
           
   
   <span class="md-ellipsis">
-    1. DNA Basics
+    2. Sequence Editing Tools
     
   </span>
   
@@ -303,7 +325,7 @@
         
   
   <span class="md-ellipsis">
-    1. DNA Basics
+    2. Sequence Editing Tools
     
   </span>
   
@@ -326,28 +348,181 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dna-structure-and-the-reverse-complement-function" class="md-nav__link">
+  <a href="#introduction" class="md-nav__link">
     <span class="md-ellipsis">
-      DNA Structure and the Reverse Complement Function
+      Introduction
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="DNA Structure and the Reverse Complement Function">
+    <nav class="md-nav" aria-label="Introduction">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#reverse" class="md-nav__link">
+  <a href="#tools-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Reverse
+      Tools Overview
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#complement" class="md-nav__link">
+  <a href="#selection-guide" class="md-nav__link">
     <span class="md-ellipsis">
-      Complement
+      Selection Guide
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ontology-of-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ontology of Operations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ape" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ApE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-and-install-ape" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download and Install ApE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-features-and-enzymes-in-ape" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update Features and Enzymes in ApE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Update Features and Enzymes in ApE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-set-up-a-storage-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Set Up a Storage Folder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-configure-ape-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Configure ApE Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-download-and-replace-feature-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Download and Replace Feature Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-load-the-updated-feature-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Load the Updated Feature Library
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performing-operations-in-ape" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performing Operations in ApE
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benchling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started-with-benchling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started with Benchling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uploading-features-and-autoannotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uploading Features and Autoannotation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performing-operations-in-benchling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performing Operations in Benchling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copy
     </span>
   </a>
   
@@ -362,103 +537,37 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#try-it-yourself" class="md-nav__link">
-    <span class="md-ellipsis">
-      Try it Yourself
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Try it Yourself">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
-  <a href="#1-reverse" class="md-nav__link">
+  <a href="#translate" class="md-nav__link">
     <span class="md-ellipsis">
-      1️⃣ Reverse
+      Translate
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-complement" class="md-nav__link">
+  <a href="#annotate" class="md-nav__link">
     <span class="md-ellipsis">
-      2️⃣ Complement
+      Annotate
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-reverse-complement" class="md-nav__link">
+  <a href="#digest" class="md-nav__link">
     <span class="md-ellipsis">
-      3️⃣ Reverse Complement
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-central-dogma" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Central Dogma
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="The Central Dogma">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#transcription" class="md-nav__link">
-    <span class="md-ellipsis">
-      Transcription
+      Digest
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#quiz-predict-the-rna-sequence" class="md-nav__link">
+  <a href="#rotate" class="md-nav__link">
     <span class="md-ellipsis">
-      Quiz: Predict the RNA Sequence
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#translation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Translation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#genetic-code-table" class="md-nav__link">
-    <span class="md-ellipsis">
-      Genetic Code Table
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quiz-translate-the-dna-sequence" class="md-nav__link">
-    <span class="md-ellipsis">
-      Quiz: Translate the DNA Sequence
+      Rotate
     </span>
   </a>
   
@@ -470,53 +579,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary-of-terms" class="md-nav__link">
+  <a href="#biopython" class="md-nav__link">
     <span class="md-ellipsis">
-      Summary of Terms
+      Biopython
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Summary of Terms">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#fundamental-dna-concepts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Fundamental DNA Concepts
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#transcription-rna-concepts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Transcription &amp; RNA Concepts
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#translation-protein-synthesis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Translation &amp; Protein Synthesis
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gene-structure-regulation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Gene Structure &amp; Regulation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -524,28 +591,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../sequence_tools/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    2. Sequence Editing Tools
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -1023,28 +1068,181 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dna-structure-and-the-reverse-complement-function" class="md-nav__link">
+  <a href="#introduction" class="md-nav__link">
     <span class="md-ellipsis">
-      DNA Structure and the Reverse Complement Function
+      Introduction
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="DNA Structure and the Reverse Complement Function">
+    <nav class="md-nav" aria-label="Introduction">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#reverse" class="md-nav__link">
+  <a href="#tools-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Reverse
+      Tools Overview
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#complement" class="md-nav__link">
+  <a href="#selection-guide" class="md-nav__link">
     <span class="md-ellipsis">
-      Complement
+      Selection Guide
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ontology-of-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ontology of Operations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ape" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ApE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-and-install-ape" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download and Install ApE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-features-and-enzymes-in-ape" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update Features and Enzymes in ApE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Update Features and Enzymes in ApE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-set-up-a-storage-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Set Up a Storage Folder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-configure-ape-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Configure ApE Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-download-and-replace-feature-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Download and Replace Feature Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-load-the-updated-feature-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Load the Updated Feature Library
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performing-operations-in-ape" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performing Operations in ApE
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benchling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started-with-benchling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started with Benchling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uploading-features-and-autoannotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uploading Features and Autoannotation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performing-operations-in-benchling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performing Operations in Benchling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copy
     </span>
   </a>
   
@@ -1059,103 +1257,37 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#try-it-yourself" class="md-nav__link">
-    <span class="md-ellipsis">
-      Try it Yourself
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Try it Yourself">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
-  <a href="#1-reverse" class="md-nav__link">
+  <a href="#translate" class="md-nav__link">
     <span class="md-ellipsis">
-      1️⃣ Reverse
+      Translate
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-complement" class="md-nav__link">
+  <a href="#annotate" class="md-nav__link">
     <span class="md-ellipsis">
-      2️⃣ Complement
+      Annotate
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-reverse-complement" class="md-nav__link">
+  <a href="#digest" class="md-nav__link">
     <span class="md-ellipsis">
-      3️⃣ Reverse Complement
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-central-dogma" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Central Dogma
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="The Central Dogma">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#transcription" class="md-nav__link">
-    <span class="md-ellipsis">
-      Transcription
+      Digest
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#quiz-predict-the-rna-sequence" class="md-nav__link">
+  <a href="#rotate" class="md-nav__link">
     <span class="md-ellipsis">
-      Quiz: Predict the RNA Sequence
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#translation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Translation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#genetic-code-table" class="md-nav__link">
-    <span class="md-ellipsis">
-      Genetic Code Table
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quiz-translate-the-dna-sequence" class="md-nav__link">
-    <span class="md-ellipsis">
-      Quiz: Translate the DNA Sequence
+      Rotate
     </span>
   </a>
   
@@ -1167,53 +1299,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary-of-terms" class="md-nav__link">
+  <a href="#biopython" class="md-nav__link">
     <span class="md-ellipsis">
-      Summary of Terms
+      Biopython
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Summary of Terms">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#fundamental-dna-concepts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Fundamental DNA Concepts
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#transcription-rna-concepts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Transcription &amp; RNA Concepts
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#translation-protein-synthesis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Translation &amp; Protein Synthesis
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gene-structure-regulation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Gene Structure &amp; Regulation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1236,436 +1326,190 @@
   
 
 
-<h1 id="dna-basics-and-molecular-biology-refresher">DNA Basics and Molecular Biology Refresher<a class="headerlink" href="#dna-basics-and-molecular-biology-refresher" title="Permanent link">&para;</a></h1>
-<h2 id="dna-structure-and-the-reverse-complement-function">DNA Structure and the Reverse Complement Function<a class="headerlink" href="#dna-structure-and-the-reverse-complement-function" title="Permanent link">&para;</a></h2>
-<p>DNA is a double-stranded molecule arranged in an <strong>antiparallel</strong> fashion, meaning one strand runs in the 5' to 3' direction while its complementary strand runs in the 3' to 5' direction. The two strands are held together by <strong>base pairing</strong>: Adenine (A) pairs with Thymine (T), and Cytosine (C) pairs with Guanine (G). These fundamental properties allow for key sequence operations like reversing and complementing strands. To understand this structure visually, watch the video below:</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
-
-<h3 id="reverse"><strong>Reverse</strong><a class="headerlink" href="#reverse" title="Permanent link">&para;</a></h3>
-<p>To reverse a DNA sequence, simply write it backward. For example:
-- <strong>Original</strong>: <code>5'- ATGCAG -3'</code>
-- <strong>Reversed</strong>: <code>5'- GACGTA -3'</code></p>
-<h3 id="complement"><strong>Complement</strong><a class="headerlink" href="#complement" title="Permanent link">&para;</a></h3>
-<p>To complement a DNA sequence, replace each base with its pairing base:
-- <strong>A (Adenine) ↔ T (Thymine)</strong>
-- <strong>C (Cytosine) ↔ G (Guanine)</strong></p>
-<p>Example:
-- <strong>Original</strong>: <code>5'- ATGCAG -3'</code>
-- <strong>Complement</strong>: <code>5'- TACGTC -3'</code></p>
-<h3 id="reverse-complement"><strong>Reverse Complement</strong><a class="headerlink" href="#reverse-complement" title="Permanent link">&para;</a></h3>
-<p>The <strong>reverse complement</strong> is simply applying the complement rule <strong>after reversing</strong> the sequence:
-1. Reverse the sequence.
-2. Replace each base with its complementary base.</p>
-<p>Example:
-- <strong>Original</strong>: <code>5'- ATGCAG -3'</code>
-- <strong>Step 1 (Reverse)</strong>: <code>5'- GACGTA -3'</code>
-- <strong>Step 2 (Complement)</strong>: <code>5'- CTGCAT -3'</code></p>
-<p>Since DNA is double-stranded, the reverse complement operation essentially determines what the <strong>partner strand</strong> would look like. When we take the reverse complement of a sequence, we are simulating the process of reading the opposite strand in the correct 5' to 3' direction, just as it would naturally exist in a DNA molecule. Calculating the reverse complement is a very common operation when working with DNA sequence.  However, reverse and complement, individually, are only used in specialized scenarios.  It is important you understand what these operations are, but it is mainly so you understand the composite of the two.  For the purposes of this tutorial, you will never use individual reverse or complement operations again.</p>
-<h2 id="try-it-yourself">Try it Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<p>Try calculating the <strong>Reverse</strong>, <strong>Complement</strong>, and <strong>Reverse Complement</strong> of these sequences:</p>
-<h3 id="1-reverse"><strong>1️⃣ Reverse</strong><a class="headerlink" href="#1-reverse" title="Permanent link">&para;</a></h3>
-<p>What is the <strong>reverse</strong> of <strong>5'- AGCTTG -3'?</strong>
-<input type="text" id="reverseInput" placeholder="Enter answer here">
-<button type="button" id="reverseBtn">Check Answer</button></p>
-<p id="reverseResult"></p>
-
-<h3 id="2-complement"><strong>2️⃣ Complement</strong><a class="headerlink" href="#2-complement" title="Permanent link">&para;</a></h3>
-<p>What is the <strong>complement</strong> of <strong>5'- AGCTTG -3'?</strong>
-<input type="text" id="complementInput" placeholder="Enter answer here">
-<button type="button" id="complementBtn">Check Answer</button></p>
-<p id="complementResult"></p>
-
-<h3 id="3-reverse-complement"><strong>3️⃣ Reverse Complement</strong><a class="headerlink" href="#3-reverse-complement" title="Permanent link">&para;</a></h3>
-<p>What is the <strong>reverse complement</strong> of <strong>5'- CAGGTAG -3'?</strong>
-<input type="text" id="reverseCompInput" placeholder="Enter answer here">
-<button type="button" id="reverseCompBtn">Check Answer</button></p>
-<p id="reverseCompResult"></p>
-
-<h2 id="the-central-dogma">The Central Dogma<a class="headerlink" href="#the-central-dogma" title="Permanent link">&para;</a></h2>
-<p>The Central Dogma of molecular biology describes 3 biochemical processes happening to biomolecules in most cells. During <strong>Replication</strong>, an exact copy of DNA is produced. During <strong>Transcription</strong>, a region of DNA is read into RNA. During <strong>Translation</strong>, a region of RNA (an mRNA or messenger RNA) is read into protein. Though these processes are very complex and involve numerous biomolecules, the sequences of RNA and protein are readily predictable from the DNA sequence.</p>
-<h3 id="transcription">Transcription<a class="headerlink" href="#transcription" title="Permanent link">&para;</a></h3>
-<p>A <strong>gene</strong> refers to a region of DNA that encodes a protein. You can think of it like a song on a vinyl record—there is a physical region to the gene, with clear starts and ends. A gene can be on either strand of DNA, but it is always flanked by a <strong>promoter</strong> and a <strong>terminator</strong> sequence. The promoter determines which strand will be the "coding strand," as the <strong>RNA polymerase</strong> binds to the promoter and proceeds until it reaches the terminator. </p>
-<p>During transcription, an <strong>RNA molecule</strong> is created that is identical to the coding strand but with <strong>Uracil (U) replacing Thymine (T)</strong>.</p>
-<p>Example:
-- <strong>DNA Coding Strand</strong>: <code>5'- ATGCAGTAC -3'</code>
-- <strong>RNA Transcript</strong>: <code>5'- AUGCAGUAC -3'</code></p>
-<h3 id="quiz-predict-the-rna-sequence"><strong>Quiz: Predict the RNA Sequence</strong><a class="headerlink" href="#quiz-predict-the-rna-sequence" title="Permanent link">&para;</a></h3>
-<p>What is the <strong>RNA sequence</strong> transcribed from this DNA coding strand?<br />
-<strong>5'- TCTGACTA -3'</strong></p>
-<form id="transcriptionForm">
-  <input type="text" id="transcriptionInput" placeholder="Enter answer here">
-  <button type="button" id="transcriptionBtn">Check Answer</button>
-  <p id="transcriptionResult"></p>
-</form>
-
-<h3 id="translation">Translation<a class="headerlink" href="#translation" title="Permanent link">&para;</a></h3>
-<p>An <strong>mRNA</strong> transcript consists of a <strong>5' UTR (Untranslated Region)</strong> followed by the <strong>CDS (Coding DNA Sequence)</strong>. The <strong>CDS</strong> is an <strong>ORF (Open Reading Frame)</strong>, meaning a sequence that, when read in groups of three bases (codons), begins with a <strong>start codon</strong> (<strong>ATG, GTG, or TTG</strong>) and ends with a <strong>stop codon</strong> (<strong>TAA, TAG, TGA</strong>).</p>
-<p>The <strong>ribosome</strong> recognizes the <strong>Shine-Dalgarno sequence</strong> and the <strong>start codon</strong>, then reads the RNA three bases at a time, translating each codon into an <strong>amino acid</strong> based on the genetic code.</p>
-<h3 id="genetic-code-table"><strong>Genetic Code Table</strong><a class="headerlink" href="#genetic-code-table" title="Permanent link">&para;</a></h3>
-<blockquote>
-<p><strong>Note:</strong> While translation occurs from an RNA sequence, for convenience, we often refer to codons in their DNA format. Codons are three-letter sequences that specify amino acids during protein synthesis. Each codon in DNA corresponds to an RNA codon by replacing Thymine (T) with Uracil (U).</p>
-</blockquote>
+<h1 id="sequence-tools">Sequence Tools<a class="headerlink" href="#sequence-tools" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Sequence editing tools are essential for molecular biology and bioinformatics, allowing researchers to manipulate and analyze DNA sequences effectively. These tools range from graphical interfaces designed for ease of use to powerful command-line utilities and programming libraries.</p>
+<h3 id="tools-overview">Tools Overview<a class="headerlink" href="#tools-overview" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Codon</th>
-<th>Single Letter</th>
-<th>Full Name</th>
-<th>Codon</th>
-<th>Single Letter</th>
-<th>Full Name</th>
+<th>Tool Name</th>
+<th>Pros</th>
+<th>Cons</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>TTT</td>
-<td>F</td>
-<td>Phe</td>
-<td>TTC</td>
-<td>F</td>
-<td>Phe</td>
+<td><strong>ApE (A Plasmid Editor)</strong></td>
+<td>- Course demonstrations will be done in ApE.<br>- Simple interface<br>- Efficient auto-annotation<br>- Supports multiple file formats</td>
+<td>- Lacks cloud collaboration features<br>- Limited automation capabilities.</td>
 </tr>
 <tr>
-<td>TTA</td>
-<td>L</td>
-<td>Leu</td>
-<td>TTG</td>
-<td>L</td>
-<td>Leu</td>
+<td><strong>Benchling</strong></td>
+<td>- Real-time collaboration<br>- Extensive documentation<br>- Integrates well with other laboratory tools.</td>
+<td>- Requires an internet connection<br>- Subscription required for advanced features.</td>
 </tr>
 <tr>
-<td>TCT</td>
-<td>S</td>
-<td>Ser</td>
-<td>TCC</td>
-<td>S</td>
-<td>Ser</td>
+<td><strong>SnapGene</strong></td>
+<td>- User-friendly<br>- Excellent visualization tools<br>- Supports automatic primer design and cloning workflows.</td>
+<td>- Paid software with limited free version capabilities.</td>
 </tr>
 <tr>
-<td>TCA</td>
-<td>S</td>
-<td>Ser</td>
-<td>TCG</td>
-<td>S</td>
-<td>Ser</td>
+<td><strong>UGENE</strong></td>
+<td>- Free<br>- Supports a wide range of sequence analysis tools<br>- Allows scripting.</td>
+<td>- Interface can be complex for beginners.</td>
 </tr>
 <tr>
-<td>TAT</td>
-<td>Y</td>
-<td>Tyr</td>
-<td>TAC</td>
-<td>Y</td>
-<td>Tyr</td>
+<td><strong>Biopython</strong></td>
+<td>- Highly customizable<br>- Integrates well with other computational tools.</td>
+<td>- Requires programming knowledge.</td>
 </tr>
 <tr>
-<td>TAA</td>
-<td>stop</td>
-<td>Ter</td>
-<td>TAG</td>
-<td>stop</td>
-<td>Ter</td>
+<td><strong>EMBOSS</strong></td>
+<td>- Wide range of utilities for sequence alignment, translation, and annotation.</td>
+<td>- Command-line interface can be intimidating for beginners.</td>
 </tr>
 <tr>
-<td>TGT</td>
-<td>C</td>
-<td>Cys</td>
-<td>TGC</td>
-<td>C</td>
-<td>Cys</td>
+<td><strong>Seqtk</strong></td>
+<td>- Extremely fast<br>- Suitable for large-scale datasets.</td>
+<td>- Limited functionality compared to larger toolkits.</td>
 </tr>
 <tr>
-<td>TGA</td>
-<td>stop</td>
-<td>Ter</td>
-<td>TGG</td>
-<td>W</td>
-<td>Trp</td>
-</tr>
-<tr>
-<td>CTT</td>
-<td>L</td>
-<td>Leu</td>
-<td>CTC</td>
-<td>L</td>
-<td>Leu</td>
-</tr>
-<tr>
-<td>CTA</td>
-<td>L</td>
-<td>Leu</td>
-<td>CTG</td>
-<td>L</td>
-<td>Leu</td>
-</tr>
-<tr>
-<td>CCT</td>
-<td>P</td>
-<td>Pro</td>
-<td>CCC</td>
-<td>P</td>
-<td>Pro</td>
-</tr>
-<tr>
-<td>CCA</td>
-<td>P</td>
-<td>Pro</td>
-<td>CCG</td>
-<td>P</td>
-<td>Pro</td>
-</tr>
-<tr>
-<td>CAT</td>
-<td>H</td>
-<td>His</td>
-<td>CAC</td>
-<td>H</td>
-<td>His</td>
-</tr>
-<tr>
-<td>CAA</td>
-<td>Q</td>
-<td>Gln</td>
-<td>CAG</td>
-<td>Q</td>
-<td>Gln</td>
-</tr>
-<tr>
-<td>CGT</td>
-<td>R</td>
-<td>Arg</td>
-<td>CGC</td>
-<td>R</td>
-<td>Arg</td>
-</tr>
-<tr>
-<td>CGA</td>
-<td>R</td>
-<td>Arg</td>
-<td>CGG</td>
-<td>R</td>
-<td>Arg</td>
-</tr>
-<tr>
-<td>ATT</td>
-<td>I</td>
-<td>Ile</td>
-<td>ATC</td>
-<td>I</td>
-<td>Ile</td>
-</tr>
-<tr>
-<td>ATA</td>
-<td>I</td>
-<td>Ile</td>
-<td>ATG</td>
-<td>M</td>
-<td>Met</td>
-</tr>
-<tr>
-<td>ACT</td>
-<td>T</td>
-<td>Thr</td>
-<td>ACC</td>
-<td>T</td>
-<td>Thr</td>
-</tr>
-<tr>
-<td>ACA</td>
-<td>T</td>
-<td>Thr</td>
-<td>ACG</td>
-<td>T</td>
-<td>Thr</td>
-</tr>
-<tr>
-<td>AAT</td>
-<td>N</td>
-<td>Asn</td>
-<td>AAC</td>
-<td>N</td>
-<td>Asn</td>
-</tr>
-<tr>
-<td>AAA</td>
-<td>K</td>
-<td>Lys</td>
-<td>AAG</td>
-<td>K</td>
-<td>Lys</td>
-</tr>
-<tr>
-<td>AGT</td>
-<td>S</td>
-<td>Ser</td>
-<td>AGC</td>
-<td>S</td>
-<td>Ser</td>
-</tr>
-<tr>
-<td>AGA</td>
-<td>R</td>
-<td>Arg</td>
-<td>AGG</td>
-<td>R</td>
-<td>Arg</td>
-</tr>
-<tr>
-<td>GTT</td>
-<td>V</td>
-<td>Val</td>
-<td>GTC</td>
-<td>V</td>
-<td>Val</td>
-</tr>
-<tr>
-<td>GTA</td>
-<td>V</td>
-<td>Val</td>
-<td>GTG</td>
-<td>V</td>
-<td>Val</td>
-</tr>
-<tr>
-<td>GCT</td>
-<td>A</td>
-<td>Ala</td>
-<td>GCC</td>
-<td>A</td>
-<td>Ala</td>
-</tr>
-<tr>
-<td>GCA</td>
-<td>A</td>
-<td>Ala</td>
-<td>GCG</td>
-<td>A</td>
-<td>Ala</td>
-</tr>
-<tr>
-<td>GAT</td>
-<td>D</td>
-<td>Asp</td>
-<td>GAC</td>
-<td>D</td>
-<td>Asp</td>
-</tr>
-<tr>
-<td>GAA</td>
-<td>E</td>
-<td>Glu</td>
-<td>GAG</td>
-<td>E</td>
-<td>Glu</td>
-</tr>
-<tr>
-<td>GGT</td>
-<td>G</td>
-<td>Gly</td>
-<td>GGC</td>
-<td>G</td>
-<td>Gly</td>
-</tr>
-<tr>
-<td>GGA</td>
-<td>G</td>
-<td>Gly</td>
-<td>GGG</td>
-<td>G</td>
-<td>Gly</td>
+<td><strong>Geneious</strong></td>
+<td>- Comprehensive features including primer design, alignment, and phylogenetics.</td>
+<td>- Paid software with a high subscription cost.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="quiz-translate-the-dna-sequence"><strong>Quiz: Translate the DNA Sequence</strong><a class="headerlink" href="#quiz-translate-the-dna-sequence" title="Permanent link">&para;</a></h3>
-<p>What is the <strong>amino acid sequence</strong> for the following DNA sequence?<br />
-<strong>5'- ATG CAG GTA GAA TAA -3'</strong></p>
-<form id="translateForm">
-  <input type="text" id="translateInput" placeholder="Enter answer here">
-  <button type="button" id="translateBtn">Check Answer</button>
-  <p id="translateResult"></p>
-</form>
-
-<h2 id="summary-of-terms">Summary of Terms<a class="headerlink" href="#summary-of-terms" title="Permanent link">&para;</a></h2>
-<h3 id="fundamental-dna-concepts"><strong>Fundamental DNA Concepts</strong><a class="headerlink" href="#fundamental-dna-concepts" title="Permanent link">&para;</a></h3>
+<h3 id="selection-guide">Selection Guide<a class="headerlink" href="#selection-guide" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>DNA (Deoxyribonucleic Acid)</strong>: A double-stranded molecule that stores genetic information in all living organisms.</li>
-<li><strong>Base Pairing</strong>: The specific hydrogen bonding between <strong>Adenine (A) &amp; Thymine (T)</strong> and <strong>Cytosine (C) &amp; Guanine (G)</strong> in DNA.</li>
-<li><strong>Antiparallel</strong>: The orientation of DNA strands where one runs <strong>5' to 3'</strong> and the complementary strand runs <strong>3' to 5'</strong>.</li>
+<li>If you prefer a <strong>simple graphical tool</strong>, start with <strong>ApE</strong>.  </li>
+<li>If you need <strong>cloud-based collaboration</strong>, choose <strong>Benchling</strong>.  </li>
+<li>If you want <strong>advanced visualization and cloning workflows</strong>, consider <strong>SnapGene</strong>.  </li>
+<li>If you are comfortable with <strong>scripting</strong>, use <strong>Biopython</strong> or <strong>EMBOSS</strong>.  </li>
+<li>If you need <strong>high-performance sequence processing</strong>, try <strong>Seqtk</strong>.  </li>
 </ul>
-<h3 id="transcription-rna-concepts"><strong>Transcription &amp; RNA Concepts</strong><a class="headerlink" href="#transcription-rna-concepts" title="Permanent link">&para;</a></h3>
+<p>This document will focus on <strong>ApE, Benchling, and Biopython</strong>, providing tutorials on how to get started and perform essential sequence operations.</p>
+<h2 id="ontology-of-operations">Ontology of Operations<a class="headerlink" href="#ontology-of-operations" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>RNA (Ribonucleic Acid)</strong>: A single-stranded nucleic acid transcribed from DNA, involved in protein synthesis.</li>
-<li><strong>Transcription</strong>: The process where <strong>RNA polymerase</strong> synthesizes RNA from a DNA template.</li>
-<li><strong>RNA Polymerase</strong>: The enzyme that transcribes DNA into RNA.</li>
-<li><strong>mRNA (Messenger RNA)</strong>: The RNA transcript that carries genetic information from DNA to ribosomes.</li>
-<li><strong>5' UTR (Untranslated Region)</strong>: The non-coding region at the start of an mRNA that regulates translation.</li>
-<li><strong>3' UTR (Untranslated Region)</strong>: The non-coding region at the end of an mRNA that influences stability and translation efficiency.</li>
-<li><strong>Promoter</strong>: A DNA sequence where RNA polymerase binds to start transcription.</li>
-<li><strong>Terminator</strong>: A DNA sequence signaling the end of transcription.</li>
+<li><strong><em>Search</em></strong>: Finding specific sequences or patterns within a larger sequence. Refer back to the tutorials for practical examples.</li>
+<li><strong><em>Copy</em></strong>: Duplicating a sequence or a portion of it to the clipboard for further use.</li>
+<li><strong><em>Paste</em></strong>: Inserting the content of the clipboard into your sequence.</li>
+<li><strong><em>Reverse Complement</em></strong>: Generating the reverse complement of a DNA sequence.</li>
+<li><strong><em>Translate</em></strong>: Converting a nucleotide sequence into its corresponding protein sequence using the genetic code.</li>
+<li><strong><em>Annotate</em></strong>: Adding biological information to a sequence, such as gene names or functional regions.</li>
+<li><strong><em>Digest</em></strong>: Cutting a DNA sequence at specific sites using restriction enzymes.</li>
+<li><strong><em>Rotate</em></strong>: Shifting the sequence in a circular manner.</li>
+<li><strong>Feature Management</strong>: The process of importing and managing custom features in tools like ApE and Benchling.</li>
 </ul>
-<h3 id="translation-protein-synthesis"><strong>Translation &amp; Protein Synthesis</strong><a class="headerlink" href="#translation-protein-synthesis" title="Permanent link">&para;</a></h3>
+<h2 id="ape">ApE<a class="headerlink" href="#ape" title="Permanent link">&para;</a></h2>
+<h3 id="download-and-install-ape">Download and Install ApE<a class="headerlink" href="#download-and-install-ape" title="Permanent link">&para;</a></h3>
+<p>Download and install ApE from the official website:<br />
+<a href="https://jorgensen.biology.utah.edu/wayned/ape/">ApE Download Page</a></p>
+<h3 id="update-features-and-enzymes-in-ape">Update Features and Enzymes in ApE<a class="headerlink" href="#update-features-and-enzymes-in-ape" title="Permanent link">&para;</a></h3>
+<p>To ensure ApE recognizes the latest feature annotations and enzyme files, follow these steps:</p>
+<h4 id="step-1-set-up-a-storage-folder">Step 1: Set Up a Storage Folder<a class="headerlink" href="#step-1-set-up-a-storage-folder" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Create an empty folder on your computer to store the updated feature list.</li>
+</ol>
+<h4 id="step-2-configure-ape-settings">Step 2: Configure ApE Settings<a class="headerlink" href="#step-2-configure-ape-settings" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Open ApE and navigate to <strong>ApE &gt; Settings...</strong>  </li>
+<li>Click the <strong>Files</strong> tab.  </li>
+<li>Under <strong>Default Feature Directory</strong>, click <strong>Move Directory</strong>, select the newly created folder, and click <strong>OK</strong>.  </li>
+<li>Repeat this for <strong>Default Enzymes Directory</strong>.  </li>
+<li>Click <strong>OK</strong> to close the settings window. ApE will generate default versions of these files in the folder.</li>
+</ol>
+<h4 id="step-3-download-and-replace-feature-files">Step 3: Download and Replace Feature Files<a class="headerlink" href="#step-3-download-and-replace-feature-files" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>Translation</strong>: The process where ribosomes synthesize proteins by reading mRNA codons.</li>
-<li><strong>Ribosome</strong>: The molecular machine that assembles proteins by reading mRNA codons.</li>
-<li><strong>tRNA (Transfer RNA)</strong>: An RNA molecule that brings amino acids to the ribosome during translation.</li>
-<li><strong>Codon</strong>: A three-nucleotide sequence in DNA or RNA that specifies an amino acid or stop signal.</li>
-<li><strong>Anticodon</strong>: A complementary three-base sequence on tRNA that pairs with an mRNA codon.</li>
-<li><strong>Start Codon</strong>: The first codon in an mRNA sequence that signals the beginning of translation (<strong>ATG</strong> coding for Methionine).</li>
-<li><strong>Stop Codon</strong>: A codon (<strong>TAA, TAG, TGA</strong>) that signals the termination of translation.</li>
+<li>Download and unzip the updated files:<br />
+<a href="https://raw.githubusercontent.com/UCB-BioE-Anderson-Lab/cloning-tutorials/main/sequences/Default_Features.txt">Download Default Features</a></li>
 </ul>
-<h3 id="gene-structure-regulation"><strong>Gene Structure &amp; Regulation</strong><a class="headerlink" href="#gene-structure-regulation" title="Permanent link">&para;</a></h3>
+<h4 id="step-4-load-the-updated-feature-library">Step 4: Load the Updated Feature Library<a class="headerlink" href="#step-4-load-the-updated-feature-library" title="Permanent link">&para;</a></h4>
+<ol>
+<li>In ApE, go to <strong>Features &gt; Open Feature Library...</strong>  </li>
+<li>Navigate to <code>default_features.txt</code> in the unzipped folder and select it.  </li>
+<li>Click <strong>OK</strong> to confirm and exit.  </li>
+</ol>
+<h3 id="performing-operations-in-ape">Performing Operations in ApE<a class="headerlink" href="#performing-operations-in-ape" title="Permanent link">&para;</a></h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
+
 <ul>
-<li><strong>Gene</strong>: A specific region of DNA that encodes a functional product, usually a protein.</li>
-<li><strong>CDS (Coding DNA Sequence)</strong>: The protein-coding portion of a gene within an mRNA.</li>
-<li><strong>Open Reading Frame (ORF)</strong>: A sequence of codons beginning with a start codon and ending with a stop codon.</li>
-<li><strong>Ribosome Binding Site (RBS)</strong>: A region on mRNA where the ribosome binds to initiate translation. In prokaryotes, this includes the Shine-Dalgarno sequence, while in eukaryotes, it is often the <strong>Kozak sequence</strong>.</li>
-<li><strong>Shine-Dalgarno Sequence (SD)</strong>: A ribosomal binding site in bacterial mRNA, located upstream of the start codon, which aligns the ribosome for efficient translation initiation.</li>
-<li><strong>Kozak Sequence</strong>: A sequence surrounding the start codon in eukaryotic mRNA that enhances ribosome recognition and translation efficiency.</li>
+<li><strong>Search</strong>: Use <strong>Edit &gt; Find</strong> in the toolbar or press <strong>Command + F</strong>. To search both strands, check the <strong>Also find rev-com of string</strong> option. You can use <strong>N's as wildcards</strong> in your search. Choose to either <strong>select</strong> or <strong>highlight</strong> the sequence using the provided button options.</li>
+<li><strong>Copy</strong>: Select the sequence using your mouse, then go to <strong>Edit &gt; Copy</strong>, or press <strong>Command + C</strong>. To copy the <strong>reverse complement</strong>, use <strong>Edit &gt; Copy Rev Com</strong>.</li>
+<li><strong>Paste</strong>: Place your cursor where you want to insert the clipboard contents, then go to <strong>Edit &gt; Paste</strong>, or press <strong>Command + V</strong>.</li>
+<li><strong>Reverse Complement</strong>: Select the sequence and use <strong>Edit &gt; Reverse-Complement</strong> to modify it directly. Alternatively, use <strong>Edit &gt; Copy Rev Com</strong> to copy the reverse complement to the clipboard without modifying the original sequence.</li>
+<li><strong>Translate</strong>: Use <strong>ORFs &gt; Translate...</strong> to translate the highlighted sequence. Options allow displaying <strong>single-letter amino acids, triplet codes</strong>, and including/excluding the original DNA sequence.</li>
+<li><strong>Annotate</strong>: Manually add a feature by highlighting a sequence, then go to <strong>Features &gt; New Feature</strong> to name it and assign a color. Press <strong>Command + K</strong> to auto-annotate all features in the <strong>Feature Library</strong>. Add new features under <strong>Features &gt; Edit Feature Library...</strong>.</li>
+<li><strong>Digest</strong>: Open <strong>Enzyme &gt; Enzyme Selector</strong>, select enzymes of interest, and click <strong>Highlight</strong> to mark their cut sites.</li>
+<li><strong>Rotate</strong>: Place your cursor where you want the new origin, then go to <strong>Edit &gt; Set Origin</strong>. This function is only available when the sequence is marked as <strong>circular</strong>, indicated by the <strong>Linear/Circular toggle button</strong> in the editor window.</li>
 </ul>
-<script src="../js/progress_manager.js"></script>
+<p>You can turn off the double-stranded view under <strong>ApE &gt; Settings</strong> and uncheck the <strong>Inline Features</strong> option.</p>
+<h2 id="benchling">Benchling<a class="headerlink" href="#benchling" title="Permanent link">&para;</a></h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    function setupQuiz(quizId, answer, inputId, resultId, quizName) {
-        let button = document.getElementById(quizId);
-        let inputField = document.getElementById(inputId);
-        let resultField = document.getElementById(resultId);
-
-        if (button && inputField && resultField) {
-            button.addEventListener("click", function () {
-                let userInput = inputField.value.toUpperCase().trim();
-                let isCorrect = (userInput === answer);
-                resultField.innerHTML = isCorrect ? "✅ Correct!" : "❌ Try again.";
-                if (isCorrect) {
-                    progressManager.addCompletion(quizName, "correct");
-                }
-            });
-        }
-    }
-
-    // Set up quizzes using progressManager
-    setupQuiz("reverseBtn", "GTTCGA", "reverseInput", "reverseResult", "Reverse");
-    setupQuiz("complementBtn", "TCGAAC", "complementInput", "complementResult", "Complement");
-    setupQuiz("reverseCompBtn", "CTACCTG", "reverseCompInput", "reverseCompResult", "Reverse Complement");
-    setupQuiz("transcriptionBtn", "UCUGACUA", "transcriptionInput", "transcriptionResult", "Transcription");
-    setupQuiz("translateBtn", "MQVE", "translateInput", "translateResult", "Translation");
-
-    // Reset progress button
-    let resetButton = document.getElementById("resetProgressBtn");
-    if (resetButton) {
-        resetButton.addEventListener("click", function () {
-            progressManager.resetProgress();
-        });
-    }
-
-    // View progress button
-    let viewProgressButton = document.getElementById("viewProgressBtn");
-    if (viewProgressButton) {
-        viewProgressButton.addEventListener("click", function () {
-            progressManager.showProgress();
-        });
-    }
-});
-</script>
+<h3 id="getting-started-with-benchling">Getting Started with Benchling<a class="headerlink" href="#getting-started-with-benchling" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Create an account on Benchling and log in.</li>
+<li>Familiarize yourself with the interface and available tools.</li>
+</ul>
+<h3 id="uploading-features-and-autoannotation">Uploading Features and Autoannotation<a class="headerlink" href="#uploading-features-and-autoannotation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Navigate to <strong>Settings</strong> → <strong>Feature Libraries</strong>.</li>
+<li>Click <strong>Upload Feature Library</strong>.</li>
+<li>Provide a <code>.csv</code> file where <strong>column 1</strong> is the feature name and <strong>column 2</strong> is the feature sequence. Ensure there are no extra spaces or formatting issues that could cause import errors.</li>
+<li>Use <code>default_features.txt</code> for your feature file as a reference for formatting.</li>
+<li>Save the library and use the <strong>Auto-annotate</strong> feature on a new sequence to apply the annotations.</li>
+</ul>
+<h3 id="performing-operations-in-benchling">Performing Operations in Benchling<a class="headerlink" href="#performing-operations-in-benchling" title="Permanent link">&para;</a></h3>
+<h3 id="search"><strong>Search</strong><a class="headerlink" href="#search" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Open your sequence in Benchling.</li>
+<li>Click on the <strong>magnifying glass (🔍) icon</strong> in the toolbar or press <strong>Ctrl + F (Cmd + F on Mac)</strong>.</li>
+<li>Type the sequence or pattern you want to find.</li>
+<li>To search both strands, enable the <strong>"Search reverse complement"</strong> option.</li>
+<li>Matching sequences will be highlighted; click <strong>Next</strong> or <strong>Previous</strong> to navigate between results.</li>
+</ol>
+<h3 id="copy"><strong>Copy</strong><a class="headerlink" href="#copy" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Click and drag to select a sequence region or use the sequence navigator.</li>
+<li>Right-click and select <strong>Copy</strong>, or press <strong>Ctrl + C (Cmd + C on Mac)</strong>.</li>
+<li>The copied sequence can now be pasted into another sequence, document, or external program.</li>
+</ol>
+<h3 id="reverse-complement"><strong>Reverse Complement</strong><a class="headerlink" href="#reverse-complement" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Select the sequence region you want to reverse complement.</li>
+<li>Click <strong>More Tools (⚙️) &gt; Reverse Complement</strong> in the toolbar.</li>
+<li>The sequence will be transformed in place.</li>
+</ol>
+<h3 id="translate"><strong>Translate</strong><a class="headerlink" href="#translate" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Highlight the DNA sequence you wish to translate.</li>
+<li>Click <strong>More Tools (⚙️) &gt; Translate</strong>.</li>
+<li>Select the reading frame (e.g., Frame 1, 2, 3).</li>
+<li>The translated amino acid sequence will appear below the DNA.</li>
+</ol>
+<h3 id="annotate"><strong>Annotate</strong><a class="headerlink" href="#annotate" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Highlight a region of your sequence.</li>
+<li>Click <strong>Annotate</strong> in the toolbar.</li>
+<li>Enter a <strong>Feature Name</strong>, select a <strong>Feature Type</strong>, and assign a <strong>color</strong>.</li>
+<li>Click <strong>Save</strong> to apply the annotation.</li>
+</ol>
+<h3 id="digest"><strong>Digest</strong><a class="headerlink" href="#digest" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Click <strong>More Tools (⚙️) &gt; Digest</strong>.</li>
+<li>Select the <strong>Restriction Enzymes</strong> you want to use.</li>
+<li>Click <strong>Digest</strong> to visualize the cut sites on your sequence.</li>
+</ol>
+<h3 id="rotate"><strong>Rotate</strong><a class="headerlink" href="#rotate" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Click <strong>More Tools (⚙️) &gt; Set Origin</strong>.</li>
+<li>Select a new position for the sequence origin.</li>
+<li>Click <strong>Apply</strong> to shift the sequence.</li>
+</ol>
+<h2 id="biopython">Biopython<a class="headerlink" href="#biopython" title="Permanent link">&para;</a></h2>
+<p>Biopython provides programmatic sequence editing capabilities. For practical examples, refer to the Colab notebook: <a href="https://colab.research.google.com/drive/1fMsghEGnTtEdd3jF8iWhQtK6rB7CbKFd?usp=sharing">Google Colab Biopython Tutorial</a>. The Colab contains implementations of all described operations in Python.</p>
 
 
 
