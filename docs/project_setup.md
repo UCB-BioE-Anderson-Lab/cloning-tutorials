@@ -1,6 +1,6 @@
 # Project Setup and Nomenclature
 
-This guide outlines conventions for setting up and organizing a synthetic biology project. These practices ensure consistency, reproducibility, and clarity across experiments and among collaborators.
+This guide outlines conventions for setting up and organizing a synthetic biology project. These conventions are intended to support clarity, reproducibility, and collaboration. The approach described here emphasizes a consistent, pre-planned structure for working with DNA and experiment metadata. While documentation systems vary across labs, any good system should have a clear scope, support structured naming, and promote project-wide consistency over time.
 
 ## Defining a Project
 
