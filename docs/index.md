@@ -42,7 +42,7 @@ Welcome to the **Synthetic Biology Project Tutorials**, a modular series of inte
 3. **[Sequence Retrieval and Analysis](sequence_analysis.md)**  
    Use BLAST and other tools to find, analyze, and align DNA sequences for cloning.
 
-4. **[Oligo and GBlock Design](oligo_design.md)**  
+4. **[Choosing a Fabrication Strategy](oligo_design.md)**  
    Design primers and synthetic fragments for amplification and cloning.
 
 5. **[Cloning Strategy & Construction Files](construction_files.md)**  

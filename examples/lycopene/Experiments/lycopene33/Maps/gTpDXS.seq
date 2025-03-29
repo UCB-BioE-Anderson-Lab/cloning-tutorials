@@ -1,0 +1,183 @@
+LOCUS       gTpDXS                  1951 bp    DNA        linear       29-MAR-2025
+DEFINITION  Trueperella pyogenes strain TP1 chromosome, complete genome.
+ACCESSION   CP033902 REGION: 656555..658623
+VERSION     CP033902.1
+DBLINK      BioProject: PRJNA498188 BioSample: SAMN10318952
+KEYWORDS    .
+SOURCE      Trueperella pyogenes
+  ORGANISM  Trueperella pyogenes Bacteria; Bacillati; Actinomycetota;
+            Actinomycetes; Actinomycetales; Actinomycetaceae; Trueperella.
+REFERENCE   1  (bases 1 to 2069)
+  AUTHORS   Dong,W.
+  TITLE     Multidrug-resistant genes are associated with an 42-kb island TGI1
+            carrying a complex class 1 integron in a Trueperella pyogenes
+  JOURNAL   Unpublished
+REFERENCE   2  (bases 1 to 2069)
+  AUTHORS   Dong,W.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (13-NOV-2018) College of Animal Science and Technology,
+            Jilin Agricultural University, No. 2888 Xincheng Street, Changchun
+            130118, China
+COMMENT     Annotation was added by the NCBI Prokaryotic Genome Annotation
+            Pipeline (released 2013). Information about the Pipeline can be
+            found here: https://www.ncbi.nlm.nih.gov/genome/annotation_prok/
+            This genome has a base modification file available.
+            ##Genome-Assembly-Data-START## Assembly Method        :: CANU v.
+            1.2 Genome Representation  :: Full Expected Final Version :: Yes
+            Genome Coverage        :: 400.0x Sequencing Technology  :: PacBio
+            RSII ##Genome-Assembly-Data-END##  ##Genome-Annotation-Data-START##
+            Annotation Provider               :: NCBI Annotation Date
+            :: 11/19/2018 11:15:48 Annotation Pipeline               :: NCBI
+            Prokaryotic Genome                                      Annotation
+            Pipeline Annotation Method                 :: Best-placed reference
+            protein                                      set; GeneMarkS+
+            Annotation Software revision      :: 4.6 Features Annotated
+            :: Gene; CDS; rRNA; tRNA; ncRNA;
+            repeat_region Genes (total)                     :: 2,125 CDS
+            (total)                       :: 2,067 Genes (coding)
+            :: 1,993 CDS (coding)                      :: 1,993 Genes (RNA)
+            :: 58 rRNAs                             :: 3, 3, 3 (5S, 16S, 23S)
+            complete rRNAs                    :: 3, 3, 3 (5S, 16S, 23S) tRNAs
+            :: 46 ncRNAs                            :: 3 Pseudo Genes (total)
+            :: 74 Pseudo Genes (ambiguous residues) :: 0 of 74 Pseudo Genes
+            (frameshifted)       :: 54 of 74 Pseudo Genes (incomplete)
+            :: 21 of 74 Pseudo Genes (internal stop)      :: 16 of 74 Pseudo
+            Genes (multiple problems)  :: 15 of 74 CRISPR Arrays
+            :: 1 ##Genome-Annotation-Data-END##
+COMMENT     
+COMMENT     ApEinfo:methylated:1
+FEATURES             Location/Qualifiers
+     source          join(5..53,1926..1947)
+                     /organism="Trueperella pyogenes"
+                     /mol_type="genomic DNA"
+                     /strain="TP1"
+                     /isolation_source="lung"
+                     /host="bovine"
+                     /db_xref="taxon:1661"
+                     /geo_loc_name="China: Changchun"
+                     /collection_date="15-Dec-2017"
+                     /collected_by="WenLong Dong"
+                     /locus_tag="source:Trueperella pyogenes"
+                     /label="source:Trueperella pyogenes"
+                     /ApEinfo_label="source:Trueperella pyogenes"
+                     /ApEinfo_fwdcolor="#00DF87"
+                     /ApEinfo_revcolor="#00DF87"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+                     /ApEinfo_hidden
+     gene            complement(1941..1947)
+                     /locus_tag="EB776_02910"
+                     /label="EB776_02910"
+                     /ApEinfo_label="EB776_02910"
+                     /ApEinfo_fwdcolor="#ff797d"
+                     /ApEinfo_revcolor="#ff102f"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+     CDS             complement(1941..1947)
+                     /inference="COORDINATES: similar to AA
+                     sequence:RefSeq:WP_013170021.1"
+                     /note="Derived by automated computational analysis using
+                     gene prediction method: Protein Homology."
+                     /codon_start=2
+                     /transl_table=11
+                     /product="ribonuclease D"
+                     /protein_id=AZR00341.1
+                     /translation=MTLSIPSRPLDIPRDGLPPVTHDDIDDAVARLAAGAGPLAVDTER
+                     ANEMRYTNRAYLLQIRREGVGTFLIDPVGIEDRLNGLREVMNCEWIVHAAHQDLLCLR
+                     ELGLTPTKVFDTEIAALLLGYERVSLQALCEKVLGWSLAKEYSNSDWSQRPLPLPLLT
+                     YAALDVELLHELRTELTAQLLEAERFSWFVQECEEVRVRQPAPPRQQPWRRPARRAGI
+                     KDQRSLAMMRELWNARDDLARRRDIAPHRILPNQILAELAKRKPRSRADVVNSSLFRS
+                     EARKRDVNTWWHAIEIAWRLDESALPERKFSEKKDPFPPTNEWPRKDPQAAQRWELLR
+                     PTVLGIAESLAIRQEVLLKPRTQKLAAWKGWRTRDELLTLLADDGARPWQIELVGDRI
+                     HDAVAGQHL
+                     /locus_tag="EB776_02910(1)"
+                     /label="EB776_02910(1)"
+                     /ApEinfo_label="EB776_02910"
+                     /ApEinfo_fwdcolor="#e9d024"
+                     /ApEinfo_revcolor="#e9d024"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+     misc_feature    5..24
+                     /locus_tag="5' linker"
+                     /label="5' linker"
+                     /ApEinfo_label="5' linker"
+                     /ApEinfo_fwdcolor="cyan"
+                     /ApEinfo_revcolor="cyan"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+     misc_feature    1927..1947
+                     /locus_tag="3' linker"
+                     /label="3' linker"
+                     /ApEinfo_label="3' linker"
+                     /ApEinfo_fwdcolor="cyan"
+                     /ApEinfo_revcolor="cyan"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+     misc_feature    25..53
+                     /locus_tag="native RBS"
+                     /label="native RBS"
+                     /ApEinfo_label="native RBS"
+                     /ApEinfo_fwdcolor="#92ffa4"
+                     /ApEinfo_revcolor="#92ffa4"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+     restriction_site1..4
+                     /locus_tag="BsaI"
+                     /label="BsaI"
+                     /ApEinfo_label="BsaI"
+                     /ApEinfo_fwdcolor="#c9cc9d"
+                     /ApEinfo_revcolor="#c9cc9d"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+     restriction_sitecomplement(1948..1951)
+                     /locus_tag="BsaI(1)"
+                     /label="BsaI(1)"
+                     /ApEinfo_label="BsaI"
+                     /ApEinfo_fwdcolor="#c9cc9d"
+                     /ApEinfo_revcolor="#c9cc9d"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+     misc_feature    54..1925
+                     /note="All restriction sites removed with C6-Tools"
+                     /locus_tag="dxs from Trueperella pyogenes (modified)"
+                     /label="dxs from Trueperella pyogenes (modified)"
+                     /ApEinfo_label="dxs from Trueperella pyogenes (modified)"
+                     /ApEinfo_fwdcolor="#fece76"
+                     /ApEinfo_revcolor="#fece76"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+ORIGIN
+        1 TACTgtcatg ctttcgatca gtggtaatct atgcgtagtt aaaaggagaa ccgGTGATTC
+       61 TTGATTCGAT AAATGGCCCC GAGGACCTCG CATCACTCAA GGTTAAGGAC CTCGAACAGC
+      121 TGGCGGAAGA AATCCGCCGC TTCCTCGTCG TCAACGTGGC AAAGACGGGC GGGCACCTAG
+      181 GGCCAAACCT GGGCGTTGTG GAGCTGAGCA TTGCGTTACA TCGCGTGTTT GATTCGCCCC
+      241 GCGACACGCT GATTTGGGAC ACCGGCCACC AAGCCTATGT TCACAAGATT CTCACCGGCC
+      301 GCAAAGACTT TGCGCGCCTG CGTCAAGAGG GTGGGCTTTC AGGCTACCCC TCGCGCGCGG
+      361 AGTCGGAGCA TGACGTCGTG GAGAACTCAC ACGCCTCAAC TGCCCTGTCG TGGGCCGATG
+      421 GTATCGCCCG CGGACTACAG CTTTCTGGCA AAGATAGCTC GGTGGTCGCC ATCATTGGCG
+      481 ACGGCGCGAT GACTGGCGGC ATGGCCTGGG AGGCGCTGAA CAACATAGCT GAAGATCCAG
+      541 ATCGCCCGCT GGTTATCGTC CTCAATGACA ATGGCCGCTC GTACGCGCCT ACCGTGGGCG
+      601 GGATCGTGCG TCGCTTTGAC CCGGTGCGCA AACTCGACGC GATGCGAGTC AACCGGGACT
+      661 ACGAGAACTT CCTCGAATGG GGAAAGCGTA CCCTGCAAGG CTCTGGAGTA CCGGGAAAAC
+      721 TCACGTATGA CACGTTGCGC GGCATCAAGA AAGGCATGAA GGAGATTTTC TTCGACGCCG
+      781 GAATCTTCGA CTCGCTGGGG CTGAAGTACA TCGGCCCCGT TGACGGCCAC GATATCAAGA
+      841 GCCTCGAAGA GGCCTTGACG ATGGCGCGCG ATTACGGTGG TCCCGTCGTC GTGCATGCGA
+      901 TTACAGAAAA AGGACGCGGG TTCAAGCCAG CCGAAGAGAA CAAAGCTGAC CGCTTCCACG
+      961 CGGTAGGTAA GATCCACCCA GAGACAGGGC TTCCGATCGA GCCCTCGCGG TTCGGATGGA
+     1021 CATCTATTTT TGCCGAGGAA ATACTGAAGA TCGCGCGCAA CGATGCCTCG ATTGTGGGGG
+     1081 TGACGGCGGC GATGTTGCAA CCGGTTGGGC TCTCCCTACT GCGGGAAGAG TTTCCTAAGC
+     1141 GCGTGATCGA TGTCGGCATC GCCGAGCAGC ACGCGGTCAC AATGGCTGCG GGTCTGGCAA
+     1201 AAGCGGGTTT TCATCCAGTC ATTGCACTGT ATGCGACCTT CCTCAACCGT GGCTTTGACC
+     1261 AGCTACTCAT GGATGTCGCG CTCCATAACG CGCCTGTGAC GATCTGTCTC GATCGGGCCG
+     1321 GGGTGACGGG CGACGACGGC CCCTCGCACA ACGGCATGTG GGATCTGTCA ATGGCAGCGA
+     1381 TGATCCCCAA CCTGCGTGTA GCCGTTCCGC GCGACGAGCA GCGCATGCGC GAGCTTCTCA
+     1441 GCCAAGCTAC GCAGGTTCAA TCGCCTACCC TCGTGCGTTA CCCGAAAGGC TCAGTGCCTT
+     1501 ACGAGATCCC GGCTCTCCGT TCGATTGGCC AGCTCGACGT CCTCTTTGAG CGTGTGGTCG
+     1561 AGGGGGAGCC CCCGATCGTT CTTGTGGCCG TCGGCCCCAT GGCACACGCC GTGATTGAGG
+     1621 CGGCGCAGGG ACTCAACAGT TCGCTCGTGG CGGTCGACCC ACGATGGGTG CTCCCAATTT
+     1681 CCGACCAGCT TGTTGACCTG GCCGCCACCT CGGCAGGCGT TGTGGTACTC GAAGATGGCC
+     1741 TCGCTACTGG GGGCGTAGGT GACGCGCTGC GCTCTGCCTT GGCAAGGTCC GGATCGTATG
+     1801 TGCCTGTCAA GAGCCTCGGC ATTGACAAGA GATTTCTCCA GCACGCCACG CGCGGGGCGA
+     1861 TTCTTCATCG CCAAGCGATG GACGCCGACG CCGTACACAC CGCGGTCTGC CAGCTGCGCG
+     1921 GCTAGagcac agctggccgc ctataggGCT T  
+//

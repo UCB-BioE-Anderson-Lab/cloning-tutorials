@@ -1,0 +1,174 @@
+LOCUS       sequence__10_           2069 bp    DNA        linear       29-MAR-2025
+DEFINITION  Trueperella pyogenes strain TP1 chromosome, complete genome.
+ACCESSION   CP033902 REGION: 656555..658623
+VERSION     CP033902.1
+DBLINK      BioProject: PRJNA498188 BioSample: SAMN10318952
+KEYWORDS    .
+SOURCE      Trueperella pyogenes
+  ORGANISM  Trueperella pyogenes Bacteria; Bacillati; Actinomycetota;
+            Actinomycetes; Actinomycetales; Actinomycetaceae; Trueperella.
+REFERENCE   1  (bases 1 to 2069)
+  AUTHORS   Dong,W.
+  TITLE     Multidrug-resistant genes are associated with an 42-kb island TGI1
+            carrying a complex class 1 integron in a Trueperella pyogenes
+  JOURNAL   Unpublished
+REFERENCE   2  (bases 1 to 2069)
+  AUTHORS   Dong,W.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (13-NOV-2018) College of Animal Science and Technology,
+            Jilin Agricultural University, No. 2888 Xincheng Street, Changchun
+            130118, China
+COMMENT     Annotation was added by the NCBI Prokaryotic Genome Annotation
+            Pipeline (released 2013). Information about the Pipeline can be
+            found here: https://www.ncbi.nlm.nih.gov/genome/annotation_prok/
+            This genome has a base modification file available.
+            ##Genome-Assembly-Data-START## Assembly Method        :: CANU v.
+            1.2 Genome Representation  :: Full Expected Final Version :: Yes
+            Genome Coverage        :: 400.0x Sequencing Technology  :: PacBio
+            RSII ##Genome-Assembly-Data-END##  ##Genome-Annotation-Data-START##
+            Annotation Provider               :: NCBI Annotation Date
+            :: 11/19/2018 11:15:48 Annotation Pipeline               :: NCBI
+            Prokaryotic Genome                                      Annotation
+            Pipeline Annotation Method                 :: Best-placed reference
+            protein                                      set; GeneMarkS+
+            Annotation Software revision      :: 4.6 Features Annotated
+            :: Gene; CDS; rRNA; tRNA; ncRNA;
+            repeat_region Genes (total)                     :: 2,125 CDS
+            (total)                       :: 2,067 Genes (coding)
+            :: 1,993 CDS (coding)                      :: 1,993 Genes (RNA)
+            :: 58 rRNAs                             :: 3, 3, 3 (5S, 16S, 23S)
+            complete rRNAs                    :: 3, 3, 3 (5S, 16S, 23S) tRNAs
+            :: 46 ncRNAs                            :: 3 Pseudo Genes (total)
+            :: 74 Pseudo Genes (ambiguous residues) :: 0 of 74 Pseudo Genes
+            (frameshifted)       :: 54 of 74 Pseudo Genes (incomplete)
+            :: 21 of 74 Pseudo Genes (internal stop)      :: 16 of 74 Pseudo
+            Genes (multiple problems)  :: 15 of 74 CRISPR Arrays
+            :: 1 ##Genome-Annotation-Data-END##
+COMMENT     
+COMMENT     ApEinfo:methylated:1
+FEATURES             Location/Qualifiers
+     source          1..2069
+                     /organism="Trueperella pyogenes"
+                     /mol_type="genomic DNA"
+                     /strain="TP1"
+                     /isolation_source="lung"
+                     /host="bovine"
+                     /db_xref="taxon:1661"
+                     /geo_loc_name="China: Changchun"
+                     /collection_date="15-Dec-2017"
+                     /collected_by="WenLong Dong"
+                     /locus_tag="source:Trueperella pyogenes"
+                     /label="source:Trueperella pyogenes"
+                     /ApEinfo_label="source:Trueperella pyogenes"
+                     /ApEinfo_fwdcolor="#00DF87"
+                     /ApEinfo_revcolor="#00DF87"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+                     /ApEinfo_hidden
+     gene            101..1972
+                     /gene="dxs"
+                     /locus_tag="EB776_02905"
+                     /label="EB776_02905"
+                     /ApEinfo_label="EB776_02905"
+                     /ApEinfo_fwdcolor="#ff797d"
+                     /ApEinfo_revcolor="#ff102f"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+     CDS             101..1972
+                     /gene="dxs"
+                     /EC_number="2.2.1.7"
+                     /inference="COORDINATES: similar to AA
+                     sequence:RefSeq:WP_009199653.1"
+                     /note="Derived by automated computational analysis using
+                     gene prediction method: Protein Homology."
+                     /codon_start=1
+                     /transl_table=11
+                     /product="1-deoxy-D-xylulose-5-phosphate synthase"
+                     /protein_id=AZR00340.1
+                     /translation=MILDSINGPEDLASLKVKDLEQLAEEIRRFLVVNVAKTGGHLGPN
+                     LGVVELSIALHRVFDSPRDTLIWDTGHQAYVHKILTGRKDFARLRQEGGLSGYPSRAE
+                     SEHDVVENSHASTALSWADGIARGLQLSGKDSSVVAIIGDGAMTGGMAWEALNNIAED
+                     PDRPLVIVLNDNGRSYAPTVGGIVRRFDPVRKLDAMRVNRDYENFLEWGKRTLQGSGV
+                     PGKLTYDTLRGIKKGMKEIFFDAGIFDSLGLKYIGPVDGHDIKSLEEALTMARDYGGP
+                     VVVHAITEKGRGFKPAEENKADRFHAVGKIHPETGLPIEPSRFGWTSIFAEEILKIAR
+                     NDASIVGVTAAMLQPVGLSLLREEFPKRVIDVGIAEQHAVTMAAGLAKAGFHPVIALY
+                     ATFLNRGFDQLLMDVALHNAPVTICLDRAGVTGDDGPSHNGMWDLSMAAMIPNLRVAV
+                     PRDEQRMRELLSQATQVQSPTLVRYPKGSVPYEIPALRSIGQLDVLFERVVEGEPPIV
+                     LVAVGPMAHAVIEAAQGLNSSLVAVDPRWVLPISDQLVDLAATSAGVVVLEDGLATGG
+                     VGDALRSALARSGSYVPVKSLGIDKRFLQHATRGAILHRQAMDADAVHTAVCQLRG
+                     /locus_tag="EB776_02905(1)"
+                     /label="EB776_02905(1)"
+                     /ApEinfo_label="EB776_02905"
+                     /ApEinfo_fwdcolor="#e9d024"
+                     /ApEinfo_revcolor="#e9d024"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+     gene            complement(1988..2069)
+                     /locus_tag="EB776_02910"
+                     /label="EB776_02910"
+                     /ApEinfo_label="EB776_02910"
+                     /ApEinfo_fwdcolor="#ff797d"
+                     /ApEinfo_revcolor="#ff102f"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+     CDS             complement(1988..2069)
+                     /inference="COORDINATES: similar to AA
+                     sequence:RefSeq:WP_013170021.1"
+                     /note="Derived by automated computational analysis using
+                     gene prediction method: Protein Homology."
+                     /codon_start=2
+                     /transl_table=11
+                     /product="ribonuclease D"
+                     /protein_id=AZR00341.1
+                     /translation=MTLSIPSRPLDIPRDGLPPVTHDDIDDAVARLAAGAGPLAVDTER
+                     ANEMRYTNRAYLLQIRREGVGTFLIDPVGIEDRLNGLREVMNCEWIVHAAHQDLLCLR
+                     ELGLTPTKVFDTEIAALLLGYERVSLQALCEKVLGWSLAKEYSNSDWSQRPLPLPLLT
+                     YAALDVELLHELRTELTAQLLEAERFSWFVQECEEVRVRQPAPPRQQPWRRPARRAGI
+                     KDQRSLAMMRELWNARDDLARRRDIAPHRILPNQILAELAKRKPRSRADVVNSSLFRS
+                     EARKRDVNTWWHAIEIAWRLDESALPERKFSEKKDPFPPTNEWPRKDPQAAQRWELLR
+                     PTVLGIAESLAIRQEVLLKPRTQKLAAWKGWRTRDELLTLLADDGARPWQIELVGDRI
+                     HDAVAGQHL
+                     /locus_tag="EB776_02910(1)"
+                     /label="EB776_02910(1)"
+                     /ApEinfo_label="EB776_02910"
+                     /ApEinfo_fwdcolor="#e9d024"
+                     /ApEinfo_revcolor="#e9d024"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+ORIGIN
+        1 aggagttaag acaacatagc tgttgacaca gccctttcca tagcgaacca agtcatgctt
+       61 tcgatcagtg gtaatctatg cgtagttaaa aggagaaccg gtgattcttg attcgataaa
+      121 tggccccgag gacctcgcat cactcaaggt taaggacctc gagcagctgg cggaagaaat
+      181 ccgccgcttc ctcgtcgtca acgtggcaaa gacgggcggg cacctagggc caaacctggg
+      241 cgttgtggag ctgagcattg cgttacatcg cgtgtttgat tcgccccgcg acacgctgat
+      301 ttgggacacc ggccaccaag cctatgttca caagattctc accggccgca aagactttgc
+      361 gcgcctgcgt caagagggtg ggctttcagg ctacccctcg cgcgcggagt cggagcatga
+      421 cgtcgtggag aactcacacg cctcaactgc cctgtcgtgg gccgatggta tcgcccgcgg
+      481 actgcagctt tctggcaaag atagctcggt ggtcgccatc attggcgacg gcgcgatgac
+      541 tggcggcatg gcctgggagg cgctgaacaa catagctgag gatccagatc gcccgctggt
+      601 tatcgtcctc aatgacaatg gccgctcgta cgcgcctacc gtgggcggga tcgtgcgtcg
+      661 ctttgacccg gtgcgcaaac tcgacgcgat gcgagtcaac cgggactacg agaacttcct
+      721 cgaatgggga aagcgtaccc tgcaaggctc tggagtaccg ggaaaactca cgtatgacac
+      781 gttgcgcggc atcaagaaag gcatgaagga gattttcttc gacgccggaa tcttcgactc
+      841 gctggggctg aagtacatcg gccccgttga cggccacgat atcaagagcc tcgaagaggc
+      901 cttgacgatg gcgcgcgatt acggtggtcc cgtcgtcgtg catgcgatta cagaaaaagg
+      961 acgcgggttc aagccagccg aggagaacaa agctgaccgc ttccacgcgg taggtaagat
+     1021 ccacccagag accgggcttc cgatcgagcc ctcgcggttc ggatggacat ctatttttgc
+     1081 cgaggaaata ctgaagatcg cgcgcaacga tgcctcgatt gtgggggtga cggcggcgat
+     1141 gttgcaaccg gttgggctct ccctactgcg ggaagagttt cctaagcgcg tgatcgatgt
+     1201 cggcatcgcc gagcagcacg cggtcacaat ggctgcgggt ctggcaaaag cgggttttca
+     1261 tccagtcatt gcactgtatg cgaccttcct caaccgtggc tttgaccagc tcctcatgga
+     1321 tgtcgcgctc cataacgcgc ctgtgacgat ctgtctcgat cgggccgggg tgacgggcga
+     1381 cgacggcccc tcgcacaacg gcatgtggga tctgtcaatg gcagcgatga tccccaacct
+     1441 gcgtgtagcc gttccgcgcg acgagcagcg catgcgcgag cttctcagcc aagctacgca
+     1501 ggttcaatcg cctaccctcg tgcgttaccc gaaaggctca gtgccttacg agatcccggc
+     1561 tctccgttcg attggccagc tcgacgtcct ctttgagcgt gtggtcgagg gggagccccc
+     1621 gatcgttctt gtggccgtcg gccccatggc acacgccgtg attgaggcgg cgcagggact
+     1681 caacagttcg ctcgtggcgg tcgacccacg atgggtgctc ccaatttccg accagcttgt
+     1741 tgacctggcc gccacctcgg caggcgttgt ggtactcgaa gacggcctcg ctactggggg
+     1801 cgtaggtgac gcgctgcgct ctgccttggc aaggtccgga tcgtatgtgc ctgtcaagag
+     1861 cctcggcatt gacaagagat ttctccagca cgccacgcgc ggggcgattc ttcatcgcca
+     1921 agcgatggac gccgacgccg tacacaccgc ggtctgccag ctgcgcggct agagcacagc
+     1981 tggccgccta taggtgctgt ccggccacgg cgtcgtgaat acgatcgccg acgagctcga
+     2041 tttgccacgg gcgggcgccg tcgtcggca   
+//

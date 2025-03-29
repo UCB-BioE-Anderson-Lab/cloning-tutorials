@@ -45,7 +45,7 @@ Once a prototype is functional, optimization improves performance: yield, growth
 
 - **Part Combination Screens**: Combine multiple part variants
 
-In our example, **Lycopene33** is an optimization experiment in which we replace the existing GGPPS gene in a multi-gene biosynthetic pathway with orthologous GGPPS genes from other organisms to assess the impact on pathway performance.
+In our example, **Lycopene33** is an optimization experiment in which we replace the existing dxs gene in a multi-gene biosynthetic pathway with orthologous dxs genes from other organisms to assess the impact on pathway performance.
 
 The relationship between prototyping and optimization can be thought of as a progression: prototyping produces a first working construct, and optimization refines it for better performance.
 
