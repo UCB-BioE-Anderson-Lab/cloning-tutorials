@@ -10,7 +10,7 @@ Before starting oligo design, ensure your GenBank files are saved and annotated.
 
 For the Lycopene33 example, we’ll focus on an RC part derived from the dxs ortholog of:
 
-**Trueperella pyogenes** strain TP1  
+*Trueperella pyogenes* strain TP1  
 GenBank: CP033902.1  
 Coordinates: 656655–658523  
 [NCBI Link](https://www.ncbi.nlm.nih.gov/nuccore/CP033902.1?report=genbank&from=656555&to=658623)
@@ -131,31 +131,32 @@ oligo GB5F ccataGGTCTCaGCTTTGATCGATTCAACCTCTGATCA
 oligo GB5R cagttGGTCTCtAGTACCTCTAAACACAACGACAACAG
 ```
 
-In practice, our TpDXS gene has an internal BsaI site, so this particular construction file will not work.  We could use SOEing to take the site out during cloning.  However, following our decision tree, we should go with the clonal gene synthesis.  This is thus what is presented in the example folder.  The same process was also applied to the *Aliivibrio fischeri* (GenBank: CP160629.1) which lacks the BsaI site and satisfies the criteria for being cloned from genomic DNA.  Thus 2 plasmids are designed in this experiment:
+In practice, the *TpDXS* gene contains an internal BsaI site, which disqualifies it from direct Golden Gate cloning using the native genomic sequence. While it could be repaired using SOEing, the decision tree points us toward clonal gene synthesis as the preferred strategy. This is the method used in the example files.
 
-- **pLYC76I:** The *Trueperella* variant of *dxs* in pLYC72I
-- **pLYC76J:** The *Aliivibrio* variant of *dxs* in pLYC72I
----
+In contrast, the *Aliivibrio fischeri* ortholog (GenBank: CP160629.1) lacks internal BsaI/BsmBI sites and meets the criteria for PCR-based cloning from genomic DNA.
 
+As a result, two constructs were designed in this experiment:
 
-## 📁 Construction Files Reference
+- **pLYC76I:** The *Trueperella pyogenes* variant of *dxs* cloned into pLYC72I via gene synthesis
+- **pLYC76J:** The *Aliivibrio fischeri* variant of *dxs* cloned into pLYC72I via PCR
 
-Construction Files use a standardized shorthand format. For more info, see:
+Once you select a fabrication strategy for each construct, you must write corresponding Construction Files and place them in your `Construction/` folder. Reference example CFs in:
 
-**[cf_shorthand_specification.md](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0294469)**
+**[cloning-tutorials/examples/](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Experiments/lycopene33/)**
 
-The examples folder contains real CFs for the dxs ortholog scan in:
+Any oligos required for your strategy should be collected into a single file, in our example named:
+```
+lycopene33 - Oligos.txt
+```
 
-**[cloning-tutorials/examples/](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Experiments/)**
+Finally, include annotated GenBank files for all precursor and product plasmids, as well as any sequences that contributed to your design. These should be placed in your `Maps/` folder.
 
-Use those as templates for your own.
+For the Lycopene33 experiment, this results in:
 
----
+- 2 Construction Files (pLYC76I and pLYC76J)
 
-## 🧠 Recap
+- 2 product GenBank files (one for each construct)
 
-- Use this guide to decide whether to synthesize, order a gBlock, or design oligos.
-- Always encode your plan in a Construction File.
-- Use the dxs ortholog examples as models.
+- 1 gene synthesisized plasmid
 
-Coming up next: PCR primer/linker diagrams and a quiz to help reinforce strategy selection.
+- 4 oligos
