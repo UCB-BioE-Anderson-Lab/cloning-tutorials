@@ -31,12 +31,12 @@ Welcome to the **Synthetic Biology Project Tutorials**, a modular series of inte
 9. **[Sequencing Analysis](sequencing.md)**  
    Learn to analyze sequencing results.
 
-## Part 2: Project Design and Experiment Planning
+## Part 2: Project Planning
 
 1. **[Project Setup and Nomenclature](project_setup.md)**  
    Learn how to structure a project, name experiments, and organize your working directory.
 
-2. **[Design Principles](design_principles.md)**  
+2. **[Experimental Design Principles](design_principles.md)**  
    Understand how to think about synthetic biology experiments from the ground up.
 
 3. **[Sequence Retrieval and Analysis](sequence_analysis.md)**  
