@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/pcr_simulation/">
+        <link rel="canonical" href="https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/inventory_labsheets/">
       
       
-        <link rel="prev" href="../pcr_prediction/">
+        <link rel="prev" href="../oligo_design/">
       
       
-        <link rel="next" href="../basic_cloning/">
+        <link rel="next" href="../cfs_simulation/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>4. PCR Simulation - Cloning Tutorials</title>
+        <title>14. Inventory and Labsheets - Cloning Tutorials</title>
       
     
     
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              4. PCR Simulation
+              14. Inventory and Labsheets
             
           </span>
         </div>
@@ -232,19 +232,17 @@
       
   
   
-    
   
   
-  
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -259,7 +257,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Cloning Techniques
@@ -336,17 +334,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../pcr_simulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -356,7 +347,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -483,17 +473,19 @@
       
   
   
+    
   
   
+  
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -508,7 +500,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Project Planning
@@ -607,10 +599,17 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../inventory_labsheets/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -620,6 +619,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -732,9 +732,48 @@
   
 
 
-  <h1>4. PCR Simulation</h1>
+  <h1>14. Inventory and Labsheets</h1>
 
-
+<p># Inventory and Labsheets</p>
+<p>Keeping an organized and up-to-date inventory is essential for any molecular biology lab. Labsheets complement your inventory by documenting planned builds and experimental workflows.</p>
+<p>## Inventory Management</p>
+<p>Physical and digital inventories should stay in sync. Each DNA sample (plasmid, PCR product, oligo, etc.) should be clearly labeled and linked to a unique identifier.</p>
+<p><strong>Best practices:</strong>
+ - Use consistent tube labeling: e.g. <code>p123_dxs_v2</code>, <code>gibson_ispA_fragA</code>.
+ - Track locations by box and position (e.g. <code>Box4-B3</code>).
+ - Link each item to sequence files and Construction Files.</p>
+<p>Consider using spreadsheet or database formats to manage:
+ - Sample name
+ - Description
+ - Source or construction method
+ - Location
+ - Date
+ - Notes</p>
+<p>## Labsheets</p>
+<p>Labsheets are planning tools that list reactions and expected outcomes for a given day or set of experiments.</p>
+<p>A labsheet typically includes:
+ - Date and experiment name
+ - Reaction type (e.g. PCR, digestion, ligation, transformation)
+ - Inputs (e.g. template, primers)
+ - Expected output (e.g. band size, plasmid product)
+ - Tube label to be created</p>
+<p>Labsheets help you:
+ - Plan efficient workflows
+ - Reduce redundancy and errors
+ - Create a traceable record of experimental intent</p>
+<p>Example row:
+ | Reaction | Template | Primers        | Product Size | Tube Label     | Notes               |
+ |----------|----------|----------------|--------------|----------------|---------------------|
+ | PCR      | p001     | dxs_F / dxs_R  | 1890 bp      | p001_dxs_amp   | Use for Gibson mix  |</p>
+<p>## Integration with Construction Files</p>
+<p>Each entry in a labsheet should correspond to an entry in a Construction File when relevant. This keeps your digital plan aligned with the physical bench work.</p>
+<p>## Summary</p>
+<ul>
+<li>Keep tube labeling consistent and unique.</li>
+<li>Track sample metadata and location.</li>
+<li>Use labsheets to plan daily work and connect to Construction Files.</li>
+<li>Review and update both regularly.</li>
+</ul>
 
 
 
