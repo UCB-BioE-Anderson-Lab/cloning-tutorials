@@ -65,6 +65,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#pcr-product-prediction" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -323,6 +328,20 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    3. PCR Product Prediction
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -334,6 +353,76 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#before-you-try-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before You Try This...
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guided-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guided Walkthrough
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Guided Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pcr-with-5-tails" class="md-nav__link">
+    <span class="md-ellipsis">
+      PCR with 5' Tails
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inverse-pcr-ipcr-on-a-circular-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inverse PCR (IPCR) on a Circular Template
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz-can-you-predict-this-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quiz: Can You Predict This Product?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -714,6 +803,67 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#before-you-try-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before You Try This...
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guided-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guided Walkthrough
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Guided Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pcr-with-5-tails" class="md-nav__link">
+    <span class="md-ellipsis">
+      PCR with 5' Tails
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inverse-pcr-ipcr-on-a-circular-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inverse PCR (IPCR) on a Circular Template
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz-can-you-predict-this-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quiz: Can You Predict This Product?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -732,9 +882,146 @@
   
 
 
-  <h1>3. PCR Product Prediction</h1>
+<script src="https://unpkg.com/seqviz"></script>
+<h1 id="pcr-product-prediction">PCR Product Prediction<a class="headerlink" href="#pcr-product-prediction" title="Permanent link">&para;</a></h1>
+<p>In this module, you'll learn how to manually predict the result of a PCR reaction by reasoning through oligo binding, template strand directionality, and sequence construction — a critical step before performing any cloning experiment. This manual prediction process is foundational for verifying whether a cloning strategy will work as intended. While there are many tools and algorithms to help you design a cloning plan, this step is about checking whether that plan is correct. It's a skill you'll often use in the lab when results are unclear and you need to troubleshoot. Going through this process also deepens your understanding of how PCR works and how different sequence elements interact.</p>
+<hr />
+<h3 id="before-you-try-this">Before You Try This...<a class="headerlink" href="#before-you-try-this" title="Permanent link">&para;</a></h3>
+<p>Want a refresher on how PCR works at a mechanistic level? Watch this short, animated video:</p>
+<blockquote>
+<p>📺 <strong>Recommended Intro</strong>: <a href="https://www.youtube.com/watch?v=2KoLnIwoZKU">PCR Animation – The Polymerase Chain Reaction</a></p>
+</blockquote>
+<hr />
+<h2 id="guided-walkthrough">Guided Walkthrough<a class="headerlink" href="#guided-walkthrough" title="Permanent link">&para;</a></h2>
+<p>We’ll begin with a simple scenario using a structured table format called <code>cf_shorthand</code>. You’ll encounter this notation in later tutorials, but here we’ll treat it as a straightforward summary of oligos and templates.</p>
+<div class="highlight"><pre><span></span><code>operation    primer1      primer2      template    product
+PCR          exFor        exRev        pTemp1      pcrpdt
 
+oligo        exFor        CAGCGGATCGGATCGGCGAC
+oligo        exRev        CGGTTGTGCGGGCGGAACCAG
+plasmid      pTemp1       CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACAACCGCGA
+</code></pre></div>
+<p>We have two primers (<code>exFor</code> and <code>exRev</code>) and a circular template plasmid (<code>pTemp1</code>). The task is to predict the PCR product, <code>pcrpdt</code>.</p>
+<ol>
+<li>
+<p>Search for the exact sequence of <code>exFor</code> in the template — it should match directly.</p>
+</li>
+<li>
+<p>Take the reverse complement of <code>exRev</code>, then search for that in the template.</p>
+</li>
+<li>
+<p>The product is the linear sequence between (and including) the forward primer and the reverse complement of the reverse primer.</p>
+</li>
+</ol>
+<p>Use your sequence editor to try this out yourself and compare your answer to the one below:</p>
+<div id="viewer1"></div>
+<script>
+    function waitForSeqViz(callback) {
+      if (typeof seqviz !== "undefined" && seqviz.Viewer) {
+        callback();
+      } else {
+        setTimeout(() => waitForSeqViz(callback), 50);
+      }
+    }
 
+    waitForSeqViz(() => {
+      seqviz
+        .Viewer("viewer1", {
+            "name": "pcrpdt",
+            "seq": "CAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACAACCG",
+            "annotations": [
+                { "name": "exFor", "start": 0, "end": 20, "color": "cyan", "direction": 1 },
+                { "name": "exRev", "start": 29, "end": 50, "color": "#92ffa4", "direction": -1 }
+            ],
+          translations: [],
+          viewer: "linear",
+          showComplement: true,
+          showIndex: true,
+          style: { height: "75px", width: "100%" }
+        })
+        .render();
+    });
+  </script>
+<hr />
+<h3 id="pcr-with-5-tails">PCR with 5' Tails<a class="headerlink" href="#pcr-with-5-tails" title="Permanent link">&para;</a></h3>
+<p>Now try a more advanced case where primers have 5' extensions (tails):</p>
+<div class="highlight"><pre><span></span><code>operation    primer1     primer2     template     product
+PCR          exFor2      exRev2      pTemp1       pcrpdt2
+
+oligo        exFor2      ccataGAATTCCAGCGGATCGGATCGGCGAC
+oligo        exRev2      cagatGGATCCCTGGTTCCGCCCGCACAACCG
+plasmid      pTemp1      CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACAACCGCGA
+</code></pre></div>
+<p>Only the <strong>3' end</strong> (the annealing region) of each primer must match the template exactly. Typically, that’s about 18 bp. The 5' ends (e.g., <code>ccataGAATTC</code>) do not match but will become part of the product.</p>
+<ol>
+<li>Identify the annealing portion of each primer.</li>
+<li>Replace the annealing region in the template with the full primer (end included).</li>
+<li>Your product is the linear sequence spanning from full forward primer to full reverse primer (reverse complemented).</li>
+</ol>
+<p>Compare your answer to the one below:</p>
+<div id="viewer2"></div>
+<script>
+    function waitForSeqViz(callback) {
+      if (typeof seqviz !== "undefined" && seqviz.Viewer) {
+        callback();
+      } else {
+        setTimeout(() => waitForSeqViz(callback), 50);
+      }
+    }
+
+    waitForSeqViz(() => {
+      seqviz
+        .Viewer("viewer2", {
+            "name": "pcrpdt",
+            "seq": "ccataGAATTCCAGCGGATCGGATCGGCGACCCAAAGCGCCTCGGTTGTGCGGGCGGAACCAGGGATCCatctg",
+            "annotations": [
+                { "name": "exFor2", "start": 0, "end": 31, "color": "cyan", "direction": 1 },
+                { "name": "exRev2", "start": 42, "end": 74, "color": "#92ffa4", "direction": -1 }
+            ],
+          translations: [],
+          viewer: "linear",
+          showComplement: true,
+          showIndex: true,
+          style: { height: "75px", width: "110%" }
+        })
+        .render();
+    });
+  </script>
+<hr />
+<h3 id="inverse-pcr-ipcr-on-a-circular-template">Inverse PCR (IPCR) on a Circular Template<a class="headerlink" href="#inverse-pcr-ipcr-on-a-circular-template" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>📺 <strong>Video demo</strong>: <a href="https://www.youtube.com/watch?v=SPvvYWmMQ1I">Watch how inverse PCR prediction works in ApE</a><br />
+Use this as a reference before or after the steps below — it's especially helpful when you're ready to try the inverse PCR example.</p>
+</blockquote>
+<p>In IPCR, primers face away from each other on a circular template. Here’s how prediction works:</p>
+<ol>
+<li>Find the annealing site of the forward primer.</li>
+<li>Set the sequence origin to just before that site — this "rotates" the plasmid to linearize it at that position.</li>
+<li>Reverse complement the reverse primer and find its match.</li>
+<li>Delete all sequence outside the range of the new forward and reverse primers.</li>
+<li>The resulting span is your predicted PCR product.</li>
+</ol>
+<hr />
+<h2 id="quiz-can-you-predict-this-product">Quiz: Can You Predict This Product?<a class="headerlink" href="#quiz-can-you-predict-this-product" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>operation    primer1     primer2     template   product
+PCR          qFor        qRev        pQ1        quizpdt
+
+oligo        qFor        ccataCCATGGTTCTTGATTCGATACG
+oligo        qRev        cagatCTCGAGTTAGTGCTGTTCGAGGTCCTG
+plasmid      pQ1         CACTCAAGGTTCAGGACCTCGAACAGCACTAACGGAAGAAATCCGATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCAT
+</code></pre></div>
+<p><strong>Your task</strong>: What is the sequence of <code>quizpdt</code>?</p>
+<p>📬 Submit your prediction in the interactive quiz:
+✅ <strong><a href="../quizzes/pcr_prediction_quiz.md">Launch the Quiz</a></strong></p>
+<hr />
+<p><strong>Answer (hover or click to reveal):</strong></p>
+<details><summary>Show Answer</summary>
+
+<div class="highlight"><pre><span></span><code>ccataCCATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCATCACTCAAGGTTCAGGACCTCGAACAGCACTAACTCGAGatctg
+</code></pre></div>
+
+</details>
+<p></file></p>
 
 
 

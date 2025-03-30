@@ -677,6 +677,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sources
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dilutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dilutions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reactions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#program" class="md-nav__link">
     <span class="md-ellipsis">
       Program
@@ -722,6 +749,15 @@
   <a href="#destinations" class="md-nav__link">
     <span class="md-ellipsis">
       Destinations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gel-and-zymo-labsheets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gel and Zymo Labsheets
     </span>
   </a>
   
@@ -840,6 +876,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sources
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dilutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dilutions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reactions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#program" class="md-nav__link">
     <span class="md-ellipsis">
       Program
@@ -885,6 +948,15 @@
   <a href="#destinations" class="md-nav__link">
     <span class="md-ellipsis">
       Destinations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gel-and-zymo-labsheets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gel and Zymo Labsheets
     </span>
   </a>
   
@@ -947,6 +1019,10 @@
 <p><strong>LabSheet</strong>: A lab-ready checklist detailing the experimental workflow.</p>
 </li>
 </ul>
+<p>Examples of the completed ones for lycopene33 are available:
+<strong><a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Inventory/Minus20/">Inventory</a></strong>
+<strong><a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Experiments/lycopene33">LabSheets</a></strong></p>
+<hr />
 <p>To illustrate, consider the construction plans for the lycopene33 project:</p>
 <div class="highlight"><pre><span></span><code>PCR         GB5F     GB5R     pLYC72I    back72
 GoldenGate  pTpDXS   back72   BsaI       ggTp
@@ -961,7 +1037,7 @@ In a construction file (CF), the final item on each line (e.g., <code>ggTp</code
 <p>Let’s focus on the inputs. Some are carryovers from previous experiments and are already cataloged. Their locations can be found in the project folder’s inventory files:</p>
 <ul>
 <li><code>pLYC72I</code>: Prototype plasmid → <strong>Box33 / B2</strong></li>
-<li><code>CP160629</code>: Genomic DNA from <em>Af</em> → <strong>Box33 / B1</strong></li>
+<li><code>CP160629</code>: Genomic DNA from <em>Aliivibrio fischeri</em> → <strong>Box33 / B1</strong></li>
 </ul>
 <p>This notation means: Row B (second row, starting from A), Column 2 (counting from 1) in a box labeled <code>Box33</code>.</p>
 <div class="highlight"><pre><span></span><code>&gt;&gt;construct    1           2           3     4     5     6
@@ -1032,6 +1108,36 @@ PCR  oAfDXSf  oAfDXSr  CP160629  pcrAf
 <p><strong>Destinations</strong></p>
 </li>
 </ul>
+<h2 id="sources">Sources<a class="headerlink" href="#sources" title="Permanent link">&para;</a></h2>
+<p>Before setting up PCRs, collect all required DNA materials. Some items may already be in the inventory, while others will arrive lyophilized and need to be resuspended and labeled. Stock oligos are resuspended to 100 µM; PCR dilutions are typically 10 µM. Use existing dilutions if available; otherwise, make new ones from stock. For plasmids, use either a miniprep or a dilution (if prior dilution exists and is effective). Be sure to specify the clone being used when applicable.</p>
+<div class="highlight"><pre><span></span><code>label       side-label             construct      clone   concentration   location
+GB5F        GB5F                   GB5F                   lyophilized     –
+GB5R        GB5R                   GB5R                   lyophilized     –
+oAfDXSf     oAfDXSf                oAfDXSf                lyophilized     –
+oAfDXSr     oAfDXSr                oAfDXSr                lyophilized     –
+pTpDXS      pTpDXS                 pTpDXS                 lyophilized     –
+pLYC72I     pLYC72I-A              pLYC72I        A       miniprep        Box33/B2
+Af gen.     Aliivibrio fischeri    CP160629               miniprep        Box33/B1
+</code></pre></div>
+<h2 id="dilutions">Dilutions<a class="headerlink" href="#dilutions" title="Permanent link">&para;</a></h2>
+<p>Dilution is required for any oligos without existing 10 µM tubes. Resuspend each oligo stock using the nmol value written on the tube (add 10 µL per nmol). Dilute to working concentration as needed.</p>
+<div class="highlight"><pre><span></span><code>label           side-label         construct      concentration
+GB5F            GB5F               GB5F           100 µM
+GB5R            GB5R               GB5R           100 µM
+oAfDXSf         oAfDXSf            oAfDXSf        100 µM
+oAfDXSr         oAfDXSr            oAfDXSr        100 µM
+10uM GB5F       10uM GB5F          GB5F           10 µM
+10uM GB5R       10uM GB5R          GB5R           10 µM
+10uM oAfDXSf    10uM oAfDXSf       oAfDXSf        10 µM
+10uM oAfDXSr    10uM oAfDXSr       oAfDXSr        10 µM
+pTpDXS          pTpDXS             pTpDXS         miniprep
+</code></pre></div>
+<h2 id="reactions">Reactions<a class="headerlink" href="#reactions" title="Permanent link">&para;</a></h2>
+<p>Each PCR to be performed is defined in the table below. Use label names that fit on the PCR tube caps—short, unique, and easy to recognize.</p>
+<div class="highlight"><pre><span></span><code>label   primer1         primer2         template        product
+b72     10uM GB5F       10uM GB5R       pLYC72I         back72
+Af      10uM oAfDXSf    10uM oAfDXSr    Af gen.         pcrAf
+</code></pre></div>
 <h2 id="program">Program<a class="headerlink" href="#program" title="Permanent link">&para;</a></h2>
 <p>Not all PCRs use the same thermocycler program. When creating a LabSheet, we define the <strong>first attempt</strong> program for each PCR based on the expected product size. Actual success may vary, and adjustments like annealing temperature tweaks can be made in follow-up experiments and documented in the experimental issue.</p>
 <p>At the planning stage, the main variable to consider is <strong>product length</strong>. Using C6-Tools, we calculate:</p>
@@ -1105,7 +1211,8 @@ oAfDXSf     Box33/A3    oAfDXSf      oAfDXSf     100 µM
 oAfDXSr     Box33/A4    oAfDXSr      oAfDXSr     100 µM
 pTpDXS      Box33/B3    pTpDXS       pTpDXS      miniprep
 </code></pre></div>
-<p>Now we can finalize the LabSheet and add it to the project folder. There’s no fixed format or file type required, but spreadsheets tend to be the most practical. I often include extra notes or protocol guidance depending on the audience—for example, the pP6 labsheets included extensive documentation. When making sheets for myself, I typically just include the tables, as I already know what to do. Don’t forget to update your Box33 ## Gel and Zymo Labsheets</p>
+<p>Now we can finalize the LabSheet and add it to the project folder. There’s no fixed format or file type required, but spreadsheets tend to be the most practical. I often include extra notes or protocol guidance depending on the audience—for example, the pP6 labsheets included extensive documentation. When making sheets for myself, I typically just include the tables, as I already know what to do. Don’t forget to update your Box33 inventory file.</p>
+<h2 id="gel-and-zymo-labsheets">Gel and Zymo Labsheets<a class="headerlink" href="#gel-and-zymo-labsheets" title="Permanent link">&para;</a></h2>
 <p>PCR is just the beginning. After running a PCR, I usually follow up with a gel to assess success. If the results look good, I proceed with a Zymo cleanup. These steps are <strong>not</strong> dictated by the construction file—other options exist. Gels are purely analytical and can be replaced by dye-binding assays or other quantification methods. Similarly, alternative DNA purification methods exist besides Zymo columns.</p>
 <p>Our next labsheets will document gel runs and Zymo cleanups. These are straightforward:</p>
 <ul>
