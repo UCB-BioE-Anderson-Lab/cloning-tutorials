@@ -1,36 +1,41 @@
 # Ortholog Scan Project — *ispA*
 
-In this capstone exercise, you will design and plan an ortholog scan for *ispA*, a key gene in the isoprenoid biosynthesis pathway. This gene is more complex than earlier examples and presents opportunities for deeper thought in cloning design, codon optimization, and expression tuning.
+This capstone exercise guides you through designing and documenting a complete cloning project centered on *ispA*, a key enzyme in the isoprenoid biosynthesis pathway. You’ll build an ortholog expression panel in the context of plasmid pLYC72I. This gene presents more complexity than previous examples—biochemical differences among orthologs can influence the outcome, making your selection and rationale especially meaningful.
 
-## Objectives
+## Project Overview
 
-- Identify and retrieve orthologs of *ispA* from diverse organisms.
-- Plan a cloning strategy to build an expression panel for the orthologs.
-- Simulate expression and anticipate challenges (e.g. toxicity, solubility).
-- Document your plan using labsheets, Construction Files, and GenBank annotations.
+Your goal is to follow the full cloning pipeline we've developed throughout the tutorial series. You’ll prepare a complete project folder for an experiment called `lycopene34`, which includes design files, construction plans, lab documents, and a short writeup.
 
-## Requirements
+Although this exercise is built around *ispA*, the tutorial doubles as a model for how to present any cloning-based project. You’re encouraged to customize or extend it depending on your interests, as long as the documentation standards are met.
 
-Your submission should include:
+## Key Elements
 
-- A short rationale for ortholog selection (phylogenetic diversity, expression precedent, etc.).
-- A Construction File or set of Construction Files covering all planned builds.
-- Labsheet entries describing planned experiments.
-- Annotated GenBank (or JSON) records for each design.
-- A brief summary explaining your overall strategy and expectations.
+Your `lycopene34` project folder should include:
 
-## Tips
+- Construction File(s) covering all planned builds
+- Inventory, Oligos, and LabSheets
+- Annotated GenBank files
+- A `Docs/` folder with a written summary (as a `README.md`, Word doc, or PDF)
 
-- Consider using tools like BLAST and UniProt for ortholog selection.
-- Simulate assemblies using CFS and/or C6 Tools.
-- Think through compatibility with your vector and host system.
-- If *ispA* is toxic or difficult to express, plan accordingly.
+The summary should explain:
 
-## Deliverables
+- What the project is about
+- The biology and context of the *ispA* gene
+- Why you chose your orthologs (biochemical rationale, functional hypotheses, etc.)
+- Any literature you consulted
 
-Upload or submit:
-- Construction Files
-- Annotated sequence files
-- A PDF or Markdown summary of your rationale and design overview
+Use this document to guide the reader through the logic and goals of your experiment.
 
-This final project is your opportunity to apply everything you've learned—from design principles to simulation and documentation—in a real-world cloning context.
+For a reference format, see the [example Docs](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Docs/) folder from the `lycopene33` project. The lycopene33 README offers only a minimal discussion of ortholog selection. A more thorough analysis will require digging into the biochemistry of *ispA* and understanding how functional diversity informs design.
+
+## Notes
+
+- Tools like BLAST, Benchling, ApE, and C6-Tools are useful for ortholog selection and design.
+- Use C6-Tools or CFS to simulate your Construction Files to catch errors.
+- This project is your chance to demonstrate what you've learned—how to plan and document a cloning experiment, how to design and simulate constructs, and how to connect biological rationale to your choices. Your submission should reflect a clear understanding of the experimental goal, how your design supports it, and the biochemical implications of your choices.
+
+## Submission
+
+Submit a zipped copy of your completed `lycopene34` project folder.
+
+All students, regardless of project topic, are expected to document their projects in this format. The writeup should be appropriate to your specific experiment and guide the reader through your design and decisions.
