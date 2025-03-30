@@ -8,6 +8,12 @@ You will generate two key documents:
 
 - **LabSheet**: A lab-ready checklist detailing the experimental workflow.
 
+Examples of the completed ones for lycopene33 are available:
+**[Inventory](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Inventory/Minus20/)**
+**[LabSheets](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Experiments/lycopene33)**
+
+---
+
 To illustrate, consider the construction plans for the lycopene33 project:
 
 ```tsv
@@ -100,6 +106,48 @@ The LabSheet will be structured accordingly in the following sections:
 
 - **Destinations**
 
+## Sources
+
+Before setting up PCRs, collect all required DNA materials. Some items may already be in the inventory, while others will arrive lyophilized and need to be resuspended and labeled. Stock oligos are resuspended to 100 µM; PCR dilutions are typically 10 µM. Use existing dilutions if available; otherwise, make new ones from stock. For plasmids, use either a miniprep or a dilution (if prior dilution exists and is effective). Be sure to specify the clone being used when applicable.
+
+```tsv
+label       side-label             construct      clone   concentration   location
+GB5F        GB5F                   GB5F                   lyophilized     –
+GB5R        GB5R                   GB5R                   lyophilized     –
+oAfDXSf     oAfDXSf                oAfDXSf                lyophilized     –
+oAfDXSr     oAfDXSr                oAfDXSr                lyophilized     –
+pTpDXS      pTpDXS                 pTpDXS                 lyophilized     –
+pLYC72I     pLYC72I-A              pLYC72I        A       miniprep        Box33/B2
+Af gen.     Aliivibrio fischeri    CP160629               miniprep        Box33/B1
+```
+
+## Dilutions
+
+Dilution is required for any oligos without existing 10 µM tubes. Resuspend each oligo stock using the nmol value written on the tube (add 10 µL per nmol). Dilute to working concentration as needed.
+
+```tsv
+label           side-label         construct      concentration
+GB5F            GB5F               GB5F           100 µM
+GB5R            GB5R               GB5R           100 µM
+oAfDXSf         oAfDXSf            oAfDXSf        100 µM
+oAfDXSr         oAfDXSr            oAfDXSr        100 µM
+10uM GB5F       10uM GB5F          GB5F           10 µM
+10uM GB5R       10uM GB5R          GB5R           10 µM
+10uM oAfDXSf    10uM oAfDXSf       oAfDXSf        10 µM
+10uM oAfDXSr    10uM oAfDXSr       oAfDXSr        10 µM
+pTpDXS          pTpDXS             pTpDXS         miniprep
+```
+
+## Reactions
+
+Each PCR to be performed is defined in the table below. Use label names that fit on the PCR tube caps—short, unique, and easy to recognize.
+
+```tsv
+label   primer1         primer2         template        product
+b72     10uM GB5F       10uM GB5R       pLYC72I         back72
+Af      10uM oAfDXSf    10uM oAfDXSr    Af gen.         pcrAf
+```
+
 ## Program
 
 Not all PCRs use the same thermocycler program. When creating a LabSheet, we define the **first attempt** program for each PCR based on the expected product size. Actual success may vary, and adjustments like annealing temperature tweaks can be made in follow-up experiments and documented in the experimental issue.
@@ -153,7 +201,9 @@ oAfDXSr     Box33/A4    oAfDXSr      oAfDXSr     100 µM
 pTpDXS      Box33/B3    pTpDXS       pTpDXS      miniprep
 ```
 
-Now we can finalize the LabSheet and add it to the project folder. There’s no fixed format or file type required, but spreadsheets tend to be the most practical. I often include extra notes or protocol guidance depending on the audience—for example, the pP6 labsheets included extensive documentation. When making sheets for myself, I typically just include the tables, as I already know what to do. Don’t forget to update your Box33 ## Gel and Zymo Labsheets
+Now we can finalize the LabSheet and add it to the project folder. There’s no fixed format or file type required, but spreadsheets tend to be the most practical. I often include extra notes or protocol guidance depending on the audience—for example, the pP6 labsheets included extensive documentation. When making sheets for myself, I typically just include the tables, as I already know what to do. Don’t forget to update your Box33 inventory file.
+
+## Gel and Zymo Labsheets
 
 PCR is just the beginning. After running a PCR, I usually follow up with a gel to assess success. If the results look good, I proceed with a Zymo cleanup. These steps are **not** dictated by the construction file—other options exist. Gels are purely analytical and can be replaced by dye-binding assays or other quantification methods. Similarly, alternative DNA purification methods exist besides Zymo columns.
 
