@@ -1,0 +1,1 @@
+No -80 samples yet exist for lycopene33, but if there were we'd put a box file in here.
