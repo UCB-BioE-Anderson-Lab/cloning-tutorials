@@ -14,7 +14,7 @@
         <link rel="prev" href="../sequence_analysis/">
       
       
-        <link rel="next" href="../inventory_labsheets/">
+        <link rel="next" href="../cfs_simulation/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>13. Choosing a Fabrication Strategy - Cloning Tutorials</title>
+        <title>4. Choosing a Fabrication Strategy - Cloning Tutorials</title>
       
     
     
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              13. Choosing a Fabrication Strategy
+              4. Choosing a Fabrication Strategy
             
           </span>
         </div>
@@ -523,7 +523,7 @@
         
   
   <span class="md-ellipsis">
-    10. Project Setup and Nomenclature
+    1. Project Setup and Nomenclature
     
   </span>
   
@@ -545,7 +545,7 @@
         
   
   <span class="md-ellipsis">
-    11. Experimental Design Principles
+    2. Experimental Design Principles
     
   </span>
   
@@ -567,7 +567,7 @@
         
   
   <span class="md-ellipsis">
-    12. Sequence Retrieval and Analysis
+    3. Sequence Retrieval and Analysis
     
   </span>
   
@@ -598,7 +598,7 @@
           
   
   <span class="md-ellipsis">
-    13. Choosing a Fabrication Strategy
+    4. Choosing a Fabrication Strategy
     
   </span>
   
@@ -610,7 +610,7 @@
         
   
   <span class="md-ellipsis">
-    13. Choosing a Fabrication Strategy
+    4. Choosing a Fabrication Strategy
     
   </span>
   
@@ -717,11 +717,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../inventory_labsheets/" class="md-nav__link">
+      <a href="../cfs_simulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    14. Inventory and Labsheets
+    5. Simulation Tools
     
   </span>
   
@@ -739,11 +739,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../cfs_simulation/" class="md-nav__link">
+      <a href="../inventory_labsheets/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    15. Simulation Tools
+    6. Inventory and Labsheets
     
   </span>
   
@@ -765,7 +765,7 @@
         
   
   <span class="md-ellipsis">
-    16. Ortholog Scan Project
+    7. Ortholog Scan Project
     
   </span>
   
@@ -1027,9 +1027,9 @@ Coordinates: 656655–658523<br />
 </ul>
 <p>💡 If your synthesis request is rejected, use the IDT or Twist <strong>codon optimization tools</strong> to automatically adjust your CDS to fit synthesis constraints.</p>
 <p><strong>CF Example</strong> (gene synthesis with Golden Gate):
-<div class="highlight"><pre><span></span><code>PCR GB5F GB5R pLYC72I backbone
-GoldenGate pTpDXS backbone BsaI gg
-Transform gg Mach1 Amp 37 pLYC76I
+<div class="highlight"><pre><span></span><code>PCR GB5F GB5R pLYC72I back72
+GoldenGate pTpDXS back72 BsaI ggTp
+Transform ggTp Mach1 Amp 37 pLYC76
 </code></pre></div>
 With these oligo sequences:
 <div class="highlight"><pre><span></span><code>oligo GB5F ccataGGTCTCaGCTTTGATCGATTCAACCTCTGATCA
@@ -1046,9 +1046,9 @@ oligo GB5R cagttGGTCTCtAGTACCTCTAAACACAACGACAACAG
 </ul>
 <p>💡 The dxs ortholog from <em>T. pyogenes</em> contains an internal BsaI site, making it a good candidate for synthesis as a gBlock followed by Gibson Assembly.</p>
 <p><strong>CF Example</strong> (gBlock with Gibson):
-<div class="highlight"><pre><span></span><code>PCR YB5F YB5R pLYC72I backbone
-Gibson gTpDXS backbone gg
-Transform gg Mach1 Amp 37 pLYC76I
+<div class="highlight"><pre><span></span><code>PCR YB5F YB5R pLYC72I yback72
+Gibson gTpDXS yback72 ggTp
+Transform ggTp Mach1 Amp 37 pLYC76
 </code></pre></div>
 With these oligo sequences:
 <div class="highlight"><pre><span></span><code>oligo YB5F  gcacagctggccgcctataggGCTTTGATCGATTCAACCTCTGATCA
@@ -1063,10 +1063,10 @@ Where <code>gTpDXS</code> is the synthesized dsDNA fragment encoding the RC part
 <li>Covered in earlier tutorials—see Construction Files for format.</li>
 </ul>
 <p><strong>CF Example</strong> (gene synthesis with Golden Gate):
-<div class="highlight"><pre><span></span><code>PCR oTpDXSf oTpDXSr CP033902 pcrpdt
-PCR GB5F GB5R pLYC72I backbone
-GoldenGate pcrpdt backbone BsaI gg
-Transform gg Mach1 Amp 37 pLYC76I
+<div class="highlight"><pre><span></span><code>PCR oTpDXSf oTpDXSr CP033902 pcrTp
+PCR GB5F GB5R pLYC72I back72
+GoldenGate pcrTp back72 BsaI ggTp
+Transform ggTp Mach1 Amp 37 pLYC76
 </code></pre></div>
 With these oligo sequences:
 <div class="highlight"><pre><span></span><code>oligo oTpDXSf  ccataGGTCTCaTACTgtcatgctttcgatcagtgg
@@ -1078,8 +1078,8 @@ oligo GB5R cagttGGTCTCtAGTACCTCTAAACACAACGACAACAG
 <p>In contrast, the <em>Aliivibrio fischeri</em> ortholog (GenBank: CP160629.1) lacks internal BsaI/BsmBI sites and meets the criteria for PCR-based cloning from genomic DNA.</p>
 <p>As a result, two constructs were designed in this experiment:</p>
 <ul>
-<li><strong>pLYC76I:</strong> The <em>Trueperella pyogenes</em> variant of <em>dxs</em> cloned into pLYC72I via gene synthesis</li>
-<li><strong>pLYC76J:</strong> The <em>Aliivibrio fischeri</em> variant of <em>dxs</em> cloned into pLYC72I via PCR</li>
+<li><strong>pLYC76:</strong> The <em>Trueperella pyogenes</em> variant of <em>dxs</em> cloned into pLYC72I via gene synthesis</li>
+<li><strong>pLYC77:</strong> The <em>Aliivibrio fischeri</em> variant of <em>dxs</em> cloned into pLYC72I via PCR</li>
 </ul>
 <p>Once you select a fabrication strategy for each construct, you must write corresponding Construction Files and place them in your <code>Construction/</code> folder. Reference example CFs in:</p>
 <p><strong><a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Experiments/lycopene33/">cloning-tutorials/examples/</a></strong></p>
@@ -1090,7 +1090,7 @@ oligo GB5R cagttGGTCTCtAGTACCTCTAAACACAACGACAACAG
 <p>For the Lycopene33 experiment, this results in:</p>
 <ul>
 <li>
-<p>2 Construction Files (pLYC76I and pLYC76J)</p>
+<p>2 Construction Files (pLYC76 and pLYC77)</p>
 </li>
 <li>
 <p>2 product GenBank files (one for each construct)</p>
