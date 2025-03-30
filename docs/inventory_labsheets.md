@@ -27,7 +27,7 @@ In a construction file (CF), the final item on each line (e.g., `ggTp`, `ggAf`, 
 Let’s focus on the inputs. Some are carryovers from previous experiments and are already cataloged. Their locations can be found in the project folder’s inventory files:
 
 - `pLYC72I`: Prototype plasmid → **Box33 / B2**
-- `CP160629`: Genomic DNA from *Af* → **Box33 / B1**
+- `CP160629`: Genomic DNA from *Aliivibrio fischeri* → **Box33 / B1**
 
 This notation means: Row B (second row, starting from A), Column 2 (counting from 1) in a box labeled `Box33`.
 
