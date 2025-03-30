@@ -959,21 +959,20 @@
 <h2 id="defining-a-project">Defining a Project<a class="headerlink" href="#defining-a-project" title="Permanent link">&para;</a></h2>
 <p>A <em>project</em> is an independent thread of research with a clear goal. Each project must have a unique, single-token name (e.g., <code>lycopene</code>). Avoid informal names or nicknames in documentation to maintain searchable and traceable records. </p>
 <p>When starting out, a project might begin with a narrow goal, but it will likely grow in complexity. Naming it consistently from the start ensures future experiments, constructs, and documentation stay aligned and searchable.</p>
-<p>Example:
-- Project name: <code>lycopene</code>
-- Goal: Maximize lycopene production in <em>E. coli</em>.</p>
+<p>Example:</p>
+<ul>
+<li>Project name: <code>lycopene</code></li>
+<li>Goal: Maximize lycopene production in <em>E. coli</em>.</li>
+</ul>
 <h2 id="defining-an-experiment">Defining an Experiment<a class="headerlink" href="#defining-an-experiment" title="Permanent link">&para;</a></h2>
 <p>An <em>experiment</em> is a bundled set of procedures (e.g., cloning, assays) conducted under a specific goal within a project. Experiments are named sequentially and prefixed by the project name (e.g., <code>lycopene33</code> is the 33rd experiment in the <code>lycopene</code> project).</p>
 <p>This deterministic naming also aids automation, indexing, and archiving of experiments. If experiment names are consistent, you can sort and filter results by project or experiment ID with confidence.</p>
 <h2 id="plasmid-naming">Plasmid Naming<a class="headerlink" href="#plasmid-naming" title="Permanent link">&para;</a></h2>
 <p>Plasmids are named using a lowercase “p” and a project-specific prefix. Use sequential numbers:</p>
 <ul>
-<li>
-<p>Format: <code>pLYC1</code>, <code>pLYC2</code>, ...</p>
-</li>
-<li>
-<p>Do <strong>not</strong> use descriptive names like <code>StrongPromoterGGPPS-pLYC22</code>.</p>
-</li>
+<li>Format: <code>pLYC1</code>, <code>pLYC2</code>, ...</li>
+<li>Keep the length 4-6 characters to balance uniqueness with the ability to write it on a tube cap</li>
+<li>Do <strong>not</strong> use descriptive names like <code>StrongPromoterGGPPS-pLYC22</code>.</li>
 </ul>
 <p>Descriptive names, while initially helpful, tend to grow unwieldy and ambiguous. For example, what begins as 'StrongPromoterGGPPS-pLYC22' may later include more variables, making names long and inconsistent. Short names like pLYC22 can be reliably printed on tubes and cross-referenced with detailed annotations in maps and documentation.</p>
 <h2 id="naming-synthetic-dnas">Naming Synthetic DNAs<a class="headerlink" href="#naming-synthetic-dnas" title="Permanent link">&para;</a></h2>
@@ -1007,9 +1006,6 @@
 <li>
 <p><code>Experiments/lycopene33/</code> holds folders like <code>Construction</code> and <code>Maps</code> where you'll see placeholders for your design and genbank files.</p>
 </li>
-<li>
-<p><code>Inventory/Minus20/README.md</code> can describe what box formats are used and which materials will be stored there.</p>
-</li>
 </ul>
 <p>Example Experiment folder structure:
 <div class="highlight"><pre><span></span><code>lycopene33/
@@ -1022,18 +1018,10 @@
 <p>This layout mirrors the workflow of a synthetic biology experiment—from planning (Construction), to execution (Maps, Sequencing), to analysis (Assays), and finally lab-specific logistics (LabSheets).</p>
 <h2 id="file-types-and-conventions">File Types and Conventions<a class="headerlink" href="#file-types-and-conventions" title="Permanent link">&para;</a></h2>
 <ul>
-<li>
-<p>Construction files: <code>.txt</code></p>
-</li>
-<li>
-<p>DNA sequences: TSV format (IDT-style) or annotated Genbank files (<code>.seq</code>, <code>.gb</code>, <code>.ape</code>)</p>
-</li>
-<li>
-<p>Oligos under 60bp: 25nm scale; 60+bp: 100nm</p>
-</li>
-<li>
-<p>All naming and file conventions should match what is physically labeled in the lab.</p>
-</li>
+<li>Construction files: <code>.txt</code></li>
+<li>DNA sequences: TSV format (IDT-style) or annotated Genbank files (<code>.seq</code>, <code>.gb</code>, <code>.ape</code>)</li>
+<li>Oligos under 60bp: 25nm scale; 60+bp: 100nm</li>
+<li>All naming and file conventions should match what is physically labeled in the lab.</li>
 </ul>
 <p>Proper formats reduce ordering errors, improve readability, and allow automated tools to validate or simulate designs. Genbank files should include full annotations for every promoter, CDS, terminator, origin, and sequencing primer site. TSV files should use standard fields as required by synthesis companies (e.g., IDT). </p>
 <p>Each sequence should only exist once in the repository. Avoid duplicating the same DNA sequence across multiple files or folders. Duplicates can easily drift apart — differing in name, annotation, or actual sequence — which leads to confusion and possible experimental error. Instead, reference the original file consistently throughout Construction Files and documentation.</p>
@@ -1111,7 +1099,7 @@ And the example project directory:<br />
 </ul>
 <p>Although your repo may be private now, it may be made public in the future. Write with that audience in mind.</p>
 <p>An example issue for <code>lycopene33</code> is provided in the cloning repo: 
-<a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/issues/2">lycopene33 issue</a></p>
+<a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/issues/3">lycopene33 issue</a></p>
 
 
 
