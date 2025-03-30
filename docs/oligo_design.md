@@ -106,9 +106,9 @@ There are three main fabrication routes based on the type of DNA product you'll 
 
 **CF Example** (gene synthesis with Golden Gate):
 ```txt
-PCR GB5F GB5R pLYC72I backbone
-GoldenGate pTpDXS backbone BsaI gg
-Transform gg Mach1 Amp 37 pLYC76I
+PCR GB5F GB5R pLYC72I back72
+GoldenGate pTpDXS back72 BsaI ggTp
+Transform ggTp Mach1 Amp 37 pLYC76
 ```
 With these oligo sequences:
 ```txt
@@ -131,9 +131,9 @@ Where `pTpDXS` is the plasmid obtained by gene synthesis.
 
 **CF Example** (gBlock with Gibson):
 ```txt
-PCR YB5F YB5R pLYC72I backbone
-Gibson gTpDXS backbone gg
-Transform gg Mach1 Amp 37 pLYC76I
+PCR YB5F YB5R pLYC72I yback72
+Gibson gTpDXS yback72 ggTp
+Transform ggTp Mach1 Amp 37 pLYC76
 ```
 With these oligo sequences:
 ```txt
@@ -152,10 +152,10 @@ Where `gTpDXS` is the synthesized dsDNA fragment encoding the RC part with appro
 
 **CF Example** (gene synthesis with Golden Gate):
 ```txt
-PCR oTpDXSf oTpDXSr CP033902 pcrpdt
-PCR GB5F GB5R pLYC72I backbone
-GoldenGate pcrpdt backbone BsaI gg
-Transform gg Mach1 Amp 37 pLYC76I
+PCR oTpDXSf oTpDXSr CP033902 pcrTp
+PCR GB5F GB5R pLYC72I back72
+GoldenGate pcrTp back72 BsaI ggTp
+Transform ggTp Mach1 Amp 37 pLYC76
 ```
 With these oligo sequences:
 ```txt
@@ -171,8 +171,8 @@ In contrast, the *Aliivibrio fischeri* ortholog (GenBank: CP160629.1) lacks inte
 
 As a result, two constructs were designed in this experiment:
 
-- **pLYC76I:** The *Trueperella pyogenes* variant of *dxs* cloned into pLYC72I via gene synthesis
-- **pLYC76J:** The *Aliivibrio fischeri* variant of *dxs* cloned into pLYC72I via PCR
+- **pLYC76:** The *Trueperella pyogenes* variant of *dxs* cloned into pLYC72I via gene synthesis
+- **pLYC77:** The *Aliivibrio fischeri* variant of *dxs* cloned into pLYC72I via PCR
 
 Once you select a fabrication strategy for each construct, you must write corresponding Construction Files and place them in your `Construction/` folder. Reference example CFs in:
 
@@ -187,7 +187,7 @@ Finally, include annotated GenBank files for all precursor and product plasmids,
 
 For the Lycopene33 experiment, this results in:
 
-- 2 Construction Files (pLYC76I and pLYC76J)
+- 2 Construction Files (pLYC76 and pLYC77)
 
 - 2 product GenBank files (one for each construct)
 

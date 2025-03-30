@@ -2,7 +2,7 @@
 
 Welcome to the **Synthetic Biology Project Tutorials**, a modular series of interactive guides covering both hands-on molecular cloning and high-level project planning. These tutorials build from DNA fundamentals to advanced techniques in cloning design, sequence analysis, experimental execution, and data management.
 
-## Part 1: Cloning Techniques
+## Part A: Cloning Techniques
 
 1. **[DNA Basics](dna_basics.md)**  
    Learn about DNA structure, reverse complement operations, strandedness, plasmids, and genomes.
@@ -31,7 +31,7 @@ Welcome to the **Synthetic Biology Project Tutorials**, a modular series of inte
 9. **[Sequencing Analysis](sequencing.md)**  
    Learn to analyze sequencing results.
 
-## Part 2: Project Planning
+## Part B: Project Planning
 
 1. **[Project Setup and Nomenclature](project_setup.md)**  
    Learn how to structure a project, name experiments, and organize your working directory.
@@ -45,22 +45,13 @@ Welcome to the **Synthetic Biology Project Tutorials**, a modular series of inte
 4. **[Choosing a Fabrication Strategy](oligo_design.md)**  
    Design primers and synthetic fragments for amplification and cloning.
 
-5. **[Cloning Strategy & Construction Files](construction_files.md)**  
-   Build and document your cloning plans using standardized Construction Files.
+5. **[Simulation Tools](cfs_simulation.md)**  
+   Simulate your cloning designs using the Java-based CFS tool and the web-based C6 Tools platform.
 
-6. **[Inventory and File Organization](inventory_management.md)**  
-   Organize physical and digital materials using structured naming and box mapping.
+6. **[Inventory and Labsheets](inventory_labsheets.md)**  
+   Organize your physical inventory and use labsheets to plan and document your experiments.
 
-7. **[Simulation & Pre-experiment Checklist](simulation_checklist.md)**  
-   Validate your designs before executing them using construction simulators.
-
-8. **[Experimental Execution](execution.md)**  
-   Go from plan to bench with step-by-step guidance and documentation practices.
-
-9. **[Data Management and Analysis](data_analysis.md)**  
-   Manage, annotate, and interpret your results.
-
-10. **[Narrative Writing and Reflection](narrative_writing.md)**  
-   Write concise experiment descriptions and answer guiding questions to explain your design.
+7. **[Ortholog Scan  Project](project_ispA.md)**  
+   Design an ortholog scan for the complex gene *ispA* as a capstone project, integrating bioinformatics, cloning strategy, and documentation.
 
 Each tutorial includes **step-by-step instructions, videos, and interactive examples**.
