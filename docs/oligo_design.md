@@ -17,12 +17,46 @@ Coordinates: 656655–658523
 
 You’ve already discussed this sequence, selected a suitable RBS, and formatted it as a standardized RC part following TP.RC conventions. A visual reminder of the completed part is shown below:
 
-![RC part graphic](images/RC_TpDxs_structure.png)
+  <h2>TpDXS RC Part</h2>
+  <div id="viewer"></div>
+  <script src="https://unpkg.com/seqviz"></script>
+  <script>
+    function waitForSeqViz(callback) {
+      if (typeof seqviz !== "undefined" && seqviz.Viewer) {
+        callback();
+      } else {
+        setTimeout(() => waitForSeqViz(callback), 50);
+      }
+    }
+
+    waitForSeqViz(() => {
+      seqviz
+        .Viewer("viewer", {
+            "name": "TpDXS",
+            "seq": "ccataGGTCTCaTACTgtcatgctttcgatcagtggtaatctatgcgtagttaaaaggagaaccggtgattcttgattcgataaatggccccgaggacctcgcatcactcaaggttaaggacctcgagcagctggcggaagaaatccgccgcttcctcgtcgtcaacgtggcaaagacgggcgggcacctagggccaaacctgggcgttgtggagctgagcattgcgttacatcgcgtgtttgattcgccccgcgacacgctgatttgggacaccggccaccaagcctatgttcacaagattctcaccggccgcaaagactttgcgcgcctgcgtcaagagggtgggctttcaggctacccctcgcgcgcggagtcggagcatgacgtcgtggagaactcacacgcctcaactgccctgtcgtgggccgatggtatcgcccgcggactgcagctttctggcaaagatagctcggtggtcgccatcattggcgacggcgcgatgactggcggcatggcctgggaggcgctgaacaacatagctgaggatccagatcgcccgctggttatcgtcctcaatgacaatggccgctcgtacgcgcctaccgtgggcgggatcgtgcgtcgctttgacccggtgcgcaaactcgacgcgatgcgagtcaaccgggactacgagaacttcctcgaatggggaaagcgtaccctgcaaggctctggagtaccgggaaaactcacgtatgacacgttgcgcggcatcaagaaaggcatgaaggagattttcttcgacgccggaatcttcgactcgctggggctgaagtacatcggccccgttgacggccacgatatcaagagcctcgaagaggccttgacgatggcgcgcgattacggtggtcccgtcgtcgtgcatgcgattacagaaaaaggacgcgggttcaagccagccgaggagaacaaagctgaccgcttccacgcggtaggtaagatccacccagagaccgggcttccgatcgagccctcgcggttcggatggacatctatttttgccgaggaaatactgaagatcgcgcgcaacgatgcctcgattgtgggggtgacggcggcgatgttgcaaccggttgggctctccctactgcgggaagagtttcctaagcgcgtgatcgatgtcggcatcgccgagcagcacgcggtcacaatggctgcgggtctggcaaaagcgggttttcatccagtcattgcactgtatgcgaccttcctcaaccgtggctttgaccagctcctcatggatgtcgcgctccataacgcgcctgtgacgatctgtctcgatcgggccggggtgacgggcgacgacggcccctcgcacaacggcatgtgggatctgtcaatggcagcgatgatccccaacctgcgtgtagccgttccgcgcgacgagcagcgcatgcgcgagcttctcagccaagctacgcaggttcaatcgcctaccctcgtgcgttacccgaaaggctcagtgccttacgagatcccggctctccgttcgattggccagctcgacgtcctctttgagcgtgtggtcgagggggagcccccgatcgttcttgtggccgtcggccccatggcacacgccgtgattgaggcggcgcagggactcaacagttcgctcgtggcggtcgacccacgatgggtgctcccaatttccgaccagcttgttgacctggccgccacctcggcaggcgttgtggtactcgaagacggcctcgctactgggggcgtaggtgacgcgctgcgctctgccttggcaaggtccggatcgtatgtgcctgtcaagagcctcggcattgacaagagatttctccagcacgccacgcgcggggcgattcttcatcgccaagcgatggacgccgacgccgtacacaccgcggtctgccagctgcgcggctagagcacagctggccgcctataggGCTTaGAGACCaactg",
+            "annotations": [
+                { "name": "5' linker", "start": 16, "end": 36, "color": "cyan", "direction": 1 },
+                { "name": "native RBS", "start": 36, "end": 65, "color": "#92ffa4", "direction": 1 },
+                { "name": "dxs CDS", "start": 65, "end": 1937, "color": "#e9d024", "direction": 1 },
+                { "name": "3' linker", "start": 1938, "end": 1959, "color": "cyan", "direction": 1 },
+                { "name": "BsaI", "start": 5, "end": 16, "color": "#c9cc9d", "direction": 1 },
+                { "name": "BsaI (internal)", "start": 987, "end": 998, "color": "#c9cc9d", "direction": -1 },
+                { "name": "BsaI", "start": 1959, "end": 1970, "color": "#c9cc9d", "direction": -1 },
+            ],
+          translations: [],
+          viewer: "linear",
+          showComplement: false,
+          showIndex: true,
+          style: { height: "400px", width: "100%" }
+        })
+        .render();
+    });
+  </script>
 
 The corresponding DNA sequence files is included in the **[example Maps](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Experiments/lycopene33/Maps)** folder for reference.
 
-- **CP033902.seq:** The raw sequence of the region of the Trueperella genome containing the dxs CDS and flanking sequences
-- **gTpDXS.seq:** A GBlock encoding an RC (rbs.cds) part encoding the Trueperella sequence with restriction sites removed
+- **CP033902.seq:** The raw sequence of the region of the *Trueperella* genome containing the dxs CDS and flanking sequences
+- **gTpDXS.seq:** A GBlock encoding an RC (rbs.cds) part encoding the *Trueperella* sequence with restriction sites removed
 - **pTpDXS.seq:** A clonal gene synthesis plasmid encoding the restriction site-free part
 
 ---
