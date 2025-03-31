@@ -127,7 +127,10 @@ In IPCR, primers face away from each other on a circular template. Here’s how 
 
 ---
 
+
 ## Quiz: Can You Predict This Product?
+
+Try manually predicting the product of this PCR reaction based on the primers and template given below.
 
 ```
 operation    primer1     primer2     template   product
@@ -138,19 +141,30 @@ oligo        qRev        cagatCTCGAGTTAGTGCTGTTCGAGGTCCTG
 plasmid      pQ1         CACTCAAGGTTCAGGACCTCGAACAGCACTAACGGAAGAAATCCGATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCAT
 ```
 
-**Your task**: What is the sequence of `quizpdt`?
+Enter your predicted PCR product sequence in the box below:
 
-📬 Submit your prediction in the interactive quiz:
-✅ **[Launch the Quiz](../quizzes/pcr_prediction_quiz.md)**
+<textarea id="pcrQuizInput" rows="4" style="width:100%; font-family:monospace;"></textarea>
+<br>
+<button onclick="checkPcrQuizAnswer()">Submit</button>
+<p id="pcrQuizFeedback"></p>
 
----
-
-**Answer (hover or click to reveal):**
-<details><summary>Show Answer</summary>
-
-```
-ccataCCATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCATCACTCAAGGTTCAGGACCTCGAACAGCACTAACTCGAGatctg
-```
-
-</details>
-</file>
+<script>
+function checkPcrQuizAnswer() {
+  const correct = "ccataCCATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCATCACTCAAGGTTCAGGACCTCGAACAGCACTAACTCGAGatctg";
+  const input = document.getElementById("pcrQuizInput").value.replace(/\s+/g, "");
+  const feedback = document.getElementById("pcrQuizFeedback");
+  if (input.toLowerCase() === correct.toLowerCase()) {
+    feedback.innerHTML = "✅ Correct! Well done.";
+    feedback.style.color = "green";
+    if (window.progressManager) {
+      window.progressManager.addCompletion("pcr_prediction_quiz", "correct");
+    }
+  } else {
+    feedback.innerHTML = "❌ Not quite. Check your annealing regions and try again.";
+    feedback.style.color = "red";
+    if (window.progressManager) {
+      window.progressManager.addCompletion("pcr_prediction_quiz", "incorrect");
+    }
+  }
+}
+</script>

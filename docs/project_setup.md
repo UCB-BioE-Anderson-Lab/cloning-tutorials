@@ -9,6 +9,7 @@ A *project* is an independent thread of research with a clear goal. Each project
 When starting out, a project might begin with a narrow goal, but it will likely grow in complexity. Naming it consistently from the start ensures future experiments, constructs, and documentation stay aligned and searchable.
 
 Example:
+
 - Project name: `lycopene`
 - Goal: Maximize lycopene production in *E. coli*.
 
@@ -23,7 +24,7 @@ This deterministic naming also aids automation, indexing, and archiving of exper
 Plasmids are named using a lowercase “p” and a project-specific prefix. Use sequential numbers:
 
 - Format: `pLYC1`, `pLYC2`, ...
-
+- Keep the length 4-6 characters to balance uniqueness with the ability to write it on a tube cap
 - Do **not** use descriptive names like `StrongPromoterGGPPS-pLYC22`.
 
 Descriptive names, while initially helpful, tend to grow unwieldy and ambiguous. For example, what begins as 'StrongPromoterGGPPS-pLYC22' may later include more variables, making names long and inconsistent. Short names like pLYC22 can be reliably printed on tubes and cross-referenced with detailed annotations in maps and documentation.
@@ -62,8 +63,6 @@ In the `lycopene` example:
 
 - `Experiments/lycopene33/` holds folders like `Construction` and `Maps` where you'll see placeholders for your design and genbank files.
 
-- `Inventory/Minus20/README.md` can describe what box formats are used and which materials will be stored there.
-
 Example Experiment folder structure:
 ```
 lycopene33/
@@ -79,11 +78,8 @@ This layout mirrors the workflow of a synthetic biology experiment—from planni
 ## File Types and Conventions
 
 - Construction files: `.txt`
-
 - DNA sequences: TSV format (IDT-style) or annotated Genbank files (`.seq`, `.gb`, `.ape`)
-
 - Oligos under 60bp: 25nm scale; 60+bp: 100nm
-
 - All naming and file conventions should match what is physically labeled in the lab.
 
 Proper formats reduce ordering errors, improve readability, and allow automated tools to validate or simulate designs. Genbank files should include full annotations for every promoter, CDS, terminator, origin, and sequencing primer site. TSV files should use standard fields as required by synthesis companies (e.g., IDT). 
@@ -156,4 +152,4 @@ The first block in each issue should clearly explain the goal of the experiment.
 Although your repo may be private now, it may be made public in the future. Write with that audience in mind.
 
 An example issue for `lycopene33` is provided in the cloning repo: 
-[lycopene33 issue](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/issues/2)
+[lycopene33 issue](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/issues/3)
