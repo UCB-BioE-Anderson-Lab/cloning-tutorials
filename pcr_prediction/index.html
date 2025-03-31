@@ -1003,6 +1003,7 @@ Use this as a reference before or after the steps below — it's especially help
 </ol>
 <hr />
 <h2 id="quiz-can-you-predict-this-product">Quiz: Can You Predict This Product?<a class="headerlink" href="#quiz-can-you-predict-this-product" title="Permanent link">&para;</a></h2>
+<p>Try manually predicting the product of this PCR reaction based on the primers and template given below.</p>
 <div class="highlight"><pre><span></span><code>operation    primer1     primer2     template   product
 PCR          qFor        qRev        pQ1        quizpdt
 
@@ -1010,18 +1011,32 @@ oligo        qFor        ccataCCATGGTTCTTGATTCGATACG
 oligo        qRev        cagatCTCGAGTTAGTGCTGTTCGAGGTCCTG
 plasmid      pQ1         CACTCAAGGTTCAGGACCTCGAACAGCACTAACGGAAGAAATCCGATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCAT
 </code></pre></div>
-<p><strong>Your task</strong>: What is the sequence of <code>quizpdt</code>?</p>
-<p>📬 Submit your prediction in the interactive quiz:
-✅ <strong><a href="../quizzes/pcr_prediction_quiz.md">Launch the Quiz</a></strong></p>
-<hr />
-<p><strong>Answer (hover or click to reveal):</strong></p>
-<details><summary>Show Answer</summary>
+<p>Enter your predicted PCR product sequence in the box below:</p>
+<textarea id="pcrQuizInput" rows="4" style="width:100%; font-family:monospace;"></textarea>
+<p><br>
+<button onclick="checkPcrQuizAnswer()">Submit</button></p>
+<p id="pcrQuizFeedback"></p>
 
-<div class="highlight"><pre><span></span><code>ccataCCATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCATCACTCAAGGTTCAGGACCTCGAACAGCACTAACTCGAGatctg
-</code></pre></div>
-
-</details>
-<p></file></p>
+<script>
+function checkPcrQuizAnswer() {
+  const correct = "ccataCCATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCATCACTCAAGGTTCAGGACCTCGAACAGCACTAACTCGAGatctg";
+  const input = document.getElementById("pcrQuizInput").value.replace(/\s+/g, "");
+  const feedback = document.getElementById("pcrQuizFeedback");
+  if (input.toLowerCase() === correct.toLowerCase()) {
+    feedback.innerHTML = "✅ Correct! Well done.";
+    feedback.style.color = "green";
+    if (window.progressManager) {
+      window.progressManager.addCompletion("pcr_prediction_quiz", "correct");
+    }
+  } else {
+    feedback.innerHTML = "❌ Not quite. Check your annealing regions and try again.";
+    feedback.style.color = "red";
+    if (window.progressManager) {
+      window.progressManager.addCompletion("pcr_prediction_quiz", "incorrect");
+    }
+  }
+}
+</script>
 
 
 
