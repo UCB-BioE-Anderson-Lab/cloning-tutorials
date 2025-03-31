@@ -13,8 +13,8 @@ Welcome to the **Synthetic Biology Project Tutorials**, a modular series of inte
 3. **[PCR Product Prediction](pcr_prediction.md)**  
    Manually predict PCR products using a sequence editor and understand the concept of annealing regions.
 
-4. **[PCR Simulation](pcr_simulation.md)**  
-   Simulate the PCR reaction to reinforce concepts.
+4. **[Construction File Simulation](cf_simulation.md)**  
+   Use simulation tools to test cloning steps written in Construction File shorthand.
 
 5. **[Basic Cloning](basic_cloning.md)**  
    Walk through traditional cloning steps.
