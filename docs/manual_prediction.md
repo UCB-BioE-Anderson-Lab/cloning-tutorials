@@ -136,7 +136,7 @@ Try manually predicting the product of this PCR reaction based on the primers an
 operation    primer1     primer2     template   product
 PCR          qFor        qRev        pQ1        quizpdt
 
-oligo        qFor        ccataCCATGGTTCTTGATTCGATACG
+oligo        qFor        ccataCATATGGTTCTTGATTCGATACG
 oligo        qRev        cagatCTCGAGTTAGTGCTGTTCGAGGTCCTG
 plasmid      pQ1         CACTCAAGGTTCAGGACCTCGAACAGCACTAACGGAAGAAATCCGATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCAT
 ```
@@ -150,7 +150,7 @@ Enter your predicted PCR product sequence in the box below:
 
 <script>
 function checkPcrQuizAnswer() {
-  const correct = "ccataCCATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCATCACTCAAGGTTCAGGACCTCGAACAGCACTAACTCGAGatctg";
+  const correct = "ccataCATATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCATCACTCAAGGTTCAGGACCTCGAACAGCACTAACTCGAGatctg";
   const input = document.getElementById("pcrQuizInput").value.replace(/\s+/g, "");
   const feedback = document.getElementById("pcrQuizFeedback");
   if (input.toLowerCase() === correct.toLowerCase()) {
@@ -164,6 +164,77 @@ function checkPcrQuizAnswer() {
     feedback.style.color = "red";
     if (window.progressManager) {
       window.progressManager.addCompletion("pcr_prediction_quiz", "incorrect");
+    }
+  }
+}
+</script>
+
+---
+
+## Simulating Digestion and Ligation
+
+You’ve now practiced predicting PCR products. Let’s now expand on this by modeling what happens during digestion and ligation.
+
+### Example Scenario
+
+We’ll simulate digesting a PCR product and a second DNA fragment with compatible restriction sites and then ligating them together.
+
+#### Inputs:
+
+```
+DNA fragment:   frag1
+Sequence:       ccataCATATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCATCACTCAAGGTTCAGGACCTCGAACAGCACTAACTCGAGatctg
+
+DNA fragment:   frag2
+Sequence:       tcgagGAATTCAGCTGAGGTCGATGAGGTTGCGGTCGATGATCG
+
+Note: frag2 contains a 5' XhoI site (CTCGAG) and an EcoRI site downstream.
+```
+
+#### Step 1: Digest both fragments
+
+- **frag1** will be cut with **XhoI** (CTCGAG): find and cut at the site near the 3' end.
+- **frag2** will be cut with **XhoI** as well.
+
+Remember that XhoI cuts between C and T in C^TCGAG and leaves a 5' overhang.
+
+#### Step 2: Simulate ligation
+
+- Remove everything downstream of the XhoI site in `frag1`.
+- Remove everything **upstream** of the XhoI site in `frag2`.
+- Ligate the remaining ends to form the new construct.
+
+You should now have a linear recombinant sequence with a seamless junction.
+
+---
+
+## Quiz: Simulate the Ligation Product
+
+Use the frag1 and frag2 sequences above to simulate the product of digestion and ligation.
+
+What is the final product sequence?
+
+<textarea id="ligationQuizInput" rows="4" style="width:100%; font-family:monospace;"></textarea>
+<br>
+<button onclick="checkLigationQuizAnswer()">Submit</button>
+<p id="ligationQuizFeedback"></p>
+
+<script>
+function checkLigationQuizAnswer() {
+  const correct = "ccataCATATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCATCACTCAAGGTTCAGGACCTCGAACAGCACTAACTCGAGGAATTCAGCTGAGGTCGATGAGGTTGCGGTCGATGATCG";
+  const input = document.getElementById("ligationQuizInput").value.replace(/\s+/g, "");
+  const feedback = document.getElementById("ligationQuizFeedback");
+  if (input.toLowerCase() === correct.toLowerCase()) {
+    feedback.innerHTML = "✅ Correct! You've successfully simulated the ligation.";
+    feedback.style.color = "green";
+    if (window.progressManager) {
+      window.progressManager.addCompletion("ligation_quiz", "correct");
+    }
+  } else {
+    feedback.innerHTML = "❌ Not quite. Make sure you simulated the XhoI digestion sites and kept the correct fragments.";
+    feedback.style.color = "red";
+    if (window.progressManager) {
+      window.progressManager.addCompletion("ligation_quiz", "incorrect");
     }
   }
 }

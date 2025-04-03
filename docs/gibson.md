@@ -1,28 +1,36 @@
-
 # Gibson Assembly: Building pET-lacZ Without Restriction Enzymes
 
-## Overview
-In this tutorial, you will construct the same pET-lacZ plasmid as in the basic cloning tutorial—but using Gibson Assembly 
-instead of restriction enzymes. This approach uses homology overlaps in PCR products to guide seamless assembly. We'll walk 
-through how to design the overlapping sequences, build the model, design the oligos, and simulate the outcome.
-
----
-
 ## Context: Why Gibson?
-Restriction enzymes limit the placement of junctions and are not always compatible with certain sequences. Gibson Assembly 
-bypasses these limitations by using overlapping homology regions between DNA fragments to join them without scars. [todo: this is underselling the importance and utility of gibson.  the #1 benefit is the simmplicity, the #2 benefit is it can be applied anywhere, scarlessly. We should explain all that.]
 
-We'll build pET-lacZ using two PCRs:
-- PCR #1: amplifies *lacZ* from the *E. coli* genome
-- PCR #2: amplifies the pET vector backbone
-These products will have ~20–40 bp overlaps, allowing seamless joining via Gibson.
+Traditional cloning methods using restriction enzymes can be limiting. You’re constrained to placing junctions where restriction sites exist, and adding scars to your constructs. Gibson Assembly solves both of these problems:
+
+1. **Simplicity** – Just PCR and mix. It allows fast cloning without special enzymes for each junction.
+2. **Flexibility** – Junctions can be placed anywhere by designing overlaps into your primers.
+3. **Scarless** – The overlaps are built into the final product seamlessly.
+
+In this tutorial, you’ll use Gibson Assembly to build the same pET-lacZ plasmid from the basic cloning tutorial. But this time, we’ll use PCR to generate two overlapping fragments:
+- One containing the *lacZ* gene
+- One with the pET28a backbone
+
+Then you’ll join them using Gibson’s exonuclease-polymerase-ligase mix.
 
 ---
 
-## Figure: Homology Overlaps in Gibson Assembly
+## Video Demo
 
-![Gibson Assembly Schematic](images/gibson_homology_overlap.png)  
-*Figure: Two DNA fragments with complementary homology regions (~20–40 bp) are joined by exonuclease chew-back, annealing, polymerization, and ligation.* [todo:  this figure should also illustrate lacZ and the backbone being joined together -- so explain both the specific example and the chemistry and the homology arms in one figure]
+🎥 [Watch the full walkthrough](https://www.youtube.com/embed/STUB_URL_PLACEHOLDER)  
+This video covers:
+- How to mark insert vs. backbone
+- How to define homology overlaps
+- Designing and annotating oligos
+- Constructing the CF and simulating the Gibson step
+
+---
+
+## Figure: Homology Overlaps and pET-lacZ Assembly
+
+![Gibson Assembly Schematic](images/gibson_lacz_assembly.png)  
+*Figure: Top: pET vector and lacZ gene have ~30 bp overlapping ends introduced via oligos. Bottom: These overlaps guide Gibson Assembly by exonuclease chew-back, strand annealing, and ligation. Final product is seamless and scarless.*
 
 ---
 
@@ -34,7 +42,8 @@ Start by constructing a model of the final pET-lacZ plasmid in your editor.
 3. Insert the *lacZ* sequence into the pET vector at the intended location.
 
 This visually marks the junctions between insert and backbone.
-[todo:  provide links again to lacZ and pET28a]
+🔗 Download sequences: [pET28a GenBank](downloads/pet28a.gb) | [E. coli lacZ GenBank](downloads/lacz.gb)
+
 ---
 
 ## Step 2: Annotate Homology Junctions
@@ -43,14 +52,25 @@ This visually marks the junctions between insert and backbone.
 3. Color these vector sequences.
 
 These highlighted regions form the **homology arms**.
-[todo:  include a seqviz window showing the annotated plasmid map and homology arms]
+📷 View: [pET-lacZ annotated plasmid](images/pet_lacZ_seqviz.png)  
+*The homology arms are highlighted to guide primer design.*
+
 ---
 
 ## Step 3: Design Oligos
 Each fragment will be amplified using two oligos:
 - One matches the gene (or vector) end and includes the homology to the other fragment.
-- These overlaps appear as tails on the oligos.
-[todo: that is unclear, explain this better.  use names for the components like forward_anneal ]
+- These overlaps appear as 5' tails on the oligos.
+
+Each oligo has two parts:
+- **Annealing region**: The part that binds the template DNA (~20–25 bp)
+- **Overlap tail**: The part that provides homology to the *other* fragment (~20–30 bp)
+
+For example:
+- `gib_lacZ_F`: overlap = last 25 bp of pET28a, anneal = first 25 bp of *lacZ*
+- `gib_vec_R`: overlap = last 25 bp of *lacZ*, anneal = reverse complement of pET28a flank
+
+Use these pieces to design each full oligo.
 
 ### Construction File Snippet
 ```
@@ -80,22 +100,22 @@ Use tools (ApE, Benchling) or manual simulation:
 
 ---
 
-## Figure: Annotated Final Plasmid
+## How to Simulate a Gibson Assembly
 
-![Annotated pET-lacZ](images/pet_lacZ_seqviz.png)  
-*Figure: Annotated final plasmid showing T7 promoter, lacI, lacZ, origin, and antibiotic resistance.*
-[see previous todo, we need to introduce that visualization earlier since they design the product then the oligos and cf]
+To simulate the Gibson step manually:
 
----
+1. **Start with your two PCR products**. These contain the sequences produced from oligos with tails.
+2. **Align the overlaps**: Look at the 5' and 3' ends. They should share an exact 20–40 bp sequence with the the other.
+3. **Trim the overlap from one side**: Delete one copy of the overlap so it doesn’t appear twice.
+4. **Join the trimmed fragments**: The remaining sequence becomes your final assembled product.
 
-## Video Demo
-Watch a demonstration of the full design process:
-- Setting up lowercase/uppercase junctions
-- Highlighting anneals and overlaps
-- Designing forward/reverse oligos
+You can do this in any sequence editor:
+- Paste both PCR product sequences into a file
+- Highlight the overlap
+- Delete one copy
+- Verify the result matches your intended plasmid
 
-🎥 [Watch the video](https://www.youtube.com/embed/STUB_URL_PLACEHOLDER)
-[I think you want to put this link at the top so they can choose to watch that first.  If you put it at the end, they have to read the whole thing to know it exists.]
+If using a simulation tool like ApE, you can copy-paste and inspect the resulting construct.
 
 ---
 

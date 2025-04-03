@@ -1,4 +1,4 @@
-# Construction File Simulation
+# Simulation Tools
 
 In this tutorial, you'll learn how to simulate the steps of a cloning experiment using **Construction File (CF) shorthand** and the **C6-Tools** system. You just learned how to manually predict the output of a PCR reaction. Now we’ll show you how to automate that — and much more.
 

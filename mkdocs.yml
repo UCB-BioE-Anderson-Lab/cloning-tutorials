@@ -6,12 +6,23 @@ theme:
   name: material
 
 nav:
-  - Home: index.md
+  - Wetlab:
+      - 1. pP6 Experiment Introduction: pp6_intro.md
+      - 2. Pipetting: pp6_pipetting.md
+      - 3. PCR Setup: pp6_pcr.md
+      - 4. Gel Electrophoresis: pp6_gel.md
+      - 5. Zymo Cleanup: pp6_cleanup.md
+      - 6. Golden Gate Assembly: pp6_assembly.md
+      - 7. Transformation: pp6_transformation.md
+      - 8. Colony Picking: pp6_pick.md
+      - 9. Miniprep: pp6_miniprep.md
+      - 10. Sanger Sequencing: pp6_sequencing.md
+      - 11. Closeout and Documentation: pp6_closeout.md
   - Cloning Techniques:
       - 1. DNA Basics: dna_basics.md
       - 2. Sequence Editing Tools: sequence_tools.md
-      - 3. PCR Product Prediction: pcr_prediction.md
-      - 4. Construction File Simulation: cf_simulation.md
+      - 3. Manual Product Prediction: manual_prediction.md
+      - 4. Simulation Tools: simulation_tools.md
       - 5. Basic Cloning: basic_cloning.md
       - 6. Gibson Assembly: gibson.md
       - 7. Golden Gate Cloning: golden_gate.md
@@ -44,7 +55,7 @@ plugins:
   - search
   - table-reader
   - awesome-pages
-
+  
 extra_javascript:
   - js/C6-Align.js
   - js/C6-Gene.js
