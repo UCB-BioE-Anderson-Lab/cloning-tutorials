@@ -25,10 +25,13 @@ Welcome to the **Synthetic Biology Project Tutorials**, a modular series of inte
 7. **[Golden Gate Cloning](golden_gate.md)**  
    Learn Golden Gate cloning methods.
 
-8. **[Short Parts Construction](short_parts.md)**  
-   Constructing and designing short parts and mutagenesis.
+8. **[BioBricks and Assembly](biobricks.md)**  
+   BioBrick parts, part assembly, and other part formats.
 
-9. **[Sequencing Analysis](sequencing.md)**  
+9. **[Short Parts Construction](short_parts.md)**  
+   Constructing and designing short parts and mutagenesis.  
+
+10. **[Sequencing Analysis](sequencing.md)**  
    Learn to analyze sequencing results.
 
 ## Part B: Project Planning
