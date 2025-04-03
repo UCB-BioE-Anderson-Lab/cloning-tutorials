@@ -5,55 +5,43 @@ This repository hosts interactive cloning tutorials using MkDocs and GitHub Page
 
 ## Installation
 
-### 1. Set Up a Virtual Environment  
-Run the following commands in your terminal:
+### 1. Clone and Set Up
+Clone this repository and run the setup script:
 
 ```sh
-# Create and activate virtual environment (macOS/Linux)
-python -m venv mkdocs-env
-source mkdocs-env/bin/activate
-
-# For Windows (Command Prompt)
-mkdocs-env\Scripts\activate
-
-# For Windows (PowerShell)
-.\mkdocs-env\Scripts\Activate
+git clone https://github.com/your-username/cloning-tutorials.git
+cd cloning-tutorials
+./setup.sh
 ```
 
-### 2. Install Dependencies  
-Run the following command to install all required packages:
+This script creates a virtual environment and installs all dependencies.
+
+### 2. Run Local Server
+Start the live preview server:
 
 ```sh
-pip install -r requirements.txt
+mkdocs serve
 ```
 
-This will install:
-- MkDocs
-- MkDocs Material theme
-- MkDocs Table Reader plugin
-- MkDocs Awesome Pages plugin
+Open [http://127.0.0.1:8000/cloning-tutorials/](http://127.0.0.1:8000/cloning-tutorials/) in your browser.
 
 ## Usage
 
-### 1. Run Local Server (Live Preview)
-```sh
-python main.py serve
-```
-- Opens `http://127.0.0.1:8000/` in your browser.
-- Live updates as you edit `.md` files.
+### Build Static Site
+Convert markdown to HTML and output to the `site/` folder:
 
-### 2. Build Static Site (Convert Markdown to HTML)
 ```sh
-python main.py build
+mkdocs build
 ```
-- Generates the site in the `site/` folder.
 
-### 3. Deploy to GitHub Pages
+### Deploy to GitHub Pages
+Publish the static site:
+
 ```sh
-python main.py deploy
+mkdocs gh-deploy
 ```
-- Pushes the site to the `gh-pages` branch.
-- Your site will be live at: `https://your-username.github.io/cloning-tutorials/`
+
+Your site will be live at: `https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/`
 
 ## Project Structure
 
