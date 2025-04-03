@@ -55,6 +55,9 @@ plugins:
   - search
   - table-reader
   - awesome-pages
+  - pdf-export:
+      combined: true
+      media_type: print
   
 extra_javascript:
   - js/C6-Align.js

@@ -10,7 +10,7 @@
  
  ## Background: Transcription in E. coli
  
- ![Transcription schematic](images/pp6_transcription.png)  
+ <!-- ![Transcription schematic](images/pp6_transcription.png)   -->
  *Figure: RNA polymerase initiates transcription at the +1 site after binding to the -35 and -10 boxes.*
  
  When RNA polymerase binds to a promoter in *E. coli*, it begins transcription at the +1 position, synthesizing an mRNA strand. This mRNA includes a ribosome binding site (RBS) and a coding sequence (CDS). The -10 and -35 sequences upstream of the +1 site strongly influence transcription strength.
@@ -69,7 +69,7 @@
  
  Each colony on your transformation plate represents a unique promoter. When exposed to blue light, colonies fluoresce with varying intensity depending on promoter strength.
  
- ![Example plate](images/pp6_colony_plate.png)  
+ <!-- ![Example plate](images/pp6_colony_plate.png)   -->
  *Figure: A plate of pP6 variants under blue light, showing different levels of GFP fluorescence.*
  
  ## Picking Colonies and Sequencing
