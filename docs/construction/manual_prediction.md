@@ -50,7 +50,7 @@ We have two primers (`exFor` and `exRev`) and a circular template plasmid (`pTem
         .Viewer("viewer1", {
             "name": "pcrpdt",
             "seq": "CAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACAACCG",
-            "annotations": [
+            "primers": [
                 { "name": "exFor", "start": 0, "end": 20, "color": "cyan", "direction": 1 },
                 { "name": "exRev", "start": 29, "end": 50, "color": "#92ffa4", "direction": -1 }
             ],
@@ -58,7 +58,7 @@ We have two primers (`exFor` and `exRev`) and a circular template plasmid (`pTem
           viewer: "linear",
           showComplement: true,
           showIndex: true,
-          style: { height: "75px", width: "100%" }
+          style: { height: "100px", width: "100%" }
         })
         .render();
     });
@@ -96,7 +96,7 @@ This example includes **5' tails**. Only the 3' ends of primers need to match th
         .Viewer("viewer2", {
             "name": "pcrpdt",
             "seq": "ccataGAATTCCAGCGGATCGGATCGGCGACCCAAAGCGCCTCGGTTGTGCGGGCGGAACCAGGGATCCatctg",
-            "annotations": [
+            "primers": [
                 { "name": "exFor2", "start": 0, "end": 31, "color": "cyan", "direction": 1 },
                 { "name": "exRev2", "start": 42, "end": 74, "color": "#92ffa4", "direction": -1 }
             ],
@@ -104,7 +104,7 @@ This example includes **5' tails**. Only the 3' ends of primers need to match th
           viewer: "linear",
           showComplement: true,
           showIndex: true,
-          style: { height: "75px", width: "110%" }
+          style: { height: "100px", width: "110%" }
         })
         .render();
     });
