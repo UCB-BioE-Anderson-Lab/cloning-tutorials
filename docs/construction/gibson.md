@@ -29,7 +29,7 @@ This video covers:
 
 ## Figure: Homology Overlaps and pET-lacZ Assembly
 
-![Gibson Assembly Schematic](images/gibson_lacz_assembly.png)  
+![Gibson Assembly Schematic](../images/gibson_lacz_assembly.png)  
 *Figure: Top: pET vector and lacZ gene have ~30 bp overlapping ends introduced via oligos. Bottom: These overlaps guide Gibson Assembly by exonuclease chew-back, strand annealing, and ligation. Final product is seamless and scarless.*
 
 ---
@@ -42,7 +42,7 @@ Start by constructing a model of the final pET-lacZ plasmid in your editor.
 3. Insert the *lacZ* sequence into the pET vector at the intended location.
 
 This visually marks the junctions between insert and backbone.
-🔗 Download sequences: [pET28a GenBank](downloads/pet28a.gb) | [E. coli lacZ GenBank](downloads/lacz.gb)
+🔗 Download sequences: [pET28a GenBank](../assets/pET28a.gb) | [E. coli lacZ GenBank](../assets/lacZ_genome_context.gb)
 
 ---
 
@@ -52,7 +52,7 @@ This visually marks the junctions between insert and backbone.
 3. Color these vector sequences.
 
 These highlighted regions form the **homology arms**.
-📷 View: [pET-lacZ annotated plasmid](images/pet_lacZ_seqviz.png)  
+📷 View: [pET-lacZ annotated plasmid](../images/workinprogress.png)  
 *The homology arms are highlighted to guide primer design.*
 
 ---

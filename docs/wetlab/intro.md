@@ -118,4 +118,4 @@
  
  ## Next
  
- When you're ready, proceed to the [Pipetting tutorial](pp6_pipetting.md) to learn how to use a micropipette correctly before starting wetlab work.
+ When you're ready, proceed to the [Pipetting tutorial](pipetting.md) to learn how to use a micropipette correctly before starting wetlab work.

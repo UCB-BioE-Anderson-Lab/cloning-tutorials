@@ -118,7 +118,7 @@ To get started:
 
 5. Make edits as usual, then use the GitHub Desktop interface to **commit** and **push** changes.
 
-![GitHub Repo Overview and Issues Tab](images/github-screenshot.png)
+![GitHub Repo Overview and Issues Tab](../images/github-screenshot.png)
 
 To learn the essential GitHub vocabulary and actions, refer to this focused introduction:  
 **[GitHub: Hello World Guide](https://docs.github.com/en/get-started/quickstart/hello-world)**  

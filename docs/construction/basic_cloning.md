@@ -6,7 +6,7 @@ In this tutorial, you'll learn to design oligonucleotides and plan a traditional
 ---
 
 ## Context: Cloning for Lactose Breakdown
-![Lactose breakdown by β-galactosidase](images/lacZ_lactaid_diagram.png)
+![Lactose breakdown by β-galactosidase](../images/lacZ_lactaid_diagram.png)
 *Figure: β-galactosidase cleaves lactose into glucose and galactose, as used in products like Lactaid.*
 Suppose you're engineering bacteria to help break down lactose in dairy products. The *lacZ* gene encodes β-galactosidase, which cleaves lactose into glucose and galactose. While *E. coli* naturally carries this gene, it’s only expressed at low levels under the lac operon. To produce it industrially, you’d want much higher expression.
 
@@ -15,7 +15,7 @@ We’ll use a T7-based expression system to overexpress *lacZ*, boosting output 
 ---
 
 ## The T7 System
-![T7 expression system](images/t7_expression_diagram.png)
+![T7 expression system](../images/t7_expression_diagram.png)
 *Figure: T7 system architecture in BL21(DE3) with a pET plasmid driving target gene expression.*
 T7 expression vectors use a powerful phage promoter (T7) that is only recognized by T7 RNA polymerase. In strains like BL21(DE3), the gene for T7 RNA polymerase is integrated into the genome under control of the lac promoter.
 
@@ -30,7 +30,7 @@ When IPTG is added:
 ## Step 1: Choose a Template
 We'll clone *lacZ* directly from the *E. coli* genome. You can download the annotated GenBank region here:
 
-- 📄 *lacZ* genome context: [Download GenBank](lacZ_genome_context.gb)
+- 📄 *lacZ* genome context: [Download GenBank](../assets/lacZ_genome_context.gb)
 - 🔗 NCBI GenBank: [E. coli lacZ gene (U00096.3: 3654547–3657307)](https://www.ncbi.nlm.nih.gov/nuccore/U00096.3?report=genbank&from=3654547&to=3657307)
 
 ---
@@ -41,7 +41,7 @@ We'll use a pET vector with:
 - LacI repression system
 - Multiple cloning site (MCS)
 
-- 📄 Starter pET plasmid: [Download GenBank](pet_vector.gb)
+- 📄 Starter pET plasmid: [Download GenBank](../assets/pET28a.gb)
 
 [Insert figure: Annotated map of pET vector]
 
@@ -107,7 +107,7 @@ plasmid pet_vector ...
 
 ## Step 6: Visualize the Final Product
 
-- 📄 Final pET-lacZ plasmid: [Download GenBank](pet_lacZ.gb)
+- 📄 Final pET-lacZ plasmid: [Download GenBank](../assets/pET-lacZ.gb)
 
 [Insert SeqViz plot of final annotated plasmid with features: T7 promoter, lacI, His-tag (if any), *lacZ*, terminator, etc.]
 

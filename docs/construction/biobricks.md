@@ -80,7 +80,7 @@ Basic parts → Composite parts → Systems → Ecosystems.
 
 Compare this:
 
-![Generic Feature Map](images/plasmid_generic_map.png)
+![Generic Feature Map](../images/plasmid_generic_map.png)
 
 vs.
 
@@ -97,7 +97,7 @@ EcoRI - XbaI - [Part] - SpeI - PstI
 
 XbaI and SpeI make compatible sticky ends. Their ligation destroys both sites, creating an ACTAGA scar.
 
-![Standard Assembly Schematic](images/biobrick_std_assembly.png)
+![Standard Assembly Schematic](../images/biobrick_std_assembly.png)
 
 ---
 

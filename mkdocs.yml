@@ -7,36 +7,36 @@ theme:
 
 nav:
   - Wetlab:
-      - 1. pP6 Experiment Introduction: pp6_intro.md
-      - 2. Pipetting: pp6_pipetting.md
-      - 3. PCR Setup: pp6_pcr.md
-      - 4. Gel Electrophoresis: pp6_gel.md
-      - 5. Zymo Cleanup: pp6_cleanup.md
-      - 6. Golden Gate Assembly: pp6_assembly.md
-      - 7. Transformation: pp6_transformation.md
-      - 8. Colony Picking: pp6_pick.md
-      - 9. Miniprep: pp6_miniprep.md
-      - 10. Sanger Sequencing: pp6_sequencing.md
-      - 11. Closeout and Documentation: pp6_closeout.md
+      - 1. pP6 Experiment Introduction: wetlab/intro.md
+      - 2. Pipetting: wetlab/pipetting.md
+      - 3. PCR Setup: wetlab/pcr.md
+      - 4. Gel Electrophoresis: wetlab/gel.md
+      - 5. Zymo Cleanup: wetlab/cleanup.md
+      - 6. Golden Gate Assembly: wetlab/assembly.md
+      - 7. Transformation: wetlab/transformation.md
+      - 8. Colony Picking: wetlab/pick.md
+      - 9. Miniprep: wetlab/miniprep.md
+      - 10. Sanger Sequencing: wetlab/sequencing.md
+      - 11. Closeout and Documentation: wetlab/closeout.md
   - Cloning Techniques:
-      - 1. DNA Basics: dna_basics.md
-      - 2. Sequence Editing Tools: sequence_tools.md
-      - 3. Manual Product Prediction: manual_prediction.md
-      - 4. Simulation Tools: simulation_tools.md
-      - 5. Basic Cloning: basic_cloning.md
-      - 6. Gibson Assembly: gibson.md
-      - 7. Golden Gate Cloning: golden_gate.md
-      - 8. BioBricks and Assembly: biobricks.md
-      - 9. Short Parts Construction: short_parts.md
-      - 10. Sequencing Analysis: sequencing.md
+      - 1. DNA Basics: construction/dna_basics.md
+      - 2. Sequence Editing Tools: construction/sequence_tools.md
+      - 3. Manual Product Prediction: construction/manual_prediction.md
+      - 4. Simulation Tools: construction/simulation_tools.md
+      - 5. Basic Cloning: construction/basic_cloning.md
+      - 6. Gibson Assembly: construction/gibson.md
+      - 7. Golden Gate Cloning: construction/golden_gate.md
+      - 8. BioBricks and Assembly: construction/biobricks.md
+      - 9. Short Parts Construction: construction/short_parts.md
+      - 10. Sequencing Analysis: construction/sequencing.md
   - Project Planning:
-      - 1. Project Setup and Nomenclature: project_setup.md
-      - 2. Experimental Design Principles: design_principles.md
-      - 3. Sequence Retrieval and Analysis: sequence_analysis.md
-      - 4. Choosing a Fabrication Strategy: oligo_design.md
-      - 5. Simulation Tools: cfs_simulation.md
-      - 6. Inventory and Labsheets: inventory_labsheets.md
-      - 7. Ortholog Scan Project: project_ispA.md
+      - 1. Project Setup and Nomenclature: planning/project_setup.md
+      - 2. Experimental Design Principles: planning/design_principles.md
+      - 3. Sequence Retrieval and Analysis: planning/sequence_analysis.md
+      - 4. Choosing a Fabrication Strategy: planning/oligo_design.md
+      - 5. Simulation Tools: planning/cfs_simulation.md
+      - 6. Inventory and Labsheets: planning/inventory_labsheets.md
+      - 7. Ortholog Scan Project: planning/project_ispA.md
   - About: about.md
 
 markdown_extensions:
@@ -55,9 +55,9 @@ plugins:
   - search
   - table-reader
   - awesome-pages
-  - pdf-export:
-      combined: true
-      media_type: print
+  # - pdf-export:
+  #     combined: true
+  #     media_type: print
   
 extra_javascript:
   - js/C6-Align.js
