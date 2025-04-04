@@ -185,7 +185,7 @@ This file specifies:
 
 ---
 
-### ✂️ Step 1: Restriction Digest
+### ✂️ Steps 1 and 2: Restriction Digestion
 
 **Enzyme**: BamHI  
 **Cut Site**: `G^GATCC` → sticky 5' overhang
@@ -198,7 +198,7 @@ These fragments are now `blue_dig` and `orange_dig`.
 
 ---
 
-### 🔗 Step 2: Ligation
+### 🔗 Step 3: Ligation
 
 - `blue_dig` and `orange_dig` have matching GATC overhangs
 - They ligate seamlessly via Watson-Crick base pairing
