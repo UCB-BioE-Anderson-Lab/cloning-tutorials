@@ -179,6 +179,7 @@ dsDNA        orange       cttcgGGATCCgctggcaga
 ```
 
 This file specifies:
+
 - What DNA is being cut and where
 - Which fragments are retained
 - Which are ligated
@@ -191,6 +192,7 @@ This file specifies:
 **Cut Site**: `G^GATCC` → sticky 5' overhang
 
 Each DNA is cut into two fragments:
+
 - From `blue`, keep fragment 0 (5' half)
 - From `orange`, keep fragment 1 (3' half)
 
