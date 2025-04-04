@@ -1,18 +1,22 @@
 <script src="https://unpkg.com/seqviz"></script>
-# PCR Product Prediction
+# Manual Product Prediction
 
-In this module, you'll learn how to manually predict the result of a PCR reaction by reasoning through oligo binding, template strand directionality, and sequence construction — a critical step before performing any cloning experiment. This manual prediction process is foundational for verifying whether a cloning strategy will work as intended. While there are many tools and algorithms to help you design a cloning plan, this step is about checking whether that plan is correct. It's a skill you'll often use in the lab when results are unclear and you need to troubleshoot. Going through this process also deepens your understanding of how PCR works and how different sequence elements interact.
-
----
-### Before You Try This...
-
-Want a refresher on how PCR works at a mechanistic level? Watch this short, animated video:
-> 📺 **Recommended Intro**: [PCR Animation – The Polymerase Chain Reaction](https://www.youtube.com/watch?v=2KoLnIwoZKU)
+In this module, you'll learn how to predict the results of molecular biology operations by reasoning through the mechanisms. This manual prediction process is foundational for verifying whether a cloning strategy will work as intended. While there are many tools and algorithms to help you design a cloning plan, here we are learning to do it based on first principles. It's a skill you'll often use in the lab when results are unclear and you need to troubleshoot. Going through this process also deepens your understanding of how molecular biology works and how different biochemical elements interact.
 
 ---
-## Guided Walkthrough
+
+## Before You Try This...
+
+Want a refresher on how PCR works at a mechanistic level? Watch this short, animated video:  
+📺 **[PCR Animation – The Polymerase Chain Reaction](https://www.youtube.com/watch?v=2KoLnIwoZKU)**
+
+---
+
+## Guided Walkthrough: Predicting PCR Products
 
 We’ll begin with a simple scenario using a structured table format called `cf_shorthand`. You’ll encounter this notation in later tutorials, but here we’ll treat it as a straightforward summary of oligos and templates.
+
+### PCR Example
 
 ```
 operation    primer1      primer2      template    product
@@ -23,15 +27,13 @@ oligo        exRev        CGGTTGTGCGGGCGGAACCAG
 plasmid      pTemp1       CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACAACCGCGA
 ```
 
-We have two primers (`exFor` and `exRev`) and a circular template plasmid (`pTemp1`). The task is to predict the PCR product, `pcrpdt`.
+We have two primers (`exFor` and `exRev`) and a circular template plasmid (`pTemp1`). The task is to predict the PCR product.
 
-1. Search for the exact sequence of `exFor` in the template — it should match directly.
+1. Find `exFor` exactly in the template.
+2. Find the reverse complement of `exRev` and match that in the template.
+3. The product includes everything between them (including the primers).
 
-2. Take the reverse complement of `exRev`, then search for that in the template.
-
-3. The product is the linear sequence between (and including) the forward primer and the reverse complement of the reverse primer.
-
-Use your sequence editor to try this out yourself and compare your answer to the one below:
+**Product Visualization:**
 
   <div id="viewer1"></div>
   <script>
@@ -61,10 +63,10 @@ Use your sequence editor to try this out yourself and compare your answer to the
         .render();
     });
   </script>
----
-### PCR with 5' Tails
 
-Now try a more advanced case where primers have 5' extensions (tails):
+---
+
+### PCR with 5' Tails
 
 ```
 operation    primer1     primer2     template     product
@@ -75,13 +77,9 @@ oligo        exRev2      cagatGGATCCCTGGTTCCGCCCGCACAACCG
 plasmid      pTemp1      CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACAACCGCGA
 ```
 
-Only the **3' end** (the annealing region) of each primer must match the template exactly. Typically, that’s about 18 bp. The 5' ends (e.g., `ccataGAATTC`) do not match but will become part of the product.
+This example includes **5' tails**. Only the 3' ends of primers need to match the template; the 5' ends will be added to the product.
 
-1. Identify the annealing portion of each primer.
-2. Replace the annealing region in the template with the full primer (end included).
-3. Your product is the linear sequence spanning from full forward primer to full reverse primer (reverse complemented).
-
-Compare your answer to the one below:
+**Product Visualization:**
 
   <div id="viewer2"></div>
   <script>
@@ -111,26 +109,22 @@ Compare your answer to the one below:
         .render();
     });
   </script>
----
-
-### Inverse PCR (IPCR) on a Circular Template
-> 📺 **Video demo**: [Watch how inverse PCR prediction works in ApE](https://www.youtube.com/watch?v=SPvvYWmMQ1I)  
-Use this as a reference before or after the steps below — it's especially helpful when you're ready to try the inverse PCR example.
-
-In IPCR, primers face away from each other on a circular template. Here’s how prediction works:
-
-1. Find the annealing site of the forward primer.
-2. Set the sequence origin to just before that site — this "rotates" the plasmid to linearize it at that position.
-3. Reverse complement the reverse primer and find its match.
-4. Delete all sequence outside the range of the new forward and reverse primers.
-5. The resulting span is your predicted PCR product.
 
 ---
 
+### Inverse PCR (IPCR)
 
-## Quiz: Can You Predict This Product?
+<iframe width="560" height="315" src="https://www.youtube.com/embed/SPvvYWmMQ1I" frameborder="0" allowfullscreen></iframe>
 
-Try manually predicting the product of this PCR reaction based on the primers and template given below.
+In inverse PCR, primers point outward from a circular template.
+
+1. Find forward primer match and set it as new origin.
+2. Reverse complement the reverse primer and locate its match.
+3. Predict the sequence between these two primer ends.
+
+---
+
+## Quiz: Predict This Product
 
 ```
 operation    primer1     primer2     template   product
@@ -141,31 +135,18 @@ oligo        qRev        cagatCTCGAGTTAGTGCTGTTCGAGGTCCTG
 plasmid      pQ1         CACTCAAGGTTCAGGACCTCGAACAGCACTAACGGAAGAAATCCGATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCAT
 ```
 
-Enter your predicted PCR product sequence in the box below:
-
 <textarea id="pcrQuizInput" rows="4" style="width:100%; font-family:monospace;"></textarea>
 <br>
 <button onclick="checkPcrQuizAnswer()">Submit</button>
 <p id="pcrQuizFeedback"></p>
-
 <script>
 function checkPcrQuizAnswer() {
   const correct = "ccataCATATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCATCACTCAAGGTTCAGGACCTCGAACAGCACTAACTCGAGatctg";
   const input = document.getElementById("pcrQuizInput").value.replace(/\s+/g, "");
   const feedback = document.getElementById("pcrQuizFeedback");
-  if (input.toLowerCase() === correct.toLowerCase()) {
-    feedback.innerHTML = "✅ Correct! Well done.";
-    feedback.style.color = "green";
-    if (window.progressManager) {
-      window.progressManager.addCompletion("pcr_prediction_quiz", "correct");
-    }
-  } else {
-    feedback.innerHTML = "❌ Not quite. Check your annealing regions and try again.";
-    feedback.style.color = "red";
-    if (window.progressManager) {
-      window.progressManager.addCompletion("pcr_prediction_quiz", "incorrect");
-    }
-  }
+  feedback.innerHTML = input.toLowerCase() === correct.toLowerCase()
+    ? "✅ Correct! Well done."
+    : "❌ Not quite. Check your primer matches and try again.";
 }
 </script>
 
@@ -173,46 +154,102 @@ function checkPcrQuizAnswer() {
 
 ## Simulating Digestion and Ligation
 
-You’ve now practiced predicting PCR products. Let’s now expand on this by modeling what happens during digestion and ligation.
-
-### Example Scenario
-
-We’ll simulate digesting a PCR product and a second DNA fragment with compatible restriction sites and then ligating them together.
-
-#### Inputs:
-
-```
-DNA fragment:   frag1
-Sequence:       ccataCATATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCATCACTCAAGGTTCAGGACCTCGAACAGCACTAACTCGAGatctg
-
-DNA fragment:   frag2
-Sequence:       tcgagGAATTCAGCTGAGGTCGATGAGGTTGCGGTCGATGATCG
-
-Note: frag2 contains a 5' XhoI site (CTCGAG) and an EcoRI site downstream.
-```
-
-#### Step 1: Digest both fragments
-
-- **frag1** will be cut with **XhoI** (CTCGAG): find and cut at the site near the 3' end.
-- **frag2** will be cut with **XhoI** as well.
-
-Remember that XhoI cuts between C and T in C^TCGAG and leaves a 5' overhang.
-
-#### Step 2: Simulate ligation
-
-- Remove everything downstream of the XhoI site in `frag1`.
-- Remove everything **upstream** of the XhoI site in `frag2`.
-- Ligate the remaining ends to form the new construct.
-
-You should now have a linear recombinant sequence with a seamless junction.
+Now we’ll simulate a restriction digest followed by ligation. You’ll combine DNA pieces with compatible overhangs created by restriction enzymes.
 
 ---
 
-## Quiz: Simulate the Ligation Product
+### 🖼️ Visual Overview
 
-Use the frag1 and frag2 sequences above to simulate the product of digestion and ligation.
+![Digestion and Ligation Process](../images/digestion_and_ligation.png)
 
-What is the final product sequence?
+---
+
+### 📄 Construction File
+
+```
+operation    dna      enzyme      fragment    product
+Digest       blue     BamHI       0           blue_dig
+Digest       orange   BamHI       1           orange_dig
+
+operation    dna1     dna2                    product
+Ligate       blue_dig orange_dig              blue_orange
+
+dsDNA        blue         tacctgaaaGGATCCcttcc
+dsDNA        orange       cttcgGGATCCgctggcaga
+```
+
+This file specifies:
+- What DNA is being cut and where
+- Which fragments are retained
+- Which are ligated
+
+---
+
+### ✂️ Step 1: Restriction Digest
+
+**Enzyme**: BamHI  
+**Cut Site**: `G^GATCC` → sticky 5' overhang
+
+Each DNA is cut into two fragments:
+- From `blue`, keep fragment 0 (5' half)
+- From `orange`, keep fragment 1 (3' half)
+
+These fragments are now `blue_dig` and `orange_dig`.
+
+---
+
+### 🔗 Step 2: Ligation
+
+- `blue_dig` and `orange_dig` have matching GATC overhangs
+- They ligate seamlessly via Watson-Crick base pairing
+- BamHI site is restored at the junction
+
+---
+
+### 🧬 Final Construct Visualization
+
+**Resulting sequence:**
+  <div id="viewer3"></div>
+  <script>
+    function waitForSeqViz(callback) {
+      if (typeof seqviz !== "undefined" && seqviz.Viewer) {
+        callback();
+      } else {
+        setTimeout(() => waitForSeqViz(callback), 50);
+      }
+    }
+
+    waitForSeqViz(() => {
+      seqviz
+        .Viewer("viewer3", {
+            "name": "pcrpdt",
+            "seq": "tacctgaaaGGATCCgctggcaga",
+            "annotations": [{ name: "BamHI", start: 9, end: 15, color: "green", direction: 1 }],
+          translations: [],
+          viewer: "linear",
+          showComplement: true,
+          showIndex: true,
+          style: { height: "75px", width: "110%" }
+        })
+        .render();
+    });
+  </script>
+
+---
+
+## 🧪 Quiz: Predict the Ligation Product
+
+```
+operation    dna        enzyme      fragment    product
+Digest       fragA      XhoI         0          fragA_dig
+Digest       fragB      XhoI         1          fragB_dig
+
+operation    dna1       dna2                    product
+Ligate       fragA_dig  fragB_dig               fragC
+
+dsDNA        fragA      cagtacaagagattcagCTCGAGatacc
+dsDNA        fragB      cgaaaCTCGAGcatagacaggacaacca
+```
 
 <textarea id="ligationQuizInput" rows="4" style="width:100%; font-family:monospace;"></textarea>
 <br>
@@ -221,21 +258,11 @@ What is the final product sequence?
 
 <script>
 function checkLigationQuizAnswer() {
-  const correct = "ccataCATATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCATCACTCAAGGTTCAGGACCTCGAACAGCACTAACTCGAGGAATTCAGCTGAGGTCGATGAGGTTGCGGTCGATGATCG";
+  const correct = "cagtacaagagattcagctcgagatagacaggacaacca";
   const input = document.getElementById("ligationQuizInput").value.replace(/\s+/g, "");
   const feedback = document.getElementById("ligationQuizFeedback");
-  if (input.toLowerCase() === correct.toLowerCase()) {
-    feedback.innerHTML = "✅ Correct! You've successfully simulated the ligation.";
-    feedback.style.color = "green";
-    if (window.progressManager) {
-      window.progressManager.addCompletion("ligation_quiz", "correct");
-    }
-  } else {
-    feedback.innerHTML = "❌ Not quite. Make sure you simulated the XhoI digestion sites and kept the correct fragments.";
-    feedback.style.color = "red";
-    if (window.progressManager) {
-      window.progressManager.addCompletion("ligation_quiz", "incorrect");
-    }
-  }
+  feedback.innerHTML = input.toLowerCase() === correct.toLowerCase()
+    ? "✅ Correct! You've successfully simulated the ligation."
+    : "❌ Not quite. Make sure you digested with XhoI and selected the right fragments.";
 }
 </script>
