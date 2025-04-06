@@ -1,16 +1,20 @@
 # Simulation Tools
 
-In this tutorial, you'll learn how to simulate the steps of a cloning experiment using **Construction File (CF) shorthand** and the **C6-Tools** system. You just learned how to manually predict the output of a PCR reaction. Now we’ll show you how to automate that — and much more.
+Now that you have learned how to simulate molecular biology steps by hand, let's look at how to automate these operations.
 
----
+ApE provides graphical user interfaces for automating PCR, Golden Gate, and Gibson reactions under the **Tools** menu. It also supports digestion simulations via the **Enzymes / Enzyme Selector** menu. Benchling similarly provides visual tools to predict and simulate cloning steps like PCR and ligation.
 
-## What is C6-Tools?
-
-C6-Tools is a simulation engine for parsing and executing construction files — a shorthand way of describing DNA assembly workflows. These tools are also integrated in Google Sheets:
+You can also automate these experiments directly using **C6-Tools**, a simulation engine that interprets **Construction File (CF) shorthand** — a compact language for describing DNA assembly workflows. C6-Tools is available both below and embedded within Google Sheets:
 
 🔗 [Open C6-Tools in Google Sheets](https://docs.google.com/spreadsheets/d/1WATXfGTY0VgpDDVf2EDKTBbBRSOQa_rFcOwFp1GsBjU/edit?usp=sharing)
 
-Here, you're using a browser-based version of the same engine. You can come back to this page anytime to test a CF script.
+The Google Sheets version includes a library of DNA design functions that you can access directly from spreadsheet cells. These include methods for `PCR`, `Digest`, `Ligate`, `GoldenGate`, and `Gibson`, as well as functions for parsing and simulating CF scripts. Visit the linked page and follow the instructions to get started.
+
+--- 
+
+## What is C6-Tools?
+
+C6-Tools is a simulation engine for parsing and executing CF shorthand workflows. The same engine powers both the simulator below and the Google Sheets version you saw earlier. You can use this page anytime to test out your own CF scripts.
 
 ---
 
