@@ -87,7 +87,7 @@ These primers introduce BsaI sites and randomized sequence regions:
 
 The lowercase `ggtctc` sequence in each primer is the recognition site for the BsaI enzyme. This allows the PCR product to be seamlessly ligated back into a circular plasmid in a later step.
 
-### PCR Product Map (Annotated)
+### PCR Product Map
 
 <div id="viewer_plasmid"></div>
 <script>
@@ -134,25 +134,57 @@ The lowercase `ggtctc` sequence in each primer is the recognition site for the B
 
 ---
 
-## 🧾 Reading the Lab Sheet
+## Reading the Lab Sheet
 
-The PCR lab sheet has labeled fields you must fill in with the aliquot tube numbers you actually use. This is important for tracking which reactions were set up with which materials.
+The PCR lab sheet is your step-by-step guide for this experiment. It has several blocks, each representing different parts of the setup process. You’ll need to read each one carefully and fill in values as you go.
 
-| Reagent       | Label | Concentration | Location       |
-|---------------|-------|---------------|----------------|
-| Primer (F)    | F#    | 10 μM         | Training1/A*   |
-| Primer (R)    | R#    | 10 μM         | Training1/B*   |
-| Template (pJ12) | T#  | dil 20×       | Training1/C*   |
+### Sources
 
-- Fill in the tube number used for each reagent.
-- Write in which thermocycler you used.
-- Record the product band size after gel (see next section).
+This first table tells you which DNA tubes to fetch before beginning the reaction. You’ll get these from the pink 'Training1' box in the freezer.
 
----
+| Reagent         | Label | Concentration | Location       |
+|-----------------|-------|---------------|----------------|
+| Primer (F)      | F#    | 10 μM         | Training1/A*   |
+| Primer (R)      | R#    | 10 μM         | Training1/B*   |
+| Template (pJ12) | T#    | dil 20×       | Training1/C*   |
 
-## 🔬 The PCR Program
+You’ll record the tube numbers from these sources and refer to them later when setting up the reaction. Be sure to write your assigned number as the label (e.g., `79`) on the PCR tube cap.
 
-We use the **PG4K55** program on the thermocycler, designed for ~4 kb products with a 55°C annealing step.
+### PCR Samples
+
+This next table shows the PCR reactions you need to set up. In this experiment, you are setting up a single reaction.
+
+| Label | Primer 1 | Primer 2 | Template | Product       |
+|-------|----------|----------|----------|----------------|
+| 79    | F#       | R#       | T#       | 3583 bp        |
+
+- The `Label` is what you write on your PCR tube.
+- The `Product` indicates the expected PCR product size.
+- You substitute the F#, R#, and T# values based on the tubes you fetched.
+
+### Reaction Setup
+
+Use this table to pipette the components into your PCR tube in the order shown:
+
+| Volume | Reagent                                    | Tube Label |
+|--------|--------------------------------------------|------------|
+| 32 µL  | ddH₂O (white rack)                         | W____      |
+| 10 µL  | 5× PrimeSTAR GXL Buffer (green cap)        | B____      |
+|  4 µL  | PrimeSTAR dNTP Mixture (2.5 mM each, yellow cap) | D____      |
+|  1 µL  | 10 µM Primer 1 (from above)                | F____      |
+|  1 µL  | 10 µM Primer 2 (from above)                | R____      |
+|  1 µL  | pJ12 Template DNA (from above)             | T____      |
+|  1 µL  | PrimeSTAR GXL DNA Polymerase (cold block)  | —          |
+
+After adding all components:
+
+1. Mix the tube by slamming on the bench.
+2. Briefly spin down to collect the liquid at the bottom.
+3. Load into the thermocycler.
+
+### PCR Program: PG4K55
+
+Run the **PG4K55** program, designed for ~4 kb products with a 55°C annealing temperature.
 
 ```
 Initial Denaturation:   98°C for 2 min
@@ -165,13 +197,8 @@ Final Extension:        68°C for 5 min
 
 ---
 
-## ✅ What to Expect
-
-- You should see a clear band at ~3583 bp on a gel.
-- If there’s no band, double-check which primers and template you used.
-
----
-
 ## 🎥 Watch Before Lab
 
-Watch the PCR tutorial video: **pP6-2022-1-PCR** (available on bCourses) before coming to lab.
+Watch the PCR tutorial video before coming to lab.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
+
