@@ -18,9 +18,10 @@ These can interfere with cloning enzymes, particularly enzymes like BsaI that ge
 
 ## How It Works
 
-![DNA binding and elution](../images/zymo_cleanup_steps.png)
+![A schematic showing silica column DNA purification. In the binding step, DNA and contaminants are shown entering the column and contacting a pink silica resin. After spinning, contaminants are washed away and DNA remains bound. A second spin after ethanol wash further clears the column. In the final elution step, DNA is released from the resin into the collection tube. A legend shows icons representing silica resin (pink), DNA (black dots), contaminants (green bars), column, and collection tube.](../images/zymo_cleanup_steps.png)
 
-*Figure: Binding of DNA to the silica membrane, washing away contaminants, and elution with EB buffer.*
+*Figure: Stepwise diagram of silica column cleanup showing binding, washing, and elution. DNA binds to the pink resin in the column, contaminants are washed away, and purified DNA is eluted into a clean tube.*
+
 DNA binds to silica in the presence of a chaotropic salt—usually **guanidinium thiocyanate**—found in Zymo's **ADB buffer**. This same chemical also denatures proteins like polymerases.
 
 The basic workflow:
@@ -31,7 +32,7 @@ The basic workflow:
 4. Dry the column by spinning
 5. Elute DNA with water or **EB Buffer**
 
-> EB is preferred because it's a low-pH buffer. Pure water can absorb CO₂ and become slightly acidic, which may reduce recovery of DNA.
+> EB is preferred because it's a dilute Tris buffer. Pure water can absorb CO₂ and become slightly acidic, which may reduce recovery of DNA.
 
 > Be mindful: **know where your DNA is at each step.** Many errors involve discarding the DNA by accident.
 
