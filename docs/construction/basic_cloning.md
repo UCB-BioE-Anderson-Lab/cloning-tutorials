@@ -1,3 +1,4 @@
+<script src="https://unpkg.com/seqviz"></script>
 # Basic Cloning: Overexpression of Human Insulin
 
 ## Overview
@@ -20,15 +21,27 @@ In this exercise, we’ll simulate how to clone the human insulin CDS from **cDN
 ## The T7 System
 
 ![T7 expression system](../images/t7_expression_diagram.png)  
-*Figure: T7 system architecture in BL21(DE3) with a pET plasmid driving target gene expression.*
+*Figure: T7 system architecture in BL21(λDE3). IPTG induction lifts LacI repression, allowing expression of both T7 RNA Polymerase (genomically encoded) and the insulin (INS) gene on a pET plasmid under the control of the T7 promoter.*
 
-T7 expression vectors use a powerful phage promoter (T7) that is only recognized by T7 RNA polymerase. In strains like BL21(DE3), the gene for T7 RNA polymerase is integrated into the genome under control of the lac promoter.
+The **T7 expression system** is a two-level inducible design used for powerful, tightly regulated expression of recombinant proteins in *E. coli* BL21(λDE3).
 
-When IPTG is added:
+Here's how it works:
 
-- T7 polymerase is expressed.
-- It recognizes the T7 promoter on your plasmid.
-- This drives massive transcription of your gene.
+- The BL21(λDE3) genome contains a copy of the **T7 RNA polymerase (T7 RNAP)** gene under control of the **lac promoter** (*Plac*).
+- The **pET expression plasmid** carries your gene of interest (e.g., **INS**) downstream of a **T7 promoter** (*PT7*), as well as a **lacI** gene that represses both promoters via **LacO** operator sites.
+
+### Role of IPTG:
+
+In the absence of IPTG:
+- The **LacI repressor** binds to LacO sites, preventing transcription from both *Plac* and *PT7*.
+- This keeps both **T7 RNAP** and the **target gene** (INS) silent.
+
+Upon IPTG addition:
+- IPTG binds to LacI, causing it to dissociate from the DNA.
+- **T7 RNAP** is transcribed and translated.
+- T7 RNAP then binds to *PT7* on the plasmid and drives high-level expression of the insulin gene.
+
+This modular setup ensures **tight control** (low background, high on-demand expression), which is ideal for producing proteins that may be toxic or burden the host.
 
 ---
 
@@ -52,7 +65,7 @@ We'll use a pET vector with:
 - 📄 Starter pET plasmid: [Download GenBank](../assets/pET28a.gb)
 
 ![Annotated map of pET-28a(+) vector highlighting T7 promoter, NcoI and XhoI sites](../images/pet28a_cloning_map.png)  
-*Figure: pET-28a(+) vector map showing the T7 promoter and the multiple cloning site (MCS). In this tutorial, we’ll insert the insulin cDNA between the **NcoI** and **XhoI** restriction sites for expression under the T7 promoter. Image adapted from [GenScript](https://www.genscript.com/gsfiles/vector-map/bacteria/pET-28a.pdf).*
+*Figure: pET-28a(+) vector map showing the T7 promoter and the multiple cloning site (MCS). In this tutorial, we’ll insert the insulin CDS between the **NcoI** and **XhoI** restriction sites for expression under the T7 promoter. Image adapted from [GenScript](https://www.genscript.com/gsfiles/vector-map/bacteria/pET-28a.pdf).*
 
 ---
 
@@ -60,36 +73,27 @@ We'll use a pET vector with:
 
 Design primers with:
 
-- A short 5′ tail (~4–6 nt)  
+- A short 5′ tail (5 random bases)  
 - A restriction site (NcoI at start, XhoI at end)  
 - 18–22 bp annealing region from insulin cDNA
 
 **Primer Structure Example:**
 ```
 Forward primer (ins-F):
-  aaaaCATATG[18–22 nt from start of insulin ORF]
+
+  [5' tail] - CCATGG - [18–22 nt from start of insulin ORF]
 
 Reverse primer (ins-R):
-  ttttCTCGAG[reverse complement of final 18–22 nt of insulin ORF]
+
+  [5' tail] - CTCGAG - [reverse complement of final 18–22 nt of insulin ORF]
 ```
 
-- CCATGG = NcoI site (includes ATG)
+- CCATGG = NcoI site (includes ATG start codon)
 - CTCGAG = XhoI site (downstream of stop codon)
 
 ---
 
-## Step 4: Predict the PCR Product
-
-Use your sequence editor or notes to:
-
-1. Find annealing regions in the insulin cDNA.
-2. Replace them with the full primers.
-3. Trim any unnecessary flanking sequence.
-4. Save your predicted PCR product.
-
----
-
-## Step 5: Construction File
+## Step 4: Construction File
 
 Here's a complete construction file representing this cloning plan:
 
@@ -99,19 +103,69 @@ Digest  pcr_ins     NcoI,XhoI   1                pcr_dig
 Digest  pET28a      NcoI,XhoI   1                vec_dig
 Ligate  pcr_dig     vec_dig                      pET-INS
 
-oligo   ins-F       ccataCCATGG[18–22 bp]
-oligo   ins-R       cagatCTCGAG[reverse complement of 18–22 bp]
-dsdna   insulin_cDNA ...
-plasmid pET28a ...
+oligo   ins-F       ccataCCATGGccctgtggatgcgcctcctg
+oligo   ins-R       cagatCTCGAGctagttgcagtagttctccag
 ```
+
+## Step 5: Simulate the Product
+
+Use your sequence editor or simulation tools (as demonstrated in the earlier video) to predict the outcome of each step in your construction file. For each stage—PCR, digestion, and ligation—verify the resulting sequence.
+
+Pay special attention to the final ligated product:
+- Confirm the insert is placed between the NcoI and XhoI sites.
+- Ensure the reading frame is preserved.
+- Check that the final sequence starts with ATG and ends appropriately.
+
+Once verified, save the final predicted sequence for downstream use or visualization.
 
 ---
 
 ## Step 6: Visualize the Final Product
 
-- 📄 Final pET-insulin plasmid: [Download GenBank](../assets/pET-insulin.gb)
+- 📄 Final pET-insulin plasmid: [Download GenBank](../assets/pET-INS.seq)
 
-[Insert SeqViz plot with features: T7 promoter, lacI, His-tag (if any), insulin, terminator, etc.]
+
+**Product Visualization:**
+
+<div id="viewer1"></div>
+<script>
+  function waitForSeqViz(callback) {
+    if (typeof seqviz !== "undefined" && seqviz.Viewer) {
+      callback();
+    } else {
+      setTimeout(() => waitForSeqViz(callback), 50);
+    }
+  }
+
+  waitForSeqViz(() => {
+    seqviz
+      .Viewer("viewer1", {
+        name: "pET-INS",
+        seq: "AGATCTCGATCCCGCGAAATTAATACGACTCACTATAGGGGAATTGTGAGCGGATAACAATTCCCCTCTAGAAATAATTTTGTTTAACTTTAAGAAGGAGATATACCATGGccctgtggatgcgcctcctgcccctgctggcgctgctggccctctggggacctgacccagccgcagcctttgtgaaccaacacctgtgcggctcacacctggtggaagctctctacctagtgtgcggggaacgaggcttcttctacacacccaagacccgccgggaggcagaggacctgcaggtggggcaggtggagctgggcgggggccctggtgcaggcagcctgcagcccttggccctggaggggtccctgcagaagcgtggcattgtggaacaatgctgtaccagcatctgctccctctaccagctggagaactactgcaactagCTCGAGCACCACCACCACCACCACTGAGATCCGGCTGCTAACAAAGCCCGAAAGGAAGCTGAGTTGGCTGCTGCCACCGCTGAGCAATAACTAGCATAACCCCTTGGGGCCTCTAAACGGGTCTTGAGGGGTTTTTTGCTGAAAGGAGGAACTATATCCGGATTGGCGAATGGGACGCGCCCTGTAGCGGCGCATTAAGCGCGGCGGGTGTGGTGGTTACGCGCAGCGTGACCGCTACACTTGCCAGCGCCCTAGCGCCCGCTCCTTTCGCTTTCTTCCCTTCCTTTCTCGCCACGTTCGCCGGCTTTCCCCGTCAAGCTCTAAATCGGGGGCTCCCTTTAGGGTTCCGATTTAGTGCTTTACGGCACCTCGACCCCAAAAAACTTGATTAGGGTGATGGTTCACGTAGTGGGCCATCGCCCTGATAGACGGTTTTTCGCCCTTTGACGTTGGAGTCCACGTTCTTTAATAGTGGACTCTTGTTCCAAACTGGAACAACACTCAACCCTATCTCGGTCTATTCTTTTGATTTATAAGGGATTTTGCCGATTTCGGCCTATTGGTTAAAAAATGAGCTGATTTAACAAAAATTTAACGCGAATTTTAACAAAATATTAACGTTTACAATTTCAGGTGGCACTTTTCGGGGAAATGTGCGCGGAACCCCTATTTGTTTATTTTTCTAAATACATTCAAATATGTATCCGCTCATGAATTAATTCTTAGAAAAACTCATCGAGCATCAAATGAAACTGCAATTTATTCATATCAGGATTATCAATACCATATTTTTGAAAAAGCCGTTTCTGTAATGAAGGAGAAAACTCACCGAGGCAGTTCCATAGGATGGCAAGATCCTGGTATCGGTCTGCGATTCCGACTCGTCCAACATCAATACAACCTATTAATTTCCCCTCGTCAAAAATAAGGTTATCAAGTGAGAAATCACCATGAGTGACGACTGAATCCGGTGAGAATGGCAAAAGTTTATGCATTTCTTTCCAGACTTGTTCAACAGGCCAGCCATTACGCTCGTCATCAAAATCACTCGCATCAACCAAACCGTTATTCATTCGTGATTGCGCCTGAGCGAGACGAAATACGCGATCGCTGTTAAAAGGACAATTACAAACAGGAATCGAATGCAACCGGCGCAGGAACACTGCCAGCGCATCAACAATATTTTCACCTGAATCAGGATATTCTTCTAATACCTGGAATGCTGTTTTCCCGGGGATCGCAGTGGTGAGTAACCATGCATCATCAGGAGTACGGATAAAATGCTTGATGGTCGGAAGAGGCATAAATTCCGTCAGCCAGTTTAGTCTGACCATCTCATCTGTAACATCATTGGCAACGCTACCTTTGCCATGTTTCAGAAACAACTCTGGCGCATCGGGCTTCCCATACAATCGATAGATTGTCGCACCTGATTGCCCGACATTATCGCGAGCCCATTTATACCCATATAAATCAGCATCCATGTTGGAATTTAATCGCGGCCTAGAGCAAGACGTTTCCCGTTGAATATGGCTCATAACACCCCTTGTATTACTGTTTATGTAAGCAGACAGTTTTATTGTTCATGACCAAAATCCCTTAACGTGAGTTTTCGTTCCACTGAGCGTCAGACCCCGTAGAAAAGATCAAAGGATCTTCTTGAGATCCTTTTTTTCTGCGCGTAATCTGCTGCTTGCAAACAAAAAAACCACCGCTACCAGCGGTGGTTTGTTTGCCGGATCAAGAGCTACCAACTCTTTTTCCGAAGGTAACTGGCTTCAGCAGAGCGCAGATACCAAATACTGTCCTTCTAGTGTAGCCGTAGTTAGGCCACCACTTCAAGAACTCTGTAGCACCGCCTACATACCTCGCTCTGCTAATCCTGTTACCAGTGGCTGCTGCCAGTGGCGATAAGTCGTGTCTTACCGGGTTGGACTCAAGACGATAGTTACCGGATAAGGCGCAGCGGTCGGGCTGAACGGGGGGTTCGTGCACACAGCCCAGCTTGGAGCGAACGACCTACACCGAACTGAGATACCTACAGCGTGAGCTATGAGAAAGCGCCACGCTTCCCGAAGGGAGAAAGGCGGACAGGTATCCGGTAAGCGGCAGGGTCGGAACAGGAGAGCGCACGAGGGAGCTTCCAGGGGGAAACGCCTGGTATCTTTATAGTCCTGTCGGGTTTCGCCACCTCTGACTTGAGCGTCGATTTTTGTGATGCTCGTCAGGGGGGCGGAGCCTATGGAAAAACGCCAGCAACGCGGCCTTTTTACGGTTCCTGGCCTTTTGCTGGCCTTTTGCTCACATGTTCTTTCCTGCGTTATCCCCTGATTCTGTGGATAACCGTATTACCGCCTTTGAGTGAGCTGATACCGCTCGCCGCAGCCGAACGACCGAGCGCAGCGAGTCAGTGAGCGAGGAAGCGGAAGAGCGCCTGATGCGGTATTTTCTCCTTACGCATCTGTGCGGTATTTCACACCGCATATATGGTGCACTCTCAGTACAATCTGCTCTGATGCCGCATAGTTAAGCCAGTATACACTCCGCTATCGCTACGTGACTGGGTCATGGCTGCGCCCCGACACCCGCCAACACCCGCTGACGCGCCCTGACGGGCTTGTCTGCTCCCGGCATCCGCTTACAGACAAGCTGTGACCGTCTCCGGGAGCTGCATGTGTCAGAGGTTTTCACCGTCATCACCGAAACGCGCGAGGCAGCTGCGGTAAAGCTCATCAGCGTGGTCGTGAAGCGATTCACAGATGTCTGCCTGTTCATCCGCGTCCAGCTCGTTGAGTTTCTCCAGAAGCGTTAATGTCTGGCTTCTGATAAAGCGGGCCATGTTAAGGGCGGTTTTTTCCTGTTTGGTCACTGATGCCTCCGTGTAAGGGGGATTTCTGTTCATGGGGGTAATGATACCGATGAAACGAGAGAGGATGCTCACGATACGGGTTACTGATGATGAACATGCCCGGTTACTGGAACGTTGTGAGGGTAAACAACTGGCGGTATGGATGCGGCGGGACCAGAGAAAAATCACTCAGGGTCAATGCCAGCGCTTCGTTAATACAGATGTAGGTGTTCCACAGGGTAGCCAGCAGCATCCTGCGATGCAGATCCGGAACATAATGGTGCAGGGCGCTGACTTCCGCGTTTCCAGACTTTACGAAACACGGAAACCGAAGACCATTCATGTTGTTGCTCAGGTCGCAGACGTTTTGCAGCAGCAGTCGCTTCACGTTCGCTCGCGTATCGGTGATTCATTCTGCTAACCAGTAAGGCAACCCCGCCAGCCTAGCCGGGTCCTCAACGACAGGAGCACGATCATGCGCACCCGTGGGGCCGCCATGCCGGCGATAATGGCCTGCTTCTCGCCGAAACGTTTGGTGGCGGGACCAGTGACGAAGGCTTGAGCGAGGGCGTGCAAGATTCCGAATACCGCAAGCGACAGGCCGATCATCGTCGCGCTCCAGCGAAAGCGGTCCTCGCCGAAAATGACCCAGAGCGCTGCCGGCACCTGTCCTACGAGTTGCATGATAAAGAAGACAGTCATAAGTGCGGCGACGATAGTCATGCCCCGCGCCCACCGGAAGGAGCTGACTGGGTTGAAGGCTCTCAAGGGCATCGGTCGAGATCCCGGTGCCTAATGAGTGAGCTAACTTACATTAATTGCGTTGCGCTCACTGCCCGCTTTCCAGTCGGGAAACCTGTCGTGCCAGCTGCATTAATGAATCGGCCAACGCGCGGGGAGAGGCGGTTTGCGTATTGGGCGCCAGGGTGGTTTTTCTTTTCACCAGTGAGACGGGCAACAGCTGATTGCCCTTCACCGCCTGGCCCTGAGAGAGTTGCAGCAAGCGGTCCACGCTGGTTTGCCCCAGCAGGCGAAAATCCTGTTTGATGGTGGTTAACGGCGGGATATAACATGAGCTGTCTTCGGTATCGTCGTATCCCACTACCGAGATATCCGCACCAACGCGCAGCCCGGACTCGGTAATGGCGCGCATTGCGCCCAGCGCCATCTGATCGTTGGCAACCAGCATCGCAGTGGGAACGATGCCCTCATTCAGCATTTGCATGGTTTGTTGAAAACCGGACATGGCACTCCAGTCGCCTTCCCGTTCCGCTATCGGCTGAATTTGATTGCGAGTGAGATATTTATGCCAGCCAGCCAGACGCAGACGCGCCGAGACAGAACTTAATGGGCCCGCTAACAGCGCGATTTGCTGGTGACCCAATGCGACCAGATGCTCCACGCCCAGTCGCGTACCGTCTTCATGGGAGAAAATAATACTGTTGATGGGTGTCTGGTCAGAGACATCAAGAAATAACGCCGGAACATTAGTGCAGGCAGCTTCCACAGCAATGGCATCCTGGTCATCCAGCGGATAGTTAATGATCAGCCCACTGACGCGTTGCGCGAGAAGATTGTGCACCGCCGCTTTACAGGCTTCGACGCCGCTTCGTTCTACCATCGACACCACCACGCTGGCACCCAGTTGATCGGCGCGAGATTTAATCGCCGCGACAATTTGCGACGGCGCGTGCAGGGCCAGACTGGAGGTGGCAACGCCAATCAGCAACGACTGTTTGCCCGCCAGTTGTTGTGCCACGCGGTTGGGAATGTAATTCAGCTCCGCCATCGCCGCTTCCACTTTTTCCCGCGTTTTCGCAGAAACGTGGCTGGCCTGGTTCACCACGCGGGAAACGGTCTGATAAGAGACACCGGCATACTCTGCGACATCGTATAACGTTACTGGTTTCACATTCACCACCCTGAATTGACTCTCTTCCGGGCGCTATCATGCCATACCGCGAAAGGTTTTGCGCCATTCGATGGTGTCCGGGATCTCGACGCTCTCCCTTATGCGACTCCTGCATTAGGAAGCAGCCCAGTAGTAGGTTGAGGCCGTTGAGCACCGCCGCCGCAAGGAATGGTGCATGCAAGGAGATGGCGCCCAACAGTCCCCCGGCCACGGGGCCTGCCACCATACCCACGCCGAAACAAGCGCTCATGAGCCCGAAGTGGCGAGCCCGATCTTCCCCATCGGTGATGTCGGCGATATAGGCGCCAGCAACCGCACCTGTGGCGCCGGTGATGCCGGCCACGATGCGTCCGGCGTAGAGGATCG",
+        annotations: [
+          { name: "T7 Promoter", start: 20, end: 40, color: "RosyBrown", direction: 1 },
+          { name: "NcoI", start: 105, end: 111, color: "#ff40ff", direction: -1 },
+          { name: "INS (insulin CDS)", start: 107, end: 440, color: "#e9cf24", direction: 1 },
+          { name: "XhoI", start: 440, end: 446, color: "#ff40ff", direction: 1 },
+          { name: "6xHis", start: 446, end: 464, color: "#cc99b2", direction: 1 },
+          { name: "T7 terminator", start: 530, end: 578, color: "#bbbbbb", direction: -1 },
+          { name: "kanR", start: 1162, end: 1978, color: "#ccffcc", direction: -1 },
+          { name: "pMB1 ori", start: 2256, end: 2628, color: "grey", direction: -1 }
+        ],
+        translations: [{ start: 107, end: 440, direction: 1, name: "Insulin", color: "#e9cf24" }],
+        viewer: "both",
+        showComplement: true,
+        showIndex: true,
+        showAnnotations: true,
+        showPrimers: false,
+        showLabels: true,
+        circular: true,
+        zoom: { linear: 80 },
+        style: { height: "400px", width: "100%" }
+      })
+      .render();
+  });
+</script>
 
 ---
 
