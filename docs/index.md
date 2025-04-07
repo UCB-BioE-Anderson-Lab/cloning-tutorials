@@ -12,7 +12,7 @@ Welcome to the **Synthetic Biology Project Tutorials**, a modular series of inte
 2. **[Pipetting](wetlab/pipetting.md)**  
    Learn how to use a pipette properly, interpret volume markings, and avoid common errors.
 
-3. **[PCR Setup](wetlab/pcr.md)**  
+3. **[Polymerase Chain Reaction](wetlab/pcr.md)**  
    Instructions for setting up the PCR using degenerate oligos to amplify the pP6 library.
 
 4. **[Gel Electrophoresis](wetlab/gel.md)**  
