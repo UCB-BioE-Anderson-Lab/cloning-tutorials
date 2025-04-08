@@ -40,9 +40,9 @@ The basic workflow:
 
 ## Zymo vs. Other Kits
 
-We use the **Zymo DNA Clean & Concentrator-5** kit because it allows elution in as little as **6 µL**, which is sometimes useful for concentrating the DNA.
+We use the **Zymo DNA Clean & Concentrator-5** kit because it allows elution in as little as **6 µL**, which is sometimes useful for concentrating the DNA. However, there are many equivalent products on the market.
 
-Alternative: **Qiagen QIAquick Gel Extraction Kit (purple column)**  
+Popular Alternative: **Qiagen QIAquick Gel Extraction Kit (purple column)**  
 
 - Typically used to extract DNA from excised gel slices  
 - Requires special buffer if binding from a gel  

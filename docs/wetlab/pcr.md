@@ -81,7 +81,9 @@ The primers introduce BsaI sites and randomized sequence regions. N represents a
   });
 </script>
 
-![Diagram of PCR around pJ12 plasmid](../images/P6_pcr_scheme.png)
+### PCR around pJ12 plasmid
+
+![Schematic showing PCR of pJ12 plasmid. The circular plasmid pJ12 includes labeled features: amilGFP (yellow), bla (pink), and ori (gray). Two outward-facing primers (P6LibF2 and P6LibR2, shown in green) flank the promoter region and include randomized N bases. Below the plasmid is a linear depiction of the PCR product, showing the same three features in order with green ends representing the randomized promoter sequences.](../images/P6_pcr_scheme.png)
 
 *Figure: This experiment uses PCR to amplify the entire pJ12 plasmid using primers that face outward and include BsaI sites with degenerate bases. The result is a linear PCR product that still contains all original plasmid features (amilGFP, bla, ori), flanked by randomized promoter regions near each end.*
 
@@ -201,4 +203,3 @@ Final Extension:        68°C for 5 min
 
 Watch the PCR tutorial video before coming to lab.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
-
