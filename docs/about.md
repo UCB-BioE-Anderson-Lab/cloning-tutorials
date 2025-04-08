@@ -8,13 +8,15 @@ These tutorials are designed to teach practical and conceptual foundations for s
 
 ## Who This Is For
 
-These tutorials support:
+This tutorial is for anyone who wants to learn how to design and carry out DNA cloning experiments — the technical core of synthetic biology. It focuses on the foundational concepts and practical skills needed to plan and execute cloning workflows, without covering genome editing methods such as CRISPR.
 
-- Students in BioE 140L (Synthetic Biology Lab) at UC Berkeley
-- Members of iGEM@Berkeley and DeCal student-led programs
-- Post-baccalaureate researchers and independent learners
+The content is:
 
-They assume prior coursework in organic chemistry and biochemistry, but no prior hands-on experience in cloning.
+- Aimed at students, including those in BioE 140L at UC Berkeley and participants in iGEM@Berkeley and DeCal programs  
+- Helpful for post-baccalaureate researchers, educators, and independent learners looking for a practical, modular guide  
+- Designed for those with prior coursework in organic chemistry and biochemistry, but no hands-on cloning experience
+
+The site is freely accessible, fully open-source, and suitable for both classroom use and self-paced learning.
 
 ---
 
