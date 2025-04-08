@@ -1,4 +1,4 @@
-# Picking Colonies
+# Colony Picking
 
 After plating your transformation and incubating overnight, if everything goes well you will see colonies that look something like this:
 
@@ -10,10 +10,16 @@ After plating your transformation and incubating overnight, if everything goes w
 ## What Are You Looking For?
 
 In the pP6 experiment, you're trying to identify the **strongest promoter variants**. These drive expression of amilGFP, which fluoresces green.  
+
 - **Bright green colonies** indicate successful assembly of a strong promoter driving GFP.  
-- Colonies with no fluorescence are likely background or non-transformants.
+- Colonies with no fluorescence are likely the template plasmid (pJ12) or inactive variants.
 
 Some bright colonies are so strong that you can see yellowish color even without blue light. These are your best candidates.
+
+Each visible spot on the plate arises from a single bacterium that landed there and divided repeatedly. To ensure you're picking a true single clone, choose **well-isolated, round colonies** that are clearly separated from their neighbors.  
+
+- Avoid picking colonies that are touching or very close together  
+- Avoid elongated or smeared colonies, which may indicate mixed or unhealthy growth  
 
 **Picking** refers to using a sterile tool (usually a toothpick or pipette tip) to transfer a single colony to a liquid culture.  
 **Inoculating** means introducing that colony into fresh media to grow overnight.
