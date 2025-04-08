@@ -21,7 +21,7 @@ Welcome to the **Synthetic Biology Project Tutorials**, a modular series of inte
 5. **[Zymo Cleanup](wetlab/cleanup.md)**  
    Purify the PCR product to prepare it for assembly.
 
-6. **[Golden Gate Assembly](wetlab/assembly.md)**  
+6. **[Assembly](wetlab/assembly.md)**  
    Rejoin ends of the linear DNA to regenerate the plasmid using Golden Gate assembly.
 
 7. **[Transformation](wetlab/transformation.md)**  

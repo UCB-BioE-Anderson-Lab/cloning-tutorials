@@ -1,4 +1,4 @@
-# Golden Gate Assembly
+# Assembly
 
 In molecular cloning, “assembly” refers to joining two or more DNA molecules together into one. Two of the most common methods are **Golden Gate Assembly** and **Gibson Assembly**—together they cover nearly all modern cloning needs.
 
@@ -83,7 +83,6 @@ You can scale this up or down depending on your needs, but:
 - Avoid excessive DNA concentrations that may inhibit ligation
 
 Typical scale is **10 µL**, matching what’s needed for competent cell transformation.
-
 
 ---
 
