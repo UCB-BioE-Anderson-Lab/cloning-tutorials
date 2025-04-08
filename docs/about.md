@@ -44,6 +44,6 @@ It builds on over 15 years of training experience in synthetic biology. The site
 
 ## Technical Info
 
-- Hosted as a public site using GitHub Pages
+- Hosted as a public site using GitHub Pages at [https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials)
 - Licensed under the **Apache License 2.0**
 - Bug reports are welcome via GitHub
