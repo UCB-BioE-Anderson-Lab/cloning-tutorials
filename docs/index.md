@@ -6,7 +6,7 @@ Welcome to the **Synthetic Biology Project Tutorials**, a modular series of inte
 
 ## Part A: Wetlab
 
-1. **[wetlab Experiment Introduction](wetlab/intro.md)**  
+1. **[pP6 Experiment Introduction](wetlab/intro.md)**  
    Learn the goal of the pP6 library experiment, the concept of consensus promoters, and why randomized promoter libraries are used.
 
 2. **[Pipetting](wetlab/pipetting.md)**  
@@ -33,11 +33,11 @@ Welcome to the **Synthetic Biology Project Tutorials**, a modular series of inte
 9. **[Miniprep](wetlab/miniprep.md)**  
    Purify plasmid DNA from the cultures using a miniprep protocol.
 
-10. **[Sanger Sequencing](wetlab/sequencing.md)**  
-    Submit DNA for sequencing and interpret results to identify strong promoter variants.
+10. **[Cycle Sequencing](wetlab/sequencing.md)**  
+   Submit DNA for sequencing and interpret results to identify strong promoter variants.
 
-11. **[Closeout and Documentation](wetlab/closeout.md)**  
-    Record experimental outcomes, summarize findings, and archive your work for future use.
+11. **[Measuring Fluorescence](bestp.md)**  
+   Quantify promoter activity by measuring amilGFP fluorescence and OD, and calculate Relative Promoter Units (RPUs).
 
 ## Part B: Cloning Techniques
 
