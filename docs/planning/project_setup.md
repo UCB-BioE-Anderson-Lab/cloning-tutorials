@@ -4,20 +4,32 @@ This guide outlines conventions for setting up and organizing a synthetic biolog
 
 ## Defining a Project
 
-A *project* is an independent thread of research with a clear goal. Each project must have a unique, single-token name (e.g., `lycopene`). Avoid informal names or nicknames in documentation to maintain searchable and traceable records. 
+A *project* is an independent, long-term research effort with a clear scientific or engineering goal. Each project should have a unique, single-token name (e.g., `lycopene`) that will be used consistently across documentation, file structures, plasmid names, and experiment records. Avoid informal or overlapping nicknames to ensure records remain searchable and unambiguous over time.
 
-When starting out, a project might begin with a narrow goal, but it will likely grow in complexity. Naming it consistently from the start ensures future experiments, constructs, and documentation stay aligned and searchable.
+Projects are generally defined by scope: they may focus on a distinct application, scientific question, or system. They are often aligned with specific funding sources, collaborations, or distinct groups of people. For example:
 
-Example:
+> **Project: `lycopene`**  
+> **Goal:** Maximize lycopene production in *E. coli* by tuning the metabolic pathway.
 
-- Project name: `lycopene`
-- Goal: Maximize lycopene production in *E. coli*.
+This is distinct from other efforts that may be running in parallel, such as:
+
+> **Project: `stickbug`**  
+> **Goal:** Build a surface-display system in *Bacillus subtilis* to test adhesion strength on plastic, glass, and food packaging materials.
+
+Although these projects may share some techniques or tools, they target different applications and will generate separate materials and documentation.
 
 ## Defining an Experiment
 
-An *experiment* is a bundled set of procedures (e.g., cloning, assays) conducted under a specific goal within a project. Experiments are named sequentially and prefixed by the project name (e.g., `lycopene33` is the 33rd experiment in the `lycopene` project).
+An *experiment* is a specific, bounded effort to test or implement one part of a larger project. Experiments are sequential and named using the project name followed by a number — for example, `lycopene33` is the 33rd experiment within the `lycopene` project.
 
-This deterministic naming also aids automation, indexing, and archiving of experiments. If experiment names are consistent, you can sort and filter results by project or experiment ID with confidence.
+Experiments are how you break a big project into manageable, testable chunks. A good experiment name reflects the sequence of work, not its content. Content details go inside the folder and issue description. Example:
+
+> **Experiment: `lycopene33`**  
+> **Subgoal:** Find the optimum promoter strength for controlling the *dxs* gene in the lycopene-producing plasmid.
+
+This experiment supports the overarching goal of the `lycopene` project but is only one step in a longer sequence. Other experiments might focus on cloning alternative enzymes, testing carbon sources, or optimizing growth conditions.
+
+This structured naming enables automation, versioning, and filtering. It also helps collaborators and future users understand how each piece fits into the broader effort.
 
 ## Plasmid Naming
 
@@ -38,13 +50,17 @@ Synthetic DNAs include oligos, gBlocks, and synthesized plasmids. Like plasmids,
 - **Clonal Plasmids** from synthesis: Follow plasmid naming conventions
 - **Oligo Pools**: Optional `l<PROJECT>` prefix, e.g., `lLYC1`
 
-## Naming Philosophy: Numbers are Cheap; Collisions are Expensive
+## Numbers are Cheap; Collisions are Expensive
 
-When designing a project, it’s common to discover design errors late — sometimes even after materials like oligos have been ordered and named. These names may already appear in your documentation or physical inventory.
+When you’re designing a project, mistakes and revisions are inevitable. You might design an oligo or gBlock, give it a name, and even order it — only to later realize it needs to change. That’s fine. But once a name has been used in any persistent context — committed to GitHub, sent to synthesis, or written on a tube — you should treat it as permanent.
 
-As long as a name hasn’t been committed to GitHub (or any persistent record), feel free to change it. But once a name is committed and referenced, consider it permanent. Avoid reassigning that name to something new.
+Don’t overwrite old names with new sequences or meanings. For example, if you redesign an oligo originally labeled `oBYC14` but keep the same name, it’s easy to forget which version is in the freezer — or worse, trust the wrong sequence in simulation or documentation. This is how errors propagate.
 
-If you redesign your work, don’t recycle names — just use the next number. Reusing names risks confusion about what a reference actually points to (a file? a tube? a sequence?). That can lead to wasted time or experimental error. Avoid ambiguity by always assigning new numbers to new things.
+Collisions aren’t limited to oligos. The same principle applies to files, plasmids, gBlocks, and strain names. Once something has a name in the repo, that name should refer to exactly one version of a real thing.
+
+So don’t recycle. If you revise a design, just increment to the next number. It’s cheap to make `oBYC15`. It’s expensive to spend hours debugging a mix-up caused by duplicate names.
+
+Unique names for unique things — always.
 
 ## Folder Structure
 
