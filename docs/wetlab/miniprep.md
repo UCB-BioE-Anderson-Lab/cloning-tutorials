@@ -58,7 +58,7 @@ The protocol below is adapted from Qiagen's handbook, which includes detailed gu
 ### 💧 Elution
 
 10. Place column in a new 1.5 mL microcentifuge tube. Add 50 µL EB (or water, pH 7–8.5) to center of membrane.
-11. Spin 1 min to elute DNA.
+11. Spin 45 s to elute DNA.
 
 *Note: Avoid ethanol contamination from PE — spin thoroughly before eluting.*
 
@@ -82,6 +82,72 @@ The protocol below is adapted from Qiagen's handbook, which includes detailed gu
 - Be mindful of contamination on your gloves. This procedure can be messy; crusty debris from bottle rims can transfer to gloves and contaminate your samples. Rinse your gloves at the sink if you suspect it.
 
 ---
+
+## 🧪 Quiz: Miniprep
+
+<form id="miniprep_quiz_form">
+  <h3>1️⃣ Elution Contents</h3>
+  <p>What is in the tube after elution from the miniprep column?</p>
+  <label><input type="radio" name="q1" value="a"> All nucleic acids present in the original cell</label><br>
+  <label><input type="radio" name="q1" value="b"> Guanidinium chloride, plasmid DNA, and ethanol</label><br>
+  <label><input type="radio" name="q1" value="c"> RNA, chromosomal DNA, proteins, and water</label><br>
+  <label><input type="radio" name="q1" value="d"> Water and purified plasmid DNA</label><br>
+  <p id="miniprep_res_q1"></p>
+
+  <h3>2️⃣ Avoiding Errors</h3>
+  <p>Which of these are good miniprep practices?</p>
+  <label><input type="checkbox" name="q2" value="a"> Using more than 5 mL of cells</label><br>
+  <label><input type="checkbox" name="q2" value="b"> Leaving supernatant after pelleting</label><br>
+  <label><input type="checkbox" name="q2" value="c"> Skipping RNase in P1</label><br>
+  <label><input type="checkbox" name="q2" value="d"> Incomplete cell resuspension</label><br>
+  <label><input type="checkbox" name="q2" value="e"> Using cold, precipitated P2</label><br>
+  <label><input type="checkbox" name="q2" value="f"> Using the wrong neutralization buffer</label><br>
+  <label><input type="checkbox" name="q2" value="g"> Skipping gentle mixing before spinning</label><br>
+  <label><input type="checkbox" name="q2" value="h"> Over-vortexing the lysate</label><br>
+  <label><input type="checkbox" name="q2" value="i"> Washing the column with water</label><br>
+  <label><input type="checkbox" name="q2" value="j"> Doing washes in the wrong order</label><br>
+  <label><input type="checkbox" name="q2" value="k"> Using PE without ethanol</label><br>
+  <label><input type="checkbox" name="q2" value="l"> Not drying the column</label><br>
+  <label><input type="checkbox" name="q2" value="m"> Eluting on the side of the tube</label><br>
+  <label><input type="checkbox" name="q2" value="n"> Throwing away your DNA</label><br>
+  <label><input type="checkbox" name="q2" value="o"> Eluting into the collection tube</label><br>
+  <label><input type="checkbox" name="q2" value="p"> Having a great time (the only right answer)</label><br>
+  <label><input type="checkbox" name="q2" value="q"> Eluting with PE buffer</label><br>
+  <p id="miniprep_res_q2"></p>
+
+  <button type="button" id="miniprep_submit_btn">Check Answers</button>
+</form>
+
+<script>
+  document.getElementById("miniprep_submit_btn").addEventListener("click", function () {
+    const answers = {
+      q1: "d"
+    };
+    const selectedQ1 = document.querySelector('input[name="q1"]:checked');
+    const resultQ1 = document.getElementById("miniprep_res_q1");
+    if (selectedQ1 && selectedQ1.value === answers.q1) {
+      resultQ1.innerHTML = "✅ Correct!";
+      if (typeof progressManager !== "undefined") {
+        progressManager.addCompletion("miniprep_q1", "correct");
+      }
+    } else {
+      resultQ1.innerHTML = "❌ Try again.";
+    }
+
+    const checkboxes = document.querySelectorAll('input[name="q2"]:checked');
+    const selectedVals = Array.from(checkboxes).map(cb => cb.value).sort().join("");
+    const correctVals = ["p"].sort().join("");  // only having a great time
+    const resultQ2 = document.getElementById("miniprep_res_q2");
+    if (selectedVals === correctVals) {
+      resultQ2.innerHTML = "✅ Correct!";
+      if (typeof progressManager !== "undefined") {
+        progressManager.addCompletion("miniprep_q2", "correct");
+      }
+    } else {
+      resultQ2.innerHTML = "❌ Try again.";
+    }
+  });
+</script>
 
 ## Video Tutorial
 

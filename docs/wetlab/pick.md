@@ -65,6 +65,60 @@ Name the image as: `pP6-79` (with your number)
 
 ---
 
+## 🧪 Quiz: Colony Picking
+
+<form id="picking_quiz_form">
+  <h3>1️⃣ Picking Strategy</h3>
+  <p>Which colony is most likely to contain the strongest promoter and should be picked?</p>
+  <label><input type="radio" name="q1" value="a"> A white colony near the edge of the plate</label><br>
+  <label><input type="radio" name="q1" value="b"> The largest colony on the plate</label><br>
+  <label><input type="radio" name="q1" value="c"> A large, bright green colony in a dense cluster</label><br>
+  <label><input type="radio" name="q1" value="d"> A small, isolated, bright green colony</label><br>
+  <p id="pick_res_q1"></p>
+
+  <h3>2️⃣ Colony Isolation</h3>
+  <p>Why is it important to choose a well-separated colony?</p>
+  <label><input type="radio" name="q2" value="a"> It ensures the colony is round</label><br>
+  <label><input type="radio" name="q2" value="b"> It increases the transformation efficiency</label><br>
+  <label><input type="radio" name="q2" value="c"> It ensures the picked colony comes from a single clone</label><br>
+  <label><input type="radio" name="q2" value="d"> It improves antibiotic resistance</label><br>
+  <p id="pick_res_q2"></p>
+
+  <h3>3️⃣ Sample Labeling</h3>
+  <p>What does the label <code>pP6-37C</code> indicate?</p>
+  <label><input type="radio" name="q3" value="a"> It is the third colony picked by the student assigned number 37 for the pP6 experiment</label><br>
+  <label><input type="radio" name="q3" value="b"> It represents the colony with the third highest green fluorescence intensity on the plate</label><br>
+  <label><input type="radio" name="q3" value="c"> It is the 37th colony selected across all students in this year’s lab</label><br>
+  <label><input type="radio" name="q3" value="d"> It refers to a pP6 plate that was incubated at 37°C and produced a colony labeled "C"</label><br>
+  <p id="pick_res_q3"></p>
+
+  <button type="button" id="picking_submit_btn">Check Answers</button>
+</form>
+
+<script>
+  document.getElementById("picking_submit_btn").addEventListener("click", function () {
+    const answers = {
+      q1: "d",
+      q2: "c",
+      q3: "a"
+    };
+    ["q1", "q2", "q3"].forEach(function (q) {
+      const selected = document.querySelector(`input[name="${q}"]:checked`);
+      const result = document.getElementById(`pick_res_${q}`);
+      if (selected && selected.value === answers[q]) {
+        result.innerHTML = "✅ Correct!";
+        if (typeof progressManager !== "undefined") {
+          progressManager.addCompletion(`pick_${q}`, "correct");
+        }
+      } else {
+        result.innerHTML = "❌ Try again.";
+      }
+    });
+  });
+</script>
+
+----
+
 ## Video Tutorial
 
 🎥 Watch the picking tutorial video before lab.  

@@ -82,6 +82,58 @@ If others in your lab section are also ready to run a gel, set up one gel for th
 
 ---
 
+## 🧪 Quiz: Gel Electrophoresis
+
+<form id="gel_quiz_form">
+  <h3>1️⃣ Purpose of Running a Gel</h3>
+  <p>Why do we run an agarose gel after PCR?</p>
+  <label><input type="radio" name="q1" value="a"> To sequence the amplified DNA and analyze the base composition</label><br>
+  <label><input type="radio" name="q1" value="b"> To purify the PCR product for downstream cloning steps</label><br>
+  <label><input type="radio" name="q1" value="c"> To amplify the DNA a second time in a gel matrix</label><br>
+  <label><input type="radio" name="q1" value="d"> To confirm that the PCR reaction worked as expected</label><br>
+  <p id="gel_res_q1"></p>
+
+  <h3>2️⃣ Running the Gel</h3>
+  <p>What does "run to red" mean in gel electrophoresis?</p>
+  <label><input type="radio" name="q2" value="a"> Start the gel run using the maximum voltage setting</label><br>
+  <label><input type="radio" name="q2" value="b"> Load DNA at the red (positive) electrode side</label><br>
+  <label><input type="radio" name="q2" value="c"> DNA migrates toward the red (positive) electrode</label><br>
+  <label><input type="radio" name="q2" value="d"> Use red dye to visualize the DNA in the gel</label><br>
+  <p id="gel_res_q2"></p>
+
+  <h3>3️⃣ Purpose of Loading Dye</h3>
+  <p>Why is loading dye added to PCR samples before running them on a gel?</p>
+  <label><input type="radio" name="q3" value="a"> To increase DNA yield during electrophoresis</label><br>
+  <label><input type="radio" name="q3" value="b"> To bind to DNA and make it heavier</label><br>
+  <label><input type="radio" name="q3" value="c"> To reduce voltage needed for migration</label><br>
+  <label><input type="radio" name="q3" value="d"> To weigh down the sample and help track it during electrophoresis</label><br>
+  <p id="gel_res_q3"></p>
+
+  <button type="button" id="gel_submit_btn">Check Answers</button>
+</form>
+
+<script>
+  document.getElementById("gel_submit_btn").addEventListener("click", function () {
+    const answers = {
+      q1: "d",
+      q2: "c",
+      q3: "d"
+    };
+    ["q1", "q2", "q3"].forEach(function (q) {
+      const selected = document.querySelector(`input[name="${q}"]:checked`);
+      const result = document.getElementById(`gel_res_${q}`);
+      if (selected && selected.value === answers[q]) {
+        result.innerHTML = "✅ Correct!";
+        if (typeof progressManager !== "undefined") {
+          progressManager.addCompletion(`gel_${q}`, "correct");
+        }
+      } else {
+        result.innerHTML = "❌ Try again.";
+      }
+    });
+  });
+</script>
+
 ## 🎥 Watch Before Lab
 
 Watch the Gel tutorial video before coming to lab.

@@ -155,3 +155,55 @@ Note: Smaller, slow-growing colonies might encode the strongest promoters. Don�
 ## Next
 
 When you're ready, proceed to the [Pipetting tutorial](pipetting.md) to learn how to use a micropipette correctly before starting wetlab work.
+
+## 🧪 Quiz: Promoter Engineering Concepts
+
+<form id="p6_quiz_form">
+  <h3>1️⃣ Fixed Motifs</h3>
+  <p>Which promoter elements are fixed in each synthetic promoter?</p>
+  <label><input type="radio" name="q1" value="a"> Only the +1 site</label><br>
+  <label><input type="radio" name="q1" value="b"> The entire promoter</label><br>
+  <label><input type="radio" name="q1" value="c"> -35, -10, and +1</label><br>
+  <label><input type="radio" name="q1" value="d"> Just the -10 box</label><br>
+  <p id="p6_res_q1"></p>
+
+  <h3>2️⃣ Randomized Regions</h3>
+  <p>What part of the promoter is randomized?</p>
+  <label><input type="radio" name="q2" value="a"> The entire gene</label><br>
+  <label><input type="radio" name="q2" value="b"> The ribosome binding site</label><br>
+  <label><input type="radio" name="q2" value="c"> The flanking regions around -35, -10, +1</label><br>
+  <label><input type="radio" name="q2" value="d"> The coding sequence</label><br>
+  <p id="p6_res_q2"></p>
+
+  <h3>3️⃣ Why Not J23100?</h3>
+  <p>Why are J23100-family promoters avoided in pP6 for multi-gene constructs?</p>
+  <label><input type="radio" name="q3" value="a"> They are too weak</label><br>
+  <label><input type="radio" name="q3" value="b"> They don't work in E. coli</label><br>
+  <label><input type="radio" name="q3" value="c"> Their sequences are too similar, causing recombination</label><br>
+  <label><input type="radio" name="q3" value="d"> They lack RBS elements</label><br>
+  <p id="p6_res_q3"></p>
+
+  <button type="button" id="p6_submit_btn">Check Answers</button>
+</form>
+
+<script>
+  document.getElementById("p6_submit_btn").addEventListener("click", function () {
+    const answers = {
+      q1: "c",
+      q2: "c",
+      q3: "c"
+    };
+    ["q1", "q2", "q3"].forEach(function (q) {
+      const selected = document.querySelector(`input[name="${q}"]:checked`);
+      const result = document.getElementById(`p6_res_${q}`);
+      if (selected && selected.value === answers[q]) {
+        result.innerHTML = "✅ Correct!";
+        if (typeof progressManager !== "undefined") {
+          progressManager.addCompletion(`p6_${q}`, "correct");
+        }
+      } else {
+        result.innerHTML = "❌ Try again.";
+      }
+    });
+  });
+</script>

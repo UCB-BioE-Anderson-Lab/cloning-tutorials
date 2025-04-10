@@ -170,6 +170,69 @@ The pP6 hits you've found vary a lot in brightness. To move from a qualitative o
 
 ---
 
+## 🧪 Quiz: Sequencing
+
+<form id="sequencing_quiz_form">
+  <h3>1️⃣ Why Sequence?</h3>
+  <p>Which of the following is <strong>not</strong> a reason to sequence your pP6 clone?</p>
+  <label><input type="radio" name="q1" value="a"> To find out what promoter you have made</label><br>
+  <label><input type="radio" name="q1" value="b"> To confirm that the assembly chemistry reclosed the circle properly</label><br>
+  <label><input type="radio" name="q1" value="c"> To confirm the quality of your miniprep DNA</label><br>
+  <label><input type="radio" name="q1" value="d"> To quantify the promoter activity of your hit</label><br>
+  <p id="seq_res_q1"></p>
+
+  <h3>2️⃣ Usable Clones</h3>
+  <p>What makes a clone “usable”?</p>
+  <label><input type="radio" name="q2" value="a"> It perfectly matches the pP6 model</label><br>
+  <label><input type="radio" name="q2" value="b"> The T4 terminator is present and annotated</label><br>
+  <label><input type="radio" name="q2" value="c"> The BseRI promoter cassette is intact</label><br>
+  <label><input type="radio" name="q2" value="d"> There are no ambiguous base calls in the read</label><br>
+  <p id="seq_res_q2"></p>
+
+  <h3>3️⃣ Feature Identification</h3>
+  <p>What ApE feature helps you quickly check for key sequences?</p>
+  <label><input type="radio" name="q3" value="a"> Exporting to PDF</label><br>
+  <label><input type="radio" name="q3" value="b"> Ctrl-K to show annotated features</label><br>
+  <label><input type="radio" name="q3" value="c"> Viewing the GC content</label><br>
+  <label><input type="radio" name="q3" value="d"> Showing enzyme cut sites</label><br>
+  <p id="seq_res_q3"></p>
+
+  <h3>4️⃣ What to Look For</h3>
+  <p>What are you primarily trying to verify in your sequencing read?</p>
+  <label><input type="radio" name="q4" value="a"> That the promoter region is intact and in the correct context</label><br>
+  <label><input type="radio" name="q4" value="b"> That the plasmid has no mutations</label><br>
+  <label><input type="radio" name="q4" value="c"> That the plasmid contains the origin and antibiotic resistance</label><br>
+  <label><input type="radio" name="q4" value="d"> That your read is longer than 800 bp regardless of sequence</label><br>
+  <p id="seq_res_q4"></p>
+
+  <button type="button" id="sequencing_submit_btn">Check Answers</button>
+</form>
+
+<script>
+  document.getElementById("sequencing_submit_btn").addEventListener("click", function () {
+    const answers = {
+      q1: "d",
+      q2: "c",
+      q3: "b",
+      q4: "a"
+    };
+    ["q1", "q2", "q3", "q4"].forEach(function (q) {
+      const selected = document.querySelector(`input[name="${q}"]:checked`);
+      const result = document.getElementById(`seq_res_${q}`);
+      if (selected && selected.value === answers[q]) {
+        result.innerHTML = "✅ Correct!";
+        if (typeof progressManager !== "undefined") {
+          progressManager.addCompletion(`sequencing_${q}`, "correct");
+        }
+      } else {
+        result.innerHTML = "❌ Try again.";
+      }
+    });
+  });
+</script>
+
+---
+
 ## 🎥 Watch Before Lab
 
 Watch the Sequencing tutorial video before coming to lab.

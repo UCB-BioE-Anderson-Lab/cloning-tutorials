@@ -124,7 +124,6 @@ Once verified, save the final predicted sequence for downstream use or visualiza
 
 - 📄 Final pET-insulin plasmid: [Download GenBank](../assets/pET-INS.seq)
 
-
 **Product Visualization:**
 
 <div id="viewer1"></div>
@@ -177,11 +176,59 @@ Once verified, save the final predicted sequence for downstream use or visualiza
 - Final construct includes all expected features
 
 ---
-
 ## Quiz
 
-Design primers and a construction file to clone the **human growth hormone (hGH)** cDNA into the same pET vector using NdeI and XhoI.
+For your quiz, you will clone the **Cas9 gene** from *Streptococcus pyogenes*.  
 
-- Primer sequences  
-- Construction file  
-- 🔗 [NCBI: NM_000515.4](https://www.ncbi.nlm.nih.gov/nuccore/NM_000515.4)
+Cas9 is an essential tool in modern genetic engineering. It’s an RNA-guided DNA endonuclease that, when paired with a specific guide RNA (gRNA), can cut double-stranded DNA at targeted sites. This system forms the core of CRISPR-Cas9 genome editing—a revolutionary method that allows researchers to precisely modify genomes across almost any organism. Cas9 itself is the protein "scissors" of this toolkit.
+
+In this activity, you'll clone the Cas9 gene from its native **genomic DNA**, not from a cDNA template. This means we need to extract the correct region from the organism’s genome. We've already found the genome for *Streptococcus pyogenes* and identified the coordinates for the **Cas9 coding sequence**.
+
+You’ll design primers and a construction file to insert Cas9 into the **pET-28a(+) expression vector** using the **NcoI** and **XhoI** restriction sites—just as you did in the insulin example.
+
+### Your tasks:
+- Write forward and reverse primer sequences  
+- Write a complete construction file (PCR, digest, ligation steps)  
+
+Use the Cas9 sequence from *S. pyogenes*, located at coordinates **796769–800875** on GenBank record **CP151446.1**:  
+🔗 [NCBI: CP151446.1](https://www.ncbi.nlm.nih.gov/nucleotide/CP151446.1?report=genbank&log$=nuclalign&blast_rank=1&RID=ZE7Y60E5013&from=796769&to=800875)
+
+### 🧪 Quiz: Promoter Engineering Concepts
+
+**1️⃣ Fixed Motifs**  
+Which promoter elements are fixed in each synthetic promoter?  
+<input type="text" id="p6_q1" placeholder="Enter answer here (e.g. -10)">
+<button type="button" id="p6_btn1">Check Answer</button>  
+<p id="p6_res1"></p>
+
+**2️⃣ Randomized Regions**  
+What part of the promoter is randomized?  
+<input type="text" id="p6_q2" placeholder="Enter answer here">
+<button type="button" id="p6_btn2">Check Answer</button>  
+<p id="p6_res2"></p>
+
+**3️⃣ Why Not J23100?**  
+Why are J23100-family promoters avoided in pP6 for multi-gene constructs?  
+<input type="text" id="p6_q3" placeholder="Enter answer here">
+<button type="button" id="p6_btn3">Check Answer</button>  
+<p id="p6_res3"></p>
+
+<script>
+    setupQuiz("p6_btn1", "-35,-10,+1", "p6_q1", "p6_res1", "pP6_FixedMotifs");
+
+    document.getElementById("p6_btn2").addEventListener("click", function () {
+        const input = document.getElementById("p6_q2").value.toLowerCase().trim();
+        const result = document.getElementById("p6_res2");
+        const correct = input.includes("flank") || input.includes("non-core");
+        result.innerHTML = correct ? "✅ Correct!" : "❌ Try again.";
+        if (correct) progressManager.addCompletion("pP6_RandomizedRegions", "correct");
+    });
+
+    document.getElementById("p6_btn3").addEventListener("click", function () {
+        const input = document.getElementById("p6_q3").value.toLowerCase().trim();
+        const result = document.getElementById("p6_res3");
+        const correct = input.includes("recomb") || input.includes("similar") || input.includes("homology");
+        result.innerHTML = correct ? "✅ Correct!" : "❌ Try again.";
+        if (correct) progressManager.addCompletion("pP6_J23100Reason", "correct");
+    });
+</script>

@@ -199,6 +199,58 @@ Final Extension:        68°C for 5 min
 
 ---
 
+## 🧪 Quiz: PCR and Promoter Engineering
+
+<form id="pcr_quiz_form">
+  <h3>1️⃣ PCR Purpose</h3>
+  <p>What is the purpose of PCR in this experiment?</p>
+  <label><input type="radio" name="q1" value="a"> To amplify the GFP gene</label><br>
+  <label><input type="radio" name="q1" value="b"> To generate a randomized promoter library using degenerate primers</label><br>
+  <label><input type="radio" name="q1" value="c"> To purify the pJ12 plasmid</label><br>
+  <label><input type="radio" name="q1" value="d"> To linearize the vector for digestion</label><br>
+  <p id="pcr_res_q1"></p>
+
+  <h3>2️⃣ Randomized Bases</h3>
+  <p>Why do the primers include randomized bases?</p>
+  <label><input type="radio" name="q2" value="a"> To create variable protein sequences</label><br>
+  <label><input type="radio" name="q2" value="b"> To improve PCR yield</label><br>
+  <label><input type="radio" name="q2" value="c"> To make sequencing easier</label><br>
+  <label><input type="radio" name="q2" value="d"> To allow different promoter variants to be introduced</label><br>
+  <p id="pcr_res_q2"></p>
+
+  <h3>3️⃣ Inverse PCR Strategy</h3>
+  <p>Why is inverse PCR used in this experiment?</p>
+  <label><input type="radio" name="q3" value="a"> It amplifies just the promoter region</label><br>
+  <label><input type="radio" name="q3" value="b"> It helps insert a new gene downstream of the terminator</label><br>
+  <label><input type="radio" name="q3" value="c"> It amplifies the entire plasmid while introducing a new promoter region</label><br>
+  <label><input type="radio" name="q3" value="d"> It produces single-stranded DNA</label><br>
+  <p id="pcr_res_q3"></p>
+
+  <button type="button" id="pcr_submit_btn">Check Answers</button>
+</form>
+
+<script>
+  document.getElementById("pcr_submit_btn").addEventListener("click", function () {
+    const answers = {
+      q1: "b",
+      q2: "d",
+      q3: "c"
+    };
+    ["q1", "q2", "q3"].forEach(function (q) {
+      const selected = document.querySelector(`input[name="${q}"]:checked`);
+      const result = document.getElementById(`pcr_res_${q}`);
+      if (selected && selected.value === answers[q]) {
+        result.innerHTML = "✅ Correct!";
+        if (typeof progressManager !== "undefined") {
+          progressManager.addCompletion(`pcr_${q}`, "correct");
+        }
+      } else {
+        result.innerHTML = "❌ Try again.";
+      }
+    });
+  });
+</script>
+
 ## 🎥 Watch Before Lab
 
 Watch the PCR tutorial video before coming to lab.

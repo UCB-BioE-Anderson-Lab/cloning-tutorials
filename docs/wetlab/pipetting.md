@@ -108,6 +108,76 @@ Follow all pipetting best practices and contamination precautions during this de
 
 ---
 
+## 🧪 Quiz: Pipetting Basics
+
+<form id="pipetting_quiz_form">
+  <h3>1️⃣ Pipette Selection</h3>
+  <p>Which pipette could you use to accurately measure 0.5 µL?</p>
+  <label><input type="radio" name="q1" value="a"> P1000</label><br>
+  <label><input type="radio" name="q1" value="b"> P200</label><br>
+  <label><input type="radio" name="q1" value="c"> P20</label><br>
+  <label><input type="radio" name="q1" value="d"> Any pipette over 0.5 µL</label><br>
+  <p id="pipet_res_q1"></p>
+
+  <h3>2️⃣ Pipetting Sequence</h3>
+  <p>What is the correct sequence for forward pipetting?</p>
+  <label><input type="radio" name="q2" value="a"> Insert tip → press plunger to second stop → draw liquid → dispense to first stop</label><br>
+  <label><input type="radio" name="q2" value="b"> Press plunger to first stop → insert tip → release plunger → dispense to second stop</label><br>
+  <label><input type="radio" name="q2" value="c"> Press to second stop → insert tip → release plunger → dispense to first stop</label><br>
+  <label><input type="radio" name="q2" value="d"> Insert tip → press to first stop → release in air → dispense to second stop</label><br>
+  <p id="pipet_res_q2"></p>
+
+  <h3>3️⃣ Pipette Handling</h3>
+  <p>Why should you never lay a pipette down with liquid inside?</p>
+  <label><input type="radio" name="q3" value="a"> It damages the tip</label><br>
+  <label><input type="radio" name="q3" value="b"> It breaks the plunger</label><br>
+  <label><input type="radio" name="q3" value="c"> Liquid can enter the barrel and damage the mechanism</label><br>
+  <label><input type="radio" name="q3" value="d"> It wastes reagent</label><br>
+  <p id="pipet_res_q3"></p>
+
+  <h3>4️⃣ Pipette Display</h3>
+  <p>On a P1000, a display of “200” means what volume?</p>
+  <label><input type="radio" name="q4" value="a"> 200 µL</label><br>
+  <label><input type="radio" name="q4" value="b"> 20.0 µL</label><br>
+  <label><input type="radio" name="q4" value="c"> 2.00 µL</label><br>
+  <label><input type="radio" name="q4" value="d"> 0.200 µL</label><br>
+  <p id="pipet_res_q4"></p>
+
+  <h3>5️⃣ Troubleshooting</h3>
+  <p>What should you do if you see an air bubble in the tip?</p>
+  <label><input type="radio" name="q5" value="a"> Dispense anyway—bubbles are normal</label><br>
+  <label><input type="radio" name="q5" value="b"> Increase the volume and retry</label><br>
+  <label><input type="radio" name="q5" value="c"> Discard the tip and repeat the step</label><br>
+  <label><input type="radio" name="q5" value="d"> Shake the pipette to dislodge it</label><br>
+  <p id="pipet_res_q5"></p>
+
+  <button type="button" id="pipet_submit_btn">Check Answers</button>
+</form>
+
+<script>
+  document.getElementById("pipet_submit_btn").addEventListener("click", function () {
+    const answers = {
+      q1: "c",
+      q2: "b",
+      q3: "c",
+      q4: "a",
+      q5: "c"
+    };
+    ["q1", "q2", "q3", "q4", "q5"].forEach(function (q) {
+      const selected = document.querySelector(`input[name="${q}"]:checked`);
+      const result = document.getElementById(`pipet_res_${q}`);
+      if (selected && selected.value === answers[q]) {
+        result.innerHTML = "✅ Correct!";
+        if (typeof progressManager !== "undefined") {
+          progressManager.addCompletion(`pipet_${q}`, "correct");
+        }
+      } else {
+        result.innerHTML = "❌ Try again.";
+      }
+    });
+  });
+</script>
+
 ### 🎥 Watch Before Lab
 
 Watch the pipetting tutorial video before coming to lab.

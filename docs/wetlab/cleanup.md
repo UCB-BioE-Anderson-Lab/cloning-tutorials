@@ -82,6 +82,73 @@ This protocol removes polymerase, dNTPs, salts, and oligos from your PCR. It als
 
 ---
 
+## 🧪 Quiz: Zymo Cleanup
+
+<form id="cleanup_quiz_form">
+  <h3>1️⃣ Why Cleanup?</h3>
+  <p>Why is it important to clean up a PCR reaction before cloning?</p>
+  <label><input type="radio" name="q1" value="a"> To increase the fluorescence of the DNA</label><br>
+  <label><input type="radio" name="q1" value="b"> To convert DNA to RNA</label><br>
+  <label><input type="radio" name="q1" value="c"> To shorten the DNA for easier ligation</label><br>
+  <label><input type="radio" name="q1" value="d"> To remove enzymes and reagents that could interfere with cloning steps</label><br>
+  <p id="cleanup_res_q1"></p>
+
+  <h3>2️⃣ ADB Buffer</h3>
+  <p>What is in the ADB buffer that causes DNA to bind to the silica column?</p>
+  <label><input type="radio" name="q2" value="a"> Guanidinium thiocyanate</label><br>
+  <label><input type="radio" name="q2" value="b"> Urea</label><br>
+  <label><input type="radio" name="q2" value="c"> Antibodies</label><br>
+  <label><input type="radio" name="q2" value="d"> Sodium bicarbonate</label><br>
+  <p id="cleanup_res_q2"></p>
+
+  <h3>3️⃣ Common Cleanup Errors</h3>
+  <p>Select all common mistakes to avoid during a Zymo cleanup:</p>
+  <label><input type="checkbox" name="q3" value="a"> Trying to purify very short DNA fragments without modifying the protocol</label><br>
+  <label><input type="checkbox" name="q3" value="b"> Forgetting to add ADB buffer before binding</label><br>
+  <label><input type="checkbox" name="q3" value="c"> Eluting into the collection tube instead of a clean Eppendorf</label><br>
+  <label><input type="checkbox" name="q3" value="d"> Discarding your eluted DNA, thinking it’s waste</label><br>
+  <p id="cleanup_res_q3"></p>
+
+  <button type="button" id="cleanup_submit_btn">Check Answers</button>
+</form>
+
+<script>
+  document.getElementById("cleanup_submit_btn").addEventListener("click", function () {
+    const answers = {
+      q1: "d",
+      q2: "a"
+    };
+
+    ["q1", "q2"].forEach(function (q) {
+      const selected = document.querySelector(`input[name="${q}"]:checked`);
+      const result = document.getElementById(`cleanup_res_${q}`);
+      if (selected && selected.value === answers[q]) {
+        result.innerHTML = "✅ Correct!";
+        if (typeof progressManager !== "undefined") {
+          progressManager.addCompletion(`cleanup_${q}`, "correct");
+        }
+      } else {
+        result.innerHTML = "❌ Try again.";
+      }
+    });
+
+    const checkboxes = document.querySelectorAll('input[name="q3"]:checked');
+    const selectedVals = Array.from(checkboxes).map(cb => cb.value).sort().join("");
+    const correctVals = ["a", "b", "c", "d"].sort().join("");
+    const result3 = document.getElementById("cleanup_res_q3");
+    if (selectedVals === correctVals) {
+      result3.innerHTML = "✅ Correct!";
+      if (typeof progressManager !== "undefined") {
+        progressManager.addCompletion("cleanup_q3", "correct");
+      }
+    } else {
+      result3.innerHTML = "❌ Try again.";
+    }
+  });
+</script>
+
+----
+
 ## 🎥 Watch Before Lab
 
 Watch the Zymo cleanup tutorial video before coming to lab.

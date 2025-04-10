@@ -91,6 +91,49 @@ Typical scale is **10 µL**, matching what’s needed for competent cell transfo
 
 ---
 
+### 🧪 Quiz: Golden Gate Assembly
+
+<form id="assembly_quiz_form">
+  <h3>1️⃣ Assembly Purpose</h3>
+  <p>What is the goal of the Golden Gate Assembly in the pP6 experiment?</p>
+  <label><input type="radio" name="q1" value="a"> To prepare DNA for sequencing</label><br>
+  <label><input type="radio" name="q1" value="b"> To combine multiple DNA fragments into one plasmid</label><br>
+  <label><input type="radio" name="q1" value="c"> To circularize a linear DNA fragment using its self-compatible ends</label><br>
+  <label><input type="radio" name="q1" value="d"> To amplify a gene using PCR</label><br>
+  <p id="assembly_res_q1"></p>
+
+  <h3>2️⃣ Reaction Setup</h3>
+  <p>Which of the following is acceptable when setting up a Golden Gate reaction?</p>
+  <label><input type="radio" name="q2" value="a"> Adding the enzyme first before any buffer or water</label><br>
+  <label><input type="radio" name="q2" value="b"> Setting up the reaction in a standard Eppendorf tube</label><br>
+  <label><input type="radio" name="q2" value="c"> Not mixing your reaction after setup</label><br>
+  <label><input type="radio" name="q2" value="d"> Mixing the reaction thoroughly once everything has been added</label><br>
+  <p id="assembly_res_q2"></p>
+
+  <button type="button" id="assembly_submit_btn">Check Answers</button>
+</form>
+
+<script>
+  document.getElementById("assembly_submit_btn").addEventListener("click", function () {
+    const answers = {
+      q1: "c",
+      q2: "d"
+    };
+    ["q1", "q2"].forEach(function (q) {
+      const selected = document.querySelector(`input[name="${q}"]:checked`);
+      const result = document.getElementById(`assembly_res_${q}`);
+      if (selected && selected.value === answers[q]) {
+        result.innerHTML = "✅ Correct!";
+        if (typeof progressManager !== "undefined") {
+          progressManager.addCompletion(`assembly_${q}`, "correct");
+        }
+      } else {
+        result.innerHTML = "❌ Try again.";
+      }
+    });
+  });
+</script>
+
 ### 🎥 Watch Before Lab
 
 Watch the assembly tutorial video before coming to lab.
