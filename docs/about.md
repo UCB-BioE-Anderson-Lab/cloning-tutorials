@@ -1,8 +1,8 @@
-# About This Tutorial
+# About the SynBio Project Tutorials
 
-This site provides a modernized training resource for DNA cloning workflows. It replaces and extends material previously hosted at [OpenWetWare](https://openwetware.org/wiki/Arking:JCAOligoTutorialHome), which remains available for reference.
+This site provides a modernized training resource for synthetic biology and DNA cloning workflows. It replaces and extends material previously hosted at [OpenWetWare](https://openwetware.org/wiki/Arking:JCAOligoTutorialHome), which remains available for reference.
 
-These tutorials are designed to teach practical and conceptual foundations for synthetic biology and molecular cloning. The material is modular but intended to be followed sequentially.
+These tutorials teach the practical and conceptual foundations of synthetic biology, with a focus on modular DNA assembly and project-based learning. The material is modular but intended to be followed sequentially.
 
 ---
 
@@ -25,7 +25,7 @@ The site is freely accessible, fully open-source, and suitable for both classroo
 The content is organized into three parts:
 
 - **Part A: Wetlab** — hands-on PCR, gels, cleanup, assembly, and transformation using the pP6 promoter library
-- **Part B: Construction** — design and simulation of primers and cloning plans using tools like Benchling and ApE
+- **Part B: Cloning Techniques** — design and simulation of primers and cloning strategies using tools like Benchling and ApE
 - **Part C: Planning** — project-level strategies including combinatorial design, pathway engineering, and real-world examples like lycopene biosynthesis
 
 Tutorials combine written guides, video walkthroughs, and interactive tools. They are intended to be executed in real labs, with troubleshooting and iteration encouraged.
@@ -46,6 +46,6 @@ It builds on over 15 years of training experience in synthetic biology. The site
 
 ## Technical Info
 
-- Hosted as a public site using GitHub Pages at [https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials)
+- Hosted as a public site using GitHub Pages at [https://github.com/UCB-BioE-Anderson-Lab/SynBio Project Tutorials](https://github.com/UCB-BioE-Anderson-Lab/SynBio Project Tutorials)
 - Licensed under the **Apache License 2.0**
 - Bug reports are welcome via GitHub

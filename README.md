@@ -1,7 +1,7 @@
-# Cloning Tutorials - MkDocs Setup
+# SynBio Project Tutorials - MkDocs Setup
 
 ## Introduction
-This repository hosts interactive cloning tutorials using MkDocs and GitHub Pages.
+This repository hosts the SynBio Project Tutorials: a modular series of interactive guides covering synthetic biology, cloning workflows, and project planning. The site is built using MkDocs and hosted via GitHub Pages.
 
 ## Installation
 
@@ -23,7 +23,7 @@ Start the live preview server:
 mkdocs serve
 ```
 
-Open [http://127.0.0.1:8000/cloning-tutorials/](http://127.0.0.1:8000/cloning-tutorials/) in your browser.
+Open [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your browser.
 
 ## Usage
 
@@ -41,7 +41,8 @@ Publish the static site:
 mkdocs gh-deploy
 ```
 
-Your site will be live at: `https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/`
+Your site will be live at: `https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/`  
+(Note: despite the URL, this site hosts the SynBio Project Tutorials.)
 
 ## Project Structure
 
@@ -49,7 +50,7 @@ Your site will be live at: `https://ucb-bioe-anderson-lab.github.io/cloning-tuto
 cloning-tutorials/
   ├── docs/              # Markdown files (your tutorials)
   │   ├── index.md       # Home page
-  │   ├── tutorial1.md   # Example tutorial page
+  │   ├── tutorial1.md   # Example tutorial page (part of SynBio Project Tutorials)
   ├── mkdocs.yml         # MkDocs configuration
   ├── main.py            # Script to run MkDocs commands
   ├── requirements.txt   # List of dependencies

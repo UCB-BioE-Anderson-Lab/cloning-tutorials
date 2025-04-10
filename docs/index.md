@@ -1,8 +1,8 @@
-# Synthetic Biology Project Tutorials
+# SynBio Project Tutorials
 
 <p>📄 <a href="pdf/combined.pdf" target="_blank">Download Full Tutorial PDF</a></p>
 
-Welcome to the **Synthetic Biology Project Tutorials**, a modular series of interactive guides covering both hands-on molecular cloning and high-level project planning. These tutorials build from DNA fundamentals to advanced techniques in cloning design, sequence analysis, experimental execution, and data management.
+Welcome to the **SynBio Project Tutorials**, a modular series of interactive guides covering both hands-on molecular cloning and high-level project planning. These tutorials build from DNA fundamentals to advanced techniques in cloning design, sequence analysis, experimental execution, and data management.
 
 ## Part A: Wetlab
 

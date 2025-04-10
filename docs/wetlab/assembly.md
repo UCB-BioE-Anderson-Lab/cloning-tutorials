@@ -28,9 +28,14 @@ This works because the PCR primers added **BsaI recognition sites**, which gener
 
 ### Golden Gate Diagram
 
-![Circular plasmid with BsaI-flanked ends being cut and ligated into a new circular product](../images/pP6_GG_scheme.png)
+![Diagram of Golden Gate Assembly showing a DNA fragment with BsaI recognition sites flanking the sequence. After digestion, the enzyme produces non-palindromic sticky ends which guide correct ligation orientation. Final product is a seamless joint between two DNA fragments.](../images/golden_gate_reaction.png)
 
-*Figure: The linear PCR product includes BsaI sites at both ends. The enzyme cuts to expose sticky ends, which are ligated back together by T4 DNA Ligase to form a circular plasmid.*
+*Figure: Schematic of the pP6 assembly process. The plasmid pJ12 is first amplified by PCR using primers that introduce BsaI sites and overhangs. The resulting linear product is then re-circularized via Golden Gate Assembly. This is a special case of Golden Gate Assembly, also referred to as enzymatic inverse PCR (EIPCR), where the input and output are the same plasmid sequence in linear and circular forms, respectively.*
+
+In the pP6 experiment, we only have a single linear DNA molecule—the full plasmid amplified by PCR. The primers introduce BsaI sites at both ends. When digested, the ends form compatible overhangs that allow the DNA to ligate back into a circle. This is a special case of Golden Gate where the product is a re-circularized version of the input.
+
+![Diagram showing a three-step process for plasmid reassembly. Top: circular plasmid labeled pJ12 with ori (origin of replication), bla (antibiotic resistance), and amilGFP (fluorescent reporter) regions marked in gray, red, and yellow respectively. Green arrows indicate primers flanking the amilGFP region. Middle: linear PCR product with the same three regions, and green (N)n overhangs at each end. Bottom: reassembled circular plasmid labeled pP6 with the same features, showing successful Golden Gate Assembly.](../images/pP6_GG_scheme.png)
+*Figure: The linear PCR product is digested by BsaI to expose sticky ends. These are self-compatible and ligate to form a circular plasmid.*
 
 ---
 
