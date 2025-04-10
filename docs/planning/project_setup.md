@@ -38,6 +38,14 @@ Synthetic DNAs include oligos, gBlocks, and synthesized plasmids. Like plasmids,
 - **Clonal Plasmids** from synthesis: Follow plasmid naming conventions
 - **Oligo Pools**: Optional `l<PROJECT>` prefix, e.g., `lLYC1`
 
+## Naming Philosophy: Numbers are Cheap; Collisions are Expensive
+
+When designing a project, it’s common to discover design errors late — sometimes even after materials like oligos have been ordered and named. These names may already appear in your documentation or physical inventory.
+
+As long as a name hasn’t been committed to GitHub (or any persistent record), feel free to change it. But once a name is committed and referenced, consider it permanent. Avoid reassigning that name to something new.
+
+If you redesign your work, don’t recycle names — just use the next number. Reusing names risks confusion about what a reference actually points to (a file? a tube? a sequence?). That can lead to wasted time or experimental error. Avoid ambiguity by always assigning new numbers to new things.
+
 ## Folder Structure
 
 On your computer, organize files by project and subfolders:
@@ -90,11 +98,19 @@ Following this structure allows for efficient collaboration, easier debugging, a
 
 ## Optional: GitHub Integration
 
-### Getting Started with GitHub
+### Who Should Use GitHub
 
 If you are a BioE 140L student, you can ignore this entire GitHub section — it’s optional for your course. You will work locally on your computer and submit a zipped version of your project folder at the end of the term.
 
 For all other users (iGEM project leads, master's students, PhD students, or postdocs), you are expected to use GitHub to manage your project. You do **not** need to create a repository yourself — your instructor will create one for you using an academic GitHub account and invite you as a collaborator. This ensures the project is properly managed and free under academic terms.
+
+## What Belongs in the Repo
+
+Your GitHub repository is not your scratchpad. Tools like Benchling, ApE, or Google Drive are perfect for developing ideas, storing fragments, and iterating freely — and many institutions require you to retain all such records. That creative mess is essential, but it doesn’t belong in the repo.
+
+The repository is where your clean, intentional work goes. It should contain the design files for constructs you intend to order or assemble, the protocols you plan to follow, and the experiments you are committing to carry out. Committing these to GitHub is the first step in making your work real — it marks your intention and becomes the basis for syncing with what actually happens in the lab.
+
+### Working with GitHub
 
 Once your account is added to the repo, you’ll be able to:
 
@@ -103,6 +119,8 @@ Once your account is added to the repo, you’ll be able to:
 - Clone the repo to your computer
 
 - Add new files, make edits, and sync them back to GitHub
+
+#### Getting Started with GitHub Desktop
 
 If you are unfamiliar with GitHub, you do **not** need to learn command-line Git. Instead, use [GitHub Desktop](https://desktop.github.com/), a free graphical application.
 
@@ -129,7 +147,7 @@ This tutorial site is itself hosted in a GitHub repository. You can view the cou
 And the example project directory:  
 **[examples/](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples)**
 
-### Documenting Experiments with GitHub Issues
+### Using GitHub Issues to Track Experiments
 
 Each experiment (e.g., `lycopene33`) should have a corresponding GitHub **Issue** in your repository, which you can find by clicking the “Issues” tab at the top of the repo page (see screenshot above).
 
