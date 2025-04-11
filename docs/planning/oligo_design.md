@@ -75,59 +75,32 @@ There are three main fabrication routes based on the type of DNA product you'll 
 
 ---
 
-### 🧰 Decision Tree
+## 🧪 Oligo-Based Cloning from Genomic DNA
 
-```
-[Start]
-   |
-   |-- Do you have source DNA?
-   |        |-- Yes
-   |        |     |-- Does the sequence contain internal BsaI/BsmBI sites?
-   |        |           |-- Yes --> Consider gBlock or gene synthesis
-   |        |           |-- No  --> Use PCR or oligo-based cloning
-   |        |
-   |        |-- No
-   |             |-- Is the part short (<1.5 kb)?
-   |                     |-- Yes --> Order as gBlock
-   |                     |-- No  --> Order full gene synthesis
-```
+If you have access to a genomic or plasmid DNA source for your gene, you can use oligo-directed PCR to amplify your RC part directly. This is fast and inexpensive, and works well for shorter parts that do not contain internal type IIS restriction sites.
 
----
-
-## 🧫 Gene Synthesis (Clonal)
-
-- Vendors typically deliver your insert in a clonal plasmid with an ampR/pUC origin, though a panel of other vectors may be available.
-- If doing Golden Gate, you can directly assemble using the provided plasmid, but be sure to use a recipient backbone with a **different antibiotic marker** (e.g., kanamycin or chloramphenicol if the insert plasmid is ampicillin-resistant).
-- You can also PCR out the insert and use it in Gibson or Golden Gate.
-- Best suited for large parts or sequences with multiple internal restriction sites.
-- Turnaround time is typically **2+ weeks**.
-
-💡 If your synthesis request is rejected, use the IDT or Twist **codon optimization tools** to automatically adjust your CDS to fit synthesis constraints.
-
-**CF Example** (gene synthesis with Golden Gate):
+**CF Example** (PCR-based cloning with Golden Gate):
 ```txt
+PCR oTpDXSf oTpDXSr CP033902 pcrTp
 PCR GB5F GB5R pLYC72I back72
-GoldenGate pTpDXS back72 BsaI ggTp
+GoldenGate pcrTp back72 BsaI ggTp
 Transform ggTp Mach1 Amp 37 pLYC76
 ```
-With these oligo sequences:
+With these oligos:
 ```txt
-oligo GB5F ccataGGTCTCaGCTTTGATCGATTCAACCTCTGATCA
-oligo GB5R cagttGGTCTCtAGTACCTCTAAACACAACGACAACAG
+oligo oTpDXSf  ccataGGTCTCaTACTgtcatgctttcgatcagtgg
+oligo oTpDXSr  cagttGGTCTCtAAGCcctataggcggccagctgtgc
+oligo GB5F     ccataGGTCTCaGCTTTGATCGATTCAACCTCTGATCA
+oligo GB5R     cagttGGTCTCtAGTACCTCTAAACACAACGACAACAG
 ```
 
-Where `pTpDXS` is the plasmid obtained by gene synthesis.
+⚠️ In this case, the *TpDXS* gene contains an internal BsaI site, so Golden Gate using the native sequence is not viable. You could remove the site using SOEing, but a cleaner solution is to use gene synthesis.
 
 ---
 
-## 🧬 gBlocks (dsDNA Fragments)
+## 🧬 Gibson Assembly from gBlocks
 
-- High-fidelity, non-clonal double-stranded DNA fragments ordered directly from synthesis providers.
-- Ideal for medium-length constructs (e.g., <1.5 kb) and faster turnaround than full gene synthesis.
-- Can be assembled directly using Gibson or Golden Gate.
-- Not suitable as PCR templates (not clonal, risk of errors or contamination).
-
-💡 The dxs ortholog from *T. pyogenes* contains an internal BsaI site, making it a good candidate for synthesis as a gBlock followed by Gibson Assembly.
+If your gene contains internal type IIS sites but is less than ~1.5 kb, a synthesized gBlock fragment can be used as input to Gibson assembly. This avoids issues with restriction sites and is faster than full clonal synthesis.
 
 **CF Example** (gBlock with Gibson):
 ```txt
@@ -135,62 +108,88 @@ PCR YB5F YB5R pLYC72I yback72
 Gibson gTpDXS yback72 ggTp
 Transform ggTp Mach1 Amp 37 pLYC76
 ```
-With these oligo sequences:
+With these oligos:
 ```txt
 oligo YB5F  gcacagctggccgcctataggGCTTTGATCGATTCAACCTCTGATCA
 oligo YB5R  ccactgatcgaaagcatgacAGTACCTCTAAACACAACGACAACAG
 ```
-Where `gTpDXS` is the synthesized dsDNA fragment encoding the RC part with appropriate overlaps. It is available in the Maps folder.
+
+⚠️ This approach is **not** suitable for *TpDXS*, which is over 1.5 kb and exceeds the length limit for standard gBlock synthesis. While the internal BsaI site could be removed, the part is too long for this route.
 
 ---
 
-## 🧪 Oligo-Based Cloning
+## 🧫 Golden Gate Assembly from Gene Synthesis
 
-- Uses primers and a DNA template (e.g., genomic or plasmid).
-- Best for shorter regions or point mutations.
-- Covered in earlier tutorials—see Construction Files for format.
+If your gene is long, contains problematic restriction sites, or you want to future-proof it with clean, modular parts, clonal gene synthesis is the most robust option. Vendors deliver your sequence in a plasmid, which can be used directly in a Golden Gate reaction if the vector and backbone have compatible antibiotic markers. Note that if you want to do Gibson on this material, you will need to PCR it out to get a linear fragment without the rest of the plasmid backbone.
 
-**CF Example** (gene synthesis with Golden Gate):
+**CF Example** (Gene synthesis with Golden Gate):
 ```txt
-PCR oTpDXSf oTpDXSr CP033902 pcrTp
 PCR GB5F GB5R pLYC72I back72
-GoldenGate pcrTp back72 BsaI ggTp
+GoldenGate pTpDXS back72 BsaI ggTp
 Transform ggTp Mach1 Amp 37 pLYC76
 ```
-With these oligo sequences:
+With these oligos:
 ```txt
-oligo oTpDXSf  ccataGGTCTCaTACTgtcatgctttcgatcagtgg
-oligo oTpDXSr  cagttGGTCTCtAAGCcctataggcggccagctgtgc
 oligo GB5F ccataGGTCTCaGCTTTGATCGATTCAACCTCTGATCA
 oligo GB5R cagttGGTCTCtAGTACCTCTAAACACAACGACAACAG
 ```
 
-In practice, the *TpDXS* gene contains an internal BsaI site, which disqualifies it from direct Golden Gate cloning using the native genomic sequence. While it could be repaired using SOEing, the decision tree points us toward clonal gene synthesis as the preferred strategy. This is the method used in the example files.
+➡️ This is the approach we selected for *TpDXS* in this tutorial. Since it contains an internal BsaI site, gene synthesis allows us to remove the site and reuse the part in future Golden Gate builds.
 
-In contrast, the *Aliivibrio fischeri* ortholog (GenBank: CP160629.1) lacks internal BsaI/BsmBI sites and meets the criteria for PCR-based cloning from genomic DNA.
+---
 
-As a result, two constructs were designed in this experiment:
+## 🧭 Fabrication Decision Tree
 
-- **pLYC76:** The *Trueperella pyogenes* variant of *dxs* cloned into pLYC72I via gene synthesis
-- **pLYC77:** The *Aliivibrio fischeri* variant of *dxs* cloned into pLYC72I via PCR
-
-Once you select a fabrication strategy for each construct, you must write corresponding Construction Files and place them in your `Construction/` folder. Reference example CFs in:
-
-**[cloning-tutorials/examples/](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Experiments/lycopene33/)**
-
-Any oligos required for your strategy should be collected into a single file, in our example named:
 ```
-lycopene33 - Oligos.txt
+[Start]
+   |
+   |-- Is the DNA sequence available to you (e.g., genomic or plasmid)?
+   |      |-- Yes
+   |      |     |-- Does it contain internal BsaI/BsmBI sites?
+   |      |           |-- Yes --> Use gene synthesis or gBlock
+   |      |           |-- No  --> Use oligo-based PCR cloning
+   |      |
+   |      |-- No
+   |           |-- Is the part short (<1.5 kb)?
+   |                  |-- Yes --> Order gBlock
+   |                  |-- No  --> Order gene synthesis
 ```
 
-Finally, include annotated GenBank files for all precursor and product plasmids, as well as any sequences that contributed to your design. These should be placed in your `Maps/` folder.
+---
 
-For the Lycopene33 experiment, this results in:
+## 🧩 Assembly Method: Golden Gate vs. Gibson
 
-- 2 Construction Files (pLYC76 and pLYC77)
+Your fabrication strategy will influence which assembly chemistry is most appropriate, but the final decision also depends on how many parts you're combining and how reusable you want them to be.
 
-- 2 product GenBank files (one for each construct)
+### **Use Golden Gate** when:###
 
-- 1 gene synthesized plasmid
+  - You're swapping or inserting a single cassette like a TP or RC part
+  - You have compatible overhangs and modular templates
+  - You want to reuse parts across builds
 
+### **Use Gibson** when:###
+
+  - You're assembling multiple parts in a single reaction (e.g., multiple cassettes)
+  - You’re using gBlocks or PCR fragments with custom homology
+  - You need flexibility in junction design
+
+💡 Even if you're using Gibson now, always design parts to be Golden Gate–ready by removing internal BsaI/BsmBI sites. This keeps your options open for future modular optimization.
+
+---
+
+## 🗂️ Finalizing Your Project Files
+
+Once your strategy is selected, be sure to collect and organize the following in your `Maps/` folder:
+
+- Annotated GenBank files for precursor and product plasmids  
+- Sequence files used in the design (e.g., gBlocks, source genomes)  
+- Construction Files for each plasmid  
+- A consolidated oligo list (e.g., `lycopene33 - Oligos.txt`)
+
+For the **Lycopene33** example:
+
+- 2 Construction Files: `pLYC76` (synthesis) and `pLYC77` (PCR-based)
+- 2 final plasmid maps
+- 1 synthesized gene map (`pTpDXS.seq`)
+- 1 genomic region map from *A. fischeri* (`CP160629.seq`)
 - 4 oligos
