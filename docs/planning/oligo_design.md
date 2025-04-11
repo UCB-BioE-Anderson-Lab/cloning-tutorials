@@ -75,7 +75,7 @@ There are three main fabrication routes based on the type of DNA product you'll 
 
 ---
 
-## 🧪 Oligo-Based Cloning from Genomic DNA
+### Oligo-Based Cloning from Genomic DNA
 
 If you have access to a genomic or plasmid DNA source for your gene, you can use oligo-directed PCR to amplify your RC part directly. This is fast and inexpensive, and works well for shorter parts that do not contain internal type IIS restriction sites.
 
@@ -98,7 +98,7 @@ oligo GB5R     cagttGGTCTCtAGTACCTCTAAACACAACGACAACAG
 
 ---
 
-## 🧬 Gibson Assembly from gBlocks
+### Gibson Assembly from gBlocks
 
 If your gene contains internal type IIS sites but is less than ~1.5 kb, a synthesized gBlock fragment can be used as input to Gibson assembly. This avoids issues with restriction sites and is faster than full clonal synthesis.
 
@@ -118,7 +118,7 @@ oligo YB5R  ccactgatcgaaagcatgacAGTACCTCTAAACACAACGACAACAG
 
 ---
 
-## 🧫 Golden Gate Assembly from Gene Synthesis
+### Golden Gate Assembly from Gene Synthesis
 
 If your gene is long, contains problematic restriction sites, or you want to future-proof it with clean, modular parts, clonal gene synthesis is the most robust option. Vendors deliver your sequence in a plasmid, which can be used directly in a Golden Gate reaction if the vector and backbone have compatible antibiotic markers. Note that if you want to do Gibson on this material, you will need to PCR it out to get a linear fragment without the rest of the plasmid backbone.
 
@@ -138,7 +138,7 @@ oligo GB5R cagttGGTCTCtAGTACCTCTAAACACAACGACAACAG
 
 ---
 
-## 🧭 Fabrication Decision Tree
+### Fabrication Decision Tree
 
 ```
 [Start]
@@ -157,17 +157,17 @@ oligo GB5R cagttGGTCTCtAGTACCTCTAAACACAACGACAACAG
 
 ---
 
-## 🧩 Assembly Method: Golden Gate vs. Gibson
+### Choosing Golden Gate vs. Gibson
 
 Your fabrication strategy will influence which assembly chemistry is most appropriate, but the final decision also depends on how many parts you're combining and how reusable you want them to be.
 
-### **Use Golden Gate** when:###
+#### **Use Golden Gate** when:
 
   - You're swapping or inserting a single cassette like a TP or RC part
   - You have compatible overhangs and modular templates
   - You want to reuse parts across builds
 
-### **Use Gibson** when:###
+#### **Use Gibson** when:
 
   - You're assembling multiple parts in a single reaction (e.g., multiple cassettes)
   - You’re using gBlocks or PCR fragments with custom homology
@@ -177,7 +177,7 @@ Your fabrication strategy will influence which assembly chemistry is most approp
 
 ---
 
-## 🗂️ Finalizing Your Project Files
+## 🗂️ Step 3: Finalizing Your Project Files
 
 Once your strategy is selected, be sure to collect and organize the following in your `Maps/` folder:
 
