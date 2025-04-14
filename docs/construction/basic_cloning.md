@@ -178,6 +178,7 @@ Once verified, save the final predicted sequence for downstream use or visualiza
           { name: "XhoI", start: 440, end: 446, color: "#ff40ff", direction: 1 },
           { name: "6xHis", start: 446, end: 464, color: "#cc99b2", direction: 1 },
           { name: "T7 terminator", start: 530, end: 578, color: "#bbbbbb", direction: -1 },
+          { name: "lacI", start: 4117, end: 5200, color: "#993366", direction: -1 },
           { name: "kanR", start: 1162, end: 1978, color: "#ccffcc", direction: -1 },
           { name: "pMB1 ori", start: 2256, end: 2628, color: "grey", direction: -1 }
         ],
