@@ -46,6 +46,16 @@ This modular setup ensures **tight control** (low background, high on-demand exp
 
 ---
 
+
+### 🎥 Watch: Designing and Planning the pET-INS Cloning
+
+Here’s a short video walking through the cloning plan and design of oligos using Ape:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
+
+---
+
+
 ## Step 1: Choose a Template
 
 We'll use a GenBank record for human insulin cDNA:
@@ -72,6 +82,25 @@ We'll use a pET vector with:
 
 ## Step 3: Design PCR Primers
 
+---
+
+## Visualizing the Cloning Workflow
+
+Before we look at the construction file, let's walk through what's actually happening in this cloning strategy.
+
+The diagram below illustrates how we use PCR, restriction digestion, and ligation to move the insulin coding sequence (INS) into the pET-28a(+) expression plasmid.
+
+![Diagram showing PCR of insulin cDNA, restriction digestion with NcoI and XhoI, and ligation of the PCR product into pET-28a(+) to create pET-INS](../images/pET-INS_NcoI_construction.png)
+*Figure: Cartoon schematic of the pET-INS construction. Each component in the image matches a step in the construction file you'll write next: PCR of the insulin gene, digestion with NcoI/XhoI, and ligation into the pET-28a(+) vector.*
+
+### 🎥 Watch: Walkthrough of the Cloning Plan + Oligo Design in APE
+
+In this short video, we sketch the cloning steps and then walk through how to design the oligos using Ape:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" title="Drawing out pET-INS cloning and designing oligos in Ape" frameborder="0" allowfullscreen></iframe>
+
+---
+
 Design primers with:
 
 - A short 5′ tail (5 random bases)  
@@ -95,12 +124,6 @@ Reverse primer (ins-R):
 ---
 
 ## Step 4: Construction File
-
-### 🎥 Watch: Designing and Planning the pET-INS Cloning
-
-Here’s a short video walking through the cloning plan and design of oligos using Ape:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
 
 Here's a complete construction file representing this cloning plan:
 

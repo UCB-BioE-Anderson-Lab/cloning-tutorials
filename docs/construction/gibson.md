@@ -1,15 +1,14 @@
-# Gibson Assembly: Building pET-lacZ Without Restriction Enzymes
+# Gibson Assembly
 
 ## Context: Why Gibson?
+In the last tutorial, you made pET-INS—the insulin production plasmid—using traditional restriction enzyme cloning. This remains a tried-and-true fabrication method, especially with overexpression vector systems like pET28a, where unique restriction sites (like NcoI and XhoI) are conveniently placed to allow insertion of a gene of interest.
 
-Traditional cloning methods using restriction enzymes can be limiting. You’re constrained to placing junctions where restriction sites exist, and adding scars to your constructs. Gibson Assembly solves both of these problems:
+However, the major limitation of this approach is that it depends on the presence of restriction sites in exactly the right locations. In many synthetic biology applications, where multiple genes or parts must be assembled, it becomes difficult to find or engineer unique sites everywhere you need them. These challenges have driven the development of more flexible DNA assembly methods.
 
-1. **Simplicity** – Just PCR and mix. It allows fast cloning without special enzymes for each junction.
-2. **Flexibility** – Junctions can be placed anywhere by designing overlaps into your primers.
-3. **Scarless** – The overlaps are built into the final product seamlessly.
+One of the most widely used is Gibson Assembly.
 
-In this tutorial, you’ll use Gibson Assembly to build the same pET-lacZ plasmid from the basic cloning tutorial. But this time, we’ll use PCR to generate two overlapping fragments:
-- One containing the *lacZ* gene
+In this tutorial, you’ll use Gibson Assembly to build the same pET-INS plasmid from the basic cloning tutorial. But this time, we’ll use PCR to generate two overlapping fragments:
+- One containing the *INS* gene
 - One with the pET28a backbone
 
 Then you’ll join them using Gibson’s exonuclease-polymerase-ligase mix.
@@ -18,7 +17,7 @@ Then you’ll join them using Gibson’s exonuclease-polymerase-ligase mix.
 
 ## Video Demo
 
-🎥 [Watch the full walkthrough](https://www.youtube.com/embed/STUB_URL_PLACEHOLDER)  
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
 This video covers:
 - How to mark insert vs. backbone
 - How to define homology overlaps
@@ -27,32 +26,32 @@ This video covers:
 
 ---
 
-## Figure: Homology Overlaps and pET-lacZ Assembly
+## Figure: Homology Overlaps and pET-INS Assembly
 
-![Gibson Assembly Schematic](../images/gibson_lacz_assembly.png)  
-*Figure: Top: pET vector and lacZ gene have ~30 bp overlapping ends introduced via oligos. Bottom: These overlaps guide Gibson Assembly by exonuclease chew-back, strand annealing, and ligation. Final product is seamless and scarless.*
+![Gibson Assembly Schematic](../images/gibson_INS_assembly.png)  
+*Figure: Top: pET vector and INS gene have ~30 bp overlapping ends introduced via oligos. Bottom: These overlaps guide Gibson Assembly by exonuclease chew-back, strand annealing, and ligation. Final product is seamless and scarless.*
 
 ---
 
 ## Step 1: Define the Desired Product
-Start by constructing a model of the final pET-lacZ plasmid in your editor.
+Start by constructing a model of the final pET-INS plasmid in your editor.
 
 1. Open the pET vector and convert it to all **lowercase**.
-2. Open the *lacZ* genomic region and convert it to **UPPERCASE**.
-3. Insert the *lacZ* sequence into the pET vector at the intended location.
+2. Open the *INS* genomic region and convert it to **UPPERCASE**.
+3. Insert the *INS* sequence into the pET vector at the intended location.
 
 This visually marks the junctions between insert and backbone.
-🔗 Download sequences: [pET28a GenBank](../assets/pET28a.gb) | [E. coli lacZ GenBank](../assets/lacZ_genome_context.gb)
+🔗 Download sequences: [pET28a GenBank](../assets/pET28a.gb) | [E. coli INS GenBank](../assets/INS_genome_context.gb)
 
 ---
 
 ## Step 2: Annotate Homology Junctions
-1. Highlight the 5' and 3' annealing regions on *lacZ* (the bases you want oligos to bind to).
+1. Highlight the 5' and 3' annealing regions on *INS* (the bases you want oligos to bind to).
 2. From the adjacent vector sequence, select 20 bp on each side of those junctions.
 3. Color these vector sequences.
 
 These highlighted regions form the **homology arms**.
-📷 View: [pET-lacZ annotated plasmid](../images/workinprogress.png)  
+📷 View: [pET-INS annotated plasmid](../images/workinprogress.png)  
 *The homology arms are highlighted to guide primer design.*
 
 ---
@@ -67,20 +66,20 @@ Each oligo has two parts:
 - **Overlap tail**: The part that provides homology to the *other* fragment (~20–30 bp)
 
 For example:
-- `gib_lacZ_F`: overlap = last 25 bp of pET28a, anneal = first 25 bp of *lacZ*
-- `gib_vec_R`: overlap = last 25 bp of *lacZ*, anneal = reverse complement of pET28a flank
+- `gib_INS_F`: overlap = last 25 bp of pET28a, anneal = first 25 bp of *INS*
+- `gib_vec_R`: overlap = last 25 bp of *INS*, anneal = reverse complement of pET28a flank
 
 Use these pieces to design each full oligo.
 
 ### Construction File Snippet
 ```
-PCR     gib_lacZ_F    gib_lacZ_R    Ecoli_genome     gib_lacZ_pcr
+PCR     gib_INS_F     gib_INS_R     Ecoli_genome     gib_INS_pcr
 PCR     gib_vec_F     gib_vec_R     pET28a           gib_vec_pcr
-Gibson  gib_vec_pcr   gib_lacZ_pcr                   pet_lacZ_gibson
-Transform pet_lacZ_gibson   Mach1 Amp     pET-lacZ
+Gibson  gib_vec_pcr   gib_INS_pcr                   pet_INS_gibson
+Transform pet_INS_gibson   Mach1 Amp     pET-INS
 
-oligo   gib_lacZ_F    ?
-oligo   gib_lacZ_R    ?
+oligo   gib_INS_F     ?
+oligo   gib_INS_R     ?
 oligo   gib_vec_F     ?
 oligo   gib_vec_R     ?
 plasmid pet_vector    ...
@@ -96,7 +95,7 @@ Use tools (ApE, Benchling) or manual simulation:
 
 - Predict each PCR product by replacing annealing regions with full oligos.
 - Simulate the Gibson by trimming overlaps and joining.
-- Confirm that the final sequence matches the intended pET-lacZ plasmid.
+- Confirm that the final sequence matches the intended pET-INS plasmid.
 
 ---
 
@@ -105,7 +104,7 @@ Use tools (ApE, Benchling) or manual simulation:
 To simulate the Gibson step manually:
 
 1. **Start with your two PCR products**. These contain the sequences produced from oligos with tails.
-2. **Align the overlaps**: Look at the 5' and 3' ends. They should share an exact 20–40 bp sequence with the the other.
+2. **Align the overlaps**: Look at the 5' and 3' ends. They should share an exact 20–40 bp sequence with the other.
 3. **Trim the overlap from one side**: Delete one copy of the overlap so it doesn’t appear twice.
 4. **Join the trimmed fragments**: The remaining sequence becomes your final assembled product.
 
@@ -120,6 +119,7 @@ If using a simulation tool like ApE, you can copy-paste and inspect the resultin
 ---
 
 ## Quiz
+=== do the golden gate one on mRFP instead?????  That way can also add in "and you can make junctions wherever you want with this"
 
 Repeat this process for the *groEL* gene:
 - Clone *groEL* from *E. coli* genomic DNA into the same pET vector.
