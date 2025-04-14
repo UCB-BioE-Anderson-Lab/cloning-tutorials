@@ -1,4 +1,5 @@
 <script src="https://unpkg.com/seqviz"></script>
+<script src="../js/progress_manager.js"></script>
 # Basic Cloning: Overexpression of Human Insulin
 
 ## Overview
@@ -95,6 +96,12 @@ Reverse primer (ins-R):
 
 ## Step 4: Construction File
 
+### 🎥 Watch: Designing and Planning the pET-INS Cloning
+
+Here’s a short video walking through the cloning plan and design of oligos using Ape:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
+
 Here's a complete construction file representing this cloning plan:
 
 ```
@@ -176,7 +183,7 @@ Once verified, save the final predicted sequence for downstream use or visualiza
 - Final construct includes all expected features
 
 ---
-## Quiz
+## Try it yourself
 
 For your quiz, you will clone the **Cas9 gene** from *Streptococcus pyogenes*.  
 
@@ -184,15 +191,134 @@ Cas9 is an essential tool in modern genetic engineering. It’s an RNA-guided DN
 
 In this activity, you'll clone the Cas9 gene from its native **genomic DNA**, not from a cDNA template. This means we need to extract the correct region from the organism’s genome. We've already found the genome for *Streptococcus pyogenes* and identified the coordinates for the **Cas9 coding sequence**.
 
-You’ll design primers and a construction file to insert Cas9 into the **pET-28a(+) expression vector** using the **NcoI** and **XhoI** restriction sites—just as you did in the insulin example.
-
-### Your tasks:
-- Write forward and reverse primer sequences  
-- Write a complete construction file (PCR, digest, ligation steps)  
+You’ll design primers and identify the PCR step needed to insert Cas9 into the **pET-28a(+) expression vector** using the **NcoI** and **XhoI** restriction sites—just as you did in the insulin example. The rest of the construction file will be auto-filled for you once you provide the correct primers and PCR parameters.
 
 Use the Cas9 sequence from *S. pyogenes*, located at coordinates **796769–800875** on GenBank record **CP151446.1**:  
 🔗 [NCBI: CP151446.1](https://www.ncbi.nlm.nih.gov/nucleotide/CP151446.1?report=genbank&log$=nuclalign&blast_rank=1&RID=ZE7Y60E5013&from=796769&to=800875)
 
+---
 
+<h3>Cas9 Cloning Quiz</h3>
+<p>Design primers to amplify Cas9 from genomic DNA and clone it into pET-28a using NcoI and XhoI.</p>
 
-(need autograder and quiz boxes)
+<form id="quizForm">
+  <label><strong>Forward Primer:</strong></label><br>
+  Name: <input type="text" id="fwdName" value="cas9-F">
+  Sequence: <input type="text" id="fwdPrimer" size="60"><br><br>
+
+  <label><strong>Reverse Primer:</strong></label><br>
+  Name: <input type="text" id="revName" value="cas9-R">
+  Sequence: <input type="text" id="revPrimer" size="60"><br><br>
+
+  <label><strong>PCR Product Name:</strong></label><br>
+  <input type="text" id="pcrProduct" value="pcr_cas9"><br><br>
+
+  <input type="button" value="Check & Generate Construction File" onclick="runQuiz()">
+</form>
+
+<div id="feedback" style="margin-top: 1em; font-weight: bold;"></div>
+
+<h4>Construction File:</h4>
+<textarea id="cfTextArea" rows="8" style="width: 100%;" readonly></textarea><br>
+<button id="copyBtn" onclick="copyCF()">Copy to Clipboard</button>
+
+<script>
+function runQuiz() {
+  const fwdSeq = document.getElementById("fwdPrimer").value.trim().replace(/[\s0-9]/g, '');
+  const revSeq = document.getElementById("revPrimer").value.trim().replace(/[\s0-9]/g, '');
+  const fwdName = document.getElementById("fwdName").value.trim();
+  const revName = document.getElementById("revName").value.trim();
+  const product = document.getElementById("pcrProduct").value.trim();
+  const template = "cas9_genomic";
+  const upperFwd = fwdSeq.toUpperCase();
+  const upperRev = revSeq.toUpperCase();
+
+  let feedback = "";
+  let pass = true;
+
+  // Validate restriction site presence and spacing
+  if (upperFwd.indexOf("CCATGG") < 5) {
+    feedback += "⚠️ Forward primer must have at least 5 bases before NcoI (CCATGG)<br>";
+    pass = false;
+  }
+  if (upperRev.indexOf("CTCGAG") < 5) {
+    feedback += "⚠️ Reverse primer must have at least 5 bases before XhoI (CTCGAG)<br>";
+    pass = false;
+  }
+
+  // Validate annealing regions
+  const fwdTarget = "ATGGATAAGAAATACTCAATAGGCTTAG";
+  const revTarget = "TCAGTCACCTCCTAGCTGACTCAAATCAATGC";
+
+  const fMatch = upperFwd.match(new RegExp(`(${fwdTarget})$`)) || fwdTarget.includes(upperFwd.slice(-18));
+  const rMatch = upperRev.match(new RegExp(`(${revTarget})$`)) || revTarget.includes(upperRev.slice(-18));
+
+  if (!fMatch) {
+    feedback += "⚠️ 3′ end of forward primer doesn't match expected target sequence<br>";
+    pass = false;
+  }
+  if (!rMatch) {
+    feedback += "⚠️ 3′ end of reverse primer doesn't match expected target sequence<br>";
+    pass = false;
+  }
+
+  const pad = (str, len) => str + ' '.repeat(len - str.length);
+
+  // Construction steps — aligned based on column widths
+  const stepRows = [
+    ["PCR", fwdName, revName, template, product],
+    ["Digest", product, "NcoI,XhoI", "1", "pcr_dig"],
+    ["Digest", "pET28a", "NcoI,XhoI", "1", "vec_dig"],
+    ["Ligate", "pcr_dig", "vec_dig", "", "pET-Cas9"]
+  ];
+
+  // Oligos — align just name column (sequence left free-form)
+  const oligoRows = [
+    ["oligo", fwdName, fwdSeq],
+    ["oligo", revName, revSeq]
+  ];
+
+  // Calculate column widths for steps
+  const stepColWidths = [];
+  stepRows.forEach(row => {
+    row.forEach((cell, i) => {
+      stepColWidths[i] = Math.max(stepColWidths[i] || 0, cell.length);
+    });
+  });
+
+  // Format steps
+  const formattedSteps = stepRows.map(row =>
+    row.map((cell, i) => pad(cell, stepColWidths[i])).join("  ")
+  ).join("\n");
+
+  // Format oligos
+  const oligoNameWidth = Math.max(fwdName.length, revName.length);
+  const formattedOligos = oligoRows.map(row =>
+    pad("oligo", 6) + pad(row[1], oligoNameWidth) + "  " + row[2]
+  ).join("\n");
+
+  // Combine both
+  const formatted = `${formattedSteps}\n\n${formattedOligos}`;
+  document.getElementById("cfTextArea").value = formatted;
+  if (pass) {
+    document.getElementById("feedback").innerHTML = "✅ Primers look valid!";
+    progressManager.addCompletion("Cas9 Cloning", "correct");
+  } else {
+    document.getElementById("feedback").innerHTML = feedback;
+  }
+}
+
+function copyCF() {
+  const textarea = document.getElementById("cfTextArea");
+  textarea.select();
+  document.execCommand("copy");
+  const btn = document.getElementById("copyBtn");
+  const original = btn.innerText;
+  btn.innerText = "✅ Copied!";
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.innerText = original;
+    btn.disabled = false;
+  }, 2000);
+}
+</script>
