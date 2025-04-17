@@ -82,7 +82,7 @@ If you have access to a genomic or plasmid DNA source for your gene, you can use
 **CF Example** (PCR-based cloning with Golden Gate):
 ```txt
 PCR oTpDXSf oTpDXSr CP033902 pcrTp
-PCR GB5F GB5R pLYC72I back72
+PCR GB5F GB5R pLYC72 back72
 GoldenGate pcrTp back72 BsaI ggTp
 Transform ggTp Mach1 Amp 37 pLYC76
 ```
@@ -104,7 +104,7 @@ If your gene contains internal type IIS sites but is less than ~1.5 kb, a synthe
 
 **CF Example** (gBlock with Gibson):
 ```txt
-PCR YB5F YB5R pLYC72I yback72
+PCR YB5F YB5R pLYC72 yback72
 Gibson gTpDXS yback72 ggTp
 Transform ggTp Mach1 Amp 37 pLYC76
 ```
@@ -124,7 +124,7 @@ If your gene is long, contains problematic restriction sites, or you want to fut
 
 **CF Example** (Gene synthesis with Golden Gate):
 ```txt
-PCR GB5F GB5R pLYC72I back72
+PCR GB5F GB5R pLYC72 back72
 GoldenGate pTpDXS back72 BsaI ggTp
 Transform ggTp Mach1 Amp 37 pLYC76
 ```

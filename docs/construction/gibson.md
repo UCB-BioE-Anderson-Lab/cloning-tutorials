@@ -119,15 +119,74 @@ If using a simulation tool like ApE, you can copy-paste and inspect the resultin
 ---
 
 ## Quiz
-=== do the golden gate one on mRFP instead?????  That way can also add in "and you can make junctions wherever you want with this"
 
-Repeat this process for the *groEL* gene:
-- Clone *groEL* from *E. coli* genomic DNA into the same pET vector.
-- Design overlaps and write the 4 oligos.
-- Write a Gibson-format construction file for the assembly.
+### Replace amilGFP with mCherry Using Gibson Assembly
 
-🔗 [NCBI: E. coli groEL (U00096.3: 281583–283185)](https://www.ncbi.nlm.nih.gov/nuccore/U00096.3?report=genbank&from=281583&to=283185)
+Your task is to replace the **amilGFP** open reading frame (ORF) in the plasmid **pTP1** with the **mCherry** ORF using Gibson Assembly.
+
+- The **mCherry** sequence is provided here: [mCherry.seq](../assets/mCherry.seq)
+- The **pTP1** sequence is located here: [pTP1.seq](../assets/pTP1.seq)
+- The **amilGFP** feature is located at positions 262..957.
+
+⚠️ **Reminder:** Your goal is to *completely replace* amilGFP with mCherry—no leftover bases. Design overlaps using only the sequences flanking the amilGFP feature.
 
 ---
 
-*Note: This tutorial builds on concepts from PCR product prediction and sequence annotation covered previously. If unsure about oligo design or simulation steps, revisit those tutorials.*
+## Autograder: Check Your CF Plan
+
+Enter your Construction File (CF) script below to check your plan for replacing **amilGFP** with **mCherry** in **pTP1** using Gibson Assembly.
+
+This tool will:
+- Simulate your CF script
+- Check that the required operations are present
+- Validate that amilGFP is removed and mCherry is inserted
+- Provide feedback on errors or omissions
+
+<textarea id="cfCustomInput" rows="10" style="width:100%; font-family:monospace;"></textarea>
+<br>
+<button onclick="gradeCF()">Grade My Work</button>
+
+<div id="cfCustomOutput" style="margin-top:20px;"></div>
+
+<script>
+window.gradeCF = function gradeCF() {
+    const input = document.getElementById("cfCustomInput").value.trim();
+    const outputDiv = document.getElementById("cfCustomOutput");
+    outputDiv.innerHTML = "";
+
+    try {
+        const steps = parseCF(input);
+        const results = simCF(steps);
+
+        let feedback = [];
+        const operations = steps.map(s => s.op.toLowerCase());
+        const finalProduct = results[results.length - 1];
+
+        if (!operations.includes("gibson")) {
+            feedback.push("❌ Missing Gibson step.");
+        }
+
+        if (operations.filter(op => op === "pcr").length < 2) {
+            feedback.push("❌ You must simulate PCRs for both the vector and the insert.");
+        }
+
+        const amilGFPpattern = /atggctagc.*?taa/gi;
+        if (amilGFPpattern.test(finalProduct.sequence)) {
+            feedback.push("❌ The final product still contains amilGFP. It must be fully replaced.");
+        }
+
+        const mCherryStart = "ATGGTGAGCAAGGGCGAGGAG";
+        if (!finalProduct.sequence.toUpperCase().includes(mCherryStart)) {
+            feedback.push("❌ The mCherry sequence is not present in the final product.");
+        }
+
+        if (feedback.length === 0) {
+            feedback.push("✅ Success! Your cloning plan correctly replaces amilGFP with mCherry using Gibson Assembly.");
+        }
+
+        outputDiv.innerHTML = `<ul>${feedback.map(f => `<li>${f}</li>`).join("")}</ul>`;
+    } catch (err) {
+        outputDiv.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+    }
+};
+</script>

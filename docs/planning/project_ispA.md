@@ -1,6 +1,6 @@
 # Ortholog Scan Project — *ispA*
 
-This capstone exercise guides you through designing and documenting a complete cloning project centered on *ispA*, a key enzyme in the isoprenoid biosynthesis pathway. You’ll build an ortholog expression panel in the context of plasmid pLYC72I. This gene presents more complexity than previous examples—biochemical differences among orthologs can influence the outcome, making your selection and rationale especially meaningful.
+This capstone exercise guides you through designing and documenting a complete cloning project centered on *ispA*, a key enzyme in the isoprenoid biosynthesis pathway. You’ll build an ortholog expression panel in the context of plasmid pLYC72. This gene presents more complexity than previous examples—biochemical differences among orthologs can influence the outcome, making your selection and rationale especially meaningful.
 
 ## Project Overview
 

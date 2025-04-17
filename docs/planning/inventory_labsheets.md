@@ -17,22 +17,22 @@ Examples of the completed ones for lycopene33 are available:
 To illustrate, consider the construction plans for the lycopene33 project:
 
 ```tsv
-PCR         GB5F     GB5R     pLYC72I    back72
+PCR         GB5F     GB5R     pLYC72    back72
 GoldenGate  pTpDXS   back72   BsaI       ggTp
 Transform   ggTp     Mach1    Amp        37     pLYC76
 ```
 
 ```tsv
 PCR         oAfDXSf  oAfDXSr  CP160629   pcrAf
-PCR         GB5F     GB5R     pLYC72I    back72
+PCR         GB5F     GB5R     pLYC72    back72
 GoldenGate  pcrAf    back72   BsaI       ggAf
 Transform   ggAf     Mach1    Amp        37     pLYC77
 ```
-In a construction file (CF), the final item on each line (e.g., `ggTp`, `ggAf`, `pLYC76`, etc.) represents an **output**—a DNA product that does not yet exist but will be generated during the experiment. Conversely, inputs include materials like primers, template plasmids, gene synthesis fragments, and genomic DNA (e.g., `GB5F`, `pLYC72I`, `CP160629`, `oAfDXSf`). These are either already in your inventory or will be shortly after ordering.
+In a construction file (CF), the final item on each line (e.g., `ggTp`, `ggAf`, `pLYC76`, etc.) represents an **output**—a DNA product that does not yet exist but will be generated during the experiment. Conversely, inputs include materials like primers, template plasmids, gene synthesis fragments, and genomic DNA (e.g., `GB5F`, `pLYC72`, `CP160629`, `oAfDXSf`). These are either already in your inventory or will be shortly after ordering.
 
 Let’s focus on the inputs. Some are carryovers from previous experiments and are already cataloged. Their locations can be found in the project folder’s inventory files:
 
-- `pLYC72I`: Prototype plasmid → **Box33 / B2**
+- `pLYC72`: Prototype plasmid → **Box33 / B2**
 - `CP160629`: Genomic DNA from *Aliivibrio fischeri* → **Box33 / B1**
 
 This notation means: Row B (second row, starting from A), Column 2 (counting from 1) in a box labeled `Box33`.
@@ -40,7 +40,7 @@ This notation means: Row B (second row, starting from A), Column 2 (counting fro
 ```tsv
 >>construct    1           2           3     4     5     6
 A
-B              CP160629    pLYC72I
+B              CP160629    pLYC72
 C
 D
 ```
@@ -56,7 +56,7 @@ The remaining inputs—four oligos and one gene synthesis—will arrive lyophili
 ```tsv
 >>construct    1           2           3           4           5     6
 A              GB5F        GB5R        oAfDXSf     oAfDXSr
-B              CP160629    pLYC72I     pTpDXS
+B              CP160629    pLYC72     pTpDXS
 C
 D
 ```
@@ -68,15 +68,15 @@ Now that the stage is set, let’s plan the actual lab work. Construction files 
 Reviewing both CFs, we extract all PCR steps:
 
 ```tsv
-PCR  GB5F     GB5R     pLYC72I   back72
+PCR  GB5F     GB5R     pLYC72   back72
 PCR  oAfDXSf  oAfDXSr  CP160629  pcrAf
-PCR  GB5F     GB5R     pLYC72I   back72
+PCR  GB5F     GB5R     pLYC72   back72
 ```
 
 The first and third steps are identical—no need to repeat the reaction. A single PCR yields far more material than needed, so we only need to run two PCRs:
 
 ```tsv
-PCR  GB5F     GB5R     pLYC72I   back72
+PCR  GB5F     GB5R     pLYC72   back72
 PCR  oAfDXSf  oAfDXSr  CP160629  pcrAf
 ```
 
@@ -117,7 +117,7 @@ GB5R        GB5R                   GB5R                   lyophilized     –
 oAfDXSf     oAfDXSf                oAfDXSf                lyophilized     –
 oAfDXSr     oAfDXSr                oAfDXSr                lyophilized     –
 pTpDXS      pTpDXS                 pTpDXS                 lyophilized     –
-pLYC72I     pLYC72I-A              pLYC72I        A       miniprep        Box33/B2
+pLYC72     pLYC72-A              pLYC72        A       miniprep        Box33/B2
 Af gen.     Aliivibrio fischeri    CP160629               miniprep        Box33/B1
 ```
 
@@ -144,7 +144,7 @@ Each PCR to be performed is defined in the table below. Use label names that fit
 
 ```tsv
 label   primer1         primer2         template        product
-b72     10uM GB5F       10uM GB5R       pLYC72I         back72
+b72     10uM GB5F       10uM GB5R       pLYC72         back72
 Af      10uM oAfDXSf    10uM oAfDXSr    Af gen.         pcrAf
 ```
 
@@ -297,7 +297,7 @@ Be sure to include **positive and negative controls**:
 
 - For optimization, wild-type (unmodified) cells make a good negative control.
 
-- A prototype plasmid (e.g., pLYC72I) serves as a strong positive control.
+- A prototype plasmid (e.g., pLYC72) serves as a strong positive control.
 
 These controls help you compare your new designs directly against known standards.
 
