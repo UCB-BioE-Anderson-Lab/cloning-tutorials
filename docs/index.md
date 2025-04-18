@@ -59,7 +59,7 @@ Welcome to the **SynBio Project Tutorials**, a modular series of interactive gui
 6. **[Gibson Assembly](construction/gibson.md)**  
    Introduction to Gibson Assembly for seamless cloning.
 
-7. **[Golden Gate Cloning](construction/golden_gate.md)**  
+7. **[Golden Gate Assembly](construction/golden_gate.md)**  
    Learn Golden Gate cloning methods.
 
 8. **[BioBricks and Assembly](construction/biobricks.md)**  

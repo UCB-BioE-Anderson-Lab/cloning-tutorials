@@ -15,8 +15,7 @@ Then you’ll join them using Gibson’s exonuclease-polymerase-ligase mix.
 
 ---
 
-## Video Demo
-
+##  🎥 Video Demo
 <iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
 This video covers:
 - How to mark insert vs. backbone
