@@ -26,7 +26,7 @@ The content is organized into three parts:
 
 - **Part A: Wetlab** — hands-on PCR, gels, cleanup, assembly, and transformation using the pP6 promoter library
 - **Part B: Cloning Techniques** — design and simulation of primers and cloning strategies using tools like Benchling and ApE
-- **Part C: Planning** — project-level strategies including combinatorial design, pathway engineering, and real-world examples like lycopene biosynthesis
+- **Part C: Planning** — project-level strategies including combinatorial design, pathway engineering, and illustrative examples of biosynthetic applications.
 
 Tutorials combine written guides, video walkthroughs, and interactive tools. They are intended to be executed in real labs, with troubleshooting and iteration encouraged.
 
@@ -40,7 +40,7 @@ This resource was created by
 Department of Bioengineering, UC Berkeley  
 Email: jcanderson@berkeley.edu
 
-It builds on over 15 years of training experience in synthetic biology. The site is actively maintained and updated as methods evolve.
+It builds on over 15 years of training experience in synthetic biology. ChatGPT was used in planning, drafting, coding, and refining the material through extensive discussion.
 
 ---
 
