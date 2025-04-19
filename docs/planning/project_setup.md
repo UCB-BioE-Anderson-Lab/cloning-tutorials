@@ -31,7 +31,21 @@ This experiment supports the overarching goal of the `lycopene` project but is o
 
 This structured naming enables automation, versioning, and filtering. It also helps collaborators and future users understand how each piece fits into the broader effort.
 
-## Plasmid Naming
+## Design Names vs. Physical Samples
+
+In this tutorial, a name like `pLYC2` refers to a **designed DNA sequence**—a digital object defined in a GenBank file or construction plan. That sequence is the reference point. It may not yet exist, it may exist in multiple forms, or it may prove unstable and never assemble successfully. Regardless, the name refers to the intended design, not a physical tube.
+
+Historically, names like *pBR322* typically referred to a physical plasmid that had been isolated and shared—a specific lineage of DNA passed between labs. Its exact sequence might be assumed but rarely directly confirmed. Today, with reliable full-plasmid sequencing and gene synthesis, we don’t need to rely on inherited samples; we can recreate constructs directly from sequence. That shifts the baseline: names refer to sequence-defined designs, and physical instances are treated as separate, trackable entities.
+
+In this system:
+
+- A **construct** is the designed DNA sequence.
+- A **clone** is a single isolate that may (or may not) match that design.
+- A **sample** is a physical preparation or culture of a clone.
+
+Later tutorials will explain how to label and track clones and samples. For now, the key principle is that your naming starts from a digital sequence object. That foundation supports clearer documentation, reproducibility, and experimental interpretation—especially when things don’t go as planned.
+
+## Plasmid Naming Conventions
 
 Plasmids are named using a lowercase “p” and a project-specific prefix. Use sequential numbers:
 

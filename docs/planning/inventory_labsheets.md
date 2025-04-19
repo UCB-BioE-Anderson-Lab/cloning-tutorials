@@ -8,7 +8,21 @@ You will generate two key documents:
 
 - **LabSheet**: A lab-ready checklist detailing the experimental workflow.
 
+### Sample Identity and Granularity
+
+While construct names like `pLYC2` refer to a designed DNA sequence, the inventory tracks physical samples—things in tubes. If you pick multiple clones, perform retransformation, or prepare fresh minipreps, it's essential to use names that distinguish each version.
+
+A few naming examples:
+- `pLYC2` — refers to the theoretical DNA design.
+- `pLYC2 clone A` — a specific isolate from a transformation plate.
+- `pLYC2 clone A 2°` — a separate (secondary) prep or colony from the same clone lineage.
+
+In simple cases (e.g., only one clone, one miniprep), just using the construct name may be fine. But as soon as there are multiple samples that could plausibly differ, your naming must be specific enough to distinguish them. Inventory records must include all details needed to unambiguously identify each tube.
+
+Similarly, when documenting results (e.g., sequencing, assay data), always indicate which specific sample was used—not just the construct name. The more complexity in your project, the more critical this becomes.
+
 Examples of the completed ones for lycopene33 are available:
+
 **[Inventory](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Inventory/Minus20/)**
 **[LabSheets](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/tree/main/examples/lycopene/Experiments/lycopene33)**
 
@@ -108,7 +122,7 @@ The LabSheet will be structured accordingly in the following sections:
 
 ## Sources
 
-Before setting up PCRs, collect all required DNA materials. Some items may already be in the inventory, while others will arrive lyophilized and need to be resuspended and labeled. Stock oligos are resuspended to 100 µM; PCR dilutions are typically 10 µM. Use existing dilutions if available; otherwise, make new ones from stock. For plasmids, use either a miniprep or a dilution (if prior dilution exists and is effective). Be sure to specify the clone being used when applicable.
+Before setting up PCRs, collect all required DNA materials. Some items may already be in the inventory, while others will arrive lyophilized and need to be resuspended and labeled. Stock oligos are resuspended to 100 µM; PCR dilutions are typically 10 µM. Use existing dilutions if available; otherwise, make new ones from stock. For plasmids, use either a miniprep or a dilution (if prior dilution exists and is effective). Be sure to specify the clone being used when applicable. If there are multiple clones, retransforms, or separate preps, include that information (e.g., clone A, clone A 2°) so the sample can be uniquely identified.
 
 ```tsv
 label       side-label             construct      clone   concentration   location
