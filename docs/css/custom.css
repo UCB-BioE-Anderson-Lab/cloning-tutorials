@@ -149,3 +149,25 @@ p#reverseCompResult, p#transcriptionResult, p#translateResult {
     font-weight: bold;
     margin-top: 10px;
 }
+
+/* Footer Styles */
+.md-footer-meta {
+    background-color: #0088ca;
+    color: #ffffff;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    padding: 10px 20px;
+}
+
+.md-footer-meta::before {
+    content: "© 2025 University of California, Berkeley";
+    display: block;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.md-footer-meta .md-footer-meta__inner {
+    display: none;
+}
