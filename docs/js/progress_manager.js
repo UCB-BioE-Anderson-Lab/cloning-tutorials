@@ -146,6 +146,16 @@ if (!window.progressManager) {
     }
 
     async generateSubmissionSummary() {
+        let userName = localStorage.getItem("quizUserName");
+        if (!userName) {
+            userName = prompt("Please enter your name as it appears on bCourses:");
+            if (!userName) {
+                alert("Name is required to generate the report.");
+                return;
+            }
+            localStorage.setItem("quizUserName", userName);
+        }
+
         const required = this.hierarchy;
         const progressByQuiz = {};
         this.progress.forEach(p => {
@@ -160,6 +170,7 @@ if (!window.progressManager) {
         const lines = [];
         const allAttempts = [];
 
+        lines.push(`Name: ${userName}`);
         lines.push(`Submission Date: ${new Date().toLocaleString()}`);
         lines.push("");
 
