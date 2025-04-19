@@ -39,7 +39,7 @@ Welcome to the **SynBio Project Tutorials**, a modular series of interactive gui
 11. **[Measuring Fluorescence](bestp.md)**  
    Quantify promoter activity by measuring amilGFP fluorescence and OD, and calculate Relative Promoter Units (RPUs).
 
-## Part B: Cloning Techniques
+## Part B: Construction
 
 1. **[DNA Basics](construction/dna_basics.md)**  
    Learn about DNA structure, reverse complement operations, strandedness, plasmids, and genomes.
@@ -65,7 +65,7 @@ Welcome to the **SynBio Project Tutorials**, a modular series of interactive gui
 8. **[Site-Directed Mutagenesis](construction/mutagenesis.md)**  
    Constructing and designing short parts and mutagenesis.  
 
-9. **[Sequencing Analysis](construction/sequencing.md)**  
+9. **[Sequencing Analysis](construction/sequencing_analysis.md)**  
    Learn to analyze sequencing results.
 
 ## Part C: Project Planning

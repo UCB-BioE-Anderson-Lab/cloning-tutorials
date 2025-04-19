@@ -17,7 +17,7 @@ if (!window.progressManager) {
               "sequencing": [],
               "bestp": []
             },
-            "Cloning Techniques": {
+            "Construction": {
               "dna_basics": [],
               "sequence_tools": [],
               "manual_prediction": [],
@@ -26,7 +26,7 @@ if (!window.progressManager) {
               "gibson": [],
               "golden_gate": [],
               "mutagenesis": [],
-              "sequencing": []
+              "sequencing_analysis.md": []
             },
             "Project Planning": {
               "project_setup": [],
