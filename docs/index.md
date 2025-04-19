@@ -62,13 +62,10 @@ Welcome to the **SynBio Project Tutorials**, a modular series of interactive gui
 7. **[Golden Gate Assembly](construction/golden_gate.md)**  
    Learn Golden Gate cloning methods.
 
-8. **[BioBricks and Assembly](construction/biobricks.md)**  
-   BioBrick parts, part assembly, and other part formats.
-
-9. **[Short Parts Construction](construction/short_parts.md)**  
+8. **[Site-Directed Mutagenesis](construction/mutagenesis.md)**  
    Constructing and designing short parts and mutagenesis.  
 
-10. **[Sequencing Analysis](construction/sequencing.md)**  
+9. **[Sequencing Analysis](construction/sequencing.md)**  
    Learn to analyze sequencing results.
 
 ## Part C: Project Planning

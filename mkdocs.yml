@@ -4,7 +4,7 @@ repo_url: https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials
 
 theme:
   name: material
-  custom_dir: docs/overrides
+  logo: images/logo.png
 
 nav:
   - Wetlab:
@@ -28,9 +28,9 @@ nav:
       - 5. Basic Cloning: construction/basic_cloning.md
       - 6. Gibson Assembly: construction/gibson.md
       - 7. Golden Gate Assembly: construction/golden_gate.md
-      - 8. BioBricks and Assembly: construction/biobricks.md
-      - 9. Short Parts Construction: construction/short_parts.md
-      - 10. Sequencing Analysis: construction/sequencing.md
+      - 8. Site-Directed Mutagenesis: construction/mutagenesis.md
+      - 9. Sequencing Analysis: construction/sequencing.md
+
   - Project Planning:
       - 1. Project Setup and Nomenclature: planning/project_setup.md
       - 2. Experimental Design Principles: planning/design_principles.md
@@ -39,6 +39,7 @@ nav:
       - 5. Simulation Tools: planning/cfs_simulation.md
       - 6. Inventory and Labsheets: planning/inventory_labsheets.md
       - 7. Ortholog Scan Project: planning/project_ispA.md
+      
   - About: about.md
 
 markdown_extensions:

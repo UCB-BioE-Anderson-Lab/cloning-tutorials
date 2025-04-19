@@ -8,24 +8,29 @@ DNA is a double-stranded molecule arranged in an **antiparallel** fashion, meani
 
 ### **Reverse**
 To reverse a DNA sequence, simply write it backward. For example:
+
 - **Original**: `5'- ATGCAG -3'`
 - **Reversed**: `5'- GACGTA -3'`
 
 ### **Complement**
 To complement a DNA sequence, replace each base with its pairing base:
+
 - **A (Adenine) ↔ T (Thymine)**
 - **C (Cytosine) ↔ G (Guanine)**
 
 Example:
+
 - **Original**: `5'- ATGCAG -3'`
 - **Complement**: `5'- TACGTC -3'`
 
 ### **Reverse Complement**
 The **reverse complement** is simply applying the complement rule **after reversing** the sequence:
+
 1. Reverse the sequence.
 2. Replace each base with its complementary base.
 
 Example:
+
 - **Original**: `5'- ATGCAG -3'`
 - **Step 1 (Reverse)**: `5'- GACGTA -3'`
 - **Step 2 (Complement)**: `5'- CTGCAT -3'`
@@ -65,11 +70,14 @@ A **gene** refers to a region of DNA that encodes a protein. You can think of it
 During transcription, an **RNA molecule** is created that is identical to the coding strand but with **Uracil (U) replacing Thymine (T)**.
 
 Example:
+
 - **DNA Coding Strand**: `5'- ATGCAGTAC -3'`
 - **RNA Transcript**: `5'- AUGCAGUAC -3'`
 
 ### **Quiz: Predict the RNA Sequence**
+
 What is the **RNA sequence** transcribed from this DNA coding strand?  
+
 **5'- TCTGACTA -3'**
 
 <form id="transcriptionForm">
@@ -124,6 +132,7 @@ The **ribosome** recognizes the **Shine-Dalgarno sequence** and the **start codo
 | GGA    | G            | Gly        | GGG    | G            | Gly        |
 
 ### **Quiz: Translate the DNA Sequence**
+
 What is the **amino acid sequence** for the following DNA sequence?  
 **5'- ATG CAG GTA GAA TAA -3'**
 
