@@ -124,7 +124,8 @@ In inverse PCR, primers point outward from a circular template.
 
 ---
 
-## Quiz: Predict This Product
+<div class="quiz-box">
+<h2>Quiz: Predict This Product</h2>
 
 ```
 operation    primer1     primer2     template   product
@@ -149,6 +150,7 @@ function checkPcrQuizAnswer() {
     : "❌ Not quite. Check your primer matches and try again.";
 }
 </script>
+</div>
 
 ---
 
@@ -239,6 +241,7 @@ These fragments are now `blue_dig` and `orange_dig`.
 
 ---
 
+<div class="quiz-box">
 ## 🧪 Quiz: Predict the Ligation Product
 
 ```
@@ -268,3 +271,4 @@ function checkLigationQuizAnswer() {
     : "❌ Not quite. Make sure you digested with XhoI and selected the right fragments.";
 }
 </script>
+</div>
