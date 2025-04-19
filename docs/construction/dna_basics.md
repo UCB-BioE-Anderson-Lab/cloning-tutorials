@@ -41,23 +41,27 @@ Since DNA is double-stranded, the reverse complement operation essentially deter
 
 Try calculating the **Reverse**, **Complement**, and **Reverse Complement** of these sequences:
 
-### **1️⃣ Reverse**
-What is the **reverse** of **5'- AGCTTG -3'?**
+<div class="quiz-box">
+
+<p><strong>1️⃣ Reverse</strong></p>
+<p>What is the <strong>reverse</strong> of <code>5'- AGCTTG -3'</code>?</p>
 <input type="text" id="reverseInput" placeholder="Enter answer here">
 <button type="button" id="reverseBtn">Check Answer</button>
 <p id="reverseResult"></p>
 
-### **2️⃣ Complement**
-What is the **complement** of **5'- AGCTTG -3'?**
+<p><strong>2️⃣ Complement</strong></p>
+<p>What is the <strong>complement</strong> of <code>5'- AGCTTG -3'</code>?</p>
 <input type="text" id="complementInput" placeholder="Enter answer here">
 <button type="button" id="complementBtn">Check Answer</button>
 <p id="complementResult"></p>
 
-### **3️⃣ Reverse Complement**
-What is the **reverse complement** of **5'- CAGGTAG -3'?**
+<p><strong>3️⃣ Reverse Complement</strong></p>
+<p>What is the <strong>reverse complement</strong> of <code>5'- CAGGTAG -3'</code>?</p>
 <input type="text" id="reverseCompInput" placeholder="Enter answer here">
 <button type="button" id="reverseCompBtn">Check Answer</button>
 <p id="reverseCompResult"></p>
+
+</div>
 
 ## The Central Dogma
 
@@ -170,6 +174,7 @@ What is the **amino acid sequence** for the following DNA sequence?
 - **Stop Codon**: A codon (**TAA, TAG, TGA**) that signals the termination of translation.
 
 ### **Gene Structure & Regulation**
+
  - **Gene**: A specific region of DNA that encodes a functional product, usually a protein.
  - **CDS (Coding DNA Sequence)**: The protein-coding portion of a gene within an mRNA.
  - **Open Reading Frame (ORF)**: A sequence of codons beginning with a start codon and ending with a stop codon.
