@@ -147,32 +147,73 @@ if (!window.progressManager) {
 
     async generateSubmissionSummary() {
         const required = this.hierarchy;
-
-        // Infer tutorial from URL path
-        const path = location.pathname;
-        const tutorial = path.split("/").pop().replace(".html", "") || "intro";
-
-        // Flatten required quizzes across all sections for this tutorial
-        let requiredList = [];
-        for (const section in required) {
-            if (required[section][tutorial]) {
-                requiredList = required[section][tutorial];
-                break;
-            }
-        }
+        const progressByQuiz = {};
+        this.progress.forEach(p => {
+            if (!progressByQuiz[p.quiz]) progressByQuiz[p.quiz] = [];
+            progressByQuiz[p.quiz].push(p);
+        });
 
         const completedCorrect = new Set(
             this.progress.filter(p => p.result === "correct").map(p => p.quiz)
         );
 
-        const summary = {
-            completed: [...completedCorrect],
-            submission_date: new Date().toLocaleString(),
-            finished: requiredList.every(q => completedCorrect.has(q)),
-            attempt_log: this.progress
-        };
+        const lines = [];
+        const allAttempts = [];
 
-        const report = JSON.stringify(summary, null, 4);
+        lines.push(`Submission Date: ${new Date().toLocaleString()}`);
+        lines.push("");
+
+        for (const section in required) {
+            const tutorials = required[section];
+            let sectionLines = [];
+
+            for (const tutorial in tutorials) {
+                const requiredQuizzes = tutorials[tutorial];
+                if (requiredQuizzes.length === 0) continue;
+
+                const attempted = requiredQuizzes.some(q => progressByQuiz[q]);
+                if (!attempted) continue;
+
+                const allPassed = requiredQuizzes.every(q => completedCorrect.has(q));
+
+                if (allPassed) {
+                    const dates = requiredQuizzes
+                        .flatMap(q => (progressByQuiz[q] || []))
+                        .filter(a => a.result === "correct")
+                        .map(a => new Date(a.datetime_completed));
+                    const latest = dates.length
+                        ? new Date(Math.max(...dates)).toLocaleDateString()
+                        : "Unknown";
+                    sectionLines.push(`✓ ${tutorial} (completed on ${latest})`);
+                } else {
+                    sectionLines.push(`✘ ${tutorial} (incomplete)`);
+                    for (const quiz of requiredQuizzes) {
+                        if (progressByQuiz[quiz]) {
+                            for (const entry of progressByQuiz[quiz]) {
+                                allAttempts.push(entry);
+                                sectionLines.push(`  - ${quiz} | ${entry.result} | ${new Date(entry.datetime_completed).toLocaleString()}`);
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (sectionLines.length) {
+                lines.push(`== ${section} ==`);
+                lines.push(...sectionLines, "");
+            }
+        }
+
+        // Generate a checksum over the report text before appending
+        const report = lines.join("\n");
+        const encoder = new TextEncoder();
+        const data = encoder.encode(report);
+        const digest = await crypto.subtle.digest("SHA-256", data);
+        const hashArray = Array.from(new Uint8Array(digest));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        lines.push(`Checksum: ${hashHex}`);
+
+        const finalReport = lines.join("\n");
 
         const summaryWindow = window.open("about:blank", "_blank");
         if (!summaryWindow) {
@@ -185,14 +226,13 @@ if (!window.progressManager) {
             <head>
                 <title>Submission Summary</title>
                 <style>
-                    body { font-family: Arial, sans-serif; padding: 20px; }
-                    pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
+                    body { font-family: monospace; padding: 20px; white-space: pre-wrap; }
                     button { padding: 6px 10px; font-size: 14px; margin-top: 10px; }
                 </style>
             </head>
             <body>
                 <h1>Submission Summary</h1>
-                <pre id="summary">${report}</pre>
+                <pre id="summary">${finalReport}</pre>
                 <button onclick="navigator.clipboard.writeText(document.getElementById('summary').innerText)">Copy to Clipboard</button>
             </body>
             </html>
