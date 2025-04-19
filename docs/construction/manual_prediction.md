@@ -242,7 +242,7 @@ These fragments are now `blue_dig` and `orange_dig`.
 ---
 
 <div class="quiz-box">
-## 🧪 Quiz: Predict the Ligation Product
+🧪 Quiz: Predict the Ligation Product
 
 ```
 operation    dna        enzyme      fragment    product
