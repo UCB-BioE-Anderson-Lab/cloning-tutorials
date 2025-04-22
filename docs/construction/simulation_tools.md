@@ -10,131 +10,70 @@ You can also automate these experiments directly using **C6-Tools**, a simulatio
 
 The Google Sheets version includes a library of DNA design functions that you can access directly from spreadsheet cells. These include methods for `PCR`, `Digest`, `Ligate`, `GoldenGate`, and `Gibson`, as well as functions for parsing and simulating CF scripts. Visit the linked page and follow the instructions to get started.
 
+These tutorials also containing a web-based version of C6, and you can use the embedded web tool below to simulate construction files.
+
 --- 
 
-## What is C6-Tools?
+## Try it out
 
-C6-Tools is a simulation engine for parsing and executing CF shorthand workflows. The same engine powers both the simulator below and the Google Sheets version you saw earlier. You can use this page anytime to test out your own CF scripts.
+Here is an example of a single PCR expressed as a Construction File. You can click below to copy the text and try it out.
 
----
-
-## Example: Simulating a PCR Step
-
-Input the CF snippet below, then click **Simulate** to run it.
-
-```
-PCR          exFor2      exRev2      pTemp1       pcrpdt2
+<pre id="cf_quiz_example" style="background:#f8f8f8; border:1px solid #ccc; padding:10px; border-radius:4px; white-space:pre-wrap;">PCR          exFor2      exRev2      pTemp1       pcrpdt2
 
 oligo        exFor2      ccataGAATTCCAGCGGATCGGATCGGCGAC
-oligo        exRev2      cagatGGATCCCTGGTTCCGCCCGCACAACCG
-plasmid      pTemp1      CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACAACCGCGA
-```
+oligo        exRev2      cagatGGATCCCGGTTGTGCGGGCGGAACC
+plasmid      pTemp1      CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACAACCGCGA</pre>
+<button onclick="navigator.clipboard.writeText(document.getElementById('cf_quiz_example').innerText)" style="margin-top:5px;">Copy Example</button>
 
-<textarea id="cfInput" rows="6" style="width:100%; font-family:monospace;"></textarea>
-<br>
-<button onclick="simulateCF()">Simulate</button>
-
-<div id="cfOutput" style="margin-top:20px;"></div>
-
-<script>
-// import { parseCF, simCF } from "js/C6-Main.js";
-window.simulateCF = function simulateCF() {
-    const input = document.getElementById("cfInput").value.trim();
-    const outputDiv = document.getElementById("cfOutput");
-    outputDiv.innerHTML = "";
-
-    try {
-        const steps = parseCF(input);
-        const results = simCF(steps);
-
-        const table = document.createElement("table");
-        table.style.width = "100%";
-        table.style.borderCollapse = "collapse";
-
-        const header = table.insertRow();
-        ["Step", "Operation", "Product", "Sequence"].forEach(text => {
-            const th = document.createElement("th");
-            th.innerText = text;
-            th.style.borderBottom = "2px solid black";
-            th.style.textAlign = "left";
-            th.style.padding = "6px";
-            header.appendChild(th);
-        });
-
-        results.forEach((step, i) => {
-            const row = table.insertRow();
-            [i + 1, step.operation, step.product, step.sequence].forEach(text => {
-                const cell = row.insertCell();
-                cell.innerText = text;
-                cell.style.borderTop = "1px solid #ccc";
-                cell.style.padding = "6px";
-                cell.style.wordBreak = "break-word";
-            });
-        });
-
-        outputDiv.appendChild(table);
-    } catch (err) {
-        outputDiv.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
-    }
-};
-</script>
-
----
-
-## Try Your Own Construction File
-
-Paste your own CF script below and simulate full cloning workflows. Your CF can include multiple steps, such as PCR, digests, and ligations.
-
-<textarea id="cfCustomInput" rows="10" style="width:100%; font-family:monospace;"></textarea>
-<br>
-<button onclick="simulateCustomCF()">Simulate</button>
-
-<div id="cfCustomOutput" style="margin-top:20px;"></div>
+<form id="cf_quiz_form" style="background-color:#d8edfa; padding:20px; border:1px solid #ccc; border-radius:6px; margin-top:20px;">
+  <p><strong>Paste your Construction File (CF) below</strong> and click <strong>Simulate</strong>. If it runs successfully, you’ll complete the quiz.</p>
+  <textarea id="cf_quiz_input" rows="10" style="width:100%; font-family:monospace;"></textarea>
+  <br>
+  <button type="button" id="cf_quiz_btn" style="margin-top:10px;">Simulate</button>
+  <p id="cf_quiz_result" style="margin-top: 10px; font-weight:bold;"></p>
+</form>
 
 <script>
-window.simulateCustomCF = function simulateCustomCF() {
-    const input = document.getElementById("cfCustomInput").value.trim();
-    const outputDiv = document.getElementById("cfCustomOutput");
-    outputDiv.innerHTML = "";
+  document.getElementById("cf_quiz_btn").addEventListener("click", function () {
+    const input = document.getElementById("cf_quiz_input").value.trim();
+    const resultP = document.getElementById("cf_quiz_result");
+    resultP.innerHTML = "";
 
     try {
-        const steps = parseCF(input);
-        const results = simCF(steps);
+      if (!window.C6 || typeof window.C6.parseCF !== "function") {
+        throw new Error("C6 tools not loaded. Please ensure window.C6 is available.");
+      }
 
-        const table = document.createElement("table");
-        table.style.width = "100%";
-        table.style.borderCollapse = "collapse";
+      const steps = window.C6.parseCF(input);
+      console.log(steps)
 
-        const header = table.insertRow();
-        ["Step", "Operation", "Product", "Sequence"].forEach(text => {
-            const th = document.createElement("th");
-            th.innerText = text;
-            th.style.borderBottom = "2px solid black";
-            th.style.textAlign = "left";
-            th.style.padding = "6px";
-            header.appendChild(th);
-        });
+      const results = window.C6.simCF(steps);
+      console.log(results)
 
-        results.forEach((step, i) => {
-            const row = table.insertRow();
-            [i + 1, step.operation, step.product, step.sequence].forEach(text => {
-                const cell = row.insertCell();
-                cell.innerText = text;
-                cell.style.borderTop = "1px solid #ccc";
-                cell.style.padding = "6px";
-                cell.style.wordBreak = "break-word";
-            });
-        });
+      if (!Array.isArray(results) || results.length === 0) {
+        resultP.innerHTML = "❌ No simulation steps returned. Please check your input.";
+        return;
+      }
 
-        outputDiv.appendChild(table);
+      let outputHTML = "<p style='color:green; font-weight:bold;'>✅ Simulation successful!</p>";
+      outputHTML += "<table style='width:100%; border-collapse:collapse;'><thead><tr><th style='border-bottom:1px solid #ccc; text-align:left;'>Name</th><th style='border-bottom:1px solid #ccc; text-align:left;'>Sequence</th></tr></thead><tbody>";
+
+      results.forEach(row => {
+        if (Array.isArray(row) && row.length >= 2) {
+          const name = row[0];
+          const seq = row[1];
+          outputHTML += `<tr><td style="padding:4px 8px; border-bottom:1px solid #eee;">${name}</td><td style="padding:4px 8px; border-bottom:1px solid #eee; font-family:monospace;">${seq}</td></tr>`;
+        }
+      });
+
+      outputHTML += "</tbody></table>";
+      resultP.innerHTML = outputHTML;
+
+      if (typeof window.progressManager !== "undefined") {
+        window.progressManager.addCompletion("simulation_tools_q1", "correct");
+      }
     } catch (err) {
-        outputDiv.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+      resultP.innerHTML = `<span style="color:red;">❌ Error: ${err.message}</span>`;
     }
-};
+  });
 </script>
-
----
-
-## What’s Next
-
-In the next tutorial, we’ll dive deeper into the **Construction File Shorthand** language and teach you how to write multi-step workflows from scratch. For now, keep experimenting with the simulator above!

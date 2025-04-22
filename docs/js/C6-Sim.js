@@ -348,7 +348,7 @@ function PCR(forwardSeq, reverseSeq, templateSeq) {
  * used restriction enzymes.  They are used in the Assemble and
  * Digest simulations, then also during silent site removal (removeSites)
  */
-const restrictionEnzymes = {
+const simRestrictionEnzymes = {
     AarI: {recognitionSequence: "CACCTGC", cut5: 4, cut3: 8},
     BbsI: {recognitionSequence: "GAAGAC", cut5: 2, cut3: 6},
     BsaI: {recognitionSequence: "GGTCTC", cut5: 1, cut3: 5},
@@ -366,8 +366,8 @@ const restrictionEnzymes = {
 
 //Calculate the reverse complement of the recognition sequence as well as
 //whether the sticky end generated is a 5' extension (true) or 3' (false)
-for (enzName in restrictionEnzymes) {
-  const enzyme = restrictionEnzymes[enzName];
+for (enzName in simRestrictionEnzymes) {
+  const enzyme = simRestrictionEnzymes[enzName];
   enzyme.recognitionRC = revcomp(enzyme.recognitionSequence);
   enzyme.isFivePrime = enzyme.cut5 < enzyme.cut3;
 }
@@ -401,8 +401,8 @@ function assemble(...dnaBlobs) {
     }
   }).flat();
 
-  // check if the enzyme is in the restrictionEnzymes object, or relay to Gibson
-  if (!restrictionEnzymes.hasOwnProperty(enzyme)) {
+  // check if the enzyme is in the simRestrictionEnzymes object, or relay to Gibson
+  if (!simRestrictionEnzymes.hasOwnProperty(enzyme)) {
     return gibson(dnaSequences);
   }
 
@@ -411,7 +411,7 @@ function assemble(...dnaBlobs) {
 	var digestionFragments = [];
 
 	// Get the restriction enzyme details
-	var enzymeDetails = restrictionEnzymes[enzyme];
+	var enzymeDetails = simRestrictionEnzymes[enzyme];
 	var restrictionSequence = enzymeDetails.recognitionSequence;
 	var revRestrictionSequence = enzymeDetails.recognitionRC;
   var cut5 = enzymeDetails.cut5;
@@ -654,7 +654,7 @@ function cutOnce(polyjson, enz) {
 	const poly = JSON.parse(polyjson);
 
 	const seq = poly.sequence;
-	const enzData = restrictionEnzymes[enz];
+	const enzData = simRestrictionEnzymes[enz];
 	const recognitionSeq = enzData.recognitionSequence;
 	const recognitionSeqRC = enzData.recognitionRC;
 	const cut5 = enzData.cut5;
@@ -755,7 +755,7 @@ function digest(seq, enzymes, fragselect) {
   const enzList = enzymes.split(/[^A-Za-z0-9]+/).filter(name => name.trim().length > 0);
   const enzymeList = [];
   for (var i = 0; i < enzList.length; i++) {
-    const enzymeData = restrictionEnzymes[enzList[i]];
+    const enzymeData = simRestrictionEnzymes[enzList[i]];
     if (!enzymeData) {
       throw new Error(`Enzyme "${enzList[i]}" not found.`);
     }
@@ -908,19 +908,14 @@ function simCF(jsonString) {
     return outputTable;
 }
 
-// Export functions for use in other modules
-window.digest = digest;
-window.PCR = PCR;
-window.parseCF = parseCF;
-window.simCF = simCF;
-
-// Set default value for construction file input field on load
-document.addEventListener('DOMContentLoaded', function() {
-    const inputField = document.getElementById('constructionInput');
-    if (inputField) {
-        inputField.value = `PCR          exFor2        exRev2        pTemp1       pcrpdt2
-oligo        exFor2        ccataGAATTCCAGCGGATCGGATCGGCGAC
-oligo        exRev2        cagatGGATCCCTGGTTCCGCCCGCACAACCG
-plasmid      pTemp1        CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACAACCGCGA`;
-    }
+// Assign non-private functions and classes to C6
+window.C6 = window.C6 || {};
+Object.assign(window.C6, {
+  parseCF,
+  simCF,
+  PCR,
+  assemble,
+  gibson,
+  cutOnce,
+  digest
 });

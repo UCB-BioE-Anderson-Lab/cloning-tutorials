@@ -27,19 +27,24 @@ function field(objJSON, fieldName) {
     }
 }
 
-// Function to convert a 2D array of string data into a JSON string
+// Simplified version: Converts an array of [key, value] pairs into a JSON object string
 function makeJSON(inputArray) {
     const obj = {};
-    inputArray.forEach(row => {
-        if (row.length >= 2 && row[0].endsWith(":")) {
-            const key = row[0].slice(0, -1);
-            obj[key] = row[1];
+    inputArray.forEach(([key, value]) => {
+        if (typeof key === 'string' && key.trim()) {
+            obj[key.trim()] = value === 'null' ? null :
+                              value === 'undefined' ? undefined :
+                              value;
         }
     });
     return JSON.stringify(obj);
 }
 
-// Export functions for use in other modules
-window.merge = merge;
-window.field = field;
-window.makeJSON = makeJSON;
+
+
+// Assign non-private functions to C6
+Object.assign(window.C6, {
+  merge,
+  field,
+  makeJSON
+});

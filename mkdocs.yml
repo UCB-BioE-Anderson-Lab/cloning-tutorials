@@ -41,6 +41,7 @@ nav:
       - 7. Ortholog Scan Project: planning/project_ispA.md
       
   - About: about.md
+  - jstest: jstest.md
 
 markdown_extensions:
   - toc:
@@ -63,13 +64,13 @@ plugins:
   #     media_type: print
   
 extra_javascript:
-  - js/C6-Align.js
   - js/C6-Gene.js
   - js/C6-Oligos.js
   - js/C6-Seq.js
   - js/C6-Sim.js
   - js/C6-Utils.js
   - js/progress_manager.js
+  - js/C6-Test.js
 
 extra_css:
   - css/custom.css

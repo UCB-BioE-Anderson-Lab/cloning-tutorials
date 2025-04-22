@@ -360,19 +360,22 @@ function cleanup(sequence) {
     return maxStreak;
   }
   
-// Expose functions and class to the global window object for browser compatibility
-window.Polynucleotide = Polynucleotide;
-// Expose functions and class to the global window object for browser compatibility
-window.cleanup = cleanup;
-window.resolveToSeq = resolveToSeq;
-window.Polynucleotide = Polynucleotide;
-window.dsDNA = dsDNA;
-window.oligo = oligo;
-window.plasmid = plasmid;
-window._resolveToPoly = _resolveToPoly;
-window.isPalindromic = isPalindromic;
-window.revcomp = revcomp;
-window.gccontent = gccontent;
-window.basebalance = basebalance;
-window.maxrepeat = maxrepeat;
+// Create the C6 namespace on window if it doesn't exist
+window.C6 = window.C6 || {};
+
+// Assign non-private functions and classes to C6
+Object.assign(window.C6, {
+  cleanup,
+  resolveToSeq,
+  Polynucleotide,
+  polynucleotide,
+  dsDNA,
+  oligo,
+  plasmid,
+  isPalindromic,
+  revcomp,
+  gccontent,
+  basebalance,
+  maxrepeat
+});
 

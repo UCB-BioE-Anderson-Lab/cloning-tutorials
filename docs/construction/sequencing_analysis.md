@@ -1,6 +1,6 @@
 # Sequencing Analysis
 
-Once you've received sequencing data for your plasmid, the first step is a quick visual check of the read quality.
+Earlier when working on pP6, you did Cycle Sequencing to identify the promoter sequence you have identified. However, this analysis was a specific case where we were looking for a specific pattern in the read.  Now let's look at it more generally in a construction context, where our motivation is to determine whether we successfully created the plasmid. We need to compare our sequencing data to our model and determine whether it is correct.
 
 ## 1. Initial Inspection: Raw Read Quality
 
@@ -21,11 +21,7 @@ If you're working with full plasmid sequencing data, you should see a continuous
 
 ## 3. Defining the Critical Region
 
-One major challenge in non-standardized constructs is determining *what* region you actually need to confirm. Unlike Biobricks (which had clear prefix/suffix boundaries), here you need to define the “insert” based on:
-
-- Your cloning strategy (e.g., Gibson assembly junctions, PCR primers).
-- The portion of the plasmid that you modified or introduced.
-- Any region where mutations could compromise function.
+One major challenge in non-standardized constructs is determining *what* region you actually need to confirm. When building 'parts' like BioBricks or MoClo parts, there is a specific region of the plasmid bounded by restriction sites, and it is the only region of the plasmid that will be carried forward, and thus it is the only region we must examine in detail. But we aren't always working with 'parts' and this can be more ambiguous. Usually errors happen at the junctions created in vitro, regardless of using restriciton enzymes, gibson, or other assembly methods.  Whereever you annealed oligos is a likely site for errors.  Additionally, any regions of the plasmid that were amplified by PCR are high risk.  Sometimes you already know some components of a plasmid are correct -- you got colonies, so the origin and antibiotic marker must have been functional.  It is those elements you have introduced into the plasmid, and the junctions between them and other fragments in the assembly reaction that most likely need to be examined.
 
 A good practice: identify the expected start and end coordinates of the insert (or modified region) on your plasmid map. This defines your “critical verification region.”
 
