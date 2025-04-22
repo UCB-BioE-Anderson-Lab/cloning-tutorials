@@ -271,7 +271,7 @@ function parseCF(...blobs) {
         }
     }
 
-    return JSON.stringify({ steps, sequences });
+    return { steps, sequences };
 }
 
 /**
@@ -822,22 +822,14 @@ function digest(seq, enzymes, fragselect) {
 }
 
 /**
-simCF - A function that simulates a series of molecular biology construction steps given a JSON string of a construction file.
-
-Each row represents a product with the first column being the name and the second column being the sequence.
-The function first parses the input JSON string and retrieves the construction steps and sequence data. It then iterates through
-the construction steps in order, simulating each step with the appropriate simulator function. The product sequences for each step
-are collected in an array. Finally, the collected product sequences are converted into a 2D string array with the left column being
-the product name and the right column being the sequence.
-Note: This function relies on the existence of simulator functions (PCR, assemble, etc.) in the same scope.
-
-@param {string} jsonString - A JSON string of a construction file in the format outputted from parseCF.
-@returns {Array<Array<string>>} outputTable - A 2D string array containing the product names and their sequences.
-*/
-function simCF(jsonString) {
-    const inputData = JSON.parse(jsonString);
-    const steps = inputData.steps;
-    const sequences = inputData.sequences;
+ * simCF - A function that simulates a series of molecular biology construction steps given a construction file object.
+ *
+ * @param {Object} cfData - A construction file object (with `steps` and `sequences`) returned from `parseCF`.
+ * @returns {Array<Array<string>>} outputTable - A 2D string array containing the product names and their sequences.
+ */
+function simCF(cfData) {
+    const steps = cfData.steps;
+    const sequences = cfData.sequences;
     const products = [];
 
     if (!sequences || Object.keys(sequences).length === 0) {

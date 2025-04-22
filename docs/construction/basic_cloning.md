@@ -261,11 +261,18 @@ function runQuiz() {
   let pass = true;
 
   // Validate restriction site presence and spacing
-  if (upperFwd.indexOf("CCATGG") < 5) {
+  if (upperFwd.indexOf("CCATGG") === -1) {
+    feedback += "⚠️ Forward primer must include the NcoI site (CCATGG)<br>";
+    pass = false;
+  } else if (upperFwd.indexOf("CCATGG") < 5) {
     feedback += "⚠️ Forward primer must have at least 5 bases before NcoI (CCATGG)<br>";
     pass = false;
   }
-  if (upperRev.indexOf("CTCGAG") < 5) {
+
+  if (upperRev.indexOf("CTCGAG") === -1) {
+    feedback += "⚠️ Reverse primer must include the XhoI site (CTCGAG)<br>";
+    pass = false;
+  } else if (upperRev.indexOf("CTCGAG") < 5) {
     feedback += "⚠️ Reverse primer must have at least 5 bases before XhoI (CTCGAG)<br>";
     pass = false;
   }
@@ -346,3 +353,5 @@ function copyCF() {
   }, 2000);
 }
 </script>
+
+Once you’ve successfully completed the quiz, take a moment to experiment. Try removing a 5′ tail, changing an oligo name, or deleting a restriction site. Note what changes break things, and how your changes modify the construction file.

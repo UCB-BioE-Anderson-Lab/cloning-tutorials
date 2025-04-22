@@ -22,8 +22,8 @@ if (!window.progressManager) {
               "sequence_tools": [],
               "manual_prediction": ["Manual_PCR", "Manual_Ligation"],
               "simulation_tools": ["simulation_tools_q1"],
-              "basic_cloning": [],
-              "gibson": [],
+              "basic_cloning": ["Cas9 Cloning"],
+              "gibson": ["Gibson Cloning"],
               "golden_gate": [],
               "mutagenesis": [],
               "sequencing_analysis.md": []
