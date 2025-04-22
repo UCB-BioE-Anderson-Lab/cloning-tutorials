@@ -889,6 +889,19 @@ function simCF(cfData) {
             }
             break;
 
+            case 'Transform': {
+                const dnaSeq = lookupSequence(step.dna);
+
+                // TODO: Add real transformation simulation logic here
+                const product = dnaSeq;
+
+                products.push({
+                    name: step.output,
+                    sequence: product
+                });
+            }
+            break;
+
             // ... add more cases for other operations as needed
 
             default:
