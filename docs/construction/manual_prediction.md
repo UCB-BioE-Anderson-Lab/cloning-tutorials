@@ -1,4 +1,12 @@
 <script src="https://unpkg.com/seqviz"></script>
+<style>
+  textarea {
+    font-family: monospace;
+    width: 100%;
+    overflow-x: auto;
+    white-space: pre;
+  }
+</style>
 # Manual Product Prediction
 
 In this module, you'll learn how to predict the results of molecular biology operations by reasoning through the mechanisms. This manual prediction process is foundational for verifying whether a cloning strategy will work as intended. While there are many tools and algorithms to help you design a cloning plan, here we are learning to do it based on first principles. It's a skill you'll often use in the lab when results are unclear and you need to troubleshoot. Going through this process also deepens your understanding of how molecular biology works and how different biochemical elements interact.
@@ -136,7 +144,7 @@ oligo        qRev        cagatCTCGAGTTAGTGCTGTTCGAGGTCCTG
 plasmid      pQ1         CACTCAAGGTTCAGGACCTCGAACAGCACTAACGGAAGAAATCCGATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCAT
 ```
 
-<textarea id="pcrQuizInput" rows="4" style="width:100%; font-family:monospace;"></textarea>
+<textarea id="pcrQuizInput" rows="4"></textarea>
 <br>
 <button onclick="checkPcrQuizAnswer()">Submit</button>
 <p id="pcrQuizFeedback"></p>
@@ -145,9 +153,14 @@ function checkPcrQuizAnswer() {
   const correct = "ccataCATATGGTTCTTGATTCGATACGTGGCCCCGAGGACCTCGCATCACTCAAGGTTCAGGACCTCGAACAGCACTAACTCGAGatctg";
   const input = document.getElementById("pcrQuizInput").value.replace(/\s+/g, "");
   const feedback = document.getElementById("pcrQuizFeedback");
-  feedback.innerHTML = input.toLowerCase() === correct.toLowerCase()
-    ? "✅ Correct! Well done."
-    : "❌ Not quite. Check your primer matches and try again.";
+  if (input.toLowerCase() === correct.toLowerCase()) {
+    feedback.innerHTML = "✅ Correct! Well done.";
+    if (typeof progressManager !== "undefined") {
+      progressManager.addCompletion("Manual_PCR", "correct");
+    }
+  } else {
+    feedback.innerHTML = "❌ Not quite. Check your primer matches and try again.";
+  }
 }
 </script>
 </div>
@@ -256,19 +269,24 @@ dsDNA        fragA      cagtacaagagattcagCTCGAGatacc
 dsDNA        fragB      cgaaaCTCGAGcatagacaggacaacca
 ```
 
-<textarea id="ligationQuizInput" rows="4" style="width:100%; font-family:monospace;"></textarea>
+<textarea id="ligationQuizInput" rows="4"></textarea>
 <br>
 <button onclick="checkLigationQuizAnswer()">Submit</button>
 <p id="ligationQuizFeedback"></p>
 
 <script>
 function checkLigationQuizAnswer() {
-  const correct = "cagtacaagagattcagctcgagatagacaggacaacca";
+  const correct = "cagtacaagagattcagCTCGAGcatagacaggacaacca";
   const input = document.getElementById("ligationQuizInput").value.replace(/\s+/g, "");
   const feedback = document.getElementById("ligationQuizFeedback");
-  feedback.innerHTML = input.toLowerCase() === correct.toLowerCase()
-    ? "✅ Correct! You've successfully simulated the ligation."
-    : "❌ Not quite. Make sure you digested with XhoI and selected the right fragments.";
+  if (input.toLowerCase() === correct.toLowerCase()) {
+    feedback.innerHTML = "✅ Correct! You've successfully simulated the ligation.";
+    if (typeof progressManager !== "undefined") {
+      progressManager.addCompletion("Manual_Ligation", "correct");
+    }
+  } else {
+    feedback.innerHTML = "❌ Not quite. Make sure you digested with XhoI and selected the right fragments.";
+  }
 }
 </script>
 </div>

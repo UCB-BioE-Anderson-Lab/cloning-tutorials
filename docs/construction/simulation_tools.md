@@ -1,10 +1,6 @@
 # Simulation Tools
 
-Now that you have learned how to simulate molecular biology steps by hand, let's look at how to automate these operations.
-
-ApE provides graphical user interfaces for automating PCR, Golden Gate, and Gibson reactions under the **Tools** menu. It also supports digestion simulations via the **Enzymes / Enzyme Selector** menu. Benchling similarly provides visual tools to predict and simulate cloning steps like PCR and ligation.
-
-You can also automate these workflows using **C6-Tools**, a simulation engine that interprets **Construction File (CF) shorthand** — a compact language for describing DNA assembly steps. C6-Tools is available as both a web-based tool (below) and as a library embedded in Google Sheets:
+Several tools can automate molecular cloning workflows. ApE and Benchling offer graphical interfaces for simulating steps like PCR, Golden Gate, Gibson, and digestion reactions. Alternatively, C6-Tools provides a scripting-based approach using Construction File (CF) shorthand, and is available both as a web tool and as a Google Sheets plugin:
 
 🔗 [Open C6-Tools in Google Sheets](https://docs.google.com/spreadsheets/d/1WATXfGTY0VgpDDVf2EDKTBbBRSOQa_rFcOwFp1GsBjU/edit?usp=sharing)
 
@@ -13,9 +9,44 @@ The Google Sheets version includes a library of DNA design functions that you ca
 
 --- 
 
+
+## Understanding CF Syntax
+
+The Construction File (CF) format is a streamlined way to describe molecular cloning procedures using a structured table-like syntax. Each line specifies either:
+
+- An **operation** to perform (e.g., `PCR`)
+- A **sequence element** involved in the operation (e.g., an `oligo` or `plasmid`)
+
+Each line begins with a **keyword** (like `PCR`, `oligo`, or `plasmid`) followed by a set of fields separated by either tabs or multiple spaces. These fields define the names and sequences needed for simulation.
+
+### PCR Line Breakdown
+
+For example, the line:
+
+```
+PCR          exFor2      exRev2      pTemp1       pcrpdt2
+```
+
+...defines a **PCR** reaction using:
+
+- a forward primer called `exFor2`
+- a reverse primer called `exRev2`
+- a circular DNA template called `pTemp1`
+- a product that will be named `pcrpdt2`
+
+### Naming Rules
+
+Each name (or "identifier") you use for DNA sequences—like primers, templates, or products—needs to follow specific rules:
+
+- You can use: letters, numbers, dashes (`-`), underscores (`_`), dots (`.`), plus signs (`+`), and backticks (<code>`</code>)
+- Do not use: commas, spaces, quotes, parentheses, or other special symbols—they can cause errors during simulation
+- Names are case-sensitive: `pTemp1` and `ptemp1` would be treated as different sequences
+
+You will learn other operation types like `Digest` and `GoldenGate` later in the tutorial, and this tool below can simulate those too.  For now, focus on reading and writing PCR-related lines.
+
 ## Try it out
 
-Below is a sample Construction File that defines a simple PCR. Click the button to copy the example and test it using the tool.
+Now it’s your turn to explore how CF syntax works in practice. The example below defines a PCR reaction using two primers and a circular DNA template. Try copying and pasting it into the form to simulate the result. Then, try breaking things on purpose—like deleting the last 10 bases of a primer or giving two sequences the same name—to see how the tool catches design errors and helps you debug. This is a quick way to test your understanding before moving on to more complex operations.
 
 <pre id="cf_quiz_example" style="background:#f8f8f8; border:1px solid #ccc; padding:10px; border-radius:4px; overflow-x:auto; white-space:pre;">PCR          exFor2      exRev2      pTemp1       pcrpdt2
 

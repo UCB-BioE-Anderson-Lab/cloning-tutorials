@@ -20,7 +20,7 @@ if (!window.progressManager) {
             "Construction": {
               "dna_basics": ["Reverse", "Complement", "Reverse Complement", "Transcription", "Translation"],
               "sequence_tools": [],
-              "manual_prediction": [],
+              "manual_prediction": ["Manual_PCR", "Manual_Ligation"],
               "simulation_tools": ["simulation_tools_q1"],
               "basic_cloning": [],
               "gibson": [],
