@@ -4,21 +4,20 @@ Now that you have learned how to simulate molecular biology steps by hand, let's
 
 ApE provides graphical user interfaces for automating PCR, Golden Gate, and Gibson reactions under the **Tools** menu. It also supports digestion simulations via the **Enzymes / Enzyme Selector** menu. Benchling similarly provides visual tools to predict and simulate cloning steps like PCR and ligation.
 
-You can also automate these experiments directly using **C6-Tools**, a simulation engine that interprets **Construction File (CF) shorthand** — a compact language for describing DNA assembly workflows. C6-Tools is available both below and embedded within Google Sheets:
+You can also automate these workflows using **C6-Tools**, a simulation engine that interprets **Construction File (CF) shorthand** — a compact language for describing DNA assembly steps. C6-Tools is available as both a web-based tool (below) and as a library embedded in Google Sheets:
 
 🔗 [Open C6-Tools in Google Sheets](https://docs.google.com/spreadsheets/d/1WATXfGTY0VgpDDVf2EDKTBbBRSOQa_rFcOwFp1GsBjU/edit?usp=sharing)
 
 The Google Sheets version includes a library of DNA design functions that you can access directly from spreadsheet cells. These include methods for `PCR`, `Digest`, `Ligate`, `GoldenGate`, and `Gibson`, as well as functions for parsing and simulating CF scripts. Visit the linked page and follow the instructions to get started.
 
-These tutorials also containing a web-based version of C6, and you can use the embedded web tool below to simulate construction files.
 
 --- 
 
 ## Try it out
 
-Here is an example of a single PCR expressed as a Construction File. You can click below to copy the text and try it out.
+Below is a sample Construction File that defines a simple PCR. Click the button to copy the example and test it using the tool.
 
-<pre id="cf_quiz_example" style="background:#f8f8f8; border:1px solid #ccc; padding:10px; border-radius:4px; white-space:pre-wrap;">PCR          exFor2      exRev2      pTemp1       pcrpdt2
+<pre id="cf_quiz_example" style="background:#f8f8f8; border:1px solid #ccc; padding:10px; border-radius:4px; overflow-x:auto; white-space:pre;">PCR          exFor2      exRev2      pTemp1       pcrpdt2
 
 oligo        exFor2      ccataGAATTCCAGCGGATCGGATCGGCGAC
 oligo        exRev2      cagatGGATCCCGGTTGTGCGGGCGGAACC

@@ -18,10 +18,10 @@ if (!window.progressManager) {
               "bestp": []
             },
             "Construction": {
-              "dna_basics": [],
+              "dna_basics": ["Reverse", "Complement", "Reverse Complement", "Transcription", "Translation"],
               "sequence_tools": [],
               "manual_prediction": [],
-              "simulation_tools": [],
+              "simulation_tools": ["simulation_tools_q1"],
               "basic_cloning": [],
               "gibson": [],
               "golden_gate": [],
