@@ -1,8 +1,16 @@
 # SynBio Project Tutorials
 
-<p>📄 <a href="pdf/combined.pdf" target="_blank">Download Full Tutorial PDF</a></p>
+<p><strong><a href="pdf/combined.pdf" target="_blank">⬇ Download the Full Tutorial as a PDF</a></strong></p>
 
-Welcome to the **SynBio Project Tutorials**, a modular series of interactive guides covering both hands-on molecular cloning and high-level project planning. These tutorials build from DNA fundamentals to advanced techniques in cloning design, sequence analysis, experimental execution, and data management.
+This site is a structured, modular guide for learning to design, execute, and manage synthetic biology experiments. It emphasizes practical skills, design from first principles, and a deep understanding of the molecular biology and chemistry behind each step.
+
+The tutorials are organized into three parts:
+
+- **Part A: Wetlab** — Step-by-step execution of a cloning experiment, including molecular biology concepts, lab protocols, documentation, and data interpretation.
+- **Part B: Construction** — How to design cloning workflows, simulate outcomes, and represent cloning plans using standardized formats.
+- **Part C: Project Planning** — Strategies for organizing experiments, selecting parts with informatics tools, and managing experimental workflows.
+
+Each tutorial includes embedded quizzes, videos, and progress tracking. This platform supports students, researchers, and anyone seeking a rigorous, hands-on introduction to synthetic biology.
 
 ## Part A: Wetlab
 

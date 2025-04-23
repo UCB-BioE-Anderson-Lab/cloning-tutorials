@@ -8,70 +8,131 @@
 
 Golden Gate Assembly is a method for joining DNA fragments using **Type IIs restriction enzymes** like **BsaI, BsmBI, BbsI,** and **SapI**. These enzymes cut a fixed number of bases away from their recognition sites, which allows the creation of custom 4 bp overhangs that control exactly where and how parts join together.
 
-This makes Golden Gate powerful for:
-- Precisely controlling ligation junctions
-- Removing recognition sites from the final product
-- Performing digestion and ligation in a single-pot reaction
+Golden Gate is powerful because it allows:
 
-It’s especially useful in modular cloning workflows where you want to reuse standard parts and tune junctions with custom scar sequences.
+- Custom-designed sticky ends for precise, seamless (or intentionally scarred) ligation
+- Single-pot digestion and ligation, increasing efficiency
+- Automatic removal of restriction sites from the final product
 
-##  🎥 Video Demo
+These features make it ideal for modular cloning, where standardized parts and repeatable junctions are critical.
+
+## 🎥 Video Demo
 <iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
 
  *(This video walks through the concept and shows how to design junctions and oligos in ApE.)*
 
- This is especially useful for modular cloning systems where you want reusable parts and consistent overhangs across many constructs.
-
  ---
  
- The core trick is that:
-
- - **Digestion and ligation occur in a single pot**, in the same reaction mix.
- - The recognition sites are designed to be removed from the final product.
- - The sticky ends can be *custom-designed*, so the resulting ligation has seamless (or deliberately scarred) junctions.
+ The reaction is designed so that digestion and ligation happen together, recognition sites are eliminated, and sticky ends control the final sequence junctions.
  
  ⚠️ This means:
-
+ 
  - The recognition site **must not appear** in the final product, or it will be re-cleaved.
  - The method can be iterated using the same enzyme again and again, since the site is removed during assembly.
  
  ---
  
 ## Designing Golden Gate Oligos
- 
- Golden Gate Assembly gives you full control over sticky ends—but that means **you** have to design them. Here’s the process you'll follow, which is also demonstrated in the video walkthrough:
- 
-### Step 1: Model Your Product
- 
- Open your vector and insert sequences, and build a mockup of the **final product** in your editor. Use:
 
- - **Feature annotations** or
- - **Uppercase/lowercase casing**  
+Let’s now walk through a complete Golden Gate Assembly plan to make **pET-INS**, just like we did in the Gibson version.
 
- to track which parts come from each source. This helps you clearly mark junctions.
- 
-### Step 2: Define Sticky Ends
- 
- At each junction:
+## Step 1: Define Your Product
 
- - Pick a **4 bp sticky end**—these should be non-palindromic (e.g., avoid `AATT`, `GATC`, etc.) to ensure correct orientation.
- - Create a feature annotation called `"junction"` over those 4 bases.
- 
- > 💡 Tip: If you’re unsure about orientation after simulating, remember there are only two possibilities—it’s either the sequence you expect or its reverse complement.
+Start by constructing a model of the final pET-INS plasmid, just as you did with Gibson.
 
-### Step 3: Design Oligos
+- Open the pET28a vector sequence and convert it to **UPPERCASE**.
+- Open the insulin cDNA sequence and convert it to **lowercase**.
+- Paste the INS cds into the intended insertion site as done in the basic cloning tutorial.
+
+🔗 Downloads:
+
+- [pET28a GenBank](../assets/pET28a.gb)
+- [INS GenBank](../assets/INS_genome_context.gb)
+
+---
+
+## Step 2: Annotate Junctions and Annealing Regions
+
+Once you’ve created a model of your final product, define these regions:
+
+For each junction where two fragments will join:
+
+### A. Choose the Sticky End
+
+ - Choose **4 bp from the existing sequence at the junction** to serve as the sticky end. These should be non-palindromic (e.g., avoid `AATT`, `GATC`, etc.) to ensure correct orientation.
+ - Create a feature annotation called `"sticky end"` over those 4 bases.
+ - In the visualization below, these are highlighted in orange as “sticky end 1” and “sticky end 2”, corresponding to the two junctions in this construct.
+
+### B. Mark the Forward Anneal Region
+   Starting *at* the junction and extending downstream, choose 20–30 bp that follow standard primer design rules. Label this `forward anneal`.
+
+### C. Mark the Reverse Anneal Region
+   Identify 20–30 bp *upstream* (5′) of the junction. This sequence lies on the coding strand, not its reverse complement. Label it `reverse anneal`.
+
+---
+
+
+<div id="goldengateViewer" style="margin-top:1em;"></div>
+<script src="https://unpkg.com/seqviz"></script>
+<script>
+  function waitForSeqViz(callback) {
+    if (typeof seqviz !== "undefined" && seqviz.Viewer) {
+      callback();
+    } else {
+      setTimeout(() => waitForSeqViz(callback), 50);
+    }
+  }
+
+  waitForSeqViz(() => {
+    seqviz
+      .Viewer("goldengateViewer", {
+        name: "pET-INS",
+        seq: "AGATCTCGATCCCGCGAAATTAATACGACTCACTATAGGGGAATTGTGAGCGGATAACAATTCCCCTCTAGAAATAATTTTGTTTAACTTTAAGAAGGAGATATACCatggccctgtggatgcgcctcctgcccctgctggcgctgctggccctctggggacctgacccagccgcagcctttgtgaaccaacacctgtgcggctcacacctggtggaagctctctacctagtgtgcggggaacgaggcttcttctacacacccaagacccgccgggaggcagaggacctgcaggtggggcaggtggagctgggcgggggccctggtgcaggcagcctgcagcccttggccctggaggggtccctgcagaagcgtggcattgtggaacaatgctgtaccagcatctgctccctctaccagctggagaactactgcaactagCTCGAGCACCACCACCACCACCACTGAGATCCGGCTGCTAACAAAGCCCGAAAGGAAGCTGAGTTGGCTGCTGCCACCGCTGAGCAATAACTAGCATAACCCCTTGGGGCCTCTAAACGGGTCTTGAGGGGTTTTTTGCTGAAAGGAGGAACTATATCCGGATTGGCGAATGGGACGCGCCCTGTAGCGGCGCATTAAGCGCGGCGGGTGTGGTGGTTACGCGCAGCGTGACCGCTACACTTGCCAGCGCCCTAGCGCCCGCTCCTTTCGCTTTCTTCCCTTCCTTTCTCGCCACGTTCGCCGGCTTTCCCCGTCAAGCTCTAAATCGGGGGCTCCCTTTAGGGTTCCGATTTAGTGCTTTACGGCACCTCGACCCCAAAAAACTTGATTAGGGTGATGGTTCACGTAGTGGGCCATCGCCCTGATAGACGGTTTTTCGCCCTTTGACGTTGGAGTCCACGTTCTTTAATAGTGGACTCTTGTTCCAAACTGGAACAACACTCAACCCTATCTCGGTCTATTCTTTTGATTTATAAGGGATTTTGCCGATTTCGGCCTATTGGTTAAAAAATGAGCTGATTTAACAAAAATTTAACGCGAATTTTAACAAAATATTAACGTTTACAATTTCAGGTGGCACTTTTCGGGGAAATGTGCGCGGAACCCCTATTTGTTTATTTTTCTAAATACATTCAAATATGTATCCGCTCATGAATTAATTCTTAGAAAAACTCATCGAGCATCAAATGAAACTGCAATTTATTCATATCAGGATTATCAATACCATATTTTTGAAAAAGCCGTTTCTGTAATGAAGGAGAAAACTCACCGAGGCAGTTCCATAGGATGGCAAGATCCTGGTATCGGTCTGCGATTCCGACTCGTCCAACATCAATACAACCTATTAATTTCCCCTCGTCAAAAATAAGGTTATCAAGTGAGAAATCACCATGAGTGACGACTGAATCCGGTGAGAATGGCAAAAGTTTATGCATTTCTTTCCAGACTTGTTCAACAGGCCAGCCATTACGCTCGTCATCAAAATCACTCGCATCAACCAAACCGTTATTCATTCGTGATTGCGCCTGAGCGAGACGAAATACGCGATCGCTGTTAAAAGGACAATTACAAACAGGAATCGAATGCAACCGGCGCAGGAACACTGCCAGCGCATCAACAATATTTTCACCTGAATCAGGATATTCTTCTAATACCTGGAATGCTGTTTTCCCGGGGATCGCAGTGGTGAGTAACCATGCATCATCAGGAGTACGGATAAAATGCTTGATGGTCGGAAGAGGCATAAATTCCGTCAGCCAGTTTAGTCTGACCATCTCATCTGTAACATCATTGGCAACGCTACCTTTGCCATGTTTCAGAAACAACTCTGGCGCATCGGGCTTCCCATACAATCGATAGATTGTCGCACCTGATTGCCCGACATTATCGCGAGCCCATTTATACCCATATAAATCAGCATCCATGTTGGAATTTAATCGCGGCCTAGAGCAAGACGTTTCCCGTTGAATATGGCTCATAACACCCCTTGTATTACTGTTTATGTAAGCAGACAGTTTTATTGTTCATGACCAAAATCCCTTAACGTGAGTTTTCGTTCCACTGAGCGTCAGACCCCGTAGAAAAGATCAAAGGATCTTCTTGAGATCCTTTTTTTCTGCGCGTAATCTGCTGCTTGCAAACAAAAAAACCACCGCTACCAGCGGTGGTTTGTTTGCCGGATCAAGAGCTACCAACTCTTTTTCCGAAGGTAACTGGCTTCAGCAGAGCGCAGATACCAAATACTGTCCTTCTAGTGTAGCCGTAGTTAGGCCACCACTTCAAGAACTCTGTAGCACCGCCTACATACCTCGCTCTGCTAATCCTGTTACCAGTGGCTGCTGCCAGTGGCGATAAGTCGTGTCTTACCGGGTTGGACTCAAGACGATAGTTACCGGATAAGGCGCAGCGGTCGGGCTGAACGGGGGGTTCGTGCACACAGCCCAGCTTGGAGCGAACGACCTACACCGAACTGAGATACCTACAGCGTGAGCTATGAGAAAGCGCCACGCTTCCCGAAGGGAGAAAGGCGGACAGGTATCCGGTAAGCGGCAGGGTCGGAACAGGAGAGCGCACGAGGGAGCTTCCAGGGGGAAACGCCTGGTATCTTTATAGTCCTGTCGGGTTTCGCCACCTCTGACTTGAGCGTCGATTTTTGTGATGCTCGTCAGGGGGGCGGAGCCTATGGAAAAACGCCAGCAACGCGGCCTTTTTACGGTTCCTGGCCTTTTGCTGGCCTTTTGCTCACATGTTCTTTCCTGCGTTATCCCCTGATTCTGTGGATAACCGTATTACCGCCTTTGAGTGAGCTGATACCGCTCGCCGCAGCCGAACGACCGAGCGCAGCGAGTCAGTGAGCGAGGAAGCGGAAGAGCGCCTGATGCGGTATTTTCTCCTTACGCATCTGTGCGGTATTTCACACCGCATATATGGTGCACTCTCAGTACAATCTGCTCTGATGCCGCATAGTTAAGCCAGTATACACTCCGCTATCGCTACGTGACTGGGTCATGGCTGCGCCCCGACACCCGCCAACACCCGCTGACGCGCCCTGACGGGCTTGTCTGCTCCCGGCATCCGCTTACAGACAAGCTGTGACCGTCTCCGGGAGCTGCATGTGTCAGAGGTTTTCACCGTCATCACCGAAACGCGCGAGGCAGCTGCGGTAAAGCTCATCAGCGTGGTCGTGAAGCGATTCACAGATGTCTGCCTGTTCATCCGCGTCCAGCTCGTTGAGTTTCTCCAGAAGCGTTAATGTCTGGCTTCTGATAAAGCGGGCCATGTTAAGGGCGGTTTTTTCCTGTTTGGTCACTGATGCCTCCGTGTAAGGGGGATTTCTGTTCATGGGGGTAATGATACCGATGAAACGAGAGAGGATGCTCACGATACGGGTTACTGATGATGAACATGCCCGGTTACTGGAACGTTGTGAGGGTAAACAACTGGCGGTATGGATGCGGCGGGACCAGAGAAAAATCACTCAGGGTCAATGCCAGCGCTTCGTTAATACAGATGTAGGTGTTCCACAGGGTAGCCAGCAGCATCCTGCGATGCAGATCCGGAACATAATGGTGCAGGGCGCTGACTTCCGCGTTTCCAGACTTTACGAAACACGGAAACCGAAGACCATTCATGTTGTTGCTCAGGTCGCAGACGTTTTGCAGCAGCAGTCGCTTCACGTTCGCTCGCGTATCGGTGATTCATTCTGCTAACCAGTAAGGCAACCCCGCCAGCCTAGCCGGGTCCTCAACGACAGGAGCACGATCATGCGCACCCGTGGGGCCGCCATGCCGGCGATAATGGCCTGCTTCTCGCCGAAACGTTTGGTGGCGGGACCAGTGACGAAGGCTTGAGCGAGGGCGTGCAAGATTCCGAATACCGCAAGCGACAGGCCGATCATCGTCGCGCTCCAGCGAAAGCGGTCCTCGCCGAAAATGACCCAGAGCGCTGCCGGCACCTGTCCTACGAGTTGCATGATAAAGAAGACAGTCATAAGTGCGGCGACGATAGTCATGCCCCGCGCCCACCGGAAGGAGCTGACTGGGTTGAAGGCTCTCAAGGGCATCGGTCGAGATCCCGGTGCCTAATGAGTGAGCTAACTTACATTAATTGCGTTGCGCTCACTGCCCGCTTTCCAGTCGGGAAACCTGTCGTGCCAGCTGCATTAATGAATCGGCCAACGCGCGGGGAGAGGCGGTTTGCGTATTGGGCGCCAGGGTGGTTTTTCTTTTCACCAGTGAGACGGGCAACAGCTGATTGCCCTTCACCGCCTGGCCCTGAGAGAGTTGCAGCAAGCGGTCCACGCTGGTTTGCCCCAGCAGGCGAAAATCCTGTTTGATGGTGGTTAACGGCGGGATATAACATGAGCTGTCTTCGGTATCGTCGTATCCCACTACCGAGATATCCGCACCAACGCGCAGCCCGGACTCGGTAATGGCGCGCATTGCGCCCAGCGCCATCTGATCGTTGGCAACCAGCATCGCAGTGGGAACGATGCCCTCATTCAGCATTTGCATGGTTTGTTGAAAACCGGACATGGCACTCCAGTCGCCTTCCCGTTCCGCTATCGGCTGAATTTGATTGCGAGTGAGATATTTATGCCAGCCAGCCAGACGCAGACGCGCCGAGACAGAACTTAATGGGCCCGCTAACAGCGCGATTTGCTGGTGACCCAATGCGACCAGATGCTCCACGCCCAGTCGCGTACCGTCTTCATGGGAGAAAATAATACTGTTGATGGGTGTCTGGTCAGAGACATCAAGAAATAACGCCGGAACATTAGTGCAGGCAGCTTCCACAGCAATGGCATCCTGGTCATCCAGCGGATAGTTAATGATCAGCCCACTGACGCGTTGCGCGAGAAGATTGTGCACCGCCGCTTTACAGGCTTCGACGCCGCTTCGTTCTACCATCGACACCACCACGCTGGCACCCAGTTGATCGGCGCGAGATTTAATCGCCGCGACAATTTGCGACGGCGCGTGCAGGGCCAGACTGGAGGTGGCAACGCCAATCAGCAACGACTGTTTGCCCGCCAGTTGTTGTGCCACGCGGTTGGGAATGTAATTCAGCTCCGCCATCGCCGCTTCCACTTTTTCCCGCGTTTTCGCAGAAACGTGGCTGGCCTGGTTCACCACGCGGGAAACGGTCTGATAAGAGACACCGGCATACTCTGCGACATCGTATAACGTTACTGGTTTCACATTCACCACCCTGAATTGACTCTCTTCCGGGCGCTATCATGCCATACCGCGAAAGGTTTTGCGCCATTCGATGGTGTCCGGGATCTCGACGCTCTCCCTTATGCGACTCCTGCATTAGGAAGCAGCCCAGTAGTAGGTTGAGGCCGTTGAGCACCGCCGCCGCAAGGAATGGTGCATGCAAGGAGATGGCGCCCAACAGTCCCCCGGCCACGGGGCCTGCCACCATACCCACGCCGAAACAAGCGCTCATGAGCCCGAAGTGGCGAGCCCGATCTTCCCCATCGGTGATGTCGGCGATATAGGCGCCAGCAACCGCACCTGTGGCGCCGGTGATGCCGGCCACGATGCGTCCGGCGTAGAGGATCG",
+        annotations: [
+          { name: "Vector", start: 446, end: 5566, color: "#d5d5d5", direction: 1 },
+          { name: "Vector", start: 0, end: 105, color: "#d5d5d5", direction: 1 },
+          { name: "KanR", start: 1162, end: 1978, color: "#ccffcc", direction: -1 },
+          { name: "ColE1 origin", start: 2023, end: 2706, color: "gray", direction: 1 },
+          { name: "T7 Promoter", start: 20, end: 40, color: "RosyBrown", direction: 1 },
+          { name: "INS (insulin CDS)", start: 107, end: 440, color: "#e9cf24", direction: 1 },
+          { name: "XhoI", start: 440, end: 446, color: "#ff40ff", direction: 1 },
+          { name: "NcoI", start: 105, end: 111, color: "#ff40ff", direction: 1 },
+        ],
+        primers: [
+          { name: "Forward Anneal (INS)", start: 107, end: 127, color: "#f7acf7", direction: 1 },
+          { name: "sticky end 1", start: 107, end: 111, color: "#ff9200", direction: 1 },
+          { name: "Reverse Anneal (INS)", start: 419, end: 439, color: "#f7acf7", direction: 1 },
+          { name: "Forward Anneal (pET28a)", start: 440, end: 460, color: "#196a24", direction: 1 },
+          { name: "sticky end 2", start: 440, end: 444, color: "#ff9200", direction: 1 },
+          { name: "Reverse Anneal (pET28a)", start: 87, end: 107, color: "#196a24", direction: 1 },
+        ],
+        translations: [],
+        viewer: "linear",
+        showComplement: true,
+        showIndex: true,
+        style: { height: "420px", width: "100%" }
+      })
+      .render();
+  });
+</script>
+
+</pre>
+
+## Step 3: Design Oligos
 
 Design the **junction + annealing region** for each oligo first. These are the 3′ ends that will bind to your template.
 
-**1. Forward oligo:**
+### A. Forward Oligo
+
 - From the forward strand of your product, copy the 4 bp sticky end **plus ~20 bp downstream** (i.e., to the right).
 - This is your **junction + anneal** region.
 
-**2. Reverse oligo:**
+### B. Reverse Oligo
+
 - From the reverse strand of your product, copy the 4 bp sticky end **plus ~20 bp upstream** (i.e., to the left).
 - Reverse complement this sequence. This is your **junction + anneal** region for the reverse oligo.
 
-**3. Add the Golden Gate prefix to both:**
+### C. Add the Golden Gate Prefix
 
 Add the following 5′ tail to both the forward and reverse oligos:
 
@@ -80,93 +141,172 @@ ccataGGTCTCa
 ```
 
 This includes:
-- `ccata` = arbitrary tail
+
+- `ccata` = arbitrary 5' tail
 - `GGTCTC` = BsaI recognition site
 - `a` = one-base spacer before the sticky
 
 **Final orientation of Golden Gate oligos (both forward and reverse):**
 
-```
+<pre>
 5' tail - BsaI - spacer - sticky end - annealing region - 3'
-```
+</pre>
 
-> ⚠️ Important: For the **reverse oligo**, only the junction + annealing region is reverse complemented. The prefix remains in forward orientation.
+> ⚠️ **Important:** For the **reverse oligo**, only the junction + annealing region is reverse complemented. The prefix remains in forward orientation.
+
+> 🧬 **5′ tail design tip:** NEB data shows BsaI cuts efficiently with as little as 1 bp upstream of its site. While **5 bp is a safe general rule**, it's often more than necessary.  
+> 🔗 [NEB cleavage efficiency guide](https://www.neb.com/en-us/tools-and-resources/usage-guidelines/cleavage-close-to-the-end-of-dna-fragments)
 
 Do the same for each junction.  Realistically, you can do this PCR-based variant of Golden Gate for up to 4 fragments.  You can also do golden gate with clonal plasmid DNA.  With the higher quality DNA and the restriciton sites being further from the ends, plasmid-based golden gate is much more efficient for multi-fragment assembly than the PCR variant.
  
-### Step 4: Simulate It
- 
- Paste your oligos and template into C6-Tools to simulate the PCR. Then simulate the Golden Gate Assembly to confirm:
+Here is an example solution:
 
- - Your sticky ends match
- - The product matches your intended construct
+<pre id="cf_quiz_example" style="background:#f8f8f8; border:1px solid #ccc; padding:10px; border-radius:4px; overflow-x:auto; white-space:pre;">PCR         insF2       insR2       insulin_cds      ins_pcr
+PCR         vecF2       vecR2       pET28a           vec_pcr
+GoldenGate  vec_pcr     ins_pcr     BsaI             pET-INS
+
+oligo       insF2       ccataGGTCTCaatggccctgtggatgcgcctc
+oligo       insR2       ccataGGTCTCaCGAGctagttgcagtagttctccag
+oligo       vecF2       ccataGGTCTCaCTCGAGCACCACCACCACCAC
+oligo       vecR2       ccataGGTCTCaccatGGTATATCTCCTTCTTAAAG</pre>
+<button id="copyCFBtn" style="margin-top:5px;">Copy Example</button>
+<script>
+  document.getElementById("copyCFBtn").addEventListener("click", function () {
+    const btn = this;
+    const content = document.getElementById("cf_quiz_example").innerText;
+    navigator.clipboard.writeText(content).then(() => {
+      const originalText = btn.innerText;
+      btn.innerText = "✅ Copied!";
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerText = originalText;
+        btn.disabled = false;
+      }, 2000);
+    });
+  });
+</script>
+
+## Step 4: Simulate It
+ 
+You can simulate the PCR steps of the construction file as you've done previously with your sequence editor or an automation tool.  ApE and Benchling both have visual tools to simulate the Golden Gate step as well.  C6 can also simulate your entire construction file, and you can try it out in the box below.
+
+> 💡 Tip: If you’re unsure about orientation after simulating, remember there are only two possibilities—it’s either the sequence you expect or its reverse complement.
 
 ---
 
-## Quiz: Golden Gate Promoter Swap
+## 🧪 Try It: Swap the Promoter
 
-What if we wanted to test a different induction system to compare how much protein we get? Instead of a lacI-repressed T7 promoter, we can switch to an AraC-activated Pbad promoter. Both systems are complete regulatory cassettes—each containing the promoter and its corresponding regulator. In this exercise, you'll cleanly replace the T7 promoter and lacO site with the AraC-Pbad cassette using Golden Gate Assembly.
+In this quiz, you will replace the **T7 promoter** in **pET-INS** with the **AraC-Pbad** promoter using Golden Gate Assembly.
 
-### Instructions:
+The T7 promoter is IPTG-inducible and requires host expression of T7 RNA polymerase. In contrast, the **AraC-Pbad** system is inducible by **arabinose** and allows tighter, titratable control of gene expression—often preferred for expressing toxic or finely regulated proteins.
 
-1. Open `pET-INS.seq` and locate the T7 promoter and LacO annotations.
-2. Your task is to replace the entire region from the start of the T7 promoter to the end of the LacO site.
-3. Open the AraC-Pbad part and model it in place of the removed region.
-4. Define your 4 bp sticky ends flanking the replacement boundaries.
-5. Design 4 oligos with appropriate BsaI tails.
-6. Write a Construction File (CF) describing your PCRs and Golden Gate assembly.
-7. Paste it below and submit.
+### Objective
 
-### Goal:
+Swap out the `T7 Promoter` feature in [pET-INS](../assets/pET-INS.seq) with the sequence from [AraC-Pbad](../assets/AraC-Pbad). Use PCR-based Golden Gate to:
 
-- Replace the full T7/LacO regulatory cassette with AraC-Pbad.
-- Ensure the insulin gene and RBS are preserved.
-- The final product must not retain any BsaI sites.
-- Junctions should be seamless and directionally correct with non-palindromic sticky ends.
+- Remove the T7 promoter region from pET-INS
+- Insert the AraC-Pbad fragment
+- Assemble using BsaI-generated overhangs
 
-<textarea id="cfGoldenGateInput" rows="10" style="width:100%; font-family:monospace;"></textarea>
-<br>
-<button onclick="gradeGoldenGate()">Grade My Work</button>
+Validate that:
 
-<div id="cfGoldenGateOutput" style="margin-top:20px;"></div>
+- The T7 sequence is completely removed
+- AraC-Pbad is present and correctly oriented
+- All junctions are seamless and scarless
+
+
+## Golden Gate Quiz
+
+<div style="all:unset;">
+<form id="cfGoldenGateForm" style="background-color:#d8edfa; padding:20px; border:1px solid #ccc; border-radius:6px; margin-top:20px;">
+  <p><strong>Paste your Construction File (CF) below</strong> and click <strong>Simulate</strong>. You’ll see the resulting sequences, and if your design is valid, it will complete the quiz.</p>
+  <textarea id="cfGoldenGateInput" rows="10" style="width:100%; font-family:monospace;"></textarea>
+  <br>
+  <button type="button" onclick="gradeGoldenGate()" style="margin-top:10px;">Simulate</button>
+  <p id="cfGoldenGateOutput" style="margin-top: 10px; font-weight:bold;"></p>
+</form>
 
 <script>
-window.gradeGoldenGate = function gradeGoldenGate() {
+  function rc(seq) {
+    return seq.split('').reverse().map(base =>
+      ({ A: 'T', T: 'A', G: 'C', C: 'G', N: 'N', K: 'M', M: 'K', R: 'Y', Y: 'R', S: 'S', W: 'W' }[base] || base)
+    ).join('');
+  }
+
+  function gradeGoldenGate() {
     const input = document.getElementById("cfGoldenGateInput").value.trim();
-    const outputDiv = document.getElementById("cfGoldenGateOutput");
-    outputDiv.innerHTML = "";
+    const resultP = document.getElementById("cfGoldenGateOutput");
+    resultP.innerHTML = "";
 
     try {
-        const steps = parseCF(input);
-        const results = simCF(steps);
+      if (!window.C6 || typeof window.C6.parseCF !== "function") {
+        throw new Error("C6 tools not loaded.");
+      }
 
-        let feedback = [];
-        const operations = steps.map(s => s.op.toLowerCase());
-        const finalProduct = results[results.length - 1];
+      const cf = window.C6.parseCF(input);
 
-        if (!operations.includes("goldengate")) {
-            feedback.push("❌ Missing GoldenGate step.");
+      // Inject sequences for simulation
+      cf.sequences = cf.sequences || {};
+      cf.sequences["insulin_cds"] = "agccctccaggacaggctgcatcagaagaggccatcaagcagatcactgtccttctgccatggccctgtggatgcgcctcctgcccctgctggcgctgctggccctctggggacctgacccagccgcagcctttgtgaaccaacacctgtgcggctcacacctggtggaagctctctacctagtgtgcggggaacgaggcttcttctacacacccaagacccgccgggaggcagaggacctgcaggtggggcaggtggagctgggcgggggccctggtgcaggcagcctgcagcccttggccctggaggggtccctgcagaagcgtggcattgtggaacaatgctgtaccagcatctgctccctctaccagctggagaactactgcaactagacgcagcccgcaggcagccccccacccgccgcctcctgcaccgagagagatggaataaagcccttgaaccaacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+      cf.sequences["AraC_Pbad"] = "GATGgttatgacaacttgacggctacatcattcactttttcttcacaaccggcacggaactcgctcgggctggccccggtgcattttttaaatacccgcgagaaatagagttgatcgtcaaaaccaacattgcgaccgacggtggcgataggcatccgggtggtgctcaaaagcagcttcgcctggctgatacgttggtcctcgcgccagcttaagacgctaatccctaactgctggcggaaaagatgtgacagacgcgacggcgacaagcaaacatgctgtgcgacgctggcgatatcaaaattgctgtctgccaggtgatcgctgatgtactgacaagcctcgcgtacccgattatccatcggtggatggagcgactcgttaatcgcttccatgcgccgcagtaacaattgctcaagcagatttatcgccagcagctccgaatagcgcccttccccttgcccggcgttaatgatttgcccaaacaggtcgctgaaatgcggctggtgcgcttcatccgggcgaaagaaccccgtattggcaaatattgacggccagttaagccattcatgccagtaggcgcgcggacgaaagtaaacccactggtgataccattcgcgagcctccggatgacgaccgtagtgatgaatctctcctggcgggaacagcaaaatatcacccggtcggcaaacaaattctcgtccctgatttttcaccaccccctgaccgcgaatggtgagattgagaatataacctttcattcccagcggtcggtcgataaaaaaatcgagataaccgttggcctcaatcggcgttaaacccgccaccagatgggcattaaacgagtatcccggcagcaggggatcattttgcgcttcagccatacttttcatactcccgccattcagagaagaaaccaattgtccatattgcatcagacattgccgtcactgcgtcttttactggctcttctcgctaaccaaaccggtaaccccgcttattaaaagcattctgtaacaaagcgggaccaaagccatgacaaaaacgcgtaacaaaagtgtctataatcacggcagaaaagtccacattgattatttgcacggcgtcacactttgctatgccatagcatttttatccataagattagcggattctacctgacgctttttatcgcaactctctactgtttctccatacccgtttttttgggctagctccaaTGACTAAACTGTgagaccCCAA";
+      cf.sequences["pET28a"] = "AGATCTCGATCCCGCGAAATTAATACGACTCACTATAGGGGAATTGTGAGCGGATAACAATTCCCCTCTAGAAATAATTTTGTTTAACTTTAAGAAGGAGATATACCATGGGCAGCAGCCATCATCATCATCATCACAGCAGCGGCCTGGTGCCGCGCGGCAGCCATATGGCTAGCATGACTGGTGGACAGCAAATGGGTCGCGGATCCGAATTCGAGCTCCGTCGACAAGCTTGCGGCCGCACTCGAGCACCACCACCACCACCACTGAGATCCGGCTGCTAACAAAGCCCGAAAGGAAGCTGAGTTGGCTGCTGCCACCGCTGAGCAATAACTAGCATAACCCCTTGGGGCCTCTAAACGGGTCTTGAGGGGTTTTTTGCTGAAAGGAGGAACTATATCCGGATTGGCGAATGGGACGCGCCCTGTAGCGGCGCATTAAGCGCGGCGGGTGTGGTGGTTACGCGCAGCGTGACCGCTACACTTGCCAGCGCCCTAGCGCCCGCTCCTTTCGCTTTCTTCCCTTCCTTTCTCGCCACGTTCGCCGGCTTTCCCCGTCAAGCTCTAAATCGGGGGCTCCCTTTAGGGTTCCGATTTAGTGCTTTACGGCACCTCGACCCCAAAAAACTTGATTAGGGTGATGGTTCACGTAGTGGGCCATCGCCCTGATAGACGGTTTTTCGCCCTTTGACGTTGGAGTCCACGTTCTTTAATAGTGGACTCTTGTTCCAAACTGGAACAACACTCAACCCTATCTCGGTCTATTCTTTTGATTTATAAGGGATTTTGCCGATTTCGGCCTATTGGTTAAAAAATGAGCTGATTTAACAAAAATTTAACGCGAATTTTAACAAAATATTAACGTTTACAATTTCAGGTGGCACTTTTCGGGGAAATGTGCGCGGAACCCCTATTTGTTTATTTTTCTAAATACATTCAAATATGTATCCGCTCATGAATTAATTCTTAGAAAAACTCATCGAGCATCAAATGAAACTGCAATTTATTCATATCAGGATTATCAATACCATATTTTTGAAAAAGCCGTTTCTGTAATGAAGGAGAAAACTCACCGAGGCAGTTCCATAGGATGGCAAGATCCTGGTATCGGTCTGCGATTCCGACTCGTCCAACATCAATACAACCTATTAATTTCCCCTCGTCAAAAATAAGGTTATCAAGTGAGAAATCACCATGAGTGACGACTGAATCCGGTGAGAATGGCAAAAGTTTATGCATTTCTTTCCAGACTTGTTCAACAGGCCAGCCATTACGCTCGTCATCAAAATCACTCGCATCAACCAAACCGTTATTCATTCGTGATTGCGCCTGAGCGAGACGAAATACGCGATCGCTGTTAAAAGGACAATTACAAACAGGAATCGAATGCAACCGGCGCAGGAACACTGCCAGCGCATCAACAATATTTTCACCTGAATCAGGATATTCTTCTAATACCTGGAATGCTGTTTTCCCGGGGATCGCAGTGGTGAGTAACCATGCATCATCAGGAGTACGGATAAAATGCTTGATGGTCGGAAGAGGCATAAATTCCGTCAGCCAGTTTAGTCTGACCATCTCATCTGTAACATCATTGGCAACGCTACCTTTGCCATGTTTCAGAAACAACTCTGGCGCATCGGGCTTCCCATACAATCGATAGATTGTCGCACCTGATTGCCCGACATTATCGCGAGCCCATTTATACCCATATAAATCAGCATCCATGTTGGAATTTAATCGCGGCCTAGAGCAAGACGTTTCCCGTTGAATATGGCTCATAACACCCCTTGTATTACTGTTTATGTAAGCAGACAGTTTTATTGTTCATGACCAAAATCCCTTAACGTGAGTTTTCGTTCCACTGAGCGTCAGACCCCGTAGAAAAGATCAAAGGATCTTCTTGAGATCCTTTTTTTCTGCGCGTAATCTGCTGCTTGCAAACAAAAAAACCACCGCTACCAGCGGTGGTTTGTTTGCCGGATCAAGAGCTACCAACTCTTTTTCCGAAGGTAACTGGCTTCAGCAGAGCGCAGATACCAAATACTGTCCTTCTAGTGTAGCCGTAGTTAGGCCACCACTTCAAGAACTCTGTAGCACCGCCTACATACCTCGCTCTGCTAATCCTGTTACCAGTGGCTGCTGCCAGTGGCGATAAGTCGTGTCTTACCGGGTTGGACTCAAGACGATAGTTACCGGATAAGGCGCAGCGGTCGGGCTGAACGGGGGGTTCGTGCACACAGCCCAGCTTGGAGCGAACGACCTACACCGAACTGAGATACCTACAGCGTGAGCTATGAGAAAGCGCCACGCTTCCCGAAGGGAGAAAGGCGGACAGGTATCCGGTAAGCGGCAGGGTCGGAACAGGAGAGCGCACGAGGGAGCTTCCAGGGGGAAACGCCTGGTATCTTTATAGTCCTGTCGGGTTTCGCCACCTCTGACTTGAGCGTCGATTTTTGTGATGCTCGTCAGGGGGGCGGAGCCTATGGAAAAACGCCAGCAACGCGGCCTTTTTACGGTTCCTGGCCTTTTGCTGGCCTTTTGCTCACATGTTCTTTCCTGCGTTATCCCCTGATTCTGTGGATAACCGTATTACCGCCTTTGAGTGAGCTGATACCGCTCGCCGCAGCCGAACGACCGAGCGCAGCGAGTCAGTGAGCGAGGAAGCGGAAGAGCGCCTGATGCGGTATTTTCTCCTTACGCATCTGTGCGGTATTTCACACCGCATATATGGTGCACTCTCAGTACAATCTGCTCTGATGCCGCATAGTTAAGCCAGTATACACTCCGCTATCGCTACGTGACTGGGTCATGGCTGCGCCCCGACACCCGCCAACACCCGCTGACGCGCCCTGACGGGCTTGTCTGCTCCCGGCATCCGCTTACAGACAAGCTGTGACCGTCTCCGGGAGCTGCATGTGTCAGAGGTTTTCACCGTCATCACCGAAACGCGCGAGGCAGCTGCGGTAAAGCTCATCAGCGTGGTCGTGAAGCGATTCACAGATGTCTGCCTGTTCATCCGCGTCCAGCTCGTTGAGTTTCTCCAGAAGCGTTAATGTCTGGCTTCTGATAAAGCGGGCCATGTTAAGGGCGGTTTTTTCCTGTTTGGTCACTGATGCCTCCGTGTAAGGGGGATTTCTGTTCATGGGGGTAATGATACCGATGAAACGAGAGAGGATGCTCACGATACGGGTTACTGATGATGAACATGCCCGGTTACTGGAACGTTGTGAGGGTAAACAACTGGCGGTATGGATGCGGCGGGACCAGAGAAAAATCACTCAGGGTCAATGCCAGCGCTTCGTTAATACAGATGTAGGTGTTCCACAGGGTAGCCAGCAGCATCCTGCGATGCAGATCCGGAACATAATGGTGCAGGGCGCTGACTTCCGCGTTTCCAGACTTTACGAAACACGGAAACCGAAGACCATTCATGTTGTTGCTCAGGTCGCAGACGTTTTGCAGCAGCAGTCGCTTCACGTTCGCTCGCGTATCGGTGATTCATTCTGCTAACCAGTAAGGCAACCCCGCCAGCCTAGCCGGGTCCTCAACGACAGGAGCACGATCATGCGCACCCGTGGGGCCGCCATGCCGGCGATAATGGCCTGCTTCTCGCCGAAACGTTTGGTGGCGGGACCAGTGACGAAGGCTTGAGCGAGGGCGTGCAAGATTCCGAATACCGCAAGCGACAGGCCGATCATCGTCGCGCTCCAGCGAAAGCGGTCCTCGCCGAAAATGACCCAGAGCGCTGCCGGCACCTGTCCTACGAGTTGCATGATAAAGAAGACAGTCATAAGTGCGGCGACGATAGTCATGCCCCGCGCCCACCGGAAGGAGCTGACTGGGTTGAAGGCTCTCAAGGGCATCGGTCGAGATCCCGGTGCCTAATGAGTGAGCTAACTTACATTAATTGCGTTGCGCTCACTGCCCGCTTTCCAGTCGGGAAACCTGTCGTGCCAGCTGCATTAATGAATCGGCCAACGCGCGGGGAGAGGCGGTTTGCGTATTGGGCGCCAGGGTGGTTTTTCTTTTCACCAGTGAGACGGGCAACAGCTGATTGCCCTTCACCGCCTGGCCCTGAGAGAGTTGCAGCAAGCGGTCCACGCTGGTTTGCCCCAGCAGGCGAAAATCCTGTTTGATGGTGGTTAACGGCGGGATATAACATGAGCTGTCTTCGGTATCGTCGTATCCCACTACCGAGATATCCGCACCAACGCGCAGCCCGGACTCGGTAATGGCGCGCATTGCGCCCAGCGCCATCTGATCGTTGGCAACCAGCATCGCAGTGGGAACGATGCCCTCATTCAGCATTTGCATGGTTTGTTGAAAACCGGACATGGCACTCCAGTCGCCTTCCCGTTCCGCTATCGGCTGAATTTGATTGCGAGTGAGATATTTATGCCAGCCAGCCAGACGCAGACGCGCCGAGACAGAACTTAATGGGCCCGCTAACAGCGCGATTTGCTGGTGACCCAATGCGACCAGATGCTCCACGCCCAGTCGCGTACCGTCTTCATGGGAGAAAATAATACTGTTGATGGGTGTCTGGTCAGAGACATCAAGAAATAACGCCGGAACATTAGTGCAGGCAGCTTCCACAGCAATGGCATCCTGGTCATCCAGCGGATAGTTAATGATCAGCCCACTGACGCGTTGCGCGAGAAGATTGTGCACCGCCGCTTTACAGGCTTCGACGCCGCTTCGTTCTACCATCGACACCACCACGCTGGCACCCAGTTGATCGGCGCGAGATTTAATCGCCGCGACAATTTGCGACGGCGCGTGCAGGGCCAGACTGGAGGTGGCAACGCCAATCAGCAACGACTGTTTGCCCGCCAGTTGTTGTGCCACGCGGTTGGGAATGTAATTCAGCTCCGCCATCGCCGCTTCCACTTTTTCCCGCGTTTTCGCAGAAACGTGGCTGGCCTGGTTCACCACGCGGGAAACGGTCTGATAAGAGACACCGGCATACTCTGCGACATCGTATAACGTTACTGGTTTCACATTCACCACCCTGAATTGACTCTCTTCCGGGCGCTATCATGCCATACCGCGAAAGGTTTTGCGCCATTCGATGGTGTCCGGGATCTCGACGCTCTCCCTTATGCGACTCCTGCATTAGGAAGCAGCCCAGTAGTAGGTTGAGGCCGTTGAGCACCGCCGCCGCAAGGAATGGTGCATGCAAGGAGATGGCGCCCAACAGTCCCCCGGCCACGGGGCCTGCCACCATACCCACGCCGAAACAAGCGCTCATGAGCCCGAAGTGGCGAGCCCGATCTTCCCCATCGGTGATGTCGGCGATATAGGCGCCAGCAACCGCACCTGTGGCGCCGGTGATGCCGGCCACGATGCGTCCGGCGTAGAGGATCG";
+
+      const results = window.C6.simCF(cf);
+
+      if (!Array.isArray(results) || results.length === 0) {
+        resultP.innerHTML = "❌ No simulation steps returned. Please check your input.";
+        return;
+      }
+
+      let outputHTML = "<p style='color:green; font-weight:bold;'>✅ Simulation successful!</p>";
+      outputHTML += "<table style='width:100%; border-collapse:collapse;'><thead><tr><th style='border-bottom:1px solid #ccc; text-align:left;'>Name</th><th style='border-bottom:1px solid #ccc; text-align:left;'>Sequence</th></tr></thead><tbody>";
+
+      results.forEach(row => {
+        if (Array.isArray(row) && row.length >= 2) {
+          const name = row[0];
+          const seq = row[1];
+          outputHTML += `<tr><td style="padding:4px 8px; border-bottom:1px solid #eee;">${name}</td><td style="padding:4px 8px; border-bottom:1px solid #eee; font-family:monospace;">${seq}</td></tr>`;
         }
+      });
 
-        if (operations.filter(op => op === "pcr").length < 2) {
-            feedback.push("❌ You must simulate PCRs for both the insert and the backbone.");
+      outputHTML += "</tbody></table>";
+
+      const final = results[results.length - 1];
+      const finalSeq = final.sequence || final[1] || "";
+      const seq = finalSeq.toUpperCase();
+      const searchSpace = seq + seq + "x" + rc(seq) + rc(seq);
+
+      const requiredRegions = [
+        { sequence: "AG", label: "AraC-Pbad regulatory region" },
+        { sequence: "AA", label: "Start of insulin CDS (ATG)" },
+        { sequence: "TAATACGACTCACTATAGGG", label: "T7 promoter (should be absent)", mustNotExist: true },
+        { sequence: "GGTCTC", label: "BsaI site (must be removed)", mustNotExist: true }
+      ];
+
+      let feedback = [];
+      let missing = [];
+
+      requiredRegions.forEach(({ sequence, label, mustNotExist }) => {
+        const found = searchSpace.includes(sequence);
+        if ((mustNotExist && found) || (!mustNotExist && !found)) {
+          missing.push(label);
         }
+      });
 
-        if (/GGTCTC/i.test(finalProduct.sequence)) {
-            feedback.push("❌ Your final product still contains a BsaI site. These must be removed.");
+      if (missing.length === 0) {
+        feedback.push("✅ Success! Your design meets all the Golden Gate criteria.");
+        if (typeof window.progressManager !== "undefined") {
+          window.progressManager.addCompletion("Golden Gate Assembly", "correct");
         }
+      } else {
+        feedback = missing.map(label => `❌ Missing or incorrect: <code>${label}</code>`);
+      }
 
-        if (!/ATG/.test(finalProduct.sequence)) {
-            feedback.push("⚠️ Could not confirm presence of insulin ORF start codon.");
-        }
-
-        if (!feedback.length) {
-            feedback.push("✅ Success! Your design correctly swaps the promoter using Golden Gate Assembly.");
-        }
-
-        outputDiv.innerHTML = `<ul>${feedback.map(f => `<li>${f}</li>`).join("")}</ul>`;
+      outputHTML += `<ul style="margin-top:1em;">${feedback.map(f => `<li>${f}</li>`).join("")}</ul>`;
+      resultP.innerHTML = outputHTML;
     } catch (err) {
-        outputDiv.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+      resultP.innerHTML = `<span style="color:red;">❌ Error: ${err.message}</span>`;
     }
-};
+  }
 </script>
+</div>

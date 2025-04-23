@@ -80,7 +80,26 @@ We'll use a pET vector with:
 
 ---
 
+
 ## Step 3: Design PCR Primers
+
+### 🔬 What is an Annealing Region?
+
+In cloning, we use the term **annealing region** to describe the stretch of DNA where a single-stranded oligo or DNA fragment will base-pair with a complementary strand. This occurs in PCR (primers annealing to a template), in Gibson Assembly (fragment overlaps annealing), or in SOEing (stitching adjacent fragments). It’s where the DNA goes from single- to double-stranded as part of the molecular mechanism.
+
+#### Design Guidelines:
+
+- **Length**: 18–25 bp is typical.
+- **GC content**: Aim for 40–60% GC.
+- **3′ end** (for PCR): Preferably ends in G or C to improve binding and extension.
+- **Avoid**: Strong secondary structure, long runs of a single base, or repeats.
+- **Tm**: Ideally between 55–65°C and matched between primer pairs.
+
+PCR is generally **forgiving**, especially for standard cloning. You usually don’t have to optimize extensively. Most often, the start or end of your primer is **anchored** to a specific feature (e.g. the start codon), leaving just one floating end to select an 18–25 bp window.
+
+This means you may only have a handful of valid choices—just **pick 20 bp** and move on. It’s usually enough.
+
+You'll see this concept—annealing regions—appear throughout the tutorial series. These basic rules apply regardless of the cloning method.
 
 ---
 

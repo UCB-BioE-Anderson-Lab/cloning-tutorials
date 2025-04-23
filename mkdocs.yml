@@ -7,6 +7,7 @@ theme:
   logo: images/logo.png
 
 nav:
+  - Overview: index.md
   - Wetlab:
       - 1. pP6 Experiment Introduction: wetlab/intro.md
       - 2. Pipetting: wetlab/pipetting.md
@@ -41,7 +42,6 @@ nav:
       - 7. Ortholog Scan Project: planning/project_ispA.md
       
   - About: about.md
-  - jstest: jstest.md
 
 markdown_extensions:
   - toc:
@@ -70,7 +70,6 @@ extra_javascript:
   - js/C6-Sim.js
   - js/C6-Utils.js
   - js/progress_manager.js
-  - js/C6-Test.js
 
 extra_css:
   - css/custom.css
