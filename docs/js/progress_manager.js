@@ -26,16 +26,14 @@ if (!window.progressManager) {
               "gibson": ["Gibson Cloning"],
               "golden_gate": ["Golden Gate Assembly"],
               "mutagenesis": [],
-              "sequencing_confirmation.md": [
+              "sequencing_confirmation": [
                 "strategy_scenarios",
                 "primer_design",
                 "interpretation_q1",
-                "interpretation_q1_detail",
                 "interpretation_q2",
                 "interpretation_q3",
-                "interpretation_q4",
-                "interpretation_q4_detail"
-              ]
+                "interpretation_q4"
+                ]
             },
             "Project Planning": {
               "project_setup": [],

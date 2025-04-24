@@ -274,7 +274,6 @@ You must assess the read and decide:
 
 ---
 
-
 ### Quiz: Sequence Interpretation
 
 Download the full quiz data set here:  
@@ -290,40 +289,58 @@ Each folder in the zip includes:
 ---
 
 
-
-<div class="quiz" id="quiz_case1">
-  <form>
-    <h3>Case: <code id="case1_label">missense_in_ORF</code></h3>
-    <p>What kind of outcome is shown in this sequencing result?</p>
-    <select name="q_case1" id="q_case1">
-      <option value="">--Select scenario--</option>
-      <option value="perfect">Perfect</option>
-      <option value="perfect_partial">Perfect Partial</option>
-      <option value="mutant">Mutant</option>
-      <option value="mixed">Mixed Template</option>
-      <option value="failed">Failed</option>
-    </select>
-    <p id="res_case1"></p>
-
-    <div id="detail_case1" style="display:none;">
-      <p>What kind of mutation is it?</p>
-      <select name="q_case1_detail" id="q_case1_detail">
-        <option value="">--Select mutation type--</option>
-        <option value="silent_orf">Silent (ORF)</option>
-        <option value="missense_orf">Missense (ORF)</option>
-        <option value="nonsense_orf">Nonsense (ORF)</option>
-        <option value="indel_orf">Indel (ORF)</option>
-        <option value="regulatory">Regulatory</option>
-        <option value="other">Other / Noncoding</option>
-      </select>
-      <p id="res_case1_detail"></p>
-    </div>
-
-    <button type="button" onclick="checkCase('case1', 'mutant', 'missense_orf')">Check Answer</button>
-  </form>
-</div>
+<div id="quiz_container"></div>
 
 <script>
+  const quizTemplate = (caseId, label, correctScenario, correctDetail) => `
+    <div class="quiz" id="quiz_${caseId}">
+      <form>
+        <h3>Case ${label}</h3>
+        <p>What kind of outcome is shown in this sequencing result?</p>
+        <select id="q_${caseId}">
+          <option value="">--Select scenario--</option>
+          <option value="perfect">Perfect</option>
+          <option value="perfect_partial">Perfect Partial</option>
+          <option value="mutant">Mutant</option>
+          <option value="mixed">Mixed Template</option>
+          <option value="failed">Failed</option>
+        </select>
+        <p id="res_${caseId}"></p>
+
+        <div id="detail_${caseId}" style="display:none;">
+          <p>What kind of mutation is it?</p>
+          <select id="q_${caseId}_detail">
+            <option value="">--Select mutation type--</option>
+            <option value="silent_orf">Silent (ORF)</option>
+            <option value="missense_orf">Missense (ORF)</option>
+            <option value="nonsense_orf">Nonsense (ORF)</option>
+            <option value="indel_orf">Indel (ORF)</option>
+            <option value="regulatory">Regulatory</option>
+            <option value="other">Other / Noncoding</option>
+          </select>
+          <p id="res_${caseId}_detail"></p>
+        </div>
+
+        <button type="button" onclick="checkCase('${caseId}', '${correctScenario}', '${correctDetail}')">Check Answer</button>
+      </form>
+    </div>
+  `;
+
+  function renderQuiz(caseId, label, correctScenario, correctDetail) {
+    const container = document.getElementById("quiz_container");
+    container.insertAdjacentHTML("beforeend", quizTemplate(caseId, label, correctScenario, correctDetail));
+
+    document.getElementById(`q_${caseId}`).addEventListener("change", function () {
+      const detailDiv = document.getElementById(`detail_${caseId}`);
+      if (this.value === "mutant") {
+        detailDiv.style.display = "block";
+      } else {
+        detailDiv.style.display = "none";
+        document.getElementById(`res_${caseId}_detail`).innerHTML = "";
+      }
+    });
+  }
+
   function checkCase(caseId, correctScenario, correctDetail) {
     const scenario = document.getElementById(`q_${caseId}`).value;
     const result = document.getElementById(`res_${caseId}`);
@@ -332,37 +349,26 @@ Each folder in the zip includes:
     const detailSelect = document.getElementById(`q_${caseId}_detail`);
 
     if (scenario === correctScenario) {
-      detailDiv.style.display = "block";
-      if (detailSelect.value === correctDetail) {
-        detailResult.innerHTML = "✅ Correct mutation type.";
-      } else {
-        detailResult.innerHTML = "❌ Incorrect mutation classification.";
-      }
       result.innerHTML = "✅ Correct!";
+      if (correctDetail && detailSelect) {
+        if (detailSelect.value === correctDetail) {
+          detailResult.innerHTML = "✅ Correct mutation type.";
+        } else {
+          detailResult.innerHTML = "❌ Incorrect mutation classification.";
+        }
+      }
+      if (typeof progressManager !== "undefined") {
+        progressManager.addCompletion(`interpretation_${caseId}`, "correct");
+      }
     } else {
-      detailDiv.style.display = "none";
-      detailResult.innerHTML = "";
       result.innerHTML = "❌ Not quite. Try again.";
-    }
-
-    if (
-      scenario === correctScenario &&
-      detailSelect.value === correctDetail &&
-      typeof progressManager !== "undefined"
-    ) {
-      progressManager.addCompletion(`interpretation_${caseId}`, "correct");
+      if (detailResult) detailResult.innerHTML = "";
     }
   }
 
-  document.getElementById("q_case1").addEventListener("change", function () {
-    const caseId = "case1";
-    const correctScenario = "mutant";
-    const detailDiv = document.getElementById(`detail_${caseId}`);
-    if (this.value === correctScenario) {
-      detailDiv.style.display = "block";
-    } else {
-      detailDiv.style.display = "none";
-      document.getElementById(`res_${caseId}_detail`).innerHTML = "";
-    }
-  });
+  // Render all quiz cases
+renderQuiz("q1", "1: missense_in_ORF", "mutant", "missense_orf");
+renderQuiz("q2", "2: partial_read", "perfect_partial", "");
+renderQuiz("q3", "3: mixed_clones", "mixed", "");
+renderQuiz("q4", "4: indel_frameshift", "mutant", "indel_orf");
 </script>
