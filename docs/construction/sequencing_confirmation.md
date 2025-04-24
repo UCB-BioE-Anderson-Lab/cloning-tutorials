@@ -22,7 +22,7 @@ There are three main sequencing strategies available, each suited to different g
 
 ---
 
-### Sequencing Scenarios
+### Quiz: Choosing a Sequencing Method
 
 <form id="strategy_quiz_form">
   <p><strong>Scenario 1:</strong> You’re confirming that a single new antibiotic resistance gene was cloned correctly into a known plasmid backbone. Which sequencing method should you use?</p>
@@ -106,7 +106,7 @@ There are three main sequencing strategies available, each suited to different g
 </script>
 
 
-## Primer Design (Only for Cycle Sequencing)
+## Designing Your Primer (Cycle Sequencing Only)
 
 If you're using cycle sequencing, you must provide a primer. This primer must bind upstream of the region you wish to confirm.
 
@@ -122,9 +122,9 @@ If you're using cycle sequencing, you must provide a primer. This primer must bi
 
 ---
 
-### 🧠 Primer Design Quiz: T7 + INS
+### Quiz: Primer Design for T7 + INS
 
-Download the plasmid: [📄 pET-INS.seq](../assets/pET-INS.seq)
+Download the plasmid: [⬇️ pET-INS.seq](../assets/pET-INS.seq)
 
 Your goal: Design a 20 bp oligo that will allow a sequencing read to start at the **T7 promoter** and cover the **INS gene**.
 
@@ -173,94 +173,196 @@ Paste your oligo sequence below (5' to 3', exact match to template strand):
 
 ---
 
-## Interpreting Sequencing Results
+## Defining the Confirmation Target
 
-You’ll typically receive:
+Before you can interpret your sequencing results, you need to define the **confirmation target**—the specific region of the plasmid you care about confirming. The choice of this region depends on how much certainty you need about the sequence, and what can already be inferred from functional outcomes (e.g., antibiotic resistance, visible fluorescence, or selection as from an activity screen). As a rule of thumb, the confirmation target is a **subsequence of the full plasmid model** that includes:
 
-- A `.txt` file: Base calls
-- An `.ab1` file: Fluorescence trace
+- Any inserted or deleted regions
+- Any modified regulatory elements (e.g., promoters, RBSs)
+- Any junctions created by cloning
+- Any regions you targeted for mutagenesis
 
-View these in **ApE** or **Benchling**.
+### Case Study: pET-INS
 
-Check:
+For the pET-INS plasmid:
 
-- **High-quality region length**
-- **Presence of expected features**
-- **Any mismatches, gaps, or ambiguous bases**
+- The kanamycin resistance (**kanR**) and the origin of replication (**ori**) are inherited from the original pET28a vector. Since you selected colonies on a kanamycin plate, these must be functional. Even if they contain silent mutations, they won't affect your experiment, so they don’t need to be reconfirmed.
+- The confirmation target is the **T7 promoter, RBS, and INS gene**, along with enough flanking sequence to include sites of oligo binding during construction.
 
----
+This entire block—the T7 + RBS + INS insert—is the **confirmation region**, and it is treated as a whole. The sequencing read must cleanly and correctly cover this entire region to confirm the plasmid’s correctness.
 
-## Understanding Mutation Consequences
-
-### Mutation Ontology
-
-| Type              | Definition                                     | Impact depends on location            |
-|-------------------|------------------------------------------------|----------------------------------------|
-| Exact match       | Identical to model                             | ✅ Ideal                              |
-| Silent mutation   | Codon change, same amino acid                  | Often benign in ORFs                 |
-| Missense mutation | Codon change, different amino acid             | Can affect protein function           |
-| Nonsense mutation | Introduces stop codon                          | Usually disruptive                    |
-| Frameshift        | Indels that alter codon frame                  | Likely severe                         |
-| Regulatory change | Alters promoter/operator/UTR sequences         | Affects expression, may be subtle     |
+Once you’ve defined your confirmation target, your task is to determine whether your sequencing read contains it accurately and completely. This involves aligning your read to the model plasmid and checking whether the confirmation region is covered and error-free.
 
 ---
 
-## Activity: Compare Sequences
+## Analyzing Sequencing Data
 
-You’ll be given:
-- A GenBank model
-- A sequencing read (.txt/.ab1)
-- Instructions to open and align in ApE
+To evaluate your sequencing outcome, you’ll align your sequencing read to the reference model and examine how well it covers your defined confirmation target.
 
-Your task:
-- Confirm the region of interest is present and correct
-- Identify and classify any differences
-- Use the mutation ontology to describe impact
+### Performing an Alignment
+
+Use **ApE** or **Benchling** to perform sequence alignment:
+
+- In ApE: Open both the read and the model plasmid. Go to `Tools → Align Sequences...`, select both files, and click OK.
+- In Benchling: Use the alignment tool in the side panel to align your sequencing read to the model plasmid.
+- You can also use any of various webtools like https://en.vectorbuilder.com/tool/sequence-alignment.html
+
+Look for:
+
+- **Start of alignment**: Does the read begin at the expected point downstream of your primer?
+- **Full coverage** of the confirmation target
+- **Perfect match** or any **deviations**
+
+If the confirmation target is entirely within the read, then it is 'perfect' and you are done with the analysis.  Otherwise, there may be a mutation present.
+
+### Types of Sequence Deviations
+
+
+#### Point mutations
+These are single base changes. In open reading frames (ORFs), they fall into three categories:
+
+- **Silent**: The codon is changed, but the same amino acid is encoded.
+- **Missense**: The codon is changed to encode a different amino acid.
+- **Nonsense**: The codon is changed to a stop codon, truncating the protein.
+
+If you find a single base difference between your sequencing read and the confirmation target within an ORF, translate the surrounding region in both the read and the model to determine whether the mutation is silent, missense, or nonsense.
+
+![Alignment of model and read sequences showing a point mutation resulting in a stop codon. The codon TGC (Cys) in the model is mutated to TGA (Stop) in the read.](../images/point-nonsense-example.png)
+
+*Figure: Example of a **nonsense mutation**. In the model, the codon **TGC** codes for cysteine (C). In the read, a point mutation changes it to **TGA**, a stop codon (\*), truncating the protein. This is a single base change with a major functional consequence.*
+
+
+#### Indels
+Insertions or deletions (indels) can be especially problematic in ORFs. If not in multiples of 3, they cause frameshifts, scrambling the downstream protein sequence. Even a single base insertion or deletion can shift the reading frame, changing every amino acid after the mutation and often introducing a premature stop codon. Indels in regulatory regions or non-coding areas may have less dramatic effects but can still disrupt motifs or regulatory elements.
+
+![Alignment of model and read sequences showing a deletion. A 12 bp segment present in the model is missing from the read.](../images/indel-deletion-example.png)
+
+*Figure: Example of an **indel mutation**. The model contains a region coding for multiple amino acids. In the read, this region is deleted, leading to a frameshift. All downstream codons are shifted, likely disrupting the entire ORF.*
+
+| Deviation Type    | Description                                      | Effect in ORFs                   | Effect in Regulatory Regions        | Effect in Non-Coding           |
+|-------------------|--------------------------------------------------|----------------------------------|------------------------------------|-------------------------------|
+| Exact Match       | No differences                                   | ✅ Ideal                         | ✅ Ideal                           | ✅ Ideal                       |
+| Silent Mutation   | Codon changes, same amino acid                   | Usually benign                   | May affect motif behavior          | None                          |
+| Missense         | Codon changes, new amino acid                    | May change function              | Not applicable                     | None                          |
+| Nonsense         | Creates stop codon                               | Likely disruptive                | Not applicable                     | None                          |
+| Indel            | Insertion/deletion; may cause frameshift         | Frameshift if not multiple of 3; severe | May disrupt motifs/regulatory elements | Sometimes none               |
+| Frameshift       | Insertion/deletion disrupting codons (not by 3)  | Severe                           | Not applicable                     | None                          |
+| Regulatory change | Affects promoter, RBS, etc.                      | Not applicable                   | Can disrupt expression             | None                          |
+| Structural error  | Duplication, truncation, or wrong orientation    | Varies                           | Varies                             | Varies                        |
+
+### Quality Issues
+
+Sometimes you can’t interpret the read because:
+
+- **Ns or ambiguous bases**: Signal dropout or primer failure
+- **Short reads**: May not reach the confirmation target
+- **Mixed signals**: More than one DNA template in the reaction
+
+![Examples of sequencing trace quality showing three types of read profiles: high-quality, low-quality, and mixed template.](../images/trace-quality-examples.png)
+
+*Figure: Sequencing trace types. Left: **High-Quality Read** — Tall, sharp peaks with clear base calls. Middle: **Low-Quality Signal** — Short, noisy peaks with Ns and base ambiguity. Right: **Mixed Template** — From around base 169, each position shows two well-resolved peaks, suggesting the presence of two DNA templates in the same prep. Mixed reads indicate either two different plasmids in the cell, or instability of the original plasmid.  Either way, it is problematic.*
+
+### Final Call Categories
+
+You must assess the read and decide:
+
+- **Perfect**: All of the confirmation region is covered with high-quality data, and there are no mismatches.
+- **Perfect Partial**: What you can see is perfect, but part of the confirmation region is not covered due to read length or quality limitations.
+- **Mutant**: Read has deviations in the confirmation target.
+- **Mixed Clone**: Trace shows evidence of multiple sequence populations—typically due to more than one plasmid being present in the miniprep prep.
+- **Failed**: Poor quality read, unreadable, or no match to target.
 
 ---
 
-## 🧠 Quiz: Decision & Interpretation
 
-<form id="confirmation_quiz_form">
-  <h3>1️⃣ Which strategy is best if you want to verify the entire plasmid?</h3>
-  <label><input type="radio" name="q1" value="a"> Cycle sequencing</label><br>
-  <label><input type="radio" name="q1" value="b"> Plasmidsaurus</label><br>
-  <label><input type="radio" name="q1" value="c"> NGS</label><br>
-  <p id="conf_res_q1"></p>
+### Quiz: Sequence Interpretation
 
-  <h3>2️⃣ When do you need to design a primer?</h3>
-  <label><input type="radio" name="q2" value="a"> When using Plasmidsaurus</label><br>
-  <label><input type="radio" name="q2" value="b"> When using NGS</label><br>
-  <label><input type="radio" name="q2" value="c"> When using cycle sequencing</label><br>
-  <p id="conf_res_q2"></p>
+Download the full quiz data set here:  
 
-  <h3>3️⃣ What type of mutation introduces a premature stop codon?</h3>
-  <label><input type="radio" name="q3" value="a"> Silent</label><br>
-  <label><input type="radio" name="q3" value="b"> Missense</label><br>
-  <label><input type="radio" name="q3" value="c"> Nonsense</label><br>
-  <p id="conf_res_q3"></p>
+ [⬇️ Download All Cases (ZIP)](../assets/sequence_cases.zip)
 
-  <button type="button" id="confirmation_submit_btn">Check Answers</button>
-</form>
+Each folder in the zip includes:
+
+- A `.ab1` trace
+- A `.txt` read
+- A `.gb` model with the confirmation region annotated
+
+---
+
+
+
+<div class="quiz" id="quiz_case1">
+  <form>
+    <h3>Case: <code id="case1_label">missense_in_ORF</code></h3>
+    <p>What kind of outcome is shown in this sequencing result?</p>
+    <select name="q_case1" id="q_case1">
+      <option value="">--Select scenario--</option>
+      <option value="perfect">Perfect</option>
+      <option value="perfect_partial">Perfect Partial</option>
+      <option value="mutant">Mutant</option>
+      <option value="mixed">Mixed Template</option>
+      <option value="failed">Failed</option>
+    </select>
+    <p id="res_case1"></p>
+
+    <div id="detail_case1" style="display:none;">
+      <p>What kind of mutation is it?</p>
+      <select name="q_case1_detail" id="q_case1_detail">
+        <option value="">--Select mutation type--</option>
+        <option value="silent_orf">Silent (ORF)</option>
+        <option value="missense_orf">Missense (ORF)</option>
+        <option value="nonsense_orf">Nonsense (ORF)</option>
+        <option value="indel_orf">Indel (ORF)</option>
+        <option value="regulatory">Regulatory</option>
+        <option value="other">Other / Noncoding</option>
+      </select>
+      <p id="res_case1_detail"></p>
+    </div>
+
+    <button type="button" onclick="checkCase('case1', 'mutant', 'missense_orf')">Check Answer</button>
+  </form>
+</div>
 
 <script>
-  document.getElementById("confirmation_submit_btn").addEventListener("click", function () {
-    const answers = {
-      q1: "b",
-      q2: "c",
-      q3: "c"
-    };
-    ["q1", "q2", "q3"].forEach(function (q) {
-      const selected = document.querySelector(`input[name="${q}"]:checked`);
-      const result = document.getElementById(`conf_res_${q}`);
-      if (selected && selected.value === answers[q]) {
-        result.innerHTML = "✅ Correct!";
-        if (typeof progressManager !== "undefined") {
-          progressManager.addCompletion(`confirmation_${q}`, "correct");
-        }
+  function checkCase(caseId, correctScenario, correctDetail) {
+    const scenario = document.getElementById(`q_${caseId}`).value;
+    const result = document.getElementById(`res_${caseId}`);
+    const detailDiv = document.getElementById(`detail_${caseId}`);
+    const detailResult = document.getElementById(`res_${caseId}_detail`);
+    const detailSelect = document.getElementById(`q_${caseId}_detail`);
+
+    if (scenario === correctScenario) {
+      detailDiv.style.display = "block";
+      if (detailSelect.value === correctDetail) {
+        detailResult.innerHTML = "✅ Correct mutation type.";
       } else {
-        result.innerHTML = "❌ Try again.";
+        detailResult.innerHTML = "❌ Incorrect mutation classification.";
       }
-    });
+      result.innerHTML = "✅ Correct!";
+    } else {
+      detailDiv.style.display = "none";
+      detailResult.innerHTML = "";
+      result.innerHTML = "❌ Not quite. Try again.";
+    }
+
+    if (
+      scenario === correctScenario &&
+      detailSelect.value === correctDetail &&
+      typeof progressManager !== "undefined"
+    ) {
+      progressManager.addCompletion(`interpretation_${caseId}`, "correct");
+    }
+  }
+
+  document.getElementById("q_case1").addEventListener("change", function () {
+    const caseId = "case1";
+    const correctScenario = "mutant";
+    const detailDiv = document.getElementById(`detail_${caseId}`);
+    if (this.value === correctScenario) {
+      detailDiv.style.display = "block";
+    } else {
+      detailDiv.style.display = "none";
+      document.getElementById(`res_${caseId}_detail`).innerHTML = "";
+    }
   });
 </script>
