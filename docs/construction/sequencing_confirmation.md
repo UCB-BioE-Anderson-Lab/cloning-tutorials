@@ -288,95 +288,136 @@ Each folder in the zip includes:
 
 ---
 
-
-<div id="quiz_container"></div>
+<h3>Case 1: missense_in_ORF</h3>
+<p>What kind of outcome is shown in this sequencing result?</p>
+<select id="q_case1">
+  <option value="">--Select scenario--</option>
+  <option value="perfect">Perfect</option>
+  <option value="perfect_partial">Perfect Partial</option>
+  <option value="mixed">Mixed</option>
+  <option value="failed">Failed</option>
+  <option value="silent_mutation">Silent Mutation</option>
+  <option value="nonsense_mutation">Nonsense Mutation</option>
+  <option value="missense_mutation">Missense Mutation</option>
+  <option value="indel">Indel</option>
+</select>
+<p id="res_case1"></p>
+<button type="button" id="check_case1">Check Answer</button>
 
 <script>
-  const quizTemplate = (caseId, label, correctScenario, correctDetail) => `
-    <div class="quiz" id="quiz_${caseId}">
-      <form>
-        <h3>Case ${label}</h3>
-        <p>What kind of outcome is shown in this sequencing result?</p>
-        <select id="q_${caseId}">
-          <option value="">--Select scenario--</option>
-          <option value="perfect">Perfect</option>
-          <option value="perfect_partial">Perfect Partial</option>
-          <option value="mutant">Mutant</option>
-          <option value="mixed">Mixed Template</option>
-          <option value="failed">Failed</option>
-        </select>
-        <p id="res_${caseId}"></p>
-
-        <div id="detail_${caseId}" style="display:none;">
-          <p>What kind of mutation is it?</p>
-          <select id="q_${caseId}_detail">
-            <option value="">--Select mutation type--</option>
-            <option value="silent_orf">Silent (ORF)</option>
-            <option value="missense_orf">Missense (ORF)</option>
-            <option value="nonsense_orf">Nonsense (ORF)</option>
-            <option value="indel_orf">Indel (ORF)</option>
-            <option value="regulatory">Regulatory</option>
-            <option value="other">Other / Noncoding</option>
-          </select>
-          <p id="res_${caseId}_detail"></p>
-        </div>
-
-        <button type="button" onclick="checkCase('${caseId}', '${correctScenario}', '${correctDetail}')">Check Answer</button>
-      </form>
-    </div>
-  `;
-
-  function renderQuiz(caseId, label, correctScenario, correctDetail) {
-    const container = document.getElementById("quiz_container");
-    container.insertAdjacentHTML("beforeend", quizTemplate(caseId, label, correctScenario, correctDetail));
-
-    document.getElementById(`q_${caseId}`).addEventListener("change", function () {
-      const detailDiv = document.getElementById(`detail_${caseId}`);
-      if (this.value === "mutant") {
-        detailDiv.style.display = "block";
-      } else {
-        detailDiv.style.display = "none";
-        document.getElementById(`res_${caseId}_detail`).innerHTML = "";
-      }
-    });
-  }
-
-  function checkCase(caseId, correctScenario, correctDetail) {
-    const answer1 = document.getElementById(`q_${caseId}`).value;
-    const expected1 = correctScenario;
-    const result = document.getElementById(`res_${caseId}`);
-    let answer2 = "";
-    let detailResult;
-    if (answer1 === "mutant") {
-      const answer2Elem = document.getElementById(`q_${caseId}_detail`);
-      answer2 = answer2Elem ? answer2Elem.value : "";
-    }
-    const expected2 = correctDetail;
-    console.log("answer1:" + answer1);
-    console.log("answer2:" + answer2);
-    console.log("expected1:" + expected1);
-    console.log("expected2:" + expected2);
-
-    const isCorrect = (answer1 === expected1) && (answer2 === expected2);
-    console.log("isCorrect:" + isCorrect);
-
-    if (result) {
-      if (isCorrect) {
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("check_case1").addEventListener("click", function () {
+      const answer = document.getElementById("q_case1").value;
+      const result = document.getElementById("res_case1");
+      if (answer === "missense_mutation") {
         result.innerHTML = "✅ Correct!";
         if (typeof progressManager !== "undefined") {
-          progressManager.addCompletion(`interpretation_${caseId}`, "correct");
+          progressManager.addCompletion("interpretation_q1", "correct");
         }
       } else {
-        result.innerHTML = "❌ Not quite. Try again.";
+        result.innerHTML = "❌ Try again.";
       }
-    } else {
-      console.error(`Result element not found for case ${caseId}`);
-    }
-  }
+    });
+  });
+</script>
 
-  // Render all quiz cases
-renderQuiz("q1", "1: missense_in_ORF", "mutant", "missense_orf");
-renderQuiz("q2", "2: partial_read", "perfect_partial", "");
-renderQuiz("q3", "3: mixed_clones", "mixed", "");
-renderQuiz("q4", "4: indel_frameshift", "mutant", "indel_orf");
+
+<h3>Case 2: perfect_partial</h3>
+<p>What kind of outcome is shown in this sequencing result?</p>
+<select id="q_case2">
+  <option value=">--Select scenario--</option>
+  <option value="perfect">Perfect</option>
+  <option value="perfect_partial">Perfect Partial</option>
+  <option value="mixed">Mixed</option>
+  <option value="failed">Failed</option>
+  <option value="silent_mutation">Silent Mutation</option>
+  <option value="nonsense_mutation">Nonsense Mutation</option>
+  <option value="missense_mutation">Missense Mutation</option>
+  <option value="indel">Indel</option>
+</select>
+<p id="res_case2"></p>
+<button type="button" id="check_case2">Check Answer</button>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("check_case2").addEventListener("click", function () {
+      const answer = document.getElementById("q_case2").value;
+      const result = document.getElementById("res_case2");
+      if (answer === "perfect_partial") {
+        result.innerHTML = "✅ Correct!";
+        if (typeof progressManager !== "undefined") {
+          progressManager.addCompletion("interpretation_q2", "correct");
+        }
+      } else {
+        result.innerHTML = "❌ Try again.";
+      }
+    });
+  });
+</script>
+
+<h3>Case 3: perfect</h3>
+<p>What kind of outcome is shown in this sequencing result?</p>
+<select id="q_case3">
+  <option value="">--Select scenario--</option>
+  <option value="perfect">Perfect</option>
+  <option value="perfect_partial">Perfect Partial</option>
+  <option value="mixed">Mixed</option>
+  <option value="failed">Failed</option>
+  <option value="silent_mutation">Silent Mutation</option>
+  <option value="nonsense_mutation">Nonsense Mutation</option>
+  <option value="missense_mutation">Missense Mutation</option>
+  <option value="indel">Indel</option>
+</select>
+<p id="res_case3"></p>
+<button type="button" id="check_case3">Check Answer</button>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("check_case3").addEventListener("click", function () {
+      const answer = document.getElementById("q_case3").value;
+      const result = document.getElementById("res_case3");
+      if (answer === "perfect") {
+        result.innerHTML = "✅ Correct!";
+        if (typeof progressManager !== "undefined") {
+          progressManager.addCompletion("interpretation_q3", "correct");
+        }
+      } else {
+        result.innerHTML = "❌ Try again.";
+      }
+    });
+  });
+</script>
+
+
+<h3>Case 4: indel</h3>
+<p>What kind of outcome is shown in this sequencing result?</p>
+<select id="q_case4">
+  <option value=">--Select scenario--</option>
+  <option value="perfect">Perfect</option>
+  <option value="perfect_partial">Perfect Partial</option>
+  <option value="mixed">Mixed</option>
+  <option value="failed">Failed</option>
+  <option value="silent_mutation">Silent Mutation</option>
+  <option value="nonsense_mutation">Nonsense Mutation</option>
+  <option value="missense_mutation">Missense Mutation</option>
+  <option value="indel">Indel</option>
+</select>
+<p id="res_case4"></p>
+<button type="button" id="check_case4">Check Answer</button>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("check_case4").addEventListener("click", function () {
+      const answer = document.getElementById("q_case4").value;
+      const result = document.getElementById("res_case4");
+      if (answer === "indel") {
+        result.innerHTML = "✅ Correct!";
+        if (typeof progressManager !== "undefined") {
+          progressManager.addCompletion("interpretation_q4", "correct");
+        }
+      } else {
+        result.innerHTML = "❌ Try again.";
+      }
+    });
+  });
 </script>
