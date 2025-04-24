@@ -342,27 +342,35 @@ Each folder in the zip includes:
   }
 
   function checkCase(caseId, correctScenario, correctDetail) {
-    const scenario = document.getElementById(`q_${caseId}`).value;
+    const answer1 = document.getElementById(`q_${caseId}`).value;
+    const expected1 = correctScenario;
     const result = document.getElementById(`res_${caseId}`);
-    const detailDiv = document.getElementById(`detail_${caseId}`);
-    const detailResult = document.getElementById(`res_${caseId}_detail`);
-    const detailSelect = document.getElementById(`q_${caseId}_detail`);
+    let answer2 = "";
+    let detailResult;
+    if (answer1 === "mutant") {
+      const answer2Elem = document.getElementById(`q_${caseId}_detail`);
+      answer2 = answer2Elem ? answer2Elem.value : "";
+    }
+    const expected2 = correctDetail;
+    console.log("answer1:" + answer1);
+    console.log("answer2:" + answer2);
+    console.log("expected1:" + expected1);
+    console.log("expected2:" + expected2);
 
-    if (scenario === correctScenario) {
-      result.innerHTML = "✅ Correct!";
-      if (correctDetail && detailSelect) {
-        if (detailSelect.value === correctDetail) {
-          detailResult.innerHTML = "✅ Correct mutation type.";
-        } else {
-          detailResult.innerHTML = "❌ Incorrect mutation classification.";
+    const isCorrect = (answer1 === expected1) && (answer2 === expected2);
+    console.log("isCorrect:" + isCorrect);
+
+    if (result) {
+      if (isCorrect) {
+        result.innerHTML = "✅ Correct!";
+        if (typeof progressManager !== "undefined") {
+          progressManager.addCompletion(`interpretation_${caseId}`, "correct");
         }
-      }
-      if (typeof progressManager !== "undefined") {
-        progressManager.addCompletion(`interpretation_${caseId}`, "correct");
+      } else {
+        result.innerHTML = "❌ Not quite. Try again.";
       }
     } else {
-      result.innerHTML = "❌ Not quite. Try again.";
-      if (detailResult) detailResult.innerHTML = "";
+      console.error(`Result element not found for case ${caseId}`);
     }
   }
 
