@@ -73,7 +73,7 @@ Each tutorial includes embedded quizzes, videos, and progress tracking. This pla
 8. **[Site-Directed Mutagenesis](construction/mutagenesis.md)**  
    Constructing and designing short parts and mutagenesis.  
 
-9. **[Sequencing Analysis](construction/sequencing_analysis.md)**  
+9. **[Sequencing Confirmation](construction/sequencing_confirmation.md)**  
    Learn to analyze sequencing results.
 
 ## Part C: Project Planning
