@@ -38,7 +38,6 @@ This method is ideal when the mutation you want to introduce is close to a uniqu
 
 ---
 
-
 ### Example: Retargeting the protospacer in pTargetF
 
 
@@ -50,13 +49,13 @@ The **pTargetF** plasmid expresses guide RNAs (gRNAs) for CRISPR/Cas9, combining
 
 ---
 
-## Primer Design and Strategy
+### Primer Design and Strategy
 
 The first step is to model your edited sequence. We want to replace the original cadA-targeting protospacer in pTargetF with a new protospacer targeting the *cscR* gene.
 
 Below is a portion of the *cscR* sequence with all potential PAM sites (NGG) highlighted. Any 20 bp sequence immediately upstream of a GG can serve as a candidate protospacer. Specialized software tools can help you pick optimal guides based on efficiency and off-target predictions, and in many cases, validated guides are available in public databases.
 
-<div id="viewer1" style="height:200px;"></div>
+<div id="viewer1" style="height:100px;"></div>
 <script>
   function waitForSeqViz(callback) {
     if (typeof seqviz !== "undefined" && seqviz.Viewer) {
@@ -190,60 +189,92 @@ Ligate    speDig                                        pTarget-cscR
 
 ---
 
+## 2) QuickChange Mutagenesis Using pET-INS
 
-## 2) Type IIs-based Mutagenesis
+### Example: C96S Mutation in Insulin
 
-You can also use Golden Gate-style enzymes like **BsaI** or **BsmBI** to cut-and-religate the vector with edits—just like Golden Gate but with one piece.
+Cysteine 96 in human insulin helps form disulfide bonds critical for protein folding. Mutating this residue to serine (C96S) can stabilize recombinant insulin analogs by reducing misfolding or aggregation. In this example, we’ll use **QuickChange mutagenesis** to introduce the **C96S mutation** in the pET-INS plasmid.
 
-This allows you to:
+![Cartoon diagram of QuickChange mutagenesis: primers anneal to the plasmid, mutated strands are extended, resulting in a nicked circular product that is repaired after transformation.  
+Image adapted from [Agilent Technologies](https://www.agilent.com/en/product/mutagenesis-cloning/mutagenesis-kits/site-directed-mutagenesis-kits/quikchange-233116).](../images/quickchange_cartoon.png)
 
-- Precisely replace a segment flanked by Type IIs sites
-- Insert small cassettes
-- Introduce point mutations
+### Strategy
 
-📘 **Example: Introduce a silent mutation in the INS coding region using BsaI**
+QuickChange uses **two overlapping primers** to introduce a mutation into a plasmid:
 
-- Walk through junction selection
-- Show oligo design and expected product
-- Include a CF and simulation preview
+- The **mutation sits in the middle** of each primer.
+- The flanking regions must perfectly match the template DNA.
+- After high-fidelity PCR, the full plasmid is synthesized but with nicks.
+- **DpnI** is used to digest the methylated parental (template) DNA.
+- The nicked product is repaired inside *E. coli* after transformation.
 
-📘 **Example: Functional mutation of INS (C7S)**
+Conceptually, this is like a **Gibson assembly with one fragment**, except ligation occurs **in vivo**.
 
-Let's introduce a biologically meaningful mutation into insulin by replacing **Cysteine at position 7** (Cys7) with **Serine (Ser)**. This mimics a mutation that could affect disulfide bond formation and protein stability.
+### Mutation Design
 
-### Steps:
-1. Open the `pET-INS.gb` file and find the codon for Cys7 in the translation.
-2. Substitute the codon for a Ser codon using the [codon table](https://cdn.kastatic.org/ka-perseus-images/f5de6355003ee322782b26404ef0733a1d1a61b0.png).
-3. Mark the edited codon with a feature like `"C7S"`.
-4. Choose a nearby 4 bp sticky end and mark it with a `"sticky"` feature.
-5. Follow standard Golden Gate oligo design:
-   - Extract sticky + 20 bp downstream for the forward oligo.
-   - Extract 20 bp upstream + sticky for the reverse oligo (then reverse complement).
-   - Add `ccataGGTCTCa` prefix to both.
-6. Simulate to confirm the product, and name the final construct `pET-INS-C7S`.
+1. Open `pET-INS.gb` and locate amino acid **96** in the INS coding sequence.
+2. Confirm it encodes **Cysteine** (TGC or TGT).
+3. Replace with a **Serine codon**, like AGC.
+4. Annotate the codon as `"C96S"`.
 
-🔧 Tools:
-- [Codon Finder Tool](https://www.bioinformatics.org/sms2/codon_usage.html)
+### Primer Design
+
+Choose ~20 bp of perfectly matched sequence flanking the mutation site for both directions. The **mutation is centered** in the oligos.
+
+<div id="viewer_INS" style="height:500px;"></div>
+<script>
+  waitForSeqViz(() => {
+    seqviz
+      .Viewer("viewer_INS", {
+        name: "pET-INS C96S region",
+        seq: "AGATCTCGATCCCGCGAAATTAATACGACTCACTATAGGGGAATTGTGAGCGGATAACAATTCCCCTCTAGAAATAATTTTGTTTAACTTTAAGAAGGAGATATACCATGGccctgtggatgcgcctcctgcccctgctggcgctgctggccctctggggacctgacccagccgcagcctttgtgaaccaacacctgtgcggctcacacctggtggaagctctctacctagtgtgcggggaacgaggcttcttctacacacccaagacccgccgggaggcagaggacctgcaggtggggcaggtggagctgggcgggggccctggtgcaggcagcctgcagcccttggccctggaggggtccctgcagaagcgtggcattgtggaacaatgctgtaccagcatctgctccctctaccagctggagaactactgcaactagCTCGAGCACCACCACCACCACCACTGAGATCCGGCTGCTAACAAAGCCCGAAAGGAAGCTGAGTTGGCTGCTGCCACCGCTGAGCAATAACTAGCATAACCCCTTGGGGCCTCTAAACGGGTCTTGAGGGGTTTTTTGCTGAAAGGAGGAACTATATCCGGATTGGCGAATGGGACGCGCCCTGTAGCGGCGCATTAAGCGCGGCGGGTGTGGTGGTTACGCGCAGCGTGACCGCTACACTTGCCAGCGCCCTAGCGCCCGCTCCTTTCGCTTTCTTCCCTTCCTTTCTCGCCACGTTCGCCGGCTTTCCCCGTCAAGCTCTAAATCGGGGGCTCCCTTTAGGGTTCCGATTTAGTGCTTTACGGCACCTCGACCCCAAAAAACTTGATTAGGGTGATGGTTCACGTAGTGGGCCATCGCCCTGATAGACGGTTTTTCGCCCTTTGACGTTGGAGTCCACGTTCTTTAATAGTGGACTCTTGTTCCAAACTGGAACAACACTCAACCCTATCTCGGTCTATTCTTTTGATTTATAAGGGATTTTGCCGATTTCGGCCTATTGGTTAAAAAATGAGCTGATTTAACAAAAATTTAACGCGAATTTTAACAAAATATTAACGTTTACAATTTCAGGTGGCACTTTTCGGGGAAATGTGCGCGGAACCCCTATTTGTTTATTTTTCTAAATACATTCAAATATGTATCCGCTCATGAATTAATTCTTAGAAAAACTCATCGAGCATCAAATGAAACTGCAATTTATTCATATCAGGATTATCAATACCATATTTTTGAAAAAGCCGTTTCTGTAATGAAGGAGAAAACTCACCGAGGCAGTTCCATAGGATGGCAAGATCCTGGTATCGGTCTGCGATTCCGACTCGTCCAACATCAATACAACCTATTAATTTCCCCTCGTCAAAAATAAGGTTATCAAGTGAGAAATCACCATGAGTGACGACTGAATCCGGTGAGAATGGCAAAAGTTTATGCATTTCTTTCCAGACTTGTTCAACAGGCCAGCCATTACGCTCGTCATCAAAATCACTCGCATCAACCAAACCGTTATTCATTCGTGATTGCGCCTGAGCGAGACGAAATACGCGATCGCTGTTAAAAGGACAATTACAAACAGGAATCGAATGCAACCGGCGCAGGAACACTGCCAGCGCATCAACAATATTTTCACCTGAATCAGGATATTCTTCTAATACCTGGAATGCTGTTTTCCCGGGGATCGCAGTGGTGAGTAACCATGCATCATCAGGAGTACGGATAAAATGCTTGATGGTCGGAAGAGGCATAAATTCCGTCAGCCAGTTTAGTCTGACCATCTCATCTGTAACATCATTGGCAACGCTACCTTTGCCATGTTTCAGAAACAACTCTGGCGCATCGGGCTTCCCATACAATCGATAGATTGTCGCACCTGATTGCCCGACATTATCGCGAGCCCATTTATACCCATATAAATCAGCATCCATGTTGGAATTTAATCGCGGCCTAGAGCAAGACGTTTCCCGTTGAATATGGCTCATAACACCCCTTGTATTACTGTTTATGTAAGCAGACAGTTTTATTGTTCATGACCAAAATCCCTTAACGTGAGTTTTCGTTCCACTGAGCGTCAGACCCCGTAGAAAAGATCAAAGGATCTTCTTGAGATCCTTTTTTTCTGCGCGTAATCTGCTGCTTGCAAACAAAAAAACCACCGCTACCAGCGGTGGTTTGTTTGCCGGATCAAGAGCTACCAACTCTTTTTCCGAAGGTAACTGGCTTCAGCAGAGCGCAGATACCAAATACTGTCCTTCTAGTGTAGCCGTAGTTAGGCCACCACTTCAAGAACTCTGTAGCACCGCCTACATACCTCGCTCTGCTAATCCTGTTACCAGTGGCTGCTGCCAGTGGCGATAAGTCGTGTCTTACCGGGTTGGACTCAAGACGATAGTTACCGGATAAGGCGCAGCGGTCGGGCTGAACGGGGGGTTCGTGCACACAGCCCAGCTTGGAGCGAACGACCTACACCGAACTGAGATACCTACAGCGTGAGCTATGAGAAAGCGCCACGCTTCCCGAAGGGAGAAAGGCGGACAGGTATCCGGTAAGCGGCAGGGTCGGAACAGGAGAGCGCACGAGGGAGCTTCCAGGGGGAAACGCCTGGTATCTTTATAGTCCTGTCGGGTTTCGCCACCTCTGACTTGAGCGTCGATTTTTGTGATGCTCGTCAGGGGGGCGGAGCCTATGGAAAAACGCCAGCAACGCGGCCTTTTTACGGTTCCTGGCCTTTTGCTGGCCTTTTGCTCACATGTTCTTTCCTGCGTTATCCCCTGATTCTGTGGATAACCGTATTACCGCCTTTGAGTGAGCTGATACCGCTCGCCGCAGCCGAACGACCGAGCGCAGCGAGTCAGTGAGCGAGGAAGCGGAAGAGCGCCTGATGCGGTATTTTCTCCTTACGCATCTGTGCGGTATTTCACACCGCATATATGGTGCACTCTCAGTACAATCTGCTCTGATGCCGCATAGTTAAGCCAGTATACACTCCGCTATCGCTACGTGACTGGGTCATGGCTGCGCCCCGACACCCGCCAACACCCGCTGACGCGCCCTGACGGGCTTGTCTGCTCCCGGCATCCGCTTACAGACAAGCTGTGACCGTCTCCGGGAGCTGCATGTGTCAGAGGTTTTCACCGTCATCACCGAAACGCGCGAGGCAGCTGCGGTAAAGCTCATCAGCGTGGTCGTGAAGCGATTCACAGATGTCTGCCTGTTCATCCGCGTCCAGCTCGTTGAGTTTCTCCAGAAGCGTTAATGTCTGGCTTCTGATAAAGCGGGCCATGTTAAGGGCGGTTTTTTCCTGTTTGGTCACTGATGCCTCCGTGTAAGGGGGATTTCTGTTCATGGGGGTAATGATACCGATGAAACGAGAGAGGATGCTCACGATACGGGTTACTGATGATGAACATGCCCGGTTACTGGAACGTTGTGAGGGTAAACAACTGGCGGTATGGATGCGGCGGGACCAGAGAAAAATCACTCAGGGTCAATGCCAGCGCTTCGTTAATACAGATGTAGGTGTTCCACAGGGTAGCCAGCAGCATCCTGCGATGCAGATCCGGAACATAATGGTGCAGGGCGCTGACTTCCGCGTTTCCAGACTTTACGAAACACGGAAACCGAAGACCATTCATGTTGTTGCTCAGGTCGCAGACGTTTTGCAGCAGCAGTCGCTTCACGTTCGCTCGCGTATCGGTGATTCATTCTGCTAACCAGTAAGGCAACCCCGCCAGCCTAGCCGGGTCCTCAACGACAGGAGCACGATCATGCGCACCCGTGGGGCCGCCATGCCGGCGATAATGGCCTGCTTCTCGCCGAAACGTTTGGTGGCGGGACCAGTGACGAAGGCTTGAGCGAGGGCGTGCAAGATTCCGAATACCGCAAGCGACAGGCCGATCATCGTCGCGCTCCAGCGAAAGCGGTCCTCGCCGAAAATGACCCAGAGCGCTGCCGGCACCTGTCCTACGAGTTGCATGATAAAGAAGACAGTCATAAGTGCGGCGACGATAGTCATGCCCCGCGCCCACCGGAAGGAGCTGACTGGGTTGAAGGCTCTCAAGGGCATCGGTCGAGATCCCGGTGCCTAATGAGTGAGCTAACTTACATTAATTGCGTTGCGCTCACTGCCCGCTTTCCAGTCGGGAAACCTGTCGTGCCAGCTGCATTAATGAATCGGCCAACGCGCGGGGAGAGGCGGTTTGCGTATTGGGCGCCAGGGTGGTTTTTCTTTTCACCAGTGAGACGGGCAACAGCTGATTGCCCTTCACCGCCTGGCCCTGAGAGAGTTGCAGCAAGCGGTCCACGCTGGTTTGCCCCAGCAGGCGAAAATCCTGTTTGATGGTGGTTAACGGCGGGATATAACATGAGCTGTCTTCGGTATCGTCGTATCCCACTACCGAGATATCCGCACCAACGCGCAGCCCGGACTCGGTAATGGCGCGCATTGCGCCCAGCGCCATCTGATCGTTGGCAACCAGCATCGCAGTGGGAACGATGCCCTCATTCAGCATTTGCATGGTTTGTTGAAAACCGGACATGGCACTCCAGTCGCCTTCCCGTTCCGCTATCGGCTGAATTTGATTGCGAGTGAGATATTTATGCCAGCCAGCCAGACGCAGACGCGCCGAGACAGAACTTAATGGGCCCGCTAACAGCGCGATTTGCTGGTGACCCAATGCGACCAGATGCTCCACGCCCAGTCGCGTACCGTCTTCATGGGAGAAAATAATACTGTTGATGGGTGTCTGGTCAGAGACATCAAGAAATAACGCCGGAACATTAGTGCAGGCAGCTTCCACAGCAATGGCATCCTGGTCATCCAGCGGATAGTTAATGATCAGCCCACTGACGCGTTGCGCGAGAAGATTGTGCACCGCCGCTTTACAGGCTTCGACGCCGCTTCGTTCTACCATCGACACCACCACGCTGGCACCCAGTTGATCGGCGCGAGATTTAATCGCCGCGACAATTTGCGACGGCGCGTGCAGGGCCAGACTGGAGGTGGCAACGCCAATCAGCAACGACTGTTTGCCCGCCAGTTGTTGTGCCACGCGGTTGGGAATGTAATTCAGCTCCGCCATCGCCGCTTCCACTTTTTCCCGCGTTTTCGCAGAAACGTGGCTGGCCTGGTTCACCACGCGGGAAACGGTCTGATAAGAGACACCGGCATACTCTGCGACATCGTATAACGTTACTGGTTTCACATTCACCACCCTGAATTGACTCTCTTCCGGGCGCTATCATGCCATACCGCGAAAGGTTTTGCGCCATTCGATGGTGTCCGGGATCTCGACGCTCTCCCTTATGCGACTCCTGCATTAGGAAGCAGCCCAGTAGTAGGTTGAGGCCGTTGAGCACCGCCGCCGCAAGGAATGGTGCATGCAAGGAGATGGCGCCCAACAGTCCCCCGGCCACGGGGCCTGCCACCATACCCACGCCGAAACAAGCGCTCATGAGCCCGAAGTGGCGAGCCCGATCTTCCCCATCGGTGATGTCGGCGATATAGGCGCCAGCAACCGCACCTGTGGCGCCGGTGATGCCGGCCACGATGCGTCCGGCGTAGAGGATCG",
+        annotations: [
+            { name: "T7 Promoter", start: 20, end: 40, color: "RosyBrown", direction: 1 },
+            { name: "INS (insulin CDS)", start: 107, end: 440, color: "#e9cf24", direction: 1 },
+            { name: "KanR", start: 1162, end: 1978, color: "#ccffcc", direction: -1 },
+            { name: "ColE1 origin", start: 2023, end: 2706, color: "gray", direction: 1 },
+            { name: "lacI", start: 4117, end: 5200, color: "#993366", direction: -1 }
+        ],
+        primers: [
+            { name: "Forward Anneal", start: 392, end: 413, color: "cyan", direction: 1 },
+            { name: "Reverse Anneal", start: 367, end: 389, color: "cyan", direction: 1 },
+            { name: "C96", start: 389, end: 392, color: "red", direction: 1 },
+
+        ],
+        viewer: "linear",
+        showComplement: false,
+        showIndex: true,
+        showAnnotations: true,
+        showLabels: true,
+        zoom: { linear: 40 },
+        style: { height: "500px", width: "100%" }
+      })
+      .render();
+  });
+</script>
+
+### Oligos
+
+```
+Forward Primer (ol_C96S_F)
+          [anneal]  [MUTATED CODON]  [anneal]
+5’-gaagcgtggcattgtggaacaaAGTtgtaccagcatctgctccctc-3’
+
+Reverse Primer (ol_C96S_R)
+Reverse complement of forward primer
+5’-gagggagcagatgctggtacaACTttgttccacaatgccacgcttc-3’
+```
+
+### Final Notes
+
+- Perform **DpnI digestion** after PCR to eliminate the template plasmid.
+- No ligase is required — the cell repairs the nicks.
+- Very fast and easy to perform
+- Ideal for single codon changes, but less robust than EIPCR for large insertions.
 
 ---
 
-## 3) QuikChange (Annealed Mutagenic Primers)
-
-QuikChange uses overlapping oligos (like Gibson) but doesn't require enzymes. The forward and reverse primers both carry the mutation and anneal to the same location. You amplify the full plasmid and let the cell repair nicks.
-
-### Notes:
-
-- Works best with high-fidelity polymerases
-- Can be finicky due to primer dimerization
-- No external enzyme steps needed
-
-📘 **Example: Introduce an alanine scan into a loop region**
-
-- Show one mutation case with primer design and PCR product
-
----
-
-## 4) Saturation Mutagenesis
+## 3) Saturation Mutagenesis
 
 When you began the wetlab portion of the pP6 experiment, you used Golden Gate-style site-directed mutagenesis not to create a single edited clone, but an entire **library** of variants. This approach is called **saturation mutagenesis**.
 
@@ -310,11 +341,6 @@ A previous screen of a **site-saturation mutagenesis library** at position **T20
 
 In this quiz, you will build the same library — not just a single mutant — using **Golden Gate mutagenesis**. You'll introduce an **NNK codon** at position 203 of EGFP to allow all 20 amino acids (and one stop) to be sampled.
 
-This integrates everything you've learned:
- - Proper **frame-aware oligo design**
- - Use of **degenerate bases**
- - Careful **Golden Gate oligo junction placement**
-
 ---
 
 ### Tools
@@ -343,9 +369,8 @@ You will:
 
 ⚠️ Important: The plasmid contains an internal BsaI site, which would interfere with assembly. To avoid this conflict, use BsmBI instead (recognition site: 5′–CGTCTC(N1/N5)–3′).
 
----
 
-## Guidelines
+### Guidelines
 
 This quiz builds on everything you’ve learned so far. As you design your T203NNK library:
 
@@ -353,9 +378,8 @@ This quiz builds on everything you’ve learned so far. As you design your T203N
 - Replace only the codon for T203 with `NNK`, preserving the reading frame.
 - As you prepare your product sequence in ApE or Benchling, annotate the edited codon as `"T203NNK"` to keep track of your mutation site.
 - Choose a nearby 4 bp junction, the annealing regions, and design 2 Golden Gate oligos.
-- Your final construct name should be: `EGFP-T203X`.
-
-## Mutagenesis Quiz: T203X EGFP Variant Library
+- Write up and simulate your construction file below.
+- The simulator already has the sequence for pcDNA3-EGFP.
 
 <form id="cf_quiz_form" style="background-color:#d8edfa; padding:20px; border:1px solid #ccc; border-radius:6px; margin-top:20px;">
   <p><strong>Paste your Construction File (CF) below</strong> and click <strong>Simulate</strong>. You’ll see the resulting sequences, and if your design is valid, it will complete the quiz.</p>
