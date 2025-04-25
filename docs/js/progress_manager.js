@@ -25,7 +25,7 @@ if (!window.progressManager) {
               "basic_cloning": ["Cas9 Cloning"],
               "gibson": ["Gibson Cloning"],
               "golden_gate": ["Golden Gate Assembly"],
-              "mutagenesis": [],
+              "mutagenesis": ["Mutagenesis"],
               "sequencing_confirmation": [
                 "strategy_scenarios",
                 "primer_design",

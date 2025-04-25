@@ -283,8 +283,8 @@ Download the full quiz data set here:
 Each folder in the zip includes:
 
 - A `.ab1` trace
-- A `.txt` read
-- A `.gb` model with the confirmation region annotated
+- A `.seq` read
+- A `.gb` model with the confirmation target annotated
 
 ---
 
@@ -355,7 +355,7 @@ Each folder in the zip includes:
   });
 </script>
 
-<h3>Case 3: perfect</h3>
+<h3>Case 3: pJ19</h3>
 <p>What kind of outcome is shown in this sequencing result?</p>
 <select id="q_case3">
   <option value="">--Select scenario--</option>
