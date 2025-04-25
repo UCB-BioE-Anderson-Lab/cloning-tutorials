@@ -89,13 +89,13 @@ Below is a portion of the *cscR* sequence with all potential PAM sites (NGG) hig
 
 Once you select your new protospacer, you replace the original cadA-targeting protospacer in pTargetF.
 
-Below, we show the pTargetF gRNA region **before** and **after** editing:
+Below, we show the pTargetF sequence before and after the change.  We also select forward and reverse anneal sequences flanking the site of modification.
 
 ### Original (targeting cadA)
 
 <div id="viewer2" style="height:100px;"></div>
 
-### Our Goal (targeting cscR)
+### With cscR replaced
 
 <div id="viewer3" style="height:100px; margin-top:20px;"></div>
 
@@ -149,6 +149,42 @@ Below, we show the pTargetF gRNA region **before** and **after** editing:
         style: { height: "100px", width: "100%" }
       })
       .render();
+  });
+</script>
+
+Now that we’ve modeled the edited region, we can design primers to build it. The **forward primer** includes everything from the SpeI site through the end of the forward annealing region. The **reverse primer** is the reverse complement of the sequence from the start of the reverse anneal to the end of the SpeI site. Add a 5′ tail of 5 arbitrary bases to both primers to improve enzyme activity and allow for efficient restriction digestion.
+
+```
+Forward Primer (ol_protoF)  
+        SpeI  Protospacer         Forward Anneal  
+5’-ccataACTAGTaacgcgtgaccgcgtattgcGTTTTAGAGCTAGAAATAGCAAG -3’
+
+Reverse Primer (ol_protoR)  
+        SpeI  Reverse Anneal (rc)  
+5’-ctcagACTAGTattatacctaggactgagctag-3’
+```
+
+Finally, we can write up our construction file.  As always, simulate your construction file to make sure it works before ordering oligos.
+
+<pre id="cf_quiz_example" style="background:#f8f8f8; border:1px solid #ccc; padding:10px; border-radius:4px; overflow-x:auto; white-space:pre;">
+PCR       ol_protoF       ol_protoR       pTargetF      ipcr
+Digest    ipcr                            SpeI          speDig
+Ligate    speDig                                        pTarget-cscR
+</pre>
+<button id="copyCFBtn" style="margin-top:5px;">Copy Example</button>
+<script>
+  document.getElementById("copyCFBtn").addEventListener("click", function () {
+    const btn = this;
+    const content = document.getElementById("cf_quiz_example").innerText;
+    navigator.clipboard.writeText(content).then(() => {
+      const originalText = btn.innerText;
+      btn.innerText = "✅ Copied!";
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerText = originalText;
+        btn.disabled = false;
+      }, 2000);
+    });
   });
 </script>
 
