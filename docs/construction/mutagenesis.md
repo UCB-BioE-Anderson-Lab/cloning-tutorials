@@ -1,3 +1,4 @@
+<script src="https://unpkg.com/seqviz"></script>
 # Site-Directed Mutagenesis
 
 Site-directed mutagenesis refers to any cloning technique where you introduce a specific, localized change into a DNA sequence. These changes may include:
@@ -9,7 +10,9 @@ Site-directed mutagenesis refers to any cloning technique where you introduce a 
 
 In all cases, you're targeting a specific location within a plasmid and rewriting a short region while leaving the rest unchanged.
 
-![Diagram showing patch editing of a plasmid region while keeping the rest constant](../images/site_mutagenesis_overview.png)
+![Zoomed schematic of the pTargetF plasmid showing a site-directed edit in the gRNA region: the cadA-targeting protospacer (orange) is swapped for a cscR-targeting protospacer (pink), adjacent to a constant tracrRNA scaffold (green), under control of the P_con promoter and flanked by a SpeI site.](../images/pTargetF_protospacer_mutagenesis.png)
+
+**Figure:** Site-directed mutagenesis of the pTargetF plasmid to retarget the gRNA. The original cadA-targeting protospacer (orange) is replaced with a new cscR-targeting protospacer (pink), using a SpeI-flanked region upstream of the gRNA scaffold (green tracrRNA).
 
 ##  🎥 Video Demo
 <iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
@@ -35,53 +38,126 @@ This method is ideal when the mutation you want to introduce is close to a uniqu
 
 ---
 
+
 ### Example: Retargeting the protospacer in pTargetF
 
-The **pTargetF** plasmid is commonly used to express **guide RNAs (gRNAs)** for CRISPR/Cas9-mediated gene knockouts. A gRNA consists of a constant scaffold region and a customizable 20 bp **protospacer** sequence at the 5′ end that determines DNA target specificity.
 
-In this example, you'll modify the **protospacer** to retarget the guide to a new genomic location.
+In the Basic Cloning tutorial, you cloned the Cas9 gene from *Streptococcus pyogenes* into an expression vector. Cas9 is the "scissors" protein that creates double-strand breaks at specific locations in DNA, but it requires a guide RNA (gRNA) to find its target. The gRNA consists of two parts: a customizable 20 bp protospacer sequence that matches the genomic target, and a constant scaffold that helps recruit Cas9. Together, the Cas9 protein and the gRNA form a complex that scans DNA, binds to sequences matching the protospacer, and cuts them if an adjacent "NGG" protospacer-adjacent motif (PAM) is present.
 
-The pTargetF plasmid includes a **SpeI site** directly upstream of the protospacer, allowing us to use EIPCR to change this region. After PCR and SpeI digestion, the linear product is ligated to form the edited plasmid.
+To design a new protospacer, you need to identify a 20 bp sequence in your target gene that is directly upstream of an NGG motif—the PAM site required by Cas9. In practice, you scan for "GG" on the 3′ end of the desired target, then take the 20 bp sequence immediately upstream. For example, if "GG" starts at position 101, the protospacer would be positions 80 to 99. You can think of this computationally as finding the index of "GG" and extracting the −21 to −1 substring. Any sequence that satisfies this rule can be targeted for cleavage by Cas9. To create a new gRNA, simply replace the 20 bp protospacer sequence in pTargetF and coexpress with Cas9.
 
----
-
-### Primer Design
-
-Forward Primer  
-            SpeI           protospacer        guide scaffold  
-5′-ccataACTAGTacgctgcctgagtctctgtagttttagagctagaaatagcaag-3′
-
-Reverse Primer  
-            SpeI              J23119 promoter  
-5′-ctcagACTAGTattatacctaggactgagctag-3′
+The **pTargetF** plasmid expresses guide RNAs (gRNAs) for CRISPR/Cas9, combining a customizable 20 bp **protospacer** (which determines target specificity) with a constant scaffold region. To retarget Cas9 to a new genomic site, you simply replace the protospacer. Conveniently, pTargetF includes a **SpeI site** upstream of the protospacer, allowing efficient editing via EIPCR: PCR amplify the plasmid with primers encoding the new protospacer, digest with SpeI, and re-ligate to form the edited plasmid.
 
 ---
 
-### Construction File
+## Primer Design and Strategy
 
-```
-PCR     ca4238    ca4239    pTargetF     ipcr
-Digest  ipcr      SpeI      1            dig
-Ligate  dig                          	   lig
-Transform lig      Mach1 Spec 37        pTarg-cscR
-```
+The first step is to model your edited sequence. We want to replace the original cadA-targeting protospacer in pTargetF with a new protospacer targeting the *cscR* gene.
+
+Below is a portion of the *cscR* sequence with all potential PAM sites (NGG) highlighted. Any 20 bp sequence immediately upstream of a GG can serve as a candidate protospacer. Specialized software tools can help you pick optimal guides based on efficiency and off-target predictions, and in many cases, validated guides are available in public databases.
+
+<div id="viewer1" style="height:200px;"></div>
+<script>
+  function waitForSeqViz(callback) {
+    if (typeof seqviz !== "undefined" && seqviz.Viewer) {
+      callback();
+    } else {
+      setTimeout(() => waitForSeqViz(callback), 50);
+    }
+  }
+
+  waitForSeqViz(() => {
+    seqviz
+      .Viewer("viewer1", {
+        name: "cscR region",
+        seq: "atgatgacagtctcccgggtgatgcataatgcagaatctgtgcgtcctgcaacgcgtgaccgcgtattgcaggcaatccagaccctgaattatgttcctgatctttccgcccgtaagatgcgcgctcaaggacgtaagccgtcgactctcgccgtgctggcgcaggacacggctaccactcctttctctgttgatattctgcttgccattgagcaaaccgccagcgagttcggctggaatagttttttaatcaatattttttctgaagatgacgctgcccgcgcggcacgtcagctgcttgcccaccgtccggatggcattatctatactacaatggggctgcgacatatcacgctgcctgagtctctgtatggtgaaaatattgtattggcgaactgtgtggcggatgacccagcgttacccagttatatccctgatgattacactgcacaatatgaatcaacacagcatttgctcgcggcgggctatcgtcaaccgttatgcttctggctaccggaaagtgcgttggcaacagggtatcgtcggcagggatttgagcaggcctggcgtgatgctggacgagatctggctgaggtgaaacaatttcacatggcaacaggtgatgatcactacaccgatctcgcaagtttactcaatgcccacttcaaaccgggcaaaccagattttgatgttctgatatgtggtaacgatcgcgcagcctttgtggcttatcaggttcttctggcgaagggggtacgaatcccgcaggatgtcgccgtaatgggctttgataatctggttggcgtcgggcatctgtttttaccgccgctgaccacaattcagcttccacatgacattatcgggcgggaagctgcattgcatattattgaaggtcgtgaagggggaagagtgacgcggatcccttgcccgctgttgatccgttgttccacctga", 
+        annotations: [
+          { name: "Chosen Protospacer", start: 50, end: 70, color: "magenta", direction: 1 },
+          { name: "PAM (NGG)", start: 70, end: 73, color: "orange", direction: 1 },
+        ],
+        viewer: "linear",
+        showComplement: false,
+        showIndex: true,
+        showAnnotations: true,
+        showLabels: true,
+        zoom: { linear: 40 },
+        style: { height: "100px", width: "100%" }
+      })
+      .render();
+  });
+</script>
+
+Once you select your new protospacer, you replace the original cadA-targeting protospacer in pTargetF.
+
+Below, we show the pTargetF gRNA region **before** and **after** editing:
+
+### Original (targeting cadA)
+
+<div id="viewer2" style="height:100px;"></div>
+
+### Our Goal (targeting cscR)
+
+<div id="viewer3" style="height:100px; margin-top:20px;"></div>
+
+<script>
+  waitForSeqViz(() => {
+    seqviz
+      .Viewer("viewer2", {
+        name: "Original pTargetF (cadA protospacer)",
+        seq: "ttgacagctagctcagtcctaggtataatACTAGTcatcgccgcagcggtttcaggttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgctttttttgaattctctagagtcgacctgcagaagcttagatctattaccctgttatccctactcgagttcatgtgcagctccataagcaaaaggggatgataagtttatcaccaccgactatttgcaacagtgccgttgatcgtgctatgatcgactgatgtcatcagcggtggagtgcaatgtcatgagggaagcggtgatcgccgaagtatcgactcaactatcagaggtagttggcgtcatcgagcgccatctcgaaccgacgttgctggccgtacatttgtacggctccgcagtggatggcggcctgaagccacacagtgatattgatttgctggttacggtgaccgtaaggcttgatgaaacaacgcggcgagctttgatcaacgaccttttggaaacttcggcttcccctggagagagcgagattctccgcgctgtagaagtcaccattgttgtgcacgacgacatcattccgtggcgttatccagctaagcgcgaactgcaatttggagaatggcagcgcaatgacattcttgcaggtatcttcgagccagccacgatcgacattgatctggctatcttgctgacaaaagcaagagaacatagcgttgccttggtaggtccagcggcggaggaactctttgatccggttcctgaacaggatctatttgaggcgctaaatgaaaccttaacgctatggaactcgccgcccgactgggctggcgatgagcgaaatgtagtgcttacgttgtcccgcatttggtacagcgcagtaaccggcaaaatcgcgccgaaggatgtcgctgccgactgggcaatggagcgcctgccggcccagtatcagcccgtcatacttgaagctagacaggcttatcttggacaagaagaagatcgcttggcctcgcgcgcagatcagttggaagaatttgtccactacgtgaaaggcgagatcaccaaggtagtcggcaaataagatgccgctcgccagtcgattggctgagctcataagttcctattccgaagttccgcgaacgcgtaaaggatctaggtgaagatcctttttgataatctcatgaccaaaatcccttaacgtgagttttcgttccactgagcgtcagaccccgtagaaaagatcaaaggatcttcttgagatcctttttttctgcgcgtaatctgctgcttgcaaacaaaaaaaccaccgctaccagcggtggtttgtttgccggatcaagagctaccaactctttttccgaaggtaactggcttcagcagagcgcagataccaaatactgtccttctagtgtagccgtagttaggccaccacttcaagaactctgtagcaccgcctacatacctcgctctgctaatcctgttaccagtggctgctgccagtggcgataagtcgtgtcttaccgggttggactcaagacgatagttaccggataaggcgcagcggtcgggctgaacggggggttcgtgcacacagcccagcttggagcgaacgacctacaccgaactgagatacctacagcgtgagctatgagaaagcgccacgcttcccgaagggagaaaggcggacaggtatccggtaagcggcagggtcggaacaggagagcgcacgagggagcttccagggggaaacgcctggtatctttatagtcctgtcgggtttcgccacctctgacttgagcgtcgatttttgtgatgctcgtcaggggggcggagcctatggaaaaacgccagcaacgcggcctttttacggttcctggccttttgctggccttttgctcacatgttctttcctgcgttatcccctgattctgtggataaccgtattaccgcctttgagtgagctgataccgctcgccgcagccgaacgaccgagcgcagcgagtcagtgagcgaggaagcggaagagcgcctgatgcggtattttctccttacgcatctgtgcggtatttcacaccgcatatgctggatcc",
+        annotations: [
+          { name: "Pcon J23119", start: 0, end: 29, color: "#ff9200", direction: 1 },
+          { name: "SpeI", start: 29, end: 35, color: "#41e0fe", direction: 1 },
+          { name: "cadA protospacer (crRNA)", start: 35, end: 55, color: "#fedb68", direction: 1 },
+          { name: "trcrRNA (scaffold)", start: 55, end: 131, color: "#31ff1a", direction: 1 },
+          { name: "SmR", start: 316, end: 1108, color: "#3d8be4", direction: 1 },
+          { name: "ori", start: 1281, end: 1870, color: "#999999", direction: 1 }
+        ],
+        viewer: "linear",
+        showComplement: false,
+        showIndex: true,
+        showAnnotations: true,
+        showLabels: true,
+        zoom: { linear: 40 },
+        style: { height: "80px", width: "100%" }
+      })
+      .render();
+
+    seqviz
+      .Viewer("viewer3", {
+        name: "Edited pTargetF (cscR protospacer)",
+        seq: "ttgacagctagctcagtcctaggtataatACTAGTaacgcgtgaccgcgtattgcgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgctttttttgaattctctagagtcgacctgcagaagcttagatctattaccctgttatccctactcgagttcatgtgcagctccataagcaaaaggggatgataagtttatcaccaccgactatttgcaacagtgccgttgatcgtgctatgatcgactgatgtcatcagcggtggagtgcaatgtcatgagggaagcggtgatcgccgaagtatcgactcaactatcagaggtagttggcgtcatcgagcgccatctcgaaccgacgttgctggccgtacatttgtacggctccgcagtggatggcggcctgaagccacacagtgatattgatttgctggttacggtgaccgtaaggcttgatgaaacaacgcggcgagctttgatcaacgaccttttggaaacttcggcttcccctggagagagcgagattctccgcgctgtagaagtcaccattgttgtgcacgacgacatcattccgtggcgttatccagctaagcgcgaactgcaatttggagaatggcagcgcaatgacattcttgcaggtatcttcgagccagccacgatcgacattgatctggctatcttgctgacaaaagcaagagaacatagcgttgccttggtaggtccagcggcggaggaactctttgatccggttcctgaacaggatctatttgaggcgctaaatgaaaccttaacgctatggaactcgccgcccgactgggctggcgatgagcgaaatgtagtgcttacgttgtcccgcatttggtacagcgcagtaaccggcaaaatcgcgccgaaggatgtcgctgccgactgggcaatggagcgcctgccggcccagtatcagcccgtcatacttgaagctagacaggcttatcttggacaagaagaagatcgcttggcctcgcgcgcagatcagttggaagaatttgtccactacgtgaaaggcgagatcaccaaggtagtcggcaaataagatgccgctcgccagtcgattggctgagctcataagttcctattccgaagttccgcgaacgcgtaaaggatctaggtgaagatcctttttgataatctcatgaccaaaatcccttaacgtgagttttcgttccactgagcgtcagaccccgtagaaaagatcaaaggatcttcttgagatcctttttttctgcgcgtaatctgctgcttgcaaacaaaaaaaccaccgctaccagcggtggtttgtttgccggatcaagagctaccaactctttttccgaaggtaactggcttcagcagagcgcagataccaaatactgtccttctagtgtagccgtagttaggccaccacttcaagaactctgtagcaccgcctacatacctcgctctgctaatcctgttaccagtggctgctgccagtggcgataagtcgtgtcttaccgggttggactcaagacgatagttaccggataaggcgcagcggtcgggctgaacggggggttcgtgcacacagcccagcttggagcgaacgacctacaccgaactgagatacctacagcgtgagctatgagaaagcgccacgcttcccgaagggagaaaggcggacaggtatccggtaagcggcagggtcggaacaggagagcgcacgagggagcttccagggggaaacgcctggtatctttatagtcctgtcgggtttcgccacctctgacttgagcgtcgatttttgtgatgctcgtcaggggggcggagcctatggaaaaacgccagcaacgcggcctttttacggttcctggccttttgctggccttttgctcacatgttctttcctgcgttatcccctgattctgtggataaccgtattaccgcctttgagtgagctgataccgctcgccgcagccgaacgaccgagcgcagcgagtcagtgagcgaggaagcggaagagcgcctgatgcggtattttctccttacgcatctgtgcggtatttcacaccgcatatgctggatcc",
+        annotations: [
+          { name: "Pcon J23119", start: 0, end: 29, color: "#ff9200", direction: 1 },
+          { name: "SpeI", start: 29, end: 35, color: "#41e0fe", direction: 1 },
+          { name: "cscR protospacer (crRNA)", start: 35, end: 55, color: "magenta", direction: 1 },
+          { name: "trcrRNA (scaffold)", start: 55, end: 131, color: "#31ff1a", direction: 1 },
+          { name: "SmR", start: 316, end: 1108, color: "#3d8be4", direction: 1 },
+          { name: "ori", start: 1281, end: 1870, color: "#999999", direction: 1 }
+        ],
+        primers: [
+          { name: "Forward Anneal", start: 55, end: 78, color: "Silver", direction: 1 },
+          { name: "Reverse Anneal", start: 7, end: 29, color: "Silver", direction: 1 }
+        ],
+        viewer: "linear",
+        showComplement: false,
+        showIndex: true,
+        showAnnotations: true,
+        showPrimers: true,
+        showLabels: true,
+        zoom: { linear: 40 },
+        style: { height: "100px", width: "100%" }
+      })
+      .render();
+  });
+</script>
 
 ---
 
-### 📊 Graphic
-
-![Diagram of inverse PCR used to modify the protospacer region in pTargetF](../images/pTargetF_EIPCR.png)
-
-**Figure: Inverse PCR strategy for editing the protospacer in pTargetF.**  
-The plasmid expresses a guide RNA driven by the J23119 promoter. The protospacer is located at the 5′ end of the gRNA and determines DNA target specificity. A SpeI restriction site upstream of the protospacer enables EIPCR: primers amplify the full vector and introduce the new protospacer, followed by SpeI digestion and re-ligation.
-
-**Alt text:** Circular map of pTargetF with arrows showing inverse PCR across the guide RNA region, highlighting the SpeI site and protospacer edit.
-
----
 
 ## 2) Type IIs-based Mutagenesis
 
-You can also use Golden Gate-style enzymes like **BsaI** or **BsmBI** to cut-and-religate the vector with edits—just like Golden Gate, but with one piece.
+You can also use Golden Gate-style enzymes like **BsaI** or **BsmBI** to cut-and-religate the vector with edits—just like Golden Gate but with one piece.
 
 This allows you to:
 
@@ -167,6 +243,7 @@ P6LibF2   CAGTAggtctcgATAATNNNNNNANNNNGTTAGTATTTCTCCTCGTCTAC
 ```
 
 These primers:
+
 - Introduce degeneracy to encode a 4-amino-acid linker between domains
 - Conform to Golden Gate primer rules (prefix, BsaI, sticky, anneal)
 - Place degeneracy well away from the junctions for optimal ligation efficiency
@@ -228,77 +305,110 @@ You will:
 - Open the downloaded `.gbk` file in **ApE** or **Benchling** to view the plasmid map and annotations.
 - A copy of the plasmid map is also available in the tutorial’s `assets` folder as: `addgene-plasmid-13031-sequence-305137.gbk`.
 
+⚠️ Important: The plasmid contains an internal BsaI site, which would interfere with assembly. To avoid this conflict, use BsmBI instead (recognition site: 5′–CGTCTC(N1/N5)–3′).
+
 ---
 
 ## Guidelines
 
 This quiz builds on everything you’ve learned so far. As you design your T203NNK library:
 
-- Use Golden Gate mutagenesis on `pcDNA3-EGFP`.
+- Use Golden Gate mutagenesis with BsmBI on `pcDNA3-EGFP`.
 - Replace only the codon for T203 with `NNK`, preserving the reading frame.
 - As you prepare your product sequence in ApE or Benchling, annotate the edited codon as `"T203NNK"` to keep track of your mutation site.
 - Choose a nearby 4 bp junction, the annealing regions, and design 2 Golden Gate oligos.
 - Your final construct name should be: `EGFP-T203X`.
 
-Paste your Construction File below and click **Grade My Work**.
+## Mutagenesis Quiz: T203X EGFP Variant Library
 
-<textarea id="cfMutationInput" rows="10" style="width:100%; font-family:monospace;"></textarea>
-<br>
-<button onclick="gradeMutationCF()">Grade My Work</button>
-
-<div id="cfMutationOutput" style="margin-top:20px;"></div>
+<form id="cf_quiz_form" style="background-color:#d8edfa; padding:20px; border:1px solid #ccc; border-radius:6px; margin-top:20px;">
+  <p><strong>Paste your Construction File (CF) below</strong> and click <strong>Simulate</strong>. You’ll see the resulting sequences, and if your design is valid, it will complete the quiz.</p>
+  <textarea id="cf_quiz_input" rows="10" style="width:100%; font-family:monospace;"></textarea>
+  <br>
+  <button type="button" id="cf_quiz_btn" style="margin-top:10px;">Simulate</button>
+  <p id="cf_quiz_result" style="margin-top: 10px; font-weight:bold;"></p>
+</form>
 
 <script>
-window.gradeMutationCF = function () {
-  const input = document.getElementById("cfMutationInput").value.trim();
-  const outputDiv = document.getElementById("cfMutationOutput");
-  outputDiv.innerHTML = "";
+  document.getElementById("cf_quiz_btn").addEventListener("click", function () {
+    const input = document.getElementById("cf_quiz_input").value.trim();
+    const resultP = document.getElementById("cf_quiz_result");
+    resultP.innerHTML = "";
 
-  try {
-    const steps = parseCF(input);
-    const results = simCF(steps);
-    const finalProduct = results[results.length - 1];
-    const seq = finalProduct.sequence.toUpperCase();
-
-    function rc(s) {
-      return s.split('').reverse().map(base => {
-        return { A: 'T', T: 'A', G: 'C', C: 'G', N: 'N', K: 'M', M: 'K', R: 'Y', Y: 'R', S: 'S', W: 'W' }[base] || base;
-      }).join('');
-    }
-
-    const searchSpace = seq + seq + "x" + rc(seq) + rc(seq);
-
-    // Targets
-    const requiredStrings = [
-      "TAATACGACTCACTATAGGGAGACCCAAGCTTGGTACCGAGCTCGGATCCACTAGTAACGGCCGCCAGTGTGCTGGAATTCTGCAGATATCCATCACACTGGCGGCCGCTCGAGATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACCGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCCTGACCTACGGCGTGCAGTGCTTCAGCCGCTACCCCGACCACATGAAGCAGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGACGGCAACATCCTGGGGCACAAGCTGGAGTACAACTACAACAGCCACAACGTCTATATCATGGCCGACAAGCAGAAGAACGGCATCAAGGTGAACTTCAAGATCCGCCACAACATCGAGGACGGCAGCGTGCAGCTCGCCGACCACTACCAGCAGAACACCCCCATCGGCGACGGCCCCGTGCTGCTGCCCGACAACCACTACCTGAGCNNKCAGTCCGCCCTGAGCAAAGACCCCAACGAGAAGCGCGATCACATGGTCCTGCTGGAGTTCGTGACCGCCGCCGGGATCACTCTCGGCATGGACGAGCTGTACAAGTAATCTAGAGGGCCCTATTCTATAGTGTCACCTAAATGCTAGAGCTCGCTGATCAGCCTCGACTGTGCCTTCTAGTTGCCAGCCATCTGTTGTTTGCCCCTCCCCCGTGCCTTCCTTGACCCTGGAAGGTGCCACTCCCACTGTCCTTTCCTAATAAAATGAGGAAATTGCATCGCATTGTCTGAGTAGGTGTCATTCTATTCTGGGGGGTGGGGTGGGGCA", // full NNK ORF with flanking context
-      "CATTGACGTCAATAATGACGTATGTTCCCATAGTAA", // CMV enhancer
-      "ACAGCAAGGGGGAGGATTGGGAAGACAATA",       // bGH poly(A)
-      "GTGATGGTTCACGTAGTGGGCCATCGCCCTGATAGACGGT", // f1 ori
-      "GGATCTCCTGTCATCTCACCTTGCTCCTGC",       // kanR
-      "GGTATCTCAGTTCGGTGTAGG",               // ori
-      "TCCGGTTCCCAACGATCAAGGCGAGTTACA"        // ampR
-    ];
-
-    let feedback = [];
-    let missing = [];
-
-    requiredStrings.forEach(s => {
-      if (!searchSpace.includes(s)) {
-        missing.push(s);
+    try {
+      if (!window.C6 || typeof window.C6.parseCF !== "function") {
+        throw new Error("C6 tools not loaded. Please ensure window.C6 is available.");
       }
-    });
 
-    if (missing.length === 0) {
-      feedback.push("✅ Success! All expected elements were found in the simulated product.");
-      progressManager.addCompletion("EGFP T203 Saturation Mutagenesis", "correct");
-    } else {
-      feedback.push(`❌ The following expected elements were missing from your construct:`);
-      feedback = feedback.concat(missing.map(m => `<code>${m}</code>`));
+      const cf = window.C6.parseCF(input);
+      // Inject sequences for simulation
+      cf.sequences = cf.sequences || {};
+      cf.sequences["pcDNA3-EGFP"] = "gacattgattattgactagttattaatagtaatcaattacggggtcattagttcatagcccatatatggagttccgcgttacataacttacggtaaatggcccgcctggctgaccgcccaacgacccccgcccattgacgtcaataatgacgtatgttcccatagtaacgccaatagggactttccattgacgtcaatgggtggagtatttacggtaaactgcccacttggcagtacatcaagtgtatcatatgccaagtacgccccctattgacgtcaatgacggtaaatggcccgcctggcattatgcccagtacatgaccttatgggactttcctacttggcagtacatctacgtattagtcatcgctattaccatggtgatgcggttttggcagtacatcaatgggcgtggatagcggtttgactcacggggatttccaagtctccaccccattgacgtcaatgggagtttgttttggcaccaaaatcaacgggactttccaaaatgtcgtaacaactccgccccattgacgcaaatgggcggtaggcgtgtacggtgggaggtctatataagcagagctctctggctaactagagaacccactgcttactggcttatcgaaattaatacgactcactatagggagacccaagcttggtaccgagctcggatccactagtaacggccgccagtgtgctggaattctgcagatatccatcacactggcggccgctcgagatggtgagcaagggcgaggagctgttcaccggggtggtgcccatcctggtcgagctggacggcgacgtaaacggccacaagttcagcgtgtccggcgagggcgagggcgatgccacctacggcaagctgaccctgaagttcatctgcaccaccggcaagctgcccgtgccctggcccaccctcgtgaccaccctgacctacggcgtgcagtgcttcagccgctaccccgaccacatgaagcagcacgacttcttcaagtccgccatgcccgaaggctacgtccaggagcgcaccatcttcttcaaggacgacggcaactacaagacccgcgccgaggtgaagttcgagggcgacaccctggtgaaccgcatcgagctgaagggcatcgacttcaaggaggacggcaacatcctggggcacaagctggagtacaactacaacagccacaacgtctatatcatggccgacaagcagaagaacggcatcaaggtgaacttcaagatccgccacaacatcgaggacggcagcgtgcagctcgccgaccactaccagcagaacacccccatcggcgacggccccgtgctgctgcccgacaaccactacctgagcacccagtccgccctgagcaaagaccccaacgagaagcgcgatcacatggtcctgctggagttcgtgaccgccgccgggatcactctcggcatggacgagctgtacaagtaatctagagggccctattctatagtgtcacctaaatgctagagctcgctgatcagcctcgactgtgccttctagttgccagccatctgttgtttgcccctcccccgtgccttccttgaccctggaaggtgccactcccactgtcctttcctaataaaatgaggaaattgcatcgcattgtctgagtaggtgtcattctattctggggggtggggtggggcaggacagcaagggggaggattgggaagacaatagcaggcatgctggggatgcggtgggctctatggcttctgaggcggaaagaaccagctggggctctagggggtatccccacgcgccctgtagcggcgcattaagcgcggcgggtgtggtggttacgcgcagcgtgaccgctacacttgccagcgccctagcgcccgctcctttcgctttcttcccttcctttctcgccacgttcgccggctttccccgtcaagctctaaatcgggggctccctttagggttccgatttagtgctttacggcacctcgaccccaaaaaacttgattagggtgatggttcacgtagtgggccatcgccctgatagacggtttttcgccctttgacgttggagtccacgttctttaatagtggactcttgttccaaactggaacaacactcaaccctatctcggtctattcttttgatttataagggattttgccgatttcggcctattggttaaaaaatgagctgatttaacaaaaatttaacgcgaattaattctgtggaatgtgtgtcagttagggtgtggaaagtccccaggctccccagcaggcagaagtatgcaaagcatgcatctcaattagtcagcaaccaggtgtggaaagtccccaggctccccagcaggcagaagtatgcaaagcatgcatctcaattagtcagcaaccatagtcccgcccctaactccgcccatcccgcccctaactccgcccagttccgcccattctccgccccatggctgactaattttttttatttatgcagaggccgaggccgcctctgcctctgagctattccagaagtagtgaggaggcttttttggaggcctaggcttttgcaaaaagctcccgggagcttgtatatccattttcggatctgatcaagagacaggatgaggatcgtttcgcatgattgaacaagatggattgcacgcaggttctccggccgcttgggtggagaggctattcggctatgactgggcacaacagacaatcggctgctctgatgccgccgtgttccggctgtcagcgcaggggcgcccggttctttttgtcaagaccgacctgtccggtgccctgaatgaactgcaggacgaggcagcgcggctatcgtggctggccacgacgggcgttccttgcgcagctgtgctcgacgttgtcactgaagcgggaagggactggctgctattgggcgaagtgccggggcaggatctcctgtcatctcaccttgctcctgccgagaaagtatccatcatggctgatgcaatgcggcggctgcatacgcttgatccggctacctgcccattcgaccaccaagcgaaacatcgcatcgagcgagcacgtactcggatggaagccggtcttgtcgatcaggatgatctggacgaagagcatcaggggctcgcgccagccgaactgttcgccaggctcaaggcgcgcatgcccgacggcgaggatctcgtcgtgacccatggcgatgcctgcttgccgaatatcatggtggaaaatggccgcttttctggattcatcgactgtggccggctgggtgtggcggaccgctatcaggacatagcgttggctacccgtgatattgctgaagagcttggcggcgaatgggctgaccgcttcctcgtgctttacggtatcgccgctcccgattcgcagcgcatcgccttctatcgccttcttgacgagttcttctgagcgggactctggggttcgaaatgaccgaccaagcgacgcccaacctgccatcacgagatttcgattccaccgccgccttctatgaaaggttgggcttcggaatcgttttccgggacgccggctggatgatcctccagcgcggggatctcatgctggagttcttcgcccaccccaacttgtttattgcagcttataatggttacaaataaagcaatagcatcacaaatttcacaaataaagcatttttttcactgcattctagttgtggtttgtccaaactcatcaatgtatcttatcatgtctgtataccgtcgacctctagctagagcttggcgtaatcatggtcatagctgtttcctgtgtgaaattgttatccgctcacaattccacacaacatacgagccggaagcataaagtgtaaagcctggggtgcctaatgagtgagctaactcacattaattgcgttgcgctcactgcccgctttccagtcgggaaacctgtcgtgccagctgcattaatgaatcggccaacgcgcggggagaggcggtttgcgtattgggcgctcttccgcttcctcgctcactgactcgctgcgctcggtcgttcggctgcggcgagcggtatcagctcactcaaaggcggtaatacggttatccacagaatcaggggataacgcaggaaagaacatgtgagcaaaaggccagcaaaaggccaggaaccgtaaaaaggccgcgttgctggcgtttttccataggctccgcccccctgacgagcatcacaaaaatcgacgctcaagtcagaggtggcgaaacccgacaggactataaagataccaggcgtttccccctggaagctccctcgtgcgctctcctgttccgaccctgccgcttaccggatacctgtccgcctttctcccttcgggaagcgtggcgctttctcatagctcacgctgtaggtatctcagttcggtgtaggtcgttcgctccaagctgggctgtgtgcacgaaccccccgttcagcccgaccgctgcgccttatccggtaactatcgtcttgagtccaacccggtaagacacgacttatcgccactggcagcagccactggtaacaggattagcagagcgaggtatgtaggcggtgctacagagttcttgaagtggtggcctaactacggctacactagaagaacagtatttggtatctgcgctctgctgaagccagttaccttcggaaaaagagttggtagctcttgatccggcaaacaaaccaccgctggtagcggtggtttttttgtttgcaagcagcagattacgcgcagaaaaaaaggatctcaagaagatcctttgatcttttctacggggtctgacgctcagtggaacgaaaactcacgttaagggattttggtcatgagattatcaaaaaggatcttcacctagatccttttaaattaaaaatgaagttttaaatcaatctaaagtatatatgagtaaacttggtctgacagttaccaatgcttaatcagtgaggcacctatctcagcgatctgtctatttcgttcatccatagttgcctgactccccgtcgtgtagataactacgatacgggagggcttaccatctggccccagtgctgcaatgataccgcgagacccacgctcaccggctccagatttatcagcaataaaccagccagccggaagggccgagcgcagaagtggtcctgcaactttatccgcctccatccagtctattaattgttgccgggaagctagagtaagtagttcgccagttaatagtttgcgcaacgttgttgccattgctacaggcatcgtggtgtcacgctcgtcgtttggtatggcttcattcagctccggttcccaacgatcaaggcgagttacatgatcccccatgttgtgcaaaaaagcggttagctccttcggtcctccgatcgttgtcagaagtaagttggccgcagtgttatcactcatggttatggcagcactgcataattctcttactgtcatgccatccgtaagatgcttttctgtgactggtgagtactcaaccaagtcattctgagaatagtgtatgcggcgaccgagttgctcttgcccggcgtcaatacgggataataccgcgccacatagcagaactttaaaagtgctcatcattggaaaacgttcttcggggcgaaaactctcaaggatcttaccgctgttgagatccagttcgatgtaacccactcgtgcacccaactgatcttcagcatcttttactttcaccagcgtttctgggtgagcaaaaacaggaaggcaaaatgccgcaaaaaagggaataagggcgacacggaaatgttgaatactcatactcttcctttttcaatattattgaagcatttatcagggttattgtctcatgagcggatacatatttgaatgtatttagaaaaataaacaaataggggttccgcgcacatttccccgaaaagtgccacctgacgtcgacggatcgggagatctcccgatcccctatggtgcactctcagtacaatctgctctgatgccgcatagttaagccagtatctgctccctgcttgtgtgttggaggtcgctgagtagtgcgcgagcaaaatttaagctacaacaaggcaaggcttgaccgacaattgcatgaagaatctgcttagggttaggcgttttgcgctgcttcgcgatgtacgggccagatatacgcgtt";
+      cf.sequences["addgene-plasmid-13031-sequence-305137"] = cf.sequences["pcDNA3-EGFP"];
+
+      const results = window.C6.simCF(cf);
+      console.log(results);
+
+      // Format and display output products table
+      let outputHTML = "<p style='color:green; font-weight:bold;'>✅ Simulation successful!</p>";
+      outputHTML += "<table style='width:100%; border-collapse:collapse;'><thead><tr><th style='border-bottom:1px solid #ccc; text-align:left;'>Name</th><th style='border-bottom:1px solid #ccc; text-align:left;'>Sequence</th></tr></thead><tbody>";
+
+      results.forEach(row => {
+        if (Array.isArray(row) && row.length >= 2) {
+          const name = row[0];
+          const seq = row[1];
+          outputHTML += `<tr><td style="padding:4px 8px; border-bottom:1px solid #eee;">${name}</td><td style="padding:4px 8px; border-bottom:1px solid #eee; font-family:monospace;">${seq}</td></tr>`;
+        }
+      });
+
+      outputHTML += "</tbody></table>";
+
+      if (!Array.isArray(results) || results.length === 0) {
+        resultP.innerHTML = "❌ No simulation steps returned. Please check your input.";
+        return;
+      }
+
+      const final = results[results.length - 1];
+      const finalSeq = final.sequence || final[1] || "";
+      const seq = finalSeq.toUpperCase();
+      const rc = s => s.split('').reverse().map(base => (
+        { A: 'T', T: 'A', G: 'C', C: 'G', N: 'N', K: 'M', M: 'K', R: 'Y', Y: 'R', S: 'S', W: 'W' }[base] || base
+      )).join('');
+
+      const searchSpace = seq + seq + "x" + rc(seq) + rc(seq);
+
+      const requiredRegions = [
+        { sequence: "atggtgagcaagggcgaggagctgttcaccggggtggtgcccatcctggtcgagctggacggcgacgtaaacggccacaagttcagcgtgtccggcgagggcgagggcgatgccacctacggcaagctgaccctgaagttcatctgcaccaccggcaagctgcccgtgccctggcccaccctcgtgaccaccctgacctacggcgtgcagtgcttcagccgctaccccgaccacatgaagcagcacgacttcttcaagtccgccatgcccgaaggctacgtccaggagcgcaccatcttcttcaaggacgacggcaactacaagacccgcgccgaggtgaagttcgagggcgacaccctggtgaaccgcatcgagctgaagggcatcgacttcaaggaggacggcaacatcctggggcacaagctggagtacaactacaacagccacaacgtctatatcatggccgacaagcagaagaacggcatcaaggtgaacttcaagatccgccacaacatcgaggacggcagcgtgcagctcgccgaccactaccagcagaacacccccatcggcgacggccccgtgctgctgcccgacaaccactacctgagcNNKcagtccgccctgagcaaagaccccaacgagaagcgcgatcacatggtcctgctggagttcgtgaccgccgccgggatcactctcggcatggacgagctgtacaagtaa", label: "GFP with NNK at 203" },
+        { sequence: "cactggcggccgctcgagatggtgagcaagggcg", label: "5′ junction: vector–insert" },
+        { sequence: "tgtacaagtaatctagagggccctattctatagtg", label: "3′ junction: insert–vector" },
+        { sequence: "atgattgaacaagatggattgcacgcaggttctccggccgcttgggtggagaggctattcggctatgactgggcacaacagacaatcggctgctctgatgccgccgtgttccggctgtcagcgcaggggcgcccggttctttttgtcaagaccgacctgtccggtgccctgaatgaactgcaggacgaggcagcgcggctatcgtggctggccacgacgggcgttccttgcgcagctgtgctcgacgttgtcactgaagcgggaagggactggctgctattgggcgaagtgccggggcaggatctcctgtcatctcaccttgctcctgccgagaaagtatccatcatggctgatgcaatgcggcggctgcatacgcttgatccggctacctgcccattcgaccaccaagcgaaacatcgcatcgagcgagcacgtactcggatggaagccggtcttgtcgatcaggatgatctggacgaagagcatcaggggctcgcgccagccgaactgttcgccaggctcaaggcgcgcatgcccgacggcgaggatctcgtcgtgacccatggcgatgcctgcttgccgaatatcatggtggaaaatggccgcttttctggattcatcgactgtggccggctgggtgtggcggaccgctatcaggacatagcgttggctacccgtgatattgctgaagagcttggcggcgaatgggctgaccgcttcctcgtgctttacggtatcgccgctcccgattcgcagcgcatcgccttctatcgccttcttgacgagttcttctga", label: "kanR open reading frame" },
+        { sequence: "tttccataggctccgcccccctgacgagcatcacaaaaatcgacgctcaagtcagaggtggcgaaacccgacaggactataaagataccaggcgtttccccctggaagctccctcgtgcgctctcctgttccgaccctgccgcttaccggatacctgtccgcctttctcccttcgggaagcgtggcgctttctcatagctcacgctgtaggtatctcagttcggtgtaggtcgttcgctccaagctgggctgtgtgcacgaaccccccgttcagcccgaccgctgcgccttatccggtaactatcgtcttgagtccaacccggtaagacacgacttatcgccactggcagcagccactggtaacaggattagcagagcgaggtatgtaggcggtgctacagagttcttgaagtggtggcctaactacggctacactagaagaacagtatttggtatctgcgctctgctgaagccagttaccttcggaaaaagagttggtagctcttgatccggcaaacaaaccaccgctggtagcggtggtttttttgtttgcaagcagcagattacgcgcagaaaaaaaggatctcaa", label: "ColE1 origin of replication" }
+      ];
+
+      let feedback = [];
+      let missing = [];
+
+      requiredRegions.forEach(({ sequence, label, mustNotExist }) => {
+        const found = searchSpace.includes(sequence.toUpperCase());
+        if ((mustNotExist && found) || (!mustNotExist && !found)) {
+          missing.push(label);
+        }
+      });
+
+      if (missing.length === 0) {
+        feedback.push("✅ Success! Your design meets all criteria.");
+        if (typeof window.progressManager !== "undefined") {
+          window.progressManager.addCompletion("Mutagenesis", "correct");
+        }
+      } else {
+        feedback = missing.map(label => `❌ Missing or incorrect: <code>${label}</code>`);
+      }
+
+      outputHTML += `<ul style="margin-top:1em;">${feedback.map(f => `<li>${f}</li>`).join("")}</ul>`;
+      resultP.innerHTML = outputHTML;
+    } catch (err) {
+      resultP.innerHTML = `<span style="color:red;">❌ Error: ${err.message}</span>`;
     }
-
-    outputDiv.innerHTML = `<ul>${feedback.map(f => `<li>${f}</li>`).join("")}</ul>`;
-  } catch (err) {
-    outputDiv.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
-  }
-};
+    
+  });
 </script>

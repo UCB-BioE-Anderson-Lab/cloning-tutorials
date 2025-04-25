@@ -1,0 +1,124 @@
+LOCUS       pTargetF                2117 bp    DNA        circular     25-APR-2025
+DEFINITION  Constitutive expression of sgRNA without donor editing template
+            DNA.
+ACCESSION   .
+VERSION     .
+KEYWORDS    pTargetF
+SOURCE      synthetic DNA construct
+  ORGANISM  synthetic DNA construct
+REFERENCE   1  (bases 1 to 2117)
+  AUTHORS   Jiang Y, Chen B, Duan C, Sun B, Yang J, Yang S
+  TITLE     Multigene editing in the Escherichia coli genome using the
+            CRISPR-Cas9 system.
+  JOURNAL   Appl Environ Microbiol. 2015 Jan 30. pii: AEM.04023-14.
+  PUBMED    25636838
+REFERENCE   2  (bases 1 to 2117)
+  AUTHORS   .
+  TITLE     Direct Submission
+  JOURNAL   Exported Friday, Jun 16, 2017 from SnapGene Console 4.0.0a8
+            http://www.snapgene.com
+COMMENT     
+COMMENT     ApEinfo:methylated:1
+FEATURES             Location/Qualifiers
+     misc_RNA        56..131
+                     /note="guide RNA scaffold for the Streptococcus pyogenes
+                     CRISPR/Cas9 system"
+                     /locus_tag="trcrRNA (scaffold)"
+                     /label="trcrRNA (scaffold)"
+                     /ApEinfo_label="trcrRNA (scaffold)"
+                     /ApEinfo_fwdcolor="#31ff1a"
+                     /ApEinfo_revcolor="#31ff1a"
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+     misc_feature    36..55
+                     /locus_tag="cadA protospacer (crRNA)"
+                     /label="cadA protospacer (crRNA)"
+                     /ApEinfo_label="cadA protospacer (crRNA)"
+                     /ApEinfo_fwdcolor="#fedb68"
+                     /ApEinfo_revcolor="#fedb68"
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+     CDS             317..1108
+                     /codon_start=1
+                     /gene="aadA"
+                     /product="aminoglycoside adenylyltransferase (Murphy,
+                     1985)"
+                     /note="confers resistance to spectinomycin and
+                     streptomycin"
+                     /translation=MREAVIAEVSTQLSEVVGVIERHLEPTLLAVHLYGSAVDGGLKPH
+                     SDIDLLVTVTVRLDETTRRALINDLLETSASPGESEILRAVEVTIVVHDDIIPWRYPA
+                     KRELQFGEWQRNDILAGIFEPATIDIDLAILLTKAREHSVALVGPAAEELFDPVPEQD
+                     LFEALNETLTLWNSPPDWAGDERNVVLTLSRIWYSAVTGKIAPKDVAADWAMERLPAQ
+                     YQPVILEARQAYLGQEEDRLASRADQLEEFVHYVKGEITKVVGK
+                     /locus_tag="SmR"
+                     /label="SmR"
+                     /ApEinfo_label="SmR"
+                     /ApEinfo_fwdcolor="#3d8be4"
+                     /ApEinfo_revcolor="#3d8be4"
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+     rep_origin      1282..1870
+                     /direction=RIGHT
+                     /note="high-copy-number ColE1/pMB1/pBR322/pUC origin of
+                     replication"
+                     /locus_tag="ori"
+                     /label="ori"
+                     /ApEinfo_label="ori"
+                     /ApEinfo_fwdcolor="#999999"
+                     /ApEinfo_revcolor="#999999"
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+     misc_feature    30..35
+                     /locus_tag="SpeI"
+                     /label="SpeI"
+                     /ApEinfo_label="SpeI"
+                     /ApEinfo_fwdcolor="#41e0fe"
+                     /ApEinfo_revcolor="#41e0fe"
+                     /ApEinfo_graphicformat="arrow_data {{0 1 2 0 0 -1} {} 0}
+                     width 5 offset 0"
+     misc_feature    1..29
+                     /locus_tag="Pcon J23119"
+                     /label="Pcon J23119"
+                     /ApEinfo_label="Pcon J23119"
+                     /ApEinfo_fwdcolor="#ff9200"
+                     /ApEinfo_revcolor="#ff9200"
+                     /ApEinfo_graphicformat="arrow_data {{0 0.5 0 1 2 0 0 -1 0
+                     -0.5} {0 .5 .1 .5 .1 -.5 0 -.5} 0} width 5 offset 0"
+ORIGIN
+        1 ttgacagcta gctcagtcct aggtataatA CTAGTcatcg ccgcagcggt ttcaggtttt
+       61 agagctagaa atagcaagtt aaaataaggc tagtccgtta tcaacttgaa aaagtggcac
+      121 cgagtcggtg ctttttttga attctctaga gtcgacctgc agaagcttag atctattacc
+      181 ctgttatccc tactcgagtt catgtgcagc tccataagca aaaggggatg ataagtttat
+      241 caccaccgac tatttgcaac agtgccgttg atcgtgctat gatcgactga tgtcatcagc
+      301 ggtggagtgc aatgtcatga gggaagcggt gatcgccgaa gtatcgactc aactatcaga
+      361 ggtagttggc gtcatcgagc gccatctcga accgacgttg ctggccgtac atttgtacgg
+      421 ctccgcagtg gatggcggcc tgaagccaca cagtgatatt gatttgctgg ttacggtgac
+      481 cgtaaggctt gatgaaacaa cgcggcgagc tttgatcaac gaccttttgg aaacttcggc
+      541 ttcccctgga gagagcgaga ttctccgcgc tgtagaagtc accattgttg tgcacgacga
+      601 catcattccg tggcgttatc cagctaagcg cgaactgcaa tttggagaat ggcagcgcaa
+      661 tgacattctt gcaggtatct tcgagccagc cacgatcgac attgatctgg ctatcttgct
+      721 gacaaaagca agagaacata gcgttgcctt ggtaggtcca gcggcggagg aactctttga
+      781 tccggttcct gaacaggatc tatttgaggc gctaaatgaa accttaacgc tatggaactc
+      841 gccgcccgac tgggctggcg atgagcgaaa tgtagtgctt acgttgtccc gcatttggta
+      901 cagcgcagta accggcaaaa tcgcgccgaa ggatgtcgct gccgactggg caatggagcg
+      961 cctgccggcc cagtatcagc ccgtcatact tgaagctaga caggcttatc ttggacaaga
+     1021 agaagatcgc ttggcctcgc gcgcagatca gttggaagaa tttgtccact acgtgaaagg
+     1081 cgagatcacc aaggtagtcg gcaaataaga tgccgctcgc cagtcgattg gctgagctca
+     1141 taagttccta ttccgaagtt ccgcgaacgc gtaaaggatc taggtgaaga tcctttttga
+     1201 taatctcatg accaaaatcc cttaacgtga gttttcgttc cactgagcgt cagaccccgt
+     1261 agaaaagatc aaaggatctt cttgagatcc tttttttctg cgcgtaatct gctgcttgca
+     1321 aacaaaaaaa ccaccgctac cagcggtggt ttgtttgccg gatcaagagc taccaactct
+     1381 ttttccgaag gtaactggct tcagcagagc gcagatacca aatactgtcc ttctagtgta
+     1441 gccgtagtta ggccaccact tcaagaactc tgtagcaccg cctacatacc tcgctctgct
+     1501 aatcctgtta ccagtggctg ctgccagtgg cgataagtcg tgtcttaccg ggttggactc
+     1561 aagacgatag ttaccggata aggcgcagcg gtcgggctga acggggggtt cgtgcacaca
+     1621 gcccagcttg gagcgaacga cctacaccga actgagatac ctacagcgtg agctatgaga
+     1681 aagcgccacg cttcccgaag ggagaaaggc ggacaggtat ccggtaagcg gcagggtcgg
+     1741 aacaggagag cgcacgaggg agcttccagg gggaaacgcc tggtatcttt atagtcctgt
+     1801 cgggtttcgc cacctctgac ttgagcgtcg atttttgtga tgctcgtcag gggggcggag
+     1861 cctatggaaa aacgccagca acgcggcctt tttacggttc ctggcctttt gctggccttt
+     1921 tgctcacatg ttctttcctg cgttatcccc tgattctgtg gataaccgta ttaccgcctt
+     1981 tgagtgagct gataccgctc gccgcagccg aacgaccgag cgcagcgagt cagtgagcga
+     2041 ggaagcggaa gagcgcctga tgcggtattt tctccttacg catctgtgcg gtatttcaca
+     2101 ccgcatatgc tggatcc    
+//
