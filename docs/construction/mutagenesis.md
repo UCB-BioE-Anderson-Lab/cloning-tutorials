@@ -195,8 +195,9 @@ Ligate    speDig                                        pTarget-cscR
 
 Cysteine 96 in human insulin helps form disulfide bonds critical for protein folding. Mutating this residue to serine (C96S) can stabilize recombinant insulin analogs by reducing misfolding or aggregation. In this example, we’ll use **QuickChange mutagenesis** to introduce the **C96S mutation** in the pET-INS plasmid.
 
-![Cartoon diagram of QuickChange mutagenesis: primers anneal to the plasmid, mutated strands are extended, resulting in a nicked circular product that is repaired after transformation.  
-Image adapted from [Agilent Technologies](https://www.agilent.com/en/product/mutagenesis-cloning/mutagenesis-kits/site-directed-mutagenesis-kits/quikchange-233116).](../images/quickchange_cartoon.png)
+![Cartoon diagram of QuickChange mutagenesis: primers anneal to the plasmid, mutated strands are extended, resulting in a nicked circular product that is repaired after transformation.](../images/quickchange_cartoon.png)
+
+Image adapted from [Agilent Technologies](https://www.agilent.com/en/product/mutagenesis-cloning/mutagenesis-kits/site-directed-mutagenesis-kits/quikchange-233116).
 
 ### Strategy
 
