@@ -2,7 +2,7 @@ try {
 
     // C6-Annotator.js - Improved DNA Autoannotation and Transcription Inference Library for Web
     
-    console.log("🚀 C6-Annotator initializing...");
+    // console.log("🚀 C6-Annotator initializing...");
     
     // Utility function to clean sequences
     function cleanSequence(seq) {
@@ -39,7 +39,7 @@ try {
     
     // Smart matching using full exact matching (no k-mer seeding)
     function annotateSequenceSmart(sequence, featureDb = null) {
-      console.log("🔍 Starting annotation...");
+    //   console.log("🔍 Starting annotation...");
       sequence = cleanSequence(sequence);
       const detectedFeatures = [];
 
@@ -47,7 +47,7 @@ try {
       if (!db) throw new Error("No feature database loaded yet.");
 
       const seqVariants = [sequence, reverseComplement(sequence)];
-      console.log("🧬 Scanning sequence and reverse complement with full exact matching...");
+    //   console.log("🧬 Scanning sequence and reverse complement with full exact matching...");
 
       seqVariants.forEach((seq, strandIndex) => {
         db.forEach(feature => {
@@ -69,12 +69,12 @@ try {
         });
       });
 
-      console.log(`🔎 Found ${detectedFeatures.length} matching features.`);
+    //   console.log(`🔎 Found ${detectedFeatures.length} matching features.`);
       return detectedFeatures.sort((a, b) => a.start - b.start);
     }
 
 function inferTranscriptionalUnits(features) {
-  console.log("🧬 Starting new-style TU inference...");
+//   console.log("🧬 Starting new-style TU inference...");
 
   const tus = [];
   const featureList = features.slice().sort((a, b) => a.start - b.start);
@@ -91,7 +91,7 @@ function inferTranscriptionalUnits(features) {
     if (!allowedTypes.has(type)) continue;
 
     if (type === 'promoter') {
-      console.log(`🔵 Found promoter: ${feature.label} at ${feature.start}`);
+    //   console.log(`🔵 Found promoter: ${feature.label} at ${feature.start}`);
       openTUs.push({
         promoter: feature,
         start: feature.end, // Start at end of promoter
@@ -105,24 +105,24 @@ function inferTranscriptionalUnits(features) {
     openTUs.forEach(tu => {
       if (feature.start >= tu.start) {
         tu.features.push(feature);
-        console.log(`➕ Assigned feature ${feature.label} (${feature.type}) to TU started by ${tu.promoter.label}`);
+        // console.log(`➕ Assigned feature ${feature.label} (${feature.type}) to TU started by ${tu.promoter.label}`);
       }
     });
 
     if (type === 'terminator') {
-      console.log(`🔴 Found terminator: ${feature.label} at ${feature.start}`);
+    //   console.log(`🔴 Found terminator: ${feature.label} at ${feature.start}`);
       // Close all open TUs
       openTUs.forEach(tu => {
         tu.terminator = feature;
         tu.end = feature.start; // End before terminator starts
         tus.push(tu);
-        console.log(`✅ Closed TU from ${tu.start} to ${feature.start} (promoter: ${tu.promoter.label}, terminator: ${feature.label})`);
+        // console.log(`✅ Closed TU from ${tu.start} to ${feature.start} (promoter: ${tu.promoter.label}, terminator: ${feature.label})`);
       });
       openTUs.length = 0; // Clear open TUs
     }
   }
 
-  console.log(`✅ Finished TU inference: ${tus.length} transcriptional units.`);
+//   console.log(`✅ Finished TU inference: ${tus.length} transcriptional units.`);
   return tus;
 }
       
@@ -198,10 +198,10 @@ function inferTranscriptionalUnits(features) {
     (function initializeFeatureDatabase() {
       const defaultFeatureUrl = "https://raw.githubusercontent.com/UCB-BioE-Anderson-Lab/cloning-tutorials/main/sequences/Default_Features.txt";
     
-      console.log("🌐 Fetching default features...");
+    //   console.log("🌐 Fetching default features...");
       fetch(defaultFeatureUrl)
         .then(response => {
-          console.log("📥 Feature file fetched, parsing...");
+        //   console.log("📥 Feature file fetched, parsing...");
           return response.text();
         })
         .then(text => {
@@ -210,7 +210,7 @@ function inferTranscriptionalUnits(features) {
             const [Name, Sequence, Type, Color, LabelColor, Forward, Reverse] = line.split(/\s+/);
             return { Name, Sequence, Type, Color };
           });
-          console.log(`✅ C6-Annotator: Loaded ${featureDbGlobal.length} features.`);
+        //   console.log(`✅ C6-Annotator: Loaded ${featureDbGlobal.length} features.`);
           // After loading, expose the namespace
           window.C6 = window.C6 || {};
           Object.assign(window.C6, {
@@ -219,7 +219,7 @@ function inferTranscriptionalUnits(features) {
             inferExpressedProteins,
             findNonExpressedCDS
           });
-          console.log("✅ window.C6 is now available.");
+        //   console.log("✅ window.C6 is now available.");
         })
         .catch(err => {
           console.error("❌ Failed to load default features:", err);

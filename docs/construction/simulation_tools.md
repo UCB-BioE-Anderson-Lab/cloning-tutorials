@@ -1,3 +1,5 @@
+<script src="https://unpkg.com/seqviz"></script>
+
 # Simulation Tools
 
 Several tools can automate molecular cloning workflows. ApE and Benchling offer graphical interfaces for simulating steps like PCR, Golden Gate, Gibson, and digestion reactions. Alternatively, C6-Tools provides a scripting-based approach using Construction File (CF) shorthand, and is available both as a web tool and as a Google Sheets plugin:
@@ -113,10 +115,12 @@ plasmid      pTemp1      CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACA
   });
 </script>
 
-
+The C6 simulation algorithm inputs both the construction file and an (optional) list of sequences with their names. The algorithm will include both the sequences embedded in the CF as well as those in the separate list. In these tutorials, we have injected the plasmids named in the various examples into this list.  For other sequences, you will need to put them in the CF.
 
 
 ## DNA Autoannotation and Simulation
+
+The tutorials can also autoannotate your sequence, detect transcriptional units, and predict which proteins are potentially expressed or will not be expressed.  This can be helpful for detecting design errors.  This capability is only displayed on this page.
 
 <form id="autoannotation_form" style="background-color:#f0f8ff; padding:20px; border:1px solid #ccc; border-radius:6px; margin-top:20px;">
   <p><strong>Paste a DNA sequence below</strong> and click <strong>Annotate and Simulate</strong>.</p>
@@ -128,8 +132,10 @@ plasmid      pTemp1      CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACA
 
 <script>
 window.addEventListener("load", function() {
+  let features = [];
+  let dnaInput = "";
   document.getElementById("annotate_btn").addEventListener("click", function () {
-    const dnaInput = document.getElementById("dna_input").value.trim();
+    dnaInput = document.getElementById("dna_input").value.trim();
     const outputDiv = document.getElementById("annotation_output");
     outputDiv.innerHTML = "";
 
@@ -138,7 +144,7 @@ window.addEventListener("load", function() {
         throw new Error("C6 tools not loaded. Please ensure window.C6 is available.");
       }
 
-      const features = window.C6.annotateSequenceSmart(dnaInput);
+      features = window.C6.annotateSequenceSmart(dnaInput);
       const tus = window.C6.inferTranscriptionalUnits(features);
       const expressed = window.C6.inferExpressedProteins(dnaInput, tus);
       const nonExpressed = window.C6.findNonExpressedCDS(features, expressed);
@@ -154,7 +160,7 @@ window.addEventListener("load", function() {
       html += "<th>Promoter</th><th>Start</th><th>End</th><th>Terminator</th><th>Features</th>";
       html += "</tr></thead><tbody>";
 
-      tus.forEach((tu, idx) => {
+      tus.forEach((tu) => {
         const featuresList = tu.features.map(f => `${f.label} (${f.type})`).join(", ");
         html += `<tr>
           <td style="padding:4px 8px;">${tu.promoter ? tu.promoter.label : "(none)"}</td>
@@ -181,10 +187,61 @@ window.addEventListener("load", function() {
 
       outputDiv.innerHTML = html;
 
+      outputDiv.innerHTML += `
+        <h3>Sequence Visualization</h3>
+        <div id="seqviz_viewer" style="margin-top:1em;"></div>
+      `;
+
     } catch (err) {
       outputDiv.innerHTML = `<span style="color:red;">❌ Error: ${err.message}</span>`;
+      return;
     }
+
+    waitForSeqViz(() => {
+      const annotations = [];
+      const primers = [];
+
+      features.forEach(f => {
+        const cleanType = f.type.toLowerCase();
+        const featureData = {
+          name: f.label,
+          start: f.start,
+          end: f.end,
+          color: f.color || "gray",
+          direction: f.strand || 1
+        };
+
+        if (["promoter", "terminator", "rbs", "operator", "enhancer", "silencer", "riboswitch", "insulator", "polyA_signal", "kozak"].includes(cleanType)) {
+          annotations.push(featureData);
+        } else if (["primer_bind", "oligo"].includes(cleanType)) {
+          primers.push(featureData);
+        } else {
+          annotations.push(featureData);
+        }
+      });
+
+      seqviz
+        .Viewer("seqviz_viewer", {
+          name: "Annotated Sequence",
+          seq: dnaInput,
+          annotations: annotations,
+          primers: primers,
+          translations: [],
+          viewer: "linear",
+          showComplement: true,
+          showIndex: true,
+          style: { height: "420px", width: "100%" }
+        })
+        .render();
+    });
   });
+
+  function waitForSeqViz(callback) {
+    if (typeof seqviz !== "undefined" && seqviz.Viewer) {
+      callback();
+    } else {
+      setTimeout(() => waitForSeqViz(callback), 50);
+    }
+  }
 });
 </script>
-
