@@ -127,57 +127,52 @@ plasmid      pTemp1      CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACA
 </form>
 
 <script>
-  document.getElementById("annotate_btn").addEventListener("click", function () {
-    const dnaInput = document.getElementById("dna_input").value.trim();
-    const outputDiv = document.getElementById("annotation_output");
-    outputDiv.innerHTML = "";
+  window.addEventListener("load", function() {
+    document.getElementById("annotate_btn").addEventListener("click", function () {
+      const dnaInput = document.getElementById("dna_input").value.trim();
+      const outputDiv = document.getElementById("annotation_output");
+      outputDiv.innerHTML = "";
 
-    try {
-      if (!window.C6 || typeof window.C6.annotateSequence !== "function") {
-        throw new Error("C6 tools not loaded. Please ensure window.C6 is available.");
+      try {
+        if (!window.C6 || typeof window.C6.annotateSequenceSmart !== "function") {
+              throw new Error("C6 tools not loaded. Please ensure window.C6 is available.");
+        }
+
+        const features = window.C6.annotateSequenceSmart(dnaInput);
+        const tus = window.C6.inferTranscriptionalUnits(features);
+        const expressed = window.C6.inferExpressedProteins(dnaInput, tus);
+        const nonExpressed = window.C6.findNonExpressedCDS(features, expressed);
+
+        let html = "<h3>Detected Features</h3><ul>";
+        features.forEach(f => {
+          html += `<li>${f.label} (${f.type}) at ${f.start}-${f.end}</li>`;
+        });
+        html += "</ul>";
+
+        html += "<h3>Transcriptional Units</h3><ul>";
+        tus.forEach((tu, idx) => {
+          html += `<li>TU ${idx+1}: ${tu.promoter.label} ➔ ${tu.features.map(f => f.label).join(', ')}</li>`;
+        });
+        html += "</ul>";
+
+        html += "<h3>Expressed Proteins</h3><ul>";
+        expressed.forEach(p => {
+          html += `<li>${p.label}</li>`;
+        });
+        html += "</ul>";
+
+        html += "<h3>Non-Expressed CDS</h3><ul>";
+        nonExpressed.forEach(p => {
+          html += `<li>${p.label}</li>`;
+        });
+        html += "</ul>";
+
+        outputDiv.innerHTML = html;
+
+      } catch (err) {
+        outputDiv.innerHTML = `<span style="color:red;">❌ Error: ${err.message}</span>`;
       }
-
-      // Example feature database (minimal demo)
-      const featureDb = [
-        { Name: "Promoter1", Sequence: "TTGACA...TATAAT", Type: "promoter", Color: "salmon" },
-        { Name: "CDS1", Sequence: "ATGAAATTT", Type: "CDS", Color: "lightblue" },
-        { Name: "Terminator1", Sequence: "GCCGCCAGT", Type: "terminator", Color: "lightgreen" }
-      ];
-
-      const features = window.C6.annotateSequence(dnaInput, featureDb);
-      const tus = window.C6.inferTranscriptionUnits(features);
-      const expressed = window.C6.inferExpressedProteins(dnaInput, tus);
-      const nonExpressed = window.C6.findNonExpressedCDS(features, expressed);
-
-      let html = "<h3>Detected Features</h3><ul>";
-      features.forEach(f => {
-        html += `<li>${f.label} (${f.type}) at ${f.start}-${f.end}</li>`;
-      });
-      html += "</ul>";
-
-      html += "<h3>Transcriptional Units</h3><ul>";
-      tus.forEach((tu, idx) => {
-        html += `<li>TU ${idx+1}: ${tu.promoter.label} ➔ ${tu.features.map(f => f.label).join(', ')}</li>`;
-      });
-      html += "</ul>";
-
-      html += "<h3>Expressed Proteins</h3><ul>";
-      expressed.forEach(p => {
-        html += `<li>${p.label}</li>`;
-      });
-      html += "</ul>";
-
-      html += "<h3>Non-Expressed CDS</h3><ul>";
-      nonExpressed.forEach(p => {
-        html += `<li>${p.label}</li>`;
-      });
-      html += "</ul>";
-
-      outputDiv.innerHTML = html;
-
-    } catch (err) {
-      outputDiv.innerHTML = `<span style="color:red;">❌ Error: ${err.message}</span>`;
-    }
+    });
   });
 </script>
 
