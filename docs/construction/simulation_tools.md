@@ -127,52 +127,64 @@ plasmid      pTemp1      CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACA
 </form>
 
 <script>
-  window.addEventListener("load", function() {
-    document.getElementById("annotate_btn").addEventListener("click", function () {
-      const dnaInput = document.getElementById("dna_input").value.trim();
-      const outputDiv = document.getElementById("annotation_output");
-      outputDiv.innerHTML = "";
+window.addEventListener("load", function() {
+  document.getElementById("annotate_btn").addEventListener("click", function () {
+    const dnaInput = document.getElementById("dna_input").value.trim();
+    const outputDiv = document.getElementById("annotation_output");
+    outputDiv.innerHTML = "";
 
-      try {
-        if (!window.C6 || typeof window.C6.annotateSequenceSmart !== "function") {
-              throw new Error("C6 tools not loaded. Please ensure window.C6 is available.");
-        }
-
-        const features = window.C6.annotateSequenceSmart(dnaInput);
-        const tus = window.C6.inferTranscriptionalUnits(features);
-        const expressed = window.C6.inferExpressedProteins(dnaInput, tus);
-        const nonExpressed = window.C6.findNonExpressedCDS(features, expressed);
-
-        let html = "<h3>Detected Features</h3><ul>";
-        features.forEach(f => {
-          html += `<li>${f.label} (${f.type}) at ${f.start}-${f.end}</li>`;
-        });
-        html += "</ul>";
-
-        html += "<h3>Transcriptional Units</h3><ul>";
-        tus.forEach((tu, idx) => {
-          html += `<li>TU ${idx+1}: ${tu.promoter.label} ➔ ${tu.features.map(f => f.label).join(', ')}</li>`;
-        });
-        html += "</ul>";
-
-        html += "<h3>Expressed Proteins</h3><ul>";
-        expressed.forEach(p => {
-          html += `<li>${p.label}</li>`;
-        });
-        html += "</ul>";
-
-        html += "<h3>Non-Expressed CDS</h3><ul>";
-        nonExpressed.forEach(p => {
-          html += `<li>${p.label}</li>`;
-        });
-        html += "</ul>";
-
-        outputDiv.innerHTML = html;
-
-      } catch (err) {
-        outputDiv.innerHTML = `<span style="color:red;">❌ Error: ${err.message}</span>`;
+    try {
+      if (!window.C6 || typeof window.C6.annotateSequenceSmart !== "function") {
+        throw new Error("C6 tools not loaded. Please ensure window.C6 is available.");
       }
-    });
+
+      const features = window.C6.annotateSequenceSmart(dnaInput);
+      const tus = window.C6.inferTranscriptionalUnits(features);
+      const expressed = window.C6.inferExpressedProteins(dnaInput, tus);
+      const nonExpressed = window.C6.findNonExpressedCDS(features, expressed);
+
+      let html = "<h3>Detected Features</h3><ul>";
+      features.forEach(f => {
+        html += `<li>${f.label} (${f.type}) at ${f.start}-${f.end}</li>`;
+      });
+      html += "</ul>";
+
+      html += "<h3>Detected Transcriptional Units</h3>";
+      html += "<table style='width:100%; border-collapse:collapse;'><thead><tr>";
+      html += "<th>Promoter</th><th>Start</th><th>End</th><th>Terminator</th><th>Features</th>";
+      html += "</tr></thead><tbody>";
+
+      tus.forEach((tu, idx) => {
+        const featuresList = tu.features.map(f => `${f.label} (${f.type})`).join(", ");
+        html += `<tr>
+          <td style="padding:4px 8px;">${tu.promoter ? tu.promoter.label : "(none)"}</td>
+          <td style="padding:4px 8px;">${tu.start}</td>
+          <td style="padding:4px 8px;">${tu.end}</td>
+          <td style="padding:4px 8px;">${tu.terminator ? tu.terminator.label : "(none)"}</td>
+          <td style="padding:4px 8px;">${featuresList}</td>
+        </tr>`;
+      });
+
+      html += "</tbody></table>";
+
+      html += "<h3>Expressed Proteins</h3><ul>";
+      expressed.forEach(p => {
+        html += `<li>${p.label}</li>`;
+      });
+      html += "</ul>";
+
+      html += "<h3>Non-Expressed CDS</h3><ul>";
+      nonExpressed.forEach(p => {
+        html += `<li>${p.label}</li>`;
+      });
+      html += "</ul>";
+
+      outputDiv.innerHTML = html;
+
+    } catch (err) {
+      outputDiv.innerHTML = `<span style="color:red;">❌ Error: ${err.message}</span>`;
+    }
   });
+});
 </script>
 

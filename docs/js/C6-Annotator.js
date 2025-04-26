@@ -37,85 +37,95 @@ try {
       return index;
     }
     
-    // Smart matching using feature index
+    // Smart matching using full exact matching (no k-mer seeding)
     function annotateSequenceSmart(sequence, featureDb = null) {
       console.log("🔍 Starting annotation...");
       sequence = cleanSequence(sequence);
       const detectedFeatures = [];
-    
+
       const db = featureDb || featureDbGlobal;
       if (!db) throw new Error("No feature database loaded yet.");
-    
-      const k = 10;
-      const index = buildFeatureIndex(db, k);
-    
+
       const seqVariants = [sequence, reverseComplement(sequence)];
-      console.log("🧬 Scanning sequence and reverse complement...");
-    
+      console.log("🧬 Scanning sequence and reverse complement with full exact matching...");
+
       seqVariants.forEach((seq, strandIndex) => {
-        for (let i = 0; i <= seq.length - k; i++) {
-          const kmer = seq.slice(i, i + k);
-          if (index.has(kmer)) {
-            const candidates = index.get(kmer);
-            candidates.forEach(feature => {
-              const pattern = cleanSequence(feature.Sequence || '');
-              if (seq.slice(i, i + pattern.length) === pattern) {
-                detectedFeatures.push({
-                  start: i,
-                  end: i + pattern.length,
-                  strand: strandIndex === 0 ? +1 : -1,
-                  label: feature.Name,
-                  type: feature.Type,
-                  color: feature.Color
-                });
-              }
+        db.forEach(feature => {
+          const pattern = cleanSequence(feature.Sequence || '');
+          if (pattern.length < 10) return; // Ignore very short patterns
+
+          let pos = seq.indexOf(pattern);
+          while (pos !== -1) {
+            detectedFeatures.push({
+              start: pos,
+              end: pos + pattern.length,
+              strand: strandIndex === 0 ? +1 : -1,
+              label: feature.Name,
+              type: feature.Type,
+              color: feature.Color
             });
+            pos = seq.indexOf(pattern, pos + 1);
           }
-        }
+        });
       });
-    
+
       console.log(`🔎 Found ${detectedFeatures.length} matching features.`);
       return detectedFeatures.sort((a, b) => a.start - b.start);
     }
-    
-    function inferTranscriptionalUnits(features) {
-        const tus = [];
-        let currentTU = null;
-        let lastPromoter = null;
-      
-        features.forEach(feature => {
-          const type = feature.type.toLowerCase();
-      
-          if (type === 'promoter') {
-            if (currentTU) tus.push(currentTU);
-            currentTU = { promoter: feature, features: [] };
-            lastPromoter = feature;
-          } else if (type === 'terminator') {
-            if (currentTU) {
-              currentTU.features.push(feature);
-              tus.push(currentTU);
-              currentTU = null;
-            }
-          } else if (type === 'cds' || type === 'misc_feature' || type === 'primer_bind' || type === 'rep_origin') {
-            if (!currentTU && lastPromoter) {
-              // If no active TU but we have a promoter previously seen, start a new TU
-              currentTU = { promoter: lastPromoter, features: [] };
-            }
-            if (currentTU) {
-              currentTU.features.push(feature);
-            }
-          } else {
-            // For any other feature types, include if inside a TU
-            if (currentTU) {
-              currentTU.features.push(feature);
-            }
-          }
-        });
-      
-        if (currentTU) tus.push(currentTU);
-        return tus;
+
+function inferTranscriptionalUnits(features) {
+  console.log("🧬 Starting new-style TU inference...");
+
+  const tus = [];
+  const featureList = features.slice().sort((a, b) => a.start - b.start);
+  const openTUs = [];
+
+  const allowedTypes = new Set([
+    'promoter', 'cds', 'terminator', 'rbs', 'kozak', 'polyA_signal',
+    'intron', 'exon', 'utr', 'recombination_site', 'operator', 'enhancer',
+    'silencer', 'riboswitch', 'insulator'
+  ]);
+
+  for (const feature of featureList) {
+    const type = feature.type.toLowerCase();
+    if (!allowedTypes.has(type)) continue;
+
+    if (type === 'promoter') {
+      console.log(`🔵 Found promoter: ${feature.label} at ${feature.start}`);
+      openTUs.push({
+        promoter: feature,
+        start: feature.end, // Start at end of promoter
+        features: [],
+        terminator: null,
+        end: null
+      });
+    } 
+
+    // Add feature to all open TUs
+    openTUs.forEach(tu => {
+      if (feature.start >= tu.start) {
+        tu.features.push(feature);
+        console.log(`➕ Assigned feature ${feature.label} (${feature.type}) to TU started by ${tu.promoter.label}`);
       }
-    
+    });
+
+    if (type === 'terminator') {
+      console.log(`🔴 Found terminator: ${feature.label} at ${feature.start}`);
+      // Close all open TUs
+      openTUs.forEach(tu => {
+        tu.terminator = feature;
+        tu.end = feature.start; // End before terminator starts
+        tus.push(tu);
+        console.log(`✅ Closed TU from ${tu.start} to ${feature.start} (promoter: ${tu.promoter.label}, terminator: ${feature.label})`);
+      });
+      openTUs.length = 0; // Clear open TUs
+    }
+  }
+
+  console.log(`✅ Finished TU inference: ${tus.length} transcriptional units.`);
+  return tus;
+}
+      
     // Translate CDS sequences
     function translateCDS(seq) {
       const geneticCode = {
