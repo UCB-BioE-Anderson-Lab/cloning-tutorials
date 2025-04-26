@@ -30,7 +30,7 @@ In dilute conditions, as in pP6, most cells take up just **one plasmid**, result
 
 ---
 
-### 🚫 Rescue Step?
+### Rescue Step?
 
 Some antibiotics (e.g., kanamycin, chloramphenicol) block translation immediately. To survive, cells must first express the resistance gene—this requires a **rescue step** (1 hour outgrowth in rich media before plating).
 
@@ -38,7 +38,7 @@ Some antibiotics (e.g., kanamycin, chloramphenicol) block translation immediatel
 
 ---
 
-### 💊 Amp vs. Carbenicillin
+### Amp vs. Carbenicillin
 
 Both are β-lactam antibiotics. The **bla** gene on pP6 confers resistance to both.
 
@@ -47,7 +47,7 @@ Both are β-lactam antibiotics. The **bla** gene on pP6 confers resistance to bo
 
 Cells without plasmid die at 5 µg/mL; with plasmid, they survive over 1000 µg/mL—a wide window for selection.
 
-### 📊 Transformation Efficiency
+### Transformation Efficiency
 
 Transformation efficiency measures how effectively DNA is taken up and expressed by cells. It's typically calculated as:  
 **CFU/µg DNA = (Colonies on plate) ÷ (amount of plasmid DNA in µg)**  
@@ -64,7 +64,7 @@ Don’t worry about calculating it for pP6, but understand that **low DNA input 
 
 ---
 
-### ❄️ Handling Competent Cells
+### Handling Competent Cells
 
 Competent cells are fragile. To maintain their viability:
 
@@ -78,7 +78,7 @@ Note: You will not make your own competent cells. We prepare large batches once 
 
 ---
 
-### 🧫 Plating Techniques
+### Plating Techniques
 
 Once transformation is complete, you’ll plate your cells using one of two methods:
 
@@ -100,7 +100,7 @@ Invert the plate (lid on the bottom) and place it in the incubator (not a shaker
 
 ---
 
-### 🏷️ Labeling and Inventory
+### Labeling and Inventory
 
 Be consistent and thorough:
 
@@ -109,56 +109,81 @@ Be consistent and thorough:
 - Return any used DNA tubes to their storage rack and note usage if needed.
 
 ----
+## 🧪 Quiz: Transformation
 
-## 🧪 Quiz: Colony Picking
+<form id="transformation_quiz_form">
+  <h3>1️⃣ What is transformation?</h3>
+  <p>What happens to cells during transformation?</p>
+  <label><input type="radio" name="q1" value="a"> They divide rapidly</label><br>
+  <label><input type="radio" name="q1" value="b"> They take up new DNA</label><br>
+  <label><input type="radio" name="q1" value="c"> Their plasmids are destroyed</label><br>
+  <p id="transformation_res_q1"></p>
 
-<form id="picking_quiz_form">
-  <h3>1️⃣ Picking Strategy</h3>
-  <p>Which colony is most likely to contain the strongest promoter and should be picked?</p>
-  <label><input type="radio" name="q1" value="a"> A white colony near the edge of the plate</label><br>
-  <label><input type="radio" name="q1" value="b"> The largest colony on the plate</label><br>
-  <label><input type="radio" name="q1" value="c"> A large, bright green colony in a dense cluster</label><br>
-  <label><input type="radio" name="q1" value="d"> A small, isolated, bright green colony</label><br>
-  <p id="pick_res_q1"></p>
+  <h3>2️⃣ Transformation Efficiency</h3>
+  <p>Which method gives the highest transformation efficiency?</p>
+  <label><input type="radio" name="q2" value="a"> Heat shock</label><br>
+  <label><input type="radio" name="q2" value="b"> Electroporation</label><br>
+  <label><input type="radio" name="q2" value="c"> Glass beads</label><br>
+  <p id="transformation_res_q2"></p>
 
-  <h3>2️⃣ Colony Isolation</h3>
-  <p>Why is it important to choose a well-separated colony?</p>
-  <label><input type="radio" name="q2" value="a"> It ensures the colony is round</label><br>
-  <label><input type="radio" name="q2" value="b"> It increases the transformation efficiency</label><br>
-  <label><input type="radio" name="q2" value="c"> It ensures the picked colony comes from a single clone</label><br>
-  <label><input type="radio" name="q2" value="d"> It improves antibiotic resistance</label><br>
-  <p id="pick_res_q2"></p>
+  <h3>3️⃣ Purpose of Antibiotic</h3>
+  <p>Why do we add an antibiotic after transformation?</p>
+  <label><input type="radio" name="q3" value="a"> To help cells grow</label><br>
+  <label><input type="radio" name="q3" value="b"> To kill cells without the plasmid</label><br>
+  <label><input type="radio" name="q3" value="c"> To improve plasmid uptake</label><br>
+  <p id="transformation_res_q3"></p>
 
-  <h3>3️⃣ Sample Labeling</h3>
-  <p>What does the label <code>pP6-37C</code> indicate?</p>
-  <label><input type="radio" name="q3" value="a"> It is the third colony picked by the student assigned number 37 for the pP6 experiment</label><br>
-  <label><input type="radio" name="q3" value="b"> It represents the colony with the third highest green fluorescence intensity on the plate</label><br>
-  <label><input type="radio" name="q3" value="c"> It is the 37th colony selected across all students in this year’s lab</label><br>
-  <label><input type="radio" name="q3" value="d"> It refers to a pP6 plate that was incubated at 37°C and produced a colony labeled "C"</label><br>
-  <p id="pick_res_q3"></p>
+  <h3>4️⃣ Rescue Step</h3>
+  <p>Is a rescue step needed for ampicillin selection?</p>
+  <label><input type="radio" name="q4" value="a"> Yes, cells must recover before selection</label><br>
+  <label><input type="radio" name="q4" value="b"> No, they can be plated directly</label><br>
+  <p id="transformation_res_q4"></p>
 
-  <button type="button" id="picking_submit_btn">Check Answers</button>
+  <h3>5️⃣ Best Practices</h3>
+  <p>Check all best practices for successful transformation:</p>
+  <label><input type="checkbox" name="q5" value="a"> Keep competent cells cold</label><br>
+  <label><input type="checkbox" name="q5" value="b"> Avoid freeze-thaw cycles</label><br>
+  <label><input type="checkbox" name="q5" value="c"> Invert plates when incubating</label><br>
+  <label><input type="checkbox" name="q5" value="d"> Vortex competent cells vigorously</label><br>
+  <p id="transformation_res_q5"></p>
+
+  <button type="button" id="transformation_submit_btn">Check Answers</button>
 </form>
 
 <script>
-  document.getElementById("picking_submit_btn").addEventListener("click", function () {
+  document.getElementById("transformation_submit_btn").addEventListener("click", function () {
     const answers = {
-      q1: "d",
-      q2: "c",
-      q3: "a"
+      q1: "b",
+      q2: "b",
+      q3: "b",
+      q4: "b"
     };
-    ["q1", "q2", "q3"].forEach(function (q) {
+
+    ["q1", "q2", "q3", "q4"].forEach(function (q) {
       const selected = document.querySelector(`input[name="${q}"]:checked`);
-      const result = document.getElementById(`pick_res_" + q`);
+      const result = document.getElementById(`transformation_res_${q}`);
       if (selected && selected.value === answers[q]) {
         result.innerHTML = "✅ Correct!";
         if (typeof progressManager !== "undefined") {
-          progressManager.addCompletion("pick_" + q, "correct");
+          progressManager.addCompletion(`transformation_${q}`, "correct");
         }
       } else {
         result.innerHTML = "❌ Try again.";
       }
     });
+
+    const checkboxes = document.querySelectorAll('input[name="q5"]:checked');
+    const selectedVals = Array.from(checkboxes).map(cb => cb.value).sort().join("");
+    const correctVals = ["a", "b", "c"].sort().join("");
+    const result5 = document.getElementById("transformation_res_q5");
+    if (selectedVals === correctVals) {
+      result5.innerHTML = "✅ Correct!";
+      if (typeof progressManager !== "undefined") {
+        progressManager.addCompletion("transformation_q5", "correct");
+      }
+    } else {
+      result5.innerHTML = "❌ Try again.";
+    }
   });
 </script>
 
