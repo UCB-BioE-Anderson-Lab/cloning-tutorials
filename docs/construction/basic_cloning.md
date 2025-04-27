@@ -234,10 +234,9 @@ Cas9 is an essential tool in modern genetic engineering. It’s an RNA-guided DN
 
 In this activity, you'll clone the Cas9 gene from its native **genomic DNA**, not from a cDNA template. This means we need to extract the correct region from the organism’s genome. We've already found the genome for *Streptococcus pyogenes* and identified the coordinates for the **Cas9 coding sequence**.
 
-You’ll design primers and identify the PCR step needed to insert Cas9 into the **pET-28a(+) expression vector** using the **NcoI** and **XhoI** restriction sites—just as you did in the insulin example. The rest of the construction file will be auto-filled for you once you provide the correct primers and PCR parameters.
+Download the Cas9 genomic region here: [Download Cas9 Genomic DNA](../assets/cas9_genomic)
 
-Use the Cas9 sequence from *S. pyogenes*, located at coordinates **796769–800875** on GenBank record **CP151446.1**:  
-🔗 [NCBI: CP151446.1](https://www.ncbi.nlm.nih.gov/nucleotide/CP151446.1?report=genbank&log$=nuclalign&blast_rank=1&RID=ZE7Y60E5013&from=796769&to=800875)
+You’ll design primers and identify the PCR step needed to insert Cas9 into the **pET-28a(+) expression vector** using the **NcoI** and **XhoI** restriction sites—just as you did in the insulin example. The rest of the construction file will be auto-filled for you once you provide the correct primers and PCR parameters.
 
 ---
 
