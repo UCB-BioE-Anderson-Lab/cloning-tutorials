@@ -74,7 +74,7 @@ plasmid      pTemp1      CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACA
 
     try {
       if (!C6 || typeof C6.parseCF !== "function") {
-        throw new Error("C6 tools not loaded. Please ensure window.C6 is available.");
+        throw new Error("C6 tools not loaded. Please ensure C6 is available.");
       }
 
       const cf = C6.parseCF(input);
@@ -142,7 +142,7 @@ window.addEventListener("load", function() {
 
     try {
       if (!C6 || typeof C6.annotateSequenceSmart !== "function") {
-        throw new Error("C6 tools not loaded. Please ensure window.C6 is available.");
+        throw new Error("C6 tools not loaded. Please ensure C6 is available.");
       }
 
       features = C6.annotateSequenceSmart(dnaInput);

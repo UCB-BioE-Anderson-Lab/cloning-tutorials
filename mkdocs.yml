@@ -40,6 +40,10 @@ nav:
       - 5. Simulation Tools: planning/cfs_simulation.md
       - 6. Inventory and Labsheets: planning/inventory_labsheets.md
       - 7. Ortholog Scan Project: planning/project_ispA.md
+
+  - Tools:
+      - Feature Extractor: tools/feature_extractor.md
+      - Super Simulator: tools/supersimulator.md
       
   - About: about.md
 
@@ -64,12 +68,6 @@ plugins:
   #     media_type: print
   
 extra_javascript:
-  - js/C6-Gene.js
-  - js/C6-Oligos.js
-  - js/C6-Seq.js
-  - js/C6-Sim.js
-  - js/C6-Utils.js
-  - js/C6-Annotator.js
   - js/progress_manager.js
 
 extra_css:
