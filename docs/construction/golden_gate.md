@@ -212,15 +212,15 @@ The T7 promoter is IPTG-inducible and requires host expression of T7 RNA polymer
 
 ### Objective
 
-Swap out the `T7 Promoter` feature in pET-INS with the sequence from AraC-Pbad. Use PCR-based Golden Gate to:
+Swap out the `lacI`, `T7 Promoter`, and `lacO` region in pET-INS with the sequence from AraC-Pbad. Use PCR-based Golden Gate to:
 
-- Remove the T7 promoter region from pET-INS
+- Remove the the regulatory region from pET-INS
 - Insert the AraC-Pbad fragment
 - Assemble using BsaI-generated overhangs
 
 Validate that:
 
-- The T7 sequence is completely and precisely removed
+- The T7, lacI, and lacO sequences are completely and precisely removed
 - AraC-Pbad is present and correctly oriented
 - All junctions are seamless and scarless
 
