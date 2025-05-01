@@ -120,95 +120,82 @@ These linkers allow:
 
 *Figure: Layout of TP and RC parts showing the role of unique linkers and MoClo overhangs. Each part includes type IIS flanking sites and 5' overhangs for ordered assembly.*
 
-## Quiz: Building an RC Part
+## 🧪 Quiz: Building an RC Part
 
-Given the following design inputs, construct a valid RC part sequence for Golden Gate assembly. Use the following conventions:
+<form id="rc_quiz_form">
+  <h3>Construct a Golden Gate-compatible RC Part</h3>
+  <p>Using the specifications below, enter the full DNA sequence for a valid RC part:</p>
 
-- 5' BsaI site (recall you need 1 more base between this and the sticky end): `GGTCTC`
+  <ul>
+    <li><code>5′ BsaI site</code>: <code>GGTCTC</code> (with 1 nt tail)</li>
+    <li><code>Sticky ends</code>: <code>tact</code> (5′) and <code>gctt</code> (3′)</li>
+    <li><code>5′ Spacer</code>: <code>CAAATGTACGGCCAGCAACG</code></li>
+    <li><code>RBS</code>: <code>gagaaagaggagaaatactag</code></li>
+    <li><code>CDS</code>: <code>ATGGCGTCTGACAGGAGCGTAA</code></li>
+    <li><code>3′ Spacer</code>: <code>GCACACCGTGGAAACGGATG</code></li>
+    <li>Add <code>5 bp tails</code> on both ends</li>
+  </ul>
 
-- MoClo overhangs (sticky ends): `tact` (5') and `gctt` (3')
-
-- 5' Spacer: `CAAATGTACGGCCAGCAACG`
-
-- 3' Spacer: `GCACACCGTGGAAACGGATG`
-
-- RBS: `gagaaagaggagaaatactag`
-
-- CDS (start to stop): `ATGGCGTCTGACAGGAGCGTAA`
-
-- Don't forget to add 5 bp tails on both ends of the DNA!
-
-### ✍️ Enter your RC part sequence here:
-<textarea id="rcInput" rows="5" style="width: 100%;"></textarea><br>
-<button id="rcQuizBtn">Check Answer</button>
-<p id="rcResult"></p>
+  <textarea id="rcInput" rows="5" style="width: 100%; font-family: monospace;"></textarea><br>
+  <button type="button" id="rcQuizBtn">Check Answer</button>
+  <p id="rcResult"></p>
+</form>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    function setupQuiz(quizId, inputId, resultId, quizName) {
-        let button = document.getElementById(quizId);
-        let inputField = document.getElementById(inputId);
-        let resultField = document.getElementById(resultId);
+    const btn = document.getElementById("rcQuizBtn");
+    const input = document.getElementById("rcInput");
+    const result = document.getElementById("rcResult");
 
-        if (button && inputField && resultField) {
-            button.addEventListener("click", function () {
-                let seq = inputField.value.toUpperCase().trim();
-                let feedback = [];
+    btn.addEventListener("click", function () {
+        let seq = input.value.toUpperCase().trim();
+        let feedback = [];
 
-                // Check forward BsaI site
-                const fwdSite = "GGTCTC";
-                const revSite = "GAGACC";
-                const fwdIndex = seq.indexOf(fwdSite);
-                const revIndex = seq.indexOf(revSite);
-                const fwdCount = (seq.match(/GGTCTC/g) || []).length;
-                const revCount = (seq.match(/GAGACC/g) || []).length;
+        const fwdSite = "GGTCTC";
+        const revSite = "GAGACC";
+        const fwdIndex = seq.indexOf(fwdSite);
+        const revIndex = seq.indexOf(revSite);
+        const fwdCount = (seq.match(/GGTCTC/g) || []).length;
+        const revCount = (seq.match(/GAGACC/g) || []).length;
 
-                if (fwdCount === 0) feedback.push("Missing forward BsaI site (GGTCTC).");
-                else if (fwdCount > 1) feedback.push("Too many forward BsaI sites (GGTCTC).");
-                else if (fwdIndex < 5) feedback.push("Not enough 5' tail before forward BsaI site.");
+        if (fwdCount === 0) feedback.push("Missing forward BsaI site (GGTCTC).");
+        else if (fwdCount > 1) feedback.push("Too many forward BsaI sites.");
+        else if (fwdIndex < 5) feedback.push("Not enough 5' tail before BsaI site.");
 
-                if (revCount === 0) feedback.push("Missing reverse BsaI site (GAGACC).");
-                else if (revCount > 1) feedback.push("Too many reverse BsaI sites (GAGACC).");
-                else if (seq.length - revIndex < 11) feedback.push("Not enough 3' tail after reverse BsaI site.");
+        if (revCount === 0) feedback.push("Missing reverse BsaI site (GAGACC).");
+        else if (revCount > 1) feedback.push("Too many reverse BsaI sites.");
+        else if (seq.length - revIndex < 11) feedback.push("Not enough 3' tail after BsaI site.");
 
-                if (fwdCount === 1 && revCount === 1) {
-                    // Check sticky ends
-                    const sticky5 = seq.substring(fwdIndex + 7, fwdIndex + 11);
-                    if (sticky5 !== "TACT") feedback.push("Incorrect 5' sticky end (should be TACT).");
+        if (fwdCount === 1 && revCount === 1) {
+            const sticky5 = seq.substring(fwdIndex + 7, fwdIndex + 11);
+            if (sticky5 !== "TACT") feedback.push("Incorrect 5' sticky end (should be TACT).");
 
-                    const sticky3 = seq.substring(revIndex - 5, revIndex - 1);
-                    if (sticky3 !== "GCTT") feedback.push("Incorrect 3' sticky end (should be GCTT).");
+            const sticky3 = seq.substring(revIndex - 5, revIndex - 1);
+            if (sticky3 !== "GCTT") feedback.push("Incorrect 3' sticky end (should be GCTT).");
 
-                    // Define expected sequences and positions
-                    const expectedSeqs = {
-                        "5' Spacer": ["CAAATGTACGGCCAGCAACG", fwdIndex + 11],
-                        "RBS": ["GAGAAAGAGGAGAAATACTAG", fwdIndex + 31],
-                        "CDS": ["ATGGCGTCTGACAGGAGCGTAA", fwdIndex + 52],
-                        "3' Spacer": ["GCACACCGTGGAAACGGATG", fwdIndex + 74]
-                    };
+            const expectedSeqs = {
+                "5' Spacer": ["CAAATGTACGGCCAGCAACG", fwdIndex + 11],
+                "RBS": ["GAGAAAGAGGAGAAATACTAG", fwdIndex + 31],
+                "CDS": ["ATGGCGTCTGACAGGAGCGTAA", fwdIndex + 52],
+                "3' Spacer": ["GCACACCGTGGAAACGGATG", fwdIndex + 74]
+            };
 
-                    for (let [label, [expected, expectedPos]] of Object.entries(expectedSeqs)) {
-                        const foundIndex = seq.indexOf(expected);
-                        if (foundIndex === -1) {
-                            feedback.push(`${label} is missing.`);
-                        } else if (foundIndex !== expectedPos) {
-                            feedback.push(`${label} is at index ${foundIndex}, but expected at ${expectedPos}.`);
-                        }
-                    }
-                }
-
-                if (feedback.length === 0) {
-                    resultField.innerHTML = "✅ Correct!";
-                    progressManager.addCompletion(quizName, "correct");
-                } else {
-                    resultField.innerHTML = "❌ " + feedback.join(" ");
-                }
-            });
+            for (let [label, [expected, pos]] of Object.entries(expectedSeqs)) {
+                const found = seq.indexOf(expected);
+                if (found === -1) feedback.push(`${label} is missing.`);
+                else if (found !== pos) feedback.push(`${label} at wrong position (found at ${found}, expected ${pos}).`);
+            }
         }
-    }
 
-    // Set up RC part quiz
-    setupQuiz("rcQuizBtn", "rcInput", "rcResult", "RC_Part_Quiz");
+        if (feedback.length === 0) {
+            result.innerHTML = "✅ Correct!";
+            if (typeof progressManager !== "undefined") {
+                progressManager.addCompletion("RC_Part_Quiz", "correct");
+            }
+        } else {
+            result.innerHTML = "❌ " + feedback.join(" ");
+        }
+    });
 });
 </script>
 

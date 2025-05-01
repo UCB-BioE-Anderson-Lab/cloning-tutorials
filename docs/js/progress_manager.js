@@ -33,11 +33,11 @@ if (!window.progressManager) {
                 "interpretation_q2",
                 "interpretation_q3",
                 "interpretation_q4"
-                ]
+                ],
             },
             "Project Planning": {
               "project_setup": [],
-              "design_principles": [],
+              "design_principles": ["RC_Part_Quiz"],
               "sequence_analysis": [],
               "oligo_design": [],
               "cfs_simulation": [],
