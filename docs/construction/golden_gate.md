@@ -257,8 +257,8 @@ Validate that:
       `;
 
       const cf = C6.parseCF(input + injections);
-      // Check for at least one gibson step in cf.steps
-      const hasGibson = Array.isArray(cf.steps) && cf.steps.some(step => step.operation?.toLowerCase() === "goldengate");
+      // Check for at least one Golden Gate step in cf.steps
+      const hasGoldenGate = Array.isArray(cf.steps) && cf.steps.some(step => step.operation?.toLowerCase() === "goldengate");
       console.log(cf)
       const results = C6.simCF(cf);
 
@@ -308,14 +308,14 @@ Validate that:
       });
 
       // Check for Golden Gate step
-      if (!hasGibson) {
+      if (!hasGoldenGate) {
         missing.push("a Golden Gate step in your Construction File");
       }
 
       if (missing.length === 0) {
         feedback.push("✅ Success! Your design contains all expected sequence features.");
         if (typeof window.progressManager !== "undefined") {
-          window.progressManager.addCompletion("Gibson Cloning", "correct");
+          window.progressManager.addCompletion("Golden Gate Cloning", "correct");
         }
       } else {
         feedback = missing.map(label => `❌ Missing: <code>${label}</code>`);
