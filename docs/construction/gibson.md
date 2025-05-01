@@ -176,43 +176,41 @@ These tools let you verify that your overlaps (`overlap`), `forward anneal`, and
 
 ## 🎯 Try it yourself
 
-In this challenge, you’ll use Gibson Assembly to replace **amilGFP** with **mCherry** in the **pTP1** plasmid.
+In this challenge, you’ll use Gibson Assembly to insert **mCherry** into the **pET28a** plasmid between the **NcoI** and **XhoI** restriction sites.
 
 Just like in the pET-INS example:
 
 ### 1. **Start by modeling the final product**  
 
-   - Download the sequences below and paste `mCherry` into `pTP1`, replacing the **amilGFP** region (262–957).
+   - Download the sequences below.
+   - Paste `mCherry` into `pET28a`, replacing the region between the NcoI and XhoI sites.
    - Mark the insert in lowercase and the plasmid in UPPERCASE.
 
    🔗 [mCherry GenBank](../assets/mCherry.seq)  
-   🔗 [pTP1 GenBank](../assets/pTP1.seq)
+   🔗 [pET28a GenBank](../assets/pET28a.gb)
 
 ### 2. **Annotate each junction**  
 
-   - Identify:
-
-     - `overlap`: 20–30 bp spanning the junction
-     - `forward anneal`: 20–30 bp downstream from the junction
-     - `reverse anneal`: 20–30 bp upstream of the junction
+   - For both junctions between insert and vector:
+     - Define an `overlap` region: 20–30 bp that spans the junction.
+     - Choose a `forward anneal` region: 20–30 bp downstream of the junction.
+     - Choose a `reverse anneal` region: 20–30 bp upstream of the junction (on the coding strand).
 
 ### 3. **Design your oligos**  
 
    - Forward oligo = `overlap` + `forward anneal`  
-   - Reverse oligo = `reverse anneal` + `overlap` (then reverse complemented)
+   - Reverse oligo = `reverse anneal` + `overlap`, then reverse complement
 
 ### 4. **Build your Construction File (CF)**  
 
-   - Copy the pET-INS example above.
-   - Rename the DNAs to match this mCherry/pTP1 experiment.
-   - You will still need:
-
+   - Your CF should include:
      - Two `PCR` steps
      - One `Gibson` step
      - One `Transform` step
      - Four `oligo` lines
+   - You will name and assign components based on your own design choices
 
-**Tip:** The mCherry and pTP1 sequences are already preloaded into the autograder—you don't need to include them in your CF.
+**Tip:** The sequences for `mCherry` and `pET28a` are preloaded in the autograder—no need to define them in your CF.
 
 When you're ready, paste your CF into the autograder below and simulate.
 
