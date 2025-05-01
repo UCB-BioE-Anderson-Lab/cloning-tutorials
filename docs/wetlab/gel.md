@@ -133,8 +133,8 @@ If others in your lab section are also ready to run a gel, set up one gel for th
     });
   });
 </script>
-
+<!-- 
 ## 🎥 Watch Before Lab
 
 Watch the Gel tutorial video before coming to lab.
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe> -->

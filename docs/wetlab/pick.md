@@ -116,10 +116,10 @@ Name the image as: `pP6-79` (with your number)
     });
   });
 </script>
-
+<!-- 
 ----
 
 ## Video Tutorial
 
 🎥 Watch the picking tutorial video before lab.  
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe> -->

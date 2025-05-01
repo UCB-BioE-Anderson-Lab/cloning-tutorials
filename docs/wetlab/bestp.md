@@ -135,11 +135,11 @@ Our ultimate goal with BestP is to measure the RPU of each pP6 clone and compare
     });
   });
 </script>
-
+<!-- 
 ----
 
 ## 🎥 Watch Before Lab
 
 Watch the fluorescense measurement tutorial video before coming to lab.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe> -->

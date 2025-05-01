@@ -72,7 +72,7 @@ To ensure ApE recognizes the latest feature annotations and enzyme files, follow
 
 ### Performing Operations in ApE
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
+<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe> -->
 
 - **Search**: Use **Edit > Find** in the toolbar or press **Command + F**. To search both strands, check the **Also find rev-com of string** option. You can use **N's as wildcards** in your search. Choose to either **select** or **highlight** the sequence using the provided button options.
 - **Copy**: Select the sequence using your mouse, then go to **Edit > Copy**, or press **Command + C**. To copy the **reverse complement**, use **Edit > Copy Rev Com**.
@@ -87,7 +87,7 @@ You can turn off the double-stranded view under **ApE > Settings** and uncheck t
 
 ## Benchling
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5TC1GPHSxfY" frameborder="0" allowfullscreen></iframe>
 
 ### Getting Started with Benchling
 - Create an account on Benchling and log in.

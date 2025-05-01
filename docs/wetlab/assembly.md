@@ -133,8 +133,8 @@ Typical scale is **10 µL**, matching what’s needed for competent cell transfo
     });
   });
 </script>
-
+<!-- 
 ### 🎥 Watch Before Lab
 
 Watch the assembly tutorial video before coming to lab.
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe> -->

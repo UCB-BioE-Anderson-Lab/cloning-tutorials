@@ -250,8 +250,8 @@ Final Extension:        68°C for 5 min
     });
   });
 </script>
-
+<!-- 
 ## 🎥 Watch Before Lab
 
 Watch the PCR tutorial video before coming to lab.
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe> -->

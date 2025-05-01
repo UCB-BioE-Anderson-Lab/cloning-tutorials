@@ -14,10 +14,10 @@ In all cases, you're targeting a specific location within a plasmid and rewritin
 ![Zoomed schematic of the pTargetF plasmid showing a site-directed edit in the gRNA region: the cadA-targeting protospacer (orange) is swapped for a cscR-targeting protospacer (pink), adjacent to a constant tracrRNA scaffold (green), under control of the P_con promoter and flanked by a SpeI site.](../images/pTargetF_protospacer_mutagenesis.png)
 
 **Figure:** Site-directed mutagenesis of the pTargetF plasmid to retarget the gRNA. The original cadA-targeting protospacer (orange) is replaced with a new cscR-targeting protospacer (pink), using a SpeI-flanked region upstream of the gRNA scaffold (green tracrRNA).
-
+<!-- 
 ##  🎥 Video Demo
 <iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
----
+--- -->
 
 ## Overview of Mutagenesis Strategies
 

@@ -148,8 +148,8 @@ The protocol below is adapted from Qiagen's handbook, which includes detailed gu
     }
   });
 </script>
-
+<!-- 
 ## Video Tutorial
 
 🎥 Watch the tutorial video before lab to familiarize yourself with the miniprep steps.  
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe> -->

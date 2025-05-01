@@ -18,12 +18,12 @@ Golden Gate is powerful because it allows:
 
 These features make it ideal for modular cloning, where standardized parts and repeatable junctions are critical.
 
-## 🎥 Video Demo
+<!-- ### 🎥 Video Demo
 <iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe>
 
  *(This video walks through the concept and shows how to design junctions and oligos in ApE.)*
 
- ---
+ --- -->
  
  The reaction is designed so that digestion and ligation happen together, recognition sites are eliminated, and sticky ends control the final sequence junctions.
  
