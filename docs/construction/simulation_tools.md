@@ -148,7 +148,13 @@ window.addEventListener("load", function() {
 
       features = C6.annotateSequenceSmart(dnaInput);
       const tus = C6.inferTranscriptionalUnits(features);
-      const expressed = C6.inferExpressedProteins(dnaInput, tus);
+
+
+      console.log("TUs:", tus);
+console.log("Type of TUs:", typeof tus);
+console.log("Is array?", Array.isArray(tus));
+
+      const expressed = C6.inferExpressedProteins(tus);
       const nonExpressed = C6.findNonExpressedCDS(features, expressed);
 
       let html = "<h3>Detected Features</h3><ul>";
