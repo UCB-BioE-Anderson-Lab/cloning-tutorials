@@ -1,0 +1,1607 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/wetlab/miniprep/">
+      
+      
+        <link rel="prev" href="../pick/">
+      
+      
+        <link rel="next" href="../sequencing/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>9. Miniprep - SynBio Project Tutorials</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#miniprep-plasmid-dna-purification" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SynBio Project Tutorials" class="md-header__button md-logo" aria-label="SynBio Project Tutorials" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SynBio Project Tutorials
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              9. Miniprep
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SynBio Project Tutorials" class="md-nav__button md-logo" aria-label="SynBio Project Tutorials" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    SynBio Project Tutorials
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Wetlab
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Wetlab
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. pP6 Experiment Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pipetting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Pipetting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pcr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. Polymerase Chain Reaction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Gel Electrophoresis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cleanup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Zymo Cleanup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Transformation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pick/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    8. Colony Picking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    9. Miniprep
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    9. Miniprep
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-miniprep" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Miniprep?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-qiagen-miniprep-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Qiagen Miniprep Procedure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Qiagen Miniprep Procedure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reagents" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Reagents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alkaline-lysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧫 Alkaline Lysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column-binding-and-wash" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧼 Column Binding and Wash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elution" class="md-nav__link">
+    <span class="md-ellipsis">
+      💧 Elution
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-sheet-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Sheet Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kit-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kit Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz-miniprep" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Quiz: Miniprep
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequencing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10. Cycle Sequencing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bestp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    11. Measuring Fluorescence
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cloning Techniques
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cloning Techniques
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/dna_basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. DNA Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/sequence_tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Sequence Editing Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/manual_prediction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. Manual Product Prediction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/simulation_tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Simulation Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/basic_cloning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Basic Cloning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/gibson/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Gibson Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/golden_gate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Golden Gate Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/mutagenesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    8. Site-Directed Mutagenesis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/sequencing_confirmation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    9. Sequencing Confirmation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Project Planning
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Project Planning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/project_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. Project Setup and Nomenclature
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/design_principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Experimental Design Principles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/sequence_analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. Sequence Retrieval and Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/oligo_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Choosing a Fabrication Strategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/cfs_simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Simulation Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/inventory_labsheets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Inventory and Labsheets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/project_ispA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Ortholog Scan Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/feature_extractor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Feature Extractor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/feature_manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Feature Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/supersimulator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Super Simulator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-miniprep" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Miniprep?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-qiagen-miniprep-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Qiagen Miniprep Procedure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Qiagen Miniprep Procedure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reagents" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Reagents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alkaline-lysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧫 Alkaline Lysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column-binding-and-wash" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧼 Column Binding and Wash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elution" class="md-nav__link">
+    <span class="md-ellipsis">
+      💧 Elution
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-sheet-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Sheet Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kit-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kit Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz-miniprep" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Quiz: Miniprep
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="miniprep-plasmid-dna-purification">Miniprep: Plasmid DNA Purification<a class="headerlink" href="#miniprep-plasmid-dna-purification" title="Permanent link">&para;</a></h1>
+<p>Once you’ve picked and grown up an isolated colony, you now have a saturated culture containing billions of identical cells. Each cell carries multiple copies of the plasmid, and a miniprep allows you to extract and purify that plasmid DNA.</p>
+<hr />
+<h2 id="why-miniprep">Why Miniprep?<a class="headerlink" href="#why-miniprep" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Storage</strong> — Purified plasmid can be stored at -20°C indefinitely.</li>
+<li><strong>DNA as a Building Block</strong> — You often need clean DNA to build or clone further constructs.</li>
+<li><strong>Sequencing</strong> — Verifying the plasmid sequence requires pure template.</li>
+<li><strong>Transformation into Other Cells</strong> — Requires isolated DNA.</li>
+<li><strong>General Use</strong> — Quantification, restriction mapping, and other analytical methods.</li>
+</ol>
+<hr />
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p><img alt="Qiagen QIAprep Miniprep Kit components" src="../../images/qiaprep_kit.png" />
+<em>Figure: Components of the Qiagen QIAprep Spin Miniprep Kit. Blue columns, labeled buffers, and RNase A tube shown.</em></p>
+<p>This procedure is similar to the Zymo cleanup, but starts with a bacterial culture. We use the <strong>Qiagen QIAprep Spin Miniprep Kit</strong>, which uses silica column purification via <strong>guanidinium-silica chemistry</strong>. (This is <strong>not</strong> interchangeable with Qiagen anion-exchange kits.)</p>
+<hr />
+<p>The protocol below is adapted from Qiagen's handbook, which includes detailed guidance, reagent preparation, and troubleshooting.<br />
+📄 <a href="../../assets/HB-1206-007_HB_QIAprep_Miniprep_1220_WW.pdf">Download the full handbook (PDF)</a></p>
+<h2 id="the-qiagen-miniprep-procedure">The Qiagen Miniprep Procedure<a class="headerlink" href="#the-qiagen-miniprep-procedure" title="Permanent link">&para;</a></h2>
+<p><img alt="Illustrated summary of miniprep procedure showing steps from cell lysis to DNA elution. Step 1: Harvest and Lyse. Step 2: Clarify Lysate. Step 3: Bind Plasmid DNA. Step 4: Wash and Elute." src="../../images/miniprep_steps.png" />
+<em>Figure: Overview of the miniprep workflow — cells are lysed, debris is removed, DNA binds to a spin column, and is then washed and eluted.</em></p>
+<h3 id="reagents">🧪 Reagents<a class="headerlink" href="#reagents" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>P1 Buffer</strong> (with RNase A)</li>
+<li><strong>P2 Buffer</strong> (NaOH/SDS)</li>
+<li><strong>N3 Buffer</strong> (Acidic, with guanidinium)</li>
+<li><strong>PB Buffer</strong> (protein/endotoxin removal)</li>
+<li><strong>PE Buffer</strong> (70% ethanol)</li>
+<li><strong>EB Buffer</strong> (elution)</li>
+</ul>
+<h3 id="alkaline-lysis">🧫 Alkaline Lysis<a class="headerlink" href="#alkaline-lysis" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Pellet</strong> 1–5 mL saturated culture in a microcentrifuge tube.</li>
+<li><strong>Resuspend</strong> in 250 µL P1 (RNase A must be added).</li>
+<li><strong>Lyse</strong> by adding 250 µL P2, mix gently (do <strong>not</strong> vortex).</li>
+<li><strong>Neutralize</strong> with 350 µL N3. Invert to mix thoroughly.</li>
+<li><strong>Spin</strong> 5 min at max speed to pellet debris.</li>
+</ol>
+<h3 id="column-binding-and-wash">🧼 Column Binding and Wash<a class="headerlink" href="#column-binding-and-wash" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Transfer supernatant to a <strong>blue QIAprep column</strong>, spin 15 s.</li>
+<li>Add 500 µL PB Buffer, spin.</li>
+<li>Add 750 µL PE Buffer, spin.</li>
+<li>Discard flowthrough, then <strong>spin again</strong> 90 s to dry.</li>
+</ol>
+<h3 id="elution">💧 Elution<a class="headerlink" href="#elution" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Place column in a new 1.5 mL microcentifuge tube. Add 50 µL EB (or water, pH 7–8.5) to center of membrane.</li>
+<li>Spin 45 s to elute DNA.</li>
+</ol>
+<p><em>Note: Avoid ethanol contamination from PE — spin thoroughly before eluting.</em></p>
+<hr />
+<h2 id="lab-sheet-notes">Lab Sheet Notes<a class="headerlink" href="#lab-sheet-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Clearly label both the top and side of each tube with clone ID (e.g. <code>pP6-79A</code>).</li>
+<li>Store the labeled miniprep tubes in the <code>minis1</code> box.</li>
+<li>Record <strong>miniprep location</strong> in the box (e.g., <code>E3</code>) on your lab sheet.</li>
+<li>Minipreps are retained for future use and must be properly inventoried.</li>
+</ul>
+<hr />
+<h2 id="kit-notes">Kit Notes<a class="headerlink" href="#kit-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Add <strong>RNase A</strong> to P1 before use; store in the fridge thereafter.</li>
+<li>Add <strong>ethanol</strong> to PE buffer before first use. Waft the open tube to confirm ethanol has been added. A checkmark on the cap typically indicates ethanol has been added.</li>
+<li>P2 buffer may precipitate when cold; ensure it is a clear liquid before use. Gently warm it (e.g., in the microwave) to fully dissolve any precipitate.</li>
+<li>Buffers P2, N3, and PB contain irritants — wear gloves, goggles, and labcoat (as always).</li>
+<li>Be mindful of contamination on your gloves. This procedure can be messy; crusty debris from bottle rims can transfer to gloves and contaminate your samples. Rinse your gloves at the sink if you suspect it.</li>
+</ul>
+<hr />
+<h2 id="quiz-miniprep">🧪 Quiz: Miniprep<a class="headerlink" href="#quiz-miniprep" title="Permanent link">&para;</a></h2>
+<form id="miniprep_quiz_form">
+  <h3>1️⃣ Elution Contents</h3>
+  <p>What is in the tube after elution from the miniprep column?</p>
+  <label><input type="radio" name="q1" value="a"> All nucleic acids present in the original cell</label><br>
+  <label><input type="radio" name="q1" value="b"> Guanidinium chloride, plasmid DNA, and ethanol</label><br>
+  <label><input type="radio" name="q1" value="c"> RNA, chromosomal DNA, proteins, and water</label><br>
+  <label><input type="radio" name="q1" value="d"> Water and purified plasmid DNA</label><br>
+  <p id="miniprep_res_q1"></p>
+
+  <h3>2️⃣ Avoiding Errors</h3>
+  <p>Which of these are good miniprep practices?</p>
+  <label><input type="checkbox" name="q2" value="a"> Using more than 5 mL of cells</label><br>
+  <label><input type="checkbox" name="q2" value="b"> Leaving supernatant after pelleting</label><br>
+  <label><input type="checkbox" name="q2" value="c"> Skipping RNase in P1</label><br>
+  <label><input type="checkbox" name="q2" value="d"> Incomplete cell resuspension</label><br>
+  <label><input type="checkbox" name="q2" value="e"> Using cold, precipitated P2</label><br>
+  <label><input type="checkbox" name="q2" value="f"> Using the wrong neutralization buffer</label><br>
+  <label><input type="checkbox" name="q2" value="g"> Skipping gentle mixing before spinning</label><br>
+  <label><input type="checkbox" name="q2" value="h"> Over-vortexing the lysate</label><br>
+  <label><input type="checkbox" name="q2" value="i"> Washing the column with water</label><br>
+  <label><input type="checkbox" name="q2" value="j"> Doing washes in the wrong order</label><br>
+  <label><input type="checkbox" name="q2" value="k"> Using PE without ethanol</label><br>
+  <label><input type="checkbox" name="q2" value="l"> Not drying the column</label><br>
+  <label><input type="checkbox" name="q2" value="m"> Eluting on the side of the tube</label><br>
+  <label><input type="checkbox" name="q2" value="n"> Throwing away your DNA</label><br>
+  <label><input type="checkbox" name="q2" value="o"> Eluting into the collection tube</label><br>
+  <label><input type="checkbox" name="q2" value="p"> Having a great time (the only right answer)</label><br>
+  <label><input type="checkbox" name="q2" value="q"> Eluting with PE buffer</label><br>
+  <p id="miniprep_res_q2"></p>
+
+  <button type="button" id="miniprep_submit_btn">Check Answers</button>
+</form>
+
+<script>
+  document.getElementById("miniprep_submit_btn").addEventListener("click", function () {
+    const answers = {
+      q1: "d"
+    };
+    const selectedQ1 = document.querySelector('input[name="q1"]:checked');
+    const resultQ1 = document.getElementById("miniprep_res_q1");
+    if (selectedQ1 && selectedQ1.value === answers.q1) {
+      resultQ1.innerHTML = "✅ Correct!";
+      if (typeof progressManager !== "undefined") {
+        progressManager.addCompletion("miniprep_q1", "correct");
+      }
+    } else {
+      resultQ1.innerHTML = "❌ Try again.";
+    }
+
+    const checkboxes = document.querySelectorAll('input[name="q2"]:checked');
+    const selectedVals = Array.from(checkboxes).map(cb => cb.value).sort().join("");
+    const correctVals = ["p"].sort().join("");  // only having a great time
+    const resultQ2 = document.getElementById("miniprep_res_q2");
+    if (selectedVals === correctVals) {
+      resultQ2.innerHTML = "✅ Correct!";
+      if (typeof progressManager !== "undefined") {
+        progressManager.addCompletion("miniprep_q2", "correct");
+      }
+    } else {
+      resultQ2.innerHTML = "❌ Try again.";
+    }
+  });
+</script>
+<!-- 
+## Video Tutorial
+
+🎥 Watch the tutorial video before lab to familiarize yourself with the miniprep steps.  
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe> -->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../js/progress_manager.js"></script>
+      
+    
+  </body>
+</html>

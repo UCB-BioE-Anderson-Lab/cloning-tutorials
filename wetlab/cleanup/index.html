@@ -1,0 +1,1536 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/wetlab/cleanup/">
+      
+      
+        <link rel="prev" href="../gel/">
+      
+      
+        <link rel="next" href="../assembly/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>5. Zymo Cleanup - SynBio Project Tutorials</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#zymo-cleanup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SynBio Project Tutorials" class="md-header__button md-logo" aria-label="SynBio Project Tutorials" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SynBio Project Tutorials
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5. Zymo Cleanup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SynBio Project Tutorials" class="md-nav__button md-logo" aria-label="SynBio Project Tutorials" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    SynBio Project Tutorials
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Wetlab
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Wetlab
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. pP6 Experiment Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pipetting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Pipetting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pcr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. Polymerase Chain Reaction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Gel Electrophoresis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    5. Zymo Cleanup
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Zymo Cleanup
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-cleanup-is-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Cleanup Is Necessary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How It Works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zymo-vs-other-kits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zymo vs. Other Kits
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-sheet-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Sheet Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step-regular-zymo-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-Step: Regular Zymo Cleanup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz-zymo-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Quiz: Zymo Cleanup
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Transformation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pick/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    8. Colony Picking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../miniprep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    9. Miniprep
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequencing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10. Cycle Sequencing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bestp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    11. Measuring Fluorescence
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cloning Techniques
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cloning Techniques
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/dna_basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. DNA Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/sequence_tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Sequence Editing Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/manual_prediction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. Manual Product Prediction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/simulation_tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Simulation Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/basic_cloning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Basic Cloning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/gibson/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Gibson Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/golden_gate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Golden Gate Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/mutagenesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    8. Site-Directed Mutagenesis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/sequencing_confirmation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    9. Sequencing Confirmation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Project Planning
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Project Planning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/project_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. Project Setup and Nomenclature
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/design_principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Experimental Design Principles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/sequence_analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. Sequence Retrieval and Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/oligo_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Choosing a Fabrication Strategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/cfs_simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Simulation Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/inventory_labsheets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Inventory and Labsheets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/project_ispA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Ortholog Scan Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/feature_extractor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Feature Extractor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/feature_manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Feature Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/supersimulator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Super Simulator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-cleanup-is-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Cleanup Is Necessary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How It Works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zymo-vs-other-kits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zymo vs. Other Kits
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-sheet-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Sheet Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step-regular-zymo-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-Step: Regular Zymo Cleanup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz-zymo-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Quiz: Zymo Cleanup
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="zymo-cleanup">Zymo Cleanup<a class="headerlink" href="#zymo-cleanup" title="Permanent link">&para;</a></h1>
+<p>After confirming your PCR reaction on a gel, the next step is to purify the DNA. This is essential for most cloning workflows, especially <strong>Golden Gate</strong> and <strong>restriction enzyme-based</strong> cloning. Although it is <strong>optional for Gibson</strong>, cleanup helps remove components from the PCR that may interfere with downstream steps.</p>
+<hr />
+<h2 id="why-cleanup-is-necessary">Why Cleanup Is Necessary<a class="headerlink" href="#why-cleanup-is-necessary" title="Permanent link">&para;</a></h2>
+<p>PCR reactions contain:</p>
+<ul>
+<li>Unreacted dNTPs</li>
+<li>Active polymerase</li>
+<li>Buffers and salts</li>
+</ul>
+<p>These can interfere with cloning enzymes, particularly enzymes like BsaI that generate sticky ends. Polymerase can fill in sticky overhangs, preventing proper ligation. Cleanup eliminates these components.</p>
+<hr />
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p><img alt="A schematic showing silica column DNA purification. In the binding step, DNA and contaminants are shown entering the column and contacting a pink silica resin. After spinning, contaminants are washed away and DNA remains bound. A second spin after ethanol wash further clears the column. In the final elution step, DNA is released from the resin into the collection tube. A legend shows icons representing silica resin (pink), DNA (black dots), contaminants (green bars), column, and collection tube." src="../../images/zymo_cleanup_steps.png" /></p>
+<p><em>Figure: Stepwise diagram of silica column cleanup showing binding, washing, and elution. DNA binds to the pink resin in the column, contaminants are washed away, and purified DNA is eluted into a clean tube.</em></p>
+<p>DNA binds to silica in the presence of a chaotropic salt—usually <strong>guanidinium thiocyanate</strong>—found in Zymo's <strong>ADB buffer</strong>. This same chemical also denatures proteins like polymerases.</p>
+<p>The basic workflow:</p>
+<ol>
+<li>Mix PCR product with <strong>ADB buffer</strong></li>
+<li>Pass through a <strong>silica column</strong> by centrifugation</li>
+<li>Wash the column with <strong>70% ethanol</strong> (provided as PE or Wash buffer)</li>
+<li>Dry the column by spinning</li>
+<li>Elute DNA with water or <strong>EB Buffer</strong></li>
+</ol>
+<blockquote>
+<p>EB is preferred because it's a dilute Tris buffer. Pure water can absorb CO₂ and become slightly acidic, which may reduce recovery of DNA.</p>
+<p>Be mindful: <strong>know where your DNA is at each step.</strong> Many errors involve discarding the DNA by accident.</p>
+</blockquote>
+<hr />
+<h2 id="zymo-vs-other-kits">Zymo vs. Other Kits<a class="headerlink" href="#zymo-vs-other-kits" title="Permanent link">&para;</a></h2>
+<p>We use the <strong>Zymo DNA Clean &amp; Concentrator-5</strong> kit because it allows elution in as little as <strong>6 µL</strong>, which is sometimes useful for concentrating the DNA. However, there are many equivalent products on the market.</p>
+<p>Popular Alternative: <strong>Qiagen QIAquick Gel Extraction Kit (purple column)</strong>  </p>
+<ul>
+<li>Typically used to extract DNA from excised gel slices  </li>
+<li>Requires special buffer if binding from a gel  </li>
+<li>Similar silica-based chemistry</li>
+</ul>
+<blockquote>
+<p>Note: for small DNA fragments (&lt;250 bp), improve binding by mixing <strong>1 part ADB + 3 parts isopropanol</strong> before loading.</p>
+</blockquote>
+<hr />
+<h2 id="lab-sheet-overview">Lab Sheet Overview<a class="headerlink" href="#lab-sheet-overview" title="Permanent link">&para;</a></h2>
+<p><strong>Title:</strong> TPcon6-P6: Zymo<br />
+<strong>Location of PCR product:</strong> Enzyme freezer, PCR rack labeled “to Zymo”</p>
+<table>
+<thead>
+<tr>
+<th>Reaction</th>
+<th>Tube Label</th>
+<th>Side Label</th>
+<th>Elution Volume</th>
+<th>Destination</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>79</td>
+<td>z79</td>
+<td>P6 z79</td>
+<td>25 µL</td>
+<td>zymos1/___</td>
+</tr>
+</tbody>
+</table>
+<p>Each PCR reaction you process will yield a new <strong>labeled Eppendorf tube</strong> with your cleaned-up DNA.</p>
+<hr />
+<h2 id="step-by-step-regular-zymo-cleanup">Step-by-Step: Regular Zymo Cleanup<a class="headerlink" href="#step-by-step-regular-zymo-cleanup" title="Permanent link">&para;</a></h2>
+<p>This protocol removes polymerase, dNTPs, salts, and oligos from your PCR. It also works for cleaning up restriction digests.</p>
+<ol>
+<li>Add <strong>180 µL of Zymo ADB buffer</strong> (brown bottle) to your PCR reaction.</li>
+<li>Transfer the mixture to a <strong>Zymo column</strong> (small clear tube labeled for cleanup).</li>
+<li>Spin at full speed for <strong>15 seconds</strong>, discard the flow-through.</li>
+<li>Add <strong>200 µL of PE Buffer</strong> to the column.</li>
+<li>Spin at full speed for <strong>15 seconds</strong>, discard the flow-through.</li>
+<li>Add another <strong>200 µL of PE Buffer</strong>.</li>
+<li>Spin at full speed for <strong>15 seconds</strong>, discard the flow-through.</li>
+<li>Spin at full speed for <strong>90 seconds</strong> to dry the column, discard flow-through.</li>
+<li>Place the column in a clean 1.5 mL Eppendorf tube. Add the elution volume (see lab sheet) of <strong>EB Buffer</strong> or water <strong>directly to the center</strong> of the column matrix. Avoid letting liquid stick to the walls.  </li>
+<li>Spin at full speed for <strong>45 seconds</strong> to collect your purified DNA.</li>
+</ol>
+<hr />
+<h2 id="quiz-zymo-cleanup">🧪 Quiz: Zymo Cleanup<a class="headerlink" href="#quiz-zymo-cleanup" title="Permanent link">&para;</a></h2>
+<form id="cleanup_quiz_form">
+  <h3>1️⃣ Why Cleanup?</h3>
+  <p>Why is it important to clean up a PCR reaction before cloning?</p>
+  <label><input type="radio" name="q1" value="a"> To increase the fluorescence of the DNA</label><br>
+  <label><input type="radio" name="q1" value="b"> To convert DNA to RNA</label><br>
+  <label><input type="radio" name="q1" value="c"> To shorten the DNA for easier ligation</label><br>
+  <label><input type="radio" name="q1" value="d"> To remove enzymes and reagents that could interfere with cloning steps</label><br>
+  <p id="cleanup_res_q1"></p>
+
+  <h3>2️⃣ ADB Buffer</h3>
+  <p>What is in the ADB buffer that causes DNA to bind to the silica column?</p>
+  <label><input type="radio" name="q2" value="a"> Guanidinium thiocyanate</label><br>
+  <label><input type="radio" name="q2" value="b"> Urea</label><br>
+  <label><input type="radio" name="q2" value="c"> Antibodies</label><br>
+  <label><input type="radio" name="q2" value="d"> Sodium bicarbonate</label><br>
+  <p id="cleanup_res_q2"></p>
+
+  <h3>3️⃣ Common Cleanup Errors</h3>
+  <p>Select all common mistakes to avoid during a Zymo cleanup:</p>
+  <label><input type="checkbox" name="q3" value="a"> Trying to purify very short DNA fragments without modifying the protocol</label><br>
+  <label><input type="checkbox" name="q3" value="b"> Forgetting to add ADB buffer before binding</label><br>
+  <label><input type="checkbox" name="q3" value="c"> Eluting into the collection tube instead of a clean Eppendorf</label><br>
+  <label><input type="checkbox" name="q3" value="d"> Discarding your eluted DNA, thinking it’s waste</label><br>
+  <p id="cleanup_res_q3"></p>
+
+  <button type="button" id="cleanup_submit_btn">Check Answers</button>
+</form>
+
+<script>
+  document.getElementById("cleanup_submit_btn").addEventListener("click", function () {
+    const answers = {
+      q1: "d",
+      q2: "a"
+    };
+
+    ["q1", "q2"].forEach(function (q) {
+      const selected = document.querySelector(`input[name="${q}"]:checked`);
+      const result = document.getElementById(`cleanup_res_${q}`);
+      if (selected && selected.value === answers[q]) {
+        result.innerHTML = "✅ Correct!";
+        if (typeof progressManager !== "undefined") {
+          progressManager.addCompletion(`cleanup_${q}`, "correct");
+        }
+      } else {
+        result.innerHTML = "❌ Try again.";
+      }
+    });
+
+    const checkboxes = document.querySelectorAll('input[name="q3"]:checked');
+    const selectedVals = Array.from(checkboxes).map(cb => cb.value).sort().join("");
+    const correctVals = ["a", "b", "c", "d"].sort().join("");
+    const result3 = document.getElementById("cleanup_res_q3");
+    if (selectedVals === correctVals) {
+      result3.innerHTML = "✅ Correct!";
+      if (typeof progressManager !== "undefined") {
+        progressManager.addCompletion("cleanup_q3", "correct");
+      }
+    } else {
+      result3.innerHTML = "❌ Try again.";
+    }
+  });
+</script>
+<!-- 
+----
+
+## 🎥 Watch Before Lab
+
+Watch the Zymo cleanup tutorial video before coming to lab.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe> -->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../js/progress_manager.js"></script>
+      
+    
+  </body>
+</html>
