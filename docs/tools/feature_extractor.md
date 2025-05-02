@@ -46,6 +46,7 @@ This tool allows you to drag and drop  `.seq`, `.gb`, `.gcc`, `.str`, `.genbank`
     <h3>Collected Features</h3>
     <ul id="feature_list" class="feature-list"></ul>
     <button onclick="downloadFeatures()">Download Features</button>
+    <button onclick="saveToLocal()">Save to Library</button>
   </section>
 </div>
 
@@ -136,6 +137,39 @@ button:hover {
   background-color: #ffecec;
   border-color: #ffaaaa;
 }
+.feature-left {
+  display: grid;
+  grid-template-columns: 120px 80px 24px 24px 1fr;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.feature-seq {
+  font-family: monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 400px;
+}
+.feature-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 4px;
+}
+.delete-btn {
+  background-color: #ff4d4d;
+  border: none;
+  padding: 4px 8px;
+  color: white;
+  cursor: pointer;
+  margin-top: 5px;
+  align-self: flex-start;
+  display: none;
+}
+.feature-list li:hover .delete-btn {
+  display: inline-block;
+}
 </style>
 
 <script>
@@ -186,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function parseGenbank(text) {
-  const featureRegex = /\/label="([^"]+)"[\s\S]*?\s+(\d+)\.\.(\d+)/g;
+  const featureBlockRegex = /^ {5}(\w+)\s+(.+?)(?=^ {5}\w|\Z)/gms;
   const seqRegex = /ORIGIN([\s\S]*)\/\//;
   const seqMatch = text.match(seqRegex);
   let sequence = "";
@@ -195,12 +229,24 @@ function parseGenbank(text) {
   }
 
   let match;
-  while ((match = featureRegex.exec(text)) !== null) {
-    const name = match[1];
-    const start = parseInt(match[2], 10) - 1;
-    const end = parseInt(match[3], 10);
+  while ((match = featureBlockRegex.exec(text)) !== null) {
+    const block = match[2];
+    const type = match[1];
+    const nameMatch = block.match(/\/label="([^"]+)"/);
+    const name = nameMatch ? nameMatch[1] : 'Unnamed';
+    const fwdColorMatch = block.match(/\/ApEinfo_fwdcolor="([^"]+)"/);
+    console.log("fwdColorMatch");
+    console.log(fwdColorMatch);
+    
+    const revColorMatch = block.match(/\/ApEinfo_revcolor="([^"]+)"/);
+    const color = fwdColorMatch ? fwdColorMatch[1] : 'blue';
+    const revColor = revColorMatch ? revColorMatch[1] : color;
+    const posMatch = block.match(/(\d+)\.\.(\d+)/);
+    const start = posMatch ? parseInt(posMatch[1], 10) - 1 : 0;
+    const end = posMatch ? parseInt(posMatch[2], 10) : 0;
     const subseq = sequence.slice(start, end).toUpperCase();
-    features.push({name, seq: subseq, type: "CDS", color: "blue"});
+    if (!name || !subseq) continue;
+    features.push({name, seq: subseq, type, color, revColor});
   }
   updateOutput();
   showFeatureList();
@@ -230,26 +276,45 @@ function showFeatureList() {
   list.innerHTML = '';
   features.forEach((f, i) => {
     const li = document.createElement('li');
-    li.textContent = `${f.name} (${f.seq.length} bp)`;
+    const left = document.createElement('div');
+    left.className = 'feature-left';
 
-    const btn = document.createElement('button');
-    btn.textContent = 'Delete';
-    btn.style.display = 'none';
-    btn.onclick = (e) => {
+    const name = document.createElement('span');
+    name.textContent = f.name;
+
+    const type = document.createElement('span');
+    type.textContent = f.type || 'CDS';
+
+    const colorDot = document.createElement('span');
+    colorDot.className = 'feature-color';
+    colorDot.style.backgroundColor = f.color || 'blue';
+
+    const revDot = document.createElement('span');
+    revDot.className = 'feature-color';
+    revDot.style.backgroundColor = f.revColor || f.color || 'blue';
+
+    const preview = document.createElement('span');
+    preview.className = 'feature-seq';
+    preview.textContent = f.seq.length > 30 ? f.seq.slice(0, 15) + '...' + f.seq.slice(-15) : f.seq;
+
+    left.appendChild(name);
+    left.appendChild(type);
+    left.appendChild(colorDot);
+    left.appendChild(revDot);
+    left.appendChild(preview);
+
+    const del = document.createElement('button');
+    del.textContent = 'Delete';
+    del.className = 'delete-btn';
+    del.onclick = (e) => {
       e.stopPropagation();
       features.splice(i, 1);
       updateOutput();
       showFeatureList();
     };
 
-    li.onclick = () => {
-      // Hide all other delete buttons
-      document.querySelectorAll('#feature_list button').forEach(b => b.style.display = 'none');
-      // Show the clicked one
-      btn.style.display = 'inline-block';
-    };
-
-    li.appendChild(btn);
+    li.appendChild(left);
+    li.appendChild(del);
     list.appendChild(li);
   });
 }
@@ -264,5 +329,12 @@ function downloadFeatures() {
   a.download = "features.txt";
   a.click();
   URL.revokeObjectURL(url);
+}
+
+function saveToLocal() {
+  const existing = JSON.parse(localStorage.getItem('features') || '[]');
+  const combined = existing.concat(features);
+  localStorage.setItem('features', JSON.stringify(combined));
+  alert('Features saved to library.');
 }
 </script>
