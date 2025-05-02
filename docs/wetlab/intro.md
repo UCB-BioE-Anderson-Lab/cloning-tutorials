@@ -10,9 +10,11 @@ Your objective is to create and test a library of synthetic promoters to discove
 To perform this experiment, you’ll need access to a fully equipped molecular biology lab. This includes basic tools like a set of pipetman, a thermocycler, an incubator, a shaker, and standard molecular biology reagents. You’ll also need the pJ12 plasmid template and two synthetic oligos ordered from IDT that introduce the promoter library variability.
 
 Before going to the bench, download and fill out the pP6 LabSheet Workbook, which will guide your workflow:
+
 [pP6 LabSheet Workbook](https://docs.google.com/spreadsheets/d/1updHzk3CJ2_L7eO-Abg0cpHQleU7c8b0lbF9QmNzFWA/edit?usp=sharing)
 
 **To prepare:**
+
 1. Make a copy of the LabSheet (as a Google Sheet).
 2. Enter your name and assigned ID on the ‘Entry’ worksheet.
 3. Either print out the sheets from ‘PCR’ through ‘MiniSeq’ or bring them on a laptop, tablet, or phone.
