@@ -5,6 +5,21 @@
 
 Your objective is to create and test a library of synthetic promoters to discover variants with high transcriptional strength. The goal is to create a family of distinct promoter parts that span a range of strengths, suitable for use in multi-gene constructs without sequence redundancy or recombination risk.
 
+## Getting Started in the Lab
+
+To perform this experiment, you’ll need access to a fully equipped molecular biology lab. This includes basic tools like a set of pipetman, a thermocycler, an incubator, a shaker, and standard molecular biology reagents. You’ll also need the pJ12 plasmid template and two synthetic oligos ordered from IDT that introduce the promoter library variability.
+
+Before going to the bench, download and fill out the pP6 LabSheet Workbook, which will guide your workflow:
+[pP6 LabSheet Workbook](https://docs.google.com/spreadsheets/d/1updHzk3CJ2_L7eO-Abg0cpHQleU7c8b0lbF9QmNzFWA/edit?usp=sharing)
+
+**To prepare:**
+1. Make a copy of the LabSheet (as a Google Sheet).
+2. Enter your name and assigned ID on the ‘Entry’ worksheet.
+3. Either print out the sheets from ‘PCR’ through ‘MiniSeq’ or bring them on a laptop, tablet, or phone.
+4. Watch the demo video for each task before performing it in the lab.
+
+These sheets contain the bench-level instructions you’ll follow throughout the experiment.
+
 ## Background: Transcription in *E. coli*
 
 ![Diagram of transcription in E. coli, showing promoter, -35 and -10 boxes, +1 transcription start site, CDS, terminator, and resulting mRNA with RBS.](../images/pp6_transcription.png)
