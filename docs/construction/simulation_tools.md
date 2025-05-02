@@ -1,5 +1,5 @@
 <script src="https://unpkg.com/seqviz"></script>
-<script src="https://cdn.jsdelivr.net/npm/c6-sim@1.0.9/dist/c6-sim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/c6-sim@1.0.11/dist/c6-sim.min.js"></script>
 
 # Simulation Tools
 
@@ -142,11 +142,11 @@ window.addEventListener("load", function() {
     outputDiv.innerHTML = "";
 
     try {
-      if (!C6 || typeof C6.annotateSequenceSmart !== "function") {
+      if (!C6 || typeof C6.annotateSequence !== "function") {
         throw new Error("C6 tools not loaded. Please ensure C6 is available.");
       }
 
-      features = C6.annotateSequenceSmart(dnaInput);
+      features = C6.annotateSequence(dnaInput);
       const tus = C6.inferTranscriptionalUnits(features);
       const expressed = C6.inferExpressedProteins(tus);
       const nonExpressed = C6.findNonExpressedCDS(features, expressed);

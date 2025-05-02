@@ -1,4 +1,4 @@
-<script src="https://cdn.jsdelivr.net/npm/c6-sim@1.0.9/dist/c6-sim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/c6-sim@1.0.11/dist/c6-sim.min.js"></script>
 
 # Golden Gate Assembly
  
