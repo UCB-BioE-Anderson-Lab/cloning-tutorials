@@ -60,7 +60,7 @@ Here’s a short video walking through the cloning plan and design of oligos usi
 
 We'll use a GenBank record for human insulin cDNA:
 
-- 📄 Insulin cDNA: [Download GenBank](../assets/insulin_cds.gb)  
+- 📄 Insulin cDNA: [Download GenBank](../assets/insulin_cds.seq)  
 - 🔗 [NCBI: BC005255.1](https://www.ncbi.nlm.nih.gov/nuccore/BC005255.1)
 
 ---
@@ -73,7 +73,7 @@ We'll use a pET vector with:
 - LacI repression system  
 - Multiple cloning site (MCS)
 
-- 📄 Starter pET plasmid: [Download GenBank](../assets/pET28a.gb)
+- 📄 Starter pET plasmid: [Download GenBank](../assets/pET28a.seq)
 
 ![Annotated map of pET-28a(+) vector highlighting T7 promoter, NcoI and XhoI sites](../images/pet28a_cloning_map.png)  
 *Figure: pET-28a(+) vector map showing the T7 promoter and the multiple cloning site (MCS). In this tutorial, we’ll insert the insulin CDS between the **NcoI** and **XhoI** restriction sites for expression under the T7 promoter. Image adapted from [GenScript](https://www.genscript.com/gsfiles/vector-map/bacteria/pET-28a.pdf).*

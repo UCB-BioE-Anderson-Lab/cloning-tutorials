@@ -1,6 +1,6 @@
 # SynBio Project Tutorials
 
-<p><strong><a href="pdf/combined.pdf" target="_blank">⬇ Download the Full Tutorial as a PDF</a></strong></p>
+<!-- <p><strong><a href="pdf/combined.pdf" target="_blank">⬇ Download the Full Tutorial as a PDF</a></strong></p> -->
 
 This site is a structured, modular guide for learning to design, execute, and manage synthetic biology experiments. It emphasizes practical skills, design from first principles, and a deep understanding of the molecular biology and chemistry behind each step.
 

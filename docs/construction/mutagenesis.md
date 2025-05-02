@@ -214,7 +214,7 @@ Conceptually, this is like a **Gibson assembly with one fragment**, except ligat
 
 ### Mutation Design
 
-1. Open `pET-INS.gb` and locate amino acid **96** in the INS coding sequence.
+1. Open `pET-INS.seq` and locate amino acid **96** in the INS coding sequence.
 2. Confirm it encodes **Cysteine** (TGC or TGT).
 3. Replace with a **Serine codon**, like AGC.
 4. Annotate the codon as `"C96S"`.
