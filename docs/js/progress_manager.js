@@ -3,6 +3,7 @@ if (!window.progressManager) {
     constructor(storageKey = "quizProgress") {
         this.storageKey = storageKey;
         this.progress = JSON.parse(localStorage.getItem(this.storageKey)) || [];
+        this.assignedGene = JSON.parse(localStorage.getItem("assignedGene")) || null;
         this.hierarchy = {
             "Wetlab": {
               "p6": ["p6_q1", "p6_q2", "p6_q3"],
@@ -179,6 +180,10 @@ if (!window.progressManager) {
 
         lines.push(`Name: ${userName}`);
         lines.push(`Submission Date: ${new Date().toLocaleString()}`);
+        const gene = this.getAssignedGene();
+        if (gene && gene.name) {
+            lines.push(`Assigned Gene: ${gene.name}`);
+        }
         lines.push("");
 
         for (const section in required) {
@@ -256,6 +261,18 @@ if (!window.progressManager) {
             </html>
         `);
         summaryWindow.document.close();
+    }
+
+    setAssignedGene(gene) {
+        this.assignedGene = gene;
+        localStorage.setItem("assignedGene", JSON.stringify(gene));
+    }
+
+    getAssignedGene() {
+        if (!this.assignedGene) {
+            this.assignedGene = JSON.parse(localStorage.getItem("assignedGene"));
+        }
+        return this.assignedGene;
     }
 
     /**
