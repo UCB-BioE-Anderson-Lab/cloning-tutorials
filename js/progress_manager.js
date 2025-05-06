@@ -1,8 +1,9 @@
 if (!window.progressManager) {
     class ProgressManager {
-    constructor(storageKey = "quizProgress") {
-        this.storageKey = storageKey;
-        this.progress = JSON.parse(localStorage.getItem(this.storageKey)) || [];
+    constructor(data) {
+        this.storageKey = "quizProgress";
+        this.progress = data.progress || [];
+        this.assignedGene = data.assignedGene || null;
         this.hierarchy = {
             "Wetlab": {
               "p6": ["p6_q1", "p6_q2", "p6_q3"],
@@ -22,7 +23,7 @@ if (!window.progressManager) {
               "sequence_tools": [],
               "manual_prediction": ["Manual_PCR", "Manual_Ligation"],
               "simulation_tools": ["simulation_tools_q1"],
-              "basic_cloning": ["Cas9 Cloning"],
+              "basic_cloning": ["Basic Cloning"],
               "gibson": ["Gibson Cloning"],
               "golden_gate": ["Golden Gate Cloning"],
               "mutagenesis": ["Mutagenesis"],
@@ -47,6 +48,30 @@ if (!window.progressManager) {
           };
     }
 
+    static async create() {
+        const stored = JSON.parse(localStorage.getItem("quizProgress")) || {};
+        const manager = new ProgressManager(stored);
+        if (!manager.assignedGene) {
+            await manager.assignGene();
+        }
+        return manager;
+    }
+
+    async assignGene() {
+        const folder = Math.floor(Math.random() * 10) + 1;
+        const file = Math.floor(Math.random() * 25);
+        const url = `https://raw.githubusercontent.com/UCB-BioE-Anderson-Lab/cloning-tutorials/refs/heads/main/sequences/gene_dataset/${folder}/gene_${file}.json`;
+        try {
+            const res = await fetch(url);
+            const gene = await res.json();
+            console.log("Selected gene:");
+            console.log(gene);
+            this.setAssignedGene(gene);
+        } catch (e) {
+            console.error("Failed to fetch assigned gene:", e);
+        }
+    }
+
     /**
      * Adds a quiz completion entry to progress tracking.
      * @param {string} quizName - The name of the quiz.
@@ -55,7 +80,10 @@ if (!window.progressManager) {
     addCompletion(quizName, result) {
         const timestamp = new Date().toISOString();
         this.progress.push({ quiz: quizName, datetime_completed: timestamp, result: result });
-        localStorage.setItem(this.storageKey, JSON.stringify(this.progress));
+        localStorage.setItem(this.storageKey, JSON.stringify({
+          progress: this.progress,
+          assignedGene: this.assignedGene
+        }));
     }
 
     /**
@@ -179,6 +207,10 @@ if (!window.progressManager) {
 
         lines.push(`Name: ${userName}`);
         lines.push(`Submission Date: ${new Date().toLocaleString()}`);
+        const gene = this.getAssignedGeneDetails();
+        if (gene && gene.name) {
+            lines.push(`Assigned Gene: ${gene.name}`);
+        }
         lines.push("");
 
         for (const section in required) {
@@ -258,6 +290,18 @@ if (!window.progressManager) {
         summaryWindow.document.close();
     }
 
+    setAssignedGene(gene) {
+        this.assignedGene = gene;
+        localStorage.setItem(this.storageKey, JSON.stringify({
+          progress: this.progress,
+          assignedGene: gene
+        }));
+    }
+
+    getAssignedGeneDetails() {
+        return this.assignedGene;
+    }
+
     /**
      * Creates the progress panel on the page with Progress and Submit Report buttons.
      */
@@ -299,8 +343,8 @@ if (!window.progressManager) {
 }
 
     // Initialize progress manager and render the panel only once
-    window.progressManager = new ProgressManager();
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
+        window.progressManager = await ProgressManager.create();
         window.progressManager.renderProgressPanel();
     });
 }
