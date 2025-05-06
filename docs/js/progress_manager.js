@@ -1,12 +1,9 @@
 if (!window.progressManager) {
     class ProgressManager {
-    constructor(storageKey = "quizProgress") {
-        this.storageKey = storageKey;
-        this.progress = JSON.parse(localStorage.getItem(this.storageKey)) || [];
-        this.assignedGene = JSON.parse(localStorage.getItem("assignedGene")) || null;
-        if (!this.assignedGene) {
-            this.assignGene();
-        }
+    constructor(data) {
+        this.storageKey = "quizProgress";
+        this.progress = data.progress || [];
+        this.assignedGene = data.assignedGene || null;
         this.hierarchy = {
             "Wetlab": {
               "p6": ["p6_q1", "p6_q2", "p6_q3"],
@@ -51,6 +48,15 @@ if (!window.progressManager) {
           };
     }
 
+    static async create() {
+        const stored = JSON.parse(localStorage.getItem("quizProgress")) || {};
+        const manager = new ProgressManager(stored);
+        if (!manager.assignedGene) {
+            await manager.assignGene();
+        }
+        return manager;
+    }
+
     async assignGene() {
         const folder = Math.floor(Math.random() * 10) + 1;
         const file = Math.floor(Math.random() * 25);
@@ -74,7 +80,10 @@ if (!window.progressManager) {
     addCompletion(quizName, result) {
         const timestamp = new Date().toISOString();
         this.progress.push({ quiz: quizName, datetime_completed: timestamp, result: result });
-        localStorage.setItem(this.storageKey, JSON.stringify(this.progress));
+        localStorage.setItem(this.storageKey, JSON.stringify({
+          progress: this.progress,
+          assignedGene: this.assignedGene
+        }));
     }
 
     /**
@@ -283,7 +292,10 @@ if (!window.progressManager) {
 
     setAssignedGene(gene) {
         this.assignedGene = gene;
-        localStorage.setItem("assignedGene", JSON.stringify(gene));
+        localStorage.setItem(this.storageKey, JSON.stringify({
+          progress: this.progress,
+          assignedGene: gene
+        }));
     }
 
     getAssignedGeneDetails() {
@@ -332,8 +344,7 @@ if (!window.progressManager) {
 
     // Initialize progress manager and render the panel only once
     document.addEventListener("DOMContentLoaded", async () => {
-        window.progressManager = new ProgressManager();
-        await window.progressManager.assignGene(); // Ensure assignment happens before panel renders
+        window.progressManager = await ProgressManager.create();
         window.progressManager.renderProgressPanel();
     });
 }
