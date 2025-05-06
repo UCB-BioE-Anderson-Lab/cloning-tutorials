@@ -245,13 +245,41 @@ function waitForProgressManager(callback) {
 
 waitForProgressManager(() => {
   const gene = window.progressManager.getAssignedGeneDetails();
+  const genomeAccession = "CP011802.1";
 
   const geneInfo = `
-    <p>🔬 Your assigned gene: <strong>${gene.name}</strong></p>
-    <p>🔗 <a href="${gene.accession_url}" target="_blank">${gene.accession}</a> (NCBI GenBank)</p>
-    <p>This GenBank record shows the DNA sequence of the protein-coding region you're cloning. You can open it in sequence editors like <a href="https://www.benchling.com/" target="_blank">Benchling</a> or <a href="http://biologylabs.utah.edu/jorgensen/wayned/ape/" target="_blank">Ape</a>, or copy and paste the DNA sequence manually.</p>
-    <p>Your goal is to design primers that will amplify this region from genomic DNA using NcoI (CCATGG) and XhoI (CTCGAG) restriction sites and clone it into the pET-28a(+) expression plasmid.</p>
-  `;
+  <h3>Quiz Instructions</h3>
+  <p>
+    For your quiz, you will clone the CDS from the gene <strong>${gene.name}</strong> 
+    (<code>${gene.locus_tag}</code>) from <em>Bacillus atrophaeus UCMB-5137</em>.
+  </p>
+  <table style="border-collapse: collapse; margin-bottom: 1em;">
+    <tr><td style="padding: 4px 8px; font-weight: bold;">Locus Tag:</td><td style="padding: 4px 8px;">${gene.locus_tag}</td></tr>
+    <tr><td style="padding: 4px 8px; font-weight: bold;">Protein ID:</td><td style="padding: 4px 8px;">${gene.protein_id}</td></tr>
+    <tr><td style="padding: 4px 8px; font-weight: bold;">Location:</td><td style="padding: 4px 8px;">${gene.location}</td></tr>
+    <tr><td style="padding: 4px 8px; font-weight: bold;">Length:</td><td style="padding: 4px 8px;">${gene.length} bp</td></tr>
+  </table>
+  <p>
+    🔗 <strong><a href="https://www.ncbi.nlm.nih.gov/nuccore/${genomeAccession}?report=gbwithparts&from=${gene.location.split('..')[0]}&to=${gene.location.split('..')[1]}" target="_blank">View CDS on NCBI</a></strong>
+  </p>
+  <p>
+    The CDS (coding DNA sequence) is the portion of the gene that directly encodes a protein. It is an 
+    <strong>open reading frame (ORF)</strong>—a continuous stretch of codons that begins with a start codon 
+    (ATG) and ends with a stop codon (TAA, TGA, or TAG).
+  </p>
+  <p>
+    The link above takes you to the region of the full genome containing this CDS. You will use the 
+    <strong>exact</strong> ORF sequence shown in that view for your cloning task.
+  </p>
+  <p>
+    Your goal is to design primers that will amplify this ORF for cloning into the NcoI and XhoI 
+    sites of the expression plasmid <code>pET-28a(+)</code>. The start codon ATG must 
+    <strong>overlap</strong> the ATG embedded in the NcoI site (i.e. the sequence <code>CCATGG</code>).
+  </p>
+  <p>
+    Design your oligos below:
+  </p>
+`;
 
   const container = document.getElementById("geneInfo");
   if (container) container.innerHTML = geneInfo;
