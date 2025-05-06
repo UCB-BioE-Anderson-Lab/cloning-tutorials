@@ -227,11 +227,11 @@ Once verified, save the final predicted sequence for downstream use or visualiza
 ---
 ## Try it yourself
 
-In your quiz, you'll clone a **randomly selected gene** from the genome of *Paenarthrobacter nitroguajacolicus*, an obscure soil bacterium.
+In your quiz, you'll clone a randomly selected gene from the genome of *Bacillus atrophaeus UCMB-5137*.
 
-This gene is a **coding DNA sequence (CDS)**, which means it directly encodes a protein. It's a type of **open reading frame (ORF)**: a continuous stretch of codons that starts with a **start codon** (like `ATG`) and ends with a **stop codon** (`TAA`, `TAG`, or `TGA`). 
+This gene is a **coding DNA sequence (CDS)**, which means it directly encodes a protein. It's an **open reading frame (ORF)**: a continuous stretch of codons that starts with a **start codon** (like `ATG`) and ends with a **stop codon** (`TAA`, `TAG`, or `TGA`). 
 
-We're giving you only the CDS — not the full gene. That means no promoter, no ribosome binding site (RBS), no terminator, and no replication origin — just the exact stretch of DNA used to encode the protein.
+We're giving you only the CDS — not the full gene. That means no promoter, no ribosome binding site (RBS), no terminator, and no replication origin — just the exact stretch of DNA used to encode the protein.  You need to include this entire sequence in your designs.
 
 <div id="geneInfo"></div>
 <script>
@@ -245,9 +245,8 @@ function waitForProgressManager(callback) {
 
 waitForProgressManager(() => {
   const gene = window.progressManager.getAssignedGeneDetails();
-  const genomeAccession = "CP011802.1";
-  const [from, to] = gene.location.split("..");
-
+  console.log(JSON.stringify(gene, null, 2));
+  
   const geneInfo = `
   <h3>Quiz Instructions</h3>
   <p>
@@ -261,7 +260,7 @@ waitForProgressManager(() => {
     <tr><td style="padding: 4px 8px; font-weight: bold;">Length:</td><td style="padding: 4px 8px;">${gene.length} bp</td></tr>
   </table>
   <p>
-    🔗 <strong><a href="https://www.ncbi.nlm.nih.gov/nuccore/${genomeAccession}?report=gbwithparts&from=${from}&to=${to}" target="_blank">View CDS on NCBI</a></strong>
+    🔗 <strong><a href="${gene.genbank_url}" target="_blank">View CDS on NCBI</a></strong>
   </p>
   <p>
     The CDS (coding DNA sequence) is the portion of the gene that directly encodes a protein. It is an 
@@ -360,30 +359,39 @@ document.addEventListener("DOMContentLoaded", () => {
       pass = false;
     }
 
-    // Annealing region check: if gene sequence available, check 3' end matches start/end of gene
-    if (assignedGene && assignedGene.cds_seq) {
-      // Forward primer: last 18–25 bases must match start of CDS
-      const fwdLen = Math.min(25, assignedGene.cds_seq.length);
-      const fwdTarget = assignedGene.cds_seq.substring(0, fwdLen).toUpperCase();
-      const fwdTail = upperFwd.slice(-fwdLen);
-      if (fwdTail !== fwdTarget) {
-        feedback += "⚠️ 3′ end of forward primer doesn't match start of gene CDS<br>";
-        pass = false;
+    // Annealing region check using positions after restriction sites
+    if (assignedGene && assignedGene.sequence) {
+      const seq = assignedGene.sequence.toUpperCase();
+      const rc = s => s.replace(/./g, c => (
+        { A: "T", T: "A", G: "C", C: "G" }[c] || c
+      )).split("").reverse().join("");
+
+      const rcSeq = rc(seq);
+
+      // Forward primer annealing region
+      const ncoIndex = upperFwd.indexOf("CCATGG");
+      if (ncoIndex !== -1) {
+        const forAnneal = upperFwd.slice(ncoIndex + 2); // after CCATGG
+        if (forAnneal.length < 18 || forAnneal.length > 25) {
+          feedback += "⚠️ Forward primer annealing region must be 18–25 bp<br>";
+          pass = false;
+        } else if (!seq.startsWith(forAnneal)) {
+          feedback += "⚠️ Forward primer annealing region does not match start of gene<br>";
+          pass = false;
+        }
       }
-      // Reverse primer: last 18–25 bases must match reverse complement of CDS end
-      const revLen = Math.min(25, assignedGene.cds_seq.length);
-      const revTarget = assignedGene.cds_seq.substring(assignedGene.cds_seq.length - revLen).toUpperCase();
-      // Compute reverse complement
-      function revComp(seq) {
-        return seq.replace(/./g, c => {
-          return {A:"T",T:"A",G:"C",C:"G",a:"t",t:"a",g:"c",c:"g"}[c] || c;
-        }).split("").reverse().join("");
-      }
-      const revTargetRC = revComp(revTarget);
-      const revTail = upperRev.slice(-revLen);
-      if (revTail !== revTargetRC) {
-        feedback += "⚠️ 3′ end of reverse primer doesn't match end of gene CDS (reverse complement)<br>";
-        pass = false;
+
+      // Reverse primer annealing region
+      const xhoIndex = upperRev.indexOf("CTCGAG");
+      if (xhoIndex !== -1) {
+        const revAnneal = upperRev.slice(xhoIndex + 6); // after CTCGAG
+        if (revAnneal.length < 18 || revAnneal.length > 25) {
+          feedback += "⚠️ Reverse primer annealing region must be 18–25 bp<br>";
+          pass = false;
+        } else if (!rcSeq.startsWith(revAnneal)) {
+          feedback += "⚠️ Reverse primer annealing region does not match end of gene (reverse complement)<br>";
+          pass = false;
+        }
       }
     }
 
@@ -391,10 +399,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Construction steps — aligned based on column widths
     const stepRows = [
-      ["PCR", fwdName, revName, template, product],
+      ["PCR", fwdName, revName, "B_atrophaeus_gen", product],
       ["Digest", product, "NcoI,XhoI", "1", "pcr_dig"],
       ["Digest", "pET28a", "NcoI,XhoI", "1", "vec_dig"],
-      ["Ligate", "pcr_dig", "vec_dig", "", `pET-${template}`]
+      ["Ligate", "pcr_dig", "vec_dig", "", "pET-Bat"]
     ];
 
     // Oligos — align just name column (sequence left free-form)
@@ -427,8 +435,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("cfTextArea").value = formatted;
     if (pass) {
       document.getElementById("feedback").innerHTML = "✅ Primers look valid!";
-      if (assignedGene) {
-        window.progressManager.addCompletion("Paenarthrobacter CDS Cloning", "correct");
+      if (typeof window.progressManager !== "undefined") {
+        window.progressManager.addCompletion("Basic Cloning", "correct");
       }
     } else {
       document.getElementById("feedback").innerHTML = feedback;
