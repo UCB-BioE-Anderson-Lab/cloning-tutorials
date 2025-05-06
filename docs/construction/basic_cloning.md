@@ -246,6 +246,7 @@ function waitForProgressManager(callback) {
 waitForProgressManager(() => {
   const gene = window.progressManager.getAssignedGeneDetails();
   const genomeAccession = "CP011802.1";
+  const [from, to] = gene.location.split("..");
 
   const geneInfo = `
   <h3>Quiz Instructions</h3>
@@ -260,7 +261,7 @@ waitForProgressManager(() => {
     <tr><td style="padding: 4px 8px; font-weight: bold;">Length:</td><td style="padding: 4px 8px;">${gene.length} bp</td></tr>
   </table>
   <p>
-    🔗 <strong><a href="https://www.ncbi.nlm.nih.gov/nuccore/${genomeAccession}?report=gbwithparts&from=${gene.location.split('..')[0]}&to=${gene.location.split('..')[1]}" target="_blank">View CDS on NCBI</a></strong>
+    🔗 <strong><a href="https://www.ncbi.nlm.nih.gov/nuccore/${genomeAccession}?report=gbwithparts&from=${from}&to=${to}" target="_blank">View CDS on NCBI</a></strong>
   </p>
   <p>
     The CDS (coding DNA sequence) is the portion of the gene that directly encodes a protein. It is an 
