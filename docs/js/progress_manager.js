@@ -4,6 +4,9 @@ if (!window.progressManager) {
         this.storageKey = storageKey;
         this.progress = JSON.parse(localStorage.getItem(this.storageKey)) || [];
         this.assignedGene = JSON.parse(localStorage.getItem("assignedGene")) || null;
+        if (!this.assignedGene) {
+            this.assignGene();
+        }
         this.hierarchy = {
             "Wetlab": {
               "p6": ["p6_q1", "p6_q2", "p6_q3"],
@@ -46,6 +49,21 @@ if (!window.progressManager) {
               "project_ispA": []
             }
           };
+    }
+
+    async assignGene() {
+        const folder = Math.floor(Math.random() * 10) + 1;
+        const file = Math.floor(Math.random() * 25);
+        const url = `https://raw.githubusercontent.com/UCB-BioE-Anderson-Lab/cloning-tutorials/refs/heads/main/sequences/gene_dataset/${folder}/gene_${file}.json`;
+        try {
+            const res = await fetch(url);
+            const gene = await res.json();
+            console.log("Selected gene:");
+            console.log(gene);
+            this.setAssignedGene(gene);
+        } catch (e) {
+            console.error("Failed to fetch assigned gene:", e);
+        }
     }
 
     /**
@@ -180,7 +198,7 @@ if (!window.progressManager) {
 
         lines.push(`Name: ${userName}`);
         lines.push(`Submission Date: ${new Date().toLocaleString()}`);
-        const gene = this.getAssignedGene();
+        const gene = this.getAssignedGeneDetails();
         if (gene && gene.name) {
             lines.push(`Assigned Gene: ${gene.name}`);
         }
@@ -268,10 +286,7 @@ if (!window.progressManager) {
         localStorage.setItem("assignedGene", JSON.stringify(gene));
     }
 
-    getAssignedGene() {
-        if (!this.assignedGene) {
-            this.assignedGene = JSON.parse(localStorage.getItem("assignedGene"));
-        }
+    getAssignedGeneDetails() {
         return this.assignedGene;
     }
 
@@ -316,8 +331,9 @@ if (!window.progressManager) {
 }
 
     // Initialize progress manager and render the panel only once
-    window.progressManager = new ProgressManager();
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
+        window.progressManager = new ProgressManager();
+        await window.progressManager.assignGene(); // Ensure assignment happens before panel renders
         window.progressManager.renderProgressPanel();
     });
 }

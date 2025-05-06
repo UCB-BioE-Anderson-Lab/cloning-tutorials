@@ -1,5 +1,4 @@
 <script src="https://unpkg.com/seqviz"></script>
-<script src="../js/progress_manager.js"></script>
 # Basic Cloning: Overexpression of Human Insulin
 
 ## Overview
@@ -228,32 +227,53 @@ Once verified, save the final predicted sequence for downstream use or visualiza
 ---
 ## Try it yourself
 
-For your quiz, you will clone the **Cas9 gene** from *Streptococcus pyogenes*.  
+In your quiz, you'll clone a **randomly selected gene** from the genome of *Paenarthrobacter nitroguajacolicus*, an obscure soil bacterium.
 
-Cas9 is an essential tool in modern genetic engineering. It’s an RNA-guided DNA endonuclease that, when paired with a specific guide RNA (gRNA), can cut double-stranded DNA at targeted sites. This system forms the core of CRISPR-Cas9 genome editing—a revolutionary method that allows researchers to precisely modify genomes across almost any organism. Cas9 itself is the protein "scissors" of this toolkit.
+This gene is a **coding DNA sequence (CDS)**, which means it directly encodes a protein. It's a type of **open reading frame (ORF)**: a continuous stretch of codons that starts with a **start codon** (like `ATG`) and ends with a **stop codon** (`TAA`, `TAG`, or `TGA`). 
 
-In this activity, you'll clone the Cas9 gene from its native **genomic DNA**, not from a cDNA template. This means we need to extract the correct region from the organism’s genome. We've already found the genome for *Streptococcus pyogenes* and identified the coordinates for the **Cas9 coding sequence**.
+We're giving you only the CDS — not the full gene. That means no promoter, no ribosome binding site (RBS), no terminator, and no replication origin — just the exact stretch of DNA used to encode the protein.
 
-Download the Cas9 genomic region here: [Download Cas9 Genomic DNA](../assets/cas9_genomic)
+<div id="geneInfo"></div>
+<script>
+function waitForProgressManager(callback) {
+  if (window.progressManager && typeof window.progressManager.getAssignedGeneDetails === "function") {
+    callback();
+  } else {
+    setTimeout(() => waitForProgressManager(callback), 50);
+  }
+}
 
-You’ll design primers and identify the PCR step needed to insert Cas9 into the **pET-28a(+) expression vector** using the **NcoI** and **XhoI** restriction sites—just as you did in the insulin example. The rest of the construction file will be auto-filled for you once you provide the correct primers and PCR parameters.
+waitForProgressManager(() => {
+  const gene = window.progressManager.getAssignedGeneDetails();
+
+  const geneInfo = `
+    <p>🔬 Your assigned gene: <strong>${gene.name}</strong></p>
+    <p>🔗 <a href="${gene.accession_url}" target="_blank">${gene.accession}</a> (NCBI GenBank)</p>
+    <p>This GenBank record shows the DNA sequence of the protein-coding region you're cloning. You can open it in sequence editors like <a href="https://www.benchling.com/" target="_blank">Benchling</a> or <a href="http://biologylabs.utah.edu/jorgensen/wayned/ape/" target="_blank">Ape</a>, or copy and paste the DNA sequence manually.</p>
+    <p>Your goal is to design primers that will amplify this region from genomic DNA using NcoI (CCATGG) and XhoI (CTCGAG) restriction sites and clone it into the pET-28a(+) expression plasmid.</p>
+  `;
+
+  const container = document.getElementById("geneInfo");
+  if (container) container.innerHTML = geneInfo;
+});
+</script>
 
 ---
 
-<h3>Cas9 Cloning Quiz</h3>
-<p>Design primers to amplify Cas9 from genomic DNA and clone it into pET-28a using NcoI and XhoI.</p>
+<h3>Cloning Quiz</h3>
+<p>Design primers to amplify the selected gene and clone it into pET-28a using NcoI and XhoI.</p>
 
 <form id="quizForm">
   <label><strong>Forward Primer:</strong></label><br>
-  Name: <input type="text" id="fwdName" value="cas9-F">
+  Name: <input type="text" id="fwdName" value="pn-F">
   Sequence: <input type="text" id="fwdPrimer" size="60"><br><br>
 
   <label><strong>Reverse Primer:</strong></label><br>
-  Name: <input type="text" id="revName" value="cas9-R">
+  Name: <input type="text" id="revName" value="pn-R">
   Sequence: <input type="text" id="revPrimer" size="60"><br><br>
 
   <label><strong>PCR Product Name:</strong></label><br>
-  <input type="text" id="pcrProduct" value="pcr_cas9"><br><br>
+  <input type="text" id="pcrProduct" value="pcr_pn"><br><br>
 
   <input type="button" value="Check & Generate Construction File" onclick="runQuiz()">
 </form>
@@ -265,111 +285,145 @@ You’ll design primers and identify the PCR step needed to insert Cas9 into the
 <button id="copyBtn" onclick="copyCF()">Copy to Clipboard</button>
 
 <script>
-function runQuiz() {
-  const fwdSeq = document.getElementById("fwdPrimer").value.trim().replace(/[\s0-9]/g, '');
-  const revSeq = document.getElementById("revPrimer").value.trim().replace(/[\s0-9]/g, '');
-  const fwdName = document.getElementById("fwdName").value.trim();
-  const revName = document.getElementById("revName").value.trim();
-  const product = document.getElementById("pcrProduct").value.trim();
-  const template = "cas9_genomic";
-  const upperFwd = fwdSeq.toUpperCase();
-  const upperRev = revSeq.toUpperCase();
+let assignedGene = null;
 
-  let feedback = "";
-  let pass = true;
-
-  // Validate restriction site presence and spacing
-  if (upperFwd.indexOf("CCATGG") === -1) {
-    feedback += "⚠️ Forward primer must include the NcoI site (CCATGG)<br>";
-    pass = false;
-  } else if (upperFwd.indexOf("CCATGG") < 5) {
-    feedback += "⚠️ Forward primer must have at least 5 bases before NcoI (CCATGG)<br>";
-    pass = false;
-  }
-
-  if (upperRev.indexOf("CTCGAG") === -1) {
-    feedback += "⚠️ Reverse primer must include the XhoI site (CTCGAG)<br>";
-    pass = false;
-  } else if (upperRev.indexOf("CTCGAG") < 5) {
-    feedback += "⚠️ Reverse primer must have at least 5 bases before XhoI (CTCGAG)<br>";
-    pass = false;
-  }
-
-  // Validate annealing regions
-  const fwdTarget = "ATGGATAAGAAATACTCAATAGGCTTAG";
-  const revTarget = "TCAGTCACCTCCTAGCTGACTCAAATCAATGC";
-
-  const fMatch = upperFwd.match(new RegExp(`(${fwdTarget})$`)) || fwdTarget.includes(upperFwd.slice(-18));
-  const rMatch = upperRev.match(new RegExp(`(${revTarget})$`)) || revTarget.includes(upperRev.slice(-18));
-
-  if (!fMatch) {
-    feedback += "⚠️ 3′ end of forward primer doesn't match expected target sequence<br>";
-    pass = false;
-  }
-  if (!rMatch) {
-    feedback += "⚠️ 3′ end of reverse primer doesn't match expected target sequence<br>";
-    pass = false;
-  }
-
-  const pad = (str, len) => str + ' '.repeat(len - str.length);
-
-  // Construction steps — aligned based on column widths
-  const stepRows = [
-    ["PCR", fwdName, revName, template, product],
-    ["Digest", product, "NcoI,XhoI", "1", "pcr_dig"],
-    ["Digest", "pET28a", "NcoI,XhoI", "1", "vec_dig"],
-    ["Ligate", "pcr_dig", "vec_dig", "", "pET-Cas9"]
-  ];
-
-  // Oligos — align just name column (sequence left free-form)
-  const oligoRows = [
-    ["oligo", fwdName, fwdSeq],
-    ["oligo", revName, revSeq]
-  ];
-
-  // Calculate column widths for steps
-  const stepColWidths = [];
-  stepRows.forEach(row => {
-    row.forEach((cell, i) => {
-      stepColWidths[i] = Math.max(stepColWidths[i] || 0, cell.length);
-    });
-  });
-
-  // Format steps
-  const formattedSteps = stepRows.map(row =>
-    row.map((cell, i) => pad(cell, stepColWidths[i])).join("  ")
-  ).join("\n");
-
-  // Format oligos
-  const oligoNameWidth = Math.max(fwdName.length, revName.length);
-  const formattedOligos = oligoRows.map(row =>
-    pad("oligo", 6) + pad(row[1], oligoNameWidth) + "  " + row[2]
-  ).join("\n");
-
-  // Combine both
-  const formatted = `${formattedSteps}\n\n${formattedOligos}`;
-  document.getElementById("cfTextArea").value = formatted;
-  if (pass) {
-    document.getElementById("feedback").innerHTML = "✅ Primers look valid!";
-    progressManager.addCompletion("Cas9 Cloning", "correct");
+function waitForProgressManager(callback) {
+  if (window.progressManager && typeof window.progressManager.getAssignedGeneDetails === "function") {
+    callback();
   } else {
-    document.getElementById("feedback").innerHTML = feedback;
+    setTimeout(() => waitForProgressManager(callback), 50);
   }
 }
 
-function copyCF() {
-  const textarea = document.getElementById("cfTextArea");
-  textarea.select();
-  document.execCommand("copy");
-  const btn = document.getElementById("copyBtn");
-  const original = btn.innerText;
-  btn.innerText = "✅ Copied!";
-  btn.disabled = true;
-  setTimeout(() => {
-    btn.innerText = original;
-    btn.disabled = false;
-  }, 2000);
-}
+waitForProgressManager(() => {
+  assignedGene = window.progressManager.getAssignedGeneDetails();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  function runQuiz() {
+    // Use the assigned gene for template and construction file
+    const fwdSeq = document.getElementById("fwdPrimer").value.trim().replace(/[\s0-9]/g, '');
+    const revSeq = document.getElementById("revPrimer").value.trim().replace(/[\s0-9]/g, '');
+    const fwdName = document.getElementById("fwdName").value.trim();
+    const revName = document.getElementById("revName").value.trim();
+    const product = document.getElementById("pcrProduct").value.trim();
+    const template = assignedGene ? assignedGene.name : "pn_gene";
+    const upperFwd = fwdSeq.toUpperCase();
+    const upperRev = revSeq.toUpperCase();
+
+    let feedback = "";
+    let pass = true;
+
+    // Validate restriction site presence and spacing
+    if (upperFwd.indexOf("CCATGG") === -1) {
+      feedback += "⚠️ Forward primer must include the NcoI site (CCATGG)<br>";
+      pass = false;
+    } else if (upperFwd.indexOf("CCATGG") < 5) {
+      feedback += "⚠️ Forward primer must have at least 5 bases before NcoI (CCATGG)<br>";
+      pass = false;
+    }
+
+    if (upperRev.indexOf("CTCGAG") === -1) {
+      feedback += "⚠️ Reverse primer must include the XhoI site (CTCGAG)<br>";
+      pass = false;
+    } else if (upperRev.indexOf("CTCGAG") < 5) {
+      feedback += "⚠️ Reverse primer must have at least 5 bases before XhoI (CTCGAG)<br>";
+      pass = false;
+    }
+
+    // Annealing region check: if gene sequence available, check 3' end matches start/end of gene
+    if (assignedGene && assignedGene.cds_seq) {
+      // Forward primer: last 18–25 bases must match start of CDS
+      const fwdLen = Math.min(25, assignedGene.cds_seq.length);
+      const fwdTarget = assignedGene.cds_seq.substring(0, fwdLen).toUpperCase();
+      const fwdTail = upperFwd.slice(-fwdLen);
+      if (fwdTail !== fwdTarget) {
+        feedback += "⚠️ 3′ end of forward primer doesn't match start of gene CDS<br>";
+        pass = false;
+      }
+      // Reverse primer: last 18–25 bases must match reverse complement of CDS end
+      const revLen = Math.min(25, assignedGene.cds_seq.length);
+      const revTarget = assignedGene.cds_seq.substring(assignedGene.cds_seq.length - revLen).toUpperCase();
+      // Compute reverse complement
+      function revComp(seq) {
+        return seq.replace(/./g, c => {
+          return {A:"T",T:"A",G:"C",C:"G",a:"t",t:"a",g:"c",c:"g"}[c] || c;
+        }).split("").reverse().join("");
+      }
+      const revTargetRC = revComp(revTarget);
+      const revTail = upperRev.slice(-revLen);
+      if (revTail !== revTargetRC) {
+        feedback += "⚠️ 3′ end of reverse primer doesn't match end of gene CDS (reverse complement)<br>";
+        pass = false;
+      }
+    }
+
+    const pad = (str, len) => str + ' '.repeat(len - str.length);
+
+    // Construction steps — aligned based on column widths
+    const stepRows = [
+      ["PCR", fwdName, revName, template, product],
+      ["Digest", product, "NcoI,XhoI", "1", "pcr_dig"],
+      ["Digest", "pET28a", "NcoI,XhoI", "1", "vec_dig"],
+      ["Ligate", "pcr_dig", "vec_dig", "", `pET-${template}`]
+    ];
+
+    // Oligos — align just name column (sequence left free-form)
+    const oligoRows = [
+      ["oligo", fwdName, fwdSeq],
+      ["oligo", revName, revSeq]
+    ];
+
+    // Calculate column widths for steps
+    const stepColWidths = [];
+    stepRows.forEach(row => {
+      row.forEach((cell, i) => {
+        stepColWidths[i] = Math.max(stepColWidths[i] || 0, cell.length);
+      });
+    });
+
+    // Format steps
+    const formattedSteps = stepRows.map(row =>
+      row.map((cell, i) => pad(cell, stepColWidths[i])).join("  ")
+    ).join("\n");
+
+    // Format oligos
+    const oligoNameWidth = Math.max(fwdName.length, revName.length);
+    const formattedOligos = oligoRows.map(row =>
+      pad("oligo", 6) + pad(row[1], oligoNameWidth) + "  " + row[2]
+    ).join("\n");
+
+    // Combine both
+    const formatted = `${formattedSteps}\n\n${formattedOligos}`;
+    document.getElementById("cfTextArea").value = formatted;
+    if (pass) {
+      document.getElementById("feedback").innerHTML = "✅ Primers look valid!";
+      if (assignedGene) {
+        window.progressManager.addCompletion("Paenarthrobacter CDS Cloning", "correct");
+      }
+    } else {
+      document.getElementById("feedback").innerHTML = feedback;
+    }
+  }
+
+  window.runQuiz = runQuiz;
+
+  function copyCF() {
+    const textarea = document.getElementById("cfTextArea");
+    textarea.select();
+    document.execCommand("copy");
+    const btn = document.getElementById("copyBtn");
+    const original = btn.innerText;
+    btn.innerText = "✅ Copied!";
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerText = original;
+      btn.disabled = false;
+    }, 2000);
+  }
+
+  window.copyCF = copyCF;
+});
 </script>
 
 Once you’ve successfully completed the quiz, take a moment to experiment. Try removing a 5′ tail, changing an oligo name, or deleting a restriction site. Note what changes break things, and how your changes modify the construction file.
