@@ -98,7 +98,7 @@ We use a "construction file" to formally describe how DNA parts are assembled. E
 
 The pP6 promoter library is built using a two-step process involving PCR and Golden Gate assembly.
 
-We begin by amplifying the entire plasmid using a protocol called EIPCR (Exponential Inverse PCR), where each primer includes a constant 3′ annealing region and a 5′ overhang containing degenerate bases that introduce variability into the promoter region:
+We will use a technique called EIPCR (Enzymatic Inverse PCR), which involves amplifying the entire plasmid by PCR. Each PCR primer includes a constant 3′ annealing region and a 5′ overhang containing degenerate bases (the N's).  The 'N' effectively means "pick a random base from A, T, C, or G for this position". This introduces variability into the unconserved promoter regions:
 
 **Primers:**
 ```
@@ -109,7 +109,7 @@ CAGTAggtctcgATAATNNNNNNANNNNGTTAGTATTTCTCCTCGTCTAC
 CCAAAggtctcgTTATANNNNNNNNNNNNNNNNNTGTCAANNNNGAACCCAGGACTCCTCGAAGTC
 ```
 
-**Construction File Format (copy-paste compatible):**
+**Construction of pP6**
 
 ```
 # PCR reaction
@@ -121,17 +121,14 @@ PCR         P6libF2     P6libR2     pJ12         P6
 GoldenGate      P6          BsaI       pP6
 ```
 
-Each resulting pP6 plasmid contains a unique, randomized promoter upstream of an amilGFP reporter gene.
-
 ## Expected Outcome
 
 The product of the reaction is a circular plasmid with a unique randomized promoter upstream of an amilGFP reporter.
 
-Each colony on your transformation plate represents a unique promoter. When exposed to blue light, colonies fluoresce with varying intensity depending on promoter strength.
+Duriong transformation, typically only 1 plasmid molecule enters a cell, confirs resistance, and results in a colony on your petri dish. Thus, each colony on your transformation plate represents a unique promoter. When exposed to blue light, colonies fluoresce with varying intensity depending on promoter strength.
 
 ![Fluorescent E. coli colonies on a pP6 transformation plate. Colonies show a range of green intensities under blue light, indicating different promoter strengths. A zoomed-in view shows a bright green colony surrounded by weaker, possibly satellite colonies.](../images/pp6_colony_plate.png)  
 *Figure: A pP6 transformation plate under blue light, showing colonies that express varying levels of GFP due to differences in promoter strength. The highlighted region is zoomed in to reveal diverse green intensities among clones, even though all share the core consensus motif. This illustrates the wide range of activities produced by flanking sequence variation—J23119 is unusually strong for this pattern.*
-
 
 ## Picking Colonies and Sequencing
 
@@ -139,7 +136,7 @@ You’ll select the brightest colonies (most green) for follow-up:
 
 1. Grow in liquid culture
 2. Miniprep DNA
-3. Submit for Sanger sequencing
+3. Submit for sequencing
 4. Analyze the sequence to identify the promoter
 
 Note: Smaller, slow-growing colonies might encode the strongest promoters. Don’t skip them!
