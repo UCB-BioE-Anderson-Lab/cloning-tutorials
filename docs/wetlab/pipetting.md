@@ -1,6 +1,6 @@
 # Pipetting
 
-Recombinant DNA technology is technically easy to do once you have mastered a few basic manual techniques. The most essential of these is the transfer of specified volumes of liquid accurately from one container to another. In molecular biology, we frequently work with microliter (µL) volumes, often using multi-step protocols where precision and care are essential.
+Recombinant DNA technology is technically easy to do once you have mastered a few basic manual procedures. The most essential of these is the transfer of specified volumes of liquid accurately and cleanly from one container to another. In molecular biology, we frequently work with microliter (µL) volumes, often using multi-step protocols where precision and care are essential.
 
 ---
 
@@ -11,11 +11,11 @@ Micropipettes are precision tools used to measure and transfer small volumes of 
 Common pipette sizes:
 
 - **P10**: 0.5–10 µL
-- **P20**: 2–20 µL
+- **P20**: 0.5/2–20 µL
 - **P200**: 20–200 µL
 - **P1000**: 100–1000 µL
 
-Both the P10 and P20 can be used to deliver 0.5 µL, though accuracy at this volume depends more on careful technique than on the specific pipette. You’ll need to visually confirm how far the liquid rides up the tip.
+Both the P10 and P20 can be used to deliver 0.5 µL, though accuracy at this volume depends more on careful technique than on the specific pipette. You’ll will always visually confirm how far the liquid rides up the tip to know things went right, and this is most important with the smaller volumes.
 
 Each pipette uses tips that must be changed between uses to avoid contamination.
 
@@ -23,7 +23,7 @@ Each pipette uses tips that must be changed between uses to avoid contamination.
 
 ## LTS vs. Universal Tips
 
-In this lab, we use **LTS (LiteTouch System)** pipettes and tips. Unlike universal-fit pipettes, LTS tips require less force to attach and eject and help reduce repetitive strain. LTS pipettes have a cylindrical shaft with a defined stop, making tip seating more consistent. Do not attempt to use universal tips with LTS pipettes—they will not seal properly and may result in inaccurate volumes.
+In this lab, we use **LTS (LiteTouch System)** pipettes and tips. Unlike universal-fit pipettes, LTS tips require less force to attach and eject and help reduce repetitive strain. LTS pipettes have a cylindrical shaft with a defined stop, making tip seating more consistent. Do not attempt to use universal tips with LTS pipettes—they will not seal properly and will result in inaccurate volumes.
 
 ---
 
@@ -49,7 +49,7 @@ Steps: (1) Press plunger to first stop. (2) Insert tip into liquid. (3) Slowly r
 - Always hold the pipette vertically when drawing up liquid.
 - Change tips between samples to avoid cross-contamination.
 - Never turn the volume dial outside of the pipette’s range.
-- Never lay a pipette down with liquid inside.
+- Never lay a pipette sideways with liquid inside.
 
 ---
 
@@ -101,7 +101,7 @@ As part of pipetting training, you will perform the following steps and demonstr
 2. Transfer **50 µL** of pink solution from a microcentrifuge tube to a 0.2 mL PCR tube using a P200.
 3. Transfer **0.5 µL** of viscous blue glycerol solution into the same 0.2 mL PCR tube using a P20.
 4. Close the 0.2 mL PCR tube **once** (repeated openings damage the seal and can cause leakage during thermocycling).
-5. Mix the solution by inverting or slamming the tube on the bench upside down.
+5. Mix the solution by inverting and slamming the tube on the bench upside down.
 6. Perform a **quick spin** to collect liquid at the bottom of the tube.
 
 Follow all pipetting best practices and contamination precautions during this demo.

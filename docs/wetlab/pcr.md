@@ -178,7 +178,7 @@ Use this table to pipette the components into your PCR tube in the order shown:
 |  1 µL  | pJ12 Template DNA (from above)             | T____      |
 |  1 µL  | PrimeSTAR GXL DNA Polymerase (cold block)  | —          |
 
-After adding all components:
+After adding all components in order:
 
 1. Mix the tube by slamming on the bench.
 2. Briefly spin down to collect the liquid at the bottom.
@@ -186,7 +186,7 @@ After adding all components:
 
 ### PCR Program: PG4K55
 
-Run the **PG4K55** program, designed for ~4 kb products with a 55°C annealing temperature.
+Run the **PG4K55** program. It has already been programmed into the thermocyclers, so you just need to run it. You should NOT add or edit the programs in the thermocycler. PG4K55 was designed for ~4 kb products with a 55°C annealing temperature:
 
 ```
 Initial Denaturation:   98°C for 2 min
