@@ -1259,6 +1259,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/tabular_simulator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Spreadsheet Simulator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1525,7 +1548,7 @@
 <h2 id="construction-file">Construction File<a class="headerlink" href="#construction-file" title="Permanent link">&para;</a></h2>
 <p>We use a "construction file" to formally describe how DNA parts are assembled. Each line represents a biochemical reaction step using standardized syntax.</p>
 <p>The pP6 promoter library is built using a two-step process involving PCR and Golden Gate assembly.</p>
-<p>We begin by amplifying the entire plasmid using a protocol called EIPCR (Exponential Inverse PCR), where each primer includes a constant 3′ annealing region and a 5′ overhang containing degenerate bases that introduce variability into the promoter region:</p>
+<p>We will use a technique called EIPCR (Enzymatic Inverse PCR), which involves amplifying the entire plasmid by PCR. Each PCR primer includes a constant 3′ annealing region and a 5′ overhang containing degenerate bases (the N's).  The 'N' effectively means "pick a random base from A, T, C, or G for this position". This introduces variability into the unconserved promoter regions:</p>
 <p><strong>Primers:</strong>
 <div class="highlight"><pre><span></span><code>&gt;P6libF2
 CAGTAggtctcgATAATNNNNNNANNNNGTTAGTATTTCTCCTCGTCTAC
@@ -1533,7 +1556,7 @@ CAGTAggtctcgATAATNNNNNNANNNNGTTAGTATTTCTCCTCGTCTAC
 &gt;P6libR2
 CCAAAggtctcgTTATANNNNNNNNNNNNNNNNNTGTCAANNNNGAACCCAGGACTCCTCGAAGTC
 </code></pre></div></p>
-<p><strong>Construction File Format (copy-paste compatible):</strong></p>
+<p><strong>Construction of pP6</strong></p>
 <div class="highlight"><pre><span></span><code># PCR reaction
 # step      primer1     primer2     template     product
 PCR         P6libF2     P6libR2     pJ12         P6
@@ -1542,10 +1565,9 @@ PCR         P6libF2     P6libR2     pJ12         P6
 # step          dna         enzyme     product
 GoldenGate      P6          BsaI       pP6
 </code></pre></div>
-<p>Each resulting pP6 plasmid contains a unique, randomized promoter upstream of an amilGFP reporter gene.</p>
 <h2 id="expected-outcome">Expected Outcome<a class="headerlink" href="#expected-outcome" title="Permanent link">&para;</a></h2>
 <p>The product of the reaction is a circular plasmid with a unique randomized promoter upstream of an amilGFP reporter.</p>
-<p>Each colony on your transformation plate represents a unique promoter. When exposed to blue light, colonies fluoresce with varying intensity depending on promoter strength.</p>
+<p>Duriong transformation, typically only 1 plasmid molecule enters a cell, confirs resistance, and results in a colony on your petri dish. Thus, each colony on your transformation plate represents a unique promoter. When exposed to blue light, colonies fluoresce with varying intensity depending on promoter strength.</p>
 <p><img alt="Fluorescent E. coli colonies on a pP6 transformation plate. Colonies show a range of green intensities under blue light, indicating different promoter strengths. A zoomed-in view shows a bright green colony surrounded by weaker, possibly satellite colonies." src="../../images/pp6_colony_plate.png" /><br />
 <em>Figure: A pP6 transformation plate under blue light, showing colonies that express varying levels of GFP due to differences in promoter strength. The highlighted region is zoomed in to reveal diverse green intensities among clones, even though all share the core consensus motif. This illustrates the wide range of activities produced by flanking sequence variation—J23119 is unusually strong for this pattern.</em></p>
 <h2 id="picking-colonies-and-sequencing">Picking Colonies and Sequencing<a class="headerlink" href="#picking-colonies-and-sequencing" title="Permanent link">&para;</a></h2>
@@ -1553,7 +1575,7 @@ GoldenGate      P6          BsaI       pP6
 <ol>
 <li>Grow in liquid culture</li>
 <li>Miniprep DNA</li>
-<li>Submit for Sanger sequencing</li>
+<li>Submit for sequencing</li>
 <li>Analyze the sequence to identify the promoter</li>
 </ol>
 <p>Note: Smaller, slow-growing colonies might encode the strongest promoters. Don’t skip them!</p>
