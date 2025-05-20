@@ -9,7 +9,7 @@ This repository hosts the SynBio Project Tutorials: a modular series of interact
 Clone this repository and run the setup script:
 
 ```sh
-git clone https://github.com/your-username/cloning-tutorials.git
+git clone https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials.git
 cd cloning-tutorials
 ./setup.sh
 ```
