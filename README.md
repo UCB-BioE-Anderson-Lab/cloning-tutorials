@@ -23,7 +23,7 @@ Start the live preview server:
 mkdocs serve
 ```
 
-Open [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your browser.
+Open [http://127.0.0.1:8000/cloning-tutorials/](http://127.0.0.1:8000/cloning-tutorials/) in your browser.
 
 ## Usage
 
