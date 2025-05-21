@@ -9,7 +9,7 @@ This repository hosts the SynBio Project Tutorials: a modular series of interact
 Clone this repository and run the setup script:
 
 ```sh
-git clone https://github.com/your-username/cloning-tutorials.git
+git clone https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials.git
 cd cloning-tutorials
 ./setup.sh
 ```
@@ -23,7 +23,7 @@ Start the live preview server:
 mkdocs serve
 ```
 
-Open [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your browser.
+Open [http://127.0.0.1:8000/cloning-tutorials/](http://127.0.0.1:8000/cloning-tutorials/) in your browser.
 
 ## Usage
 
@@ -41,8 +41,8 @@ Publish the static site:
 mkdocs gh-deploy
 ```
 
-Your site will be live at: `https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/`  
-(Note: despite the URL, this site hosts the SynBio Project Tutorials.)
+Your site will be live at:
+[https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/](https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/)
 
 ## Project Structure
 
