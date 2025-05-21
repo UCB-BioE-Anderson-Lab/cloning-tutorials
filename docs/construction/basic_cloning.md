@@ -461,4 +461,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-Once you’ve successfully completed the quiz, take a moment to experiment. Try removing a 5′ tail, changing an oligo name, or deleting a restriction site. Note what changes break things, and how your changes modify the construction file.
+Once you’ve successfully completed the quiz, take a moment to experiment. It won't affect the assignment score. Try removing a 5′ tail, changing an oligo name, or deleting a restriction site. Note what changes break things, and how your changes modify the construction file.
