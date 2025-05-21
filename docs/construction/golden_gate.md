@@ -381,7 +381,18 @@ plasmid pET28a AGATCTCGATCCCGCGAAATTAATACGACTCACTATAGGGGAATTGTGAGCGGATAACAATTCCC
       outputHTML += `<ul style="margin-top:1em;">${feedback.map(f => `<li>${f}</li>`).join("")}</ul>`;
       resultP.innerHTML = outputHTML;
     } catch (err) {
-      resultP.innerHTML = `<span style="color:red;">❌ Error: ${err.message}</span>`;
+      let msg = err.message;
+      const enzymeErrorPattern = /Enzyme (.+?) not found/i;
+      const match = msg.match(enzymeErrorPattern);
+      if (match) {
+        const enzymeName = match[1];
+        const commonMisspellings = ["Bsa1", "Bsa|", "Bsa!", "Bsal", "BsaL", "bsai"];
+        const intended = "BsaI";
+        if (commonMisspellings.map(s => s.toLowerCase()).includes(enzymeName.toLowerCase())) {
+          msg += `<br>💡 Did you mean <code>${intended}</code>? The simulator is case sensitive and expects <code>${intended}</code>.`;
+        }
+      }
+      resultP.innerHTML = `<span style="color:red;">❌ Error: ${msg}</span>`;
     }
   });
 </script>
