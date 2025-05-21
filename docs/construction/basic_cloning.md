@@ -225,7 +225,7 @@ Once verified, save the final predicted sequence for downstream use or visualiza
 - Final construct includes all expected features
 
 ---
-## Try it yourself
+## 🎯 Try it yourself
 
 In your quiz, you'll clone a randomly selected gene from the genome of *Bacillus atrophaeus UCMB-5137*.
 
