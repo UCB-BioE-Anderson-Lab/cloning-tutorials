@@ -41,7 +41,8 @@ Publish the static site:
 mkdocs gh-deploy
 ```
 
-Your site will be live at: `[https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/](https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/)`  
+Your site will be live at:
+[http://127.0.0.1:8000/cloning-tutorials/](https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/)
 (Note: despite the URL, this site hosts the SynBio Project Tutorials.)
 
 ## Project Structure
