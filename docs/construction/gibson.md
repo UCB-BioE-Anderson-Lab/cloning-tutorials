@@ -55,69 +55,29 @@ This marks where the insert meets the vector, making it easier to plan overlaps.
 
 ---
 
-## Step 2: Annotate Overlaps and Annealing Regions
+## Step 2: Design Oligos
 
-Once you’ve created a model of your final product, it’s time to define the key regions for Gibson primer design.
+After modeling your final plasmid with insert and vector joined, identify the junctions where fragments meet.
 
-For each junction where two fragments will join:
+For each junction:
 
-1. **Choose the Overlap**  
-   Pick 20–30 bp spanning the junction. This is the sequence that will guide fragment assembly via Gibson. Think of it like the annealing region of a primer—aim for balanced GC content, low secondary structure, and ideally end in a G or C. Create a feature in your sequence editor labeled `overlap`.
+- Select ~20 bp from the end of one fragment
+- Select ~20 bp from the start of the next fragment
+- Concatenate these to form a 40 bp primer
 
-2. **Mark the Forward Anneal Region**  
-   Starting *at* the junction and extending downstream, choose 20–30 bp that follow standard primer design rules. Label this `forward anneal`.
+Use this 40 bp sequence directly as the **forward oligo**.  
+For the opposite junction, take the corresponding 40 bp and reverse complement it to create the **reverse oligo**.
 
-3. **Mark the Reverse Anneal Region**  
-   Identify 20–30 bp *upstream* (5′) of the junction. This sequence lies on the coding strand, not its reverse complement. Label it `reverse anneal`.
-
-
-Together, these features define the sequence pieces you'll need to construct your oligos in the next step.
+When choosing the ~20, follow the same general approach for finding annealing sequences between 18 and 25 bp long, balanced base content, etc. as done previously in the Basic Cloning tutorial.
 
 ---
 
-## Step 3: Design Oligos
-
-Each oligo consists of two parts, built from the regions you labeled earlier:
-
-- The **forward oligo** is made from the full `overlap` followed by the `forward anneal` region.
-- The **reverse oligo** is made from the `reverse anneal` region followed by the `overlap`, then reverse complemented.
-
-Here is one example solution:
-
-<pre id="cf_quiz_example" style="background:#f8f8f8; border:1px solid #ccc; padding:10px; border-radius:4px; overflow-x:auto; white-space:pre;">PCR       oINS_F        oINS_R        insulin_cdna    ins_pcr
-PCR       oVec_F        oVec_R        pET28a         vec_pcr
-Gibson    ins_pcr       vec_pcr                      gib_pdt
-Transform gib_pdt       Mach1         Amp            pET-INS
-
-oligo     oINS_F        GATATACCatggccctgtggatgcgcctc
-oligo     oINS_R        GTGGTGGTGCTCGAGctagttgcagtagttctccag
-oligo     oVec_F        ctgcaactagCTCGAGCACCACCACCACCAC
-oligo     oVec_R        catccacagggccatGGTATATCTCCTTCTTAAAG</pre>
-<button id="copyCFBtn" style="margin-top:5px;">Copy Example</button>
-<script>
-  document.getElementById("copyCFBtn").addEventListener("click", function () {
-    const btn = this;
-    const content = document.getElementById("cf_quiz_example").innerText;
-    navigator.clipboard.writeText(content).then(() => {
-      const originalText = btn.innerText;
-      btn.innerText = "✅ Copied!";
-      btn.disabled = true;
-      setTimeout(() => {
-        btn.innerText = originalText;
-        btn.disabled = false;
-      }, 2000);
-    });
-  });
-</script>
-
----
-
-## Step 4: Simulate the Gibson Assembly
+## Step 3: Simulate the Gibson Assembly
 
 Start by simulating the assembly manually to understand what’s happening:
 
-1. Predict the PCR products using your designed primers, ensuring that the ends include the `overlap`, `forward anneal`, and `reverse anneal` regions as annotated.
-2. Identify the overlapping (`overlap`) sequences at the ends of each fragment.
+1. Predict the PCR products using your designed primers anneal as expected
+2. Identify the overlapping sequences at the ends of each fragment.
 3. For each overlap, delete one copy so the fragments can join seamlessly.
 4. Join the trimmed fragments to form your final product.
 
@@ -127,8 +87,7 @@ Then try using simulation tools to automate the process:
 - You can also use the **C6 Tools** to simulate the full CF script:  
   🔗 [Use C6 simulation tools](../simulation_tools/)
 
-These tools let you verify that your overlaps (`overlap`), `forward anneal`, and `reverse anneal` regions are correct and that the final sequence is as expected.
-
+These tools let you verify that your oligos will function as expected.
 ---
 
 ## 🎯 Try it yourself
@@ -153,7 +112,7 @@ waitForProgressManager(() => {
     <h3>Quiz Instructions</h3>
     <p>
       For your quiz, you will clone the CDS from the gene <strong>${gene.name}</strong> 
-      (<code>${gene.locus_tag}</code>) from <em>Bacillus atrophaeus UCMB-5137</em>.
+      (<code>${gene.locus_tag}</code>) from <em>Bacillus atrophaeus strain UCMB-5137</em> (<code>CP011802.1</code>).
     </p>
     <p>
       This gene is a <strong>coding DNA sequence (CDS)</strong> — an open reading frame (ORF) that starts
@@ -186,24 +145,21 @@ Just like in the pET-INS example:
 
    - Start by recreating the pET28a + gene design you made in the basic cloning tutorial.
    - If you skipped that tutorial, no problem — follow the guidance here to recreate it:
+
      - Use the plasmid backbone from [pET28a sequence file](../assets/pET28a.seq).
      - Retrieve your assigned gene sequence using the "Quiz Instructions" box above.
      - Insert the **entire CDS** into the region between the NcoI (`CCATGG`) and XhoI (`CTCGAG`) sites.
+     - The atg of your CDS should overlap the NcoI site as 'CCatgg'
      - Paste the CDS in **lowercase**, and keep the plasmid sequence in **UPPERCASE**.
 
-### 2. **Annotate each junction**  
+### 2. **Identify each junction**  
 
-   - For both junctions between insert and vector:
-     - Define an `overlap` region: 20–30 bp that spans the junction.
-     - Choose a `forward anneal` region: 20–30 bp downstream of the junction.
-     - Choose a `reverse anneal` region: 20–30 bp upstream of the junction (on the coding strand).
+  - For each junction:
 
-### 3. **Design your oligos**  
+    - Forward oligo = 20 bp before junction + 20 bp after junction  
+    - Reverse oligo = reverse complement of forward oligo
 
-   - Forward oligo = `overlap` + `forward anneal`  
-   - Reverse oligo = `reverse anneal` + `overlap`, then reverse complement
-
-### 4. **Build your Construction File (CF)**  
+### 3. **Build your Construction File (CF)**  
 
    - Your CF should include:
      - Two `PCR` steps
