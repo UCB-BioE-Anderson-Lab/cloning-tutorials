@@ -59,16 +59,21 @@ To ensure ApE recognizes the latest feature annotations and enzyme files, follow
 4. Repeat this for **Default Enzymes Directory**.  
 5. Click **OK** to close the settings window. ApE will generate default versions of these files in the folder.
 
-#### Step 3: Download and Replace Feature Files
+#### Step 3: Download the features
 
-- Download and unzip the updated files:  
-  [Download Default Features](https://raw.githubusercontent.com/UCB-BioE-Anderson-Lab/cloning-tutorials/main/sequences/Default_Features.txt)
+- Download the updated files:  
+  [Download Default Features](https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials/blob/main/sequences/Default_Features.txt)
 
-#### Step 4: Load the Updated Feature Library
+#### Step 4: Load the Feature Library
 
 1. In ApE, go to **Features > Open Feature Library...**  
-2. Navigate to `default_features.txt` in the unzipped folder and select it.  
-3. Click **OK** to confirm and exit.  
+2. Navigate to `default_features.txt` and select it.  
+3. Click **OK** to finalize.
+4. Download this test file: [Download GenBank](../assets/test_seq.seq)
+5. Open it in ApE and hit ctrl-k. You should see something like:
+
+![Screenshot of ApE showing an auto-annotated DNA sequence, with colored feature highlights and labels applied from the loaded feature library.](../images/ApE_autoannotation_example.png)  
+*Figure: Auto-annotation in ApE highlights recognized sequence features in color, providing visual cues for promoters, coding regions, and other functional elements. This aids quick sequence interpretation and editing.*
 
 ### Performing Operations in ApE
 
