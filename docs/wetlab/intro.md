@@ -3,24 +3,7 @@
 
 ## Goal of the Experiment
 
-Your objective is to create and test a library of synthetic promoters to discover variants with high transcriptional strength. The goal is to create a family of distinct promoter parts that span a range of strengths, suitable for use in multi-gene constructs without sequence redundancy or recombination risk.
-
-## Getting Started in the Lab
-
-To perform this experiment, you’ll need access to a fully equipped molecular biology lab. This includes basic tools like a set of pipetman, a thermocycler, an incubator, a shaker, and standard molecular biology reagents. You’ll also need the pJ12 plasmid template and two synthetic oligos ordered from IDT that introduce the promoter library variability.
-
-Before going to the bench, download and fill out the pP6 LabSheet Workbook, which will guide your workflow:
-
-[pP6 LabSheet Workbook](https://docs.google.com/spreadsheets/d/1updHzk3CJ2_L7eO-Abg0cpHQleU7c8b0lbF9QmNzFWA/edit?usp=sharing)
-
-**To prepare:**
-
-1. Make a copy of the LabSheet (as a Google Sheet).
-2. Enter your name and assigned ID on the ‘Entry’ worksheet.
-3. Either print out the sheets from ‘PCR’ through ‘MiniSeq’ or bring them on a laptop, tablet, or phone.
-4. Watch the demo video for each task before performing it in the lab.
-
-These sheets contain the bench-level instructions you’ll follow throughout the experiment.
+The goal of this experiment is to build new DNA control sequences called promoters that drive very strong gene expression. You will create a collection of bacteria, each with a different promoter, and then pick the brightest green colonies. Finally, you will measure how strong those promoter parts are and compare them to other sequences we already know.
 
 ## Background: Transcription in *E. coli*
 
@@ -125,7 +108,7 @@ GoldenGate      P6          BsaI       pP6
 
 The product of the reaction is a circular plasmid with a unique randomized promoter upstream of an amilGFP reporter.
 
-Duriong transformation, typically only 1 plasmid molecule enters a cell, confirs resistance, and results in a colony on your petri dish. Thus, each colony on your transformation plate represents a unique promoter. When exposed to blue light, colonies fluoresce with varying intensity depending on promoter strength.
+During transformation, typically only 1 plasmid molecule enters a cell, confers resistance, and results in a colony on your petri dish. Thus, each colony on your transformation plate represents a unique promoter. When exposed to blue light, colonies fluoresce with varying intensity depending on promoter strength.
 
 ![Fluorescent E. coli colonies on a pP6 transformation plate. Colonies show a range of green intensities under blue light, indicating different promoter strengths. A zoomed-in view shows a bright green colony surrounded by weaker, possibly satellite colonies.](../images/pp6_colony_plate.png)  
 *Figure: A pP6 transformation plate under blue light, showing colonies that express varying levels of GFP due to differences in promoter strength. The highlighted region is zoomed in to reveal diverse green intensities among clones, even though all share the core consensus motif. This illustrates the wide range of activities produced by flanking sequence variation—J23119 is unusually strong for this pattern.*
@@ -149,13 +132,14 @@ Note: Smaller, slow-growing colonies might encode the strongest promoters. Don�
 2. Make a copy of this spreadsheet:  
    [pP6 LabSheet Workbook](https://docs.google.com/spreadsheets/d/1updHzk3CJ2_L7eO-Abg0cpHQleU7c8b0lbF9QmNzFWA/edit?usp=sharing)
 
-3. Fill in your name and ID, and print the lab worksheets.  You may also use your phone, tablet, or notebook.  You may also write out your own versikon.
+3. Fill in your name and ID, and print the lab worksheets.  You may also use your phone, tablet, or notebook.  You could also write out your own notes instead.
 
-4. Read the tutorial and Watch the demo videos before each lab activity.
+4. Read the tutorial, take the quiz, and watch the demo videos before each lab activity.
 
 ## All Demo Videos
 
-****** replace with new vids as links
+All the videos are available in Media Gallery on Bcourses:
+
 - pP6-2022-1-PCR  
 - pP6-2022-2-Gel  
 - pP6-2022-3-Zymo  
