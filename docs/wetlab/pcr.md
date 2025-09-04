@@ -250,6 +250,24 @@ Final Extension:        68°C for 5 min
     });
   });
 </script>
+
+## 🎥 pP6-2022-1-PCR — Course Video
+
+<p><em>Access note:</em> Course videos are restricted to UC Berkeley <strong>BioE 140L</strong> and <strong>iGEM</strong> students via CalNet. If you have access, you can watch the embedded player below or open it in Canvas. You can also find this item in the course Media Gallery under the title <em>pP6-2022-1-PCR</em>.</p>
+
+<div style="margin-bottom: 1em;">
+  <iframe
+    width="560"
+    height="315"
+    src="https://kaf.berkeley.edu/embed/secure/iframe/entryId/1_70b6wn0p?iframeembed=true&autoplay=false"
+    frameborder="0"
+    allowfullscreen
+    style="max-width: 100%;">
+  </iframe>
+</div>
+
+<p><a href="https://bcourses.berkeley.edu/courses/1548791/external_tools/90481" target="_blank" rel="noopener"><strong>Open pP6-2022-1-PCR in Canvas (CalNet login)</strong></a></p>
+
 <!-- 
 ## 🎥 Watch Before Lab
 

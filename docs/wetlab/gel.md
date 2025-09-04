@@ -133,8 +133,18 @@ If others in your lab section are also ready to run a gel, set up one gel for th
     });
   });
 </script>
-<!-- 
-## 🎥 Watch Before Lab
 
-Watch the Gel tutorial video before coming to lab.
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" frameborder="0" allowfullscreen></iframe> -->
+## 🎥 pP6-2022-2-Gel — Course Video
+
+<div style="margin-bottom: 1em;">
+  <iframe
+    width="560"
+    height="315"
+    src="https://kaf.berkeley.edu/embed/secure/iframe/entryId/1_74krdpcx?iframeembed=true&autoplay=false"
+    frameborder="0"
+    allowfullscreen
+    style="max-width: 100%;">
+  </iframe>
+</div>
+
+<p><a href="https://bcourses.berkeley.edu/courses/1548791/external_tools/90481" target="_blank" rel="noopener"><strong>Open pP6-2022-2-Gel in Canvas (CalNet login)</strong></a></p>
