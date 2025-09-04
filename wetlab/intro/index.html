@@ -341,15 +341,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#getting-started-in-the-lab" class="md-nav__link">
-    <span class="md-ellipsis">
-      Getting Started in the Lab
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#background-transcription-in-e-coli" class="md-nav__link">
     <span class="md-ellipsis">
       Background: Transcription in E. coli
@@ -1393,15 +1384,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#getting-started-in-the-lab" class="md-nav__link">
-    <span class="md-ellipsis">
-      Getting Started in the Lab
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#background-transcription-in-e-coli" class="md-nav__link">
     <span class="md-ellipsis">
       Background: Transcription in E. coli
@@ -1522,19 +1504,7 @@
 <script src="https://unpkg.com/seqviz"></script>
 <h1 id="pp6-intro-finding-strong-promoters-in-e-coli">pP6 Intro: Finding Strong Promoters in <em>E. coli</em><a class="headerlink" href="#pp6-intro-finding-strong-promoters-in-e-coli" title="Permanent link">&para;</a></h1>
 <h2 id="goal-of-the-experiment">Goal of the Experiment<a class="headerlink" href="#goal-of-the-experiment" title="Permanent link">&para;</a></h2>
-<p>Your objective is to create and test a library of synthetic promoters to discover variants with high transcriptional strength. The goal is to create a family of distinct promoter parts that span a range of strengths, suitable for use in multi-gene constructs without sequence redundancy or recombination risk.</p>
-<h2 id="getting-started-in-the-lab">Getting Started in the Lab<a class="headerlink" href="#getting-started-in-the-lab" title="Permanent link">&para;</a></h2>
-<p>To perform this experiment, you’ll need access to a fully equipped molecular biology lab. This includes basic tools like a set of pipetman, a thermocycler, an incubator, a shaker, and standard molecular biology reagents. You’ll also need the pJ12 plasmid template and two synthetic oligos ordered from IDT that introduce the promoter library variability.</p>
-<p>Before going to the bench, download and fill out the pP6 LabSheet Workbook, which will guide your workflow:</p>
-<p><a href="https://docs.google.com/spreadsheets/d/1updHzk3CJ2_L7eO-Abg0cpHQleU7c8b0lbF9QmNzFWA/edit?usp=sharing">pP6 LabSheet Workbook</a></p>
-<p><strong>To prepare:</strong></p>
-<ol>
-<li>Make a copy of the LabSheet (as a Google Sheet).</li>
-<li>Enter your name and assigned ID on the ‘Entry’ worksheet.</li>
-<li>Either print out the sheets from ‘PCR’ through ‘MiniSeq’ or bring them on a laptop, tablet, or phone.</li>
-<li>Watch the demo video for each task before performing it in the lab.</li>
-</ol>
-<p>These sheets contain the bench-level instructions you’ll follow throughout the experiment.</p>
+<p>The goal of this experiment is to build new DNA control sequences called promoters that drive very strong gene expression. You will create a collection of bacteria, each with a different promoter, and then pick the brightest green colonies. Finally, you will measure how strong those promoter parts are and compare them to other sequences we already know.</p>
 <h2 id="background-transcription-in-e-coli">Background: Transcription in <em>E. coli</em><a class="headerlink" href="#background-transcription-in-e-coli" title="Permanent link">&para;</a></h2>
 <p><img alt="Diagram of transcription in E. coli, showing promoter, -35 and -10 boxes, +1 transcription start site, CDS, terminator, and resulting mRNA with RBS." src="../../images/pp6_transcription.png" />
 <em>Figure: Transcription in E. coli. RNA polymerase binds the promoter at the -35 and -10 sites, initiates at +1, and transcribes a coding sequence (CDS) into mRNA with an RBS. The transcript ends at a terminator sequence.</em></p>
@@ -1613,7 +1583,7 @@ GoldenGate      P6          BsaI       pP6
 </code></pre></div>
 <h2 id="expected-outcome">Expected Outcome<a class="headerlink" href="#expected-outcome" title="Permanent link">&para;</a></h2>
 <p>The product of the reaction is a circular plasmid with a unique randomized promoter upstream of an amilGFP reporter.</p>
-<p>Duriong transformation, typically only 1 plasmid molecule enters a cell, confirs resistance, and results in a colony on your petri dish. Thus, each colony on your transformation plate represents a unique promoter. When exposed to blue light, colonies fluoresce with varying intensity depending on promoter strength.</p>
+<p>During transformation, typically only 1 plasmid molecule enters a cell, confers resistance, and results in a colony on your petri dish. Thus, each colony on your transformation plate represents a unique promoter. When exposed to blue light, colonies fluoresce with varying intensity depending on promoter strength.</p>
 <p><img alt="Fluorescent E. coli colonies on a pP6 transformation plate. Colonies show a range of green intensities under blue light, indicating different promoter strengths. A zoomed-in view shows a bright green colony surrounded by weaker, possibly satellite colonies." src="../../images/pp6_colony_plate.png" /><br />
 <em>Figure: A pP6 transformation plate under blue light, showing colonies that express varying levels of GFP due to differences in promoter strength. The highlighted region is zoomed in to reveal diverse green intensities among clones, even though all share the core consensus motif. This illustrates the wide range of activities produced by flanking sequence variation—J23119 is unusually strong for this pattern.</em></p>
 <h2 id="picking-colonies-and-sequencing">Picking Colonies and Sequencing<a class="headerlink" href="#picking-colonies-and-sequencing" title="Permanent link">&para;</a></h2>
@@ -1636,23 +1606,25 @@ GoldenGate      P6          BsaI       pP6
 <a href="https://docs.google.com/spreadsheets/d/1updHzk3CJ2_L7eO-Abg0cpHQleU7c8b0lbF9QmNzFWA/edit?usp=sharing">pP6 LabSheet Workbook</a></p>
 </li>
 <li>
-<p>Fill in your name and ID, and print the lab worksheets.  You may also use your phone, tablet, or notebook.  You may also write out your own versikon.</p>
+<p>Fill in your name and ID, and print the lab worksheets.  You may also use your phone, tablet, or notebook.  You could also write out your own notes instead.</p>
 </li>
 <li>
-<p>Read the tutorial and Watch the demo videos before each lab activity.</p>
+<p>Read the tutorial, take the quiz, and watch the demo videos before each lab activity.</p>
 </li>
 </ol>
 <h2 id="all-demo-videos">All Demo Videos<a class="headerlink" href="#all-demo-videos" title="Permanent link">&para;</a></h2>
-<p><strong>*</strong>* replace with new vids as links
-- pP6-2022-1-PCR<br />
-- pP6-2022-2-Gel<br />
-- pP6-2022-3-Zymo<br />
-- pP6-2022-4-Assembly<br />
-- pP6-2022-5-Transformation<br />
-- pP6-2022-6-Pick<br />
-- pP6-2022-7-Miniprep<br />
-- pP6-2022-8-Sequencing<br />
-- pP6-2022-9-Sequence Analysis</p>
+<p>All the videos are available in Media Gallery on Bcourses:</p>
+<ul>
+<li>pP6-2022-1-PCR  </li>
+<li>pP6-2022-2-Gel  </li>
+<li>pP6-2022-3-Zymo  </li>
+<li>pP6-2022-4-Assembly  </li>
+<li>pP6-2022-5-Transformation  </li>
+<li>pP6-2022-6-Pick  </li>
+<li>pP6-2022-7-Miniprep  </li>
+<li>pP6-2022-8-Sequencing  </li>
+<li>pP6-2022-9-Sequence Analysis</li>
+</ul>
 <h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
 <p>When you're ready, proceed to the <a href="../pipetting/">Pipetting tutorial</a> to learn how to use a micropipette correctly before starting wetlab work.</p>
 <h2 id="quiz-promoter-engineering-concepts">🧪 Quiz: Promoter Engineering Concepts<a class="headerlink" href="#quiz-promoter-engineering-concepts" title="Permanent link">&para;</a></h2>
