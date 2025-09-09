@@ -110,12 +110,12 @@ The diagram below illustrates how we use PCR, restriction digestion, and ligatio
 
 ![Diagram showing PCR of insulin cDNA, restriction digestion with NcoI and XhoI, and ligation of the PCR product into pET-28a(+) to create pET-INS](../images/pET-INS_NcoI_construction.png)
 *Figure: Cartoon schematic of the pET-INS construction. Each component in the image matches a step in the construction file you'll write next: PCR of the insulin gene, digestion with NcoI/XhoI, and ligation into the pET-28a(+) vector.*
-
+<!-- 
 ### 🎥 Watch: Walkthrough of the Cloning Plan + Oligo Design in APE
 
 In this short video, we sketch the cloning steps and then walk through how to design the oligos using Ape:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" title="Drawing out pET-INS cloning and designing oligos in Ape" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gKHO0HHPsXg" title="Drawing out pET-INS cloning and designing oligos in Ape" frameborder="0" allowfullscreen></iframe> -->
 
 ---
 
