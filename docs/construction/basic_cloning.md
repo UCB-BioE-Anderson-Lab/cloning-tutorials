@@ -59,7 +59,7 @@ Here’s a short video walking through the cloning plan and design of oligos usi
 
 We'll use a GenBank record for human insulin cDNA:
 
-- 📄 Insulin cDNA: [Download GenBank](../assets/insulin_cds.seq)  
+- 📄 Insulin cDNA: [Download GenBank](../assets/insulin_cdna.seq)  
 - 🔗 [NCBI: BC005255.1](https://www.ncbi.nlm.nih.gov/nuccore/BC005255.1)
 
 ---
