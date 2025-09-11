@@ -78,7 +78,7 @@ Example:
 - **DNA Coding Strand**: `5'- ATGCAGTAC -3'`
 - **RNA Transcript**: `5'- AUGCAGUAC -3'`
 
-### **Quiz: Predict the RNA Sequence**
+#### Quiz: Predict the RNA Sequence
 
 What is the **RNA sequence** transcribed from this DNA coding strand?  
 
@@ -92,11 +92,35 @@ What is the **RNA sequence** transcribed from this DNA coding strand?
 
 ### Translation
 
-An **mRNA** transcript consists of a **5' UTR (Untranslated Region)** followed by the **CDS (Coding DNA Sequence)**. The **CDS** is an **ORF (Open Reading Frame)**, meaning a sequence that, when read in groups of three bases (codons), begins with a **start codon** (**ATG, GTG, or TTG**) and ends with a **stop codon** (**TAA, TAG, TGA**).
+An mRNA transcript consists of a 5' UTR (Untranslated Region) followed by the **CDS (Coding DNA Sequence)**. The CDS is an ORF (Open Reading Frame), meaning a sequence that, when read in groups of three bases (codons), begins with a **start codon** (**ATG, GTG, or TTG**) and ends with a **stop codon** (**TAA, TAG, TGA**).
 
-The **ribosome** recognizes the **Shine-Dalgarno sequence** and the **start codon**, then reads the RNA three bases at a time, translating each codon into an **amino acid** based on the genetic code.
+The ribosome recognizes the Shine-Dalgarno sequence and the **start codon**, then reads the RNA three bases at a time, translating each codon into an amino acid based on the genetic code.
 
-### **Genetic Code Table**
+#### Example: How to Translate DNA Using the Genetic Code
+
+To translate a DNA sequence into a protein sequence, follow these steps:
+
+1. Start at the **start codon** (usually ATG).
+2. Divide the DNA sequence into codons (groups of three bases).
+3. Look up each codon in the Genetic Code Table to find the corresponding amino acid.
+4. Add the amino acid's single-letter code to the growing protein sequence.
+5. Stop when you reach a stop codon (TAA, TAG, or TGA). You can mark this with `*` or simply end the sequence.
+
+**Example:**
+
+DNA Sequence: `5'- ATG GCT TTT GAA TGA -3'`
+
+- Codon 1: ATG → M (Methionine, start)
+- Codon 2: GCT → A (Alanine)
+- Codon 3: TTT → F (Phenylalanine)
+- Codon 4: GAA → E (Glutamic acid)
+- Codon 5: TGA → * (Stop)
+
+Protein Sequence: `MAFE*`
+
+In practice, biologists usually write this as `MAFE`, ending the sequence at the stop codon instead of including the `*`.
+
+#### Genetic Code Table
 
 > **Note:** While translation occurs from an RNA sequence, for convenience, we often refer to codons in their DNA format. Codons are three-letter sequences that specify amino acids during protein synthesis. Each codon in DNA corresponds to an RNA codon by replacing Thymine (T) with Uracil (U).
 
@@ -135,9 +159,9 @@ The **ribosome** recognizes the **Shine-Dalgarno sequence** and the **start codo
 | GGT    | G            | Gly        | GGC    | G            | Gly        |
 | GGA    | G            | Gly        | GGG    | G            | Gly        |
 
-### **Quiz: Translate the DNA Sequence**
+#### Quiz: Translate the DNA Sequence
 
-What is the **amino acid sequence** for the following DNA sequence?  
+What amino acid sequence is encoded by the following coding DNA sequence?  
 **5'- ATG CAG GTA GAA TAA -3'**
 
 <form id="translateForm">
