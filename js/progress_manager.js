@@ -8,7 +8,7 @@ if (!window.progressManager) {
             "Wetlab": {
               "p6": ["p6_q1", "p6_q2", "p6_q3"],
               "pipetting": ["pipet_q1", "pipet_q2", "pipet_q3", "pipet_q4", "pipet_q5"],
-              "pcr": ["pcr_q1", "pcr_q2", "pcr_q3", "pcr_q4", "pcr_q5"],
+              "pcr": ["pcr_q1", "pcr_q2", "pcr_q3"],
               "gel": ["gel_q1", "gel_q2", "gel_q3"],
               "cleanup": ["cleanup_q1", "cleanup_q2", "cleanup_q3"],
               "assembly": ["assembly_q1", "assembly_q2"],
