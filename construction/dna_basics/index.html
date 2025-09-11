@@ -697,7 +697,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Transcription">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#quiz-predict-the-rna-sequence" class="md-nav__link">
@@ -708,10 +709,25 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+        
           <li class="md-nav__item">
   <a href="#translation" class="md-nav__link">
     <span class="md-ellipsis">
       Translation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Translation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-how-to-translate-dna-using-the-genetic-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: How to Translate DNA Using the Genetic Code
     </span>
   </a>
   
@@ -732,6 +748,11 @@
       Quiz: Translate the DNA Sequence
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1496,7 +1517,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Transcription">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#quiz-predict-the-rna-sequence" class="md-nav__link">
@@ -1507,10 +1529,25 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+        
           <li class="md-nav__item">
   <a href="#translation" class="md-nav__link">
     <span class="md-ellipsis">
       Translation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Translation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-how-to-translate-dna-using-the-genetic-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: How to Translate DNA Using the Genetic Code
     </span>
   </a>
   
@@ -1531,6 +1568,11 @@
       Quiz: Translate the DNA Sequence
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1678,7 +1720,7 @@
 <li><strong>DNA Coding Strand</strong>: <code>5'- ATGCAGTAC -3'</code></li>
 <li><strong>RNA Transcript</strong>: <code>5'- AUGCAGUAC -3'</code></li>
 </ul>
-<h3 id="quiz-predict-the-rna-sequence"><strong>Quiz: Predict the RNA Sequence</strong><a class="headerlink" href="#quiz-predict-the-rna-sequence" title="Permanent link">&para;</a></h3>
+<h4 id="quiz-predict-the-rna-sequence">Quiz: Predict the RNA Sequence<a class="headerlink" href="#quiz-predict-the-rna-sequence" title="Permanent link">&para;</a></h4>
 <p>What is the <strong>RNA sequence</strong> transcribed from this DNA coding strand?  </p>
 <p><strong>5'- TCTGACTA -3'</strong></p>
 <form id="transcriptionForm">
@@ -1688,9 +1730,29 @@
 </form>
 
 <h3 id="translation">Translation<a class="headerlink" href="#translation" title="Permanent link">&para;</a></h3>
-<p>An <strong>mRNA</strong> transcript consists of a <strong>5' UTR (Untranslated Region)</strong> followed by the <strong>CDS (Coding DNA Sequence)</strong>. The <strong>CDS</strong> is an <strong>ORF (Open Reading Frame)</strong>, meaning a sequence that, when read in groups of three bases (codons), begins with a <strong>start codon</strong> (<strong>ATG, GTG, or TTG</strong>) and ends with a <strong>stop codon</strong> (<strong>TAA, TAG, TGA</strong>).</p>
-<p>The <strong>ribosome</strong> recognizes the <strong>Shine-Dalgarno sequence</strong> and the <strong>start codon</strong>, then reads the RNA three bases at a time, translating each codon into an <strong>amino acid</strong> based on the genetic code.</p>
-<h3 id="genetic-code-table"><strong>Genetic Code Table</strong><a class="headerlink" href="#genetic-code-table" title="Permanent link">&para;</a></h3>
+<p>An mRNA transcript consists of a 5' UTR (Untranslated Region) followed by the <strong>CDS (Coding DNA Sequence)</strong>. The CDS is an ORF (Open Reading Frame), meaning a sequence that, when read in groups of three bases (codons), begins with a <strong>start codon</strong> (<strong>ATG, GTG, or TTG</strong>) and ends with a <strong>stop codon</strong> (<strong>TAA, TAG, TGA</strong>).</p>
+<p>The ribosome recognizes the Shine-Dalgarno sequence and the <strong>start codon</strong>, then reads the RNA three bases at a time, translating each codon into an amino acid based on the genetic code.</p>
+<h4 id="example-how-to-translate-dna-using-the-genetic-code">Example: How to Translate DNA Using the Genetic Code<a class="headerlink" href="#example-how-to-translate-dna-using-the-genetic-code" title="Permanent link">&para;</a></h4>
+<p>To translate a DNA sequence into a protein sequence, follow these steps:</p>
+<ol>
+<li>Start at the <strong>start codon</strong> (usually ATG).</li>
+<li>Divide the DNA sequence into codons (groups of three bases).</li>
+<li>Look up each codon in the Genetic Code Table to find the corresponding amino acid.</li>
+<li>Add the amino acid's single-letter code to the growing protein sequence.</li>
+<li>Stop when you reach a stop codon (TAA, TAG, or TGA). You can mark this with <code>*</code> or simply end the sequence.</li>
+</ol>
+<p><strong>Example:</strong></p>
+<p>DNA Sequence: <code>5'- ATG GCT TTT GAA TGA -3'</code></p>
+<ul>
+<li>Codon 1: ATG → M (Methionine, start)</li>
+<li>Codon 2: GCT → A (Alanine)</li>
+<li>Codon 3: TTT → F (Phenylalanine)</li>
+<li>Codon 4: GAA → E (Glutamic acid)</li>
+<li>Codon 5: TGA → * (Stop)</li>
+</ul>
+<p>Protein Sequence: <code>MAFE*</code></p>
+<p>In practice, biologists usually write this as <code>MAFE</code>, ending the sequence at the stop codon instead of including the <code>*</code>.</p>
+<h4 id="genetic-code-table">Genetic Code Table<a class="headerlink" href="#genetic-code-table" title="Permanent link">&para;</a></h4>
 <blockquote>
 <p><strong>Note:</strong> While translation occurs from an RNA sequence, for convenience, we often refer to codons in their DNA format. Codons are three-letter sequences that specify amino acids during protein synthesis. Each codon in DNA corresponds to an RNA codon by replacing Thymine (T) with Uracil (U).</p>
 </blockquote>
@@ -1964,8 +2026,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="quiz-translate-the-dna-sequence"><strong>Quiz: Translate the DNA Sequence</strong><a class="headerlink" href="#quiz-translate-the-dna-sequence" title="Permanent link">&para;</a></h3>
-<p>What is the <strong>amino acid sequence</strong> for the following DNA sequence?<br />
+<h4 id="quiz-translate-the-dna-sequence">Quiz: Translate the DNA Sequence<a class="headerlink" href="#quiz-translate-the-dna-sequence" title="Permanent link">&para;</a></h4>
+<p>What amino acid sequence is encoded by the following coding DNA sequence?<br />
 <strong>5'- ATG CAG GTA GAA TAA -3'</strong></p>
 <form id="translateForm">
   <input type="text" id="translateInput" placeholder="Enter answer here">
