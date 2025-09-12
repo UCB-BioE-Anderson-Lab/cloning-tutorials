@@ -50,6 +50,16 @@
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-2PJLYHVLQ1"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-2PJLYHVLQ1",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-2PJLYHVLQ1",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -1598,14 +1608,14 @@
 
 
 <h1 id="sequencing-confirmation">Sequencing Confirmation<a class="headerlink" href="#sequencing-confirmation" title="Permanent link">&para;</a></h1>
-<p>After you've completed your cloning, your next step is to verify the integrity of your plasmid. This tutorial walks through different sequencing strategies and how to choose and apply the right one for your purpose.</p>
+<p>After you've completed your cloning, your next step is to verify the integrity of your plasmid. This tutorial walks through sequencing strategies and a practical workflow for confirming that your <strong>confirmation region</strong> matches the <strong>model sequence</strong>.</p>
 <hr />
 <h2 id="choosing-the-right-strategy">Choosing the Right Strategy<a class="headerlink" href="#choosing-the-right-strategy" title="Permanent link">&para;</a></h2>
-<p>There are three main sequencing strategies available, each suited to different goals and budgets:</p>
+<p>Three options cover most needs. Choose based on scope and cost, then follow the analysis workflow below.</p>
 <ol>
-<li><strong>Cycle sequencing</strong> (like you used in the pP6 experiment) gives a ~1 kb window of high-quality sequence starting about 50 bp downstream of a primer. It's ideal for checking a specific region of a plasmid—like an insert or promoter.</li>
-<li><strong>Full-plasmid sequencing</strong> from providers like Plasmidsaurus uses long-read nanopore technology to return the complete sequence of your plasmid. This is more expensive (~$15/sample), but you get the entire plasmid and can catch unexpected rearrangements or background DNA.</li>
-<li><strong>NGS</strong> (Next-Generation Sequencing) is a high-throughput approach designed for analyzing complex populations. You PCR-amplify your targets with adapters and submit the pool for deep sequencing. This is powerful, but expensive, and more suitable for library screens than for single plasmid validation.</li>
+<li><strong>Cycle sequencing</strong> (as in the pP6 experiment) gives a ~1 kb window of high-quality sequence starting about 50 bp downstream of a primer. It is ideal for checking a specific region of a plasmid, such as an insert or promoter. <em>(Primer-based Sanger overview: <a href="https://www.youtube.com/watch?v=-QIMkQ4E_wE">YouTube</a>).</em></li>
+<li><strong>Full-plasmid sequencing</strong> from providers like Plasmidsaurus uses long-read nanopore technology to return the complete sequence of your plasmid. This is more expensive (~$15/sample), but you get the entire plasmid and can catch unexpected rearrangements or background DNA. <em>(Nanopore overview: <a href="https://www.youtube.com/watch?v=CGWZvHIi3i0&amp;t=28s">YouTube</a>).</em></li>
+<li><strong>NGS</strong> (Next-Generation Sequencing) is a high-throughput approach designed for analyzing complex populations. You PCR-amplify your targets with adapters and submit the pool for deep sequencing. This is powerful, but expensive, and is more suitable for library screens than for single plasmid validation. <em>(NGS overview: <a href="https://www.youtube.com/watch?v=CZeN-IgjYCo">YouTube</a>).</em></li>
 </ol>
 <table>
 <thead>
@@ -1624,7 +1634,7 @@
 <td>Targeted region confirmation</td>
 </tr>
 <tr>
-<td>Full plasmid (Plasmidsaurus)</td>
+<td>Full plasmid sequencing</td>
 <td>~$15</td>
 <td>Entire plasmid sequence</td>
 <td>Whole-plasmid verification, structural issues</td>
@@ -1645,7 +1655,7 @@
   <select name="q1">
     <option value="">--Select--</option>
     <option value="cycle">Cycle sequencing</option>
-    <option value="plasmidsaurus">Full plasmid (Plasmidsaurus)</option>
+    <option value="full_plasmid">Full plasmid sequencing</option>
     <option value="ngs">NGS</option>
   </select>
   <p id="res_q1"></p>
@@ -1654,7 +1664,7 @@
   <select name="q2">
     <option value="">--Select--</option>
     <option value="cycle">Cycle sequencing</option>
-    <option value="plasmidsaurus">Full plasmid (Plasmidsaurus)</option>
+    <option value="full_plasmid">Full plasmid sequencing</option>
     <option value="ngs">NGS</option>
   </select>
   <p id="res_q2"></p>
@@ -1663,7 +1673,7 @@
   <select name="q3">
     <option value="">--Select--</option>
     <option value="cycle">Cycle sequencing</option>
-    <option value="plasmidsaurus">Full plasmid (Plasmidsaurus)</option>
+    <option value="full_plasmid">Full plasmid sequencing</option>
     <option value="ngs">NGS</option>
   </select>
   <p id="res_q3"></p>
@@ -1676,7 +1686,7 @@
     const answers = {
       q1: "cycle",
       q2: "ngs",
-      q3: "plasmidsaurus"
+      q3: "full_plasmid"
     };
     let allCorrect = true;
 
@@ -1687,7 +1697,7 @@
         result.innerHTML = "✅ Correct!";
       } else {
         if (q === "q1") {
-          if (selected === "plasmidsaurus") {
+          if (selected === "full_plasmid") {
             result.innerHTML = "❌ Full-plasmid sequencing is overkill for checking a small, known insert.";
           } else if (selected === "ngs") {
             result.innerHTML = "❌ NGS is too expensive and unnecessary for a single variant.";
@@ -1697,7 +1707,7 @@
         } else if (q === "q2") {
           if (selected === "cycle") {
             result.innerHTML = "❌ Cycle sequencing is too limited to profile thousands of variants.";
-          } else if (selected === "plasmidsaurus") {
+          } else if (selected === "full_plasmid") {
             result.innerHTML = "❌ Full plasmid sequencing doesn't scale well to large pools like libraries.";
           } else {
             result.innerHTML = "❌ Please select a valid option.";
@@ -1781,7 +1791,7 @@
 
 <hr />
 <h2 id="defining-the-confirmation-target">Defining the Confirmation Target<a class="headerlink" href="#defining-the-confirmation-target" title="Permanent link">&para;</a></h2>
-<p>Before you can interpret your sequencing results, you need to define the <strong>confirmation target</strong>—the specific region of the plasmid you care about confirming. The choice of this region depends on how much certainty you need about the sequence, and what can already be inferred from functional outcomes (e.g., antibiotic resistance, visible fluorescence, or selection as from an activity screen). As a rule of thumb, the confirmation target is a <strong>subsequence of the full plasmid model</strong> that includes:</p>
+<p>Before you can interpret your sequencing results, you need to define the <strong>confirmation target</strong>, the specific region of the plasmid you care about confirming. The choice of this region depends on how much certainty you need about the sequence, and what can already be inferred from functional outcomes (e.g., antibiotic resistance, visible fluorescence, or selection as from an activity screen). As a rule of thumb, the confirmation target is a <strong>subsequence of the full plasmid model</strong> that includes:</p>
 <ul>
 <li>Any inserted or deleted regions</li>
 <li>Any modified regulatory elements (e.g., promoters, RBSs)</li>
@@ -1794,25 +1804,17 @@
 <li>The kanamycin resistance (<strong>kanR</strong>) and the origin of replication (<strong>ori</strong>) are inherited from the original pET28a vector. Since you selected colonies on a kanamycin plate, these must be functional. Even if they contain silent mutations, they won't affect your experiment, so they don’t need to be reconfirmed.</li>
 <li>The confirmation target is the <strong>T7 promoter, RBS, and INS gene</strong>, along with enough flanking sequence to include sites of oligo binding during construction.</li>
 </ul>
-<p>This entire block—the T7 + RBS + INS insert—is the <strong>confirmation region</strong>, and it is treated as a whole. The sequencing read must cleanly and correctly cover this entire region to confirm the plasmid’s correctness.</p>
+<p>This entire block (the T7 + RBS + INS insert) is the <strong>confirmation region</strong>, and it is treated as a whole. The sequencing read must cleanly and correctly cover this entire region to confirm the plasmid’s correctness.</p>
 <p>Once you’ve defined your confirmation target, your task is to determine whether your sequencing read contains it accurately and completely. This involves aligning your read to the model plasmid and checking whether the confirmation region is covered and error-free.</p>
 <hr />
 <h2 id="analyzing-sequencing-data">Analyzing Sequencing Data<a class="headerlink" href="#analyzing-sequencing-data" title="Permanent link">&para;</a></h2>
 <p>To evaluate your sequencing outcome, you’ll align your sequencing read to the reference model and examine how well it covers your defined confirmation target.</p>
 <h3 id="performing-an-alignment">Performing an Alignment<a class="headerlink" href="#performing-an-alignment" title="Permanent link">&para;</a></h3>
-<p>Use <strong>ApE</strong> or <strong>Benchling</strong> to perform sequence alignment:</p>
-<ul>
-<li>In ApE: Open both the read and the model plasmid. Go to <code>Tools → Align Sequences...</code>, select both files, and click OK.</li>
-<li>In Benchling: Use the alignment tool in the side panel to align your sequencing read to the model plasmid.</li>
-<li>You can also use any of various webtools like https://en.vectorbuilder.com/tool/sequence-alignment.html</li>
-</ul>
-<p>Look for:</p>
-<ul>
-<li><strong>Start of alignment</strong>: Does the read begin at the expected point downstream of your primer?</li>
-<li><strong>Full coverage</strong> of the confirmation target</li>
-<li><strong>Perfect match</strong> or any <strong>deviations</strong></li>
-</ul>
-<p>If the confirmation target is entirely within the read, then it is 'perfect' and you are done with the analysis.  Otherwise, there may be a mutation present.</p>
+<p>Use <strong>ApE</strong> or <strong>Benchling</strong> to align the <strong>read</strong> to the <strong>model sequence</strong>. Check:<br />
+1) Does the read start downstream of the primer as expected<br />
+2) Does it <strong>fully cover</strong> the confirmation region with high-quality signal<br />
+3) Are there <strong>any differences</strong> inside that region  </p>
+<p>If coverage is complete and identical, your rubric call is <strong>Perfect</strong>. Otherwise, classify using <strong>Types of Sequence Deviations</strong> and the <strong>Final Call Categories</strong>.</p>
 <h3 id="types-of-sequence-deviations">Types of Sequence Deviations<a class="headerlink" href="#types-of-sequence-deviations" title="Permanent link">&para;</a></h3>
 <h4 id="point-mutations">Point mutations<a class="headerlink" href="#point-mutations" title="Permanent link">&para;</a></h4>
 <p>These are single base changes. In open reading frames (ORFs), they fall into three categories:</p>
@@ -1905,15 +1907,42 @@
 <li><strong>Mixed signals</strong>: More than one DNA template in the reaction</li>
 </ul>
 <p><img alt="Examples of sequencing trace quality showing three types of read profiles: high-quality, low-quality, and mixed template." src="../../images/trace-quality-examples.png" /></p>
-<p><em>Figure: Sequencing trace types. Left: </em><em>High-Quality Read</em><em> — Tall, sharp peaks with clear base calls. Middle: </em><em>Low-Quality Signal</em><em> — Short, noisy peaks with Ns and base ambiguity. Right: </em><em>Mixed Template</em><em> — From around base 169, each position shows two well-resolved peaks, suggesting the presence of two DNA templates in the same prep. Mixed reads indicate either two different plasmids in the cell, or instability of the original plasmid.  Either way, it is problematic.</em></p>
+<p><em>Figure: Sequencing trace types. Left: </em><em>High-quality read</em><em> with tall, well-resolved peaks and clear base calls. Middle: </em><em>Low-quality signal</em><em> with noise and ambiguous bases. Right: </em><em>Mixed template</em><em> beginning around base 169, with two peaks at many positions (two DNA templates present).</em></p>
 <h3 id="final-call-categories">Final Call Categories<a class="headerlink" href="#final-call-categories" title="Permanent link">&para;</a></h3>
-<p>You must assess the read and decide:</p>
+<p>Make a single call for each sample using the criteria below. Use the definitions in <strong>Types of Sequence Deviations</strong> and <strong>Quality Issues</strong> for how to recognize each pattern. Do not reinterpret those details here; this is only the final rubric.</p>
 <ul>
-<li><strong>Perfect</strong>: All of the confirmation region is covered with high-quality data, and there are no mismatches.</li>
-<li><strong>Perfect Partial</strong>: What you can see is perfect, but part of the confirmation region is not covered due to read length or quality limitations.</li>
-<li><strong>Mutant</strong>: Read has deviations in the confirmation target.</li>
-<li><strong>Mixed Clone</strong>: Trace shows evidence of multiple sequence populations—typically due to more than one plasmid being present in the miniprep prep.</li>
-<li><strong>Failed</strong>: Poor quality read, unreadable, or no match to target.</li>
+<li>
+<p><strong>Perfect</strong><br />
+  The entire confirmation region is covered by high-quality signal and matches the model with no differences.</p>
+</li>
+<li>
+<p><strong>Perfect Partial</strong><br />
+  All observed bases match the model, but part of the confirmation region is not covered by high-quality data. Report the verified coordinate range.</p>
+</li>
+<li>
+<p><strong>Silent Mutation</strong><br />
+  A single-base substitution inside an ORF that does not change the encoded amino acid. Usually acceptable if function is retained; record the exact change.</p>
+</li>
+<li>
+<p><strong>Missense Mutation</strong><br />
+  A single-base substitution inside an ORF that changes the amino acid. Requires judgment based on context and function; typically re-pick if alternatives exist.</p>
+</li>
+<li>
+<p><strong>Nonsense Mutation</strong><br />
+  A single-base substitution inside an ORF that creates a stop codon. Treat as a failed clone for that construct.</p>
+</li>
+<li>
+<p><strong>Indel</strong><br />
+  An insertion or deletion within the confirmation region. If not a multiple of three in an ORF it causes a frameshift. Treat as a failed clone unless the design intended it.</p>
+</li>
+<li>
+<p><strong>Mixed Clone</strong><br />
+  The trace indicates more than one sequence population (double peaks or phase-shifted signal) within or spanning the confirmation region. Rerun from a single colony or re-isolate plasmid.</p>
+</li>
+<li>
+<p><strong>Failed</strong><br />
+  Read quality is insufficient to evaluate the confirmation region, or the read cannot be aligned to the target in a meaningful way.</p>
+</li>
 </ul>
 <hr />
 <h3 id="quiz-sequence-interpretation">Quiz: Sequence Interpretation<a class="headerlink" href="#quiz-sequence-interpretation" title="Permanent link">&para;</a></h3>
@@ -1921,141 +1950,212 @@
 <p><a href="../assets/sequence_cases.zip">⬇️ Download All Cases (ZIP)</a></p>
 <p>Each folder in the zip includes:</p>
 <ul>
-<li>A <code>.ab1</code> trace</li>
-<li>A <code>.seq</code> read</li>
-<li>A <code>.gb</code> model with the confirmation target annotated</li>
+<li>A <code>.str</code> model file</li>
+<li>A <code>.ab1</code> trace file</li>
+<li>A <code>.txt</code> read file</li>
 </ul>
-<hr />
-<h3>Case 1: missense_in_ORF</h3>
-<p>What kind of outcome is shown in this sequencing result?</p>
-<p><select id="q_case1">
-<br />
-<option value="">--Select scenario--</option></p>
-<option value="perfect">Perfect</option>
-<option value="perfect_partial">Perfect Partial</option>
-<option value="mixed">Mixed</option>
-<option value="failed">Failed</option>
-<option value="silent_mutation">Silent Mutation</option>
-<option value="nonsense_mutation">Nonsense Mutation</option>
-<option value="missense_mutation">Missense Mutation</option>
-<option value="indel">Indel</option>
-<p></select></p>
-<p id="res_case1"></p>
-<p><button type="button" id="check_case1">Check Answer</button></p>
+<p>Below are six real-world sequencing cases. For each clone, download the files, analyze them, and select the best interpretation.</p>
+<form id="sequencing_cases_form">
+  <ol>
+    <li>
+      <strong>Clone 1: JCAseq_pSB1A2-Bca9143</strong><br>
+      Model: <a href="../assets/sequencing_files/JCAseq_pSB1A2-Bca9143.str" download>JCAseq_pSB1A2-Bca9143.str</a><br>
+      Trace: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_004.ab1" download>jca388_G00101_2007-03-10_E02_004.ab1</a><br>
+      Calls: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_004.txt" download>jca388_G00101_2007-03-10_E02_004.txt</a><br>
+      <label for="case1_select">What is the outcome?</label>
+      <select id="case1_select" name="case1">
+        <option value="">--Select--</option>
+        <option value="perfect">Perfect</option>
+        <option value="perfect_partial">Perfect Partial</option>
+        <option value="mixed">Mixed Clone</option>
+        <option value="failed">Failed</option>
+        <option value="silent_mutation">Silent Mutation</option>
+        <option value="nonsense_mutation">Nonsense Mutation</option>
+        <option value="missense_mutation">Missense Mutation</option>
+        <option value="indel">Indel</option>
+      </select>
+      <span id="res_case1"></span>
+    </li>
+    <li>
+      <strong>Clone 2: JCAseq_pSB1A2-Bca9144</strong><br>
+      Model: <a href="../assets/sequencing_files/JCAseq_pSB1A2-Bca9144.str" download>JCAseq_pSB1A2-Bca9144.str</a><br>
+      Trace: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_005.ab1" download>jca388_G00101_2007-03-10_E02_005.ab1</a><br>
+      Calls: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_005.txt" download>jca388_G00101_2007-03-10_E02_005.txt</a><br>
+      <label for="case2_select">What is the outcome?</label>
+      <select id="case2_select" name="case2">
+        <option value="">--Select--</option>
+        <option value="perfect">Perfect</option>
+        <option value="perfect_partial">Perfect Partial</option>
+        <option value="mixed">Mixed Clone</option>
+        <option value="failed">Failed</option>
+        <option value="silent_mutation">Silent Mutation</option>
+        <option value="nonsense_mutation">Nonsense Mutation</option>
+        <option value="missense_mutation">Missense Mutation</option>
+        <option value="indel">Indel</option>
+      </select>
+      <span id="res_case2"></span>
+    </li>
+    <li>
+      <strong>Clone 3: JCAseq_pSB1A2-Bca9145</strong><br>
+      Model: <a href="../assets/sequencing_files/JCAseq_pSB1A2-Bca9145.str" download>JCAseq_pSB1A2-Bca9145.str</a><br>
+      Trace: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_006.ab1" download>jca388_G00101_2007-03-10_E02_006.ab1</a><br>
+      Calls: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_006.txt" download>jca388_G00101_2007-03-10_E02_006.txt</a><br>
+      <label for="case3_select">What is the outcome?</label>
+      <select id="case3_select" name="case3">
+        <option value="">--Select--</option>
+        <option value="perfect">Perfect</option>
+        <option value="perfect_partial">Perfect Partial</option>
+        <option value="mixed">Mixed Clone</option>
+        <option value="failed">Failed</option>
+        <option value="silent_mutation">Silent Mutation</option>
+        <option value="nonsense_mutation">Nonsense Mutation</option>
+        <option value="missense_mutation">Missense Mutation</option>
+        <option value="indel">Indel</option>
+      </select>
+      <span id="res_case3"></span>
+    </li>
+    <li>
+      <strong>Clone 4: JCAseq_pSB1A2-Bca9146</strong><br>
+      Model: <a href="../assets/sequencing_files/JCAseq_pSB1A2-Bca9146.str" download>JCAseq_pSB1A2-Bca9146.str</a><br>
+      Trace: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_007.ab1" download>jca388_G00101_2007-03-10_E02_007.ab1</a><br>
+      Calls: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_007.txt" download>jca388_G00101_2007-03-10_E02_007.txt</a><br>
+      <label for="case4_select">What is the outcome?</label>
+      <select id="case4_select" name="case4">
+        <option value="">--Select--</option>
+        <option value="perfect">Perfect</option>
+        <option value="perfect_partial">Perfect Partial</option>
+        <option value="mixed">Mixed Clone</option>
+        <option value="failed">Failed</option>
+        <option value="silent_mutation">Silent Mutation</option>
+        <option value="nonsense_mutation">Nonsense Mutation</option>
+        <option value="missense_mutation">Missense Mutation</option>
+        <option value="indel">Indel</option>
+      </select>
+      <span id="res_case4"></span>
+    </li>
+    <li>
+      <strong>Clone 5: JCAseq_pSB1A2-Bca9147</strong><br>
+      Model: <a href="../assets/sequencing_files/JCAseq_pSB1A2-Bca9147.str" download>JCAseq_pSB1A2-Bca9147.str</a><br>
+      Trace: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_008.ab1" download>jca388_G00101_2007-03-10_E02_008.ab1</a><br>
+      Calls: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_008.txt" download>jca388_G00101_2007-03-10_E02_008.txt</a><br>
+      <label for="case5_select">What is the outcome?</label>
+      <select id="case5_select" name="case5">
+        <option value="">--Select--</option>
+        <option value="perfect">Perfect</option>
+        <option value="perfect_partial">Perfect Partial</option>
+        <option value="mixed">Mixed Clone</option>
+        <option value="failed">Failed</option>
+        <option value="silent_mutation">Silent Mutation</option>
+        <option value="nonsense_mutation">Nonsense Mutation</option>
+        <option value="missense_mutation">Missense Mutation</option>
+        <option value="indel">Indel</option>
+      </select>
+      <span id="res_case5"></span>
+    </li>
+    <li>
+      <strong>Clone 6: JCAseq_pSB1A2-Bca9148</strong><br>
+      Model: <a href="../assets/sequencing_files/JCAseq_pSB1A2-Bca9148.str" download>JCAseq_pSB1A2-Bca9148.str</a><br>
+      Trace: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_009.ab1" download>jca388_G00101_2007-03-10_E02_009.ab1</a><br>
+      Calls: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_009.txt" download>jca388_G00101_2007-03-10_E02_009.txt</a><br>
+      <label for="case6_select">What is the outcome?</label>
+      <select id="case6_select" name="case6">
+        <option value="">--Select--</option>
+        <option value="perfect">Perfect</option>
+        <option value="perfect_partial">Perfect Partial</option>
+        <option value="mixed">Mixed Clone</option>
+        <option value="failed">Failed</option>
+        <option value="silent_mutation">Silent Mutation</option>
+        <option value="nonsense_mutation">Nonsense Mutation</option>
+        <option value="missense_mutation">Missense Mutation</option>
+        <option value="indel">Indel</option>
+      </select>
+      <span id="res_case6"></span>
+    </li>
+  </ol>
+  <button type="button" id="sequencing_cases_submit">Check Answers</button>
+</form>
+<div id="sequencing_cases_summary" style="margin-top: 12px; font-weight: 600;"></div>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("check_case1").addEventListener("click", function () {
-      const answer = document.getElementById("q_case1").value;
-      const result = document.getElementById("res_case1");
-      if (answer === "missense_mutation") {
-        result.innerHTML = "✅ Correct!";
+document.addEventListener("DOMContentLoaded", function () {
+  function shuffleOptions(selectEl, correctValue) {
+    // Keep the placeholder (empty value) first
+    const placeholder = selectEl.querySelector('option[value=""]') || selectEl.querySelector('option:first-child');
+    const options = Array.from(selectEl.querySelectorAll('option')).filter(o => o !== placeholder);
+    // Detach existing non-placeholder options
+    options.forEach(o => selectEl.removeChild(o));
+    // Fisher-Yates shuffle on actual elements
+    for (let i = options.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [options[i], options[j]] = [options[j], options[i]];
+    }
+    // Ensure the first non-placeholder option is not the correct answer
+    if (options.length > 1 && options[0].value === correctValue) {
+      const swapIdx = 1 + Math.floor(Math.random() * (options.length - 1));
+      [options[0], options[swapIdx]] = [options[swapIdx], options[0]];
+    }
+    // Append back in order (placeholder first, then shuffled)
+    options.forEach(o => selectEl.appendChild(o));
+  }
+  const answers = [
+    "perfect",            // 1
+    "indel",              // 2
+    "perfect_partial",    // 3
+    "indel",              // 4
+    "failed",             // 5
+    "missense_mutation"   // 6
+  ];
+  // Randomize options for each case select to reduce guessing
+  for (let i = 1; i <= 6; ++i) {
+    const sel = document.getElementById(`case${i}_select`);
+    if (sel) shuffleOptions(sel, answers[i-1]);
+  }
+
+  // Utility getters to avoid hard-coding node lookups elsewhere if expanded
+  function getCaseSelect(i) { return document.getElementById(`case${i}_select`); }
+  function getCaseResult(i) { return document.getElementById(`res_case${i}`); }
+
+  document.getElementById("sequencing_cases_submit").addEventListener("click", function () {
+    let correctCount = 0;
+    for (let i = 1; i <= 6; ++i) {
+      const select = document.getElementById(`case${i}_select`);
+      const result = document.getElementById(`res_case${i}`);
+      if (!select) continue;
+      if (select.value === answers[i-1]) {
+        result.innerHTML = " ✅";
+        correctCount += 1;
         if (typeof progressManager !== "undefined") {
-          progressManager.addCompletion("interpretation_q1", "correct");
+          progressManager.addCompletion(`sequencing_case_${i}`, "correct");
         }
       } else {
-        result.innerHTML = "❌ Try again.";
+        result.innerHTML = " ❌";
       }
-    });
-  });
-</script>
-
-<h3>Case 2: perfect_partial</h3>
-<p>What kind of outcome is shown in this sequencing result?</p>
-<p><select id="q_case2">
-<br />
-<option value=">--Select scenario--</option>
-  <option value="perfect">Perfect</option></p>
-<option value="perfect_partial">Perfect Partial</option>
-<option value="mixed">Mixed</option>
-<option value="failed">Failed</option>
-<option value="silent_mutation">Silent Mutation</option>
-<option value="nonsense_mutation">Nonsense Mutation</option>
-<option value="missense_mutation">Missense Mutation</option>
-<option value="indel">Indel</option>
-<p></select></p>
-<p id="res_case2"></p>
-<p><button type="button" id="check_case2">Check Answer</button></p>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("check_case2").addEventListener("click", function () {
-      const answer = document.getElementById("q_case2").value;
-      const result = document.getElementById("res_case2");
-      if (answer === "perfect_partial") {
-        result.innerHTML = "✅ Correct!";
+    }
+    const summary = document.getElementById("sequencing_cases_summary");
+    if (summary) {
+      if (correctCount === answers.length) {
+        summary.textContent = "✅ All answers correct.";
         if (typeof progressManager !== "undefined") {
-          progressManager.addCompletion("interpretation_q2", "correct");
+          progressManager.addCompletion("sequencing_cases_all_correct", "correct");
         }
       } else {
-        result.innerHTML = "❌ Try again.";
+        summary.textContent = `You have ${correctCount} / ${answers.length} correct. Review your analyses and try again.`;
       }
-    });
-  });
-</script>
-
-<h3>Case 3: pJ19</h3>
-<p>What kind of outcome is shown in this sequencing result?</p>
-<p><select id="q_case3">
-<br />
-<option value="">--Select scenario--</option></p>
-<option value="perfect">Perfect</option>
-<option value="perfect_partial">Perfect Partial</option>
-<option value="mixed">Mixed</option>
-<option value="failed">Failed</option>
-<option value="silent_mutation">Silent Mutation</option>
-<option value="nonsense_mutation">Nonsense Mutation</option>
-<option value="missense_mutation">Missense Mutation</option>
-<option value="indel">Indel</option>
-<p></select></p>
-<p id="res_case3"></p>
-<p><button type="button" id="check_case3">Check Answer</button></p>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("check_case3").addEventListener("click", function () {
-      const answer = document.getElementById("q_case3").value;
-      const result = document.getElementById("res_case3");
-      if (answer === "perfect") {
-        result.innerHTML = "✅ Correct!";
-        if (typeof progressManager !== "undefined") {
-          progressManager.addCompletion("interpretation_q3", "correct");
+    }
+    // If any answer is wrong, reshuffle all option orders and clear incorrect selections
+    if (correctCount !== answers.length) {
+      for (let i = 1; i <= 6; ++i) {
+        const sel = document.getElementById(`case${i}_select`);
+        if (!sel) continue;
+        // Clear only incorrect selections to placeholder to prevent mindless resubmits
+        if (sel.value !== answers[i-1]) {
+          sel.value = "";
         }
-      } else {
-        result.innerHTML = "❌ Try again.";
+        shuffleOptions(sel, answers[i-1]);
       }
-    });
+    }
   });
-</script>
-
-<h3>Case 4: indel</h3>
-<p>What kind of outcome is shown in this sequencing result?</p>
-<p><select id="q_case4">
-<br />
-<option value=">--Select scenario--</option>
-  <option value="perfect">Perfect</option></p>
-<option value="perfect_partial">Perfect Partial</option>
-<option value="mixed">Mixed</option>
-<option value="failed">Failed</option>
-<option value="silent_mutation">Silent Mutation</option>
-<option value="nonsense_mutation">Nonsense Mutation</option>
-<option value="missense_mutation">Missense Mutation</option>
-<option value="indel">Indel</option>
-<p></select></p>
-<p id="res_case4"></p>
-<p><button type="button" id="check_case4">Check Answer</button></p>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("check_case4").addEventListener("click", function () {
-      const answer = document.getElementById("q_case4").value;
-      const result = document.getElementById("res_case4");
-      if (answer === "indel") {
-        result.innerHTML = "✅ Correct!";
-        if (typeof progressManager !== "undefined") {
-          progressManager.addCompletion("interpretation_q4", "correct");
-        }
-      } else {
-        result.innerHTML = "❌ Try again.";
-      }
-    });
-  });
+});
 </script>
 
 
@@ -2065,6 +2165,8 @@
 
 
 
+
+  
 
 
 
