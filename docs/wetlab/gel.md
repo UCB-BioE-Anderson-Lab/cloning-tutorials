@@ -76,9 +76,9 @@ If others in your lab section are also ready to run a gel, set up one gel for th
 
 11. Transfer the gel to the imager and place a sample label strip above it.
 12. Take a picture **with your phone through the orange filter**.
-13. Name the image file by date and time (e.g., `2022_05_23-10am.png`) and upload it to:
+13. Name the image file by date and time (e.g., `2022_05_23-10am.png`) and upload it at:
 
-[Google Drive Upload Folder](https://drive.google.com/drive/folders/1zZdfonsY7S_thy-4GPWEr8h3GR3kuvOb?usp=sharing)
+[Google Drive Gel Upload](https://forms.gle/WfnEtHvNrLvuQj7d9)
 
 ---
 
