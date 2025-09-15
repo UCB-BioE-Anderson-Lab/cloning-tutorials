@@ -46,10 +46,12 @@ You’ll set up one lane for each PCR product. In this case, you're preparing on
 | 79    | 3583  | P6      |
 
 ### To prepare your gel samples:
+
 1. Add **8 µL of loading dye** (tube labeled ‘load’) to a new PCR tube.
 2. Add **3 µL of PCR product** to the tube, mix, and quick spin.
 
 ### Marker Sample (1 per section):
+
 3. Add **8 µL of loading dye** to a tube of marker (yellow), mix, and spin.
 
 ---
@@ -57,6 +59,7 @@ You’ll set up one lane for each PCR product. In this case, you're preparing on
 ## Running the Gel
 
 If others in your lab section are also ready to run a gel, set up one gel for the group:
+
 4. Cut a gel slab with enough wells for all samples plus 1 for marker and a few extras.
 5. Place the gel in the rig. Fill with **1× TAE buffer** to just cover it.
 6. Brace the gel with a plastic wedge to keep it from floating.
