@@ -47,12 +47,12 @@ You’ll set up one lane for each PCR product. In this case, you're preparing on
 
 ### To prepare your gel samples:
 
-1. Add **8 µL of loading dye** (tube labeled ‘load’) to a new PCR tube.
-2. Add **3 µL of PCR product** to the tube, mix, and quick spin.
+1) Add **8 µL of loading dye** (tube labeled ‘load’) to a new PCR tube.
+2) Add **3 µL of PCR product** to the tube, mix, and quick spin.
 
 ### Marker Sample (1 per section):
 
-3. Add **8 µL of loading dye** to a tube of marker (yellow), mix, and spin.
+3) Add **8 µL of loading dye** to a tube of marker (yellow), mix, and spin.
 
 ---
 
@@ -60,26 +60,26 @@ You’ll set up one lane for each PCR product. In this case, you're preparing on
 
 If others in your lab section are also ready to run a gel, set up one gel for the group:
 
-4. Cut a gel slab with enough wells for all samples plus 1 for marker and a few extras.
-5. Place the gel in the rig. Fill with **1× TAE buffer** to just cover it.
-6. Brace the gel with a plastic wedge to keep it from floating.
-7. Label all samples on a strip of paper and arrange tubes in loading order.
-8. Using a P20 set to **9 µL**, load each sample into a well carefully. Avoid puncturing the wells—if you do, restart that lane.
+4) Cut a gel slab with enough wells for all samples plus 1 for marker and a few extras.
+5) Place the gel in the rig. Fill with **1× TAE buffer** to just cover it.
+6) Brace the gel with a plastic wedge to keep it from floating.
+7) Label all samples on a strip of paper and arrange tubes in loading order.
+8) Using a P20 set to **9 µL**, load each sample into a well carefully. Avoid puncturing the wells—if you do, restart that lane.
 
 ---
 
 ## Electrophoresis
 
-9. Attach the lid and power leads: **"run to red"**.
-10. Run at **175 volts for ~10 minutes**, or until the front (blue) dye band is 2/3–3/4 down the gel.
+9) Attach the lid and power leads: **"run to red"**.
+10) Run at **175 volts for ~10 minutes**, or until the front (blue) dye band is 2/3–3/4 down the gel.
 
 ---
 
 ## Imaging the Gel
 
-11. Transfer the gel to the imager and place a sample label strip above it.
-12. Take a picture **with your phone through the orange filter**.
-13. Name the image file by date and time (e.g., `2022_05_23-10am.png`) and upload it at:
+11) Transfer the gel to the imager and place a sample label strip above it.
+12) Take a picture **with your phone through the orange filter**.
+13) Name the image file by date and time (e.g., `2022_05_23-10am.png`) and upload it at:
 
 [Google Drive Gel Upload](https://forms.gle/WfnEtHvNrLvuQj7d9)
 
