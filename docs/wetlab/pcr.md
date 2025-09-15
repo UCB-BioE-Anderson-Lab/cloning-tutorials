@@ -3,7 +3,7 @@
 
 In this step, you’ll perform a PCR reaction to generate a pool of DNA molecules, each containing a different variant of a synthetic promoter.
 
-This protocol uses **PrimeSTAR GXL DNA Polymerase** and the **PG4K55** thermal cycler program. You’ll use degenerate primers that introduce many random bases, meaning each DNA product will contain a different promoter sequence that nobody has created before you.
+This protocol uses **PrimeSTAR GXL DNA Polymerase** and the **PG4K45** thermal cycler program. You’ll use degenerate primers that introduce many random bases, meaning each DNA product will contain a different promoter sequence that nobody has created before you.
 
 ---
 
@@ -184,9 +184,9 @@ After adding all components in order:
 2. Briefly spin down to collect the liquid at the bottom.
 3. Load into the thermocycler.
 
-### PCR Program: PG4K55
+### PCR Program: PG4K45
 
-Run the **PG4K55** program. It has already been programmed into the thermocyclers, so you just need to run it. You should NOT add or edit the programs in the thermocycler. PG4K55 was designed for ~4 kb products with a 55°C annealing temperature:
+Run the **PG4K45** program. It has already been programmed into the thermocyclers, so you just need to run it. You should NOT add or edit the programs in the thermocycler. PG4K45 was designed for ~4 kb products with a 55°C annealing temperature:
 
 ```
 Initial Denaturation:   98°C for 2 min
