@@ -69,7 +69,7 @@ If others in your lab section are also ready to run a gel, set up one gel for th
 
 7) Label all samples on a strip of paper and arrange tubes in loading order.
 
-8) Using a P20 set to **9 µL**, load each sample into a well carefully. Avoid puncturing the wells—if you do, restart that lane.
+8) Using a P20 set to **9 µL**, load each sample into a well carefully. We are setting it lower than the full volume to avoid picking up an air gap that can interfere with filling the well. Also avoid puncturing the wells as the liquid will flow out the bottom; if you do, use another lane or start a new gel.
 
 ---
 
