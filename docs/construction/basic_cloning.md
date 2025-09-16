@@ -151,7 +151,9 @@ Here's a complete construction file representing this cloning plan:
 PCR     ins-F       ins-R       insulin_cDNA     pcr_ins
 Digest  pcr_ins     NcoI,XhoI   1                pcr_dig
 Digest  pET28a      NcoI,XhoI   1                vec_dig
-Ligate  pcr_dig     vec_dig                      pET-INS
+Ligate  pcr_dig     vec_dig                      lig
+Transform lig      Mach1       Kan      37      pET-INS
+
 
 oligo   ins-F       ccataCCATGGccctgtggatgcgcctcctg
 oligo   ins-R       cagatCTCGAGctagttgcagtagttctccag
@@ -403,7 +405,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ["PCR", fwdName, revName, "B_atrophaeus_gen", product],
       ["Digest", product, "NcoI,XhoI", "1", "pcr_dig"],
       ["Digest", "pET28a", "NcoI,XhoI", "1", "vec_dig"],
-      ["Ligate", "pcr_dig", "vec_dig", "", "pET-Bat"]
+      ["Ligate", "pcr_dig", "vec_dig", "", "lig"],
+      ["Transform", "lig", "Mach1", "Kan", "37", "pET-Bat"]
     ];
 
     // Oligos — align just name column (sequence left free-form)

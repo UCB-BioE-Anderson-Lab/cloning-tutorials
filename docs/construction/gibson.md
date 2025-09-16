@@ -37,6 +37,10 @@ You’ll use PCR to create two fragments:
 
 We'll design primers that add 20–30 bp overlaps, simulate the assembly, and validate the final construct.
 
+### 🎥 Watch: Designing the Gibson Assembly experiment:
+
+<iframe width="560" height="315" src="https://youtu.be/vaG3X3xb0jQ" frameborder="0" allowfullscreen></iframe>
+
 ---
 
 ## Step 1: Define Your Product
@@ -71,9 +75,24 @@ For the opposite junction, take the corresponding 40 bp and reverse complement i
 
 When choosing the ~20, follow the same general approach for finding annealing sequences between 18 and 25 bp long, balanced base content, etc. as done previously in the Basic Cloning tutorial.
 
+## Step 3: Write the Construction File
+
+Here's a complete construction file representing this cloning plan:
+
+```
+PCR	for_ins	rev_ins	insulin_cdna	ins_pcr	
+PCR	for_pet	rev_pet	pET28a	pet_pcr	
+Gibson	ins_pcr	pet_pcr		gibs	
+Transform	gibs	Mach1	Kan	37	pET-INS
+          
+oligo	for_ins	CTTTAAGAAGGAGATATACCATGGCCCTGTGGATGCGCCTC			
+oligo	rev_ins	GTGGTGGTGGTGGTGCTCGAGctagttgcagtagttctccag			
+oligo	for_pet	ctggagaactactgcaactagCTCGAGCACCACCACCACCAC			
+oligo	rev_pet	GAGGCGCATCCACAGGGCCATGGTATATCTCCTTCTTAAAG			
+```
 ---
 
-## Step 3: Simulate the Gibson Assembly
+## Step 4: Simulate the Gibson Assembly
 
 Start by simulating the assembly manually to understand what’s happening:
 
