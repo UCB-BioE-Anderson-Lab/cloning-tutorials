@@ -120,7 +120,7 @@ plasmid      pTemp1      CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACA
 The C6 simulation algorithm inputs both the construction file and an (optional) list of sequences with their names. The algorithm will include both the sequences embedded in the CF as well as those in the separate list. In these tutorials, we have injected the plasmids named in the various examples into this list.  For other sequences, you will need to put them in the CF.
 
 
-## DNA Autoannotation and Simulation
+<!-- ## DNA Autoannotation and Simulation
 
 The tutorials can also autoannotate your sequence, detect transcriptional units, and predict which proteins are potentially expressed or will not be expressed.  This can be helpful for detecting design errors.  This capability is only displayed on this page.
 
@@ -246,4 +246,4 @@ window.addEventListener("load", function() {
     }
   }
 });
-</script>
+</script> -->
