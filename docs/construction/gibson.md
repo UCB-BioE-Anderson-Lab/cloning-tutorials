@@ -91,7 +91,7 @@ PCR	for_pet	rev_pet	pET28a	pet_pcr
 Gibson	ins_pcr	pet_pcr		gibs    
 Transform	gibs	Mach1	Kan	37	pET-INS
 
-aoligo	for_ins	CTTTAAGAAGGAGATATACCATGGCCCTGTGGATGCGCCTC           
+oligo	for_ins	CTTTAAGAAGGAGATATACCATGGCCCTGTGGATGCGCCTC           
 oligo	rev_ins	GTGGTGGTGGTGGTGCTCGAGctagttgcagtagttctccag          
 oligo	for_pet	ctggagaactactgcaactagCTCGAGCACCACCACCACCAC          
 oligo	rev_pet	GAGGCGCATCCACAGGGCCATGGTATATCTCCTTCTTAAAG       
@@ -143,6 +143,7 @@ Then try using simulation tools to automate the process:
 - **ApE** and **Benchling** allow you to simulate Gibson assemblies graphically.
 - You can also use the **C6 Tools** to simulate the full CF script:  
   🔗 [Use C6 simulation tools](../simulation_tools/)
+  Copy the full text above including the sequences and paste it into the simulation tool.
 
 These tools let you verify that your oligos will function as expected.
 
