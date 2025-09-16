@@ -1622,13 +1622,17 @@
 <li>The <strong>pET expression plasmid</strong> carries your gene of interest (e.g., <strong>INS</strong>) downstream of a <strong>T7 promoter</strong> (<em>PT7</em>), as well as a <strong>lacI</strong> gene that represses both promoters via <strong>LacO</strong> operator sites.</li>
 </ul>
 <h3 id="role-of-iptg">Role of IPTG:<a class="headerlink" href="#role-of-iptg" title="Permanent link">&para;</a></h3>
-<p>In the absence of IPTG:
-- The <strong>LacI repressor</strong> binds to LacO sites, preventing transcription from both <em>Plac</em> and <em>PT7</em>.
-- This keeps both <strong>T7 RNAP</strong> and the <strong>target gene</strong> (INS) silent.</p>
-<p>Upon IPTG addition:
-- IPTG binds to LacI, causing it to dissociate from the DNA.
-- <strong>T7 RNAP</strong> is transcribed and translated.
-- T7 RNAP then binds to <em>PT7</em> on the plasmid and drives high-level expression of the insulin gene.</p>
+<p>In the absence of IPTG:</p>
+<ul>
+<li>The <strong>LacI repressor</strong> binds to LacO sites, preventing transcription from both <em>Plac</em> and <em>PT7</em>.</li>
+<li>This keeps both <strong>T7 RNAP</strong> and the <strong>target gene</strong> (INS) silent.</li>
+</ul>
+<p>Upon IPTG addition:</p>
+<ul>
+<li>IPTG binds to LacI, causing it to dissociate from the DNA.</li>
+<li><strong>T7 RNAP</strong> is transcribed and translated.</li>
+<li>T7 RNAP then binds to <em>PT7</em> on the plasmid and drives high-level expression of the insulin gene.</li>
+</ul>
 <p>This modular setup ensures <strong>tight control</strong> (low background, high on-demand expression), which is ideal for producing proteins that may be toxic or burden the host.</p>
 <hr />
 <!-- 
@@ -1722,10 +1726,12 @@ oligo   ins-R       cagatCTCGAGctagttgcagtagttctccag
 </code></pre></div>
 <h2 id="step-5-simulate-the-product">Step 5: Simulate the Product<a class="headerlink" href="#step-5-simulate-the-product" title="Permanent link">&para;</a></h2>
 <p>Use your sequence editor or simulation tools (as demonstrated in the earlier video) to predict the outcome of each step in your construction file. For each stage—PCR, digestion, and ligation—verify the resulting sequence.</p>
-<p>Pay special attention to the final ligated product:
-- Confirm the insert is placed between the NcoI and XhoI sites.
-- Ensure the reading frame is preserved.
-- Check that the final sequence starts with ATG and ends appropriately.</p>
+<p>Pay special attention to the final ligated product:</p>
+<ul>
+<li>Confirm the insert is placed between the NcoI and XhoI sites.</li>
+<li>Ensure the reading frame is preserved.</li>
+<li>Check that the final sequence starts with ATG and ends appropriately.</li>
+</ul>
 <p>Once verified, save the final predicted sequence for downstream use or visualization.</p>
 <hr />
 <h2 id="step-6-visualize-the-final-product">Step 6: Visualize the Final Product<a class="headerlink" href="#step-6-visualize-the-final-product" title="Permanent link">&para;</a></h2>
