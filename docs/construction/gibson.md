@@ -52,7 +52,7 @@ This marks where the insert meets the vector, making it easier to plan overlaps.
 🔗 Downloads:
 
 - [pET28a GenBank](../assets/pET28a.seq)
-- [INS GenBank](../assets/INS_genome_context.seq)
+- [INS GenBank](../assets/insulin_cdna.seq)
 
 ---
 
