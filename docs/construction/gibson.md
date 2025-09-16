@@ -37,9 +37,9 @@ You’ll use PCR to create two fragments:
 
 We'll design primers that add 20–30 bp overlaps, simulate the assembly, and validate the final construct.
 
-### 🎥 Watch: Designing the Gibson Assembly experiment:
+### 🎥 Watch: Design of the Gibson Assembly plan
 
-<iframe width="560" height="315" src="https://youtu.be/vaG3X3xb0jQ" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vaG3X3xb0jQ" frameborder="0" allowfullscreen></iframe>
 
 ---
 
