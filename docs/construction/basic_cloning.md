@@ -33,10 +33,12 @@ Here's how it works:
 ### Role of IPTG:
 
 In the absence of IPTG:
+
 - The **LacI repressor** binds to LacO sites, preventing transcription from both *Plac* and *PT7*.
 - This keeps both **T7 RNAP** and the **target gene** (INS) silent.
 
 Upon IPTG addition:
+
 - IPTG binds to LacI, causing it to dissociate from the DNA.
 - **T7 RNAP** is transcribed and translated.
 - T7 RNAP then binds to *PT7* on the plasmid and drives high-level expression of the insulin gene.
@@ -160,6 +162,7 @@ oligo   ins-R       cagatCTCGAGctagttgcagtagttctccag
 Use your sequence editor or simulation tools (as demonstrated in the earlier video) to predict the outcome of each step in your construction file. For each stage—PCR, digestion, and ligation—verify the resulting sequence.
 
 Pay special attention to the final ligated product:
+
 - Confirm the insert is placed between the NcoI and XhoI sites.
 - Ensure the reading frame is preserved.
 - Check that the final sequence starts with ATG and ends appropriately.

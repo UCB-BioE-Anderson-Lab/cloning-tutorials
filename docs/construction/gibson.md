@@ -28,13 +28,14 @@ This method is scarless, seamless, and does not rely on restriction sites.
 
 ## Overview of This Tutorial
 
-In this exercise, you'll recreate the **pET-INS** plasmid—but using Gibson Assembly instead of restriction enzymes.
+In this exercise, we'll recreate the **pET-INS** plasmid—but using Gibson Assembly instead of restriction enzymes.
 
 You’ll use PCR to create two fragments:
+
 - One containing the *INS* gene
 - One containing the pET28a backbone
 
-You’ll design primers that add 20–30 bp overlaps, simulate the assembly, and validate the final construct.
+We'll design primers that add 20–30 bp overlaps, simulate the assembly, and validate the final construct.
 
 ---
 
