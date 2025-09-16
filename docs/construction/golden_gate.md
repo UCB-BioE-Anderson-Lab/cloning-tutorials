@@ -38,6 +38,12 @@ These features make it ideal for modular cloning, where standardized parts and r
 
 Let’s now walk through a complete Golden Gate Assembly plan to make **pET-INS**, just like we did in the Gibson version.
 
+### 🎥 Watch: Design of the Golden Gate Assembly plan
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IfOl59fghnA" frameborder="0" allowfullscreen></iframe>
+
+---
+
 ## Step 1: Define Your Product
 
 Start by constructing a model of the final pET-INS plasmid, just as you did with Gibson.
