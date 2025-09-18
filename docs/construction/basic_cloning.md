@@ -226,7 +226,7 @@ Once verified, save the final predicted sequence for downstream use or visualiza
 
 - ORF is left-to-right and starts with ATG  
 - ORF is in-frame with tags (if any)  
-- No internal NdeI or XhoI sites in insert  
+- No internal NcoI or XhoI sites in insert  
 - Final construct includes all expected features
 
 ---
