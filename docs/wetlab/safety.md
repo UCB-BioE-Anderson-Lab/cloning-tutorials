@@ -289,3 +289,11 @@ Certain equipment and cabinets are marked with signage to indicate who may use t
   renderQuiz();
 })();
 </script>
+
+## Reporting Completion (Berkeley Students Only)
+
+Berkeley students must report completion of this safety training:
+
+1. Click **"Submit Report"** after passing the quiz to receive your pP6 id code.
+2. Copy the summary text.
+3. Paste it into this Google Form: [Submit Completion Summary](https://forms.gle/PAUTxnwAsnX8RL386)
