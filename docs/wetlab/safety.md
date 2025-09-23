@@ -2,10 +2,13 @@
 
 This tutorial covers the basic safety rules for students working in B144 Stanley. You must review these rules, follow them at all times, and complete the quiz.
 
+For the full list of lab rules, see the [Lab Rules – B144 Stanley (PDF)](../assets/Lab_Rules_B144_Stanley.pdf). A printed copy is posted in the Safety Corner.
+
 ---
 
 ## General Conduct
-- No food, drink, or gum in the lab.
+
+- No food or drink in the lab.
 - Only enter B144 when a supervisor (facilitator or instructor) is present.
 - Only work on projects that have been authorized by your instructor/PI.
 - Do not bring materials in or out of the lab unless explicitly authorized.
@@ -24,6 +27,21 @@ This tutorial covers the basic safety rules for students working in B144 Stanley
 ---
 
 ## Safety Equipment and Emergencies
+
+The **Safety Corner** is located by the north door, near the biosafety cabinets on the mammalian cell side of the room. This area contains the emergency and safety supplies you may need during lab sessions.
+
+![Safety Corner](../images/safety_corner.png)
+
+**What is in the Safety Corner**
+
+- Safety shower
+- Eye wash
+- Fire extinguisher
+- PPE (gloves, lab coats, eye protection)
+- Spill kit
+- First-aid kit
+- Chemical Hygiene Plan and other emergency information
+
 
 **Safety Shower and Eye Wash**  
 
@@ -92,10 +110,10 @@ Certain equipment and cabinets are marked with signage to indicate who may use t
   const bank = [
     { topic: 'Food & Drink', variants: [
       { text: "It is OK to drink coffee in the lab if it has a lid.", answer: false },
-      { text: "No food, drink, or gum is allowed in the lab.", answer: true },
+      { text: "Chewing gum or sipping a drink during lab is acceptable if done carefully.", answer: false },
       { text: "Food or drink is permitted only at the bench.", answer: false },
       { text: "Eating and drinking are prohibited anywhere inside B144.", answer: true },
-      { text: "Applying cosmetics in the lab is allowed.", answer: false }
+      { text: "Carrying a water bottle into the lab is allowed.", answer: false }
     ]},
 
     { topic: 'Supervision & Authorization', variants: [
@@ -103,20 +121,20 @@ Certain equipment and cabinets are marked with signage to indicate who may use t
       { text: "Students may only work on projects approved by the instructor or PI.", answer: true },
       { text: "Entering B144 without an authorized supervisor present is not allowed.", answer: true },
       { text: "Bringing research materials into or out of the lab without authorization is allowed.", answer: false },
-      { text: "Personal projects that are not preauthorized are not permitted.", answer: true }
+      { text: "I can work on a personal experiment in B144 as long as I have the materials.", answer: false }
     ]},
 
     { topic: 'PPE', variants: [
       { text: "Closed-toe shoes, lab coat, gloves, and eye protection are required at all times.", answer: true },
       { text: "A lab coat, pants, and flip flops are acceptable PPE", answer: false },
-      { text: "Prescription glasses count as eye protection in this lab.", answer: true },
+      { text: "Prescription glasses are acceptable eye protection in this lab.", answer: true },
       { text: "Gloves, lab coats, and eye protection are required whenever handling lab materials", answer: true },
       { text: "Open-toed shoes are not allowed in B144.", answer: true }
     ]},
 
     { topic: 'Restricted Equipment & Signage', variants: [
       { text: "If equipment is labeled 'Supervisors Only', I should not touch it.", answer: true },
-      { text: "I may use equipment with a 'Do Not Use Unless Trained' sign even if I have not completed the training.", answer: false },
+      { text: "If a piece of equipment has a warning label, I can still try it if someone else is nearby.", answer: false },
       { text: "'Supervisors Only' means do not use unless you are a trained facilitator/instructor/TA.", answer: true },
       { text: "'Training Required' means training is optional if someone watches me.", answer: false },
       { text: "'Training Available' indicates training exists and should be completed if I don't know the instrument.", answer: true }
@@ -127,11 +145,11 @@ Certain equipment and cabinets are marked with signage to indicate who may use t
       { text: "A quick rinse in the eye wash for a few seconds is enough if I get chemicals in my eyes.", answer: false },
       { text: "Eye-wash flushing for fifteen minutes is required after a chemical splash.", answer: true },
       { text: "If I get a chemical splash in my eyes, I should flush at the eye wash for 15 seconds.", answer: false },
-      { text: "I should know where the safety shower and eye wash are located before starting work.", answer: true }
+      { text: "The safety shower is located by the south-most door.", answer: false },
     ]},
 
     { topic: 'Hazards in B144', variants: [
-      { text: "No sharps or hazardous chemicals are permitted in this lab.", answer: true },
+      { text: "Using glass pipettes in B144 is permitted.", answer: false },
       { text: "It is safe to spray ethanol near an open flame as long as I am careful.", answer: false },
       { text: "Microwaves can cause burns from superheated agar or liquids.", answer: true },
       { text: "It is acceptable to use sharps in B144.", answer: false },
@@ -139,9 +157,9 @@ Certain equipment and cabinets are marked with signage to indicate who may use t
     ]},
 
     { topic: 'Cleanup & Records', variants: [
-      { text: "At the end of lab, I must clean my bench with ethanol and restore it to its default organization.", answer: true },
+      { text: "At the end of lab, I must clean my bench restore it to its default organization.", answer: true },
       { text: "I do not need to record my work if it was just a small task.", answer: false },
-      { text: "I should dispose of research materials according to training.", answer: true },
+      { text: "I should dispose of research materials in the biological waste bins as instructed.", answer: true },
       { text: "Leaving the bench messy is fine if I am in a hurry.", answer: false },
       { text: "Accurate records of experiments must be maintained as trained.", answer: true }
     ]},
