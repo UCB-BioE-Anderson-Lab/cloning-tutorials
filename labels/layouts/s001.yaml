@@ -1,0 +1,45 @@
+
+
+sheet_name: S001_SI-LABEL-LS-0101
+
+page:
+  width_in: 8.5
+  height_in: 11.0
+  dpi: 300
+
+margins_in:
+  top: 0.5
+  left: 0.3125
+
+grid:
+  columns: 4
+  rows: 10
+  label_width_in: 1.75
+  label_height_in: 1.0
+  column_gap_in: 0.125
+  row_gap_in: 0.0
+
+safe_area_in:
+  x: 0.05
+  y: 0.05
+
+content:
+  qr:
+    size_in: 0.7
+    error_correction: M
+    border_modules: 2
+    position:
+      x_in: 0.05
+      y_in: 0.15
+  text:
+    font: Helvetica
+    size_pt: 7
+    leading_pt: 8.4
+    wrap_width_in: 0.9
+    position:
+      x_in: 0.8
+      y_in: 0.18
+    lines:
+      - "{display_name}"
+      - "{label_id}"
+      - "{type}"

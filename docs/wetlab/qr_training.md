@@ -45,7 +45,6 @@ function parseCSV(text) {
       row.push(cur); cur = '';
     } else if ((c === '\n' || c === '\r') && !inQuotes) {
       if (cur !== '' || row.length) { row.push(cur); rows.push(row); row = []; cur = ''; }
-      // consume paired \r\n
       if (c === '\r' && text[i + 1] === '\n') i++;
     } else {
       cur += c;
@@ -53,6 +52,61 @@ function parseCSV(text) {
   }
   if (cur !== '' || row.length) { row.push(cur); rows.push(row); }
   return rows;
+}
+
+// ------- Helpers to read either headered or headerless CSVs -------
+function lowerTrim(a) { return (a || '').trim().toLowerCase(); }
+function detectHeader(rows) {
+  if (!rows.length) return null;
+  const h = rows[0].map(lowerTrim);
+  // Accept old or new schema
+  const isLegacy = h[0] === 'slug';
+  const isNew = h[0] === 'label_id';
+  return (isLegacy || isNew) ? h : null;
+}
+
+function pickByHeader(row, header, candidates) {
+  // candidates is an array of header names in priority order
+  for (const name of candidates) {
+    const idx = header.indexOf(name);
+    if (idx !== -1) return (row[idx] || '').trim();
+  }
+  return '';
+}
+
+function normalizeRows(rawRows) {
+  if (!rawRows.length) return [];
+  let header = detectHeader(rawRows);
+  let data = header ? rawRows.slice(1) : rawRows; // drop header if present
+
+  const norm = data.map(r => {
+    // Pad to 6 columns if needed for legacy positional fallback
+    const row = r.length >= 6 ? r.slice(0, 6) : r.concat(Array(6 - r.length).fill(''));
+
+    if (header) {
+      // New schema first; fall back to legacy names
+      const slug = pickByHeader(row, header, ['label_id', 'slug', 'key']);
+      const title = pickByHeader(row, header, ['display_name', 'title']);
+      const link = pickByHeader(row, header, ['qr_payload', 'link', 'url']);
+      const category = pickByHeader(row, header, ['category']);
+      const status = lowerTrim(pickByHeader(row, header, ['status'])) || 'active';
+      const description = pickByHeader(row, header, ['notes', 'description']);
+      return { slug: slug.trim(), title: title.trim(), link: link.trim(), category: category.trim(), status, description: description.trim() };
+    } else {
+      // Legacy positional: [slug,title,link,category,status,description]
+      return {
+        slug: (row[0] || '').trim(),
+        title: (row[1] || '').trim(),
+        link: (row[2] || '').trim(),
+        category: (row[3] || '').trim(),
+        status: lowerTrim(row[4] || 'active'),
+        description: (row[5] || '').trim()
+      };
+    }
+  });
+
+  // Drop any accidental header-like rows and hidden entries
+  return norm.filter(r => r.slug && r.slug !== 'slug' && r.slug !== 'label_id' && r.slug !== 'key' && r.status !== 'hidden');
 }
 
 // ------- Render helpers -------
@@ -79,7 +133,7 @@ function renderSection(container, heading, items) {
     title.className = 'qr-title';
     title.textContent = it.title;
 
-    const sep = document.createTextNode(' — '); // hyphen to avoid em dash
+    const sep = document.createTextNode(' — ');
 
     const desc = document.createElement('span');
     desc.className = 'qr-desc';
@@ -134,21 +188,7 @@ function renderSection(container, heading, items) {
     return;
   }
 
-  // Expect 6 columns per row: slug, title, link, category, status, description
-  const rows = parseCSV(raw)
-    .map(r => (r.length >= 6 ? r.slice(0, 6) : r.concat(Array(6 - r.length).fill(''))))
-    .map(([slug, title, link, category, status, description]) => ({
-      slug: (slug || '').trim(),
-      title: (title || '').trim(),
-      link: (link || '').trim(),
-      category: (category || '').trim(),
-      status: (status || '').trim().toLowerCase(),
-      description: (description || '').trim()
-    }))
-    // Filter out header-like rows if someone accidentally left a header line
-    .filter(r => r.slug && r.slug !== 'slug')
-    // Respect status column
-    .filter(r => r.status !== 'hidden');
+  const rows = normalizeRows(parseCSV(raw));
 
   // Group by configured sections and render in fixed order
   for (const sec of SECTION_ORDER) {
@@ -156,7 +196,7 @@ function renderSection(container, heading, items) {
     if (items.length) renderSection(mount, sec.heading, items);
   }
 
-  // If any remaining categories exist that are not in SECTION_ORDER, render them at the end
+  // Render any remaining categories not in SECTION_ORDER
   const known = new Set(SECTION_ORDER.map(s => s.key));
   const otherCats = Array.from(new Set(rows.map(r => r.category))).filter(c => !known.has(c));
   for (const cat of otherCats) {
