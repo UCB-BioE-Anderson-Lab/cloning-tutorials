@@ -1614,6 +1614,8 @@
   function renderQuiz() {
     container.innerHTML = '';
     statusEl.textContent = '';
+    checkBtn.disabled = false;
+    resetBtn.textContent = 'Reset';
 
     currentSet = shuffle(pickOnePerTopic());
 
@@ -1679,13 +1681,20 @@
         progressManager.addCompletion('safety_quiz', 'correct');
       }
     } else {
-      // Reset with a fresh randomized set
-      statusEl.textContent = '❌ One or more answers were incorrect. The quiz will reset.';
-      setTimeout(() => {
-        renderQuiz();
-      }, 900);
+      // Keep results visible and require explicit user action to continue
+      statusEl.textContent = '❌ One or more answers were incorrect. Review the feedback below, then click "New set" to try again.';
+      // Disable inputs so the state is preserved for review
+      container.querySelectorAll('input[type="radio"]').forEach(el => { el.disabled = true; });
+      // Disable the Check button to prevent resubmission on the same set
+      checkBtn.disabled = true;
+      // Repurpose the Reset button as an explicit "New set" action
+      resetBtn.textContent = 'New set';
+      resetBtn.focus();
     }
   }
+
+  // Improve accessibility of status updates
+  statusEl.setAttribute('aria-live', 'polite');
 
   // Wire up buttons
   checkBtn.addEventListener('click', checkAnswers);
