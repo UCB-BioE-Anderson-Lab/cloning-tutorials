@@ -17,6 +17,7 @@ if (!window.progressManager) {
               "miniprep": ["miniprep_q1", "miniprep_q2"],
               "sequencing": ["sequencing_q1", "sequencing_q2", "sequencing_q3", "sequencing_q4"],
               "bestp": ["bestp_q1", "bestp_q2", "bestp_q3", "bestp_q4"],
+              "lab_safety": ["safety_quiz"],
             },
             "Construction": {
               "dna_basics": ["Reverse", "Complement", "Reverse Complement", "Transcription", "Translation"],
