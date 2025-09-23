@@ -1360,7 +1360,7 @@ function detectHeader(rows) {
   const h = rows[0].map(lowerTrim);
   // Accept old or new schema
   const isLegacy = h[0] === 'slug';
-  const isNew = h[0] === 'key';
+  const isNew = h[0] === 'label_id';
   return (isLegacy || isNew) ? h : null;
 }
 
@@ -1384,7 +1384,7 @@ function normalizeRows(rawRows) {
 
     if (header) {
       // New schema first; fall back to legacy names
-      const slug = pickByHeader(row, header, ['key', 'slug']);
+      const slug = pickByHeader(row, header, ['label_id', 'slug', 'key']);
       const title = pickByHeader(row, header, ['display_name', 'title']);
       const link = pickByHeader(row, header, ['qr_payload', 'link', 'url']);
       const category = pickByHeader(row, header, ['category']);
@@ -1405,7 +1405,7 @@ function normalizeRows(rawRows) {
   });
 
   // Drop any accidental header-like rows and hidden entries
-  return norm.filter(r => r.slug && r.slug !== 'slug' && r.slug !== 'key' && r.status !== 'hidden');
+  return norm.filter(r => r.slug && r.slug !== 'slug' && r.slug !== 'label_id' && r.slug !== 'key' && r.status !== 'hidden');
 }
 
 // ------- Render helpers -------
