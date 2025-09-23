@@ -1,94 +1,66 @@
-#!/usr/bin/env python3
-import argparse
+from __future__ import annotations
 from pathlib import Path
+import argparse
+import sys
 
-try:
-    # Module mode: python -m labels.cli
-    from . import validators, engine  # type: ignore
-except Exception:
-    # Script mode: python labels/cli.py
-    import validators  # type: ignore
-    import engine  # type: ignore
+from .engine import render as engine_render
+from .validators import validate_inputs
 
+def main() -> None:
+    p = argparse.ArgumentParser(description="Generate label PDFs from a registry and a layout.")
+    p.add_argument("--registry", required=True, type=Path, help="CSV registry file")
+    p.add_argument("--layout", required=True, type=Path, help="YAML layout file")
+    p.add_argument("--out", required=True, type=Path, help="Output PDF path")
+    p.add_argument("--preview-dir", type=Path, help="Optional directory for PNG previews")
+    p.add_argument("--query", help="Pandas query string to filter rows")
+    p.add_argument("--limit", type=int, help="Limit the number of labels")
+    p.add_argument("--shuffle", action="store_true", help="Shuffle selected rows")
+    p.add_argument("--start-offset", type=int, default=0, help="Starting label offset")
+    p.add_argument("--max-pages", type=int, help="Cap total pages")
+    p.add_argument("--dpi", type=int, help="Rendering DPI override")
+    p.add_argument("--font-dir", type=Path, help="Directory with fonts")
+    p.add_argument("--spec", type=Path, help="CSV with label_id,x_pos,y_pos,[page] for explicit placement")
+    p.add_argument("--debug-layout", action="store_true", help="Draw grid cell boundaries and indices for alignment")
+    p.add_argument("--dry-run", action="store_true", help="Validate only; do not write output")
 
-def _add_args(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--registry", required=True, help="Path to qr_registry.csv")
-    parser.add_argument("--layout", required=True, help="Path to layout YAML")
-    parser.add_argument("--out", required=True, help="Output PDF path")
-    parser.add_argument("--preview-dir", default=None, help="Optional dir for per-label PNG previews")
-    parser.add_argument("--select", default=None, help="pandas-style query filter, e.g., \"type == 'Plasmid'\"")
-    parser.add_argument("--limit", type=int, default=None, help="Max labels to render")
-    parser.add_argument("--shuffle", action="store_true", help="Shuffle rows before pagination")
-    parser.add_argument("--start-offset", type=int, default=0, help="Blank cells to skip at start (first page)")
-    parser.add_argument("--max-pages", type=int, default=None, help="Limit pages rendered")
-    parser.add_argument("--dpi", type=int, default=None, help="Override render DPI from layout YAML")
-    parser.add_argument("--font-dir", default=None, help="Optional font directory")
-    parser.add_argument("--dry-run", action="store_true", help="Validate and print pagination plan only")
-
-
-def main(argv=None) -> int:
-    parser = argparse.ArgumentParser(
-        prog="labels.cli",
-        description="Generate printable label sheets from a registry CSV and a sheet layout YAML."
-    )
-    _add_args(parser)
-    args = parser.parse_args(argv)
-
-    registry_path = Path(args.registry)
-    layout_path = Path(args.layout)
-    out_pdf = Path(args.out)
-    preview_dir = Path(args.preview_dir) if args.preview_dir else None
-    font_dir = Path(args.font_dir) if args.font_dir else None
+    args = p.parse_args()
+    if args.preview_dir:
+        args.preview_dir.mkdir(parents=True, exist_ok=True)
 
     try:
-        validators.validate_inputs(
-            registry_path=registry_path, layout_path=layout_path, font_dir=font_dir
-        )
+        validate_inputs(args.registry, args.layout)
+        print("[ok] inputs validated", flush=True)
     except Exception as e:
-        print(f"[error] Validation failed: {e}")
-        return 2
+        print(f"[error] validation failed: {e}", file=sys.stderr, flush=True)
+        sys.exit(1)
 
     if args.dry_run:
-        try:
-            plan = engine.plan_pagination(
-                registry_path=registry_path,
-                layout_path=layout_path,
-                query=args.select,
-                limit=args.limit,
-                shuffle=args.shuffle,
-                start_offset=args.start_offset,
-                max_pages=args.max_pages,
-            )
-            print("[dry-run] Pagination plan:")
-            for k, v in plan.items():
-                print(f"  {k}: {v}")
-            return 0
-        except Exception as e:
-            print(f"[error] Dry-run planning failed: {e}")
-            return 3
+        print("[dry-run] inputs validated; no files will be written", flush=True)
+        return
+
+    print(f"[info] rendering {args.registry} -> {args.out}", flush=True)
 
     try:
-        engine.render(
-            registry_path=registry_path,
-            layout_path=layout_path,
-            out_pdf=out_pdf,
-            preview_dir=preview_dir,
-            query=args.select,
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        engine_render(
+            registry_path=args.registry,
+            layout_path=args.layout,
+            out_pdf=args.out,
+            preview_dir=args.preview_dir,
+            query=args.query,
             limit=args.limit,
             shuffle=args.shuffle,
             start_offset=args.start_offset,
             max_pages=args.max_pages,
             dpi=args.dpi,
-            font_dir=font_dir,
+            font_dir=args.font_dir,
+            spec_path=args.spec,
+            debug_layout=args.debug_layout,
         )
-        print(f"[ok] Wrote {out_pdf}")
-        if preview_dir:
-            print(f"[ok] Previews in {preview_dir}")
-        return 0
+        print(f"[done] wrote {args.out}", flush=True)
     except Exception as e:
-        print(f"[error] Rendering failed: {e}")
-        return 4
-
+        print(f"[error] rendering failed: {e}", file=sys.stderr, flush=True)
+        sys.exit(1)
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

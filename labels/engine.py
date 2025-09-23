@@ -1,3 +1,8 @@
+from __future__ import annotations
+class _SafeDict(dict):
+    def __missing__(self, key):
+        return ""
+
 """Label rendering engine.
 
 This module implements two main entry points used by the CLI:
@@ -8,7 +13,6 @@ This module implements two main entry points used by the CLI:
 Dependencies (install via pip if needed):
     pandas, pyyaml, reportlab, pillow, segno (or qrcode as a fallback)
 """
-from __future__ import annotations
 
 import io
 import math
@@ -205,12 +209,33 @@ def _load_registry(path: Path, query: Optional[str], limit: Optional[int], shuff
     if pd is None:
         raise RuntimeError("pandas is required to read the registry CSV")
     df = pd.read_csv(path)
-
+    
     # Basic required fields; more can be added later
     required = ["label_id", "display_name", "qr_payload"]
     missing = [c for c in required if c not in df.columns]
     if missing:
         raise ValueError(f"Registry missing required columns: {missing}")
+
+
+    # Selection rules:
+    # 1) Optional 'include' column (accept 1/true/yes/y)
+    if 'include' in df.columns:
+        try:
+            df = df[df['include'].astype(str).str.lower().isin(['1','true','yes','y'])]
+        except Exception:
+            df = df[df['include'].astype(bool)]
+    # 2) Optional 'url' column: drop empty/NaN/whitespace-only
+    if 'url' in df.columns:
+        df['url'] = df['url'].astype(str)
+        df = df[df['url'].str.strip() != '']
+    # 3) Optional 'position' column: sort stable
+    if 'position' in df.columns:
+        try:
+            df = df.sort_values('position', kind='stable')
+        except Exception:
+            pass
+    df = df.reset_index(drop=True)
+
 
     if query:
         df = df.query(query)
@@ -223,6 +248,37 @@ def _load_registry(path: Path, query: Optional[str], limit: Optional[int], shuff
     return records
 
 
+
+
+# -------------------------
+# Spec ingestion (explicit placement)
+# -------------------------
+
+def _load_spec(path: Path) -> List[dict]:
+    """Load a CSV spec with columns: label_id, x_pos, y_pos, [page].
+    x_pos and y_pos are 0-based grid indices (column, row).
+    'page' is 1-based and optional (default 1).
+    """
+    import csv
+    rows = []
+    with open(path, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        required = ["label_id", "x_pos", "y_pos"]
+        missing = [c for c in required if c not in reader.fieldnames]
+        if missing:
+            raise ValueError(f"Spec file missing columns: {missing}")
+        for r in reader:
+            try:
+                rows.append({
+                    "label_id": r["label_id"],
+                    "col": int(r["x_pos"]),
+                    "row": int(r["y_pos"]),
+                    "page": int(r.get("page", "1") or "1"),
+                })
+            except Exception as e:
+                print(f"[warn] skipping spec row due to parse error: {r} ({e})", flush=True)
+    return rows
+
 # -------------------------
 # Pagination planning
 # -------------------------
@@ -232,7 +288,7 @@ def _capacity_per_page(grid: Grid) -> int:
 
 
 def _page_cell_origin_in(layout: Layout, col: int, row: int) -> Tuple[float, float]:
-    # Upper-left origin in inches for a given cell
+    # Lower-left origin in inches for a given cell (ReportLab coordinate system)
     x = (
         layout.margins.left
         + col * (layout.grid.label_width_in + layout.grid.column_gap_in)
@@ -313,7 +369,7 @@ def _make_qr_image(data: str, pixel_size: int, border: int, error: str) -> Image
         # Map error correction
         err_map = {"L": "L", "M": "M", "Q": "Q", "H": "H"}
         ec = err_map.get(error.upper(), "M")
-        qr = segno.make(data, error=ec, border=border)
+        qr = segno.make(data, error=ec)
         # segno can export to a PIL image via PNG bytes
         buf = io.BytesIO()
         qr.save(buf, kind="png", scale=1, border=border)
@@ -344,14 +400,19 @@ def _make_qr_image(data: str, pixel_size: int, border: int, error: str) -> Image
         raise RuntimeError("Install segno or qrcode to generate QR codes") from e
 
 
+# Points conversion (1 in = 72 pt)
+def _in_to_pt(value_in: float) -> float:
+    return value_in * 72.0
+
+
 def _draw_wrapped_text(c, text_spec: TextSpec, layout: Layout, cell_x_in: float, cell_y_in: float):
     if pdfmetrics is None:
         raise RuntimeError("reportlab is required for text rendering")
 
-    wrap_width_px = _in_to_px(text_spec.wrap_width_in, layout.page.dpi)
-    x_px = _in_to_px(cell_x_in + text_spec.position.x_in + layout.safe_area.x_in, layout.page.dpi)
+    wrap_width_pt = _in_to_pt(text_spec.wrap_width_in)
+    x_pt = _in_to_pt(cell_x_in + text_spec.position.x_in + layout.safe_area.x_in)
     y_top_in = cell_y_in + text_spec.position.y_in + layout.safe_area.y_in
-    y_px = _in_to_px(y_top_in, layout.page.dpi)
+    y_pt = _in_to_pt(y_top_in)
 
     # Build the text block
     font_name = _ensure_font(None, text_spec.font) or "Helvetica"
@@ -362,9 +423,9 @@ def _draw_wrapped_text(c, text_spec: TextSpec, layout: Layout, cell_x_in: float,
         words = s.split()
         lines: List[str] = []
         cur = ""
-        # Approximate: 0.5 * font_size pixels per character as an empirical factor for Helvetica
+        # Approximate: 0.5 * font_size points per character as an empirical factor for Helvetica
         # For succinctness we keep it simple here
-        max_chars = max(1, int(wrap_width_px / max(text_spec.size_pt * 0.6, 1)))
+        max_chars = max(1, int(wrap_width_pt / max(text_spec.size_pt * 0.6, 1)))
         for w in words:
             if not cur:
                 cur = w
@@ -382,14 +443,63 @@ def _draw_wrapped_text(c, text_spec: TextSpec, layout: Layout, cell_x_in: float,
         line = template
         lines_to_draw.extend(wrap_line(line))
 
+    # Try to horizontally center the single-line label within the wrap width
+    center_single = len(text_spec.lines) == 1
+
     # Draw lines top-down with leading
-    cur_y_px = y_px
+    cur_y_pt = y_pt
     for ln in lines_to_draw:
-        c.drawString(x_px, cur_y_px, ln)
-        cur_y_px -= text_spec.leading_pt
+        draw_x = x_pt
+        if center_single:
+            try:
+                w = pdfmetrics.stringWidth(ln, font_name, text_spec.size_pt)
+                draw_x = x_pt + max(0.0, (wrap_width_pt - w) / 2.0)
+            except Exception:
+                pass
+        c.drawString(draw_x, cur_y_pt, ln)
+        cur_y_pt -= text_spec.leading_pt
+# Draw debug grid for layout/page
+def _draw_debug_grid(c, layout: Layout):
+    if rl_canvas is None:
+        return
+    try:
+        from reportlab.lib.colors import Color
+    except Exception:
+        Color = None
+
+    # Draw a light outline slightly outside each label cell so it won't appear on the sticker itself
+    outline_offset_in = 0.02  # 0.02 in (~1.44 pt) outside the die-cut
+    cell_w_in = layout.grid.label_width_in
+    cell_h_in = layout.grid.label_height_in
+
+    if Color:
+        c.setStrokeColor(Color(0, 0, 0, 0.2))
+    c.setLineWidth(0.5)
+
+    for r in range(layout.grid.rows):
+        for col in range(layout.grid.columns):
+            x_in, y_in = _page_cell_origin_in(layout, col, r)
+            x_out = _in_to_pt(x_in - outline_offset_in)
+            y_out = _in_to_pt(y_in - outline_offset_in)
+            w_out = _in_to_pt(cell_w_in + 2 * outline_offset_in)
+            h_out = _in_to_pt(cell_h_in + 2 * outline_offset_in)
+            # Outline only; no indices text inside stickers
+            c.rect(x_out, y_out, w_out, h_out, stroke=1, fill=0)
 
 
 def _draw_one_label(c, layout: Layout, item: dict, col: int, row: int):
+    """
+    Draw a single label inside the grid cell at (col, row).
+    All positions in the layout YAML (qr.position, text.position, safe_area) are offsets
+    **from the cell's lower-left corner** in inches, consistent with ReportLab's coordinate system.
+    The QR is drawn with its lower-left corner at
+        cell_x + qr.position.x_in + safe_area.x_in,
+        cell_y + qr.position.y_in + safe_area.y_in.
+    The text baseline starts at
+        cell_x + text.position.x_in + safe_area.x_in,
+        cell_y + text.position.y_in + safe_area.y_in.
+    To center a square QR of size S inside a 1-inch label, set position x/y to (1 - S) / 2.
+    """
     # Upper-left corner of this cell in inches
     cell_x_in, cell_y_in = _page_cell_origin_in(layout, col, row)
 
@@ -415,18 +525,26 @@ def _draw_one_label(c, layout: Layout, item: dict, col: int, row: int):
 
     c.drawImage(
         rl_img,
-        _in_to_px(qr_x_in, layout.page.dpi),
-        _in_to_px(qr_y_in, layout.page.dpi),
-        width=_in_to_px(layout.content.qr.size_in, layout.page.dpi),
-        height=_in_to_px(layout.content.qr.size_in, layout.page.dpi),
+        _in_to_pt(qr_x_in),
+        _in_to_pt(qr_y_in),
+        width=_in_to_pt(layout.content.qr.size_in),
+        height=_in_to_pt(layout.content.qr.size_in),
         mask='auto',
     )
 
     # 2) Text (formatted templates)
     # Expand the text templates with available keys from the record
     expanded = {k: ("" if v is None else v) for k, v in item.items()}
-    layout.content.text.lines = [s.format(**expanded) for s in layout.content.text.lines]
-    _draw_wrapped_text(c, layout.content.text, layout, cell_x_in, cell_y_in)
+    formatted_lines = [s.format_map(_SafeDict(expanded)) for s in layout.content.text.lines]
+    local_text = TextSpec(
+        font=layout.content.text.font,
+        size_pt=layout.content.text.size_pt,
+        leading_pt=layout.content.text.leading_pt,
+        wrap_width_in=layout.content.text.wrap_width_in,
+        position=layout.content.text.position,
+        lines=formatted_lines,
+    )
+    _draw_wrapped_text(c, local_text, layout, cell_x_in, cell_y_in)
 
 
 
@@ -442,6 +560,8 @@ def render(
     max_pages: Optional[int] = None,
     dpi: Optional[int] = None,
     font_dir: Optional[Path] = None,
+    spec_path: Optional[Path] = None,
+    debug_layout: bool = False,
 ) -> None:
     """Render labels to a PDF, optionally emitting per-label PNG previews.
 
@@ -467,13 +587,60 @@ def render(
     if preview_dir:
         preview_dir.mkdir(parents=True, exist_ok=True)
 
-    # ReportLab uses points (1/72 in). We'll work in pixels and let drawImage handle pixels via width/height in pixels.
-    page_width_px = _in_to_px(layout.page.width_in, layout.page.dpi)
-    page_height_px = _in_to_px(layout.page.height_in, layout.page.dpi)
-    c = rl_canvas.Canvas(str(out_pdf), pagesize=(page_width_px, page_height_px))
+    # Use points (1/72 in) for page size and drawing coordinates.
+    page_width_pt = _in_to_pt(layout.page.width_in)
+    page_height_pt = _in_to_pt(layout.page.height_in)
+    c = rl_canvas.Canvas(str(out_pdf), pagesize=(page_width_pt, page_height_pt))
 
     # Optional font registration for text block
     _ = _ensure_font(font_dir, layout.content.text.font)
+
+    # --- Spec-driven placement (if a spec file is provided) ---
+    if spec_path is not None:
+        specs = _load_spec(spec_path)
+        print(f"[spec] using spec file: {spec_path} ({len(specs)} rows)", flush=True)
+
+        # Build lookup from registry records by label_id
+        by_id = {str(r.get("label_id")): r for r in rows}
+
+        # Group spec rows by page (1-based in CSV)
+        from collections import defaultdict
+        pages = defaultdict(list)
+        for s in specs:
+            pages[int(s.get("page", 1))].append(s)
+
+        placed = 0
+        missing_ids = 0
+        oob = 0
+
+        # Draw each requested page in ascending order
+        for idx_page, pageno in enumerate(sorted(pages.keys())):
+            if idx_page > 0:
+                c.showPage()
+            if debug_layout:
+                _draw_debug_grid(c, layout)
+
+            for s in pages[pageno]:
+                col = int(s["col"])  # 0-based grid column
+                row = int(s["row"])  # 0-based grid row
+                # Bounds check against layout grid
+                if col < 0 or col >= layout.grid.columns or row < 0 or row >= layout.grid.rows:
+                    print(f"[warn] spec out of bounds, skipping: {s}", flush=True)
+                    oob += 1
+                    continue
+
+                item = by_id.get(str(s["label_id"]))
+                if not item:
+                    print(f"[warn] spec references unknown label_id: {s['label_id']}", flush=True)
+                    missing_ids += 1
+                    continue
+
+                _draw_one_label(c, layout, item, col, row)
+                placed += 1
+
+        print(f"[spec] placement summary: placed={placed}, missing_ids={missing_ids}, out_of_bounds={oob}", flush=True)
+        c.save()
+        return
 
     # Start rendering
     idx = 0
@@ -494,6 +661,9 @@ def render(
 
         # Draw cells row-major
         cells_iter = list(next_cell_indices(capacity))
+
+        if debug_layout:
+            _draw_debug_grid(c, layout)
 
         for cell_idx in range(capacity):
             col, row = cells_iter[cell_idx]
@@ -526,3 +696,43 @@ def render(
     c.save()
 
     # Done.
+
+
+
+if __name__ == "__main__":
+    import argparse
+    from pathlib import Path as _Path
+
+    ap = argparse.ArgumentParser(description="Run label rendering directly (engine).")
+    ap.add_argument("--registry", required=True, type=_Path)
+    ap.add_argument("--layout", required=True, type=_Path)
+    ap.add_argument("--out", required=True, type=_Path)
+    ap.add_argument("--preview-dir", type=_Path)
+    ap.add_argument("--query")
+    ap.add_argument("--limit", type=int)
+    ap.add_argument("--shuffle", action="store_true")
+    ap.add_argument("--start-offset", type=int, default=0)
+    ap.add_argument("--max-pages", type=int)
+    ap.add_argument("--dpi", type=int)
+    ap.add_argument("--font-dir", type=_Path)
+    ap.add_argument("--spec", type=_Path, help="CSV with label_id,x_pos,y_pos,[page] for explicit placement")
+    ap.add_argument("--debug-layout", action="store_true", help="Draw grid cell boundaries and indices for alignment")
+    args = ap.parse_args()
+
+    print("[engine.__main__] invoking render", flush=True)
+    render(
+        registry_path=args.registry,
+        layout_path=args.layout,
+        out_pdf=args.out,
+        preview_dir=args.preview_dir,
+        query=args.query,
+        limit=args.limit,
+        shuffle=args.shuffle,
+        start_offset=args.start_offset,
+        max_pages=args.max_pages,
+        dpi=args.dpi,
+        font_dir=args.font_dir,
+        spec_path=args.spec,
+        debug_layout=args.debug_layout,
+    )
+    print(f"[engine.__main__] done: wrote {args.out}", flush=True)
