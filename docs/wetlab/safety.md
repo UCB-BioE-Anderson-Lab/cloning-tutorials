@@ -22,7 +22,7 @@ For the full list of lab rules, see the [Lab Rules – B144 Stanley (PDF)](../as
   - Lab coat
   - Gloves
   - Eye protection (prescription glasses are acceptable)
-- PPE is available in designated locations in the room.
+- PPE is located in the safety corner.
 
 ---
 
