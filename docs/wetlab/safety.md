@@ -30,18 +30,7 @@ For the full list of lab rules, see the [Lab Rules – B144 Stanley (PDF)](../as
 
 The **Safety Corner** is located by the north door, near the biosafety cabinets on the mammalian cell side of the room. This area contains the emergency and safety supplies you may need during lab sessions.
 
-![Safety Corner](../images/safety_corner.png)
-
-**What is in the Safety Corner**
-
-- Safety shower
-- Eye wash
-- Fire extinguisher
-- PPE (gloves, lab coats, eye protection)
-- Spill kit
-- First-aid kit
-- Chemical Hygiene Plan and other emergency information
-
+![Safety Corner: includes safety shower, eye wash, fire extinguisher, PPE (gloves, lab coats, eye protection), spill kit, first aid kit, and the Chemical Hygiene Plan with emergency information](../images/safety_corner.png)
 
 **Safety Shower and Eye Wash**  
 
