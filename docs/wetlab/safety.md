@@ -69,7 +69,7 @@ Certain equipment and cabinets are marked with signage to indicate who may use t
 ---
 
 ## Cleanup and Records
-- Clean your bench with 70% ethanol and restore it to its default organization after each session.
+- Clean your bench restore it to its default organization after each session.
 - Dispose of research materials including gloves in the large white bin or benchtop plastic beakers.
 - Maintain accurate records of all experiments as directed by your instructor.
 
