@@ -102,10 +102,21 @@ function processSubmission_(payload) {
 
     // Persist grades to the gradebook sheet (one row per email; quiz slugs as columns)
     try {
+      var newlyAdded = [];
       if (typeof GradesRecorder !== 'undefined' && GradesRecorder && typeof GradesRecorder.recordResult === 'function') {
-        GradesRecorder.recordResult(result);
+        var ret = GradesRecorder.recordResult(result);
+        if (Array.isArray(ret)) newlyAdded = ret;
       } else {
         console.warn('GradesRecorder.recordResult is not available; skipping grade recording.');
+      }
+      if (newlyAdded && newlyAdded.length) {
+        result.quizzes_added_now = newlyAdded.slice();
+      } else {
+        result.quizzes_added_now = [];
+      }
+      if (GradesRecorder && typeof GradesRecorder.getCumulativeQuizzes === 'function' && result.email) {
+        var cum = GradesRecorder.getCumulativeQuizzes(result.email) || [];
+        if (Array.isArray(cum)) result.quizzes_passed_cumulative = cum;
       }
     } catch (e) {
       console.error('Failed to record grades:', e);

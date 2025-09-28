@@ -44,6 +44,7 @@ var GradesRecorder = (function () {
     var submittedAtIso = safeString_(result.submitted_at) || new Date().toISOString();
     var submittedDate = parseIsoDate_(submittedAtIso);
     var quizzes = Array.isArray(result.quizzes_passed_new) ? result.quizzes_passed_new.slice() : [];
+    var newlyAdded = [];
 
     var sheet = getOrCreateSheet_(SHEET_NAME);
     var headers = getHeaders_(sheet);
@@ -79,8 +80,11 @@ var GradesRecorder = (function () {
         headers.forEach(function (h, i) { colIndex[h] = i + 1; });
         c = colIndex[header];
       }
-      upsertNewerTimestamp_(sheet, row, c, submittedDate);
+      if (upsertNewerTimestamp_(sheet, row, c, submittedDate)) {
+        newlyAdded.push(slug);
+      }
     });
+    return newlyAdded;
   }
 
   function extractEmail_(result) {
@@ -205,13 +209,15 @@ var GradesRecorder = (function () {
 
   // Only write a timestamp if the cell is empty; never overwrite an existing value
   function upsertNewerTimestamp_(sheet, row, col, submittedDate) {
-    if (!submittedDate) return;
+    if (!submittedDate) return false;
     var rng = sheet.getRange(row, col);
     var current = rng.getValue();
     if (!current) {
       rng.setValue(submittedDate);
       rng.setNumberFormat(TIMESTAMP_NUMBER_FORMAT);
+      return true;
     }
+    return false;
   }
 
   function parseIsoDate_(iso) {

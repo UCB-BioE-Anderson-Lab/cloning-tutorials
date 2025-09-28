@@ -86,8 +86,14 @@ function buildResultHtml(summary) {
   const emailSent = !!(summary && summary.email_sent);
   const wetlabId = escapeHtml(summary && summary.wetlab_id || '');
   const results = escapeHtml(summary && summary.results || '');
-  const quizzes = Array.isArray(summary && (summary.quizzes_passed_new || summary.quizzes_passed)) ? (summary.quizzes_passed_new || summary.quizzes_passed) : [];
-  const listItems = quizzes.length ? quizzes.map(q => '<li>' + escapeHtml(q) + '</li>').join('') : '<li>No quizzes listed</li>';
+  const newly = Array.isArray(summary && summary.quizzes_added_now) ? summary.quizzes_added_now : [];
+  const cumulative = Array.isArray(summary && summary.quizzes_passed_cumulative)
+    ? summary.quizzes_passed_cumulative
+    : (Array.isArray(summary && (summary.quizzes_passed_new || summary.quizzes_passed))
+        ? (summary.quizzes_passed_new || summary.quizzes_passed)
+        : []);
+  const newlyItems = newly.length ? newly.map(q => '<li>' + escapeHtml(q) + '</li>').join('') : '<li>No new quizzes recorded this submission</li>';
+  const cumItems = cumulative.length ? cumulative.map(q => '<li>' + escapeHtml(q) + '</li>').join('') : '<li>No quizzes recorded yet</li>';
   const greeting =
     (firstName && lastName) ? ('Hello, ' + firstName + ' ' + lastName + '.')
     : (firstName ? ('Hello, ' + firstName + '.') 
@@ -125,10 +131,10 @@ function buildResultHtml(summary) {
     '    <p class="muted">Checksum: ' + checksum + '</p>',
     (wetlabId ? ('    <p class="muted">Wetlab ID: ' + wetlabId + '</p>') : ''),
     '    <p class="muted">Email sent: ' + (emailSent ? 'Yes' : 'No') + '</p>',
-    (results ? ('    <h2>Results</h2>\n    <p>' + results + '</p>') : ''),
-    '    <h2>Quizzes passed</h2>',
-    '    <ul>' + listItems + '</ul>',
-    (cumList ? '    <h2>All quizzes passed</h2>\n    <ul>' + cumList + '</ul>' : ''),
+    '    <h2>Newly recorded (this submission)</h2>',
+    '    <ul>' + newlyItems + '</ul>',
+    '    <h2>All quizzes recorded for you</h2>',
+    '    <ul>' + cumItems + '</ul>',
     '  </div>',
     '</body>',
     '</html>'
