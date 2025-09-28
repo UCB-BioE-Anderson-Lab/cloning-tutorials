@@ -1,0 +1,12 @@
+<file name=0 path=/Users/jcandersonucb/Documents/GitHub/cloning-tutorials/apps-script/.claspignore># This file specifies files and directories to exclude when using clasp commands.
+# It helps keep deployments clean by ignoring unnecessary or sensitive files.
+
+# Only required at the clasp project root (same folder as .clasp.json)
+# Since rootDir=src, clasp will only push files inside ./src by default.
+
+# Common local and development files to exclude from push/pull packaging
+node_modules/**
+.vscode/**
+.env
+.DS_Store
+.git/**
