@@ -21,8 +21,8 @@ nav:
       - 10. Miniprep: wetlab/miniprep.md
       - 11. Cycle Sequencing: wetlab/sequencing.md
       - 12. Measuring Fluorescence: wetlab/bestp.md
-      - 13. Equipment Training: wetlab/qr_training.md
-      
+      - 13. Equipment Training: trainings/qr_training.md
+
   - Cloning Techniques:
       - 1. DNA Basics: construction/dna_basics.md
       - 2. Sequence Editing Tools: construction/sequence_tools.md
@@ -51,6 +51,12 @@ nav:
       - Oligo Finder: tools/oligo_finder.md
       - Inventory Manager: tools/inventory_manager.md
 
+  - Training & Certification:
+      - "-80 Freezer": trainings/minus_80.md
+      - "Chemical Cabinets": trainings/chemical_cabinets.md
+      - "Allegra Centrifuge": trainings/allegra_v15r.md
+      - "Qsonica Sonicator": trainings/q500_sonicator.md
+      - "Microwave": trainings/microwave.md
   - About: about.md
 
 markdown_extensions:
@@ -74,8 +80,9 @@ plugins:
   #     media_type: print
   
 extra_javascript:
+  - js/launch-apps-script.js
   - js/progress_manager.js
-
+  
 extra_css:
   - css/custom.css
 

@@ -1,4 +1,186 @@
+/**
+ * Progress Manager (MkDocs client)
+ * - Tracks quiz progress locally (localStorage).
+ * - Renders a human-readable summary for the student.
+ * - Builds a signed JSON payload (deterministic SHA-256) over a stable subset.
+ * - Obtains a Google ID token via GIS (OAuth 2.0 / OIDC) and
+ *   submits a JSON payload (including idToken) to the Apps Script Web App.
+ * - Server verifies the ID token and signature, then records identity.
+ */
 if (!window.progressManager) {
+
+// === Google Identity Services (GIS) helpers for Option 1 (ID token) ===
+// Optional hardcoded fallback (set once for production if you don't want to use meta/global)
+// Example: const HARDCODED_GSI_CLIENT_ID = "1234567890-abcdef.apps.googleusercontent.com";
+const HARDCODED_GSI_CLIENT_ID = "1096619091657-o556epqbjql8ii5ulggc1ar9ha975gel.apps.googleusercontent.com"; // Localhost-only Web client
+// Also expose as a global so other scripts (if any) can read it
+window.GOOGLE_CLIENT_ID = HARDCODED_GSI_CLIENT_ID;
+
+function resolveGoogleClientId() {
+  // Production: source from HTML or a predefined global. No prompts, no localStorage.
+  const m1 = document.querySelector('meta[name="google-signin-client_id"]');
+  if (m1 && m1.content) return m1.content.trim();
+  const m2 = document.querySelector('meta[name="gsi_client_id"]');
+  if (m2 && m2.content) return m2.content.trim();
+  if (window.GOOGLE_CLIENT_ID) return String(window.GOOGLE_CLIENT_ID).trim();
+  if (window.CONFIG && window.CONFIG.googleClientId) return String(window.CONFIG.googleClientId).trim();
+  // Support a data attribute on the script tag: <script src=".../progress_manager.js" data-gsi-client-id="..."></script>
+  try {
+    const thisScript = document.currentScript || Array.from(document.getElementsByTagName('script')).find(s => (s.src||'').includes('progress_manager.js'));
+    if (thisScript) {
+      const d = thisScript.getAttribute('data-gsi-client-id');
+      if (d && d.length > 0) return d.trim();
+    }
+  } catch (e) {}
+  if (HARDCODED_GSI_CLIENT_ID && HARDCODED_GSI_CLIENT_ID.includes('.apps.googleusercontent.com')) {
+    return HARDCODED_GSI_CLIENT_ID.trim();
+  }
+  return "";
+}
+let GOOGLE_CLIENT_ID = resolveGoogleClientId();
+if (!GOOGLE_CLIENT_ID) {
+  console.warn('[GIS] Missing Google OAuth Web Client ID. Add <meta name="google-signin_client_id" content="..."> or set window.GOOGLE_CLIENT_ID before this script.');
+}
+
+let _gisScriptLoaded = false;
+let _currentIdToken = null;      // latest ID token (JWT)
+let _currentIdTokenExp = 0;      // ms since epoch
+
+function loadGIS() {
+  return new Promise((resolve, reject) => {
+    if (window.google && window.google.accounts && window.google.accounts.id) {
+      _gisScriptLoaded = true;
+      return resolve();
+    }
+    if (_gisScriptLoaded) return resolve();
+    const s = document.createElement("script");
+    s.src = "https://accounts.google.com/gsi/client";
+    s.async = true;
+    s.defer = true;
+    s.onload = () => { _gisScriptLoaded = true; resolve(); };
+    s.onerror = () => reject(new Error("Failed to load Google Identity Services."));
+    document.head.appendChild(s);
+  });
+}
+
+function decodeJwtPayload(jwt) {
+  try {
+    const payload = jwt.split(".")[1];
+    const norm = payload.replace(/-/g, "+").replace(/_/g, "/");
+    const json = decodeURIComponent(atob(norm).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""));
+    return JSON.parse(json);
+  } catch (e) {
+    return {};
+  }
+}
+
+function getValidIdToken() {
+  if (_currentIdToken && Date.now() < (_currentIdTokenExp - 60_000)) {
+    return _currentIdToken; // 60s early refresh window
+  }
+  return null;
+}
+
+async function acquireIdTokenInteractive() {
+  await loadGIS();
+  return new Promise((resolve) => {
+    // Refresh client ID in case meta/script loads late
+    GOOGLE_CLIENT_ID = resolveGoogleClientId(); // refresh in case meta/script loads late
+    if (!GOOGLE_CLIENT_ID) {
+      alert("Google Sign-In is not configured. Site owner must set the OAuth Web Client ID.");
+      return resolve(null);
+    }
+    // Only disable FedCM on localhost/127.0.0.1
+    const disableFedCM = (location.hostname === "127.0.0.1" || location.hostname === "localhost");
+    // Initialize each time to ensure fresh nonce and callback
+    window.google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: (response) => {
+        _currentIdToken = response.credential || null;
+        const claims = _currentIdToken ? decodeJwtPayload(_currentIdToken) : {};
+        _currentIdTokenExp = (claims.exp ? Number(claims.exp) * 1000 : 0);
+        window.dispatchEvent(new CustomEvent("gis-idtoken-ready", { detail: { email: claims.email || null } }));
+        resolve(_currentIdToken);
+      },
+      ux_mode: "popup",
+      ...(disableFedCM ? { use_fedcm_for_prompt: false } : {})
+    });
+    // Show One Tap / account chooser; popup when needed
+    window.google.accounts.id.prompt();
+  });
+}
+
+// === Shared hashing + canonicalization helpers ===
+// Choose exactly which fields participate in the deterministic signature.
+function buildSignableSubset(payload) {
+  return {
+    submissionId: payload.submissionId,
+    submissionDate: payload.submissionDate,
+    assignedGene: payload.assignedGene,
+    completed: payload.completed,
+    incompleteTutorials: payload.incompleteTutorials,
+    attempts: payload.attempts,
+    rawProgress: payload.rawProgress
+  };
+}
+
+// SHA-256 hex (browser)
+async function sha256HexBrowser(s) {
+  const enc = new TextEncoder().encode(s);
+  const buf = await crypto.subtle.digest("SHA-256", enc);
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+// UUID v4
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+}
+
+// === Canonicalization helpers to stabilize signature input ===
+// Recursively sort object keys for deterministic JSON stringification.
+function canonicalizeForSignature(obj) {
+  // Deep clone and sort keys deterministically
+  if (Array.isArray(obj)) {
+    return obj.map(canonicalizeForSignature);
+  } else if (obj && typeof obj === 'object') {
+    const sorted = {};
+    Object.keys(obj).sort().forEach(k => {
+      sorted[k] = canonicalizeForSignature(obj[k]);
+    });
+    return sorted;
+  }
+  return obj; // primitives
+}
+
+// Specific array sorters to ensure stable ordering for signable fields
+// Normalize array order (stable sorts) so signatures are independent of incidental ordering.
+function sortSignableArrays(signable) {
+  if (Array.isArray(signable.completed)) {
+    signable.completed = signable.completed.slice().sort((a,b) =>
+      (a.id||'').localeCompare(b.id||'') || (a.completedOn||'').localeCompare(b.completedOn||''));
+  }
+  if (Array.isArray(signable.incompleteTutorials)) {
+    signable.incompleteTutorials = signable.incompleteTutorials.slice().sort();
+  }
+  if (Array.isArray(signable.attempts)) {
+    signable.attempts = signable.attempts.slice().sort((a,b) =>
+      (a.section||'').localeCompare(b.section||'') ||
+      (a.tutorial||'').localeCompare(b.tutorial||'') ||
+      (a.quiz||'').localeCompare(b.quiz||'') ||
+      (a.datetime_completed||'').localeCompare(b.datetime_completed||''));
+  }
+  if (Array.isArray(signable.rawProgress)) {
+    signable.rawProgress = signable.rawProgress.slice().sort((a,b) =>
+      (a.quiz||'').localeCompare(b.quiz||'') ||
+      (a.datetime_completed||'').localeCompare(b.datetime_completed||'') ||
+      (a.result||'').localeCompare(b.result||'')
+    );
+  }
+  return signable;
+}
+
     class ProgressManager {
     constructor(data) {
         this.storageKey = "quizProgress";
@@ -182,15 +364,8 @@ if (!window.progressManager) {
     }
 
     async generateSubmissionSummary() {
-        let userName = localStorage.getItem("quizUserName");
-        if (!userName) {
-            userName = prompt("Please enter your name as it appears on bCourses:");
-            if (!userName) {
-                alert("Name is required to generate the report.");
-                return;
-            }
-            localStorage.setItem("quizUserName", userName);
-        }
+        let userName = localStorage.getItem("quizUserName") || ""; // optional; will rely on server email
+        // We'll decode the ID token later to derive last_name (no separate profile fetch)
 
         const required = this.hierarchy;
         const progressByQuiz = {};
@@ -205,8 +380,9 @@ if (!window.progressManager) {
 
         const lines = [];
         const allAttempts = [];
+        const incompleteTutorials = [];
 
-        lines.push(`Name: ${userName}`);
+        lines.push(`Name: ${userName || "(will be captured via CalNet)"}`);
         lines.push(`Submission Date: ${new Date().toLocaleString()}`);
         const gene = this.getAssignedGeneDetails();
         if (gene && gene.name) {
@@ -238,10 +414,19 @@ if (!window.progressManager) {
                     sectionLines.push(`✓ ${tutorial} (completed on ${latest})`);
                 } else {
                     sectionLines.push(`✘ ${tutorial} (incomplete)`);
+                    if (!incompleteTutorials.includes(tutorial)) incompleteTutorials.push(tutorial);
+                    // Only include per-quiz attempt rows for INCOMPLETE tutorials in the summary table.
+                    // Full attempt history is still captured in payload.rawProgress.
                     for (const quiz of requiredQuizzes) {
                         if (progressByQuiz[quiz]) {
                             for (const entry of progressByQuiz[quiz]) {
-                                allAttempts.push(entry);
+                                allAttempts.push({
+                                    section,
+                                    tutorial,
+                                    quiz,
+                                    result: entry.result,
+                                    datetime_completed: entry.datetime_completed
+                                });
                                 sectionLines.push(`  - ${quiz} | ${entry.result} | ${new Date(entry.datetime_completed).toLocaleString()}`);
                             }
                         }
@@ -262,33 +447,72 @@ if (!window.progressManager) {
         const digest = await crypto.subtle.digest("SHA-256", data);
         const hashArray = Array.from(new Uint8Array(digest));
         const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        lines.push(`Checksum: ${hashHex}`);
+        const checksum = hashHex;
+        // lines.push(`Checksum: ${hashHex}`);    // No longer include checksum in human-readable report
 
         const finalReport = lines.join("\n");
 
-        const summaryWindow = window.open("about:blank", "_blank");
-        if (!summaryWindow) {
-            alert("Popup blocked! Please allow popups for this site to generate a submission report.");
-            return;
+        let userEmail = localStorage.getItem("quizUserEmail") || ""; // optional; server will capture CalNet email
+
+        // Build a minimal, privacy-reduced payload for Apps Script
+        const completed = [];
+        for (const section in required) {
+          const tutorials = required[section];
+          for (const tutorial in tutorials) {
+            const requiredQuizzes = tutorials[tutorial];
+            if (requiredQuizzes.length === 0) continue;
+            const allPassed = requiredQuizzes.every(q => completedCorrect.has(q));
+            if (allPassed) {
+              const dates = requiredQuizzes
+                .flatMap(q => (progressByQuiz[q] || []))
+                .filter(a => a.result === "correct")
+                .map(a => new Date(a.datetime_completed));
+              const latest = dates.length ? new Date(Math.max(...dates)) : null;
+              completed.push({ id: tutorial, completedOn: latest ? latest.toISOString() : "" });
+            }
+          }
         }
-        summaryWindow.document.open();
-        summaryWindow.document.write(`
-            <html>
-            <head>
-                <title>Submission Summary</title>
-                <style>
-                    body { font-family: monospace; padding: 20px; white-space: pre-wrap; }
-                    button { padding: 6px 10px; font-size: 14px; margin-top: 10px; }
-                </style>
-            </head>
-            <body>
-                <h1>Submission Summary</h1>
-                <pre id="summary">${finalReport}</pre>
-                <button onclick="navigator.clipboard.writeText(document.getElementById('summary').innerText)">Copy to Clipboard</button>
-            </body>
-            </html>
-        `);
-        summaryWindow.document.close();
+
+        // Ensure we have a valid Google ID token (Option 1 flow)
+        let idToken = getValidIdToken();
+        if (!idToken) {
+          idToken = await acquireIdTokenInteractive();
+        }
+        if (!idToken) {
+          alert("Sign-in failed. Please try again.");
+          return;
+        }
+        const submissionId = uuidv4();
+        // Build a minimal, privacy-reduced payload for Apps Script
+        const claims = decodeJwtPayload(idToken) || {};
+        const lastNameFromToken = (claims.family_name || claims.familyName || "");
+        const quizzes_passed = completed.map(x => x.id); // tutorial IDs that are fully passed
+
+        const payload = {
+          submissionId,
+          idToken,                       // still included so server can associate with a user if needed
+          submissionDate: new Date().toISOString()
+        };
+        payload.checksum = checksum;
+        if (gene && gene.name) payload.assignedGene = gene.name;
+        if (lastNameFromToken) payload.last_name = lastNameFromToken;
+        if (quizzes_passed.length > 0) payload.quizzes_passed = quizzes_passed;
+
+        // Optional: size guard
+        const approxBytes = new Blob([JSON.stringify(payload)]).size;
+        if (approxBytes > 500_000) {
+          console.warn(`Submission size ~${(approxBytes/1024).toFixed(1)} KB`);
+        }
+
+        if (typeof window.sendToAppsScript === 'function') {
+          window.sendToAppsScript(payload);
+          console.log('Submitted via middleware (minimal payload).', payload);
+        } else {
+          // Middleware not yet loaded — queue the submission and flush once available
+          window._pendingSubmissions = window._pendingSubmissions || [];
+          window._pendingSubmissions.push(payload);
+          console.warn('Middleware not yet loaded; queued submission.');
+        }
     }
 
     setAssignedGene(gene) {
@@ -304,7 +528,7 @@ if (!window.progressManager) {
     }
 
     /**
-     * Creates the progress panel on the page with Progress and Submit Report buttons.
+     * Creates the progress panel on the page with Progress and a single primary action button (Login/Submit).
      */
     renderProgressPanel() {
         if (document.querySelector(".progress-panel")) {
@@ -331,14 +555,82 @@ if (!window.progressManager) {
         viewProgressButton.classList.add("progress-btn");
         viewProgressButton.addEventListener("click", () => this.showProgress());
 
-        // Submission Summary Button
-        const submitButton = document.createElement("button");
-        submitButton.innerText = "Submit Report";
-        submitButton.classList.add("progress-btn");
-        submitButton.addEventListener("click", () => this.generateSubmissionSummary());
-        
+        // Single primary action button: toggles Login ↔ Submit Report using GIS
+        const actionButton = document.createElement("button");
+        actionButton.id = "submit-or-login";
+        actionButton.classList.add("progress-btn");
+        actionButton.innerText = "Login";
+        actionButton.title = "Login to Google, then submit";
+
+        // Re-resolve client ID at render time (in case meta/global loaded late)
+        GOOGLE_CLIENT_ID = resolveGoogleClientId();
+        const enableIfConfigured = () => {
+          GOOGLE_CLIENT_ID = resolveGoogleClientId();
+          if (GOOGLE_CLIENT_ID) {
+            actionButton.disabled = false;
+            actionButton.innerText = "Login";
+            actionButton.title = "Login to Google, then submit";
+            return true;
+          }
+          return false;
+        };
+
+        // If client ID is missing, temporarily disable and retry for a short window
+        if (!GOOGLE_CLIENT_ID) {
+          actionButton.disabled = true;
+          actionButton.innerText = "Login (setup)";
+          actionButton.title = "Site owner must set OAuth Web Client ID";
+          // Retry a few times in case meta/global loads after this script
+          let tries = 0;
+          const iv = setInterval(() => {
+            tries += 1;
+            if (enableIfConfigured() || tries >= 20) { // retry up to ~5s (20 * 250ms)
+              clearInterval(iv);
+            }
+          }, 250);
+          // Also try once on window load
+          window.addEventListener('load', () => { enableIfConfigured(); }, { once: true });
+        }
+
+        // Helper to refresh button label based on token presence
+        const refreshActionButton = () => {
+          const hasToken = !!getValidIdToken();
+          actionButton.innerText = hasToken ? "Submit Report" : "Login";
+          actionButton.title = hasToken ? "" : "Login to Google, then submit";
+        };
+
+        // React when GIS hands us a new token
+        window.addEventListener("gis-idtoken-ready", () => {
+          refreshActionButton();
+        });
+
+        actionButton.addEventListener("click", async () => {
+          const token = getValidIdToken();
+          if (!token) {
+            // Trigger interactive sign-in to fetch an ID token
+            try {
+              actionButton.disabled = true;
+              await acquireIdTokenInteractive();
+            } finally {
+              actionButton.disabled = false;
+            }
+            refreshActionButton();
+            return;
+          }
+          // We have a token → submit
+          actionButton.disabled = true;
+          try {
+            await this.generateSubmissionSummary();
+          } finally {
+            setTimeout(() => { actionButton.disabled = false; }, 1500);
+          }
+        });
+
+        // Proactively load GIS so Login is fast; update label if user is already signed in
+        loadGIS().then(refreshActionButton).catch(() => {});
+
         panel.appendChild(viewProgressButton);
-        panel.appendChild(submitButton);
+        panel.appendChild(actionButton);
         navbar.appendChild(panel);
     }
 }
