@@ -85,7 +85,7 @@ function processSubmission_(payload) {
       submission_id: submissionId,
       submitted_at: submittedAt,
       checksum: checksum,
-      title: '3new one (from Processor.js) Successful submission of quiz results!',
+      title: 'Successful submission of quiz results!',
       email: userEmail,
       first_name: firstName,
       last_name: lastName,
@@ -122,6 +122,32 @@ function processSubmission_(payload) {
       console.error('Failed to record grades:', e);
     }
 
+    // Assign pP6 ID if eligible (delegated to Pp6Allocator). Only set if allocator returns a number.
+    try {
+      if (typeof Pp6Allocator !== 'undefined' && Pp6Allocator && typeof Pp6Allocator.assignIfEligible === 'function') {
+        var cumForPp6 = result.quizzes_passed_cumulative || result.quizzes_passed_new || [];
+        var maybeId = Pp6Allocator.assignIfEligible(result);
+        if (maybeId != null && result.wetlab_id === undefined) {
+          result.wetlab_id = maybeId; // integer assigned by allocator
+        }
+      }
+    } catch (e2) {
+      console.warn('Processor: pP6 assignment skipped due to error', e2);
+    }
+    try {
+      if (typeof EmailNotifier !== 'undefined' &&
+          EmailNotifier &&
+          typeof EmailNotifier.sendConfirmation === 'function') {
+        var sent = EmailNotifier.sendConfirmation(result);
+        result.email_sent = !!sent;
+      } else {
+        result.email_sent = false;
+        console.warn('EmailNotifier.sendConfirmation unavailable');
+      }
+    } catch (e3) {
+      result.email_sent = false;
+      console.warn('Processor: email send failed', e3);
+    }
     return result;
   }
 
