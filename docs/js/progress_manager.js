@@ -447,6 +447,7 @@ function sortSignableArrays(signable) {
         const digest = await crypto.subtle.digest("SHA-256", data);
         const hashArray = Array.from(new Uint8Array(digest));
         const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        const checksum = hashHex;
         // lines.push(`Checksum: ${hashHex}`);    // No longer include checksum in human-readable report
 
         const finalReport = lines.join("\n");
@@ -492,6 +493,7 @@ function sortSignableArrays(signable) {
           idToken,                       // still included so server can associate with a user if needed
           submissionDate: new Date().toISOString()
         };
+        payload.checksum = checksum;
         if (gene && gene.name) payload.assignedGene = gene.name;
         if (lastNameFromToken) payload.last_name = lastNameFromToken;
         if (quizzes_passed.length > 0) payload.quizzes_passed = quizzes_passed;

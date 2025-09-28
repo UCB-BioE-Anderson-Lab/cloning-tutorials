@@ -54,24 +54,49 @@ function escapeHtml(s) {
 
 /**
  * Build the result page HTML from the simple server response.
- * Expected shape:
+ * Expected shape (flat v2):
  * {
+ *   version: string,
+ *   submission_id: string,
+ *   submitted_at: string,
+ *   checksum: string,
  *   title: string,
- *   user_email: string,
+ *   email: string,
+ *   first_name: string,
+ *   last_name: string,
  *   assigned_gene: string,
- *   quizzes_passed: string[],
- *   last_name: string
+ *   quizzes_passed_new: string[],
+ *   results: string,
+ *   email_sent: boolean,
+ *   wetlab_id?: string
  * }
+ * (Back-compat: will also read legacy keys like user_email and quizzes_passed if present.)
  */
 function buildResultHtml(summary) {
   console.log("summary received back to tutorials:")
   console.log(summary)
   const title = escapeHtml(summary && summary.title || 'Successful submission');
   const lastName = escapeHtml(summary && summary.last_name || '');
-  const email = escapeHtml(summary && summary.user_email || '');
+  const firstName = escapeHtml(summary && summary.first_name || '');
+  const email = escapeHtml(summary && (summary.email || summary.user_email) || '');
   const assignedGene = escapeHtml(summary && summary.assigned_gene || '');
-  const quizzes = Array.isArray(summary && summary.quizzes_passed) ? summary.quizzes_passed : [];
-  const listItems = quizzes.map(q => '<li>' + escapeHtml(q) + '</li>').join('') || '<li>No quizzes listed</li>';
+  const submittedAt = escapeHtml(summary && summary.submitted_at || '');
+  const submissionId = escapeHtml(summary && summary.submission_id || '');
+  const checksum = escapeHtml(summary && summary.checksum || '');
+  const emailSent = !!(summary && summary.email_sent);
+  const wetlabId = escapeHtml(summary && summary.wetlab_id || '');
+  const results = escapeHtml(summary && summary.results || '');
+  const quizzes = Array.isArray(summary && (summary.quizzes_passed_new || summary.quizzes_passed)) ? (summary.quizzes_passed_new || summary.quizzes_passed) : [];
+  const listItems = quizzes.length ? quizzes.map(q => '<li>' + escapeHtml(q) + '</li>').join('') : '<li>No quizzes listed</li>';
+  const greeting =
+    (firstName && lastName) ? ('Hello, ' + firstName + ' ' + lastName + '.')
+    : (firstName ? ('Hello, ' + firstName + '.') 
+    : (lastName ? ('Hello, ' + lastName + '.') 
+    : ''));
+
+  const version = escapeHtml(summary && summary.version || '');
+  const quizzesCum = Array.isArray(summary && summary.quizzes_passed_cumulative) ? summary.quizzes_passed_cumulative : null;
+  const cumList = quizzesCum && quizzesCum.length ? quizzesCum.map(q => '<li>' + escapeHtml(q) + '</li>').join('') : '';
 
   return [
     '<!doctype html>',
@@ -83,18 +108,27 @@ function buildResultHtml(summary) {
     '  <style>',
     '    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:24px;line-height:1.5}',
     '    .card{max-width:720px;margin:0 auto;padding:24px;border:1px solid #ddd;border-radius:12px}',
-    '    h1{margin:0 0 12px 0;font-size:1.6rem}',
+    '    h1{margin:0 8px 12px 0;font-size:1.6rem}',
+    '    h2{margin:16px 0 8px 0;font-size:1.2rem}',
     '    .muted{color:#555}',
     '  </style>',
     '</head>',
     '<body>',
     '  <div class="card">',
     '    <h1>' + title + '</h1>',
-    (lastName ? ('    <p class="muted">Hello, ' + lastName + '.</p>') : ''),
-    (email ? ('    <p class="muted">Email: ' + email + '</p>') : ''),
-    (assignedGene ? ('    <p class="muted">Assigned gene: ' + assignedGene + '</p>') : ''),
+    (greeting ? ('    <p class="muted">' + greeting + '</p>') : ''),
+    '    <p class="muted">Email: ' + email + '</p>',
+    '    <p class="muted">Version: ' + version + '</p>',
+    '    <p class="muted">Assigned gene: ' + assignedGene + '</p>',
+    '    <p class="muted">Submitted: ' + submittedAt + '</p>',
+    '    <p class="muted">Submission ID: ' + submissionId + '</p>',
+    '    <p class="muted">Checksum: ' + checksum + '</p>',
+    (wetlabId ? ('    <p class="muted">Wetlab ID: ' + wetlabId + '</p>') : ''),
+    '    <p class="muted">Email sent: ' + (emailSent ? 'Yes' : 'No') + '</p>',
+    (results ? ('    <h2>Results</h2>\n    <p>' + results + '</p>') : ''),
     '    <h2>Quizzes passed</h2>',
     '    <ul>' + listItems + '</ul>',
+    (cumList ? '    <h2>All quizzes passed</h2>\n    <ul>' + cumList + '</ul>' : ''),
     '  </div>',
     '</body>',
     '</html>'
