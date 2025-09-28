@@ -11,34 +11,60 @@
  */
 function processSubmission_(payload) {
     payload = payload || {};
+    console.log('Processor received payload:', JSON.stringify(payload));
   
-    // Try to derive user email from the Google ID token (best-effort)
+    // Derive identity from ID token if present; fall back to payload fields
     var userEmail = '';
+    var givenName = '';
+    var familyName = '';
     try {
       if (payload.idToken) {
         var check = verifyIdToken_(payload.idToken); // still defined in Code.js
         var claims = (check && check.ok && check.claims) ? check.claims : null;
-        var givenName = (claims && (claims.given_name || claims.givenName)) || '';
-        var familyName = (claims && (claims.family_name || claims.familyName)) || '';
+        givenName = (claims && (claims.given_name || claims.givenName)) || '';
+        familyName = (claims && (claims.family_name || claims.familyName)) || '';
         if (claims && claims.email) {
           userEmail = String(claims.email || '');
         }
       }
     } catch (_) {}
+
+    // If verifyIdToken_ didn't give us claims, fall back to decoding the JWT locally
+    if (payload.idToken && (!userEmail || !givenName || !familyName)) {
+      try {
+        var rawClaims = decodeJwtClaims_(payload.idToken);
+        if (rawClaims) {
+          if (!userEmail && rawClaims.email) userEmail = String(rawClaims.email);
+          if (!givenName && (rawClaims.given_name || rawClaims.givenName)) givenName = String(rawClaims.given_name || rawClaims.givenName);
+          if (!familyName && (rawClaims.family_name || rawClaims.familyName)) familyName = String(rawClaims.family_name || rawClaims.familyName);
+        }
+      } catch (e) {
+        console.warn('Processor: failed to decode idToken claims', e);
+      }
+    }
+
+    // Fallbacks when no ID token email
+    if (!userEmail) {
+      userEmail = String(
+        (payload && (
+          payload.email ||
+          payload.user_email ||
+          (payload.user && payload.user.email) ||
+          (Array.isArray(payload.emails) && payload.emails.length ? payload.emails[0] : '')
+        )) || ''
+      ).trim();
+    }
   
-    // Resolve names: prefer ID token claims; fall back to payload.name
-    var firstName = givenName || '';
-    var lastName = familyName || '';
+    // Resolve names: prefer ID token claims; then payload explicit fields; then payload.name split
+    var firstName = givenName || payload.given_name || payload.givenName || payload.first_name || payload.firstName || '';
+    var lastName = familyName || payload.family_name || payload.familyName || payload.last_name || payload.lastName || '';
     if ((!firstName || !lastName) && typeof payload.name === 'string') {
       try {
         var parts = payload.name.trim().split(/\s+/);
         if (!firstName) firstName = parts.length ? parts[0] : '';
-        if (!lastName) lastName = parts.length ? parts[parts.length - 1] : '';
+        if (!lastName) lastName = parts.length > 1 ? parts[parts.length - 1] : lastName;
       } catch (_) {}
     }
-    if (typeof payload.first_name === 'string' && !firstName) firstName = payload.first_name;
-    if (typeof payload.last_name === 'string' && !lastName) lastName = payload.last_name;
-    if (typeof payload.lastName === 'string' && !lastName) lastName = payload.lastName;
 
     // Allow the client to send quizzes_passed (renamed to quizzes_passed_new)
     var assignedGene = payload.assignedGene || payload.assigned_gene || '';
@@ -74,5 +100,38 @@ function processSubmission_(payload) {
       result.wetlab_id = payload.wetlab_id;
     }
 
+    // Persist grades to the gradebook sheet (one row per email; quiz slugs as columns)
+    try {
+      if (typeof GradesRecorder !== 'undefined' && GradesRecorder && typeof GradesRecorder.recordResult === 'function') {
+        GradesRecorder.recordResult(result);
+      } else {
+        console.warn('GradesRecorder.recordResult is not available; skipping grade recording.');
+      }
+    } catch (e) {
+      console.error('Failed to record grades:', e);
+    }
+
     return result;
   }
+
+// Decode a JWT and return its JSON claims without verification
+function decodeJwtClaims_(jwt) {
+  if (!jwt || typeof jwt !== 'string') return null;
+  var parts = jwt.split('.');
+  if (parts.length < 2) return null;
+  var b64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+  // Pad base64 if needed
+  while (b64.length % 4 !== 0) b64 += '=';
+  var json;
+  try {
+    json = Utilities.newBlob(Utilities.base64Decode(b64)).getDataAsString();
+  } catch (e) {
+    // Fallback: UrlFetchApp based atob emulation if needed (rare)
+    return null;
+  }
+  try {
+    return JSON.parse(json);
+  } catch (e2) {
+    return null;
+  }
+}
