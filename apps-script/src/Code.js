@@ -291,46 +291,14 @@ function respondJsonp_(callbackName, obj) {
 function doGet(e) {
   // Token lookup endpoint (JSON/JSONP): /exec?ref=VIEW_TOKEN[&callback=...]
   if (e && e.parameter && e.parameter.ref) {
-    try {
-      var ref = String(e.parameter.ref);
-      var payload = null;
-      try { payload = loadViewerPayload_(ref); } catch (_) {}
-      // If a JSONP callback is provided, preserve existing JSONP behavior for compatibility.
-      if (e.parameter.callback) {
-        var jsonpResponse = payload ? { ok: true, payload: payload } : { ok: false, error: 'ref_not_found_or_expired' };
-        return respondJsonp_(e.parameter.callback, jsonpResponse);
-      }
-      // No callback → return HTML instead of JSON.
-      if (!payload) {
-        // Show a small HTML error page rather than JSON.
-        var errHtml = '<!doctype html><html><head><meta charset="utf-8"><title>Reference not found</title></head>'
-          + '<body style="font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:24px">'
-          + '<h1>Viewer link expired or not found</h1><p>Please retry your submission.</p>'
-          + '</body></html>';
-        return HtmlService.createHtmlOutput(errHtml).setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
-      }
-      // If the stored payload includes raw HTML, render it directly.
-      if (payload.viewerHtml && String(payload.viewerHtml).trim().length) {
-        return HtmlService.createHtmlOutput(String(payload.viewerHtml))
-          .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
-      }
-      // If a viewer URL is present, redirect the user to that URL.
-      if (payload.viewerUrl && String(payload.viewerUrl).trim().length) {
-        return renderRedirectPage_(String(payload.viewerUrl));
-      }
-      // Fallback: pretty HTML rendering of the payload (keeps prior viewer styling).
-      return renderPage_({ ok:true, payload: payload }, 'GET-ref');
-    } catch (refErr) {
-      var failObj = { ok:false, error:'ref_lookup_failed', details:String(refErr) };
-      // Preserve JSONP if callback present; otherwise return an HTML error page.
-      if (e && e.parameter && e.parameter.callback) {
-        return respondJsonp_(e.parameter.callback, failObj);
-      }
-      var errHtml2 = '<!doctype html><html><head><meta charset="utf-8"><title>Reference lookup failed</title></head>'
-        + '<body style="font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:24px">'
-        + '<h1>Reference lookup failed</h1><pre>' + sanitize_(failObj.details) + '</pre></body></html>';
-      return HtmlService.createHtmlOutput(errHtml2).setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
-    }
+    // Ref-based viewer has been removed in favor of simple data-return.
+    var message = ''
+      + '<!doctype html><html><head><meta charset="utf-8"><title>Viewer removed</title></head>'
+      + '<body style="font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:24px">'
+      + '<h1>Ref-based viewer removed</h1>'
+      + '<p>This web app no longer stores or serves viewer pages. The client now posts data and renders the page locally.</p>'
+      + '</body></html>';
+    return HtmlService.createHtmlOutput(message).setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
   }
   // JSONP bypass for CORS: /exec?callback=fn&json_payload=...
   try {
@@ -341,65 +309,14 @@ function doGet(e) {
         if (e.parameter && e.parameter.json_payload) {
           payload = JSON.parse(String(e.parameter.json_payload));
         } else {
-          // Allow passing individual fields as query params as a fallback
           var params = e.parameter || {};
           Object.keys(params).forEach(function(k){ if (k !== 'callback') payload[k] = params[k]; });
         }
       } catch (parseErr) {
-        return respondJsonp_(cb, { ok:false, error:'bad_json_payload', details:String(parseErr) });
+        return respondJsonp_(cb, { error:'bad_json_payload', details:String(parseErr) });
       }
-
-      if (!payload.idToken) {
-        return respondJsonp_(cb, { ok:false, error:'Missing idToken in payload. Authenticate with Google first.' });
-      }
-      var tokenCheck = verifyIdToken_(payload.idToken);
-      if (!tokenCheck.ok) {
-        return respondJsonp_(cb, { ok:false, error:'Invalid Google ID token', details: tokenCheck });
-      }
-      var idt = tokenCheck.claims || {};
-
-      var isDup = wasRecentlySeen_(payload.submissionId);
-      var result = summarize_(payload, 'GET-JSONP');
-      result.duplicate = isDup;
-      result.idToken = {
-        aud: idt.aud || '',
-        sub: idt.sub || '',
-        email: idt.email || '',
-        email_verified: String(idt.email_verified) === 'true',
-        iss: idt.iss || '',
-        iat: idt.iat || '',
-        exp: idt.exp || '',
-        hd: idt.hd || ''
-      };
-      if (result && result.idToken && result.idToken.email) {
-        result.effectiveEmail = result.idToken.email;
-        result.clientEmail = result.clientEmail || result.idToken.email;
-      }
-      // Invoke Processor to decide follow-up actions (e.g., open viewer)
-      try {
-        var processing = processSubmission_(payload, idt);
-        if (processing) {
-          // Always propagate the ref if present
-          if (processing.ref) {
-            result.viewerRef = processing.ref;
-          }
-          // Prefer a fully formed viewerUrl
-          if (processing.viewerUrl) {
-            result.viewerUrl = processing.viewerUrl;
-            result.openViewer = true;
-          } else if (processing.ref) {
-            // If no viewerUrl, still signal client to open via fallback (?ref=...)
-            result.openViewer = true;
-          }
-          // Optional pass-throughs
-          if (processing.newlyPassed) result.newlyPassed = processing.newlyPassed;
-          if (processing.pp6Id) result.pp6Id = processing.pp6Id;
-        }
-      } catch (procErr) {
-        result.processorError = String(procErr);
-      }
-      if (!isDup) logSubmission_(result);
-      return respondJsonp_(cb, result);
+      var summary = makeSubmissionSummary_(payload);
+      return respondJsonp_(cb, summary);
     }
   } catch (jsonpErr) {
     // If JSONP path itself fails, fall through to normal GET rendering
@@ -449,8 +366,8 @@ function doGet(e) {
 
     if (e && e.parameter && e.parameter.json_payload) {
       var p = JSON.parse(e.parameter.json_payload);
-      var result = summarize_(p, 'GET');
-      return renderPage_(result, 'GET');
+      var summary = makeSubmissionSummary_(p);
+      return respondJson_(summary);
     }
   } catch (err) {
     return renderPage_({ error: 'Failed to parse json_payload', details: String(err) }, 'GET');

@@ -1,7 +1,7 @@
-// Apps Script submission helper (GIS Option 1 compatible) — uses JSONP to bypass CORS
-// NOTE: This utility assumes the caller already obtained a Google ID token
-// (OIDC JWT) via Google Identity Services and included it as payloadObj.idToken.
-// Do not attempt to open login popups from here; auth is handled by progress_manager.js.
+// Apps Script submission helper — minimal flow
+// The client obtains auth (if any) elsewhere, posts JSON to Apps Script via JSONP,
+// receives a small summary JSON, and ALWAYS renders a local page from that data.
+// No viewer tokens/URLs are used; nothing is stored or fetched later from Apps Script.
 
 const url = "https://script.google.com/macros/s/AKfycbwcs5BoLXZFa-jgZpYtwKc2galvKAjamrl9xR_U5-sNQFL_pnXV7d69TWhAzg446Ow/exec";
 
@@ -91,30 +91,20 @@ function buildResultHtml(summary) {
 
 /**
  * Launch a new page and inject the generated HTML.
- * Returns true if a window was opened.
+ * Opens a new tab directly to a Blob URL to avoid document.write issues.
+ * Returns true if a new window/tab was opened successfully.
  */
 function launchResultPage(summary) {
   const html = buildResultHtml(summary || {});
-  // Try to reuse an about:blank window to reduce popup blocking risk
-  const w = window.open('about:blank', '_blank', 'noopener');
-  if (!w) return false;
   try {
-    w.document.open();
-    w.document.write(html);
-    w.document.close();
+    const blob = new Blob([html], { type: 'text/html' });
+    const blobUrl = URL.createObjectURL(blob);
+    const w = window.open(blobUrl, '_blank'); // no 'noopener' so same-process write isn't needed
+    if (!w) return false; // popup likely blocked
     return true;
   } catch (err) {
-    console.warn('Failed to write result page:', err);
-    try {
-      // Fallback: create a Blob URL
-      const blob = new Blob([html], { type: 'text/html' });
-      const blobUrl = URL.createObjectURL(blob);
-      w.location = blobUrl;
-      return true;
-    } catch (e2) {
-      console.warn('Blob URL fallback failed:', e2);
-      return false;
-    }
+    console.warn('Failed to open result page via Blob URL:', err);
+    return false;
   }
 }
 
@@ -129,33 +119,26 @@ async function sendToAppsScript(payloadObj) {
     payloadObj = {};
   }
   if (!payloadObj.idToken) {
-    console.warn("sendToAppsScript: payload is missing idToken. The server will reject unauthenticated requests.");
+    console.warn("sendToAppsScript: payload is missing idToken (optional in simplified mode).");
   }
 
   // Always use JSONP to bypass CORS for Apps Script Web Apps
   const data = await sendToAppsScriptViaJsonp(payloadObj);
   console.log("Posted to Apps Script (JSONP).", data);
 
-  // New: the server now returns a simple summary JSON used to parameterize a page we launch.
-  // If legacy viewer hints are present, honor them; otherwise launch our own page.
+  // New strategy: always render locally from the minimal JSON returned by the server.
   try {
-    if (data && data.openViewer && data.viewerUrl) {
-      window.open(data.viewerUrl, '_blank', 'noopener');
-    } else if (data && data.viewerRef) {
-      const viewerUrl = url + '?ref=' + encodeURIComponent(data.viewerRef);
-      window.open(viewerUrl, '_blank', 'noopener');
-    } else if (data && (data.title || data.quizzes_passed || data.last_name)) {
-      const ok = launchResultPage(data);
-      if (!ok) {
-        console.warn('Popup blocked. As a fallback, replace the current tab with the result page.');
-        const html = buildResultHtml(data);
-        const blob = new Blob([html], { type: 'text/html' });
-        const blobUrl = URL.createObjectURL(blob);
-        window.location.href = blobUrl;
-      }
+    const ok = launchResultPage(data || {});
+    if (!ok) {
+      console.warn('Popup blocked. Fallback: replace current tab with the result page.');
+      const html = buildResultHtml(data || {});
+      const blob = new Blob([html], { type: 'text/html' });
+      const blobUrl = URL.createObjectURL(blob);
+      window.location.href = blobUrl;
+      // The browser will navigate away; URL will be revoked by the browser eventually.
     }
   } catch (openErr) {
-    console.warn('Unable to open viewer or result page:', openErr);
+    console.warn('Unable to open result page:', openErr);
   }
 
   return data;
