@@ -1,34 +1,49 @@
 /**
- * Processor.gs
- * Business logic for interpreting a submission payload.
+ * Processor.js
+ * Responsible for transforming a raw submission payload into the
+ * ultra-simple JSON summary consumed by launch-apps-script.
  */
 
-function processSubmission_(payload, idTokenClaims) {
-  var email = (idTokenClaims && idTokenClaims.email) || payload.email || "";
-
-  // Save the payload for short-term retrieval in a viewer page
-  var ref = saveViewerPayload_(payload, 600); // 10 minutes
-  var baseUrl;
-  try {
-    baseUrl = PropertiesService.getScriptProperties().getProperty('REPORT_VIEWER_URL') || '';
-  } catch (err) {
-    baseUrl = '';
+/**
+ * Build the ultra-simple response shape.
+ * @param {Object} payload - JSON body posted by the client.
+ * @return {Object}
+ */
+function processSubmission_(payload) {
+    payload = payload || {};
+  
+    // Try to derive user email from the Google ID token (best-effort)
+    var userEmail = '';
+    try {
+      if (payload.idToken) {
+        var check = verifyIdToken_(payload.idToken); // still defined in Code.js
+        if (check && check.ok && check.claims && check.claims.email) {
+          userEmail = String(check.claims.email || '');
+        }
+      }
+    } catch (_) {}
+  
+    // Resolve last name from common fields
+    var lastName = '';
+    if (typeof payload.last_name === 'string') lastName = payload.last_name;
+    else if (typeof payload.lastName === 'string') lastName = payload.lastName;
+    else if (typeof payload.name === 'string') {
+      try {
+        var parts = payload.name.trim().split(/\s+/);
+        lastName = parts.length ? parts[parts.length - 1] : '';
+      } catch (_) {}
+    }
+  
+    // Allow the client to send quizzes_passed
+    var quizzesPassed = [];
+    if (Array.isArray(payload.quizzes_passed)) quizzesPassed = payload.quizzes_passed.slice();
+    else if (Array.isArray(payload.quizzesPassed)) quizzesPassed = payload.quizzesPassed.slice();
+  
+    return {
+      title: 'new one (from Processor.js) Successful submission of quiz results!',
+      user_email: userEmail,
+      assigned_gene: (payload.assignedGene || ''),
+      quizzes_passed: quizzesPassed,
+      last_name: lastName
+    };
   }
-  var viewerUrl = baseUrl ? (baseUrl + '?ref=' + encodeURIComponent(ref)) : '';
-
-  return {
-    ok: true,
-    email: email,
-    openViewer: !!viewerUrl,
-    viewerUrl: viewerUrl,
-    ref: ref
-  };
-}
-
-function saveViewerPayload_(payload, ttlSec) {
-  var key = 'view:' + Utilities.getUuid();
-  var cache = CacheService.getScriptCache();
-  var ttl = Math.max(30, Math.min(ttlSec || 600, 1200));
-  cache.put(key, JSON.stringify(payload), ttl);
-  return key;
-}

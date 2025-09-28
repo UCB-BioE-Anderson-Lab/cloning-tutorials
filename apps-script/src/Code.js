@@ -383,41 +383,25 @@ function doGet(e) {
  * @param {Object} payload - JSON body posted by the client.
  * @return {Object}
  */
+/**
+ * Thin delegator to Processor.js
+ * @param {Object} payload
+ * @return {Object}
+ */
 function makeSubmissionSummary_(payload) {
-  payload = payload || {};
-  // Try to derive user email from the Google ID token (best-effort)
-  var userEmail = '';
   try {
-    if (payload.idToken) {
-      var check = verifyIdToken_(payload.idToken);
-      if (check && check.ok && check.claims && check.claims.email) {
-        userEmail = String(check.claims.email || '');
-      }
-    }
-  } catch (_) {}
-  console.log(payload)
-  // Resolve last name from common fields, defaulting to empty string.
-  var lastName = '';
-  if (typeof payload.last_name === 'string') lastName = payload.last_name;
-  else if (typeof payload.lastName === 'string') lastName = payload.lastName;
-  else if (typeof payload.name === 'string') {
-    try {
-      var parts = payload.name.trim().split(/\s+/);
-      lastName = parts.length ? parts[parts.length - 1] : '';
-    } catch (_) {}
+    return processSubmission_(payload || {});
+  } catch (e) {
+    // Fail-safe minimal object so the client still renders something.
+    return {
+      title: 'Processor error',
+      user_email: '',
+      assigned_gene: '',
+      quizzes_passed: [],
+      last_name: '',
+      error: String(e)
+    };
   }
-  // Allow the client to send quizzes_passed; otherwise default to empty array.
-  var quizzesPassed = [];
-  if (Array.isArray(payload.quizzes_passed)) quizzesPassed = payload.quizzes_passed.slice();
-  else if (Array.isArray(payload.quizzesPassed)) quizzesPassed = payload.quizzesPassed.slice();
-
-  return {
-    title: 'new one (from code.js) Successful submission of quiz results!',
-    user_email: userEmail,
-    assigned_gene: (payload.assignedGene || ''),
-    quizzes_passed: quizzesPassed,
-    last_name: lastName
-  };
 }
 
 /** ── POST: parse payload, dedupe, verify, log, render ─────────────────── */
