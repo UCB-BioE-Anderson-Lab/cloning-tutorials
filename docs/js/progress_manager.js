@@ -365,6 +365,7 @@ function sortSignableArrays(signable) {
 
     async generateSubmissionSummary() {
         let userName = localStorage.getItem("quizUserName") || ""; // optional; will rely on server email
+        // We'll decode the ID token later to derive last_name (no separate profile fetch)
 
         const required = this.hierarchy;
         const progressByQuiz = {};
@@ -446,13 +447,13 @@ function sortSignableArrays(signable) {
         const digest = await crypto.subtle.digest("SHA-256", data);
         const hashArray = Array.from(new Uint8Array(digest));
         const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        lines.push(`Checksum: ${hashHex}`);
+        // lines.push(`Checksum: ${hashHex}`);    // No longer include checksum in human-readable report
 
         const finalReport = lines.join("\n");
 
         let userEmail = localStorage.getItem("quizUserEmail") || ""; // optional; server will capture CalNet email
 
-        // Construct payload (as before)
+        // Build a minimal, privacy-reduced payload for Apps Script
         const completed = [];
         for (const section in required) {
           const tutorials = required[section];
@@ -481,75 +482,19 @@ function sortSignableArrays(signable) {
           return;
         }
         const submissionId = uuidv4();
+        // Build a minimal, privacy-reduced payload for Apps Script
+        const claims = decodeJwtPayload(idToken) || {};
+        const lastNameFromToken = (claims.family_name || claims.familyName || "");
+        const quizzes_passed = completed.map(x => x.id); // tutorial IDs that are fully passed
+
         const payload = {
-          // Core submission details
           submissionId,
-          idToken, // Google ID token (OIDC JWT) to be verified by Apps Script
-          name: userName,
-          email: userEmail,
-          submissionDate: new Date().toISOString(),
-          submissionLocal: new Date().toLocaleString(),
-          assignedGene: gene?.name || "",
-          // Tutorial status
-          completed,
-          incompleteTutorials,
-          attempts: allAttempts,
-          // Raw evidence
-          rawProgress: this.progress,
-          // Human-readable report
-          reportText: finalReport,
-          // Versioning/metadata
-          payloadVersion: "v1.3",
-          clientVersion: "cloning-tutorials@dev",
-          gitCommit: "unknown",
-          buildAt: "unknown",
-          // Environment diagnostics (non-sensitive)
-          environment: {
-            originPage: window.location.href,
-            referrer: document.referrer || "",
-            siteTitle: document.title || "",
-            language: navigator.language || "",
-            languages: Array.isArray(navigator.languages) ? navigator.languages : [],
-            userAgent: navigator.userAgent || "",
-            platform: navigator.platform || "",
-            timeZone: (Intl.DateTimeFormat().resolvedOptions().timeZone) || "",
-            timezoneOffsetMinutes: new Date().getTimezoneOffset(),
-            cookiesEnabled: navigator.cookieEnabled === true,
-            pixelRatio: window.devicePixelRatio || 1,
-            screen: {
-              width: (window.screen && window.screen.width) || null,
-              height: (window.screen && window.screen.height) || null,
-              availWidth: (window.screen && window.screen.availWidth) || null,
-              availHeight: (window.screen && window.screen.availHeight) || null
-            },
-            viewport: {
-              innerWidth: window.innerWidth || null,
-              innerHeight: window.innerHeight || null
-            }
-          }
+          idToken,                       // still included so server can associate with a user if needed
+          submissionDate: new Date().toISOString()
         };
-
-        // Cap very large histories to keep payloads manageable in form POSTs
-        if (Array.isArray(payload.rawProgress) && payload.rawProgress.length > 2000) {
-          payload.rawProgress = payload.rawProgress.slice(-2000); // keep most recent entries
-        }
-
-        // Compute deterministic signature over a stable, canonical form
-        let signable = buildSignableSubset(payload);
-        // Ensure stable ordering in arrays
-        signable = sortSignableArrays(signable);
-        // Canonicalize object key order
-        const canonical = canonicalizeForSignature(signable);
-        const signableJson = JSON.stringify(canonical);
-        const signature = await sha256HexBrowser(signableJson);
-
-        payload.signature = signature;
-        payload.signatureSpec = {
-          alg: "SHA-256",
-          scope: Object.keys(signable)
-        };
-        // Add report checksum for auditing
-        payload.reportChecksum = hashHex;
+        if (gene && gene.name) payload.assignedGene = gene.name;
+        if (lastNameFromToken) payload.last_name = lastNameFromToken;
+        if (quizzes_passed.length > 0) payload.quizzes_passed = quizzes_passed;
 
         // Optional: size guard
         const approxBytes = new Blob([JSON.stringify(payload)]).size;
@@ -559,15 +504,13 @@ function sortSignableArrays(signable) {
 
         if (typeof window.sendToAppsScript === 'function') {
           window.sendToAppsScript(payload);
-          console.log('Submitted via middleware with signature.');
+          console.log('Submitted via middleware (minimal payload).', payload);
         } else {
           // Middleware not yet loaded — queue the submission and flush once available
           window._pendingSubmissions = window._pendingSubmissions || [];
           window._pendingSubmissions.push(payload);
           console.warn('Middleware not yet loaded; queued submission.');
         }
-
-        // No local popup: Apps Script will render the receipt/summary page.
     }
 
     setAssignedGene(gene) {

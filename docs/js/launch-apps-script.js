@@ -55,11 +55,21 @@ function escapeHtml(s) {
 /**
  * Build the result page HTML from the simple server response.
  * Expected shape:
- * { title: string, quizzes_passed: string[], last_name: string }
+ * {
+ *   title: string,
+ *   user_email: string,
+ *   assigned_gene: string,
+ *   quizzes_passed: string[],
+ *   last_name: string
+ * }
  */
 function buildResultHtml(summary) {
-  const title = escapeHtml(summary && summary.title || 'Submission received');
+  console.log("summary received back to tutorials:")
+  console.log(summary)
+  const title = escapeHtml(summary && summary.title || 'Successful submission');
   const lastName = escapeHtml(summary && summary.last_name || '');
+  const email = escapeHtml(summary && summary.user_email || '');
+  const assignedGene = escapeHtml(summary && summary.assigned_gene || '');
   const quizzes = Array.isArray(summary && summary.quizzes_passed) ? summary.quizzes_passed : [];
   const listItems = quizzes.map(q => '<li>' + escapeHtml(q) + '</li>').join('') || '<li>No quizzes listed</li>';
 
@@ -81,6 +91,8 @@ function buildResultHtml(summary) {
     '  <div class="card">',
     '    <h1>' + title + '</h1>',
     (lastName ? ('    <p class="muted">Hello, ' + lastName + '.</p>') : ''),
+    (email ? ('    <p class="muted">Email: ' + email + '</p>') : ''),
+    (assignedGene ? ('    <p class="muted">Assigned gene: ' + assignedGene + '</p>') : ''),
     '    <h2>Quizzes passed</h2>',
     '    <ul>' + listItems + '</ul>',
     '  </div>',
@@ -114,6 +126,8 @@ function launchResultPage(summary) {
  * @returns {Promise<any>} - Resolves with parsed JSON (if any) or raw text.
  */
 async function sendToAppsScript(payloadObj) {
+  console.log("sendToAppsScript invoked with:");
+  console.log(payloadObj);
   if (!payloadObj || typeof payloadObj !== "object") {
     console.warn("sendToAppsScript: expected an object payload; using {}");
     payloadObj = {};

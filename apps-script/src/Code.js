@@ -385,6 +385,17 @@ function doGet(e) {
  */
 function makeSubmissionSummary_(payload) {
   payload = payload || {};
+  // Try to derive user email from the Google ID token (best-effort)
+  var userEmail = '';
+  try {
+    if (payload.idToken) {
+      var check = verifyIdToken_(payload.idToken);
+      if (check && check.ok && check.claims && check.claims.email) {
+        userEmail = String(check.claims.email || '');
+      }
+    }
+  } catch (_) {}
+  console.log(payload)
   // Resolve last name from common fields, defaulting to empty string.
   var lastName = '';
   if (typeof payload.last_name === 'string') lastName = payload.last_name;
@@ -401,7 +412,9 @@ function makeSubmissionSummary_(payload) {
   else if (Array.isArray(payload.quizzesPassed)) quizzesPassed = payload.quizzesPassed.slice();
 
   return {
-    title: 'Successful submission of quiz results!',
+    title: 'new one (from code.js) Successful submission of quiz results!',
+    user_email: userEmail,
+    assigned_gene: (payload.assignedGene || ''),
     quizzes_passed: quizzesPassed,
     last_name: lastName
   };
