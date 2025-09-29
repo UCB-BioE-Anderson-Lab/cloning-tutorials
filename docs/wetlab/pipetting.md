@@ -108,7 +108,7 @@ Follow all pipetting best practices and contamination precautions during this de
 
 ---
 
-## 🧪 Quiz: Pipetting Basics
+## Quiz: Pipetting Basics
 
 <p><em>Answer all questions correctly to pass. If you miss any, the quiz resets with a new randomized set.</em></p>
 
