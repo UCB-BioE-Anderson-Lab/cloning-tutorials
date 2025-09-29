@@ -48,7 +48,7 @@
 ## Sample Handling
 
 - **All items must be clearly labeled** with strain or plasmid names. Spelling must be correct and unambiguous.
-- **Every new or removed sample must be logged** in the [GitHub repository inventory](https://github.com/) (use the lab’s inventory repo).
+- **Every new or removed sample must be logged** in the inventory. Use your team's inventory in their Github repo.
 - **Tubes must be tightly sealed and labeled** (waterproof, cold-resistant labels recommended).
 
 ---
