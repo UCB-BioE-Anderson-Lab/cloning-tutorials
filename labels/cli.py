@@ -3,7 +3,7 @@ from pathlib import Path
 import argparse
 import sys
 
-from .engine import render as engine_render
+from .engine import render as engine_render, plan_pagination as engine_plan
 from .validators import validate_inputs
 
 def main() -> None:
@@ -28,14 +28,35 @@ def main() -> None:
         args.preview_dir.mkdir(parents=True, exist_ok=True)
 
     try:
-        validate_inputs(args.registry, args.layout)
+        validate_inputs(args.registry, args.layout, args.font_dir, args.spec)
         print("[ok] inputs validated", flush=True)
     except Exception as e:
         print(f"[error] validation failed: {e}", file=sys.stderr, flush=True)
         sys.exit(1)
 
     if args.dry_run:
-        print("[dry-run] inputs validated; no files will be written", flush=True)
+        print("[info] computing pagination plan", flush=True)
+        plan = engine_plan(
+            registry_path=args.registry,
+            layout_path=args.layout,
+            query=args.query,
+            limit=args.limit,
+            shuffle=args.shuffle,
+            start_offset=args.start_offset,
+            max_pages=args.max_pages,
+            spec_path=args.spec,
+        )
+        print("[dry-run] Pagination plan:", flush=True)
+        # Print simple key/values if present
+        for k in ("items", "capacity_per_page", "start_offset", "pages"):
+            if k in plan:
+                print(f"  {k}: {plan[k]}", flush=True)
+        # Optional per-page listing of label_ids, if provided by engine
+        pages = plan.get("pages_detail") or plan.get("pages")
+        if isinstance(pages, list) and pages and isinstance(pages[0], list):
+            for i, page in enumerate(pages, start=1):
+                ids = [str(getattr(it, "get", lambda *_: None)("label_id") or it.get("label_id", "?")) if isinstance(it, dict) else str(it) for it in page]
+                print(f"  Page {i}: {ids}", flush=True)
         return
 
     print(f"[info] rendering {args.registry} -> {args.out}", flush=True)
