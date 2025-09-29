@@ -229,6 +229,14 @@ function sortSignableArrays(signable) {
               "project_ispA": []
             }
           };
+        // Add "Trainings" section if it does not already exist
+        if (!this.hierarchy["Trainings"]) {
+          this.hierarchy["Trainings"] = {};
+        }
+        // Add "minus_80_freezer" tutorial under "Trainings" if it does not already exist
+        if (!this.hierarchy["Trainings"]["minus_80_freezer"]) {
+          this.hierarchy["Trainings"]["minus_80_freezer"] = ["minus80_quiz"];
+        }
     }
 
     static async create() {
