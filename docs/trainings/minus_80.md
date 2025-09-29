@@ -14,7 +14,7 @@
 
 ## Access Rules
 
-- **Supervisors Only:** This freezer is restricted to supervisors or designated personnel. Unauthorized access is not permitted.
+- **Supervisors Only:** This freezer is restricted to supervisors or designated personnel. Unauthorized access is not permitted. Access is enabled upon reading this tutorial, taking the quiz, logging in, and submitting your report. You will receive an email confirmation. You are then allowed to access the freezer.
 
 ---
 
