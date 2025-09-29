@@ -1747,73 +1747,163 @@ Steps: (1) Press plunger to first stop. (2) Insert tip into liquid. (3) Slowly r
 <p>Follow all pipetting best practices and contamination precautions during this demo.</p>
 <hr />
 <h2 id="quiz-pipetting-basics">🧪 Quiz: Pipetting Basics<a class="headerlink" href="#quiz-pipetting-basics" title="Permanent link">&para;</a></h2>
-<form id="pipetting_quiz_form">
-  <h3>1️⃣ Pipette Selection</h3>
-  <p>Which pipette could you use to accurately measure 0.5 µL?</p>
-  <label><input type="radio" name="q1" value="a"> P1000</label><br>
-  <label><input type="radio" name="q1" value="b"> P200</label><br>
-  <label><input type="radio" name="q1" value="c"> P20</label><br>
-  <label><input type="radio" name="q1" value="d"> Any pipette over 0.5 µL</label><br>
-  <p id="pipet_res_q1"></p>
+<p><em>Answer all questions correctly to pass. If you miss any, the quiz resets with a new randomized set.</em></p>
 
-  <h3>2️⃣ Pipetting Sequence</h3>
-  <p>What is the correct sequence for forward pipetting?</p>
-  <label><input type="radio" name="q2" value="a"> Insert tip → press plunger to second stop → draw liquid → dispense to first stop</label><br>
-  <label><input type="radio" name="q2" value="b"> Press plunger to first stop → insert tip → release plunger → dispense to second stop</label><br>
-  <label><input type="radio" name="q2" value="c"> Press to second stop → insert tip → release plunger → dispense to first stop</label><br>
-  <label><input type="radio" name="q2" value="d"> Insert tip → press to first stop → release in air → dispense to second stop</label><br>
-  <p id="pipet_res_q2"></p>
+<div id="pipetting_quiz_container"></div>
 
-  <h3>3️⃣ Pipette Handling</h3>
-  <p>Why should you never lay a pipette down with liquid inside?</p>
-  <label><input type="radio" name="q3" value="a"> It damages the tip</label><br>
-  <label><input type="radio" name="q3" value="b"> It breaks the plunger</label><br>
-  <label><input type="radio" name="q3" value="c"> Liquid can enter the barrel and damage the mechanism</label><br>
-  <label><input type="radio" name="q3" value="d"> It wastes reagent</label><br>
-  <p id="pipet_res_q3"></p>
-
-  <h3>4️⃣ Pipette Display</h3>
-  <p>On a P1000, a display of “200” means what volume?</p>
-  <label><input type="radio" name="q4" value="a"> 200 µL</label><br>
-  <label><input type="radio" name="q4" value="b"> 20.0 µL</label><br>
-  <label><input type="radio" name="q4" value="c"> 2.00 µL</label><br>
-  <label><input type="radio" name="q4" value="d"> 0.200 µL</label><br>
-  <p id="pipet_res_q4"></p>
-
-  <h3>5️⃣ Troubleshooting</h3>
-  <p>What should you do if you see an air bubble in the tip?</p>
-  <label><input type="radio" name="q5" value="a"> Dispense anyway—bubbles are normal</label><br>
-  <label><input type="radio" name="q5" value="b"> Increase the volume and retry</label><br>
-  <label><input type="radio" name="q5" value="c"> Discard the tip and repeat the step</label><br>
-  <label><input type="radio" name="q5" value="d"> Shake the pipette to dislodge it</label><br>
-  <p id="pipet_res_q5"></p>
-
-  <button type="button" id="pipet_submit_btn">Check Answers</button>
-</form>
+<div style="margin-top:1rem;">
+  <button type="button" id="pipetting_check_btn">Check Answers</button>
+  <button type="button" id="pipetting_reset_btn">Reset</button>
+  <span id="pipetting_quiz_status" style="margin-left:0.75rem;"></span>
+</div>
 
 <script>
-  document.getElementById("pipet_submit_btn").addEventListener("click", function () {
-    const answers = {
-      q1: "c",
-      q2: "b",
-      q3: "c",
-      q4: "a",
-      q5: "c"
-    };
-    ["q1", "q2", "q3", "q4", "q5"].forEach(function (q) {
-      const selected = document.querySelector(`input[name="${q}"]:checked`);
-      const result = document.getElementById(`pipet_res_${q}`);
-      if (selected && selected.value === answers[q]) {
-        result.innerHTML = "✅ Correct!";
-        if (typeof progressManager !== "undefined") {
-          progressManager.addCompletion(`pipet_${q}`, "correct");
-        }
-      } else {
-        result.innerHTML = "❌ Try again.";
-      }
+(function () {
+  // --- Question bank: topics with multiple variants. answer: true means statement is true. ---
+  const bank = [
+    { topic: 'Pipette Selection', variants: [
+      { text: "A P10 or P20 can be used to deliver 0.5 µL with careful technique.", answer: true },
+      { text: "Any pipette whose upper range exceeds 0.5 µL is appropriate for 0.5 µL measurements.", answer: false },
+      { text: "A P1000 is acceptable for accurately dispensing 0.5 µL.", answer: false },
+      { text: "Select the smallest pipette whose range includes your target volume (e.g., 0.5 µL → P10/P20), not larger models like P200 or P1000.", answer: true }
+    ]},
+
+    { topic: 'Tip Changes and Contamination', variants: [
+      { text: "One tip per sample is required to avoid cross‑contamination.", answer: true },
+      { text: "It is acceptable to reuse a tip for multiple different samples if it looks clean.", answer: false },
+    ]},
+
+    { topic: 'Workflow & Setup', variants: [
+      { text: "Arrange tubes, labels, and caps before picking up a tip so you don’t risk the tip accidentally touching something while you’re distracted.", answer: true },
+      { text: "It’s fine to open new tubes while holding a loaded tip; preparation order does not affect contamination risk.", answer: false },
+      { text: "Setting up the workspace before pipetting reduces the need to touch surfaces while holding a tip.", answer: true },
+      { text: "Planning your steps has no effect on contamination; only changing tips matters.", answer: false }
+    ]},
+
+    { topic: 'LTS vs Universal Tips', variants: [
+      { text: "LTS pipettes require matching LTS tips for a proper seal.", answer: true },
+      { text: "Universal tips seal fine on LTS pipettes in a pinch.", answer: false },
+      { text: "Using universal tips on LTS pipettes can lead to leaks and inaccurate volumes.", answer: true }
+    ]},
+
+    { topic: 'P1000 Handling', variants: [
+      { text: "Keep a P1000 vertical to prevent liquid entering the barrel.", answer: true },
+      { text: "Holding a P1000 sideways with liquid in the tip can let liquid run into the barrel.", answer: true },
+      { text: "It is safe to lay a P1000 down on the bench while there is liquid in the tip.", answer: false },
+      { text: "After aspirating with a P1000, keep it upright while moving to the destination.", answer: true },
+      { text: "Tilting a P1000 is recommended during transport because it reduces dripping.", answer: false }
+    ]}
+  ];
+
+  const container = document.getElementById('pipetting_quiz_container');
+  const statusEl = document.getElementById('pipetting_quiz_status');
+  const checkBtn = document.getElementById('pipetting_check_btn');
+  const resetBtn = document.getElementById('pipetting_reset_btn');
+
+  let currentSet = [];
+
+  function pickOnePerTopic() {
+    return bank.map(topic => {
+      const v = topic.variants[Math.floor(Math.random() * topic.variants.length)];
+      return { topic: topic.topic, text: v.text, answer: v.answer };
     });
-  });
+  }
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function renderQuiz() {
+    container.innerHTML = '';
+    statusEl.textContent = '';
+    checkBtn.disabled = false;
+    resetBtn.textContent = 'Reset';
+
+    currentSet = shuffle(pickOnePerTopic());
+
+    currentSet.forEach((q, idx) => {
+      const qId = `q${idx + 1}`;
+      const block = document.createElement('div');
+      block.className = 'pipetting-quiz-item';
+      block.style.margin = '0.75rem 0';
+
+      const h = document.createElement('h4');
+      h.textContent = `${idx + 1}. ${q.text}`;
+      h.style.margin = '0 0 0.35rem 0';
+      block.appendChild(h);
+
+      const trueId = `${qId}_true`;
+      const falseId = `${qId}_false`;
+
+      const trueLbl = document.createElement('label');
+      trueLbl.style.marginRight = '1rem';
+      trueLbl.innerHTML = `<input type="radio" name="${qId}" id="${trueId}" value="true"> True`;
+      block.appendChild(trueLbl);
+
+      const falseLbl = document.createElement('label');
+      falseLbl.innerHTML = `<input type="radio" name="${qId}" id="${falseId}" value="false"> False`;
+      block.appendChild(falseLbl);
+
+      const feedback = document.createElement('p');
+      feedback.id = `${qId}_res`;
+      feedback.style.margin = '0.35rem 0 0 0';
+      block.appendChild(feedback);
+
+      container.appendChild(block);
+    });
+  }
+
+  function checkAnswers() {
+    let allAnswered = true;
+    let allCorrect = true;
+
+    currentSet.forEach((q, idx) => {
+      const qId = `q${idx + 1}`;
+      const chosen = container.querySelector(`input[name="${qId}"]:checked`);
+      const feedback = document.getElementById(`${qId}_res`);
+      if (!chosen) {
+        allAnswered = false;
+        feedback.textContent = 'Please choose True or False.';
+        return;
+      }
+      const val = chosen.value === 'true';
+      const correct = (val === q.answer);
+      allCorrect = allCorrect && correct;
+      feedback.textContent = correct ? '✅ Correct' : '❌ Incorrect';
+    });
+
+    if (!allAnswered) {
+      statusEl.textContent = 'Answer all questions before submitting.';
+      return;
+    }
+
+    if (allCorrect) {
+      statusEl.textContent = '✅ Passed';
+      if (typeof progressManager !== 'undefined') {
+        progressManager.addCompletion('pipetting_quiz', 'correct');
+      }
+    } else {
+      statusEl.textContent = '❌ One or more answers were incorrect. Review the feedback below, then click "New set" to try again.';
+      container.querySelectorAll('input[type="radio"]').forEach(el => { el.disabled = true; });
+      checkBtn.disabled = true;
+      resetBtn.textContent = 'New set';
+      resetBtn.focus();
+    }
+  }
+
+  statusEl.setAttribute('aria-live', 'polite');
+
+  document.getElementById("pipetting_check_btn").addEventListener("click", checkAnswers);
+  document.getElementById("pipetting_reset_btn").addEventListener("click", renderQuiz);
+
+  renderQuiz();
+})();
 </script>
+
 <!-- 
 ### 🎥 Watch Before Lab
 
