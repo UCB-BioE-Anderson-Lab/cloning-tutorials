@@ -31,8 +31,9 @@ def validate_inputs(
     registry_path: Path,
     layout_path: Path,
     font_dir: Optional[Path] = None,
+    spec_path: Optional[Path] = None,
 ) -> None:
-    """Fast, opinionated checks for the registry CSV and layout YAML.
+    """Fast, opinionated checks for the registry CSV, layout YAML, and optional spec CSV.
 
     Raises on hard failures; prints concise warnings for soft issues.
     """
@@ -87,6 +88,26 @@ def validate_inputs(
         first_two = [next(reader, None), next(reader, None)]
         if all(r is None for r in first_two):
             raise ValueError("Registry appears to be empty (no data rows)")
+
+    # ---- Optional spec CSV sanity ----
+    if spec_path is not None:
+        _fail_if_missing(spec_path, "Spec file")
+        with open(spec_path, newline="", encoding="utf-8") as f:
+            spec_reader = csv.DictReader(f)
+            spec_headers = [h.strip().lower() for h in (spec_reader.fieldnames or [])]
+            if not spec_headers:
+                raise ValueError("Spec CSV has no header row")
+
+            def _has_any(names: tuple[str, ...]) -> bool:
+                return any(n in spec_headers for n in names)
+
+            if "label_id" not in spec_headers:
+                raise ValueError("Spec CSV must include 'label_id'")
+            if not _has_any(("col", "column", "x_pos")):
+                raise ValueError("Spec CSV must include a column index: one of col|column|x_pos")
+            if not _has_any(("row", "y_pos")):
+                raise ValueError("Spec CSV must include a row index: one of row|y_pos")
+            # page is optional
 
     # ---- Soft check: template fields vs headers ----
     text_fields: Set[str] = set()

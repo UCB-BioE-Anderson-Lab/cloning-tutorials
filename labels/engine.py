@@ -16,7 +16,6 @@ Dependencies (install via pip if needed):
 
 import io
 import math
-import random
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Tuple
@@ -255,28 +254,60 @@ def _load_registry(path: Path, query: Optional[str], limit: Optional[int], shuff
 # -------------------------
 
 def _load_spec(path: Path) -> List[dict]:
-    """Load a CSV spec with columns: label_id, x_pos, y_pos, [page].
-    x_pos and y_pos are 0-based grid indices (column, row).
-    'page' is 1-based and optional (default 1).
+    """Load a CSV spec mapping explicit slots.
+    Preferred header: label_id,col,row[,page] (1-based col/row)
+    Aliases accepted (case-insensitive):
+      - col:  col|column|x_pos
+      - row:  row|y_pos
+      - page: page (1-based; default 1)
+    If x_pos/y_pos are present, they are treated as **0-based** to match grid indices used in UI mockups;
+    if col/row are present, they are treated as **1-based** (human-friendly).
+    Returns a list of dicts with 0-based 'col'/'row' and 1-based 'page'.
     """
     import csv
-    rows = []
+    rows: List[dict] = []
     with open(path, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
-        required = ["label_id", "x_pos", "y_pos"]
-        missing = [c for c in required if c not in reader.fieldnames]
-        if missing:
-            raise ValueError(f"Spec file missing columns: {missing}")
+        if not reader.fieldnames:
+            raise ValueError("Spec file has no header row")
+        headers = [h.strip().lower() for h in reader.fieldnames]
+
+        def get(rec: dict, names: tuple[str, ...]) -> Optional[str]:
+            for n in names:
+                if n in rec and str(rec[n]).strip() != "":
+                    return rec[n]
+            return None
+
         for r in reader:
+            rec = { (k or '').strip().lower(): (v or '').strip() for k, v in r.items() }
+            lid = rec.get('label_id')
+            if not lid:
+                raise ValueError(f"Spec row missing label_id: {r}")
+
+            # Prefer 1-based col/row if present; else fall back to 0-based x_pos/y_pos
+            col_s = get(rec, ("col","column"))
+            row_s = get(rec, ("row",))
+            zero_col_s = get(rec, ("x_pos",))
+            zero_row_s = get(rec, ("y_pos",))
+            page_s = rec.get("page", "1") or "1"
+
             try:
-                rows.append({
-                    "label_id": r["label_id"],
-                    "col": int(r["x_pos"]),
-                    "row": int(r["y_pos"]),
-                    "page": int(r.get("page", "1") or "1"),
-                })
+                if col_s is not None and row_s is not None:
+                    col0 = int(col_s) - 1
+                    row0 = int(row_s) - 1
+                elif zero_col_s is not None and zero_row_s is not None:
+                    col0 = int(zero_col_s)
+                    row0 = int(zero_row_s)
+                else:
+                    raise ValueError("spec must include (col,row) or (x_pos,y_pos)")
+                page1 = int(page_s)
             except Exception as e:
-                print(f"[warn] skipping spec row due to parse error: {r} ({e})", flush=True)
+                raise ValueError(f"Invalid integers in spec row: {r}") from e
+
+            if col0 < 0 or row0 < 0 or page1 < 1:
+                raise ValueError(f"Spec indices must be non-negative (0-based for x_pos/y_pos) or >=1 for col/row: {r}")
+
+            rows.append({"label_id": lid, "col": col0, "row": row0, "page": page1})
     return rows
 
 # -------------------------
@@ -310,12 +341,43 @@ def plan_pagination(
     shuffle: bool = False,
     start_offset: int = 0,
     max_pages: Optional[int] = None,
+    spec_path: Optional[Path] = None,
 ) -> Dict[str, int]:
     """Compute pagination facts without rendering."""
     layout = _parse_layout(layout_path)
-    rows = _load_registry(registry_path, query=query, limit=limit, shuffle=shuffle)
-
     capacity = _capacity_per_page(layout.grid)
+    if spec_path is not None:
+        specs = _load_spec(spec_path)
+        # Build lookup to ensure label_ids exist in registry
+        rows = _load_registry(registry_path, query=None, limit=None, shuffle=False)
+        have = {str(r.get("label_id")) for r in rows}
+        missing = sorted({s["label_id"] for s in specs if str(s["label_id"]) not in have})
+        pages_by_no: Dict[int, List[dict]] = {}
+        from collections import defaultdict
+        tmp: Dict[int, List[dict]] = defaultdict(list)
+        for s in specs:
+            tmp[int(s["page"])].append(s)
+        # Order per page row-major
+        for pageno in sorted(tmp.keys()):
+            page_specs = tmp[pageno]
+            page_specs.sort(key=lambda d: (int(d["row"]), int(d["col"])) )
+            pages_by_no[pageno] = page_specs
+        total_pages = max(pages_by_no.keys()) if pages_by_no else 0
+        result = {
+            "items": len(specs),
+            "capacity_per_page": capacity,
+            "start_offset": 0,
+            "pages": total_pages,
+        }
+        # Provide page details as lists of label_ids for CLI pretty-printing
+        result["pages_detail"] = [
+            [d["label_id"] for d in pages_by_no[p]] for p in sorted(pages_by_no.keys())
+        ]
+        if missing:
+            result["missing_label_ids"] = missing
+        return result
+    # Fallback to normal registry-based planning
+    rows = _load_registry(registry_path, query=query, limit=limit, shuffle=shuffle)
     if start_offset < 0:
         start_offset = 0
 
