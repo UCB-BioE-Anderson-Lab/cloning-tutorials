@@ -281,4 +281,4 @@ Certain equipment and cabinets are marked with signage to indicate who may use t
 
 ## Reporting Completion (Berkeley Students Only)
 
-Berkeley students must report completion of this safety training by clicking **"Submit Report"** after passing the quiz.
+Berkeley students should report completion of this quiz by logging in with your berkeley.edu account and then clicking **"Submit Report"**.
