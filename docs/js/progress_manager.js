@@ -213,11 +213,10 @@ function sortSignableArrays(signable) {
               "sequencing_confirmation": [
                 "strategy_scenarios",
                 "primer_design",
-                "interpretation_q1",
-                "interpretation_q2",
-                "interpretation_q3",
-                "interpretation_q4"
-                ],
+                "ptp2_quiz_part1",
+                "ptp2_quiz_part1_details",
+                "ptp2_quiz_part2"
+              ],
             },
             "Project Planning": {
               "project_setup": [],

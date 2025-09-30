@@ -1,5 +1,15 @@
 
+
 # Sequencing Confirmation
+
+<script>
+  // Global progress helper for all quizzes on this page
+  window.pmComplete = function (key, status) {
+    if (window.progressManager && typeof window.progressManager.addCompletion === "function") {
+      window.progressManager.addCompletion(key, status);
+    }
+  };
+</script>
 
 
 
@@ -66,10 +76,12 @@ Three options cover most needs. Choose based on scope and cost, then follow the 
       q3: "full_plasmid"
     };
     let allCorrect = true;
+    let anyAnswered = false;
 
     ["q1", "q2", "q3"].forEach(function (q) {
       const selected = document.querySelector(`select[name="${q}"]`).value;
       const result = document.getElementById(`res_${q}`);
+      if (selected) anyAnswered = true;
       if (selected === answers[q]) {
         result.innerHTML = "✅ Correct!";
       } else {
@@ -102,8 +114,10 @@ Three options cover most needs. Choose based on scope and cost, then follow the 
       }
     });
 
-    if (allCorrect && typeof progressManager !== "undefined") {
-      progressManager.addCompletion("strategy_scenarios", "correct");
+    if (allCorrect) {
+      pmComplete("strategy_scenarios", "correct");
+    } else {
+      pmComplete("strategy_scenarios", anyAnswered ? "incorrect" : "incomplete");
     }
   });
 </script>
@@ -127,7 +141,7 @@ If you're using cycle sequencing, you must provide a primer. This primer must bi
 
 ### Quiz: Primer Design for T7 + INS
 
-Download the plasmid: [⬇️ pET-INS.seq](../assets/pET-INS.seq)
+Download the plasmid: [⬇️ pET-INS.seq](../../assets/pET-INS.seq)
 
 Your goal: Design a 20 bp oligo that will allow a sequencing read to start at the **T7 promoter** and cover the **INS gene**.
 
@@ -143,11 +157,12 @@ Paste your oligo sequence below (5' to 3', exact match to template strand):
   document.getElementById("primer_submit_btn").addEventListener("click", function () {
     const input = document.getElementById("primer_input").value.toUpperCase().trim();
     const result = document.getElementById("primer_result");
+    let logged = false;
 
     // Check length first
     if (input.length < 18 || input.length > 25) {
       result.innerHTML = "❌ Primer must be between 18 and 25 bases.";
-      return;
+      pmComplete("primer_design", "incomplete"); logged = true; return;
     }
 
     // Define correct region (upstream of T7 promoter)
@@ -159,17 +174,19 @@ Paste your oligo sequence below (5' to 3', exact match to template strand):
 
     if (correctRegion.includes(input)) {
       result.innerHTML = "✅ Correct! This primer will initiate a read across T7 and INS.";
-      if (typeof progressManager !== "undefined") {
-        progressManager.addCompletion("primer_design", "correct");
-      }
+      pmComplete("primer_design", "correct"); return;
     } else if (reverseRegion.includes(input)) {
       result.innerHTML = "❌ This is the reverse complement of the correct primer. Try again using the forward strand.";
+      pmComplete("primer_design", "incorrect"); return;
     } else if (downstreamRegion.includes(input)) {
       result.innerHTML = "❌ This primer is on the 3' end of INS, not upstream of your target.";
+      pmComplete("primer_design", "incorrect"); return;
     } else if (wrongRegion.includes(input)) {
       result.innerHTML = "❌ This primer is not close enough to the target sequence";
+      pmComplete("primer_design", "incorrect"); return;
     } else {
       result.innerHTML = "❌ That's not a valid primer for this purpose. Make sure you're selecting a sequence upstream of T7.";
+      pmComplete("primer_design", "incorrect");
     }
   });
 </script>
@@ -288,219 +305,219 @@ Make a single call for each sample using the criteria below. Use the definitions
 
 ---
 
-### Quiz: Sequence Interpretation
+### Quiz: Single-case: pTP2 Clone A
 
-Download the full quiz data set here:  
+pTP2 was one of the parent plasmids of pP6. We started with pTP1 that had a medium-strength promoter driving amilGFP. We then inserted the RBS and CDS of lacZα between the promoter and FP to get pTP2. We picked several clones of pTP2 and sent for sequencing with oligo G00101. The read, 69-pTP2AF_E09_071, was received for clone A. F means forward. The read and trace are provided below for download.
 
- [⬇️ Download All Cases (ZIP)](../assets/sequence_cases.zip)
+**Question:** Is clone A consistent with the model?
 
-Each folder in the zip includes:
+**Downloads (Part 1)**
 
-- A `.str` model file
-- A `.ab1` trace file
-- A `.txt` read file
+- Model: [pTP2.seq](../../assets/sequencing_files/pTP2.seq)
+- Clone A forward read (trace): [69-pTP2AF_E09_071.ab1](../../assets/sequencing_files/69-pTP2AF_E09_071.ab1)
+- Clone A forward read (base calls): [69-pTP2AF_E09_071.seq](../../assets/sequencing_files/69-pTP2AF_E09_071.seq)
 
-Below are six real-world sequencing cases. For each clone, download the files, analyze them, and select the best interpretation.
+<form id="ptp2_quiz_part1" style="margin-top: 12px;">
+  <label for="part1_call"><strong>Final call for Clone A (forward read only):</strong></label>
+  <select id="part1_call" name="part1_call" required>
+    <option value="">--Select--</option>
+    <option value="perfect">Perfect</option>
+    <option value="perfect_partial">Perfect Partial</option>
+    <option value="mixed">Mixed Clone</option>
+    <option value="deletion">Deletion</option>
+    <option value="point_mutation">Point Mutation</option>
+    <option value="missense_mutation">Missense Mutation</option>
+    <option value="nonsense_mutation">Nonsense Mutation</option>
+    <option value="indel">Indel</option>
+    <option value="failed">Failed</option>
+  </select>
 
-<form id="sequencing_cases_form">
-  <ol>
-    <li>
-      <strong>Clone 1: JCAseq_pSB1A2-Bca9143</strong><br>
-      Model: <a href="../assets/sequencing_files/JCAseq_pSB1A2-Bca9143.str" download>JCAseq_pSB1A2-Bca9143.str</a><br>
-      Trace: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_004.ab1" download>jca388_G00101_2007-03-10_E02_004.ab1</a><br>
-      Calls: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_004.txt" download>jca388_G00101_2007-03-10_E02_004.txt</a><br>
-      <label for="case1_select">What is the outcome?</label>
-      <select id="case1_select" name="case1">
-        <option value="">--Select--</option>
-        <option value="perfect">Perfect</option>
-        <option value="perfect_partial">Perfect Partial</option>
-        <option value="mixed">Mixed Clone</option>
-        <option value="failed">Failed</option>
-        <option value="silent_mutation">Silent Mutation</option>
-        <option value="nonsense_mutation">Nonsense Mutation</option>
-        <option value="missense_mutation">Missense Mutation</option>
-        <option value="indel">Indel</option>
-      </select>
-      <span id="res_case1"></span>
-    </li>
-    <li>
-      <strong>Clone 2: JCAseq_pSB1A2-Bca9144</strong><br>
-      Model: <a href="../assets/sequencing_files/JCAseq_pSB1A2-Bca9144.str" download>JCAseq_pSB1A2-Bca9144.str</a><br>
-      Trace: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_005.ab1" download>jca388_G00101_2007-03-10_E02_005.ab1</a><br>
-      Calls: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_005.txt" download>jca388_G00101_2007-03-10_E02_005.txt</a><br>
-      <label for="case2_select">What is the outcome?</label>
-      <select id="case2_select" name="case2">
-        <option value="">--Select--</option>
-        <option value="perfect">Perfect</option>
-        <option value="perfect_partial">Perfect Partial</option>
-        <option value="mixed">Mixed Clone</option>
-        <option value="failed">Failed</option>
-        <option value="silent_mutation">Silent Mutation</option>
-        <option value="nonsense_mutation">Nonsense Mutation</option>
-        <option value="missense_mutation">Missense Mutation</option>
-        <option value="indel">Indel</option>
-      </select>
-      <span id="res_case2"></span>
-    </li>
-    <li>
-      <strong>Clone 3: JCAseq_pSB1A2-Bca9145</strong><br>
-      Model: <a href="../assets/sequencing_files/JCAseq_pSB1A2-Bca9145.str" download>JCAseq_pSB1A2-Bca9145.str</a><br>
-      Trace: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_006.ab1" download>jca388_G00101_2007-03-10_E02_006.ab1</a><br>
-      Calls: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_006.txt" download>jca388_G00101_2007-03-10_E02_006.txt</a><br>
-      <label for="case3_select">What is the outcome?</label>
-      <select id="case3_select" name="case3">
-        <option value="">--Select--</option>
-        <option value="perfect">Perfect</option>
-        <option value="perfect_partial">Perfect Partial</option>
-        <option value="mixed">Mixed Clone</option>
-        <option value="failed">Failed</option>
-        <option value="silent_mutation">Silent Mutation</option>
-        <option value="nonsense_mutation">Nonsense Mutation</option>
-        <option value="missense_mutation">Missense Mutation</option>
-        <option value="indel">Indel</option>
-      </select>
-      <span id="res_case3"></span>
-    </li>
-    <li>
-      <strong>Clone 4: JCAseq_pSB1A2-Bca9146</strong><br>
-      Model: <a href="../assets/sequencing_files/JCAseq_pSB1A2-Bca9146.str" download>JCAseq_pSB1A2-Bca9146.str</a><br>
-      Trace: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_007.ab1" download>jca388_G00101_2007-03-10_E02_007.ab1</a><br>
-      Calls: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_007.txt" download>jca388_G00101_2007-03-10_E02_007.txt</a><br>
-      <label for="case4_select">What is the outcome?</label>
-      <select id="case4_select" name="case4">
-        <option value="">--Select--</option>
-        <option value="perfect">Perfect</option>
-        <option value="perfect_partial">Perfect Partial</option>
-        <option value="mixed">Mixed Clone</option>
-        <option value="failed">Failed</option>
-        <option value="silent_mutation">Silent Mutation</option>
-        <option value="nonsense_mutation">Nonsense Mutation</option>
-        <option value="missense_mutation">Missense Mutation</option>
-        <option value="indel">Indel</option>
-      </select>
-      <span id="res_case4"></span>
-    </li>
-    <li>
-      <strong>Clone 5: JCAseq_pSB1A2-Bca9147</strong><br>
-      Model: <a href="../assets/sequencing_files/JCAseq_pSB1A2-Bca9147.str" download>JCAseq_pSB1A2-Bca9147.str</a><br>
-      Trace: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_008.ab1" download>jca388_G00101_2007-03-10_E02_008.ab1</a><br>
-      Calls: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_008.txt" download>jca388_G00101_2007-03-10_E02_008.txt</a><br>
-      <label for="case5_select">What is the outcome?</label>
-      <select id="case5_select" name="case5">
-        <option value="">--Select--</option>
-        <option value="perfect">Perfect</option>
-        <option value="perfect_partial">Perfect Partial</option>
-        <option value="mixed">Mixed Clone</option>
-        <option value="failed">Failed</option>
-        <option value="silent_mutation">Silent Mutation</option>
-        <option value="nonsense_mutation">Nonsense Mutation</option>
-        <option value="missense_mutation">Missense Mutation</option>
-        <option value="indel">Indel</option>
-      </select>
-      <span id="res_case5"></span>
-    </li>
-    <li>
-      <strong>Clone 6: JCAseq_pSB1A2-Bca9148</strong><br>
-      Model: <a href="../assets/sequencing_files/JCAseq_pSB1A2-Bca9148.str" download>JCAseq_pSB1A2-Bca9148.str</a><br>
-      Trace: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_009.ab1" download>jca388_G00101_2007-03-10_E02_009.ab1</a><br>
-      Calls: <a href="../assets/sequencing_files/jca388_G00101_2007-03-10_E02_009.txt" download>jca388_G00101_2007-03-10_E02_009.txt</a><br>
-      <label for="case6_select">What is the outcome?</label>
-      <select id="case6_select" name="case6">
-        <option value="">--Select--</option>
-        <option value="perfect">Perfect</option>
-        <option value="perfect_partial">Perfect Partial</option>
-        <option value="mixed">Mixed Clone</option>
-        <option value="failed">Failed</option>
-        <option value="silent_mutation">Silent Mutation</option>
-        <option value="nonsense_mutation">Nonsense Mutation</option>
-        <option value="missense_mutation">Missense Mutation</option>
-        <option value="indel">Indel</option>
-      </select>
-      <span id="res_case6"></span>
-    </li>
-  </ol>
-  <button type="button" id="sequencing_cases_submit">Check Answers</button>
+  <div id="part1_mixed_details" style="display:none; margin-top: 10px; padding: 8px; border: 1px solid #ddd;">
+    <p><strong>If you chose Mixed Clone:</strong> Provide the apparent amino acid change and its position based on the forward read.</p>
+    <label>Amino acid position: <input type="number" id="aa_pos_p1" min="1" step="1" placeholder="e.g., 34"></label><br>
+    <label>From: 
+      <input type="text" id="aa_from_p1" placeholder="e.g., Met or M">
+    </label>
+    <label>To: 
+      <input type="text" id="aa_to_p1" placeholder="e.g., Ile or I">
+    </label>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <button type="button" id="ptp2_part1_submit">Submit Part 1</button>
+  </div>
+  <p id="ptp2_part1_feedback" style="margin-top: 10px; font-weight: 600;"></p>
 </form>
-<div id="sequencing_cases_summary" style="margin-top: 12px; font-weight: 600;"></div>
+
+<div id="ptp2_part2" style="display:none; margin-top: 24px;">
+  <hr>
+  <p><strong>You correctly identified the apparent mixed position in the forward read.</strong> We also did a reverse read with primer <strong>ca998</strong>. Download the additional data below and answer again.</p>
+
+  <p><strong>Downloads (Part 2)</strong></p>
+  <ul>
+    <li>Reverse read for Clone A (trace): <a href="../../assets/sequencing_files/70-pTP2AR_F09_069.ab1">70-pTP2AR_F09_069.ab1</a></li>
+    <li>Reverse read for Clone A (base calls): <a href="../../assets/sequencing_files/70-pTP2AR_F09_069.seq">70-pTP2AR_F09_069.seq</a></li>
+    <li>Model (again): <a href="../../assets/sequencing_files/pTP2.seq">pTP2.seq</a></li>
+  </ul>
+
+
+  <form id="ptp2_quiz_part2" style="margin-top: 12px;">
+    <label for="part2_call"><strong>With both reads considered, is pTP2 a match to the expected sequence?</strong></label>
+    <select id="part2_call" name="part2_call" required>
+      <option value="">--Select--</option>
+      <option value="perfect">Perfect</option>
+      <option value="perfect_partial">Perfect Partial</option>
+      <option value="mixed">Mixed Clone</option>
+      <option value="deletion">Deletion</option>
+      <option value="point_mutation">Point Mutation</option>
+      <option value="missense_mutation">Missense Mutation</option>
+      <option value="nonsense_mutation">Nonsense Mutation</option>
+      <option value="indel">Indel</option>
+      <option value="failed">Failed</option>
+    </select>
+    <div style="margin-top: 10px;">
+      <button type="button" id="ptp2_part2_submit">Submit Part 2</button>
+    </div>
+    <p id="ptp2_part2_feedback" style="margin-top: 10px; font-weight: 600;"></p>
+  </form>
+</div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  function shuffleOptions(selectEl, correctValue) {
-    // Keep the placeholder (empty value) first
-    const placeholder = selectEl.querySelector('option[value=""]') || selectEl.querySelector('option:first-child');
-    const options = Array.from(selectEl.querySelectorAll('option')).filter(o => o !== placeholder);
-    // Detach existing non-placeholder options
-    options.forEach(o => selectEl.removeChild(o));
-    // Fisher-Yates shuffle on actual elements
-    for (let i = options.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [options[i], options[j]] = [options[j], options[i]];
+(function () {
+  // Progress manager helper (mirrors usage in other tutorials)
+  function pmComplete(key, status) {
+    if (window.progressManager && typeof window.progressManager.addCompletion === "function") {
+      window.progressManager.addCompletion(key, status);
     }
-    // Ensure the first non-placeholder option is not the correct answer
-    if (options.length > 1 && options[0].value === correctValue) {
-      const swapIdx = 1 + Math.floor(Math.random() * (options.length - 1));
-      [options[0], options[swapIdx]] = [options[swapIdx], options[0]];
-    }
-    // Append back in order (placeholder first, then shuffled)
-    options.forEach(o => selectEl.appendChild(o));
   }
-  const answers = [
-    "perfect",            // 1
-    "indel",              // 2
-    "perfect_partial",    // 3
-    "indel",              // 4
-    "failed",             // 5
-    "missense_mutation"   // 6
-  ];
-  // Randomize options for each case select to reduce guessing
-  for (let i = 1; i <= 6; ++i) {
-    const sel = document.getElementById(`case${i}_select`);
-    if (sel) shuffleOptions(sel, answers[i-1]);
+  // Utility: normalize amino acid tokens like "Ser" or "S"
+  function normAA(s) {
+    if (!s) return "";
+    s = s.trim().toUpperCase();
+    const map = {
+      "ALA":"A","ARG":"R","ASN":"N","ASP":"D","CYS":"C",
+      "GLN":"Q","GLU":"E","GLY":"G","HIS":"H","ILE":"I",
+      "LEU":"L","LYS":"K","MET":"M","PHE":"F","PRO":"P",
+      "SER":"S","THR":"T","TRP":"W","TYR":"Y","VAL":"V"
+    };
+    if (s.length > 1 && map[s]) return map[s];
+    if (s.length === 1 && Object.values(map).includes(s)) return s;
+    // Accept common text variants
+    if (s === "SEC") return "U";
+    return s.charAt(0); // fallback to first letter
   }
 
-  // Utility getters to avoid hard-coding node lookups elsewhere if expanded
-  function getCaseSelect(i) { return document.getElementById(`case${i}_select`); }
-  function getCaseResult(i) { return document.getElementById(`res_case${i}`); }
+  const part1CallSel = document.getElementById("part1_call");
+  const mixedDetails = document.getElementById("part1_mixed_details");
+  const p1Btn = document.getElementById("ptp2_part1_submit");
+  const p1Feedback = document.getElementById("ptp2_part1_feedback");
+  const part2Block = document.getElementById("ptp2_part2");
+  const p2Btn = document.getElementById("ptp2_part2_submit");
+  const p2Feedback = document.getElementById("ptp2_part2_feedback");
 
-  document.getElementById("sequencing_cases_submit").addEventListener("click", function () {
-    let correctCount = 0;
-    for (let i = 1; i <= 6; ++i) {
-      const select = document.getElementById(`case${i}_select`);
-      const result = document.getElementById(`res_case${i}`);
-      if (!select) continue;
-      if (select.value === answers[i-1]) {
-        result.innerHTML = " ✅";
-        correctCount += 1;
-        if (typeof progressManager !== "undefined") {
-          progressManager.addCompletion(`sequencing_case_${i}`, "correct");
-        }
-      } else {
-        result.innerHTML = " ❌";
-      }
+  // Show details only when "mixed" is selected
+  part1CallSel.addEventListener("change", function () {
+    mixedDetails.style.display = (this.value === "mixed") ? "block" : "none";
+    p1Feedback.textContent = "";
+  });
+
+  // Part 1 grading logic
+  p1Btn.addEventListener("click", function () {
+    const call = part1CallSel.value;
+    if (!call) {
+      p1Feedback.textContent = "Please choose a call before submitting.";
+      return;
     }
-    const summary = document.getElementById("sequencing_cases_summary");
-    if (summary) {
-      if (correctCount === answers.length) {
-        summary.textContent = "✅ All answers correct.";
-        if (typeof progressManager !== "undefined") {
-          progressManager.addCompletion("sequencing_cases_all_correct", "correct");
-        }
-      } else {
-        summary.textContent = `You have ${correctCount} / ${answers.length} correct. Review your analyses and try again.`;
-      }
+
+    // Feedback rules
+    if (call === "perfect") {
+      p1Feedback.textContent = "Try again.";
+      pmComplete("ptp2_quiz_part1", "incorrect");
+      return;
     }
-    // If any answer is wrong, reshuffle all option orders and clear incorrect selections
-    if (correctCount !== answers.length) {
-      for (let i = 1; i <= 6; ++i) {
-        const sel = document.getElementById(`case${i}_select`);
-        if (!sel) continue;
-        // Clear only incorrect selections to placeholder to prevent mindless resubmits
-        if (sel.value !== answers[i-1]) {
-          sel.value = "";
-        }
-        shuffleOptions(sel, answers[i-1]);
-      }
+    if (call === "deletion") {
+      p1Feedback.textContent = "Try again.";
+      pmComplete("ptp2_quiz_part1", "incorrect");
+      return;
+    }
+    if (call === "point_mutation" || call === "missense_mutation") {
+      p1Feedback.textContent = "That is not the best interpretation for this read. Examine the trace carefully and look at the erroneous position.";
+      pmComplete("ptp2_quiz_part1", "incorrect");
+      return;
+    }
+    if (call === "perfect_partial") {
+      p1Feedback.textContent = "If there are any errors present, then it is not perfect nor a partial validation.";
+      pmComplete("ptp2_quiz_part1", "incorrect");
+      return;
+    }
+    if (call !== "mixed") {
+      p1Feedback.textContent = "Not quite. Re-examine the alignment and the trace.";
+      pmComplete("ptp2_quiz_part1", "incorrect");
+      return;
+    }
+
+    // Mixed selected: require details
+    const pos = parseInt(document.getElementById("aa_pos_p1").value, 10);
+    const fromAA = normAA(document.getElementById("aa_from_p1").value);
+    const toAA = normAA(document.getElementById("aa_to_p1").value);
+
+    if (!pos || !fromAA || !toAA) {
+      p1Feedback.textContent = "Please provide the amino acid position and the from/to residues.";
+      pmComplete("ptp2_quiz_part1_details", "incomplete");
+      return;
+    }
+
+    // The correct forward-read apparent call is Ser -> Pro at position 98 due to a mixed peak where C is slightly dominant
+    const correctPos = 98;
+    const correctFrom = "S";
+    const correctTo = "P";
+
+    if (pos !== correctPos || fromAA !== correctFrom || toAA !== correctTo) {
+      p1Feedback.textContent = "Close. Remember how to count amino acid positions from the correct start codon and translate the region. The apparent mixed position in the forward read is at 98 and looks Ser to Pro. Re-check the trace.";
+      pmComplete("ptp2_quiz_part1_details", "incorrect");
+      pmComplete("ptp2_quiz_part1", "incorrect");
+      return;
+    }
+
+    // Success Part 1
+    p1Feedback.textContent = "✅ Correct. The forward read looks mixed at amino acid 98 with an apparent Ser to Pro. This unlocks Part 2.";
+    pmComplete("ptp2_quiz_part1", "correct");
+    pmComplete("ptp2_quiz_part1_details", "correct");
+    part2Block.style.display = "block";
+    // Scroll to Part 2
+    part2Block.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  // Part 2 grading logic
+  p2Btn.addEventListener("click", function () {
+    const call2 = document.getElementById("part2_call").value;
+    if (!call2) {
+      p2Feedback.textContent = "Please choose a call before submitting.";
+      return;
+    }
+    // Correct answer for Part 2 is Perfect after considering the reverse read
+    if (call2 === "perfect") {
+      p2Feedback.textContent = "✅ Correct. With the reverse read, the position is unambiguous and the sequence matches the model.";
+      pmComplete("ptp2_quiz_part2", "correct");
+    } else if (call2 === "perfect_partial") {
+      p2Feedback.textContent = "If there are any errors present, then it is not perfect nor a partial validation.";
+      pmComplete("ptp2_quiz_part2", "incorrect");
+    } else if (call2 === "mixed") {
+      p2Feedback.textContent = "Reconcile both traces and rethink your conclusions.";
+      pmComplete("ptp2_quiz_part2", "incorrect");
+    } else if (call2 === "deletion" || call2 === "indel") {
+      p2Feedback.textContent = "Try again. With both reads, there is no evidence for a deletion or indel.";
+      pmComplete("ptp2_quiz_part2", "incorrect");
+    } else if (call2 === "point_mutation" || call2 === "missense_mutation" || call2 === "nonsense_mutation") {
+      p2Feedback.textContent = "Reconcile both reads. There is no point, missense, or nonsense mutation here.";
+      pmComplete("ptp2_quiz_part2", "incorrect");
+    } else if (call2 === "failed") {
+      p2Feedback.textContent = "Reconcile both traces and rethink your conclusions.";
+      pmComplete("ptp2_quiz_part2", "incorrect");
+    } else {
+      p2Feedback.textContent = "Not quite. Re-check both reads and the model.";
+      pmComplete("ptp2_quiz_part2", "incorrect");
     }
   });
-});
+})();
 </script>
