@@ -1,0 +1,18 @@
+{
+  "toggles": { "fixtures": true, "stations": true, "equipment": true },
+
+  "stations": [
+    { "id": "PCR",        "place": { "bench": "bay.2.left" } },
+    { "id": "Gel",        "place": { "bench": "bay.2.right" } },
+    { "id": "Media Prep", "place": { "bench": "bay.2.right" } },
+    { "id": "Sterile A",  "place": { "bench": "perim.left.upper" } },
+    { "id": "Sterile B",  "place": { "bench": "perim.left.lower" } }
+  ],
+
+  "equipment": [
+    { "id": "centrifuge", "place": { "bench": "perim.top.seg0" } },
+    { "id": "163L Fridge","place": { "bench": "perim.top.seg0" } },
+    { "id": "incubator",  "place": { "bench": "bay.0.left" } },
+    { "id": "shaker",     "place": { "bench": "bay.0.right" } }
+  ]
+}
