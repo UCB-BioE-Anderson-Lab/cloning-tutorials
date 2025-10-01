@@ -1,0 +1,200 @@
+{
+  "_meta": {
+    "version": 1,
+    "notes": "Bench configuration by slug. Each value is a bench config. Stacks are placed relative to bench orientation: pos=left/middle/right is 'user-left' consistent for all benches. Drawer stacks include individually addressable drawers via their 'id'.",
+    "conventions": {
+      "pos": "left | middle | right (relative to bench orientation)",
+      "width": "1 for full-width column, 0.5 for skinny half-width",
+      "kind": "drawers | cupboard | shelves | other",
+      "code": "shorthand: 1=single drawer, 4=four drawers",
+      "segments": "vertical bench segment indices are 1-based (…-1, …-2, …-3)"
+    }
+  },
+
+  "left-upper": {
+    "equipment": ["glassware drying rack"],
+    "stacks": []
+  },
+  "left-lower": {
+    "equipment": [],
+    "stacks": []
+  },
+
+  "top-corner-extension": {
+    "equipment": ["centrifuge"],
+    "stacks": []
+  },
+  "top-sink-80": {
+    "equipment": [
+      { "name": "sink", "type": "fixed" },
+      { "name": "-80 freezer", "type": "movable" }
+    ],
+    "stacks": []
+  },
+  "top-4c": {
+    "equipment": ["4C fridge"],
+    "stacks": []
+  },
+  "top-imaging-area": {
+    "equipment": ["gel imager"],
+    "stacks": []
+  },
+
+  "right-upper": {
+    "equipment": [],
+    "stacks": []
+  },
+  "right-lower": {
+    "equipment": [],
+    "stacks": []
+  },
+
+  "bay1-left-1": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] },
+      { "pos": "right", "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] }
+    ]
+  },
+  "bay1-right-1": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] },
+      { "pos": "right", "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] }
+    ]
+  },
+
+  "bay1-left-2": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 4, "width": 1, "drawers": [ {"id": "d1"}, {"id": "d2"}, {"id": "d3"}, {"id": "d4"} ] },
+      { "pos": "right", "kind": "drawers", "code": 4, "width": 1, "drawers": [ {"id": "d1"}, {"id": "d2"}, {"id": "d3"}, {"id": "d4"} ] }
+    ]
+  },
+  "bay1-right-2": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 4, "width": 1, "drawers": [ {"id": "d1"}, {"id": "d2"}, {"id": "d3"}, {"id": "d4"} ] },
+      { "pos": "right", "kind": "drawers", "code": 4, "width": 1, "drawers": [ {"id": "d1"}, {"id": "d2"}, {"id": "d3"}, {"id": "d4"} ] }
+    ]
+  },
+
+  "bay1-left-3": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] },
+      { "pos": "right", "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] }
+    ]
+  },
+  "bay1-right-3": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] },
+      { "pos": "right", "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] }
+    ]
+  },
+
+  "bay2-left-1": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] },
+      { "pos": "right", "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] }
+    ]
+  },
+  "bay2-right-1": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] },
+      { "pos": "right", "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] }
+    ]
+  },
+
+  "bay2-left-2": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 4, "width": 1, "drawers": [ {"id": "d1"}, {"id": "d2"}, {"id": "d3"}, {"id": "d4"} ] },
+      { "pos": "right", "kind": "drawers", "code": 4, "width": 1, "drawers": [ {"id": "d1"}, {"id": "d2"}, {"id": "d3"}, {"id": "d4"} ] }
+    ]
+  },
+  "bay2-right-2": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 4, "width": 1, "drawers": [ {"id": "d1"}, {"id": "d2"}, {"id": "d3"}, {"id": "d4"} ] },
+      { "pos": "right", "kind": "drawers", "code": 4, "width": 1, "drawers": [ {"id": "d1"}, {"id": "d2"}, {"id": "d3"}, {"id": "d4"} ] }
+    ]
+  },
+
+  "bay2-left-3": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] },
+      { "pos": "right", "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] }
+    ]
+  },
+  "bay2-right-3": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] },
+      { "pos": "right", "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] }
+    ]
+  },
+
+  "bay3-left-1": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] },
+      { "pos": "right", "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] }
+    ]
+  },
+  "bay3-right-1": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] },
+      { "pos": "right", "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] }
+    ]
+  },
+
+  "bay3-left-2": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 4, "width": 1, "drawers": [ {"id": "d1"}, {"id": "d2"}, {"id": "d3"}, {"id": "d4"} ] },
+      { "pos": "right", "kind": "drawers", "code": 4, "width": 1, "drawers": [ {"id": "d1"}, {"id": "d2"}, {"id": "d3"}, {"id": "d4"} ] }
+    ]
+  },
+  "bay3-right-2": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 4, "width": 1, "drawers": [ {"id": "d1"}, {"id": "d2"}, {"id": "d3"}, {"id": "d4"} ] },
+      { "pos": "right", "kind": "drawers", "code": 4, "width": 1, "drawers": [ {"id": "d1"}, {"id": "d2"}, {"id": "d3"}, {"id": "d4"} ] }
+    ]
+  },
+
+  "bay3-left-3": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] },
+      { "pos": "right", "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] }
+    ]
+  },
+  "bay3-right-3": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] },
+      { "pos": "right", "kind": "drawers", "code": 1, "width": 1, "drawers": [ {"id": "d1"} ] }
+    ]
+  },
+
+  "bottom-cubbies": {
+    "equipment": [],
+    "stacks": [
+      { "pos": "left",  "kind": "shelves", "width": 1 },
+      { "pos": "right", "kind": "shelves", "width": 1 }
+    ]
+  },
+  "room": {
+    "items": [
+      { "slug": "hood-a", "name": "Biosafety hood", "type": "fixed", "shape": "rect", "anchor": "top-right", "dx": -2.0, "dy": 1.0, "w": 1.5, "d": 0.9 },
+      { "slug": "freezer-01", "name": "-80 freezer", "type": "movable", "shape": "rect", "anchor": "bottom-left", "dx": 2.0, "dy": -1.0, "w": 1.0, "d": 1.0 }
+    ]
+  }
+}
