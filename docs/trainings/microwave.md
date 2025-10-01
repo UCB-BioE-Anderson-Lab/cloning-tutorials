@@ -1,6 +1,8 @@
-# Microwave Training
+# Microwave
 
-## Mandatory Training Before Use
+<span style="color: black; font-size: 1.5em; font-weight: bold;">
+&#9888;&#65039; Training Required Before Use &#9888;&#65039;
+</span>
 
 ### General Safety Rules
 - Use of the microwave is restricted to trained personnel.
