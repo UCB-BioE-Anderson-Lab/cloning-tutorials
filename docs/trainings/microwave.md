@@ -37,9 +37,10 @@
 11. Proceed with pouring gels.
 
 ### Preventing Hard-to-Clean Gels
-- Avoid overheating.
-- Stir frequently during heating.
-- Use appropriate heating intervals.
+- Dilute the remnant solution with water before allowing to cool.
+- Don't leave unattended and allow to boil over.
+- Swirl occassionally during heating to avoid superheating.
+- Use heating intervals, not one continuous heating.
 
 ### Good Practices
 - Wear thermal gloves when handling hot items.
