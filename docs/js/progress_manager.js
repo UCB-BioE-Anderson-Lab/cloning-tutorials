@@ -236,6 +236,10 @@ function sortSignableArrays(signable) {
         if (!this.hierarchy["Trainings"]["minus_80_freezer"]) {
           this.hierarchy["Trainings"]["minus_80_freezer"] = ["minus80_quiz"];
         }
+        // Add "microwave" tutorial under "Trainings" if it does not already exist
+        if (!this.hierarchy["Trainings"]["microwave"]) {
+          this.hierarchy["Trainings"]["microwave"] = ["microwave_quiz"];
+        }
     }
 
     static async create() {
