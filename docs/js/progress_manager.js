@@ -9,6 +9,9 @@
  */
 if (!window.progressManager) {
 
+const STORAGE_ID_TOKEN_KEY = "pm_id_token";
+let _refreshTimer = null;
+
 // === Google Identity Services (GIS) helpers for Option 1 (ID token) ===
 // Optional hardcoded fallback (set once for production if you don't want to use meta/global)
 // Example: const HARDCODED_GSI_CLIENT_ID = "1234567890-abcdef.apps.googleusercontent.com";
@@ -45,6 +48,56 @@ if (!GOOGLE_CLIENT_ID) {
 let _gisScriptLoaded = false;
 let _currentIdToken = null;      // latest ID token (JWT)
 let _currentIdTokenExp = 0;      // ms since epoch
+
+function setIdToken_(jwt) {
+  _currentIdToken = jwt || null;
+  const claims = _currentIdToken ? decodeJwtPayload(_currentIdToken) : {};
+  _currentIdTokenExp = (claims.exp ? Number(claims.exp) * 1000 : 0);
+  try { sessionStorage.setItem(STORAGE_ID_TOKEN_KEY, _currentIdToken || ""); } catch (_) {}
+  scheduleIdTokenAutoRefresh_();
+  window.dispatchEvent(new CustomEvent("gis-idtoken-ready", { detail: { email: claims.email || null } }));
+}
+
+function restoreIdTokenFromStorage_() {
+  try {
+    const jwt = sessionStorage.getItem(STORAGE_ID_TOKEN_KEY);
+    if (jwt && typeof jwt === 'string' && jwt.split('.').length === 3) {
+      const claims = decodeJwtPayload(jwt);
+      const expMs = claims && claims.exp ? Number(claims.exp) * 1000 : 0;
+      if (expMs && Date.now() < (expMs - 60_000)) {
+        _currentIdToken = jwt;
+        _currentIdTokenExp = expMs;
+        scheduleIdTokenAutoRefresh_();
+        window.dispatchEvent(new CustomEvent("gis-idtoken-ready", { detail: { email: claims.email || null } }));
+        return true;
+      }
+    }
+  } catch (_) {}
+  return false;
+}
+
+function scheduleIdTokenAutoRefresh_() {
+  try { if (_refreshTimer) { clearTimeout(_refreshTimer); _refreshTimer = null; } } catch(_) {}
+  if (!_currentIdToken || !_currentIdTokenExp) return;
+  const msUntilRefresh = Math.max(5_000, (_currentIdTokenExp - Date.now()) - 120_000); // refresh ~2min early
+  _refreshTimer = setTimeout(() => { silentPromptForToken_(); }, msUntilRefresh);
+}
+
+async function silentPromptForToken_() {
+  try {
+    await loadGIS();
+    // Re-initialize with same client and callback to update token; allow FedCM for silent UX.
+    GOOGLE_CLIENT_ID = resolveGoogleClientId();
+    if (!GOOGLE_CLIENT_ID) return;
+    window.google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: (response) => { if (response && response.credential) setIdToken_(response.credential); }
+    });
+    window.google.accounts.id.prompt();
+  } catch (_) {}
+}
+
+restoreIdTokenFromStorage_();
 
 function loadGIS() {
   return new Promise((resolve, reject) => {
@@ -90,20 +143,17 @@ async function acquireIdTokenInteractive() {
       alert("Google Sign-In is not configured. Site owner must set the OAuth Web Client ID.");
       return resolve(null);
     }
-    // Only disable FedCM on localhost/127.0.0.1
-    const disableFedCM = (location.hostname === "127.0.0.1" || location.hostname === "localhost");
-    // Initialize each time to ensure fresh nonce and callback
     window.google.accounts.id.initialize({
       client_id: GOOGLE_CLIENT_ID,
       callback: (response) => {
-        _currentIdToken = response.credential || null;
-        const claims = _currentIdToken ? decodeJwtPayload(_currentIdToken) : {};
-        _currentIdTokenExp = (claims.exp ? Number(claims.exp) * 1000 : 0);
-        window.dispatchEvent(new CustomEvent("gis-idtoken-ready", { detail: { email: claims.email || null } }));
+        if (response && response.credential) {
+          setIdToken_(response.credential);
+        } else {
+          setIdToken_(null);
+        }
         resolve(_currentIdToken);
       },
-      ux_mode: "popup",
-      ...(disableFedCM ? { use_fedcm_for_prompt: false } : {})
+      ux_mode: "popup"
     });
     // Show One Tap / account chooser; popup when needed
     window.google.accounts.id.prompt();
