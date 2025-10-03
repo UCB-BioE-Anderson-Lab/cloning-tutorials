@@ -1033,13 +1033,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mutagenesis-quiz-build-a-t203x-egfp-variant-library" class="md-nav__link">
+  <a href="#mutagenesis-quiz-build-a-t204x-egfp-variant-library" class="md-nav__link">
     <span class="md-ellipsis">
-      Mutagenesis Quiz: Build a T203X EGFP Variant Library
+      Mutagenesis Quiz: Build a T204X EGFP Variant Library
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Mutagenesis Quiz: Build a T203X EGFP Variant Library">
+    <nav class="md-nav" aria-label="Mutagenesis Quiz: Build a T204X EGFP Variant Library">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1082,15 +1082,6 @@
   <a href="#files" class="md-nav__link">
     <span class="md-ellipsis">
       Files
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#guidelines" class="md-nav__link">
-    <span class="md-ellipsis">
-      Guidelines
     </span>
   </a>
   
@@ -1993,13 +1984,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mutagenesis-quiz-build-a-t203x-egfp-variant-library" class="md-nav__link">
+  <a href="#mutagenesis-quiz-build-a-t204x-egfp-variant-library" class="md-nav__link">
     <span class="md-ellipsis">
-      Mutagenesis Quiz: Build a T203X EGFP Variant Library
+      Mutagenesis Quiz: Build a T204X EGFP Variant Library
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Mutagenesis Quiz: Build a T203X EGFP Variant Library">
+    <nav class="md-nav" aria-label="Mutagenesis Quiz: Build a T204X EGFP Variant Library">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2042,15 +2033,6 @@
   <a href="#files" class="md-nav__link">
     <span class="md-ellipsis">
       Files
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#guidelines" class="md-nav__link">
-    <span class="md-ellipsis">
-      Guidelines
     </span>
   </a>
   
@@ -2446,8 +2428,8 @@ Transform gg Mach1 Carb 37 pP6
 <h4 id="video-demo">Video demo<a class="headerlink" href="#video-demo" title="Permanent link">&para;</a></h4>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rKphfCPLM6c" title="pP6 promoter library design walkthrough" frameborder="0" allowfullscreen></iframe>
 <p><a href="https://youtu.be/rKphfCPLM6c">Watch on YouTube</a></p>
-<h2 id="mutagenesis-quiz-build-a-t203x-egfp-variant-library">Mutagenesis Quiz: Build a T203X EGFP Variant Library<a class="headerlink" href="#mutagenesis-quiz-build-a-t203x-egfp-variant-library" title="Permanent link">&para;</a></h2>
-<p>In this quiz, you'll introduce a rational point mutation into a fluorescent protein gene to change its properties in a visible and meaningful way.</p>
+<h2 id="mutagenesis-quiz-build-a-t204x-egfp-variant-library">Mutagenesis Quiz: Build a T204X EGFP Variant Library<a class="headerlink" href="#mutagenesis-quiz-build-a-t204x-egfp-variant-library" title="Permanent link">&para;</a></h2>
+<p>In this quiz, you will design and simulate a saturation mutagenesis library at position 204 in EGFP. At this position, a threonine (ACC) has previously been shown—when mutated—to alter fluorescence properties. Here you’ll replace it with NNK to explore all possibilities.</p>
 <h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h3>
 <p>We're using <strong>pcDNA3-EGFP</strong>, a mammalian expression plasmid that produces <strong>Enhanced Green Fluorescent Protein (EGFP)</strong>. This plasmid is commonly used for visualizing gene expression or localization in mammalian cells. </p>
 <p>The plasmid contains:</p>
@@ -2459,8 +2441,7 @@ Transform gg Mach1 Carb 37 pP6
 <p>In the lab, you'd build the plasmid in <em>E. coli</em>, purify plasmid DNA, and then <strong>transfect it into mammalian cells</strong>, where the protein is expressed and fluoresces.</p>
 <hr />
 <h3 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h3>
-<p>A previous screen of a <strong>site-saturation mutagenesis library</strong> at position <strong>T203</strong> found that the <strong>T203Y mutation</strong> (Emerald GFP) produced brighter and red-shifted fluorescence. But this mutation was discovered <strong>by making a degenerate library</strong> where all possible codons were tested.</p>
-<p>In this quiz, you will build the same library — not just a single mutant — using <strong>Golden Gate mutagenesis</strong>. You'll introduce an <strong>NNK codon</strong> at position 203 of EGFP to allow all 20 amino acids (and one stop) to be sampled.</p>
+<p>In this quiz, you will design and simulate a site-saturation mutagenesis library at position T204 of EGFP. At this site the wild-type codon encodes threonine (ACC). By replacing it with an NNK codon you will create a library that samples all 20 amino acids (and one stop), enabling discovery of variants with altered fluorescence.</p>
 <hr />
 <h3 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2468,14 +2449,44 @@ Transform gg Mach1 Carb 37 pP6
 <li>📦 Benchling and ApE will <strong>translate sequences</strong> automatically — but you must start from the <strong>ATG of the ORF</strong>, not the start of the plasmid.</li>
 </ul>
 <h3 id="task">Task<a class="headerlink" href="#task" title="Permanent link">&para;</a></h3>
-<p>Use site-directed mutagenesis via <strong>Golden Gate assembly</strong> to mutate <strong>Threonine 203 to NNK</strong> in EGFP, generating a codon-randomized library at that site.</p>
-<p>You will:</p>
-<ul>
-<li>Locate T203 in the EGFP ORF</li>
-<li>Replace its codon with <code>NNK</code></li>
-<li>Design and annotate the product</li>
-<li>Simulate the construct and output a valid Construction File</li>
-</ul>
+<ol>
+<li>
+<p><strong>Find the codon to modify</strong><br />
+   • Protein numbering starts at 1, so codon index = 3 × (position − 1).<br />
+   • For T204: 3 × 203 = 609, so codon 204 spans bases 609–611 of the ORF.<br />
+   • In EGFP, the threonine of interest is at codon 204 (bases 609–611), which is the ACC you should target.<br />
+   • Confirm you have the correct codon by checking that it is ACC (threonine).</p>
+</li>
+<li>
+<p><strong>Replace it with NNK</strong><br />
+   • Edit ACC (at codon 204, bases 609–611) → NNK. If your editor does not accept K, temporarily use NNN.</p>
+</li>
+<li>
+<p><strong>Choose the 4‑bp sticky junction</strong><br />
+   • Pick 4 bp just to the left of the NNK (codon 204) site.<br />
+   • Leave 1–2 fixed bases as a buffer between the junction and the NNK.<br />
+   • Mark this 4‑bp feature.</p>
+</li>
+<li>
+<p><strong>Choose annealing regions (~20 bp)</strong><br />
+   • On each side of the edited site (codon 204), select non‑randomized regions for primers.<br />
+   • Follow standard rules (balanced GC, end with GC, avoid repeats).<br />
+   • Mark both features.</p>
+</li>
+<li>
+<p><strong>Design the oligos</strong><br />
+   • Forward oligo: [tail] + [BsaI site GGTCTC] + [one‑base padding] + [sticky end] + [buffer] + [NNK] + [anneal].<br />
+   • Reverse oligo: reverse complement of its region with the same 5′ additions.<br />
+   • Use the Golden Gate oligo pattern from the earlier tutorial as your guide.</p>
+</li>
+<li>
+<p><strong>Correct NNN if used</strong><br />
+   • If you used NNN, change the last base to K to finalize NNK.</p>
+</li>
+<li>
+<p><strong>Write the Construction File (CF) and simulate</strong>  </p>
+</li>
+</ol>
 <h3 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h3>
 <ul>
 <li>You can find the plasmid here: <a href="https://www.addgene.org/13031/">Addgene #13031: pcDNA3-EGFP</a></li>
@@ -2485,16 +2496,6 @@ Transform gg Mach1 Carb 37 pP6
 <li>A copy of the plasmid map is also available in the tutorial’s <code>assets</code> folder as: <code>addgene-plasmid-13031-sequence-305137.gbk</code>.</li>
 </ul>
 <p>⚠️ Important: The plasmid contains an internal BsaI site, which would interfere with assembly. To avoid this conflict, use BsmBI instead (recognition site: 5′–CGTCTC(N1/N5)–3′).</p>
-<h3 id="guidelines">Guidelines<a class="headerlink" href="#guidelines" title="Permanent link">&para;</a></h3>
-<p>This quiz builds on everything you’ve learned so far. As you design your T203NNK library:</p>
-<ul>
-<li>Use Golden Gate mutagenesis with BsmBI on <code>pcDNA3-EGFP</code>.</li>
-<li>Replace only the codon for T203 with <code>NNK</code>, preserving the reading frame.</li>
-<li>As you prepare your product sequence in ApE or Benchling, annotate the edited codon as <code>"T203NNK"</code> to keep track of your mutation site.</li>
-<li>Choose a nearby 4 bp junction, the annealing regions, and design 2 Golden Gate oligos.</li>
-<li>Write up and simulate your construction file below.</li>
-<li>The simulator already has the sequence for pcDNA3-EGFP.</li>
-</ul>
 <form id="cf_quiz_form" style="background-color:#d8edfa; padding:20px; border:1px solid #ccc; border-radius:6px; margin-top:20px;">
   <p><strong>Paste your Construction File (CF) below</strong> and click <strong>Simulate</strong>. You’ll see the resulting sequences, and if your design is valid, it will complete the quiz.</p>
   <textarea id="cf_quiz_input" rows="10" style="width:100%; font-family:monospace;"></textarea>
@@ -2559,7 +2560,7 @@ Transform gg Mach1 Carb 37 pP6
 
 
       const requiredRegions = [
-        { sequence: "ATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACCGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCCTGACCTACGGCGTGCAGTGCTTCAGCCGCTACCCCGACCACATGAAGCAGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGACGGCAACATCCTGGGGCACAAGCTGGAGTACAACTACAACAGCCACAACGTCTATATCATGGCCGACAAGCAGAAGAACGGCATCAAGGTGAACTTCAAGATCCGCCACAACATCGAGGACGGCAGCGTGCAGCTCGCCGACCACTACCAGCAGAACACCCCCATCGGCGACGGCCCCGTGCTGCTGCCCGACAACCACTACCTGAGCNNKCAGTCCGCCCTGAGCAAAGACCCCAACGAGAAGCGCGATCACATGGTCCTGCTGGAGTTCGTGACCGCCGCCGGGATCACTCTCGGCATGGACGAGCTGTACAAGTAA", label: "GFP with NNK at 203" },
+        { sequence: "ATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACCGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCCTGACCTACGGCGTGCAGTGCTTCAGCCGCTACCCCGACCACATGAAGCAGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGACGGCAACATCCTGGGGCACAAGCTGGAGTACAACTACAACAGCCACAACGTCTATATCATGGCCGACAAGCAGAAGAACGGCATCAAGGTGAACTTCAAGATCCGCCACAACATCGAGGACGGCAGCGTGCAGCTCGCCGACCACTACCAGCAGAACACCCCCATCGGCGACGGCCCCGTGCTGCTGCCCGACAACCACTACCTGAGCNNKCAGTCCGCCCTGAGCAAAGACCCCAACGAGAAGCGCGATCACATGGTCCTGCTGGAGTTCGTGACCGCCGCCGGGATCACTCTCGGCATGGACGAGCTGTACAAGTAA", label: "GFP with NNK at 204" },
         { sequence: "CACTGGCGGCCGCTCGAGATGGTGAGCAAGGGCG", label: "5′ junction: vector–insert" },
         { sequence: "TGTACAAGTAATCTAGAGGGCCCTATTCTATAGTG", label: "3′ junction: insert–vector" },
         { sequence: "ATGATTGAACAAGATGGATTGCACGCAGGTTCTCCGGCCGCTTGGGTGGAGAGGCTATTCGGCTATGACTGGGCACAACAGACAATCGGCTGCTCTGATGCCGCCGTGTTCCGGCTGTCAGCGCAGGGGCGCCCGGTTCTTTTTGTCAAGACCGACCTGTCCGGTGCCCTGAATGAACTGCAGGACGAGGCAGCGCGGCTATCGTGGCTGGCCACGACGGGCGTTCCTTGCGCAGCTGTGCTCGACGTTGTCACTGAAGCGGGAAGGGACTGGCTGCTATTGGGCGAAGTGCCGGGGCAGGATCTCCTGTCATCTCACCTTGCTCCTGCCGAGAAAGTATCCATCATGGCTGATGCAATGCGGCGGCTGCATACGCTTGATCCGGCTACCTGCCCATTCGACCACCAAGCGAAACATCGCATCGAGCGAGCACGTACTCGGATGGAAGCCGGTCTTGTCGATCAGGATGATCTGGACGAAGAGCATCAGGGGCTCGCGCCAGCCGAACTGTTCGCCAGGCTCAAGGCGCGCATGCCCGACGGCGAGGATCTCGTCGTGACCCATGGCGATGCCTGCTTGCCGAATATCATGGTGGAAAATGGCCGCTTTTCTGGATTCATCGACTGTGGCCGGCTGGGTGTGGCGGACCGCTATCAGGACATAGCGTTGGCTACCCGTGATATTGCTGAAGAGCTTGGCGGCGAATGGGCTGACCGCTTCCTCGTGCTTTACGGTATCGCCGCTCCCGATTCGCAGCGCATCGCCTTCTATCGCCTTCTTGACGAGTTCTTCTGA", label: "kanR open reading frame" },
