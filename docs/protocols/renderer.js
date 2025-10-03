@@ -109,11 +109,29 @@ async function renderFromGraphText(graph, id, values){
   if (!node) throw new Error(`Unknown module: ${id}`);
   let out = String(node.obj.template || '');
   out = substituteVariables(out, values);
-  const textIncludes = [ ...(node.includesRequired || []), ...(node.includesOptional || []) ];
-  for (const child of textIncludes){
+
+  const children = [ ...(node.includesRequired || []), ...(node.includesOptional || []) ];
+  const inserted = new Set();
+
+  for (const child of children){
     const childRendered = await renderFromGraphText(graph, child, values);
-    out = replaceIncludeBlockText(out, child, childRendered);
+    // Did the template reference this include?
+    const lineRe = new RegExp(`(^|\n)[\t ]*\\{${child}\\}[\t ]*(?=\n|$)`);
+    const inlineRe = new RegExp(`\\{${child}\\}`);
+    const hasRef = lineRe.test(out) || inlineRe.test(out);
+    const next = replaceIncludeBlockText(out, child, childRendered);
+    if (next !== out) inserted.add(child);
+    out = next;
   }
+
+  // Append any unreferenced includes at the end (keeps required/optional visible by default)
+  for (const child of children){
+    if (!inserted.has(child)){
+      const childRendered = await renderFromGraphText(graph, child, values);
+      out += `\n\n${childRendered}`;
+    }
+  }
+
   return out.replace(/\n{3,}/g, '\n\n').trim();
 }
 
@@ -137,6 +155,7 @@ async function renderFromGraphHTML(graph, id, values, depth = 0){
 
   // Prepare a fast lookup for valid include names on this node
   const includeSet = new Set([...(node.includesRequired||[]), ...(node.includesOptional||[])]);
+  const inserted = new Set();
 
   // Substitute variables first, then process line-by-line so we can inject child HTML unescaped
   let templ = substituteVariables(String(node.obj.template || ''), values);
@@ -164,9 +183,11 @@ async function renderFromGraphHTML(graph, id, values, depth = 0){
         if (requiredSet.has(name)){
           flushBuffer();
           chunks.push(childHTML);
+          inserted.add(name);
         } else if (optionalSet.has(name)){
           flushBuffer();
           chunks.push(`<details class="proto-optional"><summary>Additional detail: ${escapeHtml(childTitle)}</summary>\n${childHTML}\n</details>`);
+          inserted.add(name);
         }
         continue;
       }
@@ -194,10 +215,13 @@ async function renderFromGraphHTML(graph, id, values, depth = 0){
         const childTitle = (graph.get(rep.name)?.obj?.name) || rep.name;
         if (requiredSet.has(rep.name)){
           result += `<span class="include-inline">${childHTML}</span>`;
+          inserted.add(rep.name);
         } else if (optionalSet.has(rep.name)){
           result += `<details class="proto-inline-optional"><summary>More detail: ${escapeHtml(childTitle)}</summary>${childHTML}</details>`;
+          inserted.add(rep.name);
         } else {
           result += `<span class="include-inline">${childHTML}</span>`;
+          inserted.add(rep.name);
         }
         lastIndex = rep.end;
       }
@@ -207,6 +231,20 @@ async function renderFromGraphHTML(graph, id, values, depth = 0){
     }
     buffer.push(processedLine);
   }
+
+  // Append any unreferenced includes at the end
+  for (const name of includeSet){
+    if (inserted.has(name)) continue;
+    const childHTML = await renderFromGraphHTML(graph, name, values, depth + 1);
+    const childTitle = (graph.get(name)?.obj?.name) || name;
+    flushBuffer();
+    if (requiredSet.has(name)){
+      chunks.push(childHTML);
+    } else if (optionalSet.has(name)){
+      chunks.push(`<details class="proto-optional"><summary>Additional detail: ${escapeHtml(childTitle)}</summary>\n${childHTML}\n</details>`);
+    }
+  }
+
   flushBuffer();
 
   const bodyHTML = chunks.join('\n');
