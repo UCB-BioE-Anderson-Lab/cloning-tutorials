@@ -1,4 +1,5 @@
-<input id="lab-search" type="search" placeholder="Search consumables…" style="margin-bottom:0.5rem;padding:0.25rem 0.5rem;width:100%;max-width:300px;" />
+<input id="lab-search" list="lab-items" type="text" placeholder="Search or pick an item…" style="margin-bottom:0.5rem;padding:0.25rem 0.5rem;width:100%;max-width:420px;" />
+<datalist id="lab-items"></datalist>
 <div id="lab-suggest" class="lab-suggest" hidden></div>
 <div id="lab-results" class="lab-results" hidden></div>
 <div id="lab-map" class="lab-map" data-info-src="../../assets/data/benches.json" data-consumables-src="../../assets/data/consumables.tsv"></div>
@@ -20,6 +21,7 @@
   .lab-info[hidden] { display: none; }
 
   /* search suggestions and results */
+  /* datalist suggestions: nothing special; rely on browser UI */
   .lab-suggest { position: relative; max-width: 300px; }
   .lab-suggest[hidden] { display: none; }
   .lab-suggest .list { position: absolute; z-index: 3; left: 0; right: 0; border: 1px solid #cfd8e3; background: #fff; border-radius: 4px; box-shadow: 0 2px 8px rgba(16,24,40,.08); overflow: hidden; }
@@ -51,6 +53,7 @@
   const panel = document.getElementById('lab-info');
   const suggestBox = document.getElementById('lab-suggest');
   const resultsBox = document.getElementById('lab-results');
+  const datalistEl = document.getElementById('lab-items');
   const infoSrc = host.getAttribute('data-info-src') || 'benches.json';
   const consumablesSrc = host.getAttribute('data-consumables-src') || 'consumables.json';
 
@@ -64,6 +67,8 @@
   let BENCH_INFO = {};
   let CONSUMABLES = {};
   let CONS = CONSUMABLES; // alias for quick lookups (updated after fetch)
+  let ITEM_TO_KEYS = {}; // { itemLower: [drawerKeys] }
+  let ALL_ITEMS = [];    // unique list of display item strings
   try {
     const res = await fetch(infoSrc, { cache: 'no-store' });
     if (res.ok) BENCH_INFO = await res.json();
@@ -78,6 +83,9 @@
           CONSUMABLES = await cres.json();
         }
         CONS = CONSUMABLES;
+        // Build indices and populate the datalist now that consumables are loaded
+        buildIndex();
+        populateDatalist();
       }
     } catch (e) {
       // proceed without consumables if not available
@@ -117,16 +125,37 @@
 
   function buildIndex() {
     INDEX = {};
+    ITEM_TO_KEYS = {};
+    const itemSet = new Set();
     for (const [key, entry] of Object.entries(CONSUMABLES)) {
-      if (!entry.items) continue;
+      if (!entry || !Array.isArray(entry.items)) continue;
       entry.items.forEach(item => {
-        const tokens = tokenize(item);
+        if (!item) return;
+        const itemDisplay = String(item).trim();
+        const itemLower = itemDisplay.toLowerCase();
+        // token index for autocomplete
+        const tokens = tokenize(itemDisplay);
         tokens.forEach(tok => {
           if (!INDEX[tok]) INDEX[tok] = [];
           INDEX[tok].push(key);
         });
+        // exact item mapping for dropdown lookups
+        if (!ITEM_TO_KEYS[itemLower]) ITEM_TO_KEYS[itemLower] = [];
+        ITEM_TO_KEYS[itemLower].push(key);
+        itemSet.add(itemDisplay);
       });
     }
+    ALL_ITEMS = Array.from(itemSet).sort((a,b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+  }
+
+  function populateDatalist() {
+    if (!datalistEl) return;
+    datalistEl.innerHTML = '';
+    ALL_ITEMS.forEach(item => {
+      const opt = document.createElement('option');
+      opt.value = item;
+      datalistEl.appendChild(opt);
+    });
   }
 
   function tokenize(str) {
@@ -277,15 +306,25 @@
 
   const searchEl = document.getElementById('lab-search');
   searchEl.addEventListener('input', () => {
-    const q = searchEl.value.toLowerCase().trim();
+    const q = (searchEl.value || '').toLowerCase().trim();
     if (!q) { clearHighlights(); hideSuggest(); resultsBox.hidden = true; return; }
-    // exact n-gram hits
+    // If user typed an exact item, apply immediately
+    if (ITEM_TO_KEYS[q]) { hideSuggest(); applySelectionForItem(searchEl.value.trim()); return; }
     const exact = INDEX[q] || [];
-    // partial matches over tokens and items
     const partial = findPartial(q, 8);
     showSuggest(q, [...new Set([...exact, ...partial.keys])].slice(0, 8));
     highlightHits(exact.length ? exact : partial.keys.map(k => k));
   });
+  // When an item is chosen from the datalist, 'change' fires; apply selection
+  searchEl.addEventListener('change', () => {
+    const v = (searchEl.value || '').trim();
+    if (!v) return;
+    if (ITEM_TO_KEYS[v.toLowerCase()]) {
+      applySelectionForItem(v);
+    }
+  });
+  // Populate datalist early to ensure element exists (even if empty)
+  populateDatalist();
 
   function findPartial(q, limit=8) {
     const keys = []; const display = [];
@@ -328,6 +367,23 @@
     resultsBox.hidden = false; resultsBox.innerHTML = '';
     const h = document.createElement('h4'); h.textContent = 'Selection'; resultsBox.appendChild(h);
     const p = document.createElement('div'); p.className='hit'; p.textContent = key; resultsBox.appendChild(p);
+  }
+
+  function applySelectionForItem(itemDisplay) {
+    const keyList = ITEM_TO_KEYS[itemDisplay.toLowerCase()] || [];
+    if (!keyList.length) { clearHighlights(); resultsBox.hidden = false; resultsBox.innerHTML = '<h4>No matches</h4>'; return; }
+    // Highlight all benches that contain this item and select the first one for details
+    highlightHits(keyList);
+    const [firstBenchSlug] = keyList[0].split(':');
+    selectBench(firstBenchSlug);
+    // Render a results panel with all locations
+    resultsBox.hidden = false; resultsBox.innerHTML = '';
+    const h = document.createElement('h4'); h.textContent = itemDisplay + ' located at'; resultsBox.appendChild(h);
+    keyList.forEach(k => {
+      const div = document.createElement('div'); div.className = 'hit';
+      div.textContent = k; // format: bench:stack:drawer
+      resultsBox.appendChild(div);
+    });
   }
 
   function highlightHits(keys) {
