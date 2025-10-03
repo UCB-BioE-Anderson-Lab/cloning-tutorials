@@ -349,7 +349,7 @@ You can download the pJ12 sequence here: [pJ12.seq](../assets/pJ12.seq).
 
    | Segment          | Example    | Purpose                                                 |
    |------------------|------------|---------------------------------------------------------|
-   | 5′ tail          | 3–5 bases  | Padding to improve restriction enzyme efficiency        |
+   | 5′ tail          | 5 bases    | Padding to improve restriction enzyme efficiency        |
    | Restriction site | GGTCTC     | Recognition site for BsaI                               |
    | One base padding | 1 bp       | Intentional extra base before the sticky; sets cut gap  |
    | Sticky end       | 4 bp       | Conserved overhang used for re‑closing                  |
