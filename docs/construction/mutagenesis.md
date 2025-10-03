@@ -372,9 +372,9 @@ Transform gg Mach1 Carb 37 pP6
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rKphfCPLM6c" title="pP6 promoter library design walkthrough" frameborder="0" allowfullscreen></iframe>
 [Watch on YouTube](https://youtu.be/rKphfCPLM6c)
 
-## Mutagenesis Quiz: Build a T203X EGFP Variant Library
+## Mutagenesis Quiz: Build a T204X EGFP Variant Library
 
-In this quiz, you'll introduce a rational point mutation into a fluorescent protein gene to change its properties in a visible and meaningful way.
+In this quiz, you will design and simulate a saturation mutagenesis library at position 204 in EGFP. At this position, a threonine (ACC) has previously been shown—when mutated—to alter fluorescence properties. Here you’ll replace it with NNK to explore all possibilities.
 
 ### Background
 
@@ -392,9 +392,7 @@ In the lab, you'd build the plasmid in *E. coli*, purify plasmid DNA, and then *
 
 ### Goal
 
-A previous screen of a **site-saturation mutagenesis library** at position **T203** found that the **T203Y mutation** (Emerald GFP) produced brighter and red-shifted fluorescence. But this mutation was discovered **by making a degenerate library** where all possible codons were tested.
-
-In this quiz, you will build the same library — not just a single mutant — using **Golden Gate mutagenesis**. You'll introduce an **NNK codon** at position 203 of EGFP to allow all 20 amino acids (and one stop) to be sampled.
+In this quiz, you will design and simulate a site-saturation mutagenesis library at position T204 of EGFP. At this site the wild-type codon encodes threonine (ACC). By replacing it with an NNK codon you will create a library that samples all 20 amino acids (and one stop), enabling discovery of variants with altered fluorescence.
 
 ---
 
@@ -405,14 +403,34 @@ In this quiz, you will build the same library — not just a single mutant — u
 
 ### Task
 
-Use site-directed mutagenesis via **Golden Gate assembly** to mutate **Threonine 203 to NNK** in EGFP, generating a codon-randomized library at that site.
+1. **Find the codon to modify**  
+   • Protein numbering starts at 1, so codon index = 3 × (position − 1).  
+   • For T204: 3 × 203 = 609, so codon 204 spans bases 609–611 of the ORF.  
+   • In EGFP, the threonine of interest is at codon 204 (bases 609–611), which is the ACC you should target.  
+   • Confirm you have the correct codon by checking that it is ACC (threonine).
 
-You will:
+2. **Replace it with NNK**  
+   • Edit ACC (at codon 204, bases 609–611) → NNK. If your editor does not accept K, temporarily use NNN.
 
- - Locate T203 in the EGFP ORF
- - Replace its codon with `NNK`
- - Design and annotate the product
- - Simulate the construct and output a valid Construction File
+3. **Choose the 4‑bp sticky junction**  
+   • Pick 4 bp just to the left of the NNK (codon 204) site.  
+   • Leave 1–2 fixed bases as a buffer between the junction and the NNK.  
+   • Mark this 4‑bp feature.
+
+4. **Choose annealing regions (~20 bp)**  
+   • On each side of the edited site (codon 204), select non‑randomized regions for primers.  
+   • Follow standard rules (balanced GC, end with GC, avoid repeats).  
+   • Mark both features.
+
+5. **Design the oligos**  
+   • Forward oligo: [tail] + [BsaI site GGTCTC] + [one‑base padding] + [sticky end] + [buffer] + [NNK] + [anneal].  
+   • Reverse oligo: reverse complement of its region with the same 5′ additions.  
+   • Use the Golden Gate oligo pattern from the earlier tutorial as your guide.
+
+6. **Correct NNN if used**  
+   • If you used NNN, change the last base to K to finalize NNK.
+
+7. **Write the Construction File (CF) and simulate**  
 
 ### Files
 
@@ -423,19 +441,6 @@ You will:
 - A copy of the plasmid map is also available in the tutorial’s `assets` folder as: `addgene-plasmid-13031-sequence-305137.gbk`.
 
 ⚠️ Important: The plasmid contains an internal BsaI site, which would interfere with assembly. To avoid this conflict, use BsmBI instead (recognition site: 5′–CGTCTC(N1/N5)–3′).
-
-
-### Guidelines
-
-This quiz builds on everything you’ve learned so far. As you design your T203NNK library:
-
-- Use Golden Gate mutagenesis with BsmBI on `pcDNA3-EGFP`.
-- Replace only the codon for T203 with `NNK`, preserving the reading frame.
-- As you prepare your product sequence in ApE or Benchling, annotate the edited codon as `"T203NNK"` to keep track of your mutation site.
-- Choose a nearby 4 bp junction, the annealing regions, and design 2 Golden Gate oligos.
-- Write up and simulate your construction file below.
-- The simulator already has the sequence for pcDNA3-EGFP.
-
 
 <form id="cf_quiz_form" style="background-color:#d8edfa; padding:20px; border:1px solid #ccc; border-radius:6px; margin-top:20px;">
   <p><strong>Paste your Construction File (CF) below</strong> and click <strong>Simulate</strong>. You’ll see the resulting sequences, and if your design is valid, it will complete the quiz.</p>
@@ -501,7 +506,7 @@ This quiz builds on everything you’ve learned so far. As you design your T203N
 
       
       const requiredRegions = [
-        { sequence: "ATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACCGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCCTGACCTACGGCGTGCAGTGCTTCAGCCGCTACCCCGACCACATGAAGCAGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGACGGCAACATCCTGGGGCACAAGCTGGAGTACAACTACAACAGCCACAACGTCTATATCATGGCCGACAAGCAGAAGAACGGCATCAAGGTGAACTTCAAGATCCGCCACAACATCGAGGACGGCAGCGTGCAGCTCGCCGACCACTACCAGCAGAACACCCCCATCGGCGACGGCCCCGTGCTGCTGCCCGACAACCACTACCTGAGCNNKCAGTCCGCCCTGAGCAAAGACCCCAACGAGAAGCGCGATCACATGGTCCTGCTGGAGTTCGTGACCGCCGCCGGGATCACTCTCGGCATGGACGAGCTGTACAAGTAA", label: "GFP with NNK at 203" },
+        { sequence: "ATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACCGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCCTGACCTACGGCGTGCAGTGCTTCAGCCGCTACCCCGACCACATGAAGCAGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGACGGCAACATCCTGGGGCACAAGCTGGAGTACAACTACAACAGCCACAACGTCTATATCATGGCCGACAAGCAGAAGAACGGCATCAAGGTGAACTTCAAGATCCGCCACAACATCGAGGACGGCAGCGTGCAGCTCGCCGACCACTACCAGCAGAACACCCCCATCGGCGACGGCCCCGTGCTGCTGCCCGACAACCACTACCTGAGCNNKCAGTCCGCCCTGAGCAAAGACCCCAACGAGAAGCGCGATCACATGGTCCTGCTGGAGTTCGTGACCGCCGCCGGGATCACTCTCGGCATGGACGAGCTGTACAAGTAA", label: "GFP with NNK at 204" },
         { sequence: "CACTGGCGGCCGCTCGAGATGGTGAGCAAGGGCG", label: "5′ junction: vector–insert" },
         { sequence: "TGTACAAGTAATCTAGAGGGCCCTATTCTATAGTG", label: "3′ junction: insert–vector" },
         { sequence: "ATGATTGAACAAGATGGATTGCACGCAGGTTCTCCGGCCGCTTGGGTGGAGAGGCTATTCGGCTATGACTGGGCACAACAGACAATCGGCTGCTCTGATGCCGCCGTGTTCCGGCTGTCAGCGCAGGGGCGCCCGGTTCTTTTTGTCAAGACCGACCTGTCCGGTGCCCTGAATGAACTGCAGGACGAGGCAGCGCGGCTATCGTGGCTGGCCACGACGGGCGTTCCTTGCGCAGCTGTGCTCGACGTTGTCACTGAAGCGGGAAGGGACTGGCTGCTATTGGGCGAAGTGCCGGGGCAGGATCTCCTGTCATCTCACCTTGCTCCTGCCGAGAAAGTATCCATCATGGCTGATGCAATGCGGCGGCTGCATACGCTTGATCCGGCTACCTGCCCATTCGACCACCAAGCGAAACATCGCATCGAGCGAGCACGTACTCGGATGGAAGCCGGTCTTGTCGATCAGGATGATCTGGACGAAGAGCATCAGGGGCTCGCGCCAGCCGAACTGTTCGCCAGGCTCAAGGCGCGCATGCCCGACGGCGAGGATCTCGTCGTGACCCATGGCGATGCCTGCTTGCCGAATATCATGGTGGAAAATGGCCGCTTTTCTGGATTCATCGACTGTGGCCGGCTGGGTGTGGCGGACCGCTATCAGGACATAGCGTTGGCTACCCGTGATATTGCTGAAGAGCTTGGCGGCGAATGGGCTGACCGCTTCCTCGTGCTTTACGGTATCGCCGCTCCCGATTCGCAGCGCATCGCCTTCTATCGCCTTCTTGACGAGTTCTTCTGA", label: "kanR open reading frame" },
