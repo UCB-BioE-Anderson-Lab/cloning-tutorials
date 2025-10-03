@@ -986,11 +986,44 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-pp6-library-oligos" class="md-nav__link">
+  <a href="#pp6-promoter-library-design-walkthrough" class="md-nav__link">
     <span class="md-ellipsis">
-      Example: pP6 Library Oligos
+      pP6 Promoter Library — Design Walkthrough
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="pP6 Promoter Library — Design Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design goals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-step
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#video-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Video demo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1913,11 +1946,44 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-pp6-library-oligos" class="md-nav__link">
+  <a href="#pp6-promoter-library-design-walkthrough" class="md-nav__link">
     <span class="md-ellipsis">
-      Example: pP6 Library Oligos
+      pP6 Promoter Library — Design Walkthrough
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="pP6 Promoter Library — Design Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design goals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-step
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#video-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Video demo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2269,22 +2335,117 @@ Reverse complement of forward primer
 <p>⚠️ However, a few <strong>special rules apply</strong> for degenerate libraries:</p>
 <ul>
 <li><strong>Do not place degeneracy at the 3′ end</strong> of your oligos (the annealing region). This can prevent proper PCR priming.</li>
-<li><strong>Avoid degeneracy at the sticky ends</strong> or within the junctions of Golden Gate primers. They must be precise for the assembly to work.</li>
+<li><strong>Avoid degeneracy at sticky ends</strong>. Keep the 4 bp sticky sequence constant, and also fix at least one adjacent base. Allowing diversity in this region can cause biased assembly.</li>
 <li>It's best to <strong>place degenerate bases a few nucleotides away from the junction</strong> to reduce any context-dependent ligation bias.</li>
 </ul>
 <hr />
-<h3 id="example-pp6-library-oligos">Example: pP6 Library Oligos<a class="headerlink" href="#example-pp6-library-oligos" title="Permanent link">&para;</a></h3>
-<p>Here are the final oligos used for the pP6 linker library:</p>
-<div class="highlight"><pre><span></span><code>P6LibR2   CCAAAggtctcgTTATANNNNNNNNNNNNNNNNNTGTCAANNNNGAACCCAGGACTCCTCGAAGTC
-P6LibF2   CAGTAggtctcgATAATNNNNNNANNNNGTTAGTATTTCTCCTCGTCTAC
-</code></pre></div>
-<p>These primers:</p>
+<h3 id="pp6-promoter-library-design-walkthrough">pP6 Promoter Library — Design Walkthrough<a class="headerlink" href="#pp6-promoter-library-design-walkthrough" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>What this is</strong>: A promoter <strong>library</strong> built by iPCR/Golden Gate. We conserve the core promoter elements and randomize the surrounding bases to sample promoter strength and context.</p>
+</blockquote>
+<p><strong>Template</strong>: <strong>pJ12</strong> (J23112 promoter → amilGFP). This vector already includes <strong>BseRI</strong> Golden Gate sites so the edited part can be mobilized later.</p>
+<h4 id="design-goals">Design goals<a class="headerlink" href="#design-goals" title="Permanent link">&para;</a></h4>
 <ul>
-<li>Introduce degeneracy to encode a 4-amino-acid linker between domains</li>
-<li>Conform to Golden Gate primer rules (prefix, BsaI, sticky, anneal)</li>
-<li>Place degeneracy well away from the junctions for optimal ligation efficiency</li>
+<li><strong>Conserve</strong> the <strong>–35</strong>, <strong>–10</strong>, and <strong>+1</strong> elements.</li>
+<li><strong>Randomize</strong> all bases <strong>between –35 to –10</strong> and <strong>–10 to +1</strong>.</li>
+<li>Add <strong>4 N’s</strong> on the <strong>left and right</strong> flanks of the promoter segment to increase diversity.</li>
 </ul>
-<p>You can simulate this library in C6-Tools to visualize possible sequence outcomes and confirm primer performance.</p>
+<h4 id="step-by-step">Step-by-step<a class="headerlink" href="#step-by-step" title="Permanent link">&para;</a></h4>
+<p>You can download the pJ12 sequence here: <a href="../../assets/pJ12.seq">pJ12.seq</a>.</p>
+<ol>
+<li>
+<p><strong>Open the template</strong><br />
+   • Start from pJ12, which carries the J23112 promoter.<br />
+   • Change the –35 and –10 elements to their consensus sequences: <strong>TTGACA</strong> (–35) and <strong>TATAAT</strong> (–10).<br />
+   • This ensures every variant in the library begins with promoter elements expected to be strong.</p>
+</li>
+<li>
+<p><strong>Replace intra-promoter regions with N’s</strong><br />
+   • Randomize all bases between –35 to –10 and –10 to +1 by substituting with N characters of equal length.<br />
+   • Change the 4 bp flanking both sides of the promoter segment to N.</p>
+</li>
+<li>
+<p><strong>Choose the sticky end</strong><br />
+   • Pick a 4‑bp junction close to the randomized region, usually just to the left of it, leaving a base or two of separation.<br />
+   • The sticky end should be in a conserved region so that all variants will produce the same overhang and close efficiently.<br />
+   • For pP6, because we are introducing many changes, the assembly works better if the library is split in half. To do that, the junction is placed in the middle of the promoter.<br />
+   • The –10 box (TATAAT) is conserved across all variants, so we chose the sticky end within that region for this case.</p>
+</li>
+<li>
+<p><strong>Pick primer annealing regions (~20 bp)</strong><br />
+   • 5′ primer: just left of the randomized block.<br />
+   • 3′ primer: just right of the randomized block.<br />
+   • Follow design rules: balanced GC, avoid repeats, end in GC.<br />
+   • Mark both annealing regions with a feature.</p>
+</li>
+<li>
+<p><strong>Design the oligos</strong><br />
+   • From each annealing region, extend through to the sticky end.<br />
+   • Forward oligo = sequence as-is.<br />
+   • Reverse oligo = reverse complement of its region.<br />
+   • Add required 5′ elements (tail, BsaI site, random base) as shown in the primer structure table below.</p>
+</li>
+</ol>
+<p>Primer structure (5′→3′) typically follows this pattern:</p>
+<table>
+<thead>
+<tr>
+<th>Segment</th>
+<th>Example</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5′ tail</td>
+<td>3–5 bases</td>
+<td>Padding to improve restriction enzyme efficiency</td>
+</tr>
+<tr>
+<td>Restriction site</td>
+<td>GGTCTC</td>
+<td>Recognition site for BsaI</td>
+</tr>
+<tr>
+<td>One base padding</td>
+<td>1 bp</td>
+<td>Intentional extra base before the sticky; sets cut gap</td>
+</tr>
+<tr>
+<td>Sticky end</td>
+<td>4 bp</td>
+<td>Conserved overhang used for re‑closing</td>
+</tr>
+<tr>
+<td>Buffer sequence</td>
+<td>1–2 bp</td>
+<td>Fixed bases after the sticky end; prevents N’s from sitting directly next to the overhang</td>
+</tr>
+<tr>
+<td>Randomized block</td>
+<td>N…</td>
+<td>Diversified bases between conserved elements</td>
+</tr>
+<tr>
+<td>Anneal region</td>
+<td>~20 bp</td>
+<td>Primer‑binding site (non‑randomized)</td>
+</tr>
+</tbody>
+</table>
+<ol start="6">
+  <li><strong>Write the construction file and simulate it to validate</strong>
+    <pre style="background:#f8f8f8; border:1px solid #ccc; padding:10px; border-radius:4px; overflow-x:auto; white-space:pre;">
+PCR P6LibF2 P6LibR2 pJ12 P6
+GoldenGate P6 BsaI gg
+Transform gg Mach1 Carb 37 pP6
+    </pre>
+  </li>
+</ol>
+
+<h4 id="video-demo">Video demo<a class="headerlink" href="#video-demo" title="Permanent link">&para;</a></h4>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rKphfCPLM6c" title="pP6 promoter library design walkthrough" frameborder="0" allowfullscreen></iframe>
+<p><a href="https://youtu.be/rKphfCPLM6c">Watch on YouTube</a></p>
 <h2 id="mutagenesis-quiz-build-a-t203x-egfp-variant-library">Mutagenesis Quiz: Build a T203X EGFP Variant Library<a class="headerlink" href="#mutagenesis-quiz-build-a-t203x-egfp-variant-library" title="Permanent link">&para;</a></h2>
 <p>In this quiz, you'll introduce a rational point mutation into a fluorescent protein gene to change its properties in a visible and meaningful way.</p>
 <h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h3>
