@@ -42,7 +42,7 @@ ${hasFlask ? "" : "{preparation_of_sterile_flask}"}
 4. Rapidly chill the culture by swirling the flask in the ice bath for 1–2 min.
 5. Wipe any water from the outside of the flask to avoid contamination when pouring.
 6. Transfer the culture to pre‑chilled centrifuge tubes by carefully pouring.
-7. Centrifuge at 4 °C, 4,000–6,000 × g for 5 min to pellet the cells.
+7. Using the Allegra V‑15R centrifuge: install the VS 4.750 rotor and select the 4‑750&750 rotor code on the instrument. Wash the rotor, replace it, and allow the centrifuge to cool at 4 °C for ~10 min (you should hear the refrigeration turn on; running at 1000 rpm can help cool faster). Load your samples and spin at 4500 rpm, 4 °C for 8 min to pellet the cells.
 8. Discard the supernatant into a designated waste beaker; return tubes to ice. (Bleach the waste beaker per SOP before sink disposal.)
 9. Resuspend the pellet in ice‑cold TSS to a final volume of ${tss_mL} mL (≈ ${tss_pct}% of culture volume). Mix gently (avoid vigorous pipetting) to fully resuspend; keep on ice.
 10. Transfer the suspension to a pre‑chilled 50 mL conical tube. (Bleach and rinse the centrifuge tubes later.)
