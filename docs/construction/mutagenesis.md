@@ -297,27 +297,80 @@ Designing these oligos follows the same workflow as any Golden Gate mutagenesis:
 ⚠️ However, a few **special rules apply** for degenerate libraries:
 
 - **Do not place degeneracy at the 3′ end** of your oligos (the annealing region). This can prevent proper PCR priming.
-- **Avoid degeneracy at the sticky ends** or within the junctions of Golden Gate primers. They must be precise for the assembly to work.
+- **Avoid degeneracy at sticky ends**. Keep the 4 bp sticky sequence constant, and also fix at least one adjacent base. Allowing diversity in this region can cause biased assembly.
 - It's best to **place degenerate bases a few nucleotides away from the junction** to reduce any context-dependent ligation bias.
 
 ---
 
-### Example: pP6 Library Oligos
+### pP6 Promoter Library — Design Walkthrough
 
-Here are the final oligos used for the pP6 linker library:
+> **What this is**: A promoter **library** built by iPCR/Golden Gate. We conserve the core promoter elements and randomize the surrounding bases to sample promoter strength and context.
 
-```
-P6LibR2   CCAAAggtctcgTTATANNNNNNNNNNNNNNNNNTGTCAANNNNGAACCCAGGACTCCTCGAAGTC
-P6LibF2   CAGTAggtctcgATAATNNNNNNANNNNGTTAGTATTTCTCCTCGTCTAC
-```
+**Template**: **pJ12** (J23112 promoter → amilGFP). This vector already includes **BseRI** Golden Gate sites so the edited part can be mobilized later.
 
-These primers:
+#### Design goals
+- **Conserve** the **–35**, **–10**, and **+1** elements.
+- **Randomize** all bases **between –35 to –10** and **–10 to +1**.
+- Add **4 N’s** on the **left and right** flanks of the promoter segment to increase diversity.
 
-- Introduce degeneracy to encode a 4-amino-acid linker between domains
-- Conform to Golden Gate primer rules (prefix, BsaI, sticky, anneal)
-- Place degeneracy well away from the junctions for optimal ligation efficiency
 
-You can simulate this library in C6-Tools to visualize possible sequence outcomes and confirm primer performance.
+#### Step-by-step
+
+You can download the pJ12 sequence here: [pJ12.seq](../assets/pJ12.seq).
+
+1. **Open the template**  
+   • Start from pJ12, which carries the J23112 promoter.  
+   • Change the –35 and –10 elements to their consensus sequences: **TTGACA** (–35) and **TATAAT** (–10).  
+   • This ensures every variant in the library begins with promoter elements expected to be strong.
+
+2. **Replace intra-promoter regions with N’s**  
+   • Randomize all bases between –35 to –10 and –10 to +1 by substituting with N characters of equal length.  
+   • Change the 4 bp flanking both sides of the promoter segment to N.
+
+3. **Choose the sticky end**  
+   • Pick a 4‑bp junction close to the randomized region, usually just to the left of it, leaving a base or two of separation.  
+   • The sticky end should be in a conserved region so that all variants will produce the same overhang and close efficiently.  
+   • For pP6, because we are introducing many changes, the assembly works better if the library is split in half. To do that, the junction is placed in the middle of the promoter.  
+   • The –10 box (TATAAT) is conserved across all variants, so we chose the sticky end within that region for this case.
+
+4. **Pick primer annealing regions (~20 bp)**  
+   • 5′ primer: just left of the randomized block.  
+   • 3′ primer: just right of the randomized block.  
+   • Follow design rules: balanced GC, avoid repeats, end in GC.  
+   • Mark both annealing regions with a feature.
+
+5. **Design the oligos**  
+   • From each annealing region, extend through to the sticky end.  
+   • Forward oligo = sequence as-is.  
+   • Reverse oligo = reverse complement of its region.  
+   • Add required 5′ elements (tail, BsaI site, random base) as shown in the primer structure table below.
+
+   Primer structure (5′→3′) typically follows this pattern:
+
+   | Segment          | Example    | Purpose                                                 |
+   |------------------|------------|---------------------------------------------------------|
+   | 5′ tail          | 3–5 bases  | Padding to improve restriction enzyme efficiency        |
+   | Restriction site | GGTCTC     | Recognition site for BsaI                               |
+   | One base padding | 1 bp       | Intentional extra base before the sticky; sets cut gap  |
+   | Sticky end       | 4 bp       | Conserved overhang used for re‑closing                  |
+   | Buffer sequence  | 1–2 bp     | Fixed bases after the sticky end; prevents N’s from sitting directly next to the overhang |
+   | Randomized block | N…         | Diversified bases between conserved elements            |
+   | Anneal region    | ~20 bp     | Primer‑binding site (non‑randomized)                    |
+
+
+<ol start="6">
+  <li><strong>Write the construction file and simulate it to validate</strong>
+    <pre style="background:#f8f8f8; border:1px solid #ccc; padding:10px; border-radius:4px; overflow-x:auto; white-space:pre;">
+PCR P6LibF2 P6LibR2 pJ12 P6
+GoldenGate P6 BsaI gg
+Transform gg Mach1 Carb 37 pP6
+    </pre>
+  </li>
+</ol>
+
+#### Video demo
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rKphfCPLM6c" title="pP6 promoter library design walkthrough" frameborder="0" allowfullscreen></iframe>
+[Watch on YouTube](https://youtu.be/rKphfCPLM6c)
 
 ## Mutagenesis Quiz: Build a T203X EGFP Variant Library
 

@@ -1,69 +1,66 @@
-bench	stack	drawer	items					
-left-lower	left	d1						
-left-lower	left	s2						
-left-lower	left	s3	Petri dishes					
-left-lower	middle	d1	Ethanol					
-left-lower	middle	s2						
-left-lower	middle	s3						
-left-lower	right	s1						
-bay1-left-1	left	d1	Airpore Sheets					
-bay1-left-1	left	d2	Sterile Gauze Tape					
-bay1-left-1	left	d3	Foil Sheets					
-bay1-left-1	left	d4						
-bay1-left-1	right	d1	15 mL Snap-Cap Tubes					
-bay1-left-1	right	d2	2.0 mL Cryogenic Tubes					
-bay1-left-1	right	d3						
-bay1-left-1	right	d4						
-bay1-right-1	left	d1	1.5 mL Microcentrifuge Tubes					
-bay1-right-1	left	d2	2.0 mL Microcentrifuge Tubes					
-bay1-right-1	left	d3	Clear single PCR tubes					
-bay1-right-1	left	d4	Clear  PCR Strips					
-bay1-right-1	right	d1	20 uL tips (RED)					
-bay1-right-1	right	d2	200 uL tips (GREEN)					
-bay1-right-1	right	d3	1000 uL tips (BLUE)					
-bay1-right-1	right	d4	5 mL tips					
-bay2-left-1	left	d1	XS Gloves					
-bay2-left-1	left	d2	S Gloves					
-bay2-left-1	left	d3	M Gloves					
-bay2-left-1	left	d4	L Gloves					
-bay2-left-1	right	d1	XL Gloves					
-bay2-left-1	right	d2	QIAPrep Miniprep (250)					
-bay2-left-1	right	d3	Zymo Gel cleanup (200)					
-bay2-left-1	right	d4	Autoclave Bags					
-bay2-right-1	left	d1	QIAPrep Miniprep Columns (100)					
-bay2-right-1	left	d2	QIAPrep Miniprep Columns (100)					
-bay2-right-1	left	d3	50 mL Conical tubes					
-bay2-right-1	left	d4	paper towels					
-bay2-right-1	right	d1	Multicolor 1.5 mL Microcentrifuge Tubes					
-bay2-right-1	right	d2	0.5 mL Microcentrifuge Tubes					
-bay2-right-1	right	d3						
-bay2-right-1	right	d4						
-bay3-left-1	left	d1						
-bay3-left-1	left	d2						
-bay3-left-1	left	d3						
-bay3-left-1	left	d4						
-bay3-left-1	right	d1						
-bay3-left-1	right	d2						
-bay3-left-1	right	d3						
-bay3-left-1	right	d4						
-bay3-right-1	left	d1						
-bay3-right-1	left	d2						
-bay3-right-1	left	d3						
-bay3-right-1	left	d4						
-bay3-right-1	right	d1						
-bay3-right-1	right	d2						
-bay3-right-1	right	d3						
-bay3-right-1	right	d4						
-right-upper	left	d1						
-right-upper	middle	d1						
-right-upper	right	d1						
-right-lower	left	d1						
-right-lower	left	d2						
-right-lower	left	d3						
-right-lower	left	d4						
-right-lower	middle	s1						
-right-lower	middle	s2	Hand soap					
-right-lower	right	s1	Bleach					
-								
-								
-								
+bench	stack	drawer	items	target	threshold	labeled
+left-lower	left	d1				
+left-lower	left	s2				
+left-lower	left	s3	Petri dishes			
+left-lower	middle	d1	Ethanol			
+left-lower	middle	s2				
+left-lower	middle	s3				
+left-lower	right	s1				
+bay1-left-1	left	d1	Parafilm	3	1	done
+bay1-left-1	left	d2	Airpore Sheets	100	10	done
+bay1-left-1	left	d3	Sterile Gauze Tape	20	5	done
+bay1-left-1	left	d4	Foil Sheets	200	10	done
+bay1-left-1	right	d1	15 mL Snap-Cap Tubes	300	50	done
+bay1-left-1	right	d2	50 mL Conical tubes	100	10	done
+bay1-left-1	right	d3	2.0 mL Cryogenic Tubes	100	10	done
+bay1-left-1	right	d4				
+bay1-right-1	left	d1	1.5 mL Microcentrifuge Tubes			done
+bay1-right-1	left	d2	2.0 mL Microcentrifuge Tubes			done
+bay1-right-1	left	d3	Clear single PCR tubes			done
+bay1-right-1	left	d4	Clear  PCR Strips			done
+bay1-right-1	right	d1	20 uL tips (RED)			done
+bay1-right-1	right	d2	200 uL tips (GREEN)			done
+bay1-right-1	right	d3	1000 uL tips (BLUE)			done
+bay1-right-1	right	d4	5 mL tips			done
+bay2-left-1	left	d1	XS Gloves	5	1	done
+bay2-left-1	left	d2	S Gloves	5	1	done
+bay2-left-1	left	d3	M Gloves	5	2	done
+bay2-left-1	left	d4	L Gloves	5	1	done
+bay2-left-1	right	d1	XL Gloves	5	1	done
+bay2-left-1	right	d2	QIAPrep Miniprep (250)	2	1	done
+bay2-left-1	right	d3	Zymo Gel cleanup (200)	2	1	done
+bay2-left-1	right	d4	Autoclave Bags	200	10	done
+bay2-right-1	left	d1				
+bay2-right-1	left	d2	Multicolor 1.5 mL Microcentrifuge Tubes			
+bay2-right-1	left	d3	0.5 mL Microcentrifuge Tubes			
+bay2-right-1	left	d4	Multicolor Tubes for Stock Reagents			
+bay2-right-1	right	d1	paper towels			
+bay2-right-1	right	d2				
+bay2-right-1	right	d3				
+bay2-right-1	right	d4				
+bay3-left-1	left	d1				
+bay3-left-1	left	d2				
+bay3-left-1	left	d3				
+bay3-left-1	left	d4				
+bay3-left-1	right	d1				
+bay3-left-1	right	d2				
+bay3-left-1	right	d3				
+bay3-left-1	right	d4				
+bay3-right-1	left	d1				
+bay3-right-1	left	d2				
+bay3-right-1	left	d3				
+bay3-right-1	left	d4				
+bay3-right-1	right	d1				
+bay3-right-1	right	d2				
+bay3-right-1	right	d3				
+bay3-right-1	right	d4				
+right-upper	left	d1				
+right-upper	middle	d1				
+right-upper	right	d1				
+right-lower	left	d1				
+right-lower	left	d2				
+right-lower	left	d3				
+right-lower	left	d4				
+right-lower	middle	s1				
+right-lower	middle	s2	Hand soap			
+right-lower	right	s1	Bleach			
