@@ -22,10 +22,19 @@ Pick a protocol, answer its questions, then generate the expanded steps.
 </style>
 <style>
   .proto-card { border: 1px solid #ddd; border-radius: 6px; padding: 16px; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+  .proto-card h1, .proto-card h2, .proto-card h3 { margin-top: 0.6rem; margin-bottom: 0.4rem; }
+  .proto-card p { margin: 0.35rem 0; line-height: 1.35; }
+  .proto-card ol { margin: 0.4rem 0 0.6rem 1.2rem; padding: 0; }
+  .proto-card li { margin: 0.2rem 0 0.35rem 0; }
+  /* Avoid awkward page breaks in lists/sections */
   @media print {
-    body * { visibility: hidden !important; }
-    .proto-print-root, .proto-print-root * { visibility: visible !important; }
-    .proto-print-root { position: absolute; inset: 0; margin: 0; padding: 0; box-shadow: none; border: none; }
+    @page { size: letter portrait; margin: 12mm; }
+    html, body { background: #fff !important; }
+    .proto-card { border: none; box-shadow: none; max-width: none; }
+    .proto-card { font-size: 12pt; line-height: 1.35; }
+    .proto-card h1, .proto-card h2, .proto-card h3 { page-break-after: avoid; break-after: avoid; }
+    .proto-card ol, .proto-card ul { page-break-inside: avoid; break-inside: avoid; }
+    .proto-card li, .proto-card details { page-break-inside: avoid; break-inside: avoid; }
   }
 </style>
 
@@ -67,6 +76,33 @@ Pick a protocol, answer its questions, then generate the expanded steps.
   function $(id){ return document.getElementById(id); }
 
   let lastProto = null; // { id, title, text, html }
+
+  function notify(msg){
+    try { console.log(msg); } catch {}
+    const bar = document.createElement('div');
+    bar.textContent = msg;
+    bar.style.cssText = 'position:fixed;bottom:12px;left:12px;background:#222;color:#fff;padding:8px 10px;border-radius:6px;z-index:9999;opacity:0.95;font-size:12px';
+    document.body.appendChild(bar);
+    setTimeout(()=> bar.remove(), 1800);
+  }
+  async function safeClipboardWrite(text){
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(text);
+        notify('Copied to clipboard');
+        return true;
+      }
+    } catch {}
+    // Fallback via hidden textarea
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly','');
+    ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;';
+    document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    notify(ok ? 'Copied to clipboard' : 'Copy failed');
+    return ok;
+  }
 
   async function tryLoadIndex(){
     try {
@@ -202,6 +238,7 @@ Pick a protocol, answer its questions, then generate the expanded steps.
       $("proto-tools").style.display = 'flex';
       const share = buildShareURL(vals, true);
       history.replaceState(null, '', share);
+      notify('Generated. Tools unlocked.');
     } catch(e){
       $("protocol-output").textContent = String(e.message || e);
       $("proto-tools").style.display = 'none';
@@ -215,68 +252,130 @@ Pick a protocol, answer its questions, then generate the expanded steps.
   });
 
   async function copyMarkdown(){
-    if (!lastProto) return;
+    if (!lastProto) { notify('Nothing to copy yet'); return; }
     const title = '# ' + (lastProto.title || lastProto.id || 'Protocol');
     const md = lastProto.text ? `${title}\n\n${lastProto.text}` : title;
-    await navigator.clipboard.writeText(md);
+    await safeClipboardWrite(md);
   }
   async function copyHTML(){
-    if (!lastProto || !lastProto.html) return;
-    if (navigator.clipboard && window.ClipboardItem){
-      const data = new ClipboardItem({ 'text/html': new Blob([lastProto.html], { type: 'text/html' }) });
-      await navigator.clipboard.write([data]);
-    } else {
-      const tmp = document.createElement('div');
-      tmp.contentEditable = 'true';
-      tmp.style.position = 'fixed'; tmp.style.left = '-9999px';
-      tmp.innerHTML = lastProto.html;
-      document.body.appendChild(tmp);
-      const range = document.createRange(); range.selectNodeContents(tmp);
-      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
-      document.execCommand('copy');
-      document.body.removeChild(tmp);
-    }
+    if (!lastProto) { notify('Nothing to copy yet'); return; }
+    const html = lastProto.html || ('<pre>' + (lastProto.text || '') + '</pre>');
+    try {
+      if (navigator.clipboard && window.ClipboardItem){
+        const item = new ClipboardItem({ 'text/html': new Blob([html], { type: 'text/html' }) });
+        await navigator.clipboard.write([item]);
+        notify('Rich text copied');
+        return;
+      }
+    } catch {}
+    // Fallback: select a temp contentEditable div
+    const tmp = document.createElement('div');
+    tmp.contentEditable = 'true';
+    tmp.style.position = 'fixed'; tmp.style.left = '-9999px';
+    tmp.innerHTML = html; document.body.appendChild(tmp);
+    const range = document.createRange(); range.selectNodeContents(tmp);
+    const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+    const ok = document.execCommand('copy');
+    document.body.removeChild(tmp);
+    notify(ok ? 'Rich text copied' : 'Copy failed');
   }
   function downloadMD(){
-    if (!lastProto) return;
+    if (!lastProto) { notify('Nothing to download'); return; }
     const name = (lastProto.title || lastProto.id || 'protocol').replace(/\s+/g,'_').toLowerCase() + '.md';
-    const blob = new Blob([lastProto.text || ''], { type: 'text/markdown' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = name; a.click();
-    setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+    const title = '# ' + (lastProto.title || lastProto.id || 'Protocol');
+    const body = lastProto.text ? `${title}\n\n${lastProto.text}` : title;
+    const blob = new Blob([body], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(url), 1000);
+    notify('Markdown downloaded');
+  }
+  // Helper to snapshot protocol output HTML, preserving <details> expanded/collapsed state
+  function getProtocolHTMLForPrint(){
+    const live = document.getElementById('protocol-output');
+    if (!live || !live.firstChild){
+      return lastProto && (lastProto.html || ('<pre>'+ (lastProto.text || '') + '</pre>')) || '';
+    }
+    // Clone the current DOM so we can normalize <details> state via attributes
+    const clone = live.cloneNode(true);
+    const liveDetails = live.querySelectorAll('details');
+    const cloneDetails = clone.querySelectorAll('details');
+    // Mirror state: if a details is currently open in the UI, ensure the attribute exists in the clone; otherwise remove it.
+    for (let i = 0; i < cloneDetails.length; i++){
+      const src = liveDetails[i];
+      const dst = cloneDetails[i];
+      if (!src || !dst) continue;
+      if (src.open) dst.setAttribute('open',''); else dst.removeAttribute('open');
+    }
+    // Return inner HTML of the normalized clone container
+    return clone.innerHTML;
   }
   function openPrintView(){
-    if (!lastProto) return;
+    if (!lastProto) { notify('Generate a protocol first'); return; }
     const title = lastProto.title || lastProto.id || 'Protocol';
+    const inner = getProtocolHTMLForPrint();
     const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title}</title>
       <style>
         body{margin:1rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;background:#f7f7f8}
         .proto-card{max-width:800px;margin:0 auto;border:1px solid #ddd;border-radius:6px;padding:16px;background:#fff}
-        h1{margin-top:0}
-        @media print { body{background:#fff} .proto-card{border:none;box-shadow:none;margin:0;max-width:none} }
+        .proto-card h1, .proto-card h2, .proto-card h3 { margin-top: 0.6rem; margin-bottom: 0.4rem; }
+        .proto-card p { margin: 0.35rem 0; line-height: 1.35; }
+        .proto-card ol { margin: 0.4rem 0 0.6rem 1.2rem; padding: 0; }
+        .proto-card li { margin: 0.2rem 0 0.35rem 0; }
+        @media print {
+          @page { size: letter portrait; margin: 12mm; }
+          body{background:#fff}
+          .proto-card{border:none;box-shadow:none;margin:0;max-width:none}
+          .proto-card h1, .proto-card h2, .proto-card h3 { page-break-after: avoid; break-after: avoid; }
+          .proto-card ol, .proto-card ul { page-break-inside: avoid; break-inside: avoid; }
+          .proto-card li, .proto-card details { page-break-inside: avoid; break-inside: avoid; }
+        }
       </style>
     </head><body>
       <div class="proto-card proto-print-root">
         <h1>${title}</h1>
-        ${lastProto.html || '<pre>'+ (lastProto.text || '') + '</pre>'}
+        ${inner}
       </div>
     </body></html>`;
 
     const blob = new Blob([html], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    const a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener';
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(()=> URL.revokeObjectURL(url), 60000);
+    notify('Opened print view');
   }
   function printNow(){
-    if (!lastProto) return;
-    const wrap = document.createElement('div');
-    wrap.className = 'proto-card proto-print-root';
-    wrap.innerHTML = lastProto.html || '<pre>'+ (lastProto.text || '') + '</pre>';
-    document.body.appendChild(wrap);
-    window.print();
-    document.body.removeChild(wrap);
+    if (!lastProto) { notify('Generate a protocol first'); return; }
+    const title = lastProto.title || lastProto.id || 'Protocol';
+    const inner = getProtocolHTMLForPrint();
+    const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title}</title>
+      <style>
+        @page { size: letter portrait; margin: 12mm; }
+        body{margin:1rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;background:#fff}
+        .proto-card{max-width:800px;margin:0 auto;border:none;border-radius:0;padding:0;background:#fff;font-size:12pt;line-height:1.35}
+        .proto-card h1, .proto-card h2, .proto-card h3 { margin-top: 0.6rem; margin-bottom: 0.4rem; page-break-after: avoid; break-after: avoid; }
+        .proto-card p { margin: 0.35rem 0; }
+        .proto-card ol { margin: 0.4rem 0 0.6rem 1.2rem; padding: 0; }
+        .proto-card li, .proto-card details { page-break-inside: avoid; break-inside: avoid; }
+      </style>
+    </head><body>
+      <div class="proto-card">
+        <h1>${title}</h1>
+        ${inner}
+      </div>
+      <script>
+        // Respect current collapsed/expanded state (no auto-open)
+        setTimeout(()=>{ try { window.print(); } catch {} }, 50);
+      <\/script>
+    </body></html>`;
+
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(()=> URL.revokeObjectURL(url), 60000);
   }
   function buildShareURL(vals, autogen=true){
     if (!currentProtocol) return location.href;
@@ -290,11 +389,21 @@ Pick a protocol, answer its questions, then generate the expanded steps.
     return `${location.origin}${location.pathname}?${q.toString()}`;
   }
   $("copy-link").addEventListener('click', async ()=>{
-    if (!currentProtocol) return;
+    if (!currentProtocol) { notify('Pick a protocol first'); return; }
     const vals = readValues(currentInputs);
     const url = buildShareURL(vals, true);
-    await navigator.clipboard.writeText(url);
+    const ok = await safeClipboardWrite(url);
+    if (!ok) {
+      // As a last resort, show the URL in a prompt
+      window.prompt('Copy this URL:', url);
+    }
   });
+
+  $("copy-md").addEventListener('click', copyMarkdown);
+  $("copy-html").addEventListener('click', copyHTML);
+  $("download-md").addEventListener('click', downloadMD);
+  $("open-print").addEventListener('click', openPrintView);
+  $("print-now").addEventListener('click', printNow);
 
   async function bootFromQuery(){
     const q = new URLSearchParams(location.search);
