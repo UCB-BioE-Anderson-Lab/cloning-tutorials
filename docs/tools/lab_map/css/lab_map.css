@@ -1,0 +1,53 @@
+#lab-app { font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+.topbar { display:flex; gap:.5rem; align-items:center; padding:.5rem; border:1px solid #e5e7eb; border-radius:6px; background:#fff; }
+.body { display:grid; grid-template-columns: minmax(720px, 1fr) minmax(320px, 380px); gap: .875rem; margin-top:.75rem; }
+.right-rail {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius:6px;
+    padding:.5rem;
+    max-height: calc(88vh - 12px);
+    overflow:auto;
+}
+.left-rail { display:none !important; }
+.canvas {
+    border:1px solid #e5e7eb;
+    border-radius:6px;
+    background:#fff;
+    min-height:85vh;
+    position:relative;
+    overflow:hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+#map-root { height: 88vh; align-self: flex-start; }
+#map-root svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+#map-root .map-outline { fill:#fff; stroke:#e5e7eb; stroke-width:0.04; }
+#map-root, #map-root svg { background:#fff; }
+.bottom-tray { margin-top:.75rem; border:1px solid #e5e7eb; border-radius:6px; background:#fff; padding:.5rem; }
+[hidden] { display:none !important; }
+
+/* Map zone + equipment styling */
+#map-root .zone { fill:#f8fafc; stroke:#94a3b8; stroke-width:0.04; }
+#map-root .zone.bench { fill:#eef2ff; stroke:#cbd5e1; stroke-width:0.04; }
+#map-root .zone.cubby { fill:#f1f5f9; }
+#map-root .zone.appliance { fill:#fff7ed; }
+#map-root .equipment { cursor: pointer; }
+/* Zone and equipment label styling: consistent font and color */
+#map-root text {
+    fill: #475569;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-size: .18px;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Highlight states */
+#map-root .zone.highlighted { fill:#e6f4ff; stroke:#60a5fa; }
+#map-root .zone.dimmed { opacity:.35; }
+#map-root .zone.active { fill:#ffe4e6; stroke:#fb7185; }
