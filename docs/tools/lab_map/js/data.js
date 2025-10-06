@@ -1,23 +1,32 @@
-// Robust loaders + TSV parser
+// DEBUG logging is intentionally simple console.log so it's always visible
 
 async function loadText(url) {
+  console.log('[data] loadText url =', url);
   const res = await fetch(url, { cache: 'no-store' });
+  console.log('[data] loadText ok?', res.ok, 'status =', res.status);
   if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status} ${res.statusText}`);
-  return await res.text();
+  const t = await res.text();
+  console.log('[data] loadText length =', t ? t.length : 0);
+  return t;
 }
 
 async function loadJSON(url) {
+  console.log('[data] loadJSON url =', url);
   const res = await fetch(url, { cache: 'no-store' });
+  console.log('[data] loadJSON ok?', res.ok, 'status =', res.status);
   if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status} ${res.statusText}`);
   const txt = (await res.text()) || '';
   const t = txt.trim();
-  // Treat empty or HTML as "no data" rather than crashing
-  if (!t || t.startsWith('<')) return null;
-  try { return JSON.parse(t); } catch (e) { throw new Error(`Invalid JSON in ${url}: ${e.message}`); }
+  console.log('[data] loadJSON text length =', t.length);
+  if (!t || t.startsWith('<')) { console.log('[data] loadJSON empty or HTML, returning null'); return null; }
+  try { return JSON.parse(t); } catch (e) { console.log('[data] loadJSON parse error =', e.message); throw new Error(`Invalid JSON in ${url}: ${e.message}`); }
 }
 
 function parseConsumablesTSV(text) {
+  console.log('[data] TSV raw length =', (text ? String(text).length : 0));
   const lines = String(text || '').replace(/\r/g, '').split('\n').filter(l => l.trim().length);
+  console.log('[data] TSV line count =', lines.length);
+  if (lines[0]) console.log('[data] TSV header =', lines[0]);
   if (!lines.length) return { map: {}, items: [] };
   const header = lines[0].split('\t').map(h => h.trim().toLowerCase());
   const idx = (name) => header.indexOf(name);
@@ -32,6 +41,8 @@ function parseConsumablesTSV(text) {
   const campusSrcI = idx('campus_source');
   const campusUrlI = idx('campus_url');
   const prefI = idx('preferred_acquire');
+
+  console.log('[data] TSV idx bench,stack,drawer,items,target,threshold,vendor =', loc1I, loc2I, loc3I, itemI, targetI, threshI, vendorI);
 
   const map = {};
   const items = new Set();
@@ -56,25 +67,34 @@ function parseConsumablesTSV(text) {
     entry.campus_url = get(cols, campusUrlI) || undefined;
     entry.preferred_acquire = get(cols, prefI) || undefined;
   }
+  console.log('[data] TSV parsed keys =', Object.keys(map).length, 'unique items =', items.size);
   return { map, items: Array.from(items).sort((a,b)=>a.localeCompare(b, undefined, {sensitivity:'base'})) };
 }
 
 export async function loadAll(paths) {
+  console.log('[data] loadAll paths =', paths);
   const [room, benches, consRaw, equipment, trainings] = await Promise.all([
-    loadJSON(paths.room).catch(() => null),
-    loadJSON(paths.benches).catch(() => null),
-    loadText(paths.consumables).catch(() => ''),
-    loadJSON(paths.equipment).catch(() => []),
-    loadJSON(paths.trainings).catch(() => [])
+    loadJSON(paths.room).catch((e) => { console.log('[data] room load error =', e?.message); return null; }),
+    loadJSON(paths.benches).catch((e) => { console.log('[data] benches load error =', e?.message); return null; }),
+    loadText(paths.consumables).catch((e) => { console.log('[data] consumables load error =', e?.message); return ''; }),
+    loadJSON(paths.equipment).catch((e) => { console.log('[data] equipment load error =', e?.message); return []; }),
+    loadJSON(paths.trainings).catch((e) => { console.log('[data] trainings load error =', e?.message); return []; })
   ]);
 
+  console.log('[data] consRaw present?', !!consRaw, 'length =', consRaw ? consRaw.length : 0);
   const consumables = consRaw ? parseConsumablesTSV(consRaw) : { map: {}, items: [] };
+  console.log('[data] consumables.map keys =', Object.keys(consumables.map || {}).length, 'items =', (consumables.items || []).length);
+
   const ITEM_TO_KEYS = {};
-  for (const [key, entry] of Object.entries(consumables.map)) {
+  for (const [key, entry] of Object.entries(consumables.map || {})) {
     for (const it of (entry.items || [])) {
       const low = it.toLowerCase();
       (ITEM_TO_KEYS[low] ||= []).push(key);
     }
   }
-  return { room, benches, consumables, equipment: equipment || [], trainings: trainings || [], ITEM_TO_KEYS };
+  console.log('[data] ITEM_TO_KEYS unique items =', Object.keys(ITEM_TO_KEYS).length);
+
+  const result = { room, benches, consumables, equipment: equipment || [], trainings: trainings || [], ITEM_TO_KEYS };
+  console.log('[data] loadAll result summary: room?', !!room, 'benches?', !!benches, 'equipment count =', (result.equipment||[]).length, 'trainings count =', (result.trainings||[]).length);
+  return result;
 }

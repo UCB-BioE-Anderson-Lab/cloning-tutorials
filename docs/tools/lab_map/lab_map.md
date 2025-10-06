@@ -3,11 +3,10 @@
 <link rel="stylesheet" href="../css/lab_map.css">
 
 <div id="lab-app">
-  <div class="topbar">
-    <input id="search-box" list="item-list" type="text" placeholder="Search or pick an item…" />
+  <div class="topbar centered">
+    <input id="search-box" class="map-search-bar" list="item-list" type="text" placeholder="Search or pick an item…" />
     <datalist id="item-list"></datalist>
-    <div id="filters"></div>
-    <div id="legend"></div>
+    <aside class="right-rail" id="details-panel"></aside>
   </div>
 
   <div class="body">
@@ -21,12 +20,8 @@
            data-trainings-src="../../../assets/data/trainings.json"></div>
     </main>
 
-    <aside class="right-rail">
-      <div id="details"></div>
-    </aside>
   </div>
 
-  <div class="bottom-tray" id="results-tray" hidden></div>
 </div>
 
 <script type="module">

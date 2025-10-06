@@ -1,53 +1,180 @@
-#lab-app { font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-.topbar { display:flex; gap:.5rem; align-items:center; padding:.5rem; border:1px solid #e5e7eb; border-radius:6px; background:#fff; }
-.body { display:grid; grid-template-columns: minmax(720px, 1fr) minmax(320px, 380px); gap: .875rem; margin-top:.75rem; }
-.right-rail {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius:6px;
-    padding:.5rem;
-    max-height: calc(88vh - 12px);
-    overflow:auto;
+#lab-app {
+  font: 15px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #1e293b;
+  background-color: #fafafa;
 }
-.left-rail { display:none !important; }
+
+:root { --content-max: 1200px; --gap: 16px; --topbar-h: 64px; }
+.centered { max-width: var(--content-max); margin: 0 auto; }
+
+/* Top bar layout */
+.topbar {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.9fr) minmax(380px, 1.1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+/* constrain the whole top row */
+.topbar.centered { max-width: var(--content-max); margin: 0 auto; }
+
+/* Main body grid layout */
+.body {
+  display: block;
+  margin-top: var(--gap);
+}
+
+/* Map container */
 .canvas {
-    border:1px solid #e5e7eb;
-    border-radius:6px;
-    background:#fff;
-    min-height:85vh;
-    position:relative;
-    overflow:hidden;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: var(--content-max);
+  margin: var(--gap) auto 0 auto;   /* below the top row */
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;                       /* let height snap to content */
+  height: auto;
 }
-#map-root { height: 88vh; align-self: flex-start; }
-#map-root svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-#map-root .map-outline { fill:#fff; stroke:#e5e7eb; stroke-width:0.04; }
-#map-root, #map-root svg { background:#fff; }
-.bottom-tray { margin-top:.75rem; border:1px solid #e5e7eb; border-radius:6px; background:#fff; padding:.5rem; }
-[hidden] { display:none !important; }
 
-/* Map zone + equipment styling */
-#map-root .zone { fill:#f8fafc; stroke:#94a3b8; stroke-width:0.04; }
-#map-root .zone.bench { fill:#eef2ff; stroke:#cbd5e1; stroke-width:0.04; }
-#map-root .zone.cubby { fill:#f1f5f9; }
-#map-root .zone.appliance { fill:#fff7ed; }
-#map-root .equipment { cursor: pointer; }
-/* Zone and equipment label styling: consistent font and color */
+/* Keep map top-aligned */
+.canvas > #map-root {
+  align-self: flex-start;
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+
+/* Right rail (details panel) */
+/* Right rail (details panel) */
+.topbar .right-rail {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 0 0 1rem;       /* rely on topbar padding + add left inset */
+  align-self: stretch;        /* match topbar height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;    /* vertically center content */
+  border-left: 1px solid #e2e8f0; /* divider between search and details */
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+.topbar .right-rail ul { margin: 0.2rem 0 0; padding-left: 1rem; }
+.topbar .right-rail li { margin: 0.1rem 0; }
+.topbar .right-rail h3 { font-size: 0.95rem; }
+
+.topbar .right-rail h3,
+.topbar .right-rail h4,
+.topbar .right-rail p {
+  margin: 0.1rem 0;          /* compact header area */
+}
+
+/* Hide unused left panel */
+.left-rail {
+  display: none !important;
+}
+
+/* Map and SVG styling */
+#map-root { width: 100%; max-width: 100%; align-self: flex-start; overflow: visible; }
+#map-root svg { width: 100%; max-width: 100%; height: auto; object-fit: contain; display: block; }
+
+#map-root .map-outline {
+  fill: #fff;
+  stroke: #e5e7eb;
+  stroke-width: 0.03;
+}
+
+/* Zone styling */
+#map-root .zone {
+  fill: #f8fafc;
+  stroke: #94a3b8;
+  stroke-width: 0.03;
+}
+#map-root .zone.bench {
+  fill: #eef2ff;
+  stroke: #cbd5e1;
+}
+#map-root .zone.open_area {
+  stroke-dasharray: 0.16 0.12;
+}
+
+/* Equipment markers */
+#map-root .equipment {
+  fill: #1e293b;
+  stroke: #fff;
+  stroke-width: 0.02;
+  cursor: pointer;
+}
+#map-root circle.equipment,
+#map-root .equipment circle {
+  r: 0.12 !important;     /* keep dots small in user units */
+}
+#map-root .equipment { transform: none !important; }
+
+/* Labels */
 #map-root text {
-    fill: #475569;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    font-size: .18px;
-    user-select: none;
-    pointer-events: none;
+  fill: #475569;
+  font-size: 0.16px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  user-select: none;
 }
 
-/* Highlight states */
-#map-root .zone.highlighted { fill:#e6f4ff; stroke:#60a5fa; }
-#map-root .zone.dimmed { opacity:.35; }
-#map-root .zone.active { fill:#ffe4e6; stroke:#fb7185; }
+#map-root .zone-label,
+#map-root .equipment-label {
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+#map-root .equipment-label {
+  font-size: 0.2px;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 0.05;
+}
+
+/* Interaction and highlight states */
+#map-root .zone.highlighted {
+  fill: #e7f3ff;
+  stroke: #93c5fd;
+}
+#map-root .zone.active {
+  fill: #fee2e2;
+  stroke: #f87171;
+}
+#map-root .zone.dimmed {
+  opacity: 0.4;
+}
+
+#map-root .zone:hover {
+  stroke: #60a5fa;
+  stroke-width: 0.04;
+}
+
+
+/* Hidden utility */
+[hidden] {
+  display: none !important;
+}
+
+/* Search bar styling: make it wide and centered below the title */
+.map-search-bar {
+  width: 100%;
+  margin: 0;
+  display: block;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+}

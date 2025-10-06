@@ -14,6 +14,8 @@
 
 import { emit } from './bus.js';
 
+let LAST_ROOT = null;
+
 function prettyLabel(z){
   if (z.label) return z.label;
   return String(z.slug || '')
@@ -23,6 +25,7 @@ function prettyLabel(z){
 }
 
 export function renderMap(root, data){
+  LAST_ROOT = root;
   const room = data.room || { viewBox:[0,0,1200,800], zones:[] };
   const [minx,miny,w,h] = room.viewBox;
 
@@ -44,6 +47,15 @@ export function renderMap(root, data){
   outline.setAttribute('class', 'map-outline');
   svg.appendChild(outline);
 
+  // layers: zones below, equipment above
+  const zonesLayer = document.createElementNS('http://www.w3.org/2000/svg','g');
+  zonesLayer.setAttribute('class','zones-layer');
+  svg.appendChild(zonesLayer);
+
+  const equipmentLayer = document.createElementNS('http://www.w3.org/2000/svg','g');
+  equipmentLayer.setAttribute('class','equipment-layer');
+  svg.appendChild(equipmentLayer);
+
   const rects = new Map();
 
   // Draw zones with labels
@@ -57,6 +69,12 @@ export function renderMap(root, data){
     r.setAttribute('width', z.w); r.setAttribute('height', z.h);
     r.setAttribute('class', `zone ${typeClass}`);
     r.dataset.slug = z.slug;
+    r.setAttribute('role','button');
+    r.setAttribute('tabindex','0');
+    r.setAttribute('aria-label', prettyLabel(z));
+    r.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); emit('select:zone', z.slug); }
+    });
 
     r.addEventListener('click', () => emit('select:zone', z.slug));
     r.addEventListener('mouseenter', () => emit('hover:zone', z.slug));
@@ -77,19 +95,19 @@ export function renderMap(root, data){
     t.textContent = prettyLabel(z);
     g.appendChild(t);
 
-    svg.appendChild(g);
+    zonesLayer.appendChild(g);
     rects.set(z.slug, r);
   });
 
   // Draw equipment markers, if provided
   if (Array.isArray(data.equipment) && data.equipment.length) {
-    drawEquipment(svg, room.zones || [], data.equipment);
+    drawEquipment(equipmentLayer, room.zones || [], data.equipment);
   }
 
   root.__rects = rects;
 }
 
-function drawEquipment(svg, zones, equipment){
+function drawEquipment(container, zones, equipment){
   const Z = Object.fromEntries((zones||[]).map(z => [z.slug, z]));
   (equipment||[]).forEach(e => {
     // Span handling (e.g., fume hood) can be added later; for now place by host zone
@@ -97,11 +115,31 @@ function drawEquipment(svg, zones, equipment){
     if (!z) return;
     const [cx, cy] = anchorPoint(z, e.anchor || 'center');
 
+    let x = cx, y = cy;
+    const isFloor = (e.anchor||'').startsWith('floor');
+    if (!isFloor) {
+      const pad = Math.min(z.w, z.h) * 0.1;
+      const minX = z.x + pad, maxX = z.x + z.w - pad;
+      const minY = z.y + pad, maxY = z.y + z.h - pad;
+      x = Math.min(maxX, Math.max(minX, x));
+      y = Math.min(maxY, Math.max(minY, y));
+    }
+
+    // Optional per-item dx/dy offset from data
+    if (e.offset && typeof e.offset.dx === 'number') x += e.offset.dx;
+    if (e.offset && typeof e.offset.dy === 'number') y += e.offset.dy;
+
     const icon = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    icon.setAttribute('cx', cx);
-    icon.setAttribute('cy', cy);
-    icon.setAttribute('r', Math.max(Math.min(z.w, z.h) * 0.08, 0.08));
+    icon.setAttribute('cx', x);
+    icon.setAttribute('cy', y);
+    icon.setAttribute('r', 0.12);
     icon.setAttribute('class', `equipment ${e.type||'device'}`);
+    icon.setAttribute('role','button');
+    icon.setAttribute('tabindex','0');
+    icon.setAttribute('aria-label', e.name || e.id || 'equipment');
+    icon.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); emit('select:equipment', e); }
+    });
 
     const title = document.createElementNS('http://www.w3.org/2000/svg','title');
     title.textContent = e.name || e.id || 'equipment';
@@ -110,20 +148,32 @@ function drawEquipment(svg, zones, equipment){
     icon.addEventListener('click', () => emit('select:equipment', e));
     icon.addEventListener('mouseenter', () => emit('hover:zone', e.zone));
 
-    svg.appendChild(icon);
+    container.appendChild(icon);
+
+    if (e.name) {
+      const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+      label.setAttribute('x', x);
+      label.setAttribute('y', y - 0.22);
+      label.setAttribute('class','equipment-label');
+      label.setAttribute('text-anchor','middle');
+      label.setAttribute('dominant-baseline','ideographic');
+      label.textContent = e.name;
+      label.addEventListener('click', () => emit('select:equipment', e));
+      container.appendChild(label);
+    }
   });
 }
 
 function anchorPoint(z, where){
   switch(where){
-    case 'top': return [z.x + z.w/2, z.y + z.h*0.15];
-    case 'bottom': return [z.x + z.w/2, z.y + z.h*0.85];
-    case 'left': return [z.x + z.w*0.15, z.y + z.h/2];
-    case 'right': return [z.x + z.w*0.85, z.y + z.h/2];
-    case 'top-left': return [z.x + z.w*0.2, z.y + z.h*0.2];
-    case 'top-right': return [z.x + z.w*0.8, z.y + z.h*0.2];
-    case 'floor-left': return [z.x - Math.min(0.4, z.w*0.4), z.y + z.h + Math.min(0.4, z.h*0.4)];
-    case 'floor-right': return [z.x + z.w + Math.min(0.4, z.w*0.4), z.y + z.h + Math.min(0.4, z.h*0.4)];
+    case 'top': return [z.x + z.w/2, z.y + z.h*0.22];
+    case 'bottom': return [z.x + z.w/2, z.y + z.h*0.78];
+    case 'left': return [z.x + z.w*0.22, z.y + z.h/2];
+    case 'right': return [z.x + z.w*0.78, z.y + z.h/2];
+    case 'top-left': return [z.x + z.w*0.25, z.y + z.h*0.25];
+    case 'top-right': return [z.x + z.w*0.75, z.y + z.h*0.25];
+    case 'floor-left': return [z.x - Math.min(0.4, z.w*0.35), z.y + z.h + Math.min(0.4, z.h*0.35)];
+    case 'floor-right': return [z.x + z.w + Math.min(0.4, z.w*0.35), z.y + z.h + Math.min(0.4, z.h*0.35)];
     default: return [z.x + z.w/2, z.y + z.h/2];
   }
 }
@@ -142,3 +192,9 @@ export function focusZone(root, slug){
   const rect = (root.__rects || new Map()).get(slug);
   if (rect) { rect.classList.add('active'); }
 }
+
+// Respond to global search results and highlight benches accordingly
+window.addEventListener('lab:search-results', (e) => {
+  const keys = (e.detail && e.detail.keys) || [];
+  if (LAST_ROOT) highlightKeys(LAST_ROOT, keys);
+});
