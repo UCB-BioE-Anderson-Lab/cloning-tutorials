@@ -7,7 +7,7 @@ export const inputs = [
   { name: "primer1_name", type: "text", label: "Primer 1 name", default: "forward_oligo" },
   { name: "primer2_name", type: "text", label: "Primer 2 name", default: "reverse_oligo" },
   { name: "label_prefix", type: "text", label: "Tube label prefix", default: "pcr" },
-  { name: "use_mastermix", type: "boolean", label: "Use master mix? (auto if >4 reactions)" },
+  { name: "use_mastermix", type: "boolean", label: "Use master mix?" },
   { name: "overage", type: "number", label: "Master mix overage (fraction)", default: 0.10, step: 0.05 }
 ];
 
@@ -51,7 +51,7 @@ export function factory(values = {}) {
   const labelRange = labels.length <= 10 ? labels.join(", ") : `${labels[0]} … ${labels[labels.length - 1]}`;
 
   const name = "PrimeSTAR GXL PCR";
-  const description = `Set up ${n} × 50 µL PCR${n > 1 ? "s" : ""} with ${p1}/${p2} on ${template}; auto-computed master mix and steps.`;
+  const description = `Set up ${n} × 50 µL PCR${n > 1 ? "s" : ""} with ${p1}/${p2} on ${template}`;
 
   const templateStr = `
 1. **Find oligo samples.** For now, locate tubes manually (ideally 10 µM stocks) and the template DNA (miniprep‑level concentration).
