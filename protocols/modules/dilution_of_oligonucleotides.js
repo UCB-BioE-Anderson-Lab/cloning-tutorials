@@ -13,8 +13,8 @@ export function factory() {
 1. Find the **nmol** value printed on the tube.
 2. Multiply that number by 10 to get the resuspension volume in µL for a **100 µM stock**.  
    For example, 25 nmol × 10 = 250 µL.
-3. Briefly spin the tube to collect the powder at the bottom.
-4. Add the calculated volume of **ddH₂O** (Millipore or molecular biology–grade).  
+3. Briefly spin the tube to collect any dislodged material at the bottom.
+4. Add the calculated volume of **ddH₂O** (Millipore or molecular biology grade).  
    *Qiagen EB or TE Buffer are acceptable. Do **not** use house distilled water.*
 5. Cap and **vortex ~5 s**. Oligos dissolve immediately.
 
