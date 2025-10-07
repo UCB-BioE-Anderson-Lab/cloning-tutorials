@@ -11,6 +11,10 @@
         <link rel="canonical" href="https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/protocols/protocols/">
       
       
+        <link rel="prev" href="../../planning/project_ispA/">
+      
+      
+        <link rel="next" href="../../tools/feature_extractor/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -18,7 +22,7 @@
     
     
       
-        <title>Protocols - SynBio Project Tutorials</title>
+        <title>Protocol Builder - SynBio Project Tutorials</title>
       
     
     
@@ -107,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Protocols
+              Protocol Builder
             
           </span>
         </div>
@@ -1047,18 +1051,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -1074,12 +1080,45 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Tools
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Protocol Builder
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
             
               
                 
@@ -1515,10 +1554,6 @@
 
 
 <h1 id="protocols">Protocols<a class="headerlink" href="#protocols" title="Permanent link">&para;</a></h1>
-<p>This page lets you run any protocol defined in the <code>modules/</code> folder.
-Pick a protocol, answer its questions, then generate the expanded steps.</p>
-<div id="protocol-list"></div>
-
 <style>
   /* Keep the control fields from overlapping on narrow or themed layouts */
   #controls { column-gap: 0.75rem; row-gap: 0.75rem; }
@@ -1556,18 +1591,12 @@ Pick a protocol, answer its questions, then generate the expanded steps.</p>
   <label>Choose protocol
     <select id="protocol_select"></select>
   </label>
-  <label>Or enter ID
-    <input id="protocol_id" type="text" placeholder="e.g. tss_comp_cells" />
-  </label>
-  <div>
-    <button id="load">Load</button>
-  </div>
 </div>
 
 <div id="dynamic-inputs" style="display:grid;gap:0.5rem;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));align-items:end;margin:0.5rem 0;"></div>
 
 <div style="display:flex;gap:0.5rem;margin:0.5rem 0;">
-  <button id="generate" disabled>Generate</button>
+  <button id="generate" disabled>Recalculate</button>
   <button id="clear" type="button">Clear</button>
 </div>
 
@@ -1676,7 +1705,6 @@ Pick a protocol, answer its questions, then generate the expanded steps.</p>
 
   const dyn = $("dynamic-inputs");
   const select = $("protocol_select");
-  const idInput = $("protocol_id");
   let currentInputs = [];
   let currentProtocol = null;
 
@@ -1684,7 +1712,7 @@ Pick a protocol, answer its questions, then generate the expanded steps.</p>
     select.innerHTML = '';
     const opt0 = document.createElement('option');
     opt0.value = '';
-    opt0.textContent = '(select or type an ID)';
+    opt0.textContent = '(select a protocol)';
     select.appendChild(opt0);
 
     const index = await tryLoadIndex();
@@ -1696,18 +1724,6 @@ Pick a protocol, answer its questions, then generate the expanded steps.</p>
         select.appendChild(opt);
       }
     }
-  }
-
-  async function renderProtocolList(){
-    const listEl = document.getElementById("protocol-list");
-    const index = await tryLoadIndex();
-    if (!listEl) return;
-    if (!Array.isArray(index) || !index.length){
-      listEl.innerHTML = "";
-      return;
-    }
-    const items = index.map(p => `<li><b>${p.title || p.id}</b> <code>${p.id}</code></li>`).join("");
-    listEl.innerHTML = `<h3>Available Protocols</h3><ul>${items}</ul>`;
   }
 
   async function loadProtocolInputs(pid){
@@ -1724,22 +1740,11 @@ Pick a protocol, answer its questions, then generate the expanded steps.</p>
     }
   }
 
-  $("load").addEventListener('click', async ()=>{
-    const pid = (idInput.value || select.value).trim();
-    await loadProtocolInputs(pid);
-  });
-
-  select.addEventListener('change', async ()=>{
+select.addEventListener('change', async ()=>{
     if (!select.value) return;
-    idInput.value = select.value;
     await loadProtocolInputs(select.value);
-  });
-
-  idInput.addEventListener('keydown', async (e)=>{
-    if (e.key === 'Enter'){
-      const pid = (idInput.value || select.value).trim();
-      if (pid) await loadProtocolInputs(pid);
-    }
+    // Auto-generate with current/default values on selection
+    $("generate").click();
   });
 
   $("generate").addEventListener('click', async ()=>{
@@ -1752,7 +1757,7 @@ Pick a protocol, answer its questions, then generate the expanded steps.</p>
       $("proto-tools").style.display = 'flex';
       const share = buildShareURL(vals, true);
       history.replaceState(null, '', share);
-      notify('Generated. Tools unlocked.');
+      notify('Recalculated. Tools unlocked.');
     } catch(e){
       $("protocol-output").textContent = String(e.message || e);
       $("proto-tools").style.display = 'none';
@@ -1923,7 +1928,6 @@ Pick a protocol, answer its questions, then generate the expanded steps.</p>
     const q = new URLSearchParams(location.search);
     const id = q.get('id');
     if (!id) return;
-    $("protocol_id").value = id;
     if ([...select.options].some(o => o.value === id)) select.value = id;
     await loadProtocolInputs(id);
     (currentInputs || []).forEach(inp=>{
@@ -1938,9 +1942,12 @@ Pick a protocol, answer its questions, then generate the expanded steps.</p>
         el.value = vals[vals.length - 1];
       }
     });
-    if (q.get('autogen') === '1') $("generate").click();
+    const autogen = q.get('autogen');
+    if (autogen === '1' || autogen === 'true') {
+      $("generate").click();
+    }
   }
-  (async ()=>{ await populateSelect(); await renderProtocolList(); await bootFromQuery(); })();
+  (async ()=>{ await populateSelect(); await bootFromQuery(); })();
 </script>
 
 
