@@ -263,6 +263,19 @@ async function renderFromGraphHTML(graph, id, values, depth = 0){
   return `${styleOnce}${title}\n${desc}\n${bodyHTML}`.trim();
 }
 
+function formatInline(s){
+  // Escape HTML first to stay safe, then do lightweight Markdown-style inline formatting
+  let out = escapeHtml(String(s || ''));
+  // Inline code
+  out = out.replace(/`([^`]+)`/g, '<code>$1</code>');
+  // Bold (**text**)
+  out = out.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  // Italic (_text_ or *text*)
+  out = out.replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
+  out = out.replace(/(^|[^_])_([^_\n]+)_/g, '$1<em>$2</em>');
+  return out;
+}
+
 function textToHTMLBlocks(text){
   const lines = String(text || '').split(/\n/);
   const blocks = [];
@@ -275,17 +288,27 @@ function textToHTMLBlocks(text){
         items.push(lines[i].replace(/^\s*\d+\.\s+/, ''));
         i++;
       }
-      blocks.push(`<ol>` + items.map(s=>`<li>${escapeHtml(s)}</li>`).join('') + `</ol>`);
+      blocks.push(`<ol>` + items.map(s=>`<li>${formatInline(s)}</li>`).join('') + `</ol>`);
+      continue;
+    }
+    // collect unordered list (- or * bullets)
+    if (/^\s*[-*]\s+/.test(lines[i])){
+      const items = [];
+      while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])){
+        items.push(lines[i].replace(/^\s*[-*]\s+/, ''));
+        i++;
+      }
+      blocks.push(`<ul>` + items.map(s=>`<li>${formatInline(s)}</li>`).join('') + `</ul>`);
       continue;
     }
     // collect paragraph
     const para = [];
-    while (i < lines.length && !/^\s*$/.test(lines[i]) && !/^\s*\d+\.\s+/.test(lines[i])){
+    while (i < lines.length && !/^\s*$/.test(lines[i]) && !/^\s*\d+\.\s+/.test(lines[i]) && !/^\s*[-*]\s+/.test(lines[i])){
       para.push(lines[i]);
       i++;
     }
     if (para.length){
-      blocks.push(`<p>${escapeHtml(para.join(' '))}</p>`);
+      blocks.push(`<p>${formatInline(para.join(' '))}</p>`);
     }
     // skip blank lines
     while (i < lines.length && /^\s*$/.test(lines[i])) i++;

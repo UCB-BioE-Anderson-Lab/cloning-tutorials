@@ -1,10 +1,5 @@
 # Protocols
 
-This page lets you run any protocol defined in the `modules/` folder.
-Pick a protocol, answer its questions, then generate the expanded steps.
-
-<div id="protocol-list"></div>
-
 <style>
   /* Keep the control fields from overlapping on narrow or themed layouts */
   #controls { column-gap: 0.75rem; row-gap: 0.75rem; }
@@ -42,18 +37,12 @@ Pick a protocol, answer its questions, then generate the expanded steps.
   <label>Choose protocol
     <select id="protocol_select"></select>
   </label>
-  <label>Or enter ID
-    <input id="protocol_id" type="text" placeholder="e.g. tss_comp_cells" />
-  </label>
-  <div>
-    <button id="load">Load</button>
-  </div>
 </div>
 
 <div id="dynamic-inputs" style="display:grid;gap:0.5rem;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));align-items:end;margin:0.5rem 0;"></div>
 
 <div style="display:flex;gap:0.5rem;margin:0.5rem 0;">
-  <button id="generate" disabled>Generate</button>
+  <button id="generate" disabled>Recalculate</button>
   <button id="clear" type="button">Clear</button>
 </div>
 
@@ -162,7 +151,6 @@ Pick a protocol, answer its questions, then generate the expanded steps.
 
   const dyn = $("dynamic-inputs");
   const select = $("protocol_select");
-  const idInput = $("protocol_id");
   let currentInputs = [];
   let currentProtocol = null;
 
@@ -170,7 +158,7 @@ Pick a protocol, answer its questions, then generate the expanded steps.
     select.innerHTML = '';
     const opt0 = document.createElement('option');
     opt0.value = '';
-    opt0.textContent = '(select or type an ID)';
+    opt0.textContent = '(select a protocol)';
     select.appendChild(opt0);
 
     const index = await tryLoadIndex();
@@ -182,18 +170,6 @@ Pick a protocol, answer its questions, then generate the expanded steps.
         select.appendChild(opt);
       }
     }
-  }
-
-  async function renderProtocolList(){
-    const listEl = document.getElementById("protocol-list");
-    const index = await tryLoadIndex();
-    if (!listEl) return;
-    if (!Array.isArray(index) || !index.length){
-      listEl.innerHTML = "";
-      return;
-    }
-    const items = index.map(p => `<li><b>${p.title || p.id}</b> <code>${p.id}</code></li>`).join("");
-    listEl.innerHTML = `<h3>Available Protocols</h3><ul>${items}</ul>`;
   }
 
   async function loadProtocolInputs(pid){
@@ -210,22 +186,11 @@ Pick a protocol, answer its questions, then generate the expanded steps.
     }
   }
 
-  $("load").addEventListener('click', async ()=>{
-    const pid = (idInput.value || select.value).trim();
-    await loadProtocolInputs(pid);
-  });
-
-  select.addEventListener('change', async ()=>{
+select.addEventListener('change', async ()=>{
     if (!select.value) return;
-    idInput.value = select.value;
     await loadProtocolInputs(select.value);
-  });
-
-  idInput.addEventListener('keydown', async (e)=>{
-    if (e.key === 'Enter'){
-      const pid = (idInput.value || select.value).trim();
-      if (pid) await loadProtocolInputs(pid);
-    }
+    // Auto-generate with current/default values on selection
+    $("generate").click();
   });
 
   $("generate").addEventListener('click', async ()=>{
@@ -238,7 +203,7 @@ Pick a protocol, answer its questions, then generate the expanded steps.
       $("proto-tools").style.display = 'flex';
       const share = buildShareURL(vals, true);
       history.replaceState(null, '', share);
-      notify('Generated. Tools unlocked.');
+      notify('Recalculated. Tools unlocked.');
     } catch(e){
       $("protocol-output").textContent = String(e.message || e);
       $("proto-tools").style.display = 'none';
@@ -409,7 +374,6 @@ Pick a protocol, answer its questions, then generate the expanded steps.
     const q = new URLSearchParams(location.search);
     const id = q.get('id');
     if (!id) return;
-    $("protocol_id").value = id;
     if ([...select.options].some(o => o.value === id)) select.value = id;
     await loadProtocolInputs(id);
     (currentInputs || []).forEach(inp=>{
@@ -424,7 +388,10 @@ Pick a protocol, answer its questions, then generate the expanded steps.
         el.value = vals[vals.length - 1];
       }
     });
-    if (q.get('autogen') === '1') $("generate").click();
+    const autogen = q.get('autogen');
+    if (autogen === '1' || autogen === 'true') {
+      $("generate").click();
+    }
   }
-  (async ()=>{ await populateSelect(); await renderProtocolList(); await bootFromQuery(); })();
+  (async ()=>{ await populateSelect(); await bootFromQuery(); })();
 </script>
