@@ -1,8 +1,6 @@
 export const inputs = [
   { name: "volume_in_mL", type: "number", label: "Culture volume (mL)", default: 100, step: 10 },
-  { name: "has_flask", type: "boolean", label: "Do you already have a sterile flask?", default: false },
-  { name: "target_OD", type: "text", label: "Target OD600 for harvest", default: "0.4–0.6" },
-  { name: "tss_ratio", type: "number", label: "TSS resuspension volume as fraction of culture (e.g., 0.05 = 5%)", default: 0.05, step: 0.05 }
+  { name: "has_flask", type: "boolean", label: "Do you already have a sterile flask?", default: false }
 ];
 
 export function factory(values) {
