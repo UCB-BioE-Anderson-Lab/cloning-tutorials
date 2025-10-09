@@ -729,21 +729,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. Fill out the worksheet">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-annotations" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧪 Example Annotations
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -1930,21 +1915,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. Fill out the worksheet">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-annotations" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧪 Example Annotations
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -2051,10 +2021,12 @@
 <h3 id="what-to-do-with-your-pp6-sequencing-result">What to Do With Your pP6 Sequencing Result<a class="headerlink" href="#what-to-do-with-your-pp6-sequencing-result" title="Permanent link">&para;</a></h3>
 <p>Once your sequencing data is returned (usually in 1–2 days), you will:</p>
 <h3 id="1-download-your-result">1. <strong>Download your result</strong><a class="headerlink" href="#1-download-your-result" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Search for your assigned number (e.g., <code>79</code>) in this shared folder:<br />
-<a href="https://drive.google.com/drive/u/1/folders/1dxcms7KWnq2-J6WwLECXEPMLE03THW-Q">📂 pP6 Sequencing Data Folder</a></li>
-</ul>
+<p>Your sequencing will be available in one or two days.<br />
+Search for your assigned number (e.g., <code>79</code>) in this shared folder:<br />
+<a href="https://drive.google.com/drive/u/1/folders/1dxcms7KWnq2-J6WwLECXEPMLE03THW-Q">📂 pP6 Sequencing Data Folder</a></p>
+<p>Compare your sequence reads to the expected map of pP6 as discussed below.<br />
+A map of pP6 (pP6.seq) is available here:<br />
+<a href="https://drive.google.com/drive/folders/16-0ek2biyB-hI1RY2xgW6p4fe32FbAJh">📄 pP6.seq</a></p>
 <h3 id="2-check-for-the-expected-pp6-architecture">2. <strong>Check for the Expected pP6 Architecture</strong><a class="headerlink" href="#2-check-for-the-expected-pp6-architecture" title="Permanent link">&para;</a></h3>
 <p>Before comparing your entire sequence to the model, begin by checking for key features within your read:</p>
 <h4 id="step-1-look-for-the-bseri-promoter-bseri-pattern">🔍 Step 1: Look for the BseRI → Promoter → BseRI Pattern<a class="headerlink" href="#step-1-look-for-the-bseri-promoter-bseri-pattern" title="Permanent link">&para;</a></h4>
@@ -2101,68 +2073,23 @@
 </ul>
 <h3 id="5-fill-out-the-worksheet">5. <strong>Fill out the worksheet</strong><a class="headerlink" href="#5-fill-out-the-worksheet" title="Permanent link">&para;</a></h3>
 <p>Go to:<br />
-<a href="https://docs.google.com/spreadsheets/d/1ExKaK8UAiROHywp3qwYDxm3X3QABuKrNPL5QQScM6uA/edit?usp=sharing">📝 pP6 Clones Worksheet</a></p>
-<p>For each clone that has a clean and analyzable read, enter the following information:</p>
+<a href="https://forms.gle/L8nCT1dqkbiaY6Gh8">📝 pP6 Clone Analysis Form</a><br />
+You can view all sequences here:<br />
+<a href="https://docs.google.com/spreadsheets/d/1FqNCBi832iyzmdIl1bYuyEuj2152RnnVaFCyT75oEds/edit?usp=sharing">📊 pP6 Sequence Results Sheet</a></p>
+<p>Use these fields when submitting your analysis:</p>
 <ul>
-<li><strong>clone_id</strong> — Your assigned clone label (e.g., <code>79A</code>)</li>
-<li><strong>read_name</strong> — The filename of your <code>.seq</code> file (e.g., <code>62-pP6-14B_F08_054.seq</code>)</li>
-<li><strong>date_sequenced</strong> — The name of the sequencing folder (e.g., <code>2022_04_24</code>)</li>
-<li><strong>canonical</strong> — Mark <strong>"yes"</strong> if the read matches the model sequence (<code>pP6.seq</code>) across the entire promoter region with no mutations or rearrangements. Otherwise, <strong>"no"</strong>.</li>
-<li><strong>usable</strong> — Mark <strong>"yes"</strong> if the expected UBER promoter motif is found and intact, even if the rest of the plasmid has issues. Otherwise, <strong>"no"</strong>.</li>
-<li><strong>cassette</strong> — Paste the actual sequence you matched that corresponds to the expected promoter region.</li>
-<li><strong>Notes</strong> — Summarize what you observed.</li>
+<li><strong>exp</strong> – The experiment name (<code>pP6</code>)</li>
+<li><strong>clone_id</strong> – Your assigned clone label (e.g., <code>79A</code>)</li>
+<li><strong>student_name</strong> – Your full name as provided to UC Berkeley</li>
+<li><strong>read_name</strong> – The <code>.seq</code> filename</li>
+<li><strong>date_sequenced</strong> – The name of the sequencing folder</li>
+<li><strong>canonical</strong> – “Yes” if it matches <code>pP6.seq</code> in the region of good-quality data</li>
+<li><strong>usable</strong> – “Yes” if this sequence contains:<br />
+  <div class="highlight"><pre><span></span><code>GAGGAGTCCTGGGTTCNNNNTTGACANNNNNNNNNNNNNNNNNTATAATNNNNNNANNNNGTTAGTATTTCTCCTC
+</code></pre></div></li>
+<li><strong>cassette</strong> – The sequence matched by the above query</li>
+<li><strong>Notes</strong> – Notes on any mutations or unusual results</li>
 </ul>
-<h4 id="example-annotations">🧪 Example Annotations<a class="headerlink" href="#example-annotations" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>clone_id</th>
-<th>canonical</th>
-<th>usable</th>
-<th>cassette</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>14A</td>
-<td>yes</td>
-<td>yes</td>
-<td>GAGGA...CTC</td>
-<td>Perfect match</td>
-</tr>
-<tr>
-<td>14B</td>
-<td>no</td>
-<td>no</td>
-<td></td>
-<td>Pcon region is shortened, no UBER present</td>
-</tr>
-<tr>
-<td>14C</td>
-<td>no</td>
-<td>yes</td>
-<td>GAGGA...CTC</td>
-<td>Additional BseRI sites included, but Pcon site is fine</td>
-</tr>
-<tr>
-<td>14D</td>
-<td>no</td>
-<td>no</td>
-<td></td>
-<td>Contamination, matches pTP1</td>
-</tr>
-<tr>
-<td>14E</td>
-<td>no</td>
-<td>yes</td>
-<td>GAGGA...CTC</td>
-<td>Extra BseRI and BsaI sites, but promoter is fine</td>
-</tr>
-</tbody>
-</table>
-<p>Remember: <strong>usable</strong> means the promoter is intact and could be moved forward into our development pipeline. <strong>Canonical</strong> means it's a perfect match to what we designed.</p>
-<p>You don’t need perfection to keep a clone — but you do need to understand it.</p>
 <h3 id="6-close-out-the-experiment-with-your-supervisor">6. <strong>Close out the experiment</strong> with your supervisor<a class="headerlink" href="#6-close-out-the-experiment-with-your-supervisor" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Discard cleanup DNA and used plates</li>
