@@ -475,7 +475,7 @@ The confirmation region for plasmid pTP2 is the region from T4 (a terminator) to
     const correctTo = "P";
 
     if (pos !== correctPos || fromAA !== correctFrom || toAA !== correctTo) {
-      p1Feedback.textContent = "Close. Remember how to count amino acid positions from the correct start codon and translate the region. The apparent mixed position in the forward read is at 98 and looks Ser to Pro. Re-check the trace.";
+      p1Feedback.textContent = "Close. Remember how to count amino acid positions from the correct start codon and translate the region. Re-check the trace.";
       pmComplete("ptp2_quiz_part1_details", "incorrect");
       pmComplete("ptp2_quiz_part1", "incorrect");
       return;
