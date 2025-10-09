@@ -62,8 +62,13 @@ Once your sequencing data is returned (usually in 1–2 days), you will:
 
 ### 1. **Download your result**  
 
-   - Search for your assigned number (e.g., `79`) in this shared folder:  
-     [📂 pP6 Sequencing Data Folder](https://drive.google.com/drive/u/1/folders/1dxcms7KWnq2-J6WwLECXEPMLE03THW-Q)
+Your sequencing will be available in one or two days.  
+Search for your assigned number (e.g., `79`) in this shared folder:  
+[📂 pP6 Sequencing Data Folder](https://drive.google.com/drive/u/1/folders/1dxcms7KWnq2-J6WwLECXEPMLE03THW-Q)
+
+Compare your sequence reads to the expected map of pP6 as discussed below.  
+A map of pP6 (pP6.seq) is available here:  
+[📄 pP6.seq](https://drive.google.com/drive/folders/16-0ek2biyB-hI1RY2xgW6p4fe32FbAJh)
 
 ### 2. **Check for the Expected pP6 Architecture**
 
@@ -102,7 +107,7 @@ A clean alignment confirms no point mutations or context disruption.
 #### ✅ Quick Checklist
 
 - [ ] Contains two **BseRI** sites
-- [ ] Includes the **UBER promoter** motif between them
+- [ ] Includes the **Consensus promoter** motif between them
 - [ ] Promoter is not duplicated, reversed, or truncated
 - [ ] Contains expected **T4 terminator** site
 - [ ] Alignment shows clean sequence on both sides
@@ -127,31 +132,24 @@ A high-quality read should give you several hundred bases of clean, mappable seq
 ### 5. **Fill out the worksheet**
 
 Go to:  
-[📝 pP6 Clones Worksheet](https://docs.google.com/spreadsheets/d/1ExKaK8UAiROHywp3qwYDxm3X3QABuKrNPL5QQScM6uA/edit?usp=sharing)
+[📝 pP6 Clone Analysis Form](https://forms.gle/L8nCT1dqkbiaY6Gh8)  
+You can view all sequences here:  
+[📊 pP6 Sequence Results Sheet](https://docs.google.com/spreadsheets/d/1FqNCBi832iyzmdIl1bYuyEuj2152RnnVaFCyT75oEds/edit?usp=sharing)
 
-For each clone that has a clean and analyzable read, enter the following information:
+Use these fields when submitting your analysis:
 
-- **clone_id** — Your assigned clone label (e.g., `79A`)
-- **read_name** — The filename of your `.seq` file (e.g., `62-pP6-14B_F08_054.seq`)
-- **date_sequenced** — The name of the sequencing folder (e.g., `2022_04_24`)
-- **canonical** — Mark **"yes"** if the read matches the model sequence (`pP6.seq`) across the entire promoter region with no mutations or rearrangements. Otherwise, **"no"**.
-- **usable** — Mark **"yes"** if the expected UBER promoter motif is found and intact, even if the rest of the plasmid has issues. Otherwise, **"no"**.
-- **cassette** — Paste the actual sequence you matched that corresponds to the expected promoter region.
-- **Notes** — Summarize what you observed.
-
-#### 🧪 Example Annotations
-
-| clone_id | canonical | usable | cassette | Notes |
-|----------|-----------|--------|----------|-------|
-| 14A      | yes       | yes    | GAGGA...CTC | Perfect match |
-| 14B      | no        | no     |          | Pcon region is shortened, no UBER present |
-| 14C      | no        | yes    | GAGGA...CTC | Additional BseRI sites included, but Pcon site is fine |
-| 14D      | no        | no     |          | Contamination, matches pTP1 |
-| 14E      | no        | yes    | GAGGA...CTC | Extra BseRI and BsaI sites, but promoter is fine |
-
-Remember: **usable** means the promoter is intact and could be moved forward into our development pipeline. **Canonical** means it's a perfect match to what we designed.
-
-You don’t need perfection to keep a clone — but you do need to understand it.
+- **exp** – The experiment name (`pP6`)
+- **clone_id** – Your assigned clone label (e.g., `79A`)
+- **student_name** – Your full name as provided to UC Berkeley
+- **read_name** – The `.seq` filename
+- **date_sequenced** – The name of the sequencing folder
+- **canonical** – “Yes” if it matches `pP6.seq` in the region of good-quality data
+- **usable** – “Yes” if this sequence contains:  
+  ```
+  GAGGAGTCCTGGGTTCNNNNTTGACANNNNNNNNNNNNNNNNNTATAATNNNNNNANNNNGTTAGTATTTCTCCTC
+  ```
+- **cassette** – The sequence matched by the above query
+- **Notes** – Notes on any mutations or unusual results
 
 ### 6. **Close out the experiment** with your supervisor  
 

@@ -309,6 +309,8 @@ Make a single call for each sample using the criteria below. Use the definitions
 
 pTP2 was one of the parent plasmids of pP6. We started with pTP1 that had a medium-strength promoter driving amilGFP. We then inserted the RBS and CDS of lacZα between the promoter and FP to get pTP2. We picked several clones of pTP2 and sent for sequencing with oligo G00101. The read, 69-pTP2AF_E09_071, was received for clone A. F means forward. The read and trace are provided below for download.
 
+The confirmation region for plasmid pTP2 is the region from T4 (a terminator) to rrnpB T1 (another terminator).
+
 **Question:** Is clone A consistent with the model?
 
 **Downloads (Part 1)**
@@ -497,7 +499,7 @@ pTP2 was one of the parent plasmids of pP6. We started with pTP1 that had a medi
     }
     // Correct answer for Part 2 is Perfect after considering the reverse read
     if (call2 === "perfect") {
-      p2Feedback.textContent = "✅ Correct. With the reverse read, the position is unambiguous and the sequence matches the model.";
+      p2Feedback.textContent = "✅ Correct. With the reverse read, the position is unambiguous and the sequence matches the model. This example was chosen to show how sequencing can appear ambiguous: a forward read suggested a difference, but adding the reverse read resolved it. In practice, this plasmid region has been sequenced many times as a parent of pP6, so confidence in its sequence is high. Most runs are less confusing; use single reads cautiously.";
       pmComplete("ptp2_quiz_part2", "correct");
     } else if (call2 === "perfect_partial") {
       p2Feedback.textContent = "If there are any errors present, then it is not perfect nor a partial validation.";
