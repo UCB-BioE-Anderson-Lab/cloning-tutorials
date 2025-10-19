@@ -1,0 +1,133 @@
+# If needed in Colab, first run:
+# !pip -q install rdkit-pypi git+https://github.com/connorcoley/rdchiral.git
+
+from rdkit import Chem
+from rdkit.Chem import rdChemReactions as Reactions, Draw
+from IPython.display import display, Markdown
+import importlib, io, sys, contextlib
+
+# --- silence rdchiral chatter ---
+@contextlib.contextmanager
+def _silence():
+    _o, _e = sys.stdout, sys.stderr
+    try:
+        sys.stdout = io.StringIO(); sys.stderr = io.StringIO()
+        yield
+    finally:
+        sys.stdout, sys.stderr = _o, _e
+
+def rdchiral_extract_operator(mapped_rxn: str,
+                              *,
+                              use_stereo=True,
+                              include_all_unmapped_reactant_atoms=False,
+                              max_unmapped_product_atoms=5,
+                              reactant_radius=1,
+                              product_radius=0,
+                              enable_special_groups=True,
+                              verbose=False):
+    """
+    Extract a rdchiral operator from a mapped reaction SMIRKS/SMILES string "left >> right".
+    Returns the rdchiral template dict or None on failure.
+    """
+    te = importlib.import_module("rdchiral.template_extractor")
+
+    # snapshot original globals touched by rdchiral
+    _orig = dict(
+        VERBOSE=getattr(te, "VERBOSE", False),
+        USE_STEREOCHEMISTRY=getattr(te, "USE_STEREOCHEMISTRY", True),
+        MAXIMUM_NUMBER_UNMAPPED_PRODUCT_ATOMS=getattr(te, "MAXIMUM_NUMBER_UNMAPPED_PRODUCT_ATOMS", 5),
+        INCLUDE_ALL_UNMAPPED_REACTANT_ATOMS=getattr(te, "INCLUDE_ALL_UNMAPPED_REACTANT_ATOMS", True),
+        get_fragments_for_changed_atoms=te.get_fragments_for_changed_atoms,
+        get_special_groups=te.get_special_groups,
+    )
+
+    # apply local settings
+    te.VERBOSE = bool(verbose)
+    te.USE_STEREOCHEMISTRY = bool(use_stereo)
+    te.MAXIMUM_NUMBER_UNMAPPED_PRODUCT_ATOMS = int(max_unmapped_product_atoms)
+    te.INCLUDE_ALL_UNMAPPED_REACTANT_ATOMS = bool(include_all_unmapped_reactant_atoms)
+
+    # optionally disable special groups
+    if not enable_special_groups:
+        te.get_special_groups = lambda mol: []
+
+    # force radii by wrapping get_fragments_for_changed_atoms
+    _gffca_orig = _orig["get_fragments_for_changed_atoms"]
+    def _gffca_forced(mols, changed_atom_tags, radius=0, category='reactants', expansion=[]):
+        forced = reactant_radius if category == 'reactants' else product_radius
+        return _gffca_orig(mols, changed_atom_tags, radius=forced, category=category, expansion=expansion)
+    te.get_fragments_for_changed_atoms = _gffca_forced
+
+    # run extraction
+    try:
+        with _silence():
+            tpl = te.extract_from_reaction({"_id": "demo", "reactants": mapped_rxn.split(">>")[0],
+                                            "products": mapped_rxn.split(">>")[1]})
+    finally:
+        # restore globals
+        te.VERBOSE = _orig["VERBOSE"]
+        te.USE_STEREOCHEMISTRY = _orig["USE_STEREOCHEMISTRY"]
+        te.MAXIMUM_NUMBER_UNMAPPED_PRODUCT_ATOMS = _orig["MAXIMUM_NUMBER_UNMAPPED_PRODUCT_ATOMS"]
+        te.INCLUDE_ALL_UNMAPPED_REACTANT_ATOMS = _orig["INCLUDE_ALL_UNMAPPED_REACTANT_ATOMS"]
+        te.get_fragments_for_changed_atoms = _orig["get_fragments_for_changed_atoms"]
+        te.get_special_groups = _orig["get_special_groups"]
+
+    return tpl if isinstance(tpl, dict) and "reaction_smarts" in tpl else None
+
+def summarize_operator(smirks: str):
+    rxn = Reactions.ReactionFromSmarts(smirks)
+    reactant_smarts = [Chem.MolToSmarts(m) for m in rxn.GetReactants()]
+    has_dbond = any("=" in s for s in reactant_smarts if s)
+    return {
+        "smirks": smirks,
+        "reactant_templates": reactant_smarts,
+        "has_pi_in_reactant_templates": has_dbond,
+    }
+
+def run(label: str, mapped_smirks: str):
+    display(Markdown(f"### {label}"))
+    settings_line = "SG=True, r=1, p=0, incl_all_unmapped=False, stereo=True"
+    tpl = rdchiral_extract_operator(
+        mapped_smirks,
+        use_stereo=True,
+        include_all_unmapped_reactant_atoms=False,
+        reactant_radius=1,
+        product_radius=0,
+        enable_special_groups=True,
+        verbose=False,
+    )
+    display(Markdown(f"- **Settings:** {settings_line}"))
+    if not tpl:
+        display(Markdown("- **Result:** extraction failed"))
+        return
+    info = summarize_operator(tpl["reaction_smarts"])
+    short = info["smirks"] if len(info["smirks"]) < 180 else info["smirks"][:180] + "…"
+    display(Markdown(f"- **π in reactant template:** {'✅' if info['has_pi_in_reactant_templates'] else '—'}"))
+    display(Markdown(f"- **Operator (SMIRKS):**\n\n```\n{short}\n```"))
+    try:
+        img = Draw.ReactionToImage(Reactions.ReactionFromSmarts(info["smirks"]), subImgSize=(360, 240))
+        display(img)
+    except Exception:
+        pass
+
+# --- Your seven examples ---
+examples = [
+    ("ethanol",
+     "[C:4][C:1][O:2]>>[C:4][C:1][O:2][C]"),
+    ("vinyl alcohol",
+     "[C:4]=[C:1][O:2]>>[C:4]=[C:1][O:2][C]"),
+    ("allyl alcohol",
+     "[C:4]=[C:5][C:1][O:2]>>[C:4]=[C:5][C:1][O:2][C]"),
+    ("dibutenyl alcohol",
+     "[C:6]=[C:5][C:4]=[C:1][O:2]>>[C:6]=[C:5][C:4]=[C:1][O:2][C]"),
+    ("phenol",
+     "[C:7]1=[C:6]-[C:5]=[C:4]-[C:3]=[C:2]1[O:1]>>[C:7]1=[C:6]-[C:5]=[C:4]-[C:3]=[C:2]1[O:1][C]"),
+    ("benzyl alcohol",
+     "[C:7]1=[C:6]-[C:5]=[C:4]-[C:3]=[C:2]1[C:8][O:1]>>[C:7]1=[C:6]-[C:5]=[C:4]-[C:3]=[C:2]1[C:8][O:1][C]"),
+    ("phenethyl alcohol",
+     "[C:7]1=[C:6]-[C:5]=[C:4]-[C:3]=[C:2]1[C:8][C:9][O:1]>>[C:7]1=[C:6]-[C:5]=[C:4]-[C:3]=[C:2]1[C:8][C:9][O:1][C]"),
+]
+
+display(Markdown("## RDChiral extraction for the seven mapped tests"))
+for label, smirks in examples:
+    run(label, smirks)
