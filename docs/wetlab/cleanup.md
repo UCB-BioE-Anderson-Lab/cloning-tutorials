@@ -84,67 +84,165 @@ This protocol removes polymerase, dNTPs, salts, and oligos from your PCR. It als
 
 ## 🧪 Quiz: Zymo Cleanup
 
-<form id="cleanup_quiz_form">
-  <h3>1️⃣ Why Cleanup?</h3>
-  <p>Why is it important to clean up a PCR reaction before cloning?</p>
-  <label><input type="radio" name="q1" value="a"> To increase the fluorescence of the DNA</label><br>
-  <label><input type="radio" name="q1" value="b"> To convert DNA to RNA</label><br>
-  <label><input type="radio" name="q1" value="c"> To shorten the DNA for easier ligation</label><br>
-  <label><input type="radio" name="q1" value="d"> To remove enzymes and reagents that could interfere with cloning steps</label><br>
-  <p id="cleanup_res_q1"></p>
+<p><em>Answer all questions correctly to pass. If you miss any, the quiz resets with a new randomized set.</em></p>
 
-  <h3>2️⃣ ADB Buffer</h3>
-  <p>What is in the ADB buffer that causes DNA to bind to the silica column?</p>
-  <label><input type="radio" name="q2" value="a"> Guanidinium thiocyanate</label><br>
-  <label><input type="radio" name="q2" value="b"> Urea</label><br>
-  <label><input type="radio" name="q2" value="c"> Antibodies</label><br>
-  <label><input type="radio" name="q2" value="d"> Sodium bicarbonate</label><br>
-  <p id="cleanup_res_q2"></p>
+<div id="cleanup_quiz_container"></div>
 
-  <h3>3️⃣ Common Cleanup Errors</h3>
-  <p>Select all common mistakes to avoid during a Zymo cleanup:</p>
-  <label><input type="checkbox" name="q3" value="a"> Trying to purify very short DNA fragments without modifying the protocol</label><br>
-  <label><input type="checkbox" name="q3" value="b"> Forgetting to add ADB buffer before binding</label><br>
-  <label><input type="checkbox" name="q3" value="c"> Eluting into the collection tube instead of a clean Eppendorf</label><br>
-  <label><input type="checkbox" name="q3" value="d"> Discarding your eluted DNA, thinking it’s waste</label><br>
-  <p id="cleanup_res_q3"></p>
-
-  <button type="button" id="cleanup_submit_btn">Check Answers</button>
-</form>
+<div style="margin-top:1rem;">
+  <button type="button" id="cleanup_check_btn">Check Answers</button>
+  <button type="button" id="cleanup_reset_btn">Reset</button>
+  <span id="cleanup_quiz_status" style="margin-left:0.75rem;"></span>
+</div>
 
 <script>
-  document.getElementById("cleanup_submit_btn").addEventListener("click", function () {
-    const answers = {
-      q1: "d",
-      q2: "a"
-    };
+(function () {
+  const bank = [
+    {
+      topic: 'Why Cleanup',
+      variants: [
+        { text: "PCR cleanup removes enzymes, salts, and nucleotides that could inhibit restriction or ligation steps.", answer: true },
+        { text: "Cleanup ensures that BsaI and ligase function properly in Golden Gate Assembly.", answer: true },
+        { text: "Polymerase in unpurified PCR can fill sticky ends and block cloning.", answer: true },
+        { text: "Cleanup improves downstream reactions by eliminating interfering reagents.", answer: true },
+        { text: "Cleanup converts DNA into RNA for better cloning efficiency.", answer: false },
+        { text: "Cleanup shortens DNA fragments for easier ligation.", answer: false },
+        { text: "Cleanup increases the fluorescence intensity of the DNA.", answer: false },
+        { text: "Cleanup is done to make DNA supercoiled for transformation.", answer: false }
+      ]
+    },
+    {
+      topic: 'ADB Buffer Chemistry',
+      variants: [
+        { text: "ADB buffer contains guanidinium thiocyanate, a chaotropic salt that promotes DNA binding to silica.", answer: true },
+        { text: "Guanidinium thiocyanate denatures proteins and helps DNA adhere to the column.", answer: true },
+        { text: "DNA binds to silica only in the presence of chaotropic salts like guanidinium thiocyanate.", answer: true },
+        { text: "ADB buffer both denatures polymerase and promotes DNA-silica binding.", answer: true },
+        { text: "ADB buffer contains sodium bicarbonate to neutralize the DNA sample.", answer: false },
+        { text: "ADB buffer contains urea, which dissolves DNA for easier elution.", answer: false },
+        { text: "DNA binds to silica in pure water without any salts present.", answer: false },
+        { text: "After eluting the column with ADB Buffer your DNA is in the collection tube.", answer: false }
+      ]
+    },
+    {
+      topic: 'Elution and Yield',
+      variants: [
+        { text: "DNA elutes from the silica membrane when low-salt buffer or water disrupts the DNA–silica interaction.", answer: true },
+        { text: "Eluting with EB buffer helps maintain pH and improve recovery.", answer: true },
+        { text: "After the elution step, your DNA is in the collection tube", answer: true },
+        { text: "After the PE wash and final spin, all that remains on the column is pure DNA.", answer: true },
+        { text: "DNA elution efficiency increases if the column is left wet with ethanol.", answer: false },
+        { text: "Eluting with ADB buffer helps maintain pH and improve recovery.", answer: false },
+        { text: "Eluting with PE buffer helps maintain pH and improve recovery.", answer: false },
+        { text: "DNA is eluted with a high-salt buffer to disrupt the anion exchange column.", answer: false }
+      ]
+    }
+  ];
 
-    ["q1", "q2"].forEach(function (q) {
-      const selected = document.querySelector(`input[name="${q}"]:checked`);
-      const result = document.getElementById(`cleanup_res_${q}`);
-      if (selected && selected.value === answers[q]) {
-        result.innerHTML = "✅ Correct!";
-        if (typeof progressManager !== "undefined") {
-          progressManager.addCompletion(`cleanup_${q}`, "correct");
-        }
-      } else {
-        result.innerHTML = "❌ Try again.";
+  const container = document.getElementById('cleanup_quiz_container');
+  const statusEl = document.getElementById('cleanup_quiz_status');
+  const checkBtn = document.getElementById('cleanup_check_btn');
+  const resetBtn = document.getElementById('cleanup_reset_btn');
+
+  let currentSet = [];
+
+  function pickOnePerTopic() {
+    return bank.map(topic => {
+      const v = topic.variants[Math.floor(Math.random() * topic.variants.length)];
+      return { topic: topic.topic, text: v.text, answer: v.answer };
+    });
+  }
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function renderQuiz() {
+    container.innerHTML = '';
+    statusEl.textContent = '';
+    checkBtn.disabled = false;
+    resetBtn.textContent = 'Reset';
+
+    currentSet = shuffle(pickOnePerTopic());
+
+    currentSet.forEach((q, idx) => {
+      const qId = `cleanup_q${idx + 1}`;
+      const block = document.createElement('div');
+      block.className = 'cleanup-quiz-item';
+      block.style.margin = '0.75rem 0';
+
+      const h = document.createElement('h4');
+      h.textContent = `${idx + 1}. ${q.text}`;
+      h.style.margin = '0 0 0.35rem 0';
+      block.appendChild(h);
+
+      const trueId = `${qId}_true`;
+      const falseId = `${qId}_false`;
+
+      const trueLbl = document.createElement('label');
+      trueLbl.style.marginRight = '1rem';
+      trueLbl.innerHTML = `<input type="radio" name="${qId}" id="${trueId}" value="true"> True`;
+      block.appendChild(trueLbl);
+
+      const falseLbl = document.createElement('label');
+      falseLbl.innerHTML = `<input type="radio" name="${qId}" id="${falseId}" value="false"> False`;
+      block.appendChild(falseLbl);
+
+      const feedback = document.createElement('p');
+      feedback.id = `${qId}_res`;
+      feedback.style.margin = '0.35rem 0 0 0';
+      block.appendChild(feedback);
+
+      container.appendChild(block);
+    });
+  }
+
+  function checkAnswers() {
+    let allAnswered = true;
+    let allCorrect = true;
+
+    currentSet.forEach((q, idx) => {
+      const qId = `cleanup_q${idx + 1}`;
+      const chosen = container.querySelector(`input[name="${qId}"]:checked`);
+      const feedback = document.getElementById(`${qId}_res`);
+      if (!chosen) {
+        allAnswered = false;
+        feedback.textContent = 'Please choose True or False.';
+        return;
       }
+      const val = chosen.value === 'true';
+      const correct = (val === q.answer);
+      allCorrect = allCorrect && correct;
+      feedback.textContent = correct ? '✅ Correct' : '❌ Incorrect';
     });
 
-    const checkboxes = document.querySelectorAll('input[name="q3"]:checked');
-    const selectedVals = Array.from(checkboxes).map(cb => cb.value).sort().join("");
-    const correctVals = ["a", "b", "c", "d"].sort().join("");
-    const result3 = document.getElementById("cleanup_res_q3");
-    if (selectedVals === correctVals) {
-      result3.innerHTML = "✅ Correct!";
-      if (typeof progressManager !== "undefined") {
-        progressManager.addCompletion("cleanup_q3", "correct");
+    if (!allAnswered) {
+      statusEl.textContent = 'Answer all questions before submitting.';
+      return;
+    }
+
+    if (allCorrect) {
+      statusEl.textContent = '✅ Passed';
+      if (typeof progressManager !== 'undefined') {
+        progressManager.addCompletion('cleanup_quiz', 'correct');
       }
     } else {
-      result3.innerHTML = "❌ Try again.";
+      statusEl.textContent = '❌ One or more answers were incorrect. Review the feedback below, then click "New set" to try again.';
+      container.querySelectorAll('input[type="radio"]').forEach(el => { el.disabled = true; });
+      checkBtn.disabled = true;
+      resetBtn.textContent = 'New set';
+      resetBtn.focus();
     }
-  });
+  }
+
+  statusEl.setAttribute('aria-live', 'polite');
+  document.getElementById('cleanup_check_btn').addEventListener('click', checkAnswers);
+  document.getElementById('cleanup_reset_btn').addEventListener('click', renderQuiz);
+  renderQuiz();
+})();
 </script>
 <!-- 
 ----
