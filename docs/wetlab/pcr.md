@@ -201,54 +201,167 @@ Final Extension:        68°C for 5 min
 
 ## 🧪 Quiz: PCR and Promoter Engineering
 
-<form id="pcr_quiz_form">
-  <h3>1️⃣ PCR Purpose</h3>
-  <p>What is the purpose of PCR in this experiment?</p>
-  <label><input type="radio" name="q1" value="a"> To amplify the GFP gene</label><br>
-  <label><input type="radio" name="q1" value="b"> To generate a randomized promoter library using degenerate primers</label><br>
-  <label><input type="radio" name="q1" value="c"> To purify the pJ12 plasmid</label><br>
-  <label><input type="radio" name="q1" value="d"> To linearize the vector for digestion</label><br>
-  <p id="pcr_res_q1"></p>
+<p><em>Answer all questions correctly to pass. If you miss any, the quiz resets with a new randomized set.</em></p>
 
-  <h3>2️⃣ Randomized Bases</h3>
-  <p>Why do the primers include randomized bases?</p>
-  <label><input type="radio" name="q2" value="a"> To create variable protein sequences</label><br>
-  <label><input type="radio" name="q2" value="b"> To improve PCR yield</label><br>
-  <label><input type="radio" name="q2" value="c"> To make sequencing easier</label><br>
-  <label><input type="radio" name="q2" value="d"> To allow different promoter variants to be introduced</label><br>
-  <p id="pcr_res_q2"></p>
+<div id="pcr_quiz_container"></div>
 
-  <h3>3️⃣ Inverse PCR Strategy</h3>
-  <p>Why is inverse PCR used in this experiment?</p>
-  <label><input type="radio" name="q3" value="a"> It amplifies just the promoter region</label><br>
-  <label><input type="radio" name="q3" value="b"> It helps insert a new gene downstream of the terminator</label><br>
-  <label><input type="radio" name="q3" value="c"> It amplifies the entire plasmid while introducing a new promoter region</label><br>
-  <label><input type="radio" name="q3" value="d"> It produces single-stranded DNA</label><br>
-  <p id="pcr_res_q3"></p>
-
-  <button type="button" id="pcr_submit_btn">Check Answers</button>
-</form>
+<div style="margin-top:1rem;">
+  <button type="button" id="pcr_check_btn">Check Answers</button>
+  <button type="button" id="pcr_reset_btn">Reset</button>
+  <span id="pcr_quiz_status" style="margin-left:0.75rem;"></span>
+</div>
 
 <script>
-  document.getElementById("pcr_submit_btn").addEventListener("click", function () {
-    const answers = {
-      q1: "b",
-      q2: "d",
-      q3: "c"
-    };
-    ["q1", "q2", "q3"].forEach(function (q) {
-      const selected = document.querySelector(`input[name="${q}"]:checked`);
-      const result = document.getElementById(`pcr_res_${q}`);
-      if (selected && selected.value === answers[q]) {
-        result.innerHTML = "✅ Correct!";
-        if (typeof progressManager !== "undefined") {
-          progressManager.addCompletion(`pcr_${q}`, "correct");
-        }
-      } else {
-        result.innerHTML = "❌ Try again.";
-      }
+(function () {
+  // --- Question bank: 3 topics (same concepts as the original MCQ). ---
+  // Topics: (1) PCR Purpose, (2) Randomized Bases, (3) Inverse PCR Strategy.
+  const bank = [
+    { topic: 'PCR Purpose', variants: [
+      // True (4): randomized promoter mutagenesis purpose
+      { text: "The degenerate primers are for introducing mutations into the promoter upstream of amilGFP, creating a randomized promoter library.", answer: true },
+      { text: "We use inverse PCR to copy the whole plasmid while mutagenizing the promoter region that drives GFP expression.", answer: true },
+      { text: "The oligos randomize flanking sequences but conserve the -10 and -35 elements.", answer: true },
+      { text: "The PCR step generates a pool of promoter variants that can be closed by Golden Gate with mutated promoter ends.", answer: true },
+
+      { text: "This PCR step is for amplifying the GFP orf to overexpress it.", answer: false },
+      { text: "The oligos introduce N positions within the -35 and -10 elements to diversify promoter strength without altering flanking sequences.", answer: false },
+      { text: "This PCR step swaps the beta-lactam resistance marker for a different selectable marker.", answer: false },
+      { text: "The goal of this PCR is to amplify pJ12 to make more of it.", answer: false }
+    ]},
+
+    { topic: 'Randomized Bases', variants: [
+      { text: "The lowercase ggtctc in each primer is the BsaI recognition site added by the oligo, not copied from the template.", answer: true },
+      { text: "After BsaI digestion, the PCR product has defined sticky ends that get recircularized with T4 DNA Ligase.", answer: true },
+      { text: "The 5' ends of both oligos contain a five base pair 5' tail to avoid cutting directly next to the BsaI site.", answer: true },
+      { text: "BsaI sites are not present in the pJ12 template; they are introduced by the oligos.", answer: true },
+
+      { text: "BsaI sites are present in the pJ12 template and will be used for Golden Gate Assembly.", answer: false },
+      { text: "The annealing (orange) segment is randomized to vary promoter strength.", answer: false },
+      { text: "The entire sequence of oligo P6LibF2 is within the pJ12 sequence.", answer: false },
+      { text: "The BsaI sites needed for Golden Gate are already encoded in the pJ12 template and are not needed in the primers.", answer: false }
+    ]},
+
+    { topic: 'Inverse PCR Strategy', variants: [
+      { text: "This reaction uses seven additions: water, buffer, dNTP mix, primer 1, primer 2, pJ12 template, and polymerase.", answer: true },
+      { text: "Add the enzyme last when setting up PCR, or at least after the water and buffer are pre-added.", answer: true },
+      { text: "The total reaction volume of the PCR recipe is 50 µL.", answer: true },
+      { text: "There are 3 thermal steps in the thermocycler program:  denaturation, annealing, and extension.", answer: true },
+
+      { text: "Each primer is added at 10 µL from a 10 µM stock.", answer: false },
+      { text: "The buffer is 10× and is added at 10 µL.", answer: false },
+      { text: "The total reaction volume of the PCR recipe is 30 µL.", answer: false },
+      { text: "After setting up the PCR reaction, run the Golden Gate program (GG1)", answer: false }
+    ]}
+  ];
+
+  const container = document.getElementById('pcr_quiz_container');
+  const statusEl = document.getElementById('pcr_quiz_status');
+  const checkBtn = document.getElementById('pcr_check_btn');
+  const resetBtn = document.getElementById('pcr_reset_btn');
+
+  let currentSet = [];
+
+  function pickOnePerTopic() {
+    // Keep number of questions the same as original (3), one per concept/topic.
+    return bank.map(topic => {
+      const v = topic.variants[Math.floor(Math.random() * topic.variants.length)];
+      return { topic: topic.topic, text: v.text, answer: v.answer };
     });
-  });
+  }
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function renderQuiz() {
+    container.innerHTML = '';
+    statusEl.textContent = '';
+    checkBtn.disabled = false;
+    resetBtn.textContent = 'Reset';
+
+    currentSet = shuffle(pickOnePerTopic());
+
+    currentSet.forEach((q, idx) => {
+      const qId = `q${idx + 1}`;
+      const block = document.createElement('div');
+      block.className = 'pcr-quiz-item';
+      block.style.margin = '0.75rem 0';
+
+      const h = document.createElement('h4');
+      h.textContent = `${idx + 1}. ${q.text}`;
+      h.style.margin = '0 0 0.35rem 0';
+      block.appendChild(h);
+
+      const trueId = `${qId}_true`;
+      const falseId = `${qId}_false`;
+
+      const trueLbl = document.createElement('label');
+      trueLbl.style.marginRight = '1rem';
+      trueLbl.innerHTML = `<input type="radio" name="${qId}" id="${trueId}" value="true"> True`;
+      block.appendChild(trueLbl);
+
+      const falseLbl = document.createElement('label');
+      falseLbl.innerHTML = `<input type="radio" name="${qId}" id="${falseId}" value="false"> False`;
+      block.appendChild(falseLbl);
+
+      const feedback = document.createElement('p');
+      feedback.id = `${qId}_res`;
+      feedback.style.margin = '0.35rem 0 0 0';
+      block.appendChild(feedback);
+
+      container.appendChild(block);
+    });
+  }
+
+  function checkAnswers() {
+    let allAnswered = true;
+    let allCorrect = true;
+
+    currentSet.forEach((q, idx) => {
+      const qId = `q${idx + 1}`;
+      const chosen = container.querySelector(`input[name="${qId}"]:checked`);
+      const feedback = document.getElementById(`${qId}_res`);
+      if (!chosen) {
+        allAnswered = false;
+        feedback.textContent = 'Please choose True or False.';
+        return;
+      }
+      const val = chosen.value === 'true';
+      const correct = (val === q.answer);
+      allCorrect = allCorrect && correct;
+      feedback.textContent = correct ? '✅ Correct' : '❌ Incorrect';
+    });
+
+    if (!allAnswered) {
+      statusEl.textContent = 'Answer all questions before submitting.';
+      return;
+    }
+
+    if (allCorrect) {
+      statusEl.textContent = '✅ Passed';
+      if (typeof progressManager !== 'undefined') {
+        progressManager.addCompletion('pcr_quiz', 'correct');
+      }
+    } else {
+      statusEl.textContent = '❌ One or more answers were incorrect. Review the feedback below, then click "New set" to try again.';
+      container.querySelectorAll('input[type="radio"]').forEach(el => { el.disabled = true; });
+      checkBtn.disabled = true;
+      resetBtn.textContent = 'New set';
+      resetBtn.focus();
+    }
+  }
+
+  statusEl.setAttribute('aria-live', 'polite');
+
+  document.getElementById('pcr_check_btn').addEventListener('click', checkAnswers);
+  document.getElementById('pcr_reset_btn').addEventListener('click', renderQuiz);
+
+  renderQuiz();
+})();
 </script>
 
 ## 🎥 pP6-2022-1-PCR — Course Video
