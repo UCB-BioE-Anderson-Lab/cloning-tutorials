@@ -478,18 +478,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next" class="md-nav__link">
+  <a href="#quiz-promoter-engineering-concepts" class="md-nav__link">
     <span class="md-ellipsis">
-      Next
+      🧪 Quiz: Promoter Engineering Concepts
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#quiz-promoter-engineering-concepts" class="md-nav__link">
+  <a href="#next" class="md-nav__link">
     <span class="md-ellipsis">
-      🧪 Quiz: Promoter Engineering Concepts
+      Next
     </span>
   </a>
   
@@ -1773,18 +1773,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next" class="md-nav__link">
+  <a href="#quiz-promoter-engineering-concepts" class="md-nav__link">
     <span class="md-ellipsis">
-      Next
+      🧪 Quiz: Promoter Engineering Concepts
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#quiz-promoter-engineering-concepts" class="md-nav__link">
+  <a href="#next" class="md-nav__link">
     <span class="md-ellipsis">
-      🧪 Quiz: Promoter Engineering Concepts
+      Next
     </span>
   </a>
   
@@ -1933,58 +1933,170 @@ GoldenGate      P6          BsaI       pP6
 <li>pP6-2022-8-Sequencing  </li>
 <li>pP6-2022-9-Sequence Analysis</li>
 </ul>
-<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
-<p>When you're ready, proceed to the <a href="../pipetting/">Pipetting tutorial</a> to learn how to use a micropipette correctly before starting wetlab work.</p>
 <h2 id="quiz-promoter-engineering-concepts">🧪 Quiz: Promoter Engineering Concepts<a class="headerlink" href="#quiz-promoter-engineering-concepts" title="Permanent link">&para;</a></h2>
-<form id="p6_quiz_form">
-  <h3>1️⃣ Fixed Motifs</h3>
-  <p>Which promoter elements are fixed in each synthetic promoter?</p>
-  <label><input type="radio" name="q1" value="a"> Only the +1 site</label><br>
-  <label><input type="radio" name="q1" value="b"> The entire promoter</label><br>
-  <label><input type="radio" name="q1" value="c"> -35, -10, and +1</label><br>
-  <label><input type="radio" name="q1" value="d"> Just the -10 box</label><br>
-  <p id="p6_res_q1"></p>
+<p><em>Answer all questions correctly to pass. If you miss any, the quiz resets with a new randomized set.</em></p>
 
-  <h3>2️⃣ Randomized Regions</h3>
-  <p>What part of the promoter is randomized?</p>
-  <label><input type="radio" name="q2" value="a"> The entire gene</label><br>
-  <label><input type="radio" name="q2" value="b"> The ribosome binding site</label><br>
-  <label><input type="radio" name="q2" value="c"> The flanking regions around -35, -10, +1</label><br>
-  <label><input type="radio" name="q2" value="d"> The coding sequence</label><br>
-  <p id="p6_res_q2"></p>
+<div id="intro_quiz_container"></div>
 
-  <h3>3️⃣ Why Not J23100?</h3>
-  <p>Why are J23100-family promoters avoided in pP6 for multi-gene constructs?</p>
-  <label><input type="radio" name="q3" value="a"> They are too weak</label><br>
-  <label><input type="radio" name="q3" value="b"> They don't work in E. coli</label><br>
-  <label><input type="radio" name="q3" value="c"> Their sequences are too similar, causing recombination</label><br>
-  <label><input type="radio" name="q3" value="d"> They lack RBS elements</label><br>
-  <p id="p6_res_q3"></p>
-
-  <button type="button" id="p6_submit_btn">Check Answers</button>
-</form>
+<div style="margin-top:1rem;">
+  <button type="button" id="intro_check_btn">Check Answers</button>
+  <button type="button" id="intro_reset_btn">Reset</button>
+  <span id="intro_quiz_status" style="margin-left:0.75rem;"></span>
+</div>
 
 <script>
-  document.getElementById("p6_submit_btn").addEventListener("click", function () {
-    const answers = {
-      q1: "c",
-      q2: "c",
-      q3: "c"
-    };
-    ["q1", "q2", "q3"].forEach(function (q) {
-      const selected = document.querySelector(`input[name="${q}"]:checked`);
-      const result = document.getElementById(`p6_res_${q}`);
-      if (selected && selected.value === answers[q]) {
-        result.innerHTML = "✅ Correct!";
-        if (typeof progressManager !== "undefined") {
-          progressManager.addCompletion(`p6_${q}`, "correct");
-        }
-      } else {
-        result.innerHTML = "❌ Try again.";
-      }
+(function () {
+  const bank = [
+    {
+      topic: 'Fixed Motifs',
+      variants: [
+        { text: "The -35 and -10 boxes and the +1 site are fixed in each synthetic promoter.", answer: true },
+        { text: "Only the -35 and -10 motifs are conserved, while surrounding bases are randomized.", answer: true },
+        { text: "The promoter retains canonical σ70 recognition elements (-35 and -10).", answer: true },
+        { text: "The +1 transcription start site is preserved across all library variants.", answer: true },
+        { text: "All positions within the promoter are randomized in pP6.", answer: false },
+        { text: "The RBS is randomized to create sequence diversity.", answer: false },
+        { text: "The -35 and -10 motifs are randomized to create sequence diversity.", answer: false },
+        { text: "The only fixed elements in the library are the Shine–Dalgarno and ORF", answer: false }
+      ]
+    },
+    {
+      topic: 'Randomized Regions',
+      variants: [
+        { text: "All non-consensus regions around the -35, -10, and +1 sites are randomized.", answer: true },
+        { text: "Degenerate N bases introduce variability at non-conserved positions.", answer: true },
+        { text: "Randomization increases promoter diversity while keeping function intact.", answer: true },
+        { text: "Flanking sequences upstream and downstream of consensus motifs are randomized.", answer: true },
+        { text: "The entire GFP coding sequence is randomized to generate diversity.", answer: false },
+        { text: "The ribosome binding site is the only region randomized.", answer: false },
+        { text: "Only the antibiotic resistance gene sequence is diversified.", answer: false },
+        { text: "Randomization occurs within the fixed -10 and -35 boxes.", answer: false }
+      ]
+    },
+    {
+      topic: 'Why Not J23100?',
+      variants: [
+        { text: "J23100-family promoters are highly similar, causing recombination when used together.", answer: true },
+        { text: "Repeating J23100 promoters interferes with PCR-based editing and cloning.", answer: true },
+        { text: "Sequence redundancy among J23100 variants leads to instability in plasmids.", answer: true },
+        { text: "Distinct promoter libraries prevent homologous recombination issues.", answer: true },
+        { text: "J23100 promoters fail to function in E. coli.", answer: false },
+        { text: "The J23100 family includes weak σ70 promoters unsuitable for GFP expression.", answer: false },
+        { text: "The main limitation of J23100 promoters is lack of transcription start sites.", answer: false },
+        { text: "We avoid J23100-family promoters because they lack ribosome binding sites.", answer: false }
+      ]
+    }
+  ];
+
+  const container = document.getElementById('intro_quiz_container');
+  const statusEl = document.getElementById('intro_quiz_status');
+  const checkBtn = document.getElementById('intro_check_btn');
+  const resetBtn = document.getElementById('intro_reset_btn');
+
+  let currentSet = [];
+
+  function pickOnePerTopic() {
+    return bank.map(topic => {
+      const v = topic.variants[Math.floor(Math.random() * topic.variants.length)];
+      return { topic: topic.topic, text: v.text, answer: v.answer };
     });
-  });
+  }
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function renderQuiz() {
+    container.innerHTML = '';
+    statusEl.textContent = '';
+    checkBtn.disabled = false;
+    resetBtn.textContent = 'Reset';
+
+    currentSet = shuffle(pickOnePerTopic());
+
+    currentSet.forEach((q, idx) => {
+      const qId = `intro_q${idx + 1}`;
+      const block = document.createElement('div');
+      block.className = 'intro-quiz-item';
+      block.style.margin = '0.75rem 0';
+
+      const h = document.createElement('h4');
+      h.textContent = `${idx + 1}. ${q.text}`;
+      h.style.margin = '0 0 0.35rem 0';
+      block.appendChild(h);
+
+      const trueId = `${qId}_true`;
+      const falseId = `${qId}_false`;
+
+      const trueLbl = document.createElement('label');
+      trueLbl.style.marginRight = '1rem';
+      trueLbl.innerHTML = `<input type="radio" name="${qId}" id="${trueId}" value="true"> True`;
+      block.appendChild(trueLbl);
+
+      const falseLbl = document.createElement('label');
+      falseLbl.innerHTML = `<input type="radio" name="${qId}" id="${falseId}" value="false"> False`;
+      block.appendChild(falseLbl);
+
+      const feedback = document.createElement('p');
+      feedback.id = `${qId}_res`;
+      feedback.style.margin = '0.35rem 0 0 0';
+      block.appendChild(feedback);
+
+      container.appendChild(block);
+    });
+  }
+
+  function checkAnswers() {
+    let allAnswered = true;
+    let allCorrect = true;
+
+    currentSet.forEach((q, idx) => {
+      const qId = `intro_q${idx + 1}`;
+      const chosen = container.querySelector(`input[name="${qId}"]:checked`);
+      const feedback = document.getElementById(`${qId}_res`);
+      if (!chosen) {
+        allAnswered = false;
+        feedback.textContent = 'Please choose True or False.';
+        return;
+      }
+      const val = chosen.value === 'true';
+      const correct = (val === q.answer);
+      allCorrect = allCorrect && correct;
+      feedback.textContent = correct ? '✅ Correct' : '❌ Incorrect';
+    });
+
+    if (!allAnswered) {
+      statusEl.textContent = 'Answer all questions before submitting.';
+      return;
+    }
+
+    if (allCorrect) {
+      statusEl.textContent = '✅ Passed';
+      if (typeof progressManager !== 'undefined') {
+        progressManager.addCompletion('intro_quiz', 'correct');
+      }
+    } else {
+      statusEl.textContent = '❌ One or more answers were incorrect. Review the feedback below, then click "New set" to try again.';
+      container.querySelectorAll('input[type="radio"]').forEach(el => { el.disabled = true; });
+      checkBtn.disabled = true;
+      resetBtn.textContent = 'New set';
+      resetBtn.focus();
+    }
+  }
+
+  statusEl.setAttribute('aria-live', 'polite');
+  document.getElementById('intro_check_btn').addEventListener('click', checkAnswers);
+  document.getElementById('intro_reset_btn').addEventListener('click', renderQuiz);
+  renderQuiz();
+})();
 </script>
+
+<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
+<p>When you're ready, proceed to the <a href="../pipetting/">Pipetting tutorial</a> to learn how to use a micropipette correctly before starting wetlab work.</p>
 
 
 
