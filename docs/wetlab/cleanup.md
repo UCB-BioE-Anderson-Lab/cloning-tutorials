@@ -227,7 +227,9 @@ This protocol removes polymerase, dNTPs, salts, and oligos from your PCR. It als
     if (allCorrect) {
       statusEl.textContent = '✅ Passed';
       if (typeof progressManager !== 'undefined') {
-        progressManager.addCompletion('cleanup_quiz', 'correct');
+        progressManager.addCompletion('cleanup_q1', 'correct');
+        progressManager.addCompletion('cleanup_q2', 'correct');
+        progressManager.addCompletion('cleanup_q3', 'correct');
       }
     } else {
       statusEl.textContent = '❌ One or more answers were incorrect. Review the feedback below, then click "New set" to try again.';

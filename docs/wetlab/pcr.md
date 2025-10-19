@@ -344,7 +344,9 @@ Final Extension:        68°C for 5 min
     if (allCorrect) {
       statusEl.textContent = '✅ Passed';
       if (typeof progressManager !== 'undefined') {
-        progressManager.addCompletion('pcr_quiz', 'correct');
+        progressManager.addCompletion('pcr_q1', 'correct');
+        progressManager.addCompletion('pcr_q2', 'correct');
+        progressManager.addCompletion('pcr_q3', 'correct');
       }
     } else {
       statusEl.textContent = '❌ One or more answers were incorrect. Review the feedback below, then click "New set" to try again.';

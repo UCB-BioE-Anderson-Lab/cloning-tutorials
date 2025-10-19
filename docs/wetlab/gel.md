@@ -239,7 +239,9 @@ If others in your lab section are also ready to run a gel, set up one gel for th
     if (allCorrect) {
       statusEl.textContent = '✅ Passed';
       if (typeof progressManager !== 'undefined') {
-        progressManager.addCompletion('gel_quiz', 'correct');
+        progressManager.addCompletion('gel_q1', 'correct');
+        progressManager.addCompletion('gel_q2', 'correct');
+        progressManager.addCompletion('gel_q3', 'correct');
       }
     } else {
       statusEl.textContent = '❌ One or more answers were incorrect. Review the feedback below, then click "New set" to try again.';
