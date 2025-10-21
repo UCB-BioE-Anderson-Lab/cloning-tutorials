@@ -16,8 +16,18 @@ Once you’ve picked and grown up an isolated colony, you now have a saturated c
 
 ## Overview
 
-![Qiagen QIAprep Miniprep Kit components](../images/qiaprep_kit.png)
-*Figure: Components of the Qiagen QIAprep Spin Miniprep Kit. Blue columns, labeled buffers, and RNase A tube shown.*
+
+<p align="center">
+  <a href="https://www.qiagen.com/binary/resource/S_4613_QIAprep_s/1_5_WebFullSizeImage.jpg" target="_blank">
+    <img src="https://www.qiagen.com/binary/resource/S_4613_QIAprep_s/1_5_WebFullSizeImage.jpg" alt="Qiagen QIAprep Miniprep Kit components" width="60%" />
+  </a>
+</p>
+
+<p align="center">
+  <small>
+    “Qiagen QIAprep Miniprep Kit,” image © <a href="https://www.qiagen.com/" target="_blank">Qiagen</a>, used for educational purposes.
+  </small>
+</p>
 
 This procedure is similar to the Zymo cleanup, but starts with a bacterial culture. We use the **Qiagen QIAprep Spin Miniprep Kit**, which uses silica column purification via **guanidinium-silica chemistry**. (This is **not** interchangeable with Qiagen anion-exchange kits.)
 

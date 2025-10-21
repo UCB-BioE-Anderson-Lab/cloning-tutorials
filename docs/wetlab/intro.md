@@ -39,8 +39,15 @@ We retain only the minimal motifs required for strong σ⁷⁰ recognition and r
 - Fix the -35 and -10 consensus motifs.
 - Randomize all other positions.
 
+
 ![Diagram showing core RNA polymerase and sigma factor binding a consensus promoter, highlighting the -35 and -10 regions.](../images/consensus_promoter.png)
 *Figure: σ⁷⁰ consensus promoter. The sigma factor of RNA polymerase recognizes the -35 (TTGACA) and -10 (TATAAT) boxes and initiates transcription at the +1 site. This image shows the promoter region unwound and engaged by polymerase.*
+<p align="center">
+  <small>
+    “Consensus promoter diagram,” adapted from <a href="https://bio.libretexts.org/Bookshelves/Microbiology/Microbiology_(Boundless)/07%3A_Microbial_Genetics/7.19%3A_RNA-Based_Regulation/7.19E%3A__Regulation_of_Sigma_Factor_Translation" target="_blank">LibreTexts Microbiology</a>, licensed under 
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>.
+  </small>
+</p>
 
 We also add 4 random bases upstream and downstream, yielding 31 degenerate positions in total.
 
