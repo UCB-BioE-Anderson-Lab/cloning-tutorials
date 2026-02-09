@@ -1,8 +1,9 @@
-\
 <script src="https://unpkg.com/seqviz"></script>
 <script src="https://cdn.jsdelivr.net/npm/c6-sim@1.0.11/dist/c6-sim.min.js"></script>
 
 # SuperSimulator
+
+Warning!  This is an experimental tool and may give erroneous results!
 
 This tool lets you simulate a molecular biology construction file (CF), view the result, and auto-annotate the final product.
 
