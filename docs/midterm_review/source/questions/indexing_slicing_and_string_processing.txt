@@ -1,0 +1,321 @@
+---
+slug: zero-based-index-extraction
+difficulty: medium
+topic: Applying zero-based indexing to extract a specific element from sequential data
+question: |
+  A promoter sequence is stored as a string. A student wants to check
+  the base at the transcription start site, which is the 5th nucleotide
+  in the stored sequence:
+
+  <pre>promoter = 'TTGACATATAAT'</pre>
+
+  The student writes:
+
+  <python>
+  tss = promoter[5]
+  </python>
+
+  What value does tss hold, and did the student get what they wanted?
+choices:
+  A: "'A' — this is the 6th nucleotide, not the 5th; the student has an off-by-one error"
+  B: "'C' — this is the 5th nucleotide, exactly what the student wanted"
+  C: "'T' — index 5 wraps around to the beginning of the string"
+  D: IndexError — index 5 is out of range for this string
+answer: A
+explanation: |
+  In Python, indexing is zero-based: promoter[0]='T', [1]='T', [2]='G',
+  [3]='A', [4]='C', [5]='A'. So promoter[5] returns 'A', which is
+  the 6th nucleotide in the sequence. The student wanted the 5th
+  nucleotide (1-based position 5), which is promoter[4] = 'C'. The
+  student's off-by-one error comes from forgetting that Python counts
+  from 0. In biological databases, sequences are 1-indexed, but Python
+  strings are 0-indexed — this mismatch is a persistent source of bugs.
+  Option B has the wrong value — 'C' is at index 4, not 5. Option C
+  is wrong — Python does not wrap indices around. Option D is wrong
+  because the string has 12 characters, so index 5 is valid.
+
+---
+slug: slice-endpoint-exclusion
+difficulty: medium
+topic: Understanding that slice endpoints are exclusive and reasoning about boundary positions
+question: |
+  A gene annotation says the start codon begins at position 10 (0-based)
+  in a genomic sequence. You want to extract the 3-nucleotide start codon:
+
+  <pre>genome = 'CCCGTTAAACATGAAAGGGCCC'</pre>
+
+  Which slice correctly extracts <pre>ATG</pre> starting at index 10?
+choices:
+  A: genome[10:13]
+  B: genome[10:12]
+  C: genome[11:14]
+  D: genome[10:10+2]
+answer: A
+explanation: |
+  Python slicing uses a half-open interval: seq[start:end] includes index
+  start up to but not including index end. To get 3 characters starting at
+  index 10, you need genome[10:13] — indices 10, 11, 12. Option B gives
+  genome[10:12] which is only 2 characters ('AT'). Option C starts at 11
+  instead of 10, grabbing 'TGA' — a frameshift. Option D computes
+  genome[10:12], the same 2-character error as B. The formula for
+  extracting n characters starting at position i is always seq[i:i+n].
+  The half-open convention avoids fencepost errors once internalized: the
+  length of a slice equals end minus start.
+
+---
+slug: negative-index-from-end
+difficulty: medium
+topic: Using negative indices to access elements relative to the end of a sequence
+question: |
+  A CDS must end with a stop codon. To extract the last three
+  nucleotides for verification:
+
+  <pre>cds = 'ATGAAAGGTCTCTAA'</pre>
+
+  A student writes:
+
+  <python>
+  last_codon = cds[-3:]
+  </python>
+
+  What is the value of last_codon?
+choices:
+  A: 'TAA'
+  B: 'ATG'
+  C: 'CTT'
+  D: IndexError — negative indices are not allowed on strings
+answer: A
+explanation: |
+  Negative indices count from the end: cds[-1] is the last character 'A',
+  cds[-2] is 'A', cds[-3] is 'T'. The slice cds[-3:] means "from the
+  third-to-last character to the end," yielding 'TAA'. This is the
+  standard idiom for checking the terminal codon of a CDS without needing
+  to know the sequence length. Option B would require cds[:3] (the first
+  three). Option C is not a substring of this sequence. Option D is wrong
+  because Python fully supports negative indexing on strings, lists, and
+  tuples. Negative indexing is equivalent to cds[len(cds)-3:], but more
+  concise and less error-prone.
+
+---
+slug: off-by-one-protospacer-extraction
+difficulty: medium
+topic: Getting boundary arithmetic right when extracting a region defined relative to a landmark position
+question: |
+  A CRISPR guide design function locates a PAM site (<pre>NGG</pre>) and must
+  extract the 20-nt protospacer immediately upstream. The PAM starts at
+  index 25 in the target sequence:
+
+  <python>
+  target = '...' # a long genomic string
+  pam_index = 25
+  </python>
+
+  Which slice correctly extracts the 20-nt protospacer?
+choices:
+  A: target[pam_index-20:pam_index]
+  B: target[pam_index-21:pam_index-1]
+  C: target[pam_index-20:pam_index-1]
+  D: target[pam_index-19:pam_index]
+answer: A
+explanation: |
+  The protospacer is the 20 nucleotides immediately before the PAM. If the
+  PAM starts at index 25, the protospacer occupies indices 5 through 24
+  inclusive. Using the half-open interval: target[25-20:25] = target[5:25],
+  which captures exactly 20 characters (indices 5..24). Option B gives
+  target[4:24], which starts one position too early and ends one too early.
+  Option C gives target[5:24], which is only 19 characters — the classic
+  off-by-one error of subtracting 1 from the end when the endpoint is
+  already exclusive. Option D gives target[6:25], only 19 characters
+  starting one position too late. The key insight: because slicing already
+  excludes the endpoint, using the PAM index directly as the end requires
+  no adjustment.
+
+---
+slug: slice-with-step-reverse
+difficulty: medium
+topic: Using a step argument in slicing to reverse or subsample sequential data
+question: |
+  A function needs to reverse a DNA sequence as part of computing the
+  reverse complement. Given:
+
+  <pre>seq = 'AACGTCG'</pre>
+
+  What is the value of seq[::-1]?
+choices:
+  A: 'GCTGCAA'
+  B: 'AACGTCG'
+  C: 'GCAACGT'
+  D: TypeError — strings do not support step slicing
+answer: A
+explanation: |
+  The slice [::-1] means start from the end, go to the beginning, stepping
+  by -1 — it reverses the string. <pre>AACGTCG</pre> reversed is <pre>GCTGCAA</pre>. This
+  is the standard Python idiom for string reversal and is used in the
+  reverse complement operation: first complement each base, then reverse
+  (or vice versa). Option B is the original unreversed sequence. Option C
+  is an incorrect reversal. Option D is wrong because all Python sequences
+  support the step parameter in slices. Note that [::-1] creates a new
+  string — it does not modify seq in place, because strings are immutable.
+
+---
+slug: find-returns-negative-one
+difficulty: medium
+topic: Distinguishing methods that return sentinel values from those that raise exceptions on failure
+question: |
+  A restriction site scanner needs to locate <pre>GAATTC</pre> (EcoRI) in a
+  designed gene. Two approaches:
+
+  <python>
+  cds = 'ATGAAACCCGGGTAA'
+
+  pos_a = cds.find('GAATTC')
+  pos_b = cds.index('GAATTC')
+  </python>
+
+  The site is not present in this CDS. What happens?
+choices:
+  A: Both return -1
+  B: find returns -1; index raises ValueError
+  C: find returns None; index returns -1
+  D: Both raise ValueError
+answer: B
+explanation: |
+  When the substring is not found, str.find() returns -1 as a sentinel
+  value, while str.index() raises a ValueError. This is a critical
+  distinction in sequence scanning code: if you use find() and forget
+  to check for -1, subsequent slicing with a negative index will silently
+  extract the wrong region. For example, cds[pos_a:pos_a+6] when pos_a
+  is -1 gives cds[-1:5], which is an empty string — a silent bug. The
+  index() method forces you to handle the missing-site case explicitly
+  via a try/except. Option A is wrong because index does not return -1.
+  Option C is wrong because find returns -1, not None. Option D is wrong
+  because find never raises an exception for missing substrings.
+
+---
+slug: string-immutability-mutation
+difficulty: medium
+topic: Recognizing that immutable sequences cannot be modified in place and must be rebuilt
+question: |
+  A codon optimization function wants to replace the codon at positions
+  6-8 in a CDS with a synonymous alternative:
+
+  <python>
+  cds = 'ATGAAACCCGGGTAA'
+  cds[6:9] = 'CCT'
+  </python>
+
+  What happens?
+choices:
+  A: "The CDS is updated to 'ATGAAACCTGGGTAA'"
+  B: TypeError — strings do not support item assignment
+  C: The slice is replaced and the string shrinks if the new codon is shorter
+  D: A new string is returned but cds is unchanged
+answer: B
+explanation: |
+  Strings in Python are immutable — you cannot assign to a slice or an
+  index. The attempt raises TypeError: 'str' object does not support item
+  assignment. To perform the replacement, you must build a new string:
+  cds = cds[:6] + 'CCT' + cds[9:]. Option A describes what would happen
+  if strings were mutable. Option C describes list-like behavior that
+  strings do not have. Option D confuses the situation with methods like
+  .replace() that return new strings, but slice assignment is simply not
+  allowed. In genetic design code, this means every sequence modification
+  creates a new string object.
+
+---
+slug: codon-boundary-alignment
+difficulty: medium
+topic: Ensuring that positional arithmetic respects the internal structure of sequential data
+question: |
+  A function extracts the codon that contains a specific nucleotide
+  position in a CDS. The CDS is in frame (starts with ATG at index 0).
+  Given nucleotide position 7:
+
+  <pre>cds = 'ATGAAACCCTAA'</pre>
+
+  What is the codon containing position 7 and what are its boundaries?
+choices:
+  A: "'CCC' at indices 6:9 — position 7 falls in the third codon (i=6)"
+  B: "'AAC' at indices 3:6 — position 7 is in the second codon"
+  C: "'ACC' at indices 7:10 — start the codon at the given position"
+  D: "'CCC' at indices 7:9 — extract from position 7 to end of codon"
+answer: A
+explanation: |
+  Codons in a CDS starting at index 0 begin at indices 0, 3, 6, 9, ...
+  To find which codon contains position p, compute the codon start as
+  (p // 3) * 3. For p=7: (7 // 3) * 3 = 2 * 3 = 6. The codon spans
+  cds[6:9] = 'CCC'. Option B uses the wrong codon boundary (the second
+  codon is cds[3:6] = 'AAA', which does not contain position 7). Option C
+  starts a 3-nt window at the arbitrary nucleotide position, ignoring
+  reading frame alignment. Option D extracts only a partial codon. The
+  general formula (p // 3) * 3 snaps any position down to its codon
+  boundary — a pattern used when making synonymous substitutions that
+  must preserve the reading frame.
+
+---
+slug: overlapping-substring-count
+difficulty: medium
+topic: Understanding how built-in search methods handle overlapping matches in sequential data
+question: |
+  A function checks how many times the dinucleotide <pre>AA</pre> appears in a
+  poly-A tract:
+
+  <python>
+  seq = 'AAAAAC'
+  count_a = seq.count('AA')
+  </python>
+
+  What is the value of count_a?
+choices:
+  A: 4 — every overlapping occurrence is counted
+  B: 2 — count returns non-overlapping matches from left to right
+  C: 3 — count slides a window one base at a time
+  D: 5 — every position where 'A' appears is counted
+answer: B
+explanation: |
+  The str.count() method finds non-overlapping occurrences, scanning left
+  to right. In <pre>AAAAAC</pre>, the first 'AA' matches at index 0, consuming
+  indices 0-1. The next match starts at index 2, consuming 2-3. Index 4
+  is 'A' followed by 'C', which is not 'AA'. So count returns 2. If you
+  need overlapping matches (indices 0, 1, 2, 3), you must write an
+  explicit loop or use a regex with lookahead. Option A would be the
+  overlapping count. Option C gives 3, which is neither the overlapping
+  nor the non-overlapping count. Option D confuses counting a single
+  character with counting a dinucleotide. This distinction matters when
+  scanning for repeated motifs in promoters or ribosome binding sites.
+
+---
+slug: case-normalization-before-search
+difficulty: medium
+topic: Ensuring consistent data representation before performing comparisons or lookups
+question: |
+  GenBank files sometimes represent features in lowercase to indicate
+  they were computationally predicted. A function must check whether a
+  sequence contains a BamHI site (<pre>GGATCC</pre>), regardless of case:
+
+  <pre>seq = 'atgGGATCCaaa'</pre>
+
+  A student writes three attempts:
+
+  <python>
+  attempt1 = 'GGATCC' in seq
+  attempt2 = 'GGATCC' in seq.upper()
+  attempt3 = 'ggatcc' in seq
+  </python>
+
+  Which attempt correctly detects the site regardless of input casing?
+choices:
+  A: Only attempt2
+  B: attempt1 and attempt2
+  C: attempt2 and attempt3
+  D: All three
+answer: A
+explanation: |
+  String comparison in Python is case-sensitive. In this particular input,
+  attempt1 happens to work because <pre>GGATCC</pre> appears literally in uppercase.
+  But if the input were <pre>atgggatccaaa</pre> (all lowercase), attempt1 would
+  fail. Only attempt2 normalizes case before searching, making it robust to
+  any combination. attempt3 searches for lowercase 'ggatcc' which fails if
+  the site is uppercase. The biological lesson: always normalize case before
+  searching sequences from external sources where capitalization conventions
+  vary.

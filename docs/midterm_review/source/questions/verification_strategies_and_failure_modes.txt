@@ -1,0 +1,244 @@
+---
+slug: checker-purpose
+difficulty: medium
+topic: Understanding why domain logic is encapsulated in a reusable function rather than duplicated
+question: |
+  A ForbiddenSequenceChecker is a function that inputs a DNA sequence and
+  returns True if the sequence is free of forbidden restriction sites.
+  This checker is used both inside the TranscriptDesigner algorithm and
+  in the pytest suite that tests TranscriptDesigner.
+
+  Why is the checker written as a separate, shared function?
+choices:
+  A: Both the algorithm and the test need the same domain logic; a shared checker avoids code duplication and ensures consistency
+  B: The checker runs faster as a standalone function than as inline code
+  C: Python does not allow the same logic to appear in two different files
+  D: The checker is needed only for testing and is never used inside the algorithm itself
+answer: A
+explanation: |
+  If the algorithm checks for forbidden sequences internally and the test
+  also checks for them independently, both must implement the same logic.
+  Duplicating that logic creates a maintenance risk — if one copy is
+  updated but the other is not, they can silently diverge. The checker
+  pattern centralizes this domain knowledge in one place that both the
+  algorithm and tests can call. This also makes the checker independently
+  testable.
+---
+slug: which-checker-for-which-region
+difficulty: medium
+topic: Recognizing that different validation rules apply to different parts of a composite design
+question: |
+  A genetic construct has three regions: the RBS (5' UTR), the CDS
+  (coding sequence), and the terminator. A developer considers applying
+  InternalRBSChecker to the full construct.
+
+  What is the problem with this approach?
+choices:
+  A: The construct intentionally contains an RBS, so the checker would always report a violation — it should only be applied to the CDS and terminator regions
+  B: InternalRBSChecker only works on protein sequences, not DNA
+  C: The checker is too slow to run on a full construct
+  D: There is no problem; InternalRBSChecker should be applied to all regions
+answer: A
+explanation: |
+  The InternalRBSChecker looks for Shine-Dalgarno-like sequences followed
+  by a start codon. Every transcript intentionally has an RBS at the
+  beginning, so applying the checker to the full construct (including the
+  real RBS) would always flag it as a violation. The checker should only
+  be applied to regions where an RBS would be unintended — the internal
+  CDS and downstream regions. This illustrates that different checkers
+  have different valid scopes.
+---
+slug: checker-test-validates-checker
+difficulty: medium
+topic: Understanding that a validation tool itself must be tested to ensure it catches known cases
+question: |
+  A test for ForbiddenSequenceChecker includes these assertions:
+
+  <python>
+  assert checker.run('AAAAGGTCTCAAAAA') == False  # contains BsaI site
+  assert checker.run('ACACACACACACAC') == True     # no forbidden sites
+  assert raises(ValueError, checker.run, 'BOB')    # invalid input
+  </python>
+
+  What is the purpose of testing the checker itself?
+choices:
+  A: To verify that the checker correctly identifies known forbidden sequences and correctly passes clean sequences before using it to validate designs
+  B: To benchmark the speed of the checker function
+  C: To test whether the TranscriptDesigner algorithm works correctly
+  D: To generate a list of all possible forbidden sequences
+answer: A
+explanation: |
+  If the checker has a bug (e.g. it fails to detect GGTCTC, or it
+  false-positives on clean sequences), then both the algorithm and the
+  test that rely on it would silently produce incorrect results. Testing
+  the checker on known positive cases (sequences that do contain forbidden
+  sites), known negative cases (clean sequences), and invalid inputs
+  (non-DNA strings) ensures the checker itself is trustworthy before it
+  is used to validate designs.
+---
+slug: edge-case-reveals-algorithm-weakness
+difficulty: medium
+topic: Identifying inputs that stress a specific weakness in an algorithm's logic
+question: |
+  The peptide <pre>MKKKKKKK</pre> is used as an edge case for testing
+  TranscriptDesigner. Why is this particular input challenging?
+choices:
+  A: Lysine's most common codon is AAA, so consecutive lysines tend to produce poly-A runs that violate the forbidden homopolymeric sequence constraint
+  B: The peptide is too short for the algorithm to process
+  C: Lysine cannot be encoded by any codon in E. coli
+  D: The sequence has too many methionines, which confuses the start codon detection
+answer: A
+explanation: |
+  Lysine is encoded by AAA (most common) and AAG. A naive algorithm that
+  always picks the most common codon produces <pre>ATGAAAAAAAAAAAAAAAAAAAAA</pre> —
+  a poly-A run that fails the forbidden sequence check for homopolymeric
+  runs (typically 8+ consecutive identical bases). This edge case forces
+  the algorithm to use synonymous codon variation (alternating AAA and
+  AAG). It reveals whether the algorithm can handle the constraint. The
+  peptide has only one Met (the start), not "too many."
+---
+slug: inverse-function-validation
+difficulty: medium
+topic: Using a reverse operation to verify that a forward operation produced a correct result
+question: |
+  DesignPCRPrimers inputs a template and desired product, and outputs two
+  oligos. PredictPCRProduct inputs two oligos and a template, and outputs
+  the expected product sequence.
+
+  How can these two functions be used together for validation?
+choices:
+  A: Run DesignPCRPrimers to get oligos, then run PredictPCRProduct with those oligos and the template, and verify the predicted product matches the desired product
+  B: Run both functions simultaneously and check that they have the same runtime
+  C: Use DesignPCRPrimers to test PredictPCRProduct's error handling
+  D: Run PredictPCRProduct first, then use its output as input to DesignPCRPrimers to check for exceptions
+answer: A
+explanation: |
+  DesignPCRPrimers and PredictPCRProduct are inverse functions. If the
+  design function works correctly, feeding its output (the oligos) into
+  the simulation function (the predictor) should reproduce the original
+  desired product. If the predicted product does not match, either the
+  design or the simulation has a bug. This pattern — design then simulate
+  — is a powerful validation strategy that avoids manually computing
+  expected results.
+---
+slug: truism-as-property-check
+difficulty: medium
+topic: Using necessarily true properties to catch errors without computing exact expected values
+question: |
+  A test for RBSChooser asserts that the output RBS sequence contains
+  only valid DNA characters (A, T, C, G) and is between 6 and 30
+  nucleotides long. These assertions are examples of:
+choices:
+  A: Truisms — properties that must be true for any valid output, regardless of the specific input
+  B: Validated examples — experimentally confirmed input/output pairs
+  C: Edge cases — inputs designed to break the algorithm
+  D: Benchmarks — performance measurements of the algorithm
+answer: A
+explanation: |
+  Truisms are broad property checks that should hold for any valid output
+  of a function. "Output is valid DNA" and "output length is within a
+  biologically plausible range" are truisms. They do not verify that the
+  output is the *best* or *correct* RBS for the specific input, but they
+  catch gross errors (e.g. returning None, returning RNA characters, or
+  returning an impossibly long sequence). Validated examples check specific
+  known input/output pairs. Edge cases are specific tricky inputs.
+---
+slug: validated-example-strongest-evidence
+difficulty: medium
+topic: Understanding why empirical data provides stronger validation than purely computational checks
+question: |
+  A researcher tests a gRNA design function using the cadA gene from
+  E. coli. The protospacer found in the published pTargetF plasmid
+  (experimentally confirmed to edit cadA) is used as the expected output.
+
+  Why is this test stronger than a truism like "output contains only ATCG"?
+choices:
+  A: It verifies the function's specific biological logic against a real, experimentally validated result — not just that the output looks plausible
+  B: It runs faster than truism-based tests
+  C: It tests more edge cases simultaneously
+  D: Validated examples are easier to write than truisms
+answer: A
+explanation: |
+  A truism catches gross errors but cannot verify whether the function
+  found the *correct* protospacer. A validated example uses a real
+  experimental result — the actual protospacer sequence from a published,
+  working CRISPR system — to verify the function's biological logic. If
+  the function extracts the wrong 20-mer (e.g. off-by-one), the truism
+  still passes (it's valid DNA and the right length) but the validated
+  example fails. Validated examples are the "best evidence short of
+  experimentally testing designs yourself."
+---
+slug: benchmarking-on-proteome
+difficulty: medium
+topic: Understanding how testing at scale reveals failure rates that individual tests cannot
+question: |
+  A proteome benchmarker runs TranscriptDesigner on all 2,458 E. coli
+  proteins and reports:
+  - Forbidden sequence violations: 1,924
+  - Hairpin violations: 2,326
+  - Translation match failures: 130
+
+  What does this benchmark reveal that individual test cases cannot?
+choices:
+  A: The overall failure rate and which types of violations are most common across the full input space
+  B: The exact DNA sequence that should be designed for each protein
+  C: Whether the algorithm runs without syntax errors
+  D: Which specific codon causes each violation
+answer: A
+explanation: |
+  Individual test cases verify behavior on specific inputs, but a proteome
+  benchmark evaluates the algorithm across the entire space of valid
+  inputs. It reveals the aggregate failure rate (e.g. 78% of proteins
+  have hairpin issues) and identifies which constraints are hardest to
+  satisfy. This guides algorithm improvement: hairpin violations are most
+  common, so the algorithm should prioritize secondary structure
+  avoidance. Individual tests cannot reveal these population-level
+  statistics.
+---
+slug: pwm-promoter-checking
+difficulty: medium
+topic: Understanding how a statistical model of sequence features can detect unintended functional sites
+question: |
+  InternalPromoterChecker uses a position weight matrix (PWM) to score
+  whether a region of DNA resembles a sigma-70 promoter. The PWM encodes
+  the probability of each base at each position in the -35 and -10 boxes.
+
+  Why is a PWM used instead of an exact sequence match?
+choices:
+  A: Promoters are not a single exact sequence — they are a family of related sequences with position-dependent variation, so a probabilistic model is more sensitive than exact matching
+  B: PWMs run faster than exact string matching
+  C: Exact matching would find too many false positives
+  D: The PWM also detects restriction enzyme sites
+answer: A
+explanation: |
+  Sigma-70 promoters are not defined by one exact sequence but by a
+  consensus pattern with variation at each position (e.g. the -10 box is
+  <pre>TATAAT</pre> but functional variants exist). A PWM captures this variation by
+  scoring how likely a given sequence is to function as a promoter. An
+  exact match for TATAAT alone would miss functional promoters with single
+  substitutions, and a search for partial matches would produce too many
+  false positives. The PWM balances sensitivity and specificity.
+---
+slug: passing-checks-vs-being-correct
+difficulty: medium
+topic: Understanding the difference between satisfying known constraints and achieving the true design goal
+question: |
+  A TranscriptDesigner output passes all checkers: ForbiddenSequenceChecker,
+  HairpinChecker, CodonChecker, and InternalPromoterChecker all return
+  True. Does this guarantee the design will express well in E. coli?
+choices:
+  A: No — the checkers verify known constraints are satisfied, but real expression depends on factors beyond what the checkers model (e.g. mRNA stability, tRNA interactions, protein folding)
+  B: Yes — if all checkers pass, the design is guaranteed to work experimentally
+  C: No — because the checkers have false positive rates above 50%
+  D: Yes — the checkers collectively model all aspects of gene expression
+answer: A
+explanation: |
+  Checkers enforce a defined set of domain-specific constraints (no
+  forbidden sites, low hairpin count, acceptable CAI, no internal
+  promoters). However, gene expression depends on many additional factors:
+  mRNA stability and RNase E cleavage, interactions with other cellular
+  RNAs, codon context effects, protein folding during translation, and
+  resource competition. No finite set of checkers can model all biological
+  complexity. Passing the checks means the design is free of known
+  problems, not that it is guaranteed to work. Experimental validation
+  remains necessary.

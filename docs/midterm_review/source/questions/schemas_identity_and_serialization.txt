@@ -1,0 +1,358 @@
+---
+slug: required-vs-optional-fields
+difficulty: medium
+topic: Distinguishing required from optional fields and predicting behavior when optional fields are absent
+question: |
+  A Polynucleotide dataclass is defined with some fields required and
+  others optional:
+
+  <python>
+  @dataclass
+  class Polynucleotide:
+      sequence: str
+      ext5: str = ''
+      ext3: str = ''
+      is_double_stranded: bool = True
+      is_circular: bool = False
+      mod_ext5: str = ''
+      mod_ext3: str = ''
+  </python>
+
+  A colleague creates an instance with only the sequence:
+
+  <python>
+  dna = Polynucleotide(sequence='ATGAAATAA')
+  </python>
+
+  What are the values of dna.ext5 and dna.is_circular?
+choices:
+  A: '' and False — optional fields take their default values
+  B: None and None — unspecified fields are always None
+  C: TypeError — all fields must be provided explicitly
+  D: '' and True — is_circular defaults to True for any sequence
+answer: A
+explanation: |
+  In a dataclass, fields with default values are optional at construction
+  time. sequence has no default and is required; all other fields have
+  defaults. When only sequence is provided, ext5 gets '' and is_circular
+  gets False. Option B confuses Python defaults with None (the defaults
+  here are '' and False, not None). Option C would be true only if no
+  defaults were declared. Option D invents a biological inference that
+  the dataclass does not encode — circularity must be stated explicitly.
+
+---
+slug: frozen-dataclass-immutability
+difficulty: medium
+topic: Understanding how frozen dataclasses enforce immutability and why that matters for data integrity
+question: |
+  A strain genotype is modeled as a frozen dataclass:
+
+  <python>
+  @dataclass(frozen=True)
+  class Strain:
+      name: str
+      genotype: tuple
+
+  ecoli = Strain(name='DH10B', genotype=('lacZ-', 'recA1'))
+  </python>
+
+  Later, a function tries to record a new mutation:
+
+  <python>
+  ecoli.genotype = ('lacZ-', 'recA1', 'endA1')
+  </python>
+
+  What happens?
+choices:
+  A: The genotype is updated to include endA1
+  B: FrozenInstanceError — frozen dataclasses do not allow attribute reassignment
+  C: The original object is unchanged but a new Strain is silently created
+  D: TypeError because tuples cannot be extended
+answer: B
+explanation: |
+  The frozen=True parameter makes all attributes read-only after construction.
+  Attempting to reassign any attribute raises FrozenInstanceError (a subclass
+  of AttributeError). This is a deliberate design choice: a strain's genotype
+  is a fixed biological fact at a point in time, and the immutability prevents
+  accidental corruption. Option A would be true for a normal (non-frozen)
+  dataclass. Option C invents copy-on-write behavior Python does not provide.
+  Option D confuses tuple immutability with the dataclass attribute assignment
+  — the error comes from frozen, not from tuple.
+
+---
+slug: sequence-invariant-validation
+difficulty: medium
+topic: Enforcing invariants on object fields to prevent construction of invalid biological objects
+question: |
+  A Polynucleotide constructor includes a validator:
+
+  <python>
+  @dataclass
+  class Polynucleotide:
+      sequence: str
+
+      def __post_init__(self):
+          import re
+          if not re.fullmatch(r'[ATCG]+', self.sequence):
+              raise ValueError('Sequence must be non-empty and contain only A, T, C, G')
+  </python>
+
+  Which of the following calls raises a ValueError?
+choices:
+  A: Polynucleotide(sequence='ATGCCC')
+  B: Polynucleotide(sequence='AUGCCC')
+  C: Polynucleotide(sequence='ATCG')
+  D: Polynucleotide(sequence='GGGGGGGG')
+answer: B
+explanation: |
+  The regex [ATCG]+ requires every character to be A, T, C, or G, and the
+  sequence must be at least one character. 'AUGCCC' contains 'U', which is
+  an RNA base not in the allowed set, so it fails validation. This invariant
+  ensures a Polynucleotide always holds a valid DNA sequence — catching the
+  common mistake of passing an RNA sequence to a DNA data structure. Options
+  A, C, and D all consist entirely of valid DNA bases and pass the check.
+
+---
+slug: reference-by-identifier
+difficulty: medium
+topic: Using stable identifiers to reference objects indirectly instead of embedding them directly
+question: |
+  A ConstructionFile describes a cloning plan. One approach stores the full
+  Polynucleotide object inside each step. Another stores only the name as a
+  string and looks up the object in a registry:
+
+  <python>
+  # Approach 1: direct embedding
+  step = {'action': 'PCR', 'template': pUC19_object}
+
+  # Approach 2: reference by identifier
+  step = {'action': 'PCR', 'template': 'pUC19'}
+  # later: registry['pUC19'] returns the full object
+  </python>
+
+  A collaborator updates pUC19's sequence in the registry to fix a
+  sequencing error. What happens to a saved ConstructionFile under each
+  approach?
+choices:
+  A: Both approaches automatically see the updated sequence
+  B: Only approach 2 sees the update — approach 1 holds a stale copy of the old object
+  C: Only approach 1 sees the update — direct references track changes automatically
+  D: Neither approach sees the update — saved files are always frozen
+answer: B
+explanation: |
+  Approach 2 stores only the name 'pUC19'. When the ConstructionFile is
+  reloaded and the name is resolved, it fetches the current object from the
+  registry, which now has the corrected sequence. Approach 1 embedded the
+  full object at save time, so it retains the old sequence unless manually
+  updated. This is the key advantage of reference-by-identifier: it
+  introduces a level of indirection that allows the referenced object to
+  evolve independently. Option A incorrectly assumes embedded objects are
+  live references. Option C reverses the logic. Option D ignores that
+  registry lookups happen at resolution time.
+
+---
+slug: sharable-identity-fields
+difficulty: medium
+topic: Identifying the minimal set of fields needed to uniquely identify and describe a shared resource
+question: |
+  In the C9 system, all Sharables (models, data, functions, views) carry a
+  common set of identity fields: id, type, name, description, and keywords.
+
+  A student proposes dropping the id field and using name alone as the
+  unique identifier, arguing that names are human-readable. Why is a
+  separate id field necessary?
+choices:
+  A: Names may be duplicated or changed over time; a stable id ensures references never break
+  B: The id field stores the object's sequence data, which names cannot hold
+  C: Python requires an id field for all objects to enable garbage collection
+  D: The name field is optional in Sharables, so it cannot serve as an identifier
+answer: A
+explanation: |
+  Names are mutable and non-unique — two different labs might name their
+  construct 'pET-GFP', or a name might be updated for clarity. A stable id
+  (typically a UUID or hash) ensures that any reference to the object remains
+  valid regardless of name changes. This is the same principle as using accession
+  numbers in GenBank rather than gene names. Option B confuses the id with
+  sequence storage. Option C confuses Python's built-in id() with a domain
+  identifier. Option D is wrong because name is a required Sharable field,
+  but even if it were required, uniqueness is the deeper issue.
+
+---
+slug: json-schema-type-enforcement
+difficulty: medium
+topic: Using schema definitions to validate data types and prevent silent errors in serialized data
+question: |
+  A JSON schema for a Polynucleotide requires:
+
+  <pre>
+  {
+    "sequence": {"type": "string"},
+    "is_circular": {"type": "boolean"}
+  }
+  </pre>
+
+  A researcher exports their construct as JSON, but their script writes
+  is_circular as the string "true" instead of the boolean true:
+
+  <pre>{"sequence": "ATGAAATAA", "is_circular": "true"}</pre>
+
+  What should happen when this JSON is validated against the schema?
+choices:
+  A: Validation passes — "true" and true are equivalent in JSON
+  B: Validation fails — the schema requires a boolean, not a string
+  C: Validation passes — JSON schemas ignore type mismatches
+  D: Validation fails — "true" is not a valid JSON value
+answer: B
+explanation: |
+  JSON distinguishes between the string "true" and the boolean true. A
+  schema specifying {"type": "boolean"} rejects the string "true". This
+  matters because downstream code checking `if data['is_circular']:` would
+  get True for both the boolean true and the non-empty string "true", but
+  the data would be semantically wrong — the string "false" is also truthy
+  in Python. Schema validation catches this class of serialization bug
+  before it causes silent errors. Option A conflates string and boolean
+  types. Option C misunderstands the purpose of schemas. Option D is wrong
+  because "true" is a valid JSON string, just the wrong type.
+
+---
+slug: cf-shorthand-name-resolution
+difficulty: medium
+topic: Parsing a shorthand notation that uses names to reference objects and resolving them in order
+question: |
+  A ConstructionFile uses CF shorthand where each line defines a new DNA
+  by name, and subsequent lines can reference previously defined DNAs:
+
+  <pre>
+  PCR p1 p2 pUC19   -> frag1
+  PCR p3 p4 genomic  -> frag2
+  Gibson frag1 frag2 -> product
+  </pre>
+
+  The Gibson step references frag1 and frag2 by name. What happens if the
+  lines are reordered so that the Gibson step comes before the PCR steps?
+choices:
+  A: It still works — CF shorthand resolves names after parsing all lines
+  B: It fails — frag1 and frag2 have not been defined yet when Gibson is parsed
+  C: It works only if frag1 and frag2 are pre-registered in a global registry
+  D: It produces the same product but with reversed fragment order
+answer: B
+explanation: |
+  CF shorthand is parsed top-to-bottom. Each line's output (the name after
+  ->) is only available to lines that come after it. If Gibson references
+  frag1 before the PCR line that creates frag1, the name cannot be resolved.
+  This is analogous to variable declaration order in code — you cannot use a
+  variable before it is defined. Option A would require a two-pass parser,
+  which CF shorthand does not use. Option C introduces a mechanism not part
+  of the standard CF format. Option D confuses ordering of lines with
+  ordering of fragments within an assembly.
+
+---
+slug: serialization-preserves-semantics
+difficulty: medium
+topic: Ensuring that serialization and deserialization preserve all semantically meaningful distinctions
+question: |
+  Two Polynucleotide objects differ only in circularity:
+
+  <python>
+  linear = Polynucleotide(sequence='ATGAAATAA', is_circular=False)
+  circular = Polynucleotide(sequence='ATGAAATAA', is_circular=True)
+  </python>
+
+  A student writes a serializer that saves only the sequence to a FASTA file
+  and a deserializer that reconstructs the object with default values:
+
+  <python>
+  def serialize(poly):
+      return f'>construct\n{poly.sequence}'
+
+  def deserialize(fasta_text):
+      seq = fasta_text.split('\n')[1]
+      return Polynucleotide(sequence=seq)
+  </python>
+
+  What happens when the circular plasmid is round-tripped through
+  serialize then deserialize?
+choices:
+  A: The circular plasmid is correctly reconstructed as circular
+  B: The circular plasmid is reconstructed as linear — the circularity information is lost
+  C: A ValueError is raised because FASTA cannot store DNA sequences
+  D: The sequence itself is corrupted during serialization
+answer: B
+explanation: |
+  The serializer only writes the sequence, discarding is_circular. The
+  deserializer reconstructs with defaults, and is_circular defaults to
+  False. So a circular plasmid becomes linear after round-tripping. This
+  demonstrates why serialization must capture all semantically meaningful
+  fields — the sequence alone is insufficient to reconstruct the full
+  object. A proper format (like GenBank) includes topology annotations.
+  Option A would require the format to preserve circularity. Option C
+  is wrong because FASTA is a standard sequence format. Option D is wrong
+  because the sequence string itself is preserved faithfully.
+
+---
+slug: registry-lookup-failure
+difficulty: medium
+topic: Handling the case where a referenced identifier does not exist in the registry
+question: |
+  A ConstructionFile references a plasmid by name:
+
+  <pre>PCR oJC101 oJC102 pSB1C3 -> pcr_product</pre>
+
+  The parser looks up 'pSB1C3' in a local registry dict:
+
+  <python>
+  template = registry['pSB1C3']
+  </python>
+
+  But the researcher forgot to add pSB1C3 to their registry before running
+  the parser. What happens, and what is the best way to handle it?
+choices:
+  A: template is set to None, and the PCR step proceeds with no template
+  B: KeyError is raised; the parser should catch it and report which DNA name is missing
+  C: The parser automatically downloads pSB1C3 from a remote database
+  D: An empty Polynucleotide is created as a placeholder
+answer: B
+explanation: |
+  Accessing a missing key in a dict raises KeyError. The best practice is
+  for the parser to catch this exception and produce a clear error message
+  identifying which name could not be resolved and which line of the
+  ConstructionFile references it. This follows the error-handling principle
+  from Lec 2: fail early with a meaningful message rather than propagating
+  a None or placeholder that causes a confusing error later. Option A would
+  let the program silently continue with invalid data. Option C invents
+  behavior the parser does not have. Option D masks the problem.
+
+---
+slug: polynucleotide-extensions-meaning
+difficulty: medium
+topic: Understanding how optional fields modify the interpretation of a core required field
+question: |
+  A Polynucleotide has a required sequence field and optional ext5 and ext3
+  fields representing single-stranded overhangs:
+
+  <python>
+  frag = Polynucleotide(
+      sequence='ATGAAAGGGCCC',
+      ext5='AATT',
+      ext3='',
+      is_double_stranded=True
+  )
+  </python>
+
+  In the physical DNA this represents, what is the structure at the 5' end
+  versus the 3' end?
+choices:
+  A: The 5' end has a 4-nt single-stranded overhang; the 3' end is blunt
+  B: Both ends are blunt — ext5 and ext3 are metadata labels, not structural features
+  C: The 5' end is blunt; the 3' end has a 4-nt overhang
+  D: Both ends have 4-nt overhangs — ext3 defaults to matching ext5
+answer: A
+explanation: |
+  The ext5 field represents a single-stranded extension on the 5' end of the
+  top strand. 'AATT' means there are 4 unpaired nucleotides hanging off the
+  5' end. The ext3 field is '' (empty string), meaning no extension at the 3'
+  end — the 3' end is blunt. This distinction matters for assembly: a 5'
+  overhang can anneal with a complementary overhang on another fragment in
+  Gibson assembly or ligation. Option B misunderstands ext fields as mere
+  labels. Option C reverses which end has the overhang. Option D invents a
+  defaulting rule that does not exist — each extension is independent.

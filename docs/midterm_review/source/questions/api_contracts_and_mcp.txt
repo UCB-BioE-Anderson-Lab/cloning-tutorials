@@ -1,0 +1,383 @@
+---
+slug: function-signature-as-contract
+difficulty: medium
+topic: Understanding that a function signature defines a contract between the implementer and every caller
+question: |
+  A codon optimization function is documented as:
+
+  <python>
+  def optimize_codons(cds: str, organism: str) -> str:
+      '''Accepts a DNA coding sequence and a host organism name.
+      Returns a codon-optimized DNA sequence of the same length.
+      Raises ValueError if cds length is not a multiple of 3.'''
+      ...
+  </python>
+
+  A colleague writes code that calls this function and checks the output:
+
+  <python>
+  result = optimize_codons('ATGAAAGGG', 'ecoli')
+  assert len(result) == len('ATGAAAGGG')
+  assert result.startswith('ATG')
+  </python>
+
+  Why is the len assertion justified but the startswith assertion risky?
+choices:
+  A: The signature guarantees same-length output; it makes no promise about preserving the start codon
+  B: Both assertions are guaranteed by the contract — ATG always maps to ATG
+  C: Neither assertion is safe — the return type str could be any string
+  D: The startswith check is safe because biological convention requires a start codon
+answer: A
+explanation: |
+  The docstring explicitly states the return is "a codon-optimized DNA sequence
+  of the same length." That is a contractual guarantee the caller can rely on.
+  However, the contract says nothing about preserving specific codons, including
+  the start codon. While most real optimizers would preserve ATG (the only
+  methionine codon in the standard code), the contract does not promise this.
+  Option B assumes a biological fact that the API does not guarantee. Option C
+  ignores the explicit length guarantee in the docstring. Option D confuses
+  biological convention with an API contract — unless the documentation states
+  it, callers should not assume it.
+
+---
+slug: separate-computation-from-io
+difficulty: medium
+topic: Recognizing why separating pure computation from I/O makes functions reusable and testable
+question: |
+  Two approaches to computing the melting temperature of a primer:
+
+  <python>
+  # Version A
+  def get_tm_from_user():
+      seq = input('Enter primer sequence: ')
+      tm = 2 * seq.count('AT') + 4 * seq.count('GC')
+      print(f'Tm = {tm}')
+
+  # Version B
+  def compute_tm(seq: str) -> float:
+      return 2 * seq.count('AT') + 4 * seq.count('GC')
+  </python>
+
+  A design pipeline needs to compute Tm for 500 primers stored in a list.
+  Which version can it use directly?
+choices:
+  A: Version A — it can be called in a loop with each primer
+  B: Version B — it accepts a sequence argument and returns a value, so it works with any data source
+  C: Both work equally well — print and return are interchangeable
+  D: Neither — both are incorrect because the Tm formula is oversimplified
+answer: B
+explanation: |
+  Version A is tangled with I/O: it reads from the keyboard (input) and writes
+  to the console (print). A pipeline processing 500 primers from a list cannot
+  feed sequences into input() or capture results from print(). Version B
+  separates the pure computation from all I/O — it takes a string and returns
+  a number. This makes it callable from any context: a loop, a test, a web
+  server, or another function. Option A fails because input() blocks waiting
+  for keyboard entry. Option C confuses print (a side effect) with return
+  (a value the caller receives). Option D critiques the formula rather than
+  the design, which is the point of the question.
+
+---
+slug: pure-function-guarantees
+difficulty: medium
+topic: Identifying the guarantees a pure function provides and why they matter for reproducible pipelines
+question: |
+  A gene design pipeline calls three functions in sequence:
+
+  <python>
+  def codon_optimize(cds, codon_table):
+      '''Pure function: returns optimized CDS.'''
+      ...
+
+  def log_to_database(cds, timestamp):
+      '''Writes the CDS and timestamp to a remote database.'''
+      ...
+
+  def add_flanking_sequences(cds, vector):
+      '''Pure function: returns CDS with appropriate flanks.'''
+      ...
+  </python>
+
+  The pipeline runs once and produces a correct result. The server hosting
+  the database then goes offline. What happens when the pipeline is rerun
+  with identical inputs?
+choices:
+  A: All three functions fail — the database outage propagates to pure functions
+  B: codon_optimize and add_flanking_sequences produce the same results; log_to_database fails
+  C: The pipeline produces a different result because the database cached state from the first run
+  D: All three succeed — Python automatically retries failed network calls
+answer: B
+explanation: |
+  Pure functions depend only on their inputs and have no side effects. They
+  will produce identical results regardless of network status, database state,
+  or any other external condition. log_to_database performs I/O (a side effect)
+  and will fail when the database is unreachable. This illustrates why pure
+  functions are preferred for the computational core of a pipeline: they are
+  reproducible and resilient. Option A incorrectly claims pure functions are
+  affected by external failures. Option C invents a caching dependency. Option D
+  invents an automatic retry mechanism that Python does not provide.
+
+---
+slug: mcp-host-client-server-roles
+difficulty: medium
+topic: Distinguishing the roles of host, client, and server in a layered protocol architecture
+question: |
+  In the Model Context Protocol (MCP), three roles cooperate:
+
+  - Server: exposes capabilities (Resources, Tools, Prompts)
+  - Client: maintains a 1:1 connection with a server
+  - Host: the user-facing application that coordinates clients
+
+  A bioinformatics lab sets up an MCP server that exposes a codon
+  optimization Tool. A researcher uses an LLM-powered assistant (the host)
+  that connects to this server. The LLM proposes calling the codon
+  optimization tool for the sequence 'ATGAAACCC'.
+
+  Who decides whether the tool is actually invoked?
+choices:
+  A: The server — it controls access to all tools it exposes
+  B: The LLM — it has already decided by including the tool call in its response
+  C: The host — it mediates between the LLM and the client, applying approval policies
+  D: The client — it autonomously executes any request the LLM generates
+answer: C
+explanation: |
+  In MCP architecture, the LLM can propose tool invocations, but the host
+  application is responsible for applying approval policies before any tool
+  is actually executed. The host sits between the user and the LLM, ensuring
+  that the human (or an automated policy) approves actions before they happen.
+  This is the "human-in-the-loop" or "controlled action" principle. Option A
+  confuses the server's role (exposing capabilities) with access control at
+  the host level. Option B mistakes a proposal for an execution. Option D
+  removes the approval step that is central to MCP's safety model.
+
+---
+slug: mcp-resources-vs-tools
+difficulty: medium
+topic: Distinguishing read-only data access from actions that produce side effects
+question: |
+  An MCP server for a genetic design platform exposes the following:
+
+  Resource: "parts-catalog" — returns the current list of BioBrick parts
+  Resource: "codon-tables" — returns codon usage tables for supported organisms
+  Tool: "run-optimization" — accepts a CDS and returns an optimized sequence
+  Tool: "order-dna" — submits a DNA sequence to a synthesis vendor
+
+  A student claims that Resources and Tools are interchangeable and that
+  "parts-catalog" could just as easily be a Tool. What is wrong with this claim?
+choices:
+  A: Resources are for read-only data retrieval; Tools are for actions that may have side effects — conflating them defeats the safety model
+  B: Resources return JSON and Tools return plain text, so the formats are incompatible
+  C: Tools are faster than Resources, which is why computation should be a Tool
+  D: Resources can only be accessed by the server itself, not by external clients
+answer: A
+explanation: |
+  MCP explicitly separates Resources (read-only, safe to access without
+  approval) from Tools (actions that may modify state or trigger side effects).
+  Resources like "parts-catalog" are analogous to GET requests — the client
+  can read them freely. Tools like "order-dna" are analogous to POST requests
+  — they require approval because they cause real-world effects. If the
+  parts catalog were exposed as a Tool, the host would need to prompt for
+  approval on every read, adding unnecessary friction. Option B invents a
+  format distinction that does not exist. Option C invents a performance
+  difference. Option D is wrong because Resources are specifically designed
+  to be accessed by clients.
+
+---
+slug: tool-invocation-approval
+difficulty: medium
+topic: Understanding why proposed actions require explicit approval before execution
+question: |
+  An MCP-connected assistant is helping a researcher design a plasmid.
+  The assistant has access to these tools:
+
+  Tool: "blast-sequence" — runs BLAST against NCBI (network call)
+  Tool: "order-dna" — submits a sequence to IDT for synthesis ($$$)
+  Tool: "write-genbank" — writes a GenBank file to disk
+
+  The LLM generates a plan: "I'll BLAST your insert, write the GenBank file,
+  and order the DNA." Under MCP's controlled invocation model, what should
+  happen next?
+choices:
+  A: All three tools execute immediately — the user already asked for help
+  B: The host presents the proposed tool calls to the user for approval before any execute
+  C: Only order-dna requires approval; blast and write-genbank run automatically
+  D: The server decides which tools are safe and executes those without asking
+answer: B
+explanation: |
+  MCP treats all tool invocations as controlled actions. The LLM proposes
+  tool calls, but the host must present them to the user (or evaluate them
+  against a policy) before execution. This is critical because tools can have
+  side effects: BLAST makes a network call, write-genbank modifies the
+  filesystem, and order-dna spends money. Even seemingly safe tools should go
+  through the approval flow because the host cannot reliably judge safety
+  without user context. Option A skips the approval step entirely. Option C
+  assumes the host can selectively auto-approve, which may be possible as a
+  policy but is not the default model. Option D incorrectly places the
+  approval decision at the server rather than the host.
+
+---
+slug: error-modes-raise-vs-return-none
+difficulty: medium
+topic: Choosing between raising an exception and returning a sentinel value to communicate failure
+question: |
+  A function validates a DNA sequence before processing:
+
+  <python>
+  # Approach 1: raise on error
+  def validate_cds(seq):
+      if len(seq) % 3 != 0:
+          raise ValueError(f'CDS length {len(seq)} is not a multiple of 3')
+      return seq
+
+  # Approach 2: return None on error
+  def validate_cds(seq):
+      if len(seq) % 3 != 0:
+          return None
+      return seq
+  </python>
+
+  A caller passes an invalid sequence and then immediately calls translate()
+  on the result without checking:
+
+  <python>
+  cds = validate_cds('ATGAA')
+  protein = translate(cds)
+  </python>
+
+  Which approach leads to a more diagnosable failure?
+choices:
+  A: Approach 2 — returning None lets the caller decide how to handle the error
+  B: Approach 1 — the ValueError halts immediately with a message explaining the problem
+  C: Both are equivalent — translate will fail either way
+  D: Approach 2 — None is automatically skipped by translate
+answer: B
+explanation: |
+  Approach 1 raises a ValueError at the point of failure with a clear message
+  identifying the problem. The traceback points directly to the validation
+  step. Approach 2 returns None silently; when translate(None) is called, it
+  will likely raise a TypeError or AttributeError inside translate — far from
+  the actual cause. The programmer must then trace backward to figure out
+  where None came from. Option A correctly notes that None gives the caller a
+  choice, but the question asks about diagnosability when the caller does not
+  check. Option C ignores that the quality of the error message differs
+  drastically. Option D invents behavior that translate does not have.
+
+---
+slug: function-scope-documentation
+difficulty: medium
+topic: Documenting what a function does and does not handle to set correct expectations
+question: |
+  A function's docstring states:
+
+  <python>
+  def remove_restriction_sites(cds: str, sites: list[str]) -> str:
+      '''Silently replaces codons to eliminate the specified restriction
+      sites from cds while preserving the encoded protein.
+
+      Scope: operates only on the coding region. Does not modify UTRs,
+      promoters, or flanking sequences. Does not check whether the
+      replacement introduces new forbidden sites not in the input list.
+
+      Raises ValueError if cds is not a valid reading frame.
+      Returns the modified CDS as a string.'''
+      ...
+  </python>
+
+  A researcher passes a full plasmid sequence (promoter + CDS + terminator)
+  and finds that a BsaI site in the promoter is still present after the call.
+  What went wrong?
+choices:
+  A: The function has a bug — it should scan the entire input for restriction sites
+  B: The researcher used the function outside its documented scope — it only operates on a coding region
+  C: BsaI sites cannot be removed computationally, only by manual design
+  D: The function silently failed because the promoter confused its reading-frame parser
+answer: B
+explanation: |
+  The docstring explicitly states the function "operates only on the coding
+  region" and "does not modify UTRs, promoters, or flanking sequences." The
+  researcher passed a full plasmid, violating the documented scope. This is
+  not a bug but a misuse: the function's contract clearly defines what input
+  it expects and what it will and will not do. The fix is to extract the CDS,
+  call the function, and reassemble the full sequence. Option A blames the
+  function for a scope the documentation intentionally excludes. Option C is
+  factually wrong. Option D invents a silent failure mode that contradicts
+  the documented ValueError behavior.
+
+---
+slug: reference-by-identifier-serialization
+difficulty: medium
+topic: Understanding why storing identifiers rather than full objects enables reliable serialization
+question: |
+  A cloning plan is stored as a Python dict and serialized to JSON:
+
+  <python>
+  # Approach 1: embed full objects
+  plan = {
+      'step': 'Gibson',
+      'fragments': [polynucleotide_obj_1, polynucleotide_obj_2]
+  }
+
+  # Approach 2: reference by identifier
+  plan = {
+      'step': 'Gibson',
+      'fragment_ids': ['frag_001', 'frag_002']
+  }
+  </python>
+
+  When json.dumps(plan) is called on each approach, what happens?
+choices:
+  A: Both serialize successfully — json.dumps handles any Python object
+  B: Approach 1 raises TypeError because custom objects are not JSON-serializable; Approach 2 succeeds because it stores only strings
+  C: Approach 2 fails because the identifiers cannot be resolved during serialization
+  D: Both fail — dicts cannot be serialized to JSON
+answer: B
+explanation: |
+  json.dumps can serialize dicts, lists, strings, numbers, booleans, and None.
+  Custom Python objects like Polynucleotide instances are not natively JSON-
+  serializable and will raise TypeError unless a custom encoder is provided.
+  Approach 2 stores only string identifiers, which serialize trivially. This
+  is why reference-by-identifier is preferred in systems that exchange data
+  as JSON: the plan becomes a lightweight document of identifiers, and each
+  identifier is resolved to its full object only when needed. Option A
+  overstates json.dumps capabilities. Option C confuses serialization (writing
+  the identifier string) with resolution (looking up the object). Option D
+  is wrong because dicts of basic types serialize fine.
+
+---
+slug: json-schema-contract-enforcement
+difficulty: medium
+topic: Using a schema as a machine-readable contract that enforces structure before data enters a system
+question: |
+  A design tool accepts JSON input validated against this schema:
+
+  <pre>
+  {
+    "type": "object",
+    "required": ["sequence", "organism"],
+    "properties": {
+      "sequence": {"type": "string", "pattern": "^[ATCG]+$"},
+      "organism": {"type": "string", "enum": ["ecoli", "yeast", "human"]},
+      "circular": {"type": "boolean"}
+    },
+    "additionalProperties": false
+  }
+  </pre>
+
+  Which of the following JSON inputs passes validation?
+choices:
+  A: <pre>{"sequence": "ATGCCC", "organism": "ecoli"}</pre>
+  B: <pre>{"sequence": "ATGCCC", "organism": "zebrafish"}</pre>
+  C: <pre>{"sequence": "ATGCCC"}</pre>
+  D: <pre>{"sequence": "ATGCCC", "organism": "ecoli", "temperature": 37}</pre>
+answer: A
+explanation: |
+  Option A provides both required fields (sequence and organism), the sequence
+  matches the regex pattern ^[ATCG]+$, organism is one of the allowed enum
+  values, and circular is optional so its absence is fine. Option B fails
+  because "zebrafish" is not in the enum ["ecoli", "yeast", "human"]. Option C
+  fails because organism is listed in "required" but is missing. Option D
+  fails because "additionalProperties": false forbids any key not listed in
+  "properties" — temperature is not a declared property. The schema acts as
+  a machine-readable contract: it enforces structure, types, allowed values,
+  and completeness before data enters the system, catching errors at the
+  boundary rather than deep inside the computation.

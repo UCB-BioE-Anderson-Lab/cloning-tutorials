@@ -1,0 +1,136 @@
+
+
+cs:
+  python_literacy:
+    title: Python literacy
+    subtopics:
+      core_types_and_containers:
+        title: Core types, variables, and containers
+        scope: |
+          Variables as names bound to values, and how Python data types constrain valid
+          operations. Includes ints, floats, bools, strings, None, plus list/tuple/set/
+          dict as the core containers used to represent biological collections and
+          records.
+      control_flow_and_iteration:
+        title: Control flow and iteration
+        scope: |
+          How programs branch and repeat work. Includes if/elif/else, for and while
+          loops, break/continue, iterating over lists and dictionaries, and tracing a
+          program step-by-step to predict behavior.
+      functions_parameters_and_scope:
+        title: Functions, parameters, return values, and scope
+        scope: |
+          Defining and calling functions, passing arguments, and using return values.
+          Includes local scope, default arguments, and treating functions as reusable
+          units of logic.
+      indexing_slicing_and_string_processing:
+        title: Indexing, slicing, and string processing
+        scope: |
+          Working with sequence-like data, especially DNA strings. Includes indexing and
+          slicing, substring search versus regex-level ideas, reverse complements at a
+          conceptual level, and avoiding off-by-one errors.
+
+  correctness_and_debugging:
+    title: Correctness and debugging
+    subtopics:
+      tracebacks_and_exceptions:
+        title: Tracebacks and exception-based error handling
+        scope: |
+          Reading stack traces to find where and why code failed. Includes raising
+          exceptions intentionally for illegal inputs, writing clear error messages,
+          and distinguishing "invalid argument" from "bug".
+      automated_testing_and_validation:
+        title: Automated testing and validation design
+        scope: |
+          Writing tests that define correctness and prevent regressions. Includes pytest
+          structure, assertions, fixtures, validated example tests, edge cases (such as
+          case normalization), truisms (property checks), and using inverse functions or
+          simulators for validation.
+
+  modeling_and_tools:
+    title: Modeling and tools
+    subtopics:
+      schemas_identity_and_serialization:
+        title: Schemas, identity, and serialization
+        scope: |
+          Defining what fields exist, what must always be true, and how objects are
+          referenced. Includes required vs optional fields, invariants and validators,
+          stable IDs and registries (reference-by-identifier), and representations that
+          can be saved and reloaded without losing meaning.
+      api_contracts_and_mcp:
+        title: API contracts and MCP tool boundaries
+        scope: |
+          Designing function signatures and return structures so callers know what is
+          expected and guaranteed. Includes explicit error modes, separating pure
+          computation from I/O and side effects, and MCP fundamentals (Resources, Tools,
+          Prompts; host/client/server roles; tool invocation as a controlled action).
+
+bio:
+  central_dogma:
+    title: Central dogma
+    subtopics:
+      dna_rna_protein_and_core_processes:
+        title: DNA, RNA, protein, and the core information transformations
+        scope: |
+          What DNA, RNA, and proteins represent and what they are used for, plus the
+          core transformations of replication, transcription, and translation. Includes
+          template usage, directionality, and what is copied versus decoded.
+      regulation_control_points:
+        title: Regulation and control points
+        scope: |
+          Where regulation acts on the dogma. Includes promoter control, RNA processing
+          and degradation, translation initiation, and protein turnover.
+
+  biological_context:
+    title: Biological context
+    subtopics:
+      genome_strain_and_chassis_constraints:
+        title: Genome context, strain identity, and chassis constraints
+        scope: |
+          Genome/locus context as the backdrop for design and editing, and why context
+          changes outcomes. Includes strain vs genotype vs phenotype, and how host
+          compatibility and resource limits constrain designs.
+
+  crispr:
+    title: CRISPR
+    subtopics:
+      targeting_rules_and_design_logic:
+        title: Targeting rules and design logic
+        scope: |
+          How PAM rules constrain where editing is possible and how candidate target
+          sites are generated. Includes protospacers, strand orientation and reverse
+          complements, and why indexing/strand mistakes break designs.
+
+  expression_control:
+    title: Expression control
+    subtopics:
+      transcription_and_translation_control_elements:
+        title: Transcription and translation control elements
+        scope: |
+          How sequence features control expression level. Includes promoters and
+          transcription initiation, RBS and translation initiation, spacing and local
+          context, and how RNA secondary structure can occlude functional sites near the
+          RBS.
+
+  dna_design_build_test:
+    title: DNA design, build, and test
+    subtopics:
+      construction_methods_and_constraints:
+        title: DNA construction methods and constraints
+        scope: |
+          Building physical DNA from a design. Includes PCR and primer constraints,
+          homology-based assembly (for example Gibson), restriction and ligation, and practical 
+          constraints like avoiding forbidden sites.
+      coding_sequence_design_and_optimization:
+        title: Coding sequence design and optimization
+        scope: |
+          Designing a coding sequence for a target protein while satisfying constraints.
+          Includes reverse translation, codon choice and optimization objectives,
+          restriction site removal without changing the protein sequence, and
+          recognizing tradeoffs rather than a single best answer.
+      verification_strategies_and_failure_modes:
+        title: Verification strategies and failure modes
+        scope: |
+          Confirming that built DNA matches the intended design and diagnosing failures.
+          Includes sequencing as a concept, diagnostic checks, misassembly and mutation
+          failure modes, and using checkers to enforce domain-specific constraints.

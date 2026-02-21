@@ -1,0 +1,273 @@
+---
+slug: transcription-directionality
+difficulty: medium
+topic: Understanding how enzyme movement on the template determines product directionality
+question: |
+  RNA polymerase binds to a promoter and begins transcribing a gene. The
+  template strand is read 3'->5', and the new RNA is synthesized 5'->3'.
+
+  A student claims that the mRNA sequence is identical to the template strand
+  because the polymerase "copies" the template. What is wrong with this claim?
+choices:
+  A: The mRNA is complementary to the template strand, not identical to it
+  B: The mRNA is identical to the template strand but in the reverse direction
+  C: RNA polymerase does not use a template at all — it synthesizes RNA randomly
+  D: The mRNA is identical to the template strand except that T is replaced by U
+answer: A
+explanation: |
+  RNA polymerase reads the template strand and synthesizes a complementary RNA.
+  At each position it pairs A with U, T with A, C with G, and G with C. The
+  resulting mRNA is therefore complementary to the template strand and has the
+  same sequence as the coding (non-template) strand, except with U replacing T.
+  Option D describes the relationship between the mRNA and the coding strand,
+  not the template strand — a common source of confusion.
+
+---
+slug: coding-vs-template-strand
+difficulty: medium
+topic: Distinguishing which strand carries the sequence that matches the product versus which strand is read
+question: |
+  A gene has the following coding strand sequence in the region around the
+  start codon:
+
+  <pre>
+  5'-...ATGAAACCC...-3'  (coding strand)
+  3'-...TACTTTAGGG...-5'  (template strand)
+  </pre>
+
+  Which strand does RNA polymerase physically read, and what is the
+  corresponding mRNA sequence for this region?
+choices:
+  A: It reads the coding strand (5'->3'); mRNA is 5'-AUGAAACCC...-3'
+  B: It reads the template strand (3'->5'); mRNA is 5'-AUGAAACCC...-3'
+  C: It reads the template strand (3'->5'); mRNA is 5'-UACUUUGGG...-3'
+  D: It reads the coding strand (3'->5'); mRNA is 5'-CCCAAAGUA...-3'
+answer: B
+explanation: |
+  RNA polymerase reads the template strand in its 3'->5' direction while
+  synthesizing the new RNA 5'->3'. Because the RNA is complementary to the
+  template, its sequence matches the coding strand with U substituted for T:
+  5'-AUGAAACCC...-3'. Option A gives the correct mRNA but names the wrong
+  strand as the template. Option C shows the complement of the coding strand
+  in RNA form, which would be the template re-read in the wrong direction.
+  Understanding which strand is read versus which strand "looks like" the
+  product is essential for interpreting gene annotations.
+
+---
+slug: uracil-in-rna
+difficulty: medium
+topic: Reasoning about why molecular differences between DNA and RNA have functional consequences
+question: |
+  DNA uses thymine (T) while RNA uses uracil (U). Both bases pair with
+  adenine. A student asks: "If T and U both pair with A, does it matter which
+  one is used?"
+
+  Which answer best explains why the distinction matters biologically?
+choices:
+  A: U pairs with A more strongly than T does, making RNA more stable
+  B: The cell uses the presence of U versus T to distinguish RNA from DNA, enabling selective degradation of RNA while preserving DNA
+  C: U cannot form base pairs in double-stranded structures, which is why RNA is always single-stranded
+  D: T and U are interchangeable; the difference is a historical accident with no functional significance
+answer: B
+explanation: |
+  Although T and U both pair with A, the chemical difference (a single methyl
+  group) allows the cell to discriminate between DNA and RNA. Enzymes like
+  RNases specifically target RNA for rapid turnover, while DNA repair enzymes
+  recognize and remove uracil from DNA (treating it as a damaged cytosine).
+  This selective degradation is essential: mRNA must be transient to allow
+  regulation, while the genome must be stable. Option A is backwards — the
+  methyl group on T actually contributes to DNA stability. Option C is false;
+  RNA can and does form double-stranded regions (e.g., hairpins).
+
+---
+slug: genetic-code-direction
+difficulty: medium
+topic: Understanding why a lookup table is structured in one direction and what that implies for the reverse problem
+question: |
+  The genetic code maps 64 codons to 20 amino acids plus stop signals.
+  A student wants to go in the reverse direction: given an amino acid,
+  determine the DNA codon to use. They try:
+
+  <python>
+  codon = genetic_code[amino_acid]
+  </python>
+
+  where genetic_code maps codons to amino acids. This fails. But beyond the
+  coding error, why is the reverse problem fundamentally harder?
+choices:
+  A: Some amino acids have no codon at all
+  B: The reverse mapping is one-to-many — most amino acids are encoded by multiple codons, so there is no single answer
+  C: The genetic code is only valid in the 5'->3' direction and cannot be reversed
+  D: Amino acids map to codons in a different reading frame
+answer: B
+explanation: |
+  The genetic code is degenerate: most amino acids are encoded by 2, 3, 4, or
+  6 different codons. Translation (codon->amino acid) is a many-to-one mapping,
+  so the forward lookup always has a unique answer. Reverse translation
+  (amino acid->codon) is one-to-many, meaning you must choose among synonymous
+  codons. This choice is the basis of codon optimization. Option A is wrong —
+  all 20 standard amino acids have at least one codon. Option C confuses
+  directionality of reading with the reversibility of the mapping.
+
+---
+slug: start-stop-codon-roles
+difficulty: medium
+topic: Distinguishing the roles of signals that initiate versus terminate a molecular process
+question: |
+  A gene's CDS begins with ATG and ends just before a stop codon (TAA, TAG,
+  or TGA). A student designs a CDS but accidentally places a TAA codon in
+  the middle of the reading frame. The gene is transcribed normally. What is
+  the consequence during translation?
+choices:
+  A: The ribosome skips the internal TAA because stop codons only function at the end of a gene
+  B: The ribosome terminates translation at the internal TAA, producing a truncated protein
+  C: The internal TAA is read as an amino acid because context determines codon meaning
+  D: Transcription terminates at the internal TAA, so no mRNA is produced past that point
+answer: B
+explanation: |
+  The ribosome reads codons sequentially from the start codon. When it
+  encounters any in-frame stop codon — UAA in the mRNA — it terminates
+  translation and releases the incomplete polypeptide. Stop codons have no
+  positional requirement; they function wherever they appear in the reading
+  frame. Option A reflects a misconception that stop codons are only
+  "active" at designated gene boundaries. Option D confuses translation
+  termination with transcription termination, which depends on terminators,
+  not stop codons. This is why an accidental frameshift that introduces a
+  premature stop codon is so damaging.
+
+---
+slug: gene-structure-element-order
+difficulty: medium
+topic: Understanding how the spatial arrangement of gene elements determines functional sequence of events
+question: |
+  In E. coli, a gene is organized as:
+
+  <pre>promoter (-35, -10) -> +1 -> 5'UTR (with RBS) -> ATG -> CDS -> stop -> terminator</pre>
+
+  A student rearranges the design and places the RBS after the start codon.
+  The promoter, CDS, and terminator are correct. What happens?
+choices:
+  A: Transcription fails because the RBS is required for RNA polymerase binding
+  B: The mRNA is made normally, but the ribosome cannot initiate translation at the correct ATG because the RBS must be upstream of the start codon
+  C: Translation still works because the ribosome scans for any ATG regardless of RBS position
+  D: The protein is produced but in the wrong reading frame
+answer: B
+explanation: |
+  The RBS (Shine-Dalgarno sequence) must be located in the 5'UTR, upstream of
+  the start codon, because the ribosome uses it to position itself so that the
+  ATG falls in the P site. Moving the RBS downstream of ATG means the ribosome
+  has no signal to land near the correct start codon. Transcription is
+  unaffected because RNA polymerase uses the promoter, not the RBS. Option A
+  confuses the ribosome with RNA polymerase. Option C describes eukaryotic
+  scanning, not prokaryotic translation initiation. This illustrates that gene
+  elements are not interchangeable — their order reflects the sequence of
+  molecular events.
+
+---
+slug: replication-vs-transcription-products
+difficulty: medium
+topic: Comparing two processes that use template-directed synthesis but produce fundamentally different outputs
+question: |
+  Both replication and transcription use a DNA template to synthesize a new
+  polymer. A student says: "They are basically the same process — one just
+  uses a different polymerase."
+
+  Which statement best captures the key difference in what each process
+  produces?
+choices:
+  A: Replication produces two complete double-stranded DNA copies of the entire genome; transcription produces a single-stranded RNA copy of one gene
+  B: Replication produces RNA that is later converted to DNA; transcription produces DNA that is later converted to RNA
+  C: Replication copies only the coding strand; transcription copies only the template strand
+  D: Replication is error-free while transcription always introduces mutations
+answer: A
+explanation: |
+  Replication duplicates the full genome, producing two dsDNA molecules — each
+  an exact copy of the original. Transcription selectively copies individual
+  genes (or operons) into single-stranded RNA molecules, producing many copies
+  of a transient message from one region of the genome. The processes differ in
+  scope (whole genome vs. individual genes), product chemistry (DNA vs. RNA),
+  and product lifespan (permanent vs. transient). Option C is wrong because
+  replication copies both strands. Option D overstates the fidelity difference;
+  both processes have error rates, though replication includes proofreading.
+
+---
+slug: information-carriers-comparison
+difficulty: medium
+topic: Reasoning about what each type of biological polymer encodes and why the system uses three rather than one
+question: |
+  DNA, RNA, and protein each carry biological information, but they serve
+  different roles. A student proposes simplifying the system: "Why not just
+  use DNA for everything? It is more stable and can encode information."
+
+  What is the strongest argument for why the cell uses all three?
+choices:
+  A: DNA cannot fold into functional shapes, so proteins are needed for catalysis and structure while RNA serves as a disposable intermediate whose abundance can be regulated independently of gene copy number
+  B: RNA and protein are needed only because DNA is too expensive for the cell to produce in large quantities
+  C: Proteins are just folded RNA molecules, so the cell really only uses two information carriers
+  D: The three-polymer system exists because evolution has not yet optimized it to use only DNA
+answer: A
+explanation: |
+  Each polymer has distinct capabilities. DNA is optimized for stable, long-term
+  storage but has limited catalytic and structural repertoire. Proteins, built
+  from 20 chemically diverse amino acids, can fold into enzymes, structural
+  elements, and signaling molecules that DNA cannot replicate. RNA serves as a
+  regulatable intermediate: the cell can control how many mRNA copies exist
+  independently of the single gene in the genome, enabling dynamic responses.
+  Option B ignores the functional differences. Option C is biochemically wrong.
+  The three-polymer system is not redundant — each step adds a different
+  capability.
+
+---
+slug: plasmid-origin-and-marker
+difficulty: medium
+topic: Understanding why autonomous genetic elements require both replication and selection functions
+question: |
+  A minimal plasmid requires at least an origin of replication and a
+  selectable marker (e.g., antibiotic resistance gene). A student removes
+  the origin of replication to make room for a larger insert, reasoning
+  that the host's chromosomal origin will replicate the plasmid too.
+
+  What happens after transformation?
+choices:
+  A: The plasmid replicates using the host's origin and is maintained normally
+  B: The plasmid cannot replicate independently and is diluted out as cells divide, even under antibiotic selection
+  C: The plasmid integrates into the chromosome at the host's origin
+  D: The host cell cannot survive because plasmids without origins are toxic
+answer: B
+explanation: |
+  A plasmid must carry its own origin of replication to be replicated by the
+  host's DNA polymerase as an independent molecule. The chromosomal origin only
+  directs replication of the chromosome itself. Without its own origin, the
+  plasmid is not copied when the cell divides. It persists briefly in one
+  daughter cell but is progressively diluted with each division. Even under
+  antibiotic selection, cells that still carry the plasmid are not viable long-
+  term because the plasmid copy number drops to zero. Option A reflects a
+  misconception that any origin can replicate any DNA in the cell. Option C
+  would require homologous sequences, which were not described.
+
+---
+slug: polycistronic-mrna-and-operons
+difficulty: medium
+topic: Connecting gene organization to mRNA structure and understanding what one transcript can encode
+question: |
+  In E. coli, the lac operon contains three genes (lacZ, lacY, lacA) under
+  a single promoter. When the operon is induced, RNA polymerase transcribes
+  all three genes into one mRNA molecule.
+
+  How many separate proteins can the ribosome produce from this single mRNA?
+choices:
+  A: One — each mRNA can only encode one protein
+  B: Three — each gene has its own RBS and start codon within the mRNA, so the ribosome initiates translation independently at each one
+  C: Three — but only if the mRNA is first cut into three separate pieces
+  D: It depends on the reading frame — all three genes must be in the same frame to be translated
+answer: B
+explanation: |
+  A polycistronic mRNA contains multiple coding sequences, each preceded by its
+  own RBS and start codon. Ribosomes in E. coli can initiate translation
+  independently at each RBS, producing separate proteins from the same
+  transcript. The mRNA does not need to be cut. Option A describes the
+  eukaryotic default (monocistronic mRNA), not the prokaryotic case. Option C
+  invents a processing step that is not required for bacterial translation.
+  Option D is wrong because each gene has its own start codon defining its own
+  reading frame — the three CDSs do not need to share a frame. This
+  organization allows coordinated expression of functionally related genes.

@@ -1,0 +1,280 @@
+---
+slug: promoter-elements-transcription-rate
+difficulty: medium
+topic: Identifying which molecular features of a promoter determine transcription initiation rate
+question: |
+  You are comparing two promoters that drive expression of the same
+  gene in E. coli. Promoter A has a -10 box of <pre>TATAAT</pre> and a -35 box of
+  <pre>TTGACA</pre>. Promoter B has a -10 box of <pre>CATAAT</pre> and a -35 box of <pre>TTGACA</pre>.
+  Both use sigma-70. Promoter A produces 10x more transcript than
+  Promoter B.
+
+  Which explanation best accounts for the difference?
+choices:
+  A: The single base change in the -10 box reduces sigma factor affinity, lowering RNAP recruitment
+  B: The -10 box change alters the mRNA sequence, destabilizing the ribosome binding site
+  C: Sigma factor only recognizes the -35 box, so the -10 change has no effect
+  D: The -10 mutation changes the protein sequence of the downstream gene
+answer: A
+explanation: |
+  The sigma factor recognizes both the -10 and -35 boxes of the promoter.
+  TATAAT is the consensus -10 sequence; a mismatch (CATAAT) reduces
+  sigma binding affinity and therefore the rate at which RNA polymerase
+  forms a stable open complex. This is a transcriptional control point.
+  Option B confuses promoter DNA with the mRNA region that contains the
+  RBS. Option C is wrong because sigma binds both boxes. Option D is
+  wrong because the promoter is upstream of the coding sequence and is
+  not part of the translated region.
+
+---
+slug: rbs-sequence-translation-initiation
+difficulty: medium
+topic: Reasoning about how Shine-Dalgarno sequence complementarity affects translation rate
+question: |
+  Two constructs encode the same protein but differ only in their
+  ribosome binding site (RBS) region. Construct 1 has the Shine-Dalgarno
+  sequence <pre>AGGAGG</pre> at position -8 relative to the start codon. Construct 2
+  has <pre>ACCACC</pre> at the same position. Both produce identical mRNA levels.
+
+  What is the most likely effect on protein expression?
+choices:
+  A: Construct 2 produces more protein because ACCACC avoids stalling
+  B: Both produce equal protein because the mRNA levels are the same
+  C: Construct 1 produces more protein because AGGAGG base-pairs more strongly with 16S rRNA
+  D: Construct 2 produces more protein because its SD sequence recruits additional ribosomes
+answer: C
+explanation: |
+  The Shine-Dalgarno sequence works by base-pairing with the anti-SD
+  sequence (UCCUCC) on the 3' end of 16S rRNA. AGGAGG is the consensus
+  and provides the strongest complementarity. ACCACC has two mismatches,
+  greatly reducing base-pairing and therefore translation initiation rate.
+  Equal mRNA levels do not guarantee equal protein — translation initiation
+  is a separate, independently regulated control point. Option A and D
+  have no mechanistic basis; Option B confuses transcription with
+  translation.
+
+---
+slug: secondary-structure-blocks-translation
+difficulty: medium
+topic: Understanding how mRNA secondary structure near the start codon can occlude the RBS
+question: |
+  You design a construct with a strong Shine-Dalgarno sequence and
+  optimal spacing to the start codon. However, when you run an RNA
+  folding prediction, you find that the SD sequence is sequestered in
+  a stable hairpin formed between the SD region and nucleotides
+  downstream of the start codon. Protein expression is very low
+  despite high mRNA levels.
+
+  What is the most likely cause?
+choices:
+  A: The hairpin is acting as a Rho-independent terminator, ending transcription early
+  B: The hairpin occludes the SD sequence, preventing 30S ribosomal subunit binding
+  C: The hairpin changes the codon usage of the downstream CDS
+  D: The hairpin causes RNase E to degrade the mRNA before translation can begin
+answer: B
+explanation: |
+  For translation to initiate, the 30S ribosomal subunit must access the
+  Shine-Dalgarno sequence to base-pair with 16S rRNA. If the SD is
+  trapped in a stable hairpin, the ribosome cannot bind, and translation
+  initiation is blocked regardless of how strong the SD sequence would
+  be if it were single-stranded. This is why secondary structure in the
+  region from roughly -4 to +37 relative to the start codon is a major
+  determinant of expression. Option A describes a terminator, which
+  requires a hairpin followed by a U-rich tract at a specific location.
+  Option C confuses structure with sequence. Option D is possible in
+  general but does not explain low protein with high mRNA.
+
+---
+slug: steady-state-mrna-levels
+difficulty: medium
+topic: Reasoning about how synthesis and degradation rates jointly determine steady-state mRNA concentration
+question: |
+  Two genes are transcribed at the same rate from identical promoters.
+  Gene A's mRNA has a half-life of 2 minutes, while Gene B's mRNA has
+  a half-life of 20 minutes. Both are measured at steady state.
+
+  What is the expected relationship between their mRNA levels?
+choices:
+  A: Gene A has ~10x more mRNA because faster turnover means faster production
+  B: Gene B has ~10x more mRNA because it persists longer before being degraded
+  C: Both have equal mRNA levels because they have the same transcription rate
+  D: Gene A has more mRNA because short-lived mRNAs are preferentially stabilized by ribosomes
+answer: B
+explanation: |
+  At steady state, mRNA level is proportional to the synthesis rate
+  divided by the degradation rate. Since both genes have the same
+  transcription rate but Gene B's mRNA is degraded 10x more slowly
+  (half-life 20 min vs 2 min), Gene B accumulates roughly 10x more
+  mRNA. This is a fundamental principle: steady-state concentration
+  depends on both production and destruction. Option A reverses the
+  relationship. Option C ignores degradation entirely. Option D has
+  no biological basis.
+
+---
+slug: codon-usage-expression-variation
+difficulty: medium
+topic: Understanding how synonymous codon choice affects protein expression independently of regulation
+question: |
+  Two constructs encode the exact same GFP protein with identical
+  promoters, RBS sequences, and terminators. The only difference is
+  that Construct 1 uses codons abundant in E. coli, while Construct 2
+  uses rare codons throughout the CDS. Construct 1 produces 100x more
+  fluorescence.
+
+  Which statement best explains this result?
+choices:
+  A: Rare codons change the amino acid sequence, producing a nonfunctional protein
+  B: Rare codons slow ribosome elongation, reducing the rate of completed protein and potentially destabilizing the mRNA
+  C: Rare codons prevent transcription by blocking RNA polymerase
+  D: Rare codons change the Shine-Dalgarno sequence, blocking translation initiation
+answer: B
+explanation: |
+  Synonymous codons encode the same amino acid, so the protein sequence
+  is unchanged (ruling out A). Rare codons correspond to low-abundance
+  tRNAs, causing ribosome stalling during elongation. This reduces the
+  rate at which completed proteins are produced and can also expose the
+  mRNA to degradation. Studies like Plotkin's GFP codon variation work
+  show up to a 250-fold range in expression from codon choice alone.
+  Option C is wrong because RNAP transcribes DNA without regard to codon
+  identity. Option D is wrong because the RBS region is in the 5' UTR,
+  not the CDS.
+
+---
+slug: rbs-swap-what-changes
+difficulty: medium
+topic: Distinguishing which molecular properties change vs. remain constant when an RBS part is swapped
+question: |
+  You are tuning expression of an enzyme in a metabolic pathway. You
+  swap the RBS in your construct from a strong RBS (high translation
+  initiation rate) to a weak RBS (low translation initiation rate).
+  The CDS, promoter, and terminator remain unchanged.
+
+  Which of the following changes as a result of this swap?
+choices:
+  A: The amino acid sequence of the enzyme
+  B: The metabolite concentrations in the pathway
+  C: The post-translational modifications of the enzyme
+  D: The enzymatic activity per molecule of protein
+answer: B
+explanation: |
+  Swapping the RBS changes the translation initiation rate, which changes
+  the amount of enzyme produced. Less enzyme means the pathway's metabolic
+  flux changes, altering metabolite concentrations. Critically, the RBS
+  is in the 5' UTR and does not affect the coding sequence, so the amino
+  acid sequence (A), protein function per molecule (D), and post-
+  translational modifications (C) are all unchanged. This is a key
+  principle in genetic design: the RBS tunes how much protein is made,
+  not what the protein is.
+
+---
+slug: transcriptional-vs-translational-control
+difficulty: medium
+topic: Classifying genetic parts by whether they act at the transcriptional or translational level
+question: |
+  A student is debugging a construct that produces no detectable protein.
+  They measure mRNA and find abundant transcript. They then check the
+  5' UTR and find the Shine-Dalgarno sequence has been deleted.
+
+  At which level of gene expression is the problem?
+choices:
+  A: Transcriptional — the promoter is not recruiting RNA polymerase
+  B: Translational — without an SD sequence, ribosomes cannot initiate translation on the mRNA
+  C: Post-translational — the protein is being degraded immediately after synthesis
+  D: Transcriptional — without the SD, RNA polymerase cannot terminate properly
+answer: B
+explanation: |
+  The presence of abundant mRNA rules out a transcriptional defect — the
+  promoter is working fine and the transcript is stable. The Shine-
+  Dalgarno sequence is required for 30S ribosomal subunit recruitment
+  to the mRNA. Without it, translation cannot initiate, so no protein
+  is made despite plentiful mRNA. This is a purely translational
+  control point. Option A is contradicted by the mRNA data. Option C
+  requires protein to have been made first. Option D confuses the SD
+  with the terminator.
+
+---
+slug: same-protein-different-cds-expression
+difficulty: medium
+topic: Explaining why identical proteins can have different expression levels from different DNA encodings
+question: |
+  A lab orders two synthetic genes encoding the identical lysozyme
+  protein. Gene version 1 is codon-optimized for E. coli. Gene version 2
+  uses the original bacteriophage codon usage. Both are cloned into the
+  same vector with the same promoter, RBS, and terminator. Version 1
+  produces 50x more lysozyme.
+
+  What is the BEST explanation for why two DNA sequences encoding the
+  same protein yield such different expression levels?
+choices:
+  A: The different DNA sequences produce different amino acid sequences
+  B: The different codons result in different mRNA sequences, affecting secondary structure near the start codon and ribosome elongation rate
+  C: Codon-optimized genes have stronger promoters
+  D: The bacteriophage version has a weaker Shine-Dalgarno sequence
+answer: B
+explanation: |
+  Synonymous codons change the mRNA nucleotide sequence without changing
+  the protein. This affects two things: (1) secondary structure in the
+  region around the start codon (-4 to +37), which can occlude the RBS
+  and impair translation initiation, and (2) elongation rate, since rare
+  codons correspond to scarce tRNAs. Together these mechanisms explain
+  large expression differences. Option A is wrong because synonymous
+  codons encode the same amino acids. Option C is wrong because both
+  use the same promoter. Option D is wrong because both use the same
+  RBS — the SD sequence is in the 5' UTR, not the CDS.
+
+---
+slug: terminator-transcript-boundary
+difficulty: medium
+topic: Understanding how terminators define the 3' boundary of a transcript and prevent read-through
+question: |
+  An operon contains Gene A followed by Gene B, each with its own RBS
+  and start codon. A strong Rho-independent terminator is placed between
+  Gene A and Gene B. When the terminator is present, Gene B protein
+  levels are very low. When the terminator is removed, Gene B is
+  expressed at high levels from the same promoter driving Gene A.
+
+  What role is the terminator playing?
+choices:
+  A: The terminator is degrading Gene B's protein after it is translated
+  B: The terminator hairpin is blocking the ribosome from reaching Gene B's start codon
+  C: The terminator causes RNA polymerase to dissociate before it can transcribe Gene B, so Gene B has no mRNA
+  D: The terminator changes the reading frame of Gene B
+answer: C
+explanation: |
+  A Rho-independent terminator forms a stable hairpin followed by a
+  U-rich tract in the nascent RNA, causing RNA polymerase to dissociate
+  from the DNA template. When placed between Gene A and Gene B, it
+  prevents transcriptional read-through, so Gene B is not transcribed
+  and produces no mRNA. Removing the terminator allows RNAP to continue
+  through Gene B, creating a polycistronic mRNA from which Gene B can
+  be translated using its own RBS. Option A confuses transcription with
+  protein degradation. Option B confuses the terminator with RBS
+  occlusion. Option D has no mechanistic basis.
+
+---
+slug: rna-stability-expression-level
+difficulty: medium
+topic: Reasoning about how RNA degradation rate contributes to steady-state protein expression
+question: |
+  You are engineering a biosensor where the output protein must respond
+  quickly to the disappearance of an inducer signal. You want protein
+  levels to drop rapidly when transcription stops.
+
+  Which design strategy would MOST help achieve fast signal decay?
+choices:
+  A: Use a very stable mRNA with no RNase E cleavage sites so that translation continues efficiently
+  B: Engineer the mRNA to contain RNase E cleavage sites and use a protein degradation tag, so both mRNA and protein turn over rapidly
+  C: Use the strongest possible RBS to maximize translation before the mRNA is degraded
+  D: Remove the terminator so that read-through transcription produces more mRNA
+answer: B
+explanation: |
+  Rapid signal decay requires that both the mRNA and the protein are
+  cleared quickly once transcription stops. If the mRNA is stable (A),
+  it continues to be translated long after the signal is gone, creating
+  a slow response. Adding RNase E sites destabilizes the mRNA so it is
+  degraded quickly, and a protein degradation tag (e.g., ssrA tag)
+  ensures existing protein is actively destroyed. Option C increases
+  peak expression but does nothing for decay kinetics. Option D would
+  increase mRNA production, the opposite of what is needed. At steady
+  state, expression = synthesis - degradation, so tuning degradation
+  rates of both mRNA and protein is essential for temporal control.

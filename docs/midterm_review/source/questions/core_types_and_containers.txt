@@ -1,0 +1,315 @@
+
+
+---
+slug: name-binding-shared-list
+difficulty: medium
+topic: Understanding that variable assignment creates shared references, not independent copies
+question: |
+  A construct's sequence is stored as a list of parts. A colleague saves
+  a reference so they can modify it:
+
+  <python>
+  parts = ['J23119', 'B0034', 'amilGFP']
+  my_copy = parts
+  my_copy.append('B0015')
+  </python>
+
+  How many elements does parts contain after this code runs?
+choices:
+  A: 3 — my_copy is a separate list
+  B: 4 — both names refer to the same list
+  C: 4 — append always modifies all lists in the program
+  D: TypeError — you cannot append to a referenced list
+answer: B
+explanation: |
+  Assignment (<python>my_copy = parts</python>) binds a second name to the
+  same list object. It does not create a copy. Appending through my_copy
+  mutates that shared list, so parts also has 4 elements. This matters in
+  genetic design code because a construct parts list may be passed to
+  multiple functions, and a mutation through one reference is visible to all
+  other references to that same list.
+
+---
+slug: string-substring-search
+difficulty: medium
+topic: Using string operations to answer questions about sequence content
+question: |
+  A codon optimization function must verify that a designed CDS does not
+  contain the BsaI recognition site <pre>GGTCTC</pre>. Given:
+
+  <python>
+  cds = 'ATGAACGGTCTCAAATAA'
+  </python>
+
+  Which of the following correctly detects the forbidden site?
+choices:
+  A: "'GGTCTC' in cds"
+  B: "cds['GGTCTC']"
+  C: "cds.count('GGTCTC') > 1"
+  D: "cds == 'GGTCTC'"
+answer: A
+explanation: |
+  The <python>in</python> operator checks whether the left string appears as
+  a contiguous substring anywhere in the right string. Here <pre>GGTCTC</pre>
+  appears once inside the CDS, so the expression returns True. Option B
+  treats the string like a dict lookup (invalid). Option C only flags the
+  site if it appears more than once, which misses a single occurrence.
+  Option D checks whether the entire CDS equals the site. Biologically, even
+  one forbidden restriction site can break a fabrication plan.
+
+---
+slug: dict-as-lookup-table
+difficulty: medium
+topic: Forward vs. reverse lookup in a dict and what the key-value direction implies
+question: |
+  The genetic code is stored as a dict mapping codons to amino acids:
+
+  <python>
+  genetic_code = {'ATG': 'M', 'TTT': 'F', 'TTC': 'F', 'TAA': '*', ...}
+  </python>
+
+  A student wants to reverse-translate a protein: given an amino acid,
+  find all codons that encode it. They write:
+
+  <python>
+  genetic_code['F']
+  </python>
+
+  What happens?
+choices:
+  A: "Returns ['TTT', 'TTC']"
+  B: "Returns 'TTT'"
+  C: "KeyError — 'F' is a value in this dict, not a key"
+  D: "Returns 'F'"
+answer: C
+explanation: |
+  Dict lookup is by key. In this dict, the keys are codons (<pre>ATG</pre>,
+  <pre>TTT</pre>, etc.), not amino acids. <pre>F</pre> is a value, so using
+  <python>genetic_code['F']</python> raises a KeyError. To find codons for
+  an amino acid, you must iterate over the dict's items and collect the
+  codons whose value matches that amino acid. This reflects a core design
+  choice: the dict is organized for translation (codon → amino acid), not
+  reverse translation.
+
+---
+slug: none-guarding-operations
+difficulty: medium
+topic: Handling absent or optional data and ensuring operations are valid before applying them
+question: |
+  An RBSChooser function returns an RBSOption object when it finds a
+  suitable ribosome binding site, or None when no candidate passes the
+  filters. A caller writes:
+
+  <python>
+  result = rbs_chooser.run(cds)
+  utr = result.utr
+  </python>
+
+  If the chooser found no valid RBS for this CDS, what happens?
+choices:
+  A: utr is set to None
+  B: utr is set to an empty string
+  C: AttributeError — None has no attribute 'utr'
+  D: The function silently returns a default RBS
+answer: C
+explanation: |
+  If the chooser returns None, then <python>result</python> refers to the
+  absence of a result, not an object with fields. Accessing
+  <python>result.utr</python> therefore raises an AttributeError. The caller
+  must check whether <python>result is None</python> before accessing its
+  attributes. This is a general pattern whenever a function may fail to
+  produce a usable object.
+
+---
+slug: modeling-for-domain-inference
+difficulty: medium
+topic: Modeling a biological object as a data structure and making domain inferences from it
+question: |
+  A strain and a plasmid are modeled as:
+
+  <python>
+  strain = {'name': 'Mach1', 'resistances': {'AmpR', 'KanR'}}
+  plasmid = {'name': 'pUC19', 'marker': 'AmpR'}
+  </python>
+
+  You want to check whether the strain already carries the plasmid's
+  resistance marker (which would make antibiotic selection unreliable).
+  Which expression performs this check?
+choices:
+  A: "plasmid['marker'] in strain['resistances']"
+  B: "strain['resistances'] == plasmid['marker']"
+  C: "plasmid['marker'] in strain['name']"
+  D: "strain['resistances'].append(plasmid['marker'])"
+answer: A
+explanation: |
+  <python>strain['resistances']</python> is a set, and the
+  <python>in</python> operator checks membership in that set. Here
+  <pre>AmpR</pre> is already present, so the strain is already ampicillin
+  resistant and plating on ampicillin would not distinguish transformants
+  from background. Option B compares a set to a string. Option C checks for a
+  substring in the strain name, which is biologically irrelevant. Option D
+  calls <python>.append()</python> on a set; sets use
+  <python>.add()</python>.
+
+---
+slug: boolean-validation-logic
+difficulty: medium
+topic: Using boolean expressions to enforce domain constraints on computed values
+question: |
+  An oligo design function checks whether the Tm and length of a primer
+  are within acceptable bounds:
+
+  <python>
+  tm = 58.5
+  length = 22
+  ok = tm >= 55 and tm <= 65 and length >= 18 and length <= 30
+  </python>
+
+  A second primer has tm = 72.0 and length = 40. What is the value of
+  ok for each primer?
+choices:
+  A: True for the first, True for the second
+  B: True for the first, False for the second
+  C: False for both — all four conditions must use 'or'
+  D: True for both — 'and' only requires one condition to be True
+answer: B
+explanation: |
+  For the first primer, all four conditions are true, so ok is True. For the
+  second primer, <python>tm <= 65</python> is false and
+  <python>length <= 30</python> is false, so the full expression evaluates to
+  False. The <python>and</python> operator requires every condition to be
+  true. Biologically, a primer must satisfy multiple constraints at the same
+  time; passing one constraint does not rescue failure on another.
+
+---
+slug: container-choice-for-data
+difficulty: medium
+topic: Selecting a container type based on the properties of the data it must hold
+question: |
+  You are designing a data structure to represent a genetic construct.
+  It has an ordered series of CDS names that may repeat (for example, two
+  copies of the same gene in an operon), and a collection of restriction
+  enzyme sites that must be absent from the final sequence (duplicates do
+  not matter, and order is irrelevant).
+
+  Which pair of container types best fits these two needs?
+choices:
+  A: list for the CDS names, set for the forbidden sites
+  B: set for the CDS names, list for the forbidden sites
+  C: dict for the CDS names, set for the forbidden sites
+  D: list for both
+answer: A
+explanation: |
+  The CDS names are ordered and may contain duplicates, so a list is the
+  right fit. The forbidden sites are an unordered collection where
+  membership is what matters, so a set is the natural choice. A set also
+  enforces uniqueness automatically. Option B would lose gene order and
+  duplicate copies, which changes the represented operon structure. Option C
+  does not provide a natural key for the CDS sequence in this prompt. Option
+  D can work, but it forces you to manage uniqueness manually for forbidden
+  sites.
+
+---
+slug: tuple-immutability-consequence
+difficulty: medium
+topic: Immutable containers as fixed records and the consequences of immutability
+question: |
+  Proteomics data is loaded as a list of tuples, which are immutable:
+
+  <python>
+  data = [('b0002', 498), ('b0003', 181), ('b0004', 889)]
+  </python>
+
+  You want to correct an error in the abundance of b0003. You write:
+
+  <python>
+  data[1][1] = 200
+  </python>
+
+  What happens?
+choices:
+  A: The abundance of b0003 is updated to 200
+  B: TypeError — tuples do not support item assignment
+  C: IndexError — tuples can only be accessed at index 0
+  D: The entire tuple is replaced with 200
+answer: B
+explanation: |
+  <python>data[1]</python> retrieves the tuple <python>('b0003', 181)</python>,
+  but tuples are immutable, so their elements cannot be changed in place.
+  To correct the value, you would replace the entire tuple, for example:
+  <python>data[1] = ('b0003', 200)</python>. Treating loaded records as tuples
+  can be useful because it prevents accidental in-place edits to the
+  original measurements.
+
+---
+slug: restructuring-for-access-pattern
+difficulty: medium
+topic: Choosing how to organize data into containers based on what questions you need to answer
+question: |
+  You have a list of (gene_id, abundance) tuples from a proteomics
+  experiment:
+
+  <python>
+  data = [('b0002', 498), ('b0003', 181), ('b0004', 889), ...]
+  </python>
+
+  You need to repeatedly look up abundances by gene ID. You convert the
+  data to:
+
+  <python>
+  by_gene = {gid: ab for gid, ab in data}
+  </python>
+
+  A colleague instead keeps the original list and uses:
+
+  <python>
+  [ab for gid, ab in data if gid == 'b0004'][0]
+  </python>
+
+  Both return 889 for <pre>b0004</pre>. Why is the dict preferable?
+choices:
+  A: The dict finds the value directly by key; the list must scan entries
+  B: The dict uses less memory because it discards the gene IDs
+  C: The list version returns a different data type
+  D: There is no meaningful difference — both are equivalent
+answer: A
+explanation: |
+  A dict is organized for key-based lookup, so asking for an abundance by
+  gene ID matches the data structure directly. The list comprehension must
+  scan through records and test each gene ID until it finds a match. When
+  repeated identifier-based lookups are the dominant operation, converting a
+  list of records into a dict keyed by identifier is the right move.
+
+---
+slug: filtering-structured-records
+difficulty: medium
+topic: Filtering and projecting fields from a collection of structured records
+question: |
+  RBS candidates are stored as a list of dicts:
+
+  <python>
+  options = [
+      {'source': 'rpsA', 'utr': 'AAAGAGG...', 'hairpins': 0},
+      {'source': 'cspA', 'utr': 'AAGAAGG...', 'hairpins': 3},
+      {'source': 'ompA', 'utr': 'AAGGAG...', 'hairpins': 1},
+  ]
+  </python>
+
+  You want the source gene names of candidates with no predicted
+  hairpins. Which expression produces them?
+choices:
+  A: "[opt['source'] for opt in options if opt['hairpins'] == 0]"
+  B: "options['hairpins' == 0]"
+  C: "[opt for opt in options if opt['hairpins'] == 0]"
+  D: "options.filter('hairpins', 0)"
+answer: A
+explanation: |
+  The list comprehension iterates over <python>options</python>, keeps only
+  entries where <python>opt['hairpins'] == 0</python>, and projects the
+  <python>'source'</python> field from each matching record. The result is
+  <python>['rpsA']</python>. Option B attempts to index a list with a boolean
+  expression. Option C returns the full matching dict records rather than the
+  source names. Option D invents a <python>.filter()</python> method that
+  Python lists do not have. This filtering-plus-projection pattern is common
+  when selecting RBS candidates, querying parts registries, or screening
+  experimental records.

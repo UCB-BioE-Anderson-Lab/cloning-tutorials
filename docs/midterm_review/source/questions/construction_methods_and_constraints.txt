@@ -1,0 +1,235 @@
+---
+slug: pcr-primer-3prime-matching
+difficulty: medium
+topic: Understanding why only part of a component must match for a process to initiate
+question: |
+  In PCR, a primer is designed with a 20 bp 3' annealing region that
+  matches the template and a 15 bp 5' tail that adds a new sequence.
+  Why does the 5' tail not need to match the template?
+choices:
+  A: DNA polymerase extends only from the 3' end, so only the 3' region needs to base-pair with the template for priming
+  B: The 5' tail is removed by an exonuclease during the first PCR cycle
+  C: The 5' tail anneals to the opposite strand of the template
+  D: Both ends must match the template, but mismatches at the 5' end are tolerated by polymerase
+answer: A
+explanation: |
+  DNA polymerase requires a base-paired 3' hydroxyl to begin synthesis.
+  The 3' end of the primer anneals to the template and provides this
+  substrate. The 5' tail hangs free during the first cycle but becomes
+  incorporated into the product, which then serves as a template in
+  subsequent cycles. Option B is wrong — the tail is not removed. Option C
+  is incorrect — the tail is not designed to anneal anywhere. Option D
+  overstates it — the 5' end genuinely does not need to match.
+---
+slug: gibson-assembly-homology
+difficulty: medium
+topic: Understanding how shared sequence between fragments enables joining without specific recognition sites
+question: |
+  In Gibson assembly, two DNA fragments are joined by including ~20 bp
+  of identical sequence at the ends that should connect. What is the role
+  of this shared homology?
+choices:
+  A: After T5 exonuclease creates single-stranded overhangs, the homologous regions anneal to join the fragments
+  B: The homologous regions are recognized by a restriction enzyme that cuts and ligates them
+  C: The shared sequence serves as a primer for PCR amplification of the joined product
+  D: The homology encodes a protein that catalyzes the assembly reaction
+answer: A
+explanation: |
+  Gibson assembly works by: (1) T5 exonuclease chews back 5' ends to
+  expose single-stranded overhangs, (2) complementary homologous regions
+  on adjacent fragments anneal, (3) polymerase fills gaps, and (4) ligase
+  seals nicks. The shared homology is essential for the annealing step —
+  without it, fragments cannot find their correct partners. Option B
+  confuses Gibson with restriction/ligation cloning. Option C confuses
+  Gibson with PCR. Option D is nonsensical.
+---
+slug: forbidden-restriction-sites
+difficulty: medium
+topic: Recognizing how a downstream process constrains what sequences are allowed in a design
+question: |
+  A gene synthesis order is rejected because the sequence contains a BsaI
+  recognition site (<pre>GGTCTC</pre>). The gene will later be assembled using Golden
+  Gate cloning, which requires BsaI. Why must the internal site be removed?
+choices:
+  A: If BsaI cuts at the internal site during assembly, the fragment will be split into unintended pieces, ruining the assembly
+  B: BsaI sites slow down gene synthesis and increase cost
+  C: The GGTCTC sequence encodes a toxic peptide that kills the host cell
+  D: Restriction sites cannot appear in coding sequences because they disrupt translation
+answer: A
+explanation: |
+  Golden Gate cloning uses BsaI to cut DNA at defined positions for
+  assembly. If BsaI also cuts internally within the gene, it generates
+  extra fragments that participate incorrectly in the assembly, producing
+  the wrong product. The site must be removed by silent codon changes
+  that preserve the protein sequence. Option B is incorrect — synthesis
+  companies can make any sequence, though some flag problematic sites.
+  Option C is wrong — GGTCTC does not inherently encode anything toxic.
+  Option D is wrong — restriction sites in coding regions are normal and
+  do not affect translation.
+---
+slug: construction-file-representation
+difficulty: medium
+topic: Understanding how a structured representation captures an experiment as a sequence of operations
+question: |
+  A Construction File (CF) contains these steps:
+
+  <pre>
+  pcr   fwd1 rev1 pTemplate product1
+  digest product1 EcoRI 1 frag1
+  ligate frag1 lig1
+  transform lig1 Mach1 Amp pFinal
+  </pre>
+
+  What does this CF describe?
+choices:
+  A: A cloning experiment that amplifies DNA by PCR, cuts it with a restriction enzyme, ligates it into a circle, and transforms it into cells
+  B: A gene expression experiment that transcribes and translates a protein
+  C: A sequencing protocol that reads the DNA sequence of pTemplate
+  D: A codon optimization workflow that redesigns the coding sequence
+answer: A
+explanation: |
+  Each line of a CF is a step in a DNA construction experiment. The PCR
+  step amplifies a region using two oligos and a template. Digest cuts the
+  product with EcoRI. Ligate joins the ends. Transform introduces the
+  ligated DNA into Mach1 cells with ampicillin selection. This is a
+  standard cloning workflow. The CF is a domain-specific representation
+  of the physical experiment, not a computational pipeline.
+---
+slug: pcr-product-prediction
+difficulty: medium
+topic: Tracing the output of a process given its inputs and rules
+question: |
+  A PCR reaction uses:
+  <pre>
+  Forward oligo: 5'-AAAA-cccc-3'  (AAAA is 5' tail, cccc anneals to template)
+  Reverse oligo: 5'-TTTT-gggg-3'  (TTTT is 5' tail, gggg anneals to template)
+  Template: 5'-...ccccXXXXXXXXcccc...-3' (cccc regions match oligos)
+  </pre>
+
+  After 30 cycles, what is the dominant product?
+choices:
+  A: A double-stranded DNA with AAAA on one end, TTTT on the other, and the template region plus tails in between
+  B: Only the original template sequence with no modifications
+  C: Single-stranded DNA matching the forward oligo sequence
+  D: A product containing only the XXXXXXXX region with no oligo sequences
+answer: A
+explanation: |
+  In the first cycle, each primer's 3' end anneals to the template and
+  polymerase extends, incorporating the 5' tails. In subsequent cycles,
+  the extended products become templates themselves, so the tails are
+  now part of the template. After ~30 cycles, the dominant product is a
+  double-stranded DNA bounded by the full oligo sequences including their
+  5' tails. This is how PCR adds synthetic sequence to ends of a natural
+  template.
+---
+slug: fragment-size-limits-strategy
+difficulty: medium
+topic: Understanding how physical limits on component size force a divide-and-assemble strategy
+question: |
+  Gene synthesis companies can reliably produce fragments up to ~5,000 bp.
+  A designer needs to build a 15,000 bp plasmid. What is the standard
+  approach?
+choices:
+  A: Order three ~5 kb fragments with overlapping ends and assemble them using Gibson or similar method
+  B: Order one 15 kb fragment, since special rush orders can exceed the limit
+  C: Order 15,000 individual oligos and assemble them directly by PCA
+  D: Clone the 15 kb sequence from a natural organism using restriction enzymes
+answer: A
+explanation: |
+  Current gene synthesis technology is limited to ~3–5 kb per fragment due
+  to error accumulation. Longer constructs are built by assembling multiple
+  verified fragments using methods like Gibson assembly, which requires
+  ~20 bp overlaps between adjacent fragments. Option B exceeds the
+  technological limit. Option C is impractical — PCA from oligos works
+  for ~600 bp, not 15 kb. Option D assumes the sequence exists naturally,
+  which it likely does not for a synthetic design.
+---
+slug: restriction-digest-and-ligation
+difficulty: medium
+topic: Understanding how specific cutting and joining operations transform DNA topology
+question: |
+  A linear PCR product has an EcoRI site near each end. After digesting
+  with EcoRI and then ligating, what is the expected product?
+choices:
+  A: A circular DNA formed by ligation of the compatible sticky ends generated by EcoRI at both ends
+  B: Two separate fragments that cannot be joined
+  C: The same linear DNA, unchanged by the enzymes
+  D: A larger DNA formed by concatenation of multiple copies of the fragment
+answer: A
+explanation: |
+  EcoRI cuts at <pre>GAATTC</pre> to produce compatible 4-base sticky ends (5'-AATT
+  overhangs). When the same enzyme cuts both ends of a linear fragment,
+  the two ends have complementary overhangs that can anneal and be sealed
+  by ligase, forming a circle. This is the basis of EIPCR-based cloning.
+  Option B is wrong because the ends are compatible. Option C ignores that
+  digestion removes bases to create overhangs. Option D can happen at high
+  DNA concentration but the dominant intramolecular product is a circle.
+---
+slug: pca-vs-standard-pcr
+difficulty: medium
+topic: Distinguishing how the same core mechanism produces different outcomes with different inputs
+question: |
+  Standard PCR uses two primers and a single template to amplify a
+  specific region. Polymerase Chain Assembly (PCA) uses a pool of
+  overlapping oligos with no separate template. What does PCA produce?
+choices:
+  A: A gene-length DNA assembled from the overlapping oligos, which serve as both templates and primers for each other
+  B: Many copies of the longest oligo in the pool
+  C: A random library of all possible combinations of the oligos
+  D: Single-stranded DNA because there is no template to copy
+answer: A
+explanation: |
+  In PCA, overlapping oligos anneal to each other at their complementary
+  regions and are extended by polymerase. Through successive cycles of
+  denaturation, annealing, and extension, progressively longer fragments
+  are built. Outer primers then amplify the full-length product. This is
+  how gene-length DNA (~600 bp) can be assembled from short oligos
+  (~40–60 bp each). Option B misunderstands the assembly mechanism.
+  Option C overstates the randomness. Option D is wrong because the
+  oligos serve as templates for each other.
+---
+slug: oligo-design-constraints
+difficulty: medium
+topic: Understanding how multiple physical constraints simultaneously restrict a design choice
+question: |
+  When designing a PCR primer's annealing region, several constraints must
+  be satisfied simultaneously. Which set of constraints is correct?
+choices:
+  A: 18–25 bp length, 50–65% GC content, G or C at the 3' end, no long homopolymeric runs
+  B: Exactly 20 bp length, any GC content, must start with ATG, no constraints on sequence
+  C: 50–100 bp length, 30–40% GC content, must end with a stop codon
+  D: 10–15 bp length, 80% GC content, A or T at both ends
+answer: A
+explanation: |
+  Primer annealing regions are typically 18–25 bp to ensure specificity.
+  GC content of 50–65% provides appropriate melting temperature. A G or C
+  at the 3' end (GC clamp) stabilizes binding at the critical end where
+  polymerase initiates. Homopolymeric runs cause mispriming. Option B has
+  wrong constraints and confuses primer design with CDS design (ATG is a
+  start codon). Option C describes something far too long with wrong GC
+  range. Option D is too short and too GC-rich.
+---
+slug: design-vs-fabrication-feasibility
+difficulty: medium
+topic: Recognizing that a computationally valid design may be physically impossible to build
+question: |
+  A codon optimization algorithm produces a 4,000 bp coding sequence.
+  The sequence passes all checks — no forbidden restriction sites, good
+  CAI, no hairpins. However, a fabrication engineer flags a problem.
+
+  Which issue could make this sequence difficult to synthesize?
+choices:
+  A: A 30 bp region with 95% GC content that is prone to synthesis errors due to strong secondary structure in the single-stranded intermediates
+  B: The sequence uses too many different codons (high diversity)
+  C: The sequence does not begin with ATG
+  D: The protein it encodes is too large for E. coli to express
+answer: A
+explanation: |
+  Gene synthesis involves single-stranded DNA intermediates (oligos) that
+  can form strong secondary structures if they have extreme GC content.
+  Regions of very high or very low GC content are notorious synthesis
+  failure points. This is a fabrication constraint that the checker
+  might miss if it only examines the double-stranded design. Option B —
+  high codon diversity is actually desirable. Option C would be a design
+  error caught by the algorithm. Option D is about expression, not
+  synthesis.
