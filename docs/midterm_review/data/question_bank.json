@@ -4,7 +4,7 @@
       "slug": "name-binding-shared-list",
       "difficulty": "medium",
       "topic": "Understanding that variable assignment creates shared references, not independent copies",
-      "question": "A construct's sequence is stored in a list of parts. A colleague saves\na reference to work with it:\n\n<python>\nparts = ['J23119', 'B0034', 'amilGFP']\nmy_copy = parts\nmy_copy.append('B0015')\n</python>\n\nHow many elements does parts contain?\n",
+      "question": "A construct's sequence is stored as a list of parts. A colleague saves\na reference so they can modify it:\n\n<python>\nparts = ['J23119', 'B0034', 'amilGFP']\nmy_copy = parts\nmy_copy.append('B0015')\n</python>\n\nHow many elements does parts contain after this code runs?\n",
       "choices": {
         "A": "3 — my_copy is a separate list",
         "B": "4 — both names refer to the same list",
@@ -12,7 +12,7 @@
         "D": "TypeError — you cannot append to a referenced list"
       },
       "answer": "B",
-      "explanation": "Assignment (my_copy = parts) binds a second name to the same list object.\nIt does not create a copy. Appending through my_copy mutates the shared\nlist, so parts also has 4 elements. This matters in genetic design code\nwhere a construct's parts list may be passed to multiple functions — any\nmutation through one reference is visible to all others.\n"
+      "explanation": "Assignment (<python>my_copy = parts</python>) binds a second name to the\nsame list object. It does not create a copy. Appending through my_copy\nmutates that shared list, so parts also has 4 elements. This matters in\ngenetic design code because a construct parts list may be passed to\nmultiple functions, and a mutation through one reference is visible to all\nother references to that same list.\n"
     },
     {
       "slug": "string-substring-search",
@@ -26,13 +26,13 @@
         "D": "cds == 'GGTCTC'"
       },
       "answer": "A",
-      "explanation": "The 'in' operator checks whether the left string appears as a contiguous\nsubstring anywhere in the right string. Here <pre>GGTCTC</pre> is embedded starting\nat index 8, so the expression returns True. Option B treats a string as a\ndict (TypeError). Option C only flags the site if it appears more than\nonce, missing the single occurrence. Option D checks whether the entire CDS\nequals the site. The biological point: a single occurrence of a forbidden\nrestriction site is enough to disrupt a fabrication plan.\n"
+      "explanation": "The <python>in</python> operator checks whether the left string appears as\na contiguous substring anywhere in the right string. Here <pre>GGTCTC</pre>\nappears once inside the CDS, so the expression returns True. Option B\ntreats the string like a dict lookup (invalid). Option C only flags the\nsite if it appears more than once, which misses a single occurrence.\nOption D checks whether the entire CDS equals the site. Biologically, even\none forbidden restriction site can break a fabrication plan.\n"
     },
     {
       "slug": "dict-as-lookup-table",
       "difficulty": "medium",
       "topic": "Forward vs. reverse lookup in a dict and what the key-value direction implies",
-      "question": "The genetic code is stored as a dict mapping codons to amino acids:\n\n<python>\ngenetic_code = {'ATG': 'M', 'TTT': 'F', 'TTC': 'F', 'TAA': '*', ...}\n</python>\n\nA student wants to reverse-translate a protein — given an amino acid,\nfind all codons that encode it. They write:\n\n<python>\ngenetic_code['F']\n</python>\n\nWhat happens?\n",
+      "question": "The genetic code is stored as a dict mapping codons to amino acids:\n\n<python>\ngenetic_code = {'ATG': 'M', 'TTT': 'F', 'TTC': 'F', 'TAA': '*', ...}\n</python>\n\nA student wants to reverse-translate a protein: given an amino acid,\nfind all codons that encode it. They write:\n\n<python>\ngenetic_code['F']\n</python>\n\nWhat happens?\n",
       "choices": {
         "A": "Returns ['TTT', 'TTC']",
         "B": "Returns 'TTT'",
@@ -40,7 +40,7 @@
         "D": "Returns 'F'"
       },
       "answer": "C",
-      "explanation": "Dict lookup is by key. The keys are codons ('ATG', 'TTT', etc.), not amino\nacids. 'F' is not a key, so a KeyError is raised. To find codons for an\namino acid, you must iterate over items and filter by value. This reflects\na fundamental design choice: the genetic code dict is structured for\ntranslation (codon → amino acid), and reverse translation requires a\ndifferent access pattern.\n"
+      "explanation": "Dict lookup is by key. In this dict, the keys are codons (<pre>ATG</pre>,\n<pre>TTT</pre>, etc.), not amino acids. <pre>F</pre> is a value, so using\n<python>genetic_code['F']</python> raises a KeyError. To find codons for\nan amino acid, you must iterate over the dict's items and collect the\ncodons whose value matches that amino acid. This reflects a core design\nchoice: the dict is organized for translation (codon → amino acid), not\nreverse translation.\n"
     },
     {
       "slug": "none-guarding-operations",
@@ -54,7 +54,7 @@
         "D": "The function silently returns a default RBS"
       },
       "answer": "C",
-      "explanation": "When the chooser returns None, accessing .utr on None raises an\nAttributeError. None is not an object with fields — it represents the\nabsence of a result. The caller must check whether result is None before\naccessing its attributes. This is a general pattern: any function that can\nfail to produce a result may return None, and callers must handle that case\nbefore proceeding.\n"
+      "explanation": "If the chooser returns None, then <python>result</python> refers to the\nabsence of a result, not an object with fields. Accessing\n<python>result.utr</python> therefore raises an AttributeError. The caller\nmust check whether <python>result is None</python> before accessing its\nattributes. This is a general pattern whenever a function may fail to\nproduce a usable object.\n"
     },
     {
       "slug": "modeling-for-domain-inference",
@@ -68,13 +68,13 @@
         "D": "strain['resistances'].append(plasmid['marker'])"
       },
       "answer": "A",
-      "explanation": "strain['resistances'] is a set, and 'in' checks membership. Here 'AmpR'\nis in the set, meaning the strain is already resistant and plating on\nampicillin would not distinguish transformants from background. Option B\ncompares a set to a string (always False). Option C checks if 'AmpR' is a\nsubstring of 'Mach1' (nonsensical). Option D calls .append() on a set,\nwhich raises AttributeError — sets use .add(). Answering correctly\nrequires understanding both the Python types and why pre-existing\nresistance defeats selection.\n"
+      "explanation": "<python>strain['resistances']</python> is a set, and the\n<python>in</python> operator checks membership in that set. Here\n<pre>AmpR</pre> is already present, so the strain is already ampicillin\nresistant and plating on ampicillin would not distinguish transformants\nfrom background. Option B compares a set to a string. Option C checks for a\nsubstring in the strain name, which is biologically irrelevant. Option D\ncalls <python>.append()</python> on a set; sets use\n<python>.add()</python>.\n"
     },
     {
       "slug": "boolean-validation-logic",
       "difficulty": "medium",
       "topic": "Using boolean expressions to enforce domain constraints on computed values",
-      "question": "An oligo design function checks whether the Tm and length of a primer\nare within acceptable bounds:\n\n<python>\ntm = 58.5\nlength = 22\nok = tm >= 55 and tm <= 65 and length >= 18 and length <= 30\n</python>\n\nA second primer has tm = 72.0 and length = 40. What is the value of\nok for each?\n",
+      "question": "An oligo design function checks whether the Tm and length of a primer\nare within acceptable bounds:\n\n<python>\ntm = 58.5\nlength = 22\nok = tm >= 55 and tm <= 65 and length >= 18 and length <= 30\n</python>\n\nA second primer has tm = 72.0 and length = 40. What is the value of\nok for each primer?\n",
       "choices": {
         "A": "True for the first, True for the second",
         "B": "True for the first, False for the second",
@@ -82,13 +82,13 @@
         "D": "True for both — 'and' only requires one condition to be True"
       },
       "answer": "B",
-      "explanation": "For the first primer, all four conditions hold, so ok is True. For the\nsecond, tm > 65 and length > 30, so two conditions fail and 'and' returns\nFalse. The 'and' operator requires every condition to be True. This pattern\nencodes the biological reality that a primer must satisfy multiple\nsimultaneous constraints to function — too hot a Tm or too long an oligo\nwill cause problems even if the other values look fine.\n"
+      "explanation": "For the first primer, all four conditions are true, so ok is True. For the\nsecond primer, <python>tm <= 65</python> is false and\n<python>length <= 30</python> is false, so the full expression evaluates to\nFalse. The <python>and</python> operator requires every condition to be\ntrue. Biologically, a primer must satisfy multiple constraints at the same\ntime; passing one constraint does not rescue failure on another.\n"
     },
     {
       "slug": "container-choice-for-data",
       "difficulty": "medium",
       "topic": "Selecting a container type based on the properties of the data it must hold",
-      "question": "You are designing a data structure to represent a genetic construct.\nIt has an ordered series of CDS names that may repeat (e.g. two copies\nof the same gene in an operon), and a collection of restriction enzyme\nsites that must be absent from the final sequence (no duplicates matter,\norder is irrelevant).\n\nWhich pair of container types best fits these two needs?\n",
+      "question": "You are designing a data structure to represent a genetic construct.\nIt has an ordered series of CDS names that may repeat (for example, two\ncopies of the same gene in an operon), and a collection of restriction\nenzyme sites that must be absent from the final sequence (duplicates do\nnot matter, and order is irrelevant).\n\nWhich pair of container types best fits these two needs?\n",
       "choices": {
         "A": "list for the CDS names, set for the forbidden sites",
         "B": "set for the CDS names, list for the forbidden sites",
@@ -96,7 +96,7 @@
         "D": "list for both"
       },
       "answer": "A",
-      "explanation": "The CDS names are ordered and may contain duplicates, so a list is the\nright fit. The forbidden sites are an unordered collection where only\nmembership matters, so a set is natural — it enforces uniqueness and\nmakes 'in' checks efficient. Option B would lose gene order and\nduplicates, which changes the operon structure. Option C has no natural\nkey to use. Option D works mechanically but forces you to manually\nprevent duplicates in the forbidden sites.\n"
+      "explanation": "The CDS names are ordered and may contain duplicates, so a list is the\nright fit. The forbidden sites are an unordered collection where\nmembership is what matters, so a set is the natural choice. A set also\nenforces uniqueness automatically. Option B would lose gene order and\nduplicate copies, which changes the represented operon structure. Option C\ndoes not provide a natural key for the CDS sequence in this prompt. Option\nD can work, but it forces you to manage uniqueness manually for forbidden\nsites.\n"
     },
     {
       "slug": "tuple-immutability-consequence",
@@ -110,21 +110,21 @@
         "D": "The entire tuple is replaced with 200"
       },
       "answer": "B",
-      "explanation": "data[1] retrieves the tuple ('b0003', 181), but tuples are immutable — you\ncannot change their elements in place. To correct the value, you would need\nto replace the entire tuple: data[1] = ('b0003', 200). This immutability\nis a feature when loading experimental data: it prevents accidental\nmodification of the original measurements, forcing you to be explicit about\nany changes.\n"
+      "explanation": "<python>data[1]</python> retrieves the tuple <python>('b0003', 181)</python>,\nbut tuples are immutable, so their elements cannot be changed in place.\nTo correct the value, you would replace the entire tuple, for example:\n<python>data[1] = ('b0003', 200)</python>. Treating loaded records as tuples\ncan be useful because it prevents accidental in-place edits to the\noriginal measurements.\n"
     },
     {
       "slug": "restructuring-for-access-pattern",
       "difficulty": "medium",
       "topic": "Choosing how to organize data into containers based on what questions you need to answer",
-      "question": "You have a list of (gene_id, abundance) tuples from a proteomics\nexperiment:\n\n<python>\ndata = [('b0002', 498), ('b0003', 181), ('b0004', 889), ...]\n</python>\n\nYou need to repeatedly look up abundances by gene ID. You convert to:\n\n<python>\nby_gene = {gid: ab for gid, ab in data}\n</python>\n\nA colleague instead keeps the original list and uses:\n\n<python>\n[ab for gid, ab in data if gid == 'b0004'][0]\n</python>\n\nBoth return 889 for 'b0004'. Why is the dict preferable?\n",
+      "question": "You have a list of (gene_id, abundance) tuples from a proteomics\nexperiment:\n\n<python>\ndata = [('b0002', 498), ('b0003', 181), ('b0004', 889), ...]\n</python>\n\nYou need to repeatedly look up abundances by gene ID. You convert the\ndata to:\n\n<python>\nby_gene = {gid: ab for gid, ab in data}\n</python>\n\nA colleague instead keeps the original list and uses:\n\n<python>\n[ab for gid, ab in data if gid == 'b0004'][0]\n</python>\n\nBoth return 889 for <pre>b0004</pre>. Why is the dict preferable?\n",
       "choices": {
-        "A": "The dict finds the value directly by key; the list must scan every entry",
+        "A": "The dict finds the value directly by key; the list must scan entries",
         "B": "The dict uses less memory because it discards the gene IDs",
         "C": "The list version returns a different data type",
         "D": "There is no meaningful difference — both are equivalent"
       },
       "answer": "A",
-      "explanation": "Dict lookup by key is a direct operation. The list comprehension must\niterate through every tuple and compare gene IDs until it finds a match.\nWhen you need repeated random access by an identifier — as when multiple\ndesign functions each need to check different genes' expression levels —\nrestructuring from a list of records to a dict keyed by identifier is the\nstandard move. The choice of container should match the dominant access\npattern.\n"
+      "explanation": "A dict is organized for key-based lookup, so asking for an abundance by\ngene ID matches the data structure directly. The list comprehension must\nscan through records and test each gene ID until it finds a match. When\nrepeated identifier-based lookups are the dominant operation, converting a\nlist of records into a dict keyed by identifier is the right move.\n"
     },
     {
       "slug": "filtering-structured-records",
@@ -138,7 +138,7 @@
         "D": "options.filter('hairpins', 0)"
       },
       "answer": "A",
-      "explanation": "The list comprehension iterates over options, keeps entries where hairpins\nis 0, and extracts the 'source' field, yielding ['rpsA']. Option B tries\nto index a list with a boolean expression (TypeError). Option C returns\nthe full dicts, not just the gene names. Option D invents a .filter()\nmethod that lists do not have. The pattern of filtering records by a\ncriterion and projecting a specific field is used throughout the course —\nfor selecting RBS candidates, filtering proteomics hits, or querying\na parts registry."
+      "explanation": "The list comprehension iterates over <python>options</python>, keeps only\nentries where <python>opt['hairpins'] == 0</python>, and projects the\n<python>'source'</python> field from each matching record. The result is\n<python>['rpsA']</python>. Option B attempts to index a list with a boolean\nexpression. Option C returns the full matching dict records rather than the\nsource names. Option D invents a <python>.filter()</python> method that\nPython lists do not have. This filtering-plus-projection pattern is common\nwhen selecting RBS candidates, querying parts registries, or screening\nexperimental records."
     }
   ],
   "control_flow_and_iteration": [
@@ -154,13 +154,13 @@
         "D": "KeyError is raised"
       },
       "answer": "A",
-      "explanation": "The loop steps through the string in increments of 3. On the first\niteration i=0 gives codon 'ATG' → 'M'. Then i=3 gives 'AAA' → 'K'.\nThen i=6 gives 'GGT' → 'G'. The concatenation builds 'MKG'. Option B\nconfuses the DNA with the protein. Option C would result if the loop\nonly ran once. Option D would occur if a codon were not in the table,\nbut all three are present.\n"
+      "explanation": "The loop advances through the CDS in steps of 3. When <python>i = 0</python>,\nthe codon is <pre>ATG</pre> and <pre>M</pre> is appended. When\n<python>i = 3</python>, the codon is <pre>AAA</pre> and <pre>K</pre> is\nappended. When <python>i = 6</python>, the codon is <pre>GGT</pre> and\n<pre>G</pre> is appended. The final protein string is <pre>MKG</pre>.\nOption B confuses the DNA sequence with the translated protein. Option C\nwould be correct only if the loop ran once. Option D would occur only if a\ncodon were missing from the lookup table.\n"
     },
     {
       "slug": "if-elif-else-classification",
       "difficulty": "medium",
       "topic": "Using branching logic to classify items into categories based on multiple criteria",
-      "question": "A function classifies genes by their proteomics abundance:\n\n<python>\ndef classify(abundance):\n    if abundance > 1000:\n        return 'high'\n    elif abundance > 100:\n        return 'medium'\n    elif abundance > 0:\n        return 'low'\n    else:\n        return 'not detected'\n</python>\n\nWhat does classify(100) return?\n",
+      "question": "A function classifies genes by their proteomics abundance:\n\n<python>\ndef classify(abundance):\n    if abundance > 1000:\n        return 'high'\n    elif abundance > 100:\n        return 'medium'\n    elif abundance > 0:\n        return 'low'\n    else:\n        return 'not detected'\n</python>\n\nWhat does <python>classify(100)</python> return?\n",
       "choices": {
         "A": "high",
         "B": "medium",
@@ -168,13 +168,13 @@
         "D": "not detected"
       },
       "answer": "C",
-      "explanation": "The conditions are tested in order. 100 > 1000 is False. 100 > 100 is\nalso False (not strictly greater). 100 > 0 is True, so 'low' is returned.\nA common mistake is reading > as >=. The elif chain ensures exactly one\nbranch executes, and the order of the conditions determines the boundary\nbehavior — a student must trace through each condition to find which one\nfires first.\n"
+      "explanation": "The conditions are checked in order. <python>100 > 1000</python> is False.\n<python>100 > 100</python> is also False because the comparison is strict\n(<python>></python>, not <python>>=</python>). The next test,\n<python>100 > 0</python>, is True, so the function returns <pre>low</pre>.\nThe <python>elif</python> chain stops at the first matching condition, so\nboundary behavior depends on both the operators and the order of the tests.\n"
     },
     {
       "slug": "early-exit-with-break",
       "difficulty": "medium",
       "topic": "Using break to stop iteration once a condition is met, and understanding what value is retained",
-      "question": "A function finds the position of the first <pre>GG</pre> dinucleotide in a\nsequence, which could indicate a PAM site:\n\n<python>\nseq = 'ATCAGATGGCCA'\nposition = -1\nfor i in range(len(seq) - 1):\n    if seq[i:i+2] == 'GG':\n        position = i\n        break\n</python>\n\nWhat is the value of position?\n",
+      "question": "A function finds the position of the first <pre>GG</pre> dinucleotide in a\nsequence, which could indicate a PAM site:\n\n<python>\nseq = 'ATCAGATGGCCA'\nposition = -1\nfor i in range(len(seq) - 1):\n    if seq[i:i+2] == 'GG':\n        position = i\n        break\n</python>\n\nWhat is the value of position after the loop finishes?\n",
       "choices": {
         "A": 7,
         "B": 8,
@@ -182,7 +182,7 @@
         "D": 3
       },
       "answer": "A",
-      "explanation": "The loop scans left to right. At i=7, seq[7:9] is 'GG' (the G's in\n<pre>ATCAGATGGCCA</pre>). The position is set to 7 and break exits the loop\nimmediately. Without break, the loop would continue and could overwrite\nposition if another 'GG' existed later. The -1 sentinel remains only if\nno 'GG' is found at all. This pattern — scanning for the first occurrence\nof a motif and stopping — is used in CRISPR target finding and restriction\nsite scanning.\n"
+      "explanation": "The loop scans left to right. At <python>i = 7</python>, the slice\n<python>seq[7:9]</python> is <pre>GG</pre>, so <python>position</python> is\nset to 7 and <python>break</python> exits the loop immediately. The\nsentinel value <python>-1</python> would remain only if no match were found.\nThis scan-until-first-hit pattern is common in motif detection.\n"
     },
     {
       "slug": "continue-to-skip-invalid",
@@ -196,13 +196,13 @@
         "D": "[] — continue skips all remaining iterations"
       },
       "answer": "A",
-      "explanation": "When abundance is None, continue skips the rest of the loop body and\nmoves to the next tuple. It does not skip all remaining iterations —\nonly the current one. For the two non-None entries, abundance is appended\nto valid. Option B would result if there were no skip logic. Option C\nwould result if the entire tuple were appended. Option D reflects a\ncommon misconception that continue exits the loop entirely (that's break).\n"
+      "explanation": "When <python>abundance is None</python>, <python>continue</python> skips the\nrest of the current loop body and moves to the next tuple. It does not end\nthe loop. The two non-missing abundances (498 and 889) are appended, so\n<python>valid</python> becomes <python>[498, 889]</python>. Option D is a\ncommon confusion between <python>continue</python> and\n<python>break</python>.\n"
     },
     {
       "slug": "iterating-over-dict-items",
       "difficulty": "medium",
       "topic": "Iterating over key-value pairs in a dict to accumulate or transform structured data",
-      "question": "A codon frequency table stores how often each codon appears in\nhighly-expressed E. coli genes. You want to find the most frequent\ncodon for proline:\n\n<python>\npro_codons = {'CCT': 27340, 'CCC': 19666, 'CCA': 31534, 'CCG': 76644}\nbest_codon = None\nbest_count = 0\nfor codon, count in pro_codons.items():\n    if count > best_count:\n        best_codon = codon\n        best_count = count\n</python>\n\nWhat is the value of best_codon?\n",
+      "question": "A codon frequency table stores how often each proline codon appears in\nhighly expressed <i>E. coli</i> genes. You want to find the most frequent\ncodon:\n\n<python>\npro_codons = {'CCT': 27340, 'CCC': 19666, 'CCA': 31534, 'CCG': 76644}\nbest_codon = None\nbest_count = 0\nfor codon, count in pro_codons.items():\n    if count > best_count:\n        best_codon = codon\n        best_count = count\n</python>\n\nWhat is the value of best_codon after the loop finishes?\n",
       "choices": {
         "A": "CCG",
         "B": "CCT",
@@ -210,7 +210,7 @@
         "D": "None — the loop never updates best_codon"
       },
       "answer": "A",
-      "explanation": "The loop examines each codon-count pair. CCT (27340) beats the initial 0,\nthen CCC (19666) does not beat 27340, CCA (31534) beats 27340, and finally\nCCG (76644) beats 31534. The last update wins, leaving best_codon as 'CCG'.\nThis is a standard argmax pattern over dict items — the same logic applies\nto finding the best RBS candidate, the highest-abundance gene, or the most\ncommon codon context pair.\n"
+      "explanation": "The loop compares each count to the current best. <pre>CCT</pre> beats 0,\nthen <pre>CCC</pre> does not beat 27340, <pre>CCA</pre> beats 27340, and\nfinally <pre>CCG</pre> (76644) beats 31534. The final stored winner is\n<pre>CCG</pre>. This is the standard argmax pattern over\n<python>dict.items()</python>.\n"
     },
     {
       "slug": "nested-loop-combinatorics",
@@ -224,7 +224,7 @@
         "D": "2 elements now; 6^2 = 36 if Lys had 6 codons"
       },
       "answer": "A",
-      "explanation": "Nested loops produce the product of the iteration counts: 1 × 2 = 2. With\n6 Lys codons it would be 1 × 6 = 6. Option B incorrectly doubles again.\nOption C adds instead of multiplies. Option D squares the Lys count. This\ncombinatorial explosion is why enumerating all possible codon sequences for\na full protein is infeasible — each additional amino acid multiplies the\ncount by its number of synonymous codons.\n"
+      "explanation": "Nested loops generate the product of the loop counts. Here there is 1 Met\ncodon and 2 Lys codons, so the total is <python>1 × 2 = 2</python>.\nIf Lys had 6 codons, the total would be <python>1 × 6 = 6</python>.\nThis multiplicative growth is why brute-force reverse translation becomes\ninfeasible for longer proteins.\n"
     },
     {
       "slug": "while-loop-convergence",
@@ -238,13 +238,13 @@
         "D": "Setting the seed guarantees it runs exactly once"
       },
       "answer": "A",
-      "explanation": "The while loop repeats as long as passed is False. If every possible CDS\nfor this protein contains a forbidden site, the loop never terminates. The\nseed makes the random sequence reproducible but does not guarantee that the\nfirst (or any) candidate will pass. In practice, a well-designed version\nwould include a maximum iteration count to avoid infinite loops. This is a\nreal concern in codon optimization — the guided random method must handle\nthe possibility that constraints are unsatisfiable.\n"
+      "explanation": "The loop repeats while <python>passed</python> is False. If no candidate\nCDS can satisfy the constraints, then <python>passed</python> never becomes\nTrue and the loop does not terminate. Setting the random seed makes the\nsequence of random choices reproducible, but it does not guarantee a valid\ncandidate exists or appears on the first try. A practical implementation\nshould include a maximum-attempt limit.\n"
     },
     {
       "slug": "loop-accumulator-pattern",
       "difficulty": "medium",
       "topic": "Building up a result incrementally inside a loop and understanding the final accumulated value",
-      "question": "A function builds the reverse complement of a DNA sequence:\n\n<python>\ncomplement = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}\ndna = 'ATCG'\nresult = ''\nfor base in dna:\n    result = complement[base] + result\n</python>\n\nWhat is the value of result?\n",
+      "question": "A function builds the reverse complement of a DNA sequence:\n\n<python>\ncomplement = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}\ndna = 'ATCG'\nresult = ''\nfor base in dna:\n    result = complement[base] + result\n</python>\n\nWhat is the value of result after the loop finishes?\n",
       "choices": {
         "A": "CGAT",
         "B": "TAGC",
@@ -252,7 +252,7 @@
         "D": "ATCG"
       },
       "answer": "A",
-      "explanation": "Each complemented base is prepended to result (added to the left). Step by\nstep: '' → 'T' → 'AT' → 'GAT' → 'CGAT'. Prepending reverses the order\nwhile the complement dict handles the base pairing. Option B would be the\nresult of complementing without reversing. Option C would result from\nreversing without complementing. Option D is the original sequence. Getting\nthis right requires tracing both the complement lookup and the prepend\naccumulation through each iteration.\n"
+      "explanation": "Each iteration looks up the complement of the current base and prepends it\nto the existing string. Starting from an empty string, the sequence of\nvalues is: <pre></pre> → <pre>T</pre> → <pre>AT</pre> → <pre>GAT</pre> →\n<pre>CGAT</pre>. Prepending causes reversal while the lookup provides the\ncomplement, so the final result is the reverse complement.\n"
     },
     {
       "slug": "conditional-guard-before-operation",
@@ -266,13 +266,13 @@
         "D": "ValueError is raised on 'n'"
       },
       "answer": "A",
-      "explanation": "seq.upper() converts to 'ATCNGTT'. The loop checks each character against\n'ATCG'. 'A', 'T', 'C' pass. 'N' fails the check and is skipped. 'G', 'T',\n'T' pass. The result is 'ATCGTT'. This is the pattern from lecture where\nreverse_complement silently skipped invalid bases — except here the intent\nis explicit filtering rather than a silent bug. The guard ensures only\nvalid bases are processed without raising an error.\n"
+      "explanation": "First, <python>seq.upper()</python> becomes <pre>ATCNGNTT</pre>. The loop\nappends only characters that are in <pre>ATCG</pre>. The letters\n<pre>A</pre>, <pre>T</pre>, <pre>C</pre>, <pre>G</pre>, <pre>T</pre>, and\n<pre>T</pre> are kept, while both <pre>N</pre> characters are skipped. The\nresult is <pre>ATCGTT</pre>. The guard prevents invalid characters from\nbeing processed without raising an error.\n"
     },
     {
       "slug": "iteration-order-matters",
       "difficulty": "medium",
       "topic": "Understanding that the order of iteration affects the result when operations are position-dependent",
-      "question": "Two functions both scan a sequence for all <pre>GG</pre> dinucleotides, but\none scans left-to-right and the other right-to-left:\n\n<python>\nseq = 'GGGAT'\n\n# Left to right\nhits_lr = []\nfor i in range(len(seq) - 1):\n    if seq[i:i+2] == 'GG':\n        hits_lr.append(i)\n\n# Right to left\nhits_rl = []\nfor i in range(len(seq) - 2, -1, -1):\n    if seq[i:i+2] == 'GG':\n        hits_rl.append(i)\n</python>\n\nWhat are hits_lr and hits_rl?\n",
+      "question": "Two functions both scan a sequence for all <pre>GG</pre> dinucleotides, but\none scans left to right and the other scans right to left:\n\n<python>\nseq = 'GGGAT'\n\n# Left to right\nhits_lr = []\nfor i in range(len(seq) - 1):\n    if seq[i:i+2] == 'GG':\n        hits_lr.append(i)\n\n# Right to left\nhits_rl = []\nfor i in range(len(seq) - 2, -1, -1):\n    if seq[i:i+2] == 'GG':\n        hits_rl.append(i)\n</python>\n\nWhat are hits_lr and hits_rl after both loops finish?\n",
       "choices": {
         "A": "[0, 1] and [1, 0] — same positions, different order",
         "B": "Both are [0, 1] — iteration order does not affect which positions match",
@@ -280,7 +280,7 @@
         "D": "hits_lr is [0, 1] and hits_rl is [0, 1] — same list"
       },
       "answer": "A",
-      "explanation": "<pre>GGGAT</pre> has 'GG' at positions 0 and 1 (overlapping). Both loops find both\npositions because the match condition is the same regardless of scan\ndirection. But hits_lr appends them as [0, 1] while hits_rl appends them\nas [1, 0]. The positions found are identical; the order in the output list\ndiffers. This matters when you want the *first* or *last* occurrence — for\nexample, finding the PAM-proximal vs. PAM-distal target site in a CRISPR\ndesign depends on which direction you scan."
+      "explanation": "The sequence <pre>GGGAT</pre> contains overlapping <pre>GG</pre> matches at\npositions 0 and 1. Both loops test the same match condition, so both find\nthe same positions. However, the left-to-right loop appends in the order\n<python>[0, 1]</python>, while the right-to-left loop appends in the order\n<python>[1, 0]</python>. The set of positions is the same, but the output\nlist order depends on iteration order."
     }
   ],
   "functions_parameters_and_scope": [
@@ -288,7 +288,7 @@
       "slug": "return-vs-print-in-design",
       "difficulty": "medium",
       "topic": "Understanding that functions communicate results through return values, not side effects",
-      "question": "A student writes a function to translate a CDS into a protein:\n\n<python>\ndef translate(cds, genetic_code):\n    protein = ''\n    for i in range(0, len(cds), 3):\n        codon = cds[i:i+3]\n        protein += genetic_code[codon]\n    print(protein)\n\nresult = translate('ATGAAATAA', genetic_code)\n</python>\n\nThey then try to check if the protein starts with methionine:\n\n<python>\nresult.startswith('M')\n</python>\n\nWhat happens?\n",
+      "question": "A student writes a function to translate a CDS into a protein:\n\n<python>\ndef translate(cds, genetic_code):\n    protein = ''\n    for i in range(0, len(cds), 3):\n        codon = cds[i:i+3]\n        protein += genetic_code[codon]\n    print(protein)\n\nresult = translate('ATGAAATAA', genetic_code)\n</python>\n\nThey then try to check whether the protein starts with methionine:\n\n<python>\nresult.startswith('M')\n</python>\n\nWhat happens?\n",
       "choices": {
         "A": "Returns True — the protein starts with 'M'",
         "B": "AttributeError — result is None because the function prints but does not return",
@@ -296,13 +296,13 @@
         "D": "NameError — protein is not accessible outside the function"
       },
       "answer": "B",
-      "explanation": "The function uses print() instead of return, so it displays the protein\nto the console but returns None by default. Calling .startswith() on None\nraises an AttributeError. Option A would be correct if the function used\nreturn instead of print. Option C invents a conversion that print does not\nperform. Option D describes a real scoping fact — protein is local — but\nthe immediate error is the None return, not a NameError.\n"
+      "explanation": "The function uses <python>print()</python> instead of <python>return</python>,\nso it displays the protein but returns <python>None</python> by default.\nCalling <python>.startswith()</python> on <python>None</python> raises an\nAttributeError. Option A would be correct if the function returned the\nprotein string. Option D states a true scoping fact (<python>protein</python>\nis local), but that is not the immediate error in the code shown.\n"
     },
     {
       "slug": "local-scope-isolation",
       "difficulty": "medium",
       "topic": "Recognizing that local variables inside a function are invisible to the caller",
-      "question": "A function computes the GC content of a DNA sequence:\n\n<python>\ndef gc_content(seq):\n    gc_count = 0\n    for base in seq:\n        if base in 'GC':\n            gc_count += 1\n    fraction = gc_count / len(seq)\n    return fraction\n\nresult = gc_content('ATGCGC')\nprint(gc_count)\n</python>\n\nWhat happens when print(gc_count) executes?\n",
+      "question": "A function computes the GC content of a DNA sequence:\n\n<python>\ndef gc_content(seq):\n    gc_count = 0\n    for base in seq:\n        if base in 'GC':\n            gc_count += 1\n    fraction = gc_count / len(seq)\n    return fraction\n\nresult = gc_content('ATGCGC')\nprint(gc_count)\n</python>\n\nWhat happens when <python>print(gc_count)</python> executes?\n",
       "choices": {
         "A": "Prints 4 — gc_count was computed inside the function",
         "B": "Prints 0 — gc_count is reset after the function returns",
@@ -310,13 +310,13 @@
         "D": "Prints 0.667 — gc_count holds the fraction, not the count"
       },
       "answer": "C",
-      "explanation": "Variables created inside a function are local to that function. They exist\nonly while the function is executing and are not visible to the caller.\nThe function correctly computes gc_count = 4 and returns 0.667, but\ngc_count itself is not accessible outside. Option A assumes local variables\nleak into the caller's namespace. Option B invents a reset mechanism.\nOption D confuses gc_count with fraction. The caller must use the returned\nvalue (result) to access the computation's output.\n"
+      "explanation": "Variables created inside a function are local to that function unless they\nare explicitly returned or otherwise exposed. <python>gc_count</python>\nexists only inside <python>gc_content()</python>, so the caller cannot read\nit directly. The function returns the fraction (stored in\n<python>result</python>), but <python>gc_count</python> itself is out of\nscope in the caller.\n"
     },
     {
       "slug": "default-argument-override",
       "difficulty": "medium",
       "topic": "Using default arguments to provide sensible fallbacks that callers can override",
-      "question": "A CRISPR guide RNA design function has a default PAM:\n\n<python>\ndef find_targets(seq, pam='NGG'):\n    targets = []\n    for i in range(len(seq) - len(pam)):\n        if matches_pam(seq[i:i+len(pam)], pam):\n            targets.append(i)\n    return targets\n\na = find_targets(genome_seq)\nb = find_targets(genome_seq, 'NGG')\nc = find_targets(genome_seq, 'NNGRRT')\n</python>\n\nWhich calls use the Cas9 PAM <pre>NGG</pre> and which use <pre>NNGRRT</pre>?\n",
+      "question": "A CRISPR guide RNA design function has a default PAM:\n\n<python>\ndef find_targets(seq, pam='NGG'):\n    targets = []\n    for i in range(len(seq) - len(pam)):\n        if matches_pam(seq[i:i+len(pam)], pam):\n            targets.append(i)\n    return targets\n\na = find_targets(genome_seq)\nb = find_targets(genome_seq, 'NGG')\nc = find_targets(genome_seq, 'NNGRRT')\n</python>\n\nWhich calls use <pre>NGG</pre> and which use <pre>NNGRRT</pre>?\n",
       "choices": {
         "A": "a and b use 'NGG'; c uses 'NNGRRT'",
         "B": "Only b uses 'NGG'; a uses None because no argument was provided",
@@ -324,7 +324,7 @@
         "D": "a uses 'NGG'; b and c both raise errors for passing a second argument"
       },
       "answer": "A",
-      "explanation": "When no argument is provided for pam, the default 'NGG' is used (call a).\nPassing 'NGG' explicitly (call b) has the same effect. Passing 'NNGRRT'\n(call c) overrides the default with the Cas12a/SaCas9 PAM. Option B\nconfuses default values with None — the default is 'NGG', not the absence\nof a value. Option C claims defaults are locked. Option D invents a\nrestriction on passing optional arguments. Default arguments let a function\nserve the common case (Cas9) while remaining flexible for alternatives.\n"
+      "explanation": "In call <python>a</python>, no PAM is provided, so the default\n<pre>NGG</pre> is used. Call <python>b</python> passes <pre>NGG</pre>\nexplicitly, so it has the same effect. Call <python>c</python> passes\n<pre>NNGRRT</pre>, which overrides the default. Default arguments provide a\nconvenient common case while still allowing callers to supply alternatives.\n"
     },
     {
       "slug": "pure-function-no-side-effects",
@@ -338,7 +338,7 @@
         "D": "Version A returns a different result each time it is called"
       },
       "answer": "A",
-      "explanation": "Version A modifies the global complement_table every time it is called,\nwhich is a side effect. Pure functions like Version B depend only on their\ninputs and produce only their return value. This makes Version B easier\nto test, compose, and parallelize — you never need to worry about hidden\nstate changes. Option B invents a performance issue. Option C is wrong\nbecause neither handles lowercase. Option D is wrong because A returns the\nsame result — it just also mutates external state, which is the problem.\n"
+      "explanation": "Version A mutates the external dict <python>complement_table</python> on\nevery call, which is a side effect. Version B depends only on its input and\nproduces only a return value. That makes Version B easier to test, reason\nabout, and safely compose with other functions. Both versions return the\nsame reverse complement for the same input, but only Version B avoids hidden\nstate changes.\n"
     },
     {
       "slug": "function-as-reusable-unit",
@@ -352,7 +352,7 @@
         "D": "<python>\ndef has_site():\n    return True\n</python>\n"
       },
       "answer": "A",
-      "explanation": "Option A takes both the sequence and the site as parameters, checks the\nsite and its reverse complement, and returns a boolean. This works for any\nrestriction site on any sequence. Option B hardcodes specific sites, so it\nis not reusable for other enzymes. Option C captures the site parameter\nbut relies on cds from the outer scope — it is not self-contained and\nbreaks if called from a different context. Option D is trivially useless.\nThe key insight is that a well-designed function parameterizes everything\nthat varies across use cases.\n"
+      "explanation": "Option A parameterizes both things that vary: the sequence being checked\nand the restriction site of interest. It also handles the reverse\ncomplement, which is part of the repeated logic. Option B hardcodes\nspecific sites, so it is not reusable. Option C relies on\n<python>cds</python> from outer scope instead of taking the sequence as an\nargument, making the function less reusable and harder to test. Option D\ndoes not implement the required logic.\n"
     },
     {
       "slug": "initiate-run-lifecycle",
@@ -366,7 +366,7 @@
         "D": "TypeError — run cannot be called on an uninitialized object"
       },
       "answer": "B",
-      "explanation": "The initiate method loads proteomics data, parses TSV files, and builds\ninternal lookup tables. The run method assumes those data structures exist\nand accesses them directly. Skipping initiate means those attributes were\nnever created, so run crashes when it tries to use them. Option A invents\nlazy loading that was not implemented. Option C assumes graceful handling.\nOption D invents a type-level restriction. The two-phase pattern separates\nexpensive one-time setup from repeated per-query execution — but the caller\nmust honor the contract by calling initiate before run.\n"
+      "explanation": "In this pattern, <python>initiate()</python> performs one-time setup and\ncreates internal data structures that <python>run()</python> expects to use.\nIf setup is skipped, <python>run()</python> is likely to access missing\nattributes or missing keys and fail with an AttributeError or KeyError.\nThe key idea is that the caller must honor the object's lifecycle contract:\ninitialize first, then run queries.\n"
     },
     {
       "slug": "mutable-default-argument-trap",
@@ -380,7 +380,7 @@
         "D": "['GGTCTC', 'GAATTC'] — the list prepends new entries"
       },
       "answer": "B",
-      "explanation": "In Python, default mutable arguments are created once when the function is\ndefined, not on each call. Both calls share the same list object, so the\nfirst call adds 'GAATTC' and the second adds 'GGTCTC' to that same list.\nThis is a well-known Python pitfall. Option A describes the expected\nbehavior if a new list were created each call — the fix is to use\nsites=None and create the list inside the function body. Option C is wrong\nbecause lists are valid defaults (just dangerous). Option D invents\nprepend behavior. In design code, this bug would cause forbidden sites\nfrom one gene design to silently carry over to the next.\n"
+      "explanation": "The default list is created once when the function is defined, not each\ntime the function is called. Both calls therefore use the same list object.\nAfter the first call it contains <pre>GAATTC</pre>, and after the second it\ncontains <pre>GAATTC</pre> and <pre>GGTCTC</pre>. The standard fix is to use\n<python>sites=None</python> and create a new list inside the function when\nneeded.\n"
     },
     {
       "slug": "class-attribute-vs-instance-attribute",
@@ -394,7 +394,7 @@
         "D": "designer_a.protein_seq and designer_b.protein_seq refer to the same string"
       },
       "answer": "A",
-      "explanation": "Class attributes are shared across all instances — designer_a.checkers and\ndesigner_b.checkers refer to the same list. Instance attributes assigned\nin __init__ are unique to each object, so the protein sequences differ.\nOption B is wrong because class attributes are shared, not copied.\nOption C is wrong because instances can access class attributes through\nnormal dot notation. Option D is wrong because protein_seq is assigned\nper-instance. The checkers are shared because all designers use the same\nvalidation pipeline, while each design works on a different protein.\n"
+      "explanation": "<python>checkers</python> is a class attribute, so it is shared across all\ninstances unless shadowed on a specific instance. By contrast,\n<python>self.protein_seq</python> is assigned in <python>__init__</python>,\nso each instance gets its own value. This is a common pattern: shared\nconfiguration at the class level and per-object state at the instance\nlevel.\n"
     },
     {
       "slug": "argument-order-and-keyword-args",
@@ -408,7 +408,7 @@
         "D": "None — Python accepts arguments in any order"
       },
       "answer": "A",
-      "explanation": "Python requires all positional arguments to come before keyword arguments\nin a function call. Call c passes min_length=20 as a keyword then 55.0 as\na positional argument, which violates this rule and raises SyntaxError.\nCall a uses all positional arguments in order — valid. Call b mixes\npositional and keyword but keywords come last — valid. Call d uses all\nkeyword arguments, which can appear in any order — valid. This matters\nin design code where functions have many parameters: keyword arguments\nmake calls self-documenting and order-independent.\n"
+      "explanation": "In a function call, positional arguments must come before keyword\narguments. Call <python>c</python> violates that rule by placing\n<python>55.0</python> after the keyword argument\n<python>min_length=20</python>. Calls <python>a</python> and\n<python>b</python> are valid, and call <python>d</python> is also valid\nbecause all arguments are passed by keyword (keyword order does not have to\nmatch the parameter order).\n"
     },
     {
       "slug": "function-composition-pipeline",
@@ -422,7 +422,7 @@
         "D": "They produce different results because nested calls change the evaluation order"
       },
       "answer": "A",
-      "explanation": "Both approaches call the same three functions in the same order with the\nsame arguments. The first stores intermediate results in named variables;\nthe second nests the calls so each return value is passed directly as an\nargument to the next outer function. Python evaluates innermost calls\nfirst, so reverse_translate runs first, then optimize_codons, then\nremove_forbidden_sites — the identical pipeline. Option B invents a\nperformance difference. Option C misreads the nesting. Option D\nmisunderstands evaluation order. Named intermediates are often clearer\nfor debugging, but the result is the same."
+      "explanation": "Both versions call the same functions in the same logical order with the\nsame inputs. The nested form simply passes each return value directly into\nthe next function call instead of storing intermediate variables. Python\nevaluates the innermost call first, so the data flow is the same in both\nversions. Named intermediate variables are often easier to inspect while\ndebugging, but the final result is the same."
     }
   ],
   "indexing_slicing_and_string_processing": [
@@ -430,7 +430,7 @@
       "slug": "zero-based-index-extraction",
       "difficulty": "medium",
       "topic": "Applying zero-based indexing to extract a specific element from sequential data",
-      "question": "A promoter sequence is stored as a string. A student wants to check\nthe base at the transcription start site, which is the 5th nucleotide\nin the stored sequence:\n\n<pre>promoter = 'TTGACATATAAT'</pre>\n\nThe student writes:\n\n<python>\ntss = promoter[5]\n</python>\n\nWhat value does tss hold, and did the student get what they wanted?\n",
+      "question": "A promoter sequence is stored as a string. A student wants to check\nthe base at the transcription start site, which is the 5th nucleotide\nin the stored sequence:\n\n<pre>promoter = 'TTGACATATAAT'</pre>\n\nThe student writes:\n\n<python>\ntss = promoter[5]\n</python>\n\nWhat value does <python>tss</python> hold, and did the student get what\nthey wanted?\n",
       "choices": {
         "A": "'A' — this is the 6th nucleotide, not the 5th; the student has an off-by-one error",
         "B": "'C' — this is the 5th nucleotide, exactly what the student wanted",
@@ -438,7 +438,7 @@
         "D": "IndexError — index 5 is out of range for this string"
       },
       "answer": "A",
-      "explanation": "In Python, indexing is zero-based: promoter[0]='T', [1]='T', [2]='G',\n[3]='A', [4]='C', [5]='A'. So promoter[5] returns 'A', which is\nthe 6th nucleotide in the sequence. The student wanted the 5th\nnucleotide (1-based position 5), which is promoter[4] = 'C'. The\nstudent's off-by-one error comes from forgetting that Python counts\nfrom 0. In biological databases, sequences are 1-indexed, but Python\nstrings are 0-indexed — this mismatch is a persistent source of bugs.\nOption B has the wrong value — 'C' is at index 4, not 5. Option C\nis wrong — Python does not wrap indices around. Option D is wrong\nbecause the string has 12 characters, so index 5 is valid.\n"
+      "explanation": "Python uses zero-based indexing, so the indices are:\n<python>promoter[0]='T'</python>, <python>promoter[1]='T'</python>,\n<python>promoter[2]='G'</python>, <python>promoter[3]='A'</python>,\n<python>promoter[4]='C'</python>, <python>promoter[5]='A'</python>.\nTherefore <python>promoter[5]</python> returns <pre>A</pre>, which is the\n6th nucleotide. The 5th nucleotide (1-based position 5) is at\n<python>promoter[4]</python>, which is <pre>C</pre>. This is a classic\noff-by-one error caused by mixing biological 1-based positions with\nPython's 0-based indexing.\n"
     },
     {
       "slug": "slice-endpoint-exclusion",
@@ -452,13 +452,13 @@
         "D": "genome[10:10+2]"
       },
       "answer": "A",
-      "explanation": "Python slicing uses a half-open interval: seq[start:end] includes index\nstart up to but not including index end. To get 3 characters starting at\nindex 10, you need genome[10:13] — indices 10, 11, 12. Option B gives\ngenome[10:12] which is only 2 characters ('AT'). Option C starts at 11\ninstead of 10, grabbing 'TGA' — a frameshift. Option D computes\ngenome[10:12], the same 2-character error as B. The formula for\nextracting n characters starting at position i is always seq[i:i+n].\nThe half-open convention avoids fencepost errors once internalized: the\nlength of a slice equals end minus start.\n"
+      "explanation": "Python slicing uses a half-open interval: <python>seq[start:end]</python>\nincludes <python>start</python> but excludes <python>end</python>. To get 3\ncharacters starting at index 10, you need indices 10, 11, and 12, so the\ncorrect slice is <python>genome[10:13]</python>. The general rule is:\nto extract <python>n</python> characters starting at index <python>i</python>,\nuse <python>seq[i:i+n]</python>.\n"
     },
     {
       "slug": "negative-index-from-end",
       "difficulty": "medium",
       "topic": "Using negative indices to access elements relative to the end of a sequence",
-      "question": "A CDS must end with a stop codon. To extract the last three\nnucleotides for verification:\n\n<pre>cds = 'ATGAAAGGTCTCTAA'</pre>\n\nA student writes:\n\n<python>\nlast_codon = cds[-3:]\n</python>\n\nWhat is the value of last_codon?\n",
+      "question": "A CDS must end with a stop codon. To extract the last three\nnucleotides for verification:\n\n<pre>cds = 'ATGAAAGGTCTCTAA'</pre>\n\nA student writes:\n\n<python>\nlast_codon = cds[-3:]\n</python>\n\nWhat is the value of <python>last_codon</python>?\n",
       "choices": {
         "A": "TAA",
         "B": "ATG",
@@ -466,7 +466,7 @@
         "D": "IndexError — negative indices are not allowed on strings"
       },
       "answer": "A",
-      "explanation": "Negative indices count from the end: cds[-1] is the last character 'A',\ncds[-2] is 'A', cds[-3] is 'T'. The slice cds[-3:] means \"from the\nthird-to-last character to the end,\" yielding 'TAA'. This is the\nstandard idiom for checking the terminal codon of a CDS without needing\nto know the sequence length. Option B would require cds[:3] (the first\nthree). Option C is not a substring of this sequence. Option D is wrong\nbecause Python fully supports negative indexing on strings, lists, and\ntuples. Negative indexing is equivalent to cds[len(cds)-3:], but more\nconcise and less error-prone.\n"
+      "explanation": "Negative indices count from the end of the string. The slice\n<python>cds[-3:]</python> means \"from the third-to-last character through\nthe end,\" which returns <pre>TAA</pre>. This is the standard idiom for\nchecking a terminal codon without explicitly computing the string length.\n"
     },
     {
       "slug": "off-by-one-protospacer-extraction",
@@ -480,13 +480,13 @@
         "D": "target[pam_index-19:pam_index]"
       },
       "answer": "A",
-      "explanation": "The protospacer is the 20 nucleotides immediately before the PAM. If the\nPAM starts at index 25, the protospacer occupies indices 5 through 24\ninclusive. Using the half-open interval: target[25-20:25] = target[5:25],\nwhich captures exactly 20 characters (indices 5..24). Option B gives\ntarget[4:24], which starts one position too early and ends one too early.\nOption C gives target[5:24], which is only 19 characters — the classic\noff-by-one error of subtracting 1 from the end when the endpoint is\nalready exclusive. Option D gives target[6:25], only 19 characters\nstarting one position too late. The key insight: because slicing already\nexcludes the endpoint, using the PAM index directly as the end requires\nno adjustment.\n"
+      "explanation": "If the PAM starts at index 25, the 20-nt protospacer immediately upstream\noccupies indices 5 through 24 inclusive. In Python's half-open slicing,\nthat is <python>target[5:25]</python>, which is exactly\n<python>target[pam_index-20:pam_index]</python>. The endpoint should be the\nPAM index itself because slice endpoints are already exclusive.\n"
     },
     {
       "slug": "slice-with-step-reverse",
       "difficulty": "medium",
       "topic": "Using a step argument in slicing to reverse or subsample sequential data",
-      "question": "A function needs to reverse a DNA sequence as part of computing the\nreverse complement. Given:\n\n<pre>seq = 'AACGTCG'</pre>\n\nWhat is the value of seq[::-1]?\n",
+      "question": "A function needs to reverse a DNA sequence as part of computing the\nreverse complement. Given:\n\n<pre>seq = 'AACGTCG'</pre>\n\nWhat is the value of <python>seq[::-1]</python>?\n",
       "choices": {
         "A": "GCTGCAA",
         "B": "AACGTCG",
@@ -494,7 +494,7 @@
         "D": "TypeError — strings do not support step slicing"
       },
       "answer": "A",
-      "explanation": "The slice [::-1] means start from the end, go to the beginning, stepping\nby -1 — it reverses the string. <pre>AACGTCG</pre> reversed is <pre>GCTGCAA</pre>. This\nis the standard Python idiom for string reversal and is used in the\nreverse complement operation: first complement each base, then reverse\n(or vice versa). Option B is the original unreversed sequence. Option C\nis an incorrect reversal. Option D is wrong because all Python sequences\nsupport the step parameter in slices. Note that [::-1] creates a new\nstring — it does not modify seq in place, because strings are immutable.\n"
+      "explanation": "The slice <python>[::-1]</python> reverses a sequence by stepping through it\nfrom end to beginning. Reversing <pre>AACGTCG</pre> gives <pre>GCTGCAA</pre>.\nThis creates a new string; it does not modify the original in place.\n"
     },
     {
       "slug": "find-returns-negative-one",
@@ -508,7 +508,7 @@
         "D": "Both raise ValueError"
       },
       "answer": "B",
-      "explanation": "When the substring is not found, str.find() returns -1 as a sentinel\nvalue, while str.index() raises a ValueError. This is a critical\ndistinction in sequence scanning code: if you use find() and forget\nto check for -1, subsequent slicing with a negative index will silently\nextract the wrong region. For example, cds[pos_a:pos_a+6] when pos_a\nis -1 gives cds[-1:5], which is an empty string — a silent bug. The\nindex() method forces you to handle the missing-site case explicitly\nvia a try/except. Option A is wrong because index does not return -1.\nOption C is wrong because find returns -1, not None. Option D is wrong\nbecause find never raises an exception for missing substrings.\n"
+      "explanation": "<python>str.find()</python> returns <python>-1</python> when the substring\nis absent, while <python>str.index()</python> raises a ValueError. This\ndifference matters in sequence-scanning code because failing to check for\n<python>-1</python> can lead to silent downstream slicing bugs.\n"
     },
     {
       "slug": "string-immutability-mutation",
@@ -522,7 +522,7 @@
         "D": "A new string is returned but cds is unchanged"
       },
       "answer": "B",
-      "explanation": "Strings in Python are immutable — you cannot assign to a slice or an\nindex. The attempt raises TypeError: 'str' object does not support item\nassignment. To perform the replacement, you must build a new string:\ncds = cds[:6] + 'CCT' + cds[9:]. Option A describes what would happen\nif strings were mutable. Option C describes list-like behavior that\nstrings do not have. Option D confuses the situation with methods like\n.replace() that return new strings, but slice assignment is simply not\nallowed. In genetic design code, this means every sequence modification\ncreates a new string object.\n"
+      "explanation": "Strings are immutable in Python, so you cannot assign to an index or a\nslice of a string. The statement raises a TypeError. To make this change,\nyou must build a new string, for example:\n<python>cds = cds[:6] + 'CCT' + cds[9:]</python>.\n"
     },
     {
       "slug": "codon-boundary-alignment",
@@ -536,13 +536,13 @@
         "D": "'CCC' at indices 7:9 — extract from position 7 to end of codon"
       },
       "answer": "A",
-      "explanation": "Codons in a CDS starting at index 0 begin at indices 0, 3, 6, 9, ...\nTo find which codon contains position p, compute the codon start as\n(p // 3) * 3. For p=7: (7 // 3) * 3 = 2 * 3 = 6. The codon spans\ncds[6:9] = 'CCC'. Option B uses the wrong codon boundary (the second\ncodon is cds[3:6] = 'AAA', which does not contain position 7). Option C\nstarts a 3-nt window at the arbitrary nucleotide position, ignoring\nreading frame alignment. Option D extracts only a partial codon. The\ngeneral formula (p // 3) * 3 snaps any position down to its codon\nboundary — a pattern used when making synonymous substitutions that\nmust preserve the reading frame.\n"
+      "explanation": "In a CDS that starts in frame at index 0, codons begin at indices\n0, 3, 6, 9, and so on. To find the codon containing position\n<python>p</python>, compute the codon start as\n<python>(p // 3) * 3</python>. For <python>p = 7</python>, this gives\n<python>6</python>, so the codon is <python>cds[6:9]</python> = <pre>CCC</pre>.\nThis preserves reading-frame alignment rather than starting a 3-nt window\nat an arbitrary position.\n"
     },
     {
       "slug": "overlapping-substring-count",
       "difficulty": "medium",
       "topic": "Understanding how built-in search methods handle overlapping matches in sequential data",
-      "question": "A function checks how many times the dinucleotide <pre>AA</pre> appears in a\npoly-A tract:\n\n<python>\nseq = 'AAAAAC'\ncount_a = seq.count('AA')\n</python>\n\nWhat is the value of count_a?\n",
+      "question": "A function checks how many times the dinucleotide <pre>AA</pre> appears in a\npoly-A tract:\n\n<python>\nseq = 'AAAAAC'\ncount_a = seq.count('AA')\n</python>\n\nWhat is the value of <python>count_a</python>?\n",
       "choices": {
         "A": "4 — every overlapping occurrence is counted",
         "B": "2 — count returns non-overlapping matches from left to right",
@@ -550,7 +550,7 @@
         "D": "5 — every position where 'A' appears is counted"
       },
       "answer": "B",
-      "explanation": "The str.count() method finds non-overlapping occurrences, scanning left\nto right. In <pre>AAAAAC</pre>, the first 'AA' matches at index 0, consuming\nindices 0-1. The next match starts at index 2, consuming 2-3. Index 4\nis 'A' followed by 'C', which is not 'AA'. So count returns 2. If you\nneed overlapping matches (indices 0, 1, 2, 3), you must write an\nexplicit loop or use a regex with lookahead. Option A would be the\noverlapping count. Option C gives 3, which is neither the overlapping\nnor the non-overlapping count. Option D confuses counting a single\ncharacter with counting a dinucleotide. This distinction matters when\nscanning for repeated motifs in promoters or ribosome binding sites.\n"
+      "explanation": "<python>str.count()</python> counts non-overlapping matches. In\n<pre>AAAAAC</pre>, it matches <pre>AA</pre> at indices 0-1 and again at 2-3,\nfor a total of 2. If you need overlapping matches, you must use an\nexplicit loop (or another method designed for overlapping pattern search).\n"
     },
     {
       "slug": "case-normalization-before-search",
@@ -564,7 +564,7 @@
         "D": "All three"
       },
       "answer": "A",
-      "explanation": "String comparison in Python is case-sensitive. In this particular input,\nattempt1 happens to work because <pre>GGATCC</pre> appears literally in uppercase.\nBut if the input were <pre>atgggatccaaa</pre> (all lowercase), attempt1 would\nfail. Only attempt2 normalizes case before searching, making it robust to\nany combination. attempt3 searches for lowercase 'ggatcc' which fails if\nthe site is uppercase. The biological lesson: always normalize case before\nsearching sequences from external sources where capitalization conventions\nvary."
+      "explanation": "Python string matching is case-sensitive. Only <python>attempt2</python>\nnormalizes the sequence before searching, so it works whether the site is\nuppercase, lowercase, or mixed case in the input. The other attempts may\nwork on some inputs but are not robust to arbitrary capitalization."
     }
   ],
   "tracebacks_and_exceptions": [
@@ -580,7 +580,7 @@
         "D": "Line 45 of rbs.py — gene_id is an integer but should be a string"
       },
       "answer": "B",
-      "explanation": "A traceback reads bottom-up: the last entry is the line that raised the\nexception. Line 45 of rbs.py attempted proteomics[gene_id] where gene_id\nwas 'b0025', but that key does not exist in the dict. Line 12 is the\ncaller — it shows how execution reached the failing function but is not\nwhere the error occurred. Option A misreads the traceback as a missing\nfunction. Option C invents a None issue not indicated by the error type.\nOption D invents a type mismatch — KeyError means the key is absent, not\nthe wrong type.\n"
+      "explanation": "Read the traceback from the bottom up: the last frame shown is where the\nexception was raised. Here, line 45 in <python>rbs.py</python> attempted\n<python>proteomics[gene_id]</python>, and the key <pre>b0025</pre> was not\npresent in the dict, so Python raised a KeyError. Line 12 in\n<python>pipeline.py</python> is the caller that led to the failure, not the\nline that raised it.\n"
     },
     {
       "slug": "exception-type-from-none-attribute-access",
@@ -594,7 +594,7 @@
         "D": "TypeError — print cannot accept None"
       },
       "answer": "C",
-      "explanation": "When find_best_guide returns None, guide is bound to None. Accessing\n.spacer on None raises AttributeError because None has no attributes.\nThis is one of the most common errors in pipelines that return None for\n\"not found\" — the caller must check before accessing fields. Option A\nis wrong because no ValueError is involved. Option B is wrong because\nguide is defined — it just holds None. Option D is wrong because the\nerror occurs at guide.spacer, before print ever receives its argument.\n"
+      "explanation": "If no guide is found, <python>find_best_guide()</python> returns\n<python>None</python>, so <python>guide</python> is defined but holds\n<python>None</python>. Accessing <python>guide.spacer</python> then raises\nAttributeError because <python>None</python> has no attribute\n<python>spacer</python>. The error occurs before <python>print()</python>\nreceives an argument.\n"
     },
     {
       "slug": "guard-clause-vs-silent-failure",
@@ -608,21 +608,21 @@
         "D": "A returns 'GGCAT' (silently dropping N); B raises ValueError explaining the problem"
       },
       "answer": "D",
-      "explanation": "Version A skips any base not in the complement dict. 'N' is not a key,\nso it is silently dropped, producing the reverse complement of 'ATGCC'\nwhich is 'GGCAT'. The result is the wrong length and missing a position\n— a silent data corruption. Version B checks all bases up front and\nraises ValueError with a message identifying the bad input. This is the\nguard clause pattern from lecture: fail fast with a clear message rather\nthan silently producing wrong results. Option B incorrectly includes N\nin Version A's output. Option C invents complement behavior for N.\n"
+      "explanation": "In Version A, <pre>N</pre> is not in the complement dict, so it is silently\nskipped. The function therefore returns the reverse complement of\n<pre>ATGCC</pre>, which is <pre>GGCAT</pre>, and the output is the wrong length.\nIn Version B, the guard clause checks the full input first and raises a\nValueError with a clear message. This is preferable because it fails fast\ninstead of silently corrupting the result.\n"
     },
     {
       "slug": "raise-vs-return-none-for-invalid-input",
       "difficulty": "medium",
       "topic": "Choosing between raising an exception and returning None when a function receives illegal input",
-      "question": "A function computes the molecular weight of a DNA sequence. A student\nconsiders two designs for handling a sequence that contains non-DNA\ncharacters:\n\n<python>\n# Design 1\ndef molecular_weight(seq):\n    if not all(b in 'ATCG' for b in seq):\n        return None\n    ...\n\n# Design 2\ndef molecular_weight(seq):\n    if not all(b in 'ATCG' for b in seq):\n        raise ValueError(f'Non-DNA character in: {seq}')\n    ...\n</python>\n\nA caller writes:\n\n<python>\ntotal = molecular_weight(seq1) + molecular_weight(seq2)\n</python>\n\nIf seq2 contains an invalid character, what happens under each design?\n",
+      "question": "A function computes the molecular weight of a DNA sequence. A student\nconsiders two designs for handling a sequence that contains non-DNA\ncharacters:\n\n<python>\n# Design 1\ndef molecular_weight(seq):\n    if not all(b in 'ATCG' for b in seq):\n        return None\n    ...\n\n# Design 2\ndef molecular_weight(seq):\n    if not all(b in 'ATCG' for b in seq):\n        raise ValueError(f'Non-DNA character in: {seq}')\n    ...\n</python>\n\nA caller writes:\n\n<python>\ntotal = molecular_weight(seq1) + molecular_weight(seq2)\n</python>\n\nIf <python>seq2</python> contains an invalid character, what happens under\neach design?\n",
       "choices": {
         "A": "Design 1 returns None for the sum; Design 2 raises ValueError",
-        "B": "Design 1 raises TypeError (cannot add int and None); Design 2 raises ValueError with a clear message",
+        "B": "Design 1 raises TypeError (cannot add number and None); Design 2 raises ValueError with a clear message",
         "C": "Both designs raise ValueError — returning None is automatically converted",
         "D": "Both produce None — the + operator propagates None like SQL null"
       },
       "answer": "B",
-      "explanation": "Design 1 returns None for seq2. The expression becomes a valid number +\nNone, which raises TypeError because Python cannot add a number and None.\nThe TypeError message gives no indication that the real problem was an\ninvalid DNA sequence. Design 2 raises ValueError immediately with an\nexplicit message identifying the bad input. This is why returning None\nfor invalid input is discouraged in domain logic — it delays the error\nand obscures the cause. Option A is wrong because Python does not\nsilently propagate None through arithmetic. Option D invents SQL-like\nnull semantics that Python does not have.\n"
+      "explanation": "Under Design 1, <python>molecular_weight(seq2)</python> returns\n<python>None</python>, so the addition becomes number + <python>None</python>,\nwhich raises TypeError. That error hides the real cause (invalid DNA\ninput). Under Design 2, the function raises ValueError immediately with a\nmessage that points directly to the bad input. Raising an exception at the\nvalidation boundary usually produces clearer, more actionable failures.\n"
     },
     {
       "slug": "propagating-vs-catching-exceptions",
@@ -636,7 +636,7 @@
         "D": "Each layer should have its own try/except block wrapping every call"
       },
       "answer": "C",
-      "explanation": "The innermost function raises the exception. The middle function does not\ncatch it — if a codon position is out of range, something is fundamentally\nwrong and continuing would produce garbage. The exception propagates up\nto the top-level script, which is the only layer that knows what to do\nabout failure (report it to the user). This follows the lecture principle:\ndomain logic functions should not catch exceptions they cannot meaningfully\nhandle. Option A would mask a logic error by continuing with corrupted\ndata. Option B would prevent the caller from ever learning about the\nproblem. Option D creates redundant error handling that obscures the\ncode's logic.\n"
+      "explanation": "<python>optimize_codon_at()</python> raises the exception, and\n<python>optimize_all_codons()</python> does not catch it, so it propagates\nupward to the top-level <python>try/except</python>. That is usually the\nright design when lower-level functions cannot recover meaningfully from\nthe error. The top-level script can then report the failure cleanly to the\nuser or log it.\n"
     },
     {
       "slug": "distinguishing-caller-error-from-function-bug",
@@ -650,7 +650,7 @@
         "D": "Caller error — the caller should have wrapped the call in try/except"
       },
       "answer": "B",
-      "explanation": "The genetic_code dict contains all 64 standard DNA codons (combinations\nof A, T, C, G). 'ATN' contains an ambiguous base N, meaning user_seq\nwas not a valid DNA sequence. The responsibility to provide valid input\nlies with the caller — either by validating before calling translate, or\nby using a function upstream that enforces the DNA alphabet. Option A\nwould require translate to handle an unbounded set of nonsense inputs.\nOption C misframes the contract — the genetic code maps real codons, not\nambiguity codes. Option D treats the symptom (catching the crash) instead\nof the cause (bad input).\n"
+      "explanation": "<pre>ATN</pre> is not one of the 64 standard DNA codons because it contains\nan ambiguous base (<pre>N</pre>). If the function contract expects a valid DNA\nsequence with bases in <pre>ATCG</pre>, then this is invalid input from the\ncaller, not evidence that the translation function is broken. Catching the\nexception at the caller may prevent a crash, but it does not fix the bad\ninput.\n"
     },
     {
       "slug": "choosing-the-right-exception-type",
@@ -664,21 +664,21 @@
         "D": "Exception, Exception, Exception"
       },
       "answer": "A",
-      "explanation": "The first check rejects a wrong type (not a string) — TypeError signals\nthat the operation received an argument of the wrong type. The second and\nthird checks reject values that are the right type (strings) but violate\ndomain constraints — ValueError signals that the value is inappropriate.\nOption B uses ValueError for the type check, losing the distinction\nbetween \"wrong type\" and \"wrong value.\" Option C uses IndexError and\nKeyError, which signal specific container access failures, not input\nvalidation. Option D uses the generic Exception, which gives callers no\nway to distinguish different failure modes.\n"
+      "explanation": "Use TypeError when the argument has the wrong type (the first check), and\nValueError when the argument has the right type but an unacceptable value\n(the second and third checks). This preserves an important distinction for\ncallers and tests: wrong type vs wrong domain value.\n"
     },
     {
       "slug": "traceback-through-multiple-calls",
       "difficulty": "medium",
       "topic": "Reading a multi-level traceback to understand the chain of calls that led to a failure",
-      "question": "A gene design pipeline crashes with this traceback:\n\n<pre>\nTraceback (most recent call last):\n  File \"main.py\", line 5, in <module>\n    construct = build_construct(gene, plasmid)\n  File \"assembly.py\", line 18, in build_construct\n    rbs_result = design_rbs(gene['cds'])\n  File \"rbs.py\", line 7, in design_rbs\n    utr = chooser.run(cds)\n  File \"chooser.py\", line 34, in run\n    score = self.proteomics[gene_id]\nKeyError: 'yaaX'\n</pre>\n\nA student says \"the bug is in chooser.py line 34.\" Another says \"the\nreal problem is that proteomics data was never loaded.\" Who is right?\n",
+      "question": "A gene design pipeline crashes with this traceback:\n\n<pre>\nTraceback (most recent call last):\n  File \"main.py\", line 5, in <module>\n    construct = build_construct(gene, plasmid)\n  File \"assembly.py\", line 18, in build_construct\n    rbs_result = design_rbs(gene['cds'])\n  File \"rbs.py\", line 7, in design_rbs\n    utr = chooser.run(cds)\n  File \"chooser.py\", line 34, in run\n    score = self.proteomics[gene_id]\nKeyError: 'yaaX'\n</pre>\n\nA student says \"the bug is in chooser.py line 34.\" Another says \"the\nreal problem is missing or incomplete proteomics setup upstream.\" Who is\ncloser to the correct diagnosis?\n",
       "choices": {
         "A": "The first student — the fix should be adding 'yaaX' to the proteomics dict at line 34",
-        "B": "The second student — the traceback shows where the error surfaced, but the root cause is missing data setup upstream",
+        "B": "The second student — the traceback shows where the error surfaced, but the root cause is likely missing or incomplete data setup upstream",
         "C": "Both are wrong — the error is in main.py where build_construct is called",
         "D": "Both are wrong — KeyError means the code has a syntax error"
       },
       "answer": "B",
-      "explanation": "The traceback shows the chain of calls from main.py down to chooser.py.\nThe KeyError surfaces at line 34 because 'yaaX' is not in self.proteomics.\nBut the root cause is not line 34 itself — it is that the proteomics data\nwas never loaded or is incomplete. The fix belongs at the setup stage (the\ninitiate step), not at the line that happens to access the missing key.\nThis distinction between \"where the error surfaces\" and \"where the root\ncause lives\" is fundamental to debugging. Option A treats the symptom.\nOption C blames the top-level caller for a data-loading problem. Option D\nconfuses a runtime error with a syntax error.\n"
+      "explanation": "The traceback shows where the KeyError surfaced: <python>chooser.py</python>\nline 34, while looking up <pre>yaaX</pre> in <python>self.proteomics</python>.\nBut the better diagnosis is about root cause: the proteomics table may not\nhave been loaded, may be incomplete, or may not contain the expected gene\nidentifiers. Good debugging distinguishes the line where an exception is\nraised from the earlier setup step that created the bad state.\n"
     },
     {
       "slug": "what-happens-without-input-validation",
@@ -692,7 +692,7 @@
         "D": "ValueError — the function detects that 1234 is not a DNA sequence"
       },
       "answer": "B",
-      "explanation": "Python integers are not iterable. The for loop in the generator expression\ntries to iterate over 1234, which raises TypeError. The error message will\nsay something like \"'int' object is not iterable.\" This is confusing\nbecause the real problem is that the caller passed the wrong type, but the\nerror surfaces inside the function as an iteration failure. A guard clause\nchecking isinstance(seq, str) at the top would catch this immediately with\na clear message. Option A assumes integers are iterable but empty. Option C\nassumes digits become characters. Option D invents validation that was\nexplicitly not written.\n"
+      "explanation": "Integers are not iterable in Python, so the generator expression\n<python>for b in seq</python> raises TypeError. The message will be about an\n<python>int</python> not being iterable. A validation guard at the top of\nthe function (for example, checking that <python>seq</python> is a string)\nwould fail earlier with a clearer, more specific message.\n"
     },
     {
       "slug": "error-message-quality",
@@ -706,7 +706,7 @@
         "D": "Version B is slower because it calls seq.index, so Version A is preferred"
       },
       "answer": "B",
-      "explanation": "Version A's message 'bad' tells the caller nothing about which of the 5\nforbidden sites was found or where it occurs in the sequence. The designer\nwould need to manually check each site to figure out what went wrong.\nVersion B identifies the site (e.g., <pre>GAATTC</pre>) and its position (e.g.,\nposition 142), giving the designer the exact information needed to fix the\nsequence — perhaps by making a synonymous codon substitution at that\nlocation. Good error messages answer \"what went wrong\" and \"where\" so the\ncaller can act without additional investigation."
+      "explanation": "Version A's message (<python>'bad'</python>) gives almost no diagnostic\ninformation. Version B identifies both what failed (which forbidden site)\nand where it failed (the position in the sequence). That makes the error\nimmediately actionable for the caller and reduces extra debugging work."
     }
   ],
   "automated_testing_and_validation": [
@@ -722,7 +722,7 @@
         "D": "All three are equally strong because they all use assert"
       },
       "answer": "C",
-      "explanation": "Test C compares the function's output to an experimentally confirmed value.\nIf the function returns the exact protospacer that was verified in the lab,\nthat is direct evidence the algorithm produces biologically correct results.\nTests A and B are truisms — they check properties that any plausible output\nwould have, but a function could return the wrong 20-character DNA string\nand still pass both. The strength of evidence goes: validated example >\nspecific property > general type check. Option D incorrectly treats all\nassertions as equivalent regardless of what they check.\n"
+      "explanation": "Test C compares the output to an experimentally confirmed sequence. That\nis direct evidence that the algorithm returns the biologically correct\nprotospacer for a real case. Tests A and B are useful but weaker: a\nfunction can return the wrong 20-nt DNA string and still pass both. This\nillustrates the evidence hierarchy used in this course: validated example\n> specific property check > general type check.\n"
     },
     {
       "slug": "truism-property-check",
@@ -736,13 +736,13 @@
         "D": "No — the test is wrong because it should use assertEqual instead of assert"
       },
       "answer": "B",
-      "explanation": "These checks are truisms — properties that any reasonable oligo must have,\nbut that do not verify the specific content. An oligo with the right length\nand alphabet but the wrong sequence would still pass. Truisms catch gross\nfailures (e.g., returning RNA or a 500bp sequence) but cannot confirm that\nthe oligos will actually amplify the intended product. Full validation\nrequires either a validated example or an inverse function check. Option A\nconfuses necessary conditions with sufficient conditions. Option C assumes\ntwo weak checks combine into a strong one. Option D misidentifies the\nproblem as syntactic rather than logical.\n"
+      "explanation": "These assertions test necessary properties, not full correctness. An oligo\ncan have the right alphabet and length while still being the wrong sequence\nfor the intended assembly. This kind of test is useful for catching gross\nfailures, but it does not validate the design logic itself.\n"
     },
     {
       "slug": "fixture-expensive-setup",
       "difficulty": "medium",
       "topic": "Using fixtures to share expensive initialization across tests without repeating computation",
-      "question": "An RBSChooser requires loading a proteomics database and computing\nthermodynamic models — a process that takes 30 seconds. A student writes:\n\n<python>\ndef test_rbs_high_expression():\n    chooser = RBSChooser()\n    chooser.initiate()               # 30 seconds\n    result = chooser.run('ATGAAAGCGTAA', target='high')\n    assert result is not None\n\ndef test_rbs_low_expression():\n    chooser = RBSChooser()\n    chooser.initiate()               # 30 seconds again\n    result = chooser.run('ATGAAAGCGTAA', target='low')\n    assert result is not None\n</python>\n\nRunning both tests takes 60 seconds. What is the standard pytest\nmechanism to initialize the chooser once and share it across both tests?\n",
+      "question": "An RBSChooser requires loading a proteomics database and computing\nthermodynamic models, a process that takes 30 seconds. A student writes:\n\n<python>\ndef test_rbs_high_expression():\n    chooser = RBSChooser()\n    chooser.initiate()               # 30 seconds\n    result = chooser.run('ATGAAAGCGTAA', target='high')\n    assert result is not None\n\ndef test_rbs_low_expression():\n    chooser = RBSChooser()\n    chooser.initiate()               # 30 seconds again\n    result = chooser.run('ATGAAAGCGTAA', target='low')\n    assert result is not None\n</python>\n\nRunning both tests takes 60 seconds. What is the standard pytest\nmechanism to initialize the chooser once and share it across both tests?\n",
       "choices": {
         "A": "Move the initialization into a global variable at module level",
         "B": "Use a pytest fixture that creates and initiates the chooser once per session",
@@ -750,21 +750,21 @@
         "D": "Cache the result by writing it to a file between test runs"
       },
       "answer": "B",
-      "explanation": "A pytest fixture decorated with an appropriate scope (e.g., session or\nmodule) runs the expensive setup once and injects the result into every\ntest that requests it. This keeps each test function independent and\nfocused on a single behavior while avoiding redundant 30-second\ninitializations. Option A works mechanically but bypasses pytest's\ndependency injection and makes test isolation harder. Option C sacrifices\ntest independence — if the first assertion fails, the second never runs.\nOption D introduces file I/O complexity and stale-cache risks that\nfixtures handle cleanly.\n"
+      "explanation": "A pytest fixture with an appropriate scope (such as module or session)\nperforms the expensive setup once and injects the initialized object into\ntests that request it. This avoids repeated 30-second setup costs while\npreserving test structure and readability.\n"
     },
     {
       "slug": "edge-case-identification",
       "difficulty": "medium",
       "topic": "Identifying inputs at domain boundaries that expose assumptions in biological sequence algorithms",
-      "question": "A function finds CRISPR guide RNA targets by searching for the pattern\nNGG (PAM site) in a DNA sequence and returning the 20bp upstream:\n\n<python>\ndef find_guides(seq):\n    guides = []\n    for i in range(20, len(seq)):\n        if seq[i+1:i+3] == 'GG':\n            guides.append(seq[i-20:i])\n    return guides\n</python>\n\nWhich of the following inputs is the BEST edge case to include in a test?\n",
+      "question": "A function finds CRISPR guide RNA targets by searching for the pattern\nNGG (PAM site) in a DNA sequence and returning the 20bp upstream:\n\n<python>\ndef find_guides(seq):\n    guides = []\n    for i in range(20, len(seq)):\n        if seq[i+1:i+3] == 'GG':\n            guides.append(seq[i-20:i])\n    return guides\n</python>\n\nWhich input is the best edge case to test for a hidden case-sensitivity\nassumption?\n",
       "choices": {
         "A": "A 1000bp sequence with multiple NGG sites",
-        "B": "A sequence passed in as lowercase letters like 'atgccaattgg...'",
+        "B": "A lowercase sequence such as 'atgccaattgg...'",
         "C": "A 1000bp sequence with exactly one NGG site",
         "D": "A sequence consisting of only 'A' repeated 100 times"
       },
       "answer": "B",
-      "explanation": "Lowercase input is a classic edge case for biological sequence functions.\nThe comparison seq[i+1:i+3] == 'GG' checks for uppercase letters, so\nlowercase input would cause the function to silently find no guides even\nwhen PAM sites are present. This tests whether the function handles the\ncommon real-world situation where sequences come from databases or user\ninput in mixed or lowercase format. Option A is a normal case, not an\nedge case. Option C tests basic functionality. Option D tests the no-match\ncase, which is useful but less likely to expose hidden assumptions than\nthe case-sensitivity issue.\n"
+      "explanation": "The code compares to uppercase <pre>GG</pre>. If the input sequence is\nlowercase, real PAM sites may be missed silently. Testing lowercase input\ndirectly probes a common hidden assumption in sequence-processing code.\nOption D is also a useful edge case (no matches), but it targets a\ndifferent behavior and is less specific to case sensitivity.\n"
     },
     {
       "slug": "inverse-function-testing",
@@ -778,7 +778,7 @@
         "D": "It only works for PCR and cannot be generalized to other design problems"
       },
       "answer": "B",
-      "explanation": "The inverse function pattern uses a simulator (PredictPCRProduct) as an\nindependent check on the designer (DesignPCRPrimers). If the designed\nprimers, when fed into a simulator that models the actual chemistry,\nproduce the intended product, that is strong evidence the design is\ncorrect. This is stronger than truisms because it checks the specific\noutput against domain logic, not just general properties. Option A\noverstates the case — edge cases and validated examples are still needed.\nOption C raises a valid concern (both must be correct), but having two\nindependent implementations agree is much stronger than checking one in\nisolation. Option D is wrong because the pattern generalizes to any\ndomain with design-simulate pairs (e.g., codon optimization and\nback-translation).\n"
+      "explanation": "This pattern checks the designer using a separate simulator that models the\ndomain behavior. If independently implemented design and simulation agree\non the intended product, that is much stronger evidence than simple output\nproperties like length or alphabet. It is still not a complete proof, so\nvalidated examples and edge-case tests remain valuable.\n"
     },
     {
       "slug": "checker-pattern-centralized",
@@ -792,7 +792,7 @@
         "D": "It eliminates the need for validated examples because the checker is authoritative"
       },
       "answer": "B",
-      "explanation": "When the algorithm and the test both use ForbiddenSequenceChecker, the\ndefinition of \"forbidden\" is centralized in one place. If the list of\nforbidden sites changes, both the algorithm and the test update together.\nWithout this pattern, the algorithm might check for GGTCTC while the test\nchecks for a different set, and neither would catch the inconsistency.\nOption A confuses code reuse with performance. Option C is wrong — the\nalgorithm might have a bug that causes it to skip the checker on some code\npaths, which the test would catch. Option D overstates the checker's role;\nvalidated examples still provide the strongest evidence of correctness.\n"
+      "explanation": "Reusing the same checker centralizes the definition of what counts as a\nforbidden sequence. That prevents definition drift between the production\ncode and the test suite. The test still has value because the algorithm can\nfail to apply the checker correctly on some execution paths.\n"
     },
     {
       "slug": "pytest-raises-invalid-input",
@@ -806,21 +806,21 @@
         "D": "The first test would fail because design_oligos would return an empty list, not None"
       },
       "answer": "B",
-      "explanation": "A function that silently returns None on invalid input lets the error\npropagate — the caller might pass None into the next step, causing a\nconfusing error far from the source. Raising ValueError immediately\nidentifies the problem and its location. The pytest.raises context manager\nasserts that the specific exception is raised, making the test an\nexecutable specification of the error contract. Option A incorrectly\ntreats silent failure and explicit failure as equivalent. Option C\nconfuses testing patterns with performance. Option D guesses at specific\nbehavior rather than addressing the design principle.\n"
+      "explanation": "<python>pytest.raises(ValueError)</python> verifies the function's error\ncontract: invalid input should trigger an explicit exception immediately.\nReturning <python>None</python> is a silent failure mode that can travel\ndownstream and cause a more confusing error later.\n"
     },
     {
       "slug": "test-passes-vs-design-correct",
       "difficulty": "medium",
       "topic": "Distinguishing between a test suite passing and the underlying design being biologically correct",
-      "question": "A student's test suite for their codon optimizer has 15 tests and all\npass. The tests check: output contains only ATCG, output length equals\n3 times the input protein length, output starts with ATG, and output\nends with a stop codon. A colleague examines the output for a well-studied\ngene and discovers the codon usage is heavily biased toward rare codons,\nwhich would give poor expression in E. coli.\n\nWhat does this situation reveal?\n",
+      "question": "A student's test suite for a codon optimizer has 15 passing tests. The\ntests check: output contains only ATCG, output length equals 3 times the\ninput protein length, output starts with ATG, and output ends with a stop\ncodon. A colleague then examines the output for a well-studied gene and\nfinds heavy use of rare codons, which would likely produce poor expression\nin E. coli.\n\nWhat does this reveal?\n",
       "choices": {
         "A": "The test suite has a bug — if 15 tests pass, the design must be correct",
-        "B": "The tests verify structural properties (truisms) but none check whether the codon choices are actually optimized",
+        "B": "The tests verify structural properties, but none check whether the codon choices are actually optimized",
         "C": "Rare codons are acceptable because the sequence is still valid DNA",
         "D": "The colleague's observation is irrelevant because automated tests are the gold standard"
       },
       "answer": "B",
-      "explanation": "All 15 tests are truisms — they check properties that any valid CDS would\nhave, regardless of whether the codons are well-chosen. A function that\nsimply uses the rarest codon for every amino acid would pass every one of\nthese tests while producing DNA that expresses poorly. The missing tests\nwould use either a validated example (a gene known to express well) or a\nchecker like CAIChecker that encodes the domain knowledge about codon\noptimality. A passing test suite only proves the design satisfies the\nproperties being tested, not that it is biologically correct. Option A\nconflates test passage with correctness. Option C ignores the purpose\nof codon optimization. Option D misunderstands the role of testing.\n"
+      "explanation": "The tests described are mostly structural checks (truisms). They confirm\nthat the output looks like a CDS, but they do not test the biological goal\nof codon optimization. A sequence can be valid DNA and still be a poor\ndesign for expression. This is why optimization tasks need domain-aware\ntests, such as validated examples or checkers that score codon usage.\n"
     },
     {
       "slug": "algorithm-test-shared-knowledge",
@@ -834,7 +834,7 @@
         "D": "Student A's test is actually better because it does not assume specific outputs"
       },
       "answer": "B",
-      "explanation": "To write Student B's tests, you must understand which sequences form\nhairpins and which do not — the same thermodynamic knowledge the algorithm\nitself encodes. Selecting an input where you independently know the answer\nrequires domain expertise, and that is what makes the test meaningful. If\nyou do not understand the biology, you cannot construct test cases that\ndistinguish a correct algorithm from a broken one. Student A's test checks\nonly the output type, which requires no understanding of hairpins at all\nand would pass even if the function returned random booleans. Option A\nconfuses quantity of assertions with domain depth. Option C equates line\ncount with quality. Option D confuses generality with strength.\n"
+      "explanation": "Student B must know which sequences are expected to form hairpins and which\nare not. That requires domain knowledge about sequence self-complementarity\nand secondary structure, not just Python syntax. That same domain knowledge\nis what makes the test informative rather than superficial.\n"
     },
     {
       "slug": "benchmarking-all-inputs",
@@ -848,7 +848,7 @@
         "D": "The proteome test is overfitting to E. coli and does not generalize"
       },
       "answer": "B",
-      "explanation": "Hand-picked test cases reflect the author's assumptions about what inputs\nare interesting. The 12 failing genes likely contain amino acid patterns,\nrepeated motifs, or unusual subsequences the developer did not anticipate.\nRunning on the entire proteome is a form of exhaustive benchmarking that\nexposes failures no reasonable set of hand-picked cases would cover. This\nis why the lecture emphasizes benchmarking on all possible inputs when the\ninput space is finite and enumerable. Option A focuses on a single\ndimension (length) when the real issue is input diversity. Option C\nassumes coverage can be measured by count alone. Option D confuses testing\nthoroughness with generalization — the function is designed for E. coli,\nso testing on its proteome is exactly right."
+      "explanation": "Hand-picked tests reflect what the author thought to try. The 12 failing\ngenes likely contain sequence patterns the smaller test set did not cover.\nBroad benchmarking across the full proteome exposes edge cases and failure\nmodes that are easy to miss with a few examples, even when those examples\nlook diverse."
     }
   ],
   "schemas_identity_and_serialization": [

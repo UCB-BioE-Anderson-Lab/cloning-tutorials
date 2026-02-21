@@ -1,3 +1,5 @@
+
+
 ---
 slug: return-vs-print-in-design
 difficulty: medium
@@ -16,7 +18,7 @@ question: |
   result = translate('ATGAAATAA', genetic_code)
   </python>
 
-  They then try to check if the protein starts with methionine:
+  They then try to check whether the protein starts with methionine:
 
   <python>
   result.startswith('M')
@@ -30,12 +32,12 @@ choices:
   D: NameError — protein is not accessible outside the function
 answer: B
 explanation: |
-  The function uses print() instead of return, so it displays the protein
-  to the console but returns None by default. Calling .startswith() on None
-  raises an AttributeError. Option A would be correct if the function used
-  return instead of print. Option C invents a conversion that print does not
-  perform. Option D describes a real scoping fact — protein is local — but
-  the immediate error is the None return, not a NameError.
+  The function uses <python>print()</python> instead of <python>return</python>,
+  so it displays the protein but returns <python>None</python> by default.
+  Calling <python>.startswith()</python> on <python>None</python> raises an
+  AttributeError. Option A would be correct if the function returned the
+  protein string. Option D states a true scoping fact (<python>protein</python>
+  is local), but that is not the immediate error in the code shown.
 
 ---
 slug: local-scope-isolation
@@ -57,7 +59,7 @@ question: |
   print(gc_count)
   </python>
 
-  What happens when print(gc_count) executes?
+  What happens when <python>print(gc_count)</python> executes?
 choices:
   A: Prints 4 — gc_count was computed inside the function
   B: Prints 0 — gc_count is reset after the function returns
@@ -65,13 +67,12 @@ choices:
   D: Prints 0.667 — gc_count holds the fraction, not the count
 answer: C
 explanation: |
-  Variables created inside a function are local to that function. They exist
-  only while the function is executing and are not visible to the caller.
-  The function correctly computes gc_count = 4 and returns 0.667, but
-  gc_count itself is not accessible outside. Option A assumes local variables
-  leak into the caller's namespace. Option B invents a reset mechanism.
-  Option D confuses gc_count with fraction. The caller must use the returned
-  value (result) to access the computation's output.
+  Variables created inside a function are local to that function unless they
+  are explicitly returned or otherwise exposed. <python>gc_count</python>
+  exists only inside <python>gc_content()</python>, so the caller cannot read
+  it directly. The function returns the fraction (stored in
+  <python>result</python>), but <python>gc_count</python> itself is out of
+  scope in the caller.
 
 ---
 slug: default-argument-override
@@ -93,7 +94,7 @@ question: |
   c = find_targets(genome_seq, 'NNGRRT')
   </python>
 
-  Which calls use the Cas9 PAM <pre>NGG</pre> and which use <pre>NNGRRT</pre>?
+  Which calls use <pre>NGG</pre> and which use <pre>NNGRRT</pre>?
 choices:
   A: a and b use 'NGG'; c uses 'NNGRRT'
   B: Only b uses 'NGG'; a uses None because no argument was provided
@@ -101,13 +102,11 @@ choices:
   D: a uses 'NGG'; b and c both raise errors for passing a second argument
 answer: A
 explanation: |
-  When no argument is provided for pam, the default 'NGG' is used (call a).
-  Passing 'NGG' explicitly (call b) has the same effect. Passing 'NNGRRT'
-  (call c) overrides the default with the Cas12a/SaCas9 PAM. Option B
-  confuses default values with None — the default is 'NGG', not the absence
-  of a value. Option C claims defaults are locked. Option D invents a
-  restriction on passing optional arguments. Default arguments let a function
-  serve the common case (Cas9) while remaining flexible for alternatives.
+  In call <python>a</python>, no PAM is provided, so the default
+  <pre>NGG</pre> is used. Call <python>b</python> passes <pre>NGG</pre>
+  explicitly, so it has the same effect. Call <python>c</python> passes
+  <pre>NNGRRT</pre>, which overrides the default. Default arguments provide a
+  convenient common case while still allowing callers to supply alternatives.
 
 ---
 slug: pure-function-no-side-effects
@@ -139,13 +138,12 @@ choices:
   D: Version A returns a different result each time it is called
 answer: A
 explanation: |
-  Version A modifies the global complement_table every time it is called,
-  which is a side effect. Pure functions like Version B depend only on their
-  inputs and produce only their return value. This makes Version B easier
-  to test, compose, and parallelize — you never need to worry about hidden
-  state changes. Option B invents a performance issue. Option C is wrong
-  because neither handles lowercase. Option D is wrong because A returns the
-  same result — it just also mutates external state, which is the problem.
+  Version A mutates the external dict <python>complement_table</python> on
+  every call, which is a side effect. Version B depends only on its input and
+  produces only a return value. That makes Version B easier to test, reason
+  about, and safely compose with other functions. Both versions return the
+  same reverse complement for the same input, but only Version B avoids hidden
+  state changes.
 
 ---
 slug: function-as-reusable-unit
@@ -188,14 +186,13 @@ choices:
     </python>
 answer: A
 explanation: |
-  Option A takes both the sequence and the site as parameters, checks the
-  site and its reverse complement, and returns a boolean. This works for any
-  restriction site on any sequence. Option B hardcodes specific sites, so it
-  is not reusable for other enzymes. Option C captures the site parameter
-  but relies on cds from the outer scope — it is not self-contained and
-  breaks if called from a different context. Option D is trivially useless.
-  The key insight is that a well-designed function parameterizes everything
-  that varies across use cases.
+  Option A parameterizes both things that vary: the sequence being checked
+  and the restriction site of interest. It also handles the reverse
+  complement, which is part of the repeated logic. Option B hardcodes
+  specific sites, so it is not reusable. Option C relies on
+  <python>cds</python> from outer scope instead of taking the sequence as an
+  argument, making the function less reusable and harder to test. Option D
+  does not implement the required logic.
 
 ---
 slug: initiate-run-lifecycle
@@ -225,14 +222,12 @@ choices:
   D: TypeError — run cannot be called on an uninitialized object
 answer: B
 explanation: |
-  The initiate method loads proteomics data, parses TSV files, and builds
-  internal lookup tables. The run method assumes those data structures exist
-  and accesses them directly. Skipping initiate means those attributes were
-  never created, so run crashes when it tries to use them. Option A invents
-  lazy loading that was not implemented. Option C assumes graceful handling.
-  Option D invents a type-level restriction. The two-phase pattern separates
-  expensive one-time setup from repeated per-query execution — but the caller
-  must honor the contract by calling initiate before run.
+  In this pattern, <python>initiate()</python> performs one-time setup and
+  creates internal data structures that <python>run()</python> expects to use.
+  If setup is skipped, <python>run()</python> is likely to access missing
+  attributes or missing keys and fail with an AttributeError or KeyError.
+  The key idea is that the caller must honor the object's lifecycle contract:
+  initialize first, then run queries.
 
 ---
 slug: mutable-default-argument-trap
@@ -258,15 +253,12 @@ choices:
   D: "['GGTCTC', 'GAATTC'] — the list prepends new entries"
 answer: B
 explanation: |
-  In Python, default mutable arguments are created once when the function is
-  defined, not on each call. Both calls share the same list object, so the
-  first call adds 'GAATTC' and the second adds 'GGTCTC' to that same list.
-  This is a well-known Python pitfall. Option A describes the expected
-  behavior if a new list were created each call — the fix is to use
-  sites=None and create the list inside the function body. Option C is wrong
-  because lists are valid defaults (just dangerous). Option D invents
-  prepend behavior. In design code, this bug would cause forbidden sites
-  from one gene design to silently carry over to the next.
+  The default list is created once when the function is defined, not each
+  time the function is called. Both calls therefore use the same list object.
+  After the first call it contains <pre>GAATTC</pre>, and after the second it
+  contains <pre>GAATTC</pre> and <pre>GGTCTC</pre>. The standard fix is to use
+  <python>sites=None</python> and create a new list inside the function when
+  needed.
 
 ---
 slug: class-attribute-vs-instance-attribute
@@ -296,14 +288,12 @@ choices:
   D: designer_a.protein_seq and designer_b.protein_seq refer to the same string
 answer: A
 explanation: |
-  Class attributes are shared across all instances — designer_a.checkers and
-  designer_b.checkers refer to the same list. Instance attributes assigned
-  in __init__ are unique to each object, so the protein sequences differ.
-  Option B is wrong because class attributes are shared, not copied.
-  Option C is wrong because instances can access class attributes through
-  normal dot notation. Option D is wrong because protein_seq is assigned
-  per-instance. The checkers are shared because all designers use the same
-  validation pipeline, while each design works on a different protein.
+  <python>checkers</python> is a class attribute, so it is shared across all
+  instances unless shadowed on a specific instance. By contrast,
+  <python>self.protein_seq</python> is assigned in <python>__init__</python>,
+  so each instance gets its own value. This is a common pattern: shared
+  configuration at the class level and per-object state at the instance
+  level.
 
 ---
 slug: argument-order-and-keyword-args
@@ -334,14 +324,13 @@ choices:
   D: None — Python accepts arguments in any order
 answer: A
 explanation: |
-  Python requires all positional arguments to come before keyword arguments
-  in a function call. Call c passes min_length=20 as a keyword then 55.0 as
-  a positional argument, which violates this rule and raises SyntaxError.
-  Call a uses all positional arguments in order — valid. Call b mixes
-  positional and keyword but keywords come last — valid. Call d uses all
-  keyword arguments, which can appear in any order — valid. This matters
-  in design code where functions have many parameters: keyword arguments
-  make calls self-documenting and order-independent.
+  In a function call, positional arguments must come before keyword
+  arguments. Call <python>c</python> violates that rule by placing
+  <python>55.0</python> after the keyword argument
+  <python>min_length=20</python>. Calls <python>a</python> and
+  <python>b</python> are valid, and call <python>d</python> is also valid
+  because all arguments are passed by keyword (keyword order does not have to
+  match the parameter order).
 
 ---
 slug: function-composition-pipeline
@@ -390,12 +379,9 @@ choices:
   D: They produce different results because nested calls change the evaluation order
 answer: A
 explanation: |
-  Both approaches call the same three functions in the same order with the
-  same arguments. The first stores intermediate results in named variables;
-  the second nests the calls so each return value is passed directly as an
-  argument to the next outer function. Python evaluates innermost calls
-  first, so reverse_translate runs first, then optimize_codons, then
-  remove_forbidden_sites — the identical pipeline. Option B invents a
-  performance difference. Option C misreads the nesting. Option D
-  misunderstands evaluation order. Named intermediates are often clearer
-  for debugging, but the result is the same.
+  Both versions call the same functions in the same logical order with the
+  same inputs. The nested form simply passes each return value directly into
+  the next function call instead of storing intermediate variables. Python
+  evaluates the innermost call first, so the data flow is the same in both
+  versions. Named intermediate variables are often easier to inspect while
+  debugging, but the final result is the same.

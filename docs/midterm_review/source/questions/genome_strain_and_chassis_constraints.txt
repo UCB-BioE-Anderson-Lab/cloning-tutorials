@@ -1,288 +1,281 @@
+
+
 ---
 slug: strain-vs-genotype-distinction
 difficulty: medium
-topic: Distinguishing between a population-level identity and the specific genetic changes that define it
+topic: Distinguishing between a strain name, the living cell population it refers to, and the genotype that describes it
 question: |
-  A lab maintains a freezer stock labeled "Mach1." A new student asks
-  whether "Mach1" refers to the specific mutations (recA1398, endA1, etc.)
-  or to the population of cells in the tube.
+  A lab maintains a freezer stock labeled "Mach1." A new student asks whether
+  "Mach1" refers to the specific mutations (recA1398, endA1, etc.) or to the
+  population of cells in the tube.
 
   Which answer is most precise?
 choices:
-  A: Mach1 is the genotype — it lists every mutation present in the cells
-  B: Mach1 is a strain — a genetically homogeneous population derived from a single cell; the genotype is the list of mutations that distinguish it from its parent
-  C: Mach1 is a phenotype — it describes what the cells can do, not what DNA they carry
-  D: Mach1 is a composition — it specifies what proteins should be present
+  A: Mach1 is the genotype because it lists every mutation present in the cells
+  B: Mach1 is a strain, a genetically homogeneous population derived from a single cell; the genotype is the list of mutations that distinguish it from its parent
+  C: Mach1 is a phenotype because it describes what the cells can do, not what DNA they carry
+  D: Mach1 is a composition because it specifies what proteins should be present
 answer: B
 explanation: |
   A strain is a population-level concept: a genetically uniform group of cells
-  traced back to a single colony. The genotype is the specific set of genetic
-  changes (expressed as deltas from a parent strain) that characterize that
-  population. Option A conflates the two — the name "Mach1" identifies the
-  strain, not the genotype itself. Option C confuses genotype with phenotype.
-  Option D confuses strain with composition, which is an abstract design
-  specification rather than a living population.
+  traced to a single colony (or clone). The genotype is the set of genetic
+  differences, usually described relative to a parent strain, that characterizes
+  that strain.
+
+  Option A conflates the strain name with the genotype description. Option C
+  confuses genotype with phenotype. Option D confuses a living biological strain
+  with an abstract design specification.
 
 ---
 slug: composition-specifies-vs-leaves-open
 difficulty: medium
-topic: Identifying what an abstract specification commits to and what it deliberately leaves unresolved
+topic: Identifying what an abstract biological specification commits to and what it leaves unresolved
 question: |
   A Composition for a biosynthetic pathway specifies:
   - Host: E. coli
   - Proteins: LuxA, LuxB, LuxC, LuxD, LuxE
 
-  A student assumes this Composition also determines the promoter
-  driving each gene and whether the genes are on a plasmid or integrated
-  into the chromosome. Is the student correct?
+  A student assumes this Composition also determines the promoter driving each
+  gene and whether the genes are on a plasmid or integrated into the chromosome.
+  Is the student correct?
 choices:
-  A: Yes — a Composition must specify all implementation details to be useful
-  B: No — a Composition specifies the chassis and protein sequences but deliberately leaves expression level, regulatory elements, codon usage, and genomic vs plasmid unspecified
-  C: No — a Composition specifies only the DNA sequence, not the proteins
-  D: Yes — the host choice automatically determines promoters and gene location
+  A: Yes, because a Composition must specify all implementation details to be useful
+  B: No, because a Composition specifies the chassis and target proteins but deliberately leaves expression level, regulatory elements, codon usage, and genomic vs plasmid implementation unspecified
+  C: No, because a Composition specifies only the DNA sequence, not the proteins
+  D: Yes, because the host choice automatically determines promoters and gene location
 answer: B
 explanation: |
-  A Composition is an abstract specification: it commits to what proteins
-  should be present in which host, but intentionally does not dictate how
-  those proteins are expressed. Regulatory elements, codon usage, expression
-  levels, and whether genes live on a plasmid or the chromosome are all
-  implementation decisions made later. This separation allows the same
-  Composition to be realized in many different ways. Option A confuses an
-  abstract spec with a complete build plan. Option C inverts the abstraction
-  level — Composition specifies proteins, not DNA. Option D incorrectly
-  assumes that choosing a host resolves all downstream decisions.
+  A Composition is an abstract specification. It commits to what should be
+  present (for example, host and protein identities) but intentionally leaves
+  open many implementation decisions such as promoters, RBSs, copy number,
+  codon usage, and whether the build is plasmid-borne or chromosomally
+  integrated.
+
+  This separation is useful because the same Composition can be implemented in
+  multiple ways. Option A confuses an abstract specification with a complete
+  build plan. Option C reverses the abstraction level. Option D incorrectly
+  assumes host choice determines all downstream design choices.
 
 ---
 slug: genotype-as-delta-from-parent
 difficulty: medium
-topic: Understanding why genetic descriptions use relative changes from a reference rather than absolute sequences
+topic: Understanding why genotype descriptions emphasize changes relative to a parent strain
 question: |
   The genotype of Mach1 is written as:
 
-  <pre>str. W  deltarecA1398 endA1 fhuA phi80delta(lac)M15 delta(lac)X74 hsdR(rK- mK+)</pre>
+  <pre>str. W deltarecA1398 endA1 fhuA phi80delta(lac)M15 delta(lac)X74 hsdR(rK- mK+)</pre>
 
-  A student argues it would be simpler to just store the complete genome
-  sequence instead of these cryptic delta annotations. What is the main
-  reason genotypes are expressed as deltas from a parent strain?
+  A student argues it would be simpler to store the complete genome sequence
+  instead of these cryptic delta annotations. What is the main reason genotypes
+  are often expressed as changes from a parent strain?
 choices:
-  A: Delta notation compresses the file size so it fits in a database field
-  B: Deltas highlight what was intentionally changed, making it clear which mutations confer which properties — a full genome hides that information in millions of irrelevant bases
-  C: The complete genome of E. coli is unknown, so deltas are the only option
-  D: Delta notation is required by law for genetically modified organisms
+  A: Delta notation is mainly used to reduce file size so the genotype fits in a database field
+  B: Relative notation highlights the mutations that matter for strain behavior, while a full genome sequence hides those differences among millions of unchanged bases
+  C: The complete genome of E. coli is unknown, so delta notation is the only option
+  D: Delta notation is legally required for genetically modified organisms
 answer: B
 explanation: |
-  The delta notation serves a cognitive and informational purpose: it tells
-  you exactly which mutations distinguish this strain from its parent and
-  therefore which properties were engineered or selected for. A full genome
-  sequence contains millions of bases, and the handful of meaningful changes
-  would be invisible without comparison. The same principle applies in
-  software version control — a diff is more informative than two complete
-  snapshots. Option A treats it as a storage optimization, missing the
-  semantic point. Option C is factually wrong — E. coli genomes are well
-  sequenced. Option D is fabricated.
+  Relative genotype notation is useful because it emphasizes the changes that
+  distinguish the strain from its parent and often explain its engineering
+  properties. A complete genome sequence contains far more information than is
+  usually needed for routine strain identity and engineering context, and the
+  few relevant differences are hard to spot without a comparison.
+
+  Option A treats the notation as a storage trick rather than an information and
+  interpretation tool. Option C is false. Option D is fabricated.
 
 ---
 slug: antibiotic-selection-compatibility
 difficulty: medium
-topic: Reasoning about why a selection system requires a specific relationship between host and vector properties
+topic: Reasoning about why antibiotic selection depends on compatibility between host background and vector marker
 question: |
-  A researcher wants to transform a plasmid carrying a kanamycin resistance
-  gene (KanR) into a strain that already has a chromosomal KanR insertion
-  from a previous engineering step. They plan to select transformants on
-  kanamycin plates.
+  A researcher wants to transform a plasmid carrying a kanamycin resistance gene
+  (KanR) into a strain that already has a chromosomal KanR insertion from a
+  previous engineering step. They plan to select transformants on kanamycin
+  plates.
 
   What is wrong with this plan?
 choices:
-  A: Nothing — more copies of KanR will make colonies grow faster, distinguishing transformants
-  B: The strain already survives on kanamycin, so both transformants and non-transformants form colonies — the selection cannot distinguish them
-  C: Two copies of KanR will be lethal to the cells due to overexpression toxicity
-  D: Kanamycin resistance only works when carried on a plasmid, not on the chromosome
+  A: Nothing, because extra copies of KanR will make transformants grow much faster than non-transformants
+  B: The host already survives on kanamycin, so both transformants and non-transformants form colonies and the selection cannot distinguish them
+  C: Two copies of KanR are generally lethal because resistance genes are highly toxic when overexpressed
+  D: Kanamycin resistance works only from plasmids, not from chromosomal insertions
 answer: B
 explanation: |
-  Antibiotic selection works by killing cells that lack the resistance gene.
-  If the host strain already carries KanR chromosomally, all cells survive
-  on kanamycin plates regardless of whether they took up the plasmid. The
-  selection has no power to distinguish transformed from untransformed cells.
-  The fix is to use a plasmid with a different resistance marker that the
-  strain does not already carry. Option A misunderstands selection — growth
-  rate differences are not reliable enough. Option C invents a toxicity
-  that does not generally occur. Option D is factually wrong — chromosomal
-  resistance genes function normally.
+  Antibiotic selection works only if cells lacking the plasmid are sensitive to
+  the antibiotic. If the host strain already carries a functional chromosomal
+  KanR gene, untransformed cells also survive on kanamycin, so the plate no
+  longer selects for plasmid uptake.
+
+  The practical fix is to use a different selectable marker that the host does
+  not already carry. Option A misunderstands the purpose of selection. Option C
+  is not generally true. Option D is factually incorrect.
 
 ---
 slug: same-composition-different-genotypes
 difficulty: medium
-topic: Understanding how an abstract specification can be realized as multiple distinct concrete implementations
+topic: Understanding how one abstract specification can be implemented by multiple distinct genotypes
 question: |
   Two labs independently implement the same Composition:
   - Host: E. coli
   - Proteins: GFP, LacI
 
   Lab A puts both genes on a high-copy plasmid with strong promoters.
-  Lab B integrates both genes into the chromosome under weak promoters
-  with codon optimization for E. coli.
+  Lab B integrates both genes into the chromosome under weak promoters with
+  codon optimization for E. coli.
 
-  Both labs have cells expressing GFP and LacI. How do their results
-  relate to the Composition?
+  Both labs produce cells that express GFP and LacI. How do their results relate
+  to the Composition?
 choices:
-  A: Only Lab A correctly implements the Composition because plasmids are the standard method
-  B: Neither lab implements the Composition because they used different strategies
-  C: Both satisfy the Composition — it specifies which proteins must be present, not how they are expressed — but they have different genotypes and likely different phenotypes
+  A: Only Lab A implements the Composition correctly because plasmids are the standard method
+  B: Neither lab implements the Composition because they used different engineering strategies
+  C: Both satisfy the Composition, but they created different genotypes and likely different phenotypes
   D: Both have the same genotype because they started from the same Composition
 answer: C
 explanation: |
-  A Composition specifies what (which proteins in which host) but not how
-  (regulatory elements, copy number, codon usage, genomic location). Both
-  labs satisfy the abstract specification, but they made different
-  implementation choices, resulting in different genotypes (different DNA
-  sequences and genome architectures) and likely different phenotypes
-  (different expression levels, growth rates, metabolic burden). This is
-  the key distinction between abstract specification and concrete
-  implementation. Option A invents a preference the Composition does not
-  encode. Option B misunderstands what satisfying a spec means. Option D
-  confuses Composition with genotype.
+  A Composition specifies what is required at a high level (here, host and
+  protein identities), not the detailed implementation strategy. Both labs can
+  satisfy the same Composition while making different choices about promoter
+  strength, copy number, codon usage, and genomic location.
+
+  Those choices produce different DNA architectures and therefore different
+  genotypes, and they often produce different phenotypes such as expression
+  level, growth rate, and burden. Option A inserts a preference not stated by
+  the Composition. Option B misunderstands what it means to satisfy a spec.
+  Option D confuses abstract specification with concrete genotype.
 
 ---
 slug: chassis-constrains-design
 difficulty: medium
-topic: Reasoning about how the choice of host organism constrains which design elements are valid
+topic: Reasoning about how chassis choice constrains which regulatory elements and expression mechanisms are valid
 question: |
   A researcher designs a gene expression cassette using an E. coli sigma-70
-  promoter and a strong E. coli ribosome binding site. They then attempt to
-  move this cassette into Saccharomyces cerevisiae (yeast) without any
-  modifications.
+  promoter and a strong E. coli ribosome binding site. They then move the same
+  cassette into Saccharomyces cerevisiae (yeast) without any modifications.
 
   What is most likely to happen?
 choices:
-  A: The gene will express normally — promoters and RBS sequences are universal across all organisms
-  B: The gene will express at a lower level due to codon usage differences, but the promoter and RBS will function
-  C: The gene will likely fail to express — yeast does not recognize bacterial sigma-70 promoters or Shine-Dalgarno-based RBS elements
-  D: The gene will express but produce a non-functional protein because yeast ribosomes translate faster
+  A: The gene will express normally because promoters and RBS sequences are universal across organisms
+  B: The gene will express at a lower level due to codon usage differences, but the bacterial promoter and RBS will still function
+  C: The gene will likely fail to express because yeast does not use bacterial sigma-70 promoters or Shine-Dalgarno-based translation initiation
+  D: The gene will express but produce a nonfunctional protein because yeast ribosomes translate too fast
 answer: C
 explanation: |
-  Transcription and translation machinery differ fundamentally between
-  bacteria and eukaryotes. Yeast RNA polymerase does not recognize bacterial
-  sigma-70 promoters, and yeast ribosomes do not use Shine-Dalgarno
-  sequences for translation initiation. The cassette would need a yeast-
-  compatible promoter (e.g., GAL1), a Kozak-like context for translation
-  initiation, and potentially intron removal if the gene were from a
-  eukaryotic source. The chassis choice constrains which regulatory elements
-  are valid. Option A falsely assumes universality. Option B underestimates
-  the problem — it is not just codon usage. Option D invents an incorrect
-  mechanism.
+  Chassis choice constrains what regulatory parts are valid. Yeast and bacteria
+  use different transcription and translation initiation machinery. Yeast RNA
+  polymerase does not recognize bacterial sigma-70 promoters, and yeast
+  translation initiation does not rely on bacterial Shine-Dalgarno pairing.
+
+  A yeast-compatible implementation would require yeast regulatory elements,
+  including an appropriate promoter and translation initiation context. Option A
+  assumes universality that does not exist. Option B underestimates the problem.
+  Option D proposes an incorrect mechanism.
 
 ---
 slug: what-makes-a-strain-engineerable
 difficulty: medium
-topic: Identifying which genetic features of a host strain facilitate routine molecular cloning work
+topic: Identifying host strain features that improve routine plasmid cloning and DNA handling
 question: |
   Mach1 carries several mutations including recA1398 (defective
   recombination), endA1 (defective endonuclease), and hsdR(rK- mK+)
-  (does not restrict foreign DNA but does methylate it).
+  (does not restrict incoming DNA but still methylates DNA).
 
   Why are these mutations helpful for plasmid-based genetic engineering,
-  as opposed to being random changes?
+  rather than being random changes?
 choices:
-  A: They increase the growth rate of the bacteria, making experiments faster
-  B: They each remove a host defense system that would otherwise destroy or rearrange incoming DNA — recA prevents recombination of repeats, endA prevents nuclease degradation, and hsdR- prevents restriction of unmethylated DNA
-  C: They are auxotrophic markers that allow selection on minimal media
-  D: They enable the cells to survive at higher temperatures for heat-shock transformation
+  A: They primarily increase growth rate, which is the main goal of cloning strains
+  B: They reduce host activities that would otherwise rearrange, degrade, or restrict foreign DNA
+  C: They are auxotrophic markers used for selection on minimal media
+  D: They allow cells to survive higher temperatures during heat shock
 answer: B
 explanation: |
-  Each mutation in a cloning strain like Mach1 is chosen to disable a
-  specific host defense that would interfere with maintaining foreign DNA.
-  recA1398 prevents RecA-mediated recombination that could rearrange
-  repetitive sequences on plasmids. endA1 eliminates an endonuclease that
-  degrades plasmid DNA during miniprep extraction. hsdR(rK- mK+) prevents
-  the restriction system from cutting incoming unmethylated DNA while still
-  methylating DNA for protection. These are deliberate engineering choices,
-  not random mutations. Option A is not the primary purpose. Option C
-  confuses cloning mutations with nutritional markers. Option D confuses
-  strain genotype with transformation protocol.
+  Cloning strains are engineered to make foreign DNA easier to introduce,
+  maintain, and recover. In this example, recA defects reduce homologous
+  recombination that can rearrange repeated sequences, endA1 improves plasmid DNA
+  quality by reducing nuclease activity, and hsdR defects reduce restriction of
+  incoming DNA.
+
+  These are deliberate engineering traits for molecular cloning workflows.
+  Option A is not the main purpose. Option C confuses cloning-strain features
+  with nutritional markers. Option D confuses genotype with protocol details.
 
 ---
 slug: genotype-tokens-and-dna-changes
 difficulty: medium
-topic: Interpreting genotype notation tokens and connecting each token to a specific physical change in the DNA
+topic: Interpreting genotype notation tokens and connecting notation to physical DNA changes
 question: |
-  A genotype includes the token "delta(lac)X74". A student interprets
-  this as meaning the lac operon is overexpressed because "delta" sounds
-  like it could mean "enhanced."
+  A genotype includes the token "delta(lac)X74." A student interprets this as
+  meaning the lac region is overexpressed because "delta" sounds like it could
+  mean "enhanced."
 
-  What does the delta symbol actually indicate in genotype notation,
-  and what is the physical consequence?
+  What does the delta symbol indicate in genotype notation, and what is the
+  physical consequence?
 choices:
-  A: Delta means the gene is duplicated, so there are two copies of the lac operon
-  B: Delta means a deletion — the lacX74 region has been physically removed from the chromosome, so the strain cannot metabolize lactose via that pathway
-  C: Delta means the gene has been moved to a different chromosomal location
-  D: Delta means the gene is under a different promoter than the wild-type version
+  A: Delta means duplication, so there are two copies of the lac region
+  B: Delta means deletion, so the designated lac region has been physically removed from the chromosome
+  C: Delta means translocation, so the lac region moved to a different chromosomal location
+  D: Delta means promoter replacement, so lac is now controlled by a different promoter
 answer: B
 explanation: |
-  In standard genotype notation, the Greek letter delta (or the word
-  "delta") denotes a deletion. delta(lac)X74 means a specific deletion
-  (designated X74) has removed part of the lac operon from the chromosome.
-  The physical consequence is that the deleted DNA is gone — the strain
-  lacks the corresponding gene products. This is important for blue-white
-  screening strains where the chromosomal lacZ is deleted and complemented
-  by a partial copy on a plasmid. Option A invents a meaning for delta.
-  Option C describes a translocation, not a deletion. Option D describes
-  a promoter swap, which would use different notation.
+  In genotype notation, delta denotes a deletion. The named region has been
+  removed from the chromosome, so the strain lacks that DNA segment and cannot
+  produce whatever gene products depend on the deleted sequence.
+
+  Option A invents a meaning for delta. Option C describes a translocation, not
+  a deletion. Option D describes a regulatory edit that would be represented
+  with different notation.
 
 ---
 slug: context-changes-design-outcomes
 difficulty: medium
-topic: Reasoning about why the same genetic part produces different results in different genomic contexts
+topic: Reasoning about how the same cassette can produce different outcomes in different genomic contexts
 question: |
-  A researcher characterizes a promoter-RBS-GFP cassette on a high-copy
-  plasmid (~100 copies per cell) in E. coli strain DH10B and measures
-  strong fluorescence. They then integrate the identical cassette as a
-  single chromosomal copy in the same strain. Fluorescence drops by
-  roughly 100-fold.
+  A researcher characterizes a promoter-RBS-GFP cassette on a high-copy plasmid
+  (about 100 copies per cell) in E. coli strain DH10B and measures strong
+  fluorescence. They then integrate the identical cassette as a single
+  chromosomal copy in the same strain. Fluorescence drops by about 100-fold.
 
   What is the best explanation?
 choices:
-  A: The chromosomal DNA polymerase introduces mutations into the GFP gene during integration
-  B: Gene expression is proportional to gene copy number — a single chromosomal copy produces far less total mRNA and protein than ~100 plasmid copies
-  C: Chromosomal DNA cannot be transcribed by RNA polymerase
-  D: The promoter only functions when it is on a circular plasmid, not on a linear chromosome
+  A: Integration usually mutates the GFP coding sequence, so fluorescence drops because the protein is damaged
+  B: Gene copy number changed from about 100 templates to one, so total mRNA and protein output per cell drops substantially
+  C: Chromosomal DNA cannot be transcribed efficiently by RNA polymerase
+  D: The promoter works only on circular plasmids and not in the chromosome
 answer: B
 explanation: |
-  Expression output depends on context, and gene copy number is a major
-  contextual variable. A high-copy plasmid provides roughly 100 templates
-  for transcription per cell, while a single chromosomal insertion provides
-  only one. With proportionally less mRNA produced, protein levels drop
-  accordingly. This illustrates why Composition (which does not specify
-  copy number or location) is distinct from genotype — the same gene
-  in a different context produces a very different phenotype. Option A
-  is unlikely for a standard integration method. Option C is false —
-  chromosomal genes are transcribed normally. Option D is false — promoters
-  function regardless of DNA topology.
+  The cassette sequence is the same, but the genomic context changed. Copy number
+  is a major contextual variable. A high-copy plasmid provides many templates for
+  transcription, while a single chromosomal insertion provides only one. With far
+  fewer transcription templates, total mRNA and protein output usually drops.
+
+  This is a core example of why identical parts can produce different phenotypes
+  in different contexts. Option A is not the expected explanation. Option C is
+  false. Option D is false.
 
 ---
 slug: dna-string-vs-composition-information
 difficulty: medium
-topic: Identifying what semantic information is lost when a biological design is reduced to a raw sequence string
+topic: Identifying what semantic design information is missing from a raw DNA sequence string
 question: |
-  A collaborator sends you a 3,000 bp DNA string with no other annotation.
-  You know it encodes a gene, but you don't know what organism it came from
-  or how it should be used. Compared to receiving a Composition object that
-  specifies "Host: E. coli, Protein: LuxA", what information are you
-  missing from the raw DNA string alone?
+  A collaborator sends you a 3,000 bp DNA string with no annotation. You know it
+  encodes a gene, but you do not know what organism it was designed for or how it
+  should be used. Compared to receiving a Composition object that specifies
+  "Host: E. coli, Protein: LuxA", what information are you missing from the raw
+  DNA string alone?
 choices:
-  A: Nothing is missing — the DNA string contains all necessary information because you can derive the protein from the sequence
-  B: You are missing the host organism, the intended protein identity, and whether it should be on a plasmid or chromosome — information a Composition explicitly provides or that a Composition paired with design context would supply
-  C: You are missing only the host organism — the protein sequence can be derived by translating all six reading frames
-  D: The DNA string actually contains more information than the Composition because it specifies codon usage and regulatory elements
+  A: Nothing, because the DNA string contains all necessary information if you translate it
+  B: You are missing high-level intent and context such as the intended host and protein identity, and you also do not know the intended implementation context from sequence alone
+  C: You are missing only the host organism, because the correct protein can always be recovered by translating all six reading frames
+  D: A raw DNA string contains strictly more useful information than a Composition, so nothing important is missing
 answer: B
 explanation: |
-  A raw DNA string lacks semantic context. You cannot determine from the
-  sequence alone which organism it was designed for, what protein it is
-  intended to encode (without knowing the correct reading frame and start
-  site), or where it belongs in a build plan. A Composition provides the
-  host and target protein identities explicitly. Conversely, option D is
-  partially true — the DNA does encode codon choices and regulatory
-  elements that Composition leaves open — but the question asks what you
-  are *missing*, and the answer is the higher-level intent and context.
-  Option A is wrong because translating a sequence requires knowing where
-  the CDS starts. Option C understates the problem — even finding the
-  right ORF among six frames requires additional context.
+  A raw DNA string contains sequence-level information, but it does not encode the
+  intended design semantics in a directly interpretable way. Without annotation or
+  additional context, you may not know the intended host, the intended protein
+  identity, the correct coding frame and start site, or how the sequence fits into
+  a larger design plan.
+
+  A Composition explicitly provides high-level design intent such as host and
+  target protein identity. Option A and C overstate what can be inferred from a
+  bare sequence alone. Option D misses the distinction between low-level sequence
+  detail and high-level design meaning.

@@ -1,0 +1,329 @@
+
+
+---
+slug: tracing-a-loop-over-sequence
+difficulty: medium
+topic: Tracing a for loop step-by-step to predict what it builds from sequential data
+question: |
+  A function translates a DNA coding sequence one codon at a time:
+
+  <python>
+  genetic_code = {'ATG': 'M', 'AAA': 'K', 'GGT': 'G', 'TAA': '*'}
+  cds = 'ATGAAAGGT'
+  protein = ''
+  for i in range(0, len(cds), 3):
+      codon = cds[i:i+3]
+      protein += genetic_code[codon]
+  </python>
+
+  What is the value of protein after the loop finishes?
+choices:
+  A: 'MKG'
+  B: 'ATGAAAGGT'
+  C: 'M'
+  D: KeyError is raised
+answer: A
+explanation: |
+  The loop advances through the CDS in steps of 3. When <python>i = 0</python>,
+  the codon is <pre>ATG</pre> and <pre>M</pre> is appended. When
+  <python>i = 3</python>, the codon is <pre>AAA</pre> and <pre>K</pre> is
+  appended. When <python>i = 6</python>, the codon is <pre>GGT</pre> and
+  <pre>G</pre> is appended. The final protein string is <pre>MKG</pre>.
+  Option B confuses the DNA sequence with the translated protein. Option C
+  would be correct only if the loop ran once. Option D would occur only if a
+  codon were missing from the lookup table.
+
+---
+slug: if-elif-else-classification
+difficulty: medium
+topic: Using branching logic to classify items into categories based on multiple criteria
+question: |
+  A function classifies genes by their proteomics abundance:
+
+  <python>
+  def classify(abundance):
+      if abundance > 1000:
+          return 'high'
+      elif abundance > 100:
+          return 'medium'
+      elif abundance > 0:
+          return 'low'
+      else:
+          return 'not detected'
+  </python>
+
+  What does <python>classify(100)</python> return?
+choices:
+  A: 'high'
+  B: 'medium'
+  C: 'low'
+  D: 'not detected'
+answer: C
+explanation: |
+  The conditions are checked in order. <python>100 > 1000</python> is False.
+  <python>100 > 100</python> is also False because the comparison is strict
+  (<python>></python>, not <python>>=</python>). The next test,
+  <python>100 > 0</python>, is True, so the function returns <pre>low</pre>.
+  The <python>elif</python> chain stops at the first matching condition, so
+  boundary behavior depends on both the operators and the order of the tests.
+
+---
+slug: early-exit-with-break
+difficulty: medium
+topic: Using break to stop iteration once a condition is met, and understanding what value is retained
+question: |
+  A function finds the position of the first <pre>GG</pre> dinucleotide in a
+  sequence, which could indicate a PAM site:
+
+  <python>
+  seq = 'ATCAGATGGCCA'
+  position = -1
+  for i in range(len(seq) - 1):
+      if seq[i:i+2] == 'GG':
+          position = i
+          break
+  </python>
+
+  What is the value of position after the loop finishes?
+choices:
+  A: 7
+  B: 8
+  C: -1
+  D: 3
+answer: A
+explanation: |
+  The loop scans left to right. At <python>i = 7</python>, the slice
+  <python>seq[7:9]</python> is <pre>GG</pre>, so <python>position</python> is
+  set to 7 and <python>break</python> exits the loop immediately. The
+  sentinel value <python>-1</python> would remain only if no match were found.
+  This scan-until-first-hit pattern is common in motif detection.
+
+---
+slug: continue-to-skip-invalid
+difficulty: medium
+topic: Using continue to skip entries that fail a validity check while processing the rest
+question: |
+  A function collects abundances for genes that have proteomics data,
+  skipping entries marked as missing:
+
+  <python>
+  data = [('b0002', 498), ('b0003', None), ('b0004', 889), ('b0005', None)]
+  valid = []
+  for gene_id, abundance in data:
+      if abundance is None:
+          continue
+      valid.append(abundance)
+  </python>
+
+  What is the value of valid?
+choices:
+  A: "[498, 889]"
+  B: "[498, None, 889, None]"
+  C: "[('b0002', 498), ('b0004', 889)]"
+  D: "[] — continue skips all remaining iterations"
+answer: A
+explanation: |
+  When <python>abundance is None</python>, <python>continue</python> skips the
+  rest of the current loop body and moves to the next tuple. It does not end
+  the loop. The two non-missing abundances (498 and 889) are appended, so
+  <python>valid</python> becomes <python>[498, 889]</python>. Option D is a
+  common confusion between <python>continue</python> and
+  <python>break</python>.
+
+---
+slug: iterating-over-dict-items
+difficulty: medium
+topic: Iterating over key-value pairs in a dict to accumulate or transform structured data
+question: |
+  A codon frequency table stores how often each proline codon appears in
+  highly expressed <i>E. coli</i> genes. You want to find the most frequent
+  codon:
+
+  <python>
+  pro_codons = {'CCT': 27340, 'CCC': 19666, 'CCA': 31534, 'CCG': 76644}
+  best_codon = None
+  best_count = 0
+  for codon, count in pro_codons.items():
+      if count > best_count:
+          best_codon = codon
+          best_count = count
+  </python>
+
+  What is the value of best_codon after the loop finishes?
+choices:
+  A: 'CCG'
+  B: 'CCT'
+  C: 'CCA'
+  D: None — the loop never updates best_codon
+answer: A
+explanation: |
+  The loop compares each count to the current best. <pre>CCT</pre> beats 0,
+  then <pre>CCC</pre> does not beat 27340, <pre>CCA</pre> beats 27340, and
+  finally <pre>CCG</pre> (76644) beats 31534. The final stored winner is
+  <pre>CCG</pre>. This is the standard argmax pattern over
+  <python>dict.items()</python>.
+
+---
+slug: nested-loop-combinatorics
+difficulty: medium
+topic: Using nested loops to enumerate combinations and understanding how iteration count scales
+question: |
+  A reverse translation function enumerates all possible two-codon
+  sequences for the dipeptide Met-Lys:
+
+  <python>
+  met_codons = ['ATG']
+  lys_codons = ['AAA', 'AAG']
+  combos = []
+  for m in met_codons:
+      for k in lys_codons:
+          combos.append(m + k)
+  </python>
+
+  How many elements are in combos, and what would happen if Lys had 6
+  synonymous codons instead of 2?
+choices:
+  A: 2 elements now; 6 if Lys had 6 codons
+  B: 2 elements now; 12 if Lys had 6 codons
+  C: 3 elements now; 7 if Lys had 6 codons
+  D: 2 elements now; 6^2 = 36 if Lys had 6 codons
+answer: A
+explanation: |
+  Nested loops generate the product of the loop counts. Here there is 1 Met
+  codon and 2 Lys codons, so the total is <python>1 × 2 = 2</python>.
+  If Lys had 6 codons, the total would be <python>1 × 6 = 6</python>.
+  This multiplicative growth is why brute-force reverse translation becomes
+  infeasible for longer proteins.
+
+---
+slug: while-loop-convergence
+difficulty: medium
+topic: Using a while loop that repeats until a condition is satisfied, and reasoning about termination
+question: |
+  A guided-random codon optimizer generates candidate CDS sequences
+  until one passes a forbidden-sequence check:
+
+  <python>
+  import random
+  random.seed(42)
+  attempts = 0
+  passed = False
+  while not passed:
+      candidate = generate_random_cds(protein)
+      passed = not has_forbidden_sites(candidate)
+      attempts += 1
+  </python>
+
+  Which of the following is true about this loop?
+choices:
+  A: It could run forever if no valid CDS exists for this protein
+  B: It always terminates after exactly one iteration
+  C: It terminates after a fixed number of iterations regardless of input
+  D: Setting the seed guarantees it runs exactly once
+answer: A
+explanation: |
+  The loop repeats while <python>passed</python> is False. If no candidate
+  CDS can satisfy the constraints, then <python>passed</python> never becomes
+  True and the loop does not terminate. Setting the random seed makes the
+  sequence of random choices reproducible, but it does not guarantee a valid
+  candidate exists or appears on the first try. A practical implementation
+  should include a maximum-attempt limit.
+
+---
+slug: loop-accumulator-pattern
+difficulty: medium
+topic: Building up a result incrementally inside a loop and understanding the final accumulated value
+question: |
+  A function builds the reverse complement of a DNA sequence:
+
+  <python>
+  complement = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
+  dna = 'ATCG'
+  result = ''
+  for base in dna:
+      result = complement[base] + result
+  </python>
+
+  What is the value of result after the loop finishes?
+choices:
+  A: 'CGAT'
+  B: 'TAGC'
+  C: 'GCTA'
+  D: 'ATCG'
+answer: A
+explanation: |
+  Each iteration looks up the complement of the current base and prepends it
+  to the existing string. Starting from an empty string, the sequence of
+  values is: <pre></pre> → <pre>T</pre> → <pre>AT</pre> → <pre>GAT</pre> →
+  <pre>CGAT</pre>. Prepending causes reversal while the lookup provides the
+  complement, so the final result is the reverse complement.
+
+---
+slug: conditional-guard-before-operation
+difficulty: medium
+topic: Using an if-check inside a loop to guard against invalid operations on certain elements
+question: |
+  A function processes a mixed-case DNA sequence, skipping any character
+  that is not a valid base:
+
+  <python>
+  seq = 'ATCnGNtt'
+  cleaned = ''
+  for ch in seq.upper():
+      if ch in 'ATCG':
+          cleaned += ch
+  </python>
+
+  What is the value of cleaned?
+choices:
+  A: 'ATCGTT'
+  B: 'ATCnGNtt'
+  C: 'ATCG'
+  D: ValueError is raised on 'n'
+answer: A
+explanation: |
+  First, <python>seq.upper()</python> becomes <pre>ATCNGNTT</pre>. The loop
+  appends only characters that are in <pre>ATCG</pre>. The letters
+  <pre>A</pre>, <pre>T</pre>, <pre>C</pre>, <pre>G</pre>, <pre>T</pre>, and
+  <pre>T</pre> are kept, while both <pre>N</pre> characters are skipped. The
+  result is <pre>ATCGTT</pre>. The guard prevents invalid characters from
+  being processed without raising an error.
+
+---
+slug: iteration-order-matters
+difficulty: medium
+topic: Understanding that the order of iteration affects the result when operations are position-dependent
+question: |
+  Two functions both scan a sequence for all <pre>GG</pre> dinucleotides, but
+  one scans left to right and the other scans right to left:
+
+  <python>
+  seq = 'GGGAT'
+
+  # Left to right
+  hits_lr = []
+  for i in range(len(seq) - 1):
+      if seq[i:i+2] == 'GG':
+          hits_lr.append(i)
+
+  # Right to left
+  hits_rl = []
+  for i in range(len(seq) - 2, -1, -1):
+      if seq[i:i+2] == 'GG':
+          hits_rl.append(i)
+  </python>
+
+  What are hits_lr and hits_rl after both loops finish?
+choices:
+  A: "[0, 1] and [1, 0] — same positions, different order"
+  B: "Both are [0, 1] — iteration order does not affect which positions match"
+  C: "hits_lr is [0] and hits_rl is [1] — each finds only one"
+  D: "hits_lr is [0, 1] and hits_rl is [0, 1] — same list"
+answer: A
+explanation: |
+  The sequence <pre>GGGAT</pre> contains overlapping <pre>GG</pre> matches at
+  positions 0 and 1. Both loops test the same match condition, so both find
+  the same positions. However, the left-to-right loop appends in the order
+  <python>[0, 1]</python>, while the right-to-left loop appends in the order
+  <python>[1, 0]</python>. The set of positions is the same, but the output
+  list order depends on iteration order.

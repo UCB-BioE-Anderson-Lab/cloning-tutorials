@@ -1,3 +1,5 @@
+
+
 ---
 slug: reading-traceback-to-find-failing-line
 difficulty: medium
@@ -22,14 +24,12 @@ choices:
   D: Line 45 of rbs.py — gene_id is an integer but should be a string
 answer: B
 explanation: |
-  A traceback reads bottom-up: the last entry is the line that raised the
-  exception. Line 45 of rbs.py attempted proteomics[gene_id] where gene_id
-  was 'b0025', but that key does not exist in the dict. Line 12 is the
-  caller — it shows how execution reached the failing function but is not
-  where the error occurred. Option A misreads the traceback as a missing
-  function. Option C invents a None issue not indicated by the error type.
-  Option D invents a type mismatch — KeyError means the key is absent, not
-  the wrong type.
+  Read the traceback from the bottom up: the last frame shown is where the
+  exception was raised. Here, line 45 in <python>rbs.py</python> attempted
+  <python>proteomics[gene_id]</python>, and the key <pre>b0025</pre> was not
+  present in the dict, so Python raised a KeyError. Line 12 in
+  <python>pipeline.py</python> is the caller that led to the failure, not the
+  line that raised it.
 
 ---
 slug: exception-type-from-none-attribute-access
@@ -61,13 +61,12 @@ choices:
   D: TypeError — print cannot accept None
 answer: C
 explanation: |
-  When find_best_guide returns None, guide is bound to None. Accessing
-  .spacer on None raises AttributeError because None has no attributes.
-  This is one of the most common errors in pipelines that return None for
-  "not found" — the caller must check before accessing fields. Option A
-  is wrong because no ValueError is involved. Option B is wrong because
-  guide is defined — it just holds None. Option D is wrong because the
-  error occurs at guide.spacer, before print ever receives its argument.
+  If no guide is found, <python>find_best_guide()</python> returns
+  <python>None</python>, so <python>guide</python> is defined but holds
+  <python>None</python>. Accessing <python>guide.spacer</python> then raises
+  AttributeError because <python>None</python> has no attribute
+  <python>spacer</python>. The error occurs before <python>print()</python>
+  receives an argument.
 
 ---
 slug: guard-clause-vs-silent-failure
@@ -106,14 +105,12 @@ choices:
   D: "A returns 'GGCAT' (silently dropping N); B raises ValueError explaining the problem"
 answer: D
 explanation: |
-  Version A skips any base not in the complement dict. 'N' is not a key,
-  so it is silently dropped, producing the reverse complement of 'ATGCC'
-  which is 'GGCAT'. The result is the wrong length and missing a position
-  — a silent data corruption. Version B checks all bases up front and
-  raises ValueError with a message identifying the bad input. This is the
-  guard clause pattern from lecture: fail fast with a clear message rather
-  than silently producing wrong results. Option B incorrectly includes N
-  in Version A's output. Option C invents complement behavior for N.
+  In Version A, <pre>N</pre> is not in the complement dict, so it is silently
+  skipped. The function therefore returns the reverse complement of
+  <pre>ATGCC</pre>, which is <pre>GGCAT</pre>, and the output is the wrong length.
+  In Version B, the guard clause checks the full input first and raises a
+  ValueError with a clear message. This is preferable because it fails fast
+  instead of silently corrupting the result.
 
 ---
 slug: raise-vs-return-none-for-invalid-input
@@ -144,23 +141,21 @@ question: |
   total = molecular_weight(seq1) + molecular_weight(seq2)
   </python>
 
-  If seq2 contains an invalid character, what happens under each design?
+  If <python>seq2</python> contains an invalid character, what happens under
+  each design?
 choices:
   A: Design 1 returns None for the sum; Design 2 raises ValueError
-  B: Design 1 raises TypeError (cannot add int and None); Design 2 raises ValueError with a clear message
+  B: Design 1 raises TypeError (cannot add number and None); Design 2 raises ValueError with a clear message
   C: Both designs raise ValueError — returning None is automatically converted
   D: Both produce None — the + operator propagates None like SQL null
 answer: B
 explanation: |
-  Design 1 returns None for seq2. The expression becomes a valid number +
-  None, which raises TypeError because Python cannot add a number and None.
-  The TypeError message gives no indication that the real problem was an
-  invalid DNA sequence. Design 2 raises ValueError immediately with an
-  explicit message identifying the bad input. This is why returning None
-  for invalid input is discouraged in domain logic — it delays the error
-  and obscures the cause. Option A is wrong because Python does not
-  silently propagate None through arithmetic. Option D invents SQL-like
-  null semantics that Python does not have.
+  Under Design 1, <python>molecular_weight(seq2)</python> returns
+  <python>None</python>, so the addition becomes number + <python>None</python>,
+  which raises TypeError. That error hides the real cause (invalid DNA
+  input). Under Design 2, the function raises ValueError immediately with a
+  message that points directly to the bad input. Raising an exception at the
+  validation boundary usually produces clearer, more actionable failures.
 
 ---
 slug: propagating-vs-catching-exceptions
@@ -199,16 +194,12 @@ choices:
   D: Each layer should have its own try/except block wrapping every call
 answer: C
 explanation: |
-  The innermost function raises the exception. The middle function does not
-  catch it — if a codon position is out of range, something is fundamentally
-  wrong and continuing would produce garbage. The exception propagates up
-  to the top-level script, which is the only layer that knows what to do
-  about failure (report it to the user). This follows the lecture principle:
-  domain logic functions should not catch exceptions they cannot meaningfully
-  handle. Option A would mask a logic error by continuing with corrupted
-  data. Option B would prevent the caller from ever learning about the
-  problem. Option D creates redundant error handling that obscures the
-  code's logic.
+  <python>optimize_codon_at()</python> raises the exception, and
+  <python>optimize_all_codons()</python> does not catch it, so it propagates
+  upward to the top-level <python>try/except</python>. That is usually the
+  right design when lower-level functions cannot recover meaningfully from
+  the error. The top-level script can then report the failure cleanly to the
+  user or log it.
 
 ---
 slug: distinguishing-caller-error-from-function-bug
@@ -235,15 +226,12 @@ choices:
   D: Caller error — the caller should have wrapped the call in try/except
 answer: B
 explanation: |
-  The genetic_code dict contains all 64 standard DNA codons (combinations
-  of A, T, C, G). 'ATN' contains an ambiguous base N, meaning user_seq
-  was not a valid DNA sequence. The responsibility to provide valid input
-  lies with the caller — either by validating before calling translate, or
-  by using a function upstream that enforces the DNA alphabet. Option A
-  would require translate to handle an unbounded set of nonsense inputs.
-  Option C misframes the contract — the genetic code maps real codons, not
-  ambiguity codes. Option D treats the symptom (catching the crash) instead
-  of the cause (bad input).
+  <pre>ATN</pre> is not one of the 64 standard DNA codons because it contains
+  an ambiguous base (<pre>N</pre>). If the function contract expects a valid DNA
+  sequence with bases in <pre>ATCG</pre>, then this is invalid input from the
+  caller, not evidence that the translation function is broken. Catching the
+  exception at the caller may prevent a crash, but it does not fix the bad
+  input.
 
 ---
 slug: choosing-the-right-exception-type
@@ -270,15 +258,10 @@ choices:
   D: Exception, Exception, Exception
 answer: A
 explanation: |
-  The first check rejects a wrong type (not a string) — TypeError signals
-  that the operation received an argument of the wrong type. The second and
-  third checks reject values that are the right type (strings) but violate
-  domain constraints — ValueError signals that the value is inappropriate.
-  Option B uses ValueError for the type check, losing the distinction
-  between "wrong type" and "wrong value." Option C uses IndexError and
-  KeyError, which signal specific container access failures, not input
-  validation. Option D uses the generic Exception, which gives callers no
-  way to distinguish different failure modes.
+  Use TypeError when the argument has the wrong type (the first check), and
+  ValueError when the argument has the right type but an unacceptable value
+  (the second and third checks). This preserves an important distinction for
+  callers and tests: wrong type vs wrong domain value.
 
 ---
 slug: traceback-through-multiple-calls
@@ -301,23 +284,21 @@ question: |
   </pre>
 
   A student says "the bug is in chooser.py line 34." Another says "the
-  real problem is that proteomics data was never loaded." Who is right?
+  real problem is missing or incomplete proteomics setup upstream." Who is
+  closer to the correct diagnosis?
 choices:
   A: "The first student — the fix should be adding 'yaaX' to the proteomics dict at line 34"
-  B: The second student — the traceback shows where the error surfaced, but the root cause is missing data setup upstream
+  B: The second student — the traceback shows where the error surfaced, but the root cause is likely missing or incomplete data setup upstream
   C: Both are wrong — the error is in main.py where build_construct is called
   D: Both are wrong — KeyError means the code has a syntax error
 answer: B
 explanation: |
-  The traceback shows the chain of calls from main.py down to chooser.py.
-  The KeyError surfaces at line 34 because 'yaaX' is not in self.proteomics.
-  But the root cause is not line 34 itself — it is that the proteomics data
-  was never loaded or is incomplete. The fix belongs at the setup stage (the
-  initiate step), not at the line that happens to access the missing key.
-  This distinction between "where the error surfaces" and "where the root
-  cause lives" is fundamental to debugging. Option A treats the symptom.
-  Option C blames the top-level caller for a data-loading problem. Option D
-  confuses a runtime error with a syntax error.
+  The traceback shows where the KeyError surfaced: <python>chooser.py</python>
+  line 34, while looking up <pre>yaaX</pre> in <python>self.proteomics</python>.
+  But the better diagnosis is about root cause: the proteomics table may not
+  have been loaded, may be incomplete, or may not contain the expected gene
+  identifiers. Good debugging distinguishes the line where an exception is
+  raised from the earlier setup step that created the bad state.
 
 ---
 slug: what-happens-without-input-validation
@@ -346,15 +327,11 @@ choices:
   D: ValueError — the function detects that 1234 is not a DNA sequence
 answer: B
 explanation: |
-  Python integers are not iterable. The for loop in the generator expression
-  tries to iterate over 1234, which raises TypeError. The error message will
-  say something like "'int' object is not iterable." This is confusing
-  because the real problem is that the caller passed the wrong type, but the
-  error surfaces inside the function as an iteration failure. A guard clause
-  checking isinstance(seq, str) at the top would catch this immediately with
-  a clear message. Option A assumes integers are iterable but empty. Option C
-  assumes digits become characters. Option D invents validation that was
-  explicitly not written.
+  Integers are not iterable in Python, so the generator expression
+  <python>for b in seq</python> raises TypeError. The message will be about an
+  <python>int</python> not being iterable. A validation guard at the top of
+  the function (for example, checking that <python>seq</python> is a string)
+  would fail earlier with a clearer, more specific message.
 
 ---
 slug: error-message-quality
@@ -389,11 +366,7 @@ choices:
   D: Version B is slower because it calls seq.index, so Version A is preferred
 answer: B
 explanation: |
-  Version A's message 'bad' tells the caller nothing about which of the 5
-  forbidden sites was found or where it occurs in the sequence. The designer
-  would need to manually check each site to figure out what went wrong.
-  Version B identifies the site (e.g., <pre>GAATTC</pre>) and its position (e.g.,
-  position 142), giving the designer the exact information needed to fix the
-  sequence — perhaps by making a synonymous codon substitution at that
-  location. Good error messages answer "what went wrong" and "where" so the
-  caller can act without additional investigation.
+  Version A's message (<python>'bad'</python>) gives almost no diagnostic
+  information. Version B identifies both what failed (which forbidden site)
+  and where it failed (the position in the sequence). That makes the error
+  immediately actionable for the caller and reduces extra debugging work.

@@ -1,132 +1,144 @@
+
+
 ---
 slug: promoter-elements-and-transcription-rate
 difficulty: medium
-topic: Understanding how sequence features at defined positions control the rate of a process
+topic: Understanding how promoter sequence features control transcription initiation rate
 question: |
-  In E. coli, the sigma-70 factor recognizes two conserved regions in a
-  promoter. A researcher mutates the -10 box from <pre>TATAAT</pre> to <pre>TGTAAT</pre> and
-  observes a large drop in mRNA production.
+  In E. coli, sigma-70 recognizes conserved promoter elements. A researcher
+  mutates the -10 box from <pre>TATAAT</pre> to <pre>TGTAAT</pre> and observes a
+  large drop in mRNA production.
 
   Which explanation best accounts for this result?
 choices:
-  A: The -10 box is where sigma factor binds to initiate transcription; mutating it reduces RNAP recruitment
-  B: The -10 box is the ribosome binding site; mutating it prevents translation
+  A: The -10 box is a sigma-factor recognition element for transcription initiation, so mutating it reduces RNA polymerase recruitment/initiation
+  B: The -10 box is the ribosome binding site, so mutating it prevents translation
   C: The mutation introduced a premature stop codon in the mRNA
-  D: The -10 box controls mRNA degradation rate, not transcription initiation
+  D: The -10 box controls mRNA degradation rate rather than transcription initiation
 answer: A
 explanation: |
-  The -10 box (Pribnow box) and the -35 box are recognized by the sigma
-  factor, which recruits RNA polymerase to initiate transcription. Changing
-  the -10 consensus reduces sigma binding affinity and thus transcription
-  rate. Option B confuses promoter elements with the RBS. Option C is
-  wrong because the -10 box is upstream of the coding region. Option D
-  is incorrect — mRNA degradation is controlled by RNase activity and
-  RNA structure, not the -10 box.
+  The -10 and -35 promoter elements are recognized by sigma factor during
+  transcription initiation. Changing the -10 sequence away from the sigma-70
+  consensus weakens promoter recognition and reduces transcription initiation,
+  which lowers mRNA production.
+
+  Option B confuses promoter DNA with the ribosome binding site in the mRNA.
+  Option C is incorrect because the -10 box is upstream of the coding region and
+  is not translated. Option D is incorrect because the -10 box is a promoter
+  element, not an RNA degradation signal.
+
 ---
 slug: shine-dalgarno-and-translation-initiation
 difficulty: medium
-topic: Reasoning about how complementary base-pairing between two molecules determines interaction strength
+topic: Reasoning about how base-pair complementarity determines translation initiation strength
 question: |
-  The Shine-Dalgarno (SD) sequence in an mRNA base-pairs with the 3' end
-  of 16S rRNA in the ribosome. If a synthetic 5' UTR has the SD sequence
-  <pre>AGGAGG</pre>, and another has <pre>AAGAAG</pre>, which construct is expected to have
-  higher translation initiation rate, and why?
+  The Shine-Dalgarno (SD) sequence in an mRNA base-pairs with the 3' end of
+  16S rRNA in the ribosome. If one synthetic 5' UTR has SD sequence
+  <pre>AGGAGG</pre> and another has <pre>AAGAAG</pre>, which construct is expected to
+  have the higher translation initiation rate, and why?
 choices:
   A: AGGAGG, because it has stronger complementarity to the 16S rRNA anti-SD sequence
   B: AAGAAG, because more A residues form stronger hydrogen bonds
-  C: Both will have equal translation rates because the start codon is what matters
-  D: AGGAGG, because it has higher GC content which stabilizes the mRNA
+  C: Both will have equal translation rates because only the start codon matters
+  D: AGGAGG, because higher GC content always increases expression by stabilizing the full mRNA
 answer: A
 explanation: |
-  The anti-Shine-Dalgarno sequence on the 16S rRNA is complementary to
-  AGGAGG. Stronger complementarity means more stable base-pairing, which
-  recruits the ribosome more effectively. AAGAAG has mismatches at two
-  positions, weakening the interaction. Option B is incorrect — A-U pairs
-  are actually weaker than G-C pairs. Option C ignores the well-established
-  role of the SD in translation initiation. Option D confuses GC content
-  of the SD with mRNA stability.
+  Translation initiation in bacteria is strongly influenced by base-pairing
+  between the mRNA Shine-Dalgarno sequence and the anti-Shine-Dalgarno region of
+  16S rRNA. <pre>AGGAGG</pre> provides stronger complementarity than
+  <pre>AAGAAG</pre>, so it is expected to recruit ribosomes more effectively.
+
+  Option B is incorrect because A-U base pairs are weaker than G-C base pairs.
+  Option C ignores the role of the SD sequence in bacterial translation
+  initiation. Option D overgeneralizes GC content and does not identify the key
+  mechanism being tested here.
+
 ---
 slug: hairpin-occlusion-of-rbs
 difficulty: medium
-topic: Understanding how competing molecular interactions can mask a functional site
+topic: Understanding how local RNA secondary structure can mask a functional binding site
 question: |
-  An RBS with a strong Shine-Dalgarno sequence (<pre>AGGAGG</pre>) is paired with a
-  new coding sequence. Despite the strong SD, almost no protein is produced.
-  A secondary structure prediction reveals a stable hairpin that includes
-  the SD region.
+  An mRNA has a strong Shine-Dalgarno sequence (<pre>AGGAGG</pre>) upstream of a new
+  coding sequence. Despite the strong SD, almost no protein is produced. A
+  secondary-structure prediction shows a stable hairpin that includes the SD
+  region.
 
   What is the most likely explanation?
 choices:
   A: The hairpin sequesters the SD in a double-stranded stem, preventing ribosome binding
   B: The hairpin blocks RNA polymerase from transcribing past the RBS
-  C: The hairpin causes the ribosome to translate the mRNA in the wrong reading frame
-  D: The hairpin degrades the mRNA before it can be translated
+  C: The hairpin causes the ribosome to translate in the wrong reading frame
+  D: The hairpin directly degrades the mRNA before translation can begin
 answer: A
 explanation: |
-  When the SD sequence is trapped in a hairpin stem, it is base-paired with
-  a nearby complementary region and physically unavailable for pairing with
-  the 16S rRNA. The ribosome cannot bind, so translation does not initiate.
-  This is "RBS occlusion." Option B is wrong — hairpins downstream of the
-  promoter don't block RNAP (terminators require specific structures).
-  Option C — hairpins don't shift reading frame. Option D — while RNA
-  structure can affect stability, the described mechanism is occlusion of
-  the binding site, not degradation.
+  If the Shine-Dalgarno sequence is base-paired within a hairpin stem, it is not
+  accessible for pairing with 16S rRNA. Ribosome binding is therefore impaired,
+  and translation initiation drops sharply. This is RBS occlusion.
+
+  Option B is incorrect because the mechanism described is translation-initiation
+  failure, not transcription blockage. Option C is incorrect because hairpins do
+  not by themselves shift the reading frame. Option D is not the best explanation
+  for the evidence given, which directly points to occlusion of the SD site.
+
 ---
 slug: context-dependent-rbs-performance
 difficulty: medium
-topic: Recognizing that a component's function depends on its neighbors, not just its own properties
+topic: Recognizing that RBS performance depends on local sequence context
 question: |
-  A standard BioBrick RBS part is reported to produce high expression of
-  GFP. When the same RBS is placed upstream of a different gene, expression
-  drops to near zero. What is the most plausible explanation?
+  A standard BioBrick RBS part is reported to produce high GFP expression. When
+  the same RBS is placed upstream of a different gene, expression drops to near
+  zero. What is the most plausible explanation?
 choices:
-  A: The new CDS sequence forms a hairpin with the RBS, occluding the Shine-Dalgarno site
-  B: The RBS has mutated during the cloning process
-  C: BioBrick RBS parts only work with GFP
-  D: The new gene's protein product is toxic, so the cells cannot grow
+  A: The new CDS forms local secondary structure with the RBS region, occluding the Shine-Dalgarno site
+  B: The RBS must have mutated during cloning
+  C: BioBrick RBS parts only function with GFP
+  D: The new gene product is toxic, so the RBS no longer functions
 answer: A
 explanation: |
-  RBS function is context-dependent: the sequence immediately downstream
-  (the beginning of the CDS) can form secondary structures with the RBS
-  region. If the new CDS has a sequence complementary to the SD region, a
-  hairpin forms that occludes ribosome binding. This is why "standardized"
-  RBS parts work approximately 2/3 of the time — the other 1/3 fail due
-  to context effects. Option B is possible but unlikely as the primary
-  explanation. Option C is incorrect — RBS parts are general. Option D
-  is a different failure mode unrelated to the RBS itself.
+  RBS behavior is context-dependent. The sequence at the beginning of the CDS can
+  pair with bases in the 5' UTR and create local RNA secondary structure that
+  occludes the Shine-Dalgarno sequence or start region, reducing translation
+  initiation.
+
+  Option B is possible in principle but is not the most plausible explanation for
+  a common, reproducible context effect. Option C is false. Option D describes a
+  different biological problem and does not explain why the same RBS performs
+  differently across constructs.
+
 ---
 slug: sd-spacing-affects-expression
 difficulty: medium
-topic: Understanding how spatial relationships between functional elements affect system output
+topic: Understanding how spacing between translation control elements affects initiation efficiency
 question: |
   An RBS design tool reports that the optimal spacing between the
-  Shine-Dalgarno sequence and the start codon (ATG) is 7 nucleotides for
-  a given system. If a designer accidentally inserts 2 extra bases between
-  the SD and the ATG, what is the expected effect?
+  Shine-Dalgarno sequence and the start codon (<pre>ATG</pre>) is 7 nucleotides for
+  a given system. If a designer accidentally inserts 2 extra bases between the
+  SD and the ATG, what is the expected effect?
 choices:
-  A: Translation initiation rate will decrease because the ribosome is positioned incorrectly relative to the start codon
-  B: Translation will not be affected because the SD sequence itself is unchanged
-  C: Transcription will fail because the promoter spacing is disrupted
-  D: The protein will be produced but with two extra amino acids at the N-terminus
+  A: Translation initiation rate will decrease because the ribosome is mispositioned relative to the start codon
+  B: Translation will be unaffected because the SD sequence itself is unchanged
+  C: Transcription will fail because promoter spacing is disrupted
+  D: The protein will include two extra amino acids at the N-terminus
 answer: A
 explanation: |
-  The spacing between the SD and the start codon determines where the
-  ribosome is physically positioned when it scans for the AUG. If the
-  spacing is wrong by even 1–2 bases, the ribosome may not be correctly
-  aligned with the start codon, reducing or abolishing translation
-  initiation. Option B ignores the well-documented importance of spacing.
-  Option C confuses RBS spacing with promoter spacing. Option D is wrong
-  because the bases between SD and ATG are in the 5' UTR, not the coding
-  region.
+  The spacing between the Shine-Dalgarno sequence and the start codon affects how
+  the ribosome is positioned for start-codon recognition. Adding 2 extra bases
+  can misalign the start codon relative to the ribosome and reduce translation
+  initiation efficiency.
+
+  Option B ignores the importance of SD-to-start spacing. Option C confuses
+  translation-initiation spacing with promoter architecture. Option D is wrong
+  because these extra bases are in the 5' UTR, not necessarily in the coding
+  sequence.
+
 ---
 slug: secondary-structure-near-start-codon
 difficulty: medium
-topic: Identifying which region of a sequence has the greatest impact on a measured output
+topic: Identifying which local sequence region most strongly predicts expression differences
 question: |
   In a study of 154 GFP variants with different codon usage but identical
-  protein sequences, researchers found a 250-fold range in fluorescence.
-  Which sequence region's secondary structure best predicted expression
-  level?
+  protein sequences, researchers observed a large range in fluorescence. Which
+  sequence region's secondary structure best predicted expression level?
 choices:
   A: The region from -4 to +37 relative to the start codon
   B: The full-length mRNA secondary structure
@@ -134,64 +146,73 @@ choices:
   D: The promoter region from -35 to +1
 answer: A
 explanation: |
-  The Plotkin GFP study showed that secondary structure in the region from
-  approximately -4 to +37 (spanning the RBS–CDS junction) explained
-  roughly 44–57% of expression variation. Full-length mRNA folding energy
-  did not significantly correlate with expression. The 3' end of the CDS
-  was not predictive. The promoter was identical across all variants, so
-  it cannot explain the variation.
+  Expression differences among synonymous variants are often best predicted by
+  local RNA structure near the translation start region, especially around the
+  RBS and start codon. In this case, the region from approximately -4 to +37 was
+  the strongest predictor.
+
+  Option B is less predictive than the local start-region structure in this type
+  of dataset. Option C focuses on a region that is not the dominant determinant
+  of initiation efficiency. Option D cannot explain the variation because the
+  promoter is the same across the constructs.
+
 ---
 slug: operon-structure-and-transcription
 difficulty: medium
-topic: Reasoning about how a structural arrangement implies shared control of multiple components
+topic: Reasoning about how shared transcriptional control affects multiple genes in an operon
 question: |
-  In an operon design, three genes (A, B, C) are placed under a single
-  promoter and a single terminator, each with its own RBS. If the
-  promoter is repressed, what happens to expression of genes A, B, and C?
+  In an operon design, three genes (A, B, C) are placed under a single promoter
+  and a single terminator, and each gene has its own RBS. If the promoter is
+  repressed, what happens to expression of genes A, B, and C?
 choices:
-  A: All three genes lose transcription simultaneously because they share one promoter
+  A: All three genes lose transcription because they share one promoter
   B: Only gene A is affected because it is closest to the promoter
   C: Gene C is affected first because the terminator blocks it
   D: Each gene is affected independently because each has its own RBS
 answer: A
 explanation: |
-  In an operon, a single promoter drives transcription of one polycistronic
-  mRNA containing all three genes. If the promoter is repressed, no mRNA
-  is made for any of the three genes. Individual RBS elements control
-  translation initiation of each gene independently, but they cannot
-  function without the mRNA that the promoter produces. Option B
-  misunderstands polycistronic transcription. Option C confuses terminator
-  function. Option D confuses transcriptional and translational control.
+  A single promoter drives transcription of the operon mRNA. If that promoter is
+  repressed, the polycistronic transcript is not produced, so none of the genes
+  has mRNA available for translation.
+
+  The separate RBS elements allow independent translation initiation from a
+  shared transcript, but they do not bypass promoter-level transcriptional
+  control. Option B misunderstands operon transcription. Option C misstates
+  terminator function. Option D confuses transcriptional and translational
+  control.
+
 ---
 slug: promoter-vs-rbs-vs-codon-effects
 difficulty: medium
-topic: Distinguishing which level of control is responsible for an observed change in output
+topic: Distinguishing which sequence-level control element to modify to tune expression without changing protein identity
 question: |
-  A designer wants to reduce expression of a protein by 10-fold without
-  changing the protein sequence. Which modification targets the correct
-  level of control?
+  A designer wants to reduce expression of a protein by about 10-fold without
+  changing the protein sequence. Which modification targets the correct level of
+  control?
 choices:
   A: Replace the RBS with a weaker Shine-Dalgarno sequence
-  B: Change the stop codon from TAA to TGA
-  C: Remove the origin of replication from the plasmid
-  D: Add a His-tag to the protein's C-terminus
+  B: Change the stop codon from <pre>TAA</pre> to <pre>TGA</pre>
+  C: Remove the plasmid origin of replication
+  D: Add a His-tag to the protein C-terminus
 answer: A
 explanation: |
-  The RBS controls translation initiation rate. A weaker SD sequence
-  reduces ribosome recruitment, directly lowering protein output without
-  altering the protein sequence. Option B changes the stop codon but both
-  are valid stops — the effect on expression is minimal. Option C would
-  prevent the plasmid from replicating entirely, not modulate expression.
-  Option D changes the protein sequence (adds a tag), violating the
+  Replacing the RBS with a weaker Shine-Dalgarno sequence directly reduces
+  translation initiation efficiency and can lower protein output without changing
+  the encoded protein sequence.
+
+  Option B usually preserves termination and does not provide controlled tuning of
+  expression. Option C disrupts plasmid maintenance rather than tuning
+  expression. Option D changes the protein sequence and violates the design
   constraint.
+
 ---
 slug: rbs-does-not-change-protein
 difficulty: medium
-topic: Distinguishing which design changes affect information content versus expression level
+topic: Distinguishing sequence changes that alter expression level from those that alter protein sequence
 question: |
-  A Composition specifies that protein X should be expressed in E. coli.
-  An engineer creates two constructs with different RBS parts but identical
-  CDS sequences. Which of the following is true about the two constructs?
+  A Composition specifies that protein X should be expressed in E. coli. An
+  engineer creates two constructs with different RBS parts but identical CDS
+  sequences. Which statement is true?
 choices:
   A: They produce the same protein at different expression levels
   B: They produce different proteins because the RBS is translated
@@ -199,36 +220,38 @@ choices:
   D: They will have identical expression levels because the CDS is the same
 answer: A
 explanation: |
-  The RBS is in the 5' UTR, upstream of the start codon. It is not
-  translated into protein. Changing the RBS alters how efficiently
-  ribosomes initiate translation (and changes the mRNA sequence in the
-  UTR region), but the protein product is determined solely by the CDS.
-  Option B is wrong — the RBS is not part of the open reading frame.
-  Option C is half right (mRNA differs) but wrong about protein. Option D
-  ignores the established role of RBS strength in determining expression.
+  The RBS is located in the 5' UTR and is not translated into protein. Changing
+  the RBS changes translation initiation efficiency (and therefore expression
+  level), but the protein sequence remains determined by the CDS.
+
+  Option B is incorrect because the RBS is not part of the coding region. Option
+  C is only partly correct because the mRNA sequence changes but the protein
+  sequence does not. Option D ignores the role of the RBS in controlling
+  expression.
+
 ---
 slug: construct-parts-interaction
 difficulty: medium
-topic: Reasoning about how parts of an assembly interact rather than function in isolation
+topic: Reasoning about how control elements and coding sequence interact in a construct
 question: |
-  A genetic construct consists of: promoter → RBS → CDS → terminator.
-  A designer tests 5 different RBS parts with the same CDS and finds that
-  expression varies by 100-fold. However, when the same 5 RBS parts are
-  tested with a different CDS, the ranking of the parts changes.
+  A genetic construct has the layout promoter → RBS → CDS → terminator. A
+  designer tests 5 different RBS parts with one CDS and observes a 100-fold
+  spread in expression. When the same 5 RBS parts are tested with a different
+  CDS, the ranking of the RBS parts changes.
 
   What does this result demonstrate?
 choices:
-  A: RBS performance depends on the downstream CDS context, likely through secondary structure interactions at the RBS–CDS junction
-  B: The CDS somehow modifies the RBS DNA sequence during replication
-  C: The ranking changed because the two experiments were done on different days
-  D: RBS parts have inherent expression levels that are independent of context
+  A: RBS performance depends on downstream CDS context, likely through local RNA secondary structure at the RBS-CDS junction
+  B: The CDS modifies the RBS DNA sequence during replication
+  C: The ranking change is best explained by day-to-day experimental noise
+  D: RBS parts have fixed intrinsic expression levels that are independent of context
 answer: A
 explanation: |
-  The fact that the ranking changes with different CDS proves that RBS
-  function is context-dependent. The most established mechanism is
-  secondary structure formation between the RBS region and the beginning
-  of the CDS, which can occlude the Shine-Dalgarno site to varying
-  degrees depending on the CDS sequence. Option B invokes a biologically
-  implausible mechanism. Option C attributes the result to noise rather
-  than the systematic effect observed. Option D directly contradicts the
-  observation.
+  If the ranking of RBS parts changes when only the CDS changes, then RBS
+  performance is not context-free. A common mechanism is local RNA secondary
+  structure involving the RBS and the beginning of the CDS, which changes access
+  to the Shine-Dalgarno sequence and start region.
+
+  Option B proposes an implausible mechanism. Option C does not match the clear,
+  systematic context-dependent pattern. Option D is contradicted by the observed
+  ranking change.

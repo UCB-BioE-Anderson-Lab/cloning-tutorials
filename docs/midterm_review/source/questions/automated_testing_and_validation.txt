@@ -1,3 +1,5 @@
+
+
 ---
 slug: validated-example-strength
 difficulty: medium
@@ -30,14 +32,12 @@ choices:
   D: All three are equally strong because they all use assert
 answer: C
 explanation: |
-  Test C compares the function's output to an experimentally confirmed value.
-  If the function returns the exact protospacer that was verified in the lab,
-  that is direct evidence the algorithm produces biologically correct results.
-  Tests A and B are truisms — they check properties that any plausible output
-  would have, but a function could return the wrong 20-character DNA string
-  and still pass both. The strength of evidence goes: validated example >
-  specific property > general type check. Option D incorrectly treats all
-  assertions as equivalent regardless of what they check.
+  Test C compares the output to an experimentally confirmed sequence. That
+  is direct evidence that the algorithm returns the biologically correct
+  protospacer for a real case. Tests A and B are useful but weaker: a
+  function can return the wrong 20-nt DNA string and still pass both. This
+  illustrates the evidence hierarchy used in this course: validated example
+  > specific property check > general type check.
 
 ---
 slug: truism-property-check
@@ -62,15 +62,10 @@ choices:
   D: No — the test is wrong because it should use assertEqual instead of assert
 answer: B
 explanation: |
-  These checks are truisms — properties that any reasonable oligo must have,
-  but that do not verify the specific content. An oligo with the right length
-  and alphabet but the wrong sequence would still pass. Truisms catch gross
-  failures (e.g., returning RNA or a 500bp sequence) but cannot confirm that
-  the oligos will actually amplify the intended product. Full validation
-  requires either a validated example or an inverse function check. Option A
-  confuses necessary conditions with sufficient conditions. Option C assumes
-  two weak checks combine into a strong one. Option D misidentifies the
-  problem as syntactic rather than logical.
+  These assertions test necessary properties, not full correctness. An oligo
+  can have the right alphabet and length while still being the wrong sequence
+  for the intended assembly. This kind of test is useful for catching gross
+  failures, but it does not validate the design logic itself.
 
 ---
 slug: fixture-expensive-setup
@@ -78,7 +73,7 @@ difficulty: medium
 topic: Using fixtures to share expensive initialization across tests without repeating computation
 question: |
   An RBSChooser requires loading a proteomics database and computing
-  thermodynamic models — a process that takes 30 seconds. A student writes:
+  thermodynamic models, a process that takes 30 seconds. A student writes:
 
   <python>
   def test_rbs_high_expression():
@@ -103,15 +98,10 @@ choices:
   D: Cache the result by writing it to a file between test runs
 answer: B
 explanation: |
-  A pytest fixture decorated with an appropriate scope (e.g., session or
-  module) runs the expensive setup once and injects the result into every
-  test that requests it. This keeps each test function independent and
-  focused on a single behavior while avoiding redundant 30-second
-  initializations. Option A works mechanically but bypasses pytest's
-  dependency injection and makes test isolation harder. Option C sacrifices
-  test independence — if the first assertion fails, the second never runs.
-  Option D introduces file I/O complexity and stale-cache risks that
-  fixtures handle cleanly.
+  A pytest fixture with an appropriate scope (such as module or session)
+  performs the expensive setup once and injects the initialized object into
+  tests that request it. This avoids repeated 30-second setup costs while
+  preserving test structure and readability.
 
 ---
 slug: edge-case-identification
@@ -130,23 +120,20 @@ question: |
       return guides
   </python>
 
-  Which of the following inputs is the BEST edge case to include in a test?
+  Which input is the best edge case to test for a hidden case-sensitivity
+  assumption?
 choices:
   A: A 1000bp sequence with multiple NGG sites
-  B: A sequence passed in as lowercase letters like 'atgccaattgg...'
+  B: A lowercase sequence such as 'atgccaattgg...'
   C: A 1000bp sequence with exactly one NGG site
   D: A sequence consisting of only 'A' repeated 100 times
 answer: B
 explanation: |
-  Lowercase input is a classic edge case for biological sequence functions.
-  The comparison seq[i+1:i+3] == 'GG' checks for uppercase letters, so
-  lowercase input would cause the function to silently find no guides even
-  when PAM sites are present. This tests whether the function handles the
-  common real-world situation where sequences come from databases or user
-  input in mixed or lowercase format. Option A is a normal case, not an
-  edge case. Option C tests basic functionality. Option D tests the no-match
-  case, which is useful but less likely to expose hidden assumptions than
-  the case-sensitivity issue.
+  The code compares to uppercase <pre>GG</pre>. If the input sequence is
+  lowercase, real PAM sites may be missed silently. Testing lowercase input
+  directly probes a common hidden assumption in sequence-processing code.
+  Option D is also a useful edge case (no matches), but it targets a
+  different behavior and is less specific to case sensitivity.
 
 ---
 slug: inverse-function-testing
@@ -172,18 +159,11 @@ choices:
   D: It only works for PCR and cannot be generalized to other design problems
 answer: B
 explanation: |
-  The inverse function pattern uses a simulator (PredictPCRProduct) as an
-  independent check on the designer (DesignPCRPrimers). If the designed
-  primers, when fed into a simulator that models the actual chemistry,
-  produce the intended product, that is strong evidence the design is
-  correct. This is stronger than truisms because it checks the specific
-  output against domain logic, not just general properties. Option A
-  overstates the case — edge cases and validated examples are still needed.
-  Option C raises a valid concern (both must be correct), but having two
-  independent implementations agree is much stronger than checking one in
-  isolation. Option D is wrong because the pattern generalizes to any
-  domain with design-simulate pairs (e.g., codon optimization and
-  back-translation).
+  This pattern checks the designer using a separate simulator that models the
+  domain behavior. If independently implemented design and simulation agree
+  on the intended product, that is much stronger evidence than simple output
+  properties like length or alphabet. It is still not a complete proof, so
+  validated examples and edge-case tests remain valuable.
 
 ---
 slug: checker-pattern-centralized
@@ -218,15 +198,10 @@ choices:
   D: It eliminates the need for validated examples because the checker is authoritative
 answer: B
 explanation: |
-  When the algorithm and the test both use ForbiddenSequenceChecker, the
-  definition of "forbidden" is centralized in one place. If the list of
-  forbidden sites changes, both the algorithm and the test update together.
-  Without this pattern, the algorithm might check for GGTCTC while the test
-  checks for a different set, and neither would catch the inconsistency.
-  Option A confuses code reuse with performance. Option C is wrong — the
-  algorithm might have a bug that causes it to skip the checker on some code
-  paths, which the test would catch. Option D overstates the checker's role;
-  validated examples still provide the strongest evidence of correctness.
+  Reusing the same checker centralizes the definition of what counts as a
+  forbidden sequence. That prevents definition drift between the production
+  code and the test suite. The test still has value because the algorithm can
+  fail to apply the checker correctly on some execution paths.
 
 ---
 slug: pytest-raises-invalid-input
@@ -259,46 +234,36 @@ choices:
   D: The first test would fail because design_oligos would return an empty list, not None
 answer: B
 explanation: |
-  A function that silently returns None on invalid input lets the error
-  propagate — the caller might pass None into the next step, causing a
-  confusing error far from the source. Raising ValueError immediately
-  identifies the problem and its location. The pytest.raises context manager
-  asserts that the specific exception is raised, making the test an
-  executable specification of the error contract. Option A incorrectly
-  treats silent failure and explicit failure as equivalent. Option C
-  confuses testing patterns with performance. Option D guesses at specific
-  behavior rather than addressing the design principle.
+  <python>pytest.raises(ValueError)</python> verifies the function's error
+  contract: invalid input should trigger an explicit exception immediately.
+  Returning <python>None</python> is a silent failure mode that can travel
+  downstream and cause a more confusing error later.
 
 ---
 slug: test-passes-vs-design-correct
 difficulty: medium
 topic: Distinguishing between a test suite passing and the underlying design being biologically correct
 question: |
-  A student's test suite for their codon optimizer has 15 tests and all
-  pass. The tests check: output contains only ATCG, output length equals
-  3 times the input protein length, output starts with ATG, and output
-  ends with a stop codon. A colleague examines the output for a well-studied
-  gene and discovers the codon usage is heavily biased toward rare codons,
-  which would give poor expression in E. coli.
+  A student's test suite for a codon optimizer has 15 passing tests. The
+  tests check: output contains only ATCG, output length equals 3 times the
+  input protein length, output starts with ATG, and output ends with a stop
+  codon. A colleague then examines the output for a well-studied gene and
+  finds heavy use of rare codons, which would likely produce poor expression
+  in E. coli.
 
-  What does this situation reveal?
+  What does this reveal?
 choices:
   A: The test suite has a bug — if 15 tests pass, the design must be correct
-  B: The tests verify structural properties (truisms) but none check whether the codon choices are actually optimized
+  B: The tests verify structural properties, but none check whether the codon choices are actually optimized
   C: Rare codons are acceptable because the sequence is still valid DNA
   D: The colleague's observation is irrelevant because automated tests are the gold standard
 answer: B
 explanation: |
-  All 15 tests are truisms — they check properties that any valid CDS would
-  have, regardless of whether the codons are well-chosen. A function that
-  simply uses the rarest codon for every amino acid would pass every one of
-  these tests while producing DNA that expresses poorly. The missing tests
-  would use either a validated example (a gene known to express well) or a
-  checker like CAIChecker that encodes the domain knowledge about codon
-  optimality. A passing test suite only proves the design satisfies the
-  properties being tested, not that it is biologically correct. Option A
-  conflates test passage with correctness. Option C ignores the purpose
-  of codon optimization. Option D misunderstands the role of testing.
+  The tests described are mostly structural checks (truisms). They confirm
+  that the output looks like a CDS, but they do not test the biological goal
+  of codon optimization. A sequence can be valid DNA and still be a poor
+  design for expression. This is why optimization tasks need domain-aware
+  tests, such as validated examples or checkers that score codon usage.
 
 ---
 slug: algorithm-test-shared-knowledge
@@ -335,16 +300,10 @@ choices:
   D: Student A's test is actually better because it does not assume specific outputs
 answer: B
 explanation: |
-  To write Student B's tests, you must understand which sequences form
-  hairpins and which do not — the same thermodynamic knowledge the algorithm
-  itself encodes. Selecting an input where you independently know the answer
-  requires domain expertise, and that is what makes the test meaningful. If
-  you do not understand the biology, you cannot construct test cases that
-  distinguish a correct algorithm from a broken one. Student A's test checks
-  only the output type, which requires no understanding of hairpins at all
-  and would pass even if the function returned random booleans. Option A
-  confuses quantity of assertions with domain depth. Option C equates line
-  count with quality. Option D confuses generality with strength.
+  Student B must know which sequences are expected to form hairpins and which
+  are not. That requires domain knowledge about sequence self-complementarity
+  and secondary structure, not just Python syntax. That same domain knowledge
+  is what makes the test informative rather than superficial.
 
 ---
 slug: benchmarking-all-inputs
@@ -377,14 +336,8 @@ choices:
   D: The proteome test is overfitting to E. coli and does not generalize
 answer: B
 explanation: |
-  Hand-picked test cases reflect the author's assumptions about what inputs
-  are interesting. The 12 failing genes likely contain amino acid patterns,
-  repeated motifs, or unusual subsequences the developer did not anticipate.
-  Running on the entire proteome is a form of exhaustive benchmarking that
-  exposes failures no reasonable set of hand-picked cases would cover. This
-  is why the lecture emphasizes benchmarking on all possible inputs when the
-  input space is finite and enumerable. Option A focuses on a single
-  dimension (length) when the real issue is input diversity. Option C
-  assumes coverage can be measured by count alone. Option D confuses testing
-  thoroughness with generalization — the function is designed for E. coli,
-  so testing on its proteome is exactly right.
+  Hand-picked tests reflect what the author thought to try. The 12 failing
+  genes likely contain sequence patterns the smaller test set did not cover.
+  Broad benchmarking across the full proteome exposes edge cases and failure
+  modes that are easy to miss with a few examples, even when those examples
+  look diverse.
