@@ -1,0 +1,423 @@
+---
+slug: what-happens-when-exception-is-silenced
+difficulty: medium
+topic: Predicting program behavior when a broad exception handler converts an error into a plausible output
+question: |
+  A student writes this code for a DNA analysis pipeline:
+
+  <python>
+  def gc_fraction(seq):
+      gc = sum(1 for b in seq if b in 'GC')
+      return gc / len(seq)
+
+  def analyze_sample(seq):
+      try:
+          return gc_fraction(seq)
+      except Exception:
+          return 0.0
+  </python>
+
+  What happens when this is run?
+
+  <python>
+  result = analyze_sample(None)
+  </python>
+choices:
+  A: 0.0
+  B: TypeError
+  C: ValueError
+  D: None
+answer: A
+explanation: |
+  The correct answer is <python>0.0</python>.
+
+  Inside <python>gc_fraction(None)</python>, Python raises a
+  <python>TypeError</python> because <python>None</python> is not iterable in:
+
+  <python>
+  sum(1 for b in seq if b in 'GC')
+  </python>
+
+  But <python>analyze_sample()</python> catches that exception with the broad
+  <python>except Exception:</python> block and returns <python>0.0</python>
+  instead.
+
+  This is the dangerous part: the code converts an invalid input into a
+  plausible numeric output, which can hide the real problem.
+
+  Why the other options are wrong:
+
+  - <python>TypeError</python> would occur if the exception were not caught.
+  - <python>ValueError</python> is not raised by this code.
+  - <python>None</python> is never returned by <python>analyze_sample()</python>.
+
+---
+slug: reading-traceback-to-find-failing-line
+difficulty: medium
+topic: Reading a stack trace to identify which line caused an error and what triggered it
+question: |
+  A student runs a gene design pipeline and gets this traceback:
+
+  <pre>
+  Traceback (most recent call last):
+    File "pipeline.py", line 12, in <module>
+      result = design_rbs(cds, proteomics)
+    File "rbs.py", line 45, in design_rbs
+      abundance = proteomics[gene_id]
+  KeyError: 'b0025'
+  </pre>
+
+  Which line actually raised the error, and what caused it?
+choices:
+  A: Line 12 of pipeline.py; the call failed because design_rbs is not defined
+  B: Line 45 of rbs.py; the key 'b0025' was missing from the proteomics dict
+  C: Line 12 of pipeline.py; the call failed because cds was None at runtime
+  D: Line 45 of rbs.py; the lookup failed because gene_id should be a string
+answer: B
+explanation: |
+  Read the traceback from the bottom up: the last frame shown is where the
+  exception was raised. Here, line 45 in <python>rbs.py</python> attempted
+  <python>proteomics[gene_id]</python>, and the key <pre>b0025</pre> was not
+  present in the dict, so Python raised a KeyError. Line 12 in
+  <python>pipeline.py</python> is the caller that led to the failure, not the
+  line that raised it.
+
+---
+slug: exception-type-from-none-attribute-access
+difficulty: medium
+topic: Predicting the exception type when an operation is applied to the wrong kind of value
+question: |
+  A CRISPR target finder returns None when no valid guide is found:
+
+  <python>
+  def find_best_guide(seq, pam='NGG'):
+      candidates = find_all_targets(seq, pam)
+      if len(candidates) == 0:
+          return None
+      return select_best(candidates)
+  </python>
+
+  A caller writes:
+
+  <python>
+  guide = find_best_guide(short_seq)
+  print(guide.spacer)
+  </python>
+
+  If no guide was found, what exception is raised on the second line?
+choices:
+  A: ValueError; guide exists, but the spacer value is invalid for printing
+  B: NameError; the variable guide was never assigned in the caller scope
+  C: AttributeError; guide is None, so .spacer access fails immediately
+  D: TypeError; print() rejects None values before evaluating guide.spacer
+answer: C
+explanation: |
+  If no guide is found, <python>find_best_guide()</python> returns
+  <python>None</python>, so <python>guide</python> is defined but holds
+  <python>None</python>. Accessing <python>guide.spacer</python> then raises
+  AttributeError because <python>None</python> has no attribute
+  <python>spacer</python>. The error occurs before <python>print()</python>
+  receives an argument.
+
+---
+slug: guard-clause-vs-silent-failure
+difficulty: medium
+topic: Recognizing why validating inputs early with guard clauses prevents harder-to-diagnose errors later
+question: |
+  Two versions of reverse_complement handle non-ATCG characters differently:
+
+  <python>
+  # Version A: silently skips invalid bases
+  def reverse_complement_a(seq):
+      comp = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
+      result = ''
+      for base in seq:
+          if base in comp:
+              result = comp[base] + result
+      return result
+
+  # Version B: guard clause that rejects invalid input
+  def reverse_complement_b(seq):
+      if not all(b in 'ATCG' for b in seq):
+          raise ValueError(f'Invalid base in sequence: {seq}')
+      comp = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
+      result = ''
+      for base in seq:
+          result = comp[base] + result
+      return result
+  </python>
+
+  A researcher accidentally passes <pre>ATGNCC</pre> (with an ambiguous N).
+  What happens with each version?
+choices:
+  A: A raises ValueError immediately; B raises ValueError with the same message
+  B: A returns 'GGNAT' after skipping N; B raises ValueError about invalid DNA
+  C: A returns 'GGNCAT' including N; B returns 'GGNCAT' using the same logic
+  D: A returns 'GGCAT' after dropping N; B raises ValueError about invalid DNA
+answer: D
+explanation: |
+  In Version A, <pre>N</pre> is not in the complement dict, so it is silently
+  skipped. The function therefore returns the reverse complement of
+  <pre>ATGCC</pre>, which is <pre>GGCAT</pre>, and the output is the wrong length.
+  In Version B, the guard clause checks the full input first and raises a
+  ValueError with a clear message. This is preferable because it fails fast
+  instead of silently corrupting the result.
+
+---
+slug: raise-vs-return-none-for-invalid-input
+difficulty: medium
+topic: Choosing between raising an exception and returning None when a function receives illegal input
+question: |
+  A function computes the molecular weight of a DNA sequence. A student
+  considers two designs for handling a sequence that contains non-DNA
+  characters:
+
+  <python>
+  # Design 1
+  def molecular_weight(seq):
+      if not all(b in 'ATCG' for b in seq):
+          return None
+      ...
+
+  # Design 2
+  def molecular_weight(seq):
+      if not all(b in 'ATCG' for b in seq):
+          raise ValueError(f'Non-DNA character in: {seq}')
+      ...
+  </python>
+
+  A caller writes:
+
+  <python>
+  total = molecular_weight(seq1) + molecular_weight(seq2)
+  </python>
+
+  If <python>seq2</python> contains an invalid character, what happens under
+  each design?
+choices:
+  A: Design 1 returns None for total; Design 2 raises ValueError immediately
+  B: Design 1 raises TypeError on addition; Design 2 raises ValueError clearly
+  C: Design 1 raises ValueError on return; Design 2 raises ValueError on call
+  D: Design 1 returns NaN for total; Design 2 returns None for invalid input
+answer: B
+explanation: |
+  Under Design 1, <python>molecular_weight(seq2)</python> returns
+  <python>None</python>, so the addition becomes number + <python>None</python>,
+  which raises TypeError. That error hides the real cause (invalid DNA
+  input). Under Design 2, the function raises ValueError immediately with a
+  message that points directly to the bad input. Raising an exception at the
+  validation boundary usually produces clearer, more actionable failures.
+
+---
+slug: propagating-vs-catching-exceptions
+difficulty: medium
+topic: Understanding when to let exceptions propagate versus catching them inside a function
+question: |
+  A codon optimization pipeline has three layers:
+
+  <python>
+  def optimize_codon_at(cds, pos, codon_table):
+      '''Replace one codon. Raises ValueError if pos is out of range.'''
+      if pos < 0 or pos >= len(cds) // 3:
+          raise ValueError(f'Codon position {pos} out of range')
+      ...
+
+  def optimize_all_codons(cds, codon_table):
+      '''Optimize every codon in the CDS.'''
+      for i in range(len(cds) // 3):
+          cds = optimize_codon_at(cds, i, codon_table)
+      return cds
+  </python>
+
+  <python>
+  # Top-level script
+  try:
+      result = optimize_all_codons(my_cds, table)
+  except ValueError as e:
+      print(f'Design failed: {e}')
+  </python>
+
+  Where is the exception caught, and why is this structure correct?
+choices:
+  A: optimize_all_codons catches it so the loop can skip bad codons and finish
+  B: optimize_codon_at catches it so no ValueError ever leaves that function
+  C: It propagates to the top-level try/except, which is the right handler here
+  D: Every layer should wrap each call in try/except to prevent propagation
+answer: C
+explanation: |
+  <python>optimize_codon_at()</python> raises the exception, and
+  <python>optimize_all_codons()</python> does not catch it, so it propagates
+  upward to the top-level <python>try/except</python>. That is usually the
+  right design when lower-level functions cannot recover meaningfully from
+  the error. The top-level script can then report the failure cleanly to the
+  user or log it.
+
+---
+slug: distinguishing-caller-error-from-function-bug
+difficulty: medium
+topic: Distinguishing between a bug inside a function and invalid input from its caller
+question: |
+  A function translates a DNA sequence and a colleague reports it crashes:
+
+  <pre>
+  Traceback (most recent call last):
+    File "design.py", line 8, in <module>
+      protein = translate(user_seq)
+    File "bio.py", line 22, in translate
+      aa = genetic_code[codon]
+  KeyError: 'ATN'
+  </pre>
+
+  The genetic_code dict contains all 64 standard codons. Is this a bug
+  in translate or a caller error?
+choices:
+  A: Bug in translate; it must accept every three-letter string as a codon
+  B: Caller error; 'ATN' is invalid input and should be rejected earlier
+  C: Bug in genetic_code; it should include codons with ambiguous bases too
+  D: Caller error; the caller should catch KeyError so the function is fine
+answer: B
+explanation: |
+  <pre>ATN</pre> is not one of the 64 standard DNA codons because it contains
+  an ambiguous base (<pre>N</pre>). If the function contract expects a valid DNA
+  sequence with bases in <pre>ATCG</pre>, then this is invalid input from the
+  caller, not evidence that the translation function is broken. Catching the
+  exception at the caller may prevent a crash, but it does not fix the bad
+  input.
+
+---
+slug: choosing-the-right-exception-type
+difficulty: medium
+topic: Selecting the appropriate exception type to communicate why a function rejected its input
+question: |
+  A function checks whether a primer sequence is valid for ordering:
+
+  <python>
+  def validate_primer(seq):
+      if not isinstance(seq, str):
+          raise ???('seq must be a string, got ' + type(seq).__name__)
+      if len(seq) < 15:
+          raise ???('Primer too short: ' + str(len(seq)) + ' bases (minimum 15)')
+      if not all(b in 'ATCG' for b in seq.upper()):
+          raise ???('Primer contains non-DNA characters: ' + seq)
+  </python>
+
+  What exception types best fill the three ??? slots?
+choices:
+  A: TypeError, ValueError, ValueError for type mismatch then bad values
+  B: ValueError, ValueError, ValueError for all rejected primer conditions
+  C: TypeError, IndexError, KeyError for type, length, and base checks
+  D: Exception, Exception, Exception to avoid choosing overly specific types
+answer: A
+explanation: |
+  Use TypeError when the argument has the wrong type (the first check), and
+  ValueError when the argument has the right type but an unacceptable value
+  (the second and third checks). This preserves an important distinction for
+  callers and tests: wrong type vs wrong domain value.
+
+---
+slug: traceback-through-multiple-calls
+difficulty: medium
+topic: Reading a multi-level traceback to understand the chain of calls that led to a failure
+question: |
+  A gene design pipeline crashes with this traceback:
+
+  <pre>
+  Traceback (most recent call last):
+    File "main.py", line 5, in <module>
+      construct = build_construct(gene, plasmid)
+    File "assembly.py", line 18, in build_construct
+      rbs_result = design_rbs(gene['cds'])
+    File "rbs.py", line 7, in design_rbs
+      utr = chooser.run(cds)
+    File "chooser.py", line 34, in run
+      score = self.proteomics[gene_id]
+  KeyError: 'yaaX'
+  </pre>
+
+  A student says "the bug is in chooser.py line 34." Another says "the
+  real problem is missing or incomplete proteomics setup upstream." Who is
+  closer to the correct diagnosis?
+choices:
+  A: First student; line 34 is always the root cause whenever KeyError occurs
+  B: Second student; line 34 surfaced it, but upstream data setup is suspect
+  C: Neither student; the real bug is the call site in main.py line 5 only
+  D: Neither student; KeyError indicates a syntax problem in chooser.py code
+answer: B
+explanation: |
+  The traceback shows where the KeyError surfaced: <python>chooser.py</python>
+  line 34, while looking up <pre>yaaX</pre> in <python>self.proteomics</python>.
+  But the better diagnosis is about root cause: the proteomics table may not
+  have been loaded, may be incomplete, or may not contain the expected gene
+  identifiers. Good debugging distinguishes the line where an exception is
+  raised from the earlier setup step that created the bad state.
+
+---
+slug: what-happens-without-input-validation
+difficulty: medium
+topic: Predicting the downstream consequences of skipping input validation in a function
+question: |
+  A function computes GC content but does not validate its input:
+
+  <python>
+  def gc_content(seq):
+      gc = sum(1 for b in seq if b in 'GC')
+      return gc / len(seq)
+  </python>
+
+  A caller accidentally passes an integer gene ID instead of a sequence:
+
+  <python>
+  gc = gc_content(1234)
+  </python>
+
+  What happens?
+choices:
+  A: Returns 0.0 because no integer digits count as G or C nucleotides here
+  B: TypeError because integers are not iterable in the loop over seq values
+  C: Returns 0.25 because the digits are converted to characters automatically
+  D: ValueError because gc_content validates the input before any iteration
+answer: B
+explanation: |
+  Integers are not iterable in Python, so the generator expression
+  <python>for b in seq</python> raises TypeError. The message will be about an
+  <python>int</python> not being iterable. A validation guard at the top of
+  the function (for example, checking that <python>seq</python> is a string)
+  would fail earlier with a clearer, more specific message.
+
+---
+slug: error-message-quality
+difficulty: medium
+topic: Evaluating whether an error message gives the caller enough information to diagnose the problem
+question: |
+  Two versions of a restriction site checker raise exceptions differently:
+
+  <python>
+  # Version A
+  def check_forbidden_sites(seq, forbidden):
+      for site in forbidden:
+          if site in seq:
+              raise ValueError('bad')
+
+  # Version B
+  def check_forbidden_sites(seq, forbidden):
+      for site in forbidden:
+          if site in seq:
+              pos = seq.index(site)
+              raise ValueError(
+                  f'Forbidden site {site} found at position {pos} in sequence'
+              )
+  </python>
+
+  A designer gets a ValueError while building a construct with 5 forbidden
+  sites to check. Why is Version B's error message better?
+choices:
+  A: It is not better; both versions stop execution, so diagnostics are equal
+  B: It names the site and position, so the caller can fix the exact problem
+  C: It is better only because it uses the word Forbidden in the message text
+  D: It is worse because seq.index adds overhead, so shorter messages are best
+answer: B
+explanation: |
+  Version A's message (<python>'bad'</python>) gives almost no diagnostic
+  information. Version B identifies both what failed (which forbidden site)
+  and where it failed (the position in the sequence). That makes the error
+  immediately actionable for the caller and reduces extra debugging work.

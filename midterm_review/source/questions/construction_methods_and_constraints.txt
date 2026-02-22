@@ -1,0 +1,264 @@
+
+
+---
+slug: pcr-primer-3prime-matching
+difficulty: medium
+topic: Understanding why only the primer 3' annealing region must match to initiate PCR synthesis
+question: |
+  In PCR, a primer is designed with a 20 bp 3' annealing region that matches the
+  template and a 15 bp 5' extension that adds a new sequence.
+
+  Why does the 5' extension not need to match the template?
+choices:
+  A: A proofreading exonuclease removes the nonmatching 5' extension before polymerase begins extension in the first PCR cycle
+  B: DNA polymerase extends from the primer's paired 3' end, so only the 3' annealing region must match to start synthesis
+  C: The 5' extension must anneal elsewhere on the template to stabilize primer binding before extension can occur
+  D: Polymerase requires both primer ends to match, but it usually tolerates short 5' mismatches during PCR
+answer: B
+explanation: |
+  DNA polymerase requires a base-paired primer 3' hydroxyl to begin extension.
+  The primer's 3' annealing region provides that base-paired starting point. The
+  5' extension can remain unmatched in the first cycle and is still copied into the
+  product as polymerase extends from the 3' end.
+
+  In later cycles, that extension sequence is present in the PCR product and can serve
+  as part of the template. Option A is incorrect because the extension is not removed.
+  Option C is incorrect because the extension is not required to anneal elsewhere.
+  Option D is incorrect because the 5' extension is not just a tolerated mismatch; it
+  is intentionally non-annealing sequence.
+
+---
+slug: gibson-assembly-homology
+difficulty: medium
+topic: Understanding how terminal homology enables fragment joining without restriction sites
+question: |
+  In Gibson assembly, two DNA fragments are designed with about 20 bp of
+  identical sequence at the ends that should connect.
+
+  What is the role of this shared homology?
+choices:
+  A: A restriction enzyme recognizes the matched ends, cuts both fragments, and directly ligates them in one step
+  B: The shared sequence serves as an internal PCR primer that amplifies the joined construct inside the Gibson mix
+  C: Exonuclease exposes single-stranded ends, and homologous regions anneal to align fragments for fill-in and sealing
+  D: The homologous sequence encodes an assembly factor that catalyzes fragment joining after the reaction starts
+answer: C
+explanation: |
+  In Gibson assembly, exonuclease first exposes complementary single-stranded
+  ends, the homologous regions anneal, polymerase fills remaining gaps, and
+  ligase seals nicks. The shared terminal homology is what allows adjacent
+  fragments to find and pair with the correct partner.
+
+  Option A confuses Gibson assembly with restriction-enzyme cloning. Option B
+  confuses Gibson assembly with PCR. Option D is nonsensical.
+
+---
+slug: forbidden-restriction-sites
+difficulty: medium
+topic: Recognizing how an assembly method constrains which sequences are allowed in a design
+question: |
+  A gene synthesis order is rejected because the sequence contains a BsaI
+  recognition site (<pre>GGTCTC</pre>). The gene will later be assembled using Golden
+  Gate cloning, which uses BsaI.
+
+  Why must the internal site be removed?
+choices:
+  A: BsaI sites always make synthesis chemistry too slow, so vendors reject any sequence containing that motif
+  B: Internal BsaI cutting would split the fragment during assembly and create unintended products or assembly failure
+  C: The motif <pre>GGTCTC</pre> always encodes a toxic peptide when it appears inside a coding region of DNA
+  D: Restriction motifs cannot occur in coding DNA because they inherently block ribosomes during translation
+answer: B
+explanation: |
+  Golden Gate assembly depends on controlled BsaI cutting at intended junctions.
+  If the insert also contains an internal BsaI site, the enzyme cuts there too,
+  creating extra fragments that disrupt the planned assembly.
+
+  The usual fix is to remove the internal site by synonymous (silent) codon
+  changes if the site is in a coding region. Option A is incorrect as stated.
+  Option C is false. Option D is false because restriction sites can occur in
+  coding sequences without inherently disrupting translation.
+
+---
+slug: construction-file-representation
+difficulty: medium
+topic: Understanding how a structured build plan represents a sequence of physical DNA construction steps
+question: |
+  A Construction File (CF) contains these steps:
+
+  <pre>
+  pcr   fwd1 rev1 pTemplate product1
+  digest product1 EcoRI 1 frag1
+  ligate frag1 lig1
+  transform lig1 Mach1 Amp pFinal
+  </pre>
+
+  What does this CF describe?
+choices:
+  A: A gene expression workflow that transcribes pTemplate and translates protein in Mach1 cells
+  B: A sequencing workflow that digests DNA, reads bases, and builds a consensus sequence output
+  C: A codon optimization workflow that redesigns pTemplate and outputs a final plasmid sequence file
+  D: A cloning workflow with PCR, EcoRI digestion, ligation, and transformation into Mach1 under ampicillin selection
+answer: D
+explanation: |
+  Each CF line encodes a build step in a cloning workflow. The file specifies a
+  PCR step, an EcoRI digest of the PCR product, a ligation step, and a
+  transformation into Mach1 cells with ampicillin selection. That is a physical
+  DNA construction plan, not an expression, sequencing, or codon-optimization
+  workflow.
+
+---
+slug: pcr-product-prediction
+difficulty: medium
+topic: Tracing the dominant PCR product from primer structure and template matching rules
+question: |
+  A PCR reaction uses:
+  <pre>
+  Forward oligo: 5'-AAAA-cccc-3'  (AAAA is a 5' extension; cccc anneals to template)
+  Reverse oligo: 5'-TTTT-gggg-3'  (TTTT is a 5' extension; gggg anneals to template)
+  Template: 5'-...ccccXXXXXXXXgggg...-3'
+  </pre>
+
+  After many PCR cycles, what is the dominant product?
+choices:
+  A: A double-stranded amplicon bounded by the full primer sequences, including the AAAA and TTTT extensions
+  B: A double-stranded product matching only template sequence, because 5' primer extensions are never copied
+  C: A single-stranded product dominated by forward-primer sequence because the reverse extension blocks amplification
+  D: A double-stranded product containing only XXXXXXXX, since primer-derived sequences are excluded from amplicons
+answer: A
+explanation: |
+  The primer 3' annealing regions bind the template and are extended by DNA
+  polymerase. During the first cycles, the 5' extensions become incorporated into the
+  newly synthesized strands. In later cycles, those extension-containing products act
+  as templates, so the full primer sequences become fixed at the ends of the PCR
+  amplicon.
+
+  Therefore the dominant product includes primer-derived extension sequences at both
+  ends. Options B, C, and D all ignore how primer sequences become incorporated
+  and then re-amplified.
+
+---
+slug: fragment-size-limits-strategy
+difficulty: medium
+topic: Understanding how fragment size limits drive divide-and-assemble build strategies
+question: |
+  A synthesis provider can reliably deliver DNA fragments only up to a few
+  kilobases each. A designer needs to build a 15 kb plasmid.
+
+  What is the standard strategy?
+choices:
+  A: Submit the full 15 kb plasmid as a rush order, since expedited service bypasses standard length limits
+  B: Split the design into overlapping fragments and assemble them later with Gibson or another multi-fragment method
+  C: Order short oligos and assemble the entire 15 kb plasmid in one PCA reaction with no intermediates
+  D: Skip synthesis and isolate the full plasmid from a natural organism using standard restriction cloning
+answer: B
+explanation: |
+  Large constructs are typically built by dividing the design into buildable
+  fragments and then assembling them with methods such as Gibson assembly that
+  use defined overlaps. This is the standard engineering response to synthesis
+  length limits.
+
+  Option A assumes the limit can simply be bypassed. Option C is not a standard
+  one-step strategy for a 15 kb plasmid. Option D assumes the sequence exists in
+  nature and ignores the stated design-build workflow.
+
+---
+slug: restriction-digest-and-ligation
+difficulty: medium
+topic: Understanding how restriction digest and ligation change DNA ends and topology
+question: |
+  A linear PCR product has an EcoRI site near each end. After digesting with
+  EcoRI and then ligating, what is the expected major product under typical
+  dilute ligation conditions?
+choices:
+  A: Two separate DNA fragments that cannot rejoin because EcoRI digestion destroys sticky-end compatibility
+  B: The original linear PCR product, because ligase cannot seal DNA ends after a restriction digest step
+  C: A long concatemer produced mainly by intermolecular ligation among many copies of the digested fragment
+  D: A circular DNA molecule formed by intramolecular ligation of compatible EcoRI sticky ends on one fragment
+answer: D
+explanation: |
+  EcoRI generates compatible sticky ends (5' overhangs) at both cut sites. After
+  digestion, those ends can anneal and be sealed by ligase. For a single fragment
+  under typical dilute ligation conditions, intramolecular ligation (circular
+  product) is usually favored over intermolecular concatenation.
+
+  Option A is incorrect because EcoRI creates compatible ends. Option B is
+  incorrect because ligation after digestion is a standard workflow. Option C can
+  occur, especially at higher DNA concentration, but is not typically the major
+  product under dilute conditions.
+
+---
+slug: pca-vs-standard-pcr
+difficulty: medium
+topic: Distinguishing standard PCR amplification from polymerase chain assembly by the inputs provided
+question: |
+  Standard PCR uses two primers and a separate template DNA to amplify a target
+  region. Polymerase Chain Assembly (PCA) instead uses a pool of overlapping
+  oligos with no separate full-length template.
+
+  What does PCA produce?
+choices:
+  A: A high-copy product consisting mostly of the longest oligo, because shorter oligos fail to participate
+  B: A random mixture of oligo combinations with no dominant assembled product because no template is supplied
+  C: Only single-stranded DNA products, because no initial full-length double-stranded template is present
+  D: A gene-length DNA assembled from overlapping oligos that prime and template one another during the reaction
+answer: D
+explanation: |
+  In PCA, overlapping oligos anneal to one another and are extended by
+  polymerase, creating progressively longer fragments across cycles. The reaction
+  builds a longer DNA product from the oligo pool, and outer primers are often
+  used afterward to amplify the assembled full-length product.
+
+  Option A misunderstands the assembly mechanism. Option B overstates the
+  randomness of the process. Option C is wrong because the oligos themselves act
+  as templates during assembly.
+
+---
+slug: oligo-design-constraints
+difficulty: medium
+topic: Understanding how multiple primer design constraints must be satisfied simultaneously
+question: |
+  When designing a PCR primer annealing region, several constraints are usually
+  considered at the same time. Which set of constraints is most appropriate?
+choices:
+  A: Exactly 20 bp, unrestricted GC content, must begin with ATG, and no other sequence constraints
+  B: About 18-25 bp, moderate GC content, no long homopolymers, and a reasonably stable 3' end
+  C: About 50-100 bp, low GC content, and must end with a stop codon for proper priming behavior
+  D: About 10-15 bp, very high GC content, and A/T bases at both ends to improve binding
+answer: B
+explanation: |
+  Primer annealing regions are typically chosen to balance specificity,
+  melting/annealing behavior, and robust extension from the 3' end. Common
+  design heuristics include roughly 18 to 25 bases, moderate GC content,
+  avoiding long homopolymers, and a reasonably stable 3' end (often a G/C-rich
+  end).
+
+  Option A confuses primer design with coding-sequence design. Option C is far
+  too long and uses inappropriate coding constraints. Option D is generally too
+  short and too GC-rich for reliable, specific priming.
+
+---
+slug: design-vs-fabrication-feasibility
+difficulty: medium
+topic: Recognizing that a sequence can be computationally valid yet difficult to synthesize physically
+question: |
+  A codon-optimization algorithm produces a 4,000 bp coding sequence. The
+  sequence passes software checks (for example, no forbidden restriction sites
+  and acceptable codon-usage metrics), but a fabrication engineer flags it as
+  difficult to synthesize.
+
+  Which issue could cause that problem?
+choices:
+  A: High codon diversity across the coding region, which fabrication review usually rejects during sequence screening
+  B: A protein size that may reduce E. coli expression, even though the DNA sequence can still be synthesized
+  C: Missing downstream transcription termination signals outside the coding region in the final expression construct
+  D: A short extreme-GC region that forms strong secondary structure during synthesis and increases failure risk
+answer: D
+explanation: |
+  DNA synthesis feasibility depends on fabrication constraints that are not the
+  same as expression-design constraints. Local regions with extreme GC content,
+  repeats, or strong secondary structure can make synthesis and assembly much
+  harder even when the sequence is otherwise biologically valid.
+
+  Option A is not a typical synthesis blocker by itself. Option B is an
+  expression issue, not a fabrication issue. Option C is a construct-design
+  context issue and is not a reason a coding sequence itself would be hard to
+  synthesize.

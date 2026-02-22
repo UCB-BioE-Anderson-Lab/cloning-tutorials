@@ -1,0 +1,344 @@
+---
+slug: identify-inefficient-list-membership-in-genotype-check
+difficulty: medium
+topic: Comparing implementations of the same task to identify algorithmic inefficiency
+question: |
+  In a strain-genotype analysis pipeline, one step stores a strain genotype as a
+  collection of allele names, and another step checks that genotype against a
+  panel of allele names to flag.
+
+  Assume the following variables are already defined:
+
+  <python>
+  strain_alleles = ['recA1', 'endA1', 'gyrA96', ...]              # Python list of allele names (length n)
+  flagged_alleles = {'gyrA96', 'rpsL150', 'lacIq', ...}           # Python set of allele names (length m)
+  </python>
+
+  The goal is to print each allele name that appears in both collections.
+
+  Assume <python>strain_alleles</python> contains no duplicates, output order does
+  not matter, and ignore the cost of printing itself.
+
+  Which option is the most algorithmically inefficient for many membership
+  checks?
+choices:
+  A: |
+    Convert the strain-allele list to a set first, then test flagged alleles against that set.
+
+    <python>
+    strain_allele_set = set(strain_alleles)
+    for allele in flagged_alleles:
+        if allele in strain_allele_set:
+            print("flagged allele present:", allele)
+    </python>
+  B: |
+    Test each flagged allele directly against the strain-allele list.
+
+    <python>
+    for allele in flagged_alleles:
+        if allele in strain_alleles:
+            print("flagged allele present:", allele)
+    </python>
+  C: |
+    Convert the strain-allele list to a set, collect matches with a comprehension, then print.
+
+    <python>
+    strain_allele_set = set(strain_alleles)
+    hits = [allele for allele in flagged_alleles if allele in strain_allele_set]
+    for allele in hits:
+        print("flagged allele present:", allele)
+    </python>
+  D: |
+    Scan the strain-allele list once and test membership in the flagged-allele set.
+
+    <python>
+    for allele in strain_alleles:
+        if allele in flagged_alleles:
+            print("flagged allele present:", allele)
+    </python>
+answer: B
+explanation: |
+  Option B is the most algorithmically inefficient because it repeatedly checks
+  whether an element is in a Python list (<python>allele in strain_alleles</python>)
+  inside a loop. If <python>len(strain_alleles) = n</python> and
+  <python>len(flagged_alleles) = m</python>, each list membership test can take
+  O(n) time in the worst case, so repeating it m times gives O(mn) total runtime.
+
+  The main punchline is that repeated membership tests should generally not be
+  done against a list when a set is available or can be built once.
+
+  - A builds a set once, then uses typically O(1) average-case set membership.
+  - C has the same asymptotic idea as A, just written in a different style.
+  - D scans the list once and tests membership in <python>flagged_alleles</python>,
+    which is already a set, so it avoids repeated list membership checks.
+
+  The inefficiency targeted by this question is repeated
+  <python>x in some_list</python> tests.
+
+---
+slug: single-loop-runtime-scaling
+difficulty: medium
+topic: Estimating runtime growth from a single pass through sequence data
+question: |
+  A function scans a DNA sequence once to count how many G and C bases it
+  contains:
+
+  <python>
+  def gc_count(seq):
+      count = 0
+      for base in seq:
+          if base in 'GC':
+              count += 1
+      return count
+  </python>
+
+  If <python>n = len(seq)</python>, what is the Big-O runtime of this function?
+choices:
+  A: O(1) - the number of operations is constant regardless of sequence length
+  B: O(log n) - the loop grows logarithmically with sequence length
+  C: O(n) - the function examines each base once in a single pass
+  D: O(n^2) - the if statement makes the loop quadratic in sequence length
+answer: C
+explanation: |
+  The loop visits each base in <python>seq</python> once, so the total work
+  grows linearly with sequence length. The membership test
+  <python>base in 'GC'</python> is over a constant-size string, so it does not
+  change the asymptotic runtime. Therefore the runtime is O(n).
+
+---
+slug: nested-loop-pairwise-comparison
+difficulty: medium
+topic: Recognizing quadratic runtime from pairwise comparisons implemented with nested loops
+question: |
+  A function compares every sequence in a list to every other sequence to find
+  exact duplicates:
+
+  <python>
+  seqs = [...]  # length n
+  duplicates = []
+  for i in range(len(seqs)):
+      for j in range(i + 1, len(seqs)):
+          if seqs[i] == seqs[j]:
+              duplicates.append((i, j))
+  </python>
+
+  Ignoring the cost of string comparison itself and focusing on the loop
+  structure, what is the Big-O runtime in terms of <python>n</python>?
+choices:
+  A: O(1) - the inner loop starts at i+1, so the total work is bounded
+  B: O(n) - each sequence is touched once by the outer loop only
+  C: O(n log n) - nested loops imply logarithmic growth in the inner loop
+  D: O(n^2) - the code performs a pairwise comparison pattern over the list
+answer: D
+explanation: |
+  The code compares many pairs of items using nested loops. The outer loop runs
+  about n times, and the inner loop runs a decreasing but still linear number of
+  times overall, giving a total proportional to n(n-1)/2. That scales as O(n^2).
+
+---
+slug: dictionary-lookup-vs-list-scan
+difficulty: medium
+topic: Comparing data structure choices based on lookup complexity
+question: |
+  You have proteomics data as a list of records and repeatedly need abundance by
+  gene ID. Two approaches are considered:
+
+  <python>
+  # Approach 1: list scan each time
+  [ab for gid, ab in data if gid == query_gene][0]
+
+  # Approach 2: precompute dict once, then lookup
+  by_gene = {gid: ab for gid, ab in data}
+  by_gene[query_gene]
+  </python>
+
+  For a single lookup on already-built data structures, which statement is the
+  best complexity comparison?
+choices:
+  A: Both are O(1) because Python stores all variables in memory
+  B: List scan is O(n), dict lookup is typically O(1) average-case
+  C: List scan is O(log n), dict lookup is O(n) because hashing scans keys
+  D: Both are O(n) because they both return one abundance value
+answer: B
+explanation: |
+  A list scan may need to inspect many records before finding the matching gene
+  ID, so it is O(n). A dictionary is organized for key-based lookup and is
+  typically O(1) on average for a single lookup. This is why dicts are often
+  preferable for repeated identifier-based queries.
+
+---
+slug: two-pass-linear-work
+difficulty: medium
+topic: Combining sequential linear passes and simplifying Big-O expressions
+question: |
+  A sequence QC function does two separate passes over the same DNA string:
+
+  <python>
+  def qc(seq):
+      gc = 0
+      for b in seq:
+          if b in 'GC':
+              gc += 1
+
+      n_count = 0
+      for b in seq:
+          if b == 'N':
+              n_count += 1
+
+      return gc, n_count
+  </python>
+
+  If <python>n = len(seq)</python>, what is the Big-O runtime?
+choices:
+  A: O(1) - there are only two loops, so runtime is constant
+  B: O(n) - two linear passes still simplify to linear runtime
+  C: O(n log n) - the second loop adds a logarithmic factor
+  D: O(n^2) - two loops over the same sequence make it quadratic
+answer: B
+explanation: |
+  Each loop is O(n), and they run one after the other, not nested. That gives
+  O(n + n) = O(2n), which simplifies to O(n) in Big-O notation because constant
+  factors are dropped.
+
+---
+slug: nested-loops-over-rows-and-columns
+difficulty: medium
+topic: Estimating runtime from nested iteration over two input dimensions
+question: |
+  A plate-processing function loops over every well in an <python>r x c</python>
+  grid:
+
+  <python>
+  for row in range(r):
+      for col in range(c):
+          process_well(row, col)
+  </python>
+
+  What is the Big-O runtime in terms of <python>r</python> and <python>c</python>,
+  assuming <python>process_well(...)</python> is O(1)?
+choices:
+  A: O(r + c) - the loops are independent so costs add
+  B: O(r * c) - one constant-time operation is done for each well in the grid
+  C: O(r^2 + c^2) - nested loops square each dimension separately
+  D: O(log(rc)) - grid traversal scales logarithmically with total wells
+answer: B
+explanation: |
+  The inner operation runs once for each pair (row, col). There are r choices
+  for row and c choices for col, so the total number of iterations is r*c.
+  Therefore the runtime is O(r*c).
+
+---
+slug: membership-test-list-vs-set
+difficulty: medium
+topic: Choosing the right container when repeated membership tests dominate runtime
+question: |
+  A design checker repeatedly asks whether a restriction site is in a collection
+  of forbidden sites. You can store the forbidden sites as either a list or a
+  set.
+
+  Which choice is usually better for performance when the main operation is
+  repeated membership testing?
+choices:
+  A: List, because lists preserve insertion order and that makes membership faster
+  B: List, because sets require sorting before membership can be tested
+  C: Set, because membership testing is typically O(1) average-case
+  D: Set, because sets always guarantee O(1) worst-case for every operation
+answer: C
+explanation: |
+  Sets are designed for fast membership tests and are typically O(1) average-
+  case for <python>x in my_set</python>. List membership testing scans elements
+  until it finds a match (or reaches the end), which is O(n). For repeated
+  membership checks, a set is usually the better choice.
+
+---
+slug: best-complexity-for-id-lookups
+difficulty: medium
+topic: Choosing an appropriate target complexity for repeated identifier-based queries
+question: |
+  You are designing a helper function for a bioinformatics pipeline. The input is
+  a collection of <python>n</python> gene records, and the function will be used
+  to answer many queries of the form: "What is the abundance for gene_id X?"
+
+  If you are free to choose the internal data structure, what is the best target
+  complexity for each lookup (after any one-time preprocessing)?
+choices:
+  A: O(n), because a full scan is required to be biologically correct
+  B: O(log n), because biological records must be kept in sorted order
+  C: O(1) average-case, using a dict keyed by gene ID
+  D: O(n^2), because comparing IDs pairwise avoids lookup mistakes
+answer: C
+explanation: |
+  If the dominant operation is repeated lookup by identifier, a dict keyed by
+  gene ID is a natural choice. After one-time preprocessing to build the dict,
+  each lookup can be O(1) average-case. This matches the access pattern much
+  better than scanning a list for every query.
+
+---
+slug: choose-linear-scan-when-reading-each-base
+difficulty: medium
+topic: Selecting a realistic best-case complexity target for sequence inspection tasks
+question: |
+  A function must determine whether a DNA sequence contains any invalid
+  character (anything other than A, C, G, T, or N). In the worst case, the
+  sequence is valid and the function must inspect all bases before returning.
+
+  What is the best Big-O runtime target for this task in the worst case, as a
+  function of sequence length <python>n</python>?
+choices:
+  A: O(1), because the validity rules are fixed and do not depend on n
+  B: O(log n), because invalid characters can be found by binary search
+  C: O(n), because the function may need to check each base once
+  D: O(n^2), because every base must be compared to every other base
+answer: C
+explanation: |
+  In the worst case (a fully valid sequence), the function cannot know the
+  answer until it has inspected all bases. A single pass over the sequence is
+  therefore the right target, which is O(n). This is a common pattern in
+  sequence validation tasks.
+
+---
+slug: sort-then-many-lookups-tradeoff
+difficulty: medium
+topic: Comparing preprocessing strategies for repeated queries on biological records
+question: |
+  You need to answer many lookups by gene ID from a dataset of <python>n</python>
+  records. Two strategies are proposed:
+
+  1. Keep a list and linearly scan for each lookup
+  2. Build a dict once, then use dict lookup for each query
+
+  Which statement best describes the tradeoff for many queries?
+choices:
+  A: Linear scans are always better because they avoid preprocessing cost entirely
+  B: Dict building adds one-time work, but repeated lookups are much faster afterward
+  C: Dict lookup is slower than list scanning because hashing compares every key
+  D: Both strategies have the same total runtime for many queries by gene ID
+answer: B
+explanation: |
+  Building a dict requires one-time preprocessing work, but after that, repeated
+  lookups by gene ID are typically O(1) average-case per query. If you expect
+  many queries, this often beats scanning the list each time.
+
+---
+slug: identify-dominant-term-in-runtime
+difficulty: medium
+topic: Simplifying runtime expressions by keeping the dominant growth term
+question: |
+  A pipeline step has runtime described by the expression:
+
+  <python>
+  T(n) = 3n^2 + 20n + 7
+  </python>
+
+  What is the correct Big-O classification?
+choices:
+  A: O(n) - the linear term dominates once constants are ignored
+  B: O(n log n) - mixed polynomial terms imply a logarithmic factor
+  C: O(n^2) - the highest-order term determines asymptotic growth
+  D: O(3n^2 + 20n + 7) - Big-O should keep the exact full expression
+answer: C
+explanation: |
+  Big-O focuses on asymptotic growth as n becomes large. In
+  <python>3n^2 + 20n + 7</python>, the n^2 term grows fastest and dominates the
+  runtime for large n. Constant factors and lower-order terms are omitted, so
+  the classification is O(n^2).

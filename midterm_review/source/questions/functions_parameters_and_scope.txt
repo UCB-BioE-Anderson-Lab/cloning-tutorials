@@ -1,0 +1,385 @@
+---
+slug: return-vs-print-in-design
+difficulty: medium
+topic: Understanding that functions communicate results through return values, not side effects
+question: |
+  A student writes a function to translate a CDS into a protein:
+
+  <python>
+  def translate(cds, genetic_code):
+      protein = ''
+      for i in range(0, len(cds), 3):
+          codon = cds[i:i+3]
+          protein += genetic_code[codon]
+      print(protein)
+
+  result = translate('ATGAAATAA', genetic_code)
+  </python>
+
+  They then try to check whether the protein starts with methionine:
+
+  <python>
+  result.startswith('M')
+  </python>
+
+  What happens?
+choices:
+  A: Returns True because the translated protein starts with M and result stores that protein string
+  B: Returns False because print changes the protein into a display-only format before assignment
+  C: NameError because protein was created inside the function and cannot be referenced afterward
+  D: AttributeError because result is None when the function prints the protein instead of returning it
+answer: D
+explanation: |
+  The function uses <python>print()</python> instead of <python>return</python>,
+  so it displays the protein but returns <python>None</python> by default.
+  Calling <python>.startswith()</python> on <python>None</python> raises an
+  AttributeError. Option A would be correct if the function returned the
+  protein string. Option D states a true scoping fact (<python>protein</python>
+  is local), but that is not the immediate error in the code shown.
+
+---
+slug: local-scope-isolation
+difficulty: medium
+topic: Recognizing that local variables inside a function are invisible to the caller
+question: |
+  A function computes the GC content of a DNA sequence:
+
+  <python>
+  def gc_content(seq):
+      gc_count = 0
+      for base in seq:
+          if base in 'GC':
+              gc_count += 1
+      fraction = gc_count / len(seq)
+      return fraction
+
+  result = gc_content('ATGCGC')
+  print(gc_count)
+  </python>
+
+  What happens when <python>print(gc_count)</python> executes?
+choices:
+  A: Prints 4 because gc_count was calculated in the function and remains available afterward
+  B: Prints 0 because gc_count is reset when the function finishes and leaves local scope
+  C: NameError because gc_count exists only inside gc_content and not in the caller scope
+  D: Prints 0.667 because gc_count is replaced by the returned GC fraction in the caller code
+answer: C
+explanation: |
+  Variables created inside a function are local to that function unless they
+  are explicitly returned or otherwise exposed. <python>gc_count</python>
+  exists only inside <python>gc_content()</python>, so the caller cannot read
+  it directly. The function returns the fraction (stored in
+  <python>result</python>), but <python>gc_count</python> itself is out of
+  scope in the caller.
+
+---
+slug: default-argument-override
+difficulty: medium
+topic: Using default arguments to provide sensible fallbacks that callers can override
+question: |
+  A CRISPR guide RNA design function has a default PAM:
+
+  <python>
+  def find_targets(seq, pam='NGG'):
+      targets = []
+      for i in range(len(seq) - len(pam)):
+          if matches_pam(seq[i:i+len(pam)], pam):
+              targets.append(i)
+      return targets
+
+  a = find_targets(genome_seq)
+  b = find_targets(genome_seq, 'NGG')
+  c = find_targets(genome_seq, 'NNGRRT')
+  </python>
+
+  Which calls use <pre>NGG</pre> and which use <pre>NNGRRT</pre>?
+choices:
+  A: Calls a and b use NGG, while call c uses NNGRRT and overrides the default value
+  B: Only call b uses NGG, while call a gets None because no PAM argument was passed
+  C: All three calls use NGG because a default argument cannot be replaced by the caller
+  D: Call a uses NGG, but calls b and c fail because the function takes only one argument
+answer: A
+explanation: |
+  In call <python>a</python>, no PAM is provided, so the default
+  <pre>NGG</pre> is used. Call <python>b</python> passes <pre>NGG</pre>
+  explicitly, so it has the same effect. Call <python>c</python> passes
+  <pre>NNGRRT</pre>, which overrides the default. Default arguments provide a
+  convenient common case while still allowing callers to supply alternatives.
+
+---
+slug: pure-function-no-side-effects
+difficulty: medium
+topic: Distinguishing pure functions from those with side effects and understanding why purity aids testing
+question: |
+  Two implementations of reverse_complement are proposed:
+
+  <python>
+  # Version A
+  complement_table = {}
+  def reverse_complement_a(seq):
+      complement_table['last_input'] = seq
+      comp = seq.translate(str.maketrans('ATCG', 'TAGC'))
+      return comp[::-1]
+
+  # Version B
+  def reverse_complement_b(seq):
+      comp = seq.translate(str.maketrans('ATCG', 'TAGC'))
+      return comp[::-1]
+  </python>
+
+  Both return the correct reverse complement. Why is Version B preferred
+  for use in a design pipeline?
+choices:
+  A: Version A is avoided mainly because dictionary writes are always too slow for pipelines
+  B: Version B is pure because it returns only a value and does not mutate shared state
+  C: Version B is preferred because it automatically handles lowercase sequence input safely
+  D: Version A is avoided because repeated calls return different reverse complements each time
+answer: B
+explanation: |
+  Version A mutates the external dict <python>complement_table</python> on
+  every call, which is a side effect. Version B depends only on its input and
+  produces only a return value. That makes Version B easier to test, reason
+  about, and safely compose with other functions. Both versions return the
+  same reverse complement for the same input, but only Version B avoids hidden
+  state changes.
+
+---
+slug: function-as-reusable-unit
+difficulty: medium
+topic: Recognizing when repeated logic should be extracted into a function and how arguments generalize it
+question: |
+  A student writes code to check for forbidden restriction sites in a
+  designed gene:
+
+  <python>
+  has_ecori = 'GAATTC' in cds
+  has_bsai = 'GGTCTC' in cds
+  has_bsai_rc = 'GAGACC' in cds
+  has_ecori_rc = 'GAATTC' in cds
+  </python>
+
+  They realize the pattern repeats. Which refactoring best captures
+  the shared logic?
+choices:
+  A: |
+    <python>
+    def has_site(seq):
+        return 'GAATTC' in seq or 'GGTCTC' in seq
+    </python>
+  B: |
+    <python>
+    def has_site(site):
+        return site in cds
+    </python>
+  C: |
+    <python>
+    def has_site(seq, site):
+        rc = reverse_complement(site)
+        return site in seq or rc in seq
+    </python>
+  D: |
+    <python>
+    def has_site():
+        return True
+    </python>
+answer: C
+explanation: |
+  Option A parameterizes both things that vary: the sequence being checked
+  and the restriction site of interest. It also handles the reverse
+  complement, which is part of the repeated logic. Option B hardcodes
+  specific sites, so it is not reusable. Option C relies on
+  <python>cds</python> from outer scope instead of taking the sequence as an
+  argument, making the function less reusable and harder to test. Option D
+  does not implement the required logic.
+
+---
+slug: initiate-run-lifecycle
+difficulty: medium
+topic: Understanding the two-phase pattern of configuring an algorithm object then executing it
+question: |
+  The RBSChooser class uses an initiate/run pattern:
+
+  <python>
+  chooser = RBSChooser()
+  chooser.initiate()       # loads proteomics data and builds lookup tables
+  result = chooser.run(cds)  # designs an RBS for the given CDS
+  </python>
+
+  A student tries to skip initiation:
+
+  <python>
+  chooser2 = RBSChooser()
+  result2 = chooser2.run(cds)
+  </python>
+
+  What is the most likely outcome?
+choices:
+  A: AttributeError or KeyError because run expects tables and attributes created by initiate
+  B: It works because run detects missing setup and loads the required data automatically
+  C: result2 becomes None because run quietly stops when initialization has not been performed
+  D: TypeError because Python blocks method calls on objects that have not been initialized
+answer: A
+explanation: |
+  In this pattern, <python>initiate()</python> performs one-time setup and
+  creates internal data structures that <python>run()</python> expects to use.
+  If setup is skipped, <python>run()</python> is likely to access missing
+  attributes or missing keys and fail with an AttributeError or KeyError.
+  The key idea is that the caller must honor the object's lifecycle contract:
+  initialize first, then run queries.
+
+---
+slug: mutable-default-argument-trap
+difficulty: medium
+topic: Understanding why mutable default arguments can cause unexpected state sharing between calls
+question: |
+  A function collects restriction sites to avoid during gene design:
+
+  <python>
+  def add_forbidden_site(site, sites=[]):
+      sites.append(site)
+      return sites
+
+  result1 = add_forbidden_site('GAATTC')
+  result2 = add_forbidden_site('GGTCTC')
+  </python>
+
+  What is the value of result2?
+choices:
+  A: "['GGTCTC'] because each function call starts from a newly created empty default list"
+  B: TypeError because Python does not allow a list object to be used as a default value
+  C: "['GGTCTC', 'GAATTC'] because append inserts the newest site at the beginning of the list"
+  D: "['GAATTC', 'GGTCTC'] because the same default list object is reused across calls"
+answer: D
+explanation: |
+  The default list is created once when the function is defined, not each
+  time the function is called. Both calls therefore use the same list object.
+  After the first call it contains <pre>GAATTC</pre>, and after the second it
+  contains <pre>GAATTC</pre> and <pre>GGTCTC</pre>. The standard fix is to use
+  <python>sites=None</python> and create a new list inside the function when
+  needed.
+
+---
+slug: class-attribute-vs-instance-attribute
+difficulty: medium
+topic: Distinguishing data shared across all instances from data specific to one instance
+question: |
+  A TranscriptDesigner class stores both shared configuration and
+  per-design results:
+
+  <python>
+  class TranscriptDesigner:
+      checkers = [ForbiddenSequenceChecker, HairpinChecker]  # class attribute
+
+      def __init__(self, protein_seq):
+          self.protein_seq = protein_seq   # instance attribute
+          self.cds = None                  # instance attribute
+
+  designer_a = TranscriptDesigner('MKALIV')
+  designer_b = TranscriptDesigner('MPQRST')
+  </python>
+
+  Which statement is true?
+choices:
+  A: Each instance gets a separate copy of checkers and also a separate copy of protein_seq
+  B: Both instances share the same checkers list, but each instance stores its own protein_seq
+  C: The checkers list can be accessed only on the class and not through either instance object
+  D: The protein_seq values are shared across instances because both are created in one class
+answer: B
+explanation: |
+  <python>checkers</python> is a class attribute, so it is shared across all
+  instances unless shadowed on a specific instance. By contrast,
+  <python>self.protein_seq</python> is assigned in <python>__init__</python>,
+  so each instance gets its own value. This is a common pattern: shared
+  configuration at the class level and per-object state at the instance
+  level.
+
+---
+slug: argument-order-and-keyword-args
+difficulty: medium
+topic: Using positional and keyword arguments to make function calls readable and correct
+question: |
+  A PCR primer design function has this signature:
+
+  <python>
+  def design_primers(template, target_tm=60.0, min_length=18, max_length=30):
+      ...
+  </python>
+
+  A student calls it four ways:
+
+  <python>
+  a = design_primers('ATGCCC...', 55.0, 20, 25)
+  b = design_primers('ATGCCC...', max_length=25, target_tm=55.0)
+  c = design_primers('ATGCCC...', min_length=20, 55.0)
+  d = design_primers(target_tm=55.0, template='ATGCCC...')
+  </python>
+
+  Which calls raise a SyntaxError?
+choices:
+  A: Only c raises a SyntaxError because it places a positional argument after a keyword
+  B: Calls c and d raise SyntaxError because keyword arguments must follow parameter order
+  C: Only d raises a SyntaxError because template is required to be passed positionally
+  D: None raise SyntaxError because Python accepts positional and keyword arguments in any order
+answer: A
+explanation: |
+  In a function call, positional arguments must come before keyword
+  arguments. Call <python>c</python> violates that rule by placing
+  <python>55.0</python> after the keyword argument
+  <python>min_length=20</python>. Calls <python>a</python> and
+  <python>b</python> are valid, and call <python>d</python> is also valid
+  because all arguments are passed by keyword (keyword order does not have to
+  match the parameter order).
+
+---
+slug: function-composition-pipeline
+difficulty: medium
+topic: Composing functions so the output of one becomes the input of the next in a processing pipeline
+question: |
+  A gene design pipeline composes three functions:
+
+  <python>
+  def reverse_translate(protein, codon_table):
+      '''Returns a DNA CDS encoding the protein.'''
+      ...
+
+  def optimize_codons(cds, organism):
+      '''Returns an optimized version of the CDS.'''
+      ...
+
+  def remove_forbidden_sites(cds, forbidden):
+      '''Returns a CDS with forbidden sites silently eliminated.'''
+      ...
+  </python>
+
+  A student writes:
+
+  <python>
+  cds = reverse_translate('MKALI', codon_table)
+  optimized = optimize_codons(cds, 'ecoli')
+  final = remove_forbidden_sites(optimized, ['GAATTC', 'GGTCTC'])
+  </python>
+
+  Another student writes:
+
+  <python>
+  final = remove_forbidden_sites(
+      optimize_codons(
+          reverse_translate('MKALI', codon_table),
+          'ecoli'),
+      ['GAATTC', 'GGTCTC'])
+  </python>
+
+  What is the relationship between these two approaches?
+choices:
+  A: The nested version is faster because using fewer variable names reduces Python overhead substantially
+  B: They produce the same result because the nested version preserves the same call order and data flow
+  C: The nested version changes behavior because optimize_codons is evaluated after site removal finishes
+  D: They produce different outputs because nesting function calls reverses the evaluation order in Python
+answer: B
+explanation: |
+  Both versions call the same functions in the same logical order with the
+  same inputs. The nested form simply passes each return value directly into
+  the next function call instead of storing intermediate variables. Python
+  evaluates the innermost call first, so the data flow is the same in both
+  versions. Named intermediate variables are often easier to inspect while
+  debugging, but the final result is the same.
