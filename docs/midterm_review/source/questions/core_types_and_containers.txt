@@ -16,13 +16,13 @@ question: |
 
   How many elements does parts contain after this code runs?
 choices:
-  A: 3 — my_copy is a separate list
-  B: 4 — both names refer to the same list
-  C: 4 — append always modifies all lists in the program
-  D: TypeError — you cannot append to a referenced list
+  A: "3 - assignment created a separate list copy"
+  B: "4 - both names refer to the same list"
+  C: "4 - append changes every list in memory"
+  D: "Error - append cannot be used on references"
 answer: B
 explanation: |
-  Assignment (<python>my_copy = parts</python>) binds a second name to the
+  Assignment <python>my_copy = parts</python> binds a second name to the
   same list object. It does not create a copy. Appending through my_copy
   mutates that shared list, so parts also has 4 elements. This matters in
   genetic design code because a construct parts list may be passed to
@@ -45,17 +45,18 @@ question: |
 choices:
   A: "'GGTCTC' in cds"
   B: "cds['GGTCTC']"
-  C: "cds.count('GGTCTC') > 1"
+  C: "cds.count('GGTCTC') >= 1"
   D: "cds == 'GGTCTC'"
 answer: A
 explanation: |
   The <python>in</python> operator checks whether the left string appears as
   a contiguous substring anywhere in the right string. Here <pre>GGTCTC</pre>
   appears once inside the CDS, so the expression returns True. Option B
-  treats the string like a dict lookup (invalid). Option C only flags the
-  site if it appears more than once, which misses a single occurrence.
-  Option D checks whether the entire CDS equals the site. Biologically, even
-  one forbidden restriction site can break a fabrication plan.
+  treats the string like a dict lookup (invalid). Option C also detects the
+  site, but it tests a count rather than directly answering the substring
+  membership question posed here. Option D checks whether the entire CDS
+  equals the site. Biologically, even one forbidden restriction site can
+  break a fabrication plan.
 
 ---
 slug: dict-as-lookup-table
@@ -77,10 +78,10 @@ question: |
 
   What happens?
 choices:
-  A: "Returns ['TTT', 'TTC']"
-  B: "Returns 'TTT'"
-  C: "KeyError — 'F' is a value in this dict, not a key"
-  D: "Returns 'F'"
+  A: "Returns ['TTT', 'TTC'] from the codon table"
+  B: "Returns 'TTT' as the first matching codon"
+  C: "KeyError because 'F' is a value, not a key"
+  D: "Returns 'F' because dict lookup echoes input"
 answer: C
 explanation: |
   Dict lookup is by key. In this dict, the keys are codons (<pre>ATG</pre>,
@@ -88,7 +89,7 @@ explanation: |
   <python>genetic_code['F']</python> raises a KeyError. To find codons for
   an amino acid, you must iterate over the dict's items and collect the
   codons whose value matches that amino acid. This reflects a core design
-  choice: the dict is organized for translation (codon → amino acid), not
+  choice: the dict is organized for translation (codon to amino acid), not
   reverse translation.
 
 ---
@@ -107,10 +108,10 @@ question: |
 
   If the chooser found no valid RBS for this CDS, what happens?
 choices:
-  A: utr is set to None
-  B: utr is set to an empty string
-  C: AttributeError — None has no attribute 'utr'
-  D: The function silently returns a default RBS
+  A: "utr becomes None because missing fields default"
+  B: "utr becomes '' because strings default empty"
+  C: "AttributeError because None has no .utr field"
+  D: "A default RBSOption is returned automatically"
 answer: C
 explanation: |
   If the chooser returns None, then <python>result</python> refers to the
@@ -139,7 +140,7 @@ choices:
   A: "plasmid['marker'] in strain['resistances']"
   B: "strain['resistances'] == plasmid['marker']"
   C: "plasmid['marker'] in strain['name']"
-  D: "strain['resistances'].append(plasmid['marker'])"
+  D: "strain['resistances'].add(plasmid['marker'])"
 answer: A
 explanation: |
   <python>strain['resistances']</python> is a set, and the
@@ -148,8 +149,7 @@ explanation: |
   resistant and plating on ampicillin would not distinguish transformants
   from background. Option B compares a set to a string. Option C checks for a
   substring in the strain name, which is biologically irrelevant. Option D
-  calls <python>.append()</python> on a set; sets use
-  <python>.add()</python>.
+  mutates the set instead of testing whether the marker is already present.
 
 ---
 slug: boolean-validation-logic
@@ -168,10 +168,10 @@ question: |
   A second primer has tm = 72.0 and length = 40. What is the value of
   ok for each primer?
 choices:
-  A: True for the first, True for the second
-  B: True for the first, False for the second
-  C: False for both — all four conditions must use 'or'
-  D: True for both — 'and' only requires one condition to be True
+  A: "First True, second True, both pass bounds"
+  B: "First True, second False, second fails bounds"
+  C: "First False, second False, should use or"
+  D: "First True, second True, and needs one true"
 answer: B
 explanation: |
   For the first primer, all four conditions are true, so ok is True. For the
@@ -194,10 +194,10 @@ question: |
 
   Which pair of container types best fits these two needs?
 choices:
-  A: list for the CDS names, set for the forbidden sites
-  B: set for the CDS names, list for the forbidden sites
-  C: dict for the CDS names, set for the forbidden sites
-  D: list for both
+  A: "list for CDS names, set for forbidden sites"
+  B: "set for CDS names, list for forbidden sites"
+  C: "dict for CDS names, set for forbidden sites"
+  D: "list for CDS names, list for forbidden sites"
 answer: A
 explanation: |
   The CDS names are ordered and may contain duplicates, so a list is the
@@ -228,10 +228,10 @@ question: |
 
   What happens?
 choices:
-  A: The abundance of b0003 is updated to 200
-  B: TypeError — tuples do not support item assignment
-  C: IndexError — tuples can only be accessed at index 0
-  D: The entire tuple is replaced with 200
+  A: "b0003 abundance updates to 200 in the tuple"
+  B: "TypeError because tuples cannot be edited"
+  C: "IndexError because tuple index 1 is invalid"
+  D: "The tuple is replaced entirely by integer 200"
 answer: B
 explanation: |
   <python>data[1]</python> retrieves the tuple <python>('b0003', 181)</python>,
@@ -268,10 +268,10 @@ question: |
 
   Both return 889 for <pre>b0004</pre>. Why is the dict preferable?
 choices:
-  A: The dict finds the value directly by key; the list must scan entries
-  B: The dict uses less memory because it discards the gene IDs
-  C: The list version returns a different data type
-  D: There is no meaningful difference — both are equivalent
+  A: "Dict lookup uses keys directly; list scans rows"
+  B: "Dict uses less memory by dropping gene IDs"
+  C: "List returns the wrong type for abundance values"
+  D: "They are equivalent for repeated lookups by ID"
 answer: A
 explanation: |
   A dict is organized for key-based lookup, so asking for an abundance by

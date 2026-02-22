@@ -11,11 +11,11 @@ question: |
 
   Which explanation best accounts for this result?
 choices:
-  A: The -10 box is a sigma-factor recognition element for transcription initiation, so mutating it reduces RNA polymerase recruitment/initiation
-  B: The -10 box is the ribosome binding site, so mutating it prevents translation
-  C: The mutation introduced a premature stop codon in the mRNA
-  D: The -10 box controls mRNA degradation rate rather than transcription initiation
-answer: A
+  A: The -10 box is the ribosome binding site, so this mutation mainly reduces ribosome recruitment and lowers protein output
+  B: The -10 box mutation creates a stop codon in the transcript, so translation ends early and mRNA production falls
+  C: The -10 box mainly controls mRNA decay rate, so this mutation speeds RNA degradation without affecting transcription initiation
+  D: The -10 box helps sigma factor bind promoter DNA, so this mutation weakens transcription initiation and lowers mRNA production
+answer: D
 explanation: |
   The -10 and -35 promoter elements are recognized by sigma factor during
   transcription initiation. Changing the -10 sequence away from the sigma-70
@@ -37,11 +37,11 @@ question: |
   <pre>AGGAGG</pre> and another has <pre>AAGAAG</pre>, which construct is expected to
   have the higher translation initiation rate, and why?
 choices:
-  A: AGGAGG, because it has stronger complementarity to the 16S rRNA anti-SD sequence
-  B: AAGAAG, because more A residues form stronger hydrogen bonds
-  C: Both will have equal translation rates because only the start codon matters
-  D: AGGAGG, because higher GC content always increases expression by stabilizing the full mRNA
-answer: A
+  A: AAGAAG, because A-rich sequences pair more strongly with ribosomal RNA and therefore increase translation initiation
+  B: Both constructs, because initiation rate depends only on the start codon and not on the upstream SD sequence
+  C: AGGAGG, because GC content always raises expression by stabilizing the whole mRNA independent of ribosome binding
+  D: AGGAGG, because it pairs more strongly with the anti-Shine-Dalgarno region and improves ribosome recruitment
+answer: D
 explanation: |
   Translation initiation in bacteria is strongly influenced by base-pairing
   between the mRNA Shine-Dalgarno sequence and the anti-Shine-Dalgarno region of
@@ -65,11 +65,11 @@ question: |
 
   What is the most likely explanation?
 choices:
-  A: The hairpin sequesters the SD in a double-stranded stem, preventing ribosome binding
-  B: The hairpin blocks RNA polymerase from transcribing past the RBS
-  C: The hairpin causes the ribosome to translate in the wrong reading frame
-  D: The hairpin directly degrades the mRNA before translation can begin
-answer: A
+  A: The hairpin blocks RNA polymerase in the coding region, so transcription stops before a full mRNA is produced
+  B: The hairpin redirects the ribosome into another reading frame, so initiation occurs but the protein sequence is altered
+  C: The hairpin directly cleaves the mRNA near the RBS, so translation cannot begin despite a strong SD sequence
+  D: The hairpin sequesters the SD sequence in a stem, so the ribosome cannot access the site for efficient initiation
+answer: D
 explanation: |
   If the Shine-Dalgarno sequence is base-paired within a hairpin stem, it is not
   accessible for pairing with 16S rRNA. Ribosome binding is therefore impaired,
@@ -89,10 +89,10 @@ question: |
   the same RBS is placed upstream of a different gene, expression drops to near
   zero. What is the most plausible explanation?
 choices:
-  A: The new CDS forms local secondary structure with the RBS region, occluding the Shine-Dalgarno site
-  B: The RBS must have mutated during cloning
-  C: BioBrick RBS parts only function with GFP
-  D: The new gene product is toxic, so the RBS no longer functions
+  A: The new CDS forms local RNA structure with the RBS region, which can occlude the SD site and reduce initiation
+  B: The RBS sequence must have changed during cloning, which is the only plausible reason expression could fall to zero
+  C: BioBrick RBS parts are optimized specifically for GFP, so they usually fail when placed upstream of other genes
+  D: The new protein is toxic to cells, so the unchanged RBS sequence stops functioning as a translation control element
 answer: A
 explanation: |
   RBS behavior is context-dependent. The sequence at the beginning of the CDS can
@@ -115,11 +115,11 @@ question: |
   a given system. If a designer accidentally inserts 2 extra bases between the
   SD and the ATG, what is the expected effect?
 choices:
-  A: Translation initiation rate will decrease because the ribosome is mispositioned relative to the start codon
-  B: Translation will be unaffected because the SD sequence itself is unchanged
-  C: Transcription will fail because promoter spacing is disrupted
-  D: The protein will include two extra amino acids at the N-terminus
-answer: A
+  A: Translation initiation will likely stay similar because the SD sequence itself is unchanged and remains upstream of ATG
+  B: Transcription initiation will likely fail because the inserted bases disrupt sigma-factor spacing in the promoter region
+  C: The protein will likely gain two amino acids because inserted bases before ATG are automatically translated into coding sequence
+  D: Translation initiation will likely decrease because the extra bases misposition the ribosome relative to the start codon
+answer: D
 explanation: |
   The spacing between the Shine-Dalgarno sequence and the start codon affects how
   the ribosome is positioned for start-codon recognition. Adding 2 extra bases
@@ -140,11 +140,11 @@ question: |
   protein sequences, researchers observed a large range in fluorescence. Which
   sequence region's secondary structure best predicted expression level?
 choices:
-  A: The region from -4 to +37 relative to the start codon
-  B: The full-length mRNA secondary structure
-  C: The last 50 bp of the coding sequence near the stop codon
-  D: The promoter region from -35 to +1
-answer: A
+  A: The full-length mRNA structure across the transcript, because global folding always dominates translation efficiency
+  B: The last 50 bp near the stop codon, because termination-proximal folding is the main determinant of fluorescence
+  C: The promoter region from -35 to +1, because promoter sequence differences explain the GFP variant expression range
+  D: The local region from -4 to +37 near the start codon, where initiation accessibility strongly influences expression
+answer: D
 explanation: |
   Expression differences among synonymous variants are often best predicted by
   local RNA structure near the translation start region, especially around the
@@ -165,11 +165,11 @@ question: |
   and a single terminator, and each gene has its own RBS. If the promoter is
   repressed, what happens to expression of genes A, B, and C?
 choices:
-  A: All three genes lose transcription because they share one promoter
-  B: Only gene A is affected because it is closest to the promoter
-  C: Gene C is affected first because the terminator blocks it
-  D: Each gene is affected independently because each has its own RBS
-answer: A
+  A: Only gene A loses expression because it is nearest the promoter, while downstream genes are still transcribed normally
+  B: Gene C is affected first because the terminator blocks transcription from reaching upstream genes when the promoter is repressed
+  C: Each gene changes independently because separate RBS elements replace the need for shared promoter-driven transcription
+  D: All three genes lose transcription because one promoter controls synthesis of the shared polycistronic operon mRNA
+answer: D
 explanation: |
   A single promoter drives transcription of the operon mRNA. If that promoter is
   repressed, the polycistronic transcript is not produced, so none of the genes
@@ -190,11 +190,11 @@ question: |
   changing the protein sequence. Which modification targets the correct level of
   control?
 choices:
-  A: Replace the RBS with a weaker Shine-Dalgarno sequence
-  B: Change the stop codon from <pre>TAA</pre> to <pre>TGA</pre>
-  C: Remove the plasmid origin of replication
-  D: Add a His-tag to the protein C-terminus
-answer: A
+  A: Change the stop codon from <pre>TAA</pre> to <pre>TGA</pre> so termination becomes weaker and expression drops about ten-fold
+  B: Remove the plasmid origin of replication so protein sequence is unchanged while expression is tuned downward in a controlled way
+  C: Add a His-tag to the protein C-terminus so expression decreases without changing the identity of the encoded protein
+  D: Replace the RBS with a weaker Shine-Dalgarno sequence to reduce translation initiation without changing the CDS
+answer: D
 explanation: |
   Replacing the RBS with a weaker Shine-Dalgarno sequence directly reduces
   translation initiation efficiency and can lower protein output without changing
@@ -214,11 +214,11 @@ question: |
   engineer creates two constructs with different RBS parts but identical CDS
   sequences. Which statement is true?
 choices:
-  A: They produce the same protein at different expression levels
-  B: They produce different proteins because the RBS is translated
-  C: They have different mRNA sequences and different protein sequences
-  D: They will have identical expression levels because the CDS is the same
-answer: A
+  A: They produce different protein sequences because the RBS is translated before the CDS and changes amino acid sequence
+  B: They produce different mRNA and protein sequences because any upstream sequence change necessarily alters the CDS product
+  C: They produce the same protein and the same expression level because only the CDS determines how much protein is made
+  D: They produce the same protein sequence but can show different expression levels because the RBS alters initiation efficiency
+answer: D
 explanation: |
   The RBS is located in the 5' UTR and is not translated into protein. Changing
   the RBS changes translation initiation efficiency (and therefore expression
@@ -241,11 +241,11 @@ question: |
 
   What does this result demonstrate?
 choices:
-  A: RBS performance depends on downstream CDS context, likely through local RNA secondary structure at the RBS-CDS junction
-  B: The CDS modifies the RBS DNA sequence during replication
-  C: The ranking change is best explained by day-to-day experimental noise
-  D: RBS parts have fixed intrinsic expression levels that are independent of context
-answer: A
+  A: The CDS changes the RBS DNA sequence during replication, so each RBS becomes a different sequence in the new construct
+  B: The ranking shift is best explained by routine measurement noise rather than a reproducible biological context effect
+  C: RBS parts have fixed intrinsic strengths, so a changed ranking means the original measurements lacked biological meaning
+  D: RBS performance depends on downstream CDS context because local RNA structure near the junction changes accessibility
+answer: D
 explanation: |
   If the ranking of RBS parts changes when only the CDS changes, then RBS
   performance is not context-free. A common mechanism is local RNA secondary

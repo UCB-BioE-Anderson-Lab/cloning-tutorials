@@ -20,10 +20,10 @@ question: |
   What value does <python>tss</python> hold, and did the student get what
   they wanted?
 choices:
-  A: "'A' — this is the 6th nucleotide, not the 5th; the student has an off-by-one error"
-  B: "'C' — this is the 5th nucleotide, exactly what the student wanted"
-  C: "'T' — index 5 wraps around to the beginning of the string"
-  D: IndexError — index 5 is out of range for this string
+  A: "'A' — index 5 returns the 6th nucleotide, so this is an off-by-one error"
+  B: "'C' — index 5 returns the 5th nucleotide, so the student's indexing is correct"
+  C: "'T' — index 5 wraps to the start position, so the lookup returns the first base"
+  D: "IndexError — index 5 is invalid here, so the lookup fails on this sequence"
 answer: A
 explanation: |
   Python uses zero-based indexing, so the indices are:
@@ -48,10 +48,10 @@ question: |
 
   Which slice correctly extracts <pre>ATG</pre> starting at index 10?
 choices:
-  A: genome[10:13]
-  B: genome[10:12]
-  C: genome[11:14]
-  D: genome[10:10+2]
+  A: genome[10:13]  # start at 10, include three bases, stop before index 13
+  B: genome[10:12]  # start at 10, but this span includes only two characters total
+  C: genome[11:14]  # this shifts the window right and misses the codon start position
+  D: genome[10:10+2]  # this stop expression still yields only two characters total
 answer: A
 explanation: |
   Python slicing uses a half-open interval: <python>seq[start:end]</python>
@@ -79,10 +79,10 @@ question: |
 
   What is the value of <python>last_codon</python>?
 choices:
-  A: 'TAA'
-  B: 'ATG'
-  C: 'CTT'
-  D: IndexError — negative indices are not allowed on strings
+  A: 'TAA' — slicing from -3 to the end returns the terminal three nucleotides
+  B: 'ATG' — negative indexing selects the first codon when used in slice form
+  C: 'CTT' — the slice reverses order when a negative start index is provided
+  D: Error — Python strings reject negative slice indices in this kind of expression
 answer: A
 explanation: |
   Negative indices count from the end of the string. The slice
@@ -106,10 +106,10 @@ question: |
 
   Which slice correctly extracts the 20-nt protospacer?
 choices:
-  A: target[pam_index-20:pam_index]
-  B: target[pam_index-21:pam_index-1]
-  C: target[pam_index-20:pam_index-1]
-  D: target[pam_index-19:pam_index]
+  A: target[pam_index-20:pam_index]  # twenty upstream bases ending at the PAM start
+  B: target[pam_index-21:pam_index-1]  # shifted left and right, so boundaries are both off
+  C: target[pam_index-20:pam_index-1]  # misses the last upstream base before the PAM starts
+  D: target[pam_index-19:pam_index]  # returns nineteen bases, not a full protospacer length
 answer: A
 explanation: |
   If the PAM starts at index 25, the 20-nt protospacer immediately upstream
@@ -130,10 +130,10 @@ question: |
 
   What is the value of <python>seq[::-1]</python>?
 choices:
-  A: 'GCTGCAA'
-  B: 'AACGTCG'
-  C: 'GCAACGT'
-  D: TypeError — strings do not support step slicing
+  A: 'GCTGCAA' — step -1 walks backward through the entire string and reverses it
+  B: 'AACGTCG' — step -1 preserves order here because strings are immutable values
+  C: 'GCAACGT' — step -1 rotates the final base to the front, then keeps the rest
+  D: TypeError — Python strings do not support slicing with an explicit step value
 answer: A
 explanation: |
   The slice <python>[::-1]</python> reverses a sequence by stepping through it
@@ -157,10 +157,10 @@ question: |
 
   The site is not present in this CDS. What happens?
 choices:
-  A: Both return -1
-  B: find returns -1; index raises ValueError
-  C: find returns None; index returns -1
-  D: Both raise ValueError
+  A: Both methods return -1 when the substring is absent from the sequence
+  B: find returns -1, while index raises ValueError on the missing substring
+  C: find returns None, while index returns -1 for the same missing substring
+  D: Both methods raise ValueError when the substring cannot be located here
 answer: B
 explanation: |
   <python>str.find()</python> returns <python>-1</python> when the substring
@@ -183,10 +183,10 @@ question: |
 
   What happens?
 choices:
-  A: "The CDS is updated to 'ATGAAACCTGGGTAA'"
-  B: TypeError — strings do not support item assignment
-  C: The slice is replaced and the string shrinks if the new codon is shorter
-  D: A new string is returned but cds is unchanged
+  A: The codon is replaced in place, and cds becomes 'ATGAAACCTGGGTAA' afterward
+  B: TypeError is raised because Python strings do not support slice assignment
+  C: The codon is replaced, and the string may resize if replacement length differs
+  D: A new string is produced automatically, but cds still points to the old string
 answer: B
 explanation: |
   Strings are immutable in Python, so you cannot assign to an index or a
@@ -207,10 +207,10 @@ question: |
 
   What is the codon containing position 7 and what are its boundaries?
 choices:
-  A: "'CCC' at indices 6:9 — position 7 falls in the third codon (i=6)"
-  B: "'AAC' at indices 3:6 — position 7 is in the second codon"
-  C: "'ACC' at indices 7:10 — start the codon at the given position"
-  D: "'CCC' at indices 7:9 — extract from position 7 to end of codon"
+  A: 'CCC' at indices 6:9 — position 7 lies in the third codon of this CDS
+  B: 'AAC' at indices 3:6 — position 7 lies in the second codon of this CDS
+  C: 'ACC' at indices 7:10 — start the codon window directly at the given base
+  D: 'CCC' at indices 7:9 — keep the codon but trim it to the queried position
 answer: A
 explanation: |
   In a CDS that starts in frame at index 0, codons begin at indices
@@ -236,10 +236,10 @@ question: |
 
   What is the value of <python>count_a</python>?
 choices:
-  A: 4 — every overlapping occurrence is counted
-  B: 2 — count returns non-overlapping matches from left to right
-  C: 3 — count slides a window one base at a time
-  D: 5 — every position where 'A' appears is counted
+  A: 4 — every overlapping AA occurrence is counted across the poly-A tract
+  B: 2 — count reports non-overlapping matches scanned from left to right
+  C: 3 — count advances one base at a time and includes overlapping matches
+  D: 5 — count returns the number of A positions participating in any match
 answer: B
 explanation: |
   <python>str.count()</python> counts non-overlapping matches. In
@@ -268,10 +268,10 @@ question: |
 
   Which attempt correctly detects the site regardless of input casing?
 choices:
-  A: Only attempt2
-  B: attempt1 and attempt2
-  C: attempt2 and attempt3
-  D: All three
+  A: Only attempt2, because it normalizes the sequence before searching for the site
+  B: attempt1 and attempt2, because mixed-case inputs are matched by either approach
+  C: attempt2 and attempt3, because lowercase and uppercase searches both become robust
+  D: All three attempts, because Python string containment ignores case automatically
 answer: A
 explanation: |
   Python string matching is case-sensitive. Only <python>attempt2</python>

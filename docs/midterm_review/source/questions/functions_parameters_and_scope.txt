@@ -1,5 +1,3 @@
-
-
 ---
 slug: return-vs-print-in-design
 difficulty: medium
@@ -26,11 +24,11 @@ question: |
 
   What happens?
 choices:
-  A: Returns True — the protein starts with 'M'
-  B: AttributeError — result is None because the function prints but does not return
-  C: Returns False — print converts the protein to a different format
-  D: NameError — protein is not accessible outside the function
-answer: B
+  A: Returns True because the translated protein starts with M and result stores that protein string
+  B: Returns False because print changes the protein into a display-only format before assignment
+  C: NameError because protein was created inside the function and cannot be referenced afterward
+  D: AttributeError because result is None when the function prints the protein instead of returning it
+answer: D
 explanation: |
   The function uses <python>print()</python> instead of <python>return</python>,
   so it displays the protein but returns <python>None</python> by default.
@@ -61,10 +59,10 @@ question: |
 
   What happens when <python>print(gc_count)</python> executes?
 choices:
-  A: Prints 4 — gc_count was computed inside the function
-  B: Prints 0 — gc_count is reset after the function returns
-  C: NameError — gc_count is local to gc_content and does not exist in the caller's scope
-  D: Prints 0.667 — gc_count holds the fraction, not the count
+  A: Prints 4 because gc_count was calculated in the function and remains available afterward
+  B: Prints 0 because gc_count is reset when the function finishes and leaves local scope
+  C: NameError because gc_count exists only inside gc_content and not in the caller scope
+  D: Prints 0.667 because gc_count is replaced by the returned GC fraction in the caller code
 answer: C
 explanation: |
   Variables created inside a function are local to that function unless they
@@ -96,10 +94,10 @@ question: |
 
   Which calls use <pre>NGG</pre> and which use <pre>NNGRRT</pre>?
 choices:
-  A: a and b use 'NGG'; c uses 'NNGRRT'
-  B: Only b uses 'NGG'; a uses None because no argument was provided
-  C: All three use 'NGG' — the default cannot be overridden
-  D: a uses 'NGG'; b and c both raise errors for passing a second argument
+  A: Calls a and b use NGG, while call c uses NNGRRT and overrides the default value
+  B: Only call b uses NGG, while call a gets None because no PAM argument was passed
+  C: All three calls use NGG because a default argument cannot be replaced by the caller
+  D: Call a uses NGG, but calls b and c fail because the function takes only one argument
 answer: A
 explanation: |
   In call <python>a</python>, no PAM is provided, so the default
@@ -132,11 +130,11 @@ question: |
   Both return the correct reverse complement. Why is Version B preferred
   for use in a design pipeline?
 choices:
-  A: Version B is a pure function — same input always gives the same output with no side effects
-  B: Version A is slower because dicts are slow
-  C: Version B handles lowercase input and Version A does not
-  D: Version A returns a different result each time it is called
-answer: A
+  A: Version A is avoided mainly because dictionary writes are always too slow for pipelines
+  B: Version B is pure because it returns only a value and does not mutate shared state
+  C: Version B is preferred because it automatically handles lowercase sequence input safely
+  D: Version A is avoided because repeated calls return different reverse complements each time
+answer: B
 explanation: |
   Version A mutates the external dict <python>complement_table</python> on
   every call, which is a side effect. Version B depends only on its input and
@@ -165,26 +163,26 @@ question: |
 choices:
   A: |
     <python>
-    def has_site(seq, site):
-        rc = reverse_complement(site)
-        return site in seq or rc in seq
-    </python>
-  B: |
-    <python>
     def has_site(seq):
         return 'GAATTC' in seq or 'GGTCTC' in seq
     </python>
-  C: |
+  B: |
     <python>
     def has_site(site):
         return site in cds
+    </python>
+  C: |
+    <python>
+    def has_site(seq, site):
+        rc = reverse_complement(site)
+        return site in seq or rc in seq
     </python>
   D: |
     <python>
     def has_site():
         return True
     </python>
-answer: A
+answer: C
 explanation: |
   Option A parameterizes both things that vary: the sequence being checked
   and the restriction site of interest. It also handles the reverse
@@ -216,11 +214,11 @@ question: |
 
   What is the most likely outcome?
 choices:
-  A: It works — initiate is optional and run loads data on demand
-  B: AttributeError or KeyError — run depends on data structures that initiate creates
-  C: result2 is None — run detects missing initialization and returns nothing
-  D: TypeError — run cannot be called on an uninitialized object
-answer: B
+  A: AttributeError or KeyError because run expects tables and attributes created by initiate
+  B: It works because run detects missing setup and loads the required data automatically
+  C: result2 becomes None because run quietly stops when initialization has not been performed
+  D: TypeError because Python blocks method calls on objects that have not been initialized
+answer: A
 explanation: |
   In this pattern, <python>initiate()</python> performs one-time setup and
   creates internal data structures that <python>run()</python> expects to use.
@@ -247,11 +245,11 @@ question: |
 
   What is the value of result2?
 choices:
-  A: "['GGTCTC'] — each call starts with a fresh empty list"
-  B: "['GAATTC', 'GGTCTC'] — the default list is shared across calls"
-  C: TypeError — you cannot use a list as a default argument
-  D: "['GGTCTC', 'GAATTC'] — the list prepends new entries"
-answer: B
+  A: "['GGTCTC'] because each function call starts from a newly created empty default list"
+  B: TypeError because Python does not allow a list object to be used as a default value
+  C: "['GGTCTC', 'GAATTC'] because append inserts the newest site at the beginning of the list"
+  D: "['GAATTC', 'GGTCTC'] because the same default list object is reused across calls"
+answer: D
 explanation: |
   The default list is created once when the function is defined, not each
   time the function is called. Both calls therefore use the same list object.
@@ -282,11 +280,11 @@ question: |
 
   Which statement is true?
 choices:
-  A: designer_a.checkers and designer_b.checkers refer to the same list; their protein_seq values differ
-  B: Each designer has its own independent copy of checkers and protein_seq
-  C: checkers is only accessible via the class, not through instances
-  D: designer_a.protein_seq and designer_b.protein_seq refer to the same string
-answer: A
+  A: Each instance gets a separate copy of checkers and also a separate copy of protein_seq
+  B: Both instances share the same checkers list, but each instance stores its own protein_seq
+  C: The checkers list can be accessed only on the class and not through either instance object
+  D: The protein_seq values are shared across instances because both are created in one class
+answer: B
 explanation: |
   <python>checkers</python> is a class attribute, so it is shared across all
   instances unless shadowed on a specific instance. By contrast,
@@ -318,10 +316,10 @@ question: |
 
   Which calls raise a SyntaxError?
 choices:
-  A: Only c — positional arguments cannot follow keyword arguments
-  B: c and d — keyword arguments must match the exact order
-  C: Only d — template must be passed positionally
-  D: None — Python accepts arguments in any order
+  A: Only c raises a SyntaxError because it places a positional argument after a keyword
+  B: Calls c and d raise SyntaxError because keyword arguments must follow parameter order
+  C: Only d raises a SyntaxError because template is required to be passed positionally
+  D: None raise SyntaxError because Python accepts positional and keyword arguments in any order
 answer: A
 explanation: |
   In a function call, positional arguments must come before keyword
@@ -373,11 +371,11 @@ question: |
 
   What is the relationship between these two approaches?
 choices:
-  A: They produce the same result — the second nests the calls but the execution order and data flow are identical
-  B: The nested version runs faster because it avoids creating intermediate variables
-  C: The nested version skips the optimize_codons step
-  D: They produce different results because nested calls change the evaluation order
-answer: A
+  A: The nested version is faster because using fewer variable names reduces Python overhead substantially
+  B: They produce the same result because the nested version preserves the same call order and data flow
+  C: The nested version changes behavior because optimize_codons is evaluated after site removal finishes
+  D: They produce different outputs because nesting function calls reverses the evaluation order in Python
+answer: B
 explanation: |
   Both versions call the same functions in the same logical order with the
   same inputs. The nested form simply passes each return value directly into

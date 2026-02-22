@@ -10,10 +10,10 @@ question: |
   <pre>ATCGAGA</pre>
 choices:
   A: <pre>3'-ATCGAGA-5'</pre>
-  B: <pre>5'-TCTCGAT-3'</pre>
-  C: <pre>ATCGAGA</pre>
-  D: <pre>TAGCTCT</pre>
-answer: B
+  B: <pre>5'-ATCGAGA-3'</pre>
+  C: <pre>5'-TAGCTCT-3'</pre>
+  D: <pre>5'-TCTCGAT-3'</pre>
+answer: D
 explanation: |
   The reverse complement is found in two steps. First, take the complement of
   each base (A↔T, C↔G), so <pre>ATCGAGA</pre> becomes <pre>TAGCTCT</pre>.
@@ -35,11 +35,11 @@ question: |
 
   What is the most accurate conclusion?
 choices:
-  A: Cas9 cannot target this region; a different CRISPR system or a target further downstream must be used
-  B: The researcher should add an NGG sequence to the gene before targeting it
-  C: Cas9 can still target the region if the guide RNA is made longer than 20 nt
-  D: The PAM requirement only applies to the forward strand, so checking one strand is sufficient
-answer: A
+  A: The researcher should first engineer an NGG motif into the gene and then use standard Cas9 targeting there
+  B: Cas9 can still target this region if the guide is extended beyond 20 nt to improve binding specificity
+  C: Cas9 cannot target this region, so they must choose a different CRISPR system or a site farther downstream
+  D: The PAM rule only needs to be checked on the forward strand, because guides determine strand selection later
+answer: C
 explanation: |
   The PAM is a fixed requirement of the Cas9 protein and must be present in the
   genomic DNA adjacent to the target. Without an NGG on either strand, Cas9 has
@@ -65,11 +65,11 @@ question: |
 
   Which slice correctly extracts the protospacer?
 choices:
-  A: target[pam_index - 21 : pam_index - 1]
-  B: target[pam_index - 20 : pam_index]
+  A: target[pam_index - 20 : pam_index]
+  B: target[pam_index - 21 : pam_index - 1]
   C: target[pam_index - 20 : pam_index - 1]
   D: target[pam_index - 21 : pam_index]
-answer: A
+answer: B
 explanation: |
   For Cas9, the PAM is NGG and the N is not part of the protospacer. If
   <python>pam_index</python> points to the first G of GG, then the N is at
@@ -98,10 +98,10 @@ question: |
   The resulting guide RNA is synthesized and tested. What is the most likely
   outcome?
 choices:
-  A: The guide targets a shifted position that overlaps the PAM by one base, likely reducing or eliminating editing
-  B: The guide will work identically because one base difference is tolerated
-  C: The function will raise an IndexError at runtime
-  D: The guide RNA will be 19 bp instead of 20 bp
+  A: The guide is shifted by one base toward the PAM and may overlap it, which often reduces or abolishes editing
+  B: The guide works the same in practice because a one-base shift is usually tolerated during Cas9 targeting
+  C: The code fails immediately with an IndexError because the slice end no longer matches the PAM boundary rule
+  D: The designed guide is only 19 bases long, so synthesis fails before the targeting experiment is performed
 answer: A
 explanation: |
   The incorrect slice still returns 20 bases, but it includes the N of the NGG
@@ -128,11 +128,11 @@ question: |
   It returns -1 for a known targetable gene. A colleague points out the
   error. What did the function fail to do?
 choices:
-  A: Search the reverse complement of the target for GG on the opposite strand
-  B: Search for 'CC' instead, since that is the complement of GG
-  C: Use a regular expression instead of .find()
-  D: Search from position 0 instead of position 21
-answer: A
+  A: Search for CC on the forward strand so it can detect the complement of GG without computing strand reversal
+  B: Use a regular expression search instead of .find() so degenerate PAM patterns can be matched automatically
+  C: Start searching at index 0 rather than 21 so early PAMs are not missed in short coding sequences
+  D: Search the reverse complement for GG so PAMs on the opposite strand are checked with the correct geometry
+answer: D
 explanation: |
   DNA is double-stranded, so a valid PAM can occur on either strand. If the
   forward strand search finds no valid GG in the required position range, a PAM
@@ -154,11 +154,11 @@ question: |
   constant string appended after the targeting sequence. Which step correctly
   converts the protospacer to the targeting portion of the gRNA?
 choices:
-  A: Replace every T in the protospacer with U to produce the RNA version of the same sequence
-  B: Take the reverse complement of the protospacer and then replace T with U
-  C: Translate the protospacer into amino acids using the genetic code
-  D: Reverse the protospacer string without complementing, then replace T with U
-answer: A
+  A: Reverse-complement the protospacer first, then replace T with U to generate the strand that binds the target
+  B: Translate the protospacer into amino acids, then encode that peptide as RNA for the targeting region sequence
+  C: Replace each T with U so the protospacer is converted directly into the RNA version of the same sequence
+  D: Reverse the protospacer without complementing, then replace T with U before appending the scaffold sequence
+answer: C
 explanation: |
   In this convention, the protospacer is the DNA sequence corresponding to the
   guide-targeting region. To generate the gRNA targeting sequence, convert that
@@ -177,11 +177,11 @@ question: |
   uses a TTTV PAM on the 5' side. A student has a working Cas9 gRNA
   design function. Which change is necessary to adapt it for Cas12a?
 choices:
-  A: Search for TTTV instead of NGG, and extract the protospacer downstream (3') of the PAM instead of upstream
-  B: Simply replace the string 'GG' with 'TTTV' in the search; the protospacer extraction stays the same
-  C: Keep the same PAM search but reverse complement the entire target before running the function
-  D: Use the same function but extend the protospacer from 20 bp to 24 bp
-answer: A
+  A: Replace the literal string GG with TTTV but keep the same extraction indices because only the motif changes
+  B: Search for a TTTV PAM and extract the protospacer on the downstream side because Cas12a uses 5'-side PAMs
+  C: Reverse-complement the entire target before running the Cas9 code so the PAM appears on the expected side
+  D: Keep the same PAM search logic and only change protospacer length from 20 bp to a longer Cas12a guide
+answer: B
 explanation: |
   The key change is not just the PAM motif but the PAM position relative to the
   protospacer. Cas12a uses a PAM on the 5' side of the target sequence, so the
@@ -199,11 +199,11 @@ question: |
   A gRNA design function searches for a PAM in the target sequence but
   finds none. Which is the best way to handle this case?
 choices:
-  A: Raise a ValueError with a message explaining that no valid PAM was found
-  B: Return None silently so the caller can check for it
-  C: Return a gRNA using positions 0–19 as a default protospacer
-  D: Print a warning message and return an empty string
-answer: A
+  A: Return None without any message and rely on the caller to remember to check for missing designs later on
+  B: Return a guide built from positions 0-19 so the pipeline continues even when the target lacks a valid PAM
+  C: Print a warning and return an empty string so downstream steps can decide whether the result is usable
+  D: Raise a ValueError with a clear message stating that no valid PAM was found in the provided target sequence
+answer: D
 explanation: |
   If no PAM is present, the biological precondition for design is not met and
   the function cannot produce a valid guide. Raising a <python>ValueError</python>
@@ -223,10 +223,10 @@ question: |
   experiments. A developer wants a single gRNA design function that works
   for both systems. What is the best approach?
 choices:
-  A: Accept the PAM pattern, protospacer length, and PAM-side (5' or 3') as parameters
-  B: Hard-code both PAM rules with an if/else and a system_name string parameter
-  C: Write two completely separate functions with no shared code
-  D: Always search for both PAMs and return whichever match is found first
+  A: Parameterize the PAM pattern, protospacer length, and PAM-side orientation so one core algorithm handles both systems
+  B: Hard-code separate Cas9 and Cas12a branches selected by a system name string and keep all logic inside one function
+  C: Write two unrelated functions from scratch so each enzyme has fully separate code paths and no shared abstractions
+  D: Always scan for both PAM types and return the first match found, regardless of which CRISPR system was requested
 answer: A
 explanation: |
   Parameterizing the PAM pattern, protospacer length, and PAM-side makes the
@@ -255,11 +255,11 @@ question: |
 
   Which statement is correct?
 choices:
-  A: The protospacer is the 20 bp immediately upstream (5') of the PAM on the same strand where the PAM is found, so in this case it is read from the forward strand
-  B: The protospacer always comes from the reverse strand regardless of which strand contains the PAM
-  C: Either strand gives the same protospacer because DNA is double-stranded
-  D: The protospacer should be chosen from whichever strand has higher GC content
-answer: A
+  A: The protospacer should always be taken from the reverse strand because Cas9 binds double-stranded DNA symmetrically
+  B: Either strand can be used interchangeably because complementary strands encode the same targeting information
+  C: The protospacer is the 20 bp immediately upstream of the PAM on the same strand where that PAM is identified
+  D: The protospacer should be selected from whichever strand has higher GC content near the PAM for guide stability
+answer: C
 explanation: |
   For Cas9, the protospacer is defined relative to the PAM location: it is the
   20 bp sequence immediately upstream (5') of the NGG PAM on the same strand in

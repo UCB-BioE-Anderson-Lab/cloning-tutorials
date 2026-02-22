@@ -13,6 +13,7 @@ function assert(cond, msg) {
   }
 }
 
+
 function esc(s) {
   return String(s ?? "")
     .replaceAll("&", "&amp;")
@@ -20,6 +21,14 @@ function esc(s) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function allowSimpleInlineTags(html) {
+  let s = String(html ?? "");
+  // Allow only <i> and </i> written literally in source text after escaping.
+  s = s.replace(/&lt;i&gt;/gi, "<i>");
+  s = s.replace(/&lt;\/i&gt;/gi, "</i>");
+  return s;
 }
 
 function renderMarkdownish(text) {
@@ -99,7 +108,7 @@ function renderMarkdownish(text) {
       const flushPara = (paraLines) => {
         const joined = paraLines.join("\n");
         if (!joined.trim()) return;
-        let s = esc(joined);
+        let s = allowSimpleInlineTags(esc(joined));
         s = s.replace(/`([^`\n]+)`/g, "<code>$1</code>");
         s = s.replace(/\n\n+/g, "</p><p>");
         s = s.replace(/\n/g, "<br>");
@@ -312,7 +321,7 @@ function makeState(topics, bank) {
     tabs,
     activeTopicSlug: firstSlug,
     questionIndex: 0,
-    focusMode: false,
+    panelExpanded: false,
     revealed: false,
     selectedKey: null,
     copied: false,
@@ -371,7 +380,6 @@ function render(state) {
   const scope = t?.scope ?? "";
 
   const qProgress = qs.length ? `Question ${state.questionIndex + 1}/${qs.length}` : "";
-  const focusLabel = state.focusMode ? "Focus: on" : "Focus: off";
 
   const leftTabsHtml = state.tabs
     .map((x, i) => {
@@ -391,13 +399,17 @@ function render(state) {
 
   const questionNav = qs.length
     ? `
-      <div class="biocad-row" style="gap:0.6rem; align-items:center; margin-top:1rem">
-        <div class="grow"></div>
+      <div class="biocad-row" style="gap:0.6rem; align-items:center">
         <button class="biocad-btn" data-action="prevQ" ${state.questionIndex <= 0 ? "disabled" : ""}>Prev</button>
         <button class="biocad-btn" data-action="nextQ" ${state.questionIndex >= qs.length - 1 ? "disabled" : ""}>Next</button>
+        <button class="biocad-btn" data-action="toggleExpand">${state.panelExpanded ? "Exit" : "Expand"}</button>
       </div>
     `
-    : "";
+    : `
+      <div class="biocad-row" style="gap:0.6rem; align-items:center">
+        <button class="biocad-btn" data-action="toggleExpand">${state.panelExpanded ? "Exit" : "Expand"}</button>
+      </div>
+    `;
 
   const topicMetaPanel = `
     <div class="biocad-answer" style="margin-top:0.35rem">
@@ -470,10 +482,25 @@ function render(state) {
     `
     : "";
 
+  const layoutGridStyle = state.panelExpanded
+    ? "display:block;"
+    : "display:grid; grid-template-columns: 440px 520px 1fr; gap:1rem; align-items:start";
+
+  const leftColStyle = state.panelExpanded ? "display:none;" : "";
+  const midColStyle = state.panelExpanded ? "display:none;" : "";
+
+  const rightColStyle = state.panelExpanded
+    ? "position:fixed; inset:0; z-index:9999; background:var(--biocad-bg, #f5f5f7); padding:0.75rem; overflow:auto;"
+    : "";
+
+  const rightCardStyle = state.panelExpanded
+    ? "padding:1rem; width:min(1400px, 100%); max-width:1400px; margin:0 auto; min-height:calc(100vh - 1.5rem); border-radius:12px;"
+    : "padding:1rem";
+
   root.innerHTML = `
     <div style="max-width:none">
-      <div style="display:grid; grid-template-columns: 440px 520px 1fr; gap:1rem; align-items:start">
-        <div class="biocad-col-left">
+      <div style="${layoutGridStyle}">
+        <div class="biocad-col-left" style="${leftColStyle}">
           <div class="biocad-card" style="padding:1rem">
             <div class="biocad-muted biocad-small">Topics (1–16)</div>
             <div style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.5rem">
@@ -482,19 +509,19 @@ function render(state) {
           </div>
         </div>
 
-        <div class="biocad-col-mid">
+        <div class="biocad-col-mid" style="${midColStyle}">
           <div class="biocad-card" style="padding:1rem">
             <div class="biocad-muted biocad-small">Topic metadata</div>
             ${topicMetaPanel}
           </div>
         </div>
 
-        <div class="biocad-col-right">
-          <div class="biocad-card" style="padding:1rem">
+        <div class="biocad-col-right" style="${rightColStyle}">
+          <div class="biocad-card" style="${rightCardStyle}">
             <div class="biocad-row" style="gap:0.6rem; align-items:center; margin-bottom:0.75rem">
               ${qProgress ? `<div class="biocad-pill">${esc(qProgress)}</div>` : ``}
               <div class="grow"></div>
-              <button class="biocad-btn" data-action="toggleFocus" style="white-space:nowrap">${esc(focusLabel)}</button>
+              ${questionNav}
             </div>
 
             <div>
@@ -513,8 +540,6 @@ function render(state) {
                 ${explanationPanel}
               </div>
             ` : ""}
-
-            ${questionNav}
           </div>
         </div>
       </div>
@@ -522,11 +547,6 @@ function render(state) {
   `;
   if (window.Prism && typeof window.Prism.highlightAllUnder === "function") {
     window.Prism.highlightAllUnder(root);
-  }
-  if (state.focusMode) {
-    root.classList.add("biocad-focus");
-  } else {
-    root.classList.remove("biocad-focus");
   }
 
   for (const btn of root.querySelectorAll("[data-tab]")) {
@@ -548,10 +568,12 @@ function render(state) {
     render(state);
   });
 
-  root.querySelector('[data-action="toggleFocus"]')?.addEventListener("click", () => {
-    state.focusMode = !state.focusMode;
+  root.querySelector('[data-action="toggleExpand"]')?.addEventListener("click", () => {
+    state.panelExpanded = !state.panelExpanded;
+    document.body.style.overflow = state.panelExpanded ? "hidden" : "";
     render(state);
   });
+
 
   for (const btn of root.querySelectorAll("[data-choice]")) {
     btn.addEventListener("click", () => {
@@ -632,6 +654,15 @@ function installKeyHandler(state) {
     if (k === "p") {
       setQuestionIndex(state, state.questionIndex - 1);
       render(state);
+      return;
+    }
+
+    if (k === "escape") {
+      if (state.panelExpanded) {
+        state.panelExpanded = false;
+        document.body.style.overflow = "";
+        render(state);
+      }
       return;
     }
 

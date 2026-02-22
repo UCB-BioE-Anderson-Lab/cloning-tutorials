@@ -1,3 +1,5 @@
+
+
 ---
 slug: promoter-elements-transcription-rate
 difficulty: medium
@@ -10,11 +12,11 @@ question: |
 
   Which explanation best accounts for the difference?
 choices:
-  A: The single base change in the -10 box reduces sigma factor affinity, lowering RNAP recruitment
-  B: The -10 box change alters the mRNA sequence, destabilizing the ribosome binding site
-  C: Sigma factor only recognizes the -35 box, so the -10 change has no effect
-  D: The -10 mutation changes the protein sequence of the downstream gene
-answer: A
+  A: The -10 box change alters the mRNA leader, destabilizing the ribosome binding site
+  B: Sigma-70 recognizes only the -35 box, so the -10 mutation should not matter
+  C: The -10 mutation changes coding sequence identity, altering the downstream protein product
+  D: The -10 base change weakens sigma-70 binding, reducing RNA polymerase recruitment and initiation
+answer: D
 explanation: |
   Sigma factor recognizes both the -10 and -35 promoter elements. <pre>TATAAT</pre>
   is the sigma-70 consensus -10 sequence, so changing it to <pre>CATAAT</pre>
@@ -38,10 +40,10 @@ question: |
 
   What is the most likely effect on protein expression?
 choices:
-  A: Construct 2 produces more protein because ACCACC avoids stalling
-  B: Both produce equal protein because the mRNA levels are the same
-  C: Construct 1 produces more protein because AGGAGG base-pairs more strongly with 16S rRNA
-  D: Construct 2 produces more protein because its SD sequence recruits additional ribosomes
+  A: Construct 2 makes more protein because ACCACC prevents ribosome pausing during initiation
+  B: Both constructs make equal protein because their measured mRNA levels are identical
+  C: Construct 1 makes more protein because AGGAGG pairs better with 16S rRNA
+  D: Construct 2 makes more protein because its RBS recruits extra ribosomes simultaneously
 answer: C
 explanation: |
   The Shine-Dalgarno sequence promotes translation initiation by base-pairing with the
@@ -66,10 +68,10 @@ question: |
 
   What is the most likely cause?
 choices:
-  A: The hairpin is acting as a Rho-independent terminator, ending transcription early
-  B: The hairpin occludes the SD sequence, preventing 30S ribosomal subunit binding
-  C: The hairpin changes the codon usage of the downstream CDS
-  D: The hairpin causes RNase E to degrade the mRNA before translation can begin
+  A: The hairpin functions as a terminator, causing RNA polymerase to stop upstream
+  B: The hairpin hides the SD sequence, blocking 30S ribosome binding and initiation
+  C: The hairpin changes codon identity in the coding sequence during transcription
+  D: The hairpin guarantees RNase E cleavage before any translation can begin
 answer: B
 explanation: |
   Translation initiation requires the 30S ribosomal subunit to access the
@@ -94,10 +96,10 @@ question: |
 
   What is the expected relationship between their mRNA levels?
 choices:
-  A: Gene A has ~10x more mRNA because faster turnover means faster production
-  B: Gene B has ~10x more mRNA because it persists longer before being degraded
-  C: Both have equal mRNA levels because they have the same transcription rate
-  D: Gene A has more mRNA because short-lived mRNAs are preferentially stabilized by ribosomes
+  A: Gene A has ~10x more mRNA because rapid turnover drives faster replacement
+  B: Gene B has ~10x more mRNA because it is degraded much more slowly
+  C: Both genes have equal mRNA because their promoter-driven transcription rates match
+  D: Gene A has more mRNA because short transcripts are preferentially ribosome-protected
 answer: B
 explanation: |
   At steady state, mRNA abundance depends on both synthesis and degradation. If
@@ -121,11 +123,11 @@ question: |
 
   Which statement best explains this result?
 choices:
-  A: Rare codons change the amino acid sequence, producing a nonfunctional protein
-  B: Rare codons slow ribosome elongation, reducing the rate of completed protein and potentially destabilizing the mRNA
-  C: Rare codons prevent transcription by blocking RNA polymerase
-  D: Rare codons change the Shine-Dalgarno sequence, blocking translation initiation
-answer: B
+  A: Rare codons block transcription because RNA polymerase cannot pass coding regions
+  B: Rare codons alter the Shine-Dalgarno sequence, preventing translation initiation entirely
+  C: Rare codons change amino acid identity, producing a different and inactive GFP
+  D: Rare codons slow elongation and can reduce completed protein production and mRNA stability
+answer: D
 explanation: |
   Synonymous codons encode the same amino acid sequence, so the protein identity is
   unchanged. However, codon choice can strongly affect expression by changing
@@ -150,10 +152,10 @@ question: |
 
   Which of the following changes as a result of this swap?
 choices:
-  A: The amino acid sequence of the enzyme
-  B: The metabolite concentrations in the pathway
-  C: The post-translational modifications of the enzyme
-  D: The enzymatic activity per molecule of protein
+  A: The enzyme amino acid sequence, because translation starts with different efficiency
+  B: Pathway metabolite concentrations, because enzyme abundance changes after RBS replacement
+  C: The enzyme's post-translational modification pattern, because the mRNA leader changed
+  D: The enzyme's catalytic rate constant, because ribosomes translate more slowly
 answer: B
 explanation: |
   Swapping the RBS changes translation initiation rate, which changes how much enzyme
@@ -176,11 +178,11 @@ question: |
 
   At which level of gene expression is the problem?
 choices:
-  A: Transcriptional — the promoter is not recruiting RNA polymerase
-  B: Translational — without an SD sequence, ribosomes cannot initiate translation on the mRNA
-  C: Post-translational — the protein is being degraded immediately after synthesis
-  D: Transcriptional — without the SD, RNA polymerase cannot terminate properly
-answer: B
+  A: Translational, because deleting the SD sequence blocks ribosome initiation on mRNA
+  B: Transcriptional, because the promoter can no longer recruit RNA polymerase efficiently
+  C: Post-translational, because the protein is degraded immediately after synthesis occurs
+  D: Transcriptional, because SD deletion prevents proper RNA polymerase termination downstream
+answer: A
 explanation: |
   Abundant mRNA indicates that transcription is occurring, so the promoter is working.
   The Shine-Dalgarno sequence is needed for efficient ribosome recruitment to the mRNA.
@@ -204,11 +206,11 @@ question: |
   What is the BEST explanation for why two DNA sequences encoding the same protein
   yield such different expression levels?
 choices:
-  A: The different DNA sequences produce different amino acid sequences
-  B: The different codons result in different mRNA sequences, affecting secondary structure near the start codon and ribosome elongation rate
-  C: Codon-optimized genes have stronger promoters
-  D: The bacteriophage version has a weaker Shine-Dalgarno sequence
-answer: B
+  A: Different DNA codons produce different amino acid sequences for the same protein
+  B: Codon-optimized genes include stronger promoters that increase transcription initiation rates
+  C: The phage-derived coding sequence contains a weaker Shine-Dalgarno motif internally
+  D: Different codons alter mRNA structure and elongation kinetics without changing protein identity
+answer: D
 explanation: |
   Synonymous codon changes alter the mRNA sequence without changing the amino acid
   sequence. That can change local mRNA secondary structure near the start codon (which
@@ -234,10 +236,10 @@ question: |
 
   What role is the terminator playing?
 choices:
-  A: The terminator is degrading Gene B's protein after it is translated
-  B: The terminator hairpin is blocking the ribosome from reaching Gene B's start codon
-  C: The terminator causes RNA polymerase to dissociate before it can transcribe Gene B, so Gene B has no mRNA
-  D: The terminator changes the reading frame of Gene B
+  A: The terminator targets Gene B protein for degradation after translation is complete
+  B: The terminator hairpin blocks ribosomes from reaching Gene B start codon directly
+  C: The terminator stops transcription before Gene B, so Gene B lacks mRNA
+  D: The terminator shifts the reading frame of Gene B during translation initiation
 answer: C
 explanation: |
   A Rho-independent terminator forms a stable RNA hairpin followed by a U-rich tract,
@@ -261,11 +263,11 @@ question: |
 
   Which design strategy would MOST help achieve fast signal decay?
 choices:
-  A: Use a very stable mRNA with no RNase E cleavage sites so that translation continues efficiently
-  B: Engineer the mRNA to contain RNase E cleavage sites and use a protein degradation tag, so both mRNA and protein turn over rapidly
-  C: Use the strongest possible RBS to maximize translation before the mRNA is degraded
-  D: Remove the terminator so that read-through transcription produces more mRNA
-answer: B
+  A: Use the strongest RBS possible to maximize translation before transcript decay
+  B: Remove the terminator so read-through transcription increases total mRNA production
+  C: Use a highly stable mRNA so translation continues efficiently after induction ends
+  D: Add RNase-sensitive mRNA features and a protein degradation tag for rapid turnover
+answer: D
 explanation: |
   Fast signal decay requires rapid clearance of both the mRNA and the protein after
   transcription stops. If the mRNA remains stable, translation can continue after the

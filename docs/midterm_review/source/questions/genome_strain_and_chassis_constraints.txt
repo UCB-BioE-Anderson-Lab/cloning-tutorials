@@ -11,11 +11,11 @@ question: |
 
   Which answer is most precise?
 choices:
-  A: Mach1 is the genotype because it lists every mutation present in the cells
-  B: Mach1 is a strain, a genetically homogeneous population derived from a single cell; the genotype is the list of mutations that distinguish it from its parent
-  C: Mach1 is a phenotype because it describes what the cells can do, not what DNA they carry
-  D: Mach1 is a composition because it specifies what proteins should be present
-answer: B
+  A: Mach1 is the genotype, because the name itself stands for the full list of mutations present in the cells
+  B: Mach1 is a phenotype, because it names what the cells do in culture rather than the DNA changes they carry
+  C: Mach1 is a strain, meaning a genetically homogeneous cell population; the genotype is the mutation list relative to a parent
+  D: Mach1 is a composition, because it specifies which biological parts should exist without describing a living population
+answer: C
 explanation: |
   A strain is a population-level concept: a genetically uniform group of cells
   traced to a single colony (or clone). The genotype is the set of genetic
@@ -39,10 +39,10 @@ question: |
   gene and whether the genes are on a plasmid or integrated into the chromosome.
   Is the student correct?
 choices:
-  A: Yes, because a Composition must specify all implementation details to be useful
-  B: No, because a Composition specifies the chassis and target proteins but deliberately leaves expression level, regulatory elements, codon usage, and genomic vs plasmid implementation unspecified
-  C: No, because a Composition specifies only the DNA sequence, not the proteins
-  D: Yes, because the host choice automatically determines promoters and gene location
+  A: Yes, because a useful Composition must include every implementation detail, including promoters, vectors, and genomic placement
+  B: No, because a Composition specifies host and target proteins but leaves promoter choice, regulation, codon usage, and locus open
+  C: No, because a Composition specifies only the exact DNA sequence and does not directly specify proteins or host context
+  D: Yes, because once the host organism is chosen, promoter identity and genomic versus plasmid location are automatically fixed
 answer: B
 explanation: |
   A Composition is an abstract specification. It commits to what should be
@@ -69,10 +69,10 @@ question: |
   instead of these cryptic delta annotations. What is the main reason genotypes
   are often expressed as changes from a parent strain?
 choices:
-  A: Delta notation is mainly used to reduce file size so the genotype fits in a database field
-  B: Relative notation highlights the mutations that matter for strain behavior, while a full genome sequence hides those differences among millions of unchanged bases
-  C: The complete genome of E. coli is unknown, so delta notation is the only option
-  D: Delta notation is legally required for genetically modified organisms
+  A: Relative notation is necessary because the complete E. coli genome sequence is still unknown for common laboratory strains
+  B: Relative notation highlights behavior-relevant mutations, while full genomes bury a few important differences among many unchanged bases
+  C: Relative notation is required by regulation, so engineered strains must be documented using delta-based annotations by law
+  D: Delta notation is mainly a storage shortcut so genotype records fit into small database fields and labels more easily
 answer: B
 explanation: |
   Relative genotype notation is useful because it emphasizes the changes that
@@ -96,11 +96,11 @@ question: |
 
   What is wrong with this plan?
 choices:
-  A: Nothing, because extra copies of KanR will make transformants grow much faster than non-transformants
-  B: The host already survives on kanamycin, so both transformants and non-transformants form colonies and the selection cannot distinguish them
-  C: Two copies of KanR are generally lethal because resistance genes are highly toxic when overexpressed
-  D: Kanamycin resistance works only from plasmids, not from chromosomal insertions
-answer: B
+  A: Chromosomal KanR does not function for antibiotic resistance, so only plasmid-encoded KanR can support colony growth
+  B: Two KanR copies are usually toxic to cells, so transformants will die before they can form colonies on selection plates
+  C: Nothing is wrong, because extra KanR copies should make transformed cells grow much faster than untransformed host cells
+  D: The host is already kanamycin resistant, so transformed and untransformed cells both survive and selection cannot distinguish them
+answer: D
 explanation: |
   Antibiotic selection works only if cells lacking the plasmid are sensitive to
   the antibiotic. If the host strain already carries a functional chromosomal
@@ -127,11 +127,11 @@ question: |
   Both labs produce cells that express GFP and LacI. How do their results relate
   to the Composition?
 choices:
-  A: Only Lab A implements the Composition correctly because plasmids are the standard method
-  B: Neither lab implements the Composition because they used different engineering strategies
-  C: Both satisfy the Composition, but they created different genotypes and likely different phenotypes
-  D: Both have the same genotype because they started from the same Composition
-answer: C
+  A: Only Lab A satisfies the Composition, because plasmid expression is the standard implementation and therefore the intended one
+  B: Both satisfy the Composition, but they produced different genotypes and likely different phenotypes from those genotypes
+  C: Neither lab satisfies the Composition, because using different promoter and copy-number strategies changes the actual design
+  D: Both produced the same genotype, because starting from the same Composition determines a single correct DNA implementation
+answer: B
 explanation: |
   A Composition specifies what is required at a high level (here, host and
   protein identities), not the detailed implementation strategy. Both labs can
@@ -155,11 +155,11 @@ question: |
 
   What is most likely to happen?
 choices:
-  A: The gene will express normally because promoters and RBS sequences are universal across organisms
-  B: The gene will express at a lower level due to codon usage differences, but the bacterial promoter and RBS will still function
-  C: The gene will likely fail to express because yeast does not use bacterial sigma-70 promoters or Shine-Dalgarno-based translation initiation
-  D: The gene will express but produce a nonfunctional protein because yeast ribosomes translate too fast
-answer: C
+  A: The gene will likely fail to express, because yeast does not use sigma-70 promoters or Shine-Dalgarno translation initiation
+  B: The gene should express normally, because promoter motifs and translation-initiation signals are broadly universal across cells
+  C: The gene may express somewhat less due to codon bias, but the bacterial promoter and RBS should still function in yeast
+  D: The gene will express but the protein will be nonfunctional, because yeast ribosomes translate bacterial genes too quickly
+answer: A
 explanation: |
   Chassis choice constrains what regulatory parts are valid. Yeast and bacteria
   use different transcription and translation initiation machinery. Yeast RNA
@@ -183,11 +183,11 @@ question: |
   Why are these mutations helpful for plasmid-based genetic engineering,
   rather than being random changes?
 choices:
-  A: They primarily increase growth rate, which is the main goal of cloning strains
-  B: They reduce host activities that would otherwise rearrange, degrade, or restrict foreign DNA
-  C: They are auxotrophic markers used for selection on minimal media
-  D: They allow cells to survive higher temperatures during heat shock
-answer: B
+  A: They mainly provide auxotrophic markers so transformed cells can be selected on minimal medium without antibiotics
+  B: They mainly improve heat-shock survival, allowing cells to tolerate higher temperatures during transformation steps
+  C: They reduce host activities that would otherwise rearrange, degrade, or restrict incoming plasmid and foreign DNA
+  D: They mainly increase growth speed, which is the primary design goal for strains used in routine cloning workflows
+answer: C
 explanation: |
   Cloning strains are engineered to make foreign DNA easier to introduce,
   maintain, and recover. In this example, recA defects reduce homologous
@@ -211,11 +211,11 @@ question: |
   What does the delta symbol indicate in genotype notation, and what is the
   physical consequence?
 choices:
-  A: Delta means duplication, so there are two copies of the lac region
-  B: Delta means deletion, so the designated lac region has been physically removed from the chromosome
-  C: Delta means translocation, so the lac region moved to a different chromosomal location
-  D: Delta means promoter replacement, so lac is now controlled by a different promoter
-answer: B
+  A: Delta means translocation, so the lac region was moved intact to a different chromosome position in the strain
+  B: Delta means promoter replacement, so lac genes remain present but are controlled by a different regulatory sequence
+  C: Delta means duplication, so the lac region is present in an extra chromosomal copy in this strain background
+  D: Delta means deletion, so the designated lac region has been physically removed from the chromosome sequence
+answer: D
 explanation: |
   In genotype notation, delta denotes a deletion. The named region has been
   removed from the chromosome, so the strain lacks that DNA segment and cannot
@@ -237,11 +237,11 @@ question: |
 
   What is the best explanation?
 choices:
-  A: Integration usually mutates the GFP coding sequence, so fluorescence drops because the protein is damaged
-  B: Gene copy number changed from about 100 templates to one, so total mRNA and protein output per cell drops substantially
-  C: Chromosomal DNA cannot be transcribed efficiently by RNA polymerase
-  D: The promoter works only on circular plasmids and not in the chromosome
-answer: B
+  A: Copy number changed from about 100 templates to one, so total mRNA and protein output per cell drops substantially
+  B: Integration usually damages the GFP coding region, so fluorescence drops because the encoded protein is no longer functional
+  C: Chromosomal DNA is not efficiently transcribed, so RNA polymerase cannot produce enough mRNA from integrated genes
+  D: The promoter functions only on circular plasmids, so it becomes inactive when the same cassette is chromosomal
+answer: A
 explanation: |
   The cassette sequence is the same, but the genomic context changed. Copy number
   is a major contextual variable. A high-copy plasmid provides many templates for
@@ -263,11 +263,11 @@ question: |
   "Host: E. coli, Protein: LuxA", what information are you missing from the raw
   DNA string alone?
 choices:
-  A: Nothing, because the DNA string contains all necessary information if you translate it
-  B: You are missing high-level intent and context such as the intended host and protein identity, and you also do not know the intended implementation context from sequence alone
-  C: You are missing only the host organism, because the correct protein can always be recovered by translating all six reading frames
-  D: A raw DNA string contains strictly more useful information than a Composition, so nothing important is missing
-answer: B
+  A: You are missing only the host, because the intended protein can always be inferred unambiguously from sequence translation
+  B: Nothing important is missing, because translating the DNA sequence recovers all design meaning needed for implementation
+  C: You are missing high-level intent and context, including intended host, target protein identity, and implementation assumptions
+  D: Nothing important is missing, because raw DNA always contains more useful information than an abstract Composition object
+answer: C
 explanation: |
   A raw DNA string contains sequence-level information, but it does not encode the
   intended design semantics in a directly interpretable way. Without annotation or

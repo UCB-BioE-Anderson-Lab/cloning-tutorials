@@ -1,4 +1,42 @@
+---
+slug: calc-molarity-hidden-state-bug
+difficulty: medium
+topic: Recognizing how mutating shared state during run breaks repeatability and violates a clean computation contract
+question: |
+  What is wrong with this code?
 
+  <python>
+  class CalcMolarity:
+      def __init__(self):
+          self.correction_factor = 1.0
+
+      def run(self, moles: float, liters: float, temperature: float) -> float:
+          if temperature > 25:
+              self.correction_factor += 0.01 * (temperature - 25)
+          return (moles / liters) * self.correction_factor
+  </python>
+
+choices:
+  A: The method should return the correction factor too, so callers can verify the temperature adjustment each time
+  B: The temperature logic should be in __init__, so setup and validation happen before any calculation runs
+  C: The method should avoid floats here, because repeated decimal math makes scientific results drift over time
+  D: The method mutates shared state while computing, so later outputs depend on prior calls, not just inputs
+answer: D
+explanation: |
+  The flaw is that <python>run()</python> changes <python>self.correction_factor</python>
+  while computing the result. Because that state persists on the object, later
+  calls can produce different outputs for the same inputs depending on what was
+  run earlier.
+
+  For example, a call with temperature 30 increases the correction factor. A
+  later call at 20C applies no new correction, but still uses the previously
+  modified factor. Another call at 30C adds correction again on top of the
+  already changed value. This breaks repeatability and makes the method behave
+  like a stateful accumulator rather than a clean computation from explicit
+  inputs.
+
+  The core issue is hidden state mutation during <python>run()</python>, not the
+  use of classes, methods, or floating-point numbers.
 
 ---
 slug: function-signature-as-contract
@@ -25,10 +63,10 @@ question: |
 
   Why is the length assertion justified but the startswith assertion risky?
 choices:
-  A: The contract guarantees same-length output but makes no promise about preserving the start codon
-  B: Both assertions are guaranteed by the contract because ATG always maps to ATG
-  C: Neither assertion is safe because a return type of str allows any string
-  D: The startswith check is safe because biological convention requires a start codon
+  A: The contract guarantees same-length output but does not promise the first codon stays unchanged
+  B: The contract guarantees both checks because any codon optimizer must preserve an initial ATG codon
+  C: The contract guarantees neither check because a return type of str permits any possible string
+  D: The contract guarantees startswith('ATG') because biological convention always requires a start codon
 answer: A
 explanation: |
   The docstring explicitly guarantees that the returned sequence has the same
@@ -62,10 +100,10 @@ question: |
   A design pipeline needs to compute Tm for 500 primers stored in a list.
   Which version can it use directly?
 choices:
-  A: Version A — it can be called in a loop with each primer
-  B: Version B — it accepts a sequence argument and returns a value, so it works with any data source
-  C: Both work equally well — print and return are interchangeable
-  D: Neither — both are unusable because the formula is a simplified approximation
+  A: Version A, because a loop can call it repeatedly and read each primer through interactive input
+  B: Version B, because it accepts a sequence argument and returns a value for any data source
+  C: Both versions, because printing a value and returning a value are interchangeable in pipelines
+  D: Neither version, because the Wallace-rule formula is too approximate for practical automation
 answer: B
 explanation: |
   Version A mixes computation with I/O: it reads from the keyboard and prints
@@ -103,10 +141,10 @@ question: |
   the database later goes offline. What happens when the pipeline is rerun
   with identical inputs?
 choices:
-  A: All three functions fail — the database outage propagates to the pure functions
-  B: codon_optimize and add_flanking_sequences produce the same results; log_to_database fails
-  C: The pipeline produces a different result because the database cached state from the first run
-  D: All three succeed — Python automatically retries failed network calls
+  A: All three functions fail because the database outage propagates through the entire pipeline run
+  B: The pure functions return the same outputs, while log_to_database fails due to the outage
+  C: The pure functions return different outputs because cached database state changed after run one
+  D: All three functions succeed because Python automatically retries network calls until they work
 answer: B
 explanation: |
   Pure functions depend only on their inputs and have no side effects, so they
@@ -137,10 +175,10 @@ question: |
 
   Who decides whether the tool is actually invoked?
 choices:
-  A: The server — it controls access to all tools it exposes
-  B: The LLM — including the tool call in its response already executes it
-  C: The host — it mediates between the LLM and the client, applying approval policies
-  D: The client — it autonomously executes any request the LLM generates
+  A: The server decides because it exposes the tool and therefore controls whether each call runs
+  B: The LLM decides because proposing the tool call in its response is the same as execution
+  C: The host decides because it mediates requests and applies approval policy before execution
+  D: The client decides because it automatically executes any tool request generated by the LLM
 answer: C
 explanation: |
   In MCP, the LLM proposes actions, but the host is responsible for applying
@@ -165,10 +203,10 @@ question: |
   A student claims that Resources and Tools are interchangeable and that
   "parts-catalog" could just as easily be a Tool. What is wrong with this claim?
 choices:
-  A: Resources are for read-only data retrieval; Tools are for actions that may have side effects — conflating them weakens the safety model
-  B: Resources return JSON and Tools return plain text, so the formats are incompatible
-  C: Tools are faster than Resources, which is why computation should be a Tool
-  D: Resources can only be accessed by the server itself, not by external clients
+  A: Resources are read-only retrieval, while Tools are actions with side effects, so safety review differs
+  B: Resources must return JSON, while Tools must return text, so they cannot represent the same thing
+  C: Tools are always faster than Resources, so computational endpoints should be modeled only as Tools
+  D: Resources are internal-only server objects, so external clients cannot request them through MCP
 answer: A
 explanation: |
   MCP separates Resources (read-only retrieval) from Tools (invoked actions that
@@ -194,10 +232,10 @@ question: |
   and order the DNA." Under MCP's controlled invocation model, what should
   happen next?
 choices:
-  A: All three tools execute immediately — the user already asked for help
-  B: The host presents the proposed tool calls for approval before any execute
-  C: Only order-dna requires approval; blast-sequence and write-genbank run automatically
-  D: The server decides which tools are safe and executes those without asking
+  A: All three tools execute immediately because the user already asked for plasmid design help
+  B: The host presents the proposed tool calls for approval before any of them execute
+  C: Only order-dna needs approval, while BLAST and file writing run automatically by default
+  D: The server classifies tool safety and executes whichever calls it considers low risk first
 answer: B
 explanation: |
   In MCP, tool calls are proposed first and executed only after host approval
@@ -239,10 +277,10 @@ question: |
 
   Which approach leads to a more diagnosable failure?
 choices:
-  A: Approach 2 — returning None lets the caller decide how to handle the error
-  B: Approach 1 — the ValueError halts immediately with a message explaining the problem
-  C: Both are equivalent — translate will fail either way
-  D: Approach 2 — None is automatically skipped by translate
+  A: Approach 2 is better because returning None gives the caller full control over error handling
+  B: Approach 1 is better because ValueError stops immediately and explains the detected problem
+  C: Both approaches are equivalent because translate will raise some error in either case anyway
+  D: Approach 2 is better because translate automatically skips None and continues processing
 answer: B
 explanation: |
   Approach 1 fails immediately at the point where the invalid input is detected
@@ -278,10 +316,10 @@ question: |
   and finds that a BsaI site in the promoter is still present after the call.
   What went wrong?
 choices:
-  A: The function has a bug — it should scan the entire input for restriction sites
-  B: The researcher used the function outside its documented scope — it only operates on a coding region
-  C: BsaI sites cannot be removed computationally, only by manual design
-  D: The function silently failed because the promoter confused its reading-frame parser
+  A: The function is buggy because it should scan and edit every restriction site in the full input
+  B: The function was used outside scope because the contract only covers a coding-region sequence
+  C: The task is impossible because promoter restriction sites cannot be removed by computation
+  D: The function silently failed because promoter sequence breaks the reading-frame parser logic
 answer: B
 explanation: |
   The docstring explicitly limits the function's scope to the coding region and
@@ -314,10 +352,10 @@ question: |
 
   When <python>json.dumps(plan)</python> is called on each approach, what happens?
 choices:
-  A: Both serialize successfully — json.dumps handles any Python object
-  B: Approach 1 raises TypeError because custom objects are not JSON-serializable; approach 2 succeeds because it stores only strings
-  C: Approach 2 fails because identifiers cannot be resolved during serialization
-  D: Both fail — dicts cannot be serialized to JSON
+  A: Both plans serialize successfully because json.dumps converts arbitrary Python objects automatically
+  B: Approach 1 raises TypeError, while approach 2 succeeds because it stores only JSON strings
+  C: Approach 2 fails during serialization because identifiers must be resolved to objects beforehand
+  D: Both plans fail because Python dict values cannot be converted into JSON representations
 answer: B
 explanation: |
   <python>json.dumps()</python> can serialize standard JSON-compatible Python

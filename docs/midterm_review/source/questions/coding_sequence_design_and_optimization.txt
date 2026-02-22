@@ -1,6 +1,3 @@
-
-
----
 slug: many-valid-encodings
 difficulty: medium
 topic: Understanding why reverse translation has many valid DNA solutions while translation is unambiguous
@@ -11,11 +8,11 @@ question: |
   Why does this design problem have many valid solutions, while translation
   (DNA → protein) does not?
 choices:
-  A: Most amino acids have multiple synonymous codons, so reverse translation offers multiple choices at many positions; in translation, each codon maps to one amino acid
-  B: DNA polymerase introduces random mutations during replication, creating many possible outputs
-  C: The genetic code is ambiguous, so some codons encode multiple amino acids
-  D: Reverse translation produces a single unique sequence because organisms always use one preferred codon per amino acid
-answer: A
+  A: Some codons encode multiple amino acids, so both reverse translation and translation produce several equally valid protein outputs
+  B: Each amino acid has one required codon in practice, so reverse translation should produce one unique coding sequence only
+  C: DNA replication can add random mutations, so reverse translation naturally produces many design outputs even when the code itself is fixed
+  D: Most amino acids have synonymous codons, so reverse translation has many valid choices, while each codon still translates to one amino acid
+answer: D
 explanation: |
   The genetic code is degenerate but unambiguous. Degenerate means multiple
   codons can encode the same amino acid. Unambiguous means each codon maps to
@@ -37,11 +34,11 @@ question: |
 
   What fabrication problem can this create?
 choices:
-  A: It creates a long poly-A run that can trigger homopolymer-related synthesis errors and polymerase slippage
-  B: It creates excessively high GC content, which blocks synthesis
-  C: Three consecutive lysines are inherently toxic to E. coli
-  D: AAA is a rare lysine codon in E. coli, so expression will fail
-answer: A
+  A: It can force use of a very rare lysine codon, causing translation failure even before any cloning steps begin
+  B: It can create a long poly-A run, increasing risk of homopolymer synthesis errors and polymerase slippage during amplification
+  C: It can create an extremely GC-rich region, causing synthesis failure from excess duplex stability in this short sequence
+  D: It can make lysine repeats inherently toxic, so E. coli cells cannot tolerate expression of this peptide segment
+answer: B
 explanation: |
   Repeating the same synonymous codon for repeated amino acids can create long
   homopolymeric runs. In this case, repeated <pre>AAA</pre> codons generate a long
@@ -66,10 +63,10 @@ question: |
   A random integer from 0 to 99 selects one entry. What is true about this
   approach?
 choices:
-  A: Frequently used codons are selected more often, but less frequent codons still appear sometimes, so multiple valid sequences can be generated
-  B: CTG is always selected because it has the highest count in the table
-  C: All leucine codons are selected with equal probability because the selection is random
-  D: The frequency-weighted selection guarantees that no forbidden sequences appear in the final gene
+  A: Higher-frequency codons are chosen more often, but lower-frequency codons still occur sometimes, allowing diverse valid sequence designs
+  B: The most common codon is always selected, because weighted tables force every random draw to favor the largest entry
+  C: Frequency weighting prevents forbidden motifs automatically, so no later constraint checking is needed after codon selection
+  D: All leucine codons are equally likely, because any method using randomness must sample each codon at the same rate
 answer: A
 explanation: |
   The lookup table implements weighted random sampling. Codons with more entries
@@ -92,10 +89,10 @@ question: |
 
   What does a CAI of 0.15 indicate?
 choices:
-  A: The gene mainly uses codons that are relatively rare in the reference organism's highly expressed genes
-  B: The gene has 15% GC content
-  C: Only 15% of the codons in the gene are valid codons
-  D: The encoded protein is 15% identical to proteins in the host organism
+  A: The gene mostly uses codons that are relatively uncommon in the reference organism's highly expressed genes
+  B: The gene contains mostly invalid triplets, so only about fifteen percent of codons can be translated correctly
+  C: The gene has low GC content overall, with about fifteen percent of bases being G or C
+  D: The encoded protein closely matches host proteins, with roughly fifteen percent sequence identity to native genes
 answer: A
 explanation: |
   CAI measures how well a gene's codon usage matches the codon preferences of a
@@ -116,10 +113,10 @@ question: |
   To remove the BsaI site without changing the encoded protein, the designer
   should:
 choices:
-  A: Replace <pre>GGT</pre> with <pre>GGC</pre> (still Gly) or replace <pre>CTC</pre> with <pre>CTG</pre> (still Leu), disrupting the recognition sequence
-  B: Delete the six bases <pre>GGTCTC</pre>, even though this shifts the reading frame
-  C: Insert a stop codon before position 120 so the enzyme cannot reach the site
-  D: Replace <pre>GGT</pre> with <pre>AAA</pre> to ensure the restriction site is broken
+  A: Make a synonymous codon change such as GGT→GGC or CTC→CTG, which breaks the BsaI site while preserving Gly/Leu
+  B: Delete the six-base site entirely, accepting a frameshift because restriction sites matter more than coding continuity here
+  C: Replace one codon with a nonsynonymous codon like AAA, because any sequence change is acceptable if the site disappears
+  D: Add a premature stop codon upstream of the site, so translation ends before the enzyme recognition sequence begins
 answer: A
 explanation: |
   The correct strategy is a synonymous substitution: change the DNA sequence
@@ -141,10 +138,10 @@ question: |
 
   Why is there generally no single universally best coding sequence?
 choices:
-  A: Improving one objective can worsen another, so acceptable solutions represent tradeoffs among competing constraints
-  B: The genetic code is too simple to represent all design constraints
-  C: There is always exactly one true optimum sequence, but it is too expensive to compute
-  D: Codon choice does not affect expression, so all synonymous solutions are equivalent
+  A: Improving one objective can worsen another, so practical designs are tradeoffs among multiple competing constraints
+  B: The genetic code lacks enough codons to represent engineering constraints, so optimization cannot be meaningfully defined
+  C: Synonymous codon choices never affect expression, so all valid coding sequences are functionally equivalent in practice
+  D: There is always one exact optimum sequence, but current computers are simply too slow to find it
 answer: A
 explanation: |
   Coding-sequence design is usually a multi-objective optimization problem. For
@@ -167,10 +164,10 @@ question: |
 
   What is the key difference between them?
 choices:
-  A: RSCU describes how often one codon is used relative to its synonymous alternatives, while CAI summarizes codon adaptation across an entire gene
-  B: RSCU applies only to RNA sequences, while CAI applies only to DNA sequences
-  C: RSCU is calculated from protein sequences, while CAI is calculated from DNA sequences
-  D: RSCU and CAI are the same metric reported in different units
+  A: RSCU is a codon-level relative-usage measure, while CAI is a gene-level summary of codon adaptation across a sequence
+  B: RSCU applies only to RNA codons, while CAI applies only to DNA codons in coding regions
+  C: RSCU and CAI are identical codon-bias metrics, but reported on different numerical scales for convenience
+  D: RSCU is computed from protein frequencies, while CAI is computed from nucleotide codon frequencies in genes
 answer: A
 explanation: |
   RSCU is a codon-level statistic that compares observed use of one synonymous
@@ -194,10 +191,10 @@ question: |
   Based on expression studies of synonymous GFP variants, what is the most likely
   outcome?
 choices:
-  A: Sequence B will likely express more protein because weaker structure near the start region improves ribosome access and initiation
-  B: Sequence A will likely express more protein because stronger secondary structure always improves mRNA stability and translation
-  C: Both sequences will express identically because they encode the same protein sequence
-  D: Sequence A will likely express more protein because coding-region structure directly increases transcription initiation rate
+  A: Sequence B will likely express more protein, because weaker start-region RNA structure often improves ribosome access and initiation
+  B: Sequence A will likely express more protein, because stronger local RNA structure always improves translation efficiency and output
+  C: Sequence A will likely express more protein, because coding-region RNA structure directly raises transcription initiation rate
+  D: Both sequences should express identically, because synonymous codon changes cannot affect protein production from one gene
 answer: A
 explanation: |
   Synonymous codon changes can alter local RNA structure near the translation
@@ -222,10 +219,10 @@ question: |
 
   What does this imply for algorithm design?
 choices:
-  A: The algorithm should score codons in windows that include neighboring codons, not just optimize one position independently at a time
-  B: Only the first codon after the start codon matters for expression
-  C: Codon optimization should be abandoned because context effects make single-codon usage irrelevant
-  D: The algorithm should prefer the rarest codons to maximize sequence diversity
+  A: Score codon choices in windows that include neighbors, rather than optimizing each codon position independently
+  B: Only the first codon after the start codon matters, so downstream codon context can be ignored
+  C: Abandon codon optimization entirely, because context effects make single-codon usage information unusable in practice
+  D: Prefer the rarest codons whenever possible, because rare codons maximize context diversity and improve translation
 answer: A
 explanation: |
   If neighboring codons influence translation performance, then optimizing each
@@ -251,10 +248,10 @@ question: |
 
   What is a practical risk of this approach?
 choices:
-  A: For proteins with repeated amino acids (for example, many lysines in a row), the algorithm may need many retries before it finds a sequence that passes all constraints
-  B: The algorithm always returns the same sequence regardless of random seed
-  C: The algorithm cannot check constraints because the sequence changes every iteration
-  D: Weighted random codon selection always generates invalid sequences
+  A: Repeated amino acids can cause many retries, because weighted choices may repeatedly recreate the same constraint violations
+  B: The algorithm always returns one fixed sequence, because randomness does not affect weighted codon lookup tables
+  C: Weighted random codon selection produces invalid genes by default, so no generated sequence can pass checks
+  D: The algorithm cannot run constraint checks, because the sequence changes during every iteration of the generation loop
 answer: A
 explanation: |
   Weighted random selection can repeatedly favor common codons that create the

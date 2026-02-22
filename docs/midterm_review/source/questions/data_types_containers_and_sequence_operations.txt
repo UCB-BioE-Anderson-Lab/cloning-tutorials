@@ -1,0 +1,248 @@
+---
+slug: name-binding-shared-list
+difficulty: easy
+topic: Understanding that variable assignment creates shared references, not independent copies
+question: |
+  A construct's sequence is stored as a list of parts. A colleague saves
+  a reference so they can modify it:
+
+  <python>
+  parts = ['J23119', 'B0034', 'amilGFP']
+  my_copy = parts
+  my_copy.append('B0015')
+  </python>
+
+  How many elements does <python>parts</python> contain after this code runs?
+choices:
+  A: "3, because assignment created a separate list copy"
+  B: "4, because both names refer to the same list object"
+  C: "4, because append changes every list in memory"
+  D: "Error, because append cannot be used on a referenced list"
+answer: B
+explanation: |
+  Assignment with <python>my_copy = parts</python> binds a second name to the
+  same list object. It does not make a copy. Appending through
+  <python>my_copy</python> mutates that shared list, so <python>parts</python>
+  also has 4 elements.
+
+---
+slug: container-choice-for-data
+difficulty: easy
+topic: Selecting a container type based on the properties of the data it must hold
+question: |
+  You are designing a data structure for a genetic construct. It has:
+
+  - an ordered series of CDS names that may repeat
+  - a collection of forbidden restriction sites where order does not matter and duplicates do not matter
+
+  Which pair of container types best fits these two needs?
+choices:
+  A: "list for CDS names, set for forbidden sites"
+  B: "set for CDS names, list for forbidden sites"
+  C: "dict for CDS names, set for forbidden sites"
+  D: "list for CDS names, list for forbidden sites"
+answer: A
+explanation: |
+  A list preserves order and allows repeats, which matches the CDS series.
+  A set is a good fit for forbidden sites because membership matters, order
+  does not, and duplicates are not meaningful.
+
+---
+slug: dict-as-lookup-table
+difficulty: easy
+topic: Forward vs. reverse lookup in a dict and what the key-value direction implies
+question: |
+  The genetic code is stored as a dict mapping codons to amino acids:
+
+  <python>
+  genetic_code = {'ATG': 'M', 'TTT': 'F', 'TTC': 'F', 'TAA': '*'}
+  </python>
+
+  A student writes:
+
+  <python>
+  genetic_code['F']
+  </python>
+
+  What happens?
+choices:
+  A: "It returns ['TTT', 'TTC'] because F maps to two codons"
+  B: "It returns 'TTT' as the first codon for F"
+  C: "It raises KeyError because 'F' is a value, not a key"
+  D: "It returns 'F' because dict lookup echoes the query"
+answer: C
+explanation: |
+  Dict lookup uses keys. In this dict, the keys are codons such as
+  <pre>ATG</pre> and <pre>TTT</pre>. The amino acid <pre>F</pre> is a value,
+  not a key, so <python>genetic_code['F']</python> raises a KeyError.
+
+---
+slug: none-guarding-operations
+difficulty: easy
+topic: Handling absent or optional data and checking validity before field access
+question: |
+  An RBS chooser returns an <python>RBSOption</python> object when it finds a
+  valid option, or <python>None</python> when no option passes filters.
+
+  A caller writes:
+
+  <python>
+  result = rbs_chooser.run(cds)
+  utr = result.utr
+  </python>
+
+  If no valid RBS is found, what happens?
+choices:
+  A: "utr becomes None because missing attributes default to None"
+  B: "utr becomes '' because string fields default to empty strings"
+  C: "AttributeError, because None does not have a .utr attribute"
+  D: "A default RBSOption is created automatically and returned"
+answer: C
+explanation: |
+  If the function returns <python>None</python>, then <python>result</python>
+  refers to the absence of an object. <python>None</python> does not have a
+  <python>.utr</python> attribute, so attribute access raises an
+  AttributeError. The caller should check <python>result is None</python>
+  before accessing fields.
+
+---
+slug: string-substring-search
+difficulty: easy
+topic: Using string operations to check sequence content
+question: |
+  A codon optimization function must verify that a designed CDS does not
+  contain the BsaI recognition site <pre>GGTCTC</pre>. Given:
+
+  <python>
+  cds = 'ATGAACGGTCTCAAATAA'
+  </python>
+
+  Which expression directly checks whether the forbidden site appears in the CDS?
+choices:
+  A: "'GGTCTC' in cds"
+  B: "cds['GGTCTC']"
+  C: "cds == 'GGTCTC'"
+  D: "cds in 'GGTCTC'"
+answer: A
+explanation: |
+  The <python>in</python> operator checks substring membership for strings.
+  It returns True if the left string appears anywhere as a contiguous
+  substring in the right string.
+
+---
+slug: zero-based-index-extraction
+difficulty: easy
+topic: Applying zero-based indexing to extract a specific element from sequential data
+question: |
+  A promoter sequence is stored as a string:
+
+  <pre>promoter = 'TTGACATATAAT'</pre>
+
+  A student writes:
+
+  <python>
+  base = promoter[5]
+  </python>
+
+  What value is stored in <python>base</python>?
+choices:
+  A: "'A'"
+  B: "'C'"
+  C: "'T'"
+  D: "IndexError"
+answer: A
+explanation: |
+  Python uses zero-based indexing, so index 5 refers to the 6th character.
+  In <pre>TTGACATATAAT</pre>, the character at index 5 is <pre>A</pre>.
+
+---
+slug: slice-endpoint-exclusion
+difficulty: easy
+topic: Understanding that slice endpoints are exclusive and reasoning about boundary positions
+question: |
+  A genomic sequence contains a start codon beginning at index 10:
+
+  <pre>genome = 'CCCGTTAAACATGAAAGGGCCC'</pre>
+
+  Which slice extracts the 3-nt codon starting at index 10?
+choices:
+  A: "genome[10:13]"
+  B: "genome[10:12]"
+  C: "genome[11:14]"
+  D: "genome[10:10+2]"
+answer: A
+explanation: |
+  Python slices include the start index and exclude the end index. To get
+  three characters starting at index 10, use indices 10, 11, and 12, which is
+  <python>genome[10:13]</python>.
+
+---
+slug: negative-index-from-end
+difficulty: easy
+topic: Using negative indices to access elements relative to the end of a sequence
+question: |
+  A CDS should end with a stop codon. Given:
+
+  <pre>cds = 'ATGAAAGGTCTCTAA'</pre>
+
+  What is the value of this expression?
+
+  <python>
+  cds[-3:]
+  </python>
+choices:
+  A: "'TAA'"
+  B: "'ATG'"
+  C: "'CTT'"
+  D: "Error"
+answer: A
+explanation: |
+  The slice <python>cds[-3:]</python> means "from the third-to-last character
+  to the end." That returns the final three nucleotides, which are
+  <pre>TAA</pre>.
+
+---
+slug: string-immutability-mutation
+difficulty: easy
+topic: Recognizing that immutable sequences cannot be modified in place
+question: |
+  A student tries to replace a codon inside a DNA string:
+
+  <python>
+  cds = 'ATGAAACCCGGGTAA'
+  cds[6:9] = 'CCT'
+  </python>
+
+  What happens?
+choices:
+  A: "The codon is replaced in place and cds changes successfully"
+  B: "TypeError, because Python strings do not support slice assignment"
+  C: "IndexError, because slice 6:9 is out of range"
+  D: "A new string is created automatically, but cds stays unchanged"
+answer: B
+explanation: |
+  Python strings are immutable, so you cannot assign to a string index or
+  slice. The statement raises a TypeError. To make the change, you must build
+  a new string.
+
+---
+slug: off-by-one-protospacer-extraction
+difficulty: easy
+topic: Getting boundary arithmetic right when extracting a region defined relative to a landmark
+question: |
+  A CRISPR design function finds a PAM site <pre>NGG</pre> starting at
+  <python>pam_index = 25</python>. It must extract the 20-nt protospacer
+  immediately upstream of the PAM.
+
+  Which slice is correct?
+choices:
+  A: "target[pam_index-20:pam_index]"
+  B: "target[pam_index-21:pam_index-1]"
+  C: "target[pam_index-20:pam_index-1]"
+  D: "target[pam_index-19:pam_index]"
+answer: A
+explanation: |
+  The 20 bases immediately upstream of the PAM start at
+  <python>pam_index - 20</python> and end just before <python>pam_index</python>.
+  Because Python slice endpoints are exclusive, the correct slice is
+  <python>target[pam_index-20:pam_index]</python>.

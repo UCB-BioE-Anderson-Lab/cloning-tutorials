@@ -18,20 +18,20 @@ question: |
 
   What is the value of protein after the loop finishes?
 choices:
-  A: 'MKG'
-  B: 'ATGAAAGGT'
-  C: 'M'
-  D: KeyError is raised
-answer: A
+  A: "'M' (only first codon translated)"
+  B: "KeyError (lookup fails during loop)"
+  C: "'ATGAAAGGT' (original DNA sequence)"
+  D: "'MKG' (translated amino-acid string)"
+answer: D
 explanation: |
   The loop advances through the CDS in steps of 3. When <python>i = 0</python>,
   the codon is <pre>ATG</pre> and <pre>M</pre> is appended. When
   <python>i = 3</python>, the codon is <pre>AAA</pre> and <pre>K</pre> is
   appended. When <python>i = 6</python>, the codon is <pre>GGT</pre> and
   <pre>G</pre> is appended. The final protein string is <pre>MKG</pre>.
-  Option B confuses the DNA sequence with the translated protein. Option C
-  would be correct only if the loop ran once. Option D would occur only if a
-  codon were missing from the lookup table.
+  Option B would occur only if a codon were missing from the lookup table.
+  Option C confuses the DNA sequence with the translated protein. Option A
+  would be correct only if the loop ran once.
 
 ---
 slug: if-elif-else-classification
@@ -54,11 +54,11 @@ question: |
 
   What does <python>classify(100)</python> return?
 choices:
-  A: 'high'
-  B: 'medium'
-  C: 'low'
-  D: 'not detected'
-answer: C
+  A: "'low' (positive but not >100)"
+  B: "'not detected' (zero or below)"
+  C: "'high' (above 1000 threshold)"
+  D: "'medium' (above 100 threshold)"
+answer: A
 explanation: |
   The conditions are checked in order. <python>100 > 1000</python> is False.
   <python>100 > 100</python> is also False because the comparison is strict
@@ -86,11 +86,11 @@ question: |
 
   What is the value of position after the loop finishes?
 choices:
-  A: 7
-  B: 8
-  C: -1
-  D: 3
-answer: A
+  A: "-1 (sentinel if no GG found)"
+  B: "7 (first GG starts at index 7)"
+  C: "3 (earlier position, no match)"
+  D: "8 (second G index, not start)"
+answer: B
 explanation: |
   The loop scans left to right. At <python>i = 7</python>, the slice
   <python>seq[7:9]</python> is <pre>GG</pre>, so <python>position</python> is
@@ -117,16 +117,16 @@ question: |
 
   What is the value of valid?
 choices:
-  A: "[498, 889]"
-  B: "[498, None, 889, None]"
-  C: "[('b0002', 498), ('b0004', 889)]"
-  D: "[] — continue skips all remaining iterations"
-answer: A
+  A: "[('b0002', 498), ('b0004', 889)] (keeps tuples)"
+  B: "[] (continue stops the whole loop)"
+  C: "[498, 889] (only non-missing abundances)"
+  D: "[498, None, 889, None] (keeps all values)"
+answer: C
 explanation: |
   When <python>abundance is None</python>, <python>continue</python> skips the
   rest of the current loop body and moves to the next tuple. It does not end
   the loop. The two non-missing abundances (498 and 889) are appended, so
-  <python>valid</python> becomes <python>[498, 889]</python>. Option D is a
+  <python>valid</python> becomes <python>[498, 889]</python>. Option B is a
   common confusion between <python>continue</python> and
   <python>break</python>.
 
@@ -151,11 +151,11 @@ question: |
 
   What is the value of best_codon after the loop finishes?
 choices:
-  A: 'CCG'
-  B: 'CCT'
-  C: 'CCA'
-  D: None — the loop never updates best_codon
-answer: A
+  A: "'CCA' (intermediate best value)"
+  B: "None (best_codon never updated)"
+  C: "'CCG' (highest final count)"
+  D: "'CCT' (first codon encountered)"
+answer: C
 explanation: |
   The loop compares each count to the current best. <pre>CCT</pre> beats 0,
   then <pre>CCC</pre> does not beat 27340, <pre>CCA</pre> beats 27340, and
@@ -183,11 +183,11 @@ question: |
   How many elements are in combos, and what would happen if Lys had 6
   synonymous codons instead of 2?
 choices:
-  A: 2 elements now; 6 if Lys had 6 codons
-  B: 2 elements now; 12 if Lys had 6 codons
-  C: 3 elements now; 7 if Lys had 6 codons
-  D: 2 elements now; 6^2 = 36 if Lys had 6 codons
-answer: A
+  A: "2 now; 36 if Lys had 6 codons"
+  B: "2 now; 6 if Lys had 6 codons"
+  C: "3 now; 7 if Lys had 6 codons"
+  D: "2 now; 12 if Lys had 6 codons"
+answer: B
 explanation: |
   Nested loops generate the product of the loop counts. Here there is 1 Met
   codon and 2 Lys codons, so the total is <python>1 × 2 = 2</python>.
@@ -216,11 +216,11 @@ question: |
 
   Which of the following is true about this loop?
 choices:
-  A: It could run forever if no valid CDS exists for this protein
-  B: It always terminates after exactly one iteration
-  C: It terminates after a fixed number of iterations regardless of input
-  D: Setting the seed guarantees it runs exactly once
-answer: A
+  A: "It stops after a fixed count"
+  B: "The seed makes it stop once"
+  C: "It always stops after one try"
+  D: "It may run forever if none pass"
+answer: D
 explanation: |
   The loop repeats while <python>passed</python> is False. If no candidate
   CDS can satisfy the constraints, then <python>passed</python> never becomes
@@ -246,11 +246,11 @@ question: |
 
   What is the value of result after the loop finishes?
 choices:
-  A: 'CGAT'
-  B: 'TAGC'
-  C: 'GCTA'
-  D: 'ATCG'
-answer: A
+  A: "'GCTA' (reverse only, no complement)"
+  B: "'ATCG' (original input sequence)"
+  C: "'CGAT' (reverse complement result)"
+  D: "'TAGC' (complement only, no reverse)"
+answer: C
 explanation: |
   Each iteration looks up the complement of the current base and prepends it
   to the existing string. Starting from an empty string, the sequence of
@@ -276,11 +276,11 @@ question: |
 
   What is the value of cleaned?
 choices:
-  A: 'ATCGTT'
-  B: 'ATCnGNtt'
-  C: 'ATCG'
-  D: ValueError is raised on 'n'
-answer: A
+  A: "'ATCnGNtt' (keeps original characters)"
+  B: "ValueError (invalid N raises error)"
+  C: "'ATCG' (drops both trailing Ts too)"
+  D: "'ATCGTT' (keeps only valid bases)"
+answer: D
 explanation: |
   First, <python>seq.upper()</python> becomes <pre>ATCNGNTT</pre>. The loop
   appends only characters that are in <pre>ATCG</pre>. The letters
@@ -315,11 +315,11 @@ question: |
 
   What are hits_lr and hits_rl after both loops finish?
 choices:
-  A: "[0, 1] and [1, 0] — same positions, different order"
-  B: "Both are [0, 1] — iteration order does not affect which positions match"
-  C: "hits_lr is [0] and hits_rl is [1] — each finds only one"
-  D: "hits_lr is [0, 1] and hits_rl is [0, 1] — same list"
-answer: A
+  A: "[0] and [1] (each loop finds one hit only)"
+  B: "[1, 0] and [0, 1] (lists swapped between scans)"
+  C: "[0, 1] and [1, 0] (same hits, reversed order)"
+  D: "[0, 1] and [0, 1] (order never changes result)"
+answer: C
 explanation: |
   The sequence <pre>GGGAT</pre> contains overlapping <pre>GG</pre> matches at
   positions 0 and 1. Both loops test the same match condition, so both find

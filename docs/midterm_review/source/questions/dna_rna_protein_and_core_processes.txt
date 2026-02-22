@@ -1,5 +1,3 @@
-
-
 ---
 slug: transcription-directionality
 difficulty: medium
@@ -11,11 +9,11 @@ question: |
   A student claims the mRNA sequence is identical to the template strand
   because polymerase "copies" the template. What is wrong with this claim?
 choices:
-  A: The mRNA is complementary to the template strand, not identical to it
-  B: The mRNA is identical to the template strand but in the reverse direction
-  C: RNA polymerase does not use a template at all and synthesizes RNA randomly
-  D: The mRNA is identical to the template strand except that T is replaced by U
-answer: A
+  A: The mRNA matches the template strand sequence, but only in reverse orientation
+  B: RNA polymerase synthesizes RNA without using any DNA strand as a template
+  C: The mRNA is complementary to the template strand rather than identical to it
+  D: The mRNA matches the template strand except that uracil replaces thymine
+answer: C
 explanation: |
   RNA polymerase synthesizes an RNA strand that is complementary to the DNA
   template. Base pairing is A-U, T-A, C-G, and G-C. Therefore, the mRNA is not
@@ -40,10 +38,10 @@ question: |
   sequence for this region?
 choices:
   A: It reads the coding strand (5'->3'); mRNA is 5'-AUGAAACCC...-3'
-  B: It reads the template strand (3'->5'); mRNA is 5'-AUGAAACCC...-3'
-  C: It reads the template strand (3'->5'); mRNA is 5'-UACUUUGGG...-3'
-  D: It reads the coding strand (3'->5'); mRNA is 5'-CCCAAAGUA...-3'
-answer: B
+  B: It reads the template strand (3'->5'); mRNA is 5'-UACUUUGGG...-3'
+  C: It reads the coding strand (3'->5'); mRNA is 5'-CCCAAAGUA...-3'
+  D: It reads the template strand (3'->5'); mRNA is 5'-AUGAAACCC...-3'
+answer: D
 explanation: |
   RNA polymerase reads the template strand in the 3'->5' direction and
   synthesizes RNA 5'->3'. The RNA is complementary to the template and thus has
@@ -62,11 +60,11 @@ question: |
 
   Which answer best explains why the distinction matters biologically?
 choices:
-  A: U pairs with A more strongly than T does, making RNA more stable than DNA
-  B: The cell can use U versus T to distinguish RNA from DNA, which helps support RNA turnover and DNA repair
-  C: U cannot form base pairs in double-stranded structures, so RNA must always be single-stranded
-  D: T and U are interchangeable, so the difference has no functional significance
-answer: B
+  A: U pairs with A more strongly than T does, making RNA more stable overall
+  B: U cannot base-pair in duplex regions, so RNA must remain single-stranded
+  C: T and U are functionally interchangeable, so the choice has no consequence
+  D: Cells distinguish U from T to support RNA turnover and DNA repair systems
+answer: D
 explanation: |
   T and U differ by a methyl group. That chemical difference matters because it
   helps cells treat RNA and DNA differently. RNA is meant to be transient in
@@ -91,11 +89,11 @@ question: |
   where genetic_code maps codons to amino acids. This fails. Beyond the coding
   error, why is the reverse problem fundamentally harder?
 choices:
-  A: Some amino acids have no codon at all
-  B: The reverse mapping is one-to-many, so most amino acids have multiple valid codons
-  C: The genetic code is only valid in the 5'->3' direction and cannot be reversed conceptually
-  D: Amino acids map to codons in a different reading frame than codons map to amino acids
-answer: B
+  A: The reverse mapping is one-to-many because many amino acids have valid codons
+  B: Some amino acids have no codons in the standard genetic code at all
+  C: The code only works in 5'->3' translation and cannot be reversed conceptually
+  D: Amino acids map to codons using a different reading frame than translation
+answer: A
 explanation: |
   The genetic code is degenerate: many amino acids are encoded by multiple
   synonymous codons. Translation (codon -> amino acid) is many-to-one, so a
@@ -113,11 +111,11 @@ question: |
   the middle. The gene is transcribed normally. What happens during
   translation?
 choices:
-  A: The ribosome skips the internal TAA because stop codons only work at the end of a gene
-  B: The ribosome terminates translation at the internal TAA, producing a truncated protein
-  C: The internal TAA is read as an amino acid because codon meaning depends on position
-  D: Transcription terminates at the internal TAA, so mRNA is not made past that point
-answer: B
+  A: The ribosome skips the internal TAA because only terminal stops are recognized
+  B: The internal TAA encodes an amino acid because codon meaning depends on position
+  C: Transcription stops at the internal TAA so downstream mRNA is not produced
+  D: The ribosome stops at the internal TAA and makes a truncated protein product
+answer: D
 explanation: |
   During translation, the ribosome reads codons sequentially from the start
   codon. Any in-frame stop codon is interpreted as a stop signal. An internal
@@ -139,10 +137,10 @@ question: |
   CDS, and terminator are otherwise correct. What is the most likely outcome?
 choices:
   A: Transcription fails because the RBS is required for RNA polymerase binding
-  B: The mRNA is transcribed, but translation initiation at the intended ATG is disrupted because the RBS must be upstream
-  C: Translation still works because bacterial ribosomes ignore RBS position and start at any ATG
-  D: The protein is produced normally but in a different reading frame
-answer: B
+  B: Translation still starts normally because ribosomes initiate at any nearby ATG
+  C: mRNA is transcribed, but initiation at the intended ATG is disrupted downstream
+  D: The protein is produced normally, but the coding region shifts reading frame
+answer: C
 explanation: |
   In bacteria, the ribosome-binding site (Shine-Dalgarno sequence) must be
   upstream of the start codon so the ribosome can position the start codon
@@ -162,11 +160,11 @@ question: |
   Which statement best captures the key difference in what each process
   produces?
 choices:
-  A: Replication duplicates the genome as double-stranded DNA, whereas transcription produces single-stranded RNA copies of selected regions
-  B: Replication produces RNA that is later converted to DNA, whereas transcription produces DNA that is later converted to RNA
-  C: Replication copies only the coding strand, whereas transcription copies only the template strand
-  D: Replication is error-free, whereas transcription always introduces mutations
-answer: A
+  A: Replication is error-free synthesis; transcription always creates permanent mutations
+  B: Replication makes RNA intermediates first; transcription makes DNA intermediates first
+  C: Replication copies coding strands only; transcription copies template strands only
+  D: Replication makes double-stranded DNA copies; transcription makes single-stranded RNA
+answer: D
 explanation: |
   Replication copies the entire genome to produce new double-stranded DNA
   molecules. Transcription copies specific regions (genes or operons) into
@@ -185,11 +183,11 @@ question: |
 
   What is the strongest answer?
 choices:
-  A: DNA is well suited for stable information storage, but proteins provide diverse catalytic/structural functions and RNA provides a regulatable intermediate between gene copy number and protein production
-  B: RNA and protein exist only because DNA is too expensive for the cell to make in large amounts
-  C: Proteins are folded RNA molecules, so the cell effectively uses only two polymers
-  D: The three-polymer system persists only because evolution has not optimized it yet
-answer: A
+  A: RNA and protein exist mainly because DNA is too costly to synthesize abundantly
+  B: Proteins are folded RNAs, so cells effectively rely on only two polymers
+  C: DNA stores stably, proteins perform functions, and RNA provides regulatable intermediates
+  D: Evolution has not optimized biology yet, so the three-polymer system persists
+answer: C
 explanation: |
   DNA is specialized for stable information storage. Proteins, built from 20
   amino acids with diverse chemistries, perform most catalysis and structural
@@ -209,10 +207,10 @@ question: |
 
   What is the most likely outcome after transformation?
 choices:
-  A: The plasmid is maintained normally because the host origin replicates all DNA in the cell
-  B: The plasmid cannot replicate as an independent molecule and is lost as cells divide, so transformants are not stably maintained
-  C: The plasmid automatically integrates into the chromosome at the host origin
-  D: The host dies immediately because plasmids without origins are intrinsically toxic
+  A: The plasmid is maintained because the host origin replicates all cellular DNA
+  B: The plasmid is not stably replicated and is lost as transformed cells divide
+  C: The host cell dies immediately because origin-free plasmids are intrinsically toxic
+  D: The plasmid integrates at the chromosomal origin without requiring homology
 answer: B
 explanation: |
   A plasmid needs its own origin to be replicated as an independent DNA
@@ -233,11 +231,11 @@ question: |
 
   How many separate proteins can ribosomes produce from this one mRNA?
 choices:
-  A: One, because each mRNA can encode only one protein
-  B: Three, because each coding region can have its own RBS and start codon for independent initiation
-  C: Three, but only after the mRNA is cut into three separate RNAs
-  D: It depends on whether all three genes are in the same reading frame
-answer: B
+  A: Three, because each coding region can initiate translation from its own signals
+  B: One, because a single bacterial mRNA molecule can encode only one protein
+  C: Three, but only after cleavage into separate RNAs before translation begins
+  D: It depends entirely on whether all genes share the same reading frame
+answer: A
 explanation: |
   A bacterial polycistronic mRNA can encode multiple proteins. Each coding
   region can have its own ribosome-binding site and start codon, allowing

@@ -4,13 +4,15 @@ cs:
   python_literacy:
     title: Python literacy
     subtopics:
-      core_types_and_containers:
-        title: Core types, variables, and containers
+      data_types_containers_and_sequence_operations:
+        title: Data types, containers, and sequence operations
         scope: |
           Variables as names bound to values, and how Python data types constrain valid
           operations. Includes ints, floats, bools, strings, None, plus list/tuple/set/
           dict as the core containers used to represent biological collections and
-          records.
+          records. Includes indexing and slicing on sequence-like data (especially DNA
+          strings), string processing, reverse complements at a conceptual level, and
+          avoiding off-by-one errors.
       control_flow_and_iteration:
         title: Control flow and iteration
         scope: |
@@ -23,12 +25,15 @@ cs:
           Defining and calling functions, passing arguments, and using return values.
           Includes local scope, default arguments, and treating functions as reusable
           units of logic.
-      indexing_slicing_and_string_processing:
-        title: Indexing, slicing, and string processing
+
+      algorithmic_complexity_and_performance_reasoning:
+        title: Algorithmic complexity and performance reasoning
         scope: |
-          Working with sequence-like data, especially DNA strings. Includes indexing and
-          slicing, substring search versus regex-level ideas, reverse complements at a
-          conceptual level, and avoiding off-by-one errors.
+          Estimating how runtime and memory usage scale with input size. Includes
+          Big-O reasoning from code structure (for example loops, nested loops, and
+          dictionary lookups), comparing alternative implementations, and choosing
+          appropriate complexity targets for biological computing tasks without
+          requiring advanced proofs.
 
   correctness_and_debugging:
     title: Correctness and debugging

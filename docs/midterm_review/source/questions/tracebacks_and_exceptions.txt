@@ -18,10 +18,10 @@ question: |
 
   Which line actually raised the error, and what caused it?
 choices:
-  A: Line 12 of pipeline.py — the function design_rbs does not exist
-  B: Line 45 of rbs.py — the key 'b0025' was not found in the proteomics dict
-  C: Line 12 of pipeline.py — cds is None
-  D: Line 45 of rbs.py — gene_id is an integer but should be a string
+  A: Line 12 of pipeline.py; the call failed because design_rbs is not defined
+  B: Line 45 of rbs.py; the key 'b0025' was missing from the proteomics dict
+  C: Line 12 of pipeline.py; the call failed because cds was None at runtime
+  D: Line 45 of rbs.py; the lookup failed because gene_id should be a string
 answer: B
 explanation: |
   Read the traceback from the bottom up: the last frame shown is where the
@@ -55,10 +55,10 @@ question: |
 
   If no guide was found, what exception is raised on the second line?
 choices:
-  A: ValueError — the spacer is invalid
-  B: NameError — guide was never defined
-  C: AttributeError — None has no attribute 'spacer'
-  D: TypeError — print cannot accept None
+  A: ValueError; guide exists, but the spacer value is invalid for printing
+  B: NameError; the variable guide was never assigned in the caller scope
+  C: AttributeError; guide is None, so .spacer access fails immediately
+  D: TypeError; print() rejects None values before evaluating guide.spacer
 answer: C
 explanation: |
   If no guide is found, <python>find_best_guide()</python> returns
@@ -99,10 +99,10 @@ question: |
   A researcher accidentally passes <pre>ATGNCC</pre> (with an ambiguous N).
   What happens with each version?
 choices:
-  A: Both raise ValueError — any non-ATCG character triggers an error
-  B: "A returns 'GGNAT' (skipping N); B raises ValueError explaining the problem"
-  C: "A returns 'GGNCAT'; B returns 'GGNCAT' — both handle N the same way"
-  D: "A returns 'GGCAT' (silently dropping N); B raises ValueError explaining the problem"
+  A: A raises ValueError immediately; B raises ValueError with the same message
+  B: A returns 'GGNAT' after skipping N; B raises ValueError about invalid DNA
+  C: A returns 'GGNCAT' including N; B returns 'GGNCAT' using the same logic
+  D: A returns 'GGCAT' after dropping N; B raises ValueError about invalid DNA
 answer: D
 explanation: |
   In Version A, <pre>N</pre> is not in the complement dict, so it is silently
@@ -144,10 +144,10 @@ question: |
   If <python>seq2</python> contains an invalid character, what happens under
   each design?
 choices:
-  A: Design 1 returns None for the sum; Design 2 raises ValueError
-  B: Design 1 raises TypeError (cannot add number and None); Design 2 raises ValueError with a clear message
-  C: Both designs raise ValueError — returning None is automatically converted
-  D: Both produce None — the + operator propagates None like SQL null
+  A: Design 1 returns None for total; Design 2 raises ValueError immediately
+  B: Design 1 raises TypeError on addition; Design 2 raises ValueError clearly
+  C: Design 1 raises ValueError on return; Design 2 raises ValueError on call
+  D: Design 1 returns NaN for total; Design 2 returns None for invalid input
 answer: B
 explanation: |
   Under Design 1, <python>molecular_weight(seq2)</python> returns
@@ -188,10 +188,10 @@ question: |
 
   Where is the exception caught, and why is this structure correct?
 choices:
-  A: optimize_all_codons should catch the ValueError so the loop can continue with other codons
-  B: optimize_codon_at should catch its own ValueError so it never propagates
-  C: The exception propagates from optimize_codon_at through optimize_all_codons to the top-level try/except, which is the appropriate place to handle it
-  D: Each layer should have its own try/except block wrapping every call
+  A: optimize_all_codons catches it so the loop can skip bad codons and finish
+  B: optimize_codon_at catches it so no ValueError ever leaves that function
+  C: It propagates to the top-level try/except, which is the right handler here
+  D: Every layer should wrap each call in try/except to prevent propagation
 answer: C
 explanation: |
   <python>optimize_codon_at()</python> raises the exception, and
@@ -220,10 +220,10 @@ question: |
   The genetic_code dict contains all 64 standard codons. Is this a bug
   in translate or a caller error?
 choices:
-  A: Bug in translate — it should handle every possible three-letter string
-  B: Caller error — 'ATN' is not a valid codon, so the input sequence contains non-ATCG characters that should have been validated before calling translate
-  C: Bug in genetic_code — it is missing entries for ambiguous bases
-  D: Caller error — the caller should have wrapped the call in try/except
+  A: Bug in translate; it must accept every three-letter string as a codon
+  B: Caller error; 'ATN' is invalid input and should be rejected earlier
+  C: Bug in genetic_code; it should include codons with ambiguous bases too
+  D: Caller error; the caller should catch KeyError so the function is fine
 answer: B
 explanation: |
   <pre>ATN</pre> is not one of the 64 standard DNA codons because it contains
@@ -252,10 +252,10 @@ question: |
 
   What exception types best fill the three ??? slots?
 choices:
-  A: TypeError, ValueError, ValueError
-  B: ValueError, ValueError, ValueError
-  C: TypeError, IndexError, KeyError
-  D: Exception, Exception, Exception
+  A: TypeError, ValueError, ValueError for type mismatch then bad values
+  B: ValueError, ValueError, ValueError for all rejected primer conditions
+  C: TypeError, IndexError, KeyError for type, length, and base checks
+  D: Exception, Exception, Exception to avoid choosing overly specific types
 answer: A
 explanation: |
   Use TypeError when the argument has the wrong type (the first check), and
@@ -287,10 +287,10 @@ question: |
   real problem is missing or incomplete proteomics setup upstream." Who is
   closer to the correct diagnosis?
 choices:
-  A: "The first student — the fix should be adding 'yaaX' to the proteomics dict at line 34"
-  B: The second student — the traceback shows where the error surfaced, but the root cause is likely missing or incomplete data setup upstream
-  C: Both are wrong — the error is in main.py where build_construct is called
-  D: Both are wrong — KeyError means the code has a syntax error
+  A: First student; line 34 is always the root cause whenever KeyError occurs
+  B: Second student; line 34 surfaced it, but upstream data setup is suspect
+  C: Neither student; the real bug is the call site in main.py line 5 only
+  D: Neither student; KeyError indicates a syntax problem in chooser.py code
 answer: B
 explanation: |
   The traceback shows where the KeyError surfaced: <python>chooser.py</python>
@@ -321,10 +321,10 @@ question: |
 
   What happens?
 choices:
-  A: Returns 0.0 — no characters in an integer match 'G' or 'C'
-  B: TypeError — iterating over an integer with 'for b in seq' is not supported
-  C: Returns 0.25 — the digits are treated as characters
-  D: ValueError — the function detects that 1234 is not a DNA sequence
+  A: Returns 0.0 because no integer digits count as G or C nucleotides here
+  B: TypeError because integers are not iterable in the loop over seq values
+  C: Returns 0.25 because the digits are converted to characters automatically
+  D: ValueError because gc_content validates the input before any iteration
 answer: B
 explanation: |
   Integers are not iterable in Python, so the generator expression
@@ -360,10 +360,10 @@ question: |
   A designer gets a ValueError while building a construct with 5 forbidden
   sites to check. Why is Version B's error message better?
 choices:
-  A: Version B is not better — both stop execution equally well
-  B: Version B names the specific forbidden site and its position, so the designer knows exactly what to fix without re-running any code
-  C: Version B is better only because it includes the word "Forbidden"
-  D: Version B is slower because it calls seq.index, so Version A is preferred
+  A: It is not better; both versions stop execution, so diagnostics are equal
+  B: It names the site and position, so the caller can fix the exact problem
+  C: It is better only because it uses the word Forbidden in the message text
+  D: It is worse because seq.index adds overhead, so shorter messages are best
 answer: B
 explanation: |
   Version A's message (<python>'bad'</python>) gives almost no diagnostic

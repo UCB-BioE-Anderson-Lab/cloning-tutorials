@@ -1,5 +1,3 @@
-
-
 ---
 slug: validated-example-strength
 difficulty: medium
@@ -26,11 +24,11 @@ question: |
       assert result == 'ATAGTGAATGCTCAACGAAC'
   </python>
 choices:
-  A: Test A — type checking catches the broadest class of bugs
-  B: Test B — length constraints are more specific than type checks
-  C: Test C — matching a known experimental result validates actual correctness
-  D: All three are equally strong because they all use assert
-answer: C
+  A: Test C, because matching a known experimental sequence tests actual biological correctness directly
+  B: Test A, because type checking catches broad interface mistakes across many incorrect implementations
+  C: Test B, because enforcing a 20-nt length checks a more specific biological-looking property
+  D: All three are equally strong, because each test uses an assert statement to verify output
+answer: A
 explanation: |
   Test C compares the output to an experimentally confirmed sequence. That
   is direct evidence that the algorithm returns the biologically correct
@@ -56,11 +54,11 @@ question: |
 
   Both assertions pass. Can you conclude the oligos are correct?
 choices:
-  A: Yes — if the oligos contain only ATCG and are the right length, they must be correct
-  B: No — these are necessary properties of any valid oligo, but a completely wrong sequence could also pass
-  C: Yes — checking two independent properties is sufficient for validation
-  D: No — the test is wrong because it should use assertEqual instead of assert
-answer: B
+  A: Yes, because valid alphabet and valid length together fully determine correct oligo design
+  B: Yes, because two independent assertions are enough to validate a biological design function
+  C: No, because the test should use assertEqual instead of plain assert for correctness
+  D: No, because these are necessary properties and a wrong sequence can still satisfy both
+answer: D
 explanation: |
   These assertions test necessary properties, not full correctness. An oligo
   can have the right alphabet and length while still being the wrong sequence
@@ -92,11 +90,11 @@ question: |
   Running both tests takes 60 seconds. What is the standard pytest
   mechanism to initialize the chooser once and share it across both tests?
 choices:
-  A: Move the initialization into a global variable at module level
-  B: Use a pytest fixture that creates and initiates the chooser once per session
-  C: Combine both tests into a single test function with two assertions
-  D: Cache the result by writing it to a file between test runs
-answer: B
+  A: Move initialization into a module-level global so every test reuses the same object implicitly
+  B: Merge both checks into one test function so setup happens only once per combined test
+  C: Use a pytest fixture with broader scope so setup runs once and is injected into tests
+  D: Write the initialized chooser state to disk and reload it manually between separate tests
+answer: C
 explanation: |
   A pytest fixture with an appropriate scope (such as module or session)
   performs the expensive setup once and injects the initialized object into
@@ -123,10 +121,10 @@ question: |
   Which input is the best edge case to test for a hidden case-sensitivity
   assumption?
 choices:
-  A: A 1000bp sequence with multiple NGG sites
-  B: A lowercase sequence such as 'atgccaattgg...'
-  C: A 1000bp sequence with exactly one NGG site
-  D: A sequence consisting of only 'A' repeated 100 times
+  A: A long sequence with many NGG sites, to test repeated matches under typical usage
+  B: A lowercase sequence like 'atgccaattgg...', to test whether uppercase assumptions break detection
+  C: A long sequence with one NGG site, to isolate single-hit behavior without multiple matches
+  D: A sequence of only A bases, to test the no-match path for PAM detection
 answer: B
 explanation: |
   The code compares to uppercase <pre>GG</pre>. If the input sequence is
@@ -153,11 +151,11 @@ question: |
 
   Why is this inverse function pattern a strong validation strategy?
 choices:
-  A: It eliminates the need for any other tests because it is mathematically complete
-  B: It verifies the design against an independent implementation of the domain logic, not just property checks
-  C: It is weaker than a truism because it depends on two functions both being correct
-  D: It only works for PCR and cannot be generalized to other design problems
-answer: B
+  A: It checks design output using separate domain logic, which is stronger than simple property tests
+  B: It replaces all other tests, because inverse composition gives a complete mathematical proof
+  C: It is weaker than property checks, because both functions could share the same mistakes
+  D: It applies only to PCR workflows, because most design problems lack meaningful inverse operations
+answer: A
 explanation: |
   This pattern checks the designer using a separate simulator that models the
   domain behavior. If independently implemented design and simulation agree
@@ -192,11 +190,11 @@ question: |
 
   What is the key advantage of using the same checker in both places?
 choices:
-  A: It makes the test run faster because the checker is already compiled
-  B: It ensures the algorithm and the test encode identical domain knowledge, preventing definition drift
-  C: It means the test is trivially guaranteed to pass and therefore provides no value
-  D: It eliminates the need for validated examples because the checker is authoritative
-answer: B
+  A: It primarily speeds execution, because the checker logic is compiled and reused automatically
+  B: It guarantees the test passes trivially, because shared code makes independent verification impossible
+  C: It keeps the domain rule definition consistent between algorithm and tests, reducing drift
+  D: It removes the need for validated examples, because the checker fully defines optimization correctness
+answer: C
 explanation: |
   Reusing the same checker centralizes the definition of what counts as a
   forbidden sequence. That prevents definition drift between the production
@@ -228,11 +226,11 @@ question: |
 
   Why is the colleague's version better?
 choices:
-  A: The first test is equivalent — returning None and raising ValueError are interchangeable signals
-  B: The colleague's version explicitly verifies the function fails loudly rather than silently returning a value that could propagate undetected
-  C: pytest.raises makes the test run faster than checking return values
-  D: The first test would fail because design_oligos would return an empty list, not None
-answer: B
+  A: The two tests are equivalent, because returning None and raising ValueError signal failure similarly
+  B: It improves performance, because pytest.raises executes faster than checking returned values afterward
+  C: It is better only because design_oligos returns an empty list rather than returning None
+  D: It verifies the explicit exception contract, catching loud failure instead of silent propagation
+answer: D
 explanation: |
   <python>pytest.raises(ValueError)</python> verifies the function's error
   contract: invalid input should trigger an explicit exception immediately.
@@ -253,10 +251,10 @@ question: |
 
   What does this reveal?
 choices:
-  A: The test suite has a bug — if 15 tests pass, the design must be correct
-  B: The tests verify structural properties, but none check whether the codon choices are actually optimized
-  C: Rare codons are acceptable because the sequence is still valid DNA
-  D: The colleague's observation is irrelevant because automated tests are the gold standard
+  A: The suite must be buggy, because passing 15 tests proves the optimizer is biologically correct
+  B: The tests mostly check structure, not whether codon choices achieve optimization quality
+  C: The result is acceptable, because rare codons still produce a sequence that is valid DNA
+  D: The colleague's observation is irrelevant, because automated tests are the final standard here
 answer: B
 explanation: |
   The tests described are mostly structural checks (truisms). They confirm
@@ -294,11 +292,11 @@ question: |
 
   Why does Student B's approach require more domain knowledge?
 choices:
-  A: Student B uses more assertions, which requires understanding pytest better
-  B: Student B had to understand nucleic acid secondary structure to select inputs whose correct outputs are known
-  C: Student B's tests are longer, which makes them harder to write but no more informative
-  D: Student A's test is actually better because it does not assume specific outputs
-answer: B
+  A: Student B needs more pytest knowledge, because multiple assertions are harder to write correctly
+  B: Student A's approach is better, because avoiding expected outputs prevents biased assumptions
+  C: Student B's tests are merely longer, so they take more effort but add no evidence
+  D: Student B must know sequence structure well enough to choose inputs with known outcomes
+answer: D
 explanation: |
   Student B must know which sequences are expected to form hairpins and which
   are not. That requires domain knowledge about sequence self-complementarity
@@ -330,11 +328,11 @@ question: |
   The test fails on 12 genes. What is the most likely reason the hand-picked
   tests did not catch these failures?
 choices:
-  A: The hand-picked genes were too short to trigger bugs
-  B: The hand-picked genes may not have contained the specific amino acid combinations or rare subsequences that expose algorithmic edge cases
-  C: Three tests are always sufficient if they cover different gene lengths
-  D: The proteome test is overfitting to E. coli and does not generalize
-answer: B
+  A: The small set likely missed specific sequence patterns that trigger algorithmic edge cases
+  B: The hand-picked genes were probably too short, and only short-length bugs explain misses
+  C: Three tests should be sufficient whenever they span different gene lengths and compositions
+  D: The proteome benchmark is overfitted to E. coli and therefore not useful for testing
+answer: A
 explanation: |
   Hand-picked tests reflect what the author thought to try. The 12 failing
   genes likely contain sequence patterns the smaller test set did not cover.
