@@ -1,4 +1,55 @@
+---
+slug: what-happens-when-exception-is-silenced
+difficulty: medium
+topic: Predicting program behavior when a broad exception handler converts an error into a plausible output
+question: |
+  A student writes this code for a DNA analysis pipeline:
 
+  <python>
+  def gc_fraction(seq):
+      gc = sum(1 for b in seq if b in 'GC')
+      return gc / len(seq)
+
+  def analyze_sample(seq):
+      try:
+          return gc_fraction(seq)
+      except Exception:
+          return 0.0
+  </python>
+
+  What happens when this is run?
+
+  <python>
+  result = analyze_sample(None)
+  </python>
+choices:
+  A: 0.0
+  B: TypeError
+  C: ValueError
+  D: None
+answer: A
+explanation: |
+  The correct answer is <python>0.0</python>.
+
+  Inside <python>gc_fraction(None)</python>, Python raises a
+  <python>TypeError</python> because <python>None</python> is not iterable in:
+
+  <python>
+  sum(1 for b in seq if b in 'GC')
+  </python>
+
+  But <python>analyze_sample()</python> catches that exception with the broad
+  <python>except Exception:</python> block and returns <python>0.0</python>
+  instead.
+
+  This is the dangerous part: the code converts an invalid input into a
+  plausible numeric output, which can hide the real problem.
+
+  Why the other options are wrong:
+
+  - <python>TypeError</python> would occur if the exception were not caught.
+  - <python>ValueError</python> is not raised by this code.
+  - <python>None</python> is never returned by <python>analyze_sample()</python>.
 
 ---
 slug: reading-traceback-to-find-failing-line

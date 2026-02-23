@@ -24,19 +24,31 @@ question: |
       assert result == 'ATAGTGAATGCTCAACGAAC'
   </python>
 choices:
-  A: Test C, because matching a known experimental sequence tests actual biological correctness directly
-  B: Test A, because type checking catches broad interface mistakes across many incorrect implementations
-  C: Test B, because enforcing a 20-nt length checks a more specific biological-looking property
-  D: All three are equally strong, because each test uses an assert statement to verify output
-answer: A
+  A: Test A
+  B: Test B
+  C: Test C
+  D: All three tests are invalid
+answer: C
 explanation: |
-  Test C compares the output to an experimentally confirmed sequence. That
-  is direct evidence that the algorithm returns the biologically correct
-  protospacer for a real case. Tests A and B are useful but weaker: a
-  function can return the wrong 20-nt DNA string and still pass both. This
-  illustrates the evidence hierarchy used in this course: validated example
-  > specific property check > general type check.
+  The correct answer is <python>Test C</python>.
 
+  Test C compares the function output to an experimentally confirmed
+  protospacer sequence for a real biological example. That gives the
+  strongest evidence that the function is producing the correct answer,
+  not just an output with the right type or length.
+
+  Why the others are weaker:
+
+  - <python>Test A</python> only checks that the output is a string. Many incorrect
+    implementations could still return a string.
+  - <python>Test B</python> is more specific than a type check, but many incorrect
+    implementations could still return the wrong 20-nt sequence.
+  - <python>D</python> is incorrect because these are all valid tests; they simply differ
+    in how much evidence they provide.
+
+  This reflects the evidence hierarchy used in this course:
+  validated example > specific property check > general type check.
+  
 ---
 slug: truism-property-check
 difficulty: medium

@@ -1,3 +1,38 @@
+
+---
+slug: reference-by-identifier
+difficulty: medium
+topic: Using stable identifiers to reference objects indirectly instead of embedding them directly
+question: |
+  A ConstructionFile describes a cloning plan. One approach serializes the
+  full Polynucleotide object into each saved step. Another stores only the
+  template name and resolves it later from a registry:
+
+  <python>
+  # Approach 1: serialize embedded object into the saved file
+  step = {'action': 'PCR', 'template': pUC19_object}
+
+  # Approach 2: reference by identifier in the saved file
+  step = {'action': 'PCR', 'template': 'pUC19'}
+  # later: registry['pUC19'] returns the current object
+  </python>
+
+  A collaborator corrects pUC19's sequence in the registry after the file is
+  saved. What happens when the saved ConstructionFile is later reloaded?
+choices:
+  A: Both approaches reload the corrected sequence from the updated registry
+  B: Only approach 2 sees updates; approach 1 reloads older serialized state
+  C: Only approach 1 sees updates; embedded objects keep live links on reload
+  D: Neither approach sees updates; reloading ignores all registry contents
+answer: B
+explanation: |
+  In approach 2, the saved file contains only <pre>pUC19</pre>. On reload, that
+  identifier is resolved against the registry, so it retrieves the current
+  corrected object. In approach 1, the saved file contains the embedded object
+  data as it existed when saved, so it preserves the older sequence unless the
+  file itself is updated. This is the key advantage of reference-by-identifier:
+  indirection allows the referenced object to evolve independently.
+
 ---
 slug: required-vs-optional-fields
 difficulty: medium
@@ -104,40 +139,6 @@ explanation: |
   G, and requires at least one character. <pre>AUGCCC</pre> contains U, so it
   fails validation and raises ValueError. The other sequences contain only
   valid DNA bases and pass.
-
----
-slug: reference-by-identifier
-difficulty: medium
-topic: Using stable identifiers to reference objects indirectly instead of embedding them directly
-question: |
-  A ConstructionFile describes a cloning plan. One approach serializes the
-  full Polynucleotide object into each saved step. Another stores only the
-  template name and resolves it later from a registry:
-
-  <python>
-  # Approach 1: serialize embedded object into the saved file
-  step = {'action': 'PCR', 'template': pUC19_object}
-
-  # Approach 2: reference by identifier in the saved file
-  step = {'action': 'PCR', 'template': 'pUC19'}
-  # later: registry['pUC19'] returns the current object
-  </python>
-
-  A collaborator corrects pUC19's sequence in the registry after the file is
-  saved. What happens when the saved ConstructionFile is later reloaded?
-choices:
-  A: Both approaches reload the corrected sequence from the updated registry
-  B: Only approach 2 sees updates; approach 1 reloads older serialized state
-  C: Only approach 1 sees updates; embedded objects keep live links on reload
-  D: Neither approach sees updates; reloading ignores all registry contents
-answer: B
-explanation: |
-  In approach 2, the saved file contains only <pre>pUC19</pre>. On reload, that
-  identifier is resolved against the registry, so it retrieves the current
-  corrected object. In approach 1, the saved file contains the embedded object
-  data as it existed when saved, so it preserves the older sequence unless the
-  file itself is updated. This is the key advantage of reference-by-identifier:
-  indirection allows the referenced object to evolve independently.
 
 ---
 slug: sharable-identity-fields

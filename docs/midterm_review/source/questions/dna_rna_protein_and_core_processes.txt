@@ -1,4 +1,25 @@
 ---
+slug: gene-layout-produces-protein-a
+difficulty: medium
+topic: Identifying which gene layout supports translation of a specified ORF from element order
+question: |
+  In a bacterial expression construct, which layout is most likely to produce
+  Protein A? Elements orfA and orfB are ORFs encoding Protein A and Protein B.
+choices:
+  A: promoter.rbs.orfA.orfB.terminator
+  B: promoter.orfA.orfB.terminator
+  C: promoter.orfA.terminator
+  D: promoter.rbs.orfB.orfA.terminator
+answer: A
+explanation: |
+  To produce Protein A, the construct needs transcription (promoter) and an RBS
+  positioned upstream of ORF A so ribosomes can initiate translation at A.
+
+  - A has promoter and rbs before A, so A can be transcribed and translated.
+  - B and C lack an rbs before A and thus it won't be translated
+  - D places the rbs before B, so translation is directed to B, not A.
+
+---
 slug: transcription-directionality
 difficulty: medium
 topic: Understanding how enzyme movement on the template determines product directionality

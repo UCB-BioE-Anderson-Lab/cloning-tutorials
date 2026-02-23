@@ -143,6 +143,20 @@
   ],
   "control_flow_and_iteration": [
     {
+      "slug": "nested-if-orf-check-python-specific-input",
+      "difficulty": "medium",
+      "topic": "Tracing nested if statements to predict behavior on a specific input sequence",
+      "question": "Consider this Python code:\n\n<python>\nclass IsValidORF:\n    def run(self, dna_sequence):\n        length = len(dna_sequence)\n        if dna_sequence.startswith(\"ATG\"):\n            if (dna_sequence.endswith(\"TAA\") or\n                dna_sequence.endswith(\"TAG\") or\n                dna_sequence.endswith(\"TGA\")):\n                if length % 3 == 0:\n                    return True\n        return False\n</python>\n\nWhat does this code return for the sequence <pre>\"ATGCCCGGG\"</pre>?\n",
+      "choices": {
+        "A": true,
+        "B": false,
+        "C": "None",
+        "D": "Raises an error"
+      },
+      "answer": "B",
+      "explanation": "The code returns <pre>False</pre>.\n\nTrace the checks for <pre>\"ATGCCCGGG\"</pre>: - starts with ATG -> True - ends with TAA, TAG, or TGA -> False - length divisible by 3 -> True (but this check is never reached, because the stop-codon check already failed)\n\nSince the stop-codon condition is False, the function falls through to return False.\n\nThis example shows how nested \"happy-path\" logic can be easy to misread. A reader may incorrectly focus on the start-codon and frame checks and miss that the stop-codon condition is also required. The behavior here is correct for this input, but the control flow is harder to read than necessary.\n\nThe deeper problem is the nested structure plus missing guard checks (for example None input). A clearer version rejects invalid cases early and returns True only after all conditions pass.\n\nExample guard-clause rewrite:\n\n<python> class IsValidORF: def run(self, dna_sequence): if dna_sequence is None: return False if dna_sequence == \"\": return False if not dna_sequence.startswith(\"ATG\"): return False if not (dna_sequence.endswith(\"TAA\") or dna_sequence.endswith(\"TAG\") or dna_sequence.endswith(\"TGA\")): return False if len(dna_sequence) % 3 != 0: return False return True </python>\n\nWhy the other choices are wrong: - A is wrong because this code requires a recognized stop codon, not just a start codon and frame length. - C is wrong because the function always returns either True or False. - D is wrong because this specific input is a normal string, so no exception is raised."
+    },
+    {
       "slug": "tracing-a-loop-over-sequence",
       "difficulty": "medium",
       "topic": "Tracing a for loop step-by-step to predict what it builds from sequential data",
@@ -583,6 +597,20 @@
   ],
   "tracebacks_and_exceptions": [
     {
+      "slug": "what-happens-when-exception-is-silenced",
+      "difficulty": "medium",
+      "topic": "Predicting program behavior when a broad exception handler converts an error into a plausible output",
+      "question": "A student writes this code for a DNA analysis pipeline:\n\n<python>\ndef gc_fraction(seq):\n    gc = sum(1 for b in seq if b in 'GC')\n    return gc / len(seq)\n\ndef analyze_sample(seq):\n    try:\n        return gc_fraction(seq)\n    except Exception:\n        return 0.0\n</python>\n\nWhat happens when this is run?\n\n<python>\nresult = analyze_sample(None)\n</python>\n",
+      "choices": {
+        "A": 0.0,
+        "B": "TypeError",
+        "C": "ValueError",
+        "D": "None"
+      },
+      "answer": "A",
+      "explanation": "The correct answer is <python>0.0</python>.\n\nInside <python>gc_fraction(None)</python>, Python raises a <python>TypeError</python> because <python>None</python> is not iterable in:\n\n<python> sum(1 for b in seq if b in 'GC') </python>\n\nBut <python>analyze_sample()</python> catches that exception with the broad <python>except Exception:</python> block and returns <python>0.0</python> instead.\n\nThis is the dangerous part: the code converts an invalid input into a plausible numeric output, which can hide the real problem.\n\nWhy the other options are wrong:\n\n- <python>TypeError</python> would occur if the exception were not caught. - <python>ValueError</python> is not raised by this code. - <python>None</python> is never returned by <python>analyze_sample()</python>."
+    },
+    {
       "slug": "reading-traceback-to-find-failing-line",
       "difficulty": "medium",
       "topic": "Reading a stack trace to identify which line caused an error and what triggered it",
@@ -730,13 +758,13 @@
       "topic": "Understanding why experimentally confirmed data provides the strongest evidence for test correctness",
       "question": "A student writes three tests for a function that identifies protospacer\nsequences in a CRISPR array. Which test provides the strongest evidence\nthat the function works correctly?\n\n<python>\n# Test A: checks output is a string\ndef test_output_is_string():\n    result = find_protospacer(crispr_array)\n    assert isinstance(result, str)\n\n# Test B: checks output length is 20\ndef test_output_length():\n    result = find_protospacer(crispr_array)\n    assert len(result) == 20\n\n# Test C: uses experimentally confirmed protospacer from cadA\ndef test_cada_protospacer():\n    result = find_protospacer(cada_crispr_array)\n    assert result == 'ATAGTGAATGCTCAACGAAC'\n</python>\n",
       "choices": {
-        "A": "Test C, because matching a known experimental sequence tests actual biological correctness directly",
-        "B": "Test A, because type checking catches broad interface mistakes across many incorrect implementations",
-        "C": "Test B, because enforcing a 20-nt length checks a more specific biological-looking property",
-        "D": "All three are equally strong, because each test uses an assert statement to verify output"
+        "A": "Test A",
+        "B": "Test B",
+        "C": "Test C",
+        "D": "All three tests are invalid"
       },
-      "answer": "A",
-      "explanation": "Test C compares the output to an experimentally confirmed sequence. That is direct evidence that the algorithm returns the biologically correct protospacer for a real case. Tests A and B are useful but weaker: a function can return the wrong 20-nt DNA string and still pass both. This illustrates the evidence hierarchy used in this course: validated example > specific property check > general type check."
+      "answer": "C",
+      "explanation": "The correct answer is <python>Test C</python>.\n\nTest C compares the function output to an experimentally confirmed protospacer sequence for a real biological example. That gives the strongest evidence that the function is producing the correct answer, not just an output with the right type or length.\n\nWhy the others are weaker:\n\n- <python>Test A</python> only checks that the output is a string. Many incorrect implementations could still return a string. - <python>Test B</python> is more specific than a type check, but many incorrect implementations could still return the wrong 20-nt sequence. - <python>D</python> is incorrect because these are all valid tests; they simply differ in how much evidence they provide.\n\nThis reflects the evidence hierarchy used in this course: validated example > specific property check > general type check."
     },
     {
       "slug": "truism-property-check",
@@ -867,6 +895,20 @@
   ],
   "schemas_identity_and_serialization": [
     {
+      "slug": "reference-by-identifier",
+      "difficulty": "medium",
+      "topic": "Using stable identifiers to reference objects indirectly instead of embedding them directly",
+      "question": "A ConstructionFile describes a cloning plan. One approach serializes the\nfull Polynucleotide object into each saved step. Another stores only the\ntemplate name and resolves it later from a registry:\n\n<python>\n# Approach 1: serialize embedded object into the saved file\nstep = {'action': 'PCR', 'template': pUC19_object}\n\n# Approach 2: reference by identifier in the saved file\nstep = {'action': 'PCR', 'template': 'pUC19'}\n# later: registry['pUC19'] returns the current object\n</python>\n\nA collaborator corrects pUC19's sequence in the registry after the file is\nsaved. What happens when the saved ConstructionFile is later reloaded?\n",
+      "choices": {
+        "A": "Both approaches reload the corrected sequence from the updated registry",
+        "B": "Only approach 2 sees updates; approach 1 reloads older serialized state",
+        "C": "Only approach 1 sees updates; embedded objects keep live links on reload",
+        "D": "Neither approach sees updates; reloading ignores all registry contents"
+      },
+      "answer": "B",
+      "explanation": "In approach 2, the saved file contains only <pre>pUC19</pre>. On reload, that identifier is resolved against the registry, so it retrieves the current corrected object. In approach 1, the saved file contains the embedded object data as it existed when saved, so it preserves the older sequence unless the file itself is updated. This is the key advantage of reference-by-identifier: indirection allows the referenced object to evolve independently."
+    },
+    {
       "slug": "required-vs-optional-fields",
       "difficulty": "medium",
       "topic": "Distinguishing required from optional fields and predicting behavior when optional fields are absent",
@@ -907,20 +949,6 @@
       },
       "answer": "A",
       "explanation": "The regex <python>r'[ATCG]+'</python> allows only DNA bases A, T, C, and G, and requires at least one character. <pre>AUGCCC</pre> contains U, so it fails validation and raises ValueError. The other sequences contain only valid DNA bases and pass."
-    },
-    {
-      "slug": "reference-by-identifier",
-      "difficulty": "medium",
-      "topic": "Using stable identifiers to reference objects indirectly instead of embedding them directly",
-      "question": "A ConstructionFile describes a cloning plan. One approach serializes the\nfull Polynucleotide object into each saved step. Another stores only the\ntemplate name and resolves it later from a registry:\n\n<python>\n# Approach 1: serialize embedded object into the saved file\nstep = {'action': 'PCR', 'template': pUC19_object}\n\n# Approach 2: reference by identifier in the saved file\nstep = {'action': 'PCR', 'template': 'pUC19'}\n# later: registry['pUC19'] returns the current object\n</python>\n\nA collaborator corrects pUC19's sequence in the registry after the file is\nsaved. What happens when the saved ConstructionFile is later reloaded?\n",
-      "choices": {
-        "A": "Both approaches reload the corrected sequence from the updated registry",
-        "B": "Only approach 2 sees updates; approach 1 reloads older serialized state",
-        "C": "Only approach 1 sees updates; embedded objects keep live links on reload",
-        "D": "Neither approach sees updates; reloading ignores all registry contents"
-      },
-      "answer": "B",
-      "explanation": "In approach 2, the saved file contains only <pre>pUC19</pre>. On reload, that identifier is resolved against the registry, so it retrieves the current corrected object. In approach 1, the saved file contains the embedded object data as it existed when saved, so it preserves the older sequence unless the file itself is updated. This is the key advantage of reference-by-identifier: indirection allows the referenced object to evolve independently."
     },
     {
       "slug": "sharable-identity-fields",
@@ -1165,6 +1193,20 @@
   ],
   "dna_rna_protein_and_core_processes": [
     {
+      "slug": "gene-layout-produces-protein-a",
+      "difficulty": "medium",
+      "topic": "Identifying which gene layout supports translation of a specified ORF from element order",
+      "question": "In a bacterial expression construct, which layout is most likely to produce\nProtein A? Elements orfA and orfB are ORFs encoding Protein A and Protein B.\n",
+      "choices": {
+        "A": "promoter.rbs.orfA.orfB.terminator",
+        "B": "promoter.orfA.orfB.terminator",
+        "C": "promoter.orfA.terminator",
+        "D": "promoter.rbs.orfB.orfA.terminator"
+      },
+      "answer": "A",
+      "explanation": "To produce Protein A, the construct needs transcription (promoter) and an RBS positioned upstream of ORF A so ribosomes can initiate translation at A.\n\n- A has promoter and rbs before A, so A can be transcribed and translated. - B and C lack an rbs before A and thus it won't be translated - D places the rbs before B, so translation is directed to B, not A."
+    },
+    {
       "slug": "transcription-directionality",
       "difficulty": "medium",
       "topic": "Understanding how enzyme movement on the template determines product directionality",
@@ -1306,6 +1348,21 @@
     }
   ],
   "regulation_control_points": [
+    {
+      "slug": "rbs-role-central-dogma",
+      "difficulty": "medium",
+      "topic": "Identifying the direct molecular role of the bacterial ribosome binding site in gene expression",
+      "question": "Which statement most directly describes the role of a bacterial ribosome binding\nsite (RBS)?\n",
+      "choices": {
+        "A": "Site where transcription begins on DNA",
+        "B": "Sequence that ends transcription on DNA",
+        "C": "mRNA site that helps start translation",
+        "D": "DNA origin that starts plasmid replication",
+        "E": "Sequence that sets plasmid copy number"
+      },
+      "answer": "C",
+      "explanation": "A bacterial ribosome binding site (RBS) is an mRNA sequence that promotes translation initiation by helping the small ribosomal subunit bind near the start codon. In bacteria, this commonly involves base-pairing between the Shine-Dalgarno sequence in the mRNA and the anti-Shine-Dalgarno sequence in 16S rRNA.\n\nPromoters control transcription initiation, terminators control transcription termination, and origins of replication control DNA replication rather than gene expression directly."
+    },
     {
       "slug": "promoter-elements-transcription-rate",
       "difficulty": "medium",
@@ -1733,6 +1790,20 @@
   ],
   "transcription_and_translation_control_elements": [
     {
+      "slug": "construct-parts-interaction",
+      "difficulty": "medium",
+      "topic": "Reasoning about how control elements and coding sequence interact in a construct",
+      "question": "A genetic construct has the layout promoter → RBS → CDS → terminator. A\ndesigner tests 5 different RBS parts with one CDS and observes a 100-fold\nspread in expression. When the same 5 RBS parts are tested with a different\nCDS, the ranking of the RBS parts changes.\n\nWhat does this result demonstrate?\n",
+      "choices": {
+        "A": "The CDS changes the RBS DNA sequence during replication, so each RBS becomes a different sequence in the new construct",
+        "B": "The ranking shift is best explained by routine measurement noise rather than a reproducible biological context effect",
+        "C": "RBS parts have fixed intrinsic strengths, so a changed ranking means the original measurements lacked biological meaning",
+        "D": "RBS performance depends on downstream CDS context because local RNA structure near the junction changes accessibility"
+      },
+      "answer": "D",
+      "explanation": "If the ranking of RBS parts changes when only the CDS changes, then RBS performance is not context-free. A common mechanism is local RNA secondary structure involving the RBS and the beginning of the CDS, which changes access to the Shine-Dalgarno sequence and start region.\n\nOption B proposes an implausible mechanism. Option C does not match the clear, systematic context-dependent pattern. Option D is contradicted by the observed ranking change."
+    },
+    {
       "slug": "promoter-elements-and-transcription-rate",
       "difficulty": "medium",
       "topic": "Understanding how promoter sequence features control transcription initiation rate",
@@ -1857,20 +1928,6 @@
       },
       "answer": "D",
       "explanation": "The RBS is located in the 5' UTR and is not translated into protein. Changing the RBS changes translation initiation efficiency (and therefore expression level), but the protein sequence remains determined by the CDS.\n\nOption B is incorrect because the RBS is not part of the coding region. Option C is only partly correct because the mRNA sequence changes but the protein sequence does not. Option D ignores the role of the RBS in controlling expression."
-    },
-    {
-      "slug": "construct-parts-interaction",
-      "difficulty": "medium",
-      "topic": "Reasoning about how control elements and coding sequence interact in a construct",
-      "question": "A genetic construct has the layout promoter → RBS → CDS → terminator. A\ndesigner tests 5 different RBS parts with one CDS and observes a 100-fold\nspread in expression. When the same 5 RBS parts are tested with a different\nCDS, the ranking of the RBS parts changes.\n\nWhat does this result demonstrate?\n",
-      "choices": {
-        "A": "The CDS changes the RBS DNA sequence during replication, so each RBS becomes a different sequence in the new construct",
-        "B": "The ranking shift is best explained by routine measurement noise rather than a reproducible biological context effect",
-        "C": "RBS parts have fixed intrinsic strengths, so a changed ranking means the original measurements lacked biological meaning",
-        "D": "RBS performance depends on downstream CDS context because local RNA structure near the junction changes accessibility"
-      },
-      "answer": "D",
-      "explanation": "If the ranking of RBS parts changes when only the CDS changes, then RBS performance is not context-free. A common mechanism is local RNA secondary structure involving the RBS and the beginning of the CDS, which changes access to the Shine-Dalgarno sequence and start region.\n\nOption B proposes an implausible mechanism. Option C does not match the clear, systematic context-dependent pattern. Option D is contradicted by the observed ranking change."
     }
   ],
   "construction_methods_and_constraints": [

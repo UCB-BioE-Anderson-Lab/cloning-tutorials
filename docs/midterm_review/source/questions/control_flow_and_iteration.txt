@@ -1,4 +1,74 @@
+---
+slug: nested-if-orf-check-python-specific-input
+difficulty: medium
+topic: Tracing nested if statements to predict behavior on a specific input sequence
+question: |
+  Consider this Python code:
 
+  <python>
+  class IsValidORF:
+      def run(self, dna_sequence):
+          length = len(dna_sequence)
+          if dna_sequence.startswith("ATG"):
+              if (dna_sequence.endswith("TAA") or
+                  dna_sequence.endswith("TAG") or
+                  dna_sequence.endswith("TGA")):
+                  if length % 3 == 0:
+                      return True
+          return False
+  </python>
+
+  What does this code return for the sequence <pre>"ATGCCCGGG"</pre>?
+choices:
+  A: True
+  B: False
+  C: None
+  D: Raises an error
+answer: B
+explanation: |
+  The code returns <pre>False</pre>.
+
+  Trace the checks for <pre>"ATGCCCGGG"</pre>:
+  - starts with ATG -> True
+  - ends with TAA, TAG, or TGA -> False
+  - length divisible by 3 -> True (but this check is never reached, because the
+    stop-codon check already failed)
+
+  Since the stop-codon condition is False, the function falls through to return False.
+
+  This example shows how nested "happy-path" logic can be easy to misread. A
+  reader may incorrectly focus on the start-codon and frame checks and miss that
+  the stop-codon condition is also required. The behavior here is correct for
+  this input, but the control flow is harder to read than necessary.
+
+  The deeper problem is the nested structure plus missing guard checks (for
+  example None input). A clearer version rejects invalid cases
+  early and returns True only after all conditions pass.
+
+  Example guard-clause rewrite:
+
+  <python>
+  class IsValidORF:
+      def run(self, dna_sequence):
+          if dna_sequence is None:
+              return False
+          if dna_sequence == "":
+              return False
+          if not dna_sequence.startswith("ATG"):
+              return False
+          if not (dna_sequence.endswith("TAA") or
+                  dna_sequence.endswith("TAG") or
+                  dna_sequence.endswith("TGA")):
+              return False
+          if len(dna_sequence) % 3 != 0:
+              return False
+          return True
+  </python>
+
+  Why the other choices are wrong:
+  - A is wrong because this code requires a recognized stop codon, not just a start codon and frame length.
+  - C is wrong because the function always returns either True or False.
+  - D is wrong because this specific input is a normal string, so no exception is raised.
 
 ---
 slug: tracing-a-loop-over-sequence

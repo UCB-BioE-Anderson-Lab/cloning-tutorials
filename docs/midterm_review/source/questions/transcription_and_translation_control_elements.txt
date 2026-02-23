@@ -1,4 +1,30 @@
 
+---
+slug: construct-parts-interaction
+difficulty: medium
+topic: Reasoning about how control elements and coding sequence interact in a construct
+question: |
+  A genetic construct has the layout promoter → RBS → CDS → terminator. A
+  designer tests 5 different RBS parts with one CDS and observes a 100-fold
+  spread in expression. When the same 5 RBS parts are tested with a different
+  CDS, the ranking of the RBS parts changes.
+
+  What does this result demonstrate?
+choices:
+  A: The CDS changes the RBS DNA sequence during replication, so each RBS becomes a different sequence in the new construct
+  B: The ranking shift is best explained by routine measurement noise rather than a reproducible biological context effect
+  C: RBS parts have fixed intrinsic strengths, so a changed ranking means the original measurements lacked biological meaning
+  D: RBS performance depends on downstream CDS context because local RNA structure near the junction changes accessibility
+answer: D
+explanation: |
+  If the ranking of RBS parts changes when only the CDS changes, then RBS
+  performance is not context-free. A common mechanism is local RNA secondary
+  structure involving the RBS and the beginning of the CDS, which changes access
+  to the Shine-Dalgarno sequence and start region.
+
+  Option B proposes an implausible mechanism. Option C does not match the clear,
+  systematic context-dependent pattern. Option D is contradicted by the observed
+  ranking change.
 
 ---
 slug: promoter-elements-and-transcription-rate
@@ -228,30 +254,3 @@ explanation: |
   C is only partly correct because the mRNA sequence changes but the protein
   sequence does not. Option D ignores the role of the RBS in controlling
   expression.
-
----
-slug: construct-parts-interaction
-difficulty: medium
-topic: Reasoning about how control elements and coding sequence interact in a construct
-question: |
-  A genetic construct has the layout promoter → RBS → CDS → terminator. A
-  designer tests 5 different RBS parts with one CDS and observes a 100-fold
-  spread in expression. When the same 5 RBS parts are tested with a different
-  CDS, the ranking of the RBS parts changes.
-
-  What does this result demonstrate?
-choices:
-  A: The CDS changes the RBS DNA sequence during replication, so each RBS becomes a different sequence in the new construct
-  B: The ranking shift is best explained by routine measurement noise rather than a reproducible biological context effect
-  C: RBS parts have fixed intrinsic strengths, so a changed ranking means the original measurements lacked biological meaning
-  D: RBS performance depends on downstream CDS context because local RNA structure near the junction changes accessibility
-answer: D
-explanation: |
-  If the ranking of RBS parts changes when only the CDS changes, then RBS
-  performance is not context-free. A common mechanism is local RNA secondary
-  structure involving the RBS and the beginning of the CDS, which changes access
-  to the Shine-Dalgarno sequence and start region.
-
-  Option B proposes an implausible mechanism. Option C does not match the clear,
-  systematic context-dependent pattern. Option D is contradicted by the observed
-  ranking change.
