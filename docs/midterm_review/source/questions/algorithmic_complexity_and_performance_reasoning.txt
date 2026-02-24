@@ -1,4 +1,78 @@
 ---
+slug: identify-efficient-string-building-pattern
+difficulty: medium
+topic: Comparing string-building approaches to avoid repeated concatenation overhead
+question: |
+  A pipeline step needs to build one long DNA sequence string from many short
+  fragments produced earlier in the workflow (for example, validated parts or
+  codons). Assume the fragments are already available in a Python list:
+
+  <python>
+  fragments = ['ATG', 'GCC', 'TTA', ...]   # many short strings, total output length is large
+  </python>
+
+  The goal is to produce one final string containing all fragments in order.
+
+  Which option is the most algorithmically efficient for building the
+  final string from many fragments?
+choices:
+  A: |
+    Repeatedly concatenate into a string inside a loop.
+
+    <python>
+    result = ''
+    for frag in fragments:
+        result = result + frag
+    </python>
+  B: |
+    Repeatedly concatenate with <python>+=</python> inside a loop.
+
+    <python>
+    result = ''
+    for frag in fragments:
+        result += frag
+    </python>
+  C: |
+    Append fragments to a list, then join once at the end.
+
+    <python>
+    pieces = []
+    for frag in fragments:
+        pieces.append(frag)
+    result = ''.join(pieces)
+    </python>
+  D: |
+    Concatenate all fragments on every iteration by joining the full list each time.
+
+    <python>
+    result = ''
+    for i in range(len(fragments)):
+        result = ''.join(fragments[:i+1])
+    </python>
+answer: C
+explanation: |
+  Option C is usually the most algorithmically efficient pattern because it
+  avoids repeatedly creating larger and larger intermediate strings during the
+  build process. In Python, strings are immutable, so concatenation creates a
+  new string object rather than modifying the old one in place.
+
+  The main punchline is that when you need to combine many string fragments,
+  collecting pieces and joining once is usually the right performance pattern
+  (the Python analogue of using a string builder in other languages).
+
+  - A and B both perform repeated string concatenation inside a loop. Even
+    though the syntax differs, they have the same underlying concern: each step
+    may copy the accumulated content again, which can lead to much worse scaling
+    as the final string grows.
+  - C stores references to fragments, then performs one join to construct the
+    final output string in one pass over the total content.
+  - D is typically the worst here because it rebuilds a growing prefix from
+    scratch on every iteration, repeating large amounts of work many times.
+
+  This question targets the performance pitfall of repeated string
+  concatenation when assembling a large output from many small pieces.
+
+---
 slug: identify-inefficient-list-membership-in-genotype-check
 difficulty: medium
 topic: Comparing implementations of the same task to identify algorithmic inefficiency
@@ -71,9 +145,6 @@ explanation: |
   - C has the same asymptotic idea as A, just written in a different style.
   - D scans the list once and tests membership in <python>flagged_alleles</python>,
     which is already a set, so it avoids repeated list membership checks.
-
-  The inefficiency targeted by this question is repeated
-  <python>x in some_list</python> tests.
 
 ---
 slug: single-loop-runtime-scaling
