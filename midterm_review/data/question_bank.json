@@ -441,6 +441,20 @@
   ],
   "algorithmic_complexity_and_performance_reasoning": [
     {
+      "slug": "identify-efficient-string-building-pattern",
+      "difficulty": "medium",
+      "topic": "Comparing string-building approaches to avoid repeated concatenation overhead",
+      "question": "A pipeline step needs to build one long DNA sequence string from many short\nfragments produced earlier in the workflow (for example, validated parts or\ncodons). Assume the fragments are already available in a Python list:\n\n<python>\nfragments = ['ATG', 'GCC', 'TTA', ...]   # many short strings, total output length is large\n</python>\n\nThe goal is to produce one final string containing all fragments in order.\n\nWhich option is the most algorithmically efficient for building the\nfinal string from many fragments?\n",
+      "choices": {
+        "A": "Repeatedly concatenate into a string inside a loop.\n\n<python>\nresult = ''\nfor frag in fragments:\n    result = result + frag\n</python>\n",
+        "B": "Repeatedly concatenate with <python>+=</python> inside a loop.\n\n<python>\nresult = ''\nfor frag in fragments:\n    result += frag\n</python>\n",
+        "C": "Append fragments to a list, then join once at the end.\n\n<python>\npieces = []\nfor frag in fragments:\n    pieces.append(frag)\nresult = ''.join(pieces)\n</python>\n",
+        "D": "Concatenate all fragments on every iteration by joining the full list each time.\n\n<python>\nresult = ''\nfor i in range(len(fragments)):\n    result = ''.join(fragments[:i+1])\n</python>\n"
+      },
+      "answer": "C",
+      "explanation": "Option C is usually the most algorithmically efficient pattern because it avoids repeatedly creating larger and larger intermediate strings during the build process. In Python, strings are immutable, so concatenation creates a new string object rather than modifying the old one in place.\n\nThe main punchline is that when you need to combine many string fragments, collecting pieces and joining once is usually the right performance pattern (the Python analogue of using a string builder in other languages).\n\n- A and B both perform repeated string concatenation inside a loop. Even though the syntax differs, they have the same underlying concern: each step may copy the accumulated content again, which can lead to much worse scaling as the final string grows. - C stores references to fragments, then performs one join to construct the final output string in one pass over the total content. - D is typically the worst here because it rebuilds a growing prefix from scratch on every iteration, repeating large amounts of work many times.\n\nThis question targets the performance pitfall of repeated string concatenation when assembling a large output from many small pieces."
+    },
+    {
       "slug": "identify-inefficient-list-membership-in-genotype-check",
       "difficulty": "medium",
       "topic": "Comparing implementations of the same task to identify algorithmic inefficiency",
@@ -452,7 +466,7 @@
         "D": "Scan the strain-allele list once and test membership in the flagged-allele set.\n\n<python>\nfor allele in strain_alleles:\n    if allele in flagged_alleles:\n        print(\"flagged allele present:\", allele)\n</python>\n"
       },
       "answer": "B",
-      "explanation": "Option B is the most algorithmically inefficient because it repeatedly checks whether an element is in a Python list (<python>allele in strain_alleles</python>) inside a loop. If <python>len(strain_alleles) = n</python> and <python>len(flagged_alleles) = m</python>, each list membership test can take O(n) time in the worst case, so repeating it m times gives O(mn) total runtime.\n\nThe main punchline is that repeated membership tests should generally not be done against a list when a set is available or can be built once.\n\n- A builds a set once, then uses typically O(1) average-case set membership. - C has the same asymptotic idea as A, just written in a different style. - D scans the list once and tests membership in <python>flagged_alleles</python>, which is already a set, so it avoids repeated list membership checks.\n\nThe inefficiency targeted by this question is repeated <python>x in some_list</python> tests."
+      "explanation": "Option B is the most algorithmically inefficient because it repeatedly checks whether an element is in a Python list (<python>allele in strain_alleles</python>) inside a loop. If <python>len(strain_alleles) = n</python> and <python>len(flagged_alleles) = m</python>, each list membership test can take O(n) time in the worst case, so repeating it m times gives O(mn) total runtime.\n\nThe main punchline is that repeated membership tests should generally not be done against a list when a set is available or can be built once.\n\n- A builds a set once, then uses typically O(1) average-case set membership. - C has the same asymptotic idea as A, just written in a different style. - D scans the list once and tests membership in <python>flagged_alleles</python>, which is already a set, so it avoids repeated list membership checks."
     },
     {
       "slug": "single-loop-runtime-scaling",
