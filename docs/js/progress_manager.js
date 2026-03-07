@@ -290,6 +290,10 @@ function sortSignableArrays(signable) {
         if (!this.hierarchy["Trainings"]["microwave"]) {
           this.hierarchy["Trainings"]["microwave"] = ["microwave_quiz"];
         }
+        // Add "chemical_cabinet" tutorial under "Trainings" if it does not already exist
+        if (!this.hierarchy["Trainings"]["chemical_cabinet"]) {
+          this.hierarchy["Trainings"]["chemical_cabinet"] = ["chemical_cabinet_quiz"];
+        }
     }
 
     static async create() {
