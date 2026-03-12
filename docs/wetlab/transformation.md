@@ -82,14 +82,14 @@ Note: You will not make your own competent cells. We prepare large batches once 
 
 Once transformation is complete, you’ll plate your cells using one of two methods:
 
-**1. Glass beads:**
+**1. Glass beads (used this for pP6):**
 
 - Pour the transformation mix onto the plate.
 - Add ~5–10 sterile glass beads.
 - Gently shake the plate in a circular motion (avoid sloshing).
 - Pour off the beads into the discard jar.
 
-**2. Metal spreader:**
+**2. Metal spreader (supervisors only, requires extra training):**
 
 - Use a **sterile spreader**. These can be disposable plastic, reusable metal or glass wands, or made by bending a glass pipette. We use bent coat hangers shaped into a triangle—they cool quickly, are unbreakable, and can be reused indefinitely.
 - Flame sterilize, cool briefly.

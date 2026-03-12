@@ -294,6 +294,10 @@ function sortSignableArrays(signable) {
         if (!this.hierarchy["Trainings"]["chemical_cabinet"]) {
           this.hierarchy["Trainings"]["chemical_cabinet"] = ["chemical_cabinet_quiz"];
         }
+        // Add "flame_sterilization" tutorial under "Trainings" if it does not already exist
+        if (!this.hierarchy["Trainings"]["flame_sterilization"]) {
+          this.hierarchy["Trainings"]["flame_sterilization"] = ["flame_sterilization_quiz"];
+        }
     }
 
     static async create() {
