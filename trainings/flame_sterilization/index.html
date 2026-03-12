@@ -1,0 +1,1970 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/trainings/flame_sterilization/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Flame Sterilization - SynBio Project Tutorials</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-2PJLYHVLQ1"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-2PJLYHVLQ1",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-2PJLYHVLQ1",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#flame-sterilization" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SynBio Project Tutorials" class="md-header__button md-logo" aria-label="SynBio Project Tutorials" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SynBio Project Tutorials
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Flame Sterilization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SynBio Project Tutorials" class="md-nav__button md-logo" aria-label="SynBio Project Tutorials" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    SynBio Project Tutorials
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/UCB-BioE-Anderson-Lab/cloning-tutorials" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Wetlab
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Wetlab
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wetlab/safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. Lab Safety
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wetlab/pipetting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Pipetting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wetlab/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. pP6 Experiment Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wetlab/pcr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Polymerase Chain Reaction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wetlab/gel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Gel Electrophoresis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wetlab/cleanup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Zymo Cleanup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wetlab/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wetlab/transformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    8. Transformation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wetlab/pick/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    9. Colony Picking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wetlab/miniprep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10. Miniprep
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wetlab/sequencing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    11. Cycle Sequencing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wetlab/bestp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12. Measuring Fluorescence
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qr_training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    13. Equipment Training
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cloning Techniques
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cloning Techniques
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/dna_basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. DNA Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/sequence_tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Sequence Editing Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/manual_prediction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. Manual Product Prediction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/simulation_tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Simulation Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/basic_cloning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Basic Cloning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/gibson/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Gibson Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/golden_gate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Golden Gate Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/mutagenesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    8. Site-Directed Mutagenesis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../construction/sequencing_confirmation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    9. Sequencing Confirmation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Project Planning
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Project Planning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/project_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. Project Setup and Nomenclature
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/design_principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Experimental Design Principles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/sequence_analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. Sequence Retrieval and Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/oligo_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Choosing a Fabrication Strategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/cfs_simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Simulation Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/inventory_labsheets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Inventory and Labsheets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../planning/project_ispA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Ortholog Scan Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../protocols/protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Protocol Builder
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/feature_extractor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Feature Extractor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/feature_manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Feature Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/supersimulator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Super Simulator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/tabular_simulator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tabular Simulator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/oligo_finder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Oligo Finder
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/inventory_manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inventory Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/lab_map/lab_map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab Map
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Training & Certification
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Training & Certification
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tecan_mnano/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tecan MNano
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minus_80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    -80 Freezer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chemical_cabinets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chemical Cabinets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../allegra_v15r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Allegra Centrifuge
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../q500_sonicator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Qsonica Sonicator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../microwave/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Microwave
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../echotherm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Echotherm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proflex/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Proflex
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#local-rules-for-this-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local rules for this lab
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-hazards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main hazards
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safe-setup-and-technique" class="md-nav__link">
+    <span class="md-ellipsis">
+      Safe setup and technique
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ppe" class="md-nav__link">
+    <span class="md-ellipsis">
+      PPE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emergency-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emergency response
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flame-sterilization-quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flame Sterilization Quiz
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="flame-sterilization">Flame Sterilization<a class="headerlink" href="#flame-sterilization" title="Permanent link">&para;</a></h1>
+<p>Flame sterilization uses alcohol and an open flame to sterilize tools such as spreaders and inoculating loops. Because it combines a flammable solvent with an ignition source, it creates a fire and burn hazard.</p>
+<p>Before doing this procedure, you must:</p>
+<ul>
+<li>read this page</li>
+<li>read the <a href="../../assets/SOPs/Flame%20Sterilization.pdf">Flame Sterilization SOP</a></li>
+<li>pass the quiz</li>
+<li>receive <strong>in-person training from your supervisor or designee</strong></li>
+<li>sign the paper SOP</li>
+</ul>
+<p>This page does not replace hands-on training.</p>
+<h2 id="local-rules-for-this-lab">Local rules for this lab<a class="headerlink" href="#local-rules-for-this-lab" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Flame sterilization may only be done in the <strong>chemical hood</strong>.</li>
+<li>Flame sterilization may only be done by <strong>supervisors who have completed this training</strong>.</li>
+<li>Use the <strong>blue fire-resistant lab coats associated with this lab in B144</strong>.</li>
+<li>Do <strong>not</strong> use the lab coats in the tissue culture room <strong>B146</strong> for this procedure.</li>
+<li>Return lab coats to their correct room after use.</li>
+<li>The eyewash, safety shower, spill kit, and fire extinguisher for this procedure are in the <strong>safety corner of B144</strong>, in the <strong>northeast corner by the door</strong>.</li>
+<li>When performing this procedure, inform your lab colleagues.</li>
+</ul>
+<h2 id="main-hazards">Main hazards<a class="headerlink" href="#main-hazards" title="Permanent link">&para;</a></h2>
+<p>The main hazard is using a flammable solvent next to an open flame. Fire can start if too much solvent is used, the container tips, droplets spread onto the bench, or combustible materials are nearby.</p>
+<p>Burns are also possible. Gloves, sleeves, hair, and clothing can catch fire.</p>
+<h2 id="safe-setup-and-technique">Safe setup and technique<a class="headerlink" href="#safe-setup-and-technique" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Use the <strong>smallest practical amount</strong> of solvent. Do not exceed <strong>100 mL</strong>.</li>
+<li>Keep at least <strong>12 inches</strong> between the flame and the solvent container.</li>
+<li>Clear the area of paper, wipes, notebooks, and other combustible or hazardous materials. There should be nothing combustible within <strong>two feet</strong> of the work area.</li>
+<li>Do not work under shelves, cabinets, or overhanging equipment.</li>
+<li>Use a <strong>stable glass or metal solvent container</strong> with straight walls. It should be restrained, placed in a non-flammable secondary container, or be wider than it is tall.</li>
+<li>Do <strong>not</strong> leave the tool sitting in the solvent.</li>
+<li>After dipping the tool, gently tap it on the container and remove excess alcohol before flaming it. Droplets on the bench can spread and volatilize, causing fire to spread rapidly.</li>
+<li>Work <strong>standing up</strong> so you can move away quickly if there is a flare or spill.</li>
+<li>Inspect the flame source and associated tubing or hoses before use.</li>
+</ul>
+<p>The order matters:</p>
+<ol>
+<li>Dip the tool in solvent.</li>
+<li>Remove excess solvent.</li>
+<li>Pass the tool briefly through the flame.</li>
+</ol>
+<p>Never flame the tool first and then dip it into solvent.</p>
+<p>This training applies to flame sterilization as performed in B144. Do not treat this page as general training for other sterilization methods or other lab spaces.</p>
+<h2 id="ppe">PPE<a class="headerlink" href="#ppe" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Safety glasses with side shields</strong> or chemical splash goggles</li>
+<li><strong>Nitrile gloves</strong> that fit properly and are dry before you begin. Note: nitrile gloves are combustible — if ignited, they can severely burn your skin. This is why dry gloves and correct technique matter.</li>
+<li><strong>Do not wear latex gloves</strong></li>
+<li><strong>Polyester-cotton or 100% cotton lab coat</strong></li>
+<li><strong>Long pants</strong></li>
+<li><strong>Closed-toe, closed-heel shoes</strong></li>
+<li><strong>Legs and ankles covered</strong></li>
+<li><strong>Non-synthetic clothing</strong></li>
+<li><strong>Keep medium and long hair tied back</strong></li>
+</ul>
+<h2 id="emergency-response">Emergency response<a class="headerlink" href="#emergency-response" title="Permanent link">&para;</a></h2>
+<p>If clothing catches fire, do <strong>not</strong> run. <strong>Stop, drop, and roll</strong>, or use the safety shower immediately to extinguish the fire.</p>
+<p>After the flames are out, flush any burn with low-pressure running water. Do not apply ice. Do not rub the area. If a finger is burned, do not put it in your mouth.</p>
+<p>Seek medical attention for any burn.</p>
+<p>If there is an eye exposure, use the eyewash immediately and rinse for at least 15 minutes.</p>
+<p>If the situation is life-threatening, someone is unconscious or not breathing, or you cannot control the hazard safely, call <strong>911</strong>.</p>
+<p><em>You must read the SOP, pass this quiz, receive in-person training, and sign the paper SOP before doing flame sterilization.</em></p>
+
+<h2 id="flame-sterilization-quiz">Flame Sterilization Quiz<a class="headerlink" href="#flame-sterilization-quiz" title="Permanent link">&para;</a></h2>
+<p><em>Answer all questions correctly to pass. If you miss any, the quiz resets with a new randomized set.</em></p>
+
+<div id="flame_sterilization_quiz_container"></div>
+
+<div style="margin-top:1rem;">
+  <button type="button" id="flame_sterilization_check_btn">Check Answers</button>
+  <button type="button" id="flame_sterilization_reset_btn">Reset</button>
+  <span id="flame_sterilization_quiz_status" style="margin-left:0.75rem;"></span>
+</div>
+
+<script>
+(function () {
+  const bank = [
+    { topic: 'Main hazard', variants: [
+      { text: 'The main hazard in flame sterilization is using a flammable solvent near an open flame.', answer: true },
+      { text: 'The main hazard in flame sterilization is that the tool may become too hot to sterilize correctly.', answer: false },
+      { text: 'The main hazard in flame sterilization is the combination of alcohol and an ignition source.', answer: true },
+      { text: 'Flame sterilization is mainly a cold-burn hazard rather than a fire hazard.', answer: false },
+      { text: 'A fire can start if alcohol is used near an open flame.', answer: true }
+    ]},
+
+    { topic: 'Solvent volume', variants: [
+      { text: 'This procedure allows any solvent volume as long as you work carefully.', answer: false },
+      { text: 'The amount of solvent used for this procedure should not exceed 100 mL.', answer: true },
+      { text: 'Using more than 100 mL of solvent is acceptable if the container is stable.', answer: false },
+      { text: 'Only the smallest practical amount of solvent should be used.', answer: true },
+      { text: 'The SOP-based limit for solvent volume in this procedure is 100 mL.', answer: true }
+    ]},
+
+    { topic: 'Separation distance', variants: [
+      { text: 'There should be at least 12 inches between the flame and the solvent container.', answer: true },
+      { text: 'The flame and solvent container can be placed side by side if the procedure is done quickly.', answer: false },
+      { text: 'Keeping 12 inches between the ignition source and solvent container is part of safe setup.', answer: true },
+      { text: 'Distance between the flame and solvent container does not matter if the hood sash is low.', answer: false },
+      { text: 'The solvent container should not be crowded into the same space as the burner.', answer: true }
+    ]},
+
+    { topic: 'Sequence', variants: [
+      { text: 'The safe sequence is dip in solvent, remove excess solvent, then pass through the flame.', answer: true },
+      { text: 'It is safe to flame the tool first and then dip it into solvent.', answer: false },
+      { text: 'Removing excess alcohol should happen before the tool is passed through the flame.', answer: true },
+      { text: 'The correct order is flame first, then solvent, then back to the flame.', answer: false },
+      { text: 'Flaming the tool before dipping it into alcohol can ignite the solvent.', answer: true }
+    ]},
+
+    { topic: 'Container and tool handling', variants: [
+      { text: 'A stable glass or metal container is preferred for the solvent.', answer: true },
+      { text: 'The solvent container should be stable, hard to tip, and appropriate for flammable solvent use.', answer: true },
+      { text: 'The tool should stay in the solvent container between uses.', answer: false },
+      { text: 'Only place the tool in the solvent when actively sterilizing.', answer: true },
+      { text: 'Alcohol droplets on the bench can spread and volatilize, causing fire to spread rapidly.', answer: true }
+    ]},
+
+    { topic: 'Where this procedure may be done in B144', variants: [
+      { text: 'In B144, flame sterilization may only be done in the chemical hood.', answer: true },
+      { text: 'In B144, flame sterilization may be done on the bench if a supervisor is nearby.', answer: false },
+      { text: 'In B144, flame sterilization may be done in the biosafety cabinet.', answer: false },
+      { text: 'The only approved location for flame sterilization in B144 is the chemical hood.', answer: true },
+      { text: 'For B144, the correct place to do flame sterilization is the chemical hood, not the bench or biosafety cabinet.', answer: true }
+    ]},
+
+    { topic: 'Who may perform flame sterilization', variants: [
+      { text: 'In this lab, only supervisors who have completed this training may perform flame sterilization.', answer: true },
+      { text: 'A student may perform flame sterilization independently after reading the SOP once.', answer: false },
+      { text: 'Passing the quiz alone allows a student to perform flame sterilization independently.', answer: false },
+      { text: 'In B144, flame sterilization is restricted to supervisors who have completed this training.', answer: true },
+      { text: 'After training, any student may perform flame sterilization.', answer: false }
+    ]},
+
+    { topic: 'Gloves for flame sterilization', variants: [
+      { text: 'Nitrile gloves should be dry before beginning the procedure.', answer: true },
+      { text: 'Latex gloves are acceptable for this procedure if nitrile gloves are unavailable.', answer: false },
+      { text: 'Nitrile gloves are combustible and can severely burn your skin if ignited.', answer: true },
+      { text: 'For flame sterilization, the correct glove choice is dry nitrile gloves, not latex gloves.', answer: true },
+      { text: 'Any disposable glove is acceptable for this procedure as long as it fits well.', answer: false }
+    ]},
+
+    { topic: 'Lab coats in B144', variants: [
+      { text: 'For this procedure, use the blue fire-resistant lab coats associated with B144.', answer: true },
+      { text: 'It is fine to use the lab coats in B146 for flame sterilization if the B144 coats are not nearby.', answer: false },
+      { text: 'Lab coats should be returned to their correct room after use.', answer: true },
+      { text: 'The blue fire-resistant lab coats in B144 are distinct from the coats in B146.', answer: true },
+      { text: 'Any lab coat from either room is interchangeable for this procedure.', answer: false }
+    ]},
+
+    { topic: 'Safety equipment location', variants: [
+      { text: 'The eyewash, safety shower, spill kit, and fire extinguisher are in the safety corner of B144, in the northeast corner by the door.', answer: true },
+      { text: 'The emergency equipment for this procedure is not in the tissue culture room.', answer: true },
+      { text: 'For this procedure, the safety equipment is located in the safety corner of B144.', answer: true },
+      { text: 'The spill kit and fire extinguisher for this procedure are in the hallway.', answer: false },
+      { text: 'The emergency equipment for this procedure is by the door in the northeast corner of B144.', answer: true }
+    ]},
+
+    { topic: 'Clearance and workspace', variants: [
+      { text: 'Combustible materials should be cleared to at least two feet from the work area.', answer: true },
+      { text: 'Paper and wipes can remain near the work area as long as the solvent container is stable.', answer: false },
+      { text: 'Good housekeeping around the work area can prevent a small fire from spreading.', answer: true },
+      { text: 'The work area should be clear of shelves, cabinets, or other overhead obstructions.', answer: true },
+      { text: 'Standing during the procedure makes it easier to move away quickly if there is a flare or spill.', answer: true }
+    ]},
+
+    { topic: 'Emergency response', variants: [
+      { text: 'If clothing catches fire, stop, drop, and roll or use the emergency shower.', answer: true },
+      { text: 'After the flames are out, flush burns with low-pressure running water.', answer: true },
+      { text: 'After the flames are out, do not rub the burned area.', answer: true },
+      { text: 'If a finger is burned, do not put it in your mouth.', answer: true },
+      { text: 'Seek medical attention for any burn.', answer: true }
+    ]}
+  ];
+
+  const container = document.getElementById('flame_sterilization_quiz_container');
+  const statusEl = document.getElementById('flame_sterilization_quiz_status');
+  const checkBtn = document.getElementById('flame_sterilization_check_btn');
+  const resetBtn = document.getElementById('flame_sterilization_reset_btn');
+
+  let currentSet = [];
+
+  function pickOnePerTopic() {
+    return bank.map(topic => {
+      const v = topic.variants[Math.floor(Math.random() * topic.variants.length)];
+      return { topic: topic.topic, text: v.text, answer: v.answer };
+    });
+  }
+
+  function shuffle(arr) {
+    const copy = arr.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  function renderQuiz() {
+    container.innerHTML = '';
+    statusEl.textContent = '';
+    checkBtn.disabled = false;
+    resetBtn.textContent = 'Reset';
+
+    currentSet = shuffle(pickOnePerTopic());
+
+    currentSet.forEach((q, idx) => {
+      const qId = `flame_q${idx + 1}`;
+      const block = document.createElement('div');
+      block.className = 'flame-quiz-item';
+      block.style.margin = '0.75rem 0';
+
+      const h = document.createElement('h4');
+      h.textContent = `${idx + 1}. ${q.text}`;
+      h.style.margin = '0 0 0.35rem 0';
+      block.appendChild(h);
+
+      const trueId = `${qId}_true`;
+      const falseId = `${qId}_false`;
+
+      const trueLbl = document.createElement('label');
+      trueLbl.style.marginRight = '1rem';
+      trueLbl.innerHTML = `<input type="radio" name="${qId}" id="${trueId}" value="true"> True`;
+      block.appendChild(trueLbl);
+
+      const falseLbl = document.createElement('label');
+      falseLbl.innerHTML = `<input type="radio" name="${qId}" id="${falseId}" value="false"> False`;
+      block.appendChild(falseLbl);
+
+      const feedback = document.createElement('p');
+      feedback.id = `${qId}_res`;
+      feedback.style.margin = '0.35rem 0 0 0';
+      block.appendChild(feedback);
+
+      container.appendChild(block);
+    });
+  }
+
+  function checkAnswers() {
+    let allAnswered = true;
+    let allCorrect = true;
+
+    currentSet.forEach((q, idx) => {
+      const qId = `flame_q${idx + 1}`;
+      const chosen = container.querySelector(`input[name="${qId}"]:checked`);
+      const feedback = document.getElementById(`${qId}_res`);
+      if (!chosen) {
+        allAnswered = false;
+        feedback.textContent = 'Please choose True or False.';
+        return;
+      }
+      const val = chosen.value === 'true';
+      const correct = (val === q.answer);
+      allCorrect = allCorrect && correct;
+      feedback.textContent = correct ? '✅ Correct' : '❌ Incorrect';
+    });
+
+    if (!allAnswered) {
+      statusEl.textContent = 'Answer all questions before submitting.';
+      return;
+    }
+
+    if (allCorrect) {
+      statusEl.textContent = '✅ Passed';
+      if (typeof progressManager !== 'undefined') {
+        progressManager.addCompletion('flame_sterilization_quiz', 'correct');
+      }
+    } else {
+      statusEl.textContent = '❌ One or more answers were incorrect. Review the feedback below, then click "New set" to try again.';
+      container.querySelectorAll('input[type="radio"]').forEach(el => { el.disabled = true; });
+      checkBtn.disabled = true;
+      resetBtn.textContent = 'New set';
+      resetBtn.focus();
+    }
+  }
+
+  statusEl.setAttribute('aria-live', 'polite');
+
+  checkBtn.addEventListener('click', checkAnswers);
+  resetBtn.addEventListener('click', renderQuiz);
+
+  renderQuiz();
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../js/launch-apps-script.js"></script>
+      
+        <script src="../../js/progress_manager.js"></script>
+      
+    
+  </body>
+</html>
