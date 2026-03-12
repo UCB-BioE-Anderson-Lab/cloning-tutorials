@@ -82,7 +82,7 @@ Note: You will not make your own competent cells. We prepare large batches once 
 
 Once transformation is complete, you’ll plate your cells using one of two methods:
 
-**1. Glass beads (used this for pP6):**
+**1. Glass beads (use this for pP6):**
 
 - Pour the transformation mix onto the plate.
 - Add ~5–10 sterile glass beads.
