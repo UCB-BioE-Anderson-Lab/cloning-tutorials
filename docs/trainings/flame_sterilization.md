@@ -1,3 +1,5 @@
+
+
 # Flame Sterilization
 
 Flame sterilization uses alcohol and an open flame to sterilize tools such as spreaders and inoculating loops. Because it combines a flammable solvent with an ignition source, it creates a fire and burn hazard.
@@ -5,13 +7,18 @@ Flame sterilization uses alcohol and an open flame to sterilize tools such as sp
 Before doing this procedure, you must:
 
 - read this page
-- read the [Flame Sterilization SOP](../../assets/SOPs/Flame%20Sterilization.pdf)
-- read the [Ethyl Alcohol SOP](../../assets/Ethyl%20Alcohol.pdf)
+- read and sign the required SOPs listed under **Required SOPs**
 - pass the quiz
 - receive **in-person training from your supervisor or designee**
-- sign all of the following SOPs: [Flame Sterilization SOP](../../assets/SOPs/Flame%20Sterilization.pdf) and [Ethyl Alcohol SOP](../../assets/Ethyl%20Alcohol.pdf)
 
 This page does not replace hands-on training.
+
+## Required SOPs
+
+Read and sign both of the following SOPs before doing flame sterilization:
+
+- [Flame Sterilization SOP](../../assets/SOPs/Flame%20Sterilization.pdf)
+- [Ethyl Alcohol SOP](../../assets/SOPs/ethyl_alcohol.pdf)
 
 ## Local rules for this lab
 
@@ -75,7 +82,9 @@ If there is an eye exposure, use the eyewash immediately and rinse for at least 
 
 If the situation is life-threatening, someone is unconscious or not breathing, or you cannot control the hazard safely, call **911**.
 
-<p><em>You must read this page, read the <a href="../../assets/SOPs/Flame%20Sterilization.pdf">Flame Sterilization SOP</a>, read the <a href="../../assets/SOPs/ethyl_alcohol.pdf">Ethyl Alcohol SOP</a>, pass this quiz, receive in-person training, and sign all of the paper SOPs (on the safety board) before doing flame sterilization.</em></p>
+*Before doing flame sterilization, you must read this page, read and sign both SOPs listed under **Required SOPs**, pass the quiz, receive in-person training, and sign the paper SOPs on the safety board.*
+
+
 
 ## Flame Sterilization Quiz
 <p><em>Answer all questions correctly to pass. If you miss any, the quiz resets with a new randomized set.</em></p>
