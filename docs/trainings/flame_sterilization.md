@@ -6,9 +6,10 @@ Before doing this procedure, you must:
 
 - read this page
 - read the [Flame Sterilization SOP](../../assets/SOPs/Flame%20Sterilization.pdf)
+- read the [Ethyl Alcohol SOP](../../assets/Ethyl%20Alcohol.pdf)
 - pass the quiz
 - receive **in-person training from your supervisor or designee**
-- sign the paper SOP
+- sign all of the following SOPs: [Flame Sterilization SOP](../../assets/SOPs/Flame%20Sterilization.pdf) and [Ethyl Alcohol SOP](../../assets/Ethyl%20Alcohol.pdf)
 
 This page does not replace hands-on training.
 
@@ -74,7 +75,7 @@ If there is an eye exposure, use the eyewash immediately and rinse for at least 
 
 If the situation is life-threatening, someone is unconscious or not breathing, or you cannot control the hazard safely, call **911**.
 
-<p><em>You must read the SOP, pass this quiz, receive in-person training, and sign the paper SOP before doing flame sterilization.</em></p>
+<p><em>You must read this page, read the <a href="../../assets/SOPs/Flame%20Sterilization.pdf">Flame Sterilization SOP</a>, read the <a href="../../assets/SOPs/ethyl_alcohol.pdf">Ethyl Alcohol SOP</a>, pass this quiz, receive in-person training, and sign all of the paper SOPs (on the safety board) before doing flame sterilization.</em></p>
 
 ## Flame Sterilization Quiz
 <p><em>Answer all questions correctly to pass. If you miss any, the quiz resets with a new randomized set.</em></p>
