@@ -1,0 +1,306 @@
+/* Lab Finder styles */
+
+:root {
+  --finder-gap: 16px;
+  --finder-radius: 6px;
+  --finder-border: #e2e8f0;
+  --finder-bg: #f8fafc;
+  --finder-text: #1e293b;
+  --finder-muted: #64748b;
+  --finder-blue: #2563eb;
+  --finder-blue-light: #eff6ff;
+
+  /* Category badge colors */
+  --cat-equipment:         #7c3aed;
+  --cat-equipment-bg:      #f5f3ff;
+  --cat-bio-stock:         #059669;
+  --cat-bio-stock-bg:      #ecfdf5;
+  --cat-training:          #d97706;
+  --cat-training-bg:       #fffbeb;
+  --cat-consumable-backup: #0284c7;
+  --cat-consumable-bg:     #f0f9ff;
+}
+
+/* ── App shell ─────────────────────────────────────────────────────────────── */
+
+#finder-app {
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--finder-text);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ── Search bar ────────────────────────────────────────────────────────────── */
+
+.finder-search-bar {
+  margin-bottom: var(--finder-gap);
+}
+
+#finder-search {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 2px solid var(--finder-border);
+  border-radius: var(--finder-radius);
+  outline: none;
+  box-sizing: border-box;
+  background: #fff;
+  transition: border-color 0.15s;
+}
+
+#finder-search:focus {
+  border-color: var(--finder-blue);
+}
+
+/* ── Category badges ───────────────────────────────────────────────────────── */
+
+.finder-category-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.finder-category-badge[data-category="equipment"] {
+  background: var(--cat-equipment-bg);
+  color: var(--cat-equipment);
+}
+.finder-category-badge[data-category="bio-stock"] {
+  background: var(--cat-bio-stock-bg);
+  color: var(--cat-bio-stock);
+}
+.finder-category-badge[data-category="training"] {
+  background: var(--cat-training-bg);
+  color: var(--cat-training);
+}
+.finder-category-badge[data-category="consumable-backup"] {
+  background: var(--cat-consumable-bg);
+  color: var(--cat-consumable-backup);
+}
+
+.finder-badge-sm {
+  font-size: 0.7rem;
+  padding: 2px 7px;
+}
+
+/* ── Results list ──────────────────────────────────────────────────────────── */
+
+#finder-results-panel {
+  border: 1px solid var(--finder-border);
+  border-radius: var(--finder-radius);
+  background: #fff;
+  overflow: hidden;
+}
+
+.finder-results-heading {
+  margin: 0;
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  color: var(--finder-muted);
+  background: var(--finder-bg);
+  border-bottom: 1px solid var(--finder-border);
+}
+
+.finder-result-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--finder-border);
+  transition: background 0.1s;
+}
+
+.finder-result-row:last-child {
+  border-bottom: none;
+}
+
+.finder-result-row:hover,
+.finder-result-row:focus {
+  background: var(--finder-blue-light);
+  outline: none;
+}
+
+.finder-result-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.finder-result-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.finder-result-crumb {
+  font-size: 0.8rem;
+  color: var(--finder-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Detail panel ──────────────────────────────────────────────────────────── */
+
+#finder-detail-panel {
+  border: 1px solid var(--finder-border);
+  border-radius: var(--finder-radius);
+  background: #fff;
+  padding: var(--finder-gap);
+}
+
+.finder-item-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.finder-item-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.finder-breadcrumb {
+  font-size: 0.85rem;
+  color: var(--finder-muted);
+  margin-bottom: var(--finder-gap);
+  padding: 6px 10px;
+  background: var(--finder-bg);
+  border-radius: var(--finder-radius);
+  border: 1px solid var(--finder-border);
+  font-family: monospace;
+}
+
+/* ── Image strip ───────────────────────────────────────────────────────────── */
+
+.finder-image-strip {
+  display: flex;
+  gap: var(--finder-gap);
+  flex-wrap: wrap;
+  margin-bottom: var(--finder-gap);
+}
+
+.finder-figure {
+  margin: 0;
+  flex: 1 1 240px;
+  max-width: 360px;
+  border: 1px solid var(--finder-border);
+  border-radius: var(--finder-radius);
+  overflow: hidden;
+  background: var(--finder-bg);
+}
+
+.finder-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: opacity 0.2s;
+}
+
+.finder-img:hover {
+  opacity: 0.9;
+}
+
+.finder-figcaption {
+  padding: 5px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--finder-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-top: 1px solid var(--finder-border);
+  background: var(--finder-bg);
+}
+
+/* ── Location blocks (multi-location items) ────────────────────────────────── */
+
+.finder-locations {
+  display: flex;
+  flex-direction: column;
+  gap: var(--finder-gap);
+}
+
+.finder-location-block {
+  border: 1px solid var(--finder-border);
+  border-radius: var(--finder-radius);
+  padding: var(--finder-gap);
+  background: var(--finder-bg);
+}
+
+/* ── Role badges ───────────────────────────────────────────────────────────── */
+
+.finder-role-badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.finder-role-badge[data-role="working"] {
+  background: var(--cat-bio-stock-bg);
+  color: var(--cat-bio-stock);
+}
+
+.finder-role-badge[data-role="backup"] {
+  background: var(--cat-consumable-bg);
+  color: var(--cat-consumable-backup);
+}
+
+.finder-role-badge[data-role="training"] {
+  background: var(--cat-training-bg);
+  color: var(--cat-training);
+}
+
+/* ── Meta section ──────────────────────────────────────────────────────────── */
+
+.finder-item-meta {
+  font-size: 0.9rem;
+  color: var(--finder-text);
+}
+
+.finder-dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 16px;
+  margin: 0 0 12px;
+  font-size: 0.88rem;
+}
+
+.finder-dl dt {
+  font-weight: 600;
+  color: var(--finder-muted);
+}
+
+.finder-dl dd {
+  margin: 0;
+  font-family: monospace;
+}
+
+.finder-notes {
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+.finder-training-link {
+  display: inline-block;
+  color: var(--finder-blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.finder-training-link:hover {
+  text-decoration: underline;
+}

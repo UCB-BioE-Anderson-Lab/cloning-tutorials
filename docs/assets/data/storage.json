@@ -1,0 +1,116 @@
+{
+  "_meta": {
+    "version": 1,
+    "notes": "Defines all named storage units in B144. Each storage_unit slug is referenced by locations.tsv, consumables.tsv, and chemicals.tsv. Sublocations are named shelves, drawers, or sections within the unit."
+  },
+  "storage_units": [
+    {
+      "slug": "enzyme_freezer",
+      "name": "Enzyme Freezer (-20°C)",
+      "type": "freezer",
+      "zone": "right-upper",
+      "access": "student",
+      "notes": "Student-accessible benchtop -20°C freezer. Working tubes of enzymes, buffers, and sample storage.",
+      "sublocations": [
+        { "slug": "enzyme_caddy", "name": "Enzyme Caddy" },
+        { "slug": "training_box", "name": "Training Box" }
+      ]
+    },
+    {
+      "slug": "minus_20",
+      "name": "Projects Freezer (-20°C)",
+      "type": "freezer",
+      "zone": "top_clear_zone",
+      "access": "supervisor",
+      "notes": "Main -20°C freezer. Project-specific samples, plasmids, and backup stocks. Requires training, for supervisors only.",
+      "sublocations": [
+        { "slug": "enzyme_backups", "name": "Enzyme Backups Box" }
+      ]
+    },
+    {
+      "slug": "minus_80",
+      "name": "-80°C Freezer",
+      "type": "freezer-80",
+      "zone": "top2",
+      "access": "supervisor",
+      "notes": "Ultra-low -80°C countertop freezer. Long-term storage of competent cells and glycerol stocks. Requires training, for supervisors only.",
+      "sublocations": []
+    },
+    {
+      "slug": "main_fridge",
+      "name": "Main Fridge (4°C)",
+      "type": "fridge",
+      "zone": "top_clear_zone",
+      "access": "student",
+      "notes": "4°C refrigerator. Sterile petri dishes, DMEM, agarose gels, and anything cold but not cellular.",
+      "sublocations": []
+    },
+    {
+      "slug": "culture_fridge",
+      "name": "Culture Fridge (4°C)",
+      "type": "fridge",
+      "zone": "top3",
+      "access": "student",
+      "notes": "4°C mini-fridge. Active bacterial cultures and petri dishes.",
+      "sublocations": []
+    },
+    {
+      "slug": "flammable_cabinet",
+      "name": "Flammable Cabinet",
+      "type": "chemical-flammable",
+      "zone": "chemical_hood",
+      "access": "supervisor",
+      "notes": "Built-in flammable storage cabinet below the chemical hood on the south wall. Two shelves plus an organic acids subdivider bin. Training required, supervisors only.",
+      "sublocations": [
+        { "slug": "shelf_1", "name": "Shelf 1" },
+        { "slug": "shelf_2", "name": "Shelf 2" },
+        { "slug": "organic_acids", "name": "Organic Acids Bin" }
+      ]
+    },
+    {
+      "slug": "chemical_cabinet",
+      "name": "Chemical Cabinet",
+      "type": "chemical-corrosive",
+      "zone": "chemical_hood",
+      "access": "supervisor",
+      "notes": "Built-in corrosives cabinet below the chemical hood, to the left of the flammable cabinet. Subdivided into bases and inorganic acids sections. Training required, supervisors only.",
+      "sublocations": [
+        { "slug": "bases", "name": "Bases" },
+        { "slug": "inorganic_acids", "name": "Inorganic Acids" }
+      ]
+    },
+    {
+      "slug": "north_cabinet",
+      "name": "North Wall Cabinet",
+      "type": "cabinet",
+      "zone": "right-lower",
+      "access": "student",
+      "notes": "Under-counter closed cabinet on the north wall (right-lower zone), to the left of the sink. Two shelves. Non-hazardous chemicals from the institutional inventory are stored here.",
+      "sublocations": [
+        { "slug": "shelf_1", "name": "Under-Counter Shelf 1" },
+        { "slug": "shelf_2", "name": "Under-Counter Shelf 2" }
+      ]
+    },
+    {
+      "slug": "north_open_shelves",
+      "name": "North Wall Open Shelves",
+      "type": "open-shelves",
+      "zone": "right-lower",
+      "access": "student",
+      "notes": "Open shelves above the counter on the north wall. Non-hazardous supplies: LB agar, gelatin, buffer reagents, etc. Not tracked in the institutional chemical inventory.",
+      "sublocations": [
+        { "slug": "shelf_1", "name": "Open Shelf 1" },
+        { "slug": "shelf_2", "name": "Open Shelf 2" }
+      ]
+    },
+    {
+      "slug": "sink_under",
+      "name": "Under-Sink Storage",
+      "type": "cabinet",
+      "zone": "right-lower",
+      "access": "student",
+      "notes": "Storage area under the sink on the north wall. Bleach and cleaning supplies.",
+      "sublocations": []
+    }
+  ]
+}

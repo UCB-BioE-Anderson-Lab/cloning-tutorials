@@ -1,0 +1,1 @@
+const listeners=new Map();export function on(e,h){if(!listeners.has(e))listeners.set(e,new Set());listeners.get(e).add(h);}export function off(e,h){listeners.get(e)?.delete(h);}export function emit(e,p){(listeners.get(e)||[]).forEach(h=>h(p));}
