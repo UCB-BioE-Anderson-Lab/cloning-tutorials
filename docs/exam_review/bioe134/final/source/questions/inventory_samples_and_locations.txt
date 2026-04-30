@@ -1,0 +1,124 @@
+---
+slug: sample_fields_meaning
+difficulty: easy
+topic: Meaning of Sample fields in the inventory model
+question: |
+  In the LabPlanner inventory model, a Sample has fields such as label, sidelabel, concentration, construct, culture, and clone.
+
+  Which statement best describes what a Sample represents?
+choices:
+  A: A physical freezer box that contains multiple sample positions
+  B: An aliquot of biological material with metadata about its identity and use
+  C: A complete experiment record, including ConstructionFiles, oligos, and LabSheets
+  D: A robotic deck position where samples are placed for processing
+answer: B
+explanation: |
+  A Sample represents a stored aliquot with metadata such as the written label, side label, concentration or DNA type, construct identity, culture, and clone. A describes a Box, C describes an Experiment object, and D describes robotic deck layout rather than biological sample identity.
+---
+slug: clone_field_purpose
+difficulty: medium
+topic: Clone identifiers and colony-derived samples
+question: |
+  Why does the inventory model include a clone field, such as clone A, B, or C?
+choices:
+  A: To specify the row coordinate of a sample within a plate
+  B: To record which antibiotic resistance marker was used for selection
+  C: To indicate the sample type as oligo, miniprep, zymo, or gene synthesis
+  D: To identify the colony from which a sample was picked
+answer: D
+explanation: |
+  The clone field distinguishes independently isolated samples. Two colonies can be intended to contain the same construct but still differ because of mutation, assembly error, or other biological variation. A describes a location coordinate, B is not the purpose of the clone field, and C describes concentration or sample type metadata rather than clone identity.
+---
+slug: concentration_enum_use
+difficulty: easy
+topic: Concentration enums as controlled vocabulary
+question: |
+  The LabPlanner inventory model defines concentration-like enum values such as miniprep, zymo, uM100, uM10, uM266, dil20x, and gene.
+
+  Why use an enum or fixed set of values for this field instead of arbitrary strings?
+choices:
+  A: It prevents invalid entries and each label also conveys expected sample type
+  B: It automatically measures and records the actual molarity of each tube
+  C: It removes the need for physical labels to be written on tube exteriors
+  D: It converts every sample to a standard concentration before storage
+answer: A
+explanation: |
+  The enum serves two related purposes. First, it prevents misspellings and enforces consistent vocabulary, making validation straightforward. Second, each label encodes more than just molarity: it implies the procedure that produced the sample and what role it is expected to play. A miniprep yields a predictable amount based on plasmid copy number; a PCR product falls within a predictable range; oligos are used at standard working concentrations defined by protocol. Because these quantities are predictable in practice, and because instruments like Nanodrop are unreliable on small samples, there is little added value in recording an exact molarity. In an inverted-wetlab context, sample identities and locations are specified before the experiment runs, so one can anticipate that a tube will exist without yet being able to measure it. Using a label like zymo or uM100 is also more ergonomic when selecting samples: it conveys both the rough amount and the procedural context simultaneously. B is wrong because enums do not measure anything. C is wrong because physical labels still matter. D is wrong because the enum classifies the sample type; it does not physically normalize it.
+---
+slug: box_location_coordinates
+difficulty: medium
+topic: Box and Location coordinate models
+question: |
+  A Location object includes fields such as boxname, row, col, label, and sidelabel.
+
+  What is the main purpose of row and col?
+choices:
+  A: To encode the DNA sequence of the construct stored in that position
+  B: To specify the PCR annealing temperature and extension time for the sample
+  C: To identify the exact physical position of a sample within a box
+  D: To record which restriction enzyme was used to digest the sample
+answer: C
+explanation: |
+  Row and column are physical coordinates inside a box or plate. They are needed to find, retrieve, or place a sample. A confuses location with sequence data, B describes thermocycler programming, and D describes a construction operation rather than storage position.
+---
+slug: array_vs_hashmap_inventory
+difficulty: medium
+topic: Representing box contents as arrays versus maps
+question: |
+  Why might the contents of a freezer box be represented as a 2D array rather than only as a hashmap from sample name to sample object?
+choices:
+  A: A 2D array guarantees that every sample name within it is unique
+  B: A 2D array mirrors the physical row-and-column grid of the box
+  C: A hashmap cannot store metadata such as concentration or sample type
+  D: A 2D array makes lookup by construct name faster than a dictionary
+answer: B
+explanation: |
+  A box or plate is physically arranged as rows and columns, so a 2D array matches how humans and robots interact with it. It also supports operations such as iterating over a row or column. A is not guaranteed by the data structure alone, C is false, and D is backwards: dictionaries are generally the faster structure for direct lookup by key.
+---
+slug: inventory_lookup_maps
+difficulty: medium
+topic: Quick lookup maps in the Inventory object
+question: |
+  The LabPlanner inventory model includes lookup maps such as construct_to_locations, loc_to_conc, loc_to_clone, and loc_to_culture.
+
+  What problem do these maps solve?
+choices:
+  A: They replace the need to store any box or location records in the inventory
+  B: They automatically determine which primers should be designed for new constructs
+  C: They convert the tabular inventory representation into an LCMS peak-call table
+  D: They allow the system to quickly look up where a construct is stored
+answer: D
+explanation: |
+  Lookup maps provide efficient access to common queries, such as finding all locations for a construct or retrieving concentration, clone, or culture information for a location. A is wrong because boxes and locations are still the underlying physical model. B is primer design, not inventory lookup. C confuses inventory with analysis.
+---
+slug: inventory_overwrite_detection
+difficulty: hard
+topic: Detecting an inventory overwrite error
+question: |
+  A researcher runs a script that adds new PCR products to fridge_box3, filling positions sequentially from the top-left. The script completes without errors. Later, a colleague searches the inventory for oligo ca4239, which was stored in fridge_box3 before the script ran, and finds no record of it.
+
+  What is the most likely explanation?
+choices:
+  A: The oligo ca4239 degraded and the inventory auto-purged its record
+  B: The box fridge_box3 exceeded its capacity and evicted the oldest entry
+  C: The script placed a new sample into ca4239's position, overwriting it
+  D: ca4239 was renamed to match the incoming PCR product during the update
+answer: C
+explanation: |
+  Inventory write functions that do not check for occupied positions can silently overwrite existing records. The script placed a new sample at the position ca4239 occupied, replacing it in the data model without raising an error. A is wrong because inventory systems do not auto-purge records based on sample quality. C is wrong because exceeding box capacity would typically raise an error rather than silently evict records. D is wrong because sample renaming is not an automatic side effect of placing a new sample.
+---
+slug: tabular_vs_grid_inventory
+difficulty: medium
+topic: Tabular and grid inventory representations
+question: |
+  The LabPlanner model supports both a tabular inventory with columns such as construct, label, type, concentration, culture, clone, box, and well, and a grid-style inventory organized by rows and columns.
+
+  Which statement best explains why both views can be useful?
+choices:
+  A: The tabular view supports metadata filtering; the grid view mirrors the physical box layout
+  B: The grid view stores raw DNA sequences; the tabular view stores thermocycler programs
+  C: The tabular view is for LCMS analysis; the grid view is for plasmid map visualization
+  D: The two views must always contain completely different sets of samples
+answer: A
+explanation: |
+  A tabular view is convenient for filtering and sorting by construct, concentration, culture, clone, box, or well. A grid view is convenient because it mirrors the physical layout of a box or plate. B and C assign the views to the wrong kinds of data. D is wrong because the two views can represent the same inventory in different forms.

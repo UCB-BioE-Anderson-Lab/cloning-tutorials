@@ -1,0 +1,124 @@
+---
+slug: targeted_vs_untargeted_use
+difficulty: easy
+topic: Targeted versus untargeted metabolomics
+question: |
+  Which statement best distinguishes targeted from untargeted metabolomics in the pathway-analysis setting?
+choices:
+  A: Targeted analysis uses only gels; untargeted analysis uses only sequencing.
+  B: Targeted analysis ignores standards entirely; untargeted analysis requires a complete standard set.
+  C: Targeted analysis measures known chemicals; untargeted analysis tries to infer unknowns.
+  D: Targeted analysis measures DNA levels; untargeted analysis measures protein abundance.
+answer: C
+explanation: |
+  Targeted metabolomics starts with known chemicals of interest and asks whether they are present. Untargeted metabolomics tries to infer compounds from the data more broadly. The other options confuse metabolomics with unrelated assays or overstate the role of standards.
+---
+slug: chemicals_of_interest_definition
+difficulty: medium
+topic: Chemicals of interest for pathway testing
+question: |
+  In the Analysis lecture, why define a set of Chemicals of Interest before analyzing LCMS or GCMS data?
+choices:
+  A: To avoid collecting retention-time information from the instrument.
+  B: To target analysis toward metabolites explainable by the pathway model.
+  C: To replace the need for biological controls in every experiment.
+  D: To guarantee that every unknown metabolite will be identified.
+answer: B
+explanation: |
+  Chemicals of Interest are molecules whose presence is explainable according to the biochemical model. They include pathway intermediates, products, side-products, by-products, and native metabolites with altered levels. This focuses the analysis but does not replace controls or guarantee annotation of all unknowns.
+---
+slug: feeding_experiment_positive_control
+difficulty: medium
+topic: Feeding experiments as observability controls
+question: |
+  Why would the Analysis lecture grow wildtype cells in the presence of a Chemical of Interest?
+choices:
+  A: To prove that the wildtype strain already contains every heterologous pathway gene.
+  B: To force the wildtype strain to permanently synthesize the pathway chemical.
+  C: To confirm the experiment no longer needs external standards for quantification.
+  D: To verify that the chemical is stable and observable in the LCMS workflow.
+answer: D
+explanation: |
+  Feeding a chemical to wildtype cells provides information about whether it survives the biological context and can be observed by the instrument. This helps interpret absence in engineered strains. It does not prove genotype, create a permanent biosynthetic pathway, or remove the value of standards.
+---
+slug: bottleneck_from_paba_feed
+difficulty: hard
+topic: Inferring pathway bottlenecks from feeding experiments
+question: |
+  A pathway is intended to convert chorismate to PABA, then to p-aminophenol, then to acetaminophen. Engineered cells produce little acetaminophen without feeding, but acetaminophen signal increases strongly when PABA is fed at high concentration.
+
+  What is the most reasonable inference?
+choices:
+  A: The pathway downstream of PABA can function under the assay conditions.
+  B: The LCMS instrument cannot detect acetaminophen in this experiment.
+  C: PABA feeding proves the final enzyme is inactive in the strain.
+  D: Chorismate must be chemically identical to acetaminophen.
+answer: A
+explanation: |
+  If feeding PABA increases acetaminophen, then the downstream steps from PABA to acetaminophen can function at least under that condition. The bottleneck is more likely upstream of PABA or in PABA supply. The result does not imply the product is undetectable, that the final enzyme is inactive, or that chorismate and acetaminophen are the same molecule.
+---
+slug: on_pathway_metabolites
+difficulty: medium
+topic: On-pathway metabolite labels
+question: |
+  What makes a metabolite "on-pathway" in the pathway-analysis framework from the lecture?
+choices:
+  A: It is any compound that appears in a commercial standard database.
+  B: It has the same retention time as every molecule in the sample.
+  C: It contains carbon from the starting material along the modeled route.
+  D: It is always native to the host before engineering begins.
+answer: C
+explanation: |
+  On-pathway metabolites are related to the modeled conversion from starting material to product and contain carbon from that route. They may be native, overexpressed, or novel. Being purchasable or native is not sufficient, and retention time alone does not define pathway membership.
+---
+slug: side_product_definition
+difficulty: medium
+topic: Side-products in synthetic pathways
+question: |
+  Which example best matches the lecture definition of a side-product?
+choices:
+  A: A native enzyme modifies a novel pathway intermediate.
+  B: A plasmid fails sequencing after a miniprep.
+  C: A standard gives a strong peak at its retention time.
+  D: A thermocycler program uses the wrong annealing temperature.
+answer: A
+explanation: |
+  A side-product can arise when a native enzyme acts on a novel metabolite, diverting carbon away from the desired product. The other choices describe DNA verification, analytical standards, or cloning conditions rather than metabolic side-products.
+---
+slug: by_product_definition
+difficulty: medium
+topic: By-products from introduced enzymes
+question: |
+  Which scenario best matches the lecture definition of a by-product?
+choices:
+  A: A native enzyme in the host degrades a fed chemical before LCMS injection.
+  B: An introduced enzyme converts an unintended substrate into a novel unintended product.
+  C: A chromatography column resolves two on-pathway compounds with different retention times.
+  D: A PCR product is introduced into cells before ligation or sequencing verification.
+answer: B
+explanation: |
+  A by-product can occur when one of the introduced enzymes acts on a native or novel metabolite and generates an unintended novel product. This can cause toxicity, deplete native metabolites, or lose carbon from the intended product route. The other choices refer to degradation, measurement, or construction errors.
+---
+slug: peak_report_inference
+difficulty: hard
+topic: Inferring enzyme function from peak-call tables
+question: |
+  A peak-call table for an unfed experiment shows:
+
+  ```
+  chemical          standard   wt      pAPAP0
+  PABA              TRUE       FALSE   TRUE
+  p-aminophenol     TRUE       null    TRUE
+  acetaminophen     TRUE       FALSE   TRUE
+  acedoben          TRUE       FALSE   TRUE
+  ```
+
+  What conclusion is best supported?
+choices:
+  A: The wildtype strain produces the same acetaminophen signal as pAPAP0.
+  B: The standard column proves that pAPAP0 expresses no pathway enzymes.
+  C: The null value means p-aminophenol is chemically impossible to detect.
+  D: The engineered strain shows pathway product and a possible side-product signal.
+answer: D
+explanation: |
+  Acetaminophen is called in pAPAP0 but not wildtype, supporting engineered pathway activity. Acedoben is also called in pAPAP0 but not wildtype, consistent with a possible side-product. The table does not show wildtype acetaminophen production, the standard column does not measure expression, and null means no confident call rather than chemical impossibility.

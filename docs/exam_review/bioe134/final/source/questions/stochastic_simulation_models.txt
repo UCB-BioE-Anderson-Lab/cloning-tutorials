@@ -1,0 +1,125 @@
+---
+slug: stochastic_discrete_counts
+difficulty: easy
+topic: Stochastic simulations use molecule counts
+question: |
+  What distinguishes a stochastic reaction simulation from a deterministic mass action model?
+choices:
+  A: It tracks discrete reaction events and molecule counts.
+  B: It stores only the final reachable product list.
+  C: It replaces reactions with ConstructionFile steps.
+  D: It ignores rate constants and reactant abundance.
+answer: A
+explanation: |
+  Stochastic simulations model individual reaction events and discrete molecule counts. Deterministic models usually track continuous concentrations. Stochastic simulations still use rate constants and reactant abundance; they do not replace reactions with ConstructionFile steps or reachable lists.
+---
+slug: propensity_basic_meaning
+difficulty: easy
+topic: Reaction propensity
+question: |
+  In a stochastic simulation, what does a reaction propensity represent?
+choices:
+  A: The chromatographic retention time of a product.
+  B: The likelihood that a reaction fires next.
+  C: The freezer location of a reaction mixture.
+  D: The DNA sequence of the encoded enzyme.
+answer: B
+explanation: |
+  Propensity represents the instantaneous tendency of a reaction to occur, usually depending on the rate constant and the number or concentration of required reactants. It is a kinetic simulation quantity, not an LCMS, inventory, or sequence field.
+---
+slug: propensity_reactant_count_effect
+difficulty: medium
+topic: Reactant counts and reaction likelihood
+question: |
+  In a stochastic model, reaction 1 consumes molecule A. If the count of A increases while the rate constant stays the same, what usually happens to the reaction propensity?
+choices:
+  A: It increases because more reactant molecules are available.
+  B: It decreases because products become more concentrated.
+  C: It becomes zero because stochastic models avoid rates.
+  D: It becomes unrelated to the reaction rate constant.
+answer: A
+explanation: |
+  For mass-action-style stochastic propensities, more available reactant molecules generally increase the likelihood that the reaction occurs. The propensity still depends on the rate constant. Product concentration is not the reason a forward consuming reaction becomes more likely.
+---
+slug: update_matrix_purpose
+difficulty: medium
+topic: Update matrix purpose
+question: |
+  What does the update matrix specify in a stochastic biochemical reaction simulation?
+choices:
+  A: The LCMS peak areas for all pathway metabolites.
+  B: The net molecule-count changes caused by each reaction.
+  C: The primer pairs used to construct each pathway enzyme.
+  D: The order in which samples are loaded onto a robot deck.
+answer: B
+explanation: |
+  The update matrix records how each reaction changes the system state: which species are consumed and which are produced. It does not specify peak areas, primer pairs, or robot deck loading.
+---
+slug: update_vector_application
+difficulty: medium
+topic: Applying an update vector
+question: |
+  A reaction is:
+
+  ```
+  A + B -> C
+  ```
+
+  If this reaction fires once in a stochastic simulation, which molecule-count update is correct?
+choices:
+  A: A increases by 1, B increases by 1, C decreases by 1.
+  B: A decreases by 1, B increases by 1, C decreases by 1.
+  C: A decreases by 1, B decreases by 1, C increases by 1.
+  D: A stays constant, B decreases by 1, C decreases by 1.
+answer: C
+explanation: |
+  One firing of A + B -> C consumes one A and one B and produces one C. The update vector is therefore -1 for A, -1 for B, and +1 for C.
+---
+slug: first_reaction_method
+difficulty: medium
+topic: First-reaction method
+question: |
+  In the first-reaction method, how is the next reaction chosen?
+choices:
+  A: Choose the reaction with the largest product molecular weight.
+  B: Fire reactions in the order they appear in the reaction file.
+  C: Always choose the reaction with the largest stoichiometric coefficient.
+  D: Compute candidate firing times and choose the reaction with the earliest time.
+answer: D
+explanation: |
+  The first-reaction method samples or computes a possible firing time for each reaction and selects the reaction that occurs first. The selection is not based on product mass, file order, or largest stoichiometric coefficient.
+---
+slug: propensity_vs_update_matrix
+difficulty: hard
+topic: Propensities versus update matrix
+question: |
+  A model has two reactions:
+
+  ```
+  R1: A -> B
+  R2: A -> C
+  ```
+
+  R1 and R2 have the same update magnitude for A because both consume one A. However, R1 has a much larger propensity than R2. What does that mean?
+choices:
+  A: R1 consumes more A per firing because its propensity is larger.
+  B: R2 cannot fire because its update vector matches R1 for A.
+  C: R1 is more likely to fire next, but both reactions consume one A if they fire.
+  D: The update matrix must be ignored when propensities differ.
+answer: C
+explanation: |
+  Propensity determines how likely a reaction is to occur next. The update vector determines what happens if that reaction fires. A larger propensity for R1 means it is more likely to be selected, not that it consumes more A per firing.
+---
+slug: stochastic_toggle_noise
+difficulty: hard
+topic: Why stochasticity matters in genetic circuits
+question: |
+  Why might a stochastic model be useful for a genetic circuit with low molecule counts?
+choices:
+  A: Low molecule counts make every reaction deterministic and smooth.
+  B: Stochastic models remove the need to specify reaction networks.
+  C: Genetic circuits cannot be represented with species and reactions.
+  D: Random reaction timing can affect circuit state when counts are small.
+answer: D
+explanation: |
+  In low-copy systems, individual reaction events can matter, and random timing can change the behavior of the circuit. Stochastic models are useful for capturing this discreteness. They still require species and reactions, and they do not make dynamics automatically smooth.

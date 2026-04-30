@@ -1,0 +1,116 @@
+---
+slug: prototype_vs_optimization_starting_point
+difficulty: easy
+topic: Distinguishing prototyping from optimization
+question: |
+  What is the key practical difference between a prototyping experiment and an optimization experiment?
+choices:
+  A: Prototyping tunes expression levels, while optimization avoids any genetic changes.
+  B: Prototyping analyzes LCMS files, while optimization performs only DNA sequencing.
+  C: Prototyping starts from existing DNA, while optimization ignores prior constructs.
+  D: Prototyping builds a new design, while optimization edits an existing prototype.
+answer: D
+explanation: |
+  Prototyping is used when there is no existing DNA for the design, so the construct is built from scratch. Optimization starts from a prototype or CurrBest and makes edits to improve it. C reverses the relationship, B confuses build and analysis tasks, and A is too narrow and partly wrong.
+---
+slug: currbest_role_in_dbtl
+difficulty: easy
+topic: Role of CurrBest in optimization
+question: |
+  In an optimization cycle, what does CurrBest represent?
+choices:
+  A: The current best-performing design used as the baseline for new variants.
+  B: The complete list of all ConstructionFiles generated for the course project.
+  C: The LCMS instrument setting that gives the highest signal for one compound.
+  D: The final sequencing result produced after all variants have been discarded.
+answer: A
+explanation: |
+  CurrBest is the current best prototype or design against which new variants are compared. It provides a starting point for incremental editing. B describes a build artifact collection, C describes an instrument setting, and D treats CurrBest as a final analysis record rather than an optimization baseline.
+---
+slug: why_single_element_edits_are_faster
+difficulty: medium
+topic: Efficiency of optimization edits
+question: |
+  Why can a single-element edit be much faster than rebuilding an optimized design from scratch?
+choices:
+  A: It avoids all PCR, assembly, transformation, and sequencing steps entirely.
+  B: It changes only the host strain while leaving every construct unchanged.
+  C: It edits an existing construct rather than reassembling the whole design.
+  D: It replaces LCMS testing with a deterministic prediction of product titer.
+answer: C
+explanation: |
+  Optimization can reuse a prototype that is already close to the desired variant, so only a focused edit may be needed. A is too strong because edits still require wetlab work and verification. B is not generally true. D is wrong because optimization still requires testing.
+---
+slug: prototyping_manages_risk
+difficulty: medium
+topic: Design goals of prototyping
+question: |
+  The slides distinguish prototyping from optimization by saying that prototyping is about managing risk. What does that mean in this context?
+choices:
+  A: Measuring only safe compounds and deferring all decisions about risky ones.
+  B: Choosing a first design that is plausible enough to work despite uncertainty.
+  C: Avoiding all design choices until the exact best construct is identified.
+  D: Editing every position in a protein before any experimental build is started.
+answer: B
+explanation: |
+  In prototyping, the first build must handle uncertainty about whether the composition, construct, and pathway will function at all. The goal is to get a plausible working starting point. A narrows the idea to analysis safety, C is impossible because design requires choices, and D describes exhaustive mutagenesis rather than risk-managed prototyping.
+---
+slug: optimization_incremental_improvement
+difficulty: medium
+topic: Design goals of optimization
+question: |
+  Which change best matches the goal of optimization after a working prototype exists?
+choices:
+  A: Replace the entire course workflow with a new file format.
+  B: Tune gene expression to reduce a pathway bottleneck.
+  C: Skip Test and Learn because the prototype already works.
+  D: Remove all variants except the original untested construct.
+answer: B
+explanation: |
+  Optimization tries to improve an existing design through targeted changes, such as tuning regulation, relieving bottlenecks, or balancing protein abundance. A is unrelated to biological optimization, C contradicts the DBTL cycle, and D prevents improvement.
+---
+slug: dbtl_artifacts_by_stage
+difficulty: medium
+topic: Interpreting DBTL artifacts
+question: |
+  In the prototyping and optimization diagrams, artifacts such as ConstructionFiles, Strains, LabSheets, and LCMS data appear around the DBTL cycle. Which pairing is most reasonable?
+choices:
+  A: LabSheets belong to Learn, and LCMS files belong to Build.
+  B: ConstructionFiles belong to Test, and strains belong only to Learn.
+  C: LCMS files replace LabSheets once the first prototype is successful.
+  D: ConstructionFiles guide Build, while LCMS data supports Test and Learn.
+answer: D
+explanation: |
+  ConstructionFiles and LabSheets help drive the Build stage, while LCMS measurements provide test data that can be interpreted during Learn. A swaps build and test artifacts, B misplaces ConstructionFiles and strains, and C incorrectly treats analysis data as a replacement for execution instructions.
+---
+slug: hard_wrong_optimization_plan
+difficulty: hard
+topic: Diagnosing a flawed optimization plan
+question: |
+  A team has a working three-gene prototype that produces a low but measurable amount of product. They propose this next step:
+
+  "Discard the prototype, synthesize a completely new three-gene construct from scratch with different promoters and orthologs for all genes, and compare it only to the old LCMS file."
+
+  What is the main problem with calling this an optimization experiment?
+choices:
+  A: It changes too many factors at once and loses the incremental comparison to CurrBest.
+  B: It uses LCMS, which the lecture defines as appropriate only during initial prototyping.
+  C: It includes promoter edits, which cannot be applied after a prototype is confirmed.
+  D: It compares constructs across cycles, which is not valid once any product is detected.
+answer: A
+explanation: |
+  Optimization is most useful when it makes interpretable incremental edits relative to CurrBest. Changing promoters and orthologs for all genes at once makes it hard to attribute any change in performance and gives up the efficiency of editing the existing prototype. B is wrong because LCMS is central to testing. C is false because promoter changes are common optimization edits. D is wrong because comparison is the point of optimization.
+---
+slug: plateau_and_theoretical_limits
+difficulty: medium
+topic: When optimization becomes less useful
+question: |
+  The slides describe optimization as "money in the bank until theoretical limits reached/plateau." Which interpretation is most accurate?
+choices:
+  A: Optimization always gives the same improvement after every edit.
+  B: Optimization is unnecessary once any detectable product is observed.
+  C: Optimization can improve performance, but gains eventually diminish.
+  D: Optimization guarantees that theoretical maximum yield is reached.
+answer: C
+explanation: |
+  Early optimization often has many possible improvements, such as relieving bottlenecks or balancing expression. As the design improves, remaining gains may become smaller or limited by biology. A and D overstate predictability, and B stops too early because detectable product is often only a starting point.

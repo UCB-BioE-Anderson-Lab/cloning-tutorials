@@ -1,0 +1,116 @@
+---
+slug: molecular_graph_edges
+difficulty: easy
+topic: Molecules as graphs
+question: |
+  In a graph representation of a molecule, what do the nodes and edges usually represent?
+choices:
+  A: Nodes are bonds, and edges are atoms.
+  B: Nodes are pathways, and edges are enzymes.
+  C: Nodes are spectra, and edges are peaks.
+  D: Nodes are atoms, and edges are bonds.
+answer: D
+explanation: |
+  In a molecular graph, atoms are represented as nodes and bonds are represented as edges. This graph model is what allows cheminformatics tools to convert between representations such as SMILES and InChI. The other options describe unrelated biological or analytical objects.
+---
+slug: smiles_vs_inchi_readability
+difficulty: easy
+topic: SMILES and InChI serializations
+question: |
+  Why might a person prefer SMILES over InChI when writing a molecule by hand?
+choices:
+  A: SMILES directly encodes reaction rates for enzymes.
+  B: SMILES is more human-readable and writable.
+  C: SMILES guarantees one unique string per molecule.
+  D: SMILES removes the need for a molecular graph.
+answer: B
+explanation: |
+  SMILES is designed to be relatively human-readable and writable. InChI is useful because it is deterministic and behaves more like a structural identifier, but it is not usually convenient to write manually. Neither format directly encodes reaction rates, and both can be interpreted through molecular graphs.
+---
+slug: inchi_deterministic_identifier
+difficulty: medium
+topic: Deterministic chemical identifiers
+question: |
+  In the Atoms and Bits lecture, InChI was compared to a hash code of a chemical structure. What was the point of that comparison?
+choices:
+  A: InChI is mainly used for robotic pipetting instructions.
+  B: InChI is easier than SMILES for humans to sketch by hand.
+  C: InChI is deterministic for a concrete chemical structure.
+  D: InChI stores LCMS retention time for each molecule.
+answer: C
+explanation: |
+  The lecture contrasts SMILES as human-readable and writable with InChI as more deterministic, like a structural identifier. InChI is not a robot protocol, not generally easier to handwrite, and does not store chromatographic retention times.
+---
+slug: implicit_hydrogens_in_smiles
+difficulty: medium
+topic: Explicit and implicit hydrogens
+question: |
+  A SMILES string omits most hydrogens bonded to carbon. Why is this usually acceptable for concrete molecules?
+choices:
+  A: Carbon atoms never bind hydrogen in organic molecules.
+  B: Hydrogen positions are inferred from normal valence rules.
+  C: Hydrogens are ignored because they do not affect mass.
+  D: SMILES represents only heavy atoms and no bonds.
+answer: B
+explanation: |
+  In SMILES for concrete molecules, many hydrogens can be inferred from atom type, charge, bond order, and normal valence. Hydrogens still matter chemically and for mass, but they do not always need to be written explicitly. SMILES still represents bonds and molecular connectivity.
+---
+slug: acetone_smiles_interpretation
+difficulty: medium
+topic: Interpreting simple SMILES strings
+question: |
+  What molecular structure is represented by the SMILES string below?
+
+  ```
+  CC(=O)C
+  ```
+choices:
+  A: A three-carbon ketone with a central carbonyl.
+  B: A two-carbon alcohol with a terminal hydroxyl.
+  C: A benzene ring with one carboxylic acid group.
+  D: A four-carbon ester with two oxygen atoms.
+answer: A
+explanation: |
+  `CC(=O)C` represents acetone: a three-carbon molecule whose central carbon is double-bonded to oxygen and single-bonded to two methyl groups. The other choices describe ethanol-like alcohols, benzoic acid, or an ester rather than acetone.
+---
+slug: markush_representation
+difficulty: medium
+topic: Abstract chemical representations
+question: |
+  Why are Markush structures useful in biochemical or chemical data models?
+choices:
+  A: They represent only one exact molecule with fixed stereochemistry.
+  B: They replace the need to conserve atoms in reactions.
+  C: They describe families of related molecules using variable groups.
+  D: They store instrument-specific LCMS acquisition parameters.
+answer: C
+explanation: |
+  Markush structures represent a family of molecules that share a common core but vary at one or more positions. This makes them useful for abstract chemicals or chemical classes. They are not single fully specified structures, and they do not remove chemical constraints or store instrument settings.
+---
+slug: racemic_alanine_concreteness
+difficulty: hard
+topic: Concrete versus abstract molecules
+question: |
+  Why is racemic alanine not a single concrete molecular structure in the same sense as one specified alanine enantiomer?
+choices:
+  A: It contains no atoms that can be represented as graph nodes.
+  B: It cannot be written using any chemical notation at all.
+  C: It has no bonds between atoms in its molecular graph.
+  D: It describes a mixture rather than one specified stereochemical structure.
+answer: D
+explanation: |
+  Racemic alanine describes a mixture of alanine enantiomers rather than one fully specified stereochemical structure. Each enantiomer can be concrete, but the racemic description is not a single specified molecule. The molecule still has atoms, bonds, and possible notations.
+---
+slug: tautomer_standardization
+difficulty: hard
+topic: Standardizing chemically equivalent representations
+question: |
+  A synthesis algorithm stores one molecule in its enol form and another database stores the equivalent keto form. What problem can this create if structures are not standardized?
+choices:
+  A: The algorithm may fail to recognize equivalent chemicals as matching.
+  B: The algorithm must convert every reaction into a PCR protocol.
+  C: The molecule will lose all stereochemical information permanently.
+  D: The molecule cannot be represented by any graph or string.
+answer: A
+explanation: |
+  Tautomers can be different representations of related or equivalent chemical forms. If a synthesis algorithm does not standardize these representations, it may treat the same chemical entity as different entries and miss matches between reactions, metabolites, or products. The other options introduce unrelated or overly absolute claims.

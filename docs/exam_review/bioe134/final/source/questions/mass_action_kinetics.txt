@@ -1,0 +1,138 @@
+---
+slug: mass_action_core_idea
+difficulty: easy
+topic: Mass action kinetics
+question: |
+  What is the core idea of mass action kinetics?
+choices:
+  A: Reaction rates depend on reactant abundance and rate constants.
+  B: Reaction rates depend only on product retention times.
+  C: Reaction rates are chosen by the ConstructionFile parser.
+  D: Reaction rates are independent of molecular concentration.
+answer: A
+explanation: |
+  In mass action kinetics, reaction rates are determined by rate constants and the abundance or concentration of the reactants. More available reactant generally increases the rate for a reaction that consumes it. Retention time, ConstructionFiles, and concentration-independent behavior are not the core idea.
+---
+slug: unimolecular_rate_law
+difficulty: easy
+topic: Unimolecular reaction rates
+question: |
+  For the reaction below, which rate law matches simple mass action kinetics?
+
+  ```
+  A -> B
+  ```
+choices:
+  A: rate = k[A][B]
+  B: rate = k[A]
+  C: rate = k/[A]
+  D: rate = [B]/k
+answer: B
+explanation: |
+  For a simple unimolecular reaction A -> B, the reaction rate is proportional to the concentration of A, so rate = k[A]. The product concentration does not multiply the forward rate for this elementary forward reaction.
+---
+slug: bimolecular_rate_law
+difficulty: medium
+topic: Bimolecular reaction rates
+question: |
+  For the reaction below, which rate law matches simple mass action kinetics?
+
+  ```
+  A + B -> C
+  ```
+choices:
+  A: rate = k[A]
+  B: rate = k[C]
+  C: rate = k[A][B]
+  D: rate = k[A + B + C]
+answer: C
+explanation: |
+  For an elementary bimolecular reaction A + B -> C, the mass action rate is proportional to the product of the reactant concentrations, so rate = k[A][B]. The forward rate depends on A and B, not on product C alone or on a summed concentration term.
+---
+slug: stoichiometry_ode_update
+difficulty: medium
+topic: Translating reactions into concentration changes
+question: |
+  Consider the reaction:
+
+  ```
+  A + B -> C
+  ```
+
+  If the reaction flux is v, which set of concentration changes is consistent with the stoichiometry?
+choices:
+  A: d[A]/dt = +v, d[B]/dt = +v, d[C]/dt = -v
+  B: d[A]/dt = -v, d[B]/dt = -v, d[C]/dt = +v
+  C: d[A]/dt = -v, d[B]/dt = +v, d[C]/dt = +v
+  D: d[A]/dt = +v, d[B]/dt = -v, d[C]/dt = -v
+answer: B
+explanation: |
+  A and B are consumed, so their concentrations decrease at rate v. C is produced, so its concentration increases at rate v. This stoichiometric bookkeeping is separate from how v is calculated.
+---
+slug: reversible_reaction_rates
+difficulty: medium
+topic: Reversible mass action reactions
+question: |
+  For the reversible reaction below, what is the net flux under mass action kinetics?
+
+  ```
+  A <-> B
+  ```
+
+choices:
+  A: k_forward[A] - k_reverse[B]
+  B: k_forward[B] - k_reverse[A]
+  C: k_forward[A][B] + k_reverse[A][B]
+  D: k_forward - k_reverse
+answer: A
+explanation: |
+  The forward flux from A to B is k_forward[A], and the reverse flux from B to A is k_reverse[B]. The net flux in the forward direction is forward minus reverse: k_forward[A] - k_reverse[B].
+---
+slug: deterministic_state_variables
+difficulty: medium
+topic: Deterministic kinetic state variables
+question: |
+  In a deterministic mass action model, what are the state variables usually tracking?
+choices:
+  A: The exact random time of the next reaction event.
+  B: The freezer coordinates of every sample tube.
+  C: The set of primers in a ConstructionFile step.
+  D: Continuous concentrations or abundances over time.
+answer: D
+explanation: |
+  Deterministic kinetic models usually track continuous concentrations or abundances as functions of time. Exact random reaction timing is a stochastic simulation concept. Inventory coordinates and primer sets are lab-planning data, not kinetic state variables.
+---
+slug: shared_reactant_competition
+difficulty: hard
+topic: Competition through shared substrates
+question: |
+  A model has two reactions that both consume A:
+
+  ```
+  A -> B     rate = k1[A]
+  A -> C     rate = k2[A]
+  ```
+
+  What is the mass action expression for the rate of change of A?
+choices:
+  A: d[A]/dt = k1[A] + k2[A]
+  B: d[A]/dt = -k1[B] - k2[C]
+  C: d[A]/dt = -k1[A] - k2[A]
+  D: d[A]/dt = k1[B] - k2[C]
+answer: C
+explanation: |
+  Both reactions consume A, so both contribute negative terms to d[A]/dt. The first consumes A at rate k1[A], and the second consumes A at rate k2[A]. Therefore d[A]/dt = -k1[A] - k2[A].
+---
+slug: deterministic_vs_stochastic_scale
+difficulty: hard
+topic: When deterministic models are appropriate
+question: |
+  When is a deterministic mass action model most appropriate compared with a discrete stochastic simulation?
+choices:
+  A: When the system contains exactly one molecule of every chemical species.
+  B: When reaction timing must be sampled as individual random events.
+  C: When the model is only storing a list of reachable metabolites.
+  D: When molecule counts are large enough that continuous concentrations are a good approximation.
+answer: D
+explanation: |
+  Deterministic models are often appropriate when molecule counts are high enough that smooth concentration changes are a useful approximation. Low-copy-number systems and event-level random timing are better motivations for stochastic simulation. Reachability enumeration is a different modeling problem.

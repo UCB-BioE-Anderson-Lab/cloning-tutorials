@@ -1,0 +1,1826 @@
+{
+  "construction_files_and_lab_sheets": [
+    {
+      "slug": "cf_abstraction_purpose",
+      "difficulty": "easy",
+      "topic": "Purpose of ConstructionFile abstraction",
+      "question": "Why is the ConstructionFile abstraction useful in a LabPlanner workflow?\n",
+      "choices": {
+        "A": "It represents a high-level plan for building DNA constructs.",
+        "B": "It stores LCMS chromatograms and analysis results.",
+        "C": "It directly controls robotic motors and liquid-handler calibration.",
+        "D": "It replaces the need for wetlab protocols and experimental execution."
+      },
+      "answer": "A",
+      "explanation": "A ConstructionFile represents the planned sequence of biological construction steps, such as PCR, digest, ligation, and transformation. This high-level representation can later be translated into LabSheets or robotic protocols. A is too low-level, B describes analysis data rather than build planning, and D is wrong because execution details are still needed."
+    },
+    {
+      "slug": "cf_pcr_step_arguments",
+      "difficulty": "easy",
+      "topic": "Reading a PCR ConstructionFile step",
+      "question": "In the ConstructionFile shorthand below, which item is the template?\n\n```\npcr ca4238 ca4239 pTargetF ipcr\n```\n",
+      "choices": {
+        "A": "ca4238",
+        "B": "pTargetF",
+        "C": "ca4239",
+        "D": "ipcr"
+      },
+      "answer": "B",
+      "explanation": "In this PCR shorthand, ca4238 and ca4239 are the two oligos or primers, pTargetF is the template, and ipcr is the named PCR product. The final token is the output, not the template."
+    },
+    {
+      "slug": "cf_digest_step_arguments",
+      "difficulty": "medium",
+      "topic": "Reading a digest ConstructionFile step",
+      "question": "In the ConstructionFile shorthand below, what is the most likely role of SpeI?\n\n```\ndigest ipcr SpeI 1 spedig\n```\n",
+      "choices": {
+        "A": "The DNA template that the PCR step used to make ipcr.",
+        "B": "The restriction enzyme used to cut the input DNA.",
+        "C": "The host strain into which the product will be transformed.",
+        "D": "The name assigned to the final linearized product."
+      },
+      "answer": "B",
+      "explanation": "In a digest step, the input DNA is digested with one or more restriction enzymes. Here ipcr is the input DNA, SpeI is the enzyme, 1 may indicate a digest-related parameter such as fragment or product selection, and spedig is the named digest product. SpeI is not a strain, template, or final plasmid name."
+    },
+    {
+      "slug": "cf_transform_step_arguments",
+      "difficulty": "medium",
+      "topic": "Reading a transformation ConstructionFile step",
+      "question": "Consider this transformation step:\n\n```\ntransform lig Mach1 Spec pTarget-tyrB1\n```\n\nWhich interpretation is most accurate?\n",
+      "choices": {
+        "A": "lig is transformed into Mach1 cells with Spec selection, yielding pTarget-tyrB1.",
+        "B": "Mach1 is digested with Spec, and the resulting product is called lig.",
+        "C": "pTarget-tyrB1 is used as a PCR primer to amplify lig from Mach1.",
+        "D": "Spec is the DNA template and Mach1 is the output plasmid name."
+      },
+      "answer": "A",
+      "explanation": "The transform step takes the ligation product, introduces it into a bacterial strain, and applies antibiotic selection. In this example, lig is the DNA product being transformed, Mach1 is the strain, Spec is the selection marker, and pTarget-tyrB1 is the resulting construct or sample name. The other choices scramble the biological roles."
+    },
+    {
+      "slug": "cf_named_identifiers_not_locations",
+      "difficulty": "medium",
+      "topic": "Named sample identifiers versus physical locations",
+      "question": "A ConstructionFile refers to products using names such as `ipcr`, `spedig`, and `lig` rather than locations such as `oligos1/A1` or `thermocycler1/A3`.\n\nWhy is this useful?\n",
+      "choices": {
+        "A": "It makes each product searchable by name in the inventory database.",
+        "B": "It reduces the character length of the ConstructionFile text.",
+        "C": "It keeps the plan portable across different physical inventory setups.",
+        "D": "It ensures each product name is unique across all experiments."
+      },
+      "answer": "C",
+      "explanation": "Named identifiers let the ConstructionFile describe logical inputs and outputs without depending on where the material happens to be stored or processed. Physical locations can be assigned later in a LabSheet or inventory-aware execution plan. A conflates naming with searchability, which is a side effect rather than the reason. B is wrong because names are often longer than location strings. D is tempting but wrong: the naming convention does not enforce uniqueness across all experiments, and that is not the primary purpose."
+    },
+    {
+      "slug": "labsheet_groups_related_steps",
+      "difficulty": "medium",
+      "topic": "LabSheets as organized execution plans",
+      "question": "A project has three similar ConstructionFiles for three CRISPR targeting plasmids. A generated LabSheet groups their PCR setup into one work session with rows A1, A2, and A3.\n\nWhat is the main reason to group them this way?\n",
+      "choices": {
+        "A": "The LabSheet proves that all three plasmids have the same DNA sequence.",
+        "B": "The LabSheet converts the PCR into an LCMS assay.",
+        "C": "The LabSheet removes the need for sample labels.",
+        "D": "The LabSheet organizes related CF steps into efficient wetlab work."
+      },
+      "answer": "D",
+      "explanation": "LabSheets can combine related steps from one or more ConstructionFiles into a practical work session. This supports batching, reduces repeated work, and helps humans or robots execute similar operations together. A is unrelated to execution planning, B confuses DNA construction with chemical analysis, and C is wrong because labels become more important, not less."
+    },
+    {
+      "slug": "cf_missing_intermediate_product",
+      "difficulty": "hard",
+      "topic": "Detecting an invalid ConstructionFile dependency",
+      "question": "A student writes this ConstructionFile:\n\n```\npcr ca4238 ca4239 pTargetF ipcr\ndigest ipcr SpeI 1 spedig\ntransform spedig Mach1 Spec pTarget-variant\n```\n\nCompared with the intended PCR → digest → ligate → transform workflow, what is the most important problem?\n",
+      "choices": {
+        "A": "The PCR product should not be named or referenced by subsequent steps.",
+        "B": "SpeI should appear in the transform step rather than the digest step.",
+        "C": "The ligation step is skipped, so the digest product is transformed directly.",
+        "D": "Mach1 should appear in the PCR step rather than the transform step."
+      },
+      "answer": "C",
+      "explanation": "The workflow skips ligation. After digestion, the DNA usually needs to be ligated or otherwise assembled before transformation, especially if the goal is a circular plasmid product. Transforming the digest product directly would generally not produce the intended construct. A is wrong because named products are useful, B is wrong because SpeI belongs in the digest step, and D confuses a bacterial strain with a DNA template."
+    },
+    {
+      "slug": "cf_vs_robot_transfer_detail",
+      "difficulty": "medium",
+      "topic": "ConstructionFile versus robotic transfer detail",
+      "question": "Which item would most likely appear in a robotic liquid-handling protocol but not in a ConstructionFile?\n",
+      "choices": {
+        "A": "Use SpeI to cut the PCR product and collect the resulting fragment.",
+        "B": "Introduce the ligation product into Mach1 cells under antibiotic selection.",
+        "C": "Assign the identifier ipcr to the PCR output for use in downstream steps.",
+        "D": "Aspirate 10 uL from well A1 and dispense it into well B1."
+      },
+      "answer": "D",
+      "explanation": "A robotic protocol must specify low-level liquid transfers, including volumes and well positions. ConstructionFiles usually describe biological operations and named products at a higher level. A, B, and C are appropriate ConstructionFile-level concepts."
+    }
+  ],
+  "inventory_samples_and_locations": [
+    {
+      "slug": "sample_fields_meaning",
+      "difficulty": "easy",
+      "topic": "Meaning of Sample fields in the inventory model",
+      "question": "In the LabPlanner inventory model, a Sample has fields such as label, sidelabel, concentration, construct, culture, and clone.\n\nWhich statement best describes what a Sample represents?\n",
+      "choices": {
+        "A": "A physical freezer box that contains multiple sample positions",
+        "B": "An aliquot of biological material with metadata about its identity and use",
+        "C": "A complete experiment record, including ConstructionFiles, oligos, and LabSheets",
+        "D": "A robotic deck position where samples are placed for processing"
+      },
+      "answer": "B",
+      "explanation": "A Sample represents a stored aliquot with metadata such as the written label, side label, concentration or DNA type, construct identity, culture, and clone. A describes a Box, C describes an Experiment object, and D describes robotic deck layout rather than biological sample identity."
+    },
+    {
+      "slug": "clone_field_purpose",
+      "difficulty": "medium",
+      "topic": "Clone identifiers and colony-derived samples",
+      "question": "Why does the inventory model include a clone field, such as clone A, B, or C?\n",
+      "choices": {
+        "A": "To specify the row coordinate of a sample within a plate",
+        "B": "To record which antibiotic resistance marker was used for selection",
+        "C": "To indicate the sample type as oligo, miniprep, zymo, or gene synthesis",
+        "D": "To identify the colony from which a sample was picked"
+      },
+      "answer": "D",
+      "explanation": "The clone field distinguishes independently isolated samples. Two colonies can be intended to contain the same construct but still differ because of mutation, assembly error, or other biological variation. A describes a location coordinate, B is not the purpose of the clone field, and C describes concentration or sample type metadata rather than clone identity."
+    },
+    {
+      "slug": "concentration_enum_use",
+      "difficulty": "easy",
+      "topic": "Concentration enums as controlled vocabulary",
+      "question": "The LabPlanner inventory model defines concentration-like enum values such as miniprep, zymo, uM100, uM10, uM266, dil20x, and gene.\n\nWhy use an enum or fixed set of values for this field instead of arbitrary strings?\n",
+      "choices": {
+        "A": "It prevents invalid entries and each label also conveys expected sample type",
+        "B": "It automatically measures and records the actual molarity of each tube",
+        "C": "It removes the need for physical labels to be written on tube exteriors",
+        "D": "It converts every sample to a standard concentration before storage"
+      },
+      "answer": "A",
+      "explanation": "The enum serves two related purposes. First, it prevents misspellings and enforces consistent vocabulary, making validation straightforward. Second, each label encodes more than just molarity: it implies the procedure that produced the sample and what role it is expected to play. A miniprep yields a predictable amount based on plasmid copy number; a PCR product falls within a predictable range; oligos are used at standard working concentrations defined by protocol. Because these quantities are predictable in practice, and because instruments like Nanodrop are unreliable on small samples, there is little added value in recording an exact molarity. In an inverted-wetlab context, sample identities and locations are specified before the experiment runs, so one can anticipate that a tube will exist without yet being able to measure it. Using a label like zymo or uM100 is also more ergonomic when selecting samples: it conveys both the rough amount and the procedural context simultaneously. B is wrong because enums do not measure anything. C is wrong because physical labels still matter. D is wrong because the enum classifies the sample type; it does not physically normalize it."
+    },
+    {
+      "slug": "box_location_coordinates",
+      "difficulty": "medium",
+      "topic": "Box and Location coordinate models",
+      "question": "A Location object includes fields such as boxname, row, col, label, and sidelabel.\n\nWhat is the main purpose of row and col?\n",
+      "choices": {
+        "A": "To encode the DNA sequence of the construct stored in that position",
+        "B": "To specify the PCR annealing temperature and extension time for the sample",
+        "C": "To identify the exact physical position of a sample within a box",
+        "D": "To record which restriction enzyme was used to digest the sample"
+      },
+      "answer": "C",
+      "explanation": "Row and column are physical coordinates inside a box or plate. They are needed to find, retrieve, or place a sample. A confuses location with sequence data, B describes thermocycler programming, and D describes a construction operation rather than storage position."
+    },
+    {
+      "slug": "array_vs_hashmap_inventory",
+      "difficulty": "medium",
+      "topic": "Representing box contents as arrays versus maps",
+      "question": "Why might the contents of a freezer box be represented as a 2D array rather than only as a hashmap from sample name to sample object?\n",
+      "choices": {
+        "A": "A 2D array guarantees that every sample name within it is unique",
+        "B": "A 2D array mirrors the physical row-and-column grid of the box",
+        "C": "A hashmap cannot store metadata such as concentration or sample type",
+        "D": "A 2D array makes lookup by construct name faster than a dictionary"
+      },
+      "answer": "B",
+      "explanation": "A box or plate is physically arranged as rows and columns, so a 2D array matches how humans and robots interact with it. It also supports operations such as iterating over a row or column. A is not guaranteed by the data structure alone, C is false, and D is backwards: dictionaries are generally the faster structure for direct lookup by key."
+    },
+    {
+      "slug": "inventory_lookup_maps",
+      "difficulty": "medium",
+      "topic": "Quick lookup maps in the Inventory object",
+      "question": "The LabPlanner inventory model includes lookup maps such as construct_to_locations, loc_to_conc, loc_to_clone, and loc_to_culture.\n\nWhat problem do these maps solve?\n",
+      "choices": {
+        "A": "They replace the need to store any box or location records in the inventory",
+        "B": "They automatically determine which primers should be designed for new constructs",
+        "C": "They convert the tabular inventory representation into an LCMS peak-call table",
+        "D": "They allow the system to quickly look up where a construct is stored"
+      },
+      "answer": "D",
+      "explanation": "Lookup maps provide efficient access to common queries, such as finding all locations for a construct or retrieving concentration, clone, or culture information for a location. A is wrong because boxes and locations are still the underlying physical model. B is primer design, not inventory lookup. C confuses inventory with analysis."
+    },
+    {
+      "slug": "inventory_overwrite_detection",
+      "difficulty": "hard",
+      "topic": "Detecting an inventory overwrite error",
+      "question": "A researcher runs a script that adds new PCR products to fridge_box3, filling positions sequentially from the top-left. The script completes without errors. Later, a colleague searches the inventory for oligo ca4239, which was stored in fridge_box3 before the script ran, and finds no record of it.\n\nWhat is the most likely explanation?\n",
+      "choices": {
+        "A": "The oligo ca4239 degraded and the inventory auto-purged its record",
+        "B": "The box fridge_box3 exceeded its capacity and evicted the oldest entry",
+        "C": "The script placed a new sample into ca4239's position, overwriting it",
+        "D": "ca4239 was renamed to match the incoming PCR product during the update"
+      },
+      "answer": "C",
+      "explanation": "Inventory write functions that do not check for occupied positions can silently overwrite existing records. The script placed a new sample at the position ca4239 occupied, replacing it in the data model without raising an error. A is wrong because inventory systems do not auto-purge records based on sample quality. C is wrong because exceeding box capacity would typically raise an error rather than silently evict records. D is wrong because sample renaming is not an automatic side effect of placing a new sample."
+    },
+    {
+      "slug": "tabular_vs_grid_inventory",
+      "difficulty": "medium",
+      "topic": "Tabular and grid inventory representations",
+      "question": "The LabPlanner model supports both a tabular inventory with columns such as construct, label, type, concentration, culture, clone, box, and well, and a grid-style inventory organized by rows and columns.\n\nWhich statement best explains why both views can be useful?\n",
+      "choices": {
+        "A": "The tabular view supports metadata filtering; the grid view mirrors the physical box layout",
+        "B": "The grid view stores raw DNA sequences; the tabular view stores thermocycler programs",
+        "C": "The tabular view is for LCMS analysis; the grid view is for plasmid map visualization",
+        "D": "The two views must always contain completely different sets of samples"
+      },
+      "answer": "A",
+      "explanation": "A tabular view is convenient for filtering and sorting by construct, concentration, culture, clone, box, or well. A grid view is convenient because it mirrors the physical layout of a box or plate. B and C assign the views to the wrong kinds of data. D is wrong because the two views can represent the same inventory in different forms."
+    }
+  ],
+  "wetlab_cloning_operations": [
+    {
+      "slug": "cloning_workflow_order",
+      "difficulty": "easy",
+      "topic": "Ordering a basic cloning workflow",
+      "question": "Which sequence best matches the cloning workflow shown in the Wetlab Operations lecture?\n",
+      "choices": {
+        "A": "Sequencing → miniprep → colony picking → transformation → ligation → digestion → cleanup → PCR → gel",
+        "B": "Digestion → transformation → PCR → sequencing → cleanup → colony picking → ligation → miniprep → gel",
+        "C": "PCR → LCMS → digestion → ligation → chromatography → transformation → miniprep → sequencing → gel",
+        "D": "PCR → cleanup → digestion → cleanup → ligation → transformation → colony picking → miniprep → sequencing"
+      },
+      "answer": "D",
+      "explanation": "The wetlab cloning workflow proceeds from making DNA by PCR through cleanup, digestion, ligation, transformation, colony picking, miniprepping, and sequencing. A reverses the workflow, B scrambles dependent steps, and C inserts LCMS and chromatography, which are analysis methods rather than DNA cloning operations."
+    },
+    {
+      "slug": "pcr_reaction_components",
+      "difficulty": "medium",
+      "topic": "Components of a PCR reaction",
+      "question": "A student is setting up PCR to amplify a target from a plasmid template. Which set contains the core components needed for the reaction?\n",
+      "choices": {
+        "A": "DNA template, one primer, ligase buffer, restriction enzyme, and competent cells",
+        "B": "DNA template, two primers, polymerase, dNTPs, buffer, and water",
+        "C": "PCR product, antibiotic plate, sequencing primer, medium, and cells",
+        "D": "DNA ladder, agarose gel, ethanol wash, spin column, and water"
+      },
+      "answer": "B",
+      "explanation": "PCR requires a DNA template, forward and reverse primers, a thermostable polymerase, dNTPs, buffer, and water. A mixes PCR with ligation and transformation components. C describes later transformation and sequencing materials. D describes gel or cleanup materials rather than the PCR reaction itself."
+    },
+    {
+      "slug": "thermocycler_program_as_protocol_parameter",
+      "difficulty": "medium",
+      "topic": "Thermocycler programs as protocol parameters",
+      "question": "A LabSheet generated from a ConstructionFile includes a PCR step with a field like:\n\n```\nprogram: Q5/Q5-4K\n```\n\nWhy should the thermocycler program be represented as a named protocol parameter rather than buried in free-text notes?\n",
+      "choices": {
+        "A": "It lets software validate, reuse, and schedule the PCR operation consistently.",
+        "B": "It makes the PCR product independent of which primers are used in the reaction.",
+        "C": "It causes the thermocycler to infer the correct DNA sequence automatically.",
+        "D": "It replaces the need to track the template and product sample identifiers."
+      },
+      "answer": "A",
+      "explanation": "In a software-facing lab workflow, the thermocycler program is structured execution metadata. Representing it as a named parameter makes the workflow easier to parse, validate, reuse, and schedule. B is wrong because primers still determine what is amplified, C invents an automatic sequence-inference capability, and D is wrong because sample identifiers are still required."
+    },
+    {
+      "slug": "gel_after_pcr_purpose",
+      "difficulty": "easy",
+      "topic": "Purpose of gel electrophoresis after PCR",
+      "question": "Why is gel electrophoresis commonly run after PCR in a cloning workflow?\n",
+      "choices": {
+        "A": "To verify that PCR produced a band at the expected size.",
+        "B": "To add sticky ends to the PCR product before the ligation step.",
+        "C": "To convert the PCR product into a sequence-ready chromatogram file.",
+        "D": "To introduce the PCR product into competent cells under antibiotic pressure."
+      },
+      "answer": "A",
+      "explanation": "A gel lets the experimentalist check whether PCR produced a band of the expected size. It is mainly a verification step before downstream construction. B describes digestion or assembly, C describes sequencing, and D describes transformation."
+    },
+    {
+      "slug": "dna_cleanup_purpose",
+      "difficulty": "medium",
+      "topic": "Purpose of DNA cleanup",
+      "question": "After PCR or digestion, a cleanup column is used before the next construction step. What is the main purpose of this cleanup?\n",
+      "choices": {
+        "A": "To sequence the plasmid and return a GenBank file for downstream analysis.",
+        "B": "To introduce the DNA into cells while applying antibiotic selection pressure.",
+        "C": "To amplify the DNA using primers, dNTPs, thermostable polymerase, and thermocycling.",
+        "D": "To remove salts, enzymes, and small molecules while retaining the DNA."
+      },
+      "answer": "D",
+      "explanation": "DNA cleanup removes reaction components such as salts, buffers, enzymes, and small molecules while retaining and eluting the DNA. A describes sequencing, B describes transformation, and C describes PCR."
+    },
+    {
+      "slug": "digestion_and_ligation_roles",
+      "difficulty": "medium",
+      "topic": "Roles of digestion and ligation",
+      "question": "In a restriction-enzyme cloning workflow, what are the roles of digestion and ligation?\n",
+      "choices": {
+        "A": "Digestion copies DNA by thermocycling, while ligation separates fragments by size.",
+        "B": "Digestion introduces DNA into cells, while ligation selects colonies on plates.",
+        "C": "Digestion cuts DNA at defined sites, while ligation joins compatible DNA ends.",
+        "D": "Digestion reads DNA sequence, while ligation edits chromatogram trace files."
+      },
+      "answer": "C",
+      "explanation": "Restriction enzymes cut DNA at specific sequence sites, producing fragments or ends that can be joined by ligase. A confuses digestion with PCR and gels. B confuses these steps with transformation and plating. D confuses construction steps with sequencing analysis."
+    },
+    {
+      "slug": "transformation_selection_logic",
+      "difficulty": "medium",
+      "topic": "Transformation and antibiotic selection",
+      "question": "After ligation, cells are transformed and plated on medium containing spectinomycin. What is the main purpose of the antibiotic plate?\n",
+      "choices": {
+        "A": "To amplify the insert by PCR before ligation begins.",
+        "B": "To separate plasmid fragments by length after digestion.",
+        "C": "To favor growth of cells that received the selectable construct.",
+        "D": "To determine the complete sequence of the final plasmid."
+      },
+      "answer": "C",
+      "explanation": "Antibiotic selection is used so that cells carrying a construct with the appropriate resistance marker can grow, while many untransformed cells do not. A is PCR, B is gel electrophoresis, and D is sequencing."
+    },
+    {
+      "slug": "sequencing_as_verification_data",
+      "difficulty": "hard",
+      "topic": "Sequencing as structured verification data",
+      "question": "A workflow system records that a constructed plasmid passed through PCR, digestion, ligation, transformation, colony picking, miniprep, and sequencing. The sequencing result is linked back to the picked colony and the intended construct.\n\nWhy is this linkage useful in a BioCAD workflow?\n",
+      "choices": {
+        "A": "It makes every colony on the transformation plate genetically identical to the selected colony.",
+        "B": "It lets downstream software distinguish a verified clone from an unverified construction attempt.",
+        "C": "It removes the need to represent PCR, digestion, and ligation as separate operations.",
+        "D": "It converts the sequencing chromatogram into an LCMS peak table for pathway analysis."
+      },
+      "answer": "B",
+      "explanation": "In a software-facing construction workflow, sequencing is verification data linked to a specific clone or sample. That linkage lets later tools reason about which physical sample corresponds to the intended construct. B is false because colonies can differ, C is wrong because construction steps still need to be represented, and D confuses DNA verification with metabolomics analysis."
+    }
+  ],
+  "robotic_liquid_handling": [
+    {
+      "slug": "robot_instrument_roles",
+      "difficulty": "easy",
+      "topic": "Roles of common robotic instruments",
+      "question": "Which description best matches a liquid-handling robot such as an Opentrons OT-2 or Biomek 3000?\n",
+      "choices": {
+        "A": "It separates DNA fragments by size using an electric field.",
+        "B": "It automates pipetting and reaction setup across defined labware positions.",
+        "C": "It identifies metabolites by retention time and mass-to-charge ratio.",
+        "D": "It synthesizes custom oligonucleotides directly from sequence files."
+      },
+      "answer": "B",
+      "explanation": "Liquid-handling robots automate pipetting operations such as aspirating, dispensing, mixing, and setting up reactions in defined containers. A describes gel electrophoresis, C describes LCMS analysis, and D describes oligonucleotide synthesis, not ordinary liquid handling."
+    },
+    {
+      "slug": "multichannel_alignment_requirement",
+      "difficulty": "medium",
+      "topic": "Plate layout constraints for multichannel pipetting",
+      "question": "A robot has an 8-channel pipette head and needs to transfer the same reagent into eight wells at once. Which sample layout best supports efficient multichannel pipetting?\n",
+      "choices": {
+        "A": "Samples placed in any open wells without regard for plate position.",
+        "B": "Samples aligned in one row or one column of a plate.",
+        "C": "Samples distributed across different plates and separate reservoirs.",
+        "D": "Samples placed along a diagonal from well A1 through well H8."
+      },
+      "answer": "B",
+      "explanation": "Multichannel pipettes work efficiently when wells line up with the fixed spacing of the channels, usually along a row or column. Random, diagonal, or scattered layouts force slower single-channel transfers or waste channels and tips. This is a physical constraint of the pipette geometry, not a biological constraint."
+    },
+    {
+      "slug": "mastermix_advantage",
+      "difficulty": "easy",
+      "topic": "Why mastermixes improve liquid-handling workflows",
+      "question": "You are setting up many PCRs that share water, buffer, dNTPs, polymerase, and the same primer pair, but differ by DNA template. Why prepare a mastermix?\n",
+      "choices": {
+        "A": "It lets the robot skip template addition entirely.",
+        "B": "It replaces the need for a thermocycler program.",
+        "C": "It reduces shared-reagent transfers and improves consistency.",
+        "D": "It converts the PCR reactions into sequencing reactions."
+      },
+      "answer": "C",
+      "explanation": "A mastermix combines reagents that are common across reactions, so they can be distributed as one mixture. This reduces pipetting steps, saves tips, saves time, and makes shared reagent concentrations more uniform. Templates still need to be added separately, and the PCR still needs a thermocycler program."
+    },
+    {
+      "slug": "opentrons_transfer_method",
+      "difficulty": "medium",
+      "topic": "Interpreting simple liquid-handler API operations",
+      "question": "In a simplified Opentrons-style protocol, which operation is most directly described by a command such as `transfer(10, source, dest)`?\n",
+      "choices": {
+        "A": "Loading a new pipette onto the left instrument mount.",
+        "B": "Choosing the best thermocycler program for the reaction.",
+        "C": "Calling and annotating peaks from an LCMS trace file.",
+        "D": "Moving a defined volume from a source well to a destination."
+      },
+      "answer": "D",
+      "explanation": "A transfer command is a higher-level liquid-handling action that moves a specified volume from a source to a destination, typically wrapping lower-level aspirate and dispense actions. It does not load instruments, choose biological protocols, or analyze LCMS data."
+    },
+    {
+      "slug": "autoprotocol_abstraction_level",
+      "difficulty": "medium",
+      "topic": "Autoprotocol and low-level robotic workflow descriptions",
+      "question": "Autoprotocol-like formats can describe actions such as transferring liquid from one well to another, optionally with speeds and mixing steps. What is the main limitation of this abstraction?\n",
+      "choices": {
+        "A": "It focuses on reagent operations rather than biological intent.",
+        "B": "It prevents scripts from running on robotic workstations.",
+        "C": "It only describes DNA sequence features and annotations.",
+        "D": "It requires all samples to be stored in Eppendorf tubes."
+      },
+      "answer": "A",
+      "explanation": "Autoprotocol is useful for representing liquid-handling operations, but it is not a high-level biological design abstraction. It can describe operations on wells and reagents, but it does not by itself know that a workflow is a CRISPR construct build or a pathway-optimization experiment. B, C, and D misstate the role of the format."
+    },
+    {
+      "slug": "tip_reuse_cross_contamination",
+      "difficulty": "medium",
+      "topic": "Tip reuse and contamination constraints",
+      "question": "A robot distributes the same mastermix from one reservoir into 96 empty PCR wells. It then adds a different DNA template to each well. Which tip strategy is most reasonable?\n",
+      "choices": {
+        "A": "Use one tip for mastermix distribution and fresh tips for each template.",
+        "B": "Reuse a single tip for every template transfer to reduce tip cost.",
+        "C": "Use fresh tips for mastermix distribution and reuse tips for templates.",
+        "D": "Skip tips for mastermix entirely because the source reagent is shared."
+      },
+      "answer": "A",
+      "explanation": "Reusing one tip to distribute a shared mastermix from the same source into empty wells can be reasonable if there is no back-contamination risk. Different DNA templates should use fresh tips to avoid cross-contamination between samples. B and C would risk mixing templates, and D is physically impossible for ordinary pipetting."
+    },
+    {
+      "slug": "deck_positions_and_gripper",
+      "difficulty": "medium",
+      "topic": "Robotic deck positions and plate movement",
+      "question": "A liquid handler has deck positions for plates, reservoirs, and tip racks, plus a gripper. Which task specifically uses the gripper rather than the pipette channels?\n",
+      "choices": {
+        "A": "Aspirating buffer from a reagent reservoir.",
+        "B": "Dispensing polymerase into PCR wells.",
+        "C": "Mixing a reaction by pipetting up and down.",
+        "D": "Moving a plate between deck positions."
+      },
+      "answer": "D",
+      "explanation": "Pipette channels move liquids. A gripper moves physical labware such as plates. Aspirating, dispensing, and mixing are liquid-transfer operations, while moving a plate from one deck position to another is a labware-handling operation."
+    },
+    {
+      "slug": "hard_mastermix_tip_count",
+      "difficulty": "hard",
+      "topic": "Reasoning about transfers, templates, and tip counts",
+      "question": "A robot sets up 96 PCRs. Each reaction gets the same commercial PCR mix, the same forward primer, and the same reverse primer, but a unique DNA template. The robot prepares one mastermix from those three shared components, distributes it to all wells, and then adds templates. Assume one tip can be reused while distributing the shared mastermix, but template transfers require fresh tips.\n\nWhat is the best estimate of the total number of tips used for these steps?\n",
+      "choices": {
+        "A": "97 tips: one shared transfer tip and 96 template tips.",
+        "B": "99 tips: three setup tips and 96 template tips.",
+        "C": "100 tips: three setup tips, one distribution tip, and 96 template tips.",
+        "D": "192 tips: one mastermix tip and one template tip for each PCR."
+      },
+      "answer": "C",
+      "explanation": "Preparing the mastermix uses one tip for each of the three shared components. Distributing the mixed reagent to the plate can use one additional tip if the same mixture is dispensed into empty wells. Adding 96 distinct templates requires 96 fresh tips. The total is 3 + 1 + 96 = 100. The other answers omit either setup tips or distribution logic, or double-count the shared mastermix distribution."
+    }
+  ],
+  "prototyping_vs_optimization": [
+    {
+      "slug": "prototype_vs_optimization_starting_point",
+      "difficulty": "easy",
+      "topic": "Distinguishing prototyping from optimization",
+      "question": "What is the key practical difference between a prototyping experiment and an optimization experiment?\n",
+      "choices": {
+        "A": "Prototyping tunes expression levels, while optimization avoids any genetic changes.",
+        "B": "Prototyping analyzes LCMS files, while optimization performs only DNA sequencing.",
+        "C": "Prototyping starts from existing DNA, while optimization ignores prior constructs.",
+        "D": "Prototyping builds a new design, while optimization edits an existing prototype."
+      },
+      "answer": "D",
+      "explanation": "Prototyping is used when there is no existing DNA for the design, so the construct is built from scratch. Optimization starts from a prototype or CurrBest and makes edits to improve it. C reverses the relationship, B confuses build and analysis tasks, and A is too narrow and partly wrong."
+    },
+    {
+      "slug": "currbest_role_in_dbtl",
+      "difficulty": "easy",
+      "topic": "Role of CurrBest in optimization",
+      "question": "In an optimization cycle, what does CurrBest represent?\n",
+      "choices": {
+        "A": "The current best-performing design used as the baseline for new variants.",
+        "B": "The complete list of all ConstructionFiles generated for the course project.",
+        "C": "The LCMS instrument setting that gives the highest signal for one compound.",
+        "D": "The final sequencing result produced after all variants have been discarded."
+      },
+      "answer": "A",
+      "explanation": "CurrBest is the current best prototype or design against which new variants are compared. It provides a starting point for incremental editing. B describes a build artifact collection, C describes an instrument setting, and D treats CurrBest as a final analysis record rather than an optimization baseline."
+    },
+    {
+      "slug": "why_single_element_edits_are_faster",
+      "difficulty": "medium",
+      "topic": "Efficiency of optimization edits",
+      "question": "Why can a single-element edit be much faster than rebuilding an optimized design from scratch?\n",
+      "choices": {
+        "A": "It avoids all PCR, assembly, transformation, and sequencing steps entirely.",
+        "B": "It changes only the host strain while leaving every construct unchanged.",
+        "C": "It edits an existing construct rather than reassembling the whole design.",
+        "D": "It replaces LCMS testing with a deterministic prediction of product titer."
+      },
+      "answer": "C",
+      "explanation": "Optimization can reuse a prototype that is already close to the desired variant, so only a focused edit may be needed. A is too strong because edits still require wetlab work and verification. B is not generally true. D is wrong because optimization still requires testing."
+    },
+    {
+      "slug": "prototyping_manages_risk",
+      "difficulty": "medium",
+      "topic": "Design goals of prototyping",
+      "question": "The slides distinguish prototyping from optimization by saying that prototyping is about managing risk. What does that mean in this context?\n",
+      "choices": {
+        "A": "Measuring only safe compounds and deferring all decisions about risky ones.",
+        "B": "Choosing a first design that is plausible enough to work despite uncertainty.",
+        "C": "Avoiding all design choices until the exact best construct is identified.",
+        "D": "Editing every position in a protein before any experimental build is started."
+      },
+      "answer": "B",
+      "explanation": "In prototyping, the first build must handle uncertainty about whether the composition, construct, and pathway will function at all. The goal is to get a plausible working starting point. A narrows the idea to analysis safety, C is impossible because design requires choices, and D describes exhaustive mutagenesis rather than risk-managed prototyping."
+    },
+    {
+      "slug": "optimization_incremental_improvement",
+      "difficulty": "medium",
+      "topic": "Design goals of optimization",
+      "question": "Which change best matches the goal of optimization after a working prototype exists?\n",
+      "choices": {
+        "A": "Replace the entire course workflow with a new file format.",
+        "B": "Tune gene expression to reduce a pathway bottleneck.",
+        "C": "Skip Test and Learn because the prototype already works.",
+        "D": "Remove all variants except the original untested construct."
+      },
+      "answer": "B",
+      "explanation": "Optimization tries to improve an existing design through targeted changes, such as tuning regulation, relieving bottlenecks, or balancing protein abundance. A is unrelated to biological optimization, C contradicts the DBTL cycle, and D prevents improvement."
+    },
+    {
+      "slug": "dbtl_artifacts_by_stage",
+      "difficulty": "medium",
+      "topic": "Interpreting DBTL artifacts",
+      "question": "In the prototyping and optimization diagrams, artifacts such as ConstructionFiles, Strains, LabSheets, and LCMS data appear around the DBTL cycle. Which pairing is most reasonable?\n",
+      "choices": {
+        "A": "LabSheets belong to Learn, and LCMS files belong to Build.",
+        "B": "ConstructionFiles belong to Test, and strains belong only to Learn.",
+        "C": "LCMS files replace LabSheets once the first prototype is successful.",
+        "D": "ConstructionFiles guide Build, while LCMS data supports Test and Learn."
+      },
+      "answer": "D",
+      "explanation": "ConstructionFiles and LabSheets help drive the Build stage, while LCMS measurements provide test data that can be interpreted during Learn. A swaps build and test artifacts, B misplaces ConstructionFiles and strains, and C incorrectly treats analysis data as a replacement for execution instructions."
+    },
+    {
+      "slug": "hard_wrong_optimization_plan",
+      "difficulty": "hard",
+      "topic": "Diagnosing a flawed optimization plan",
+      "question": "A team has a working three-gene prototype that produces a low but measurable amount of product. They propose this next step:\n\n\"Discard the prototype, synthesize a completely new three-gene construct from scratch with different promoters and orthologs for all genes, and compare it only to the old LCMS file.\"\n\nWhat is the main problem with calling this an optimization experiment?\n",
+      "choices": {
+        "A": "It changes too many factors at once and loses the incremental comparison to CurrBest.",
+        "B": "It uses LCMS, which the lecture defines as appropriate only during initial prototyping.",
+        "C": "It includes promoter edits, which cannot be applied after a prototype is confirmed.",
+        "D": "It compares constructs across cycles, which is not valid once any product is detected."
+      },
+      "answer": "A",
+      "explanation": "Optimization is most useful when it makes interpretable incremental edits relative to CurrBest. Changing promoters and orthologs for all genes at once makes it hard to attribute any change in performance and gives up the efficiency of editing the existing prototype. B is wrong because LCMS is central to testing. C is false because promoter changes are common optimization edits. D is wrong because comparison is the point of optimization."
+    },
+    {
+      "slug": "plateau_and_theoretical_limits",
+      "difficulty": "medium",
+      "topic": "When optimization becomes less useful",
+      "question": "The slides describe optimization as \"money in the bank until theoretical limits reached/plateau.\" Which interpretation is most accurate?\n",
+      "choices": {
+        "A": "Optimization always gives the same improvement after every edit.",
+        "B": "Optimization is unnecessary once any detectable product is observed.",
+        "C": "Optimization can improve performance, but gains eventually diminish.",
+        "D": "Optimization guarantees that theoretical maximum yield is reached."
+      },
+      "answer": "C",
+      "explanation": "Early optimization often has many possible improvements, such as relieving bottlenecks or balancing expression. As the design improves, remaining gains may become smaller or limited by biology. A and D overstate predictability, and B stops too early because detectable product is often only a starting point."
+    }
+  ],
+  "optimization_edit_libraries": [
+    {
+      "slug": "edit_library_role",
+      "difficulty": "easy",
+      "topic": "Purpose of an EditLibrary",
+      "question": "You are creating promoter variants for one gene in an existing prototype plasmid. What is the main role of an EditLibrary?\n",
+      "choices": {
+        "A": "It chooses the best variant after LCMS testing is complete.",
+        "B": "It simulates enzyme kinetics for every possible construct.",
+        "C": "It stores physical freezer locations for all samples.",
+        "D": "It organizes the oligos and bins for a set of defined edits."
+      },
+      "answer": "D",
+      "explanation": "An EditLibrary describes the scope of a single-part edit library, including the oligo names and bins used to construct variants. It does not rank results after testing, simulate kinetics, or replace the inventory system."
+    },
+    {
+      "slug": "single_part_edit_bins",
+      "difficulty": "medium",
+      "topic": "Classes of single-part edits",
+      "question": "Which option is the best example of a single-part edit bin from the optimization lecture?\n",
+      "choices": {
+        "A": "Rebuilding a whole pathway from newly synthesized DNA.",
+        "B": "Running LCMS again with a different solvent gradient.",
+        "C": "Replacing one promoter with a promoter-strength variant.",
+        "D": "Changing the host strain and assay protocol together."
+      },
+      "answer": "C",
+      "explanation": "A promoter scan changes one regulatory part while keeping the rest of the construct largely fixed. That fits the idea of a single-part edit bin. A is closer to prototyping, B is an analysis change, and D changes multiple experimental factors at once."
+    },
+    {
+      "slug": "promoter_scan_reason",
+      "difficulty": "medium",
+      "topic": "Promoter scans and expression tuning",
+      "question": "Why would an optimization experiment include a promoter scan for one pathway gene?\n",
+      "choices": {
+        "A": "To tune expression level and reduce pathway bottlenecks.",
+        "B": "To eliminate the need for sequencing every plasmid.",
+        "C": "To change enzyme substrate specificity without mutation.",
+        "D": "To measure retention time for the target product."
+      },
+      "answer": "A",
+      "explanation": "Promoter scans vary gene expression over a range of strengths. This can help balance protein abundance, reduce bottlenecks, and avoid unwanted buildup of intermediates. The scan does not remove the need for verification, directly change enzyme specificity, or measure LCMS retention time."
+    },
+    {
+      "slug": "ortholog_scan_interpretation",
+      "difficulty": "medium",
+      "topic": "Ortholog scans in optimization",
+      "question": "In an ortholog scan, several alternate proteins are tested for the same pathway step. What assumption makes this a reasonable optimization strategy?\n",
+      "choices": {
+        "A": "All orthologs have identical expression levels in the host.",
+        "B": "Ortholog replacement always reduces the metabolic burden.",
+        "C": "Alternate proteins may perform the same function differently.",
+        "D": "Every ortholog must use a completely different reaction mechanism."
+      },
+      "answer": "C",
+      "explanation": "Orthologs are alternate proteins predicted to carry out the same or similar function, but they may differ in expression, folding, activity, localization, or compatibility with the host. A and B are too strong, and D is not required for an ortholog scan."
+    },
+    {
+      "slug": "single_aa_variant_count",
+      "difficulty": "medium",
+      "topic": "Counting single-amino-acid variants",
+      "question": "A construct encodes one 300-amino-acid protein. If the first amino acid is not varied and each remaining position can be changed to any of the other 19 amino acids, how many single-AA variants are possible?\n",
+      "choices": {
+        "A": 300,
+        "B": "5,681",
+        "C": "5,700",
+        "D": "6,000"
+      },
+      "answer": "B",
+      "explanation": "There are 299 variable positions and 19 possible substitutions at each position, so the count is 299 × 19 = 5,681. The common shortcut 300 × 19 = 5,700 would be correct only if all 300 positions were varied."
+    },
+    {
+      "slug": "combinatorial_explosion_design_space",
+      "difficulty": "medium",
+      "topic": "Combinatorial explosion in optimization",
+      "question": "A four-gene pathway could vary promoter strength, operon boundaries, coding sequence choices, and ortholog choice. Why is this design space usually not built exhaustively?\n",
+      "choices": {
+        "A": "The number of variants grows linearly with the number of choices.",
+        "B": "Most variants cannot be represented as DNA sequences at all.",
+        "C": "Each option chosen removes the need for biological testing.",
+        "D": "Combined choices create too many possible constructs to build."
+      },
+      "answer": "D",
+      "explanation": "Combining multiple choices across several genes causes a combinatorial explosion. The number of constructs grows multiplicatively, so even modest choices can produce millions of variants. A is wrong because the growth is not merely linear, B is false, and C reverses the experimental problem."
+    },
+    {
+      "slug": "golden_gate_editing_inputs",
+      "difficulty": "hard",
+      "topic": "Interpreting Golden Gate editing ConstructionFiles",
+      "question": "An optimization ConstructionFile contains:\n\n```\nPCR back_for3 back_rev3 pAPAP1 backbone\nPCR part_for3 part_rev3 bin3_SLOW part\nGoldenGate backbone part BsmBI gg\nTransform gg Mach1 Kan 37 pAPAP455\n```\n\nWhat is the best interpretation of this workflow?\n",
+      "choices": {
+        "A": "A new pathway is synthesized entirely without using the prototype.",
+        "B": "A backbone and edit part are amplified, assembled, and transformed.",
+        "C": "An LCMS peak is assigned and annotated to the edited plasmid product.",
+        "D": "A promoter library is ranked by a kinetic simulation alone."
+      },
+      "answer": "B",
+      "explanation": "The workflow amplifies the prototype-derived backbone and an edit part, assembles them by Golden Gate, and transforms the assembled product. It is an optimization edit built from an existing prototype. A ignores the use of pAPAP1, C confuses construction with analysis, and D incorrectly makes the workflow purely computational."
+    },
+    {
+      "slug": "apply_edit_library_scope",
+      "difficulty": "hard",
+      "topic": "Applying an EditLibrary to bins",
+      "question": "A composition has four proteins, so the EditLibrary has bins 0, 1, 2, and 3. You only want promoter variants for the fourth protein while leaving the other three bins unchanged. What should the ApplyEditLibrary step do?\n",
+      "choices": {
+        "A": "Apply the bin 3 edits to the prototype and emit those variants.",
+        "B": "Apply every edit in every bin and build all possible combinations.",
+        "C": "Rewrite the entire composition to include four unrelated pathways.",
+        "D": "Replace all four proteins with ortholog sequences from a database scan."
+      },
+      "answer": "A",
+      "explanation": "If the optional bin number is specified for the fourth protein, ApplyEditLibrary should generate ConstructionFiles for edits in that bin while using the prototype as the starting point. B describes exhaustive combinatorial construction, C changes the design objective, and D describes an ortholog replacement strategy for all bins rather than a targeted promoter edit."
+    }
+  ],
+  "lcms_measurement_and_peak_calling": [
+    {
+      "slug": "lcms_testing_protocol_output",
+      "difficulty": "easy",
+      "topic": "LCMS sample preparation workflow",
+      "question": "In the Analysis lecture testing protocol, cells are grown, induced, pelleted, and the supernatant is extracted with methanol before LCMS. What is the main purpose of this workflow?\n",
+      "choices": {
+        "A": "To convert plasmids into sequencing-ready DNA fragments.",
+        "B": "To transform ligation products into antibiotic-resistant cells.",
+        "C": "To measure promoter strength using colony color alone.",
+        "D": "To prepare small molecules from cultures for chemical analysis."
+      },
+      "answer": "D",
+      "explanation": "The LCMS workflow prepares metabolites and other small molecules from biological samples so they can be separated and detected chemically. It is not a DNA sequencing workflow, a transformation workflow, or a colony-screening assay."
+    },
+    {
+      "slug": "retention_time_meaning",
+      "difficulty": "easy",
+      "topic": "Retention time in chromatography",
+      "question": "In LCMS, what does retention time represent?\n",
+      "choices": {
+        "A": "The time when a compound exits the chromatography column.",
+        "B": "The time required for an ion to fragment during MS2.",
+        "C": "The time needed to grow the culture before extraction.",
+        "D": "The time when a molecule gains or loses a proton."
+      },
+      "answer": "A",
+      "explanation": "Retention time is the time at which a compound elutes from the chromatography column. It reflects interactions between the compound, the mobile phase, and the stationary phase. It is not the culture time, the ionization event, or the fragmentation time."
+    },
+    {
+      "slug": "mz_direct_information",
+      "difficulty": "medium",
+      "topic": "Mass-to-charge ratio",
+      "question": "What information does an LCMS m/z value directly report?\n",
+      "choices": {
+        "A": "The retention behavior of a neutral molecule.",
+        "B": "The exact biological source of the compound.",
+        "C": "The mass of an ion divided by its charge.",
+        "D": "The full reaction pathway that produced it."
+      },
+      "answer": "C",
+      "explanation": "The m/z value is the mass-to-charge ratio of a detected ion. It can help infer molecular identity, especially with high resolution and other evidence, but it does not directly report retention behavior, biological source, or pathway origin."
+    },
+    {
+      "slug": "mh_plus_notation",
+      "difficulty": "medium",
+      "topic": "Ion notation in mass spectrometry",
+      "question": "In positive-mode mass spectrometry, what does the notation `[M+H]+` mean?\n",
+      "choices": {
+        "A": "The molecule has gained one proton and carries positive charge.",
+        "B": "The molecule has lost one proton and carries negative charge.",
+        "C": "The molecule is neutral but appears at a higher retention time.",
+        "D": "The molecule has fragmented into two equal product ions."
+      },
+      "answer": "A",
+      "explanation": "`[M+H]+` denotes the molecule M after gaining a proton, producing a positively charged ion. `[M-H]-` would indicate loss of a proton in negative mode. Retention time and fragmentation are different concepts."
+    },
+    {
+      "slug": "multiple_ions_same_molecule",
+      "difficulty": "hard",
+      "topic": "Adducts and protonation states",
+      "question": "You are doing a targeted LCMS search for a molecule with neutral mass M. You only search for the `[M+H]+` ion. The molecule is present, but the analysis fails to call a peak.\n\nWhich explanation is most consistent with the Analysis lecture?\n",
+      "choices": {
+        "A": "The compound must be absent because all molecules form `[M+H]+`.",
+        "B": "The compound may appear as another ion or adduct at the same retention time.",
+        "C": "Retention time cannot be used when any adducts are present.",
+        "D": "MS2 fragmentation always removes the need to search MS1 ions."
+      },
+      "answer": "B",
+      "explanation": "Molecules are not always observed only as `[M+H]+`. Multiple ions or adducts for the same molecule may be present at the same retention time. A is too absolute, C is false because retention time remains useful, and D overstates what MS2 can replace."
+    },
+    {
+      "slug": "ms1_vs_ms2_information",
+      "difficulty": "medium",
+      "topic": "MS1 versus MS2 spectra",
+      "question": "What additional information does MS2 usually provide compared with MS1?\n",
+      "choices": {
+        "A": "The culture condition used before extraction.",
+        "B": "The thermocycler program used for cloning.",
+        "C": "The row and column position of each sample.",
+        "D": "The fragmentation pattern of a selected ion."
+      },
+      "answer": "D",
+      "explanation": "MS1 measures ions by m/z, while MS2 selects an ion and fragments it to obtain a pattern useful for structural evidence. Culture conditions, thermocycler programs, and sample positions are metadata or build information, not the extra information from MS2."
+    },
+    {
+      "slug": "orbitrap_resolution_advantage",
+      "difficulty": "medium",
+      "topic": "High-resolution mass spectrometry",
+      "question": "What is the main advantage of higher mass resolution, such as in an Orbitrap measurement?\n",
+      "choices": {
+        "A": "It guarantees that every peak has the correct biological annotation.",
+        "B": "It distinguishes ions with very similar m/z values more reliably.",
+        "C": "It replaces chromatography because retention time becomes useless.",
+        "D": "It makes neutral compounds visible without ionization or adducts."
+      },
+      "answer": "B",
+      "explanation": "Higher mass resolution helps separate ions whose m/z values are close together. It improves evidence for compound identity but does not guarantee annotation, replace chromatography, or remove the need for ionization."
+    },
+    {
+      "slug": "peak_calling_against_standard",
+      "difficulty": "hard",
+      "topic": "Peak detection and standards",
+      "question": "A standard for compound X produces a sharp LCMS peak at 5.2 minutes for an expected ion. An experimental sample has a weak signal at the same m/z but no local maximum near 5.2 minutes after smoothing. What is the safest peak-calling conclusion?\n",
+      "choices": {
+        "A": "Call X present because the expected m/z appears somewhere.",
+        "B": "Call X present because standards make MS2 unnecessary.",
+        "C": "Do not call X confidently without a matching peak shape and time.",
+        "D": "Ignore retention time because only mass matters in LCMS."
+      },
+      "answer": "C",
+      "explanation": "A reliable peak call usually needs more than an m/z match. Retention time, peak shape, signal above background, and comparison to standards all matter. A and D ignore chromatography, and B overstates what a standard does."
+    }
+  ],
+  "metabolomics_inference_for_pathways": [
+    {
+      "slug": "targeted_vs_untargeted_use",
+      "difficulty": "easy",
+      "topic": "Targeted versus untargeted metabolomics",
+      "question": "Which statement best distinguishes targeted from untargeted metabolomics in the pathway-analysis setting?\n",
+      "choices": {
+        "A": "Targeted analysis uses only gels; untargeted analysis uses only sequencing.",
+        "B": "Targeted analysis ignores standards entirely; untargeted analysis requires a complete standard set.",
+        "C": "Targeted analysis measures known chemicals; untargeted analysis tries to infer unknowns.",
+        "D": "Targeted analysis measures DNA levels; untargeted analysis measures protein abundance."
+      },
+      "answer": "C",
+      "explanation": "Targeted metabolomics starts with known chemicals of interest and asks whether they are present. Untargeted metabolomics tries to infer compounds from the data more broadly. The other options confuse metabolomics with unrelated assays or overstate the role of standards."
+    },
+    {
+      "slug": "chemicals_of_interest_definition",
+      "difficulty": "medium",
+      "topic": "Chemicals of interest for pathway testing",
+      "question": "In the Analysis lecture, why define a set of Chemicals of Interest before analyzing LCMS or GCMS data?\n",
+      "choices": {
+        "A": "To avoid collecting retention-time information from the instrument.",
+        "B": "To target analysis toward metabolites explainable by the pathway model.",
+        "C": "To replace the need for biological controls in every experiment.",
+        "D": "To guarantee that every unknown metabolite will be identified."
+      },
+      "answer": "B",
+      "explanation": "Chemicals of Interest are molecules whose presence is explainable according to the biochemical model. They include pathway intermediates, products, side-products, by-products, and native metabolites with altered levels. This focuses the analysis but does not replace controls or guarantee annotation of all unknowns."
+    },
+    {
+      "slug": "feeding_experiment_positive_control",
+      "difficulty": "medium",
+      "topic": "Feeding experiments as observability controls",
+      "question": "Why would the Analysis lecture grow wildtype cells in the presence of a Chemical of Interest?\n",
+      "choices": {
+        "A": "To prove that the wildtype strain already contains every heterologous pathway gene.",
+        "B": "To force the wildtype strain to permanently synthesize the pathway chemical.",
+        "C": "To confirm the experiment no longer needs external standards for quantification.",
+        "D": "To verify that the chemical is stable and observable in the LCMS workflow."
+      },
+      "answer": "D",
+      "explanation": "Feeding a chemical to wildtype cells provides information about whether it survives the biological context and can be observed by the instrument. This helps interpret absence in engineered strains. It does not prove genotype, create a permanent biosynthetic pathway, or remove the value of standards."
+    },
+    {
+      "slug": "bottleneck_from_paba_feed",
+      "difficulty": "hard",
+      "topic": "Inferring pathway bottlenecks from feeding experiments",
+      "question": "A pathway is intended to convert chorismate to PABA, then to p-aminophenol, then to acetaminophen. Engineered cells produce little acetaminophen without feeding, but acetaminophen signal increases strongly when PABA is fed at high concentration.\n\nWhat is the most reasonable inference?\n",
+      "choices": {
+        "A": "The pathway downstream of PABA can function under the assay conditions.",
+        "B": "The LCMS instrument cannot detect acetaminophen in this experiment.",
+        "C": "PABA feeding proves the final enzyme is inactive in the strain.",
+        "D": "Chorismate must be chemically identical to acetaminophen."
+      },
+      "answer": "A",
+      "explanation": "If feeding PABA increases acetaminophen, then the downstream steps from PABA to acetaminophen can function at least under that condition. The bottleneck is more likely upstream of PABA or in PABA supply. The result does not imply the product is undetectable, that the final enzyme is inactive, or that chorismate and acetaminophen are the same molecule."
+    },
+    {
+      "slug": "on_pathway_metabolites",
+      "difficulty": "medium",
+      "topic": "On-pathway metabolite labels",
+      "question": "What makes a metabolite \"on-pathway\" in the pathway-analysis framework from the lecture?\n",
+      "choices": {
+        "A": "It is any compound that appears in a commercial standard database.",
+        "B": "It has the same retention time as every molecule in the sample.",
+        "C": "It contains carbon from the starting material along the modeled route.",
+        "D": "It is always native to the host before engineering begins."
+      },
+      "answer": "C",
+      "explanation": "On-pathway metabolites are related to the modeled conversion from starting material to product and contain carbon from that route. They may be native, overexpressed, or novel. Being purchasable or native is not sufficient, and retention time alone does not define pathway membership."
+    },
+    {
+      "slug": "side_product_definition",
+      "difficulty": "medium",
+      "topic": "Side-products in synthetic pathways",
+      "question": "Which example best matches the lecture definition of a side-product?\n",
+      "choices": {
+        "A": "A native enzyme modifies a novel pathway intermediate.",
+        "B": "A plasmid fails sequencing after a miniprep.",
+        "C": "A standard gives a strong peak at its retention time.",
+        "D": "A thermocycler program uses the wrong annealing temperature."
+      },
+      "answer": "A",
+      "explanation": "A side-product can arise when a native enzyme acts on a novel metabolite, diverting carbon away from the desired product. The other choices describe DNA verification, analytical standards, or cloning conditions rather than metabolic side-products."
+    },
+    {
+      "slug": "by_product_definition",
+      "difficulty": "medium",
+      "topic": "By-products from introduced enzymes",
+      "question": "Which scenario best matches the lecture definition of a by-product?\n",
+      "choices": {
+        "A": "A native enzyme in the host degrades a fed chemical before LCMS injection.",
+        "B": "An introduced enzyme converts an unintended substrate into a novel unintended product.",
+        "C": "A chromatography column resolves two on-pathway compounds with different retention times.",
+        "D": "A PCR product is introduced into cells before ligation or sequencing verification."
+      },
+      "answer": "B",
+      "explanation": "A by-product can occur when one of the introduced enzymes acts on a native or novel metabolite and generates an unintended novel product. This can cause toxicity, deplete native metabolites, or lose carbon from the intended product route. The other choices refer to degradation, measurement, or construction errors."
+    },
+    {
+      "slug": "peak_report_inference",
+      "difficulty": "hard",
+      "topic": "Inferring enzyme function from peak-call tables",
+      "question": "A peak-call table for an unfed experiment shows:\n\n```\nchemical          standard   wt      pAPAP0\nPABA              TRUE       FALSE   TRUE\np-aminophenol     TRUE       null    TRUE\nacetaminophen     TRUE       FALSE   TRUE\nacedoben          TRUE       FALSE   TRUE\n```\n\nWhat conclusion is best supported?\n",
+      "choices": {
+        "A": "The wildtype strain produces the same acetaminophen signal as pAPAP0.",
+        "B": "The standard column proves that pAPAP0 expresses no pathway enzymes.",
+        "C": "The null value means p-aminophenol is chemically impossible to detect.",
+        "D": "The engineered strain shows pathway product and a possible side-product signal."
+      },
+      "answer": "D",
+      "explanation": "Acetaminophen is called in pAPAP0 but not wildtype, supporting engineered pathway activity. Acedoben is also called in pAPAP0 but not wildtype, consistent with a possible side-product. The table does not show wildtype acetaminophen production, the standard column does not measure expression, and null means no confident call rather than chemical impossibility."
+    }
+  ],
+  "molecular_representations": [
+    {
+      "slug": "molecular_graph_edges",
+      "difficulty": "easy",
+      "topic": "Molecules as graphs",
+      "question": "In a graph representation of a molecule, what do the nodes and edges usually represent?\n",
+      "choices": {
+        "A": "Nodes are bonds, and edges are atoms.",
+        "B": "Nodes are pathways, and edges are enzymes.",
+        "C": "Nodes are spectra, and edges are peaks.",
+        "D": "Nodes are atoms, and edges are bonds."
+      },
+      "answer": "D",
+      "explanation": "In a molecular graph, atoms are represented as nodes and bonds are represented as edges. This graph model is what allows cheminformatics tools to convert between representations such as SMILES and InChI. The other options describe unrelated biological or analytical objects."
+    },
+    {
+      "slug": "smiles_vs_inchi_readability",
+      "difficulty": "easy",
+      "topic": "SMILES and InChI serializations",
+      "question": "Why might a person prefer SMILES over InChI when writing a molecule by hand?\n",
+      "choices": {
+        "A": "SMILES directly encodes reaction rates for enzymes.",
+        "B": "SMILES is more human-readable and writable.",
+        "C": "SMILES guarantees one unique string per molecule.",
+        "D": "SMILES removes the need for a molecular graph."
+      },
+      "answer": "B",
+      "explanation": "SMILES is designed to be relatively human-readable and writable. InChI is useful because it is deterministic and behaves more like a structural identifier, but it is not usually convenient to write manually. Neither format directly encodes reaction rates, and both can be interpreted through molecular graphs."
+    },
+    {
+      "slug": "inchi_deterministic_identifier",
+      "difficulty": "medium",
+      "topic": "Deterministic chemical identifiers",
+      "question": "In the Atoms and Bits lecture, InChI was compared to a hash code of a chemical structure. What was the point of that comparison?\n",
+      "choices": {
+        "A": "InChI is mainly used for robotic pipetting instructions.",
+        "B": "InChI is easier than SMILES for humans to sketch by hand.",
+        "C": "InChI is deterministic for a concrete chemical structure.",
+        "D": "InChI stores LCMS retention time for each molecule."
+      },
+      "answer": "C",
+      "explanation": "The lecture contrasts SMILES as human-readable and writable with InChI as more deterministic, like a structural identifier. InChI is not a robot protocol, not generally easier to handwrite, and does not store chromatographic retention times."
+    },
+    {
+      "slug": "implicit_hydrogens_in_smiles",
+      "difficulty": "medium",
+      "topic": "Explicit and implicit hydrogens",
+      "question": "A SMILES string omits most hydrogens bonded to carbon. Why is this usually acceptable for concrete molecules?\n",
+      "choices": {
+        "A": "Carbon atoms never bind hydrogen in organic molecules.",
+        "B": "Hydrogen positions are inferred from normal valence rules.",
+        "C": "Hydrogens are ignored because they do not affect mass.",
+        "D": "SMILES represents only heavy atoms and no bonds."
+      },
+      "answer": "B",
+      "explanation": "In SMILES for concrete molecules, many hydrogens can be inferred from atom type, charge, bond order, and normal valence. Hydrogens still matter chemically and for mass, but they do not always need to be written explicitly. SMILES still represents bonds and molecular connectivity."
+    },
+    {
+      "slug": "acetone_smiles_interpretation",
+      "difficulty": "medium",
+      "topic": "Interpreting simple SMILES strings",
+      "question": "What molecular structure is represented by the SMILES string below?\n\n```\nCC(=O)C\n```\n",
+      "choices": {
+        "A": "A three-carbon ketone with a central carbonyl.",
+        "B": "A two-carbon alcohol with a terminal hydroxyl.",
+        "C": "A benzene ring with one carboxylic acid group.",
+        "D": "A four-carbon ester with two oxygen atoms."
+      },
+      "answer": "A",
+      "explanation": "`CC(=O)C` represents acetone: a three-carbon molecule whose central carbon is double-bonded to oxygen and single-bonded to two methyl groups. The other choices describe ethanol-like alcohols, benzoic acid, or an ester rather than acetone."
+    },
+    {
+      "slug": "markush_representation",
+      "difficulty": "medium",
+      "topic": "Abstract chemical representations",
+      "question": "Why are Markush structures useful in biochemical or chemical data models?\n",
+      "choices": {
+        "A": "They represent only one exact molecule with fixed stereochemistry.",
+        "B": "They replace the need to conserve atoms in reactions.",
+        "C": "They describe families of related molecules using variable groups.",
+        "D": "They store instrument-specific LCMS acquisition parameters."
+      },
+      "answer": "C",
+      "explanation": "Markush structures represent a family of molecules that share a common core but vary at one or more positions. This makes them useful for abstract chemicals or chemical classes. They are not single fully specified structures, and they do not remove chemical constraints or store instrument settings."
+    },
+    {
+      "slug": "racemic_alanine_concreteness",
+      "difficulty": "hard",
+      "topic": "Concrete versus abstract molecules",
+      "question": "Why is racemic alanine not a single concrete molecular structure in the same sense as one specified alanine enantiomer?\n",
+      "choices": {
+        "A": "It contains no atoms that can be represented as graph nodes.",
+        "B": "It cannot be written using any chemical notation at all.",
+        "C": "It has no bonds between atoms in its molecular graph.",
+        "D": "It describes a mixture rather than one specified stereochemical structure."
+      },
+      "answer": "D",
+      "explanation": "Racemic alanine describes a mixture of alanine enantiomers rather than one fully specified stereochemical structure. Each enantiomer can be concrete, but the racemic description is not a single specified molecule. The molecule still has atoms, bonds, and possible notations."
+    },
+    {
+      "slug": "tautomer_standardization",
+      "difficulty": "hard",
+      "topic": "Standardizing chemically equivalent representations",
+      "question": "A synthesis algorithm stores one molecule in its enol form and another database stores the equivalent keto form. What problem can this create if structures are not standardized?\n",
+      "choices": {
+        "A": "The algorithm may fail to recognize equivalent chemicals as matching.",
+        "B": "The algorithm must convert every reaction into a PCR protocol.",
+        "C": "The molecule will lose all stereochemical information permanently.",
+        "D": "The molecule cannot be represented by any graph or string."
+      },
+      "answer": "A",
+      "explanation": "Tautomers can be different representations of related or equivalent chemical forms. If a synthesis algorithm does not standardize these representations, it may treat the same chemical entity as different entries and miss matches between reactions, metabolites, or products. The other options introduce unrelated or overly absolute claims."
+    }
+  ],
+  "rdkit_and_molecular_operations": [
+    {
+      "slug": "molecular_graph_utility",
+      "difficulty": "easy",
+      "topic": "RDKit as a chemoinformatics library",
+      "question": "Why is representing a molecule as a graph — atoms as nodes, bonds as edges — useful for computation?\n",
+      "choices": {
+        "A": "It enables structural queries and edits using graph algorithms.",
+        "B": "It encodes thermodynamic stability as a property of the node weights.",
+        "C": "It stores 3D atomic coordinates in a memory-efficient format.",
+        "D": "It assigns each molecule a unique integer ID for database lookup."
+      },
+      "answer": "A",
+      "explanation": "The graph model directly supports substructure search (subgraph isomorphism), neighbor traversal, bond editing, and property calculation from connectivity. Unique database IDs require canonicalization beyond the graph itself; thermodynamic stability cannot be read off graph topology alone; and 3D coordinates require a separate embedding step that the graph does not provide."
+    },
+    {
+      "slug": "smiles_multiple_valid_strings",
+      "difficulty": "easy",
+      "topic": "Importing and exporting molecular structures",
+      "question": "The SMILES strings `CCO` and `OCC` both represent ethanol. What does this illustrate about SMILES?\n",
+      "choices": {
+        "A": "SMILES must always be canonicalized before it encodes a valid molecule.",
+        "B": "Molecular formula is the only property SMILES reliably encodes.",
+        "C": "SMILES can start from any atom, so the same molecule has many valid strings.",
+        "D": "Two SMILES with the same atoms always represent the same constitutional isomer."
+      },
+      "answer": "C",
+      "explanation": "SMILES traverses the molecular graph starting from any atom in any order, producing different but equivalent strings for the same molecule. This is why canonicalization exists — to produce one consistent string per structure. D is wrong because different constitutional isomers can have identical atom counts (ethanol and dimethyl ether are both C2H6O but have different connectivity)."
+    },
+    {
+      "slug": "implicit_hydrogens_query_mismatch",
+      "difficulty": "medium",
+      "topic": "Making hydrogens explicit in RDKit",
+      "question": "In a molecular graph with implicit hydrogens, hydrogen count is inferred from valence rather than stored as nodes. Why does this matter when writing a substructure query?\n",
+      "choices": {
+        "A": "Implicit hydrogens are counted twice during molecular weight calculations.",
+        "B": "A query specifying an explicit hydrogen neighbor will not match a graph where that hydrogen is implicit.",
+        "C": "Substructure queries skip all carbon atoms that carry any implicit hydrogens.",
+        "D": "Implicit hydrogens prevent a molecule from being serialized back to SMILES."
+      },
+      "answer": "B",
+      "explanation": "Substructure matching works on graph nodes. A query atom that requires a hydrogen neighbor will only match if that hydrogen exists as an explicit node in the target graph. When hydrogens are implicit — present in the valence count but absent as nodes — the query sees no hydrogen node and the match fails. Making hydrogens explicit before searching is one way to resolve this."
+    },
+    {
+      "slug": "rdkit_computable_properties",
+      "difficulty": "medium",
+      "topic": "RDKit as a chemoinformatics library",
+      "question": "Which of the following can RDKit compute directly from a Mol object?\n",
+      "choices": {
+        "A": "The Gibbs free energy of formation at physiological temperature.",
+        "B": "The enzyme Km for the molecule as a substrate.",
+        "C": "The LCMS retention time under reverse-phase conditions.",
+        "D": "The molecular formula and exact molecular weight."
+      },
+      "answer": "D",
+      "explanation": "RDKit computes many descriptors from the molecular graph alone: formula, exact mass, heavy atom count, ring count, estimated logP, and others. It cannot predict thermodynamic free energies, enzyme kinetics, or chromatographic retention times — those require experimental data or specialized simulation tools outside RDKit."
+    },
+    {
+      "slug": "kekulize_effect",
+      "difficulty": "medium",
+      "topic": "Aromatization and molecular standardization",
+      "question": "A molecule is loaded from the SMILES `c1ccccc1`. A student then calls `Chem.Kekulize(mol)`. What changes in the Mol object?\n",
+      "choices": {
+        "A": "Aromatic bonds are replaced by alternating single and double bonds.",
+        "B": "The aromatic ring is opened into a linear carbon chain.",
+        "C": "All hydrogen atoms are removed from the molecular graph.",
+        "D": "The molecule gains a 3D conformation with optimized bond lengths."
+      },
+      "answer": "A",
+      "explanation": "Kekulization converts aromatic bond types into an explicit alternating single/double bond structure. The ring remains a ring; no atoms are added or removed; and this operation is entirely unrelated to 3D geometry. It matters when downstream tools or reaction rules require explicit bond orders rather than the aromatic bond type."
+    },
+    {
+      "slug": "compute2dcoords",
+      "difficulty": "medium",
+      "topic": "Operations on RDKit Mol objects",
+      "question": "A student loads a molecule from SMILES and tries to draw it, but RDKit reports that the atoms have no coordinates. What should the student call?\n",
+      "choices": {
+        "A": "`Chem.MolToSmiles(mol)` — SMILES export assigns coordinates as a side effect.",
+        "B": "`Chem.GetSSSR(mol)` — ring detection also generates Cartesian positions.",
+        "C": "`Chem.AddHs(mol)` — adding hydrogens triggers automatic coordinate assignment.",
+        "D": "`AllChem.Compute2DCoords(mol)` — this assigns 2D positions to each atom."
+      },
+      "answer": "D",
+      "explanation": "SMILES strings do not encode coordinates, so a freshly parsed Mol has none. AllChem.Compute2DCoords() runs a 2D layout algorithm and writes x/y positions to each atom, enabling visualization. MolToSmiles() produces a string without coordinates; GetSSSR() finds ring systems; and AddHs() adds hydrogen nodes but does not compute positions."
+    },
+    {
+      "slug": "fingerprint_use",
+      "difficulty": "medium",
+      "topic": "RDKit as a chemoinformatics library",
+      "question": "What is a molecular fingerprint in RDKit primarily used for?\n",
+      "choices": {
+        "A": "Generating a SMILES string from an undeciphered fragment spectrum.",
+        "B": "Applying a SMIRKS reaction rule to enumerate product structures.",
+        "C": "Computing a numerical similarity score between two molecules.",
+        "D": "Assigning atom map numbers to track atoms across a reaction step."
+      },
+      "answer": "C",
+      "explanation": "Fingerprints encode structural features as bit vectors. Two molecules can be compared using Tanimoto or similar metrics on their fingerprints to produce a numerical similarity score. They are not used for SMILES generation, reaction enumeration (that is SMIRKS and RunReactants), or atom mapping."
+    },
+    {
+      "slug": "rdkit_graph_result_limits",
+      "difficulty": "hard",
+      "topic": "RDKit as a chemoinformatics library",
+      "question": "A pathway design tool uses RDKit to apply a reaction operator and obtains a product Mol object. Which conclusion is supported by this result alone?\n",
+      "choices": {
+        "A": "The enzyme that catalyzes this step will be expressible in the host organism.",
+        "B": "The structural transformation is consistent with the encoded reaction rule.",
+        "C": "The product will be stable enough to accumulate under physiological conditions.",
+        "D": "The reaction will proceed faster than competing pathways in the cell."
+      },
+      "answer": "B",
+      "explanation": "RDKit performs a graph transformation: it checks whether the substrate matches the reaction pattern and applies the encoded bond changes to produce a product graph. This confirms the transformation is consistent with the rule as written. Whether the enzyme is expressible, the product is stable, or the reaction outcompetes alternatives are biological and thermodynamic questions requiring expression data, stability assays, and kinetic modeling — none of which RDKit provides."
+    }
+  ],
+  "reachability_and_bfs_synthesis": [
+    {
+      "slug": "bottom_up_synthesis_approach",
+      "difficulty": "easy",
+      "topic": "Bottom-up pathway synthesis",
+      "question": "What distinguishes the Act Synthesizer-style approach from classical retrobiosynthesis?\n",
+      "choices": {
+        "A": "It begins with LCMS peaks and assigns them to unknown molecules.",
+        "B": "It simulates transcriptional noise in a genetic toggle switch.",
+        "C": "It starts from native metabolites and enumerates reachable products.",
+        "D": "It designs primers for every possible CRISPR targeting plasmid."
+      },
+      "answer": "C",
+      "explanation": "The synthesis approach in the lecture is bottom-up: start with a source strain's native or available metabolites, then enumerate chemicals that become reachable through known or hypothesized enzymatic reactions. Retrobiosynthesis more typically starts with a target product and works backward."
+    },
+    {
+      "slug": "native_metabolites_shell_zero",
+      "difficulty": "easy",
+      "topic": "Native metabolites as starting points",
+      "question": "In the synthesis expansion, why are native metabolites assigned to shell 0?\n",
+      "choices": {
+        "A": "They are starting chemicals available before adding enzymes.",
+        "B": "They are products that require exactly one new enzyme.",
+        "C": "They are excluded from the pathway synthesis algorithm.",
+        "D": "They are detected only after LCMS peak annotation."
+      },
+      "answer": "A",
+      "explanation": "Shell 0 contains the metabolites already available in the modeled source strain or medium. The expansion starts from these chemicals and adds new products when reactions become enabled. Native metabolites are not one-step products, excluded chemicals, or LCMS-only observations."
+    },
+    {
+      "slug": "reaction_enabled_condition",
+      "difficulty": "medium",
+      "topic": "Enabling reactions during shell expansion",
+      "question": "During synthesis expansion, when should a reaction be considered enabled?\n",
+      "choices": {
+        "A": "When its products have already been assigned to shell 0.",
+        "B": "When the reaction has the largest thermodynamic driving force.",
+        "C": "When its enzyme has the highest measured expression level.",
+        "D": "When all required substrates are currently reachable."
+      },
+      "answer": "D",
+      "explanation": "A reaction is enabled when the metabolites required on the substrate side are available in the reachable set. The basic expansion described in the lecture is about reachability, not ranking by thermodynamics or expression level."
+    },
+    {
+      "slug": "chemical_to_shell_map",
+      "difficulty": "medium",
+      "topic": "Chemical-to-shell maps",
+      "question": "In a HyperGraph expansion, what does the chemicalToShell map store?\n",
+      "choices": {
+        "A": "The enzyme that gives the highest product yield.",
+        "B": "The LCMS retention time for each chemical standard.",
+        "C": "The shell in which each chemical is first reached.",
+        "D": "The plasmid location that encodes each enzyme."
+      },
+      "answer": "C",
+      "explanation": "The chemicalToShell map associates each reachable chemical with the expansion shell in which it first becomes available. It is a bookkeeping structure for reachability. It does not store enzyme yield, LCMS retention time, or plasmid inventory location."
+    },
+    {
+      "slug": "reaction_to_shell_map",
+      "difficulty": "medium",
+      "topic": "Reaction-to-shell maps",
+      "question": "What does the reactionToShell map represent in the synthesis expansion?\n",
+      "choices": {
+        "A": "The order in which reactions were originally discovered experimentally.",
+        "B": "The shell in which each reaction first becomes enabled.",
+        "C": "The concentration change caused by each kinetic reaction.",
+        "D": "The antibiotic resistance marker linked to each enzyme."
+      },
+      "answer": "B",
+      "explanation": "reactionToShell records when reactions first become enabled during expansion. This is different from historical discovery order, kinetic concentration changes, or genetic construction metadata."
+    },
+    {
+      "slug": "shell_number_minimum_steps",
+      "difficulty": "medium",
+      "topic": "Shell number and minimal reaction distance",
+      "question": "A chemical is first reached at shell 6 in a breadth-first synthesis expansion. What is the best interpretation?\n",
+      "choices": {
+        "A": "It appears in exactly six different alternative pathways.",
+        "B": "It must be produced by six enzymes acting in a single reaction.",
+        "C": "It has six LCMS peaks at distinct retention times.",
+        "D": "It requires at least six reaction steps from shell-0 metabolites."
+      },
+      "answer": "D",
+      "explanation": "In breadth-first expansion, the shell number corresponds to the minimum number of reaction steps needed to reach the chemical from the starting metabolites under the model assumptions. It is not a count of alternate pathways, enzymes in one reaction, or LCMS peaks."
+    },
+    {
+      "slug": "reachable_not_pathway",
+      "difficulty": "hard",
+      "topic": "Reachables versus explicit pathways",
+      "question": "The synthesizer has produced a file of L2 reachables. Why is that not yet enough to build a strain design?\n",
+      "choices": {
+        "A": "Reachables are only LCMS contaminants and not pathway products.",
+        "B": "Reachables list destinations but not necessarily routes or enzyme compositions.",
+        "C": "Reachables contain no chemicals that can be synthesized biologically.",
+        "D": "Reachables already include every possible optimized construct design."
+      },
+      "answer": "B",
+      "explanation": "The reachable list says which chemicals can be reached by the expansion, but it does not by itself enumerate the specific routes, pathway graphs, or enzyme compositions needed to build a strain. Traceback is needed to recover cascades and pathways."
+    },
+    {
+      "slug": "simple_reaction_network_reachability",
+      "difficulty": "hard",
+      "topic": "Reasoning through enabled reactions",
+      "question": "Metabolites A, X, W, Y, and Z are available in shell 0. The reaction corpus contains:\n\n```\n1: A + X -> B + Y\n2: A -> F\n3: B -> C\n4: C + W -> D + Z\n```\n\nWhich reactions must be introduced to enable biosynthesis of D from the available metabolites?\n",
+      "choices": {
+        "A": "Reactions 1, 3, and 4.",
+        "B": "Reactions 2, 3, and 4.",
+        "C": "Reactions 1, 2, and 4.",
+        "D": "Reactions 1, 2, 3, and 4."
+      },
+      "answer": "A",
+      "explanation": "Reaction 1 converts available A and X into B. Reaction 3 converts B into C. Reaction 4 uses C and available W to make D. Reaction 2 makes F and does not contribute to D in this network, so it is unnecessary for the D pathway."
+    }
+  ],
+  "pathway_selection_and_constraints": [
+    {
+      "slug": "reachable_list_limit",
+      "difficulty": "easy",
+      "topic": "Reachables are not complete designs",
+      "question": "After a synthesis expansion, the program outputs a list of reachable chemicals. What is the main limitation of this output?\n",
+      "choices": {
+        "A": "It lists final destinations but not the specific routes to each product.",
+        "B": "It contains only chemicals that were confirmed by LCMS standards.",
+        "C": "It stores primer sequences for constructing every pathway gene.",
+        "D": "It ranks pathways by expected yield in the engineered strain."
+      },
+      "answer": "A",
+      "explanation": "A reachable list tells us which metabolites can be reached from the starting set under the model, but it does not by itself provide pathways, enzyme choices, or construct designs. It is useful for target selection, but traceback is needed to recover routes."
+    },
+    {
+      "slug": "cascade_vs_pathway_scope",
+      "difficulty": "easy",
+      "topic": "Cascades versus pathways",
+      "question": "How does a Cascade differ from a Pathway in the synthesis lecture?\n",
+      "choices": {
+        "A": "A Pathway is all possible routes; a Cascade is one route.",
+        "B": "A Cascade is all routes; a Pathway is one specific route.",
+        "C": "A Cascade is experimental; a Pathway is computational only.",
+        "D": "A Pathway excludes native metabolites; a Cascade requires them."
+      },
+      "answer": "B",
+      "explanation": "A Cascade collects the possible routes to a product, while a Pathway is a single directed route from starting metabolites to product. The distinction matters because a target can have multiple possible routes, only one of which may become the design objective."
+    },
+    {
+      "slug": "traceback_purpose",
+      "difficulty": "medium",
+      "topic": "Traceback from reachable products",
+      "question": "Why is traceback needed after identifying a reachable target chemical?\n",
+      "choices": {
+        "A": "To convert LCMS spectra into m/z values.",
+        "B": "To find the reactions that can form the target.",
+        "C": "To choose thermocycler settings for PCR.",
+        "D": "To remove all native metabolites from the model."
+      },
+      "answer": "B",
+      "explanation": "Traceback follows reaction data backward from the reachable product to determine the routes that can form it. This moves from a final destination to a cascade and then to possible pathways. It is not an LCMS, PCR, or metabolite-removal step."
+    },
+    {
+      "slug": "pathway_as_design_objective",
+      "difficulty": "medium",
+      "topic": "Pathways as design objectives",
+      "question": "Why does the lecture say a Pathway ultimately becomes the design objective?\n",
+      "choices": {
+        "A": "A Pathway can be mapped to enzymes, a composition, a construct, and DNA.",
+        "B": "A Pathway directly stores the freezer location of each strain sample.",
+        "C": "A Pathway replaces the need to choose enzymes for its reactions.",
+        "D": "A Pathway guarantees that the target product will be detected by LCMS."
+      },
+      "answer": "A",
+      "explanation": "A pathway is a specific route made of reactions connecting metabolites. Once a route is selected, each reaction can be concretized with an enzyme, giving a composition and eventually a construct and DNA. A pathway does not store inventory, remove enzyme-choice work, or guarantee measurement success."
+    },
+    {
+      "slug": "cascade_memory_constraint",
+      "difficulty": "medium",
+      "topic": "Enumerating pathways from cascades",
+      "question": "Why might a synthesizer compute a Cascade but avoid explicitly enumerating every Pathway in it?\n",
+      "choices": {
+        "A": "Pathways cannot be represented as directed graphs of metabolites.",
+        "B": "Every Cascade contains exactly one Pathway by definition.",
+        "C": "The Cascade may contain too many possible routes to enumerate practically.",
+        "D": "Enumerating pathways would make the target chemically unreachable."
+      },
+      "answer": "C",
+      "explanation": "A cascade can encode many possible routes to a product. Enumerating every pathway and every composition can become impractical because of memory and combinatorial constraints. Pathways can be represented as directed graphs, and cascades do not contain exactly one route."
+    },
+    {
+      "slug": "shortest_path_not_always_best",
+      "difficulty": "hard",
+      "topic": "Pathway selection beyond shortest route",
+      "question": "A target chemical has two possible pathways. Pathway 1 uses two reactions but requires an enzyme with no known functional expression in the host. Pathway 2 uses four reactions with enzymes that are well characterized in the host.\n\nWhat is the best interpretation?\n",
+      "choices": {
+        "A": "Pathway 1 must be selected because it has fewer reaction steps.",
+        "B": "Both pathways must be discarded because neither is native.",
+        "C": "The cascade cannot contain pathways of different lengths.",
+        "D": "Pathway 2 may be more practical despite using more reactions."
+      },
+      "answer": "D",
+      "explanation": "Shortest reaction distance is useful, but it is not the only design criterion. A pathway also needs enzymes that can be expressed and function in the host. A longer pathway with well-characterized enzymes may be the better design objective. The other options treat shell distance too rigidly."
+    },
+    {
+      "slug": "enzyme_concretization_layer",
+      "difficulty": "medium",
+      "topic": "Concretizing reactions with enzymes",
+      "question": "A pathway contains a reaction that converts metabolite B to metabolite C. What additional design step is still needed before building DNA?\n",
+      "choices": {
+        "A": "Delete the substrate metabolite from the pathway graph.",
+        "B": "Convert the product into a chromatographic retention time.",
+        "C": "Choose or define an enzyme that can catalyze that reaction.",
+        "D": "Replace every reaction with a PCR thermocycler program."
+      },
+      "answer": "C",
+      "explanation": "A pathway specifies reactions and metabolites, but a strain design needs enzymes or genetic devices to implement those reactions. Concretizing reactions with appropriate enzymes is an additional layer after pathway enumeration."
+    },
+    {
+      "slug": "multiple_routes_same_product",
+      "difficulty": "hard",
+      "topic": "Selecting one pathway from a cascade",
+      "question": "A Cascade for product P includes:\n\n```\nRoute 1: A -> B -> P\nRoute 2: A -> C -> D -> P\nRoute 3: A -> E -> P\n```\n\nYou want a single Pathway for a first prototype. Which statement is most accurate?\n",
+      "choices": {
+        "A": "The Cascade itself is already the single Pathway to build.",
+        "B": "Route 2 is invalid because it has more than two reactions.",
+        "C": "Route 3 must be used because it is listed last.",
+        "D": "Route selection is needed before choosing the composition."
+      },
+      "answer": "D",
+      "explanation": "A cascade mixes possible routes to a product. To build a prototype, one route must be selected as the pathway objective, and then reactions can be concretized into enzymes and a composition. Route length alone does not make a route invalid, and list order is not a design criterion."
+    }
+  ],
+  "smarts_smirks_and_reaction_operators": [
+    {
+      "slug": "smiles_smarts_smirks_roles",
+      "difficulty": "easy",
+      "topic": "Distinguishing SMILES, SMARTS, and SMIRKS",
+      "question": "Which statement best distinguishes SMILES, SMARTS, and SMIRKS?\n",
+      "choices": {
+        "A": "SMILES describes enzymes, SMARTS describes proteins, and SMIRKS describes plasmids.",
+        "B": "SMILES describes kinetics, SMARTS describes equilibria, and SMIRKS describes fluxes.",
+        "C": "SMILES describes structures, SMARTS describes patterns, and SMIRKS describes transformations.",
+        "D": "SMILES describes spectra, SMARTS describes peaks, and SMIRKS describes standards."
+      },
+      "answer": "C",
+      "explanation": "SMILES is used for concrete molecular structures, SMARTS is used for substructure patterns, and SMIRKS is used for reaction transformations. The other choices confuse chemoinformatics notations with biological, kinetic, or analytical concepts."
+    },
+    {
+      "slug": "smarts_substructure_search",
+      "difficulty": "easy",
+      "topic": "SMARTS as substructure pattern matching",
+      "question": "What is a SMARTS pattern primarily used for in the Synthesis II workflow?\n",
+      "choices": {
+        "A": "Finding substructures within molecular graphs.",
+        "B": "Choosing a thermocycler program for PCR.",
+        "C": "Measuring product concentration by LCMS.",
+        "D": "Ranking constructs by colony color."
+      },
+      "answer": "A",
+      "explanation": "SMARTS extends SMILES-like syntax for molecular pattern matching. It can specify atom properties, bond patterns, wildcards, and logical constraints. It is not a wetlab protocol, LCMS measurement, or colony-screening method."
+    },
+    {
+      "slug": "smirks_reaction_transform",
+      "difficulty": "medium",
+      "topic": "SMIRKS as a reaction transformation rule",
+      "question": "What does a SMIRKS expression such as the one below represent?\n\n```\n[N:1]([H:2])[H] >> [N:1]([H:2])C(=O)C\n```\n",
+      "choices": {
+        "A": "A chromatographic method for separating amines.",
+        "B": "A reaction transformation from reactant pattern to product pattern.",
+        "C": "A DNA assembly plan for inserting an acetylated promoter.",
+        "D": "A kinetic equation for the decay of an amine substrate."
+      },
+      "answer": "B",
+      "explanation": "A SMIRKS expression represents a transformation rule. The left side describes a reactant pattern and the right side describes the corresponding product pattern, with atom mappings linking atoms across the transformation. The example is not chromatography, DNA assembly, or a kinetic equation."
+    },
+    {
+      "slug": "explicit_hydrogens_in_smarts",
+      "difficulty": "medium",
+      "topic": "Explicit hydrogens in SMARTS patterns",
+      "question": "Why does a SMARTS pattern often need hydrogens written explicitly when the hydrogen is part of the intended match?\n",
+      "choices": {
+        "A": "SMARTS cannot represent heavy atoms without hydrogens attached.",
+        "B": "Hydrogens in SMARTS always indicate chromatographic retention time.",
+        "C": "SMARTS converts every implicit hydrogen into a separate enzyme.",
+        "D": "In a pattern, an omitted atom is unconstrained rather than absent."
+      },
+      "answer": "D",
+      "explanation": "In SMILES for concrete molecules, hydrogens can often be inferred from valence. In SMARTS, the notation defines a pattern rather than a fully specified molecule, so an omitted hydrogen usually means it is not constrained by the query. If the hydrogen matters, it should be explicit."
+    },
+    {
+      "slug": "smirks_atom_mapping",
+      "difficulty": "medium",
+      "topic": "Atom mapping in SMIRKS",
+      "question": "In a SMIRKS reaction operator, why are atom map numbers such as `:1` and `:2` important?\n",
+      "choices": {
+        "A": "They specify which enzyme has the highest expression in the host.",
+        "B": "They encode the LCMS retention time of the final product.",
+        "C": "They identify which atoms correspond across reactant and product sides.",
+        "D": "They choose the antibiotic used in the transform step."
+      },
+      "answer": "C",
+      "explanation": "Atom maps connect atoms on the reactant side to the corresponding atoms on the product side. This lets the rule specify what is preserved, changed, added, or deleted. The map numbers do not encode enzyme expression, LCMS data, or cloning choices."
+    },
+    {
+      "slug": "smirks_explicit_stoichiometry",
+      "difficulty": "medium",
+      "topic": "Explicit stoichiometry in SMIRKS",
+      "question": "A transformation needs two molecules of the same reactant. In SMIRKS, how should non-unit stoichiometry be represented?\n",
+      "choices": {
+        "A": "By relying on the enzyme name to imply stoichiometry.",
+        "B": "By storing stoichiometry only in the SMILES product.",
+        "C": "By omitting one reactant because SMIRKS is abstract.",
+        "D": "By repeating the required reactant in the expression."
+      },
+      "answer": "D",
+      "explanation": "The Synthesis II slides describe SMIRKS stoichiometry as explicit: if non-unit stoichiometry is desired, reactants or products must be repeated. Stoichiometry should not be hidden in an enzyme name, a product-only string, or an omission."
+    },
+    {
+      "slug": "reaction_operator_projection",
+      "difficulty": "hard",
+      "topic": "Projecting reaction operators onto molecules",
+      "question": "A reaction operator is projected onto a substrate molecule in RDKit. The substrate contains two independent substructures that both match the operator's reactant pattern.\n\nWhat should you expect the projection step to consider?\n",
+      "choices": {
+        "A": "Only the product from the first atom in the SMILES string.",
+        "B": "Possible products from each valid match of the pattern.",
+        "C": "The final LCMS annotation for every possible product.",
+        "D": "The host strain that best expresses the enzyme."
+      },
+      "answer": "B",
+      "explanation": "Projecting a reaction operator applies the transformation rule wherever the reactant pattern matches the substrate. Multiple matches can therefore lead to multiple possible products or product sets. RDKit does not automatically validate LCMS annotations or choose host strains."
+    },
+    {
+      "slug": "alcohol_oxidation_smirks",
+      "difficulty": "hard",
+      "topic": "Interpreting a SMIRKS transformation chemically",
+      "question": "What chemistry is most directly described by this SMIRKS-like transformation?\n\n```\n[H][#6:2]-[#8:1][H] >> [#6:2]=[O:1]\n```\n",
+      "choices": {
+        "A": "An alcohol-like C-OH group is converted into a carbonyl group.",
+        "B": "A benzene ring is converted into a DNA sequencing primer.",
+        "C": "A carboxylic acid is converted into a ribosome binding site.",
+        "D": "An amine group is converted into a chromatography column."
+      },
+      "answer": "A",
+      "explanation": "The left side shows a carbon bonded to hydroxyl oxygen with explicit hydrogens, and the right side shows the same mapped carbon double-bonded to oxygen. This is the core transformation of alcohol oxidation to an aldehyde or ketone. The other choices mix chemical transformations with unrelated biological or instrument terms."
+    }
+  ],
+  "enzyme_specificity_and_overprediction": [
+    {
+      "slug": "reaction_operator_overprediction",
+      "difficulty": "easy",
+      "topic": "Why reaction operators overpredict",
+      "question": "Why can a reaction operator overpredict possible biochemical products?\n",
+      "choices": {
+        "A": "It may encode chemistry without enzyme-substrate specificity constraints.",
+        "B": "It stores only LCMS retention times and not molecular structures.",
+        "C": "It requires every substrate to be a native metabolite of E. coli.",
+        "D": "It prevents any product from being represented as a graph."
+      },
+      "answer": "A",
+      "explanation": "A reaction operator can describe a possible chemical transformation, but enzymes do not act on every molecule that matches the abstract chemistry. Active-site geometry, binding, cofactors, and expression can restrict what actually happens. The other choices misstate what reaction operators represent."
+    },
+    {
+      "slug": "enzyme_specificity_not_binary",
+      "difficulty": "medium",
+      "topic": "Enzyme specificity as graded rather than binary",
+      "question": "The Synthesis II lecture describes TyrB as having broad specificity. What is the best interpretation of that statement?\n",
+      "choices": {
+        "A": "TyrB accepts every possible substrate with the same rate.",
+        "B": "TyrB can act on multiple substrates with different efficiencies.",
+        "C": "TyrB is inactive unless its substrate is synthetic.",
+        "D": "TyrB catalyzes only one reaction in all contexts."
+      },
+      "answer": "B",
+      "explanation": "Broad specificity means the enzyme may accept several related substrates, but not equally well. The lecture emphasizes that specificity is not simply binary; different substrates may have different kcat/Km-like behavior or may be below detection. A, C, and D are too absolute."
+    },
+    {
+      "slug": "observed_false_meaning",
+      "difficulty": "medium",
+      "topic": "Positive and negative enzyme observations",
+      "question": "In a biochemical Observation record, what does `isObserved: false` most directly indicate?\n",
+      "choices": {
+        "A": "The reaction was observed but with a low retention time.",
+        "B": "The enzyme sequence could not be stored in the database.",
+        "C": "The tested enzyme did not detectably catalyze that reaction.",
+        "D": "The substrate was automatically converted into a Markush form."
+      },
+      "answer": "C",
+      "explanation": "A negative observation records that a particular enzyme-substrate reaction was tested or inferred not to occur detectably under the relevant conditions. This helps define specificity. It is not a retention-time flag, database-storage failure, or Markush conversion."
+    },
+    {
+      "slug": "missing_non_native_data",
+      "difficulty": "medium",
+      "topic": "Gaps in enzyme-function data",
+      "question": "Why is predicting enzyme function on non-native or synthetic substrates difficult?\n",
+      "choices": {
+        "A": "Databases rarely capture all tested and untested substrate specificities.",
+        "B": "Synthetic substrates cannot be represented by SMILES or molecular graphs.",
+        "C": "Enzymes always act faster on synthetic substrates than native ones.",
+        "D": "Non-native reactions are excluded from all biochemical models."
+      },
+      "answer": "A",
+      "explanation": "The lecture emphasizes that databases usually lack complete observations for non-native substrates, synthetic substrates, and complex enzyme systems. This makes it hard to know whether an enzyme will accept a new molecule. The other options are too broad or false."
+    },
+    {
+      "slug": "side_products_from_specificity",
+      "difficulty": "medium",
+      "topic": "Side products from broad-specificity enzymes",
+      "question": "A heterologous enzyme is introduced to make product P, but it also accepts a related intermediate and forms product Q. What is Q best described as in pathway analysis?\n",
+      "choices": {
+        "A": "A thermocycler artifact from PCR setup.",
+        "B": "A possible by-product of the introduced enzyme.",
+        "C": "A sequencing read from the final plasmid.",
+        "D": "A native metabolite that cannot affect flux."
+      },
+      "answer": "B",
+      "explanation": "If an introduced enzyme acts on an unintended substrate and forms an unintended product, Q is a possible by-product. Such reactions can divert flux, create toxicity, or complicate LCMS interpretation. The other choices are unrelated to enzyme specificity."
+    },
+    {
+      "slug": "active_site_constraint",
+      "difficulty": "hard",
+      "topic": "Structural basis for specificity limits",
+      "question": "A reaction operator matches two substrates equally well at the graph-pattern level, but the enzyme accepts only one of them. What explanation best fits the enzyme-specificity limitation?\n",
+      "choices": {
+        "A": "The non-accepted substrate cannot contain atoms or bonds.",
+        "B": "The accepted substrate must have been produced by PCR.",
+        "C": "The reaction operator must have measured the wrong retention time.",
+        "D": "The non-accepted substrate may not fit the enzyme active site properly."
+      },
+      "answer": "D",
+      "explanation": "Reaction operators are pattern-based and may not capture active-site geometry, binding orientation, steric constraints, or electronic effects. A substrate can match the transformation rule yet fail biologically. The other choices are unrelated or nonsensical."
+    },
+    {
+      "slug": "pks_nrps_complication",
+      "difficulty": "hard",
+      "topic": "Megasynthases and reaction prediction",
+      "question": "Why are PKS and NRPS systems especially challenging for simple reaction-operator prediction?\n",
+      "choices": {
+        "A": "They are always single-substrate enzymes with one freely diffusing product.",
+        "B": "They cannot generate molecules that are represented as chemical graphs.",
+        "C": "They are assembly-line enzymes with multiple domains and tethered intermediates.",
+        "D": "They are robotic liquid handlers rather than biochemical systems."
+      },
+      "answer": "C",
+      "explanation": "PKS and NRPS systems are megasynthases: multi-domain assembly-line enzymes that process tethered intermediates. Their products depend on domain architecture, module order, substrate loading, and tailoring steps. A simple monofunctional reaction-operator view can miss these constraints."
+    },
+    {
+      "slug": "model_enzyme_function_reason",
+      "difficulty": "hard",
+      "topic": "Why model enzyme function",
+      "question": "Which use best motivates modeling enzyme function rather than relying only on reaction operators?\n",
+      "choices": {
+        "A": "To guarantee that every LCMS peak has a single correct database identity.",
+        "B": "To replace all wetlab testing with a deterministic final answer.",
+        "C": "To convert every molecule into an executable robot protocol.",
+        "D": "To predict reachable compounds, side products, and plausible enzyme-substrate matches."
+      },
+      "answer": "D",
+      "explanation": "Enzyme-function models help evaluate mechanistic plausibility, predict side products and by-products, identify reachable compounds, and interpret LCMS data. They improve prioritization but do not guarantee peak identities, eliminate wetlab testing, or create robot protocols."
+    }
+  ],
+  "mass_action_kinetics": [
+    {
+      "slug": "mass_action_core_idea",
+      "difficulty": "easy",
+      "topic": "Mass action kinetics",
+      "question": "What is the core idea of mass action kinetics?\n",
+      "choices": {
+        "A": "Reaction rates depend on reactant abundance and rate constants.",
+        "B": "Reaction rates depend only on product retention times.",
+        "C": "Reaction rates are chosen by the ConstructionFile parser.",
+        "D": "Reaction rates are independent of molecular concentration."
+      },
+      "answer": "A",
+      "explanation": "In mass action kinetics, reaction rates are determined by rate constants and the abundance or concentration of the reactants. More available reactant generally increases the rate for a reaction that consumes it. Retention time, ConstructionFiles, and concentration-independent behavior are not the core idea."
+    },
+    {
+      "slug": "unimolecular_rate_law",
+      "difficulty": "easy",
+      "topic": "Unimolecular reaction rates",
+      "question": "For the reaction below, which rate law matches simple mass action kinetics?\n\n```\nA -> B\n```\n",
+      "choices": {
+        "A": "rate = k[A][B]",
+        "B": "rate = k[A]",
+        "C": "rate = k/[A]",
+        "D": "rate = [B]/k"
+      },
+      "answer": "B",
+      "explanation": "For a simple unimolecular reaction A -> B, the reaction rate is proportional to the concentration of A, so rate = k[A]. The product concentration does not multiply the forward rate for this elementary forward reaction."
+    },
+    {
+      "slug": "bimolecular_rate_law",
+      "difficulty": "medium",
+      "topic": "Bimolecular reaction rates",
+      "question": "For the reaction below, which rate law matches simple mass action kinetics?\n\n```\nA + B -> C\n```\n",
+      "choices": {
+        "A": "rate = k[A]",
+        "B": "rate = k[C]",
+        "C": "rate = k[A][B]",
+        "D": "rate = k[A + B + C]"
+      },
+      "answer": "C",
+      "explanation": "For an elementary bimolecular reaction A + B -> C, the mass action rate is proportional to the product of the reactant concentrations, so rate = k[A][B]. The forward rate depends on A and B, not on product C alone or on a summed concentration term."
+    },
+    {
+      "slug": "stoichiometry_ode_update",
+      "difficulty": "medium",
+      "topic": "Translating reactions into concentration changes",
+      "question": "Consider the reaction:\n\n```\nA + B -> C\n```\n\nIf the reaction flux is v, which set of concentration changes is consistent with the stoichiometry?\n",
+      "choices": {
+        "A": "d[A]/dt = +v, d[B]/dt = +v, d[C]/dt = -v",
+        "B": "d[A]/dt = -v, d[B]/dt = -v, d[C]/dt = +v",
+        "C": "d[A]/dt = -v, d[B]/dt = +v, d[C]/dt = +v",
+        "D": "d[A]/dt = +v, d[B]/dt = -v, d[C]/dt = -v"
+      },
+      "answer": "B",
+      "explanation": "A and B are consumed, so their concentrations decrease at rate v. C is produced, so its concentration increases at rate v. This stoichiometric bookkeeping is separate from how v is calculated."
+    },
+    {
+      "slug": "reversible_reaction_rates",
+      "difficulty": "medium",
+      "topic": "Reversible mass action reactions",
+      "question": "For the reversible reaction below, what is the net flux under mass action kinetics?\n\n```\nA <-> B\n```\n",
+      "choices": {
+        "A": "k_forward[A] - k_reverse[B]",
+        "B": "k_forward[B] - k_reverse[A]",
+        "C": "k_forward[A][B] + k_reverse[A][B]",
+        "D": "k_forward - k_reverse"
+      },
+      "answer": "A",
+      "explanation": "The forward flux from A to B is k_forward[A], and the reverse flux from B to A is k_reverse[B]. The net flux in the forward direction is forward minus reverse: k_forward[A] - k_reverse[B]."
+    },
+    {
+      "slug": "deterministic_state_variables",
+      "difficulty": "medium",
+      "topic": "Deterministic kinetic state variables",
+      "question": "In a deterministic mass action model, what are the state variables usually tracking?\n",
+      "choices": {
+        "A": "The exact random time of the next reaction event.",
+        "B": "The freezer coordinates of every sample tube.",
+        "C": "The set of primers in a ConstructionFile step.",
+        "D": "Continuous concentrations or abundances over time."
+      },
+      "answer": "D",
+      "explanation": "Deterministic kinetic models usually track continuous concentrations or abundances as functions of time. Exact random reaction timing is a stochastic simulation concept. Inventory coordinates and primer sets are lab-planning data, not kinetic state variables."
+    },
+    {
+      "slug": "shared_reactant_competition",
+      "difficulty": "hard",
+      "topic": "Competition through shared substrates",
+      "question": "A model has two reactions that both consume A:\n\n```\nA -> B     rate = k1[A]\nA -> C     rate = k2[A]\n```\n\nWhat is the mass action expression for the rate of change of A?\n",
+      "choices": {
+        "A": "d[A]/dt = k1[A] + k2[A]",
+        "B": "d[A]/dt = -k1[B] - k2[C]",
+        "C": "d[A]/dt = -k1[A] - k2[A]",
+        "D": "d[A]/dt = k1[B] - k2[C]"
+      },
+      "answer": "C",
+      "explanation": "Both reactions consume A, so both contribute negative terms to d[A]/dt. The first consumes A at rate k1[A], and the second consumes A at rate k2[A]. Therefore d[A]/dt = -k1[A] - k2[A]."
+    },
+    {
+      "slug": "deterministic_vs_stochastic_scale",
+      "difficulty": "hard",
+      "topic": "When deterministic models are appropriate",
+      "question": "When is a deterministic mass action model most appropriate compared with a discrete stochastic simulation?\n",
+      "choices": {
+        "A": "When the system contains exactly one molecule of every chemical species.",
+        "B": "When reaction timing must be sampled as individual random events.",
+        "C": "When the model is only storing a list of reachable metabolites.",
+        "D": "When molecule counts are large enough that continuous concentrations are a good approximation."
+      },
+      "answer": "D",
+      "explanation": "Deterministic models are often appropriate when molecule counts are high enough that smooth concentration changes are a useful approximation. Low-copy-number systems and event-level random timing are better motivations for stochastic simulation. Reachability enumeration is a different modeling problem."
+    }
+  ],
+  "stochastic_simulation_models": [
+    {
+      "slug": "stochastic_discrete_counts",
+      "difficulty": "easy",
+      "topic": "Stochastic simulations use molecule counts",
+      "question": "What distinguishes a stochastic reaction simulation from a deterministic mass action model?\n",
+      "choices": {
+        "A": "It tracks discrete reaction events and molecule counts.",
+        "B": "It stores only the final reachable product list.",
+        "C": "It replaces reactions with ConstructionFile steps.",
+        "D": "It ignores rate constants and reactant abundance."
+      },
+      "answer": "A",
+      "explanation": "Stochastic simulations model individual reaction events and discrete molecule counts. Deterministic models usually track continuous concentrations. Stochastic simulations still use rate constants and reactant abundance; they do not replace reactions with ConstructionFile steps or reachable lists."
+    },
+    {
+      "slug": "propensity_basic_meaning",
+      "difficulty": "easy",
+      "topic": "Reaction propensity",
+      "question": "In a stochastic simulation, what does a reaction propensity represent?\n",
+      "choices": {
+        "A": "The chromatographic retention time of a product.",
+        "B": "The likelihood that a reaction fires next.",
+        "C": "The freezer location of a reaction mixture.",
+        "D": "The DNA sequence of the encoded enzyme."
+      },
+      "answer": "B",
+      "explanation": "Propensity represents the instantaneous tendency of a reaction to occur, usually depending on the rate constant and the number or concentration of required reactants. It is a kinetic simulation quantity, not an LCMS, inventory, or sequence field."
+    },
+    {
+      "slug": "propensity_reactant_count_effect",
+      "difficulty": "medium",
+      "topic": "Reactant counts and reaction likelihood",
+      "question": "In a stochastic model, reaction 1 consumes molecule A. If the count of A increases while the rate constant stays the same, what usually happens to the reaction propensity?\n",
+      "choices": {
+        "A": "It increases because more reactant molecules are available.",
+        "B": "It decreases because products become more concentrated.",
+        "C": "It becomes zero because stochastic models avoid rates.",
+        "D": "It becomes unrelated to the reaction rate constant."
+      },
+      "answer": "A",
+      "explanation": "For mass-action-style stochastic propensities, more available reactant molecules generally increase the likelihood that the reaction occurs. The propensity still depends on the rate constant. Product concentration is not the reason a forward consuming reaction becomes more likely."
+    },
+    {
+      "slug": "update_matrix_purpose",
+      "difficulty": "medium",
+      "topic": "Update matrix purpose",
+      "question": "What does the update matrix specify in a stochastic biochemical reaction simulation?\n",
+      "choices": {
+        "A": "The LCMS peak areas for all pathway metabolites.",
+        "B": "The net molecule-count changes caused by each reaction.",
+        "C": "The primer pairs used to construct each pathway enzyme.",
+        "D": "The order in which samples are loaded onto a robot deck."
+      },
+      "answer": "B",
+      "explanation": "The update matrix records how each reaction changes the system state: which species are consumed and which are produced. It does not specify peak areas, primer pairs, or robot deck loading."
+    },
+    {
+      "slug": "update_vector_application",
+      "difficulty": "medium",
+      "topic": "Applying an update vector",
+      "question": "A reaction is:\n\n```\nA + B -> C\n```\n\nIf this reaction fires once in a stochastic simulation, which molecule-count update is correct?\n",
+      "choices": {
+        "A": "A increases by 1, B increases by 1, C decreases by 1.",
+        "B": "A decreases by 1, B increases by 1, C decreases by 1.",
+        "C": "A decreases by 1, B decreases by 1, C increases by 1.",
+        "D": "A stays constant, B decreases by 1, C decreases by 1."
+      },
+      "answer": "C",
+      "explanation": "One firing of A + B -> C consumes one A and one B and produces one C. The update vector is therefore -1 for A, -1 for B, and +1 for C."
+    },
+    {
+      "slug": "first_reaction_method",
+      "difficulty": "medium",
+      "topic": "First-reaction method",
+      "question": "In the first-reaction method, how is the next reaction chosen?\n",
+      "choices": {
+        "A": "Choose the reaction with the largest product molecular weight.",
+        "B": "Fire reactions in the order they appear in the reaction file.",
+        "C": "Always choose the reaction with the largest stoichiometric coefficient.",
+        "D": "Compute candidate firing times and choose the reaction with the earliest time."
+      },
+      "answer": "D",
+      "explanation": "The first-reaction method samples or computes a possible firing time for each reaction and selects the reaction that occurs first. The selection is not based on product mass, file order, or largest stoichiometric coefficient."
+    },
+    {
+      "slug": "propensity_vs_update_matrix",
+      "difficulty": "hard",
+      "topic": "Propensities versus update matrix",
+      "question": "A model has two reactions:\n\n```\nR1: A -> B\nR2: A -> C\n```\n\nR1 and R2 have the same update magnitude for A because both consume one A. However, R1 has a much larger propensity than R2. What does that mean?\n",
+      "choices": {
+        "A": "R1 consumes more A per firing because its propensity is larger.",
+        "B": "R2 cannot fire because its update vector matches R1 for A.",
+        "C": "R1 is more likely to fire next, but both reactions consume one A if they fire.",
+        "D": "The update matrix must be ignored when propensities differ."
+      },
+      "answer": "C",
+      "explanation": "Propensity determines how likely a reaction is to occur next. The update vector determines what happens if that reaction fires. A larger propensity for R1 means it is more likely to be selected, not that it consumes more A per firing."
+    },
+    {
+      "slug": "stochastic_toggle_noise",
+      "difficulty": "hard",
+      "topic": "Why stochasticity matters in genetic circuits",
+      "question": "Why might a stochastic model be useful for a genetic circuit with low molecule counts?\n",
+      "choices": {
+        "A": "Low molecule counts make every reaction deterministic and smooth.",
+        "B": "Stochastic models remove the need to specify reaction networks.",
+        "C": "Genetic circuits cannot be represented with species and reactions.",
+        "D": "Random reaction timing can affect circuit state when counts are small."
+      },
+      "answer": "D",
+      "explanation": "In low-copy systems, individual reaction events can matter, and random timing can change the behavior of the circuit. Stochastic models are useful for capturing this discreteness. They still require species and reactions, and they do not make dynamics automatically smooth."
+    }
+  ]
+}
