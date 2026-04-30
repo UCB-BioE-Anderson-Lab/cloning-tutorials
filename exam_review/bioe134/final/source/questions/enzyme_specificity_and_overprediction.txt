@@ -1,0 +1,112 @@
+---
+slug: reaction_operator_overprediction
+difficulty: easy
+topic: Why reaction operators overpredict
+question: |
+  Why can a reaction operator overpredict possible biochemical products?
+choices:
+  A: It may encode chemistry without enzyme-substrate specificity constraints.
+  B: It stores only LCMS retention times and not molecular structures.
+  C: It requires every substrate to be a native metabolite of E. coli.
+  D: It prevents any product from being represented as a graph.
+answer: A
+explanation: |
+  A reaction operator can describe a possible chemical transformation, but enzymes do not act on every molecule that matches the abstract chemistry. Active-site geometry, binding, cofactors, and expression can restrict what actually happens. The other choices misstate what reaction operators represent.
+---
+slug: enzyme_specificity_not_binary
+difficulty: medium
+topic: Enzyme specificity as graded rather than binary
+question: |
+  The Synthesis II lecture describes TyrB as having broad specificity. What is the best interpretation of that statement?
+choices:
+  A: TyrB accepts every possible substrate with the same rate.
+  B: TyrB can act on multiple substrates with different efficiencies.
+  C: TyrB is inactive unless its substrate is synthetic.
+  D: TyrB catalyzes only one reaction in all contexts.
+answer: B
+explanation: |
+  Broad specificity means the enzyme may accept several related substrates, but not equally well. The lecture emphasizes that specificity is not simply binary; different substrates may have different kcat/Km-like behavior or may be below detection. A, C, and D are too absolute.
+---
+slug: observed_false_meaning
+difficulty: medium
+topic: Positive and negative enzyme observations
+question: |
+  In a biochemical Observation record, what does `isObserved: false` most directly indicate?
+choices:
+  A: The reaction was observed but with a low retention time.
+  B: The enzyme sequence could not be stored in the database.
+  C: The tested enzyme did not detectably catalyze that reaction.
+  D: The substrate was automatically converted into a Markush form.
+answer: C
+explanation: |
+  A negative observation records that a particular enzyme-substrate reaction was tested or inferred not to occur detectably under the relevant conditions. This helps define specificity. It is not a retention-time flag, database-storage failure, or Markush conversion.
+---
+slug: missing_non_native_data
+difficulty: medium
+topic: Gaps in enzyme-function data
+question: |
+  Why is predicting enzyme function on non-native or synthetic substrates difficult?
+choices:
+  A: Databases rarely capture all tested and untested substrate specificities.
+  B: Synthetic substrates cannot be represented by SMILES or molecular graphs.
+  C: Enzymes always act faster on synthetic substrates than native ones.
+  D: Non-native reactions are excluded from all biochemical models.
+answer: A
+explanation: |
+  The lecture emphasizes that databases usually lack complete observations for non-native substrates, synthetic substrates, and complex enzyme systems. This makes it hard to know whether an enzyme will accept a new molecule. The other options are too broad or false.
+---
+slug: side_products_from_specificity
+difficulty: medium
+topic: Side products from broad-specificity enzymes
+question: |
+  A heterologous enzyme is introduced to make product P, but it also accepts a related intermediate and forms product Q. What is Q best described as in pathway analysis?
+choices:
+  A: A thermocycler artifact from PCR setup.
+  B: A possible by-product of the introduced enzyme.
+  C: A sequencing read from the final plasmid.
+  D: A native metabolite that cannot affect flux.
+answer: B
+explanation: |
+  If an introduced enzyme acts on an unintended substrate and forms an unintended product, Q is a possible by-product. Such reactions can divert flux, create toxicity, or complicate LCMS interpretation. The other choices are unrelated to enzyme specificity.
+---
+slug: active_site_constraint
+difficulty: hard
+topic: Structural basis for specificity limits
+question: |
+  A reaction operator matches two substrates equally well at the graph-pattern level, but the enzyme accepts only one of them. What explanation best fits the enzyme-specificity limitation?
+choices:
+  A: The non-accepted substrate cannot contain atoms or bonds.
+  B: The accepted substrate must have been produced by PCR.
+  C: The reaction operator must have measured the wrong retention time.
+  D: The non-accepted substrate may not fit the enzyme active site properly.
+answer: D
+explanation: |
+  Reaction operators are pattern-based and may not capture active-site geometry, binding orientation, steric constraints, or electronic effects. A substrate can match the transformation rule yet fail biologically. The other choices are unrelated or nonsensical.
+---
+slug: pks_nrps_complication
+difficulty: hard
+topic: Megasynthases and reaction prediction
+question: |
+  Why are PKS and NRPS systems especially challenging for simple reaction-operator prediction?
+choices:
+  A: They are always single-substrate enzymes with one freely diffusing product.
+  B: They cannot generate molecules that are represented as chemical graphs.
+  C: They are assembly-line enzymes with multiple domains and tethered intermediates.
+  D: They are robotic liquid handlers rather than biochemical systems.
+answer: C
+explanation: |
+  PKS and NRPS systems are megasynthases: multi-domain assembly-line enzymes that process tethered intermediates. Their products depend on domain architecture, module order, substrate loading, and tailoring steps. A simple monofunctional reaction-operator view can miss these constraints.
+---
+slug: model_enzyme_function_reason
+difficulty: hard
+topic: Why model enzyme function
+question: |
+  Which use best motivates modeling enzyme function rather than relying only on reaction operators?
+choices:
+  A: To guarantee that every LCMS peak has a single correct database identity.
+  B: To replace all wetlab testing with a deterministic final answer.
+  C: To convert every molecule into an executable robot protocol.
+  D: To predict reachable compounds, side products, and plausible enzyme-substrate matches.
+answer: D
+explanation: |
+  Enzyme-function models help evaluate mechanistic plausibility, predict side products and by-products, identify reachable compounds, and interpret LCMS data. They improve prioritization but do not guarantee peak identities, eliminate wetlab testing, or create robot protocols.

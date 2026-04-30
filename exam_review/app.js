@@ -228,7 +228,7 @@ function formatQuestionBlock(q, includeAnswer = true) {
 }
 
 async function loadJson(relPath) {
-  const url = new URL(relPath, import.meta.url);
+  const url = new URL(relPath, document.baseURI);
   if (SELFTEST) FETCH_LOG.push(url.toString());
   const res = await fetch(url.toString(), { cache: "no-cache" });
   if (!res.ok) throw new Error(`${res.status} ${res.statusText} for ${url.pathname}`);

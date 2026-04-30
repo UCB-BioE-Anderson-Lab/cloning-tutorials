@@ -1,0 +1,162 @@
+[
+  {
+    "topic_slug": "construction_files_and_lab_sheets",
+    "title": "Construction files and LabSheets",
+    "scope": "Students should understand how ConstructionFiles represent abstract biological build plans and how LabSheets translate those plans into executable wetlab work. They should be able to distinguish CF steps from lab instructions, explain why the abstraction is useful, and reason about how PCR, digest, ligation, transformation, and related steps are represented.",
+    "path": [
+      "bioe_final",
+      "workflow_abstractions",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "inventory_samples_and_locations",
+    "title": "Inventory, samples, and locations",
+    "scope": "Students should understand how samples, boxes, locations, concentrations, cultures, and inventories are modeled for laboratory execution. They should be able to reason about physical layout, array-like storage, lookup tables, enums, and why inventory models must support both biological meaning and physical sample handling.",
+    "path": [
+      "bioe_final",
+      "workflow_abstractions",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "wetlab_cloning_operations",
+    "title": "Wetlab cloning operations",
+    "scope": "Students should know the purpose and ordering of common cloning operations: PCR, thermocycling, gels, cleanup, digestion, ligation, transformation, colony picking, miniprepping, and sequencing. They should be able to connect these operations to the construction of DNA variants without needing to memorize every reagent volume.",
+    "path": [
+      "bioe_final",
+      "wetlab_and_robotics",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "robotic_liquid_handling",
+    "title": "Robotic liquid handling",
+    "scope": "Students should understand liquid handlers, multichannel pipetting, plate and well geometry, tips, grippers, mastermixes, batching, and robot-specific constraints. They should be able to explain why robots need precise low-level instructions and why mastermixes and aligned plate layouts reduce cost, time, and error.",
+    "path": [
+      "bioe_final",
+      "wetlab_and_robotics",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "prototyping_vs_optimization",
+    "title": "Prototyping versus optimization",
+    "scope": "Students should distinguish prototyping from optimization in the DBTL cycle. They should understand that prototyping often builds new designs from scratch, while optimization starts from CurrBest or a similar existing prototype and makes incremental edits to improve performance.",
+    "path": [
+      "bioe_final",
+      "prototyping_and_optimization",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "optimization_edit_libraries",
+    "title": "Optimization edit libraries",
+    "scope": "Students should understand single-part edit libraries as optimization tools. They should be able to reason about promoter scans, ortholog scans, alternate codons and RBSs, additional operons, additional genes, alternate regulation, single-AA variants, and the combinatorial explosion that prevents exhaustive construction of all variants.",
+    "path": [
+      "bioe_final",
+      "prototyping_and_optimization",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "lcms_measurement_and_peak_calling",
+    "title": "LCMS measurement and peak calling",
+    "scope": "Students should understand how LCMS converts biological samples into measurable chemical signals. They should be able to reason about extraction, chromatography, HPLC, electrospray ionization, m/z, adducts and protonation states, MS1 versus MS2, instrument resolution, LCMS traces, extracted ion chromatograms, and basic peak detection or peak calling against standards.",
+    "path": [
+      "bioe_final",
+      "analysis",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "metabolomics_inference_for_pathways",
+    "title": "Metabolomics inference for pathways",
+    "scope": "Students should understand how LCMS results are used to infer whether a synthetic pathway is working. They should be able to reason about targeted versus untargeted analysis, chemicals of interest, feeding experiments, standards, on-pathway versus off-pathway metabolites, side-products, by-products, Boolean or quantitative peak-call tables, bottleneck inference, and how these observations guide the next DBTL cycle.",
+    "path": [
+      "bioe_final",
+      "analysis",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "molecular_representations",
+    "title": "Molecular representations",
+    "scope": "Students should understand chemical names, molecular graphs, atoms as nodes, bonds as edges, explicit and implicit hydrogens, SMILES, InChI, concrete versus abstract molecules, stereochemistry, tautomers, Markush/R-group representations, and why standardization matters for computational synthesis.",
+    "path": [
+      "bioe_final",
+      "atoms_and_bits",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "rdkit_and_molecular_operations",
+    "title": "RDKit and molecular operations",
+    "scope": "Students should know what chemoinformatics libraries such as RDKit can and cannot do. They should be able to identify uses such as parsing molecules, visualizing structures, querying atoms and bonds, editing molecular graphs, generating coordinates, calculating molecular properties, and applying reaction rules, while avoiding claims that RDKit directly performs biological design or LCMS analysis.",
+    "path": [
+      "bioe_final",
+      "atoms_and_bits",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "reachability_and_bfs_synthesis",
+    "title": "Reachability and breadth-first synthesis",
+    "scope": "Students should understand pathway synthesis as enumeration of reachable chemicals from native, universal, or fed metabolites. They should be able to reason about shell expansion, enabled reactions, chemical-to-shell maps, reaction-to-shell maps, breadth-first search, reachables, cascades, pathways, and minimal reaction distance from native metabolites.",
+    "path": [
+      "bioe_final",
+      "synthesis_i",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "pathway_selection_and_constraints",
+    "title": "Pathway selection and constraints",
+    "scope": "Students should understand that reaching a target chemical is not the same as selecting a practical pathway. They should be able to reason about multiple possible routes, cascade-to-pathway traceback, shortest paths versus usable designs, missing reactions, database limitations, host constraints, and why pathway synthesis algorithms require biological interpretation.",
+    "path": [
+      "bioe_final",
+      "synthesis_i",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "smarts_smirks_and_reaction_operators",
+    "title": "SMARTS, SMIRKS, and reaction operators",
+    "scope": "Students should distinguish SMILES as concrete molecular notation, SMARTS as substructure pattern matching, and SMIRKS as reaction transformation rules. They should be able to reason about atom mappings, explicit hydrogens in patterns, substructure matches, reaction operator application, and how rules can predict possible products.",
+    "path": [
+      "bioe_final",
+      "synthesis_ii",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "enzyme_specificity_and_overprediction",
+    "title": "Enzyme specificity and overprediction",
+    "scope": "Students should understand why reaction operators can overpredict biochemical possibilities when enzyme specificity is ignored. They should be able to reason about observed and unobserved enzyme reactions, non-native and synthetic substrates, broad-specificity enzymes such as TyrB, side products, PKS/NRPS complications, and why enzyme-function models are useful.",
+    "path": [
+      "bioe_final",
+      "synthesis_ii",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "mass_action_kinetics",
+    "title": "Mass action kinetics",
+    "scope": "Students should understand deterministic kinetic models of biochemical reaction networks. They should be able to interpret species, reactions, forward and reverse rates, rate constants, concentration dependence, reaction fluxes, and how a reaction network can be translated into equations describing continuous changes in concentration over time.",
+    "path": [
+      "bioe_final",
+      "kinetic_modeling",
+      "subtopics"
+    ]
+  },
+  {
+    "topic_slug": "stochastic_simulation_models",
+    "title": "Stochastic simulation models",
+    "scope": "Students should understand stochastic reaction simulation as a discrete molecular-count model. They should be able to reason about propensities, rate constants, reactant counts or concentrations, update matrices, random reaction timing, first-reaction or Gillespie-style selection, and how firing a reaction changes the simulated system state.",
+    "path": [
+      "bioe_final",
+      "kinetic_modeling",
+      "subtopics"
+    ]
+  }
+]

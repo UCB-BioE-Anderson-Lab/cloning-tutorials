@@ -1,0 +1,121 @@
+---
+slug: edit_library_role
+difficulty: easy
+topic: Purpose of an EditLibrary
+question: |
+  You are creating promoter variants for one gene in an existing prototype plasmid. What is the main role of an EditLibrary?
+choices:
+  A: It chooses the best variant after LCMS testing is complete.
+  B: It simulates enzyme kinetics for every possible construct.
+  C: It stores physical freezer locations for all samples.
+  D: It organizes the oligos and bins for a set of defined edits.
+answer: D
+explanation: |
+  An EditLibrary describes the scope of a single-part edit library, including the oligo names and bins used to construct variants. It does not rank results after testing, simulate kinetics, or replace the inventory system.
+---
+slug: single_part_edit_bins
+difficulty: medium
+topic: Classes of single-part edits
+question: |
+  Which option is the best example of a single-part edit bin from the optimization lecture?
+choices:
+  A: Rebuilding a whole pathway from newly synthesized DNA.
+  B: Running LCMS again with a different solvent gradient.
+  C: Replacing one promoter with a promoter-strength variant.
+  D: Changing the host strain and assay protocol together.
+answer: C
+explanation: |
+  A promoter scan changes one regulatory part while keeping the rest of the construct largely fixed. That fits the idea of a single-part edit bin. A is closer to prototyping, B is an analysis change, and D changes multiple experimental factors at once.
+---
+slug: promoter_scan_reason
+difficulty: medium
+topic: Promoter scans and expression tuning
+question: |
+  Why would an optimization experiment include a promoter scan for one pathway gene?
+choices:
+  A: To tune expression level and reduce pathway bottlenecks.
+  B: To eliminate the need for sequencing every plasmid.
+  C: To change enzyme substrate specificity without mutation.
+  D: To measure retention time for the target product.
+answer: A
+explanation: |
+  Promoter scans vary gene expression over a range of strengths. This can help balance protein abundance, reduce bottlenecks, and avoid unwanted buildup of intermediates. The scan does not remove the need for verification, directly change enzyme specificity, or measure LCMS retention time.
+---
+slug: ortholog_scan_interpretation
+difficulty: medium
+topic: Ortholog scans in optimization
+question: |
+  In an ortholog scan, several alternate proteins are tested for the same pathway step. What assumption makes this a reasonable optimization strategy?
+choices:
+  A: All orthologs have identical expression levels in the host.
+  B: Ortholog replacement always reduces the metabolic burden.
+  C: Alternate proteins may perform the same function differently.
+  D: Every ortholog must use a completely different reaction mechanism.
+answer: C
+explanation: |
+  Orthologs are alternate proteins predicted to carry out the same or similar function, but they may differ in expression, folding, activity, localization, or compatibility with the host. A and B are too strong, and D is not required for an ortholog scan.
+---
+slug: single_aa_variant_count
+difficulty: medium
+topic: Counting single-amino-acid variants
+question: |
+  A construct encodes one 300-amino-acid protein. If the first amino acid is not varied and each remaining position can be changed to any of the other 19 amino acids, how many single-AA variants are possible?
+choices:
+  A: 300
+  B: 5,681
+  C: 5,700
+  D: 6,000
+answer: B
+explanation: |
+  There are 299 variable positions and 19 possible substitutions at each position, so the count is 299 × 19 = 5,681. The common shortcut 300 × 19 = 5,700 would be correct only if all 300 positions were varied.
+---
+slug: combinatorial_explosion_design_space
+difficulty: medium
+topic: Combinatorial explosion in optimization
+question: |
+  A four-gene pathway could vary promoter strength, operon boundaries, coding sequence choices, and ortholog choice. Why is this design space usually not built exhaustively?
+choices:
+  A: The number of variants grows linearly with the number of choices.
+  B: Most variants cannot be represented as DNA sequences at all.
+  C: Each option chosen removes the need for biological testing.
+  D: Combined choices create too many possible constructs to build.
+answer: D
+explanation: |
+  Combining multiple choices across several genes causes a combinatorial explosion. The number of constructs grows multiplicatively, so even modest choices can produce millions of variants. A is wrong because the growth is not merely linear, B is false, and C reverses the experimental problem.
+---
+slug: golden_gate_editing_inputs
+difficulty: hard
+topic: Interpreting Golden Gate editing ConstructionFiles
+question: |
+  An optimization ConstructionFile contains:
+
+  ```
+  PCR back_for3 back_rev3 pAPAP1 backbone
+  PCR part_for3 part_rev3 bin3_SLOW part
+  GoldenGate backbone part BsmBI gg
+  Transform gg Mach1 Kan 37 pAPAP455
+  ```
+
+  What is the best interpretation of this workflow?
+choices:
+  A: A new pathway is synthesized entirely without using the prototype.
+  B: A backbone and edit part are amplified, assembled, and transformed.
+  C: An LCMS peak is assigned and annotated to the edited plasmid product.
+  D: A promoter library is ranked by a kinetic simulation alone.
+answer: B
+explanation: |
+  The workflow amplifies the prototype-derived backbone and an edit part, assembles them by Golden Gate, and transforms the assembled product. It is an optimization edit built from an existing prototype. A ignores the use of pAPAP1, C confuses construction with analysis, and D incorrectly makes the workflow purely computational.
+---
+slug: apply_edit_library_scope
+difficulty: hard
+topic: Applying an EditLibrary to bins
+question: |
+  A composition has four proteins, so the EditLibrary has bins 0, 1, 2, and 3. You only want promoter variants for the fourth protein while leaving the other three bins unchanged. What should the ApplyEditLibrary step do?
+choices:
+  A: Apply the bin 3 edits to the prototype and emit those variants.
+  B: Apply every edit in every bin and build all possible combinations.
+  C: Rewrite the entire composition to include four unrelated pathways.
+  D: Replace all four proteins with ortholog sequences from a database scan.
+answer: A
+explanation: |
+  If the optional bin number is specified for the fourth protein, ApplyEditLibrary should generate ConstructionFiles for edits in that bin while using the prototype as the starting point. B describes exhaustive combinatorial construction, C changes the design objective, and D describes an ortholog replacement strategy for all bins rather than a targeted promoter edit.

@@ -1,0 +1,332 @@
+/* lab.css — Unified Lab tool
+   Layout: map full-width → search bar → image grid detail */
+
+/* ── Design tokens ────────────────────────────────────────────────────────── */
+
+:root {
+  --lab-gap:      14px;
+  --lab-radius:   6px;
+  --lab-border:   #e2e8f0;
+  --lab-bg:       #f8fafc;
+  --lab-text:     #1e293b;
+  --lab-muted:    #64748b;
+  --lab-blue:     #2563eb;
+  --lab-blue-lt:  #eff6ff;
+
+  --cat-equipment:         #7c3aed;
+  --cat-equipment-bg:      #f5f3ff;
+  --cat-bio-stock:         #059669;
+  --cat-bio-stock-bg:      #ecfdf5;
+  --cat-training:          #d97706;
+  --cat-training-bg:       #fffbeb;
+  --cat-consumable-backup: #0284c7;
+  --cat-consumable-bg:     #f0f9ff;
+}
+
+/* ── App shell ────────────────────────────────────────────────────────────── */
+
+#lab-app {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--lab-text);
+}
+
+/* ── Map — full width ─────────────────────────────────────────────────────── */
+
+.lab-map-pane {
+  border: 1px solid var(--lab-border);
+  border-radius: var(--lab-radius);
+  background: #fff;
+  overflow: hidden;
+  margin-bottom: var(--lab-gap);
+}
+
+#map-root { width: 100%; }
+#map-root svg { width: 100%; height: auto; display: block; }
+
+#map-root .map-outline  { fill: #fff; stroke: #e5e7eb; stroke-width: 0.03; }
+#map-root .zone         { fill: #f8fafc; stroke: #94a3b8; stroke-width: 0.03; cursor: pointer; }
+#map-root .zone.bench   { fill: #eef2ff; stroke: #cbd5e1; }
+#map-root .zone.open_area { stroke-dasharray: 0.16 0.12; }
+
+/* Highlighted: thick blue stroke + tinted fill (WCAG 1.4.1 — not color alone;
+   also uses stroke-width change and aria-selected for assistive tech) */
+#map-root .zone.highlighted {
+  fill: #dbeafe;
+  stroke: #1d4ed8;
+  stroke-width: 0.07;
+  stroke-dasharray: none;
+}
+/* Active (clicked): red accent */
+#map-root .zone.active {
+  fill: #fee2e2;
+  stroke: #991b1b;
+  stroke-width: 0.07;
+}
+#map-root .zone.dimmed { opacity: 0.25; }
+/* Hover: visible outline without color dependency */
+#map-root .zone:hover  { stroke: #1d4ed8; stroke-width: 0.05; }
+/* Keyboard focus ring — WCAG 2.4.7 */
+#map-root .zone:focus-visible {
+  outline: none;
+  stroke: #f59e0b;
+  stroke-width: 0.08;
+  stroke-dasharray: 0.18 0.1;
+}
+
+#map-root text {
+  fill: #475569;
+  font-size: 0.16px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  user-select: none;
+}
+#map-root .zone-label,
+#map-root .equipment-label { font-weight: 500; opacity: 0.9; }
+#map-root .equipment-label {
+  font-size: 0.2px; paint-order: stroke; stroke: #fff; stroke-width: 0.05;
+}
+/* Equipment dots — small, unobtrusive */
+#map-root .equipment-dot {
+  fill: #1e293b;
+  stroke: #fff;
+  stroke-width: 0.015;
+}
+#map-root .equipment-group { cursor: pointer; }
+#map-root .equipment-group:focus-visible .equipment-dot {
+  stroke: #f59e0b;
+  stroke-width: 0.04;
+}
+
+/* Storage unit icons */
+#map-root .storage-icon { cursor: default; }
+#map-root .storage-icon-label {
+  font-size: 0.085px;
+  font-weight: 700;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ── Search bar ───────────────────────────────────────────────────────────── */
+
+.lab-search-bar { margin-bottom: var(--lab-gap); }
+
+#lab-search {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 2px solid var(--lab-border);
+  border-radius: var(--lab-radius);
+  outline: none;
+  background: #fff;
+  transition: border-color 0.15s;
+}
+#lab-search:focus { border-color: var(--lab-blue); }
+
+/* ── Results list ─────────────────────────────────────────────────────────── */
+
+#lab-results-panel {
+  border: 1px solid var(--lab-border);
+  border-radius: var(--lab-radius);
+  background: #fff;
+  overflow: hidden;
+}
+
+.lab-results-heading {
+  margin: 0;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  color: var(--lab-muted);
+  background: var(--lab-bg);
+  border-bottom: 1px solid var(--lab-border);
+}
+
+.lab-result-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--lab-border);
+  transition: background 0.1s;
+}
+.lab-result-row:last-child { border-bottom: none; }
+.lab-result-row:hover,
+.lab-result-row:focus { background: var(--lab-blue-lt); outline: none; }
+
+.lab-result-left   { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.lab-result-name   { font-weight: 600; font-size: 0.95rem; }
+.lab-result-crumb  { font-size: 0.8rem; color: var(--lab-muted); }
+
+/* ── Detail panel ─────────────────────────────────────────────────────────── */
+
+#lab-detail-panel { /* no border — the image grid is the visual container */ }
+
+/* Item header: name + category badge */
+.lab-item-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.lab-item-name  { font-size: 1.2rem; font-weight: 700; }
+
+/* Each location is one row: 3 images side by side */
+.lab-locations  { display: flex; flex-direction: column; gap: 12px; }
+
+.lab-location-row {
+  border: 1px solid var(--lab-border);
+  border-radius: var(--lab-radius);
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Role + breadcrumb header strip above the images */
+.lab-loc-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--lab-bg);
+  border-bottom: 1px solid var(--lab-border);
+  font-size: 0.82rem;
+  color: var(--lab-muted);
+}
+
+/* 3-column image grid — equal widths, no gaps between cells */
+.lab-image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.lab-figure {
+  margin: 0;
+  position: relative;
+  border-right: 1px solid var(--lab-border);
+  background: var(--lab-bg);
+  overflow: hidden;
+}
+.lab-figure:last-child { border-right: none; }
+
+.lab-figure a { display: block; }
+
+.lab-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+.lab-img:hover { opacity: 0.9; }
+
+/* Caption bar at bottom of each image cell */
+.lab-figcaption {
+  padding: 3px 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--lab-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-top: 1px solid var(--lab-border);
+  background: var(--lab-bg);
+  text-align: center;
+}
+
+/* Notes below the image grid */
+.lab-loc-notes {
+  padding: 8px 12px;
+  font-size: 0.88rem;
+  color: var(--lab-text);
+  border-top: 1px solid var(--lab-border);
+  background: #fff;
+  line-height: 1.5;
+}
+
+/* Meta table (label, CAS, hazard, etc.) */
+.lab-loc-meta {
+  padding: 6px 12px 10px;
+  border-top: 1px solid var(--lab-border);
+}
+.lab-dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 3px 14px;
+  margin: 0;
+  font-size: 0.85rem;
+}
+.lab-dl dt { font-weight: 600; color: var(--lab-muted); }
+.lab-dl dd { margin: 0; font-family: monospace; }
+
+/* ── Badges ───────────────────────────────────────────────────────────────── */
+
+.lab-category-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.lab-badge-sm { font-size: 0.7rem; padding: 2px 7px; }
+
+.lab-category-badge[data-category="equipment"]         { background: var(--cat-equipment-bg);  color: var(--cat-equipment); }
+.lab-category-badge[data-category="bio-stock"]         { background: var(--cat-bio-stock-bg);  color: var(--cat-bio-stock); }
+.lab-category-badge[data-category="training"]          { background: var(--cat-training-bg);   color: var(--cat-training); }
+.lab-category-badge[data-category="consumable-backup"] { background: var(--cat-consumable-bg); color: var(--cat-consumable-backup); }
+
+.lab-role-badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.lab-role-badge[data-role="working"]  { background: var(--cat-bio-stock-bg);  color: var(--cat-bio-stock); }
+.lab-role-badge[data-role="backup"]   { background: var(--cat-consumable-bg); color: var(--cat-consumable-backup); }
+.lab-role-badge[data-role="training"] { background: var(--cat-training-bg);   color: var(--cat-training); }
+
+/* ── Hazard chips ─────────────────────────────────────────────────────────── */
+
+.lab-hazard-codes { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.lab-hazard-chip  {
+  padding: 1px 6px; border-radius: 999px; font-size: 0.68rem; font-weight: 700;
+  background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca;
+}
+
+/* ── Access badge (zone detail) ───────────────────────────────────────────── */
+
+.lab-access-badge {
+  margin-left: 6px; padding: 1px 6px; border-radius: 999px;
+  font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+  background: var(--cat-training-bg); color: var(--cat-training);
+}
+
+/* ── Zone detail ──────────────────────────────────────────────────────────── */
+
+.lab-zone-detail {
+  border: 1px solid var(--lab-border);
+  border-radius: var(--lab-radius);
+  background: #fff;
+  padding: var(--lab-gap);
+}
+.lab-zone-title      { margin: 0 0 8px; font-size: 1.1rem; font-weight: 700; }
+.lab-section-heading { margin: 10px 0 4px; font-size: 0.78rem; color: var(--lab-muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+.lab-zone-list       { margin: 0 0 6px; padding-left: 18px; font-size: 0.88rem; }
+.lab-zone-list li    { margin: 2px 0; }
+
+/* ── Acquisition links ────────────────────────────────────────────────────── */
+
+.lab-acq-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.lab-acq-link  {
+  padding: 4px 12px; border-radius: var(--lab-radius);
+  background: var(--lab-blue-lt); color: var(--lab-blue);
+  font-size: 0.82rem; font-weight: 600; text-decoration: none;
+}
+.lab-acq-link:hover { text-decoration: underline; }
+
+/* ── Utility ──────────────────────────────────────────────────────────────── */
+
+[hidden] { display: none !important; }

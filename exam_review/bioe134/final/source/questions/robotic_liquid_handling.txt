@@ -1,0 +1,114 @@
+---
+slug: robot_instrument_roles
+difficulty: easy
+topic: Roles of common robotic instruments
+question: |
+  Which description best matches a liquid-handling robot such as an Opentrons OT-2 or Biomek 3000?
+choices:
+  A: It separates DNA fragments by size using an electric field.
+  B: It automates pipetting and reaction setup across defined labware positions.
+  C: It identifies metabolites by retention time and mass-to-charge ratio.
+  D: It synthesizes custom oligonucleotides directly from sequence files.
+answer: B
+explanation: |
+  Liquid-handling robots automate pipetting operations such as aspirating, dispensing, mixing, and setting up reactions in defined containers. A describes gel electrophoresis, C describes LCMS analysis, and D describes oligonucleotide synthesis, not ordinary liquid handling.
+---
+slug: multichannel_alignment_requirement
+difficulty: medium
+topic: Plate layout constraints for multichannel pipetting
+question: |
+  A robot has an 8-channel pipette head and needs to transfer the same reagent into eight wells at once. Which sample layout best supports efficient multichannel pipetting?
+choices:
+  A: Samples placed in any open wells without regard for plate position.
+  B: Samples aligned in one row or one column of a plate.
+  C: Samples distributed across different plates and separate reservoirs.
+  D: Samples placed along a diagonal from well A1 through well H8.
+answer: B
+explanation: |
+  Multichannel pipettes work efficiently when wells line up with the fixed spacing of the channels, usually along a row or column. Random, diagonal, or scattered layouts force slower single-channel transfers or waste channels and tips. This is a physical constraint of the pipette geometry, not a biological constraint.
+---
+slug: mastermix_advantage
+difficulty: easy
+topic: Why mastermixes improve liquid-handling workflows
+question: |
+  You are setting up many PCRs that share water, buffer, dNTPs, polymerase, and the same primer pair, but differ by DNA template. Why prepare a mastermix?
+choices:
+  A: It lets the robot skip template addition entirely.
+  B: It replaces the need for a thermocycler program.
+  C: It reduces shared-reagent transfers and improves consistency.
+  D: It converts the PCR reactions into sequencing reactions.
+answer: C
+explanation: |
+  A mastermix combines reagents that are common across reactions, so they can be distributed as one mixture. This reduces pipetting steps, saves tips, saves time, and makes shared reagent concentrations more uniform. Templates still need to be added separately, and the PCR still needs a thermocycler program.
+---
+slug: opentrons_transfer_method
+difficulty: medium
+topic: Interpreting simple liquid-handler API operations
+question: |
+  In a simplified Opentrons-style protocol, which operation is most directly described by a command such as `transfer(10, source, dest)`?
+choices:
+  A: Loading a new pipette onto the left instrument mount.
+  B: Choosing the best thermocycler program for the reaction.
+  C: Calling and annotating peaks from an LCMS trace file.
+  D: Moving a defined volume from a source well to a destination.
+answer: D
+explanation: |
+  A transfer command is a higher-level liquid-handling action that moves a specified volume from a source to a destination, typically wrapping lower-level aspirate and dispense actions. It does not load instruments, choose biological protocols, or analyze LCMS data.
+---
+slug: autoprotocol_abstraction_level
+difficulty: medium
+topic: Autoprotocol and low-level robotic workflow descriptions
+question: |
+  Autoprotocol-like formats can describe actions such as transferring liquid from one well to another, optionally with speeds and mixing steps. What is the main limitation of this abstraction?
+choices:
+  A: It focuses on reagent operations rather than biological intent.
+  B: It prevents scripts from running on robotic workstations.
+  C: It only describes DNA sequence features and annotations.
+  D: It requires all samples to be stored in Eppendorf tubes.
+answer: A
+explanation: |
+  Autoprotocol is useful for representing liquid-handling operations, but it is not a high-level biological design abstraction. It can describe operations on wells and reagents, but it does not by itself know that a workflow is a CRISPR construct build or a pathway-optimization experiment. B, C, and D misstate the role of the format.
+---
+slug: tip_reuse_cross_contamination
+difficulty: medium
+topic: Tip reuse and contamination constraints
+question: |
+  A robot distributes the same mastermix from one reservoir into 96 empty PCR wells. It then adds a different DNA template to each well. Which tip strategy is most reasonable?
+choices:
+  A: Use one tip for mastermix distribution and fresh tips for each template.
+  B: Reuse a single tip for every template transfer to reduce tip cost.
+  C: Use fresh tips for mastermix distribution and reuse tips for templates.
+  D: Skip tips for mastermix entirely because the source reagent is shared.
+answer: A
+explanation: |
+  Reusing one tip to distribute a shared mastermix from the same source into empty wells can be reasonable if there is no back-contamination risk. Different DNA templates should use fresh tips to avoid cross-contamination between samples. B and C would risk mixing templates, and D is physically impossible for ordinary pipetting.
+---
+slug: deck_positions_and_gripper
+difficulty: medium
+topic: Robotic deck positions and plate movement
+question: |
+  A liquid handler has deck positions for plates, reservoirs, and tip racks, plus a gripper. Which task specifically uses the gripper rather than the pipette channels?
+choices:
+  A: Aspirating buffer from a reagent reservoir.
+  B: Dispensing polymerase into PCR wells.
+  C: Mixing a reaction by pipetting up and down.
+  D: Moving a plate between deck positions.
+answer: D
+explanation: |
+  Pipette channels move liquids. A gripper moves physical labware such as plates. Aspirating, dispensing, and mixing are liquid-transfer operations, while moving a plate from one deck position to another is a labware-handling operation.
+---
+slug: hard_mastermix_tip_count
+difficulty: hard
+topic: Reasoning about transfers, templates, and tip counts
+question: |
+  A robot sets up 96 PCRs. Each reaction gets the same commercial PCR mix, the same forward primer, and the same reverse primer, but a unique DNA template. The robot prepares one mastermix from those three shared components, distributes it to all wells, and then adds templates. Assume one tip can be reused while distributing the shared mastermix, but template transfers require fresh tips.
+
+  What is the best estimate of the total number of tips used for these steps?
+choices:
+  A: 97 tips: one shared transfer tip and 96 template tips.
+  B: 99 tips: three setup tips and 96 template tips.
+  C: 100 tips: three setup tips, one distribution tip, and 96 template tips.
+  D: 192 tips: one mastermix tip and one template tip for each PCR.
+answer: C
+explanation: |
+  Preparing the mastermix uses one tip for each of the three shared components. Distributing the mixed reagent to the plate can use one additional tip if the same mixture is dispensed into empty wells. Adding 96 distinct templates requires 96 fresh tips. The total is 3 + 1 + 96 = 100. The other answers omit either setup tips or distribution logic, or double-count the shared mastermix distribution.

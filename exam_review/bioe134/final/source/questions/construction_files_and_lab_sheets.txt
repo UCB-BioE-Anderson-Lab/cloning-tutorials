@@ -1,0 +1,138 @@
+---
+slug: cf_abstraction_purpose
+difficulty: easy
+topic: Purpose of ConstructionFile abstraction
+question: |
+  Why is the ConstructionFile abstraction useful in a LabPlanner workflow?
+choices:
+  A: It represents a high-level plan for building DNA constructs.
+  B: It stores LCMS chromatograms and analysis results.
+  C: It directly controls robotic motors and liquid-handler calibration.
+  D: It replaces the need for wetlab protocols and experimental execution.
+answer: A
+explanation: |
+  A ConstructionFile represents the planned sequence of biological construction steps, such as PCR, digest, ligation, and transformation. This high-level representation can later be translated into LabSheets or robotic protocols. A is too low-level, B describes analysis data rather than build planning, and D is wrong because execution details are still needed.
+---
+slug: cf_pcr_step_arguments
+difficulty: easy
+topic: Reading a PCR ConstructionFile step
+question: |
+  In the ConstructionFile shorthand below, which item is the template?
+
+  ```
+  pcr ca4238 ca4239 pTargetF ipcr
+  ```
+choices:
+  A: ca4238
+  B: pTargetF
+  C: ca4239
+  D: ipcr
+answer: B
+explanation: |
+  In this PCR shorthand, ca4238 and ca4239 are the two oligos or primers, pTargetF is the template, and ipcr is the named PCR product. The final token is the output, not the template.
+---
+slug: cf_digest_step_arguments
+difficulty: medium
+topic: Reading a digest ConstructionFile step
+question: |
+  In the ConstructionFile shorthand below, what is the most likely role of SpeI?
+
+  ```
+  digest ipcr SpeI 1 spedig
+  ```
+choices:
+  A: The DNA template that the PCR step used to make ipcr.
+  B: The restriction enzyme used to cut the input DNA.
+  C: The host strain into which the product will be transformed.
+  D: The name assigned to the final linearized product.
+answer: B
+explanation: |
+  In a digest step, the input DNA is digested with one or more restriction enzymes. Here ipcr is the input DNA, SpeI is the enzyme, 1 may indicate a digest-related parameter such as fragment or product selection, and spedig is the named digest product. SpeI is not a strain, template, or final plasmid name.
+---
+slug: cf_transform_step_arguments
+difficulty: medium
+topic: Reading a transformation ConstructionFile step
+question: |
+  Consider this transformation step:
+
+  ```
+  transform lig Mach1 Spec pTarget-tyrB1
+  ```
+
+  Which interpretation is most accurate?
+choices:
+  A: lig is transformed into Mach1 cells with Spec selection, yielding pTarget-tyrB1.
+  B: Mach1 is digested with Spec, and the resulting product is called lig.
+  C: pTarget-tyrB1 is used as a PCR primer to amplify lig from Mach1.
+  D: Spec is the DNA template and Mach1 is the output plasmid name.
+answer: A
+explanation: |
+  The transform step takes the ligation product, introduces it into a bacterial strain, and applies antibiotic selection. In this example, lig is the DNA product being transformed, Mach1 is the strain, Spec is the selection marker, and pTarget-tyrB1 is the resulting construct or sample name. The other choices scramble the biological roles.
+---
+slug: cf_named_identifiers_not_locations
+difficulty: medium
+topic: Named sample identifiers versus physical locations
+question: |
+  A ConstructionFile refers to products using names such as `ipcr`, `spedig`, and `lig` rather than locations such as `oligos1/A1` or `thermocycler1/A3`.
+
+  Why is this useful?
+choices:
+  A: It makes each product searchable by name in the inventory database.
+  B: It reduces the character length of the ConstructionFile text.
+  C: It keeps the plan portable across different physical inventory setups.
+  D: It ensures each product name is unique across all experiments.
+answer: C
+explanation: |
+  Named identifiers let the ConstructionFile describe logical inputs and outputs without depending on where the material happens to be stored or processed. Physical locations can be assigned later in a LabSheet or inventory-aware execution plan. A conflates naming with searchability, which is a side effect rather than the reason. B is wrong because names are often longer than location strings. D is tempting but wrong: the naming convention does not enforce uniqueness across all experiments, and that is not the primary purpose.
+---
+slug: labsheet_groups_related_steps
+difficulty: medium
+topic: LabSheets as organized execution plans
+question: |
+  A project has three similar ConstructionFiles for three CRISPR targeting plasmids. A generated LabSheet groups their PCR setup into one work session with rows A1, A2, and A3.
+
+  What is the main reason to group them this way?
+choices:
+  A: The LabSheet proves that all three plasmids have the same DNA sequence.
+  B: The LabSheet converts the PCR into an LCMS assay.
+  C: The LabSheet removes the need for sample labels.
+  D: The LabSheet organizes related CF steps into efficient wetlab work.
+answer: D
+explanation: |
+  LabSheets can combine related steps from one or more ConstructionFiles into a practical work session. This supports batching, reduces repeated work, and helps humans or robots execute similar operations together. A is unrelated to execution planning, B confuses DNA construction with chemical analysis, and C is wrong because labels become more important, not less.
+---
+slug: cf_missing_intermediate_product
+difficulty: hard
+topic: Detecting an invalid ConstructionFile dependency
+question: |
+  A student writes this ConstructionFile:
+
+  ```
+  pcr ca4238 ca4239 pTargetF ipcr
+  digest ipcr SpeI 1 spedig
+  transform spedig Mach1 Spec pTarget-variant
+  ```
+
+  Compared with the intended PCR → digest → ligate → transform workflow, what is the most important problem?
+choices:
+  A: The PCR product should not be named or referenced by subsequent steps.
+  B: SpeI should appear in the transform step rather than the digest step.
+  C: The ligation step is skipped, so the digest product is transformed directly.
+  D: Mach1 should appear in the PCR step rather than the transform step.
+answer: C
+explanation: |
+  The workflow skips ligation. After digestion, the DNA usually needs to be ligated or otherwise assembled before transformation, especially if the goal is a circular plasmid product. Transforming the digest product directly would generally not produce the intended construct. A is wrong because named products are useful, B is wrong because SpeI belongs in the digest step, and D confuses a bacterial strain with a DNA template.
+---
+slug: cf_vs_robot_transfer_detail
+difficulty: medium
+topic: ConstructionFile versus robotic transfer detail
+question: |
+  Which item would most likely appear in a robotic liquid-handling protocol but not in a ConstructionFile?
+choices:
+  A: Use SpeI to cut the PCR product and collect the resulting fragment.
+  B: Introduce the ligation product into Mach1 cells under antibiotic selection.
+  C: Assign the identifier ipcr to the PCR output for use in downstream steps.
+  D: Aspirate 10 uL from well A1 and dispense it into well B1.
+answer: D
+explanation: |
+  A robotic protocol must specify low-level liquid transfers, including volumes and well positions. ConstructionFiles usually describe biological operations and named products at a higher level. A, B, and C are appropriate ConstructionFile-level concepts.

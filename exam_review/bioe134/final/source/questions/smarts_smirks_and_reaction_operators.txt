@@ -1,0 +1,122 @@
+---
+slug: smiles_smarts_smirks_roles
+difficulty: easy
+topic: Distinguishing SMILES, SMARTS, and SMIRKS
+question: |
+  Which statement best distinguishes SMILES, SMARTS, and SMIRKS?
+choices:
+  A: SMILES describes enzymes, SMARTS describes proteins, and SMIRKS describes plasmids.
+  B: SMILES describes kinetics, SMARTS describes equilibria, and SMIRKS describes fluxes.
+  C: SMILES describes structures, SMARTS describes patterns, and SMIRKS describes transformations.
+  D: SMILES describes spectra, SMARTS describes peaks, and SMIRKS describes standards.
+answer: C
+explanation: |
+  SMILES is used for concrete molecular structures, SMARTS is used for substructure patterns, and SMIRKS is used for reaction transformations. The other choices confuse chemoinformatics notations with biological, kinetic, or analytical concepts.
+---
+slug: smarts_substructure_search
+difficulty: easy
+topic: SMARTS as substructure pattern matching
+question: |
+  What is a SMARTS pattern primarily used for in the Synthesis II workflow?
+choices:
+  A: Finding substructures within molecular graphs.
+  B: Choosing a thermocycler program for PCR.
+  C: Measuring product concentration by LCMS.
+  D: Ranking constructs by colony color.
+answer: A
+explanation: |
+  SMARTS extends SMILES-like syntax for molecular pattern matching. It can specify atom properties, bond patterns, wildcards, and logical constraints. It is not a wetlab protocol, LCMS measurement, or colony-screening method.
+---
+slug: smirks_reaction_transform
+difficulty: medium
+topic: SMIRKS as a reaction transformation rule
+question: |
+  What does a SMIRKS expression such as the one below represent?
+
+  ```
+  [N:1]([H:2])[H] >> [N:1]([H:2])C(=O)C
+  ```
+choices:
+  A: A chromatographic method for separating amines.
+  B: A reaction transformation from reactant pattern to product pattern.
+  C: A DNA assembly plan for inserting an acetylated promoter.
+  D: A kinetic equation for the decay of an amine substrate.
+answer: B
+explanation: |
+  A SMIRKS expression represents a transformation rule. The left side describes a reactant pattern and the right side describes the corresponding product pattern, with atom mappings linking atoms across the transformation. The example is not chromatography, DNA assembly, or a kinetic equation.
+---
+slug: explicit_hydrogens_in_smarts
+difficulty: medium
+topic: Explicit hydrogens in SMARTS patterns
+question: |
+  Why does a SMARTS pattern often need hydrogens written explicitly when the hydrogen is part of the intended match?
+choices:
+  A: SMARTS cannot represent heavy atoms without hydrogens attached.
+  B: Hydrogens in SMARTS always indicate chromatographic retention time.
+  C: SMARTS converts every implicit hydrogen into a separate enzyme.
+  D: In a pattern, an omitted atom is unconstrained rather than absent.
+answer: D
+explanation: |
+  In SMILES for concrete molecules, hydrogens can often be inferred from valence. In SMARTS, the notation defines a pattern rather than a fully specified molecule, so an omitted hydrogen usually means it is not constrained by the query. If the hydrogen matters, it should be explicit.
+---
+slug: smirks_atom_mapping
+difficulty: medium
+topic: Atom mapping in SMIRKS
+question: |
+  In a SMIRKS reaction operator, why are atom map numbers such as `:1` and `:2` important?
+choices:
+  A: They specify which enzyme has the highest expression in the host.
+  B: They encode the LCMS retention time of the final product.
+  C: They identify which atoms correspond across reactant and product sides.
+  D: They choose the antibiotic used in the transform step.
+answer: C
+explanation: |
+  Atom maps connect atoms on the reactant side to the corresponding atoms on the product side. This lets the rule specify what is preserved, changed, added, or deleted. The map numbers do not encode enzyme expression, LCMS data, or cloning choices.
+---
+slug: smirks_explicit_stoichiometry
+difficulty: medium
+topic: Explicit stoichiometry in SMIRKS
+question: |
+  A transformation needs two molecules of the same reactant. In SMIRKS, how should non-unit stoichiometry be represented?
+choices:
+  A: By relying on the enzyme name to imply stoichiometry.
+  B: By storing stoichiometry only in the SMILES product.
+  C: By omitting one reactant because SMIRKS is abstract.
+  D: By repeating the required reactant in the expression.
+answer: D
+explanation: |
+  The Synthesis II slides describe SMIRKS stoichiometry as explicit: if non-unit stoichiometry is desired, reactants or products must be repeated. Stoichiometry should not be hidden in an enzyme name, a product-only string, or an omission.
+---
+slug: reaction_operator_projection
+difficulty: hard
+topic: Projecting reaction operators onto molecules
+question: |
+  A reaction operator is projected onto a substrate molecule in RDKit. The substrate contains two independent substructures that both match the operator's reactant pattern.
+
+  What should you expect the projection step to consider?
+choices:
+  A: Only the product from the first atom in the SMILES string.
+  B: Possible products from each valid match of the pattern.
+  C: The final LCMS annotation for every possible product.
+  D: The host strain that best expresses the enzyme.
+answer: B
+explanation: |
+  Projecting a reaction operator applies the transformation rule wherever the reactant pattern matches the substrate. Multiple matches can therefore lead to multiple possible products or product sets. RDKit does not automatically validate LCMS annotations or choose host strains.
+---
+slug: alcohol_oxidation_smirks
+difficulty: hard
+topic: Interpreting a SMIRKS transformation chemically
+question: |
+  What chemistry is most directly described by this SMIRKS-like transformation?
+
+  ```
+  [H][#6:2]-[#8:1][H] >> [#6:2]=[O:1]
+  ```
+choices:
+  A: An alcohol-like C-OH group is converted into a carbonyl group.
+  B: A benzene ring is converted into a DNA sequencing primer.
+  C: A carboxylic acid is converted into a ribosome binding site.
+  D: An amine group is converted into a chromatography column.
+answer: A
+explanation: |
+  The left side shows a carbon bonded to hydroxyl oxygen with explicit hydrogens, and the right side shows the same mapped carbon double-bonded to oxygen. This is the core transformation of alcohol oxidation to an aldehyde or ketone. The other choices mix chemical transformations with unrelated biological or instrument terms.

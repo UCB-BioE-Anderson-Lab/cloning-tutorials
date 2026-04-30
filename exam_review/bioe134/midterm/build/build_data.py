@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Build browser-ready JSON for the BioCAD midterm review mini-app.
+"""Build browser-ready JSON for the BioE134 midterm review mini-app.
 
 This script reads the locked source files for the midterm review feature:
-- `docs/midterm_review/source/topics.yaml`
-- `docs/midterm_review/source/questions/<topic_slug>.txt`
+- `docs/exam_review/bioe134/midterm/source/topics.yaml`
+- `docs/exam_review/bioe134/midterm/source/questions/<topic_slug>.txt`
 
 It then produces fast-loading, structured JSON assets consumed by the web UI:
-- `docs/midterm_review/data/topics_flat.json`
-- `docs/midterm_review/data/question_bank.json`
+- `docs/exam_review/bioe134/midterm/data/topics_flat.json`
+- `docs/exam_review/bioe134/midterm/data/question_bank.json`
 
 `topics_flat.json` is a flattened list of leaf topics (each with `topic_slug`, `title`,
 `scope`, and a `path` showing the topic hierarchy).
@@ -18,14 +18,14 @@ parsed as a stream of YAML documents separated by `---`.
 
 How to run (from the repo root):
 
-  python docs/midterm_review/build/build_data.py
+  python docs/exam_review/bioe134/midterm/build/build_data.py
 
 To override paths, you can run:
 
-  python docs/midterm_review/build/build_data.py \
-    --topics docs/midterm_review/source/topics.yaml \
-    --questions-dir docs/midterm_review/source/questions \
-    --out-dir docs/midterm_review/data
+  python docs/exam_review/bioe134/midterm/build/build_data.py \
+    --topics docs/exam_review/bioe134/midterm/source/topics.yaml \
+    --questions-dir docs/exam_review/bioe134/midterm/source/questions \
+    --out-dir docs/exam_review/bioe134/midterm/data
 
 If you omit the flags, the script uses its built-in defaults.
 """
@@ -294,9 +294,9 @@ def write_json(path: Path, obj):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--topics", default="docs/midterm_review/source/topics.yaml")
-    ap.add_argument("--questions-dir", default="docs/midterm_review/source/questions")
-    ap.add_argument("--out-dir", default="docs/midterm_review/data")
+    ap.add_argument("--topics", default="docs/exam_review/bioe134/midterm/source/topics.yaml")
+    ap.add_argument("--questions-dir", default="docs/exam_review/bioe134/midterm/source/questions")
+    ap.add_argument("--out-dir", default="docs/exam_review/bioe134/midterm/data")
     ap.add_argument("--allow-missing-question-files", action="store_true")
     args = ap.parse_args()
 

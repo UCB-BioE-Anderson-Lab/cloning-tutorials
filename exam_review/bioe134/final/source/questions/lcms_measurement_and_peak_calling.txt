@@ -1,0 +1,114 @@
+---
+slug: lcms_testing_protocol_output
+difficulty: easy
+topic: LCMS sample preparation workflow
+question: |
+  In the Analysis lecture testing protocol, cells are grown, induced, pelleted, and the supernatant is extracted with methanol before LCMS. What is the main purpose of this workflow?
+choices:
+  A: To convert plasmids into sequencing-ready DNA fragments.
+  B: To transform ligation products into antibiotic-resistant cells.
+  C: To measure promoter strength using colony color alone.
+  D: To prepare small molecules from cultures for chemical analysis.
+answer: D
+explanation: |
+  The LCMS workflow prepares metabolites and other small molecules from biological samples so they can be separated and detected chemically. It is not a DNA sequencing workflow, a transformation workflow, or a colony-screening assay.
+---
+slug: retention_time_meaning
+difficulty: easy
+topic: Retention time in chromatography
+question: |
+  In LCMS, what does retention time represent?
+choices:
+  A: The time when a compound exits the chromatography column.
+  B: The time required for an ion to fragment during MS2.
+  C: The time needed to grow the culture before extraction.
+  D: The time when a molecule gains or loses a proton.
+answer: A
+explanation: |
+  Retention time is the time at which a compound elutes from the chromatography column. It reflects interactions between the compound, the mobile phase, and the stationary phase. It is not the culture time, the ionization event, or the fragmentation time.
+---
+slug: mz_direct_information
+difficulty: medium
+topic: Mass-to-charge ratio
+question: |
+  What information does an LCMS m/z value directly report?
+choices:
+  A: The retention behavior of a neutral molecule.
+  B: The exact biological source of the compound.
+  C: The mass of an ion divided by its charge.
+  D: The full reaction pathway that produced it.
+answer: C
+explanation: |
+  The m/z value is the mass-to-charge ratio of a detected ion. It can help infer molecular identity, especially with high resolution and other evidence, but it does not directly report retention behavior, biological source, or pathway origin.
+---
+slug: mh_plus_notation
+difficulty: medium
+topic: Ion notation in mass spectrometry
+question: |
+  In positive-mode mass spectrometry, what does the notation `[M+H]+` mean?
+choices:
+  A: The molecule has gained one proton and carries positive charge.
+  B: The molecule has lost one proton and carries negative charge.
+  C: The molecule is neutral but appears at a higher retention time.
+  D: The molecule has fragmented into two equal product ions.
+answer: A
+explanation: |
+  `[M+H]+` denotes the molecule M after gaining a proton, producing a positively charged ion. `[M-H]-` would indicate loss of a proton in negative mode. Retention time and fragmentation are different concepts.
+---
+slug: multiple_ions_same_molecule
+difficulty: hard
+topic: Adducts and protonation states
+question: |
+  You are doing a targeted LCMS search for a molecule with neutral mass M. You only search for the `[M+H]+` ion. The molecule is present, but the analysis fails to call a peak.
+
+  Which explanation is most consistent with the Analysis lecture?
+choices:
+  A: The compound must be absent because all molecules form `[M+H]+`.
+  B: The compound may appear as another ion or adduct at the same retention time.
+  C: Retention time cannot be used when any adducts are present.
+  D: MS2 fragmentation always removes the need to search MS1 ions.
+answer: B
+explanation: |
+  Molecules are not always observed only as `[M+H]+`. Multiple ions or adducts for the same molecule may be present at the same retention time. A is too absolute, C is false because retention time remains useful, and D overstates what MS2 can replace.
+---
+slug: ms1_vs_ms2_information
+difficulty: medium
+topic: MS1 versus MS2 spectra
+question: |
+  What additional information does MS2 usually provide compared with MS1?
+choices:
+  A: The culture condition used before extraction.
+  B: The thermocycler program used for cloning.
+  C: The row and column position of each sample.
+  D: The fragmentation pattern of a selected ion.
+answer: D
+explanation: |
+  MS1 measures ions by m/z, while MS2 selects an ion and fragments it to obtain a pattern useful for structural evidence. Culture conditions, thermocycler programs, and sample positions are metadata or build information, not the extra information from MS2.
+---
+slug: orbitrap_resolution_advantage
+difficulty: medium
+topic: High-resolution mass spectrometry
+question: |
+  What is the main advantage of higher mass resolution, such as in an Orbitrap measurement?
+choices:
+  A: It guarantees that every peak has the correct biological annotation.
+  B: It distinguishes ions with very similar m/z values more reliably.
+  C: It replaces chromatography because retention time becomes useless.
+  D: It makes neutral compounds visible without ionization or adducts.
+answer: B
+explanation: |
+  Higher mass resolution helps separate ions whose m/z values are close together. It improves evidence for compound identity but does not guarantee annotation, replace chromatography, or remove the need for ionization.
+---
+slug: peak_calling_against_standard
+difficulty: hard
+topic: Peak detection and standards
+question: |
+  A standard for compound X produces a sharp LCMS peak at 5.2 minutes for an expected ion. An experimental sample has a weak signal at the same m/z but no local maximum near 5.2 minutes after smoothing. What is the safest peak-calling conclusion?
+choices:
+  A: Call X present because the expected m/z appears somewhere.
+  B: Call X present because standards make MS2 unnecessary.
+  C: Do not call X confidently without a matching peak shape and time.
+  D: Ignore retention time because only mass matters in LCMS.
+answer: C
+explanation: |
+  A reliable peak call usually needs more than an m/z match. Retention time, peak shape, signal above background, and comparison to standards all matter. A and D ignore chromatography, and B overstates what a standard does.

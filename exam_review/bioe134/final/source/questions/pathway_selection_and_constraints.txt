@@ -1,0 +1,122 @@
+---
+slug: reachable_list_limit
+difficulty: easy
+topic: Reachables are not complete designs
+question: |
+  After a synthesis expansion, the program outputs a list of reachable chemicals. What is the main limitation of this output?
+choices:
+  A: It lists final destinations but not the specific routes to each product.
+  B: It contains only chemicals that were confirmed by LCMS standards.
+  C: It stores primer sequences for constructing every pathway gene.
+  D: It ranks pathways by expected yield in the engineered strain.
+answer: A
+explanation: |
+  A reachable list tells us which metabolites can be reached from the starting set under the model, but it does not by itself provide pathways, enzyme choices, or construct designs. It is useful for target selection, but traceback is needed to recover routes.
+---
+slug: cascade_vs_pathway_scope
+difficulty: easy
+topic: Cascades versus pathways
+question: |
+  How does a Cascade differ from a Pathway in the synthesis lecture?
+choices:
+  A: A Pathway is all possible routes; a Cascade is one route.
+  B: A Cascade is all routes; a Pathway is one specific route.
+  C: A Cascade is experimental; a Pathway is computational only.
+  D: A Pathway excludes native metabolites; a Cascade requires them.
+answer: B
+explanation: |
+  A Cascade collects the possible routes to a product, while a Pathway is a single directed route from starting metabolites to product. The distinction matters because a target can have multiple possible routes, only one of which may become the design objective.
+---
+slug: traceback_purpose
+difficulty: medium
+topic: Traceback from reachable products
+question: |
+  Why is traceback needed after identifying a reachable target chemical?
+choices:
+  A: To convert LCMS spectra into m/z values.
+  B: To find the reactions that can form the target.
+  C: To choose thermocycler settings for PCR.
+  D: To remove all native metabolites from the model.
+answer: B
+explanation: |
+  Traceback follows reaction data backward from the reachable product to determine the routes that can form it. This moves from a final destination to a cascade and then to possible pathways. It is not an LCMS, PCR, or metabolite-removal step.
+---
+slug: pathway_as_design_objective
+difficulty: medium
+topic: Pathways as design objectives
+question: |
+  Why does the lecture say a Pathway ultimately becomes the design objective?
+choices:
+  A: A Pathway can be mapped to enzymes, a composition, a construct, and DNA.
+  B: A Pathway directly stores the freezer location of each strain sample.
+  C: A Pathway replaces the need to choose enzymes for its reactions.
+  D: A Pathway guarantees that the target product will be detected by LCMS.
+answer: A
+explanation: |
+  A pathway is a specific route made of reactions connecting metabolites. Once a route is selected, each reaction can be concretized with an enzyme, giving a composition and eventually a construct and DNA. A pathway does not store inventory, remove enzyme-choice work, or guarantee measurement success.
+---
+slug: cascade_memory_constraint
+difficulty: medium
+topic: Enumerating pathways from cascades
+question: |
+  Why might a synthesizer compute a Cascade but avoid explicitly enumerating every Pathway in it?
+choices:
+  A: Pathways cannot be represented as directed graphs of metabolites.
+  B: Every Cascade contains exactly one Pathway by definition.
+  C: The Cascade may contain too many possible routes to enumerate practically.
+  D: Enumerating pathways would make the target chemically unreachable.
+answer: C
+explanation: |
+  A cascade can encode many possible routes to a product. Enumerating every pathway and every composition can become impractical because of memory and combinatorial constraints. Pathways can be represented as directed graphs, and cascades do not contain exactly one route.
+---
+slug: shortest_path_not_always_best
+difficulty: hard
+topic: Pathway selection beyond shortest route
+question: |
+  A target chemical has two possible pathways. Pathway 1 uses two reactions but requires an enzyme with no known functional expression in the host. Pathway 2 uses four reactions with enzymes that are well characterized in the host.
+
+  What is the best interpretation?
+choices:
+  A: Pathway 1 must be selected because it has fewer reaction steps.
+  B: Both pathways must be discarded because neither is native.
+  C: The cascade cannot contain pathways of different lengths.
+  D: Pathway 2 may be more practical despite using more reactions.
+answer: D
+explanation: |
+  Shortest reaction distance is useful, but it is not the only design criterion. A pathway also needs enzymes that can be expressed and function in the host. A longer pathway with well-characterized enzymes may be the better design objective. The other options treat shell distance too rigidly.
+---
+slug: enzyme_concretization_layer
+difficulty: medium
+topic: Concretizing reactions with enzymes
+question: |
+  A pathway contains a reaction that converts metabolite B to metabolite C. What additional design step is still needed before building DNA?
+choices:
+  A: Delete the substrate metabolite from the pathway graph.
+  B: Convert the product into a chromatographic retention time.
+  C: Choose or define an enzyme that can catalyze that reaction.
+  D: Replace every reaction with a PCR thermocycler program.
+answer: C
+explanation: |
+  A pathway specifies reactions and metabolites, but a strain design needs enzymes or genetic devices to implement those reactions. Concretizing reactions with appropriate enzymes is an additional layer after pathway enumeration.
+---
+slug: multiple_routes_same_product
+difficulty: hard
+topic: Selecting one pathway from a cascade
+question: |
+  A Cascade for product P includes:
+
+  ```
+  Route 1: A -> B -> P
+  Route 2: A -> C -> D -> P
+  Route 3: A -> E -> P
+  ```
+
+  You want a single Pathway for a first prototype. Which statement is most accurate?
+choices:
+  A: The Cascade itself is already the single Pathway to build.
+  B: Route 2 is invalid because it has more than two reactions.
+  C: Route 3 must be used because it is listed last.
+  D: Route selection is needed before choosing the composition.
+answer: D
+explanation: |
+  A cascade mixes possible routes to a product. To build a prototype, one route must be selected as the pathway objective, and then reactions can be concretized into enzymes and a composition. Route length alone does not make a route invalid, and list order is not a design criterion.

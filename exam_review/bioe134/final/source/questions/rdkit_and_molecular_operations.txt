@@ -1,0 +1,112 @@
+---
+slug: molecular_graph_utility
+difficulty: easy
+topic: RDKit as a chemoinformatics library
+question: |
+  Why is representing a molecule as a graph — atoms as nodes, bonds as edges — useful for computation?
+choices:
+  A: It enables structural queries and edits using graph algorithms.
+  B: It encodes thermodynamic stability as a property of the node weights.
+  C: It stores 3D atomic coordinates in a memory-efficient format.
+  D: It assigns each molecule a unique integer ID for database lookup.
+answer: A
+explanation: |
+  The graph model directly supports substructure search (subgraph isomorphism), neighbor traversal, bond editing, and property calculation from connectivity. Unique database IDs require canonicalization beyond the graph itself; thermodynamic stability cannot be read off graph topology alone; and 3D coordinates require a separate embedding step that the graph does not provide.
+---
+slug: smiles_multiple_valid_strings
+difficulty: easy
+topic: Importing and exporting molecular structures
+question: |
+  The SMILES strings `CCO` and `OCC` both represent ethanol. What does this illustrate about SMILES?
+choices:
+  A: SMILES must always be canonicalized before it encodes a valid molecule.
+  B: Molecular formula is the only property SMILES reliably encodes.
+  C: SMILES can start from any atom, so the same molecule has many valid strings.
+  D: Two SMILES with the same atoms always represent the same constitutional isomer.
+answer: C
+explanation: |
+  SMILES traverses the molecular graph starting from any atom in any order, producing different but equivalent strings for the same molecule. This is why canonicalization exists — to produce one consistent string per structure. D is wrong because different constitutional isomers can have identical atom counts (ethanol and dimethyl ether are both C2H6O but have different connectivity).
+---
+slug: implicit_hydrogens_query_mismatch
+difficulty: medium
+topic: Making hydrogens explicit in RDKit
+question: |
+  In a molecular graph with implicit hydrogens, hydrogen count is inferred from valence rather than stored as nodes. Why does this matter when writing a substructure query?
+choices:
+  A: Implicit hydrogens are counted twice during molecular weight calculations.
+  B: A query specifying an explicit hydrogen neighbor will not match a graph where that hydrogen is implicit.
+  C: Substructure queries skip all carbon atoms that carry any implicit hydrogens.
+  D: Implicit hydrogens prevent a molecule from being serialized back to SMILES.
+answer: B
+explanation: |
+  Substructure matching works on graph nodes. A query atom that requires a hydrogen neighbor will only match if that hydrogen exists as an explicit node in the target graph. When hydrogens are implicit — present in the valence count but absent as nodes — the query sees no hydrogen node and the match fails. Making hydrogens explicit before searching is one way to resolve this.
+---
+slug: rdkit_computable_properties
+difficulty: medium
+topic: RDKit as a chemoinformatics library
+question: |
+  Which of the following can RDKit compute directly from a Mol object?
+choices:
+  A: The Gibbs free energy of formation at physiological temperature.
+  B: The enzyme Km for the molecule as a substrate.
+  C: The LCMS retention time under reverse-phase conditions.
+  D: The molecular formula and exact molecular weight.
+answer: D
+explanation: |
+  RDKit computes many descriptors from the molecular graph alone: formula, exact mass, heavy atom count, ring count, estimated logP, and others. It cannot predict thermodynamic free energies, enzyme kinetics, or chromatographic retention times — those require experimental data or specialized simulation tools outside RDKit.
+---
+slug: kekulize_effect
+difficulty: medium
+topic: Aromatization and molecular standardization
+question: |
+  A molecule is loaded from the SMILES `c1ccccc1`. A student then calls `Chem.Kekulize(mol)`. What changes in the Mol object?
+choices:
+  A: Aromatic bonds are replaced by alternating single and double bonds.
+  B: The aromatic ring is opened into a linear carbon chain.
+  C: All hydrogen atoms are removed from the molecular graph.
+  D: The molecule gains a 3D conformation with optimized bond lengths.
+answer: A
+explanation: |
+  Kekulization converts aromatic bond types into an explicit alternating single/double bond structure. The ring remains a ring; no atoms are added or removed; and this operation is entirely unrelated to 3D geometry. It matters when downstream tools or reaction rules require explicit bond orders rather than the aromatic bond type.
+---
+slug: compute2dcoords
+difficulty: medium
+topic: Operations on RDKit Mol objects
+question: |
+  A student loads a molecule from SMILES and tries to draw it, but RDKit reports that the atoms have no coordinates. What should the student call?
+choices:
+  A: `Chem.MolToSmiles(mol)` — SMILES export assigns coordinates as a side effect.
+  B: `Chem.GetSSSR(mol)` — ring detection also generates Cartesian positions.
+  C: `Chem.AddHs(mol)` — adding hydrogens triggers automatic coordinate assignment.
+  D: `AllChem.Compute2DCoords(mol)` — this assigns 2D positions to each atom.
+answer: D
+explanation: |
+  SMILES strings do not encode coordinates, so a freshly parsed Mol has none. AllChem.Compute2DCoords() runs a 2D layout algorithm and writes x/y positions to each atom, enabling visualization. MolToSmiles() produces a string without coordinates; GetSSSR() finds ring systems; and AddHs() adds hydrogen nodes but does not compute positions.
+---
+slug: fingerprint_use
+difficulty: medium
+topic: RDKit as a chemoinformatics library
+question: |
+  What is a molecular fingerprint in RDKit primarily used for?
+choices:
+  A: Generating a SMILES string from an undeciphered fragment spectrum.
+  B: Applying a SMIRKS reaction rule to enumerate product structures.
+  C: Computing a numerical similarity score between two molecules.
+  D: Assigning atom map numbers to track atoms across a reaction step.
+answer: C
+explanation: |
+  Fingerprints encode structural features as bit vectors. Two molecules can be compared using Tanimoto or similar metrics on their fingerprints to produce a numerical similarity score. They are not used for SMILES generation, reaction enumeration (that is SMIRKS and RunReactants), or atom mapping.
+---
+slug: rdkit_graph_result_limits
+difficulty: hard
+topic: RDKit as a chemoinformatics library
+question: |
+  A pathway design tool uses RDKit to apply a reaction operator and obtains a product Mol object. Which conclusion is supported by this result alone?
+choices:
+  A: The enzyme that catalyzes this step will be expressible in the host organism.
+  B: The structural transformation is consistent with the encoded reaction rule.
+  C: The product will be stable enough to accumulate under physiological conditions.
+  D: The reaction will proceed faster than competing pathways in the cell.
+answer: B
+explanation: |
+  RDKit performs a graph transformation: it checks whether the substrate matches the reaction pattern and applies the encoded bond changes to produce a product graph. This confirms the transformation is consistent with the rule as written. Whether the enzyme is expressible, the product is stable, or the reaction outcompetes alternatives are biological and thermodynamic questions requiring expression data, stability assays, and kinetic modeling — none of which RDKit provides.

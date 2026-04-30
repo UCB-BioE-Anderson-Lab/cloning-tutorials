@@ -1,0 +1,119 @@
+slug: cloning_workflow_order
+difficulty: easy
+topic: Ordering a basic cloning workflow
+question: |
+  Which sequence best matches the cloning workflow shown in the Wetlab Operations lecture?
+choices:
+  A: Sequencing → miniprep → colony picking → transformation → ligation → digestion → cleanup → PCR → gel
+  B: Digestion → transformation → PCR → sequencing → cleanup → colony picking → ligation → miniprep → gel
+  C: PCR → LCMS → digestion → ligation → chromatography → transformation → miniprep → sequencing → gel
+  D: PCR → cleanup → digestion → cleanup → ligation → transformation → colony picking → miniprep → sequencing
+answer: D
+explanation: |
+  The wetlab cloning workflow proceeds from making DNA by PCR through cleanup, digestion, ligation, transformation, colony picking, miniprepping, and sequencing. A reverses the workflow, B scrambles dependent steps, and C inserts LCMS and chromatography, which are analysis methods rather than DNA cloning operations.
+---
+slug: pcr_reaction_components
+difficulty: medium
+topic: Components of a PCR reaction
+question: |
+  A student is setting up PCR to amplify a target from a plasmid template. Which set contains the core components needed for the reaction?
+choices:
+  A: DNA template, one primer, ligase buffer, restriction enzyme, and competent cells
+  B: DNA template, two primers, polymerase, dNTPs, buffer, and water
+  C: PCR product, antibiotic plate, sequencing primer, medium, and cells
+  D: DNA ladder, agarose gel, ethanol wash, spin column, and water
+answer: B
+explanation: |
+  PCR requires a DNA template, forward and reverse primers, a thermostable polymerase, dNTPs, buffer, and water. A mixes PCR with ligation and transformation components. C describes later transformation and sequencing materials. D describes gel or cleanup materials rather than the PCR reaction itself.
+---
+slug: thermocycler_program_as_protocol_parameter
+difficulty: medium
+topic: Thermocycler programs as protocol parameters
+question: |
+  A LabSheet generated from a ConstructionFile includes a PCR step with a field like:
+
+  ```
+  program: Q5/Q5-4K
+  ```
+
+  Why should the thermocycler program be represented as a named protocol parameter rather than buried in free-text notes?
+choices:
+  A: It lets software validate, reuse, and schedule the PCR operation consistently.
+  B: It makes the PCR product independent of which primers are used in the reaction.
+  C: It causes the thermocycler to infer the correct DNA sequence automatically.
+  D: It replaces the need to track the template and product sample identifiers.
+answer: A
+explanation: |
+  In a software-facing lab workflow, the thermocycler program is structured execution metadata. Representing it as a named parameter makes the workflow easier to parse, validate, reuse, and schedule. B is wrong because primers still determine what is amplified, C invents an automatic sequence-inference capability, and D is wrong because sample identifiers are still required.
+---
+slug: gel_after_pcr_purpose
+difficulty: easy
+topic: Purpose of gel electrophoresis after PCR
+question: |
+  Why is gel electrophoresis commonly run after PCR in a cloning workflow?
+choices:
+  A: To verify that PCR produced a band at the expected size.
+  B: To add sticky ends to the PCR product before the ligation step.
+  C: To convert the PCR product into a sequence-ready chromatogram file.
+  D: To introduce the PCR product into competent cells under antibiotic pressure.
+answer: A
+explanation: |
+  A gel lets the experimentalist check whether PCR produced a band of the expected size. It is mainly a verification step before downstream construction. B describes digestion or assembly, C describes sequencing, and D describes transformation.
+---
+slug: dna_cleanup_purpose
+difficulty: medium
+topic: Purpose of DNA cleanup
+question: |
+  After PCR or digestion, a cleanup column is used before the next construction step. What is the main purpose of this cleanup?
+choices:
+  A: To sequence the plasmid and return a GenBank file for downstream analysis.
+  B: To introduce the DNA into cells while applying antibiotic selection pressure.
+  C: To amplify the DNA using primers, dNTPs, thermostable polymerase, and thermocycling.
+  D: To remove salts, enzymes, and small molecules while retaining the DNA.
+answer: D
+explanation: |
+  DNA cleanup removes reaction components such as salts, buffers, enzymes, and small molecules while retaining and eluting the DNA. A describes sequencing, B describes transformation, and C describes PCR.
+---
+slug: digestion_and_ligation_roles
+difficulty: medium
+topic: Roles of digestion and ligation
+question: |
+  In a restriction-enzyme cloning workflow, what are the roles of digestion and ligation?
+choices:
+  A: Digestion copies DNA by thermocycling, while ligation separates fragments by size.
+  B: Digestion introduces DNA into cells, while ligation selects colonies on plates.
+  C: Digestion cuts DNA at defined sites, while ligation joins compatible DNA ends.
+  D: Digestion reads DNA sequence, while ligation edits chromatogram trace files.
+answer: C
+explanation: |
+  Restriction enzymes cut DNA at specific sequence sites, producing fragments or ends that can be joined by ligase. A confuses digestion with PCR and gels. B confuses these steps with transformation and plating. D confuses construction steps with sequencing analysis.
+---
+slug: transformation_selection_logic
+difficulty: medium
+topic: Transformation and antibiotic selection
+question: |
+  After ligation, cells are transformed and plated on medium containing spectinomycin. What is the main purpose of the antibiotic plate?
+choices:
+  A: To amplify the insert by PCR before ligation begins.
+  B: To separate plasmid fragments by length after digestion.
+  C: To favor growth of cells that received the selectable construct.
+  D: To determine the complete sequence of the final plasmid.
+answer: C
+explanation: |
+  Antibiotic selection is used so that cells carrying a construct with the appropriate resistance marker can grow, while many untransformed cells do not. A is PCR, B is gel electrophoresis, and D is sequencing.
+---
+slug: sequencing_as_verification_data
+difficulty: hard
+topic: Sequencing as structured verification data
+question: |
+  A workflow system records that a constructed plasmid passed through PCR, digestion, ligation, transformation, colony picking, miniprep, and sequencing. The sequencing result is linked back to the picked colony and the intended construct.
+
+  Why is this linkage useful in a BioCAD workflow?
+choices:
+  A: It makes every colony on the transformation plate genetically identical to the selected colony.
+  B: It lets downstream software distinguish a verified clone from an unverified construction attempt.
+  C: It removes the need to represent PCR, digestion, and ligation as separate operations.
+  D: It converts the sequencing chromatogram into an LCMS peak table for pathway analysis.
+answer: B
+explanation: |
+  In a software-facing construction workflow, sequencing is verification data linked to a specific clone or sample. That linkage lets later tools reason about which physical sample corresponds to the intended construct. B is false because colonies can differ, C is wrong because construction steps still need to be represented, and D confuses DNA verification with metabolomics analysis.
