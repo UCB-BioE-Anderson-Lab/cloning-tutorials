@@ -16,6 +16,10 @@ export function factory(values = {}) {
     includes: { required: [], optional: ["preparation_of_lb_agar", "remelting_lb_agar"] },
     derived: { plates_needed: plates, agar_bottles_250mL: bottles },
     template: `
+> **Supervisor-only.** Pouring large plates requires a Bunsen burner and must be done in the
+> **chemical hood** (the only gas line). Do not perform this procedure unless you are a
+> supervisor who has completed **Flame Sterilization** training.
+
 **Plan volumes**
 - **Prepare:** **${bottles} × 250 mL bottles** of LB agar (≈5 plates per bottle at ~50 mL/plate) for **${plates} large plates**.
 
@@ -34,8 +38,10 @@ export function factory(values = {}) {
 - For each combination, pour the required volume into a warm sterile bottle or conical. Use side graduations as a **crude volumetric**; close enough for routine plate pours.  
 - **Mix by swirling (not vigorous shaking)** to avoid bubbles.
 
-**Set up the sterile area**
-- Place stacks of **150 mm** petri dishes on the **sterile bench**.  
+**Set up the sterile area — chemical hood**
+- Work in the **chemical hood**. This procedure requires a Bunsen burner, and the hood has
+  the **only gas line** in the lab, so pouring cannot be done at the sterile bench.
+- Place stacks of **150 mm** petri dishes in the hood.  
 - Light the **Bunsen burner** with a striker; gas can be fully open.  
 - *Why a flame?* The hot column of air above the flame creates **upward convection** that reduces dust and airborne microbes settling into your open plates.
 

@@ -18,7 +18,7 @@ export function factory(values) {
     name: "Growing Bacteria with Flasks",
     description: "Grow bacterial cultures in baffled flasks with shaking for proper aeration.",
     template: `
-1. At a sterile bench with a flame, use sterile technique to dispense ${culture_volume} mL 2YT into a sterile baffled flask (or measure from a sterile graduated bottle).
+1. At a sterile bench, use sterile technique to dispense ${culture_volume} mL 2YT into a sterile baffled flask (or measure from a sterile graduated bottle).
 2. Add the calculated volume of antibiotic (per the starter‑culture instructions or lab SOP).
 3. Inoculate by pipetting in the starter culture.
 4. Cover with sterile foil or a breathable filter cap to allow air exchange.

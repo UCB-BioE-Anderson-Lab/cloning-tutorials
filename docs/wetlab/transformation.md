@@ -78,25 +78,46 @@ Note: You will not make your own competent cells. We prepare large batches once 
 
 ---
 
-### Plating Techniques
+### Plating
 
-Once transformation is complete, you’ll plate your cells using one of two methods:
+Plating is done with **sterile glass beads** at one of the lab's **two sterile benches**.
 
-**1. Glass beads (use this for pP6):**
+**1. Prepare the bench.**  
+Spray the working surface with **70% ethanol** and wipe it down with paper towels before you
+begin.
 
-- Pour the transformation mix onto the plate.
-- Add ~5–10 sterile glass beads.
-- Gently shake the plate in a circular motion (avoid sloshing).
-- Pour off the beads into the discard jar.
+**2. Label the plate.**  
+Write your label, the date, and your name on the **bottom** of the plate before you put
+anything on it. See [Labeling and Inventory](#labeling-and-inventory) below.
 
-**2. Metal spreader (supervisors only, requires extra training):**
+**3. Add the beads.**  
+Pour sterile glass beads onto the surface of the plate — **about 10** is typical, and the
+exact number doesn't matter much. Sterile beads are kept in glass bottles marked with
+**autoclave tape**.
 
-- Use a **sterile spreader**. These can be disposable plastic, reusable metal or glass wands, or made by bending a glass pipette. We use bent coat hangers shaped into a triangle—they cool quickly, are unbreakable, and can be reused indefinitely.
-- Flame sterilize, cool briefly.
-- Spread the liquid evenly by rotating the plate under the spreader.
-- Don't gouge the agar.
+**4. Add the cells.**  
+Pipette **50–200 µL** of your cell suspension onto the plate.
 
-Invert the plate (lid on the bottom) and place it in the incubator (not a shaker)
+**5. Spread.**  
+Cap the plate and shake it **side to side** — a straight back-and-forth motion. Watch the
+beads to confirm they are travelling across the whole surface.
+
+> **Do not swirl.** A circular motion just drives the liquid out to the perimeter of the
+> plate and leaves the middle unspread. Back and forth, not around.
+
+**6. Recover the beads.**  
+Uncap the plate and pour the used beads through a **funnel** into the collection beaker.
+
+> The beads are **not trash**. They are collected, washed, and re-sterilized for reuse.
+> Do not throw them away.
+
+**7. Incubate.**  
+Recap the plate, **invert it** (lid on the bottom), and place it in the **incubator** — not
+a shaker.
+
+> **No open flames at the sterile bench.** Flame sterilization and flamed metal spreaders
+> are a **supervisor-only** technique carried out elsewhere in the lab, and are not part of
+> this procedure. For plating, you use glass beads and 70% ethanol.
 
 ---
 

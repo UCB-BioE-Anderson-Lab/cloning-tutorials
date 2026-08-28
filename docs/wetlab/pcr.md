@@ -9,7 +9,7 @@ This protocol uses **PrimeSTAR GXL DNA Polymerase** and the **PG4K45** thermal c
 
 ## What You’re Doing
 
-In this step, you're performing an EIPCR (Error-prone Inverse PCR) reaction using the plasmid **pJ12** as a template. The goal is to replace the weak promoter in pJ12 with a library of randomized sequences using specially designed degenerate primers.
+In this step, you're performing an EIPCR (Enzymatic Inverse PCR) reaction using the plasmid **pJ12** as a template. The goal is to replace the weak promoter in pJ12 with a library of randomized sequences using specially designed degenerate primers.
 
 This reaction produces a linear ~3.6 kb PCR product with terminal BsaI sites, which will later be closed into a circular plasmid by Golden Gate assembly.
 
