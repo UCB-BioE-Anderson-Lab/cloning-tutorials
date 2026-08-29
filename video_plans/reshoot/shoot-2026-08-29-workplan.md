@@ -40,7 +40,7 @@ Straight out of `preparation_of_antibiotic_1000x_stock`. A 1000× stock in mg/mL
 number as the working concentration in µg/mL, so **carbenicillin 100 mg/mL → 100 µg/mL in the
 plate**.
 
-| Antibiotic | 1000× stock | µL solvent per mg | At the 50 mg default | Solvent | Light |
+| Antibiotic | 1000× stock | µL solvent per mg | If you weighed 50 mg | Solvent | Light |
 |---|---|---|---|---|---|
 | Carbenicillin | **100 mg/mL** | 10 | 500 µL | water | — |
 | Ampicillin | **100 mg/mL** | 10 | 500 µL | water | — |
@@ -50,7 +50,8 @@ plate**.
 | Tetracycline | **10 mg/mL** | 100 | **5000 µL** | ethanol | protect |
 | Erythromycin | — | — | — | — | — |
 
-Two things in that table need settling before they are said on camera — see Gaps 3 and 6.
+The fourth column is arithmetic, not a target: you weigh what you scooped and compute from
+that. Two things in the table need settling before they are said on camera — see Gaps 3 and 6.
 
 ### Splitting the agar
 
@@ -157,7 +158,7 @@ videos.
 | `POUR-05` | What a 1000× stock is; the dosing rule — **X µL per X mL**; mg/mL in the tube equals µg/mL in the plate | POUR |
 | `POUR-06` | Carbenicillin: tare, ~50 mg, compute, **500 µL water**, dissolve, 0.22 µm, label | POUR |
 | `POUR-07` | **Spectinomycin:** identical arithmetic to carb — **100 mg/mL, 500 µL.** Film it back-to-back with carb and the point makes itself | POUR |
-| `POUR-08` | Kanamycin: **25 mg/mL**, so the same 50 mg needs **2000 µL** — four times the volume for a quarter the strength. Plus protect from light | POUR |
+| `POUR-08` | Kanamycin: **25 mg/mL at 40 µL per mg** — four times the solvent per milligram, so scoop about **25 mg**, not 50. The volume is computed from what the balance says, never assumed. Plus protect from light | POUR |
 | `POUR-09` | Erythromycin: **the solvent discussion** — solvent is a property of the drug, not a preference | POUR |
 | `POUR-11` | Carbenicillin vs ampicillin: amp degrades in hot agar, same `bla` gene | POUR |
 
@@ -416,7 +417,7 @@ Verbatim from the Protocol Builder. Nothing here is paraphrased.
 
 ### Protocol 4 — Kanamycin 1000× stock
 
-`preparation_of_antibiotic_1000x_stock`, **kanamycin**, 50 mg. <span class="flag">▲</span>The computed volume overflows the tube the protocol just told you to use — see Gap 5.
+`preparation_of_antibiotic_1000x_stock`, **kanamycin**, rendered at the module's 50 mg default. On the day you compute from the mass the balance actually reads — see Gap 5.
 
 > Verbatim Protocol Builder output.
 
@@ -651,13 +652,22 @@ in this lab, and the solvent. Until then `POUR-08` is the clip where you say the
 kan, CAM, spec and tet. Nothing for erythromycin. Pick one in `POUR-18` and it becomes the
 convention.
 
-**5. Kanamycin's own default overflows its own tube.** Step 1 of Protocol 4 says to label a
-**1.5 mL** microcentrifuge tube. Step 4, at the module's default 50 mg, then computes **2000 µL
-(2.00 mL)** of water — because kanamycin is a 25 mg/mL stock at 40 µL per mg. It does not fit.
-Chloramphenicol has the same problem and tetracycline is worse at 5000 µL. The 50 mg default
-only works for the 100 mg/mL group: carbenicillin, ampicillin, spectinomycin. Either weigh
-~25 mg for kanamycin or send it to a larger tube — but decide before `POUR-08`, because on
-camera it will simply overflow.
+**5. Step 3 suggests the same ~50 mg for every antibiotic.** The procedure itself is
+mass-driven and correct: tare the tube, scoop some powder, **record the actual mass**, then
+compute the solvent from that. So the 2000 µL that Protocol 4 prints is an illustration of the
+module's 50 mg default, not an instruction — in practice you scoop an amount that suits the
+tube and the arithmetic follows.
+
+What is worth tightening is that **step 3 names ~50 mg regardless of which antibiotic you
+picked**, and 50 mg only suits the 100 mg/mL group. Working to about 1.2 mL in a 1.5 mL tube:
+
+| Group | µL per mg | Sensible scoop |
+|---|---|---|
+| Carb / amp / spec — 100 mg/mL | 10 | ~50 mg (up to ~120) |
+| Kan / CAM — 25 mg/mL | 40 | **~25 mg** (up to ~30) |
+| Tetracycline — 10 mg/mL | 100 | **~10 mg** (up to ~12) |
+
+Nothing breaks either way; the person weighing simply needs to know before they scoop.
 
 **6. Is kanamycin 25 or 50 µg/mL in this lab?** The module says **25 mg/mL** for the 1000×
 stock, so 25 µg/mL in the plate. 50 µg/mL is the more common published figure for *E. coli*,

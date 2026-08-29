@@ -229,7 +229,7 @@ plate</strong>.</p>
 <th>Antibiotic</th>
 <th>1000× stock</th>
 <th>µL solvent per mg</th>
-<th>At the 50 mg default</th>
+<th>If you weighed 50 mg</th>
 <th>Solvent</th>
 <th>Light</th>
 </tr>
@@ -293,7 +293,8 @@ plate</strong>.</p>
 </tr>
 </tbody>
 </table></div>
-<p>Two things in that table need settling before they are said on camera — see Gaps 3 and 6.</p>
+<p>The fourth column is arithmetic, not a target: you weigh what you scooped and compute from
+that. Two things in the table need settling before they are said on camera — see Gaps 3 and 6.</p>
 <h3>Splitting the agar</h3>
 <p>500 mL total → <strong>four sterile vessels at 125 mL each</strong>. The protocol requires one clean
 vessel per antibiotic combination; 125 mL is exactly half a bottle, so the split is by eye
@@ -623,7 +624,7 @@ videos.</p>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-08</code></td>
-<td>Kanamycin: <strong>25 mg/mL</strong>, so the same 50 mg needs <strong>2000 µL</strong> — four times the volume for a quarter the strength. Plus protect from light</td>
+<td>Kanamycin: <strong>25 mg/mL at 40 µL per mg</strong> — four times the solvent per milligram, so scoop about <strong>25 mg</strong>, not 50. The volume is computed from what the balance says, never assumed. Plus protect from light</td>
 <td>POUR</td>
 </tr>
 <tr>
@@ -1103,7 +1104,7 @@ supervisor who has completed <strong>Flame Sterilization</strong> training.</p>
 <li>Store according to lab SOP for this antibiotic (commonly −20 °C or 4 °C).</li>
 </ol>
 <h3>Protocol 4 — Kanamycin 1000× stock</h3>
-<p><code>preparation_of_antibiotic_1000x_stock</code>, <strong>kanamycin</strong>, 50 mg. <span class="flag">▲</span>The computed volume overflows the tube the protocol just told you to use — see Gap 5.</p>
+<p><code>preparation_of_antibiotic_1000x_stock</code>, <strong>kanamycin</strong>, rendered at the module's 50 mg default. On the day you compute from the mass the balance actually reads — see Gap 5.</p>
 <blockquote>
 <p>Verbatim Protocol Builder output.</p>
 </blockquote>
@@ -1328,13 +1329,40 @@ in this lab, and the solvent. Until then <code>POUR-08</code> is the clip where 
 <p><strong>4. Erythromycin has no plate marking convention.</strong> Protocol 1 lists stripe colours for carb,
 kan, CAM, spec and tet. Nothing for erythromycin. Pick one in <code>POUR-18</code> and it becomes the
 convention.</p>
-<p><strong>5. Kanamycin's own default overflows its own tube.</strong> Step 1 of Protocol 4 says to label a
-<strong>1.5 mL</strong> microcentrifuge tube. Step 4, at the module's default 50 mg, then computes <strong>2000 µL
-(2.00 mL)</strong> of water — because kanamycin is a 25 mg/mL stock at 40 µL per mg. It does not fit.
-Chloramphenicol has the same problem and tetracycline is worse at 5000 µL. The 50 mg default
-only works for the 100 mg/mL group: carbenicillin, ampicillin, spectinomycin. Either weigh
-~25 mg for kanamycin or send it to a larger tube — but decide before <code>POUR-08</code>, because on
-camera it will simply overflow.</p>
+<p><strong>5. Step 3 suggests the same ~50 mg for every antibiotic.</strong> The procedure itself is
+mass-driven and correct: tare the tube, scoop some powder, <strong>record the actual mass</strong>, then
+compute the solvent from that. So the 2000 µL that Protocol 4 prints is an illustration of the
+module's 50 mg default, not an instruction — in practice you scoop an amount that suits the
+tube and the arithmetic follows.</p>
+<p>What is worth tightening is that <strong>step 3 names ~50 mg regardless of which antibiotic you
+picked</strong>, and 50 mg only suits the 100 mg/mL group. Working to about 1.2 mL in a 1.5 mL tube:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Group</th>
+<th>µL per mg</th>
+<th>Sensible scoop</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Carb / amp / spec — 100 mg/mL</td>
+<td>10</td>
+<td>~50 mg (up to ~120)</td>
+</tr>
+<tr>
+<td>Kan / CAM — 25 mg/mL</td>
+<td>40</td>
+<td><strong>~25 mg</strong> (up to ~30)</td>
+</tr>
+<tr>
+<td>Tetracycline — 10 mg/mL</td>
+<td>100</td>
+<td><strong>~10 mg</strong> (up to ~12)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Nothing breaks either way; the person weighing simply needs to know before they scoop.</p>
 <p><strong>6. Is kanamycin 25 or 50 µg/mL in this lab?</strong> The module says <strong>25 mg/mL</strong> for the 1000×
 stock, so 25 µg/mL in the plate. 50 µg/mL is the more common published figure for <em>E. coli</em>,
 and you were unsure which this lab uses. If the bench actually runs 50, the module is wrong and
