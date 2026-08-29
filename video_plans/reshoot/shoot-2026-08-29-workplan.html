@@ -1,0 +1,1233 @@
+<title>B144 Shoot Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@400;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  --paper:#FCFCFA; --sunk:#F3F3F0; --ink:#16181A; --muted:#61666C;
+  --rule:#DBDCD8; --rule-hard:#B4B6B1;
+  --carb:#A82F28; --kan:#2C6E4B; --erm:#8B9096; --flag:#9A5B12;
+  --lead:1.55;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#131518; --sunk:#1A1D21; --ink:#E6E7E8; --muted:#9AA0A6;
+    --rule:#2B2F34; --rule-hard:#454A50;
+    --carb:#E0705F; --kan:#6FBE8C; --erm:#9DA3A9; --flag:#D69A4A;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131518; --sunk:#1A1D21; --ink:#E6E7E8; --muted:#9AA0A6;
+  --rule:#2B2F34; --rule-hard:#454A50;
+  --carb:#E0705F; --kan:#6FBE8C; --erm:#9DA3A9; --flag:#D69A4A;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Serif","Iowan Old Style",Georgia,serif;
+  font-size:15px; line-height:var(--lead);
+  margin:0; padding:40px 24px 80px;
+  -webkit-font-smoothing:antialiased;
+}
+.sheet{max-width:52rem;margin:0 auto;display:flex;flex-direction:column;gap:0}
+
+/* ---- masthead ---- */
+.mast{border-top:3px solid var(--ink);border-bottom:1px solid var(--rule-hard);padding:14px 0 16px;margin-bottom:28px}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;margin-bottom:.7rem;
+}
+h1{
+  font-family:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif;
+  font-weight:700;font-size:2.5rem;line-height:1.06;letter-spacing:-.012em;
+  margin:0 0 .45rem;text-wrap:balance;
+}
+.standfirst{font-size:1.02rem;color:var(--muted);margin:0;max-width:44rem}
+.legend{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-top:1rem;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.7rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:.45rem}
+.legend i{width:18px;height:5px;border-radius:1px;display:inline-block}
+.sw-carb{background:var(--carb)} .sw-kan{background:var(--kan)}
+.sw-erm{background:repeating-linear-gradient(45deg,var(--erm) 0 3px,transparent 3px 6px);
+  outline:1px solid var(--erm);outline-offset:-1px}
+
+/* ---- headings ---- */
+h2,h3,h4{font-family:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif;
+  text-wrap:balance;letter-spacing:-.005em}
+h2{font-size:1.5rem;font-weight:700;margin:2.7rem 0 .9rem;padding-top:.7rem;
+  border-top:1px solid var(--rule-hard)}
+h3{font-size:1.06rem;font-weight:600;margin:1.9rem 0 .55rem;color:var(--ink)}
+h3 code{font-size:.95em}
+h4{font-size:.95rem;font-weight:600;margin:1.3rem 0 .4rem}
+p{margin:0 0 .85rem;max-width:44rem}
+hr{border:0;border-top:1px solid var(--rule);margin:2.2rem 0}
+a{color:inherit}
+
+/* ---- tables ---- */
+.tw{overflow-x:auto;margin:1rem 0 1.5rem;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule-hard)}
+table{border-collapse:collapse;width:100%;font-family:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif;
+  font-size:.85rem;line-height:1.4;font-variant-numeric:tabular-nums}
+th{text-align:left;font-weight:600;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);padding:.5rem .7rem;border-bottom:1px solid var(--rule-hard);white-space:nowrap}
+td{padding:.5rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td:first-child{white-space:nowrap}
+tbody tr:nth-child(even){background:var(--sunk)}
+
+/* ---- code / slugs ---- */
+code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.84em;
+  background:var(--sunk);border:1px solid var(--rule);border-radius:2px;padding:.06em .32em}
+td code{background:none;border:0;padding:0;font-weight:600;letter-spacing:.02em}
+h2 code,h3 code{background:none;border:0;padding:0}
+
+/* ---- blockquote: protocol verbatim marker ---- */
+blockquote{margin:.9rem 0;padding:.15rem 0 .15rem 1rem;border-left:2px solid var(--rule-hard);
+  color:var(--muted);font-size:.92rem}
+blockquote p{margin:0 0 .4rem}
+blockquote p:last-child{margin:0}
+
+ul,ol{margin:0 0 .95rem;padding-left:1.35rem;max-width:44rem}
+li{margin:.22rem 0}
+li>ul,li>ol{margin:.22rem 0}
+strong{font-weight:600}
+
+.flag{color:var(--flag);font-family:"IBM Plex Sans Condensed",sans-serif;
+  font-size:.78em;margin-right:.4em;vertical-align:.08em}
+
+/* protocol bodies read as documents-within-the-document */
+h3+p+blockquote+p{margin-top:.4rem}
+
+::selection{background:var(--ink);color:var(--paper)}
+:focus-visible{outline:2px solid var(--flag);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+@media (max-width:600px){
+  body{padding:24px 14px 60px;font-size:14px}
+  h1{font-size:1.9rem}
+}
+
+/* ---- print: this is the point of the page ---- */
+@media print{
+  @page{size:letter portrait;margin:14mm}
+  :root{--paper:#fff;--sunk:#F4F4F2;--ink:#000;--muted:#4A4A4A;
+    --rule:#CFCFCF;--rule-hard:#8A8A8A;
+    --carb:#A82F28;--kan:#2C6E4B;--erm:#7A7A7A;--flag:#8A4E0C}
+  html,body{background:#fff!important;color:#000!important}
+  body{padding:0;font-size:10.5pt;line-height:1.4}
+  .sheet{max-width:none}
+  p,ul,ol,blockquote{max-width:none}
+  h2{page-break-after:avoid;break-after:avoid;font-size:14pt;margin-top:1.4rem}
+  h3,h4{page-break-after:avoid;break-after:avoid}
+  h3{font-size:11.5pt}
+  table{font-size:8.6pt}
+  th,td{padding:.28rem .45rem}
+  .tw{page-break-inside:auto;overflow:visible}
+  tr,li,blockquote{page-break-inside:avoid;break-inside:avoid}
+  thead{display:table-header-group}
+  .mast{page-break-after:avoid}
+}
+</style>
+<div class="sheet">
+<header class="mast">
+  <div class="eyebrow">
+    <span>Shoot 01</span><span>Sat 29 Aug 2026 · 10:00</span><span>B144 Stanley</span>
+    <span>4 videos · 10 passes · 41 clips</span>
+  </div>
+  <h1>Control Strains, Plates &amp; Broth</h1>
+  <p class="standfirst">Call sheet and protocol pack for one day at the bench. Every clip is
+  slated with a slug; every procedure is verbatim Protocol Builder output. Print it, tick the
+  boxes, keep it on the cart.</p>
+  <div class="legend">
+    <span><i class="sw-carb"></i>Carbenicillin — red stripes</span>
+    <span><i class="sw-kan"></i>Kanamycin — green stripes</span>
+    <span><i class="sw-erm"></i>Erythromycin — no convention assigned</span>
+  </div>
+</header>
+<p>Four videos come out of this shoot. They are filmed <strong>interlaced</strong>, not one after another,
+because the same bench setup feeds more than one of them. Every clip below is slated with a
+slug so the footage can be sorted afterwards.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Video</th>
+<th>Lands on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POUR</code></td>
+<td>Plate Pouring (supervisor)</td>
+<td><code>docs/trainings/plate_pouring.md</code></td>
+</tr>
+<tr>
+<td><code>BROTH</code></td>
+<td>Making 2YT Broth</td>
+<td>no page yet — see Gaps</td>
+</tr>
+<tr>
+<td><code>CTRL</code></td>
+<td>Control Strains (day 1 + day 2)</td>
+<td>no page yet — see Gaps</td>
+</tr>
+<tr>
+<td><code>MW</code></td>
+<td>Microwave short</td>
+<td><code>docs/trainings/microwave.md</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><code>MW</code> is harvested, not shot separately: one clip in PASS 4 serves it.</p>
+<hr />
+<h2>1. The numbers</h2>
+<p>Everything below is computed from the Protocol Builder's own arithmetic
+(<code>pouring_petri_dishes</code> at <strong>20 plates</strong> → <strong>2 × 250 mL bottles</strong>, ~25 mL per plate).</p>
+<h3>Media</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Bottle</th>
+<th>Route</th>
+<th>Protocol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LB agar #1</td>
+<td><strong>Fresh</strong> — powder + DI, pressure cooker, 20 min high pressure</td>
+<td>Protocol 1</td>
+</tr>
+<tr>
+<td>LB agar #2</td>
+<td><strong>Re-melted</strong> — solidified bottle off the shelf, microwave</td>
+<td>Protocol 1</td>
+</tr>
+<tr>
+<td>2YT × 4</td>
+<td>Fresh, same cooker run as LB agar #1</td>
+<td><span class="flag" aria-hidden="true">▲</span><strong>no protocol exists</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>The small pressure cooker holds <strong>five 250 mL bottles</strong>. One slot is LB agar #1, so <strong>four
+are free for 2YT</strong> — that is where the interlacing pays for itself. One cooker run, one
+setup, two videos.</p>
+<h3>Splitting the agar</h3>
+<p>500 mL total → <strong>four sterile vessels at 125 mL each</strong>. The protocol requires one clean
+vessel per antibiotic combination; 125 mL is exactly half a bottle, so the split is by eye
+against the side graduations, which is what the protocol says to do.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Vessel</th>
+<th>Agar</th>
+<th>1000× stock added</th>
+<th>Plates @ 25 mL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Carbenicillin</td>
+<td>125 mL</td>
+<td><strong>125 µL</strong></td>
+<td>5</td>
+</tr>
+<tr>
+<td>Erythromycin</td>
+<td>125 mL</td>
+<td><strong>125 µL</strong></td>
+<td>5</td>
+</tr>
+<tr>
+<td>Kanamycin</td>
+<td>125 mL</td>
+<td><strong>125 µL</strong></td>
+<td>5</td>
+</tr>
+<tr>
+<td>Plain LB</td>
+<td>125 mL</td>
+<td>none</td>
+<td>5</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>500 mL</strong></td>
+<td></td>
+<td><strong>20</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Pour order: carb → erythromycin → kan.</strong> Plain LB whenever.</p>
+<h3>Plate budget</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Plate</th>
+<th>Matrix</th>
+<th>Sterility</th>
+<th>Transformation</th>
+<th>Cells-only</th>
+<th>No-rescue split</th>
+<th>Used</th>
+<th>Poured</th>
+<th>Spare</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Carb</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>—</td>
+<td>4</td>
+<td>5</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Erythromycin</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>—</td>
+<td>4</td>
+<td>5</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Kanamycin</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td><strong>1</strong></td>
+<td>5</td>
+<td>5</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>Plain LB</td>
+<td>1</td>
+<td>1</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>2</td>
+<td>5</td>
+<td>3</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><strong>15</strong></td>
+<td><strong>20</strong></td>
+<td><strong>5</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="flag" aria-hidden="true">▲</span><strong>Kanamycin has no spare</strong> because it carries the no-rescue split. If you want slack,
+pour 6 kan and 4 plain LB — the spare LB plates cannot substitute for a kan plate.</p>
+<p>The <strong>matrix</strong> row is the 3×4 grid: each plate sectored in three, one control strain per
+sector, so three strains × four conditions costs four plates instead of twelve.</p>
+<hr />
+<h2>2. Slates</h2>
+<p>Write the slug on paper in marker, hold it in frame for two seconds at the head of the clip,
+<strong>and say it out loud.</strong> The spoken slate is what saves you when the paper is out of focus —
+and it doubles as a caption boundary later.</p>
+<p>Add the take number when you go again: <code>CTRL-05 T2</code>.</p>
+<p>Pre-write the slate cards before 10:00. There are 40-odd of them and writing each one on the
+day is the single easiest way to lose an hour.</p>
+<hr />
+<h2>3. Timetable</h2>
+<p>The shape of the day is set by one thing: <strong>the pressure cooker is 20 minutes at pressure
+plus a natural release</strong>, and everything in PASS 2 and PASS 3 exists to fill that window.
+Protocol 1 also notes the cooker will <strong>hold ~55 °C for hours</strong> once it is off — so it is
+also the holding bath that keeps the agar pourable.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Pass</th>
+<th>Time</th>
+<th>Location</th>
+<th>What</th>
+<th>Clips</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>10:00–10:30</td>
+<td>Media bench</td>
+<td>LB agar + 2YT, interlaced → cooker</td>
+<td><code>POUR-01…04</code>, <code>BROTH-01…04</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>10:30–11:00</td>
+<td>Balance</td>
+<td>Antibiotic 1000× stocks ×3</td>
+<td><code>POUR-05…09</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>11:00–11:15</td>
+<td>−80 freezer</td>
+<td>The box; retrieve strains + miniprep</td>
+<td><code>CTRL-01…02</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>11:15–11:25</td>
+<td>Microwave</td>
+<td>Re-melt LB agar #2</td>
+<td><code>POUR-10</code> / <code>MW-01</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>11:25–12:25</td>
+<td>Chemical hood</td>
+<td>Dose and pour 20 plates</td>
+<td><code>POUR-11…18</code></td>
+</tr>
+<tr>
+<td>—</td>
+<td>12:25–13:00</td>
+<td>—</td>
+<td>Plates solidify. Break.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>6</td>
+<td>13:00–13:20</td>
+<td>Sterile bench</td>
+<td>Streak the matrix; set sterility plates</td>
+<td><code>CTRL-03…07</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td>13:20–13:50</td>
+<td>Transformation bench</td>
+<td>4 reactions, heat shock, split the rescue</td>
+<td><code>CTRL-08…13</code></td>
+</tr>
+<tr>
+<td>—</td>
+<td>13:50–14:50</td>
+<td>—</td>
+<td>Rescue shaking 1 h — film <code>CTRL-08</code> here if PASS 7 ran long</td>
+<td>—</td>
+</tr>
+<tr>
+<td>8</td>
+<td>14:50–15:10</td>
+<td>Sterile bench</td>
+<td>Plate everything</td>
+<td><code>CTRL-14…16</code></td>
+</tr>
+<tr>
+<td>9</td>
+<td>15:10–15:25</td>
+<td>Media bench</td>
+<td>Parafilm spares; 2YT out of the cooker</td>
+<td><code>POUR-19…20</code>, <code>BROTH-05</code></td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Day 2</strong></td>
+<td>Incubator</td>
+<td>Read the plates</td>
+<td><code>CTRL-17…23</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="flag" aria-hidden="true">▲</span><strong>PASS 10 has no session to live in.</strong> Sunday is Zoom-only and the students are locked
+out of B144. It is twenty minutes of plates on a bench and it needs somebody with weekend
+access and a camera — not a meeting.</p>
+<hr />
+<h2>4. Clip list</h2>
+<p>"Feeds" is the column that matters: a clip with two entries is filmed once and cut into both
+videos.</p>
+<h3>PASS 1 — Media bench · LB agar + 2YT interlaced · Protocol 1</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th style="text-align: center;">☐</th>
+<th>Slug</th>
+<th>Clip</th>
+<th>Feeds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>BROTH-01</code></td>
+<td>What 2YT is and what it is for in this lab</td>
+<td>BROTH</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-01</code></td>
+<td>What LB agar is; why a plate is solid and a broth is not</td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-02</code></td>
+<td>Label bottle, funnel, <strong>1 level tablespoon</strong> LB agar powder</td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>BROTH-02</code></td>
+<td>Label bottles, funnel, 2YT powder — <strong>the recipe is the gap, see below</strong></td>
+<td>BROTH</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-03</code></td>
+<td>Fill to the neck line with house DI, remove funnel, cap, shake — <strong>do the LB and the 2YT bottles in one take</strong></td>
+<td>POUR + BROTH</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-04</code></td>
+<td>Load the cooker: ~½–1 in water in the tray, bottles upright, "Beef"/"Sterilize", 20 min high pressure, natural release. Say <strong>"sterilize immediately"</strong> and why</td>
+<td>POUR + BROTH</td>
+</tr>
+</tbody>
+</table></div>
+<h3>PASS 2 — Balance · antibiotic stocks · Protocols 2, 3, 4</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th style="text-align: center;">☐</th>
+<th>Slug</th>
+<th>Clip</th>
+<th>Feeds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-05</code></td>
+<td>What a 1000× stock is; the dosing rule — <strong>X µL per X mL</strong></td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-06</code></td>
+<td>Carbenicillin: tare, ~50 mg, compute, <strong>water</strong>, dissolve, 0.22 µm, label</td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-07</code></td>
+<td>Kanamycin: same, <strong>plus protect from light</strong></td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-08</code></td>
+<td>Erythromycin: <strong>the solvent discussion</strong> — solvent is a property of the drug, not a preference</td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-09</code></td>
+<td>Carbenicillin vs ampicillin: amp degrades in hot agar, same <code>bla</code> gene</td>
+<td>POUR</td>
+</tr>
+</tbody>
+</table></div>
+<h3>PASS 3 — −80 freezer</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th style="text-align: center;">☐</th>
+<th>Slug</th>
+<th>Clip</th>
+<th>Feeds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-01</code></td>
+<td>The box: supervisor-only, and <em>why</em> — this is the irreplaceable material in the room</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-02</code></td>
+<td>Retrieve 3 glycerol stocks + the control miniprep; time-out-of-freezer discipline; don't thaw the box hunting a tube</td>
+<td>CTRL</td>
+</tr>
+</tbody>
+</table></div>
+<h3>PASS 4 — Microwave · Protocol 1 (re-melt section)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th style="text-align: center;">☐</th>
+<th>Slug</th>
+<th>Clip</th>
+<th>Feeds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-10</code></td>
+<td>Re-melt LB agar #2: <strong>loosen the lid a quarter turn</strong>, 30–60 s bursts, rest between, stop at boiling. Superheating — what it is and why it bites when you pick the bottle up</td>
+<td>POUR + MW</td>
+</tr>
+</tbody>
+</table></div>
+<h3>PASS 5 — Chemical hood · Protocol 1</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th style="text-align: center;">☐</th>
+<th>Slug</th>
+<th>Clip</th>
+<th>Feeds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-11</code></td>
+<td><strong>Hood, not the sterile bench</strong> — the burner needs the only gas line in the lab. Supervisor-only; Flame Sterilization is the prerequisite</td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-12</code></td>
+<td>Why a flame at all: the upward convection column</td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-13</code></td>
+<td>Split into four sterile vessels, 125 mL each — <strong>one clean vessel per combination</strong>, and carryover is the reason</td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-14</code></td>
+<td>Dose at <strong>~55 °C</strong>: 125 µL each. The wrist test for 55 °C. <strong>Swirl, don't shake</strong></td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-15</code></td>
+<td>Pour <strong>carb → erythromycin → kan</strong>, 5 each, then 5 plain LB. ~25 mL, or watch for the volume to break surface tension</td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-16</code></td>
+<td>Bubbles: hold the burner by the base and pass the flame over the surface</td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-17</code></td>
+<td>Marking conventions: <strong>red stripes = carb, green = kan.</strong> Erythromycin has no convention in the protocol — <strong>pick one on camera and say it</strong></td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-18</code></td>
+<td>Lids back on, set aside to solidify, burner off</td>
+<td>POUR</td>
+</tr>
+</tbody>
+</table></div>
+<h3>PASS 6 — Sterile bench · streaking</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th style="text-align: center;">☐</th>
+<th>Slug</th>
+<th>Clip</th>
+<th>Feeds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-03</code></td>
+<td>What a control strain is and why the lab keeps them</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-04</code></td>
+<td>Scrape a glycerol stock <strong>without thawing it</strong></td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-05</code></td>
+<td>Sector each plate in three; streak all three strains onto LB / carb / erythromycin / kan</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-06</code></td>
+<td>Label the four uninoculated sterility plates and set them aside</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-07</code></td>
+<td>Invert into the 37 °C incubator</td>
+<td>CTRL</td>
+</tr>
+</tbody>
+</table></div>
+<h3>PASS 7 — Transformation bench · Protocols 5, 6, 7</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th style="text-align: center;">☐</th>
+<th>Slug</th>
+<th>Clip</th>
+<th>Feeds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-08</code></td>
+<td>The miniprep: <strong>PCR positive control</strong> (is it my primers or my reaction?) vs <strong>transformation positive control</strong> (is it my DNA or my cells?)</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-09</code></td>
+<td>EchoTherm at 4 °C / 42 °C — short, references the transformation video</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-10</code></td>
+<td>Set up four reactions: three control plasmids <strong>plus a no-DNA cells-only control</strong></td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-11</code></td>
+<td>10 min at 4 °C → <strong>90 s at 42 °C</strong> → 1 min at 4 °C</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-12</code></td>
+<td><strong>The split:</strong> pull half the kan reaction and plate it now, no rescue</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-13</code></td>
+<td>Rescue: <strong>200 µL 2YT, 37 °C, 1 h</strong> — and why the carb reaction skips it</td>
+<td>CTRL</td>
+</tr>
+</tbody>
+</table></div>
+<h3>PASS 8 — Sterile bench · plating</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th style="text-align: center;">☐</th>
+<th>Slug</th>
+<th>Clip</th>
+<th>Feeds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-14</code></td>
+<td>Plate each transformation on its matching antibiotic; glass beads, shake side to side</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-15</code></td>
+<td>Plate the cells-only control on each of the three antibiotics</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-16</code></td>
+<td>Invert into 37 °C</td>
+<td>CTRL</td>
+</tr>
+</tbody>
+</table></div>
+<h3>PASS 9 — Storage · Protocol 8</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th style="text-align: center;">☐</th>
+<th>Slug</th>
+<th>Clip</th>
+<th>Feeds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-19</code></td>
+<td>Parafilm the spare plates; inverted in the fridge; stable <strong>1–2 weeks</strong></td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-20</code></td>
+<td><span class="flag" aria-hidden="true">▲</span><strong>Do not parafilm anything going into the incubator</strong> — cells need airflow</td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>BROTH-05</code></td>
+<td>2YT out of the cooker: cooling, labelling, where it is stored</td>
+<td>BROTH</td>
+</tr>
+</tbody>
+</table></div>
+<h3>PASS 10 — Day 2 · reading the plates</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th style="text-align: center;">☐</th>
+<th>Slug</th>
+<th>Clip</th>
+<th>Feeds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-17</code></td>
+<td><strong>The matrix.</strong> Four plates side by side; the diagonal grew and nothing else did</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-18</code></td>
+<td>The sterility plates — a different failure from the matrix: contamination in the agar, the bottle, or the hood</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-19</code></td>
+<td><strong>The no-rescue kan plate against the rescued one.</strong> The rescue stops being a claim and becomes a plate you point at</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-20</code></td>
+<td>The cells-only plates — proves the cells are naive and the plate selects</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-21</code></td>
+<td>The streaks: isolation, single colonies, morphology, contamination</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-22</code></td>
+<td>If a plate failed: dead stock, agar too hot, wrong dose</td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>CTRL-23</code></td>
+<td>Recording the batch QC — date, who poured, result</td>
+<td>CTRL</td>
+</tr>
+</tbody>
+</table></div>
+<p>Say the split out loud on day 2, because it is what makes the grid legible:
+<strong>LB and the sterility plates test the plates. The matrix and the cells-only plates test the biology.</strong></p>
+<hr />
+<h2>5. Captioning — what to do on the day</h2>
+<p>Captions get added afterwards, but three of these are free now and impossible to retrofit.</p>
+<p><strong>1. Narrate self-descriptively. This is the big one.</strong> WCAG asks for an <em>audio description</em>
+track when the picture carries information the audio does not (1.2.5, Level AA) — and a pair
+of hands doing a procedure is exactly that. But the requirement <strong>falls away entirely if the
+narration already says everything the picture shows.</strong> So: say the noun and say the number.
+"Add 125 microliters of the 1000× carbenicillin stock," never "add this." One habit, and it
+removes a whole deliverable from the back end.</p>
+<p><strong>2. Nothing important on screen only.</strong> A number that appears as a burn-in but is never
+spoken is invisible to a screen reader and absent from the captions. If you say it, you don't
+need the burn-in; if you burn it in, you still have to say it.</p>
+<p><strong>3. Audio quality decides the captioning bill.</strong> Both YouTube and Kaltura auto-caption and
+you correct from there, so the correction time is set by how clean the audio is. The hood and
+the microwave are the two loud locations — get the mic close to the speaker, and for PASS 4
+and PASS 5 consider narrating the explanation separately from the noisy action.</p>
+<p><strong>4. Hand the captioner the protocols.</strong> The narration is largely the protocol text, so
+Section 6 of this document is most of the transcript, pre-spelled. Send it with the footage.</p>
+<p><strong>5. Speech recognition will mangle these every time.</strong> Correct them once, globally:</p>
+<blockquote>
+<p>carbenicillin · erythromycin · kanamycin · ampicillin · chloramphenicol · spectinomycin ·
+tetracycline · EchoTherm · Mach1 · KCM · 2YT · LB agar · Pyrex · parafilm · petri ·
+microlitre/µL · OD600 · glycerol stock · miniprep · plasmid · aliquot · inoculate ·
+streak · satellite colony · sterile bench · chemical hood · Bunsen burner · 1000× stock ·
+0.22 µm · bla · amilGFP</p>
+</blockquote>
+<p><strong>6. One speaker at a time</strong>, and if somebody off camera asks a question, <strong>repeat it before
+answering</strong> — otherwise the caption carries an unattributed voice.</p>
+<p><strong>7. Ten seconds of room tone per location.</strong> Costs nothing, saves the audio cleanup.</p>
+<p><strong>8. Day 2 especially.</strong> "Which sector grew" is a purely visual judgement. Say which sector,
+by name, every time.</p>
+<hr />
+<h2>6. Protocols</h2>
+<p>Verbatim from the Protocol Builder. Nothing here is paraphrased.</p>
+<h3>Protocol 1 — Pouring Standard Petri Dishes — 20 plates</h3>
+<p><code>pouring_petri_dishes</code>, <strong>plates_needed = 20</strong>. Both agar routes are included: the fresh pressure-cooker prep for bottle #1 and the microwave re-melt for bottle #2.</p>
+<blockquote>
+<p>Verbatim Protocol Builder output.</p>
+<p><strong>Supervisor-only.</strong> Plate pouring requires a Bunsen burner and must be done in the
+<strong>chemical hood</strong> (the only gas line). Do not perform this procedure unless you are a
+supervisor who has completed <strong>Flame Sterilization</strong> training.</p>
+</blockquote>
+<p><strong>Plan volumes</strong>
+- <strong>Prepare:</strong> <strong>2 × 250 mL bottles</strong> of LB agar (≈10 plates per bottle at ~25 mL/plate) for <strong>20 plates</strong>.</p>
+<p><strong>Prepare LB agar (choose one)</strong>
+<strong>Materials</strong>
+- LB Agar powder (media bench; tablespoon scoop inside)
+- 250 mL Pyrex media bottles with caps
+- Large funnel
+- House DI water (sink across from the media bench; DI line)
+- Pressure cooker (small or large) or microwave with liquid cycle
+- Heat-protective gloves</p>
+<p><strong>Procedure</strong>
+1. Label each 250 mL bottle with “LB Agar”, date, and initials.
+2. Place a large funnel in each bottle. Add <strong>1 level tablespoon</strong> LB Agar powder per bottle.
+3. Fill each bottle with <strong>house DI water</strong> to the line by the neck. Remove the funnel.
+4. Cap and <strong>shake to dislodge powder from the bottom</strong>. Full dispersion not required; avoid powder stuck on the glass.
+5. <strong>Sterilize immediately.</strong> Hydrated LB Agar is not sterile and will support growth if it sits.</p>
+<p><strong>Pressure cooker (preferred)</strong></p>
+<ol start="6">
+<li>Put bottles upright on the cooker tray with <strong>~1/2–1 inch water</strong> in the tray (bottle bases in contact with water).</li>
+<li>Small cooker: <strong>“Beef”</strong> setting. Large cooker: <strong>“Sterilize”</strong> setting.</li>
+<li>Run <strong>20 min at high pressure</strong>. Allow pressure to release naturally; open the lid.</li>
+<li>With heat gloves, tighten caps if needed and remove bottles. While still hot, <strong>swirl or invert</strong> to fully disperse and clear the bottom.</li>
+</ol>
+<p><strong>Microwave (liquid cycle, alternate)</strong>
+- Use a <strong>microwave liquid cycle</strong> suitable for 250 mL bottles.
+- Remove with heat gloves and <strong>swirl while hot</strong> to fully disperse.</p>
+<p><strong>Cooling and use</strong>
+10. For pouring plates, cool to <strong>~55 °C</strong>. Practical check: if you can comfortably grasp the bottle without pain, it’s usually <strong>55–65 °C</strong>.
+11. You may use a <strong>55 °C water bath</strong> if available (not typically set up in B144).
+12. If not using immediately, <strong>let bottles cool completely</strong>. Leftover plain LB Agar may be kept by the sterile bench for small pours.</p>
+<p><strong>Notes</strong>
+- Small pressure cooker holds <strong>up to five 250 mL bottles</strong>; large cooker fits <strong>500 mL bottles</strong> or additional 250 mL bottles.
+- After a run, cookers continue to heat modestly until you <strong>turn them off</strong>.
+- If set up in advance, the cooker can <strong>hold ~55 °C</strong> for hours until you remove your agar; this is also the target temperature for pouring plates.</p>
+<p><strong>Procedure</strong>
+1. Loosen the bottle’s lid by about a quarter turn.
+2. Heat in short 30–60 second bursts, resting between intervals, until melted.
+3. Monitor closely as it nears melting and stop heating once boiling begins.
+4. Allow to cool to <strong>~55 °C</strong> before adding antibiotics and pouring plates.</p>
+<p><strong>Procedure</strong>
+1. Loosen the bottle’s lid by about a quarter turn.
+2. Heat in short 30–60 second bursts, resting between intervals, until melted.
+3. Monitor closely as it nears melting and stop heating once boiling begins.
+4. Allow to cool to <strong>~55 °C</strong> before adding antibiotics and pouring plates.</p>
+<p><strong>Sterile containers for mixing</strong>
+- If making fresh agar: also sterilize several <strong>100 mL or 250 mL</strong> empty bottles for measuring out media. Use <strong>one clean bottle per antibiotic/additive combination</strong>.<br />
+- Alternatively, use <strong>50 mL conicals</strong>, taking a <strong>fresh</strong> one for each combination.</p>
+<p><strong>Add antibiotics/additives at ~55 °C</strong>
+- Once agar cools to <strong>~55 °C</strong>, add antibiotics or other additives.<br />
+- <strong>Dosing rule:</strong> all antibiotics are <strong>1000×</strong> stocks → add <strong>X µL</strong> per <strong>X mL</strong> of agar.<br />
+<em>Example:</em> Pouring <strong>5 plates × 25 mL = 125 mL</strong> total agar → add <strong>125 µL</strong> of antibiotic.
+- For each combination, pour the required volume into a warm sterile bottle or conical. Use side graduations as a <strong>crude volumetric</strong>; close enough for routine plate pours.<br />
+- <strong>Mix by swirling (not vigorous shaking)</strong> to avoid bubbles.</p>
+<p><strong>Set up the sterile area — chemical hood</strong>
+- Work in the <strong>chemical hood</strong>. This procedure requires a Bunsen burner, and the hood has
+  the <strong>only gas line</strong> in the lab, so pouring cannot be done at the sterile bench.
+- Place stacks of petri dishes in the hood.<br />
+- Light the <strong>Bunsen burner</strong> with a striker; gas can be fully open.<br />
+- <em>Why a flame?</em> The hot column of air above the flame creates <strong>upward convection</strong> that reduces dust and airborne microbes settling into your open plates.</p>
+<p><strong>Pouring</strong>
+1. For each stack (single antibiotic/additive combination), <strong>remove lids</strong> and keep them nearby upside-down.<br />
+2. <strong>Pour ~25 mL</strong> per plate (about <strong>3/16 inch</strong> thick). You can also watch for the moment the added volume <strong>breaks surface tension and spreads</strong> to fill the plate—this is a practical visual cue for the right amount.<br />
+3. If bubbles form, hold the burner by the base and briefly <strong>pass the flame</strong> over the surface to pop them.<br />
+4. <strong>Replace lids</strong> and set plates aside to <strong>solidify</strong>. Turn off the flame when finished.</p>
+<p><strong>Marking conventions (common codes)</strong>
+- <strong>Carbenicillin/Ampicillin:</strong> red stripes on side; “A”, “Amp”, or “Carb” on plate bottom<br />
+- <strong>Kanamycin:</strong> green stripes; “K” or “Kan”<br />
+- <strong>Chloramphenicol:</strong> blue stripes; “C” or “CAM”<br />
+- <strong>Spectinomycin:</strong> black stripes; “Sp” or “Spec”<br />
+- <strong>Tetracycline:</strong> yellow stripes; “T” or “Tet”<br />
+- <strong>Arabinose:</strong> “Ara”<br />
+- <strong>IPTG:</strong> “IPTG”<br />
+- <strong>X‑Gal:</strong> “X” or “XGal”</p>
+<hr />
+<h3>Protocol 2 — Carbenicillin 1000× stock</h3>
+<p><code>preparation_of_antibiotic_1000x_stock</code>, <strong>carbenicillin</strong>, 50 mg.</p>
+<blockquote>
+<p>Verbatim Protocol Builder output.</p>
+</blockquote>
+<ol>
+<li>Label a sterile 1.5 mL microcentrifuge tube.</li>
+<li>Place the empty tube on an analytical balance and tare to 0.000 g.</li>
+<li>Scoop approximately 50 mg of antibiotic powder into the tube; record the actual mass (mg).</li>
+<li>Compute the volume of solvent to add for a 100 mg/mL stock: for carbenicillin, use 10 µL per mg. For 50 mg → add 500 µL (0.50 mL) of molecular biology grade water.</li>
+<li>Cap the tube and mix until fully dissolved (vortex briefly; avoid aerosols).</li>
+<li>If a sterile stock is required, sterile‑filter (0.22 µm) into a sterile, labeled tube using a membrane compatible with the solvent.</li>
+<li>Aliquot as needed and label with antibiotic, concentration, date, and your initials.</li>
+<li>Store according to lab SOP for this antibiotic (commonly −20 °C or 4 °C).</li>
+</ol>
+<h3>Protocol 3 — Kanamycin 1000× stock</h3>
+<p><code>preparation_of_antibiotic_1000x_stock</code>, <strong>kanamycin</strong>, 50 mg.</p>
+<blockquote>
+<p>Verbatim Protocol Builder output.</p>
+</blockquote>
+<ol>
+<li>Label a sterile 1.5 mL microcentrifuge tube.</li>
+<li>Place the empty tube on an analytical balance and tare to 0.000 g.</li>
+<li>Scoop approximately 50 mg of antibiotic powder into the tube; record the actual mass (mg).</li>
+<li>Compute the volume of solvent to add for a 25 mg/mL stock: for kanamycin, use 40 µL per mg. For 50 mg → add 2000 µL (2.00 mL) of molecular biology grade water.</li>
+<li>Cap the tube and mix until fully dissolved (vortex briefly; avoid aerosols).</li>
+<li>If a sterile stock is required, sterile‑filter (0.22 µm) into a sterile, labeled tube using a membrane compatible with the solvent.</li>
+<li>Protect from light (use amber tube/wrap in foil).</li>
+<li>Aliquot as needed and label with antibiotic, concentration, date, and your initials.</li>
+<li>Store according to lab SOP for this antibiotic (commonly −20 °C or 4 °C).</li>
+</ol>
+<h3>Protocol 4 — Erythromycin 1000× stock</h3>
+<p><code>preparation_of_antibiotic_1000x_stock</code>, <strong>erythromycin</strong>, 50 mg. <span class="flag" aria-hidden="true">▲</span><strong>This is what the builder actually returns</strong> — the module has no erythromycin entry, so it falls through to the default branch and emits placeholders. See Gaps.</p>
+<blockquote>
+<p>Verbatim Protocol Builder output.</p>
+</blockquote>
+<ol>
+<li>Label a sterile 1.5 mL microcentrifuge tube.</li>
+<li>Place the empty tube on an analytical balance and tare to 0.000 g.</li>
+<li>Scoop approximately 50 mg of antibiotic powder into the tube; record the actual mass (mg).</li>
+<li>Compute the volume of solvent to add for a desired concentration stock: for erythromycin, use [set factor] µL per mg. For 50 mg → add V = (mg weighed) × (µL per mg) of molecular biology grade water.</li>
+<li>If preparing erythromycin, Verify appropriate solvent and concentration for this antibiotic.</li>
+<li>Cap the tube and mix until fully dissolved (vortex briefly; avoid aerosols).</li>
+<li>If a sterile stock is required, sterile‑filter (0.22 µm) into a sterile, labeled tube using a membrane compatible with the solvent.</li>
+<li>Aliquot as needed and label with antibiotic, concentration, date, and your initials.</li>
+<li>Store according to lab SOP for this antibiotic (commonly −20 °C or 4 °C).</li>
+</ol>
+<hr />
+<h3>Protocol 5 — Heat-shock transformation — carbenicillin control</h3>
+<p><code>heat_shock_transformation</code>, antibiotics = <strong>Carb</strong>. Note the builder returns the <strong>no-rescue</strong> branch here, by its own rule. See Gaps.</p>
+<blockquote>
+<p>Verbatim Protocol Builder output.</p>
+</blockquote>
+<p><strong>Equilibrate heating and cooling blocks</strong>
+- Turn on the Echotherm. Set block A to <strong>4 °C</strong> and block B to <strong>42 °C</strong>. Wait until both blocks are at temperature.
+- <strong>Alternative:</strong> use a thermocycler with two blocks set to <strong>4 °C</strong> and <strong>42 °C</strong>.
+- <strong>Alternative:</strong> use a <strong>42 °C</strong> heating block and an <strong>ice bath</strong> for <strong>4 °C</strong>.
+- Keep the blocks at temperature throughout the procedure.</p>
+<p><strong>Plates and labeling</strong>
+- You will need <strong>at least 1 petri dish</strong> per transformation containing the required antibiotic(s) or additive(s).
+- If selecting with an <strong>Amp/Bla</strong> marker, use the <strong>carbenicillin</strong> plates stocked in the fridge.
+- For any other selection, prepare plates:</p>
+<blockquote>
+<p><em>[Protocol Builder inlines the full "Pouring Standard Petri Dishes" protocol here.
+It is identical to </em><em>Protocol 1</em><em> above and has been removed to avoid printing it
+three times. The plates are already poured in PASS 5.]</em></p>
+</blockquote>
+<p><strong>Warm and label</strong>
+- Warm plates in the incubator to <strong>room temperature</strong>; cold plates are difficult to write on.
+- Label the <strong>bottom</strong> of each plate with:
+  - <strong>Date</strong> (YYYY‑MM‑DD) and your name/initials
+  - <strong>Strain:</strong> mach1
+  - <strong>Plasmid:</strong> carb control plasmid
+  - <strong>Selection:</strong> carb</p>
+<p><strong>Protocol</strong>
+1. Retrieve ligation reactions or plasmid DNA and bring to the transformation bench.
+2. Set the Echotherm blocks to <strong>4 °C</strong> (A) and <strong>42 °C</strong> (B). Alternatively, use a thermocycler with two blocks set to these temperatures.
+3. Place competent cell aliquots on block A (4 °C). One tube is sufficient for three reactions.
+4. Thaw cells (~30 s). Add <strong>25 µL KCM</strong> to each aliquot and pipette gently to mix.
+5. Place the DNA tube (ligation mix or diluted plasmid) on block A.
+6. Let tubes cool for <strong>30 s</strong> on block A.
+7. Add <strong>40 µL</strong> competent cells to each DNA tube while on block A (<strong>for a 10 µL DNA sample</strong>). If DNA was not already in the tube, add it now. Mix gently.
+   - These numbers assume the DNA volume is ~20% of the total mixture.
+   - Using smaller DNA volumes is fine, but adding too much DNA will dilute salts and reduce transformation efficiency.
+   - For large DNA reactions (~20 µL), use <strong>100 µL</strong> or the <strong>entire tube</strong> of competent cells.
+   - For simple retransformation from a miniprep, <strong>0.5 µL</strong> of plasmid DNA in <strong>10 µL</strong> of cells is sufficient.
+8. Incubate at <strong>4 °C for 10 min</strong>.
+9. Transfer tubes to block B (<strong>42 °C</strong>) for <strong>90 s</strong>.
+10. Return tubes to block A (<strong>4 °C</strong>) for <strong>1 min</strong>.</p>
+<ol start="11">
+<li>Plate the transformation mix directly on <strong>carbenicillin</strong> selective agar plates. Incubate <strong>inverted</strong> at <strong>37 °C</strong> overnight.</li>
+<li>Cancel temperature devices when finished.</li>
+</ol>
+<h3>Protocol 6 — Heat-shock transformation — kanamycin control</h3>
+<p><code>heat_shock_transformation</code>, antibiotics = <strong>Kan</strong>. Rescue branch.</p>
+<blockquote>
+<p>Verbatim Protocol Builder output.</p>
+</blockquote>
+<p><strong>Equilibrate heating and cooling blocks</strong>
+- Turn on the Echotherm. Set block A to <strong>4 °C</strong> and block B to <strong>42 °C</strong>. Wait until both blocks are at temperature.
+- <strong>Alternative:</strong> use a thermocycler with two blocks set to <strong>4 °C</strong> and <strong>42 °C</strong>.
+- <strong>Alternative:</strong> use a <strong>42 °C</strong> heating block and an <strong>ice bath</strong> for <strong>4 °C</strong>.
+- Keep the blocks at temperature throughout the procedure.</p>
+<p><strong>Plates and labeling</strong>
+- You will need <strong>at least 1 petri dish</strong> per transformation containing the required antibiotic(s) or additive(s).
+- If selecting with an <strong>Amp/Bla</strong> marker, use the <strong>carbenicillin</strong> plates stocked in the fridge.
+- For any other selection, prepare plates:</p>
+<blockquote>
+<p><em>[Protocol Builder inlines the full "Pouring Standard Petri Dishes" protocol here.
+It is identical to </em><em>Protocol 1</em><em> above and has been removed to avoid printing it
+three times. The plates are already poured in PASS 5.]</em></p>
+</blockquote>
+<p><strong>Warm and label</strong>
+- Warm plates in the incubator to <strong>room temperature</strong>; cold plates are difficult to write on.
+- Label the <strong>bottom</strong> of each plate with:
+  - <strong>Date</strong> (YYYY‑MM‑DD) and your name/initials
+  - <strong>Strain:</strong> mach1
+  - <strong>Plasmid:</strong> kan control plasmid
+  - <strong>Selection:</strong> kan</p>
+<p><strong>Protocol</strong>
+1. Retrieve ligation reactions or plasmid DNA and bring to the transformation bench.
+2. Set the Echotherm blocks to <strong>4 °C</strong> (A) and <strong>42 °C</strong> (B). Alternatively, use a thermocycler with two blocks set to these temperatures.
+3. Place competent cell aliquots on block A (4 °C). One tube is sufficient for three reactions.
+4. Thaw cells (~30 s). Add <strong>25 µL KCM</strong> to each aliquot and pipette gently to mix.
+5. Place the DNA tube (ligation mix or diluted plasmid) on block A.
+6. Let tubes cool for <strong>30 s</strong> on block A.
+7. Add <strong>40 µL</strong> competent cells to each DNA tube while on block A (<strong>for a 10 µL DNA sample</strong>). If DNA was not already in the tube, add it now. Mix gently.
+   - These numbers assume the DNA volume is ~20% of the total mixture.
+   - Using smaller DNA volumes is fine, but adding too much DNA will dilute salts and reduce transformation efficiency.
+   - For large DNA reactions (~20 µL), use <strong>100 µL</strong> or the <strong>entire tube</strong> of competent cells.
+   - For simple retransformation from a miniprep, <strong>0.5 µL</strong> of plasmid DNA in <strong>10 µL</strong> of cells is sufficient.
+8. Incubate at <strong>4 °C for 10 min</strong>.
+9. Transfer tubes to block B (<strong>42 °C</strong>) for <strong>90 s</strong>.
+10. Return tubes to block A (<strong>4 °C</strong>) for <strong>1 min</strong>.</p>
+<ol start="11">
+<li><strong>Rescue step:</strong> add <strong>200 µL 2YT</strong>, transfer to a 1.5 mL tube, and shake at <strong>37 °C</strong> for <strong>1 h</strong>. This step allows time for the resistance gene to express before plating on the chosen antibiotic.</li>
+<li>Plate all liquid on <strong>kan</strong> selective agar plates. Incubate <strong>inverted</strong> at <strong>37 °C</strong> overnight.
+   - <strong>Drying the plates (optional):</strong> Leave the plate <strong>uncovered at the sterile bench</strong> until the liquid is fully absorbed and the surface is <strong>no longer glossy</strong>. This prevents colony bleeding or running, especially when plating &gt;100 µL.</li>
+<li>Cancel temperature devices when finished.</li>
+</ol>
+<h3>Protocol 7 — Heat-shock transformation — erythromycin control</h3>
+<p><code>heat_shock_transformation</code>, antibiotics = <strong>Erm</strong>. Rescue branch.</p>
+<blockquote>
+<p>Verbatim Protocol Builder output.</p>
+</blockquote>
+<p><strong>Equilibrate heating and cooling blocks</strong>
+- Turn on the Echotherm. Set block A to <strong>4 °C</strong> and block B to <strong>42 °C</strong>. Wait until both blocks are at temperature.
+- <strong>Alternative:</strong> use a thermocycler with two blocks set to <strong>4 °C</strong> and <strong>42 °C</strong>.
+- <strong>Alternative:</strong> use a <strong>42 °C</strong> heating block and an <strong>ice bath</strong> for <strong>4 °C</strong>.
+- Keep the blocks at temperature throughout the procedure.</p>
+<p><strong>Plates and labeling</strong>
+- You will need <strong>at least 1 petri dish</strong> per transformation containing the required antibiotic(s) or additive(s).
+- If selecting with an <strong>Amp/Bla</strong> marker, use the <strong>carbenicillin</strong> plates stocked in the fridge.
+- For any other selection, prepare plates:</p>
+<blockquote>
+<p><em>[Protocol Builder inlines the full "Pouring Standard Petri Dishes" protocol here.
+It is identical to </em><em>Protocol 1</em><em> above and has been removed to avoid printing it
+three times. The plates are already poured in PASS 5.]</em></p>
+</blockquote>
+<p><strong>Warm and label</strong>
+- Warm plates in the incubator to <strong>room temperature</strong>; cold plates are difficult to write on.
+- Label the <strong>bottom</strong> of each plate with:
+  - <strong>Date</strong> (YYYY‑MM‑DD) and your name/initials
+  - <strong>Strain:</strong> mach1
+  - <strong>Plasmid:</strong> erm control plasmid
+  - <strong>Selection:</strong> erm</p>
+<p><strong>Protocol</strong>
+1. Retrieve ligation reactions or plasmid DNA and bring to the transformation bench.
+2. Set the Echotherm blocks to <strong>4 °C</strong> (A) and <strong>42 °C</strong> (B). Alternatively, use a thermocycler with two blocks set to these temperatures.
+3. Place competent cell aliquots on block A (4 °C). One tube is sufficient for three reactions.
+4. Thaw cells (~30 s). Add <strong>25 µL KCM</strong> to each aliquot and pipette gently to mix.
+5. Place the DNA tube (ligation mix or diluted plasmid) on block A.
+6. Let tubes cool for <strong>30 s</strong> on block A.
+7. Add <strong>40 µL</strong> competent cells to each DNA tube while on block A (<strong>for a 10 µL DNA sample</strong>). If DNA was not already in the tube, add it now. Mix gently.
+   - These numbers assume the DNA volume is ~20% of the total mixture.
+   - Using smaller DNA volumes is fine, but adding too much DNA will dilute salts and reduce transformation efficiency.
+   - For large DNA reactions (~20 µL), use <strong>100 µL</strong> or the <strong>entire tube</strong> of competent cells.
+   - For simple retransformation from a miniprep, <strong>0.5 µL</strong> of plasmid DNA in <strong>10 µL</strong> of cells is sufficient.
+8. Incubate at <strong>4 °C for 10 min</strong>.
+9. Transfer tubes to block B (<strong>42 °C</strong>) for <strong>90 s</strong>.
+10. Return tubes to block A (<strong>4 °C</strong>) for <strong>1 min</strong>.</p>
+<ol start="11">
+<li><strong>Rescue step:</strong> add <strong>200 µL 2YT</strong>, transfer to a 1.5 mL tube, and shake at <strong>37 °C</strong> for <strong>1 h</strong>. This step allows time for the resistance gene to express before plating on the chosen antibiotic.</li>
+<li>Plate all liquid on <strong>erm</strong> selective agar plates. Incubate <strong>inverted</strong> at <strong>37 °C</strong> overnight.
+   - <strong>Drying the plates (optional):</strong> Leave the plate <strong>uncovered at the sterile bench</strong> until the liquid is fully absorbed and the surface is <strong>no longer glossy</strong>. This prevents colony bleeding or running, especially when plating &gt;100 µL.</li>
+<li>Cancel temperature devices when finished.</li>
+</ol>
+<hr />
+<h3>Protocol 8 — Sealing Petri Dishes with Parafilm</h3>
+<blockquote>
+<p>Verbatim Protocol Builder output.</p>
+</blockquote>
+<p><strong>Protocol</strong></p>
+<ol>
+<li>
+<p><strong>Prepare the Parafilm.</strong>
+   - Unroll the Parafilm and cut a <strong>1-inch-wide strip horizontally</strong> from the roll.<br />
+     <span class="flag" aria-hidden="true">▲</span><em>Important:</em> cut <strong>along the long edge of the roll</strong>, so you create a long, narrow strip — not a short square piece.</p>
+</li>
+<li>
+<p><strong>Position and start the wrap.</strong>
+   - Hold one end of the Parafilm strip against the <strong>side of the Petri dish lid</strong>.
+   - Stretch the Parafilm gently until it starts to adhere.</p>
+</li>
+<li>
+<p><strong>Wrap around the plate.</strong>
+   - While holding tension, <strong>spin the plate</strong> slowly so that the Parafilm wraps evenly around the seam.
+   - Keep a slight stretch so the film seals smoothly without tearing.</p>
+</li>
+<li>
+<p><strong>Finish and seal.</strong>
+   - When the strip overlaps the starting point, <strong>pull it off the roll</strong> and press the end down firmly to seal it to itself.</p>
+</li>
+<li>
+<p><strong>Inspect.</strong>
+   - Ensure the seal is smooth and continuous around the plate. This prevents the plate from drying out, helps the lid stay in place if dropped, and keeps condensation and contents contained.</p>
+</li>
+<li>
+<p><strong>Storage.</strong>
+   - Store the sealed plates <strong>inverted in the refrigerator</strong>. They remain stable for about <strong>1–2 weeks</strong>.
+   - <span class="flag" aria-hidden="true">▲</span><em>Do not Parafilm plates that will be incubated</em> — cells need airflow to grow properly.</p>
+</li>
+</ol>
+<hr />
+<h2>7. Gaps — where the protocols run out</h2>
+<p>You asked to follow the protocols exactly. In five places there is no protocol to follow, and
+they are all worth knowing before 10:00 rather than at the bench.</p>
+<p><strong>1. There is no 2YT protocol.</strong> Four modules <em>consume</em> 2YT — <code>preparation_of_starter_culture</code>,
+<code>growing_bacteria_with_flasks</code>, <code>heat_shock_transformation</code>, <code>tss_comp_cells</code> — and <strong>none
+prepares it.</strong> The Protocol Builder cannot produce the text for the video you are about to
+shoot. The bench flow is the same shape as LB agar (Protocol 1), so PASS 1 films fine, <strong>but
+the recipe numbers have to come from you on the day.</strong> This is the Tecan pattern again: the
+footage defines the page rather than following it. Write the module from the take.</p>
+<p><strong>2. There is no streaking protocol.</strong> PASS 6 has no module behind it either. Same treatment.</p>
+<p><strong>3. Erythromycin is not in the antibiotic module.</strong> Protocol 4 above is the real output and it
+says <code>[set factor]</code>, <code>desired concentration</code>, and defaults the solvent to <strong>water</strong> — which is
+wrong for erythromycin. Two numbers fix it permanently: the working concentration for <em>E. coli</em>
+in this lab, and the solvent. Until then <code>POUR-08</code> is the clip where you say them out loud.</p>
+<p><strong>4. Erythromycin has no plate marking convention.</strong> Protocol 1 lists stripe colours for carb,
+kan, CAM, spec and tet. Nothing for erythromycin. Pick one in <code>POUR-17</code> and it becomes the
+convention.</p>
+<p><strong>5. The carb transformation has no rescue — the protocol says so, you said otherwise.</strong> The
+module decides this itself: <code>needsRescue = !hasAmp</code>, so carbenicillin takes the direct-plating
+branch and only kan and erythromycin get the outgrowth. Your sequence said "all 3 with a
+rescue." As printed, Protocol 5 plates directly. Either is defensible — a rescue does no harm
+— but the video and the builder should not disagree in front of students, so decide which one
+is right and change the other.</p>
+<hr />
+<p><em>Generated against the Protocol Builder modules in <code>docs/protocols/modules/</code> as of
+28 Aug 2026. Re-render if a module changes.</em></p>
+</div>
