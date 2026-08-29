@@ -3,161 +3,167 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@400;600;700&display=swap">
 <style>
-:root{--paper:#fff;--ink:#111;--muted:#5A6067;--rule:#C9CBC8;--accent:#8A3227}
+:root{--paper:#fff;--ink:#111;--muted:#555B61;--rule:#C9CBC8;--accent:#8A3227}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --paper:#141619;--ink:#E9EAEB;--muted:#9CA2A8;--rule:#31363B;--accent:#E08070}}
 :root[data-theme="dark"]{--paper:#141619;--ink:#E9EAEB;--muted:#9CA2A8;--rule:#31363B;--accent:#E08070}
 *{box-sizing:border-box}
-body{margin:0;padding:28px 20px 60px;background:var(--paper);color:var(--ink);
+body{margin:0;padding:24px 16px 48px;background:var(--paper);color:var(--ink);
   font-family:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif}
-.wrap{max-width:60rem;margin:0 auto;display:flex;flex-direction:column;gap:20px}
-.intro{font-size:.82rem;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;
-  font-family:"IBM Plex Mono",ui-monospace,monospace;border-bottom:1px solid var(--rule);padding-bottom:14px}
-.sheet{border:1px solid var(--rule);padding:26px 30px;display:flex;flex-direction:column;
-  gap:.5rem;background:var(--paper);aspect-ratio:11/8.5;overflow:hidden}
-.slug{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:600;font-size:2.6rem;
-  line-height:1;letter-spacing:-.02em;margin:0}
-.proto{font-size:1rem;color:var(--muted);margin:0}
-.sub{font-size:1rem;font-weight:600;color:var(--accent);margin:0;letter-spacing:.01em}
-ul{margin:.7rem 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.42rem}
-li{font-size:1.02rem;line-height:1.3;padding-left:1.1rem;position:relative}
-li::before{content:"";position:absolute;left:0;top:.55em;width:.42rem;height:.42rem;
+.wrap{max-width:66rem;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.intro{font-size:.78rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;border-bottom:1px solid var(--rule);
+  padding-bottom:12px}
+
+/* One sheet = one letter-landscape page. Sizes are a % of content width so the
+   screen preview and the printed page scale identically. */
+.sheet{border:1px solid var(--rule);background:var(--paper);aspect-ratio:11/8.5;
+  container-type:inline-size;padding:4.2cqw 4.6cqw;overflow:hidden;
+  display:flex;flex-direction:column}
+.proto{color:var(--muted);margin:0 0 .15em;font-size:2.3cqw;line-height:1.15}
+.slug{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:600;
+  font-size:calc(var(--s) * 0.9cqw);line-height:1.06;letter-spacing:-.025em;margin:0}
+.sub{font-weight:600;color:var(--accent);margin:.5em 0 0;font-size:3.4cqw;line-height:1.15}
+ul{margin:4.2cqw 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1.5cqw}
+li{font-size:3.8cqw;line-height:1.24;padding-left:2.1cqw;position:relative}
+li::before{content:"";position:absolute;left:0;top:.52em;width:.75cqw;height:.75cqw;
   background:var(--ink);border-radius:50%}
 b{font-weight:600}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 @media print{
-  @page{size:letter landscape;margin:12mm}
+  @page{size:letter landscape;margin:11mm}
   html,body{background:#fff!important;color:#000!important}
-  :root{--paper:#fff;--ink:#000;--muted:#444;--rule:#fff;--accent:#8A3227}
+  :root{--paper:#fff;--ink:#000;--muted:#3F3F3F;--rule:#fff;--accent:#8A3227}
   body{padding:0}
   .wrap{max-width:none;gap:0}
   .intro{display:none}
+  /* 1% of the ~727pt content width = 7.27pt */
   .sheet{page-break-after:always;break-after:page;border:0;padding:0;
-    aspect-ratio:auto;overflow:visible;justify-content:flex-start;gap:0}
-  .slug{font-size:76pt;margin-bottom:6pt}
-  .proto{font-size:15pt;margin-bottom:2pt}
-  .sub{font-size:19pt;margin-bottom:10pt}
-  ul{gap:.34rem;margin-top:14pt}
-  li{font-size:19pt;line-height:1.28;padding-left:1.2rem}
-  li::before{width:.34rem;height:.34rem;top:.55em}
+    aspect-ratio:auto;height:181mm;overflow:hidden;container-type:normal}
+  .proto{font-size:17pt;margin-bottom:1pt}
+  .slug{font-size:calc(var(--s) * 6.9pt);line-height:1.06}
+  .sub{font-size:25pt;margin-top:12pt}
+  ul{gap:11pt;margin-top:30pt}
+  li{font-size:28pt;line-height:1.24;padding-left:17pt}
+  li::before{width:6pt;height:6pt;top:.52em}
   .sheet:last-child{page-break-after:auto}
 }
 </style>
 <div class="wrap">
-<div class="intro">20 sheets &middot; print letter landscape, one per page &middot; hold the slug up at the head of each take &middot; boxes below are shown at true page proportions</div>
-<section class="sheet">
+<div class="intro">20 sheets &middot; print letter landscape, one per page &middot; hold the slug up at the head of each take &middot; shown at true page proportions</div>
+<section class="sheet" style="--s:16.5">
 <p class="proto">Preparation of LB Agar (250 mL bottles)</p>
 <h1 class="slug">agar_fresh</h1>
 <ul><li><b>3 &times; 250 mL</b> bottles, plus spare empties</li><li><b>1 level tablespoon</b> powder per bottle</li><li>DI to the neck line &middot; cap &middot; shake</li><li>Cooker: <b>Beef</b> (small) / <b>Sterilize</b> (large)</li><li><b>20 min</b> high pressure &middot; natural release</li><li>Cool to <b>~55 &deg;C</b></li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:18.4">
 <p class="proto">Preparation of 2YT Broth (250 mL bottles)</p>
 <h1 class="slug">broth_2yt</h1>
 <ul><li><b>4 &times; 250 mL</b> bottles</li><li>Premixed 2YT powder &mdash; <b>check the scoop on the tub</b></li><li>or components: <b>16 / 10 / 5 g/L</b> tryptone / yeast ext / NaCl</li><li>DI to the neck line &middot; shake until clear</li><li><b>20 min</b> high pressure &middot; natural release</li><li>Cooker holds <b>5 bottles</b> &rarr; 3 agar + 4 broth = <b>2 runs</b></li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:20.5">
 <p class="proto">Preparation of Antibiotic 1000&times; Stock</p>
 <h1 class="slug">abx_carb</h1>
 <p class="sub">Carbenicillin</p>
 <ul><li><b>100 mg/mL</b></li><li>&micro;L = <b>mg &times; 10</b></li><li>Solvent: <b>water</b></li><li>Scoop <b>~50 mg</b> &middot; tare first &middot; record the mass</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:20.5">
 <p class="proto">Preparation of Antibiotic 1000&times; Stock</p>
 <h1 class="slug">abx_spec</h1>
 <p class="sub">Spectinomycin</p>
 <ul><li><b>100 mg/mL</b></li><li>&micro;L = <b>mg &times; 10</b></li><li>Solvent: <b>water</b></li><li>Scoop <b>~50 mg</b> &middot; tare first &middot; record the mass</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:20.5">
 <p class="proto">Preparation of Antibiotic 1000&times; Stock</p>
 <h1 class="slug">abx_kan</h1>
 <p class="sub">Kanamycin</p>
 <ul><li><b>25 mg/mL</b></li><li>&micro;L = <b>mg &times; 40</b></li><li>Solvent: <b>water</b></li><li>Scoop <b>~25 mg</b>, not 50 &mdash; 50 will not fit the tube</li><li><b>Protect from light</b></li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:20.5">
 <p class="proto">Preparation of Antibiotic 1000&times; Stock</p>
 <h1 class="slug">abx_erm</h1>
 <p class="sub">Erythromycin</p>
 <ul><li><b>100 mg/mL</b></li><li>&micro;L = <b>mg &times; 10</b></li><li>Solvent: <b>ethanol</b> &mdash; will not go into water at all</li><li>Scoop <b>~50 mg</b> &middot; vortex until clear, it is slow</li><li>Crashes out of hot agar, then redissolves</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:15.0">
 <p class="proto">Re-melting Solidified LB Agar</p>
 <h1 class="slug">agar_remelt</h1>
 <ul><li><b>1 &times; 250 mL</b> bottle</li><li>Loosen the lid <b>a quarter turn</b></li><li><b>30&ndash;60 s bursts</b> &middot; rest between</li><li>Stop at boiling</li><li>Cool to <b>~55 &deg;C</b></li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:10.3">
 <p class="proto">Pouring many Carb petri dishes</p>
 <h1 class="slug">pour_many_plates</h1>
 <p class="sub">Carbenicillin &middot; 1 stack</p>
 <ul><li><b>~25 mL</b> per plate &middot; <b>~10 plates</b> per 250 mL</li><li>250 mL agar + <b>250 &micro;L</b> carb 1000&times;</li><li>Add at <b>~55 &deg;C</b> &middot; swirl, do not shake</li><li>Chemical hood &middot; burner lit</li><li><b>Red stripes</b> &middot; &ldquo;Carb&rdquo; on the bottom</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:10.3">
 <p class="proto">Pouring a few Erm petri dishes with conical</p>
 <h1 class="slug">pour_few_plates1</h1>
 <p class="sub">Erythromycin &middot; 3 plates</p>
 <ul><li>3 &times; 25 mL = <b>75 mL</b> + <b>75 &micro;L</b> erm 1000&times;</li><li><b>75 mL will not fit one 50 mL conical</b> &mdash; two, or pour thinner</li><li>Fresh conical, this combination only</li><li>Add at <b>~55 &deg;C</b> &middot; swirl, do not shake</li><li>No stripe convention exists &mdash; <b>pick one</b></li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:10.3">
 <p class="proto">Pouring a few spec petri dishes with bottle</p>
 <h1 class="slug">pour_few_plates2</h1>
 <p class="sub">Spectinomycin &middot; 4 plates</p>
 <ul><li>4 &times; 25 mL = <b>100 mL</b> + <b>100 &micro;L</b> spec 1000&times;</li><li>Sterile <b>100 mL bottle</b>, this combination only</li><li>Add at <b>~55 &deg;C</b> &middot; swirl, do not shake</li><li><b>Black stripes</b> &middot; &ldquo;Spec&rdquo; on the bottom</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:10.3">
 <p class="proto">Pouring and Spreading Large Petri Dishes (150 mm)</p>
 <h1 class="slug">pour_large_plate</h1>
 <p class="sub">150 mm plates</p>
 <ul><li><b>~50 mL</b> per plate &middot; <b>5 plates</b> per 250 mL bottle</li><li>Count: <b>___</b></li><li>1000&times; rule: <b>X &micro;L per X mL</b></li><li>Add at <b>~55 &deg;C</b> &middot; swirl, do not shake</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:20.5">
 <p class="proto">Pouring a few kan petri dishes</p>
 <h1 class="slug">pour_kan</h1>
 <p class="sub">NOT FILMED &middot; Kanamycin &middot; 3 plates</p>
 <ul><li>3 &times; 25 mL = <b>75 mL</b> + <b>75 &micro;L</b> kan 1000&times;</li><li>Add at <b>~55 &deg;C</b> &middot; swirl, do not shake</li><li><b>Green stripes</b> &middot; &ldquo;Kan&rdquo; on the bottom</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:16.5">
 <p class="proto">Pouring a few plain petri dishes</p>
 <h1 class="slug">pour_plain</h1>
 <p class="sub">NOT FILMED &middot; no antibiotic &middot; 3 plates</p>
 <ul><li>3 &times; 25 mL = <b>75 mL</b>, nothing added</li><li>The no-drug control &mdash; proves the others select</li><li>No stripes</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:15.0">
 <p class="proto">Streaking control strain</p>
 <h1 class="slug">ctrl_streak</h1>
 <p class="sub">4 control strains &middot; from the &minus;80 box</p>
 <ul><li>Plates: <b>carb &middot; spec &middot; kan &middot; erm</b></li><li>3 plates, all 4 strains</li><li>Each strain on its own plate; <b>carb strain onto spec as the neg</b></li><li>Streak <b>for isolation</b> &middot; scrape the stock, do not thaw it</li><li>Invert &middot; <b>37 &deg;C</b> overnight</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:11.0">
 <p class="proto">Label plates, thaw cells, incubate dna</p>
 <h1 class="slug">ctrl_transform1</h1>
 <p class="sub">4 reactions &middot; carb &middot; kan &middot; spec &middot; erm</p>
 <ul><li><b>Label the plate bottoms first</b></li><li>EchoTherm <b>A = 4 &deg;C</b>, <b>B = 42 &deg;C</b></li><li>Cells on block A &middot; thaw <b>~30 s</b> &middot; add <b>25 &micro;L KCM</b></li><li><b>0.5 &micro;L</b> miniprep into <b>10 &micro;L</b> cells</li><li><b>10 min at 4 &deg;C</b> &larr; stop here</li><li>Same for all four &mdash; the fork is at step 2</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:10.3">
 <p class="proto">Heat shock and plate</p>
 <h1 class="slug">ctrl_transform2a</h1>
 <p class="sub">NO RESCUE &middot; carb only &middot; 1 reaction</p>
 <ul><li><b>90 s at 42 &deg;C</b> &rarr; <b>1 min at 4 &deg;C</b></li><li>Carbenicillin &rarr; <b>plate straight away</b></li><li>Glass beads &middot; shake side to side, not around</li><li>Invert &middot; <b>37 &deg;C</b> overnight</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:10.3">
 <p class="proto">Heat shock and rescue</p>
 <h1 class="slug">ctrl_transform2b</h1>
 <p class="sub">RESCUE &middot; kan &middot; spec &middot; erm &middot; 3 reactions</p>
 <ul><li><b>90 s at 42 &deg;C</b> &rarr; <b>1 min at 4 &deg;C</b></li><li>Add <b>200 &micro;L 2YT</b> &middot; move to a 1.5 mL tube</li><li>Shake <b>37 &deg;C</b> for <b>1 h</b></li><li><b>Do not plate yet</b> &rarr; ctrl_transform3a</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:10.3">
 <p class="proto">Plate from a rescue</p>
 <h1 class="slug">ctrl_transform3a</h1>
 <p class="sub">kan &middot; spec &middot; erm &middot; 3 reactions</p>
 <ul><li>Plate <b>all</b> the liquid</li><li>Glass beads &middot; shake side to side, not around</li><li><b>Dry uncovered</b> at the sterile bench until not glossy</li><li>&mdash; 200 &micro;L will bleed otherwise</li><li>Invert &middot; <b>37 &deg;C</b> overnight</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:10.3">
 <p class="proto">Label plates, thaw cells, incubate dna</p>
 <h1 class="slug">bestP_transform1</h1>
 <p class="sub">7 reactions &middot; all on carb</p>
 <ul><li><b>One 100 &micro;L aliquot</b> for all seven</li><li><b>16 &micro;L cells + KCM + 0.5 &micro;L DNA</b> each</li><li>pJ01 / pJ12 / pJ19 &rarr; <b>Training Box</b></li><li>4 pP6 clones &rarr; <b>TPcon6B box</b></li><li><b>10 min at 4 &deg;C</b> &larr; stop here</li></ul>
 </section>
-<section class="sheet">
+<section class="sheet" style="--s:9.7">
 <p class="proto">Heat shock and plate</p>
 <h1 class="slug">bestP_transform2a</h1>
 <p class="sub">NO RESCUE &middot; 7 reactions &middot; all on carb</p>
