@@ -64,7 +64,7 @@ export function factory(values = {}) {
 ${needsRescue ? `
 11. **Rescue step:** add **200 µL 2YT**, transfer to a 1.5 mL tube, and shake at **${tempC} °C** for **1 h**. This step allows time for the resistance gene to express before plating on the chosen antibiotic.
 12. Plate all liquid on **${antibiotics.join(", ") }** selective agar plates. Incubate **inverted** at **${tempC} °C** overnight.
-   - **Drying the plates (optional):** Leave the plate **uncovered near the flame** until the liquid is fully absorbed and the surface is **no longer glossy**. This prevents colony bleeding or running, especially when plating >100 µL.
+   - **Drying the plates (optional):** Leave the plate **uncovered at the sterile bench** until the liquid is fully absorbed and the surface is **no longer glossy**. This prevents colony bleeding or running, especially when plating >100 µL.
 13. Cancel temperature devices when finished.
 ` : `
 11. Plate the transformation mix directly on **carbenicillin** selective agar plates. Incubate **inverted** at **${tempC} °C** overnight.
