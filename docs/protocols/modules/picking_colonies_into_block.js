@@ -4,7 +4,8 @@
 export const inputs = [
   { name: "samples", type: "number", label: "Number of plates to pick from", default: 6, step: 1 },
   { name: "colonies_per_sample", type: "number", label: "Colonies per plate", default: 4, step: 1 },
-  { name: "block_wells", type: "number", label: "Wells in the block", default: 24, step: 24 },
+  { name: "block_wells", type: "number", label: "Wells per block", default: 24, step: 24 },
+  { name: "blocks", type: "number", label: "Number of blocks", default: 1, step: 1 },
   { name: "well_volume_mL", type: "number", label: "Medium per well (mL)", default: 4, step: 1 },
   { name: "antibiotic", type: "text", label: "Antibiotic in the medium", default: "carb" }
 ];
@@ -12,7 +13,9 @@ export const inputs = [
 export function factory(values = {}) {
   const samples = Math.max(1, Number(values?.samples ?? 6));
   const per = Math.max(1, Number(values?.colonies_per_sample ?? 4));
-  const wells = Math.max(1, Number(values?.block_wells ?? 24));
+  const perBlock = Math.max(1, Number(values?.block_wells ?? 24));
+  const blocks = Math.max(1, Number(values?.blocks ?? 1));
+  const wells = perBlock * blocks;
   const vol = Number(values?.well_volume_mL ?? 4);
   const ab = String(values?.antibiotic ?? "carb");
 
@@ -20,18 +23,18 @@ export function factory(values = {}) {
   const fits = used <= wells;
   const overflow = fits
     ? ""
-    : `\n> ⚠️ **This does not fit.** ${samples} plates × ${per} colonies = **${used} wells**, and the
-> block has **${wells}**. Reduce the number of plates or the colonies per plate, or use a
-> second block.\n`;
+    : `\n> ⚠️ **This does not fit.** ${samples} plates × ${per} colonies = **${used} wells**, and
+> ${blocks} × ${perBlock}-well block${blocks > 1 ? "s" : ""} gives **${wells}**. Add a block, or
+> pick fewer colonies.\n`;
 
   return {
     name: "Picking Colonies into a Block",
-    description: `Pick ${per} colonies from each of ${samples} plates into a ${wells}-well block.`,
+    description: `Pick ${per} colonies from each of ${samples} plates into ${blocks} × ${perBlock}-well block${blocks > 1 ? "s" : ""}.`,
     includes: { required: [], optional: ["parafilm_sealing_plates"] },
-    derived: { samples, colonies_per_sample: per, wells_used: used, block_wells: wells },
+    derived: { samples, colonies_per_sample: per, wells_used: used, block_wells: perBlock, blocks },
     template: `
 **Plan**
-- ${samples} plates × ${per} colonies = **${used} wells** of ${wells}.
+- ${samples} plates × ${per} colonies = **${used} wells** across **${blocks} block${blocks > 1 ? "s" : ""}** of ${perBlock}.
 ${overflow}
 **Procedure**
 1. **Photograph the plates** under blue light transillumination and save the image. This is the

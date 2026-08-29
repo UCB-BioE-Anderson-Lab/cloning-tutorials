@@ -2,7 +2,6 @@
   {
     "id": "bestp",
     "title": "TPcon6 — BestP",
-    "subtitle": "Comparing the activity of pP6 hits to the reference promoter family",
     "catalogue": "pp6_clones.tsv",
     "clone_location": "TPcon6B",
     "clone_prefix": "pP6-",
@@ -12,23 +11,43 @@
     "colonies_per_sample": 4,
     "block_wells": 24,
     "technical_replicates": 2,
-    "min_clones": 4,
-    "max_clones": 6,
     "instrument": "plate reader",
     "references": [
-      { "label": "pJ01", "construct": "pJ01", "location": "Training Box",
-        "note": "J23101 — the standard reference, defined as 1 RPU", "default": true, "required": true },
-      { "label": "pJ19", "construct": "pJ19", "location": "Training Box",
-        "note": "J23119 — very strong; the bar a hit has to clear", "default": true },
-      { "label": "pJ12", "construct": "pJ12", "location": "Training Box",
-        "note": "J23112 — very weak", "default": false }
+      {
+        "label": "pJ01",
+        "construct": "pJ01",
+        "location": "Training Box",
+        "note": "J23101 — the standard reference, defined as 1 RPU",
+        "default": true,
+        "required": true
+      },
+      {
+        "label": "pJ19",
+        "construct": "pJ19",
+        "location": "Training Box",
+        "note": "J23119 — very strong; the bar a hit has to clear",
+        "default": true
+      },
+      {
+        "label": "pJ12",
+        "construct": "pJ12",
+        "location": "Training Box",
+        "note": "J23112 — very weak",
+        "default": true
+      }
     ],
     "sheets": [
       {
         "name": "Transform",
         "module": "heat_shock_transformation",
-        "tables": ["source", "samples"],
-        "values": { "antibiotics": "Carb", "plasmid": "see the samples table" },
+        "tables": [
+          "source",
+          "samples"
+        ],
+        "values": {
+          "antibiotics": "Carb",
+          "plasmid": "see the samples table"
+        },
         "notes": [
           "Write the label, your name and the date on the plate.",
           "You will use **one 100 µL tube of competent cells** for the whole experiment.",
@@ -40,13 +59,17 @@
       {
         "name": "Pick",
         "module": "picking_colonies_into_block",
-        "tables": ["samples"],
+        "tables": [
+          "samples"
+        ],
         "values": {}
       },
       {
         "name": "Assay",
         "module": "plate_reader_fluorescence",
-        "tables": ["samples"],
+        "tables": [
+          "samples"
+        ],
         "values": {},
         "notes": [
           "Paste the raw fluorescence and OD600 into the analysis sheet, then check the CV before trusting anything — a coefficient of variation much above 50 means the replicates disagree and the averages are meaningless.",
@@ -57,8 +80,14 @@
         "name": "Miniprep",
         "module": "secondary_miniprep",
         "tables": [],
-        "values": { "max_hits": 4, "storage_box": "pP6_hits_1", "culture_mL": 4 }
+        "values": {
+          "max_hits": 4,
+          "storage_box": "pP6_hits_1",
+          "culture_mL": 4
+        }
       }
-    ]
+    ],
+    "catalogue_url": "https://docs.google.com/spreadsheets/d/1FqNCBi832iyzmdIl1bYuyEuj2152RnnVaFCyT75oEds/gviz/tq?tqx=out:csv",
+    "howto": "<b>One row per person.</b> Everyone in the group adds their own experiment number and the clones they are taking on — type a clone and press Enter, or paste a whole list. <b>The controls below are shared across the group</b>, so they are measured once, not once each. All three are on to start with; switch off any you are not running. The counts update as you go and tell you how many plates and blocks the group needs."
   }
 ]

@@ -1,11 +1,6 @@
 # LabSheet Builder
 
-Enter your experiment number and pick your clones. The sheets below are yours to print, sign
-and take to the bench.
-
-The procedures are not written here — they are rendered from the same unit-op protocols the
-[Protocol Builder](../../protocols/protocols/) serves, so a labsheet and a protocol can never
-tell you different things.
+Plan a run as a group, then print the sheets and take them to the bench.
 
 <style>
   #ls-form { display: grid; gap: 1rem; margin: 1rem 0 1.5rem; }
@@ -16,15 +11,31 @@ tell you different things.
   legend { font-weight: 600; font-size: .9rem; padding: 0 .4rem; }
   .ls-check { display: flex; gap: .5rem; align-items: flex-start; font-weight: 400; margin: .25rem 0; }
   .ls-check small { color: #666; display: block; font-size: .78rem; }
-  #ls-clones { max-height: 230px; overflow-y: auto; display: grid;
-               grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .1rem .8rem;
-               border: 1px solid #eee; padding: .5rem; border-radius: 4px; }
-  #ls-tally { font-size: .9rem; color: #444; }
+  .ls-howto { font-size: .92rem; line-height: 1.5; background: #f7f9fb;
+              border-left: 3px solid #9fb6cc; padding: .7rem .9rem; border-radius: 3px; }
   #ls-warn { background: #fff6e5; border-left: 3px solid #d08a00; padding: .6rem .8rem;
              border-radius: 3px; font-size: .9rem; }
   #ls-error { background: #fdecea; border-left: 3px solid #c0392b; padding: .6rem .8rem;
               border-radius: 3px; font-size: .9rem; }
   .ls-err { color: #c0392b; }
+  .ls-quiet { font-size: .8rem; color: #666; margin: .4rem 0 0; }
+  .ls-member { border: 1px solid #e6e6e6; border-radius: 5px; padding: .6rem .7rem; margin-bottom: .6rem; }
+  .ls-member-head { display: flex; gap: .5rem; align-items: center; margin-bottom: .4rem; }
+  .ls-m-id { width: 6.5rem; }
+  .ls-m-name { flex: 1; min-width: 0; }
+  .ls-m-del { font-size: .75rem; padding: .15rem .5rem; }
+  .ls-m-clone { width: 100%; box-sizing: border-box; }
+  .ls-chips { display: flex; flex-wrap: wrap; gap: .3rem; margin-bottom: .4rem; }
+  .ls-chip { display: inline-flex; align-items: center; gap: .3rem; background: #eef3f8;
+             border: 1px solid #cfdcea; border-radius: 999px; padding: .1rem .3rem .1rem .6rem;
+             font-size: .84rem; }
+  .ls-chip button { border: 0; background: none; cursor: pointer; font-size: .95rem;
+                    line-height: 1; padding: 0 .25rem; color: #667; }
+  .ls-chip-warn { background: #fff6e5; border-color: #e3c58a; }
+  .ls-chip-unknown { background: #f3f0f7; border-color: #d5cbe3; }
+  #ls-tally { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; font-size: .9rem; color: #333; }
+  #ls-note { background: #eef3f8; border-left: 3px solid #5b87b5; padding: .6rem .8rem;
+             border-radius: 3px; font-size: .9rem; }
   button { cursor: pointer; }
   button:disabled { cursor: not-allowed; opacity: .5; }
 
@@ -53,7 +64,7 @@ tell you different things.
     @page { size: letter portrait; margin: 14mm; }
     html, body { background: #fff !important; }
     .md-header, .md-sidebar, .md-footer, .md-tabs, #ls-form, #ls-tools,
-    h1, .ls-intro { display: none !important; }
+    h1, .ls-howto, #ls-catalogue-note { display: none !important; }
     .md-main__inner, .md-content { margin: 0 !important; }
     .labsheet { border: 0; padding: 0; margin: 0; page-break-after: always;
                 break-after: page; font-size: 11pt; }
@@ -71,33 +82,30 @@ tell you different things.
     <label>Experiment
       <select id="ls-experiment"></select>
     </label>
-    <label>Your experiment number
-      <input id="ls-id" type="text" placeholder="79" inputmode="numeric">
-    </label>
-    <label>Your name
-      <input id="ls-name" type="text" placeholder="Sally Ride">
-    </label>
   </div>
 
-  <p id="ls-subtitle" class="ls-intro"></p>
+  <p id="ls-howto" class="ls-howto"></p>
 
   <fieldset>
-    <legend>Reference plasmids</legend>
+    <legend>The group</legend>
+    <div id="ls-members"></div>
+    <button id="ls-add-member" type="button">+ Add another person</button>
+  </fieldset>
+
+  <fieldset>
+    <legend>Shared controls</legend>
     <div id="ls-refs"></div>
   </fieldset>
 
-  <fieldset>
-    <legend>Your clones</legend>
-    <input id="ls-clone-search" type="text" placeholder="Filter by clone or date…">
-    <p id="ls-clone-count" style="font-size:.8rem;color:#666;margin:.4rem 0"></p>
-    <div id="ls-clones"></div>
-  </fieldset>
+  <p id="ls-catalogue-note" class="ls-quiet"></p>
+  <datalist id="ls-clone-list"></datalist>
 
   <div id="ls-tally"></div>
   <div id="ls-warn" hidden></div>
+  <div id="ls-note" hidden></div>
 
   <div>
-    <button id="ls-build">Build my labsheets</button>
+    <button id="ls-build">Build the labsheets</button>
   </div>
 </div>
 
