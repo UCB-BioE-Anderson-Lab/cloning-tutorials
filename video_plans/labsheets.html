@@ -13,8 +13,8 @@ body{margin:0;padding:28px 20px 60px;background:var(--paper);color:var(--ink);
 .wrap{max-width:60rem;margin:0 auto;display:flex;flex-direction:column;gap:20px}
 .intro{font-size:.82rem;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;
   font-family:"IBM Plex Mono",ui-monospace,monospace;border-bottom:1px solid var(--rule);padding-bottom:14px}
-.sheet{border:1px solid var(--rule);padding:22px 26px;display:flex;flex-direction:column;
-  gap:.5rem;background:var(--paper)}
+.sheet{border:1px solid var(--rule);padding:26px 30px;display:flex;flex-direction:column;
+  gap:.5rem;background:var(--paper);aspect-ratio:11/8.5;overflow:hidden}
 .slug{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:600;font-size:2.6rem;
   line-height:1;letter-spacing:-.02em;margin:0}
 .proto{font-size:1rem;color:var(--muted);margin:0}
@@ -34,7 +34,7 @@ b{font-weight:600}
   .wrap{max-width:none;gap:0}
   .intro{display:none}
   .sheet{page-break-after:always;break-after:page;border:0;padding:0;
-    height:calc(100vh - 24mm);justify-content:flex-start;gap:0}
+    aspect-ratio:auto;overflow:visible;justify-content:flex-start;gap:0}
   .slug{font-size:76pt;margin-bottom:6pt}
   .proto{font-size:15pt;margin-bottom:2pt}
   .sub{font-size:19pt;margin-bottom:10pt}
@@ -45,7 +45,7 @@ b{font-weight:600}
 }
 </style>
 <div class="wrap">
-<div class="intro">18 sheets &middot; print letter landscape, one per page &middot; hold the slug up at the head of each take</div>
+<div class="intro">20 sheets &middot; print letter landscape, one per page &middot; hold the slug up at the head of each take &middot; boxes below are shown at true page proportions</div>
 <section class="sheet">
 <p class="proto">Preparation of LB Agar (250 mL bottles)</p>
 <h1 class="slug">agar_fresh</h1>
@@ -131,13 +131,25 @@ b{font-weight:600}
 <p class="proto">Label plates, thaw cells, incubate dna</p>
 <h1 class="slug">ctrl_transform1</h1>
 <p class="sub">4 reactions &middot; carb &middot; kan &middot; spec &middot; erm</p>
-<ul><li><b>Label the plate bottoms first</b></li><li>EchoTherm <b>A = 4 &deg;C</b>, <b>B = 42 &deg;C</b></li><li>Cells on block A &middot; thaw <b>~30 s</b> &middot; add <b>25 &micro;L KCM</b></li><li><b>0.5 &micro;L</b> miniprep into <b>10 &micro;L</b> cells</li><li><b>10 min at 4 &deg;C</b> &larr; stop here</li></ul>
+<ul><li><b>Label the plate bottoms first</b></li><li>EchoTherm <b>A = 4 &deg;C</b>, <b>B = 42 &deg;C</b></li><li>Cells on block A &middot; thaw <b>~30 s</b> &middot; add <b>25 &micro;L KCM</b></li><li><b>0.5 &micro;L</b> miniprep into <b>10 &micro;L</b> cells</li><li><b>10 min at 4 &deg;C</b> &larr; stop here</li><li>Same for all four &mdash; the fork is at step 2</li></ul>
 </section>
 <section class="sheet">
 <p class="proto">Heat shock and plate</p>
-<h1 class="slug">ctrl_transform2</h1>
-<p class="sub">4 reactions &middot; carb &middot; kan &middot; spec &middot; erm</p>
-<ul><li><b>90 s at 42 &deg;C</b> &rarr; <b>1 min at 4 &deg;C</b></li><li><b>Carb: plate direct, no rescue</b></li><li><b>Kan / spec / erm: +200 &micro;L 2YT &middot; 37 &deg;C &middot; 1 h</b></li><li>Glass beads &middot; shake side to side, not around</li><li>Invert &middot; <b>37 &deg;C</b> overnight</li></ul>
+<h1 class="slug">ctrl_transform2a</h1>
+<p class="sub">NO RESCUE &middot; carb only &middot; 1 reaction</p>
+<ul><li><b>90 s at 42 &deg;C</b> &rarr; <b>1 min at 4 &deg;C</b></li><li>Carbenicillin &rarr; <b>plate straight away</b></li><li>Glass beads &middot; shake side to side, not around</li><li>Invert &middot; <b>37 &deg;C</b> overnight</li></ul>
+</section>
+<section class="sheet">
+<p class="proto">Heat shock and rescue</p>
+<h1 class="slug">ctrl_transform2b</h1>
+<p class="sub">RESCUE &middot; kan &middot; spec &middot; erm &middot; 3 reactions</p>
+<ul><li><b>90 s at 42 &deg;C</b> &rarr; <b>1 min at 4 &deg;C</b></li><li>Add <b>200 &micro;L 2YT</b> &middot; move to a 1.5 mL tube</li><li>Shake <b>37 &deg;C</b> for <b>1 h</b></li><li><b>Do not plate yet</b> &rarr; ctrl_transform3a</li></ul>
+</section>
+<section class="sheet">
+<p class="proto">Plate from a rescue</p>
+<h1 class="slug">ctrl_transform3a</h1>
+<p class="sub">kan &middot; spec &middot; erm &middot; 3 reactions</p>
+<ul><li>Plate <b>all</b> the liquid</li><li>Glass beads &middot; shake side to side, not around</li><li><b>Dry uncovered</b> at the sterile bench until not glossy</li><li>&mdash; 200 &micro;L will bleed otherwise</li><li>Invert &middot; <b>37 &deg;C</b> overnight</li></ul>
 </section>
 <section class="sheet">
 <p class="proto">Label plates, thaw cells, incubate dna</p>
@@ -147,8 +159,8 @@ b{font-weight:600}
 </section>
 <section class="sheet">
 <p class="proto">Heat shock and plate</p>
-<h1 class="slug">bestP_transform2</h1>
-<p class="sub">7 reactions &middot; all on carb</p>
+<h1 class="slug">bestP_transform2a</h1>
+<p class="sub">NO RESCUE &middot; 7 reactions &middot; all on carb</p>
 <ul><li><b>90 s at 42 &deg;C</b> &rarr; <b>1 min at 4 &deg;C</b></li><li>Carbenicillin &rarr; <b>NO rescue</b></li><li>Glass beads &middot; shake side to side, not around</li><li>Invert &middot; <b>37 &deg;C</b> overnight</li></ul>
 </section>
 </div>
