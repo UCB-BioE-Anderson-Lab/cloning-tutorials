@@ -15,7 +15,7 @@ export function factory(values = {}) {
   return {
     name: "Pouring Standard Petri Dishes",
     description: "Plan volumes, prepare LB agar (fresh or re-melt), add antibiotics/additives, and pour 90–100 mm plates.",
-    includes: { required: [], optional: ["preparation_of_lb_agar", "remelting_lb_agar"] },
+    includes: { required: [], optional: ["preparation_of_lb_agar", "remelting_lb_agar", "preparation_of_antibiotic_1000x_stock"] },
     derived: { plates_needed: plates, agar_bottles_250mL: bottles },
     // Keep include tokens on their own lines for full-section rendering.
     template: `
@@ -38,6 +38,8 @@ export function factory(values = {}) {
 - Once agar cools to **~55 °C**, add antibiotics or other additives.  
 - **Dosing rule:** all antibiotics are **1000×** stocks → add **X µL** per **X mL** of agar.  
   *Example:* Pouring **5 plates × 25 mL = 125 mL** total agar → add **125 µL** of antibiotic.
+- If you do not already have a 1000× stock, make one first:
+{preparation_of_antibiotic_1000x_stock}
 - For each combination, pour the required volume into a warm sterile bottle or conical. Use side graduations as a **crude volumetric**; close enough for routine plate pours.  
 - **Mix by swirling (not vigorous shaking)** to avoid bubbles.
 

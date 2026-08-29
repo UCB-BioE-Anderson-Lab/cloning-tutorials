@@ -3,10 +3,11 @@ function normalizeValues(values){
   for (const k of Object.keys(out)){
     const v = out[k];
     if (typeof v === 'string'){
-      const s = v.trim().toLowerCase();
+      const t = v.trim();
+      const s = t.toLowerCase();          // for the type tests only
       if (s === 'true' || s === 'false') out[k] = (s === 'true');
-      else if (!Number.isNaN(Number(s)) && s !== '') out[k] = Number(s);
-      else out[k] = s;
+      else if (!Number.isNaN(Number(t)) && t !== '') out[k] = Number(t);
+      else out[k] = t;                    // keep the text as typed: Mach1, not mach1
     }
   }
   return out;
@@ -283,12 +284,16 @@ function textToHTMLBlocks(text){
   while (i < lines.length){
     // collect ordered list if present
     if (/^\s*\d+\.\s+/.test(lines[i])){
+      // Honour the number the author wrote. A run of steps interrupted by bullets is still
+      // the same list, so 8. must render as 8, not restart at 1.
+      const first = Number((lines[i].match(/^\s*(\d+)\./) || [])[1] || 1);
       const items = [];
       while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])){
         items.push(lines[i].replace(/^\s*\d+\.\s+/, ''));
         i++;
       }
-      blocks.push(`<ol>` + items.map(s=>`<li>${formatInline(s)}</li>`).join('') + `</ol>`);
+      const startAttr = first > 1 ? ` start="${first}"` : '';
+      blocks.push(`<ol${startAttr}>` + items.map(s=>`<li>${formatInline(s)}</li>`).join('') + `</ol>`);
       continue;
     }
     // collect unordered list (- or * bullets)
