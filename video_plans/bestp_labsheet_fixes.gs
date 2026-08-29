@@ -25,15 +25,11 @@ const SHEET_ID = '14h6yquAQm3saaf_VOA-ytxYs5q6JbKaVCsslLpKXX6w';
 const DRY_RUN = true;
 
 /**
- * The Assay protocol says "Spectramax" (a Molecular Devices instrument).
- * The Fluorescence sheet's own data header says "SAFIRE II" (a Tecan).
- * The same protocol calls the plate a "Tecan plate", twice.
- * docs/trainings/tecan_mnano.md is written for a Tecan M Nano.
- *
- * Four names, one machine. Set this to whatever is actually on the bench.
- * The script refuses to run while it is blank.
+ * Confirmed by JCA: the instrument is a Tecan M Nano. The Assay protocol still says
+ * "Spectramax", which is a different manufacturer's machine, and the Fluorescence header
+ * says "SAFIRE II" because that block is old example data. Both are wrong.
  */
-const INSTRUMENT_NAME = '';   // e.g. 'Tecan Safire II'
+const INSTRUMENT_NAME = 'Tecan M Nano';
 
 /**
  * Read settings, copied from the header block of the `Fluorescence` sheet.

@@ -5,14 +5,14 @@ export const inputs = [
   { name: "samples", type: "number", label: "Number of cultures", default: 24, step: 1 },
   { name: "technical_replicates", type: "number", label: "Technical replicates per culture", default: 2, step: 1 },
   { name: "transfer_uL", type: "number", label: "Volume transferred per well (µL)", default: 100, step: 10 },
-  { name: "instrument", type: "text", label: "Plate reader", default: "plate reader" }
+  { name: "instrument", type: "text", label: "Plate reader", default: "Tecan M Nano" }
 ];
 
 export function factory(values = {}) {
   const samples = Math.max(1, Number(values?.samples ?? 24));
   const reps = Math.max(1, Number(values?.technical_replicates ?? 2));
   const vol = Number(values?.transfer_uL ?? 100);
-  const instrument = String(values?.instrument ?? "plate reader");
+  const instrument = String(values?.instrument ?? "Tecan M Nano");
   const wells = samples * reps;
   const over = wells > 96
     ? `\n> ⚠️ **${wells} wells exceeds a 96-well plate.** Reduce replicates or split across two plates.\n`
