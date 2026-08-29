@@ -55,13 +55,14 @@ export function factory(values){
   const volume_mL_str = volume_uL !== null ? ` (${(volume_uL/1000).toFixed(2)} mL)` : "";
 
   const concStr = cfg.target_mg_per_mL ? `${cfg.target_mg_per_mL} mg/mL` : `desired concentration`;
-  const volStr = volume_uL !== null ? `${volume_uL} µL${volume_mL_str}` : `V = (mg weighed) × (µL per mg)`;
+  const volStr = volume_uL !== null ? `${volume_uL} µL${volume_mL_str}` : `[set factor] µL`;
+  const factorStr = cfg.factor_uL_per_mg ?? "[set factor]";
 
   const steps = [
     "Label a sterile 1.5 mL microcentrifuge tube.",
     "Place the empty tube on an analytical balance and tare to 0.000 g.",
     "Scoop approximately 50 mg of antibiotic powder into the tube; record the actual mass (mg).",
-    `Compute the volume of solvent to add for a ${concStr} stock: for ${antibiotic || "this antibiotic"}, use ${cfg.factor_uL_per_mg ?? "[set factor]"} µL per mg. For ${weighed_mg} mg → add ${volStr} of ${cfg.solvent}.`,
+    `Compute the volume of solvent for a ${concStr} stock by **multiplying the mass you recorded by ${factorStr}** — that is, **volume (µL) = mass (mg) × ${factorStr}**. Add that volume of ${cfg.solvent}. (Worked example: ${weighed_mg} mg × ${factorStr} = ${volStr}. Use your own recorded mass, not this number.)`,
     cfg.notes ? `If preparing ${antibiotic}, ${cfg.notes}` : null,
     "Cap the tube and mix until fully dissolved (vortex briefly; avoid aerosols).",
     "If a sterile stock is required, sterile‑filter (0.22 µm) into a sterile, labeled tube using a membrane compatible with the solvent.",

@@ -102,8 +102,9 @@ and it doubles as a caption boundary later.
 
 Add the take number when you go again: `CTRL-05 T2`.
 
-Pre-write the slate cards before 10:00. There are 40-odd of them and writing each one on the
-day is the single easiest way to lose an hour.
+Pre-write or pre-print the slate cards before 10:00 — **Section 8** is the full set, in order,
+and the HTML version prints them one to a page at a size that reads on camera. Writing 50 cards
+on the day is the single easiest way to lose an hour.
 
 ---
 
@@ -116,18 +117,19 @@ also the holding bath that keeps the agar pourable.
 
 | Pass | Time | Location | What | Clips |
 |---|---|---|---|---|
-| 1 | 10:00–10:30 | Media bench | LB agar + 2YT, interlaced → cooker | `POUR-01…04`, `BROTH-01…04` |
-| 2 | 10:30–11:00 | Balance | Antibiotic 1000× stocks ×3 | `POUR-05…10` |
+| 1 | 10:00–10:30 | Media bench | LB agar + 2YT, interlaced → cooker | `BROTH-01…02`, `POUR-01…04` |
+| 2 | 10:30–11:00 | Balance | Antibiotic 1000× stocks | `POUR-05…10` |
 | 3 | 11:00–11:15 | −80 freezer | The box; retrieve strains + miniprep | `CTRL-01…02` |
-| 4 | 11:15–11:25 | Microwave | Re-melt LB agar #2 | `POUR-11` / `MW-01` |
-| 5 | 11:25–12:25 | Chemical hood | Dose and pour 20 plates | `POUR-12…19` |
+| 4 | 11:15–11:25 | Microwave | Re-melt LB agar #2 | `POUR-11` |
+| 5 | 11:25–12:25 | Chemical hood | Dose and pour 20 plates | `POUR-12…22` |
 | — | 12:25–13:00 | — | Plates solidify. Break. | — |
 | 6 | 13:00–13:20 | Sterile bench | Streak the matrix; set sterility plates | `CTRL-03…07` |
 | 7 | 13:20–13:50 | Transformation bench | 4 reactions, heat shock, split the rescue | `CTRL-08…13` |
-| — | 13:50–14:50 | — | Rescue shaking 1 h — film `CTRL-08` here if PASS 7 ran long | — |
 | 8 | 14:50–15:10 | Sterile bench | Plate everything | `CTRL-14…16` |
-| 9 | 15:10–15:25 | Media bench | Parafilm spares; 2YT out of the cooker | `POUR-20…21`, `BROTH-05` |
-| 10 | **Day 2** | Incubator | Read the plates | `CTRL-17…23` |
+| 9 | 15:10–15:25 | Media bench | Parafilm spares; 2YT out of the cooker | `POUR-23…24`, `BROTH-03` |
+| 10 | Day 2 | Incubator | Read the plates | `CTRL-17…23` |
+| — | 13:50–14:50 | — | Rescue shaking 1 h — film the control-DNA clip here if PASS 7 ran long | — |
+
 
 ⚠️ **PASS 10 has no session to live in.** Sunday is Zoom-only and the students are locked
 out of B144. It is twenty minutes of plates on a bench and it needs somebody with weekend
@@ -147,95 +149,103 @@ videos.
 | `BROTH-01` | What 2YT is and what it is for in this lab | BROTH |
 | `POUR-01` | What LB agar is; why a plate is solid and a broth is not | POUR |
 | `POUR-02` | Label bottle, funnel, **1 level tablespoon** LB agar powder | POUR |
-| `BROTH-02` | Label bottles, funnel, 2YT powder — **the recipe is the gap, see below** | BROTH |
+| `BROTH-02` | Label bottles, funnel, 2YT powder — the recipe is the gap, see Gaps | BROTH |
 | `POUR-03` | Fill to the neck line with house DI, remove funnel, cap, shake — **do the LB and the 2YT bottles in one take** | POUR + BROTH |
-| `POUR-04` | Load the cooker: ~½–1 in water in the tray, bottles upright, "Beef"/"Sterilize", 20 min high pressure, natural release. Say **"sterilize immediately"** and why | POUR + BROTH |
+| `POUR-04` | ~½–1 in water in the tray, bottles upright, "Beef"/"Sterilize", 20 min high pressure, natural release. Say **"sterilize immediately"** and why | POUR + BROTH |
 
-### PASS 2 — Balance · antibiotic stocks · Protocols 2, 3, 4
+### PASS 2 — Balance · antibiotic stocks · Protocols 2–5
+
+One clip per solution. They are near-identical takes, which is the point: filmed back to back, the only thing that changes is the multiplier, and that is the whole lesson.
 
 | Slug | Clip | Feeds |
 |---|---|---|
 | `POUR-05` | What a 1000× stock is; the dosing rule — **X µL per X mL**; mg/mL in the tube equals µg/mL in the plate | POUR |
-| `POUR-06` | Carbenicillin: tare, ~50 mg, compute, **500 µL water**, dissolve, 0.22 µm, label | POUR |
-| `POUR-07` | **Spectinomycin:** identical arithmetic to carb — **100 mg/mL, 500 µL.** Film it back-to-back with carb and the point makes itself | POUR |
-| `POUR-08` | Kanamycin: **25 mg/mL at 40 µL per mg** — four times the solvent per milligram, so scoop about **25 mg**, not 50. The volume is computed from what the balance says, never assumed. Plus protect from light | POUR |
-| `POUR-09` | Erythromycin: **the solvent discussion** — solvent is a property of the drug, not a preference | POUR |
-| `POUR-11` | Carbenicillin vs ampicillin: amp degrades in hot agar, same `bla` gene | POUR |
+| `POUR-06` | Tare, scoop ~50 mg, record the mass, **× 10 → µL of water**, dissolve, 0.22 µm, label | POUR |
+| `POUR-07` | Identical arithmetic to carb — **100 mg/mL, × 10.** Filmed straight after carb, the point makes itself | POUR |
+| `POUR-08` | **25 mg/mL, × 40** — four times the solvent per milligram, so scoop about **25 mg**, not 50. Protect from light | POUR |
+| `POUR-09` | **The solvent discussion** — solvent is a property of the drug, not a preference | POUR |
+| `POUR-10` | Ampicillin degrades in hot agar; same `bla` gene, so carbenicillin stands in | POUR |
 
 ### PASS 3 — −80 freezer
 
 | Slug | Clip | Feeds |
 |---|---|---|
-| `CTRL-01` | The box: supervisor-only, and *why* — this is the irreplaceable material in the room | CTRL |
-| `CTRL-02` | Retrieve 3 glycerol stocks + the control miniprep; time-out-of-freezer discipline; don't thaw the box hunting a tube | CTRL |
+| `CTRL-01` | Supervisor-only, and *why* — this is the irreplaceable material in the room | CTRL |
+| `CTRL-02` | Three glycerol stocks + the control miniprep; time-out-of-freezer discipline; don't thaw the box hunting a tube | CTRL |
 
 ### PASS 4 — Microwave · Protocol 1 (re-melt section)
 
 | Slug | Clip | Feeds |
 |---|---|---|
-| `POUR-11` | Re-melt LB agar #2: **loosen the lid a quarter turn**, 30–60 s bursts, rest between, stop at boiling. Superheating — what it is and why it bites when you pick the bottle up | POUR + MW |
+| `POUR-11` | **Loosen the lid a quarter turn**, 30–60 s bursts, rest between, stop at boiling. Superheating — what it is and why it bites when you pick the bottle up | POUR + MW |
 
-### PASS 5 — Chemical hood · Protocol 1
+### PASS 5 — Chemical hood · pouring · Protocol 1
+
+Each solution gets its own clip here too, so any single antibiotic can be recut on its own later — for a QR short, or when one of these numbers changes and only that clip has to be reshot. **~25 mL per plate**, or watch for the volume to break surface tension and spread.
 
 | Slug | Clip | Feeds |
 |---|---|---|
-| `POUR-12` | **Hood, not the sterile bench** — the burner needs the only gas line in the lab. Supervisor-only; Flame Sterilization is the prerequisite | POUR |
-| `POUR-13` | Why a flame at all: the upward convection column | POUR |
+| `POUR-12` | **The burner needs the only gas line in the lab.** Supervisor-only; Flame Sterilization is the prerequisite | POUR |
+| `POUR-13` | The upward convection column, and what it is actually doing | POUR |
 | `POUR-14` | Split into four sterile vessels, 125 mL each — **one clean vessel per combination**, and carryover is the reason | POUR |
-| `POUR-15` | Dose at **~55 °C**: 125 µL each. The wrist test for 55 °C. **Swirl, don't shake** | POUR |
-| `POUR-16` | Pour **carb → erythromycin → kan**, 5 each, then 5 plain LB. ~25 mL, or watch for the volume to break surface tension | POUR |
-| `POUR-17` | Bubbles: hold the burner by the base and pass the flame over the surface | POUR |
-| `POUR-18` | Marking conventions: **red stripes = carb, green = kan.** Erythromycin has no convention in the protocol — **pick one on camera and say it** | POUR |
-| `POUR-19` | Lids back on, set aside to solidify, burner off | POUR |
+| `POUR-15` | The wrist test for ~55 °C, and why it is the whole ballgame. **Swirl, don't shake** | POUR |
+| `POUR-16` | **Carbenicillin:** 125 µL of 1000× into 125 mL, swirl, pour 5 plates | POUR |
+| `POUR-17` | **Erythromycin:** 125 µL into 125 mL, swirl, pour 5 plates | POUR |
+| `POUR-18` | **Kanamycin:** 125 µL into 125 mL, swirl, pour 5 plates | POUR |
+| `POUR-19` | **No additive:** pour 5. The control plate — the one that proves the others select | POUR |
+| `POUR-20` | Hold the burner by the base and pass the flame over the surface | POUR |
+| `POUR-21` | **Red stripes = carb, green = kan.** Erythromycin has no convention in the protocol — **pick one on camera and say it** | POUR |
+| `POUR-22` | Lids back on, set aside to solidify, burner off | POUR |
 
 ### PASS 6 — Sterile bench · streaking
 
 | Slug | Clip | Feeds |
 |---|---|---|
-| `CTRL-03` | What a control strain is and why the lab keeps them | CTRL |
-| `CTRL-04` | Scrape a glycerol stock **without thawing it** | CTRL |
-| `CTRL-05` | Sector each plate in three; streak all three strains onto LB / carb / erythromycin / kan | CTRL |
-| `CTRL-06` | Label the four uninoculated sterility plates and set them aside | CTRL |
-| `CTRL-07` | Invert into the 37 °C incubator | CTRL |
+| `CTRL-03` | Why the lab keeps them, and what they are for | CTRL |
+| `CTRL-04` | Take material off a glycerol stock **without thawing it** | CTRL |
+| `CTRL-05` | Sector each plate in three; all three strains onto LB / carb / erythromycin / kan | CTRL |
+| `CTRL-06` | Label the four uninoculated plates and set them aside | CTRL |
+| `CTRL-07` | Invert into the incubator | CTRL |
 
-### PASS 7 — Transformation bench · Protocols 5, 6, 7
+### PASS 7 — Transformation bench · Protocols 6, 7, 8
 
 | Slug | Clip | Feeds |
 |---|---|---|
-| `CTRL-08` | The miniprep: **PCR positive control** (is it my primers or my reaction?) vs **transformation positive control** (is it my DNA or my cells?) | CTRL |
-| `CTRL-09` | EchoTherm at 4 °C / 42 °C — short, references the transformation video | CTRL |
-| `CTRL-10` | Set up four reactions: three control plasmids **plus a no-DNA cells-only control** | CTRL |
+| `CTRL-08` | The miniprep: **PCR positive control** (my primers or my reaction?) vs **transformation positive control** (my DNA or my cells?) | CTRL |
+| `CTRL-09` | Short — references the transformation video rather than repeating it | CTRL |
+| `CTRL-10` | Three control plasmids **plus a no-DNA cells-only control** | CTRL |
 | `CTRL-11` | 10 min at 4 °C → **90 s at 42 °C** → 1 min at 4 °C | CTRL |
-| `CTRL-12` | **The split:** pull half the kan reaction and plate it now, no rescue | CTRL |
-| `CTRL-13` | Rescue: **200 µL 2YT, 37 °C, 1 h** — and why the carb reaction skips it | CTRL |
+| `CTRL-12` | Pull half the kan reaction and plate it **now**, no outgrowth | CTRL |
+| `CTRL-13` | **200 µL 2YT, 37 °C, 1 h** — and why the carb reaction skips it | CTRL |
 
 ### PASS 8 — Sterile bench · plating
 
 | Slug | Clip | Feeds |
 |---|---|---|
-| `CTRL-14` | Plate each transformation on its matching antibiotic; glass beads, shake side to side | CTRL |
-| `CTRL-15` | Plate the cells-only control on each of the three antibiotics | CTRL |
-| `CTRL-16` | Invert into 37 °C | CTRL |
+| `CTRL-14` | Each transformation on its matching antibiotic; glass beads, shake side to side | CTRL |
+| `CTRL-15` | The no-DNA control onto each of the three antibiotics | CTRL |
+| `CTRL-16` | Invert into the incubator | CTRL |
 
-### PASS 9 — Storage · Protocol 8
+### PASS 9 — Storage · Protocol 9
 
 | Slug | Clip | Feeds |
 |---|---|---|
-| `POUR-20` | Parafilm the spare plates; inverted in the fridge; stable **1–2 weeks** | POUR |
-| `POUR-21` | ⚠️ **Do not parafilm anything going into the incubator** — cells need airflow | POUR |
-| `BROTH-05` | 2YT out of the cooker: cooling, labelling, where it is stored | BROTH |
+| `POUR-23` | Wrap the spare plates; inverted in the fridge; stable **1–2 weeks** | POUR |
+| `POUR-24` | **Do not parafilm anything being incubated** — cells need airflow | POUR |
+| `BROTH-03` | Cooling, labelling, and where it is stored | BROTH |
 
 ### PASS 10 — Day 2 · reading the plates
 
 | Slug | Clip | Feeds |
 |---|---|---|
-| `CTRL-17` | **The matrix.** Four plates side by side; the diagonal grew and nothing else did | CTRL |
-| `CTRL-18` | The sterility plates — a different failure from the matrix: contamination in the agar, the bottle, or the hood | CTRL |
-| `CTRL-19` | **The no-rescue kan plate against the rescued one.** The rescue stops being a claim and becomes a plate you point at | CTRL |
-| `CTRL-20` | The cells-only plates — proves the cells are naive and the plate selects | CTRL |
-| `CTRL-21` | The streaks: isolation, single colonies, morphology, contamination | CTRL |
-| `CTRL-22` | If a plate failed: dead stock, agar too hot, wrong dose | CTRL |
-| `CTRL-23` | Recording the batch QC — date, who poured, result | CTRL |
+| `CTRL-17` | Four plates side by side. **The diagonal grew and nothing else did** | CTRL |
+| `CTRL-18` | A different failure from the matrix: contamination in the agar, the bottle, or the hood | CTRL |
+| `CTRL-19` | **The no-rescue kan plate against the rescued one.** The rescue stops being a claim | CTRL |
+| `CTRL-20` | Proves the cells are naive and the plate selects | CTRL |
+| `CTRL-21` | Isolation, single colonies, morphology, contamination | CTRL |
+| `CTRL-22` | Dead stock, agar too hot, wrong dose — which to suspect | CTRL |
+| `CTRL-23` | Date, who poured, result | CTRL |
+
 
 Say the split out loud on day 2, because it is what makes the grid legible:
 **LB and the sterility plates test the plates. The matrix and the cells-only plates test the biology.**
@@ -626,6 +636,67 @@ Verbatim from the Protocol Builder. Nothing here is paraphrased.
 6. **Storage.**
    - Store the sealed plates **inverted in the refrigerator**. They remain stable for about **1–2 weeks**.
    - ⚠️ *Do not Parafilm plates that will be incubated* — cells need airflow to grow properly.
+
+---
+
+## 8. Slate cards
+
+Every slug, in the order it is filmed. The **printable big-letter cards are in the HTML
+version** — one per page, so they read on camera. Pre-write or pre-print them before 10:00:
+there are 50, and writing them on the day is the easiest hour to lose.
+
+| # | Slug | Slate reads | Pass |
+|---|---|---|---|
+| 1 | `BROTH-01` | What 2YT is | 1 |
+| 2 | `POUR-01` | What LB agar is | 1 |
+| 3 | `POUR-02` | Agar powder in | 1 |
+| 4 | `BROTH-02` | 2YT powder in | 1 |
+| 5 | `POUR-03` | Fill + cap + shake | 1 |
+| 6 | `POUR-04` | Load the cooker | 1 |
+| 7 | `POUR-05` | The 1000× rule | 2 |
+| 8 | `POUR-06` | Carbenicillin | 2 |
+| 9 | `POUR-07` | Spectinomycin | 2 |
+| 10 | `POUR-08` | Kanamycin | 2 |
+| 11 | `POUR-09` | Erythromycin | 2 |
+| 12 | `POUR-10` | Carb vs amp | 2 |
+| 13 | `CTRL-01` | The −80 box | 3 |
+| 14 | `CTRL-02` | Retrieve stocks | 3 |
+| 15 | `POUR-11` | Re-melt agar | 4 |
+| 16 | `POUR-12` | Hood, not bench | 5 |
+| 17 | `POUR-13` | Why a flame | 5 |
+| 18 | `POUR-14` | Four vessels | 5 |
+| 19 | `POUR-15` | 55 °C + swirl | 5 |
+| 20 | `POUR-16` | Pour carb | 5 |
+| 21 | `POUR-17` | Pour erythromycin | 5 |
+| 22 | `POUR-18` | Pour kanamycin | 5 |
+| 23 | `POUR-19` | Pour plain LB | 5 |
+| 24 | `POUR-20` | Bubbles | 5 |
+| 25 | `POUR-21` | Marking codes | 5 |
+| 26 | `POUR-22` | Lids + set | 5 |
+| 27 | `CTRL-03` | What a control strain is | 6 |
+| 28 | `CTRL-04` | Scrape a stock | 6 |
+| 29 | `CTRL-05` | Streak the matrix | 6 |
+| 30 | `CTRL-06` | Sterility plates | 6 |
+| 31 | `CTRL-07` | Into 37 °C | 6 |
+| 32 | `CTRL-08` | Control DNA | 7 |
+| 33 | `CTRL-09` | EchoTherm 4/42 | 7 |
+| 34 | `CTRL-10` | Four reactions | 7 |
+| 35 | `CTRL-11` | Heat shock | 7 |
+| 36 | `CTRL-12` | Split the rescue | 7 |
+| 37 | `CTRL-13` | Rescue | 7 |
+| 38 | `CTRL-14` | Plate the three | 8 |
+| 39 | `CTRL-15` | Plate cells-only | 8 |
+| 40 | `CTRL-16` | Into 37 °C | 8 |
+| 41 | `POUR-23` | Parafilm spares | 9 |
+| 42 | `POUR-24` | Never in the incubator | 9 |
+| 43 | `BROTH-03` | 2YT out | 9 |
+| 44 | `CTRL-17` | The matrix | 10 |
+| 45 | `CTRL-18` | Sterility plates | 10 |
+| 46 | `CTRL-19` | Rescue vs no rescue | 10 |
+| 47 | `CTRL-20` | Cells-only | 10 |
+| 48 | `CTRL-21` | The streaks | 10 |
+| 49 | `CTRL-22` | When it fails | 10 |
+| 50 | `CTRL-23` | Record the batch | 10 |
 
 ---
 

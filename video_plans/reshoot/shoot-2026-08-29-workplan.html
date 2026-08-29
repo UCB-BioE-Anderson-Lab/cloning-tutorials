@@ -105,6 +105,34 @@ h3+p+blockquote+p{margin-top:.4rem}
 :focus-visible{outline:2px solid var(--flag);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
+
+/* ---- slate cards: a grid on screen, one per page in print ---- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin:1.2rem 0 0}
+.card{border:1px solid var(--rule-hard);border-radius:2px;padding:.7rem .8rem .6rem;
+  background:var(--paper);display:flex;flex-direction:column;gap:.3rem;min-height:132px}
+.card-meta{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.6rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:.5rem}
+.card-slug{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:600;
+  font-size:1.45rem;letter-spacing:-.01em;line-height:1;margin:.15rem 0 .1rem}
+.card-label{font-family:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif;
+  font-size:.82rem;line-height:1.25;color:var(--ink);flex:1}
+.card-takes{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.62rem;
+  letter-spacing:.14em;color:var(--muted);border-top:1px solid var(--rule);padding-top:.35rem}
+.card-c-POUR{border-left:3px solid var(--carb)}
+.card-c-CTRL{border-left:3px solid var(--kan)}
+.card-c-BROTH{border-left:3px solid var(--erm)}
+@media print{
+  .cards{display:block;gap:0}
+  .card{page-break-before:always;break-before:page;border:0;border-left:0;
+    height:calc(100vh - 28mm);min-height:0;justify-content:center;align-items:center;text-align:center;
+    padding:0;gap:0}
+  .card-meta{font-size:12pt;letter-spacing:.3em;gap:2.5rem;justify-content:center;width:100%;
+    margin-bottom:2.5rem}
+  .card-slug{font-size:132pt;line-height:.95;letter-spacing:-.02em;margin:0}
+  .card-label{font-size:22pt;line-height:1.2;margin-top:2rem;flex:0;max-width:80%}
+  .card-takes{font-size:14pt;letter-spacing:.5em;border:0;margin-top:3.5rem;padding:0}
+}
+
 @media (max-width:600px){
   body{padding:24px 14px 60px;font-size:14px}
   h1{font-size:1.9rem}
@@ -138,7 +166,7 @@ h3+p+blockquote+p{margin-top:.4rem}
 <header class="mast">
   <div class="eyebrow">
     <span>Shoot 01</span><span>Sat 29 Aug 2026 · 10:00</span><span>B144 Stanley</span>
-    <span>4 videos · 10 passes · 46 clips</span>
+    <span>4 videos · 10 passes · 50 clips</span>
   </div>
   <h1>Control Strains, Plates &amp; Broth</h1>
   <p class="standfirst">Call sheet and protocol pack for one day at the bench. Every clip is
@@ -431,8 +459,9 @@ sector, so three strains × four conditions costs four plates instead of twelve.
 <strong>and say it out loud.</strong> The spoken slate is what saves you when the paper is out of focus —
 and it doubles as a caption boundary later.</p>
 <p>Add the take number when you go again: <code>CTRL-05 T2</code>.</p>
-<p>Pre-write the slate cards before 10:00. There are 40-odd of them and writing each one on the
-day is the single easiest way to lose an hour.</p>
+<p>Pre-write or pre-print the slate cards before 10:00 — <strong>Section 8</strong> is the full set, in order,
+and the HTML version prints them one to a page at a size that reads on camera. Writing 50 cards
+on the day is the single easiest way to lose an hour.</p>
 <hr />
 <h2>3. Timetable</h2>
 <p>The shape of the day is set by one thing: <strong>the pressure cooker is 20 minutes at pressure
@@ -455,13 +484,13 @@ also the holding bath that keeps the agar pourable.</p>
 <td>10:00–10:30</td>
 <td>Media bench</td>
 <td>LB agar + 2YT, interlaced → cooker</td>
-<td><code>POUR-01…04</code>, <code>BROTH-01…04</code></td>
+<td><code>BROTH-01…02</code>, <code>POUR-01…04</code></td>
 </tr>
 <tr>
 <td>2</td>
 <td>10:30–11:00</td>
 <td>Balance</td>
-<td>Antibiotic 1000× stocks ×3</td>
+<td>Antibiotic 1000× stocks</td>
 <td><code>POUR-05…10</code></td>
 </tr>
 <tr>
@@ -476,14 +505,14 @@ also the holding bath that keeps the agar pourable.</p>
 <td>11:15–11:25</td>
 <td>Microwave</td>
 <td>Re-melt LB agar #2</td>
-<td><code>POUR-11</code> / <code>MW-01</code></td>
+<td><code>POUR-11</code></td>
 </tr>
 <tr>
 <td>5</td>
 <td>11:25–12:25</td>
 <td>Chemical hood</td>
 <td>Dose and pour 20 plates</td>
-<td><code>POUR-12…19</code></td>
+<td><code>POUR-12…22</code></td>
 </tr>
 <tr>
 <td>—</td>
@@ -507,13 +536,6 @@ also the holding bath that keeps the agar pourable.</p>
 <td><code>CTRL-08…13</code></td>
 </tr>
 <tr>
-<td>—</td>
-<td>13:50–14:50</td>
-<td>—</td>
-<td>Rescue shaking 1 h — film <code>CTRL-08</code> here if PASS 7 ran long</td>
-<td>—</td>
-</tr>
-<tr>
 <td>8</td>
 <td>14:50–15:10</td>
 <td>Sterile bench</td>
@@ -525,14 +547,21 @@ also the holding bath that keeps the agar pourable.</p>
 <td>15:10–15:25</td>
 <td>Media bench</td>
 <td>Parafilm spares; 2YT out of the cooker</td>
-<td><code>POUR-20…21</code>, <code>BROTH-05</code></td>
+<td><code>POUR-23…24</code>, <code>BROTH-03</code></td>
 </tr>
 <tr>
 <td>10</td>
-<td><strong>Day 2</strong></td>
+<td>Day 2</td>
 <td>Incubator</td>
 <td>Read the plates</td>
 <td><code>CTRL-17…23</code></td>
+</tr>
+<tr>
+<td>—</td>
+<td>13:50–14:50</td>
+<td>—</td>
+<td>Rescue shaking 1 h — film the control-DNA clip here if PASS 7 ran long</td>
+<td>—</td>
 </tr>
 </tbody>
 </table></div>
@@ -575,7 +604,7 @@ videos.</p>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>BROTH-02</code></td>
-<td>Label bottles, funnel, 2YT powder — <strong>the recipe is the gap, see below</strong></td>
+<td>Label bottles, funnel, 2YT powder — the recipe is the gap, see Gaps</td>
 <td>BROTH</td>
 </tr>
 <tr>
@@ -587,12 +616,13 @@ videos.</p>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-04</code></td>
-<td>Load the cooker: ~½–1 in water in the tray, bottles upright, "Beef"/"Sterilize", 20 min high pressure, natural release. Say <strong>"sterilize immediately"</strong> and why</td>
+<td>~½–1 in water in the tray, bottles upright, "Beef"/"Sterilize", 20 min high pressure, natural release. Say <strong>"sterilize immediately"</strong> and why</td>
 <td>POUR + BROTH</td>
 </tr>
 </tbody>
 </table></div>
-<h3>PASS 2 — Balance · antibiotic stocks · Protocols 2, 3, 4</h3>
+<h3>PASS 2 — Balance · antibiotic stocks · Protocols 2–5</h3>
+<p>One clip per solution. They are near-identical takes, which is the point: filmed back to back, the only thing that changes is the multiplier, and that is the whole lesson.</p>
 <div class="tw"><table>
 <thead>
 <tr>
@@ -612,31 +642,31 @@ videos.</p>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-06</code></td>
-<td>Carbenicillin: tare, ~50 mg, compute, <strong>500 µL water</strong>, dissolve, 0.22 µm, label</td>
+<td>Tare, scoop ~50 mg, record the mass, <strong>× 10 → µL of water</strong>, dissolve, 0.22 µm, label</td>
 <td>POUR</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-07</code></td>
-<td><strong>Spectinomycin:</strong> identical arithmetic to carb — <strong>100 mg/mL, 500 µL.</strong> Film it back-to-back with carb and the point makes itself</td>
+<td>Identical arithmetic to carb — <strong>100 mg/mL, × 10.</strong> Filmed straight after carb, the point makes itself</td>
 <td>POUR</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-08</code></td>
-<td>Kanamycin: <strong>25 mg/mL at 40 µL per mg</strong> — four times the solvent per milligram, so scoop about <strong>25 mg</strong>, not 50. The volume is computed from what the balance says, never assumed. Plus protect from light</td>
+<td><strong>25 mg/mL, × 40</strong> — four times the solvent per milligram, so scoop about <strong>25 mg</strong>, not 50. Protect from light</td>
 <td>POUR</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-09</code></td>
-<td>Erythromycin: <strong>the solvent discussion</strong> — solvent is a property of the drug, not a preference</td>
+<td><strong>The solvent discussion</strong> — solvent is a property of the drug, not a preference</td>
 <td>POUR</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
-<td><code>POUR-11</code></td>
-<td>Carbenicillin vs ampicillin: amp degrades in hot agar, same <code>bla</code> gene</td>
+<td><code>POUR-10</code></td>
+<td>Ampicillin degrades in hot agar; same <code>bla</code> gene, so carbenicillin stands in</td>
 <td>POUR</td>
 </tr>
 </tbody>
@@ -655,13 +685,13 @@ videos.</p>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-01</code></td>
-<td>The box: supervisor-only, and <em>why</em> — this is the irreplaceable material in the room</td>
+<td>Supervisor-only, and <em>why</em> — this is the irreplaceable material in the room</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-02</code></td>
-<td>Retrieve 3 glycerol stocks + the control miniprep; time-out-of-freezer discipline; don't thaw the box hunting a tube</td>
+<td>Three glycerol stocks + the control miniprep; time-out-of-freezer discipline; don't thaw the box hunting a tube</td>
 <td>CTRL</td>
 </tr>
 </tbody>
@@ -680,12 +710,13 @@ videos.</p>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-11</code></td>
-<td>Re-melt LB agar #2: <strong>loosen the lid a quarter turn</strong>, 30–60 s bursts, rest between, stop at boiling. Superheating — what it is and why it bites when you pick the bottle up</td>
+<td><strong>Loosen the lid a quarter turn</strong>, 30–60 s bursts, rest between, stop at boiling. Superheating — what it is and why it bites when you pick the bottle up</td>
 <td>POUR + MW</td>
 </tr>
 </tbody>
 </table></div>
-<h3>PASS 5 — Chemical hood · Protocol 1</h3>
+<h3>PASS 5 — Chemical hood · pouring · Protocol 1</h3>
+<p>Each solution gets its own clip here too, so any single antibiotic can be recut on its own later — for a QR short, or when one of these numbers changes and only that clip has to be reshot. <strong>~25 mL per plate</strong>, or watch for the volume to break surface tension and spread.</p>
 <div class="tw"><table>
 <thead>
 <tr>
@@ -699,13 +730,13 @@ videos.</p>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-12</code></td>
-<td><strong>Hood, not the sterile bench</strong> — the burner needs the only gas line in the lab. Supervisor-only; Flame Sterilization is the prerequisite</td>
+<td><strong>The burner needs the only gas line in the lab.</strong> Supervisor-only; Flame Sterilization is the prerequisite</td>
 <td>POUR</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-13</code></td>
-<td>Why a flame at all: the upward convection column</td>
+<td>The upward convection column, and what it is actually doing</td>
 <td>POUR</td>
 </tr>
 <tr>
@@ -717,30 +748,48 @@ videos.</p>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-15</code></td>
-<td>Dose at <strong>~55 °C</strong>: 125 µL each. The wrist test for 55 °C. <strong>Swirl, don't shake</strong></td>
+<td>The wrist test for ~55 °C, and why it is the whole ballgame. <strong>Swirl, don't shake</strong></td>
 <td>POUR</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-16</code></td>
-<td>Pour <strong>carb → erythromycin → kan</strong>, 5 each, then 5 plain LB. ~25 mL, or watch for the volume to break surface tension</td>
+<td><strong>Carbenicillin:</strong> 125 µL of 1000× into 125 mL, swirl, pour 5 plates</td>
 <td>POUR</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-17</code></td>
-<td>Bubbles: hold the burner by the base and pass the flame over the surface</td>
+<td><strong>Erythromycin:</strong> 125 µL into 125 mL, swirl, pour 5 plates</td>
 <td>POUR</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-18</code></td>
-<td>Marking conventions: <strong>red stripes = carb, green = kan.</strong> Erythromycin has no convention in the protocol — <strong>pick one on camera and say it</strong></td>
+<td><strong>Kanamycin:</strong> 125 µL into 125 mL, swirl, pour 5 plates</td>
 <td>POUR</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>POUR-19</code></td>
+<td><strong>No additive:</strong> pour 5. The control plate — the one that proves the others select</td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-20</code></td>
+<td>Hold the burner by the base and pass the flame over the surface</td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-21</code></td>
+<td><strong>Red stripes = carb, green = kan.</strong> Erythromycin has no convention in the protocol — <strong>pick one on camera and say it</strong></td>
+<td>POUR</td>
+</tr>
+<tr>
+<td style="text-align: center;">☐</td>
+<td><code>POUR-22</code></td>
 <td>Lids back on, set aside to solidify, burner off</td>
 <td>POUR</td>
 </tr>
@@ -760,36 +809,36 @@ videos.</p>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-03</code></td>
-<td>What a control strain is and why the lab keeps them</td>
+<td>Why the lab keeps them, and what they are for</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-04</code></td>
-<td>Scrape a glycerol stock <strong>without thawing it</strong></td>
+<td>Take material off a glycerol stock <strong>without thawing it</strong></td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-05</code></td>
-<td>Sector each plate in three; streak all three strains onto LB / carb / erythromycin / kan</td>
+<td>Sector each plate in three; all three strains onto LB / carb / erythromycin / kan</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-06</code></td>
-<td>Label the four uninoculated sterility plates and set them aside</td>
+<td>Label the four uninoculated plates and set them aside</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-07</code></td>
-<td>Invert into the 37 °C incubator</td>
+<td>Invert into the incubator</td>
 <td>CTRL</td>
 </tr>
 </tbody>
 </table></div>
-<h3>PASS 7 — Transformation bench · Protocols 5, 6, 7</h3>
+<h3>PASS 7 — Transformation bench · Protocols 6, 7, 8</h3>
 <div class="tw"><table>
 <thead>
 <tr>
@@ -803,19 +852,19 @@ videos.</p>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-08</code></td>
-<td>The miniprep: <strong>PCR positive control</strong> (is it my primers or my reaction?) vs <strong>transformation positive control</strong> (is it my DNA or my cells?)</td>
+<td>The miniprep: <strong>PCR positive control</strong> (my primers or my reaction?) vs <strong>transformation positive control</strong> (my DNA or my cells?)</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-09</code></td>
-<td>EchoTherm at 4 °C / 42 °C — short, references the transformation video</td>
+<td>Short — references the transformation video rather than repeating it</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-10</code></td>
-<td>Set up four reactions: three control plasmids <strong>plus a no-DNA cells-only control</strong></td>
+<td>Three control plasmids <strong>plus a no-DNA cells-only control</strong></td>
 <td>CTRL</td>
 </tr>
 <tr>
@@ -827,13 +876,13 @@ videos.</p>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-12</code></td>
-<td><strong>The split:</strong> pull half the kan reaction and plate it now, no rescue</td>
+<td>Pull half the kan reaction and plate it <strong>now</strong>, no outgrowth</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-13</code></td>
-<td>Rescue: <strong>200 µL 2YT, 37 °C, 1 h</strong> — and why the carb reaction skips it</td>
+<td><strong>200 µL 2YT, 37 °C, 1 h</strong> — and why the carb reaction skips it</td>
 <td>CTRL</td>
 </tr>
 </tbody>
@@ -852,24 +901,24 @@ videos.</p>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-14</code></td>
-<td>Plate each transformation on its matching antibiotic; glass beads, shake side to side</td>
+<td>Each transformation on its matching antibiotic; glass beads, shake side to side</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-15</code></td>
-<td>Plate the cells-only control on each of the three antibiotics</td>
+<td>The no-DNA control onto each of the three antibiotics</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-16</code></td>
-<td>Invert into 37 °C</td>
+<td>Invert into the incubator</td>
 <td>CTRL</td>
 </tr>
 </tbody>
 </table></div>
-<h3>PASS 9 — Storage · Protocol 8</h3>
+<h3>PASS 9 — Storage · Protocol 9</h3>
 <div class="tw"><table>
 <thead>
 <tr>
@@ -882,20 +931,20 @@ videos.</p>
 <tbody>
 <tr>
 <td style="text-align: center;">☐</td>
-<td><code>POUR-20</code></td>
-<td>Parafilm the spare plates; inverted in the fridge; stable <strong>1–2 weeks</strong></td>
+<td><code>POUR-23</code></td>
+<td>Wrap the spare plates; inverted in the fridge; stable <strong>1–2 weeks</strong></td>
 <td>POUR</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
-<td><code>POUR-21</code></td>
-<td><span class="flag" aria-hidden="true">▲</span><strong>Do not parafilm anything going into the incubator</strong> — cells need airflow</td>
+<td><code>POUR-24</code></td>
+<td><strong>Do not parafilm anything being incubated</strong> — cells need airflow</td>
 <td>POUR</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
-<td><code>BROTH-05</code></td>
-<td>2YT out of the cooker: cooling, labelling, where it is stored</td>
+<td><code>BROTH-03</code></td>
+<td>Cooling, labelling, and where it is stored</td>
 <td>BROTH</td>
 </tr>
 </tbody>
@@ -914,43 +963,43 @@ videos.</p>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-17</code></td>
-<td><strong>The matrix.</strong> Four plates side by side; the diagonal grew and nothing else did</td>
+<td>Four plates side by side. <strong>The diagonal grew and nothing else did</strong></td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-18</code></td>
-<td>The sterility plates — a different failure from the matrix: contamination in the agar, the bottle, or the hood</td>
+<td>A different failure from the matrix: contamination in the agar, the bottle, or the hood</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-19</code></td>
-<td><strong>The no-rescue kan plate against the rescued one.</strong> The rescue stops being a claim and becomes a plate you point at</td>
+<td><strong>The no-rescue kan plate against the rescued one.</strong> The rescue stops being a claim</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-20</code></td>
-<td>The cells-only plates — proves the cells are naive and the plate selects</td>
+<td>Proves the cells are naive and the plate selects</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-21</code></td>
-<td>The streaks: isolation, single colonies, morphology, contamination</td>
+<td>Isolation, single colonies, morphology, contamination</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-22</code></td>
-<td>If a plate failed: dead stock, agar too hot, wrong dose</td>
+<td>Dead stock, agar too hot, wrong dose — which to suspect</td>
 <td>CTRL</td>
 </tr>
 <tr>
 <td style="text-align: center;">☐</td>
 <td><code>CTRL-23</code></td>
-<td>Recording the batch QC — date, who poured, result</td>
+<td>Date, who poured, result</td>
 <td>CTRL</td>
 </tr>
 </tbody>
@@ -1311,6 +1360,323 @@ three times. The plates are already poured in PASS 5.]</em></p>
    - <span class="flag" aria-hidden="true">▲</span><em>Do not Parafilm plates that will be incubated</em> — cells need airflow to grow properly.</p>
 </li>
 </ol>
+<hr />
+<h2>8. Slate cards</h2>
+<p>Every slug, in the order it is filmed. The <strong>printable big-letter cards are in the HTML
+version</strong> — one per page, so they read on camera. Pre-write or pre-print them before 10:00:
+there are 50, and writing them on the day is the easiest hour to lose.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Slug</th>
+<th>Slate reads</th>
+<th>Pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>BROTH-01</code></td>
+<td>What 2YT is</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>POUR-01</code></td>
+<td>What LB agar is</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>POUR-02</code></td>
+<td>Agar powder in</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>BROTH-02</code></td>
+<td>2YT powder in</td>
+<td>1</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>POUR-03</code></td>
+<td>Fill + cap + shake</td>
+<td>1</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>POUR-04</code></td>
+<td>Load the cooker</td>
+<td>1</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>POUR-05</code></td>
+<td>The 1000× rule</td>
+<td>2</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>POUR-06</code></td>
+<td>Carbenicillin</td>
+<td>2</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>POUR-07</code></td>
+<td>Spectinomycin</td>
+<td>2</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>POUR-08</code></td>
+<td>Kanamycin</td>
+<td>2</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>POUR-09</code></td>
+<td>Erythromycin</td>
+<td>2</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>POUR-10</code></td>
+<td>Carb vs amp</td>
+<td>2</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>CTRL-01</code></td>
+<td>The −80 box</td>
+<td>3</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>CTRL-02</code></td>
+<td>Retrieve stocks</td>
+<td>3</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>POUR-11</code></td>
+<td>Re-melt agar</td>
+<td>4</td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>POUR-12</code></td>
+<td>Hood, not bench</td>
+<td>5</td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>POUR-13</code></td>
+<td>Why a flame</td>
+<td>5</td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>POUR-14</code></td>
+<td>Four vessels</td>
+<td>5</td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>POUR-15</code></td>
+<td>55 °C + swirl</td>
+<td>5</td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>POUR-16</code></td>
+<td>Pour carb</td>
+<td>5</td>
+</tr>
+<tr>
+<td>21</td>
+<td><code>POUR-17</code></td>
+<td>Pour erythromycin</td>
+<td>5</td>
+</tr>
+<tr>
+<td>22</td>
+<td><code>POUR-18</code></td>
+<td>Pour kanamycin</td>
+<td>5</td>
+</tr>
+<tr>
+<td>23</td>
+<td><code>POUR-19</code></td>
+<td>Pour plain LB</td>
+<td>5</td>
+</tr>
+<tr>
+<td>24</td>
+<td><code>POUR-20</code></td>
+<td>Bubbles</td>
+<td>5</td>
+</tr>
+<tr>
+<td>25</td>
+<td><code>POUR-21</code></td>
+<td>Marking codes</td>
+<td>5</td>
+</tr>
+<tr>
+<td>26</td>
+<td><code>POUR-22</code></td>
+<td>Lids + set</td>
+<td>5</td>
+</tr>
+<tr>
+<td>27</td>
+<td><code>CTRL-03</code></td>
+<td>What a control strain is</td>
+<td>6</td>
+</tr>
+<tr>
+<td>28</td>
+<td><code>CTRL-04</code></td>
+<td>Scrape a stock</td>
+<td>6</td>
+</tr>
+<tr>
+<td>29</td>
+<td><code>CTRL-05</code></td>
+<td>Streak the matrix</td>
+<td>6</td>
+</tr>
+<tr>
+<td>30</td>
+<td><code>CTRL-06</code></td>
+<td>Sterility plates</td>
+<td>6</td>
+</tr>
+<tr>
+<td>31</td>
+<td><code>CTRL-07</code></td>
+<td>Into 37 °C</td>
+<td>6</td>
+</tr>
+<tr>
+<td>32</td>
+<td><code>CTRL-08</code></td>
+<td>Control DNA</td>
+<td>7</td>
+</tr>
+<tr>
+<td>33</td>
+<td><code>CTRL-09</code></td>
+<td>EchoTherm 4/42</td>
+<td>7</td>
+</tr>
+<tr>
+<td>34</td>
+<td><code>CTRL-10</code></td>
+<td>Four reactions</td>
+<td>7</td>
+</tr>
+<tr>
+<td>35</td>
+<td><code>CTRL-11</code></td>
+<td>Heat shock</td>
+<td>7</td>
+</tr>
+<tr>
+<td>36</td>
+<td><code>CTRL-12</code></td>
+<td>Split the rescue</td>
+<td>7</td>
+</tr>
+<tr>
+<td>37</td>
+<td><code>CTRL-13</code></td>
+<td>Rescue</td>
+<td>7</td>
+</tr>
+<tr>
+<td>38</td>
+<td><code>CTRL-14</code></td>
+<td>Plate the three</td>
+<td>8</td>
+</tr>
+<tr>
+<td>39</td>
+<td><code>CTRL-15</code></td>
+<td>Plate cells-only</td>
+<td>8</td>
+</tr>
+<tr>
+<td>40</td>
+<td><code>CTRL-16</code></td>
+<td>Into 37 °C</td>
+<td>8</td>
+</tr>
+<tr>
+<td>41</td>
+<td><code>POUR-23</code></td>
+<td>Parafilm spares</td>
+<td>9</td>
+</tr>
+<tr>
+<td>42</td>
+<td><code>POUR-24</code></td>
+<td>Never in the incubator</td>
+<td>9</td>
+</tr>
+<tr>
+<td>43</td>
+<td><code>BROTH-03</code></td>
+<td>2YT out</td>
+<td>9</td>
+</tr>
+<tr>
+<td>44</td>
+<td><code>CTRL-17</code></td>
+<td>The matrix</td>
+<td>10</td>
+</tr>
+<tr>
+<td>45</td>
+<td><code>CTRL-18</code></td>
+<td>Sterility plates</td>
+<td>10</td>
+</tr>
+<tr>
+<td>46</td>
+<td><code>CTRL-19</code></td>
+<td>Rescue vs no rescue</td>
+<td>10</td>
+</tr>
+<tr>
+<td>47</td>
+<td><code>CTRL-20</code></td>
+<td>Cells-only</td>
+<td>10</td>
+</tr>
+<tr>
+<td>48</td>
+<td><code>CTRL-21</code></td>
+<td>The streaks</td>
+<td>10</td>
+</tr>
+<tr>
+<td>49</td>
+<td><code>CTRL-22</code></td>
+<td>When it fails</td>
+<td>10</td>
+</tr>
+<tr>
+<td>50</td>
+<td><code>CTRL-23</code></td>
+<td>Record the batch</td>
+<td>10</td>
+</tr>
+</tbody>
+</table></div><div class="cards"><article class="card card-c-BROTH"><div class="card-meta"><span>Pass 1</span><span>Media bench</span></div><div class="card-slug">BROTH-01</div><div class="card-label">What 2YT is</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 1</span><span>Media bench</span></div><div class="card-slug">POUR-01</div><div class="card-label">What LB agar is</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 1</span><span>Media bench</span></div><div class="card-slug">POUR-02</div><div class="card-label">Agar powder in</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-BROTH"><div class="card-meta"><span>Pass 1</span><span>Media bench</span></div><div class="card-slug">BROTH-02</div><div class="card-label">2YT powder in</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 1</span><span>Media bench</span></div><div class="card-slug">POUR-03</div><div class="card-label">Fill + cap + shake</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 1</span><span>Media bench</span></div><div class="card-slug">POUR-04</div><div class="card-label">Load the cooker</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 2</span><span>Balance</span></div><div class="card-slug">POUR-05</div><div class="card-label">The 1000× rule</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 2</span><span>Balance</span></div><div class="card-slug">POUR-06</div><div class="card-label">Carbenicillin</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 2</span><span>Balance</span></div><div class="card-slug">POUR-07</div><div class="card-label">Spectinomycin</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 2</span><span>Balance</span></div><div class="card-slug">POUR-08</div><div class="card-label">Kanamycin</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 2</span><span>Balance</span></div><div class="card-slug">POUR-09</div><div class="card-label">Erythromycin</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 2</span><span>Balance</span></div><div class="card-slug">POUR-10</div><div class="card-label">Carb vs amp</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 3</span><span>−80 freezer</span></div><div class="card-slug">CTRL-01</div><div class="card-label">The −80 box</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 3</span><span>−80 freezer</span></div><div class="card-slug">CTRL-02</div><div class="card-label">Retrieve stocks</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 4</span><span>Microwave</span></div><div class="card-slug">POUR-11</div><div class="card-label">Re-melt agar</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 5</span><span>Chemical hood</span></div><div class="card-slug">POUR-12</div><div class="card-label">Hood, not bench</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 5</span><span>Chemical hood</span></div><div class="card-slug">POUR-13</div><div class="card-label">Why a flame</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 5</span><span>Chemical hood</span></div><div class="card-slug">POUR-14</div><div class="card-label">Four vessels</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 5</span><span>Chemical hood</span></div><div class="card-slug">POUR-15</div><div class="card-label">55 °C + swirl</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 5</span><span>Chemical hood</span></div><div class="card-slug">POUR-16</div><div class="card-label">Pour carb</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 5</span><span>Chemical hood</span></div><div class="card-slug">POUR-17</div><div class="card-label">Pour erythromycin</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 5</span><span>Chemical hood</span></div><div class="card-slug">POUR-18</div><div class="card-label">Pour kanamycin</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 5</span><span>Chemical hood</span></div><div class="card-slug">POUR-19</div><div class="card-label">Pour plain LB</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 5</span><span>Chemical hood</span></div><div class="card-slug">POUR-20</div><div class="card-label">Bubbles</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 5</span><span>Chemical hood</span></div><div class="card-slug">POUR-21</div><div class="card-label">Marking codes</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 5</span><span>Chemical hood</span></div><div class="card-slug">POUR-22</div><div class="card-label">Lids + set</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 6</span><span>Sterile bench</span></div><div class="card-slug">CTRL-03</div><div class="card-label">What a control strain is</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 6</span><span>Sterile bench</span></div><div class="card-slug">CTRL-04</div><div class="card-label">Scrape a stock</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 6</span><span>Sterile bench</span></div><div class="card-slug">CTRL-05</div><div class="card-label">Streak the matrix</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 6</span><span>Sterile bench</span></div><div class="card-slug">CTRL-06</div><div class="card-label">Sterility plates</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 6</span><span>Sterile bench</span></div><div class="card-slug">CTRL-07</div><div class="card-label">Into 37 °C</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 7</span><span>Transformation bench</span></div><div class="card-slug">CTRL-08</div><div class="card-label">Control DNA</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 7</span><span>Transformation bench</span></div><div class="card-slug">CTRL-09</div><div class="card-label">EchoTherm 4/42</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 7</span><span>Transformation bench</span></div><div class="card-slug">CTRL-10</div><div class="card-label">Four reactions</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 7</span><span>Transformation bench</span></div><div class="card-slug">CTRL-11</div><div class="card-label">Heat shock</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 7</span><span>Transformation bench</span></div><div class="card-slug">CTRL-12</div><div class="card-label">Split the rescue</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 7</span><span>Transformation bench</span></div><div class="card-slug">CTRL-13</div><div class="card-label">Rescue</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 8</span><span>Sterile bench</span></div><div class="card-slug">CTRL-14</div><div class="card-label">Plate the three</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 8</span><span>Sterile bench</span></div><div class="card-slug">CTRL-15</div><div class="card-label">Plate cells-only</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 8</span><span>Sterile bench</span></div><div class="card-slug">CTRL-16</div><div class="card-label">Into 37 °C</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 9</span><span>Media bench</span></div><div class="card-slug">POUR-23</div><div class="card-label">Parafilm spares</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-POUR"><div class="card-meta"><span>Pass 9</span><span>Media bench</span></div><div class="card-slug">POUR-24</div><div class="card-label">Never in the incubator</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-BROTH"><div class="card-meta"><span>Pass 9</span><span>Media bench</span></div><div class="card-slug">BROTH-03</div><div class="card-label">2YT out</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 10</span><span>Incubator</span></div><div class="card-slug">CTRL-17</div><div class="card-label">The matrix</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 10</span><span>Incubator</span></div><div class="card-slug">CTRL-18</div><div class="card-label">Sterility plates</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 10</span><span>Incubator</span></div><div class="card-slug">CTRL-19</div><div class="card-label">Rescue vs no rescue</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 10</span><span>Incubator</span></div><div class="card-slug">CTRL-20</div><div class="card-label">Cells-only</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 10</span><span>Incubator</span></div><div class="card-slug">CTRL-21</div><div class="card-label">The streaks</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 10</span><span>Incubator</span></div><div class="card-slug">CTRL-22</div><div class="card-label">When it fails</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article><article class="card card-c-CTRL"><div class="card-meta"><span>Pass 10</span><span>Incubator</span></div><div class="card-slug">CTRL-23</div><div class="card-label">Record the batch</div><div class="card-takes">T1&nbsp;&nbsp;T2&nbsp;&nbsp;T3&nbsp;&nbsp;T4</div></article></div>
 <hr />
 <h2>7. Gaps — where the protocols run out</h2>
 <p>You asked to follow the protocols exactly. In five places there is no protocol to follow, and
