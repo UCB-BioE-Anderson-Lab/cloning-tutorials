@@ -34,6 +34,24 @@ The small pressure cooker holds **five 250 mL bottles**. One slot is LB agar #1,
 are free for 2YT** — that is where the interlacing pays for itself. One cooker run, one
 setup, two videos.
 
+### 1000× antibiotic stocks
+
+Straight out of `preparation_of_antibiotic_1000x_stock`. A 1000× stock in mg/mL is the same
+number as the working concentration in µg/mL, so **carbenicillin 100 mg/mL → 100 µg/mL in the
+plate**.
+
+| Antibiotic | 1000× stock | µL solvent per mg | At the 50 mg default | Solvent | Light |
+|---|---|---|---|---|---|
+| Carbenicillin | **100 mg/mL** | 10 | 500 µL | water | — |
+| Ampicillin | **100 mg/mL** | 10 | 500 µL | water | — |
+| **Spectinomycin** | **100 mg/mL** | 10 | 500 µL | water | — |
+| Kanamycin | **25 mg/mL** | 40 | **2000 µL** | water | protect |
+| Chloramphenicol | **25 mg/mL** | 40 | **2000 µL** | water | protect |
+| Tetracycline | **10 mg/mL** | 100 | **5000 µL** | ethanol | protect |
+| Erythromycin | — | — | — | — | — |
+
+Two things in that table need settling before they are said on camera — see Gaps 3 and 6.
+
 ### Splitting the agar
 
 500 mL total → **four sterile vessels at 125 mL each**. The protocol requires one clean
@@ -63,6 +81,13 @@ against the side graduations, which is what the protocol says to do.
 ⚠️ **Kanamycin has no spare** because it carries the no-rescue split. If you want slack,
 pour 6 kan and 4 plain LB — the spare LB plates cannot substitute for a kan plate.
 
+**Spectinomycin is in the stock-prep clips but not in the plates.** As written it is prepared
+on camera alongside carb, kan and erythromycin — which is where it teaches the most, since it
+is arithmetically identical to carb and that contrast is the lesson. Giving it a *plate* arm as
+well means a fourth control strain, a fourth transformation, and five conditions instead of
+four: **3 bottles / 750 mL / 30 plates at 6 per condition.** That is one more cooker slot and
+about twenty more minutes. Say the word and it is a small edit.
+
 The **matrix** row is the 3×4 grid: each plate sectored in three, one control strain per
 sector, so three strains × four conditions costs four plates instead of twelve.
 
@@ -91,16 +116,16 @@ also the holding bath that keeps the agar pourable.
 | Pass | Time | Location | What | Clips |
 |---|---|---|---|---|
 | 1 | 10:00–10:30 | Media bench | LB agar + 2YT, interlaced → cooker | `POUR-01…04`, `BROTH-01…04` |
-| 2 | 10:30–11:00 | Balance | Antibiotic 1000× stocks ×3 | `POUR-05…09` |
+| 2 | 10:30–11:00 | Balance | Antibiotic 1000× stocks ×3 | `POUR-05…10` |
 | 3 | 11:00–11:15 | −80 freezer | The box; retrieve strains + miniprep | `CTRL-01…02` |
-| 4 | 11:15–11:25 | Microwave | Re-melt LB agar #2 | `POUR-10` / `MW-01` |
-| 5 | 11:25–12:25 | Chemical hood | Dose and pour 20 plates | `POUR-11…18` |
+| 4 | 11:15–11:25 | Microwave | Re-melt LB agar #2 | `POUR-11` / `MW-01` |
+| 5 | 11:25–12:25 | Chemical hood | Dose and pour 20 plates | `POUR-12…19` |
 | — | 12:25–13:00 | — | Plates solidify. Break. | — |
 | 6 | 13:00–13:20 | Sterile bench | Streak the matrix; set sterility plates | `CTRL-03…07` |
 | 7 | 13:20–13:50 | Transformation bench | 4 reactions, heat shock, split the rescue | `CTRL-08…13` |
 | — | 13:50–14:50 | — | Rescue shaking 1 h — film `CTRL-08` here if PASS 7 ran long | — |
 | 8 | 14:50–15:10 | Sterile bench | Plate everything | `CTRL-14…16` |
-| 9 | 15:10–15:25 | Media bench | Parafilm spares; 2YT out of the cooker | `POUR-19…20`, `BROTH-05` |
+| 9 | 15:10–15:25 | Media bench | Parafilm spares; 2YT out of the cooker | `POUR-20…21`, `BROTH-05` |
 | 10 | **Day 2** | Incubator | Read the plates | `CTRL-17…23` |
 
 ⚠️ **PASS 10 has no session to live in.** Sunday is Zoom-only and the students are locked
@@ -129,11 +154,12 @@ videos.
 
 | Slug | Clip | Feeds |
 |---|---|---|
-| `POUR-05` | What a 1000× stock is; the dosing rule — **X µL per X mL** | POUR |
-| `POUR-06` | Carbenicillin: tare, ~50 mg, compute, **water**, dissolve, 0.22 µm, label | POUR |
-| `POUR-07` | Kanamycin: same, **plus protect from light** | POUR |
-| `POUR-08` | Erythromycin: **the solvent discussion** — solvent is a property of the drug, not a preference | POUR |
-| `POUR-09` | Carbenicillin vs ampicillin: amp degrades in hot agar, same `bla` gene | POUR |
+| `POUR-05` | What a 1000× stock is; the dosing rule — **X µL per X mL**; mg/mL in the tube equals µg/mL in the plate | POUR |
+| `POUR-06` | Carbenicillin: tare, ~50 mg, compute, **500 µL water**, dissolve, 0.22 µm, label | POUR |
+| `POUR-07` | **Spectinomycin:** identical arithmetic to carb — **100 mg/mL, 500 µL.** Film it back-to-back with carb and the point makes itself | POUR |
+| `POUR-08` | Kanamycin: **25 mg/mL**, so the same 50 mg needs **2000 µL** — four times the volume for a quarter the strength. Plus protect from light | POUR |
+| `POUR-09` | Erythromycin: **the solvent discussion** — solvent is a property of the drug, not a preference | POUR |
+| `POUR-11` | Carbenicillin vs ampicillin: amp degrades in hot agar, same `bla` gene | POUR |
 
 ### PASS 3 — −80 freezer
 
@@ -146,20 +172,20 @@ videos.
 
 | Slug | Clip | Feeds |
 |---|---|---|
-| `POUR-10` | Re-melt LB agar #2: **loosen the lid a quarter turn**, 30–60 s bursts, rest between, stop at boiling. Superheating — what it is and why it bites when you pick the bottle up | POUR + MW |
+| `POUR-11` | Re-melt LB agar #2: **loosen the lid a quarter turn**, 30–60 s bursts, rest between, stop at boiling. Superheating — what it is and why it bites when you pick the bottle up | POUR + MW |
 
 ### PASS 5 — Chemical hood · Protocol 1
 
 | Slug | Clip | Feeds |
 |---|---|---|
-| `POUR-11` | **Hood, not the sterile bench** — the burner needs the only gas line in the lab. Supervisor-only; Flame Sterilization is the prerequisite | POUR |
-| `POUR-12` | Why a flame at all: the upward convection column | POUR |
-| `POUR-13` | Split into four sterile vessels, 125 mL each — **one clean vessel per combination**, and carryover is the reason | POUR |
-| `POUR-14` | Dose at **~55 °C**: 125 µL each. The wrist test for 55 °C. **Swirl, don't shake** | POUR |
-| `POUR-15` | Pour **carb → erythromycin → kan**, 5 each, then 5 plain LB. ~25 mL, or watch for the volume to break surface tension | POUR |
-| `POUR-16` | Bubbles: hold the burner by the base and pass the flame over the surface | POUR |
-| `POUR-17` | Marking conventions: **red stripes = carb, green = kan.** Erythromycin has no convention in the protocol — **pick one on camera and say it** | POUR |
-| `POUR-18` | Lids back on, set aside to solidify, burner off | POUR |
+| `POUR-12` | **Hood, not the sterile bench** — the burner needs the only gas line in the lab. Supervisor-only; Flame Sterilization is the prerequisite | POUR |
+| `POUR-13` | Why a flame at all: the upward convection column | POUR |
+| `POUR-14` | Split into four sterile vessels, 125 mL each — **one clean vessel per combination**, and carryover is the reason | POUR |
+| `POUR-15` | Dose at **~55 °C**: 125 µL each. The wrist test for 55 °C. **Swirl, don't shake** | POUR |
+| `POUR-16` | Pour **carb → erythromycin → kan**, 5 each, then 5 plain LB. ~25 mL, or watch for the volume to break surface tension | POUR |
+| `POUR-17` | Bubbles: hold the burner by the base and pass the flame over the surface | POUR |
+| `POUR-18` | Marking conventions: **red stripes = carb, green = kan.** Erythromycin has no convention in the protocol — **pick one on camera and say it** | POUR |
+| `POUR-19` | Lids back on, set aside to solidify, burner off | POUR |
 
 ### PASS 6 — Sterile bench · streaking
 
@@ -194,8 +220,8 @@ videos.
 
 | Slug | Clip | Feeds |
 |---|---|---|
-| `POUR-19` | Parafilm the spare plates; inverted in the fridge; stable **1–2 weeks** | POUR |
-| `POUR-20` | ⚠️ **Do not parafilm anything going into the incubator** — cells need airflow | POUR |
+| `POUR-20` | Parafilm the spare plates; inverted in the fridge; stable **1–2 weeks** | POUR |
+| `POUR-21` | ⚠️ **Do not parafilm anything going into the incubator** — cells need airflow | POUR |
 | `BROTH-05` | 2YT out of the cooker: cooling, labelling, where it is stored | BROTH |
 
 ### PASS 10 — Day 2 · reading the plates
@@ -373,9 +399,24 @@ Verbatim from the Protocol Builder. Nothing here is paraphrased.
 7. Aliquot as needed and label with antibiotic, concentration, date, and your initials.
 8. Store according to lab SOP for this antibiotic (commonly −20 °C or 4 °C).
 
-### Protocol 3 — Kanamycin 1000× stock
+### Protocol 3 — Spectinomycin 1000× stock
 
-`preparation_of_antibiotic_1000x_stock`, **kanamycin**, 50 mg.
+`preparation_of_antibiotic_1000x_stock`, **spectinomycin**, 50 mg. Same 100 mg/mL group as carbenicillin and ampicillin.
+
+> Verbatim Protocol Builder output.
+
+1. Label a sterile 1.5 mL microcentrifuge tube.
+2. Place the empty tube on an analytical balance and tare to 0.000 g.
+3. Scoop approximately 50 mg of antibiotic powder into the tube; record the actual mass (mg).
+4. Compute the volume of solvent to add for a 100 mg/mL stock: for spectinomycin, use 10 µL per mg. For 50 mg → add 500 µL (0.50 mL) of molecular biology grade water.
+5. Cap the tube and mix until fully dissolved (vortex briefly; avoid aerosols).
+6. If a sterile stock is required, sterile‑filter (0.22 µm) into a sterile, labeled tube using a membrane compatible with the solvent.
+7. Aliquot as needed and label with antibiotic, concentration, date, and your initials.
+8. Store according to lab SOP for this antibiotic (commonly −20 °C or 4 °C).
+
+### Protocol 4 — Kanamycin 1000× stock
+
+`preparation_of_antibiotic_1000x_stock`, **kanamycin**, 50 mg. <span class="flag">▲</span>The computed volume overflows the tube the protocol just told you to use — see Gap 5.
 
 > Verbatim Protocol Builder output.
 
@@ -389,7 +430,7 @@ Verbatim from the Protocol Builder. Nothing here is paraphrased.
 8. Aliquot as needed and label with antibiotic, concentration, date, and your initials.
 9. Store according to lab SOP for this antibiotic (commonly −20 °C or 4 °C).
 
-### Protocol 4 — Erythromycin 1000× stock
+### Protocol 5 — Erythromycin 1000× stock
 
 `preparation_of_antibiotic_1000x_stock`, **erythromycin**, 50 mg. ⚠️ **This is what the builder actually returns** — the module has no erythromycin entry, so it falls through to the default branch and emits placeholders. See Gaps.
 
@@ -407,7 +448,7 @@ Verbatim from the Protocol Builder. Nothing here is paraphrased.
 
 ---
 
-### Protocol 5 — Heat-shock transformation — carbenicillin control
+### Protocol 6 — Heat-shock transformation — carbenicillin control
 
 `heat_shock_transformation`, antibiotics = **Carb**. Note the builder returns the **no-rescue** branch here, by its own rule. See Gaps.
 
@@ -455,7 +496,7 @@ Verbatim from the Protocol Builder. Nothing here is paraphrased.
 11. Plate the transformation mix directly on **carbenicillin** selective agar plates. Incubate **inverted** at **37 °C** overnight.
 12. Cancel temperature devices when finished.
 
-### Protocol 6 — Heat-shock transformation — kanamycin control
+### Protocol 7 — Heat-shock transformation — kanamycin control
 
 `heat_shock_transformation`, antibiotics = **Kan**. Rescue branch.
 
@@ -505,7 +546,7 @@ Verbatim from the Protocol Builder. Nothing here is paraphrased.
    - **Drying the plates (optional):** Leave the plate **uncovered at the sterile bench** until the liquid is fully absorbed and the surface is **no longer glossy**. This prevents colony bleeding or running, especially when plating >100 µL.
 13. Cancel temperature devices when finished.
 
-### Protocol 7 — Heat-shock transformation — erythromycin control
+### Protocol 8 — Heat-shock transformation — erythromycin control
 
 `heat_shock_transformation`, antibiotics = **Erm**. Rescue branch.
 
@@ -557,7 +598,7 @@ Verbatim from the Protocol Builder. Nothing here is paraphrased.
 
 ---
 
-### Protocol 8 — Sealing Petri Dishes with Parafilm
+### Protocol 9 — Sealing Petri Dishes with Parafilm
 
 > Verbatim Protocol Builder output.
 
@@ -601,19 +642,42 @@ footage defines the page rather than following it. Write the module from the tak
 
 **2. There is no streaking protocol.** PASS 6 has no module behind it either. Same treatment.
 
-**3. Erythromycin is not in the antibiotic module.** Protocol 4 above is the real output and it
+**3. Erythromycin is not in the antibiotic module.** Protocol 5 above is the real output and it
 says `[set factor]`, `desired concentration`, and defaults the solvent to **water** — which is
 wrong for erythromycin. Two numbers fix it permanently: the working concentration for *E. coli*
 in this lab, and the solvent. Until then `POUR-08` is the clip where you say them out loud.
 
 **4. Erythromycin has no plate marking convention.** Protocol 1 lists stripe colours for carb,
-kan, CAM, spec and tet. Nothing for erythromycin. Pick one in `POUR-17` and it becomes the
+kan, CAM, spec and tet. Nothing for erythromycin. Pick one in `POUR-18` and it becomes the
 convention.
 
-**5. The carb transformation has no rescue — the protocol says so, you said otherwise.** The
+**5. Kanamycin's own default overflows its own tube.** Step 1 of Protocol 4 says to label a
+**1.5 mL** microcentrifuge tube. Step 4, at the module's default 50 mg, then computes **2000 µL
+(2.00 mL)** of water — because kanamycin is a 25 mg/mL stock at 40 µL per mg. It does not fit.
+Chloramphenicol has the same problem and tetracycline is worse at 5000 µL. The 50 mg default
+only works for the 100 mg/mL group: carbenicillin, ampicillin, spectinomycin. Either weigh
+~25 mg for kanamycin or send it to a larger tube — but decide before `POUR-08`, because on
+camera it will simply overflow.
+
+**6. Is kanamycin 25 or 50 µg/mL in this lab?** The module says **25 mg/mL** for the 1000×
+stock, so 25 µg/mL in the plate. 50 µg/mL is the more common published figure for *E. coli*,
+and you were unsure which this lab uses. If the bench actually runs 50, the module is wrong and
+the video will teach the wrong number — this is worth checking against a real plate recipe
+before Saturday rather than after.
+
+**8. The antibiotic protocol is effectively unlisted.**
+`preparation_of_antibiotic_1000x_stock` is **not in `docs/protocols/index.json`**, so it never
+appears in the Protocol Builder's dropdown. The only way to reach it is to select *"Preparation
+of a starter culture"*, which includes it — an unlikely place to look when you are pouring
+plates. Worse, `docs/trainings/plate_pouring.md` tells supervisors that the pouring link "also
+includes protocols for … preparing antibiotics," and it does not: `pouring_petri_dishes`
+includes only `preparation_of_lb_agar` and `remelting_lb_agar`. Adding the module to the index,
+or to the pouring protocol's optional includes, would fix both at once.
+
+**7. The carb transformation has no rescue — the protocol says so, you said otherwise.** The
 module decides this itself: `needsRescue = !hasAmp`, so carbenicillin takes the direct-plating
 branch and only kan and erythromycin get the outgrowth. Your sequence said "all 3 with a
-rescue." As printed, Protocol 5 plates directly. Either is defensible — a rescue does no harm
+rescue." As printed, Protocol 6 plates directly. Either is defensible — a rescue does no harm
 — but the video and the builder should not disagree in front of students, so decide which one
 is right and change the other.
 
