@@ -2,6 +2,7 @@
 
 - **Page:** `docs/wetlab/pick.md`
 - **Proposed ID:** `pP6-2026-9-Pick`
+- **Status:** 🔴 **REMAKE** — JCA's call, despite the 2022 version existing
 - **Prior version:** ⚠️ **pP6-2022-6-Pick exists but is NOT embedded**
 - **Runtime:** 3–4 min
 - **Advance prep:** ⚠️ **A transformation plate with green colonies, grown overnight.**

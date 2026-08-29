@@ -16,31 +16,54 @@ purpose so mkdocs does not build it into the site.
 | # | Title | Embedded? | Verdict |
 |---|-------|-----------|---------|
 | 1 | pP6-2022-1-PCR | ✅ `pcr.md` | **Reuse** — confirmed fine |
-| 2 | pP6-2022-2-Gel | ✅ `gel.md` | **Reuse** — screen for room |
+| 2 | pP6-2022-2-Gel | ✅ `gel.md` | ❌ **Reshoot** — rigs/supply/fridge changed |
 | 3 | pP6-2022-3-Zymo | ❌ commented out | **Reuse** — embed it |
 | 4 | pP6-2022-4-Assembly | ❌ commented out | **Reuse** — embed it |
 | 5 | pP6-2022-5-Transformation | ❌ commented out | ❌ **Reshoot — superseded** |
-| 6 | pP6-2022-6-Pick | ❌ commented out | **Reuse** — embed it |
+| 6 | pP6-2022-6-Pick | ❌ commented out | ❌ **Reshoot** — JCA's call |
 | 7 | pP6-2022-7-Miniprep | ❌ commented out | **Reuse** — embed it |
 | 8 | pP6-2022-8-Sequencing | ❌ commented out | **Reuse** — embed it |
 | 9 | pP6-2022-9-Sequence Analysis | ❌ no slot on any page | **Reuse** — needs a slot |
 
 **Seven of the nine already-shot videos are not embedded.** Every one of those pages ends
-in a commented-out `<iframe>` with a placeholder YouTube ID. Embedding the reusable ones is
-a text-only change requiring no filming, and takes the series from 2/13 covered to 8/13.
+in a commented-out `<iframe>` with a placeholder YouTube ID.
 
-## What actually needs a camera
+**Six of the nine are reusable** — PCR, Zymo, Assembly, Miniprep, Sequencing, and Sequence
+Analysis. Five of those six just need their placeholder uncommented and the real embed
+dropped in: a text-only change, no filming. Do that first; it is the cheapest coverage in
+this whole plan.
 
-Per JCA, the 2022 series fails in three specific ways — and only three:
+⚠️ **Gel is a live liability.** The 2022 version is embedded and on the site right now,
+showing gel rigs, a power supply, and a storage fridge the lab no longer has. Students are
+being shown the wrong equipment today, which makes it the most urgent of the reshoots even
+though the page technically "has a video."
 
-1. **Room-linked to Donner.** The lab has moved to B144 Stanley. Any footage that
-   establishes *where things are* is now wrong. This kills the safety and lab-tour content
-   outright and is the reason video 1 in the new series has no ancestor.
-2. **Transformation is superseded.** Heat shock now uses a dedicated instrument (the
-   EchoTherm IC22), and **flames are no longer used in this workflow**. The old plating
-   segment would teach students a method the lab has retired.
-3. **The Tecan is new** and has no footage at all — while its QR code is live and marked
-   Mandatory, pointing at a one-line page.
+**Three of the nine are dead:** Gel, Transformation, and Pick all need reshooting.
+
+## Status — JCA's call, this is the shoot list
+
+| # | Section | Status |
+|---|---------|--------|
+| 1 | **Safety + lab tour** | 🔴 **REMAKE** — Donner footage unusable |
+| 2 | Pipetting | ⚪ Leave as is |
+| 3 | Intro | 🟡 Make later |
+| 4 | PCR | ⚪ Leave as is |
+| 5 | **Gel** | 🟠 **REMAKE — instrument changes** (new rigs, new power supply, new gel fridge) |
+| 6 | Zymo Cleanup | ⚪ Leave as is |
+| 7 | Assembly | ⚪ Leave as is |
+| 8 | **Transformation** | 🔴 **REMAKE** — EchoTherm, no flames |
+| 9 | **Colony Picking** | 🔴 **REMAKE** |
+| 10 | Miniprep | ⚪ Leave as is |
+| 11 | Sequencing | ⚫ Not making — may already exist |
+| 12 | **BestP + Tecan** | 🔴 **REMAKE — one video, BestP done on the Tecan** |
+| 13 | Equipment shorts | ⚫ Not making (Tecan is covered by video 12) |
+
+**Five to shoot: 1, 5, 8, 9, 12.** Everything else is reuse, later, or dropped.
+
+Note that 12 is now a **single** video — BestP performed on the Tecan — rather than a BestP
+video plus a separate Tecan equipment short. That also means the Tecan's Mandatory QR gets
+its content from video 12, and `docs/trainings/tecan_mnano.md` should be written from that
+footage.
 
 ### The triage rule this implies
 

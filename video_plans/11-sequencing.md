@@ -2,6 +2,7 @@
 
 - **Page:** `docs/wetlab/sequencing.md`
 - **Proposed ID:** `pP6-2026-11-Sequencing`
+- **Status:** ⚫ **NOT MAKING** — may already exist; reuse pP6-2022-8 / -9
 - **Prior versions:** ⚠️ **pP6-2022-8-Sequencing AND pP6-2022-9-Sequence Analysis both
   exist; neither is embedded.** Note there are two videos and only one page.
 - **Runtime:** two parts, ~3 min + ~6 min

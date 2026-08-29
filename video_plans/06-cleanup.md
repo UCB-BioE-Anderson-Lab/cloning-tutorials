@@ -2,6 +2,7 @@
 
 - **Page:** `docs/wetlab/cleanup.md`
 - **Proposed ID:** `pP6-2026-6-Zymo`
+- **Status:** ⚪ **LEAVE AS IS** — reuse pP6-2022-3, just embed it
 - **Prior version:** ⚠️ **pP6-2022-3-Zymo exists in the Media Gallery but is NOT embedded**
 - **Runtime:** 4–5 min
 - **Advance prep:** a PCR product to clean; Zymo kit; microfuge

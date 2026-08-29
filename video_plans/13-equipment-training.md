@@ -1,5 +1,18 @@
 # 13. Equipment Training (the QR shorts)
 
+> ## ⚫ NOT MAKING — shelved
+>
+> JCA's call: no standalone equipment shorts this round. The one instrument that genuinely
+> needed footage — the **Tecan** — is covered by **video 12**, where BestP is performed on
+> it. Its Mandatory QR should point at that video.
+>
+> The EchoTherm is likewise shown in **video 8** (transformation) as part of the heat-shock
+> procedure, so it has coverage without a dedicated short.
+>
+> The rest of this file is kept as a reference for if and when shorts are revisited. The
+> QR-wiring notes at the bottom stay useful regardless, since they describe how any video
+> gets attached to a code on a machine.
+
 - **Page:** `docs/trainings/qr_training.md` — plus each instrument's own page
 - **Proposed IDs:** `B144-Equip-<instrument>` — **not** part of the pP6 numbering, since
   these are not tied to the experiment and should outlive it
@@ -22,17 +35,17 @@ batch several into one session.
 
 ## Priority order
 
-### 1. Tecan MNano — **highest priority**
+### 1. Tecan MNano — ✅ **covered by video 12**
 
 New instrument, no footage, `docs/trainings/tecan_mnano.md` is one line, and the QR is
 **live and marked Mandatory**. Today it is a dead end.
 
-**Cut this from the BestP shoot (plan 12, shot 4).** Same take, two destinations. Do not
-film it twice.
+**This is now video 12 itself**, not a cut from it — BestP is performed on the Tecan in a
+single video. Point the Mandatory QR at that video and write the page from the same footage.
 
-### 2. EchoTherm
+### 2. EchoTherm — ✅ **covered by video 8**
 
-Also cuttable from another shoot — the transformation video (plan 8, shot 3). The page
+Shown as part of the transformation shoot — the transformation video (plan 8, shot 3). The page
 `docs/trainings/echotherm.md` is already complete and correct, so the video just needs to
 match it:
 - Toggle at the **back right corner**

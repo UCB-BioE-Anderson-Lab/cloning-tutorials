@@ -2,6 +2,7 @@
 
 - **Page:** `docs/wetlab/safety.md`
 - **Proposed ID:** `pP6-2026-1-Safety`
+- **Status:** 🔴 **REMAKE** — top priority
 - **Prior version:** none usable — the 2022 series started at PCR, and any older
   safety/tour footage is **room-linked to Donner**, so it shows the wrong building
 - **Runtime:** 6–8 min (the longest in the series; it is doing two jobs)

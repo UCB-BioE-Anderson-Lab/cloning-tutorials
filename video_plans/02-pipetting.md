@@ -2,7 +2,8 @@
 
 - **Page:** `docs/wetlab/pipetting.md`
 - **Proposed ID:** `pP6-2026-2-Pipetting`
-- **Prior version:** none
+- **Status:** ⚪ **LEAVE AS IS** — JCA's call; not in the shoot list
+- **Prior version:** none listed in the 2022 series (see note below)
 - **Runtime:** 5–6 min
 - **Advance prep:** trivial — water, a pink-dyed solution, a blue glycerol solution
 - **Hosting:** YouTube unlisted (foundational; useful beyond the course cohort)

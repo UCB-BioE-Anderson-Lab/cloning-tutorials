@@ -2,6 +2,7 @@
 
 - **Page:** `docs/wetlab/miniprep.md`
 - **Proposed ID:** `pP6-2026-10-Miniprep`
+- **Status:** ⚪ **LEAVE AS IS** — reuse pP6-2022-7, just embed it
 - **Prior version:** ⚠️ **pP6-2022-7-Miniprep exists but is NOT embedded** — likely reusable
 - **Runtime:** 5–6 min
 - **Advance prep:** ⚠️ **A saturated 4 mL culture, inoculated the night before.**

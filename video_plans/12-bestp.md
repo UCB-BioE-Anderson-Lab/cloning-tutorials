@@ -2,11 +2,12 @@
 
 - **Page:** `docs/wetlab/bestp.md`
 - **Proposed ID:** `pP6-2026-12-BestP`
+- **Status:** 🔴 **REMAKE** — one video: BestP performed on the Tecan
 - **Prior version:** ❌ **none — the 2022 series ended at Sequence Analysis**
 - **Runtime:** 6–7 min
 - **Advance prep:** ⚠️ heavy — see below
-- **Hosting:** Kaltura for the BestP video; **the Tecan segment also goes to YouTube
-  unlisted** so the QR on the machine can reach it
+- **Hosting:** the Tecan's Mandatory QR points here, so this needs to be reachable from the
+  bench — **YouTube unlisted** rather than CalNet-gated Kaltura
 
 ## Why this is a priority shoot
 
@@ -56,8 +57,9 @@ picking segments can reference videos 8 and 9 rather than repeating them.
    **Pick left-to-right and say why** — the order has to match the data entry layout, and
    getting it wrong scrambles the spreadsheet silently. Show the airpore sheet going on.
 
-4. **THE TECAN SEGMENT** (~2.5 min) — **new footage, film this properly.** Shoot it
-   self-contained so the same take can be cut out as the standalone equipment short:
+4. **THE TECAN SEGMENT** (~2.5 min) — **the heart of this video.** Per JCA this is *one*
+   video — BestP performed on the Tecan — not a BestP video plus a separate instrument
+   short. So this segment carries the full weight of the Tecan's Mandatory training:
    - Where the instrument is (top4 bench) and what it does
    - Powering up and launching the software
    - **Transfer 100 µL from each culture into a black-walled Tecan plate** — say why
@@ -82,6 +84,9 @@ picking segments can reference videos 8 and 9 rather than repeating them.
    **find pP6 clones that match or beat pJ19**, because those go forward into part families.
 
 ## Follow-up work this video creates
+
+Because there is no separate equipment short, **this video is the Tecan's training
+material.** Its QR code needs to reach it, and the page needs to be written from it.
 
 **Write `docs/trainings/tecan_mnano.md` from this footage.** Transcribe the Tecan segment
 into a real training page — access rules, procedure, care — so the Mandatory QR code lands

@@ -2,6 +2,7 @@
 
 - **Page:** `docs/wetlab/intro.md`
 - **Proposed ID:** `pP6-2026-3-Intro`
+- **Status:** 🟡 **MAKE LATER** — not in this round
 - **Prior version:** none
 - **Runtime:** 4–5 min
 - **Advance prep:** none — but this is **not a bench video**

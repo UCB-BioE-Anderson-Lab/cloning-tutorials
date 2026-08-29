@@ -2,6 +2,7 @@
 
 - **Page:** `docs/wetlab/assembly.md`
 - **Proposed ID:** `pP6-2026-7-Assembly`
+- **Status:** ⚪ **LEAVE AS IS** — reuse pP6-2022-4, just embed it
 - **Prior version:** ⚠️ **pP6-2022-4-Assembly exists but is NOT embedded**
 - **Runtime:** 3–4 min
 - **Advance prep:** cleaned `z79` DNA; T4 ligase and BsaI from the cold block

@@ -2,6 +2,7 @@
 
 - **Page:** `docs/wetlab/transformation.md`
 - **Proposed ID:** `pP6-2026-8-Transformation`
+- **Status:** 🔴 **REMAKE**
 - **Prior version:** ❌ **pP6-2022-5-Transformation is SUPERSEDED — reshoot required**
 - **Runtime:** 5–6 min
 - **Advance prep:** assembled DNA; a **frozen TSS competent cell aliquot**; carb plates;
