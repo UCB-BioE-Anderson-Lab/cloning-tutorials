@@ -1,13 +1,24 @@
-# 12. BestP — Measuring Fluorescence
+# 12. BestP on the Tecan
 
 - **Page:** `docs/wetlab/bestp.md`
-- **Proposed ID:** `pP6-2026-12-BestP`
+- **Proposed ID:** `pP6-2026-12-BestP-Tecan`
 - **Status:** 🔴 **REMAKE** — one video: BestP performed on the Tecan
 - **Prior version:** ❌ **none — the 2022 series ended at Sequence Analysis**
 - **Runtime:** 6–7 min
 - **Advance prep:** ⚠️ heavy — see below
 - **Hosting:** the Tecan's Mandatory QR points here, so this needs to be reachable from the
   bench — **YouTube unlisted** rather than CalNet-gated Kaltura
+
+## Scope: one video, not two
+
+Earlier drafts split this into a BestP procedural video and a standalone Tecan equipment
+short. **That split is cancelled** — per JCA this is a single video showing BestP being
+performed on the Tecan. The instrument is taught by using it for real rather than in the
+abstract, which is the better video anyway.
+
+Consequence: since the equipment shorts (plan 13) are not being made, **this is the only
+Tecan footage that will exist.** It therefore has to carry the instrument's own training
+duty as well — see "Follow-up work" below.
 
 ## Why this is a priority shoot
 

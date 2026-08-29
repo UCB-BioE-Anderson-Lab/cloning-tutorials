@@ -7,6 +7,27 @@ importantly — what has to be **prepared in advance** so the shot is possible a
 These are production notes, not student content. This folder sits outside `docs/` on
 purpose so mkdocs does not build it into the site.
 
+## How this folder is organized
+
+Plans are filed by what each one actually needs. Filenames keep their nav number, so the
+number always tells you which page the video belongs to.
+
+```
+reshoot/      5 videos that need a camera  ← the shoot list
+reuse/        5 where the 2022 video stands; the work is embedding, not filming
+backlog/      make later
+not-planned/  deliberately not making; kept for the reasoning
+```
+
+- **`reshoot/`** — 01-safety, 05-gel, 08-transformation, 09-pick, 12-bestp-tecan
+- **`reuse/`** — 02-pipetting, 04-pcr, 06-cleanup, 07-assembly, 10-miniprep
+- **`backlog/`** — 03-intro
+- **`not-planned/`** — 11-sequencing, 13-equipment-training
+
+Note that `reuse/` still carries real work: **Zymo, Assembly and Miniprep have finished
+2022 videos that are not embedded on their pages.** That is a text-only task and the
+cheapest win available.
+
 ---
 
 ## What already exists (read this before planning a reshoot)
@@ -151,26 +172,32 @@ needs a competent cell aliquot, and **BestP/Tecan (12)** needs an overnight 24-w
 
 ---
 
-## Suggested first session
+## Shooting order
 
-The shoot list is now short and well-defined. Filmable with no advance biology:
+Five videos need a camera. Two can be shot cold; three need biology started beforehand.
 
-1. **Safety + lab tour (1)** — the biggest gap. Donner footage is unusable, and nothing
-   replaces it. Needs the room quiet. Longest single item.
-2. **Pipetting (2)** — never existed in any series. Pure bench motion, water and dyed
-   solutions only.
-3. **Equipment shorts (13)** — batch them: EchoTherm, ProFlex, microwave (⚠️ recipe
-   conflict unresolved), Allegra. Same PPE, no consumables burned.
+**No advance prep — shoot these first:**
 
-Needing advance biology, so a second session or a day-before setup:
+1. **Safety + lab tour (1)** — the biggest gap and the top priority. Donner footage is
+   unusable and nothing replaces it. Needs the room quiet. Longest single item.
+2. **Gel (5)** — chemistry unchanged, but new rigs, a new power supply and a new gel fridge
+   are all in frame. ⚠️ **Re-confirm the 175 V / ~10 min setting against the new supply
+   before rolling**, and update `docs/wetlab/gel.md` if it changed.
 
-4. **Transformation (8)** — needs a competent cell aliquot and the EchoTherm. This is the
-   one superseded procedure, so it cannot be skipped.
-5. **Tecan / BestP (12)** — needs an overnight 24-well block. **Film the Tecan segment
-   self-contained so it doubles as the equipment short**, and transcribe it into
-   `docs/trainings/tecan_mnano.md` afterwards.
+**Needs material started the day before:**
 
-Everything else is a watch-and-embed task, not a filming task.
+3. **Transformation (8)** — a competent cell aliquot and the EchoTherm at temperature.
+   Glass beads only; no flames on camera.
+4. **Colony Picking (9)** — ⚠️ **a plate of green colonies, transformed and grown
+   overnight.** There is no substitute, and no plate means no shoot. Plate more than one.
+5. **BestP on the Tecan (12)** — an overnight 24-well block. The heaviest prep of the five,
+   and realistically its own session.
+
+**Pairing that saves a day:** the transformation filmed for video 8 can be the transformation
+that produces video 9's plate. Shoot 8, incubate overnight, shoot 9 the next day off the
+same plate.
+
+Everything in `reuse/` is a watch-and-embed task, not a filming task.
 
 ---
 
