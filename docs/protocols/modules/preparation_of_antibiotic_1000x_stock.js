@@ -1,5 +1,5 @@
 export const inputs = [
-  { name: "antibiotic", type: "select", label: "Antibiotic", options: ["ampicillin", "carbenicillin", "spectinomycin", "kanamycin", "chloramphenicol", "tetracycline", "none"], default: "ampicillin" },
+  { name: "antibiotic", type: "select", label: "Antibiotic", options: ["ampicillin", "carbenicillin", "spectinomycin", "kanamycin", "chloramphenicol", "erythromycin", "tetracycline", "none"], default: "ampicillin" },
   { name: "weighed_mg", type: "number", label: "Powder weighed (mg)", default: 50, step: 1 }
 ];
 
@@ -11,6 +11,7 @@ function normalizeAntibiotic(s){
   if (["spec", "spectinomycin"].includes(a)) return "spectinomycin";
   if (["kan", "kana", "kanamycin"].includes(a)) return "kanamycin";
   if (["cam", "chlor", "chloramphenicol"].includes(a)) return "chloramphenicol";
+  if (["erm", "ery", "eryth", "erythromycin"].includes(a)) return "erythromycin";
   if (["tet", "tetracycline"].includes(a)) return "tetracycline";
   return a;
 }
@@ -25,6 +26,8 @@ function paramsForAntibiotic(ab){
     case "kanamycin":
     case "chloramphenicol":
       return { target_mg_per_mL: 25, factor_uL_per_mg: 40, solvent: "molecular biology grade water", notes: "", light_protect: true };
+    case "erythromycin":
+      return { target_mg_per_mL: 100, factor_uL_per_mg: 10, solvent: "ethanol", notes: "it does not dissolve in water at all — use ethanol. Dissolution is slow; vortex thoroughly until it clears. Expect it to precipitate briefly when squirted into hot agar and to redissolve on swirling.", light_protect: false };
     case "tetracycline":
       return { target_mg_per_mL: 10, factor_uL_per_mg: 100, solvent: "ethanol", notes: "Warm gently to help dissolution; do not overheat.", light_protect: true };
     case "none":
