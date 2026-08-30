@@ -1,0 +1,103 @@
+<title>Lab Tour Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600&family=IBM+Plex+Sans+Condensed:wght@400;600;700&display=swap">
+<style>
+:root{--paper:#fff;--ink:#111;--muted:#6b7076;--rule:#d4d6d3;--accent:#8A3227}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#141619;--ink:#EDEEEF;--muted:#9CA2A8;--rule:#31363B;--accent:#E08070}}
+:root[data-theme="dark"]{--paper:#141619;--ink:#EDEEEF;--muted:#9CA2A8;--rule:#31363B;--accent:#E08070}
+*{box-sizing:border-box}
+body{margin:0;padding:22px 18px 50px;background:var(--paper);color:var(--ink);
+  font-family:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif;font-size:16px}
+.card{max-width:50rem;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:baseline;
+  border-bottom:2px solid var(--ink);padding-bottom:.3rem;margin-bottom:.6rem}
+h1{font-size:1.5rem;margin:0;font-weight:700;letter-spacing:-.01em}
+.slug{font-family:"IBM Plex Mono",monospace;font-size:1rem;font-weight:600;color:var(--accent)}
+.cols{column-count:2;column-gap:2.2rem;column-rule:1px solid var(--rule)}
+.st{break-inside:avoid;page-break-inside:avoid;margin:0 0 .62rem}
+.hd{display:flex;gap:.45rem;align-items:baseline}
+.n{font-family:"IBM Plex Mono",monospace;font-size:.82rem;color:var(--muted);min-width:1.2rem}
+.nm{font-weight:700;font-size:1.12rem;line-height:1.15}
+.cue{margin:.08rem 0 0 1.65rem;font-size:1rem;line-height:1.3;color:var(--ink)}
+.cue div{padding-left:.62rem;text-indent:-.62rem}
+.cue div::before{content:"– ";color:var(--muted)}
+.q{color:var(--accent);font-weight:600}
+.bare .nm{font-weight:600;color:var(--muted)}
+.foot{margin-top:.5rem;padding-top:.4rem;border-top:1px solid var(--rule);
+  font-size:.88rem;color:var(--muted)}
+@media print{
+  @page{size:letter portrait;margin:12mm}
+  html,body{background:#fff!important;color:#000!important}
+  :root{--paper:#fff;--ink:#000;--muted:#555;--rule:#bbb;--accent:#8A3227}
+  body{padding:0;font-size:18pt}
+  h1{font-size:21pt}
+  .card{max-width:none}
+  .n{font-size:12pt}
+  .nm{font-size:18.5pt;line-height:1.12}
+  .cue{font-size:16pt;line-height:1.28;margin-left:1.5rem}
+  .st{margin-bottom:.72rem}
+  .cols{column-gap:1.7rem}
+  .foot{font-size:12pt;margin-top:.6rem}
+}
+</style>
+
+<div class="card">
+<div class="top">
+  <h1>Lab Tour — what to say where</h1>
+  <span class="slug">lab_tour</span>
+</div>
+
+<div class="cols">
+
+<div class="st"><div class="hd"><span class="n">1</span><span class="nm">Door — the magnet</span></div>
+<div class="cue"><div>Magnet, and when you may come in</div>
+<div class="q">No food or drink · Mining Circle</div></div></div>
+
+<div class="st"><div class="hd"><span class="n">2</span><span class="nm">Three bays</span></div>
+<div class="cue"><div>Surfaces, drawers below</div>
+<div>Map on the wall, same map online</div></div></div>
+
+<div class="st"><div class="hd"><span class="n">3</span><span class="nm">Safety corner</span></div>
+<div class="cue"><div>PPE lives here · EHS onboarding</div>
+<div class="q">Eye wash “fifteen minutes” · glasses count</div>
+<div>Shower, extinguisher — point, don't pull</div></div></div>
+
+<div class="st"><div class="hd"><span class="n">4</span><span class="nm">Media bench, microwave</span></div>
+<div class="cue"><div>Superheated agar burns you</div>
+<div>Training Required — scan a QR on camera</div></div></div>
+
+<div class="st"><div class="hd"><span class="n">5</span><span class="nm">Gels, EtBr, imaging</span></div>
+<div class="cue"><div class="q">EtBr — your wording</div>
+<div>The imagers</div></div></div>
+
+<div class="st bare"><div class="hd"><span class="n">6</span><span class="nm">PCR station</span></div></div>
+
+<div class="st bare"><div class="hd"><span class="n">7</span><span class="nm">Miniprep / Zymo</span></div></div>
+
+<div class="st bare"><div class="hd"><span class="n">8</span><span class="nm">Flex benches</span></div></div>
+
+<div class="st"><div class="hd"><span class="n">9</span><span class="nm">Open bench</span></div>
+<div class="cue"><div>Gloves and waste → white bin</div>
+<div>Restore the bench when you leave</div></div></div>
+
+<div class="st bare"><div class="hd"><span class="n">10</span><span class="nm">Incubator &amp; shaker</span></div></div>
+
+<div class="st"><div class="hd"><span class="n">11</span><span class="nm">−80 freezer</span></div>
+<div class="cue"><div class="q">“Supervisors Only means do not touch it”</div></div></div>
+
+<div class="st bare"><div class="hd"><span class="n">12</span><span class="nm">Transformation bench</span></div></div>
+
+<div class="st"><div class="hd"><span class="n">13</span><span class="nm">Chemical hood</span></div>
+<div class="cue"><div>Flame sterilization — supervisors only</div>
+<div class="q">“Never spray ethanol near an open flame”</div></div></div>
+
+<div class="st bare"><div class="hd"><span class="n">14</span><span class="nm">Sterile bench</span></div></div>
+
+</div>
+
+<div class="foot"><b>Say the station name out loud.</b> Grey stations have no rule attached —
+just name them and say what they're for. <span class="q">Red = say close to that wording.</span>
+Close on: University policies · rules cost lab access.</div>
+</div>
