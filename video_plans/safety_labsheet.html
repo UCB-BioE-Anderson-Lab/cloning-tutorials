@@ -3,52 +3,44 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@400;600;700&family=IBM+Plex+Serif:wght@400;600&display=swap">
 <style>
-:root{--paper:#fff;--ink:#111;--muted:#54595f;--rule:#c9cbc8;--rule-hard:#8a8d8a;--accent:#8A3227}
+:root{--paper:#fff;--ink:#111;--muted:#54595f;--rule:#c9cbc8;--accent:#8A3227}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#141619;--ink:#E9EAEB;--muted:#9CA2A8;--rule:#31363B;--rule-hard:#4a5057;--accent:#E08070}}
-:root[data-theme="dark"]{--paper:#141619;--ink:#E9EAEB;--muted:#9CA2A8;--rule:#31363B;--rule-hard:#4a5057;--accent:#E08070}
+  --paper:#141619;--ink:#E9EAEB;--muted:#9CA2A8;--rule:#31363B;--accent:#E08070}}
+:root[data-theme="dark"]{--paper:#141619;--ink:#E9EAEB;--muted:#9CA2A8;--rule:#31363B;--accent:#E08070}
 *{box-sizing:border-box}
 body{margin:0;padding:26px 20px 60px;background:var(--paper);color:var(--ink);
-  font-family:"IBM Plex Serif",Georgia,serif;font-size:15px;line-height:1.42}
-.sheet{max-width:52rem;margin:0 auto}
+  font-family:"IBM Plex Serif",Georgia,serif;font-size:15px;line-height:1.4}
+.sheet{max-width:54rem;margin:0 auto}
 header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;
-  border-bottom:2px solid var(--ink);padding-bottom:.5rem;margin-bottom:.2rem}
+  border-bottom:2px solid var(--ink);padding-bottom:.5rem}
 .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.14em;
   text-transform:uppercase;color:var(--muted)}
-h1{font-family:"IBM Plex Sans Condensed",Arial,sans-serif;font-size:1.85rem;margin:.15rem 0 0;font-weight:700}
+h1{font-family:"IBM Plex Sans Condensed",Arial,sans-serif;font-size:1.8rem;margin:.15rem 0 0;font-weight:700}
 .slugs{font-family:"IBM Plex Mono",monospace;font-size:.9rem;font-weight:600;color:var(--accent)}
 .sign{font-size:.8rem;color:var(--muted);white-space:nowrap;margin-top:.35rem}
-h2{font-family:"IBM Plex Sans Condensed",Arial,sans-serif;font-size:.82rem;font-weight:700;
-  letter-spacing:.09em;text-transform:uppercase;color:var(--muted);
-  border-bottom:1px solid var(--rule);padding-bottom:.2rem;margin:1.3rem 0 .5rem}
-ol,ul{margin:0;padding-left:1.3rem}
-li{margin:.2rem 0}
-.route li{margin:.28rem 0}
-.say li{font-weight:600;margin:.3rem 0}
-.say{border-left:3px solid var(--accent);padding:.5rem 0 .5rem 1.4rem;margin-left:0;list-style:none}
-.say li::before{content:"“";color:var(--accent)}
-.say li::after{content:"”";color:var(--accent)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 2rem}
-.note{font-size:.86rem;color:var(--muted);margin-top:.3rem}
+.lede{font-size:.92rem;margin:.45rem 0 .25rem}
+ol.route{list-style:none;counter-reset:stop;margin:0;padding:0}
+ol.route>li{counter-increment:stop;display:grid;grid-template-columns:1.5rem 1fr;
+  gap:0 .5rem;padding:.3rem 0;border-bottom:1px solid var(--rule)}
+ol.route>li::before{content:counter(stop);font-family:"IBM Plex Mono",monospace;
+  font-weight:600;color:var(--muted);font-size:.8rem;padding-top:.15rem}
+.where{font-family:"IBM Plex Sans Condensed",Arial,sans-serif;font-weight:700;font-size:1rem}
+.says{margin:.05rem 0 0;font-size:.9rem}
+.says span::after{content:"  ·  ";color:var(--muted)}
+.says span:last-child::after{content:""}
+.q{color:var(--accent);font-weight:600}
+.tail{margin-top:.7rem;font-size:.86rem;color:var(--muted)}
 b{font-weight:600}
-.warn{color:var(--accent);font-weight:600}
 @media print{
-  @page{size:letter portrait;margin:13mm}
+  @page{size:letter portrait;margin:12mm}
   html,body{background:#fff!important;color:#000!important}
-  :root{--paper:#fff;--ink:#000;--muted:#3f3f3f;--rule:#bbb;--rule-hard:#777;--accent:#8A3227}
-  body{padding:0;font-size:8.6pt;line-height:1.26}
+  :root{--paper:#fff;--ink:#000;--muted:#3f3f3f;--rule:#bbb;--accent:#8A3227}
+  body{padding:0;font-size:8.1pt;line-height:1.22}
   h1{font-size:1.45rem}
-  header{padding-bottom:.35rem}
-  h2{margin:.55rem 0 .22rem;font-size:.72rem}
-  li{margin:.1rem 0}
-  .route li{margin:.1rem 0}
-  .say{padding:.3rem 0 .3rem 1.1rem}
-  .say li{margin:.14rem 0}
-  .note{margin:.2rem 0 .35rem}
-  .grid{gap:0 1.6rem}
   .sheet{max-width:none}
-  h2{page-break-after:avoid;break-after:avoid}
-  li,.say{page-break-inside:avoid;break-inside:avoid}
+  ol.route>li{padding:.14rem 0;page-break-inside:avoid;break-inside:avoid}
+  .where{font-size:.9rem}
+  .says{font-size:.87rem}
 }
 </style>
 
@@ -57,104 +49,122 @@ b{font-weight:600}
   <div>
     <div class="eyebrow">B144 Stanley · shoot labsheet</div>
     <h1>Safety &amp; Lab Tour</h1>
-    <div class="slugs">lab_tour · biosafety</div>
+    <div class="slugs">lab_tour</div>
   </div>
   <div style="text-align:right">
-    <div class="eyebrow">one video, two takes</div>
+    <div class="eyebrow">one continuous walking shot</div>
     <div class="sign">sign: ______________________ date: ____________</div>
   </div>
 </header>
 
-<h2>Take 1 — lab_tour · one continuous walking shot, quiet room</h2>
-<p class="note"><b>Name every location out loud as you reach it.</b> A tour is entirely
-information carried by the picture; anything unsaid is absent from the captions and invisible
-to a screen reader.</p>
+<p class="lede"><b>Make each point where the object is.</b> Every rule is attached to the thing
+it is about, so it lands while the viewer is looking at it. <b>Name every station out loud as
+you reach it</b> — a tour is entirely information carried by the picture, and anything unsaid is
+absent from the captions and invisible to a screen reader.
+<span class="q">Red = say close to this wording; each maps onto a quiz question.</span></p>
+
 <ol class="route">
-  <li><b>Entry.</b> Only enter when a supervisor is present.</li>
-  <li><b>Safety Corner</b> — by the north door, near the biosafety cabinets on the mammalian
-      cell side. <b>Slow down here.</b> Safety shower · eye wash · fire extinguisher (all three
-      <b>by the biohood-side door</b>) · spill kit · first aid kit · Chemical Hygiene Plan with
-      emergency information · PPE stock · the printed <b>Lab Rules</b>, whose full list is the
-      posted PDF. Say you must <b>know how to operate the extinguisher safely</b>.
-      <span class="warn">Say “fifteen minutes” at the eye wash and hold the shot.</span></li>
-  <li><b>Benches</b> — where students work; the default organisation they must restore.</li>
-  <li><b>Electrophoresis bench</b> — gel rig drawer, 1× TAE, imager.</li>
-  <li><b>Thermocyclers</b> — ProFlex.</li>
-  <li><b>Freezers</b> — enzyme freezer, −20, −80. Point out the pink <b>Training1</b> box.</li>
-  <li><b>Chemical hood</b> — flame sterilization happens here, supervisors only.</li>
-  <li><b>Microwave.</b></li>
-  <li><b>Waste</b> — large white bin, benchtop plastic beakers.</li>
-  <li><b>Exit route</b> — walk to the door and say evacuation goes to the <b>Mining Circle</b>.
-      Keep walking outside and show it if you can.</li>
+  <li><div>
+    <div class="where">The door — the magnet</div>
+    <div class="says">
+      <span>What the magnet means, and when you may and may not come in</span>
+      <span>Enter only when a supervisor — facilitator or instructor — is present</span>
+      <span class="q">&ldquo;No food or drink anywhere in B144 — not even a capped water bottle&rdquo;</span>
+      <span>Only projects authorised by your instructor or PI</span>
+      <span>Nothing in or out unless explicitly authorised</span>
+      <span><b>BSL1 only.</b> No infectious agents · <b>no sharps</b> · no hazardous chemicals</span>
+      <span class="q">&ldquo;Evacuate to the Mining Circle&rdquo; — show the route while you are at the door</span>
+    </div>
+  </div></li>
+
+  <li><div>
+    <div class="where">The three bays</div>
+    <div class="says">
+      <span>What lives on the surfaces, and what lives in the drawers below</span>
+      <span>The <b>map on the wall</b>, and the same map online</span>
+      <span>Restore your bench to its default organisation after every session</span>
+      <span>Keep accurate records of all experiments as directed</span>
+    </div>
+  </div></li>
+
+  <li><div>
+    <div class="where">Safety corner</div>
+    <div class="says">
+      <span><b>Goggles, gloves, lab coats</b> — all PPE lives here</span>
+      <span>Required at all times: closed-toe shoes and long pants · lab coat · gloves · eye protection</span>
+      <span class="q">&ldquo;Prescription glasses count as eye protection&rdquo;</span>
+      <span><b>EHS onboarding</b> — what it is, and that it is required</span>
+      <span>Safety shower · eye wash · fire extinguisher, all by the biohood-side door</span>
+      <span class="q">&ldquo;Flush your eyes for fifteen minutes&rdquo; — hold the shot on the eye wash</span>
+      <span>You must know how to operate the extinguisher safely</span>
+      <span>Spill kit · first aid kit · Chemical Hygiene Plan with emergency information</span>
+      <span>Tell your supervisor <b>immediately</b> about any spill or injury; <b>911</b> if life-threatening</span>
+      <span>The printed <b>Lab Rules</b>; the full list is the posted PDF</span>
+      <span class="q">Do not pull the shower — point, say what it is for, move on</span>
+    </div>
+  </div></li>
+
+  <li><div>
+    <div class="where">Media bench &amp; microwave</div>
+    <div class="says">
+      <span><b>Microwave</b> — superheated agar or liquids can burn you</span>
+      <span><b>Training Required</b> — allowed only after the training; follow the QR on the sign</span>
+      <span><b>Scan one QR on camera</b> so the mechanism is seen working</span>
+      <span><b>Training Available</b> — scan it if you don't know how to use something</span>
+      <span>If in doubt, ask your supervisor before using anything</span>
+    </div>
+  </div></li>
+
+  <li><div>
+    <div class="where">Gels, EtBr, imaging</div>
+    <div class="says">
+      <span class="q">⚠ What EtBr is, where it is, who may handle it — left blank on purpose, see the note below</span>
+      <span>The imaging devices and what they are for</span>
+    </div>
+  </div></li>
+
+  <li><div><div class="where">PCR station</div></div></li>
+  <li><div><div class="where">Miniprep / Zymo bench</div></div></li>
+  <li><div><div class="where">Flex benches</div></div></li>
+
+  <li><div>
+    <div class="where">Open bench</div>
+    <div class="says">
+      <span>Research materials <b>including gloves</b> → large white bin or benchtop plastic beakers</span>
+    </div>
+  </div></li>
+
+  <li><div><div class="where">Incubator &amp; shaker</div></div></li>
+
+  <li><div>
+    <div class="where">−80 freezer</div>
+    <div class="says">
+      <span class="q">&ldquo;Supervisors Only means do not touch it&rdquo; — this is the sign to say it at</span>
+      <span>Students must not touch or use it</span>
+    </div>
+  </div></li>
+
+  <li><div><div class="where">Transformation bench</div></div></li>
+
+  <li><div>
+    <div class="where">Chemical hood</div>
+    <div class="says">
+      <span>Flame sterilization happens here — <b>supervisors only</b></span>
+      <span><b>Bunsen burner</b> — fire hazard, especially with ethanol-based solutions</span>
+      <span class="q">&ldquo;Never spray ethanol near an open flame&rdquo;</span>
+      <span>Point at the Supervisors Only signage again here</span>
+    </div>
+  </div></li>
+
+  <li><div><div class="where">Sterile bench</div></div></li>
 </ol>
 
-<h2>Take 2 — biosafety · static, at a bench</h2>
-<p class="note">Say these six close to the wording below. Each maps onto a quiz question.</p>
-<ul class="say">
-  <li>Flush your eyes for <b>fifteen minutes</b></li>
-  <li>Evacuate to the <b>Mining Circle</b></li>
-  <li><b>No food or drink anywhere in B144</b> — not even a capped water bottle</li>
-  <li><b>Never spray ethanol near an open flame</b></li>
-  <li>Prescription glasses count as eye protection</li>
-  <li><b>Supervisors Only</b> means do not touch it</li>
-</ul>
-
-<div class="grid">
-  <div>
-    <h2>General conduct</h2>
-    <ul>
-      <li>No food or drink in the lab</li>
-      <li>Enter only when a supervisor — facilitator or instructor — is present</li>
-      <li>Only projects authorised by your instructor or PI</li>
-      <li>No materials in or out unless explicitly authorised</li>
-      <li><b>BSL1 only.</b> No infectious agents · <b>no sharps</b> · no hazardous chemicals</li>
-    </ul>
-    <h2>PPE — required at all times</h2>
-    <ul>
-      <li>Closed-toe shoes and long pants · lab coat · gloves · eye protection</li>
-      <li>Prescription glasses are acceptable eye protection</li>
-      <li>PPE lives in the Safety Corner</li>
-      <li>Show one person correctly dressed, head to toe, in a single shot</li>
-    </ul>
-    <h2>Hazards</h2>
-    <ul>
-      <li><b>Microwave</b> — superheated agar or liquids can burn you</li>
-      <li><b>Bunsen burner</b> — fire hazard, <b>especially with ethanol-based solutions</b></li>
-      <li><b>Never spray ethanol near an open flame</b></li>
-    </ul>
-  </div>
-  <div>
-    <h2>Signage — three tiers</h2>
-    <ul>
-      <li><b>Supervisors Only</b> — students must not touch or use it</li>
-      <li><b>Training Required</b> — allowed only after the training; follow the QR on the sign</li>
-      <li><b>Training Available</b> — scan the QR if you don't know how to use it</li>
-      <li><b>If in doubt, ask your supervisor before using anything</b></li>
-      <li><b>Scan one QR on camera</b> so the mechanism is seen working</li>
-    </ul>
-    <h2>Emergencies</h2>
-    <ul>
-      <li>Notify your supervisor <b>immediately</b> of any spill or injury</li>
-      <li><b>911</b> for life-threatening emergencies</li>
-      <li>Evacuation goes to the <b>Mining Circle</b></li>
-    </ul>
-    <h2>Cleanup, records, compliance</h2>
-    <ul>
-      <li>Clean the bench and restore its default organisation after every session</li>
-      <li>Research materials <b>including gloves</b> → large white bin or benchtop beakers</li>
-      <li><b>Keep accurate records</b> of all experiments as directed</li>
-      <li>Follow University policies, including <b>COVID-19 mitigation</b> and emergency response</li>
-      <li>Breaking these rules can cost lab access</li>
-    </ul>
-  </div>
-</div>
-
-<h2>On the day</h2>
-<ul>
-  <li><span class="warn">Do not pull the safety shower.</span> Point at it, say what it is for,
-      move on.</li>
-  <li>Film when the room is quiet. Anyone incidentally on camera should know they are being
-      filmed.</li>
-  <li>Say each slug aloud as you hold up the card — it segments the transcript for you later.</li>
-</ul>
+<p class="tail"><b>Close on:</b> follow University policies, including COVID-19 mitigation and
+emergency response · breaking these rules can cost lab access.
+&nbsp;|&nbsp; <b>Also:</b> film when the room is quiet; anyone incidentally on camera should
+know they are being filmed; say the slug aloud as you hold up the card, so the transcript
+segments itself.
+&nbsp;|&nbsp; <b>EtBr:</b> <code>safety.md</code> says BSL1 with no hazardous chemicals, and
+<code>gel.md</code>'s quiz says the premade gels hold no carcinogenic intercalating dye — so what
+belongs at that station is your wording, not mine.</p>
 </div>
