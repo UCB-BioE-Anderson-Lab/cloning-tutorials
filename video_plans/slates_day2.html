@@ -1,0 +1,91 @@
+<title>Bench Slates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@400;600;700&display=swap">
+<style>
+:root{--paper:#fff;--ink:#111;--muted:#555B61;--rule:#C9CBC8;--accent:#8A3227}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#141619;--ink:#E9EAEB;--muted:#9CA2A8;--rule:#31363B;--accent:#E08070}}
+:root[data-theme="dark"]{--paper:#141619;--ink:#E9EAEB;--muted:#9CA2A8;--rule:#31363B;--accent:#E08070}
+*{box-sizing:border-box}
+body{margin:0;padding:24px 16px 48px;background:var(--paper);color:var(--ink);
+  font-family:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:66rem;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.intro{font-size:.78rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;border-bottom:1px solid var(--rule);
+  padding-bottom:12px}
+
+/* One sheet = one letter-landscape page. Sizes are a % of content width so the
+   screen preview and the printed page scale identically. */
+.sheet{border:1px solid var(--rule);background:var(--paper);aspect-ratio:11/8.5;
+  container-type:inline-size;padding:4.2cqw 4.6cqw;overflow:hidden;
+  display:flex;flex-direction:column}
+.proto{color:var(--muted);margin:0 0 .15em;font-size:2.3cqw;line-height:1.15}
+.slug{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:600;
+  font-size:calc(var(--s) * 0.9cqw);line-height:1.06;letter-spacing:-.025em;margin:0}
+.sub{font-weight:600;color:var(--accent);margin:.5em 0 0;font-size:3.4cqw;line-height:1.15}
+ul{margin:4.2cqw 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1.5cqw}
+li{font-size:calc(var(--b) * 0.135cqw);line-height:1.24;padding-left:2.1cqw;position:relative}
+li::before{content:"";position:absolute;left:0;top:.52em;width:.75cqw;height:.75cqw;
+  background:var(--ink);border-radius:50%}
+b{font-weight:600}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+@media print{
+  @page{size:letter landscape;margin:11mm}
+  html,body{background:#fff!important;color:#000!important}
+  :root{--paper:#fff;--ink:#000;--muted:#3F3F3F;--rule:#fff;--accent:#8A3227}
+  body{padding:0}
+  .wrap{max-width:none;gap:0}
+  .intro{display:none}
+  /* 1% of the ~727pt content width = 7.27pt */
+  .sheet{page-break-after:always;break-after:page;border:0;padding:0;
+    aspect-ratio:auto;height:181mm;overflow:visible;container-type:normal}
+  .proto{font-size:17pt;margin-bottom:1pt}
+  .slug{font-size:calc(var(--s) * 6.9pt);line-height:1.06}
+  .sub{font-size:25pt;margin-top:12pt}
+  ul{gap:11pt;margin-top:30pt}
+  li{font-size:calc(var(--b) * 1pt);line-height:1.24;padding-left:17pt}
+  li::before{width:6pt;height:6pt;top:.52em}
+  .sheet:last-child{page-break-after:auto}
+}
+</style>
+<div class="wrap">
+<div class="intro">6 sheets &middot; print letter landscape, one per page &middot; Day 2 onward &middot; hold the slug up at the head of each take &middot; shown at true page proportions</div>
+<section class="sheet" style="--s:18.4;--b:22">
+<p class="proto">Examine and photograph plates</p>
+<h1 class="slug">ctrl_read</h1>
+<p class="sub">DAY 2 &middot; the overnight plates</p>
+<ul><li><b>Say every judgement out loud</b> &mdash; all of this is visual</li><li>Name the sector that grew, and the ones that did not</li><li>Sterility plates: contamination in the agar, bottle or hood</li><li>Kanamycin &mdash; <b>rescued vs the no-rescue half</b></li><li>Cells-only plates should be empty</li><li>Photograph &middot; record batch date, who poured, result</li></ul>
+</section>
+<section class="sheet" style="--s:20.5;--b:22">
+<p class="proto">Sealing Petri Dishes with Parafilm</p>
+<h1 class="slug">parafilm</h1>
+<p class="sub">DAY 2 &middot; the plates being kept</p>
+<ul><li>Cut a <b>1-inch strip along the long edge</b> of the roll</li><li>Hold against the lid rim &middot; stretch until it grips</li><li><b>Spin the plate</b>, keeping tension, to wrap the seam</li><li>Press the end down onto itself to seal</li><li>Inverted in the fridge &middot; stable <b>1&ndash;2 weeks</b></li><li><b>Never parafilm anything going into the incubator</b> &mdash; cells need air</li></ul>
+</section>
+<section class="sheet" style="--s:16.5;--b:18">
+<p class="proto">Pick BestP colonies into a block</p>
+<h1 class="slug">bestp_pick</h1>
+<p class="sub">DAY 2 &middot; full 24-well block</p>
+<ul><li><b>Photograph the plates under blue light first</b> &mdash; the only record of what you picked from</li><li><b>4 mL 2YT + carb</b> per well</li><li><b>4 colonies per plate</b> &middot; block is <b>4 &times; 6</b></li><li><b>Left to right, in the sample order</b> &mdash; otherwise the data entry scrambles silently</li><li>Airpore sheet on, then cover</li><li>Multitron overnight</li><li>Parafilm the plates &middot; upside-down in the fridge</li></ul>
+</section>
+<section class="sheet" style="--s:20.5;--b:18">
+<p class="proto">Pick pP6 clones into a 15 mL conical</p>
+<h1 class="slug">pp6_pick</h1>
+<p class="sub">DAY 2 &middot; do 2</p>
+<ul><li>Brightest green under blue light &middot; <b>mark them on the plate</b></li><li><b>Small and slow-growing can be the strongest</b> &mdash; do not just take the biggest</li><li>Well-isolated only &middot; watch for <b>satellites</b>, the white specks around a green colony</li><li><b>4 mL 2YT + carb</b></li><li>Sterile toothpick &middot; <b>drop it in and leave it there</b></li><li>Shaking incubator overnight</li><li>Parafilm the plate &middot; upside-down in the fridge</li></ul>
+</section>
+<section class="sheet" style="--s:15.0;--b:18">
+<p class="proto">Tecan the BestP block</p>
+<h1 class="slug">bestp_tecan</h1>
+<p class="sub">DAY 3 &middot; Tecan M Nano &middot; 48 read wells</p>
+<ul><li>Check the cultures grew and are fluorescent <b>before anything else</b></li><li><b>100 &micro;L</b> per culture into a <b>black-walled</b> 96-well plate</li><li>P200 multichannel &middot; <b>columns of 8</b> &middot; 2 draws per sample</li><li>Fluorescence: <b>Ex 483 / Em 525</b>, bandwidths 20, <b>gain 40</b>, 20 reads</li><li>high sensitivity &middot; 40 &micro;s &middot; Z 11019 &micro;m &middot; 30 &deg;C &middot; COS96ft</li><li><b>Also read OD600</b> &mdash; fluorescence alone is uninterpretable</li><li>Save to the <b>USB stick</b>; that computer has no internet</li><li><b>Remove your plate before shutdown</b> &middot; bleach and rinse it</li></ul>
+</section>
+<section class="sheet" style="--s:15.0;--b:22">
+<p class="proto">What BestP is measuring</p>
+<h1 class="slug">bestp_intro</h1>
+<p class="sub">WHENEVER &middot; no bench work</p>
+<ul><li><b>RPU</b> = fluorescence per OD unit, normalised to <b>pJ01 = 1</b></li><li><b>pJ12</b> very weak &middot; <b>pJ01</b> the reference &middot; <b>pJ19</b> very strong</li><li>Same backbone, same reporter &mdash; so <b>only the promoter differs</b></li><li>Raw fluorescence is not comparable across runs; RPU is</li><li>The goal: pP6 clones that <b>match or beat pJ19</b></li></ul>
+</section>
+</div>
