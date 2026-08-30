@@ -1,0 +1,141 @@
+<title>B144 Safety Labsheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@400;600;700&family=IBM+Plex+Serif:wght@400;600&display=swap">
+<style>
+:root{--paper:#fff;--ink:#111;--muted:#54595f;--rule:#c9cbc8;--rule-hard:#8a8d8a;--accent:#8A3227}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#141619;--ink:#E9EAEB;--muted:#9CA2A8;--rule:#31363B;--rule-hard:#4a5057;--accent:#E08070}}
+:root[data-theme="dark"]{--paper:#141619;--ink:#E9EAEB;--muted:#9CA2A8;--rule:#31363B;--rule-hard:#4a5057;--accent:#E08070}
+*{box-sizing:border-box}
+body{margin:0;padding:26px 20px 60px;background:var(--paper);color:var(--ink);
+  font-family:"IBM Plex Serif",Georgia,serif;font-size:15px;line-height:1.42}
+.sheet{max-width:52rem;margin:0 auto}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;
+  border-bottom:2px solid var(--ink);padding-bottom:.5rem;margin-bottom:.2rem}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+h1{font-family:"IBM Plex Sans Condensed",Arial,sans-serif;font-size:1.85rem;margin:.15rem 0 0;font-weight:700}
+.slugs{font-family:"IBM Plex Mono",monospace;font-size:.9rem;font-weight:600;color:var(--accent)}
+.sign{font-size:.8rem;color:var(--muted);white-space:nowrap;margin-top:.35rem}
+h2{font-family:"IBM Plex Sans Condensed",Arial,sans-serif;font-size:.82rem;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--rule);padding-bottom:.2rem;margin:1.3rem 0 .5rem}
+ol,ul{margin:0;padding-left:1.3rem}
+li{margin:.2rem 0}
+.route li{margin:.28rem 0}
+.say li{font-weight:600;margin:.3rem 0}
+.say{border-left:3px solid var(--accent);padding:.5rem 0 .5rem 1.4rem;margin-left:0;list-style:none}
+.say li::before{content:"“";color:var(--accent)}
+.say li::after{content:"”";color:var(--accent)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 2rem}
+.note{font-size:.86rem;color:var(--muted);margin-top:.3rem}
+b{font-weight:600}
+.warn{color:var(--accent);font-weight:600}
+@media print{
+  @page{size:letter portrait;margin:13mm}
+  html,body{background:#fff!important;color:#000!important}
+  :root{--paper:#fff;--ink:#000;--muted:#3f3f3f;--rule:#bbb;--rule-hard:#777;--accent:#8A3227}
+  body{padding:0;font-size:9.3pt;line-height:1.28}
+  h1{font-size:1.6rem}
+  header{padding-bottom:.35rem}
+  h2{margin:.75rem 0 .3rem;font-size:.74rem}
+  li{margin:.1rem 0}
+  .route li{margin:.14rem 0}
+  .say{padding:.3rem 0 .3rem 1.1rem}
+  .say li{margin:.14rem 0}
+  .note{margin:.2rem 0 .35rem}
+  .grid{gap:0 1.6rem}
+  .sheet{max-width:none}
+  h2{page-break-after:avoid;break-after:avoid}
+  li,.say{page-break-inside:avoid;break-inside:avoid}
+}
+</style>
+
+<div class="sheet">
+<header>
+  <div>
+    <div class="eyebrow">B144 Stanley · shoot labsheet</div>
+    <h1>Safety &amp; Lab Tour</h1>
+    <div class="slugs">lab_tour · biosafety</div>
+  </div>
+  <div style="text-align:right">
+    <div class="eyebrow">one video, two takes</div>
+    <div class="sign">sign: ______________________ date: ____________</div>
+  </div>
+</header>
+
+<h2>Take 1 — lab_tour · one continuous walking shot, quiet room</h2>
+<p class="note"><b>Name every location out loud as you reach it.</b> A tour is entirely
+information carried by the picture; anything unsaid is absent from the captions and invisible
+to a screen reader.</p>
+<ol class="route">
+  <li><b>Entry.</b> Only enter when a supervisor is present.</li>
+  <li><b>Safety Corner</b> — east wall, near the northeast corner, north side of the room, by
+      the biosafety cabinets. <b>Slow down here.</b> Safety shower · eye wash · fire
+      extinguisher · spill kit · first aid kit · Chemical Hygiene Plan binder and posted
+      emergency numbers · PPE stock · the printed Lab Rules.
+      <span class="warn">Say “fifteen minutes” at the eye wash and hold the shot.</span></li>
+  <li><b>Benches</b> — where students work; the default organisation they must restore.</li>
+  <li><b>Electrophoresis bench</b> — gel rig drawer, 1× TAE, imager.</li>
+  <li><b>Thermocyclers</b> — ProFlex.</li>
+  <li><b>Freezers</b> — enzyme freezer, −20, −80. Point out the pink <b>Training1</b> box.</li>
+  <li><b>Chemical hood</b> — flame sterilization happens here, supervisors only.</li>
+  <li><b>Microwave.</b></li>
+  <li><b>Waste</b> — large white bin, benchtop plastic beakers.</li>
+  <li><b>Exit route</b> — walk to the door and say evacuation goes to the <b>Mining Circle</b>.
+      Keep walking outside and show it if you can.</li>
+</ol>
+
+<h2>Take 2 — biosafety · static, at a bench</h2>
+<p class="note">Say these six close to the wording below. Each maps onto a quiz question.</p>
+<ul class="say">
+  <li>Flush your eyes for <b>fifteen minutes</b></li>
+  <li>Evacuate to the <b>Mining Circle</b></li>
+  <li><b>No food or drink anywhere in B144</b> — not even a capped water bottle</li>
+  <li><b>Never spray ethanol near an open flame</b></li>
+  <li>Prescription glasses count as eye protection</li>
+  <li><b>Supervisors Only</b> means do not touch it</li>
+</ul>
+
+<div class="grid">
+  <div>
+    <h2>Conduct</h2>
+    <ul>
+      <li>Supervisor present; authorised projects only</li>
+      <li>Nothing in or out</li>
+      <li><b>BSL1 only</b> — no infectious agents, sharps, or hazardous chemicals</li>
+    </ul>
+    <h2>PPE</h2>
+    <ul>
+      <li>Closed-toe shoes, long pants, lab coat, gloves, eye protection</li>
+      <li>Show one person correctly dressed, head to toe, in a single shot</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Signage — three tiers</h2>
+    <ul>
+      <li><b>Supervisors Only</b> — do not touch</li>
+      <li><b>Training Required</b> — only after training; scan the QR</li>
+      <li><b>Training Available</b> — scan if unsure</li>
+      <li><b>Scan one QR on camera</b> so the mechanism is seen working</li>
+    </ul>
+    <h2>Hazards · emergencies · cleanup</h2>
+    <ul>
+      <li>Superheated agar and liquids in the microwave; burner fire risk</li>
+      <li>Report every spill and injury immediately; 911 if life-threatening</li>
+      <li>Restore the bench; gloves and waste to the white bin</li>
+      <li>Violations cost lab access</li>
+    </ul>
+  </div>
+</div>
+
+<h2>On the day</h2>
+<ul>
+  <li><span class="warn">Do not pull the safety shower.</span> Point at it, say what it is for,
+      move on.</li>
+  <li>Film when the room is quiet. Anyone incidentally on camera should know they are being
+      filmed.</li>
+  <li>Say each slug aloud as you hold up the card — it segments the transcript for you later.</li>
+</ul>
+</div>

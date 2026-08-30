@@ -88,11 +88,12 @@ These map directly onto quiz questions. Say them in words close to the page.
 
 ## Watch out
 
-- **Location wording.** The page says the Safety Corner is "by the north door, near the
-  biosafety cabinets on the mammalian cell side." The flame page says "northeast corner by
-  the door." The quiz marks "south-most door" as false. Use the page's wording so nothing
-  contradicts the quiz — and since the camera resolves it visually anyway, consider
-  tightening the page to one phrasing afterward.
+- **Location wording is consistent, despite reading like three answers.** `safety.md` says the
+  Safety Corner is "by the north door, near the biosafety cabinets on the mammalian cell side";
+  the flame page says "northeast corner by the door"; the quiz marks "south-most door" false.
+  All of these describe one place: the **east wall, near the northeast corner** — which is the
+  north side of the room, where the biosafety cabinets are. Nothing needs reconciling, and no
+  phrasing on camera will contradict the quiz.
 - **Do not demonstrate the safety shower by pulling it.** Point, describe, move on.
 - Film when the room is quiet. Anyone incidentally on camera should know they are being
   filmed.
