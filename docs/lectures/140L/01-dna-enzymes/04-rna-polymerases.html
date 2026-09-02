@@ -13,24 +13,63 @@
 <article class="slide" data-bg="section">
   <h1>RNA Polymerases</h1>
   <ul>
-    <li>Enzymes that initiate a new RNA chain on a DNA template</li>
+    <li>Enzymes that <em>initiate</em> a new RNA chain on a DNA template</li>
     <li>There are RNA-directed RNA polymerases as well (in some viruses)</li>
   </ul>
-  <template class="notes">RNA polymerases are enzymes that initiate a new RNA chain on a DNA template. There are also such things as RNA-directed RNA polymerases. For the purposes of understanding synthetic biology, you are likely to encounter two of these enzymes. First is the one that produces the RNAs in the cell, and the other is T7 RNA polymerase. Though the native enzyme is important to understand in the context of gene expression, only the phage one is commonly used in vitro.</template>
-  <template class="desc">Section divider: RNA Polymerases, defining them as enzymes that start a new RNA chain on a DNA template.</template>
+  <template class="notes">RNA polymerases are enzymes that initiate a new RNA chain on a DNA template. There are also such things as RNA-directed RNA polymerases. For the purposes of understanding synthetic biology, you are likely to encounter two of these enzymes. First is the one that produces the RNAs in the cell, and the other is T7 RNA polymerase. Though the native enzyme is important to understand in the context of gene expression, only the phage one is commonly used in vitro. Hold on to the word initiate. It is what separates this whole section from the last one.</template>
+  <template class="desc">Section divider: RNA Polymerases, defining them as enzymes that initiate a new RNA chain on a DNA template.</template>
 </article>
 
-<article class="slide" data-seq="t7rnap">
-  <h1>T7 RNA Polymerase</h1>
+<article class="slide" data-seq="denovo">
+  <h1 class="small">No Primer</h1>
+  <ul class="tight"><li>Every enzyme so far could only <em>extend</em> an end that already existed</li></ul>
+</article>
+
+<article class="slide" data-seq="t7prom">
+  <h1 class="small">The T7 Promoter and the +1 Site</h1>
+  <ul class="tight"><li>Seventeen bases, quoted on the non-template strand</li></ul>
+</article>
+
+<article class="slide" data-seq="elong">
+  <h1 class="small">Elongation: the Bubble Travels</h1>
   <ul class="tight">
-    <li>Used for both <em>in vivo</em> and <em>in vitro</em> transcription</li>
-    <li>Very high protein expression <em>in vivo</em></li>
-    <li>Production of tRNAs, mRNAs, or ribozymes/aptamers <em>in vitro</em></li>
+    <li>NTPs, not dNTPs &mdash; and U wherever the template reads A</li>
+    <li>The product leaves single-stranded; the duplex closes behind it</li>
   </ul>
+</article>
+
+<article class="slide" data-seq="runoff">
+  <h1 class="small">Run-off Transcription</h1>
+  <ul class="tight">
+    <li>Linearise downstream of the insert, and digest to completion</li>
+    <li>Cut to a blunt or 5&rsquo; overhang end &mdash; a 3&rsquo; overhang invites antisense product</li>
+  </ul>
+</article>
+
+<article class="slide">
+  <h1 class="small">Orthogonality: a Private Address</h1>
+  <ul class="tight"><li>Neither polymerase can read the other&rsquo;s promoter</li></ul>
+  <div class="cols">
+    <div>
+      <h2>T7 promoter</h2>
+      <pre class="dna" style="margin-bottom:16px">5&rsquo;-<span class="site">TAATACGACTCACTATA</span>G&hellip;-3&rsquo;</pre>
+      <p>17 bases. Read by T7 RNA polymerase, a single polypeptide that needs nothing else.</p>
+    </div>
+    <div>
+      <h2><em>E. coli</em> &sigma;70 promoter</h2>
+      <pre class="dna" style="margin-bottom:16px">5&rsquo;-<span class="site">TTGACA</span>&hellip;17 bp&hellip;<span class="site">TATAAT</span>-3&rsquo;</pre>
+      <p>Two elements, spaced. Read by the host&rsquo;s multi-subunit enzyme with a sigma factor.</p>
+    </div>
+  </div>
+  <p data-build="1" class="accent" style="font-weight:700"
+     data-note="So a T7 promoter dropped into an E. coli cell does nothing whatsoever until you put T7 RNA polymerase in with it, either by adding the enzyme to a tube or by carrying a copy of its gene on the host chromosome. That is a switch you own rather than one the cell owns, and it is also why seventeen bases of T7 promoter appear on nearly every vector you will ever order."
+     data-desc="A closing line in vermillion: a T7 promoter sits inert in E. coli until T7 RNA polymerase is supplied, in a tube or from the host's own genome.">A T7 promoter sits inert in <em>E. coli</em> until you supply T7 RNA polymerase &mdash; in a tube, or from the host&rsquo;s own genome.</p>
+  <template class="notes">One last property, and it is the reason this particular enzyme took over the catalogue. T7 RNA polymerase is orthogonal to the host machinery. Its promoter is seventeen contiguous bases and it is the only thing the enzyme will start at. The E. coli enzyme is looking for something quite different, a minus thirty-five and a minus ten element separated by a spacer, and it is a multi-subunit assembly that needs a sigma factor to find them at all. Neither one can read the other's promoter.</template>
+  <template class="desc">Two promoters side by side. On the left, the T7 promoter, seventeen bases TAATACGACTCACTATA followed by the plus one G, read only by T7 RNA polymerase. On the right, the E. coli sigma seventy promoter, TTGACA and TATAAT separated by a seventeen base pair spacer, read only by the host enzyme.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
-<script src="seq/linear.js" defer></script>
+<script src="seq/rna.js" defer></script>
 </body>
 </html>

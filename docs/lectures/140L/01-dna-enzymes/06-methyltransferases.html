@@ -12,53 +12,74 @@
 
 <article class="slide" data-bg="section">
   <h1>Methyltransferases</h1>
-  <p>Enzymes that add methyl groups to DNA</p>
-  <div class="cols" style="margin-top:30px">
-    <figure class="fig dark"><img src="img/n6-methyladenine.png" alt="Adenine with a methyl group added at the N6 position"><figcaption style="color:rgba(255,255,255,.8)">m<sup>6</sup>A = N6 of adenine</figcaption></figure>
-    <figure class="fig dark"><img src="img/c5-methylcytosine.png" alt="Cytosine with a methyl group added at the C5 position"><figcaption style="color:rgba(255,255,255,.8)">m<sup>5</sup>C = C5 of cytosine &middot; also N4 cytosine</figcaption></figure>
-  </div>
-  <template class="notes">Methyltransferases add methyl groups to a DNA. They most commonly add the methyl group to either N6 of adenine or C5 of cytosine.</template>
-  <template class="desc">Section divider: Methyltransferases, with structures of N6-methyladenine and C5-methylcytosine.</template>
+  <p>Enzymes that move one methyl group onto a base</p>
+  <p style="margin-top:30px"><strong>The sequence does not change. Who is allowed to act on it does.</strong></p>
+  <template class="notes">Methyltransferases add a methyl group to a DNA base, most often the N6 of adenine or the C5 of cytosine. This is the smallest chemical event in the whole lecture — one carbon — and it is worth a section because of what it decides rather than what it is. A methylated site and an unmethylated site have identical sequence. Sequence the plasmid and you cannot tell them apart. What differs is which enzymes are allowed to act there. Think of methylation as an annotation layer sitting on top of the sequence.</template>
+    <template class="desc">Section divider: Methyltransferases. Enzymes that move one methyl group onto a base. The sequence does not change; who is allowed to act on it does.</template>
+</article>
+
+<article class="slide" data-seq="rmself">
+  <h1 class="small">Restriction&ndash;modification: self versus non-self</h1>
 </article>
 
 <article class="slide">
-  <h1 class="small">Type II Restriction Systems</h1>
-  <div class="cols wide-left">
-    <ul class="tight">
-      <li>All type II restriction enzymes have cognate methyltransferases</li>
-      <li>BamHI methyltransferase hits the N4 position</li>
-      <li>DNA methylated by these methyltransferases is impervious to digestion by the cognate endonuclease</li>
-    </ul>
-    <figure class="fig"><img src="img/bamhi-methylation.png" alt="The BamHI recognition site with the methylated cytosine marked"></figure>
-  </div>
-  <template class="notes">The type II restriction enzymes have cognate methyltransferases. They are used in the native context to protect the genome from the action of the restriction enzyme and thus typically have the same specificity as the restriction enzyme. For example, BamHI methyltransferase modifies the fourth C in the BamHI restriction site. Upon methylation, the activity of the cognate endonuclease is blocked at that site.</template>
-  <template class="desc">Every type II restriction enzyme has a partner methyltransferase that protects the host genome by methylating the same sequence.</template>
+  <h1 class="small">You are buying half of an immune system</h1>
+  <ul>
+    <li>Every type II restriction enzyme is one half of a pair. The other half is a methyltransferase of the same specificity, and it is the reason the organism survives making the endonuclease at all</li>
+    <li>The writer&rsquo;s chemistry is not fixed: m<sup>6</sup>A, m<sup>5</sup>C, or m<sup>4</sup>C. The BamHI methyltransferase uses N4 of cytosine</li>
+    <li>So genomic DNA from an organism running its own R&ndash;M system can arrive already protected at the site you wanted, and it will not cut</li>
+  </ul>
+  <template class="notes">In the native context these two enzymes are a pair. The endonuclease is loose in the cytoplasm and the methyltransferase protects the host genome by marking the same sequence the endonuclease recognises, so the two have matched specificity. The chemistry the writer uses is not fixed: it can be N6 of adenine, C5 of cytosine, or N4 of cytosine. The BamHI methyltransferase uses the N4 position. Once a site is modified the cognate endonuclease will not cut it. The practical corollary is that when you clone from the genomic DNA of some other organism, that DNA may already carry modifications at the sites you were planning to use.</template>
+  <template class="desc">Three points: every type II restriction enzyme belongs to a restriction–modification pair; the mark may be N6-methyladenine, 5-methylcytosine or N4-methylcytosine, with the BamHI methyltransferase using N4; and a correctly marked site is invisible to the endonuclease.</template>
+</article>
+
+<article class="slide" data-seq="marks">
+  <h1 class="small">What the writer actually writes</h1>
+  <ul><li>One carbon, carried in on S-adenosylmethionine (SAM)</li></ul>
 </article>
 
 <article class="slide">
-  <h1 class="small">Dam and Dcm Methylation</h1>
+  <h1 class="small">Your plasmid arrives already annotated</h1>
   <div class="cols wide-left">
-    <ul class="tighter">
-      <li><em>E. coli</em> K12 lab strains encode 2 methyltransferases, <em>dam</em> and <em>dcm</em></li>
-      <li>They recognize and methylate Dam (G<sup>m</sup>ATC) and Dcm (C<sup>m</sup>CWGG)</li>
-      <li>Restriction sites overlapping these sites are sometimes blocked</li>
-      <li>Strains like JM110 have <em>dam</em> and <em>dcm</em> knocked out, but they aren&rsquo;t healthy bacteria</li>
-      <li>These relationships are documented in the NEB catalog</li>
-      <li>Methylated Dam sites are the substrate of DpnI endonuclease</li>
+    <ul>
+      <li><em>E. coli</em> K-12 lab strains run two methyltransferases of their own: <strong>Dam</strong>, the A in <code>GATC</code>, and <strong>Dcm</strong>, the inner C in <code>CCWGG</code></li>
+      <li>Neither is about restriction. Dam is the strand-discrimination signal for mismatch repair and it times replication initiation</li>
+      <li>So every miniprep from DH5&alpha;, TOP10 or XL1-Blue is methylated at all of those sites, and nothing in your plasmid map shows it</li>
     </ul>
     <div>
-      <p><strong>Example: Dam blocking of XbaI digestion</strong></p>
-      <pre class="dna">    <span class="mut">Me</span>
-5&rsquo;-<span class="site">TCTAGA</span>TC-3&rsquo;
-3&rsquo;-AG<span class="site">ATCTAG</span>-5&rsquo;
-        <span class="mut">Me</span></pre>
+      <p><strong>XbaI, when TC follows the site</strong></p>
+<pre class="dna" style="font-size:30px">          <span class="mut">m</span>
+5&rsquo;-gc<span class="site">TCTAGA</span>TCat-3&rsquo;
+3&rsquo;-cg<span class="site">AGATCT</span>AGta-5&rsquo;
+           <span class="mut">m</span></pre>
+      <p style="margin-top:18px"><code>TCTAGA</code>+<code>TC</code> spells a <code>GATC</code>, so Dam has already been there and XbaI is blocked. <strong>BclI</strong> is worse: <code>TGATCA</code> contains <code>GATC</code> outright, so it never cuts a dam+ prep at all.</p>
     </div>
   </div>
-  <template class="notes">Dam and Dcm methylation frequently block restriction endonucleases. The lab strains of E. coli encode these two methyltransferases which modify the sequence GATC and CCWGG, where W is either A or T. When a restriction site overlaps these sites, the enzyme will be blocked. There are some useful strains like JM110 that have these genes knocked out, but these genes also play regulatory roles in the cell and the bacteria aren’t healthy. Whether an enzyme can be blocked by Dam or Dcm methylation is cataloged by NEB. One of the more common ones is XbaI. If the restriction site is followed by the sequence TC, it will overlap a Dam site and thus be methylated and blocked.</template>
-  <template class="desc">Dam and Dcm methylation in lab E. coli strains, with a worked example showing an XbaI site followed by TC creating an overlapping Dam site that blocks the enzyme.</template>
+  <ul style="margin-top:22px" data-build="1" data-note="There are two moves and the cheap one is prevention. NEB tabulates Dam, Dcm and CpG sensitivity for every enzyme they sell, so check before you commit to a site — usually you can shift the two flanking bases so the overlap never forms, or choose an isoschizomer that is not blocked. If you are stuck with the site, the other move is to change the host: JM110 and SCS110 are dam-minus dcm-minus. Understand what you are giving up. Methyl-directed mismatch repair uses the transiently hemimethylated GATC to tell the newly synthesised strand from the template, so a dam-minus strain has lost that and is a mutator. Grow what you need for the digest and get your plasmid back into a normal strain." data-desc="Two fixes: design around the overlap using NEB's per-enzyme methylation sensitivity table, or prep from a dam-minus, dcm-minus strain such as JM110 or SCS110, which are mutator strains.">
+    <li><strong>Design around it first.</strong> NEB tabulates Dam/Dcm/CpG sensitivity for every enzyme &mdash; move the two flanking bases, or pick an isoschizomer that is not blocked</li>
+    <li><strong>Otherwise change host.</strong> Prep from <em>dam</em><sup>&minus;</sup> <em>dcm</em><sup>&minus;</sup> JM110 or SCS110 &mdash; but without Dam, mismatch repair cannot tell the new strand from the old, so these are mutator strains</li>
+  </ul>
+  <template class="notes">This is the one that costs people a week. Dam methylates the adenine of GATC and Dcm methylates the internal cytosine of CCWGG, and neither of them exists to protect you from anything — Dam in particular is a housekeeping signal, marking the parental strand for mismatch repair and setting the timing of replication initiation. The consequence is that the plasmid you just miniprepped is already carrying those marks at every such site, before you open the tube, and none of it appears in your sequence file or your map. When a restriction site overlaps one of them the enzyme can be blocked. XbaI is the classic: the site is TCTAGA, and if the next two bases happen to be TC then the last two bases of the site plus those two spell GATC, which Dam has methylated, and XbaI will not cut. BclI is the extreme case, because its site TGATCA contains a GATC no matter what is around it.</template>
+  <template class="desc">Dam methylates the A in GATC and Dcm the inner C in CCWGG in ordinary lab strains, so a plasmid is marked before you touch it. A worked example shows an XbaI site followed by TC, with the two methylated adenines marked, spelling an overlapping Dam site that blocks XbaI. BclI, TGATCA, always contains a GATC.</template>
+</article>
+
+<article class="slide" data-seq="dpni">
+  <h1 class="small">DpnI: specificity that is not a sequence</h1>
+  <ul><li>Site-directed mutagenesis by PCR &mdash; and how you get rid of the template</li></ul>
+</article>
+
+<article class="slide">
+  <h1 class="small">GATC, read three ways</h1>
+<pre class="dna" style="font-size:36px;line-height:1.8;margin-top:44px">MboI      <span class="site">/GATC</span>      blocked by Dam methylation
+DpnI      <span class="site">G</span><span class="mut">A</span><span class="site">/TC</span>      <span class="mut">requires</span> Dam methylation
+Sau3AI    <span class="site">/GATC</span>      indifferent to Dam</pre>
+  <p class="q" style="margin-top:82px;font-size:40px">Same four bases in every row. What separates the three enzymes is the annotation, not the sequence.</p>
+  <template class="notes">Here is the whole section in three lines. All three of these enzymes recognise GATC. MboI is blocked by Dam methylation, so on a normal miniprep it does nothing. DpnI is the inversion — it only cuts when that adenine is methylated. Sau3AI does not care either way. Same four bases in all three rows, three different answers, and the sequence is not what distinguishes them. That is why methylation is worth its own section: it is a layer of information sitting above the sequence, it is invisible in your sequence file, and there are enzymes that read it.</template>
+  <template class="desc">Three enzymes that all recognise GATC. MboI cuts before the G and is blocked by Dam methylation. DpnI cuts between the A and the T and requires Dam methylation. Sau3AI cuts before the G and is indifferent. The closing line: what separates them is the annotation, not the sequence.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/methyl.js" defer></script>
 </body>
 </html>

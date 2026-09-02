@@ -45,14 +45,9 @@
   <template class="desc">The four classes of restriction endonuclease as four stacked boxes: Type I, Type II, Type III and Type IV, each with its distinguishing properties.</template>
 </article>
 
-<article class="slide">
+<article class="slide" data-seq="ecori">
   <h1 class="small">Type II Restriction Endonucleases</h1>
-  <pre class="dna">5&rsquo;-cttcg<span class="site">GGATCC</span>gctggcaga&hellip;-3&rsquo;
-3&rsquo;-gaagc<span class="site">CCTAGG</span>cgaccgtct&hellip;-5&rsquo;</pre>
-  <div class="step" data-build="1"><span class="arrow">&darr;</span> BamHI</div>
-  <pre class="dna" data-build="1">5&rsquo;-cttcg<span class="site">G</span>              <span class="site">GATCC</span>gctggcaga&hellip;-3&rsquo;
-3&rsquo;-gaagc<span class="site">CCTAG</span>    +         <span class="site">G</span>cgaccgtct&hellip;-5&rsquo;</pre>
-  <template class="desc">A BamHI site GGATCC inside a double-stranded sequence. On the click, the enzyme cuts, leaving two fragments with four-base 5-prime overhangs.</template>
+  <ul class="tight"><li>Sequence-specific &mdash; and the shape of that sequence is not an accident</li></ul>
 </article>
 
 <article class="slide">
@@ -64,7 +59,7 @@
       <li><b>5&rsquo; 2bp overhang</b><ul class="tighter"><li>NdeI CA/TATG</li></ul></li>
       <li><b>3&rsquo; 2bp overhang</b><ul class="tighter"><li>PacI TTAAT/TAA</li></ul></li>
     </ul>
-    <ul class="boxes" data-build="1">
+    <ul class="boxes">
       <li><b>Blunt cutters</b><ul class="tighter"><li>EcoRV GAT/ATC</li><li>PvuII CAG/CTG</li></ul></li>
       <li><b>Others</b><ul class="tighter"><li>5bp, 3bp, and 1bp overhangs</li><li>SfiI GGCCNNNN/NGGCC</li></ul></li>
       <li><b>Degenerate cutters</b><ul class="tighter"><li>XcmI CCANNNNN/NNNNTGG</li><li>AlwNI CAGNNN/CTG</li><li>FalI (8/13) AAGNNNNNCTT (13/8)</li></ul></li>
@@ -72,44 +67,21 @@
   </div>
   <div class="src">All available enzymes and their specificities: rebase.neb.com</div>
   <template class="notes">The type II endonucleases vary in terms of the overhangs they generate and the sequences they recognize. They are defined by being sequence-specific enzymes. There are many enzymes that generate 5’ four-base pair overhangs including BamHI, XbaI, and EcoRI. There are also commonly-used enzymes that generate 3’ 4 bp overhangs, and many that generate 2bp overhangs either as 3’ or 5’ extensions. Some Type II’s generate blunt ends while there are examples that generate 5bp, 3bp, or even 1bp sticky ends. Often these enzymes are palindromic, meaning the reverse complement of the recognized sequence is the same as the original. However, there are also non-palindromic cutters, and enzymes that recognize degenerate sequences. For example, AlwNI recognizes CAGNNNCTG — the first and last portions are palindromic, but the internal N’s can be any sequence, so the sticky ends can be any sequence.</template>
-  <template class="desc">Type II enzymes grouped by the end they leave: four-base and two-base overhangs on the left; blunt cutters, unusual overhang lengths and degenerate cutters revealed on the right.</template>
+  <template class="desc">A reference table of Type II enzymes grouped by the end they leave: four-base and two-base overhangs on the left; blunt cutters, unusual overhang lengths and degenerate cutters on the right.</template>
 </article>
 
-<article class="slide">
+<article class="slide" data-seq="typeIIs">
   <h1 class="small">Type II<span style="font-size:.7em">S</span> Restriction Endonucleases</h1>
-  <p><strong>BsaI</strong> &nbsp; GGTCTC (1/5)</p>
-  <pre class="dna">5&rsquo;-cttcg<span class="site">GGTCTC</span>ggatcctggccgaaaaga&hellip;-3&rsquo;
-3&rsquo;-gaagc<span class="site">CCAGAG</span>cctaggaccggcttttct&hellip;-5&rsquo;</pre>
-  <div class="step" data-build="1"><span class="arrow">&darr;</span> BsaI</div>
-  <pre class="dna" data-build="1">5&rsquo;-cttcg<span class="site">GGTCTC</span>g            gatcctggccgaaaaga&hellip;-3&rsquo;
-3&rsquo;-gaagc<span class="site">CCAGAG</span>cctag    +          gaccggcttttct&hellip;-5&rsquo;</pre>
-  <ul class="tight" data-build="2">
-    <li>Generates 4bp 5&rsquo; overhangs (compatible with BamHI, XbaI, HindIII, XhoI, etc.)</li>
-    <li>The restriction site is removed during cutting, giving &ldquo;scarless&rdquo; junctions</li>
-  </ul>
-  <template class="notes">Type IIS enzymes recognize a specific sequence but then cleave the DNA external to that sequence. BsaI and BsmBI are the most commonly used enzymes in this class. BsaI recognizes GGTCTC, reaches over one base, and then generates a sticky end composed of the next four bases. The products can be joined by ligation to overhangs generated from 4bp 5’ overhang-generating enzymes such as BamHI and EcoRI. These enzymes are particularly useful because the restriction site can be removed during the course of digestion — leaving no trace of the sequence, so upon ligation there is no remnant of the restriction site. This can be used to generate scarless junctions between two DNAs.</template>
-  <template class="desc">A BsaI site GGTCTC cutting one base away, so the recognition sequence stays behind on the discarded fragment and the junction carries no scar.</template>
+  <ul class="tight"><li>Recognise one sequence, cut a fixed distance away from it &mdash; BsaI, BsmBI</li></ul>
 </article>
 
 <article class="slide">
-  <h1>Type II General Notes</h1>
-  <ul class="tight">
-    <li>Restriction enzymes come from methylation/restriction systems</li>
-    <li>All have partner methyltransferases</li>
-    <li>Not all restriction enzymes are equally good</li>
-    <li>Star activity (cutting where they shouldn&rsquo;t cut)</li>
-  </ul>
-  <template class="notes">The type II restriction enzymes are usually components of methylation/restriction systems from various microbes. In these systems, the restriction enzyme is expressed in the cytoplasm. The genomic DNA is protected from cleavage because it is methylated at cognate sequences. Thus, these systems all have a partner methyltransferase. When cloning DNAs from genomic DNAs, there may be methylation at sites of common restriction enzymes. Not all restriction enzymes are equally good — there is a great deal of heterogeneity in how specific they are for their recognition sequence, how long they stay active in vitro, and how concentrated the commercial product is. Under non-standard reaction conditions, some restriction enzymes are capable of cleaving sequences which are similar, but not identical, to their defined recognition sequence. This altered specificity is called star activity.</template>
-  <template class="desc">Four general notes about type II enzymes: they come from methylation/restriction systems, they have partner methyltransferases, they vary in quality, and they can show star activity.</template>
-</article>
-
-<article class="slide">
-  <h1>Type II General Notes</h1>
+  <h1 class="small">Type II General Notes</h1>
   <ul class="tighter">
-    <li>Restriction enzymes come from methylation/restriction systems</li>
-    <li>All have partner methyltransferases</li>
+    <li>Restriction enzymes come from restriction/modification systems &mdash; every one has a partner methyltransferase</li>
+    <li>So the strain you grew the plasmid in can silently block a digest: <em>dam</em> and <em>dcm</em> methylation, tabulated by NEB (more in the methyltransferase section)</li>
     <li>Not all restriction enzymes are equally good</li>
-    <li>Star activity (cutting where they shouldn&rsquo;t cut)</li>
+    <li>Star activity &mdash; specificity degrades with too much enzyme, glycerol above ~5%, the wrong (low-salt) buffer, or an overnight digest</li>
     <li>Sensitivity to solvents and contaminants</li>
     <li>Incomplete cutting</li>
     <li>Cutting close to ends</li>
@@ -118,8 +90,8 @@
     <li>Different enzymes prefer different buffers &mdash; many work in PCR buffer</li>
     <li>All generate clean 3&rsquo;OH and 5&rsquo;-phosphate ends</li>
   </ul>
-  <template class="notes">Star activity or loss of functionality due to denaturation can happen in vitro due to the presence of solvents and contaminants. These toxicants to the reaction can result in incomplete cutting. Also, some restriction enzymes are more prone to incomplete cutting than others. There is also heterogeneity about the tolerance of the enzyme for cleaving near the ends of the DNA. Some enzymes require that the DNA be supercoiled. Additionally, some require that there be 2 different sites on the same DNA molecule because they operate as a dimer. Different restriction enzymes prefer different buffers, but many if not most work in PCR buffer. All these subtle properties have been characterized by New England Biolabs. Though the sequences that are recognized vary, the chemistry that a restriction endonuclease performs is always the same. They always generate 3’ hydroxyl and 5’ phosphate ends. Let’s take a look at this in more detail.</template>
-  <template class="desc">The same list extended with practical caveats, ending on the key point: every restriction enzyme leaves a clean 3-prime hydroxyl and 5-prime phosphate.</template>
+  <template class="notes">The type II restriction enzymes are usually components of methylation/restriction systems from various microbes. The restriction enzyme is expressed in the cytoplasm and the host genome is protected because it is methylated at the cognate sequence, so every one of these enzymes comes with a partner methyltransferase. That matters to you practically: the plasmid you are about to cut was grown in E. coli, which methylates its own DNA at GATC and CCWGG, and if your restriction site overlaps one of those the enzyme simply will not cut. Nothing looks wrong &mdash; you just get an uncut band. NEB tabulates which enzymes are blocked, and we come back to it in the methyltransferase section. Beyond that, not all restriction enzymes are equally good. They differ in how specific they are for their recognition sequence, how long they stay active in vitro, and how concentrated the commercial product is. Under non-standard conditions some of them will cleave sequences that are similar to, but not identical with, their recognition sequence. That is called star activity, and the usual causes are too much enzyme, too much glycerol carried over from the enzyme stock, running the digest in too low a salt concentration because you grabbed the wrong buffer, and letting the digest run far longer than it needs to. Solvents and contaminants do the same thing, or cause incomplete cutting. Enzymes also differ in how close to the end of a fragment they will cut, whether they need the DNA supercoiled, and whether they need two sites on the same molecule because they work as a dimer. Different enzymes prefer different buffers, but many if not most work in PCR buffer. All of these subtle properties have been characterised by New England Biolabs. Though the sequences recognised vary, the chemistry a restriction endonuclease performs is always the same: they always generate 3-prime hydroxyl and 5-prime phosphate ends. Let us look at that in more detail.</template>
+  <template class="desc">A single list of practical notes on type II enzymes: they come from restriction/modification systems and all have partner methyltransferases, so dam and dcm methylation from the host strain can silently block a digest; they vary in quality; star activity arises from excess enzyme, glycerol, the wrong low-salt buffer or an over-long digest; sensitivity to solvents; incomplete cutting; cutting close to ends; requirements for supercoiling or for multiple sites; buffer preferences; and finally that all of them leave a clean 3-prime hydroxyl and 5-prime phosphate.</template>
 </article>
 
 <article class="slide">
@@ -137,7 +109,7 @@
     <li>Magnesium in the buffer prefers single-strand cuts</li>
     <li>Manganese in the buffer prefers double-strand blunt cuts</li>
   </ul>
-  <p data-build="1"><strong>Uses:</strong></p>
+  <p data-build="1" data-note="DNAse I turns up in three places you are likely to meet. Removing carry-over DNA from an RNA prep, which works because it is very specific for DNA over RNA. Chopping a large DNA down to oligonucleotide-length fragments, which is the fragmentation step in DNA shuffling. And a couple of older tricks worth knowing the names of: nick translation for labelling, and footprinting to find where a protein sits on a DNA." data-desc="A second list appears beneath the properties: the uses of DNAse I, namely removing DNA from an RNA sample, chopping large DNAs into oligonucleotide-length fragments for DNA shuffling, and nick translation and footprinting."><strong>Uses:</strong></p>
   <ul class="tight" data-build="1">
     <li>Removing DNA from an RNA sample</li>
     <li>Chopping large DNAs into oligonucleotide-length fragments, such as for DNA shuffling</li>
@@ -158,5 +130,6 @@
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/endonuclease.js" defer></script>
 </body>
 </html>

@@ -12,70 +12,50 @@
 
 <article class="slide" data-bg="section">
   <h1>Recombinases</h1>
-  <div class="cols wide-left">
-    <ul>
-      <li>Site-specific ones</li>
-      <li>Ones for homologous recombination</li>
-    </ul>
-    <figure class="fig dark"><img src="img/lox-excision-inversion.png" alt="Schematic of site-specific recombination showing excision and inversion outcomes"></figure>
-  </div>
-  <template class="notes">Recombination involves rearrangements in DNAs over homologous sequences. There are some recombinases that act on very specific sequences, while others are not specific about the sequence; they recombine similar sequences.</template>
-  <template class="desc">Section divider: Recombinases, split into site-specific enzymes and those for homologous recombination.</template>
+  <p>One protein cuts, swaps and reseals all four strands &mdash; no ligase, no polymerase, no free ends</p>
+  <ul>
+    <li>Site-specific: Cre/lox, Flp/FRT, phage integrases</li>
+    <li>Homologous: recombineering, RecA</li>
+  </ul>
+  <template class="notes">Recombination is rearrangement between two DNAs over sequences they share. Some recombinases act on one very specific short sequence; others are not fussy about the sequence at all and simply recombine anything similar enough. What sets this whole class apart from every enzyme so far is that a recombinase is a complete cut-and-paste in a single protein. Everything before it — the nucleases, the polymerases, the ligases — works on one junction at a time and needs you to supply the ends. A recombinase finds its two sites itself, breaks all four strands, exchanges them and reseals, holding the broken bonds covalently the whole time so no free DNA end is ever exposed. That is why it can be turned loose on a chromosome inside a living cell.</template>
+  <template class="desc">Section divider: Recombinases. One protein cuts, swaps and reseals all four strands, with no ligase, polymerase or free ends. Split into site-specific systems and homologous recombination.</template>
+</article>
+
+<article class="slide" data-seq="loxorient">
+  <h1 class="small">Cre Recombinase: the Arrow Decides</h1>
 </article>
 
 <article class="slide">
-  <h1 class="small">Cre Recombinase</h1>
-  <ul class="tighter">
-    <li>Recombines the Lox sequence: <code>ATAACTTCGTATA &ndash; ATGTATGC &ndash; TATACGAAGTTAT</code></li>
-    <li>Parallel sites in a DNA result in excision</li>
-    <li>Antiparallel sites result in inversion</li>
-    <li>Often used for &ldquo;floxing&rdquo; a gene</li>
-    <li>Many similar systems exist including the Flp/FRT and Hin/hix systems</li>
+  <h1 class="small">Cre in Practice</h1>
+  <ul class="tight">
+    <li>&ldquo;Floxing&rdquo; a gene &mdash; build it into the genome flanked by loxP, then supply Cre later and it is deleted on cue</li>
+    <li>Excision is effectively one-way: the circle carries no origin, and putting it back is a two-molecule reaction &mdash; it dilutes away</li>
+    <li>Inversion is freely reversible: same sites, same enzyme, it keeps flipping. On its own it will not latch, so it is a poor memory element</li>
+    <li>Flp/FRT (yeast 2&micro; plasmid) and Hin/hix are the same trick on different 34 bp sites</li>
+    <li>Every reaction leaves one site behind &mdash; run the same recombinase again and it will find that scar</li>
   </ul>
-  <svg viewBox="0 0 1600 900" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none">
-    <g fill="none" stroke="#111" stroke-width="3">
-      <line x1="250" y1="560" x2="720" y2="560"/><line x1="880" y1="560" x2="1350" y2="560"/>
-      <line x1="250" y1="800" x2="720" y2="800"/><line x1="880" y1="800" x2="1350" y2="800"/>
-    </g>
-    <g fill="#3e5c8a">
-      <path d="M280 546h56l22 14-22 14h-56z"/><path d="M640 546h56l22 14-22 14h-56z"/>
-      <path d="M910 546h56l22 14-22 14h-56z"/><path d="M1348 574h-56l-22-14 22-14h56z"/>
-      <path d="M300 786h56l22 14-22 14h-56z"/><path d="M600 786h56l22 14-22 14h-56z"/>
-      <path d="M910 786h56l22 14-22 14h-56z"/><path d="M1348 814h-56l-22-14 22-14h56z"/>
-    </g>
-    <g fill="#c1272d">
-      <path d="M400 534h150l30 26-30 26h-150z"/>
-      <path d="M1030 534h150l30 26-30 26h-150z"/>
-      <path d="M1210 774h-150l-30 26 30 26h150z"/>
-    </g>
-    <g fill="none" stroke="#767676" stroke-width="3">
-      <path d="M500 620v110M486 706l14 24 14-24"/>
-      <path d="M1110 620v110M1096 706l14 24 14-24"/>
-    </g>
-    <g font-family="inherit" font-size="24" fill="#767676" text-anchor="middle">
-      <text x="500" y="510">parallel sites &rarr; excision</text>
-      <text x="1110" y="510">antiparallel sites &rarr; inversion</text>
-    </g>
-  </svg>
-  <template class="notes">Cre recombinase comes from the E. coli phage P1 and recognizes a 34bp sequence and recombines two of them. The site is not palindromic, and thus is not the same sequence on both strands and it has directionality. For a DNA containing two such sites, they can be arranged in the same orientation, called parallel, or on opposing strands called antiparallel. Parallel site recombination, topologically speaking, results in excision of any intermediate sequence while antiparallel sites undergo inversion. Such flipping systems are popular targets for controlling gene expression. Floxing a gene means to encode a gene flanked by lox sites into the genome of a cell. Through later expression of cre in the cell, that gene is excised and thereby deleted.</template>
-  <template class="desc">Two schematics side by side. On the left, two lox sites pointing the same way flank a gene; recombination excises the gene. On the right, the lox sites point in opposite directions; recombination inverts the gene instead.</template>
+  <template class="notes">Floxing a gene means encoding it flanked by lox sites in the genome of a cell. Express Cre later, in a particular tissue or at a particular time, and that gene is excised and deleted — which is how conditional knockouts are made. Note the asymmetry in reversibility, because it decides what you can build. Excision looks irreversible but the chemistry is not: the circle simply has no origin of replication, so it is lost as cells divide, and re-integration is bimolecular and gets slower as the circle gets rarer. Inversion has no such escape. The sites are unchanged, the enzyme keeps flipping, and a population settles near fifty-fifty; if you want an inversion to act as memory you have to take the enzyme away. Many similar systems exist — Flp with its FRT sites from the yeast two-micron plasmid, and Hin with hix — and they all have the same 34 base pair architecture. And the trap: every one of these reactions leaves an intact site in the product. If a loxP scar is already sitting in your genome and you express Cre again for a second purpose, Cre does not know it is a scar.</template>
+  <template class="desc">Practical notes on Cre and lox: floxing a gene for conditional knockouts; excision is effectively one-way because the excised circle is diluted out, while inversion stays reversible; Flp/FRT and Hin/hix are equivalent systems; and every reaction leaves one site behind as a scar.</template>
 </article>
 
 <article class="slide">
   <h1 class="small">Phage <em>att</em> Sites</h1>
   <div class="cols wide-left">
-    <ul class="tighter">
-      <li>Most common from phi80, lambda, HK022, P21, P22, and phiC31 lysogenic and integrative phages</li>
-      <li>The lox-like components are called <em>att</em> sites, but much longer</li>
-      <li>The cre-like components are called Int recombinases or integrases</li>
-      <li>They also can include Xis protein, which switches the preferred directionality</li>
-      <li>Used for integrating DNAs into the genome</li>
-      <li>Used in the Gateway reaction</li>
+    <ul class="tight">
+      <li>The lox-like sites are called <em>att</em> sites; the Cre-like enzymes are Int recombinases, or integrases</li>
+      <li>&lambda; Int joins <em>attP</em> (phage) to <em>attB</em> (host) &mdash; the products are <em>attL</em> and <em>attR</em>, which are new sequences</li>
+      <li>Int + host IHF integrates; Int + Xis + IHF runs it backwards, so &lambda; is a switch, not a ratchet</li>
+      <li>This <em>is</em> Gateway cloning: BP clonase (Int) makes the Entry clone, LR clonase (Int + Xis) makes the Expression clone</li>
+      <li>Also phi80, HK022, P21, P22, phiC31</li>
     </ul>
-    <figure class="fig dark"><img src="img/phage-lambda-att.png" alt="Phage lambda attP recombining with the E. coli genome attB site to give attL and attR"></figure>
+    <figure class="fig dark"><img src="img/phage-lambda-att.png" alt="Phage lambda attP recombining with the E. coli genome attB site to give attL and attR, with integration by Int plus IHF and excision by Int plus Xis plus IHF"></figure>
   </div>
-  <template class="notes">Another popular sequence-specific recombinase type are phage att sites. Most of these recombinases act on asymmetric substrates and thus the reaction has directionality. In the most popular system, from lambda phage, a DNA with the attP sequence is recombined with a DNA such as the genome with an attB sequence. The resulting sequences are named attL and attR and are different sequences than attP and attB. Thus, the reaction is not symmetric and can be driven in one direction or the other. The recombinase component is called the Int recombinase, and then there is a second protein called Xis which upon expression reverses the directionality of the reaction. These enzymes are used in some methods of genome engineering, the Gateway cloning method of moving DNAs from one DNA to another, and in several genetic circuits for digitally controlling gene expression.</template>
-  <template class="desc">Phage att sites, illustrated with lambda attP recombining into the E. coli genome attB site to produce attL and attR — a directional reaction reversed by the Xis protein.</template>
+  <template class="notes">The other popular family of sequence-specific recombinases are the phage att systems. These act on asymmetric substrates, so unlike lox the reaction has real directionality. In the best known one, from lambda, a DNA carrying attP is recombined with a DNA carrying attB — usually the genome. The products are named attL and attR and they are genuinely different sequences from attP and attB, so the reaction is not symmetric and can be pushed one way or the other. The recombinase is called Int, and it needs a host protein, integration host factor, to work. A second phage protein, Xis, flips the preferred direction: Int plus IHF integrates, Int plus Xis plus IHF excises. Learn these four names now, because the next slide turns on them. This is also exactly the Gateway cloning system you will meet in catalogues: the BP reaction is attB times attP giving the Entry clone, and the LR reaction is attL times attR, run with the same integrase plus Xis, giving the Expression clone. The reaction names are literally the site names.</template>
+  <template class="desc">Phage att sites, illustrated with lambda attP on a circular phage genome recombining into the E. coli chromosome at attB to give attL and attR. Integration uses Int plus IHF; excision uses Int plus Xis plus IHF. The same chemistry is sold as Gateway cloning.</template>
+</article>
+
+<article class="slide" data-seq="integrase">
+  <h1 class="small">Serine Integrases: a One-Way Reaction</h1>
 </article>
 
 <article class="slide">
@@ -96,5 +76,6 @@
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/recombinase.js" defer></script>
 </body>
 </html>

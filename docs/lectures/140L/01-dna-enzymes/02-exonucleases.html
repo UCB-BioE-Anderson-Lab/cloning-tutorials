@@ -12,80 +12,155 @@
 
 <article class="slide" data-bg="section">
   <h1>Exonucleases</h1>
-  <p>Non-specific exonucleases digest any and all DNAs &mdash; linear, circular, double stranded, single stranded, methylated, non-methylated.</p>
-  <ul>
-    <li>Mung Bean Nuclease</li>
-    <li>T5 Exonuclease</li>
-  </ul>
+  <p>No recognition sequence. What an exonuclease reads is a kind of <strong>end</strong>.</p>
   <template class="notes">Exonucleases degrade a DNA from its ends. Thus a circular and undamaged DNA molecule is immune to the action of these enzymes. There are a large number of enzymes that are non-specific exonucleases and can be used to degrade DNA in an RNA sample. Others will also degrade RNA.</template>
-  <template class="desc">Section divider: Exonucleases, noting they act only on ends, with two example enzymes.</template>
+  <template class="desc">Section divider: Exonucleases. The lede says they have no recognition sequence; what an exonuclease reads is a kind of end.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Four questions define an exonuclease</h1>
+  <ul class="tight">
+    <li><strong>1 &middot; Which direction does it travel?</strong> &nbsp;5&rsquo;&rarr;3&rsquo; or 3&rsquo;&rarr;5&rsquo;</li>
+    <li><strong>2 &middot; Single strand or double strand?</strong> &nbsp;ss, ds, or both</li>
+    <li><strong>3 &middot; Does that end need a 5&rsquo; phosphate?</strong> &nbsp;most do not care; Lambda Exo does</li>
+    <li><strong>4 &middot; What kind of end will it start on?</strong></li>
+  </ul>
+  <svg viewBox="0 0 1600 900" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none">
+    <g fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round">
+      <path d="M151 506H339M317.8 494.7L339 506M151 556H413M172.2 567.3L151 556M496 506H758M736.8 494.7L758 506M496 556H684M517.2 567.3L496 556M841 506H1029M1007.8 494.7L1029 506M841 556H1029M862.2 567.3L841 556M1186 506H1260M1238.8 494.7L1260 506M1300 506H1374M1352.8 494.7L1374 506M1186 556H1374M1207.2 567.3L1186 556"/>
+    </g>
+    <g font-family="inherit" font-size="24" fill="var(--muted)" text-anchor="middle">
+      <text x="424" y="602">5&#8242;</text>
+      <text x="1306" y="480">5&#8242;</text>
+    </g>
+    <g font-family="inherit" font-size="26" font-weight="700" fill="var(--ink)" text-anchor="middle">
+      <text x="283" y="656">5&#8242; extension</text>
+      <text x="628" y="656">3&#8242; extension</text>
+      <text x="973" y="656">blunt</text>
+      <text x="1318" y="656">nick</text>
+    </g>
+    <text x="110" y="440" font-family="inherit" font-size="24" fill="var(--muted)">every 3&#8242; end carries a half barb &mdash; so an unbarbed tip is a 5&#8242; end</text>
+  </svg>
+  <template class="notes">Before the table, the framework. Every exonuclease in the catalogue is defined by four answers, and every column of the NEB table is one of them. Which way does it walk along the backbone. Whether it wants single-stranded or double-stranded DNA. Whether the end has to carry a five prime phosphate. And what kind of end it will initiate on. That last one is the vocabulary at the bottom: a five prime extension, a three prime extension, a blunt end, or a nick. Notice that a nick counts as an end for some of these enzymes, which is why a nicked plasmid is not as safe as an intact one. There is no recognition sequence anywhere in this list — the specificity of an exonuclease is an address, and the address is a kind of end.</template>
+  <template class="desc">A title reading Four questions define an exonuclease, with the four questions listed: direction of travel, single or double stranded substrate, whether a 5-prime phosphate is required, and what kind of end it initiates on. Below, four small line drawings of double-stranded DNA ends, labelled 5-prime extension, 3-prime extension, blunt, and nick. Each 3-prime end carries a half barb; the protruding tip of the 5-prime extension has no barb and is labelled 5-prime, as is the right-hand side of the nick.</template>
 </article>
 
 <article class="slide">
   <h1 class="small">More-useful Exonucleases</h1>
+  <ul class="tight"><li>Left to right, the columns <em>are</em> the four questions</li></ul>
   <figure class="fig"><img src="img/neb-exonucleases.png" alt="New England Biolabs table of exonuclease properties: polarity, activity on single- and double-stranded DNA, and the products released"><figcaption>Adapted from the NEB properties-of-exonucleases table</figcaption></figure>
-  <template class="notes">There is extensive diversity within the exonucleases about what types of ends they’ll initiate on and which direction they will go. This chart is from NEB, and you can look up these details if the need for an Exo ever crops up. I will describe what the different column headers mean.</template>
+  <template class="notes">There is extensive diversity within the exonucleases about what types of ends they’ll initiate on and which direction they will go. This chart is from NEB, and you can look up these details if the need for an Exo ever crops up. Read it as the four questions in order: polarity is the direction; then single- or double-stranded substrate; then whether it still works without a five prime phosphate; then the four kinds of end it will initiate on. Two rows to keep an eye on. Lambda Exo is the one that is fussy about the five prime phosphate. Exonuclease I is single-strand only — a plus under ss and a minus under ds — and we will use that in a minute.</template>
   <template class="desc">A reference table of exonucleases from New England Biolabs, with columns for polarity, activity on single- and double-stranded DNA, and the products each releases.</template>
 </article>
 
 <article class="slide">
   <div class="q">Are these arrows 5&rsquo; to 3&rsquo;?</div>
   <figure class="fig"><img src="img/dna-backbone-bond.png" alt="Chemical structure of a DNA duplex with grey arrows running along each backbone"></figure>
-  <template class="notes">Nope. The grey arrows are indicating 3’ to 5’.</template>
-  <template class="desc">The DNA backbone structure again, with two grey arrows running along the strands. The answer is no: those arrows run 3-prime to 5-prime.</template>
-</article>
-
-<article class="slide">
-  <h1 class="small">Initiates on DNA with a 5&rsquo; extension</h1>
-  <p><strong>Case: BamHI-digested DNA</strong></p>
-  <pre class="dna">5&rsquo;-cttcg<span class="site">GGATCC</span>gctggcaga&hellip;-3&rsquo;
-3&rsquo;-gaagc<span class="site">CCTAGG</span>cgaccgtct&hellip;-5&rsquo;</pre>
-  <div class="step" data-build="1"><span class="arrow">&darr;</span> BamHI</div>
-  <pre class="dna" data-build="1">5&rsquo;-cttcg<span class="site">G</span>              <span class="site">GATCC</span>gctggcaga&hellip;-3&rsquo;
-3&rsquo;-gaagc<span class="site">CCTAG</span>    +         <span class="site">G</span>cgaccgtct&hellip;-5&rsquo;</pre>
-  <template class="notes">When it says ‘initiates on DNA with a 5’ extension’, the sort of end it is referring to is the products one gets from many restriction enzymes like BamHI.</template>
-  <template class="desc">The BamHI digestion again, shown as the example of what a 5-prime extension means in the NEB table.</template>
+  <div class="step" data-build="1"
+       data-note="Nope. The grey arrows are indicating 3’ to 5’. Look at where the arrowheads actually sit — both of them land on a five prime end. That is why they read backwards at a glance, and it is worth slowing down on, because every barbed line in the rest of this lecture points the other way: our barb marks a three prime end."
+       data-desc="A line has appeared below the figure: No — both arrowheads sit at a 5-prime end, so the arrows run 3-prime to 5-prime."><span class="arrow">&rarr;</span> No &mdash; both arrowheads sit at a 5&rsquo; end, so they run 3&rsquo;&rarr;5&rsquo;</div>
+  <template class="notes">Look at the two grey arrows running down the backbones and decide which way they point. Do not answer it for them — give the room a moment first.</template>
+  <template class="desc">The DNA backbone structure again, with two grey arrows running along the strands. Which way those arrows run is the question; the answer is not yet on the slide.</template>
 </article>
 
 <article class="slide">
   <div class="q">Which bond is broken&hellip; by all exonucleases?</div>
   <figure class="fig"><img src="img/dna-backbone-bond.png" alt="Chemical structure of a DNA backbone with the phosphate to 3-prime hydroxyl bond highlighted"></figure>
-  <template class="notes">Again, it is the bond attached to the 3’ hydroxyl that is broken in a nick.</template>
-  <template class="desc">The backbone structure once more. The same bond is broken as with restriction enzymes: the one joining the phosphate to the 3-prime hydroxyl.</template>
+  <div class="step" data-build="1"
+       data-note="Again, it is the bond attached to the 3’ hydroxyl that is broken in a nick. Same bond as the restriction enzymes broke — the chemistry does not change just because the enzyme walks in from an end instead of landing on a site."
+       data-desc="A line has appeared below the figure naming the answer: the bond from the phosphate to the 3-prime hydroxyl, the same one a restriction enzyme breaks."><span class="arrow">&rarr;</span> The phosphate to 3&rsquo;-hydroxyl bond &mdash; the same one a restriction enzyme breaks</div>
+  <template class="notes">Same figure, harder question. Which bond does an exonuclease break? Let them look before you advance.</template>
+  <template class="desc">The backbone structure once more. Which bond an exonuclease breaks is the question; the answer is not yet on the slide.</template>
 </article>
 
 <article class="slide">
   <div class="q">Will T5 Exonuclease cut?</div>
   <pre class="dna">5&rsquo;-gatttctgGAATTTGACACGTG-3&rsquo;
 3&rsquo;-ctaaagacCTTAA-5&rsquo;</pre>
-  <figure class="fig" data-build="1" style="margin-top:26px"><img src="img/neb-t5-row-a.png" alt="NEB table row for T5 Exonuclease showing 5-prime to 3-prime polarity and activity on several substrate types"><figcaption>The T5 Exonuclease row of the NEB table</figcaption></figure>
-  <template class="notes">The DNA shown is blunt on one end, and has a 3’ overhang on the other. To answer the question, you look up T5 Exo in the NEB catalog. It initiates on both blunt and 3’ extensions, so this will chew back the 5’ ends of the DNA from both ends until it is gone.</template>
-  <template class="desc">A DNA that is blunt at one end and has a 3-prime overhang at the other, next to the T5 Exonuclease row of the NEB table. T5 initiates on both, so it degrades the molecule from both ends.</template>
+  <figure class="fig" data-build="1" style="margin-top:26px"
+       data-note="Now look it up. T5 initiates on blunt ends and on three prime extensions, so it chews back the five prime ends from both ends of this molecule until it is gone. Read along the T5 row and notice two more things. It is a plus under nicked, so a nicked plasmid is not safe from it. And it is a minus under supercoiled circles — no end, no reaction. Then compare Exonuclease I on the row above: single-stranded linear only, and a minus everywhere else. Same table, opposite address."
+       data-desc="A DNA that is blunt at one end and has a 3-prime overhang at the other, now shown next to two rows of the NEB selection chart: Exonuclease I, which is 3-prime to 5-prime and active only on linear single-stranded DNA, and T5 Exonuclease, which is 5-prime to 3-prime and active on every substrate listed except supercoiled circles.">
+    <div style="width:100%;flex:0 0 auto">
+      <img src="img/neb-t5-row-a.png" alt="NEB selection-chart header with the Exonuclease I row: 3-prime to 5-prime polarity, active on linear single-stranded DNA only" style="width:100%;height:auto;display:block">
+      <img src="img/neb-t5-row-b.png" alt="The T5 Exonuclease row: 5-prime to 3-prime polarity, plus on every substrate listed except supercoiled circles" style="width:100%;height:auto;display:block">
+    </div>
+    <figcaption>NEB selection chart &mdash; the header, Exonuclease I, and T5 Exonuclease</figcaption>
+  </figure>
+  <template class="notes">Look at the ends of this molecule. It is blunt at one end and has a 3’ overhang at the other. Will T5 exonuclease touch it? Let the room work it out before you put the table up.</template>
+  <template class="desc">A short DNA written as sequence, blunt at its left-hand end and carrying a 3-prime overhang on the top strand at the right. The NEB table is not on the slide yet.</template>
+</article>
+
+<article class="slide" data-seq="gibson">
+  <h1 class="small">T5 Exonuclease in Gibson Assembly</h1>
+  <ul class="tight"><li>A 5&rsquo;&rarr;3&rsquo; exonuclease leaves a 3&rsquo; overhang &mdash; watch which strand survives</li></ul>
 </article>
 
 <article class="slide">
-  <h1 class="small">T5 Exonuclease in Gibson Cloning</h1>
-  <figure class="fig"><img src="img/gibson-assembly.png" alt="Diagram of Gibson assembly: two DNAs with overlapping ends are chewed back by exonuclease, annealed, then filled in by polymerase and sealed by ligase"></figure>
-  <template class="notes">T5 Exonuclease is used in Gibson cloning.</template>
-  <template class="desc">The Gibson assembly scheme: two DNAs sharing an overlap are chewed back by exonuclease to expose complementary single strands, annealed, then filled in by Phusion polymerase and sealed by Taq DNA ligase.</template>
+  <h1 class="small">Lambda Exonuclease wants a 5&rsquo; phosphate</h1>
+  <ul class="tight"><li>So phosphorylate one PCR primer and not the other</li></ul>
+  <svg viewBox="0 0 1600 900" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none">
+    <g fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round">
+      <path d="M400 440H1200M1177.1 427.8L1200 440"/>
+      <path d="M1200 492H400M422.9 504.2L400 492"/>
+      <path d="M800 548V608M786 594L800 608L814 594"/>
+    </g>
+    <path d="M1200 690H400M422.9 702.2L400 690" fill="none" stroke="var(--vermillion)"
+          stroke-width="3" stroke-linecap="round"/>
+    <text x="386" y="450" text-anchor="end" font-family="inherit" font-size="27"
+          font-weight="700" fill="var(--blue)">5&#8242;&#8202;P</text>
+    <text x="1214" y="502" font-family="inherit" font-size="26" fill="var(--muted)">5&#8242;&#8202;OH</text>
+    <text x="1214" y="700" font-family="inherit" font-size="26" fill="var(--muted)">5&#8242;&#8202;OH</text>
+    <text x="838" y="588" font-family="inherit" font-size="28" font-weight="700"
+          fill="var(--ink)">Lambda Exo &#183; 5&#8242;&rarr;3&#8242; &#183; double-stranded end</text>
+    <text x="400" y="762" font-family="inherit" font-size="27" font-weight="700"
+          fill="var(--vermillion)">one defined single strand &mdash; the one you left unphosphorylated</text>
+  </svg>
+  <template class="notes">Here is a specificity you can aim. Lambda exonuclease runs five prime to three prime on a double-stranded end, like T5 does, but it strongly prefers that end to carry a five prime phosphate. A PCR product made with ordinary oligos has no phosphate on either strand — synthesisers deliver a five prime hydroxyl. So order one of your two primers phosphorylated. Now only one of the two ends is a substrate, lambda exo eats that strand right through, and what you are left with is the other strand, on its own, in a defined orientation. That is how you make long single-stranded DNA without a phage. Two cautions. In the NEB table that column reads plus-slash-minus, not minus: without the phosphate it is slow, not dead. And single-stranded DNA is a poor substrate for it too, not a forbidden one — so the strand you want back is only relatively safe. Do not over-incubate.</template>
+  <template class="desc">A double-stranded DNA drawn as two antiparallel lines with half barbs on the 3-prime ends. Its upper strand carries a 5-prime phosphate, marked in blue at the left; the lower strand's 5-prime end, at the right, is a plain hydroxyl. An arrow labelled Lambda Exo, 5-prime to 3-prime, double-stranded end, leads down to a single line in vermillion: only the unphosphorylated strand remains, keeping its 3-prime half barb at the left.</template>
 </article>
 
 <article class="slide">
-  <h1 class="small">Some Applications of Exonucleases</h1>
-  <p><strong>Blunting a sticky end</strong></p>
-  <pre class="dna">5&rsquo;-cttcg<span class="site">GGATCC</span>gctggcaga&hellip;-3&rsquo;
-3&rsquo;-gaagc<span class="site">CCTAGG</span>cgaccgtct&hellip;-5&rsquo;</pre>
-  <div class="step" data-build="1"><span class="arrow">&darr;</span> BamHI</div>
-  <pre class="dna" data-build="1">5&rsquo;-cttcg<span class="site">G</span>              <span class="site">GATCC</span>gctggcaga&hellip;-3&rsquo;
+  <h1 class="small">Exonuclease I: why ExoSAP exists</h1>
+  <ul class="tight"><li>3&rsquo;&rarr;5&rsquo;, <strong>single-stranded only</strong> &mdash; it eats primers and cannot touch your product</li></ul>
+  <svg viewBox="0 0 1600 900" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none">
+    <g fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round">
+      <path d="M170 470H640M617.1 457.8L640 470"/>
+      <path d="M640 522H170M192.9 534.2L170 522"/>
+      <path d="M920 470H1390M1367.1 457.8L1390 470"/>
+      <path d="M1390 522H920M942.9 534.2L920 522"/>
+      <path d="M742 496H852M838 482L852 496L838 510"/>
+    </g>
+    <path d="M190 644H330M307.1 631.8L330 644M560 644H420M442.9 656.2L420 644M260 716H400M377.1 703.8L400 716M610 716H470M492.9 728.2L470 716"
+          fill="none" stroke="var(--blue)" stroke-width="3" stroke-linecap="round"/>
+    <g font-family="inherit" text-anchor="middle">
+      <text x="405" y="416" font-size="26" font-weight="700" fill="var(--ink)">your PCR product</text>
+      <text x="405" y="790" font-size="26" font-weight="700" fill="var(--blue)">leftover primers &mdash; single-stranded</text>
+      <text x="1155" y="416" font-size="26" font-weight="700" fill="var(--ink)">sequence it directly</text>
+      <text x="1155" y="644" font-size="24" fill="var(--muted)">nothing single-stranded is left</text>
+      <text x="797" y="432" font-size="26" font-weight="700" fill="var(--ink)">Exo I</text>
+      <text x="797" y="576" font-size="24" fill="var(--muted)">3&#8242;&rarr;5&#8242;</text>
+    </g>
+  </svg>
+  <template class="notes">The practical one. After a PCR you have your product, but you also have a large excess of unused primers, and those primers will prime the sequencing reaction and give you an unreadable trace. Exonuclease One is three prime to five prime and single-stranded only — plus under ss, minus under ds in the table. So it destroys every free primer and does not lay a finger on the double-stranded product. That is the whole trick, and it is one axis of the table doing all the work. The SAP in ExoSAP is shrimp alkaline phosphatase, which knocks the phosphates off the leftover dNTPs so they cannot be incorporated either. Fifteen minutes at thirty-seven, fifteen at eighty to kill both enzymes, then straight into the sequencing reaction. No column, no gel.</template>
+  <template class="desc">On the left, a double-stranded PCR product drawn as two antiparallel barbed lines, with four short single-stranded primers below it in blue. An arrow labelled Exo I, 3-prime to 5-prime, leads right to the same double-stranded product alone: the primers are gone and the duplex is unchanged.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Blunting a sticky end</h1>
+  <p><strong>Start from BamHI-cut DNA &mdash; two 4&nbsp;bp 5&rsquo; extensions</strong></p>
+  <pre class="dna">5&rsquo;-cttcg<span class="site">G</span>              <span class="site">GATCC</span>gctggcaga&hellip;-3&rsquo;
 3&rsquo;-gaagc<span class="site">CCTAG</span>    +         <span class="site">G</span>cgaccgtct&hellip;-5&rsquo;</pre>
-  <div class="step" data-build="2"><span class="arrow">&darr;</span> Mung Bean Nuclease</div>
-  <pre class="dna" data-build="2">5&rsquo;-cttcg<span class="site">G</span>              <span class="site">C</span>gctggcaga&hellip;-3&rsquo;
+  <div class="step" data-build="1"
+       data-note="Mung bean nuclease cleaves single-stranded DNA exclusively, so the four-base overhangs are simply removed and what is left is blunt — ligatable to any other blunt end, such as those from EcoRV. Note that mung bean is filed as an endonuclease in the NEB table, not an exonuclease, and its address is not an end at all: it is single-strandedness, wherever it occurs. Same four questions, different answer to the second one."
+       data-desc="On the click, mung bean nuclease has trimmed the single-stranded overhangs off both fragments, leaving blunt ends that line up base for base."><span class="arrow">&darr;</span> Mung Bean Nuclease &mdash; single-stranded DNA only</div>
+  <pre class="dna" data-build="1">5&rsquo;-cttcg<span class="site">G</span>                  <span class="site">C</span>gctggcaga&hellip;-3&rsquo;
 3&rsquo;-gaagc<span class="site">C</span>        +         <span class="site">G</span>cgaccgtct&hellip;-5&rsquo;</pre>
-  <template class="notes">Exonucleases have many popular uses including the Gibson method of DNA assembly. Here’s a very traditional example of using an exonuclease to create a blunt sticky end. First, the DNA is cleaved with BamHI which leaves behind 5’ 4bp extensions. The fragments are then treated with mung bean nuclease that cleaves single-stranded DNAs exclusively. The result is a blunt-ended DNA that can be ligated to other blunt ends such as those generated by EcoRV.</template>
-  <template class="desc">Two clicks: BamHI cuts to leave four-base overhangs, then mung bean nuclease trims the single-stranded overhangs off to leave blunt ends.</template>
+  <template class="notes">A very traditional use of a single-strand-specific nuclease. We already have the BamHI products from earlier, with their 5’ four-base extensions. What happens if we treat them with mung bean nuclease?</template>
+  <template class="desc">BamHI products with four-base 5-prime overhangs. On one click, mung bean nuclease trims the single-stranded overhangs off, leaving blunt ends.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/gibson.js" defer></script>
 </body>
 </html>
