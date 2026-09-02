@@ -1,0 +1,125 @@
+/* ==========================================================================
+   140L LECTURE PALETTE
+   Four content colours, chosen to survive colour-vision deficiency AND
+   greyscale rendering. This file is both the specification and the
+   implementation — import it, don't retype the hexes.
+
+       @import url("../../style/palette.css");
+   ==========================================================================
+
+   THE DESIGN CONSTRAINT
+
+   WCAG does not recommend colours. It specifies contrast RATIOS and is
+   entirely hue-agnostic: 4.5:1 for body text (1.4.3), 3:1 for large text and
+   for graphical objects such as diagram strokes (1.4.11). Which HUES to pick
+   is a separate question, governed by colour-vision deficiency — about 8% of
+   men have a red-green deficiency.
+
+   Under dichromacy you effectively have ONE hue axis (blue <-> yellow) plus
+   lightness. Red, orange, yellow and green all collapse onto the yellow pole.
+   So hue alone cannot separate four colours. Lightness must do the work.
+
+   That is fortunate, because lightness is also exactly what greyscale
+   printing preserves. Solving for one solves the other.
+
+   HOW THESE VALUES WERE DERIVED
+
+   Black sits at 18.9:1 against white. The 3:1 floor for graphical objects
+   caps the lightest usable colour. Four values spaced evenly in LOG
+   luminance across that span give the largest achievable minimum separation:
+
+       18.9 : 10.2 : 5.7 : 3.1   (ratio ~1.81 between each neighbour)
+
+   Hue was then chosen per step to reinforce the lightness difference, and
+   the brightness solved numerically to land on the target luminance.
+
+   HOW TO CHOOSE ONE
+
+   Start at ink. Everything that is merely present — the template strand, the
+   scene, body text — is ink. Promote to blue the one thing the viewer is
+   meant to follow. If blue is already carrying something on that slide and
+   you need to single out a further detail, go to vermillion. Amber is the
+   fourth rung and should almost never be reached; if you find yourself
+   wanting it, check first whether something already coloured ought to drop
+   back to ink.
+
+   Because the ladder is about attention and not identity, a strand that was
+   ink can become vermillion at the moment it becomes the point of the slide.
+
+   MEASURED
+
+     rung  token         hex        on white   luminance   greyscale vs next
+      0    ink           #111111     18.9:1      0.006          1.84:1
+      1    blue          #004373     10.2:1      0.053          1.81:1
+      2    vermillion    #ba3a13      5.7:1      0.135          1.81:1
+      3    amber         #a99011      3.1:1      0.284            —
+
+   Note the ladder also rises in luminance, so attention level survives
+   greyscale on its own: higher rung, lighter mark against white paper.
+
+   Every pair, not just neighbours, clears 1.81:1 in greyscale. Every colour
+   clears 3:1 on white, so all four are valid for diagram strokes; ink, blue
+   and vermillion also clear 4.5:1 and are valid for body text. Amber is a
+   stroke/accent colour only — do not set small text in it.
+
+   KNOWN LIMITATION — READ THIS
+
+   Vermillion and amber both sit on the yellow pole. To a viewer with
+   red-green CVD they differ ONLY in lightness (1.81:1 — perceptible, but not
+   a hue difference). Never let those two alone carry a distinction that
+   matters. This is not a defect of the palette; it is a property of
+   dichromacy, and it is why WCAG 1.4.1 requires that colour never be the
+   sole means of conveying information. Reinforce with position, label,
+   line style, or an accompanying description.
+
+   ========================================================================== */
+
+:root{
+  /* ---- the four content colours: AN ATTENTION LADDER ----
+     These encode HOW MUCH ATTENTION something deserves, not what kind of
+     object it is. The same molecule may change colour as the focus moves to
+     it — that is correct, not a mistake. Do not assign a colour to a class
+     of object ("blue means RNA"); assign it to the thing the viewer should
+     be looking at on THIS slide.                                            */
+  --ink:        #111111;   /* 0 — background, context, the unremarkable     */
+  --blue:       #004373;   /* 1 — attention: what to look at                */
+  --vermillion: #ba3a13;   /* 2 — more attention, when blue is already used */
+  --amber:      #a99011;   /* 3 — most attention. Reserved; rarely needed.  */
+
+  /* ---- supporting neutrals ---- */
+  --paper:      #ffffff;
+  --muted:      #767676;   /* 4.5:1 on white — the lightest legible grey     */
+  --rule:       #e2e2e2;   /* hairlines and borders only, never text         */
+
+  /* ---- slide grounds ----
+     Blue is the deck's own colour — the primary accent, carried at the
+     level of the whole lecture. A section divider is a punctuation moment
+     and wants to interrupt, so it takes the top rung.
+
+       lecture   blue     this deck's identity; the lecture opens
+       section   amber    a section begins — the loudest thing in the deck
+       content   white    an ordinary slide
+
+     Text colour is NOT free here. Measured against each ground:
+       blue    white 10.2:1   black 1.84:1  -> white
+       amber   white  3.1:1   black 6.01:1  -> BLACK. White on amber fails.
+       red     white  5.7:1   black 3.33:1  -> white, if ever used as a ground
+
+     Black on amber is the most legible pairing in the palette after black
+     on white, which is why the dividers can afford to be the loudest.      */
+  --ground-lecture: #004373;
+  --ground-section: #a99011;
+
+  /* ---- greyscale equivalents ----
+     What each content colour becomes when printed or projected in
+     monochrome. Useful for previewing, and as a reminder that the palette
+     is designed to still work here.                                         */
+  --ink-grey:        #1a1a1a;
+  --blue-grey:       #414141;
+  --vermillion-grey: #656565;
+  --amber-grey:      #8f8f8f;
+}
+
+/* Preview the deck as a monochrome viewer sees it by adding this class to
+   the root element — a quick way to check a diagram still reads. */
+.greyscale-preview{ filter: grayscale(1); }

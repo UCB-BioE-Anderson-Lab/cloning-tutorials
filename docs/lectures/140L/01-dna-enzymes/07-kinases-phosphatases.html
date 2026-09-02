@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Kinases / Phosphatases &mdash; DNA Manipulation Enzymes</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>The Kinases / Phosphatases</h1>
+  <p>Enzymes that add and remove phosphates</p>
+  <div class="cols wide-right" style="margin-top:24px">
+    <ul class="tighter">
+      <li>Restricted DNA has a single 5&rsquo; phosphate</li>
+      <li>Synthetic oligonucleotides have a clean 5&rsquo; hydroxyl</li>
+      <li>5&rsquo; phosphates are required for ligation</li>
+    </ul>
+    <figure class="fig dark"><img src="img/dna-5p-phosphate.png" alt="DNA backbone diagram with the 5-prime phosphate marked"></figure>
+  </div>
+  <template class="notes">Kinases and phosphatases add or remove the 5’ phosphate. DNAs that are the products of endonucleases have a single 5’ phosphate. Synthetic oligonucleotides have a clean 5’ hydroxyl. Molecular biology protocols often require ligase which requires 5’ phosphates. Sometimes it is useful to make a DNA available or not available for ligation, and this phosphorylation state can be changed with kinases and phosphatases. Additionally, some exonucleases require a 5’ phosphate and thus the degradability of a DNA can be altered by these enzymes.</template>
+  <template class="desc">Section divider: Kinases and Phosphatases, with a DNA backbone diagram marking the 5-prime phosphate that these enzymes add and remove.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Alkaline Phosphatases</h1>
+  <div class="cols wide-left">
+    <ul class="tight">
+      <li>Catalyze the hydrolysis of phosphate esters non-specifically</li>
+      <li>Also act on 5&rsquo; mono-, di- and triphosphates of RNA or DNA, dNTPs, and NTPs</li>
+      <li>There are very many of them in nature, often secreted proteins</li>
+    </ul>
+    <figure class="fig dark"><img src="img/pnpp-phosphatase.png" alt="Alkaline phosphatase converting p-nitrophenyl phosphate to the yellow p-nitrophenolate"></figure>
+  </div>
+  <template class="notes">The most commonly used class of phosphatases are the alkaline phosphatases. They catalyze the hydrolysis of phosphate esters non-specifically. So, these enzymes are used outside the context of DNA manipulation. For example, you can react an alkaline phosphatase with p-nitrophenyl phosphate and release a yellow pigment that can be detected photometrically. The enzyme will act on any exposed nucleic acid phosphate such as the 5’ ends of nucleotides or polynucleotides. These enzymes are very common in nature, from both prokaryotic and animal sources.</template>
+  <template class="desc">Alkaline phosphatases hydrolyse phosphate esters non-specifically, illustrated by the p-nitrophenyl phosphate assay that releases a yellow product.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Three alkaline phosphatases</h1>
+  <ul class="boxes">
+    <li><b>CIP: Calf Intestine Alkaline Phosphatase</b><ul class="tighter">
+      <li>Oldest and most commonly used since it is very robust and cheap</li>
+      <li>Often used to prevent re-closure of the ends of a vector digested with restriction enzymes</li>
+      <li>Can also be used to destroy dNTPs in a reaction mixture</li></ul></li>
+    <li data-build="1"><b>Shrimp Alkaline Phosphatase (SAP)</b><ul class="tighter">
+      <li>Can be easily heat-killed</li>
+      <li>Used for exo-SAP sequencing</li></ul></li>
+    <li data-build="2"><b>Antarctic Phosphatase</b><ul class="tighter">
+      <li>A lot like SAP</li>
+      <li>Claimed to be even more heat-killable</li></ul></li>
+  </ul>
+  <template class="notes">The oldest, cheapest, and most well-known enzyme is calf intestine alkaline phosphatase, or CIP. The name means what it implies — it is a phosphatase originally isolated from calf intestine. It is often used to prevent re-closure of ends of a vector digested with restriction enzymes. It can also be used to destroy dNTPs in a reaction mixture. Shrimp Alkaline Phosphatase can be easily heat-killed but is otherwise the same as CIP. One useful protocol for automating sample generation for cycle sequencing is called Exo-SAP, where you degrade the unreacted primers and dNTPs of a PCR reaction by digestion with SAP and Exonuclease I. Antarctic phosphatase is a newer version of the heat-killable alkaline phosphatase, which is claimed to be even more heat-labile.</template>
+  <template class="desc">Three alkaline phosphatases revealed one at a time: CIP, Shrimp Alkaline Phosphatase, and Antarctic Phosphatase.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">T4 Polynucleotide Kinase (PNK)</h1>
+  <div class="cols wide-left">
+    <ul class="tighter">
+      <li>Transfers a single phosphate onto the 5&rsquo; hydroxyl of an RNA or DNA</li>
+      <li>Uses the gamma phosphate of ATP as a phosphate source</li>
+      <li>Used on synthetic oligonucleotides so that they can be substrates for ligase</li>
+      <li>Not efficient on double-stranded DNAs</li>
+      <li>Also used for radioactive labeling of DNAs or RNAs using [gamma-<sup>32</sup>P] ATP</li>
+    </ul>
+    <figure class="fig dark"><img src="img/atp-gamma-phosphate.png" alt="ATP with its three phosphates, the terminal gamma phosphate highlighted"></figure>
+  </div>
+  <template class="notes">T4 polynucleotide kinase transfers a single phosphate to the 5’ hydroxyl of an RNA or DNA from ATP. It is the gamma phosphate of ATP, the terminal one, that gets transferred. The enzyme is most commonly used to phosphorylate synthetic oligonucleotides so that they can be substrates for ligase. It works best on single stranded DNAs, and it is often used to radiolabel DNAs using [gamma-32-P] ATP.</template>
+  <template class="desc">T4 PNK transfers the terminal gamma phosphate of ATP onto a 5-prime hydroxyl, shown beside the structure of ATP.</template>
+</article>
+
+<article class="slide">
+  <div class="q">Where is the phosphate&hellip; being added by T4 PNK?</div>
+  <figure class="fig"><img src="img/dna-backbone-bond.png" alt="Chemical structure of the DNA backbone with the 5-prime oxygen indicated"></figure>
+  <template class="notes">It adds phosphates to 5’ ends of a DNA. This diagram doesn’t actually show this — it implies that this 5’ O is attached to another nucleotide. If this was the end of the molecule, and it were an H attached, then this would be a 5’-OH and would be phosphorylated. Note that when we cut a DNA with a nuclease, we are breaking the bond between the 3’-OH and the 5’-phosphate. The resulting state of the newly generated 5’ end is thus a 5’-phosphate, not a 5’-OH. Thus it is in the state that would result from treatment of a naked 5’-OH with PNK. Often what you use PNK for is to phosphorylate oligos such that their end is 5’-phosphate. It needs that to undergo ligation.</template>
+  <template class="desc">The backbone structure again. The phosphate PNK adds sits on the 5-prime oxygen — but only where that oxygen carries a free hydroxyl at the end of the molecule, which this internal view does not show.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Methyltransferases &mdash; DNA Manipulation Enzymes</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>Methyltransferases</h1>
+  <p>Enzymes that add methyl groups to DNA</p>
+  <div class="cols" style="margin-top:30px">
+    <figure class="fig dark"><img src="img/n6-methyladenine.png" alt="Adenine with a methyl group added at the N6 position"><figcaption style="color:rgba(255,255,255,.8)">m<sup>6</sup>A = N6 of adenine</figcaption></figure>
+    <figure class="fig dark"><img src="img/c5-methylcytosine.png" alt="Cytosine with a methyl group added at the C5 position"><figcaption style="color:rgba(255,255,255,.8)">m<sup>5</sup>C = C5 of cytosine &middot; also N4 cytosine</figcaption></figure>
+  </div>
+  <template class="notes">Methyltransferases add methyl groups to a DNA. They most commonly add the methyl group to either N6 of adenine or C5 of cytosine.</template>
+  <template class="desc">Section divider: Methyltransferases, with structures of N6-methyladenine and C5-methylcytosine.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Type II Restriction Systems</h1>
+  <div class="cols wide-left">
+    <ul class="tight">
+      <li>All type II restriction enzymes have cognate methyltransferases</li>
+      <li>BamHI methyltransferase hits the N4 position</li>
+      <li>DNA methylated by these methyltransferases is impervious to digestion by the cognate endonuclease</li>
+    </ul>
+    <figure class="fig"><img src="img/bamhi-methylation.png" alt="The BamHI recognition site with the methylated cytosine marked"></figure>
+  </div>
+  <template class="notes">The type II restriction enzymes have cognate methyltransferases. They are used in the native context to protect the genome from the action of the restriction enzyme and thus typically have the same specificity as the restriction enzyme. For example, BamHI methyltransferase modifies the fourth C in the BamHI restriction site. Upon methylation, the activity of the cognate endonuclease is blocked at that site.</template>
+  <template class="desc">Every type II restriction enzyme has a partner methyltransferase that protects the host genome by methylating the same sequence.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Dam and Dcm Methylation</h1>
+  <div class="cols wide-left">
+    <ul class="tighter">
+      <li><em>E. coli</em> K12 lab strains encode 2 methyltransferases, <em>dam</em> and <em>dcm</em></li>
+      <li>They recognize and methylate Dam (G<sup>m</sup>ATC) and Dcm (C<sup>m</sup>CWGG)</li>
+      <li>Restriction sites overlapping these sites are sometimes blocked</li>
+      <li>Strains like JM110 have <em>dam</em> and <em>dcm</em> knocked out, but they aren&rsquo;t healthy bacteria</li>
+      <li>These relationships are documented in the NEB catalog</li>
+      <li>Methylated Dam sites are the substrate of DpnI endonuclease</li>
+    </ul>
+    <div>
+      <p><strong>Example: Dam blocking of XbaI digestion</strong></p>
+      <pre class="dna">    <span class="mut">Me</span>
+5&rsquo;-<span class="site">TCTAGA</span>TC-3&rsquo;
+3&rsquo;-AG<span class="site">ATCTAG</span>-5&rsquo;
+        <span class="mut">Me</span></pre>
+    </div>
+  </div>
+  <template class="notes">Dam and Dcm methylation frequently block restriction endonucleases. The lab strains of E. coli encode these two methyltransferases which modify the sequence GATC and CCWGG, where W is either A or T. When a restriction site overlaps these sites, the enzyme will be blocked. There are some useful strains like JM110 that have these genes knocked out, but these genes also play regulatory roles in the cell and the bacteria aren’t healthy. Whether an enzyme can be blocked by Dam or Dcm methylation is cataloged by NEB. One of the more common ones is XbaI. If the restriction site is followed by the sequence TC, it will overlap a Dam site and thus be methylated and blocked.</template>
+  <template class="desc">Dam and Dcm methylation in lab E. coli strains, with a worked example showing an XbaI site followed by TC creating an overlapping Dam site that blocks the enzyme.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

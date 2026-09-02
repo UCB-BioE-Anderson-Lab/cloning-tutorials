@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Exonucleases &mdash; DNA Manipulation Enzymes</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>Exonucleases</h1>
+  <p>Non-specific exonucleases digest any and all DNAs &mdash; linear, circular, double stranded, single stranded, methylated, non-methylated.</p>
+  <ul>
+    <li>Mung Bean Nuclease</li>
+    <li>T5 Exonuclease</li>
+  </ul>
+  <template class="notes">Exonucleases degrade a DNA from its ends. Thus a circular and undamaged DNA molecule is immune to the action of these enzymes. There are a large number of enzymes that are non-specific exonucleases and can be used to degrade DNA in an RNA sample. Others will also degrade RNA.</template>
+  <template class="desc">Section divider: Exonucleases, noting they act only on ends, with two example enzymes.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">More-useful Exonucleases</h1>
+  <figure class="fig"><img src="img/neb-exonucleases.png" alt="New England Biolabs table of exonuclease properties: polarity, activity on single- and double-stranded DNA, and the products released"><figcaption>Adapted from the NEB properties-of-exonucleases table</figcaption></figure>
+  <template class="notes">There is extensive diversity within the exonucleases about what types of ends they’ll initiate on and which direction they will go. This chart is from NEB, and you can look up these details if the need for an Exo ever crops up. I will describe what the different column headers mean.</template>
+  <template class="desc">A reference table of exonucleases from New England Biolabs, with columns for polarity, activity on single- and double-stranded DNA, and the products each releases.</template>
+</article>
+
+<article class="slide">
+  <div class="q">Are these arrows 5&rsquo; to 3&rsquo;?</div>
+  <figure class="fig"><img src="img/dna-backbone-bond.png" alt="Chemical structure of a DNA duplex with grey arrows running along each backbone"></figure>
+  <template class="notes">Nope. The grey arrows are indicating 3’ to 5’.</template>
+  <template class="desc">The DNA backbone structure again, with two grey arrows running along the strands. The answer is no: those arrows run 3-prime to 5-prime.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Initiates on DNA with a 5&rsquo; extension</h1>
+  <p><strong>Case: BamHI-digested DNA</strong></p>
+  <pre class="dna">5&rsquo;-cttcg<span class="site">GGATCC</span>gctggcaga&hellip;-3&rsquo;
+3&rsquo;-gaagc<span class="site">CCTAGG</span>cgaccgtct&hellip;-5&rsquo;</pre>
+  <div class="step" data-build="1"><span class="arrow">&darr;</span> BamHI</div>
+  <pre class="dna" data-build="1">5&rsquo;-cttcg<span class="site">G</span>              <span class="site">GATCC</span>gctggcaga&hellip;-3&rsquo;
+3&rsquo;-gaagc<span class="site">CCTAG</span>    +         <span class="site">G</span>cgaccgtct&hellip;-5&rsquo;</pre>
+  <template class="notes">When it says ‘initiates on DNA with a 5’ extension’, the sort of end it is referring to is the products one gets from many restriction enzymes like BamHI.</template>
+  <template class="desc">The BamHI digestion again, shown as the example of what a 5-prime extension means in the NEB table.</template>
+</article>
+
+<article class="slide">
+  <div class="q">Which bond is broken&hellip; by all exonucleases?</div>
+  <figure class="fig"><img src="img/dna-backbone-bond.png" alt="Chemical structure of a DNA backbone with the phosphate to 3-prime hydroxyl bond highlighted"></figure>
+  <template class="notes">Again, it is the bond attached to the 3’ hydroxyl that is broken in a nick.</template>
+  <template class="desc">The backbone structure once more. The same bond is broken as with restriction enzymes: the one joining the phosphate to the 3-prime hydroxyl.</template>
+</article>
+
+<article class="slide">
+  <div class="q">Will T5 Exonuclease cut?</div>
+  <pre class="dna">5&rsquo;-gatttctgGAATTTGACACGTG-3&rsquo;
+3&rsquo;-ctaaagacCTTAA-5&rsquo;</pre>
+  <figure class="fig" data-build="1" style="margin-top:26px"><img src="img/neb-t5-row-a.png" alt="NEB table row for T5 Exonuclease showing 5-prime to 3-prime polarity and activity on several substrate types"><figcaption>The T5 Exonuclease row of the NEB table</figcaption></figure>
+  <template class="notes">The DNA shown is blunt on one end, and has a 3’ overhang on the other. To answer the question, you look up T5 Exo in the NEB catalog. It initiates on both blunt and 3’ extensions, so this will chew back the 5’ ends of the DNA from both ends until it is gone.</template>
+  <template class="desc">A DNA that is blunt at one end and has a 3-prime overhang at the other, next to the T5 Exonuclease row of the NEB table. T5 initiates on both, so it degrades the molecule from both ends.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">T5 Exonuclease in Gibson Cloning</h1>
+  <figure class="fig"><img src="img/gibson-assembly.png" alt="Diagram of Gibson assembly: two DNAs with overlapping ends are chewed back by exonuclease, annealed, then filled in by polymerase and sealed by ligase"></figure>
+  <template class="notes">T5 Exonuclease is used in Gibson cloning.</template>
+  <template class="desc">The Gibson assembly scheme: two DNAs sharing an overlap are chewed back by exonuclease to expose complementary single strands, annealed, then filled in by Phusion polymerase and sealed by Taq DNA ligase.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Some Applications of Exonucleases</h1>
+  <p><strong>Blunting a sticky end</strong></p>
+  <pre class="dna">5&rsquo;-cttcg<span class="site">GGATCC</span>gctggcaga&hellip;-3&rsquo;
+3&rsquo;-gaagc<span class="site">CCTAGG</span>cgaccgtct&hellip;-5&rsquo;</pre>
+  <div class="step" data-build="1"><span class="arrow">&darr;</span> BamHI</div>
+  <pre class="dna" data-build="1">5&rsquo;-cttcg<span class="site">G</span>              <span class="site">GATCC</span>gctggcaga&hellip;-3&rsquo;
+3&rsquo;-gaagc<span class="site">CCTAG</span>    +         <span class="site">G</span>cgaccgtct&hellip;-5&rsquo;</pre>
+  <div class="step" data-build="2"><span class="arrow">&darr;</span> Mung Bean Nuclease</div>
+  <pre class="dna" data-build="2">5&rsquo;-cttcg<span class="site">G</span>              <span class="site">C</span>gctggcaga&hellip;-3&rsquo;
+3&rsquo;-gaagc<span class="site">C</span>        +         <span class="site">G</span>cgaccgtct&hellip;-5&rsquo;</pre>
+  <template class="notes">Exonucleases have many popular uses including the Gibson method of DNA assembly. Here’s a very traditional example of using an exonuclease to create a blunt sticky end. First, the DNA is cleaved with BamHI which leaves behind 5’ 4bp extensions. The fragments are then treated with mung bean nuclease that cleaves single-stranded DNAs exclusively. The result is a blunt-ended DNA that can be ligated to other blunt ends such as those generated by EcoRV.</template>
+  <template class="desc">Two clicks: BamHI cuts to leave four-base overhangs, then mung bean nuclease trims the single-stranded overhangs off to leave blunt ends.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

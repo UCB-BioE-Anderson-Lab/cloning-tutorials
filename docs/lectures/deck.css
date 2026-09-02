@@ -1,0 +1,179 @@
+/* ------------------------------------------------------------------ *
+ * deck.css — shared styling for the 140L lecture slides.
+ * Slides are authored in a fixed 1600x900 box and scaled to fit.
+ * ------------------------------------------------------------------ */
+@import url("style/palette.css");
+
+:root{
+  /* Structural aliases onto the palette. The four content colours and the
+     two slide grounds are specified in style/palette.css — change them
+     there, not here. */
+  --red:  var(--vermillion);
+  --slate:var(--blue);
+  --sans:"Helvetica Neue",Arial,Helvetica,sans-serif;
+  --slab:Rockwell,"Rockwell Extra Bold","Bookman Old Style",Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);overflow:hidden}
+
+#app{height:100vh;height:100dvh;display:grid;grid-template-columns:1fr;background:var(--paper)}
+#app[data-mode="presenter"],#app[data-mode="wcag"]{grid-template-columns:1fr minmax(320px,30vw)}
+@media (max-width:860px){
+  #app[data-mode="presenter"],#app[data-mode="wcag"]{grid-template-columns:1fr;grid-template-rows:1fr 45vh}
+}
+
+#deck{position:relative;min-width:0;min-height:0;overflow:hidden;background:#f2f2f2}
+#app[data-mode="presenter"] #deck,#app[data-mode="wcag"] #deck{border-right:1px solid var(--rule)}
+@media (max-width:860px){
+  #app[data-mode="presenter"] #deck,#app[data-mode="wcag"] #deck{border-right:0;border-bottom:1px solid var(--rule)}
+}
+
+/* ---- the slide box ---- */
+#stage{position:absolute;inset:0}
+.slide{
+  position:absolute;top:0;left:0;width:1600px;height:900px;
+  transform-origin:0 0;background:var(--paper);color:var(--ink);
+  padding:86px 110px 70px;display:none;overflow:hidden;
+}
+.slide.on{display:block}
+.slide[data-bg="lecture"]{background:var(--ground-lecture);color:#fff}
+.slide[data-bg="section"]{background:var(--ground-section);color:var(--ink)}
+
+.slide h1{font-family:var(--slab);font-weight:700;font-size:60px;line-height:1.1;margin:0 0 26px}
+.slide h2{font-family:var(--sans);font-weight:700;font-size:30px;line-height:1.3;margin:0 0 30px}
+.slide[data-bg="lecture"] h1{font-size:84px;margin-top:150px}
+.slide[data-bg="section"] h1{font-size:76px;margin-top:60px}
+.slide p,.slide li{font-size:30px;line-height:1.45;margin:0 0 18px}
+.slide ul{margin:0 0 26px;padding-left:1.1em}
+.slide ul ul{margin-top:14px}
+.slide li{margin-bottom:14px}
+.slide small{font-size:22px;color:var(--muted)}
+.slide[data-bg="lecture"] small{color:rgba(255,255,255,.78)}
+.slide[data-bg="section"] small{color:rgba(0,0,0,.62)}
+.slide a{color:inherit}
+.slide code,.slide .seqtext{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:27px;letter-spacing:.02em}
+.slide .accent{color:var(--red)}
+.slide[data-bg="lecture"] .accent{color:#ffd9d7}
+.slide[data-bg="section"] .accent{color:var(--vermillion)}
+.slide figure{margin:0}
+.slide svg{display:block;max-width:100%}
+
+/* progressive builds */
+.slide [data-build]{opacity:0;transition:opacity .32s ease}
+.slide [data-build].in{opacity:1}
+@media (prefers-reduced-motion:reduce){.slide [data-build]{transition:none}}
+
+/* ---- control bar ---- */
+#bar{position:absolute;right:18px;bottom:14px;display:flex;align-items:center;gap:2px;
+     opacity:0;transition:opacity .25s;pointer-events:none;font-size:12px;color:var(--muted);
+     background:rgba(255,255,255,.92);border-radius:4px;padding:2px 4px}
+#bar.show{opacity:1;pointer-events:auto}
+#bar button{font:inherit;color:var(--muted);background:none;border:1px solid transparent;
+     border-radius:3px;padding:4px 8px;cursor:pointer}
+#bar button:hover{color:var(--ink);border-color:var(--rule)}
+#bar button[aria-pressed="true"]{color:var(--slate);border-color:var(--rule)}
+#count{padding:0 10px;font-variant-numeric:tabular-nums}
+#bar .sep{width:1px;height:16px;background:var(--rule);margin:0 6px}
+
+/* ---- side panel ---- */
+#panel{display:none;min-width:0;min-height:0;overflow:auto;padding:26px 28px 22px}
+#app[data-mode="presenter"] #panel,#app[data-mode="wcag"] #panel{display:block}
+.pmeta{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;
+       letter-spacing:.09em;text-transform:uppercase;color:var(--muted);
+       border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:8px}
+#psection{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--slate);margin-bottom:18px}
+#clock{font-variant-numeric:tabular-nums;color:var(--ink)}
+.chan{margin:0 0 22px}
+.chan h2{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 7px}
+.chan p{margin:0;font-size:17px;line-height:1.5}
+.chan p.empty{color:var(--muted);font-style:italic}
+.chan.note p{font-size:19px}
+#app[data-mode="presenter"] #speakrow{display:none}
+#app[data-mode="wcag"] #nextwrap{display:none}
+#app[data-mode="wcag"] .chan p{font-size:20px;line-height:1.55}
+#app[data-mode="wcag"] .chan.note p{font-size:23px}
+#app[data-mode="wcag"] .chan{margin-bottom:30px}
+#nextwrap{border-top:1px solid var(--rule);padding-top:16px;margin-top:4px}
+#nextwrap h2{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 10px}
+#nextshot{position:relative;width:100%;aspect-ratio:16/9;border:1px solid var(--rule);overflow:hidden;background:#fff}
+#nextshot .slide{display:block}
+#nextnote{font-size:13px;color:var(--muted);margin-top:8px}
+#speakrow{border-top:1px solid var(--rule);padding-top:14px;margin-top:6px;font-size:13px;color:var(--muted)}
+#speakrow button{font:inherit;color:var(--muted);background:none;border:1px solid var(--rule);
+     border-radius:3px;padding:5px 11px;cursor:pointer}
+#speakrow button[aria-pressed="true"]{color:var(--slate);border-color:var(--slate)}
+
+/* ---- overlays: help + section jump ---- */
+.overlay{position:absolute;inset:0;background:rgba(255,255,255,.97);display:none;
+         align-items:center;justify-content:center;padding:40px;overflow:auto}
+.overlay.show{display:flex}
+#help dl{margin:0;font-size:14px;line-height:2;display:grid;grid-template-columns:auto auto;gap:0 22px;align-items:baseline}
+#help dt{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--slate);text-align:right}
+#help dd{margin:0}
+#jump ol{list-style:none;margin:0;padding:0;font-size:15px;min-width:min(460px,100%)}
+#jump li{border-bottom:1px solid var(--rule)}
+#jump a{display:flex;gap:14px;padding:11px 6px;text-decoration:none;color:var(--ink)}
+#jump a:hover{background:#f4f6f9}
+#jump .n{color:var(--muted);font-variant-numeric:tabular-nums;min-width:2.2em}
+#jump li.here a{color:var(--slate);font-weight:700}
+#jump .k{width:10px;height:10px;border-radius:2px;align-self:center;flex:none;border:1px solid var(--rule)}
+#jump .k.lecture{background:var(--ground-lecture);border-color:var(--ground-lecture)}
+#jump .k.section{background:var(--ground-section);border-color:var(--ground-section)}
+#jump .k.white{background:#fff}
+#jump h2{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ------------------------------------------------------------------ *
+ * Slide content helpers
+ * ------------------------------------------------------------------ */
+
+/* monospace DNA sequence figures */
+.slide pre.dna{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:26px;line-height:1.42;margin:0;white-space:pre;letter-spacing:.01em}
+.slide pre.dna .site{color:var(--slate);font-weight:700}
+.slide pre.dna .mut{color:var(--red);font-weight:700}
+.slide .step{display:flex;align-items:center;gap:14px;margin:16px 0 12px;
+  font-size:26px;font-weight:700}
+.slide .step .arrow{font-size:30px;color:var(--muted)}
+
+/* two columns */
+.slide .cols{display:grid;grid-template-columns:1fr 1fr;gap:46px}
+.slide .cols.wide-left{grid-template-columns:1.35fr 1fr}
+.slide .cols.wide-right{grid-template-columns:1fr 1.35fr}
+
+/* Figures.
+   The slide is a flex column so a figure can CLAIM the leftover height.
+   max-width/max-height alone only cap a size — they never scale a small
+   source image up, which is why these read as postage stamps. */
+.slide.on{display:flex;flex-direction:column}   /* must not override .slide{display:none} */
+.slide > *{flex:0 0 auto}
+.slide figure.fig{margin:18px 0 0;flex:1 1 auto;min-height:0;width:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center}
+.slide figure.fig img{flex:1 1 auto;min-height:0;width:100%;height:100%;object-fit:contain}
+.slide figure.fig.dark img{background:#000;border:1px solid var(--rule);border-radius:4px;
+  padding:10px}
+.slide figure.fig figcaption{flex:0 0 auto;font-size:19px;color:var(--muted);margin-top:14px}
+
+/* a figure sitting in one column of a two-column slide fills that column */
+.slide .cols{flex:1 1 auto;min-height:0;align-items:stretch}
+.slide .cols > *{min-width:0;min-height:0;display:flex;flex-direction:column;justify-content:center}
+.slide .cols figure.fig{margin:0}
+
+/* SmartArt-style stacked boxes */
+.slide .boxes{margin:0;padding:0;list-style:none}
+.slide .boxes > li{border:2px solid var(--slate);border-radius:5px;
+  padding:12px 20px 14px;margin-bottom:14px;background:#f5f7fa}
+.slide .boxes > li > b{display:block;font-size:27px;margin-bottom:4px}
+.slide .boxes ul{margin:0;padding-left:1.1em}
+.slide .boxes li li{font-size:24px;margin-bottom:4px}
+
+/* compact bullet variant for dense slides */
+.slide ul.tight li{font-size:26px;margin-bottom:9px}
+.slide ul.tighter li{font-size:23px;margin-bottom:6px}
+.slide h1.small{font-size:48px;margin-bottom:18px}
+.slide .src{position:absolute;left:110px;bottom:34px;font-size:18px;color:var(--muted)}
+.slide[data-bg="lecture"] .src{color:rgba(255,255,255,.72)}
+.slide[data-bg="section"] .src{color:rgba(0,0,0,.6)}
+.slide .q{font-size:34px;font-weight:700;margin-bottom:26px}

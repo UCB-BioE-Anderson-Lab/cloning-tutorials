@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Recombinases &mdash; DNA Manipulation Enzymes</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>Recombinases</h1>
+  <div class="cols wide-left">
+    <ul>
+      <li>Site-specific ones</li>
+      <li>Ones for homologous recombination</li>
+    </ul>
+    <figure class="fig dark"><img src="img/lox-excision-inversion.png" alt="Schematic of site-specific recombination showing excision and inversion outcomes"></figure>
+  </div>
+  <template class="notes">Recombination involves rearrangements in DNAs over homologous sequences. There are some recombinases that act on very specific sequences, while others are not specific about the sequence; they recombine similar sequences.</template>
+  <template class="desc">Section divider: Recombinases, split into site-specific enzymes and those for homologous recombination.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Cre Recombinase</h1>
+  <ul class="tighter">
+    <li>Recombines the Lox sequence: <code>ATAACTTCGTATA &ndash; ATGTATGC &ndash; TATACGAAGTTAT</code></li>
+    <li>Parallel sites in a DNA result in excision</li>
+    <li>Antiparallel sites result in inversion</li>
+    <li>Often used for &ldquo;floxing&rdquo; a gene</li>
+    <li>Many similar systems exist including the Flp/FRT and Hin/hix systems</li>
+  </ul>
+  <svg viewBox="0 0 1600 900" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none">
+    <g fill="none" stroke="#111" stroke-width="3">
+      <line x1="250" y1="560" x2="720" y2="560"/><line x1="880" y1="560" x2="1350" y2="560"/>
+      <line x1="250" y1="800" x2="720" y2="800"/><line x1="880" y1="800" x2="1350" y2="800"/>
+    </g>
+    <g fill="#3e5c8a">
+      <path d="M280 546h56l22 14-22 14h-56z"/><path d="M640 546h56l22 14-22 14h-56z"/>
+      <path d="M910 546h56l22 14-22 14h-56z"/><path d="M1348 574h-56l-22-14 22-14h56z"/>
+      <path d="M300 786h56l22 14-22 14h-56z"/><path d="M600 786h56l22 14-22 14h-56z"/>
+      <path d="M910 786h56l22 14-22 14h-56z"/><path d="M1348 814h-56l-22-14 22-14h56z"/>
+    </g>
+    <g fill="#c1272d">
+      <path d="M400 534h150l30 26-30 26h-150z"/>
+      <path d="M1030 534h150l30 26-30 26h-150z"/>
+      <path d="M1210 774h-150l-30 26 30 26h150z"/>
+    </g>
+    <g fill="none" stroke="#767676" stroke-width="3">
+      <path d="M500 620v110M486 706l14 24 14-24"/>
+      <path d="M1110 620v110M1096 706l14 24 14-24"/>
+    </g>
+    <g font-family="inherit" font-size="24" fill="#767676" text-anchor="middle">
+      <text x="500" y="510">parallel sites &rarr; excision</text>
+      <text x="1110" y="510">antiparallel sites &rarr; inversion</text>
+    </g>
+  </svg>
+  <template class="notes">Cre recombinase comes from the E. coli phage P1 and recognizes a 34bp sequence and recombines two of them. The site is not palindromic, and thus is not the same sequence on both strands and it has directionality. For a DNA containing two such sites, they can be arranged in the same orientation, called parallel, or on opposing strands called antiparallel. Parallel site recombination, topologically speaking, results in excision of any intermediate sequence while antiparallel sites undergo inversion. Such flipping systems are popular targets for controlling gene expression. Floxing a gene means to encode a gene flanked by lox sites into the genome of a cell. Through later expression of cre in the cell, that gene is excised and thereby deleted.</template>
+  <template class="desc">Two schematics side by side. On the left, two lox sites pointing the same way flank a gene; recombination excises the gene. On the right, the lox sites point in opposite directions; recombination inverts the gene instead.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Phage <em>att</em> Sites</h1>
+  <div class="cols wide-left">
+    <ul class="tighter">
+      <li>Most common from phi80, lambda, HK022, P21, P22, and phiC31 lysogenic and integrative phages</li>
+      <li>The lox-like components are called <em>att</em> sites, but much longer</li>
+      <li>The cre-like components are called Int recombinases or integrases</li>
+      <li>They also can include Xis protein, which switches the preferred directionality</li>
+      <li>Used for integrating DNAs into the genome</li>
+      <li>Used in the Gateway reaction</li>
+    </ul>
+    <figure class="fig dark"><img src="img/phage-lambda-att.png" alt="Phage lambda attP recombining with the E. coli genome attB site to give attL and attR"></figure>
+  </div>
+  <template class="notes">Another popular sequence-specific recombinase type are phage att sites. Most of these recombinases act on asymmetric substrates and thus the reaction has directionality. In the most popular system, from lambda phage, a DNA with the attP sequence is recombined with a DNA such as the genome with an attB sequence. The resulting sequences are named attL and attR and are different sequences than attP and attB. Thus, the reaction is not symmetric and can be driven in one direction or the other. The recombinase component is called the Int recombinase, and then there is a second protein called Xis which upon expression reverses the directionality of the reaction. These enzymes are used in some methods of genome engineering, the Gateway cloning method of moving DNAs from one DNA to another, and in several genetic circuits for digitally controlling gene expression.</template>
+  <template class="desc">Phage att sites, illustrated with lambda attP recombining into the E. coli genome attB site to produce attL and attR — a directional reaction reversed by the Xis protein.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Homologous Recombination</h1>
+  <ul class="tighter">
+    <li>Yeast and <em>B. subtilis</em> readily catalyze homologous recombination</li>
+    <li><em>E. coli</em> requires additional genes for it to be efficient</li>
+    <li>The lambda Red genes (from lambda phage) are one such set of genes</li>
+    <li>Used for &ldquo;recombineering&rdquo; &mdash; recombination-based manipulation of the genome or plasmids in <em>E. coli</em></li>
+    <li>Often used for knocking out genes in <em>E. coli</em></li>
+    <li>Endogenous RecA protein is also involved in the reaction</li>
+    <li>RecA is a protein involved in DNA repair pathways that stabilizes single-stranded DNAs</li>
+    <li>RecA can also be used to promote homologous recombination <em>in vitro</em></li>
+  </ul>
+  <template class="notes">The other type of recombinases are sequence-independent and used primarily in vivo. Yeast and B. subtilis readily catalyze homologous recombination between two very similar sequences. E. coli can also do it, but requires additional genes for it to be efficient. This is most often satisfied by introduction of the lambda Red genes from lambda phage. This process is useful for recombineering, which is recombination-based manipulation of the genome or plasmids in E. coli using synthetic DNAs. The most common example involves deleting specific genes in the genome by recombination with an antibiotic selection marker flanked by sequences homologous to the gene. The cellular RecA protein is also involved in the reaction. In the cell it is involved in DNA repair pathways by stabilizing single-stranded DNAs. RecA can also be used to promote homologous recombination in vitro, forming the basis of some DNA fabrication methods.</template>
+  <template class="desc">Homologous recombination: efficient in yeast and B. subtilis, needing lambda Red genes in E. coli, and the basis of recombineering.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
