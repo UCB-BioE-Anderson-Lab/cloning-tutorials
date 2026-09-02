@@ -256,9 +256,20 @@ else; monospace appears only for sequence and code, where character alignment is
   <tr><td>Captions, sources</td><td>sans</td><td>18&ndash;22</td><td>muted; never load-bearing</td></tr>
 </table>
 
-<div class="req"><b>Required</b><br><b>Minimum body type is 1/30 of slide height</b> — 30 units
-in the 900-unit box. Sizes below that are permitted only for captions that repeat information
-available elsewhere. If body text must shrink to fit, the slide has too much on it.</div>
+<div class="req"><b>Required</b><br><b>Body type is 1/30 of slide height</b> — 30 units in the
+900-unit box, which is what <code>.slide p</code> and <code>.slide li</code> already set. That is the
+size a claim is made at, and anything the back row must read sits at it.</div>
+
+<p>The deck also ships two <b>density escapes</b> — <code>.tight</code> at 26 and
+<code>.tighter</code> at 23 — and they are honest about what they are: a way to fit more on a
+slide than belongs there. They are legitimate for supporting bullets and reference tables. They
+are not legitimate for the sentence that carries the slide, and reaching for one is a signal to
+ask whether the slide should split instead.</p>
+
+<div class="req"><b>Required</b><br><b>An annotation is never smaller than what it annotates.</b>
+A label explaining a sequence block set at 26 does not sit at 24. This rule catches the common
+case that a flat floor misses: text that is legible in absolute terms but reads as subordinate to
+the thing it is supposed to explain.</div>
 
 <ul>
   <li>Bold for emphasis; italic for genus, species and Latin terms. Never underline — it reads
@@ -343,7 +354,20 @@ of the duplex, and two separate molecules never touch end to end.</figcaption>
   <li>A strand never branches from its middle. Tails leave from an <b>end</b>.</li>
   <li>Every diagram declares polarity somehow: barbs, or 5&prime;/3&prime; labels.</li>
   <li>A sequence label sits on the strand it describes.</li>
+  <li><b>RNA is drawn as a wave</b> wherever it appears as a line, so it separates from
+      DNA by shape and label rather than by colour alone.</li>
 </ul></div>
+
+<div class="open"><b>The one licensed exception</b>
+<p style="margin:8px 0 0">A borrowed figure may break these rules when breaking them
+<i>is</i> the lesson. <code>img/dna-backbone-bond.png</code>, the atomic backbone drawing
+reused across four sections, carries two full-headed grey arrows that run 3&prime;&rarr;5&prime;
+&mdash; and one slide exists purely to ask whether they run 5&prime;&rarr;3&prime;, so that
+students discover they do not. Both arrowheads sit at 5&prime; ends, so no 3&prime; terminus
+is marked with a full arrow and the barb rule survives intact.</p>
+<p style="margin:8px 0 0">The general principle: before correcting a convention violation in
+inherited material, establish what the violation is <i>doing</i>. A rule enforced against its
+own purpose is worse than the inconsistency it removes.</p></div>
 
 <h4>Letters or lines?</h4>
 <p>Use <b>letters</b> when a position is the point — a start site, a mismatch, a recognition
