@@ -128,12 +128,37 @@ function go(i, animated){
   }
 
   index = i;
+  const st = steps[index];
   paintStep(index, animated);
   syncPanel();
 
   const ch = channels();
   document.getElementById("liveNote").textContent = ch.note;
   document.getElementById("liveDesc").textContent = ch.description;
+
+  /* 1.1.1 — sequence files mark their SVG aria-hidden, so the animation had no
+     text alternative at all: the desc existed only in an inert <template> and in
+     a live region, which is a transient announcement, never the image's name and
+     not re-readable.  Promote this step's desc to the accessible name of the
+     drawing on the visible slide.  Done here rather than in seq/*.js so every
+     sequence gets it without knowing about it. */
+  const onSlide = st.slide;
+  if (onSlide){
+    const fig = onSlide.querySelector("svg");
+    if (fig){
+      let alt = onSlide.querySelector(":scope > .svgalt");
+      if (!alt){
+        alt = document.createElement("div");
+        alt.className = "sr svgalt";
+        alt.id = "svgalt-" + Math.random().toString(36).slice(2, 9);
+        onSlide.appendChild(alt);
+      }
+      alt.textContent = ch.description || "";
+      fig.removeAttribute("aria-hidden");
+      fig.setAttribute("role", "img");
+      fig.setAttribute("aria-labelledby", alt.id);
+    }
+  }
   document.dispatchEvent(new CustomEvent("deck:step", { detail:{
     index:index, total:steps.length, section:si,
     note:ch.note, description:ch.description } }));
@@ -295,15 +320,15 @@ function injectChrome(){
   app.innerHTML =
     '<div id="deck"><div id="stage"></div>' +
       '<div id="bar">' +
-        '<button id="prev" title="Previous (left arrow)">&#8249;</button>' +
+        '<button id="prev" aria-label="Previous step" title="Previous (left arrow)">&#8249;</button>' +
         '<span id="count"></span>' +
-        '<button id="nextb" title="Next (right arrow)">&#8250;</button>' +
+        '<button id="nextb" aria-label="Next step" title="Next (right arrow)">&#8250;</button>' +
         '<span class="sep"></span>' +
-        '<button id="bjump" title="Sections (G)">Sections</button>' +
+        '<button id="bjump" aria-expanded="false" title="Sections (G)">Sections</button>' +
         '<button id="bfull" aria-pressed="false" title="Full screen (F)">Full screen</button>' +
         '<button id="bpres" aria-pressed="false" title="Presenter view (P)">Presenter</button>' +
         '<button id="bwcag" aria-pressed="false" title="Text channels (W)">Text</button>' +
-        '<button id="bhelp" title="Shortcuts (?)">?</button>' +
+        '<button id="bhelp" aria-label="Keyboard shortcuts" aria-expanded="false" title="Shortcuts (?)">?</button>' +
       '</div>' +
       '<div id="help" class="overlay"><dl>' +
         '<dt>right / down / space</dt><dd>Next</dd>' +
@@ -324,7 +349,7 @@ function injectChrome(){
       '<div id="psection"></div>' +
       '<div class="chan note"><h2>Narration</h2><p id="pnote"></p></div>' +
       '<div class="chan"><h2>Visual description</h2><p id="pdesc"></p></div>' +
-      '<div id="nextwrap"><h2>Next</h2><div id="nextshot"></div><div id="nextnote"></div></div>' +
+      '<div id="nextwrap"><h2>Next</h2><div id="nextshot" aria-hidden="true" inert></div><div id="nextnote"></div></div>' +
       '<div id="speakrow"><button id="bspeak" aria-pressed="false">Speak channels</button></div>' +
     '</aside>';
   document.body.insertBefore(app, document.body.firstChild);
@@ -348,6 +373,10 @@ document.addEventListener("DOMContentLoaded", function(){
   const help = document.getElementById("help"), jump = document.getElementById("jump");
   const bar = document.getElementById("bar");
   let hideT = null;
+  document.addEventListener("focusin", function(e){
+    if (e.target.closest && e.target.closest("#bar")) poke();
+  });
+
   function poke(){
     bar.classList.add("show");
     clearTimeout(hideT);
@@ -360,8 +389,10 @@ document.addEventListener("DOMContentLoaded", function(){
   document.getElementById("bfull").onclick = function(e){ e.stopPropagation(); toggleFull(); };
   document.getElementById("bpres").onclick = function(e){ e.stopPropagation(); setMode(mode() === "presenter" ? "slide" : "presenter"); };
   document.getElementById("bwcag").onclick = function(e){ e.stopPropagation(); setMode(mode() === "wcag" ? "slide" : "wcag"); };
-  document.getElementById("bjump").onclick = function(e){ e.stopPropagation(); jump.classList.toggle("show"); };
-  document.getElementById("bhelp").onclick = function(e){ e.stopPropagation(); help.classList.toggle("show"); };
+  document.getElementById("bjump").onclick = function(e){ e.stopPropagation();
+    this.setAttribute("aria-expanded", String(jump.classList.toggle("show"))); };
+  document.getElementById("bhelp").onclick = function(e){ e.stopPropagation();
+    this.setAttribute("aria-expanded", String(help.classList.toggle("show"))); };
   document.getElementById("bspeak").onclick = function(e){ e.stopPropagation(); setSpeak(!speaking); };
 
   // Clicking the slide does NOT advance — a stray click on a projector or
@@ -374,7 +405,17 @@ document.addEventListener("DOMContentLoaded", function(){
 
   document.addEventListener("keydown", function(e){
     if (e.metaKey || e.ctrlKey || e.altKey) return;
+    /* 2.1.4 — s and g are live browse-mode keys in NVDA and JAWS.  Never take a
+       single unmodified key while the user is typing or reading a scrollable
+       panel. */
+    if (e.target.closest && e.target.closest("input,textarea,select,[contenteditable]")) return;
+    poke();                       /* 2.1.1 — the control bar must be reachable
+                                     without a mouse; it only ever showed on
+                                     mousemove and hid itself after 2.6s */
+    const inPanel = e.target.closest && e.target.closest("#panel");
     const k = e.key;
+    if (inPanel && (k === " " || k === "PageDown" || k === "PageUp" ||
+                    k === "Home" || k === "End" || k === "ArrowUp" || k === "ArrowDown")) return;
     if (k === "ArrowRight" || k === "ArrowDown" || k === " " || k === "PageDown" || k === "n"){ go(index + 1); e.preventDefault(); }
     else if (k === "ArrowLeft" || k === "ArrowUp" || k === "PageUp" || k === "Backspace"){ go(index - 1); e.preventDefault(); }
     else if (k === "Home"){ go(0); e.preventDefault(); }
