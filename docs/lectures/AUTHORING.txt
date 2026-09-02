@@ -13,6 +13,10 @@ Do NOT add .md files under docs/lectures/. MkDocs would build them into real
 site pages and index them for search, which is exactly what we don't want.
 That is why this file is .txt.
 
+The source PowerPoint decks live OUTSIDE docs/, in lectures-src/, for the
+same reason: anything under docs/ is copied to the public site, and a 1.6 MB
+binary does not need to ship with every deploy.
+
 Live URL:  https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/lectures/
 Local:     mkdocs serve  ->  http://127.0.0.1:8000/cloning-tutorials/lectures/
 
