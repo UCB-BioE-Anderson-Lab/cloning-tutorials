@@ -9,7 +9,7 @@
  *
  * Convention: every 3' end carries a HALF BARB, laid back from the tip
  * on the outer side of the duplex.  Pre-existing DNA is black; newly
- * synthesised strand (or RNA) is slate.
+ * synthesised strand (or RNA) is blue.
  * ------------------------------------------------------------------ */
 (function(){
 "use strict";

@@ -16,7 +16,7 @@
  *   dpni    the inversion.  DpnI cuts ONLY methylated GATC, so it can
  *           tell an old plasmid from a new one.  Level 3 again.
  *
- * Colour, per the attention ladder: the METHYL MARK is vermillion on
+ * Colour, per the attention ladder: the METHYL MARK is red on
  * every one of these (it is what the section is about); blue is the
  * molecule whose fate the viewer is following; everything else is ink.
  * Every colour distinction is also carried by a word, per WCAG 1.4.1.
@@ -130,11 +130,11 @@ function methyl(x, y, dx, dy){
     { ph:0, gap:0,
       cap:"the host writes a methyl at every copy of its own recognition site",
       note:"Restriction enzymes did not evolve so that you could clone. They are an immune system. A bacterium carrying a restriction enzyme also carries a methyltransferase with the same specificity, and that methyltransferase marks every copy of the site in the host's own chromosome. Two marks per site, one on each strand, because the site is double stranded.",
-      desc:"A long double-stranded DNA drawn as two black lines, the host chromosome. Four recognition sites are marked by pairs of vertical ticks. At every site a vermillion dot on a short stalk stands off each strand: the methyl groups." },
+      desc:"A long double-stranded DNA drawn as two black lines, the host chromosome. Four recognition sites are marked by pairs of vertical ticks. At every site a red dot on a short stalk stands off each strand: the methyl groups." },
     { ph:1, gap:0,
       cap:"phage DNA arrives carrying the same sites and no marks",
       note:"Then a phage injects its genome. It has the same sequence at those sites — sequence is not what distinguishes it — but it was made inside a different cell, so it carries none of this host's marks. That absence is the only difference between the two molecules on this slide.",
-      desc:"A second double-stranded DNA appears below the first, drawn in blue: the incoming phage genome. It has ticks at the same four site positions, but no vermillion dots anywhere." },
+      desc:"A second double-stranded DNA appears below the first, drawn in blue: the incoming phage genome. It has ticks at the same four site positions, but no red dots anywhere." },
     { ph:1, gap:1,
       cap:"the endonuclease cuts unmarked sites only: self is spared, non-self is destroyed",
       note:"The restriction endonuclease is loose in the same cytoplasm as both molecules. It cuts the phage DNA to pieces and leaves the chromosome alone, and the thing it is discriminating on is not sequence — it is the annotation. That is self versus non-self, and it is the reason there is a catalogue of restriction enzymes to buy from at all.",
@@ -285,7 +285,7 @@ function methyl(x, y, dx, dy){
     { face:0,
       cap:"one carbon, hung on the outside of a base",
       note:"Down to the atom, this is the entire modification: one methyl group, carried in from S-adenosylmethionine and left on a base. Dam puts it on the exocyclic nitrogen of adenine — position N6 — inside GATC. Dcm puts it on ring carbon five of cytosine inside CCWGG. Restriction-modification systems often use a third position instead, N4 of cytosine. Three places, one carbon each.",
-      desc:"Two skeletal structures. On the left, adenine: a six-membered ring fused to a five-membered ring, nitrogens labelled, with an exocyclic nitrogen at the top carrying a hydrogen and, in vermillion, a methyl group labelled methyl at N6. On the right, cytosine: a six-membered ring with an oxygen at position two, an exocyclic nitrogen at the top, and two vermillion methyl groups marked methyl at N4 and methyl at C5." },
+      desc:"Two skeletal structures. On the left, adenine: a six-membered ring fused to a five-membered ring, nitrogens labelled, with an exocyclic nitrogen at the top carrying a hydrogen and, in red, a methyl group labelled methyl at N6. On the right, cytosine: a six-membered ring with an oxygen at position two, an exocyclic nitrogen at the top, and two red methyl groups marked methyl at N4 and methyl at C5." },
     { face:1,
       cap:"the pairing face is untouched &mdash; the methyl points into the major groove, where proteins read",
       note:"Now look at where the methyls are not. The Watson-Crick face — N1 and the remaining N6 hydrogen on adenine, the O2, N3 and N4 hydrogen on cytosine — is bracketed here and none of the methyls sit on it. Methyladenine still pairs with T. Methylcytosine still pairs with G. Sequence the plasmid and you will get exactly the same letters back. The methyl sticks out into the major groove, which is where proteins read DNA, so the only thing it changes is which enzymes are allowed to act. That is what makes methylation an annotation layer rather than a change of sequence.",
@@ -354,15 +354,15 @@ function methyl(x, y, dx, dy){
     { prod:0, gap:0,
       cap:"the template came out of a dam+ E. coli, so every GATC in it already carries a methyl",
       note:"Site-directed mutagenesis by PCR. You start with the plasmid you already have, and it was grown in an ordinary lab strain, so Dam has methylated the adenine in every GATC in it. You did not ask for that and it is not in your sequence file, but it is there.",
-      desc:"A black circle on the left: the template plasmid. Five vermillion dots on short stalks stand off the ring, the methylated GATC sites." },
+      desc:"A black circle on the left: the template plasmid. Five red dots on short stalks stand off the ring, the methylated GATC sites." },
     { prod:1, gap:0,
       cap:"PCR copies it from dNTPs: the same plasmid, one base changed, and no marks anywhere",
       note:"You amplify the whole plasmid with primers carrying your mutation. The new molecule is built from free nucleotides, so nothing methylates it — there is no methyltransferase in the tube. Now you have a problem. Both molecules are in the same tube, they are the same length, and they differ at one base. You cannot separate them by size, and you cannot separate them by sequence.",
-      desc:"A blue circle appears on the right: the PCR product. It is drawn with a small gap at the top labelled nick, and an ink cross on the ring labelled the mutation. It carries no vermillion dots." },
+      desc:"A blue circle appears on the right: the PCR product. It is drawn with a small gap at the top labelled nick, and an ink cross on the ring labelled the mutation. It carries no red dots." },
     { prod:1, gap:1,
       cap:"DpnI cuts GA/TC only when that A is methylated: the template is destroyed, the product is not",
       note:"So you separate them on the annotation. DpnI is a restriction enzyme whose site is GATC, but it only cuts when the adenine is methylated — the exact inverse of the enzymes that methylation blocks. Add DpnI and it shreds the template you started with and never touches the product you just made. An enzyme used to tell old DNA from new. This is the step that makes QuikChange-style mutagenesis work, and if you skip it your transformation comes back full of the original plasmid.",
-      desc:"The black template circle has broken into five separate arcs with gaps, cut at each vermillion mark, which remain. The blue product circle on the right is untouched." }
+      desc:"The black template circle has broken into five separate arcs with gaps, cut at each red mark, which remain. The blue product circle on the right is untouched." }
   ];
 
   window.Deck.sequence("dpni", function(slide){

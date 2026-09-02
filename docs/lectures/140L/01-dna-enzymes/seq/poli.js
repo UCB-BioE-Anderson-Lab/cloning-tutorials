@@ -104,7 +104,7 @@ window.Deck.sequence("polI", function(slide){
     const to=S[i].s;
     if(raf){cancelAnimationFrame(raf);raf=null;}
     r.cap.innerHTML=S[i].cap; r.row.innerHTML=S[i].row;
-    if(S[i].lab) r.bracelab.innerHTML=S[i].lab;
+    r.bracelab.innerHTML = S[i].lab || "";   /* must clear, or a stale label survives */
     if(!cur||animated===false||reduce.matches){cur=Object.assign({},to);paint(cur);return;}
     const from=Object.assign({},cur), t0=performance.now(), dur=760;
     const ease=t=>t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;

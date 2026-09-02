@@ -22,7 +22,7 @@ const STEPS = [
     desc:"A single circular DNA template, drawn as one black ring." },
   { prog:26, snap:true,
     note:"An oligo that is homologous to the DNA but contains a mutation designated by the red X is annealed to the DNA. It then undergoes polymerization around the circle.",
-    desc:"A short slate oligonucleotide has annealed at the top of the circle. A red X marks the mutation it carries. Its 3' end has a half barb pointing clockwise." },
+    desc:"A short blue oligonucleotide has annealed at the top of the circle. A red X marks the mutation it carries. Its 3' end has a half barb pointing clockwise." },
   { prog:MAXARC,
     note:"This DNA is then transformed into E. coli which can repair the nick. If a different polymerase were used that did strand displacement or exo, the X would become dislodged or degraded, and would not be incorporated into the final sequence.",
     desc:"The new strand has gone all the way round and stopped at its own 5' end, leaving a nick. Because T4 polymerase neither displaces nor degrades, the mutation is retained." }

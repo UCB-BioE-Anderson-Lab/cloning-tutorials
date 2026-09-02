@@ -100,7 +100,7 @@ function mark5(id){
 function place(el, p){ el.setAttribute("transform", "translate("+n2(p[0])+" "+n2(p[1])+")"); }
 function op(el, v){ el.setAttribute("opacity", n2(Math.max(0, Math.min(1, v)))); }
 
-/* A vermillion call-out: a word and a leader line to what it names. */
+/* A red call-out: a word and a leader line to what it names. */
 function callout(id, tx, ty, lx1, ly1, lx2, ly2, txt){
   return '<g data-r="lab_'+id+'" opacity="0">'+
     '<path d="M'+lx1+' '+ly1+'L'+lx2+' '+ly2+'" fill="none" stroke="'+RED+

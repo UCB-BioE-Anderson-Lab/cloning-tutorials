@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Kinases &mdash; DNA Manipulation Enzymes</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>Kinases</h1>
+  <p>An alcohol attacks ATP&rsquo;s &gamma; phosphate. The 5&rsquo; phosphate goes back on.</p>
+  <template class="notes">You met the other half of this under hydrolysis, and this is not simply the reverse reaction. A phosphatase hydrolyses: water attacks, the bond is destroyed. A kinase transphosphorylates: the five prime hydroxyl attacks the gamma phosphate of ATP and the bond is moved, not made from nothing. Same phosphate, same position on the molecule, opposite directions — and two different mechanisms. That is the clearest case in this lecture that adding and removing are not mirror images.</template>
+  <template class="desc">Section divider: Kinases. A hydroxyl attacks the gamma phosphate of ATP, transferring it to the 5-prime end.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">T4 Polynucleotide Kinase (PNK)</h1>
+  <div class="cols wide-left">
+    <ul class="tighter">
+      <li>Transfers a single phosphate onto the 5&rsquo; hydroxyl of an RNA or DNA</li>
+      <li>The source is the <b>gamma</b> phosphate of ATP &mdash; the terminal one</li>
+      <li>Used on synthetic oligonucleotides so that they can be substrates for ligase</li>
+      <li>Fastest on single-stranded 5&rsquo; ends; blunt and recessed duplex ends need more enzyme and more time</li>
+      <li>Also puts a defined or radioactive 5&rsquo; end on an oligo, using [gamma-<sup>32</sup>P] ATP</li>
+    </ul>
+    <figure class="fig dark"><img src="img/atp-gamma-phosphate.png" alt="ATP with its three phosphates, the terminal gamma phosphate highlighted"></figure>
+  </div>
+  <template class="notes">T4 polynucleotide kinase transfers a single phosphate to the 5’ hydroxyl of an RNA or DNA from ATP. It is the gamma phosphate of ATP, the terminal one, that gets transferred — the same terminal position a polymerase throws away as pyrophosphate, here handed to a hydroxyl instead. The enzyme is most commonly used to phosphorylate synthetic oligonucleotides so that they can be substrates for ligase. It is fastest on single-stranded 5’ ends; blunt and especially recessed 5’ ends of a duplex are phosphorylated slowly, so for a PCR product you use more enzyme and give it longer. The other job is labelling: with gamma-32-P ATP it puts a radioactive phosphate on a 5’ end, which is how oligos were end-labelled for gel-shift and footprinting work.</template>
+  <template class="desc">T4 PNK transfers the terminal gamma phosphate of ATP onto a 5-prime hydroxyl, shown beside the structure of ATP.</template>
+</article>
+
+<article class="slide">
+  <div class="q">Where is the phosphate&hellip; being added by T4 PNK?</div>
+  <figure class="fig"><img src="img/dna-backbone-bond.png" alt="Chemical structure of the DNA backbone with the 5-prime oxygen indicated"></figure>
+  <template class="notes">It adds phosphates to 5’ ends of a DNA. This diagram doesn’t actually show this — it implies that this 5’ O is attached to another nucleotide. If this was the end of the molecule, and it were an H attached, then this would be a 5’-OH and would be phosphorylated. Note that when we cut a DNA with a nuclease, we are breaking the bond between the 3’-OH and the 5’-phosphate. The resulting state of the newly generated 5’ end is thus a 5’-phosphate, not a 5’-OH. Thus it is in the state that would result from treatment of a naked 5’-OH with PNK. Often what you use PNK for is to phosphorylate oligos such that their end is 5’-phosphate. It needs that to undergo ligation.</template>
+  <template class="desc">The backbone structure again. The phosphate PNK adds sits on the 5-prime oxygen — but only where that oxygen carries a free hydroxyl at the end of the molecule, which this internal view does not show.</template>
+</article>
+
+<article class="slide" data-seq="pcrphos">
+  <h1 class="small">A PCR product carries no 5&rsquo; phosphate</h1>
+  <ul class="tight"><li>Digest it and the cut makes new 5&rsquo; phosphates &mdash; blunt and whole-plasmid ligations are what bite</li></ul>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/phosphate.js" defer></script>
+</body>
+</html>

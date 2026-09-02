@@ -16,7 +16,7 @@ const CY = 540;
 const HOME = 800;           // centred, before the strands are separated
 const LEFT = 560, RIGHT = 1040;   // where the two strands settle
 const R_T = 190;            // template strand (black, inner)
-const R_N = 214;            // partner / new strand (slate, outer)
+const R_N = 214;            // partner / new strand (blue, outer)
 const MAXARC = 350;         // a lap, with a visible break at the junction
 
 const INK = "#111111", SLATE = "#004373", RED = "#ba3a13";
@@ -129,13 +129,13 @@ const RCR_KEYS = ["tx","px","partner","prog","tailLen","five"];
 const RCR = [
   { s:{ tx:HOME, px:HOME, partner:1, prog:0, tailLen:0, five:0 },
     note:"Rolling circle replication. The template is a closed circular DNA — two strands, drawn here as two rings.",
-    desc:"A circular double-stranded DNA at the centre of the slide, drawn as two concentric rings: the black template and the slate strand paired with it." },
+    desc:"A circular double-stranded DNA at the centre of the slide, drawn as two concentric rings: the black template and the blue strand paired with it." },
   { s:{ tx:LEFT, px:RIGHT, partner:1, prog:0, tailLen:0, five:0 },
     note:"First the DNA is denatured to separate the strands.",
-    desc:"One click pulls the two strands apart: the black template circle moves to the left, its slate partner to the right." },
+    desc:"One click pulls the two strands apart: the black template circle moves to the left, its blue partner to the right." },
   { s:{ tx:LEFT, px:RIGHT, partner:0, prog:30, tailLen:0, five:0 }, snap:["prog"],
     note:"An oligonucleotide anneals to the template, and that gives the polymerase a 3' end to initiate on.",
-    desc:"The partner strand is gone. A short slate oligo has annealed at the top of the template circle, its 3' end carrying a half barb pointing clockwise." },
+    desc:"The partner strand is gone. A short blue oligo has annealed at the top of the template circle, its 3' end carrying a half barb pointing clockwise." },
   { s:{ tx:LEFT, px:RIGHT, partner:0, prog:MAXARC, tailLen:0, five:0 },
     note:"The polymerase runs all the way around the circle until it reaches its own 5' end.",
     desc:"The new strand has been extended clockwise all the way round the template and has arrived back at its own 5' end." },

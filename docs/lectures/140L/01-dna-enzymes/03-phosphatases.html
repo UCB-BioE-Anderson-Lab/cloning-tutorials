@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Phosphatases &mdash; DNA Manipulation Enzymes</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>Phosphatases</h1>
+  <p>Water attacks the phosphate. The 5&rsquo; phosphate comes off &mdash; and a licence is revoked.</p>
+  <template class="notes">This is still hydrolysis. Water is the nucleophile, the bond is destroyed, and the phosphate ends up in solution rather than anywhere useful. What makes phosphatases worth a section is not the chemistry, which you have already seen twice, but the consequence: a five prime end without a phosphate cannot be ligated. Removing it is how you stop a molecule doing something you do not want it to do.</template>
+  <template class="desc">Section divider: Phosphatases. Water attacks the phosphate, removing it from the 5-prime end.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Alkaline Phosphatases</h1>
+  <div class="cols wide-left">
+    <ul class="tight">
+      <li>Catalyze the hydrolysis of phosphate esters non-specifically</li>
+      <li>Any exposed phosphate: 5&rsquo; ends of RNA or DNA, dNTPs, NTPs</li>
+      <li>They cannot tell your vector from your insert &mdash; which matters later</li>
+    </ul>
+    <figure class="fig dark"><img src="img/pnpp-phosphatase.png" alt="Alkaline phosphatase converting p-nitrophenyl phosphate to the yellow p-nitrophenolate"></figure>
+  </div>
+  <template class="notes">The most commonly used class of phosphatases are the alkaline phosphatases. They catalyze the hydrolysis of phosphate esters non-specifically. So, these enzymes are used outside the context of DNA manipulation. For example, you can react an alkaline phosphatase with p-nitrophenyl phosphate and release a yellow pigment that can be detected photometrically. The enzyme will act on any exposed nucleic acid phosphate such as the 5’ ends of nucleotides or polynucleotides. These enzymes are very common in nature, from both prokaryotic and animal sources. Hold on to the word non-specific. It is what makes the next slide work, and it is also what makes the slide after that a trap.</template>
+  <template class="desc">Alkaline phosphatases hydrolyse phosphate esters non-specifically, illustrated by the p-nitrophenyl phosphate assay that releases a yellow product.</template>
+</article>
+
+<article class="slide" data-seq="vecphos">
+  <h1 class="small">Why you phosphatase a vector</h1>
+</article>
+
+<article class="slide">
+  <h1 class="small">Three phosphatases, one difference that matters</h1>
+  <ul class="tight"><li>Phosphatase that survives into your ligation strips the phosphates you just paid for</li></ul>
+  <ul class="boxes">
+    <li><b>CIP &mdash; Calf Intestine Alkaline Phosphatase</b><ul class="tighter">
+      <li>Oldest, cheapest, most robust; the one every protocol names</li>
+      <li>Notoriously <em>not</em> killed by heat &mdash; you must column-purify or extract it away</li></ul></li>
+    <li data-build="1" data-note="Recombinant shrimp alkaline phosphatase and Antarctic phosphatase are killed by a short heat step, which is why they have largely displaced CIP for preparing a vector — you can inactivate and go straight into the ligation in the same tube. Antarctic phosphatase is claimed to be the more heat-labile of the two. One other use worth knowing: Exo-SAP, where you clean up a PCR reaction before cycle sequencing by destroying the leftover dNTPs with SAP and the leftover primers with Exonuclease I." data-desc="A second box appears: rSAP and Antarctic Phosphatase, which a short heat step inactivates cleanly, and which are also the basis of the exo-SAP clean-up."><b>rSAP and Antarctic Phosphatase</b><ul class="tighter">
+      <li>A short heat step inactivates them cleanly, so you can ligate in the same tube</li>
+      <li>Also the basis of exo-SAP: SAP destroys leftover dNTPs, Exonuclease I the leftover primers</li></ul></li>
+  </ul>
+  <template class="notes">The oldest, cheapest, and most well-known enzyme is calf intestine alkaline phosphatase, or CIP. The name means what it implies — it is a phosphatase originally isolated from calf intestine. But the property that should decide which one you reach for is not activity, it is how you get rid of it afterwards. Remember that this enzyme is non-specific. If any of it survives into your ligation, it will strip the 5’ phosphates off your insert, and you have then done to your insert exactly what you meant to do only to your vector. CIP is notorious for surviving heat inactivation, so with CIP you have to physically remove it, by column or by extraction.</template>
+  <template class="desc">Three alkaline phosphatases compared on the only property that matters practically: CIP is cheap but survives heat inactivation, while rSAP and Antarctic Phosphatase are heat-killed cleanly.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/phosphate.js" defer></script>
+</body>
+</html>

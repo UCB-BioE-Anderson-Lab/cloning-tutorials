@@ -117,7 +117,7 @@ const STEPS = [
   label: "ligase seals both nicks — one molecule",
   call:  "2 bonds, 2 ATP",
   note: "That is the substrate. At each nick a 3' hydroxyl and a 5' phosphate sit directly against one another with nothing in between. Be exact about the direction: the phosphate that ends up in the new bond is the one already sitting on the downstream 5' end, and the upstream 3' hydroxyl is the nucleophile that attacks it. Ligase spends one ATP to make that happen — it adenylylates itself, hands the AMP to the 5' phosphate to activate it, and the 3' hydroxyl then attacks and displaces the AMP. Two nicks, two bonds, two ATP, and the two molecules are one molecule. That ATP dependence is practical, not trivia: buffer that has been thawed twenty times has no usable ATP left in it, and a ligation in dead buffer fails silently.",
-  desc: "Both breaks close. Both strands now run continuously from one end to the other as a single molecule, with a half barb only at the two true 3-prime ends. Two short vermillion marks show where the new bonds were made." },
+  desc: "Both breaks close. Both strands now run continuously from one end to the other as a single molecule, with a half barb only at the two true 3-prime ends. Two short red marks show where the new bonds were made." },
 
 { s: mk(0, 6, 10,
         [LEFTX, NICK_T-HALF, GAP_R+HALF, RIGHTX,
@@ -125,7 +125,7 @@ const STEPS = [
   label: "one base missing — a gap, not a nick",
   call:  "polymerase first, then ligase",
   note: "Now the failure mode nobody sees coming. Take that same junction and remove a single base from the top strand. It looks almost the same, but it is not a nick, it is a gap, and T4 ligase cannot bridge it. There is no bond available to make: the 3' hydroxyl and the 5' phosphate are a whole nucleotide apart. A polymerase has to put the missing base in first, using the bottom strand as template, and only then can ligase seal the nick that remains. This is exactly the division of labour inside a Gibson reaction — exonuclease chews back, the ends anneal, polymerase fills the gaps, ligase seals the nicks — and it is why all three are in the tube. If you ever design an assembly where the ends anneal but a base is unaccounted for, you have designed a gap, and no amount of extra ligase will rescue it.",
-  desc: "The molecules stay annealed, but one letter is now missing from the top strand, leaving an empty position and a break several times wider than a nick. The unpaired base opposite it on the bottom strand is marked in vermillion with a dashed tick standing in for its missing partner." }
+  desc: "The molecules stay annealed, but one letter is now missing from the top strand, leaving an empty position and a break several times wider than a nick. The unpaired base opposite it on the bottom strand is marked in red with a dashed tick standing in for its missing partner." }
 ];
 
 const KEYS = Object.keys(STEPS[0].s);

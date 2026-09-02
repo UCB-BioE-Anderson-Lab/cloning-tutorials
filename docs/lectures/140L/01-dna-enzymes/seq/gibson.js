@@ -83,7 +83,7 @@ window.Deck.sequence("gibson", function(slide){
     ["blt","blb","brt","brb"].map(k =>
       '<path data-r="'+k+'" stroke="var(--blue)"/>').join("") +
     ["nwt","nwb"].map(k =>
-      '<path data-r="'+k+'" stroke="var(--vermillion)"/>').join("");
+      '<path data-r="'+k+'" stroke="var(--red)"/>').join("");
 
   svg.innerHTML =
     '<g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">' +
@@ -99,16 +99,16 @@ window.Deck.sequence("gibson", function(slide){
       'font-size="26" font-weight="700" fill="var(--blue)">overlap &mdash; the same sequence in both</text>' +
     '<g data-r="enzg" opacity="0">' +
       '<text data-r="enz" x="800" y="352" text-anchor="middle" font-family="inherit" ' +
-        'font-size="30" font-weight="700" fill="var(--vermillion)">T5 exonuclease &#183; 5&#8242;&rarr;3&#8242;</text>' +
+        'font-size="30" font-weight="700" fill="var(--red)">T5 exonuclease &#183; 5&#8242;&rarr;3&#8242;</text>' +
       /* struck through when T5 is heat-killed; x range is the measured
          width of the label above, 332 units, plus a little overhang */
-      '<path data-r="kill" d="M624 343H976" fill="none" stroke="var(--vermillion)" ' +
+      '<path data-r="kill" d="M624 343H976" fill="none" stroke="var(--red)" ' +
         'stroke-width="3" stroke-linecap="round" opacity="0"/>' +
     '</g>' +
     '<text data-r="cap" x="800" y="712" text-anchor="middle" font-family="inherit" ' +
       'font-size="30" font-weight="700" fill="var(--ink)"></text>' +
     '<text data-r="call" x="800" y="784" text-anchor="middle" font-family="inherit" ' +
-      'font-size="32" font-weight="700" fill="var(--vermillion)"></text>';
+      'font-size="32" font-weight="700" fill="var(--red)"></text>';
 
   slide.appendChild(svg);
   const r = {};
@@ -190,7 +190,7 @@ window.Deck.sequence("gibson", function(slide){
     { s:{sep:0, chew:1, close:1, enz:1, dead:0, mark:0},
       cap:"Phusion fills the gaps · Taq ligase seals the nicks", call:"",
       note:"Now the other two enzymes in the tube. Each gap presents a recessed three prime end sitting on a template, which is precisely what a DNA polymerase wants, so Phusion extends both and fills them. That leaves a nick in each strand, and Taq ligase seals those. The result is one covalently closed molecule.",
-      desc:"New DNA drawn in vermillion fills each gap and the strands are continuous again: one double-stranded molecule across the whole join, still carrying a single-stranded 3-prime tail at each far end." },
+      desc:"New DNA drawn in red fills each gap and the strands are continuous again: one double-stranded molecule across the whole join, still carrying a single-stranded 3-prime tail at each far end." },
 
     { s:{sep:0, chew:1, close:1, enz:1, dead:1, mark:0},
       cap:"one tube, 50 degrees, one incubation",

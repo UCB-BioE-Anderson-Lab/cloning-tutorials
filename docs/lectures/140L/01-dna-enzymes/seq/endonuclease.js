@@ -124,7 +124,7 @@ const XL = LX - ST, XR = LX + 12*ST;    /* where the 5'/3' labels sit */
 const site = c => c >= 3 && c <= 8;
 const colA = c => site(c) ? BLUE : INK;
 
-/* the four unpaired columns get a blue copy and a vermillion copy,
+/* the four unpaired columns get a blue copy and a red copy,
    cross-faded, so "these four are now the point" is a colour change
    on top of a change in shape (they stick out) — never colour alone. */
 function overhang(idBlue, idRed, str, y){
@@ -212,13 +212,13 @@ const S = [
   ann:'both strands, read 5&#8242;&#8594;3&#8242;: <tspan font-family="' + MONO +
       '" font-weight="700" fill="' + BLUE + '">GAATTC</tspan>',
   note:"Read the top strand: G A A T T C. Now read the bottom strand five prime to three prime, which is right to left here: G A A T T C again. That is what palindrome means in this business — not a word that reads the same backwards, but a sequence that is its own reverse complement. And there is a reason the sites look like this. EcoRI is a homodimer, two identical subunits related by a two-fold axis, and each subunit reads and cuts one strand. If the two subunits are identical then the two strands have to present them the same sequence. So the site has no choice but to be a palindrome. That one sentence explains the form of essentially every Type Two site in the catalogue.",
-  desc:"A twelve base pair duplex written as letters, the six base site GAATTC picked out in blue on both strands. A tinted envelope sits over the site with a dashed vertical line down its centre marking the two-fold axis, and a short vermillion tick marks the bond each half of the enzyme breaks: one on the top strand left of centre, one on the bottom strand right of centre. A line below reads: both strands, read five prime to three prime, GAATTC." },
+  desc:"A twelve base pair duplex written as letters, the six base site GAATTC picked out in blue on both strands. A tinted envelope sits over the site with a dashed vertical line down its centre marking the two-fold axis, and a short red tick marks the bond each half of the enzyme breaks: one on the top strand left of centre, one on the bottom strand right of centre. A line below reads: both strands, read five prime to three prime, GAATTC." },
 
 { st:{sep:1, env:0, axis:1, oh:1, p:0, nick:0, blunt:0},
   cap:"an off-axis cut leaves an overhang",
   ann:"four unpaired bases on each end &mdash; a 5&#8242; AATT overhang",
   note:"Each subunit cuts between the G and the A of the strand it is holding. Because the two subunits sit on opposite sides of the axis, the two cuts land two bases either side of it, and the ends come out staggered rather than flush. Four bases at each end are left with no partner. Those four are a five prime overhang — five prime because on each fragment the strand that sticks out is the one whose five prime end is at the cut. Get the polarity right in your head now, because it is what decides whether two ends can be joined.",
-  desc:"The duplex has separated into two fragments with a clear gap between them, the dashed axis sitting in the middle of that gap. Each cut end is staggered: four bases stand unpaired in vermillion, on the bottom strand of the left fragment and on the top strand of the right fragment." },
+  desc:"The duplex has separated into two fragments with a clear gap between them, the dashed axis sitting in the middle of that gap. Each cut end is staggered: four bases stand unpaired in red, on the bottom strand of the left fragment and on the top strand of the right fragment." },
 
 { st:{sep:1, env:0, axis:1, oh:1, p:0, nick:0, blunt:1},
   cap:"an on-axis cut leaves a blunt end",
@@ -230,7 +230,7 @@ const S = [
   cap:"the overhang finds a partner",
   ann:"joined by four base pairs &mdash; the backbone is still nicked",
   note:"And here is why anyone cares. AATT is its own complement, so an EcoRI end will base pair with any other EcoRI end — from this plasmid, from a PCR product, from an organism that has never met this one. That is the whole trick of cloning, and it is the reason this course exists. Notice exactly what you have after annealing: four base pairs holding two molecules together, and two breaks in the backbone that are still open. Those are nicks, and sealing them is the ligase's job. A blunt end can also be ligated, but nothing holds the two pieces together while the ligase finds them, which is why blunt ligations are so much less efficient.",
-  desc:"The lower duplex is gone. A different left hand fragment has arrived and its four unpaired bases have paired with the four on the right hand fragment, closing the gap into a continuous run of letters. Two short vermillion ticks, one on each strand at opposite ends of those four base pairs, mark the two remaining breaks in the backbone." }
+  desc:"The lower duplex is gone. A different left hand fragment has arrived and its four unpaired bases have paired with the four on the right hand fragment, closing the gap into a continuous run of letters. Two short red ticks, one on each strand at opposite ends of those four base pairs, mark the two remaining breaks in the backbone." }
 ];
 
 window.Deck.sequence("ecori", function(slide){
@@ -290,7 +290,7 @@ const site = c => c >= 3 && c <= 8;
 const colS = c => site(c) ? BLUE : INK;
 
 /* columns 10-13 exist three times over: as plain sequence, as the
-   vermillion overhang, and as a DIFFERENT vermillion overhang — the
+   red overhang, and as a DIFFERENT red overhang — the
    third is the whole argument of the slide. */
 function oh(ids, str, alt, y){
   return mono(ids[0], FS, row(str, 10, LX, ST, y, () => INK)) +
@@ -340,19 +340,19 @@ const S = [
   cap:"the site is here; the cut is over there",
   ann:"BsaI &nbsp;GGTCTC (1/5) &mdash; one base out on top, five on the bottom",
   note:"BsaI is a Type Two S enzyme, and the S is the entire story. Its site is GGTCTC, and notice straight away that it is not a palindrome: the bottom strand reads GAGACC. An asymmetric site has a direction, and BsaI uses that direction — it binds here and cuts over there, downstream, on sequence it does not read at all. In these enzymes the piece of protein that recognises the site and the piece that does the chemistry are separate domains, which is how they can be in two different places. The catalogue writes it GGTCTC one slash five: one base past the site on the top strand, five bases past on the bottom.",
-  desc:"A seventeen base pair duplex written as letters. The six letters GGTCTC are blue and underlined, labelled recognition site. Two vermillion ticks mark where the enzyme cuts, one on the top strand one base past the site and one on the bottom strand five bases past. Below the duplex, two measured lines run from the edge of the site out to each cut, labelled 1 and 5." },
+  desc:"A seventeen base pair duplex written as letters. The six letters GGTCTC are blue and underlined, labelled recognition site. Two red ticks mark where the enzyme cuts, one on the top strand one base past the site and one on the bottom strand five bases past. Below the duplex, two measured lines run from the edge of the site out to each cut, labelled 1 and 5." },
 
 { st:{sep:1, cut:0, red:1, alt:0, brace:0},
   cap:"the site leaves with the piece you throw away",
   ann:"a 4-base 5&#8242; overhang &mdash; and no GGTCTC left in the product",
   note:"It cuts, and two things happen that do not happen with EcoRI. First, you still get a four base five prime overhang, because one and five differ by four; so far, nothing new. Second, and this is the part people miss the first time: the recognition site went with the left hand fragment. The piece you are keeping has no GGTCTC anywhere in it. Put a site at each end of your part, pointing inward, and both sites are cut off. There is nothing left behind to make a scar.",
-  desc:"The duplex has separated into two fragments with a clear gap. The blue recognition site and its label have travelled with the left fragment. Four bases stand unpaired in vermillion at each cut end: g a t c on the top strand of the right fragment, c t a g on the bottom strand of the left." },
+  desc:"The duplex has separated into two fragments with a clear gap. The blue recognition site and its label have travelled with the left fragment. Four bases stand unpaired in red at each cut end: g a t c on the top strand of the right fragment, c t a g on the bottom strand of the left." },
 
 { st:{sep:1, cut:0, red:1, alt:1, brace:1},
   cap:"so the overhang sequence is yours",
   ann:"same enzyme, same 1/5 &mdash; any 4-base 5&#8242; overhang you like",
   note:"And here is the punchline. Those four overhang bases are not part of the recognition site. BsaI does not read them — it only counts. So put whatever you like there: change the four bases and the same enzyme hands you a different overhang. That is what makes Golden Gate work. You give every junction in a multi-part assembly its own four base overhang, so the parts can only assemble one way, and you do the whole thing with one enzyme in one tube. And it works outward as well as inward. The end BsaI leaves is a four base five prime overhang, which is the same shape of end that BamHI, XbaI, HindIII and XhoI leave — so choose the sequence to match one of them and your Golden Gate part drops straight into a conventionally cut vector. Make it GATC and it ligates into a BamHI site; make it CTAG and it goes into an XbaI site. Be clear about why that works: not because those overhangs are interchangeable — GATC will not ligate to CTAG — but because you deliberately picked one to match. Two things will bite you. Two junctions that share an overhang, or an overhang that is its own complement, will cross-ligate and scramble the order. And if any of your parts contains an internal BsaI site, the enzyme will cut the part in half — so check for that before you order.",
-  desc:"The four unpaired bases have changed: g a t c becomes a g g t on the top strand of the right fragment, and correspondingly c t a g becomes t c c a on the bottom strand of the left. A vermillion rule above the changed bases is labelled yours to choose." }
+  desc:"The four unpaired bases have changed: g a t c becomes a g g t on the top strand of the right fragment, and correspondingly c t a g becomes t c c a on the bottom strand of the left. A red rule above the changed bases is labelled yours to choose." }
 ];
 
 window.Deck.sequence("typeIIs", function(slide){

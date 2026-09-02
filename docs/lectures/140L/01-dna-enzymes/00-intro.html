@@ -62,15 +62,27 @@
   <h1>The enzyme classes</h1>
   <p class="q">Five things you can do to a DNA molecule</p>
   <ul class="tight" style="margin-top:26px">
-    <li data-build="1"><b class="verb">break</b>Endonucleases &middot; Exonucleases</li>
-    <li data-build="2"><b class="verb">copy</b>DNA Polymerases &middot; RNA Polymerases</li>
-    <li data-build="3"><b class="verb">join</b>Ligases</li>
-    <li data-build="4"><b class="verb">modify</b>Methyltransferases &middot; Kinases / Phosphatases</li>
-    <li data-build="5"><b class="verb">rearrange</b>Recombinases</li>
+    <li><b class="verb">break</b>Endonucleases &middot; Exonucleases</li>
+    <li data-build="1"
+        data-note="Polymerases copy it. They read a template and build the complementary strand. RNA polymerases do the same job but write RNA — and, as you will see, they are the only ones here that can start without a primer."
+        data-desc="Second group revealed: copy — DNA polymerases and RNA polymerases."
+      ><b class="verb">copy</b>DNA Polymerases &middot; RNA Polymerases</li>
+    <li data-build="2"
+        data-note="Ligases join. They take two polynucleotides and make them one molecule. That sounds trivial and it is the step that fails most often."
+        data-desc="Third group revealed: join — ligases."
+      ><b class="verb">join</b>Ligases</li>
+    <li data-build="3"
+        data-note="Methyltransferases, kinases and phosphatases modify it without breaking or joining anything at all. A methyl group on a base, a phosphate on or off a five prime end. The smallest changes in the lecture, and they decide what every other enzyme is allowed to do."
+        data-desc="Fourth group revealed: modify — methyltransferases and kinases slash phosphatases."
+      ><b class="verb">modify</b>Methyltransferases &middot; Kinases / Phosphatases</li>
+    <li data-build="4"
+        data-note="And recombinases rearrange it, swapping DNA over similar sequences. One enzyme that finds two sites, cuts all four strands and reseals them, without ever leaving a free end lying around."
+        data-desc="Fifth group revealed: rearrange — recombinases."
+      ><b class="verb">rearrange</b>Recombinases</li>
   </ul>
   <style>.verb{color:var(--blue);display:inline-block;min-width:220px;font-weight:700}</style>
-  <template class="notes">Everything in this lecture is one of five verbs you can apply to a DNA molecule. Nucleases break it — endonucleases cut internally, exonucleases chew from an end. Polymerases copy it, using a template to build a complementary strand; RNA polymerases do the same but write RNA. Ligases join two polynucleotides into one molecule. Methyltransferases and the kinases and phosphatases modify it without breaking or joining anything — a methyl group on a base, a phosphate on a five prime end. And recombinases rearrange it, swapping DNA over similar sequences. Every method you will use in this course is some composition of those five verbs, which is why it is worth knowing what each enzyme will and will not do.</template>
-  <template class="desc">The eight enzyme classes, grouped under five verbs and revealed one group at a time: break — endonucleases and exonucleases; copy — DNA and RNA polymerases; join — ligases; modify — methyltransferases and kinases slash phosphatases; rearrange — recombinases.</template>
+  <template class="notes">Everything in this lecture is one of five verbs you can apply to a DNA molecule. Start with the nucleases: they break it. Endonucleases cut internally, at a sequence they recognise; exonucleases chew inward from an end. Every method you will use in this course is some composition of these five verbs, which is why it is worth knowing exactly what each enzyme will and will not do.</template>
+  <template class="desc">The eight enzyme classes grouped under five verbs, in the order the sections follow. The first group, break — endonucleases and exonucleases — is already showing; the remaining four are revealed one at a time.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
