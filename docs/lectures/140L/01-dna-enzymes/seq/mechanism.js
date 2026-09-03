@@ -212,7 +212,7 @@ window.Deck.sequence("mechanism",function(slide){
       note:"And here is the part worth stopping on. For a moment the phosphorus has five things attached to it, not four. This is the pentacoordinate species, a trigonal bipyramid: the incoming water and the departing oxygen sit on the axis, a hundred and eighty degrees apart, and the other three oxygens have splayed out into a plane around the equator. Look at what the three equatorial oxygens just did — they were tilted up, and they have flattened. This is the top of the energy hill, not a stable compound, and everything an enzyme does to speed this reaction up is really about stabilising this arrangement: positioning the nucleophile on the right axis, and putting a magnesium or a positive side chain where the extra negative charge builds up.",
       desc:"The pentacoordinate trigonal bipyramid: five oxygens on one phosphorus, the incoming water and the leaving oxygen axial and opposite each other, the remaining three splayed into the equatorial plane." },
 
-    { s:{t:1,arrows:1,axis:0,nuv:1,b1:0,plus:0,rib:0,b2:1}, h1:"", h2:"H", lg:"H&#8212;O", e1:"O", e2:"O",
+    { s:{t:1,arrows:1,axis:0,nuv:1,b1:0,plus:0,rib:0,b2:1}, h1:"", h2:"H", lg:"O&#8212;H", e1:"O", e2:"O",
       cap:"3 &nbsp;The leaving group goes &mdash; and the centre turns inside out",
       sub:"tetrahedral again, but inverted &mdash; the phosphate now sits on the water",
       who:"hydrolysis &nbsp;&middot;&nbsp; the bond is <tspan font-weight=\"700\">destroyed</tspan> &nbsp;&middot;&nbsp; nucleases, phosphatases",
@@ -227,7 +227,7 @@ window.Deck.sequence("mechanism",function(slide){
       note:"Swap the water for an alcohol. This is a sugar's three prime hydroxyl, and the ring it belongs to is greyed out because the ring is not the point — the point is the O and the H hanging off it. It comes in on the same axis, opposite the bond that will break, with the same lone pair and the same arrow. Nothing about the geometry has changed. Watch what is different at the end.",
       desc:"A furanose ring drawn in muted grey carries a 3-prime hydroxyl in dark red, approaching the phosphorus along the axis opposite the leaving group, with its lone pair and a curved arrow." },
 
-    { s:{t:1,arrows:1,axis:0,nuv:1,b1:1,plus:0,rib:1,b2:0}, h1:"", h2:"", lg:"H&#8212;O", e1:"O", e2:"O",
+    { s:{t:1,arrows:1,axis:0,nuv:1,b1:1,plus:0,rib:1,b2:0}, h1:"", h2:"", lg:"O&#8212;H", e1:"O", e2:"O",
       cap:"It attacks, and the other sugar is displaced",
       sub:"the phosphate is handed on &mdash; identical chemistry, opposite outcome",
       who:"transphosphorylation &nbsp;&middot;&nbsp; the bond is <tspan font-weight=\"700\">moved</tspan> &nbsp;&middot;&nbsp; kinases, polymerases, ligases, recombinases",
