@@ -47,6 +47,25 @@ function at(k,t){
 const lerp=(a,b,t)=>a+(b-a)*t;
 const clamp01=v=>v<0?0:v>1?1:v;
 
+/* A small furanose drawn in muted grey, with only its C3'-O-H dark: the
+   transphosphorylation nucleophile is a sugar's 3' hydroxyl, and greying the
+   ring says "this part is not the point" without hiding what it is. */
+function miniRing(){
+  const R=46, a=[90,18,-54,-126,162].map(d=>d*Math.PI/180);
+  const v=a.map(t=>[R*Math.cos(t), -R*Math.sin(t)]);
+  let g="";
+  for(let i=0;i<5;i++)
+    g+='<path d="M'+n2(v[i][0])+' '+n2(v[i][1])+'L'+n2(v[(i+1)%5][0])+' '+n2(v[(i+1)%5][1])+
+       '" fill="none" stroke="'+MUTED+'" stroke-width="2.3"/>';
+  g+='<circle cx="'+n2(v[0][0])+'" cy="'+n2(v[0][1])+'" r="9" fill="#fff"/>';
+  g+='<text x="'+n2(v[0][0])+'" y="'+n2(v[0][1]+7)+'" text-anchor="middle" font-size="19" fill="'+MUTED+'">O</text>';
+  g+='<path d="M'+n2(v[1][0])+' '+n2(v[1][1])+'L'+n2(v[1][0]+40)+' '+n2(v[1][1]-30)+
+     '" fill="none" stroke="'+MUTED+'" stroke-width="2.3"/>';
+  g+='<text x="'+n2(v[1][0]+66)+'" y="'+n2(v[1][1]-34)+'" text-anchor="middle" font-size="18" fill="'+MUTED+'">base</text>';
+  return g;
+}
+const RIBC3=[-27,37];   /* the C3' vertex, which the attacking oxygen hangs off */
+
 window.Deck.sequence("mechanism",function(slide){
   const svg=document.createElementNS(NS,"svg");
   svg.setAttribute("viewBox","0 0 1600 900");
@@ -64,7 +83,7 @@ window.Deck.sequence("mechanism",function(slide){
     '<path data-r="dep" fill="none" stroke="'+RED+'" stroke-width="3.2" marker-end="url(#mHead)"/>'+
     '<circle data-r="pc" cx="'+PX+'" cy="'+PY+'" r="22" fill="#fff" stroke="none"/>'+
     '<text data-r="pl" x="'+PX+'" y="'+(PY+12)+'" text-anchor="middle" font-size="32" font-weight="700" fill="'+INK+'">P</text>'+
-    '<g data-r="nug">'+'<path data-r="nub1" fill="none" stroke="'+RED+'" stroke-width="2.9"/>'+'<path data-r="nub2" fill="none" stroke="'+RED+'" stroke-width="2.9"/>'+'<text data-r="tnu" text-anchor="middle" font-size="31" font-weight="700" fill="'+RED+'">O</text>'+'<text data-r="nh1" text-anchor="middle" font-size="27" font-weight="700" fill="'+RED+'"></text>'+'<text data-r="nh2" text-anchor="middle" font-size="27" font-weight="700" fill="'+RED+'"></text>'+'<circle data-r="lp1" r="4.4" fill="'+RED+'"/><circle data-r="lp2" r="4.4" fill="'+RED+'"/>'+'</g>'+
+    '<g data-r="nug">'+'<path data-r="nub1" fill="none" stroke="'+RED+'" stroke-width="2.9"/>'+'<path data-r="nub2" fill="none" stroke="'+RED+'" stroke-width="2.9"/>'+'<text data-r="tnu" text-anchor="middle" font-size="31" font-weight="700" fill="'+RED+'">O</text>'+'<text data-r="nh1" text-anchor="middle" font-size="27" font-weight="700" fill="'+RED+'"></text>'+'<text data-r="nh2" text-anchor="middle" font-size="27" font-weight="700" fill="'+RED+'"></text>'+'<circle data-r="lp1" r="4.4" fill="'+RED+'"/><circle data-r="lp2" r="4.4" fill="'+RED+'"/>'+'<text data-r="nplus" text-anchor="middle" font-size="26" font-weight="700" fill="'+RED+'" opacity="0">+</text>'+'<g data-r="rib" opacity="0">'+miniRing()+'</g>'+'</g>'+
     '<text data-r="tlg" text-anchor="middle" font-size="27" font-weight="600" fill="'+INK+'"></text>'+
     '<text data-r="te1" text-anchor="middle" font-size="27" font-weight="600" fill="'+INK+'"></text>'+
     '<text data-r="te2" text-anchor="middle" font-size="27" font-weight="600" fill="'+INK+'"></text>'+
@@ -88,7 +107,7 @@ window.Deck.sequence("mechanism",function(slide){
     const t=s.t;
     const nu=at("nu",t), lg=at("lg",t), e1=at("e1",t), e2=at("e2",t), e3=at("e3",t);
     r.bnu.setAttribute("d",bondTo(nu,26));
-    r.bnu.setAttribute("opacity",n2(clamp01(t/0.42)));
+    r.bnu.setAttribute("opacity",n2(clamp01((t-0.36)/0.12)));  /* no bond yet at the approach */
     r.blg.setAttribute("d",bondTo(lg,26));
     r.blg.setAttribute("opacity",n2(clamp01((0.94-t)/0.36)));
     r.be1.setAttribute("d",bondTo(e1,24));
@@ -124,14 +143,33 @@ window.Deck.sequence("mechanism",function(slide){
     r.nug.setAttribute("opacity",n2(nvis));
     r.tnu.setAttribute("x",n2(nu[0])); r.tnu.setAttribute("y",n2(nu[1]+11));
     const sub=[[-54,-40],[54,-40]];
-    [["nh1","nub1",0],["nh2","nub2",1]].forEach(function(q){
+    [["nh1","nub1",0,s.b1],["nh2","nub2",1,s.b2]].forEach(function(q){
       const o=sub[q[2]], px=nu[0]+o[0], py=nu[1]+o[1];
       r[q[0]].setAttribute("x",n2(px)); r[q[0]].setAttribute("y",n2(py+10));
+      /* when the proton leaves, its bond must leave with it — otherwise a stub
+         is left hanging where the H used to be */
+      r[q[1]].setAttribute("opacity",n2(q[3]));
       r[q[1]].setAttribute("d","M"+n2(nu[0]+o[0]*0.34)+" "+n2(nu[1]+o[1]*0.34-4)+
                                "L"+n2(px-o[0]*0.30)+" "+n2(py-o[1]*0.30+4));
     });
+    /* protonated at the intermediate: the oxygen still carries both hydrogens
+       and therefore a formal positive charge */
+    r.nplus.setAttribute("opacity",n2(s.plus));
+    r.nplus.setAttribute("x",n2(nu[0]+34)); r.nplus.setAttribute("y",n2(nu[1]-14));
+    /* the sugar the attacking hydroxyl belongs to. It gets its own, flatter
+       attachment vector so the ring sits beside the oxygen instead of climbing
+       into the subtitle. */
+    r.rib.setAttribute("opacity",n2(s.rib));
+    if (s.rib > 0.02){
+      const RA=[-104,-6];
+      r.rib.setAttribute("transform","translate("+n2(nu[0]+RA[0]-RIBC3[0])+" "+
+                                                  n2(nu[1]+RA[1]-RIBC3[1])+")");
+      r.nub1.setAttribute("opacity",n2(s.rib));
+      r.nub1.setAttribute("d","M"+n2(nu[0]+RA[0]*0.26)+" "+n2(nu[1]+RA[1]*0.26-3)+
+                              "L"+n2(nu[0]+RA[0]*0.74)+" "+n2(nu[1]+RA[1]*0.74));
+    }
     /* the lone pair sits between O and P, and is consumed as the bond forms */
-    const lpv=n2(nvis*clamp01((0.46-t)/0.16));
+    const lpv=n2(nvis*clamp01((0.44-t)/0.08));   /* the pair is consumed by the bond */
     r.lp1.setAttribute("opacity",lpv); r.lp2.setAttribute("opacity",lpv);
     r.lp1.setAttribute("cx",n2(nu[0]-10)); r.lp1.setAttribute("cy",n2(nu[1]+30));
     r.lp2.setAttribute("cx",n2(nu[0]+10)); r.lp2.setAttribute("cy",n2(nu[1]+30));
@@ -140,7 +178,7 @@ window.Deck.sequence("mechanism",function(slide){
     });
     r.tlg.setAttribute("opacity",n2(clamp01((1.06-t)/0.3)));
     /* arrow pushing, superimposed on the motion */
-    const aO=clamp01((0.72-t)/0.22)*clamp01(t/0.06+0.4);
+    const aO=clamp01((0.46-t)/0.10);   /* the attack has happened by the intermediate */
     r.atk.setAttribute("opacity",n2(s.arrows*aO));
     r.atk.setAttribute("d","M"+n2(nu[0]-24)+" "+n2(nu[1]+38)+"Q"+n2(PX-74)+" "+n2(PY-72)+
                             " "+n2(PX-24)+" "+n2(PY-26));
@@ -151,42 +189,42 @@ window.Deck.sequence("mechanism",function(slide){
   }
 
   const S=[
-    { s:{t:0,arrows:0,axis:0,nuv:0}, h1:"", h2:"", lg:"O", e1:"O", e2:"O",
+    { s:{t:0,arrows:0,axis:0,nuv:0,b1:1,plus:0,rib:0,b2:0}, h1:"", h2:"", lg:"O", e1:"O", e2:"O",
       cap:"One phosphodiester bond",
       sub:"a phosphorus holding two sugars together &mdash; tetrahedral, and going nowhere on its own",
       who:"every enzyme in this lecture attacks this atom",
       note:"Start with the bond. A phosphorus, four oxygens around it in a tetrahedron: a double bonded oxygen, a negative charge, and two ester oxygens running out to the two sugars. That is a phosphodiester, and left alone it is extremely stable — the half life for spontaneous hydrolysis is on the order of tens of millions of years. Everything an enzyme does today is to make this one atom attackable.",
       desc:"A phosphodiester bond at atomic scale: a central phosphorus in a tetrahedral arrangement with a double-bonded oxygen shown as a solid wedge, a negatively charged oxygen, and two ester oxygens to the sugars." },
 
-    { s:{t:0.34,arrows:1,axis:0,nuv:1}, h1:"H", h2:"H", lg:"O", e1:"O", e2:"O",
+    { s:{t:0.34,arrows:1,axis:0,nuv:1,b1:1,plus:0,rib:0,b2:1}, h1:"H", h2:"H", lg:"O", e1:"O", e2:"O",
       cap:"1 &nbsp;Water comes in along the axis",
       sub:"it has to approach from directly opposite the bond that will break",
       who:"the curved arrow is a pair of electrons moving, nothing else",
       note:"Water attacks. Notice where it comes from: directly opposite the bond that is going to break, a hundred and eighty degrees away. It is not arbitrary. The nucleophile has to come in on that axis, because the electrons it donates go into the orbital that lies along the bond it is displacing. That is what in-line attack means, and it is the reason the geometry is about to change shape rather than just swap one oxygen for another. The curved arrow is doing one job: it shows a pair of electrons moving from the water's oxygen to the phosphorus.",
       desc:"A water molecule approaches the phosphorus along the axis directly opposite the leaving oxygen, with a curved red arrow showing its electron pair moving toward the phosphorus." },
 
-    { s:{t:0.5,arrows:1,axis:1,nuv:1}, h1:"H", h2:"H", lg:"O", e1:"O", e2:"O",
+    { s:{t:0.5,arrows:1,axis:1,nuv:1,b1:1,plus:1,rib:0,b2:1}, h1:"H", h2:"H", lg:"O", e1:"O", e2:"O",
       cap:"2 &nbsp;Pentacoordinate &mdash; five things on one phosphorus",
       sub:"attacking and leaving groups <tspan font-weight=\"700\">axial</tspan>; the other three splay into the <tspan font-weight=\"700\">equator</tspan>",
       who:"the highest point of the reaction &mdash; it is not a resting place",
       note:"And here is the part worth stopping on. For a moment the phosphorus has five things attached to it, not four. This is the pentacoordinate species, a trigonal bipyramid: the incoming water and the departing oxygen sit on the axis, a hundred and eighty degrees apart, and the other three oxygens have splayed out into a plane around the equator. Look at what the three equatorial oxygens just did — they were tilted up, and they have flattened. This is the top of the energy hill, not a stable compound, and everything an enzyme does to speed this reaction up is really about stabilising this arrangement: positioning the nucleophile on the right axis, and putting a magnesium or a positive side chain where the extra negative charge builds up.",
       desc:"The pentacoordinate trigonal bipyramid: five oxygens on one phosphorus, the incoming water and the leaving oxygen axial and opposite each other, the remaining three splayed into the equatorial plane." },
 
-    { s:{t:1,arrows:1,axis:0,nuv:1}, h1:"", h2:"H", lg:"H&#8212;O", e1:"O", e2:"O",
+    { s:{t:1,arrows:1,axis:0,nuv:1,b1:0,plus:0,rib:0,b2:1}, h1:"", h2:"H", lg:"H&#8212;O", e1:"O", e2:"O",
       cap:"3 &nbsp;The leaving group goes &mdash; and the centre turns inside out",
       sub:"tetrahedral again, but inverted &mdash; the phosphate now sits on the water",
       who:"hydrolysis &nbsp;&middot;&nbsp; the bond is <tspan font-weight=\"700\">destroyed</tspan> &nbsp;&middot;&nbsp; nucleases, phosphatases",
       note:"The leaving oxygen takes the bonding pair with it, the five drops back to four, and watch the three equatorial oxygens: they keep going. They were tilted up at the start, they flattened at the intermediate, and now they have tipped the other way. The centre has turned inside out, like an umbrella in the wind. That inversion is the fingerprint of in-line attack, and it is how this mechanism was proven — run the reaction on a phosphorus you can tell the handedness of, and the product comes out the other hand. What is left: the phosphate is now attached to what used to be water. Nothing is joined to anything. The bond is destroyed, and that is hydrolysis, which is every nuclease and every phosphatase in this lecture.",
       desc:"The leaving oxygen has departed and the phosphorus is tetrahedral again, but inverted: the three equatorial oxygens have flipped through the plane to the opposite side. The phosphate now sits on the oxygen that arrived as water." },
 
-    { s:{t:1,arrows:1,axis:0,nuv:1}, h1:"", h2:"C", lg:"H&#8212;O", e1:"O", e2:"O",
+    { s:{t:1,arrows:1,axis:0,nuv:1,b1:1,plus:0,rib:1,b2:0}, h1:"", h2:"", lg:"H&#8212;O", e1:"O", e2:"O",
       cap:"Now run it again with an alcohol",
       sub:"identical geometry, identical arrows &mdash; a different <tspan font-weight=\"700\">nucleophile</tspan>",
       who:"transphosphorylation &nbsp;&middot;&nbsp; the bond is <tspan font-weight=\"700\">moved</tspan> &nbsp;&middot;&nbsp; kinases, polymerases, ligases, recombinases",
       note:"Same film, one substitution. Swap the water for an alcohol — a carbon carrying a hydroxyl — and every frame you just watched is identical. In-line approach, pentacoordinate intermediate, inversion. What changes is the product. The phosphate is not released into solution, it is handed to the thing that attacked, so the bond has moved rather than gone. That alcohol is a sugar's three prime hydroxyl in a polymerase or a ligase, a five prime hydroxyl in a kinase, a serine or a tyrosine on the protein itself in a recombinase. And do not let the similarity mislead you: water and an alcohol are different nucleophiles, and destroying a bond and relocating it are different outcomes. That difference is the reason this lecture is ordered the way it is.",
       desc:"The same reaction replayed with an alcohol as the nucleophile instead of water. The geometry and the curved arrows are unchanged; the difference is that the phosphate is transferred to the attacking alcohol rather than released." },
 
-    { s:{t:1,arrows:0,axis:0,nuv:1}, h1:"H", h2:"H", lg:"O", e1:"O", e2:"O",
+    { s:{t:1,arrows:0,axis:0,nuv:1,b1:1,plus:0,rib:0,b2:1}, h1:"H", h2:"H", lg:"O", e1:"O", e2:"O",
       cap:"Same phosphorus. The only question is what attacks.",
       sub:"break it or move it &mdash; after that, only specificity differs",
       who:"which end &middot; which sequence &middot; which strand &middot; which state",
@@ -208,7 +246,9 @@ window.Deck.sequence("mechanism",function(slide){
     raf=requestAnimationFrame(function f(now){
       const p=Math.min(1,(now-t0)/dur), e=ease(p);
       const s={t:lerp(from.t,to.t,e),arrows:lerp(from.arrows,to.arrows,e),
-               axis:lerp(from.axis,to.axis,e),nuv:lerp(from.nuv,to.nuv,e)};
+               axis:lerp(from.axis,to.axis,e),nuv:lerp(from.nuv,to.nuv,e),
+               b1:lerp(from.b1,to.b1,e),plus:lerp(from.plus,to.plus,e),
+               rib:lerp(from.rib,to.rib,e),b2:lerp(from.b2,to.b2,e)};
       paint(s); cur=s;
       if(p<1) raf=requestAnimationFrame(f); else raf=null;
     });
