@@ -7,6 +7,20 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Exonucleases &mdash; DNA Manipulation Enzymes</title>
 <link rel="stylesheet" href="../../deck.css">
+<style>
+/* The NEB selection chart, retyped.  The wording and every value are NEB's,
+   verbatim; only the typography is the deck's — a crop of the original
+   sliced the Exonuclease I row in half, which is the one row the slide
+   asks the room to read.  Hairlines, no fills: the deck draws no boxes. */
+.slide table.neb{border-collapse:collapse;width:100%;table-layout:fixed;
+  font-size:23px;line-height:1.24}
+.slide table.neb th,.slide table.neb td{border:1px solid var(--rule);
+  padding:9px 6px;text-align:center;font-weight:400}
+.slide table.neb thead th{font-weight:700}
+.slide table.neb tbody th{font-weight:700;text-align:left;padding-left:14px;
+  color:var(--blue)}
+.slide table.neb sup{font-size:.68em;vertical-align:super;line-height:0}
+</style>
 </head>
 <body>
 
@@ -27,11 +41,12 @@
   </ul>
   <svg viewBox="0 0 1600 900" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none">
     <g fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round">
-      <path d="M151 506H339M317.8 494.7L339 506M151 556H413M172.2 567.3L151 556M496 506H758M736.8 494.7L758 506M496 556H684M517.2 567.3L496 556M841 506H1029M1007.8 494.7L1029 506M841 556H1029M862.2 567.3L841 556M1186 506H1260M1238.8 494.7L1260 506M1300 506H1374M1352.8 494.7L1374 506M1186 556H1374M1207.2 567.3L1186 556"/>
+      <path d="M151 506H339M317.8 494.7L339 506M151 556H413M172.2 567.3L151 556M496 506H758M736.8 494.7L758 506M496 556H684M517.2 567.3L496 556M841 506H1029M1007.8 494.7L1029 506M841 556H1029M862.2 567.3L841 556M1186 506H1268M1246.8 494.7L1268 506M1280 506H1374M1352.8 494.7L1374 506M1186 556H1374M1207.2 567.3L1186 556"/>
     </g>
     <g font-family="inherit" font-size="24" fill="var(--muted)" text-anchor="middle">
       <text x="424" y="602">5&#8242;</text>
-      <text x="1306" y="480">5&#8242;</text>
+      <text x="770" y="480">3&#8242;</text>
+      <text x="1298" y="480">5&#8242;</text>
     </g>
     <g font-family="inherit" font-size="26" font-weight="700" fill="var(--ink)" text-anchor="middle">
       <text x="283" y="656">5&#8242; extension</text>
@@ -42,7 +57,7 @@
     <text x="110" y="440" font-family="inherit" font-size="24" fill="var(--muted)">every 3&#8242; end carries a half barb &mdash; so an unbarbed tip is a 5&#8242; end</text>
   </svg>
   <template class="notes">Before the table, the framework. Every exonuclease in the catalogue is defined by four answers, and every column of the NEB table is one of them. Which way does it walk along the backbone. Whether it wants single-stranded or double-stranded DNA. Whether the end has to carry a five prime phosphate. And what kind of end it will initiate on. That last one is the vocabulary at the bottom: a five prime extension, a three prime extension, a blunt end, or a nick. Notice that a nick counts as an end for some of these enzymes, which is why a nicked plasmid is not as safe as an intact one. There is no recognition sequence anywhere in this list — the specificity of an exonuclease is an address, and the address is a kind of end.</template>
-  <template class="desc">A title reading Four questions define an exonuclease, with the four questions listed: direction of travel, single or double stranded substrate, whether a 5-prime phosphate is required, and what kind of end it initiates on. Below, four small line drawings of double-stranded DNA ends, labelled 5-prime extension, 3-prime extension, blunt, and nick. Each 3-prime end carries a half barb; the protruding tip of the 5-prime extension has no barb and is labelled 5-prime, as is the right-hand side of the nick.</template>
+  <template class="desc">A title reading Four questions define an exonuclease, with the four questions listed: direction of travel, single or double stranded substrate, whether a 5-prime phosphate is required, and what kind of end it initiates on. Below, four small line drawings of double-stranded DNA ends, labelled 5-prime extension, 3-prime extension, blunt, and nick. Each 3-prime end carries a half barb; the protruding tip of the 5-prime extension has no barb and is labelled 5-prime, while the protruding tip of the 3-prime extension is barbed and labelled 3-prime. In the fourth drawing the top strand is broken by a hairline, far narrower than the missing stretch that makes an extension: that break is the nick, and the 5-prime side of it is labelled.</template>
 </article>
 
 <article class="slide">
@@ -77,15 +92,43 @@
   <div class="q">Will T5 Exonuclease cut?</div>
   <pre class="dna">5&rsquo;-gatttctgGAATTTGACACGTG-3&rsquo;
 3&rsquo;-ctaaagacCTTAA-5&rsquo;</pre>
-  <figure class="fig" data-build="1" style="margin-top:26px"
-       data-note="Now look it up. T5 initiates on blunt ends and on three prime extensions, so it chews back the five prime ends from both ends of this molecule until it is gone. Read along the T5 row and notice two more things. It is a plus under nicked, so a nicked plasmid is not safe from it. And it is a minus under supercoiled circles — no end, no reaction. Then compare Exonuclease I on the row above: single-stranded linear only, and a minus everywhere else. Same table, opposite address."
-       data-desc="A DNA that is blunt at one end and has a 3-prime overhang at the other, now shown next to two rows of the NEB selection chart: Exonuclease I, which is 3-prime to 5-prime and active only on linear single-stranded DNA, and T5 Exonuclease, which is 5-prime to 3-prime and active on every substrate listed except supercoiled circles.">
-    <div style="width:100%;flex:0 0 auto">
-      <img src="img/neb-t5-row-a.png" alt="NEB selection-chart header with the Exonuclease I row: 3-prime to 5-prime polarity, active on linear single-stranded DNA only" style="width:100%;height:auto;display:block">
-      <img src="img/neb-t5-row-b.png" alt="The T5 Exonuclease row: 5-prime to 3-prime polarity, plus on every substrate listed except supercoiled circles" style="width:100%;height:auto;display:block">
-    </div>
-    <figcaption>NEB selection chart &mdash; the header, Exonuclease I, and T5 Exonuclease</figcaption>
-  </figure>
+  <div class="step" data-build="1"
+       data-note="Yes, and from both ends. T5 initiates on blunt ends and on three prime extensions, so it chews back the five prime ends from both ends of this molecule until it is gone. Read along the T5 row and notice two more things. It is a plus under nicked, so a nicked plasmid is not safe from it. And it is a minus under supercoiled circles — no end, no reaction. Then compare Exonuclease I on the row above: single-stranded linear only, and a minus everywhere else. Same table, opposite address. The small raised numbers are NEB's own footnote markers; they qualify a result, they are not part of it."
+       data-desc="A line has appeared naming the answer — yes, from both ends, because T5 initiates on blunt ends and on 3-prime extensions — followed by two rows of the NEB selection chart. Exonuclease I is 3-prime to 5-prime and active only on linear single-stranded DNA. T5 Exonuclease is 5-prime to 3-prime and active on every substrate listed except supercoiled circles."><span class="arrow">&rarr;</span> Yes &mdash; from both ends. T5 initiates on blunt ends <em>and</em> on 3&rsquo; extensions</div>
+  <div data-build="1">
+    <table class="neb">
+      <colgroup>
+        <col style="width:230px"><col style="width:130px"><col style="width:115px"><col style="width:125px">
+        <col style="width:130px"><col style="width:130px"><col style="width:130px"><col style="width:210px"><col>
+      </colgroup>
+      <thead>
+        <tr>
+          <th rowspan="2" scope="col">Enzyme</th>
+          <th rowspan="2" scope="col">Polarity</th>
+          <th colspan="2" scope="colgroup">Activity on ssDNA</th>
+          <th colspan="5" scope="colgroup">Activity on dsDNA<sup>1</sup></th>
+        </tr>
+        <tr>
+          <th scope="col">linear</th><th scope="col">circular</th>
+          <th scope="col">linear 5' ext</th><th scope="col">linear 3' ext</th><th scope="col">linear blunt</th>
+          <th scope="col">nicked (circular/linear)</th><th scope="col">circular (supercoiled)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Exonuclease I <span style="white-space:nowrap">(<em>E. coli</em>)</span></th>
+          <td>3' &rarr; 5'</td><td>+</td><td>&mdash;</td>
+          <td>&mdash;</td><td>&mdash;<sup>15</sup></td><td>&mdash;<sup>5</sup></td><td>&mdash;</td><td>&mdash;</td>
+        </tr>
+        <tr>
+          <th scope="row">T5 Exonuclease</th>
+          <td>5' &rarr; 3'</td><td>+</td><td>+</td>
+          <td>+</td><td>+</td><td>+</td><td>+</td><td>&mdash;</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="src">Wording and values retyped verbatim from the NEB exonuclease selection chart &mdash; neb.com</div>
   <template class="notes">Look at the ends of this molecule. It is blunt at one end and has a 3’ overhang at the other. Will T5 exonuclease touch it? Let the room work it out before you put the table up.</template>
   <template class="desc">A short DNA written as sequence, blunt at its left-hand end and carrying a 3-prime overhang on the top strand at the right. The NEB table is not on the slide yet.</template>
 </article>

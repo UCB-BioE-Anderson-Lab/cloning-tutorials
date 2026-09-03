@@ -36,8 +36,11 @@ const LFL = 280,  LFR = 900;         /* left fragment,  5' top .. 3' top   */
 const RFL = 720,  RFR = 1340;        /* right fragment                     */
 const OVL = 720,  OVR = 900;         /* the shared overlap                 */
 const W    = OVR - OVL;              /* 180 — the homology                 */
-const C    = 230;                    /* how far T5 chews each 5' end       */
-const FILL = C - W;                  /* 50  — the gap the polymerase fills */
+const C    = 300;                    /* how far T5 chews each 5' end       */
+const FILL = C - W;                  /* 120 — the gap the polymerase fills.
+   This has to be big enough to READ as a gap from the back of the room:
+   at 50 it was a hairline, and the step that claims to fill it looked
+   like it was filling nothing.                                          */
 const SEP  = 130;                    /* half the separation before annealing */
 
 const YT = 520, YB = 578;            /* the two strands                    */
@@ -167,7 +170,11 @@ window.Deck.sequence("gibson", function(slide){
     put(r.p5lb, lb5+dL + 4, YB + 34, "5′", 1 - s.close);
     put(r.p5rt, rt5+dR - 4, YT - 18, "5′", 1 - s.close);
 
-    r.enzg.setAttribute("opacity", n2(s.enz * (1 - 0.62*s.dead)));
+    /* Heat-killed T5 is struck through, and drops only slightly in
+       opacity — the strike carries the meaning.  A deeper fade turned
+       the vermillion into a pale pink that is in no palette and misses
+       the 3:1 floor for a graphical mark. */
+    r.enzg.setAttribute("opacity", n2(s.enz * (1 - 0.2*s.dead)));
     r.kill.setAttribute("opacity", n2(s.dead));
   }
 
@@ -183,14 +190,15 @@ window.Deck.sequence("gibson", function(slide){
       desc:"All four 5-prime labels have moved inward along their strands: the enzyme has removed bases from every 5-prime end. Each molecule now ends in a long single-stranded 3-prime tail at both ends. The blue overlap survives on the top strand of the left molecule and on the bottom strand of the right molecule." },
 
     { s:{sep:0, chew:1, close:0, enz:1, dead:0, mark:0},
-      cap:"only the complementary pair can anneal", call:"",
-      note:"The specificity comes from base pairing, not from the enzyme. Of the four exposed tails only two are complementary — the two blue ones, because you designed them to be the same sequence — so those are the two that find each other. The molecules are now held together, but they are not yet joined: T5 chewed a little past the overlap, so there is still a single-stranded gap in each strand, on opposite sides of the join.",
-      desc:"The two molecules have converged. The blue single strand from each now forms a double-stranded blue join in the middle. Two gaps remain: one in the top strand just right of the join, one in the bottom strand just left of it." },
+      cap:"only the complementary pair can anneal",
+      call:"held together, not yet joined — a gap in each strand",
+      note:"The specificity comes from base pairing, not from the enzyme. Of the four exposed tails only two are complementary — the two blue ones, because you designed them to be the same sequence — so those are the two that find each other. Now look at what you actually have. The molecules are held together, but they are not joined: T5 chewed a little past the overlap, so a stretch of each strand has no partner underneath it. Those are the two gaps, one on each side of the join, and nothing in this tube has closed them yet.",
+      desc:"The two molecules have converged. The blue single strand from each now forms a double-stranded blue join in the middle. Two gaps are clearly open: one in the top strand just right of the join, one in the bottom strand just left of it. Each gap is bounded by a barbed 3-prime end on one side and a labelled 5-prime end on the other." },
 
     { s:{sep:0, chew:1, close:1, enz:1, dead:0, mark:0},
       cap:"Phusion fills the gaps · Taq ligase seals the nicks", call:"",
       note:"Now the other two enzymes in the tube. Each gap presents a recessed three prime end sitting on a template, which is precisely what a DNA polymerase wants, so Phusion extends both and fills them. That leaves a nick in each strand, and Taq ligase seals those. The result is one covalently closed molecule.",
-      desc:"New DNA drawn in red fills each gap and the strands are continuous again: one double-stranded molecule across the whole join, still carrying a single-stranded 3-prime tail at each far end." },
+      desc:"New DNA drawn in red fills each of the two gaps, and both strands are continuous again: one double-stranded molecule across the whole join, still carrying a single-stranded 3-prime tail at each far end. The two inner 5-prime labels and 3-prime barbs are gone, because those positions are no longer ends." },
 
     { s:{sep:0, chew:1, close:1, enz:1, dead:1, mark:0},
       cap:"one tube, 50 degrees, one incubation",

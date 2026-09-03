@@ -108,6 +108,24 @@ function callout(id, tx, ty, lx1, ly1, lx2, ly2, txt){
     '<text x="'+tx+'" y="'+ty+'" text-anchor="middle" font-family="inherit" '+
       'font-size="30" font-weight="700" fill="'+RED+'">'+txt+'</text></g>';
 }
+/* A small cross, the deck's mark for "this does not happen". */
+function cross(x, y, r){
+  const k = r || 11;
+  return "M"+(x-k)+" "+(y-k)+"L"+(x+k)+" "+(y+k)+"M"+(x+k)+" "+(y-k)+"L"+(x-k)+" "+(y+k);
+}
+
+/* A junction that ligase cannot seal. One label, but the bracket touches
+   BOTH strand breaks — a junction has two of them, and marking only one
+   made the caption's arithmetic unreadable. Both crosses sit inside the
+   open gaps, so neither one crosses any DNA, and a cross cannot be
+   confused with the thin bar the deck uses for a cut. */
+function nobond(id, x){
+  return '<g data-r="lab_'+id+'" opacity="0">'+
+    '<path d="'+cross(x, YT)+cross(x, YB)+'" fill="none" stroke="'+RED+
+      '" stroke-width="3.4" stroke-linecap="round"/>'+
+    '<text x="'+x+'" y="638" text-anchor="middle" font-family="inherit" '+
+      'font-size="30" font-weight="700" fill="'+RED+'">no bond</text></g>';
+}
 function quiet(x, y, txt, size){
   return '<text x="'+x+'" y="'+y+'" text-anchor="middle" font-family="inherit" '+
     'font-size="'+(size||30)+'" fill="'+MUTED+'">'+txt+'</text>';
@@ -249,7 +267,7 @@ window.Deck.sequence("vecphos", function(slide){
   { s:{G:GAP, ins:1, pv:0, cLo:0, cLi:0, cRo:0, cRi:0},
     cap:"The insert brings its own",
     sub:"and they sit on the other diagonal — the one the vector has lost",
-    note:"Now add an insert. This one still has its five prime phosphates, either because it came off a restriction digest or because you kinased it. Here is the thing to see. At each junction, the insert's phosphate is on the opposite strand from where the vector's used to be. So at every junction there is now exactly one five prime phosphate, and it is on one strand only.",
+    note:"Now add an insert. This one still has its five prime phosphates, and it is worth being precise about why, because there are only two ways to get them. A restriction digest hands them to you for free: the enzyme breaks the bond between a three prime hydroxyl and a five prime phosphate, so every cut end it makes is already phosphorylated. A synthetic oligonucleotide never has one, because chemical synthesis ends at a bare five prime hydroxyl, so anything built from oligos has to be kinased first. Restricted DNA arrives licensed; synthetic DNA does not. That is the kinase half of this story and we come back to it. Here is the thing to see. At each junction, the insert's phosphate is on the opposite strand from where the vector's used to be. So at every junction there is now exactly one five prime phosphate, and it is on one strand only.",
     desc:"A short arc, drawn in blue and labelled insert, slides in from the left and fills the gap. Its two ends each carry a filled P dot: one on the outer strand at the left junction, one on the inner strand at the right junction, diagonally opposite the vector's two hollow OH marks." },
 
   { s:{G:GAP, ins:1, pv:0, cLo:1, cLi:0, cRo:0, cRi:1},
@@ -302,8 +320,7 @@ function rails(){
   '<text x="800" y="400" text-anchor="middle" font-family="inherit" font-size="30" '+
     'font-weight="700" fill="'+SLATE+'">PCR product</text>'+
   mark5("mPT") + mark5("mPB") +
-  callout("zeroL", JL, 668, JL, 636, JL, 582, "no bond") +
-  callout("zeroR", JR, 668, JR, 636, JR, 582, "no bond");
+  nobond("zeroL", JL) + nobond("zeroR", JR);
 }
 
 function railPaint(r, s){
@@ -353,7 +370,7 @@ window.Deck.sequence("pcrphos", function(slide){
     cap:"Blunt-ligate that into a vector you phosphatased",
     sub:"four ends, two junctions, and not one 5′ phosphate anywhere",
     note:"Now put the two halves of this section together, because this is the combination that costs people a week. You did the clever thing and phosphatased your vector, so the vector has no five prime phosphates. And your insert is a PCR product, so it has none either. Four ends meet at two junctions and there is not one phosphate among them. Ligase makes nothing at all. You get no colonies, you conclude your ligation is broken, and you do it again.",
-    desc:"Cut vector ends have arrived on both sides, each separated from the product by a visible gap. All four five prime ends now show hollow OH discs, and each junction is labelled, in red, no bond." },
+    desc:"Cut vector ends have arrived on both sides, each separated from the product by a visible gap. All four five prime ends now show hollow OH discs. At both breaks at each junction are struck through with a small red cross, and the junction is labelled: no bond." },
 
   { s:{vec:1, pp:1, cLT:0, cLB:0, cRT:0, cRB:0},
     cap:"T4 PNK — or just order primers with a 5′ phosphate",

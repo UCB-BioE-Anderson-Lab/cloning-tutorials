@@ -187,7 +187,7 @@ const MARKUP =
     mono("", FS, row("aagG", 0, LX, ST, TY, colA) +
                  row("ttcC", 0, LX, ST, BY, colA)) +
     overhang("ohPb", "ohPr", "TTAA", BY) + ends("gP", "L") +
-    label(590, 344, 25, BLUE, "a different molecule, cut with the same enzyme", 700) +
+    label(660, 318, 25, BLUE, "a different molecule, cut with the same enzyme", 700) +
   '</g>' +
 
   /* right fragment: top cols 4-11, bottom cols 8-11 */
@@ -197,9 +197,14 @@ const MARKUP =
     overhang("ohRb", "ohRr", "AATT", TY) + ends("gR", "R") +
   '</g>' +
 
-  /* the two breaks that survive annealing */
+  /* The two breaks that survive annealing.  These must NOT read as the
+     same mark the enzyme made three steps earlier, and the annealed pair
+     must not read as one molecule — so each break is drawn taller and
+     heavier than a cut tick and is named in words beside it. */
   '<g data-r="nick" opacity="0">' +
-    tick(CT, 368, 412, RED, 4.4) + tick(CB, 458, 502, RED, 4.4) + '</g>' +
+    tick(CT, 358, 424, RED, 5.2) + tick(CB, 448, 514, RED, 5.2) +
+    label(CT, 344, 25, RED, "nick", 700) +
+    label(CB, 552, 25, RED, "nick", 700) + '</g>' +
 
   bandB() +
   label(AX, 258, 32, INK, "", 700).replace("<text", '<text data-r="cap"') +
@@ -222,15 +227,17 @@ const S = [
 
 { st:{sep:1, env:0, axis:1, oh:1, p:0, nick:0, blunt:1},
   cap:"an on-axis cut leaves a blunt end",
-  ann:"four unpaired bases on each end &mdash; a 5&#8242; AATT overhang",
+  /* Both duplexes are on screen at once, so this line has to account for
+     both of them — it is the comparison that is the point of the step. */
+  ann:"EcoRI above: four unpaired bases &mdash; EcoRV below: none",
   note:"Same logic, different enzyme. EcoRV recognises GATATC and cuts between the T and the A — right on the axis. Same dimer, same symmetry, but with the cut sitting on the axis instead of beside it there is no stagger and not one unpaired base. That is a blunt end. So sticky versus blunt is not some separate property you have to memorise per enzyme: it is only ever a question of where the cut sits relative to the axis of symmetry.",
-  desc:"A second, smaller duplex appears below, labelled EcoRV GAT slash ATC. It has also been cut in two, but both strands break in the same column, on its own dashed axis, so the two ends are flush with nothing protruding." },
+  desc:"The cut EcoRI duplex stays on screen with its four unpaired bases. Below it a second, smaller duplex appears, labelled EcoRV GAT slash ATC. It has also been cut in two, but both strands break in the same column, on its own dashed axis, so the two ends are flush with nothing protruding. A line between the two reads: EcoRI above, four unpaired bases; EcoRV below, none." },
 
 { st:{sep:0, env:0, axis:0, oh:1, p:1, nick:1, blunt:0},
   cap:"the overhang finds a partner",
-  ann:"joined by four base pairs &mdash; the backbone is still nicked",
+  ann:"still two molecules &mdash; held by four base pairs, nicked in both strands",
   note:"And here is why anyone cares. AATT is its own complement, so an EcoRI end will base pair with any other EcoRI end — from this plasmid, from a PCR product, from an organism that has never met this one. That is the whole trick of cloning, and it is the reason this course exists. Notice exactly what you have after annealing: four base pairs holding two molecules together, and two breaks in the backbone that are still open. Those are nicks, and sealing them is the ligase's job. A blunt end can also be ligated, but nothing holds the two pieces together while the ligase finds them, which is why blunt ligations are so much less efficient.",
-  desc:"The lower duplex is gone. A different left hand fragment has arrived and its four unpaired bases have paired with the four on the right hand fragment, closing the gap into a continuous run of letters. Two short red ticks, one on each strand at opposite ends of those four base pairs, mark the two remaining breaks in the backbone." }
+  desc:"The lower duplex is gone. A different left hand fragment has arrived and its four unpaired bases have paired with the four on the right hand fragment, so the letters now run continuously. Two heavy red ticks, each labelled nick, stand on opposite strands at opposite ends of those four base pairs: they mark the two breaks in the backbone that show these are still two separate molecules." }
 ];
 
 window.Deck.sequence("ecori", function(slide){

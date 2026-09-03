@@ -57,9 +57,11 @@ window.Deck.sequence("polI", function(slide){
       'stroke-width="3"/>' +
       '<text data-r="bracelab" x="'+((at(324)+at(928))/2)+'" y="'+(YT+H+118)+'" ' +
       'text-anchor="middle" font-size="30" font-weight="700" fill="'+SLATE+'"></text></g>' +
-    /* the two point mutations that kill proofreading */
-    '<g data-r="mut" opacity="0"><text x="'+((at(324)+at(517))/2)+'" y="'+(YT-22)+'" ' +
-      'text-anchor="middle" font-size="24" font-weight="700" fill="'+RED+'">D355A E357A</text>' +
+    /* The two point mutations that kill proofreading. The label hangs BELOW
+       the domain box: above it, at YT-22, it ran into the "proteolysis"
+       label on the cut line, and the two read as one sentence. */
+    '<g data-r="mut" opacity="0"><text x="'+at(517)+'" y="'+(YT-22)+'" ' +
+      'text-anchor="end" font-size="24" font-weight="700" fill="'+RED+'">D355A E357A</text>' +
       '<path d="M'+(at(360)-30)+' '+(YT+26)+'l60 52M'+(at(360)+30)+' '+(YT+26)+'l-60 52" ' +
       'fill="none" stroke="'+RED+'" stroke-width="5" stroke-linecap="round"/></g>' +
     '<text x="'+X0+'" y="'+(YT-24)+'" font-size="24" font-weight="700" fill="'+MUTED+'">N</text>' +
@@ -92,7 +94,7 @@ window.Deck.sequence("polI", function(slide){
       desc:"A bar representing the 928-residue polymerase I polypeptide, running N terminus on the left to C terminus on the right, divided into three labelled domains: five prime to three prime exonuclease at residues 1 to 323, three prime to five prime exonuclease at 324 to 517, and the polymerase at 518 to 928." },
     { s:{gone:1,cut:1,brace:1,mut:0}, cap:"It still proofreads", lab:"Klenow fragment",
       row:"NEB: 5&#8242;&#8594;3&#8242; exo — no · 3&#8242;&#8594;5&#8242; exo — YES",
-      note:"Cleave the polypeptide with a protease and the N-terminal domain comes away. What is left is the Klenow fragment. Note carefully what it keeps: Klenow still proofreads. It has lost the five prime to three prime exonuclease, so it will no longer chew up what is in front of it — which is exactly why you use it to fill in a recessed three prime end without destroying the very end you are filling.",
+      note:"Cleave the polypeptide with a protease and the N-terminal domain comes away. What is left is the Klenow fragment. Note carefully what it keeps: Klenow still proofreads. It has lost the five prime to three prime exonuclease, so it will no longer chew up what is in front of it — and that is what Klenow is for. It fills in. Give it a recessed three prime end and it fills the end in without destroying the very end you are filling. Give it two oligos annealed to each other through their three prime ends, each with a five prime tail, and it extends both of them to a full-length double-stranded product. That reaction — overlap extension, or just a Klenow extension — is how you build a short part, thirty to a hundred and thirty base pairs, without ordering it as a gene, and you will use it later in the course.",
       desc:"The five prime to three prime exonuclease domain has been cut away along a dashed red line marked proteolysis and slid off to the left. A blue bracket under the two remaining domains labels them the Klenow fragment." },
     { s:{gone:1,cut:1,brace:1,mut:1}, cap:"Now neither exonuclease works", lab:"Klenow exo&#8315;",
       row:"NEB: 5&#8242;&#8594;3&#8242; exo — no · 3&#8242;&#8594;5&#8242; exo — no",

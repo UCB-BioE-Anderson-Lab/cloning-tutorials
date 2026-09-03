@@ -8,9 +8,10 @@
 (function(){
 "use strict";
 
-const CX = 640, CY = 545, R_T = 195, R_N = 220;
-const NICK = 6, MAXARC = 360 - NICK, START = -96;
-const INK = "#111111", SLATE = "#004373", RED = "#ba3a13";
+const CX = 800, CY = 468, R_T = 190, R_N = 214;
+const NICK = 8, MAXARC = 360 - NICK, START = -96;
+const CAP_Y = 792, SUB_Y = 836;
+const INK = "#111111", SLATE = "#004373", RED = "#ba3a13", MUTED = "#767676";
 const SVGNS = "http://www.w3.org/2000/svg";
 const rad = d => d*Math.PI/180;
 const pol = (r,a) => ({ x: CX + r*Math.cos(rad(a)), y: CY + r*Math.sin(rad(a)) });
@@ -18,14 +19,20 @@ const n2 = v => Math.round(v*10)/10;
 
 const STEPS = [
   { prog:0,
-    note:"Another example of the utility of subtly different polymerase properties is Kunkel mutagenesis. Kunkel involves the use of T4 DNA polymerase which has neither 5’-3’ exo nor displacement behavior.",
+    cap:"a single-stranded circular template",
+    sub:"one strand — the one the mutation has to end up opposite",
+    note:"Another example of the utility of subtly different polymerase properties is Kunkel mutagenesis. Kunkel involves the use of T4 DNA polymerase, which has neither 5’ to 3’ exonuclease nor strand displacement behaviour. That combination is the whole method.",
     desc:"A single circular DNA template, drawn as one black ring." },
-  { prog:26, snap:true,
-    note:"An oligo that is homologous to the DNA but contains a mutation designated by the red X is annealed to the DNA. It then undergoes polymerization around the circle.",
-    desc:"A short blue oligonucleotide has annealed at the top of the circle. A red X marks the mutation it carries. Its 3' end has a half barb pointing clockwise." },
+  { prog:34, snap:true,
+    cap:"anneal the mutagenic oligo",
+    sub:"homologous to the template except at the mutation, marked ×",
+    note:"An oligo that is homologous to the DNA but contains a mutation, designated by the red X, is annealed to the DNA. Its 3’ end is the primer, and polymerisation runs from it round the circle.",
+    desc:"A short blue oligonucleotide has annealed near the top of the circle. A red × just outside the ring, on a short leader, marks the mutation it carries. Its 3' end has a half barb pointing clockwise." },
   { prog:MAXARC,
-    note:"This DNA is then transformed into E. coli which can repair the nick. If a different polymerase were used that did strand displacement or exo, the X would become dislodged or degraded, and would not be incorporated into the final sequence.",
-    desc:"The new strand has gone all the way round and stopped at its own 5' end, leaving a nick. Because T4 polymerase neither displaces nor degrades, the mutation is retained." }
+    cap:"one lap, then it stops dead at the nick",
+    sub:"no displacement, no 5′→3′ exo — so the oligo, and the mutation, survive",
+    note:"The new strand goes all the way round and simply stops when it meets its own 5’ end, leaving a nick that E. coli repairs after transformation. If a different polymerase were used, one that did strand displacement or 5’ to 3’ exonuclease, the oligo carrying the X would be peeled off or chewed up and the mutation would never make it into the product. That is why the method names the enzyme.",
+    desc:"The new strand has gone all the way round and stopped at its own 5' end, leaving a visible nick. Because T4 polymerase neither displaces nor degrades, the mutagenic oligo is still in place and the mutation is retained." }
 ];
 
 window.Deck.sequence("kunkel", function(slide){

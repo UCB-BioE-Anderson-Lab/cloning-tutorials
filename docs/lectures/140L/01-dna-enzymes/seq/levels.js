@@ -102,8 +102,12 @@ function level1(){
 }
 
 /* ------------------------------------------------- levels 2 and 3 */
+/* Levels 2 and 3 share ONE box and ONE moment: the same six positions, the
+   same strand separation, and both strands drawn to the same length so the
+   line panel does not read as "still running" next to a finished sequence.
+   LX is set so the six letters centre on x=800, under the caption. */
 const LT = "GCATTG", LB = "CGTAAC";
-const LX = 615, LSTEP = 92, LY = 500, LY2 = 600;
+const LX = 570, LSTEP = 92, LY = 490, LY2 = 568;
 
 function level2(){
   let g = '<g data-r="L2" opacity="0" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" ' +
@@ -124,12 +128,16 @@ function level2(){
 }
 
 function level3(){
-  const x0 = LX - 46, x1 = LX + (LT.length-1)*LSTEP + 46, y1 = LY - 16, y2 = LY2 - 16, B = 34;
+  /* Both strands run the SAME span, so the duplex reads as finished — the
+     same moment panel 2 shows. (It used to leave the blue strand 56px short
+     of the black one, which read as synthesis still in progress.) */
+  const xa = LX - 102, xb = LX + (LT.length-1)*LSTEP + 102;
+  const y1 = LY - 16, y2 = LY2 - 16, B = 34;
   return '<g data-r="L3" opacity="0" fill="none" stroke-width="4.6" stroke-linecap="round">' +
-    '<g stroke="'+SLATE+'"><path d="M'+(x0-56)+' '+y1+'H'+x1+'"/>' +
-      '<path d="M'+(x1-B)+' '+(y1-17)+'L'+x1+' '+y1+'"/></g>' +
-    '<g stroke="'+INK+'"><path d="M'+(x1+56)+' '+y2+'H'+(x0-56)+'"/>' +
-      '<path d="M'+(x0-56+B)+' '+(y2+17)+'L'+(x0-56)+' '+y2+'"/></g>' +
+    '<g stroke="'+SLATE+'"><path d="M'+xa+' '+y1+'H'+xb+'"/>' +
+      '<path d="M'+(xb-B)+' '+(y1-17)+'L'+xb+' '+y1+'"/></g>' +
+    '<g stroke="'+INK+'"><path d="M'+xb+' '+y2+'H'+xa+'"/>' +
+      '<path d="M'+(xa+B)+' '+(y2+17)+'L'+xa+' '+y2+'"/></g>' +
   '</g>';
 }
 
