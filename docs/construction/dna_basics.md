@@ -206,8 +206,6 @@ What amino acid sequence is encoded by the following coding DNA sequence?
  - **Shine-Dalgarno Sequence (SD)**: A ribosomal binding site in bacterial mRNA, located upstream of the start codon, which aligns the ribosome for efficient translation initiation.
  - **Kozak Sequence**: A sequence surrounding the start codon in eukaryotic mRNA that enhances ribosome recognition and translation efficiency.
 
-<script src="../js/progress_manager.js"></script>
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     function setupQuiz(quizId, answer, inputId, resultId, quizName) {
