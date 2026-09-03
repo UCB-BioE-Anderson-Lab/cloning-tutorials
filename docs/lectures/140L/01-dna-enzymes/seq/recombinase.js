@@ -214,7 +214,7 @@ function directScene(t){
   g += strand(pR, 0, 310);
 
   /* the middle: gene + loxP B, curling into a covalently closed circle */
-  const pM = curve(600, eT, 1 + 0.45*eT, 840 + 340*eT, Y0 + 90*eT);
+  const pM = curve(600, eT, 1 + 0.30*eT, 840 + 300*eT, Y0 + 38*eT);
   g += strand(pM, 0, 600);
   g += arrowOpen(pM, 40, 420, GENEW, 1, INK);
   g += arrowFill(pM, 460, 600, LOXW, 1, BLUE);
@@ -223,8 +223,8 @@ function directScene(t){
   const goneL = 1 - smooth(eT, 0.05, 0.35), inC = smooth(eT, 0.62, 1);
   g += label(470, Y0 + 60, "loxP", 26, BLUE);
   g += fade(goneL, label(770, Y0 + 60, "gene", 26, INK) + label(1070, Y0 + 60, "loxP", 26, BLUE));
-  g += fade(inC, label(1180, 660, "excised circle", 26, INK) +
-                 label(1180, 694, "gene + one loxP", 24, MUTED) +
+  g += fade(inC, label(1140, 606, "excised circle", 26, INK) +
+                 label(1140, 640, "gene + one loxP", 24, MUTED) +
                  label(430, Y0 - 54, "one loxP stays behind", 26, MUTED));
   return g;
 }
