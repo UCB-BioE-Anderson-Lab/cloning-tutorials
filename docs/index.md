@@ -44,7 +44,7 @@ Each tutorial includes embedded quizzes, videos, and progress tracking. This pla
 10. **[Cycle Sequencing](wetlab/sequencing.md)**  
    Submit DNA for sequencing and interpret results to identify strong promoter variants.
 
-11. **[Measuring Fluorescence](bestp.md)**  
+11. **[Measuring Fluorescence](wetlab/bestp.md)**  
    Quantify promoter activity by measuring amilGFP fluorescence and OD, and calculate Relative Promoter Units (RPUs).
 
 ## Part B: Construction
