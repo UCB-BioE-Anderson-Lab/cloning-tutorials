@@ -35,7 +35,7 @@ const PX=800, PY=580, PR=31;
    two parallel lines can actually be seen. */
 const K={
   nu:[[0,-228],[0,-150],[0,-156]],
-  lg:[[0,150],[0,178],[0,210]],
+  lg:[[0,150],[0,178],[0,186]],
   e1:[[-156,-72],[-182,0],[-156,86]],   /* O-sugar, in plane            */
   e2:[[156,-72],[182,0],[156,86]],      /* O with the double bond       */
   e3:[[-70,-102],[-96,100],[-70,132]]     /* O-minus, toward the viewer   */
@@ -233,13 +233,6 @@ window.Deck.sequence("mechanism",function(slide){
       who:"transphosphorylation &nbsp;&middot;&nbsp; the bond is <tspan font-weight=\"700\">moved</tspan> &nbsp;&middot;&nbsp; kinases, polymerases, ligases, recombinases",
       note:"Same film, one substitution. Swap the water for an alcohol — a carbon carrying a hydroxyl — and every frame you just watched is identical. In-line approach, pentacoordinate intermediate, inversion. What changes is the product. The phosphate is not released into solution, it is handed to the thing that attacked, so the bond has moved rather than gone. That alcohol is a sugar's three prime hydroxyl in a polymerase or a ligase, a five prime hydroxyl in a kinase, a serine or a tyrosine on the protein itself in a recombinase. And do not let the similarity mislead you: water and an alcohol are different nucleophiles, and destroying a bond and relocating it are different outcomes. That difference is the reason this lecture is ordered the way it is.",
       desc:"The same reaction replayed with an alcohol as the nucleophile instead of water. The geometry and the curved arrows are unchanged; the difference is that the phosphate is transferred to the attacking alcohol rather than released." },
-
-    { s:{t:1,arrows:0,axis:0,nuv:1,b1:1,plus:0,rib:0,b2:1}, h1:"H", h2:"H", lg:"O", e1:"O", e2:"O",
-      cap:"Same phosphorus. The only question is what attacks.",
-      sub:"break it or move it &mdash; after that, only specificity differs",
-      who:"which end &middot; which sequence &middot; which strand &middot; which state",
-      note:"So that is the chemistry, and it does not change again today. One phosphorus, attacked in line, through a five-coordinate intermediate, with inversion. Two nucleophiles: water, and the bond is destroyed; an alcohol, and the bond is moved. Everything else in this lecture — and it is most of what you will actually learn — is the question of where each enzyme is allowed to do this. Which kind of end it recognises. Which sequence. Which strand. Whether the molecule is circular. Whether a base was methylated. Same reaction, entirely different rules about where it may happen.",
-      desc:"Both nucleophile classes named against the same phosphorus, closing the argument: the chemistry is two mechanisms and everything remaining is specificity." }
   ];
 
   function go(i,animated){
