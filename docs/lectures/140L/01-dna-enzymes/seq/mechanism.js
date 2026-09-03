@@ -96,7 +96,7 @@ window.Deck.sequence("mechanism",function(slide){
   slide.appendChild(svg);
   const r={}; svg.querySelectorAll("[data-r]").forEach(e=>r[e.getAttribute("data-r")]=e);
   const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
-  let cur=null, raf=null;
+  let cur=null, raf=null, lastI=null;
 
   function bondTo(p,gap){                 /* stop the bond short of the atom label */
     const dx=p[0]-PX, dy=p[1]-PY, L=Math.hypot(dx,dy)||1;
@@ -165,8 +165,10 @@ window.Deck.sequence("mechanism",function(slide){
       r.rib.setAttribute("transform","translate("+n2(nu[0]+RA[0]-RIBC3[0])+" "+
                                                   n2(nu[1]+RA[1]-RIBC3[1])+")");
       r.nub1.setAttribute("opacity",n2(s.rib));
-      r.nub1.setAttribute("d","M"+n2(nu[0]+RA[0]*0.26)+" "+n2(nu[1]+RA[1]*0.26-3)+
-                              "L"+n2(nu[0]+RA[0]*0.74)+" "+n2(nu[1]+RA[1]*0.74));
+      /* run the bond right up to the ring vertex, and start it just clear of
+         the O glyph — it was stopping short at both ends */
+      r.nub1.setAttribute("d","M"+n2(nu[0]+RA[0]*0.17)+" "+n2(nu[1]+RA[1]*0.17-3)+
+                              "L"+n2(nu[0]+RA[0])+" "+n2(nu[1]+RA[1]));
     }
     /* the lone pair sits between O and P, and is consumed as the bond forms */
     const lpv=n2(nvis*clamp01((0.44-t)/0.08));   /* the pair is consumed by the bond */
@@ -217,7 +219,7 @@ window.Deck.sequence("mechanism",function(slide){
       note:"The leaving oxygen takes the bonding pair with it, the five drops back to four, and watch the three equatorial oxygens: they keep going. They were tilted up at the start, they flattened at the intermediate, and now they have tipped the other way. The centre has turned inside out, like an umbrella in the wind. That inversion is the fingerprint of in-line attack, and it is how this mechanism was proven — run the reaction on a phosphorus you can tell the handedness of, and the product comes out the other hand. What is left: the phosphate is now attached to what used to be water. Nothing is joined to anything. The bond is destroyed, and that is hydrolysis, which is every nuclease and every phosphatase in this lecture.",
       desc:"The leaving oxygen has departed and the phosphorus is tetrahedral again, but inverted: the three equatorial oxygens have flipped through the plane to the opposite side. The phosphate now sits on the oxygen that arrived as water." },
 
-    { s:{t:0.38,arrows:1,axis:0,nuv:1,b1:1,plus:0,rib:1,b2:1}, h1:"", h2:"H",
+    { cut:1, s:{t:0.38,arrows:1,axis:0,nuv:1,b1:1,plus:0,rib:1,b2:1}, h1:"", h2:"H",
       lg:"O", e1:"O", e2:"O",
       cap:"Now run it again with an alcohol",
       sub:"a sugar&#8217;s 3&#8242; hydroxyl this time &mdash; same axis, same arrow",
@@ -246,7 +248,15 @@ window.Deck.sequence("mechanism",function(slide){
     r.cap.innerHTML=S[i].cap; r.sub.innerHTML=S[i].sub; r.who.innerHTML=S[i].who;
     r.nh1.innerHTML=S[i].h1; r.nh2.innerHTML=S[i].h2; r.tlg.innerHTML=S[i].lg;
     r.te1.innerHTML=S[i].e1; r.te2.innerHTML=S[i].e2;
-    if(!cur||animated===false||reduce.matches){cur=Object.assign({},to);paint(cur);return;}
+    /* The two mechanisms are separate reactions sharing one drawing. Tweening
+       between them would play the first one backwards, which is not a thing
+       that happens. Cut across that boundary in either direction. */
+    const boundary = (S[i].cut && lastI!==i) ||
+                     (lastI!=null && S[lastI] && S[lastI].cut && i<lastI);
+    if(!cur||animated===false||reduce.matches||boundary){
+      cur=Object.assign({},to); paint(cur); lastI=i; return;
+    }
+    lastI=i;
     const from=Object.assign({},cur), t0=performance.now();
     /* the reaction coordinate is the point, so give it room to be watched */
     const dur=Math.abs(to.t-from.t)>0.3?1150:720;
