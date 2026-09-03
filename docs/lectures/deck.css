@@ -53,6 +53,12 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);o
 .slide[data-bg="lecture"] small{color:rgba(255,255,255,.78)}
 .slide[data-bg="section"] small{color:rgba(0,0,0,.62)}
 .slide a{color:inherit}
+/* Enzyme names end in roman numerals written as capital I.  In the body
+   sans face a capital I is a bare vertical bar, so FalI reads as "Fall"
+   and BglII as "Bglll" — the exact confusion the naming slide exists to
+   teach.  Set names in the mono face, at whatever size they inherit, so
+   the list rhythm is unchanged. */
+.slide .enz{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.94em;letter-spacing:.01em}
 .slide code,.slide .seqtext{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:27px;letter-spacing:.02em}
 .slide .accent{color:var(--red)}
 .slide[data-bg="lecture"] .accent{color:#ffd9d7}
