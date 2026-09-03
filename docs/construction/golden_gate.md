@@ -55,7 +55,7 @@ Start by constructing a model of the final pET-INS plasmid, just as you did with
 🔗 Downloads:
 
 - [pET28a GenBank](../assets/pET28a.seq)
-- [INS GenBank](../assets/INS_genome_context.seq)
+- [INS GenBank](../assets/insulin_cdna.seq)
 
 ---
 
