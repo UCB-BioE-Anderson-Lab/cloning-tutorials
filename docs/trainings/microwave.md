@@ -32,8 +32,8 @@
 6. After each interval, remove the bottle and swirl to mix.
 7. Repeat until the agarose fully dissolves and the solution just starts to boil.
 8. Allow to cool until boiling subsides.
-9. Add 80 mL of 50x TAE.
-10. Fill with distilled water to the bottle’s line.
+9. Add 10 mL of 50x TAE.
+10. Fill with distilled water to the bottle’s 500 mL line (10 mL of 50x in 500 mL gives 1x TAE).
 11. Proceed with pouring gels.
 
 ### Preventing Hard-to-Clean Gels

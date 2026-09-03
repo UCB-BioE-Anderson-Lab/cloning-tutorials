@@ -173,7 +173,7 @@ At the planning stage, the main variable to consider is **product length**. Usin
 | Product   | Size (bp) |
 |-----------|-----------|
 | pcrAF     | 1,989     |
-| back72    | 14,055    |
+| back72    | 14,236    |
 
 These products differ significantly in size, so we refer to the PrimeStar GXL cycling program chart to select the appropriate thermocycler settings.
 
@@ -230,7 +230,7 @@ Our next labsheets will document gel runs and Zymo cleanups. These are straightf
 ```tsv
 reaction    size    product
 Af          1989    pcrAf
-B72         14055   back72
+B72         14236   back72
 ```
 
 For the Zymo sheet, you’ll record each cleaned-up product and assign a tube label and inventory destination. These go into 1.5 mL tubes, with both a top and side label.
