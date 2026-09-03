@@ -25,7 +25,12 @@ var GOOGLE_OAUTH_CLIENT_IDS = (function() {
     var single = props.getProperty('GOOGLE_OAUTH_CLIENT_ID');
     if (single && single.trim()) return [ single.trim() ];
   } catch (e) {}
-  return ['REPLACE_WITH_YOUR_WEB_CLIENT_ID.apps.googleusercontent.com'];
+  // Last-resort default: the Web client ID the tutorials site actually uses
+  // (see docs/js/progress_manager.js). The script property above is
+  // authoritative; this only keeps the class working if the property was never
+  // set. An OAuth client ID is public, not a secret -- the security comes from
+  // verifying the token signature, which verifyIdToken_ does below.
+  return ['1096619091657-o556epqbjql8ii5ulggc1ar9ha975gel.apps.googleusercontent.com'];
 })();
 
 /** ── ID token verification (OIDC) ─────────────────────────────────────── */
@@ -43,6 +48,11 @@ function verifyIdToken_(idToken) {
     var claims = JSON.parse(resp.getContentText());
     // Required checks
     if (!claims.aud || GOOGLE_OAUTH_CLIENT_IDS.indexOf(claims.aud) === -1) {
+      // Loud, because this one misconfiguration rejects every submission in the
+      // class at once. Fix by setting the GOOGLE_OAUTH_CLIENT_IDS script
+      // property to the aud reported here.
+      console.error('verifyIdToken_: aud_mismatch. Token aud=' + claims.aud +
+                    ' allowed=' + JSON.stringify(GOOGLE_OAUTH_CLIENT_IDS));
       return { ok: false, error: 'aud_mismatch', aud: claims.aud, allowed: GOOGLE_OAUTH_CLIENT_IDS };
     }
     if (!claims.iss || (claims.iss !== 'https://accounts.google.com' && claims.iss !== 'accounts.google.com')) {

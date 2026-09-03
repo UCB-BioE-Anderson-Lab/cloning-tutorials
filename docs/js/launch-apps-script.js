@@ -86,6 +86,17 @@ function buildResultHtml(summary) {
   const emailSent = !!(summary && summary.email_sent);
   const wetlabId = escapeHtml(summary && summary.wetlab_id || '');
   const results = escapeHtml(summary && summary.results || '');
+  // The server sets ok:false when nothing was written. Older responses have no
+  // `ok` field at all, so only treat an explicit false as a failure.
+  const failed = !!(summary && summary.ok === false);
+  const message = escapeHtml(summary && summary.message || '');
+  const errCode = escapeHtml(summary && summary.error || '');
+  const failureHtml = failed
+    ? ('    <div class="failure"><strong>Nothing was recorded.</strong>'
+        + (message ? ('<p>' + message + '</p>') : '')
+        + (errCode ? ('<p>Code: <code class="err">' + errCode + '</code></p>') : '')
+        + '</div>')
+    : '';
   const newly = Array.isArray(summary && summary.quizzes_added_now) ? summary.quizzes_added_now : [];
   const cumulative = Array.isArray(summary && summary.quizzes_passed_cumulative)
     ? summary.quizzes_passed_cumulative
@@ -118,11 +129,14 @@ function buildResultHtml(summary) {
     '    h2{margin:16px 0 8px 0;font-size:1.2rem}',
     '    .muted{color:#555}',
     '    .notice{background:#f6fff5;border:1px solid #cbe8cb;padding:12px;border-radius:8px;margin:12px 0}',
+    '    .failure{background:#fdecea;border:1px solid #f5c2c7;color:#b00020;padding:12px;border-radius:8px;margin:12px 0}',
+    '    code.err{font-family:ui-monospace,Menlo,Consolas,monospace}',
     '  </style>',
     '</head>',
     '<body>',
     '  <div class="card">',
     '    <h1>' + title + '</h1>',
+    failureHtml,
     (greeting ? ('    <p class="muted">' + greeting + '</p>') : ''),
     '    <p class="muted">Email: ' + email + '</p>',
     '    <p class="muted">Version: ' + version + '</p>',
