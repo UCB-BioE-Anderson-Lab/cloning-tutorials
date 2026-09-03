@@ -43,14 +43,7 @@
   <template class="desc">T4 PNK transfers the terminal gamma phosphate of ATP onto a 5-prime hydroxyl. Beside the bullets, ATP is drawn as a skeletal structure: a vertical chain of three phosphates labelled gamma, beta and alpha reading downward, joined through the 5-prime oxygen to a ribose that carries adenine. The gamma phosphate and its own three oxygens are drawn in blue and captioned as the phosphate PNK moves.</template>
 </article>
 
-<article class="slide">
-  <div class="q">T4 PNK phosphorylates a free 5&rsquo;-OH. Where on <em>this</em> molecule could it act?</div>
-  <figure class="fig"><img src="img/dna-backbone-bond.png" alt="Chemical structure of a DNA duplex showing two nucleotides on each strand, every 5-prime oxygen already bonded on into the chain"></figure>
-  <div class="step" data-build="1"
-       data-note="Nowhere. Find the two 5’ labels and follow the oxygen: on both strands it already has a bond running on up the chain. There is no free hydroxyl anywhere in this picture, because this picture has no ends — it is the middle of a molecule. That is the real lesson. PNK’s substrate is not defined by a base or by a sequence; it is defined by a terminus, and an atom-level view of the interior cannot show you a terminus. So where do 5’ ends come from, and what state are they in? Cut a DNA with a nuclease and you break the bond between the 3’ hydroxyl and the 5’ phosphate, so the new 5’ end already carries its phosphate and PNK has nothing to do. Buy a synthetic oligo and chemical synthesis has ended it at a bare 5’ hydroxyl, so it must be kinased before ligase will touch it. Same two ends, opposite states, and the difference is where the DNA came from. That distinction is invisible at this magnification, which is exactly why the rest of this section drops down to a barbed line, where an end is the only thing you can see."
-       data-desc="A line has appeared below the figure: nowhere — every 5-prime oxygen in the drawing is already bonded on into the chain, and PNK needs an end."><span class="arrow">&rarr;</span> <span>Nowhere &mdash; every 5&rsquo; oxygen here is already bonded on into the chain. PNK needs an <em>end</em>.</span></div>
-  <template class="notes">Same backbone figure you saw under the nucleases. PNK only works on a free 5’ hydroxyl, so point at where it could put a phosphate on this molecule. Let the room hunt for it before you advance — the hunt is the point.</template>
-  <template class="desc">The DNA backbone structure again, showing two nucleotides on each strand with every 5-prime oxygen bonded on into the chain. Where T4 PNK could act on it is the question; the answer is not yet on the slide.</template>
+<article class="slide" data-seq="whichbond" data-bond="pnk">
 </article>
 
 <article class="slide" data-seq="pcrphos">
@@ -60,6 +53,8 @@
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/chem.js" defer></script>
+<script src="seq/whichbond.js" defer></script>
 <script src="seq/phosphate.js" defer></script>
 </body>
 </html>

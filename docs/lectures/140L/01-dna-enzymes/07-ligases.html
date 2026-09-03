@@ -64,14 +64,7 @@
   <template class="desc">A worked question. Three clicks walk through EcoRI cutting, mung bean nuclease blunting the overhangs, and T4 ligase rejoining the blunt ends, leaving GC where the EcoRI site used to be.</template>
 </article>
 
-<article class="slide">
-  <div class="q">Which bond is formed&hellip; by T4 Ligase</div>
-  <figure class="fig"><img src="img/dna-backbone-bond.png" alt="Chemical structure of the DNA backbone showing the phosphodiester bond formed between a 5-prime phosphate and a 3-prime hydroxyl"></figure>
-  <div class="step" data-build="1"
-       data-note="It is exactly the bond the restriction enzymes broke, run backwards. Be precise about who does what. The phosphate is already present, and it belongs to the downstream 5’ end — ligase does not bring a phosphate with it, which is why a 5’ hydroxyl is simply not a substrate. The 3’ hydroxyl on the upstream side is the nucleophile: it attacks that phosphorus and displaces the leaving group. The one detail this picture hides is the activation step. Ligase first uses ATP to adenylylate itself, then hands that AMP to the 5’ phosphate, and it is the AMP that leaves when the 3’ hydroxyl attacks. You do not need the three-step mechanism to clone anything, but you do need the consequence: no ATP, no bond."
-       data-desc="A line has appeared below the figure naming the answer: the same phosphate to 3-prime hydroxyl bond a nuclease breaks, formed rather than broken, with the phosphate already present on the 5-prime side and the 3-prime hydroxyl attacking it."><span class="arrow">&rarr;</span> The same phosphate&ndash;3&rsquo;-OH bond a nuclease breaks &mdash; the 5&rsquo; phosphate is already there; the 3&rsquo;-OH attacks it</div>
-  <template class="notes">Same figure as the exonuclease question, run the other way. Ligase makes a bond rather than breaking one &mdash; which bond, and who brings what to it? Let the room answer before you advance.</template>
-  <template class="desc">The DNA backbone structure again. Which bond T4 ligase forms is the question; the answer is not yet on the slide.</template>
+<article class="slide" data-seq="whichbond" data-bond="ligase">
 </article>
 
 <article class="slide">
@@ -92,6 +85,8 @@
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/chem.js" defer></script>
+<script src="seq/whichbond.js" defer></script>
 <script src="seq/ligase.js" defer></script>
 </body>
 </html>
