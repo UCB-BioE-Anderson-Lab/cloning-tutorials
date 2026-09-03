@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Phosphatases &mdash; DNA Manipulation Enzymes</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>Phosphatases</h1>
+  <p>Water attacks the phosphate. The 5&rsquo; phosphate comes off &mdash; and a licence is revoked.</p>
+  <template class="notes">This is still hydrolysis. Water is the nucleophile, the bond is destroyed, and the phosphate ends up in solution rather than anywhere useful. What makes phosphatases worth a section is not the chemistry, which you have already seen twice, but the consequence: a five prime end without a phosphate cannot be ligated. Removing it is how you stop a molecule doing something you do not want it to do.</template>
+  <template class="desc">Section divider: Phosphatases. Water attacks the phosphate, removing it from the 5-prime end.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Alkaline Phosphatases</h1>
+  <div class="cols wide-left">
+    <ul class="tight" style="justify-content:flex-start">
+      <li>Hydrolyse phosphate esters &mdash; <b>non-specifically</b>. The substrate is a phosphate ester, not a DNA</li>
+      <li>Any exposed phosphate: 5&rsquo; ends of RNA or DNA, dNTPs and NTPs, and small molecules like <i>p</i>-nitrophenyl phosphate &mdash; which is why the same enzyme doubles as a colorimetric reporter</li>
+      <li>Take a 5&rsquo; phosphate off and you revoke two licences: the end can no longer be <b>ligated</b>, and &lambda; exonuclease will no longer <b>start</b> on it</li>
+      <li>And they cannot tell your vector from your insert &mdash; which matters later</li>
+    </ul>
+    <figure class="fig"><svg viewBox="0 0 547.2 309.6" role="img" aria-labelledby="pnppttl" style="width:100%;height:auto"><title id="pnppttl">Alkaline phosphatase hydrolyses p-nitrophenyl phosphate. Water goes in, inorganic phosphate comes off, and p-nitrophenol is left. Under alkaline conditions that loses a proton to give p-nitrophenolate, which is yellow and is what a plate reader measures.</title><path d="M86.4 168.5L65.2 156.2L65.2 131.8L86.4 119.5L107.6 131.8L107.6 156.2Z" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round"/><circle cx="86.4" cy="144.0" r="13.5" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M86.4 119.5V106.6" fill="none" stroke="var(--ink)" stroke-width="2.6"/><path d="M86.4 168.5V181.4" fill="none" stroke="var(--ink)" stroke-width="2.6"/><text x="86.4" y="97.9" text-anchor="middle" font-size="21" fill="var(--ink)">O&#8212;PO&#8323;&#178;&#8315;</text><text x="86.4" y="198.7" text-anchor="middle" font-size="21" fill="var(--ink)">NO&#8322;</text><text x="86.4" y="237.6" text-anchor="middle" font-size="22" fill="var(--muted)">pNPP</text><path d="M133.9 144.0H231.8" fill="none" stroke="var(--ink)" stroke-width="2.8"/><path d="M223.2 136.8L233.3 144.0L223.2 151.2" fill="none" stroke="var(--ink)" stroke-width="2.8"/><text x="182.9" y="129.6" text-anchor="middle" font-size="22" fill="var(--ink)">phosphatase</text><text x="154.1" y="171.4" text-anchor="middle" font-size="20" fill="var(--muted)">+ H&#8322;O</text><text x="217.4" y="171.4" text-anchor="middle" font-size="20" fill="var(--muted)">&#8722; P<tspan baseline-shift="sub" font-size="14">i</tspan></text><path d="M282.2 168.5L261.0 156.2L261.0 131.8L282.2 119.5L303.4 131.8L303.4 156.2Z" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round"/><circle cx="282.2" cy="144.0" r="13.5" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M282.2 119.5V106.6" fill="none" stroke="var(--ink)" stroke-width="2.6"/><path d="M282.2 168.5V181.4" fill="none" stroke="var(--ink)" stroke-width="2.6"/><text x="282.2" y="97.9" text-anchor="middle" font-size="21" fill="var(--ink)">OH</text><text x="282.2" y="198.7" text-anchor="middle" font-size="21" fill="var(--ink)">NO&#8322;</text><text x="282.2" y="237.6" text-anchor="middle" font-size="22" fill="var(--muted)">p-nitrophenol</text><path d="M329.8 144.0H409.0" fill="none" stroke="var(--ink)" stroke-width="2.8"/><path d="M400.3 136.8L410.4 144.0L400.3 151.2" fill="none" stroke="var(--ink)" stroke-width="2.8"/><text x="369.4" y="129.6" text-anchor="middle" font-size="22" fill="var(--ink)">alkaline</text><text x="369.4" y="171.4" text-anchor="middle" font-size="20" fill="var(--muted)">&#8722; H&#8314;</text><path d="M459.4 168.5L438.2 156.2L438.2 131.8L459.4 119.5L480.6 131.8L480.6 156.2Z" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linejoin="round"/><circle cx="459.4" cy="144.0" r="13.5" fill="none" stroke="var(--amber)" stroke-width="2"/><path d="M459.4 119.5V106.6" fill="none" stroke="var(--amber)" stroke-width="2.6"/><path d="M459.4 168.5V181.4" fill="none" stroke="var(--amber)" stroke-width="2.6"/><text x="459.4" y="97.9" text-anchor="middle" font-size="21" fill="var(--amber)">O&#8315;</text><text x="459.4" y="198.7" text-anchor="middle" font-size="21" fill="var(--amber)">NO&#8322;</text><text x="459.4" y="237.6" text-anchor="middle" font-size="22" fill="var(--amber)">p-nitrophenolate</text><text x="14.4" y="288.0" text-anchor="start" font-size="21" fill="var(--muted)">the colour is the readout</text></svg></figure>
+  </div>
+  <template class="notes">The most commonly used class of phosphatases are the alkaline phosphatases. Read the first line literally, because it is more general than it looks: what they hydrolyse is a phosphate ester. Not a DNA end — a phosphate ester. A DNA five prime end is simply one substrate that happens to be one. That is why these enzymes are used well outside DNA manipulation: react an alkaline phosphatase with p-nitrophenyl phosphate, a small molecule with no nucleic acid anywhere in it, and it releases a yellow pigment you can read on a plate reader. You will meet exactly this again later in the course, when alkaline phosphatase turns up as phoA, a periplasmic reporter — and the only reason that will make sense is the word non-specific on this slide. Now the consequence for us. The enzyme will act on any exposed phosphate: the five prime ends of nucleotides or polynucleotides, free dNTPs, NTPs. Stripping the five prime phosphate revokes two separate licences. The obvious one is ligation — no phosphate, no bond, and that is the next slide. The second is degradation: lambda exonuclease essentially will not initiate on a five prime hydroxyl, so a phosphatased end is also a protected end. These enzymes are very common in nature, from both prokaryotic and animal sources. Hold on to the word non-specific. It is what makes the next slide work, and it is also what makes the slide after that a trap.</template>
+  <template class="desc">Alkaline phosphatases hydrolyse phosphate esters non-specifically — the substrate class is a phosphate ester, not a DNA — so they act on 5-prime ends, on free nucleotides, and on small molecules. Beside the bullets, a reaction diagram shows p-nitrophenyl phosphate losing its phosphate to give the yellow p-nitrophenolate ion.</template>
+</article>
+
+<article class="slide" data-seq="vecphos">
+  <h1 class="small">Why you phosphatase a vector</h1>
+</article>
+
+<article class="slide">
+  <h1 class="small">Three phosphatases, one difference that matters</h1>
+  <ul class="tight"><li>The difference is not activity. It is whether you can get the enzyme out before the ligation &mdash; because a phosphatase that survives strips the phosphates you just paid for</li></ul>
+
+  <h2 style="margin:34px 0 10px">One that heat will not kill</h2>
+  <ul class="tighter">
+    <li><b>CIP</b> &mdash; calf intestine alkaline phosphatase. Oldest, cheapest, most robust; the one every protocol names</li>
+    <li>Notoriously <em>not</em> inactivated by heat &mdash; you must column-purify or extract it away before you ligate</li>
+  </ul>
+
+  <div data-build="1" data-note="The other two are killed by a short heat step, which is why they have largely displaced CIP for preparing a vector — you inactivate and go straight into the ligation in the same tube, with no clean-up in between. Antarctic phosphatase is claimed to be the more heat-labile of the two. One other use worth knowing, and it is the reason to remember shrimp phosphatase by name: exo-SAP, where you clean up a PCR reaction before cycle sequencing by destroying the leftover dNTPs with SAP and the leftover primers with Exonuclease I. Both leftovers are things that would otherwise prime or terminate in the sequencing reaction." data-desc="A second group appears, headed: two that heat does kill. Recombinant shrimp alkaline phosphatase and Antarctic Phosphatase are inactivated by a short heat step, so the ligation can be done in the same tube; the same shrimp enzyme is half of the exo-SAP clean-up.">
+    <h2 style="margin:34px 0 10px;color:var(--slate)">Two that it does</h2>
+    <ul class="tighter">
+      <li><b>rSAP</b> (recombinant shrimp) and <b>Antarctic Phosphatase</b> &mdash; a short heat step inactivates them cleanly, so you can ligate in the same tube</li>
+      <li>rSAP is also half of exo-SAP: SAP destroys the leftover dNTPs, Exonuclease I the leftover primers, before cycle sequencing</li>
+    </ul>
+  </div>
+  <template class="notes">The oldest, cheapest, and most well-known enzyme is calf intestine alkaline phosphatase, or CIP. The name means what it implies — it is a phosphatase originally isolated from calf intestine. But the property that should decide which one you reach for is not activity, it is how you get rid of it afterwards. Remember that this enzyme is non-specific. If any of it survives into your ligation, it will strip the 5’ phosphates off your insert, and you have then done to your insert exactly what you meant to do only to your vector. CIP is notorious for surviving heat inactivation, so with CIP you have to physically remove it, by column or by extraction.</template>
+  <template class="desc">Three alkaline phosphatases sorted into two groups by the only property that matters practically. First group, headed one that heat will not kill: CIP. Second group, headed two that it does: rSAP and Antarctic Phosphatase, which can therefore be inactivated in the same tube as the ligation.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/phosphate.js" defer></script>
+</body>
+</html>

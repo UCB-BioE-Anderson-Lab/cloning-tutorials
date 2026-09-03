@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>140L Slide Style Guide</title>
+<link rel="stylesheet" href="palette.css">
+<style>
+  /* Imports the deck's real palette, so every swatch below is the actual
+     token rather than a description of it. */
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.58;
+       font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;font-size:15px}
+  .wrap{max-width:900px;margin:0 auto;padding:60px 28px 150px}
+  h1{font-family:Rockwell,"Bookman Old Style",Georgia,serif;font-size:44px;margin:0 0 6px}
+  .sub{color:var(--muted);margin:0 0 26px;font-size:16px}
+  h2{font-family:Rockwell,"Bookman Old Style",Georgia,serif;font-size:27px;
+     margin:58px 0 6px;padding-top:24px;border-top:1px solid var(--rule)}
+  h3{font-size:16px;margin:30px 0 6px;letter-spacing:.01em}
+  h4{font-size:14px;margin:20px 0 4px;color:#444}
+  p,li{max-width:68ch}
+  ul{padding-left:1.2em} li{margin-bottom:6px}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;
+       background:#f4f5f7;padding:1px 5px;border-radius:3px}
+  pre{background:#f6f7f9;border:1px solid var(--rule);border-radius:5px;
+      padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;margin:14px 0;font-size:14px;width:100%;max-width:68ch}
+  th,td{text-align:left;padding:7px 16px 7px 0;border-bottom:1px solid var(--rule);
+        vertical-align:top}
+  th{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .req{border-left:3px solid var(--blue);background:#f2f6fa;padding:10px 15px;
+       margin:12px 0;max-width:68ch}
+  .req b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--blue)}
+  .open{border-left:3px solid var(--amber);background:#faf7ec;padding:10px 15px;
+        margin:12px 0;max-width:68ch}
+  .open b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:#7d6b0c}
+  .sw{display:flex;gap:13px;flex-wrap:wrap;margin:18px 0}
+  .sw figure{margin:0;width:146px}
+  .sw .chip{height:70px;border-radius:4px;border:1px solid rgba(0,0,0,.08)}
+  .sw figcaption{font-size:12.5px;margin-top:6px;color:var(--muted)}
+  .sw b{display:block;color:var(--ink);font-size:13.5px}
+  .spec{border:1px solid var(--rule);border-radius:5px;padding:8px 12px;margin:14px 0}
+  .spec figcaption{font-size:12.5px;color:var(--muted);padding-top:4px}
+  nav{font-size:13.5px;columns:2;column-gap:36px;margin:0 0 8px;padding:18px 0 0;
+      border-top:1px solid var(--rule)}
+  nav a{display:block;color:var(--ink);text-decoration:none;padding:2.5px 0}
+  nav a:hover{color:var(--blue);text-decoration:underline}
+  .lede{font-size:16.5px;color:#333;max-width:64ch}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>140L Slide Style Guide</h1>
+<p class="sub">A proposed specification for the lecture series</p>
+
+<p class="lede">This describes how the 140L decks should look and behave — not how any one
+of them currently does. It sets an accessibility conformance target, a visual language, and
+the rules that follow from both. Blue panels are requirements. Amber panels are open
+decisions worth settling before the series grows.</p>
+
+<nav>
+  <a href="#audience">1 &nbsp;Audience and conditions</a>
+  <a href="#principles">2 &nbsp;Principles</a>
+  <a href="#a11y">3 &nbsp;Accessibility specification</a>
+  <a href="#colour">4 &nbsp;Colour</a>
+  <a href="#type">5 &nbsp;Typography</a>
+  <a href="#layout">6 &nbsp;Layout and composition</a>
+  <a href="#line">7 &nbsp;Line and diagram style</a>
+  <a href="#motion">8 &nbsp;Motion</a>
+  <a href="#imagery">9 &nbsp;Imagery and line art</a>
+  <a href="#text">10 &nbsp;Text alternatives</a>
+  <a href="#check">11 &nbsp;Conformance checklist</a>
+</nav>
+
+<!-- ============================================================ 1 -->
+<h2 id="audience">1 &nbsp;Audience and conditions</h2>
+<p>Design decisions only make sense against the conditions the slides actually meet. Assume
+all of these simultaneously:</p>
+<table>
+  <tr><th>Condition</th><th>Consequence</th></tr>
+  <tr><td>Projected in a lit lecture hall</td>
+      <td>Low effective contrast. Mid-tones wash out; hairlines disappear.</td></tr>
+  <tr><td>Viewed from the back row</td>
+      <td>Type below ~1/30 of slide height is unreadable. Detail below ~1/200 vanishes.</td></tr>
+  <tr><td>~8% of the men present have a red–green deficiency</td>
+      <td>Hue alone cannot separate categories.</td></tr>
+  <tr><td>Recorded and rewatched at small size</td>
+      <td>Must survive being a quarter of its authored size.</td></tr>
+  <tr><td>Sometimes printed, often in monochrome</td>
+      <td>Everything must survive greyscale.</td></tr>
+  <tr><td>Read later without narration</td>
+      <td>A slide must carry its own meaning; the notes are not always present.</td></tr>
+</table>
+<p>Every rule below traces back to one of these. Where a rule looks fussy, it is because two
+of these conditions apply at once.</p>
+
+<!-- ============================================================ 2 -->
+<h2 id="principles">2 &nbsp;Principles</h2>
+<p>Five, in priority order. When rules conflict, the earlier principle wins.</p>
+<ol>
+  <li><b>Accuracy before beauty.</b> A diagram is an argument about a mechanism. If it is
+      elegant and wrong, it is worse than a crude sketch that is right — students remember
+      pictures longer than captions.</li>
+  <li><b>One idea per slide.</b> If a slide needs two sentences of narration to explain what
+      is on it, it is two slides.</li>
+  <li><b>Ink is expensive.</b> Every mark must carry information. Decoration, gradients,
+      shadows, borders-for-their-own-sake, and background texture are prohibited outright.</li>
+  <li><b>Emphasis is relative.</b> Nothing is emphasised unless something else is not. This is
+      why colour is an attention ladder (&sect;4) rather than a set of category labels.</li>
+  <li><b>Motion must mean something.</b> Animate a change; never animate an arrival.</li>
+</ol>
+<p>The aesthetic that follows is deliberately austere: black line on white, two typefaces, a
+four-colour palette used sparingly, and large amounts of empty space. Austerity is not
+minimalism for its own sake — it is what keeps the one meaningful mark on a slide visible
+from the back of the room.</p>
+
+<!-- ============================================================ 3 -->
+<h2 id="a11y">3 &nbsp;Accessibility specification</h2>
+
+<div class="req"><b>Target</b><br>WCAG 2.2 <b>Level AA</b> for all slide content, plus the
+Level AAA contrast criterion (1.4.6) for body text where it costs nothing — which, on white,
+it does not.</div>
+
+<p>WCAG was written for web pages, so several criteria need translating for slides. What each
+one means here:</p>
+
+<h4>Perceivable</h4>
+<table>
+  <tr><th>Criterion</th><th>What it requires here</th></tr>
+  <tr><td><b>1.1.1</b> Non-text content</td>
+      <td>Every slide and every animation step carries a written visual description
+          (&sect;10). Decorative marks — of which there should be none — would be
+          <code>aria-hidden</code>.</td></tr>
+  <tr><td><b>1.3.1</b> Info and relationships</td>
+      <td>Real headings and lists, not styled <code>div</code>s. Structure must survive with
+          styling off.</td></tr>
+  <tr><td><b>1.4.1</b> Use of colour</td>
+      <td>Colour is <b>never the only</b> carrier of meaning. Every colour distinction is
+          reinforced by position, label, line style, or the description channel.</td></tr>
+  <tr><td><b>1.4.3</b> Contrast (minimum)</td>
+      <td>4.5:1 for body text, 3:1 for text ≥24px bold or ≥30px regular. All four palette
+          colours clear 3:1 on white; three clear 4.5:1.</td></tr>
+  <tr><td><b>1.4.6</b> Contrast (enhanced, AAA)</td>
+      <td>7:1 for body text. Ink on white is 18.9:1 — meet it by default.</td></tr>
+  <tr><td><b>1.4.11</b> Non-text contrast</td>
+      <td><b>3:1 minimum for every diagram stroke.</b> This is the criterion most often
+          missed, and it is why no palette colour may be lighter than the 3:1 floor.</td></tr>
+  <tr><td><b>1.4.12</b> Text spacing</td>
+      <td>Line height ≥1.5&times; for body text; paragraph spacing ≥2&times; font size.</td></tr>
+</table>
+
+<h4>Operable</h4>
+<table>
+  <tr><th>Criterion</th><th>What it requires here</th></tr>
+  <tr><td><b>2.1.1</b> Keyboard</td>
+      <td>Every function reachable by keyboard. Advancing is keyboard-only by design.</td></tr>
+  <tr><td><b>2.2.2</b> Pause, stop, hide</td>
+      <td><b>Nothing moves on its own.</b> All motion is triggered by an explicit advance and
+          settles within ~1.2s. No loops, no auto-advance, no ambient animation.</td></tr>
+  <tr><td><b>2.3.1</b> Three flashes</td>
+      <td>No flashing. Trivially met, but do not introduce blink or rapid alternation.</td></tr>
+  <tr><td><b>2.3.3</b> Animation from interactions (AAA)</td>
+      <td>Honour <code>prefers-reduced-motion</code>: jump to the end state, never tween.</td></tr>
+  <tr><td><b>2.4.2 / 2.4.6</b> Titles and headings</td>
+      <td>Every section page has a descriptive <code>&lt;title&gt;</code>; every slide a
+          heading that says what it is about.</td></tr>
+</table>
+
+<h4>Understandable and robust</h4>
+<ul>
+  <li><b>3.1.1</b> Language declared on every page.</li>
+  <li><b>3.2.3</b> Navigation is identical on every slide and every section.</li>
+  <li><b>4.1.2</b> Live regions announce step changes; controls carry accessible names and
+      <code>aria-pressed</code> state.</li>
+</ul>
+
+<h3>Beyond WCAG</h3>
+<p>Three requirements WCAG does not cover but this series does, because the conditions in
+&sect;1 demand them:</p>
+<div class="req"><b>Required</b><br>
+<b>Colour-vision safety.</b> Every pair of simultaneously meaningful colours must remain
+distinguishable under protanopia, deuteranopia and tritanopia.<br><br>
+<b>Greyscale survival.</b> Every pair must differ by ≥1.8:1 in luminance, so the deck works
+printed in monochrome and on a failing projector.<br><br>
+<b>Projection legibility.</b> No type below 1/30 of slide height. No stroke below 1/600 of
+slide width.</div>
+
+<!-- ============================================================ 4 -->
+<h2 id="colour">4 &nbsp;Colour</h2>
+<p>Four content colours, defined once in <a href="palette.css">palette.css</a> and imported
+everywhere. Never retype a hex.</p>
+
+<div class="sw">
+  <figure><div class="chip" style="background:var(--ink)"></div>
+    <figcaption><b>ink &mdash; rung 0</b>context; the unremarkable</figcaption></figure>
+  <figure><div class="chip" style="background:var(--blue)"></div>
+    <figcaption><b>blue &mdash; rung 1</b>what to look at</figcaption></figure>
+  <figure><div class="chip" style="background:var(--vermillion)"></div>
+    <figcaption><b>vermillion &mdash; rung 2</b>more, when blue is taken</figcaption></figure>
+  <figure><div class="chip" style="background:var(--amber)"></div>
+    <figcaption><b>amber &mdash; rung 3</b>most; reserved</figcaption></figure>
+</div>
+
+<h3>Colour encodes attention, not identity</h3>
+<p>A colour says <i>how much this matters right now</i>. It does not name a category. Do not
+establish "blue means RNA" — the moment a slide has no other actor, blue is simply unused and
+the convention forces a worse choice. A molecule may change rung when the focus moves to it;
+that is the system working.</p>
+
+<div class="req"><b>Required</b><br>Start every element at ink. Promote exactly one thing to
+blue. Reach rung 2 only when rung 1 is occupied on that same slide. If you find yourself
+wanting rung 3, first check whether something already coloured should drop back to ink.</div>
+
+<h3>Why these four and not others</h3>
+<p>Under dichromacy there is effectively one hue axis — blue against yellow — plus lightness.
+Red, orange, yellow and green all collapse onto the yellow pole, so hue alone cannot separate
+four colours. Lightness must, and lightness is also what greyscale preserves, so one
+constraint solves both. The four are therefore spaced evenly in <b>log luminance</b> between
+black and the 3:1-on-white floor, giving ≥1.81:1 between <i>every</i> pair, not merely
+adjacent ones. Hue then reinforces the lightness step. Full derivation and simulations:
+<a href="palette.pdf">palette.pdf</a>.</p>
+
+<h3>Grounds: the same ladder applied to scope</h3>
+<table>
+  <tr><th>Ground</th><th>Meaning</th><th>Text</th><th>Note</th></tr>
+  <tr><td>blue</td><td>a lecture opens</td><td>white</td><td>10.2:1</td></tr>
+  <tr><td>amber</td><td>a section opens</td><td><b>black</b></td>
+      <td>6.0:1. White on amber is 3.1:1 and fails — the one ground that flips.</td></tr>
+  <tr><td>white</td><td>ordinary content</td><td>black</td><td>18.9:1</td></tr>
+</table>
+<p>Backgrounds are named by <b>role</b> in markup (<code>data-bg="section"</code>), never by
+colour, so the scheme can be repainted without touching a single slide file.</p>
+
+<div class="open"><b>Open</b><br>Rung 3 (amber) currently has no content use, only the section
+ground. If a future lecture needs a genuine third simultaneous distinction, decide then
+whether amber is spent on it or whether the slide should be split instead. Splitting is
+usually the better answer.</div>
+
+<!-- ============================================================ 5 -->
+<h2 id="type">5 &nbsp;Typography</h2>
+<p>Two families, no more. A slab serif carries titles; a neutral grotesque carries everything
+else; monospace appears only for sequence and code, where character alignment is semantic.</p>
+
+<table>
+  <tr><th>Role</th><th>Family</th><th>Size</th><th>Notes</th></tr>
+  <tr><td>Lecture title</td><td>slab</td><td>84</td><td>on the blue ground</td></tr>
+  <tr><td>Section title</td><td>slab</td><td>76</td><td>on the amber ground</td></tr>
+  <tr><td>Slide title</td><td>slab</td><td>60, or 48 with a figure</td><td>one line; never wrap</td></tr>
+  <tr><td>Body, bullets</td><td>sans</td><td>30 &middot; 26 &middot; 23</td>
+      <td>23 is the floor — 1/39 of slide height, already marginal</td></tr>
+  <tr><td>Sequence</td><td>mono</td><td>24&ndash;27</td><td>letter-spaced for scanning</td></tr>
+  <tr><td>Captions, sources</td><td>sans</td><td>18&ndash;22</td><td>muted; never load-bearing</td></tr>
+</table>
+
+<div class="req"><b>Required</b><br><b>Body type is 1/30 of slide height</b> — 30 units in the
+900-unit box, which is what <code>.slide p</code> and <code>.slide li</code> already set. That is the
+size a claim is made at, and anything the back row must read sits at it.</div>
+
+<p>The deck also ships two <b>density escapes</b> — <code>.tight</code> at 26 and
+<code>.tighter</code> at 23 — and they are honest about what they are: a way to fit more on a
+slide than belongs there. They are legitimate for supporting bullets and reference tables. They
+are not legitimate for the sentence that carries the slide, and reaching for one is a signal to
+ask whether the slide should split instead.</p>
+
+<div class="req"><b>Required</b><br><b>The <code>.src</code> slot carries provenance only.</b>
+Citations, PMIDs, source URLs. It renders quieter than anything else on a slide, so a caveat
+placed there is a caveat hidden. Anything that changes what a student <i>does</i> belongs on the
+slide at readable size, or in the spoken note.</div>
+
+<div class="req"><b>Required</b><br><b>An annotation is never smaller than what it annotates.</b>
+A label explaining a sequence block set at 26 does not sit at 24. This rule catches the common
+case that a flat floor misses: text that is legible in absolute terms but reads as subordinate to
+the thing it is supposed to explain.</div>
+
+<ul>
+  <li>Bold for emphasis; italic for genus, species and Latin terms. Never underline — it reads
+      as a link and collides with descenders.</li>
+  <li>Sentence case throughout. No all-caps runs longer than an abbreviation.</li>
+  <li>Never centre body text or bullets. Centre only titles on full-bleed ground slides.</li>
+  <li>Maximum ~10 words per bullet, ~6 bullets per slide. Beyond that, split.</li>
+</ul>
+
+<!-- ============================================================ 6 -->
+<h2 id="layout">6 &nbsp;Layout and composition</h2>
+<p>Slides are authored in a fixed <b>1600&times;900</b> box scaled to fit the viewport, so all
+measurements are slide units and every slide is identically proportioned.</p>
+<table>
+  <tr><th>Measure</th><th>Value</th></tr>
+  <tr><td>Margins</td><td>110 sides, 86 top, 70 bottom</td></tr>
+  <tr><td>Title to first content</td><td>≥26</td></tr>
+  <tr><td>Between content blocks</td><td>≥30</td></tr>
+  <tr><td>Figure to caption</td><td>14</td></tr>
+</table>
+
+<h3>Whitespace is structure</h3>
+<p>Empty space is the primary grouping device — there are no boxes, rules or panels to do that
+job. A slide that fills its box is a slide that needs splitting. Aim for at least a third of
+the content area empty on a typical content slide.</p>
+
+<h3>Figures</h3>
+<div class="req"><b>Required</b><br>A figure claims the height left over after the title and
+text, and scales <i>up</i> as well as down to fill it. Cap-only sizing
+(<code>max-height</code> alone) is prohibited: it silently renders small sources at their
+intrinsic size.<br><br>Position artwork by its <b>content bounding box</b>, not its canvas.
+Generated art routinely carries 10&ndash;15% dead margin.</div>
+<p>Cropping a figure to gain size is acceptable when the cropped region carries no meaning.
+Shrinking the title to gain figure height is not.</p>
+
+<!-- ============================================================ 7 -->
+<h2 id="line">7 &nbsp;Line and diagram style</h2>
+<p>The house diagram style is <b>open line drawing</b>: uniform thin strokes, no fills, no
+shading, generous space. It reads at distance, survives greyscale, prints cleanly, and scales
+to any size without becoming muddy.</p>
+
+<h3>Stroke</h3>
+<table>
+  <tr><th>Use</th><th>Weight</th></tr>
+  <tr><td>Primary subject (the molecule under discussion)</td><td>3.0</td></tr>
+  <tr><td>Context and secondary structure</td><td>2.4&ndash;2.8</td></tr>
+  <tr><td>Annotation: brackets, ticks, leaders</td><td>2.0&ndash;2.5</td></tr>
+  <tr><td>Absolute minimum</td><td><b>2.5</b> (1/600 of slide width)</td></tr>
+</table>
+<p>Round caps and joins throughout. No dashes except to mark a genuine discontinuity. No
+arrowheads except where an arrow means direction of a process — and never on a DNA strand,
+which uses the half barb below.</p>
+
+<h3>Fill</h3>
+<p>Fills are prohibited except in two cases: a semi-transparent enzyme envelope
+(<code>fill-opacity</code> ~0.12), and a solid mark small enough to read as a point — a
+terminus dot, a mutation marker. Everything else is outline.</p>
+
+<h3>DNA vocabulary</h3>
+<figure class="spec">
+<svg viewBox="0 0 620 78" width="100%" style="max-width:620px" aria-hidden="true">
+  <g fill="none" stroke-width="3" stroke-linecap="round">
+    <g stroke="var(--ink)"><path d="M30 26H180M158 14L180 26"/></g>
+    <g stroke="var(--ink)"><path d="M300 26H430M408 14L430 26M408 38L430 26"/></g>
+    <g stroke="var(--blue)"><path d="M30 58H150M128 46L150 58"/></g>
+    <g stroke="var(--ink)"><path d="M176 58H330M308 46L330 58"/></g>
+  </g>
+  <g font-size="12" fill="var(--muted)" font-family="inherit">
+    <text x="196" y="30">3&prime; half barb</text>
+    <text x="446" y="30">never a full arrow</text>
+    <text x="348" y="62">nick gap between molecules</text>
+  </g>
+</svg>
+<figcaption>The two invariants: a 3&prime; end takes a single barb laid back on the outer side
+of the duplex, and two separate molecules never touch end to end.</figcaption>
+</figure>
+
+<div class="req"><b>Required</b>
+<ul style="margin:8px 0 0">
+  <li>Every 3&prime; end carries a <b>half barb</b>, never a full arrowhead.</li>
+  <li>Two molecules never abut — leave a visible nick.</li>
+  <li>A strand never branches from its middle. Tails leave from an <b>end</b>.</li>
+  <li>Every diagram declares polarity somehow: barbs, or 5&prime;/3&prime; labels.</li>
+  <li>A sequence label sits on the strand it describes.</li>
+  <li><b>RNA is drawn as a wave</b> wherever it appears as a line, so it separates from
+      DNA by shape and label rather than by colour alone.</li>
+</ul></div>
+
+<div class="open"><b>The one licensed exception</b>
+<p style="margin:8px 0 0">A borrowed figure may break these rules when breaking them
+<i>is</i> the lesson. <code>img/dna-backbone-bond.png</code>, the atomic backbone drawing
+reused across four sections, carries two full-headed grey arrows that run 3&prime;&rarr;5&prime;
+&mdash; and one slide exists purely to ask whether they run 5&prime;&rarr;3&prime;, so that
+students discover they do not. Both arrowheads sit at 5&prime; ends, so no 3&prime; terminus
+is marked with a full arrow and the barb rule survives intact.</p>
+<p style="margin:8px 0 0">The general principle: before correcting a convention violation in
+inherited material, establish what the violation is <i>doing</i>. A rule enforced against its
+own purpose is worse than the inconsistency it removes.</p></div>
+
+<h4>Letters or lines?</h4>
+<p>Use <b>letters</b> when a position is the point — a start site, a mismatch, a recognition
+sequence, a cut site. Use <b>lines</b> when only topology matters — displacement, circularity,
+processivity. A line cannot show a position; letters at slide scale cost roughly 40 bases of
+width, so do not spend them on topology.</p>
+
+<h4>Enzymes</h4>
+<p>Prefer a silhouette traced from a real structure over a cartoon. Give it a visible
+<b>cleft</b>, seat that cleft on the feature it acts upon, and render it semi-transparent so
+the substrate reads straight through. Depict the protein that is actually doing the work — a
+sliding clamp is not a polymerase.</p>
+
+<!-- ============================================================ 8 -->
+<h2 id="motion">8 &nbsp;Motion</h2>
+<p>Motion in these decks is explanatory, never decorative. The test: <i>if the animation were
+replaced by its end state, what would be lost?</i> If the answer is "nothing", remove it.</p>
+
+<h3>Animate a change; never animate an arrival</h3>
+<p>Something that simply <b>exists</b> should appear instantly — an annealed oligo, a label, a
+panel. Something that <b>happens</b> should be tweened — synthesis proceeding, a strand
+peeling off, an enzyme backing up. Growing a thing into existence reads as a dissolve and
+implies a process that is not occurring.</p>
+
+<h3>Pacing</h3>
+<table>
+  <tr><th>Rule</th><th>Value</th></tr>
+  <tr><td>A mechanism gets</td><td>three states: arrival, question, outcome</td></tr>
+  <tr><td>Transition duration</td><td>700&ndash;900ms; up to 1200ms for a composed reveal</td></tr>
+  <tr><td>Easing</td><td>ease-in-out; no bounce, no overshoot</td></tr>
+  <tr><td>Steps per slide</td><td>≤6</td></tr>
+</table>
+<div class="req"><b>Required</b><br>Every click must carry narration or perform visible work.
+<b>A step with an empty note and no visual change is a step to delete.</b><br><br>A flourish
+belongs inside the transition of the click that reveals it — never as extra clicks. Flourishes
+play going forward only.</div>
+
+<h3>Reduced motion, and no ambient movement</h3>
+<p>Under <code>prefers-reduced-motion</code>, jump straight to the end state. Nothing ever
+animates without an explicit advance: no loops, no auto-play, no idle motion. This is WCAG
+2.2.2, and it also means a presenter can leave a slide up indefinitely.</p>
+
+<!-- ============================================================ 9 -->
+<h2 id="imagery">9 &nbsp;Imagery and line art</h2>
+<p>Photographs are not used. Where a scene or an object must be shown, it is line art matching
+the house style — generated, then vectorised to centreline curves and recoloured to the
+palette so it is indistinguishable from hand-drawn diagram work.</p>
+
+<h4>Commissioning</h4>
+<ul>
+  <li><b>≥2000px wide.</b> Resolution dominates trace quality more than any other factor.</li>
+  <li><b>Uniform bold stroke</b>, ~0.5% of image width. Drawn weight becomes final weight.</li>
+  <li><b>Outlines only</b> — no fills, shading, hatching, stippling or grey.</li>
+  <li>Lines representing separate objects <b>must not touch</b>.</li>
+  <li>No text, no ghosted or duplicated elements, consistent scale between objects.</li>
+</ul>
+
+<h4>Known failure modes</h4>
+<table>
+  <tr><th>Input</th><th>Result</th></tr>
+  <tr><td>Filled regions</td><td>Destroyed — a filled arrowhead becomes a spine</td></tr>
+  <tr><td>Fine hatching</td><td>Hundreds of junk contours; mush at slide scale</td></tr>
+  <tr><td>Varying stroke width</td><td>Flattened to a single median</td></tr>
+  <tr><td>Isolated dots</td><td>Dropped as speckle</td></tr>
+</table>
+
+<h4>Integration</h4>
+<ul>
+  <li>Traced paths live in their own module; geometry stays with the sequence that uses it.</li>
+  <li><b>Always recolour to the palette.</b> Source colours never ship.</li>
+  <li>Scene art is context: rung 0. The attention colour belongs to the molecular content.</li>
+  <li>Multi-panel art separates by bounding-box clustering when panels do not overlap, which
+      makes it animatable. Commission panels rather than one dense composition.</li>
+</ul>
+
+<!-- ============================================================ 10 -->
+<h2 id="text">10 &nbsp;Text alternatives</h2>
+<p>Every step carries two independent strings. This is the WCAG 1.1.1 mechanism for the deck,
+and it also drives speech output and any future accessibility actuator.</p>
+<pre><code>&lt;template class="notes"&gt;Spoken narration for this step.&lt;/template&gt;
+&lt;template class="desc"&gt;What is on the screen.&lt;/template&gt;</code></pre>
+<table>
+  <tr><th>Channel</th><th>Contains</th><th>Rule</th></tr>
+  <tr><td><code>notes</code></td><td>What the lecturer says</td>
+      <td>Verbatim from source notes. Leave blank where the source is blank, so speech fires
+          only on new narration.</td></tr>
+  <tr><td><code>desc</code></td><td>What a sighted viewer sees</td>
+      <td>Describe the <b>role</b>, not the pigment. Update it whenever the artwork changes —
+          it is read aloud.</td></tr>
+</table>
+<div class="req"><b>Required</b><br>Write <code>desc</code> so that someone who cannot see the
+slide could reconstruct the argument from it. "Section divider: Endonucleases" — not "green
+slide". Hue is not information; role is.</div>
+
+<!-- ============================================================ 11 -->
+<h2 id="check">11 &nbsp;Conformance checklist</h2>
+<p>Run before a deck is considered done.</p>
+<table>
+  <tr><th>#</th><th>Check</th></tr>
+  <tr><td>1</td><td>Every colour used measures ≥3:1 on white; body text ≥4.5:1.</td></tr>
+  <tr><td>2</td><td>No distinction is carried by colour alone.</td></tr>
+  <tr><td>3</td><td>The deck is legible with a greyscale filter applied.</td></tr>
+  <tr><td>4</td><td>No body type below 30 units; no stroke below 2.5.</td></tr>
+  <tr><td>5</td><td>Every slide has a heading; every step has a description.</td></tr>
+  <tr><td>6</td><td>No step has an empty note <i>and</i> no visual change.</td></tr>
+  <tr><td>7</td><td>Nothing moves without an explicit advance; reduced motion honoured.</td></tr>
+  <tr><td>8</td><td>Every 3&prime; end has a half barb; no two molecules abut.</td></tr>
+  <tr><td>9</td><td>Every diagram declares strand polarity.</td></tr>
+  <tr><td>10</td><td>Descriptions match the artwork as it currently stands.</td></tr>
+  <tr><td>11</td><td>All colour comes from tokens; no literal hex outside the palette file.</td></tr>
+  <tr><td>12</td><td>Deck is navigable, and readable, by keyboard alone.</td></tr>
+</table>
+
+<p style="margin-top:46px;color:var(--muted);font-size:13px">
+Colour derivation and simulations: <a href="palette.pdf">palette.pdf</a> &middot;
+tokens: <a href="palette.css">palette.css</a> &middot;
+authoring mechanics: <a href="../AUTHORING.txt">AUTHORING.txt</a></p>
+
+</div>
+</body>
+</html>
