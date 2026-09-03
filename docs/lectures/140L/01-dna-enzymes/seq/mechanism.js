@@ -51,10 +51,10 @@ window.Deck.sequence("mechanism",function(slide){
     '<g data-r="bonds" fill="none" stroke="'+INK+'" stroke-width="2.9" stroke-linecap="round">'+
       '<path data-r="bnu"/><path data-r="blg"/><path data-r="be1"/><path data-r="be2"/>'+
     '</g>'+
-    '<path data-r="wedge" fill="'+INK+'"/>'+
+    '<g data-r="dbl" fill="none" stroke="'+INK+'" stroke-width="2.9" stroke-linecap="round"><path data-r="d1"/><path data-r="d2"/></g>'+'<path data-r="sug1" fill="none" stroke="'+MUTED+'" stroke-width="2.4"/>'+'<path data-r="sug2" fill="none" stroke="'+MUTED+'" stroke-width="2.4"/>'+'<text data-r="sl1" text-anchor="middle" font-size="22" fill="'+MUTED+'">sugar</text>'+'<text data-r="sl2" text-anchor="middle" font-size="22" fill="'+MUTED+'">sugar</text>'+
     '<path data-r="atk" fill="none" stroke="'+RED+'" stroke-width="3.2" marker-end="url(#mHead)"/>'+
     '<path data-r="dep" fill="none" stroke="'+RED+'" stroke-width="3.2" marker-end="url(#mHead)"/>'+
-    '<circle data-r="pc" cx="'+PX+'" cy="'+PY+'" r="'+PR+'" fill="#fff" stroke="'+INK+'" stroke-width="3.2"/>'+
+    '<circle data-r="pc" cx="'+PX+'" cy="'+PY+'" r="22" fill="#fff" stroke="none"/>'+
     '<text data-r="pl" x="'+PX+'" y="'+(PY+12)+'" text-anchor="middle" font-size="32" font-weight="700" fill="'+INK+'">P</text>'+
     '<text data-r="tnu" text-anchor="middle" font-size="31" font-weight="700" fill="'+RED+'"></text>'+
     '<text data-r="tlg" text-anchor="middle" font-size="27" font-weight="600" fill="'+INK+'"></text>'+
@@ -85,11 +85,24 @@ window.Deck.sequence("mechanism",function(slide){
     r.blg.setAttribute("opacity",n2(clamp01((0.94-t)/0.36)));
     r.be1.setAttribute("d",bondTo(e1,24));
     r.be2.setAttribute("d",bondTo(e2,24));
-    /* the equatorial double-bonded oxygen, drawn as a wedge toward the viewer */
-    const dx=e3[0]-PX, dy=e3[1]-PY, L=Math.hypot(dx,dy)||1, nx=-dy/L, ny=dx/L;
-    r.wedge.setAttribute("d","M"+n2(PX+dx/L*PR)+" "+n2(PY+dy/L*PR)+
-      "L"+n2(e3[0]-dx/L*26+nx*10)+" "+n2(e3[1]-dy/L*26+ny*10)+
-      "L"+n2(e3[0]-dx/L*26-nx*10)+" "+n2(e3[1]-dy/L*26-ny*10)+"Z");
+    /* P=O is a DOUBLE BOND — two parallel lines. A wedge would mean
+       stereochemistry, which is a different claim entirely. */
+    const dx=e3[0]-PX, dy=e3[1]-PY, L=Math.hypot(dx,dy)||1, nx=-dy/L*6, ny=dx/L*6;
+    const s0=[PX+dx/L*PR, PY+dy/L*PR], s1=[e3[0]-dx/L*26, e3[1]-dy/L*26];
+    r.d1.setAttribute("d","M"+n2(s0[0]+nx)+" "+n2(s0[1]+ny)+"L"+n2(s1[0]+nx)+" "+n2(s1[1]+ny));
+    r.d2.setAttribute("d","M"+n2(s0[0]-nx)+" "+n2(s0[1]-ny)+"L"+n2(s1[0]-nx)+" "+n2(s1[1]-ny));
+    /* the two ester oxygens each carry a sugar, so the phosphate reads as a
+       phosphodiester rather than as a free ion */
+    function stub(o,at,path,label,dirx,diry){
+      const q=[o[0]+dirx, o[1]+diry];
+      r[path].setAttribute("d","M"+n2(o[0]+dirx*0.30)+" "+n2(o[1]+diry*0.30)+
+                               "L"+n2(q[0])+" "+n2(q[1]));
+      r[label].setAttribute("x",n2(q[0]+dirx*0.34)); r[label].setAttribute("y",n2(q[1]+diry*0.34+8));
+    }
+    stub(e1,0,"sug1","sl1",-86,-26);
+    stub(lg,0,"sug2","sl2",86,34);
+    r.sug2.setAttribute("opacity",n2(clamp01((1.06-t)/0.3)));
+    r.sl2.setAttribute("opacity",n2(clamp01((1.06-t)/0.3)));
     [["tnu",nu],["tlg",lg],["te1",e1],["te2",e2],["te3",e3]].forEach(function(q){
       r[q[0]].setAttribute("x",n2(q[1][0])); r[q[0]].setAttribute("y",n2(q[1][1]+10));
     });
@@ -127,14 +140,14 @@ window.Deck.sequence("mechanism",function(slide){
       note:"And here is the part worth stopping on. For a moment the phosphorus has five things attached to it, not four. This is the pentacoordinate species, a trigonal bipyramid: the incoming water and the departing oxygen sit on the axis, a hundred and eighty degrees apart, and the other three oxygens have splayed out into a plane around the equator. Look at what the three equatorial oxygens just did — they were tilted up, and they have flattened. This is the top of the energy hill, not a stable compound, and everything an enzyme does to speed this reaction up is really about stabilising this arrangement: positioning the nucleophile on the right axis, and putting a magnesium or a positive side chain where the extra negative charge builds up.",
       desc:"The pentacoordinate trigonal bipyramid: five oxygens on one phosphorus, the incoming water and the leaving oxygen axial and opposite each other, the remaining three splayed into the equatorial plane." },
 
-    { s:{t:1,arrows:1,axis:0}, nu:"H&#8212;O&#8212;H", lg:"O", e1:"O", e2:"O&#8315;",
+    { s:{t:1,arrows:1,axis:0}, nu:"O&#8212;H", lg:"H&#8212;O", e1:"O", e2:"O&#8315;",
       cap:"3 &nbsp;The leaving group goes &mdash; and the centre turns inside out",
       sub:"tetrahedral again, but inverted &mdash; the phosphate now sits on the water",
       who:"hydrolysis &nbsp;&middot;&nbsp; the bond is <tspan font-weight=\"700\">destroyed</tspan> &nbsp;&middot;&nbsp; nucleases, phosphatases",
       note:"The leaving oxygen takes the bonding pair with it, the five drops back to four, and watch the three equatorial oxygens: they keep going. They were tilted up at the start, they flattened at the intermediate, and now they have tipped the other way. The centre has turned inside out, like an umbrella in the wind. That inversion is the fingerprint of in-line attack, and it is how this mechanism was proven — run the reaction on a phosphorus you can tell the handedness of, and the product comes out the other hand. What is left: the phosphate is now attached to what used to be water. Nothing is joined to anything. The bond is destroyed, and that is hydrolysis, which is every nuclease and every phosphatase in this lecture.",
       desc:"The leaving oxygen has departed and the phosphorus is tetrahedral again, but inverted: the three equatorial oxygens have flipped through the plane to the opposite side. The phosphate now sits on the oxygen that arrived as water." },
 
-    { s:{t:1,arrows:1,axis:0}, nu:"C&#8212;O&#8212;H", lg:"O", e1:"O", e2:"O&#8315;",
+    { s:{t:1,arrows:1,axis:0}, nu:"O&#8212;C", lg:"H&#8212;O", e1:"O", e2:"O&#8315;",
       cap:"Now run it again with an alcohol",
       sub:"identical geometry, identical arrows &mdash; a different <tspan font-weight=\"700\">nucleophile</tspan>",
       who:"transphosphorylation &nbsp;&middot;&nbsp; the bond is <tspan font-weight=\"700\">moved</tspan> &nbsp;&middot;&nbsp; kinases, polymerases, ligases, recombinases",
