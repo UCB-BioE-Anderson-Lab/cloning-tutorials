@@ -107,14 +107,7 @@
   <template class="desc">Four practical notes on type II enzymes: every one comes from a restriction/modification system and so has a partner methyltransferase, which means dam and dcm methylation from the host strain can silently block a digest; star activity arises from excess enzyme, glycerol above about five per cent, the wrong low-salt buffer or an over-long digest; enzymes differ in the buffer they prefer, though many work in PCR buffer; and all of them leave a clean 3-prime hydroxyl and 5-prime phosphate.</template>
 </article>
 
-<article class="slide">
-  <div class="q">Which bond is broken&hellip; by EcoRI G/AATTC</div>
-  <figure class="fig"><img src="img/dna-backbone-bond.png" alt="Chemical structure of a DNA backbone, showing the phosphate joining the 3-prime hydroxyl of one ribose to the 5-prime hydroxyl of the next"></figure>
-  <div class="step" data-build="1"
-       data-note="It is the bond to the 3’ hydroxyl that breaks. That single fact is why the products come out the way they do: the phosphate stays behind on the fragment downstream of the cut, so every restriction enzyme leaves a 5’ phosphate on one side and a bare 3’ hydroxyl on the other. Hold on to it — the exonucleases in the next section break exactly the same bond, and the ligase in a later section is the enzyme that puts it back."
-       data-desc="A line has appeared below the figure naming the answer: the bond between the phosphate and the 3-prime hydroxyl, which is why the products carry a 5-prime phosphate and a 3-prime hydroxyl."><span class="arrow">&rarr;</span> The phosphate to 3&rsquo;-hydroxyl bond &mdash; leaving a 5&rsquo; phosphate and a free 3&rsquo; OH</div>
-  <template class="notes">Here we’ve zoomed in on the DNA sequence ‘GA’. The ribose backbone is in red. We see a single phosphate of the backbone here, and there are bonds on either end of the phosphate that connect it to a ribose. This topmost bond is attached to the 3’ hydroxyl of one ribose, while this lower bond connects the phosphate to the 5’ hydroxyl of the next. Two candidates. Which one does EcoRI break? Let the room commit to an answer before you advance.</template>
-  <template class="desc">A chemical structure of the DNA backbone, in which a phosphate joins the 3-prime hydroxyl of one ribose to the 5-prime hydroxyl of the next. The question asks which of those two bonds EcoRI breaks; the answer is not yet on the slide.</template>
+<article class="slide" data-seq="whichbond" data-bond="ecori">
 </article>
 
 <article class="slide">
@@ -152,6 +145,8 @@
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/chem.js" defer></script>
+<script src="seq/whichbond.js" defer></script>
 <script src="seq/endonuclease.js" defer></script>
 </body>
 </html>
