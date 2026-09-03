@@ -33,7 +33,7 @@ Conceptually, it's like the limiting case of assembly: just one fragment, but ed
 
 ## 1) EIPCR (Enzymatic Inverse PCR)
 
-EIPCR is analogous to the NcoI/XhoI method you used in [basic cloning](../cloning/basic_cloning.md), except it uses a **single restriction site** flanking the mutation site to reclose the plasmid.
+EIPCR is analogous to the NcoI/XhoI method you used in [basic cloning](basic_cloning.md), except it uses a **single restriction site** flanking the mutation site to reclose the plasmid.
 
 This method is ideal when the mutation you want to introduce is close to a unique restriction site. You perform a full-vector PCR using primers that flank the site and introduce the desired edits. After PCR, you digest the product with the enzyme and ligate the linear fragment to restore circularity.
 
