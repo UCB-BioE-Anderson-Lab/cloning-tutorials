@@ -153,12 +153,20 @@ function anatomy(){
 
   /* the two arms, drawn head to head: each reads the same 13 bases on
      its own strand, which is what "inverted repeat" means */
-  g += '<g fill="none" stroke="'+INK+'" stroke-width="2.8" stroke-linecap="round">' +
-         '<path d="M'+n2(X0+4)+' 372H'+n2(CH(12)+PITCH/2-4)+'"/>' +
-         '<path d="M'+n2(CH(12)+PITCH/2-20)+' 361L'+n2(CH(12)+PITCH/2-4)+' 372L'+n2(CH(12)+PITCH/2-20)+' 383"/>' +
-         '<path d="M'+n2(X0+34*PITCH-4)+' 372H'+n2(CH(21)-PITCH/2+4)+'"/>' +
-         '<path d="M'+n2(CH(21)-PITCH/2+20)+' 361L'+n2(CH(21)-PITCH/2+4)+' 372L'+n2(CH(21)-PITCH/2+20)+' 383"/>' +
+  /* Brackets, not arrows.  A full arrowhead in this deck means the 3' end of
+     a strand, and these sat one line above a letter-level sequence in the same
+     ink and weight — so a reader could not tell a site marker from a DNA end.
+     The span goes in a muted bracket; the direction, which is the actual
+     information here, goes in the label, where a text arrow cannot be mistaken
+     for a terminus. */
+  const armL0 = X0 + 4, armL1 = CH(12) + PITCH/2 - 4;
+  const armR0 = CH(21) - PITCH/2 + 4, armR1 = X0 + 34*PITCH - 4;
+  g += '<g fill="none" stroke="'+MUTED+'" stroke-width="2.2" stroke-linejoin="round">' +
+         '<path d="M'+n2(armL0)+' 366v12H'+n2(armL1)+'v-12"/>' +
+         '<path d="M'+n2(armR0)+' 366v12H'+n2(armR1)+'v-12"/>' +
        '</g>';
+  g += label((armL0+armL1)/2, 352, "13 bp arm &#8594;", 21, MUTED) +
+       label((armR0+armR1)/2, 352, "&#8592; 13 bp arm", 21, MUTED);
 
   /* the sequence */
   g += '<g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="34" ' +
@@ -182,7 +190,7 @@ function anatomy(){
   /* and the level-3 icon it collapses to */
   const pt = curve(34*PITCH, 0, 1, 800, 712);
   g += arrowFill(pt, 0, 34*PITCH, 17, 1, BLUE);
-  g += label(800, 776, "from here on, just this arrow", 26, MUTED);
+  g += label(800, 776, "from here on, just this arrow \u2014 it marks the site, not a strand end", 26, MUTED);
   return g;
 }
 
