@@ -46,9 +46,16 @@ window.Deck.sequence("kunkel", function(slide){
       '<path data-r="ring" stroke="'+SLATE+'" stroke-width="3"/>' +
       '<path data-r="tip"  stroke="'+SLATE+'" stroke-width="3"/>' +
     '</g>' +
-    '<text data-r="x" font-family="inherit" font-weight="700" font-size="34" ' +
-      'fill="'+RED+'" stroke="#ffffff" stroke-width="6" paint-order="stroke" ' +
-      'text-anchor="middle" opacity="0">&#215;</text>' +
+    /* The mutation mark sits OUTSIDE the ring on a short radial leader.
+       It used to sit on the strand itself with a 6px white halo, and that
+       halo erased the arc underneath it — so the payoff frame, whose whole
+       claim is "one lap, ONE nick", showed two breaks in the new strand:
+       the real nick, and this. Outside the ring there is nothing to erase. */
+    '<g data-r="mut" opacity="0">' +
+      '<path data-r="lead" fill="none" stroke="'+RED+'" stroke-width="2.6" stroke-linecap="round"/>' +
+      '<text data-r="x" font-family="inherit" font-weight="700" font-size="34" ' +
+        'fill="'+RED+'" text-anchor="middle">&#215;</text>' +
+    '</g>' +
     /* Every animated step in this deck carries a bold caption plus a muted
        annotation in the caption band. These three steps had the strings but
        no text nodes to put them in, so the payoff frame said nothing. */
@@ -65,16 +72,19 @@ window.Deck.sequence("kunkel", function(slide){
 
   function paint(st){
     const prog = Math.min(st.prog, MAXARC);
-    if (prog < 0.5){ r.ring.setAttribute("d",""); r.tip.setAttribute("d",""); r.x.setAttribute("opacity","0"); return; }
+    if (prog < 0.5){ r.ring.setAttribute("d",""); r.tip.setAttribute("d",""); r.mut.setAttribute("opacity","0"); return; }
     const tp = START + prog;
     const p0 = pol(R_N, START), p1 = pol(R_N, tp);
     r.ring.setAttribute("d","M"+n2(p0.x)+" "+n2(p0.y)+"A"+R_N+" "+R_N+" 0 "+(prog>180?1:0)+" 1 "+n2(p1.x)+" "+n2(p1.y));
     const t = rad(tp + 90), L = 26, W = 0.50;
     r.tip.setAttribute("d","M"+n2(p1.x - L*Math.cos(t+W))+" "+n2(p1.y - L*Math.sin(t+W))+"L"+n2(p1.x)+" "+n2(p1.y));
-    // the mutation is IN the oligo, so the X sits on the strand itself
-    const xp = pol(R_N, START + 13);
+    // the mutation is IN the oligo: the leader points back at the base on
+    // the strand that carries it, without crossing or interrupting it
+    const A = START + 13;
+    const l0 = pol(R_N + 6, A), l1 = pol(R_N + 20, A), xp = pol(R_N + 38, A);
+    r.lead.setAttribute("d","M"+n2(l0.x)+" "+n2(l0.y)+"L"+n2(l1.x)+" "+n2(l1.y));
     r.x.setAttribute("x", n2(xp.x)); r.x.setAttribute("y", n2(xp.y + 12));
-    r.x.setAttribute("opacity","1");
+    r.mut.setAttribute("opacity","1");
   }
 
   function go(i, animated){
