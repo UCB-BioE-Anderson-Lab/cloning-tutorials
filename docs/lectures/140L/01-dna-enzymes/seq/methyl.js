@@ -304,7 +304,7 @@ function methyl(x, y, dx, dy){
     let g = '<g>';
     g += ring([a.N3, a.C2, a.N1, a.C6, a.C5, a.C4]);
     g += dbl(a.C4, a.N3, c) + dbl(a.C5, a.C6, c);
-    g += seg(a.C2, a.O2) + dbl(a.C2, a.O2, c);
+    g += seg(a.C2, a.O2) + dblOut(a.C2, a.O2, 9.5);
     g += seg(a.C4, a.N4);
     /* the N4 hydrogens: one always points left into the Watson-Crick
        edge; on m4C the methyl has taken the other one */
