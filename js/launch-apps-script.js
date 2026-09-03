@@ -6,7 +6,16 @@
 const url = "https://script.google.com/macros/s/AKfycbwcs5BoLXZFa-jgZpYtwKc2galvKAjamrl9xR_U5-sNQFL_pnXV7d69TWhAzg446Ow/exec";
 
 // JSONP fallback helper
-function sendToAppsScriptViaJsonp(payloadObj) {
+//
+// One attempt. Google answers /exec with a 302 to a single-use content URL on
+// script.googleusercontent.com, and for a signed-in Workspace account that URL
+// is domain-scoped (/a/macros/<domain>/echo). A cross-site <script> tag does
+// not reliably carry the cookies that URL wants, so the hop 404s, the callback
+// never runs, and this rejects on the timer even though the server ran fine.
+// Measured from the live site: the server-side execution completes in 0.5-4 s
+// and is logged Completed, while the browser sees roughly half the responses.
+// sendToAppsScript retries around this; see the note there on why that is safe.
+function sendToAppsScriptViaJsonpOnce(payloadObj, timeoutMs) {
   return new Promise((resolve, reject) => {
     const cbName = '__gas_cb_' + Math.random().toString(36).slice(2);
     const cleanup = () => {
@@ -16,7 +25,7 @@ function sendToAppsScriptViaJsonp(payloadObj) {
     const timer = setTimeout(() => {
       cleanup();
       reject(new Error('JSONP timeout'));
-    }, 10000); // 10s safety timeout
+    }, timeoutMs);
 
     window[cbName] = (data) => {
       clearTimeout(timer);
@@ -40,6 +49,34 @@ function sendToAppsScriptViaJsonp(payloadObj) {
     };
     document.head.appendChild(script);
   });
+}
+
+// Retry wrapper. The response, not the submission, is what goes missing: the
+// server records the grade and then the reply is lost in the redirect, so a
+// student saw "NOT submitted" for work that was in fact recorded.
+//
+// Retrying is safe because a repeat is very nearly a no-op server-side. The
+// gradebook only fills empty cells, so nothing is overwritten and the second
+// pass reports no newly-added quizzes; and Pp6Allocator.assignIfEligible only
+// issues a wetlab ID when lab_safety is among the NEWLY added ones, so a repeat
+// cannot allocate a second ID. The one real cost is that
+// EmailNotifier.sendConfirmation is ungated, so an attempt whose reply was lost
+// may already have sent a confirmation and the retry sends another. Duplicate
+// mail is a fairer failure than a lost grade. Enabling the server's existing
+// wasRecentlySeen_ guard (currently dead code) would remove even that.
+async function sendToAppsScriptViaJsonp(payloadObj) {
+  const attempts = 4;
+  let lastErr;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await sendToAppsScriptViaJsonpOnce(payloadObj, 20000);
+    } catch (err) {
+      lastErr = err;
+      console.warn('Submission attempt ' + (i + 1) + '/' + attempts + ' failed:', err && err.message);
+      if (i < attempts - 1) await new Promise(r => setTimeout(r, 1500));
+    }
+  }
+  throw lastErr || new Error('JSONP failed');
 }
 
 /** Escape minimal HTML */
