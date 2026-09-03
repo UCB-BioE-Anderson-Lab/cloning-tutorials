@@ -12,7 +12,8 @@ For the full list of lab rules, see the [Lab Rules – B144 Stanley (PDF)](../as
 - Only enter B144 when a supervisor (facilitator or instructor) is present.
 - Only work on projects that have been authorized by your instructor/PI.
 - Do not bring materials in or out of the lab unless explicitly authorized.
-- This lab is **BSL1 only**: no infectious agents, and no sharps. The hazardous chemicals on site are limited to the common solvents, acids, and bases stored in the chemical cabinets; handle them as covered in the chemical cabinet training.
+- This lab is **BSL1**: no infectious agents, and no sharps.
+- The hazardous chemicals on site are limited to the solvents, acids, and bases stored in the chemical cabinets. These are **supervisor-only** &mdash; as a student you are not authorized to handle them.
 
 ---
 
