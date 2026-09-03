@@ -109,15 +109,6 @@ function renderEquipmentDetails(equip){
   if (equip.type) row('Type', equip.type);
   if (equip.note) row('Note', equip.note);
 
-  // Resolve trainings (IDs -> objects) from global DATA
-  const trainings = (equip.trainings||[]).map(tid => (DATA?.trainings||[]).find(t => t.id === tid)).filter(Boolean);
-  if (trainings.length){
-    const dt = text('dt','Trainings');
-    const dd = document.createElement('dd');
-    trainings.forEach((t,i) => { if (i) dd.appendChild(text('span',' · ')); dd.appendChild(link(t.path, t.title)); });
-    dl.appendChild(dt); dl.appendChild(dd);
-  }
-
   details.appendChild(dl);
 }
 
@@ -133,16 +124,6 @@ function renderZoneDetails(slug){
     eq.forEach(e => {
       const li = document.createElement('li');
       li.textContent = e.name;
-      // trainings (ids -> titles)
-      const trainings = (e.trainings||[]).map(tid => (DATA.trainings||[]).find(t=>t.id===tid)).filter(Boolean);
-      if (trainings.length){
-        const span = document.createElement('span'); span.textContent = ' — ';
-        li.appendChild(span);
-        trainings.forEach((t,i)=>{
-          if (i) li.appendChild(text('span', ' · '));
-          li.appendChild(link(t.path, t.title));
-        });
-      }
       ul.appendChild(li);
     });
     details.appendChild(ul);

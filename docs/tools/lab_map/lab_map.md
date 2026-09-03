@@ -16,8 +16,7 @@
            data-room-src="../../../assets/data/room.json"
            data-benches-src="../../../assets/data/benches.json"
            data-consumables-src="../../../assets/data/consumables.tsv"
-           data-equipment-src="../../../assets/data/equipment.json"
-           data-trainings-src="../../../assets/data/trainings.json"></div>
+           data-equipment-src="../../../assets/data/equipment.json"></div>
     </main>
 
   </div>
@@ -38,8 +37,7 @@
       room: root.dataset.roomSrc,
       benches: root.dataset.benchesSrc,
       consumables: root.dataset.consumablesSrc,
-      equipment: root.dataset.equipmentSrc,
-      trainings: root.dataset.trainingsSrc
+      equipment: root.dataset.equipmentSrc
     };
     const data = await loadAll(paths);
     renderMap(root, data);

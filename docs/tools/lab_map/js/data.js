@@ -73,12 +73,11 @@ function parseConsumablesTSV(text) {
 
 export async function loadAll(paths) {
   console.log('[data] loadAll paths =', paths);
-  const [room, benches, consRaw, equipment, trainings] = await Promise.all([
+  const [room, benches, consRaw, equipment] = await Promise.all([
     loadJSON(paths.room).catch((e) => { console.log('[data] room load error =', e?.message); return null; }),
     loadJSON(paths.benches).catch((e) => { console.log('[data] benches load error =', e?.message); return null; }),
     loadText(paths.consumables).catch((e) => { console.log('[data] consumables load error =', e?.message); return ''; }),
-    loadJSON(paths.equipment).catch((e) => { console.log('[data] equipment load error =', e?.message); return []; }),
-    loadJSON(paths.trainings).catch((e) => { console.log('[data] trainings load error =', e?.message); return []; })
+    loadJSON(paths.equipment).catch((e) => { console.log('[data] equipment load error =', e?.message); return []; })
   ]);
 
   console.log('[data] consRaw present?', !!consRaw, 'length =', consRaw ? consRaw.length : 0);
@@ -94,7 +93,7 @@ export async function loadAll(paths) {
   }
   console.log('[data] ITEM_TO_KEYS unique items =', Object.keys(ITEM_TO_KEYS).length);
 
-  const result = { room, benches, consumables, equipment: equipment || [], trainings: trainings || [], ITEM_TO_KEYS };
-  console.log('[data] loadAll result summary: room?', !!room, 'benches?', !!benches, 'equipment count =', (result.equipment||[]).length, 'trainings count =', (result.trainings||[]).length);
+  const result = { room, benches, consumables, equipment: equipment || [], ITEM_TO_KEYS };
+  console.log('[data] loadAll result summary: room?', !!room, 'benches?', !!benches, 'equipment count =', (result.equipment||[]).length);
   return result;
 }
