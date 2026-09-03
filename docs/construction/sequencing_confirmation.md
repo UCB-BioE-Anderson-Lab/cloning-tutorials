@@ -141,7 +141,7 @@ If you're using cycle sequencing, you must provide a primer. This primer must bi
 
 ### Quiz: Primer Design for T7 + INS
 
-Download the plasmid: [⬇️ pET-INS.seq](../../assets/pET-INS.seq)
+Download the plasmid: [⬇️ pET-INS.seq](../assets/pET-INS.seq)
 
 Your goal: Design a 20 bp oligo that will allow a sequencing read to start at the **T7 promoter** and cover the **INS gene**.
 
@@ -315,9 +315,9 @@ The confirmation region for plasmid pTP2 is the region from T4 (a terminator) to
 
 **Downloads (Part 1)**
 
-- Model: [pTP2.seq](../../assets/sequencing_files/pTP2.seq)
-- Clone A forward read (trace): [69-pTP2AF_E09_071.ab1](../../assets/sequencing_files/69-pTP2AF_E09_071.ab1)
-- Clone A forward read (base calls): [69-pTP2AF_E09_071.seq](../../assets/sequencing_files/69-pTP2AF_E09_071.seq)
+- Model: [pTP2.seq](../assets/sequencing_files/pTP2.seq)
+- Clone A forward read (trace): [69-pTP2AF_E09_071.ab1](../assets/sequencing_files/69-pTP2AF_E09_071.ab1)
+- Clone A forward read (base calls): [69-pTP2AF_E09_071.seq](../assets/sequencing_files/69-pTP2AF_E09_071.seq)
 
 <form id="ptp2_quiz_part1" style="margin-top: 12px;">
   <label for="part1_call"><strong>Final call for Clone A (forward read only):</strong></label>
