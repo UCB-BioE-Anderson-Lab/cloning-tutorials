@@ -22,7 +22,7 @@
 const INK="#111111", BLUE="#004373", RED="#ba3a13", MUTED="#767676";
 const NS="http://www.w3.org/2000/svg";
 const n2=v=>Math.round(v*10)/10;
-const PX=800, PY=548, PR=31;
+const PX=800, PY=580, PR=31;
 
 /* ligand offsets from P at the three keyframes of the reaction coordinate */
 /* Ligand offsets from P across the reaction coordinate.
@@ -34,8 +34,8 @@ const PX=800, PY=548, PR=31;
    which is what a wedge means. The double bond lives on e2, in plane, where
    two parallel lines can actually be seen. */
 const K={
-  nu:[[0,-252],[0,-150],[0,-156]],
-  lg:[[0,150],[0,178],[0,236]],
+  nu:[[0,-228],[0,-150],[0,-156]],
+  lg:[[0,150],[0,178],[0,210]],
   e1:[[-156,-72],[-182,0],[-156,86]],   /* O-sugar, in plane            */
   e2:[[156,-72],[182,0],[156,86]],      /* O with the double bond       */
   e3:[[-70,-102],[-96,100],[-70,132]]     /* O-minus, toward the viewer   */
@@ -51,7 +51,7 @@ const clamp01=v=>v<0?0:v>1?1:v;
    transphosphorylation nucleophile is a sugar's 3' hydroxyl, and greying the
    ring says "this part is not the point" without hiding what it is. */
 function miniRing(){
-  const R=46, a=[90,18,-54,-126,162].map(d=>d*Math.PI/180);
+  const R=38, a=[90,18,-54,-126,162].map(d=>d*Math.PI/180);
   const v=a.map(t=>[R*Math.cos(t), -R*Math.sin(t)]);
   let g="";
   for(let i=0;i<5;i++)
@@ -59,12 +59,12 @@ function miniRing(){
        '" fill="none" stroke="'+MUTED+'" stroke-width="2.3"/>';
   g+='<circle cx="'+n2(v[0][0])+'" cy="'+n2(v[0][1])+'" r="9" fill="#fff"/>';
   g+='<text x="'+n2(v[0][0])+'" y="'+n2(v[0][1]+7)+'" text-anchor="middle" font-size="19" fill="'+MUTED+'">O</text>';
-  g+='<path d="M'+n2(v[1][0])+' '+n2(v[1][1])+'L'+n2(v[1][0]+40)+' '+n2(v[1][1]-30)+
+  g+='<path d="M'+n2(v[1][0])+' '+n2(v[1][1])+'L'+n2(v[1][0]+34)+' '+n2(v[1][1]-26)+
      '" fill="none" stroke="'+MUTED+'" stroke-width="2.3"/>';
-  g+='<text x="'+n2(v[1][0]+66)+'" y="'+n2(v[1][1]-34)+'" text-anchor="middle" font-size="18" fill="'+MUTED+'">base</text>';
+  g+='<text x="'+n2(v[1][0]+58)+'" y="'+n2(v[1][1]-30)+'" text-anchor="middle" font-size="18" fill="'+MUTED+'">base</text>';
   return g;
 }
-const RIBC3=[-27,37];   /* the C3' vertex, which the attacking oxygen hangs off */
+const RIBC3=[-22,31];   /* the C3' vertex, which the attacking oxygen hangs off */
 
 window.Deck.sequence("mechanism",function(slide){
   const svg=document.createElementNS(NS,"svg");
@@ -90,8 +90,8 @@ window.Deck.sequence("mechanism",function(slide){
     '<text data-r="te3" text-anchor="middle" font-size="27" font-weight="600" fill="'+INK+'">O&#8315;</text>'+
     '<text data-r="axis" x="'+(PX+250)+'" y="'+PY+'" font-size="22" fill="'+MUTED+'" opacity="0">'+
       'axial &#8212; 180&#176; apart</text>'+
-    '<text data-r="cap" x="800" y="212" text-anchor="middle" font-size="31" font-weight="700" fill="'+INK+'"></text>'+
-    '<text data-r="sub" x="800" y="260" text-anchor="middle" font-size="26" fill="'+MUTED+'"></text>'+
+    '<text data-r="cap" x="800" y="200" text-anchor="middle" font-size="31" font-weight="700" fill="'+INK+'"></text>'+
+    '<text data-r="sub" x="800" y="246" text-anchor="middle" font-size="26" fill="'+MUTED+'"></text>'+
     '<text data-r="who" x="800" y="828" text-anchor="middle" font-size="25" font-weight="700" fill="'+BLUE+'"></text>';
   slide.appendChild(svg);
   const r={}; svg.querySelectorAll("[data-r]").forEach(e=>r[e.getAttribute("data-r")]=e);
@@ -107,7 +107,7 @@ window.Deck.sequence("mechanism",function(slide){
     const t=s.t;
     const nu=at("nu",t), lg=at("lg",t), e1=at("e1",t), e2=at("e2",t), e3=at("e3",t);
     r.bnu.setAttribute("d",bondTo(nu,26));
-    r.bnu.setAttribute("opacity",n2(clamp01((t-0.36)/0.12)));  /* no bond yet at the approach */
+    r.bnu.setAttribute("opacity",n2(clamp01((t-0.42)/0.08)));  /* no bond yet at the approach */
     r.blg.setAttribute("d",bondTo(lg,26));
     r.blg.setAttribute("opacity",n2(clamp01((0.94-t)/0.36)));
     r.be1.setAttribute("d",bondTo(e1,24));
@@ -161,7 +161,7 @@ window.Deck.sequence("mechanism",function(slide){
        into the subtitle. */
     r.rib.setAttribute("opacity",n2(s.rib));
     if (s.rib > 0.02){
-      const RA=[-104,-6];
+      const RA=[-82,-62];   /* C-O-P near 127 deg, not square */
       r.rib.setAttribute("transform","translate("+n2(nu[0]+RA[0]-RIBC3[0])+" "+
                                                   n2(nu[1]+RA[1]-RIBC3[1])+")");
       r.nub1.setAttribute("opacity",n2(s.rib));
@@ -182,7 +182,7 @@ window.Deck.sequence("mechanism",function(slide){
     r.atk.setAttribute("opacity",n2(s.arrows*aO));
     r.atk.setAttribute("d","M"+n2(nu[0]-24)+" "+n2(nu[1]+38)+"Q"+n2(PX-74)+" "+n2(PY-72)+
                             " "+n2(PX-24)+" "+n2(PY-26));
-    r.dep.setAttribute("opacity",n2(s.arrows*clamp01((t-0.34)/0.2)));
+    r.dep.setAttribute("opacity",n2(s.arrows*clamp01((t-0.42)/0.10)));
     r.dep.setAttribute("d","M"+n2(PX+34)+" "+n2(PY+30)+"Q"+n2(PX+112)+" "+n2(PY+84)+
                             " "+n2(lg[0]+40)+" "+n2(lg[1]-18));
     r.axis.setAttribute("opacity",n2(s.axis));
@@ -217,9 +217,17 @@ window.Deck.sequence("mechanism",function(slide){
       note:"The leaving oxygen takes the bonding pair with it, the five drops back to four, and watch the three equatorial oxygens: they keep going. They were tilted up at the start, they flattened at the intermediate, and now they have tipped the other way. The centre has turned inside out, like an umbrella in the wind. That inversion is the fingerprint of in-line attack, and it is how this mechanism was proven — run the reaction on a phosphorus you can tell the handedness of, and the product comes out the other hand. What is left: the phosphate is now attached to what used to be water. Nothing is joined to anything. The bond is destroyed, and that is hydrolysis, which is every nuclease and every phosphatase in this lecture.",
       desc:"The leaving oxygen has departed and the phosphorus is tetrahedral again, but inverted: the three equatorial oxygens have flipped through the plane to the opposite side. The phosphate now sits on the oxygen that arrived as water." },
 
-    { s:{t:1,arrows:1,axis:0,nuv:1,b1:1,plus:0,rib:1,b2:0}, h1:"", h2:"", lg:"H&#8212;O", e1:"O", e2:"O",
+    { s:{t:0.38,arrows:1,axis:0,nuv:1,b1:1,plus:0,rib:1,b2:1}, h1:"", h2:"H",
+      lg:"O", e1:"O", e2:"O",
       cap:"Now run it again with an alcohol",
-      sub:"identical geometry, identical arrows &mdash; a different <tspan font-weight=\"700\">nucleophile</tspan>",
+      sub:"a sugar&#8217;s 3&#8242; hydroxyl this time &mdash; same axis, same arrow",
+      who:"a polymerase, a ligase, a kinase, a recombinase &mdash; all of them bring one of these",
+      note:"Swap the water for an alcohol. This is a sugar's three prime hydroxyl, and the ring it belongs to is greyed out because the ring is not the point — the point is the O and the H hanging off it. It comes in on the same axis, opposite the bond that will break, with the same lone pair and the same arrow. Nothing about the geometry has changed. Watch what is different at the end.",
+      desc:"A furanose ring drawn in muted grey carries a 3-prime hydroxyl in dark red, approaching the phosphorus along the axis opposite the leaving group, with its lone pair and a curved arrow." },
+
+    { s:{t:1,arrows:1,axis:0,nuv:1,b1:1,plus:0,rib:1,b2:0}, h1:"", h2:"", lg:"H&#8212;O", e1:"O", e2:"O",
+      cap:"It attacks, and the other sugar is displaced",
+      sub:"the phosphate is handed on &mdash; identical chemistry, opposite outcome",
       who:"transphosphorylation &nbsp;&middot;&nbsp; the bond is <tspan font-weight=\"700\">moved</tspan> &nbsp;&middot;&nbsp; kinases, polymerases, ligases, recombinases",
       note:"Same film, one substitution. Swap the water for an alcohol — a carbon carrying a hydroxyl — and every frame you just watched is identical. In-line approach, pentacoordinate intermediate, inversion. What changes is the product. The phosphate is not released into solution, it is handed to the thing that attacked, so the bond has moved rather than gone. That alcohol is a sugar's three prime hydroxyl in a polymerase or a ligase, a five prime hydroxyl in a kinase, a serine or a tyrosine on the protein itself in a recombinase. And do not let the similarity mislead you: water and an alcohol are different nucleophiles, and destroying a bond and relocating it are different outcomes. That difference is the reason this lecture is ordered the way it is.",
       desc:"The same reaction replayed with an alcohol as the nucleophile instead of water. The geometry and the curved arrows are unchanged; the difference is that the phosphate is transferred to the attacking alcohol rather than released." },
