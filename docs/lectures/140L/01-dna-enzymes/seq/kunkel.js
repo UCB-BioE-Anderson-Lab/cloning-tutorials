@@ -48,7 +48,14 @@ window.Deck.sequence("kunkel", function(slide){
     '</g>' +
     '<text data-r="x" font-family="inherit" font-weight="700" font-size="34" ' +
       'fill="'+RED+'" stroke="#ffffff" stroke-width="6" paint-order="stroke" ' +
-      'text-anchor="middle" opacity="0">&#215;</text>';
+      'text-anchor="middle" opacity="0">&#215;</text>' +
+    /* Every animated step in this deck carries a bold caption plus a muted
+       annotation in the caption band. These three steps had the strings but
+       no text nodes to put them in, so the payoff frame said nothing. */
+    '<text data-r="cap" x="800" y="'+CAP_Y+'" text-anchor="middle" ' +
+      'font-family="inherit" font-weight="700" font-size="31" fill="'+INK+'"></text>' +
+    '<text data-r="sub" x="800" y="'+SUB_Y+'" text-anchor="middle" ' +
+      'font-family="inherit" font-size="26" fill="'+MUTED+'"></text>';
   slide.appendChild(s);
   const r = {};
   s.querySelectorAll("[data-r]").forEach(el => r[el.getAttribute("data-r")] = el);
@@ -71,6 +78,8 @@ window.Deck.sequence("kunkel", function(slide){
   }
 
   function go(i, animated){
+    r.cap.textContent = STEPS[i].cap || "";
+    r.sub.textContent = STEPS[i].sub || "";
     const to = { prog: STEPS[i].prog };
     if (raf){ cancelAnimationFrame(raf); raf = null; }
     if (animated === false || reduce.matches){ cur = to; paint(cur); return; }
