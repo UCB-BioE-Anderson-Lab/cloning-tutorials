@@ -17,7 +17,6 @@ export function factory(values) {
 
   return {
     name: "TSS Competent Cell Prep",
-    training_required: ["minus_80", "allegra_15R"],
     description: "Prepare chemically competent E. coli by the TSS method (heat‑shock transformation).",
     includes: {
       required: [
@@ -31,6 +30,10 @@ export function factory(values) {
     // Keep includes on their own lines so renderer inserts full sections (with headings) cleanly.
     derived: { starter_volume_mL: starter_mL, culture_volume: volume },
     template: `
+> **Supervisor-only.** This procedure uses two instruments that require certification:
+> the **Allegra V-15R** refrigerated centrifuge (step 7) and the **−80 °C freezer** (step 12).
+> Do not perform this procedure unless you are a supervisor who has completed both trainings.
+
 ${hasFlask ? "" : "{preparation_of_sterile_flask}"}
 {preparation_of_starter_culture}
 {growing_bacteria_with_flasks}

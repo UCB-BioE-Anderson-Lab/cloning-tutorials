@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Endonucleases &mdash; DNA Manipulation Enzymes</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* Plain headed groups.  The deck reserves a rounded, bordered card for an
+   ENZYME ENVELOPE, so a list of headed groups is a list with a bold head
+   and nothing drawn round it. */
+.slide ul.groups{margin:0;padding:0;list-style:none}
+.slide ul.groups > li{margin:0 0 26px;padding:0}
+.slide ul.groups > li > b{display:block;font-size:28px;margin-bottom:6px}
+.slide ul.groups ul{margin:0;padding-left:1.1em}
+.slide ul.groups li li{font-size:24px;margin-bottom:5px}
+
+/* the naming slide, set in the deck's own mono face rather than shipped
+   as a screenshot of a word processor */
+.slide table.nm{border-collapse:collapse;margin:6px 0 0}
+.slide table.nm td{font-size:27px;padding:11px 40px 11px 0;vertical-align:baseline}
+.slide table.nm td:first-child code{font-size:36px}
+.slide .no{color:var(--red);font-weight:700}
+.slide .ok{color:var(--blue);font-weight:700}
+</style>
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>Endonucleases</h1>
+  <p><em>Endo</em> = within &nbsp;&middot;&nbsp; <em>Nuclease</em> = enzyme that cleaves DNA</p>
+  <ul>
+    <li>Restriction endonucleases</li>
+    <li>DNAses</li>
+    <li>Homing endonucleases</li>
+    <li>Cas9</li>
+  </ul>
+  <p style="margin-top:36px"><small>The first two are this section. Homing endonucleases and Cas9 are endonucleases too, and they come later in the course.</small></p>
+  <template class="notes">Endonucleases are enzymes that cleave a DNA internal to its sequence. Because they operate on the internal sequence of a DNA, they operate equally on linear and circular DNAs. This class includes restriction endonucleases, homing endonucleases, DNAses, and RNAses. Say plainly which two you are doing here: the restriction endonucleases and DNAse I. Homing endonucleases and Cas9 belong to the same class by the same definition — they cut internal to the sequence — but they are programmable nucleases and they get their own treatment later in the course, so nobody should leave this section thinking the list was only two items long.</template>
+  <template class="desc">Section divider: Endonucleases, defining the term and listing four kinds: restriction endonucleases, DNAses, homing endonucleases and Cas9. A line below notes that the first two are covered in this section and that homing endonucleases and Cas9 come later in the course.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Restriction Endonucleases</h1>
+  <ul class="groups">
+    <li><b>Type I</b><ul class="tighter">
+      <li>RMS systems (3 subunit proteins)</li>
+      <li>Typically named HsdR, HsdM, and HsdS</li>
+      <li>Generally not sequence specific</li>
+      <li>Not used <em>in vitro</em>; usually knocked out</li></ul></li>
+    <li><b>Type II</b><ul class="tighter">
+      <li>Cleave at specific DNA sequences</li>
+      <li>We&rsquo;ll go through these in detail</li></ul></li>
+    <li><b>Type III</b><ul class="tighter">
+      <li>Sequence-specific, but not in common use</li></ul></li>
+    <li><b>Type IV</b><ul class="tighter">
+      <li>Cleave modified (methylated, etc.) DNA</li>
+      <li>McrA, McrBC and Mrr, usually knocked out</li></ul></li>
+  </ul>
+  <div class="src">A nomenclature for restriction enzymes, DNA methyltransferases, homing endonucleases and their genes &mdash; PMID: 12654995</div>
+  <template class="notes">Restriction endonucleases are classified into 4 types. Type I endonucleases are typified by the RMS systems that are present in most prokaryotic genomes. In E. coli, they are named hsdR, M, and S. These endonucleases play the native immunological role of preventing infection with foreign DNAs. They undoubtedly recognize some molecular pattern, but this pattern is poorly defined and cannot be reduced to a simple sequence like other classes we’ll see. These enzymes are not used in any in vitro DNA manipulation protocols, but they are relevant because knocking them out is necessary for efficient transformation of E. coli. Type II endonucleases are the ones you’re likely most familiar with. This class includes EcoRI and other sequence-specific endonucleases. Type III endonucleases are sequence specific, but they are not in common use for in vitro DNA manipulations. Type IV are similar to type I in the sense that they are most relevant as common low-specificity enzymes present in prokaryotic genomes. They cleave methylated or otherwise modified DNAs and are typically encoded by 3 proteins. In E. coli, the McrA, McrBC, and Mrr genes are an endogenous type IV system typically knocked out to achieve high transformation efficiency.</template>
+  <template class="desc">The four classes of restriction endonuclease as four headed groups: Type I, Type II, Type III and Type IV, each with its distinguishing properties.</template>
+</article>
+
+<article class="slide" data-seq="ecori">
+  <h1 class="small">Type II Restriction Endonucleases</h1>
+  <ul class="tight"><li>Sequence-specific &mdash; and the shape of that sequence is not an accident</li></ul>
+</article>
+
+<article class="slide">
+  <h1 class="small">Type II Restriction Endonucleases</h1>
+  <div class="cols">
+    <ul class="groups">
+      <li><b>5&rsquo; 4bp overhang</b><ul class="tighter"><li><span class="enz">BamHI</span> G/GATCC</li><li><span class="enz">XbaI</span> T/CTAGA</li><li><span class="enz">EcoRI</span> G/AATTC</li></ul></li>
+      <li><b>3&rsquo; 4bp overhang</b><ul class="tighter"><li><span class="enz">PstI</span> CTGCA/G</li></ul></li>
+      <li><b>5&rsquo; 2bp overhang</b><ul class="tighter"><li><span class="enz">NdeI</span> CA/TATG</li></ul></li>
+      <li><b>3&rsquo; 2bp overhang</b><ul class="tighter"><li><span class="enz">PacI</span> TTAAT/TAA</li></ul></li>
+    </ul>
+    <ul class="groups">
+      <li><b>Blunt cutters</b><ul class="tighter"><li><span class="enz">EcoRV</span> GAT/ATC</li><li><span class="enz">PvuII</span> CAG/CTG</li></ul></li>
+      <li><b>Others</b><ul class="tighter"><li>5bp, 3bp, and 1bp overhangs</li><li><span class="enz">SfiI</span> GGCCNNNN/NGGCC</li></ul></li>
+      <li><b>Degenerate cutters</b><ul class="tighter"><li><span class="enz">XcmI</span> CCANNNNN/NNNNTGG</li><li><span class="enz">AlwNI</span> CAGNNN/CTG</li><li><span class="enz">FalI</span> (8/13) AAGNNNNNCTT (13/8)</li></ul></li>
+    </ul>
+  </div>
+  <div class="src">All available enzymes and their specificities: rebase.neb.com</div>
+  <template class="notes">The type II endonucleases vary in terms of the overhangs they generate and the sequences they recognize. They are defined by being sequence-specific enzymes. There are many enzymes that generate 5’ four-base pair overhangs including <span class="enz">BamHI</span>, <span class="enz">XbaI</span>, and <span class="enz">EcoRI</span>. There are also commonly-used enzymes that generate 3’ 4 bp overhangs, and many that generate 2bp overhangs either as 3’ or 5’ extensions. Some Type II’s generate blunt ends while there are examples that generate 5bp, 3bp, or even 1bp sticky ends. Often these enzymes are palindromic, meaning the reverse complement of the recognized sequence is the same as the original. However, there are also non-palindromic cutters, and enzymes that recognize degenerate sequences. For example, <span class="enz">AlwNI</span> recognizes CAGNNNCTG — the first and last portions are palindromic, but the internal N’s can be any sequence, so the sticky ends can be any sequence.</template>
+  <template class="desc">A reference table of Type II enzymes grouped by the end they leave: four-base and two-base overhangs on the left; blunt cutters, unusual overhang lengths and degenerate cutters on the right.</template>
+</article>
+
+<article class="slide" data-seq="typeIIs">
+  <h1 class="small">Type II<span style="font-size:.7em">S</span> Restriction Endonucleases</h1>
+  <ul class="tight"><li>Recognise one sequence, cut a fixed distance away from it &mdash; BsaI, BsmBI</li></ul>
+</article>
+
+<article class="slide">
+  <h1 class="small">Type II General Notes</h1>
+  <ul class="tight">
+    <li>Every one comes from a restriction/modification system, so every one has a <strong>partner methyltransferase</strong></li>
+    <li>So the strain you grew the plasmid in can silently block a digest: <em>dam</em> and <em>dcm</em> methylation, tabulated by NEB (more in the methyltransferase section)</li>
+    <li><strong>Star activity</strong> &mdash; specificity degrades with too much enzyme, glycerol above ~5%, the wrong (low-salt) buffer, or an overnight digest</li>
+    <li>Different enzymes prefer different <strong>buffers</strong> &mdash; many work in PCR buffer</li>
+    <li>All generate clean <strong>3&rsquo;OH and 5&rsquo;-phosphate</strong> ends</li>
+  </ul>
+  <template class="notes">The type II restriction enzymes are usually components of methylation/restriction systems from various microbes. The restriction enzyme is expressed in the cytoplasm and the host genome is protected because it is methylated at the cognate sequence, so every one of these enzymes comes with a partner methyltransferase. That matters to you practically: the plasmid you are about to cut was grown in E. coli, which methylates its own DNA at GATC and CCWGG, and if your restriction site overlaps one of those the enzyme simply will not cut. Nothing looks wrong &mdash; you just get an uncut band. NEB tabulates which enzymes are blocked, and we come back to it in the methyltransferase section. Beyond that, not all restriction enzymes are equally good. They differ in how specific they are for their recognition sequence, how long they stay active in vitro, and how concentrated the commercial product is. Under non-standard conditions some of them will cleave sequences that are similar to, but not identical with, their recognition sequence. That is called star activity, and the usual causes are too much enzyme, too much glycerol carried over from the enzyme stock, running the digest in too low a salt concentration because you grabbed the wrong buffer, and letting the digest run far longer than it needs to. Solvents and contaminants do the same thing, or cause incomplete cutting. Enzymes also differ in how close to the end of a fragment they will cut, whether they need the DNA supercoiled, and whether they need two sites on the same molecule because they work as a dimer. Different enzymes prefer different buffers, but many if not most work in PCR buffer. All of these subtle properties have been characterised by New England Biolabs. Though the sequences recognised vary, the chemistry a restriction endonuclease performs is always the same: they always generate 3-prime hydroxyl and 5-prime phosphate ends. Let us look at that in more detail.</template>
+  <template class="desc">Four practical notes on type II enzymes: every one comes from a restriction/modification system and so has a partner methyltransferase, which means dam and dcm methylation from the host strain can silently block a digest; star activity arises from excess enzyme, glycerol above about five per cent, the wrong low-salt buffer or an over-long digest; enzymes differ in the buffer they prefer, though many work in PCR buffer; and all of them leave a clean 3-prime hydroxyl and 5-prime phosphate.</template>
+</article>
+
+<article class="slide">
+  <div class="q">Which bond is broken&hellip; by EcoRI G/AATTC</div>
+  <figure class="fig"><img src="img/dna-backbone-bond.png" alt="Chemical structure of a DNA backbone, showing the phosphate joining the 3-prime hydroxyl of one ribose to the 5-prime hydroxyl of the next"></figure>
+  <div class="step" data-build="1"
+       data-note="It is the bond to the 3’ hydroxyl that breaks. That single fact is why the products come out the way they do: the phosphate stays behind on the fragment downstream of the cut, so every restriction enzyme leaves a 5’ phosphate on one side and a bare 3’ hydroxyl on the other. Hold on to it — the exonucleases in the next section break exactly the same bond, and the ligase in a later section is the enzyme that puts it back."
+       data-desc="A line has appeared below the figure naming the answer: the bond between the phosphate and the 3-prime hydroxyl, which is why the products carry a 5-prime phosphate and a 3-prime hydroxyl."><span class="arrow">&rarr;</span> The phosphate to 3&rsquo;-hydroxyl bond &mdash; leaving a 5&rsquo; phosphate and a free 3&rsquo; OH</div>
+  <template class="notes">Here we’ve zoomed in on the DNA sequence ‘GA’. The ribose backbone is in red. We see a single phosphate of the backbone here, and there are bonds on either end of the phosphate that connect it to a ribose. This topmost bond is attached to the 3’ hydroxyl of one ribose, while this lower bond connects the phosphate to the 5’ hydroxyl of the next. Two candidates. Which one does EcoRI break? Let the room commit to an answer before you advance.</template>
+  <template class="desc">A chemical structure of the DNA backbone, in which a phosphate joins the 3-prime hydroxyl of one ribose to the 5-prime hydroxyl of the next. The question asks which of those two bonds EcoRI breaks; the answer is not yet on the slide.</template>
+</article>
+
+<article class="slide">
+  <h1>DNAse I</h1>
+  <ul class="tight">
+    <li>Non-specific endonuclease &mdash; a very potent enzyme</li>
+    <li>Products have 5&rsquo; phosphates and 3&rsquo; hydroxyls, so they are competent for ligation on both ends</li>
+    <li>Magnesium in the buffer prefers single-strand cuts</li>
+    <li>Manganese in the buffer prefers double-strand blunt cuts</li>
+  </ul>
+  <p data-build="1" data-note="DNAse I turns up in three places you are likely to meet. Removing carry-over DNA from an RNA prep, which works because it is very specific for DNA over RNA. Chopping a large DNA down to oligonucleotide-length fragments, which is the fragmentation step in DNA shuffling. And a couple of older tricks worth knowing the names of: nick translation for labelling, and footprinting to find where a protein sits on a DNA." data-desc="A second list appears beneath the properties: the uses of DNAse I, namely removing DNA from an RNA sample, chopping large DNAs into oligonucleotide-length fragments for DNA shuffling, and nick translation and footprinting."><strong>Uses:</strong></p>
+  <ul class="tight" data-build="1">
+    <li>Removing DNA from an RNA sample</li>
+    <li>Chopping large DNAs into oligonucleotide-length fragments, such as for DNA shuffling</li>
+    <li>Others like nick translation and footprinting</li>
+  </ul>
+  <template class="notes">There are other types of endonucleases outside the scope of the restriction endonucleases because they have very little sequence specificity. DNAse I is a non-specific endonuclease. It is a very potent enzyme and most protocols employing this enzyme use very little of it. Like the restriction enzymes, the products are 5’ phosphates and 3’ hydroxyls, so the products of DNAse digestion are competent for other molecular biology reactions. In most protocols, magnesium must be supplied for activity and this will primarily nick the DNA rather than form double-stranded breaks. However, using manganese instead will alter its specificity towards double-stranded breaks. DNAse I can be used to remove DNA from an RNA sample — it is very specific for DNA over RNA. It can also be used to partially degrade large DNAs into oligo-length fragments, used in various procedures including DNA shuffling. There are a variety of other tricks, two of the more useful being nick translation and DNA footprinting.</template>
+  <template class="desc">Four properties of DNAse I: it is a non-specific and very potent endonuclease; its products carry 5-prime phosphates and 3-prime hydroxyls and so are competent for ligation; magnesium in the buffer favours single-strand cuts and manganese favours double-strand blunt cuts. Nothing else is on the slide yet.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Naming restriction enzymes</h1>
+  <ul class="tight"><li>Letters for the organism, then a <strong>roman numeral</strong> &mdash; and a roman numeral is spelled with capital <code>I</code></li></ul>
+  <table class="nm">
+    <tr><td><code>BglII</code></td><td>capital <code>I</code> twice &mdash; the numeral two</td><td class="ok">right</td></tr>
+    <tr><td><code>Bglll</code></td><td>lowercase <code>l</code> twice instead</td><td class="no">wrong</td></tr>
+    <tr><td><code>Bgl||</code></td><td>two pipe characters instead</td><td class="no">wrong</td></tr>
+  </table>
+  <p style="margin-top:34px"><code>EcoRI</code> &nbsp;&nbsp; <code>XhoI</code> &nbsp;&nbsp; <code>BamHI</code> &nbsp;&nbsp; <code>HindIII</code></p>
+  <p style="margin-top:10px"><small>Copy and paste, don&rsquo;t type.</small></p>
+  <template class="notes">“Bagel Two” is spelled BglII. Bgl stands for Bacillus globigii, the strain, and it’s the second one found, so roman-numeral 2 — which is the capital letter I, written twice. In a proportional font all three spellings on this slide look nearly identical, which is exactly the trap; that is why they are set here in a monospaced face, where the capital I, the lowercase l and the pipe are three visibly different glyphs. It matters because a name you typed by eye will not match anything in a sequence-analysis tool or an ordering form. Copy and paste.</template>
+  <template class="desc">A note on enzyme naming, set in a monospaced face so the glyphs can be told apart. Three spellings of the same name are compared. B, g, l followed by capital i twice is right: that is the roman numeral two. B, g, l followed by lowercase L twice is wrong. B, g, l followed by two pipe characters is wrong. Four correctly spelled examples follow: EcoRI, XhoI, BamHI and HindIII. Copy and paste rather than typing these names.</template>
+</article>
+
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/endonuclease.js" defer></script>
+</body>
+</html>

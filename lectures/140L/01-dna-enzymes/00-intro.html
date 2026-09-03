@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Introduction &mdash; DNA Manipulation Enzymes</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="lecture">
+  <h1>DNA Manipulation Enzymes</h1>
+  <p><small>BioE 140L &middot; UC Berkeley</small></p>
+  <p style="margin-top:70px"><small>YouTube playlist:<br>
+    <a href="https://www.youtube.com/watch?v=SWDl9Yh6gx8&amp;list=PL2aPXzks-TgNkKi2lUWL65MpPsRBCb5q5">youtube.com/playlist &mdash; DNA Manipulation Enzymes</a></small></p>
+  <template class="notes">This series of lectures will introduce you to the chemistry and utility of DNA manipulation enzymes. This class of catalysts perform chemical reactions on DNA molecules and forms the basis for most methods of DNA fabrication. These lectures describe most of the DNA modification reactions that exist, but focuses on those used in synthetic biology research, particularly for DNA fabrication and installation into genomes.</template>
+  <template class="desc">Lecture title slide: DNA Manipulation Enzymes, with a link to the YouTube playlist.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">YouTube video content for 140L/132</h1>
+  <p><small><a href="https://openwetware.org/wiki/Synthetic_Biology_Trails">openwetware.org/wiki/Synthetic_Biology_Trails</a> &mdash; lectures on experimental design</small></p>
+  <ul class="tighter" style="margin-top:20px">
+    <li><a href="https://www.youtube.com/watch?v=SWDl9Yh6gx8&amp;list=PL2aPXzks-TgNkKi2lUWL65MpPsRBCb5q5">The DNA Manipulation Enzymes</a></li>
+    <li><a href="https://www.youtube.com/watch?v=_XpQgGAO0lw&amp;list=PL2aPXzks-TgPX7HU4pogNUSBN9OK2PhBK">DNA Fabrication</a></li>
+    <li><a href="https://www.youtube.com/watch?v=vfmuDvEgD28&amp;list=PL2aPXzks-TgOtngzKdocz4P50TCncRyPy">Genome Manipulation</a></li>
+    <li><a href="https://www.youtube.com/watch?v=tgFp72Fx4Hk&amp;list=PL2aPXzks-TgMvy4PG5wwbrw9VKBuowOR8">Chassis</a></li>
+    <li><a href="https://www.youtube.com/watch?v=9B5e41QwoBI&amp;list=PL2aPXzks-TgNP1FuAv0v-fS6UhCjy1waN">Parts</a></li>
+    <li><a href="https://www.youtube.com/watch?v=hDAnyG7zHFs&amp;list=PL2aPXzks-TgN_Ztp-bRkzbtbi5Ncsh71t">Practices</a></li>
+    <li><a href="https://www.youtube.com/watch?v=plOc9Ei5nvY&amp;list=PL2aPXzks-TgMo_x6XhYmfoZDezm4m-DcL">Whole-Cell Analysis</a></li>
+    <li><a href="https://www.youtube.com/watch?v=EheWQRLvLWU&amp;list=PL2aPXzks-TgNlrgM8BK3jD_aiyjoXOsRI">In vitro Assays</a></li>
+    <li><a href="https://www.youtube.com/watch?v=1wWyTrUroGM&amp;list=PL2aPXzks-TgOOPfxneYJ3pBwTlqzv9Ezn">Directed Evolution</a></li>
+    <li><a href="https://www.youtube.com/watch?v=8BDTS9NK7Zg&amp;list=PL2aPXzks-TgNF957XOSBB3rPdFbtvsWYI">Combinatorial Libraries</a></li>
+    <li><a href="https://www.youtube.com/watch?v=X0eemsxBtlI&amp;list=PL2aPXzks-TgMJ7UID5Q2hb5y4D4yRgzzj">Automation</a></li>
+  </ul>
+  <template class="desc">A list of the eleven Synthetic Biology Trails YouTube playlists, from DNA Manipulation Enzymes through DNA Fabrication, Genome Manipulation, Chassis, Parts, Practices, Whole-Cell Analysis, In vitro Assays, Directed Evolution, Combinatorial Libraries and Automation.</template>
+</article>
+
+<article class="slide">
+  <h1>AI Prompt</h1>
+  <p class="q">Are you familiar with the content of the NEB catalog?</p>
+  <figure class="fig"><img src="img/neb-ai-prompt.png" alt="A chat assistant answering a question about the classes of polymerase described in the NEB catalog"></figure>
+  <template class="desc">A suggested AI prompt — asking whether the assistant knows the NEB catalog — with a screenshot of it explaining the differences between Taq, Pfu and Phusion polymerases.</template>
+</article>
+
+<article class="slide">
+  <h1>Ground rules</h1>
+  <ul class="tight">
+    <li>Sip from the fountain&hellip;my lectures tend to be meaty</li>
+    <li>All these files are available on bCourses and YouTube</li>
+    <li>Focus on understanding the concepts, you don&rsquo;t have to memorize anything</li>
+    <li>The purpose is to introduce important DNA modification enzymes and what you can do with them; and to begin getting you to think about the functions of proteins and how combinations of biochemicals interact with predictable results</li>
+    <li>You may interrupt me at any time with questions</li>
+  </ul>
+  <template class="notes">The entire ensemble of slides is a fairly complete description of the known DNA manipulation enzymes, with the clear omission of Cas9/CRISPR, which we’ll deal with later in the course.</template>
+  <template class="desc">Five ground rules for the lecture.</template>
+</article>
+
+<article class="slide">
+  <h1>The enzyme classes</h1>
+  <p class="q">Five things you can do to a DNA molecule</p>
+  <ul class="tight" style="margin-top:26px">
+    <li><b class="verb">break</b>Endonucleases &middot; Exonucleases</li>
+    <li data-build="1"
+        data-note="Polymerases copy it. They read a template and build the complementary strand. RNA polymerases do the same job but write RNA — and, as you will see, they are the only ones here that can start without a primer."
+        data-desc="Second group revealed: copy — DNA polymerases and RNA polymerases."
+      ><b class="verb">copy</b>DNA Polymerases &middot; RNA Polymerases</li>
+    <li data-build="2"
+        data-note="Ligases join. They take two polynucleotides and make them one molecule. That sounds trivial and it is the step that fails most often."
+        data-desc="Third group revealed: join — ligases."
+      ><b class="verb">join</b>Ligases</li>
+    <li data-build="3"
+        data-note="Methyltransferases, kinases and phosphatases modify it without breaking or joining anything at all. A methyl group on a base, a phosphate on or off a five prime end. The smallest changes in the lecture, and they decide what every other enzyme is allowed to do."
+        data-desc="Fourth group revealed: modify — methyltransferases and kinases slash phosphatases."
+      ><b class="verb">modify</b>Methyltransferases &middot; Kinases / Phosphatases</li>
+    <li data-build="4"
+        data-note="And recombinases rearrange it, swapping DNA over similar sequences. One enzyme that finds two sites, cuts all four strands and reseals them, without ever leaving a free end lying around."
+        data-desc="Fifth group revealed: rearrange — recombinases."
+      ><b class="verb">rearrange</b>Recombinases</li>
+  </ul>
+  <style>.verb{color:var(--blue);display:inline-block;min-width:220px;font-weight:700}</style>
+  <template class="notes">Everything in this lecture is one of five verbs you can apply to a DNA molecule. Start with the nucleases: they break it. Endonucleases cut internally, at a sequence they recognise; exonucleases chew inward from an end. Every method you will use in this course is some composition of these five verbs, which is why it is worth knowing exactly what each enzyme will and will not do.</template>
+  <template class="desc">The eight enzyme classes grouped under five verbs, in the order the sections follow. The first group, break — endonucleases and exonucleases — is already showing; the remaining four are revealed one at a time.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

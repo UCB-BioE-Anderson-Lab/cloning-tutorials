@@ -1,0 +1,155 @@
+140L LECTURE SLIDES — how this is put together
+==============================================
+
+WHY IT LIVES IN docs/
+---------------------
+`mkdocs gh-deploy` copies everything under docs/ verbatim into the gh-pages
+branch. Files that are not .md are passed straight through — they are never
+rendered, never added to the search index, and never listed in sitemap.xml.
+Because nothing here is referenced from mkdocs.yml's `nav`, the slides are
+effectively unlisted: reachable by URL only.
+
+Do NOT add .md files under docs/lectures/. MkDocs would build them into real
+site pages and index them for search, which is exactly what we don't want.
+That is why this file is .txt.
+
+The source PowerPoint decks live OUTSIDE docs/, in lectures-src/, for the
+same reason: anything under docs/ is copied to the public site, and a 1.6 MB
+binary does not need to ship with every deploy.
+
+Live URL:  https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/lectures/
+Local:     mkdocs serve  ->  http://127.0.0.1:8000/cloning-tutorials/lectures/
+
+
+LAYOUT
+------
+docs/lectures/
+  deck.css                     shared styling for every slide
+  deck.js                      shared runtime: nav, modes, channels, jump menu
+  index.html                   the private index of lectures
+  AUTHORING.txt                this file
+  140L/
+    01-dna-enzymes/
+      lecture.js               section order — the ONE place order lives
+      00-intro.html            a section
+      01-endonucleases.html    a section
+      ...
+      seq/
+        linear.js              horizontal duplex animations
+        rolling-circle.js      replication + amplification
+        kunkel.js              Kunkel mutagenesis
+
+
+A SECTION FILE
+--------------
+Each section is a standalone page. It contains nothing but its slides and
+three script tags; deck.js injects all the chrome (control bar, presenter
+panel, overlays, live regions) at load.
+
+  <link rel="stylesheet" href="../../deck.css">
+  ...
+  <article class="slide" data-bg="green">
+    <h1>Endonucleases</h1>
+    <ul><li>...</li></ul>
+    <template class="notes">Spoken narration for this slide.</template>
+    <template class="desc">What is visually on the slide.</template>
+  </article>
+
+  <script src="../../deck.js" defer></script>
+  <script src="lecture.js"    defer></script>
+
+Order matters: deck.js first (it defines window.Deck), then lecture.js
+(sets window.LECTURE), then any sequence files.
+
+data-bg  omitted -> white (the default for content slides)
+         "blue"  -> #1F497D, the lecture intro
+         "green" -> #008000, a section divider
+         "red"   -> #C1272D, enzymes not covered again; skipped in lecture
+         "black" -> #111, the assignment/logistics slides
+
+BUILDS
+------
+Any element with data-build="1", "2", ... appears one click at a time:
+
+  <li data-build="1">Endonucleases</li>
+  <li data-build="2">Exonucleases</li>
+
+Optionally override the channels for that click:
+  <li data-build="1" data-note="..." data-desc="...">
+
+
+THE TWO TEXT CHANNELS
+---------------------
+Every step carries a narration channel (<template class="notes">, verbatim
+from the original PowerPoint speaker notes) and a visual-description channel
+(<template class="desc">). Both are mirrored into aria-live regions in every
+mode, shown side by side in the W view, and reachable from JS:
+
+  Deck.channels()   -> {note, description} for the current step
+  Deck.steps()      -> all steps, e.g. to pre-render audio
+  Deck.on(fn)       -> subscribe
+  document.addEventListener("deck:step", e => e.detail)
+
+The Speak toggle (S) pipes both through the browser's speechSynthesis.
+
+
+AN ANIMATED SEQUENCE
+--------------------
+A long animation lives in its own file under seq/ and registers itself:
+
+  window.Deck.sequence("rcr", function(slide){
+    // build slide.innerHTML, then return:
+    return {
+      steps: [{note:"...", desc:"..."}, ...],   // one entry per click
+      go: function(i, animated){ ... }          // render step i
+    };
+  });
+
+Use it from a section with an empty slide element:
+
+  <article class="slide" data-seq="rcr">
+    <h1>Rolling Circle Replication</h1>
+  </article>
+  <script src="seq/rolling-circle.js" defer></script>
+
+A sequence APPENDS its <svg> to the slide, so whatever headings and
+bullets you author in the section file stay visible above the drawing.
+
+Registered sequences in this lecture:
+  exo53  displacement  t7rnap  exo35  nick   (seq/linear.js)
+  rcr    rcamp                              (seq/rolling-circle.js)
+  kunkel                                    (seq/kunkel.js)
+
+The sequence supplies its own per-step channels, so notes and descriptions
+for an animation live next to the geometry that draws it.
+
+
+ADDING A SECTION
+----------------
+1. Create the .html file in the lecture folder.
+2. Add one line to lecture.js in the right position.
+That is all — prev/next and the G menu both read lecture.js.
+
+ADDING A LECTURE
+----------------
+1. Copy 140L/01-dna-enzymes/ to 140L/NN-name/.
+2. Rewrite lecture.js for the new sections.
+3. Add a block to docs/lectures/index.html.
+
+
+PRESENTING
+----------
+Advance with the arrow keys (or space / PageDown). Clicking the slide does
+NOT advance — only the prev/next buttons in the control bar do, so a stray
+click never moves the deck.
+
+Use F11 (control-command-F on a Mac) rather than the in-page Full screen
+button. Browsers drop the Fullscreen API on navigation and will not let a
+page re-enter it without a gesture, so moving between sections would flash
+out of full screen. F11 is the window manager's own full screen and survives
+the hop. (If you do use the button, the deck re-enters full screen on your
+next key press, so you get one brief flash per section change.)
+
+Presenter view (P), the text channels (W), the elapsed timer, and the Speak
+toggle all persist across section changes via sessionStorage. The timer
+starts on the first section you open and keeps running for the whole lecture.

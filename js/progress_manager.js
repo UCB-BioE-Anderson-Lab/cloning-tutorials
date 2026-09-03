@@ -238,8 +238,8 @@ function sortSignableArrays(signable) {
         this.assignedGene = data.assignedGene || null;
         this.hierarchy = {
             "Wetlab": {
-              "p6": ["p6_q1", "p6_q2", "p6_q3"],
-              "pipetting": ["pipet_q1", "pipet_q2", "pipet_q3", "pipet_q4", "pipet_q5"],
+              "p6": ["intro_quiz"],
+              "pipetting": ["pipetting_quiz"],
               "pcr": ["pcr_q1", "pcr_q2", "pcr_q3"],
               "gel": ["gel_q1", "gel_q2", "gel_q3"],
               "cleanup": ["cleanup_q1", "cleanup_q2", "cleanup_q3"],

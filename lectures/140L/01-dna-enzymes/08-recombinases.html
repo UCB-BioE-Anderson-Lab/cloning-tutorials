@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Recombinases &mdash; DNA Manipulation Enzymes</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>Recombinases</h1>
+  <p>One protein cuts, swaps and reseals all four strands &mdash; no ligase, no polymerase, no free ends</p>
+  <ul>
+    <li>Site-specific: Cre/lox, Flp/FRT, phage integrases</li>
+    <li>Homologous: recombineering, RecA</li>
+  </ul>
+  <template class="notes">Recombination is rearrangement between two DNAs over sequences they share. Some recombinases act on one very specific short sequence; others are not fussy about the sequence at all and simply recombine anything similar enough. What sets this whole class apart from every enzyme so far is that a recombinase is a complete cut-and-paste in a single protein. Everything before it — the nucleases, the polymerases, the ligases — works on one junction at a time and needs you to supply the ends. A recombinase finds its two sites itself, breaks all four strands, exchanges them and reseals, holding the broken bonds covalently the whole time so no free DNA end is ever exposed. That is why it can be turned loose on a chromosome inside a living cell.</template>
+  <template class="desc">Section divider: Recombinases. One protein cuts, swaps and reseals all four strands, with no ligase, polymerase or free ends. Split into site-specific systems and homologous recombination.</template>
+</article>
+
+<article class="slide" data-seq="loxorient">
+  <h1 class="small">Cre Recombinase: the Arrow Decides</h1>
+</article>
+
+<article class="slide">
+  <h1 class="small">Cre in Practice</h1>
+  <ul class="tight">
+    <li>&ldquo;Floxing&rdquo; a gene &mdash; build it into the genome flanked by loxP, then supply Cre later and it is deleted on cue</li>
+    <li>Excision is effectively one-way: the circle carries no origin, and putting it back is a two-molecule reaction &mdash; it dilutes away</li>
+    <li>Inversion is freely reversible: same sites, same enzyme, it keeps flipping. On its own it will not latch, so it is a poor memory element</li>
+    <li>Flp/FRT (yeast 2&micro; plasmid) is the same trick on a different 34&nbsp;bp site</li>
+    <li>Every reaction leaves one site behind &mdash; run the same recombinase again and it will find that scar</li>
+  </ul>
+  <template class="notes">Floxing a gene means encoding it flanked by lox sites in the genome of a cell. Express Cre later, in a particular tissue or at a particular time, and that gene is excised and deleted — which is how conditional knockouts are made. Note the asymmetry in reversibility, because it decides what you can build. Excision looks irreversible but the chemistry is not: the circle simply has no origin of replication, so it is lost as cells divide, and re-integration is bimolecular and gets slower as the circle gets rarer. Inversion has no such escape. The sites are unchanged, the enzyme keeps flipping, and a population settles near fifty-fifty; if you want an inversion to act as memory you have to take the enzyme away. Many similar systems exist. Flp, with its FRT sites from the yeast two-micron plasmid, is the closest relative — a tyrosine recombinase like Cre, on a site of the same thirty-four base pair architecture. Hin and hix are often listed alongside them, but do not file them together: hix is twenty-six base pairs, and Hin is a serine invertase, which is the same family as the integrases we are about to meet rather than the same family as Cre. And the trap: every one of these reactions leaves an intact site in the product. If a loxP scar is already sitting in your genome and you express Cre again for a second purpose, Cre does not know it is a scar.</template>
+  <template class="desc">Practical notes on Cre and lox: floxing a gene for conditional knockouts; excision is effectively one-way because the excised circle is diluted out, while inversion stays reversible; Flp/FRT is an equivalent system; and every reaction leaves one site behind as a scar.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Phage <em>att</em> Sites</h1>
+  <div class="cols wide-left">
+    <ul class="tight">
+      <li>The lox-like sites are called <em>att</em> sites; the Cre-like enzymes are Int recombinases, or integrases</li>
+      <li>&lambda; Int joins <em>attP</em> (phage) to <em>attB</em> (host) &mdash; the products are <em>attL</em> and <em>attR</em>, which are new sequences</li>
+      <li>Int + host IHF integrates; Int + Xis + IHF runs it backwards, so &lambda; is a switch, not a ratchet</li>
+      <li>This <em>is</em> Gateway cloning: BP clonase (Int) makes the Entry clone, LR clonase (Int + Xis) makes the Expression clone</li>
+      <li>Also phi80, HK022, P21, P22, phiC31</li>
+    </ul>
+    <figure class="fig"><svg viewBox="0 0 700 520" role="img" aria-labelledby="attttl" style="width:100%;height:auto"><title id="attttl">Lambda att site recombination: attB, written as half sites B and B prime, recombines with attP, written as P and P prime. Integrase with IHF gives attL, which is B and P prime, and attR, which is P and B prime. Integrase with Xis and IHF runs the same reaction backwards.</title><text x="20" y="46" font-size="25" fill="var(--muted)">host</text><rect x="150" y="18" width="110" height="52" rx="4" fill="none" stroke="var(--ink)" stroke-width="2.6"/><text x="205.0" y="53" text-anchor="middle" font-size="27" font-weight="700" fill="var(--ink)">B</text><rect x="260" y="18" width="110" height="52" rx="4" fill="none" stroke="var(--ink)" stroke-width="2.6"/><text x="315.0" y="53" text-anchor="middle" font-size="27" font-weight="700" fill="var(--ink)">B&#8242;</text><text x="384" y="52" font-size="26" font-style="italic" fill="var(--ink)">attB</text><text x="20" y="146" font-size="25" fill="var(--muted)">phage</text><rect x="150" y="118" width="110" height="52" rx="4" fill="none" stroke="var(--ink)" stroke-width="2.6"/><text x="205.0" y="153" text-anchor="middle" font-size="27" font-weight="700" fill="var(--ink)">P</text><rect x="260" y="118" width="110" height="52" rx="4" fill="none" stroke="var(--ink)" stroke-width="2.6"/><text x="315.0" y="153" text-anchor="middle" font-size="27" font-weight="700" fill="var(--ink)">P&#8242;</text><text x="384" y="152" font-size="26" font-style="italic" fill="var(--ink)">attP</text><path d="M255 200V262" fill="none" stroke="var(--ink)" stroke-width="2.8"/><path d="M245 250L255 264L265 250" fill="none" stroke="var(--ink)" stroke-width="2.8"/><text x="278" y="240" font-size="24" fill="var(--muted)">Int + IHF</text><path d="M148 262V200" fill="none" stroke="var(--muted)" stroke-width="2.8" stroke-dasharray="7 6"/><path d="M138 212L148 198L158 212" fill="none" stroke="var(--muted)" stroke-width="2.8"/><text x="128" y="228" text-anchor="end" font-size="24" fill="var(--muted)">Int + Xis</text><text x="128" y="256" text-anchor="end" font-size="24" fill="var(--muted)">+ IHF</text><rect x="150" y="300" width="110" height="52" rx="4" fill="none" stroke="var(--blue)" stroke-width="2.6"/><text x="205.0" y="335" text-anchor="middle" font-size="27" font-weight="700" fill="var(--blue)">B</text><rect x="260" y="300" width="110" height="52" rx="4" fill="none" stroke="var(--blue)" stroke-width="2.6"/><text x="315.0" y="335" text-anchor="middle" font-size="27" font-weight="700" fill="var(--blue)">P&#8242;</text><text x="384" y="334" font-size="26" font-style="italic" fill="var(--blue)">attL</text><rect x="150" y="400" width="110" height="52" rx="4" fill="none" stroke="var(--blue)" stroke-width="2.6"/><text x="205.0" y="435" text-anchor="middle" font-size="27" font-weight="700" fill="var(--blue)">P</text><rect x="260" y="400" width="110" height="52" rx="4" fill="none" stroke="var(--blue)" stroke-width="2.6"/><text x="315.0" y="435" text-anchor="middle" font-size="27" font-weight="700" fill="var(--blue)">B&#8242;</text><text x="384" y="434" font-size="26" font-style="italic" fill="var(--blue)">attR</text><text x="20" y="500" font-size="23" fill="var(--muted)">each product takes one half from each parent</text></svg></figure>
+  </div>
+  <template class="notes">The other popular family of sequence-specific recombinases are the phage att systems. These act on asymmetric substrates, so unlike lox the reaction has real directionality. In the best known one, from lambda, a DNA carrying attP is recombined with a DNA carrying attB — usually the genome. The products are named attL and attR and they are genuinely different sequences from attP and attB, so the reaction is not symmetric and can be pushed one way or the other. The recombinase is called Int, and it needs a host protein, integration host factor, to work. A second phage protein, Xis, flips the preferred direction: Int plus IHF integrates, Int plus Xis plus IHF excises. Learn these four names now, because the next slide turns on them. This is also exactly the Gateway cloning system you will meet in catalogues: the BP reaction is attB times attP giving the Entry clone, and the LR reaction is attL times attR, run with the same integrase plus Xis, giving the Expression clone. The reaction names are literally the site names.</template>
+  <template class="desc">Phage att sites, illustrated with lambda attP on a circular phage genome recombining into the E. coli chromosome at attB to give attL and attR. Integration uses Int plus IHF; excision uses Int plus Xis plus IHF. The same chemistry is sold as Gateway cloning.</template>
+</article>
+
+<article class="slide" data-seq="integrase">
+  <h1 class="small">Serine Integrases: a One-Way Reaction</h1>
+</article>
+
+<article class="slide">
+  <h1 class="small">Homologous Recombination</h1>
+  <div class="cols wide-left">
+    <ul class="tight">
+      <li>No recognition site at all &mdash; the <b>homology arms</b> decide where the DNA lands</li>
+      <li>Yeast and <em>B. subtilis</em> do this readily. <em>E. coli</em> does not, which is why
+          you cannot simply transform a linear cassette and expect it to integrate</li>
+      <li>Supply the &lambda; Red genes and it can &mdash; that is <b>recombineering</b>,
+          and it is how genes get knocked out in <em>E. coli</em></li>
+      <li>RecA is the host&rsquo;s own strand-exchange protein; &lambda; Red substitutes for
+          what <em>E. coli</em> lacks</li>
+    </ul>
+    <figure class="fig"><svg viewBox="0 0 760 400" role="img" aria-labelledby="hrttl" style="width:100%;height:auto"><title id="hrttl">A target locus drawn as three blocks: a left flank A, a gene, and a right flank B. Below it a linear donor carrying the same flanks A and B around a new cassette. Dashed lines pair flank to flank, and an arrow labelled lambda Red in E. coli, or nothing needed in yeast, leads to the locus with the cassette in place of the gene.</title><text x="10" y="46" font-size="22" fill="var(--muted)">target locus</text><rect x="210" y="18" width="120" height="46" rx="3" fill="none" stroke="var(--ink)" stroke-width="2.6"/><text x="270.0" y="49" text-anchor="middle" font-size="23" font-weight="700" fill="var(--ink)">A</text><rect x="330" y="18" width="150" height="46" rx="3" fill="none" stroke="var(--ink)" stroke-width="2.6"/><text x="405.0" y="49" text-anchor="middle" font-size="23" font-weight="700" fill="var(--ink)">gene</text><rect x="480" y="18" width="120" height="46" rx="3" fill="none" stroke="var(--ink)" stroke-width="2.6"/><text x="540.0" y="49" text-anchor="middle" font-size="23" font-weight="700" fill="var(--ink)">B</text><text x="10" y="176" font-size="22" fill="var(--muted)">linear donor</text><rect x="210" y="148" width="120" height="46" rx="3" fill="none" stroke="var(--blue)" stroke-width="2.6"/><text x="270.0" y="179" text-anchor="middle" font-size="23" font-weight="700" fill="var(--blue)">A</text><rect x="330" y="148" width="150" height="46" rx="3" fill="none" stroke="var(--blue)" stroke-width="2.6"/><text x="405.0" y="179" text-anchor="middle" font-size="23" font-weight="700" fill="var(--blue)">cassette</text><rect x="480" y="148" width="120" height="46" rx="3" fill="none" stroke="var(--blue)" stroke-width="2.6"/><text x="540.0" y="179" text-anchor="middle" font-size="23" font-weight="700" fill="var(--blue)">B</text><path d="M215 148V64M595 148V64" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="6 6"/><text x="198" y="128" text-anchor="end" font-size="21" fill="var(--muted)">same flanks</text><path d="M395 210V268" fill="none" stroke="var(--ink)" stroke-width="2.8"/><path d="M385 256L395 270L405 256" fill="none" stroke="var(--ink)" stroke-width="2.8"/><text x="418" y="246" font-size="22" fill="var(--muted)">&#955; Red in <tspan font-style="italic">E. coli</tspan></text><text x="418" y="274" font-size="22" fill="var(--muted)">&#8212; nothing needed in yeast</text><rect x="210" y="300" width="120" height="46" rx="3" fill="none" stroke="var(--ink)" stroke-width="2.6"/><text x="270.0" y="331" text-anchor="middle" font-size="23" font-weight="700" fill="var(--ink)">A</text><rect x="330" y="300" width="150" height="46" rx="3" fill="none" stroke="var(--blue)" stroke-width="2.6"/><text x="405.0" y="331" text-anchor="middle" font-size="23" font-weight="700" fill="var(--blue)">cassette</text><rect x="480" y="300" width="120" height="46" rx="3" fill="none" stroke="var(--ink)" stroke-width="2.6"/><text x="540.0" y="331" text-anchor="middle" font-size="23" font-weight="700" fill="var(--ink)">B</text><text x="10" y="328" font-size="22" fill="var(--muted)">recombinant</text><text x="20" y="382" font-size="21" fill="var(--muted)">the flanks decide where it lands &#8212; not a site, just homology</text></svg></figure>
+  </div>
+  <template class="notes">This is the last thing in the lecture and it is the odd one out: there is no recognition site anywhere in it. Everything else today read a sequence — a palindrome, a promoter, a lox site, an att site. Homologous recombination reads nothing. What targets it is simply that the ends of your linear DNA match somewhere in the genome, and the longer that match the better it works. Yeast and Bacillus subtilis catalyse it readily, which is why yeast assembly works the way it does. E. coli requires additional genes for it to be efficient, and the lambda Red genes from lambda phage are one such set — that is what recombineering means, recombination-based manipulation of the genome or of plasmids in E. coli, and it is most often used for knocking out genes. Endogenous RecA is also involved: RecA is a protein from the DNA repair pathways that stabilises single-stranded DNA and catalyses strand exchange, and it can also be used to promote homologous recombination in vitro. Note what that means for the theme we started with — this reaction still ends in the same chemistry, a hydroxyl attacking a phosphate, but nothing about its specificity is written in the sequence the enzyme recognises. It is written in how well two molecules match.</template>
+  <template class="desc">Homologous recombination, contrasted with the site-specific systems: no recognition sequence, only homology arms. A diagram shows a target locus of flank A, a gene and flank B; a linear donor carrying the same flanks around a new cassette; and the recombinant with the cassette in place. Lambda Red is needed in E. coli and nothing is needed in yeast.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/recombinase.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Ligases &mdash; DNA Manipulation Enzymes</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>Ligases</h1>
+  <ul>
+    <li>Join a 5&rsquo; phosphate to a 3&rsquo; hydroxyl</li>
+    <li>Requires energy &mdash; the reaction is not favorable on its own</li>
+    <li>Not glue. It is a list of requirements, and every one of them is a way to fail</li>
+  </ul>
+  <template class="notes">Ligases join two polynucleotides into one molecule by joining a 5’ phosphate to a 3’ hydroxyl. The reaction has to be coupled to an energy source, either ATP or NAD+, because on its own it is not thermodynamically favorable. The thing to carry out of this section is the third line. Almost everyone treats ligase as glue — you mix your pieces with it and they stick. It is not glue. It is an enzyme with a short list of strict requirements, and essentially every failed ligation you will ever run is one of those requirements not being met. By the end of the section you should be able to look at a dead ligation and name which one.</template>
+  <template class="desc">Section divider: Ligases. It states the bond they form, that the reaction needs an energy source, and that ligase is a set of requirements rather than glue.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">T4 DNA Ligase</h1>
+  <ul class="tighter">
+    <li>No homolog in <em>E. coli</em> &mdash; the phage brought its own</li>
+    <li>Requires a 5&rsquo; phosphate and a 3&rsquo; hydroxyl, directly abutting</li>
+    <li>Requires ATP &mdash; one per bond. Tired buffer is a leading cause of dead ligations</li>
+    <li>No gap and no mismatch at the junction</li>
+    <li><b>Any matching ends will ligate</b> &mdash; any overhang length, blunt included. (Efficiency falls off as the overhang shortens, and a 1&nbsp;nt overhang is the worst case of all, worse even than blunt.)</li>
+    <li>The workhorse for joining ends made by restriction enzymes</li>
+  </ul>
+  <pre class="dna" style="margin-top:22px">5&rsquo;-cttcg<span class="site">CTGCA</span>              <span class="site">G</span>gctggcaga&hellip;-3&rsquo;
+3&rsquo;-gaagc<span class="site">G</span>        +     <span class="site">ACGTC</span>cgaccgtct&hellip;-5&rsquo;</pre>
+  <p style="font-size:26px;margin:12px 0 0">Both ends carry the same 3&rsquo; overhang, <b>TGCA</b> &mdash; the bottom strand is printed 3&rsquo;&rarr;5&rsquo;, so read it right to left.</p>
+  <div class="step" data-build="1" data-note="Here the two PstI ends are joined. Both molecules carry the same four-base 3&rsquo; overhang &mdash; TGCA, reading 5&rsquo; to 3&rsquo; &mdash; so they anneal to one another, and ligase seals the two nicks that are left. Notice that the PstI site is regenerated: joining two compatible ends puts CTGCAG back. That is how you check a clone &mdash; cut it again with the same enzyme and the insert should come back out." data-desc="The two PstI-cut ends joined into one continuous duplex, with the CTGCAG recognition site restored across the junction."><span class="arrow">&darr;</span> T4 DNA Ligase</div>
+  <pre class="dna" data-build="1">5&rsquo;-cttcg<span class="site">CTGCAG</span>gctggcaga&hellip;-3&rsquo;
+3&rsquo;-gaagc<span class="site">GACGTC</span>cgaccgtct&hellip;-5&rsquo;</pre>
+  <template class="notes">The one you will actually encounter is T4 DNA Ligase. It has no homolog in E. coli — its only relatives are in other phages — so it is genuinely a foreign enzyme you are adding to the reaction. Read the list as a checklist rather than as facts. It needs a 5’ phosphate on one side and a 3’ hydroxyl on the other, and where that phosphate comes from, and how you deliberately take it away, is the kinase and phosphatase section later on. It needs ATP: one molecule of ATP is consumed per bond formed, and ligase buffer that has been through twenty freeze-thaw cycles has no usable ATP left in it. That is a real and common cause of a ligation that produces nothing while every other component was fine. It will not tolerate a gap or a mismatch at the junction. And it will join any length of overhang including none at all, but efficiency falls off badly as the overhang shortens — and a single-base overhang is the worst case of all, worse even than a clean blunt end, because one base pair is not enough to hold anything together and still gets in the way.</template>
+  <template class="desc">A requirements checklist for T4 DNA ligase, then two PstI-cut sticky ends joined back into a continuous duplex with the restriction site restored.</template>
+</article>
+
+<article class="slide" data-seq="register">
+  <h1 class="small">A nick, not a gap. And held in register.</h1>
+  <ul class="tight"><li>Ligase seals a nick. Everything else is about making the junction look like one.</li></ul>
+</article>
+
+<article class="slide">
+  <div class="q">Blunting</div>
+  <p>If I took a plasmid containing the sequence &hellip;gatttctg<span style="color:var(--slate);font-weight:700">GAATTC</span>gcggcc&hellip;, digested with EcoRI, digested with Mung Bean Nuclease, and then ligated with T4 DNA Ligase, what would the product be?</p>
+  <pre class="dna" style="margin-top:22px">5&rsquo;-&hellip;gatttctg<span class="site">GAATTC</span>gcggcc&hellip;-3&rsquo;
+3&rsquo;-&hellip;ctaaagac<span class="site">CTTAAG</span>cgccgg&hellip;-5&rsquo;</pre>
+  <div class="step" data-build="1" data-note="EcoRI cuts G-AATTC, so each fragment comes away with a four-base five prime overhang." data-desc="First click: EcoRI has cut, leaving two fragments each with a four-base 5-prime AATT overhang."><span class="arrow">&darr;</span> EcoRI</div>
+  <pre class="dna" data-build="1">5&rsquo;-&hellip;gatttctgG-3&rsquo;        5&rsquo;-AATTCgcggcc&hellip;-3&rsquo;
+3&rsquo;-&hellip;ctaaagacCTTAA-5&rsquo;        3&rsquo;-Gcgccgg&hellip;-5&rsquo;</pre>
+  <div class="step" data-build="2" data-note="Mung bean nuclease is single-strand specific, so it chews the overhangs off and leaves a blunt end on each fragment." data-desc="Second click: mung bean nuclease has removed both single-stranded overhangs, leaving blunt ends."><span class="arrow">&darr;</span> Mung Bean Nuclease</div>
+  <pre class="dna" data-build="2">5&rsquo;-&hellip;gatttctgG-3&rsquo;        5&rsquo;-Cgcggcc&hellip;-3&rsquo;
+3&rsquo;-&hellip;ctaaagacC-5&rsquo;        3&rsquo;-Gcgccgg&hellip;-5&rsquo;</pre>
+  <div class="step" data-build="3" data-note="Ligase joins the blunt ends, leaving G-C where the site used to be. This was the standard trick before PCR for joining DNAs whose sticky ends did not match: blunt everything and every end becomes compatible with every other end. Cut one DNA with EcoRI, another with BamHI, blunt them both, ligate. But note what you gave up. You threw away the four base pairs that were holding the ends in register, so this is a blunt ligation with all of a blunt ligation's problems, and you destroyed the restriction site into the bargain." data-desc="Third click: T4 ligase has joined the two blunt ends into one molecule, leaving G-C where the EcoRI site used to be."><span class="arrow">&darr;</span> T4 DNA Ligase</div>
+  <pre class="dna" data-build="3">5&rsquo;-&hellip;gatttctg<span class="site">GC</span>gcggcc&hellip;-3&rsquo;
+3&rsquo;-&hellip;ctaaagac<span class="site">CG</span>cgccgg&hellip;-5&rsquo;</pre>
+  <template class="notes">To answer this you look up what each enzyme does, either from these slides or the NEB catalog, and apply them in order. Give the room a moment to work it out before you start clicking.</template>
+  <template class="desc">A worked question. Three clicks walk through EcoRI cutting, mung bean nuclease blunting the overhangs, and T4 ligase rejoining the blunt ends, leaving GC where the EcoRI site used to be.</template>
+</article>
+
+<article class="slide">
+  <div class="q">Which bond is formed&hellip; by T4 Ligase</div>
+  <figure class="fig"><img src="img/dna-backbone-bond.png" alt="Chemical structure of the DNA backbone showing the phosphodiester bond formed between a 5-prime phosphate and a 3-prime hydroxyl"></figure>
+  <div class="step" data-build="1"
+       data-note="It is exactly the bond the restriction enzymes broke, run backwards. Be precise about who does what. The phosphate is already present, and it belongs to the downstream 5’ end — ligase does not bring a phosphate with it, which is why a 5’ hydroxyl is simply not a substrate. The 3’ hydroxyl on the upstream side is the nucleophile: it attacks that phosphorus and displaces the leaving group. The one detail this picture hides is the activation step. Ligase first uses ATP to adenylylate itself, then hands that AMP to the 5’ phosphate, and it is the AMP that leaves when the 3’ hydroxyl attacks. You do not need the three-step mechanism to clone anything, but you do need the consequence: no ATP, no bond."
+       data-desc="A line has appeared below the figure naming the answer: the same phosphate to 3-prime hydroxyl bond a nuclease breaks, formed rather than broken, with the phosphate already present on the 5-prime side and the 3-prime hydroxyl attacking it."><span class="arrow">&rarr;</span> The same phosphate&ndash;3&rsquo;-OH bond a nuclease breaks &mdash; the 5&rsquo; phosphate is already there; the 3&rsquo;-OH attacks it</div>
+  <template class="notes">Same figure as the exonuclease question, run the other way. Ligase makes a bond rather than breaking one &mdash; which bond, and who brings what to it? Let the room answer before you advance.</template>
+  <template class="desc">The DNA backbone structure again. Which bond T4 ligase forms is the question; the answer is not yet on the slide.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">The other two ligases</h1>
+  <ul class="boxes">
+    <li><b><em>E. coli</em> DNA Ligase &mdash; NAD<sup>+</sup>, not ATP</b><ul class="tighter">
+      <li>The housekeeping ligase of repair and replication, present in every cell</li>
+      <li>Seals nicks and <b>cohesive</b> ends &mdash; it was the original cloning ligase</li>
+      <li>But it will not ligate <b>blunt</b> ends, which is why T4 displaced it</li></ul></li>
+    <li data-build="1" data-note="Taq DNA ligase &mdash; not Taq polymerase &mdash; is biochemically the same enzyme from a thermophile, also NAD+ dependent. Thermostability buys something specific: run the reaction hot and a single mismatch at the junction is enough to stop it, so whether a ligation happens becomes a readout of whether the two bases match. The discrimination is not symmetric: it is sharpest for a mismatch at the 3&rsquo;-OH side of the nick, the base whose hydroxyl has to attack, which is why the interrogating base of a ligation-based SNP assay sits at the 3&rsquo; end of the upstream probe. That discrimination is the basis of the Ligase Chain Reaction and of ligation-based polymorphism detection. It is also the ligase in the Gibson master mix, which is why that mix contains NAD+, and it is sealing the nicks left behind after the polymerase has filled the gaps." data-desc="A second box: Taq DNA ligase, the same enzyme but thermostable, discriminating a matched junction from a mismatched one, and the ligase used in Gibson assembly."><b>Taq DNA Ligase &mdash; the same enzyme, thermostable</b><ul class="tighter">
+      <li>From <em>Thermus aquaticus</em>; also NAD<sup>+</sup>-dependent</li>
+      <li>Hot enough to refuse a mismatched junction, most sharply when the mismatch sits at the 3&rsquo;-OH &mdash; the base whose hydroxyl has to do the attacking. That is the basis of the Ligase Chain Reaction and of ligation-based SNP detection</li>
+      <li>It is the ligase in Gibson assembly, alongside the exonuclease and the polymerase that fills the gaps</li></ul></li>
+  </ul>
+  <template class="notes">Two more worth knowing, neither of which you will pipette this semester. E. coli DNA ligase is the housekeeping enzyme every cell needs for repair and for sealing Okazaki fragments. It runs on NAD+ rather than ATP, so it is not a drop-in substitute in a T4 buffer. It will happily join cohesive ends &mdash; it was the ligase the first cloning experiments used. What it will not do is ligate blunt ends, except under macromolecular crowding. Read that against the slide we drew earlier: blunt ends have nothing holding them in register, and E. coli ligase is the enzyme that cannot make up the difference. T4 ligase can, which is why it displaced it. Taq DNA ligase — not Taq polymerase — is biochemically the same enzyme from a thermophile, also NAD+-dependent. Thermostability buys you something specific: run it hot and a single mismatch at the junction is enough to stop it, so a ligation event becomes a readout of whether the two bases match. Be exact about which mismatch, because it is not symmetric. Discrimination is sharpest for a mismatch at the 3&rsquo;-OH side of the nick &mdash; that is the base whose hydroxyl has to swing round and attack the activated phosphate, and if it is not properly paired it is not held in position to do it. A mismatch on the 5&rsquo; phosphate side is tolerated far better. That is why a ligation-based SNP assay is designed with the interrogating base at the 3&rsquo; end of the upstream probe. That discrimination is the basis of the Ligase Chain Reaction and of ligation-based polymorphism detection. It is also the ligase in the Gibson master mix, which is why that mix contains NAD+, and it is sealing the nicks left after the polymerase has filled the gaps.</template>
+  <template class="desc">Two boxes revealed in turn. E. coli DNA ligase: NAD-plus dependent, seals nicks and cohesive ends but not blunt ends. Taq DNA ligase: the same enzyme but thermostable, discriminates a matched junction from a mismatched one, and is the ligase used in Gibson assembly.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/ligase.js" defer></script>
+</body>
+</html>
