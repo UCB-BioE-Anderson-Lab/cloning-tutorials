@@ -573,14 +573,22 @@ function sortSignableArrays(signable) {
           console.warn(`Submission size ~${(approxBytes/1024).toFixed(1)} KB`);
         }
 
-        if (typeof window.sendToAppsScript === 'function') {
-          window.sendToAppsScript(payload);
+        if (typeof window.sendToAppsScript !== 'function') {
+          // Previously this queued onto window._pendingSubmissions, which nothing
+          // ever flushed, so the submission was lost with no sign to the student.
+          console.error('Submission middleware (launch-apps-script.js) is not loaded.');
+          alert("Your report was NOT submitted: the page did not finish loading.\n\nReload the page and try again. Nothing has been recorded.");
+          return;
+        }
+        try {
+          // Awaited: the JSONP helper rejects on a 10s timeout or a failed
+          // request, and without this the student saw nothing at all.
+          await window.sendToAppsScript(payload);
           console.log('Submitted via middleware (minimal payload).', payload);
-        } else {
-          // Middleware not yet loaded — queue the submission and flush once available
-          window._pendingSubmissions = window._pendingSubmissions || [];
-          window._pendingSubmissions.push(payload);
-          console.warn('Middleware not yet loaded; queued submission.');
+        } catch (err) {
+          console.error('Submission failed:', err);
+          alert("Your report was NOT submitted.\n\n" + ((err && err.message) ? err.message : String(err))
+                + "\n\nNothing has been recorded. Check your connection and try again.");
         }
     }
 
