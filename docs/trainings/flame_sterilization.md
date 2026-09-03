@@ -17,8 +17,8 @@ This page does not replace hands-on training.
 
 Read and sign both of the following SOPs before doing flame sterilization:
 
-- [Flame Sterilization SOP](../../assets/SOPs/Flame%20Sterilization.pdf)
-- [Ethyl Alcohol SOP](../../assets/SOPs/ethyl_alcohol.pdf)
+- [Flame Sterilization SOP](../assets/SOPs/Flame%20Sterilization.pdf)
+- [Ethyl Alcohol SOP](../assets/SOPs/ethyl_alcohol.pdf)
 
 ## Local rules for this lab
 

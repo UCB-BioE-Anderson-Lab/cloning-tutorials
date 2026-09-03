@@ -24,17 +24,16 @@
 4. Allow to cool to 55°C before adding antibiotics and pouring plates.
 
 #### Preparing Agarose for DNA Gels
-1. Weigh 5 g agarose powder into a 500 mL glass bottle.
-2. Add approximately 350 mL of house distilled water.
+1. Weigh 5.5 g agarose powder into a 500 mL glass bottle.
+2. Fill the bottle about 2/3 full with 1x TAE from the bottle by the electrophoresis bench.
 3. Cap the bottle and shake to disperse the agarose.
 4. Loosen the cap by about a quarter turn.
 5. Heat at full power in 30–60 second bursts.
 6. After each interval, remove the bottle and swirl to mix.
 7. Repeat until the agarose fully dissolves and the solution just starts to boil.
 8. Allow to cool until boiling subsides.
-9. Add 80 mL of 50x TAE.
-10. Fill with distilled water to the bottle’s line.
-11. Proceed with pouring gels.
+9. Fill to the bottle’s 500 mL line with cool 1x TAE.
+10. Proceed with pouring gels.
 
 ### Preventing Hard-to-Clean Gels
 - Dilute the remnant solution with water before allowing to cool.

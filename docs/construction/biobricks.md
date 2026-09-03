@@ -8,7 +8,7 @@ This tutorial introduces the concept of standardized cloning strategies using Bi
 
 ## Standardized Cloning
 
-In earlier tutorials, you cloned *lacZ* into a pET vector using:
+In earlier tutorials, you cloned the insulin gene (*INS*) into a pET vector using:
 - Restriction enzyme cloning
 - Gibson Assembly
 - Golden Gate Assembly

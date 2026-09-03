@@ -96,7 +96,7 @@ In practice:
 
 ## Anatomy of TP and RC Parts
 
-The TP.RC system follows a standardized layout compatible with the MoClo Golden Gate standard. Each part includes flanking type IIS restriction sites and 5 bp overhangs that define junctions and ensure consistent assembly order.
+The TP.RC system follows a standardized layout compatible with the MoClo Golden Gate standard. Each part includes flanking type IIS restriction sites and 4 bp overhangs that define junctions and ensure consistent assembly order.
 
 The diagram below illustrates the structure of TP and RC parts, showing BsaI sites, MoClo overhangs, and internal linkers for amplification and sequencing.
 

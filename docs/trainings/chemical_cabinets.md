@@ -189,7 +189,7 @@ You must read the following SOPs as part of this training:
 
 - 📄 Flammable Liquids and Solids: [Download PDF](../assets/SOPs/flammable_liquids_and_solids.pdf)
 - 📄 Peroxide Forming Chemicals: [Download PDF](../assets/SOPs/Peroxide%20Forming%20Chemicals.pdf)
-- 📄 Ethyl Alcohol: [Download PDF](../assets/SOPs/Ethyl%20Alcohol.pdf)
+- 📄 Ethyl Alcohol: [Download PDF](../assets/SOPs/ethyl_alcohol.pdf)
 - 📄 Corrosives – Strong Acids: [Download PDF](../assets/SOPs/Corrosives%20-%20Strong%20Acids.pdf)
 - 📄 Corrosives – Strong Bases: [Download PDF](../assets/SOPs/Corrosives%20-%20Strong%20Bases.pdf)
 # Quiz

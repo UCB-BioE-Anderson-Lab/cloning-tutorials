@@ -81,7 +81,7 @@ operation    primer1     primer2     template     product
 PCR          exFor2      exRev2      pTemp1       pcrpdt2
 
 oligo        exFor2      ccataGAATTCCAGCGGATCGGATCGGCGAC
-oligo        exRev2      cagatGGATCCCTGGTTCCGCCCGCACAACCG
+oligo        exRev2      cagatGGATCCCGGTTGTGCGGGCGGAACC
 plasmid      pTemp1      CTGGTGACCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACAACCGCGA
 ```
 
@@ -103,10 +103,10 @@ This example includes **5' tails**. Only the 3' ends of primers need to match th
       seqviz
         .Viewer("viewer2", {
             "name": "pcrpdt",
-            "seq": "ccataGAATTCCAGCGGATCGGATCGGCGACCCAAAGCGCCTCGGTTGTGCGGGCGGAACCAGGGATCCatctg",
+            "seq": "ccataGAATTCCAGCGGATCGGATCGGCGACCCAAAGCGCCTGGTTCCGCCCGCACAACCGGGATCCatctg",
             "primers": [
                 { "name": "exFor2", "start": 0, "end": 31, "color": "cyan", "direction": 1 },
-                { "name": "exRev2", "start": 42, "end": 74, "color": "#92ffa4", "direction": -1 }
+                { "name": "exRev2", "start": 42, "end": 72, "color": "#92ffa4", "direction": -1 }
             ],
           translations: [],
           viewer: "linear",

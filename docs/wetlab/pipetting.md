@@ -33,7 +33,7 @@ In this lab, we use **LTS (LiteTouch System)** pipettes and tips. Unlike univers
 2. **Attach a sterile tip** securely by pressing the pipette into the tip box and gently twisting.
 3. **Press the plunger** to the first stop before inserting into the liquid.
 4. **Immerse the tip** just below the surface of the liquid (2–3 mm), then slowly release the plunger to draw up the sample.
-5. **Transfer the liquid** by touching the pipette tip to the side of the destination container and pressing the plunger to the second stop.
+5. **Transfer the liquid** by touching the pipette tip to the side of the destination container and pressing the plunger to the first stop, then pressing to the second stop to expel any remaining liquid.
 6. **Eject the tip** into the waste bin using the ejector button.
 
 ![Illustration showing the correct sequence for forward pipetting using a blue micropipette. Steps include pressing to the first stop, immersing tip, drawing up liquid, dispensing to the first stop, and pressing to the second stop to expel remaining liquid. Each step is labeled and the plunger positions are color-coded for clarity.](../images/pipetting_sequence.png)
