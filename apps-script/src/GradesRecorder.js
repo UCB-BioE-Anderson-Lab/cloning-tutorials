@@ -16,7 +16,6 @@ var GradesRecorder = (function () {
   // Configuration
   var SHEET_NAME = 'Completions';
   var STATIC_HEADERS = ['Email', 'First Name', 'Last Name', 'Last Seen']; // fixed columns before quiz slugs
-  var TIMEZONE = Session.getScriptTimeZone() || 'America/Los_Angeles';
   var TIMESTAMP_NUMBER_FORMAT = 'yyyy-mm-dd"T"hh:mm:ss';
   var SPREADSHEET_ID = (function(){ try { return PropertiesService.getScriptProperties().getProperty('GRADES_SPREADSHEET_ID') || ''; } catch (e) { return ''; } })();
 
@@ -224,8 +223,12 @@ var GradesRecorder = (function () {
     try {
       var d = new Date(iso);
       if (!isFinite(d.getTime())) return new Date();
-      // Normalize into project timezone
-      return new Date(Utilities.formatDate(d, TIMEZONE, "yyyy-MM-dd'T'HH:mm:ss'Z'"));
+      // Return the instant as-is. Sheets renders a Date in the spreadsheet's
+      // own timezone, so no conversion belongs here. The previous version
+      // formatted the instant as Pacific wall-clock, labelled it 'Z', and
+      // re-parsed it as UTC, storing every timestamp 7 hours early (8 under
+      // PST) -- which also moved after-midnight submissions to the day before.
+      return d;
     } catch (e) {
       return new Date();
     }
@@ -236,6 +239,37 @@ var GradesRecorder = (function () {
     return String(v).trim();
   }
 
+  /**
+   * Every quiz slug this email has a timestamp for, across all submissions.
+   * Referenced by Processor.js, EmailNotifier.js and the results page; it was
+   * never actually defined, so "All quizzes recorded for you" silently showed
+   * only the current submission.
+   * @param {string} email
+   * @return {string[]}
+   */
+  function getCumulativeQuizzes_(email) {
+    try {
+      var target = safeString_(email).toLowerCase();
+      if (!target) return [];
+      var sheet = getOrCreateSheet_(SHEET_NAME);
+      var row = findRowByEmail_(sheet, target);
+      if (row === -1) return [];
+      var headers = getHeaders_(sheet);
+      if (!headers.length) return [];
+      var values = sheet.getRange(row, 1, 1, headers.length).getValues()[0];
+      var out = [];
+      for (var i = 0; i < headers.length; i++) {
+        var h = safeString_(headers[i]);
+        if (!h || STATIC_HEADERS.indexOf(h) !== -1) continue;
+        if (safeString_(values[i])) out.push(h);
+      }
+      return out;
+    } catch (e) {
+      console.warn('GradesRecorder.getCumulativeQuizzes failed', e);
+      return [];
+    }
+  }
+
   function configureSpreadsheet_(id) {
     if (!id || typeof id !== 'string') throw new Error('configureSpreadsheet: spreadsheet ID required');
     PropertiesService.getScriptProperties().setProperty('GRADES_SPREADSHEET_ID', id.trim());
@@ -244,6 +278,7 @@ var GradesRecorder = (function () {
   // Expose public API
   return {
     recordResult: recordResult,
+    getCumulativeQuizzes: getCumulativeQuizzes_,
     configureSpreadsheet: configureSpreadsheet_
   };
 })();
