@@ -101,9 +101,9 @@ window.Deck.sequence("op-phosphatase", function(slide){
   function paint(g,gb,ga){
     svg.innerHTML=
       '<text x="800" y="140" text-anchor="middle" font-size="44" font-weight="700" fill="'+INK+
-        '">The substrate is a phosphate ester, not a DNA</text>'+
+        '">Alkaline Phosphatase</text>'+
       '<text x="800" y="188" text-anchor="middle" font-size="25" fill="'+MUT+
-        '">four unrelated molecules &mdash; every terminal phosphate comes off</text>'+
+        '">the substrate is a phosphate ester, not a DNA</text>'+
       dna(250,340,g)+ alkyl(630,346,g)+ ntp(1010,340,g,gb,ga)+ pnpp(1340,330,g)+
       '<path d="M180 560H1420" stroke="'+MUT+'" stroke-width="1.6" stroke-dasharray="7 9"/>'+
       internal(800,660)+
@@ -126,7 +126,7 @@ window.Deck.sequence("op-phosphatase", function(slide){
   }
   go();
   return { steps:[{
-    note:"Read the first line literally, because it is more useful than it looks. An alkaline phosphatase does not recognise DNA. What it recognises is a phosphate ester on the end of something, and it does not care in the slightest what the something is. Here are four completely unrelated molecules — the five prime end of a DNA, the five prime end of an RNA, a free dNTP with its three phosphates, and p-nitrophenyl phosphate, which is not a nucleic acid at all — and every terminal phosphate on all four comes off. That last one is why the same enzyme doubles as the colorimetric reporter in an ELISA: strip the phosphate off pNPP and what is left goes yellow. Now the one at the bottom, which is the important one. That is a phosphate too, and it is not touched, because it is sitting between two sugars in the middle of a backbone. A terminal phosphate is a monoester and it is the substrate; a phosphate in a chain is a diester and it is not. That single distinction is the whole specificity of the enzyme.",
+    note:"Read the first line literally, because it is more useful than it looks. An alkaline phosphatase does not recognise DNA. What it recognises is a phosphate ester on the end of something, and it does not care in the slightest what the something is. Here are four completely unrelated molecules — the five prime end of a DNA, the five prime end of an RNA, a free dNTP with its three phosphates, and p-nitrophenyl phosphate, which is not a nucleic acid at all — and every terminal phosphate on all four comes off. That last one is why the same enzyme doubles as the colorimetric reporter in an ELISA: strip the phosphate off pNPP and what is left goes yellow. Now the one at the bottom, which is the important one. That is a phosphate too, and it is not touched, because it is sitting between two sugars in the middle of a backbone. A terminal phosphate is a monoester and it is the substrate; a phosphate in a chain is a diester and it is not. That single distinction is the whole specificity of the enzyme. And the consequence is why we bother: a five prime end with no phosphate on it cannot be ligated, and lambda exonuclease will not start on it either. Strip the phosphate and you have taken away both of those.",
     desc:"Four unrelated molecules drawn in blue, each carrying a terminal phosphate marked as a red circled P: the 5-prime end of a DNA, a simple alkyl phosphate, a dNTP with three phosphates, and p-nitrophenyl phosphate. On a loop every red phosphate detaches and drifts away. Below a dividing line, a fifth structure shows a phosphate in the middle of a double-stranded backbone; it keeps its phosphate, and a line reads: an internal phosphate is a diester in a chain, not a substrate."
   }], go:go };
 });
