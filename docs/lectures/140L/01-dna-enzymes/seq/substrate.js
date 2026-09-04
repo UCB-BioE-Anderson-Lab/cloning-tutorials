@@ -30,7 +30,7 @@ window.Deck.sequence("substrate", function(slide){
   svg.setAttribute("style","position:absolute;inset:0;pointer-events:none");
   slide.appendChild(svg);
   const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
-  let raf=null;
+  let raf=null, timer=null;
 
   function render(m, word, sub){
     const x0=centre(m.n);
@@ -45,7 +45,7 @@ window.Deck.sequence("substrate", function(slide){
   const S=[
     { word:"a sequence", sub:"two strands, antiparallel, and every base paired",
       model:()=>M.make({top:"GAATTC", ends:{t5:"phos",b5:"phos"}}),
-      note:"This is the object every enzyme in the lecture acts on, and it is worth being precise about what it is. Two strands, antiparallel. A backbone of sugars and phosphates. A base on every sugar, paired across. Everything an enzyme can care about is somewhere in this picture, so for the rest of the lecture we will draw the substrate this way and colour in only the part that matters to whichever enzyme we are discussing.",
+      note:"Everything in this lecture is a hydroxyl attacking a phosphate and displacing something else. That part is settled. What is not settled is what the enzyme acts on, and that turns out to have a lot of nuance \u2014 it might require a particular sequence, or a phosphate on an end, or it might care whether a base was methylated. So before the enzymes, the substrate. It is worth being precise about what it is. Two strands, antiparallel. A backbone of sugars and phosphates. A base on every sugar, paired across. Everything an enzyme can care about is somewhere in this picture, so for the rest of the lecture we will draw the substrate this way and colour in only the part that matters to whichever enzyme we are discussing.",
       desc:"A DNA duplex drawn as full structures: sugars, phosphates and paired bases, five prime phosphates on both strands." },
 
     { word:"any sequence", sub:"and any length &mdash; most enzymes do not care",
@@ -80,18 +80,21 @@ window.Deck.sequence("substrate", function(slide){
   let cur=0;
   function go(i,animated){
     if(raf){cancelAnimationFrame(raf);raf=null;}
+    if(timer){clearTimeout(timer);timer=null;}
     const st=S[i];
     if(st.shuffle && animated!==false && !reduce.matches){
-      /* let the sequence and length actually churn before settling */
-      const t0=performance.now(), dur=950;
-      raf=requestAnimationFrame(function f(now){
-        const p=Math.min(1,(now-t0)/dur);
-        if(p<1){
-          const n=6+Math.floor(Math.random()*4);
-          render(M.make({top:rnd(n), ends:{t5:"phos",b5:"phos"}}), st.word, st.sub);
-          raf=requestAnimationFrame(f);
-        } else { render(st.model(), st.word, st.sub); raf=null; }
-      });
+      /* Four deliberate changes, not a blur. Re-rendering every animation
+         frame made the point unreadable: you cannot see that a sequence
+         changed if you never see any one sequence. */
+      let k=0; const N=4, gap=520;
+      const tick=function(){
+        if(k<N){
+          render(M.make({top:rnd(6+Math.floor(Math.random()*3)),
+                         ends:{t5:"phos",b5:"phos"}}), st.word, st.sub);
+          k++; timer=setTimeout(tick,gap);
+        } else { render(st.model(), st.word, st.sub); timer=null; }
+      };
+      tick();
     } else {
       render(st.model(), st.word, st.sub);
     }

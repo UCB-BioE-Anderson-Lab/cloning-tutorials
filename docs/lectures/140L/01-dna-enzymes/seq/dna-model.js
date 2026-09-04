@@ -151,12 +151,15 @@ function draw(m, x0){
   }
 
   m.mods.forEach(function(mo){
-    const up=mo.strand==="top", y=up?TY:BY, s=up?1:-1, cx=x0+mo.i*PITCH;
     if(mo.type!=="methyl") return;
-    const a=[cx+R*1.5, y+s*(R*0.90+GLY+R*0.9)];
-    g+=bond(a,[a[0]+32,a[1]+s*20],HOT,3);
-    g+='<text x="'+n2(a[0]+40)+'" y="'+n2(a[1]+s*32+6)+'" font-size="19" font-weight="700" fill="'+
-       HOT+'">CH&#8323;</text>';
+    const b=put[mo.strand][mo.i]; if(!b||!b.mSite) return;
+    /* bond out from the atom that actually carries the methyl */
+    const d=[b.mSite[0]-b.ctr[0], b.mSite[1]-b.ctr[1]], L=Math.hypot(d[0],d[1])||1;
+    const q=[b.mSite[0]+d[0]/L*34, b.mSite[1]+d[1]/L*34];
+    g+=bond(b.mSite,q,HOT,3);
+    g+='<circle cx="'+n2(q[0])+'" cy="'+n2(q[1])+'" r="16" fill="#fff"/>'+
+       '<text x="'+n2(q[0])+'" y="'+n2(q[1]+7)+'" text-anchor="middle" font-size="19" '+
+       'font-weight="700" fill="'+HOT+'">CH&#8323;</text>';
   });
   return g;
 }

@@ -80,7 +80,11 @@ function purine(cx,cy,ang,c,which){
   };
   if(which==="A") g+=out(a6,ctr,"NH&#8322;",false);
   else            g+=out(a6,ctr,"O",true)+out(a2,ctr,"NH&#8322;",false)+lab(a1,"NH",c,18);
-  return { g, N9:a9, wc:[a1,a6] };
+  /* where a DNA methylase puts a methyl: N6 on adenine (Dam, EcoRI),
+     N7 on guanine. Not the ring nitrogen the pairing edge happens to expose. */
+  const qOf=(from,to)=>{const dx=from[0]-to[0],dy=from[1]-to[1],L=Math.hypot(dx,dy);
+                        return [from[0]+dx/L*40*(R/46), from[1]+dy/L*40*(R/46)];};
+  return { g, N9:a9, wc:[a1,a6], ctr, mSite: which==="A" ? qOf(a6,ctr) : a7 };
 }
 
 /* ---- pyrimidine: one six-ring ------------------------------------- */
@@ -103,7 +107,8 @@ function pyrimidine(cx,cy,ang,c,which){
   };
   if(which==="C") g+=out(b2,"O",true)+out(b4,"NH&#8322;",false);
   else            g+=out(b2,"O",true)+out(b4,"O",true)+out(b5,"CH&#8323;",false)+lab(b3,"NH",c,18);
-  return { g, N1:b1, wc:[b3,b4] };
+  /* 5-methylcytosine is on the ring carbon C5, not on the 4-amino */
+  return { g, N1:b1, wc:[b3,b4], ctr, mSite: which==="C" ? b5 : null };
 }
 
 /* Draw a base rotated so its glycosidic nitrogen points in a given screen
