@@ -108,10 +108,12 @@ window.Deck.sequence("gibson", function(slide){
     '<g data-r="enzg" opacity="0">' +
       '<text data-r="enz" x="800" y="352" text-anchor="middle" font-family="inherit" ' +
         'font-size="30" font-weight="700" fill="var(--red)">T5 exonuclease &#183; 5&#8242;&rarr;3&#8242;</text>' +
-      /* struck through when T5 is heat-killed; x range is the measured
-         width of the label above, 332 units, plus a little overhang */
-      '<path data-r="kill" d="M624 343H976" fill="none" stroke="var(--red)" ' +
-        'stroke-width="3" stroke-linecap="round" opacity="0"/>' +
+    '</g>' +
+    /* the far ends, which the join does not remove */
+    '<g data-r="stillg" opacity="0" font-family="inherit" font-size="23" font-weight="700" ' +
+      'fill="var(--red)" text-anchor="middle">' +
+      '<text x="330" y="644">still an end</text>' +
+      '<text x="1312" y="644">still an end</text>' +
     '</g>' +
     '<text data-r="cap" x="800" y="712" text-anchor="middle" font-family="inherit" ' +
       'font-size="30" font-weight="700" fill="var(--ink)"></text>' +
@@ -175,12 +177,8 @@ window.Deck.sequence("gibson", function(slide){
     put(r.p5lb, lb5+dL + 4, YB + 34, "5′", 1 - s.close);
     put(r.p5rt, rt5+dR - 4, YT - 18, "5′", 1 - s.close);
 
-    /* Heat-killed T5 is struck through, and drops only slightly in
-       opacity — the strike carries the meaning.  A deeper fade turned
-       the vermillion into a pale pink that is in no palette and misses
-       the 3:1 floor for a graphical mark. */
-    r.enzg.setAttribute("opacity", n2(s.enz * (1 - 0.2*s.dead)));
-    r.kill.setAttribute("opacity", n2(s.dead));
+    r.enzg.setAttribute("opacity", n2(s.enz));
+    r.stillg.setAttribute("opacity", n2(s.dead));
   }
 
   const S = [
@@ -205,11 +203,15 @@ window.Deck.sequence("gibson", function(slide){
       note:"Now the other two enzymes in the tube. Each gap presents a recessed three prime end sitting on a template, which is precisely what a DNA polymerase wants, so Phusion extends both and fills them. That leaves a nick in each strand, and Taq ligase seals those. The result is one covalently closed molecule.",
       desc:"New DNA drawn in red fills each of the two gaps, and both strands are continuous again: one double-stranded molecule across the whole join, still carrying a single-stranded 3-prime tail at each far end. The two inner 5-prime labels and 3-prime barbs are gone, because those positions are no longer ends." },
 
+    /* This step used to claim T5 is heat-killed during the incubation. JCA
+       does not believe it and I could not evidence it, so it is gone. What is
+       certainly true is the substrate argument: T5 acts on free ends, and the
+       join does not remove the two ends the assembly still has. */
     { s:{sep:0, chew:1, close:1, enz:1, dead:1, mark:0},
       cap:"one tube, 50 degrees, one incubation",
-      call:"T5 is heat-killed as the reaction runs",
-      note:"And here is why all three enzymes can share one tube at fifty degrees. T5 exonuclease is the heat-labile one; it is being inactivated the whole time the reaction is incubating. Phusion and Taq ligase are both thermostable and are not. So by the time the product exists, the only enzyme that would happily chew it back is dead. The order of events is enforced by the enzymes' own stability — you are not pipetting anything in stages.",
-      desc:"The T5 exonuclease label is struck through and faded, marking it as heat-inactivated. The assembled molecule is otherwise unchanged." }
+      call:"T5 is still working \u2014 so the product has to be a circle",
+      note:"One last thing, and it is the part that decides whether this works at all. All three enzymes are in the tube together the whole time, and T5 does not stop. It acts on free ends, and look at what you still have: the join in the middle is sealed, but there is an end at each far side, and those are still perfectly good substrate. So a linear assembly is not safe — leave it long enough and T5 will chew in from the outside. What protects a real Gibson product is that you are not making a linear molecule. You are assembling into a closed circle, usually a plasmid, and the moment the last junction seals there is no free end anywhere in it. That is the finish line: not the enzymes stopping, but the substrate running out.",
+      desc:"The assembled molecule is unchanged, but each of its two far ends is now labelled still an end, in red, marking them as remaining substrate for T5." }
   ];
 
   const KEYS = ["sep","chew","close","enz","dead","mark"];
