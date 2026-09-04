@@ -13,6 +13,11 @@
    different mechanisms — which is the clearest demonstration in the
    lecture that adding and removing are not mirror images.
 
+   Kinases come LAST in the transphosphorylation group, after ligases,
+   because the reason to own a kinase only lands once ligation has shown
+   you what a missing 5' phosphate costs.  PNK is then the answer to a
+   question the previous section just asked.
+
    kind: lecture | section — only used to colour the jump menu key. */
 window.LECTURE = {
   title: "DNA Manipulation Enzymes",
@@ -26,10 +31,10 @@ window.LECTURE = {
     { file: "03-phosphatases.html",       title: "Phosphatases",        kind: "section" },
 
     /* --- transphosphorylation -------------------------------------- */
-    { file: "04-kinases.html",            title: "Kinases",             kind: "section" },
-    { file: "05-dna-polymerases.html",    title: "DNA Polymerases",     kind: "section" },
-    { file: "06-rna-polymerases.html",    title: "RNA Polymerases",     kind: "section" },
-    { file: "07-ligases.html",            title: "Ligases",             kind: "section" },
+    { file: "04-dna-polymerases.html",    title: "DNA Polymerases",     kind: "section" },
+    { file: "05-rna-polymerases.html",    title: "RNA Polymerases",     kind: "section" },
+    { file: "06-ligases.html",            title: "Ligases",             kind: "section" },
+    { file: "07-kinases.html",            title: "Kinases",             kind: "section" },
     { file: "08-recombinases.html",       title: "Recombinases",        kind: "section" },
 
     /* --- different chemistry --------------------------------------- */
