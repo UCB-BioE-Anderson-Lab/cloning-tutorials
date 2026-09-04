@@ -39,15 +39,23 @@ function dbl(a,b,inward,c){              /* second line, offset toward `inward` 
   const p=[a[0]+nx*6+dx*0.18, a[1]+ny*6+dy*0.18], q=[b[0]+nx*6-dx*0.18, b[1]+ny*6-dy*0.18];
   return bond(p,q,c,2.2);
 }
-function lab(p,t,c,sz){
-  sz = (sz||20)*(R/46);
-  return '<circle cx="'+n2(p[0])+'" cy="'+n2(p[1])+'" r="'+((sz||20)*0.62)+'" fill="#fff"/>'+
-         '<text x="'+n2(p[0])+'" y="'+n2(p[1]+(sz||20)*0.34)+'" text-anchor="middle" font-size="'+
-         (sz||20)+'" font-weight="600" fill="'+c+'">'+t+'</text>';
+const LBL=19;                            /* the ONE label size; nothing overrides it */
+function lab(p,t,c){
+  const sz=LBL*(R/46);
+  return '<circle cx="'+n2(p[0])+'" cy="'+n2(p[1])+'" r="'+(sz*0.62)+'" fill="#fff"/>'+
+         '<text x="'+n2(p[0])+'" y="'+n2(p[1]+sz*0.34)+'" text-anchor="middle" font-size="'+
+         sz+'" font-weight="600" fill="'+c+'">'+t+'</text>';
+}
+/* the base's letter, sitting in the ring it names */
+function idLab(p,t){
+  const sz=LBL*(R/46);
+  return '<circle cx="'+n2(p[0])+'" cy="'+n2(p[1])+'" r="'+(sz*0.70)+'" fill="#fff" opacity="0.9"/>'+
+         '<text x="'+n2(p[0])+'" y="'+n2(p[1]+sz*0.34)+'" text-anchor="middle" font-size="'+
+         sz+'" font-weight="600" fill="#9a9a9a">'+t+'</text>';
 }
 
 /* ---- purine: six-ring fused to five-ring on the C4-C5 edge --------- */
-function purine(cx,cy,ang,c,which){
+function purine(cx,cy,ang,c,which,meth){
   const O=[cx,cy], h=hex(cx,cy);
   const C6=h[0],N1=h[1],C2=h[2],N3=h[3],C4=h[4],C5=h[5];
   /* five-ring centre sits beyond the shared edge midpoint */
@@ -78,20 +86,33 @@ function purine(cx,cy,ang,c,which){
     const q=[from[0]+dx/L*40*(R/46), from[1]+dy/L*40*(R/46)];
     return bond(from,q,c)+(dd?dbl(from,q,to,c):"")+lab(q,txt,c,19);
   };
-  if(which==="A") g+=out(a6,ctr,"NH&#8322;",false);
+  /* methylation replaces a hydrogen, it does not add to a full amine:
+     N6-methyladenine is N6-H-CH3, so the amine loses an H when marked */
+  if(which==="A") g+=out(a6,ctr, meth?"NH":"NH&#8322;", false);
   else            g+=out(a6,ctr,"O",true)+out(a2,ctr,"NH&#8322;",false)+lab(a1,"NH",c,18);
   /* where a DNA methylase puts a methyl: N6 on adenine (Dam, EcoRI),
      N7 on guanine. Not the ring nitrogen the pairing edge happens to expose. */
   const qOf=(from,to)=>{const dx=from[0]-to[0],dy=from[1]-to[1],L=Math.hypot(dx,dy);
                         return [from[0]+dx/L*40*(R/46), from[1]+dy/L*40*(R/46)];};
-  return { g, N9:a9, wc:[a1,a6], ctr, mSite: which==="A" ? qOf(a6,ctr) : a7 };
+  g+=idLab(ctr,which);
+  /* Hydrogen-bond atoms in major-groove-to-minor-groove order, so index i on
+     one base pairs with index i on its partner:
+        A [N6, N1]        with T [O4, N3]
+        G [O6, N1, N2]    with C [N4, N3, O2]                            */
+  const hb = which==="A" ? [qOf(a6,ctr), a1]
+                         : [qOf(a6,ctr), a1, qOf(a2,ctr)];
+  return { g, N9:a9, wc:[a1,a6], ctr, hb, mSite: which==="A" ? qOf(a6,ctr) : a7 };
 }
 
 /* ---- pyrimidine: one six-ring ------------------------------------- */
 function pyrimidine(cx,cy,ang,c,which){
   const O=[cx,cy], h=hex(cx,cy);
   /* N1 C2 N3 C4 C5 C6 running round from the top */
-  const N1=h[3],C2=h[2],N3=h[1],C4=h[0],C5=h[5],C6=h[4];
+  /* Run the ring the SAME rotational sense as the purine. Numbering it the
+     other way makes the pyrimidine a mirror image of its partner, and then the
+     two pairing edges come out antiparallel -- N6 ends up opposite N3 rather
+     than O4, and no rigid placement can pair them correctly. */
+  const N1=h[3],C2=h[4],N3=h[5],C4=h[0],C5=h[1],C6=h[2];
   const P=p=>rot(p,ang,O);
   const [b1,b2,b3,b4,b5,b6]=[N1,C2,N3,C4,C5,C6].map(P), ctr=P([cx,cy]);
   let g="";
@@ -108,7 +129,11 @@ function pyrimidine(cx,cy,ang,c,which){
   if(which==="C") g+=out(b2,"O",true)+out(b4,"NH&#8322;",false);
   else            g+=out(b2,"O",true)+out(b4,"O",true)+out(b5,"CH&#8323;",false)+lab(b3,"NH",c,18);
   /* 5-methylcytosine is on the ring carbon C5, not on the 4-amino */
-  return { g, N1:b1, wc:[b3,b4], ctr, mSite: which==="C" ? b5 : null };
+  g+=idLab(ctr,which);
+  const qOf=(from)=>{const dx=from[0]-ctr[0],dy=from[1]-ctr[1],L=Math.hypot(dx,dy);
+                     return [from[0]+dx/L*40*(R/46), from[1]+dy/L*40*(R/46)];};
+  const hb = which==="C" ? [qOf(b4), b3, qOf(b2)] : [qOf(b4), b3];
+  return { g, N1:b1, wc:[b3,b4], ctr, hb, mSite: which==="C" ? b5 : null };
 }
 
 /* Draw a base rotated so its glycosidic nitrogen points in a given screen
@@ -155,7 +180,39 @@ function baseAt(letter,gx,gy,dirDeg,c){
   return baseAligned(letter, gx-off[0], gy-off[1], dirDeg, c);
 }
 
-window.Atoms={ purine, pyrimidine, setScale, baseAligned, baseAt, baseFacing, baseFacingAt, get R(){return R;},
+/* Place a base so its hydrogen-bonding atoms land ON the given targets.
+   This is the 2D Kabsch fit: the rotation and translation minimising the
+   squared error between the base's H-bond atoms and where they must be.
+   Because a purine and its pyrimidine partner present the same spacing --
+   one ring edge plus one exocyclic bond on each side of the ring nitrogen --
+   the fit is exact, which is the geometric reason Watson-Crick pairs are
+   isomorphous and the helix has a constant width. */
+/* Orient a base so its PAIRING EDGE lies horizontal, then hang it off the
+   given glycosidic point.
+
+   With both partners' edges horizontal and their first H-bond atom on the same
+   side, every hydrogen bond comes out vertical, parallel and the same length,
+   joining the atoms that really make it. That is the only way to get all three
+   of: a regular backbone, glycosidic bonds that point at their own sugars, and
+   honest hydrogen bonds. Insisting instead that the partner be a rigid-body fit
+   onto vertically-offset targets rotates it about 55 degrees and drives the
+   ring through its own sugar -- a real Watson-Crick pair does not have both
+   glycosidic bonds perpendicular to the pair axis, so a ladder drawing has to
+   give up something, and this gives up the least.
+
+   A purine so oriented points its glycosidic nitrogen up and a pyrimidine
+   points its own down, so when the purine is on the lower strand the whole
+   pair is turned over together -- which keeps H-bond atom k above atom k. */
+function baseEdgeAt(letter,gx,gy,flip,c,meth){
+  const B=(l,x,y,a)=>(l==="A"||l==="G")?purine(x,y,a,c,l,meth):pyrimidine(x,y,a,c,l,meth);
+  const h=B(letter,0,0,0).hb, n=h.length;
+  const cur=Math.atan2(h[n-1][1]-h[0][1], h[n-1][0]-h[0][0])*180/Math.PI;
+  const ang=-cur+(flip?180:0);
+  const r=B(letter,0,0,ang), off=r.N9||r.N1;
+  return B(letter, gx-off[0], gy-off[1], ang);
+}
+
+window.Atoms={ purine, pyrimidine, setScale, baseEdgeAt, get LBL(){return LBL*(R/46);}, baseAligned, baseAt, baseFacing, baseFacingAt, get R(){return R;},
   base:(letter,cx,cy,ang,c)=> (letter==="A"||letter==="G")
         ? purine(cx,cy,ang,c,letter) : pyrimidine(cx,cy,ang,c,letter) };
 })();

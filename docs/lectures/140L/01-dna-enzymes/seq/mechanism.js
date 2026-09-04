@@ -248,8 +248,11 @@ window.Deck.sequence("mechanism",function(slide){
     if(raf){cancelAnimationFrame(raf);raf=null;}
     r.cap.innerHTML=S[i].cap; r.sub.innerHTML=S[i].sub; r.who.innerHTML=S[i].who;
     /* a blank label means "fade what is already there", not "erase it now" */
-    if(S[i].h1) r.nh1.innerHTML=S[i].h1;
-    if(S[i].h2) r.nh2.innerHTML=S[i].h2;
+    /* Assign unconditionally. Guarding on truthiness meant "" could never
+       clear a label, so the alcohol frames kept the H the water frames had
+       set — leaving the 3' hydroxyl with two hydrogens and the ribose bonded
+       to one of them instead of to its oxygen. */
+    r.nh1.innerHTML=S[i].h1||""; r.nh2.innerHTML=S[i].h2||"";
     r.tlg.innerHTML=S[i].lg;
     r.te1.innerHTML=S[i].e1; r.te2.innerHTML=S[i].e2;
     /* The two mechanisms are separate reactions sharing one drawing. Tweening
