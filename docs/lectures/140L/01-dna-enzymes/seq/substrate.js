@@ -129,15 +129,22 @@ window.Deck.sequence("substrate", function(slide){
       desc:"The same GAATTC duplex cycling through six different sets of 5-prime ends, marked in red: all four combinations of phosphate and hydroxyl, then a biotin attached through a linker to the 5-prime phosphate of one strand and then the other." },
 
     /* 4. what can be hung off a base */
-    { word:"methylation", code:"GAATTC", sub:"on the adenines and the cytosines &mdash; still GAATTC",
-      model:()=>GAATTC({mods:[{strand:"top",i:1,type:"methyl"},
-                              {strand:"top",i:2,type:"methyl"},
-                              {strand:"top",i:5,type:"methyl"},
-                              {strand:"bot",i:0,type:"methyl"},
-                              {strand:"bot",i:3,type:"methyl"},
-                              {strand:"bot",i:4,type:"methyl"}]}),
-      note:"Fourth and last. A methyl group can be hung off a base after the DNA was made, and in bacteria that is exactly what happens. It goes on adenines and on cytosines — those are the two that get methylated, and you can see them marked here on both strands. The sequence has not changed at all; this is still GAATTC, and it will still read as GAATTC on any gel or any sequencer. But a restriction enzyme will refuse to cut it. That is the whole basis of restriction and modification, and it is why DNA from one strain sometimes will not cut with an enzyme that works perfectly on DNA from another.",
-      desc:"The GAATTC duplex with methyl groups marked in red on every adenine and cytosine on both strands, the sequence otherwise unchanged." }
+    { word:"methylation", code:"GAATTC", cycleModel:true,
+      sub:"red on the adenines, blue on the cytosines &mdash; still GAATTC",
+      /* Each methylatable position is independently on or off, and keeps
+         changing: methylation is a mark that is present or absent at each
+         site, not a property of the sequence. */
+      model:()=>{
+        const top="GAATTC", bot=M.comp(top), mods=[];
+        [["top",top],["bot",bot]].forEach(function(q){
+          for(let i=0;i<q[1].length;i++)
+            if((q[1][i]==="A"||q[1][i]==="C") && Math.random()<0.5)
+              mods.push({strand:q[0], i:i, type:"methyl"});
+        });
+        return GAATTC({mods:mods});
+      },
+      note:"Fourth and last. A methyl group can be hung off a base after the DNA was made, and in bacteria that is exactly what happens. It goes on adenines, in red here, and on cytosines, in blue — those are the two that get methylated, and the two marks are made by different enzymes. Watch them come and go. Each site is independently marked or not, which is the point: this is not a property of the sequence, it is something done to a particular molecule. The sequence has not changed at all; every one of these is still GAATTC, and it will read as GAATTC on any gel or any sequencer. But a restriction enzyme will refuse to cut it. That is the whole basis of restriction and modification, and it is why DNA from one strain sometimes will not cut with an enzyme that works perfectly on DNA from another.",
+      desc:"The GAATTC duplex with methyl groups appearing and disappearing independently at each adenine, in red, and each cytosine, in blue, on both strands, while the written sequence below stays GAATTC." }
   ];
 
   let cur=0;

@@ -101,7 +101,14 @@ function purine(cx,cy,ang,c,which,meth){
         G [O6, N1, N2]    with C [N4, N3, O2]                            */
   const hb = which==="A" ? [qOf(a6,ctr), a1]
                          : [qOf(a6,ctr), a1, qOf(a2,ctr)];
-  return { g, N9:a9, wc:[a1,a6], ctr, hb, mSite: which==="A" ? qOf(a6,ctr) : a7 };
+  /* N6 carries two hydrogens: one points into the pairing edge and holds the
+     bond to thymine, the other into the major groove. The methyl replaces the
+     major-groove one, so it runs ALONG the pairing edge away from N1 — not
+     radially out through N6, which drives it into the base pair. */
+  const u=(p,q)=>{const dx=p[0]-q[0],dy=p[1]-q[1],L=Math.hypot(dx,dy)||1;return [dx/L,dy/L];};
+  const site = which==="A" ? qOf(a6,ctr) : a7;
+  return { g, N9:a9, wc:[a1,a6], ctr, hb, mSite:site,
+           mDir: which==="A" ? u(site,a1) : u(site,ctr) };
 }
 
 /* ---- pyrimidine: one six-ring ------------------------------------- */
@@ -133,7 +140,11 @@ function pyrimidine(cx,cy,ang,c,which){
   const qOf=(from)=>{const dx=from[0]-ctr[0],dy=from[1]-ctr[1],L=Math.hypot(dx,dy);
                      return [from[0]+dx/L*40*(R/46), from[1]+dy/L*40*(R/46)];};
   const hb = which==="C" ? [qOf(b4), b3, qOf(b2)] : [qOf(b4), b3];
-  return { g, N1:b1, wc:[b3,b4], ctr, hb, mSite: which==="C" ? b5 : null };
+  /* 5-methylcytosine sits on a ring carbon well away from the pairing edge,
+     so straight out from the ring centre is right here. */
+  const u=(p,q)=>{const dx=p[0]-q[0],dy=p[1]-q[1],L=Math.hypot(dx,dy)||1;return [dx/L,dy/L];};
+  return { g, N1:b1, wc:[b3,b4], ctr, hb, mSite: which==="C" ? b5 : null,
+           mDir: which==="C" ? u(b5,ctr) : null };
 }
 
 /* Draw a base rotated so its glycosidic nitrogen points in a given screen

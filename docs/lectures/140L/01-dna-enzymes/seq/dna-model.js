@@ -268,12 +268,16 @@ function draw(m, x0){
 
   m.mods.forEach(function(mo){
     if(mo.type!=="methyl") return;
-    const b=put[mo.strand][mo.i]; if(!b||!b.mSite) return;
-    const q=out(b.mSite, b.ctr, R*1.15);
-    g+=bond(b.mSite,q,HOT,3)+
-       '<circle cx="'+n2(q[0])+'" cy="'+n2(q[1])+'" r="'+n2(SZ*0.85)+'" fill="#fff"/>'+
+    const b=put[mo.strand][mo.i]; if(!b||!b.mSite||!b.mDir) return;
+    /* adenine in red, cytosine in blue: two different marks made by two
+       different enzymes, and students meet them in different contexts */
+    const letter=(mo.strand==="top"?m.top:m.bot)[mo.i];
+    const mc = letter==="A" ? HOT : KEY;
+    const q=[b.mSite[0]+b.mDir[0]*R*1.25, b.mSite[1]+b.mDir[1]*R*1.25];
+    g+=bond(b.mSite,q,mc,3)+
+       '<circle cx="'+n2(q[0])+'" cy="'+n2(q[1])+'" r="'+n2(SZ*0.9)+'" fill="#fff"/>'+
        '<text x="'+n2(q[0])+'" y="'+n2(q[1]+SZ*0.34)+'" text-anchor="middle" font-size="'+n2(SZ)+
-       '" font-weight="700" fill="'+HOT+'">CH&#8323;</text>';
+       '" font-weight="700" fill="'+mc+'">CH&#8323;</text>';
   });
   window.DNAModel.anchors=AN;
   return g;
