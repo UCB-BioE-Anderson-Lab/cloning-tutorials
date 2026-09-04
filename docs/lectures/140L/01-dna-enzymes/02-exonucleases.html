@@ -77,13 +77,9 @@
   <template class="desc">A reference table of exonucleases from New England Biolabs, with columns for polarity, activity on single- and double-stranded DNA, and the products each releases.</template>
 </article>
 
-<article class="slide">
+<article class="slide" data-seq="t5cut">
   <div class="q">Will T5 Exonuclease cut?</div>
-  <pre class="dna">5&rsquo;-gatttctgGAATTTGACACGTG-3&rsquo;
-3&rsquo;-ctaaagacCTTAA-5&rsquo;</pre>
-  <div class="step" data-build="1"
-       data-note="Yes, and from both ends. T5 initiates on blunt ends and on three prime extensions, so it chews back the five prime ends from both ends of this molecule until it is gone. Read along the T5 row and notice two more things. It is a plus under nicked, so a nicked plasmid is not safe from it. And it is a minus under supercoiled circles — no end, no reaction. Hold that against Exonuclease I, which we come to shortly: single-stranded linear only, and a minus everywhere else. Same chart, opposite address."
-       data-desc="A line has appeared naming the answer &mdash; yes, from both ends, because T5 initiates on blunt ends and on 3-prime extensions &mdash; followed by the T5 Exonuclease row of the NEB selection chart: 5-prime to 3-prime, and active on every substrate listed except supercoiled circles."><span class="arrow">&rarr;</span> Yes &mdash; from both ends. T5 initiates on blunt ends <em>and</em> on 3&rsquo; extensions</div>
+  <div class="step" data-build="1"><span class="arrow">&rarr;</span> Yes &mdash; from both ends. T5 initiates on blunt ends <em>and</em> on 3&rsquo; extensions</div>
   <div data-build="1">
     <table class="neb">
       <colgroup>
@@ -112,9 +108,12 @@
       </tbody>
     </table>
   </div>
+  <figure class="fig">
+    <pre class="dna" style="font-size:48px">5&rsquo;-gatttctgGAATTTGACACGTG-3&rsquo;
+3&rsquo;-ctaaagacCTTAA-5&rsquo;</pre>
+  </figure>
   <div class="src">Wording and values retyped verbatim from the NEB exonuclease selection chart &mdash; neb.com</div>
-  <template class="notes">Look at the ends of this molecule. It is blunt at one end and has a 3’ overhang at the other. Will T5 exonuclease touch it? Let the room work it out before you put the table up.</template>
-  <template class="desc">A short DNA written as sequence, blunt at its left-hand end and carrying a 3-prime overhang on the top strand at the right. The NEB table is not on the slide yet.</template>
+  <!-- both steps’ notes live in seq/t5cut.js -->
 </article>
 
 <article class="slide" data-seq="gibson">
@@ -238,6 +237,7 @@
 <script src="seq/atoms.js" defer></script>
 <script src="seq/dna-model.js" defer></script>
 <script src="seq/op-exonuclease.js" defer></script>
+<script src="seq/t5cut.js" defer></script>
 <script src="seq/gibson.js" defer></script>
 </body>
 </html>
