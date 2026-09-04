@@ -24,31 +24,14 @@
   <h1 class="small">Why you phosphatase a vector</h1>
 </article>
 
-<article class="slide">
-  <h1 class="small">Three phosphatases, one difference that matters</h1>
-  <ul class="tight"><li>The difference is not activity. It is whether you can get the enzyme out before the ligation &mdash; because a phosphatase that survives strips the phosphates you just paid for</li></ul>
-
-  <h2 style="margin:34px 0 10px">One that heat will not kill</h2>
-  <ul class="tighter">
-    <li><b>CIP</b> &mdash; calf intestine alkaline phosphatase. Oldest, cheapest, most robust; the one every protocol names</li>
-    <li>Notoriously <em>not</em> inactivated by heat &mdash; you must column-purify or extract it away before you ligate</li>
-  </ul>
-
-  <div data-build="1" data-note="The other two are killed by a short heat step, which is why they have largely displaced CIP for preparing a vector — you inactivate and go straight into the ligation in the same tube, with no clean-up in between. Antarctic phosphatase is claimed to be the more heat-labile of the two. One other use worth knowing, and it is the reason to remember shrimp phosphatase by name: exo-SAP, where you clean up a PCR reaction before cycle sequencing by destroying the leftover dNTPs with SAP and the leftover primers with Exonuclease I. Both leftovers are things that would otherwise prime or terminate in the sequencing reaction." data-desc="A second group appears, headed: two that heat does kill. Recombinant shrimp alkaline phosphatase and Antarctic Phosphatase are inactivated by a short heat step, so the ligation can be done in the same tube; the same shrimp enzyme is half of the exo-SAP clean-up.">
-    <h2 style="margin:34px 0 10px;color:var(--slate)">Two that it does</h2>
-    <ul class="tighter">
-      <li><b>rSAP</b> (recombinant shrimp) and <b>Antarctic Phosphatase</b> &mdash; a short heat step inactivates them cleanly, so you can ligate in the same tube</li>
-      <li>rSAP is also half of exo-SAP: SAP destroys the leftover dNTPs, Exonuclease I the leftover primers, before cycle sequencing</li>
-    </ul>
-  </div>
-  <template class="notes">The oldest, cheapest, and most well-known enzyme is calf intestine alkaline phosphatase, or CIP. The name means what it implies — it is a phosphatase originally isolated from calf intestine. But the property that should decide which one you reach for is not activity, it is how you get rid of it afterwards. Remember that this enzyme is non-specific. If any of it survives into your ligation, it will strip the 5’ phosphates off your insert, and you have then done to your insert exactly what you meant to do only to your vector. CIP is notorious for surviving heat inactivation, so with CIP you have to physically remove it, by column or by extraction.</template>
-  <template class="desc">Three alkaline phosphatases sorted into two groups by the only property that matters practically. First group, headed one that heat will not kill: CIP. Second group, headed two that it does: rSAP and Antarctic Phosphatase, which can therefore be inactivated in the same tube as the ligation.</template>
+<article class="slide" data-seq="exosap">
 </article>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/dna-model.js" defer></script>
 <script src="seq/op-phosphatase.js" defer></script>
+<script src="seq/exosap.js" defer></script>
 <script src="seq/phosphate.js" defer></script>
 </body>
 </html>
