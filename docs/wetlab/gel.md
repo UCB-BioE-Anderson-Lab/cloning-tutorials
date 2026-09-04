@@ -24,7 +24,7 @@ Agarose gel electrophoresis separates DNA fragments by size. DNA is negatively c
 - DNA travels through a gel matrix—**smaller pieces move faster**.
 - A loading dye is added to weigh down the sample and track progress visually.
 
-Gels are made from agarose, a gelling agent purified from seaweed. To prepare a gel, agarose is dissolved in 1× TAE buffer at 1% weight/volume by heating (typically in a microwave until boiling), then poured into a mold with combs to form wells. After it sets, we store the gels in bulk in a sealed container in the fridge. In lab, you’ll cut a section from a pre-made gel with enough wells for your samples.
+Gels are made from agarose, a gelling agent purified from seaweed. To prepare a gel, agarose is dissolved in 1× TAE buffer at 1.1% weight/volume by heating (typically in a microwave until boiling), then poured into a mold with combs to form wells. After it sets, we store the gels in bulk in a sealed container in the fridge. In lab, you’ll cut a section from a pre-made gel with enough wells for your samples.
 
 TAE stands for Tris-Acetate-EDTA. It is a buffer that maintains pH and ionic strength during electrophoresis. Standard 1× TAE contains 40 mM Tris, 20 mM Acetate, and 1 mM EDTA at pH 8.3.
 

@@ -18,7 +18,6 @@
          data-room-src="../../../assets/data/room.json"
          data-benches-src="../../../assets/data/benches.json"
          data-equipment-src="../../../assets/data/equipment.json"
-         data-trainings-src="../../../assets/data/trainings.json"
          data-storage-src="../../../assets/data/storage.json"
          data-locations-src="../../../assets/data/locations.tsv"
          data-chemicals-src="../../../assets/data/chemicals.tsv"
@@ -47,7 +46,6 @@
       room:        d.roomSrc,
       benches:     d.benchesSrc,
       equipment:   d.equipmentSrc,
-      trainings:   d.trainingsSrc,
       storage:     d.storageSrc,
       locations:   d.locationsSrc,
       chemicals:   d.chemicalsSrc,
