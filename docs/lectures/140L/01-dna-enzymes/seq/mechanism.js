@@ -155,7 +155,7 @@ window.Deck.sequence("mechanism",function(slide){
     /* protonated at the intermediate: the oxygen still carries both hydrogens
        and therefore a formal positive charge */
     r.nplus.setAttribute("opacity",n2(s.plus));
-    r.nplus.setAttribute("x",n2(nu[0]+34)); r.nplus.setAttribute("y",n2(nu[1]-14));
+    r.nplus.setAttribute("x",n2(nu[0]+44)); r.nplus.setAttribute("y",n2(nu[1]+10));
     /* the sugar the attacking hydroxyl belongs to. It gets its own, flatter
        attachment vector so the ring sits beside the oxygen instead of climbing
        into the subtitle. */
