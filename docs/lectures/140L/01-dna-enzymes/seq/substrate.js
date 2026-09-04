@@ -45,15 +45,34 @@ window.Deck.sequence("substrate", function(slide){
            'font-weight="600" fill="'+BLUE+'">'+text+'</text>';
   }
 
+  const MONO='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace';
+  const GREY="#767676";
+  /* The written sequence, set directly under the bases it stands for. Half the
+     point of these slides is what the letters CANNOT tell you, so the string
+     has to be visibly the same while the molecule underneath changes. */
+  function strip(a, code, colFn, concrete){
+    const y=a.sugar.bot[0][1]+200;
+    let g="";
+    for(let i=0;i<code.length;i++)
+      g+='<text x="'+a.sugar.top[i][0].toFixed(1)+'" y="'+y+'" text-anchor="middle" '+
+         'font-size="46" font-weight="700" font-family="'+MONO+'" fill="'+
+         (colFn?colFn(i):INK)+'">'+code[i]+'</text>';
+    if(concrete)
+      for(let i=0;i<concrete.length;i++)
+        g+='<text x="'+a.sugar.top[i][0].toFixed(1)+'" y="'+(y+50)+'" text-anchor="middle" '+
+           'font-size="38" font-family="'+MONO+'" fill="'+GREY+'">'+concrete[i]+'</text>';
+    return g;
+  }
+
   function render(m, word, sub, deco){
     const x0=centre(m.n);
     const mol=M.draw(m, x0);            /* draws, and reports where things landed */
-    const d = deco ? deco(M.anchors) : {};
+    const d = deco ? deco(M.anchors, m) : {};
     svg.innerHTML =
       '<text x="800" y="150" text-anchor="middle" font-size="46" font-weight="700" '+
         'fill="'+INK+'">'+word+'</text>'+
       '<text x="800" y="198" text-anchor="middle" font-size="26" fill="'+MUT+'">'+sub+'</text>'+
-      (d.under||"") + mol + (d.over||"");
+      (d.under||"") + mol + (d.over||"") + (d.strip||"");
   }
 
   /* Four axes, in the order they build on each other. */
@@ -63,6 +82,7 @@ window.Deck.sequence("substrate", function(slide){
     /* 1. the object itself, with each distinct moiety named once */
     { word:"the substrate", sub:"one molecule &mdash; and every part of it has a name",
       model:()=>GAATTC(),
+      code:"GAATTC",
       deco:function(a){
         const rib=a.sugar.bot[1], ph=a.phos.bot[2], base=a.base.top[0],
               o5=a.term.top5, o3=a.term.top3;
@@ -70,8 +90,8 @@ window.Deck.sequence("substrate", function(slide){
           under: spot(rib,50,46)+spot(ph,34,58)+spot(base,72,56)+spot(o5,32,26)+spot(o3,32,26),
           over:  tag(o5[0], o5[1]-58, o5[0], o5[1]-30, "5&#8242; hydroxyl")+
                  tag(o3[0], o3[1]-72, o3[0], o3[1]-30, "3&#8242; hydroxyl")+
-                 tag(rib[0], 812, rib[0], rib[1]+50, "ribose")+
-                 tag(ph[0], 812, ph[0], ph[1]+62, "phosphate")+
+                 tag(rib[0], 734, rib[0], rib[1]+44, "ribose")+
+                 tag(ph[0], 734, ph[0], ph[1]+46, "phosphate")+
                  tag(base[0]-128, base[1]-54, base[0]-62, base[1]-20, "nucleotide base")
         };
       },
@@ -81,19 +101,23 @@ window.Deck.sequence("substrate", function(slide){
     /* 2. which positions the enzyme actually reads */
     { word:"degeneracy", sub:"red is required &mdash; grey could be anything",
       cycleModel:true,
+      code:"GANNTC", concrete:true,
+      codeCol:i=>(i<2||i>=4)?M.HOT:GREY,
+      /* the SAME six-mer as the slide before, with two positions freed, so the
+         written site lines up letter for letter against GAATTC */
       model:()=>{
-        const n=7, top="GA"+rnd(4)+"C", key=i=>(i<2||i===6);
+        const n=6, top="GA"+rnd(2)+"TC", key=i=>(i<2||i>=4);
         /* every sugar and phosphate is required: the enzyme needs the DNA to be
-           there and continuous. Only the identity of four bases is free. */
+           there and continuous. Only the identity of two bases is free. */
         const r=i=>({bb:"hot", base:key(i)?"hot":"bg"});
         return M.make({top, ends:{t5:"phos",b5:"phos"},
           roleTop:roles(n,r), roleBot:roles(n,r)});
       },
-      note:"Now the second thing an enzyme can care about: which positions it actually reads. Red is required, grey is free. Here it needs a G and an A at the start and a C at the end, and the four in between can be anything — watch them keep changing. Every one of those is a real base; there is no such thing as an N in a tube. And notice the whole backbone is red, every sugar and every phosphate, because the enzyme does require the DNA to be there and to be continuous. For today take that as given for all of them. What is free is the identity of those four bases, and nothing else.",
-      desc:"The same duplex with the backbone and three base positions in red, and four base positions in grey which cycle slowly through different bases to show their identity is unconstrained." },
+      note:"Now the second thing an enzyme can care about: which positions it actually reads. Red is required, grey is free. This is the same six bases as the slide before, but now the enzyme only needs G-A at the start and T-C at the end, and the two in between can be anything. Underneath you can see both — the site as you would write it, G-A-N-N-T-C, and below it whatever is actually there this second, changing as we watch. Every one of those is a real base; there is no such thing as an N in a tube. And notice the whole backbone is red, every sugar and every phosphate, because the enzyme does require the DNA to be there and to be continuous. What is free is the identity of those two bases, and nothing else.",
+      desc:"The same six base pair duplex with the backbone and four base positions in red and two in grey, cycling through different bases. Below it the written site GANNTC, and under that the concrete sequence currently drawn." },
 
     /* 3. the chemistry on the ends, which the letters do not show */
-    { word:"the ends", sub:"a 5&#8242; phosphate, or a bare hydroxyl &mdash; four different molecules",
+    { word:"the ends", code:"GAATTC", sub:"a 5&#8242; phosphate, or a bare hydroxyl &mdash; four different molecules",
       frames:[ ()=>GAATTC({ends:{t5:"oh",  b5:"oh"}}),
                ()=>GAATTC({ends:{t5:"phos",b5:"oh"}}),
                ()=>GAATTC({ends:{t5:"oh",  b5:"phos"}}),
@@ -103,7 +127,7 @@ window.Deck.sequence("substrate", function(slide){
       desc:"The same GAATTC duplex cycling through all four combinations of 5-prime phosphate and 5-prime hydroxyl on its two strands." },
 
     /* 4. what can be hung off a base */
-    { word:"methylation", sub:"on the adenines and the cytosines &mdash; still GAATTC",
+    { word:"methylation", code:"GAATTC", sub:"on the adenines and the cytosines &mdash; still GAATTC",
       model:()=>GAATTC({mods:[{strand:"top",i:1,type:"methyl"},
                               {strand:"top",i:2,type:"methyl"},
                               {strand:"top",i:5,type:"methyl"},
@@ -119,12 +143,16 @@ window.Deck.sequence("substrate", function(slide){
     if(raf){cancelAnimationFrame(raf);raf=null;}
     if(timer){clearTimeout(timer);timer=null;}
     const st=S[i];
-    const show=m=>render(m, st.word, st.sub, st.deco);
+    const show=m=>render(m, st.word, st.sub, function(a,mm){
+      const d = st.deco ? st.deco(a,mm) : {};
+      if(st.code) d.strip = strip(a, st.code, st.codeCol, st.concrete?mm.top:null);
+      return d;
+    });
     if(animated===false || reduce.matches){
       show(st.model());
     } else if(st.cycleModel){
       /* keep turning over the free positions for as long as the slide is up */
-      const roll=function(){ show(st.model()); timer=setTimeout(roll,1600); };
+      const roll=function(){ show(st.model()); timer=setTimeout(roll,1200); };
       roll();
     } else if(st.frames){
       /* walk the combinations in order, so every one is actually seen */

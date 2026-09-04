@@ -47,8 +47,9 @@ function make(o){
    hot  red    the bond that reacts                                        */
 const col = r => r==="bg" ? GREY : r==="key" ? KEY : r==="hot" ? HOT : INK;
 
-const K=0.70;              /* the scale at which atom labels stay legible */
-const PITCH=206, TY=300;
+const K=0.66;             /* 0.70 is where atom labels stop being legible;
+                             most of the size cut is taken from spacing instead */
+const PITCH=188, TY=292;
 let SZ=13;                 /* set from Atoms so every label matches */
 
 function ring5(cx,cy,r,up){
