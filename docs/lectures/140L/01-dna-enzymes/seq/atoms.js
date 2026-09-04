@@ -122,13 +122,35 @@ function baseAligned(letter,cx,cy,targetDeg,c){
 /* Place a base BY ITS GLYCOSIDIC ATOM rather than by its centre, so the ring
    hangs off the sugar instead of overlapping it. dirDeg is the direction from
    the ring centre out to that atom. */
+/* Rotate a base so its WATSON-CRICK EDGE faces a given direction, which is
+   what lets the hydrogen bonds be drawn between real atoms instead of
+   suggested by one dash. purine wc = [N1,C6]; pyrimidine wc = [N3,C4]. */
+/* Face the pairing edge inward, but position the base by its GLYCOSIDIC atom.
+   A purine reaches further from that atom to its pairing edge than a
+   pyrimidine does, so placing both this way makes the two edges meet in the
+   middle on their own -- which is why real base pairs are a constant width. */
+function baseFacingAt(letter,gx,gy,faceDeg,c){
+  const probe=baseFacing(letter,0,0,faceDeg,c);
+  const off=probe.N9||probe.N1;
+  return baseFacing(letter, gx-off[0], gy-off[1], faceDeg, c);
+}
+
+function baseFacing(letter,cx,cy,faceDeg,c){
+  const pu=(letter==="A"||letter==="G");
+  const probe=pu?purine(cx,cy,0,c,letter):pyrimidine(cx,cy,0,c,letter);
+  const w=probe.wc, mid=[(w[0][0]+w[1][0])/2,(w[0][1]+w[1][1])/2];
+  const cur=Math.atan2(mid[1]-cy,mid[0]-cx)*180/Math.PI;
+  const ang=faceDeg-cur;
+  return pu?purine(cx,cy,ang,c,letter):pyrimidine(cx,cy,ang,c,letter);
+}
+
 function baseAt(letter,gx,gy,dirDeg,c){
   const probe=baseAligned(letter,0,0,dirDeg,c);
   const off=probe.N9||probe.N1;
   return baseAligned(letter, gx-off[0], gy-off[1], dirDeg, c);
 }
 
-window.Atoms={ purine, pyrimidine, setScale, baseAligned, baseAt, get R(){return R;},
+window.Atoms={ purine, pyrimidine, setScale, baseAligned, baseAt, baseFacing, baseFacingAt, get R(){return R;},
   base:(letter,cx,cy,ang,c)=> (letter==="A"||letter==="G")
         ? purine(cx,cy,ang,c,letter) : pyrimidine(cx,cy,ang,c,letter) };
 })();
