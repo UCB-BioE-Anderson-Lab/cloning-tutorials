@@ -44,10 +44,11 @@ function stage(slide, markup){
 }
 
 /* letters of `str`, its first character sitting in column `c0` */
-function row(str, c0, x0, step, y, colOf){
+function row(str, c0, x0, step, y, colOf, attrOf){
   let s = "";
   for (let i = 0; i < str.length; i++)
-    s += '<text x="' + n2(x0 + (c0 + i)*step) + '" y="' + y + '" fill="' +
+    s += '<text x="' + n2(x0 + (c0 + i)*step) + '" y="' + y + '"' +
+         (attrOf ? attrOf(c0 + i) : "") + ' fill="' +
          colOf(c0 + i) + '">' + str[i] + '</text>';
   return s;
 }
@@ -295,6 +296,23 @@ const XL = LX - ST, XR = LX + 17*ST;
 
 const site = c => c >= 3 && c <= 8;
 const colS = c => site(c) ? BLUE : INK;
+/* Everything BsaI does not read. Column 9 is in here deliberately: it is the
+   single base between the site and the top-strand cut, and the enzyme only
+   counts past it — it never reads it. Columns 10-13 are the overhang, which
+   keeps its own machinery, because contrasting two chosen overhangs is the
+   argument of the slide. */
+const FREE = [0,1,2,9,14,15,16];
+const tag = str => c => (FREE.indexOf(c) < 0 ? "" : ' data-rnd="' + str + c + '"');
+const PAIR = {a:"t", t:"a", g:"c", c:"g"};
+function scramble(root){
+  FREE.forEach(function(c){
+    const b = "acgt"[Math.floor(Math.random()*4)];
+    const t = root.querySelector('[data-rnd="t' + c + '"]');
+    const d = root.querySelector('[data-rnd="b' + c + '"]');
+    if (t) t.textContent = b;
+    if (d) d.textContent = PAIR[b];
+  });
+}
 
 /* columns 10-13 exist three times over: as plain sequence, as the
    red overhang, and as a DIFFERENT red overhang — the
@@ -309,8 +327,8 @@ const MARKUP =
   /* left fragment: top cols 0-9, bottom cols 0-13.  The site rides
      with it, which is the point of step 2. */
   '<g data-r="gL">' +
-    mono("", FS, row("ctgGGTCTCg", 0, LX, ST, TY, colS) +
-                 row("gacCCAGAGc", 0, LX, ST, BY, colS)) +
+    mono("", FS, row("ctgGGTCTCg", 0, LX, ST, TY, colS, tag("t")) +
+                 row("gacCCAGAGc", 0, LX, ST, BY, colS, tag("b"))) +
     oh(["oLp","oLr","oLa"], "ctag", "tcca", BY) +
     label(XL, TY, 24, MUTED, "5&#8242;") + label(XL, BY, 24, MUTED, "3&#8242;") +
     '<path d="M' + (LX + 3*ST - ST/2) + ' 372H' + EDGE + '" stroke="' + BLUE +
@@ -320,8 +338,8 @@ const MARKUP =
 
   /* right fragment: top cols 10-16, bottom cols 14-16 */
   '<g data-r="gR">' +
-    mono("", FS, row("ctg", 14, LX, ST, TY, colS) +
-                 row("gac", 14, LX, ST, BY, colS)) +
+    mono("", FS, row("ctg", 14, LX, ST, TY, colS, tag("t")) +
+                 row("gac", 14, LX, ST, BY, colS, tag("b"))) +
     oh(["oRp","oRr","oRa"], "gatc", "aggt", TY) +
     label(XR, TY, 24, MUTED, "3&#8242;") + label(XR, BY, 24, MUTED, "5&#8242;") +
     '<g data-r="brace" opacity="0">' +
@@ -364,6 +382,13 @@ const S = [
 
 window.Deck.sequence("typeIIs", function(slide){
   const r = stage(slide, MARKUP);
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let roll = null;
+  function keepRolling(){
+    if (roll) { clearTimeout(roll); roll = null; }
+    if (reduce.matches) return;
+    (function tick(){ scramble(slide); roll = setTimeout(tick, 620); })();
+  }
   const keys = ["sep","cut","red","alt","brace"];
 
   const run = tweener(keys, function(s){
@@ -380,6 +405,7 @@ window.Deck.sequence("typeIIs", function(slide){
     r.cap.textContent = S[i].cap;
     r.ann.innerHTML   = S[i].ann;
     run(S[i].st, animated);
+    keepRolling();
   }
   go(0, false);
   return { steps: S.map(x => ({ note:x.note, desc:x.desc })), go: go };
