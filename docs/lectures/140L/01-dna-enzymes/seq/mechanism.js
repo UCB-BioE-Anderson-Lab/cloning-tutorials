@@ -83,7 +83,7 @@ window.Deck.sequence("mechanism",function(slide){
     '<path data-r="dep" fill="none" stroke="'+RED+'" stroke-width="3.2" marker-end="url(#mHead)"/>'+
     '<circle data-r="pc" cx="'+PX+'" cy="'+PY+'" r="22" fill="#fff" stroke="none"/>'+
     '<text data-r="pl" x="'+PX+'" y="'+(PY+12)+'" text-anchor="middle" font-size="32" font-weight="700" fill="'+INK+'">P</text>'+
-    '<g data-r="nug">'+'<path data-r="nub1" fill="none" stroke="'+RED+'" stroke-width="2.9"/>'+'<path data-r="nub2" fill="none" stroke="'+RED+'" stroke-width="2.9"/>'+'<text data-r="tnu" text-anchor="middle" font-size="31" font-weight="700" fill="'+RED+'">O</text>'+'<text data-r="nh1" text-anchor="middle" font-size="27" font-weight="700" fill="'+RED+'"></text>'+'<text data-r="nh2" text-anchor="middle" font-size="27" font-weight="700" fill="'+RED+'"></text>'+'<circle data-r="lp1" r="4.4" fill="'+RED+'"/><circle data-r="lp2" r="4.4" fill="'+RED+'"/>'+'<text data-r="nplus" text-anchor="middle" font-size="26" font-weight="700" fill="'+RED+'" opacity="0">+</text>'+'<g data-r="rib" opacity="0">'+miniRing()+'</g>'+'</g>'+
+    '<g data-r="nug">'+'<path data-r="nub1" fill="none" stroke="'+RED+'" stroke-width="2.9"/>'+'<path data-r="nub2" fill="none" stroke="'+RED+'" stroke-width="2.9"/>'+'<text data-r="tnu" text-anchor="middle" font-size="31" font-weight="700" fill="'+RED+'">O</text>'+'<text data-r="nh1" text-anchor="middle" font-size="27" font-weight="700" fill="'+RED+'"></text>'+'<text data-r="nh2" text-anchor="middle" font-size="27" font-weight="700" fill="'+RED+'"></text>'+'<circle data-r="lp1" r="4.4" fill="'+RED+'"/><circle data-r="lp2" r="4.4" fill="'+RED+'"/>'+'<text data-r="nplus" text-anchor="middle" font-size="26" font-weight="700" fill="'+RED+'" opacity="0">+</text>'+'<path data-r="deprot" fill="none" stroke="'+RED+'" stroke-width="2.8" marker-end="url(#mHead)" opacity="0"/>'+'<g data-r="rib" opacity="0">'+miniRing()+'</g>'+'</g>'+
     '<text data-r="tlg" text-anchor="middle" font-size="27" font-weight="600" fill="'+INK+'"></text>'+
     '<text data-r="te1" text-anchor="middle" font-size="27" font-weight="600" fill="'+INK+'"></text>'+
     '<text data-r="te2" text-anchor="middle" font-size="27" font-weight="600" fill="'+INK+'"></text>'+
@@ -149,6 +149,7 @@ window.Deck.sequence("mechanism",function(slide){
       /* when the proton leaves, its bond must leave with it — otherwise a stub
          is left hanging where the H used to be */
       r[q[1]].setAttribute("opacity",n2(q[3]));
+      r[q[0]].setAttribute("opacity",n2(q[3]));   /* label fades with its bond */
       r[q[1]].setAttribute("d","M"+n2(nu[0]+o[0]*0.34)+" "+n2(nu[1]+o[1]*0.34-4)+
                                "L"+n2(px-o[0]*0.30)+" "+n2(py-o[1]*0.30+4));
     });
@@ -156,6 +157,13 @@ window.Deck.sequence("mechanism",function(slide){
        and therefore a formal positive charge */
     r.nplus.setAttribute("opacity",n2(s.plus));
     r.nplus.setAttribute("x",n2(nu[0]+44)); r.nplus.setAttribute("y",n2(nu[1]+10));
+    /* Losing the proton is an arrow, not a deletion: the O-H bonding pair
+       collapses back onto the oxygen. Shown while the oxygen is charged, and
+       fading as the hydrogen actually goes. */
+    r.deprot.setAttribute("opacity",n2(s.plus));
+    r.deprot.setAttribute("d","M"+n2(nu[0]-72)+" "+n2(nu[1]-40)+
+                              "Q"+n2(nu[0]-78)+" "+n2(nu[1]-4)+
+                              " "+n2(nu[0]-26)+" "+n2(nu[1]-4));
     /* the sugar the attacking hydroxyl belongs to. It gets its own, flatter
        attachment vector so the ring sits beside the oxygen instead of climbing
        into the subtitle. */
@@ -239,7 +247,10 @@ window.Deck.sequence("mechanism",function(slide){
     const to=S[i].s;
     if(raf){cancelAnimationFrame(raf);raf=null;}
     r.cap.innerHTML=S[i].cap; r.sub.innerHTML=S[i].sub; r.who.innerHTML=S[i].who;
-    r.nh1.innerHTML=S[i].h1; r.nh2.innerHTML=S[i].h2; r.tlg.innerHTML=S[i].lg;
+    /* a blank label means "fade what is already there", not "erase it now" */
+    if(S[i].h1) r.nh1.innerHTML=S[i].h1;
+    if(S[i].h2) r.nh2.innerHTML=S[i].h2;
+    r.tlg.innerHTML=S[i].lg;
     r.te1.innerHTML=S[i].e1; r.te2.innerHTML=S[i].e2;
     /* The two mechanisms are separate reactions sharing one drawing. Tweening
        between them would play the first one backwards, which is not a thing
