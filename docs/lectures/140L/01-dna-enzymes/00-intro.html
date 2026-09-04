@@ -20,69 +20,11 @@
 </article>
 
 <article class="slide">
-  <h1 class="small">YouTube video content for 140L/132</h1>
-  <p><small><a href="https://openwetware.org/wiki/Synthetic_Biology_Trails">openwetware.org/wiki/Synthetic_Biology_Trails</a> &mdash; lectures on experimental design</small></p>
-  <ul class="tighter" style="margin-top:20px">
-    <li><a href="https://www.youtube.com/watch?v=SWDl9Yh6gx8&amp;list=PL2aPXzks-TgNkKi2lUWL65MpPsRBCb5q5">The DNA Manipulation Enzymes</a></li>
-    <li><a href="https://www.youtube.com/watch?v=_XpQgGAO0lw&amp;list=PL2aPXzks-TgPX7HU4pogNUSBN9OK2PhBK">DNA Fabrication</a></li>
-    <li><a href="https://www.youtube.com/watch?v=vfmuDvEgD28&amp;list=PL2aPXzks-TgOtngzKdocz4P50TCncRyPy">Genome Manipulation</a></li>
-    <li><a href="https://www.youtube.com/watch?v=tgFp72Fx4Hk&amp;list=PL2aPXzks-TgMvy4PG5wwbrw9VKBuowOR8">Chassis</a></li>
-    <li><a href="https://www.youtube.com/watch?v=9B5e41QwoBI&amp;list=PL2aPXzks-TgNP1FuAv0v-fS6UhCjy1waN">Parts</a></li>
-    <li><a href="https://www.youtube.com/watch?v=hDAnyG7zHFs&amp;list=PL2aPXzks-TgN_Ztp-bRkzbtbi5Ncsh71t">Practices</a></li>
-    <li><a href="https://www.youtube.com/watch?v=plOc9Ei5nvY&amp;list=PL2aPXzks-TgMo_x6XhYmfoZDezm4m-DcL">Whole-Cell Analysis</a></li>
-    <li><a href="https://www.youtube.com/watch?v=EheWQRLvLWU&amp;list=PL2aPXzks-TgNlrgM8BK3jD_aiyjoXOsRI">In vitro Assays</a></li>
-    <li><a href="https://www.youtube.com/watch?v=1wWyTrUroGM&amp;list=PL2aPXzks-TgOOPfxneYJ3pBwTlqzv9Ezn">Directed Evolution</a></li>
-    <li><a href="https://www.youtube.com/watch?v=8BDTS9NK7Zg&amp;list=PL2aPXzks-TgNF957XOSBB3rPdFbtvsWYI">Combinatorial Libraries</a></li>
-    <li><a href="https://www.youtube.com/watch?v=X0eemsxBtlI&amp;list=PL2aPXzks-TgMJ7UID5Q2hb5y4D4yRgzzj">Automation</a></li>
-  </ul>
-  <template class="desc">A list of the eleven Synthetic Biology Trails YouTube playlists, from DNA Manipulation Enzymes through DNA Fabrication, Genome Manipulation, Chassis, Parts, Practices, Whole-Cell Analysis, In vitro Assays, Directed Evolution, Combinatorial Libraries and Automation.</template>
-</article>
-
-<article class="slide">
   <h1>AI Prompt</h1>
   <p class="q">Are you familiar with the content of the NEB catalog?</p>
   <figure class="fig"><img src="img/neb-ai-prompt.png" alt="A chat assistant answering a question about the classes of polymerase described in the NEB catalog"></figure>
+  <template class="notes">This lecture is an explanation of the NEB catalog, down to the atom. Their tables are reproduced here on purpose &mdash; that is the catalog you will actually order from, and being able to read it is most of what makes an enzyme choice a decision rather than a guess. The tables are also public and well documented, which means a language model has read them, and that makes it a genuinely useful study partner for this material. Ask it what separates Taq from Pfu and it will tell you correctly. Ask it what will happen to your specific construct and be much more careful, because that is where it starts inventing. Use it to interrogate the table, not to replace reading it.</template>
   <template class="desc">A suggested AI prompt — asking whether the assistant knows the NEB catalog — with a screenshot of it explaining the differences between Taq, Pfu and Phusion polymerases.</template>
-</article>
-
-<article class="slide">
-  <h1>Ground rules</h1>
-  <ul class="tight">
-    <li>Sip from the fountain&hellip;my lectures tend to be meaty</li>
-    <li>All these files are available on bCourses and YouTube</li>
-    <li>Focus on understanding the concepts, you don&rsquo;t have to memorize anything</li>
-    <li>The purpose is to introduce important DNA modification enzymes and what you can do with them; and to begin getting you to think about the functions of proteins and how combinations of biochemicals interact with predictable results</li>
-    <li>You may interrupt me at any time with questions</li>
-  </ul>
-  <template class="notes">The entire ensemble of slides is a fairly complete description of the known DNA manipulation enzymes, with the clear omission of Cas9/CRISPR, which we’ll deal with later in the course.</template>
-  <template class="desc">Five ground rules for the lecture.</template>
-</article>
-
-<article class="slide">
-  <h1>The enzyme classes</h1>
-  <p class="q">Five things you can do to a DNA molecule</p>
-  <ul class="tight" style="margin-top:26px">
-    <li><b class="verb">break</b>Endonucleases &middot; Exonucleases</li>
-    <li data-build="1"
-        data-note="Polymerases copy it. They read a template and build the complementary strand. RNA polymerases do the same job but write RNA — and, as you will see, they are the only ones here that can start without a primer."
-        data-desc="Second group revealed: copy — DNA polymerases and RNA polymerases."
-      ><b class="verb">copy</b>DNA Polymerases &middot; RNA Polymerases</li>
-    <li data-build="2"
-        data-note="Ligases join. They take two polynucleotides and make them one molecule. That sounds trivial and it is the step that fails most often."
-        data-desc="Third group revealed: join — ligases."
-      ><b class="verb">join</b>Ligases</li>
-    <li data-build="3"
-        data-note="Methyltransferases, kinases and phosphatases modify it without breaking or joining anything at all. A methyl group on a base, a phosphate on or off a five prime end. The smallest changes in the lecture, and they decide what every other enzyme is allowed to do."
-        data-desc="Fourth group revealed: modify — methyltransferases and kinases slash phosphatases."
-      ><b class="verb">modify</b>Methyltransferases &middot; Kinases / Phosphatases</li>
-    <li data-build="4"
-        data-note="And recombinases rearrange it, swapping DNA over similar sequences. One enzyme that finds two sites, cuts all four strands and reseals them, without ever leaving a free end lying around."
-        data-desc="Fifth group revealed: rearrange — recombinases."
-      ><b class="verb">rearrange</b>Recombinases</li>
-  </ul>
-  <style>.verb{color:var(--blue);display:inline-block;min-width:220px;font-weight:700}</style>
-  <template class="notes">Everything in this lecture is one of five verbs you can apply to a DNA molecule. Start with the nucleases: they break it. Endonucleases cut internally, at a sequence they recognise; exonucleases chew inward from an end. Every method you will use in this course is some composition of these five verbs, which is why it is worth knowing exactly what each enzyme will and will not do.</template>
-  <template class="desc">The eight enzyme classes grouped under five verbs, in the order the sections follow. The first group, break — endonucleases and exonucleases — is already showing; the remaining four are revealed one at a time.</template>
 </article>
 
 <article class="slide" data-seq="mechanism">
@@ -94,6 +36,14 @@
   <svg viewBox="0 0 1600 900" role="img" aria-labelledby="conettl" style="position:absolute;inset:0;pointer-events:none"><title id="conettl">A fan opening from left to right. At its narrow apex, one phosphorus and two mechanisms, already settled. Opening out from it, the questions that separate one enzyme from another: which kind of end, which sequence, which strand, circular or linear, methylated or not. At the wide edge, hundreds of catalogue entries.</title><path d="M430 470L1180 186L1180 754Z" fill="none" stroke="var(--muted)" stroke-width="2.4"/><circle cx="430" cy="470" r="10" fill="var(--ink)"/><text x="396" y="458" text-anchor="end" font-size="31" font-weight="700" fill="var(--ink)">one phosphorus</text><text x="396" y="500" text-anchor="end" font-size="31" font-weight="700" fill="var(--ink)">two mechanisms</text><text x="396" y="548" text-anchor="end" font-size="24" fill="var(--muted)">already settled</text><text x="1150" y="342" text-anchor="end" font-size="30" fill="var(--ink)">which kind of end</text><text x="1150" y="406" text-anchor="end" font-size="30" fill="var(--ink)">which sequence</text><text x="1150" y="470" text-anchor="end" font-size="30" fill="var(--ink)">which strand</text><text x="1150" y="534" text-anchor="end" font-size="30" fill="var(--ink)">circular or linear</text><text x="1150" y="598" text-anchor="end" font-size="30" fill="var(--ink)">methylated or not</text><text x="1222" y="460" font-size="31" font-weight="700" fill="var(--blue)">hundreds of</text><text x="1222" y="502" font-size="31" font-weight="700" fill="var(--blue)">catalogue entries</text><text x="800" y="840" text-anchor="middle" font-size="26" fill="var(--muted)">pick the wrong one and it fails <tspan font-style="italic">silently</tspan> &mdash; a clean reaction, and nothing on the plate</text></svg>
   <template class="notes">Hold on to how small the chemistry is, because the rest of the lecture is going to feel like a lot. One phosphorus. Two mechanisms. That is settled and it does not change again today. What changes, constantly, is the specificity — the rules about where each enzyme is allowed to run that reaction. Some read a sequence. Some read a kind of end and no sequence at all. Some care whether the molecule is circular, which is a property no local inspection can tell you. Some care whether a base was methylated hours earlier in a different cell. That is the fan: identical chemistry at the point, and by the time you reach the far edge you are choosing between two enzymes that differ only in whether they tolerate a nick. And this is why it matters — when you pick the wrong one it usually does not error. You get a clean-looking reaction and nothing on the plate.</template>
   <template class="desc">A fan opening from left to right. At its narrow apex, one phosphorus and two mechanisms, settled. Opening out from it, the questions that separate one enzyme from another: which kind of end, which sequence, which strand, circular or linear, methylated or not. At the wide edge, hundreds of catalogue entries — and the warning that picking the wrong one fails silently.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">The enzyme classes</h1>
+  <p class="q" style="margin-bottom:26px">Grouped by the reaction they run &mdash; which is the order we will take them</p>
+  <div style="margin-bottom:32px"><div style="font-size:29px;font-weight:700;color:var(--ink)">Hydrolysis</div><div style="font-size:23px;color:var(--muted);margin:2px 0 10px">water attacks &mdash; the bond is destroyed</div><ul class="tight" style="display:flex;flex-wrap:wrap;gap:0 42px;margin:0;list-style:none;padding:0"><li>Endonucleases</li><li>Exonucleases</li><li>Phosphatases</li></ul></div><div style="margin-bottom:32px"><div style="font-size:29px;font-weight:700;color:var(--ink)">Transphosphorylation</div><div style="font-size:23px;color:var(--muted);margin:2px 0 10px">an alcohol attacks &mdash; the bond is moved</div><ul class="tight" style="display:flex;flex-wrap:wrap;gap:0 42px;margin:0;list-style:none;padding:0"><li>Kinases</li><li>DNA Polymerases</li><li>RNA Polymerases</li><li>Ligases</li><li>Recombinases</li></ul></div><div style="margin-bottom:32px"><div style="font-size:29px;font-weight:700;color:var(--blue)">Neither</div><div style="font-size:23px;color:var(--muted);margin:2px 0 10px">a methyl group, handed to carbon rather than to phosphorus</div><ul class="tight" style="display:flex;flex-wrap:wrap;gap:0 42px;margin:0;list-style:none;padding:0"><li>Methyltransferases</li></ul></div>
+  <template class="notes">So here is the shape of the rest of the lecture, and it is not an arbitrary list. The first three run the reaction you just watched with water: endonucleases, exonucleases, phosphatases. All hydrolysis, all destroying a bond. The next five run it with an alcohol: kinases, then the two polymerases, then ligases, then recombinases. All transphosphorylation, all moving a bond rather than destroying it. And one class sits outside both, because methyltransferases are not doing phosphorus chemistry at all. They hand a methyl group to a carbon or a nitrogen, which is why they come last and why they get their own mechanism slide when we reach them. If you remember one thing from this opening, make it which half of this list an enzyme is on, because that tells you what it does to the bond.</template>
+  <template class="desc">The eight enzyme classes grouped by mechanism, in the order the lecture takes them. Hydrolysis, where water attacks and the bond is destroyed: endonucleases, exonucleases, phosphatases. Transphosphorylation, where an alcohol attacks and the bond is moved: kinases, DNA polymerases, RNA polymerases, ligases, recombinases. And neither: methyltransferases, which hand a methyl group to carbon rather than to phosphorus.</template>
 </article>
 
 
