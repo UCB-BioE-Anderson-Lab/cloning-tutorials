@@ -78,16 +78,20 @@ window.Deck.sequence("gibson", function(slide){
   svg.setAttribute("aria-hidden", "true");
   svg.setAttribute("style", "position:absolute;inset:0;pointer-events:none");
 
-  /* Red carries the two things you have to read to follow this: the shared
-     homology, and the 3' barbs that say which way each strand runs. Both hold
-     that colour from the first frame to the last. Blue is the DNA itself -
-     both fragments and the stretch the polymerase adds - which is present and
-     necessary but is not what the slide is asking you to look at. */
+  /* Red means one thing on this slide: the shared 20 bp that makes the
+     assembly work, and the 3' ends belonging to it. Everything else is blue -
+     both fragments, their outer ends, and the stretch the polymerase adds. */
   const strandPaths =
     ["lt","lb","rt","rb"].map(k =>
       '<path data-r="'+k+'" stroke="var(--blue)"/>').join("") +
-    ["ltb","lbb","rtb","rbb"].map(k =>
+    /* ltb and rbb are the 3' ends INSIDE the join — the ones that stop being
+       ends once it closes, which is why they fade on s.close. They belong to
+       the anneal, so they are red. lbb and rtb are the fragments' outer ends
+       and stay blue: red on this slide means the shared 20 bp and nothing else. */
+    ["ltb","rbb"].map(k =>
       '<path data-r="'+k+'" stroke="var(--red)"/>').join("") +
+    ["lbb","rtb"].map(k =>
+      '<path data-r="'+k+'" stroke="var(--blue)"/>').join("") +
     ["blt","blb","brt","brb"].map(k =>
       '<path data-r="'+k+'" stroke="var(--red)"/>').join("") +
     ["nwt","nwb"].map(k =>
