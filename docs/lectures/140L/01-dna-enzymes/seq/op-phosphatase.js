@@ -17,8 +17,12 @@
 const NS="http://www.w3.org/2000/svg";
 const BLUE="#004373", RED=window.DNAModel.HOT, MUT="#767676", INK="#111111";
 const n2=v=>Math.round(v*10)/10;
-const T_HOLD=0.9, T_GO=1.25, T_END=1.1;
-const CYCLE=T_HOLD+T_GO+T_END;
+/* Three removals, not one. A phosphatase takes a TERMINAL phosphate, so on a
+   triphosphate it takes gamma, then beta, then alpha — each one only becomes
+   terminal once the one outside it has gone. Pulling all three at once would
+   be a different enzyme. */
+const T_HOLD=0.9, T_GO=0.62, T_END=1.15;
+const CYCLE=T_HOLD+3*T_GO+T_END;
 const ease=t=>1-Math.pow(1-t,3);
 
 const line=(a,b,c,w)=>'<path d="M'+n2(a[0])+' '+n2(a[1])+'L'+n2(b[0])+' '+n2(b[1])+
@@ -52,7 +56,7 @@ function alkyl(x,y,g){
   d+=line(pts[0],[x-68,y-14],BLUE)+P(x-88,y-22,g);
   return d+label(x+2,478,"alkyl phosphate",MUT,21);
 }
-function ntp(x,y,g){
+function ntp(x,y,gg,gb,ga){
   /* sugar as a small pentagon, base as a slab, three phosphates on the 5' side */
   const r=22, v=[90,162,234,306,18].map(d=>[x+40+r*Math.cos(d*Math.PI/180),
                                             y-r*Math.sin(d*Math.PI/180)]);
@@ -60,8 +64,10 @@ function ntp(x,y,g){
         BLUE+'" stroke-width="4"/>';
   s+=line(v[0],[x+40,y-46],BLUE)+'<rect x="'+(x+22)+'" y="'+(y-72)+'" width="36" height="26" '+
      'rx="6" fill="none" stroke="'+BLUE+'" stroke-width="4"/>';
-  s+=line(v[2],[x-16,y+14],BLUE);
-  s+=P(x-30,y+14,g)+P(x-74,y+14,g)+P(x-118,y+14,g);
+  /* alpha sits against the sugar, gamma furthest out; gamma is the one that
+     is terminal to begin with, so it is the one that goes first */
+  s+='<g opacity="'+(1-ga*0.9).toFixed(2)+'">'+line(v[2],[x-16,y+14],BLUE)+'</g>';
+  s+=P(x-30,y+14,ga)+P(x-74,y+14,gb)+P(x-118,y+14,gg);
   return s+label(x-24,478,"dNTP",MUT,21);
 }
 function pnpp(x,y,g){
@@ -92,27 +98,29 @@ window.Deck.sequence("op-phosphatase", function(slide){
   const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
   let raf=null;
 
-  function paint(g){
+  function paint(g,gb,ga){
     svg.innerHTML=
       '<text x="800" y="140" text-anchor="middle" font-size="44" font-weight="700" fill="'+INK+
         '">The substrate is a phosphate ester, not a DNA</text>'+
       '<text x="800" y="188" text-anchor="middle" font-size="25" fill="'+MUT+
         '">four unrelated molecules &mdash; every terminal phosphate comes off</text>'+
-      dna(250,340,g)+ alkyl(630,346,g)+ ntp(1010,340,g)+ pnpp(1340,330,g)+
+      dna(250,340,g)+ alkyl(630,346,g)+ ntp(1010,340,g,gb,ga)+ pnpp(1340,330,g)+
       '<path d="M180 560H1420" stroke="'+MUT+'" stroke-width="1.6" stroke-dasharray="7 9"/>'+
       internal(800,660)+
       label(800,806,"an internal phosphate is a diester in a chain &mdash; not a substrate",RED,26);
   }
   function go(){
     if(raf){cancelAnimationFrame(raf);raf=null;}
-    if(reduce.matches){ paint(1); return; }
+    if(reduce.matches){ paint(1,1,1); return; }
     const t0=performance.now();
     raf=requestAnimationFrame(function f(now){
       if(!slide.classList.contains("on")){ raf=null; return; }
       let t=((now-t0)/1000)%CYCLE;
-      if(t<T_HOLD) paint(0);
-      else if((t-=T_HOLD)<T_GO) paint(ease(t/T_GO));
-      else paint(1);
+      const step=k=>{ const u=(t-T_HOLD-k*T_GO)/T_GO;
+                      return u<=0?0:(u>=1?1:ease(u)); };
+      if(t<T_HOLD) paint(0,0,0);
+      else if(t<T_HOLD+3*T_GO) paint(step(0),step(1),step(2));
+      else paint(1,1,1);
       raf=requestAnimationFrame(f);
     });
   }
