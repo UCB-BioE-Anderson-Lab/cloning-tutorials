@@ -64,7 +64,7 @@ function clipSeg(a, b, lo, hi, d, y){
 }
 /* a square bracket sitting above the top strand, marking an x range */
 function bracket(id){
-  return '<path data-r="'+id+'" fill="none" stroke="var(--blue)" stroke-width="2.6" ' +
+  return '<path data-r="'+id+'" fill="none" stroke="var(--red)" stroke-width="2.6" ' +
          'stroke-linecap="round" stroke-linejoin="round"/>';
 }
 function bracketD(lo, hi, d){
@@ -78,15 +78,19 @@ window.Deck.sequence("gibson", function(slide){
   svg.setAttribute("aria-hidden", "true");
   svg.setAttribute("style", "position:absolute;inset:0;pointer-events:none");
 
+  /* The homology is the only thing on this slide that makes it work, so it is
+     the one thing in red, and it stays red from the first frame to the last.
+     Everything else - both fragments, their barbs, and the DNA the polymerase
+     adds - is blue: ordinary DNA, not the shared sequence. */
   const strandPaths =
     ["lt","lb","rt","rb"].map(k =>
-      '<path data-r="'+k+'" stroke="var(--ink)"/>').join("") +
-    ["ltb","lbb","rtb","rbb"].map(k =>
-      '<path data-r="'+k+'" stroke="var(--ink)"/>').join("") +
-    ["blt","blb","brt","brb"].map(k =>
       '<path data-r="'+k+'" stroke="var(--blue)"/>').join("") +
+    ["ltb","lbb","rtb","rbb"].map(k =>
+      '<path data-r="'+k+'" stroke="var(--blue)"/>').join("") +
+    ["blt","blb","brt","brb"].map(k =>
+      '<path data-r="'+k+'" stroke="var(--red)"/>').join("") +
     ["nwt","nwb"].map(k =>
-      '<path data-r="'+k+'" stroke="var(--red)"/>').join("");
+      '<path data-r="'+k+'" stroke="var(--blue)"/>').join("");
 
   svg.innerHTML =
     '<g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">' +
@@ -99,7 +103,7 @@ window.Deck.sequence("gibson", function(slide){
       '<text data-r="p5rt"></text><text data-r="p5rb"></text>' +
     '</g>' +
     '<text data-r="ovlab" x="800" y="424" text-anchor="middle" font-family="inherit" ' +
-      'font-size="26" font-weight="700" fill="var(--blue)">overlap &mdash; the same sequence in both</text>' +
+      'font-size="26" font-weight="700" fill="var(--red)">overlap &mdash; the same sequence in both</text>' +
     '<g data-r="enzg" opacity="0">' +
       '<text data-r="enz" x="800" y="352" text-anchor="middle" font-family="inherit" ' +
         'font-size="30" font-weight="700" fill="var(--red)">T5 exonuclease &#183; 5&#8242;&rarr;3&#8242;</text>' +
@@ -159,7 +163,7 @@ window.Deck.sequence("gibson", function(slide){
     r.bkL.setAttribute("d", bracketD(OVL, OVR, dL));
     r.bkR.setAttribute("d", bracketD(OVL, OVR, dR));
     /* the brackets name the overlap once, then get out of the way —
-       after the enzyme runs, the blue segments carry it on their own */
+       after the enzyme runs, the red segments carry it on their own */
     r.bkL.setAttribute("opacity", n2(s.mark));
     r.bkR.setAttribute("opacity", n2(s.mark));
     r.ovlab.setAttribute("opacity", n2(s.mark));
