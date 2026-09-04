@@ -17,6 +17,10 @@
 .slide table.neb th,.slide table.neb td{border:1px solid var(--rule);
   padding:9px 6px;text-align:center;font-weight:400}
 .slide table.neb thead th{font-weight:700}
+/* the blunting slide runs four states down the page, so it is set larger and
+   spaced wider than the deck default — it was sitting in the top corner. */
+.slide.blunt pre.dna{font-size:30px;line-height:1.5}
+.slide.blunt .step{margin:24px 0 18px;font-size:27px}
 .slide table.neb tbody th{font-weight:700;text-align:left;padding-left:14px;
   color:var(--blue)}
 .slide table.neb sup{font-size:.68em;vertical-align:super;line-height:0}
@@ -195,18 +199,32 @@
   <template class="desc">One row of the NEB exonuclease selection chart, for Exonuclease I from E. coli: 3-prime to 5-prime, active on linear single-stranded DNA and on nothing else listed. Below it, On the left, a double-stranded PCR product drawn as two antiparallel barbed lines, with four short single-stranded primers below it in blue. An arrow labelled Exo I, 3-prime to 5-prime, leads right to the same double-stranded product alone: the primers are gone and the duplex is unchanged.</template>
 </article>
 
-<article class="slide">
+<article class="slide blunt">
   <h1 class="small">Blunting a sticky end</h1>
-  <p><strong>Start from BamHI-cut DNA &mdash; two 4&nbsp;bp 5&rsquo; extensions</strong></p>
-  <pre class="dna">5&rsquo;-cttcg<span class="site">G</span>              <span class="site">GATCC</span>gctggcaga&hellip;-3&rsquo;
-3&rsquo;-gaagc<span class="site">CCTAG</span>    +         <span class="site">G</span>cgaccgtct&hellip;-5&rsquo;</pre>
+  <pre class="dna">5&rsquo;-cttcg<span class="site">GGATCC</span>gctggcaga&hellip;-3&rsquo;
+3&rsquo;-gaagc<span class="site">CCTAGG</span>cgaccgtct&hellip;-5&rsquo;</pre>
+
   <div class="step" data-build="1"
-       data-note="Mung bean nuclease cleaves single-stranded DNA exclusively, so the four-base overhangs are simply removed and what is left is blunt — ligatable to any other blunt end, such as those from EcoRV. Note that mung bean is filed as an endonuclease in the NEB table, not an exonuclease, and its address is not an end at all: it is single-strandedness, wherever it occurs. Same four questions, different answer to the second one."
-       data-desc="On the click, mung bean nuclease has trimmed the single-stranded overhangs off both fragments, leaving blunt ends that line up base for base."><span class="arrow">&darr;</span> Mung Bean Nuclease &mdash; single-stranded DNA only</div>
-  <pre class="dna" data-build="1">5&rsquo;-cttcg<span class="site">G</span>                  <span class="site">C</span>gctggcaga&hellip;-3&rsquo;
+       data-note="Start with a BamHI site sitting in the middle of something. BamHI cuts it, and you know what that leaves: two fragments, each with a four-base five prime extension, G-A-T-C hanging off each one."
+       data-desc="On the click, BamHI has cut the site, leaving two fragments each with a four-base 5-prime GATC overhang."><span class="arrow">&darr;</span> BamHI</div>
+  <pre class="dna" data-build="1">5&rsquo;-cttcg<span class="site">G</span>              <span class="site">GATCC</span>gctggcaga&hellip;-3&rsquo;
+3&rsquo;-gaagc<span class="site">CCTAG</span>    +         <span class="site">G</span>cgaccgtct&hellip;-5&rsquo;</pre>
+
+  <div class="step" data-build="2"
+       data-note="Now mung bean nuclease. It cleaves single-stranded DNA and nothing else, so the only thing on this molecule it can touch is the four unpaired bases at each end. It removes them, and both ends come out blunt."
+       data-desc="On the second click, mung bean nuclease has trimmed the single-stranded overhangs off both fragments, leaving blunt ends that line up base for base."><span class="arrow">&darr;</span> Mung Bean Nuclease &mdash; single-stranded DNA only</div>
+  <pre class="dna" data-build="2">5&rsquo;-cttcg<span class="site">G</span>                  <span class="site">C</span>gctggcaga&hellip;-3&rsquo;
 3&rsquo;-gaagc<span class="site">C</span>        +         <span class="site">G</span>cgaccgtct&hellip;-5&rsquo;</pre>
-  <template class="notes">A very traditional use of a single-strand-specific nuclease. We already have the BamHI products from earlier, with their 5’ four-base extensions. What happens if we treat them with mung bean nuclease?</template>
-  <template class="desc">BamHI products with four-base 5-prime overhangs. On one click, mung bean nuclease trims the single-stranded overhangs off, leaving blunt ends.</template>
+
+  <div class="step" data-build="3"
+       data-note="And here is the point of the whole exercise, which you only see once you ligate. Put those two blunt ends back together and look at what you have: the BamHI site is gone. G-G-A-T-C-C is not there any more, and you cannot cut this molecule with BamHI again. Four base pairs have been deleted, which also means that if this was inside a coding sequence you have just shifted the reading frame. That is what blunting a restriction site means, and it is why people do it deliberately — to kill a site you do not want, or to join two ends that could never have ligated to each other while they were sticky."
+       data-desc="On the third click the two blunt fragments have been ligated back together into one molecule. The junction now reads GC where GGATCC used to be: the BamHI site is destroyed and four base pairs are gone."><span class="arrow">&darr;</span> T4 DNA Ligase &mdash; any blunt end joins any other</div>
+  <pre class="dna" data-build="3">5&rsquo;-cttcg<span class="mut">GC</span>gctggcaga&hellip;-3&rsquo;
+3&rsquo;-gaagc<span class="mut">CG</span>cgaccgtct&hellip;-5&rsquo;</pre>
+  <p data-build="3" style="margin-top:18px"><strong>The BamHI site is gone</strong> &mdash; and four base pairs with it</p>
+
+  <template class="notes">A very traditional use of a single-strand-specific nuclease, and the reason to walk it all the way to the end. Mung bean nuclease cleaves single-stranded DNA exclusively, so given a sticky end it removes the overhang and leaves blunt. That is useful on its own &mdash; a blunt end will ligate to any other blunt end, so you can join two fragments that had incompatible sticky ends and could never have found each other. But look at what it costs, which is the part students miss until they have done it: religate the blunted ends and the recognition site has been destroyed. GGATCC is now GC. You cannot cut it again, and you are four base pairs short, so in a coding region the frame has shifted. Both of those are sometimes exactly what you want &mdash; killing an unwanted site is a real technique &mdash; but neither is optional, so decide before you do it.</template>
+  <template class="desc">A BamHI site inside a longer sequence, written as letters. Three clicks: BamHI cuts it to leave four-base 5-prime overhangs; mung bean nuclease trims those single-stranded overhangs off to leave blunt ends; and T4 ligase joins the blunt ends back together, leaving GC where GGATCC used to be. The BamHI site is destroyed and four base pairs are lost.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
