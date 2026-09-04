@@ -55,34 +55,40 @@ const roles = () => Array.from({length:NC}, () => ({bb:"hot", base:"bg"}));
 const mk = (r, e) => window.DNAModel.make({top:SEQ, range:r, roleTop:roles(), roleBot:roles(),
                        ends:Object.assign({t5:"oh", t3:"oh", b5:"oh", b3:"oh"}, e||{})});
 
-/* a phosphate drawn flat: the bridges run left and right, so the two
-   non-bridging oxygens go above and below */
-function phos(x, y, c, term, d){
-  d = d || 1;
-  let g = bond([x-4,y-24],[x-4,y-52], 2.6, c) + bond([x+4,y-24],[x+4,y-52], 2.6, c) +
-          lab([x, y-72], "O", c) +
-          bond([x,y+24],[x,y+52], 2.6, c) + lab([x, y+72], "O&#8315;", c);
-  if (term) g += bond([x+d*24,y],[x+d*52,y], 2.6, c) + lab([x+d*80, y], "O&#8315;", c);
-  return g + lab([x,y], "P", c, 25);
-}
+/* Phosphates drawn to the SAME atom scale the DNA renderer uses -- its
+   bond length is R*0.8 and its labels are Atoms.LBL, both of which follow
+   the scale draw() sets. Hand-picked sizes here came out at roughly twice
+   the size of the DNA's own atoms, which made the triphosphate read as a
+   different drawing pasted on top of the duplex. */
+const geo = () => { const R = window.Atoms.R, SZ = window.Atoms.LBL;
+                    return {R, SZ, L:R*0.80, ST:R*2.4}; };
+
 function lab(p, t, c, sz){
-  const z = sz || 21;
-  return '<circle cx="'+n2(p[0])+'" cy="'+n2(p[1])+'" r="'+n2(z*0.66)+'" fill="#fff"/>' +
+  const z = sz || window.Atoms.LBL;
+  return '<circle cx="'+n2(p[0])+'" cy="'+n2(p[1])+'" r="'+n2(z*0.62)+'" fill="#fff"/>' +
          '<text x="'+n2(p[0])+'" y="'+n2(p[1]+z*0.34)+'" text-anchor="middle" font-size="'+n2(z)+
          '" font-weight="600" fill="'+c+'">'+t+'</text>';
 }
-/* alpha is the odd one out: it bridges LEFT to beta and DOWN to the
-   nucleotide's own 5' oxygen, so its spare oxygens go up and right */
-function phosA(x, y, c, down){
-  return bond([x-4,y-24],[x-4,y-52], 2.6, c) + bond([x+4,y-24],[x+4,y-52], 2.6, c) +
-         lab([x, y-72], "O", c) +
-         bond([x+24,y],[x+52,y], 2.6, c) + lab([x+80, y], "O&#8315;", c) +
-         bond([x, y+24], [x, down-18], 2.6, c) +
-         lab([x,y], "P", c, 25);
+/* flat in the chain: bridges left and right, spare oxygens above and below */
+function phos(x, y, c, term, d){
+  const {SZ, L} = geo();
+  let g = bond([x-4,y],[x-4,y-L], 2.4, c) + bond([x+4,y],[x+4,y-L], 2.4, c) +
+          lab([x, y-(L+SZ*0.95)], "O", c) +
+          bond([x,y],[x,y+L], 2.4, c) + lab([x, y+(L+SZ*1.05)], "O&#8315;", c);
+  if (term) g += bond([x,y],[x+d*L,y], 2.4, c) + lab([x+d*(L+SZ*1.15), y], "O&#8315;", c);
+  return g + lab([x,y], "P", c);
 }
-
+/* alpha bridges LEFT to beta and DOWN to the nucleotide's own 5' oxygen,
+   so its spare oxygens take the two directions that are left */
+function phosA(x, y, c){
+  const {SZ, L} = geo();
+  return bond([x-4,y],[x-4,y-L], 2.4, c) + bond([x+4,y],[x+4,y-L], 2.4, c) +
+         lab([x, y-(L+SZ*0.95)], "O", c) +
+         bond([x,y],[x+L,y], 2.4, c) + lab([x+L+SZ*1.15, y], "O&#8315;", c) +
+         lab([x,y], "P", c);
+}
 const GREEK = (x, y, t) => '<text x="'+n2(x)+'" y="'+n2(y)+'" text-anchor="middle" ' +
-  'font-size="26" font-style="italic" fill="'+MUTED+'">'+t+'</text>';
+  'font-size="'+n2(window.Atoms.LBL*1.55)+'" font-style="italic" fill="'+MUTED+'">'+t+'</text>';
 
 /* bonded = the phosphodiester has formed, so the dNTP is simply the fifth
    residue of the top strand and what is left over is pyrophosphate */
@@ -94,30 +100,32 @@ function level1(bonded){
   if (!bonded){
     /* the free dNTP, sitting over the base that decides which one it is */
     g += M.draw(mk({top:[PRIMER, PRIMER+1], bot:[NC,NC]}, {t5:"o"}), X0);
-    const o5 = M.anchors.term.top5;
+    const o5 = M.anchors.term.top5, {SZ, L, ST, R} = geo();
     /* The triphosphate runs flat, above the primer, rather than straight up
-       out of the slide: alpha has to sit clear of the 3' hydroxyl it is
-       about to be attacked by, and there is nothing else in that band. */
-    const AX = o5[0] - 4, AY = o5[1] - 132, ST = 148;
-    g += phosA(AX, AY, RED, o5[1]);
-    g += bond([AX-24,AY],[AX-ST+24,AY], 2.6, RED) + lab([AX-ST/2, AY], "O", RED);
-    g += phos(AX-ST, AY, RED);
-    g += bond([AX-ST-24,AY],[AX-2*ST+24,AY], 2.6, RED) + lab([AX-1.5*ST, AY], "O", RED);
-    g += phos(AX-2*ST, AY, RED, true, -1);
-    g += GREEK(AX, AY-108, "&#945;") + GREEK(AX-ST, AY-108, "&#946;") +
-         GREEK(AX-2*ST, AY-108, "&#947;");
-    /* the attack */
-    g += '<path fill="none" stroke="'+RED+'" stroke-width="3.4" marker-end="url(#lvArrow)" d="M' +
-         n2(oh3[0]+14)+' '+n2(oh3[1]-22)+'Q'+n2(oh3[0]+96)+' '+n2(AY+74)+' '+
-         n2(AX-14)+' '+n2(AY+40)+'"/>';
+       out of the slide: alpha has to sit clear of the 3' hydroxyl that is
+       about to attack it, and there is nothing else in that band. */
+    const AX = o5[0], AY = o5[1] - R*3.2;
+    /* bonds first, so the atom labels mask their ends */
+    g += bond([AX,AY],[AX-2*ST,AY], 2.4, RED) + bond([AX,AY],[AX,o5[1]], 2.4, RED);
+    g += lab([AX-ST/2, AY], "O", RED) + lab([AX-1.5*ST, AY], "O", RED);
+    g += phosA(AX, AY, RED) + phos(AX-ST, AY, RED) + phos(AX-2*ST, AY, RED, true, -1);
+    const gy = AY - (L + SZ*0.95) - SZ*1.5;
+    g += GREEK(AX, gy, "&#945;") + GREEK(AX-ST, gy, "&#946;") + GREEK(AX-2*ST, gy, "&#947;");
+    /* The attack. It has to arrive at alpha pointing AT it, from below and
+       left, which fixes which side the control point goes: putting it near
+       the start, or out beyond either end, bends the head away from the
+       phosphorus and the arrow reads as a hook instead of a curl. */
+    g += '<path fill="none" stroke="'+RED+'" stroke-width="3" marker-end="url(#lvArrow)" d="M' +
+         n2(oh3[0]+12)+' '+n2(oh3[1]-18)+'Q'+n2(AX-L)+' '+n2(AY+L*3.1)+' '+
+         n2(AX-L*0.25)+' '+n2(AY+L)+'"/>';
   } else {
     /* beta and gamma, leaving together */
-    const AX = M.anchors.phos.top[PRIMER-1][0] - 150, AY = 118, ST = 148;
-    g += '<g opacity="0.6">' + phos(AX, AY, RED, true, 1) +
-         bond([AX-24,AY],[AX-ST+24,AY], 2.6, RED) + lab([AX-ST/2, AY], "O", RED) +
-         phos(AX-ST, AY, RED, true, -1) + '</g>';
-    g += '<text x="'+n2(AX-2*ST-38)+'" y="'+n2(AY+8)+'" text-anchor="end" font-size="26" ' +
-           'font-weight="700" fill="'+MUTED+'">pyrophosphate</text>';
+    const {SZ, L, ST, R} = geo();
+    const AX = M.anchors.phos.top[PRIMER-1][0] - ST/2, AY = 251 - R*3.2;
+    g += bond([AX,AY],[AX-ST,AY], 2.4, RED) + lab([AX-ST/2, AY], "O", RED);
+    g += phos(AX, AY, RED, true, 1) + phos(AX-ST, AY, RED, true, -1);
+    g += '<text x="'+n2(AX-ST-(L+SZ*1.15)-26)+'" y="'+n2(AY+SZ*0.34)+'" text-anchor="end" ' +
+           'font-size="26" font-weight="700" fill="'+MUTED+'">pyrophosphate</text>';
   }
   return g;
 }
@@ -181,24 +189,34 @@ window.Deck.sequence("levels", function(slide){
 
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const KEYS = ["l1","l2","l3"];
-  let cur = null, raf = null, drawn = null;
+  let cur = null, raf = null, drawn = null, fitTr = null;
 
   /* The all-atom panel is drawn, not tweened -- like every other operator
      in the deck. Only its opacity crossfades against levels 2 and 3.
-     It is scaled to the space left between the caption and the subtitle
-     once, from its own bounding box, so the panel is never clipped and
-     never has to be re-measured by hand when the sequence changes. */
+
+     ONE transform serves both frames, measured from the union of their two
+     bounding boxes. Fitting each frame to its own box made the duplex jump
+     between them, because the incoming dNTP and the departing pyrophosphate
+     sit in different places -- and the jump is exactly what you are trying
+     to watch, so it has to be the base that moves and nothing else. */
   function drawL1(bonded){
-    if (drawn === bonded) return;
-    drawn = bonded;
-    r.L1.removeAttribute("transform");
-    r.L1.innerHTML = level1(bonded);
-    const b = r.L1.getBBox();
-    if (!b.width || !b.height){ drawn = null; return; }   /* slide not shown yet */
-    const k = Math.min((FIT.x1-FIT.x0)/b.width, (FIT.y1-FIT.y0)/b.height, 1);
-    r.L1.setAttribute("transform",
-      "translate(" + n2((FIT.x0+FIT.x1)/2 - k*(b.x+b.width/2)) + " " +
-                     n2((FIT.y0+FIT.y1)/2 - k*(b.y+b.height/2)) + ") scale(" + n2(k) + ")");
+    if (!fitTr){
+      const box = [false, true].map(function(b){
+        r.L1.removeAttribute("transform");
+        r.L1.innerHTML = level1(b);
+        return r.L1.getBBox();
+      });
+      if (!box[0].width || !box[1].width) return;        /* slide not shown yet */
+      const x0 = Math.min(box[0].x, box[1].x), y0 = Math.min(box[0].y, box[1].y);
+      const x1 = Math.max(box[0].x+box[0].width,  box[1].x+box[1].width);
+      const y1 = Math.max(box[0].y+box[0].height, box[1].y+box[1].height);
+      const k = Math.min((FIT.x1-FIT.x0)/(x1-x0), (FIT.y1-FIT.y0)/(y1-y0), 1);
+      fitTr = "translate(" + n2((FIT.x0+FIT.x1)/2 - k*(x0+x1)/2) + " " +
+                             n2((FIT.y0+FIT.y1)/2 - k*(y0+y1)/2) + ") scale(" + n2(k) + ")";
+      drawn = true;
+    }
+    if (drawn !== bonded){ r.L1.innerHTML = level1(bonded); drawn = bonded; }
+    r.L1.setAttribute("transform", fitTr);
   }
 
   function paint(s){
