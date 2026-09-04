@@ -113,6 +113,9 @@
   <template class="desc">Four practical notes on type II enzymes: every one comes from a restriction/modification system and so has a partner methyltransferase, which means dam and dcm methylation from the host strain can silently block a digest; star activity arises from excess enzyme, glycerol above about five per cent, the wrong low-salt buffer or an over-long digest; enzymes differ in the buffer they prefer, though many work in PCR buffer; and all of them leave a clean 3-prime hydroxyl and 5-prime phosphate.</template>
 </article>
 
+<article class="slide" data-seq="op-dnase">
+</article>
+
 <article class="slide">
   <h1>DNAse I</h1>
   <ul class="tight">
@@ -121,11 +124,11 @@
     <li>Magnesium in the buffer prefers single-strand cuts</li>
     <li>Manganese in the buffer prefers double-strand blunt cuts</li>
   </ul>
-  <p data-build="1" data-note="DNAse I turns up in three places you are likely to meet. Removing carry-over DNA from an RNA prep, which works because it is very specific for DNA over RNA. Chopping a large DNA down to oligonucleotide-length fragments, which is the fragmentation step in DNA shuffling. And a couple of older tricks worth knowing the names of: nick translation for labelling, and footprinting to find where a protein sits on a DNA." data-desc="A second list appears beneath the properties: the uses of DNAse I, namely removing DNA from an RNA sample, chopping large DNAs into oligonucleotide-length fragments for DNA shuffling, and nick translation and footprinting."><strong>Uses:</strong></p>
+  <p data-build="1" data-note="DNAse I turns up in three places you are likely to meet. Removing carry-over DNA from an RNA prep, which works because it is very specific for DNA over RNA. Chopping a large DNA down to oligonucleotide-length fragments, which is the fragmentation step in DNA shuffling. And footprinting, to find where a protein sits on a DNA." data-desc="A second list appears beneath the properties: the uses of DNAse I, namely removing DNA from an RNA sample, chopping large DNAs into oligonucleotide-length fragments for DNA shuffling, and footprinting."><strong>Uses:</strong></p>
   <ul class="tight" data-build="1">
     <li>Removing DNA from an RNA sample</li>
     <li>Chopping large DNAs into oligonucleotide-length fragments, such as for DNA shuffling</li>
-    <li>Others like nick translation and footprinting</li>
+    <li>Footprinting &mdash; finding where a protein sits on a DNA</li>
   </ul>
   <template class="notes">There are other types of endonucleases outside the scope of the restriction endonucleases because they have very little sequence specificity. DNAse I is a non-specific endonuclease. It is a very potent enzyme and most protocols employing this enzyme use very little of it. Like the restriction enzymes, the products are 5’ phosphates and 3’ hydroxyls, so the products of DNAse digestion are competent for other molecular biology reactions. In most protocols, magnesium must be supplied for activity and this will primarily nick the DNA rather than form double-stranded breaks. However, using manganese instead will alter its specificity towards double-stranded breaks. DNAse I can be used to remove DNA from an RNA sample — it is very specific for DNA over RNA. It can also be used to partially degrade large DNAs into oligo-length fragments, used in various procedures including DNA shuffling. There are a variety of other tricks, two of the more useful being nick translation and DNA footprinting.</template>
   <template class="desc">Four properties of DNAse I: it is a non-specific and very potent endonuclease; its products carry 5-prime phosphates and 3-prime hydroxyls and so are competent for ligation; magnesium in the buffer favours single-strand cuts and manganese favours double-strand blunt cuts. Nothing else is on the slide yet.</template>
@@ -151,6 +154,7 @@
 <script src="seq/atoms.js" defer></script>
 <script src="seq/dna-model.js" defer></script>
 <script src="seq/operator.js" defer></script>
+<script src="seq/op-dnase.js" defer></script>
 <script src="seq/op-endonuclease.js" defer></script>
 <script src="seq/endonuclease.js" defer></script>
 </body>
