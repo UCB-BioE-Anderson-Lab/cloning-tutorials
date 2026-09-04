@@ -39,6 +39,11 @@ function make(o){
   return { n, top, bot,
     ends:Object.assign({t5:"oh",t3:"oh",b5:"oh",b3:"oh"}, o.ends||{}),
     mods:o.mods||[], cuts:o.cuts||[], endHot:!!o.endHot,
+    /* Which columns of the shared frame each strand actually occupies. Two
+       pieces of a staggered cut keep the SAME frame and the same column
+       maths; they differ only in their ranges and in where they are drawn.
+       That is what lets an overhang be drawn at all. */
+    range:{ top:(o.range&&o.range.top)||[0,n], bot:(o.range&&o.range.bot)||[0,n] },
     role:{ top:o.roleTop||blank(), bot:o.roleBot||blank() } };
 }
 /* bg   grey   a real base, but arbitrary — identity is not what matters
@@ -186,7 +191,8 @@ function draw(m, x0){
     for(let i=0;i<m.n;i++){ const cx=x0+i*PITCH; verts.push(ring5(cx,y,sr,up)); ctrs.push([cx,y]); }
     AN.sugar[which]=ctrs;
 
-    for(let i=0;i<m.n;i++){
+    const LO=m.range[which][0], HI=m.range[which][1];
+    for(let i=LO;i<HI;i++){
       const cb=col((m.role[which][i]||{}).bb), v=verts[i], b=put[which][i];
       g+='<path d="M'+v.map(p=>n2(p[0])+" "+n2(p[1])).join("L")+'Z" fill="#f4f4f4" stroke="'+cb+
          '" stroke-width="2.4" stroke-linejoin="round"/>';
@@ -196,7 +202,7 @@ function draw(m, x0){
     }
 
     const rightIs3 = up;
-    for(let i=0;i<m.n-1;i++){
+    for(let i=LO;i<HI-1;i++){
       const px=x0+i*PITCH+PITCH/2, P=[px,py];
       const hot=m.cuts.some(c=>c.strand===which && c.after===i);
       const cL=hot?HOT:col((m.role[which][i]||{}).bb), cR=hot?HOT:col((m.role[which][i+1]||{}).bb);
@@ -207,8 +213,9 @@ function draw(m, x0){
     }
 
     const e5=up?m.ends.t5:m.ends.b5, e3=up?m.ends.t3:m.ends.b3;
-    [[0,3,up?e5:e3,up?"5&#8242;":"3&#8242;",-1],
-     [m.n-1,2,up?e3:e5,up?"3&#8242;":"5&#8242;",1]].forEach(function(q){
+    if(HI<=LO) return;
+    [[LO,3,up?e5:e3,up?"5&#8242;":"3&#8242;",-1],
+     [HI-1,2,up?e3:e5,up?"3&#8242;":"5&#8242;",1]].forEach(function(q){
       const i=q[0], v=verts[i][q[1]], ctr=ctrs[i], end=q[2], d=q[4];
       const isC5 = (q[1]===3) ? rightIs3 : !rightIs3;
       /* a terminus belongs to the backbone, so it takes the backbone's colour
@@ -257,6 +264,8 @@ function draw(m, x0){
   for(let i=0;i<m.n;i++){
     const tb=put.top[i], bb=put.bot[i];
     if(!tb||!bb) continue;
+    if(i<m.range.top[0]||i>=m.range.top[1]) continue;   /* no partner, no bond */
+    if(i<m.range.bot[0]||i>=m.range.bot[1]) continue;
     const faded = m.role.top[i].base==="bg"||m.role.bot[i].base==="bg";
     const n=Math.min(tb.hb.length, bb.hb.length);
     for(let k=0;k<n;k++){
@@ -268,6 +277,7 @@ function draw(m, x0){
 
   m.mods.forEach(function(mo){
     if(mo.type!=="methyl") return;
+    if(mo.i<m.range[mo.strand][0]||mo.i>=m.range[mo.strand][1]) return;
     const b=put[mo.strand][mo.i]; if(!b||!b.mSites) return;
     const site=b.mSites.filter(x=>x.k===mo.site)[0]; if(!site) return;
     /* 6mA red; the two cytosine marks blue. Position tells 5mC from 4mC. */
