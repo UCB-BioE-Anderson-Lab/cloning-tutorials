@@ -134,6 +134,61 @@ function getValidIdToken() {
   return null;
 }
 
+// Remove any sign-in overlay this module put up.
+function removeSignInFallback_() {
+  const el = document.getElementById('gis_fallback_overlay');
+  if (el && el.parentNode) el.parentNode.removeChild(el);
+}
+
+// Render a real "Sign in with Google" button.
+//
+// google.accounts.id.prompt() (One Tap) is not dependable: it reports
+// isSkippedMoment/isNotDisplayed and then never calls the callback, so a
+// promise waiting only on that callback hangs forever and the Submit button
+// appears dead with no error. One Tap is skipped for ordinary reasons --
+// earlier dismissals, blocked third-party cookies, several signed-in accounts
+// -- so this is the normal path for a fair number of students, not an edge
+// case. renderButton does not have that failure mode, so fall back to it.
+function showSignInFallback_(onDone) {
+  removeSignInFallback_();
+  const overlay = document.createElement('div');
+  overlay.id = 'gis_fallback_overlay';
+  overlay.style.cssText =
+    'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.45);' +
+    'display:flex;align-items:center;justify-content:center;';
+  const card = document.createElement('div');
+  card.style.cssText =
+    'background:#fff;color:#111;border-radius:12px;padding:24px 28px;max-width:380px;' +
+    'font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;text-align:center;' +
+    'box-shadow:0 10px 40px rgba(0,0,0,.3);';
+  const h = document.createElement('p');
+  h.style.cssText = 'margin:0 0 4px;font-weight:600;font-size:16px;';
+  h.textContent = 'Sign in to submit';
+  const sub = document.createElement('p');
+  sub.style.cssText = 'margin:0 0 16px;font-size:13px;color:#555;line-height:1.4;';
+  sub.textContent = 'Use your @berkeley.edu Google account. Your report is not sent until you sign in.';
+  const slot = document.createElement('div');
+  slot.style.cssText = 'display:flex;justify-content:center;';
+  const cancel = document.createElement('button');
+  cancel.type = 'button';
+  cancel.textContent = 'Cancel';
+  cancel.style.cssText =
+    'margin-top:16px;border:1px solid #ced4da;background:#fff;border-radius:8px;' +
+    'padding:8px 14px;cursor:pointer;font-size:13px;';
+  cancel.addEventListener('click', () => { removeSignInFallback_(); onDone(null); });
+  card.appendChild(h); card.appendChild(sub); card.appendChild(slot); card.appendChild(cancel);
+  overlay.appendChild(card);
+  document.body.appendChild(overlay);
+  try {
+    window.google.accounts.id.renderButton(slot, {
+      theme: 'filled_blue', size: 'large', text: 'signin_with', shape: 'pill'
+    });
+  } catch (e) {
+    console.error('renderButton failed', e);
+    sub.textContent = 'Google Sign-In could not be loaded. Reload the page and try again.';
+  }
+}
+
 async function acquireIdTokenInteractive() {
   await loadGIS();
   return new Promise((resolve) => {
@@ -143,6 +198,16 @@ async function acquireIdTokenInteractive() {
       alert("Google Sign-In is not configured. Site owner must set the OAuth Web Client ID.");
       return resolve(null);
     }
+
+    // Settle exactly once, whichever path gets there first.
+    let settled = false;
+    const finish = (token) => {
+      if (settled) return;
+      settled = true;
+      removeSignInFallback_();
+      resolve(token);
+    };
+
     window.google.accounts.id.initialize({
       client_id: GOOGLE_CLIENT_ID,
       callback: (response) => {
@@ -151,12 +216,29 @@ async function acquireIdTokenInteractive() {
         } else {
           setIdToken_(null);
         }
-        resolve(_currentIdToken);
+        finish(_currentIdToken);
       },
       ux_mode: "popup"
     });
-    // Show One Tap / account chooser; popup when needed
-    window.google.accounts.id.prompt();
+
+    // Try One Tap, but watch the moment notification: when it is skipped or
+    // never displayed no callback is coming, so put up the button instead.
+    try {
+      window.google.accounts.id.prompt((notification) => {
+        if (settled) return;
+        const skipped = typeof notification.isSkippedMoment === 'function' && notification.isSkippedMoment();
+        const notShown = typeof notification.isNotDisplayed === 'function' && notification.isNotDisplayed();
+        const dismissed = typeof notification.isDismissedMoment === 'function' && notification.isDismissedMoment();
+        if (skipped || notShown || dismissed) showSignInFallback_(finish);
+      });
+    } catch (e) {
+      console.warn('One Tap prompt threw; falling back to button', e);
+      showSignInFallback_(finish);
+    }
+
+    // Belt and braces: if neither the credential nor a moment notification has
+    // arrived, show the button anyway rather than waiting on nothing.
+    setTimeout(() => { if (!settled) showSignInFallback_(finish); }, 4000);
   });
 }
 
