@@ -97,43 +97,48 @@ function arm(v,ctr,target,c,withC5,R){
    the amide that joins it to the linker. This is how a biotinylated oligo is
    actually built: biotin does not touch the DNA, it hangs off the 5'
    phosphate through a linker. */
-function biotinCore(cx,cy,c,R){
-  const r=R*0.62, h=r*Math.cos(36*Math.PI/180);
-  const P=(ox,angs)=>angs.map(a=>[ox+r*Math.cos(a*Math.PI/180), cy-r*Math.sin(a*Math.PI/180)]);
+function biotinCore(cx,cy,ang,c,R){
+  const r=R*0.62, h=r*Math.cos(36*Math.PI/180), t=ang*Math.PI/180;
+  const rt=p=>{const dx=p[0]-cx, dy=p[1]-cy;
+               return [cx+dx*Math.cos(t)-dy*Math.sin(t), cy+dx*Math.sin(t)+dy*Math.cos(t)];};
+  const P=(ox,angs)=>angs.map(a=>rt([ox+r*Math.cos(a*Math.PI/180), cy-r*Math.sin(a*Math.PI/180)]));
   /* ureido: C6a N1 C2 N3 C3a   |   thiophene: C6a C6 S5 C4 C3a */
   const [C6a,N1,C2,N3,C3a] = P(cx-h,[36,108,180,252,324]);
   const [ ,C6,S5,C4 ]       = P(cx+h,[144,72,0,288]);
+  const ctrA=rt([cx-h,cy]);
   let g="";
   [[C6a,N1],[N1,C2],[C2,N3],[N3,C3a],[C3a,C6a],
    [C6a,C6],[C6,S5],[S5,C4],[C4,C3a]].forEach(e=>g+=bond(e[0],e[1],c));
-  /* the 2-oxo, pointing out of the ureido ring */
-  const o=out(C2,[cx-h,cy],R*0.62);
-  g+=bond(C2,o,c);
-  const dx=o[0]-C2[0], dy=o[1]-C2[1], L=Math.hypot(dx,dy), nx=-dy/L*4, ny=dx/L*4;
-  g+=bond([C2[0]+nx,C2[1]+ny],[o[0]+nx,o[1]+ny],c);
+  const o=out(C2,ctrA,R*0.62);
+  const dx=o[0]-C2[0], dy=o[1]-C2[1], L=Math.hypot(dx,dy)||1, nx=-dy/L*4, ny=dx/L*4;
+  g+=bond(C2,o,c)+bond([C2[0]+nx,C2[1]+ny],[o[0]+nx,o[1]+ny],c);
   g+=atomLab(o,"O",c)+atomLab(N1,"NH",c)+atomLab(N3,"NH",c)+atomLab(S5,"S",c);
   return {g, C4};
 }
 function biotinGroup(from,d,v,c,R){
-  const core=[from[0]+d*R*3.3, from[1]+v*R*2.7];
-  const B=biotinCore(core[0],core[1],c,R);
-  /* valeryl chain and its amide, zig-zagged back to the linker oxygen */
-  const a=B.C4, b=from, n=7;
+  const core=[from[0]+d*R*4.4, from[1]+v*R*3.5];
+  /* turn the bicycle so C4 faces the chain. Left unrotated, C4 points away
+     and the valeryl chain has to cut back through the rings to reach it. */
+  const probe=biotinCore(0,0,0,c,R);
+  const base=Math.atan2(probe.C4[1],probe.C4[0])*180/Math.PI;
+  const want=Math.atan2(from[1]-core[1],from[0]-core[0])*180/Math.PI;
+  const B=biotinCore(core[0],core[1],want-base,c,R);
+  /* C4 -> four CH2 -> C(=O) -> NH -> two CH2 -> the linker oxygen. Biotin's
+     tail is a valeryl chain, and the amide must sit well back from that
+     oxygen: a nitrogen bonded straight to it would be a hydroxylamine. */
+  const a=B.C4, b=from, n=9;
   const dx=b[0]-a[0], dy=b[1]-a[1], L=Math.hypot(dx,dy)||1;
-  const nx=-dy/L, ny=dx/L, amp=R*0.27;
+  const nx=-dy/L, ny=dx/L, amp=R*0.24;
   const pts=[a];
   for(let k=1;k<n;k++){ const f=k/n, o=(k%2?1:-1)*amp;
                         pts.push([a[0]+dx*f+nx*o, a[1]+dy*f+ny*o]); }
   pts.push(b);
   let g="";
   for(let k=0;k<pts.length-1;k++) g+=bond(pts[k],pts[k+1],c);
-  /* the amide: carbonyl then N-H. These sit one atom back from the linker
-     oxygen — putting the N on that oxygen's own point drew NH over the O and
-     ran the whole amide into the phosphate. */
-  const cc=pts[n-2], nn=pts[n-1];
+  const cc=pts[5], nn=pts[6];
   /* throw the carbonyl oxygen to the side the zig-zag already leans, so it
      moves away from the amide N rather than stacking on top of it */
-  const sgn=((n-2)%2)?1:-1;
+  const sgn=(5%2)?1:-1;
   const co=[cc[0]+nx*sgn*R*0.70, cc[1]+ny*sgn*R*0.70];
   g+=bond(cc,co,c)+bond([cc[0]+ny*4,cc[1]-nx*4],[co[0]+ny*4,co[1]-nx*4],c)+atomLab(co,"O",c);
   g+=atomLab(nn,"NH",c);

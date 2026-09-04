@@ -154,13 +154,13 @@ window.Deck.sequence("substrate", function(slide){
       show(st.model());
     } else if(st.cycleModel){
       /* keep turning over the free positions for as long as the slide is up */
-      const roll=function(){ show(st.model()); timer=setTimeout(roll,1200); };
+      const roll=function(){ show(st.model()); timer=setTimeout(roll,600); };
       roll();
     } else if(st.frames){
       /* walk the combinations in order, so every one is actually seen */
       let k=0;
       const roll=function(){ show(st.frames[k % st.frames.length]());
-                             k++; timer=setTimeout(roll,1250); };
+                             k++; timer=setTimeout(roll,625); };
       roll();
     } else {
       show(st.model());
