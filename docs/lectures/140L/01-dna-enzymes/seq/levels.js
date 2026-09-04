@@ -42,8 +42,8 @@ function bond(a, b, w, col){
    simply part of the top strand, and the alpha phosphate is the ordinary
    internal phosphate the renderer draws between two sugars. Nothing is
    faked to make the product look joined. */
-const NC = 6, PRIMER = 4;               /* six pairs; the primer covers four */
-const SEQ = "GATCAG";
+const NC = 8, PRIMER = 6;               /* six pairs annealed, two recessed */
+const SEQ = "GATCAGTC";
 const X0  = (1600 - (NC-1)*188) / 2;
 /* Everything between the slide's bullet and the caption line belongs to
    the drawing. The level marker used to sit on its own line above the
@@ -52,7 +52,10 @@ const X0  = (1600 - (NC-1)*188) / 2;
 const FIT = {x0:110, y0:206, x1:1490, y1:788};
 
 const roles = () => Array.from({length:NC}, () => ({bb:"hot", base:"bg"}));
-const mk = (r, e) => window.DNAModel.make({top:SEQ, range:r, roleTop:roles(), roleBot:roles(),
+/* hb:"hot" because the pairing is part of the requirement, not scenery --
+   a polymerase will not extend a primer that is not annealed to anything */
+const mk = (r, e) => window.DNAModel.make({top:SEQ, range:r, hb:"hot",
+                       roleTop:roles(), roleBot:roles(),
                        ends:Object.assign({t5:"oh", t3:"oh", b5:"oh", b3:"oh"}, e||{})});
 
 /* Phosphates drawn to the SAME atom scale the DNA renderer uses -- its
@@ -98,8 +101,13 @@ function level1(bonded){
   const oh3 = M.anchors.term.top3;
 
   if (!bonded){
-    /* the free dNTP, sitting over the base that decides which one it is */
-    g += M.draw(mk({top:[PRIMER, PRIMER+1], bot:[NC,NC]}, {t5:"o"}), X0);
+    /* The free dNTP, already paired with the base that decides which one it
+       is -- that pairing is the whole of a polymerase's fidelity, so it is
+       drawn, in red like the rest of the requirement. The template residue
+       under it is redrawn to get those bonds and carries no terminus of its
+       own, since it is the middle of a strand. */
+    g += M.draw(mk({top:[PRIMER, PRIMER+1], bot:[PRIMER, PRIMER+1]},
+                   {t5:"o", b3:"none", b5:"none"}), X0);
     const o5 = M.anchors.term.top5, {SZ, L, ST, R} = geo();
     /* The triphosphate runs flat, above the primer, rather than straight up
        out of the slide: alpha has to sit clear of the 3' hydroxyl that is
@@ -229,8 +237,8 @@ window.Deck.sequence("levels", function(slide){
   const S = [
     { s:{l1:1,l2:0,l3:0}, l1state:false, cap:"1 · atoms",
       sub:"the primer's 3′ hydroxyl attacks the α phosphate of the incoming dNTP",
-      note:"Read the colours first, the way we have all lecture. Everything red is what the enzyme has to have; everything grey is what it does not care about. So the whole of both backbones is red and every single base is grey. That is the polymerase's address, and it is a shape rather than a sequence: two strands annealed, with the upper one recessed, so a free three prime hydroxyl sits opposite template that has not been copied yet. Give a polymerase that junction and it will extend it, whatever the letters are. Now the chemistry. Every base it adds is one phosphodiester bond, and this is it. The free three prime hydroxyl is the nucleophile, and it attacks the alpha phosphate of the incoming dNTP. Notice what that means: the growing end is a three prime hydroxyl, so synthesis can only ever run five prime to three prime. There is no chemistry here for going the other way.",
-      desc:"An all-atom drawing of a primed template: two annealed strands with both backbones in red, marking what the enzyme requires, and every base in grey, marking that it reads none of them. The upper strand is recessed, leaving two template bases uncopied and a free 3-prime hydroxyl at its end. Above sits the incoming dNTP with its three phosphates labelled alpha, beta and gamma, and a red curved arrow runs from the 3-prime hydroxyl up to the alpha phosphate." },
+      note:"Read the colours first, the way we have all lecture. Everything red is what the enzyme has to have; everything grey is what it does not care about. So the whole of both backbones is red, the hydrogen bonds holding the two strands together are red, and every single base is grey. That is the polymerase's address, and it is a shape rather than a sequence: two strands annealed, with the upper one recessed, so a free three prime hydroxyl sits opposite template that has not been copied yet. The pairing has to be there — a polymerase will not extend a primer that is annealed to nothing — but which pairs they are is free. Give a polymerase that junction and it will extend it, whatever the letters are. And notice the incoming nucleotide is already paired with the base opposite it. That pairing is the whole of the enzyme's fidelity: the template picks the nucleotide, the enzyme just makes the bond. Now the chemistry. Every base it adds is one phosphodiester bond, and this is it. The free three prime hydroxyl is the nucleophile, and it attacks the alpha phosphate of the incoming dNTP. Notice what that means: the growing end is a three prime hydroxyl, so synthesis can only ever run five prime to three prime. There is no chemistry here for going the other way.",
+      desc:"An all-atom drawing of a primed template. Six base pairs are annealed and the upper strand is then recessed by two, leaving two template bases uncopied and a free 3-prime hydroxyl at its end. Both backbones and every hydrogen bond are red, marking what the enzyme requires; every base is grey, marking that it reads none of them in particular. The incoming dNTP sits at the next position, already hydrogen bonded to the base opposite it, with its three phosphates labelled alpha, beta and gamma above, and a red curved arrow runs from the 3-prime hydroxyl up to the alpha phosphate." },
     { s:{l1:1,l2:0,l3:0}, l1state:true, cap:"1 · atoms",
       sub:"the bond forms; pyrophosphate leaves, and is hydrolysed",
       note:"The bond forms, and the beta and gamma phosphates leave together as pyrophosphate. Hydrolysing that pyrophosphate is what pulls the reaction forward and makes it effectively irreversible. That is the whole reason the substrate is a triphosphate and not a monophosphate — you are paying for the bond with the two phosphates you throw away. And look at what the molecule now is: the same junction as before, one base further along. The recessed end has moved one step and the enzyme's address is intact, which is why this runs as a cycle and not as a single event.",

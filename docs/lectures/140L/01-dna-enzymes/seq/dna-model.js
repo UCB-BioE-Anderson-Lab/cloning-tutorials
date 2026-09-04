@@ -39,6 +39,11 @@ function make(o){
   return { n, top, bot,
     ends:Object.assign({t5:"oh",t3:"oh",b5:"oh",b3:"oh"}, o.ends||{}),
     mods:o.mods||[], cuts:o.cuts||[], endHot:!!o.endHot,
+    /* Base pairing is usually scenery, so it is drawn faint. Where an
+       enzyme actually REQUIRES the two strands to be annealed -- a
+       polymerase will not extend a bare primer -- hb:"hot" puts the
+       pairing in the reactive colour along with the rest of the pattern. */
+    hb:o.hb||null,
     /* Which columns of the shared frame each strand actually occupies. Two
        pieces of a staggered cut keep the SAME frame and the same column
        maths; they differ only in their ranges and in where they are drawn.
@@ -221,6 +226,10 @@ function draw(m, x0){
       /* a terminus belongs to the backbone, so it takes the backbone's colour
          rather than a hardcoded ink that leaves the ends looking unrelated */
       const isFive = q[3].indexOf("5")>=0;
+      /* "none" is a residue drawn without any terminus at all -- for a piece
+         that is really the middle of a chain being redrawn on its own, where
+         a hydroxyl and a 3'/5' tick would be an outright lie. */
+      if(end==="none") return;
       /* on the ends slide the 5' group IS the subject, so it takes the
          reactive colour rather than the backbone's */
       const ce = (m.endHot && isFive) ? HOT : col((m.role[which][i]||{}).bb);
@@ -273,11 +282,12 @@ function draw(m, x0){
     if(i<m.range.top[0]||i>=m.range.top[1]) continue;   /* no partner, no bond */
     if(i<m.range.bot[0]||i>=m.range.bot[1]) continue;
     const faded = m.role.top[i].base==="bg"||m.role.bot[i].base==="bg";
+    const hc = m.hb==="hot" ? HOT : (faded?FAINT:MUT);
     const n=Math.min(tb.hb.length, bb.hb.length);
     for(let k=0;k<n;k++){
       const a=lerp(tb.hb[k], bb.hb[k], 0.16), b=lerp(tb.hb[k], bb.hb[k], 0.84);
       g+='<path d="M'+n2(a[0])+' '+n2(a[1])+'L'+n2(b[0])+' '+n2(b[1])+
-         '" fill="none" stroke="'+(faded?FAINT:MUT)+'" stroke-width="2" stroke-dasharray="4 5"/>';
+         '" fill="none" stroke="'+hc+'" stroke-width="2" stroke-dasharray="4 5"/>';
     }
   }
 
