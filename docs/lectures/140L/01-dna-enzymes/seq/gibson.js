@@ -78,15 +78,16 @@ window.Deck.sequence("gibson", function(slide){
   svg.setAttribute("aria-hidden", "true");
   svg.setAttribute("style", "position:absolute;inset:0;pointer-events:none");
 
-  /* The homology is the only thing on this slide that makes it work, so it is
-     the one thing in red, and it stays red from the first frame to the last.
-     Everything else - both fragments, their barbs, and the DNA the polymerase
-     adds - is blue: ordinary DNA, not the shared sequence. */
+  /* Red carries the two things you have to read to follow this: the shared
+     homology, and the 3' barbs that say which way each strand runs. Both hold
+     that colour from the first frame to the last. Blue is the DNA itself -
+     both fragments and the stretch the polymerase adds - which is present and
+     necessary but is not what the slide is asking you to look at. */
   const strandPaths =
     ["lt","lb","rt","rb"].map(k =>
       '<path data-r="'+k+'" stroke="var(--blue)"/>').join("") +
     ["ltb","lbb","rtb","rbb"].map(k =>
-      '<path data-r="'+k+'" stroke="var(--blue)"/>').join("") +
+      '<path data-r="'+k+'" stroke="var(--red)"/>').join("") +
     ["blt","blb","brt","brb"].map(k =>
       '<path data-r="'+k+'" stroke="var(--red)"/>').join("") +
     ["nwt","nwb"].map(k =>
