@@ -49,21 +49,15 @@
     <g fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round">
       <path d="M151 506H339M317.8 494.7L339 506M151 556H413M172.2 567.3L151 556M496 506H758M736.8 494.7L758 506M496 556H684M517.2 567.3L496 556M841 506H1029M1007.8 494.7L1029 506M841 556H1029M862.2 567.3L841 556M1186 506H1268M1246.8 494.7L1268 506M1280 506H1374M1352.8 494.7L1374 506M1186 556H1374M1207.2 567.3L1186 556"/>
     </g>
-    <g font-family="inherit" font-size="24" fill="var(--muted)" text-anchor="middle">
-      <text x="424" y="602">5&#8242;</text>
-      <text x="770" y="480">3&#8242;</text>
-      <text x="1298" y="480">5&#8242;</text>
-    </g>
     <g font-family="inherit" font-size="26" font-weight="700" fill="var(--ink)" text-anchor="middle">
       <text x="283" y="656">5&#8242; extension</text>
       <text x="628" y="656">3&#8242; extension</text>
       <text x="973" y="656">blunt</text>
       <text x="1318" y="656">nick</text>
     </g>
-    <text x="110" y="440" font-family="inherit" font-size="24" fill="var(--muted)">every 3&#8242; end carries a half barb &mdash; so an unbarbed tip is a 5&#8242; end</text>
   </svg>
   <template class="notes">Before the table, the framework. Every exonuclease in the catalogue is defined by four answers, and every column of the NEB table is one of them. Which way does it walk along the backbone. Whether it wants single-stranded or double-stranded DNA. Whether the end has to carry a five prime phosphate. And what kind of end it will initiate on. That last one is the vocabulary at the bottom: a five prime extension, a three prime extension, a blunt end, or a nick. Notice that a nick counts as an end for some of these enzymes, which is why a nicked plasmid is not as safe as an intact one. There is no recognition sequence anywhere in this list — the specificity of an exonuclease is an address, and the address is a kind of end.</template>
-  <template class="desc">A title reading Four questions define an exonuclease, with the four questions listed: direction of travel, single or double stranded substrate, whether a 5-prime phosphate is required, and what kind of end it initiates on. Below, four small line drawings of double-stranded DNA ends, labelled 5-prime extension, 3-prime extension, blunt, and nick. Each 3-prime end carries a half barb; the protruding tip of the 5-prime extension has no barb and is labelled 5-prime, while the protruding tip of the 3-prime extension is barbed and labelled 3-prime. In the fourth drawing the top strand is broken by a hairline, far narrower than the missing stretch that makes an extension: that break is the nick, and the 5-prime side of it is labelled.</template>
+  <template class="desc">A title reading Four questions define an exonuclease, with the four questions listed: direction of travel, single or double stranded substrate, whether a 5-prime phosphate is required, and what kind of end it initiates on. Below, four small line drawings of double-stranded DNA ends, labelled 5-prime extension, 3-prime extension, blunt, and nick.</template>
 </article>
 
 <article class="slide">
@@ -72,19 +66,6 @@
   <figure class="fig"><img src="img/neb-exonucleases.png" alt="New England Biolabs table of exonuclease properties: polarity, activity on single- and double-stranded DNA, and the products released"><figcaption>Adapted from the NEB properties-of-exonucleases table</figcaption></figure>
   <template class="notes">There is extensive diversity within the exonucleases about what types of ends they’ll initiate on and which direction they will go. This chart is from NEB, and you can look up these details if the need for an Exo ever crops up. Read it as the four questions in order: polarity is the direction; then single- or double-stranded substrate; then whether it still works without a five prime phosphate; then the four kinds of end it will initiate on. Two rows to keep an eye on. Lambda Exo is the one that is fussy about the five prime phosphate. Exonuclease I is single-strand only — a plus under ss and a minus under ds — and we will use that in a minute.</template>
   <template class="desc">A reference table of exonucleases from New England Biolabs, with columns for polarity, activity on single- and double-stranded DNA, and the products each releases.</template>
-</article>
-
-<article class="slide">
-  <div class="q">Are these arrows 5&rsquo; to 3&rsquo;?</div>
-  <figure class="fig"><img src="img/dna-backbone-bond.png" alt="Chemical structure of a DNA duplex with grey arrows running along each backbone"></figure>
-  <div class="step" data-build="1"
-       data-note="Nope. The grey arrows are indicating 3’ to 5’. Look at where the arrowheads actually sit — both of them land on a five prime end. That is why they read backwards at a glance, and it is worth slowing down on, because every barbed line in the rest of this lecture points the other way: our barb marks a three prime end."
-       data-desc="A line has appeared below the figure: No — both arrowheads sit at a 5-prime end, so the arrows run 3-prime to 5-prime."><span class="arrow">&rarr;</span> No &mdash; both arrowheads sit at a 5&rsquo; end, so they run 3&rsquo;&rarr;5&rsquo;</div>
-  <template class="notes">Look at the two grey arrows running down the backbones and decide which way they point. Do not answer it for them — give the room a moment first.</template>
-  <template class="desc">The DNA backbone structure again, with two grey arrows running along the strands. Which way those arrows run is the question; the answer is not yet on the slide.</template>
-</article>
-
-<article class="slide" data-seq="whichbond" data-bond="exo">
 </article>
 
 <article class="slide">
@@ -206,8 +187,6 @@
 <script src="seq/atoms.js" defer></script>
 <script src="seq/dna-model.js" defer></script>
 <script src="seq/op-exonuclease.js" defer></script>
-<script src="seq/chem.js" defer></script>
-<script src="seq/whichbond.js" defer></script>
 <script src="seq/gibson.js" defer></script>
 </body>
 </html>
