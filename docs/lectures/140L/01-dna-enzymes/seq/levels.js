@@ -51,11 +51,24 @@ const X0  = (1600 - (NC-1)*188) / 2;
    opens the caption instead. */
 const FIT = {x0:110, y0:206, x1:1490, y1:788};
 
-const roles = () => Array.from({length:NC}, () => ({bb:"hot", base:"bg"}));
-/* hb:"hot" because the pairing is part of the requirement, not scenery --
-   a polymerase will not extend a primer that is not annealed to anything */
-const mk = (r, e) => window.DNAModel.make({top:SEQ, range:r, hb:"hot",
-                       roleTop:roles(), roleBot:roles(),
+/* Red is the SUBSTRATE, not the footprint -- what has to be there for the
+   reaction to happen, not what the protein happens to touch. So the test
+   for any one residue is: swap it for something else, or delete it, and
+   does the enzyme still add this nucleotide? For the template base one
+   past the one being copied the answer is yes -- it could be biotin, or a
+   nick, or nothing -- so it is grey, and it turns red only once the window
+   has moved and it is the base being read.
+
+   p = index of the 3' terminus being extended. */
+const winT = p => [Math.max(0, p-BEHIND+1), p+1];
+const winB = p => [Math.max(0, p-BEHIND+1), Math.min(NC, p+1+AHEAD)];
+const roleArr = w => Array.from({length:NC},
+  (_, i) => ({bb: (i >= w[0] && i < w[1]) ? "hot" : "bg", base:"bg"}));
+/* hb:"hot" because being annealed is part of what makes it a substrate --
+   a polymerase will not extend a primer bound to nothing. The renderer
+   reds a pair only where BOTH its residues are required. */
+const mk = (r, e, p) => window.DNAModel.make({top:SEQ, range:r, hb:"hot",
+                       roleTop:roleArr(winT(p)), roleBot:roleArr(winB(p)),
                        ends:Object.assign({t5:"oh", t3:"oh", b5:"oh", b3:"oh"}, e||{})});
 
 /* Phosphates drawn to the SAME atom scale the DNA renderer uses -- its
@@ -97,7 +110,8 @@ const GREEK = (x, y, t) => '<text x="'+n2(x)+'" y="'+n2(y)+'" text-anchor="middl
    residue of the top strand and what is left over is pyrophosphate */
 function level1(bonded){
   const M = window.DNAModel;
-  let g = M.draw(mk({top:[0, PRIMER + (bonded?1:0)], bot:[0,NC]}), X0);
+  const p = PRIMER - 1 + (bonded ? 1 : 0);     /* the 3' end being extended */
+  let g = M.draw(mk({top:[0, p+1], bot:[0,NC]}, null, p), X0);
   const oh3 = M.anchors.term.top3;
 
   if (!bonded){
@@ -106,8 +120,10 @@ function level1(bonded){
        drawn, in red like the rest of the requirement. The template residue
        under it is redrawn to get those bonds and carries no terminus of its
        own, since it is the middle of a strand. */
+    /* the dNTP is a substrate too, so it is drawn against the window it is
+       about to join -- one position further on than the primer's */
     g += M.draw(mk({top:[PRIMER, PRIMER+1], bot:[PRIMER, PRIMER+1]},
-                   {t5:"o", b3:"none", b5:"none"}), X0);
+                   {t5:"o", b3:"none", b5:"none"}, p+1), X0);
     const o5 = M.anchors.term.top5, {SZ, L, ST, R} = geo();
     /* The triphosphate runs flat, above the primer, rather than straight up
        out of the slide: alpha has to sit clear of the 3' hydroxyl that is
@@ -143,14 +159,15 @@ function level1(bonded){
    long enough that the RUNNING is what you see. The red is the enzyme's
    grip, and it is the same red as level 1: what has to be there.
 
-   Two numbers set its width, and they are not the same kind of number.
-   BEHIND is a footprint -- polymerase structures show the enzyme holding
-   roughly this much primer-template duplex upstream of the active site.
-   AHEAD is a requirement, and it is 1: the templating base, the one being
-   copied. Everything downstream of that is contacted but not needed, which
-   is exactly why a fill-in reaction runs all the way to blunt -- when the
-   last overhanging base is copied there is nothing downstream left, and
-   there never had to be.
+   BEHIND and AHEAD are the two edges of the SUBSTRATE, not of a footprint:
+   the test is not what the protein touches but what has to be there for
+   the reaction to go. Behind the growing end, enough annealed duplex to
+   hold the primer down; ahead of it, exactly one base, the one being
+   copied. Nothing further along is part of the substrate -- replace the
+   base past the templating one with biotin and the enzyme still adds this
+   nucleotide -- which is also why a fill-in reaction runs all the way to
+   blunt: when the last overhanging base has been copied there is nothing
+   downstream left, and there never needed to be.
 
    Level 3 sits directly UNDER level 2 and runs off the same position, so
    the abstraction is not asserted, it is demonstrated: the red segment on
@@ -285,15 +302,15 @@ window.Deck.sequence("levels", function(slide){
   const S = [
     { s:{l1:1,l2:0,l3:0}, l1state:false, cap:"1 · atoms",
       sub:"the primer's 3′ hydroxyl attacks the α phosphate of the incoming dNTP",
-      note:"Read the colours first, the way we have all lecture. Everything red is what the enzyme has to have; everything grey is what it does not care about. So the whole of both backbones is red, the hydrogen bonds holding the two strands together are red, and every single base is grey. That is the polymerase's address, and it is a shape rather than a sequence: two strands annealed, with the upper one recessed, so a free three prime hydroxyl sits opposite template that has not been copied yet. The pairing has to be there — a polymerase will not extend a primer that is annealed to nothing — but which pairs they are is free. Give a polymerase that junction and it will extend it, whatever the letters are. And notice the incoming nucleotide is already paired with the base opposite it. That pairing is the whole of the enzyme's fidelity: the template picks the nucleotide, the enzyme just makes the bond. Now the chemistry. Every base it adds is one phosphodiester bond, and this is it. The free three prime hydroxyl is the nucleophile, and it attacks the alpha phosphate of the incoming dNTP. Notice what that means: the growing end is a three prime hydroxyl, so synthesis can only ever run five prime to three prime. There is no chemistry here for going the other way.",
-      desc:"An all-atom drawing of a primed template. Six base pairs are annealed and the upper strand is then recessed by two, leaving two template bases uncopied and a free 3-prime hydroxyl at its end. Both backbones and every hydrogen bond are red, marking what the enzyme requires; every base is grey, marking that it reads none of them in particular. The incoming dNTP sits at the next position, already hydrogen bonded to the base opposite it, with its three phosphates labelled alpha, beta and gamma above, and a red curved arrow runs from the 3-prime hydroxyl up to the alpha phosphate." },
+      note:"Read the colours first, the way we have all lecture. Everything red is what the enzyme has to have; everything grey is what it does not care about. So the whole of both backbones is red, the hydrogen bonds holding the two strands together are red, and every single base is grey. That is the polymerase's address, and it is a shape rather than a sequence: two strands annealed, with the upper one recessed, so a free three prime hydroxyl sits opposite template that has not been copied yet. The pairing has to be there — a polymerase will not extend a primer that is annealed to nothing — but which pairs they are is free. Give a polymerase that junction and it will extend it, whatever the letters are. Now look at the far right, at the one residue on the template that is grey. Ask why it is not red: if that base were something else entirely, biotin say, or if it were simply not there, would this nucleotide still get added? It would. So it is not part of the substrate, and it is grey. It goes red on the next click, when the window has moved and it is the base being read. And notice the incoming nucleotide is already paired with the base opposite it. That pairing is the whole of the enzyme's fidelity: the template picks the nucleotide, the enzyme just makes the bond. Now the chemistry. Every base it adds is one phosphodiester bond, and this is it. The free three prime hydroxyl is the nucleophile, and it attacks the alpha phosphate of the incoming dNTP. Notice what that means: the growing end is a three prime hydroxyl, so synthesis can only ever run five prime to three prime. There is no chemistry here for going the other way.",
+      desc:"An all-atom drawing of a primed template. Six base pairs are annealed and the upper strand is then recessed by two, leaving two template bases uncopied and a free 3-prime hydroxyl at its end. Red marks the substrate: both backbones, and the hydrogen bonds between them, across the six annealed pairs and the single templating base. The last template residue, one further along, is grey, because the reaction does not need it. Every base is grey too, marking that the enzyme reads none of them in particular. The incoming dNTP sits at the next position, already hydrogen bonded to the base opposite it, with its three phosphates labelled alpha, beta and gamma above, and a red curved arrow runs from the 3-prime hydroxyl up to the alpha phosphate." },
     { s:{l1:1,l2:0,l3:0}, l1state:true, cap:"1 · atoms",
       sub:"the bond forms; pyrophosphate leaves, and is hydrolysed",
-      note:"The bond forms, and the beta and gamma phosphates leave together as pyrophosphate. Hydrolysing that pyrophosphate is what pulls the reaction forward and makes it effectively irreversible. That is the whole reason the substrate is a triphosphate and not a monophosphate — you are paying for the bond with the two phosphates you throw away. And look at what the molecule now is: the same junction as before, one base further along. The recessed end has moved one step and the enzyme's address is intact, which is why this runs as a cycle and not as a single event.",
-      desc:"The new residue is now simply part of the upper strand, joined by an ordinary internal phosphate and paired with the template, so the recessed junction has moved one position along. The beta and gamma phosphates have left together above, faded and labelled pyrophosphate." },
+      note:"The bond forms, and the beta and gamma phosphates leave together as pyrophosphate. Hydrolysing that pyrophosphate is what pulls the reaction forward and makes it effectively irreversible. That is the whole reason the substrate is a triphosphate and not a monophosphate — you are paying for the bond with the two phosphates you throw away. And look at what the molecule now is: the same junction as before, one base further along. The red has moved with it — the base that was spare a moment ago is now the one being read, and the pair at the far left has dropped out of the substrate because it is no longer needed to hold anything down. The address is intact, just shifted, which is why this runs as a cycle and not as a single event.",
+      desc:"The new residue is now simply part of the upper strand, joined by an ordinary internal phosphate and paired with the template, so the recessed junction has moved one position along. The red window has moved with it: the last template residue is now red, and the leftmost base pair has gone grey. The beta and gamma phosphates have left together above, labelled pyrophosphate." },
     { s:{l1:0,l2:1,l3:0}, l1state:true, cap:"2 · letters",
-      sub:"six pairs of duplex behind, one templating base ahead — the whole enzyme is that window",
-      note:"Same event, drawn as letters, and now let it run. Every one of those characters is a sugar, a phosphate and a base, and the join between any two of them is the bond you just watched form. Watch the red, because the red is the same red as the last panel — it is what the enzyme has to have. Behind the growing end it holds about six base pairs of duplex; that is a footprint, and it is roughly what the structures show. Ahead of it, the red covers exactly one base: the one it is copying. That is not a footprint, that is the requirement, and it is worth knowing that it is one and not more. It is why a fill-in reaction goes all the way to blunt — when the last overhanging base has been copied there is nothing downstream left, and there never needed to be. So the whole enzyme is that little window, and all it does is slide. Use this level whenever a position matters — a start site, a mismatch, a recognition sequence.",
+      sub:"six pairs of duplex behind, one templating base ahead — everything past that is just DNA",
+      note:"Same event, drawn as letters, and now let it run. Every one of those characters is a sugar, a phosphate and a base, and the join between any two of them is the bond you just watched form. Watch the red, because the red means here what it has meant all lecture: this is the substrate. Behind the growing end, about six base pairs of annealed duplex, because a primer that is not held down is not a substrate. Ahead of it, exactly one base — the one being copied. And that is the whole of it. Ask the question the other way round to see it: if the base one further along were biotin, or a nick, or simply nothing, would this nucleotide still get added? Yes. So that base is not part of the substrate, and it goes grey until the window reaches it. That is also why a fill-in reaction runs all the way to blunt — copy the last overhanging base and there is nothing downstream, and there never needed to be. So the substrate is that little window, and all it does is slide. Use this level whenever a position matters — a start site, a mismatch, a recognition sequence.",
       desc:"The same reaction on a longer molecule, written as paired letters. A red window of six base pairs plus the single templating base ahead of it slides steadily left to right, and the new strand fills in behind it, five prime to three prime, until the template is fully copied. Then it repeats." },
     { s:{l1:0,l2:1,l3:1}, l1state:true, cap:"3 · a line",
       sub:"the same event — and this is what the rest of the lecture draws",

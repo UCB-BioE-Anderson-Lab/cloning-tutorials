@@ -39,10 +39,12 @@ function make(o){
   return { n, top, bot,
     ends:Object.assign({t5:"oh",t3:"oh",b5:"oh",b3:"oh"}, o.ends||{}),
     mods:o.mods||[], cuts:o.cuts||[], endHot:!!o.endHot,
-    /* Base pairing is usually scenery, so it is drawn faint. Where an
-       enzyme actually REQUIRES the two strands to be annealed -- a
-       polymerase will not extend a bare primer -- hb:"hot" puts the
-       pairing in the reactive colour along with the rest of the pattern. */
+    /* Base pairing is usually scenery, so it is drawn faint. Where being
+       annealed is part of what makes the molecule a SUBSTRATE -- a
+       polymerase will not extend a bare primer -- hb:"hot" follows the
+       backbone roles: a pair whose two residues are both required is
+       drawn in the reactive colour, and one that is not stays faint.
+       That way the pairing cannot disagree with the strands it joins. */
     hb:o.hb||null,
     /* Which columns of the shared frame each strand actually occupies. Two
        pieces of a staggered cut keep the SAME frame and the same column
@@ -282,7 +284,8 @@ function draw(m, x0){
     if(i<m.range.top[0]||i>=m.range.top[1]) continue;   /* no partner, no bond */
     if(i<m.range.bot[0]||i>=m.range.bot[1]) continue;
     const faded = m.role.top[i].base==="bg"||m.role.bot[i].base==="bg";
-    const hc = m.hb==="hot" ? HOT : (faded?FAINT:MUT);
+    const both = (m.role.top[i]||{}).bb==="hot" && (m.role.bot[i]||{}).bb==="hot";
+    const hc = (m.hb==="hot" && both) ? HOT : (faded?FAINT:MUT);
     const n=Math.min(tb.hb.length, bb.hb.length);
     for(let k=0;k<n;k++){
       const a=lerp(tb.hb[k], bb.hb[k], 0.16), b=lerp(tb.hb[k], bb.hb[k], 0.84);
