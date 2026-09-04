@@ -140,7 +140,37 @@
 <article class="slide">
   <h1 class="small">Exonuclease I: why ExoSAP exists</h1>
   <ul class="tight"><li>3&rsquo;&rarr;5&rsquo;, <strong>single-stranded only</strong> &mdash; it eats primers and cannot touch your product</li></ul>
+    <table class="neb">
+      <colgroup>
+        <col style="width:230px"><col style="width:130px"><col style="width:115px"><col style="width:125px">
+        <col style="width:130px"><col style="width:130px"><col style="width:130px"><col style="width:210px"><col>
+      </colgroup>
+      <thead>
+        <tr>
+          <th rowspan="2" scope="col">Enzyme</th>
+          <th rowspan="2" scope="col">Polarity</th>
+          <th colspan="2" scope="colgroup">Activity on ssDNA</th>
+          <th colspan="5" scope="colgroup">Activity on dsDNA<sup>1</sup></th>
+        </tr>
+        <tr>
+          <th scope="col">linear</th><th scope="col">circular</th>
+          <th scope="col">linear 5' ext</th><th scope="col">linear 3' ext</th><th scope="col">linear blunt</th>
+          <th scope="col">nicked (circular/linear)</th><th scope="col">circular (supercoiled)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Exonuclease I <span style="white-space:nowrap">(<em>E. coli</em>)</span></th>
+          <td>3' &rarr; 5'</td><td>+</td><td>&mdash;</td>
+          <td>&mdash;</td><td>&mdash;<sup>15</sup></td><td>&mdash;<sup>5</sup></td><td>&mdash;</td><td>&mdash;</td>
+        </tr>
+      </tbody>
+    </table>
   <svg viewBox="0 0 1600 900" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none">
+   <!-- The figure is absolutely positioned, so it does not move out of the
+        way when the table is added above it. Scaled down and dropped to sit
+        under the chart. -->
+   <g transform="translate(285.2 295.4) scale(0.66)">
     <g fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round">
       <path d="M170 470H640M617.1 457.8L640 470"/>
       <path d="M640 522H170M192.9 534.2L170 522"/>
@@ -158,9 +188,11 @@
       <text x="797" y="432" font-size="26" font-weight="700" fill="var(--ink)">Exo I</text>
       <text x="797" y="576" font-size="24" fill="var(--muted)">3&#8242;&rarr;5&#8242;</text>
     </g>
+   </g>
   </svg>
+  <div class="src" style="margin-top:6px">Wording and values retyped verbatim from the NEB exonuclease selection chart &mdash; neb.com</div>
   <template class="notes">The practical one. After a PCR you have your product, but you also have a large excess of unused primers, and those primers will prime the sequencing reaction and give you an unreadable trace. Exonuclease One is three prime to five prime and single-stranded only — plus under ss, minus under ds in the table. So it destroys every free primer and does not lay a finger on the double-stranded product. That is the whole trick, and it is one axis of the table doing all the work. The SAP in ExoSAP is shrimp alkaline phosphatase, which knocks the phosphates off the leftover dNTPs so they cannot be incorporated either. Fifteen minutes at thirty-seven, fifteen at eighty to kill both enzymes, then straight into the sequencing reaction. No column, no gel.</template>
-  <template class="desc">On the left, a double-stranded PCR product drawn as two antiparallel barbed lines, with four short single-stranded primers below it in blue. An arrow labelled Exo I, 3-prime to 5-prime, leads right to the same double-stranded product alone: the primers are gone and the duplex is unchanged.</template>
+  <template class="desc">One row of the NEB exonuclease selection chart, for Exonuclease I from E. coli: 3-prime to 5-prime, active on linear single-stranded DNA and on nothing else listed. Below it, On the left, a double-stranded PCR product drawn as two antiparallel barbed lines, with four short single-stranded primers below it in blue. An arrow labelled Exo I, 3-prime to 5-prime, leads right to the same double-stranded product alone: the primers are gone and the duplex is unchanged.</template>
 </article>
 
 <article class="slide">
