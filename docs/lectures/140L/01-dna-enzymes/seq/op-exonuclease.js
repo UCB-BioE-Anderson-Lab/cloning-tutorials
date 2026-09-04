@@ -78,7 +78,7 @@ function build(name, o){
         g+='<g transform="translate('+dx+' '+dy+')" opacity="'+(1-frac*0.88).toFixed(2)+'">'+
            M.draw(free, X0)+'</g>';
       }
-      const named = step>0;
+      const named = step>=o.namedFrom;
       svg.innerHTML=
         '<text x="800" y="140" text-anchor="middle" font-size="44" font-weight="700" fill="'+INK+
           '">'+(named?o.cap2:o.cap1)+'</text>'+
@@ -91,7 +91,10 @@ function build(name, o){
 
     function go(i){
       step = i||0;
-      if(raf){cancelAnimationFrame(raf);raf=null;}
+      /* A step here only changes the words. Restarting the loop on it snapped
+         the molecule back to intact, which read as a second animation rather
+         than a caption on the same one. */
+      if(raf) return;
       if(reduce.matches){ paint(EAT-1, 1); return; }
       const t0=performance.now();
       raf=requestAnimationFrame(function f(now){
@@ -111,7 +114,7 @@ function build(name, o){
 }
 
 build("op-exo", {
-  fromRight:true,
+  fromRight:true, namedFrom:1,
   cap1:"Exonuclease",
   sub1:"one nucleotide at a time, and only from an <tspan font-style=\"italic\">end</tspan>",
   cap2:"3&#8242; &#8594; 5&#8242; Exo Activity",
@@ -126,17 +129,15 @@ build("op-exo", {
 });
 
 build("op-exo-53", {
-  fromRight:false,
+  fromRight:false, namedFrom:0,
   cap1:"5&#8242; &#8594; 3&#8242; Exo Activity",
-  sub1:"the same scene, started from the other end",
+  sub1:"working forward from the 5&#8242; end &mdash; a 3&#8242; overhang is left behind",
   cap2:"5&#8242; &#8594; 3&#8242; Exo Activity",
   sub2:"working forward from the 5&#8242; end &mdash; a 3&#8242; overhang is left behind",
   foot:"same chemistry, opposite end &mdash; and the opposite overhang",
   steps:[
-    { note:"Same scene, same enzyme class, started from the other end. This one begins at the five prime end of the upper strand and works forward along it, left to right as drawn. The chemistry has not changed at all — residues still come off one at a time, still as five prime monophosphates — but because it is eating from the other end, the strand that is left standing alone is the other one, and what grows is a three prime overhang instead of a five prime. Lambda exonuclease is the one you will actually use for this, and that is exactly why: give it a duplex and it hands you back a long three prime single strand.",
-      desc:"The same seven base pair duplex, red backbone and grey bases, but now residues are removed one at a time from the 5-prime end of the upper strand, drifting away to the left, so a single-stranded 3-prime overhang is left behind on the lower strand." },
-    { note:"So the two slides differ in one thing only, and it is the thing worth remembering: which end the enzyme starts from. That decides the direction it travels, which strand is left standing, and therefore whether you get a five prime or a three prime overhang. When you read an exonuclease in the catalogue, that is the first property to look up, because it is the one that changes what you are holding at the end of the reaction.",
-      desc:"The same figure with the arrow beneath the molecule pointing right, showing the enzyme travelling from the 5-prime end forward, leaving a 3-prime overhang." }
+    { note:"Same scene, same enzyme class, started from the other end. This one begins at the five prime end of the upper strand and works forward along it, left to right as drawn, which is what the arrow means. The chemistry has not changed at all — residues still come off one at a time, still as five prime monophosphates — but because it is eating from the other end, the strand left standing alone is the other one, and what grows is a three prime overhang instead of a five prime. Lambda exonuclease is the one you will actually use for this, and that is exactly why: give it a duplex and it hands you back a long three prime single strand. So the two slides differ in one thing only, and it is the first property to look up when you meet an exonuclease in the catalogue: which end it starts from. That decides the direction it travels, which strand is left standing, and therefore what you are holding when the reaction is done.",
+      desc:"The same seven base pair duplex, red backbone and grey bases, with residues removed one at a time from the 5-prime end of the upper strand, drifting away to the left, so a single-stranded 3-prime overhang is left behind on the lower strand. An arrow beneath the molecule points right, showing the direction the enzyme travels." }
   ]
 });
 })();
