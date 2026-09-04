@@ -120,11 +120,16 @@ function draw(m, x0){
                             col(m.role.bot[i].base), meth.bot[i]);
   }
 
+  /* where each moiety ended up, so a slide can point at one and name it */
+  const AN={sugar:{top:[],bot:[]}, phos:{top:[],bot:[]}, base:{top:[],bot:[]}, term:{}};
+  for(let i=0;i<m.n;i++){ AN.base.top[i]=put.top[i].ctr; AN.base.bot[i]=put.bot[i].ctr; }
+
   let g="";
   ["top","bot"].forEach(function(which){
     const up=which==="top", y=up?TY:BY, s=up?1:-1, py=y-s*(R*1.35);
     const verts=[], ctrs=[];
     for(let i=0;i<m.n;i++){ const cx=x0+i*PITCH; verts.push(ring5(cx,y,sr,up)); ctrs.push([cx,y]); }
+    AN.sugar[which]=ctrs;
 
     for(let i=0;i<m.n;i++){
       const cb=col((m.role[which][i]||{}).bb), v=verts[i], b=put[which][i];
@@ -142,6 +147,7 @@ function draw(m, x0){
       const cL=hot?HOT:col((m.role[which][i]||{}).bb), cR=hot?HOT:col((m.role[which][i+1]||{}).bb);
       g+=arm(verts[i][2], ctrs[i], P, cL, !rightIs3, R);
       g+=arm(verts[i+1][3], ctrs[i+1], P, cR, rightIs3, R);
+      AN.phos[which][i]=P;
       g+=phosphate(px,py,hot?HOT:cL,up,R);
     }
 
@@ -150,16 +156,21 @@ function draw(m, x0){
      [m.n-1,2,up?e3:e5,up?"3&#8242;":"5&#8242;",1]].forEach(function(q){
       const i=q[0], v=verts[i][q[1]], ctr=ctrs[i], end=q[2], d=q[4];
       const isC5 = (q[1]===3) ? rightIs3 : !rightIs3;
+      /* a terminus belongs to the backbone, so it takes the backbone's colour
+         rather than a hardcoded ink that leaves the ends looking unrelated */
+      const ce = col((m.role[which][i]||{}).bb);
       if(end==="phos"){
         const tip=[ctr[0]+d*(PITCH*0.42), py];
-        g+=arm(v,ctr,tip,INK,isC5,R)+phosphate(tip[0],tip[1],INK,up,R,true,d);
+        AN.term[which+(q[3].indexOf("5")>=0?"5":"3")]=tip;
+        g+=arm(v,ctr,tip,ce,isC5,R)+phosphate(tip[0],tip[1],ce,up,R,true,d);
         g+='<text x="'+n2(tip[0]+d*70)+'" y="'+n2(y+7)+'" text-anchor="middle" font-size="20" fill="'+
            MUT+'">'+q[3]+'</text>';
       }else{
         let start=v;
-        if(isC5){ const c5=out(v,ctr,R*0.52); g+=bond(v,c5,INK); start=c5; }
+        if(isC5){ const c5=out(v,ctr,R*0.52); g+=bond(v,c5,ce); start=c5; }
         const oh=out(start,ctr,R*0.72);
-        g+=bond(start,oh,INK)+atomLab(oh,"OH",INK);
+        AN.term[which+(q[3].indexOf("5")>=0?"5":"3")]=oh;
+        g+=bond(start,oh,ce)+atomLab(oh,"OH",ce);
         g+='<text x="'+n2(oh[0]+d*44)+'" y="'+n2(oh[1]+6)+'" text-anchor="middle" font-size="20" fill="'+
            MUT+'">'+q[3]+'</text>';
       }
@@ -188,7 +199,8 @@ function draw(m, x0){
        '<text x="'+n2(q[0])+'" y="'+n2(q[1]+SZ*0.34)+'" text-anchor="middle" font-size="'+n2(SZ)+
        '" font-weight="700" fill="'+HOT+'">CH&#8323;</text>';
   });
+  window.DNAModel.anchors=AN;
   return g;
 }
-window.DNAModel={ make, draw, comp, HOT, PITCH };
+window.DNAModel={ make, draw, comp, HOT, PITCH, anchors:null };
 })();
