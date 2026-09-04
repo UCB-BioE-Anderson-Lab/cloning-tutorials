@@ -21,6 +21,11 @@
    spaced wider than the deck default — it was sitting in the top corner. */
 .slide.blunt pre.dna{font-size:30px;line-height:1.5}
 .slide.blunt .step{margin:32px 0 26px;padding-left:72px;font-size:27px}
+/* Centre the cascade as a GROUP, not line by line: the sequences have to stay
+   aligned to each other so a base can be tracked down the four states, but the
+   block itself is far narrower than the slide and was leaving the right half
+   empty. */
+.slide.blunt .cascade{width:max-content;max-width:100%;margin:0 auto}
 .slide table.neb tbody th{font-weight:700;text-align:left;padding-left:14px;
   color:var(--blue)}
 .slide table.neb sup{font-size:.68em;vertical-align:super;line-height:0}
@@ -201,6 +206,7 @@
 
 <article class="slide blunt">
   <h1 class="small">Blunting a sticky end</h1>
+  <div class="cascade">
   <pre class="dna">5&rsquo;-cttcg<span class="site">GGATCC</span>gctggcaga&hellip;-3&rsquo;
 3&rsquo;-gaagc<span class="site">CCTAGG</span>cgaccgtct&hellip;-5&rsquo;</pre>
 
@@ -222,7 +228,7 @@
   <pre class="dna" data-build="3">5&rsquo;-cttcg<span class="mut">GC</span>gctggcaga&hellip;-3&rsquo;
 3&rsquo;-gaagc<span class="mut">CG</span>cgaccgtct&hellip;-5&rsquo;</pre>
   <p data-build="3" style="margin-top:18px"><strong>The BamHI site is gone</strong> &mdash; and four base pairs with it</p>
-
+  </div>
   <template class="notes">A very traditional use of a single-strand-specific nuclease, and the reason to walk it all the way to the end. Mung bean nuclease cleaves single-stranded DNA exclusively, so given a sticky end it removes the overhang and leaves blunt. That is useful on its own &mdash; a blunt end will ligate to any other blunt end, so you can join two fragments that had incompatible sticky ends and could never have found each other. But look at what it costs, which is the part students miss until they have done it: religate the blunted ends and the recognition site has been destroyed. GGATCC is now GC. You cannot cut it again, and you are four base pairs short, so in a coding region the frame has shifted. Both of those are sometimes exactly what you want &mdash; killing an unwanted site is a real technique &mdash; but neither is optional, so decide before you do it.</template>
   <template class="desc">A BamHI site inside a longer sequence, written as letters. Three clicks: BamHI cuts it to leave four-base 5-prime overhangs; mung bean nuclease trims those single-stranded overhangs off to leave blunt ends; and T4 ligase joins the blunt ends back together, leaving GC where GGATCC used to be. The BamHI site is destroyed and four base pairs are lost.</template>
 </article>
