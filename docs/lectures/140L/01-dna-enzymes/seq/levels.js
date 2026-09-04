@@ -139,42 +139,69 @@ function level1(bonded){
 }
 
 /* ------------------------------------------------- levels 2 and 3 */
-/* Levels 2 and 3 share ONE box and ONE moment: the same six positions, the
-   same strand separation, and both strands drawn to the same length so the
-   line panel does not read as "still running" next to a finished sequence.
-   LX is set so the six letters centre on x=800, under the caption. */
-const LT = "GCATTG", LB = "CGTAAC";
-const LX = 570, LSTEP = 92, LY = 490, LY2 = 568;
+/* Level 2 is the same event as level 1, run to completion on a molecule
+   long enough that the RUNNING is what you see. The red is the enzyme's
+   grip, and it is the same red as level 1: what has to be there.
 
-function level2(){
-  let g = '<g data-r="L2" opacity="0" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" ' +
-          'font-size="52" font-weight="600" text-anchor="middle">';
-  for (let i = 0; i < LT.length; i++){
-    const last = i === LT.length - 1;
-    g += '<text'+(last?' data-r="l2_new"':'')+' x="'+(LX+i*LSTEP)+'" y="'+LY+'" fill="' +
-         (last?RED:SLATE)+'">'+LT[i]+'</text>' +
-         '<text x="'+(LX+i*LSTEP)+'" y="'+LY2+'" fill="'+INK+'">'+LB[i]+'</text>';
+   Two numbers set its width, and they are not the same kind of number.
+   BEHIND is a footprint -- polymerase structures show the enzyme holding
+   roughly this much primer-template duplex upstream of the active site.
+   AHEAD is a requirement, and it is 1: the templating base, the one being
+   copied. Everything downstream of that is contacted but not needed, which
+   is exactly why a fill-in reaction runs all the way to blunt -- when the
+   last overhanging base is copied there is nothing downstream left, and
+   there never had to be.
+
+   Level 3 sits directly UNDER level 2 and runs off the same position, so
+   the abstraction is not asserted, it is demonstrated: the red segment on
+   the line is the red letters, one drawing above the other, moving
+   together. */
+const BEHIND = 6, AHEAD = 1;
+const CO = {A:"T", T:"A", G:"C", C:"G"};
+const L2TOP = "GCATTGACCTGAGTCATGCAGTTCGACATGCT";     /* the new strand   */
+const L2BOT = L2TOP.split("").map(c => CO[c]).join(""); /* the template   */
+const NL = L2TOP.length, P0 = 8;                       /* primer: 8 nt    */
+const LSTEP = 40, LX = 800 - (NL-1)*LSTEP/2, LY = 430, LY2 = 496;
+const XL = i => LX + i*LSTEP;
+const L2_IN = 0.9, L2_PER = 0.155, L2_OUT = 1.25;
+const L2_CYCLE = L2_IN + (NL-P0)*L2_PER + L2_OUT;
+const held = (i,p) => i > p-BEHIND && i <= p;          /* the duplex it grips   */
+const read = (i,p) => i > p && i <= p+AHEAD;           /* the base being copied */
+
+/* p = index of the last base of the new strand */
+function level2(p){
+  let g = '<g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" ' +
+          'font-size="38" font-weight="600" text-anchor="middle">';
+  for (let i = 0; i < NL; i++){
+    const h = held(i,p);
+    if (i <= p)
+      g += '<text x="'+XL(i)+'" y="'+LY+'" fill="'+(h?RED:SLATE)+'">'+L2TOP[i]+'</text>';
+    g += '<text x="'+XL(i)+'" y="'+LY2+'" fill="'+((h||read(i,p))?RED:INK)+'">'+L2BOT[i]+'</text>';
   }
-  const xe = LX + (LT.length-1)*LSTEP;
-  g += '<g font-family="inherit" font-size="28" fill="'+MUTED+'">' +
-         '<text x="'+(LX-92)+'" y="'+LY+'">5&#8242;</text>' +
-         '<text x="'+(LX-92)+'" y="'+LY2+'">3&#8242;</text>' +
-         '<text x="'+(xe+92)+'" y="'+LY+'">3&#8242;</text>' +
-         '<text x="'+(xe+92)+'" y="'+LY2+'">5&#8242;</text></g>';
+  /* the 3' tick of the new strand travels with the end that is growing */
+  g += '<g font-family="inherit" font-size="24" font-weight="600" fill="'+MUTED+'">' +
+         '<text x="'+(LX-LSTEP)+'" y="'+LY+'">5&#8242;</text>' +
+         '<text x="'+(LX-LSTEP)+'" y="'+LY2+'">3&#8242;</text>' +
+         '<text x="'+XL(p+1)+'" y="'+LY+'">3&#8242;</text>' +
+         '<text x="'+XL(NL)+'" y="'+LY2+'">5&#8242;</text></g>';
   return g + '</g>';
 }
 
-function level3(){
-  /* Both strands run the SAME span, so the duplex reads as finished — the
-     same moment panel 2 shows. (It used to leave the blue strand 56px short
-     of the black one, which read as synthesis still in progress.) */
-  const xa = LX - 102, xb = LX + (LT.length-1)*LSTEP + 102;
-  const y1 = LY - 16, y2 = LY2 - 16, B = 34;
-  return '<g data-r="L3" opacity="0" fill="none" stroke-width="4.6" stroke-linecap="round">' +
-    '<g stroke="'+SLATE+'"><path d="M'+xa+' '+y1+'H'+xb+'"/>' +
-      '<path d="M'+(xb-B)+' '+(y1-17)+'L'+xb+' '+y1+'"/></g>' +
-    '<g stroke="'+INK+'"><path d="M'+xb+' '+y2+'H'+xa+'"/>' +
-      '<path d="M'+(xa+B)+' '+(y2+17)+'L'+xa+' '+y2+'"/></g>' +
+const LN1 = 648, LN2 = 706, BARB = 30;
+function level3(p){
+  const xa = LX - LSTEP/2, xb = XL(NL-1) + LSTEP/2;
+  const w0 = XL(p-BEHIND+1) - LSTEP/2;
+  const w1 = XL(p) + LSTEP/2;
+  const w2 = Math.min(xb, XL(p+AHEAD) + LSTEP/2);
+  const seg = (x1,y,x2,c) => '<path d="M'+n2(x1)+' '+y+'H'+n2(x2)+'" stroke="'+c+'"/>';
+  /* barbs mark the 3' ends: the template's sits still on the left, the new
+     strand's rides the growing end, so it is inside the grip and red */
+  return '<g fill="none" stroke-width="4.6" stroke-linecap="round">' +
+    seg(xb, LN2, xa, INK) +
+      '<path d="M'+(xa+BARB)+' '+(LN2+16)+'L'+xa+' '+LN2+'" stroke="'+INK+'"/>' +
+    seg(xa, LN1, w1, SLATE) +
+    seg(w0, LN1, w1, RED) + seg(w0, LN2, w2, RED) +
+      '<path d="M'+n2(w1-BARB)+' '+(LN1-16)+'L'+n2(w1)+' '+LN1+'" stroke="'+RED+'"/>' +
   '</g>';
 }
 
@@ -188,7 +215,8 @@ window.Deck.sequence("levels", function(slide){
     '<defs><marker id="lvArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" ' +
       'markerHeight="6" orient="auto-start-reverse">' +
       '<path d="M0 0L10 5L0 10" fill="none" stroke="'+RED+'" stroke-width="2"/></marker></defs>' +
-    '<g data-r="L1" opacity="0"></g>' + level2() + level3() +
+    '<g data-r="L1" opacity="0"></g><g data-r="L2" opacity="0"></g>' +
+    '<g data-r="L3" opacity="0"></g>' +
     '<text data-r="sub" x="800" y="836" text-anchor="middle" font-family="inherit" ' +
       'font-size="27" fill="'+MUTED+'"></text>';
   slide.appendChild(svg);
@@ -231,7 +259,27 @@ window.Deck.sequence("levels", function(slide){
     r.L1.setAttribute("opacity", n2(s.l1));
     r.L2.setAttribute("opacity", n2(s.l2));
     r.L3.setAttribute("opacity", n2(s.l3));
-    r.l2_new .setAttribute("opacity", n2(s.l2));
+  }
+
+  /* Levels 2 and 3 are ONE animation with two renderers. The line is not a
+     separate picture that happens to agree with the letters -- it is the
+     same position drawn twice, so it can only ever agree. The loop keeps
+     running across the step that reveals the line, which is why the two
+     never fall out of step with each other. */
+  let l2raf = null;
+  function stopL2(){ if (l2raf){ cancelAnimationFrame(l2raf); l2raf = null; } }
+  function frameL2(p){ r.L2.innerHTML = level2(p); r.L3.innerHTML = level3(p); }
+  function runL2(){
+    if (l2raf) return;
+    if (reduce.matches){ frameL2(NL-1); return; }
+    const t0 = performance.now();
+    l2raf = requestAnimationFrame(function f(now){
+      if (!slide.classList.contains("on")){ l2raf = null; return; }
+      const t = ((now - t0)/1000) % L2_CYCLE;
+      frameL2(t < L2_IN ? P0-1
+                        : Math.min(NL-1, P0-1 + Math.floor((t - L2_IN)/L2_PER)));
+      l2raf = requestAnimationFrame(f);
+    });
   }
 
   const S = [
@@ -244,13 +292,13 @@ window.Deck.sequence("levels", function(slide){
       note:"The bond forms, and the beta and gamma phosphates leave together as pyrophosphate. Hydrolysing that pyrophosphate is what pulls the reaction forward and makes it effectively irreversible. That is the whole reason the substrate is a triphosphate and not a monophosphate — you are paying for the bond with the two phosphates you throw away. And look at what the molecule now is: the same junction as before, one base further along. The recessed end has moved one step and the enzyme's address is intact, which is why this runs as a cycle and not as a single event.",
       desc:"The new residue is now simply part of the upper strand, joined by an ordinary internal phosphate and paired with the template, so the recessed junction has moved one position along. The beta and gamma phosphates have left together above, faded and labelled pyrophosphate." },
     { s:{l1:0,l2:1,l3:0}, l1state:true, cap:"2 · letters",
-      sub:"the same event — one base added at the 3′ end",
-      note:"Same event, drawn as letters. Every one of those characters is a sugar, a phosphate and a base, and the join between any two of them is the bond you just watched form. Use this level whenever a position matters — a start site, a mismatch, a recognition sequence.",
-      desc:"The same reaction redrawn as sequence: a short duplex written as paired letters, five prime to three prime, with the newest base at the 3-prime end of the top strand picked out in red." },
-    { s:{l1:0,l2:0,l3:1}, l1state:true, cap:"3 · a line",
+      sub:"six pairs of duplex behind, one templating base ahead — the whole enzyme is that window",
+      note:"Same event, drawn as letters, and now let it run. Every one of those characters is a sugar, a phosphate and a base, and the join between any two of them is the bond you just watched form. Watch the red, because the red is the same red as the last panel — it is what the enzyme has to have. Behind the growing end it holds about six base pairs of duplex; that is a footprint, and it is roughly what the structures show. Ahead of it, the red covers exactly one base: the one it is copying. That is not a footprint, that is the requirement, and it is worth knowing that it is one and not more. It is why a fill-in reaction goes all the way to blunt — when the last overhanging base has been copied there is nothing downstream left, and there never needed to be. So the whole enzyme is that little window, and all it does is slide. Use this level whenever a position matters — a start site, a mismatch, a recognition sequence.",
+      desc:"The same reaction on a longer molecule, written as paired letters. A red window of six base pairs plus the single templating base ahead of it slides steadily left to right, and the new strand fills in behind it, five prime to three prime, until the template is fully copied. Then it repeats." },
+    { s:{l1:0,l2:1,l3:1}, l1state:true, cap:"3 · a line",
       sub:"the same event — and this is what the rest of the lecture draws",
-      note:"And the same event again as a barbed line, which is what almost every diagram from here on uses. It carries direction and topology and nothing else. That is a feature, not laziness — but remember that each little step along that line is the chemistry from the first drawing.",
-      desc:"The same reaction reduced to two antiparallel barbed lines, one per strand, the barb marking each 3-prime end. This is the level of abstraction used for the rest of the lecture." }
+      note:"And now the same event as a barbed line, drawn underneath and running off the same position, so you can see the one become the other. The red segment on the line is the red letters above it. The barb is the three prime end, and it travels because that is the end being extended. This is what almost every diagram from here on uses: it carries direction and topology and nothing else. That is a feature, not laziness — but remember that each little step along that line is the chemistry from the first drawing.",
+      desc:"Beneath the letters, the same reaction reduced to two antiparallel barbed lines, one per strand, the barb marking each 3-prime end. It animates in step with the letters above it, the red segment of line always covering the same positions as the red letters. This is the level of abstraction used for the rest of the lecture." }
   ];
 
   function go(i, animated){
@@ -259,6 +307,7 @@ window.Deck.sequence("levels", function(slide){
     r.sub.innerHTML = '<tspan font-weight="700" fill="'+INK+'">'+S[i].cap+
                       '</tspan>\u2003' + S[i].sub;
     drawL1(S[i].l1state);
+    if (i >= 2) runL2(); else stopL2();
     if (!cur || animated === false || reduce.matches){ cur = Object.assign({}, to); paint(cur); return; }
     const from = Object.assign({}, cur), t0 = performance.now(), dur = 800;
     const ease = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
@@ -269,6 +318,7 @@ window.Deck.sequence("levels", function(slide){
       if (t < 1) raf = requestAnimationFrame(f); else raf = null;
     });
   }
+  frameL2(P0-1);          /* never crossfade into an empty panel */
   go(0, false);
   return { steps: S.map(x => ({ note:x.note, desc:x.desc })), go: go };
 });
