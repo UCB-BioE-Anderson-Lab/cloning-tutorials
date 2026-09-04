@@ -182,7 +182,7 @@ function driver(r, steps, paint){
 /* ================================================================== *
  * vecphos — phosphatase the vector so it cannot close on itself
  * ================================================================== */
-const CX = 800, CY = 592, RO = 236, RI = 174;
+const CX = 800, CY = 592, RO0 = 236, RI0 = 174;   /* radii BEFORE the gap closes */
 const GAP = 38;                 /* half the cut, in degrees                 */
 const DG = 7.5;                 /* half the visible gap at an open junction */
 const IX = -460, IY = 40;       /* where the insert waits before it goes in */
@@ -209,6 +209,14 @@ function ringPaint(r, s){
   const G = s.G;
   const dLo = DG*(1-s.cLo), dLi = DG*(1-s.cLi),
         dRo = DG*(1-s.cRo), dRi = DG*(1-s.cRi);
+  /* The DNA cannot get longer. Closing the gap by holding the radius and
+     letting the arc endpoints run towards each other grew the vector by the
+     width of the gap — it read as the ends polymerising outwards. Instead the
+     arc LENGTH is held and the radius follows, so the same molecule closes
+     into a smaller circle. Which is also the truth of it: a vector that has
+     self-ligated is exactly one insert shorter than one that has not. */
+  const K  = (360 - 2*GAP) / (360 - 2*G);
+  const RO = RO0*K, RI = RI0*K;
 
   /* vector: outer runs clockwise from its 5' at R to its 3' at L */
   const voA = -90 + G + dRo, voB = 270 - G - dLo;
@@ -256,7 +264,7 @@ window.Deck.sequence("vecphos", function(slide){
     cap:"T4 DNA ligase",
     sub:"it simply closes on itself — and that is the lawn of empty vector on your plate",
     note:"Now add ligase and nothing else. Both phosphates are there, both three prime hydroxyls are there, so both strands get sealed and the vector closes right back up. This is the single largest source of background in ordinary cloning: you plate out and every colony is empty vector, because the vector did not need your insert in order to become a circle again. Notice the ends are gone from the drawing. A closed circle has no three prime end and no free five prime phosphate — they went into the bonds. Notice also that it can only do this because both its ends are compatible — this vector was cut with a single enzyme. If you had cut with two different enzymes and left two different sticky ends, the vector could not close on itself at all, and nothing in the rest of this slide would be necessary.",
-    desc:"The gap has closed. The two concentric strands are now unbroken circles, and the phosphate dots and half barbs have disappeared into the bonds they formed." },
+    desc:"The gap has closed and the plasmid is now a smaller unbroken circle, the same DNA with its two ends joined rather than a longer one. The phosphate discs and half barbs have gone from both junctions, because a sealed junction has no ends." },
 
   { s:{G:GAP, ins:0, pv:0, cLo:0, cLi:0, cRo:0, cRi:0},
     cap:"So take the phosphates away",
