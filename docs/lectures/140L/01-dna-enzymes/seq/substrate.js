@@ -117,14 +117,16 @@ window.Deck.sequence("substrate", function(slide){
       desc:"The same six base pair duplex with the backbone and four base positions in red and two in grey, cycling through different bases. Below it the written site GANNTC, and under that the concrete sequence currently drawn." },
 
     /* 3. the chemistry on the ends, which the letters do not show */
-    { word:"the ends", code:"GAATTC", sub:"a 5&#8242; phosphate, or a bare hydroxyl &mdash; four different molecules",
-      frames:[ ()=>GAATTC({ends:{t5:"oh",  b5:"oh"}}),
-               ()=>GAATTC({ends:{t5:"phos",b5:"oh"}}),
-               ()=>GAATTC({ends:{t5:"oh",  b5:"phos"}}),
-               ()=>GAATTC({ends:{t5:"phos",b5:"phos"}}) ],
-      model:()=>GAATTC({ends:{t5:"phos",b5:"phos"}}),
-      note:"Third axis, and it is the one students most often forget exists, because it is invisible if you only write the letters. Every one of these is GAATTC. What changes is whether each five prime end carries a phosphate or a bare hydroxyl, and the two strands are independent, so there are four different molecules here. That single difference decides whether a ligase can act, whether an exonuclease will start, and whether your PCR product will clone. Same sequence, four different substrates.",
-      desc:"The same GAATTC duplex cycling through all four combinations of 5-prime phosphate and 5-prime hydroxyl on its two strands." },
+    { word:"the ends", code:"GAATTC", sub:"a phosphate, a bare hydroxyl, a biotin &mdash; all of them still GAATTC",
+      frames:[ ()=>GAATTC({endHot:1, ends:{t5:"oh",    b5:"oh"}}),
+               ()=>GAATTC({endHot:1, ends:{t5:"phos",  b5:"oh"}}),
+               ()=>GAATTC({endHot:1, ends:{t5:"oh",    b5:"phos"}}),
+               ()=>GAATTC({endHot:1, ends:{t5:"phos",  b5:"phos"}}),
+               ()=>GAATTC({endHot:1, ends:{t5:"phos",  b5:"biotin"}}),
+               ()=>GAATTC({endHot:1, ends:{t5:"biotin",b5:"phos"}}) ],
+      model:()=>GAATTC({endHot:1, ends:{t5:"phos",b5:"phos"}}),
+      note:"Third axis, and it is the one students most often forget exists, because it is invisible if you only write the letters. Every one of these is GAATTC. What changes is what sits on each five prime end, marked in red, and the two strands are independent of each other. A phosphate, or a bare hydroxyl — that single difference decides whether a ligase can act, whether an exonuclease will start, and whether your PCR product will clone. And it does not stop at those two: the last ones here carry a biotin, hung off the five prime phosphate through a linker, which is how you would pull one strand out on streptavidin beads. Notice biotin never touches the DNA itself. Same sequence every time, and every one a different molecule.",
+      desc:"The same GAATTC duplex cycling through six different sets of 5-prime ends, marked in red: all four combinations of phosphate and hydroxyl, then a biotin attached through a linker to the 5-prime phosphate of one strand and then the other." },
 
     /* 4. what can be hung off a base */
     { word:"methylation", code:"GAATTC", sub:"on the adenines and the cytosines &mdash; still GAATTC",
@@ -158,7 +160,7 @@ window.Deck.sequence("substrate", function(slide){
       /* walk the combinations in order, so every one is actually seen */
       let k=0;
       const roll=function(){ show(st.frames[k % st.frames.length]());
-                             k++; timer=setTimeout(roll,1900); };
+                             k++; timer=setTimeout(roll,1250); };
       roll();
     } else {
       show(st.model());

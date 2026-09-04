@@ -38,7 +38,7 @@ function make(o){
   const blank=()=>Array.from({length:n},()=>({bb:"on",base:"on"}));
   return { n, top, bot,
     ends:Object.assign({t5:"oh",t3:"oh",b5:"oh",b3:"oh"}, o.ends||{}),
-    mods:o.mods||[], cuts:o.cuts||[],
+    mods:o.mods||[], cuts:o.cuts||[], endHot:!!o.endHot,
     role:{ top:o.roleTop||blank(), bot:o.roleBot||blank() } };
 }
 /* bg   grey   a real base, but arbitrary — identity is not what matters
@@ -89,6 +89,55 @@ function arm(v,ctr,target,c,withC5,R){
   if(withC5){ const c5=out(v,ctr,R*0.52); g+=bond(v,c5,c); start=c5; }
   g+=bond(start,target,c)+atomLab(lerp(start,target,0.5),"O",c);
   return g;
+}
+
+/* Biotin: two cis-fused five-membered rings sharing the C3a-C6a bond — a
+   ureido ring carrying two NH and the 2-oxo carbonyl, and a tetrahydro-
+   thiophene carrying the sulphur — with the valeryl chain off C4, ending in
+   the amide that joins it to the linker. This is how a biotinylated oligo is
+   actually built: biotin does not touch the DNA, it hangs off the 5'
+   phosphate through a linker. */
+function biotinCore(cx,cy,c,R){
+  const r=R*0.62, h=r*Math.cos(36*Math.PI/180);
+  const P=(ox,angs)=>angs.map(a=>[ox+r*Math.cos(a*Math.PI/180), cy-r*Math.sin(a*Math.PI/180)]);
+  /* ureido: C6a N1 C2 N3 C3a   |   thiophene: C6a C6 S5 C4 C3a */
+  const [C6a,N1,C2,N3,C3a] = P(cx-h,[36,108,180,252,324]);
+  const [ ,C6,S5,C4 ]       = P(cx+h,[144,72,0,288]);
+  let g="";
+  [[C6a,N1],[N1,C2],[C2,N3],[N3,C3a],[C3a,C6a],
+   [C6a,C6],[C6,S5],[S5,C4],[C4,C3a]].forEach(e=>g+=bond(e[0],e[1],c));
+  /* the 2-oxo, pointing out of the ureido ring */
+  const o=out(C2,[cx-h,cy],R*0.62);
+  g+=bond(C2,o,c);
+  const dx=o[0]-C2[0], dy=o[1]-C2[1], L=Math.hypot(dx,dy), nx=-dy/L*4, ny=dx/L*4;
+  g+=bond([C2[0]+nx,C2[1]+ny],[o[0]+nx,o[1]+ny],c);
+  g+=atomLab(o,"O",c)+atomLab(N1,"NH",c)+atomLab(N3,"NH",c)+atomLab(S5,"S",c);
+  return {g, C4};
+}
+function biotinGroup(from,d,v,c,R){
+  const core=[from[0]+d*R*3.3, from[1]+v*R*2.7];
+  const B=biotinCore(core[0],core[1],c,R);
+  /* valeryl chain and its amide, zig-zagged back to the linker oxygen */
+  const a=B.C4, b=from, n=7;
+  const dx=b[0]-a[0], dy=b[1]-a[1], L=Math.hypot(dx,dy)||1;
+  const nx=-dy/L, ny=dx/L, amp=R*0.27;
+  const pts=[a];
+  for(let k=1;k<n;k++){ const f=k/n, o=(k%2?1:-1)*amp;
+                        pts.push([a[0]+dx*f+nx*o, a[1]+dy*f+ny*o]); }
+  pts.push(b);
+  let g="";
+  for(let k=0;k<pts.length-1;k++) g+=bond(pts[k],pts[k+1],c);
+  /* the amide: carbonyl then N-H. These sit one atom back from the linker
+     oxygen — putting the N on that oxygen's own point drew NH over the O and
+     ran the whole amide into the phosphate. */
+  const cc=pts[n-2], nn=pts[n-1];
+  /* throw the carbonyl oxygen to the side the zig-zag already leans, so it
+     moves away from the amide N rather than stacking on top of it */
+  const sgn=((n-2)%2)?1:-1;
+  const co=[cc[0]+nx*sgn*R*0.70, cc[1]+ny*sgn*R*0.70];
+  g+=bond(cc,co,c)+bond([cc[0]+ny*4,cc[1]-nx*4],[co[0]+ny*4,co[1]-nx*4],c)+atomLab(co,"O",c);
+  g+=atomLab(nn,"NH",c);
+  return B.g+g;
 }
 
 function draw(m, x0){
@@ -159,8 +208,18 @@ function draw(m, x0){
       const isC5 = (q[1]===3) ? rightIs3 : !rightIs3;
       /* a terminus belongs to the backbone, so it takes the backbone's colour
          rather than a hardcoded ink that leaves the ends looking unrelated */
-      const ce = col((m.role[which][i]||{}).bb);
-      if(end==="phos"){
+      const isFive = q[3].indexOf("5")>=0;
+      /* on the ends slide the 5' group IS the subject, so it takes the
+         reactive colour rather than the backbone's */
+      const ce = (m.endHot && isFive) ? HOT : col((m.role[which][i]||{}).bb);
+      if(end==="biotin"){
+        const tip=[ctr[0]+d*(PITCH*0.42), py];
+        g+=arm(v,ctr,tip,ce,isC5,R)+phosphate(tip[0],tip[1],ce,up,R);
+        const ox=[tip[0]+d*R*0.86, py];
+        g+=bond(tip,ox,ce)+atomLab(ox,"O",ce);
+        AN.term[which+"5"]=ox;
+        g+=biotinGroup(ox, d, -s, ce, R);
+      }else if(end==="phos"){
         const tip=[ctr[0]+d*(PITCH*0.42), py];
         AN.term[which+(q[3].indexOf("5")>=0?"5":"3")]=tip;
         g+=arm(v,ctr,tip,ce,isC5,R)+phosphate(tip[0],tip[1],ce,up,R,true,d);
