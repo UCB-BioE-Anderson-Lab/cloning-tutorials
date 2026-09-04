@@ -106,9 +106,9 @@ function purine(cx,cy,ang,c,which,meth){
      major-groove one, so it runs ALONG the pairing edge away from N1 — not
      radially out through N6, which drives it into the base pair. */
   const u=(p,q)=>{const dx=p[0]-q[0],dy=p[1]-q[1],L=Math.hypot(dx,dy)||1;return [dx/L,dy/L];};
-  const site = which==="A" ? qOf(a6,ctr) : a7;
-  return { g, N9:a9, wc:[a1,a6], ctr, hb, mSite:site,
-           mDir: which==="A" ? u(site,a1) : u(site,ctr) };
+  const n6 = qOf(a6,ctr);
+  return { g, N9:a9, wc:[a1,a6], ctr, hb,
+           mSites: which==="A" ? [{k:"6", p:n6, d:u(n6,a1)}] : [] };
 }
 
 /* ---- pyrimidine: one six-ring ------------------------------------- */
@@ -143,8 +143,14 @@ function pyrimidine(cx,cy,ang,c,which){
   /* 5-methylcytosine sits on a ring carbon well away from the pairing edge,
      so straight out from the ring centre is right here. */
   const u=(p,q)=>{const dx=p[0]-q[0],dy=p[1]-q[1],L=Math.hypot(dx,dy)||1;return [dx/L,dy/L];};
-  return { g, N1:b1, wc:[b3,b4], ctr, hb, mSite: which==="C" ? b5 : null,
-           mDir: which==="C" ? u(b5,ctr) : null };
+  /* Cytosine takes a methyl in two different places, by two different
+     enzymes: on the ring carbon C5, and on the exocyclic N4. N4 carries two
+     hydrogens like adenine's N6 — one holds the bond to guanine, the other
+     points into the major groove, and it is that one the methyl replaces. */
+  const n4 = qOf(b4);
+  return { g, N1:b1, wc:[b3,b4], ctr, hb,
+           mSites: which==="C" ? [{k:"5", p:b5, d:u(b5,ctr)},
+                                  {k:"4", p:n4, d:u(n4,b3)}] : [] };
 }
 
 /* Draw a base rotated so its glycosidic nitrogen points in a given screen

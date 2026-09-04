@@ -64,6 +64,22 @@ window.Deck.sequence("substrate", function(slide){
     return g;
   }
 
+  /* the marks, named where they sit: above the string for the top strand,
+     below it for the bottom, so the notation maps onto the drawing */
+  const MLAB={"6":"6mA","5":"5mC","4":"4mC"};
+  function markStrip(a,m){
+    const y=a.sugar.bot[0][1]+200;
+    let g="";
+    (m.mods||[]).forEach(function(mo){
+      if(mo.type!=="methyl") return;
+      const x=a.sugar.top[mo.i][0], c = mo.site==="6" ? M.HOT : BLUE;
+      g+='<text x="'+x.toFixed(1)+'" y="'+(mo.strand==="top"?y-48:y+46)+'" '+
+         'text-anchor="middle" font-size="29" font-weight="700" font-family="'+MONO+'" fill="'+
+         c+'">'+MLAB[mo.site]+'</text>';
+    });
+    return g;
+  }
+
   function render(m, word, sub, deco){
     const x0=centre(m.n);
     const mol=M.draw(m, x0);            /* draws, and reports where things landed */
@@ -129,22 +145,26 @@ window.Deck.sequence("substrate", function(slide){
       desc:"The same GAATTC duplex cycling through six different sets of 5-prime ends, marked in red: all four combinations of phosphate and hydroxyl, then a biotin attached through a linker to the 5-prime phosphate of one strand and then the other." },
 
     /* 4. what can be hung off a base */
-    { word:"methylation", code:"GAATTC", cycleModel:true,
-      sub:"red on the adenines, blue on the cytosines &mdash; still GAATTC",
-      /* Each methylatable position is independently on or off, and keeps
-         changing: methylation is a mark that is present or absent at each
-         site, not a property of the sequence. */
+    { word:"methylation", code:"GAATTC", cycleModel:true, marks:true,
+      sub:"three different marks &mdash; and the sequence is GAATTC through all of them",
+      /* Adenine takes a methyl in one place, cytosine in two, and each site is
+         independently marked or not. */
       model:()=>{
         const top="GAATTC", bot=M.comp(top), mods=[];
         [["top",top],["bot",bot]].forEach(function(q){
-          for(let i=0;i<q[1].length;i++)
-            if((q[1][i]==="A"||q[1][i]==="C") && Math.random()<0.5)
-              mods.push({strand:q[0], i:i, type:"methyl"});
+          for(let i=0;i<q[1].length;i++){
+            const b=q[1][i];
+            if(b==="A" && Math.random()<0.45)
+              mods.push({strand:q[0], i:i, type:"methyl", site:"6"});
+            if(b==="C" && Math.random()<0.6)
+              mods.push({strand:q[0], i:i, type:"methyl",
+                         site: Math.random()<0.5 ? "5" : "4"});
+          }
         });
         return GAATTC({mods:mods});
       },
-      note:"Fourth and last. A methyl group can be hung off a base after the DNA was made, and in bacteria that is exactly what happens. It goes on adenines, in red here, and on cytosines, in blue — those are the two that get methylated, and the two marks are made by different enzymes. Watch them come and go. Each site is independently marked or not, which is the point: this is not a property of the sequence, it is something done to a particular molecule. The sequence has not changed at all; every one of these is still GAATTC, and it will read as GAATTC on any gel or any sequencer. But a restriction enzyme will refuse to cut it. That is the whole basis of restriction and modification, and it is why DNA from one strain sometimes will not cut with an enzyme that works perfectly on DNA from another.",
-      desc:"The GAATTC duplex with methyl groups appearing and disappearing independently at each adenine, in red, and each cytosine, in blue, on both strands, while the written sequence below stays GAATTC." }
+      note:"Fourth and last. A methyl can be hung off a base after the DNA was made, and in bacteria that is exactly what happens. There are three marks worth knowing and you are seeing all of them. Six-methyladenine, on the exocyclic nitrogen of adenine, in red — that one is everywhere in bacteria and archaea. Then two on cytosine, both in blue. Five-methylcytosine sits on a ring carbon, and that is the one you know from eukaryotes, though bacteria and archaea make it too. Four-methylcytosine sits on the exocyclic nitrogen instead, and is essentially bacterial and archaeal. Watch them come and go: each site is independently marked or not, which is the point. This is not a property of a sequence, it is something done to one particular molecule. The letters underneath never change. Every one of these is GAATTC, and it will read as GAATTC on any gel or any sequencer — but a restriction enzyme will refuse to cut it. That is the whole basis of restriction and modification.",
+      desc:"The GAATTC duplex with methyl marks appearing and disappearing independently: 6-methyladenine in red on the exocyclic nitrogen of each adenine, and on the cytosines either 5-methylcytosine on the ring carbon or 4-methylcytosine on the exocyclic nitrogen, in blue. The marks present are named above and below the written sequence, which stays GAATTC." }
   ];
 
   let cur=0;
@@ -154,7 +174,8 @@ window.Deck.sequence("substrate", function(slide){
     const st=S[i];
     const show=m=>render(m, st.word, st.sub, function(a,mm){
       const d = st.deco ? st.deco(a,mm) : {};
-      if(st.code) d.strip = strip(a, st.code, st.codeCol, st.concrete?mm.top:null);
+      if(st.code) d.strip = strip(a, st.code, st.codeCol, st.concrete?mm.top:null)
+                          + (st.marks ? markStrip(a, mm) : "");
       return d;
     });
     if(animated===false || reduce.matches){
