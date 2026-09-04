@@ -139,11 +139,11 @@ function ends(gid, which){
     : label(XR, TY, 26, MUTED, "3&#8242;") + label(XR, BY, 26, MUTED, "5&#8242;");
 }
 
-/* ---- the lower band: the same argument at two other distances from the
-   axis.  EcoRV cuts ON it and leaves nothing unpaired; NdeI cuts one column
-   off it and leaves two.  With EcoRI's two columns and four bases above,
-   the three of them say the rule outright: overhang length is twice the
-   distance from the axis, and nothing else. ---- */
+/* ---- the lower band: the other two kinds of end.  PstI cuts the same two
+   columns from the axis that EcoRI does, but on the far SIDE of it, and
+   EcoRV cuts on the axis itself.  Between the three, both halves of the rule
+   are visible: distance from the axis sets how long the overhang is, and
+   which side of it sets whether that overhang is 5' or 3'. ---- */
 const SB = 30, TYB = 742, BYB = 796, FSB = 27, XB = 22;
 const PAIRUP = {a:"t",t:"a",g:"c",c:"g",A:"T",T:"A",G:"C",C:"G"};
 const flip = t => t.split("").map(ch => PAIRUP[ch]).join("");
@@ -168,9 +168,11 @@ function smallBand(o){
 }
 function bandB(){
   return '<g data-r="blunt" opacity="0">' +
-    /* NdeI CA^TATG: one column off the axis, so a two base 5' overhang */
-    smallBand({x:436,  seq:"ctgCATATGgca", cutT:4, cutB:6,
-               name:"NdeI &nbsp;CA/TATG &mdash; one column off the axis"}) +
+    /* PstI CTGCA^G: two columns off, but the top-strand cut falls to the
+       RIGHT of the axis, so the protruding strand is the one whose 3' end is
+       at the cut — a 4 base 3' overhang */
+    smallBand({x:436,  seq:"ctgCTGCAGgca", cutT:7, cutB:3,
+               name:"PstI &nbsp;CTGCA/G &mdash; cut on the other side of the axis"}) +
     /* EcoRV GAT^ATC: right on it, so none */
     smallBand({x:1164, seq:"ctgGATATCgca", cutT:5, cutB:5,
                name:"EcoRV &nbsp;GAT/ATC &mdash; the cut lands on the axis"}) +
@@ -242,12 +244,12 @@ const S = [
   desc:"The duplex has separated into two fragments with a clear gap between them, the dashed axis sitting in the middle of that gap. Each cut end is staggered: four bases stand unpaired in red, on the bottom strand of the left fragment and on the top strand of the right fragment." },
 
 { st:{sep:1, env:0, axis:1, oh:1, p:0, nick:0, blunt:1},
-  cap:"how far off the axis is the whole story",
+  cap:"which side of the axis, and how far",
   /* Both duplexes are on screen at once, so this line has to account for
      both of them — it is the comparison that is the point of the step. */
-  ann:"two columns off the axis: four bases &mdash; one column: two &mdash; on it: none",
-  note:"Same logic, two more enzymes, and together they give you a rule rather than a list. EcoRI up there cuts two columns off the axis and leaves four unpaired bases. NdeI recognises CATATG and cuts between the A and the T — one column off the axis — and leaves exactly two. EcoRV recognises GATATC and cuts between the T and the A, right on the axis, and leaves none at all: a blunt end. Same dimer, same symmetry, every time. So the length of an overhang is twice the distance of the cut from the axis, and sticky versus blunt is not a separate property you memorise per enzyme — it is only ever where the cut sits relative to the axis of symmetry. One thing to be clear about while you are looking at NdeI: two bases is a short overhang, not a different kind of overhang. It is still a five prime overhang, the same polarity as EcoRI's, just shorter, and shorter means it holds on more weakly.",
-  desc:"The cut EcoRI duplex stays on screen with its four unpaired bases. Below it two smaller cut duplexes appear side by side. On the left, NdeI CA slash TATG, cut one column off its own dashed axis, leaving two unpaired bases at each end. On the right, EcoRV GAT slash ATC, cut on its axis, leaving flush ends with nothing protruding. A line above reads: two columns off the axis, four bases; one column, two; on it, none." },
+  ann:"cut left of the axis: a 5&#8242; overhang &mdash; right of it: a 3&#8242; &mdash; on it: blunt",
+  note:"Same logic, two more enzymes, and between the three of them you get every kind of end there is. EcoRI up there cuts two columns to the left of the axis and leaves a four base five prime overhang. PstI recognises CTGCAG and cuts between the A and the G — that is also two columns from the axis, but on the far side of it — and it leaves a four base overhang that is three prime instead. Same length, opposite polarity, and the only thing that changed is which side of the axis the cut fell on. EcoRV recognises GATATC and cuts between the T and the A, right on the axis, so there is no stagger at all and not one unpaired base: a blunt end. So there are two halves to the rule and they are worth separating. How far the cut is from the axis sets how long the overhang is. Which side of the axis it falls on sets whether that overhang is five prime or three prime. Sticky versus blunt is not a property you memorise per enzyme, and neither is the polarity — both fall straight out of the symmetry.",
+  desc:"The cut EcoRI duplex stays on screen with its four unpaired bases protruding on the bottom strand of the left fragment. Below it two smaller cut duplexes appear side by side. On the left, PstI CTGCA slash G, cut two columns from its own dashed axis but on the other side of it, so the four unpaired bases protrude on the top strand instead: a 3-prime overhang. On the right, EcoRV GAT slash ATC, cut on its axis, leaving flush ends with nothing protruding. A line above reads: cut left of the axis, a 5-prime overhang; right of it, a 3-prime; on it, blunt." },
 
 { st:{sep:0, env:0, axis:0, oh:1, p:1, nick:1, blunt:0},
   cap:"the overhang finds a partner",
