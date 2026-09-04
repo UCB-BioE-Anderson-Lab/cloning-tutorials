@@ -1,20 +1,23 @@
 /* ------------------------------------------------------------------ *
- * exosap.js — heat-killable or not, and why anyone cares.
+ * exosap.js — heat-killable or not, told in the order it bites you.
  *
- * One property, shown twice.
+ * The narrative runs CIP first, because that is the one people meet
+ * first and get wrong:
  *
- * TOP  ExoSAP is the payoff. After a PCR the tube holds the product,
- *      leftover primers and leftover dNTPs. Exonuclease I eats the
- *      primers, SAP takes the phosphates off the dNTPs, and then BOTH
- *      DIE IN A HEAT STEP — which is the only reason you can sequence
- *      straight out of the same tube without cleaning anything up.
+ *   1  You phosphatase a vector with CIP. Now CIP is in the tube, and
+ *      you have to physically take the DNA away from it — a gel or a
+ *      column — before you ligate.
+ *   2  Trying to heat-kill it instead is the classic error. It survives,
+ *      bleeds into the ligation, and takes the INSERT's 5' phosphates
+ *      as well. Nothing ligates and nothing errors.
+ *   3  SAP is the same reaction from a different organism, and it IS
+ *      fully killed by heat.
+ *   4  Which buys you ExoSAP: Exonuclease I eats the leftover primers,
+ *      SAP destroys the leftover dNTPs, heat kills them both, and the
+ *      PCR goes straight into a sequencing reaction unpurified.
  *
- * BOTTOM  CIP is the trap. Same heat step, and it is still working. So
- *      the phosphates you were relying on — the insert's 5' ends — come
- *      off, and the ligation you set up quietly does nothing.
- *
- * Red is the enzyme and the phosphate it acts on; blue is DNA that is
- * not the point; ink is the DNA you are trying to keep.
+ * So the CIP half is the problem and the ExoSAP half is what the
+ * property is worth — not the other way round.
  * ------------------------------------------------------------------ */
 (function(){
 "use strict";
@@ -66,60 +69,56 @@ window.Deck.sequence("exosap", function(slide){
   svg.setAttribute("style","position:absolute;inset:0;pointer-events:none");
   slide.appendChild(svg);
 
-  /* s = {prime, dntp, heat, low, strip} */
+  /* s = {strip, low, clean, heat} */
   function paint(s){
     let g="";
-    /* ---------- top: ExoSAP ---------- */
-    g+=txt(800,178,"ExoSAP &mdash; clean up a PCR without touching it",INK,30);
-    g+=duplex(210,560,262,INK)+txt(385,340,"PCR product",MUT,21,600);
-    /* leftover primers, eaten by Exonuclease I */
-    [0,1,2].forEach(function(k){
-      const o=(1-s.prime).toFixed(2), x=250+k*118;
-      g+='<g opacity="'+o+'">'+strand(x,x+82,392,BLUE)+'</g>';
-    });
-    g+='<g opacity="'+(1-s.prime).toFixed(2)+'">'+txt(385,440,"leftover primers",MUT,21,600)+'</g>';
-    /* leftover dNTPs, dephosphorylated by SAP */
-    [0,1,2].forEach(k=>{ g+=dntp(760+k*104,392,s.dntp); });
-    g+=txt(864,440,"leftover dNTPs",MUT,21,600);
-    g+=enz(1230,268,"Exonuclease I",s.heat);
-    g+=enz(1230,330,"SAP",s.heat);
-    if(s.heat>0.5) g+=txt(1230,392,"80&deg;C &mdash; both gone",MUT,22,600);
-    /* below the product, in the space the primers have just vacated */
-    if(s.heat>0.5) g+=txt(385,392,"sequence straight from the tube",BLUE,23,700);
+    /* ---------- top: CIP, and why it has to come out ---------- */
+    g+=txt(800,176,"CIP: you have to take the DNA away from it",INK,30);
+    g+=duplex(250,620,262,INK)+txt(435,336,"phosphatased vector",MUT,21,600);
+    g+=duplex(760,1080,262,INK)+txt(920,336,"insert",MUT,21,600);
+    g+=P(760,262,s.strip)+P(1080,288,s.strip);
+    g+=enz(1310,258,"CIP",0);
+    g+=txt(1310,306,s.strip>0.5?"heat did not kill it":"gel or column &mdash; not heat",
+           s.strip>0.5?RED:MUT,22,600);
+    if(s.strip>0.5) g+=txt(920,392,"it takes the insert&#8217;s phosphates too &mdash; nothing ligates",RED,25,700);
 
-    /* ---------- bottom: CIP ---------- */
+    /* ---------- bottom: SAP, and what being killable buys ---------- */
     if(s.low>0){
       g+='<g opacity="'+s.low.toFixed(2)+'">';
-      g+='<path d="M150 520H1450" stroke="'+MUT+'" stroke-width="1.6" stroke-dasharray="7 9"/>';
-      g+=txt(800,584,"the same heat step, with CIP",INK,30);
-      /* vector, already phosphatased, and an insert that still has its 5' P */
-      g+=duplex(250,640,668,INK)+txt(445,742,"phosphatased vector",MUT,21,600);
-      g+=duplex(760,1080,668,INK)+txt(920,742,"insert",MUT,21,600);
-      g+=P(760,668,s.strip)+P(1080,694,s.strip);
-      g+=enz(1290,650,"CIP",0);
-      g+=txt(1290,700,"heat does not kill it",MUT,22,600);
-      if(s.strip>0.5) g+=txt(920,790,"its 5&#8242; phosphates go too &mdash; nothing ligates",RED,25,700);
+      g+='<path d="M150 470H1450" stroke="'+MUT+'" stroke-width="1.6" stroke-dasharray="7 9"/>';
+      g+=txt(800,540,"SAP: a different organism, and heat does kill it",INK,30);
+      g+=duplex(210,560,624,INK)+txt(385,700,"PCR product",MUT,21,600);
+      [0,1,2].forEach(function(k){
+        const x=250+k*118;
+        g+='<g opacity="'+(1-s.clean).toFixed(2)+'">'+strand(x,x+82,752,BLUE)+'</g>';
+      });
+      g+='<g opacity="'+(1-s.clean).toFixed(2)+'">'+txt(385,800,"leftover primers",MUT,21,600)+'</g>';
+      [0,1,2].forEach(k=>{ g+=dntp(760+k*104,752,s.clean); });
+      g+=txt(864,800,"leftover dNTPs",MUT,21,600);
+      g+=enz(1290,616,"Exonuclease I",s.heat);
+      g+=enz(1290,676,"SAP",s.heat);
+      if(s.heat>0.5){
+        g+=txt(1290,732,"80&deg;C &mdash; both gone",MUT,22,600);
+        g+=txt(385,752,"sequence it unpurified",BLUE,23,700);
+      }
       g+='</g>';
     }
     svg.innerHTML=g;
   }
 
   const S=[
-    {s:{prime:0,dntp:0,heat:0,low:0,strip:0},
-     note:"After a PCR your product is in there, but so is everything you did not use: unincorporated primers, and unincorporated dNTPs. Both of them will wreck a sequencing reaction — spare primers give you a second priming site, spare dNTPs throw the ratio of terminators off.",
-     desc:"A PCR product drawn as a duplex, with three leftover single-stranded primers and three leftover dNTPs, each dNTP carrying a red phosphate."},
-    {s:{prime:1,dntp:1,heat:0,low:0,strip:0},
-     note:"ExoSAP is two enzymes in one tube. Exonuclease I is a three prime to five prime exonuclease that only acts on single-stranded DNA, so it eats every leftover primer and cannot touch the double-stranded product. And SAP, shrimp alkaline phosphatase, takes the phosphates off the leftover dNTPs, which is all it takes to make them useless to a polymerase. Neither one touches what you want.",
-     desc:"The primers have gone and every dNTP has lost its phosphate. The PCR product is untouched."},
-    {s:{prime:1,dntp:1,heat:1,low:0,strip:0},
-     note:"And here is the step the whole thing depends on. Both of those enzymes are heat labile, so a short incubation at eighty degrees destroys them, and you can put the tube straight into a sequencing reaction without a column, a gel, or a precipitation. That is the entire appeal of ExoSAP: it is a cleanup that costs you one incubation and no sample.",
-     desc:"Both enzyme names are struck through and greyed, labelled 80 degrees, both gone. A line by the product reads: sequence straight from the tube."},
-    {s:{prime:1,dntp:1,heat:1,low:1,strip:0},
-     note:"Now the trap, and it catches people every year. Calf intestinal phosphatase does the same chemistry as SAP and it is cheaper and more robust — but robust is exactly the problem, because heat does not kill it. Run the same heat step and CIP is still working.",
-     desc:"Below a dividing line, the same heat step with CIP: a phosphatased vector and an insert that still carries its 5-prime phosphates, and CIP named in red and not struck through, labelled heat does not kill it."},
-    {s:{prime:1,dntp:1,heat:1,low:1,strip:1},
-     note:"So when you add your insert and your ligase, CIP takes the insert's five prime phosphates off as well. Ligase has nothing to seal, and you get no colonies and no error message — the reaction looks like it ran. If you phosphatase with CIP you have to physically remove it, by column or by extraction, before you ligate. With SAP you heat the tube. That is the whole difference, and it is worth knowing before you choose which bottle to pick up.",
-     desc:"The insert's phosphates have gone as well, with a line reading: its 5-prime phosphates go too, nothing ligates."}
+    {s:{strip:0,low:0,clean:0,heat:0},
+     note:"Start with the case you will actually meet. You have phosphatased your vector with CIP so it cannot close on itself, and now CIP is sitting in the tube with your DNA. Before you ligate, you have to physically separate the two — run it on a gel and cut the band out, or put it over a column. Not because CIP is fragile, but because it is not.",
+     desc:"A phosphatased vector and an insert, drawn as duplexes; the insert carries a red phosphate at each 5-prime end. CIP is named in red beside them, labelled: gel or column, not heat."},
+    {s:{strip:1,low:0,clean:0,heat:0},
+     note:"Because here is the error, and it is made every year. People try to heat-kill CIP the way they would any other enzyme. It does not work — CIP is notoriously robust — so it comes through into the ligation still active, and now it meets your insert, which does still have its five prime phosphates. It takes those off too. Ligase has nothing to seal. You get no colonies, and nothing anywhere told you why: the reaction looked like it ran.",
+     desc:"The insert's phosphates have gone. CIP is still named in red, now labelled heat did not kill it, and a line reads: it takes the insert's phosphates too, nothing ligates."},
+    {s:{strip:1,low:1,clean:0,heat:0},
+     note:"Which is why the alternatives exist. SAP is shrimp alkaline phosphatase — the same reaction, an alkaline phosphatase like CIP, but from a different organism, and this one is fully destroyed by heat. That single difference is worth a lot, and the nicest illustration of it is a trick you will use constantly.",
+     desc:"Below a dividing line, a second scene: a PCR product with leftover single-stranded primers and leftover dNTPs, and Exonuclease I and SAP named in red beside them."},
+    {s:{strip:1,low:1,clean:1,heat:1},
+     note:"Sequencing a PCR product straight out of the tube. Two enzymes: Exonuclease I, which we saw in the last section, is three prime to five prime and single-stranded only, so it eats every leftover primer and cannot touch the double-stranded product. And SAP destroys the leftover dNTPs by taking their phosphates off. Then one incubation at eighty degrees kills both, and the tube goes straight into the sequencing reaction. No gel, no column, no sample lost. That is what being heat-killable is worth, and it is exactly what CIP cannot give you.",
+     desc:"The primers have gone and every dNTP has lost its phosphate. Both enzyme names are struck through and greyed, labelled 80 degrees, both gone, and a line by the product reads: sequence it unpurified."}
   ];
   let cur=null, raf=null;
   const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
