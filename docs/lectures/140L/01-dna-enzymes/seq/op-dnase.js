@@ -18,7 +18,7 @@
 "use strict";
 const NS="http://www.w3.org/2000/svg";
 const RED=window.DNAModel.HOT, MUT="#767676", INK="#111111";
-const N=18, PS=74, HALF=PS/2, TY=436, BY=496, GAPW=11;
+const N=16, PS=62, HALF=PS/2, TY=640, BY=692, GAPW=9;
 const SX=(1600-(N-1)*PS)/2;
 const NICKS=7;
 const T_HOLD=0.75, T_STEP=0.38, T_GO=1.35, T_END=0.65;
@@ -36,7 +36,7 @@ function plan(){
   }
   const drift=[];
   for(let i=0;i<NICKS+3;i++)
-    drift.push([(Math.random()*2-1)*120, (Math.random()*2-1)*104]);
+    drift.push([(Math.random()*2-1)*104, (Math.random()*2-1)*74]);
   return {picks:picks, drift:drift};
 }
 function segs(nicks){
@@ -63,54 +63,53 @@ function strand(y, nicks, up, prog, drift){
   return g;
 }
 
-window.Deck.sequence("op-dnase", function(slide){
+/* Attached to the slide rather than registered as a sequence: a slide driven
+   by a sequence does not run its data-build steps, and the Uses list on this
+   slide is a build. So this hangs off the slide and animates whenever it is
+   the one on screen. */
+function attach(slide){
   const svg=document.createElementNS(NS,"svg");
   svg.setAttribute("viewBox","0 0 1600 900");
   svg.setAttribute("aria-hidden","true");
   svg.setAttribute("style","position:absolute;inset:0;pointer-events:none");
   slide.appendChild(svg);
   const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
-  let raf=null, cur=null, curId=-1;
+  let cur=plan(), curId=-1, t0=0;
 
   function paint(shown, prog){
     const top=[], bot=[];
     cur.picks.slice(0,shown).forEach(p=>(p.s==="top"?top:bot).push(p.c));
+    const fade=(1-prog*3<0?0:1-prog*3).toFixed(2);
     const lab=(x,y,t,anch)=>'<text x="'+x+'" y="'+(y+8)+'" text-anchor="'+anch+
-      '" font-size="24" fill="'+MUT+'" opacity="'+(1-prog*3<0?0:1-prog*3).toFixed(2)+
-      '">'+t+'</text>';
+      '" font-size="22" fill="'+MUT+'" opacity="'+fade+'">'+t+'</text>';
     svg.innerHTML=
-      '<text x="800" y="140" text-anchor="middle" font-size="44" font-weight="700" fill="'+INK+
-        '">DNase I</text>'+
-      '<text x="800" y="188" text-anchor="middle" font-size="25" fill="'+MUT+
-        '">it needs DNA &mdash; and reads nothing about it</text>'+
       strand(TY, top, true,  prog, cur.drift)+
       strand(BY, bot, false, prog, cur.drift.slice(1))+
-      lab(SX-HALF-22, TY, "5&#8242;", "end")+ lab(SX+(N-1)*PS+HALF+22, TY, "3&#8242;", "start")+
-      lab(SX-HALF-22, BY, "3&#8242;", "end")+ lab(SX+(N-1)*PS+HALF+22, BY, "5&#8242;", "start")+
-      '<text x="800" y="700" text-anchor="middle" font-size="25" font-weight="700" fill="'+RED+
+      lab(SX-HALF-20, TY, "5&#8242;", "end")+ lab(SX+(N-1)*PS+HALF+20, TY, "3&#8242;", "start")+
+      lab(SX-HALF-20, BY, "3&#8242;", "end")+ lab(SX+(N-1)*PS+HALF+20, BY, "5&#8242;", "start")+
+      '<text x="800" y="800" text-anchor="middle" font-size="25" font-weight="700" fill="'+RED+
         '">no site, no pattern &mdash; every cut leaves a 5&#8242; phosphate and a 3&#8242; hydroxyl</text>';
   }
-
-  function go(){
-    if(raf){cancelAnimationFrame(raf);raf=null;}
-    if(reduce.matches){ cur=plan(); paint(NICKS,0); return; }
-    const t0=performance.now();
-    raf=requestAnimationFrame(function f(now){
-      if(!slide.classList.contains("on")){ raf=null; return; }
-      const el=(now-t0)/1000, id=Math.floor(el/CYCLE);
-      if(id!==curId){ curId=id; cur=plan(); }     /* new cuts every cycle */
-      let t=el%CYCLE;
-      if(t<T_HOLD)                       paint(0,0);
-      else if((t-=T_HOLD)<NICKS*T_STEP)  paint(Math.floor(t/T_STEP)+1, 0);
-      else if((t-=NICKS*T_STEP)<T_GO)    paint(NICKS, ease(t/T_GO));
-      else                               paint(NICKS, 1);
-      raf=requestAnimationFrame(f);
-    });
+  function frame(now){
+    if(!slide.classList.contains("on")){        /* idle cheaply while off screen */
+      setTimeout(()=>requestAnimationFrame(frame), 400); return;
+    }
+    if(!t0) t0=now;
+    const el=(now-t0)/1000, id=Math.floor(el/CYCLE);
+    if(id!==curId){ curId=id; cur=plan(); }     /* new cuts every cycle */
+    let t=el%CYCLE;
+    if(t<T_HOLD)                       paint(0,0);
+    else if((t-=T_HOLD)<NICKS*T_STEP)  paint(Math.floor(t/T_STEP)+1, 0);
+    else if((t-=NICKS*T_STEP)<T_GO)    paint(NICKS, ease(t/T_GO));
+    else                               paint(NICKS, 1);
+    requestAnimationFrame(frame);
   }
-  cur=plan(); go();
-  return { steps:[{
-    note:"And here is the other end of the same class. EcoRI's picture was mostly about where — a red site, grey flanks, one cut in one place. DNase I has no where. It is red end to end, because it does need DNA and it needs it to be DNA rather than RNA, which is exactly why you use it to clean up an RNA prep. But it reads nothing about that DNA at all. Watch where the cuts land: they are drawn fresh every time this loops, and no two runs are the same, because that is the honest picture of an enzyme with no recognition sequence. Notice they come one at a time, and notice that with magnesium in the buffer most of them are nicks on one strand only. Swap in manganese and it prefers to cut both strands together and leave blunt ends. Either way it is very potent — most protocols use tiny amounts — and the ends it leaves are the same ends every enzyme in this section leaves: five prime phosphate, three prime hydroxyl, so the fragments are competent for ligation. That is what makes it useful for chopping a large DNA down to oligonucleotide length, which is the fragmentation step in DNA shuffling.",
-    desc:"A DNA duplex drawn as two barbed lines, red along their whole length, with a half barb at each 3-prime end. On a loop, single-strand nicks appear one after another at positions that are different every time, until the molecule comes apart into fragments that drift away and fade. Each fragment keeps a half barb at its own 3-prime end."
-  }], go:go };
-});
+  if(reduce.matches) paint(NICKS,0); else requestAnimationFrame(frame);
+}
+function boot(){
+  const el=document.querySelector('[data-anim="dnase"]');
+  if(el) attach(el);
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot);
+else boot();
 })();
