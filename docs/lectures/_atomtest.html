@@ -1,0 +1,35 @@
+<!doctype html><meta charset="utf-8"><title>nucleotide test</title>
+<style>body{margin:0;background:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif}</style>
+<svg viewBox="0 0 1600 900" width="1600" height="900"><g id="out"></g></svg>
+<script src="140L/01-dna-enzymes/seq/atoms.js"></script>
+<script>
+const INK="#111111", MUT="#767676", A=window.Atoms;
+function nucleotide(cx, by, letter, k, colour){
+  A.setScale(k);
+  const R=A.R, s="";
+  // sugar: a filled pentagon, C1' at the apex facing the base
+  const sr=R*0.86, sy=by-R*2.3;
+  let pts=[]; for(let i=0;i<5;i++){const a=(90+i*72)*Math.PI/180;
+    pts.push([cx+sr*Math.cos(a), sy-sr*Math.sin(a)]);}
+  let g='<path d="M'+pts.map(p=>p[0].toFixed(1)+" "+p[1].toFixed(1)).join("L")+
+        'Z" fill="#f2f2f2" stroke="'+colour+'" stroke-width="2.4" stroke-linejoin="round"/>';
+  g+='<text x="'+(cx-sr-16)+'" y="'+(sy+6)+'" text-anchor="end" font-size="'+(17*k)+
+     '" fill="'+MUT+'">4&#8242;</text>';
+  // glycosidic bond down from the sugar apex to the base
+  const b=A.baseAt(letter, cx, sy+sr+34, -90, colour);   // hangs off the sugar apex
+  g+='<path d="M'+cx+' '+(sy+sr)+'V'+(sy+sr+34-R*0.40).toFixed(1)+'" fill="none" stroke="'+colour+'" stroke-width="2.4"/>';
+  g+=b.g;
+  // 5' phosphate off C5'
+  const px=cx-sr-70, py=sy-40;
+  g+='<path d="M'+(cx-sr*0.9)+' '+(sy-sr*0.6)+'L'+(px+26)+' '+py+'" fill="none" stroke="'+colour+'" stroke-width="2.4"/>';
+  g+='<text x="'+px+'" y="'+(py+8)+'" text-anchor="middle" font-size="'+(26*k)+'" font-weight="700" fill="'+colour+'">P</text>';
+  return g;
+}
+document.getElementById("out").innerHTML =
+  '<text x="300" y="80" text-anchor="middle" font-size="24" fill="#767676">full scale</text>'+
+  nucleotide(300, 520, "A", 1.0, INK)+
+  '<text x="820" y="80" text-anchor="middle" font-size="24" fill="#767676">0.7</text>'+
+  nucleotide(820, 480, "G", 0.7, INK)+
+  '<text x="1180" y="80" text-anchor="middle" font-size="24" fill="#767676">0.5</text>'+
+  nucleotide(1180, 450, "C", 0.5, INK);
+</script>

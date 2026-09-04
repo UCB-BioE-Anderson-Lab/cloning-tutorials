@@ -13,8 +13,9 @@
 (function(){
 "use strict";
 const n2=v=>Math.round(v*10)/10;
-const R=46;                              /* six-ring circumradius = side */
-const r5=R/(2*Math.sin(36*Math.PI/180)); /* five-ring circumradius       */
+let R=46;                                /* six-ring circumradius = side */
+let r5=R/(2*Math.sin(36*Math.PI/180));   /* five-ring circumradius       */
+function setScale(k){ R=46*k; r5=R/(2*Math.sin(36*Math.PI/180)); return R; }
 
 function rot(p,a,o){                     /* rotate p about origin o by a deg */
   const t=a*Math.PI/180, dx=p[0]-o[0], dy=p[1]-o[1];
@@ -39,6 +40,7 @@ function dbl(a,b,inward,c){              /* second line, offset toward `inward` 
   return bond(p,q,c,2.2);
 }
 function lab(p,t,c,sz){
+  sz = (sz||20)*(R/46);
   return '<circle cx="'+n2(p[0])+'" cy="'+n2(p[1])+'" r="'+((sz||20)*0.62)+'" fill="#fff"/>'+
          '<text x="'+n2(p[0])+'" y="'+n2(p[1]+(sz||20)*0.34)+'" text-anchor="middle" font-size="'+
          (sz||20)+'" font-weight="600" fill="'+c+'">'+t+'</text>';
@@ -73,7 +75,7 @@ function purine(cx,cy,ang,c,which){
   /* exocyclic: adenine 6-NH2; guanine 6-oxo and 2-NH2 */
   const out=(from,to,txt,dd)=>{
     const dx=from[0]-to[0],dy=from[1]-to[1],L=Math.hypot(dx,dy);
-    const q=[from[0]+dx/L*40, from[1]+dy/L*40];
+    const q=[from[0]+dx/L*40*(R/46), from[1]+dy/L*40*(R/46)];
     return bond(from,q,c)+(dd?dbl(from,q,to,c):"")+lab(q,txt,c,19);
   };
   if(which==="A") g+=out(a6,ctr,"NH&#8322;",false);
@@ -96,7 +98,7 @@ function pyrimidine(cx,cy,ang,c,which){
   g+=lab(b1,"N",c)+lab(b3,"N",c);
   const out=(from,txt,dd)=>{
     const dx=from[0]-ctr[0],dy=from[1]-ctr[1],L=Math.hypot(dx,dy);
-    const q=[from[0]+dx/L*40, from[1]+dy/L*40];
+    const q=[from[0]+dx/L*40*(R/46), from[1]+dy/L*40*(R/46)];
     return bond(from,q,c)+(dd?dbl(from,q,ctr,c):"")+lab(q,txt,c,19);
   };
   if(which==="C") g+=out(b2,"O",true)+out(b4,"NH&#8322;",false);
@@ -104,7 +106,29 @@ function pyrimidine(cx,cy,ang,c,which){
   return { g, N1:b1, wc:[b3,b4] };
 }
 
-window.Atoms={ purine, pyrimidine,
+/* Draw a base rotated so its glycosidic nitrogen points in a given screen
+   direction — up (-90) for a top-strand base whose sugar sits above it.
+   Without this the sugar bonds to whatever atom happens to face it. */
+function baseAligned(letter,cx,cy,targetDeg,c){
+  const probe = (letter==="A"||letter==="G") ? purine(cx,cy,0,c,letter)
+                                             : pyrimidine(cx,cy,0,c,letter);
+  const gly = probe.N9 || probe.N1;
+  const cur = Math.atan2(gly[1]-cy, gly[0]-cx)*180/Math.PI;
+  const ang = targetDeg - cur;
+  return (letter==="A"||letter==="G") ? purine(cx,cy,ang,c,letter)
+                                      : pyrimidine(cx,cy,ang,c,letter);
+}
+
+/* Place a base BY ITS GLYCOSIDIC ATOM rather than by its centre, so the ring
+   hangs off the sugar instead of overlapping it. dirDeg is the direction from
+   the ring centre out to that atom. */
+function baseAt(letter,gx,gy,dirDeg,c){
+  const probe=baseAligned(letter,0,0,dirDeg,c);
+  const off=probe.N9||probe.N1;
+  return baseAligned(letter, gx-off[0], gy-off[1], dirDeg, c);
+}
+
+window.Atoms={ purine, pyrimidine, setScale, baseAligned, baseAt, get R(){return R;},
   base:(letter,cx,cy,ang,c)=> (letter==="A"||letter==="G")
         ? purine(cx,cy,ang,c,letter) : pyrimidine(cx,cy,ang,c,letter) };
 })();
