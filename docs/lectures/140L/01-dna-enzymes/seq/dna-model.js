@@ -24,7 +24,11 @@
  * ------------------------------------------------------------------ */
 (function(){
 "use strict";
-const INK="#111111", GREY="#c8c8c8", MUT="#767676", HOT="#ba3a13";
+/* Straight off the deck palette. #767676 is documented there as the lightest
+   legible grey, so anything meant to be READ as a molecule cannot go lighter;
+   the old #c8c8c8 filler dissolved. Blue is the palette's "what to look at". */
+const INK="#111111", GREY="#767676", MUT="#767676", HOT="#ba3a13";
+const KEY="#004373", FAINT="#bcbcbc";
 const n2=v=>Math.round(v*10)/10;
 const COMP={A:"T",T:"A",G:"C",C:"G",N:"N",R:"Y",Y:"R",W:"W",S:"S",K:"M",M:"K"};
 const comp = t => t.split("").map(c=>COMP[c]||"N").join("");
@@ -37,7 +41,11 @@ function make(o){
     mods:o.mods||[], cuts:o.cuts||[],
     role:{ top:o.roleTop||blank(), bot:o.roleBot||blank() } };
 }
-const col = r => r==="bg" ? GREY : r==="hot" ? HOT : INK;
+/* bg   grey   a real base, but arbitrary — identity is not what matters
+   on   ink    present and required, but unremarkable
+   key  blue   the part the enzyme actually reads
+   hot  red    the bond that reacts                                        */
+const col = r => r==="bg" ? GREY : r==="key" ? KEY : r==="hot" ? HOT : INK;
 
 const K=0.70;              /* the scale at which atom labels stay legible */
 const PITCH=206, TY=300;
@@ -61,11 +69,16 @@ const lerp=(a,b,f)=>[a[0]+(b[0]-a[0])*f, a[1]+(b[1]-a[1])*f];
 const out=(v,ctr,d)=>{ const x=v[0]-ctr[0],y=v[1]-ctr[1],L=Math.hypot(x,y)||1;
                        return [v[0]+x/L*d, v[1]+y/L*d]; };
 
-function phosphate(x,y,c,up,R){
+/* term: a chain-terminal phosphate is a MONOester and needs its fourth
+   oxygen. Without it the phosphorus carries only three substituents and reads
+   as a diester with the chain running on — which is not what a 6-mer's 5' end
+   looks like. d points away from the sugar. */
+function phosphate(x,y,c,up,R,term,d){
   const s=up?-1:1, L=R*0.80;
   let g=bond([x-4,y],[x-4,y+s*L],c)+bond([x+4,y],[x+4,y+s*L],c);      /* P=O */
   g+=atomLab([x,y+s*(L+SZ*0.95)],"O",c);
   g+=bond([x,y],[x,y-s*L],c)+atomLab([x,y-s*(L+SZ*1.05)],"O&#8315;",c);
+  if(term) g+=bond([x,y],[x+d*L,y],c)+atomLab([x+d*(L+SZ*1.15),y],"O&#8315;",c);
   g+=atomLab([x,y],"P",c);
   return g;
 }
@@ -139,8 +152,8 @@ function draw(m, x0){
       const isC5 = (q[1]===3) ? rightIs3 : !rightIs3;
       if(end==="phos"){
         const tip=[ctr[0]+d*(PITCH*0.42), py];
-        g+=arm(v,ctr,tip,INK,isC5,R)+phosphate(tip[0],tip[1],INK,up,R);
-        g+='<text x="'+n2(tip[0]+d*72)+'" y="'+n2(y+7)+'" text-anchor="middle" font-size="20" fill="'+
+        g+=arm(v,ctr,tip,INK,isC5,R)+phosphate(tip[0],tip[1],INK,up,R,true,d);
+        g+='<text x="'+n2(tip[0]+d*70)+'" y="'+n2(y+7)+'" text-anchor="middle" font-size="20" fill="'+
            MUT+'">'+q[3]+'</text>';
       }else{
         let start=v;
@@ -162,7 +175,7 @@ function draw(m, x0){
     for(let k=0;k<n;k++){
       const a=lerp(tb.hb[k], bb.hb[k], 0.16), b=lerp(tb.hb[k], bb.hb[k], 0.84);
       g+='<path d="M'+n2(a[0])+' '+n2(a[1])+'L'+n2(b[0])+' '+n2(b[1])+
-         '" fill="none" stroke="'+(faded?GREY:MUT)+'" stroke-width="2" stroke-dasharray="4 5"/>';
+         '" fill="none" stroke="'+(faded?FAINT:MUT)+'" stroke-width="2" stroke-dasharray="4 5"/>';
     }
   }
 

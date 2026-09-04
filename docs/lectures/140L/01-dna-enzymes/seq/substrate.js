@@ -54,15 +54,20 @@ window.Deck.sequence("substrate", function(slide){
       note:"First axis: the sequence itself, and the length. Watch it change. Most of the enzymes we will meet do not read the sequence at all — an exonuclease chewing from an end does not know or care what the bases are. So when we draw a substrate in grey, that is what grey means: a real sequence, concrete enough to be a molecule, but arbitrary. Nothing about it is what the enzyme is recognising.",
       desc:"The sequence and the length shuffle rapidly and settle on a new random duplex, showing that neither is fixed." },
 
-    { word:"degeneracy", sub:"black is required &mdash; grey is anything",
+    { word:"degeneracy", sub:"blue is required &mdash; grey is anything",
+      cycle:true,
+      /* The free positions hold a REAL base that keeps changing, rather than a
+         letter N. A concrete base is what an enzyme actually meets, and it
+         keeps every pair a purine against a pyrimidine — an N on both strands
+         is two pyrimidines, which is not a base pair and throws the geometry. */
       model:()=>{
-        const n=7, top="GANNNNC";
+        const n=7, top="GA"+rnd(4)+"C", key=i=>(i<2||i===6);
         return M.make({top, ends:{t5:"phos",b5:"phos"},
-          roleTop:roles(n,i=>({bb:"on", base:(i<2||i===6)?"on":"bg"})),
-          roleBot:roles(n,i=>({bb:"on", base:(i<2||i===6)?"on":"bg"}))});
+          roleTop:roles(n,i=>({bb:"on", base:key(i)?"key":"bg"})),
+          roleBot:roles(n,i=>({bb:"on", base:key(i)?"key":"bg"}))});
       },
-      note:"Second axis, and this is the notation that does the most work. When only part of a site matters, we colour that part black and leave the rest grey. Here the enzyme requires a G and an A at the start and a C at the end, and genuinely does not care about the four positions between. Notice the backbone stays black all the way across — the DNA is still required to be there, continuous and double stranded. It is only the identity of those bases that is free.",
-      desc:"The same duplex with only three base positions in black and the rest greyed, while the backbone stays black throughout: a degenerate recognition site." },
+      note:"Second axis, and this is the notation that does the most work. When only part of a site matters, we colour that part blue and leave the rest grey. Here the enzyme requires a G and an A at the start and a C at the end, and genuinely does not care about the four positions between — watch them keep changing. Every one of those is a real base; there is no such thing as an N in a tube. Notice the backbone stays dark all the way across, because the DNA still has to be there, continuous and double stranded. It is only the identity of those four bases that is free.",
+      desc:"The same duplex with three base positions in blue and the four between them in grey, cycling slowly through different bases to show that their identity is unconstrained, while the backbone stays dark throughout." },
 
     { word:"ends", sub:"a 5&#8242; phosphate, or a bare hydroxyl &mdash; different molecules",
       model:()=>M.make({top:"GAATTC", ends:{t5:"phos", b5:"oh"},
@@ -82,7 +87,12 @@ window.Deck.sequence("substrate", function(slide){
     if(raf){cancelAnimationFrame(raf);raf=null;}
     if(timer){clearTimeout(timer);timer=null;}
     const st=S[i];
-    if(st.shuffle && animated!==false && !reduce.matches){
+    if(st.cycle && animated!==false && !reduce.matches){
+      /* keep turning over the free positions for as long as the slide is up */
+      const roll=function(){ render(st.model(), st.word, st.sub);
+                             timer=setTimeout(roll,1500); };
+      roll();
+    } else if(st.shuffle && animated!==false && !reduce.matches){
       /* Four deliberate changes, not a blur. Re-rendering every animation
          frame made the point unreadable: you cannot see that a sequence
          changed if you never see any one sequence. */
