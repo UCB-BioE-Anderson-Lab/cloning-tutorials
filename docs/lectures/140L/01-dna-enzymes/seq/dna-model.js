@@ -253,9 +253,15 @@ function draw(m, x0){
           g+=bond(v,oh,ce);
         }
         AN.term[which+(q[3].indexOf("5")>=0?"5":"3")]=oh;
-        g+=atomLab(oh,"OH",ce);
-        g+='<text x="'+n2(oh[0]+d*44)+'" y="'+n2(oh[1]+6)+'" text-anchor="middle" font-size="20" fill="'+
-           MUT+'">'+q[3]+'</text>';
+        /* "o" is a 5' oxygen that already carries something else -- the
+           kinase slide bonds the transferred gamma phosphate onto it, so
+           it must not still be drawn holding a proton. */
+        g+=atomLab(oh,end==="o"?"O":"OH",ce);
+        /* the tick sits where whatever is bonded to an "o" oxygen has to go,
+           so that end names itself instead */
+        if(end!=="o")
+          g+='<text x="'+n2(oh[0]+d*44)+'" y="'+n2(oh[1]+6)+'" text-anchor="middle" font-size="20" fill="'+
+             MUT+'">'+q[3]+'</text>';
       }
     });
   });
