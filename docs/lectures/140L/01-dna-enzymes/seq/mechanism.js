@@ -194,9 +194,9 @@ window.Deck.sequence("mechanism",function(slide){
     { s:{t:0,arrows:0,axis:0,nuv:0,b1:1,plus:0,rib:0,b2:0}, h1:"", h2:"", lg:"O", e1:"O", e2:"O",
       cap:"One phosphodiester bond",
       sub:"a phosphorus holding two sugars together &mdash; tetrahedral, and going nowhere on its own",
-      who:"every enzyme in this lecture attacks this atom",
-      note:"Start with the bond. A phosphorus, four oxygens around it in a tetrahedron: a double bonded oxygen, a negative charge, and two ester oxygens running out to the two sugars. That is a phosphodiester, and left alone it is extremely stable — the half life for spontaneous hydrolysis is on the order of tens of millions of years. Everything an enzyme does today is to make this one atom attackable.",
-      desc:"A phosphodiester bond at atomic scale: a central phosphorus in a tetrahedral arrangement with a double-bonded oxygen shown as a solid wedge, a negatively charged oxygen, and two ester oxygens to the sugars." },
+      who:"two of the three mechanisms attack this atom &mdash; the third does not",
+      note:"Start with the bond. A phosphorus, four oxygens around it in a tetrahedron: a double bonded oxygen, a negative charge, and two ester oxygens running out to the two sugars. That is a phosphodiester, and left alone it is extremely stable — the half life for spontaneous hydrolysis is on the order of tens of millions of years. There are three reaction mechanisms in this lecture and two of them happen right here, on this phosphorus: one where water attacks, one where an alcohol does. The third is methyl transfer, which is not phosphorus chemistry at all — it waits for the methyltransferases and gets its own drawing there.",
+      desc:"A phosphodiester bond at atomic scale: a central phosphorus in a tetrahedral arrangement with a double-bonded oxygen drawn as two parallel lines, a negatively charged oxygen on a wedge pointing toward the viewer, and two ester oxygens running out to the sugars." },
 
     { s:{t:0.34,arrows:1,axis:0,nuv:1,b1:1,plus:0,rib:0,b2:1}, h1:"H", h2:"H", lg:"O", e1:"O", e2:"O",
       cap:"1 &nbsp;Water comes in along the axis",
