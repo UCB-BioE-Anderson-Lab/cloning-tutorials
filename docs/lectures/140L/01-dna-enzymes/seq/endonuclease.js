@@ -139,27 +139,42 @@ function ends(gid, which){
     : label(XR, TY, 26, MUTED, "3&#8242;") + label(XR, BY, 26, MUTED, "5&#8242;");
 }
 
-/* ---- band B: EcoRV, the on-axis cut.  Only the product state. ---- */
-const LB = 503, SB = 54, TYB = 750, BYB = 808, FSB = 38, XB = 54;
-const colB = c => site(c) ? BLUE : INK;
+/* ---- the lower band: the same argument at two other distances from the
+   axis.  EcoRV cuts ON it and leaves nothing unpaired; NdeI cuts one column
+   off it and leaves two.  With EcoRI's two columns and four bases above,
+   the three of them say the rule outright: overhang length is twice the
+   distance from the axis, and nothing else. ---- */
+const SB = 30, TYB = 742, BYB = 796, FSB = 27, XB = 22;
+const PAIRUP = {a:"t",t:"a",g:"c",c:"g",A:"T",T:"A",G:"C",C:"G"};
+const flip = t => t.split("").map(ch => PAIRUP[ch]).join("");
 
-function bandB(){
-  return '<g data-r="blunt" opacity="0">' +
-    label(AX, 690, 26, INK,
-      "EcoRV &nbsp;GAT/ATC &mdash; the cut lands on the axis", 700) +
-    dash(AX, 718, 830) +
+function smallBand(o){
+  const L = o.x - 5.5*SB, T = o.seq, B = flip(T);
+  const cx = c => (c >= 3 && c <= 8) ? BLUE : INK;
+  return label(o.x, 690, 24, INK, o.name, 700) +
+    dash(o.x, 714, 812) +
     '<g transform="translate(' + (-XB) + ' 0)">' +
-      mono("", FSB, row("ctgGAT", 0, LB, SB, TYB, colB) +
-                    row("gacCTA", 0, LB, SB, BYB, colB)) +
-      label(LB - SB, TYB, 22, MUTED, "5&#8242;") +
-      label(LB - SB, BYB, 22, MUTED, "3&#8242;") +
+      mono("", FSB, row(T.slice(0, o.cutT+1), 0, L, SB, TYB, cx) +
+                    row(B.slice(0, o.cutB+1), 0, L, SB, BYB, cx)) +
+      label(L - SB, TYB, 20, MUTED, "5&#8242;") +
+      label(L - SB, BYB, 20, MUTED, "3&#8242;") +
     '</g>' +
     '<g transform="translate(' + XB + ' 0)">' +
-      mono("", FSB, row("ATCgca", 6, LB, SB, TYB, colB) +
-                    row("TAGcgt", 6, LB, SB, BYB, colB)) +
-      label(LB + 12*SB, TYB, 22, MUTED, "3&#8242;") +
-      label(LB + 12*SB, BYB, 22, MUTED, "5&#8242;") +
-    '</g></g>';
+      mono("", FSB, row(T.slice(o.cutT+1), o.cutT+1, L, SB, TYB, cx) +
+                    row(B.slice(o.cutB+1), o.cutB+1, L, SB, BYB, cx)) +
+      label(L + 12*SB, TYB, 20, MUTED, "3&#8242;") +
+      label(L + 12*SB, BYB, 20, MUTED, "5&#8242;") +
+    '</g>';
+}
+function bandB(){
+  return '<g data-r="blunt" opacity="0">' +
+    /* NdeI CA^TATG: one column off the axis, so a two base 5' overhang */
+    smallBand({x:436,  seq:"ctgCATATGgca", cutT:4, cutB:6,
+               name:"NdeI &nbsp;CA/TATG &mdash; one column off the axis"}) +
+    /* EcoRV GAT^ATC: right on it, so none */
+    smallBand({x:1164, seq:"ctgGATATCgca", cutT:5, cutB:5,
+               name:"EcoRV &nbsp;GAT/ATC &mdash; the cut lands on the axis"}) +
+  '</g>';
 }
 
 const MARKUP =
@@ -227,12 +242,12 @@ const S = [
   desc:"The duplex has separated into two fragments with a clear gap between them, the dashed axis sitting in the middle of that gap. Each cut end is staggered: four bases stand unpaired in red, on the bottom strand of the left fragment and on the top strand of the right fragment." },
 
 { st:{sep:1, env:0, axis:1, oh:1, p:0, nick:0, blunt:1},
-  cap:"an on-axis cut leaves a blunt end",
+  cap:"how far off the axis is the whole story",
   /* Both duplexes are on screen at once, so this line has to account for
      both of them — it is the comparison that is the point of the step. */
-  ann:"EcoRI above: four unpaired bases &mdash; EcoRV below: none",
-  note:"Same logic, different enzyme. EcoRV recognises GATATC and cuts between the T and the A — right on the axis. Same dimer, same symmetry, but with the cut sitting on the axis instead of beside it there is no stagger and not one unpaired base. That is a blunt end. So sticky versus blunt is not some separate property you have to memorise per enzyme: it is only ever a question of where the cut sits relative to the axis of symmetry.",
-  desc:"The cut EcoRI duplex stays on screen with its four unpaired bases. Below it a second, smaller duplex appears, labelled EcoRV GAT slash ATC. It has also been cut in two, but both strands break in the same column, on its own dashed axis, so the two ends are flush with nothing protruding. A line between the two reads: EcoRI above, four unpaired bases; EcoRV below, none." },
+  ann:"two columns off the axis: four bases &mdash; one column: two &mdash; on it: none",
+  note:"Same logic, two more enzymes, and together they give you a rule rather than a list. EcoRI up there cuts two columns off the axis and leaves four unpaired bases. NdeI recognises CATATG and cuts between the A and the T — one column off the axis — and leaves exactly two. EcoRV recognises GATATC and cuts between the T and the A, right on the axis, and leaves none at all: a blunt end. Same dimer, same symmetry, every time. So the length of an overhang is twice the distance of the cut from the axis, and sticky versus blunt is not a separate property you memorise per enzyme — it is only ever where the cut sits relative to the axis of symmetry. One thing to be clear about while you are looking at NdeI: two bases is a short overhang, not a different kind of overhang. It is still a five prime overhang, the same polarity as EcoRI's, just shorter, and shorter means it holds on more weakly.",
+  desc:"The cut EcoRI duplex stays on screen with its four unpaired bases. Below it two smaller cut duplexes appear side by side. On the left, NdeI CA slash TATG, cut one column off its own dashed axis, leaving two unpaired bases at each end. On the right, EcoRV GAT slash ATC, cut on its axis, leaving flush ends with nothing protruding. A line above reads: two columns off the axis, four bases; one column, two; on it, none." },
 
 { st:{sep:0, env:0, axis:0, oh:1, p:1, nick:1, blunt:0},
   cap:"the overhang finds a partner",
