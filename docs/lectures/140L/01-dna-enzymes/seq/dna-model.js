@@ -167,11 +167,22 @@ function draw(m, x0){
         g+='<text x="'+n2(tip[0]+d*70)+'" y="'+n2(y+7)+'" text-anchor="middle" font-size="20" fill="'+
            MUT+'">'+q[3]+'</text>';
       }else{
-        let start=v;
-        if(isC5){ const c5=out(v,ctr,R*0.52); g+=bond(v,c5,ce); start=c5; }
-        const oh=out(start,ctr,R*0.72);
+        /* A 5' terminus has a methylene between C4' and its oxygen; a 3' one
+           does not — C3' bonds the oxygen directly. The methylene was being
+           drawn, but extending radially put C4', C5' and O on one straight
+           line, so the vertex disappeared. It now takes the same bend toward
+           the phosphorus line that an internal linkage does. */
+        let oh;
+        if(isC5){
+          const c5=out(v,ctr,R*0.52);
+          oh=[c5[0]+d*R*0.72, py];
+          g+=bond(v,c5,ce)+bond(c5,oh,ce);
+        }else{
+          oh=out(v,ctr,R*0.72);
+          g+=bond(v,oh,ce);
+        }
         AN.term[which+(q[3].indexOf("5")>=0?"5":"3")]=oh;
-        g+=bond(start,oh,ce)+atomLab(oh,"OH",ce);
+        g+=atomLab(oh,"OH",ce);
         g+='<text x="'+n2(oh[0]+d*44)+'" y="'+n2(oh[1]+6)+'" text-anchor="middle" font-size="20" fill="'+
            MUT+'">'+q[3]+'</text>';
       }
