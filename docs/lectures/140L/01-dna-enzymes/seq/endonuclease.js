@@ -296,14 +296,16 @@ const XL = LX - ST, XR = LX + 17*ST;
 
 const site = c => c >= 3 && c <= 8;
 const colS = c => site(c) ? BLUE : INK;
-/* Everything BsaI does not read. Column 9 is in here deliberately: it is the
-   single base between the site and the top-strand cut, and the enzyme only
-   counts past it — it never reads it. Columns 10-13 are the overhang, which
-   keeps its own machinery, because contrasting two chosen overhangs is the
-   argument of the slide. */
-const FREE = [0,1,2,9,14,15,16];
+/* The four overhang bases and the one base before them. These are the
+   positions BsaI cuts around without ever reading, and they are the only ones
+   worth animating: scrambling the flanks as well would say "sequence varies",
+   which is not the point and buries the one that is. Held still until the
+   step that claims the overhang is yours, then set going, so the picture
+   makes the claim at the moment the caption does. */
+const FREE = [9,10,11,12,13];
 const tag = str => c => (FREE.indexOf(c) < 0 ? "" : ' data-rnd="' + str + c + '"');
 const PAIR = {a:"t", t:"a", g:"c", c:"g"};
+const ROLL_AT = 2;                       /* "so the overhang sequence is yours" */
 function scramble(root){
   FREE.forEach(function(c){
     const b = "acgt"[Math.floor(Math.random()*4)];
@@ -317,10 +319,10 @@ function scramble(root){
 /* columns 10-13 exist three times over: as plain sequence, as the
    red overhang, and as a DIFFERENT red overhang — the
    third is the whole argument of the slide. */
-function oh(ids, str, alt, y){
+function oh(ids, str, alt, y, pfx){
   return mono(ids[0], FS, row(str, 10, LX, ST, y, () => INK)) +
          mono(ids[1], FS, row(str, 10, LX, ST, y, () => RED), ' opacity="0"') +
-         mono(ids[2], FS, row(alt, 10, LX, ST, y, () => RED), ' opacity="0"');
+         mono(ids[2], FS, row(alt, 10, LX, ST, y, () => RED, tag(pfx)), ' opacity="0"');
 }
 
 const MARKUP =
@@ -329,7 +331,7 @@ const MARKUP =
   '<g data-r="gL">' +
     mono("", FS, row("ctgGGTCTCg", 0, LX, ST, TY, colS, tag("t")) +
                  row("gacCCAGAGc", 0, LX, ST, BY, colS, tag("b"))) +
-    oh(["oLp","oLr","oLa"], "ctag", "tcca", BY) +
+    oh(["oLp","oLr","oLa"], "ctag", "tcca", BY, "b") +
     label(XL, TY, 24, MUTED, "5&#8242;") + label(XL, BY, 24, MUTED, "3&#8242;") +
     '<path d="M' + (LX + 3*ST - ST/2) + ' 372H' + EDGE + '" stroke="' + BLUE +
       '" stroke-width="3.2" fill="none"/>' +
@@ -338,9 +340,9 @@ const MARKUP =
 
   /* right fragment: top cols 10-16, bottom cols 14-16 */
   '<g data-r="gR">' +
-    mono("", FS, row("ctg", 14, LX, ST, TY, colS, tag("t")) +
-                 row("gac", 14, LX, ST, BY, colS, tag("b"))) +
-    oh(["oRp","oRr","oRa"], "gatc", "aggt", TY) +
+    mono("", FS, row("ctg", 14, LX, ST, TY, colS) +
+                 row("gac", 14, LX, ST, BY, colS)) +
+    oh(["oRp","oRr","oRa"], "gatc", "aggt", TY, "t") +
     label(XR, TY, 24, MUTED, "3&#8242;") + label(XR, BY, 24, MUTED, "5&#8242;") +
     '<g data-r="brace" opacity="0">' +
       '<path d="M' + (LX + 10*ST - ST/2) + ' 378H' + (LX + 13*ST + ST/2) +
@@ -383,10 +385,27 @@ const S = [
 window.Deck.sequence("typeIIs", function(slide){
   const r = stage(slide, MARKUP);
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let roll = null;
-  function keepRolling(){
+  let roll = null, orig = null;
+  function remember(){
+    if (orig) return;
+    orig = {};
+    FREE.forEach(c => ["t","b"].forEach(function(pfx){
+      const e = slide.querySelector('[data-rnd="' + pfx + c + '"]');
+      if (e) orig[pfx + c] = e.textContent;
+    }));
+  }
+  function putBack(){
+    if (!orig) return;
+    Object.keys(orig).forEach(function(k){
+      const e = slide.querySelector('[data-rnd="' + k + '"]');
+      if (e) e.textContent = orig[k];
+    });
+  }
+  /* still on the first two steps; running only once the slide says so */
+  function rollFrom(i){
     if (roll) { clearTimeout(roll); roll = null; }
-    if (reduce.matches) return;
+    remember();
+    if (i !== ROLL_AT || reduce.matches) { putBack(); return; }
     (function tick(){ scramble(slide); roll = setTimeout(tick, 620); })();
   }
   const keys = ["sep","cut","red","alt","brace"];
@@ -405,7 +424,7 @@ window.Deck.sequence("typeIIs", function(slide){
     r.cap.textContent = S[i].cap;
     r.ann.innerHTML   = S[i].ann;
     run(S[i].st, animated);
-    keepRolling();
+    rollFrom(i);
   }
   go(0, false);
   return { steps: S.map(x => ({ note:x.note, desc:x.desc })), go: go };
