@@ -41,8 +41,13 @@ const BX=468, BW=872;
 const CUT=[0, 0.348, 0.557, 1].map(f => BX + f*BW);
 const EX=[1360, 1478];
 const HEAD=["5&#8242;&#8594;3&#8242; exo", "3&#8242;&#8594;5&#8242; exo", "polymerase"];
-const JOB =["removes what is ahead", "proofreads", "adds bases"];
-const RY=336, RH=54, RSTEP=88;
+/* "removes what is ahead" invited the reading that this nuclease chews
+   template in front of the polymerase. It is a structure-specific
+   nuclease that acts at a nick, which is what nick translation IS. */
+const JOB =["removes downstream DNA", "proofreads", "adds bases"];
+const RY=320, RH=50, RSTEP=82;
+const SPLIT=44, BREAK=3;      /* rows from BREAK on are the other family */
+const rowY = k => k*RSTEP + (k>=BREAK ? SPLIT : 0);
 
 const ROWS=[
   { name:"<tspan font-style=\"italic\">E. coli</tspan> Pol I", d:["on","on","on"] },
@@ -71,7 +76,7 @@ function box(x0, x1, state, label){
 
 function row(k){
   const R=ROWS[k];
-  let g='<g data-r="r'+k+'" opacity="0" transform="translate(0 '+n2(k*RSTEP)+')">';
+  let g='<g data-r="r'+k+'" opacity="0" transform="translate(0 '+n2(rowY(k))+')">';
   g+='<text x="'+(BX-30)+'" y="'+(RY+RH/2+8)+'" text-anchor="end" font-size="21" '+
      'font-weight="700" fill="'+INK+'">'+R.name+'</text>';
   for (let i=0;i<3;i++) g+=box(CUT[i], CUT[i+1], R.d[i], HEAD[i]);
@@ -95,6 +100,20 @@ window.Deck.sequence("polfamily", function(slide){
       return '<text x="'+n2(cx)+'" y="284" text-anchor="middle" font-size="21" '+
              'font-weight="700" fill="'+MUTED+'">'+JOB[i]+'</text>';
     }).join("") +
+    /* The family boundary, drawn. The archaeal rows already START further
+       right, with no box at all where family A has one -- that is the
+       difference between a piece cut off and a piece the lineage never
+       had -- but the boundary itself has to be named, or the stack reads
+       as one series of deletions. */
+    '<g data-r="famA"><text x="'+(BX-30)+'" y="'+(RY-16)+'" text-anchor="end" '+
+      'font-size="19" font-weight="700" letter-spacing="1.5" fill="'+MUTED+
+      '">FAMILY A</text></g>' +
+    '<g data-r="famB" opacity="0">' +
+      '<path d="M148 '+(RY+2*RSTEP+RH+32)+'H1478" fill="none" stroke="'+FAINT+
+        '" stroke-width="2" stroke-dasharray="9 8"/>' +
+      '<text x="'+(BX-30)+'" y="'+(RY+rowY(BREAK)-16)+'" text-anchor="end" '+
+      'font-size="19" font-weight="700" letter-spacing="1.5" fill="'+MUTED+
+      '">FAMILY B</text></g>' +
     ROWS.map((_,k)=>row(k)).join("") +
     '<text data-r="cap" x="800" y="806" text-anchor="middle" font-family="inherit" '+
       'font-weight="700" font-size="29" fill="'+INK+'"></text>';
@@ -107,11 +126,13 @@ window.Deck.sequence("polfamily", function(slide){
   function paint(v){
     for (let k=0;k<ROWS.length;k++)
       r["r"+k].setAttribute("opacity", n2(Math.max(0, Math.min(1, v - k))));
+    /* the divider arrives with the first archaeal row, not before */
+    r.famB.setAttribute("opacity", n2(Math.max(0, Math.min(1, v - BREAK))));
   }
 
   const S=[
-    { v:1, cap:"One polypeptide, three active sites",
-      note:"Hold that picture and change one thing at a time. Here is Pol I again with its three domains, and I am going to keep those three columns fixed and swap the organism underneath them. One warning before I do: this drawing is not to scale. The last slide was — those were real E. coli residue numbers. This one is a schematic, because for several of these products the manufacturer does not tell you what the parent enzyme is.",
+    { v:1, cap:"Family A: one polypeptide, three active sites",
+      note:"Hold that picture and change one thing at a time. Here is Pol I again with its three domains, and I am going to keep those three columns fixed and swap the organism underneath them. Two warnings before I do. First, this drawing is not to scale — the last slide was, those were real E. coli residue numbers, but this one is a schematic, because for several of these products the manufacturer does not tell you what the parent enzyme is. Second, watch for the horizontal line partway down. Everything above it is one protein family and everything below it is another, and the difference between those two halves is not the same kind of difference as the one between Pol I and Klenow.",
       desc:"A schematic bar showing E. coli Pol I as three labelled domains under three column headings: removes what is ahead, proofreads, adds bases." },
     { v:2, cap:"Cut a piece off",
       note:"Klenow, from the last slide: the five prime to three prime exonuclease is cut away with a protease, and its box is now a dashed outline to show where the piece used to be. Same protein, one domain lighter.",
@@ -119,11 +140,11 @@ window.Deck.sequence("polfamily", function(slide){
     { v:3, cap:"Same three domains, a different organism",
       note:"Now Taq, from Thermus aquaticus. Thermostable, which is the whole reason PCR is a machine and not a person adding enzyme after every cycle. But look at the columns rather than the name: Taq has all three domains, and the middle one is dead. Taq does not proofread — the domain is there, it just does not work. That is why Taq has an error rate you can measure by eye on a sequencing trace, and it is also why Taq will chew up a probe in front of it, because that first domain is very much alive. And you can do to Taq exactly what proteolysis did to Pol I: cut the front domain off and you have Klentaq.",
       desc:"A third row: Taq, with all three domains present, but the proofreading domain greyed and struck through with a red cross." },
-    { v:4, cap:"A different lineage — the piece was never there",
-      note:"Now jump to the archaea: Pfu from Pyrococcus, Vent, KOD, Takara's PrimeSTAR. These are family B rather than family A, and the honest way to say it is that they are cousins, not children — the polymerase fold and the proofreading domain are genuinely shared with Pol I, which is why the columns still line up. But the five prime to three prime exonuclease is not missing, it was never there, so their bar simply starts further right. And here is the lovely part: that domain still exists in these organisms, just as a separate protein called FEN-1. The piece is genuinely modular. In E. coli it is fused to the polymerase; in archaea it walks around on its own. So: these enzymes proofread, they will not touch what is in front of them, and they leave you blunt ends. One caveat on PrimeSTAR specifically: Takara does not publish what is in it, so I have put it here on what it does rather than on a sequence — family B, proofreading, blunt. If their fast formulations turn out to carry a binding domain like the next row, that would not surprise me.",
+    { v:4, cap:"Family B: a different architecture, not a deletion",
+      note:"Now we cross the line, and I want you to notice that we have crossed it. Everything above is family A, the Pol I lineage. Pfu from Pyrococcus, Vent, KOD, Takara's PrimeSTAR — these are family B, archaeal, a genuinely different protein architecture. So do not read this row as Pol I with the left-hand box deleted. That is Klenow, and it is two rows up. These are cousins, not children. What IS shared, and it is why the two right-hand columns still line up, is real: the polymerase fold and the proofreading exonuclease are structurally the same machinery in both families. What family B does not have, and never had, is the five prime to three prime nuclease — which is why their bar simply starts further right, with no box at all, rather than an empty one. And here is the lovely part. That domain still exists in these organisms; it is just a separate protein, called FEN-1. In E. coli it is fused to the polymerase, in archaea it walks around on its own. So the piece really is a modular part, which is the licence for drawing any of this as boxes. Practically: these enzymes proofread, they will not touch what is in front of them, and they leave you blunt ends. One caveat on PrimeSTAR: Takara does not publish what is in it, so I have placed it on what it does rather than on a sequence.",
       desc:"A fourth row for the archaeal family B enzymes Pfu, Vent, KOD and PrimeSTAR. Its bar starts at the second column, with no box at all where the 5-prime to 3-prime exonuclease would be." },
-    { v:5, cap:"Thirty years of this &mdash; and the catalogue is the result",
-      note:"And finally you can add pieces as well as remove them. Phusion and Q5 are an archaeal polymerase with a small DNA-binding domain fused on — Sso7d, from Sulfolobus — which clamps the enzyme to the DNA and makes it far more processive. That is not a fidelity trick, it is a grip trick, and it is why those enzymes want fifteen to thirty seconds per kilobase instead of a minute, and why their annealing temperature rules are different enough to catch you out if you carry a Taq protocol across. Now step back and read the whole picture. Every one of those product names is these same three columns with something present, dead, cut off, or bolted on. There are dozens more I have not put up, and new ones every year. You do not memorise the catalogue. You read the columns, and the catalogue tells you which ones it has.",
+    { v:5, cap:"Natural diversity, then domain engineering &mdash; that is the catalogue",
+      note:"And finally you can add pieces as well as remove them. Phusion and Q5 are that same family B core with a small DNA-binding domain fused on — for Q5, NEB names it as Sso7d, from Sulfolobus — which clamps the enzyme to the DNA and makes it far more processive. That is not a fidelity trick, it is a grip trick, and it is why those enzymes want fifteen to thirty seconds per kilobase instead of a minute, and why their annealing temperature rules are different enough to catch you out if you carry a Taq protocol across. Now step back and read the whole picture, and read it as two things rather than one. Nature supplied two architectures. Then thirty years of engineering cut a domain off one, killed a domain in another, and bolted a new domain onto a third. The catalogue is the product of both of those, not of endlessly reshuffling one chassis. There are dozens more enzymes I have not put up, and new ones every year. You do not memorise them. You read the columns, and the catalogue tells you which columns each product has.",
       desc:"A fifth row, Phusion and Q5: the same archaeal arrangement with an extra blue box appended on the right labelled DNA binding. The caption reads: thirty years of this, and the catalogue is the result." }
   ];
 
