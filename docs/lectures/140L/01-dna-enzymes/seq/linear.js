@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------------ *
  * linear.js — the horizontal duplex diagrams and their animations.
  *
- * Registers:   exo53         5'->3' exonuclease activity   (7 steps)
- *              displacement  strand displacement            (7 steps)
+ * Registers:   exo53         5'->3' exonuclease activity   (3 steps)
+ *              displacement  strand displacement            (2 steps)
  *              t7rnap        T7 RNA polymerase              (5 steps)
  *              exo35         3'->5' proofreading            (1 step)
  *              nick          a nicked duplex for ligase      (1 step)
@@ -103,17 +103,25 @@ function exoPaint(r, s){
   r.flap .setAttribute("d", "");
   r.extra.setAttribute("d", "");
 }
-/* Two clicks, not three. The old middle click only animated the polymerase
-   ARRIVING at the block, which the audience can already see coming; the
-   question it posed now rides the opening frame, where it belongs. */
+/* This slide, and only this slide, opens on the bare substrate and spends
+   a click getting to the collision -- because it is the first time the
+   audience meets this three-strand arrangement, and watching the oligo run
+   forward is what makes the collision feel inevitable rather than staged.
+   Every later slide reuses the arrangement and starts at the collision. */
 window.Deck.sequence("exo53", function(slide){
-  const B0 = 900;
+  const B0 = 900, P0 = 400;
   const S = [
+    { s:{a:P0,b:B0},
+      label:"a short oligo annealed, and a strand already downstream",
+      /* r.sub is set with textContent, which does not decode entities */
+      sub:"one recessed 3′ end — any polymerase will extend it",
+      note:"Suppose we have this DNA: three polynucleotides annealed together, leaving a single recessed three prime end. That is the substrate we just drew atom by atom, now at the level of abstraction we will use for the rest of the lecture. There is a short oligo on the left with a free three prime end, there is template underneath it running the whole way, and there is another strand already sitting downstream. Any DNA polymerase will extend that recessed end.",
+      desc:"A template strand runs the width of the slide. Above it on the left sits a short annealed oligo with a half barb marking its free 3-prime end, and further right a separate downstream strand occupies the rest of the template. A caption reads: a short oligo annealed, and a strand already downstream." },
     { s:{a:B0,b:B0},
       label:"the polymerase runs into the downstream strand",
       call:"Now what?",
-      note:"Suppose we have this DNA: three polynucleotides annealed together, leaving a single recessed 3' end. Any DNA polymerase will extend that recessed end, and it runs forward until it collides with the strand already sitting downstream. Nothing so far distinguishes one polymerase from another. What happens at that collision is what does.",
-      desc:"A template strand runs the width of the slide. Above it, a new strand extended from the left has arrived at a downstream blocking strand, leaving only a nick between them. A bold caption reads: the polymerase runs into the downstream strand. A red line asks: Now what?" },
+      note:"And it runs forward until it collides with the strand already sitting downstream. Nothing so far distinguishes one polymerase from another — every one of them does this. What happens at that collision is what does.",
+      desc:"The oligo has been extended to the right until it reaches the downstream blocking strand, leaving only a nick between them. A bold caption reads: the polymerase runs into the downstream strand. A red line asks: Now what?" },
     { s:{a:XR,b:XR},
       label:"it degrades the strand in front of it",
       sub:"the downstream strand is replaced, base for base, by new synthesis",
