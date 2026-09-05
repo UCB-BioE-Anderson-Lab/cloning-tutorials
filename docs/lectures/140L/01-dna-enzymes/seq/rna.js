@@ -410,7 +410,6 @@ function ivtMarkup(){
   let g = art.g;
 
   /* the list, and a bracket gathering it into one thing */
-  g += '<g data-r="mix" opacity="0">';
   IVITEMS.forEach(function(t, i){
     const y = IVL0 + i*IVLD;
     g += '<text x="'+IVL+'" y="'+y+'" font-family="inherit" font-size="27" '+
@@ -426,23 +425,20 @@ function ivtMarkup(){
   g += '<defs><marker id="ivtHead" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" '+
        'markerHeight="7" orient="auto"><path d="M0 0L12 6L0 12z" fill="'+MUTED+
        '"/></marker></defs>';
-  g += '</g>';
-  return g + chrome(210, 838);
+  /* one closing line, and no chrome: with nothing to build there is no
+     step to caption */
+  g += '<text x="800" y="838" text-anchor="middle" font-family="inherit" font-size="27" '+
+       'font-weight="700" fill="'+SLATE+
+       '">eight lines, and one of them is only there to pull the reaction forward</text>';
+  return g;
 }
 
-function ivtPaint(r, s){ r.mix.setAttribute("opacity", n2(clamp01(s.mix))); }
-
 window.Deck.sequence("ivt", function(slide){
-  const S = [
-    { s:{mix:0}, label:"In vitro means exactly what it says",
-      note:"Everything so far in this section has been a molecule. This is a tube. In vitro transcription is a reaction somebody sets up at a bench, and it is worth being concrete about that, because the whole point of T7 is that you can. There is no cell here — no transcription factors, no chromatin, no nucleus, nothing regulating anything, and nothing you did not put in yourself.",
-      desc:"Line art of a scientist at a bench, in a lab coat and safety glasses, pipetting into a small open tube held over a tube rack." },
-    { s:{mix:1}, label:"And this is the whole system",
-      call:"eight lines, and one of them is only there to pull the reaction forward", callFill:SLATE,
-      note:"And here is everything that goes in. Eight lines. The four nucleoside triphosphates — ribo this time, so UTP where a PCR would have had dTTP. The template, and remember it has to be linear, because the enzyme has no terminator and stops by falling off the end, so whatever base is last on the DNA is the last base of your RNA. T7 RNA polymerase itself, one polypeptide needing no accessory factors, which is exactly why this works in a tube at all. Buffer, which is mostly magnesium, because every phosphoryl transfer in this lecture has needed it. And then the odd one out: pyrophosphatase. Think about why it is there. Every single nucleotide the polymerase adds throws off a pyrophosphate — that is the leaving group we drew at the very start of the polymerase section — and hydrolysing it is what makes the reaction effectively irreversible. In a cell that happens for free. In a tube you add the enzyme that does it, both to pull the reaction forward and because magnesium pyrophosphate is insoluble and will otherwise precipitate your magnesium out of solution. Two hours at thirty-seven degrees and a few hundred nanograms of template gives you tens of micrograms of RNA.",
-      desc:"A bracketed list appears to the right: ATP, GTP, CTP, UTP, template DNA, T7 RNA polymerase, pyrophosphatase and buffer, with a single arrow curving from the bracket to the tube the scientist is loading." }
-  ];
-  return driver(mount(slide, ivtMarkup()), ["mix"], S, ivtPaint);
+  mount(slide, ivtMarkup());
+  return { steps:[{
+    note:"Everything so far in this section has been a molecule. This is a tube. In vitro transcription is a reaction somebody sets up at a bench, and it is worth being concrete about that, because the whole point of T7 is that you can: there is no cell here, no transcription factors, no chromatin, no nucleus, nothing regulating anything, and nothing in that tube you did not put there yourself. Here is the entire list. The four nucleoside triphosphates — ribo this time, so UTP where a PCR would have had dTTP. The template, and it has to be linear, because the enzyme has no terminator and stops by falling off the end, so whatever base is last on the DNA is the last base of your RNA. T7 RNA polymerase itself, one polypeptide needing no accessory factors, which is exactly why this works in a tube at all. Buffer, which is mostly magnesium, because every phosphoryl transfer in this lecture has needed it. And then the odd one out: pyrophosphatase. Think about why that is in there. Every single nucleotide the polymerase adds throws off a pyrophosphate — the leaving group we drew at the very start of the polymerase section — and hydrolysing it is what makes the reaction effectively irreversible. In a cell that happens for free. In a tube you add the enzyme that does it, both to pull the reaction forward and because magnesium pyrophosphate is insoluble and will otherwise precipitate the magnesium out of your buffer. Two hours at thirty-seven degrees, and a few hundred nanograms of template gives you tens of micrograms of RNA.",
+    desc:"Line art of a scientist at a bench in a lab coat and safety glasses, pipetting into a small open tube held over a tube rack. To the right, a bracketed list — ATP, GTP, CTP, UTP, template DNA, T7 RNA polymerase, pyrophosphatase and buffer — with a single arrow curving from the bracket down to the tube being loaded. A line below reads: eight lines, and one of them is only there to pull the reaction forward."
+  }], go:function(){} };
 });
 
 /* ================================================================== *
