@@ -43,7 +43,9 @@ const HEAD=["5&#8242;&#8594;3&#8242; exo", "3&#8242;&#8594;5&#8242; exo", "polym
    template in front of the polymerase. It acts at a nick, which is what
    nick translation IS. */
 const JOB =["removes downstream DNA", "proofreads", "adds bases"];
-const RY=306, RH=48, RSTEP=78, GAP=30, SPLIT=3;
+/* RY sits where it does because the slide carries a title and no bullet
+   line under it; the table takes the space that leaves. */
+const RY=266, RH=48, RSTEP=78, GAP=30, SPLIT=3;
 const rowY = k => k*RSTEP + (k>=SPLIT ? GAP : 0);
 
 const ROWS=[
