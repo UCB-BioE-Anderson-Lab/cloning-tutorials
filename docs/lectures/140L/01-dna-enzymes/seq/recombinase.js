@@ -149,7 +149,7 @@ const CH = i => X0 + PITCH*i + PITCH/2;             /* centre of character i  */
 
 function anatomy(){
   let g = "";
-  g += label(800, 302, "two 13 bp arms &#8212; inverted repeats of each other, one Cre monomer on each", 24, MUTED);
+  g += label(800, 302, "two 13 bp arms &#8212; inverted repeats of each other, one Cre monomer on each", 24, VERM);
 
   /* the two arms, drawn head to head: each reads the same 13 bases on
      its own strand, which is what "inverted repeat" means */
@@ -161,18 +161,26 @@ function anatomy(){
      for a terminus. */
   const armL0 = X0 + 4, armL1 = CH(12) + PITCH/2 - 4;
   const armR0 = CH(21) - PITCH/2 + 4, armR1 = X0 + 34*PITCH - 4;
-  g += '<g fill="none" stroke="'+MUTED+'" stroke-width="2.2" stroke-linejoin="round">' +
+  g += '<g fill="none" stroke="'+VERM+'" stroke-width="2.4" stroke-linejoin="round">' +
          '<path d="M'+n2(armL0)+' 366v12H'+n2(armL1)+'v-12"/>' +
          '<path d="M'+n2(armR0)+' 366v12H'+n2(armR1)+'v-12"/>' +
        '</g>';
-  g += label((armL0+armL1)/2, 352, "13 bp arm &#8594;", 21, MUTED) +
-       label((armR0+armR1)/2, 352, "&#8592; 13 bp arm", 21, MUTED);
+  g += label((armL0+armL1)/2, 352, "13 bp arm &#8594;", 21, VERM) +
+       label((armR0+armR1)/2, 352, "&#8592; 13 bp arm", 21, VERM);
 
   /* the sequence */
   g += '<g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="34" ' +
          'font-weight="600" text-anchor="middle">';
   for (let i = 0; i < 34; i++){
-    const col = (i >= 13 && i < 21) ? VERM : INK;
+    /* Red is what the enzyme requires, as everywhere else in this deck,
+       so it belongs on the ARMS: those are the thirteen bases Cre reads,
+       and changing them stops it binding. The spacer is a different kind
+       of requirement -- its identity is free, which is exactly why lox
+       variants like lox2272 exist and work, but it must MATCH its
+       partner, and its asymmetry is what gives the site direction. That
+       is a thing to follow rather than a thing required, so it is blue,
+       and it is the blue that becomes the arrow at the bottom. */
+    const col = (i >= 13 && i < 21) ? BLUE : VERM;
     g += '<text x="'+n2(CH(i))+'" y="444" fill="'+col+'">'+LOX_T[i]+'</text>' +
          '<text x="'+n2(CH(i))+'" y="492" fill="'+col+'">'+LOX_B[i]+'</text>';
   }
@@ -182,10 +190,12 @@ function anatomy(){
 
   /* the spacer, bracketed */
   const sx0 = X0 + 13*PITCH, sx1 = X0 + 21*PITCH;
-  g += '<path d="M'+n2(sx0)+' 522V542H'+n2(sx1)+'V522" fill="none" stroke="'+VERM+
+  g += '<path d="M'+n2(sx0)+' 522V542H'+n2(sx1)+'V522" fill="none" stroke="'+BLUE+
          '" stroke-width="3.2" stroke-linejoin="round"/>';
-  g += label(800, 590, "8 bp spacer: ATGTATGC one way, GCATACAT the other", 27, VERM);
+  g += label(800, 590, "8 bp spacer: ATGTATGC one way, GCATACAT the other", 27, BLUE);
   g += label(800, 626, "not a palindrome &#8212; this is where the site&#8217;s direction comes from", 24, MUTED);
+  g += label(800, 662, "the arms must be these bases; the spacer only has to match its partner",
+             23, MUTED);
 
   /* and the level-3 icon it collapses to */
   const pt = curve(34*PITCH, 0, 1, 800, 712);
