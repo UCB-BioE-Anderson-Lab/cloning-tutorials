@@ -7,15 +7,12 @@
  * catalogue entry. The last three are enzymes they will actually meet
  * at a bench.
  *
- * COLOUR IS CATEGORICAL HERE, which is a deliberate exception to
- * palette.css. That file says the four content colours are an attention
- * ladder and must never be assigned to a class of object. On this slide
- * they are: blue = bacterial, vermillion = archaeal, amber = the added
- * binding domain. The slide has no operator content for the ladder to
- * collide with, and the source organism IS the subject here, but it is
- * an exception and worth knowing it is one.
+ * Colour carries the source organism: blue bacterial, red archaeal,
+ * amber the added binding domain. It is a small palette -- black, white,
+ * red, blue, yellow -- and this slide is one where colour is the fastest
+ * way to say the thing.
  *
- * Two consequences of that choice, both handled:
+ * Two things to keep right when using it that way:
  *   - Amber is 3.1:1 on white. Valid as a diagram stroke, NOT as text,
  *     so the added domain's box is amber and its label is ink.
  *   - Vermillion and amber differ only in lightness under red-green
