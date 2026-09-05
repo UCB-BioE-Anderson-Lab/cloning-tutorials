@@ -363,114 +363,121 @@ window.Deck.sequence("t7prom", function(slide){
 });
 
 /* ================================================================== *
- * 4.  trna — the practical vignette: transcribing a tRNA in vitro.
+ * 4.  ivt — what in vitro transcription actually is, at the bench.
  *
- * A tRNA rather than a guide RNA, because CRISPR has not happened yet
- * in this course and "the 20 nt spacer" would be a term nobody owns.
- * Everyone has met a cloverleaf.
+ * The molecular story is already told: the promoter slide runs a
+ * transcript off the end and releases it. Drawing that again with a
+ * different gene in it says nothing new, which is what was wrong with
+ * the two versions of this slide before it.
  *
- * It also makes a point the guide could not: the product is not a
- * sequence, it is a SHAPE. The polymerase makes a line and the line
- * folds itself, which is the last thing to say about RNA before the
- * section on the enzymes that join it.
+ * So this one is a TUBE, not a molecule. Three things only it can say:
+ *   - what "in vitro" means here: no cell, you supply everything
+ *   - what run-off costs you: the template's end IS the RNA's end, so
+ *     the template must be linear and must stop where the RNA should
+ *   - why anyone buys the enzyme: the output is absurd, and the
+ *     products are ones they have heard of
  *
- * The fold is a cross-fade, not a morph. Tweening a wave into a
- * cloverleaf would draw a lot of shapes that are not either one.
+ * Deliberately cartoon-like. Every other picture in this section is a
+ * molecule at some level of abstraction; this one is a bench, and it
+ * should not be mistakable for the slide before it.
  * ================================================================== */
-const TX0 = 300, TP1 = 560, TX1 = 1330;     /* promoter | +1 | end of gene */
-const TYT = 356, TYB = 408;                 /* the template duplex         */
-const TRY = 560;                            /* the linear transcript       */
+const TUX0 = 150, TUX1 = 690, TUY0 = 268, TUY1 = 636;   /* the tube        */
+const IVR = [352, 432, 512, 580];                        /* ingredient rows */
+const OUTX = 900, OUTX1 = 1430;                          /* the product fan */
 
-/* two parallel backbones with rungs between them: a base-paired stem */
-function stem(x1, y1, x2, y2, n){
-  const dx = x2-x1, dy = y2-y1, L = Math.hypot(dx,dy) || 1;
-  const ux = dx/L, uy = dy/L, px = -uy*9, py = ux*9;
-  let g = '<path d="M'+n2(x1+px)+' '+n2(y1+py)+'L'+n2(x2+px)+' '+n2(y2+py) +
-          'M'+n2(x1-px)+' '+n2(y1-py)+'L'+n2(x2-px)+' '+n2(y2-py)+
-          '" fill="none" stroke="'+SLATE+'" stroke-width="3" stroke-linecap="round"/>';
-  for (let k = 0; k < n; k++){
-    const t = (k+0.5)/n, cx = x1+dx*t, cy = y1+dy*t;
-    g += '<path d="M'+n2(cx+px)+' '+n2(cy+py)+'L'+n2(cx-px)+' '+n2(cy-py)+
-         '" fill="none" stroke="'+MUTED+'" stroke-width="1.8"/>';
-  }
-  return g;
-}
-const loop = (cx, cy, r) => '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+
-  SLATE+'" stroke-width="3"/>';
-const tlab = (x, y, t, c, a) => '<text x="'+x+'" y="'+y+'" text-anchor="'+(a||"middle")+
-  '" font-family="inherit" font-size="20" font-weight="700" fill="'+(c||MUTED)+'">'+t+'</text>';
-
-/* the cloverleaf: acceptor stem up top, D and T arms out to the sides,
-   anticodon hanging below — the layout everyone has already seen */
-function clover(){
-  const CX = 800, JY = 496;
-  let g = '<g data-r="fold" opacity="0">';
-  g += stem(CX, 396, CX, 470, 7);                       /* acceptor stem   */
-  g += '<path d="M'+(CX-9)+' 396L'+(CX-34)+' 356M'+(CX+9)+' 396L'+(CX+34)+' 356" '+
-       'fill="none" stroke="'+SLATE+'" stroke-width="3" stroke-linecap="round"/>';
-  g += tlab(CX-52, 344, "5&#8242;", SLATE, "end") + tlab(CX+52, 344, "3&#8242; CCA", RED, "start");
-  g += tlab(CX+128, 436, "acceptor stem");
-  /* junction */
-  g += '<path d="M'+CX+' 470V'+JY+'M'+CX+' '+JY+'H'+(CX-92)+'M'+CX+' '+JY+'H'+(CX+92)+
-       'M'+CX+' '+JY+'V520" fill="none" stroke="'+SLATE+'" stroke-width="3" '+
-       'stroke-linecap="round"/>';
-  g += stem(CX-92, JY, CX-208, JY, 4) + loop(CX-244, JY, 30) + tlab(CX-244, JY+62, "D arm");
-  g += stem(CX+92, JY, CX+208, JY, 5) + loop(CX+244, JY, 30) + tlab(CX+244, JY+62, "T arm");
-  g += stem(CX, 520, CX, 630, 5) + loop(CX, 664, 32);
-  g += tlab(CX, 726, "anticodon", RED);
-  return g + '</g>';
+function tube(){
+  const capH = 40, r = 26;
+  return '<g fill="none" stroke="'+INK+'" stroke-width="3.4" stroke-linejoin="round">' +
+    '<rect x="'+TUX0+'" y="'+TUY0+'" width="'+(TUX1-TUX0)+'" height="'+capH+'" rx="9"/>' +
+    '<path d="M'+(TUX0+14)+' '+(TUY0+capH)+'V'+(TUY1-r)+'Q'+(TUX0+14)+' '+TUY1+' '+
+      (TUX0+14+r)+' '+TUY1+'H'+(TUX1-14-r)+'Q'+(TUX1-14)+' '+TUY1+' '+(TUX1-14)+' '+
+      (TUY1-r)+'V'+(TUY0+capH)+'"/></g>';
 }
 
-function trnaMarkup(){
-  const seg = (id,x0,x1,col,txt) =>
-    '<g data-r="'+id+'">' +
-      '<path d="M'+x0+' '+TYT+'H'+x1+'" stroke="'+col+'" stroke-width="9" ' +
-        'stroke-linecap="round" fill="none" opacity="0.28"/>' +
-      '<text x="'+((x0+x1)/2)+'" y="'+(TYT-30)+'" text-anchor="middle" font-family="inherit" ' +
-        'font-size="23" font-weight="700" fill="'+col+'">'+txt+'</text></g>';
-  return '<g data-r="dna">' +
-      '<g fill="none" stroke="'+INK+'" stroke-width="3" stroke-linecap="round">' +
-        '<path d="M'+TX0+' '+TYT+'H'+TX1+'"/><path d="M'+TX0+' '+TYB+'H'+TX1+'"/></g>' +
-      seg("tprom", TX0, TP1, SLATE, "T7 promoter") +
-      seg("tgene", TP1, TX1, INK, "tRNA gene, 76 bp") +
-      '<path d="M'+TP1+' '+(TYB+16)+'V'+(TYB+40)+'" stroke="'+RED+'" stroke-width="3" '+
-        'fill="none"/>' +
-      '<text x="'+TP1+'" y="'+(TYB+66)+'" text-anchor="middle" font-family="inherit" '+
-        'font-size="22" font-weight="700" fill="'+RED+'">+1 &#8212; must be G</text>' +
-    '</g>' +
-    /* the run-off note belongs to the transcript, not the template: above
-       the duplex it crowded the gene label AND claimed something before
-       anything had been made */
-    '<text data-r="tend" opacity="0" x="'+(TX1+16)+'" y="'+(TYB+46)+'" text-anchor="end" '+
-      'font-family="inherit" font-size="22" font-weight="700" fill="'+MUTED+
-      '">the DNA stops here, so the RNA does too</text>' +
-    '<path data-r="lin" fill="none" stroke="'+SLATE+'" stroke-width="3.4" ' +
-      'stroke-linecap="round" stroke-linejoin="round"/>' +
-    clover() + chrome(272, 848);
+function ivtMarkup(){
+  const ix = TUX0 + 66, lx = TUX0 + 168;
+  let g = tube();
+  g += '<text x="'+((TUX0+TUX1)/2)+'" y="'+(TUY0-26)+'" text-anchor="middle" '+
+       'font-family="inherit" font-size="24" font-weight="700" fill="'+MUTED+
+       '">one 20 &#181;L reaction</text>';
+
+  /* 1 — the template. Its right-hand end is the whole of run-off, so it
+     is drawn with a hard stop and said out loud. */
+  g += '<g data-r="i0" opacity="0">' +
+    '<path d="M'+(ix-44)+' '+(IVR[0]-7)+'H'+(ix+44)+'M'+(ix-44)+' '+(IVR[0]+7)+'H'+(ix+44)+
+      '" fill="none" stroke="'+INK+'" stroke-width="3"/>' +
+    '<path d="M'+(ix-44)+' '+IVR[0]+'H'+(ix-10)+'" stroke="'+SLATE+'" stroke-width="9" '+
+      'opacity="0.35" fill="none"/>' +
+    '<path d="M'+(ix+44)+' '+(IVR[0]-16)+'V'+(IVR[0]+16)+'" stroke="'+RED+
+      '" stroke-width="3" fill="none"/>' +
+    '<text x="'+lx+'" y="'+(IVR[0]-2)+'" font-family="inherit" font-size="23" '+
+      'font-weight="700" fill="'+INK+'">a <tspan fill="'+RED+'">linear</tspan> template</text>' +
+    '<text x="'+lx+'" y="'+(IVR[0]+28)+'" font-family="inherit" font-size="20" fill="'+MUTED+
+      '">T7 promoter, then your sequence</text></g>';
+
+  /* 2 — the enzyme */
+  g += '<g data-r="i1" opacity="0">' +
+    '<ellipse cx="'+ix+'" cy="'+IVR[1]+'" rx="40" ry="27" fill="'+SLATE+'" fill-opacity="0.16" '+
+      'stroke="'+SLATE+'" stroke-width="3"/>' +
+    '<text x="'+lx+'" y="'+(IVR[1]+8)+'" font-family="inherit" font-size="23" '+
+      'font-weight="700" fill="'+INK+'">T7 RNA polymerase</text></g>';
+
+  /* 3 — the nucleotides */
+  g += '<g data-r="i2" opacity="0">';
+  ["A","U","G","C"].forEach(function(b,k){
+    const cx = ix - 48 + k*32;
+    g += '<circle cx="'+cx+'" cy="'+IVR[2]+'" r="14" fill="none" stroke="'+INK+
+         '" stroke-width="2.6"/>' +
+         '<text x="'+cx+'" y="'+(IVR[2]+7)+'" text-anchor="middle" font-family="inherit" '+
+         'font-size="17" font-weight="700" fill="'+INK+'">'+b+'</text>';
+  });
+  g += '<text x="'+lx+'" y="'+(IVR[2]-2)+'" font-family="inherit" font-size="23" '+
+      'font-weight="700" fill="'+INK+'">the four NTPs</text>' +
+    '<text x="'+lx+'" y="'+(IVR[2]+28)+'" font-family="inherit" font-size="20" fill="'+MUTED+
+      '">ribo, not deoxy &#8212; and U for T</text></g>';
+
+  /* 4 — the buffer */
+  g += '<g data-r="i3" opacity="0">' +
+    '<text x="'+ix+'" y="'+(IVR[3]+9)+'" text-anchor="middle" font-family="inherit" '+
+      'font-size="25" font-weight="700" fill="'+INK+'">Mg<tspan font-size="17" dy="-8">2+</tspan></text>' +
+    '<text x="'+lx+'" y="'+(IVR[3]+8)+'" font-family="inherit" font-size="23" '+
+      'font-weight="700" fill="'+INK+'">buffer &#8212; and nothing else</text></g>';
+
+  /* the incubation, and what comes out of it */
+  g += '<g data-r="out" opacity="0">' +
+    '<path d="M740 452H846" fill="none" stroke="'+INK+'" stroke-width="3.4"/>' +
+    '<path d="M824 438L846 452L824 466" fill="none" stroke="'+INK+'" stroke-width="3.4" '+
+      'stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<text x="793" y="424" text-anchor="middle" font-family="inherit" font-size="21" '+
+      'font-weight="700" fill="'+MUTED+'">37&#176;C</text>' +
+    '<text x="793" y="492" text-anchor="middle" font-family="inherit" font-size="21" '+
+      'fill="'+MUTED+'">2 h</text>';
+  for (let k = 0; k < 9; k++)
+    g += '<path d="'+rna(OUTX, OUTX1, 292 + k*40)+'" fill="none" stroke="'+SLATE+
+         '" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
+  g += '<text x="'+((OUTX+OUTX1)/2)+'" y="700" text-anchor="middle" font-family="inherit" '+
+      'font-size="24" font-weight="700" fill="'+SLATE+'">tens of micrograms of one RNA</text>' +
+    '<text x="'+((OUTX+OUTX1)/2)+'" y="736" text-anchor="middle" font-family="inherit" '+
+      'font-size="21" fill="'+MUTED+'">every copy ending at the same base</text></g>';
+  return g + chrome(226, 812);
 }
 
-function trnaPaint(r, s){
-  r.dna.setAttribute("opacity", n2(1 - s.fold));
-  r.lin.setAttribute("d", rna(TP1, TP1 + (TX1-TP1)*clamp01(s.run), TRY));
-  r.lin.setAttribute("opacity", n2(1 - s.fold));
-  r.tend.setAttribute("opacity", n2(clamp01(s.run*2 - 0.7) * (1 - s.fold)));
-  r.fold.setAttribute("opacity", n2(s.fold));
+function ivtPaint(r, s){
+  for (let k = 0; k < 4; k++) r["i"+k].setAttribute("opacity", n2(clamp01(s.mix - k*0.001)));
+  r.out.setAttribute("opacity", n2(clamp01(s.out)));
 }
 
-window.Deck.sequence("trna", function(slide){
+window.Deck.sequence("ivt", function(slide){
   const S = [
-    { s:{run:0,fold:0}, label:"A template you can order",
-      note:"Here is what in vitro transcription is actually for. Say you want a transfer RNA — to feed an in vitro translation reaction, or to test an anticodon change, or because you are building a system that needs one. A tRNA is about seventy-six bases. That is short enough that you do not clone anything: the template is a T7 promoter followed by the gene, and you can build it from two ordered oligos annealed and filled in, or from a PCR. Two things carry over from the last slide. The base at plus one has to be a G, and tRNA genes very often start with one anyway, which is convenient. And the transcript ends where the DNA ends, so you make the template stop exactly at the last base of the tRNA — including the C C A on the three prime end, which is the part that gets charged with the amino acid.",
-      desc:"A short double-stranded DNA template drawn as two parallel lines, divided into a T7 promoter on the left and a 76 base pair tRNA gene on the right, with a red marker at the junction reading plus one, must be G." },
-    { s:{run:1,fold:0}, label:"Transcribe it",
-      note:"Put it in a tube with T7 RNA polymerase and the four NTPs. It starts at plus one, runs the length of the gene, falls off the end, and goes back and does it again. What comes off is a single strand of about seventy-six bases, and one template will give you an enormous number of copies of it. Notice that at this point you have a line. The polymerase has no idea it has made anything in particular.",
-      desc:"A blue wavy line, the RNA, grows from the plus one position rightwards until it reaches the end of the template, where a note reads: the DNA stops here, so the RNA does too." },
-    { s:{run:1,fold:1}, label:"And then it folds itself",
-      call:"the enzyme made a line — the sequence made the shape", callFill:SLATE,
-      note:"And then it does the thing that makes RNA different from the DNA we have spent all lecture on. It folds. Bases pair back on themselves, and this molecule finds the cloverleaf: an acceptor stem at the top ending in C C A, where the amino acid goes; a D arm and a T arm out to the sides; and the anticodon hanging off the bottom, which is the end that reads the message. Nothing added that. No chaperone, no enzyme, no instruction beyond the sequence itself, which is why you can make a working tRNA in a tube from a piece of DNA and four nucleotides. And it is worth pausing on the difference: DNA is a duplex because it is paired with a partner strand, and its shape is essentially the same whatever the sequence says. RNA comes out single stranded, so its sequence is free to pair with itself, and what you get is a specific three-dimensional object. That is why RNA can be a catalyst, a guide, a switch — and why the enzymes in the next section have to deal with a molecule that has a shape.",
-      desc:"The template and the linear RNA fade away and the transcript is redrawn folded into the classic tRNA cloverleaf: a base-paired acceptor stem at the top with a free 3-prime C C A end marked in red, a D arm to the left and a T arm to the right, each ending in a loop, and an anticodon stem hanging below ending in the anticodon loop, labelled in red." }
+    { s:{mix:1,out:0}, label:"In vitro means exactly what it says",
+      note:"Everything so far in this section has been a molecule. This slide is a tube, because in vitro transcription is a reaction you set up, and it is worth being concrete about what that means. There is no cell here. No transcription factors, no chromatin, no nucleus, nothing regulating anything. You supply the whole system, and it is a short list. A template — and note the word linear, because this is the one place run-off costs you something. The polymerase stops when it falls off the end of the DNA, so whatever base is last on your template is the last base of your RNA. If your template is a plasmid, you cut it first, and you cut it exactly where you want the RNA to end. T7 RNA polymerase, which is one polypeptide and needs no accessory factors at all — that is why this works in a tube and the E. coli enzyme would be a nightmare. The four NTPs, ribonucleotides this time, with U where you would have put T. And magnesium, because every phosphoryl transfer in this lecture has needed it. That is the entire reaction.",
+      desc:"A cartoon reaction tube labelled one 20 microlitre reaction, containing four ingredients drawn and named: a linear double-stranded template with a T7 promoter at its left end and a hard red stop at its right, T7 RNA polymerase drawn as a single blue blob, the four NTPs drawn as circles marked A, U, G and C, and magnesium buffer." },
+    { s:{mix:1,out:1}, label:"Two hours later",
+      call:"guide RNAs, probes, ribozymes \u2014 and every mRNA vaccine ever made"  /* call is textContent */, callFill:SLATE,
+      note:"Two hours at thirty-seven degrees and you have tens of micrograms of RNA from a few hundred nanograms of DNA. That is the thing to take away, and it is why anyone buys this enzyme. One template gets read over and over — the DNA is not consumed, remember, the duplex closes behind the bubble every time — so a small amount of template turns into an enormous number of transcripts. And because every one of them ran off the same end of the same linear template, they are all the same length, ending at the same base. That is what run-off buys you: not just a lot of RNA, but a lot of one defined RNA. Afterwards you usually add DNase to destroy the template, since it is the only DNA left in the tube and it is easy to remove. What is this actually for? Guide RNAs for CRISPR, which we will come to. Probes. Ribozymes. RNA for structural work. And every messenger RNA vaccine that has ever been made, which is this reaction, run in a very large tube.",
+      desc:"An arrow labelled 37 degrees and 2 hours leads from the tube to the product: nine identical wavy RNA strands, all the same length, labelled tens of micrograms of one RNA, every copy ending at the same base. A line reads: guide RNAs, probes, ribozymes, and every mRNA vaccine ever made." }
   ];
-  return driver(mount(slide, trnaMarkup()), ["run","fold"], S, trnaPaint);
+  return driver(mount(slide, ivtMarkup()), ["mix","out"], S, ivtPaint);
 });
 
 /* ================================================================== *
