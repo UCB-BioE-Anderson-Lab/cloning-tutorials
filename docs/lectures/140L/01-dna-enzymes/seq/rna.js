@@ -549,166 +549,174 @@ function mbPanel(cx, names, methyl, title, sub){
 }
 
 /* ================================================================== *
- * 5.  vaccine — the application vignette, like the forensics one.
+ * 5.  vaccine — how an mRNA vaccine is made.
  *
- * A left-to-right flow rather than a row of stations: plasmid, into the
- * polymerase with the four rNTPs fed in from below, out as mRNA, into a
- * particle. The composition earns itself on one point — putting m1-psi-TP
- * in the arrow set, queued with ATP, CTP and GTP, says "one of these
- * four is not what you expect" at the moment of incorporation, which no
- * amount of prose does as fast.
+ * Told as a process with motion rather than a static flow diagram. The
+ * plasmid opens the slide big and centred, because it is the subject;
+ * then it shrinks into position and the rest of the process lays itself
+ * out to its right. Two beats carry real animation rather than a
+ * reveal: the polymerase sweeping the template and trailing transcript
+ * behind it, and the chemistry shrinking away once it has been read.
  *
- * The enzyme is ART.t7pol: the real T7 RNA polymerase surface, traced
- * from a structure render. It is seated by its own channel (ART.t7Cleft)
- * on the DNA and drawn semi-transparent, which is the convention
- * art-polymerase.js and linear.js already established — the substrate
- * has to read straight through the enzyme.
+ * The earlier version drew the spike gene as an arc on the circle AND
+ * as a bar on the linear DNA sitting right beside it, which read as a
+ * protein stuck to a plasmid. Here the plasmid keeps the arcs, the
+ * linear template is a separate full-width row well below it, and the
+ * gene on that row is named by a bracket rather than a second coloured
+ * block.
  * ================================================================== */
-const VY = 402;                              /* the DNA axis                */
-const VPC = [218, 402], VPR = 66;            /* plasmid centre and radius   */
-const VDX0 = 296, VDX1 = 892;                /* the linear template         */
-const VPOL = [700, VY];                      /* where the channel sits      */
-const VRX0 = 866, VRX1 = 1150, VRY = 470;    /* the transcript              */
-const VLNP = [1320, 470], VLNPR = 78;        /* the particle (placeholder)  */
-const NTX = [596, 660, 724, 788], NTY = 650; /* the four nucleotides        */
+const PL0 = {x:800, y:452, r:196};           /* the plasmid, opening       */
+const PL1 = {x:252, y:250, r:60};            /* the plasmid, parked        */
+const LNY = 402, LNX0 = 180, LNX1 = 1420;    /* the linear template        */
+/* clear of the template's own gene bracket, which stays on screen once
+   transcription starts */
+const RNY = 545;                             /* the transcript             */
+const NTX2 = [648, 728, 808, 888], NTY2 = 362;   /* nucleotides, from above */
+const PKC = [1300, 668], PKR = 74;           /* the particle               */
+const LRP = (a, b, t) => a + (b - a)*t;
 
-const vtx = (x, y, t, c, sz, w, a) => '<text x="'+n2(x)+'" y="'+n2(y)+'" text-anchor="'+
-  (a||"middle")+'" font-family="inherit" font-size="'+(sz||21)+'" font-weight="'+(w||700)+
-  '" fill="'+(c||INK)+'">'+t+'</text>';
+const vtx = (x, y, t, c, sz, w, a, o) => '<text x="'+n2(x)+'" y="'+n2(y)+'" text-anchor="'+
+  (a||"middle")+'" font-family="inherit" font-size="'+n2(sz||21)+'" font-weight="'+(w||700)+
+  '" fill="'+(c||INK)+'"'+(o==null?"":' opacity="'+n2(o)+'"')+'>'+t+'</text>';
 
 /* an arc of the plasmid, in degrees with y down: 270 is the top */
-function varc(a0, a1, col, w){
-  const P = a => [VPC[0] + VPR*Math.cos(a*Math.PI/180),
-                  VPC[1] + VPR*Math.sin(a*Math.PI/180)];
+function varc(c, r, a0, a1, col, w){
+  const P = a => [c[0] + r*Math.cos(a*Math.PI/180), c[1] + r*Math.sin(a*Math.PI/180)];
   const A = P(a0), B = P(a1), big = (a1 - a0) > 180 ? 1 : 0;
-  return '<path d="M'+n2(A[0])+' '+n2(A[1])+'A'+VPR+' '+VPR+' 0 '+big+' 1 '+
-    n2(B[0])+' '+n2(B[1])+'" fill="none" stroke="'+col+'" stroke-width="'+(w||10)+
+  return '<path d="M'+n2(A[0])+' '+n2(A[1])+'A'+n2(r)+' '+n2(r)+' 0 '+big+' 1 '+
+    n2(B[0])+' '+n2(B[1])+'" fill="none" stroke="'+col+'" stroke-width="'+n2(w)+
     '" stroke-linecap="round"/>';
 }
-function vArrowUp(x, y0, y1){
-  return '<path d="M'+x+' '+y0+'V'+y1+'M'+(x-11)+' '+(y1+13)+'L'+x+' '+y1+'L'+(x+11)+' '+
-    (y1+13)+'" fill="none" stroke="'+MUTED+'" stroke-width="3" stroke-linecap="round" '+
+function vArrowDown(x, y0, y1){
+  return '<path d="M'+x+' '+y0+'V'+y1+'M'+(x-10)+' '+(y1-12)+'L'+x+' '+y1+'L'+(x+10)+' '+
+    (y1-12)+'" fill="none" stroke="'+MUTED+'" stroke-width="3" stroke-linecap="round" '+
     'stroke-linejoin="round"/>';
 }
 
 function vacMarkup(){
-  const A = window.ART;
-  /* scale so the silhouette is about 305 wide, then seat its channel on
-     the DNA exactly as linear.js seats ART.polCleft */
-  const bx = (A && A.t7polBox) || [105.7, 11.3, 995.1, 876.2];
-  const cl = (A && A.t7Cleft) || [555.4, 452.6];
-  const k = 305 / (bx[2] - bx[0]);
-  const tf = "translate(" + n2(VPOL[0] - cl[0]*k) + " " + n2(VPOL[1] - cl[1]*k) +
-             ") scale(" + n2(k) + ")";
-
-  /* --- 1. the template ---------------------------------------- */
-  let g = '<g data-r="v0" opacity="0">' +
-    '<circle cx="'+VPC[0]+'" cy="'+VPC[1]+'" r="'+VPR+'" fill="none" stroke="'+INK+
-      '" stroke-width="3"/>' +
-    varc(232, 268, SLATE) + varc(276, 372, INK) +
-    /* centred over the plasmid: right-anchored it ran off the slide's
-       left padding */
-    vtx(VPC[0], VPC[1]-VPR-30, "T7 promoter", SLATE, 19) +
-    vtx(VPC[0]+80, VPC[1]-52, "spike gene", INK, 19, 700, "start") +
-    vtx(VPC[0], VPC[1]+VPR+40, "plasmid", MUTED, 19, 600) +
-    /* one cut, and it is the 3' end of every dose */
-    '<path d="M'+n2(VPC[0]+VPR*Math.cos(66*Math.PI/180)-14)+' '+
-      n2(VPC[1]+VPR*Math.sin(66*Math.PI/180)+14)+'l30 -30" stroke="'+RED+
-      '" stroke-width="3.4" fill="none" stroke-linecap="round"/>' +
-    vtx(VPC[0]+124, VPC[1]+84, "cut once", RED, 20, 700, "start") +
-    /* the linear template */
-    '<g fill="none" stroke="'+INK+'" stroke-width="3">' +
-      '<path d="M'+VDX0+' '+(VY-9)+'H'+VDX1+'"/><path d="M'+VDX0+' '+(VY+9)+'H'+VDX1+'"/></g>' +
-    '<path d="M'+VDX0+' '+VY+'H'+(VDX0+62)+'" stroke="'+SLATE+'" stroke-width="10" '+
-      'stroke-linecap="round" fill="none" opacity="0.4"/>' +
-    '<path d="M'+VDX1+' '+(VY-20)+'V'+(VY+20)+'" stroke="'+RED+'" stroke-width="3" '+
-      'fill="none"/>' + '</g>';
-
-  /* --- 2. the enzyme, and what you feed it --------------------- */
-  g += '<g data-r="v1" opacity="0">' +
-    '<g transform="'+tf+'" fill="'+INK+'" fill-opacity="0.10" stroke="'+INK+
-      '" stroke-opacity="0.62" stroke-width="9" stroke-linecap="round" '+
-      'stroke-linejoin="round">' + ((A && A.t7pol) || "") + '</g>' +
-    /* above the silhouette, not on it */
-    vtx(VPOL[0], 236, "T7 RNA polymerase", INK, 23) +
-    NTX.map((x,i) => vArrowUp(x, NTY, 566)).join("") +
-    vtx(NTX[0], NTY+40, "ATP", INK, 21) + vtx(NTX[1], NTY+40, "CTP", INK, 21) +
-    vtx(NTX[2], NTY+40, "GTP", INK, 21) +
-    vtx(NTX[3], NTY+40, "m&#185;&#936;TP", RED, 21) +
-    vtx(NTX[3], NTY+68, "replaces UTP", RED, 18, 600) + '</g>';
-
-  /* --- 3. the transcript --------------------------------------- */
-  g += '<g data-r="v2" opacity="0">' +
-    '<path d="'+rna(VRX0, VRX1, VRY)+'" fill="none" stroke="'+SLATE+'" stroke-width="3.2" '+
-      'stroke-linecap="round" stroke-linejoin="round"/>' +
-    '<circle cx="'+(VRX0-18)+'" cy="'+VRY+'" r="11" fill="none" stroke="'+SLATE+
-      '" stroke-width="2.8"/>' +
-    '<path d="M'+(VRX1+4)+' '+VRY+'H'+(VRX1+52)+'" stroke="'+SLATE+'" stroke-width="2.8" '+
-      'stroke-dasharray="5 6" fill="none"/>' +
-    vtx((VRX0+VRX1)/2, VRY-40, "mRNA", SLATE, 22) +
-    vtx(VRX0-18, VRY+38, "cap", MUTED, 18, 600) +
-    vtx(VRX1+30, VRY+38, "poly-A", MUTED, 18, 600) + '</g>';
-
-  /* --- 4. the dose. PLACEHOLDER: swap for ART.lnp when traced --- */
-  g += '<g data-r="v3" opacity="0">' +
-    '<path d="M'+(VRX1+70)+' '+VRY+'H'+(VLNP[0]-VLNPR-16)+'M'+(VLNP[0]-VLNPR-34)+' '+
-      (VRY-11)+'L'+(VLNP[0]-VLNPR-16)+' '+VRY+'L'+(VLNP[0]-VLNPR-34)+' '+(VRY+11)+
-      '" fill="none" stroke="'+MUTED+'" stroke-width="3" stroke-linecap="round" '+
-      'stroke-linejoin="round"/>' +
-    '<circle cx="'+VLNP[0]+'" cy="'+VLNP[1]+'" r="'+VLNPR+'" fill="'+SLATE+
-      '" fill-opacity="0.08" stroke="'+SLATE+'" stroke-width="3" stroke-dasharray="8 8"/>' +
-    '<path d="'+rna(VLNP[0]-44, VLNP[0]+44, VLNP[1])+'" fill="none" stroke="'+SLATE+
-      '" stroke-width="2.8" stroke-linecap="round"/>' +
-    vtx(VLNP[0], VLNP[1]+VLNPR+38, "lipid nanoparticle", MUTED, 19, 600) + '</g>';
-
-  /* --- the one changed base. The flow gets out of the way for it:
-         these are structures, and they need the whole slide. ------- */
-  g += '<g data-r="chem" opacity="0">' +
-    mbPanel(MB_L, ["N1","C2","N3","C4","C5","C6"], false,
-            "UTP", "sugar on N1 &#8212; a C&#8211;N bond") +
-    mbPanel(MB_RX, ["C5","C4","N3","C2","N1","C6"], true,
-            "m&#185;&#936;TP", "sugar on C5 &#8212; a C&#8211;C bond, and N1 is free") +
-    '<text x="720" y="464" text-anchor="middle" font-family="inherit" font-size="34" '+
-      'font-weight="700" fill="'+MUTED+'">vs</text>' +
-    '<text x="800" y="700" text-anchor="middle" font-family="inherit" font-size="24" '+
-      'font-weight="700" fill="'+RED+'">with plain U the cell reads it as an infection,</text>' +
-    '<text x="800" y="734" text-anchor="middle" font-family="inherit" font-size="24" '+
-      'fill="'+MUTED+'">and destroys the message before it is translated</text>' +
-    '</g>';
-
-  return g + chrome(196, 812);
+  /* everything that moves is drawn per frame; only the static furniture
+     and the group shells go in here */
+  return '<g data-r="plas"></g><g data-r="lin" opacity="0"></g>' +
+    '<g data-r="mix" opacity="0"></g><g data-r="pol" opacity="0"></g>' +
+    '<g data-r="chem" opacity="0"></g><g data-r="pak" opacity="0"></g>' +
+    chrome(184, 846);
 }
 
 function vacPaint(r, s){
-  /* the last beat swaps the picture out entirely rather than adding to
-     it -- chemistry at this size cannot share a slide with the flow */
-  const chem = clamp01(s.on - 3);
-  r.v0.setAttribute("opacity", n2(clamp01(s.on)      * (1-chem)));
-  r.v1.setAttribute("opacity", n2(clamp01(s.on - 1)  * (1-chem)));
-  r.v2.setAttribute("opacity", n2(clamp01(s.on - 2)  * (1-chem)));
-  r.v3.setAttribute("opacity", n2(clamp01(s.on - 2)  * (1-chem)));
-  r.chem.setAttribute("opacity", n2(chem));
+  const A = window.ART;
+
+  /* ---- the plasmid: big and central, then parked at station one ---- */
+  const c = [LRP(PL0.x, PL1.x, s.pl), LRP(PL0.y, PL1.y, s.pl)];
+  const rr = LRP(PL0.r, PL1.r, s.pl), fs = LRP(27, 19, s.pl);
+  const aw = LRP(15, 9, s.pl);                    /* arc weight follows size */
+  let g = '<circle cx="'+n2(c[0])+'" cy="'+n2(c[1])+'" r="'+n2(rr)+'" fill="none" stroke="'+
+          INK+'" stroke-width="'+n2(LRP(4, 3, s.pl))+'"/>' +
+    varc(c, rr, 228, 268, SLATE, aw) + varc(c, rr, 276, 372, INK, aw) +
+    /* named once, at full size; the colours carry it after that */
+    vtx(c[0] - rr*0.62, c[1] - rr - 26, "T7 promoter", SLATE, fs, 700, "middle", 1 - s.pl) +
+    vtx(c[0] + rr*0.72, c[1] - rr - 26, "spike gene", INK, fs, 700, "middle", 1 - s.pl) +
+    vtx(c[0], c[1] + rr + 34, "plasmid", MUTED, LRP(23, 19, s.pl), 600);
+  if (s.lin > 0.02){
+    const a = 62*Math.PI/180;
+    g += '<path d="M'+n2(c[0]+rr*Math.cos(a)-16)+' '+n2(c[1]+rr*Math.sin(a)+16)+'l34 -34" '+
+         'stroke="'+RED+'" stroke-width="3.4" fill="none" stroke-linecap="round" opacity="'+
+         n2(s.lin)+'"/>' +
+         vtx(c[0]+rr+34, c[1]+rr*0.9, "cut once", RED, 20, 700, "start", s.lin);
+  }
+  r.plas.innerHTML = g;
+
+  /* ---- the linear template, drawn across ---- */
+  const lx = LRP(LNX0, LNX1, clamp01(s.lin));
+  r.lin.setAttribute("opacity", n2(clamp01(s.lin*3)));
+  r.lin.innerHTML =
+    '<g fill="none" stroke="'+INK+'" stroke-width="3">' +
+      '<path d="M'+LNX0+' '+(LNY-9)+'H'+n2(lx)+'"/>' +
+      '<path d="M'+LNX0+' '+(LNY+9)+'H'+n2(lx)+'"/></g>' +
+    '<path d="M'+LNX0+' '+LNY+'H'+(LNX0+92)+'" stroke="'+SLATE+'" stroke-width="10" '+
+      'stroke-linecap="round" fill="none" opacity="0.4"/>' +
+    (s.lin > 0.96 ? '<path d="M'+LNX1+' '+(LNY-21)+'V'+(LNY+21)+'" stroke="'+RED+
+      '" stroke-width="3" fill="none"/>' +
+      '<path d="M'+(LNX0+96)+' '+(LNY+34)+'v12H'+(LNX1-12)+'v-12" fill="none" stroke="'+
+        MUTED+'" stroke-width="2.4"/>' +
+      vtx((LNX0+LNX1)/2, LNY+76, "spike gene &#8212; and the cut end is the end of every dose",
+          MUTED, 20, 600) : "");
+
+  /* ---- what goes in ---- */
+  r.mix.setAttribute("opacity", n2(clamp01(s.mix)));
+  r.mix.innerHTML = NTX2.map(x => vArrowDown(x, NTY2-58, NTY2)).join("") +
+    vtx(NTX2[0], NTY2-74, "ATP", INK, 21) + vtx(NTX2[1], NTY2-74, "CTP", INK, 21) +
+    vtx(NTX2[2], NTY2-74, "GTP", INK, 21) +
+    vtx(NTX2[3], NTY2-74, "m&#185;&#936;TP", RED, 21) +
+    vtx(NTX2[3]+52, NTY2-34, "replaces UTP", RED, 18, 600, "start");
+
+  /* ---- the chemistry: read at size, then set aside ---- */
+  const ck = LRP(0.70, 0.26, s.set);
+  const cx = LRP(800, 262, s.set), cy = LRP(660, 706, s.set);
+  r.chem.setAttribute("opacity", n2(clamp01(s.mix)));
+  r.chem.setAttribute("transform",
+    "translate(" + n2(cx - 720*ck) + " " + n2(cy - 425*ck) + ") scale(" + n2(ck) + ")");
+
+  /* ---- transcription: one sweep, and the transcript left behind ---- */
+  r.pol.setAttribute("opacity", n2(clamp01(s.run*4)));
+  if (s.run > 0.01 && A && A.t7pol){
+    const k = 200/(A.t7polBox[2] - A.t7polBox[0]);
+    const px = LRP(LNX0 + 120, LNX1 - 90, s.run);
+    r.pol.innerHTML =
+      '<path d="'+rna(LNX0 + 100, Math.max(LNX0 + 126, px), RNY)+'" fill="none" stroke="'+
+        SLATE+'" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<g transform="translate('+n2(px - A.t7Cleft[0]*k)+' '+n2(LNY - A.t7Cleft[1]*k)+
+        ') scale('+n2(k)+')" fill="'+INK+'" fill-opacity="0.10" stroke="'+INK+
+        '" stroke-opacity="0.6" stroke-width="9" stroke-linecap="round" '+
+        'stroke-linejoin="round">' + A.t7pol + '</g>' +
+      (s.run > 0.96 ? vtx(LNX0 + 100 + 60, RNY + 40, "mRNA", SLATE, 22, 700, "start") : "");
+  } else r.pol.innerHTML = "";
+
+  /* ---- and into the particle ---- */
+  r.pak.setAttribute("opacity", n2(clamp01(s.pak)));
+  r.pak.innerHTML =
+    '<path d="M'+(PKC[0]-PKR-120)+' '+(RNY+40)+'Q'+(PKC[0]-PKR-40)+' '+(RNY+70)+' '+
+      (PKC[0]-PKR-14)+' '+(PKC[1]-46)+'" fill="none" stroke="'+MUTED+'" stroke-width="3"/>' +
+    '<circle cx="'+PKC[0]+'" cy="'+PKC[1]+'" r="'+PKR+'" fill="'+SLATE+'" fill-opacity="0.08" '+
+      'stroke="'+SLATE+'" stroke-width="3" stroke-dasharray="8 8"/>' +
+    '<path d="'+rna(PKC[0]-42, PKC[0]+42, PKC[1])+'" fill="none" stroke="'+SLATE+
+      '" stroke-width="2.8" stroke-linecap="round"/>' +
+    vtx(PKC[0], PKC[1]+PKR+34, "lipid nanoparticle", MUTED, 19, 600);
 }
 
 window.Deck.sequence("vaccine", function(slide){
+  const r = mount(slide, vacMarkup());
+  /* the chemistry never changes, so it is written once and only moved */
+  r.chem.innerHTML =
+    mbPanel(MB_L, ["N1","C2","N3","C4","C5","C6"], false,
+            "UTP", "sugar on N1 &#8212; a C&#8211;N bond") +
+    mbPanel(MB_RX, ["C5","C4","N3","C2","N1","C6"], true,
+            "m&#185;&#936;TP", "sugar on C5 &#8212; a C&#8211;C bond, and N1 is free");
+
   const S = [
-    { s:{on:1}, label:"You cannot chemically synthesise four thousand bases",
-      note:"An application, and one where the answer surprises people. An mRNA vaccine is about four thousand three hundred bases of RNA. Ask how that is made and the instinct is chemical synthesis, because that is how you buy an oligo — and it is the wrong answer. Solid-phase RNA synthesis runs out somewhere around a hundred bases; the yield falls off a cliff and the failure products pile up. Four thousand is not reachable that way. So it is made enzymatically, by the reaction on the last slide, run large. It starts here: the antigen sequence sits on a plasmid grown in E. coli, behind a T7 promoter. And before it goes anywhere near the polymerase you cut that plasmid once, downstream of the gene, with a restriction enzyme. You know exactly why — run-off. The polymerase has no terminator, it stops where the DNA stops, so the position of that cut is the three prime end of every molecule in the batch. An enzyme from the first section of this lecture is defining the end of a pharmaceutical.",
-      desc:"A circular plasmid with a blue T7 promoter arc and a longer arc marking the spike gene, with a red slash marking a single cut. To its right, the linearised double-stranded template runs across, its promoter marked in blue at the left and its far end stopped with a red bar." },
-    { s:{on:2}, label:"Feed it four nucleotides \u2014 but not the four you expect",
-      note:"Then the reaction, and it is the one from the last slide. That shape is the real T7 RNA polymerase, traced from its crystal structure, and the DNA is running through the actual channel in the protein rather than resting against a cartoon. Now look at what is being fed in. ATP, CTP, GTP — and then not UTP. Every uridine is replaced by N1-methylpseudouridine. The polymerase does not care; as far as the chemistry of incorporation goes it is a U, and T7 puts it in without being asked twice.",
-      desc:"The T7 RNA polymerase appears as a semi-transparent traced silhouette of the real enzyme, seated on the template so the DNA passes through the channel in the protein. Four arrows feed in from below, labelled ATP, CTP, GTP, and in red m1-psi-TP, replaces UTP." },
-    { s:{on:3}, label:"One defined molecule, and then a dose",
+    { s:{pl:0,lin:0,mix:0,set:0,run:0,pak:0}, label:"It starts as a plasmid",
+      note:"An application, and one where the answer surprises people. An mRNA vaccine is about four thousand three hundred bases of RNA, and the instinct is that it must be chemically synthesised, because that is how you buy an oligo. It is not. Solid-phase RNA synthesis runs out around a hundred bases. Four thousand is not reachable that way and never will be. It is made enzymatically, by the reaction on the last slide, run large — and it starts here, with something entirely ordinary. A plasmid, grown in E. coli, carrying the antigen sequence behind a T7 promoter. That is it. That is the whole starting material.",
+      desc:"A large circular plasmid centred on the slide, with a blue arc marking the T7 promoter and a longer black arc marking the spike gene." },
+    { s:{pl:1,lin:0,mix:0,set:0,run:0,pak:0}, label:"Step one of a process",
+      note:"Put it in the corner, because it is only the first step and the rest of this has to fit.",
+      desc:"The plasmid shrinks and moves to the upper left of the slide, becoming the first station of a process." },
+    { s:{pl:1,lin:1,mix:0,set:0,run:0,pak:0}, label:"Cut it once, and lay it out flat",
+      note:"Before it goes anywhere near the polymerase you cut that plasmid once, downstream of the gene, with a restriction enzyme, and what you have is a linear template. You know exactly why it has to be linear — run-off. The polymerase has no terminator; it stops where the DNA stops. So the position of that single cut is the three prime end of every molecule in the batch. An enzyme from the first section of this lecture is defining the end of a pharmaceutical.",
+      desc:"A red slash marks a single cut on the plasmid, and a linear double-stranded template draws itself across the full width of the slide, its T7 promoter marked in blue at the left, the spike gene bracketed beneath it, and a red bar stopping its right-hand end." },
+    { s:{pl:1,lin:1,mix:1,set:0,run:0,pak:0}, label:"Feed it four nucleotides — but not the four you expect",
+      call:"the polymerase cannot tell — your immune system can", callFill:RED,
+      note:"Now the reaction. ATP, CTP, GTP — and then not UTP. Every uridine is replaced by N1-methylpseudouridine, and here it is drawn properly, because the change is far smaller than anyone expects. Same ring, same atoms, same two carbonyls. Two things differ: the sugar is attached through carbon five instead of nitrogen one, so the bond holding the base on is carbon-carbon rather than carbon-nitrogen — that is what pseudo means here, uracil put on backwards — and nitrogen one, no longer doing the attaching, carries a methyl. That is the whole modification. The polymerase does not notice; as far as the chemistry of incorporation goes it is a U. Your cells notice. Unmodified message reads as an infection, the innate response fires, and the RNA is destroyed before a ribosome reaches it. Swap the uridines and the sensors stay quiet. Kariko and Weissman, two thousand and five; the Nobel Prize in twenty twenty-three.",
+      desc:"Four arrows feed down onto the template, labelled ATP, CTP, GTP and, in red, m1-psi-TP replaces UTP. Below, the two nucleotide structures are drawn side by side on identical hexagons: UTP with its sugar on nitrogen one, and m1-psi-TP with its sugar on carbon five in red and a red methyl on the freed nitrogen." },
+    { s:{pl:1,lin:1,mix:1,set:1,run:1,pak:0}, label:"Then it just runs",
+      note:"Set the chemistry aside and watch. The polymerase starts at the promoter and runs the length of the template, and the transcript trails out behind it. It falls off the cut end, and goes back and does it again — the template is not consumed, so a few hundred nanograms of DNA becomes tens of micrograms of RNA, and because every copy ran off the same end of the same linear template, every copy is the same length. That is what run-off buys you: not just a lot of RNA, but a lot of one defined RNA.",
+      desc:"The nucleotide structures shrink away into the lower left corner. The T7 RNA polymerase, drawn as a semi-transparent traced silhouette of the real enzyme, sweeps along the template from the promoter to the cut end, leaving a blue wavy transcript behind it." },
+    { s:{pl:1,lin:1,mix:1,set:1,run:1,pak:1}, label:"And that is the dose",
       call:"a restriction enzyme, a phage polymerase, and one modified base", callFill:SLATE,
-      note:"Out comes the transcript. A cap on the five prime end, because a eukaryotic ribosome will not touch an uncapped message, and a poly-A tail on the three prime end, usually encoded in the template. Every copy is the same length, because every copy ran off the same cut end of the same linear template — that is what run-off buys you, not just a lot of RNA but a lot of one defined RNA. And the template is not consumed, so a few hundred nanograms of DNA becomes tens of micrograms of message. Then it is wrapped in a lipid nanoparticle, because naked RNA in a bloodstream lasts seconds and could not cross a membrane anyway, and that is the dose. Look at what that took: a restriction enzyme to define one end, a phage polymerase that works in a tube, and one modified nucleotide. Nearly all of it is in this lecture.",
-      desc:"A blue wavy transcript emerges to the right of the polymerase with a cap at its 5-prime end and a poly-A tail at its 3-prime end, and an arrow carries it into a lipid nanoparticle drawn as a dashed circle with the RNA coiled inside." },
-    { s:{on:4}, label:"That modified nucleotide, drawn properly",
-      call:"the polymerase cannot tell \u2014 your immune system can", callFill:RED,
-      note:"And now the one thing on that list that is not an enzyme, because the change is far smaller than anyone expects. On the left, uridine: the uracil ring hanging off the sugar through nitrogen one. On the right, N1-methylpseudouridine. Look at the ring — it is the same ring, same atoms, same two carbonyls. Two things differ. The sugar is attached through carbon five instead of nitrogen one, so the bond holding the base on is carbon-carbon rather than carbon-nitrogen; that is what pseudo means here, it is uracil put on backwards. And because nitrogen one is no longer doing the attaching, it is free, and it carries a methyl. That is the whole modification. So why bother? Because your cells have sensors whose entire job is noticing foreign RNA, and they are good at it. Ordinary unmodified message reads as an infection: the innate response fires, you get inflammation, and the RNA is destroyed before a ribosome reaches it. Swap the uridines for this and the sensors stay quiet. Katalin Kariko and Drew Weissman worked that out in two thousand and five, spent years being told it was not interesting, and took the Nobel Prize for it in twenty twenty-three. One base is the difference between a technology that works and one that does not.",
-      desc:"The flow is replaced by two nucleotide structures side by side, drawn on identical hexagons. On the left, UTP: the uracil ring attached to a ribose through nitrogen one, with the triphosphate tagged off the 5-prime carbon. On the right, m1-psi-TP: the same ring in the same orientation, attached through carbon five in red, with nitrogen one now free and carrying a red methyl. Below, a line reads that with plain uridine the cell reads it as an infection and destroys the message before it is translated." }
+      note:"Then it is wrapped in a lipid nanoparticle, because naked RNA in a bloodstream lasts seconds and could not cross a membrane anyway. And that is the dose. Stand back and look at what that took. A restriction enzyme to define one end. A phage RNA polymerase that needs no accessory factors and will work in a tube. One modified nucleotide. Everything in that list is in this lecture and most of it is in the NEB catalogue. The scale is industrial; the chemistry is not.",
+      desc:"The transcript curves down into a lipid nanoparticle at the lower right, drawn as a dashed circle with the RNA coiled inside." }
   ];
-  return driver(mount(slide, vacMarkup()), ["on"], S, vacPaint);
+  return driver(r, ["pl","lin","mix","set","run","pak"], S, vacPaint);
 });
+
 
 /* ================================================================== *
  * 5.  eukgene — the human gene, its message, and the piece you clone.
