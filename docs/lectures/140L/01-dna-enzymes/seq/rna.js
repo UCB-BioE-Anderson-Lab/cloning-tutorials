@@ -449,120 +449,129 @@ window.Deck.sequence("guide", function(slide){
 
 
 /* ================================================================== *
- * 5.  eukgene — why a promoter does not travel, and why the tutorial
- *     starts from cDNA.
+ * 5.  eukgene — the human gene, its message, and the piece you clone.
  *
- * The same protein, two genomes, drawn to the SAME scale so the
- * proportion does the arguing: preproinsulin is 110 residues, so 333 bp
- * of coding sequence, and the human gene spends about 1430 bp on it.
- * Standard gene-structure idiom -- exons are boxes, introns are the line
- * between them -- because that is what students will meet everywhere
- * else, and INS is mostly intron.
+ * Three lanes, one scale, read downward: the gene, the mRNA the cell
+ * makes of it, and the E. coli construct that carries only the coding
+ * part. Same box idiom throughout, so the CDS is visibly a sub-piece of
+ * a sub-piece -- introns gone at the first step, UTRs gone at the
+ * second. That is the whole reason the design tutorial starts from cDNA
+ * and PCRs out the CDS rather than taking the gene.
  *
  * Approximate INS structure (3 exons, 2 introns), used for the widths:
  *   exon1 ~42 | intron1 ~179 | exon2 ~204 | intron2 ~786 | exon3 ~219
+ * Exon 1 is 5' UTR; the CDS opens in exon 2 and closes in exon 3.
  * ================================================================== */
-/* EG_X leaves room for the lane names, right-aligned in the gutter, to
-   sit inside the slide's left padding */
 const EG_X = 344, EG_BP = 0.63;              /* px per base pair        */
 const bp = n => n*EG_BP;
-const EG_ECOLI = 333;                        /* preproinsulin CDS       */
 const EG_INS = [[42,1],[179,0],[204,1],[786,0],[219,1]];   /* [len, isExon] */
-const EG_YA = 336, EG_YB = 520, EG_YM = 690; /* E. coli | human | mRNA  */
+const EG_LEN = 1430, EG_MRNA = 465;          /* gene, and spliced message */
+const EG_UTR5 = 60, EG_CDS = 333;            /* where the CDS sits in it  */
+const EG_YG = 300, EG_YM = 468, EG_YE = 664; /* gene | mRNA | E. coli     */
 
-function egBox(x, w, y, col){
-  return '<rect x="'+n2(x)+'" y="'+n2(y-17)+'" width="'+n2(w)+'" height="34" rx="4" '+
+function egBox(x, w, y, col, h){
+  const H = h || 34;
+  return '<rect x="'+n2(x)+'" y="'+n2(y-H/2)+'" width="'+n2(w)+'" height="'+H+'" rx="4" '+
          'fill="'+col+'" fill-opacity="0.18" stroke="'+col+'" stroke-width="2.6"/>';
 }
-function egLine(x1, x2, y){
-  return '<path d="M'+n2(x1)+' '+n2(y)+'H'+n2(x2)+'" fill="none" stroke="'+MUTED+
-         '" stroke-width="2.6"/>';
+function egLane(x, y, txt){
+  return '<text x="'+n2(x)+'" y="'+n2(y+7)+'" text-anchor="end" font-family="inherit" '+
+         'font-size="22" font-weight="700" fill="'+INK+'">'+txt+'</text>';
 }
-function egProm(x, y, txt){
-  return '<path d="M'+n2(x-96)+' '+n2(y)+'H'+n2(x)+'" fill="none" stroke="'+SLATE+
+function egProm(x0, x1, y, txt){
+  return '<path d="M'+n2(x0)+' '+n2(y)+'H'+n2(x1)+'" fill="none" stroke="'+SLATE+
          '" stroke-width="9" stroke-linecap="round" opacity="0.3"/>' +
-         '<text x="'+n2(x-48)+'" y="'+n2(y-28)+'" text-anchor="middle" font-family="inherit" '+
-         'font-size="20" font-weight="700" fill="'+SLATE+'">'+txt+'</text>';
+         '<text x="'+n2((x0+x1)/2)+'" y="'+n2(y-26)+'" text-anchor="middle" '+
+         'font-family="inherit" font-size="19" font-weight="700" fill="'+SLATE+'">'+txt+'</text>';
 }
 
 function eukMarkup(){
+  const CDSx = EG_X + bp(EG_UTR5), CDSw = bp(EG_CDS);
   let g = "";
-  /* --- lane A: the E. coli gene --------------------------------- */
-  g += egProm(EG_X, EG_YA, "&minus;35 / &minus;10");
-  g += egBox(EG_X, bp(EG_ECOLI), EG_YA, INK);
-  g += '<text x="'+(EG_X+bp(EG_ECOLI)/2)+'" y="'+(EG_YA+7)+'" text-anchor="middle" '+
-       'font-family="inherit" font-size="19" font-weight="700" fill="'+INK+'">CDS</text>';
-  g += '<text x="'+(EG_X-110)+'" y="'+(EG_YA+7)+'" text-anchor="end" font-family="inherit" '+
-       'font-size="23" font-weight="700" fill="'+INK+'"><tspan font-style="italic">E. coli</tspan></text>';
-  g += '<text x="'+(EG_X+bp(EG_ECOLI)+18)+'" y="'+(EG_YA+7)+'" font-family="inherit" '+
-       'font-size="20" fill="'+MUTED+'">333 bp &#8212; and the transcript is the mRNA</text>';
 
-  /* --- lane B: human INS --------------------------------------- */
-  g += egProm(EG_X, EG_YB, "promoter, TATA");
-  g += '<text x="'+(EG_X-110)+'" y="'+(EG_YB+7)+'" text-anchor="end" font-family="inherit" '+
-       'font-size="23" font-weight="700" fill="'+INK+'">human <tspan font-style="italic">INS</tspan></text>';
-  let x = EG_X, total = 0;
-  EG_INS.forEach(function(seg){ total += seg[0]; });
-  g += egLine(EG_X, EG_X + bp(total), EG_YB);
+  /* --- lane 1: the human gene ---------------------------------- */
+  g += egProm(EG_X-100, EG_X, EG_YG, "promoter, TATA");
+  g += egLane(EG_X-114, EG_YG, 'human <tspan font-style="italic">INS</tspan>');
+  g += '<path d="M'+EG_X+' '+EG_YG+'H'+n2(EG_X+bp(EG_LEN))+'" fill="none" stroke="'+MUTED+
+       '" stroke-width="2.6"/>';
+  let x = EG_X;
   EG_INS.forEach(function(seg){
-    if (seg[1]) g += egBox(x, bp(seg[0]), EG_YB, SLATE);
+    if (seg[1]) g += egBox(x, bp(seg[0]), EG_YG, SLATE);
     x += bp(seg[0]);
   });
-  g += '<text x="'+(EG_X + bp(total) + 18)+'" y="'+(EG_YB+7)+'" font-family="inherit" '+
-       'font-size="20" fill="'+MUTED+'">'+total+' bp &#8212; mostly intron</text>';
-  /* name the parts once, under the first intron and the middle exon */
-  g += '<text x="'+(EG_X + bp(42+179/2))+'" y="'+(EG_YB+48)+'" text-anchor="middle" '+
+  g += '<text x="'+n2(EG_X+bp(EG_LEN)+18)+'" y="'+(EG_YG+7)+'" font-family="inherit" '+
+       'font-size="20" fill="'+MUTED+'">1430 bp &#8212; mostly intron</text>';
+  g += '<text x="'+n2(EG_X+bp(42+179/2))+'" y="'+(EG_YG+46)+'" text-anchor="middle" '+
        'font-family="inherit" font-size="19" fill="'+MUTED+'">intron</text>';
-  g += '<text x="'+(EG_X + bp(42+179+204/2))+'" y="'+(EG_YB-30)+'" text-anchor="middle" '+
+  g += '<text x="'+n2(EG_X+bp(42+179+204/2))+'" y="'+(EG_YG-28)+'" text-anchor="middle" '+
        'font-family="inherit" font-size="19" font-weight="700" fill="'+SLATE+'">exon</text>';
 
-  /* --- the processed mRNA, revealed on the second click --------- */
-  g += '<g data-r="mrna" opacity="0">';
+  /* --- lane 2: the message the cell makes ---------------------- */
+  g += egLane(EG_X-114, EG_YM, "mRNA");
   let mx = EG_X;
-  EG_INS.forEach(function(seg){
-    if (!seg[1]) return;
-    g += egBox(mx, bp(seg[0]), EG_YM, SLATE);
-    mx += bp(seg[0]);
-  });
-  g += '<path d="M'+(EG_X-58)+' '+EG_YM+'H'+n2(EG_X)+'" fill="none" stroke="'+RED+
-       '" stroke-width="2.6"/>' +
-       '<circle cx="'+(EG_X-70)+'" cy="'+EG_YM+'" r="11" fill="none" stroke="'+RED+
-       '" stroke-width="2.6"/>' +
-       '<text x="'+(EG_X-70)+'" y="'+(EG_YM-30)+'" text-anchor="middle" font-family="inherit" '+
+  EG_INS.forEach(function(seg){ if (seg[1]){ g += egBox(mx, bp(seg[0]), EG_YM, SLATE); mx += bp(seg[0]); } });
+  g += '<path d="M'+n2(EG_X-58)+' '+EG_YM+'H'+EG_X+'" fill="none" stroke="'+RED+
+       '" stroke-width="2.6"/><circle cx="'+n2(EG_X-70)+'" cy="'+EG_YM+'" r="11" fill="none" '+
+       'stroke="'+RED+'" stroke-width="2.6"/>' +
+       '<text x="'+n2(EG_X-70)+'" y="'+(EG_YM-28)+'" text-anchor="middle" font-family="inherit" '+
        'font-size="19" font-weight="700" fill="'+RED+'">cap</text>';
-  g += '<path d="M'+n2(mx)+' '+EG_YM+'H'+n2(mx+96)+'" fill="none" stroke="'+RED+
+  g += '<path d="M'+n2(mx)+' '+EG_YM+'H'+n2(mx+84)+'" fill="none" stroke="'+RED+
        '" stroke-width="2.6" stroke-dasharray="5 6"/>' +
-       '<text x="'+n2(mx+106)+'" y="'+(EG_YM+7)+'" font-family="inherit" font-size="19" '+
+       '<text x="'+n2(mx+94)+'" y="'+(EG_YM+7)+'" font-family="inherit" font-size="19" '+
        'font-weight="700" fill="'+RED+'">AAAA&#8230;</text>';
-  /* the splice: where each intron went */
+  /* where each intron went */
   let sx2 = EG_X, ex = EG_X;
   EG_INS.forEach(function(seg){
     if (seg[1]){ ex += bp(seg[0]); sx2 += bp(seg[0]); return; }
-    g += '<path d="M'+n2(sx2)+' '+(EG_YB+17)+'L'+n2(ex)+' '+(EG_YM-17)+'" fill="none" '+
+    g += '<path d="M'+n2(sx2)+' '+(EG_YG+17)+'L'+n2(ex)+' '+(EG_YM-17)+'" fill="none" '+
          'stroke="'+MUTED+'" stroke-width="1.8" stroke-dasharray="6 7"/>';
     sx2 += bp(seg[0]);
   });
-  g += '<text x="'+(EG_X-110)+'" y="'+(EG_YM+7)+'" text-anchor="end" font-family="inherit" '+
-       'font-size="23" font-weight="700" fill="'+SLATE+'">mRNA</text>';
+  /* the CDS, marked inside the message: the UTRs are not coding */
+  g += '<g data-r="cds" opacity="0">' + egBox(CDSx, CDSw, EG_YM, RED, 40) +
+       '<text x="'+n2(CDSx+CDSw/2)+'" y="'+(EG_YM+7)+'" text-anchor="middle" '+
+       'font-family="inherit" font-size="19" font-weight="700" fill="'+RED+'">CDS, 333 bp</text>' +
+       '<text x="'+n2(EG_X+bp(EG_UTR5)/2)+'" y="'+(EG_YM+50)+'" text-anchor="middle" '+
+       'font-family="inherit" font-size="18" fill="'+MUTED+'">UTR</text>' +
+       '<text x="'+n2((CDSx+CDSw+mx)/2)+'" y="'+(EG_YM+50)+'" text-anchor="middle" '+
+       'font-family="inherit" font-size="18" fill="'+MUTED+'">UTR</text></g>';
+
+  /* --- lane 3: what actually goes into E. coli ----------------- */
+  g += '<g data-r="ecoli" opacity="0">';
+  g += egLane(EG_X-114, EG_YE, '<tspan font-style="italic">E. coli</tspan>');
+  g += egProm(CDSx-176, CDSx, EG_YE, "T7 promoter + RBS &#8212; from the vector");
+  g += egBox(CDSx, CDSw, EG_YE, RED, 40);
+  g += '<text x="'+n2(CDSx+CDSw/2)+'" y="'+(EG_YE+7)+'" text-anchor="middle" '+
+       'font-family="inherit" font-size="19" font-weight="700" fill="'+RED+'">CDS</text>';
+  g += '<path d="M'+n2(CDSx+CDSw)+' '+EG_YE+'H'+n2(CDSx+CDSw+130)+'" fill="none" stroke="'+MUTED+
+       '" stroke-width="2.6"/>' +
+       '<text x="'+n2(CDSx+CDSw+140)+'" y="'+(EG_YE+7)+'" font-family="inherit" font-size="20" '+
+       'fill="'+MUTED+'">pET&#8211;INS</text>';
+  /* straight down: the piece is the same piece */
+  [CDSx, CDSx+CDSw].forEach(function(px){
+    g += '<path d="M'+n2(px)+' '+(EG_YM+20)+'V'+(EG_YE-20)+'" fill="none" stroke="'+RED+
+         '" stroke-width="1.8" stroke-dasharray="6 7"/>';
+  });
   g += '</g>';
-  return g + chrome(252, 830);
+  return g + chrome(244, 830);
 }
 
 function eukPaint(r, s){
-  r.mrna.setAttribute("opacity", n2(clamp01(s.proc)));
+  r.cds  .setAttribute("opacity", n2(clamp01(s.take)));
+  r.ecoli.setAttribute("opacity", n2(clamp01(s.take)));
 }
 
 window.Deck.sequence("eukgene", function(slide){
   const S = [
-    { s:{proc:0}, label:"The same protein, two genomes",
-      note:"Last thing, and it is a warning rather than a technique. Transcription is one of the most divergent things in biology, and you cannot assume a promoter travels. Even between E. coli and Bacillus subtilis, both bacteria, the sigma factor repertoires differ enough that an E. coli promoter is often read poorly or not at all in Bacillus. Eukaryotes are not a variation on the theme; they are a different machine. Here is the same protein in two genomes, drawn to the same scale. In E. coli, insulin would be three hundred and thirty-three base pairs of coding sequence behind a minus thirty-five and a minus ten, and the transcript is the messenger — it is being translated before it has finished being made. The human gene is about fourteen hundred base pairs for the same hundred and ten residues, and most of that is intron. The coding sequence is in three pieces.",
-      desc:"Two genes drawn to the same scale. Above, an E. coli version: a minus 35 and minus 10 promoter followed by a single 333 base pair coding sequence box. Below, the human insulin gene: a promoter with a TATA element, then about 1430 base pairs drawn in the standard idiom of exon boxes joined by intron lines, three exons and two introns, the second intron much the longest." },
-    { s:{proc:1}, label:"And the human transcript is not finished when it is made",
-      call:"E. coli cannot splice — which is why you clone insulin from cDNA", callFill:RED,
-      note:"And the human transcript comes out of the polymerase unusable. It has to be capped at the five prime end, the two introns have to be spliced out, and a poly-A tail has to be added at the three prime end. None of that machinery exists in E. coli. So if you took the human insulin gene, promoter and all, and put it into a bacterium, you would get nothing: the promoter would not be read, and even if it were, the introns would still be sitting in the message. That is the reason the first design tutorial starts from cDNA. Complementary DNA is made by reverse transcribing the mature messenger, after the cell has already done the splicing for you — so the introns are gone before the sequence ever reaches your plasmid. You are not cloning the human gene. You are cloning what the human cell made of it.",
-      desc:"Below the human gene, the processed messenger appears: the three exons butted together with the introns removed, shown by dashed lines running from each intron down to the join, with a cap added at the five prime end and a poly-A tail at the three prime end. A red line reads: E. coli cannot splice, which is why you clone insulin from cDNA." }
+    { s:{take:0}, label:"The cell finishes the transcript for you",
+      note:"Last thing, and it is a warning rather than a technique. Transcription is one of the most divergent things in biology and you cannot assume a promoter travels. Even between E. coli and Bacillus subtilis, both bacteria, the sigma factor repertoires differ enough that an E. coli promoter is often read badly or not at all in Bacillus. Eukaryotes are not a variation on the theme, they are a different machine. Here is the human insulin gene: about fourteen hundred base pairs, three exons, two introns, and most of its length is intron. What comes out of the polymerase is not usable. It gets capped at the five prime end, the introns are spliced out, and a poly-A tail is added at the three prime end. None of that machinery exists in E. coli. So the human gene, promoter and all, put into a bacterium gives you nothing: the promoter would not be read, and even if it were, the introns would still be sitting in the message.",
+      desc:"The human insulin gene drawn as three exon boxes joined by intron lines, about 1430 base pairs, with a promoter to its left. Below it, the messenger the cell makes of it: the three exons butted together with dashed lines showing where each intron was removed, a cap at the five prime end and a poly-A tail at the three prime end." },
+    { s:{take:1}, label:"So you take the message, not the gene",
+      call:"introns gone at the first step, UTRs gone at the second", callFill:RED,
+      note:"So you let the cell do the hard part and you start from its message. Reverse transcribe the mature mRNA and you have cDNA, with the introns already gone, because the human cell spliced them out before you ever touched it. Then take less than that again. The message still carries untranslated regions at both ends that E. coli has no use for, so what you actually PCR out is the coding sequence: three hundred and thirty-three base pairs, a hundred and ten residues of preproinsulin. And it goes behind a promoter the cell can read — a T7 promoter, with the ribosome binding site supplied by the vector, because a eukaryotic message does not carry one E. coli would recognise. That is pET-INS, and it is the first design tutorial you will do. It is also, in outline, what Genentech did in nineteen seventy-eight: human insulin made in E. coli, the first recombinant drug, on the market as Humulin by nineteen eighty-two. They did it the hard way, chemically synthesising the A and B chain genes and expressing them as fusions, because none of the tools in this lecture existed yet. You get to do it with a PCR and two restriction sites.",
+      desc:"The coding sequence is picked out in red inside the messenger, with the untranslated regions at either end labelled UTR and left outside it. Below, a third lane shows the E. coli construct: the same red CDS box, aligned directly under the one above it by dashed vertical lines, now behind a T7 promoter and ribosome binding site supplied by the vector, labelled pET-INS." }
   ];
-  return driver(mount(slide, eukMarkup()), ["proc"], S, eukPaint);
+  return driver(mount(slide, eukMarkup()), ["take"], S, eukPaint);
 });
 
 })();
