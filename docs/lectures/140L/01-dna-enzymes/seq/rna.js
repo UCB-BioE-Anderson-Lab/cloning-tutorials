@@ -342,24 +342,22 @@ function t7Paint(r, s){
 }
 
 window.Deck.sequence("t7prom", function(slide){
+  /* Three clicks, not five. The two that went were beats without content:
+     opening the bubble with no RNA in it, and closing it again after the
+     transcript was already finished. Each of the three left says
+     something the previous picture did not. */
   const S = [
     { s:{prom:1,bub:0,open:1,nrna:0,bstart:P1,rlow:0}, label:"The address, spelled out",
       note:"Here is that address. The T7 promoter is seventeen bases, TAATACGACTCACTATA, and it is quoted on the non-template strand, the top one, because that is the strand the RNA will match. The polymerase does not start inside the promoter. It starts at the very next base, the G marked plus one. So the promoter is not the start of the transcript. It is the sign that tells you where the start is.",
       desc:"A double-stranded DNA written out as forty paired bases between two backbone lines. The first seventeen, TAATACGACTCACTATA, are bracketed on the top strand and labelled the recognition element, which stays duplex. A red marker labels the very next base, the G at plus one." },
-    { s:{prom:1,bub:1,open:4,nrna:0,bstart:P1,rlow:0}, label:"Initiation — the bubble opens",
-      note:"The polymerase clamps onto that seventeen-base element and melts the DNA just downstream of it. Notice which part opens. The recognition element itself stays double stranded. It has to, because it is what the enzyme is gripping. Only the region from plus one onward comes apart, and that opening is the transcription bubble. Nothing has been cut here. The two backbones are intact all the way across; they have simply come apart from one another.",
-      desc:"The two strands separate over four base pairs just downstream of the promoter. The top strand and its bases arch upward and the bottom strand and its bases arch downward, opening a bubble, and both backbone lines run unbroken through it. The bracketed recognition element, ending at the A at minus one, stays paired." },
-    { s:{prom:0,bub:1,open:8,nrna:6,bstart:P1,rlow:0}, label:"The first bases",
+    { s:{prom:1,bub:1,open:8,nrna:6,bstart:P1,rlow:0}, label:"It opens, and it starts",
       call:"built on the bottom strand — so it comes out matching the top", callFill:SLATE,
-      note:"It puts a nucleotide on that G and extends. There is no primer here and none was needed. The enzyme brought the first two nucleotides together itself, and from then on it is ordinary five prime to three prime extension. Be clear about which strand it is copying. The new chain is being built along the BOTTOM strand, the template, which is why it sits down there against it. And because it is complementary to the bottom strand it comes out reading the same as the top strand, which is exactly why we quote a promoter on the top strand in the first place. The one substitution is U wherever the top strand says T.",
-      desc:"Inside the open bubble a new chain of six letters, G G G A G A, sits in a row of its own against the bottom strand, bracketed and labelled new RNA running five prime to three prime, with a half barb on its three prime end. It reads the same as the lifted top-strand bases above it. The bubble is now eight base pairs wide, so two melted template bases lie ahead of the growing end." },
-    { s:{prom:0,bub:1,open:8,nrna:T7_RNA.length,bstart:31,rlow:1}, label:"It runs to the end",
+      note:"The polymerase clamps onto that seventeen-base element and melts the DNA just downstream of it. Notice which part opens: the recognition element itself stays double stranded, because that is what the enzyme is gripping. Only from plus one onward does it come apart, and that opening is the transcription bubble. Nothing has been cut — both backbones run unbroken all the way across, they have simply come apart from one another. Then it puts a nucleotide on that G and extends, with no primer, because it brought the first two nucleotides together itself. Be clear about which strand it is copying. The new chain is built along the BOTTOM strand, the template, which is why it sits down there against it — and because it is complementary to the bottom strand it comes out reading the same as the top strand, which is exactly why we quote a promoter on the top strand in the first place. The one substitution is U wherever the top strand says T.",
+      desc:"The two strands separate from plus one onward, the top strand and its bases arching upward and the bottom strand and its bases downward, with both backbone lines running unbroken through the opening. The bracketed recognition element stays paired. Inside the bubble a new chain of six letters, G G G A G A, sits in a row of its own against the bottom strand, bracketed and labelled new RNA running five prime to three prime." },
+    { s:{prom:0,bub:0,open:8,nrna:T7_RNA.length,bstart:31,rlow:1}, label:"It runs off the end",
       call:"the bubble never grew — it travelled", callFill:SLATE,
-      note:"Now let it run. Watch the bubble rather than the transcript, because this is the thing to carry away: it is the same size it was. Eight base pairs, the whole way. It melts the duplex at its leading edge and lets it snap shut behind, so it travels rather than grows — and it has to, because unwinding the whole gene would cost far more than the enzyme has. The transcript is what accumulates. It has been peeled off the template as the duplex closed behind the bubble, which is why it is now lying free underneath rather than sitting against the bottom strand, and it is still anchored where it started, at plus one. Every base of it reads the same as the top strand, with U for T, exactly as promised.",
-      desc:"The bubble has travelled to the far right end of the DNA without changing size, still eight base pairs wide, and the duplex behind it has closed completely. The full transcript now runs the whole width in a row of its own below the DNA, from plus one to the last base, still bracketed and labelled new RNA." },
-    { s:{prom:0,bub:0,open:8,nrna:T7_RNA.length,bstart:31,rlow:1}, label:"Run-off: the RNA comes free",
-      note:"And then the polymerase reaches the end of the DNA and simply falls off it. That is run-off transcription, and it is why linearising your template matters: whatever base is last on the DNA is the last base of your RNA. The duplex closes completely behind it, so the DNA is exactly as it was — nothing was consumed and nothing was cut. What you are left with is a free single-stranded RNA, and the enzyme goes back and does it again. One template, many transcripts, which is the whole reason in vitro transcription gives you so much material.",
-      desc:"The bubble has closed and the DNA is a complete unbroken duplex again. The transcript lies below it as a free single-stranded RNA, its five prime end at plus one and a half barb on its three prime end." }
+      note:"Now let it run, and watch the bubble rather than the transcript. It is the same size the whole way: about eight base pairs, melting at its leading edge and snapping shut behind. It travels rather than grows, and it has to, because unwinding a whole gene would cost far more than the enzyme has. What accumulates is the transcript, peeled off the template as the duplex closes behind, which is why it ends up lying free underneath rather than paired to anything. Then the polymerase reaches the end of the DNA and simply falls off it. The duplex closes completely, so the DNA is exactly as it was — nothing consumed, nothing cut — and the enzyme goes back and does it again. One template, many transcripts, which is why in vitro transcription gives you so much material.",
+      desc:"The bubble has travelled to the far end of the DNA at the same width and then closed, leaving a complete unbroken duplex. The full transcript lies free below it, running from plus one to the last base, its five prime end at plus one and a half barb on its three prime end." }
   ];
   return driver(mount(slide, t7Markup()), ["prom","bub","open","nrna","bstart","rlow"], S, t7Paint);
 });
@@ -449,5 +447,122 @@ window.Deck.sequence("guide", function(slide){
   return driver(mount(slide, guideMarkup()), ["p1","run","free"], S, guidePaint);
 });
 
+
+/* ================================================================== *
+ * 5.  eukgene — why a promoter does not travel, and why the tutorial
+ *     starts from cDNA.
+ *
+ * The same protein, two genomes, drawn to the SAME scale so the
+ * proportion does the arguing: preproinsulin is 110 residues, so 333 bp
+ * of coding sequence, and the human gene spends about 1430 bp on it.
+ * Standard gene-structure idiom -- exons are boxes, introns are the line
+ * between them -- because that is what students will meet everywhere
+ * else, and INS is mostly intron.
+ *
+ * Approximate INS structure (3 exons, 2 introns), used for the widths:
+ *   exon1 ~42 | intron1 ~179 | exon2 ~204 | intron2 ~786 | exon3 ~219
+ * ================================================================== */
+/* EG_X leaves room for the lane names, right-aligned in the gutter, to
+   sit inside the slide's left padding */
+const EG_X = 344, EG_BP = 0.63;              /* px per base pair        */
+const bp = n => n*EG_BP;
+const EG_ECOLI = 333;                        /* preproinsulin CDS       */
+const EG_INS = [[42,1],[179,0],[204,1],[786,0],[219,1]];   /* [len, isExon] */
+const EG_YA = 336, EG_YB = 520, EG_YM = 690; /* E. coli | human | mRNA  */
+
+function egBox(x, w, y, col){
+  return '<rect x="'+n2(x)+'" y="'+n2(y-17)+'" width="'+n2(w)+'" height="34" rx="4" '+
+         'fill="'+col+'" fill-opacity="0.18" stroke="'+col+'" stroke-width="2.6"/>';
+}
+function egLine(x1, x2, y){
+  return '<path d="M'+n2(x1)+' '+n2(y)+'H'+n2(x2)+'" fill="none" stroke="'+MUTED+
+         '" stroke-width="2.6"/>';
+}
+function egProm(x, y, txt){
+  return '<path d="M'+n2(x-96)+' '+n2(y)+'H'+n2(x)+'" fill="none" stroke="'+SLATE+
+         '" stroke-width="9" stroke-linecap="round" opacity="0.3"/>' +
+         '<text x="'+n2(x-48)+'" y="'+n2(y-28)+'" text-anchor="middle" font-family="inherit" '+
+         'font-size="20" font-weight="700" fill="'+SLATE+'">'+txt+'</text>';
+}
+
+function eukMarkup(){
+  let g = "";
+  /* --- lane A: the E. coli gene --------------------------------- */
+  g += egProm(EG_X, EG_YA, "&minus;35 / &minus;10");
+  g += egBox(EG_X, bp(EG_ECOLI), EG_YA, INK);
+  g += '<text x="'+(EG_X+bp(EG_ECOLI)/2)+'" y="'+(EG_YA+7)+'" text-anchor="middle" '+
+       'font-family="inherit" font-size="19" font-weight="700" fill="'+INK+'">CDS</text>';
+  g += '<text x="'+(EG_X-110)+'" y="'+(EG_YA+7)+'" text-anchor="end" font-family="inherit" '+
+       'font-size="23" font-weight="700" fill="'+INK+'"><tspan font-style="italic">E. coli</tspan></text>';
+  g += '<text x="'+(EG_X+bp(EG_ECOLI)+18)+'" y="'+(EG_YA+7)+'" font-family="inherit" '+
+       'font-size="20" fill="'+MUTED+'">333 bp &#8212; and the transcript is the mRNA</text>';
+
+  /* --- lane B: human INS --------------------------------------- */
+  g += egProm(EG_X, EG_YB, "promoter, TATA");
+  g += '<text x="'+(EG_X-110)+'" y="'+(EG_YB+7)+'" text-anchor="end" font-family="inherit" '+
+       'font-size="23" font-weight="700" fill="'+INK+'">human <tspan font-style="italic">INS</tspan></text>';
+  let x = EG_X, total = 0;
+  EG_INS.forEach(function(seg){ total += seg[0]; });
+  g += egLine(EG_X, EG_X + bp(total), EG_YB);
+  EG_INS.forEach(function(seg){
+    if (seg[1]) g += egBox(x, bp(seg[0]), EG_YB, SLATE);
+    x += bp(seg[0]);
+  });
+  g += '<text x="'+(EG_X + bp(total) + 18)+'" y="'+(EG_YB+7)+'" font-family="inherit" '+
+       'font-size="20" fill="'+MUTED+'">'+total+' bp &#8212; mostly intron</text>';
+  /* name the parts once, under the first intron and the middle exon */
+  g += '<text x="'+(EG_X + bp(42+179/2))+'" y="'+(EG_YB+48)+'" text-anchor="middle" '+
+       'font-family="inherit" font-size="19" fill="'+MUTED+'">intron</text>';
+  g += '<text x="'+(EG_X + bp(42+179+204/2))+'" y="'+(EG_YB-30)+'" text-anchor="middle" '+
+       'font-family="inherit" font-size="19" font-weight="700" fill="'+SLATE+'">exon</text>';
+
+  /* --- the processed mRNA, revealed on the second click --------- */
+  g += '<g data-r="mrna" opacity="0">';
+  let mx = EG_X;
+  EG_INS.forEach(function(seg){
+    if (!seg[1]) return;
+    g += egBox(mx, bp(seg[0]), EG_YM, SLATE);
+    mx += bp(seg[0]);
+  });
+  g += '<path d="M'+(EG_X-58)+' '+EG_YM+'H'+n2(EG_X)+'" fill="none" stroke="'+RED+
+       '" stroke-width="2.6"/>' +
+       '<circle cx="'+(EG_X-70)+'" cy="'+EG_YM+'" r="11" fill="none" stroke="'+RED+
+       '" stroke-width="2.6"/>' +
+       '<text x="'+(EG_X-70)+'" y="'+(EG_YM-30)+'" text-anchor="middle" font-family="inherit" '+
+       'font-size="19" font-weight="700" fill="'+RED+'">cap</text>';
+  g += '<path d="M'+n2(mx)+' '+EG_YM+'H'+n2(mx+96)+'" fill="none" stroke="'+RED+
+       '" stroke-width="2.6" stroke-dasharray="5 6"/>' +
+       '<text x="'+n2(mx+106)+'" y="'+(EG_YM+7)+'" font-family="inherit" font-size="19" '+
+       'font-weight="700" fill="'+RED+'">AAAA&#8230;</text>';
+  /* the splice: where each intron went */
+  let sx2 = EG_X, ex = EG_X;
+  EG_INS.forEach(function(seg){
+    if (seg[1]){ ex += bp(seg[0]); sx2 += bp(seg[0]); return; }
+    g += '<path d="M'+n2(sx2)+' '+(EG_YB+17)+'L'+n2(ex)+' '+(EG_YM-17)+'" fill="none" '+
+         'stroke="'+MUTED+'" stroke-width="1.8" stroke-dasharray="6 7"/>';
+    sx2 += bp(seg[0]);
+  });
+  g += '<text x="'+(EG_X-110)+'" y="'+(EG_YM+7)+'" text-anchor="end" font-family="inherit" '+
+       'font-size="23" font-weight="700" fill="'+SLATE+'">mRNA</text>';
+  g += '</g>';
+  return g + chrome(252, 830);
+}
+
+function eukPaint(r, s){
+  r.mrna.setAttribute("opacity", n2(clamp01(s.proc)));
+}
+
+window.Deck.sequence("eukgene", function(slide){
+  const S = [
+    { s:{proc:0}, label:"The same protein, two genomes",
+      note:"Last thing, and it is a warning rather than a technique. Transcription is one of the most divergent things in biology, and you cannot assume a promoter travels. Even between E. coli and Bacillus subtilis, both bacteria, the sigma factor repertoires differ enough that an E. coli promoter is often read poorly or not at all in Bacillus. Eukaryotes are not a variation on the theme; they are a different machine. Here is the same protein in two genomes, drawn to the same scale. In E. coli, insulin would be three hundred and thirty-three base pairs of coding sequence behind a minus thirty-five and a minus ten, and the transcript is the messenger — it is being translated before it has finished being made. The human gene is about fourteen hundred base pairs for the same hundred and ten residues, and most of that is intron. The coding sequence is in three pieces.",
+      desc:"Two genes drawn to the same scale. Above, an E. coli version: a minus 35 and minus 10 promoter followed by a single 333 base pair coding sequence box. Below, the human insulin gene: a promoter with a TATA element, then about 1430 base pairs drawn in the standard idiom of exon boxes joined by intron lines, three exons and two introns, the second intron much the longest." },
+    { s:{proc:1}, label:"And the human transcript is not finished when it is made",
+      call:"E. coli cannot splice — which is why you clone insulin from cDNA", callFill:RED,
+      note:"And the human transcript comes out of the polymerase unusable. It has to be capped at the five prime end, the two introns have to be spliced out, and a poly-A tail has to be added at the three prime end. None of that machinery exists in E. coli. So if you took the human insulin gene, promoter and all, and put it into a bacterium, you would get nothing: the promoter would not be read, and even if it were, the introns would still be sitting in the message. That is the reason the first design tutorial starts from cDNA. Complementary DNA is made by reverse transcribing the mature messenger, after the cell has already done the splicing for you — so the introns are gone before the sequence ever reaches your plasmid. You are not cloning the human gene. You are cloning what the human cell made of it.",
+      desc:"Below the human gene, the processed messenger appears: the three exons butted together with the introns removed, shown by dashed lines running from each intron down to the join, with a cap added at the five prime end and a poly-A tail at the three prime end. A red line reads: E. coli cannot splice, which is why you clone insulin from cDNA." }
+  ];
+  return driver(mount(slide, eukMarkup()), ["proc"], S, eukPaint);
+});
 
 })();
