@@ -363,121 +363,86 @@ window.Deck.sequence("t7prom", function(slide){
 });
 
 /* ================================================================== *
- * 4.  ivt — what in vitro transcription actually is, at the bench.
+ * 4.  ivt — what in vitro transcription is, at the bench.
  *
- * The molecular story is already told: the promoter slide runs a
- * transcript off the end and releases it. Drawing that again with a
- * different gene in it says nothing new, which is what was wrong with
- * the two versions of this slide before it.
+ * A person and a list. The molecular story is already told by the
+ * promoter slide, so drawing a template and a transcript again here
+ * would be the same picture twice; what this slide adds is that it is a
+ * REACTION somebody sets up, and that the whole system fits on eight
+ * lines.
  *
- * So this one is a TUBE, not a molecule. Three things only it can say:
- *   - what "in vitro" means here: no cell, you supply everything
- *   - what run-off costs you: the template's end IS the RNA's end, so
- *     the template must be linear and must stop where the RNA should
- *   - why anyone buys the enzyme: the output is absurd, and the
- *     products are ones they have heard of
+ * Two of those eight lines are worth pausing on. The template has to be
+ * LINEAR, because the enzyme has no terminator and stops by falling off
+ * the end. And pyrophosphatase is in the tube for a reason the deck has
+ * already earned: every nucleotide added throws off pyrophosphate, and
+ * hydrolysing it is what pulls the reaction forward -- the same argument
+ * made at the polymerase mechanism. Left alone it also precipitates the
+ * magnesium out of the buffer.
  *
- * Deliberately cartoon-like. Every other picture in this section is a
- * molecule at some level of abstraction; this one is a bench, and it
- * should not be mistakable for the slide before it.
+ * ART.bench is the traced line art; ART.benchTube is the tube the
+ * pipette is loading, in the art's own coordinates, so the arrow can
+ * aim at it rather than at a hardcoded guess. If the art is missing the
+ * slide still lays out -- the figure is simply absent.
  * ================================================================== */
-const TUX0 = 150, TUX1 = 690, TUY0 = 268, TUY1 = 636;   /* the tube        */
-const IVR = [352, 432, 512, 580];                        /* ingredient rows */
-const OUTX = 900, OUTX1 = 1430;                          /* the product fan */
+const BENCH = {x:180, y:236, h:556};        /* where the figure sits       */
+const IVL = 966, IVL0 = 330, IVLD = 40;     /* the list: x, first y, step  */
+const IVITEMS = ["ATP", "GTP", "CTP", "UTP", "template DNA",
+                 "T7 RNA polymerase", "pyrophosphatase", "buffer"];
 
-function tube(){
-  const capH = 40, r = 26;
-  return '<g fill="none" stroke="'+INK+'" stroke-width="3.4" stroke-linejoin="round">' +
-    '<rect x="'+TUX0+'" y="'+TUY0+'" width="'+(TUX1-TUX0)+'" height="'+capH+'" rx="9"/>' +
-    '<path d="M'+(TUX0+14)+' '+(TUY0+capH)+'V'+(TUY1-r)+'Q'+(TUX0+14)+' '+TUY1+' '+
-      (TUX0+14+r)+' '+TUY1+'H'+(TUX1-14-r)+'Q'+(TUX1-14)+' '+TUY1+' '+(TUX1-14)+' '+
-      (TUY1-r)+'V'+(TUY0+capH)+'"/></g>';
+/* the art, scaled to BENCH.h and pinned at BENCH.x/.y; returns the
+   markup plus wherever the loaded tube ended up in slide coordinates */
+function benchArt(){
+  const A = window.ART;
+  if (!A || !A.bench) return { g:"", tube:[470, 660] };
+  const b = A.benchBox, k = BENCH.h / (b[3] - b[1]);
+  const X = x => BENCH.x + (x - b[0])*k, Y = y => BENCH.y + (y - b[1])*k;
+  const t = A.benchTube || [(b[0]+b[2])/2, b[1] + (b[3]-b[1])*0.72];
+  return {
+    g: '<g transform="translate('+n2(BENCH.x - b[0]*k)+' '+n2(BENCH.y - b[1]*k)+') scale('+
+       n2(k)+')" fill="none" stroke="'+INK+'" stroke-width="'+n2(3/k)+'" '+
+       'stroke-linecap="round" stroke-linejoin="round">' + A.bench + '</g>',
+    tube: [X(t[0]), Y(t[1])]
+  };
 }
 
 function ivtMarkup(){
-  const ix = TUX0 + 66, lx = TUX0 + 168;
-  let g = tube();
-  g += '<text x="'+((TUX0+TUX1)/2)+'" y="'+(TUY0-26)+'" text-anchor="middle" '+
-       'font-family="inherit" font-size="24" font-weight="700" fill="'+MUTED+
-       '">one 20 &#181;L reaction</text>';
+  const art = benchArt();
+  let g = art.g;
 
-  /* 1 — the template. Its right-hand end is the whole of run-off, so it
-     is drawn with a hard stop and said out loud. */
-  g += '<g data-r="i0" opacity="0">' +
-    '<path d="M'+(ix-44)+' '+(IVR[0]-7)+'H'+(ix+44)+'M'+(ix-44)+' '+(IVR[0]+7)+'H'+(ix+44)+
-      '" fill="none" stroke="'+INK+'" stroke-width="3"/>' +
-    '<path d="M'+(ix-44)+' '+IVR[0]+'H'+(ix-10)+'" stroke="'+SLATE+'" stroke-width="9" '+
-      'opacity="0.35" fill="none"/>' +
-    '<path d="M'+(ix+44)+' '+(IVR[0]-16)+'V'+(IVR[0]+16)+'" stroke="'+RED+
-      '" stroke-width="3" fill="none"/>' +
-    '<text x="'+lx+'" y="'+(IVR[0]-2)+'" font-family="inherit" font-size="23" '+
-      'font-weight="700" fill="'+INK+'">a <tspan fill="'+RED+'">linear</tspan> template</text>' +
-    '<text x="'+lx+'" y="'+(IVR[0]+28)+'" font-family="inherit" font-size="20" fill="'+MUTED+
-      '">T7 promoter, then your sequence</text></g>';
-
-  /* 2 — the enzyme */
-  g += '<g data-r="i1" opacity="0">' +
-    '<ellipse cx="'+ix+'" cy="'+IVR[1]+'" rx="40" ry="27" fill="'+SLATE+'" fill-opacity="0.16" '+
-      'stroke="'+SLATE+'" stroke-width="3"/>' +
-    '<text x="'+lx+'" y="'+(IVR[1]+8)+'" font-family="inherit" font-size="23" '+
-      'font-weight="700" fill="'+INK+'">T7 RNA polymerase</text></g>';
-
-  /* 3 — the nucleotides */
-  g += '<g data-r="i2" opacity="0">';
-  ["A","U","G","C"].forEach(function(b,k){
-    const cx = ix - 48 + k*32;
-    g += '<circle cx="'+cx+'" cy="'+IVR[2]+'" r="14" fill="none" stroke="'+INK+
-         '" stroke-width="2.6"/>' +
-         '<text x="'+cx+'" y="'+(IVR[2]+7)+'" text-anchor="middle" font-family="inherit" '+
-         'font-size="17" font-weight="700" fill="'+INK+'">'+b+'</text>';
+  /* the list, and a bracket gathering it into one thing */
+  g += '<g data-r="mix" opacity="0">';
+  IVITEMS.forEach(function(t, i){
+    const y = IVL0 + i*IVLD;
+    g += '<text x="'+IVL+'" y="'+y+'" font-family="inherit" font-size="27" '+
+         'font-weight="700" fill="'+INK+'">'+t+'</text>';
   });
-  g += '<text x="'+lx+'" y="'+(IVR[2]-2)+'" font-family="inherit" font-size="23" '+
-      'font-weight="700" fill="'+INK+'">the four NTPs</text>' +
-    '<text x="'+lx+'" y="'+(IVR[2]+28)+'" font-family="inherit" font-size="20" fill="'+MUTED+
-      '">ribo, not deoxy &#8212; and U for T</text></g>';
-
-  /* 4 — the buffer */
-  g += '<g data-r="i3" opacity="0">' +
-    '<text x="'+ix+'" y="'+(IVR[3]+9)+'" text-anchor="middle" font-family="inherit" '+
-      'font-size="25" font-weight="700" fill="'+INK+'">Mg<tspan font-size="17" dy="-8">2+</tspan></text>' +
-    '<text x="'+lx+'" y="'+(IVR[3]+8)+'" font-family="inherit" font-size="23" '+
-      'font-weight="700" fill="'+INK+'">buffer &#8212; and nothing else</text></g>';
-
-  /* the incubation, and what comes out of it */
-  g += '<g data-r="out" opacity="0">' +
-    '<path d="M740 452H846" fill="none" stroke="'+INK+'" stroke-width="3.4"/>' +
-    '<path d="M824 438L846 452L824 466" fill="none" stroke="'+INK+'" stroke-width="3.4" '+
-      'stroke-linejoin="round" stroke-linecap="round"/>' +
-    '<text x="793" y="424" text-anchor="middle" font-family="inherit" font-size="21" '+
-      'font-weight="700" fill="'+MUTED+'">37&#176;C</text>' +
-    '<text x="793" y="492" text-anchor="middle" font-family="inherit" font-size="21" '+
-      'fill="'+MUTED+'">2 h</text>';
-  for (let k = 0; k < 9; k++)
-    g += '<path d="'+rna(OUTX, OUTX1, 292 + k*40)+'" fill="none" stroke="'+SLATE+
-         '" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
-  g += '<text x="'+((OUTX+OUTX1)/2)+'" y="700" text-anchor="middle" font-family="inherit" '+
-      'font-size="24" font-weight="700" fill="'+SLATE+'">tens of micrograms of one RNA</text>' +
-    '<text x="'+((OUTX+OUTX1)/2)+'" y="736" text-anchor="middle" font-family="inherit" '+
-      'font-size="21" fill="'+MUTED+'">every copy ending at the same base</text></g>';
-  return g + chrome(226, 812);
+  const yTop = IVL0 - 28, yBot = IVL0 + (IVITEMS.length-1)*IVLD + 12;
+  g += '<path d="M'+(IVL-30)+' '+yTop+'h-14v'+(yBot-yTop)+'h14" fill="none" stroke="'+MUTED+
+       '" stroke-width="2.6"/>';
+  /* one arrow, from the bracket to the tube being loaded */
+  const ax = IVL-52, ay = (yTop+yBot)/2, tx = art.tube[0]+34, ty = art.tube[1];
+  g += '<path d="M'+n2(ax)+' '+n2(ay)+'Q'+n2((ax+tx)/2)+' '+n2(ay+52)+' '+n2(tx)+' '+n2(ty)+
+       '" fill="none" stroke="'+MUTED+'" stroke-width="3" marker-end="url(#ivtHead)"/>';
+  g += '<defs><marker id="ivtHead" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" '+
+       'markerHeight="7" orient="auto"><path d="M0 0L12 6L0 12z" fill="'+MUTED+
+       '"/></marker></defs>';
+  g += '</g>';
+  return g + chrome(210, 838);
 }
 
-function ivtPaint(r, s){
-  for (let k = 0; k < 4; k++) r["i"+k].setAttribute("opacity", n2(clamp01(s.mix - k*0.001)));
-  r.out.setAttribute("opacity", n2(clamp01(s.out)));
-}
+function ivtPaint(r, s){ r.mix.setAttribute("opacity", n2(clamp01(s.mix))); }
 
 window.Deck.sequence("ivt", function(slide){
   const S = [
-    { s:{mix:1,out:0}, label:"In vitro means exactly what it says",
-      note:"Everything so far in this section has been a molecule. This slide is a tube, because in vitro transcription is a reaction you set up, and it is worth being concrete about what that means. There is no cell here. No transcription factors, no chromatin, no nucleus, nothing regulating anything. You supply the whole system, and it is a short list. A template — and note the word linear, because this is the one place run-off costs you something. The polymerase stops when it falls off the end of the DNA, so whatever base is last on your template is the last base of your RNA. If your template is a plasmid, you cut it first, and you cut it exactly where you want the RNA to end. T7 RNA polymerase, which is one polypeptide and needs no accessory factors at all — that is why this works in a tube and the E. coli enzyme would be a nightmare. The four NTPs, ribonucleotides this time, with U where you would have put T. And magnesium, because every phosphoryl transfer in this lecture has needed it. That is the entire reaction.",
-      desc:"A cartoon reaction tube labelled one 20 microlitre reaction, containing four ingredients drawn and named: a linear double-stranded template with a T7 promoter at its left end and a hard red stop at its right, T7 RNA polymerase drawn as a single blue blob, the four NTPs drawn as circles marked A, U, G and C, and magnesium buffer." },
-    { s:{mix:1,out:1}, label:"Two hours later",
-      call:"guide RNAs, probes, ribozymes \u2014 and every mRNA vaccine ever made"  /* call is textContent */, callFill:SLATE,
-      note:"Two hours at thirty-seven degrees and you have tens of micrograms of RNA from a few hundred nanograms of DNA. That is the thing to take away, and it is why anyone buys this enzyme. One template gets read over and over — the DNA is not consumed, remember, the duplex closes behind the bubble every time — so a small amount of template turns into an enormous number of transcripts. And because every one of them ran off the same end of the same linear template, they are all the same length, ending at the same base. That is what run-off buys you: not just a lot of RNA, but a lot of one defined RNA. Afterwards you usually add DNase to destroy the template, since it is the only DNA left in the tube and it is easy to remove. What is this actually for? Guide RNAs for CRISPR, which we will come to. Probes. Ribozymes. RNA for structural work. And every messenger RNA vaccine that has ever been made, which is this reaction, run in a very large tube.",
-      desc:"An arrow labelled 37 degrees and 2 hours leads from the tube to the product: nine identical wavy RNA strands, all the same length, labelled tens of micrograms of one RNA, every copy ending at the same base. A line reads: guide RNAs, probes, ribozymes, and every mRNA vaccine ever made." }
+    { s:{mix:0}, label:"In vitro means exactly what it says",
+      note:"Everything so far in this section has been a molecule. This is a tube. In vitro transcription is a reaction somebody sets up at a bench, and it is worth being concrete about that, because the whole point of T7 is that you can. There is no cell here — no transcription factors, no chromatin, no nucleus, nothing regulating anything, and nothing you did not put in yourself.",
+      desc:"Line art of a scientist at a bench, in a lab coat and safety glasses, pipetting into a small open tube held over a tube rack." },
+    { s:{mix:1}, label:"And this is the whole system",
+      call:"eight lines, and one of them is only there to pull the reaction forward", callFill:SLATE,
+      note:"And here is everything that goes in. Eight lines. The four nucleoside triphosphates — ribo this time, so UTP where a PCR would have had dTTP. The template, and remember it has to be linear, because the enzyme has no terminator and stops by falling off the end, so whatever base is last on the DNA is the last base of your RNA. T7 RNA polymerase itself, one polypeptide needing no accessory factors, which is exactly why this works in a tube at all. Buffer, which is mostly magnesium, because every phosphoryl transfer in this lecture has needed it. And then the odd one out: pyrophosphatase. Think about why it is there. Every single nucleotide the polymerase adds throws off a pyrophosphate — that is the leaving group we drew at the very start of the polymerase section — and hydrolysing it is what makes the reaction effectively irreversible. In a cell that happens for free. In a tube you add the enzyme that does it, both to pull the reaction forward and because magnesium pyrophosphate is insoluble and will otherwise precipitate your magnesium out of solution. Two hours at thirty-seven degrees and a few hundred nanograms of template gives you tens of micrograms of RNA.",
+      desc:"A bracketed list appears to the right: ATP, GTP, CTP, UTP, template DNA, T7 RNA polymerase, pyrophosphatase and buffer, with a single arrow curving from the bracket to the tube the scientist is loading." }
   ];
-  return driver(mount(slide, ivtMarkup()), ["mix","out"], S, ivtPaint);
+  return driver(mount(slide, ivtMarkup()), ["mix"], S, ivtPaint);
 });
 
 /* ================================================================== *
