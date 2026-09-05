@@ -442,6 +442,113 @@ window.Deck.sequence("ivt", function(slide){
 });
 
 /* ================================================================== *
+ * 5b. modbase — the one changed base, drawn properly.
+ *
+ * Uracil attached to the sugar through N1 is uridine. The SAME uracil
+ * attached through C5 is pseudouridine -- a carbon-carbon bond where
+ * there was a carbon-nitrogen one -- which leaves N1 free, and m1-psi
+ * is that with a methyl on it. So the ring is identical in both panels
+ * and only two things differ: which atom the sugar hangs off, and what
+ * is on N1. Drawing them on the same hexagon, in the same orientation,
+ * with the attachment atom in the same place, is what makes that
+ * legible; anything else and it reads as two different molecules.
+ *
+ * Ring order is N1-C2-N3-C4-C5-C6. Vertices are named clockwise from
+ * the attachment vertex at the bottom, which is why the labels differ
+ * between panels while the geometry does not.
+ * ================================================================== */
+const MB_R = 52, MB_YR = 376, MB_YS = 550;   /* ring radius, ring y, sugar y */
+const MB_L = 430, MB_RX = 1010;              /* the two panel centres        */
+
+/* Hexagon vertices, clockwise ON SCREEN from the bottom -- which is the
+   attachment vertex in both panels. SVG y grows downward, so 90 degrees
+   is the bottom and the list runs 6, 8, 10, 12, 2, 4 o'clock. */
+function hexv(cx, cy){
+  return [90, 150, 210, 270, 330, 30].map(function(d){
+    const a = d*Math.PI/180;
+    return [cx + MB_R*Math.cos(a), cy + MB_R*Math.sin(a)];
+  });
+}
+function mbBond(a, b, c, w){
+  return '<path d="M'+n2(a[0])+' '+n2(a[1])+'L'+n2(b[0])+' '+n2(b[1])+'" fill="none" stroke="'+
+         (c||INK)+'" stroke-width="'+(w||2.8)+'" stroke-linecap="round"/>';
+}
+function mbDouble(a, b, c){
+  const dx=b[0]-a[0], dy=b[1]-a[1], L=Math.hypot(dx,dy)||1, px=-dy/L*4, py=dx/L*4;
+  return mbBond([a[0]+px,a[1]+py],[b[0]+px,b[1]+py],c) +
+         mbBond([a[0]-px,a[1]-py],[b[0]-px,b[1]-py],c);
+}
+function mbLab(p, t, c, sz){
+  const z = sz || 21;
+  return '<circle cx="'+n2(p[0])+'" cy="'+n2(p[1])+'" r="'+n2(z*0.72)+'" fill="#fff"/>' +
+    '<text x="'+n2(p[0])+'" y="'+n2(p[1]+z*0.35)+'" text-anchor="middle" font-family="inherit" '+
+    'font-size="'+z+'" font-weight="700" fill="'+(c||INK)+'">'+t+'</text>';
+}
+const mbOut = (from, to, d) => [from[0]+(from[0]-to[0])*d, from[1]+(from[1]-to[1])*d];
+
+/* names[i] is the atom at vertex i, clockwise from the attachment vertex.
+   SKELETAL, like every other structure in this deck: carbons are implicit
+   and unlabelled. Only the nitrogens are named, plus the attachment atom,
+   which is the whole comparison -- in UTP the sugar hangs off a labelled
+   N, in m1-psi it hangs off a bare carbon vertex and the N has moved. */
+function base(cx, names, methyl){
+  const v = hexv(cx, MB_YR), C = [cx, MB_YR];
+  let g = "";
+  for (let i = 0; i < 6; i++) g += mbBond(v[i], v[(i+1)%6]);
+  for (let i = 0; i < 6; i++){
+    const a = names[i], b = names[(i+1)%6];
+    if ((a==="C5"&&b==="C6") || (a==="C6"&&b==="C5")) g += mbDouble(v[i], v[(i+1)%6]);
+  }
+  ["C2","C4"].forEach(function(nm){
+    const i = names.indexOf(nm), o = mbOut(v[i], C, 0.60);
+    g += mbDouble(v[i], o) + mbLab(o, "O");
+  });
+  const i3 = names.indexOf("N3"), o3 = mbOut(v[i3], C, 0.58);
+  g += mbBond(v[i3], o3) + mbLab(o3, "NH");
+
+  const i1 = names.indexOf("N1");
+  if (methyl){
+    /* N1 is free now, and carries the methyl: both drawn in red */
+    const o1 = mbOut(v[i1], C, 0.58);
+    g += mbLab(v[i1], "N", RED, 20) + mbBond(v[i1], o1, RED, 3.4) +
+         mbLab(mbOut(v[i1], C, 0.98), "CH&#8323;", RED, 20);
+    /* and the sugar is on a carbon, which has to be said out loud
+       because a bare vertex says nothing by itself */
+    g += mbLab([v[0][0]-30, v[0][1]+2], "C5", RED, 19);
+  } else {
+    g += mbLab(v[i1], "N", INK, 20) + mbLab([v[0][0]-30, v[0][1]+2], "N1", RED, 19);
+  }
+  return g;
+}
+
+/* Ribose: O4' at the top, C1' at the right. It sits so that C1' is
+   directly under the base's attachment vertex, which keeps the
+   glycosidic bond vertical and short in BOTH panels -- the bond is the
+   thing being compared, so it must not be a different shape on each
+   side for reasons of layout. */
+function sugar(cx, attach){
+  const sx = cx - 52, y = MB_YS, w = 50;
+  const O4 = [sx, y-34], C1 = [sx+w, y-2], C2 = [sx+w*0.62, y+46],
+        C3 = [sx-w*0.62, y+46], C4 = [sx-w, y-2];
+  let g = '<path d="M'+[O4,C1,C2,C3,C4].map(q=>n2(q[0])+" "+n2(q[1])).join("L")+
+          'Z" fill="#f4f4f4" stroke="'+INK+'" stroke-width="2.8" stroke-linejoin="round"/>' +
+          mbLab(O4, "O", INK, 18);
+  g += mbBond(C4, [sx-w-38, y-30]) + mbLab([sx-w-70, y-40], "PPP", MUTED, 19);
+  g += mbLab([C2[0], C2[1]+22], "OH", MUTED, 17) + mbLab([C3[0], C3[1]+22], "OH", MUTED, 17);
+  g += mbBond(C1, attach, RED, 3.6);
+  return g;
+}
+
+function mbPanel(cx, names, methyl, title, sub){
+  const v = hexv(cx, MB_YR);
+  return '<g>' + sugar(cx, v[0]) + base(cx, names, methyl) +
+    '<text x="'+cx+'" y="232" text-anchor="middle" font-family="inherit" font-size="27" '+
+      'font-weight="700" fill="'+INK+'">'+title+'</text>' +
+    '<text x="'+cx+'" y="266" text-anchor="middle" font-family="inherit" font-size="21" '+
+      'fill="'+MUTED+'">'+sub+'</text></g>';
+}
+
+/* ================================================================== *
  * 5.  vaccine — the application vignette, like the forensics one.
  *
  * A left-to-right flow rather than a row of stations: plasmid, into the
@@ -554,12 +661,33 @@ function vacMarkup(){
       '" stroke-width="2.8" stroke-linecap="round"/>' +
     vtx(VLNP[0], VLNP[1]+VLNPR+38, "lipid nanoparticle", MUTED, 19, 600) + '</g>';
 
+  /* --- the one changed base. The flow gets out of the way for it:
+         these are structures, and they need the whole slide. ------- */
+  g += '<g data-r="chem" opacity="0">' +
+    mbPanel(MB_L, ["N1","C2","N3","C4","C5","C6"], false,
+            "UTP", "sugar on N1 &#8212; a C&#8211;N bond") +
+    mbPanel(MB_RX, ["C5","C4","N3","C2","N1","C6"], true,
+            "m&#185;&#936;TP", "sugar on C5 &#8212; a C&#8211;C bond, and N1 is free") +
+    '<text x="720" y="464" text-anchor="middle" font-family="inherit" font-size="34" '+
+      'font-weight="700" fill="'+MUTED+'">vs</text>' +
+    '<text x="800" y="700" text-anchor="middle" font-family="inherit" font-size="24" '+
+      'font-weight="700" fill="'+RED+'">with plain U the cell reads it as an infection,</text>' +
+    '<text x="800" y="734" text-anchor="middle" font-family="inherit" font-size="24" '+
+      'fill="'+MUTED+'">and destroys the message before it is translated</text>' +
+    '</g>';
+
   return g + chrome(196, 812);
 }
 
 function vacPaint(r, s){
-  for (let k = 0; k < 4; k++)
-    r["v"+k].setAttribute("opacity", n2(clamp01(s.on - k)));
+  /* the last beat swaps the picture out entirely rather than adding to
+     it -- chemistry at this size cannot share a slide with the flow */
+  const chem = clamp01(s.on - 3);
+  r.v0.setAttribute("opacity", n2(clamp01(s.on)      * (1-chem)));
+  r.v1.setAttribute("opacity", n2(clamp01(s.on - 1)  * (1-chem)));
+  r.v2.setAttribute("opacity", n2(clamp01(s.on - 2)  * (1-chem)));
+  r.v3.setAttribute("opacity", n2(clamp01(s.on - 2)  * (1-chem)));
+  r.chem.setAttribute("opacity", n2(chem));
 }
 
 window.Deck.sequence("vaccine", function(slide){
@@ -567,182 +695,19 @@ window.Deck.sequence("vaccine", function(slide){
     { s:{on:1}, label:"You cannot chemically synthesise four thousand bases",
       note:"An application, and one where the answer surprises people. An mRNA vaccine is about four thousand three hundred bases of RNA. Ask how that is made and the instinct is chemical synthesis, because that is how you buy an oligo — and it is the wrong answer. Solid-phase RNA synthesis runs out somewhere around a hundred bases; the yield falls off a cliff and the failure products pile up. Four thousand is not reachable that way. So it is made enzymatically, by the reaction on the last slide, run large. It starts here: the antigen sequence sits on a plasmid grown in E. coli, behind a T7 promoter. And before it goes anywhere near the polymerase you cut that plasmid once, downstream of the gene, with a restriction enzyme. You know exactly why — run-off. The polymerase has no terminator, it stops where the DNA stops, so the position of that cut is the three prime end of every molecule in the batch. An enzyme from the first section of this lecture is defining the end of a pharmaceutical.",
       desc:"A circular plasmid with a blue T7 promoter arc and a longer arc marking the spike gene, with a red slash marking a single cut. To its right, the linearised double-stranded template runs across, its promoter marked in blue at the left and its far end stopped with a red bar." },
-    { s:{on:2}, label:"Feed it four nucleotides \u2014 but not the four you expect"  /* textContent */,
-      call:"the polymerase does not notice; your immune system does", callFill:RED,
-      note:"Then the reaction. That shape is the real T7 RNA polymerase, traced from its crystal structure, and the DNA is running through the actual channel through the protein rather than resting against a cartoon. It is one polypeptide and it needs no accessory factors, which is exactly why this works in a tube. Now look at what is being fed in. ATP, CTP, GTP — and then not UTP. Every uridine is replaced by N1-methylpseudouridine, and the polymerase takes it without complaint, because as far as the chemistry of incorporation is concerned it is a U. Your immune system is not so relaxed. Unmodified RNA in a cell reads as an infection: the innate response fires, you get inflammation, and the message is destroyed before a ribosome reaches it. Swap that one nucleotide and it reads as a message instead. That is Kariko and Weissman's result, and the Nobel Prize in twenty twenty-three.",
+    { s:{on:2}, label:"Feed it four nucleotides \u2014 but not the four you expect",
+      note:"Then the reaction, and it is the one from the last slide. That shape is the real T7 RNA polymerase, traced from its crystal structure, and the DNA is running through the actual channel in the protein rather than resting against a cartoon. Now look at what is being fed in. ATP, CTP, GTP — and then not UTP. Every uridine is replaced by N1-methylpseudouridine. The polymerase does not care; as far as the chemistry of incorporation goes it is a U, and T7 puts it in without being asked twice.",
       desc:"The T7 RNA polymerase appears as a semi-transparent traced silhouette of the real enzyme, seated on the template so the DNA passes through the channel in the protein. Four arrows feed in from below, labelled ATP, CTP, GTP, and in red m1-psi-TP, replaces UTP." },
-    { s:{on:3}, label:"Out comes one defined molecule, over and over",
-      note:"Out comes the transcript. A cap goes on the five prime end, either as an analogue the polymerase starts on or added afterwards with an enzyme, because a eukaryotic ribosome will not touch an uncapped message; and a poly-A tail on the three prime end, usually encoded in the template. Every copy is the same length, because every copy ran off the same cut end of the same linear template. And the template is not consumed — the duplex closes behind the bubble every time — so a few hundred nanograms of DNA becomes tens of micrograms of RNA. That is the whole economics of it.",
-      desc:"A blue wavy transcript emerges to the right of the polymerase, with a cap drawn as a small circle at its 5-prime end and a dashed poly-A tail at its 3-prime end." },
-    { s:{on:4}, label:"And that is the dose",
+    { s:{on:3}, label:"One defined molecule, and then a dose",
       call:"a restriction enzyme, a phage polymerase, and one modified base", callFill:SLATE,
-      note:"Then it is wrapped in a lipid nanoparticle, because naked RNA in a bloodstream lasts seconds and could not cross a membrane anyway, and that is the dose. Stand back and look at what that took. A restriction enzyme to define one end. A phage RNA polymerase that needs no accessory factors and will work in a tube. One modified nucleotide. Everything in that list is in this lecture and most of it is in the NEB catalogue. The scale is industrial; the chemistry is not.",
-      desc:"An arrow leads from the transcript to a lipid nanoparticle, drawn as a dashed circle with the RNA coiled inside, labelled lipid nanoparticle." }
+      note:"Out comes the transcript. A cap on the five prime end, because a eukaryotic ribosome will not touch an uncapped message, and a poly-A tail on the three prime end, usually encoded in the template. Every copy is the same length, because every copy ran off the same cut end of the same linear template — that is what run-off buys you, not just a lot of RNA but a lot of one defined RNA. And the template is not consumed, so a few hundred nanograms of DNA becomes tens of micrograms of message. Then it is wrapped in a lipid nanoparticle, because naked RNA in a bloodstream lasts seconds and could not cross a membrane anyway, and that is the dose. Look at what that took: a restriction enzyme to define one end, a phage polymerase that works in a tube, and one modified nucleotide. Nearly all of it is in this lecture.",
+      desc:"A blue wavy transcript emerges to the right of the polymerase with a cap at its 5-prime end and a poly-A tail at its 3-prime end, and an arrow carries it into a lipid nanoparticle drawn as a dashed circle with the RNA coiled inside." },
+    { s:{on:4}, label:"That modified nucleotide, drawn properly",
+      call:"the polymerase cannot tell \u2014 your immune system can", callFill:RED,
+      note:"And now the one thing on that list that is not an enzyme, because the change is far smaller than anyone expects. On the left, uridine: the uracil ring hanging off the sugar through nitrogen one. On the right, N1-methylpseudouridine. Look at the ring — it is the same ring, same atoms, same two carbonyls. Two things differ. The sugar is attached through carbon five instead of nitrogen one, so the bond holding the base on is carbon-carbon rather than carbon-nitrogen; that is what pseudo means here, it is uracil put on backwards. And because nitrogen one is no longer doing the attaching, it is free, and it carries a methyl. That is the whole modification. So why bother? Because your cells have sensors whose entire job is noticing foreign RNA, and they are good at it. Ordinary unmodified message reads as an infection: the innate response fires, you get inflammation, and the RNA is destroyed before a ribosome reaches it. Swap the uridines for this and the sensors stay quiet. Katalin Kariko and Drew Weissman worked that out in two thousand and five, spent years being told it was not interesting, and took the Nobel Prize for it in twenty twenty-three. One base is the difference between a technology that works and one that does not.",
+      desc:"The flow is replaced by two nucleotide structures side by side, drawn on identical hexagons. On the left, UTP: the uracil ring attached to a ribose through nitrogen one, with the triphosphate tagged off the 5-prime carbon. On the right, m1-psi-TP: the same ring in the same orientation, attached through carbon five in red, with nitrogen one now free and carrying a red methyl. Below, a line reads that with plain uridine the cell reads it as an infection and destroys the message before it is translated." }
   ];
   return driver(mount(slide, vacMarkup()), ["on"], S, vacPaint);
-});
-
-/* ================================================================== *
- * 5b. modbase — the one changed base, drawn properly.
- *
- * Uracil attached to the sugar through N1 is uridine. The SAME uracil
- * attached through C5 is pseudouridine -- a carbon-carbon bond where
- * there was a carbon-nitrogen one -- which leaves N1 free, and m1-psi
- * is that with a methyl on it. So the ring is identical in both panels
- * and only two things differ: which atom the sugar hangs off, and what
- * is on N1. Drawing them on the same hexagon, in the same orientation,
- * with the attachment atom in the same place, is what makes that
- * legible; anything else and it reads as two different molecules.
- *
- * Ring order is N1-C2-N3-C4-C5-C6. Vertices are named clockwise from
- * the attachment vertex at the bottom, which is why the labels differ
- * between panels while the geometry does not.
- * ================================================================== */
-const MB_R = 52, MB_YR = 376, MB_YS = 550;   /* ring radius, ring y, sugar y */
-const MB_L = 430, MB_RX = 1010;              /* the two panel centres        */
-
-/* Hexagon vertices, clockwise ON SCREEN from the bottom -- which is the
-   attachment vertex in both panels. SVG y grows downward, so 90 degrees
-   is the bottom and the list runs 6, 8, 10, 12, 2, 4 o'clock. */
-function hexv(cx, cy){
-  return [90, 150, 210, 270, 330, 30].map(function(d){
-    const a = d*Math.PI/180;
-    return [cx + MB_R*Math.cos(a), cy + MB_R*Math.sin(a)];
-  });
-}
-function mbBond(a, b, c, w){
-  return '<path d="M'+n2(a[0])+' '+n2(a[1])+'L'+n2(b[0])+' '+n2(b[1])+'" fill="none" stroke="'+
-         (c||INK)+'" stroke-width="'+(w||2.8)+'" stroke-linecap="round"/>';
-}
-function mbDouble(a, b, c){
-  const dx=b[0]-a[0], dy=b[1]-a[1], L=Math.hypot(dx,dy)||1, px=-dy/L*4, py=dx/L*4;
-  return mbBond([a[0]+px,a[1]+py],[b[0]+px,b[1]+py],c) +
-         mbBond([a[0]-px,a[1]-py],[b[0]-px,b[1]-py],c);
-}
-function mbLab(p, t, c, sz){
-  const z = sz || 21;
-  return '<circle cx="'+n2(p[0])+'" cy="'+n2(p[1])+'" r="'+n2(z*0.72)+'" fill="#fff"/>' +
-    '<text x="'+n2(p[0])+'" y="'+n2(p[1]+z*0.35)+'" text-anchor="middle" font-family="inherit" '+
-    'font-size="'+z+'" font-weight="700" fill="'+(c||INK)+'">'+t+'</text>';
-}
-const mbOut = (from, to, d) => [from[0]+(from[0]-to[0])*d, from[1]+(from[1]-to[1])*d];
-
-/* names[i] is the atom at vertex i, clockwise from the attachment vertex.
-   SKELETAL, like every other structure in this deck: carbons are implicit
-   and unlabelled. Only the nitrogens are named, plus the attachment atom,
-   which is the whole comparison -- in UTP the sugar hangs off a labelled
-   N, in m1-psi it hangs off a bare carbon vertex and the N has moved. */
-function base(cx, names, methyl){
-  const v = hexv(cx, MB_YR), C = [cx, MB_YR];
-  let g = "";
-  for (let i = 0; i < 6; i++) g += mbBond(v[i], v[(i+1)%6]);
-  for (let i = 0; i < 6; i++){
-    const a = names[i], b = names[(i+1)%6];
-    if ((a==="C5"&&b==="C6") || (a==="C6"&&b==="C5")) g += mbDouble(v[i], v[(i+1)%6]);
-  }
-  ["C2","C4"].forEach(function(nm){
-    const i = names.indexOf(nm), o = mbOut(v[i], C, 0.60);
-    g += mbDouble(v[i], o) + mbLab(o, "O");
-  });
-  const i3 = names.indexOf("N3"), o3 = mbOut(v[i3], C, 0.58);
-  g += mbBond(v[i3], o3) + mbLab(o3, "NH");
-
-  const i1 = names.indexOf("N1");
-  if (methyl){
-    /* N1 is free now, and carries the methyl: both drawn in red */
-    const o1 = mbOut(v[i1], C, 0.58);
-    g += mbLab(v[i1], "N", RED, 20) + mbBond(v[i1], o1, RED, 3.4) +
-         mbLab(mbOut(v[i1], C, 0.98), "CH&#8323;", RED, 20);
-    /* and the sugar is on a carbon, which has to be said out loud
-       because a bare vertex says nothing by itself */
-    g += mbLab([v[0][0]-30, v[0][1]+2], "C5", RED, 19);
-  } else {
-    g += mbLab(v[i1], "N", INK, 20) + mbLab([v[0][0]-30, v[0][1]+2], "N1", RED, 19);
-  }
-  return g;
-}
-
-/* Ribose: O4' at the top, C1' at the right. It sits so that C1' is
-   directly under the base's attachment vertex, which keeps the
-   glycosidic bond vertical and short in BOTH panels -- the bond is the
-   thing being compared, so it must not be a different shape on each
-   side for reasons of layout. */
-function sugar(cx, attach){
-  const sx = cx - 52, y = MB_YS, w = 50;
-  const O4 = [sx, y-34], C1 = [sx+w, y-2], C2 = [sx+w*0.62, y+46],
-        C3 = [sx-w*0.62, y+46], C4 = [sx-w, y-2];
-  let g = '<path d="M'+[O4,C1,C2,C3,C4].map(q=>n2(q[0])+" "+n2(q[1])).join("L")+
-          'Z" fill="#f4f4f4" stroke="'+INK+'" stroke-width="2.8" stroke-linejoin="round"/>' +
-          mbLab(O4, "O", INK, 18);
-  g += mbBond(C4, [sx-w-38, y-30]) + mbLab([sx-w-70, y-40], "PPP", MUTED, 19);
-  g += mbLab([C2[0], C2[1]+22], "OH", MUTED, 17) + mbLab([C3[0], C3[1]+22], "OH", MUTED, 17);
-  g += mbBond(C1, attach, RED, 3.6);
-  return g;
-}
-
-function mbPanel(cx, names, methyl, title, sub){
-  const v = hexv(cx, MB_YR);
-  return '<g>' + sugar(cx, v[0]) + base(cx, names, methyl) +
-    '<text x="'+cx+'" y="232" text-anchor="middle" font-family="inherit" font-size="27" '+
-      'font-weight="700" fill="'+INK+'">'+title+'</text>' +
-    '<text x="'+cx+'" y="266" text-anchor="middle" font-family="inherit" font-size="21" '+
-      'fill="'+MUTED+'">'+sub+'</text></g>';
-}
-
-function mbMarkup(){
-  /* Ring order is N1-C2-N3-C4-C5-C6 in both; the arrays start at the
-     vertex the sugar hangs off and walk that order clockwise. */
-  let g = mbPanel(MB_L, ["N1","C2","N3","C4","C5","C6"], false,
-                  "UTP", "sugar on N1 &#8212; a C&#8211;N bond");
-  g += mbPanel(MB_RX, ["C5","C4","N3","C2","N1","C6"], true,
-               "m&#185;&#936;TP", "sugar on C5 &#8212; a C&#8211;C bond, and N1 is free");
-  g += '<text x="720" y="464" text-anchor="middle" font-family="inherit" font-size="34" '+
-       'font-weight="700" fill="'+MUTED+'">vs</text>';
-
-  /* the consequence, along the bottom */
-  g += '<g data-r="cell" opacity="0">' +
-    '<path d="M150 700H1450" fill="none" stroke="'+INK+'" stroke-width="1.6" '+
-      'stroke-dasharray="8 9" opacity="0.4"/>' +
-    '<circle cx="290" cy="782" r="34" fill="'+SLATE+'" fill-opacity="0.10" stroke="'+SLATE+
-      '" stroke-width="2.6" stroke-dasharray="7 7"/>' +
-    '<text x="290" y="838" text-anchor="middle" font-family="inherit" font-size="19" '+
-      'fill="'+MUTED+'">the particle fuses</text>' +
-    '<path d="M340 782H414M396 772L414 782L396 792" fill="none" stroke="'+MUTED+
-      '" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>' +
-    '<path d="'+rna(444, 640, 782)+'" fill="none" stroke="'+SLATE+'" stroke-width="2.8" '+
-      'stroke-linecap="round"/>' +
-    '<ellipse cx="600" cy="770" rx="34" ry="27" fill="'+INK+'" fill-opacity="0.10" stroke="'+
-      INK+'" stroke-width="2.6"/>' +
-    '<text x="546" y="838" text-anchor="middle" font-family="inherit" font-size="19" '+
-      'fill="'+MUTED+'">a ribosome reads it</text>' +
-    '<path d="M680 782H754M736 772L754 782L736 792" fill="none" stroke="'+MUTED+
-      '" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>' +
-    '<path d="M790 796q18-34 40 0t40 0" fill="none" stroke="'+SLATE+'" stroke-width="3.4" '+
-      'stroke-linecap="round"/>' +
-    '<text x="830" y="838" text-anchor="middle" font-family="inherit" font-size="19" '+
-      'fill="'+MUTED+'">antigen</text>' +
-    '<text x="1180" y="762" text-anchor="middle" font-family="inherit" font-size="22" '+
-      'font-weight="700" fill="'+RED+'">with plain U, none of this happens:</text>' +
-    '<text x="1180" y="794" text-anchor="middle" font-family="inherit" font-size="22" '+
-      'fill="'+MUTED+'">the cell reads the RNA as an infection</text>' +
-    '<text x="1180" y="826" text-anchor="middle" font-family="inherit" font-size="22" '+
-      'fill="'+MUTED+'">and destroys it before it is translated</text></g>';
-  return g + chrome(190, 664);
-}
-
-function mbPaint(r, s){ r.cell.setAttribute("opacity", n2(clamp01(s.why))); }
-
-window.Deck.sequence("modbase", function(slide){
-  const S = [
-    { s:{why:0}, label:"Same ring, different bond",
-      note:"This is worth drawing properly, because the change is smaller than anyone expects. On the left, uridine: the uracil ring hanging off the sugar through nitrogen one. On the right, N1-methylpseudouridine. Look at the ring. It is the same ring — same atoms, same two carbonyls, same everything. Two things differ. First, the sugar is attached through carbon five instead of nitrogen one, so the bond holding the base on is a carbon-carbon bond rather than a carbon-nitrogen one. That is what pseudo means here: it is uracil, put on backwards. Second, because nitrogen one is no longer doing the attaching, it is free, and it carries a methyl group. That is the whole modification. The polymerase does not notice — you buy m1-psi-TP, you put it in the tube instead of UTP, and T7 incorporates it at every U position without being asked twice.",
-      desc:"Two nucleotide structures side by side, drawn on identical hexagons. On the left, UTP: the uracil ring with its two carbonyl oxygens and an N-H, attached to a ribose through nitrogen one, with the triphosphate tagged off the 5-prime carbon. On the right, m1-psi-TP: the same ring in the same orientation, but attached to the ribose through carbon five in red, with nitrogen one now free and carrying a red methyl group." },
-    { s:{why:1}, label:"And it is the reason the vaccine works",
-      call:"the polymerase cannot tell \u2014 your immune system can"   /* textContent */, callFill:RED,
-      note:"So why go to the trouble. Because your cells have sensors whose whole job is to notice foreign RNA, and they are good at it. Put ordinary unmodified messenger RNA into a cell and it reads as an infection: the innate immune system fires, you get inflammation, and the message is destroyed before the ribosome gets near it. Swap the uridines for this, and the sensors do not trigger. The particle fuses, the RNA is released, a ribosome translates it, and you make the antigen — which is the only thing you actually wanted. Katalin Kariko and Drew Weissman worked that out in two thousand and five, spent years being told it was not interesting, and took the Nobel Prize for it in twenty twenty-three. One base, drawn on this slide, is the difference between a technology that works and one that does not.",
-      desc:"Along the bottom, the consequence in three steps: the lipid particle fuses, the RNA is released, a ribosome reads it, and an antigen is made. Beside it, a note in red: with plain uridine none of this happens, because the cell reads the RNA as an infection and destroys it before it is translated." }
-  ];
-  return driver(mount(slide, mbMarkup()), ["why"], S, mbPaint);
 });
 
 /* ================================================================== *
