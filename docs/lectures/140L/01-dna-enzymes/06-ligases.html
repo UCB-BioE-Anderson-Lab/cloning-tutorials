@@ -21,14 +21,15 @@
   <template class="desc">Section divider: Ligases. It states the bond they form, that the reaction needs an energy source, and that ligase is a set of requirements rather than glue.</template>
 </article>
 
+<article class="slide" data-seq="op-ligase">
+  <h1 class="small">What a Ligase Requires</h1>
+</article>
+
 <article class="slide">
   <h1 class="small">T4 DNA Ligase</h1>
   <ul class="tighter">
     <li>No homolog in <em>E. coli</em> &mdash; the phage brought its own</li>
-    <li>Requires a 5&rsquo; phosphate and a 3&rsquo; hydroxyl, directly abutting</li>
     <li>Requires ATP &mdash; one per bond. Tired buffer is a leading cause of dead ligations</li>
-    <li>No gap and no mismatch at the junction</li>
-    <li><b>Any matching ends will ligate</b> &mdash; any overhang length, blunt included. (Efficiency falls off as the overhang shortens, and a 1&nbsp;nt overhang is the worst case of all, worse even than blunt.)</li>
     <li>The workhorse for joining ends made by restriction enzymes</li>
   </ul>
   <pre class="dna" style="margin-top:22px">5&rsquo;-cttcg<span class="site">CTGCA</span>              <span class="site">G</span>gctggcaga&hellip;-3&rsquo;
@@ -43,7 +44,6 @@
 
 <article class="slide" data-seq="register">
   <h1 class="small">A nick, not a gap. And held in register.</h1>
-  <ul class="tight"><li>Ligase seals a nick. Everything else is about making the junction look like one.</li></ul>
 </article>
 
 <article class="slide">
@@ -87,6 +87,9 @@
 <script src="lecture.js" defer></script>
 <script src="seq/chem.js" defer></script>
 <script src="seq/whichbond.js" defer></script>
+<script src="seq/atoms.js" defer></script>
+<script src="seq/dna-model.js" defer></script>
+<script src="seq/op-ligase.js" defer></script>
 <script src="seq/ligase.js" defer></script>
 </body>
 </html>
