@@ -2,21 +2,23 @@
  * rna.js — the RNA polymerase section.
  *
  * Registers:  denovo    extension vs. de novo initiation      (2 steps)
- *             t7prom    the T7 promoter and the +1 site       (3 steps)
- *             elong     the transcription bubble moving       (2 steps)
- *             runoff    run-off transcription                 (3 steps)
+ *             t7prom    promoter, +1, and the whole transcript (5 steps)
+ *             guide     making a CRISPR guide RNA in vitro    (3 steps)
  *
  * t7prom is a copy of the "t7rnap" sequence in linear.js, kept here so
  * this section can be edited without touching a file the DNA-polymerase
  * section also loads.  The sequence, the strand assignment and the +1
- * position are reproduced EXACTLY; only the step list changed (the
- * release step moved onto the run-off slide, where it is the point).
+ * position are reproduced EXACTLY; only the step list differs.
+ *
+ * t7prom now runs the transcript all the way out and releases it, which
+ * absorbed a separate elongation slide.  Its two new beats carry that
+ * slide's one real lesson — the bubble is a constant width, so it
+ * TRAVELS rather than grows — by moving the bubble instead of saying so.
  *
  * Level of iconography, deliberately, one per slide:
  *     denovo   line     only topology matters — an end exists, or it doesn't
  *     t7prom   letters  a POSITION matters: -17..-1, then +1
- *     elong    line     motion and topology
- *     runoff   line     whole-molecule topology: a circle, or a line
+ *     guide    line     regions of a molecule, and what you change
  *
  * Conventions: every 3' end carries a HALF BARB.  DNA is drawn straight,
  * RNA is drawn as a wave — so the two are told apart by SHAPE and by
@@ -287,24 +289,34 @@ function t7Markup(){
 }
 
 function t7Paint(r, s){
+  /* bstart is where the bubble's LEFT edge sits. It starts at +1 and later
+     travels right at a CONSTANT width, which is the one thing about a
+     transcription bubble worth carrying away: it does not grow, it moves. */
+  const lo = Math.round(s.bstart == null ? P1 : s.bstart);
   const openN = Math.max(1, Math.round(s.open));
-  const hi = P1 + openN - 1;
-  const xL = sx(P1) - HC, xR = Math.max(xL + SSTEP, sx(P1) + (s.open - 0.5)*SSTEP);
+  const hi = lo + openN - 1;
+  const xL = sx(lo) - HC, xR = Math.max(xL + SSTEP, sx(lo) + (s.open - 0.5)*SSTEP);
   const yTop = BBT - LIFT*s.bub, yBot = BBB + DROP*s.bub;
+  /* once the transcript is long enough to run under the closed duplex it
+     drops to a row of its own, or its bracket and label sit on the DNA */
+  const ry = RNAY + 112*(s.rlow || 0);
 
   r.bbt.setAttribute("d", bbPath(BBT, yTop, xL, xR));
   r.bbb.setAttribute("d", bbPath(BBB, yBot, xL, xR));
 
   for (let i = 0; i < T7_TOP.length; i++){
-    const open = (i >= P1 && i <= hi);
+    const open = (i >= lo && i <= hi);
     r["t"+i].setAttribute("y", n2((YT + 9) - (open ? LIFT*s.bub : 0)));
     r["b"+i].setAttribute("y", n2((YB + 9) + (open ? DROP*s.bub : 0)));
   }
 
   r.prom  .setAttribute("opacity", n2(s.prom));
+  /* the +1 marker rides whichever backbone height its own base is at, so
+     it does not float when the bubble has travelled away from it */
+  const p1y = (P1 >= lo && P1 <= hi) ? yTop : BBT;
   r.plus1 .setAttribute("opacity", (s.prom > 0.02 || s.bub > 0.02) ? "1" : "0");
-  r.p1tick.setAttribute("d", "M" + sx(P1) + " " + n2(yTop-16) + "V" + n2(yTop-36));
-  r.p1lab .setAttribute("y", n2(yTop - 44));
+  r.p1tick.setAttribute("d", "M" + sx(P1) + " " + n2(p1y-16) + "V" + n2(p1y-36));
+  r.p1lab .setAttribute("y", n2(p1y - 44));
 
   /* the RNA row: letters appear one at a time, 5' anchored at +1 */
   const nInt = Math.max(1, Math.ceil(s.nrna));
@@ -312,240 +324,130 @@ function t7Paint(r, s){
   for (let i = 0; i < T7_RNA.length; i++)
     r["r"+i].setAttribute("opacity", n2(clamp01(s.nrna - i)));
   const tail = sx(P1 + nInt - 1);
-  r.rbarb.setAttribute("d", s.nrna > 0.5 ? strand(tail+16, RNAY-9, tail+44, RNAY-9) : "");
-  r.rbrk .setAttribute("d", "M" + n2(sx(P1)-HC) + " " + (RNAY-32) +
+  for (let i = 0; i < T7_RNA.length; i++) r["r"+i].setAttribute("y", n2(ry));
+  /* a short barb at full extension: the transcript already reaches the
+     last base, and a long one would run off the edge of the slide */
+  const bl = tail + 44 > AXR ? 30 : 44;
+  r.rbarb.setAttribute("d", s.nrna > 0.5
+    ? strand(tail+bl-28, ry-9, tail+bl, ry-9) : "");
+  r.rbrk .setAttribute("d", "M" + n2(sx(P1)-HC) + " " + n2(ry-32) +
                             "v-12H" + n2(tail+HC) + "v12");
-  r.rlab .setAttribute("x", n2((sx(P1) - HC + tail + HC)/2));
+  /* Centred, the label lands in the middle of the transcript -- which is
+     fine while it is short, and lands on the bubble's dropped bases once
+     it is long. Past a dozen letters it goes to the left end instead. */
+  const wide = nInt > 12;
+  r.rlab .setAttribute("text-anchor", wide ? "start" : "middle");
+  r.rlab .setAttribute("x", n2(wide ? sx(P1) - HC : (sx(P1) - HC + tail + HC)/2));
+  r.rlab .setAttribute("y", n2(ry-70));
 }
 
 window.Deck.sequence("t7prom", function(slide){
   const S = [
-    { s:{prom:1,bub:0,open:1,nrna:0}, label:"The address, spelled out",
+    { s:{prom:1,bub:0,open:1,nrna:0,bstart:P1,rlow:0}, label:"The address, spelled out",
       note:"Here is that address. The T7 promoter is seventeen bases, TAATACGACTCACTATA, and it is quoted on the non-template strand, the top one, because that is the strand the RNA will match. The polymerase does not start inside the promoter. It starts at the very next base, the G marked plus one. So the promoter is not the start of the transcript. It is the sign that tells you where the start is.",
       desc:"A double-stranded DNA written out as forty paired bases between two backbone lines. The first seventeen, TAATACGACTCACTATA, are bracketed on the top strand and labelled the recognition element, which stays duplex. A red marker labels the very next base, the G at plus one." },
-    { s:{prom:1,bub:1,open:4,nrna:0}, label:"Initiation — the bubble opens",
+    { s:{prom:1,bub:1,open:4,nrna:0,bstart:P1,rlow:0}, label:"Initiation — the bubble opens",
       note:"The polymerase clamps onto that seventeen-base element and melts the DNA just downstream of it. Notice which part opens. The recognition element itself stays double stranded. It has to, because it is what the enzyme is gripping. Only the region from plus one onward comes apart, and that opening is the transcription bubble. Nothing has been cut here. The two backbones are intact all the way across; they have simply come apart from one another.",
       desc:"The two strands separate over four base pairs just downstream of the promoter. The top strand and its bases arch upward and the bottom strand and its bases arch downward, opening a bubble, and both backbone lines run unbroken through it. The bracketed recognition element, ending at the A at minus one, stays paired." },
-    { s:{prom:0,bub:1,open:8,nrna:6}, label:"The first bases",
+    { s:{prom:0,bub:1,open:8,nrna:6,bstart:P1,rlow:0}, label:"The first bases",
       call:"built on the bottom strand — so it comes out matching the top", callFill:SLATE,
       note:"It puts a nucleotide on that G and extends. There is no primer here and none was needed. The enzyme brought the first two nucleotides together itself, and from then on it is ordinary five prime to three prime extension. Be clear about which strand it is copying. The new chain is being built along the BOTTOM strand, the template, which is why it sits down there against it. And because it is complementary to the bottom strand it comes out reading the same as the top strand, which is exactly why we quote a promoter on the top strand in the first place. The one substitution is U wherever the top strand says T.",
-      desc:"Inside the open bubble a new chain of six letters, G G G A G A, sits in a row of its own against the bottom strand, bracketed and labelled new RNA running five prime to three prime, with a half barb on its three prime end. It reads the same as the lifted top-strand bases above it. The bubble is now eight base pairs wide, so two melted template bases lie ahead of the growing end." }
+      desc:"Inside the open bubble a new chain of six letters, G G G A G A, sits in a row of its own against the bottom strand, bracketed and labelled new RNA running five prime to three prime, with a half barb on its three prime end. It reads the same as the lifted top-strand bases above it. The bubble is now eight base pairs wide, so two melted template bases lie ahead of the growing end." },
+    { s:{prom:0,bub:1,open:8,nrna:T7_RNA.length,bstart:31,rlow:1}, label:"It runs to the end",
+      call:"the bubble never grew — it travelled", callFill:SLATE,
+      note:"Now let it run. Watch the bubble rather than the transcript, because this is the thing to carry away: it is the same size it was. Eight base pairs, the whole way. It melts the duplex at its leading edge and lets it snap shut behind, so it travels rather than grows — and it has to, because unwinding the whole gene would cost far more than the enzyme has. The transcript is what accumulates. It has been peeled off the template as the duplex closed behind the bubble, which is why it is now lying free underneath rather than sitting against the bottom strand, and it is still anchored where it started, at plus one. Every base of it reads the same as the top strand, with U for T, exactly as promised.",
+      desc:"The bubble has travelled to the far right end of the DNA without changing size, still eight base pairs wide, and the duplex behind it has closed completely. The full transcript now runs the whole width in a row of its own below the DNA, from plus one to the last base, still bracketed and labelled new RNA." },
+    { s:{prom:0,bub:0,open:8,nrna:T7_RNA.length,bstart:31,rlow:1}, label:"Run-off: the RNA comes free",
+      note:"And then the polymerase reaches the end of the DNA and simply falls off it. That is run-off transcription, and it is why linearising your template matters: whatever base is last on the DNA is the last base of your RNA. The duplex closes completely behind it, so the DNA is exactly as it was — nothing was consumed and nothing was cut. What you are left with is a free single-stranded RNA, and the enzyme goes back and does it again. One template, many transcripts, which is the whole reason in vitro transcription gives you so much material.",
+      desc:"The bubble has closed and the DNA is a complete unbroken duplex again. The transcript lies below it as a free single-stranded RNA, its five prime end at plus one and a half barb on its three prime end." }
   ];
-  return driver(mount(slide, t7Markup()), ["prom","bub","open","nrna"], S, t7Paint);
+  return driver(mount(slide, t7Markup()), ["prom","bub","open","nrna","bstart","rlow"], S, t7Paint);
 });
 
 /* ================================================================== *
- * 3.  elong — the bubble travels.
+ * 4.  guide — the practical vignette: making a CRISPR guide RNA.
  *
- * Back to a line, because now only motion and topology matter.  The
- * bubble is a constant size: it melts at the leading edge and closes at
- * the trailing edge, and the RNA leaves single-stranded out of the back.
+ * This is what in vitro transcription is actually FOR in a class like
+ * this one, and it pays off the previous slide directly. The +1 has to
+ * be a G, which is why guide RNAs are designed to start with one. The
+ * transcript's 3' end is wherever the DNA stops, so the template is
+ * made to stop exactly at the end of the scaffold. And the template is
+ * short enough to build from two ordered oligos, which is the overlap
+ * extension the polymerase section already taught.
+ *
+ * Drawn to rough scale: the spacer really is about a fifth of a ~100 nt
+ * guide, and the picture should not imply otherwise, because the whole
+ * practical point is how little of it you design.
  * ================================================================== */
-const EXL = 170, EXR = 1440, EY1 = 600, EY2 = 672;
-const EW = 105, EH = 30;                /* bubble half-width, lens height  */
-const ERY = 470, EANCHOR = 300;         /* the RNA and where its 5' end is */
+const GX0 = 210, GP1 = 470, GSP = 654, GX1 = 1390;   /* promoter | spacer | scaffold */
+const GYT = 372, GYB = 424;                          /* the template duplex          */
+const GRY = 604, GRY2 = 690;                         /* the RNA, made and then free  */
 
-function elongMarkup(){
-  return '<g data-r="env"><ellipse data-r="envq" cx="640" cy="636" rx="178" ry="132" ' +
-      'fill="'+SLATE+'" fill-opacity="0.10" stroke="'+SLATE+'" stroke-opacity="0.55" ' +
-      'stroke-width="3"/></g>' +
-    '<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2">' +
-      '<path data-r="top" stroke="'+INK+'"/>' +
-      '<path data-r="bot" stroke="'+INK+'"/>' +
-      '<path data-r="orna" stroke="'+SLATE+'"/>' +
-      '<path data-r="lead" stroke="'+SLATE+'" stroke-width="2.8"/>' +
-      '<path data-r="trail" stroke="'+SLATE+'" stroke-width="2.8"/>' +
-    '</g>' +
-    '<g font-family="inherit" font-weight="700" font-size="27">' +
-      '<text data-r="melt" y="822" text-anchor="start" fill="'+SLATE+'">melts ahead</text>' +
-      '<text data-r="close" y="822" text-anchor="end" fill="'+SLATE+'">closes behind</text>' +
-      '<text x="'+EANCHOR+'" y="422" fill="'+SLATE+'">RNA</text>' +
-      '<text x="'+(EANCHOR-34)+'" y="'+(ERY+9)+'" text-anchor="end" font-family="ui-monospace,' +
-        'SFMono-Regular,Menlo,monospace" font-size="24" fill="'+INK+'">5&#8242;</text>' +
-    '</g>' +
-    '<g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="24" fill="'+INK+'">' +
-      '<text x="'+(EXL-38)+'" y="'+(EY1+9)+'">5&#8242;</text>' +
-      '<text x="'+(EXR+16)+'" y="'+(EY1+9)+'">3&#8242;</text>' +
-      '<text x="'+(EXL-38)+'" y="'+(EY2+9)+'">3&#8242;</text>' +
-      '<text x="'+(EXR+16)+'" y="'+(EY2+9)+'">5&#8242;</text>' +
-    '</g>' +
-    chrome(318, 872);
+function guideMarkup(){
+  const seg = (id,x0,x1,col,txt,y) =>
+    '<g data-r="'+id+'">' +
+      '<path d="M'+x0+' '+y+'H'+x1+'" stroke="'+col+'" stroke-width="9" ' +
+        'stroke-linecap="round" fill="none" opacity="0.28"/>' +
+      '<text x="'+((x0+x1)/2)+'" y="'+(y-30)+'" text-anchor="middle" font-family="inherit" ' +
+        'font-size="23" font-weight="700" fill="'+col+'">'+txt+'</text></g>';
+  return '<g fill="none" stroke="'+INK+'" stroke-width="3" stroke-linecap="round">' +
+      '<path data-r="dt"/><path data-r="db"/></g>' +
+    seg("gprom", GX0, GP1, SLATE, "T7 promoter", GYT) +
+    seg("gspac", GP1, GSP, RED,  "your 20 nt", GYT) +
+    seg("gscaf", GSP, GX1, INK,  "scaffold &#8212; always the same", GYT) +
+    /* +1 has to be a G: that is the previous slide, cashed in */
+    '<g data-r="gp1" opacity="0">' +
+      '<path d="M'+GP1+' '+(GYB+16)+'V'+(GYB+40)+'" stroke="'+RED+'" stroke-width="3" ' +
+        'fill="none"/>' +
+      '<text x="'+GP1+'" y="'+(GYB+66)+'" text-anchor="middle" font-family="inherit" ' +
+        'font-size="23" font-weight="700" fill="'+RED+'">+1 &#8212; must be G</text></g>' +
+    '<g data-r="gend" opacity="0">' +
+      '<text x="'+(GX1+16)+'" y="'+(GYT-64)+'" text-anchor="end" font-family="inherit" ' +
+        'font-size="23" font-weight="700" fill="'+MUTED+'">the DNA stops here, so the RNA does too</text></g>' +
+    '<path data-r="grna" fill="none" stroke="'+SLATE+'" stroke-width="3.4" ' +
+      'stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<g data-r="gparts" opacity="0" font-family="inherit" font-size="23" font-weight="700">' +
+      '<path d="M'+GP1+' '+(GRY2+34)+'v12H'+GSP+'v-12" fill="none" stroke="'+RED+
+        '" stroke-width="2.6"/>' +
+      '<text x="'+((GP1+GSP)/2)+'" y="'+(GRY2+78)+'" text-anchor="middle" fill="'+RED+
+        '">spacer</text>' +
+      '<path d="M'+GSP+' '+(GRY2+34)+'v12H'+GX1+'v-12" fill="none" stroke="'+MUTED+
+        '" stroke-width="2.6"/>' +
+      '<text x="'+((GSP+GX1)/2)+'" y="'+(GRY2+78)+'" text-anchor="middle" fill="'+MUTED+
+        '">scaffold</text></g>' +
+    chrome(276, 856);
 }
 
-function elongPaint(r, s){
-  const c = s.cx, l = c - EW, rr = c + EW;
-  r.top.setAttribute("d",
-    "M"+n2(EXL)+" "+EY1+"H"+n2(l) +
-    "C"+n2(l+34)+" "+(EY1-EH)+" "+n2(rr-34)+" "+(EY1-EH)+" "+n2(rr)+" "+EY1 +
-    "H"+EXR + barb(rr, EY1, EXR, EY1));
-  r.bot.setAttribute("d",
-    "M"+EXR+" "+EY2+"H"+n2(rr) +
-    "C"+n2(rr-34)+" "+(EY2+EH)+" "+n2(l+34)+" "+(EY2+EH)+" "+n2(l)+" "+EY2 +
-    "H"+n2(EXL) + barb(l, EY2, EXL, EY2));
-
-  /* The RNA: 5' end pinned where transcription began; the 3' end dives
-     through the enzyme to the LOWER arc, because the bottom strand is the
-     template.  Ending it on the upper arc said the opposite.             */
-  const tipx = c - 104, w = wave(EANCHOR, tipx, ERY);
-  const tx = c - 16, ty = EY2 + 8;              /* against the template arc */
-  r.orna.setAttribute("d", w.d
-    ? w.d + "C" + n2(tipx+58) + " " + n2(w.ty) + " " + n2(c-52) + " " + (EY1-4) +
-            " " + n2(tx) + " " + n2(ty) +
-            barb(c-34, EY1+34, tx, ty) : "");
-
-  r.envq.setAttribute("cx", n2(c));
-  r.lead .setAttribute("d", "M"+n2(rr)+" "+(EY2+EH+8)+"V794");
-  r.trail.setAttribute("d", "M"+n2(l)+" "+(EY2+EH+8)+"V794");
-  r.melt .setAttribute("x", n2(rr + 14));
-  r.close.setAttribute("x", n2(l - 14));
+function guidePaint(r, s){
+  /* the template fades out once the RNA is free -- it was never consumed,
+     it is just no longer the subject */
+  const dna = 1 - 0.72*s.free;
+  r.dt.setAttribute("d", "M"+GX0+" "+GYT+"H"+GX1);
+  r.db.setAttribute("d", "M"+GX0+" "+GYB+"H"+GX1);
+  ["dt","db","gprom","gspac","gscaf"].forEach(k =>
+    r[k].setAttribute("opacity", n2(k==="dt"||k==="db" ? dna : 0.28+0.72*(1-s.free))));
+  r.gp1  .setAttribute("opacity", n2(clamp01(s.p1)));
+  r.gend .setAttribute("opacity", n2(clamp01(s.run*2 - 0.6) * (1-s.free)));
+  const y = GRY + (GRY2-GRY)*s.free;
+  r.grna .setAttribute("d", rna(GP1, GP1 + (GX1-GP1)*clamp01(s.run), y));
+  r.gparts.setAttribute("opacity", n2(s.free));
 }
 
-window.Deck.sequence("elong", function(slide){
+window.Deck.sequence("guide", function(slide){
   const S = [
-    { s:{cx:620}, label:"Elongation",
-      note:"Once it is past the promoter the enzyme settles into a steady state, and this is the picture worth carrying away. It holds open a bubble of about eight base pairs. Ahead of it the duplex is melted; behind it the two strands snap back together. The bubble does not grow. It travels.",
-      desc:"A double-stranded DNA drawn as two lines with a lens-shaped bubble opened in the middle and an enzyme drawn as a pale oval around the bubble. A wavy line labelled RNA runs back to the left out of the enzyme, its five prime end free; inside the bubble its three prime end curves down to lie against the lower strand, the template." },
-    { s:{cx:1120}, label:"Elongation",
-      note:"Watch what stays behind. The DNA closes back into a full duplex, completely undamaged, which is why one template can be transcribed over and over. What comes out is the RNA, and it comes out single stranded. It does not stay paired to the template. That is the product you are actually making.",
-      desc:"The bubble and the enzyme have travelled a long way to the right. The DNA behind them has closed back into an unbroken duplex, and the wavy RNA line is now much longer, still anchored at the same five prime end on the left, its growing three prime end still down against the lower template strand." }
+    { s:{p1:1,run:0,free:0}, label:"The template: mostly the same every time",
+      note:"Here is what in vitro transcription is actually for in a lab like this one. You want a CRISPR guide RNA. A guide is about a hundred bases, and only twenty of them are yours — the spacer, the part that matches your target. Everything after it is the scaffold that Cas9 grips, and it is identical in every guide anyone has ever made. So the template you need is a T7 promoter, then your twenty bases, then the constant scaffold. That is short enough that you do not clone it. You order two oligos that overlap, anneal them, and fill in with a polymerase — the overlap extension we did with Klenow earlier — or you run a PCR. And notice the base at plus one. The previous slide told you T7 starts on a G, and that is not a detail you can ignore here: it is why guide spacers are chosen to begin with a G, or a G is simply added on the front.",
+      desc:"A short double-stranded DNA template drawn as two parallel lines, divided into three labelled regions: a T7 promoter in blue on the left, your 20 nucleotides in red in the middle, and the constant scaffold in black on the right. A red marker under the boundary between promoter and spacer reads plus one, must be G." },
+    { s:{p1:1,run:1,free:0}, label:"Transcribe it",
+      note:"Put that template in a tube with T7 RNA polymerase and the four NTPs and it runs. It starts at plus one, so the promoter itself is not in the product, and it runs to the end of the DNA and falls off. That is the whole reason the template is made to stop exactly where the scaffold stops: run-off means the last base of the DNA is the last base of your RNA, so the end of the molecule is something you built rather than something you hope for. And one template gets read over and over — that is why a twenty microlitre reaction gives you far more guide than a cell ever would.",
+      desc:"A blue wavy line, the RNA, grows from the plus one position rightwards along the template until it reaches the far end, where a note reads: the DNA stops here, so the RNA does too." },
+    { s:{p1:0,run:1,free:1}, label:"One guide \u2014 and one oligo to change it"   /* label is textContent: no entities */,
+      call:"the next guide is the same reaction with twenty different bases", callFill:SLATE,
+      note:"And there is your guide RNA, free in the tube: about a hundred bases, spacer at the five prime end, scaffold behind it. Mix it with Cas9 and it loads, and the spacer is what goes looking for your target. Now look at what you would change to target something else. Not the promoter, not the scaffold, not the reaction, not the enzyme. Twenty bases in one ordered oligo. That is why guide RNAs are made this way and not cloned, and it is a fair summary of what T7 is for: you own a promoter the cell cannot read, and you can turn a designed sequence into a lot of defined RNA in an afternoon.",
+      desc:"The DNA template has faded back and the finished RNA sits free below it, its two parts bracketed and named: a short spacer in red at the 5-prime end and the long constant scaffold behind it." }
   ];
-  return driver(mount(slide, elongMarkup()), ["cx"], S, elongPaint);
+  return driver(mount(slide, guideMarkup()), ["p1","run","free"], S, guidePaint);
 });
 
-/* ================================================================== *
- * 4.  runoff — the practical vignette.
- *
- * Two scenes cross-faded, because the topology cannot be tweened: an
- * uncut circular plasmid, and the same plasmid linearised.  The point is
- * that T7 RNAP stops when it falls off the end of the DNA, so the end of
- * the DNA is what gives the transcript a defined 3' end.
- * ================================================================== */
-const CX = 420, CY = 566, CR = 150;     /* the plasmid */
-const LXL = 170, LXR = 800, LY1 = 546, LY2 = 604, LRY = 498;
-const PROM_A = 190, PROM_B = 320;       /* the promoter bracket ... */
-const TSS = PROM_B;                     /* ... whose right edge is +1 */
-const PANX = 940;                       /* the product panel */
-
-/* The enzyme is an ENVELOPE around the DNA, as on the elongation slide —
-   large enough that both strands run through it and stay readable, rather
-   than a disc sitting on top of them. */
-function polyMark(id){
-  return '<ellipse data-r="'+id+'" rx="46" ry="52" fill="'+SLATE+'" fill-opacity="0.10" ' +
-         'stroke="'+SLATE+'" stroke-opacity="0.55" stroke-width="3"/>';
-}
-
-function runoffMarkup(){
-  let g = '<g data-r="circ" opacity="1">' +
-    '<circle cx="'+CX+'" cy="'+CY+'" r="'+CR+'" fill="none" stroke="'+INK+'" stroke-width="3.2"/>' +
-    '<path d="M'+CX+' '+(CY-CR+62)+'V'+(CY-CR+12)+'" fill="none" stroke="'+SLATE+'" stroke-width="3"/>' +
-    '<text x="'+CX+'" y="'+(CY-CR+84)+'" text-anchor="middle" font-family="inherit" ' +
-      'font-weight="700" font-size="27" fill="'+SLATE+'">T7 promoter</text>' +
-    '<path data-r="spiral" fill="none" stroke="'+SLATE+'" stroke-width="3.2" ' +
-      'stroke-linecap="round"/>' +
-    polyMark("cpol") +
-  '</g>';
-
-  g += '<g data-r="lin" opacity="0">' +
-    '<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2">' +
-      '<path d="'+strand(LXL, LY1, LXR, LY1)+'" stroke="'+INK+'"/>' +
-      '<path d="'+strand(LXR, LY2, LXL, LY2)+'" stroke="'+INK+'"/>' +
-      /* a bracket, not a tick: the promoter is a stretch of sequence, and
-         its right-hand edge is where transcription actually starts */
-      '<path d="M'+PROM_A+' '+(LY2+40)+'V'+(LY2+52)+'H'+PROM_B+'V'+(LY2+40)+'" ' +
-        'stroke="'+SLATE+'" stroke-width="2.8"/>' +
-      '<path data-r="lrna" stroke="'+SLATE+'"/>' +
-    '</g>' +
-    '<text x="'+((PROM_A+PROM_B)/2)+'" y="'+(LY2+88)+'" text-anchor="middle" ' +
-      'font-family="inherit" font-weight="700" font-size="27" fill="'+SLATE+'">T7 promoter</text>' +
-    '<path d="M'+LXR+' '+(LY2+30)+'V'+(LY2+52)+'" fill="none" stroke="'+RED+'" stroke-width="3"/>' +
-    '<text x="'+LXR+'" y="'+(LY2+88)+'" text-anchor="middle" font-family="inherit" ' +
-      'font-weight="700" font-size="27" fill="'+RED+'">cut end</text>' +
-    '<g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="24" fill="'+INK+'">' +
-      '<text x="'+(LXL-38)+'" y="'+(LY1+9)+'">5&#8242;</text>' +
-      '<text x="'+(LXR+18)+'" y="'+(LY1+9)+'">3&#8242;</text>' +
-      '<text x="'+(LXL-38)+'" y="'+(LY2+9)+'">3&#8242;</text>' +
-      '<text x="'+(LXR+18)+'" y="'+(LY2+9)+'">5&#8242;</text>' +
-      '<text data-r="l5" x="'+(TSS-22)+'" y="'+(LRY+9)+'" text-anchor="end" ' +
-        'opacity="0">5&#8242;</text>' +
-    '</g>' +
-    polyMark("lpol") +
-  '</g>';
-
-  /* the product: three molecules, ragged or identical */
-  g += '<g data-r="het" opacity="0">' +
-    '<g fill="none" stroke="'+SLATE+'" stroke-width="3.2" stroke-linecap="round">' +
-      '<path d="'+rna(PANX, PANX+470, 430)+'"/>' +
-      '<path d="'+rna(PANX, PANX+250, 512)+'"/>' +
-      '<path d="'+rna(PANX, PANX+366, 594)+'"/>' +
-    '</g>' +
-    /* Verdict in WORDS, not in colour: both panels use the same ink, and
-       "no" against "a" is what tells them apart (WCAG 1.4.1). */
-    '<text x="'+PANX+'" y="676" font-family="inherit" font-weight="700" font-size="28" ' +
-      'fill="'+INK+'">no defined 3&#8242; end &#8212; a smear on a gel</text>' +
-  '</g>';
-  g += '<g data-r="def" opacity="0">' +
-    '<g fill="none" stroke="'+SLATE+'" stroke-width="3.2" stroke-linecap="round">' +
-      '<path d="'+rna(PANX, PANX+366, 430)+'"/>' +
-      '<path d="'+rna(PANX, PANX+366, 512)+'"/>' +
-      '<path d="'+rna(PANX, PANX+366, 594)+'"/>' +
-    '</g>' +
-    '<text x="'+PANX+'" y="676" font-family="inherit" font-weight="700" font-size="28" ' +
-      'fill="'+INK+'">a defined 3&#8242; end &#8212; a single band</text>' +
-  '</g>';
-  return g + chrome(318, 856);
-}
-
-function runoffPaint(r, s){
-  r.circ.setAttribute("opacity", n2(s.circ));
-  r.lin .setAttribute("opacity", n2(s.lin));
-  r.het .setAttribute("opacity", n2(s.het));
-  r.def .setAttribute("opacity", n2(s.def));
-
-  /* the spiral: angle sweeps clockwise from the promoter at 12 o'clock,
-     radius grows so successive laps never overlap */
-  let d = "";
-  for (let t = 0; t <= s.wind; t += 0.07){
-    const a = -Math.PI/2 + t, rr = CR + 18 + 6.5*t;
-    d += (t === 0 ? "M" : "L") +
-         n2(CX + rr*Math.cos(a)) + " " + n2(CY + rr*Math.sin(a));
-  }
-  const ae = -Math.PI/2 + s.wind, re = CR + 18 + 6.5*s.wind;
-  const ex = CX + re*Math.cos(ae), ey = CY + re*Math.sin(ae);
-  const ab = ae - 0.1, rb = CR + 18 + 6.5*(s.wind - 0.1);
-  d += "L" + n2(ex) + " " + n2(ey);
-  r.spiral.setAttribute("d", s.wind > 0.15
-    ? d + barb(CX + rb*Math.cos(ab), CY + rb*Math.sin(ab), ex, ey) : "");
-  r.cpol.setAttribute("cx", n2(CX + CR*Math.cos(ae)));
-  r.cpol.setAttribute("cy", n2(CY + CR*Math.sin(ae)));
-
-  /* the linear scene: the enzyme starts at +1, runs to the cut end, falls off */
-  const px2 = TSS + s.run*(LXR + 74 - TSS);
-  r.lpol.setAttribute("cx", n2(px2));
-  r.lpol.setAttribute("cy", n2((LY1+LY2)/2));
-  r.lpol.setAttribute("opacity", n2(1 - clamp01((s.run - 0.86)/0.14)));
-  r.lrna.setAttribute("d", rna(TSS, Math.min(LXR, px2), LRY));
-  r.l5  .setAttribute("opacity", n2(clamp01(s.run*4)));
-}
-
-window.Deck.sequence("runoff", function(slide){
-  const S = [
-    { s:{circ:1,lin:0,wind:1.2,run:0,het:0,def:0}, label:"An uncut plasmid",
-      note:"Here is how this bites people. You want RNA, so you clone your insert behind a T7 promoter and you put the plasmid straight into a transcription reaction. The polymerase finds the promoter and starts. So far so good.",
-      desc:"A circular plasmid drawn as a black circle with a tick at the top labelled T7 promoter. A pale enzyme envelope wrapped round the DNA has moved part of the way round the circle, trailing a wavy line outside it." },
-    { s:{circ:1,lin:0,wind:14.6,run:0,het:1,def:0}, label:"Nothing tells it to stop",
-      call:"a smear, not a band — and a week gone", callFill:RED,
-      note:"But nothing tells it to stop. A plasmid is a circle, there is no T7 terminator on it, and so the polymerase comes back round to the promoter and keeps going. Every enzyme in the tube falls off at a different, random point. What you get is RNA of every length, and on a gel that is a smear rather than a band. If your RNA has to be a defined molecule, a guide RNA, an mRNA, a ribozyme, this product is useless.",
-      desc:"The polymerase has gone round the circle several times and the wavy RNA has spiralled outward into many turns. Beside it, three wavy RNA molecules of three different lengths, labelled: no defined three prime end, a smear on a gel." },
-    { s:{circ:0,lin:1,wind:14.6,run:0,het:0,def:0}, label:"Linearise first",
-      note:"The fix is to cut the plasmid before you transcribe it. Pick a single cutter downstream of the insert and digest to completion. Completion matters, because whatever fraction is left uncut goes on producing the smear. Choose the enzyme with some care as well. Leave a blunt end or a five prime overhang. If you leave a three prime overhang, T7 polymerase can initiate at that protruding end and transcribe back along the opposite strand. The antisense RNA it makes then anneals with the transcript you actually wanted, and the double-stranded RNA you end up with is immunogenic and ruins most of what you would want to do downstream.",
-      desc:"The circle has been replaced by a linear double-stranded DNA. A bracket near the left end marks the T7 promoter, and a red tick at the right end marks the cut end. The enzyme, drawn as a pale envelope wrapped round both strands, sits at the right-hand edge of that bracket, where transcription starts. No RNA has been made yet." },
-    { s:{circ:0,lin:1,wind:14.6,run:1,het:0,def:1}, label:"Run-off transcription",
-      call:"the end of the DNA sets the end of the RNA", callFill:SLATE,
-      note:"Now the polymerase transcribes to the end of the template and simply runs off, because there is no more DNA to hold on to. That is what run-off transcription means, and it is why the transcript has a defined three prime end even though there is no terminator anywhere in the construct. The end of the DNA is the end of the RNA. Every molecule in the tube is the same length and you get a band.",
-      desc:"The enzyme has travelled the length of the DNA and gone off the right-hand end, leaving a wavy RNA that begins at the edge of the promoter bracket and stops exactly at the cut end, with a half barb on its three prime end. Beside it, three wavy RNA molecules all of identical length, labelled: a defined three prime end, a single band." }
-  ];
-  return driver(mount(slide, runoffMarkup()),
-                ["circ","lin","wind","run","het","def"], S, runoffPaint);
-});
 
 })();
