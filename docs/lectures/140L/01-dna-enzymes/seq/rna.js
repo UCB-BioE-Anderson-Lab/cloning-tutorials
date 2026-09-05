@@ -483,118 +483,140 @@ window.Deck.sequence("ivt", function(slide){
 /* ================================================================== *
  * 5.  vaccine — the application vignette, like the forensics one.
  *
- * Worth its own slide because the answer is counter-intuitive: an mRNA
- * vaccine is not chemically synthesised. BNT162b2 is about 4300 bases
- * and solid-phase RNA synthesis runs out somewhere around a hundred, so
- * a molecule that size can only be made enzymatically. It is this
- * reaction, run large, from a plasmid cut once with a restriction
- * enzyme -- which makes it a vignette that uses half of this lecture.
+ * A left-to-right flow rather than a row of stations: plasmid, into the
+ * polymerase with the four rNTPs fed in from below, out as mRNA, into a
+ * particle. The composition earns itself on one point — putting m1-psi-TP
+ * in the arrow set, queued with ATP, CTP and GTP, says "one of these
+ * four is not what you expect" at the moment of incorporation, which no
+ * amount of prose does as fast.
  *
- * The chemistry IS there, and it is worth being precise about where:
- * in the nucleotides, not in the backbone. Every uridine is replaced
- * with N1-methylpseudouridine, fed in as a modified NTP the polymerase
- * incorporates without complaint.
- *
- * Panel 2 deliberately does NOT re-list template, polymerase, NTPs and
- * magnesium -- the previous slide just did that. It shows only what is
- * DIFFERENT about this reaction.
+ * The enzyme is ART.t7pol: the real T7 RNA polymerase surface, traced
+ * from a structure render. It is seated by its own channel (ART.t7Cleft)
+ * on the DNA and drawn semi-transparent, which is the convention
+ * art-polymerase.js and linear.js already established — the substrate
+ * has to read straight through the enzyme.
  * ================================================================== */
-const VY = 430;                                     /* the flow's axis     */
-const VA = 300, VB = 800, VC = 1270;                /* three station centres */
+const VY = 402;                              /* the DNA axis                */
+const VPC = [218, 402], VPR = 66;            /* plasmid centre and radius   */
+const VDX0 = 296, VDX1 = 892;                /* the linear template         */
+const VPOL = [700, VY];                      /* where the channel sits      */
+const VRX0 = 866, VRX1 = 1150, VRY = 470;    /* the transcript              */
+const VLNP = [1320, 470], VLNPR = 78;        /* the particle (placeholder)  */
+const NTX = [596, 660, 724, 788], NTY = 650; /* the four nucleotides        */
 
-const vlab = (x, y, t, c, sz, w) => '<text x="'+x+'" y="'+y+'" text-anchor="middle" '+
-  'font-family="inherit" font-size="'+(sz||21)+'" font-weight="'+(w||700)+'" fill="'+
-  (c||INK)+'">'+t+'</text>';
-const vstep = (x, t) => vlab(x, 258, t, MUTED, 22, 700);
-function varrow(x0, x1, y){
-  return '<path d="M'+x0+' '+y+'H'+x1+'M'+(x1-18)+' '+(y-12)+'L'+x1+' '+y+'L'+(x1-18)+' '+
-    (y+12)+'" fill="none" stroke="'+MUTED+'" stroke-width="3" stroke-linecap="round" '+
+const vtx = (x, y, t, c, sz, w, a) => '<text x="'+n2(x)+'" y="'+n2(y)+'" text-anchor="'+
+  (a||"middle")+'" font-family="inherit" font-size="'+(sz||21)+'" font-weight="'+(w||700)+
+  '" fill="'+(c||INK)+'">'+t+'</text>';
+
+/* an arc of the plasmid, in degrees with y down: 270 is the top */
+function varc(a0, a1, col, w){
+  const P = a => [VPC[0] + VPR*Math.cos(a*Math.PI/180),
+                  VPC[1] + VPR*Math.sin(a*Math.PI/180)];
+  const A = P(a0), B = P(a1), big = (a1 - a0) > 180 ? 1 : 0;
+  return '<path d="M'+n2(A[0])+' '+n2(A[1])+'A'+VPR+' '+VPR+' 0 '+big+' 1 '+
+    n2(B[0])+' '+n2(B[1])+'" fill="none" stroke="'+col+'" stroke-width="'+(w||10)+
+    '" stroke-linecap="round"/>';
+}
+function vArrowUp(x, y0, y1){
+  return '<path d="M'+x+' '+y0+'V'+y1+'M'+(x-11)+' '+(y1+13)+'L'+x+' '+y1+'L'+(x+11)+' '+
+    (y1+13)+'" fill="none" stroke="'+MUTED+'" stroke-width="3" stroke-linecap="round" '+
     'stroke-linejoin="round"/>';
 }
 
 function vacMarkup(){
-  let g = "";
+  const A = window.ART;
+  /* scale so the silhouette is about 305 wide, then seat its channel on
+     the DNA exactly as linear.js seats ART.polCleft */
+  const bx = (A && A.t7polBox) || [105.7, 11.3, 995.1, 876.2];
+  const cl = (A && A.t7Cleft) || [555.4, 452.6];
+  const k = 305 / (bx[2] - bx[0]);
+  const tf = "translate(" + n2(VPOL[0] - cl[0]*k) + " " + n2(VPOL[1] - cl[1]*k) +
+             ") scale(" + n2(k) + ")";
 
-  /* --- 1. the template: a plasmid, cut once ------------------- */
-  g += '<g data-r="v0" opacity="0">' + vstep(VA, "1 &#183; the template") +
-    '<circle cx="'+VA+'" cy="352" r="56" fill="none" stroke="'+INK+'" stroke-width="3"/>' +
-    '<path d="M'+(VA-26)+' 300A56 56 0 0 1 '+(VA+30)+' 299" fill="none" stroke="'+SLATE+
-      '" stroke-width="9" stroke-linecap="round" opacity="0.45"/>' +
-    vlab(VA, 282, "T7", SLATE, 19) +
-    /* the second line does not fit inside the circle, so it goes under it */
-    vlab(VA, 360, "plasmid", MUTED, 19, 600) +
-    vlab(VA, 440, "from <tspan font-style="+'"italic"'+">E. coli</tspan>", MUTED, 19, 600) +
-    /* cut once, and the cut is the end of every dose */
-    '<path d="M'+(VA+56)+' 400L'+(VA+86)+' 430" fill="none" stroke="'+RED+'" stroke-width="3"/>' +
-    vlab(VA+128, 412, "cut once", RED, 20) +
+  /* --- 1. the template ---------------------------------------- */
+  let g = '<g data-r="v0" opacity="0">' +
+    '<circle cx="'+VPC[0]+'" cy="'+VPC[1]+'" r="'+VPR+'" fill="none" stroke="'+INK+
+      '" stroke-width="3"/>' +
+    varc(232, 268, SLATE) + varc(276, 372, INK) +
+    /* centred over the plasmid: right-anchored it ran off the slide's
+       left padding */
+    vtx(VPC[0], VPC[1]-VPR-30, "T7 promoter", SLATE, 19) +
+    vtx(VPC[0]+80, VPC[1]-52, "spike gene", INK, 19, 700, "start") +
+    vtx(VPC[0], VPC[1]+VPR+40, "plasmid", MUTED, 19, 600) +
+    /* one cut, and it is the 3' end of every dose */
+    '<path d="M'+n2(VPC[0]+VPR*Math.cos(66*Math.PI/180)-14)+' '+
+      n2(VPC[1]+VPR*Math.sin(66*Math.PI/180)+14)+'l30 -30" stroke="'+RED+
+      '" stroke-width="3.4" fill="none" stroke-linecap="round"/>' +
+    vtx(VPC[0]+124, VPC[1]+84, "cut once", RED, 20, 700, "start") +
+    /* the linear template */
     '<g fill="none" stroke="'+INK+'" stroke-width="3">' +
-      '<path d="M'+(VA-120)+' 494H'+(VA+120)+'"/><path d="M'+(VA-120)+' 516H'+(VA+120)+'"/></g>' +
-    '<path d="M'+(VA-120)+' 505H'+(VA-64)+'" stroke="'+SLATE+'" stroke-width="9" '+
-      'stroke-linecap="round" fill="none" opacity="0.35"/>' +
-    '<path d="M'+(VA+120)+' 486V524" stroke="'+RED+'" stroke-width="3" fill="none"/>' +
-    vlab(VA, 566, "linear &#8212; and the cut end is the end", RED, 19) +
-    vlab(VA, 590, "of every mRNA in the batch", RED, 19) + '</g>';
+      '<path d="M'+VDX0+' '+(VY-9)+'H'+VDX1+'"/><path d="M'+VDX0+' '+(VY+9)+'H'+VDX1+'"/></g>' +
+    '<path d="M'+VDX0+' '+VY+'H'+(VDX0+62)+'" stroke="'+SLATE+'" stroke-width="10" '+
+      'stroke-linecap="round" fill="none" opacity="0.4"/>' +
+    '<path d="M'+VDX1+' '+(VY-20)+'V'+(VY+20)+'" stroke="'+RED+'" stroke-width="3" '+
+      'fill="none"/>' + '</g>';
 
-  /* --- 2. the reaction: someone sets it up ------------------- */
-  g += '<g data-r="v1" opacity="0">' + varrow(VA+206, VA+286, VY) +
-    vstep(VB, "2 &#183; someone sets it up") +
-    /* a person at a bench, in line art: this is a reaction, not a
-       phenomenon, and somebody pipettes it */
-    '<g fill="none" stroke="'+INK+'" stroke-width="3" stroke-linecap="round" '+
-      'stroke-linejoin="round">' +
-      '<circle cx="666" cy="322" r="21"/>' +
-      '<path d="M666 343V430"/>' +
-      '<path d="M666 366L722 350L778 322"/>' +
-      '<path d="M666 366L628 412"/>' +
-      '<path d="M666 430L640 502M666 430L692 502"/>' +
-      /* the pipette, tip over the open tube */
-      '<path d="M770 306L800 288L830 336L806 352Z" stroke-width="3"/>' +
-      '<path d="M818 352L836 380" stroke-width="3"/>' +
-    '</g>' +
-    /* the tube */
-    '<g fill="none" stroke="'+INK+'" stroke-width="3" stroke-linejoin="round">' +
-      '<rect x="812" y="392" width="86" height="26" rx="6"/>' +
-      '<path d="M822 418V492Q822 520 855 520Q888 520 888 492V418"/></g>' +
-    vlab(855, 560, "one tube, 37&#176;C", MUTED, 20) +
-    vlab(800, 596, "&#8212; and one changed base", RED, 21) + '</g>';
+  /* --- 2. the enzyme, and what you feed it --------------------- */
+  g += '<g data-r="v1" opacity="0">' +
+    '<g transform="'+tf+'" fill="'+INK+'" fill-opacity="0.10" stroke="'+INK+
+      '" stroke-opacity="0.62" stroke-width="9" stroke-linecap="round" '+
+      'stroke-linejoin="round">' + ((A && A.t7pol) || "") + '</g>' +
+    /* above the silhouette, not on it */
+    vtx(VPOL[0], 236, "T7 RNA polymerase", INK, 23) +
+    NTX.map((x,i) => vArrowUp(x, NTY, 566)).join("") +
+    vtx(NTX[0], NTY+40, "ATP", INK, 21) + vtx(NTX[1], NTY+40, "CTP", INK, 21) +
+    vtx(NTX[2], NTY+40, "GTP", INK, 21) +
+    vtx(NTX[3], NTY+40, "m&#185;&#936;TP", RED, 21) +
+    vtx(NTX[3], NTY+68, "replaces UTP", RED, 18, 600) + '</g>';
 
-  /* --- 3. the product ---------------------------------------- */
-  g += '<g data-r="v2" opacity="0">' + varrow(VB+206, VB+286, VY) +
-    vstep(VC, "3 &#183; the product") +
-    '<path d="'+rna(VC-170, VC+118, 336)+'" fill="none" stroke="'+SLATE+'" stroke-width="3" '+
+  /* --- 3. the transcript --------------------------------------- */
+  g += '<g data-r="v2" opacity="0">' +
+    '<path d="'+rna(VRX0, VRX1, VRY)+'" fill="none" stroke="'+SLATE+'" stroke-width="3.2" '+
       'stroke-linecap="round" stroke-linejoin="round"/>' +
-    '<circle cx="'+(VC-186)+'" cy="336" r="11" fill="none" stroke="'+SLATE+'" stroke-width="2.6"/>' +
-    '<path d="M'+(VC+120)+' 336H'+(VC+164)+'" stroke="'+SLATE+'" stroke-width="2.6" '+
+    '<circle cx="'+(VRX0-18)+'" cy="'+VRY+'" r="11" fill="none" stroke="'+SLATE+
+      '" stroke-width="2.8"/>' +
+    '<path d="M'+(VRX1+4)+' '+VRY+'H'+(VRX1+52)+'" stroke="'+SLATE+'" stroke-width="2.8" '+
       'stroke-dasharray="5 6" fill="none"/>' +
-    vlab(VC, 300, "~4300 bases, capped and tailed", MUTED, 19, 600) +
-    /* the lipid nanoparticle */
-    '<circle cx="'+VC+'" cy="470" r="66" fill="'+SLATE+'" fill-opacity="0.10" stroke="'+SLATE+
-      '" stroke-width="3" stroke-dasharray="7 7"/>' +
-    '<path d="'+rna(VC-40, VC+40, 470)+'" fill="none" stroke="'+SLATE+'" stroke-width="2.6" '+
-      'stroke-linecap="round"/>' +
-    vlab(VC, 566, "wrapped in a lipid nanoparticle", MUTED, 19, 600) +
-    vlab(VC, 604, "&#8212; and that is the dose", INK, 21) + '</g>';
+    vtx((VRX0+VRX1)/2, VRY-40, "mRNA", SLATE, 22) +
+    vtx(VRX0-18, VRY+38, "cap", MUTED, 18, 600) +
+    vtx(VRX1+30, VRY+38, "poly-A", MUTED, 18, 600) + '</g>';
 
-  return g + chrome(214, 838);
+  /* --- 4. the dose. PLACEHOLDER: swap for ART.lnp when traced --- */
+  g += '<g data-r="v3" opacity="0">' +
+    '<path d="M'+(VRX1+70)+' '+VRY+'H'+(VLNP[0]-VLNPR-16)+'M'+(VLNP[0]-VLNPR-34)+' '+
+      (VRY-11)+'L'+(VLNP[0]-VLNPR-16)+' '+VRY+'L'+(VLNP[0]-VLNPR-34)+' '+(VRY+11)+
+      '" fill="none" stroke="'+MUTED+'" stroke-width="3" stroke-linecap="round" '+
+      'stroke-linejoin="round"/>' +
+    '<circle cx="'+VLNP[0]+'" cy="'+VLNP[1]+'" r="'+VLNPR+'" fill="'+SLATE+
+      '" fill-opacity="0.08" stroke="'+SLATE+'" stroke-width="3" stroke-dasharray="8 8"/>' +
+    '<path d="'+rna(VLNP[0]-44, VLNP[0]+44, VLNP[1])+'" fill="none" stroke="'+SLATE+
+      '" stroke-width="2.8" stroke-linecap="round"/>' +
+    vtx(VLNP[0], VLNP[1]+VLNPR+38, "lipid nanoparticle", MUTED, 19, 600) + '</g>';
+
+  return g + chrome(196, 812);
 }
 
 function vacPaint(r, s){
-  for (let k = 0; k < 3; k++)
+  for (let k = 0; k < 4; k++)
     r["v"+k].setAttribute("opacity", n2(clamp01(s.on - k)));
 }
 
 window.Deck.sequence("vaccine", function(slide){
   const S = [
     { s:{on:1}, label:"You cannot chemically synthesise four thousand bases",
-      note:"An application, and it is one where the answer surprises people. An mRNA vaccine is about four thousand three hundred bases of RNA. Ask how that gets made and the instinct is chemical synthesis, because that is how you buy an oligo — and it is the wrong answer. Solid-phase RNA synthesis runs out somewhere around a hundred bases; the yield falls off a cliff and the failure products pile up. Four thousand is not reachable that way, and it never will be. So it is made enzymatically, by the reaction on the last slide, run large. Start here. The sequence lives on a plasmid, grown in E. coli, with a T7 promoter in front of it. And before it goes anywhere near the polymerase you cut that plasmid once, with a restriction enzyme, downstream of the sequence. You know exactly why: run-off. The polymerase has no terminator, so it stops where the DNA stops, and that means the position of that cut is the three prime end of every single molecule in the batch. A restriction enzyme from the first section of this lecture is defining the end of a pharmaceutical.",
-      desc:"Station one of a three-station flow: a circular plasmid grown in E. coli carrying a T7 promoter, cut once with a restriction enzyme to give a linear template whose right-hand end is marked in red, labelled: linear, and the cut end is the end of every mRNA in the batch." },
-    { s:{on:2}, label:"Someone sets it up",
-      note:"Then it is the reaction you just saw — template, T7 RNA polymerase, nucleotides, magnesium — and I am not going to list it again. Somebody pipettes it into a tube and puts the tube at thirty-seven degrees. That is genuinely all this step is, and it is worth saying plainly, because the manufacturing scale of this is a very large version of exactly that. Two things about the tube are different from an ordinary transcription. A cap goes on the five prime end, either as an analogue the polymerase starts on or added afterwards with an enzyme, because a eukaryotic ribosome will not touch an uncapped message. And one of the four nucleotides is not the one you would expect. That second one is worth its own slide, and it is the next one.",
-      desc:"Station two, drawn as line art: a person at a bench pipetting into an open tube, labelled one tube at 37 degrees, and a red line reading: and one changed base." },
-    { s:{on:3}, label:"And that is the dose",
+      note:"An application, and one where the answer surprises people. An mRNA vaccine is about four thousand three hundred bases of RNA. Ask how that is made and the instinct is chemical synthesis, because that is how you buy an oligo — and it is the wrong answer. Solid-phase RNA synthesis runs out somewhere around a hundred bases; the yield falls off a cliff and the failure products pile up. Four thousand is not reachable that way. So it is made enzymatically, by the reaction on the last slide, run large. It starts here: the antigen sequence sits on a plasmid grown in E. coli, behind a T7 promoter. And before it goes anywhere near the polymerase you cut that plasmid once, downstream of the gene, with a restriction enzyme. You know exactly why — run-off. The polymerase has no terminator, it stops where the DNA stops, so the position of that cut is the three prime end of every molecule in the batch. An enzyme from the first section of this lecture is defining the end of a pharmaceutical.",
+      desc:"A circular plasmid with a blue T7 promoter arc and a longer arc marking the spike gene, with a red slash marking a single cut. To its right, the linearised double-stranded template runs across, its promoter marked in blue at the left and its far end stopped with a red bar." },
+    { s:{on:2}, label:"Feed it four nucleotides \u2014 but not the four you expect"  /* textContent */,
+      call:"the polymerase does not notice; your immune system does", callFill:RED,
+      note:"Then the reaction. That shape is the real T7 RNA polymerase, traced from its crystal structure, and the DNA is running through the actual channel through the protein rather than resting against a cartoon. It is one polypeptide and it needs no accessory factors, which is exactly why this works in a tube. Now look at what is being fed in. ATP, CTP, GTP — and then not UTP. Every uridine is replaced by N1-methylpseudouridine, and the polymerase takes it without complaint, because as far as the chemistry of incorporation is concerned it is a U. Your immune system is not so relaxed. Unmodified RNA in a cell reads as an infection: the innate response fires, you get inflammation, and the message is destroyed before a ribosome reaches it. Swap that one nucleotide and it reads as a message instead. That is Kariko and Weissman's result, and the Nobel Prize in twenty twenty-three.",
+      desc:"The T7 RNA polymerase appears as a semi-transparent traced silhouette of the real enzyme, seated on the template so the DNA passes through the channel in the protein. Four arrows feed in from below, labelled ATP, CTP, GTP, and in red m1-psi-TP, replaces UTP." },
+    { s:{on:3}, label:"Out comes one defined molecule, over and over",
+      note:"Out comes the transcript. A cap goes on the five prime end, either as an analogue the polymerase starts on or added afterwards with an enzyme, because a eukaryotic ribosome will not touch an uncapped message; and a poly-A tail on the three prime end, usually encoded in the template. Every copy is the same length, because every copy ran off the same cut end of the same linear template. And the template is not consumed — the duplex closes behind the bubble every time — so a few hundred nanograms of DNA becomes tens of micrograms of RNA. That is the whole economics of it.",
+      desc:"A blue wavy transcript emerges to the right of the polymerase, with a cap drawn as a small circle at its 5-prime end and a dashed poly-A tail at its 3-prime end." },
+    { s:{on:4}, label:"And that is the dose",
       call:"a restriction enzyme, a phage polymerase, and one modified base", callFill:SLATE,
-      note:"Out comes about four thousand three hundred bases of capped, tailed, modified messenger RNA, every copy ending at the same base because every copy ran off the same cut. Then it gets wrapped in a lipid nanoparticle, because naked RNA in a bloodstream lasts seconds and cannot cross a membrane anyway, and that is the dose. Stand back and look at what that took. A restriction enzyme to define one end. A phage RNA polymerase that needs no accessory factors and will work in a tube. One modified nucleotide. Everything in that list is in this lecture, and most of it is in the NEB catalogue. The scale is industrial and the chemistry is not.",
-      desc:"Station three: the finished messenger RNA drawn as a long wave with a cap at its five prime end and a poly-A tail at its three prime end, about 4300 bases, then the same RNA drawn coiled inside a dashed circle representing a lipid nanoparticle, labelled: and that is the dose." }
+      note:"Then it is wrapped in a lipid nanoparticle, because naked RNA in a bloodstream lasts seconds and could not cross a membrane anyway, and that is the dose. Stand back and look at what that took. A restriction enzyme to define one end. A phage RNA polymerase that needs no accessory factors and will work in a tube. One modified nucleotide. Everything in that list is in this lecture and most of it is in the NEB catalogue. The scale is industrial; the chemistry is not.",
+      desc:"An arrow leads from the transcript to a lipid nanoparticle, drawn as a dashed circle with the RNA coiled inside, labelled lipid nanoparticle." }
   ];
   return driver(mount(slide, vacMarkup()), ["on"], S, vacPaint);
 });
