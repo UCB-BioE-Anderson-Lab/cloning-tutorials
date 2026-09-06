@@ -572,7 +572,7 @@ const LNY = 402, LNX0 = 180, LNX1 = 1420;    /* the linear template        */
    transcription starts */
 const RNY = 545;                             /* the transcript             */
 const NTX2 = [648, 728, 808, 888], NTY2 = 362;   /* nucleotides, from above */
-const PKC = [1300, 668], PKR = 74;           /* the particle               */
+const PKC = [1300, 668], PKR = 95;           /* the particle               */
 const LRP = (a, b, t) => a + (b - a)*t;
 
 const vtx = (x, y, t, c, sz, w, a, o) => '<text x="'+n2(x)+'" y="'+n2(y)+'" text-anchor="'+
@@ -673,14 +673,31 @@ function vacPaint(r, s){
 
   /* ---- and into the particle ---- */
   r.pak.setAttribute("opacity", n2(clamp01(s.pak)));
-  r.pak.innerHTML =
-    '<path d="M'+(PKC[0]-PKR-120)+' '+(RNY+40)+'Q'+(PKC[0]-PKR-40)+' '+(RNY+70)+' '+
-      (PKC[0]-PKR-14)+' '+(PKC[1]-46)+'" fill="none" stroke="'+MUTED+'" stroke-width="3"/>' +
-    '<circle cx="'+PKC[0]+'" cy="'+PKC[1]+'" r="'+PKR+'" fill="'+SLATE+'" fill-opacity="0.08" '+
-      'stroke="'+SLATE+'" stroke-width="3" stroke-dasharray="8 8"/>' +
-    '<path d="'+rna(PKC[0]-42, PKC[0]+42, PKC[1])+'" fill="none" stroke="'+SLATE+
-      '" stroke-width="2.8" stroke-linecap="round"/>' +
-    vtx(PKC[0], PKC[1]+PKR+34, "lipid nanoparticle", MUTED, 19, 600);
+  /* the leader from the transcript, then the particle itself */
+  const lead = '<path d="M'+(PKC[0]-PKR-120)+' '+(RNY+40)+'Q'+(PKC[0]-PKR-40)+' '+(RNY+70)+' '+
+      (PKC[0]-PKR-14)+' '+(PKC[1]-46)+'" fill="none" stroke="'+MUTED+'" stroke-width="3"/>';
+  const cap = vtx(PKC[0], PKC[1]+PKR+34, "lipid nanoparticle", MUTED, 19, 600);
+  if (A && A.lnp){
+    /* seated on its own centre so the particle lands on PKC exactly, and
+       drawn at one stroke width because the source strokes are uniform */
+    const bw = A.lnpBox[2] - A.lnpBox[0], bh = A.lnpBox[3] - A.lnpBox[1];
+    const pk = (2*PKR)/bw;
+    const tf = "translate(" + n2(PKC[0] - (A.lnpBox[0]+bw/2)*pk) + " " +
+                              n2(PKC[1] - (A.lnpBox[1]+bh/2)*pk) + ") scale(" + n2(pk) + ")";
+    r.pak.innerHTML = lead +
+      '<g transform="'+tf+'" fill="none" stroke-width="11" stroke-linecap="round" '+
+        'stroke-linejoin="round">' +
+        '<g stroke="'+INK+'">' + A.lnp + '</g>' +
+        /* the cargo is blue because everything else RNA in this deck is */
+        '<g stroke="'+SLATE+'">' + A.lnpRna + '</g>' +
+      '</g>' + cap;
+  } else {
+    r.pak.innerHTML = lead +
+      '<circle cx="'+PKC[0]+'" cy="'+PKC[1]+'" r="'+PKR+'" fill="'+SLATE+'" fill-opacity="0.08" '+
+        'stroke="'+SLATE+'" stroke-width="3" stroke-dasharray="8 8"/>' +
+      '<path d="'+rna(PKC[0]-42, PKC[0]+42, PKC[1])+'" fill="none" stroke="'+SLATE+
+        '" stroke-width="2.8" stroke-linecap="round"/>' + cap;
+  }
 }
 
 window.Deck.sequence("vaccine", function(slide){
@@ -712,7 +729,7 @@ window.Deck.sequence("vaccine", function(slide){
     { s:{pl:1,lin:1,mix:1,set:1,run:1,pak:1}, label:"And that is the dose",
       call:"a restriction enzyme, a phage polymerase, and one modified base", callFill:SLATE,
       note:"Then it is wrapped in a lipid nanoparticle, because naked RNA in a bloodstream lasts seconds and could not cross a membrane anyway. And that is the dose. Stand back and look at what that took. A restriction enzyme to define one end. A phage RNA polymerase that needs no accessory factors and will work in a tube. One modified nucleotide. Everything in that list is in this lecture and most of it is in the NEB catalogue. The scale is industrial; the chemistry is not.",
-      desc:"The transcript curves down into a lipid nanoparticle at the lower right, drawn as a dashed circle with the RNA coiled inside." }
+      desc:"The transcript curves down into a lipid nanoparticle at the lower right, drawn in cross-section as a ring of lipid molecules — each a circle with two tails pointing inward — with the messenger RNA drawn in blue as a single wave held inside it." }
   ];
   return driver(r, ["pl","lin","mix","set","run","pak"], S, vacPaint);
 });
