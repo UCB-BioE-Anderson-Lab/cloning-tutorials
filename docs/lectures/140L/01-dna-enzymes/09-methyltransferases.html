@@ -35,9 +35,10 @@
   <h1 class="small">Your plasmid arrives already annotated</h1>
   <div class="cols wide-left">
     <ul>
-      <li><em>E. coli</em> K-12 lab strains run two methyltransferases of their own: <strong>Dam</strong>, the A in <code>GATC</code>, and <strong>Dcm</strong>, the inner C in <code>CCWGG</code></li>
-      <li>Neither is about restriction. Dam is the strand-discrimination signal for mismatch repair and it times replication initiation</li>
-      <li>So every miniprep from DH5&alpha;, TOP10 or XL1-Blue is methylated at all of those sites, and nothing in your plasmid map shows it</li>
+      <li><strong>Dam</strong> &mdash; the A in <code>GATC</code></li>
+      <li><strong>Dcm</strong> &mdash; the inner C in <code>CCWGG</code></li>
+      <li>Every lab miniprep carries both</li>
+      <li>Your plasmid map does not show it</li>
     </ul>
     <div>
       <p><strong>XbaI, when TC follows the site</strong></p>
@@ -45,7 +46,7 @@
 5&rsquo;-gc<span class="site">TCTAGA</span>TCat-3&rsquo;
 3&rsquo;-cg<span class="site">AGATCT</span>AGta-5&rsquo;
            <span class="mut">m</span></pre>
-      <p style="margin-top:18px"><code>TCTAGA</code>+<code>TC</code> spells a <code>GATC</code>, so Dam has already been there and XbaI is blocked. <strong>BclI</strong> is worse: <code>TGATCA</code> contains <code>GATC</code> outright, so it never cuts a dam+ prep at all.</p>
+      <p style="margin-top:18px;font-size:26px">The site plus its two neighbours spells <code>GATC</code>. Dam got there first</p>
     </div>
   </div>
   <template class="notes">This is the one that costs people a week. Dam methylates the adenine of GATC and Dcm methylates the internal cytosine of CCWGG, and neither of them exists to protect you from anything — Dam in particular is a housekeeping signal, marking the parental strand for mismatch repair and setting the timing of replication initiation. The consequence is that the plasmid you just miniprepped is already carrying those marks at every such site, before you open the tube, and none of it appears in your sequence file or your map. When a restriction site overlaps one of them the enzyme can be blocked. XbaI is the classic: the site is TCTAGA, and if the next two bases happen to be TC then the last two bases of the site plus those two spell GATC, which Dam has methylated, and XbaI will not cut. BclI is the extreme case, because its site TGATCA contains a GATC no matter what is around it.</template>
@@ -55,8 +56,8 @@
 <article class="slide">
   <h1 class="small">Two ways out, and only one of them is cheap</h1>
   <ul>
-    <li><strong>Design around it first.</strong> NEB tabulates Dam/Dcm/CpG sensitivity for every enzyme &mdash; move the two flanking bases so the overlap never forms, or pick an isoschizomer that is not blocked</li>
-    <li><strong>Otherwise change host.</strong> Prep from <em>dam</em><sup>&minus;</sup> <em>dcm</em><sup>&minus;</sup> JM110 or SCS110 &mdash; but without Dam, mismatch repair cannot tell the new strand from the old, so these are mutator strains. Grow only what the digest needs, then put the plasmid back into a normal strain</li>
+    <li><strong>Design around it.</strong> Move the flanking bases, or pick an unblocked isoschizomer</li>
+    <li><strong>Or change host.</strong> <em>dam</em><sup>&minus;</sup> <em>dcm</em><sup>&minus;</sup> JM110, SCS110 &mdash; but they are mutator strains</li>
   </ul>
   <template class="notes">There are two moves and the cheap one is prevention. NEB tabulates Dam, Dcm and CpG sensitivity for every enzyme they sell, so check before you commit to a site &mdash; usually you can shift the two flanking bases so the overlap never forms, or choose an isoschizomer that is not blocked. If you are stuck with the site, the other move is to change the host: JM110 and SCS110 are dam-minus dcm-minus. Understand what you are giving up. Methyl-directed mismatch repair uses the transiently hemimethylated GATC to tell the newly synthesised strand from the template, so a dam-minus strain has lost that and is a mutator. Grow what you need for the digest and get your plasmid back into a normal strain.</template>
   <template class="desc">Two fixes: design around the overlap using NEB's per-enzyme methylation sensitivity table, or prep from a dam-minus, dcm-minus strain such as JM110 or SCS110, which are mutator strains and should only be used for the digest.</template>
@@ -67,16 +68,6 @@
   <ul><li>Site-directed mutagenesis by PCR &mdash; and how you get rid of the template</li></ul>
 </article>
 
-<article class="slide">
-  <h1 class="small">GATC, read three ways</h1>
-<pre class="dna" style="font-size:36px;line-height:1.8;margin-top:44px">MboI      <span class="site">/GATC</span>      blocked by Dam methylation
-           <span class="mut" style="display:inline-block;transform:translateY(.42em)">m</span>
-DpnI      <span class="site">G</span><span class="mut">A</span><span class="site">/TC</span>      <span class="mut">requires</span> that m
-Sau3AI    <span class="site">/GATC</span>      indifferent to Dam</pre>
-  <p class="q" style="margin-top:64px;font-size:40px">Same four bases in every row. What separates the three enzymes is the annotation, not the sequence.</p>
-  <template class="notes">Here is the whole section in three lines. All three of these enzymes recognise GATC. MboI is blocked by Dam methylation, so on a normal miniprep it does nothing. DpnI is the inversion — it only cuts when that adenine is methylated. Sau3AI does not care either way. Same four bases in all three rows, three different answers, and the sequence is not what distinguishes them. That is why methylation is worth its own section: it is a layer of information sitting above the sequence, it is invisible in your sequence file, and there are enzymes that read it.</template>
-  <template class="desc">Three enzymes that all recognise GATC. MboI cuts before the G and is blocked by Dam methylation. DpnI cuts between the A and the T and requires the methyl, which is drawn as a small m sitting over its adenine. Sau3AI cuts before the G and is indifferent. The closing line: what separates them is the annotation, not the sequence.</template>
-</article>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
