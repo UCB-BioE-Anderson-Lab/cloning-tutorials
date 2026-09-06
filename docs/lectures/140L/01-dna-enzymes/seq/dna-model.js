@@ -294,6 +294,7 @@ function draw(m, x0){
     }
   }
 
+  AN.mod={top:{},bot:{}};
   m.mods.forEach(function(mo){
     if(mo.type!=="methyl") return;
     if(mo.i<m.range[mo.strand][0]||mo.i>=m.range[mo.strand][1]) return;
@@ -302,6 +303,10 @@ function draw(m, x0){
     /* 6mA red; the two cytosine marks blue. Position tells 5mC from 4mC. */
     const mc = mo.site==="6" ? HOT : KEY;
     const q=[site.p[0]+site.d[0]*R*1.25, site.p[1]+site.d[1]*R*1.25];
+    /* Recorded so a caller can point at the mark it just asked for. The
+       methyl is drawn at the same scale as every other atom label, which
+       is right in a scene and wrong when the methyl IS the subject. */
+    AN.mod[mo.strand][mo.i]=q;
     g+=bond(site.p,q,mc,3)+
        '<circle cx="'+n2(q[0])+'" cy="'+n2(q[1])+'" r="'+n2(SZ*0.9)+'" fill="#fff"/>'+
        '<text x="'+n2(q[0])+'" y="'+n2(q[1]+SZ*0.34)+'" text-anchor="middle" font-size="'+n2(SZ)+
