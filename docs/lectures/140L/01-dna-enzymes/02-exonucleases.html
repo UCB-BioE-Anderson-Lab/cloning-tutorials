@@ -17,15 +17,6 @@
 .slide table.neb th,.slide table.neb td{border:1px solid var(--rule);
   padding:9px 6px;text-align:center;font-weight:400}
 .slide table.neb thead th{font-weight:700}
-/* the blunting slide runs four states down the page, so it is set larger and
-   spaced wider than the deck default — it was sitting in the top corner. */
-.slide.blunt pre.dna{font-size:30px;line-height:1.5}
-.slide.blunt .step{margin:32px 0 26px;padding-left:72px;font-size:27px}
-/* Centre the cascade as a GROUP, not line by line: the sequences have to stay
-   aligned to each other so a base can be tracked down the four states, but the
-   block itself is far narrower than the slide and was leaving the right half
-   empty. */
-.slide.blunt .cascade{width:max-content;max-width:100%;margin:0 auto}
 .slide table.neb tbody th{font-weight:700;text-align:left;padding-left:14px;
   color:var(--blue)}
 .slide table.neb sup{font-size:.68em;vertical-align:super;line-height:0}
@@ -184,9 +175,9 @@
   <template class="desc">One row of the NEB exonuclease selection chart, for Exonuclease I from E. coli: 3-prime to 5-prime, active on linear single-stranded DNA and on nothing else listed. Below it, On the left, a double-stranded PCR product drawn as two antiparallel barbed lines, with four short single-stranded primers below it in blue. An arrow labelled Exo I, 3-prime to 5-prime, leads right to the same double-stranded product alone: the primers are gone and the duplex is unchanged.</template>
 </article>
 
-<article class="slide blunt">
+<article class="slide">
   <h1 class="small">Blunting a sticky end</h1>
-  <div class="cascade">
+  <div class="cascade lg">
   <pre class="dna">5&rsquo;-cttcg<span class="site">GGATCC</span>gctggcaga&hellip;-3&rsquo;
 3&rsquo;-gaagc<span class="site">CCTAGG</span>cgaccgtct&hellip;-5&rsquo;</pre>
 
