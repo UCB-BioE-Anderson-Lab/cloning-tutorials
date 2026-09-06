@@ -124,7 +124,7 @@ function methyl(x, y, dx, dy){
       g += methyl(x - 8, HY1, 0, -1) + methyl(x + 8, HY2, 0, 1);
     });
     g += txt(X0, HY1 - 78, "host chromosome &mdash; every site methylated",
-             {anchor:"start", size:33, weight:700});
+             {anchor:"start", size:33, weight:700, r:"hlab"});
     return g + '</g>';
   }
 
@@ -150,17 +150,30 @@ function methyl(x, y, dx, dy){
 
   const S = [
     { ph:0, gap:0,
+      lab:"host chromosome — every site methylated",
       cap:"the host writes a methyl at every copy of its own recognition site",
       note:"Restriction enzymes did not evolve so that you could clone. They are an immune system. A bacterium carrying a restriction enzyme also carries a methyltransferase with the same specificity, and that methyltransferase marks every copy of the site in the host's own chromosome. Two marks per site, one on each strand, because the site is double stranded.",
       desc:"A long double-stranded DNA drawn as two black lines, the host chromosome. Four recognition sites are each bracketed between the two strands. At every site a red dot on a short stalk stands off each strand: the methyl groups." },
     { ph:1, gap:0,
+      lab:"host chromosome — every site methylated",
       cap:"phage DNA arrives carrying the same sites and no marks",
       note:"Then a phage injects its genome. It has the same sequence at those sites — sequence is not what distinguishes it — but it was made inside a different cell, so it carries none of this host's marks. That absence is the only difference between the two molecules on this slide.",
       desc:"The chromosome slides up to make room and a second double-stranded DNA appears below it, drawn in blue: the incoming phage genome. It is bracketed at the same four site positions, but carries no red dots anywhere." },
     { ph:1, gap:1,
+      lab:"host chromosome — every site methylated",
       cap:"the endonuclease cuts unmarked sites only: self is spared, non-self is destroyed",
       note:"The restriction endonuclease is loose in the same cytoplasm as both molecules. It cuts the phage DNA to pieces and leaves the chromosome alone, and the thing it is discriminating on is not sequence — it is the annotation. That is self versus non-self, and it is the reason there is a catalogue of restriction enzymes to buy from at all.",
-      desc:"The blue phage DNA has broken into five separate fragments with clear gaps between them, cut at each of the four sites. The black host chromosome above is intact and still carries its methyl marks." }
+      desc:"The blue phage DNA has broken into five separate fragments with clear gaps between them, cut at each of the four sites. The black host chromosome above is intact and still carries its methyl marks." },
+    /* The same drawing, renamed. Beat 0 was the marked molecule being
+       protected, and that was the happy ending; here it is the marked
+       molecule refusing to cut, and that is a failed digest. Nothing
+       moves except the label, which is the point -- the molecule was
+       never the problem, the annotation was. */
+    { ph:0, gap:1,
+      lab:"genomic DNA from an organism running its own R–M system",
+      cap:"the same picture, now on your bench — and your enzyme will not cut it either",
+      note:"Now take the phage away and read the top molecule again, because you will meet it. Suppose you are cloning out of the genomic DNA of some other organism. That organism was running its own restriction-modification system, which means it was doing exactly what the host is doing here — marking every copy of its own sites. If one of those sites happens to be the one you were planning to cut with, the DNA arrives already protected and your digest simply does not go. Nothing is wrong with the enzyme and nothing is wrong with the sequence; you can sequence it and watch your site sit there in plain view. What you are up against is the annotation. The fix is to get the DNA out of a strain that does not write that mark, or to cut somewhere else. This is the same slide we started on. All that changed is whose side you are on.",
+      desc:"The blue phage fragments fade away, leaving the marked black molecule alone and recentred. Its label changes from host chromosome to genomic DNA from an organism running its own restriction-modification system." }
   ];
 
   window.Deck.sequence("rmself", function(slide){
@@ -184,6 +197,7 @@ function methyl(x, y, dx, dy){
     function go(i, animated){
       if (raf){ cancelAnimationFrame(raf); raf = null; }
       r.cap.textContent = S[i].cap;
+      r.hlab.textContent = S[i].lab;
       const to = { ph:S[i].ph, gap:S[i].gap };
       if (!cur || animated === false || reduce.matches){ cur = to; paint(cur); return; }
       const from = cur, t0 = performance.now(), dur = 720;
