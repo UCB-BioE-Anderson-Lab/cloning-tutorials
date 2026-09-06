@@ -51,17 +51,8 @@
   <template class="desc">A diagram of E. coli RNA polymerase bound to a promoter. The core enzyme is drawn as a large shape wrapped around double-stranded DNA, with the sigma subunit picked out inside it. Below, the promoter sequence is expanded to show the minus 35 box, TTGACA, and the minus 10 box, TATAAT, separated by a spacer, with the mRNA start site marked downstream of them.</template>
 </article>
 
-<article class="slide">
+<article class="slide" data-seq="pet">
   <h1 class="small">BL21(&lambda;DE3) and the pET Vector</h1>
-  <ul class="tight">
-    <li>A T7 promoter is inert in <em>E. coli</em> &mdash; nothing in the cell can read it</li>
-    <li>So the strain carries the reader, and you supply the gene</li>
-  </ul>
-  <figure class="fig"><img src="../../../images/t7_expression_diagram.png"
-    alt="BL21 lambda DE3 cell containing a genomic copy of T7 RNA polymerase under a lac promoter repressed by LacI, and a pET plasmid carrying the insulin gene under a T7 promoter with a lac operator, both relieved by IPTG">
-    <figcaption>From the course tutorials &mdash; the pET&ndash;INS design</figcaption></figure>
-  <template class="notes">Here is what orthogonality buys you, and it is the whole reason T7 took over the catalogue. Neither polymerase can read the other&rsquo;s promoter. The E. coli enzyme is looking for a minus thirty-five and a minus ten with a spacer; T7 RNA polymerase is looking for seventeen contiguous bases and nothing else. So a T7 promoter dropped into an E. coli cell does nothing whatsoever. It is a switch the cell does not own. To use it you have to put the reader in as well, and that is exactly what BL21 lambda DE3 is: an E. coli strain carrying a copy of the T7 RNA polymerase gene in its own genome, under a lac promoter. Your gene goes on a pET plasmid downstream of a T7 promoter, and the plasmid also carries lacI. So in the uninduced state LacI sits on both operators and nothing happens: no polymerase, and no transcription of your gene even if there were. Add IPTG and LacI lets go of both. The cell makes T7 RNA polymerase, the polymerase finds the T7 promoter on your plasmid, and because it is a fast processive enzyme with nothing else to do, your gene can become a large fraction of the protein in the cell. Two levels of control, one induction. And this exact construction &mdash; human insulin into a pET vector, expressed in BL21 &mdash; is the first design tutorial you will do, so you are looking at your own next assignment.</template>
-  <template class="desc">A diagram of a BL21 lambda DE3 cell. Its genome carries the T7 RNA polymerase gene under a lac promoter, repressed by LacI. Inside the cell a pET plasmid carries the insulin gene downstream of a T7 promoter with a lac operator, and a lacI gene. IPTG relieves the repressor at both promoters.</template>
 </article>
 
 <article class="slide" data-seq="eukgene">
@@ -72,6 +63,7 @@
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/art-rna.js" defer></script>
+<script src="seq/pet.js" defer></script>
 <script src="seq/rna.js" defer></script>
 </body>
 </html>
