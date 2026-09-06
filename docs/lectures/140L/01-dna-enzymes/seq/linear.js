@@ -3,9 +3,7 @@
  *
  * Registers:   exo53         5'->3' exonuclease activity   (3 steps)
  *              displacement  strand displacement            (2 steps)
- *              t7rnap        T7 RNA polymerase              (5 steps)
  *              exo35         3'->5' proofreading            (1 step)
- *              nick          a nicked duplex for ligase      (1 step)
  *
  * Convention: every 3' end carries a HALF BARB, laid back from the tip
  * on the outer side of the duplex.  Pre-existing DNA is black; newly
@@ -187,109 +185,6 @@ window.Deck.sequence("displacement", function(slide){
   return driver(svg(slide, DISP_EXTRA), DISP_KEYS, S, dispPaint);
 });
 
-/* ---------------------------------------------------- T7 RNAP ------ *
- * Written out as sequence end to end — no plain strands — because the
- * point of the slide is WHERE transcription starts, and a line cannot
- * show a position. Consensus runs -17 to -1, then +1 onward:
- *
- *     TAATACGACTCACTATA GGGAGACCACAACGGTTTCCCTC
- *     -17            -1 +1
- *
- * Only bases from +1 ON lift into the bubble. Lifting -1 as well made the
- * raised row read "A GGGAGA", so the A looked like the start site.
- * -------------------------------------------------------------------- */
-const T7_TOP = "TAATACGACTCACTATA" + "GGGAGACCACAACGGTTTCCCTC";
-const T7_BOT = T7_TOP.split("").map(c => ({A:"T",T:"A",G:"C",C:"G"})[c]).join("");
-const P1 = 17;                        /* index of +1 */
-const SX = 150, SSTEP = 34;
-const sx = i => SX + i*SSTEP;
-const LIFT = 54;
-const T7_KEYS = ["prom","bub","front","out"];
-
-function t7Markup(){
-  let g = '<g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" ' +
-          'font-size="25" font-weight="600" text-anchor="middle">';
-  for (let i = 0; i < T7_TOP.length; i++)
-    g += '<text data-r="t'+i+'" x="'+sx(i)+'" y="'+(YT+9)+'" fill="'+INK+'">'+T7_TOP[i]+'</text>';
-  for (let i = 0; i < T7_BOT.length; i++)
-    g += '<text x="'+sx(i)+'" y="'+(YB+9)+'" fill="'+INK+'">'+T7_BOT[i]+'</text>';
-  g += '</g>';
-  /* Antiparallel: top strand 5'->3' left to right, template 3'->5'. With the
-     plain strands gone there is nothing else carrying polarity. */
-  g += '<g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="23" ' +
-         'fill="' + INK + '">' +
-    '<text x="' + (sx(0)-46) + '" y="' + (YT+9) + '">5&#8242;</text>' +
-    '<text x="' + (sx(T7_TOP.length-1)+26) + '" y="' + (YT+9) + '">3&#8242;</text>' +
-    '<text x="' + (sx(0)-46) + '" y="' + (YB+9) + '">3&#8242;</text>' +
-    '<text x="' + (sx(T7_BOT.length-1)+26) + '" y="' + (YB+9) + '">5&#8242;</text>' +
-  '</g>';
-  g += '<g data-r="prom" opacity="0">' +
-    '<path fill="none" stroke="' + SLATE + '" stroke-width="2.5" stroke-linecap="round" ' +
-      'd="M' + (sx(0)-15) + ' ' + (YT-40) + 'v-14H' + (sx(P1-1)+15) + 'v14"/>' +
-    '<text x="' + ((sx(0)+sx(P1-1))/2) + '" y="' + (YT-66) + '" text-anchor="middle" ' +
-      'font-family="inherit" font-weight="700" font-size="25" fill="' + SLATE + '">' +
-      'recognition element &#8212; stays duplex</text>' +
-  '</g>';
-  /* the +1 marker tracks its base, so it never collides with it */
-  g += '<g data-r="plus1" opacity="0">' +
-    '<path data-r="p1tick" fill="none" stroke="' + RED + '" stroke-width="3"/>' +
-    '<text data-r="p1lab" x="' + sx(P1) + '" text-anchor="middle" ' +
-      'font-family="inherit" font-weight="700" font-size="25" fill="' + RED + '">+1</text>' +
-  '</g>';
-  return g;
-}
-
-function t7Paint(r, s){
-  r.tmplt.setAttribute("d", "");        /* sequence all the way across */
-  r.block.setAttribute("d", "");
-  r.grow .setAttribute("d", "");
-  r.flap .setAttribute("d", "");
-  r.prom .setAttribute("opacity", n2(s.prom));
-
-  /* bubble covers +1 onward only — never -1 */
-  const hi = P1 + Math.max(0, Math.ceil(s.front));
-  for (let i = 0; i < T7_TOP.length; i++)
-    r["t"+i].setAttribute("y", (YT + 9) -
-      ((s.out < 0.5 && i >= P1 && i <= hi) ? LIFT*s.bub : 0));
-
-  const baseY = (YT + 9) - (s.out < 0.5 ? LIFT*s.bub : 0);
-  r.plus1.setAttribute("opacity", (s.prom > 0.02 || s.bub > 0.02) ? "1" : "0");
-  r.p1tick.setAttribute("d", "M" + sx(P1) + " " + n2(baseY-46) + "V" + n2(baseY-26));
-  r.p1lab .setAttribute("y", n2(baseY - 54));
-  r.label .setAttribute("y", 430);      /* clear of the raised bases */
-
-  if (s.out > 0.5){
-    // 5' end stays aligned with +1, so the product visibly corresponds to
-    // the template from that base on. Sits below the caption, not through it.
-    r.extra.setAttribute("d", strand(sx(P1), YT-88, sx(T7_TOP.length-1), YT-88));
-    return;
-  }
-  /* RNA begins at +1 */
-  r.extra.setAttribute("d", s.front > 0.15
-    ? strand(sx(P1)-SSTEP/2, YT+4, sx(P1) + (s.front-0.5)*SSTEP, YT+4) : "");
-}
-
-window.Deck.sequence("t7rnap", function(slide){
-  const S = [
-    { s:{prom:0,bub:0,front:0,out:0}, label:"Double stranded DNA",
-      note:"T7 RNAP is used for both in vivo and in vitro transcription. When people speak of T7 expression systems, the pET vectors, BL21 or DE3 strains, they are talking about systems employing the T7 RNA polymerase to control the transcription of an engineered gene.",
-      desc:"A double-stranded DNA written out as forty paired bases, TAATACGACTCACTATA followed by GGGAGACCACAACGGTTTCCCTC, over its complement." },
-    { s:{prom:1,bub:0,front:0,out:0}, label:"",
-      note:"The substrate is a double-stranded DNA carrying the T7 promoter. The sequence is quoted for the non-template strand \u2014 the top one \u2014 because that is the strand the RNA will match. Transcription starts at the G marked plus one.",
-      desc:"The first seventeen bases, TAATACGACTCACTATA, are bracketed as the recognition element, which stays duplex during initiation. A red marker labels the very next base, the G at plus one, as the transcription start." },
-    { s:{prom:1,bub:1,front:0,out:0}, label:"Initiation",
-      note:"The polymerase binds the promoter and unwinds a short stretch at the start site. The recognition element itself stays double stranded.",
-      desc:"A small bubble opens: the G at plus one lifts away from the template while the bracketed recognition element, ending at the A at minus one, stays paired." },
-    { s:{prom:0,bub:1,front:6,out:0}, label:"New RNA extension",
-      note:"It initiates on that G and extends. The first few bases of RNA are made inside the bubble.",
-      desc:"A blue RNA strand begins exactly at the plus one G and extends to the right along the template, inside the open bubble." },
-    { s:{prom:0,bub:0,front:0,out:1}, label:"New ssRNA product",
-      note:"When the polymerase reaches the end of the DNA, which is called runoff transcription, or hits a terminator, the new single-stranded RNA is released and polymerisation can begin again.",
-      desc:"The RNA has been released and floats free above the DNA, which has closed back into a full duplex." }
-  ];
-  return driver(svg(slide, t7Markup()), T7_KEYS, S, t7Paint);
-});
-
 /* ---------------------------------------------- 3'->5' proofreading --- */
 /* A real sequence, letter by letter: the polymerase runs forward, puts in
    a wrong base, backs up and excises it, then carries on. */
@@ -434,22 +329,5 @@ window.Deck.sequence("proofread", function(slide){
   }
   paint(cur);
   return { steps: S.map(x => ({ note:x.note, desc:x.desc })), go: go };
-});
-
-window.Deck.sequence("nick", function(slide){
-  const r = svg(slide);
-  function paint(){
-    r.tmplt.setAttribute("d", strand(XR, YB, XL, YB));
-    r.grow .setAttribute("d", "");
-    r.block.setAttribute("d", strand(XL, YT, 790, YT));
-    r.flap .setAttribute("d", strand(830, YT, XR, YT));
-    r.block.setAttribute("stroke", SLATE);    // rung 1: ligase acts here
-    r.flap .setAttribute("stroke", SLATE);
-    r.extra.setAttribute("d", "");
-  }
-  paint();
-  return { steps:[{ note:"The E. coli DNA ligase is rarely used in vitro, but it is a ubiquitous housekeeping function in cells used during DNA repair and replication. It forms bonds by repairing nicks only. It requires a 5’ phosphate be present, and it can’t be used to join non-annealed DNA. So, it can’t be used to ligate together DNAs cleaved by restriction enzymes.",
-                   desc:"A double-stranded DNA whose top strand carries a single nick — a gap between two abutting strands — which is the only substrate this ligase will act on." }],
-           go: function(){ paint(); } };
 });
 })();
