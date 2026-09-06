@@ -1,14 +1,19 @@
 /* ------------------------------------------------------------------ *
  * ligase.js — what a ligase actually needs to see at a junction.
  *
- * Registers:   register   blunt -> sticky -> sealed -> gap   (4 steps)
+ * Registers:   register   blunt -> 1 nt -> sticky -> sealed -> gap
+ *                                                          (5 steps)
  *
  * The argument, one click each:
  *   1. blunt ends: two molecules with NOTHING holding them together
- *   2. sticky ends: four base pairs hold them in register; what is left
+ *   2. a one-base overhang, which is WORSE than blunt — the claim is
+ *      non-monotonic and it is the one thing here a student cannot
+ *      picture, so it gets the same geometry as its two neighbours and
+ *      sits between them, where the comparison is unavoidable
+ *   3. sticky ends: four base pairs hold them in register; what is left
  *      is a NICK in each strand
- *   3. ligase seals both nicks; two molecules become one
- *   4. remove a single base and it is a GAP, not a nick — ligase cannot
+ *   4. ligase seals both nicks; two molecules become one
+ *   5. remove a single base and it is a GAP, not a nick — ligase cannot
  *      bridge it, a polymerase has to fill it first
  *
  * Level of iconography: LETTERS. Position is the whole point here —
@@ -93,6 +98,7 @@ const CUT_B = bnd(6);                   /* 768 — the blunt cut         */
 const NICK_T = bnd(5);                  /* 696 — top nick              */
 const NICK_B = bnd(9);                  /* 984 — bottom nick           */
 const GAP_R  = bnd(6);                  /* 768 — right of the 1nt gap  */
+const ONE_B  = bnd(6);                  /* 768 — bottom break, 1 nt case */
 
 const STEPS = [
 { s: mk(SEP, 7, 7,
@@ -102,6 +108,14 @@ const STEPS = [
   call:  "nothing is holding them together",
   note: "Start with the hard case. These are two blunt-cut molecules, and there is literally nothing between them — no base pairing, no hydrogen bonds, nothing that holds one end against the other. They find each other by collision, and the only thing that keeps them together long enough for chemistry to happen is the ligase itself. That is why a blunt ligation wants more enzyme, more DNA, a longer and colder incubation, and often a crowding agent such as PEG. Blunt ligation is not forbidden — it works — it is just enormously less efficient, and when a blunt ligation gives you no colonies, this picture is the reason.",
   desc: "Two separate double-stranded DNAs drawn as two rows of letters, each cut straight across, with a wide empty space between them. Neither strand is continuous across the space." },
+
+{ s: mk(0, 6, 7,
+        [LEFTX, NICK_T-HALF, NICK_T+HALF, RIGHTX,
+         LEFTX, ONE_B-HALF, ONE_B+HALF, RIGHTX], 1),
+  label: "a one-base overhang — worse than blunt",
+  call:  "1 base pair, and it is in the way",
+  note: "Before the good case, the worst one. Give those same two molecules a single-base overhang instead of a clean blunt end. You would expect one base pair to be better than none — a little bit of holding on is still holding on — and it is not. It is worse than blunt. One pair is far too weak to hold two molecules end to end for any useful length of time, so you get none of the benefit of annealing, and meanwhile that unpaired base has to be accommodated at the junction, so you have lost the one thing a blunt end had going for it, which is that both ends were flat and ready. Efficiency is not monotonic in overhang length. It falls from four to two, hits its floor at one, and comes back up at zero. Single-base overhangs are worth knowing about because you make them by accident — a polymerase that adds a non-templated A, a partial fill-in — and then the ligation that should have worked does not.",
+  desc: "The two molecules have moved together but overlap by only a single column. One vertical tick marks the single base pair between them, coloured blue. Each strand is still broken, and the two breaks are only one column apart." },
 
 { s: mk(0, 6, 10,
         [LEFTX, NICK_T-HALF, NICK_T+HALF, RIGHTX,
@@ -202,7 +216,7 @@ window.Deck.sequence("register", function(slide){
 
   /* Everything that is a colour or a mark rather than a position. */
   function decorate(i){
-    sealed = (i === 2);
+    sealed = (i === 3);
     r.lab.textContent  = STEPS[i].label;
     r.call.textContent = STEPS[i].call || "";
     r.call.setAttribute("opacity", STEPS[i].call ? "1" : "0");
@@ -211,7 +225,14 @@ window.Deck.sequence("register", function(slide){
       bl[k].setAttribute("fill", INK);
     }
     let a = "";
+    /* the lone base pair: same rung, same colour as the four that come
+       next, so the only difference the eye can find is how many */
     if (i === 1){
+      tl[6].setAttribute("fill", SLATE);
+      bl[6].setAttribute("fill", SLATE);
+      a += '<path d="M'+cx(6)+' '+RUNG0+'V'+RUNG1+'" stroke="'+SLATE+'" stroke-width="3"/>';
+    }
+    if (i === 2){
       for (let k = 6; k <= 9; k++){
         tl[k].setAttribute("fill", SLATE);
         bl[k].setAttribute("fill", SLATE);
@@ -220,11 +241,11 @@ window.Deck.sequence("register", function(slide){
       a += endlab(NICK_T - HALF - 8, "3&#8242;-OH", "end",   SLATE) +
            endlab(NICK_T + HALF + 8, "5&#8242;-P",  "start", SLATE);
     }
-    if (i === 2){
+    if (i === 3){
       a += '<path d="M'+NICK_T+' '+(YTB-14)+'V'+(YTB+14)+'" stroke="'+RED+'" stroke-width="4.6"/>' +
            '<path d="M'+NICK_B+' '+(YBB-14)+'V'+(YBB+14)+'" stroke="'+RED+'" stroke-width="4.6"/>';
     }
-    if (i === 3){
+    if (i === 4){
       bl[6].setAttribute("fill", RED);
       a += '<path d="M'+cx(6)+' '+RUNG0+'V'+RUNG1+'" stroke="'+RED+'" stroke-width="3" ' +
              'stroke-dasharray="7 7"/>';
