@@ -32,8 +32,16 @@ const X0=(1600-(N-1)*188)/2;
 const HOLD_OFF=1.2, HOLD_ON=1.5;
 const CYCLE=HOLD_OFF+HOLD_ON;
 
-const role=()=>Array.from({length:N},(_,i)=>
-  ({bb:"hot", base: SITE.indexOf(i)>=0 ? "hot" : "bg"}));
+/* Backbone AND base go red across GATC and grey either side, so the red
+   region is exactly the four base pairs. Leaving the flanking backbone
+   red would have claimed those nucleotides are required, and by the test
+   this deck uses -- swap it for something else and ask whether the
+   reaction still happens -- they are not: Dam reads four bases and does
+   not care what abuts them. */
+const role=()=>Array.from({length:N},(_,i)=>{
+  const on = SITE.indexOf(i) >= 0;
+  return {bb: on ? "hot" : "bg", base: on ? "hot" : "bg"};
+});
 
 /* The methyl is drawn at atom scale, which is honest -- it really is one
    carbon among a hundred -- but on the one slide that exists to be about

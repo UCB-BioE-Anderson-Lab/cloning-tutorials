@@ -99,6 +99,14 @@ const NICK_T = bnd(5);                  /* 696 — top nick              */
 const NICK_B = bnd(9);                  /* 984 — bottom nick           */
 const GAP_R  = bnd(6);                  /* 768 — right of the 1nt gap  */
 const ONE_B  = bnd(6);                  /* 768 — bottom break, 1 nt case */
+/* The one-base case is drawn APART, like blunt and unlike sticky. Drawn
+   annealed it read as "closer together than blunt", which is the exact
+   opposite of the claim it exists to make. Two molecules that are not
+   holding on to each other should look like two molecules that are not
+   holding on to each other, and the single overhanging base then reads
+   as what it is: not a grip, just something in the way. 60 is the
+   smallest pull that keeps the two overhangs clear of one another. */
+const SEP1 = 60;
 
 const STEPS = [
 { s: mk(SEP, 7, 7,
@@ -109,13 +117,13 @@ const STEPS = [
   note: "Start with the hard case. These are two blunt-cut molecules, and there is literally nothing between them — no base pairing, no hydrogen bonds, nothing that holds one end against the other. They find each other by collision, and the only thing that keeps them together long enough for chemistry to happen is the ligase itself. That is why a blunt ligation wants more enzyme, more DNA, a longer and colder incubation, and often a crowding agent such as PEG. Blunt ligation is not forbidden — it works — it is just enormously less efficient, and when a blunt ligation gives you no colonies, this picture is the reason.",
   desc: "Two separate double-stranded DNAs drawn as two rows of letters, each cut straight across, with a wide empty space between them. Neither strand is continuous across the space." },
 
-{ s: mk(0, 6, 7,
-        [LEFTX, NICK_T-HALF, NICK_T+HALF, RIGHTX,
-         LEFTX, ONE_B-HALF, ONE_B+HALF, RIGHTX], 1),
+{ s: mk(SEP1, 6, 7,
+        [LEFTX-SEP1, NICK_T-SEP1, NICK_T+SEP1, RIGHTX+SEP1,
+         LEFTX-SEP1, ONE_B-SEP1,  ONE_B+SEP1,  RIGHTX+SEP1], 1),
   label: "a one-base overhang — worse than blunt",
-  call:  "1 base pair, and it is in the way",
-  note: "Before the good case, the worst one. Give those same two molecules a single-base overhang instead of a clean blunt end. You would expect one base pair to be better than none — a little bit of holding on is still holding on — and it is not. It is worse than blunt. One pair is far too weak to hold two molecules end to end for any useful length of time, so you get none of the benefit of annealing, and meanwhile that unpaired base has to be accommodated at the junction, so you have lost the one thing a blunt end had going for it, which is that both ends were flat and ready. Efficiency is not monotonic in overhang length. It falls from four to two, hits its floor at one, and comes back up at zero. Single-base overhangs are worth knowing about because you make them by accident — a polymerase that adds a non-templated A, a partial fill-in — and then the ligation that should have worked does not.",
-  desc: "The two molecules have moved together but overlap by only a single column. One vertical tick marks the single base pair between them, coloured blue. Each strand is still broken, and the two breaks are only one column apart." },
+  call:  "still nothing holding them, and now something in the way",
+  note: "Before the good case, the worst one. Give those same two molecules a single-base overhang instead of a clean blunt end, so each one now has a single base hanging off it. You would expect that to beat nothing — a little bit of holding on is still holding on — and it does not. It is worse than blunt. Look at where they are: exactly as far apart as they were a moment ago. One base pair, on the occasions it forms at all, is far too weak to hold two molecules end to end for any useful length of time, so you get none of the benefit of annealing. And you have given up the one thing the blunt end had going for it, which was that both ends were flat and ready to be joined; now there is a base in the way. Efficiency is not monotonic in overhang length. It falls as the overhang shortens, hits its floor at one, and comes back up at zero. This is worth knowing because you make single-base overhangs by accident — a polymerase that adds a non-templated A, a partial fill-in — and then the ligation that should have worked does not.",
+  desc: "The two molecules are still as far apart as they were in the blunt frame. Each now carries one unpaired base hanging off it toward the other, coloured blue: one on the bottom strand of the left molecule, one on the top strand of the right. Nothing pairs across the gap." },
 
 { s: mk(0, 6, 10,
         [LEFTX, NICK_T-HALF, NICK_T+HALF, RIGHTX,
@@ -225,12 +233,13 @@ window.Deck.sequence("register", function(slide){
       bl[k].setAttribute("fill", INK);
     }
     let a = "";
-    /* the lone base pair: same rung, same colour as the four that come
-       next, so the only difference the eye can find is how many */
+    /* the two lone overhang bases: same blue as the four that pair on the
+       next click, so the only difference the eye has to find is that
+       these two are not reaching anything. No rung, because nothing is
+       paired -- a rung here would draw the grip the beat denies. */
     if (i === 1){
       tl[6].setAttribute("fill", SLATE);
       bl[6].setAttribute("fill", SLATE);
-      a += '<path d="M'+cx(6)+' '+RUNG0+'V'+RUNG1+'" stroke="'+SLATE+'" stroke-width="3"/>';
     }
     if (i === 2){
       for (let k = 6; k <= 9; k++){
