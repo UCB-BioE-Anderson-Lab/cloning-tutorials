@@ -669,4 +669,171 @@ window.Deck.sequence("homrec", function(slide){
   return driver(r, KEYS, paint, S);
 });
 
+
+/* ================================================================== *
+ * 5.  holliday — the mechanism under the double crossover.
+ *
+ * The previous slide shows the OUTCOME: a middle gets replaced. This
+ * one shows how a single crossover is actually made, because the answer
+ * is the one piece of DNA geometry in the lecture that cannot be got
+ * from a cartoon of two boxes swapping.
+ *
+ * Drawn at STRAND level, four lines, and the two molecules keep their
+ * colours the whole way through. That is the entire reason the diagram
+ * works: after the exchange you can see which strand came from which
+ * parent, so heteroduplex is visible as a duplex with one line of each
+ * colour, and a crossover is visible as an arm that changed colour.
+ *
+ * The lower duplex is drawn flipped, so that the two strands which
+ * exchange -- the two of LIKE polarity, one from each molecule -- are
+ * the adjacent pair. That is the standard convention and it is not
+ * cosmetic: strands of opposite polarity cannot swap.
+ * ================================================================== */
+const JXL = 300, JXR = 1300, JXN = 690, JXM = 950;
+const JY0 = 388, JY1 = 440, JY2 = 556, JY3 = 608;
+const JW = 5, JBARB = 22;
+
+/* one strand segment; barb marks a 3' end at the given tip */
+function jseg(x0, x1, y, col, barb, out){
+  if (Math.abs(x1-x0) < 1) return "";
+  let g = '<path d="M'+n2(x0)+' '+n2(y)+'H'+n2(x1)+'" fill="none" stroke="'+col+
+          '" stroke-width="'+JW+'" stroke-linecap="round"/>';
+  if (barb){
+    const tip = barb > 0 ? x1 : x0;
+    g += '<path d="M'+n2(tip - barb*JBARB)+' '+n2(y + out*13)+'L'+n2(tip)+' '+n2(y)+
+         '" fill="none" stroke="'+col+'" stroke-width="'+JW+'" stroke-linecap="round"/>';
+  }
+  return g;
+}
+/* The crossing has to be wide enough to read AS a crossing. At +-20 over
+   a 116-unit drop the two strands met in a pinch you could mistake for a
+   kink, which loses the one thing the frame exists to show. */
+const JDX = 52;
+function jdiag(x, y0, y1, col){
+  return '<path d="M'+n2(x-JDX)+' '+n2(y0)+'C'+n2(x-JDX*0.35)+' '+n2(y0)+' '+
+         n2(x+JDX*0.35)+' '+n2(y1)+' '+n2(x+JDX)+' '+n2(y1)+
+         '" fill="none" stroke="'+col+'" stroke-width="'+JW+'" stroke-linecap="round"/>';
+}
+function jcut(x, y, col){
+  return '<g stroke="'+col+'" stroke-width="4" stroke-linecap="round">' +
+         '<path d="M'+n2(x-15)+' '+n2(y-17)+'L'+n2(x+15)+' '+n2(y+17)+'"/>' +
+         '<path d="M'+n2(x+15)+' '+n2(y-17)+'L'+n2(x-15)+' '+n2(y+17)+'"/></g>';
+}
+
+/* the junction itself, at whatever stage the state says */
+function jJunction(s){
+  const g0 = 13*s.nick;                       /* the two nicks opening   */
+  const xc = JXN + (JXM - JXN)*s.mig;         /* where the branch is now */
+  const c  = s.cross;
+  let g = "";
+  /* the two outer strands are untouched all the way through */
+  g += jseg(JXL, JXR, JY0, INK,  +1, -1);
+  g += jseg(JXL, JXR, JY3, BLUE, +1, +1);
+
+  if (c < 0.02){
+    /* before the exchange: two straight inner strands, nicked in place */
+    g += jseg(JXL, JXN - g0, JY1, INK,  -1, +1) + jseg(JXN + g0, JXR, JY1, INK,  0, 0);
+    g += jseg(JXL, JXN - g0, JY2, BLUE, -1, -1) + jseg(JXN + g0, JXR, JY2, BLUE, 0, 0);
+  } else {
+    /* after it: each inner strand keeps its colour and changes level */
+    g += jseg(JXL, xc - JDX, JY1, INK,  -1, +1) + jdiag(xc, JY1, JY2, INK)  +
+         jseg(xc + JDX, JXR, JY2, INK, 0, 0);
+    g += jseg(JXL, xc - JDX, JY2, BLUE, -1, -1) + jdiag(xc, JY2, JY1, BLUE) +
+         jseg(xc + JDX, JXR, JY1, BLUE, 0, 0);
+  }
+  return g;
+}
+
+/* the two ways it can be cut, and what each leaves behind */
+function jProduct(splice, s){
+  const xc = JXN + (JXM - JXN)*s.mig;
+  let g = "";
+  if (!splice){
+    /* the crossed strands were cut: each molecule keeps its own outer
+       strands, so the flanks are parental and all that is left is a
+       stretch of heteroduplex past the branch point */
+    g += jseg(JXL, JXR, JY0, INK, +1, -1);
+    g += jseg(JXL, xc, JY1, INK, -1, +1) + jseg(xc, JXR, JY1, BLUE, 0, 0);
+    g += jseg(JXL, xc, JY2, BLUE, -1, -1) + jseg(xc, JXR, JY2, INK, 0, 0);
+    g += jseg(JXL, JXR, JY3, BLUE, +1, +1);
+  } else {
+    /* the uncrossed strands were cut: the arms trade, so each molecule
+       is one parent to the left of the branch and the other to the right */
+    g += jseg(JXL, xc, JY0, INK, 0, 0)  + jseg(xc, JXR, JY0, BLUE, +1, -1);
+    g += jseg(JXL, xc, JY1, INK, -1, +1) + jseg(xc, JXR, JY1, BLUE, 0, 0);
+    g += jseg(JXL, xc, JY2, BLUE, -1, -1) + jseg(xc, JXR, JY2, INK, 0, 0);
+    g += jseg(JXL, xc, JY3, BLUE, 0, 0) + jseg(xc, JXR, JY3, INK, +1, +1);
+  }
+  return g;
+}
+
+function hollScene(s){
+  const res = Math.max(s.resA, s.resB);
+  const xc  = JXN + (JXM - JXN)*s.mig;
+  let g = "";
+
+  g += fade(1 - smooth(res, 0.42, 0.78), jJunction(s));
+  g += fade(smooth(s.resA, 0.55, 1), jProduct(false, s));
+  g += fade(smooth(s.resB, 0.55, 1), jProduct(true,  s));
+
+  /* the cut marks, on whichever pair this resolution takes */
+  const flash = smooth(res, 0.04, 0.22) * (1 - smooth(res, 0.34, 0.56));
+  if (flash > 0.004){
+    const onCrossed = s.resB < 0.02;
+    g += fade(flash, onCrossed
+      ? jcut(xc - 66, JY1, VERM) + jcut(xc + 66, JY2, VERM)
+      : jcut(xc - 66, JY0, VERM) + jcut(xc + 66, JY3, VERM));
+  }
+
+  g += label(JXL - 16, JY0 + 34, "chromosome", 23, MUTED, "end");
+  g += label(JXL - 16, JY3 - 22, "donor", 23, MUTED, "end");
+  /* the nicks are the one thing worth pointing at while they are the news */
+  g += fade(smooth(s.nick, 0.4, 1) * (1 - s.cross),
+            label(JXN, JY1 - 26, "nick", 23, VERM, "middle", 700) +
+            label(JXN, JY2 + 40, "nick", 23, VERM, "middle", 700));
+  g += fade(s.cross * (1 - res),
+            label(xc, JY0 - 34, "Holliday junction", 25, VERM, "middle", 700));
+  return g;
+}
+
+window.Deck.sequence("holliday", function(slide){
+  const svg = makeSvg('<g data-r="dyn"></g>');
+  slide.appendChild(svg);
+  const r = {};
+  svg.querySelectorAll("[data-r]").forEach(el => r[el.getAttribute("data-r")] = el);
+  const KEYS = ["nick","cross","mig","resA","resB"];
+  function paint(s){
+    r.dyn.innerHTML = hollScene({
+      nick:clamp01(s.nick), cross:clamp01(s.cross), mig:clamp01(s.mig),
+      resA:clamp01(s.resA), resB:clamp01(s.resB) });
+  }
+  const S = [
+    { s:{nick:0,cross:0,mig:0,resA:0,resB:0},
+      cap:"two homologous duplexes, side by side", sub:"four strands, and the colours say which molecule each came from",
+      note:"Now go one level down, because the box swapping on the last slide is the outcome and not the mechanism. Here are the two molecules at strand level: the chromosome in black, the donor in blue, four strands in total. Keep the colours in mind, because they are what makes the rest of this readable — at the end you will be able to see which strand came from which parent. One drawing convention before we start: the lower duplex is drawn flipped, so that the two strands nearest each other are the two of the same polarity. That is not cosmetic. Strands of opposite polarity cannot be swapped, so the pair that exchanges has to be that pair.",
+      desc:"Four horizontal strands: an upper duplex in black, a lower duplex in blue, each strand carrying a half barb at its 3-prime end. The lower duplex is drawn inverted so the two inner strands run in the same direction." },
+    { s:{nick:1,cross:0,mig:0,resA:0,resB:0},
+      cap:"one nick in each, at the same position", sub:"the two inner strands — the pair of like polarity",
+      note:"It starts with a nick in each molecule, in the two strands of like polarity, at the same position. In a real cell this is not two tidy nicks placed for you — it starts from a double-strand break, or a stalled fork, and a resected end goes looking for a partner — but the geometry that follows is the same, and this is the version that shows it.",
+      desc:"A small gap opens in each of the two inner strands at the same x position, each labelled nick in red." },
+    { s:{nick:1,cross:1,mig:0,resA:0,resB:0},
+      cap:"the nicked strands change places", sub:"each one crosses over and pairs with the other molecule",
+      note:"Each nicked strand leaves its own partner and pairs with the other duplex instead, and the ends are sealed. Look at what has been built: a single point where all four strands meet, with two of them crossing. That is the Holliday junction. Nothing has been exchanged yet in any way you could detect by sequencing — the two molecules are simply joined.",
+      desc:"Each inner strand now crosses to the other duplex at the nick position and continues along it, keeping its own colour. The crossing point is labelled Holliday junction." },
+    { s:{nick:1,cross:1,mig:1,resA:0,resB:0},
+      cap:"the branch migrates", sub:"past it, every duplex has one strand of each colour — that is heteroduplex",
+      note:"And the junction is not fixed. It slides, because unzipping one base pair on one side and forming the equivalent one on the other side costs nothing — that is branch migration. Watch what it leaves behind it. To the right of the branch point, each duplex now has one black strand and one blue one. That is heteroduplex: a duplex whose two strands came from different molecules. If the parents differ anywhere in that stretch, the cell is now holding mismatches, and how it repairs them decides what the sequence ends up being. That is where gene conversion comes from.",
+      desc:"The crossing point slides to the right. Everywhere to the right of it, each duplex is drawn with one black strand and one blue strand." },
+    { s:{nick:1,cross:1,mig:1,resA:1,resB:0},
+      cap:"resolve it by cutting the two crossed strands", sub:"the flanks stay with their own molecule — no crossover",
+      note:"Now it has to be taken apart, and there are exactly two ways to cut it. Cut the two strands that cross — the ones that made the junction — and you undo what you did. The molecules come apart with their own flanking arms still attached, so nothing outside the junction has been exchanged. All that is left of the whole event is that patch of heteroduplex. This is the non-crossover outcome, and it is the more common one.",
+      desc:"Red cut marks appear on the two crossed strands, and the molecules separate. Each keeps its own outer strands, so the flanks are the parental colours, with a stretch of heteroduplex to the right of the branch point." },
+    { s:{nick:1,cross:1,mig:1,resA:0,resB:1},
+      cap:"or cut the other two — and the arms trade", sub:"black on the left, blue on the right: this is a crossover",
+      note:"Or cut the other pair, the two strands that did not cross. Same junction, same enzyme, one plane of cutting rotated ninety degrees, and now look at the products: each molecule is black on one side of the branch point and blue on the other. The arms have been exchanged. That is a crossover, and it is the outcome the last slide was drawing as boxes trading places. One junction gives you one crossover. Put a homology arm on each side of your cassette and you get two of them, one in each arm, and everything between them is replaced. That is the whole of gene targeting, recombineering and yeast assembly, and it is all this picture, twice.",
+      desc:"The cut marks move to the two uncrossed outer strands. The products are each black to the left of the branch point and blue to the right, and the reverse: the flanking arms have been exchanged." }
+  ];
+  return driver(r, KEYS, paint, S);
+});
+
 })();
