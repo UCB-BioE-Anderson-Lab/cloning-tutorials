@@ -13,10 +13,12 @@
  *   blue   the T7 system   (the polymerase, its gene, its promoter,
  *                           the transcript it makes)
  *   amber  the lac system  (both operators, LacI, the lacI gene)
- *   red    IPTG            (the one thing you add)
+ *   red    the payload     (the gene, and the protein it becomes)
  * Two colours for two circuits is the whole content of the picture, so
- * they carry it, and the payload stays plain ink because it is the one
- * part you swap.
+ * they carry it. The gene and its product share the third colour, which
+ * is the point of the last beat: what fills the cell is what you put on
+ * the plasmid. IPTG is red too while it is the subject of its own beat,
+ * and clears out as the protein arrives so the two never share the cell.
  * ------------------------------------------------------------------ */
 (function(){
 "use strict";
@@ -95,7 +97,7 @@ function scene(s){
        bar(PT7[0], PT7[1], RING.y, 20, BLUE) +
        txt((PT7[0]+PT7[1])/2, RING.y-30, "P<tspan font-size='20'>T7</tspan>", 26, INK, 700) +
        bar(LACO[0], LACO[1], RING.y, 20, AMBER) +
-       box(INSB[0], INSB[1], RING.y, 48, "#fff", INK, "INS", INK) +
+       box(INSB[0], INSB[1], RING.y, 48, VERM, VERM, "INS", "#fff") +
        box(LACIG[0], LACIG[1], RING.y+RING.h, 46, AMBER, AMBER, "lacI", INK) +
        txt(RING.x-16, RING.y+RING.h/2+10, "pET", 27, MUTED, 700, "end");
 
@@ -113,9 +115,11 @@ function scene(s){
     const pts = [[430,470],[470,700],[1160,470],[1130,700]];
     let d = "";
     for (const p of pts) d += blob(p[0], p[1], 12, VERM);
-    g += fade(iptg, d + txt(800, 848, "", 24));
-    g += fade(iptg * (1 - smooth(s.prot, 0, 0.5)),
-              txt(430, 442, "IPTG", 25, VERM, 700));
+    /* IPTG clears out as the protein comes in. It has done its job, and
+       leaving it there would put two unrelated red things in one cell on
+       the beat whose whole point is that the cell fills with ONE thing. */
+    const spent = 1 - smooth(s.prot, 0, 0.55);
+    g += fade(iptg * spent, d + txt(430, 442, "IPTG", 25, VERM, 700));
   }
 
   /* ---- the polymerase is made, finds P(T7), and transcribes ---- */
@@ -137,7 +141,7 @@ function scene(s){
     let d = "";
     spots.forEach(function(p, i){
       const o = smooth(s.prot, i*0.045, i*0.045 + 0.4);
-      if (o > 0.004) d += fade(o, blob(p[0], p[1], 17, INK));
+      if (o > 0.004) d += fade(o, blob(p[0], p[1], 17, VERM));
     });
     g += d;
     g += fade(smooth(s.prot, 0.55, 1), txt(800, 838, "insulin &#8212; and now you purify it", 28, VERM, 700));
