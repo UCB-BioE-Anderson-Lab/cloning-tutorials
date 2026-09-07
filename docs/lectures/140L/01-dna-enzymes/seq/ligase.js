@@ -138,7 +138,7 @@ const STEPS = [
          LEFTX, NICK_B, NICK_B, RIGHTX], 1),
   label: "ligase seals both nicks, one molecule",
   call:  "2 bonds, 2 ATP",
-  note: "That is the substrate. At each nick a 3' hydroxyl and a 5' phosphate sit directly against one another with nothing in between. Be exact about the direction: the phosphate that ends up in the new bond is the one already sitting on the downstream 5' end, and the upstream 3' hydroxyl is the nucleophile that attacks it. Ligase spends one ATP to make that happen: it adenylylates itself, hands the AMP to the 5' phosphate to activate it, and the 3' hydroxyl then attacks and displaces the AMP. Two nicks, two bonds, two ATP, and the two molecules are one molecule. That ATP dependence is practical, not trivia: buffer that has been thawed twenty times has no usable ATP left in it, and a ligation in dead buffer fails silently.",
+  note: "That is the substrate. At each nick a 3' hydroxyl and a 5' phosphate sit directly against one another with nothing in between. Be exact about the direction: the phosphate that ends up in the new bond is the one already sitting on the downstream 5' end, and the upstream 3' hydroxyl is the nucleophile that attacks it. Ligase spends one ATP to make that happen: it adenylylates itself, hands the AMP to the 5' phosphate to activate it, and the 3' hydroxyl then attacks and displaces the AMP. Two nicks, two bonds, two ATP, and the two molecules are one molecule.",
   desc: "Both breaks close. Both strands now run continuously from one end to the other as a single molecule, with a half barb only at the two true 3-prime ends. Two short red marks show where the new bonds were made." },
 
 { s: mk(0, 6, 10,
@@ -325,7 +325,7 @@ const NS_STEPS = [
   { s:{an:1, seal:0},
     label:"annealing puts them in register, two nicks",
     call:"the ligase did none of this",
-    note:"They anneal, head to tail, along that strand. Look at what the annealing has done: the three oligos are now butted end to end, in frame, held there by the strand underneath. What is left between them is two nicks: a three prime hydroxyl and a five prime phosphate sitting directly against one another with a continuous duplex on the other side. That is the substrate. And notice who did the work of bringing them together. Base pairing did. The ligase is not in the room yet.",
+    note:"They anneal, head to tail, along that strand. Look at what the annealing has done: the three oligos are now butted end to end, in frame, held there by the strand underneath. What is left between them is two nicks, in the sense you now know: the two ends abutting, with the strand underneath holding them there. That is the substrate. And notice who did the work of bringing them together. Base pairing did. The ligase is not in the room yet.",
     desc:"The three oligos drop into place along the lower strand, butted end to end, leaving two small breaks between them. The junctions are now nicks in an otherwise continuous duplex." },
   { s:{an:1, seal:1},
     label:"two nicks, two bonds, one strand",
