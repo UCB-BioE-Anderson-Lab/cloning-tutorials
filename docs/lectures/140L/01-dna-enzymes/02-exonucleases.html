@@ -27,7 +27,7 @@
 <article class="slide" data-bg="section">
   <h1>Exonucleases</h1>
   <p>Cuts from an <strong>end</strong>, not in the middle, so an intact circle is immune.</p>
-  <template class="notes">Exonucleases degrade a DNA from its ends. Thus a circular and undamaged DNA molecule is immune to the action of these enzymes. There are a large number of enzymes that are non-specific exonucleases and can be used to degrade DNA in an RNA sample. Others will also degrade RNA.</template>
+  <template class="notes">Exonucleases degrade DNA from its ends, and that single fact does most of the work in this section. A circular molecule with no nick in it has no ends at all, so it is simply immune, which is why an undamaged plasmid survives a treatment that destroys everything linear in the tube. Many of them are non-specific, which is what makes them useful for clearing DNA out of an RNA prep, and some will take RNA as well.</template>
   <template class="desc">Section divider: Exonucleases. The lede says they cut from an end rather than in the middle, so an intact circle is immune.</template>
 </article>
 
@@ -62,7 +62,7 @@
   <h1 class="small">More-useful Exonucleases</h1>
   <ul class="tight"><li>Left to right, the columns <em>are</em> the four questions</li></ul>
   <figure class="fig"><img src="img/neb-exonucleases.png" alt="New England Biolabs table of exonuclease properties: polarity, activity on single- and double-stranded DNA, and the products released"><figcaption>Adapted from the NEB properties-of-exonucleases table</figcaption></figure>
-  <template class="notes">There is extensive diversity within the exonucleases about what types of ends they’ll initiate on and which direction they will go. This chart is from NEB, and you can look up these details if the need for an Exo ever crops up. Read it as the four questions in order: polarity is the direction; then single- or double-stranded substrate; then whether it still works without a five prime phosphate; then the four kinds of end it will initiate on. Two rows to keep an eye on. Lambda Exo is the one that is fussy about the five prime phosphate. Exonuclease I is single-strand only, a plus under ss and a minus under ds, and we will use that in a minute.</template>
+  <template class="notes">This chart is NEB’s, and its columns are the four questions in the order we just took them. You do not have to memorise any of it. You have to know it exists and how to read a row. Two rows to keep an eye on. Lambda Exo is the one that is fussy about the five prime phosphate. Exonuclease I is single-strand only, a plus under ss and a minus under ds, and we will use that in a minute.</template>
   <template class="desc">A reference table of exonucleases from New England Biolabs, with columns for polarity, activity on single- and double-stranded DNA, and the products each releases.</template>
 </article>
 
@@ -192,13 +192,13 @@
 3&rsquo;-gaagc<span class="site">C</span>        +         <span class="site">G</span>cgaccgtct&hellip;-5&rsquo;</pre>
 
   <div class="step" data-build="3"
-       data-note="And here is the point of the whole exercise, which you only see once you ligate. Put those two blunt ends back together and look at what you have: the BamHI site is gone. G-G-A-T-C-C is not there any more, and you cannot cut this molecule with BamHI again. Four base pairs have been deleted, which also means that if this was inside a coding sequence you have just shifted the reading frame. That is what blunting a restriction site means, and it is why people do it deliberately: to kill a site you do not want, or to join two ends that could never have ligated to each other while they were sticky."
+       data-note="And here is the point of the whole exercise, which you only see once you ligate. Put those two blunt ends back together and look at what you have: the BamHI site is gone. G-G-A-T-C-C is not there any more, and you cannot cut this molecule with BamHI again. Four base pairs have been deleted, which also means that if this was inside a coding sequence you have just shifted the reading frame. That is what blunting a restriction site means, and it is why people do it deliberately: to kill a site you do not want, or to join two ends that could never have ligated to each other while they were sticky. Both are sometimes exactly what you want. Neither is optional, so decide before you do it."
        data-desc="On the third click the two blunt fragments have been ligated back together into one molecule. The junction now reads GC where GGATCC used to be: the BamHI site is destroyed and four base pairs are gone."><span class="arrow">&darr;</span> T4 DNA Ligase; any blunt end joins any other</div>
   <pre class="dna" data-build="3">5&rsquo;-cttcg<span class="mut">GC</span>gctggcaga&hellip;-3&rsquo;
 3&rsquo;-gaagc<span class="mut">CG</span>cgaccgtct&hellip;-5&rsquo;</pre>
   <p data-build="3" style="margin-top:18px"><strong>The BamHI site is gone</strong>, and four base pairs with it</p>
   </div>
-  <template class="notes">A very traditional use of a single-strand-specific nuclease, and the reason to walk it all the way to the end. Mung bean nuclease cleaves single-stranded DNA exclusively, so given a sticky end it removes the overhang and leaves blunt. That is useful on its own. A blunt end will ligate to any other blunt end, so you can join two fragments that had incompatible sticky ends and could never have found each other. But look at what it costs, which is the part students miss until they have done it: religate the blunted ends and the recognition site has been destroyed. GGATCC is now GC. You cannot cut it again, and you are four base pairs short, so in a coding region the frame has shifted. Both of those are sometimes exactly what you want, killing an unwanted site is a real technique, but neither is optional, so decide before you do it.</template>
+  <template class="notes">A very traditional use of a single-strand-specific nuclease, and worth walking all the way to the end, because what it costs you only shows up on the last click.</template>
   <template class="desc">A BamHI site inside a longer sequence, written as letters. Three clicks: BamHI cuts it to leave four-base 5-prime overhangs; mung bean nuclease trims those single-stranded overhangs off to leave blunt ends; and T4 ligase joins the blunt ends back together, leaving GC where GGATCC used to be. The BamHI site is destroyed and four base pairs are lost.</template>
 </article>
 
