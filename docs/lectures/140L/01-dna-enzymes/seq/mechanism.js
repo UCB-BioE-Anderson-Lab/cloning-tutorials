@@ -144,13 +144,13 @@ const F=[
   desc:"A phosphodiester drawn on its own, with no reaction under way: phosphorus at the centre, an oxygen tethered out to a sugar on each side, one double-bonded oxygen and one anionic oxygen." },
 
 { cap:"1 &nbsp;Water attacks the phosphorus",
-  sub:"water itself, not hydroxide; at pH 7 there is almost no hydroxide to wait for",
+  sub:"it comes in directly opposite the bond that is going to break",
   who:"a lone pair on the oxygen makes the new bond",
   draw:function(){
     return centre({rightDouble:1,leaving:1}) + nucleophile({nucH:2,lp:1}) +
            arrow(pairAt(AXU,90,40),[P[0]-6,P[1]-46],54,RED);
   },
-  note:"The first of the three: hydrolysis, with no enzyme anywhere. Think about what is happening in the tube. Everything is jostling, colliding millions of times a second, and almost every collision does nothing. Every so often a water arrives at the phosphorus with a lone pair pointed the right way, and those two electrons drop into an empty orbital. The angle matters: the attack comes in along the line of the bond that will break, from the opposite side, because the orbital those electrons enter is that bond’s antibonding orbital. Fill it and the bond weakens. And notice what is attacking. Water, not hydroxide. At pH seven there is one ten-millionth molar hydroxide, so nothing is waiting around as hydroxide; water attacks as water and the protons sort themselves out. One caveat before we go on. I am drawing this as four tidy frames so you can follow the electrons, but do not read the order too literally. The proton moves can happen alongside the attack or alongside the departure, and how concerted the whole thing is varies. The frames are bookkeeping, not a stopwatch.",
+  note:"The first of the three: hydrolysis, with no enzyme anywhere. Everything in the tube is jostling and colliding, and almost every collision does nothing. Every so often a water arrives at the phosphorus with a lone pair pointed the right way, and those electrons drop into an empty orbital. Notice where it comes in: directly opposite the bond that is going to break. That geometry holds for every reaction today. And take these frames as bookkeeping rather than as a stopwatch. The proton transfers are messier than four tidy steps, and can happen alongside the attack or alongside the departure.",
   desc:"A phosphodiester with phosphorus at the centre: two oxygens tethered to sugars, one double-bonded oxygen and one anionic oxygen. A water molecule sits above on the axis opposite the leaving sugar, and a curved arrow runs from a lone pair on its oxygen to the phosphorus." },
 
 { cap:"2 &nbsp;Now that oxygen has three bonds",
@@ -163,7 +163,7 @@ const F=[
            arrow([AXU[0]+(H[0]-AXU[0])*0.60, AXU[1]+(H[1]-AXU[1])*0.60],
                  [AXU[0]+30,AXU[1]-24], -64, RED);
   },
-  note:"Count what is on the atoms. That oxygen now has three bonds, so it carries a positive charge, and the phosphorus is holding five things at once in a trigonal bipyramid. Whether that five-coordinate species has a real lifetime or is only the top of the hill differs from case to case, and for our purposes it does not matter. What matters is that the proton has to go somewhere, and where it goes is a neighbouring water. Two arrows: one from a lone pair on that second water to the hydrogen, one from the oxygen-hydrogen bond back onto its own oxygen, because a proton that leaves leaves its bonding electrons behind.",
+  note:"The bond has formed, so the phosphorus is briefly holding five things at once. Count what is on the attacking oxygen: three bonds, so it carries a positive charge, and that proton has to go somewhere. A neighbouring water takes it.",
   desc:"The new phosphorus-oxygen bond is drawn and the attacking oxygen now carries a plus sign. A second water molecule at the right has a curved arrow from its lone pair to one hydrogen of the attacking water, and a second arrow from that oxygen-hydrogen bond back onto its own oxygen." },
 
 { cap:"3 &nbsp;The bond to the leaving sugar breaks",
@@ -175,7 +175,7 @@ const F=[
            arrow(pairAt(ER,0,42),mid(P,ER),-46,RED) +
            arrow(mid(P,AXD),[AXD[0],AXD[1]-44],46,RED);
   },
-  note:"Now the leaving group. Two arrows again. One runs from a lone pair on the anionic oxygen into the phosphorus-oxygen bond, remaking the double bond, and that push is what displaces the sugar. The other runs from the phosphorus-to-leaving-oxygen bond onto that oxygen, so the sugar leaves with both electrons, as an alkoxide.",
+  note:"Now the leaving group. The double bond re-forms on the phosphate, and that push is what displaces the sugar, which leaves taking both electrons with it.",
   desc:"The attacking oxygen is now a neutral hydroxyl and the second water has become hydronium with a plus charge. Two curved arrows: one from a lone pair on the anionic oxygen into the phosphorus-oxygen bond, remaking the double bond, and one from the phosphorus to leaving-oxygen bond onto that oxygen." },
 
 { cap:"4 &nbsp;The alkoxide takes a proton back",
@@ -200,7 +200,7 @@ const F=[
     g+=arrow([W2[0]-4,W2[1]+62],[W2[0]+32,W2[1]+18],-54,RED);
     return g;
   },
-  note:"And the bookkeeping catches up. An alkoxide is a strong base and there is a hydronium sitting right there, so it takes a proton straight back. Follow the proton across the whole sequence and you will see the one the attacking water brought ends up on the sugar that left. The water network only moved it around.",
+  note:"And the bookkeeping catches up: the sugar that left takes a proton straight back. Follow it through and the proton the attacking water brought in ends up on the sugar that left. The water only moved it around.",
   desc:"The phosphate now carries a hydroxyl and its double bond is restored. The departed sugar is drawn at lower left as an alkoxide with a negative charge, and hydronium at the right. Two curved arrows: from a lone pair on the alkoxide to a hydrogen of the hydronium, and from that oxygen-hydrogen bond back onto its oxygen." },
 
 { cap:"The bond is gone, and the pieces are capped",
@@ -216,7 +216,7 @@ const F=[
     g+=lab(W2,"O",RED)+pair(W2,90,RED,34);
     return g;
   },
-  note:"There are the products. One piece keeps the phosphate and has gained a hydroxyl; the other is a sugar with a free hydroxyl. That is what every nuclease and every phosphatase in this lecture does: a phosphate end, a hydroxyl end, and the bond between them gone rather than moved. And it is nearly always the same bond, three prime oxygen to phosphorus, which is why the phosphate is left behind on the downstream piece: a five prime phosphate on one side of the break, a three prime hydroxyl on the other. Hold on to which end gets which. That single fact decides whether the pieces can be put back together.",
+  note:"There are the products. One piece keeps the phosphate and has gained a hydroxyl; the other is a sugar with a free hydroxyl. That is what every nuclease and every phosphatase in this lecture does: a phosphate end, a hydroxyl end, and the bond between them gone rather than moved. And it is nearly always the same bond, three prime oxygen to phosphorus, so you get a five prime phosphate on one side of the break and a three prime hydroxyl on the other. Hold on to which end gets which. That decides whether the pieces can be put back together.",
   desc:"The products: a phosphate bearing a hydroxyl and still tethered to one sugar, a separate sugar with a free hydroxyl, and a neutral water molecule. The bond between the two sugars is gone." }
 ,
 
@@ -230,7 +230,7 @@ const F=[
            lab(AXU,"O",RED) + pair(AXU,90,RED,34) +
            arrow(pairAt(AXU,90,40),[P[0]-6,P[1]-46],54,RED);
   },
-  note:"Same film, one substitution. Swap the water for an alcohol: here a sugar\u2019s three prime hydroxyl, ring greyed out because the ring is not the point. Same axis, opposite the bond that breaks, same lone pair, same arrow. Every step you just watched happens again exactly as it did, proton bookkeeping included: this oxygen picks up a positive charge at three bonds and loses its proton to the surrounding water. I will not draw those four frames again. Watch what is different at the end.",
+  note:"Same film, one substitution: an alcohol instead of water, here a sugar’s three prime hydroxyl, with the ring greyed out because the ring is not the point. Same axis, same lone pair, same arrow, and the same steps after it. Watch what is different at the end.",
   desc:"The same phosphodiester, with a sugar's 3-prime hydroxyl in place of water as the nucleophile. The ribose ring is drawn in grey. A curved arrow runs from a lone pair on its oxygen to the phosphorus, along the axis opposite the leaving sugar." },
 
 { cap:"The phosphate is handed on, not released",
