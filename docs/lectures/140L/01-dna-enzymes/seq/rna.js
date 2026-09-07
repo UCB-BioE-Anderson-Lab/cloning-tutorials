@@ -664,9 +664,13 @@ function vacPaint(r, s){
     r.pol.innerHTML =
       '<path d="'+rna(LNX0 + 100, Math.max(LNX0 + 126, px), RNY)+'" fill="none" stroke="'+
         SLATE+'" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+      /* fill="none", and it matters: t7pol is traced as OPEN contours, and
+         SVG closes an open path implicitly when it fills it. Every long
+         meandering outline was therefore filling as a pale wedge lying
+         across the protein and out past its edge. Stroke only. */
       '<g transform="translate('+n2(px - A.t7Cleft[0]*k)+' '+n2(LNY - A.t7Cleft[1]*k)+
-        ') scale('+n2(k)+')" fill="'+INK+'" fill-opacity="0.10" stroke="'+INK+
-        '" stroke-opacity="0.6" stroke-width="9" stroke-linecap="round" '+
+        ') scale('+n2(k)+')" fill="none" stroke="'+INK+
+        '" stroke-opacity="0.62" stroke-width="9" stroke-linecap="round" '+
         'stroke-linejoin="round">' + A.t7pol + '</g>' +
       (s.run > 0.96 ? vtx(LNX0 + 100 + 60, RNY + 40, "mRNA", SLATE, 22, 700, "start") : "");
   } else r.pol.innerHTML = "";
