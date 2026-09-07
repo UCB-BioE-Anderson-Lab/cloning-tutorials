@@ -388,9 +388,7 @@ function reaction(fwd, rev, unlock, t){
           label(800, 736, "attL = B&#183;P&#8242; and attR = P&#183;B&#8242; &#8212; neither one is attB, neither one is attP", 26, MUTED);
 
   const ro = smooth(rev, 0.25, 1);
-  /* the unlock lands early in its click, so the arrow has turned over
-     and been named before anything starts moving */
-  const u = smooth(unlock, 0, 0.18);
+  const u = smooth(unlock, 0.12, 0.75);
   g += fade(ro * (1 - u),
         upArrow(874, 634, 552, VERM) +
         '<g stroke="'+VERM+'" stroke-width="4.2" stroke-linecap="round">' +
@@ -433,15 +431,23 @@ window.Deck.sequence("integrase", function(slide){
       note:"And this is the whole point. The integrase recognises an attB and an attP, and it can only assemble a productive synapse out of one of each. Hand it an attL and an attR and the complex does not form, so the reaction simply stops. Compare Cre: loxP times loxP gives you loxP and loxP, the product is still a substrate, and it never stops. Consuming the sites is what makes a landing pad stable — you integrate once and it stays integrated, even with the integrase still being expressed. That is why this, and not Cre, is what you build a genomic landing pad out of.",
       desc:"A red upward arrow has appeared beside the blue downward one in the reaction summary, struck through with a red cross and labelled: integrase alone, no reaction." },
 
-    /* This used to be two clicks: one that renamed the reverse arrow and
-       one that ran it. Renaming is not an event. Adding Xis and watching
-       the plasmid come out is one thing that happens, staged inside a
-       single click -- the arrow turns over first, then the DNA moves. */
+    /* Adding Xis gets its own click. It was folded into the reverse
+       reaction on the grounds that a rename is not an event -- but the
+       summary has to clear before the re-formed plasmid lands on it, so
+       the name went up and started fading in the same breath and was on
+       screen for a moment. It is not a rename anyway: the reverse goes
+       from forbidden to allowed, which is the point of the whole slide. */
+    { s:{t:1,fwd:1,rev:1,unlock:1},
+      cap:"add Xis, and the reverse is allowed",
+      sub:"a recombination directionality factor \u2014 Xis in \u03bb, gp47 in BxbI",
+      note:"The reverse is not impossible, it is just off by default, and what turns it on is a second small protein. In lambda it is Xis. In BxbI the same job is done by gp47. The general name is a recombination directionality factor, and what it does is remodel the complex so that attL and attR become the productive pair instead of a dead end. Nothing has moved yet — all that has changed is that the reaction which had nowhere to go now has somewhere to go.",
+      desc:"The red cross over the reverse arrow clears. The arrow turns blue and is labelled integrase plus Xis. Nothing else on the slide has moved." },
+
     { s:{t:0,fwd:1,rev:1,unlock:1},
-      cap:"add Xis \u2014 and it comes back out",
+      cap:"and it comes back out",
       sub:"attL \u00d7 attR \u2192 attB + attP, and the plasmid is a circle again",
-      note:"The reverse is not impossible, it is just off by default, and what turns it on is a second small protein. In lambda it is Xis; in BxbI the same job is done by gp47; the general name is a recombination directionality factor. It remodels the complex so that attL and attR become the productive pair, and watch what happens when I add it: the arrow turns over, the integrase pairs attL with attR, and the donor leaves as a circle. The labels come back on their own \u2014 the chromosome has attB again and the circle has attP again \u2014 because those genuinely are the products of attL times attR. Nothing here is a second mechanism; it is the same reaction driven the other way. And this is Gateway exactly: BP clonase runs attB times attP forward to give the Entry clone, LR clonase is the same integrase plus its directionality factor and runs attL times attR back to give the Expression clone. The reaction names are the site names. So you get a switch you can throw deliberately \u2014 integrate now, excise later, on command \u2014 which is the basis of the recombinase memory and logic circuits.",
-      desc:"The struck-through reverse arrow turns blue and is labelled integrase plus Xis. The reaction summary then clears as the payload rolls back out of the chromosome into a circle below it, the chromosome closing up with attB again and the circle carrying attP again." }
+      note:"So run it. The integrase plus Xis pairs attL with attR, cuts, rotates and religates, and the donor leaves as a circle. Watch the labels come back on their own: the chromosome has attB again and the circle has attP again, because those genuinely are the products of attL times attR. Nothing here is a second mechanism — it is the same reaction I ran a few clicks ago, driven the other way. And this is Gateway exactly: BP clonase runs attB times attP forward to give the Entry clone, LR clonase is the same integrase plus its directionality factor and runs attL times attR back to give the Expression clone. The reaction names are the site names. So what you have is a switch you can throw deliberately — integrate now, excise later, on command — which is the basis of the recombinase memory and logic circuits.",
+      desc:"The reaction summary clears as the payload rolls back out of the chromosome into a circle below it, the chromosome closing up carrying attB again and the circle carrying attP again." }
   ];
   return driver(r, KEYS, paint, S);
 });
