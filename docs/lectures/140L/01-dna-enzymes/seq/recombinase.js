@@ -561,4 +561,112 @@ window.Deck.sequence("flox", function(slide){
   return driver(r, KEYS, paint, S);
 });
 
+
+/* ================================================================== *
+ * 4.  homrec — homologous recombination, which has no site to draw.
+ *
+ * Every other slide in this section has a sequence the enzyme reads.
+ * This one has nothing: what decides where the DNA lands is that two
+ * stretches MATCH, and a match is a relationship between two molecules
+ * rather than a feature of one. A static figure cannot show a
+ * relationship -- it can only put two rows near each other and hope --
+ * so the arms are drawn in the required-red of every operator in this
+ * deck, they are the same red on both molecules, and the donor is
+ * brought up until they register. Then the middles trade.
+ * ================================================================== */
+/* The cell is sized to what is in it. At its first height it left its
+   lower half empty, and the aligned donor sat close enough to the
+   chromosome that the two crossovers had 30 units to be drawn in. */
+const HCELL = {x:276, y:296, w:1048, h:400, r:60};
+const HCY = 380, HD0 = 600, HD1 = 500;      /* locus, donor, donor up  */
+const HB = 56;                              /* box height              */
+const HA = [548, 688], HM = [700, 900], HBB = [912, 1052];
+
+function hbox(x, y, w, fill, stroke, text, tcol, italic){
+  return '<rect x="'+n2(x)+'" y="'+n2(y-HB/2)+'" width="'+n2(w)+'" height="'+HB+
+         '" rx="7" fill="'+fill+'" stroke="'+stroke+'" stroke-width="3.2"/>' +
+         '<text x="'+n2(x+w/2)+'" y="'+n2(y+10)+'" text-anchor="middle" font-size="28" '+
+         'font-weight="700"'+(italic?' font-style="italic"':'')+' fill="'+tcol+'">'+text+'</text>';
+}
+/* the crossover itself: one X per arm, between the two molecules */
+function cross(cx, y0, y1, o){
+  const w = 26;
+  return fade(o, '<g stroke="'+VERM+'" stroke-width="4" stroke-linecap="round">' +
+    '<path d="M'+n2(cx-w)+' '+n2(y0)+'L'+n2(cx+w)+' '+n2(y1)+'"/>' +
+    '<path d="M'+n2(cx+w)+' '+n2(y0)+'L'+n2(cx-w)+' '+n2(y1)+'"/></g>');
+}
+
+function homScene(s){
+  let g = "";
+  const dy = HD0 + (HD1 - HD0)*s.up;
+
+  /* All of this happens inside a cell, and that is not decoration: the
+     donor has to get in, and whether the cell will then do anything with
+     it is the last beat of the slide. */
+  g += '<rect x="'+HCELL.x+'" y="'+HCELL.y+'" width="'+HCELL.w+'" height="'+HCELL.h+
+       '" rx="'+HCELL.r+'" fill="none" stroke="'+MUTED+'" stroke-width="3" '+
+       'stroke-dasharray="3 9"/>';
+
+  /* the chromosome, and the locus sitting in it */
+  g += '<path d="M320 '+HCY+'H1280" fill="none" stroke="'+INK+'" stroke-width="4.4"/>';
+  g += hbox(HA[0], HCY, HA[1]-HA[0], VERM, VERM, "A", "#fff");
+  g += hbox(HBB[0], HCY, HBB[1]-HBB[0], VERM, VERM, "B", "#fff");
+  /* the middle trades: the resident gene out, the cassette in */
+  g += fade(1 - s.swap, hbox(HM[0], HCY, HM[1]-HM[0], "#fff", INK, "gene", INK, true));
+  g += fade(s.swap,     hbox(HM[0], HCY, HM[1]-HM[0], BLUE, BLUE, "cassette", "#fff"));
+  g += label(HCELL.x + 26, HCY - 54, "chromosome", 24, MUTED, "start");
+
+  /* the donor, which differs from the locus in the middle and nowhere else */
+  g += fade(1 - s.swap,
+        '<path d="M528 '+n2(dy)+'H1072" fill="none" stroke="'+INK+'" stroke-width="4.4"/>' +
+        hbox(HA[0], dy, HA[1]-HA[0], VERM, VERM, "A", "#fff") +
+        hbox(HBB[0], dy, HBB[1]-HBB[0], VERM, VERM, "B", "#fff") +
+        hbox(HM[0], dy, HM[1]-HM[0], BLUE, BLUE, "cassette", "#fff") +
+        label(508, dy + 10, "donor", 24, MUTED, "end"));
+
+  /* the displaced gene, on its way out and then gone */
+  g += fade(smooth(s.swap, 0.05, 0.5) * (1 - smooth(s.swap, 0.62, 1)),
+        hbox(HM[0], HD0 + 60*s.swap, HM[1]-HM[0], "#fff", MUTED, "gene", MUTED, true));
+
+  /* the two crossovers, at the arms and only at the arms */
+  const xo = smooth(s.up, 0.62, 1) * (1 - smooth(s.swap, 0, 0.4));
+  g += cross((HA[0]+HA[1])/2,  HCY + HB/2 + 8, dy - HB/2 - 8, xo);
+  g += cross((HBB[0]+HBB[1])/2, HCY + HB/2 + 8, dy - HB/2 - 8, xo);
+
+  g += fade(s.named,
+        label(800, 818, "\u03bb Red in E. coli \u00b7 nothing needed in yeast or B. subtilis",
+              27, INK, "middle", 700));
+  return g;
+}
+
+window.Deck.sequence("homrec", function(slide){
+  const svg = makeSvg('<g data-r="dyn"></g>');
+  slide.appendChild(svg);
+  const r = {};
+  svg.querySelectorAll("[data-r]").forEach(el => r[el.getAttribute("data-r")] = el);
+  const KEYS = ["up","swap","named"];
+  function paint(s){
+    r.dyn.innerHTML = homScene({up:clamp01(s.up), swap:clamp01(s.swap), named:clamp01(s.named)});
+  }
+  const S = [
+    { s:{up:0,swap:0,named:0},
+      cap:"a donor arrives, with the same flanks", sub:"identical either side, different in the middle",
+      note:"Last one, and it is the odd one out, because there is no site to show you. Every other enzyme in this section reads a sequence: loxP, attB, attP. Homologous recombination reads nothing. Here is a locus in the genome — a gene with some stretch of sequence on either side of it — and here is a linear piece of DNA you made, carrying whatever you want in the middle, flanked by those same two stretches. The red is the same red on both molecules and that is the entire design: those flanks are identical, and nothing else about the donor matters.",
+      desc:"A chromosome carrying three boxes: a red box A, an italic gene box, and a red box B. Below it, separate, a linear donor carrying the same red A and B boxes with a blue cassette between them." },
+    { s:{up:1,swap:0,named:0},
+      cap:"both arms pair, and both are cut", sub:"a double crossover — nothing here is reading a sequence",
+      note:"The donor finds the locus by base pairing, arm to arm, and the crossovers happen inside the regions of identity. Notice what is choosing the target: not a recognition site, not a protein that reads letters, just the fact that two stretches of DNA are the same. That is why you can aim this anywhere in a genome — you are not looking for a site, you are supplying one half of a match. Make the arms long enough and you can hit any locus you like.",
+      desc:"The donor rises until its A and B boxes register with the A and B boxes in the chromosome, and a red cross is drawn between the two molecules inside each arm." },
+    { s:{up:1,swap:1,named:0},
+      cap:"the middles trade", sub:"the arms are unchanged, so there is no scar to find afterwards",
+      note:"And the middles trade. What was in the genome comes out, what you built goes in, and the arms are unchanged because they were identical to begin with — you cannot tell afterwards which copy of A survived. That is how a gene gets knocked out, how a tag gets added to the end of a coding sequence, how a promoter gets swapped. One reaction, and it leaves no scar, because there is no site to leave behind.",
+      desc:"The gene box in the chromosome is replaced by the blue cassette. The donor is gone and the displaced gene drops away below, fading." },
+    { s:{up:1,swap:1,named:1},
+      cap:"who can do this", sub:"",
+      note:"The catch is which organism will do it for you. Yeast and Bacillus subtilis take up a linear fragment with homology arms and recombine it in without being asked — it is one of the main reasons yeast is such a convenient host to build in. E. coli will not. Transform a linear cassette into ordinary E. coli and it is degraded, not integrated. The host protein that does strand exchange is RecA, and E. coli has it, but not in a configuration that will take a linear donor. What you do instead is supply the lambda Red genes — Exo, Beta and Gam — which substitute for what E. coli lacks, and the technique built on that is called recombineering. That is how gene knockouts are made in E. coli, and it is worth knowing that the whole Keio collection, every single-gene knockout in the organism, was made this way.",
+      desc:"A line names the requirement: lambda Red in E. coli, nothing needed in yeast or B. subtilis." }
+  ];
+  return driver(r, KEYS, paint, S);
+});
+
 })();
