@@ -11,12 +11,20 @@
  * Backbone red — these enzymes need DNA and need an end to start from.
  * Bases grey — none of them reads the sequence.
  *
- * Which end it starts from is the whole difference between the two
- * slides, and it decides what you are left holding:
+ * Which end it starts from is the whole difference, and it decides what
+ * you are left holding:
  *
  *   3'->5'   eats the upper strand back from the right; the lower
  *            strand stands alone and a 5' overhang grows
  *   5'->3'   eats it from the left instead, and a 3' overhang grows
+ *
+ * One slide, three clicks. It used to be two slides, each of which
+ * started its loop the moment you arrived, so the substrate was never
+ * on screen still and the two directions were never adjacent. Now the
+ * first click holds the intact molecule -- long enough to ask the room
+ * which end it will start from -- and each direction gets a click of
+ * its own, so the second is read against the first rather than against
+ * a memory of the previous slide.
  * ------------------------------------------------------------------ */
 (function(){
 "use strict";
@@ -47,97 +55,90 @@ function travel(right, id){
       'marker-end="url(#'+id+')"/>';
 }
 
-function build(name, o){
-  window.Deck.sequence(name, function(slide){
-    const svg=document.createElementNS(NS,"svg");
-    svg.setAttribute("viewBox","0 0 1600 900");
-    svg.setAttribute("aria-hidden","true");
-    svg.setAttribute("style","position:absolute;inset:0;pointer-events:none");
-    slide.appendChild(svg);
-    const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
-    let raf=null, step=0;
+/* dir: 0 static, +1 eating from the right (3'->5'), -1 from the left */
+const STEPS = [
+  { dir:0,
+    cap:"Exonuclease",
+    sub:"one nucleotide at a time, and only from an <tspan font-style=\"italic\">end</tspan>",
+    foot:"it needs a backbone and an end &mdash; it never reads the bases",
+    note:"The operator for the whole class, and it is worth reading straight against the endonuclease one. There, the enzyme made a single cut somewhere inside the molecule, usually at a sequence it recognised. Here the backbone is red because an exonuclease also needs DNA, and needs an end to start from — but every base is grey, because none of these enzymes reads the sequence at all. Nothing is moving yet, and that is deliberate: look at the molecule and notice that it has two ends, on two different strands, pointing opposite ways. Which one an exonuclease starts from is not something you can work out from this picture, and it is the first thing you have to look up about any of them. Here are the two answers.",
+    desc:"A seven base pair duplex drawn in full chemical structure with its whole backbone in red and every base in grey, intact and still. Nothing is being removed yet." },
+  { dir:1,
+    cap:"3&#8242; &#8594; 5&#8242; Exo Activity",
+    sub:"working back from the 3&#8242; end &mdash; a 5&#8242; overhang is left behind",
+    foot:"it needs a backbone and an end &mdash; it never reads the bases",
+    note:"The first answer. This is three prime to five prime exonuclease activity: it starts at the three prime end of the upper strand and works back along it, which is right to left as the molecule is drawn, and that is what the arrow means. Watch the residues come off one at a time — not a cut in the middle, a nibble from the end — each leaving as a free five prime monophosphate with the chain behind it carrying a fresh three prime hydroxyl. And look at what it leaves you holding. The upper strand shortens from its three prime end while the lower strand stays whole, so a five prime overhang grows as the reaction runs: a sticky end made without a restriction site. This is also the activity built into a polymerase as proofreading — back up one residue, remove it, try again.",
+    desc:"Titled 3-prime to 5-prime exo activity, with an arrow beneath the molecule pointing left. On a loop, residues are removed one at a time from the 3-prime end of the upper strand, each drifting away to the right as a free nucleotide, leaving a single-stranded 5-prime overhang on the lower strand." },
+  { dir:-1,
+    cap:"5&#8242; &#8594; 3&#8242; Exo Activity",
+    sub:"working forward from the 5&#8242; end &mdash; a 3&#8242; overhang is left behind",
+    foot:"same chemistry, opposite end &mdash; and the opposite overhang",
+    note:"And the other answer, on the same molecule, so you can read them against each other. This one begins at the five prime end of the upper strand and works forward along it, left to right as drawn. The chemistry has not changed at all — residues still come off one at a time, still as five prime monophosphates — but because it is eating from the other end, the strand left standing alone is the other one, and what grows is a three prime overhang instead of a five prime. Lambda exonuclease is the one you will actually use for this, and that is exactly why: give it a duplex and it hands you back a long three prime single strand. So the two answers differ in one thing only, and it is the first property to look up when you meet an exonuclease in the catalogue: which end it starts from. That decides the direction it travels, which strand is left standing, and therefore what you are holding when the reaction is done.",
+    desc:"The same duplex, now titled 5-prime to 3-prime exo activity with the arrow beneath it pointing right. Residues are removed one at a time from the 5-prime end of the upper strand, drifting away to the left, leaving a single-stranded 3-prime overhang on the lower strand." }
+];
 
-    /* k is the residue on its way off; which end that is depends on direction */
-    function paint(i, frac){
-      let chain, free;
-      if(o.fromRight){
-        const k=N-1-i;
-        chain = i<0 ? piece([0,N],[0,N],{}) : piece([0,k],[0,N],{t3:"oh"});
-        free  = i<0 ? null : piece([k,k+1],[N,N],{t5:"phos",t3:"oh"});
-      }else{
-        const k=i;
-        chain = i<0 ? piece([0,N],[0,N],{}) : piece([k+1,N],[0,N],{t5:"phos"});
-        free  = i<0 ? null : piece([k,k+1],[N,N],{t5:"phos",t3:"oh"});
-      }
-      let g=M.draw(chain, X0);
-      if(free){
-        const s=o.fromRight?1:-1;
-        /* out and DOWN: drifting upward took the released residue straight
-           through the subtitle, and its end labels collided with the chain's */
-        const dx=(118*frac*s).toFixed(1), dy=(66*frac).toFixed(1);
-        g+='<g transform="translate('+dx+' '+dy+')" opacity="'+(1-frac*0.88).toFixed(2)+'">'+
-           M.draw(free, X0)+'</g>';
-      }
-      const named = step>=o.namedFrom;
-      svg.innerHTML=
-        '<text x="800" y="140" text-anchor="middle" font-size="44" font-weight="700" fill="'+INK+
-          '">'+(named?o.cap2:o.cap1)+'</text>'+
-        '<text x="800" y="188" text-anchor="middle" font-size="25" fill="'+MUT+'">'+
-          (named?o.sub2:o.sub1)+'</text>'+
-        g + (named?travel(!o.fromRight, name+"-hd"):"") +
-        '<text x="800" y="852" text-anchor="middle" font-size="25" font-weight="700" fill="'+
-          M.HOT+'">'+o.foot+'</text>';
+window.Deck.sequence("op-exo", function(slide){
+  const svg=document.createElementNS(NS,"svg");
+  svg.setAttribute("viewBox","0 0 1600 900");
+  svg.setAttribute("aria-hidden","true");
+  svg.setAttribute("style","position:absolute;inset:0;pointer-events:none");
+  slide.appendChild(svg);
+  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
+  let raf=null, step=0;
+
+  /* k is the residue on its way off; which end that is depends on direction */
+  function paint(i, frac){
+    const S=STEPS[step], fromRight = S.dir > 0;
+    let chain, free;
+    if(S.dir===0 || i<0){
+      chain = piece([0,N],[0,N],{}); free = null;
+    }else if(fromRight){
+      const k=N-1-i;
+      chain = piece([0,k],[0,N],{t3:"oh"});
+      free  = piece([k,k+1],[N,N],{t5:"phos",t3:"oh"});
+    }else{
+      const k=i;
+      chain = piece([k+1,N],[0,N],{t5:"phos"});
+      free  = piece([k,k+1],[N,N],{t5:"phos",t3:"oh"});
     }
-
-    function go(i){
-      step = i||0;
-      /* A step here only changes the words. Restarting the loop on it snapped
-         the molecule back to intact, which read as a second animation rather
-         than a caption on the same one. */
-      if(raf) return;
-      if(reduce.matches){ paint(EAT-1, 1); return; }
-      const t0=performance.now();
-      raf=requestAnimationFrame(function f(now){
-        if(!slide.classList.contains("on")){ raf=null; return; }
-        let t=((now-t0)/1000)%CYCLE;
-        if(t<T_HOLD) paint(-1,0);
-        else if((t-=T_HOLD)<EAT*T_STEP){
-          const k=Math.floor(t/T_STEP);
-          paint(k, ease((t-k*T_STEP)/T_STEP));
-        } else paint(EAT-1, 1);
-        raf=requestAnimationFrame(f);
-      });
+    let g=M.draw(chain, X0);
+    if(free){
+      const sgn=fromRight?1:-1;
+      /* out and DOWN: drifting upward took the released residue straight
+         through the subtitle, and its end labels collided with the chain's */
+      const dx=(118*frac*sgn).toFixed(1), dy=(66*frac).toFixed(1);
+      g+='<g transform="translate('+dx+' '+dy+')" opacity="'+(1-frac*0.88).toFixed(2)+'">'+
+         M.draw(free, X0)+'</g>';
     }
-    go(0);
-    return { steps:o.steps, go:go };
-  });
-}
+    svg.innerHTML=
+      '<text x="800" y="140" text-anchor="middle" font-size="44" font-weight="700" fill="'+INK+
+        '">'+S.cap+'</text>'+
+      '<text x="800" y="188" text-anchor="middle" font-size="25" fill="'+MUT+'">'+S.sub+'</text>'+
+      g + (S.dir ? travel(!fromRight, "op-exo-hd") : "")+
+      '<text x="800" y="852" text-anchor="middle" font-size="25" font-weight="700" fill="'+
+        M.HOT+'">'+S.foot+'</text>';
+  }
 
-build("op-exo", {
-  fromRight:true, namedFrom:1,
-  cap1:"Exonuclease",
-  sub1:"one nucleotide at a time, and only from an <tspan font-style=\"italic\">end</tspan>",
-  cap2:"3&#8242; &#8594; 5&#8242; Exo Activity",
-  sub2:"working back from the 3&#8242; end &mdash; a 5&#8242; overhang is left behind",
-  foot:"it needs a backbone and an end &mdash; it never reads the bases",
-  steps:[
-    { note:"The operator for the whole class, and it is worth reading straight against the endonuclease one. There, the enzyme made a single cut somewhere inside the molecule, usually at a sequence it recognised. Here the backbone is red because an exonuclease also needs DNA, and needs an end to start from — but every base is grey, because none of these enzymes reads the sequence at all. Watch what it does: one nucleotide comes off, then the next, then the next. Not a cut in the middle. A nibble from the end, and each residue leaves as a free five prime monophosphate with the chain behind it carrying a fresh three prime hydroxyl.",
-      desc:"A seven base pair duplex drawn in full chemical structure with its whole backbone in red and every base in grey. On a loop, residues are removed one at a time from one end of the upper strand, each drifting away as a free nucleotide carrying a 5-prime phosphate and a 3-prime hydroxyl." },
-    { note:"Now name what you just watched, because there are two of these and they are not interchangeable. This is three prime to five prime exonuclease activity: it starts at the three prime end of that strand and works back along it, which is right to left as the molecule is drawn, and that is what the arrow means. Look at what it leaves you holding. The upper strand is getting shorter from its three prime end while the lower strand stays whole, so a five prime overhang grows as the reaction runs — a sticky end made without a restriction site. This is also the activity built into a polymerase as proofreading: back up one residue, remove it, try again.",
-      desc:"The same figure, now titled 3-prime to 5-prime exo activity, with an arrow beneath the molecule pointing left to show the direction the enzyme travels. The upper strand shortens from its 3-prime end and a single-stranded 5-prime overhang is left on the lower strand." }
-  ]
-});
-
-build("op-exo-53", {
-  fromRight:false, namedFrom:0,
-  cap1:"5&#8242; &#8594; 3&#8242; Exo Activity",
-  sub1:"working forward from the 5&#8242; end &mdash; a 3&#8242; overhang is left behind",
-  cap2:"5&#8242; &#8594; 3&#8242; Exo Activity",
-  sub2:"working forward from the 5&#8242; end &mdash; a 3&#8242; overhang is left behind",
-  foot:"same chemistry, opposite end &mdash; and the opposite overhang",
-  steps:[
-    { note:"Same scene, same enzyme class, started from the other end. This one begins at the five prime end of the upper strand and works forward along it, left to right as drawn, which is what the arrow means. The chemistry has not changed at all — residues still come off one at a time, still as five prime monophosphates — but because it is eating from the other end, the strand left standing alone is the other one, and what grows is a three prime overhang instead of a five prime. Lambda exonuclease is the one you will actually use for this, and that is exactly why: give it a duplex and it hands you back a long three prime single strand. So the two slides differ in one thing only, and it is the first property to look up when you meet an exonuclease in the catalogue: which end it starts from. That decides the direction it travels, which strand is left standing, and therefore what you are holding when the reaction is done.",
-      desc:"The same seven base pair duplex, red backbone and grey bases, with residues removed one at a time from the 5-prime end of the upper strand, drifting away to the left, so a single-stranded 3-prime overhang is left behind on the lower strand. An arrow beneath the molecule points right, showing the direction the enzyme travels." }
-  ]
+  function go(i){
+    step = i||0;
+    /* every step is now a different direction, so the loop restarts on
+       each one -- the old guard existed because one step only renamed */
+    if(raf){ cancelAnimationFrame(raf); raf=null; }
+    if(STEPS[step].dir===0){ paint(-1, 0); return; }
+    if(reduce.matches){ paint(EAT-1, 1); return; }
+    const t0=performance.now();
+    raf=requestAnimationFrame(function f(now){
+      if(!slide.classList.contains("on")){ raf=null; return; }
+      let t=((now-t0)/1000)%CYCLE;
+      if(t<T_HOLD) paint(-1,0);
+      else if((t-=T_HOLD)<EAT*T_STEP){
+        const k=Math.floor(t/T_STEP);
+        paint(k, ease((t-k*T_STEP)/T_STEP));
+      } else paint(EAT-1, 1);
+      raf=requestAnimationFrame(f);
+    });
+  }
+  go(0);
+  return { steps:STEPS.map(x=>({note:x.note, desc:x.desc})), go:go };
 });
 })();
