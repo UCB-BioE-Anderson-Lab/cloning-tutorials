@@ -301,7 +301,7 @@ window.Deck.sequence("proofread", function(slide){
        value removed the mismatch AND one correctly paired base with it,
        which is not what the note says happens. */
     { s:{n:11, wrong:0}, cap:"3\u2032\u21925\u2032 exonuclease backs up and excises it",
-      sub:"one base removed \u2014 the mismatched one, and nothing else",
+      sub:"one base removed: the mismatched one, and nothing else",
       note:"The 3' to 5' exonuclease notices the mismatch, backs the polymerase up, and clips that one bad base back off. That is proofreading, and it buys you another couple of orders of magnitude of fidelity.",
       desc:"The red mismatched base is gone and the eleven correctly paired bases before it remain. The polymerase has backed up to the 3-prime end of the new strand." },
     { s:{n:NEW.length, wrong:0}, cap:"and carries on",

@@ -112,7 +112,7 @@ window.Deck.sequence("exosap", function(slide){
 
   const S=[
     {s:{strip:0,low:0,clean:0,heat:0},
-     note:"Start with the case you will actually meet. You have phosphatased your vector with CIP so it cannot close on itself, and now CIP is sitting in the tube with your DNA. Before you ligate, you have to physically separate the two: run it on a gel and cut the band out, or put it over a column. Not because CIP is fragile, but because it is not.",
+     note:"Start with the case you will actually meet. You have phosphatased your vector with CIP so it cannot close on itself, and now CIP is sitting in the tube with your DNA. Before you ligate, you have to physically separate the two: run it on a gel and cut the band out, or put it over a column. Which raises the obvious question. Why not just heat it and move on?",
      desc:"A phosphatased vector and an insert, drawn as duplexes; the insert carries a red phosphate at each 5-prime end. CIP is named in red beside them, labelled: gel or column, not heat."},
     {s:{strip:1,low:0,clean:0,heat:0},
      note:"Because here is the error, and it is made every year. People try to heat-kill CIP the way they would any other enzyme. It does not work, CIP is notoriously robust, so it comes through into the ligation still active, and now it meets your insert, which does still have its five prime phosphates. It takes those off too. Ligase has nothing to seal. You get no colonies, and nothing anywhere told you why: the reaction looked like it ran.",

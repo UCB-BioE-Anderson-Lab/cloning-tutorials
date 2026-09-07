@@ -101,7 +101,7 @@ window.Deck.sequence("gibson", function(slide){
     '<g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">' +
       strandPaths + bracket("bkL") + bracket("bkR") +
     '</g>' +
-    /* the 5' ends — the only ends T5 can start on */
+    /* the 5' ends; the only ends T5 can start on */
     '<g font-family="inherit" font-size="24" font-weight="700" text-anchor="middle" ' +
       'fill="var(--muted)">' +
       '<text data-r="p5lt"></text><text data-r="p5lb"></text>' +
@@ -213,7 +213,7 @@ window.Deck.sequence("gibson", function(slide){
        join does not remove the two ends the assembly still has. */
     { s:{sep:0, chew:1, close:1, enz:1, dead:1, mark:0},
       cap:"one tube, 50 degrees, one incubation",
-      call:"T5 is still working \u2014 so the product has to be a circle",
+      call:"T5 is still working, so the product has to be a circle",
       note:"One last thing, and it is the part that decides whether this works at all. All three enzymes are in the tube together the whole time, and T5 does not stop. It acts on free ends, and look at what you still have: the join in the middle is sealed, but there is an end at each far side, and those are still perfectly good substrate. So a linear assembly is not safe: leave it long enough and T5 will chew in from the outside. What protects a real Gibson product is that you are not making a linear molecule. You are assembling into a closed circle, usually a plasmid, and the moment the last junction seals there is no free end anywhere in it. That is the finish line: not the enzymes stopping, but the substrate running out.",
       desc:"The assembled molecule is unchanged, but each of its two far ends is now labelled still an end, in red, marking them as remaining substrate for T5." }
   ];

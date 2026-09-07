@@ -78,7 +78,7 @@ window.Deck.sequence("whichbond", function(slide){
   }
 
   const S=[
-    { v:0, note:"Look at the molecule before the answer goes up. One phosphate, bridging two sugars, through a three prime oxygen on one side and a five prime oxygen on the other. Only one of those two ester bonds is the one this enzyme breaks. Give the room a moment to pick.",
+    { v:0, note:"Look at the molecule before the answer goes up. One phosphate, bridging two sugars, through a three prime oxygen on one side and a five prime oxygen on the other. Only one of those two ester bonds is the one this enzyme breaks. Take a moment and pick one.",
       desc:"A dinucleotide drawn as skeletal chemistry: two deoxyribose rings, a phosphate bridging them through 3-prime and 5-prime oxygens, with an explicit P equals O double bond and a negatively charged oxygen. A free 5-prime hydroxyl on the left and a free 3-prime hydroxyl on the right." },
     { v:1, note:c.note, desc:c.desc }
   ];

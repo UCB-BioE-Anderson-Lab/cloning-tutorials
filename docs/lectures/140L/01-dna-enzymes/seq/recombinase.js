@@ -221,7 +221,7 @@ const LOXW = 17, GENEW = 21;
 function directScene(t){
   let g = "";
   const eT = t;
-  /* left fragment: flank + loxP A.  Never moves — the eye tracks it. */
+  /* left fragment: flank + loxP A.  Never moves, the eye tracks it. */
   const pL = curve(390, 0, 1, 345, Y0);
   g += strand(pL, 0, 390) + arrowFill(pL, 250, 390, LOXW, 1, BLUE);
 
@@ -448,7 +448,7 @@ window.Deck.sequence("integrase", function(slide){
        from forbidden to allowed, which is the point of the whole slide. */
     { s:{t:1,fwd:1,rev:1,unlock:1},
       cap:"add Xis, and the reverse is allowed",
-      sub:"a recombination directionality factor \u2014 Xis in \u03bb, gp47 in BxbI",
+      sub:"a recombination directionality factor: Xis in \u03bb, gp47 in BxbI",
       note:"The reverse is not impossible, it is just off by default, and what turns it on is a second small protein. In lambda it is Xis. In BxbI the same job is done by gp47. The general name is a recombination directionality factor, and what it does is remodel the complex so that attL and attR become the productive pair instead of a dead end. Nothing has moved yet. All that has changed is that the reaction which had nowhere to go now has somewhere to go.",
       desc:"The red cross over the reverse arrow clears. The arrow turns blue and is labelled integrase plus Xis. Nothing else on the slide has moved." },
 
@@ -532,7 +532,7 @@ function floxScene(s){
   g += fade(smooth(s.loop, 0.15, 0.6) * (1 - s.off),
             label(800, 268, "+ Cre", 30, VERM, "middle", 700));
   g += fade(s.names,
-       label(800, 812, "Flp/FRT \u00b7 Dre/rox \u00b7 VCre/vloxP \u2014 same trick, different 34 bp site",
+       label(800, 812, "Flp/FRT \u00b7 Dre/rox \u00b7 VCre/vloxP: same trick, different 34 bp site",
              26, MUTED));
   return g;
 }
@@ -558,7 +558,7 @@ window.Deck.sequence("flox", function(slide){
       note:"Now supply Cre, in one tissue or at one moment, however you choose to control it. The two sites are brought face to face, which means the DNA between them has to loop out, and that is the committed step.",
       desc:"Cre appears. The DNA between the two loxP sites bows upward into a loop until the two sites touch, and the chromosome on the right slides in behind it." },
     { s:{loop:1,off:1,gone:0,names:0},
-      cap:"the gene leaves as a circle", sub:"out of the chromosome \u2014 but still in the cell, and still expressed",
+      cap:"the gene leaves as a circle", sub:"out of the chromosome, but still in the cell, and still expressed",
       note:"The strands are exchanged and the gene leaves as a covalently closed circle carrying one of the two sites. The chromosome closes over the other one. Now check the phenotype, and be careful here, because this is where people get the timing wrong. The cell is still resistant. The gene is out of the chromosome but it is still in the cell, it is still intact, and it is still being transcribed. Nothing about cutting it out of the genome stops it working.",
       desc:"The loop pinches off and drifts up and to the right as a free circle carrying the ampR gene and one loxP arrow. The chromosome has closed with a single loxP at the junction. The cell is still labelled resistant." },
     { s:{loop:1,off:1,gone:1,names:0},
