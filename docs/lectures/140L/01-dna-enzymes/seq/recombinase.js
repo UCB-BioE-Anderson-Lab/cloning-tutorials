@@ -624,9 +624,10 @@ function homScene(s){
         hbox(HM[0], dy, HM[1]-HM[0], BLUE, BLUE, "cassette", "#fff") +
         label(508, dy + 10, "donor", 24, MUTED, "end"));
 
-  /* the displaced gene, on its way out and then gone */
-  g += fade(smooth(s.swap, 0.05, 0.5) * (1 - smooth(s.swap, 0.62, 1)),
-        hbox(HM[0], HD0 + 60*s.swap, HM[1]-HM[0], "#fff", MUTED, "gene", MUTED, true));
+  /* Nothing is drawn leaving. The displaced gene used to drift down and
+     fade, which read as a third object with a journey of its own -- it
+     is not, it is just gone, and the cassette sitting where it was is
+     the entire event. */
 
   /* the two crossovers, at the arms and only at the arms */
   const xo = smooth(s.up, 0.62, 1) * (1 - smooth(s.swap, 0, 0.4));
@@ -660,7 +661,7 @@ window.Deck.sequence("homrec", function(slide){
     { s:{up:1,swap:1,named:0},
       cap:"the middles trade", sub:"the arms are unchanged, so there is no scar to find afterwards",
       note:"And the middles trade. What was in the genome comes out, what you built goes in, and the arms are unchanged because they were identical to begin with — you cannot tell afterwards which copy of A survived. That is how a gene gets knocked out, how a tag gets added to the end of a coding sequence, how a promoter gets swapped. One reaction, and it leaves no scar, because there is no site to leave behind.",
-      desc:"The gene box in the chromosome is replaced by the blue cassette. The donor is gone and the displaced gene drops away below, fading." },
+      desc:"The gene box in the chromosome is replaced by the blue cassette. The donor is gone, and so is the gene that was there." },
     { s:{up:1,swap:1,named:1},
       cap:"who can do this", sub:"",
       note:"The catch is which organism will do it for you. Yeast and Bacillus subtilis take up a linear fragment with homology arms and recombine it in without being asked — it is one of the main reasons yeast is such a convenient host to build in. E. coli will not. Transform a linear cassette into ordinary E. coli and it is degraded, not integrated. The host protein that does strand exchange is RecA, and E. coli has it, but not in a configuration that will take a linear donor. What you do instead is supply the lambda Red genes — Exo, Beta and Gam — which substitute for what E. coli lacks, and the technique built on that is called recombineering. That is how gene knockouts are made in E. coli, and it is worth knowing that the whole Keio collection, every single-gene knockout in the organism, was made this way.",
