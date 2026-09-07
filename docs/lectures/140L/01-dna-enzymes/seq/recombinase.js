@@ -436,7 +436,11 @@ window.Deck.sequence("integrase", function(slide){
        to be described -- it is this one in reverse -- so it is drawn by
        reversing it, and the labels come back to attB and attP on their
        own because that is genuinely what the products are. */
-    { s:{t:0,fwd:1,rev:1,unlock:1},
+    /* The reaction summary sits dead centre, which is exactly where the
+       re-formed circle comes back to -- and it is the abstract statement
+       of the thing this beat is about to demonstrate, so it goes rather
+       than being shuffled aside. The cap and sub still name the key. */
+    { s:{t:0,fwd:0,rev:0,unlock:0},
       cap:"and with the key, back out",
       sub:"attL \u00d7 attR \u2192 attB + attP, and the plasmid is a circle again",
       note:"So run it. The integrase plus the directionality factor pairs attL with attR, cuts, rotates and religates, and the donor leaves as a circle. Watch the labels come back on their own: the chromosome has attB again and the circle has attP again, because those genuinely are the products of attL times attR. Nothing here is a second mechanism — it is the same reaction I ran a moment ago, driven the other way. And this is Gateway, exactly: BP clonase takes attB times attP and gives you the Entry clone, LR clonase is the same integrase plus its directionality factor and takes attL times attR to give the Expression clone. The reaction names are the site names. Lambda Int works the same way with Xis, and so do phi80, HK022, P21, P22 and phiC31.",
