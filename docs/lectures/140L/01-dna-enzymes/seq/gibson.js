@@ -35,9 +35,9 @@ const n2 = v => Math.round(v*10)/10;
 const LFL = 280,  LFR = 900;         /* left fragment,  5' top .. 3' top   */
 const RFL = 720,  RFR = 1340;        /* right fragment                     */
 const OVL = 720,  OVR = 900;         /* the shared overlap                 */
-const W    = OVR - OVL;              /* 180 — the homology                 */
+const W    = OVR - OVL;              /* 180, the homology                 */
 const C    = 300;                    /* how far T5 chews each 5' end       */
-const FILL = C - W;                  /* 120 — the gap the polymerase fills.
+const FILL = C - W;                  /* 120, the gap the polymerase fills.
    This has to be big enough to READ as a gap from the back of the room:
    at 50 it was a hairline, and the step that claims to fill it looked
    like it was filling nothing.                                          */
@@ -108,7 +108,7 @@ window.Deck.sequence("gibson", function(slide){
       '<text data-r="p5rt"></text><text data-r="p5rb"></text>' +
     '</g>' +
     '<text data-r="ovlab" x="800" y="424" text-anchor="middle" font-family="inherit" ' +
-      'font-size="26" font-weight="700" fill="var(--red)">overlap &mdash; the same sequence in both</text>' +
+      'font-size="26" font-weight="700" fill="var(--red)">overlap, the same sequence in both</text>' +
     '<g data-r="enzg" opacity="0">' +
       '<text data-r="enz" x="800" y="352" text-anchor="middle" font-family="inherit" ' +
         'font-size="30" font-weight="700" fill="var(--red)">T5 exonuclease &#183; 5&#8242;&rarr;3&#8242;</text>' +
@@ -188,18 +188,18 @@ window.Deck.sequence("gibson", function(slide){
   const S = [
     { s:{sep:1, chew:0, close:0, enz:0, dead:0, mark:1},
       cap:"two fragments that share a sequence at the join", call:"",
-      note:"Gibson assembly starts with two DNAs that already share a sequence where you want them joined. This is not a sticky end and it is not a restriction site — it is simply the same stretch of sequence, typically twenty to forty bases, present at the end of both fragments in the same orientation. The original Gibson paper used forty; the modern high-fidelity kits will go down to about fifteen. You put it there yourself, on the tail of a PCR primer.",
+      note:"Gibson assembly starts with two DNAs that already share a sequence where you want them joined. This is not a sticky end and it is not a restriction site. It is simply the same stretch of sequence, typically twenty to forty bases, present at the end of both fragments in the same orientation. The original Gibson paper used forty; the modern high-fidelity kits will go down to about fifteen. You put it there yourself, on the tail of a PCR primer.",
       desc:"Two separate double-stranded DNA molecules with a clear gap between them. Each is two antiparallel lines; a half barb marks every 3-prime end and each 5-prime end is labelled. The right-hand end of the left molecule and the left-hand end of the right molecule are drawn in blue and bracketed: the same sequence in both." },
 
     { s:{sep:1, chew:1, close:0, enz:1, dead:0, mark:0},
       cap:"", call:"eating 5′ ends is what exposes the 3′ overhangs",
-      note:"T5 exonuclease runs five prime to three prime, so it eats five prime ends. Now look at what that leaves behind. At each end, the strand that survives is the one terminating in a three prime end — so a five-prime-to-three-prime exonuclease produces three prime single-stranded overhangs. This is the step almost everybody gets backwards, and it is worth saying out loud. Second thing to notice: T5 has no idea where your overlap is. It chews all four ends here, indiscriminately. Nothing about this enzyme is homology-specific. In a real assembly the two outer tails are the other junctions of the construct.",
+      note:"T5 exonuclease runs five prime to three prime, so it eats five prime ends. Now look at what that leaves behind. At each end, the strand that survives is the one terminating in a three prime end, so a five-prime-to-three-prime exonuclease produces three prime single-stranded overhangs. This is the step almost everybody gets backwards, and it is worth saying out loud. Second thing to notice: T5 has no idea where your overlap is. It chews all four ends here, indiscriminately. Nothing about this enzyme is homology-specific. In a real assembly the two outer tails are the other junctions of the construct.",
       desc:"All four 5-prime labels have moved inward along their strands: the enzyme has removed bases from every 5-prime end. Each molecule now ends in a long single-stranded 3-prime tail at both ends. The blue overlap survives on the top strand of the left molecule and on the bottom strand of the right molecule." },
 
     { s:{sep:0, chew:1, close:0, enz:1, dead:0, mark:0},
       cap:"only the complementary pair can anneal",
-      call:"held together, not yet joined — a gap in each strand",
-      note:"The specificity comes from base pairing, not from the enzyme. Of the four exposed tails only two are complementary — the two blue ones, because you designed them to be the same sequence — so those are the two that find each other. Now look at what you actually have. The molecules are held together, but they are not joined: T5 chewed a little past the overlap, so a stretch of each strand has no partner underneath it. Those are the two gaps, one on each side of the join, and nothing in this tube has closed them yet.",
+      call:"held together, not yet joined, a gap in each strand",
+      note:"The specificity comes from base pairing, not from the enzyme. Of the four exposed tails only two are complementary (the two blue ones, because you designed them to be the same sequence), so those are the two that find each other. Now look at what you actually have. The molecules are held together, but they are not joined: T5 chewed a little past the overlap, so a stretch of each strand has no partner underneath it. Those are the two gaps, one on each side of the join, and nothing in this tube has closed them yet.",
       desc:"The two molecules have converged. The blue single strand from each now forms a double-stranded blue join in the middle. Two gaps are clearly open: one in the top strand just right of the join, one in the bottom strand just left of it. Each gap is bounded by a barbed 3-prime end on one side and a labelled 5-prime end on the other." },
 
     { s:{sep:0, chew:1, close:1, enz:1, dead:0, mark:0},
@@ -214,7 +214,7 @@ window.Deck.sequence("gibson", function(slide){
     { s:{sep:0, chew:1, close:1, enz:1, dead:1, mark:0},
       cap:"one tube, 50 degrees, one incubation",
       call:"T5 is still working \u2014 so the product has to be a circle",
-      note:"One last thing, and it is the part that decides whether this works at all. All three enzymes are in the tube together the whole time, and T5 does not stop. It acts on free ends, and look at what you still have: the join in the middle is sealed, but there is an end at each far side, and those are still perfectly good substrate. So a linear assembly is not safe — leave it long enough and T5 will chew in from the outside. What protects a real Gibson product is that you are not making a linear molecule. You are assembling into a closed circle, usually a plasmid, and the moment the last junction seals there is no free end anywhere in it. That is the finish line: not the enzymes stopping, but the substrate running out.",
+      note:"One last thing, and it is the part that decides whether this works at all. All three enzymes are in the tube together the whole time, and T5 does not stop. It acts on free ends, and look at what you still have: the join in the middle is sealed, but there is an end at each far side, and those are still perfectly good substrate. So a linear assembly is not safe: leave it long enough and T5 will chew in from the outside. What protects a real Gibson product is that you are not making a linear molecule. You are assembling into a closed circle, usually a plasmid, and the moment the last junction seals there is no free end anywhere in it. That is the finish line: not the enzymes stopping, but the substrate running out.",
       desc:"The assembled molecule is unchanged, but each of its two far ends is now labelled still an end, in red, marking them as remaining substrate for T5." }
   ];
 

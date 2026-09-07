@@ -97,7 +97,7 @@ window.Deck.sequence("op-footprint", function(slide){
         ? '<path d="M'+px0.toFixed(1)+' '+(BB+78)+'H'+(px0+pw).toFixed(1)+
             '" stroke="'+BLUE+'" stroke-width="3.4" fill="none"/>'+
           '<text x="'+(px0+pw/2).toFixed(1)+'" y="'+(BB+112)+'" text-anchor="middle" '+
-            'font-size="25" font-weight="700" fill="'+BLUE+'">intact &mdash; the footprint</text>'
+            'font-size="25" font-weight="700" fill="'+BLUE+'">intact, the footprint</text>'
         : "");
   }
   function go(){
@@ -118,8 +118,8 @@ window.Deck.sequence("op-footprint", function(slide){
   }
   go();
   return { steps:[{
-    note:"Here is what that last slide is actually good for, and it is a nice piece of thinking. Same enzyme, same picture as before, just zoomed out so a whole binding site fits. Two identical DNAs. The lower one has a protein sitting on part of it. Now treat them the same: add a trace of DNase I, and let it cut at random. The top molecule shatters, exactly as it did on the previous slide — cuts anywhere, no pattern. The bottom one shatters too, everywhere except one stretch. Not because the enzyme dislikes that sequence, it has no opinion about sequence at all, but because it physically cannot reach the backbone underneath a bound protein. So every fragment comes out short except one, and that one survives whole. Its length tells you how much DNA the protein covers, and where it starts and stops tells you where the protein sits. That is footprinting: you find a protein's binding site by destroying everything that is not it.",
-    desc:"Two DNA molecules drawn as red barbed lines, one above the other, the same style as the previous figure but zoomed out over thirty base pairs. The lower one has a blue rounded box labelled protein sitting over eight of its base pairs. On a loop, cuts appear at random positions on both molecules, different every time, and the fragments pull apart into short pieces — except that no cut ever lands under the protein, so that stretch of the lower molecule survives as one long unbroken piece. A blue rule beneath it is labelled: intact, the footprint."
+    note:"Here is what that last slide is actually good for, and it is a nice piece of thinking. Same enzyme, same picture as before, just zoomed out so a whole binding site fits. Two identical DNAs. The lower one has a protein sitting on part of it. Now treat them the same: add a trace of DNase I, and let it cut at random. The top molecule shatters, exactly as it did on the previous slide. Cuts anywhere, no pattern. The bottom one shatters too, everywhere except one stretch. Not because the enzyme dislikes that sequence, it has no opinion about sequence at all, but because it physically cannot reach the backbone underneath a bound protein. So every fragment comes out short except one, and that one survives whole. Its length tells you how much DNA the protein covers, and where it starts and stops tells you where the protein sits. That is footprinting: you find a protein's binding site by destroying everything that is not it.",
+    desc:"Two DNA molecules drawn as red barbed lines, one above the other, the same style as the previous figure but zoomed out over thirty base pairs. The lower one has a blue rounded box labelled protein sitting over eight of its base pairs. On a loop, cuts appear at random positions on both molecules, different every time, and the fragments pull apart into short pieces: except that no cut ever lands under the protein, so that stretch of the lower molecule survives as one long unbroken piece. A blue rule beneath it is labelled: intact, the footprint."
   }], go:go };
 });
 })();

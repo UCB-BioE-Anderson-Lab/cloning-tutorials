@@ -88,7 +88,7 @@ function attach(slide){
       lab(SX-HALF-20, TY, "5&#8242;", "end")+ lab(SX+(N-1)*PS+HALF+20, TY, "3&#8242;", "start")+
       lab(SX-HALF-20, BY, "3&#8242;", "end")+ lab(SX+(N-1)*PS+HALF+20, BY, "5&#8242;", "start")+
       '<text x="800" y="800" text-anchor="middle" font-size="25" font-weight="700" fill="'+RED+
-        '">no site, no pattern &mdash; every cut leaves a 5&#8242; phosphate and a 3&#8242; hydroxyl</text>';
+        '">no site, no pattern. Every cut leaves a 5&#8242; phosphate and a 3&#8242; hydroxyl</text>';
   }
   function frame(now){
     if(!slide.classList.contains("on")){        /* idle cheaply while off screen */

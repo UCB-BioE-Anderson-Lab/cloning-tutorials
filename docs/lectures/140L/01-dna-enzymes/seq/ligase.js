@@ -94,11 +94,11 @@ function mk(sep, splitT, splitB, xs, o6){
   return s;
 }
 
-const CUT_B = bnd(6);                   /* 768 — the blunt cut         */
-const NICK_T = bnd(5);                  /* 696 — top nick              */
-const NICK_B = bnd(9);                  /* 984 — bottom nick           */
-const GAP_R  = bnd(6);                  /* 768 — right of the 1nt gap  */
-const ONE_B  = bnd(6);                  /* 768 — bottom break, 1 nt case */
+const CUT_B = bnd(6);                   /* 768, the blunt cut         */
+const NICK_T = bnd(5);                  /* 696, top nick              */
+const NICK_B = bnd(9);                  /* 984, bottom nick           */
+const GAP_R  = bnd(6);                  /* 768, right of the 1nt gap  */
+const ONE_B  = bnd(6);                  /* 768: bottom break, 1 nt case */
 /* The one-base case is drawn APART, like blunt and unlike sticky. Drawn
    annealed it read as "closer together than blunt", which is the exact
    opposite of the claim it exists to make. Two molecules that are not
@@ -112,41 +112,41 @@ const STEPS = [
 { s: mk(SEP, 7, 7,
         [LEFTX-SEP, CUT_B-HALF-SEP, CUT_B+HALF+SEP, RIGHTX+SEP,
          LEFTX-SEP, CUT_B-HALF-SEP, CUT_B+HALF+SEP, RIGHTX+SEP], 1),
-  label: "blunt ends — two molecules",
+  label: "blunt ends, two molecules",
   call:  "nothing is holding them together",
-  note: "Start with the hard case. These are two blunt-cut molecules, and there is literally nothing between them — no base pairing, no hydrogen bonds, nothing that holds one end against the other. They find each other by collision, and the only thing that keeps them together long enough for chemistry to happen is the ligase itself. That is why a blunt ligation wants more enzyme, more DNA, a longer and colder incubation, and often a crowding agent such as PEG. Blunt ligation is not forbidden — it works — it is just enormously less efficient, and when a blunt ligation gives you no colonies, this picture is the reason.",
+  note: "Start with the hard case. These are two blunt-cut molecules, and there is literally nothing between them: no base pairing, no hydrogen bonds, nothing that holds one end against the other. They find each other by collision, and the only thing that keeps them together long enough for chemistry to happen is the ligase itself. That is why a blunt ligation wants more enzyme, more DNA, a longer and colder incubation, and often a crowding agent such as PEG. Blunt ligation is not forbidden, it works, it is just enormously less efficient, and when a blunt ligation gives you no colonies, this picture is the reason.",
   desc: "Two separate double-stranded DNAs drawn as two rows of letters, each cut straight across, with a wide empty space between them. Neither strand is continuous across the space." },
 
 { s: mk(SEP1, 6, 7,
         [LEFTX-SEP1, NICK_T-SEP1, NICK_T+SEP1, RIGHTX+SEP1,
          LEFTX-SEP1, ONE_B-SEP1,  ONE_B+SEP1,  RIGHTX+SEP1], 1),
-  label: "a one-base overhang — worse than blunt",
+  label: "a one-base overhang, worse than blunt",
   call:  "still nothing holding them, and now something in the way",
-  note: "Before the good case, the worst one. Give those same two molecules a single-base overhang instead of a clean blunt end, so each one now has a single base hanging off it. You would expect that to beat nothing — a little bit of holding on is still holding on — and it does not. It is worse than blunt. Look at where they are: exactly as far apart as they were a moment ago. One base pair, on the occasions it forms at all, is far too weak to hold two molecules end to end for any useful length of time, so you get none of the benefit of annealing. And you have given up the one thing the blunt end had going for it, which was that both ends were flat and ready to be joined; now there is a base in the way. Efficiency is not monotonic in overhang length. It falls as the overhang shortens, hits its floor at one, and comes back up at zero. This is worth knowing because you make single-base overhangs by accident — a polymerase that adds a non-templated A, a partial fill-in — and then the ligation that should have worked does not.",
+  note: "Before the good case, the worst one. Give those same two molecules a single-base overhang instead of a clean blunt end, so each one now has a single base hanging off it. You would expect that to beat nothing, a little bit of holding on is still holding on, and it does not. It is worse than blunt. Look at where they are: exactly as far apart as they were a moment ago. One base pair, on the occasions it forms at all, is far too weak to hold two molecules end to end for any useful length of time, so you get none of the benefit of annealing. And you have given up the one thing the blunt end had going for it, which was that both ends were flat and ready to be joined; now there is a base in the way. Efficiency is not monotonic in overhang length. It falls as the overhang shortens, hits its floor at one, and comes back up at zero. This is worth knowing because you make single-base overhangs by accident (a polymerase that adds a non-templated A, a partial fill-in), and then the ligation that should have worked does not.",
   desc: "The two molecules are still as far apart as they were in the blunt frame. Each now carries one unpaired base hanging off it toward the other, coloured blue: one on the bottom strand of the left molecule, one on the top strand of the right. Nothing pairs across the gap." },
 
 { s: mk(0, 6, 10,
         [LEFTX, NICK_T-HALF, NICK_T+HALF, RIGHTX,
          LEFTX, NICK_B-HALF, NICK_B+HALF, RIGHTX], 1),
-  label: "sticky ends — held in register",
+  label: "sticky ends, held in register",
   call:  "4 base pairs, 2 nicks",
-  note: "Now give the same two molecules four-base overhangs — an EcoRI cut. The overhangs are complementary, so they base-pair, and those four base pairs are the entire reason sticky ends beat blunt. It is not that ligase prefers a sticky end. It is that the base pairing physically holds the two molecules in register, end to end and in frame, long enough for the enzyme to find the junction and act. Four pairs are weak and transient, which is why ligations are often run cold, but they are infinitely better than nothing. And look at what the annealed structure actually is: not one break but two, one in each strand, and each one is a nick.",
-  desc: "The two molecules slide together. Four bases from each molecule pair with four from the other, marked with vertical ticks. Each strand is now broken at exactly one point — the top strand at the left edge of the paired region, the bottom strand at the right edge. Labels mark a 3-prime hydroxyl and a 5-prime phosphate facing each other across the top break." },
+  note: "Now give the same two molecules four-base overhangs: an EcoRI cut. The overhangs are complementary, so they base-pair, and those four base pairs are the entire reason sticky ends beat blunt. It is not that ligase prefers a sticky end. It is that the base pairing physically holds the two molecules in register, end to end and in frame, long enough for the enzyme to find the junction and act. Four pairs are weak and transient, which is why ligations are often run cold, but they are infinitely better than nothing. And look at what the annealed structure actually is: not one break but two, one in each strand, and each one is a nick.",
+  desc: "The two molecules slide together. Four bases from each molecule pair with four from the other, marked with vertical ticks. Each strand is now broken at exactly one point: the top strand at the left edge of the paired region, the bottom strand at the right edge. Labels mark a 3-prime hydroxyl and a 5-prime phosphate facing each other across the top break." },
 
 { s: mk(0, 6, 10,
         [LEFTX, NICK_T, NICK_T, RIGHTX,
          LEFTX, NICK_B, NICK_B, RIGHTX], 1),
-  label: "ligase seals both nicks — one molecule",
+  label: "ligase seals both nicks, one molecule",
   call:  "2 bonds, 2 ATP",
-  note: "That is the substrate. At each nick a 3' hydroxyl and a 5' phosphate sit directly against one another with nothing in between. Be exact about the direction: the phosphate that ends up in the new bond is the one already sitting on the downstream 5' end, and the upstream 3' hydroxyl is the nucleophile that attacks it. Ligase spends one ATP to make that happen — it adenylylates itself, hands the AMP to the 5' phosphate to activate it, and the 3' hydroxyl then attacks and displaces the AMP. Two nicks, two bonds, two ATP, and the two molecules are one molecule. That ATP dependence is practical, not trivia: buffer that has been thawed twenty times has no usable ATP left in it, and a ligation in dead buffer fails silently.",
+  note: "That is the substrate. At each nick a 3' hydroxyl and a 5' phosphate sit directly against one another with nothing in between. Be exact about the direction: the phosphate that ends up in the new bond is the one already sitting on the downstream 5' end, and the upstream 3' hydroxyl is the nucleophile that attacks it. Ligase spends one ATP to make that happen: it adenylylates itself, hands the AMP to the 5' phosphate to activate it, and the 3' hydroxyl then attacks and displaces the AMP. Two nicks, two bonds, two ATP, and the two molecules are one molecule. That ATP dependence is practical, not trivia: buffer that has been thawed twenty times has no usable ATP left in it, and a ligation in dead buffer fails silently.",
   desc: "Both breaks close. Both strands now run continuously from one end to the other as a single molecule, with a half barb only at the two true 3-prime ends. Two short red marks show where the new bonds were made." },
 
 { s: mk(0, 6, 10,
         [LEFTX, NICK_T-HALF, GAP_R+HALF, RIGHTX,
          LEFTX, NICK_B-HALF, NICK_B+HALF, RIGHTX], 0),
-  label: "one base missing — a gap, not a nick",
+  label: "one base missing: a gap, not a nick",
   call:  "polymerase first, then ligase",
-  note: "Now the failure mode nobody sees coming. Take that same junction and remove a single base from the top strand. It looks almost the same, but it is not a nick, it is a gap, and T4 ligase cannot bridge it. There is no bond available to make: the 3' hydroxyl and the 5' phosphate are a whole nucleotide apart. A polymerase has to put the missing base in first, using the bottom strand as template, and only then can ligase seal the nick that remains. This is exactly the division of labour inside a Gibson reaction — exonuclease chews back, the ends anneal, polymerase fills the gaps, ligase seals the nicks — and it is why all three are in the tube. If you ever design an assembly where the ends anneal but a base is unaccounted for, you have designed a gap, and no amount of extra ligase will rescue it.",
+  note: "Now the failure mode nobody sees coming. Take that same junction and remove a single base from the top strand. It looks almost the same, but it is not a nick, it is a gap, and T4 ligase cannot bridge it. There is no bond available to make: the 3' hydroxyl and the 5' phosphate are a whole nucleotide apart. A polymerase has to put the missing base in first, using the bottom strand as template, and only then can ligase seal the nick that remains. This is exactly the division of labour inside a Gibson reaction (exonuclease chews back, the ends anneal, polymerase fills the gaps, ligase seals the nicks), and it is why all three are in the tube. If you ever design an assembly where the ends anneal but a base is unaccounted for, you have designed a gap, and no amount of extra ligase will rescue it.",
   desc: "The molecules stay annealed, but one letter is now missing from the top strand, leaving an empty position and a break several times wider than a nick. The unpaired base opposite it on the bottom strand is marked in red with a dashed tick standing in for its missing partner." }
 ];
 
@@ -323,14 +323,14 @@ const NS_STEPS = [
     note:"This is the reaction both of these enzymes actually do, and it is worth drawing because the word nick does not carry it. Here are three separate oligos and, underneath, one longer strand complementary to all three of them.",
     desc:"Three short DNA strands drawn as separate barbed lines, floating at different heights above a single longer strand that runs the width of the slide." },
   { s:{an:1, seal:0},
-    label:"annealing puts them in register — two nicks",
+    label:"annealing puts them in register, two nicks",
     call:"the ligase did none of this",
-    note:"They anneal, head to tail, along that strand. Look at what the annealing has done: the three oligos are now butted end to end, in frame, held there by the strand underneath. What is left between them is two nicks — a three prime hydroxyl and a five prime phosphate sitting directly against one another with a continuous duplex on the other side. That is the substrate. And notice who did the work of bringing them together. Base pairing did. The ligase is not in the room yet.",
+    note:"They anneal, head to tail, along that strand. Look at what the annealing has done: the three oligos are now butted end to end, in frame, held there by the strand underneath. What is left between them is two nicks: a three prime hydroxyl and a five prime phosphate sitting directly against one another with a continuous duplex on the other side. That is the substrate. And notice who did the work of bringing them together. Base pairing did. The ligase is not in the room yet.",
     desc:"The three oligos drop into place along the lower strand, butted end to end, leaving two small breaks between them. The junctions are now nicks in an otherwise continuous duplex." },
   { s:{an:1, seal:1},
     label:"two nicks, two bonds, one strand",
-    call:"it seals what is already held — it never brings pieces together",
-    note:"Now the ligase, and all it has to do is close two bonds. Three oligos have become one continuous strand. That is the native job — repair, and sealing Okazaki fragments behind the replication fork — and it is the same job it does in the two places you will meet it: in a Gibson reaction, sealing the nicks left after the polymerase has filled the gaps, and in ligase chain assembly, sealing oligos held against a template. Both of those run hot, which is why the thermostable one is the one in the tube. And this is exactly why these enzymes are useless for cloning: a restriction fragment has nothing holding it against its partner, and this ligase will not supply that. T4 will.",
+    call:"it seals what is already held, it never brings pieces together",
+    note:"Now the ligase, and all it has to do is close two bonds. Three oligos have become one continuous strand. That is the native job (repair, and sealing Okazaki fragments behind the replication fork), and it is the same job it does in the two places you will meet it: in a Gibson reaction, sealing the nicks left after the polymerase has filled the gaps, and in ligase chain assembly, sealing oligos held against a template. Both of those run hot, which is why the thermostable one is the one in the tube. And this is exactly why these enzymes are useless for cloning: a restriction fragment has nothing holding it against its partner, and this ligase will not supply that. T4 will.",
     desc:"Both breaks close and two short red marks show where the bonds were made. The three oligos are now one continuous strand running the width of the slide above its template." }
 ];
 

@@ -49,7 +49,7 @@ function svg(slide, extra){
     /* Caption band: one bold line naming what happened, one quieter line
        under it. The quiet line is either the muted annotation (`sub`) or,
        on a step that poses a question, the red call-out (`call`) in its
-       place — never both, so the block is always exactly two lines. */
+       place: never both, so the block is always exactly two lines. */
     '<text data-r="label" x="800" y="706" text-anchor="middle" font-family="inherit" ' +
       'font-weight="700" font-size="30" fill="'+INK+'"></text>' +
     '<text data-r="sub" x="800" y="752" text-anchor="middle" font-family="inherit" ' +
@@ -112,18 +112,18 @@ window.Deck.sequence("exo53", function(slide){
     { s:{a:P0,b:B0},
       label:"a short oligo annealed, and a strand already downstream",
       /* r.sub is set with textContent, which does not decode entities */
-      sub:"one recessed 3′ end — any polymerase will extend it",
+      sub:"one recessed 3′ end; any polymerase will extend it",
       note:"Suppose we have this DNA: three polynucleotides annealed together, leaving a single recessed three prime end. That is the substrate we just drew atom by atom, now at the level of abstraction we will use for the rest of the lecture. There is a short oligo on the left with a free three prime end, there is template underneath it running the whole way, and there is another strand already sitting downstream. Any DNA polymerase will extend that recessed end.",
       desc:"A template strand runs the width of the slide. Above it on the left sits a short annealed oligo with a half barb marking its free 3-prime end, and further right a separate downstream strand occupies the rest of the template. A caption reads: a short oligo annealed, and a strand already downstream." },
     { s:{a:B0,b:B0},
       label:"the polymerase runs into the downstream strand",
       call:"Now what?",
-      note:"And it runs forward until it collides with the strand already sitting downstream. Nothing so far distinguishes one polymerase from another — every one of them does this. What happens at that collision is what does.",
+      note:"And it runs forward until it collides with the strand already sitting downstream. Nothing so far distinguishes one polymerase from another: every one of them does this. What happens at that collision is what does.",
       desc:"The oligo has been extended to the right until it reaches the downstream blocking strand, leaving only a nick between them. A bold caption reads: the polymerase runs into the downstream strand. A red line asks: Now what?" },
     { s:{a:XR,b:XR},
       label:"it degrades the strand in front of it",
       sub:"the downstream strand is replaced, base for base, by new synthesis",
-      note:"If the polymerase has 5' to 3' exonuclease activity it simply chews the blocking strand up as it goes, and that strand is entirely replaced by new synthesis. Nothing is displaced and nothing is left over — you end with one strand where there were two. This is what nick translation is, and it is why Taq will destroy a probe sitting in its path.",
+      note:"If the polymerase has 5' to 3' exonuclease activity it simply chews the blocking strand up as it goes, and that strand is entirely replaced by new synthesis. Nothing is displaced and nothing is left over: you end with one strand where there were two. This is what nick translation is, and it is why Taq will destroy a probe sitting in its path.",
       desc:"The downstream strand has been degraded away entirely. One continuous new strand now spans the whole template. The caption reads: it degrades the strand in front of it." }
   ];
   return driver(svg(slide), EXO_KEYS, S, exoPaint);
@@ -178,8 +178,8 @@ window.Deck.sequence("displacement", function(slide){
       desc:"The same arrangement as on the previous slide: a full-width template, a new strand extended from the left, and a downstream blocking strand beginning after a nick. A red line asks: Now what?" },
     { s:{a:XR,released:1},
       label:"it peels the strand off and keeps going",
-      sub:"the displaced strand comes away whole — a separate molecule, 5′ to 3′",
-      note:"This time it does not degrade anything. It lifts the downstream strand off the template from that strand's 5' end and keeps polymerising underneath it, and the displaced DNA eventually comes away intact as a separate molecule. Nothing was destroyed: you end with two molecules where the exonuclease left you one. Hold on to that difference — it is the whole of the next two slides.",
+      sub:"the displaced strand comes away whole: a separate molecule, 5′ to 3′",
+      note:"This time it does not degrade anything. It lifts the downstream strand off the template from that strand's 5' end and keeps polymerising underneath it, and the displaced DNA eventually comes away intact as a separate molecule. Nothing was destroyed: you end with two molecules where the exonuclease left you one. Hold on to that difference. It is the whole of the next two slides.",
       desc:"The polymerase has run to the far end of the template. The displaced strand now sits alone above the duplex, drawn in red at its own full length and offset from both ends of the duplex, its 5-prime end labelled on the left and a half barb marking its 3-prime end on the right." }
   ];
   return driver(svg(slide, DISP_EXTRA), DISP_KEYS, S, dispPaint);
@@ -286,7 +286,7 @@ window.Deck.sequence("proofread", function(slide){
 
   const S = [
     { s:{n:5, wrong:0}, cap:"the enzyme sits on the growing 3′ end",
-      sub:"the notch is the cleft — bases go in there, and come back out there",
+      sub:"the notch is the cleft: bases go in there, and come back out there",
       note:"A primer is annealed and the polymerase starts extending it along the template. The notch in the enzyme is the cleft that holds the duplex, and the growing 3-prime end sits in it. Everything on this slide happens at that one point.",
       desc:"A template strand written out as letters, 3-prime to 5-prime, with a short primer paired above it at its 5-prime end. A pale blue enzyme silhouette straddles the duplex with its notch on the growing end of the primer." },
     { s:{n:11, wrong:0}, cap:"polymerizing 5\u2032\u21923\u2032",
@@ -294,8 +294,8 @@ window.Deck.sequence("proofread", function(slide){
       note:"It runs forward, adding one base at a time complementary to the template.",
       desc:"The polymerase runs forward, filling in bases one by one so the new strand now pairs with eleven bases of the template." },
     { s:{n:11, wrong:1}, cap:"a wrong base goes in",
-      sub:"a G opposite an A — it cannot pair",
-      note:"Every so often it puts in the wrong base — here a G opposite an A, which cannot pair.",
+      sub:"a G opposite an A: it cannot pair",
+      note:"Every so often it puts in the wrong base: here a G opposite an A, which cannot pair.",
       desc:"A red G has been incorporated where a T belongs, opposite the template A. It is mispaired." },
     /* Excises IT, singular: back to ELEVEN correct bases, not ten. The old
        value removed the mismatch AND one correctly paired base with it,

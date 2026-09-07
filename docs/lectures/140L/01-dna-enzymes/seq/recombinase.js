@@ -201,7 +201,7 @@ function anatomy(){
   g += '<path d="M'+n2(sx0)+' 522V542H'+n2(sx1)+'V522" fill="none" stroke="'+BLUE+
          '" stroke-width="3.2" stroke-linejoin="round"/>';
   g += label(800, 590, "8 bp spacer", 27, BLUE);
-  g += label(800, 626, "not a palindrome &#8212; so the site has a direction", 24, MUTED);
+  g += label(800, 626, "not a palindrome, so the site has a direction", 24, MUTED);
 
   /* and the level-3 icon it collapses to */
   const pt = curve(34*PITCH, 0, 1, 800, 712);
@@ -284,7 +284,7 @@ function invScene(t){
   g += fade(smooth(t, 0.22, 0.44) * (1 - smooth(t, 0.68, 0.84)),
             label(770, Y0 + 126, "the two sites have to meet, so the DNA between them loops out", 25, MUTED));
   g += fade(smooth(t, 0.86, 1),
-            label(800, Y0 + 126, "both sites survive &#8212; so Cre can do it again", 26, MUTED));
+            label(800, Y0 + 126, "both sites survive, so Cre can do it again", 26, MUTED));
   return g;
 }
 
@@ -306,13 +306,13 @@ window.Deck.sequence("loxorient", function(slide){
     { s:{anat:1,direct:0,dirT:0,inv:0,invT:0},
       cap:"the site: loxP",
       sub:"",
-      note:"This is the last enzyme class in the lecture and it is the one that does the most with a single protein. Everything up to now cuts, copies or joins one junction at a time, and you have to hand it the ends. A recombinase finds two sites, breaks and rejoins all four strands, and reseals — no ligase, no polymerase, no ATP, and no free DNA end is ever let go, because the broken bond is held as a covalent protein-DNA link the whole time. That is the reason it can run on a chromosome inside a living cell. Now the site. loxP is thirty-four base pairs: two thirteen-base-pair arms that are inverted repeats of each other, with an eight-base-pair spacer between them. One Cre monomer binds each arm, so two Cre per site and four across the reaction. Look at the spacer: A-T-G-T-A-T-G-C one way, G-C-A-T-A-C-A-T the other. It is not a palindrome, so the site is not the same read from the left as from the right, and that asymmetry is the entire source of the arrow. From here on the arrow is all we draw, and it is all that matters.",
+      note:"This is the last enzyme class in the lecture and it is the one that does the most with a single protein. Everything up to now cuts, copies or joins one junction at a time, and you have to hand it the ends. A recombinase finds two sites, breaks and rejoins all four strands, and reseals: no ligase, no polymerase, no ATP, and no free DNA end is ever let go, because the broken bond is held as a covalent protein-DNA link the whole time. That is the reason it can run on a chromosome inside a living cell. Now the site. loxP is thirty-four base pairs: two thirteen-base-pair arms that are inverted repeats of each other, with an eight-base-pair spacer between them. One Cre monomer binds each arm, so two Cre per site and four across the reaction. Look at the spacer: A-T-G-T-A-T-G-C one way, G-C-A-T-A-C-A-T the other. It is not a palindrome, so the site is not the same read from the left as from the right, and that asymmetry is the entire source of the arrow. From here on the arrow is all we draw, and it is all that matters.",
       desc:"The loxP sequence written out as two strands of letters. The two thirteen base pair arms are marked with thin arrows pointing inward toward each other; the eight base pair spacer between them is coloured red and bracketed. Below, the whole thirty-four base pair site is redrawn as a single filled blue arrow pointing right." },
 
     { s:{anat:0,direct:1,dirT:0,inv:0,invT:0},
       cap:"two loxP sites, pointing the same way",
       sub:"Cre pairs the two sites, cuts and reseals all four strands",
-      note:"Now put two of those sites into one molecule, both pointing the same way, with a gene between them. Cre binds all four arms, brings the two sites face to face — that pairing step is called synapsis and it is the committed step — and then exchanges the strands. Watch what the geometry forces.",
+      note:"Now put two of those sites into one molecule, both pointing the same way, with a gene between them. Cre binds all four arms, brings the two sites face to face, that pairing step is called synapsis and it is the committed step, and then exchanges the strands. Watch what the geometry forces.",
       desc:"A single horizontal DNA line. Two filled blue loxP arrows, both pointing right, flank an outlined arrow labelled gene." },
 
     { s:{anat:0,direct:1,dirT:1,inv:0,invT:0},
@@ -330,7 +330,7 @@ window.Deck.sequence("loxorient", function(slide){
     { s:{anat:0,direct:0,dirT:1,inv:1,invT:1},
       cap:"opposite orientation → inversion",
       sub:"the segment flips; both loxP sites survive, still pointing opposite ways",
-      note:"Opposite orientation gives inversion. The segment between the sites is flipped end for end — the gene now points the other way — and both loxP sites are still there, still in opposite orientation. Which means the product is still a perfectly good substrate, so Cre just keeps flipping it, and an unmanaged population lands near fifty-fifty. Excision is effectively one way; inversion is not. If you were planning to use an inversion as a memory element, that is the reason it will not latch on its own. And the practical warning: the difference between deleting your gene and merely reversing it is which way you pointed a thirty-four base pair site when you ordered the DNA. Get it wrong and the construct fails silently.",
+      note:"Opposite orientation gives inversion. The segment between the sites is flipped end for end, the gene now points the other way, and both loxP sites are still there, still in opposite orientation. Which means the product is still a perfectly good substrate, so Cre just keeps flipping it, and an unmanaged population lands near fifty-fifty. Excision is effectively one way; inversion is not. If you were planning to use an inversion as a memory element, that is the reason it will not latch on its own. And the practical warning: the difference between deleting your gene and merely reversing it is which way you pointed a thirty-four base pair site when you ordered the DNA. Get it wrong and the construct fails silently.",
       desc:"The segment between the two loxP sites has flipped: the gene arrow now points left. Both loxP arrows are unchanged and still point in opposite directions." }
   ];
   return driver(r, KEYS, paint, S);
@@ -394,7 +394,7 @@ function reaction(fwd, rev, unlock, t){
           label(800, 666, "attL &#160;+&#160; attR", 38, INK, "middle", 700) +
           downArrow(726, 552, 634, BLUE) +
           label(704, 600, "integrase", 24, BLUE, "end") +
-          label(800, 736, "attL = B&#183;P&#8242; and attR = P&#183;B&#8242; &#8212; neither one is attB, neither one is attP", 26, MUTED);
+          label(800, 736, "attL = B&#183;P&#8242; and attR = P&#183;B&#8242;. Neither one is attB, neither one is attP", 26, MUTED);
 
   const ro = smooth(rev, 0.25, 1);
   const u = smooth(unlock, 0.12, 0.75);
@@ -424,20 +424,20 @@ window.Deck.sequence("integrase", function(slide){
   const S = [
     { s:{t:0,fwd:0,rev:0,unlock:0},
       cap:"attB in the genome, attP on the plasmid",
-      sub:"a serine integrase — BxbI, phiC31 — and two sites of about forty bases",
-      note:"Serine integrases are the version of this that matters most for building things. A phage integrase recombines a site in the bacterial chromosome, attB, with a site on the phage, attP. Here that is a landing pad already sitting in the genome, and a donor plasmid carrying your payload. The sites are short — for BxbI, attB is thirty-eight bases and attP forty-eight — and the enzyme is one protein: no host factors, no homology arms, no ATP. And unlike Cre, a serine integrase really does cut all four strands at once, rotates half of the synapse a hundred and eighty degrees, and religates.",
+      sub:"a serine integrase (BxbI, phiC31), and two sites of about forty bases",
+      note:"Serine integrases are the version of this that matters most for building things. A phage integrase recombines a site in the bacterial chromosome, attB, with a site on the phage, attP. Here that is a landing pad already sitting in the genome, and a donor plasmid carrying your payload. The sites are short (for BxbI, attB is thirty-eight bases and attP forty-eight), and the enzyme is one protein: no host factors, no homology arms, no ATP. And unlike Cre, a serine integrase really does cut all four strands at once, rotates half of the synapse a hundred and eighty degrees, and religates.",
       desc:"A horizontal chromosome line carrying a blue bar split into two halves lettered B and B prime, labelled attB. Below it, separated by a clear gap, a circular donor plasmid carrying an outlined payload arrow and a red bar lettered P and P prime, labelled attP." },
 
     { s:{t:1,fwd:1,rev:0,unlock:0},
       cap:"one reaction, and the whole plasmid is in the chromosome",
       sub:"each junction is half of one parent site and half of the other",
-      note:"One enzyme, one step, and the entire donor is in the chromosome. Now look at what the junctions are actually made of. attB was B and B prime; attP was P and P prime. The crossover happens in the middle of each, so the left junction is B joined to P prime — that is attL — and the right junction is P joined to B prime — that is attR. Neither product is attB and neither is attP. They are hybrids, and that is not a naming detail, it is the mechanism of the next point.",
+      note:"One enzyme, one step, and the entire donor is in the chromosome. Now look at what the junctions are actually made of. attB was B and B prime; attP was P and P prime. The crossover happens in the middle of each, so the left junction is B joined to P prime, that is attL, and the right junction is P joined to B prime. That is attR. Neither product is attB and neither is attP. They are hybrids, and that is not a naming detail, it is the mechanism of the next point.",
       desc:"The circle has opened at attP and unrolled into the chromosome. The payload now sits in the line, flanked on the left by a bar reading B then P prime, labelled attL, and on the right by a bar reading P then B prime, labelled attR. Below, a reaction summary reads attB plus attP, arrow down, attL plus attR." },
 
     { s:{t:1,fwd:1,rev:1,unlock:0},
       cap:"the products are not substrates",
       sub:"the integrase alone cannot pair attL with attR, so the reaction has nowhere to go",
-      note:"And this is the whole point. The integrase recognises an attB and an attP, and it can only assemble a productive synapse out of one of each. Hand it an attL and an attR and the complex does not form, so the reaction simply stops. Compare Cre: loxP times loxP gives you loxP and loxP, the product is still a substrate, and it never stops. Consuming the sites is what makes a landing pad stable — you integrate once and it stays integrated, even with the integrase still being expressed. That is why this, and not Cre, is what you build a genomic landing pad out of.",
+      note:"And this is the whole point. The integrase recognises an attB and an attP, and it can only assemble a productive synapse out of one of each. Hand it an attL and an attR and the complex does not form, so the reaction simply stops. Compare Cre: loxP times loxP gives you loxP and loxP, the product is still a substrate, and it never stops. Consuming the sites is what makes a landing pad stable: you integrate once and it stays integrated, even with the integrase still being expressed. That is why this, and not Cre, is what you build a genomic landing pad out of.",
       desc:"A red upward arrow has appeared beside the blue downward one in the reaction summary, struck through with a red cross and labelled: integrase alone, no reaction." },
 
     /* Adding Xis gets its own click. It was folded into the reverse
@@ -449,13 +449,13 @@ window.Deck.sequence("integrase", function(slide){
     { s:{t:1,fwd:1,rev:1,unlock:1},
       cap:"add Xis, and the reverse is allowed",
       sub:"a recombination directionality factor \u2014 Xis in \u03bb, gp47 in BxbI",
-      note:"The reverse is not impossible, it is just off by default, and what turns it on is a second small protein. In lambda it is Xis. In BxbI the same job is done by gp47. The general name is a recombination directionality factor, and what it does is remodel the complex so that attL and attR become the productive pair instead of a dead end. Nothing has moved yet — all that has changed is that the reaction which had nowhere to go now has somewhere to go.",
+      note:"The reverse is not impossible, it is just off by default, and what turns it on is a second small protein. In lambda it is Xis. In BxbI the same job is done by gp47. The general name is a recombination directionality factor, and what it does is remodel the complex so that attL and attR become the productive pair instead of a dead end. Nothing has moved yet. All that has changed is that the reaction which had nowhere to go now has somewhere to go.",
       desc:"The red cross over the reverse arrow clears. The arrow turns blue and is labelled integrase plus Xis. Nothing else on the slide has moved." },
 
     { s:{t:0,fwd:1,rev:1,unlock:1},
       cap:"and it comes back out",
       sub:"attL \u00d7 attR \u2192 attB + attP, and the plasmid is a circle again",
-      note:"So run it. The integrase plus Xis pairs attL with attR, cuts, rotates and religates, and the donor leaves as a circle. Watch the labels come back on their own: the chromosome has attB again and the circle has attP again, because those genuinely are the products of attL times attR. Nothing here is a second mechanism — it is the same reaction I ran a few clicks ago, driven the other way. And this is Gateway exactly: BP clonase runs attB times attP forward to give the Entry clone, LR clonase is the same integrase plus its directionality factor and runs attL times attR back to give the Expression clone. The reaction names are the site names. So what you have is a switch you can throw deliberately — integrate now, excise later, on command — which is the basis of the recombinase memory and logic circuits.",
+      note:"So run it. The integrase plus Xis pairs attL with attR, cuts, rotates and religates, and the donor leaves as a circle. Watch the labels come back on their own: the chromosome has attB again and the circle has attP again, because those genuinely are the products of attL times attR. Nothing here is a second mechanism. It is the same reaction I ran a few clicks ago, driven the other way. And this is Gateway exactly: BP clonase runs attB times attP forward to give the Entry clone, LR clonase is the same integrase plus its directionality factor and runs attL times attR back to give the Expression clone. The reaction names are the site names. So what you have is a switch you can throw deliberately (integrate now, excise later, on command) which is the basis of the recombinase memory and logic circuits.",
       desc:"The reaction summary clears as the payload rolls back out of the chromosome into a circle below it, the chromosome closing up carrying attB again and the circle carrying attP again." }
   ];
   return driver(r, KEYS, paint, S);
@@ -567,7 +567,7 @@ window.Deck.sequence("flox", function(slide){
       desc:"The excised circle fades away as it is diluted out of the population, and only then does the label below the cell change from resistant to not resistant." },
     { s:{loop:1,off:1,gone:1,names:1},
       cap:"and it is not just Cre", sub:"",
-      note:"Cre is not the only one of these. Flp with its FRT sites from the yeast two-micron plasmid, Dre with rox, VCre with vlox — all the same trick on a different thirty-four base pair site, which matters because you can run two of them in one cell without them touching each other's sites. One warning to finish on, and it is on the screen: there is still a loxP in that chromosome. Express Cre again later for some other purpose and it is a perfectly good site. It will be used.",
+      note:"Cre is not the only one of these. Flp with its FRT sites from the yeast two-micron plasmid, Dre with rox, VCre with vlox: all the same trick on a different thirty-four base pair site, which matters because you can run two of them in one cell without them touching each other's sites. One warning to finish on, and it is on the screen: there is still a loxP in that chromosome. Express Cre again later for some other purpose and it is a perfectly good site. It will be used.",
       desc:"A line names the other systems: Flp with FRT, Dre with rox, VCre with vloxP, all the same trick on a different 34 base pair site." }
   ];
   return driver(r, KEYS, paint, S);
@@ -664,19 +664,19 @@ window.Deck.sequence("homrec", function(slide){
   const S = [
     { s:{up:0,swap:0,named:0},
       cap:"a donor arrives, with the same flanks", sub:"identical either side, different in the middle",
-      note:"Last one, and it is the odd one out, because there is no site to show you. Every other enzyme in this section reads a sequence: loxP, attB, attP. Homologous recombination reads nothing. Here is a locus in the genome — a gene with some stretch of sequence on either side of it — and here is a linear piece of DNA you made, carrying whatever you want in the middle, flanked by those same two stretches. The red is the same red on both molecules and that is the entire design: those flanks are identical, and nothing else about the donor matters.",
+      note:"Last one, and it is the odd one out, because there is no site to show you. Every other enzyme in this section reads a sequence: loxP, attB, attP. Homologous recombination reads nothing. Here is a locus in the genome, a gene with some stretch of sequence on either side of it, and here is a linear piece of DNA you made, carrying whatever you want in the middle, flanked by those same two stretches. The red is the same red on both molecules and that is the entire design: those flanks are identical, and nothing else about the donor matters.",
       desc:"A chromosome carrying three boxes: a red box A, an italic gene box, and a red box B. Below it, separate, a linear donor carrying the same red A and B boxes with a blue cassette between them." },
     { s:{up:1,swap:0,named:0},
-      cap:"both arms pair, and both are cut", sub:"a double crossover — nothing here is reading a sequence",
-      note:"The donor finds the locus by base pairing, arm to arm, and the crossovers happen inside the regions of identity. Notice what is choosing the target: not a recognition site, not a protein that reads letters, just the fact that two stretches of DNA are the same. That is why you can aim this anywhere in a genome — you are not looking for a site, you are supplying one half of a match. Make the arms long enough and you can hit any locus you like.",
+      cap:"both arms pair, and both are cut", sub:"a double crossover; nothing here is reading a sequence",
+      note:"The donor finds the locus by base pairing, arm to arm, and the crossovers happen inside the regions of identity. Notice what is choosing the target: not a recognition site, not a protein that reads letters, just the fact that two stretches of DNA are the same. That is why you can aim this anywhere in a genome. You are not looking for a site, you are supplying one half of a match. Make the arms long enough and you can hit any locus you like.",
       desc:"The donor rises until its A and B boxes register with the A and B boxes in the chromosome, and a red cross is drawn between the two molecules inside each arm." },
     { s:{up:1,swap:1,named:0},
       cap:"the middles trade", sub:"the arms are unchanged, so there is no scar to find afterwards",
-      note:"And the middles trade. What was in the genome comes out, what you built goes in, and the arms are unchanged because they were identical to begin with — you cannot tell afterwards which copy of A survived. That is how a gene gets knocked out, how a tag gets added to the end of a coding sequence, how a promoter gets swapped. One reaction, and it leaves no scar, because there is no site to leave behind.",
+      note:"And the middles trade. What was in the genome comes out, what you built goes in, and the arms are unchanged because they were identical to begin with: you cannot tell afterwards which copy of A survived. That is how a gene gets knocked out, how a tag gets added to the end of a coding sequence, how a promoter gets swapped. One reaction, and it leaves no scar, because there is no site to leave behind.",
       desc:"The gene box in the chromosome is replaced by the blue cassette. The donor is gone, and so is the gene that was there." },
     { s:{up:1,swap:1,named:1},
       cap:"who can do this", sub:"",
-      note:"The catch is which organism will do it for you. Yeast and Bacillus subtilis take up a linear fragment with homology arms and recombine it in without being asked — it is one of the main reasons yeast is such a convenient host to build in. E. coli will not. Transform a linear cassette into ordinary E. coli and it is degraded, not integrated. The host protein that does strand exchange is RecA, and E. coli has it, but not in a configuration that will take a linear donor. What you do instead is supply the lambda Red genes — Exo, Beta and Gam — which substitute for what E. coli lacks, and the technique built on that is called recombineering. That is how gene knockouts are made in E. coli, and it is worth knowing that the whole Keio collection, every single-gene knockout in the organism, was made this way.",
+      note:"The catch is which organism will do it for you. Yeast and Bacillus subtilis take up a linear fragment with homology arms and recombine it in without being asked. It is one of the main reasons yeast is such a convenient host to build in. E. coli will not. Transform a linear cassette into ordinary E. coli and it is degraded, not integrated. The host protein that does strand exchange is RecA, and E. coli has it, but not in a configuration that will take a linear donor. What you do instead is supply the lambda Red genes (Exo, Beta and Gam) which substitute for what E. coli lacks, and the technique built on that is called recombineering. That is how gene knockouts are made in E. coli, and it is worth knowing that the whole Keio collection, every single-gene knockout in the organism, was made this way.",
       desc:"A line names the requirement: lambda Red in E. coli, nothing needed in yeast or B. subtilis." }
   ];
   return driver(r, KEYS, paint, S);

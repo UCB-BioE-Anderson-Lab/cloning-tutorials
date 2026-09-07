@@ -42,7 +42,7 @@ const RAD = Math.PI/180;
 const n2 = v => Math.round(v*10)/10;
 
 const SW   = 4.2;          /* strand stroke                                */
-const BARB = 26, BW = 0.49;/* 3' half barb — same as seq/linear.js         */
+const BARB = 26, BW = 0.49;/* 3' half barb, same as seq/linear.js         */
 const DR   = 21;           /* radius of a 5' terminal mark                 */
 
 /* ------------------------------------------------------- primitives */
@@ -50,7 +50,7 @@ function pt(cx, cy, r, a){ return [cx + r*Math.cos(a*RAD), cy + r*Math.sin(a*RAD
 
 /* An arc from a1 to a2 (degrees), swept in the direction of their
    difference. Split in half so the large-arc flag is never needed and a
-   full 360 degrees still draws — which it must, once the circle closes. */
+   full 360 degrees still draws. Which it must, once the circle closes. */
 function arc(cx, cy, r, a1, a2){
   const d = a2 - a1;
   if (Math.abs(d) < 0.4) return "";
@@ -256,14 +256,14 @@ window.Deck.sequence("vecphos", function(slide){
   const S = [
   { s:{G:GAP, ins:0, pv:1, cLo:0, cLi:0, cRo:0, cRi:0},
     cap:"A cut vector carries a 5′ phosphate on each end",
-    sub:"one on the outer strand, one on the inner — diagonally opposite",
+    sub:"one on the outer strand, one on the inner, diagonally opposite",
     note:"Start with a vector cut by a single enzyme, so its two ends are compatible with each other. Look at what the cut left behind. A restriction enzyme breaks the bond between a three prime hydroxyl and a five prime phosphate, and the phosphate stays with the end it is attached to. So each of these two ends has a five prime phosphate on one strand and a three prime hydroxyl on the other, and the two phosphates sit diagonally opposite one another. Those two phosphates are this molecule's licence to be sealed shut.",
     desc:"A plasmid drawn as two concentric barbed lines, the outer strand running clockwise and the inner strand counterclockwise, with a gap cut in them at the top. At the right edge of the gap a filled dot marked P sits on the outer strand; at the left edge another sits on the inner strand. The two remaining ends carry half barbs marking three prime." },
 
   { s:{G:0, ins:0, pv:1, cLo:1, cLi:1, cRo:1, cRi:1},
     cap:"T4 DNA ligase",
-    sub:"it simply closes on itself — and that is the lawn of empty vector on your plate",
-    note:"Now add ligase and nothing else. Both phosphates are there, both three prime hydroxyls are there, so both strands get sealed and the vector closes right back up. This is the single largest source of background in ordinary cloning: you plate out and every colony is empty vector, because the vector did not need your insert in order to become a circle again. Notice the ends are gone from the drawing. A closed circle has no three prime end and no free five prime phosphate — they went into the bonds. Notice also that it can only do this because both its ends are compatible — this vector was cut with a single enzyme. If you had cut with two different enzymes and left two different sticky ends, the vector could not close on itself at all, and nothing in the rest of this slide would be necessary.",
+    sub:"it simply closes on itself, and that is the lawn of empty vector on your plate",
+    note:"Now add ligase and nothing else. Both phosphates are there, both three prime hydroxyls are there, so both strands get sealed and the vector closes right back up. This is the single largest source of background in ordinary cloning: you plate out and every colony is empty vector, because the vector did not need your insert in order to become a circle again. Notice the ends are gone from the drawing. A closed circle has no three prime end and no free five prime phosphate: they went into the bonds. Notice also that it can only do this because both its ends are compatible. This vector was cut with a single enzyme. If you had cut with two different enzymes and left two different sticky ends, the vector could not close on itself at all, and nothing in the rest of this slide would be necessary.",
     desc:"The gap has closed and the plasmid is now a smaller unbroken circle, the same DNA with its two ends joined rather than a longer one. The phosphate discs and half barbs have gone from both junctions, because a sealed junction has no ends." },
 
   { s:{G:GAP, ins:0, pv:0, cLo:0, cLi:0, cRo:0, cRi:0},
@@ -274,13 +274,13 @@ window.Deck.sequence("vecphos", function(slide){
 
   { s:{G:GAP, ins:1, pv:0, cLo:0, cLi:0, cRo:0, cRi:0},
     cap:"The insert brings its own",
-    sub:"and they sit on the other diagonal — the one the vector has lost",
+    sub:"and they sit on the other diagonal, the one the vector has lost",
     note:"Now add an insert. This one still has its five prime phosphates, and it is worth being precise about why, because there are only two ways to get them. A restriction digest hands them to you for free: the enzyme breaks the bond between a three prime hydroxyl and a five prime phosphate, so every cut end it makes is already phosphorylated. A synthetic oligonucleotide never has one, because chemical synthesis ends at a bare five prime hydroxyl, so anything built from oligos has to be kinased first. Restricted DNA arrives licensed; synthetic DNA does not. That is the kinase half of this story and we come back to it. Here is the thing to see. At each junction, the insert's phosphate is on the opposite strand from where the vector's used to be. So at every junction there is now exactly one five prime phosphate, and it is on one strand only.",
     desc:"A short arc, drawn in blue and labelled insert, slides in from the left and fills the gap. Its two ends each carry a filled P dot: one on the outer strand at the left junction, one on the inner strand at the right junction, diagonally opposite the vector's two hollow OH marks." },
 
   { s:{G:GAP, ins:1, pv:0, cLo:1, cLi:0, cRo:0, cRi:1},
     cap:"Two bonds. Two nicks.",
-    sub:"one nick per junction, on opposite strands — and the circle is closed",
+    sub:"one nick per junction, on opposite strands, and the circle is closed",
     show:["nickL","nickR"],
     note:"Ligase can only work where a phosphate is waiting, so it makes exactly two bonds, one at each junction, using the phosphates the insert brought. The other strand at each junction is left as a nick: a three prime hydroxyl sitting right against a five prime hydroxyl, with no phosphate between them. Count what that gets you. Vector plus insert is a closed circle held together by two covalent bonds and full length base pairing on both strands. Vector alone got zero bonds and is still a stick. That asymmetry is the entire reason your plate is not a lawn.",
     desc:"The gap has closed on the outer strand at the left junction and the inner strand at the right junction. The other strand at each junction is still broken, each break labelled nick in red, with a half barb on one side and a hollow OH mark on the other." },
@@ -369,7 +369,7 @@ window.Deck.sequence("pcrphos", function(slide){
   { s:{vec:0, pp:0, cLT:0, cLB:0, cRT:0, cRB:0},
     show:["prmT","prmB"],
     cap:"Both 5′ ends of a PCR product are primers you ordered",
-    sub:"and chemical oligo synthesis stops at a 5′ hydroxyl — it never puts a phosphate there",
+    sub:"and chemical oligo synthesis stops at a 5′ hydroxyl; it never puts a phosphate there",
     note:"Here is a PCR product, and here is a fact about it that almost nobody is told. Each of its two five prime ends is literally one of the primers you ordered, still there at the end of the strand it started. Oligonucleotides are made chemically, three prime to five prime, and the synthesis ends by taking the protecting group off a five prime hydroxyl. Nobody adds a phosphate. So both five prime ends of every PCR product you have ever made are bare hydroxyls.",
     desc:"A blunt duplex drawn as two antiparallel barbed lines, labelled PCR product. A bracket marks the five prime stretch of each strand and labels it primer. Each five prime end carries a hollow disc reading OH." },
 
@@ -381,8 +381,8 @@ window.Deck.sequence("pcrphos", function(slide){
     desc:"Cut vector ends have arrived on both sides, each separated from the product by a visible gap. All four five prime ends now show hollow OH discs. At both breaks at each junction are struck through with a small red cross, and the junction is labelled: no bond." },
 
   { s:{vec:1, pp:1, cLT:0, cLB:0, cRT:0, cRB:0},
-    cap:"T4 PNK — or just order primers with a 5′ phosphate",
-    sub:"one 5′ phosphate at each junction, on the product’s strand — the plasmid picture again",
+    cap:"T4 PNK, or just order primers with a 5′ phosphate",
+    sub:"one 5′ phosphate at each junction, on the product’s strand, the plasmid picture again",
     note:"There are two fixes and they cost about the same. Kinase the product with T4 polynucleotide kinase before you ligate, or pay a little more and have the primers synthesised with a five prime phosphate already on them, which saves you a reaction. Either way, look at what you now have. One phosphate at each junction, on the insert's strand, which is exactly the picture from the vector slide. Ligase makes two bonds, you are left with two nicks, E. coli repairs them, and you get colonies. One more thing worth knowing: if you digest your PCR product with a restriction enzyme, the cut itself creates fresh five prime phosphates on the new ends, and none of this applies. It is blunt ligation, and self-ligation of a whole plasmid amplified by PCR, where this bites.",
     desc:"The two discs on the product have changed from hollow OH to filled P. Each junction now has one filled P disc on the product's strand and one hollow OH disc on the vector's, the same arrangement as the plasmid drawing." }
   ];

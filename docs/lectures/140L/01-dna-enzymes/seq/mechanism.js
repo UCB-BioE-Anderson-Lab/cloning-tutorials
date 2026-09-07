@@ -137,24 +137,24 @@ const F=[
    whole lecture had to be said over a reaction in progress. The bond on
    its own is the right thing to be looking at while that is said. */
 { cap:"First, the bond it all happens to",
-  sub:"three reactions, and every one of them happens on its own &mdash; slowly",
+  sub:"three reactions, and every one of them happens on its own, slowly",
   who:"phosphorus, an oxygen out to each sugar, one double bond and one negative charge",
   draw:function(){ return centre({rightDouble:1,leaving:1}); },
-  note:"Reading the catalogue is the reason, but not the only one. This is a lecture about biochemistry, and I want you to understand the tools down to the atom. The day comes down to three reactions. Two are the attack I just mentioned, a hydroxyl onto a phosphorus, differing only in what does the attacking; the third is on a different atom and is the odd one out. And there is nothing special about any of them — all three happen on their own, in water, with no protein anywhere near, just extremely slowly. An enzyme takes one and accelerates it enormously. Then it restricts it: to one sequence, one kind of end, one position on one base. The reaction is ordinary. The restrictions are what you are buying. There are only a few hundred common reaction mechanisms in all of biology, and every one has this kind of nuance. We can be this precise about the DNA-modifying ones because they are working tools of biotechnology, and decades of effort have gone into understanding them and into optimising them. Most of biology has not had that attention, which is missing mapping, not missing complexity. The starting point is the same everywhere, and it is why I want to begin here: everything a cell does corresponds to a real reaction that would happen anyway, given long enough.",
+  note:"Reading the catalogue is the reason, but not the only one. This is a lecture about biochemistry, and I want you to understand the tools down to the atom. The day comes down to three reactions. Two are the attack I just mentioned, a hydroxyl onto a phosphorus, differing only in what does the attacking; the third is on a different atom and is the odd one out. And there is nothing special about any of them: all three happen on their own, in water, with no protein anywhere near, just extremely slowly. An enzyme takes one and accelerates it enormously. Then it restricts it: to one sequence, one kind of end, one position on one base. The reaction is ordinary. The restrictions are what you are buying. There are only a few hundred common reaction mechanisms in all of biology, and every one has this kind of nuance. We can be this precise about the DNA-modifying ones because they are working tools of biotechnology, and decades of effort have gone into understanding them and into optimising them. Most of biology has not had that attention, which is missing mapping, not missing complexity. The starting point is the same everywhere, and it is why I want to begin here: everything a cell does corresponds to a real reaction that would happen anyway, given long enough.",
   desc:"A phosphodiester drawn on its own, with no reaction under way: phosphorus at the centre, an oxygen tethered out to a sugar on each side, one double-bonded oxygen and one anionic oxygen." },
 
 { cap:"1 &nbsp;Water attacks the phosphorus",
-  sub:"water itself, not hydroxide &mdash; at pH 7 there is almost no hydroxide to wait for",
+  sub:"water itself, not hydroxide; at pH 7 there is almost no hydroxide to wait for",
   who:"a lone pair on the oxygen makes the new bond",
   draw:function(){
     return centre({rightDouble:1,leaving:1}) + nucleophile({nucH:2,lp:1}) +
            arrow(pairAt(AXU,90,40),[P[0]-6,P[1]-46],54,RED);
   },
-  note:"The first of the three: hydrolysis, one step at a time, no enzyme anywhere — the uncatalysed reaction, just water. Think about what is happening in the tube. Everything is jostling, colliding millions of times a second, and almost every collision does nothing. Every so often a water hits the phosphorus at the right angle with a lone pair pointed the right way, and those two electrons drop into an empty orbital. The angle is not arbitrary: it is straight down the line of the bond about to break, from the opposite side, because the orbital they enter is that bond\u2019s antibonding orbital — fill it and the bond weakens. That is why the attack comes in on the axis. And notice what is attacking: water, not hydroxide. At pH seven there is one ten-millionth molar hydroxide, so nothing is waiting around as hydroxide. Water attacks as water, and the proton problem is solved afterwards. The arrow starts on a lone pair, because that is what moves, and ends at the phosphorus, because that is where the electrons go.",
+  note:"The first of the three: hydrolysis, with no enzyme anywhere. Think about what is happening in the tube. Everything is jostling, colliding millions of times a second, and almost every collision does nothing. Every so often a water arrives at the phosphorus with a lone pair pointed the right way, and those two electrons drop into an empty orbital. The angle matters: the attack comes in along the line of the bond that will break, from the opposite side, because the orbital those electrons enter is that bond’s antibonding orbital. Fill it and the bond weakens. And notice what is attacking. Water, not hydroxide. At pH seven there is one ten-millionth molar hydroxide, so nothing is waiting around as hydroxide; water attacks as water and the protons sort themselves out. One caveat before we go on. I am drawing this as four tidy frames so you can follow the electrons, but do not read the order too literally. The proton moves can happen alongside the attack or alongside the departure, and how concerted the whole thing is varies. The frames are bookkeeping, not a stopwatch.",
   desc:"A phosphodiester with phosphorus at the centre: two oxygens tethered to sugars, one double-bonded oxygen and one anionic oxygen. A water molecule sits above on the axis opposite the leaving sugar, and a curved arrow runs from a lone pair on its oxygen to the phosphorus." },
 
 { cap:"2 &nbsp;Now that oxygen has three bonds",
-  sub:"so it carries a positive charge &mdash; and a neighbouring water takes the proton",
+  sub:"so it carries a positive charge, and a neighbouring water takes the proton",
   who:"two arrows: the second water takes H, and the O&#8722;H electrons fall back onto the oxygen",
   draw:function(){
     const H=[AXU[0]+78,AXU[1]-64];
@@ -163,19 +163,19 @@ const F=[
            arrow([AXU[0]+(H[0]-AXU[0])*0.60, AXU[1]+(H[1]-AXU[1])*0.60],
                  [AXU[0]+30,AXU[1]-24], -64, RED);
   },
-  note:"The bond has formed, so count. That oxygen now has three bonds — two hydrogens and the phosphorus — and three bonds on oxygen means a positive charge. There it is. Phosphorus is holding five things at once, a trigonal bipyramid, and that is the only moment in the reaction when it does. Nothing has left yet. Now the proton comes off, and this is the part people skip: it does not evaporate, a neighbouring water takes it. Two arrows, both matter. The first runs from a lone pair on that second water to the hydrogen — the water grabbing the proton. The second runs from the oxygen-hydrogen bond onto the oxygen, because a proton leaving leaves its bonding electrons behind.",
+  note:"Count what is on the atoms. That oxygen now has three bonds, so it carries a positive charge, and the phosphorus is holding five things at once in a trigonal bipyramid. Whether that five-coordinate species has a real lifetime or is only the top of the hill differs from case to case, and for our purposes it does not matter. What matters is that the proton has to go somewhere, and where it goes is a neighbouring water. Two arrows: one from a lone pair on that second water to the hydrogen, one from the oxygen-hydrogen bond back onto its own oxygen, because a proton that leaves leaves its bonding electrons behind.",
   desc:"The new phosphorus-oxygen bond is drawn and the attacking oxygen now carries a plus sign. A second water molecule at the right has a curved arrow from its lone pair to one hydrogen of the attacking water, and a second arrow from that oxygen-hydrogen bond back onto its own oxygen." },
 
 { cap:"3 &nbsp;The bond to the leaving sugar breaks",
   sub:"the phosphate takes its double bond back, and pushes the sugar off",
-  who:"again two arrows &mdash; one makes a bond, one breaks a bond",
+  who:"again two arrows; one makes a bond, one breaks a bond",
   draw:function(){
     return centre({nuc:1,leaving:1}) + nucleophile({nucH:1}) + water2(true) +
            pair(ER,0,INK,34) +
            arrow(pairAt(ER,0,42),mid(P,ER),-46,RED) +
            arrow(mid(P,AXD),[AXD[0],AXD[1]-44],46,RED);
   },
-  note:"The proton is now on that neighbouring water — hydronium, positive, sitting there — and the attacking oxygen is a neutral hydroxyl on the phosphorus. Now the leaving group goes. Two arrows again. One runs from a lone pair on the anionic oxygen into the phosphorus-oxygen bond, remaking the double bond. That push displaces the sugar: the other runs from the phosphorus-to-leaving-oxygen bond onto that oxygen, so the sugar leaves with both electrons, as an alkoxide.",
+  note:"Now the leaving group. Two arrows again. One runs from a lone pair on the anionic oxygen into the phosphorus-oxygen bond, remaking the double bond, and that push is what displaces the sugar. The other runs from the phosphorus-to-leaving-oxygen bond onto that oxygen, so the sugar leaves with both electrons, as an alkoxide.",
   desc:"The attacking oxygen is now a neutral hydroxyl and the second water has become hydronium with a plus charge. Two curved arrows: one from a lone pair on the anionic oxygen into the phosphorus-oxygen bond, remaking the double bond, and one from the phosphorus to leaving-oxygen bond onto that oxygen." },
 
 { cap:"4 &nbsp;The alkoxide takes a proton back",
@@ -200,11 +200,11 @@ const F=[
     g+=arrow([W2[0]-4,W2[1]+62],[W2[0]+32,W2[1]+18],-54,RED);
     return g;
   },
-  note:"Last step, and it is bookkeeping catching up. The sugar left as an alkoxide — a strong base — with hydronium sitting right there, so it takes a proton straight back. The same two arrows run the other way: a lone pair on the alkoxide reaches for the hydrogen, and the bond that hydrogen was using collapses onto its oxygen. Follow the proton across all four steps: the one the attacking water brought ends up on the sugar that left. The water network just moved it around.",
+  note:"And the bookkeeping catches up. An alkoxide is a strong base and there is a hydronium sitting right there, so it takes a proton straight back. Follow the proton across the whole sequence and you will see the one the attacking water brought ends up on the sugar that left. The water network only moved it around.",
   desc:"The phosphate now carries a hydroxyl and its double bond is restored. The departed sugar is drawn at lower left as an alkoxide with a negative charge, and hydronium at the right. Two curved arrows: from a lone pair on the alkoxide to a hydrogen of the hydronium, and from that oxygen-hydrogen bond back onto its oxygen." },
 
 { cap:"The bond is gone, and the pieces are capped",
-  sub:"a phosphate on one end, a hydroxyl on the other &mdash; exactly what a nuclease leaves",
+  sub:"a phosphate on one end, a hydroxyl on the other, exactly what a nuclease leaves",
   who:"hydrolysis &nbsp;&middot;&nbsp; the bond is <tspan font-weight=\"700\">destroyed</tspan> &nbsp;&middot;&nbsp; endonucleases, exonucleases, phosphatases",
   draw:function(){
     const A=[906,744];
@@ -216,7 +216,7 @@ const F=[
     g+=lab(W2,"O",RED)+pair(W2,90,RED,34);
     return g;
   },
-  note:"And there are the products. One piece keeps the phosphate and has gained a hydroxyl; the other is a sugar with a free hydroxyl. The water that attacked is now part of the phosphate, and its proton is on the other fragment. That is what every nuclease and every phosphatase in this lecture does: a phosphate end, a hydroxyl end, and the bond between them gone rather than moved. And it is nearly always the same bond — three prime oxygen to phosphorus — which is why the phosphate is left behind on the downstream piece: a five prime phosphate on one side of the break, a three prime hydroxyl on the other. Hold on to which end gets which. That single fact decides whether the pieces can be put back together.",
+  note:"There are the products. One piece keeps the phosphate and has gained a hydroxyl; the other is a sugar with a free hydroxyl. That is what every nuclease and every phosphatase in this lecture does: a phosphate end, a hydroxyl end, and the bond between them gone rather than moved. And it is nearly always the same bond, three prime oxygen to phosphorus, which is why the phosphate is left behind on the downstream piece: a five prime phosphate on one side of the break, a three prime hydroxyl on the other. Hold on to which end gets which. That single fact decides whether the pieces can be put back together.",
   desc:"The products: a phosphate bearing a hydroxyl and still tethered to one sugar, a separate sugar with a free hydroxyl, and a neutral water molecule. The bond between the two sugars is gone." }
 ,
 
@@ -230,11 +230,11 @@ const F=[
            lab(AXU,"O",RED) + pair(AXU,90,RED,34) +
            arrow(pairAt(AXU,90,40),[P[0]-6,P[1]-46],54,RED);
   },
-  note:"Same film, one substitution. Swap the water for an alcohol — here a sugar\u2019s three prime hydroxyl, ring greyed out because the ring is not the point. Same axis, opposite the bond that breaks, same lone pair, same arrow. Every step you just watched happens again exactly as it did, proton bookkeeping included: this oxygen picks up a positive charge at three bonds and loses its proton to the surrounding water. I will not draw those four frames again. Watch what is different at the end.",
+  note:"Same film, one substitution. Swap the water for an alcohol: here a sugar\u2019s three prime hydroxyl, ring greyed out because the ring is not the point. Same axis, opposite the bond that breaks, same lone pair, same arrow. Every step you just watched happens again exactly as it did, proton bookkeeping included: this oxygen picks up a positive charge at three bonds and loses its proton to the surrounding water. I will not draw those four frames again. Watch what is different at the end.",
   desc:"The same phosphodiester, with a sugar's 3-prime hydroxyl in place of water as the nucleophile. The ribose ring is drawn in grey. A curved arrow runs from a lone pair on its oxygen to the phosphorus, along the axis opposite the leaving sugar." },
 
 { cap:"The phosphate is handed on, not released",
-  sub:"identical chemistry &mdash; opposite outcome",
+  sub:"identical chemistry, opposite outcome",
   who:"transphosphorylation &nbsp;&middot;&nbsp; the bond is <tspan font-weight=\"700\">moved</tspan> &nbsp;&middot;&nbsp; kinases, polymerases, ligases, recombinases",
   draw:function(){
     /* the displaced sugar drops away below the phosphorus, so its leader runs
@@ -245,7 +245,7 @@ const F=[
     g+=tether(A,[762,804],"sugar");
     return g;
   },
-  note:"And there is the difference, and it is why the lecture is ordered the way it is. With water, the phosphate ended up on water and the bond was destroyed. With an alcohol, the phosphate ends up on the alcohol — handed from one sugar to another. The bond has moved rather than gone. That attacking alcohol is a three prime hydroxyl in a polymerase or a ligase, a five prime hydroxyl in a kinase, a serine or a tyrosine on the protein itself in a recombinase. Identical chemistry, opposite outcome. Do not let the similarity fool you into thinking a nuclease and a ligase do the same thing. And that is two of the three. The third has no phosphorus in it at all — a methyl handed from one molecule to another — and it waits for the enzymes that do it, at the end of the day.",
+  note:"And there is the difference, and it is why the lecture is ordered the way it is. With water, the phosphate ended up on water and the bond was destroyed. With an alcohol, the phosphate ends up on the alcohol: handed from one sugar to another. The bond has moved rather than gone. That attacking alcohol is a three prime hydroxyl in a polymerase or a ligase, a five prime hydroxyl in a kinase, a serine or a tyrosine on the protein itself in a recombinase. Identical chemistry, opposite outcome. Do not let the similarity fool you into thinking a nuclease and a ligase do the same thing. And that is two of the three. The third has no phosphorus in it at all, a methyl handed from one molecule to another, and it waits for the enzymes that do it, at the end of the day.",
   desc:"The product: the phosphate is now bonded to the attacking sugar's oxygen, and the sugar that was there before has left carrying a hydroxyl. The phosphodiester has been transferred rather than broken." }
 ];
 

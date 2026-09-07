@@ -131,8 +131,8 @@ window.Deck.sequence("op-kinase", function(slide){
         atpCore(done)+ gamma(done,tip) + oligo(done) + arr +
       '</g>'+
       '<text x="800" y="800" text-anchor="middle" font-size="25" font-weight="700" fill="'+RED+
-        '">'+(done?"the oligo now has a 5&#8242; phosphate &mdash; and ADP is left over"
-                  :"a hydroxyl at a phosphate again &mdash; but this bond is moved, not destroyed")+
+        '">'+(done?"the oligo now has a 5&#8242; phosphate, and ADP is left over"
+                  :"a hydroxyl at a phosphate again, but this bond is moved, not destroyed")+
       '</text>';
   }
   function go(){

@@ -156,13 +156,13 @@ const RCR_COIL = { x:1150, y:490, r0:60, r1:215, turns:1.85, a0:200, lead:150 };
 /* Five clicks, not six. Denaturing the circle used to get a click of its
    own, and the two separated rings it produced were thrown away on the
    very next one; denaturing and priming are now the same click, because
-   they are one idea — getting a 3' end onto a single-stranded template. */
+   they are one idea: getting a 3' end onto a single-stranded template. */
 const RCR_KEYS = ["tx","px","partner","prog","pay","five","lab"];
 const RCR = [
   { s:{ tx:HOME, px:HOME, partner:1, prog:0, pay:0, five:0, lab:1 },
     cap:"a closed circular duplex",
     sub:"two strands, drawn as two rings",
-    note:"Rolling circle replication. The template is a closed circular DNA — two strands, drawn here as two rings, the black one the strand we are going to copy.",
+    note:"Rolling circle replication. The template is a closed circular DNA: two strands, drawn here as two rings, the black one the strand we are going to copy.",
     desc:"A circular double-stranded DNA at the centre of the slide, drawn as two concentric rings, each labelled: the black inner ring is the template, the blue outer ring is the strand paired with it." },
   { s:{ tx:LEFT, px:RIGHT, partner:0, prog:34, pay:0, five:0, lab:0 }, snap:["prog"],
     cap:"denature it, then prime it",
@@ -176,12 +176,12 @@ const RCR = [
     desc:"The new strand has been extended clockwise all the way round the template and its 3' barb has arrived back at its own 5' end, with a small break between them." },
   { s:{ tx:LEFT, px:RIGHT, partner:0, prog:375, pay:0.13, five:1, lab:0 },
     cap:"phi29 displaces its own 5′ end and carries on",
-    sub:"no exonuclease, so nothing is destroyed — it is peeled off instead",
+    sub:"no exonuclease, so nothing is destroyed; it is peeled off instead",
     note:"Because phi29 displaces rather than stops or degrades, it lifts that 5' end off the template and keeps going. An enzyme with a 5' to 3' exonuclease would have eaten the strand instead, and you would go round for ever without ever making a second copy.",
     desc:"The polymerase has passed its own 5' end, marked in red, and lifted it off the template. A short displaced strand now leads away from the circle." },
   { s:{ tx:LEFT, px:RIGHT, partner:0, prog:420, pay:1, five:1, lab:0 },
     cap:"round and round: copy after copy on one strand",
-    sub:"a concatemer — many tandem copies of the circle, still one molecule",
+    sub:"a concatemer: many tandem copies of the circle, still one molecule",
     note:"It just keeps going round, paying out a long single strand that carries copy after copy of the circle head to tail. One template, one primer, one enzyme, one temperature, and the product grows without bound.",
     desc:"The displaced strand has been paid out into a long smooth coil filling the right of the slide, its free 5' end marked in red. It is a concatemer: many tandem copies of the circle on a single molecule." }
 ];
@@ -285,7 +285,7 @@ function sceneMarkup(){
 
 /* Scale the swabbing panel about its own centre and slide that centre to
    the middle of the finished composition. hero=1 is the solo shot, hero=0
-   is its place in the final layout — at which point this is the identity. */
+   is its place in the final layout, at which point this is the identity. */
 function heroTransform(hero){
   const A = window.ART;
   if (!A || !A.box) return "";

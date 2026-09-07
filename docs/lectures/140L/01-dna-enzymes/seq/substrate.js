@@ -96,7 +96,7 @@ window.Deck.sequence("substrate", function(slide){
 
   const S=[
     /* 1. the object itself, with each distinct moiety named once */
-    { word:"the substrate", sub:"one molecule &mdash; and every part of it has a name",
+    { word:"the substrate", sub:"one molecule, and every part of it has a name",
       model:()=>GAATTC(),
       code:"GAATTC",
       deco:function(a){
@@ -111,11 +111,11 @@ window.Deck.sequence("substrate", function(slide){
                  tag(base[0]-128, base[1]-54, base[0]-62, base[1]-20, "nucleotide base")
         };
       },
-      note:"Now the substrate, because an enzyme can be picky in four separate ways and we will take them one at a time. The first is the simplest: which part of the molecule it touches at all. Two strands, antiparallel, every base paired. Name the parts once, carefully, because there are only five places where chemistry ever happens, and every enzyme in the lecture is defined by which of them it touches. The sugar — no hydroxyl at the two prime position, which is what makes it deoxyribose. The phosphate joining one sugar to the next. The base hanging off each sugar. And the two everyone mixes up: the free hydroxyl at the five prime end and the free hydroxyl at the three prime end. Those are not interchangeable, and you will be telling them apart all day. Here is how I do it, and it works on every drawing in this deck. At the five prime end the oxygen is not on the ring — there is a carbon in between, so the bond takes a little elbow on its way out. The three prime hydroxyl has no elbow; its oxygen sits straight on the ring. Elbow, five prime. No elbow, three prime. Five things, and everything today is one enzyme choosing among them.",
+      note:"Now the substrate, because an enzyme can be picky in four separate ways and we will take them one at a time. The first is the simplest: which part of the molecule it touches at all. Two strands, antiparallel, every base paired. Name the parts once, carefully, because there are only five places where chemistry ever happens, and every enzyme in the lecture is defined by which of them it touches. The sugar: no hydroxyl at the two prime position, which is what makes it deoxyribose. The phosphate joining one sugar to the next. The base hanging off each sugar. And the two everyone mixes up: the free hydroxyl at the five prime end and the free hydroxyl at the three prime end. Those are not interchangeable, and you will be telling them apart all day. Here is how I do it, and it works on every drawing in this deck. At the five prime end the oxygen is not on the ring. There is a carbon in between, so the bond takes a little elbow on its way out. The three prime hydroxyl has no elbow; its oxygen sits straight on the ring. Elbow, five prime. No elbow, three prime. Five things, and everything today is one enzyme choosing among them.",
       desc:"A GAATTC duplex drawn as full chemical structure, with five parts highlighted and named: the ribose sugar, a backbone phosphate, the 5-prime hydroxyl, the 3-prime hydroxyl, and a nucleotide base." },
 
     /* 2. which positions the enzyme actually reads */
-    { word:"degeneracy", sub:"red is required &mdash; grey could be anything",
+    { word:"degeneracy", sub:"red is required; grey could be anything",
       cycleModel:true,
       code:"GANNTC", concrete:true,
       codeCol:i=>(i<2||i>=4)?M.HOT:GREY,
@@ -129,11 +129,11 @@ window.Deck.sequence("substrate", function(slide){
         return M.make({top, ends:{t5:"phos",b5:"phos"},
           roleTop:roles(n,r), roleBot:roles(n,r)});
       },
-      note:"Second: which positions it actually reads. Red is required, grey is free. The same six bases as a moment ago, but read it as a pattern rather than a sequence — G, A, anything, anything, T, C. The enzyme needs G-A at the start and T-C at the end; the two in between can be whatever they like. Underneath you can see both: the site as you would write it, G-A-N-N-T-C, and below it whatever is actually there this second, changing as we watch. Every one of those is a real base — there is no such thing as an N in a tube. And notice the backbone is red throughout, every sugar and every phosphate, because the enzyme does require the DNA to be there and to be continuous. What is free is the identity of two bases, and nothing else.",
+      note:"Second: which positions it actually reads. Red is required, grey is free. The same six bases as a moment ago, but read it as a pattern rather than a sequence: G, A, anything, anything, T, C. The enzyme needs G-A at the start and T-C at the end; the two in between can be whatever they like. Underneath you can see both: the site as you would write it, G-A-N-N-T-C, and below it whatever is actually there this second, changing as we watch. Every one of those is a real base. There is no such thing as an N in a tube. And notice the backbone is red throughout, every sugar and every phosphate, because the enzyme does require the DNA to be there and to be continuous. What is free is the identity of two bases, and nothing else.",
       desc:"The same six base pair duplex with the backbone and four base positions in red and two in grey, cycling through different bases. Below it the written site GANNTC, and under that the concrete sequence currently drawn." },
 
     /* 3. the chemistry on the ends, which the letters do not show */
-    { word:"the ends", code:"GAATTC", sub:"a phosphate, a bare hydroxyl, a biotin &mdash; all of them still GAATTC",
+    { word:"the ends", code:"GAATTC", sub:"a phosphate, a bare hydroxyl, a biotin, all of them still GAATTC",
       frames:[ ()=>GAATTC({endHot:1, ends:{t5:"oh",    b5:"oh"}}),
                ()=>GAATTC({endHot:1, ends:{t5:"phos",  b5:"oh"}}),
                ()=>GAATTC({endHot:1, ends:{t5:"oh",    b5:"phos"}}),
@@ -141,12 +141,12 @@ window.Deck.sequence("substrate", function(slide){
                ()=>GAATTC({endHot:1, ends:{t5:"phos",  b5:"biotin"}}),
                ()=>GAATTC({endHot:1, ends:{t5:"biotin",b5:"phos"}}) ],
       model:()=>GAATTC({endHot:1, ends:{t5:"phos",b5:"phos"}}),
-      note:"Third, and the one students forget exists, because it is invisible if you only write the letters. It applies to linear DNA only: a circle has no ends, so it has no end chemistry, and that alone decides what a good many enzymes will do to it. On a linear molecule every one of these is GAATTC, and what changes is what sits on each five prime end, in red, with the two strands independent of one another. A bare hydroxyl, or a phosphate. Worth carrying out of here as a rule of thumb: a free hydroxyl is rare in biology but it is exactly how a synthesised oligo arrives, because that is what comes off the synthesiser, whereas a phosphate is what you find once an enzyme has been at it. End chemistry is a record of where that DNA has been. And it decides whether a ligase can act, whether an exonuclease will start, and whether your PCR product will clone. It does not stop at those two: the five prime end of a synthetic oligo is built chemically, so you can hang almost anything off it. The last ones here carry a biotin through a linker — how you would pull one strand out on streptavidin beads — and dyes go on the same way. We will meet some of that later in the course. Notice biotin never touches the DNA itself. Same sequence every time, and every one a different molecule.",
+      note:"Third, and the one students forget exists, because it is invisible if you only write the letters. It applies to linear DNA only: a circle has no ends, so it has no end chemistry, and that alone decides what a good many enzymes will do to it. On a linear molecule every one of these is GAATTC, and what changes is what sits on each five prime end, in red, with the two strands independent of one another. A bare hydroxyl, or a phosphate. Worth carrying out of here as a rule of thumb: a free hydroxyl is rare in biology but it is exactly how a synthesised oligo arrives, because that is what comes off the synthesiser, whereas a phosphate is what you find once an enzyme has been at it. End chemistry is a record of where that DNA has been. And it decides whether a ligase can act, whether an exonuclease will start, and whether your PCR product will clone. It does not stop at those two: the five prime end of a synthetic oligo is built chemically, so you can hang almost anything off it. The last ones here carry a biotin through a linker, how you would pull one strand out on streptavidin beads, and dyes go on the same way. We will meet some of that later in the course. Notice biotin never touches the DNA itself. Same sequence every time, and every one a different molecule.",
       desc:"The same GAATTC duplex cycling through six different sets of 5-prime ends, marked in red: all four combinations of phosphate and hydroxyl, then a biotin attached through a linker to the 5-prime phosphate of one strand and then the other." },
 
     /* 4. what can be hung off a base */
     { word:"methylation", code:"GAATTC", cycleModel:true, marks:true,
-      sub:"three different marks &mdash; and the sequence is GAATTC through all of them",
+      sub:"three different marks, and the sequence is GAATTC through all of them",
       /* Adenine takes a methyl in one place, cytosine in two, and each site is
          independently marked or not. */
       model:()=>{
@@ -163,7 +163,7 @@ window.Deck.sequence("substrate", function(slide){
         });
         return GAATTC({mods:mods});
       },
-      note:"Fourth and last, and the one that is not phosphorus chemistry at all: a methyl transferred onto a base, rather than something moved on a phosphate. It goes on after the DNA was made, and in bacteria that is exactly what happens. Three marks are worth knowing and you are seeing all of them. Six-methyladenine, on the exocyclic nitrogen, in red — that one is everywhere in bacteria and archaea. Then two on cytosine, both in blue: five-methylcytosine on a ring carbon, the one you know from eukaryotes though bacteria and archaea make it too, and four-methylcytosine on the exocyclic nitrogen instead, essentially bacterial and archaeal. Watch them come and go — each site is independently marked or not, which is the point. This is not a property of a sequence; it is something done to one particular molecule. The letters never change. Every one of these is GAATTC and will read as GAATTC on any gel or any sequencer, but a restriction enzyme will refuse to cut it. That is the whole basis of restriction and modification.",
+      note:"Fourth and last, and the one that is not phosphorus chemistry at all: a methyl transferred onto a base, rather than something moved on a phosphate. It goes on after the DNA was made, and in bacteria that is exactly what happens. Three marks are worth knowing and you are seeing all of them. Six-methyladenine, on the exocyclic nitrogen, in red. That one is everywhere in bacteria and archaea. Then two on cytosine, both in blue: five-methylcytosine on a ring carbon, the one you know from eukaryotes though bacteria and archaea make it too, and four-methylcytosine on the exocyclic nitrogen instead, essentially bacterial and archaeal. Watch them come and go. Each site is independently marked or not, which is the point. This is not a property of a sequence; it is something done to one particular molecule. The letters never change. Every one of these is GAATTC and will read as GAATTC on any gel or any sequencer, but a restriction enzyme will refuse to cut it. That is the whole basis of restriction and modification.",
       desc:"The GAATTC duplex with methyl marks appearing and disappearing independently: 6-methyladenine in red on the exocyclic nitrogen of each adenine, and on the cytosines either 5-methylcytosine on the ring carbon or 4-methylcytosine on the exocyclic nitrogen, in blue. The marks present are named above and below the written sequence, which stays GAATTC." }
   ];
 

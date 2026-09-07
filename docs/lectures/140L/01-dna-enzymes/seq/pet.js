@@ -144,7 +144,7 @@ function scene(s){
       if (o > 0.004) d += fade(o, blob(p[0], p[1], 17, VERM));
     });
     g += d;
-    g += fade(smooth(s.prot, 0.55, 1), txt(800, 838, "insulin &#8212; and now you purify it", 28, VERM, 700));
+    g += fade(smooth(s.prot, 0.55, 1), txt(800, 838, "insulin, and now you purify it", 28, VERM, 700));
   }
   return g;
 }
@@ -166,19 +166,19 @@ window.Deck.sequence("pet", function(slide){
   const S = [
     { s:{cell:0,rep:0,ind:0,prot:0}, dur:700,
       cap:"1 · your gene into a pET vector, behind a T7 promoter",
-      note:"Build it in the order you would actually build it. Start with the vector. A pET plasmid gives you a T7 promoter, and just downstream of it a place to put your gene — here the human insulin coding sequence, which is the first design tutorial you will do. The plasmid also carries lacI, and you will see why in a moment. Right now this construct does nothing at all, in any ordinary strain, because nothing in E. coli can read a T7 promoter.",
+      note:"Build it in the order you would actually build it. Start with the vector. A pET plasmid gives you a T7 promoter, and just downstream of it a place to put your gene: here the human insulin coding sequence, which is the first design tutorial you will do. The plasmid also carries lacI, and you will see why in a moment. Right now this construct does nothing at all, in any ordinary strain, because nothing in E. coli can read a T7 promoter.",
       desc:"A pET plasmid drawn as a rounded ring. On its top edge a blue T7 promoter bar and an amber lac operator bar, then a box labelled INS. On its bottom edge an amber box labelled lacI." },
     { s:{cell:1,rep:0,ind:0,prot:0}, dur:800,
       cap:"2 · into BL21(λDE3), which carries the reader",
-      note:"Now put it into BL21 lambda DE3. That strain is ordinary E. coli with one addition: a copy of the T7 RNA polymerase gene sitting in its own chromosome, under a lac promoter. That is the reader. The design is split deliberately — the strain owns the polymerase, you own the gene — and neither half does anything without the other.",
+      note:"Now put it into BL21 lambda DE3. That strain is ordinary E. coli with one addition: a copy of the T7 RNA polymerase gene sitting in its own chromosome, under a lac promoter. That is the reader. The design is split deliberately (the strain owns the polymerase, you own the gene), and neither half does anything without the other.",
       desc:"A dotted cell outline appears around the plasmid, labelled BL21 lambda DE3, with a chromosome line above the plasmid carrying an amber lac promoter and a blue box labelled T7 RNAP." },
     { s:{cell:1,rep:1,ind:0,prot:0}, dur:700,
       cap:"3 · LacI sits on both operators",
-      note:"And in the uninduced state, LacI is bound. Look at where: on the lac promoter in the chromosome, so no T7 polymerase is made, and on the lac operator next to the T7 promoter on your plasmid, so even a stray molecule of polymerase finds the site blocked. Two switches, wired in series, and both of them off. That redundancy is not decoration — it is what lets you clone a gene whose product would otherwise kill the cell before you ever induced.",
+      note:"And in the uninduced state, LacI is bound. Look at where: on the lac promoter in the chromosome, so no T7 polymerase is made, and on the lac operator next to the T7 promoter on your plasmid, so even a stray molecule of polymerase finds the site blocked. Two switches, wired in series, and both of them off. That redundancy is not decoration. It is what lets you clone a gene whose product would otherwise kill the cell before you ever induced.",
       desc:"Two amber LacI proteins appear, one covering the lac promoter on the chromosome and one covering the lac operator beside the T7 promoter on the plasmid." },
     { s:{cell:1,rep:1,ind:1,prot:0}, dur:2400,
-      cap:"4 · add IPTG — and one induction opens both",
-      note:"Add IPTG. It binds LacI, LacI changes shape and lets go, and it lets go of both operators at once, because both are the same operator. Watch the order of what follows, because it is the whole reason this works. The chromosomal gene is now on, so the cell makes T7 RNA polymerase. That polymerase goes looking for a T7 promoter, and the only one in the cell is the one on your plasmid. It binds, and it transcribes — and because it is fast, processive, and has nothing else in the cell to do, it reads your gene and essentially nothing else.",
+      cap:"4 · add IPTG, and one induction opens both",
+      note:"Add IPTG. It binds LacI, LacI changes shape and lets go, and it lets go of both operators at once, because both are the same operator. Watch the order of what follows, because it is the whole reason this works. The chromosomal gene is now on, so the cell makes T7 RNA polymerase. That polymerase goes looking for a T7 promoter, and the only one in the cell is the one on your plasmid. It binds, and it transcribes, and because it is fast, processive, and has nothing else in the cell to do, it reads your gene and essentially nothing else.",
       desc:"Red IPTG appears, both LacI proteins slide off their operators, a blue T7 RNA polymerase is made at the chromosomal gene and travels down to the T7 promoter on the plasmid, and a blue mRNA wave grows out across the INS gene." },
     { s:{cell:1,rep:1,ind:1,prot:1}, dur:1300,
       cap:"5 · and the cell fills with one protein",

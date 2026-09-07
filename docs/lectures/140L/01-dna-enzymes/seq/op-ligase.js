@@ -74,7 +74,7 @@ window.Deck.sequence("op-ligase", function(slide){
         (sealed ? "one bond, one ATP" : "two ends, held in register by the strand underneath") +
       '</text>' +
       '<text x="800" y="840" text-anchor="middle" font-family="inherit" font-size="24" '+
-        'fill="'+MUT+'">a nick in a duplex &#8212; and no sequence anywhere in the list</text>';
+        'fill="'+MUT+'">a nick in a duplex, and no sequence anywhere in the list</text>';
   }
   function go(){
     if(raf){cancelAnimationFrame(raf);raf=null;}
@@ -88,7 +88,7 @@ window.Deck.sequence("op-ligase", function(slide){
   }
   go();
   return { steps:[{
-    note:"Here is ligase in the same terms we have used for every other enzyme. Red is what has to be there; grey is what it never reads. Look at how much is red. Both backbones, because it works on a duplex. The hydrogen bonds, because the two ends have to be held in register by the strand running underneath them — that is not scenery here, it is the requirement. And at the junction, a three prime hydroxyl on one side and a five prime phosphate on the other, directly abutting. Now look at what is grey: every base. Ligase has no recognition sequence whatsoever. It is the only enzyme in this lecture whose specificity is entirely about the SHAPE of a junction and not at all about what the junction says. And watch the loop, because the honest scale of the reaction is that one bond appears. Everything else on this slide is the price of admission.",
+    note:"Here is ligase in the same terms we have used for every other enzyme. Red is what has to be there; grey is what it never reads. Look at how much is red. Both backbones, because it works on a duplex. The hydrogen bonds, because the two ends have to be held in register by the strand running underneath them. That is not scenery here, it is the requirement. And at the junction, a three prime hydroxyl on one side and a five prime phosphate on the other, directly abutting. Now look at what is grey: every base. Ligase has no recognition sequence whatsoever. It is the only enzyme in this lecture whose specificity is entirely about the SHAPE of a junction and not at all about what the junction says. And watch the loop, because the honest scale of the reaction is that one bond appears. Everything else on this slide is the price of admission.",
     desc:"An all-atom DNA duplex with a nick in the upper strand. Both backbones and every hydrogen bond are drawn in red, marking what the enzyme requires; every base is grey, marking that it reads none of them. At the nick, the 3-prime hydroxyl and the 5-prime phosphate are labelled in red. On a loop the nick seals into a continuous backbone and opens again."
   }], go:go };
 });

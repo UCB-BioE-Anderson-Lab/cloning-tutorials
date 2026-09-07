@@ -78,9 +78,9 @@ window.Deck.sequence("exosap", function(slide){
     g+=duplex(760,1080,262,INK)+txt(920,336,"insert",MUT,21,600);
     g+=P(760,262,s.strip)+P(1080,288,s.strip);
     g+=enz(1310,258,"CIP",0);
-    g+=txt(1310,306,s.strip>0.5?"heat did not kill it":"gel or column &mdash; not heat",
+    g+=txt(1310,306,s.strip>0.5?"heat did not kill it":"gel or column, not heat",
            s.strip>0.5?RED:MUT,22,600);
-    if(s.strip>0.5) g+=txt(920,392,"it takes the insert&#8217;s phosphates too &mdash; nothing ligates",RED,25,700);
+    if(s.strip>0.5) g+=txt(920,392,"it takes the insert&#8217;s phosphates too, nothing ligates",RED,25,700);
 
     /* ---------- bottom: SAP, and what being killable buys ---------- */
     if(s.low>0){
@@ -102,8 +102,8 @@ window.Deck.sequence("exosap", function(slide){
       g+=enz(1290,624,"Exonuclease I",s.heat);
       g+=enz(1290,682,"SAP",s.heat);
       if(s.heat>0.5){
-        g+=txt(1290,734,"80&deg;C &mdash; both gone",MUT,22,600);
-        g+=txt(385,752,"ExoSAP &mdash; sequence it unpurified",BLUE,23,700);
+        g+=txt(1290,734,"80&deg;C, both gone",MUT,22,600);
+        g+=txt(385,752,"ExoSAP, sequence it unpurified",BLUE,23,700);
       }
       g+='</g>';
     }
@@ -112,16 +112,16 @@ window.Deck.sequence("exosap", function(slide){
 
   const S=[
     {s:{strip:0,low:0,clean:0,heat:0},
-     note:"Start with the case you will actually meet. You have phosphatased your vector with CIP so it cannot close on itself, and now CIP is sitting in the tube with your DNA. Before you ligate, you have to physically separate the two — run it on a gel and cut the band out, or put it over a column. Not because CIP is fragile, but because it is not.",
+     note:"Start with the case you will actually meet. You have phosphatased your vector with CIP so it cannot close on itself, and now CIP is sitting in the tube with your DNA. Before you ligate, you have to physically separate the two: run it on a gel and cut the band out, or put it over a column. Not because CIP is fragile, but because it is not.",
      desc:"A phosphatased vector and an insert, drawn as duplexes; the insert carries a red phosphate at each 5-prime end. CIP is named in red beside them, labelled: gel or column, not heat."},
     {s:{strip:1,low:0,clean:0,heat:0},
-     note:"Because here is the error, and it is made every year. People try to heat-kill CIP the way they would any other enzyme. It does not work — CIP is notoriously robust — so it comes through into the ligation still active, and now it meets your insert, which does still have its five prime phosphates. It takes those off too. Ligase has nothing to seal. You get no colonies, and nothing anywhere told you why: the reaction looked like it ran.",
+     note:"Because here is the error, and it is made every year. People try to heat-kill CIP the way they would any other enzyme. It does not work, CIP is notoriously robust, so it comes through into the ligation still active, and now it meets your insert, which does still have its five prime phosphates. It takes those off too. Ligase has nothing to seal. You get no colonies, and nothing anywhere told you why: the reaction looked like it ran.",
      desc:"The insert's phosphates have gone. CIP is still named in red, now labelled heat did not kill it, and a line reads: it takes the insert's phosphates too, nothing ligates."},
     {s:{strip:1,low:1,clean:0,heat:0},
-     note:"Which is why the alternatives exist. SAP is shrimp alkaline phosphatase — the same reaction, an alkaline phosphatase like CIP, but from a different organism, and this one is fully destroyed by heat. That single difference is worth a lot, and the nicest illustration of it is a trick you will use constantly. It is called ExoSAP, and the name is literally the two enzymes in the tube: Exonuclease One and shrimp alkaline phosphatase.",
+     note:"Which is why the alternatives exist. SAP is shrimp alkaline phosphatase: the same reaction, an alkaline phosphatase like CIP, but from a different organism, and this one is fully destroyed by heat. That single difference is worth a lot, and the nicest illustration of it is a trick you will use constantly. It is called ExoSAP, and the name is literally the two enzymes in the tube: Exonuclease One and shrimp alkaline phosphatase.",
      desc:"Below a dividing line, a second scene: a PCR product with leftover single-stranded primers and leftover dNTPs. To the right, a heading reading ExoSAP over the two enzymes it names, Exonuclease I and SAP, in red."},
     {s:{strip:1,low:1,clean:1,heat:1},
-     note:"So here is ExoSAP doing its job: sequencing a PCR product straight out of the tube. Exonuclease I, which we saw in the last section, is three prime to five prime and single-stranded only, so it eats every leftover primer and cannot touch the double-stranded product. SAP destroys the leftover dNTPs by taking their phosphates off. Then one incubation at eighty degrees kills both, and the tube goes straight into the sequencing reaction. No gel, no column, no sample lost. That is what being heat-killable is worth, and it is exactly what CIP cannot give you — which is why you will see ExoSAP sold as a single premixed reagent, and why there is no CIP equivalent of it.",
+     note:"So here is ExoSAP doing its job: sequencing a PCR product straight out of the tube. Exonuclease I, which we saw in the last section, is three prime to five prime and single-stranded only, so it eats every leftover primer and cannot touch the double-stranded product. SAP destroys the leftover dNTPs by taking their phosphates off. Then one incubation at eighty degrees kills both, and the tube goes straight into the sequencing reaction. No gel, no column, no sample lost. That is what being heat-killable is worth, and it is exactly what CIP cannot give you. Which is why you will see ExoSAP sold as a single premixed reagent, and why there is no CIP equivalent of it.",
      desc:"The primers have gone and every dNTP has lost its phosphate. Both enzyme names are struck through and greyed, labelled 80 degrees, both gone, and a line by the product reads: ExoSAP, sequence it unpurified."}
   ];
   let cur=null, raf=null;

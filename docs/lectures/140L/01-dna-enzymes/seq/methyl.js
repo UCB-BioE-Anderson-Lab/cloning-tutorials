@@ -120,10 +120,10 @@ function methyl(x, y, dx, dy){
     SITES.forEach(function(x){
       g += site(x, HY1, HY2, INK);
       /* Dam marks both strands, and the two adenines are not opposite
-         one another — hence the small offset */
+         one another, hence the small offset */
       g += methyl(x - 8, HY1, 0, -1) + methyl(x + 8, HY2, 0, 1);
     });
-    g += txt(X0, HY1 - 78, "host chromosome &mdash; every site methylated",
+    g += txt(X0, HY1 - 78, "host chromosome, every site methylated",
              {anchor:"start", size:33, weight:700, r:"hlab"});
     return g + '</g>';
   }
@@ -150,19 +150,19 @@ function methyl(x, y, dx, dy){
 
   const S = [
     { ph:0, gap:0,
-      lab:"host chromosome — every site methylated",
+      lab:"host chromosome, every site methylated",
       cap:"the host writes a methyl at every copy of its own recognition site",
       note:"Restriction enzymes did not evolve so that you could clone. They are an immune system. A bacterium carrying a restriction enzyme also carries a methyltransferase with the same specificity, and that methyltransferase marks every copy of the site in the host's own chromosome. Two marks per site, one on each strand, because the site is double stranded.",
       desc:"A long double-stranded DNA drawn as two black lines, the host chromosome. Four recognition sites are each bracketed between the two strands. At every site a red dot on a short stalk stands off each strand: the methyl groups." },
     { ph:1, gap:0,
-      lab:"host chromosome — every site methylated",
+      lab:"host chromosome, every site methylated",
       cap:"phage DNA arrives carrying the same sites and no marks",
-      note:"Then a phage injects its genome. It has the same sequence at those sites — sequence is not what distinguishes it — but it was made inside a different cell, so it carries none of this host's marks. That absence is the only difference between the two molecules on this slide.",
+      note:"Then a phage injects its genome. It has the same sequence at those sites, sequence is not what distinguishes it, but it was made inside a different cell, so it carries none of this host's marks. That absence is the only difference between the two molecules on this slide.",
       desc:"The chromosome slides up to make room and a second double-stranded DNA appears below it, drawn in blue: the incoming phage genome. It is bracketed at the same four site positions, but carries no red dots anywhere." },
     { ph:1, gap:1,
-      lab:"host chromosome — every site methylated",
+      lab:"host chromosome, every site methylated",
       cap:"the endonuclease cuts unmarked sites only: self is spared, non-self is destroyed",
-      note:"The restriction endonuclease is loose in the same cytoplasm as both molecules. It cuts the phage DNA to pieces and leaves the chromosome alone, and the thing it is discriminating on is not sequence — it is the annotation. That is self versus non-self, and it is the reason there is a catalogue of restriction enzymes to buy from at all.",
+      note:"The restriction endonuclease is loose in the same cytoplasm as both molecules. It cuts the phage DNA to pieces and leaves the chromosome alone, and the thing it is discriminating on is not sequence. It is the annotation. That is self versus non-self, and it is the reason there is a catalogue of restriction enzymes to buy from at all.",
       desc:"The blue phage DNA has broken into five separate fragments with clear gaps between them, cut at each of the four sites. The black host chromosome above is intact and still carries its methyl marks." },
     /* The same drawing, renamed. Beat 0 was the marked molecule being
        protected, and that was the happy ending; here it is the marked
@@ -171,15 +171,15 @@ function methyl(x, y, dx, dy){
        never the problem, the annotation was. */
     { ph:0, gap:1,
       lab:"genomic DNA from an organism running its own R–M system",
-      cap:"the same picture, now on your bench — and your enzyme will not cut it either",
-      note:"Now take the phage away and read the top molecule again, because you will meet it. Suppose you are cloning out of the genomic DNA of some other organism. That organism was running its own restriction-modification system, which means it was doing exactly what the host is doing here — marking every copy of its own sites. If one of those sites happens to be the one you were planning to cut with, the DNA arrives already protected and your digest simply does not go. Nothing is wrong with the enzyme and nothing is wrong with the sequence; you can sequence it and watch your site sit there in plain view. What you are up against is the annotation. The fix is to get the DNA out of a strain that does not write that mark, or to cut somewhere else. This is the same slide we started on. All that changed is whose side you are on.",
+      cap:"the same picture, now on your bench, and your enzyme will not cut it either",
+      note:"Now take the phage away and read the top molecule again, because you will meet it. Suppose you are cloning out of the genomic DNA of some other organism. That organism was running its own restriction-modification system, which means it was doing exactly what the host is doing here: marking every copy of its own sites. If one of those sites happens to be the one you were planning to cut with, the DNA arrives already protected and your digest simply does not go. Nothing is wrong with the enzyme and nothing is wrong with the sequence; you can sequence it and watch your site sit there in plain view. What you are up against is the annotation. The fix is to get the DNA out of a strain that does not write that mark, or to cut somewhere else. This is the same slide we started on. All that changed is whose side you are on.",
       desc:"The blue phage fragments fade away, leaving the marked black molecule alone and recentred. Its label changes from host chromosome to genomic DNA from an organism running its own restriction-modification system." }
   ];
 
   window.Deck.sequence("rmself", function(slide){
     const r = mount(slide,
       host() + phage() +
-      txt(X0, PY1 - 78, "incoming phage DNA &mdash; no marks",
+      txt(X0, PY1 - 78, "incoming phage DNA, no marks",
           {anchor:"start", size:33, weight:700, fill:BLUE, r:"plab", op:0}) +
       txt(800, 806, "", {size:31, fill:MUTED, r:"cap"}));
 
@@ -359,7 +359,7 @@ function methyl(x, y, dx, dy){
              'stroke-linecap="round">' +
              bow(AC, A) + bow(M5, C) + bow(M4, C) +
              '<g stroke="none">' +
-               txt(800, 766, "the bracketed edge is the Watson&ndash;Crick face &mdash; " +
+               txt(800, 766, "the bracketed edge is the Watson&ndash;Crick face, " +
                              "the partner base bonds there", {size:31, weight:700, fill:BLUE}) +
              '</g>' +
            '</g>';
@@ -367,12 +367,12 @@ function methyl(x, y, dx, dy){
 
   const S = [
     { face:0,
-      cap:"one carbon, on one numbered position &mdash; and never two marks on the same base",
-      note:"Down to the atom, this is the entire modification: one methyl group, carried in from S-adenosylmethionine and left on a base. Dam puts it on the exocyclic nitrogen of adenine, position N6, inside GATC. Dcm puts it on ring carbon five of cytosine inside CCWGG. Restriction-modification systems commonly use a third position, N4 of cytosine — the BamHI methyltransferase is one. Note that the two cytosines are two different molecules. A given cytosine gets a methyl at C5 or at N4; nothing writes both.",
+      cap:"one carbon, on one numbered position, and never two marks on the same base",
+      note:"Down to the atom, this is the entire modification: one methyl group, carried in from S-adenosylmethionine and left on a base. Dam puts it on the exocyclic nitrogen of adenine, position N6, inside GATC. Dcm puts it on ring carbon five of cytosine inside CCWGG. Restriction-modification systems commonly use a third position, N4 of cytosine. The BamHI methyltransferase is one. Note that the two cytosines are two different molecules. A given cytosine gets a methyl at C5 or at N4; nothing writes both.",
       desc:"Three skeletal structures, every ring position numbered. Left, adenine: a six-membered ring numbered one to six fused to a five-membered ring numbered seven to nine, with an exocyclic nitrogen labelled N6 at the top carrying one hydrogen and, in red, a methyl group. Centre, cytosine with a red methyl on ring carbon five. Right, a second cytosine, this one with the red methyl on the exocyclic nitrogen N4. Each base hangs from a stub labelled to deoxyribose, leaving N9 on adenine and N1 on cytosine." },
     { face:1,
-      cap:"base pairing survives &mdash; the methyl projects into the major groove, where proteins read",
-      note:"Now look at where the methyl sits relative to the edge that does the pairing. On cytosine methylated at C5 the answer is easy: C5 is not part of the Watson-Crick face at all, so nothing about the pair changes. N6 and N4 are subtler, because those nitrogens do hydrogen bond to the partner base — but each of them carries two hydrogens, one pointing at the partner and one pointing out into the major groove, and the methyltransferase takes the one pointing out. So methyladenine still pairs with T and methylcytosine still pairs with G. Sequence the plasmid and you get exactly the same letters back. What changes is the major groove, which is where proteins read DNA — so the only consequence is which enzymes are allowed to act. That is what makes methylation an annotation layer rather than a change of sequence.",
+      cap:"base pairing survives: the methyl projects into the major groove, where proteins read",
+      note:"Now look at where the methyl sits relative to the edge that does the pairing. On cytosine methylated at C5 the answer is easy: C5 is not part of the Watson-Crick face at all, so nothing about the pair changes. N6 and N4 are subtler, because those nitrogens do hydrogen bond to the partner base, but each of them carries two hydrogens, one pointing at the partner and one pointing out into the major groove, and the methyltransferase takes the one pointing out. So methyladenine still pairs with T and methylcytosine still pairs with G. Sequence the plasmid and you get exactly the same letters back. What changes is the major groove, which is where proteins read DNA, so the only consequence is which enzymes are allowed to act. That is what makes methylation an annotation layer rather than a change of sequence.",
       desc:"A curved bracket is drawn down the left-hand edge of each structure, marking the hydrogen-bonding face used for base pairing, and labelled as the Watson-Crick face. Every red methyl lies on the opposite edge of its ring." }
   ];
 
@@ -443,11 +443,11 @@ function methyl(x, y, dx, dy){
       desc:"A black circle on the left: the template plasmid. Five red dots on short stalks stand off the ring, the methylated GATC sites." },
     { prod:1, gap:0,
       cap:"PCR copies it from dNTPs: the same plasmid, one base changed, and no marks anywhere",
-      note:"You amplify the whole plasmid with primers carrying your mutation. The new molecule is built from free nucleotides, so nothing methylates it — there is no methyltransferase in the tube. Now you have a problem. Both molecules are in the same tube, they are the same length, and they differ at one base. You cannot separate them by size, and you cannot separate them by sequence.",
+      note:"You amplify the whole plasmid with primers carrying your mutation. The new molecule is built from free nucleotides, so nothing methylates it. There is no methyltransferase in the tube. Now you have a problem. Both molecules are in the same tube, they are the same length, and they differ at one base. You cannot separate them by size, and you cannot separate them by sequence.",
       desc:"A blue circle appears on the right: the PCR product. It is drawn with a small gap at the top labelled nick, and an ink cross on the ring labelled the mutation. It carries no red dots." },
     { prod:1, gap:1,
       cap:"DpnI cuts GA/TC only when that A is methylated: the template is destroyed, the product is not",
-      note:"So you separate them on the annotation. DpnI is a restriction enzyme whose site is GATC, but it only cuts when the adenine is methylated — the exact inverse of the enzymes that methylation blocks. Add DpnI and it shreds the template you started with and never touches the product you just made. An enzyme used to tell old DNA from new. This is the step that makes QuikChange-style mutagenesis work, and if you skip it your transformation comes back full of the original plasmid.",
+      note:"So you separate them on the annotation. DpnI is a restriction enzyme whose site is GATC, but it only cuts when the adenine is methylated: the exact inverse of the enzymes that methylation blocks. Add DpnI and it shreds the template you started with and never touches the product you just made. An enzyme used to tell old DNA from new. This is the step that makes QuikChange-style mutagenesis work, and if you skip it your transformation comes back full of the original plasmid.",
       desc:"The black template circle has broken into five separate arcs with gaps, cut at each red mark, which remain. The blue product circle on the right is untouched." }
   ];
 
@@ -455,9 +455,9 @@ function methyl(x, y, dx, dy){
     const r = mount(slide,
       template() + product() +
       txt(TC.x, 300, "template plasmid", {size:33, weight:700}) +
-      txt(TC.x, 340, "dam+ prep &mdash; every GATC methylated", {size:30, fill:MUTED}) +
+      txt(TC.x, 340, "dam+ prep, every GATC methylated", {size:30, fill:MUTED}) +
       txt(PC.x, 300, "PCR product", {size:33, weight:700, fill:BLUE, r:"plab", op:0}) +
-      txt(PC.x, 340, "made from dNTPs &mdash; no methyl at all", {size:30, fill:MUTED, r:"psub", op:0}) +
+      txt(PC.x, 340, "made from dNTPs, no methyl at all", {size:30, fill:MUTED, r:"psub", op:0}) +
       txt(800, 816, "", {size:31, fill:MUTED, r:"cap"}));
 
     let cur = null, raf = null;

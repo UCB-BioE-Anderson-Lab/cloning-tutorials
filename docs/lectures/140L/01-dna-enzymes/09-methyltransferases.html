@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="robots" content="noindex,nofollow">
-<title>Methyltransferases &mdash; DNA Manipulation Enzymes</title>
+<title>Methyltransferases &ndash; DNA Manipulation Enzymes</title>
 <link rel="stylesheet" href="../../deck.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
   <h1>Methyltransferases</h1>
   <p>Enzymes that move one methyl group onto a base</p>
   <p style="margin-top:30px"><strong>The sequence does not change. Who is allowed to act on it does.</strong></p>
-  <template class="notes">Methyltransferases add a methyl group to a DNA base, most often the N6 of adenine or the C5 of cytosine. This is the smallest chemical event in the whole lecture — one carbon — and it is worth a section because of what it decides rather than what it is. A methylated site and an unmethylated site have identical sequence. Sequence the plasmid and you cannot tell them apart. What differs is which enzymes are allowed to act there. Think of methylation as an annotation layer sitting on top of the sequence.</template>
+  <template class="notes">Methyltransferases add a methyl group to a DNA base, most often the N6 of adenine or the C5 of cytosine. This is the smallest chemical event in the whole lecture, one carbon, and it is worth a section because of what it decides rather than what it is. A methylated site and an unmethylated site have identical sequence. Sequence the plasmid and you cannot tell them apart. What differs is which enzymes are allowed to act there. Think of methylation as an annotation layer sitting on top of the sequence.</template>
     <template class="desc">Section divider: Methyltransferases. Enzymes that move one methyl group onto a base. The sequence does not change; who is allowed to act on it does.</template>
 </article>
 
@@ -35,8 +35,8 @@
   <h1 class="small">Your plasmid arrives already annotated</h1>
   <div class="cols wide-left">
     <ul>
-      <li><strong>Dam</strong> &mdash; the A in <code>GATC</code></li>
-      <li><strong>Dcm</strong> &mdash; the inner C in <code>CCWGG</code></li>
+      <li><strong>Dam</strong>, the A in <code>GATC</code></li>
+      <li><strong>Dcm</strong>, the inner C in <code>CCWGG</code></li>
       <li>Every lab miniprep carries both</li>
       <li>Your plasmid map does not show it</li>
     </ul>
@@ -49,7 +49,7 @@
       <p style="margin-top:18px;font-size:26px">The site plus its two neighbours spells <code>GATC</code>. Dam got there first</p>
     </div>
   </div>
-  <template class="notes">This is the one that costs people a week. Dam methylates the adenine of GATC and Dcm methylates the internal cytosine of CCWGG, and neither of them exists to protect you from anything — Dam in particular is a housekeeping signal, marking the parental strand for mismatch repair and setting the timing of replication initiation. The consequence is that the plasmid you just miniprepped is already carrying those marks at every such site, before you open the tube, and none of it appears in your sequence file or your map. When a restriction site overlaps one of them the enzyme can be blocked. XbaI is the classic: the site is TCTAGA, and if the next two bases happen to be TC then the last two bases of the site plus those two spell GATC, which Dam has methylated, and XbaI will not cut. BclI is the extreme case, because its site TGATCA contains a GATC no matter what is around it.</template>
+  <template class="notes">This is the one that costs people a week. Dam methylates the adenine of GATC and Dcm methylates the internal cytosine of CCWGG, and neither of them exists to protect you from anything. Dam in particular is a housekeeping signal, marking the parental strand for mismatch repair and setting the timing of replication initiation. The consequence is that the plasmid you just miniprepped is already carrying those marks at every such site, before you open the tube, and none of it appears in your sequence file or your map. When a restriction site overlaps one of them the enzyme can be blocked. XbaI is the classic: the site is TCTAGA, and if the next two bases happen to be TC then the last two bases of the site plus those two spell GATC, which Dam has methylated, and XbaI will not cut. BclI is the extreme case, because its site TGATCA contains a GATC no matter what is around it.</template>
   <template class="desc">Dam methylates the A in GATC and Dcm the inner C in CCWGG in ordinary lab strains, so a plasmid is marked before you touch it. A worked example shows an XbaI site followed by TC, with the two methylated adenines marked, spelling an overlapping Dam site that blocks XbaI. BclI, TGATCA, always contains a GATC.</template>
 </article>
 
@@ -57,15 +57,15 @@
   <h1 class="small">Two ways out, and only one of them is cheap</h1>
   <ul>
     <li><strong>Design around it.</strong> Move the flanking bases, or pick an unblocked isoschizomer</li>
-    <li><strong>Or change host.</strong> <em>dam</em><sup>&minus;</sup> <em>dcm</em><sup>&minus;</sup> JM110, SCS110 &mdash; but they are mutator strains</li>
+    <li><strong>Or change host.</strong> <em>dam</em><sup>&minus;</sup> <em>dcm</em><sup>&minus;</sup> JM110, SCS110, but they are mutator strains</li>
   </ul>
-  <template class="notes">There are two moves and the cheap one is prevention. NEB tabulates Dam, Dcm and CpG sensitivity for every enzyme they sell, so check before you commit to a site &mdash; usually you can shift the two flanking bases so the overlap never forms, or choose an isoschizomer that is not blocked. If you are stuck with the site, the other move is to change the host: JM110 and SCS110 are dam-minus dcm-minus. Understand what you are giving up. Methyl-directed mismatch repair uses the transiently hemimethylated GATC to tell the newly synthesised strand from the template, so a dam-minus strain has lost that and is a mutator. Grow what you need for the digest and get your plasmid back into a normal strain.</template>
+  <template class="notes">There are two moves and the cheap one is prevention. NEB tabulates Dam, Dcm and CpG sensitivity for every enzyme they sell, so check before you commit to a site. Usually you can shift the two flanking bases so the overlap never forms, or choose an isoschizomer that is not blocked. If you are stuck with the site, the other move is to change the host: JM110 and SCS110 are dam-minus dcm-minus. Understand what you are giving up. Methyl-directed mismatch repair uses the transiently hemimethylated GATC to tell the newly synthesised strand from the template, so a dam-minus strain has lost that and is a mutator. Grow what you need for the digest and get your plasmid back into a normal strain.</template>
   <template class="desc">Two fixes: design around the overlap using NEB's per-enzyme methylation sensitivity table, or prep from a dam-minus, dcm-minus strain such as JM110 or SCS110, which are mutator strains and should only be used for the digest.</template>
 </article>
 
 <article class="slide" data-seq="dpni">
   <h1 class="small">DpnI: specificity that is not a sequence</h1>
-  <ul><li>Site-directed mutagenesis by PCR &mdash; and how you get rid of the template</li></ul>
+  <ul><li>Site-directed mutagenesis by PCR, and how you get rid of the template</li></ul>
 </article>
 
 
