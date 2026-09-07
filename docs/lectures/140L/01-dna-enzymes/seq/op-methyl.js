@@ -1,14 +1,13 @@
 /* ------------------------------------------------------------------ *
  * op-methyl.js — the methyltransferase operator.
  *
- * The one place in this lecture where the red goes on the BASES.
- *
- * Every operator before this has red backbone and grey bases, because
- * every enzyme before this reads a shape: an end, a nick, a recessed
- * junction. A methyltransferase reads a sequence. So GATC is red on both
- * strands and its flanks are grey, and that inversion is the point --
- * it is worth saying out loud that the picture has changed, because the
- * grammar has been consistent for an hour by the time this appears.
+ * Red on the bases, which is NOT new by the time this appears: EcoRI
+ * required its six and loxP required its arms. The distinctive thing
+ * about this one is not that it reads a sequence, it is that reading is
+ * all it does to it -- nothing is cut, nothing is joined, and the
+ * sequence afterwards is the sequence before. An earlier draft of this
+ * note claimed the red-on-bases was an inversion of the deck's grammar.
+ * It is not, and two earlier sections disprove it.
  *
  * Dam is the example because the whole section turns on it: it is the
  * mark on every miniprep from a standard lab strain, it is what DpnI
@@ -82,7 +81,7 @@ window.Deck.sequence("op-methyl", function(slide){
                 : "GATC, four bases whose identity is required") +
       '</text>' +
       '<text x="800" y="818" text-anchor="middle" font-family="inherit" font-size="24" '+
-        'fill="'+MUT+'">every enzyme so far read a shape; this one reads a sequence</text>';
+        'fill="'+MUT+'">it reads a sequence, and then leaves it exactly as it found it</text>';
   }
   function go(){
     if(raf){cancelAnimationFrame(raf);raf=null;}
@@ -96,8 +95,8 @@ window.Deck.sequence("op-methyl", function(slide){
   }
   go();
   return { steps:[{
-    note:"Look at what has changed about the picture. For the whole of this lecture red has been on the backbone and the bases have been grey, because every enzyme so far reads a shape (an end, a nick, a recessed junction), and does not care what the sequence says. Here the red is on the bases. A methyltransferase reads a sequence, and that is the whole difference. This is Dam, the one that matters most to you: it recognises GATC, four bases, and it puts a methyl on the adenine. Notice it marks both strands, because GATC reads GATC on its complement too. The site is symmetric. That symmetry is not a curiosity: straight after replication one strand carries the old mark and the new one does not, so for a few minutes the cell can tell which strand is which, and that is how mismatch repair knows which base to trust. Hold on to GATC. It is the mark on every miniprep you will make from a standard lab strain, and it is what DpnI reads. And look at the six base pairs I have actually drawn: T-G-A-T-C-A. That is the BclI site, and BclI is the one people get caught by, because Dam has methylated the adenine sitting inside it and BclI will not cut a methylated site. The plasmid is right, the enzyme is right, the buffer is right, and nothing happens. You have to grow the DNA in a dam-minus strain first. GATC also sits inside BamHI, BglII, XhoII and PvuI, so BclI is not the only one this can happen to.",
-    desc:"An all-atom DNA duplex six base pairs long, reading T G A T C A, which is the BclI site. The four bases of the central GATC site are drawn in red on both strands and the flanking bases are grey, inverting the convention used for every earlier enzyme, whose backbone was red and bases grey. On a loop a red methyl group appears on the adenine of each strand and disappears again."
+    note:"Red on the bases, which you have seen before: EcoRI required its six, loxP required its arms. What is different is what happens next. Nothing here is cut and nothing is joined, and the sequence you would read off afterwards is the sequence you would have read off before. This is Dam, the one that matters most to you: it recognises GATC, four bases, and it puts a methyl on the adenine. Notice it marks both strands, because GATC reads GATC on its complement too. The site is symmetric. That symmetry is not a curiosity: straight after replication one strand carries the old mark and the new one does not, so for a few minutes the cell can tell which strand is which, and that is how mismatch repair knows which base to trust. Hold on to GATC. It is the mark on every miniprep you will make from a standard lab strain, and it is what DpnI reads. And look at the six base pairs I have actually drawn: T-G-A-T-C-A. That is the BclI site, and BclI is the one people get caught by, because Dam has methylated the adenine sitting inside it and BclI will not cut a methylated site. The plasmid is right, the enzyme is right, the buffer is right, and nothing happens. You have to grow the DNA in a dam-minus strain first. GATC also sits inside BamHI, BglII, XhoII and PvuI, so BclI is not the only one this can happen to.",
+    desc:"An all-atom DNA duplex six base pairs long, reading T G A T C A, which is the BclI site. The four bases of the central GATC site are drawn in red on both strands and the flanking bases are grey. On a loop a red methyl group appears on the adenine of each strand and disappears again."
   }], go:go };
 });
 })();
