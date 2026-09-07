@@ -374,8 +374,12 @@ function downArrow(x, y0, y1, col){  /* y0 high, y1 low */
            '<path d="M'+(x-11)+' '+(y1-16)+'L'+x+' '+y1+'L'+(x+11)+' '+(y1-16)+'"/></g>';
 }
 
-function reaction(fwd, rev, unlock){
-  const o = smooth(fwd, 0.5, 1);
+/* `t` is the geometry: the summary has to be gone before the re-formed
+   plasmid comes back to the middle and sits on it, and tying its opacity
+   to t rather than to a key of its own means it clears itself exactly as
+   the reverse reaction runs. */
+function reaction(fwd, rev, unlock, t){
+  const o = smooth(fwd, 0.5, 1) * smooth(t, 0.3, 0.72);
   if (o <= 0.004) return "";
   let g = label(800, 528, "attB &#160;+&#160; attP", 38, INK, "middle", 700) +
           label(800, 666, "attL &#160;+&#160; attR", 38, INK, "middle", 700) +
@@ -384,14 +388,17 @@ function reaction(fwd, rev, unlock){
           label(800, 736, "attL = B&#183;P&#8242; and attR = P&#183;B&#8242; &#8212; neither one is attB, neither one is attP", 26, MUTED);
 
   const ro = smooth(rev, 0.25, 1);
-  g += fade(ro * (1 - unlock),
+  /* the unlock lands early in its click, so the arrow has turned over
+     and been named before anything starts moving */
+  const u = smooth(unlock, 0, 0.18);
+  g += fade(ro * (1 - u),
         upArrow(874, 634, 552, VERM) +
         '<g stroke="'+VERM+'" stroke-width="4.2" stroke-linecap="round">' +
           '<path d="M860 580L888 608"/><path d="M888 580L860 608"/></g>' +
         label(902, 600, "integrase alone: no reaction", 24, VERM, "start"));
-  g += fade(ro * unlock,
+  g += fade(ro * u,
         upArrow(874, 634, 552, BLUE) +
-        label(902, 600, "+ directionality factor", 24, BLUE, "start"));
+        label(902, 600, "integrase + Xis", 24, BLUE, "start"));
   return fade(o, g);
 }
 
@@ -404,7 +411,7 @@ window.Deck.sequence("integrase", function(slide){
   const KEYS = ["t","fwd","rev","unlock"];
   function paint(s){
     r.dyn.innerHTML = integScene(clamp01(s.t)) +
-                      reaction(clamp01(s.fwd), clamp01(s.rev), clamp01(s.unlock));
+                      reaction(clamp01(s.fwd), clamp01(s.rev), clamp01(s.unlock), clamp01(s.t));
   }
 
   const S = [
@@ -426,25 +433,15 @@ window.Deck.sequence("integrase", function(slide){
       note:"And this is the whole point. The integrase recognises an attB and an attP, and it can only assemble a productive synapse out of one of each. Hand it an attL and an attR and the complex does not form, so the reaction simply stops. Compare Cre: loxP times loxP gives you loxP and loxP, the product is still a substrate, and it never stops. Consuming the sites is what makes a landing pad stable — you integrate once and it stays integrated, even with the integrase still being expressed. That is why this, and not Cre, is what you build a genomic landing pad out of.",
       desc:"A red upward arrow has appeared beside the blue downward one in the reaction summary, struck through with a red cross and labelled: integrase alone, no reaction." },
 
-    { s:{t:1,fwd:1,rev:1,unlock:1},
-      cap:"one way — unless you supply the key",
-      sub:"a directionality factor (gp47 in BxbI, Xis in lambda) turns the reverse reaction on",
-      note:"The reverse is not impossible, it is just off by default. Each system has a small accessory protein, a recombination directionality factor, that remodels the complex so that attL and attR become the productive pair: gp47 for BxbI, and in lambda the same job is done by Xis. So you get a switch you can throw deliberately — integrate now, excise later, on command. That is the basis of the recombinase memory and logic circuits, and commercially it is Gateway: BP clonase runs attB times attP forward, and LR clonase, which is the same integrase plus Xis, runs attL times attR back.",
-      desc:"The strike-through is gone. The upward reverse arrow is now blue and labelled: plus directionality factor." },
-
-    /* The same tween, run backwards. Excision is not a second mechanism
-       to be described -- it is this one in reverse -- so it is drawn by
-       reversing it, and the labels come back to attB and attP on their
-       own because that is genuinely what the products are. */
-    /* The reaction summary sits dead centre, which is exactly where the
-       re-formed circle comes back to -- and it is the abstract statement
-       of the thing this beat is about to demonstrate, so it goes rather
-       than being shuffled aside. The cap and sub still name the key. */
-    { s:{t:0,fwd:0,rev:0,unlock:0},
-      cap:"and with the key, back out",
+    /* This used to be two clicks: one that renamed the reverse arrow and
+       one that ran it. Renaming is not an event. Adding Xis and watching
+       the plasmid come out is one thing that happens, staged inside a
+       single click -- the arrow turns over first, then the DNA moves. */
+    { s:{t:0,fwd:1,rev:1,unlock:1},
+      cap:"add Xis \u2014 and it comes back out",
       sub:"attL \u00d7 attR \u2192 attB + attP, and the plasmid is a circle again",
-      note:"So run it. The integrase plus the directionality factor pairs attL with attR, cuts, rotates and religates, and the donor leaves as a circle. Watch the labels come back on their own: the chromosome has attB again and the circle has attP again, because those genuinely are the products of attL times attR. Nothing here is a second mechanism — it is the same reaction I ran a moment ago, driven the other way. And this is Gateway, exactly: BP clonase takes attB times attP and gives you the Entry clone, LR clonase is the same integrase plus its directionality factor and takes attL times attR to give the Expression clone. The reaction names are the site names. Lambda Int works the same way with Xis, and so do phi80, HK022, P21, P22 and phiC31.",
-      desc:"The reaction runs backwards. The payload rolls back out of the chromosome into a circle below it, the chromosome closes up carrying attB again, and the circle carries attP again." }
+      note:"The reverse is not impossible, it is just off by default, and what turns it on is a second small protein. In lambda it is Xis; in BxbI the same job is done by gp47; the general name is a recombination directionality factor. It remodels the complex so that attL and attR become the productive pair, and watch what happens when I add it: the arrow turns over, the integrase pairs attL with attR, and the donor leaves as a circle. The labels come back on their own \u2014 the chromosome has attB again and the circle has attP again \u2014 because those genuinely are the products of attL times attR. Nothing here is a second mechanism; it is the same reaction driven the other way. And this is Gateway exactly: BP clonase runs attB times attP forward to give the Entry clone, LR clonase is the same integrase plus its directionality factor and runs attL times attR back to give the Expression clone. The reaction names are the site names. So you get a switch you can throw deliberately \u2014 integrate now, excise later, on command \u2014 which is the basis of the recombinase memory and logic circuits.",
+      desc:"The struck-through reverse arrow turns blue and is labelled integrase plus Xis. The reaction summary then clears as the payload rolls back out of the chromosome into a circle below it, the chromosome closing up with attB again and the circle carrying attP again." }
   ];
   return driver(r, KEYS, paint, S);
 });
