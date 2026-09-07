@@ -501,10 +501,17 @@ function floxScene(s){
   g += fade((1 - s.loop) * (1 - s.off),
             label(jx + 2*half - 50, FCY + 58, "loxP", 24, BLUE));
 
-  /* the phenotype, which is the only thing the room can actually see */
-  g += fade(1 - smooth(s.off, 0.15, 0.6),
+  /* The phenotype, which is the only thing the room can actually see --
+     and it does not flip when the gene leaves the chromosome. The
+     excised circle is still in the cell and still carrying ampR, so the
+     cell is still resistant. It turns sensitive when the circle is
+     LOST, which is a different event with a different cause: the circle
+     has no origin, so it cannot replicate, so it is diluted out over
+     the next few divisions. Tying the label to `gone` rather than `off`
+     is the whole reason excision-as-deletion takes time. */
+  g += fade(1 - smooth(s.gone, 0.15, 0.6),
             label(800, 764, "resistant", 34, INK, "middle", 700));
-  g += fade(smooth(s.off, 0.4, 1),
+  g += fade(smooth(s.gone, 0.45, 1),
             label(800, 764, "not resistant", 34, VERM, "middle", 700));
   g += fade(smooth(s.loop, 0.15, 0.6) * (1 - s.off),
             label(800, 268, "+ Cre", 30, VERM, "middle", 700));
@@ -535,13 +542,17 @@ window.Deck.sequence("flox", function(slide){
       note:"Now supply Cre, in one tissue or at one moment, however you choose to control it. The two sites are brought face to face, which means the DNA between them has to loop out, and that is the committed step.",
       desc:"Cre appears. The DNA between the two loxP sites bows upward into a loop until the two sites touch, and the chromosome on the right slides in behind it." },
     { s:{loop:1,off:1,gone:0,names:0},
-      cap:"the gene leaves as a circle", sub:"one loxP stays behind, and the cell is no longer resistant",
-      note:"The strands are exchanged and the gene leaves as a covalently closed circle carrying one of the two sites. The chromosome closes over the other one. Now look at the cell. Same cell, same genome apart from those few hundred bases, and it no longer grows on the antibiotic. That is a conditional knockout, and what made it conditional was not the DNA, it was whether Cre was present.",
-      desc:"The loop pinches off and drifts up and to the right as a free circle carrying the ampR gene and one loxP arrow. The chromosome has closed with a single loxP at the junction. The label below the cell changes from resistant to not resistant." },
+      cap:"the gene leaves as a circle", sub:"out of the chromosome \u2014 but still in the cell, and still expressed",
+      note:"The strands are exchanged and the gene leaves as a covalently closed circle carrying one of the two sites. The chromosome closes over the other one. Now check the phenotype, and be careful here, because this is where people get the timing wrong. The cell is still resistant. The gene is out of the chromosome but it is still in the cell, it is still intact, and it is still being transcribed. Nothing about cutting it out of the genome stops it working.",
+      desc:"The loop pinches off and drifts up and to the right as a free circle carrying the ampR gene and one loxP arrow. The chromosome has closed with a single loxP at the junction. The cell is still labelled resistant." },
+    { s:{loop:1,off:1,gone:1,names:0},
+      cap:"the circle has no origin, so it is diluted away", sub:"and only now is the cell sensitive",
+      note:"Here is what actually makes it a knockout. That circle has no origin of replication. It cannot be copied, so every time the cell divides, one daughter gets it and the other does not, and within a few generations it is gone from the population. Only now is the cell sensitive. So excision is not an off switch you throw, it is a deletion that takes a few divisions to show up, and if you assay too early you will see a cell that has already recombined and still grows. The same fact is why excision is effectively one-way: putting the circle back is a reaction between two molecules, and it gets slower as the circle gets rarer, so it loses the race against dilution.",
+      desc:"The excised circle fades away as it is diluted out of the population, and only then does the label below the cell change from resistant to not resistant." },
     { s:{loop:1,off:1,gone:1,names:1},
-      cap:"and it does not come back", sub:"",
-      note:"The circle has no origin of replication, so it is diluted out as the cells divide, and putting it back would be a reaction between two molecules that gets slower as the circle gets rarer. That is why excision works as a deletion in practice even though the chemistry is perfectly reversible. And Cre is not the only one of these. Flp with its FRT sites from the yeast two-micron plasmid, Dre with rox, VCre with vlox, all the same trick on a different thirty-four base pair site, which matters because you can run two of them in one cell without them touching each other. One warning to finish on, and it is on the screen: there is still a loxP in that chromosome. Express Cre again later for some other purpose and it is a perfectly good site. It will be used.",
-      desc:"The excised circle fades away, diluted out. A line names the other systems: Flp with FRT, Dre with rox, VCre with vloxP, all the same trick on a different 34 base pair site." }
+      cap:"and it is not just Cre", sub:"",
+      note:"Cre is not the only one of these. Flp with its FRT sites from the yeast two-micron plasmid, Dre with rox, VCre with vlox — all the same trick on a different thirty-four base pair site, which matters because you can run two of them in one cell without them touching each other's sites. One warning to finish on, and it is on the screen: there is still a loxP in that chromosome. Express Cre again later for some other purpose and it is a perfectly good site. It will be used.",
+      desc:"A line names the other systems: Flp with FRT, Dre with rox, VCre with vloxP, all the same trick on a different 34 base pair site." }
   ];
   return driver(r, KEYS, paint, S);
 });
