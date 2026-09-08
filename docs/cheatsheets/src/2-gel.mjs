@@ -16,10 +16,11 @@ export default {
 
           "Set up each sample, in order:" +
             rx([
-              [d.dye_uL, "loading dye (tube marked <i>load</i>)"],
+              [d.dye_uL, `loading dye (tube marked <b>${d.load_label}</b>)`],
               [d.sample_uL, "PCR product"]
             ]) +
             bullets([
+              `<b>${d.load_label} has to be fresh — made within ${d.load_fresh_days} days.</b> The stain does not keep. If it is older, make a new aliquot: <b>${d.load_blue_juice_uL} µL blue juice + ${d.load_stain_uL} µL dye</b> in an Eppendorf tube, labelled <b>${d.load_label}</b>.`,
               `<b>Marker, one per section:</b> ${d.dye_uL} µL loading dye into a tube of marker (yellow).`
             ]),
 

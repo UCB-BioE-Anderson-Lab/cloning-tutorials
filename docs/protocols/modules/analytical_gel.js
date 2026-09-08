@@ -8,6 +8,15 @@
 // watch the blue front and stop when it is 2/3 to 3/4 down the gel. Nobody sets a timer
 // and walks away.
 
+// The LOAD tube is blue juice with the DNA stain added, and the stain does not keep.
+// Anything older than this gets remade rather than used.
+const LOAD = {
+  label: "LOAD",
+  fresh_days: 2,
+  blue_juice_uL: 100,
+  stain_uL: 1
+};
+
 export const inputs = [
   { name: "samples", type: "number", label: "Number of samples", default: 1, step: 1 },
   { name: "agarose_pct", type: "number", label: "Agarose (%)", default: 1, step: 0.1 },
@@ -44,7 +53,11 @@ export function factory(values = {}) {
       sample_uL: sample,
       load_uL: load,
       voltage_V: voltage,
-      run_min: runMin
+      run_min: runMin,
+      load_label: LOAD.label,
+      load_fresh_days: LOAD.fresh_days,
+      load_blue_juice_uL: LOAD.blue_juice_uL,
+      load_stain_uL: LOAD.stain_uL
     },
     template: `
 **Why**
@@ -53,7 +66,10 @@ size. You are not purifying anything, and nothing is recovered from it.
 Gels are **${pct}% agarose in 1× TAE**, cut from pre-made slabs in the fridge.
 
 **Prepare the samples** *(${n} sample${n > 1 ? "s" : ""} + 1 marker = **${lanes} lanes**)*
-1. For each sample, put **${dye} µL loading dye** (tube labelled *load*) in a fresh PCR tube.
+1. For each sample, put **${dye} µL loading dye** (tube labelled **${LOAD.label}**) in a fresh PCR tube.
+   - **${LOAD.label} must be fresh — made within ${LOAD.fresh_days} days.** The stain does not keep.
+   - If it is older, make a new aliquot: **${LOAD.blue_juice_uL} µL blue juice + ${LOAD.stain_uL} µL dye**
+     in an Eppendorf tube, labelled **${LOAD.label}**.
 2. Add **${sample} µL PCR product**, mix, and quick spin.
 3. **Marker, one per section:** add **${dye} µL loading dye** to a tube of marker (yellow), mix, spin.
 
