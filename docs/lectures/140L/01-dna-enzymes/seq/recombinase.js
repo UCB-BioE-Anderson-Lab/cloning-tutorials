@@ -1,10 +1,19 @@
 /* ------------------------------------------------------------------ *
- * recombinase.js — two sequences.
+ * recombinase.js — the recombinase section.
  *
  *   loxorient   Cre/lox: the site, and why its ARROW decides the
  *               outcome — excision or inversion            (5 clicks)
- *   integrase   Serine integrase: attB x attP -> attL + attR, and why
- *               consuming the sites makes it one way       (4 clicks)
+ *   flox        what Cre is FOR: a floxed marker, Cre, and a
+ *               phenotype that changes when the circle is lost
+ *   integrase   attB x attP -> attL + attR, why consuming the sites
+ *               makes it one way, and Xis running it back
+ *   homrec      the double crossover, inside a cell
+ *
+ * A sixth, `holliday`, drew a single crossover at strand level — nicks,
+ * exchange, branch migration, and the two resolutions. It was cut from
+ * this deck as too deep for a catalogue lecture and is being kept for
+ * the genome editing one; lift it from commit 4df1de46 rather than
+ * writing it again.
  *
  * Both scenes are built from ONE primitive: a piece of DNA of arc
  * length L, bent by `bend` (0 = straight, 1 = closed circle).  Because
@@ -149,7 +158,6 @@ const CH = i => X0 + PITCH*i + PITCH/2;             /* centre of character i  */
 
 function anatomy(){
   let g = "";
-  g += label(800, 302, "two 13 bp arms &#8212; inverted repeats of each other, one Cre monomer on each", 24, MUTED);
 
   /* the two arms, drawn head to head: each reads the same 13 bases on
      its own strand, which is what "inverted repeat" means */
@@ -161,18 +169,26 @@ function anatomy(){
      for a terminus. */
   const armL0 = X0 + 4, armL1 = CH(12) + PITCH/2 - 4;
   const armR0 = CH(21) - PITCH/2 + 4, armR1 = X0 + 34*PITCH - 4;
-  g += '<g fill="none" stroke="'+MUTED+'" stroke-width="2.2" stroke-linejoin="round">' +
+  g += '<g fill="none" stroke="'+VERM+'" stroke-width="2.4" stroke-linejoin="round">' +
          '<path d="M'+n2(armL0)+' 366v12H'+n2(armL1)+'v-12"/>' +
          '<path d="M'+n2(armR0)+' 366v12H'+n2(armR1)+'v-12"/>' +
        '</g>';
-  g += label((armL0+armL1)/2, 352, "13 bp arm &#8594;", 21, MUTED) +
-       label((armR0+armR1)/2, 352, "&#8592; 13 bp arm", 21, MUTED);
+  g += label((armL0+armL1)/2, 352, "13 bp arm &#8594;", 21, VERM) +
+       label((armR0+armR1)/2, 352, "&#8592; 13 bp arm", 21, VERM);
 
   /* the sequence */
   g += '<g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="34" ' +
          'font-weight="600" text-anchor="middle">';
   for (let i = 0; i < 34; i++){
-    const col = (i >= 13 && i < 21) ? VERM : INK;
+    /* Red is what the enzyme requires, as everywhere else in this deck,
+       so it belongs on the ARMS: those are the thirteen bases Cre reads,
+       and changing them stops it binding. The spacer is a different kind
+       of requirement -- its identity is free, which is exactly why lox
+       variants like lox2272 exist and work, but it must MATCH its
+       partner, and its asymmetry is what gives the site direction. That
+       is a thing to follow rather than a thing required, so it is blue,
+       and it is the blue that becomes the arrow at the bottom. */
+    const col = (i >= 13 && i < 21) ? BLUE : VERM;
     g += '<text x="'+n2(CH(i))+'" y="444" fill="'+col+'">'+LOX_T[i]+'</text>' +
          '<text x="'+n2(CH(i))+'" y="492" fill="'+col+'">'+LOX_B[i]+'</text>';
   }
@@ -182,15 +198,15 @@ function anatomy(){
 
   /* the spacer, bracketed */
   const sx0 = X0 + 13*PITCH, sx1 = X0 + 21*PITCH;
-  g += '<path d="M'+n2(sx0)+' 522V542H'+n2(sx1)+'V522" fill="none" stroke="'+VERM+
+  g += '<path d="M'+n2(sx0)+' 522V542H'+n2(sx1)+'V522" fill="none" stroke="'+BLUE+
          '" stroke-width="3.2" stroke-linejoin="round"/>';
-  g += label(800, 590, "8 bp spacer: ATGTATGC one way, GCATACAT the other", 27, VERM);
-  g += label(800, 626, "not a palindrome &#8212; this is where the site&#8217;s direction comes from", 24, MUTED);
+  g += label(800, 590, "8 bp spacer", 27, BLUE);
+  g += label(800, 626, "not a palindrome, so the site has a direction", 24, MUTED);
 
   /* and the level-3 icon it collapses to */
   const pt = curve(34*PITCH, 0, 1, 800, 712);
   g += arrowFill(pt, 0, 34*PITCH, 17, 1, BLUE);
-  g += label(800, 776, "from here on, just this arrow \u2014 it marks the site, not a strand end", 26, MUTED);
+  g += label(800, 776, "from here on, just this arrow", 26, MUTED);
   return g;
 }
 
@@ -205,7 +221,7 @@ const LOXW = 17, GENEW = 21;
 function directScene(t){
   let g = "";
   const eT = t;
-  /* left fragment: flank + loxP A.  Never moves — the eye tracks it. */
+  /* left fragment: flank + loxP A.  Never moves, the eye tracks it. */
   const pL = curve(390, 0, 1, 345, Y0);
   g += strand(pL, 0, 390) + arrowFill(pL, 250, 390, LOXW, 1, BLUE);
 
@@ -231,26 +247,47 @@ function directScene(t){
 
 function invScene(t){
   let g = "";
-  const sx = Math.cos(Math.PI*t), lift = 130*Math.sin(Math.PI*t);
+  /* Synapsis is the reaction, not a preamble to it. The two sites have
+     to be brought face to face before anything is cut, and because these
+     two point AT each other, the only way to do that is to loop the DNA
+     between them out. The old version mirrored the segment in place,
+     which drew the answer and hid the reason -- and it also made
+     inversion look like a different kind of event from excision, when
+     the two are the same event on differently pointed sites.
 
-  const pL = curve(390, 0, 1, 345, Y0);
+     So: the middle bends up until its two ends, which carry the sites,
+     touch; the strands are exchanged at the top of the bend; and it
+     comes back down reversed. b = sin(pi t) closes the loop at the
+     halfway point and opens it again, and the arrow flips exactly there,
+     where the two ends coincide and the flip has nowhere to show. */
+  const LM = 460;
+  const b    = Math.max(Math.sin(Math.PI*t), 0.0006);
+  const R    = LM/(b*2*Math.PI);
+  const half = R*Math.sin(Math.PI*b);          /* half the gap between ends */
+  const rise = R*(1 - Math.cos(Math.PI*b));    /* how far the ends sit below */
+  const dir  = t < 0.5 ? 1 : -1;               /* the exchange itself        */
+  const lx = 770 - half, rx = 770 + half;
+
+  /* the flanks slide in to meet the closing loop, each keeping its site */
+  const pL = curve(390, 0, 1, lx - 195, Y0);
   g += strand(pL, 0, 390) + arrowFill(pL, 250, 390, LOXW, 1, BLUE);
-
-  /* right flank keeps loxP B, which points the OTHER way */
-  const pR = curve(450, 0, 1, 1225, Y0);
+  const pR = curve(450, 0, 1, rx + 225, Y0);
   g += strand(pR, 0, 450) + arrowFill(pR, 0, 140, LOXW, -1, BLUE);
 
-  /* the segment between the sites is flipped end for end */
-  const pM = curve(460, 0, 1, 770, Y0);
-  g += '<g transform="translate(0 '+n2(-lift)+') translate(770 '+Y0+') scale('+n2(sx)+' 1) translate(-770 '+(-Y0)+')">' +
-         strand(pM, 0, 460) + arrowOpen(pM, 40, 420, GENEW, 1, INK) +
-       '</g>';
+  const pM = curve(LM, b, 1, 770, Y0 - rise);
+  g += strand(pM, 0, LM) + arrowOpen(pM, 40, 420, GENEW, dir, INK);
 
-  g += label(470, Y0 + 60, "loxP", 26, BLUE) + label(1070, Y0 + 60, "loxP", 26, BLUE);
-  g += fade(Math.abs(sx), label(770, Y0 + 60, "gene", 26, INK));
-  g += fade(smooth(t, 0.7, 1), label(800, Y0 - 92, "both sites survive &#8212; so Cre can do it again", 26, MUTED));
+  const top = pM(LM/2, 46);
+  g += label(lx - 70, Y0 + 60, "loxP", 26, BLUE) +
+       label(rx + 70, Y0 + 60, "loxP", 26, BLUE) +
+       label(top[0], top[1], "gene", 26, INK);
+  g += fade(smooth(t, 0.22, 0.44) * (1 - smooth(t, 0.68, 0.84)),
+            label(770, Y0 + 126, "the two sites have to meet, so the DNA between them loops out", 25, MUTED));
+  g += fade(smooth(t, 0.86, 1),
+            label(800, Y0 + 126, "both sites survive, so Cre can do it again", 26, MUTED));
   return g;
 }
+
 
 window.Deck.sequence("loxorient", function(slide){
   const svg = makeSvg('<g data-r="anat" opacity="0">'+anatomy()+'</g><g data-r="dyn"></g>');
@@ -268,20 +305,20 @@ window.Deck.sequence("loxorient", function(slide){
   const S = [
     { s:{anat:1,direct:0,dirT:0,inv:0,invT:0},
       cap:"the site: loxP",
-      sub:"two 13 bp arms that Cre binds, and an 8 bp spacer that gives the site its direction",
-      note:"This is the last enzyme class in the lecture and it is the one that does the most with a single protein. Everything up to now cuts, copies or joins one junction at a time, and you have to hand it the ends. A recombinase finds two sites, breaks and rejoins all four strands, and reseals — no ligase, no polymerase, no ATP, and no free DNA end is ever let go, because the broken bond is held as a covalent protein-DNA link the whole time. That is the reason it can run on a chromosome inside a living cell. Now the site. loxP is thirty-four base pairs: two thirteen-base-pair arms that are inverted repeats of each other, with an eight-base-pair spacer between them. One Cre monomer binds each arm, so two Cre per site and four across the reaction. Look at the spacer: A-T-G-T-A-T-G-C one way, G-C-A-T-A-C-A-T the other. It is not a palindrome, so the site is not the same read from the left as from the right, and that asymmetry is the entire source of the arrow. From here on the arrow is all we draw, and it is all that matters.",
+      sub:"",
+      note:"This is the last enzyme class in the lecture and it is the one that does the most with a single protein. Everything up to now cuts, copies or joins one junction at a time, and you have to hand it the ends. A recombinase finds two sites, breaks and rejoins all four strands, and reseals: no ligase, no polymerase, no ATP, and no free DNA end is ever let go, because the broken bond is held as a covalent protein-DNA link the whole time. That is the reason it can run on a chromosome inside a living cell. Now the site. loxP is thirty-four base pairs: two thirteen-base-pair arms that are inverted repeats of each other, with an eight-base-pair spacer between them. One Cre monomer binds each arm, so two Cre per site and four across the reaction. Look at the spacer: A-T-G-T-A-T-G-C one way, G-C-A-T-A-C-A-T the other. It is not a palindrome, so the site is not the same read from the left as from the right, and that asymmetry is the entire source of the arrow. From here on the arrow is all we draw, and it is all that matters.",
       desc:"The loxP sequence written out as two strands of letters. The two thirteen base pair arms are marked with thin arrows pointing inward toward each other; the eight base pair spacer between them is coloured red and bracketed. Below, the whole thirty-four base pair site is redrawn as a single filled blue arrow pointing right." },
 
     { s:{anat:0,direct:1,dirT:0,inv:0,invT:0},
       cap:"two loxP sites, pointing the same way",
       sub:"Cre pairs the two sites, cuts and reseals all four strands",
-      note:"Now put two of those sites into one molecule, both pointing the same way, with a gene between them. Cre binds all four arms, brings the two sites face to face — that pairing step is called synapsis and it is the committed step — and then exchanges the strands. Watch what the geometry forces.",
+      note:"Now put two of those sites into one molecule, both pointing the same way, with a gene between them. Cre binds all four arms, brings the two sites face to face, that pairing step is called synapsis and it is the committed step, and then exchanges the strands. Watch what the geometry forces.",
       desc:"A single horizontal DNA line. Two filled blue loxP arrows, both pointing right, flank an outlined arrow labelled gene." },
 
     { s:{anat:0,direct:1,dirT:1,inv:0,invT:0},
       cap:"same orientation → excision",
       sub:"the DNA between the sites leaves as a closed circle; one loxP rides with it, one stays behind",
-      note:"Same orientation gives excision. The segment between the sites comes out as a covalently closed circle. Notice the bookkeeping: each product keeps one complete loxP, because each new site is built from one arm of each parent site and the arms are identical. In practice this is a one-way trip, and not because the chemistry is one way. The circle usually carries no origin of replication, so it is diluted out as the cells divide, and putting it back is a two-molecule reaction that gets slower as the circle gets rarer. That is exactly why floxing works as a deletion.",
+      note:"Same orientation gives excision. The segment between the sites comes out as a covalently closed circle. Notice the bookkeeping: each product keeps one complete loxP, because each new site is built from one arm of each parent site and the arms are identical. In practice this is a one-way trip, and not because the chemistry is one way. The circle usually carries no origin of replication, so it is diluted out as the cells divide, and putting it back is a two-molecule reaction that gets slower as the circle gets rarer. That is exactly why floxing works as a deletion. Keep an eye on that leftover site, though: it is a perfectly good loxP, and if you run Cre again later for some other purpose it will be used.",
       desc:"The middle of the DNA has curled out into a closed circle carrying the gene and one loxP arrow, sitting clear of the rest. The two flanks have joined into a shorter line with a single loxP arrow at the join." },
 
     { s:{anat:0,direct:0,dirT:1,inv:1,invT:0},
@@ -293,7 +330,7 @@ window.Deck.sequence("loxorient", function(slide){
     { s:{anat:0,direct:0,dirT:1,inv:1,invT:1},
       cap:"opposite orientation → inversion",
       sub:"the segment flips; both loxP sites survive, still pointing opposite ways",
-      note:"Opposite orientation gives inversion. The segment between the sites is flipped end for end — the gene now points the other way — and both loxP sites are still there, still in opposite orientation. Which means the product is still a perfectly good substrate, so Cre just keeps flipping it, and an unmanaged population lands near fifty-fifty. Excision is effectively one way; inversion is not. If you were planning to use an inversion as a memory element, that is the reason it will not latch on its own. And the practical warning: the difference between deleting your gene and merely reversing it is which way you pointed a thirty-four base pair site when you ordered the DNA. Get it wrong and the construct fails silently.",
+      note:"Opposite orientation gives inversion. The segment between the sites is flipped end for end, the gene now points the other way, and both loxP sites are still there, still in opposite orientation. Which means the product is still a perfectly good substrate, so Cre just keeps flipping it, and an unmanaged population lands near fifty-fifty. Excision is effectively one way; inversion is not. If you were planning to use an inversion as a memory element, that is the reason it will not latch on its own. And the practical warning: the difference between deleting your gene and merely reversing it is which way you pointed a thirty-four base pair site when you ordered the DNA. Get it wrong and the construct fails silently.",
       desc:"The segment between the two loxP sites has flipped: the gene arrow now points left. Both loxP arrows are unchanged and still point in opposite directions." }
   ];
   return driver(r, KEYS, paint, S);
@@ -346,24 +383,29 @@ function downArrow(x, y0, y1, col){  /* y0 high, y1 low */
            '<path d="M'+(x-11)+' '+(y1-16)+'L'+x+' '+y1+'L'+(x+11)+' '+(y1-16)+'"/></g>';
 }
 
-function reaction(fwd, rev, unlock){
-  const o = smooth(fwd, 0.5, 1);
+/* `t` is the geometry: the summary has to be gone before the re-formed
+   plasmid comes back to the middle and sits on it, and tying its opacity
+   to t rather than to a key of its own means it clears itself exactly as
+   the reverse reaction runs. */
+function reaction(fwd, rev, unlock, t){
+  const o = smooth(fwd, 0.5, 1) * smooth(t, 0.3, 0.72);
   if (o <= 0.004) return "";
   let g = label(800, 528, "attB &#160;+&#160; attP", 38, INK, "middle", 700) +
           label(800, 666, "attL &#160;+&#160; attR", 38, INK, "middle", 700) +
           downArrow(726, 552, 634, BLUE) +
           label(704, 600, "integrase", 24, BLUE, "end") +
-          label(800, 736, "attL = B&#183;P&#8242; and attR = P&#183;B&#8242; &#8212; neither one is attB, neither one is attP", 26, MUTED);
+          label(800, 736, "attL = B&#183;P&#8242; and attR = P&#183;B&#8242;. Neither one is attB, neither one is attP", 26, MUTED);
 
   const ro = smooth(rev, 0.25, 1);
-  g += fade(ro * (1 - unlock),
+  const u = smooth(unlock, 0.12, 0.75);
+  g += fade(ro * (1 - u),
         upArrow(874, 634, 552, VERM) +
         '<g stroke="'+VERM+'" stroke-width="4.2" stroke-linecap="round">' +
           '<path d="M860 580L888 608"/><path d="M888 580L860 608"/></g>' +
         label(902, 600, "integrase alone: no reaction", 24, VERM, "start"));
-  g += fade(ro * unlock,
+  g += fade(ro * u,
         upArrow(874, 634, 552, BLUE) +
-        label(902, 600, "+ directionality factor", 24, BLUE, "start"));
+        label(902, 600, "integrase + Xis", 24, BLUE, "start"));
   return fade(o, g);
 }
 
@@ -376,33 +418,266 @@ window.Deck.sequence("integrase", function(slide){
   const KEYS = ["t","fwd","rev","unlock"];
   function paint(s){
     r.dyn.innerHTML = integScene(clamp01(s.t)) +
-                      reaction(clamp01(s.fwd), clamp01(s.rev), clamp01(s.unlock));
+                      reaction(clamp01(s.fwd), clamp01(s.rev), clamp01(s.unlock), clamp01(s.t));
   }
 
   const S = [
     { s:{t:0,fwd:0,rev:0,unlock:0},
       cap:"attB in the genome, attP on the plasmid",
-      sub:"a serine integrase — BxbI, phiC31 — and two sites of about forty bases",
-      note:"Serine integrases are the version of this that matters most for building things. A phage integrase recombines a site in the bacterial chromosome, attB, with a site on the phage, attP. Here that is a landing pad already sitting in the genome, and a donor plasmid carrying your payload. The sites are short — for BxbI, attB is thirty-eight bases and attP forty-eight — and the enzyme is one protein: no host factors, no homology arms, no ATP. And unlike Cre, a serine integrase really does cut all four strands at once, rotates half of the synapse a hundred and eighty degrees, and religates.",
+      sub:"a serine integrase (BxbI, phiC31), and two sites of about forty bases",
+      note:"Serine integrases are the version of this that matters most for building things. A phage integrase recombines a site in the bacterial chromosome, attB, with a site on the phage, attP. Here that is a landing pad already sitting in the genome, and a donor plasmid carrying your payload. The sites are short (for BxbI, attB is thirty-eight bases and attP forty-eight), and the enzyme is one protein: no host factors, no homology arms, no ATP. And unlike Cre, a serine integrase really does cut all four strands at once, rotates half of the synapse a hundred and eighty degrees, and religates.",
       desc:"A horizontal chromosome line carrying a blue bar split into two halves lettered B and B prime, labelled attB. Below it, separated by a clear gap, a circular donor plasmid carrying an outlined payload arrow and a red bar lettered P and P prime, labelled attP." },
 
     { s:{t:1,fwd:1,rev:0,unlock:0},
       cap:"one reaction, and the whole plasmid is in the chromosome",
       sub:"each junction is half of one parent site and half of the other",
-      note:"One enzyme, one step, and the entire donor is in the chromosome. Now look at what the junctions are actually made of. attB was B and B prime; attP was P and P prime. The crossover happens in the middle of each, so the left junction is B joined to P prime — that is attL — and the right junction is P joined to B prime — that is attR. Neither product is attB and neither is attP. They are hybrids, and that is not a naming detail, it is the mechanism of the next point.",
+      note:"One enzyme, one step, and the entire donor is in the chromosome. Now look at what the junctions are actually made of. attB was B and B prime; attP was P and P prime. The crossover happens in the middle of each, so the left junction is B joined to P prime, that is attL, and the right junction is P joined to B prime. That is attR. Neither product is attB and neither is attP. They are hybrids, and that is not a naming detail, it is the mechanism of the next point.",
       desc:"The circle has opened at attP and unrolled into the chromosome. The payload now sits in the line, flanked on the left by a bar reading B then P prime, labelled attL, and on the right by a bar reading P then B prime, labelled attR. Below, a reaction summary reads attB plus attP, arrow down, attL plus attR." },
 
     { s:{t:1,fwd:1,rev:1,unlock:0},
       cap:"the products are not substrates",
       sub:"the integrase alone cannot pair attL with attR, so the reaction has nowhere to go",
-      note:"And this is the whole point. The integrase recognises an attB and an attP, and it can only assemble a productive synapse out of one of each. Hand it an attL and an attR and the complex does not form, so the reaction simply stops. Compare Cre: loxP times loxP gives you loxP and loxP, the product is still a substrate, and it never stops. Consuming the sites is what makes a landing pad stable — you integrate once and it stays integrated, even with the integrase still being expressed. That is why this, and not Cre, is what you build a genomic landing pad out of.",
+      note:"And this is the whole point. The integrase recognises an attB and an attP, and it can only assemble a productive synapse out of one of each. Hand it an attL and an attR and the complex does not form, so the reaction simply stops. Compare Cre: loxP times loxP gives you loxP and loxP, the product is still a substrate, and it never stops. Consuming the sites is what makes a landing pad stable: you integrate once and it stays integrated, even with the integrase still being expressed. That is why this, and not Cre, is what you build a genomic landing pad out of.",
       desc:"A red upward arrow has appeared beside the blue downward one in the reaction summary, struck through with a red cross and labelled: integrase alone, no reaction." },
 
+    /* Adding Xis gets its own click. It was folded into the reverse
+       reaction on the grounds that a rename is not an event -- but the
+       summary has to clear before the re-formed plasmid lands on it, so
+       the name went up and started fading in the same breath and was on
+       screen for a moment. It is not a rename anyway: the reverse goes
+       from forbidden to allowed, which is the point of the whole slide. */
     { s:{t:1,fwd:1,rev:1,unlock:1},
-      cap:"one way — unless you supply the key",
-      sub:"a directionality factor (gp47 in BxbI, Xis in lambda) turns the reverse reaction on",
-      note:"The reverse is not impossible, it is just off by default. Each system has a small accessory protein, a recombination directionality factor, that remodels the complex so that attL and attR become the productive pair: gp47 for BxbI, and in lambda the same job is done by Xis. So you get a switch you can throw deliberately — integrate now, excise later, on command. That is the basis of the recombinase memory and logic circuits, and commercially it is Gateway: BP clonase runs attB times attP forward, and LR clonase, which is the same integrase plus Xis, runs attL times attR back.",
-      desc:"The strike-through is gone. The upward reverse arrow is now blue and labelled: plus directionality factor." }
+      cap:"add Xis, and the reverse is allowed",
+      sub:"a recombination directionality factor: Xis in \u03bb, gp47 in BxbI",
+      note:"The reverse is not impossible, it is just off by default, and what turns it on is a second small protein. In lambda it is Xis. In BxbI the same job is done by gp47. The general name is a recombination directionality factor, and what it does is remodel the complex so that attL and attR become the productive pair instead of a dead end. Nothing has moved yet. All that has changed is that the reaction which had nowhere to go now has somewhere to go.",
+      desc:"The red cross over the reverse arrow clears. The arrow turns blue and is labelled integrase plus Xis. Nothing else on the slide has moved." },
+
+    { s:{t:0,fwd:1,rev:1,unlock:1},
+      cap:"and it comes back out",
+      sub:"attL \u00d7 attR \u2192 attB + attP, and the plasmid is a circle again",
+      note:"So run it. The integrase plus Xis pairs attL with attR, cuts, rotates and religates, and the donor leaves as a circle. Watch the labels come back on their own: the chromosome has attB again and the circle has attP again, because those genuinely are the products of attL times attR. Nothing here is a second mechanism. It is the same reaction I ran a few clicks ago, driven the other way. And this is Gateway exactly: BP clonase runs attB times attP forward to give the Entry clone, LR clonase is the same integrase plus its directionality factor and runs attL times attR back to give the Expression clone. The reaction names are the site names. So what you have is a switch you can throw deliberately (integrate now, excise later, on command) which is the basis of the recombinase memory and logic circuits.",
+      desc:"The reaction summary clears as the payload rolls back out of the chromosome into a circle below it, the chromosome closing up carrying attB again and the circle carrying attP again." }
+  ];
+  return driver(r, KEYS, paint, S);
+});
+
+
+/* ================================================================== *
+ * 3.  flox — what Cre is actually FOR, shown on a phenotype.
+ *
+ * The slide this replaces made the case for conditional knockouts in
+ * three bullets. The case is not hard, it is just invisible in prose:
+ * the same genome behaves differently depending on whether one protein
+ * was made. So the cell carries a floxed resistance gene and is
+ * resistant; Cre arrives; the gene leaves; the cell is not resistant.
+ *
+ * The excision loops out rather than sliding apart, for the same reason
+ * the inversion does: the two sites have to meet first, and everything
+ * afterwards follows from that.
+ * ================================================================== */
+/* Sized so the excised circle is legible rather than a bead: a 560-unit
+   piece closes to a 178-unit circle, and it is parked at a spot that
+   clears both the shortened chromosome and the wall of the cell. */
+const FCY = 500, FX0 = 310, FL = 980;
+const F_CUT = 300, F_END = 860, FEXL = F_END - F_CUT;
+const F_PARK = [360, 24];
+const FLOXW = 17, FGENEW = 21;
+
+function floxScene(s){
+  let g = "";
+  const b    = Math.max(s.loop, 0.0006);
+  const R    = FEXL/(b*2*Math.PI);
+  const half = R*Math.sin(Math.PI*b);
+  const rise = R*(1 - Math.cos(Math.PI*b));
+  const jx   = FX0 + F_CUT;                       /* where the sites meet */
+
+  g += '<ellipse cx="800" cy="'+FCY+'" rx="486" ry="196" fill="none" stroke="'+MUTED+
+       '" stroke-width="2.6"/>';
+
+  const pL = curve(F_CUT, 0, 1, FX0 + F_CUT/2, FCY);
+  g += strand(pL, 0, F_CUT) + arrowFill(pL, 160, F_CUT, FLOXW, 1, BLUE);
+
+  const rAnc = jx + 2*half + (FL - F_END)/2;
+  const pR = curve(FL - F_END, 0, 1, rAnc, FCY);
+  g += strand(pR, 0, FL - F_END);
+
+  const pM = curve(FEXL, b, 1, jx + half, FCY - rise);
+  let mid = strand(pM, 0, FEXL) +
+            arrowOpen(pM, 60, 340, FGENEW, 1, INK) +
+            arrowFill(pM, 420, FEXL, FLOXW, 1, BLUE);
+  const gl = pM(180, 80);
+  mid += label(gl[0], gl[1], "ampR", 26, INK);
+  if (s.off > 0.004)
+    mid = '<g transform="translate('+n2(F_PARK[0]*s.off)+' '+n2(F_PARK[1]*s.off)+')">'+mid+'</g>';
+  g += fade(1 - s.gone, mid);
+
+  const la = pL(230, 0);
+  g += fade(1 - s.off, label(la[0], FCY + 58, "loxP", 24, BLUE));
+  g += fade(s.off, label(la[0], FCY + 58, "one loxP left", 24, MUTED));
+  g += fade((1 - s.loop) * (1 - s.off),
+            label(jx + 2*half - 50, FCY + 58, "loxP", 24, BLUE));
+
+  /* The phenotype, which is the only thing the room can actually see --
+     and it does not flip when the gene leaves the chromosome. The
+     excised circle is still in the cell and still carrying ampR, so the
+     cell is still resistant. It turns sensitive when the circle is
+     LOST, which is a different event with a different cause: the circle
+     has no origin, so it cannot replicate, so it is diluted out over
+     the next few divisions. Tying the label to `gone` rather than `off`
+     is the whole reason excision-as-deletion takes time. */
+  g += fade(1 - smooth(s.gone, 0.15, 0.6),
+            label(800, 764, "resistant", 34, INK, "middle", 700));
+  g += fade(smooth(s.gone, 0.45, 1),
+            label(800, 764, "not resistant", 34, VERM, "middle", 700));
+  g += fade(smooth(s.loop, 0.15, 0.6) * (1 - s.off),
+            label(800, 268, "+ Cre", 30, VERM, "middle", 700));
+  g += fade(s.names,
+       label(800, 812, "Flp/FRT \u00b7 Dre/rox \u00b7 VCre/vloxP: same trick, different 34 bp site",
+             26, MUTED));
+  return g;
+}
+
+window.Deck.sequence("flox", function(slide){
+  const svg = makeSvg('<g data-r="dyn"></g>');
+  slide.appendChild(svg);
+  const r = {};
+  svg.querySelectorAll("[data-r]").forEach(el => r[el.getAttribute("data-r")] = el);
+  const KEYS = ["loop","off","gone","names"];
+  function paint(s){
+    r.dyn.innerHTML = floxScene({
+      loop:clamp01(s.loop), off:clamp01(s.off),
+      gone:clamp01(s.gone), names:clamp01(s.names) });
+  }
+  const S = [
+    { s:{loop:0,off:0,gone:0,names:0},
+      cap:"a floxed resistance gene", sub:"",
+      note:"This is what Cre is for. Here is a cell whose genome carries a resistance gene with a loxP site on either side, both pointing the same way. That is what floxed means. The cell grows on the antibiotic, because the gene is there and is being expressed. Nothing has happened yet.",
+      desc:"A cell drawn as an ellipse containing a chromosome. On the chromosome, a gene labelled ampR sits between two blue loxP arrows both pointing right. Below the cell, the word resistant." },
+    { s:{loop:1,off:0,gone:0,names:0},
+      cap:"supply Cre", sub:"",
+      note:"Now supply Cre, in one tissue or at one moment, however you choose to control it. The two sites are brought face to face, which means the DNA between them has to loop out, and that is the committed step.",
+      desc:"Cre appears. The DNA between the two loxP sites bows upward into a loop until the two sites touch, and the chromosome on the right slides in behind it." },
+    { s:{loop:1,off:1,gone:0,names:0},
+      cap:"the gene leaves as a circle", sub:"out of the chromosome, but still in the cell, and still expressed",
+      note:"The strands are exchanged and the gene leaves as a covalently closed circle carrying one of the two sites. The chromosome closes over the other one. Now check the phenotype, and be careful here, because this is where people get the timing wrong. The cell is still resistant. The gene is out of the chromosome but it is still in the cell, it is still intact, and it is still being transcribed. Nothing about cutting it out of the genome stops it working.",
+      desc:"The loop pinches off and drifts up and to the right as a free circle carrying the ampR gene and one loxP arrow. The chromosome has closed with a single loxP at the junction. The cell is still labelled resistant." },
+    { s:{loop:1,off:1,gone:1,names:0},
+      cap:"the circle has no origin, so it is diluted away", sub:"and only now is the cell sensitive",
+      note:"Here is what actually makes it a knockout. That circle has no origin of replication. It cannot be copied, so every time the cell divides, one daughter gets it and the other does not, and within a few generations it is gone from the population. Only now is the cell sensitive. So excision is not an off switch you throw, it is a deletion that takes a few divisions to show up, and if you assay too early you will see a cell that has already recombined and still grows. The same fact is why excision is effectively one-way: putting the circle back is a reaction between two molecules, and it gets slower as the circle gets rarer, so it loses the race against dilution.",
+      desc:"The excised circle fades away as it is diluted out of the population, and only then does the label below the cell change from resistant to not resistant." },
+    { s:{loop:1,off:1,gone:1,names:1},
+      cap:"and it is not just Cre", sub:"",
+      note:"Cre is not the only one of these. Flp with its FRT sites from the yeast two-micron plasmid, Dre with rox, VCre with vlox: all the same trick on a different thirty-four base pair site, which matters because you can run two of them in one cell without them touching each other's sites. One warning to finish on, and it is on the screen: there is still a loxP in that chromosome. Express Cre again later for some other purpose and it is a perfectly good site. It will be used.",
+      desc:"A line names the other systems: Flp with FRT, Dre with rox, VCre with vloxP, all the same trick on a different 34 base pair site." }
+  ];
+  return driver(r, KEYS, paint, S);
+});
+
+
+/* ================================================================== *
+ * 4.  homrec — homologous recombination, which has no site to draw.
+ *
+ * Every other slide in this section has a sequence the enzyme reads.
+ * This one has nothing: what decides where the DNA lands is that two
+ * stretches MATCH, and a match is a relationship between two molecules
+ * rather than a feature of one. A static figure cannot show a
+ * relationship -- it can only put two rows near each other and hope --
+ * so the arms are drawn in the required-red of every operator in this
+ * deck, they are the same red on both molecules, and the donor is
+ * brought up until they register. Then the middles trade.
+ * ================================================================== */
+/* The cell is sized to what is in it. At its first height it left its
+   lower half empty, and the aligned donor sat close enough to the
+   chromosome that the two crossovers had 30 units to be drawn in. */
+const HCELL = {x:276, y:296, w:1048, h:400, r:60};
+const HCY = 380, HD0 = 600, HD1 = 500;      /* locus, donor, donor up  */
+const HB = 56;                              /* box height              */
+const HA = [548, 688], HM = [700, 900], HBB = [912, 1052];
+
+function hbox(x, y, w, fill, stroke, text, tcol, italic){
+  return '<rect x="'+n2(x)+'" y="'+n2(y-HB/2)+'" width="'+n2(w)+'" height="'+HB+
+         '" rx="7" fill="'+fill+'" stroke="'+stroke+'" stroke-width="3.2"/>' +
+         '<text x="'+n2(x+w/2)+'" y="'+n2(y+10)+'" text-anchor="middle" font-size="28" '+
+         'font-weight="700"'+(italic?' font-style="italic"':'')+' fill="'+tcol+'">'+text+'</text>';
+}
+/* the crossover itself: one X per arm, between the two molecules */
+function cross(cx, y0, y1, o){
+  const w = 26;
+  return fade(o, '<g stroke="'+VERM+'" stroke-width="4" stroke-linecap="round">' +
+    '<path d="M'+n2(cx-w)+' '+n2(y0)+'L'+n2(cx+w)+' '+n2(y1)+'"/>' +
+    '<path d="M'+n2(cx+w)+' '+n2(y0)+'L'+n2(cx-w)+' '+n2(y1)+'"/></g>');
+}
+
+function homScene(s){
+  let g = "";
+  const dy = HD0 + (HD1 - HD0)*s.up;
+
+  /* All of this happens inside a cell, and that is not decoration: the
+     donor has to get in, and whether the cell will then do anything with
+     it is the last beat of the slide. */
+  g += '<rect x="'+HCELL.x+'" y="'+HCELL.y+'" width="'+HCELL.w+'" height="'+HCELL.h+
+       '" rx="'+HCELL.r+'" fill="none" stroke="'+MUTED+'" stroke-width="3" '+
+       'stroke-dasharray="3 9"/>';
+
+  /* the chromosome, and the locus sitting in it */
+  g += '<path d="M320 '+HCY+'H1280" fill="none" stroke="'+INK+'" stroke-width="4.4"/>';
+  g += hbox(HA[0], HCY, HA[1]-HA[0], VERM, VERM, "A", "#fff");
+  g += hbox(HBB[0], HCY, HBB[1]-HBB[0], VERM, VERM, "B", "#fff");
+  /* the middle trades: the resident gene out, the cassette in */
+  g += fade(1 - s.swap, hbox(HM[0], HCY, HM[1]-HM[0], "#fff", INK, "gene", INK, true));
+  g += fade(s.swap,     hbox(HM[0], HCY, HM[1]-HM[0], BLUE, BLUE, "cassette", "#fff"));
+  g += label(HCELL.x + 26, HCY - 54, "chromosome", 24, MUTED, "start");
+
+  /* the donor, which differs from the locus in the middle and nowhere else */
+  g += fade(1 - s.swap,
+        '<path d="M528 '+n2(dy)+'H1072" fill="none" stroke="'+INK+'" stroke-width="4.4"/>' +
+        hbox(HA[0], dy, HA[1]-HA[0], VERM, VERM, "A", "#fff") +
+        hbox(HBB[0], dy, HBB[1]-HBB[0], VERM, VERM, "B", "#fff") +
+        hbox(HM[0], dy, HM[1]-HM[0], BLUE, BLUE, "cassette", "#fff") +
+        label(508, dy + 10, "donor", 24, MUTED, "end"));
+
+  /* Nothing is drawn leaving. The displaced gene used to drift down and
+     fade, which read as a third object with a journey of its own -- it
+     is not, it is just gone, and the cassette sitting where it was is
+     the entire event. */
+
+  /* the two crossovers, at the arms and only at the arms */
+  const xo = smooth(s.up, 0.62, 1) * (1 - smooth(s.swap, 0, 0.4));
+  g += cross((HA[0]+HA[1])/2,  HCY + HB/2 + 8, dy - HB/2 - 8, xo);
+  g += cross((HBB[0]+HBB[1])/2, HCY + HB/2 + 8, dy - HB/2 - 8, xo);
+
+  g += fade(s.named,
+        label(800, 818, "\u03bb Red in E. coli \u00b7 nothing needed in yeast or B. subtilis",
+              27, INK, "middle", 700));
+  return g;
+}
+
+window.Deck.sequence("homrec", function(slide){
+  const svg = makeSvg('<g data-r="dyn"></g>');
+  slide.appendChild(svg);
+  const r = {};
+  svg.querySelectorAll("[data-r]").forEach(el => r[el.getAttribute("data-r")] = el);
+  const KEYS = ["up","swap","named"];
+  function paint(s){
+    r.dyn.innerHTML = homScene({up:clamp01(s.up), swap:clamp01(s.swap), named:clamp01(s.named)});
+  }
+  const S = [
+    { s:{up:0,swap:0,named:0},
+      cap:"a donor arrives, with the same flanks", sub:"identical either side, different in the middle",
+      note:"Last one, and it is the odd one out, because there is no site to show you. Every other enzyme in this section reads a sequence: loxP, attB, attP. Homologous recombination reads nothing. Here is a locus in the genome, a gene with some stretch of sequence on either side of it, and here is a linear piece of DNA you made, carrying whatever you want in the middle, flanked by those same two stretches. The red is the same red on both molecules and that is the entire design: those flanks are identical, and nothing else about the donor matters.",
+      desc:"A chromosome carrying three boxes: a red box A, an italic gene box, and a red box B. Below it, separate, a linear donor carrying the same red A and B boxes with a blue cassette between them." },
+    { s:{up:1,swap:0,named:0},
+      cap:"both arms pair, and both are cut", sub:"a double crossover; nothing here is reading a sequence",
+      note:"The donor finds the locus by base pairing, arm to arm, and the crossovers happen inside the regions of identity. Notice what is choosing the target: not a recognition site, not a protein that reads letters, just the fact that two stretches of DNA are the same. That is why you can aim this anywhere in a genome. You are not looking for a site, you are supplying one half of a match. Make the arms long enough and you can hit any locus you like.",
+      desc:"The donor rises until its A and B boxes register with the A and B boxes in the chromosome, and a red cross is drawn between the two molecules inside each arm." },
+    { s:{up:1,swap:1,named:0},
+      cap:"the middles trade", sub:"the arms are unchanged, so there is no scar to find afterwards",
+      note:"And the middles trade. What was in the genome comes out, what you built goes in, and the arms are unchanged because they were identical to begin with: you cannot tell afterwards which copy of A survived. That is how a gene gets knocked out, how a tag gets added to the end of a coding sequence, how a promoter gets swapped. One reaction, and it leaves no scar, because there is no site to leave behind.",
+      desc:"The gene box in the chromosome is replaced by the blue cassette. The donor is gone, and so is the gene that was there." },
+    { s:{up:1,swap:1,named:1},
+      cap:"who can do this", sub:"",
+      note:"The catch is which organism will do it for you. Yeast and Bacillus subtilis take up a linear fragment with homology arms and recombine it in without being asked. It is one of the main reasons yeast is such a convenient host to build in. E. coli will not. Transform a linear cassette into ordinary E. coli and it is degraded, not integrated. The host protein that does strand exchange is RecA, and E. coli has it, but not in a configuration that will take a linear donor. What you do instead is supply the lambda Red genes (Exo, Beta and Gam) which substitute for what E. coli lacks, and the technique built on that is called recombineering. That is how gene knockouts are made in E. coli, and it is worth knowing that the whole Keio collection, every single-gene knockout in the organism, was made this way.",
+      desc:"A line names the requirement: lambda Red in E. coli, nothing needed in yeast or B. subtilis." }
   ];
   return driver(r, KEYS, paint, S);
 });

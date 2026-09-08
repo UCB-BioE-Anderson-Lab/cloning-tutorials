@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>RNA Polymerases &ndash; DNA Manipulation Enzymes</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>RNA Polymerases</h1>
+  <ul>
+    <li>Enzymes that <em>initiate</em> a new RNA chain on a DNA template</li>
+    <li>There are RNA-directed RNA polymerases as well, but they are a virus&rsquo;s business, not a catalogue item</li>
+  </ul>
+  <template class="notes">RNA polymerases initiate a new RNA chain on a DNA template. Set the second line aside first: RNA-directed RNA polymerases do exist, every RNA virus carries one because no host enzyme will copy RNA into RNA for it, and that is exactly why they make good antiviral drug targets. But there is no bottle of one in the freezer and nothing in this course uses it, so from here on RNA polymerase means DNA in, RNA out. Two of them matter to you: the cell&rsquo;s own, which you need in order to understand gene expression, and T7, which is the one you will actually put in a tube. And hold on to the word initiate. It is what separates this section from the last one.</template>
+  <template class="desc">Section divider: RNA Polymerases, defining them as enzymes that initiate a new RNA chain on a DNA template.</template>
+</article>
+
+<article class="slide" data-seq="denovo">
+  <h1 class="small">No Primer</h1>
+  <ul class="tight"><li>Every enzyme so far could only <em>extend</em> an end that already existed</li></ul>
+</article>
+
+<article class="slide" data-seq="t7prom">
+  <h1 class="small">The T7 Promoter and the +1 Site</h1>
+  <ul class="tight"><li>Seventeen bases, quoted on the non-template strand</li></ul>
+</article>
+
+<article class="slide" data-seq="ivt">
+  <h1 class="small">In Vitro Transcription</h1>
+</article>
+
+<article class="slide" data-seq="vaccine">
+  <h1 class="small">Application: How an mRNA Vaccine Is Made</h1>
+</article>
+
+<article class="slide">
+  <h1 class="small">The Native System: Sigma Factors</h1>
+  <ul class="tight">
+    <li>Core RNA polymerase cannot find a promoter, a &sigma; factor finds it for the enzyme</li>
+    <li>&sigma;<sup>70</sup> reads two elements: <b>TTGACA</b> at &minus;35 and <b>TATAAT</b> at &minus;10, a spacer apart</li>
+  </ul>
+  <figure class="fig"><img src="../../../images/consensus_promoter.png"
+    alt="Core RNA polymerase bound to promoter DNA with the sigma subunit contacting the minus 35 box TTGACA and the minus 10 box TATAAT, and the mRNA start site downstream">
+    <figcaption>From the course tutorials</figcaption></figure>
+  <template class="notes">This is how it works without you. E. coli&rsquo;s own RNA polymerase is a multi-subunit machine, and the core enzyme on its own cannot find a promoter at all. It will transcribe, but it does not know where to start. A sigma factor is what gives it an address. Sigma seventy is the housekeeping one, the one reading most genes most of the time, and it recognises two short elements rather than one contiguous block: TTGACA about thirty-five bases upstream of the start, and TATAAT about ten bases upstream, with a spacer between them that has to be roughly the right length. Both elements matter, and so does the spacing, which is why an E. coli promoter is harder to write down than a T7 promoter. Now the part worth carrying: sigma seventy is not the only one. E. coli has several sigma factors, and swapping which sigma is loaded swaps which genes get read. Sigma thirty-two runs the heat shock response, sigma thirty-eight takes over in stationary phase, sigma twenty-eight makes flagella. Same core enzyme every time. The specificity lives in an interchangeable subunit, which is a rather elegant way to run a cell and, as we are about to see, is also why moving a promoter between organisms is not a safe assumption.</template>
+  <template class="desc">A diagram of E. coli RNA polymerase bound to a promoter. The core enzyme is drawn as a large shape wrapped around double-stranded DNA, with the sigma subunit picked out inside it. Below, the promoter sequence is expanded to show the minus 35 box, TTGACA, and the minus 10 box, TATAAT, separated by a spacer, with the mRNA start site marked downstream of them.</template>
+</article>
+
+<article class="slide" data-seq="pet">
+  <h1 class="small">BL21(&lambda;DE3) and the pET Vector</h1>
+</article>
+
+<article class="slide" data-seq="eukgene">
+  <h1 class="small">Transcription Does Not Travel Well</h1>
+  <ul class="tight"><li>Even <em>E. coli</em> and <em>B. subtilis</em> read different promoters, so you move the message, not the gene</li></ul>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/art-rna.js" defer></script>
+<script src="seq/pet.js" defer></script>
+<script src="seq/rna.js" defer></script>
+</body>
+</html>

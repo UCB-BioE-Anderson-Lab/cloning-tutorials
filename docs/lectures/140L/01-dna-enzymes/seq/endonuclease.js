@@ -44,10 +44,11 @@ function stage(slide, markup){
 }
 
 /* letters of `str`, its first character sitting in column `c0` */
-function row(str, c0, x0, step, y, colOf){
+function row(str, c0, x0, step, y, colOf, attrOf){
   let s = "";
   for (let i = 0; i < str.length; i++)
-    s += '<text x="' + n2(x0 + (c0 + i)*step) + '" y="' + y + '" fill="' +
+    s += '<text x="' + n2(x0 + (c0 + i)*step) + '" y="' + y + '"' +
+         (attrOf ? attrOf(c0 + i) : "") + ' fill="' +
          colOf(c0 + i) + '">' + str[i] + '</text>';
   return s;
 }
@@ -115,9 +116,9 @@ function tweener(keys, paint){
 (function(){
 
 const LX = 404, ST = 72, TY = 406, BY = 496, FS = 50;
-const AX = LX + 5.5*ST;                 /* 800 — dead centre of the box */
-const CT = LX + 3.5*ST;                 /* 656 — top-strand scissile bond   */
-const CB = LX + 7.5*ST;                 /* 944 — bottom-strand scissile bond */
+const AX = LX + 5.5*ST;                 /* 800, dead centre of the box */
+const CT = LX + 3.5*ST;                 /* 656, top-strand scissile bond   */
+const CB = LX + 7.5*ST;                 /* 944, bottom-strand scissile bond */
 const SEP = 150;                        /* half the gap once cut */
 const XL = LX - ST, XR = LX + 12*ST;    /* where the 5'/3' labels sit */
 
@@ -126,7 +127,7 @@ const colA = c => site(c) ? BLUE : INK;
 
 /* the four unpaired columns get a blue copy and a red copy,
    cross-faded, so "these four are now the point" is a colour change
-   on top of a change in shape (they stick out) — never colour alone. */
+   on top of a change in shape (they stick out), never colour alone. */
 function overhang(idBlue, idRed, str, y){
   return mono(idBlue, FS, row(str, 4, LX, ST, y, () => BLUE)) +
          mono(idRed,  FS, row(str, 4, LX, ST, y, () => RED), ' opacity="0"');
@@ -138,27 +139,44 @@ function ends(gid, which){
     : label(XR, TY, 26, MUTED, "3&#8242;") + label(XR, BY, 26, MUTED, "5&#8242;");
 }
 
-/* ---- band B: EcoRV, the on-axis cut.  Only the product state. ---- */
-const LB = 503, SB = 54, TYB = 750, BYB = 808, FSB = 38, XB = 54;
-const colB = c => site(c) ? BLUE : INK;
+/* ---- the lower band: the other two kinds of end.  PstI cuts the same two
+   columns from the axis that EcoRI does, but on the far SIDE of it, and
+   EcoRV cuts on the axis itself.  Between the three, both halves of the rule
+   are visible: distance from the axis sets how long the overhang is, and
+   which side of it sets whether that overhang is 5' or 3'. ---- */
+const SB = 30, TYB = 742, BYB = 796, FSB = 27, XB = 22;
+const PAIRUP = {a:"t",t:"a",g:"c",c:"g",A:"T",T:"A",G:"C",C:"G"};
+const flip = t => t.split("").map(ch => PAIRUP[ch]).join("");
 
-function bandB(){
-  return '<g data-r="blunt" opacity="0">' +
-    label(AX, 690, 26, INK,
-      "EcoRV &nbsp;GAT/ATC &mdash; the cut lands on the axis", 700) +
-    dash(AX, 718, 830) +
+function smallBand(o){
+  const L = o.x - 5.5*SB, T = o.seq, B = flip(T);
+  const cx = c => (c >= 3 && c <= 8) ? BLUE : INK;
+  return label(o.x, 690, 24, INK, o.name, 700) +
+    dash(o.x, 714, 812) +
     '<g transform="translate(' + (-XB) + ' 0)">' +
-      mono("", FSB, row("ctgGAT", 0, LB, SB, TYB, colB) +
-                    row("gacCTA", 0, LB, SB, BYB, colB)) +
-      label(LB - SB, TYB, 22, MUTED, "5&#8242;") +
-      label(LB - SB, BYB, 22, MUTED, "3&#8242;") +
+      mono("", FSB, row(T.slice(0, o.cutT+1), 0, L, SB, TYB, cx) +
+                    row(B.slice(0, o.cutB+1), 0, L, SB, BYB, cx)) +
+      label(L - SB, TYB, 20, MUTED, "5&#8242;") +
+      label(L - SB, BYB, 20, MUTED, "3&#8242;") +
     '</g>' +
     '<g transform="translate(' + XB + ' 0)">' +
-      mono("", FSB, row("ATCgca", 6, LB, SB, TYB, colB) +
-                    row("TAGcgt", 6, LB, SB, BYB, colB)) +
-      label(LB + 12*SB, TYB, 22, MUTED, "3&#8242;") +
-      label(LB + 12*SB, BYB, 22, MUTED, "5&#8242;") +
-    '</g></g>';
+      mono("", FSB, row(T.slice(o.cutT+1), o.cutT+1, L, SB, TYB, cx) +
+                    row(B.slice(o.cutB+1), o.cutB+1, L, SB, BYB, cx)) +
+      label(L + 12*SB, TYB, 20, MUTED, "3&#8242;") +
+      label(L + 12*SB, BYB, 20, MUTED, "5&#8242;") +
+    '</g>';
+}
+function bandB(){
+  return '<g data-r="blunt" opacity="0">' +
+    /* PstI CTGCA^G: two columns off, but the top-strand cut falls to the
+       RIGHT of the axis, so the protruding strand is the one whose 3' end is
+       at the cut, a 4 base 3' overhang */
+    smallBand({x:436,  seq:"ctgCTGCAGgca", cutT:7, cutB:3,
+               name:"PstI &nbsp;CTGCA/G. Cut on the other side of the axis"}) +
+    /* EcoRV GAT^ATC: right on it, so none */
+    smallBand({x:1164, seq:"ctgGATATCgca", cutT:5, cutB:5,
+               name:"EcoRV &nbsp;GAT/ATC; the cut lands on the axis"}) +
+  '</g>';
 }
 
 const MARKUP =
@@ -167,7 +185,7 @@ const MARKUP =
   '<g data-r="env">' +
     '<rect x="568" y="348" width="464" height="184" rx="24" fill="' + BLUE +
       '" fill-opacity=".07" stroke="' + BLUE + '" stroke-width="2.6"/>' +
-    label(AX, 322, 26, BLUE, "EcoRI &mdash; two identical subunits", 700) +
+    label(AX, 322, 26, BLUE, "EcoRI, two identical subunits", 700) +
     tick(CT, 366, 424, RED) + tick(CB, 456, 514, RED) +
   '</g>' +
   '<g data-r="axis">' + dash(AX, 328, 554) +
@@ -216,27 +234,27 @@ const S = [
   cap:"the enzyme is a dimer",
   ann:'both strands, read 5&#8242;&#8594;3&#8242;: <tspan font-family="' + MONO +
       '" font-weight="700" fill="' + BLUE + '">GAATTC</tspan>',
-  note:"Read the top strand: G A A T T C. Now read the bottom strand five prime to three prime, which is right to left here: G A A T T C again. That is what palindrome means in this business — not a word that reads the same backwards, but a sequence that is its own reverse complement. And there is a reason the sites look like this. EcoRI is a homodimer, two identical subunits related by a two-fold axis, and each subunit reads and cuts one strand. If the two subunits are identical then the two strands have to present them the same sequence. So the site has no choice but to be a palindrome. That one sentence explains the form of essentially every Type Two site in the catalogue.",
+  note:"Read the top strand: G A A T T C. Now read the bottom strand five prime to three prime, which is right to left here: G A A T T C again. That is what palindrome means in this business: not a word that reads the same backwards, but a sequence that is its own reverse complement. And there is a reason the sites look like this. EcoRI is a homodimer, two identical subunits related by a two-fold axis, and each subunit reads and cuts one strand. If the two subunits are identical then the two strands have to present them the same sequence. So the site has no choice but to be a palindrome. That one sentence explains the form of essentially every Type II site in the catalogue.",
   desc:"A twelve base pair duplex written as letters, the six base site GAATTC picked out in blue on both strands. A tinted envelope sits over the site with a dashed vertical line down its centre marking the two-fold axis, and a short red tick marks the bond each half of the enzyme breaks: one on the top strand left of centre, one on the bottom strand right of centre. A line below reads: both strands, read five prime to three prime, GAATTC." },
 
 { st:{sep:1, env:0, axis:1, oh:1, p:0, nick:0, blunt:0},
   cap:"an off-axis cut leaves an overhang",
-  ann:"four unpaired bases on each end &mdash; a 5&#8242; AATT overhang",
-  note:"Each subunit cuts between the G and the A of the strand it is holding. Because the two subunits sit on opposite sides of the axis, the two cuts land two bases either side of it, and the ends come out staggered rather than flush. Four bases at each end are left with no partner. Those four are a five prime overhang — five prime because on each fragment the strand that sticks out is the one whose five prime end is at the cut. Get the polarity right in your head now, because it is what decides whether two ends can be joined.",
+  ann:"four unpaired bases on each end, a 5&#8242; AATT overhang",
+  note:"Each subunit cuts between the G and the A of the strand it is holding. Because the two subunits sit on opposite sides of the axis, the two cuts land two bases either side of it, and the ends come out staggered rather than flush. Four bases at each end are left with no partner. Those four are a five prime overhang: five prime because on each fragment the strand that sticks out is the one whose five prime end is at the cut. Get the polarity right in your head now, because it is what decides whether two ends can be joined.",
   desc:"The duplex has separated into two fragments with a clear gap between them, the dashed axis sitting in the middle of that gap. Each cut end is staggered: four bases stand unpaired in red, on the bottom strand of the left fragment and on the top strand of the right fragment." },
 
 { st:{sep:1, env:0, axis:1, oh:1, p:0, nick:0, blunt:1},
-  cap:"an on-axis cut leaves a blunt end",
+  cap:"which side of the axis, and how far",
   /* Both duplexes are on screen at once, so this line has to account for
-     both of them — it is the comparison that is the point of the step. */
-  ann:"EcoRI above: four unpaired bases &mdash; EcoRV below: none",
-  note:"Same logic, different enzyme. EcoRV recognises GATATC and cuts between the T and the A — right on the axis. Same dimer, same symmetry, but with the cut sitting on the axis instead of beside it there is no stagger and not one unpaired base. That is a blunt end. So sticky versus blunt is not some separate property you have to memorise per enzyme: it is only ever a question of where the cut sits relative to the axis of symmetry.",
-  desc:"The cut EcoRI duplex stays on screen with its four unpaired bases. Below it a second, smaller duplex appears, labelled EcoRV GAT slash ATC. It has also been cut in two, but both strands break in the same column, on its own dashed axis, so the two ends are flush with nothing protruding. A line between the two reads: EcoRI above, four unpaired bases; EcoRV below, none." },
+     both of them. It is the comparison that is the point of the step. */
+  ann:"cut left of the axis: a 5&#8242; overhang, right of it: a 3&#8242;, on it: blunt",
+  note:"Two more enzymes, and between the three of them you get every kind of end there is. EcoRI cuts two columns to the left of the axis and leaves a four base five prime overhang. PstI cuts CTGCAG between the A and the G, also two columns out but on the far side, and leaves a four base overhang that is three prime instead. Same length, opposite polarity, and all that changed is which side of the axis the cut fell on. EcoRV cuts GATATC between the T and the A, right on the axis, so there is no stagger and not one unpaired base: blunt. So the rule has two halves. How far the cut sits from the axis sets how long the overhang is; which side it falls on sets whether the overhang is five prime or three prime. Neither sticky versus blunt nor the polarity is something you memorise per enzyme. Both fall straight out of the symmetry.",
+  desc:"The cut EcoRI duplex stays on screen with its four unpaired bases protruding on the bottom strand of the left fragment. Below it two smaller cut duplexes appear side by side. On the left, PstI CTGCA slash G, cut two columns from its own dashed axis but on the other side of it, so the four unpaired bases protrude on the top strand instead: a 3-prime overhang. On the right, EcoRV GAT slash ATC, cut on its axis, leaving flush ends with nothing protruding. A line above reads: cut left of the axis, a 5-prime overhang; right of it, a 3-prime; on it, blunt." },
 
 { st:{sep:0, env:0, axis:0, oh:1, p:1, nick:1, blunt:0},
   cap:"the overhang finds a partner",
-  ann:"still two molecules &mdash; held by four base pairs, nicked in both strands",
-  note:"And here is why anyone cares. AATT is its own complement, so an EcoRI end will base pair with any other EcoRI end — from this plasmid, from a PCR product, from an organism that has never met this one. That is the whole trick of cloning, and it is the reason this course exists. Notice exactly what you have after annealing: four base pairs holding two molecules together, and two breaks in the backbone that are still open. Those are nicks, and sealing them is the ligase's job. A blunt end can also be ligated, but nothing holds the two pieces together while the ligase finds them, which is why blunt ligations are so much less efficient.",
+  ann:"still two molecules: held by four base pairs, nicked in both strands",
+  note:"And here is why anyone cares. AATT is its own complement, so an EcoRI end will base pair with any other EcoRI end: from this plasmid, from a PCR product, from an organism that has never met this one. That is the whole trick of cloning, and it is the reason this course exists. Notice exactly what you have after annealing: four base pairs holding two molecules together, and two breaks in the backbone that are still open. Those are nicks, and sealing them is the ligase's job. A blunt end can also be ligated, but nothing holds the two pieces together while the ligase finds them, which is why blunt ligations are so much less efficient.",
   desc:"The lower duplex is gone. A different left hand fragment has arrived and its four unpaired bases have paired with the four on the right hand fragment, so the letters now run continuously. Two heavy red ticks, each labelled nick, stand on opposite strands at opposite ends of those four base pairs: they mark the two breaks in the backbone that show these are still two separate molecules." }
 ];
 
@@ -287,31 +305,50 @@ window.Deck.sequence("ecori", function(slide){
 (function(){
 
 const LX = 336, ST = 58, TY = 424, BY = 512, FS = 46;
-const CT = LX + 9.5*ST;                  /*  887 — top-strand cut     */
-const CB = LX + 13.5*ST;                 /* 1119 — bottom-strand cut  */
-const EDGE = LX + 8*ST + ST/2;           /*  829 — right edge of the site */
+const CT = LX + 9.5*ST;                  /*  887, top-strand cut     */
+const CB = LX + 13.5*ST;                 /* 1119, bottom-strand cut  */
+const EDGE = LX + 8*ST + ST/2;           /*  829, right edge of the site */
 const SEP = 118;
 const XL = LX - ST, XR = LX + 17*ST;
 
 const site = c => c >= 3 && c <= 8;
 const colS = c => site(c) ? BLUE : INK;
+/* The four overhang bases and the one base before them. These are the
+   positions BsaI cuts around without ever reading, and they are the only ones
+   worth animating: scrambling the flanks as well would say "sequence varies",
+   which is not the point and buries the one that is. Held still until the
+   step that claims the overhang is yours, then set going, so the picture
+   makes the claim at the moment the caption does. */
+const FREE = [9,10,11,12,13];
+const tag = str => c => (FREE.indexOf(c) < 0 ? "" : ' data-rnd="' + str + c + '"');
+const PAIR = {a:"t", t:"a", g:"c", c:"g"};
+const ROLL_AT = 2;                       /* "so the overhang sequence is yours" */
+function scramble(root){
+  FREE.forEach(function(c){
+    const b = "acgt"[Math.floor(Math.random()*4)];
+    const t = root.querySelector('[data-rnd="t' + c + '"]');
+    const d = root.querySelector('[data-rnd="b' + c + '"]');
+    if (t) t.textContent = b;
+    if (d) d.textContent = PAIR[b];
+  });
+}
 
 /* columns 10-13 exist three times over: as plain sequence, as the
    red overhang, and as a DIFFERENT red overhang — the
    third is the whole argument of the slide. */
-function oh(ids, str, alt, y){
+function oh(ids, str, alt, y, pfx){
   return mono(ids[0], FS, row(str, 10, LX, ST, y, () => INK)) +
          mono(ids[1], FS, row(str, 10, LX, ST, y, () => RED), ' opacity="0"') +
-         mono(ids[2], FS, row(alt, 10, LX, ST, y, () => RED), ' opacity="0"');
+         mono(ids[2], FS, row(alt, 10, LX, ST, y, () => RED, tag(pfx)), ' opacity="0"');
 }
 
 const MARKUP =
   /* left fragment: top cols 0-9, bottom cols 0-13.  The site rides
      with it, which is the point of step 2. */
   '<g data-r="gL">' +
-    mono("", FS, row("ctgGGTCTCg", 0, LX, ST, TY, colS) +
-                 row("gacCCAGAGc", 0, LX, ST, BY, colS)) +
-    oh(["oLp","oLr","oLa"], "ctag", "tcca", BY) +
+    mono("", FS, row("ctgGGTCTCg", 0, LX, ST, TY, colS, tag("t")) +
+                 row("gacCCAGAGc", 0, LX, ST, BY, colS, tag("b"))) +
+    oh(["oLp","oLr","oLa"], "ctag", "tcca", BY, "b") +
     label(XL, TY, 24, MUTED, "5&#8242;") + label(XL, BY, 24, MUTED, "3&#8242;") +
     '<path d="M' + (LX + 3*ST - ST/2) + ' 372H' + EDGE + '" stroke="' + BLUE +
       '" stroke-width="3.2" fill="none"/>' +
@@ -322,7 +359,7 @@ const MARKUP =
   '<g data-r="gR">' +
     mono("", FS, row("ctg", 14, LX, ST, TY, colS) +
                  row("gac", 14, LX, ST, BY, colS)) +
-    oh(["oRp","oRr","oRa"], "gatc", "aggt", TY) +
+    oh(["oRp","oRr","oRa"], "gatc", "aggt", TY, "t") +
     label(XR, TY, 24, MUTED, "3&#8242;") + label(XR, BY, 24, MUTED, "5&#8242;") +
     '<g data-r="brace" opacity="0">' +
       '<path d="M' + (LX + 10*ST - ST/2) + ' 378H' + (LX + 13*ST + ST/2) +
@@ -345,25 +382,49 @@ const MARKUP =
 const S = [
 { st:{sep:0, cut:1, red:0, alt:0, brace:0},
   cap:"the site is here; the cut is over there",
-  ann:"BsaI &nbsp;GGTCTC (1/5) &mdash; one base out on top, five on the bottom",
-  note:"BsaI is a Type Two S enzyme, and the S is the entire story. Its site is GGTCTC, and notice straight away that it is not a palindrome: the bottom strand reads GAGACC. An asymmetric site has a direction, and BsaI uses that direction — it binds here and cuts over there, downstream, on sequence it does not read at all. In these enzymes the piece of protein that recognises the site and the piece that does the chemistry are separate domains, which is how they can be in two different places. The catalogue writes it GGTCTC one slash five: one base past the site on the top strand, five bases past on the bottom.",
+  ann:"BsaI &nbsp;GGTCTC (1/5): one base out on top, five on the bottom",
+  note:"BsaI is a Type IIS enzyme (type two ess). The group includes BsaI, BsmBI, AarI and SapI, and what they have in common is that they cut outside their recognition sequence. Its site is GGTCTC, and notice straight away that it is not a palindrome: the bottom strand reads GAGACC. An asymmetric site has a direction, and BsaI uses that direction: it binds here and cuts over there, downstream, on sequence it does not read at all. In these enzymes the piece of protein that recognises the site and the piece that does the chemistry are separate domains, which is how they can be in two different places. The catalogue writes it GGTCTC one slash five: one base past the site on the top strand, five bases past on the bottom.",
   desc:"A seventeen base pair duplex written as letters. The six letters GGTCTC are blue and underlined, labelled recognition site. Two red ticks mark where the enzyme cuts, one on the top strand one base past the site and one on the bottom strand five bases past. Below the duplex, two measured lines run from the edge of the site out to each cut, labelled 1 and 5." },
 
 { st:{sep:1, cut:0, red:1, alt:0, brace:0},
   cap:"the site leaves with the piece you throw away",
-  ann:"a 4-base 5&#8242; overhang &mdash; and no GGTCTC left in the product",
+  ann:"a 4-base 5&#8242; overhang, and no GGTCTC left in the product",
   note:"It cuts, and two things happen that do not happen with EcoRI. First, you still get a four base five prime overhang, because one and five differ by four; so far, nothing new. Second, and this is the part people miss the first time: the recognition site went with the left hand fragment. The piece you are keeping has no GGTCTC anywhere in it. Put a site at each end of your part, pointing inward, and both sites are cut off. There is nothing left behind to make a scar.",
   desc:"The duplex has separated into two fragments with a clear gap. The blue recognition site and its label have travelled with the left fragment. Four bases stand unpaired in red at each cut end: g a t c on the top strand of the right fragment, c t a g on the bottom strand of the left." },
 
 { st:{sep:1, cut:0, red:1, alt:1, brace:1},
   cap:"so the overhang sequence is yours",
-  ann:"same enzyme, same 1/5 &mdash; any 4-base 5&#8242; overhang you like",
-  note:"And here is the punchline. Those four overhang bases are not part of the recognition site. BsaI does not read them — it only counts. So put whatever you like there: change the four bases and the same enzyme hands you a different overhang. That is what makes Golden Gate work. You give every junction in a multi-part assembly its own four base overhang, so the parts can only assemble one way, and you do the whole thing with one enzyme in one tube. And it works outward as well as inward. The end BsaI leaves is a four base five prime overhang, which is the same shape of end that BamHI, XbaI, HindIII and XhoI leave — so choose the sequence to match one of them and your Golden Gate part drops straight into a conventionally cut vector. Make it GATC and it ligates into a BamHI site; make it CTAG and it goes into an XbaI site. Be clear about why that works: not because those overhangs are interchangeable — GATC will not ligate to CTAG — but because you deliberately picked one to match. Two things will bite you. Two junctions that share an overhang, or an overhang that is its own complement, will cross-ligate and scramble the order. And if any of your parts contains an internal BsaI site, the enzyme will cut the part in half — so check for that before you order.",
+  ann:"same enzyme, same 1/5, any 4-base 5&#8242; overhang you like",
+  note:"And here is the punchline. Those four overhang bases are not part of the recognition site. BsaI does not read them, it only counts. So put whatever you like there: change the four bases and the same enzyme hands you a different overhang. That is what makes Golden Gate work. Give every junction in a multi-part assembly its own four base overhang and the parts can only assemble one way, all of it with one enzyme in one tube. It works outward too. BsaI leaves a four base five prime overhang, the same shape BamHI, XbaI, HindIII and XhoI leave, so choose the sequence to match one of them and your part drops straight into a conventionally cut vector. Make it GATC and it ligates into a BamHI site, CTAG and it goes into an XbaI site. Not because those overhangs are interchangeable, GATC will not ligate to CTAG, but because you picked one to match. Two things will bite you. Two junctions sharing an overhang, or an overhang that is its own complement, will cross-ligate and scramble the order. And an internal BsaI site in any part means the enzyme cuts that part in half, so check before you order.",
   desc:"The four unpaired bases have changed: g a t c becomes a g g t on the top strand of the right fragment, and correspondingly c t a g becomes t c c a on the bottom strand of the left. A red rule above the changed bases is labelled yours to choose." }
 ];
 
 window.Deck.sequence("typeIIs", function(slide){
   const r = stage(slide, MARKUP);
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let roll = null, orig = null;
+  function remember(){
+    if (orig) return;
+    orig = {};
+    FREE.forEach(c => ["t","b"].forEach(function(pfx){
+      const e = slide.querySelector('[data-rnd="' + pfx + c + '"]');
+      if (e) orig[pfx + c] = e.textContent;
+    }));
+  }
+  function putBack(){
+    if (!orig) return;
+    Object.keys(orig).forEach(function(k){
+      const e = slide.querySelector('[data-rnd="' + k + '"]');
+      if (e) e.textContent = orig[k];
+    });
+  }
+  /* still on the first two steps; running only once the slide says so */
+  function rollFrom(i){
+    if (roll) { clearTimeout(roll); roll = null; }
+    remember();
+    if (i !== ROLL_AT || reduce.matches) { putBack(); return; }
+    (function tick(){ scramble(slide); roll = setTimeout(tick, 620); })();
+  }
   const keys = ["sep","cut","red","alt","brace"];
 
   const run = tweener(keys, function(s){
@@ -380,6 +441,7 @@ window.Deck.sequence("typeIIs", function(slide){
     r.cap.textContent = S[i].cap;
     r.ann.innerHTML   = S[i].ann;
     run(S[i].st, animated);
+    rollFrom(i);
   }
   go(0, false);
   return { steps: S.map(x => ({ note:x.note, desc:x.desc })), go: go };
