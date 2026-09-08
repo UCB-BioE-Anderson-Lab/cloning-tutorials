@@ -52,6 +52,10 @@ function toPdf(htmlPath, pdfPath) {
 const ISSUED = "2026-09-07";
 
 function page(sheet, bodyHtml, moduleId) {
+  // "single" is one wide column at a larger type size, for a short procedure that should
+  // fill the page. Anything else is the two-column dense layout.
+  const single = sheet.layout === "single";
+  const wrap = single ? "rows single" : "cols";
   return `<title>${sheet.title} — BioE 140L</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,7 +68,7 @@ function page(sheet, bodyHtml, moduleId) {
   <span class="slug">${sheet.slug}</span>
 </header>
 
-<div class="cols">
+<div class="${wrap}">
 ${bodyHtml}
 </div>
 

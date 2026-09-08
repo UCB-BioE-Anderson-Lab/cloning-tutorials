@@ -70,6 +70,13 @@ h1 { font-size: 1.45rem; margin: 0; font-weight: 700; letter-spacing: -.01em; }
 
 .cols { column-count: 2; column-gap: 1.9rem; column-rule: 1px solid var(--rule); }
 
+/* Single wide column, larger type. For a short procedure that should fill the page
+   rather than be squeezed into two narrow columns. */
+.rows { max-width: 46rem; }
+.single { font-size: 1.16em; }
+.single ol.steps > li { margin-bottom: .5rem; }
+.single table.rx td { padding-top: .1rem; padding-bottom: .1rem; }
+
 .blk { break-inside: avoid; page-break-inside: avoid; margin: 0 0 .6rem; }
 
 h2 {
@@ -204,11 +211,23 @@ code {
   /* Sized to fill the page: these are read at arm's length, on a bench, in gloves. */
   body { padding: 0; font-size: 12.6pt; line-height: 1.3; }
   .sheet { max-width: none; }
-  h1 { font-size: 19pt; }
+  h1 { font-size: 22pt; }
   .slug { font-size: 9.5pt; }
   h2 { font-size: 10pt; }
   .cols { column-gap: 1.5rem; }
   .blk { margin-bottom: .6rem; }
+
+  /* Single-column sheets get much bigger type — they are short, so use the page. */
+  .rows { max-width: none; }
+  .single { font-size: 18pt; line-height: 1.28; }
+  /* em, not rem: the markers have to scale with the larger type or the number
+     collides with the step text. */
+  .single ol.steps > li { padding-left: 1.5em; text-indent: -1.5em; margin-bottom: .46em; }
+  .single ol.steps > li::before { width: 1.5em; }
+  .single ul.bul > li { padding-left: .8em; text-indent: -.8em; margin-bottom: .16em; }
+  .single h2 { font-size: 12.5pt; }
+  .single table.rx { width: auto; margin: .22em 0 .3em 1.4em; font-size: 1em; }
+  .single table.rx td { padding: .02em .5em .02em 0; }
   .foot { font-size: 8.4pt; }
   .prog { background: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .flag { background: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
