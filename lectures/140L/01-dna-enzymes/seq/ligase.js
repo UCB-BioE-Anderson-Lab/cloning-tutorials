@@ -1,14 +1,19 @@
 /* ------------------------------------------------------------------ *
  * ligase.js — what a ligase actually needs to see at a junction.
  *
- * Registers:   register   blunt -> sticky -> sealed -> gap   (4 steps)
+ * Registers:   register   blunt -> 1 nt -> sticky -> sealed -> gap
+ *                                                          (5 steps)
  *
  * The argument, one click each:
  *   1. blunt ends: two molecules with NOTHING holding them together
- *   2. sticky ends: four base pairs hold them in register; what is left
+ *   2. a one-base overhang, which is WORSE than blunt — the claim is
+ *      non-monotonic and it is the one thing here a student cannot
+ *      picture, so it gets the same geometry as its two neighbours and
+ *      sits between them, where the comparison is unavoidable
+ *   3. sticky ends: four base pairs hold them in register; what is left
  *      is a NICK in each strand
- *   3. ligase seals both nicks; two molecules become one
- *   4. remove a single base and it is a GAP, not a nick — ligase cannot
+ *   4. ligase seals both nicks; two molecules become one
+ *   5. remove a single base and it is a GAP, not a nick — ligase cannot
  *      bridge it, a polymerase has to fill it first
  *
  * Level of iconography: LETTERS. Position is the whole point here —
@@ -89,42 +94,59 @@ function mk(sep, splitT, splitB, xs, o6){
   return s;
 }
 
-const CUT_B = bnd(6);                   /* 768 — the blunt cut         */
-const NICK_T = bnd(5);                  /* 696 — top nick              */
-const NICK_B = bnd(9);                  /* 984 — bottom nick           */
-const GAP_R  = bnd(6);                  /* 768 — right of the 1nt gap  */
+const CUT_B = bnd(6);                   /* 768, the blunt cut         */
+const NICK_T = bnd(5);                  /* 696, top nick              */
+const NICK_B = bnd(9);                  /* 984, bottom nick           */
+const GAP_R  = bnd(6);                  /* 768, right of the 1nt gap  */
+const ONE_B  = bnd(6);                  /* 768: bottom break, 1 nt case */
+/* The one-base case is drawn APART, like blunt and unlike sticky. Drawn
+   annealed it read as "closer together than blunt", which is the exact
+   opposite of the claim it exists to make. Two molecules that are not
+   holding on to each other should look like two molecules that are not
+   holding on to each other, and the single overhanging base then reads
+   as what it is: not a grip, just something in the way. 60 is the
+   smallest pull that keeps the two overhangs clear of one another. */
+const SEP1 = 60;
 
 const STEPS = [
 { s: mk(SEP, 7, 7,
         [LEFTX-SEP, CUT_B-HALF-SEP, CUT_B+HALF+SEP, RIGHTX+SEP,
          LEFTX-SEP, CUT_B-HALF-SEP, CUT_B+HALF+SEP, RIGHTX+SEP], 1),
-  label: "blunt ends — two molecules",
+  label: "blunt ends, two molecules",
   call:  "nothing is holding them together",
-  note: "Start with the hard case. These are two blunt-cut molecules, and there is literally nothing between them — no base pairing, no hydrogen bonds, nothing that holds one end against the other. They find each other by collision, and the only thing that keeps them together long enough for chemistry to happen is the ligase itself. That is why a blunt ligation wants more enzyme, more DNA, a longer and colder incubation, and often a crowding agent such as PEG. Blunt ligation is not forbidden — it works — it is just enormously less efficient, and when a blunt ligation gives you no colonies, this picture is the reason.",
+  note: "Start with the hard case. These are two blunt-cut molecules, and there is literally nothing between them: no base pairing, no hydrogen bonds, nothing that holds one end against the other. They find each other by collision, and the only thing that keeps them together long enough for chemistry to happen is the ligase itself. That is why a blunt ligation wants more enzyme, more DNA, a longer and colder incubation, and often a crowding agent such as PEG. Blunt ligation is not forbidden, it works, it is just enormously less efficient, and when a blunt ligation gives you no colonies, this picture is the reason.",
   desc: "Two separate double-stranded DNAs drawn as two rows of letters, each cut straight across, with a wide empty space between them. Neither strand is continuous across the space." },
+
+{ s: mk(SEP1, 6, 7,
+        [LEFTX-SEP1, NICK_T-SEP1, NICK_T+SEP1, RIGHTX+SEP1,
+         LEFTX-SEP1, ONE_B-SEP1,  ONE_B+SEP1,  RIGHTX+SEP1], 1),
+  label: "a one-base overhang, worse than blunt",
+  call:  "still nothing holding them, and now something in the way",
+  note: "Before the good case, the worst one. Give those same two molecules a single-base overhang instead of a clean blunt end, so each one now has a single base hanging off it. You would expect that to beat nothing, a little bit of holding on is still holding on, and it does not. It is worse than blunt. Look at where they are: exactly as far apart as they were a moment ago. One base pair, on the occasions it forms at all, is far too weak to hold two molecules end to end for any useful length of time, so you get none of the benefit of annealing. And you have given up the one thing the blunt end had going for it, which was that both ends were flat and ready to be joined; now there is a base in the way. Efficiency is not monotonic in overhang length. It falls as the overhang shortens, hits its floor at one, and comes back up at zero. This is worth knowing because you make single-base overhangs by accident (a polymerase that adds a non-templated A, a partial fill-in), and then the ligation that should have worked does not.",
+  desc: "The two molecules are still as far apart as they were in the blunt frame. Each now carries one unpaired base hanging off it toward the other, coloured blue: one on the bottom strand of the left molecule, one on the top strand of the right. Nothing pairs across the gap." },
 
 { s: mk(0, 6, 10,
         [LEFTX, NICK_T-HALF, NICK_T+HALF, RIGHTX,
          LEFTX, NICK_B-HALF, NICK_B+HALF, RIGHTX], 1),
-  label: "sticky ends — held in register",
+  label: "sticky ends, held in register",
   call:  "4 base pairs, 2 nicks",
-  note: "Now give the same two molecules four-base overhangs — an EcoRI cut. The overhangs are complementary, so they base-pair, and those four base pairs are the entire reason sticky ends beat blunt. It is not that ligase prefers a sticky end. It is that the base pairing physically holds the two molecules in register, end to end and in frame, long enough for the enzyme to find the junction and act. Four pairs are weak and transient, which is why ligations are often run cold, but they are infinitely better than nothing. And look at what the annealed structure actually is: not one break but two, one in each strand, and each one is a nick.",
-  desc: "The two molecules slide together. Four bases from each molecule pair with four from the other, marked with vertical ticks. Each strand is now broken at exactly one point — the top strand at the left edge of the paired region, the bottom strand at the right edge. Labels mark a 3-prime hydroxyl and a 5-prime phosphate facing each other across the top break." },
+  note: "Now give the same two molecules four-base overhangs: an EcoRI cut. The overhangs are complementary, so they base-pair, and those four base pairs are the entire reason sticky ends beat blunt. It is not that ligase prefers a sticky end. It is that the base pairing physically holds the two molecules in register, end to end and in frame, long enough for the enzyme to find the junction and act. Four pairs are weak and transient, which is why ligations are often run cold, but they are infinitely better than nothing. And look at what the annealed structure actually is: not one break but two, one in each strand, and each one is a nick.",
+  desc: "The two molecules slide together. Four bases from each molecule pair with four from the other, marked with vertical ticks. Each strand is now broken at exactly one point: the top strand at the left edge of the paired region, the bottom strand at the right edge. Labels mark a 3-prime hydroxyl and a 5-prime phosphate facing each other across the top break." },
 
 { s: mk(0, 6, 10,
         [LEFTX, NICK_T, NICK_T, RIGHTX,
          LEFTX, NICK_B, NICK_B, RIGHTX], 1),
-  label: "ligase seals both nicks — one molecule",
+  label: "ligase seals both nicks, one molecule",
   call:  "2 bonds, 2 ATP",
-  note: "That is the substrate. At each nick a 3' hydroxyl and a 5' phosphate sit directly against one another with nothing in between. Be exact about the direction: the phosphate that ends up in the new bond is the one already sitting on the downstream 5' end, and the upstream 3' hydroxyl is the nucleophile that attacks it. Ligase spends one ATP to make that happen — it adenylylates itself, hands the AMP to the 5' phosphate to activate it, and the 3' hydroxyl then attacks and displaces the AMP. Two nicks, two bonds, two ATP, and the two molecules are one molecule. That ATP dependence is practical, not trivia: buffer that has been thawed twenty times has no usable ATP left in it, and a ligation in dead buffer fails silently.",
+  note: "That is the substrate. At each nick a 3' hydroxyl and a 5' phosphate sit directly against one another with nothing in between. Be exact about the direction: the phosphate that ends up in the new bond is the one already sitting on the downstream 5' end, and the upstream 3' hydroxyl is the nucleophile that attacks it. Ligase spends one ATP to make that happen: it adenylylates itself, hands the AMP to the 5' phosphate to activate it, and the 3' hydroxyl then attacks and displaces the AMP. Two nicks, two bonds, two ATP, and the two molecules are one molecule.",
   desc: "Both breaks close. Both strands now run continuously from one end to the other as a single molecule, with a half barb only at the two true 3-prime ends. Two short red marks show where the new bonds were made." },
 
 { s: mk(0, 6, 10,
         [LEFTX, NICK_T-HALF, GAP_R+HALF, RIGHTX,
          LEFTX, NICK_B-HALF, NICK_B+HALF, RIGHTX], 0),
-  label: "one base missing — a gap, not a nick",
+  label: "one base missing: a gap, not a nick",
   call:  "polymerase first, then ligase",
-  note: "Now the failure mode nobody sees coming. Take that same junction and remove a single base from the top strand. It looks almost the same, but it is not a nick, it is a gap, and T4 ligase cannot bridge it. There is no bond available to make: the 3' hydroxyl and the 5' phosphate are a whole nucleotide apart. A polymerase has to put the missing base in first, using the bottom strand as template, and only then can ligase seal the nick that remains. This is exactly the division of labour inside a Gibson reaction — exonuclease chews back, the ends anneal, polymerase fills the gaps, ligase seals the nicks — and it is why all three are in the tube. If you ever design an assembly where the ends anneal but a base is unaccounted for, you have designed a gap, and no amount of extra ligase will rescue it.",
+  note: "Now the failure mode nobody sees coming. Take that same junction and remove a single base from the top strand. It looks almost the same, but it is not a nick, it is a gap, and T4 ligase cannot bridge it. There is no bond available to make: the 3' hydroxyl and the 5' phosphate are a whole nucleotide apart. A polymerase has to put the missing base in first, using the bottom strand as template, and only then can ligase seal the nick that remains. This is exactly the division of labour inside a Gibson reaction (exonuclease chews back, the ends anneal, polymerase fills the gaps, ligase seals the nicks), and it is why all three are in the tube. If you ever design an assembly where the ends anneal but a base is unaccounted for, you have designed a gap, and no amount of extra ligase will rescue it.",
   desc: "The molecules stay annealed, but one letter is now missing from the top strand, leaving an empty position and a break several times wider than a nick. The unpaired base opposite it on the bottom strand is marked in red with a dashed tick standing in for its missing partner." }
 ];
 
@@ -202,7 +224,7 @@ window.Deck.sequence("register", function(slide){
 
   /* Everything that is a colour or a mark rather than a position. */
   function decorate(i){
-    sealed = (i === 2);
+    sealed = (i === 3);
     r.lab.textContent  = STEPS[i].label;
     r.call.textContent = STEPS[i].call || "";
     r.call.setAttribute("opacity", STEPS[i].call ? "1" : "0");
@@ -211,7 +233,15 @@ window.Deck.sequence("register", function(slide){
       bl[k].setAttribute("fill", INK);
     }
     let a = "";
+    /* the two lone overhang bases: same blue as the four that pair on the
+       next click, so the only difference the eye has to find is that
+       these two are not reaching anything. No rung, because nothing is
+       paired -- a rung here would draw the grip the beat denies. */
     if (i === 1){
+      tl[6].setAttribute("fill", SLATE);
+      bl[6].setAttribute("fill", SLATE);
+    }
+    if (i === 2){
       for (let k = 6; k <= 9; k++){
         tl[k].setAttribute("fill", SLATE);
         bl[k].setAttribute("fill", SLATE);
@@ -220,11 +250,11 @@ window.Deck.sequence("register", function(slide){
       a += endlab(NICK_T - HALF - 8, "3&#8242;-OH", "end",   SLATE) +
            endlab(NICK_T + HALF + 8, "5&#8242;-P",  "start", SLATE);
     }
-    if (i === 2){
+    if (i === 3){
       a += '<path d="M'+NICK_T+' '+(YTB-14)+'V'+(YTB+14)+'" stroke="'+RED+'" stroke-width="4.6"/>' +
            '<path d="M'+NICK_B+' '+(YBB-14)+'V'+(YBB+14)+'" stroke="'+RED+'" stroke-width="4.6"/>';
     }
-    if (i === 3){
+    if (i === 4){
       bl[6].setAttribute("fill", RED);
       a += '<path d="M'+cx(6)+' '+RUNG0+'V'+RUNG1+'" stroke="'+RED+'" stroke-width="3" ' +
              'stroke-dasharray="7 7"/>';
@@ -257,4 +287,116 @@ window.Deck.sequence("register", function(slide){
   paint(cur);
   return { steps: STEPS.map(x => ({ note:x.note, desc:x.desc })), go: go };
 });
+
+/* ================================================================== *
+ * nickseal — the reaction both NAD+ ligases actually do.
+ *
+ * Three oligos annealed head to tail on a strand that holds them, and
+ * two nicks sealed. It is drawn because the slide used to argue in
+ * prose that these enzymes seal nicks and nothing else, and the thing
+ * prose cannot show is that ANNEALING is what brought the pieces
+ * together. The ligase arrives at a junction that is already in
+ * register and does nothing to put it there. That is the whole
+ * difference from T4, and it is why this is the reaction sitting
+ * inside Gibson and inside ligase chain assembly.
+ * ================================================================== */
+(function(){
+const XA = 250, XB = 1350;
+const OY = 590, TY = 648;                /* oligos, then the strand below */
+const N1 = 612, N2 = 988;                /* the two nicks                 */
+const NH = 15;                           /* half a nick's width           */
+/* each oligo drifts in from its own place, so three separate molecules
+   read as three separate molecules before they anneal */
+const FLOAT = [[-46,-108],[14,-168],[58,-116]];
+
+function span(i, seal){
+  const g = NH*(1-seal);
+  if (i===0) return [XA,      N1 - g];
+  if (i===1) return [N1 + g,  N2 - g];
+  return             [N2 + g,  XB];
+}
+
+const NS_STEPS = [
+  { s:{an:0, seal:0},
+    label:"three oligos, and a strand to hold them",
+    sub:"nothing is annealed, and nothing is a substrate yet",
+    note:"This is the reaction both of these enzymes actually do, and it is worth drawing because the word nick does not carry it. Here are three separate oligos and, underneath, one longer strand complementary to all three of them.",
+    desc:"Three short DNA strands drawn as separate barbed lines, floating at different heights above a single longer strand that runs the width of the slide." },
+  { s:{an:1, seal:0},
+    label:"annealing puts them in register, two nicks",
+    call:"the ligase did none of this",
+    note:"They anneal, head to tail, along that strand. Look at what the annealing has done: the three oligos are now butted end to end, in frame, held there by the strand underneath. What is left between them is two nicks, in the sense you now know: the two ends abutting, with the strand underneath holding them there. That is the substrate. And notice who did the work of bringing them together. Base pairing did. The ligase is not in the room yet.",
+    desc:"The three oligos drop into place along the lower strand, butted end to end, leaving two small breaks between them. The junctions are now nicks in an otherwise continuous duplex." },
+  { s:{an:1, seal:1},
+    label:"two nicks, two bonds, one strand",
+    call:"it seals what is already held, it never brings pieces together",
+    note:"Now the ligase, and all it has to do is close two bonds. Three oligos have become one continuous strand. That is the native job (repair, and sealing Okazaki fragments behind the replication fork), and it is the same job it does in the two places you will meet it: in a Gibson reaction, sealing the nicks left after the polymerase has filled the gaps, and in ligase chain assembly, sealing oligos held against a template. Both of those run hot, which is why the thermostable one is the one in the tube. And this is exactly why these enzymes are useless for cloning: a restriction fragment has nothing holding it against its partner, and this ligase will not supply that. T4 will.",
+    desc:"Both breaks close and two short red marks show where the bonds were made. The three oligos are now one continuous strand running the width of the slide above its template." }
+];
+
+window.Deck.sequence("nickseal", function(slide){
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const svg = document.createElementNS(SVGNS,"svg");
+  svg.setAttribute("viewBox","0 0 1600 900");
+  svg.setAttribute("aria-hidden","true");
+  svg.setAttribute("style","position:absolute;inset:0;pointer-events:none");
+  svg.innerHTML =
+    '<g fill="none" stroke="'+INK+'" stroke-width="3.4" stroke-linecap="round">' +
+      '<path data-r="o0"/><path data-r="o1"/><path data-r="o2"/><path data-r="tmpl"/>' +
+    '</g>' +
+    '<g data-r="seals" fill="none" stroke="'+RED+'" stroke-width="4.6" ' +
+      'stroke-linecap="round" opacity="0"></g>' +
+    '<text data-r="tlab" x="'+XA+'" y="'+(TY+40)+'" font-family="inherit" font-size="24" ' +
+      'fill="'+MUTED+'">the strand that holds them</text>' +
+    '<text data-r="label" x="800" y="742" text-anchor="middle" font-family="inherit" ' +
+      'font-weight="700" font-size="30" fill="'+INK+'"></text>' +
+    '<text data-r="sub" x="800" y="788" text-anchor="middle" font-family="inherit" ' +
+      'font-size="26" fill="'+MUTED+'"></text>' +
+    '<text data-r="call" x="800" y="788" text-anchor="middle" font-family="inherit" ' +
+      'font-weight="700" font-size="29" fill="'+RED+'" opacity="0"></text>';
+  slide.appendChild(svg);
+  const r={};
+  svg.querySelectorAll("[data-r]").forEach(el=>r[el.getAttribute("data-r")]=el);
+  r.seals.innerHTML =
+    '<path d="M'+N1+' '+(OY-14)+'V'+(OY+14)+'"/><path d="M'+N2+' '+(OY-14)+'V'+(OY+14)+'"/>';
+
+  let sealed=false, cur={an:0, seal:0}, raf=null;
+
+  function paint(s){
+    for(let i=0;i<3;i++){
+      const q=span(i,s.seal);
+      const dx=FLOAT[i][0]*(1-s.an), dy=FLOAT[i][1]*(1-s.an);
+      /* once sealed, the first two 3' ends are internal and lose their
+         barbs -- a barb inside a continuous strand would be a lie */
+      const f = (sealed && i<2) ? plain : strand;
+      r["o"+i].setAttribute("d", f(q[0]+dx, OY+dy, q[1]+dx, OY+dy));
+    }
+    r.tmpl.setAttribute("d", strand(XB, TY, XA, TY));
+    r.seals.setAttribute("opacity", n2(s.seal));
+    r.tlab.setAttribute("opacity", n2(Math.max(0, Math.min(1, s.an*1.6-0.6))));
+  }
+
+  function go(i, animated){
+    if(raf){cancelAnimationFrame(raf); raf=null;}
+    sealed = (i===2);
+    r.label.textContent = NS_STEPS[i].label || "";
+    r.sub  .textContent = NS_STEPS[i].call ? "" : (NS_STEPS[i].sub || "");
+    r.call .textContent = NS_STEPS[i].call || "";
+    r.call .setAttribute("opacity", NS_STEPS[i].call ? "1" : "0");
+    const to=NS_STEPS[i].s;
+    if(animated===false || reduce.matches){ cur=Object.assign({},to); paint(cur); return; }
+    const from=Object.assign({},cur), t0=performance.now(), dur=760;
+    const ease=t=>t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+    raf=requestAnimationFrame(function f(now){
+      const t=Math.min(1,(now-t0)/dur), e=ease(t);
+      cur={an:from.an+(to.an-from.an)*e, seal:from.seal+(to.seal-from.seal)*e};
+      paint(cur);
+      if(t<1) raf=requestAnimationFrame(f); else raf=null;
+    });
+  }
+  go(0,false);
+  return { steps:NS_STEPS.map(x=>({note:x.note, desc:x.desc})), go:go };
+});
+})();
+
 })();

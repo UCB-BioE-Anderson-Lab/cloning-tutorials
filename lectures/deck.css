@@ -170,6 +170,19 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);o
   padding:10px}
 .slide figure.fig figcaption{flex:0 0 auto;font-size:19px;color:var(--muted);margin-top:14px}
 
+/* A worked cascade — substrate, arrow, product, arrow, product — is a
+   figure that happens to be made of text, so it claims the leftover
+   height like figure.fig does, and it is centred as a GROUP rather than
+   line by line: the sequences have to stay aligned to each other so a
+   base can be tracked down the states, but the block is far narrower
+   than the slide and was leaving the right half empty. Promoted here
+   from a page-local rule once a third slide needed it. */
+.slide .cascade{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center;width:max-content;max-width:100%;margin:0 auto}
+/* .lg where the cascade is the slide and there is room to set it up */
+.slide .cascade.lg pre.dna{font-size:30px;line-height:1.5}
+.slide .cascade.lg .step{margin:32px 0 26px;padding-left:72px;font-size:27px}
+
 /* a figure sitting in one column of a two-column slide fills that column */
 .slide .cols{flex:1 1 auto;min-height:0;align-items:stretch}
 .slide .cols > *{min-width:0;min-height:0;display:flex;flex-direction:column;justify-content:center}

@@ -156,13 +156,13 @@ const RCR_COIL = { x:1150, y:490, r0:60, r1:215, turns:1.85, a0:200, lead:150 };
 /* Five clicks, not six. Denaturing the circle used to get a click of its
    own, and the two separated rings it produced were thrown away on the
    very next one; denaturing and priming are now the same click, because
-   they are one idea — getting a 3' end onto a single-stranded template. */
+   they are one idea: getting a 3' end onto a single-stranded template. */
 const RCR_KEYS = ["tx","px","partner","prog","pay","five","lab"];
 const RCR = [
   { s:{ tx:HOME, px:HOME, partner:1, prog:0, pay:0, five:0, lab:1 },
     cap:"a closed circular duplex",
     sub:"two strands, drawn as two rings",
-    note:"Rolling circle replication. The template is a closed circular DNA — two strands, drawn here as two rings, the black one the strand we are going to copy.",
+    note:"Rolling circle replication. The template is a closed circular DNA: two strands, drawn here as two rings, the black one the strand we are going to copy.",
     desc:"A circular double-stranded DNA at the centre of the slide, drawn as two concentric rings, each labelled: the black inner ring is the template, the blue outer ring is the strand paired with it." },
   { s:{ tx:LEFT, px:RIGHT, partner:0, prog:34, pay:0, five:0, lab:0 }, snap:["prog"],
     cap:"denature it, then prime it",
@@ -176,12 +176,12 @@ const RCR = [
     desc:"The new strand has been extended clockwise all the way round the template and its 3' barb has arrived back at its own 5' end, with a small break between them." },
   { s:{ tx:LEFT, px:RIGHT, partner:0, prog:375, pay:0.13, five:1, lab:0 },
     cap:"phi29 displaces its own 5′ end and carries on",
-    sub:"no exonuclease, so nothing is destroyed — it is peeled off instead",
+    sub:"no exonuclease, so nothing is destroyed; it is peeled off instead",
     note:"Because phi29 displaces rather than stops or degrades, it lifts that 5' end off the template and keeps going. An enzyme with a 5' to 3' exonuclease would have eaten the strand instead, and you would go round for ever without ever making a second copy.",
     desc:"The polymerase has passed its own 5' end, marked in red, and lifted it off the template. A short displaced strand now leads away from the circle." },
   { s:{ tx:LEFT, px:RIGHT, partner:0, prog:420, pay:1, five:1, lab:0 },
     cap:"round and round: copy after copy on one strand",
-    sub:"a concatemer — many tandem copies of the circle, still one molecule",
+    sub:"a concatemer: many tandem copies of the circle, still one molecule",
     note:"It just keeps going round, paying out a long single strand that carries copy after copy of the circle head to tail. One template, one primer, one enzyme, one temperature, and the product grows without bound.",
     desc:"The displaced strand has been paid out into a long smooth coil filling the right of the slide, its free 5' end marked in red. It is a concatemer: many tandem copies of the circle on a single molecule." }
 ];
@@ -285,7 +285,7 @@ function sceneMarkup(){
 
 /* Scale the swabbing panel about its own centre and slide that centre to
    the middle of the finished composition. hero=1 is the solo shot, hero=0
-   is its place in the final layout — at which point this is the identity. */
+   is its place in the final layout, at which point this is the identity. */
 function heroTransform(hero){
   const A = window.ART;
   if (!A || !A.box) return "";
@@ -308,7 +308,7 @@ const REAGENTS =
    was an unreadable tangle that left the frame on all four sides; three is
    still "several", still shows the circle primed at more than one place at
    once, and each product can be given a coil that visibly stays in the box.
-   The start angles are deliberately unequal \u2014 these are RANDOM hexamers.
+   The start angles are deliberately unequal — these are RANDOM hexamers.
    With HEX_SPAN 95 and a final prog of 430 the three arcs land at
    [205,300], [340,75] and [80,175], so no two of them ever touch. */
 const N_HEX = 3;
@@ -322,7 +322,7 @@ const RCA_COIL = [
 
 /* Four clicks, not six. The title-only opening frame was a full click over
    an empty white field, and "the strands are separated," was one sentence
-   split across two clicks \u2014 it is now the front half of the click that
+   split across two clicks — it is now the front half of the click that
    shows what the separation was FOR. */
 const RCA_KEYS = ["scene","hero","pTube","pSample","mix","mol","prog","pay"];
 const RCA = [
@@ -334,24 +334,24 @@ const RCA = [
     delay:{pTube:0.40, pSample:0.55},
     dur:1150,
     cap:"you have almost no DNA",
-    sub:"a swab, a single colony, a trace \u2014 too little to work with directly",
-    note:"Rolling circle amplification is the technique built on that behaviour. The usual reason to reach for it is that you have almost no DNA \u2014 a forensic swab, a single colony, a trace sample. Swab the stain, drop the swab in a tube, and that is your sample.",
+    sub:"a swab, a single colony, a trace: too little to work with directly",
+    note:"Rolling circle amplification is the technique built on that behaviour. The usual reason to reach for it is that you have almost no DNA: a forensic swab, a single colony, a trace sample. Swab the stain, drop the swab in a tube, and that is your sample.",
     desc:"A line drawing of a forensic technician in coveralls and a mask, crouching to swab a small stain beside an evidence marker numbered one. Two inset panels at the right show the swab being placed into a microfuge tube, and that tube yielding a DNA sample." },
 
   { s:{scene:1,hero:0,pTube:1,pSample:1,mix:1,mol:0,prog:0,pay:0},
-    cap:"set it up like a PCR \u2014 but it runs at one temperature",
-    note:"You set the reaction up much like a PCR \u2014 the dilute sample, phi29, random hexamers and dNTPs in one tube \u2014 except that there is no thermal cycling. It is isothermal, so it needs no machine, and it will run overnight on the bench.",
+    cap:"set it up like a PCR, but it runs at one temperature",
+    note:"You set the reaction up much like a PCR (the dilute sample, phi29, random hexamers and dNTPs in one tube) except that there is no thermal cycling. It is isothermal, so it needs no machine, and it will run overnight on the bench.",
     desc:"The reaction components are listed beneath the scene: phi29, random hexamers and dNTPs." },
 
   { s:{scene:0,hero:0,pTube:1,pSample:1,mix:0,mol:1,prog:34,pay:0}, snap:["prog"],
     cap:"random hexamers prime the circle in several places at once",
-    sub:"no designed primer needed \u2014 they anneal wherever they match",
+    sub:"no designed primer needed: they anneal wherever they match",
     note:"Now follow one molecule. The strands are separated, and because the hexamers are random, several of them anneal all round the circle at once. You did not have to know the sequence to do this, which is the point: you cannot design a primer for a sample you have not sequenced yet.",
     desc:"The view switches to a single molecule: one circular single-stranded template with three short random oligos annealed at uneven intervals around it, each drawn as a visible arc against the circle with a half barb at its 3' end pointing clockwise." },
 
   { s:{scene:0,hero:0,pTube:1,pSample:1,mix:0,mol:1,prog:430,pay:1},
     cap:"each one displaces the strand in front of it",
-    sub:"one circle, many concatemers \u2014 that is the amplification",
+    sub:"one circle, many concatemers; that is the amplification",
     note:"Every one of them polymerises right round the circle and displaces the strand in front of it, so a single molecule throws off several long products at once, each of them copy after copy of the original. In practice those displaced strands get primed in their turn, and the yield goes up faster than any single rolling circle would give you.",
     desc:"All three have polymerised round the circle and are displacing each other, throwing off three long single strands that wind into smooth coils at the left, the upper right and the lower right of the slide. Each is a concatemer of tandem copies." }
 ];
