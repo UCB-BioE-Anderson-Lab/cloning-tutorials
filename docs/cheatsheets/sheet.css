@@ -73,6 +73,12 @@ h1 { font-size: 1.45rem; margin: 0; font-weight: 700; letter-spacing: -.01em; }
 /* Single wide column, larger type. For a short procedure that should fill the page
    rather than be squeezed into two narrow columns. */
 .rows { max-width: 46rem; }
+
+/* A single-column sheet is usually one block holding the whole protocol, so the
+   block itself must be breakable — otherwise a sheet that is a few lines too long
+   gets pushed wholesale onto a later page and reports three pages instead of two,
+   which hides how much is actually over. Individual steps still stay intact. */
+.rows .blk { break-inside: auto; page-break-inside: auto; }
 .single { font-size: 1.16em; }
 .single ol.steps > li { margin-bottom: .5rem; }
 .single table.rx td { padding-top: .1rem; padding-bottom: .1rem; }
@@ -222,13 +228,13 @@ code {
   .single { font-size: 18pt; line-height: 1.28; }
   /* em, not rem: the markers have to scale with the larger type or the number
      collides with the step text. 1.9em so a two-digit step still fits. */
-  .single ol.steps > li { padding-left: 1.9em; text-indent: -1.9em; margin-bottom: .46em; }
+  .single ol.steps > li { padding-left: 1.9em; text-indent: -1.9em; margin-bottom: .38em; }
   .single ol.steps > li::before { width: 1.9em; }
   .single ul.bul > li { padding-left: .8em; text-indent: -.8em; margin-bottom: .16em; }
   .single h2 { font-size: 12.5pt; }
   .single table.rx { width: auto; margin: .22em 0 .3em 1.4em; font-size: 1em; }
   .single table.rx td { padding: .02em .5em .02em 0; }
-  .foot { font-size: 8.4pt; }
+  .foot { font-size: 8.4pt; margin-top: .28rem; padding-top: .18rem; }
   .prog { background: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .flag { background: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
