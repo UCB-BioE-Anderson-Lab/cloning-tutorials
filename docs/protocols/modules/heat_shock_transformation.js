@@ -36,7 +36,11 @@ export function factory(values = {}) {
     heat_s: 90,
     recover_min: 1,
     rescue_uL: 200,
-    rescue_h: 1
+    // Hard window, not a target. Under 45 min the resistance gene has not expressed;
+    // over 2 h the culture starts to outgrow and you lose the one-colony-per-event
+    // property the plate depends on.
+    rescue_min_min: 45,
+    rescue_max_min: 120
   };
 
   const name = "KCM Heat-Shock Transformation";
@@ -45,7 +49,7 @@ export function factory(values = {}) {
   const template = `
 
 **Equilibrate heating and cooling blocks**
-- Turn on the Echotherm. Set block A to **4 °C** and block B to **42 °C**. Wait until both blocks are at temperature.
+- Turn on the Echotherm. Set the **cold block** to **4 °C** and the **warm block** to **42 °C**. Wait until both are at temperature.
 - **Alternative:** use a thermocycler with two blocks set to **4 °C** and **42 °C**.
 - **Alternative:** use a **42 °C** heating block and an **ice bath** for **4 °C**.
 - Keep the blocks at temperature throughout the procedure.
@@ -70,26 +74,26 @@ export function factory(values = {}) {
    on your labsheet, then put them in the incubator. This is the slow step, so start it before
    anything else.
 2. Retrieve ligation reactions or plasmid DNA and bring to the transformation bench.
-3. Set the Echotherm blocks to **4 °C** (A) and **42 °C** (B). Alternatively, use a thermocycler with two blocks set to these temperatures.
-4. Place competent cell aliquots on block A (4 °C). One tube is sufficient for three reactions.
+3. Set the Echotherm **cold block** to **4 °C** and the **warm block** to **42 °C**. Alternatively, use a thermocycler with two blocks set to these temperatures.
+4. Place competent cell aliquots on the **cold block**. One tube is sufficient for three reactions.
 5. Thaw cells (~${q.cool_s} s). Add **${q.kcm_uL} µL KCM** to each aliquot and pipette gently to mix.
-6. Place the DNA tube (ligation mix or diluted plasmid) on block A.
-7. Let tubes cool for **${q.cool_s} s** on block A.
-8. Add **${q.cells_uL} µL** competent cells to each DNA tube while on block A (**for a ${q.dna_uL} µL DNA sample**). If DNA was not already in the tube, add it now. Mix gently.
+6. Place the DNA tube (ligation mix or diluted plasmid) on the **cold block**.
+7. Let tubes cool for **${q.cool_s} s** on the **cold block**.
+8. Add **${q.cells_uL} µL** competent cells to each DNA tube while on the **cold block** (**for a ${q.dna_uL} µL DNA sample**). If DNA was not already in the tube, add it now. Mix gently.
    - These numbers assume the DNA volume is ~20% of the total mixture.
    - Using smaller DNA volumes is fine, but adding too much DNA will dilute salts and reduce transformation efficiency.
    - For large DNA reactions (~20 µL), use **100 µL** or the **entire tube** of competent cells.
    - For simple retransformation from a miniprep, **0.5 µL** of plasmid DNA in **10 µL** of cells is sufficient.
 9. Incubate at **${q.cold_C} °C for ${q.cold_min} min**.
-10. Transfer tubes to block B (**${q.hot_C} °C**) for **${q.heat_s} s**.
-11. Return tubes to block A (**${q.cold_C} °C**) for **${q.recover_min} min**.
+10. Transfer tubes to the **warm block** (**${q.hot_C} °C**) for **${q.heat_s} s**.
+11. Return tubes to the **cold block** (**${q.cold_C} °C**) for **${q.recover_min} min**.
 ${needsRescue ? `
-12. **Rescue step:** add **${q.rescue_uL} µL 2YT**, transfer to a 1.5 mL tube, and shake at **${tempC} °C** for **${q.rescue_h} h**. This step allows time for the resistance gene to express before plating on the chosen antibiotic.
-13. Plate all liquid on **${antibiotics.join(", ") }** selective agar plates. Incubate **inverted** at **${tempC} °C** overnight.
-   - **Drying the plates (optional):** Leave the plate **uncovered at the sterile bench** until the liquid is fully absorbed and the surface is **no longer glossy**. This prevents colony bleeding or running, especially when plating >100 µL.
+12. **Rescue step:** add **${q.rescue_uL} µL 2YT**, transfer to a 1.5 mL tube, and shake at **${tempC} °C** for **${q.rescue_min_min} min – ${q.rescue_max_min / 60} h**. This gives the resistance gene time to express before plating.
+   - **This is a window, not a target. Not less, not more.** Under ${q.rescue_min_min} min the gene has not expressed; past ${q.rescue_max_min / 60} h the culture outgrows.
+13. Plate all liquid on **${antibiotics.join(", ") }** selective agar plates, spreading with **beads**. Incubate **inverted** at **${tempC} °C** overnight.
 14. Cancel temperature devices when finished.
 ` : `
-12. Plate the transformation mix directly on **carbenicillin** selective agar plates. Incubate **inverted** at **${tempC} °C** overnight.
+12. Plate the transformation mix directly on **carbenicillin** selective agar plates, spreading with **beads**. Incubate **inverted** at **${tempC} °C** overnight.
 13. Cancel temperature devices when finished.
 `}
 

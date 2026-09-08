@@ -184,13 +184,18 @@ export function scaleTimeline(spec) {
     );
   }
 
+  // Filled = you are waiting. Hollow = you are working. Every protocol splits into work
+  // and wait, and which one you are in is the thing you want to know at a glance.
   for (const w of spec.waits) {
     const x0 = x(w.from);
     const wd = Math.max(1.2, x(w.to) - x0);
+    const fill = w.work
+      ? `fill="#fff" stroke="currentColor" stroke-width="1.5"`
+      : w.variable
+        ? `fill="url(#hx)" stroke="currentColor" stroke-width="1"`
+        : `fill="currentColor"`;
     out.push(
-      `<rect x="${x0.toFixed(1)}" y="${mainY}" width="${wd.toFixed(1)}" height="13" ${
-        w.variable ? `fill="url(#hx)" stroke="currentColor" stroke-width="1"` : `fill="currentColor"`
-      }/>`
+      `<rect x="${x0.toFixed(1)}" y="${mainY}" width="${wd.toFixed(1)}" height="13" ${fill}/>`
     );
     if (w.label) {
       const cx = x0 + wd / 2;
@@ -242,7 +247,9 @@ export function scaleTimeline(spec) {
       const x0 = bx(w.from);
       const wd = Math.max(1.2, bx(w.to) - x0);
       out.push(
-        `<rect x="${x0.toFixed(1)}" y="${blowY}" width="${wd.toFixed(1)}" height="13" fill="currentColor"/>`
+        `<rect x="${x0.toFixed(1)}" y="${blowY}" width="${wd.toFixed(1)}" height="13" ${
+          w.work ? `fill="#fff" stroke="currentColor" stroke-width="1.5"` : `fill="currentColor"`
+        }/>`
       );
       const cx = x0 + wd / 2;
       out.push(
