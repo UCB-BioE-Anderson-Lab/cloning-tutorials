@@ -110,14 +110,21 @@ function nucleophile(o){
 
 /* ---- frames -------------------------------------------------------- */
 /* the sugar the attacking hydroxyl belongs to, greyed: the ring is not the
-   point, the O and the H hanging off it are */
+   point, the O and the H hanging off it are.
+
+   The vertices are listed in ring order -- O, C4', C3', C2', C1' -- so the
+   hydroxyl can leave from the right carbon. It has to be C3': the exit used
+   to be the vertex next to the ring oxygen, which is the anomeric carbon,
+   and drew a 1' hydroxyl attacking. C3' is two bonds round from the oxygen,
+   by way of C4'. The exit point itself does not move; only which carbon it
+   is does, so the ring oxygen sits up and to the left instead of on top. */
 function ribose(cx,cy,c){
-  const r=44, v=[90,18,-54,-126,162].map(d=>[cx+r*Math.cos(d*Math.PI/180),
+  const r=44, v=[162,90,18,-54,-126].map(d=>[cx+r*Math.cos(d*Math.PI/180),
                                              cy-r*Math.sin(d*Math.PI/180)]);
   let g="";
   for(let i=0;i<5;i++) g+=bond(v[i],v[(i+1)%5],c,2.2);
   g+=lab(v[0],"O",c,22);
-  return {g, out:v[1]};       /* the right-hand vertex, facing the phosphorus */
+  return {g, out:v[2]};       /* C3', the vertex facing the phosphorus */
 }
 const W2=[1180,366];                       /* the neighbouring water    */
 function water2(charged){
