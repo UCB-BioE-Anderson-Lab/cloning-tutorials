@@ -80,17 +80,23 @@ export function scaleTimeline(spec) {
   // squash everything else to nothing — an overnight incubation against 30 minutes of
   // bench work. The axis stops, a break mark says so, and the tail is drawn after it.
   const TAIL = spec.tail ? 0.15 : 0;
-  const inner = (W - PAD * 2) * (1 - TAIL);
+  // A fork is two possible endings, drawn side by side. The usual one goes on top. An
+  // optional detour drawn inline on the main track instead would read as the default
+  // path, which is exactly backwards when it applies to a minority of runs.
+  const FORK = spec.fork ? 0.36 : 0;
+  const inner = (W - PAD * 2) * (1 - TAIL - FORK);
 
   const laneH = 30;
   const lanesH = spec.prep.length * laneH;
   const mainY = lanesH + 44;
-  // The bracket has to clear the main track's own labels (which run to mainY+49),
-  // or the leader lines strike straight through them.
-  const brack = mainY + 58;
-  const blowTop = brack + 26;
-  const blowY = blowTop + 34;
-  const H = spec.blowout ? blowY + 60 : mainY + 56;
+  const forkUpY = mainY - 28;
+  const forkDnY = mainY + 30;
+  // The bracket has to clear the main track's own labels (which run to mainY+49) and
+  // the lower fork branch, or the leader lines strike straight through them.
+  const brack = Math.max(mainY + 56, spec.fork ? forkDnY + 38 : 0);
+  const blowTop = brack + 22;
+  const blowY = blowTop + 32;
+  const H = spec.blowout ? blowY + 56 : mainY + 56;
 
   const x = (t) => PAD + (t / spec.total) * inner;
 
@@ -134,11 +140,34 @@ export function scaleTimeline(spec) {
   // cutting a white gap through that bar's label.
   out.unshift(...gates);
 
-  // Main track. It stops where the timed session ends; a tail, if any, is drawn past a break.
-  const axisEnd = spec.tail ? PAD + inner : W - PAD;
+  // Main track. It stops where the timed session ends; a tail or fork is drawn past it.
+  const axisEnd = spec.tail || spec.fork ? PAD + inner : W - PAD;
   out.push(
     `<line x1="${PAD}" y1="${mainY}" x2="${axisEnd.toFixed(1)}" y2="${mainY}" stroke="currentColor" stroke-width="2"/>`
   );
+
+  if (spec.fork) {
+    const f = spec.fork;
+    const sx = axisEnd;
+    const bx0 = sx + 20;
+    const bx1 = W - PAD;
+
+    out.push(
+      // the split
+      `<path d="M${sx} ${mainY} L${bx0} ${forkUpY} M${sx} ${mainY} L${bx0} ${forkDnY}" stroke="currentColor" stroke-width="1.6" fill="none"/>`,
+
+      // usual path, on top
+      `<line x1="${bx0}" y1="${forkUpY}" x2="${bx1}" y2="${forkUpY}" stroke="currentColor" stroke-width="2"/>`,
+      `<text x="${bx1}" y="${forkUpY - 8}" font-size="17" text-anchor="end">${f.usual.label}</text>`,
+      `<text x="${bx0 + 4}" y="${forkUpY + 16}" font-size="15" font-weight="700">${f.usual.note}</text>`,
+
+      // the exception, below, hatched because it is conditional
+      `<line x1="${bx0}" y1="${forkDnY}" x2="${bx1}" y2="${forkDnY}" stroke="currentColor" stroke-width="2"/>`,
+      `<rect x="${bx0}" y="${forkDnY}" width="${((bx1 - bx0) * 0.66).toFixed(1)}" height="13" fill="url(#hx)" stroke="currentColor" stroke-width="1"/>`,
+      `<text x="${bx0 + 4}" y="${forkDnY - 8}" font-size="15" font-weight="700">${f.other.note}</text>`,
+      `<text x="${bx0 + 4}" y="${forkDnY + 30}" font-size="16">${f.other.label}</text>`
+    );
+  }
 
   if (spec.tail) {
     const bx = axisEnd + 10;

@@ -25,10 +25,10 @@ export default {
           const hot = cold + d.heat_s / 60;
           const back = hot + d.recover_min;
 
-          const rescueEnd = back + d.rescue_h * 60;
-
           return scaleTimeline({
-            total: rescueEnd + 2,
+            // The axis ends at the cold block. What happens next is a fork, not a
+            // continuation — most runs plate straight away.
+            total: back + 0.6,
             alt:
               `Timeline. The EchoTherm goes on first and takes about ${COOL} minutes to reach ` +
               `${d.cold_C} °C; cells cannot be put down until it does. Plates warm, dry and are ` +
@@ -44,27 +44,24 @@ export default {
                 to: COOL,
                 gate: COOL
               },
-              { label: "plates: warm, dry, label", from: 0.5, to: WARM, gate: rescueEnd }
+              { label: "plates: warm, dry, label", from: 0.5, to: WARM, gate: back }
             ],
             waits: [
               {
                 from: t0,
                 to: back,
                 label: `${Math.round(back - t0)} min`,
-                sub: "bench work — below"
-              },
-              {
-                from: back,
-                to: rescueEnd,
-                label: `${d.rescue_h} h`,
-                sub: "rescue — only if not Amp/Carb",
-                variable: true
+                sub: "on the blocks — below"
               }
             ],
-            events: [
-              { at: t0, label: "cells", anchor: "start" },
-              { at: rescueEnd, label: "plate → incubator", anchor: "end" }
-            ],
+            events: [{ at: t0, label: "cells", anchor: "start" }],
+            fork: {
+              usual: { label: "plate → incubator", note: "Amp / Carb — usual" },
+              other: {
+                note: "any other selection",
+                label: `+ ${d.rescue_h} h rescue at ${d.incubation_temperature_C} °C, then plate`
+              }
+            },
             blowout: {
               from: t0 - 0.3,
               to: back + 0.3,
@@ -106,7 +103,7 @@ export default {
           // and that is the point of having it.
           "<b>Run the block sequence on the timeline above.</b>",
 
-          `<b>If your selection is anything other than Amp/Carb, rescue first:</b> add <b>${d.rescue_uL} µL 2YT</b>, move to a 1.5 mL tube, and shake at ${d.incubation_temperature_C} °C for <b>${d.rescue_h} h</b>.`,
+          `<b>Rescue only if the selection is not Amp/Carb:</b> add <b>${d.rescue_uL} µL 2YT</b>, move to a 1.5 mL tube, shake ${d.incubation_temperature_C} °C for <b>${d.rescue_h} h</b>.`,
 
           `Plate everything. Incubate <b>inverted</b> at ${d.incubation_temperature_C} °C overnight, and <b>cancel the temperature programs</b>.`
         ])
