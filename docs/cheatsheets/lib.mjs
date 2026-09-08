@@ -55,3 +55,49 @@ export function prog(lines) {
 
 /** A caveat. Marked by a rule and a bold lead-in so it survives a mono printer. */
 export const flag = (lead, rest) => `<p class="flag"><b>${lead}</b> ${rest}</p>`;
+
+/**
+ * A timeline strip: what you do above the line, what you wait for below it.
+ *
+ * Segments are `{ do: "label" }` for something you actively do, or
+ * `{ wait: "label", t: "10 min", min: <minutes> }` for something you wait through.
+ * Segment width comes from `min` on a log scale — a protocol here spans 30 s to
+ * overnight, and on a linear scale everything before the incubation collapses to a
+ * hairline. Log keeps the short steps legible while still reading as "this one is
+ * much longer".
+ *
+ * `background` items are things running concurrently the whole time, shown as a band
+ * above the strip. Pass `variable: true` on a segment whose duration is not fixed;
+ * it renders with a ~ and a dashed edge.
+ */
+export function timeline(segments, opts = {}) {
+  const weight = (s) => {
+    if (!s.min) return 1;
+    // log scale, floored so a 30 s step is still a visible slice
+    return Math.max(1, Math.round(10 * Math.log10(1 + s.min * 6)) / 10 + 0.6);
+  };
+
+  const band = opts.background
+    ? `<div class="tl-bg"><span class="tl-bg-k">meanwhile</span> ${opts.background}</div>`
+    : "";
+
+  const cells = segments
+    .map((s) => {
+      const isWait = !!s.wait;
+      const cls = ["tl-seg", isWait ? "tl-w" : "tl-d", s.variable ? "tl-var" : ""]
+        .filter(Boolean)
+        .join(" ");
+      const top = isWait ? "" : `<span class="tl-lab">${s.do}</span>`;
+      const bot = isWait
+        ? `<span class="tl-lab"><b>${s.t}</b>${s.wait === true ? "" : `<br>${s.wait}`}</span>`
+        : "";
+      return `<div class="${cls}" style="flex-grow:${weight(s)}">
+  <div class="tl-top">${top}</div>
+  <div class="tl-mid"><i></i></div>
+  <div class="tl-bot">${bot}</div>
+</div>`;
+    })
+    .join("");
+
+  return `<div class="tl">${band}<div class="tl-track">${cells}</div></div>`;
+}

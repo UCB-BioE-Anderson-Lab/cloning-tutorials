@@ -173,6 +173,77 @@ table.rx tr.tot td { border-top: 1px solid var(--rule); padding-top: .12rem; fon
 }
 .flag b { display: inline; }
 
+/* Timeline strip: actions above the line, waits below it. Waits are the filled
+   blocks, so the shape of the protocol — where the dead time is — reads at a glance
+   without reading a word. */
+.tl { break-inside: avoid; page-break-inside: avoid; margin: .05rem 0 .1rem; }
+
+.tl-bg {
+  font-size: .74em;
+  border: 1px dashed var(--rule);
+  border-radius: 2px;
+  padding: .08em .5em;
+  margin-bottom: .2em;
+  color: var(--ink);
+}
+
+.tl-bg-k {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  text-transform: uppercase;
+  font-size: .88em;
+  letter-spacing: .06em;
+  color: var(--muted);
+  margin-right: .4em;
+}
+
+.tl-track { display: flex; align-items: stretch; }
+
+.tl-seg { display: flex; flex-direction: column; min-width: 0; flex-basis: 0; }
+
+/* Tall enough for a two-line label, so an action label cannot spill across the
+   line into the wait row below it. */
+.tl-top { min-height: 2.3em; }
+.tl-bot { min-height: 1.4em; }
+.tl-top, .tl-bot { font-size: .72em; line-height: 1.15; }
+.tl-top { display: flex; align-items: flex-end; justify-content: center; padding: 0 .15em .18em; }
+.tl-bot { display: flex; align-items: flex-start; justify-content: center; padding: .18em .15em 0; }
+.tl-lab { text-align: center; }
+
+/* The line, plus the block hanging below it for a wait. The mid row has real
+   height so the bars occupy their own band instead of overlapping the labels. */
+.tl-mid { position: relative; height: .62em; border-top: 1.5px solid var(--ink); }
+.tl-mid > i { display: block; }
+
+.tl-w > .tl-mid > i {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  top: 0;
+  bottom: 0;
+  background: var(--ink);
+}
+
+/* A duration that is not fixed: hatched rather than solid. */
+.tl-var > .tl-mid > i {
+  background: repeating-linear-gradient(
+    45deg, var(--ink) 0 2px, transparent 2px 4px
+  ) !important;
+  border: 1px solid var(--ink);
+  border-top: none;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Something you do: a tick on the line, not a block. */
+.tl-d > .tl-mid > i {
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  width: 1.5px;
+  height: 7px;
+  background: var(--ink);
+}
+
 code {
   font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   font-size: .92em;
@@ -201,7 +272,9 @@ code {
 .foot .src { font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
 
 @media print {
-  @page { size: letter portrait; margin: 11mm; }
+  /* 9mm is inside the unprintable edge of every printer we use, and buys the
+     vertical room a timeline strip costs. */
+  @page { size: letter portrait; margin: 9mm; }
 
   /* Force the light palette: a dark-mode browser must not print white on black. */
   html, body { background: #fff !important; color: #000 !important; }
