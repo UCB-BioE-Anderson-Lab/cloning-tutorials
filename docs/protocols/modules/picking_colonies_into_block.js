@@ -81,9 +81,11 @@ ${overflow}
      the plate, or two colonies have grown into one.
    - **Which colonies to choose is set by the experiment** — brightest, smallest, largest,
      red, or deliberately naive. Your labsheet says which. There is no general rule.
-   - **Into a block, pick in the order given by your labsheet's grid.** Wells are identified
-     by position, so a block filled in a different order is silently scrambled — nothing
-     errors. Labelled tubes do not have this problem.
+   - **Into a block, fix the order before you start and write it down.** Wells are identified
+     by **position**, not by anything written on the block, so if your record and the block
+     disagree the results are silently scrambled — nothing errors. Use the grid on your
+     labsheet if it has one; **if it does not, draw the grid yourself** and keep it with the
+     block. Labelled tubes do not have this problem.
 5. **Cover.** Tubes: their caps, loosely, so they can breathe. Block: the **airpore sheet**.
 6. Grow in the **shaking incubator**, **${GROW_MIN_H}–${GROW_MAX_H} h**. Refrigerate by
    **${GROW_MAX_H} h** — past that the cultures overgrow.

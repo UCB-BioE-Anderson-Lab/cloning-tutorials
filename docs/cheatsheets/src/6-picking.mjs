@@ -14,9 +14,8 @@ export default {
       blk(
         "Protocol",
         steps([
-          "<b>Photograph the plates twice</b> — under <b>blue-light transillumination</b> and " +
-            "under <b>ambient light</b>. Save both. Once you have picked, these are the only " +
-            "record of what the colonies looked like.",
+          "<b>Photograph the plates twice</b> — <b>blue-light transillumination</b> and <b>ambient " +
+            "light</b>. Save both; once you have picked, these are the only record.",
 
           `<b>Tubes or a block.</b> Up to <b>${d.max_tubes} cultures</b>: snap-cap tubes, each ` +
             `labelled with its clone ID. More than that: a <b>${d.block_wells}-well block</b>, ` +
@@ -26,17 +25,14 @@ export default {
 
           `Pick <b>${d.colonies_per_sample} colonies from each plate</b>: touch a sterile toothpick to a single colony and drop it in. It stays there.` +
             bullets([
-              "<b>Pick the ones that are easy to pick and look healthy</b> — well separated, round and smooth. Big and well isolated is usually best.",
-              "<b>Avoid contorted or smudgy colonies.</b> That look means water has seeped across the plate, or two colonies have grown into one.",
+              "<b>Pick ones that are easy to pick and look healthy</b> — well separated, round and smooth. Big and well isolated is usually best. Contorted or smudgy means water seepage, or two colonies grown into one.",
               "<b>Which colonies to choose is set by the experiment</b> — brightest, smallest, largest, red, or deliberately naive. <b>Your labsheet says which.</b>",
-              "<b>Into a block, follow the grid on your labsheet.</b> Wells are identified by position, so a block filled in a different order is silently scrambled — nothing errors. Labelled tubes do not have this problem."
+              "<b>Into a block, fix the order before you start and write it down.</b> Wells go by position, so if your record and the block disagree the results are silently scrambled — nothing errors. Use your labsheet grid if it has one; <b>if not, draw one yourself</b> and keep it with the block. Tubes do not have this problem."
             ]),
 
-          "<b>Cover.</b> Tubes: caps on loosely, so they can breathe. Block: the airpore sheet.",
+          `<b>Cover</b> — tubes: caps on loosely so they breathe; block: the airpore sheet — and grow in the <b>shaking incubator</b>, <b>${d.grow_min_h}–${d.grow_max_h} h</b>. Fridge by <b>${d.grow_max_h} h</b> or they overgrow.`,
 
-          `Grow in the <b>shaking incubator</b>, <b>${d.grow_min_h}–${d.grow_max_h} h</b>. Into the fridge by <b>${d.grow_max_h} h</b> — past that they overgrow.`,
-
-          "<b>Parafilm the plates</b> and store them <b>upside-down in the fridge</b> — you may need to go back to them."
+          "<b>Parafilm the plates</b>, store them <b>upside-down in the fridge</b> — you may need them again."
         ])
       )
     ];

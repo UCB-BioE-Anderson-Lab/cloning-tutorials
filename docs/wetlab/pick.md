@@ -56,9 +56,10 @@ into each tube. It is not always carbenicillin.
 
 > **Tubes or a block.** Up to 4 cultures, use individual snap-cap tubes as described here — each
 > carries its own label, so the order you pick in does not matter. For more than that, use a
-> 24-well block instead: its wells are identified by **position**, so you must pick in the order
-> given by the grid on your lab sheet, and the labels go on the airpore sheet rather than the
-> block.
+> 24-well block instead: its wells are identified by **position**, so fix the picking order
+> before you start and write it down — use the grid on your lab sheet if it has one, and if it
+> does not, draw the grid yourself and keep it with the block. Labels go on the airpore sheet
+> rather than on the block.
 
 **Step 4:** Pick each marked colony using a sterile toothpick and inoculate it by dropping the toothpick directly into the labeled tube (do not remove the toothpick).
 

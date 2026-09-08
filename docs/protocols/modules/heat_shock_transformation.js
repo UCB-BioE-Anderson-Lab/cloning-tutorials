@@ -57,7 +57,8 @@ export function factory(values = {}) {
 **Plates and labeling**
 - You will need **at least 1 petri dish** per transformation containing the required antibiotic(s) or additive(s).
 - If selecting with an **Amp/Bla** marker, use the **carbenicillin** plates stocked in the fridge.
-- For any other selection, prepare plates:
+- For any other selection, **ask a supervisor for plates**. Pouring plates needs the flame, and
+  **only supervisors may use it** — students cannot pour their own.
 {pouring_petri_dishes}
 
 **Warm and label**
