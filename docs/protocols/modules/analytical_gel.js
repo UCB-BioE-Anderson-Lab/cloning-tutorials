@@ -17,6 +17,21 @@ const LOAD = {
   stain_uL: 1
 };
 
+// Timing — see docs/protocols/TIMING.txt. Minutes.
+export const timing = {
+  ends_at: "imaging the gel",
+  work: [],
+  wait: [
+    // Never formally timed; you watch the dye front rather than a clock.
+    { label: "run, watching the blue front", min: 10, max: 20 }
+  ],
+  limits: [],
+  unknown: [
+    "sample prep and loading time",
+    "the run has never been timed precisely — 10-20 min is an estimate"
+  ]
+};
+
 export const inputs = [
   { name: "samples", type: "number", label: "Number of samples", default: 1, step: 1 },
   { name: "agarose_pct", type: "number", label: "Agarose (%)", default: 1, step: 0.1 },

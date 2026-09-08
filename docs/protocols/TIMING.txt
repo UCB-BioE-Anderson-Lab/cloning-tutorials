@@ -1,0 +1,84 @@
+PROTOCOL TIMING DATA — schema and intent
+========================================
+
+WHY THIS EXISTS
+---------------
+A protocol module says what to do. It does not say how long you will be standing
+there, which of that time you are actually busy, what has to be started early, or
+which steps go wrong if you are late rather than merely slow.
+
+That information existed only in JCA's head. It is captured here so it survives,
+whether or not anything is ever built on top of it.
+
+Two things it is already good for:
+
+  - Telling a student "this is an afternoon, not a coffee break" before they
+    start. GG1 alone is over three hours.
+  - Drawing the timing strip on a bench cheatsheet. The transformation card is
+    drawn from these numbers.
+
+And one thing it is meant for later: scheduling. Earliest-start / latest-start
+over the dependencies gives you slack and a critical path, which is what turns
+"start the plates warming first" from advice into something computed.
+
+
+THE SHAPE
+---------
+A module may export `timing` alongside `inputs` and `factory`:
+
+  export const timing = {
+    ends_at: "putting the reactions in the thermocycler",
+
+    prep:  [ { label, min, max, gates } ],   // start-early, runs concurrently
+    work:  [ { label, min, max, each } ],    // hands-on, you are busy
+    wait:  [ { label, min, max } ],          // unattended, you are free
+    limits:[ { step, min, max, why } ],      // hard windows, not targets
+    unknown: [ "what has never been measured" ]
+  };
+
+EVERY DURATION IS IN MINUTES. Use fractions for seconds (90 s is 1.5). One unit
+throughout means totals are just addition, and nothing has to be parsed.
+
+  min / max   A range where the thing genuinely varies. Equal values mean fixed.
+              `min` alone means a floor with no known ceiling.
+
+  each        For work that scales: `{ label: "pick a colony", min: 0.33,
+              each: "colony" }` is 20 s per pick, not 20 s total. The count comes
+              from the module's own inputs, so the two stay consistent.
+
+  gates       On a prep item: what it blocks. The EchoTherm gates putting cells
+              down; the plates gate plating. This is the dependency, and it is
+              the part a numbered list cannot express.
+
+  limits      A window where BOTH ends are failures, and both are silent. Rescue
+              under 45 min has not expressed; over 2 h has outgrown. Neither
+              throws an error, and both look like an ordinary bad result days
+              later. These are the most valuable entries here.
+
+  unknown     Say so out loud. A scheduler built on invented numbers is worse
+              than no scheduler, because it is confidently wrong. Anything not
+              measured belongs in this list rather than in a plausible-looking
+              `min`.
+
+
+PROVENANCE
+----------
+Unless a comment says otherwise, the numbers came from JCA on 2026-09-07, in
+answer to a direct list of questions. Where he said he had never timed something
+(the gel run is the clear case) that is recorded as a range with a note, not
+sharpened into a false precision.
+
+Two numbers that WERE invented, and were wrong, are worth remembering as a
+caution: the EchoTherm cooldown was guessed at 15 min and is about 2, and the
+plates at 24 min and are about 10. The guesses inverted which one you should
+start first, and the to-scale drawing built on them confidently told students the
+wrong thing.
+
+
+CHECKING IT
+-----------
+  node docs/protocols/check_timing.mjs
+
+Validates the shape of every `timing` export and prints a work/wait summary per
+protocol. It fails on a malformed entry; it does not and cannot tell you whether
+a number is true.

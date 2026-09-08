@@ -1,6 +1,33 @@
 // heat_shock_transformation.js
 // KCM heat-shock transformation (E. coli), parameterized for plasmid, host, antibiotics, incubation temp, and product name.
 
+// Timing — see docs/protocols/TIMING.txt. Minutes.
+export const timing = {
+  ends_at: "plates into the incubator",
+  prep: [
+    { label: "EchoTherm to 4 C and 42 C", min: 2, gates: "putting cells down" },
+    { label: "plates warming in the incubator", min: 10, gates: "labelling, and plating" }
+  ],
+  work: [
+    // The variable part: depends on sample count and experience.
+    { label: "thaw, KCM, distribute cells to DNA", min: 10, max: 10 }
+  ],
+  wait: [
+    { label: "cold block", min: 10, max: 10 },
+    { label: "heat shock", min: 1.5, max: 1.5 },
+    { label: "back on the cold block", min: 1, max: 1 }
+  ],
+  limits: [
+    {
+      step: "rescue",
+      min: 45,
+      max: 120,
+      why: "under 45 min the resistance gene has not expressed; past 2 h the culture outgrows. Both fail silently."
+    }
+  ],
+  unknown: ["plating time per plate"]
+};
+
 export const inputs = [
   { name: "plasmid", type: "text", label: "Plasmid", default: "plasmid_name" },
   { name: "host", type: "text", label: "Host strain", default: "Mach1" },

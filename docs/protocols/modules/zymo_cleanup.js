@@ -6,6 +6,24 @@
 // the start puts an empty, labelled 1.5 mL tube on the bench during the ADB transfers, and
 // it gets the ADB.
 
+// Timing — see docs/protocols/TIMING.txt. Minutes.
+export const timing = {
+  ends_at: "eluting into the labelled tube",
+  work: [
+    // Quick spins with little gap between them; the handling is the time.
+    { label: "handling between spins", min: 1, max: 2, each: "spin" }
+  ],
+  wait: [
+    { label: "bind spin", min: 0.25, max: 0.25 },
+    { label: "PE wash spin", min: 0.25, max: 0.25 },
+    { label: "PE wash spin", min: 0.25, max: 0.25 },
+    { label: "dry spin", min: 1.5, max: 1.5 },
+    { label: "elution spin", min: 0.75, max: 0.75 }
+  ],
+  limits: [],
+  unknown: []
+};
+
 export const inputs = [
   { name: "reactions", type: "number", label: "Number of reactions to clean", default: 1, step: 1 },
   { name: "sample_uL", type: "number", label: "Reaction volume to clean (µL)", default: 50, step: 5 },

@@ -5,6 +5,18 @@
 // to 2.66 µM so that 3 µL is one reaction's worth of primer; the other 10 µL is DNA plus
 // water, and how much of it is DNA depends on the plasmid's copy number.
 
+// Timing — see docs/protocols/TIMING.txt. Minutes.
+export const timing = {
+  ends_at: "submitting the tubes",
+  work: [],
+  wait: [{ label: "facility turnaround", min: 24 * 60, max: 48 * 60 }],
+  limits: [],
+  unknown: [
+    "setup time per reaction",
+    "the daily submission cutoff — roughly 6 pm, not confirmed, and it decides whether results come back next day or the day after"
+  ]
+};
+
 export const inputs = [
   { name: "samples", type: "number", label: "Number of reads", default: 8, step: 1 },
   { name: "primer", type: "text", label: "Sequencing primer", default: "G00101" },

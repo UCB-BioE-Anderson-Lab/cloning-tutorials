@@ -1,6 +1,18 @@
 // primestar_pcr.js
 // Minimal, computed protocol with inputs for number of reactions and names.
 
+// Timing — see docs/protocols/TIMING.txt. Minutes.
+export const timing = {
+  ends_at: "starting the thermocycler program",
+  work: [],
+  wait: [
+    // Roughly an hour per kb of amplicon: 1 kb ~1 h, 2 kb ~2 h, 4 kb ~4 h.
+    { label: "thermocycler, ~1 h per kb of product", min: 60, max: 240 }
+  ],
+  limits: [],
+  unknown: ["hands-on setup time, for one reaction and for a master mix"]
+};
+
 export const inputs = [
   { name: "reactions", type: "number", label: "Number of PCRs (50 µL each)", default: 1, step: 1 },
   { name: "template_name", type: "text", label: "Template", default: "template_dna" },
