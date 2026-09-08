@@ -125,10 +125,18 @@ The closing 60 °C is NOT heat inactivation. It favours Type IIS cutting in the
 absence of ligation, so any destination plasmid that was never cut, or that
 religated, is linearised — which is what keeps transformation background down.
 
-THIS DOES NOT MATCH the thermocycler's stored main/GG1, which runs
-25 × (37 °C 2 min / 16 °C 5 min) then 45 °C 10 min and 80 °C 10 min. Either
-reprogram GG1 to match NEB, or students must set the program by hand. The sheet
-says so explicitly. Resolve this before the next cohort runs an assembly.
+The thermocycler's stored main/GG1 is the same cut/ligate cycling with different
+numbers: 25 × (37 °C 2 min / 16 °C 5 min), then 45 °C 10 min and 80 °C 10 min.
+Its cycling is more generous than NEB's, so assembly itself is not the issue.
+
+The ending is the real difference, and it is not cosmetic. 80 °C inactivates
+BsaI, so any destination plasmid that was never cut, or that religated, survives
+to transform — that is background. NEB's 60 °C leaves BsaI active and destroys
+it. GG1 should give more background colonies than NEB's program.
+
+GG1's exact parameters above come from the 2025 printed bench card, the only
+written record of it anywhere. Worth confirming against the machine, and worth
+deciding whether to reprogram the tail to 60 °C 5 min.
 
 
 OPEN ITEMS

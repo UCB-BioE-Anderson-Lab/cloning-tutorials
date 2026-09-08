@@ -12,10 +12,15 @@
 // The closing 60 °C favours Type IIS cutting without ligation, so any uncut or religated
 // destination plasmid is linearised and the transformation background drops.
 //
-// This differs from the program historically loaded on our thermocycler as main/GG1
-// (25 × 37/16, then 45 °C 10 min and 80 °C 10 min). See the note in the template.
-// docs/wetlab/assembly.md describes a third ending (extended 37 °C then 65 °C) and is
-// wrong on every count.
+// Our thermocycler's stored main/GG1 is the same cut/ligate cycling, with different
+// numbers: 25 × (37 °C 2 min → 16 °C 5 min), then 45 °C 10 min and 80 °C 10 min. Both are
+// valid Golden Gate programs and GG1's cycling is if anything more generous than NEB's.
+// The ending is the real difference, and it is not cosmetic — see the note in the template.
+// (GG1's parameters here come from the 2025 printed bench card, the only written record of
+// it; worth confirming against the machine.)
+//
+// docs/wetlab/assembly.md describes a third ending (extended 37 °C then 65 °C) that matches
+// neither, and is wrong.
 
 export const inputs = [
   { name: "reactions", type: "number", label: "Number of reactions", default: 1, step: 1 },
@@ -85,9 +90,11 @@ ${prog.cycles > 0 ? `- Repeat **${prog.cycles}×**: **37 °C ${prog.cut_min} min
 - The closing **60 °C** is not an inactivation step. It favours ${enzyme} cutting **without**
   ligation, so any destination plasmid that was never cut, or that religated, gets linearised.
   That is what keeps the background colonies down. Do not skip it.
-- **Check what your thermocycler's stored program actually does.** Our \`main/GG1\` predates
-  this and ends differently (45 °C 10 min, then 80 °C 10 min). Either reprogram it to match
-  the above, or set the program by hand.
+- **\`main/GG1\` is the same idea, with different numbers:** 25 × (37 °C 2 min → 16 °C 5 min),
+  then 45 °C 10 min and 80 °C 10 min. The cycling is fine — longer than NEB's, if anything.
+  The ending is what differs: **80 °C kills ${enzyme}**, so any vector that was never cut, or
+  that religated, survives to transform. NEB's 60 °C leaves ${enzyme} cutting and destroys it.
+  Expect more background colonies from GG1.
 - Ideally the DNAs are mixed **equimolar**. If your preps are consistent, do not bother normalizing.
 - Miniprepped, gel-purified and Zymo-cleaned DNA all work.
 - Buffer must end up at **1×**. Scale up or down around that.

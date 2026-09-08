@@ -78,9 +78,10 @@ export default {
           "Scaling up or down is fine as long as the buffer ends at <b>1×</b> and the DNA is not so concentrated that it inhibits the ligase."
         ]),
         flag(
-          "Check the stored program.",
-          "Our <code>main/GG1</code> predates this and ends differently — 45 °C 10 min, then " +
-            "80 °C 10 min. Either reprogram it to match the above, or set the program by hand."
+          "<code>GG1</code> is the same idea, different numbers.",
+          "25 × (37 °C 2 min → 16 °C 5 min), then 45 °C 10 min and 80 °C 10 min. The cycling " +
+            `is fine. The ending differs: <b>80 °C kills ${d.enzyme}</b>, so vector that was ` +
+            "never cut or that religated survives to transform. Expect more background."
         )
       )
     ];
