@@ -178,6 +178,9 @@ table.rx tr.tot td { border-top: 1px solid var(--rule); padding-top: .12rem; fon
    without reading a word. */
 .tl { break-inside: avoid; page-break-inside: avoid; margin: .05rem 0 .1rem; }
 
+/* The callout panel is a grey fill, so it has to survive the print pipeline. */
+.tl svg { display: block; width: 100%; height: auto; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
 .tl-bg {
   font-size: .74em;
   border: 1px dashed var(--rule);

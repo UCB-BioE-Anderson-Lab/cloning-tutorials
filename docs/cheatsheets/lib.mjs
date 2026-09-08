@@ -98,6 +98,10 @@ export function scaleTimeline(spec) {
   <rect width="7" height="7" fill="#fff"/><rect width="3.2" height="7" fill="currentColor"/></pattern>`;
 
   const out = [];
+  // Dependency droplines are collected and drawn after every lane, so a line from an
+  // upper lane is not buried under a lower lane's bar. Each gets a white casing so it
+  // reads cleanly where it crosses one.
+  const gates = [];
 
   // Prep lanes: hatched because "until it is ready" is not a fixed duration.
   spec.prep.forEach((p, i) => {
@@ -112,15 +116,23 @@ export function scaleTimeline(spec) {
       `<rect x="${(x0 + 3).toFixed(1)}" y="${y + 0.8}" width="${lw.toFixed(1)}" height="12.4" fill="#fff"/>`,
       `<text x="${(x0 + 8).toFixed(1)}" y="${y + 11}" font-size="15.5" font-weight="700">${p.label}</text>`
     );
-    // the dependency: a dropline to the point on the main track this unblocks
+    // The dependency: a dropline to the point on the main track this unblocks. When the
+    // thing finishes well before it is needed — plates are warm long before you plate —
+    // a dotted run carries it along to that point, rather than the line appearing to
+    // start in empty space.
     if (p.gate !== undefined) {
       const gx = x(p.gate);
-      out.push(
-        `<path d="M${gx.toFixed(1)} ${y + 14} V ${mainY - 16}" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>`,
-        `<path d="M${(gx - 4).toFixed(1)} ${mainY - 22} L${gx.toFixed(1)} ${mainY - 15} L${(gx + 4).toFixed(1)} ${mainY - 22} Z" fill="currentColor"/>`
+      const carry = gx > x1 + 2 ? `M${x1.toFixed(1)} ${y + 7} H ${gx.toFixed(1)} ` : "";
+      gates.push(
+        `<path d="${carry}M${gx.toFixed(1)} ${y + 7} V ${mainY - 9}" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3" fill="none"/>`,
+        `<path d="M${(gx - 4).toFixed(1)} ${mainY - 9} L${gx.toFixed(1)} ${mainY - 2} L${(gx + 4).toFixed(1)} ${mainY - 9} Z" fill="currentColor"/>`
       );
     }
   });
+
+  // Behind the lanes, so a line crossing a lower bar passes under it instead of
+  // cutting a white gap through that bar's label.
+  out.unshift(...gates);
 
   // Main track. It stops where the timed session ends; a tail, if any, is drawn past a break.
   const axisEnd = spec.tail ? PAD + inner : W - PAD;
@@ -164,11 +176,15 @@ export function scaleTimeline(spec) {
     }
   }
 
+  // Event labels are nudged clear of the tick. A dependency dropline lands on the same x,
+  // and a label anchored exactly there gets a dashed line and an arrowhead through it.
   for (const e of spec.events) {
     const ex = x(e.at);
+    const anchor = e.anchor || "middle";
+    const off = anchor === "start" ? 9 : anchor === "end" ? -9 : 0;
     out.push(
       `<line x1="${ex.toFixed(1)}" y1="${mainY - 7}" x2="${ex.toFixed(1)}" y2="${mainY}" stroke="currentColor" stroke-width="2"/>`,
-      `<text x="${ex.toFixed(1)}" y="${mainY - 12}" font-size="17" text-anchor="${e.anchor || "middle"}">${e.label}</text>`
+      `<text x="${(ex + off).toFixed(1)}" y="${mainY - 12}" font-size="17" text-anchor="${anchor}">${e.label}</text>`
     );
   }
 
@@ -182,9 +198,14 @@ export function scaleTimeline(spec) {
     const bInner = W - PAD * 2;
     const bx = (t) => PAD + ((t - b.from) / span) * bInner;
 
+    // The callout reads as an inset: a grey wedge fanning out of the bracketed range
+    // into a grey panel holding the expanded track.
+    out.unshift(
+      `<path d="M${bx0.toFixed(1)} ${brack} L${bx1.toFixed(1)} ${brack} L${W - PAD} ${blowTop} L${PAD} ${blowTop} Z" fill="#e9ecef"/>`,
+      `<rect x="${PAD}" y="${blowTop}" width="${(W - PAD * 2).toFixed(1)}" height="${(H - 4 - blowTop).toFixed(1)}" fill="#e9ecef" rx="3"/>`
+    );
     out.push(
-      `<path d="M${bx0.toFixed(1)} ${brack - 6} L${bx0.toFixed(1)} ${brack} L${bx1.toFixed(1)} ${brack} L${bx1.toFixed(1)} ${brack - 6}" fill="none" stroke="currentColor" stroke-width="1.5"/>`,
-      `<path d="M${bx0.toFixed(1)} ${brack} L${PAD} ${blowTop} M${bx1.toFixed(1)} ${brack} L${W - PAD} ${blowTop}" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>`,
+      `<path d="M${bx0.toFixed(1)} ${brack - 7} L${bx0.toFixed(1)} ${brack} L${bx1.toFixed(1)} ${brack} L${bx1.toFixed(1)} ${brack - 7}" fill="none" stroke="currentColor" stroke-width="1.8"/>`,
       `<line x1="${PAD}" y1="${blowY}" x2="${W - PAD}" y2="${blowY}" stroke="currentColor" stroke-width="2"/>`
     );
 
