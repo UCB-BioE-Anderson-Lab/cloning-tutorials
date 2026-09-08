@@ -1,6 +1,11 @@
 <script src="https://cdn.jsdelivr.net/npm/c6-sim@1.0.11/dist/c6-sim.min.js"></script>
 
 # Golden Gate Assembly
+
+<!-- cheatsheet -->
+!!! tip "Bench cheatsheet"
+    Setting one up at the bench? **[Print the one-page cheatsheet](../cheatsheets/goldengate.pdf)** —
+    or the [whole set](../cheatsheets/all-cheatsheets.pdf).
  
  In previous tutorials, we built the **pET-INS** plasmid using both traditional restriction enzyme cloning and Gibson Assembly. In this tutorial, you'll use **Golden Gate Assembly** to build the same construct—while learning how this method enables precise, scar-controlled, multi-part DNA construction.
  

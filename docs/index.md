@@ -12,11 +12,13 @@ The tutorials are organized into three parts:
 
 Each tutorial includes embedded quizzes, videos, and progress tracking. This platform supports students, researchers, and anyone seeking a rigorous, hands-on introduction to synthetic biology.
 
-## Bench Cheatsheets
+## [Bench Cheatsheets](cheatsheets.md)
 
 One-page printable summaries to take to the bench. Each is generated from the same protocol
 module the [Protocol Builder](protocols/protocols.md) uses, so a cheatsheet and the protocol it
 comes from cannot disagree.
+
+**[⬇ Print all eight in one file](cheatsheets/all-cheatsheets.pdf)**, or take them individually:
 
 | Cheatsheet | Tutorial |
 |---|---|
