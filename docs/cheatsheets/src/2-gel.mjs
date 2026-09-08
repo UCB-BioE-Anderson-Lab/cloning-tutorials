@@ -44,14 +44,12 @@ export default {
       blk(
         "Run",
         p("<b>Run to red.</b> DNA is negative and moves to the red electrode, so load at the black end."),
-        p(`Run at <b>${d.voltage_V} V</b> for <b>~${d.run_min} min</b>, or until the blue front is <b>2/3–3/4 down the gel</b>.`),
-        !d.run_confirmed
-          ? flag(
-              "Watch the gel, not the clock.",
-              `${d.voltage_V} V for ${d.run_min} min has not been re-measured on the B144 power supply ` +
-                `and rigs. The dye front is the real endpoint. Tell your supervisor what actually worked.`
-            )
-          : null
+        p(`Run at <b>${d.voltage_V} V</b>. It takes about <b>${d.run_min} min</b>.`),
+        flag(
+          "Do not set a timer and walk away.",
+          "Check the gel <b>every minute or so</b> and watch how the blue band is progressing. " +
+            "Stop it when the front is <b>2/3–3/4 down the gel</b> — that is the endpoint, not the clock."
+        )
       ),
 
       blk(

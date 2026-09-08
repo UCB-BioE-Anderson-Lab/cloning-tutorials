@@ -1,36 +1,51 @@
 // cycle_sequencing.js
 // Submit a miniprepped plasmid for Sanger (cycle) sequencing and check the read that comes back.
 //
-// Sources: docs/wetlab/sequencing.md for the analysis, and the Tlib3 labsheets
-// (Pimar, experiments/TPcon6/Tlib3/bin/09_write_labsheets.py, 2026-09-02) for the
-// primer and the dGTP chemistry.
-//
-// STILL MISSING — needs JCA. The submission mix itself is recorded nowhere: DNA amount,
-// primer volume, total volume, the facility and its tube-labelling convention. Those
-// inputs default to blank and render as rules to write on. Fill in the defaults once
-// they are confirmed and every sheet picks them up on the next build.
+// Submission is always 13 µL total in a 1.5 mL tube. Our sequencing oligos are standardised
+// to 2.66 µM so that 3 µL is one reaction's worth of primer; the other 10 µL is DNA plus
+// water, and how much of it is DNA depends on the plasmid's copy number.
 
 export const inputs = [
   { name: "samples", type: "number", label: "Number of reads", default: 8, step: 1 },
   { name: "primer", type: "text", label: "Sequencing primer", default: "G00101" },
   { name: "chemistry", type: "text", label: "Chemistry", default: "dGTP" },
-  { name: "dna_uL", type: "number", label: "DNA per reaction (µL)", default: "" },
-  { name: "primer_uL", type: "number", label: "Primer per reaction (µL)", default: "" },
-  { name: "total_uL", type: "number", label: "Total volume submitted (µL)", default: "" },
-  { name: "facility", type: "text", label: "Sequencing facility", default: "" }
+  { name: "copy_number", type: "text", label: "Copy number (medium / high / low)", default: "medium" }
 ];
+
+// 13 µL total: 3 µL primer + 10 µL of DNA and water.
+const TOTAL_UL = 13;
+const PRIMER_UL = 3;
+const PRIMER_UM = 2.66;
+const DNA_PLUS_WATER_UL = TOTAL_UL - PRIMER_UL;
+
+const COPY = {
+  medium: {
+    dna_uL: 10,
+    label: "medium copy",
+    examples: "pBR322, pAC plasmids — and **pP6**"
+  },
+  high: {
+    dna_uL: 4,
+    label: "high copy",
+    examples: "pUC plasmids"
+  },
+  low: {
+    dna_uL: null, // do not sequence the plasmid directly
+    label: "low copy",
+    examples: "pSC101, BACs"
+  }
+};
 
 export function factory(values = {}) {
   const n = Math.max(1, Number(values?.samples ?? 8));
   const primer = String(values?.primer ?? "G00101");
   const chemistry = String(values?.chemistry ?? "dGTP");
-  const dna = blankable(values?.dna_uL);
-  const primerVol = blankable(values?.primer_uL);
-  const total = blankable(values?.total_uL);
-  const facility = String(values?.facility ?? "").trim();
 
-  const complete = dna !== null && primerVol !== null && total !== null;
-  const amt = (v) => (v === null ? "____ µL" : `**${v} µL**`);
+  const key = String(values?.copy_number ?? "medium").trim().toLowerCase();
+  const copy = COPY[key] ?? COPY.medium;
+  const dna = copy.dna_uL;
+  const water = dna === null ? null : DNA_PLUS_WATER_UL - dna;
+  const needsPcr = dna === null;
 
   return {
     name: "Cycle Sequencing",
@@ -40,11 +55,14 @@ export function factory(values = {}) {
       samples: n,
       primer,
       chemistry,
+      total_uL: TOTAL_UL,
+      primer_uL: PRIMER_UL,
+      primer_uM: PRIMER_UM,
       dna_uL: dna,
-      primer_uL: primerVol,
-      total_uL: total,
-      facility: facility || null,
-      submission_complete: complete
+      water_uL: water,
+      copy_number: key in COPY ? key : "medium",
+      copy_label: copy.label,
+      needs_pcr: needsPcr
     },
     template: `
 **What you get**
@@ -53,43 +71,56 @@ downstream** of the primer and gives **400–1000 bp** of usable sequence. Choos
 **upstream** of the region you care about. For pP6 that is **${primer}**.
 
 **Use the ${chemistry} protocol**
-Not the standard chemistry. Standard chemistry **dies inside a hairpin** — a terminator or
-any strong secondary structure stops the read dead. This cost Tlib2 an entire sequencing run.
+Not the standard chemistry. Standard chemistry **dies inside a hairpin** — a terminator, or
+any strong secondary structure, stops the read dead. This cost Tlib2 an entire sequencing run.
 
-**Set up ${n} read${n > 1 ? "s" : ""}**
-1. Per reaction, combine ${amt(dna)} miniprepped plasmid and ${amt(primerVol)} ${primer},
-   to ${amt(total)} total.
-2. Label each tube with its clone ID (\`79A\`, and so on)${facility ? ` in the format ${facility} requires` : ``}.
-3. Specify the **${chemistry} protocol** on the submission form.
-4. Submit${facility ? ` to **${facility}**` : ``}. Results come back in **1–2 days**.
-${!complete ? `
-> **The submission recipe is not filled in.** Volumes, DNA concentration and the facility's
-> labelling convention are not recorded anywhere in the course materials. Get them from your
-> supervisor before setting these up, and write them down so the next person has them.
-` : ``}
+**Submission — ${TOTAL_UL} µL total, in a 1.5 mL tube**
+${needsPcr ? `
+> **${copy.label} (${copy.examples}): do not sequence the plasmid directly.**
+> There is not enough template. **PCR the region first**, clean up the product, and submit
+> the PCR product in place of the miniprep.
+` : `
+- **${PRIMER_UL} µL** ${primer} — our sequencing oligos are standardised to **${PRIMER_UM} µM**,
+  so ${PRIMER_UL} µL is exactly one reaction's worth
+- **${dna} µL** miniprep DNA *(${copy.label}: ${copy.examples})*
+${water > 0 ? `- **${water} µL** water\n` : ``}
+That is **${TOTAL_UL} µL**. The primer is always ${PRIMER_UL} µL; the remaining
+${DNA_PLUS_WATER_UL} µL is DNA and water.
+`}
+**How much DNA depends on copy number**
+- **Medium copy** — pBR322, pAC plasmids, and **pP6**: **10 µL** of miniprep.
+- **High copy** — pUC plasmids: about **4 µL** of miniprep, made up to ${DNA_PLUS_WATER_UL} µL with water.
+- **Low copy** — pSC101, BACs: **PCR first** and sequence the PCR product.
+
+**Tubes and labelling**
+- **1.5 mL tubes. Not PCR tubes.**
+- Label the **top** of the tube.
+- The label must be **the exact name you put on the submission form** — not an abbreviation,
+  and not a name that only makes sense to you. The facility matches tube to form by that string.
+
 **Sequence everything you picked**
-Include the clones that look boring. The ones in the **middle of the range** are the
+Including the clones that look boring. The ones in the **middle of the range** are the
 informative ones — Tlib2 sequenced only its brightest and left its main question unanswered
-for three years.
+for three years. Results come back in **1–2 days**.
 
 **Check the read**
 You get a \`.txt\` of base calls (the *read*) and an \`.ab1\` chromatogram (the *trace*).
 Open both in **ApE** or Benchling; \`ctrl-K\` in ApE annotates known features.
 
-5. Is the read **clean**? How long is the stretch with no Ns — 100 bp is poor,
+1. Is the read **clean**? How long is the stretch with no Ns — 100 bp is poor,
    800 bp good, 1000 bp great.
-6. Look for the architecture **BseRI → variable promoter → BseRI**. Exactly **two** BseRI sites.
-7. Check the **T4 terminator** is there, and that the promoter is not duplicated,
+2. Look for the architecture **BseRI → variable promoter → BseRI**. Exactly **two** BseRI sites.
+3. Check the **T4 terminator** is there, and that the promoter is not duplicated,
    reversed or truncated.
-8. Align to \`pP6.seq\` (**Tools → Align with another sequence…**). Look for 100% identity
+4. Align to \`pP6.seq\` (**Tools → Align with another sequence…**). Look for 100% identity
    around the promoter.
-9. Search the read for the target motif. If it is there and the read is clean, the clone
+5. Search the read for the target motif. If it is there and the read is clean, the clone
    is **usable**:
    \`\`\`
    GAGGAGTCCTGGGTTCNNNNTTGACANNNNNNNNNNNNNNNNNTATAATNNNNNNANNNNGTTAGTATTTCTCCTC
    \`\`\`
-10. Record each clone: **exp**, **clone_id**, **student_name**, **read_name**,
-    **date_sequenced**, **canonical**, **usable**, **cassette**, **notes**.
+6. Record each clone: **exp**, **clone_id**, **student_name**, **read_name**,
+   **date_sequenced**, **canonical**, **usable**, **cassette**, **notes**.
 
 **Notes**
 - **canonical** means it matches \`pP6.seq\` across the good-quality region. **usable** means
@@ -99,10 +130,4 @@ Open both in **ApE** or Benchling; \`ctrl-K\` in ApE annotates known features.
   designed member, record it as an artifact and exclude it rather than forcing it in.
 `
   };
-}
-
-function blankable(v) {
-  if (v === undefined || v === null || v === "") return null;
-  const n = Number(v);
-  return Number.isFinite(n) ? n : null;
 }

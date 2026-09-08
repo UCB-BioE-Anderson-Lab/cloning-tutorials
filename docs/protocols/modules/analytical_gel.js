@@ -4,10 +4,9 @@
 // This is the RUNNING protocol. Casting the 500 mL slabs the gels are cut from is a
 // separate procedure: see preparation_of_agarose_gels.
 //
-// Run conditions: 175 V for ~10 min comes from docs/wetlab/gel.md and is repeated in the
-// Tlib3 labsheets (Pimar, 2026-09-02), which were written after the move to B144. It has
-// not been measured on the new power supply and new rigs, so it is marked unconfirmed and
-// the dye front is given as the real endpoint. Set `run_confirmed` once someone checks it.
+// Run conditions: 175 V, about 10 min. The time is an expectation, not a setting — you
+// watch the blue front and stop when it is 2/3 to 3/4 down the gel. Nobody sets a timer
+// and walks away.
 
 export const inputs = [
   { name: "samples", type: "number", label: "Number of samples", default: 1, step: 1 },
@@ -16,8 +15,7 @@ export const inputs = [
   { name: "sample_uL", type: "number", label: "PCR product per sample (µL)", default: 3, step: 1 },
   { name: "load_uL", type: "number", label: "Volume loaded per well (µL)", default: 9, step: 1 },
   { name: "voltage_V", type: "number", label: "Run voltage (V)", default: 175, step: 5 },
-  { name: "run_min", type: "number", label: "Run time (min)", default: 10, step: 1 },
-  { name: "run_confirmed", type: "boolean", label: "Run conditions confirmed on the B144 supply?" }
+  { name: "run_min", type: "number", label: "Approximate run time (min)", default: 10, step: 1 }
 ];
 
 export function factory(values = {}) {
@@ -29,8 +27,6 @@ export function factory(values = {}) {
 
   const voltage = blankable(values?.voltage_V) ?? 175;
   const runMin = blankable(values?.run_min) ?? 10;
-  const confRaw = values?.run_confirmed;
-  const confirmed = (confRaw === true || confRaw === "true" || confRaw === "on");
   const lanes = n + 1; // every gel carries one marker lane
 
   const voltageStr = `**${voltage} V**`;
@@ -48,8 +44,7 @@ export function factory(values = {}) {
       sample_uL: sample,
       load_uL: load,
       voltage_V: voltage,
-      run_min: runMin,
-      run_confirmed: confirmed
+      run_min: runMin
     },
     template: `
 **Why**
@@ -76,12 +71,10 @@ Gels are **${pct}% agarose in 1× TAE**, cut from pre-made slabs in the fridge.
 **Run**
 9. Lid and leads on: **run to red**. DNA is negative and moves to the red electrode, so it must
    start at the black end.
-10. Run at ${voltageStr} for ${runStr}, **or until the blue front is 2/3–3/4 down the gel**.
-${!confirmed ? `
-> **The dye front is the endpoint, not the clock.** ${voltage} V for ${runMin} min has not been
-> re-measured since the move to B144 on the new power supply and rigs. Watch the gel rather
-> than the timer, and tell your supervisor what actually worked.
-` : ``}
+10. Run at ${voltageStr}. It takes **about ${runMin} min**, but **do not set a timer and walk
+    away** — check it every minute or so and watch how the blue band is progressing. Stop when
+    the front is **2/3–3/4 down the gel**.
+
 **Image**
 11. Move the gel to the imager and lay the label strip above it.
 12. Photograph it **with your phone through the orange filter**.

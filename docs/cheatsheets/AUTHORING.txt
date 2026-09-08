@@ -112,20 +112,33 @@ STYLE NOTES
   heading go in <span class="u"> to opt out of the transform.
 
 
+THE GOLDEN GATE PROGRAM
+-----------------------
+The sheet follows NEB's official recommendation for the NEBridge Golden Gate
+Assembly Kit (BsaI-HFv2, NEB #E1601), selected by insert count:
+
+  1 insert        37 °C 5 min (cloning) or 1 h (library prep) → 60 °C 5 min
+  2–10 inserts    (37 °C 1 min → 16 °C 1 min) × 30            → 60 °C 5 min
+  11–20+ inserts  (37 °C 5 min → 16 °C 5 min) × 30            → 60 °C 5 min
+
+The closing 60 °C is NOT heat inactivation. It favours Type IIS cutting in the
+absence of ligation, so any destination plasmid that was never cut, or that
+religated, is linearised — which is what keeps transformation background down.
+
+THIS DOES NOT MATCH the thermocycler's stored main/GG1, which runs
+25 × (37 °C 2 min / 16 °C 5 min) then 45 °C 10 min and 80 °C 10 min. Either
+reprogram GG1 to match NEB, or students must set the program by hand. The sheet
+says so explicitly. Resolve this before the next cohort runs an assembly.
+
+
 OPEN ITEMS
 ----------
-- sequencing: the submission recipe is blank. DNA amount, primer volume, total
-  volume and the facility's tube-labelling convention are recorded nowhere in
-  the repo, and there was never a printed card for it. The sheet prints rules to
-  write on and says so. Fill in the defaults in cycle_sequencing.js and rebuild.
-- gel: 175 V for ~10 min has not been re-measured on the B144 power supply and
-  rigs. The sheet prints it but leads with the dye front as the real endpoint.
-  Set `run_confirmed: true` in analytical_gel.js once someone checks it, and the
-  caveat disappears.
-- docs/wetlab/assembly.md still describes the Golden Gate program as ending with
-  an extended 37 °C and a 65 °C inactivation. That is wrong. The program is
-  25× (37 °C 2 min / 16 °C 5 min), 45 °C 10 min, 80 °C 10 min, 16 °C hold, as in
-  golden_gate_assembly.js and on the sheet.
+- docs/wetlab/assembly.md describes the program as ending with an extended 37 °C
+  and a 65 °C inactivation. That matches neither NEB nor GG1, and is wrong on
+  every count.
 - preparation_of_agarose_gels.js casts slabs at 5.5 g / 500 mL (1.1%). Three
   other sources say 1%: docs/wetlab/gel.md, docs/trainings/microwave.md, and the
   Tlib3 labsheets in Pimar. The gel sheet says 1%.
+- The gel sheet gives 175 V and about 10 min, and says plainly not to set a timer
+  and walk away — you check every minute or so and stop when the blue front is
+  2/3 to 3/4 down. The time is an expectation, not a setting.
