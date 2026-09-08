@@ -12,27 +12,34 @@ export default {
       blk(
         "Protocol",
         steps([
-          "For each cleanup, <b>top-label a 1.5 mL tube</b> with the name indicated on the labsheet. This is the tube you will elute into.",
+          "<b>Side-label one Zymo column per sample</b> with an <b>ethanol-resistant pen</b> — <b>not a Sharpie</b>. Put each column in a collection tube in a rack.",
 
-          `Add <b>${d.adb_uL} µL ADB</b> (brown bottle) to the reaction and mix.` +
+          `Pipette <b>${d.adb_uL} µL ADB</b> into the column.`,
+
+          `Transfer all <b>~${d.sample_uL} µL</b> of the reaction into the ADB <b>in the column</b>, and pipette up and down to mix.` +
             bullets([
-              "Fragments under <b>250 bp</b>: use <b>1 part ADB + 3 parts isopropanol</b> instead of ADB alone, or the fragment washes straight through."
+              "<b>Alternatively</b>, premix ADB and sample in an Eppendorf tube, vortex, spin, then transfer to the column. Several ways work — what matters is that it ends up <b>well mixed and in the column</b>."
             ]),
 
-          "Transfer to a <b>Zymo column</b> in a collection tube. Spin <b>15 s</b> at full speed, discard the flow-through.",
+          "<b>Spin 15 s</b> at full speed. Discard the flow-through.",
 
-          `Add <b>${d.pe_uL} µL PE</b>. Spin <b>15 s</b>, discard the flow-through.`,
+          `Add <b>${d.pe_uL} µL PE</b>. <b>Spin 15 s.</b> Discard the flow-through.`,
 
-          `Add <b>${d.pe_uL} µL PE</b> again. Spin <b>15 s</b>, discard the flow-through.`,
+          `Add <b>${d.pe_uL} µL PE</b>. <b>Spin 15 s.</b> Discard the flow-through.`,
 
-          "Spin <b>90 s</b> at full speed to <b>dry the column</b>. PE is 70% ethanol and any carryover inhibits the ligase.",
+          "<b>Spin 90 s</b> to dry the column. PE is 70% ethanol and carryover inhibits downstream enzymes.",
 
-          `Move the column to your labelled tube. Add <b>${d.elution_uL} µL EB</b> slowly to the <b>centre of the membrane</b> — do not let it run down the walls.`,
+          "<b>While the drying spin runs, clean up.</b> Check the bench for drips of salt or ADB. Use <b>70% ethanol</b> if you suspect any.",
 
-          "Spin <b>45 s</b> to elute. Discard the column."
-        ]),
-        bullets([
-          "<b>Know where your DNA is at every step.</b> Before each spin, say which half you are keeping."
+          "<b>Top- and side-label new 1.5 mL Eppendorf tubes</b>, one per column, as indicated on your labsheet.",
+
+          "Insert the <b>dry column</b> into its elution tube.",
+
+          `Add <b>${d.elution_uL} µL EB</b> slowly to the <b>centre of the membrane</b>. Do not let it run down the walls.`,
+
+          "<b>Spin 45 s</b> to elute.",
+
+          "<b>Discard the column.</b> The DNA is in the tube."
         ])
       )
     ];
