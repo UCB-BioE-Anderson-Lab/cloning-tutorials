@@ -27,6 +27,9 @@ const NO_PDF = process.argv.includes("--no-pdf");
 
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
+// The whole set as one file, for printing all of them in one go.
+const ALL_PDF = "all-cheatsheets.pdf";
+
 /** Print one sheet to PDF and return its page count. */
 function toPdf(htmlPath, pdfPath) {
   execFileSync(
@@ -149,6 +152,21 @@ if (!CHECK && !NO_PDF) {
     );
     process.exit(1);
   }
+
+  // One file with all of them, in experiment order, for printing the whole set at once.
+  // Page count must equal the sheet count — if it does not, a sheet grew silently.
+  const bundle = join(HERE, ALL_PDF);
+  execFileSync("pdfunite", [...made.map((m) => join(HERE, `${m.sheet.slug}.pdf`)), bundle], {
+    stdio: "ignore"
+  });
+  const pages = Number(
+    /^Pages:\s+(\d+)$/m.exec(execFileSync("pdfinfo", [bundle], { encoding: "utf8" }))?.[1] ?? 0
+  );
+  if (pages !== made.length) {
+    console.error(`\n${ALL_PDF} has ${pages} pages, expected ${made.length}.`);
+    process.exit(1);
+  }
+  console.log(`\n  ${pages} pages  ${ALL_PDF}  <- all sheets, in order`);
 }
 
 console.log(`\n${files.length} sheets · ${built} written · ${CHECK ? "check passed" : "done"}`);
