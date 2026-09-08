@@ -1,5 +1,10 @@
 # Miniprep: Plasmid DNA Purification
 
+<!-- cheatsheet -->
+!!! tip "Bench cheatsheet"
+    **[Print the one-page cheatsheet for this protocol](../cheatsheets/miniprep.pdf)** — generated
+    from the same protocol module as the [Protocol Builder](../protocols/protocols.md), so the two cannot disagree.
+
 Once you’ve picked and grown up an isolated colony, you now have a saturated culture containing billions of identical cells. Each cell carries multiple copies of the plasmid, and a miniprep allows you to extract and purify that plasmid DNA.
 
 ---
@@ -52,9 +57,11 @@ The protocol below is adapted from Qiagen's handbook, which includes detailed gu
 
 ### 🧫 Alkaline Lysis
 
-1. **Pellet** 1–5 mL saturated culture in a microcentrifuge tube.
+1. **Pellet** 4 mL saturated culture in a microcentrifuge tube.
 2. **Resuspend** in 250 µL P1 (RNase A must be added).
 3. **Lyse** by adding 250 µL P2, mix gently (do **not** vortex).
+    - Leave it **at least 30 seconds** and **no more than 5 minutes** before adding N3.
+      Too short and lysis is incomplete; past 5 minutes the alkali starts nicking the plasmid.
 4. **Neutralize** with 350 µL N3. Invert to mix thoroughly.
 5. **Spin** 5 min at max speed to pellet debris.
 

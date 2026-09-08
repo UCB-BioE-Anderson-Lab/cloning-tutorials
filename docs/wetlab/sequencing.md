@@ -1,5 +1,10 @@
 # Cycle Sequencing
 
+<!-- cheatsheet -->
+!!! tip "Bench cheatsheet"
+    **[Print the one-page cheatsheet for this protocol](../cheatsheets/sequencing.pdf)** — generated
+    from the same protocol module as the [Protocol Builder](../protocols/protocols.md), so the two cannot disagree.
+
 After you’ve picked colonies and completed your minipreps, you’ve finished the fabrication phase. The next question: **what did you actually make?** This tutorial will guide you through how to determine if your plasmid contains the correct sequence.
 
 ---
@@ -47,6 +52,27 @@ You can view both in **ApE** or **Benchling**. ApE will also annotate known feat
 ### Choosing a Primer
 
 The sequence you read will start ~20–50 bp **downstream** of your primer. So, you must choose a primer upstream of the region you want to check. For pP6, we use the standard primer **G00101**.
+
+### Setting Up the Reaction
+
+Submissions are **13 µL total, in a 1.5 mL Eppendorf tube** — not a PCR tube. Label the **top**
+of the tube with **the exact name you put on the submission form**; the facility matches tube to
+form by that string, so an abbreviation that makes sense only to you will not do.
+
+| Volume | Component |
+|--------|-----------|
+| 3 µL   | sequencing oligo — our stocks are standardised to **2.66 µM**, so 3 µL is one reaction's worth |
+| 10 µL  | miniprep DNA (medium copy) |
+| —      | **13 µL total** |
+
+How much DNA depends on the plasmid's copy number:
+
+- **Medium copy** — pBR322, pAC plasmids, and **pP6**: **10 µL** of miniprep.
+- **High copy** — pUC plasmids: about **4 µL** of miniprep, made up to 10 µL with water.
+- **Low copy** — pSC101, BACs: **PCR the region first** and sequence the PCR product.
+
+Specify the **dGTP protocol** on the form. Standard chemistry dies inside a hairpin — a
+terminator, or any strong secondary structure, stops the read dead.
 
 ### When to Use Other Sequencing Options
 

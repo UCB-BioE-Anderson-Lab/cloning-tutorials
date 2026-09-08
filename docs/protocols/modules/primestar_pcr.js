@@ -1,6 +1,18 @@
 // primestar_pcr.js
 // Minimal, computed protocol with inputs for number of reactions and names.
 
+// Timing — see docs/protocols/TIMING.txt. Minutes.
+export const timing = {
+  ends_at: "starting the thermocycler program",
+  work: [],
+  wait: [
+    // Roughly an hour per kb of amplicon: 1 kb ~1 h, 2 kb ~2 h, 4 kb ~4 h.
+    { label: "thermocycler, ~1 h per kb of product", min: 60, max: 240 }
+  ],
+  limits: [],
+  unknown: ["hands-on setup time, for one reaction and for a master mix"]
+};
+
 export const inputs = [
   { name: "reactions", type: "number", label: "Number of PCRs (50 µL each)", default: 1, step: 1 },
   { name: "template_name", type: "text", label: "Template", default: "template_dna" },
@@ -57,6 +69,7 @@ export function factory(values = {}) {
 1. **Find oligo samples.** For now, locate tubes manually (ideally 10 µM stocks) and the template DNA (miniprep‑level concentration).
 2. **Prepare oligo dilutions if needed.**
 {dilution_of_oligonucleotides}
+3. **Label the tubes first**, before any liquid goes in. The **top label** is the number from your labsheet for that reaction (**${labelPrefix}_1 … ${labelPrefix}_${n}**).
 
 ${useMastermix ? `
 **Master Mix** *(for ${n} reactions; includes ${Math.round(overage*100)}% overage)*

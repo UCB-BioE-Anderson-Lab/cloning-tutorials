@@ -1,5 +1,10 @@
 # Assembly
 
+<!-- cheatsheet -->
+!!! tip "Bench cheatsheet"
+    **[Print the one-page cheatsheet for this protocol](../cheatsheets/goldengate.pdf)** — generated
+    from the same protocol module as the [Protocol Builder](../protocols/protocols.md), so the two cannot disagree.
+
 In molecular cloning, “assembly” refers to joining two or more DNA molecules together into one. Two of the most common methods are **Golden Gate Assembly** and **Gibson Assembly**—together they cover nearly all modern cloning needs.
 
 ---
@@ -58,15 +63,18 @@ Setting up a Golden Gate reaction is similar to setting up PCR. You pipette reag
 
 ### Thermocycler Program
 
-We use the program **GG1**, which alternates between:
+We use the program **GG1**:
 
-- **37°C** (cutting by BsaI)
-- **16°C** (ligation by T4 Ligase)
+- Repeat **25×**: **37 °C for 2 min** → **16 °C for 5 min**
+- **45 °C for 10 min**
+- **80 °C for 10 min**
+- **16 °C hold**
 
-The final steps:
+37 °C is BsaI cutting, 16 °C is T4 Ligase sealing. Cycling between the two drives the mixture
+toward the fully assembled product, which no longer carries a BsaI site to be cut again.
 
-- Extended 37°C incubation
-- 65°C heat inactivation
+The reaction is a **wait phase of about 3 hours** — the protocol itself ends when the tubes go
+into the thermocycler.
 
 ---
 

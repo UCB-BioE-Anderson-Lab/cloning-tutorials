@@ -1,6 +1,11 @@
 <script src="https://unpkg.com/seqviz"></script>
 # Polymerase Chain Reaction
 
+<!-- cheatsheet -->
+!!! tip "Bench cheatsheet"
+    **[Print the one-page cheatsheet for this protocol](../cheatsheets/pcr.pdf)** — generated
+    from the same protocol module as the [Protocol Builder](../protocols/protocols.md), so the two cannot disagree.
+
 In this step, you’ll perform a PCR reaction to generate a pool of DNA molecules, each containing a different variant of a synthetic promoter.
 
 This protocol uses **PrimeSTAR GXL DNA Polymerase** and the **PG4K45** thermal cycler program. You’ll use degenerate primers that introduce many random bases, meaning each DNA product will contain a different promoter sequence that nobody has created before you.

@@ -12,6 +12,25 @@ The tutorials are organized into three parts:
 
 Each tutorial includes embedded quizzes, videos, and progress tracking. This platform supports students, researchers, and anyone seeking a rigorous, hands-on introduction to synthetic biology.
 
+## [Bench Cheatsheets](cheatsheets.md)
+
+One-page printable summaries to take to the bench. Each is generated from the same protocol
+module the [Protocol Builder](protocols/protocols.md) uses, so a cheatsheet and the protocol it
+comes from cannot disagree.
+
+**[⬇ Print all eight in one file](cheatsheets/all-cheatsheets.pdf)**, or take them individually:
+
+| Cheatsheet | Tutorial |
+|---|---|
+| [PrimeSTAR PCR](cheatsheets/pcr.pdf) | [Polymerase Chain Reaction](wetlab/pcr.md) |
+| [Analytical Gel](cheatsheets/gel.pdf) | [Gel Electrophoresis](wetlab/gel.md) |
+| [Zymo Cleanup](cheatsheets/zymo.pdf) | [Zymo Cleanup](wetlab/cleanup.md) |
+| [Golden Gate Assembly](cheatsheets/goldengate.pdf) | [Assembly](wetlab/assembly.md) |
+| [KCM Heat-Shock Transformation](cheatsheets/transformation.pdf) | [Transformation](wetlab/transformation.md) |
+| [Picking Colonies](cheatsheets/picking.pdf) | [Colony Picking](wetlab/pick.md) |
+| [Qiagen Miniprep](cheatsheets/miniprep.pdf) | [Miniprep](wetlab/miniprep.md) |
+| [Cycle Sequencing](cheatsheets/sequencing.pdf) | [Cycle Sequencing](wetlab/sequencing.md) |
+
 ## Part A: Wetlab
 
 1. **[pP6 Experiment Introduction](wetlab/intro.md)**  
