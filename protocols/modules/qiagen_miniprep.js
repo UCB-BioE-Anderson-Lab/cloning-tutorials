@@ -1,6 +1,32 @@
 // qiagen_miniprep.js
 // Alkaline lysis + silica spin column plasmid prep. Matches docs/wetlab/miniprep.md.
 
+// Timing — see docs/protocols/TIMING.txt. Minutes.
+export const timing = {
+  ends_at: "eluting into the labelled tube",
+  work: [
+    // Same shape as the Zymo: quick spins separated by a couple of minutes of work.
+    { label: "handling between spins", min: 2, max: 2, each: "spin" }
+  ],
+  wait: [
+    { label: "clearing spin", min: 5, max: 5 },
+    { label: "column bind spin", min: 0.25, max: 0.25 },
+    { label: "PB spin", min: 0.25, max: 0.25 },
+    { label: "PE spin", min: 0.25, max: 0.25 },
+    { label: "dry spin", min: 1.5, max: 1.5 },
+    { label: "elution spin", min: 0.75, max: 0.75 }
+  ],
+  limits: [
+    {
+      step: "P2 lysis, before adding N3",
+      min: 0.5,
+      max: 5,
+      why: "under 30 s lysis is incomplete; past 5 min the alkali starts nicking the plasmid"
+    }
+  ],
+  unknown: []
+};
+
 export const inputs = [
   { name: "culture_mL", type: "number", label: "Culture volume to pellet (mL)", default: 4, step: 1 },
   { name: "elution_uL", type: "number", label: "Elution volume (µL)", default: 50, step: 5 }

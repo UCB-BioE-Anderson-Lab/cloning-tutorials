@@ -28,14 +28,16 @@ const GG1 = {
 // the protocol — a card that names just one will have someone pipette the wrong tube.
 const ENZYMES = ["BsaI", "BsmBI", "BseRI", "AarI", "SapI", "BbsI"];
 
-// Every protocol splits into a work phase and a wait phase. The work phase is what goes on
-// the bench card; the wait phase is what a scheduler needs and a student needs to hear about
-// before they start. GG1 is roughly three hours, which is an afternoon, not a coffee break.
+// Timing — see docs/protocols/TIMING.txt. Minutes.
 export const timing = {
-  work_min: 10,
-  wait_min: 25 * (2 + 5) + 20, // GG1: 25 × (37 °C 2 min + 16 °C 5 min), then 45 °C and 80 °C
-  wait_label: "GG1 on the thermocycler",
-  ends_at: "putting the reactions in the thermocycler"
+  ends_at: "putting the reactions in the thermocycler",
+  work: [],
+  wait: [
+    // GG1: 25 x (37 C 2 min + 16 C 5 min) = 175, then 45 C 10 and 80 C 10.
+    { label: "GG1 on the thermocycler", min: 195, max: 195 }
+  ],
+  limits: [],
+  unknown: ["hands-on setup time"]
 };
 
 export const inputs = [

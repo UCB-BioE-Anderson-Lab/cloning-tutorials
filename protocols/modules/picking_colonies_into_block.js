@@ -1,6 +1,28 @@
 // picking_colonies_into_block.js
 // Pick colonies from transformation plates into a deep-well block for overnight growth.
 
+// Timing — see docs/protocols/TIMING.txt. Minutes.
+export const timing = {
+  ends_at: "block or tubes into the shaking incubator",
+  work: [
+    { label: "photograph the plates", min: 5, max: 5 },
+    { label: "fill a well", min: 1 / 6, each: "well" },
+    { label: "pick a colony", min: 1 / 3, each: "colony" },
+    { label: "cover with the airpore sheet", min: 2, max: 2 },
+    { label: "into the incubator", min: 0.5, max: 0.5 }
+  ],
+  wait: [{ label: "overnight growth", min: 16 * 60, max: 36 * 60 }],
+  limits: [
+    {
+      step: "growth",
+      min: 16 * 60,
+      max: 36 * 60,
+      why: "refrigerate by 36 h — past that the cultures overgrow"
+    }
+  ],
+  unknown: []
+};
+
 export const inputs = [
   { name: "samples", type: "number", label: "Number of plates to pick from", default: 6, step: 1 },
   { name: "colonies_per_sample", type: "number", label: "Colonies per plate", default: 4, step: 1 },
