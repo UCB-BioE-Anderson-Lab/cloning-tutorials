@@ -144,12 +144,22 @@ function ends(gid, which){
    EcoRV cuts on the axis itself.  Between the three, both halves of the rule
    are visible: distance from the axis sets how long the overhang is, and
    which side of it sets whether that overhang is 5' or 3'. ---- */
-const SB = 30, TYB = 742, BYB = 796, FSB = 27, XB = 22;
+const SB = 30, TYB = 742, BYB = 796, FSB = 27, GAPB = 74;
+/* How far each fragment slides away from the axis. A staggered cut leaves one
+   strand of each fragment reaching past the cut on the other, so a fixed shift
+   that looks right for a blunt end runs the two ends of PstI's 3' overhang
+   into each other and the axis line lands on top of the letters. Solve for the
+   shift that leaves the same GAPB between the innermost letter of one fragment
+   and the innermost letter of the other, whatever the overhang. The axis then
+   falls exactly halfway between them, because the shift cancels. */
+function shiftB(o){
+  return (GAPB + (Math.abs(o.cutT - o.cutB) - 1) * SB) / 2;
+}
 const PAIRUP = {a:"t",t:"a",g:"c",c:"g",A:"T",T:"A",G:"C",C:"G"};
 const flip = t => t.split("").map(ch => PAIRUP[ch]).join("");
 
 function smallBand(o){
-  const L = o.x - 5.5*SB, T = o.seq, B = flip(T);
+  const L = o.x - 5.5*SB, T = o.seq, B = flip(T), XB = shiftB(o);
   const cx = c => (c >= 3 && c <= 8) ? BLUE : INK;
   return label(o.x, 690, 24, INK, o.name, 700) +
     dash(o.x, 714, 812) +
