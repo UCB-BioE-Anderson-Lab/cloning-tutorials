@@ -1,69 +1,49 @@
-import { blk, p, steps, bullets, rx, prog, flag } from "../lib.mjs";
+import { blk, steps, bullets, rx } from "../lib.mjs";
 
 export default {
   slug: "pcr",
   title: "PrimeSTAR PCR",
   module: "primestar_pcr",
+  layout: "single",
   values: { reactions: 1, use_mastermix: false },
 
   build(d) {
     const r = d.per_reaction_uL;
     const total = r.water + r.buffer5x + r.dNTP + r.primer1 + r.primer2 + r.template + r.enzyme;
+    const mmPerTube = total - r.template;
 
     return [
       blk(
-        `Reaction — <span class="u">${total} µL</span>`,
-        p(
-          "<b>Label the tube first</b> — before any liquid goes in. The <b>top label</b> is " +
-            "the number from your labsheet for this reaction."
-        ),
-        p("Then pipette top to bottom. <b>Polymerase last</b> — it denatures in water or an incomplete mix."),
-        rx(
-          [
-            [r.water, "ddH₂O"],
-            [r.buffer5x, "5× PrimeSTAR GXL Buffer"],
-            [r.dNTP, "dNTP mix (2.5 mM each)"],
-            [r.primer1, "primer 1 (10 µM)"],
-            [r.primer2, "primer 2 (10 µM)"],
-            [r.template, "template"],
-            [r.enzyme, "PrimeSTAR GXL polymerase"]
-          ],
-          { total, totalLabel: "µL total" }
-        )
-      ),
-
-      blk(
-        "Then",
+        "Protocol",
         steps([
-          "Cap the tube.",
-          "<b>Slam it on the bench</b> to mix.",
-          "Quick spin in the PCR mini-centrifuge to knock the liquid down.",
+          "For each reaction you set up, <b>top-label a PCR tube</b> with the name(s) indicated on the labsheet.",
+
+          "Retrieve your <b>oligos</b> (10 µM) and <b>template</b> from the freezer and thaw them at room temperature.",
+
+          "Set up the reaction, in order:" +
+            rx(
+              [
+                [r.water, "ddH₂O"],
+                [r.buffer5x, "5× PrimeSTAR GXL buffer"],
+                [r.dNTP, "dNTP mix (2.5 mM each)"],
+                [r.primer1, "primer 1 (10 µM)"],
+                [r.primer2, "primer 2 (10 µM)"],
+                [r.template, "template"],
+                [r.enzyme, "PrimeSTAR GXL polymerase"]
+              ],
+              { total, totalLabel: "µL total" }
+            ) +
+            bullets([
+              `More than about <b>4 reactions</b>: make a master mix of everything except template — <b>${mmPerTube} µL per tube</b> plus ~10% overage — then add template to each tube separately.`,
+              "Template is usually a <b>20× dilution</b> of a miniprep."
+            ]),
+
+          `Retrieve the <b>enzyme cooler</b>, and add <b>${r.enzyme} µL polymerase</b> to each sample, last.`,
+
+          "<b>Cap</b>, <b>slam on the bench</b> to mix, <b>quick spin</b>.",
+
           "Run the program from your labsheet — it depends on insert length and annealing temperature."
         ])
-      ),
-
-      blk(
-        "Good for",
-        bullets([
-          "Products <b>2–40 kb</b>. PrimeSTAR GXL is a high-fidelity long-range polymerase.",
-          "Template at miniprep concentration, usually diluted 20×."
-        ])
-      ),
-
-      blk(
-        "If it fails",
-        bullets([
-          "<b>A faint band is not a failure</b>, especially amplifying from a pool.",
-          "No product: check the template dilution first. Too much template inhibits.",
-          "Smear or extra bands: raise the annealing temperature.",
-          "Set up on ice and keep the polymerase in the cold block until the moment you add it."
-        ]),
-        flag(
-          "Master mix.",
-          `Above about 4 reactions, make one mix of everything except template — ` +
-            `${total - r.template} µL per tube — and add template to each tube separately. ` +
-            `Include ~10% overage; the protocol builder will do the arithmetic.`
-        )
       )
     ];
   }

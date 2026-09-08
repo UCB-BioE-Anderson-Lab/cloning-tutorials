@@ -20,7 +20,7 @@ export function factory(values = {}) {
     name: "Zymo Cleanup",
     description: `Clean ${n} reaction${n > 1 ? "s" : ""} on a Zymo column, eluting in ${elution} µL.`,
     includes: { required: [], optional: [] },
-    derived: { reactions: n, elution_uL: elution, adb_uL: adb, small_fragment: small },
+    derived: { reactions: n, elution_uL: elution, adb_uL: adb, small_fragment: small, pe_uL: 200 },
     template: `
 **What this removes**
 - Polymerase, dNTPs, salts and most oligos from a PCR.

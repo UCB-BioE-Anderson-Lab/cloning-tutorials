@@ -221,9 +221,9 @@ code {
   .rows { max-width: none; }
   .single { font-size: 18pt; line-height: 1.28; }
   /* em, not rem: the markers have to scale with the larger type or the number
-     collides with the step text. */
-  .single ol.steps > li { padding-left: 1.5em; text-indent: -1.5em; margin-bottom: .46em; }
-  .single ol.steps > li::before { width: 1.5em; }
+     collides with the step text. 1.9em so a two-digit step still fits. */
+  .single ol.steps > li { padding-left: 1.9em; text-indent: -1.9em; margin-bottom: .46em; }
+  .single ol.steps > li::before { width: 1.9em; }
   .single ul.bul > li { padding-left: .8em; text-indent: -.8em; margin-bottom: .16em; }
   .single h2 { font-size: 12.5pt; }
   .single table.rx { width: auto; margin: .22em 0 .3em 1.4em; font-size: 1em; }

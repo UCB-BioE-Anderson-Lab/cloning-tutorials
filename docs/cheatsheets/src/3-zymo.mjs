@@ -1,62 +1,39 @@
-import { blk, p, steps, bullets, flag } from "../lib.mjs";
+import { blk, steps, bullets } from "../lib.mjs";
 
 export default {
   slug: "zymo",
   title: "Zymo Cleanup",
   module: "zymo_cleanup",
+  layout: "single",
   values: { reactions: 1 },
 
   build(d) {
     return [
       blk(
-        "What this removes",
-        bullets([
-          "Polymerase, dNTPs, salts and most oligos from a PCR.",
-          "Buffer and restriction enzymes from a digest.",
-          "Left in place, polymerase fills in the sticky ends BsaI just made, and nothing ligates."
-        ])
-      ),
-
-      blk(
-        "Bind",
+        "Protocol",
         steps([
-          `Add <b>${d.adb_uL} µL ADB</b> (brown bottle) to the reaction. Mix.`,
-          "Transfer to a <b>Zymo column</b> in a collection tube.",
-          "Spin <b>15 s</b> at full speed. Discard the flow-through."
-        ])
-      ),
+          "For each cleanup, <b>top-label a 1.5 mL tube</b> with the name indicated on the labsheet. This is the tube you will elute into.",
 
-      blk(
-        "Wash",
-        steps([
-          "Add <b>200 µL PE</b>. Spin <b>15 s</b>. Discard the flow-through.",
-          "Add <b>200 µL PE</b> again. Spin <b>15 s</b>. Discard the flow-through.",
-          "Spin <b>90 s</b> at full speed to dry the column."
+          `Add <b>${d.adb_uL} µL ADB</b> (brown bottle) to the reaction and mix.` +
+            bullets([
+              "Fragments under <b>250 bp</b>: use <b>1 part ADB + 3 parts isopropanol</b> instead of ADB alone, or the fragment washes straight through."
+            ]),
+
+          "Transfer to a <b>Zymo column</b> in a collection tube. Spin <b>15 s</b> at full speed, discard the flow-through.",
+
+          `Add <b>${d.pe_uL} µL PE</b>. Spin <b>15 s</b>, discard the flow-through.`,
+
+          `Add <b>${d.pe_uL} µL PE</b> again. Spin <b>15 s</b>, discard the flow-through.`,
+
+          "Spin <b>90 s</b> at full speed to <b>dry the column</b>. PE is 70% ethanol and any carryover inhibits the ligase.",
+
+          `Move the column to your labelled tube. Add <b>${d.elution_uL} µL EB</b> slowly to the <b>centre of the membrane</b> — do not let it run down the walls.`,
+
+          "Spin <b>45 s</b> to elute. Discard the column."
         ]),
-        p("<b>The dry spin is not optional.</b> PE is 70% ethanol; carryover inhibits the ligase.")
-      ),
-
-      blk(
-        "Elute",
-        steps([
-          "Move the column to a fresh <b>1.5 mL tube</b>.",
-          `Add <b>${d.elution_uL} µL EB</b> slowly to the <b>centre of the membrane</b>. Do not let it run down the walls.`,
-          "Spin <b>45 s</b>. Discard the column — the DNA is in the tube."
-        ])
-      ),
-
-      blk(
-        "Notes",
         bullets([
-          "<b>Know where your DNA is at every step.</b> The commonest failure here is discarding the wrong tube. Before each spin, say out loud which half you are keeping.",
-          "EB, not water. Water absorbs CO₂, turns slightly acidic, and lowers recovery.",
-          "Elution volume is set by your labsheet. The kit will go down to 6 µL if you need it concentrated."
-        ]),
-        flag(
-          "Fragments under 250 bp.",
-          `Bind with <b>1 part ADB + 3 parts isopropanol</b> instead of ADB alone. ` +
-            `Without the isopropanol a short fragment washes straight through the column.`
-        )
+          "<b>Know where your DNA is at every step.</b> Before each spin, say which half you are keeping."
+        ])
       )
     ];
   }
