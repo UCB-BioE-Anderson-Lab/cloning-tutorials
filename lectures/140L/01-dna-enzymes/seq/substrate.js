@@ -106,13 +106,13 @@ window.Deck.sequence("substrate", function(slide){
           under: spot(rib,50,46)+spot(ph,34,58)+spot(base,72,56)+spot(o5,32,26)+spot(o3,32,26),
           over:  tag(o5[0], o5[1]-58, o5[0], o5[1]-30, "5&#8242; hydroxyl")+
                  tag(o3[0], o3[1]-72, o3[0], o3[1]-30, "3&#8242; hydroxyl")+
-                 tag(rib[0], 734, rib[0], rib[1]+44, "ribose")+
+                 tag(rib[0], 734, rib[0], rib[1]+44, "sugar")+
                  tag(ph[0], 734, ph[0], ph[1]+46, "phosphate")+
                  tag(base[0]-128, base[1]-54, base[0]-62, base[1]-20, "nucleotide base")
         };
       },
       note:"An enzyme can be picky in four separate ways, and we will take them one at a time. The first is the simplest: which part of the molecule it touches. There are only five places where chemistry ever happens, so name them once. The sugar, with no hydroxyl at the two prime position, which is what makes it deoxyribose. The phosphate joining one sugar to the next. The base hanging off each sugar. And the two everyone mixes up: the free hydroxyl at the five prime end and the one at the three prime end. Those are not interchangeable and you will be telling them apart all day. Here is how I do it, and it works on every drawing in this deck. At the five prime end the oxygen is not on the ring; there is a carbon in between, so the bond takes a little elbow on its way out. The three prime hydroxyl has no elbow, its oxygen sits straight on the ring. Elbow, five prime. No elbow, three prime.",
-      desc:"A GAATTC duplex drawn as full chemical structure, with five parts highlighted and named: the ribose sugar, a backbone phosphate, the 5-prime hydroxyl, the 3-prime hydroxyl, and a nucleotide base." },
+      desc:"A GAATTC duplex drawn as full chemical structure, with five parts highlighted and named: the sugar, a backbone phosphate, the 5-prime hydroxyl, the 3-prime hydroxyl, and a nucleotide base." },
 
     /* 2. which positions the enzyme actually reads */
     { word:"degeneracy", sub:"red is required; grey could be anything",
