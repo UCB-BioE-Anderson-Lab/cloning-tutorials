@@ -1,5 +1,10 @@
 # Assembly
 
+<!-- cheatsheet -->
+!!! tip "Bench cheatsheet"
+    **[Print the one-page cheatsheet for this protocol](../cheatsheets/goldengate.pdf)** — generated
+    from the same protocol module as the [Protocol Builder](../protocols/protocols.md), so the two cannot disagree.
+
 In molecular cloning, “assembly” refers to joining two or more DNA molecules together into one. Two of the most common methods are **Golden Gate Assembly** and **Gibson Assembly**—together they cover nearly all modern cloning needs.
 
 ---

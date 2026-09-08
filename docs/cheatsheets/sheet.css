@@ -1,0 +1,215 @@
+/* sheet.css — shared styling for the BioE 140L bench cheatsheets.
+   Screen first, then print. Every sheet is designed to fit one US Letter page.
+
+   Colour: the site brand #0088ca measures 3.91:1 on white and fails WCAG 2.1 AA.
+   The accent here is #00658f (6.45:1 on white). Nothing on a sheet is distinguished
+   by colour alone, so the sheets survive a black-and-white lab printer intact. */
+
+:root {
+  --paper: #fff;
+  --ink: #111;
+  --muted: #5a6068;
+  --rule: #d4d6d3;
+  --accent: #00658f;
+  --flag-bg: #f4f6f7;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141619;
+    --ink: #edeeef;
+    --muted: #a8aeb4;
+    --rule: #31363b;
+    --accent: #7ec8ec;
+    --flag-bg: #1d2126;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #141619;
+  --ink: #edeeef;
+  --muted: #a8aeb4;
+  --rule: #31363b;
+  --accent: #7ec8ec;
+  --flag-bg: #1d2126;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 20px 18px 40px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans Condensed", "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.32;
+}
+
+.sheet { max-width: 54rem; margin: 0 auto; }
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: .28rem;
+  margin-bottom: .55rem;
+}
+
+h1 { font-size: 1.45rem; margin: 0; font-weight: 700; letter-spacing: -.01em; }
+
+.slug {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.cols { column-count: 2; column-gap: 1.9rem; column-rule: 1px solid var(--rule); }
+
+.blk { break-inside: avoid; page-break-inside: avoid; margin: 0 0 .6rem; }
+
+h2 {
+  font-size: .8rem;
+  margin: 0 0 .2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: .08rem;
+}
+
+/* Uppercasing µ yields Greek capital Mu, which reads as "50 ML". Units in a
+   heading opt out of the transform. */
+h2 .u { text-transform: none; }
+
+p { margin: .15rem 0; }
+
+/* Numbered procedure steps. The number is its own column so wrapped
+   lines stay aligned under the text, not under the digit. */
+ol.steps { margin: .15rem 0 0; padding: 0; list-style: none; counter-reset: s; }
+ol.steps > li {
+  counter-increment: s;
+  padding-left: 1.35rem;
+  text-indent: -1.35rem;
+  margin: 0 0 .2rem;
+  break-inside: avoid;
+}
+ol.steps > li::before {
+  content: counter(s) ".";
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-weight: 600;
+  color: var(--muted);
+  display: inline-block;
+  width: 1.35rem;
+  text-indent: 0;
+}
+
+ul.bul { margin: .15rem 0 0; padding: 0; list-style: none; }
+ul.bul > li {
+  padding-left: .7rem;
+  text-indent: -.7rem;
+  margin: 0 0 .13rem;
+  break-inside: avoid;
+}
+ul.bul > li::before { content: "– "; color: var(--muted); }
+
+/* Reagent recipes: volume column right-aligned so the numbers stack. */
+table.rx { border-collapse: collapse; margin: .18rem 0 .1rem; width: 100%; }
+table.rx td { padding: .04rem .3rem .04rem 0; vertical-align: baseline; }
+table.rx td.v {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+  width: 1%;
+}
+table.rx tr.tot td { border-top: 1px solid var(--rule); padding-top: .12rem; font-weight: 700; }
+
+/* Thermocycler programs and other stepped machine settings. */
+.prog {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .92em;
+  margin: .18rem 0 0;
+  padding: .3rem .45rem;
+  background: var(--flag-bg);
+  border-left: 3px solid var(--accent);
+}
+.prog div { margin: 0 0 .08rem; }
+.prog .rep { font-weight: 700; }
+
+/* A value nobody has measured yet: printed as a rule to write on. */
+.blank {
+  display: inline-block;
+  min-width: 2.6rem;
+  border-bottom: 1px solid var(--ink);
+}
+
+/* Flagged caveat. Marked by a rule and a bold lead-in, not by colour. */
+.flag {
+  break-inside: avoid;
+  margin: .25rem 0 0;
+  padding: .25rem .45rem;
+  background: var(--flag-bg);
+  border-left: 3px solid var(--ink);
+  font-size: .94em;
+}
+.flag b { display: inline; }
+
+code {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .92em;
+}
+
+.seq {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .72em;
+  word-break: break-all;
+  line-height: 1.2;
+  display: block;
+  margin: .1rem 0;
+}
+
+.foot {
+  margin-top: .5rem;
+  padding-top: .3rem;
+  border-top: 1px solid var(--rule);
+  font-size: .78rem;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.foot .src { font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
+
+@media print {
+  @page { size: letter portrait; margin: 11mm; }
+
+  /* Force the light palette: a dark-mode browser must not print white on black. */
+  html, body { background: #fff !important; color: #000 !important; }
+  :root {
+    --paper: #fff;
+    --ink: #000;
+    --muted: #444;
+    --rule: #999;
+    --accent: #000;
+    --flag-bg: #eee;
+  }
+
+  /* Sized to fill the page: these are read at arm's length, on a bench, in gloves. */
+  body { padding: 0; font-size: 12.6pt; line-height: 1.3; }
+  .sheet { max-width: none; }
+  h1 { font-size: 19pt; }
+  .slug { font-size: 9.5pt; }
+  h2 { font-size: 10pt; }
+  .cols { column-gap: 1.5rem; }
+  .blk { margin-bottom: .6rem; }
+  .foot { font-size: 8.4pt; }
+  .prog { background: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .flag { background: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

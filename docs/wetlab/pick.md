@@ -1,5 +1,10 @@
 # Colony Picking
 
+<!-- cheatsheet -->
+!!! tip "Bench cheatsheet"
+    **[Print the one-page cheatsheet for this protocol](../cheatsheets/picking.pdf)** — generated
+    from the same protocol module as the [Protocol Builder](../protocols/protocols.md), so the two cannot disagree.
+
 After plating your transformation and incubating overnight, if everything goes well you will see colonies that look something like this:
 
 ![Two student plates after transformation. Left: a dense plate with a wide range of bright green colonies. Right: a sparser plate with only a few green colonies. A zoomed-in region highlights a green colony surrounded by smaller white colonies.](../images/pp6_plates.png)

@@ -1,5 +1,10 @@
 # Transformation
 
+<!-- cheatsheet -->
+!!! tip "Bench cheatsheet"
+    **[Print the one-page cheatsheet for this protocol](../cheatsheets/transformation.pdf)** — generated
+    from the same protocol module as the [Protocol Builder](../protocols/protocols.md), so the two cannot disagree.
+
 After assembly, the circular plasmid has been generated, but it is mixed with other DNAs—some incomplete or mutant. By passing the material through cells, we isolate a single one of these sequences and amplify it a billion-fold.
 
 **Transformation** is the process in which a bacterium takes up DNA from the environment. While some bacteria (like *B. subtilis*) do this naturally, *E. coli* requires preparation to become “competent.”

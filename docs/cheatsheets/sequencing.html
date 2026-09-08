@@ -1,0 +1,26 @@
+<title>Cycle Sequencing — BioE 140L</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans+Condensed:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="sheet.css">
+
+<div class="sheet">
+<header class="top">
+  <h1>Cycle Sequencing</h1>
+  <span class="slug">sequencing</span>
+</header>
+
+<div class="cols">
+<section class="blk"><h2>What you get</h2><p>One primer, so extension is <b>linear</b>, not exponential. The read starts <b>20–50 bp downstream</b> of the primer and gives <b>400–1000 bp</b> of usable sequence. Pick a primer <b>upstream</b> of what you want to see.</p><p>For pP6 that is <b>G00101</b>.</p></section>
+<section class="blk"><h2>Use the dGTP protocol</h2><p>Not the standard chemistry. Standard chemistry <b>dies inside a hairpin</b> — a terminator, or any strong secondary structure, stops the read dead. This cost Tlib2 an entire sequencing run.</p><p>Say <b>dGTP</b> on the submission form.</p></section>
+<section class="blk"><h2>Submit</h2><ol class="steps"><li>Combine <span class="blank"></span> µL miniprep DNA and <span class="blank"></span> µL G00101, to <span class="blank"></span> µL total.</li><li>Label each tube with its clone ID.</li><li>Specify the dGTP protocol.</li><li>Submit. Results come back in <b>1–2 days</b>.</li></ol><p class="flag"><b>These volumes are not written down anywhere.</b> Get them from your supervisor before you set the reactions up — then write them on this card, so the next person does not have to ask.</p></section>
+<section class="blk"><h2>Sequence everything you picked</h2><p>Including the boring-looking ones. The clones in the <b>middle of the range</b> are the informative ones. Tlib2 sequenced only its brightest and left its main question unanswered for three years.</p></section>
+<section class="blk"><h2>Check the read</h2><p>You get a <code>.txt</code> of base calls (the <i>read</i>) and an <code>.ab1</code> trace. Open both in <b>ApE</b>; <code>ctrl-K</code> annotates features.</p><ol class="steps"><li>Is it <b>clean</b>? Length with no Ns: 100 bp poor, 800 good, 1000 great.</li><li>Architecture <b>BseRI → promoter → BseRI</b>. Exactly <b>two</b> BseRI sites.</li><li><b>T4 terminator</b> present; promoter not duplicated, reversed or truncated.</li><li>Align to <code>pP6.seq</code> — <b>Tools → Align with another sequence…</b> Look for 100% identity around the promoter.</li><li>Search for the motif below. Clean read + motif present = <b>usable</b>.</li></ol><p><code class="seq">GAGGAGTCCTGGGTTCNNNNTTGACANNNNNNNNNNNNNNNNNTATAATNNNNNNANNNNGTTAGTATTTCTCCTC</code></p></section>
+<section class="blk"><h2>Record</h2><p><b>exp</b> · <b>clone_id</b> · <b>student_name</b> · <b>read_name</b> · <b>date_sequenced</b> · <b>canonical</b> · <b>usable</b> · <b>cassette</b> · <b>notes</b></p><ul class="bul"><li><b>canonical</b> = matches <code>pP6.seq</code> across the good-quality region. <b>usable</b> = contains the motif. Different questions; a clone can be one and not the other.</li><li>Expect artifacts — the N-rich region throws up duplications, deletions and recombinations, and some reads come back as plain parent plasmid. Record them as artifacts and exclude them rather than forcing them in.</li></ul></section>
+</div>
+
+<footer class="foot">
+  <span>BioE 140L · UC Berkeley · issued 2026-09-07</span>
+  <span class="src">protocols/modules/cycle_sequencing.js</span>
+</footer>
+</div>

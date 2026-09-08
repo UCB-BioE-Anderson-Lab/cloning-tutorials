@@ -1,5 +1,10 @@
 # Zymo Cleanup
 
+<!-- cheatsheet -->
+!!! tip "Bench cheatsheet"
+    **[Print the one-page cheatsheet for this protocol](../cheatsheets/zymo.pdf)** — generated
+    from the same protocol module as the [Protocol Builder](../protocols/protocols.md), so the two cannot disagree.
+
 After confirming your PCR reaction on a gel, the next step is to purify the DNA. This is essential for most cloning workflows, especially **Golden Gate** and **restriction enzyme-based** cloning. Although it is **optional for Gibson**, cleanup helps remove components from the PCR that may interfere with downstream steps.
 
 ---

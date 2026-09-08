@@ -10,11 +10,15 @@ export function factory(values = {}) {
   const culture = Number(values?.culture_mL ?? 4);
   const elution = Number(values?.elution_uL ?? 50);
 
+  // Buffer volumes, named so the printed cheatsheet reads them from here rather than
+  // carrying its own copy.
+  const q = { p1_uL: 250, p2_uL: 250, n3_uL: 350, pb_uL: 500, pe_uL: 750 };
+
   return {
     name: "Qiagen Miniprep",
     description: "Purify plasmid DNA from a saturated culture by alkaline lysis and spin column.",
     includes: { required: [], optional: [] },
-    derived: { culture_mL: culture, elution_uL: elution },
+    derived: { culture_mL: culture, elution_uL: elution, ...q },
     template: `
 **Reagents**
 - **P1** (with RNase A added) · **P2** (NaOH/SDS) · **N3** (acidic, guanidinium)
@@ -22,9 +26,9 @@ export function factory(values = {}) {
 
 **Alkaline lysis**
 1. **Pellet** ${culture} mL of saturated culture in a microcentrifuge tube.
-2. **Resuspend** in **250 µL P1**. The RNase A must already be in the P1.
-3. **Lyse** with **250 µL P2** and mix gently — **do not vortex**.
-4. **Neutralize** with **350 µL N3**. Invert to mix thoroughly.
+2. **Resuspend** in **${q.p1_uL} µL P1**. The RNase A must already be in the P1.
+3. **Lyse** with **${q.p2_uL} µL P2** and mix gently — **do not vortex**.
+4. **Neutralize** with **${q.n3_uL} µL N3**. Invert to mix thoroughly.
 5. **Spin 5 min** at max speed to pellet the debris.
 
 **Column binding and wash**

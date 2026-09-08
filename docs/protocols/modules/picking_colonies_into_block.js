@@ -31,7 +31,16 @@ export function factory(values = {}) {
     name: "Picking Colonies into a Block",
     description: `Pick ${per} colonies from each of ${samples} plates into ${blocks} × ${perBlock}-well block${blocks > 1 ? "s" : ""}.`,
     includes: { required: [], optional: ["parafilm_sealing_plates"] },
-    derived: { samples, colonies_per_sample: per, wells_used: used, block_wells: perBlock, blocks },
+    derived: {
+      samples,
+      colonies_per_sample: per,
+      wells_used: used,
+      block_wells: perBlock,
+      blocks,
+      well_volume_mL: vol,
+      antibiotic: ab,
+      fits
+    },
     template: `
 **Plan**
 - ${samples} plates × ${per} colonies = **${used} wells** across **${blocks} block${blocks > 1 ? "s" : ""}** of ${perBlock}.

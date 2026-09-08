@@ -1,0 +1,24 @@
+<title>Golden Gate Assembly — BioE 140L</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans+Condensed:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="sheet.css">
+
+<div class="sheet">
+<header class="top">
+  <h1>Golden Gate Assembly</h1>
+  <span class="slug">goldengate</span>
+</header>
+
+<div class="cols">
+<section class="blk"><h2>Reaction — <span class="u">10 µL</span></h2><p>Pipette top to bottom. <b>Enzymes last.</b></p><table class="rx"><tr><td class="v">6</td><td>ddH₂O (white rack)</td></tr><tr><td class="v">1</td><td>10× T4 DNA ligase buffer (red)</td></tr><tr><td class="v">1</td><td>each DNA fragment (2 of them, 2 µL total)</td></tr><tr><td class="v">0.5</td><td>T4 DNA ligase</td></tr><tr><td class="v">0.5</td><td>BsaI</td></tr><tr class="tot"><td class="v">10</td><td>µL total</td></tr></table><p><b>10 µL is deliberate</b> — it is exactly what the transformation takes. Carry the whole reaction forward; do not split it.</p></section>
+<section class="blk"><h2>Then</h2><ol class="steps"><li>Mix well and quick spin.</li><li>Label the tube with your assigned code.</li><li>Put every reaction from your section in <b>one thermocycler block</b>.</li><li>Run <b>main/GG1</b>.</li></ol></section>
+<section class="blk"><h2>Program main/GG1</h2><div class="prog"><div class="rep">repeat 25×:</div><div>&nbsp;&nbsp;37 °C — 2 min</div><div>&nbsp;&nbsp;16 °C — 5 min</div><div>45 °C — 10 min</div><div>80 °C — 10 min</div><div>16 °C — hold</div></div><p>37 °C is BsaI cutting, 16 °C is T4 ligase sealing. Cycling drives the mixture toward the assembled product, which no longer has a BsaI site to cut.</p></section>
+<section class="blk"><h2>Notes</h2><ul class="bul"><li><b>The ligase buffer supplies the ATP.</b> It is the component most often forgotten, and without it nothing ligates.</li><li>25 cycles is the default. Fewer (we often use 15) is faster but less efficient.</li><li>Mix the DNAs equimolar if you can. If your preps are consistent, do not bother normalising.</li><li>Miniprepped, gel-purified and Zymo-cleaned DNA all work.</li><li>Scaling up or down is fine as long as the buffer ends at <b>1×</b> and the DNA is not so concentrated that it inhibits the ligase.</li></ul><p class="flag"><b>Alternative.</b> A straight 2 h incubation at 37 °C also works, and is popular.</p></section>
+</div>
+
+<footer class="foot">
+  <span>BioE 140L · UC Berkeley · issued 2026-09-07</span>
+  <span class="src">protocols/modules/golden_gate_assembly.js</span>
+</footer>
+</div>

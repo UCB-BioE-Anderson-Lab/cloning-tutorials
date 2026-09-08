@@ -1,0 +1,25 @@
+<title>Zymo Cleanup — BioE 140L</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans+Condensed:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="sheet.css">
+
+<div class="sheet">
+<header class="top">
+  <h1>Zymo Cleanup</h1>
+  <span class="slug">zymo</span>
+</header>
+
+<div class="cols">
+<section class="blk"><h2>What this removes</h2><ul class="bul"><li>Polymerase, dNTPs, salts and most oligos from a PCR.</li><li>Buffer and restriction enzymes from a digest.</li><li>Left in place, polymerase fills in the sticky ends BsaI just made, and nothing ligates.</li></ul></section>
+<section class="blk"><h2>Bind</h2><ol class="steps"><li>Add <b>180 µL ADB</b> (brown bottle) to the reaction. Mix.</li><li>Transfer to a <b>Zymo column</b> in a collection tube.</li><li>Spin <b>15 s</b> at full speed. Discard the flow-through.</li></ol></section>
+<section class="blk"><h2>Wash</h2><ol class="steps"><li>Add <b>200 µL PE</b>. Spin <b>15 s</b>. Discard the flow-through.</li><li>Add <b>200 µL PE</b> again. Spin <b>15 s</b>. Discard the flow-through.</li><li>Spin <b>90 s</b> at full speed to dry the column.</li></ol><p><b>The dry spin is not optional.</b> PE is 70% ethanol; carryover inhibits the ligase.</p></section>
+<section class="blk"><h2>Elute</h2><ol class="steps"><li>Move the column to a fresh <b>1.5 mL tube</b>.</li><li>Add <b>25 µL EB</b> slowly to the <b>centre of the membrane</b>. Do not let it run down the walls.</li><li>Spin <b>45 s</b>. Discard the column — the DNA is in the tube.</li></ol></section>
+<section class="blk"><h2>Notes</h2><ul class="bul"><li><b>Know where your DNA is at every step.</b> The commonest failure here is discarding the wrong tube. Before each spin, say out loud which half you are keeping.</li><li>EB, not water. Water absorbs CO₂, turns slightly acidic, and lowers recovery.</li><li>Elution volume is set by your labsheet. The kit will go down to 6 µL if you need it concentrated.</li></ul><p class="flag"><b>Fragments under 250 bp.</b> Bind with <b>1 part ADB + 3 parts isopropanol</b> instead of ADB alone. Without the isopropanol a short fragment washes straight through the column.</p></section>
+</div>
+
+<footer class="foot">
+  <span>BioE 140L · UC Berkeley · issued 2026-09-07</span>
+  <span class="src">protocols/modules/zymo_cleanup.js</span>
+</footer>
+</div>

@@ -21,6 +21,24 @@ export function factory(values = {}) {
   const hasAmp = antibiotics.some(a => /^carb(en(icillin)?)?$/i.test(a) || /^amp(i(cillin)?)?$/i.test(a));
   const needsRescue = !hasAmp;
 
+  // Bench quantities. Named here so the template and the printed cheatsheet read the same
+  // numbers from one place; 25 µL KCM into a 100 µL aliquot is 1× from the 5× stock.
+  const q = {
+    aliquot_uL: 100,     // one competent cell aliquot
+    kcm_uL: 25,          // KCM added to that aliquot
+    reactions_per_tube: 3,
+    cells_uL: 40,        // cell/KCM mix per reaction, for a 10 µL DNA sample
+    dna_uL: 10,
+    cold_C: 4,
+    hot_C: 42,
+    cool_s: 30,
+    cold_min: 10,
+    heat_s: 90,
+    recover_min: 1,
+    rescue_uL: 200,
+    rescue_h: 1
+  };
+
   const name = "KCM Heat-Shock Transformation";
   const description = `Transform ${plasmid} into ${host} and plate on ${antibiotics.join(", ")} at ${tempC} °C`;
 
@@ -50,19 +68,19 @@ export function factory(values = {}) {
 1. Retrieve ligation reactions or plasmid DNA and bring to the transformation bench.
 2. Set the Echotherm blocks to **4 °C** (A) and **42 °C** (B). Alternatively, use a thermocycler with two blocks set to these temperatures.
 3. Place competent cell aliquots on block A (4 °C). One tube is sufficient for three reactions.
-4. Thaw cells (~30 s). Add **25 µL KCM** to each aliquot and pipette gently to mix.
+4. Thaw cells (~${q.cool_s} s). Add **${q.kcm_uL} µL KCM** to each aliquot and pipette gently to mix.
 5. Place the DNA tube (ligation mix or diluted plasmid) on block A.
-6. Let tubes cool for **30 s** on block A.
-7. Add **40 µL** competent cells to each DNA tube while on block A (**for a 10 µL DNA sample**). If DNA was not already in the tube, add it now. Mix gently.
+6. Let tubes cool for **${q.cool_s} s** on block A.
+7. Add **${q.cells_uL} µL** competent cells to each DNA tube while on block A (**for a ${q.dna_uL} µL DNA sample**). If DNA was not already in the tube, add it now. Mix gently.
    - These numbers assume the DNA volume is ~20% of the total mixture.
    - Using smaller DNA volumes is fine, but adding too much DNA will dilute salts and reduce transformation efficiency.
    - For large DNA reactions (~20 µL), use **100 µL** or the **entire tube** of competent cells.
    - For simple retransformation from a miniprep, **0.5 µL** of plasmid DNA in **10 µL** of cells is sufficient.
-8. Incubate at **4 °C for 10 min**.
-9. Transfer tubes to block B (**42 °C**) for **90 s**.
-10. Return tubes to block A (**4 °C**) for **1 min**.
+8. Incubate at **${q.cold_C} °C for ${q.cold_min} min**.
+9. Transfer tubes to block B (**${q.hot_C} °C**) for **${q.heat_s} s**.
+10. Return tubes to block A (**${q.cold_C} °C**) for **${q.recover_min} min**.
 ${needsRescue ? `
-11. **Rescue step:** add **200 µL 2YT**, transfer to a 1.5 mL tube, and shake at **${tempC} °C** for **1 h**. This step allows time for the resistance gene to express before plating on the chosen antibiotic.
+11. **Rescue step:** add **${q.rescue_uL} µL 2YT**, transfer to a 1.5 mL tube, and shake at **${tempC} °C** for **${q.rescue_h} h**. This step allows time for the resistance gene to express before plating on the chosen antibiotic.
 12. Plate all liquid on **${antibiotics.join(", ") }** selective agar plates. Incubate **inverted** at **${tempC} °C** overnight.
    - **Drying the plates (optional):** Leave the plate **uncovered at the sterile bench** until the liquid is fully absorbed and the surface is **no longer glossy**. This prevents colony bleeding or running, especially when plating >100 µL.
 13. Cancel temperature devices when finished.
@@ -83,7 +101,8 @@ ${needsRescue ? `
       antibiotics,
       incubation_temperature_C: tempC,
       product_name: product,
-      needs_rescue: needsRescue
+      needs_rescue: needsRescue,
+      ...q
     },
     template
   };

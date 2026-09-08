@@ -1,5 +1,10 @@
 # Miniprep: Plasmid DNA Purification
 
+<!-- cheatsheet -->
+!!! tip "Bench cheatsheet"
+    **[Print the one-page cheatsheet for this protocol](../cheatsheets/miniprep.pdf)** — generated
+    from the same protocol module as the [Protocol Builder](../protocols/protocols.md), so the two cannot disagree.
+
 Once you’ve picked and grown up an isolated colony, you now have a saturated culture containing billions of identical cells. Each cell carries multiple copies of the plasmid, and a miniprep allows you to extract and purify that plasmid DNA.
 
 ---
