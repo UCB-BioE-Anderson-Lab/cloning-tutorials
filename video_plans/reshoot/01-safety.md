@@ -7,7 +7,10 @@
   safety/tour footage is **room-linked to Donner**, so it shows the wrong building
 - **Runtime:** 6–8 min (the longest in the series; it is doing two jobs)
 - **Advance prep:** none. Shootable cold.
-- **Hosting:** YouTube unlisted — this content is reached by QR from wall signage
+- **Hosting:** YouTube unlisted proposed — this content is reached by QR from wall signage.
+  ⚠️ **Not settled.** Safety is the case where the CalNet question actually bites: a gated
+  safety video is unreachable by a visitor. See the Hosting section in the README; JCA's call.
+- **Saturday 29 Aug:** ✅ **Part B only.** Part A moves to the FERB TA session.
 
 ## Why film this
 
@@ -22,6 +25,27 @@ written page is structurally unable to do the job.
 
 Doubling as the lab tour is the right call: a new student's real question is not "what are
 the rules" but "where is everything," and no page currently answers that.
+
+## Shooting this across two days
+
+The lab tour has moved off Sunday — students cannot be in B144 on a weekend — and onto the
+**FERB TA onboarding session**, where the room is being walked anyway. So the two halves get
+filmed on different days:
+
+- **Part A, the tour** → FERB TA session. Film it as part of the walkthrough that is already
+  happening rather than staging a second one.
+- **Part B, the rules** → **Saturday.** Static, at a bench, needs nothing prepared. It is
+  the right first item of the day: it costs no material, it is unaffected by anything else
+  slipping, and it banks footage before the day gets away.
+
+**Splitting the shoot does not split the video.** This is still one cut, Part A then Part B,
+and Part B should be filmed with that in mind — no "as we saw a moment ago," since at the
+time of shooting Part A does not exist yet. Keep Part B's references to the room general
+enough to survive whatever Part A turns out to look like.
+
+⚠️ Shooting Part B first inverts the pedagogical order the structure below relies on — the
+tour is supposed to motivate the rules. That is a **cut-order** problem, not a shoot-order
+one, and it costs nothing as long as Part B is not narrated as a continuation.
 
 ## Structure
 

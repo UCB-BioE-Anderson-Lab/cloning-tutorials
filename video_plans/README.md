@@ -13,20 +13,119 @@ Plans are filed by what each one actually needs. Filenames keep their nav number
 number always tells you which page the video belongs to.
 
 ```
-reshoot/      5 videos that need a camera  ← the shoot list
+reshoot/      6 items that need a camera  ← the shoot list
 reuse/        5 where the 2022 video stands; the work is embedding, not filming
 backlog/      make later
 not-planned/  deliberately not making; kept for the reasoning
 ```
 
-- **`reshoot/`** — 01-safety, 05-gel, 08-transformation, 09-pick, 12-bestp-tecan
+- **`reshoot/`** — 01-safety, 05-gel, 08-transformation, 09-pick, 12-bestp-tecan,
+  plate-pouring
 - **`reuse/`** — 02-pipetting, 04-pcr, 06-cleanup, 07-assembly, 10-miniprep
 - **`backlog/`** — 03-intro
 - **`not-planned/`** — 11-sequencing, 13-equipment-training
 
+`plate-pouring` is the one plan with no nav number: it is a **supervisor** procedure off
+`docs/trainings/plate_pouring.md`, not a wetlab tutorial section, so it takes the
+`B144-Equip-` naming from plan 13 rather than a `pP6-2026-n`. It is in `reshoot/` because
+it is on the Saturday shoot list, not because a prior version exists.
+
 Note that `reuse/` still carries real work: **Zymo, Assembly and Miniprep have finished
 2022 videos that are not embedded on their pages.** That is a text-only task and the
 cheapest win available.
+
+---
+
+## ⚠️ Saturday 29 Aug 2026 — read this before anything below
+
+Everything below this section was written before the session had a shape. It now has one,
+and it removes most of the shoot list. **The binding constraint is that there is no
+biological material.**
+
+> JCA, 28 Aug: *"Some of these, like pick we won't be able to do. We can pretend to do the
+> tecan, but we won't have real cells... Colonies aren't something we can just throw
+> together."*
+
+Nothing that needs a colony, an overnight culture, or a grown 24-well block can be filmed
+on Saturday — and the part that changed is that **there is no in-lab day immediately after
+it.**
+
+### Sunday is no longer in the lab
+
+QB3's rules bar these students from B144 on weekends and after 9 pm. Sunday 30 Aug becomes
+a **Zoom meeting for the facilitator-roles slideshow only**, and the **lab tour moves to the
+FERB TA onboarding session** during the week. Two consequences:
+
+- The pairing in [Shooting order](#shooting-order) — shoot 8 Saturday, incubate overnight,
+  shoot 9 Sunday off the same plate — **is dead as written.** The plate survives; the
+  Sunday shoot does not. See "Prep that unlocks a later shoot" below.
+- **Video 1 splits across two days.** Part A (the walking tour) belongs at the FERB TA
+  session, where the room is being walked anyway. Part B (the rules, static, at a bench) is
+  shootable Saturday. Splitting the *shoot* does not split the *video* — it is still one
+  cut.
+
+### Enzo's Saturday agenda, sorted into footage and not-footage
+
+| Agenda item | Footage? |
+|---|---|
+| Tecan training with JCA | ✅ **Yes — instrument operation only**, dummy plate. Plan 12. |
+| Pouring plates | ✅ **Yes** — new plan, `reshoot/plate-pouring.md`. Supervisor procedure. |
+| Making gels | ✅ **Partly** — casting and loading. Plan 5. |
+| Transformation (glass beads) | ✅ **Yes** — technique only; nothing has to grow. Plan 8. |
+| Growing control strains | ⛔ **Prep, not footage** — and the thing that unlocks `pick`. See below. |
+| New inventory system walkthrough | ⛔ **Agenda item.** Onboarding for the people in the room. No plan file. If it ever wants a video it belongs with `docs/tools/inventory_manager.md`, not in the pP6 wetlab series. |
+| JCA approving the Troubleshooting and Procedure docs | ⛔ **Agenda item.** A review, not a shoot. |
+
+### Shootable Saturday
+
+1. **`01-safety` Part B — the rules.** Advance prep is "none, shootable cold," so it is the
+   safe first item and it protects the day against everything else slipping. Part A waits
+   for the FERB session.
+2. **`08-transformation` — the whole video.** Technique only; **nothing has to grow.** Needs
+   a frozen TSS aliquot, DNA, carb plates, sterile glass beads, and the EchoTherm at
+   temperature. The plates it produces are the day's most valuable byproduct — see below.
+3. **Plate pouring** — new, from Enzo. Needs agar poured that morning. Note it is filmed at
+   the **chemical hood**, not the sterile bench (the burner needs the only gas line in the
+   lab), and it carries a **supervisor-only** banner. Film it as a supervisor procedure with
+   supervisor hands.
+4. **`05-gel` — casting and loading.** Both work with a ladder alone. See the plan for what
+   a real PCR product would add and how to get one on the day.
+5. **`12` — the Tecan segment only**, on a dummy plate. Instrument operation is
+   sample-independent; BestP is not. See plan 12.
+
+### Not shootable Saturday
+
+- **`09-pick`.** Needs a plate of overnight green colonies. Picking a faked dot teaches the
+  wrong thing — the skill in this video is *judging* isolation, size, satellites and
+  brightness, and there is nothing to judge on a plate that was staged. No plate, no shoot.
+- **`12-bestp-tecan` as a whole.** The BestP half wants 7 plasmids transformed, 4 colonies
+  each into a 24-well block, grown overnight. The sample *is* the content there.
+
+### Prep that unlocks a later shoot
+
+Saturday cannot film `pick` or BestP, but it can **start** them, and that is worth more than
+another take of anything else:
+
+- **The transformation filmed for video 8 produces real plates.** If the DNA transformed on
+  camera is an **archived pP6 assembly or library prep** rather than an arbitrary control
+  plasmid, those plates come up as a genuine range of green intensities — which is exactly
+  what `09-pick` needs and cannot fake. ⚠️ **Check whether such a stock exists before
+  Saturday.** If it does, transform *that*; the shoot costs nothing extra.
+- Somebody has to pull the plates from the incubator Sunday and refrigerate them, and the
+  students cannot be in the building. **This needs JCA's own access, not theirs.**
+- Parafilmed and inverted at 4 °C, plates hold for several days, but **satellites keep
+  growing and green dims.** The nearer the FERB session is to Saturday, the better the plate.
+- **Growing control strains** (Enzo's item) is the same category: prep, not footage. It is
+  also the input to a BestP block. A block must be inoculated the **evening before**
+  whichever session films the Tecan read — again, an access question, not a filming one.
+
+### Open — do not settle these on the day
+
+- **Hosting.** See [Hosting](#hosting--recommendation-needs-your-call); the plans currently
+  disagree with each other and with the recommendation. Needs JCA.
+- **When `pick` and BestP get shot.** Their material must be started the day before
+  whichever session films them, and the next in-lab day is the **FERB TA session, whose date
+  is not set.** Everything above about plate age depends on that date.
 
 ---
 
@@ -138,6 +237,26 @@ Recommendation: **split by audience, not by convenience.**
 100 MB per-file cap; the largest tracked file today is a 24 MB `.ai`. A few minutes of
 1080p would dominate every clone of the repo.
 
+### ⚠️ Still open, and the plans currently contradict each other
+
+This is a decision for JCA, not one to make on a shoot day. Three things are unresolved:
+
+1. **Safety (1) is the sharp case.** The recommendation above sends it to YouTube unlisted
+   because it is reached by QR off wall signage. But it is also the page a prospective
+   student, a visiting instructor, or an EH&S reviewer is most likely to open cold — and a
+   **CalNet gate makes safety content unreachable to a visitor**, which is arguably wrong
+   for safety specifically, whatever is right for the rest of the series. The wetlab
+   precedent points the other way: `gel.md` and `pcr.md` are the **only two live embeds in
+   `docs/wetlab/`** and both are Kaltura.
+2. **Plan 12 breaks the "4–12 → Kaltura" rule** and says YouTube, because the Tecan's
+   Mandatory QR has to reach it from the bench. That is a good reason, but it means the
+   rule as written is already wrong — the real rule is "anything a QR points at must be
+   ungated," and that cuts across the 4–12 range rather than stopping at it.
+3. **Plate pouring** inherits the same question: it is supervisor content reached from a
+   training page, not cohort content reached from bCourses.
+
+Until this is settled, the `Hosting:` line in each plan is a **proposal, not a decision.**
+
 ---
 
 ## Hard production constraint: most of these need pre-staged material
@@ -174,6 +293,13 @@ needs a competent cell aliquot, and **BestP/Tecan (12)** needs an overnight 24-w
 
 ## Shooting order
 
+> ⚠️ **Superseded for Saturday 29 Aug by
+> [the session section above](#-saturday-29-aug-2026--read-this-before-anything-below).**
+> What follows is the general ordering logic and stays correct for any session that *does*
+> have biological material. The Saturday-specific version — and in particular the fact that
+> the overnight pairing at the bottom of this section no longer has a Sunday to land in —
+> is up there.
+
 Five videos need a camera. Two can be shot cold; three need biology started beforehand.
 
 **No advance prep — shoot these first:**
@@ -195,7 +321,9 @@ Five videos need a camera. Two can be shot cold; three need biology started befo
 
 **Pairing that saves a day:** the transformation filmed for video 8 can be the transformation
 that produces video 9's plate. Shoot 8, incubate overnight, shoot 9 the next day off the
-same plate.
+same plate. ⚠️ **This is the pairing Sunday's change breaks** — the plate still gets made
+Saturday, but the shoot that would consume it has moved to the FERB TA session, days rather
+than hours later. See the Saturday section for what that costs.
 
 Everything in `reuse/` is a watch-and-embed task, not a filming task.
 

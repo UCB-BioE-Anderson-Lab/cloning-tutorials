@@ -7,7 +7,42 @@
 - **Runtime:** 3–4 min
 - **Advance prep:** ⚠️ **A transformation plate with green colonies, grown overnight.**
   This must be started the day before filming. There is no substitute.
-- **Hosting:** Kaltura
+- **Hosting:** Kaltura proposed. ⚠️ See the README's Hosting section; not settled.
+- **Saturday 29 Aug:** ⛔ **No.** See below.
+
+## ⛔ Not shootable Saturday, and no honest workaround
+
+Confirmed against JCA's constraint: *"Some of these, like pick we won't be able to do…
+Colonies aren't something we can just throw together."*
+
+The temptation is to stage something plate-shaped and film the hand motion. **Do not.** The
+mechanical act in this video — touching a toothpick to agar — takes four seconds and is not
+why the video exists. Everything of value here is **judgement exercised on a real plate**:
+which colony is isolated, which is too close to its neighbour, which small dull one is
+actually the interesting one, which ring of white specks is a satellite halo. A dot placed
+on a plate for the camera has no isolation to assess, no satellites, and no relationship
+between size and promoter strength. Filming it would teach the gesture and omit the skill,
+which is the exact inversion of the point.
+
+So this shoot waits for material. It has two possible sources:
+
+1. **Saturday's transformation plates** (plan 8) — grown Saturday night, pulled and
+   refrigerated Sunday by JCA, filmed at the FERB TA session. Requires that the DNA
+   transformed on camera was a **pP6 assembly or library prep**; a control plasmid gives
+   white colonies and nothing to judge.
+2. **A fresh transformation the day before** whichever session films this.
+
+⚠️ **Route 1 degrades with time.** Parafilmed and inverted at 4 °C a plate holds for several
+days, but it does not hold still: satellites keep growing, so a plate that read as "one
+green colony with a clean halo problem" on Sunday reads as a lawn later in the week, and
+green dims as the plate dries. Since the FERB session's date is not set, **route 1 is a free
+option, not a plan** — make the plates Saturday because they cost nothing, and decide which
+route to use once there is a date. If that date is more than about three days out, run
+route 2 and use the Saturday plates as the backup.
+
+A degraded plate is not useless, incidentally: **an overgrown plate with heavy satellites is
+a legitimate "what a bad plate looks like" shot**, which shot 1 asks for anyway. Keep it
+even if a fresh plate ends up carrying the video.
 
 ## Status first
 
@@ -60,6 +95,10 @@ that is taught by looking at plates — ideally several, including bad ones.
 
 - **The plate is the whole video.** If the transformation the night before fails, this
   shoot cannot happen. Plate more than one, from more than one transformation.
+- **Do not schedule this shoot before the plate exists and has been looked at.** Everything
+  else in the series can be filmed on faith that the material will be fine. This one cannot:
+  a plate can grow into a lawn, come up blank, or come up with nothing green on it, and none
+  of those are visible until the morning of.
 - Blue light plus an orange filter or shield — check the shot exposes correctly on camera
   before committing to a take. Green-on-blue is easy to blow out.
 

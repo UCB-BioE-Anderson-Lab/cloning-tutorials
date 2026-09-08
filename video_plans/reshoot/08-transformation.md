@@ -7,7 +7,37 @@
 - **Runtime:** 5–6 min
 - **Advance prep:** assembled DNA; a **frozen TSS competent cell aliquot**; carb plates;
   ice bucket; **EchoTherm on and at temperature**; sterile glass beads
-- **Hosting:** Kaltura
+- **Hosting:** Kaltura proposed. ⚠️ See the README's Hosting section; not settled.
+- **Saturday 29 Aug:** ✅ **Yes — the whole video.** This is the one reshoot whose material
+  requirements Saturday can actually meet.
+
+## Why this one survives the no-biology constraint
+
+Everything this video teaches is **technique performed on material that already exists**: a
+frozen aliquot thawed on ice, DNA added, 42 °C for 90 s, beads shaken across a plate. **Nothing
+has to grow for the camera.** The colonies would only appear the next day, and this video
+never shows them — that is video 9's job.
+
+So it is not a compromise shoot. Film it as written.
+
+## ⚠️ Which DNA you transform decides whether video 9 is possible
+
+The plates this shoot produces go into the incubator Saturday evening and are the **only
+route to a `09-pick` plate** that the schedule still allows. That makes the choice of DNA a
+decision worth making before the day rather than at the bench:
+
+- **If an archived pP6 assembly or library prep exists**, transform *that*. It comes up as a
+  real spread of green intensities, with satellites, exactly what `pick` needs and cannot
+  fake. **Confirm with Enzo whether such a stock is in the freezer.**
+- If it does not, an arbitrary control plasmid still makes a perfectly good transformation
+  video — it just yields a plate of white colonies that is no use to `pick`.
+
+Either way: **plate more than one**, and plate at more than one dilution. Ninety seconds of
+extra work on Saturday, and it is the whole of video 9's raw material.
+
+**Somebody has to pull the plates out of the incubator on Sunday and refrigerate them, and
+it cannot be the students** — QB3's rules keep them out of B144 on weekends. This needs
+JCA's own access. Parafilm, invert, 4 °C. See plan 9 for how well they keep.
 
 ## Why this one must be reshot
 

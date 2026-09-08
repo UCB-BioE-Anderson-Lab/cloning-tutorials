@@ -5,8 +5,40 @@
 - **Status:** 🟠 **REMAKE — instrument changes**
 - **Prior version:** pP6-2022-2-Gel is embedded but shows **superseded equipment**
 - **Runtime:** 5–6 min
-- **Advance prep:** a finished PCR product; pre-made gel slabs in the fridge; marker
-- **Hosting:** Kaltura, matching the existing embed
+- **Advance prep:** pre-made gel slabs in the fridge; marker. A finished PCR product is
+  **wanted, not required** — see below.
+- **Hosting:** Kaltura proposed, matching the existing embed. ⚠️ See the README's Hosting
+  section; the series-wide rule is not settled.
+- **Saturday 29 Aug:** ✅ **Yes, with a caveat** — casting, rig setup, loading and imaging
+  all work off a ladder alone. The one shot that needs a real product is shot 9.
+
+## Saturday: does a real PCR product exist?
+
+Checked, and the answer is **the repo cannot tell you** — the only inventory files tracked
+here are the lycopene example set, not B144's stock. So this has to be confirmed with Enzo
+on the day. But there is a route that does not depend on the answer:
+
+**A PCR is not biology that has to grow.** It is a ~2.5 h enzymatic reaction, and every
+input is in the pink **`Training1`** box in the freezer that `docs/wetlab/pcr.md:145` already
+sends students to — primers at `Training1/A*` and `B*`, pJ12 template at `Training1/C*`. Set
+up **PG4K45** first thing in the morning (98 °C 2 min → 30 × [10 s / 15 s / 4 min] → 68 °C
+5 min ≈ 2 h 20 plus ramps) and there is a real ~3583 bp product on the bench by early
+afternoon, in time to load it on camera.
+
+That makes the ordering for the day:
+
+1. **Morning, before anything else:** set the PCR running if the `Training1` reagents are
+   there. It costs one bench setup and it is the difference between shot 9 existing and not.
+2. **Any time:** cast, cut a slab, set up the rig, load the **ladder** and dye-only lanes,
+   run to red, image. None of this needs the product.
+3. **Afternoon:** load the real product and film shot 9 against the marker.
+
+If the reagents are not there, shoot 1–2 and **leave shot 9 for a pickup.** Do not fake a
+band: the entire point of that shot is *what a real result looks like*, and an invented one
+is worse than no shot. Loading dye alone in a lane is fine and honest for teaching the
+loading technique — it just is not a result.
+
+⚠️ **A ladder-only gel cannot be narrated as "your PCR."** Say what is in the well.
 
 ## Status: reshoot — three things changed
 
