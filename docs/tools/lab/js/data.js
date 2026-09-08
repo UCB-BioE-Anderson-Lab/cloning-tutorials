@@ -7,7 +7,6 @@
  *   room.json        → room geometry for SVG map
  *   benches.json     → bench surface equipment
  *   equipment.json   → major equipment markers
- *   trainings.json   → training/SOP references
  *   storage.json     → named storage units (backing definition)
  *   locations.tsv    → reagents/enzymes/equipment locations (zone/storage_unit/sublocation)
  *   consumables.tsv  → consumable stock at bench/storage locations
@@ -290,13 +289,12 @@ function buildStorageIndex(storageJSON) {
 
 export async function loadAll(paths) {
   const [
-    room, benches, equipment, trainings, storageJSON,
+    room, benches, equipment, storageJSON,
     locText, chemText, consText
   ] = await Promise.all([
     loadJSON(paths.room).catch(()     => null),
     loadJSON(paths.benches).catch(()  => null),
     loadJSON(paths.equipment).catch(()=> []),
-    loadJSON(paths.trainings).catch(()=> []),
     loadJSON(paths.storage).catch(()  => null),
     loadText(paths.locations).catch(()=> ''),
     loadText(paths.chemicals).catch(()=> ''),
@@ -334,7 +332,6 @@ export async function loadAll(paths) {
     room,
     benches,
     equipment: equipment || [],
-    trainings: trainings || [],
     storageJSON,
     storageIndex,
     consumables,

@@ -35,9 +35,9 @@ const n2 = v => Math.round(v*10)/10;
 const LFL = 280,  LFR = 900;         /* left fragment,  5' top .. 3' top   */
 const RFL = 720,  RFR = 1340;        /* right fragment                     */
 const OVL = 720,  OVR = 900;         /* the shared overlap                 */
-const W    = OVR - OVL;              /* 180 — the homology                 */
+const W    = OVR - OVL;              /* 180, the homology                 */
 const C    = 300;                    /* how far T5 chews each 5' end       */
-const FILL = C - W;                  /* 120 — the gap the polymerase fills.
+const FILL = C - W;                  /* 120, the gap the polymerase fills.
    This has to be big enough to READ as a gap from the back of the room:
    at 50 it was a hairline, and the step that claims to fill it looked
    like it was filling nothing.                                          */
@@ -64,7 +64,7 @@ function clipSeg(a, b, lo, hi, d, y){
 }
 /* a square bracket sitting above the top strand, marking an x range */
 function bracket(id){
-  return '<path data-r="'+id+'" fill="none" stroke="var(--blue)" stroke-width="2.6" ' +
+  return '<path data-r="'+id+'" fill="none" stroke="var(--red)" stroke-width="2.6" ' +
          'stroke-linecap="round" stroke-linejoin="round"/>';
 }
 function bracketD(lo, hi, d){
@@ -78,35 +78,46 @@ window.Deck.sequence("gibson", function(slide){
   svg.setAttribute("aria-hidden", "true");
   svg.setAttribute("style", "position:absolute;inset:0;pointer-events:none");
 
+  /* Red means one thing on this slide: the shared 20 bp that makes the
+     assembly work, and the 3' ends belonging to it. Everything else is blue -
+     both fragments, their outer ends, and the stretch the polymerase adds. */
   const strandPaths =
     ["lt","lb","rt","rb"].map(k =>
-      '<path data-r="'+k+'" stroke="var(--ink)"/>').join("") +
-    ["ltb","lbb","rtb","rbb"].map(k =>
-      '<path data-r="'+k+'" stroke="var(--ink)"/>').join("") +
-    ["blt","blb","brt","brb"].map(k =>
       '<path data-r="'+k+'" stroke="var(--blue)"/>').join("") +
+    /* ltb and rbb are the 3' ends INSIDE the join — the ones that stop being
+       ends once it closes, which is why they fade on s.close. They belong to
+       the anneal, so they are red. lbb and rtb are the fragments' outer ends
+       and stay blue: red on this slide means the shared 20 bp and nothing else. */
+    ["ltb","rbb"].map(k =>
+      '<path data-r="'+k+'" stroke="var(--red)"/>').join("") +
+    ["lbb","rtb"].map(k =>
+      '<path data-r="'+k+'" stroke="var(--blue)"/>').join("") +
+    ["blt","blb","brt","brb"].map(k =>
+      '<path data-r="'+k+'" stroke="var(--red)"/>').join("") +
     ["nwt","nwb"].map(k =>
-      '<path data-r="'+k+'" stroke="var(--red)"/>').join("");
+      '<path data-r="'+k+'" stroke="var(--blue)"/>').join("");
 
   svg.innerHTML =
     '<g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">' +
       strandPaths + bracket("bkL") + bracket("bkR") +
     '</g>' +
-    /* the 5' ends — the only ends T5 can start on */
+    /* the 5' ends; the only ends T5 can start on */
     '<g font-family="inherit" font-size="24" font-weight="700" text-anchor="middle" ' +
       'fill="var(--muted)">' +
       '<text data-r="p5lt"></text><text data-r="p5lb"></text>' +
       '<text data-r="p5rt"></text><text data-r="p5rb"></text>' +
     '</g>' +
     '<text data-r="ovlab" x="800" y="424" text-anchor="middle" font-family="inherit" ' +
-      'font-size="26" font-weight="700" fill="var(--blue)">overlap &mdash; the same sequence in both</text>' +
+      'font-size="26" font-weight="700" fill="var(--red)">overlap, the same sequence in both</text>' +
     '<g data-r="enzg" opacity="0">' +
       '<text data-r="enz" x="800" y="352" text-anchor="middle" font-family="inherit" ' +
         'font-size="30" font-weight="700" fill="var(--red)">T5 exonuclease &#183; 5&#8242;&rarr;3&#8242;</text>' +
-      /* struck through when T5 is heat-killed; x range is the measured
-         width of the label above, 332 units, plus a little overhang */
-      '<path data-r="kill" d="M624 343H976" fill="none" stroke="var(--red)" ' +
-        'stroke-width="3" stroke-linecap="round" opacity="0"/>' +
+    '</g>' +
+    /* the far ends, which the join does not remove */
+    '<g data-r="stillg" opacity="0" font-family="inherit" font-size="23" font-weight="700" ' +
+      'fill="var(--red)" text-anchor="middle">' +
+      '<text x="330" y="644">still an end</text>' +
+      '<text x="1312" y="644">still an end</text>' +
     '</g>' +
     '<text data-r="cap" x="800" y="712" text-anchor="middle" font-family="inherit" ' +
       'font-size="30" font-weight="700" fill="var(--ink)"></text>' +
@@ -159,7 +170,7 @@ window.Deck.sequence("gibson", function(slide){
     r.bkL.setAttribute("d", bracketD(OVL, OVR, dL));
     r.bkR.setAttribute("d", bracketD(OVL, OVR, dR));
     /* the brackets name the overlap once, then get out of the way —
-       after the enzyme runs, the blue segments carry it on their own */
+       after the enzyme runs, the red segments carry it on their own */
     r.bkL.setAttribute("opacity", n2(s.mark));
     r.bkR.setAttribute("opacity", n2(s.mark));
     r.ovlab.setAttribute("opacity", n2(s.mark));
@@ -170,29 +181,25 @@ window.Deck.sequence("gibson", function(slide){
     put(r.p5lb, lb5+dL + 4, YB + 34, "5′", 1 - s.close);
     put(r.p5rt, rt5+dR - 4, YT - 18, "5′", 1 - s.close);
 
-    /* Heat-killed T5 is struck through, and drops only slightly in
-       opacity — the strike carries the meaning.  A deeper fade turned
-       the vermillion into a pale pink that is in no palette and misses
-       the 3:1 floor for a graphical mark. */
-    r.enzg.setAttribute("opacity", n2(s.enz * (1 - 0.2*s.dead)));
-    r.kill.setAttribute("opacity", n2(s.dead));
+    r.enzg.setAttribute("opacity", n2(s.enz));
+    r.stillg.setAttribute("opacity", n2(s.dead));
   }
 
   const S = [
     { s:{sep:1, chew:0, close:0, enz:0, dead:0, mark:1},
       cap:"two fragments that share a sequence at the join", call:"",
-      note:"Gibson assembly starts with two DNAs that already share a sequence where you want them joined. This is not a sticky end and it is not a restriction site — it is simply the same stretch of sequence, typically twenty to forty bases, present at the end of both fragments in the same orientation. The original Gibson paper used forty; the modern high-fidelity kits will go down to about fifteen. You put it there yourself, on the tail of a PCR primer.",
+      note:"Gibson assembly starts with two DNAs that already share a sequence where you want them joined. This is not a sticky end and it is not a restriction site. It is simply the same stretch of sequence, typically twenty to forty bases, present at the end of both fragments in the same orientation. The original Gibson paper used forty; the modern high-fidelity kits will go down to about fifteen. You put it there yourself, on the tail of a PCR primer.",
       desc:"Two separate double-stranded DNA molecules with a clear gap between them. Each is two antiparallel lines; a half barb marks every 3-prime end and each 5-prime end is labelled. The right-hand end of the left molecule and the left-hand end of the right molecule are drawn in blue and bracketed: the same sequence in both." },
 
     { s:{sep:1, chew:1, close:0, enz:1, dead:0, mark:0},
       cap:"", call:"eating 5′ ends is what exposes the 3′ overhangs",
-      note:"T5 exonuclease runs five prime to three prime, so it eats five prime ends. Now look at what that leaves behind. At each end, the strand that survives is the one terminating in a three prime end — so a five-prime-to-three-prime exonuclease produces three prime single-stranded overhangs. This is the step almost everybody gets backwards, and it is worth saying out loud. Second thing to notice: T5 has no idea where your overlap is. It chews all four ends here, indiscriminately. Nothing about this enzyme is homology-specific. In a real assembly the two outer tails are the other junctions of the construct.",
+      note:"T5 exonuclease runs five prime to three prime, so it eats five prime ends. Now look at what that leaves behind. At each end, the strand that survives is the one terminating in a three prime end, so a five-prime-to-three-prime exonuclease produces three prime single-stranded overhangs. This is the step almost everybody gets backwards, and it is worth saying out loud. Second thing to notice: T5 has no idea where your overlap is. It chews all four ends here, indiscriminately. Nothing about this enzyme is homology-specific. In a real assembly the two outer tails are the other junctions of the construct.",
       desc:"All four 5-prime labels have moved inward along their strands: the enzyme has removed bases from every 5-prime end. Each molecule now ends in a long single-stranded 3-prime tail at both ends. The blue overlap survives on the top strand of the left molecule and on the bottom strand of the right molecule." },
 
     { s:{sep:0, chew:1, close:0, enz:1, dead:0, mark:0},
       cap:"only the complementary pair can anneal",
-      call:"held together, not yet joined — a gap in each strand",
-      note:"The specificity comes from base pairing, not from the enzyme. Of the four exposed tails only two are complementary — the two blue ones, because you designed them to be the same sequence — so those are the two that find each other. Now look at what you actually have. The molecules are held together, but they are not joined: T5 chewed a little past the overlap, so a stretch of each strand has no partner underneath it. Those are the two gaps, one on each side of the join, and nothing in this tube has closed them yet.",
+      call:"held together, not yet joined, a gap in each strand",
+      note:"The specificity comes from base pairing, not from the enzyme. Of the four exposed tails only two are complementary (the two blue ones, because you designed them to be the same sequence), so those are the two that find each other. Now look at what you actually have. The molecules are held together, but they are not joined: T5 chewed a little past the overlap, so a stretch of each strand has no partner underneath it. Those are the two gaps, one on each side of the join, and nothing in this tube has closed them yet.",
       desc:"The two molecules have converged. The blue single strand from each now forms a double-stranded blue join in the middle. Two gaps are clearly open: one in the top strand just right of the join, one in the bottom strand just left of it. Each gap is bounded by a barbed 3-prime end on one side and a labelled 5-prime end on the other." },
 
     { s:{sep:0, chew:1, close:1, enz:1, dead:0, mark:0},
@@ -200,11 +207,15 @@ window.Deck.sequence("gibson", function(slide){
       note:"Now the other two enzymes in the tube. Each gap presents a recessed three prime end sitting on a template, which is precisely what a DNA polymerase wants, so Phusion extends both and fills them. That leaves a nick in each strand, and Taq ligase seals those. The result is one covalently closed molecule.",
       desc:"New DNA drawn in red fills each of the two gaps, and both strands are continuous again: one double-stranded molecule across the whole join, still carrying a single-stranded 3-prime tail at each far end. The two inner 5-prime labels and 3-prime barbs are gone, because those positions are no longer ends." },
 
+    /* This step used to claim T5 is heat-killed during the incubation. JCA
+       does not believe it and I could not evidence it, so it is gone. What is
+       certainly true is the substrate argument: T5 acts on free ends, and the
+       join does not remove the two ends the assembly still has. */
     { s:{sep:0, chew:1, close:1, enz:1, dead:1, mark:0},
       cap:"one tube, 50 degrees, one incubation",
-      call:"T5 is heat-killed as the reaction runs",
-      note:"And here is why all three enzymes can share one tube at fifty degrees. T5 exonuclease is the heat-labile one; it is being inactivated the whole time the reaction is incubating. Phusion and Taq ligase are both thermostable and are not. So by the time the product exists, the only enzyme that would happily chew it back is dead. The order of events is enforced by the enzymes' own stability — you are not pipetting anything in stages.",
-      desc:"The T5 exonuclease label is struck through and faded, marking it as heat-inactivated. The assembled molecule is otherwise unchanged." }
+      call:"T5 is still working, so the product has to be a circle",
+      note:"One last thing, and it is the part that decides whether this works at all. All three enzymes are in the tube together the whole time, and T5 does not stop. It acts on free ends, and look at what you still have: the join in the middle is sealed, but there is an end at each far side, and those are still perfectly good substrate. So a linear assembly is not safe: leave it long enough and T5 will chew in from the outside. What protects a real Gibson product is that you are not making a linear molecule. You are assembling into a closed circle, usually a plasmid, and the moment the last junction seals there is no free end anywhere in it. That is the finish line: not the enzymes stopping, but the substrate running out.",
+      desc:"The assembled molecule is unchanged, but each of its two far ends is now labelled still an end, in red, marking them as remaining substrate for T5." }
   ];
 
   const KEYS = ["sep","chew","close","enz","dead","mark"];

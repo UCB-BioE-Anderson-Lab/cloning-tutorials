@@ -21,123 +21,204 @@ const INK = "#111111", SLATE = "#004373", RED = "#ba3a13", MUTED = "#767676";
 const SVGNS = "http://www.w3.org/2000/svg";
 const n2 = v => Math.round(v*10)/10;
 
-/* pentagon vertices, clockwise from the top (ring O) */
-const V = [-90, -18, 54, 126, 198];
-const vx = (c, r, i) => [c.x + r*Math.cos(V[i]*Math.PI/180),
-                         c.y + r*Math.sin(V[i]*Math.PI/180)];
-
-function pentagon(c, r){
-  return V.map((_, i) => (i ? "L" : "M") + vx(c,r,i).map(n2).join(" ")).join("") + "Z";
-}
 function bond(a, b, w, col){
   return '<path d="M'+n2(a[0])+' '+n2(a[1])+'L'+n2(b[0])+' '+n2(b[1])+'" fill="none" stroke="' +
          (col||INK)+'" stroke-width="'+(w||2.6)+'" stroke-linecap="round"/>';
 }
-function P(x, y, tag){
-  return '<circle cx="'+x+'" cy="'+y+'" r="22" fill="#fff" stroke="'+INK+'" stroke-width="2.6"/>' +
-         '<text x="'+x+'" y="'+(y+9)+'" text-anchor="middle" font-size="24" font-weight="700" ' +
-           'fill="'+INK+'">P</text>' +
-         (tag ? '<text x="'+x+'" y="'+(y+52)+'" text-anchor="middle" font-size="22" ' +
-                'font-style="italic" fill="'+MUTED+'">'+tag+'</text>' : '');
-}
-function O(x, y){                       /* a bridging oxygen, knocked out of its bond */
-  return '<circle cx="'+x+'" cy="'+y+'" r="15" fill="#fff"/>' +
-         '<text x="'+x+'" y="'+(y+9)+'" text-anchor="middle" font-size="24" fill="'+INK+'">O</text>';
-}
-function baseBox(x, y){                 /* x = left edge, y = centre */
-  return '<rect x="'+x+'" y="'+(y-29)+'" width="122" height="58" rx="13" fill="#fff" ' +
-           'stroke="'+INK+'" stroke-width="2.6"/>' +
-         '<text x="'+(x+61)+'" y="'+(y+9)+'" text-anchor="middle" font-size="25" ' +
-           'fill="'+MUTED+'">base</text>';
-}
 
 /* ------------------------------------------------------- level 1 */
-const R  = 50;
-const S1 = {x:470, y:400}, S2 = {x:1010, y:400};
-const OH = {x:582, y:496};
-const PA = {x:826, y:622}, PB = {x:686, y:622}, PG = {x:546, y:622};
-const BR = {x:900, y:505};              /* the 5' bridging oxygen */
+/* Drawn with the same all-atom renderer as every other operator in the
+   lecture, and coloured by the same rule: RED is what the enzyme has to
+   have, GREY is what it does not care about.
 
-function level1(){
-  let g = '<g data-r="L1" opacity="0">';
+   For a polymerase the address is a shape, not a sequence -- two strands,
+   annealed, with the upper one RECESSED so a free 3' hydroxyl sits
+   opposite unread template. So both backbones are red along their whole
+   length and every base is grey: a polymerase will extend that junction
+   whatever the letters are. The incoming dNTP is the same story, its
+   triphosphate red and its base grey.
 
-  /* ---- the two sugars, their bases, and the primer running off left */
-  g += '<g fill="none" stroke="'+INK+'" stroke-width="2.6" stroke-linejoin="round">' +
-         '<path d="'+pentagon(S1,R)+'"/><path d="'+pentagon(S2,R)+'"/></g>';
-  g += bond(vx(S1,R,1), [600, 350]) + baseBox(600, 350);
-  g += bond(vx(S2,R,1), [1140, 350]) + baseBox(1140, 350);
-  g += bond(vx(S1,R,4), [352, 350]);
-  g += '<text x="330" y="342" text-anchor="end" font-size="23" fill="'+MUTED+'">5&#8242;&#8230;</text>';
+   The chain is a real one -- once the bond forms, the new residue is
+   simply part of the top strand, and the alpha phosphate is the ordinary
+   internal phosphate the renderer draws between two sugars. Nothing is
+   faked to make the product look joined. */
+const NC = 8, PRIMER = 6;               /* six pairs annealed, two recessed */
+const SEQ = "GATCAGTC";
+const X0  = (1600 - (NC-1)*188) / 2;
+/* Everything between the slide's bullet and the caption line belongs to
+   the drawing. The level marker used to sit on its own line above the
+   panel, which cost ~90px of height the chemistry needed more; it now
+   opens the caption instead. */
+const FIT = {x0:110, y0:206, x1:1490, y1:788};
 
-  /* ---- the primer's free 3' hydroxyl: the nucleophile */
-  g += bond(vx(S1,R,2), [OH.x-24, OH.y-16]);
-  g += '<text x="'+OH.x+'" y="'+(OH.y+9)+'" font-size="26" font-weight="700" fill="'+RED+'">OH</text>';
-  g += '<text x="'+(OH.x+2)+'" y="'+(OH.y-26)+'" font-size="21" fill="'+RED+'">3&#8242;</text>';
+/* Red is the SUBSTRATE, not the footprint -- what has to be there for the
+   reaction to happen, not what the protein happens to touch. So the test
+   for any one residue is: swap it for something else, or delete it, and
+   does the enzyme still add this nucleotide? For the template base one
+   past the one being copied the answer is yes -- it could be biotin, or a
+   nick, or nothing -- so it is grey, and it turns red only once the window
+   has moved and it is the base being read.
 
-  /* ---- the incoming dNTP: 5'-O, then the alpha, beta and gamma phosphates */
-  g += bond(vx(S2,R,4), [BR.x, BR.y]) + bond([BR.x, BR.y], [PA.x+16, PA.y-16]);
-  g += O(BR.x, BR.y);
-  g += '<text x="'+(BR.x+30)+'" y="'+(BR.y-16)+'" font-size="21" fill="'+MUTED+'">5&#8242;</text>';
-  g += '<g data-r="ppi_l">' + bond([PA.x-22, PA.y], [PB.x+22, PB.y]) + O(756, PA.y) + '</g>';
-  g += P(PA.x, PA.y, "&#945;");
-  g += '<g data-r="ppi">' +
-         bond([PB.x-22, PB.y], [PG.x+22, PG.y]) + O(616, PA.y) +
-         P(PB.x, PB.y, "&#946;") + P(PG.x, PG.y, "&#947;") +
-       '</g>';
+   p = index of the 3' terminus being extended. */
+const winT = p => [Math.max(0, p-BEHIND+1), p+1];
+const winB = p => [Math.max(0, p-BEHIND+1), Math.min(NC, p+1+AHEAD)];
+const roleArr = w => Array.from({length:NC},
+  (_, i) => ({bb: (i >= w[0] && i < w[1]) ? "hot" : "bg", base:"bg"}));
+/* hb:"hot" because being annealed is part of what makes it a substrate --
+   a polymerase will not extend a primer bound to nothing. The renderer
+   reds a pair only where BOTH its residues are required. */
+const mk = (r, e, p) => window.DNAModel.make({top:SEQ, range:r, hb:"hot",
+                       roleTop:roleArr(winT(p)), roleBot:roleArr(winB(p)),
+                       ends:Object.assign({t5:"oh", t3:"oh", b5:"oh", b3:"oh"}, e||{})});
 
-  /* ---- the attack, and the bond it leaves behind */
-  g += '<path data-r="attack" fill="none" stroke="'+RED+'" stroke-width="3.4" ' +
-         'marker-end="url(#lvArrow)" d="M'+(OH.x+34)+' '+(OH.y+18)+
-         'Q'+(OH.x+164)+' '+(OH.y+2)+' '+(PA.x-20)+' '+(PA.y-22)+'"/>';
-  g += '<path data-r="newbond" fill="none" stroke="'+RED+'" stroke-width="4.4" opacity="0" ' +
-         'stroke-linecap="round" d="M'+(OH.x+42)+' '+(OH.y+8)+'L'+(PA.x-20)+' '+(PA.y-14)+'"/>';
+/* Phosphates drawn to the SAME atom scale the DNA renderer uses -- its
+   bond length is R*0.8 and its labels are Atoms.LBL, both of which follow
+   the scale draw() sets. Hand-picked sizes here came out at roughly twice
+   the size of the DNA's own atoms, which made the triphosphate read as a
+   different drawing pasted on top of the duplex. */
+const geo = () => { const R = window.Atoms.R, SZ = window.Atoms.LBL;
+                    return {R, SZ, L:R*0.80, ST:R*2.4}; };
 
-  /* ---- who is who */
-  g += '<g font-size="24" font-weight="700" text-anchor="middle" fill="'+SLATE+'">' +
-         '<text x="490" y="306">primer 3&#8242; end</text>' +
-         '<text x="1040" y="306">incoming dNTP</text></g>';
-  g += '<text data-r="ppilab" x="396" y="744" text-anchor="end" font-size="24" ' +
-         'font-weight="700" opacity="0" fill="'+MUTED+'">pyrophosphate</text>';
-  return g + '</g>';
+function lab(p, t, c, sz){
+  const z = sz || window.Atoms.LBL;
+  return '<circle cx="'+n2(p[0])+'" cy="'+n2(p[1])+'" r="'+n2(z*0.62)+'" fill="#fff"/>' +
+         '<text x="'+n2(p[0])+'" y="'+n2(p[1]+z*0.34)+'" text-anchor="middle" font-size="'+n2(z)+
+         '" font-weight="600" fill="'+c+'">'+t+'</text>';
+}
+/* flat in the chain: bridges left and right, spare oxygens above and below */
+function phos(x, y, c, term, d){
+  const {SZ, L} = geo();
+  let g = bond([x-4,y],[x-4,y-L], 2.4, c) + bond([x+4,y],[x+4,y-L], 2.4, c) +
+          lab([x, y-(L+SZ*0.95)], "O", c) +
+          bond([x,y],[x,y+L], 2.4, c) + lab([x, y+(L+SZ*1.05)], "O&#8315;", c);
+  if (term) g += bond([x,y],[x+d*L,y], 2.4, c) + lab([x+d*(L+SZ*1.15), y], "O&#8315;", c);
+  return g + lab([x,y], "P", c);
+}
+/* alpha bridges LEFT to beta and DOWN to the nucleotide's own 5' oxygen,
+   so its spare oxygens take the two directions that are left */
+function phosA(x, y, c){
+  const {SZ, L} = geo();
+  return bond([x-4,y],[x-4,y-L], 2.4, c) + bond([x+4,y],[x+4,y-L], 2.4, c) +
+         lab([x, y-(L+SZ*0.95)], "O", c) +
+         bond([x,y],[x+L,y], 2.4, c) + lab([x+L+SZ*1.15, y], "O&#8315;", c) +
+         lab([x,y], "P", c);
+}
+const GREEK = (x, y, t) => '<text x="'+n2(x)+'" y="'+n2(y)+'" text-anchor="middle" ' +
+  'font-size="'+n2(window.Atoms.LBL*1.55)+'" font-style="italic" fill="'+MUTED+'">'+t+'</text>';
+
+/* bonded = the phosphodiester has formed, so the dNTP is simply the fifth
+   residue of the top strand and what is left over is pyrophosphate */
+function level1(bonded){
+  const M = window.DNAModel;
+  const p = PRIMER - 1 + (bonded ? 1 : 0);     /* the 3' end being extended */
+  let g = M.draw(mk({top:[0, p+1], bot:[0,NC]}, null, p), X0);
+  const oh3 = M.anchors.term.top3;
+
+  if (!bonded){
+    /* The free dNTP, already paired with the base that decides which one it
+       is -- that pairing is the whole of a polymerase's fidelity, so it is
+       drawn, in red like the rest of the requirement. The template residue
+       under it is redrawn to get those bonds and carries no terminus of its
+       own, since it is the middle of a strand. */
+    /* the dNTP is a substrate too, so it is drawn against the window it is
+       about to join -- one position further on than the primer's */
+    g += M.draw(mk({top:[PRIMER, PRIMER+1], bot:[PRIMER, PRIMER+1]},
+                   {t5:"o", b3:"none", b5:"none"}, p+1), X0);
+    const o5 = M.anchors.term.top5, {SZ, L, ST, R} = geo();
+    /* The triphosphate runs flat, above the primer, rather than straight up
+       out of the slide: alpha has to sit clear of the 3' hydroxyl that is
+       about to attack it, and there is nothing else in that band. */
+    const AX = o5[0], AY = o5[1] - R*3.2;
+    /* bonds first, so the atom labels mask their ends */
+    g += bond([AX,AY],[AX-2*ST,AY], 2.4, RED) + bond([AX,AY],[AX,o5[1]], 2.4, RED);
+    g += lab([AX-ST/2, AY], "O", RED) + lab([AX-1.5*ST, AY], "O", RED);
+    g += phosA(AX, AY, RED) + phos(AX-ST, AY, RED) + phos(AX-2*ST, AY, RED, true, -1);
+    const gy = AY - (L + SZ*0.95) - SZ*1.5;
+    g += GREEK(AX, gy, "&#945;") + GREEK(AX-ST, gy, "&#946;") + GREEK(AX-2*ST, gy, "&#947;");
+    /* The attack. It has to arrive at alpha pointing AT it, from below and
+       left, which fixes which side the control point goes: putting it near
+       the start, or out beyond either end, bends the head away from the
+       phosphorus and the arrow reads as a hook instead of a curl. */
+    g += '<path fill="none" stroke="'+RED+'" stroke-width="3" marker-end="url(#lvArrow)" d="M' +
+         n2(oh3[0]+12)+' '+n2(oh3[1]-18)+'Q'+n2(AX-L)+' '+n2(AY+L*3.1)+' '+
+         n2(AX-L*0.25)+' '+n2(AY+L)+'"/>';
+  } else {
+    /* beta and gamma, leaving together */
+    const {SZ, L, ST, R} = geo();
+    const AX = M.anchors.phos.top[PRIMER-1][0] - ST/2, AY = 251 - R*3.2;
+    g += bond([AX,AY],[AX-ST,AY], 2.4, RED) + lab([AX-ST/2, AY], "O", RED);
+    g += phos(AX, AY, RED, true, 1) + phos(AX-ST, AY, RED, true, -1);
+    g += '<text x="'+n2(AX-ST-(L+SZ*1.15)-26)+'" y="'+n2(AY+SZ*0.34)+'" text-anchor="end" ' +
+           'font-size="26" font-weight="700" fill="'+MUTED+'">pyrophosphate</text>';
+  }
+  return g;
 }
 
 /* ------------------------------------------------- levels 2 and 3 */
-/* Levels 2 and 3 share ONE box and ONE moment: the same six positions, the
-   same strand separation, and both strands drawn to the same length so the
-   line panel does not read as "still running" next to a finished sequence.
-   LX is set so the six letters centre on x=800, under the caption. */
-const LT = "GCATTG", LB = "CGTAAC";
-const LX = 570, LSTEP = 92, LY = 490, LY2 = 568;
+/* Level 2 is the same event as level 1, run to completion on a molecule
+   long enough that the RUNNING is what you see. The red is the enzyme's
+   grip, and it is the same red as level 1: what has to be there.
 
-function level2(){
-  let g = '<g data-r="L2" opacity="0" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" ' +
-          'font-size="52" font-weight="600" text-anchor="middle">';
-  for (let i = 0; i < LT.length; i++){
-    const last = i === LT.length - 1;
-    g += '<text'+(last?' data-r="l2_new"':'')+' x="'+(LX+i*LSTEP)+'" y="'+LY+'" fill="' +
-         (last?RED:SLATE)+'">'+LT[i]+'</text>' +
-         '<text x="'+(LX+i*LSTEP)+'" y="'+LY2+'" fill="'+INK+'">'+LB[i]+'</text>';
+   BEHIND and AHEAD are the two edges of the SUBSTRATE, not of a footprint:
+   the test is not what the protein touches but what has to be there for
+   the reaction to go. Behind the growing end, enough annealed duplex to
+   hold the primer down; ahead of it, exactly one base, the one being
+   copied. Nothing further along is part of the substrate -- replace the
+   base past the templating one with biotin and the enzyme still adds this
+   nucleotide -- which is also why a fill-in reaction runs all the way to
+   blunt: when the last overhanging base has been copied there is nothing
+   downstream left, and there never needed to be.
+
+   Level 3 sits directly UNDER level 2 and runs off the same position, so
+   the abstraction is not asserted, it is demonstrated: the red segment on
+   the line is the red letters, one drawing above the other, moving
+   together. */
+const BEHIND = 6, AHEAD = 1;
+const CO = {A:"T", T:"A", G:"C", C:"G"};
+const L2TOP = "GCATTGACCTGAGTCATGCAGTTCGACATGCT";     /* the new strand   */
+const L2BOT = L2TOP.split("").map(c => CO[c]).join(""); /* the template   */
+const NL = L2TOP.length, P0 = 8;                       /* primer: 8 nt    */
+const LSTEP = 40, LX = 800 - (NL-1)*LSTEP/2, LY = 430, LY2 = 496;
+const XL = i => LX + i*LSTEP;
+const L2_IN = 0.9, L2_PER = 0.155, L2_OUT = 1.25;
+const L2_CYCLE = L2_IN + (NL-P0)*L2_PER + L2_OUT;
+const held = (i,p) => i > p-BEHIND && i <= p;          /* the duplex it grips   */
+const read = (i,p) => i > p && i <= p+AHEAD;           /* the base being copied */
+
+/* p = index of the last base of the new strand */
+function level2(p){
+  let g = '<g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" ' +
+          'font-size="38" font-weight="600" text-anchor="middle">';
+  for (let i = 0; i < NL; i++){
+    const h = held(i,p);
+    if (i <= p)
+      g += '<text x="'+XL(i)+'" y="'+LY+'" fill="'+(h?RED:SLATE)+'">'+L2TOP[i]+'</text>';
+    g += '<text x="'+XL(i)+'" y="'+LY2+'" fill="'+((h||read(i,p))?RED:INK)+'">'+L2BOT[i]+'</text>';
   }
-  const xe = LX + (LT.length-1)*LSTEP;
-  g += '<g font-family="inherit" font-size="28" fill="'+MUTED+'">' +
-         '<text x="'+(LX-92)+'" y="'+LY+'">5&#8242;</text>' +
-         '<text x="'+(LX-92)+'" y="'+LY2+'">3&#8242;</text>' +
-         '<text x="'+(xe+92)+'" y="'+LY+'">3&#8242;</text>' +
-         '<text x="'+(xe+92)+'" y="'+LY2+'">5&#8242;</text></g>';
+  /* the 3' tick of the new strand travels with the end that is growing */
+  g += '<g font-family="inherit" font-size="24" font-weight="600" fill="'+MUTED+'">' +
+         '<text x="'+(LX-LSTEP)+'" y="'+LY+'">5&#8242;</text>' +
+         '<text x="'+(LX-LSTEP)+'" y="'+LY2+'">3&#8242;</text>' +
+         '<text x="'+XL(p+1)+'" y="'+LY+'">3&#8242;</text>' +
+         '<text x="'+XL(NL)+'" y="'+LY2+'">5&#8242;</text></g>';
   return g + '</g>';
 }
 
-function level3(){
-  /* Both strands run the SAME span, so the duplex reads as finished — the
-     same moment panel 2 shows. (It used to leave the blue strand 56px short
-     of the black one, which read as synthesis still in progress.) */
-  const xa = LX - 102, xb = LX + (LT.length-1)*LSTEP + 102;
-  const y1 = LY - 16, y2 = LY2 - 16, B = 34;
-  return '<g data-r="L3" opacity="0" fill="none" stroke-width="4.6" stroke-linecap="round">' +
-    '<g stroke="'+SLATE+'"><path d="M'+xa+' '+y1+'H'+xb+'"/>' +
-      '<path d="M'+(xb-B)+' '+(y1-17)+'L'+xb+' '+y1+'"/></g>' +
-    '<g stroke="'+INK+'"><path d="M'+xb+' '+y2+'H'+xa+'"/>' +
-      '<path d="M'+(xa+B)+' '+(y2+17)+'L'+xa+' '+y2+'"/></g>' +
+const LN1 = 648, LN2 = 706, BARB = 30;
+function level3(p){
+  const xa = LX - LSTEP/2, xb = XL(NL-1) + LSTEP/2;
+  const w0 = XL(p-BEHIND+1) - LSTEP/2;
+  const w1 = XL(p) + LSTEP/2;
+  const w2 = Math.min(xb, XL(p+AHEAD) + LSTEP/2);
+  const seg = (x1,y,x2,c) => '<path d="M'+n2(x1)+' '+y+'H'+n2(x2)+'" stroke="'+c+'"/>';
+  /* barbs mark the 3' ends: the template's sits still on the left, the new
+     strand's rides the growing end, so it is inside the grip and red */
+  return '<g fill="none" stroke-width="4.6" stroke-linecap="round">' +
+    seg(xb, LN2, xa, INK) +
+      '<path d="M'+(xa+BARB)+' '+(LN2+16)+'L'+xa+' '+LN2+'" stroke="'+INK+'"/>' +
+    seg(xa, LN1, w1, SLATE) +
+    seg(w0, LN1, w1, RED) + seg(w0, LN2, w2, RED) +
+      '<path d="M'+n2(w1-BARB)+' '+(LN1-16)+'L'+n2(w1)+' '+LN1+'" stroke="'+RED+'"/>' +
   '</g>';
 }
 
@@ -151,57 +232,99 @@ window.Deck.sequence("levels", function(slide){
     '<defs><marker id="lvArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" ' +
       'markerHeight="6" orient="auto-start-reverse">' +
       '<path d="M0 0L10 5L0 10" fill="none" stroke="'+RED+'" stroke-width="2"/></marker></defs>' +
-    level1() + level2() + level3() +
-    '<text data-r="cap" x="800" y="252" text-anchor="middle" font-family="inherit" ' +
-      'font-weight="700" font-size="31" fill="'+INK+'"></text>' +
-    '<text data-r="sub" x="800" y="812" text-anchor="middle" font-family="inherit" ' +
-      'font-size="26" fill="'+MUTED+'"></text>';
+    '<g data-r="L1" opacity="0"></g><g data-r="L2" opacity="0"></g>' +
+    '<g data-r="L3" opacity="0"></g>' +
+    '<text data-r="sub" x="800" y="836" text-anchor="middle" font-family="inherit" ' +
+      'font-size="27" fill="'+MUTED+'"></text>';
   slide.appendChild(svg);
   const r = {};
   svg.querySelectorAll("[data-r]").forEach(el => r[el.getAttribute("data-r")] = el);
 
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const KEYS = ["l1","l2","l3","bond","ppi"];
-  let cur = null, raf = null;
+  const KEYS = ["l1","l2","l3"];
+  let cur = null, raf = null, drawn = null, fitTr = null;
+
+  /* The all-atom panel is drawn, not tweened -- like every other operator
+     in the deck. Only its opacity crossfades against levels 2 and 3.
+
+     ONE transform serves both frames, measured from the union of their two
+     bounding boxes. Fitting each frame to its own box made the duplex jump
+     between them, because the incoming dNTP and the departing pyrophosphate
+     sit in different places -- and the jump is exactly what you are trying
+     to watch, so it has to be the base that moves and nothing else. */
+  function drawL1(bonded){
+    if (!fitTr){
+      const box = [false, true].map(function(b){
+        r.L1.removeAttribute("transform");
+        r.L1.innerHTML = level1(b);
+        return r.L1.getBBox();
+      });
+      if (!box[0].width || !box[1].width) return;        /* slide not shown yet */
+      const x0 = Math.min(box[0].x, box[1].x), y0 = Math.min(box[0].y, box[1].y);
+      const x1 = Math.max(box[0].x+box[0].width,  box[1].x+box[1].width);
+      const y1 = Math.max(box[0].y+box[0].height, box[1].y+box[1].height);
+      const k = Math.min((FIT.x1-FIT.x0)/(x1-x0), (FIT.y1-FIT.y0)/(y1-y0), 1);
+      fitTr = "translate(" + n2((FIT.x0+FIT.x1)/2 - k*(x0+x1)/2) + " " +
+                             n2((FIT.y0+FIT.y1)/2 - k*(y0+y1)/2) + ") scale(" + n2(k) + ")";
+      drawn = true;
+    }
+    if (drawn !== bonded){ r.L1.innerHTML = level1(bonded); drawn = bonded; }
+    r.L1.setAttribute("transform", fitTr);
+  }
 
   function paint(s){
     r.L1.setAttribute("opacity", n2(s.l1));
     r.L2.setAttribute("opacity", n2(s.l2));
     r.L3.setAttribute("opacity", n2(s.l3));
-    r.attack .setAttribute("opacity", n2(1 - s.bond));
-    r.newbond.setAttribute("opacity", n2(s.bond));
-    r.l2_new .setAttribute("opacity", n2(s.l2));
-    /* pyrophosphate leaves once the bond is made, and names itself on the way out */
-    r.ppi_l .setAttribute("opacity", n2(1 - s.ppi));
-    r.ppi   .setAttribute("opacity", n2(1 - 0.45*s.ppi));
-    r.ppi   .setAttribute("transform", "translate(" + n2(-96*s.ppi) + " " + n2(112*s.ppi) + ")");
-    r.ppilab.setAttribute("opacity", n2(s.ppi));
+  }
+
+  /* Levels 2 and 3 are ONE animation with two renderers. The line is not a
+     separate picture that happens to agree with the letters -- it is the
+     same position drawn twice, so it can only ever agree. The loop keeps
+     running across the step that reveals the line, which is why the two
+     never fall out of step with each other. */
+  let l2raf = null;
+  function stopL2(){ if (l2raf){ cancelAnimationFrame(l2raf); l2raf = null; } }
+  function frameL2(p){ r.L2.innerHTML = level2(p); r.L3.innerHTML = level3(p); }
+  function runL2(){
+    if (l2raf) return;
+    if (reduce.matches){ frameL2(NL-1); return; }
+    const t0 = performance.now();
+    l2raf = requestAnimationFrame(function f(now){
+      if (!slide.classList.contains("on")){ l2raf = null; return; }
+      const t = ((now - t0)/1000) % L2_CYCLE;
+      frameL2(t < L2_IN ? P0-1
+                        : Math.min(NL-1, P0-1 + Math.floor((t - L2_IN)/L2_PER)));
+      l2raf = requestAnimationFrame(f);
+    });
   }
 
   const S = [
-    { s:{l1:1,l2:0,l3:0,bond:0,ppi:0}, cap:"1 · atoms",
+    { s:{l1:1,l2:0,l3:0}, l1state:false, cap:"1 · atoms",
       sub:"the primer's 3′ hydroxyl attacks the α phosphate of the incoming dNTP",
-      note:"Every base a polymerase adds is one phosphodiester bond, and this is it. The free 3-prime hydroxyl on the primer is the nucleophile. It attacks the alpha phosphate of the incoming dNTP. Notice what that means: the growing end is a 3-prime hydroxyl, so synthesis can only ever run five prime to three prime. There is no chemistry here for going the other way.",
-      desc:"A skeletal chemical drawing. On the left, the primer's last sugar ring with its base, ending in a red 3-prime hydroxyl. On the right, the incoming nucleotide's sugar and base, its 5-prime oxygen leading down to a chain of three phosphates labelled alpha, beta and gamma. A red curved arrow runs from the hydroxyl to the alpha phosphate." },
-    { s:{l1:1,l2:0,l3:0,bond:1,ppi:1}, cap:"1 · atoms",
+      note:"Read the colours first, the way we have all lecture. Everything red is what the enzyme has to have; everything grey is what it does not care about. So the whole of both backbones is red, the hydrogen bonds holding the two strands together are red, and every single base is grey. That is the polymerase's address, and it is a shape rather than a sequence: two strands annealed, with the upper one recessed, so a free three prime hydroxyl sits opposite template that has not been copied yet. The pairing has to be there, a polymerase will not extend a primer that is annealed to nothing, but which pairs they are is free. Give a polymerase that junction and it will extend it, whatever the letters are. Now look at the far right, at the one residue on the template that is grey. Ask why it is not red: if that base were something else entirely, biotin say, or if it were simply not there, would this nucleotide still get added? It would. So it is not part of the substrate, and it is grey. It goes red on the next click, when the window has moved and it is the base being read. And notice the incoming nucleotide is already paired with the base opposite it. That pairing is the whole of the enzyme's fidelity: the template picks the nucleotide, the enzyme just makes the bond. Now the chemistry. Every base it adds is one phosphodiester bond, and this is it. The free three prime hydroxyl is the nucleophile, and it attacks the alpha phosphate of the incoming dNTP. Notice what that means: the growing end is a three prime hydroxyl, so synthesis can only ever run five prime to three prime. There is no chemistry here for going the other way.",
+      desc:"An all-atom drawing of a primed template. Six base pairs are annealed and the upper strand is then recessed by two, leaving two template bases uncopied and a free 3-prime hydroxyl at its end. Red marks the substrate: both backbones, and the hydrogen bonds between them, across the six annealed pairs and the single templating base. The last template residue, one further along, is grey, because the reaction does not need it. Every base is grey too, marking that the enzyme reads none of them in particular. The incoming dNTP sits at the next position, already hydrogen bonded to the base opposite it, with its three phosphates labelled alpha, beta and gamma above, and a red curved arrow runs from the 3-prime hydroxyl up to the alpha phosphate." },
+    { s:{l1:1,l2:0,l3:0}, l1state:true, cap:"1 · atoms",
       sub:"the bond forms; pyrophosphate leaves, and is hydrolysed",
-      note:"The bond forms, and the beta and gamma phosphates leave together as pyrophosphate. Hydrolysing that pyrophosphate is what pulls the reaction forward and makes it effectively irreversible. That is the whole reason the substrate is a triphosphate and not a monophosphate — you are paying for the bond with the two phosphates you throw away.",
-      desc:"The bond has formed between the 3-prime oxygen and the alpha phosphate, drawn in red. The beta and gamma phosphates have moved away together, labelled pyrophosphate." },
-    { s:{l1:0,l2:1,l3:0,bond:1,ppi:1}, cap:"2 · letters",
-      sub:"the same event — one base added at the 3′ end",
-      note:"Same event, drawn as letters. Every one of those characters is a sugar, a phosphate and a base, and the join between any two of them is the bond you just watched form. Use this level whenever a position matters — a start site, a mismatch, a recognition sequence.",
-      desc:"The same reaction redrawn as sequence: a short duplex written as paired letters, five prime to three prime, with the newest base at the 3-prime end of the top strand picked out in red." },
-    { s:{l1:0,l2:0,l3:1,bond:1,ppi:1}, cap:"3 · a line",
-      sub:"the same event — and this is what the rest of the lecture draws",
-      note:"And the same event again as a barbed line, which is what almost every diagram from here on uses. It carries direction and topology and nothing else. That is a feature, not laziness — but remember that each little step along that line is the chemistry from the first drawing.",
-      desc:"The same reaction reduced to two antiparallel barbed lines, one per strand, the barb marking each 3-prime end. This is the level of abstraction used for the rest of the lecture." }
+      note:"The bond forms, and the beta and gamma phosphates leave together as pyrophosphate. Hydrolysing that pyrophosphate is what pulls the reaction forward and makes it effectively irreversible. That is the whole reason the substrate is a triphosphate and not a monophosphate. You are paying for the bond with the two phosphates you throw away. And look at what the molecule now is: the same junction as before, one base further along. The red has moved with it. The base that was spare a moment ago is now the one being read, and the pair at the far left has dropped out of the substrate because it is no longer needed to hold anything down. The address is intact, just shifted, which is why this runs as a cycle and not as a single event.",
+      desc:"The new residue is now simply part of the upper strand, joined by an ordinary internal phosphate and paired with the template, so the recessed junction has moved one position along. The red window has moved with it: the last template residue is now red, and the leftmost base pair has gone grey. The beta and gamma phosphates have left together above, labelled pyrophosphate." },
+    { s:{l1:0,l2:1,l3:0}, l1state:true, cap:"2 · letters",
+      sub:"six pairs of duplex behind, one templating base ahead; everything past that is just DNA",
+      note:"Same event, drawn as letters, and now let it run. Every one of those characters is a sugar, a phosphate and a base, and the join between any two of them is the bond you just watched form. Watch the red, because the red means here what it has meant all lecture: this is the substrate. Behind the growing end, about six base pairs of annealed duplex, because a primer that is not held down is not a substrate. Ahead of it, exactly one base: the one being copied. And that is the whole of it. Ask the question the other way round to see it: if the base one further along were biotin, or a nick, or simply nothing, would this nucleotide still get added? Yes. So that base is not part of the substrate, and it goes grey until the window reaches it. That is also why a fill-in reaction runs all the way to blunt: copy the last overhanging base and there is nothing downstream, and there never needed to be. So the substrate is that little window, and all it does is slide. Use this level whenever a position matters: a start site, a mismatch, a recognition sequence.",
+      desc:"The same reaction on a longer molecule, written as paired letters. A red window of six base pairs plus the single templating base ahead of it slides steadily left to right, and the new strand fills in behind it, five prime to three prime, until the template is fully copied. Then it repeats." },
+    { s:{l1:0,l2:1,l3:1}, l1state:true, cap:"3 · a line",
+      sub:"the same event, and this is what the rest of the lecture draws",
+      note:"And now the same event as a barbed line, drawn underneath and running off the same position, so you can see the one become the other. The red segment on the line is the red letters above it. The barb is the three prime end, and it travels because that is the end being extended. This is what almost every diagram from here on uses: it carries direction and topology and nothing else. That is a feature, not laziness, but remember that each little step along that line is the chemistry from the first drawing.",
+      desc:"Beneath the letters, the same reaction reduced to two antiparallel barbed lines, one per strand, the barb marking each 3-prime end. It animates in step with the letters above it, the red segment of line always covering the same positions as the red letters. This is the level of abstraction used for the rest of the lecture." }
   ];
 
   function go(i, animated){
     const to = S[i].s;
     if (raf){ cancelAnimationFrame(raf); raf = null; }
-    r.cap.textContent = S[i].cap;
-    r.sub.textContent = S[i].sub;
+    r.sub.innerHTML = '<tspan font-weight="700" fill="'+INK+'">'+S[i].cap+
+                      '</tspan>\u2003' + S[i].sub;
+    drawL1(S[i].l1state);
+    if (i >= 2) runL2(); else stopL2();
     if (!cur || animated === false || reduce.matches){ cur = Object.assign({}, to); paint(cur); return; }
     const from = Object.assign({}, cur), t0 = performance.now(), dur = 800;
     const ease = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
@@ -212,6 +335,7 @@ window.Deck.sequence("levels", function(slide){
       if (t < 1) raf = requestAnimationFrame(f); else raf = null;
     });
   }
+  frameL2(P0-1);          /* never crossfade into an empty panel */
   go(0, false);
   return { steps: S.map(x => ({ note:x.note, desc:x.desc })), go: go };
 });

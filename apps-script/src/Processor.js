@@ -145,8 +145,19 @@ function processSubmission_(payload) {
       console.warn('Processor: pP6 assignment skipped due to error', e2);
     }
 
+    // Only mail when this submission actually recorded something new.
+    //
+    // The client retries a submission whose reply was lost in Google's redirect
+    // (see launch-apps-script.js), and a resubmit is otherwise a no-op: the
+    // gradebook only fills empty cells, so the second pass adds nothing and
+    // quizzes_added_now comes back empty. Without this guard every retry, and
+    // every ordinary resubmit, sent another identical confirmation.
+    var addedSomething = Array.isArray(result.quizzes_added_now) && result.quizzes_added_now.length > 0;
     try {
-      if (typeof EmailNotifier !== 'undefined' &&
+      if (!addedSomething) {
+        result.email_sent = false;
+        console.log('Processor: nothing newly recorded; no confirmation sent.');
+      } else if (typeof EmailNotifier !== 'undefined' &&
           EmailNotifier &&
           typeof EmailNotifier.sendConfirmation === 'function') {
         var sent = EmailNotifier.sendConfirmation(result);

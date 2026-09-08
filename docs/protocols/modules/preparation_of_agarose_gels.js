@@ -10,7 +10,7 @@ export function factory() {
     name: "Preparation of Large Agarose Gels",
     description:
       "Prepare and cast large agarose gels in 1× TAE using the large gel rig.",
-    includes: { required: [], optional: [] },
+    includes: { required: [], optional: ["preparation_of_1x_tae"] },
     template: `
 **Materials**
 - Agarose (regular kind, not low melt)
@@ -23,6 +23,8 @@ export function factory() {
 - Gel cutting ceramic knife
 - Gel box
 - House DI water
+
+{preparation_of_1x_tae}
 
 **Procedure**
 1. Weigh **5.5 g agarose** into a **500 mL bottle**.
