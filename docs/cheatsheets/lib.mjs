@@ -57,6 +57,169 @@ export function prog(lines) {
 export const flag = (lead, rest) => `<p class="flag"><b>${lead}</b> ${rest}</p>`;
 
 /**
+ * A to-scale timeline, drawn as SVG.
+ *
+ * `total` is the length of the session in minutes and sets the scale — every bar and tick
+ * is positioned by its real time, so the picture tells you honestly how long you are
+ * standing there.
+ *
+ * `prep` lanes are the things that have to be started early and run concurrently. A lane
+ * with `gate` draws a dependency tick where the thing it blocks can finally begin.
+ *
+ * `waits` are blocks under the main line, `events` are ticks above it.
+ *
+ * `blowout` names a time range that is too short to label at the session scale — the
+ * transformation's 30 s and 90 s steps are under a millimetre wide next to a 10 minute
+ * hold. That range is bracketed and redrawn below at its own scale, which keeps the whole
+ * drawing to scale rather than quietly fudging the short steps wider.
+ */
+export function scaleTimeline(spec) {
+  const W = 1000;
+  const PAD = 8;
+  // A tail is something so much longer than the session that including it to scale would
+  // squash everything else to nothing — an overnight incubation against 30 minutes of
+  // bench work. The axis stops, a break mark says so, and the tail is drawn after it.
+  const TAIL = spec.tail ? 0.15 : 0;
+  const inner = (W - PAD * 2) * (1 - TAIL);
+
+  const laneH = 30;
+  const lanesH = spec.prep.length * laneH;
+  const mainY = lanesH + 44;
+  // The bracket has to clear the main track's own labels (which run to mainY+49),
+  // or the leader lines strike straight through them.
+  const brack = mainY + 58;
+  const blowTop = brack + 26;
+  const blowY = blowTop + 34;
+  const H = spec.blowout ? blowY + 60 : mainY + 56;
+
+  const x = (t) => PAD + (t / spec.total) * inner;
+
+  const hatch = `<pattern id="hx" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+  <rect width="7" height="7" fill="#fff"/><rect width="3.2" height="7" fill="currentColor"/></pattern>`;
+
+  const out = [];
+
+  // Prep lanes: hatched because "until it is ready" is not a fixed duration.
+  spec.prep.forEach((p, i) => {
+    const y = 6 + i * laneH;
+    const x0 = x(p.from);
+    const x1 = x(p.to);
+    // A halo is not enough over a dense hatch, so the label sits on a solid plate.
+    // Width is estimated from the character count; these labels are short and fixed.
+    const lw = p.label.length * 7.9 + 12;
+    out.push(
+      `<rect x="${x0.toFixed(1)}" y="${y}" width="${(x1 - x0).toFixed(1)}" height="14" fill="url(#hx)" stroke="currentColor" stroke-width="1"/>`,
+      `<rect x="${(x0 + 3).toFixed(1)}" y="${y + 0.8}" width="${lw.toFixed(1)}" height="12.4" fill="#fff"/>`,
+      `<text x="${(x0 + 8).toFixed(1)}" y="${y + 11}" font-size="15.5" font-weight="700">${p.label}</text>`
+    );
+    // the dependency: a dropline to the point on the main track this unblocks
+    if (p.gate !== undefined) {
+      const gx = x(p.gate);
+      out.push(
+        `<path d="M${gx.toFixed(1)} ${y + 14} V ${mainY - 16}" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>`,
+        `<path d="M${(gx - 4).toFixed(1)} ${mainY - 22} L${gx.toFixed(1)} ${mainY - 15} L${(gx + 4).toFixed(1)} ${mainY - 22} Z" fill="currentColor"/>`
+      );
+    }
+  });
+
+  // Main track. It stops where the timed session ends; a tail, if any, is drawn past a break.
+  const axisEnd = spec.tail ? PAD + inner : W - PAD;
+  out.push(
+    `<line x1="${PAD}" y1="${mainY}" x2="${axisEnd.toFixed(1)}" y2="${mainY}" stroke="currentColor" stroke-width="2"/>`
+  );
+
+  if (spec.tail) {
+    const bx = axisEnd + 10;
+    const tx0 = axisEnd + 26;
+    out.push(
+      // break mark: the axis is cut here, the tail is not to scale
+      `<path d="M${bx} ${mainY - 9} l7 18 M${bx + 8} ${mainY - 9} l7 18" stroke="currentColor" stroke-width="1.6" fill="none"/>`,
+      `<line x1="${tx0}" y1="${mainY}" x2="${W - PAD}" y2="${mainY}" stroke="currentColor" stroke-width="2"/>`,
+      `<rect x="${tx0}" y="${mainY}" width="${(W - PAD - tx0).toFixed(1)}" height="13" fill="url(#hx)" stroke="currentColor" stroke-width="1"/>`,
+      `<text x="${((tx0 + W - PAD) / 2).toFixed(1)}" y="${mainY + 32}" font-size="19" font-weight="700" text-anchor="middle">${spec.tail.label}</text>`,
+      spec.tail.sub
+        ? `<text x="${((tx0 + W - PAD) / 2).toFixed(1)}" y="${mainY + 49}" font-size="16" text-anchor="middle">${spec.tail.sub}</text>`
+        : ""
+    );
+  }
+
+  for (const w of spec.waits) {
+    const x0 = x(w.from);
+    const wd = Math.max(1.2, x(w.to) - x0);
+    out.push(
+      `<rect x="${x0.toFixed(1)}" y="${mainY}" width="${wd.toFixed(1)}" height="13" ${
+        w.variable ? `fill="url(#hx)" stroke="currentColor" stroke-width="1"` : `fill="currentColor"`
+      }/>`
+    );
+    if (w.label) {
+      const cx = x0 + wd / 2;
+      out.push(
+        `<text x="${cx.toFixed(1)}" y="${mainY + 32}" font-size="19" font-weight="700" text-anchor="middle">${w.label}</text>`
+      );
+      if (w.sub) {
+        out.push(
+          `<text x="${cx.toFixed(1)}" y="${mainY + 49}" font-size="16" text-anchor="middle">${w.sub}</text>`
+        );
+      }
+    }
+  }
+
+  for (const e of spec.events) {
+    const ex = x(e.at);
+    out.push(
+      `<line x1="${ex.toFixed(1)}" y1="${mainY - 7}" x2="${ex.toFixed(1)}" y2="${mainY}" stroke="currentColor" stroke-width="2"/>`,
+      `<text x="${ex.toFixed(1)}" y="${mainY - 12}" font-size="17" text-anchor="${e.anchor || "middle"}">${e.label}</text>`
+    );
+  }
+
+  // Blow-out: bracket the short range and redraw it at its own scale.
+  if (spec.blowout) {
+    const b = spec.blowout;
+    const bx0 = x(b.from);
+    const bx1 = x(b.to);
+    const span = b.to - b.from;
+    // The blow-out gets its own axis across the full width, at its own scale.
+    const bInner = W - PAD * 2;
+    const bx = (t) => PAD + ((t - b.from) / span) * bInner;
+
+    out.push(
+      `<path d="M${bx0.toFixed(1)} ${brack - 6} L${bx0.toFixed(1)} ${brack} L${bx1.toFixed(1)} ${brack} L${bx1.toFixed(1)} ${brack - 6}" fill="none" stroke="currentColor" stroke-width="1.5"/>`,
+      `<path d="M${bx0.toFixed(1)} ${brack} L${PAD} ${blowTop} M${bx1.toFixed(1)} ${brack} L${W - PAD} ${blowTop}" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>`,
+      `<line x1="${PAD}" y1="${blowY}" x2="${W - PAD}" y2="${blowY}" stroke="currentColor" stroke-width="2"/>`
+    );
+
+    for (const w of b.waits) {
+      const x0 = bx(w.from);
+      const wd = Math.max(1.2, bx(w.to) - x0);
+      out.push(
+        `<rect x="${x0.toFixed(1)}" y="${blowY}" width="${wd.toFixed(1)}" height="13" fill="currentColor"/>`
+      );
+      const cx = x0 + wd / 2;
+      out.push(
+        `<text x="${cx.toFixed(1)}" y="${blowY + 32}" font-size="19" font-weight="700" text-anchor="middle">${w.label}</text>`
+      );
+      if (w.sub) {
+        out.push(
+          `<text x="${cx.toFixed(1)}" y="${blowY + 49}" font-size="16" text-anchor="middle">${w.sub}</text>`
+        );
+      }
+    }
+    for (const e of b.events) {
+      const ex = bx(e.at);
+      out.push(
+        `<line x1="${ex.toFixed(1)}" y1="${blowY - 7}" x2="${ex.toFixed(1)}" y2="${blowY}" stroke="currentColor" stroke-width="2"/>`,
+        `<text x="${ex.toFixed(1)}" y="${blowY - 12}" font-size="17" text-anchor="${e.anchor || "middle"}">${e.label}</text>`
+      );
+    }
+  }
+
+  return `<div class="tl"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${spec.alt}">
+<defs>${hatch}</defs>
+${out.join("\n")}
+</svg></div>`;
+}
+
+/**
  * A timeline strip: what you do above the line, what you wait for below it.
  *
  * Segments are `{ do: "label" }` for something you actively do, or
