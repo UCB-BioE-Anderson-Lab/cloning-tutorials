@@ -1,0 +1,152 @@
+140L BENCH CHEATSHEETS — how this is put together
+=================================================
+
+WHAT THESE ARE
+--------------
+One-page printable summaries students take to the bench. Eight of them:
+
+  pcr  gel  zymo  goldengate  transformation  picking  miniprep  sequencing
+
+Each is a PRINT VIEW OF A PROTOCOL MODULE, not a separate document. That is the
+whole point. Before this, the cheatsheets were five loose PDFs in Dropbox with no
+connection to the website, and they had drifted: the Golden Gate program on the
+card was right and the website was wrong, the KCM card still described the
+pre-move two-block thermocycler, and the miniprep culture volume disagreed three
+ways. Every one of those defects was a NUMBER, and every number on a sheet now
+comes from the module rather than being typed here.
+
+
+WHY IT LIVES IN docs/
+---------------------
+`mkdocs gh-deploy` copies everything under docs/ verbatim into gh-pages. Non-.md
+files pass straight through — never rendered, never indexed, never in the
+sitemap. So the .html and .pdf files here ship as-is. This is the same mechanism
+docs/lectures/ relies on; see docs/lectures/AUTHORING.txt.
+
+Unlike the lectures, these are meant to be FOUND. They are linked from:
+  - docs/index.md            a table under "Bench Cheatsheets"
+  - each wetlab tutorial     an admonition under the H1, marked <!-- cheatsheet -->
+
+Do NOT add .md files in this directory. MkDocs would build them into real pages
+and index them for search, where they would compete with the tutorial pages they
+summarise. That is why this file is .txt.
+
+
+LAYOUT
+------
+docs/cheatsheets/
+  AUTHORING.txt      this file
+  build.mjs          the generator
+  lib.mjs            authoring helpers (blk, steps, rx, prog, flag, num)
+  sheet.css          shared screen + print styling
+  src/
+    1-pcr.mjs        one file per sheet: which module, what to show, in what order
+    2-gel.mjs
+    ...
+  pcr.html           generated — do not hand-edit
+  pcr.pdf            generated — the file students print
+  ...
+
+
+BUILDING
+--------
+  node docs/cheatsheets/build.mjs            rebuild HTML and PDF
+  node docs/cheatsheets/build.mjs --no-pdf   HTML only, skip the Chrome pass
+  node docs/cheatsheets/build.mjs --check    fail if any sheet is stale
+
+--check is the useful one. It re-renders every sheet from its module and exits
+non-zero if the result differs from what is committed. Change a volume in a
+protocol module, and --check tells you the sheet needs rebuilding instead of
+letting the printed copy quietly go wrong. Worth running before a deploy.
+
+The PDF pass drives headless Chrome and then asserts, via pdfinfo, that every
+sheet is EXACTLY ONE PAGE. A sheet that grows to two pages fails the build
+rather than reaching the bench. Requires Google Chrome and poppler's pdfinfo.
+
+
+WRITING A SHEET
+---------------
+A sheet file declares the module it projects and builds blocks from the module's
+`derived` object:
+
+  import { blk, p, steps, rx } from "../lib.mjs";
+
+  export default {
+    slug: "miniprep",
+    title: "Qiagen Miniprep",
+    module: "qiagen_miniprep",
+    values: {},                       // inputs passed to the module's factory()
+    build(d) {                        // d is factory(values).derived
+      return [
+        blk("Alkaline lysis", steps([
+          `Pellet ${d.culture_mL} mL of saturated culture.`,
+          `Resuspend in ${d.p1_uL} µL P1.`,
+        ])),
+      ];
+    }
+  };
+
+THE RULE: never type a volume, temperature, time or concentration into a sheet
+file. If a number you need is not in the module's `derived`, add it there — name
+it in a `q` object, use it in the module's own template, and spread it into
+`derived`. Then both the protocol and the sheet read the same constant, and the
+module cannot drift against itself either.
+
+Blocks never split across a column or a page break, so ordering is mostly
+cosmetic. Put what a student needs mid-procedure at the top of a column.
+
+
+STYLE NOTES
+-----------
+- Print size is 12.6pt. These are read at arm's length, at a bench, in gloves.
+  The old Dropbox PDFs were about 9pt.
+- The accent is #00658f (6.45:1 on white). The site brand #0088ca measures
+  3.91:1 and fails WCAG 2.1 AA, which the course must meet by 2027.
+- Nothing is distinguished by colour alone, and @media print forces the light
+  palette, so a dark-mode browser cannot print white-on-black and a mono lab
+  printer loses nothing.
+- Every sheet carries its issue date and its source module in the footer, so a
+  printout found on a bench can be checked against the site. The old PDFs
+  carried neither, which is why their drift stayed invisible for a year.
+- Uppercasing "µ" produces Greek capital Mu and reads as "50 ML". Units inside a
+  heading go in <span class="u"> to opt out of the transform.
+
+
+THE GOLDEN GATE PROGRAM
+-----------------------
+The sheet follows NEB's official recommendation for the NEBridge Golden Gate
+Assembly Kit (BsaI-HFv2, NEB #E1601), selected by insert count:
+
+  1 insert        37 °C 5 min (cloning) or 1 h (library prep) → 60 °C 5 min
+  2–10 inserts    (37 °C 1 min → 16 °C 1 min) × 30            → 60 °C 5 min
+  11–20+ inserts  (37 °C 5 min → 16 °C 5 min) × 30            → 60 °C 5 min
+
+The closing 60 °C is NOT heat inactivation. It favours Type IIS cutting in the
+absence of ligation, so any destination plasmid that was never cut, or that
+religated, is linearised — which is what keeps transformation background down.
+
+The thermocycler's stored main/GG1 is the same cut/ligate cycling with different
+numbers: 25 × (37 °C 2 min / 16 °C 5 min), then 45 °C 10 min and 80 °C 10 min.
+Its cycling is more generous than NEB's, so assembly itself is not the issue.
+
+The ending is the real difference, and it is not cosmetic. 80 °C inactivates
+BsaI, so any destination plasmid that was never cut, or that religated, survives
+to transform — that is background. NEB's 60 °C leaves BsaI active and destroys
+it. GG1 should give more background colonies than NEB's program.
+
+GG1's exact parameters above come from the 2025 printed bench card, the only
+written record of it anywhere. Worth confirming against the machine, and worth
+deciding whether to reprogram the tail to 60 °C 5 min.
+
+
+OPEN ITEMS
+----------
+- docs/wetlab/assembly.md describes the program as ending with an extended 37 °C
+  and a 65 °C inactivation. That matches neither NEB nor GG1, and is wrong on
+  every count.
+- preparation_of_agarose_gels.js casts slabs at 5.5 g / 500 mL (1.1%). Three
+  other sources say 1%: docs/wetlab/gel.md, docs/trainings/microwave.md, and the
+  Tlib3 labsheets in Pimar. The gel sheet says 1%.
+- The gel sheet gives 175 V and about 10 min, and says plainly not to set a timer
+  and walk away — you check every minute or so and stop when the blue front is
+  2/3 to 3/4 down. The time is an expectation, not a setting.

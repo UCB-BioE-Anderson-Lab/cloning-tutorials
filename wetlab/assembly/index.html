@@ -1853,6 +1853,12 @@
 
 
 <h1 id="assembly">Assembly<a class="headerlink" href="#assembly" title="Permanent link">&para;</a></h1>
+<!-- cheatsheet -->
+<div class="admonition tip">
+<p class="admonition-title">Bench cheatsheet</p>
+<p><strong><a href="../../cheatsheets/goldengate.pdf">Print the one-page cheatsheet for this protocol</a></strong> — generated
+from the same protocol module as the <a href="../../protocols/protocols/">Protocol Builder</a>, so the two cannot disagree.</p>
+</div>
 <p>In molecular cloning, “assembly” refers to joining two or more DNA molecules together into one. Two of the most common methods are <strong>Golden Gate Assembly</strong> and <strong>Gibson Assembly</strong>—together they cover nearly all modern cloning needs.</p>
 <hr />
 <h3 id="assembly-methods-overview">Assembly Methods Overview<a class="headerlink" href="#assembly-methods-overview" title="Permanent link">&para;</a></h3>
@@ -1920,16 +1926,17 @@
 </ul>
 <hr />
 <h3 id="thermocycler-program">Thermocycler Program<a class="headerlink" href="#thermocycler-program" title="Permanent link">&para;</a></h3>
-<p>We use the program <strong>GG1</strong>, which alternates between:</p>
+<p>We use the program <strong>GG1</strong>:</p>
 <ul>
-<li><strong>37°C</strong> (cutting by BsaI)</li>
-<li><strong>16°C</strong> (ligation by T4 Ligase)</li>
+<li>Repeat <strong>25×</strong>: <strong>37 °C for 2 min</strong> → <strong>16 °C for 5 min</strong></li>
+<li><strong>45 °C for 10 min</strong></li>
+<li><strong>80 °C for 10 min</strong></li>
+<li><strong>16 °C hold</strong></li>
 </ul>
-<p>The final steps:</p>
-<ul>
-<li>Extended 37°C incubation</li>
-<li>65°C heat inactivation</li>
-</ul>
+<p>37 °C is BsaI cutting, 16 °C is T4 Ligase sealing. Cycling between the two drives the mixture
+toward the fully assembled product, which no longer carries a BsaI site to be cut again.</p>
+<p>The reaction is a <strong>wait phase of about 3 hours</strong> — the protocol itself ends when the tubes go
+into the thermocycler.</p>
 <hr />
 <h3 id="lab-sheet-overview">Lab Sheet Overview<a class="headerlink" href="#lab-sheet-overview" title="Permanent link">&para;</a></h3>
 <table>

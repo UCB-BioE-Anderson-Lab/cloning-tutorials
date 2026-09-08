@@ -46,6 +46,8 @@ export function factory(values = {}) {
 **Set up the sterile area — chemical hood**
 - Work in the **chemical hood**. This procedure requires a Bunsen burner, and the hood has
   the **only gas line** in the lab, so pouring cannot be done at the sterile bench.
+  **Only supervisors may use the flame**, so this is not a student procedure — students
+  should ask a supervisor for the plates they need.
 - Place stacks of petri dishes in the hood.  
 - Light the **Bunsen burner** with a striker; gas can be fully open.  
 - *Why a flame?* The hot column of air above the flame creates **upward convection** that reduces dust and airborne microbes settling into your open plates.

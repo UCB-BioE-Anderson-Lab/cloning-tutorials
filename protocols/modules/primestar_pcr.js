@@ -57,6 +57,7 @@ export function factory(values = {}) {
 1. **Find oligo samples.** For now, locate tubes manually (ideally 10 µM stocks) and the template DNA (miniprep‑level concentration).
 2. **Prepare oligo dilutions if needed.**
 {dilution_of_oligonucleotides}
+3. **Label the tubes first**, before any liquid goes in. The **top label** is the number from your labsheet for that reaction (**${labelPrefix}_1 … ${labelPrefix}_${n}**).
 
 ${useMastermix ? `
 **Master Mix** *(for ${n} reactions; includes ${Math.round(overage*100)}% overage)*

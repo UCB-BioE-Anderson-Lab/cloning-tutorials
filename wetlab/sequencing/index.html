@@ -627,6 +627,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#setting-up-the-reaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Up the Reaction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#when-to-use-other-sequencing-options" class="md-nav__link">
     <span class="md-ellipsis">
       When to Use Other Sequencing Options
@@ -1928,6 +1937,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#setting-up-the-reaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Up the Reaction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#when-to-use-other-sequencing-options" class="md-nav__link">
     <span class="md-ellipsis">
       When to Use Other Sequencing Options
@@ -2075,6 +2093,12 @@
 
 
 <h1 id="cycle-sequencing">Cycle Sequencing<a class="headerlink" href="#cycle-sequencing" title="Permanent link">&para;</a></h1>
+<!-- cheatsheet -->
+<div class="admonition tip">
+<p class="admonition-title">Bench cheatsheet</p>
+<p><strong><a href="../../cheatsheets/sequencing.pdf">Print the one-page cheatsheet for this protocol</a></strong> — generated
+from the same protocol module as the <a href="../../protocols/protocols/">Protocol Builder</a>, so the two cannot disagree.</p>
+</div>
 <p>After you’ve picked colonies and completed your minipreps, you’ve finished the fabrication phase. The next question: <strong>what did you actually make?</strong> This tutorial will guide you through how to determine if your plasmid contains the correct sequence.</p>
 <hr />
 <h2 id="what-is-cycle-sequencing">What Is Cycle Sequencing?<a class="headerlink" href="#what-is-cycle-sequencing" title="Permanent link">&para;</a></h2>
@@ -2102,6 +2126,40 @@
 <h2 id="step-by-step-how-to-sequence-your-pp6-clone">Step-by-Step: How to Sequence Your pP6 Clone<a class="headerlink" href="#step-by-step-how-to-sequence-your-pp6-clone" title="Permanent link">&para;</a></h2>
 <h3 id="choosing-a-primer">Choosing a Primer<a class="headerlink" href="#choosing-a-primer" title="Permanent link">&para;</a></h3>
 <p>The sequence you read will start ~20–50 bp <strong>downstream</strong> of your primer. So, you must choose a primer upstream of the region you want to check. For pP6, we use the standard primer <strong>G00101</strong>.</p>
+<h3 id="setting-up-the-reaction">Setting Up the Reaction<a class="headerlink" href="#setting-up-the-reaction" title="Permanent link">&para;</a></h3>
+<p>Submissions are <strong>13 µL total, in a 1.5 mL Eppendorf tube</strong> — not a PCR tube. Label the <strong>top</strong>
+of the tube with <strong>the exact name you put on the submission form</strong>; the facility matches tube to
+form by that string, so an abbreviation that makes sense only to you will not do.</p>
+<table>
+<thead>
+<tr>
+<th>Volume</th>
+<th>Component</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3 µL</td>
+<td>sequencing oligo — our stocks are standardised to <strong>2.66 µM</strong>, so 3 µL is one reaction's worth</td>
+</tr>
+<tr>
+<td>10 µL</td>
+<td>miniprep DNA (medium copy)</td>
+</tr>
+<tr>
+<td>—</td>
+<td><strong>13 µL total</strong></td>
+</tr>
+</tbody>
+</table>
+<p>How much DNA depends on the plasmid's copy number:</p>
+<ul>
+<li><strong>Medium copy</strong> — pBR322, pAC plasmids, and <strong>pP6</strong>: <strong>10 µL</strong> of miniprep.</li>
+<li><strong>High copy</strong> — pUC plasmids: about <strong>4 µL</strong> of miniprep, made up to 10 µL with water.</li>
+<li><strong>Low copy</strong> — pSC101, BACs: <strong>PCR the region first</strong> and sequence the PCR product.</li>
+</ul>
+<p>Specify the <strong>dGTP protocol</strong> on the form. Standard chemistry dies inside a hairpin — a
+terminator, or any strong secondary structure, stops the read dead.</p>
 <h3 id="when-to-use-other-sequencing-options">When to Use Other Sequencing Options<a class="headerlink" href="#when-to-use-other-sequencing-options" title="Permanent link">&para;</a></h3>
 <table>
 <thead>

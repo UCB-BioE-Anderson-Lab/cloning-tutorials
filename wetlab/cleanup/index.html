@@ -1817,6 +1817,12 @@
 
 
 <h1 id="zymo-cleanup">Zymo Cleanup<a class="headerlink" href="#zymo-cleanup" title="Permanent link">&para;</a></h1>
+<!-- cheatsheet -->
+<div class="admonition tip">
+<p class="admonition-title">Bench cheatsheet</p>
+<p><strong><a href="../../cheatsheets/zymo.pdf">Print the one-page cheatsheet for this protocol</a></strong> — generated
+from the same protocol module as the <a href="../../protocols/protocols/">Protocol Builder</a>, so the two cannot disagree.</p>
+</div>
 <p>After confirming your PCR reaction on a gel, the next step is to purify the DNA. This is essential for most cloning workflows, especially <strong>Golden Gate</strong> and <strong>restriction enzyme-based</strong> cloning. Although it is <strong>optional for Gibson</strong>, cleanup helps remove components from the PCR that may interfere with downstream steps.</p>
 <hr />
 <h2 id="why-cleanup-is-necessary">Why Cleanup Is Necessary<a class="headerlink" href="#why-cleanup-is-necessary" title="Permanent link">&para;</a></h2>
@@ -1885,17 +1891,26 @@
 <h2 id="step-by-step-regular-zymo-cleanup">Step-by-Step: Regular Zymo Cleanup<a class="headerlink" href="#step-by-step-regular-zymo-cleanup" title="Permanent link">&para;</a></h2>
 <p>This protocol removes polymerase, dNTPs, salts, and oligos from your PCR. It also works for cleaning up restriction digests.</p>
 <ol>
-<li>Add <strong>180 µL of Zymo ADB buffer</strong> (brown bottle) to your PCR reaction.</li>
-<li>Transfer the mixture to a <strong>Zymo column</strong> (small clear tube labeled for cleanup).</li>
+<li><strong>Side-label one Zymo column per sample</strong> with an <strong>ethanol-resistant pen</strong> — <em>not</em> a Sharpie, which the washes take straight off. Put each column in a collection tube in a rack.</li>
+<li>Pipette <strong>180 µL of Zymo ADB buffer</strong> (brown bottle) into the column.</li>
+<li>Transfer all <strong>~50 µL</strong> of the reaction into the ADB <strong>in the column</strong>, and pipette up and down to mix.<ul>
+<li><strong>Alternatively</strong>, premix the ADB and the sample in an Eppendorf tube, vortex, spin, then transfer to the column. Several routes work; what matters is that the solutions end up <strong>well mixed and in the column</strong>.</li>
+</ul>
+</li>
 <li>Spin at full speed for <strong>15 seconds</strong>, discard the flow-through.</li>
-<li>Add <strong>200 µL of PE Buffer</strong> to the column.</li>
-<li>Spin at full speed for <strong>15 seconds</strong>, discard the flow-through.</li>
-<li>Add another <strong>200 µL of PE Buffer</strong>.</li>
-<li>Spin at full speed for <strong>15 seconds</strong>, discard the flow-through.</li>
-<li>Spin at full speed for <strong>90 seconds</strong> to dry the column, discard flow-through.</li>
-<li>Place the column in a clean 1.5 mL Eppendorf tube. Add the elution volume (see lab sheet) of <strong>EB Buffer</strong> or water <strong>directly to the center</strong> of the column matrix. Avoid letting liquid stick to the walls.  </li>
-<li>Spin at full speed for <strong>45 seconds</strong> to collect your purified DNA.</li>
+<li>Add <strong>200 µL of PE Buffer</strong>. Spin <strong>15 seconds</strong>, discard the flow-through.</li>
+<li>Add another <strong>200 µL of PE Buffer</strong>. Spin <strong>15 seconds</strong>, discard the flow-through.</li>
+<li>Spin at full speed for <strong>90 seconds</strong> to dry the column. PE is 70% ethanol and any carryover inhibits downstream enzymes.</li>
+<li><strong>While the drying spin runs, clean up.</strong> Check the bench for drips of salt or ADB solution, and use <strong>70% ethanol</strong> if you suspect any.</li>
+<li><strong>Top- and side-label new 1.5 mL Eppendorf tubes</strong>, one per column, as indicated on your lab sheet.</li>
+<li>Insert the <strong>dry column</strong> into its elution tube.</li>
+<li>Add the elution volume (see lab sheet) of <strong>EB Buffer</strong> or water <strong>directly to the centre</strong> of the column matrix. Avoid letting liquid stick to the walls.</li>
+<li>Spin at full speed for <strong>45 seconds</strong> to collect your purified DNA, then discard the column.</li>
 </ol>
+<blockquote>
+<p><strong>Why the elution tubes are labelled at step 9 and not at the start.</strong> An empty, labelled
+1.5 mL tube sitting in the rack during the ADB transfers is exactly where the ADB ends up.</p>
+</blockquote>
 <hr />
 <h2 id="quiz-zymo-cleanup">🧪 Quiz: Zymo Cleanup<a class="headerlink" href="#quiz-zymo-cleanup" title="Permanent link">&para;</a></h2>
 <p><em>Answer all questions correctly to pass. If you miss any, the quiz resets with a new randomized set.</em></p>
