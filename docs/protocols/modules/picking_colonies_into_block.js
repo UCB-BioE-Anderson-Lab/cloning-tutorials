@@ -73,12 +73,17 @@ ${overflow}
 2. **Label your vessels.** Tubes: write the clone ID on each (\`pP6-79A\`, and so on).
    Block: write the labels on the **airpore sheet**, not on the block.
 3. Fill each tube or well with **${vol} mL 2YT + ${ab}**${abNamed ? `` : ` — the antibiotic named on your labsheet, which is not always carb`}.
-4. **Pick ${per} representative colonies from each plate.**
-   - Touch a sterile toothpick to a single well-isolated colony and drop the toothpick in.
-     It stays there.
-   - **Into a block: pick in the order the samples are listed, left to right.** The block's
-     layout has to match the data-entry layout or the results are silently scrambled. Into
-     labelled tubes this does not apply — the label travels with the culture.
+4. **Pick ${per} colonies from each plate.** Touch a sterile toothpick to a single colony and
+   drop the toothpick in. It stays there.
+   - **Pick the ones that are easy to pick and look healthy:** well separated, round and
+     smooth. Big and well isolated is usually best.
+   - **Avoid contorted or smudgy colonies.** That appearance means water has seeped across
+     the plate, or two colonies have grown into one.
+   - **Which colonies to choose is set by the experiment** — brightest, smallest, largest,
+     red, or deliberately naive. Your labsheet says which. There is no general rule.
+   - **Into a block, pick in the order given by your labsheet's grid.** Wells are identified
+     by position, so a block filled in a different order is silently scrambled — nothing
+     errors. Labelled tubes do not have this problem.
 5. **Cover.** Tubes: their caps, loosely, so they can breathe. Block: the **airpore sheet**.
 6. Grow in the **shaking incubator**, **${GROW_MIN_H}–${GROW_MAX_H} h**. Refrigerate by
    **${GROW_MAX_H} h** — past that the cultures overgrow.

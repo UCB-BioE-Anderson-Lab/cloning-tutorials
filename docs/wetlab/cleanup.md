@@ -74,16 +74,22 @@ Each PCR reaction you process will yield a new **labeled Eppendorf tube** with y
 
 This protocol removes polymerase, dNTPs, salts, and oligos from your PCR. It also works for cleaning up restriction digests.
 
-1. Add **180 µL of Zymo ADB buffer** (brown bottle) to your PCR reaction.
-2. Transfer the mixture to a **Zymo column** (small clear tube labeled for cleanup).
-3. Spin at full speed for **15 seconds**, discard the flow-through.
-4. Add **200 µL of PE Buffer** to the column.
-5. Spin at full speed for **15 seconds**, discard the flow-through.
-6. Add another **200 µL of PE Buffer**.
-7. Spin at full speed for **15 seconds**, discard the flow-through.
-8. Spin at full speed for **90 seconds** to dry the column, discard flow-through.
-9. Place the column in a clean 1.5 mL Eppendorf tube. Add the elution volume (see lab sheet) of **EB Buffer** or water **directly to the center** of the column matrix. Avoid letting liquid stick to the walls.  
-10. Spin at full speed for **45 seconds** to collect your purified DNA.
+1. **Side-label one Zymo column per sample** with an **ethanol-resistant pen** — *not* a Sharpie, which the washes take straight off. Put each column in a collection tube in a rack.
+2. Pipette **180 µL of Zymo ADB buffer** (brown bottle) into the column.
+3. Transfer all **~50 µL** of the reaction into the ADB **in the column**, and pipette up and down to mix.
+    - **Alternatively**, premix the ADB and the sample in an Eppendorf tube, vortex, spin, then transfer to the column. Several routes work; what matters is that the solutions end up **well mixed and in the column**.
+4. Spin at full speed for **15 seconds**, discard the flow-through.
+5. Add **200 µL of PE Buffer**. Spin **15 seconds**, discard the flow-through.
+6. Add another **200 µL of PE Buffer**. Spin **15 seconds**, discard the flow-through.
+7. Spin at full speed for **90 seconds** to dry the column. PE is 70% ethanol and any carryover inhibits downstream enzymes.
+8. **While the drying spin runs, clean up.** Check the bench for drips of salt or ADB solution, and use **70% ethanol** if you suspect any.
+9. **Top- and side-label new 1.5 mL Eppendorf tubes**, one per column, as indicated on your lab sheet.
+10. Insert the **dry column** into its elution tube.
+11. Add the elution volume (see lab sheet) of **EB Buffer** or water **directly to the centre** of the column matrix. Avoid letting liquid stick to the walls.
+12. Spin at full speed for **45 seconds** to collect your purified DNA, then discard the column.
+
+> **Why the elution tubes are labelled at step 9 and not at the start.** An empty, labelled
+> 1.5 mL tube sitting in the rack during the ADB transfers is exactly where the ADB ends up.
 
 ---
 

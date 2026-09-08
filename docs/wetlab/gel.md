@@ -52,7 +52,12 @@ You’ll set up one lane for each PCR product. In this case, you're preparing on
 
 ### To prepare your gel samples:
 
-1) Add **8 µL of loading dye** (tube labeled ‘load’) to a new PCR tube.
+1) Add **8 µL of loading dye** (tube labeled **LOAD**) to a new PCR tube.
+
+> **LOAD has to be fresh — made within 2 days.** The stain in it does not keep. If the tube is
+> older, make a new aliquot: **100 µL blue juice + 1 µL dye** in an Eppendorf tube, labelled
+> **LOAD**. A stale LOAD gives a gel with no visible bands, which looks exactly like a failed
+> PCR.
 
 2) Add **3 µL of PCR product** to the tube, mix, and quick spin.
 

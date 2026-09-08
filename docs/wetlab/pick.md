@@ -39,16 +39,31 @@ Each visible spot on the plate arises from a single bacterium that landed there 
 
 Follow your lab sheet and the steps below:
 
-**Step 1:** Identify the brightest green colonies under blue light and mark them on the plate.
+**Step 1:** Photograph the plate **twice** — under blue-light transillumination and under
+ambient light — and save both. Then mark the colonies you intend to pick.
+
+Which colonies to choose is **set by the experiment** — brightest, smallest, largest, red, or
+deliberately naive. Your lab sheet says which; there is no general rule. Whatever the criterion,
+pick colonies that are **easy to pick and look healthy**: well separated, round and smooth. Big
+and well isolated is usually best. **Avoid contorted or smudgy colonies** — that appearance
+means water has seeped across the plate, or two colonies have grown into one.
 
 **Step 2:** Label snap-cap tubes for up to 4 clones with your assigned ID number and a letter. For example:  
 `pP6-79A`, `pP6-79B`, etc.
 
-**Step 3:** Add 4 mL of 2YT + Carb (from fridge) into each tube.
+**Step 3:** Add 4 mL of 2YT plus **the antibiotic named on your lab sheet** (from the fridge)
+into each tube. It is not always carbenicillin.
+
+> **Tubes or a block.** Up to 4 cultures, use individual snap-cap tubes as described here — each
+> carries its own label, so the order you pick in does not matter. For more than that, use a
+> 24-well block instead: its wells are identified by **position**, so you must pick in the order
+> given by the grid on your lab sheet, and the labels go on the airpore sheet rather than the
+> block.
 
 **Step 4:** Pick each marked colony using a sterile toothpick and inoculate it by dropping the toothpick directly into the labeled tube (do not remove the toothpick).
 
-**Step 5:** Cover the tube and grow in the shaking incubator overnight.
+**Step 5:** Cover the tube — caps on loosely, so the culture can breathe — and grow in the
+shaking incubator for **16–36 h**. Refrigerate by **36 h**; past that the cultures overgrow.
 
 **Step 6:** Wrap the agar plate with parafilm and place it upside-down in the fridge for recordkeeping.
 
