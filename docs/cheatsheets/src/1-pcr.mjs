@@ -13,7 +13,11 @@ export default {
     return [
       blk(
         `Reaction — <span class="u">${total} µL</span>`,
-        p("Pipette top to bottom. <b>Polymerase last</b> — it denatures in water or an incomplete mix."),
+        p(
+          "<b>Label the tube first</b> — before any liquid goes in. The <b>top label</b> is " +
+            "the number from your labsheet for this reaction."
+        ),
+        p("Then pipette top to bottom. <b>Polymerase last</b> — it denatures in water or an incomplete mix."),
         rx(
           [
             [r.water, "ddH₂O"],
