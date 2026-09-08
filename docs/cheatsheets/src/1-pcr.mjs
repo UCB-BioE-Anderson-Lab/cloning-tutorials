@@ -1,4 +1,4 @@
-import { blk, steps, bullets, rx } from "../lib.mjs";
+import { blk, p, steps, rx } from "../lib.mjs";
 
 export default {
   slug: "pcr",
@@ -11,6 +11,7 @@ export default {
     const r = d.per_reaction_uL;
     const total = r.water + r.buffer5x + r.dNTP + r.primer1 + r.primer2 + r.template + r.enzyme;
     const mmPerTube = total - r.template;
+    const overagePct = Math.round(d.overage_fraction * 100);
 
     return [
       blk(
@@ -32,11 +33,7 @@ export default {
                 [r.enzyme, "PrimeSTAR GXL polymerase"]
               ],
               { total, totalLabel: "µL total" }
-            ) +
-            bullets([
-              `More than about <b>4 reactions</b>: make a master mix of everything except template — <b>${mmPerTube} µL per tube</b> plus ~10% overage — then add template to each tube separately.`,
-              "Template is usually a <b>20× dilution</b> of a miniprep."
-            ]),
+            ),
 
           `Retrieve the <b>enzyme cooler</b>, and add <b>${r.enzyme} µL polymerase</b> to each sample, last.`,
 
@@ -44,6 +41,18 @@ export default {
 
           "Run the program from your labsheet — it depends on insert length and annealing temperature."
         ])
+      ),
+
+      blk(
+        "Master mix — 5 or more reactions",
+        p(
+          `Scale <b>everything except the template</b> by the number of reactions, plus ` +
+            `<b>${overagePct}%</b> so you do not run short on the last tube.`
+        ),
+        p(
+          `Each tube is then <b>${mmPerTube} µL master mix + ${r.template} µL template</b>, ` +
+            `and the template is the only thing you pipette per-tube.`
+        )
       )
     ];
   }
