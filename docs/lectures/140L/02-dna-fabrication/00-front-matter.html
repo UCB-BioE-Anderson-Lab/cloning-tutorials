@@ -7,6 +7,73 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Introduction &ndash; DNA Fabrication</title>
 <link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.  deck.css is shared by every lecture in the course and
+ * is not touched from here.
+ *
+ * THE ROADMAP.  Six method names, no title, no graphic: the map of the
+ * whole lecture, and in the source a single left-aligned column that left
+ * the right half of the slide empty.
+ *
+ * It stays a single column, and the empty right half is the price.  Two
+ * columns of three were tried and abandoned: this slide's order IS the
+ * order of sections 01 to 06, and a 2x3 grid does not carry it.  With a
+ * hairline under each name the rules band the slide horizontally and the
+ * pairs read across — Basic Cloning, BioBrick Assembly, Ad hoc Assembly,
+ * Homology-based — which is not the lecture.  Dropping the rules does not
+ * fix it: the six still sit on three shared baselines, and the gap across
+ * (~400px) is smaller than the gap down (~250px), so proximity keeps
+ * pairing them into rows.  Ruling each column vertically instead groups
+ * the threes but reads as a two-panel table, and the 36px indent it costs
+ * wraps Homology-based Assembly onto two lines.  Every way of making two
+ * columns read downwards needs a cue that is not on JCA's slide — numbers,
+ * arrows, a heading over each group.  On the one slide that tells the room
+ * the shape of the next hour, correct order beats a fuller box.
+ *
+ * In one column the same hairlines are safe, because there is nothing to
+ * read across to: six stacked bands, each closed by a rule, are a list and
+ * are read top to bottom.  So the frame that the two-column version was
+ * built for survives the move.  The rules are on the li and the names are
+ * the part that builds, so the empty frame is there from the first frame
+ * and the names land into it.  A build hung on the li itself would have
+ * the slide draw its own frame six times over, one band at a time, which
+ * reads as six separate lists rather than one map filling up.
+ *
+ * The list is width:max-content, so the rules run exactly as far as the
+ * longest name, Homology-based Assembly, rather than the full 1380px: a
+ * full-bleed rule under a name as short as Basic Cloning reads as an empty
+ * table cell waiting to be filled.  That also reproduces the source's
+ * left-aligned column with the right half of the slide empty.
+ *
+ * 44px is the largest size at which the longest name, Homology-based
+ * Assembly, still sets on one line in half of a 1380px box: measured at
+ * 626px against a 655px column.  One column has width to spare, but the
+ * size is held at 44 because six bands over the 744px content box are
+ * 124px each, and type much larger than this stops sitting IN a band and
+ * starts filling it.
+ *
+ * What is deliberately NOT here: any tie between a method and a rung of
+ * the scale ladder on the slide before.  The deck assigns scales to some
+ * of these methods later (slide 11, on the gene-synthesis ladder) but
+ * never to Basic Cloning or Ad hoc Assembly, so drawing six of them
+ * against the ladder would mean inventing two of the six.  The bands are
+ * even on purpose: equal bands assert nothing about size or rank.
+ * --------------------------------------------------------------------- */
+#fm-map ul{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:stretch;list-style:none;margin:0;padding:0;
+  width:max-content;max-width:100%}
+#fm-map li{flex:1 1 0;min-height:0;display:flex;align-items:center;margin:0;
+  border-bottom:2px solid var(--rule);
+  font-family:var(--slab);font-weight:700;font-size:44px;line-height:1.15}
+/* JCA's column has a blank line between the third and fourth methods, and it is
+   his break, not an artefact of where the column ran out: the first three are
+   ways of getting DNA and the last three are assembly standards.  Carried as a
+   gap above the fourth band rather than as a bigger band, so all six stay the
+   same size and the gap reads as a break rather than as one entry weighing more
+   than the others. */
+#fm-map li:nth-child(4){margin-top:38px}
+</style>
 </head>
 <body>
 
@@ -23,23 +90,21 @@
   <h1 class="small">Different strategies at different scales</h1>
 </article>
 
-<article class="slide">
-  <div style="flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center">
-    <ul style="list-style:none;margin:0;padding:0;font-family:var(--slab);font-weight:700;line-height:1.3">
-      <li style="margin:0;font-size:62px">Basic Cloning</li>
-      <li style="margin:0;font-size:62px" data-build="1"
-          data-desc="The list so far: Basic Cloning, Ad hoc Assembly.">Ad hoc Assembly</li>
-      <li style="margin:0;font-size:62px" data-build="2"
-          data-desc="The list so far: Basic Cloning, Ad hoc Assembly, Gene Synthesis.">Gene Synthesis</li>
-      <li style="margin:52px 0 0;font-size:62px" data-build="3"
-          data-desc="After a gap, a second group of three begins. The list so far: Basic Cloning, Ad hoc Assembly, Gene Synthesis, then BioBrick Assembly.">BioBrick Assembly</li>
-      <li style="margin:0;font-size:62px" data-build="4"
-          data-desc="The list so far: Basic Cloning, Ad hoc Assembly, Gene Synthesis, BioBrick Assembly, Homology-based Assembly.">Homology-based Assembly</li>
-      <li style="margin:0;font-size:62px" data-build="5"
-          data-desc="The full list of six methods, in two groups of three: Basic Cloning, Ad hoc Assembly, Gene Synthesis, then BioBrick Assembly, Homology-based Assembly, Golden Gate Assembly. This is the order the rest of the lecture takes them in.">Golden Gate Assembly</li>
-    </ul>
-  </div>
-  <template class="desc">A bare list, appearing one line at a time. It opens with Basic Cloning.</template>
+<article class="slide" id="fm-map">
+  <ul>
+    <li><span>Basic Cloning</span></li>
+    <li><span data-build="1"
+        data-desc="The second band down fills in: Ad hoc Assembly.">Ad hoc Assembly</span></li>
+    <li><span data-build="2"
+        data-desc="The third band down: Gene Synthesis.">Gene Synthesis</span></li>
+    <li><span data-build="3"
+        data-desc="The fourth band down: BioBrick Assembly.">BioBrick Assembly</span></li>
+    <li><span data-build="4"
+        data-desc="The fifth band down: Homology-based Assembly.">Homology-based Assembly</span></li>
+    <li><span data-build="5"
+        data-desc="The list is full. Six method names stacked in one column, every one in a band the same size as the others, read top to bottom: Basic Cloning, Ad hoc Assembly, Gene Synthesis, BioBrick Assembly, Homology-based Assembly, Golden Gate Assembly. This is the order the rest of the lecture takes them in.">Golden Gate Assembly</span></li>
+  </ul>
+  <template class="desc">An empty stack of six equal bands down the left of the slide, each closed by a hairline rule. The names fill it in one at a time from the top, and the first is Basic Cloning.</template>
 </article>
 
 <script src="../../deck.js" defer></script>

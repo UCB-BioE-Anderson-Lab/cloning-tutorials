@@ -34,6 +34,28 @@
    the height is spent on line spacing instead. */
 #bb-seq .cascade pre.dna{font-size:24px;line-height:1.5}
 #bb-seq .cascade .step{margin:22px 0 14px;font-size:26px}
+
+/* THE VERDICT SLIDE.  Three bullets, one of which is a 93-character raw
+   URL to optional material.  Set at body size the URL was the widest and
+   loudest thing on the slide, and the two lines that are the actual
+   verdict sat in the top third with an empty band under them.
+   So: the pointer to the optional video is demoted to a footnote line at
+   the top, at small size, where a link that nobody reads aloud belongs;
+   and the two verdict lines claim the leftover height, set large, each
+   against a blue rule, so the slide closes the section by saying what
+   BioBrick assembly costs you.
+
+   The rules are on the paragraph and the words are what builds, so both
+   are standing before either line arrives: the slide says "two of these"
+   from the first frame, the way the roadmap in 00-front-matter draws its
+   grid before it fills it.  Nothing moves during the build either way,
+   since a hidden [data-build] is at opacity 0 and still takes its space. */
+#bb-verdict .opt{margin:0 0 6px}
+#bb-verdict .opt small{font-size:20px}
+#bb-verdict .verdicts{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center;gap:62px;padding-bottom:26px}
+#bb-verdict .verdicts p{margin:0;font-size:44px;line-height:1.32;max-width:1160px;
+  border-left:5px solid var(--slate);padding-left:36px}
 </style>
 </head>
 <body>
@@ -74,19 +96,17 @@
   <template class="desc">Two BioBrick parts written out as letters. Each one is the same prefix and suffix around a different middle: EcoRI, then XbaI, then the part, then SpeI, then PstI, with all four restriction sites picked out in blue and the part itself in black. partA is on top, partB below it.</template>
 </article>
 
-<article class="slide">
+<article class="slide" id="bb-verdict">
   <h1 class="small">Biobricks</h1>
-  <div style="flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center">
-  <ul style="margin:0">
-    <li>Optional slides from YouTube:<br>
-      <small><a href="https://www.youtube.com/watch?v=F1mXoy1-Vr0&amp;list=PL2aPXzks-TgPX7HU4pogNUSBN9OK2PhBK&amp;index=4">https://www.youtube.com/watch?v=F1mXoy1-Vr0&amp;list=PL2aPXzks-TgPX7HU4pogNUSBN9OK2PhBK&amp;index=4</a></small></li>
-    <li data-build="1"
-        data-desc="Second bullet: still popular in iGEM program, but slow relative to other assembly methods.">Still popular in iGEM program, but slow relative to other assembly methods</li>
-    <li data-build="2"
-        data-desc="Third bullet: often requires gel purification, which can be tricky, and super hard for lower-copy plasmids.">Often requires gel purification, which can be tricky, and super hard for lower-copy plasmids</li>
-  </ul>
+  <p class="opt"><small>Optional slides from YouTube:<br>
+    <a href="https://www.youtube.com/watch?v=F1mXoy1-Vr0&amp;list=PL2aPXzks-TgPX7HU4pogNUSBN9OK2PhBK&amp;index=4">https://www.youtube.com/watch?v=F1mXoy1-Vr0&amp;list=PL2aPXzks-TgPX7HU4pogNUSBN9OK2PhBK&amp;index=4</a></small></p>
+  <div class="verdicts">
+    <p><span data-build="1"
+       data-desc="Against the upper rule, the first verdict line: still popular in iGEM program, but slow relative to other assembly methods.">Still popular in iGEM program, but slow relative to other assembly methods</span></p>
+    <p><span data-build="2"
+       data-desc="Against the lower rule, the second: often requires gel purification, which can be tricky, and super hard for lower-copy plasmids. Those two lines are the verdict on the method.">Often requires gel purification, which can be tricky, and super hard for lower-copy plasmids</span></p>
   </div>
-  <template class="desc">A closing list. It opens with a link to optional slides on YouTube, then adds two bullets on how BioBrick assembly stands up against the alternatives.</template>
+  <template class="desc">The closing slide of the section, headed Biobricks. A small footnote line at the top points to optional slides on YouTube and gives the link. Below it, two blue vertical rules stand in the open space, waiting for the two lines that will be set against them.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
