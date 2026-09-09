@@ -68,14 +68,14 @@ const STEPS = [
 { note:"All current protocols for gene synthesis begin with solid-phase phorsphoramidite chemistry.  Individual A, T, C, and G nucleotides are biologically derived, but they are extensively derivatized using synthetic organic chemistry.",
   desc:"The first rung of a scale ladder: single bases, drawn as the four letters A, T, C and G, labelled 1bp." },
 
-{ note:"These bases are assembled stepwise under non-aqueous conditions into single-stranded oligonucleotides.  Though it is possible to buy an oligonucleotide synthesizer, in practice it is rarely done anymore.  Commercial suppliers led by IDT and Operon provide oligonucleotide synthesis with next-day delivery at 5x lower prices than can be achieved with the instruments that one could purchase for in-house use. Additionally, the need for water-free conditions in these reactions requires extensive monitoring and continuous use to maintain a high-quality product.  When you purchase oligonucleotides from these suppliers, you receive individual pure oligonucleotide samples in screw-capped tubes, or in 96-well plates.  There is another product, called multiplex oligonucleotide synthesis that is much newer in which oligos are provided as a complex mixture at much lower concentrations. Next-generation gene synthesis methods are expected to build off this alternate format due to desirable scaling and pricing qualities.",
-  desc:"An arrow leads to the second rung: oligos, drawn as one single strand with a half barb at its 3-prime end, labelled 6 to 100 base pairs. Underneath, the method that gets you there, solid-phase phosphoramidite chemistry, and the suppliers: single sequences from IDT and Twist, multiplex from Agilent, LC Sciences and others." },
+{ note:"These bases are assembled stepwise under non-aqueous conditions into single-stranded oligonucleotides.  Though it is possible to buy an oligonucleotide synthesizer, in practice it is rarely done anymore.  Commercial suppliers led by IDT and Eurofins Genomics provide oligonucleotide synthesis with next-day delivery at 5x lower prices than can be achieved with the instruments that one could purchase for in-house use. Additionally, the need for water-free conditions in these reactions requires extensive monitoring and continuous use to maintain a high-quality product.  When you purchase oligonucleotides from these suppliers, you receive individual pure oligonucleotide samples in screw-capped tubes, or in 96-well plates.  There is another product, called multiplex oligonucleotide synthesis that is much newer in which oligos are provided as a complex mixture at much lower concentrations. Next-generation gene synthesis methods are expected to build off this alternate format due to desirable scaling and pricing qualities.",
+  desc:"An arrow leads to the second rung: oligos, drawn as one single strand with a half barb at its 3-prime end, labelled 6 to 100 base pairs. Underneath, the method that gets you there, solid-phase phosphoramidite chemistry, and the suppliers: single sequences from IDT and Eurofins, multiplex from Twist, IDT oPools, Agilent and GenScript." },
 
-{ note:"Regardless of the source of these oligos, they must be assembled using in vitro molecular biology operations into gene-length DNAs.  In gene synthesis facilities such as Geneart, DNA2.0, or Gen9, the procedures for fabricating larger DNAs has been standardized.  When a user orders a DNA longer than can be synthesized in one round of standardized fabrication, the sequence is broken up into shorter DNAs called synthons.  These synthons have a constant length and do not necessarily correspond to genetic boundaries.  The synthons are individually cloned and sequence-confirmed.",
-  desc:"A third rung: synthons, drawn as a short double-stranded molecule about 1 kilobase long, made from the oligos by gene synthesis reactions. The vendors are Twist, Geneart and DNA2.0." },
+{ note:"Regardless of the source of these oligos, they must be assembled using in vitro molecular biology operations into gene-length DNAs.  In gene synthesis facilities such as Thermo GeneArt, ATUM, or Twist, the procedures for fabricating larger DNAs has been standardized.  When a user orders a DNA longer than can be synthesized in one round of standardized fabrication, the sequence is broken up into shorter DNAs called synthons.  These synthons have a constant length and do not necessarily correspond to genetic boundaries.  The synthons are individually cloned and sequence-confirmed.",
+  desc:"A third rung: synthons, drawn as a short double-stranded molecule about 1 kilobase long, made from the oligos by gene synthesis reactions. The vendors are Twist, GenScript, IDT and Thermo GeneArt, with Elegen and Ansa as newer entrants." },
 
-{ note:"Various assembly reactions, like SLIC, SOEing, or Golden Gate methods, which we’ll discuss later, can be used to assemble these synthons into larger sequences.  Above this scale, in vitro or in vivo recombination methodologies can be used to fabricate DNAs on the genome scale or theoretically longer.  However, there is only one commercial vender of these services as of 2014, SGI-DNA.",
-  desc:"The last rung: devices, 1 to 20 kilobases, drawn as a longer duplex divided into four segments. Synthons are joined into devices by Gibson, Golden Gate and BioBrick-like reactions, and beyond that scale by in vitro or in vivo recombination, sold by SGI-DNA." }
+{ note:"Various assembly reactions, like SLIC, SOEing, or Golden Gate methods, which we’ll discuss later, can be used to assemble these synthons into larger sequences.  Above this scale, in vitro or in vivo recombination methodologies can be used to fabricate DNAs on the genome scale or theoretically longer.  However, there are still only a few commercial venders of these services, such as GenScript's GenBrick and GENEWIZ's FLEX.",
+  desc:"The last rung: devices, 1 to 20 kilobases, drawn as a longer duplex divided into four segments. Synthons are joined into devices by Gibson, Golden Gate and BioBrick-like reactions, and beyond that scale by in vitro or in vivo recombination, sold by GenScript GenBrick and GENEWIZ FLEX." }
 ];
 
 window.Deck.sequence("gs-ladder", function(slide){
@@ -114,10 +114,10 @@ window.Deck.sequence("gs-ladder", function(slide){
          'fill="'+MUTED+'">6-100bp</text>' +
        lines(130, YM, ["Solid-Phase", "Phosphoramidite", "Chemistry"], 26, INK) +
        '<text x="130" y="'+YV[0]+'" font-size="24" fill="'+MUTED+'">' +
-         '<tspan font-weight="700" fill="'+INK+'">Single:</tspan> IDT,  Twist</text>' +
+         '<tspan font-weight="700" fill="'+INK+'">Single:</tspan> IDT,  Eurofins</text>' +
        '<text x="130" y="'+YV[1]+'" font-size="24" fill="'+MUTED+'">' +
-         '<tspan font-weight="700" fill="'+INK+'">Multiplex:</tspan>  Agilent, LC</text>' +
-       '<text x="130" y="'+YV[2]+'" font-size="24" fill="'+MUTED+'">Sciences, etc.</text>' +
+         '<tspan font-weight="700" fill="'+INK+'">Multiplex:</tspan>  Twist, IDT</text>' +
+       '<text x="130" y="'+YV[2]+'" font-size="24" fill="'+MUTED+'">oPools, Agilent, GenScript</text>' +
        '</g>';
 
   /* --- rung 2: synthons ------------------------------------------- */
@@ -129,7 +129,7 @@ window.Deck.sequence("gs-ladder", function(slide){
        '<text x="'+CX[2]+'" y="'+YSIZE+'" text-anchor="middle" font-size="26" ' +
          'fill="'+MUTED+'">1kb</text>' +
        lines(480, YM, ["Gene Synthesis", "Reactions"], 26, INK) +
-       lines(480, YV, ["Twist, Geneart,", "DNA2.0, etc."], 24, MUTED) +
+       lines(480, YV, ["Twist, GenScript, IDT,", "Thermo GeneArt. Newer:", "Elegen, Ansa"], 24, MUTED) +
        '</g>';
 
   /* --- rung 3: devices, and the scale above them ------------------ */
@@ -148,7 +148,7 @@ window.Deck.sequence("gs-ladder", function(slide){
          'fill="'+MUTED+'">1-20kb</text>' +
        lines(830, YM, ["Gibson, GG,", "BioBrick-like", "Reactions"], 26, INK) +
        lines(1180, YM, ["In vitro or in vivo", "recombination"], 26, INK) +
-       lines(1180, YV, ["SGI-DNA"], 24, MUTED) +
+       lines(1180, YV, ["GenScript GenBrick,", "GENEWIZ FLEX"], 24, MUTED) +
        '</g>';
 
   h += '</g>';
