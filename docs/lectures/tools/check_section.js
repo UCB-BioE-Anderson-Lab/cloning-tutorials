@@ -32,10 +32,15 @@ const { PNG } = (() => { try { return require(require.resolve('pngjs', {paths:[p
 
 const BASE = 'http://127.0.0.1:8000/cloning-tutorials/lectures/140L/';
 const CB = {x0:110, y0:86, x1:1490, y1:830};
-/* Glyph ink sits a pixel or two outside its box (ascenders, antialiasing), and
-   a source citation deliberately parked in the bottom padding is not a defect.
-   Only flag excursions big enough to read as a mistake from the back row. */
-const SLOP = 12;
+/* Two different questions, and an earlier version of this tool conflated them.
+   The padding box is where FLOWED content belongs, and it drives the fill
+   metric. But .slide is position:relative with overflow:hidden, and the house
+   style deliberately parks furniture in the margin: .src pins a citation at
+   bottom:34px, and the polymerase legend sits lower still. Both ship, both have
+   been presented from. So margin ink is reported for information, and only ink
+   at the very edge of the 1600x900 slide is called a defect, because that is
+   the ink overflow:hidden is about to cut off. */
+const EDGE = 3;
 const [dir, file, outdir] = process.argv.slice(2);
 if (!dir || !file){ console.error('usage: node check_section.js <lecture-dir> <file.html> [outdir]'); process.exit(2); }
 const OUT = outdir || fs.mkdtempSync('/tmp/section-');
@@ -82,7 +87,7 @@ function inkBox(buf){
   const total = await page.evaluate(() => window.Deck.length);
   await page.evaluate(() => { window.__prev = null; window.__k = 0; });
 
-  const bad = [], fills = [], chan = [];
+  const bad = [], margin = [], fills = [], chan = [];
   for (let k = 0; k < total; k++){
     /* A section page navigates to the next file when the deck runs past its
        last step, which destroys the execution context mid-loop.  Report the
@@ -106,7 +111,8 @@ function inkBox(buf){
     if (!PNG) continue;
     const b = inkBox(buf);
     if (!b || b === 'GROUND') continue;
-    if (b[0] < CB.x0-SLOP || b[1] < CB.y0-SLOP || b[2] > CB.x1+SLOP || b[3] > CB.y1+SLOP) bad.push({step:k, box:b});
+    if (b[0] <= EDGE || b[1] <= EDGE || b[2] >= 1600-EDGE || b[3] >= 900-EDGE) bad.push({step:k, box:b});
+    else if (b[0] < CB.x0-2 || b[1] < CB.y0-2 || b[2] > CB.x1+2 || b[3] > CB.y1+2) margin.push(k);
     const w = Math.min(b[2],CB.x1) - Math.max(b[0],CB.x0);
     const h = Math.min(b[3],CB.y1) - Math.max(b[1],CB.y0);
     fills.push({step:k, fill: Math.max(0,w)*Math.max(0,h) / ((CB.x1-CB.x0)*(CB.y1-CB.y0))});
@@ -128,7 +134,8 @@ function inkBox(buf){
   else {
     console.log('  median fill      ' + (median*100).toFixed(0) + '%  of the content box');
     console.log('  thin steps       ' + (thin.length ? thin.join(', ') + '   (under 40%, look at these)' : 'none'));
-    console.log('  overflow         ' + (bad.length ? JSON.stringify(bad) : 'none'));
+    console.log('  clipped          ' + (bad.length ? JSON.stringify(bad) : 'none'));
+    console.log('  ink in margin    ' + (margin.length ? margin.join(', ') + '   (fine if deliberate: .src, legends)' : 'none'));
   }
   console.log('  channel junk     ' + (chan.length ? JSON.stringify(chan) : 'none'));
   console.log('  console          ' + (errs.length ? errs.slice(0,5).join('; ') : 'clean'));

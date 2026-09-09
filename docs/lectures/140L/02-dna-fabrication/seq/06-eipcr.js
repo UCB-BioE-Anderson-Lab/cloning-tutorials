@@ -65,14 +65,14 @@ function label(x, y, size, fill, str, weight, anchor){
 }
 
 /* ---- geometry -----------------------------------------------------
-   The figure lives between y=164 (under an h1.small) and y=566 (above
-   the sequence block).  Both slides reserve the same 424px spacer, so
-   these numbers are the contract with the markup. */
-const FY = 196, RY = 258;                 /* the two design oligos       */
-const CX = 250, CY = 406, CR = 94;        /* the template plasmid        */
-const DX0 = 560, DX1 = 1500;              /* the PCR product             */
+   The figure lives between y=182 (clear of the h1.small) and y=584
+   (clear of the sequence block).  Both slides reserve the same .figgap
+   spacer, so these numbers are the contract with the markup. */
+const FY = 214, RY = 276;                 /* the two design oligos       */
+const CX = 226, CY = 418, CR = 94;        /* the template plasmid        */
+const DX0 = 560, DX1 = 1486;              /* the PCR product             */
 const DT = 390, DB = 422;                 /* its two strands             */
-const TL = 584, TR = 1476;                /* where the two BsaI sites are*/
+const TL = 584, TR = 1462;                /* where the two BsaI sites are*/
 
 const MARKUP =
 '<g font-family="Helvetica Neue,Arial,Helvetica,sans-serif">' +
@@ -114,7 +114,7 @@ const MARKUP =
       '<path d="M' + DX0 + " " + DB + "H" + DX1 + '"/>' +
     '</g>' +
     '<rect x="606" y="' + DT + '" width="30" height="' + (DB - DT) + '" fill="' + RED + '"/>' +
-    '<rect x="1424" y="' + DT + '" width="30" height="' + (DB - DT) + '" fill="' + RED + '"/>' +
+    '<rect x="1410" y="' + DT + '" width="30" height="' + (DB - DT) + '" fill="' + RED + '"/>' +
     '<g fill="none" stroke="' + BLUE + '" stroke-width="3.4" stroke-linecap="round">' +
       '<path d="M' + TL + " " + DT + "L" + TL + " " + (DT - 30) + '"/>' +
       '<path d="M' + TR + " " + DT + "L" + TR + " " + (DT - 30) + '"/>' +
@@ -124,7 +124,6 @@ const MARKUP =
     '<path d="' + cross(700, (DT + DB)/2, 13) + '" stroke="' + INK +
       '" stroke-width="5.5" fill="none" stroke-linecap="round"/>' +
     label(700, DT - 42, 24, INK, "mutation") +
-    label(1035, DB + 40, 24, MUTED, "the two red blocks are the same 4 bp overhang") +
   '</g>' +
 
   /* ---- and what you do with it ---- */

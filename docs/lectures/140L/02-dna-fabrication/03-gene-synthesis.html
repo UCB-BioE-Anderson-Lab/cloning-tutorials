@@ -15,7 +15,13 @@
 /* The two vendor specifications on the metrics slide.  A spec is a name
    and a short table of numbers, so it is set as one: name in the left
    column, the numbers in the right, and no rules drawn round any of it. */
-.slide .spec{display:grid;grid-template-columns:400px 1fr;gap:0 46px;margin:0 0 46px}
+.slide .spec{display:grid;grid-template-columns:400px 1fr;gap:0 46px;margin:0}
+/* The two specifications ARE the slide, so the pair is spread down the
+   content box instead of stacking against the top of it and leaving the
+   bottom third empty.  Nothing is added or enlarged; the same two blocks
+   are simply given the height they were already being denied. */
+.slide .specs{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:space-evenly}
 .slide .spec .who{font-size:28px;line-height:1.35}
 .slide .spec table{border-collapse:collapse;margin:0}
 .slide .spec th,.slide .spec td{font-size:27px;padding:0 0 9px;text-align:left;
@@ -41,6 +47,11 @@
    It is long, so it breaks anywhere rather than running off the slide. */
 .slide a.tool{font-size:23px;line-height:1.4;color:var(--blue);
   overflow-wrap:anywhere;display:inline-block}
+
+/* A drawing that follows a list takes the leftover height and centres in
+   it, rather than sitting tight under the last bullet with the bottom of
+   the box empty. */
+.slide .growfig{flex:1 1 auto;min-height:0;display:flex;align-items:center}
 </style>
 </head>
 <body>
@@ -64,6 +75,7 @@
 <article class="slide">
   <h1>Current metrics</h1>
 
+  <div class="specs">
   <div class="spec">
     <div class="who">IDT single-sequence oligonucleotide synthesis</div>
     <table>
@@ -86,6 +98,7 @@
     </table>
     <p class="state"><span class="lab">State:</span> Sequence-confirmed double-stranded plasmid clone</p>
   </div>
+  </div>
 
   <template class="desc">Two vendor specifications side by side. IDT single-sequence oligonucleotide synthesis: size 6 to about 100 base pairs, price 10 cents per base, yield 10 nanomoles, turnaround 24 hours, and the product is chemically pure, sequence non-clonal and single-stranded. Below it, on a click, Twist gene synthesis.</template>
 </article>
@@ -106,7 +119,7 @@
     <li>Non-clonal, deletions and truncations increase towards the 5&rsquo; end</li>
   </ul>
 
-  <div data-build="1" style="margin-top:14px"
+  <div class="growfig" data-build="1"
        data-desc="A drawing of the fourth line. Both strands are written with the 5-prime end at the left. The chemistry builds the oligo on a CPG bead that holds its 3-prime end, so the chain grows leftward, at the 5-prime end. A polymerase extends the other way, adding to the 3-prime end, which carries a half barb.">
   <svg width="1380" height="212" viewBox="0 0 1380 212" aria-hidden="true">
     <g font-family="Helvetica Neue,Arial,Helvetica,sans-serif">

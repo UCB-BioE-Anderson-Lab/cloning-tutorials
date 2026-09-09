@@ -25,7 +25,7 @@
    measures 1.98:1 and misses the 3:1 that 1.4.11 asks of a graphical
    object.  45% composites to about #959595 and lands on 3.0:1 — still
    plainly subordinate to the 18.9:1 copies stacked on top of it. */
-.slide .lin{position:absolute;left:0;top:0;width:777px;height:828px}
+.slide .lin{position:absolute;left:0;top:0;width:698px;height:744px}
 .slide .lin.dim{opacity:.45}
 
 /* The two "ponder" slides.  The icon is the source deck's own marker for a
@@ -48,16 +48,17 @@
 </article>
 
 <!-- The figure is height-bound, not width-bound: at 702x748 it is taller
-     than it is wide, so the only way to make it bigger is to give it more
-     vertical room.  This one slide trades the deck's 86/70 top and bottom
-     padding for 36/36, which buys 84px of height and about 11% of linear
-     size.  The title column is centred and loses nothing. -->
-<article class="slide" style="padding-top:36px;padding-bottom:36px">
-  <div style="display:flex;gap:64px;height:828px">
+     than it is wide, so within the deck's content box (1380x744) it tops
+     out at 698 wide, and it is already there.  There is no more size to
+     be had here without breaking the box, so what the removed panel buys
+     is air rather than scale.  The title keeps the left column: a title
+     set above would cost the figure the height it is bound by. -->
+<article class="slide">
+  <div style="display:flex;gap:64px;height:744px">
     <div style="flex:1 1 auto;min-width:0;display:flex;flex-direction:column;justify-content:center">
       <h1 style="margin:0"><em>Ad Hoc</em> Cloning Strategies</h1>
     </div>
-    <div style="flex:0 0 777px;position:relative">
+    <div style="flex:0 0 698px;position:relative">
       <img class="lin dim" src="img/02-adhoc-lineage.png"
            alt="A lineage of plasmid maps joined by arrows labelled with restriction enzymes, running from pDisplay and pEGFP-C1 at the top down to the finished construct pIN-G at the bottom">
       <img class="lin" src="img/02-adhoc-lineage.png" alt="" aria-hidden="true"
