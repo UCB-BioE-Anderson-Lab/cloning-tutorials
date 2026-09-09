@@ -49,6 +49,14 @@ function strand(x1, y1, x2, y2){
 function plain(x1, y1, x2, y2){
   return "M"+n2(x1)+" "+n2(y1)+"L"+n2(x2)+" "+n2(y2);
 }
+/* Just the barb. The dash pattern that says "the polymerase made this" chops a
+   barb into two floating ticks, so new DNA is drawn as a dashed body plus a
+   solid barb: the dashes carry who made it, the barb marks where the end is. */
+function barbOnly(x1, y1, x2, y2){
+  const th = Math.atan2(y1-y2, x1-x2);
+  const bx = x2 + BARB*Math.cos(th + BW), by = y2 + BARB*Math.sin(th + BW);
+  return "M"+n2(bx)+" "+n2(by)+"L"+n2(x2)+" "+n2(y2);
+}
 
 /* oligo k as ordered, and how far its 3' end reaches once a polymerase
    has run it out along its neighbour */
@@ -93,6 +101,10 @@ window.Deck.sequence("gs-pca", function(slide){
          'stroke-linecap="round" stroke-dasharray="10 9" opacity="0">';
   for (let k = 0; k < 8; k++) h += '<path data-r="m'+k+'"/>';
   h += '</g>';
+  h += '<g data-r="madeb" fill="none" stroke="'+BLUE+'" stroke-width="3.4" ' +
+         'stroke-linecap="round" opacity="0">';
+  for (let k = 0; k < 8; k++) h += '<path data-r="b'+k+'"/>';
+  h += '</g>';
 
   /* the two outer primers */
   h += '<g data-r="prim" fill="none" stroke="'+BLUE+'" stroke-width="3.4" ' +
@@ -132,11 +144,13 @@ window.Deck.sequence("gs-pca", function(slide){
       if (k % 2 === 0){
         r["o"+k].setAttribute("d", extended ? plain(q[0], y, q[1], y)
                                             : strand(q[0], y, q[1], y));
-        r["m"+k].setAttribute("d", extended ? strand(q[1], y, g[1], y) : "");
+        r["m"+k].setAttribute("d", extended ? plain(q[1], y, g[1], y) : "");
+        r["b"+k].setAttribute("d", extended ? barbOnly(q[1], y, g[1], y) : "");
       } else {
         r["o"+k].setAttribute("d", extended ? plain(q[1], y, q[0], y)
                                             : strand(q[1], y, q[0], y));
-        r["m"+k].setAttribute("d", extended ? strand(q[0], y, g[0], y) : "");
+        r["m"+k].setAttribute("d", extended ? plain(q[0], y, g[0], y) : "");
+        r["b"+k].setAttribute("d", extended ? barbOnly(q[0], y, g[0], y) : "");
       }
     }
   }
@@ -144,7 +158,8 @@ window.Deck.sequence("gs-pca", function(slide){
   function go(i, animated){
     const soft = animated !== false && !reduce.matches;
     draw(i >= 1);
-    [["oligos", i <= 2], ["made", i >= 1 && i <= 2], ["prim", i === 2],
+    [["oligos", i <= 2], ["made", i >= 1 && i <= 2], ["madeb", i >= 1 && i <= 2],
+     ["prim", i === 2],
      ["prod", i === 3], ["key", i >= 1 && i <= 2]].forEach(function(p){
       const el = r[p[0]];
       el.style.transition = soft ? "opacity .34s ease" : "none";

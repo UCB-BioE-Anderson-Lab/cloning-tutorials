@@ -11,12 +11,12 @@
 /* Page-local layout only.  Nothing here belongs in the shared deck.css. */
 
 /* A subtitle sitting directly under the h1, in the source deck's own
-   parenthetical form — the same rule 03-gene-synthesis.html uses. */
+   parenthetical form, the same rule 03-gene-synthesis.html uses. */
 .slide p.sub{font-size:34px;color:var(--muted);margin:-14px 0 0}
 
 /* A Construction File.  The deck has no CF idiom yet: this is the first
    one in either lecture, and it is the format the course writes its
-   procedures in, so it is set as code and left exactly as written —
+   procedures in, so it is set as code and left exactly as written:
    spacing, capitalisation and all.  Comment lines are dropped to the
    muted grey so the four blocks separate at a glance; nothing else is
    touched.  30px is the largest that fits fifteen lines under the
@@ -37,10 +37,31 @@
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
 .slide .qhead .q{margin-bottom:0}
 
-/* The PNAS citation under the last slide's bullets.  Reference matter,
-   not a bullet: margin-top:auto drops it to the foot of the slide, at
-   roughly the size deck.css gives <small>. */
-.slide .cite{margin-top:auto;font-size:21px;line-height:1.42;color:var(--muted)}
+/* SLIDE 39.  Nine bullets in one column in the source, but they are two
+   groups and the grouping is the argument: four things Gibson buys you,
+   then the four costs it shares with every homology-based method.  In
+   the source that split shows only as an indent partway down a long
+   list, which is the one thing on the slide a reader has to work out.
+   Here the source's own "Like all homology-based methods:" line is set
+   as a heading and a rule carries the break, the same
+   rule-under-a-heading idiom 09 and 12 use for a sheet heading.  Nothing
+   moves between the halves and no word changes: the third item is a
+   limitation sitting inside the first group, and it stays where JCA put
+   it.  With only eight lines of text on the slide, 34px is the size the
+   longest of them still sets on one line. */
+.slide ul.weigh{margin:0;padding-left:1.1em}
+.slide ul.weigh li{font-size:34px;line-height:1.45;margin-bottom:12px}
+.slide h2.costs{font-size:34px;font-weight:700;line-height:1.3;
+  margin:34px 0 16px;padding:22px 0 0 1.1em;border-top:1px solid var(--rule)}
+
+/* SLIDE 42.  The first four bullets are a workflow and are drawn by
+   seq/05-invivo.js instead; these three are not steps and stay bullets,
+   pinned to the foot of the slide so the drawing has the band above
+   them.  The PNAS citation sits under them, reference matter rather
+   than a bullet, at roughly the size deck.css gives <small>. */
+.slide ul.tail{margin:auto 0 0;padding-left:1.1em}
+.slide ul.tail li{font-size:27px;line-height:1.4;margin-bottom:10px}
+.slide .cite{margin:18px 0 0;font-size:21px;line-height:1.42;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -131,24 +152,26 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 39 -->
+<!-- Two groups, which is what the source list already is: what Gibson
+     buys you, then what it costs.  See the .weigh / .costs note in the
+     <style> block above for why the split is set this way. -->
 <article class="slide">
   <h1>Gibson Method</h1>
-  <ul>
+  <ul class="weigh">
     <li>Fast&mdash;order oligos (1 day), pcr (2hr), gel purify (1hr), then a 1hr ligation, transform</li>
     <li>Can handle very large sequences</li>
     <li>Get degradation of parts &lt;200 bp</li>
     <li>Most reliable of the PCR-based methods</li>
-    <li>Like all homology-based methods:
-      <ul>
-        <li>Less reliable than cut-and paste methods</li>
-        <li>Requires sequencing (can get odd products)</li>
-        <li>Get deletions with repetitive target parts</li>
-        <li>Need custom oligos for each junction</li>
-      </ul>
-    </li>
+  </ul>
+  <h2 class="costs">Like all homology-based methods:</h2>
+  <ul class="weigh">
+    <li>Less reliable than cut-and paste methods</li>
+    <li>Requires sequencing (can get odd products)</li>
+    <li>Get deletions with repetitive target parts</li>
+    <li>Need custom oligos for each junction</li>
   </ul>
   <template class="notes">The advantages of Gibson are primarily that it is fast and automatable.  Like all PCR methods, it requires the purchase of oligos specific to each junction, and this takes around 24 hours and $10 per junction, but after that the remaining steps can all be implemented in one day.  Additionally, the methodology can handle very large sequences such as 25kb fragments, and in fact this methodology is best used on larger sequences.  Short parts under 200 bp often get degraded under the conditions of the experiment.  Gibson is currently the most popular method because it is fast and more reliable than others, and its drawbacks are those common to all methods.  The reactions are less reliable than cut-and-paste procedures, and thus a fabrication strategy sometimes must be redesigned.  The use of PCR can introduce mutations, and thus the constructs must be confirmed by sequencing.  With repetitive sequences, there can be deletions and thus not all sequences are amenable to the reaction.  Finally, PCR methods are more expensive than BioBrick or MoClo-style methods because they require custom oligos for each assembly junction.</template>
-  <template class="desc">Four bullets on what Gibson buys you: it is fast, ordering oligos in a day and then PCR, gel purification and a one-hour ligation; it handles very large sequences; parts under 200 base pairs get degraded; and it is the most reliable of the PCR-based methods. A fifth bullet, like all homology-based methods, opens onto four more: less reliable than cut-and-paste methods, requires sequencing because odd products turn up, gives deletions with repetitive target parts, and needs custom oligos for every junction.</template>
+  <template class="desc">The slide is in two groups. First, four bullets on what Gibson buys you: it is fast, ordering oligos in a day and then PCR, gel purification and a one-hour ligation; it handles very large sequences; parts under 200 base pairs get degraded; and it is the most reliable of the PCR-based methods. Then a rule across the slide, and under it the heading like all homology-based methods, over four more: less reliable than cut-and-paste methods, requires sequencing because odd products turn up, gives deletions with repetitive target parts, and needs custom oligos for every junction.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 40 -->
@@ -224,13 +247,18 @@ gaattcgcggccgcttctagagtccctatcagtgatagagattgacatccctatcagtgatagagatactgagcactact
 </article>
 
 <!-- ---------------------------------------------------------------- 42 -->
-<article class="slide">
+<!-- Seven bullets in the source, but the first four are a workflow in
+     order, and this section has already set two workflows as flows.
+     They become the third: seq/05-invivo.js draws them in the language
+     seq/05-soeing.js and seq/05-gibson.js use, so the room reads this as
+     the same family and not a new idiom.  Their four strings are the
+     drawing's captions, unchanged.  The remaining three bullets are not
+     steps and stay bullets, and the PNAS citation stays complete under
+     them.  The notes are the source's six sentences, in order, split
+     across the four beats. -->
+<article class="slide" data-seq="invivo">
   <h1><em>In vivo</em> recombination</h1>
-  <ul>
-    <li>Design oligos just like SOEing / Gibson with 40bp or more homology</li>
-    <li>Make the individual PCR cassettes</li>
-    <li>Transform them into yeast (preferred) or <em>B. subtilus</em> or <em>E. coli</em> containing the lambda red genes</li>
-    <li>Recombination <em>in vivo</em> results in assembly</li>
+  <ul class="tail">
     <li>Cost/Benefit analysis similar to Gibson, but more efficient and better for larger DNAs</li>
     <li>Main drawback is use of cells, extra time, yeast origins</li>
     <li class="accent">This is how our DNAs were assembled, in yeast</li>
@@ -238,8 +266,6 @@ gaattcgcggccgcttctagagtccctatcagtgatagagattgacatccctatcagtgatagagatactgagcactact
   <div class="cite">One-step assembly in yeast of 25 overlapping DNA fragments to form a complete synthetic <em>Mycoplasma genitalium</em> genome.<br>
     Gibson DG, Benders GA, Axelrod KC, Zaveri J, Algire MA, Moodie M, Montague MG, Venter JC, Smith HO, Hutchison CA 3rd.<br>
     Proc Natl Acad Sci U S A. 2008 Dec 23;105(51):20404-9. PMID: 19073939</div>
-  <template class="notes">Dan Gibson, of Gibson reaction fame, has also extensively developed yeast-based in vivo recombination.  The design of the fragments for the assembly reaction is no different than with the other methods employing 40 bp or more homology between fragments, and the fragments are constructed from parallel PCR reactions.  The mix of fragments is then introduced into yeast, B. subtilis, or lambda-red-expressing E. coli wherein they undergo homologous recombination.  Yeast homologous recombination is currently claimed to be the most robust homology-based assembly method.  It&rsquo;s main drawback is that it employs cells which slow the process down somewhat.  To use Yeast, you must wait for yeast to grow which takes longer than E. coli.</template>
-  <template class="desc">Seven bullets on doing the assembly in a cell instead of a tube: design the oligos as for SOEing or Gibson with 40 base pairs or more of homology, make the individual PCR cassettes, transform them into yeast or B. subtilus or lambda-red E. coli, and recombination in vivo does the assembly. The cost and benefit are similar to Gibson but more efficient and better for larger DNAs; the drawback is the cells, the extra time and the yeast origins. The last bullet, in red, says this is how our DNAs were assembled, in yeast. The 2008 PNAS paper assembling a synthetic Mycoplasma genitalium genome from 25 fragments in one step is cited at the foot of the slide.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
@@ -247,5 +273,6 @@ gaattcgcggccgcttctagagtccctatcagtgatagagattgacatccctatcagtgatagagatactgagcactact
 <script src="seq/05-soeing.js" defer></script>
 <script src="seq/05-cassette.js" defer></script>
 <script src="seq/05-gibson.js" defer></script>
+<script src="seq/05-invivo.js" defer></script>
 </body>
 </html>

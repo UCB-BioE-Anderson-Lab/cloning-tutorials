@@ -12,23 +12,20 @@
    parenthetical form.  Not a heading: it names the same thing twice. */
 .slide p.sub{font-size:34px;color:var(--muted);margin:-14px 0 0}
 
-/* The two vendor specifications on the metrics slide.  A spec is a name
-   and a short table of numbers, so it is set as one: name in the left
-   column, the numbers in the right, and no rules drawn round any of it. */
-.slide .spec{display:grid;grid-template-columns:400px 1fr;gap:0 46px;margin:0}
-/* The two specifications ARE the slide, so the pair is spread down the
-   content box instead of stacking against the top of it and leaving the
-   bottom third empty.  Nothing is added or enlarged; the same two blocks
-   are simply given the height they were already being denied. */
-.slide .specs{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
-  justify-content:space-evenly}
-.slide .spec .who{font-size:28px;line-height:1.35}
-.slide .spec table{border-collapse:collapse;margin:0}
-.slide .spec th,.slide .spec td{font-size:27px;padding:0 0 9px;text-align:left;
-  vertical-align:baseline;font-weight:400}
-.slide .spec th{width:330px}
-.slide .spec .lab{font-weight:700}
-.slide .spec .state{font-size:27px;margin:16px 0 0;grid-column:2}
+/* The two vendor specifications on the metrics slide.  They quote the
+   same five measures, so stacking them made the reader hold four numbers
+   in their head to compare the fifth.  Set as one comparison instead:
+   the measures down the left, a vendor to a column, values reading
+   straight across.  No rules are drawn; space holds the columns apart,
+   and the table claims the leftover height so the rows breathe rather
+   than piling against the title. */
+.slide table.metrics{border-collapse:collapse;table-layout:fixed;width:100%;
+  margin:0;flex:1 1 auto;min-height:0}
+.slide table.metrics col.measure{width:300px}
+.slide table.metrics th,.slide table.metrics td{font-size:28px;line-height:1.34;
+  text-align:left;vertical-align:top;font-weight:400;padding:0 44px 22px 0}
+.slide table.metrics thead th{font-weight:700;padding-bottom:40px}
+.slide table.metrics tbody th{font-weight:700}
 
 /* The oligo lists on the two ponder slides.  Long enough that the deck's
    27px mono would not fit the box, so they are set smaller and tighter;
@@ -52,6 +49,22 @@
    it, rather than sitting tight under the last bullet with the bottom of
    the box empty. */
 .slide .growfig{flex:1 1 auto;min-height:0;display:flex;align-items:center}
+
+/* The cost half of "Why don't we always do this?".  The source's bare
+   "$$" bullet is a heading over the three lines that follow it, so it is
+   set as one, and the two figures under it are drawn to length against a
+   shared left edge: the gap between them is the argument, and a reader
+   should not have to divide 741,459 by 22,000 to see it.  The bars carry
+   no axis and no scale of their own; they are the two numbers already in
+   the sentences above them, laid out end to end. */
+.slide .money{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center}
+.slide .money > p{margin:0 0 26px}
+.slide .money p.mhead{font-size:34px;font-weight:700;margin:0 0 18px}
+.slide .costs p{margin:0 0 10px}
+.slide .costs{max-width:1240px}
+.slide .costs .bar{height:22px;background:var(--ink);margin:0 0 34px}
+.slide .costs .bar.big{background:var(--blue);margin-bottom:0}
 </style>
 </head>
 <body>
@@ -75,32 +88,36 @@
 <article class="slide">
   <h1>Current metrics</h1>
 
-  <div class="specs">
-  <div class="spec">
-    <div class="who">IDT single-sequence oligonucleotide synthesis</div>
-    <table>
-      <tr><th>Size</th><td>6-~100 bp</td></tr>
-      <tr><th><span class="lab">Price</span>:</th><td>$0.10 per base</td></tr>
-      <tr><th><span class="lab">Yield</span>:</th><td>10nmol</td></tr>
-      <tr><th><span class="lab">Turnaround</span> time:</th><td>24 hrs</td></tr>
-    </table>
-    <p class="state"><span class="lab">State:</span> Chemically pure, sequence non-clonal, single-stranded</p>
-  </div>
+  <table class="metrics">
+    <colgroup><col class="measure"><col><col></colgroup>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">IDT single-sequence oligonucleotide synthesis</th>
+        <th scope="col" data-build="1"
+            data-desc="The second column arrives: Twist Gene Synthesis, 2019, and the five measures can now be read across. Size 0.3 to 5.0 kb against 6 to about 100 base pairs. Price from 9 cents per base pair against 10 cents per base. Yield 50 nanograms to 2 micrograms against 10 nanomoles. Turnaround from 15 business days against 24 hours. And the DNA arrives as a sequence-confirmed double-stranded plasmid clone rather than a chemically pure, sequence non-clonal, single-stranded oligo.">Twist Gene Synthesis, 2019</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">Size</th>
+          <td>6-~100 bp</td>
+          <td data-build="1">0.3 - 5.0 kb</td></tr>
+      <tr><th scope="row">Price</th>
+          <td>$0.10 per base</td>
+          <td data-build="1">From 9&cent; per bp</td></tr>
+      <tr><th scope="row">Yield</th>
+          <td>10nmol</td>
+          <td data-build="1">50 ng - 2 ug</td></tr>
+      <tr><th scope="row">Turnaround time</th>
+          <td>24 hrs</td>
+          <td data-build="1">From 15 business days</td></tr>
+      <tr><th scope="row">State</th>
+          <td>Chemically pure, sequence non-clonal, single-stranded</td>
+          <td data-build="1">Sequence-confirmed double-stranded plasmid clone</td></tr>
+    </tbody>
+  </table>
 
-  <div class="spec" data-build="1"
-       data-desc="The second specification appears: Twist Gene Synthesis, 2019. Size 0.3 to 5.0 kb, price from 9 cents per base pair, yield 50 nanograms to 2 micrograms, turnaround from 15 business days. State: a sequence-confirmed double-stranded plasmid clone.">
-    <div class="who">Twist Gene Synthesis, 2019</div>
-    <table>
-      <tr><th>Size</th><td>0.3 - 5.0 kb</td></tr>
-      <tr><th>Price</th><td>From 9&cent; per bp</td></tr>
-      <tr><th>Yield</th><td>50 ng - 2 ug</td></tr>
-      <tr><th>Turnaround Time</th><td>From 15 business days</td></tr>
-    </table>
-    <p class="state"><span class="lab">State:</span> Sequence-confirmed double-stranded plasmid clone</p>
-  </div>
-  </div>
-
-  <template class="desc">Two vendor specifications side by side. IDT single-sequence oligonucleotide synthesis: size 6 to about 100 base pairs, price 10 cents per base, yield 10 nanomoles, turnaround 24 hours, and the product is chemically pure, sequence non-clonal and single-stranded. Below it, on a click, Twist gene synthesis.</template>
+  <template class="desc">The two vendor specifications set as one comparison: the five measures down the left, a vendor to a column, values reading straight across. The first column is IDT single-sequence oligonucleotide synthesis: size 6 to about 100 base pairs, price 10 cents per base, yield 10 nanomoles, turnaround 24 hours, and the DNA arrives chemically pure, sequence non-clonal and single-stranded. The second column is empty until a click.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 13 -->
@@ -265,7 +282,13 @@ aagcggccgcgaattcaatgg</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 20 -->
-<article class="slide">
+<!-- The published figure this slide carried is drawn natively instead, by
+     seq/03-pca-cycles.js, which claims the right-hand column of the .cols
+     below and adds a row of molecules per click.  The list is the slide's
+     own and keeps its data-note and data-desc: a sequence-driven slide
+     does not run its data-build steps, so the sequence reveals the lines
+     itself and reads those two attributes off the <li>. -->
+<article class="slide" data-seq="gs-pca-cycles">
   <h1>PCA  Assembly</h1>
   <p class="sub">(Polymerase chain assembly)</p>
   <div class="cols wide-left" style="margin-top:26px">
@@ -286,13 +309,10 @@ aagcggccgcgaattcaatgg</template>
           data-note="Regardless of whether the double-stranded DNA is assembled using LCA, PCA, or a mixture of the two, the full length product is typically cloned into a vector, introduced into cells, and individual clones are sequence confirmed."
           data-desc="Fifth line appears: clone the product into a vector to generate a synthon.">Clone the product into a vector to generate a synthon</li>
     </ul>
-    <figure class="fig dark">
-      <img src="img/03-pca-cycles.png" alt="A figure of PCA in cycles: a target sequence, then an oligo pool, then repeated rounds of anneal and extend in which the fragments grow longer and fewer, then a final PCR amplification of the desired construct">
-      <figcaption style="color:var(--muted)">TRENDS in Biotechnology</figcaption>
-    </figure>
   </div>
+  <div class="src">TRENDS in Biotechnology</div>
   <template class="notes">The other common way of assembling oligonuceotides into gene-length DNAs is polymerase chain assembly, or PCA.</template>
-  <template class="desc">The five steps of a PCA, listed one at a time beside a published figure of the reaction: a target sequence, an oligo pool, then rounds of anneal and extend in which the pieces grow longer and fewer, and a final PCR amplification.</template>
+  <template class="desc">The five steps of a PCA, listed one at a time beside a drawing of the whole cycle series that gains a row of molecules per click. Nothing is listed yet, and the drawing holds only its top row: a grey rule labelled Target sequence, the length the reaction has to reach.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 21 -->
@@ -394,17 +414,28 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
 <!-- ---------------------------------------------------------------- 23 -->
 <article class="slide">
   <h1>Why don&rsquo;t we always do this?</h1>
-  <ul class="tight">
+  <ul>
     <li>In practice it&rsquo;s slow (our designs took 6 months)</li>
     <li>It only gets you to 3kb before you need to break into two steps, due to mutation rates</li>
-    <li>$$</li>
-    <li>Total number of bases for 2014&rsquo;s 140L: 43517</li>
-    <li>Would cost about ~$22,000 for basic parts</li>
-    <li>Would cost ~$741,459 for all the composite parts</li>
     <li>Difficult to synthesize repetitive sequences, biased GC-content, secondary structure (promoters and terminators are problematic)</li>
   </ul>
+
+  <div class="money">
+    <p class="mhead">$$</p>
+    <p>Total number of bases for 2014&rsquo;s 140L: 43517</p>
+    <div class="costs">
+      <p>Would cost about ~<b>$22,000</b> for basic parts</p>
+      <!-- 22,000 / 741,459 = 2.97 percent.  The two bars share a left
+           edge and one scale; neither carries an axis of its own. -->
+      <div class="bar" style="width:2.97%"></div>
+      <p data-build="1"
+         data-desc="The second figure arrives under the first: it would cost about 741,459 dollars for all the composite parts. Its bar runs the full width of the block, against the stub drawn for the basic parts above it.">Would cost ~<b>$741,459</b> for all the composite parts</p>
+      <div class="bar big" data-build="1"></div>
+    </div>
+  </div>
+
   <template class="notes">Today, it is still the case that gene synthesis is used somewhat sparingly along side more conventional fabrication methods. It’s main drawback is that it is slow, and it is also expensive. At the current price, it is impractical for even commercial users to not reuse previously-synthesized genes.  When I teach my BioE 140L course at Berkeley, around 20 students each produce around 3 parts.  In a typicall year, this amounts to around 40000 bases which for the basic parts alone would cost around $20K.  If all the composite parts that got generated during a project were synthesized de novo without reuse, the costs would begin pushing $1 million.  Thus, this methodology has a long way to go before other methods of fabrication can be fully eliminated from the design-build-test cycle.  However, combined with automated assembly methods that enable reuse of synthetic sequence, the price point for these procedures is already making non-standardized DNA fabrication a thing of the past.</template>
-  <template class="desc">The limits of gene synthesis, in seven lines: it is slow, six months for our designs; it reaches only 3 kilobases before the work has to be split in two because of mutation rates; and it is expensive. The 43517 bases of the 2014 course would have cost about 22,000 dollars as basic parts and about 741,459 dollars if every composite part were synthesized too. Repetitive sequence, biased GC content and secondary structure are all hard, which makes promoters and terminators the problem cases.</template>
+  <template class="desc">The limits of gene synthesis. Three objections first, as a list: it is slow, six months for our designs; it reaches only 3 kilobases before the work has to be split in two because of mutation rates; and repetitive sequence, biased GC content and secondary structure are all hard, which makes promoters and terminators the problem cases. Then cost, under a heading of two dollar signs: the total number of bases for the 2014 course was 43517, which would cost about 22,000 dollars for basic parts. That figure is drawn as a short bar.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
@@ -413,5 +444,6 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
 <script src="seq/03-phosphoramidite.js" defer></script>
 <script src="seq/03-lca.js" defer></script>
 <script src="seq/03-pca.js" defer></script>
+<script src="seq/03-pca-cycles.js" defer></script>
 </body>
 </html>
