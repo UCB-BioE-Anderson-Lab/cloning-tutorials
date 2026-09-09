@@ -42,8 +42,8 @@ const lerp = (a, b, t) => a + (b-a)*t;
 const TL = 140, TR = 1460;                 /* the target */
 const BLK = [[358, 508], [544, 694], [1220, 1370]];
 const Y_TARGET = 262;
-const ROW = [392, 458, 524, 590];          /* the four fragments */
-const Y_PDT = 712;
+const ROW = [382, 440, 498, 556];          /* the four fragments */
+const Y_PDT = 660;
 const FRAG = [                             /* [x0, x1, which blocks] */
   [TL,   508, [0]],
   [358,  694, [0, 1]],
@@ -103,8 +103,12 @@ function scene(s){
   g += bar(TL, TR, Y_TARGET, [0, 1, 2]);
 
   if (s.show > 0.004){
-    g += fade(s.show, downArrow(250, 294, 368) +
-                      txt(276, 342, "four PCRs", 28, INK, 700, "start"));
+    /* Both process arrows run down the same x.  It has to be one
+       where no fragment and neither external oligo lies, and 560 is
+       the only clear corridor: fragment 1 stops at 508 and fragment 3
+       does not start until 544 on the row below. */
+    g += fade(s.show * (1 - s.join), downArrow(560, 292, 350) +
+                      txt(584, 330, "four PCRs", 28, INK, 700, "start"));
     const ys = FRAG.map((f, i) => lerp(ROW[i], Y_PDT, s.join));
     /* the ties go first so the fragments sit on top of them */
     if (s.tie > 0.004 && s.join < 0.5){
@@ -130,10 +134,14 @@ function scene(s){
   }
 
   if (s.join > 0.004){
-    g += fade(s.join, downArrow(170, 618, 690) +
-                      txt(196, 666, "SOEing", 28, INK, 700, "start"));
+    /* The assembly arrow goes in the band the fragments have just
+       vacated, not immediately above the product: the product runs the
+       full width, so there is no x down there an arrowhead could land
+       on without stabbing a molecule. */
+    g += fade(s.join, downArrow(560, 440, 510) +
+                      txt(584, 490, "SOEing", 28, INK, 700, "start"));
   }
-  if (s.cap) g += txt(800, 800, s.cap, 32, INK, 700);
+  if (s.cap) g += txt(800, 780, s.cap, 32, INK, 700);
   return g;
 }
 
@@ -141,7 +149,7 @@ const KEYS = ["show", "tie", "join"];
 const S = [
   { s:{show:0, tie:0, join:0},
     cap:"three changes to make, in three places",
-    note:"One of the more popular uses of SOEing is for introducing multiple mutations into various sites of a gene. Suppose you wish to introduce 3 mutations, designated by red X&rsquo;s into a sequence.",
+    note:"One of the more popular uses of SOEing is for introducing multiple mutations into various sites of a gene. Suppose you wish to introduce 3 mutations, designated by red X's into a sequence.",
     desc:"The target sequence drawn as one long duplex across the top of the slide, with three short red blocks on it at scattered positions. Each block has a white cross through its middle: one of the three mutations to be introduced." },
 
   { s:{show:1, tie:0, join:0},

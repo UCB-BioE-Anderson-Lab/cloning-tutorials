@@ -37,9 +37,9 @@
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
 .slide .qhead .q{margin-bottom:0}
 
-/* The PNAS citation under the last slide's bullets.  Four lines of
-   reference matter, not a bullet: it sits at the foot of the slide in
-   the size deck.css gives <small>. */
+/* The PNAS citation under the last slide's bullets.  Reference matter,
+   not a bullet: margin-top:auto drops it to the foot of the slide, at
+   roughly the size deck.css gives <small>. */
 .slide .cite{margin-top:auto;font-size:21px;line-height:1.42;color:var(--muted)}
 </style>
 </head>
@@ -133,7 +133,7 @@
 <!-- ---------------------------------------------------------------- 39 -->
 <article class="slide">
   <h1>Gibson Method</h1>
-  <ul class="tight">
+  <ul>
     <li>Fast&mdash;order oligos (1 day), pcr (2hr), gel purify (1hr), then a 1hr ligation, transform</li>
     <li>Can handle very large sequences</li>
     <li>Get degradation of parts &lt;200 bp</li>
@@ -226,7 +226,7 @@ gaattcgcggccgcttctagagtccctatcagtgatagagattgacatccctatcagtgatagagatactgagcactact
 <!-- ---------------------------------------------------------------- 42 -->
 <article class="slide">
   <h1><em>In vivo</em> recombination</h1>
-  <ul class="tight">
+  <ul>
     <li>Design oligos just like SOEing / Gibson with 40bp or more homology</li>
     <li>Make the individual PCR cassettes</li>
     <li>Transform them into yeast (preferred) or <em>B. subtilus</em> or <em>E. coli</em> containing the lambda red genes</li>

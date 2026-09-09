@@ -29,10 +29,11 @@
  * shared sequence and C for the chew:
  *   C > W          or the overlap never goes single-stranded
  *   C < L/2        or the fragment has no double-stranded middle left
- *   2SEP > W + 40  or the un-annealed fragments touch
+ *   2SEP >= W + 40 or the un-annealed fragments have no air between
  *   2L - W + 2SEP <= 1380, the content box
- * L=660, W=160, C=250, SEP=100 satisfies all four with the gap Phusion
- * fills (C-W = 90) still wide enough to read from the back of the room.
+ * L=660, W=160, C=250, SEP=100 meets all four (the third exactly, at
+ * 40 px of air) and still leaves the gap Phusion fills, C-W = 90, wide
+ * enough to read from the back of the room.
  *
  * Two things the source slides run together and this does not: filling
  * the gaps and sealing the nicks are separate states here (close, then
@@ -125,7 +126,7 @@ function reagents(act){
  * and the molecule they are meant to become.  Same colour key as the
  * rest, so the red reads as the same thing all eight frames.           */
 function duplex(x0, x1, y, ovL, ovR){
-  const t = y - 15, b = y + 15;
+  const t = y - 20, b = y + 20;
   let g = stroke(seg(x0, x1, t), INK) + stroke(seg(x0, x1, b), INK);
   g += stroke(clipSeg(x0, x1, ovL, ovR, 0, t), VERM);
   g += stroke(clipSeg(x0, x1, ovL, ovR, 0, b), VERM);
@@ -134,14 +135,23 @@ function duplex(x0, x1, y, ovL, ovR){
   g += stroke(barbAt(x1, x0, b, false), x0 >= ovL && x0 <= ovR ? VERM : INK);
   return g;
 }
+/* The design frame is drawn on the reaction's own coordinates: the two
+   inputs sit exactly where frames 2 to 4 will put them, and the product
+   exactly where frame 8 leaves it.  Advancing off this slide therefore
+   lands the molecules on the spot they already occupied, and the whole
+   run reads as one continuous picture rather than a schematic followed
+   by a different drawing.  It also gets the design out of the left
+   third, which is all the room a stacked composition had once the
+   reagent list took the upper right. */
 function designFrame(){
-  let g = duplex(130, 500, 282, 420, 500);
-  g += txt(460, 238, "40 bp", 32, VERM, 700);
-  g += duplex(420, 790, 384, 420, 500);
-  g += downArrow(250, 436, 522);
-  g += duplex(130, 790, 584, 420, 500);
-  g += txt(460, 700, "one 40 bp overlap per junction,", 32, INK, 700);
-  g += txt(460, 748, "and that is the whole design", 32, INK, 700);
+  let g = duplex(LFL - SEP, LFR - SEP, 524, OVL - SEP, OVR - SEP);
+  g += duplex(RFL + SEP, RFR + SEP, 524, OVL + SEP, OVR + SEP);
+  g += txt(OVL - SEP + W/2, 588, "40 bp", 30, VERM, 700);
+  g += txt(OVL + SEP + W/2, 588, "40 bp", 30, VERM, 700);
+  g += downArrow(800, 610, 670);
+  g += duplex(LFL, RFR, 730, OVL, OVR);
+  g += txt(800, 802, "one 40 bp overlap per junction, and that is the whole design",
+           32, INK, 700);
   return g;
 }
 

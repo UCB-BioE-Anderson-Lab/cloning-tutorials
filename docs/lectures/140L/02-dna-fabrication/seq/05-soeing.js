@@ -9,15 +9,19 @@
  * strands separate, two of the four find each other, and the polymerase
  * runs.  That frees the whole width for a single set of molecules.
  *
- * The frame is deliberately the same one seq/05-gibson.js uses:
+ * The frame is within a few pixels of the one seq/05-gibson.js uses,
+ * and the shared block sits in the same place on the slide:
  *
- *   fragment A     240 .......... 880     shared homology = 720..880
- *   fragment B            720 .......... 1360
+ *   fragment A     280 .......... 880     shared homology = 720..880
+ *   fragment B            720 .......... 1320
  *
- * They are the same design.  A Gibson junction and a SOEing junction are
- * both "put the same 20 to 40 bases on the end of both fragments"; only
- * the enzymes differ.  Drawing them on the same frame is the cheapest
- * way to say so.
+ * That is on purpose.  A SOEing junction and a Gibson junction are the
+ * same design — "put the same 20 to 40 bases on the end of both
+ * fragments" — and only the enzymes differ.  Two slides later the room
+ * sees the red land in the same spot, which is the cheapest way to say
+ * so.  The two are not pixel-identical because they are separated by
+ * different amounts: SOEing has to hold four loose strands apart, and
+ * Gibson only two molecules.
  *
  * Colour, one meaning each:
  *   blue        fragment A, both its strands
@@ -48,10 +52,12 @@ const ease = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
 const lerp = (a, b, t) => a + (b-a)*t;
 
 /* ---- the frame ------------------------------------------------------ */
-const AL = 240, AR = 880;            /* fragment A */
-const BL = 720, BR = 1360;           /* fragment B */
+const AL = 280, AR = 880;            /* fragment A */
+const BL = 720, BR = 1320;           /* fragment B */
 const OVL = 720, OVR = 880;          /* the shared homology */
-const SEP = 100;                     /* half the separation, un-annealed */
+const SEP = 140;                     /* half the separation, un-annealed.
+   2*SEP - W = 120 px of clear air between the two molecules, which is
+   what makes them read as two molecules and not one dashed line. */
 
 const YT = 528, YB = 578;            /* the duplex */
 const Y1 = 452, Y2 = 654;            /* where the strands go when melted */
@@ -118,7 +124,7 @@ function scene(s){
   /* the two strands that do not go on to make the product.  They anneal
      too, but that pairing leaves a 3' end hanging off each side with no
      template under it, so nothing can extend and it comes apart again. */
-  const dead = (1 - 0.78*s.pair) * (1 - s.ext);
+  const dead = (1 - 0.70*s.pair) * (1 - s.ext);
   g += fade(dead,
         strand(AR - SEP, AL - SEP, lerp(YB, Y2, s.melt), BLUE, false,
                OVL - SEP, OVR - SEP) +
@@ -140,13 +146,15 @@ function scene(s){
   g += txt(AL + dA - 8, yA - 24, "5&#8242;", 26, MUTED, 700);
   g += txt(BR + dB + 8, yB + 42, "5&#8242;", 26, MUTED, 700);
 
-  /* the two external oligos, which is all the second PCR needs */
+  /* The two external oligos, which is all the second PCR needs.  They
+     clear the outer 5' labels rather than crossing them: the labels are
+     at yA-24 and yB+42, so the oligos ride outside both. */
   if (s.olig > 0.004){
     g += fade(s.olig,
-      stroke(seg(AL, AL + 180, yA - 36), AMBER, 4.6) +
-      stroke(barbAt(AL, AL + 180, yA - 36, true), AMBER, 4.6) +
-      stroke(seg(BR, BR - 180, yB + 36), AMBER, 4.6) +
-      stroke(barbAt(BR, BR - 180, yB + 36, false), AMBER, 4.6));
+      stroke(seg(AL, AL + 180, yA - 64), AMBER, 4.6) +
+      stroke(barbAt(AL, AL + 180, yA - 64, true), AMBER, 4.6) +
+      stroke(seg(BR, BR - 180, yB + 80), AMBER, 4.6) +
+      stroke(barbAt(BR, BR - 180, yB + 80, false), AMBER, 4.6));
   }
 
   if (s.mark > 0.004){
