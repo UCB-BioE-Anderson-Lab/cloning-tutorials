@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Gene Synthesis &ndash; DNA Fabrication</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* A subtitle sitting directly under the h1, in the source deck's own
+   parenthetical form.  Not a heading: it names the same thing twice. */
+.slide p.sub{font-size:34px;color:var(--muted);margin:-14px 0 0}
+
+/* The two vendor specifications on the metrics slide.  A spec is a name
+   and a short table of numbers, so it is set as one: name in the left
+   column, the numbers in the right, and no rules drawn round any of it. */
+.slide .spec{display:grid;grid-template-columns:400px 1fr;gap:0 46px;margin:0 0 46px}
+.slide .spec .who{font-size:28px;line-height:1.35}
+.slide .spec table{border-collapse:collapse;margin:0}
+.slide .spec th,.slide .spec td{font-size:27px;padding:0 0 9px;text-align:left;
+  vertical-align:baseline;font-weight:400}
+.slide .spec th{width:330px}
+.slide .spec .lab{font-weight:700}
+.slide .spec .state{font-size:27px;margin:16px 0 0;grid-column:2}
+
+/* The oligo lists on the two ponder slides.  Long enough that the deck's
+   27px mono would not fit the box, so they are set smaller and tighter;
+   the sequence still has to be readable from the back of the room. */
+.slide pre.orf{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:24px;line-height:1.32;letter-spacing:.01em;margin:6px 0 0;white-space:pre}
+
+/* The design-tool URL, kept exactly as it is written on the source slide.
+   It is long, so it breaks anywhere rather than running off the slide. */
+.slide a.tool{font-size:23px;line-height:1.4;color:var(--blue);
+  overflow-wrap:anywhere;display:inline-block}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 10 -->
+<article class="slide" data-bg="section">
+  <h1>Gene Synthesis</h1>
+  <p>Building up gene-length DNAs from single bases</p>
+  <template class="notes">Gene Synthesis refers to the construction of gene-length DNA, typically 800bp to 3kb in length, at base-level precision.</template>
+  <template class="desc">Section divider: Gene Synthesis. The subtitle reads, building up gene-length DNAs from single bases.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 11 -->
+<article class="slide" data-seq="gs-ladder">
+  <h1>Gene Synthesis</h1>
+  <p class="sub">(aka DNA total synthesis)</p>
+  <div class="src">Trends Biotechnol. 2009 Feb;27(2):63-72 PMID: 19111926</div>
+</article>
+
+<!-- ---------------------------------------------------------------- 12 -->
+<article class="slide">
+  <h1>Current metrics</h1>
+
+  <div class="spec">
+    <div class="who">IDT single-sequence oligonucleotide synthesis</div>
+    <table>
+      <tr><th>Size</th><td>6-~100 bp</td></tr>
+      <tr><th><span class="lab">Price</span>:</th><td>$0.10 per base</td></tr>
+      <tr><th><span class="lab">Yield</span>:</th><td>10nmol</td></tr>
+      <tr><th><span class="lab">Turnaround</span> time:</th><td>24 hrs</td></tr>
+    </table>
+    <p class="state"><span class="lab">State:</span> Chemically pure, sequence non-clonal, single-stranded</p>
+  </div>
+
+  <div class="spec" data-build="1"
+       data-desc="The second specification appears: Twist Gene Synthesis, 2019. Size 0.3 to 5.0 kb, price from 9 cents per base pair, yield 50 nanograms to 2 micrograms, turnaround from 15 business days. State: a sequence-confirmed double-stranded plasmid clone.">
+    <div class="who">Twist Gene Synthesis, 2019</div>
+    <table>
+      <tr><th>Size</th><td>0.3 - 5.0 kb</td></tr>
+      <tr><th>Price</th><td>From 9&cent; per bp</td></tr>
+      <tr><th>Yield</th><td>50 ng - 2 ug</td></tr>
+      <tr><th>Turnaround Time</th><td>From 15 business days</td></tr>
+    </table>
+    <p class="state"><span class="lab">State:</span> Sequence-confirmed double-stranded plasmid clone</p>
+  </div>
+
+  <template class="desc">Two vendor specifications side by side. IDT single-sequence oligonucleotide synthesis: size 6 to about 100 base pairs, price 10 cents per base, yield 10 nanomoles, turnaround 24 hours, and the product is chemically pure, sequence non-clonal and single-stranded. Below it, on a click, Twist gene synthesis.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 13 -->
+<article class="slide" data-seq="gs-amidite">
+  <h1>Oligonucleotide Synthesis</h1>
+</article>
+
+<!-- ---------------------------------------------------------------- 14 -->
+<article class="slide">
+  <h1 class="small">Phosphoramidite oligonucleotide synthesis</h1>
+  <ul class="tight">
+    <li>Cost ~$10 and come in 24 hrs reliably</li>
+    <li>Available between 6 and ~100 bp</li>
+    <li>Prices go up over 59 bp</li>
+    <li>They are synthesized 3&rsquo; to 5&rsquo;, opposite that of polymerases</li>
+    <li>Non-clonal, deletions and truncations increase towards the 5&rsquo; end</li>
+  </ul>
+
+  <div data-build="1" style="margin-top:14px"
+       data-desc="A drawing of the fourth line. Both strands are written with the 5-prime end at the left. The chemistry builds the oligo on a CPG bead that holds its 3-prime end, so the chain grows leftward, at the 5-prime end. A polymerase extends the other way, adding to the 3-prime end, which carries a half barb.">
+  <svg width="1380" height="212" viewBox="0 0 1380 212" aria-hidden="true">
+    <g font-family="Helvetica Neue,Arial,Helvetica,sans-serif">
+      <!-- phosphoramidite chemistry: the 3' end is held by the bead, so
+           every new base is added at the 5' end and the chain grows left -->
+      <text x="0" y="72" font-size="27" font-weight="700" fill="#111111">Phosphoramidite chemistry</text>
+      <g fill="none" stroke="#111111" stroke-width="3.4" stroke-linecap="round">
+        <path d="M470 62H830"/>
+        <circle cx="866" cy="62" r="30"/>
+      </g>
+      <text x="866" y="69" text-anchor="middle" font-size="20" fill="#767676">CPG</text>
+      <text x="452" y="70" text-anchor="end" font-size="24" fill="#767676">5&#8242;</text>
+      <text x="828" y="34" text-anchor="end" font-size="24" fill="#767676">3&#8242;</text>
+      <path d="M560 22H472M486 12L470 22L486 32" fill="none" stroke="#004373"
+            stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="578" y="30" font-size="24" fill="#004373">each new base is added here</text>
+
+      <!-- a polymerase: adds to the 3' end, which gets the half barb -->
+      <text x="0" y="182" font-size="27" font-weight="700" fill="#111111">A polymerase</text>
+      <g fill="none" stroke="#111111" stroke-width="3.4" stroke-linecap="round">
+        <path d="M470 172H830M807 160L830 172"/>
+      </g>
+      <text x="452" y="180" text-anchor="end" font-size="24" fill="#767676">5&#8242;</text>
+      <text x="848" y="180" font-size="24" fill="#767676">3&#8242;</text>
+      <path d="M740 132H828M814 122L830 132L814 142" fill="none" stroke="#004373"
+            stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="722" y="140" text-anchor="end" font-size="24" fill="#004373">each new base is added here</text>
+    </g>
+  </svg>
+  </div>
+
+  <template class="desc">Five lines on what phosphoramidite oligonucleotide synthesis costs and can do: about ten dollars and 24 hours, 6 to about 100 bases, more expensive over 59 bases, built 3-prime to 5-prime unlike a polymerase, and non-clonal with deletions and truncations rising toward the 5-prime end.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 15 -->
+<article class="slide" data-seq="gs-lca">
+  <h1>Ligase Chain Assembly</h1>
+</article>
+
+<!-- ---------------------------------------------------------------- 16 -->
+<article class="slide">
+  <h1 class="small">Example: <span style="font-size:.72em">Gene synthesis oligo design</span></h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/03-lca-editor.png" alt="A sequence editor window showing the lambda repressor sequence, with restriction sites highlighted and the whole insert selected">
+    </figure>
+    <ul class="tight">
+      <li data-build="1"
+          data-desc="First instruction appears: construct the complete sequence to be synthesized, including restriction sites and 5-prime tails.">Construct the complete sequence to be synthesized, including restriction sites and 5&rsquo; tails</li>
+      <li data-build="2"
+          data-desc="Second instruction appears: copy the sequence to the clipboard.">Copy to the clipboard</li>
+    </ul>
+  </div>
+  <template class="desc">A screenshot of a sequence editor holding the lambda repressor sequence with its restriction sites highlighted, beside the two instructions that go with it.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 17 -->
+<article class="slide">
+  <h1 class="small">Example: <span style="font-size:.72em">Gene synthesis oligo design</span></h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/03-lca-spreadsheet.png" alt="A spreadsheet with the target sequence pasted in red at the top and the 50-base oligos it has been cut into listed in blue below, then the reverse complement pasted below that and cut the same way">
+    </figure>
+    <ul class="tight">
+      <li data-build="1"
+          data-desc="First instruction appears: paste the sequence you wish to synthesize into the spreadsheet.">Paste the sequence you wish to synthesize into the spreadsheet</li>
+      <li data-build="2"
+          data-desc="Second instruction appears: also paste in the reverse complement sequence.">Also paste in the reverse complement sequence</li>
+      <li data-build="3"
+          data-desc="Third instruction appears: the sequences in blue are the ones you order synthesized.">Sequences in blue here are ones you order synthesized</li>
+    </ul>
+  </div>
+  <template class="notes">File Demo of LCR design.xls  in DNA Fabrication Examples zip file</template>
+  <template class="desc">A screenshot of the design spreadsheet: the target sequence pasted in red across the top, the 50-base oligos it has been cut into listed in blue beneath it, and the reverse complement pasted and cut the same way below.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 18 -->
+<article class="slide">
+  <div class="q">LCA example question</div>
+  <p>Design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Ligase Chain Assembly</p>
+  <p style="margin-bottom:0"><b>amilGFP ORF:</b></p>
+  <pre class="orf">ATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGC
+AGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGG
+AAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTT
+GACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGAC
+ATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTA
+TTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTC
+ATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAG
+AAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGA
+GGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCAC
+TCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAA
+ATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACAT
+GCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAA</pre>
+  <template class="notes">First assembly the sequence of the PCR product including the BioBrick ends:
+ccattgaattcgcggccgcttctagATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGCAGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGGAAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTCATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAGAAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAAactagtagcggccgctgcagacsgc
+
+Then paste that and its reverse complement into “Demo of LCR design.xls”to get:
+
+Forward oligos:
+ccattgaattcgcggccgcttctagATGTCTTATTCAAAGCATGGCATCG
+TACAAGAAATGAAGACGAAATACCATATGGAAGGCAGTGTCAATGGCCAT
+GAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGGAAACA
+GATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCT
+CCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACA
+AAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGG
+AATGTCATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAG
+CCAGCTGGAACATTCGACTCGAAGGAAATTGCTTCATCCACAAATCCATC
+TTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAGAAGAC
+CATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGC
+TAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCAC
+AGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTGCC
+CCCGAATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAA
+GTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTT
+AACCCTTTGAAGGTTAAATAAactagtagcggccgctgcagacsgc
+
+Reverse oligos:
+gcsgtctgcagcggccgctactagt
+TTATTTAACCTTCAAAGGGTTAACATGAGCCGCGGCATGTGCTTCCAGCT
+TGACTGTAAAGCCTTTTGCACTTTGGCCAAGGTCGGTCCTCACAATTTGA
+TGTTCTACGACATGATTCGGGGGCAGTGTGACCGGCTTCTCTGTTTTGTA
+AGTGGAGTGAAATTGGCATCTGTGAGAACCACCTCCTTCGAGCATAAGAA
+ACATAGTCACGTCACCTCTTAGCACCTCTTTAGACACAGTCATTTTTTCG
+AAGGACTTATCCCAGTCAATGGTCTTCTTTTTCATTACGGGTCCATCAGC
+GGGAAAGTTTACGCCATGAAAGATGGATTTGTGGATGAAGCAATTTCCTT
+CGAGTCGAATGTTCCAGCTGGCTGTAGCAACTGCTCCATCCTCAAATAGA
+AATGACCTTTCATATGACATTCCATCTGGGAATGCTTGCTTGAAATAGTC
+AGGCATGTCTGCCGGGTACTTTGTGAAGCAACGGTTTCCATATTGAAAGA
+CTGATGACAGTATGTCAAAGGAGAATGGAAGGGGTTTTCCCGCAGGCTTG
+ATGATCACTAATTCGGACATCTGTTTCCCTTCGTAAGGGTACCCAGTTCC
+TACACCTTCGATCGTAAATTCATGGCCATTGACACTGCCTTCCATATGGT
+ATTTCGTCTTCATTTCTTGTACGATGCCATGCTTTGAATAAGACATctag
+aagcggccgcgaattcaatgg</template>
+  <template class="desc">A question to work: design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Ligase Chain Assembly. The amilGFP open reading frame is printed below it, 696 bases in twelve lines.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 19 -->
+<article class="slide" data-seq="gs-pca">
+  <h1>PCA  Assembly</h1>
+  <p class="sub">(Polymerase chain assembly)</p>
+</article>
+
+<!-- ---------------------------------------------------------------- 20 -->
+<article class="slide">
+  <h1>PCA  Assembly</h1>
+  <p class="sub">(Polymerase chain assembly)</p>
+  <div class="cols wide-left" style="margin-top:26px">
+    <ul class="tight">
+      <li data-build="1"
+          data-note="Like with LCA, the target sequence is synthesized as a pool of shorter oligonucoetide sequences that can assemble into the full length sequence in a one-pot reaction."
+          data-desc="First line appears: start with overlapping 50 to 60 base pair oligos.">Start with overlapping 50-60bp Oligos</li>
+      <li data-build="2"
+          data-note="The difference is that 1) the assembly reaction involves a thermostable polymerase rather than a ligase, and 2) there can be gaps in the sequence that will be filled in by the polymerase during assembly."
+          data-desc="Second line appears: combine them in a thermostable polymerase reaction.">Combine in a thermostable polymerase reaction</li>
+      <li data-build="3"
+          data-note="Typically PCA is done in two stages. First, the equimolar mix of oligos is reacted with a polymerase under PCR-like conditions."
+          data-desc="Third line appears: run a PCR-like program.">Run a PCR-like program</li>
+      <li data-build="4"
+          data-note="Second, the material for the first reaction is used as the template for a conventional PCR reaction involving two external primers."
+          data-desc="Fourth line appears: use the assembly product as the template for a conventional PCR with external oligos.">Use &ldquo;assembly product&rdquo; as template for a conventional PCR with external oligos</li>
+      <li data-build="5"
+          data-note="Regardless of whether the double-stranded DNA is assembled using LCA, PCA, or a mixture of the two, the full length product is typically cloned into a vector, introduced into cells, and individual clones are sequence confirmed."
+          data-desc="Fifth line appears: clone the product into a vector to generate a synthon.">Clone the product into a vector to generate a synthon</li>
+    </ul>
+    <figure class="fig dark">
+      <img src="img/03-pca-cycles.png" alt="A figure of PCA in cycles: a target sequence, then an oligo pool, then repeated rounds of anneal and extend in which the fragments grow longer and fewer, then a final PCR amplification of the desired construct">
+      <figcaption style="color:var(--muted)">TRENDS in Biotechnology</figcaption>
+    </figure>
+  </div>
+  <template class="notes">The other common way of assembling oligonuceotides into gene-length DNAs is polymerase chain assembly, or PCA.</template>
+  <template class="desc">The five steps of a PCA, listed one at a time beside a published figure of the reaction: a target sequence, an oligo pool, then rounds of anneal and extend in which the pieces grow longer and fewer, and a final PCR amplification.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 21 -->
+<article class="slide">
+  <h1 class="small">Example: <span style="font-size:.72em">Gene synthesis oligo design</span></h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/03-lca-editor.png" alt="The same sequence editor window, showing the complete cassette with its restriction sites highlighted">
+    </figure>
+    <div>
+      <ul class="tight">
+        <li data-build="1"
+            data-desc="First instruction appears: design the complete cassette as you did with LCA.">Design the complete cassette as you did with LCA</li>
+        <li data-build="2"
+            data-desc="Second instruction appears: design the PCA oligos with the design tool called LCA and PCA Calculator, and the link to that spreadsheet.">Design PCA oligos using a design tool &ldquo;LCA and PCA Calculator&rdquo;</li>
+      </ul>
+      <p data-build="2" style="margin:0"><a class="tool" href="https://docs.google.com/spreadsheets/d/1eNCzKm96QCwKWe_z9HStvaNXQ8GecXSNM7IuTrw-WDs/edit#gid=452338215">https://docs.google.com/spreadsheets/d/1eNCzKm96QCwKWe_z9HStvaNXQ8GecXSNM7IuTrw-WDs/edit#gid=452338215</a></p>
+    </div>
+  </div>
+  <template class="desc">The same sequence editor screenshot beside two instructions: design the complete cassette as for LCA, then design the PCA oligos with the LCA and PCA Calculator, whose link is given below them.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 22 -->
+<article class="slide">
+  <div class="q">PCA example question</div>
+  <p>Design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Polymerase Chain Assembly</p>
+  <p style="margin-bottom:0"><b>amilGFP ORF:</b></p>
+  <pre class="orf">ATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGC
+AGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGG
+AAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTT
+GACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGAC
+ATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTA
+TTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTC
+ATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAG
+AAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGA
+GGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCAC
+TCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAA
+ATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACAT
+GCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAA</pre>
+  <template class="notes">First assembly the sequence of the PCR product including the BioBrick ends:
+ccattgaattcgcggccgcttctagATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGCAGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGGAAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTCATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAGAAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAAactagtagcggccgctgcagacsgc
+
+Then paste that into GeneDesign to get:
+
+>.01.o01 59bp
+CCATTGAATTCGCGGCCGCTTCTAGATGTCTTATTCAAAGCATGGCATCGTACAAGAAA
+>.01.o02 56bp
+CTGCCTTCCATATGGTATTTCGTCTTCATTTCTTGTACGATGCCATGCTTTGAATA
+>.01.o03 55bp
+AGACGAAATACCATATGGAAGGCAGTGTCAATGGCCATGAATTTACGATCGAAGG
+>.01.o04 52bp
+CCCTTCGTAAGGGTACCCAGTTCCTACACCTTCGATCGTAAATTCATGGCCA
+>.01.o05 55bp
+ACTGGGTACCCTTACGAAGGGAAACAGATGTCCGAATTAGTGATCATCAAGCCTG
+>.01.o06 54bp
+TGTCAAAGGAGAATGGAAGGGGTTTTCCCGCAGGCTTGATGATCACTAATTCGG
+>.01.o07 58bp
+AACCCCTTCCATTCTCCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTG
+>.01.o08 53bp
+CATGTCTGCCGGGTACTTTGTGAAGCAACGGTTTCCATATTGAAAGACTGATG
+>.01.o09 55bp
+TCACAAAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGG
+>.01.o10 59bp
+ATCCTCAAATAGAAATGACCTTTCATATGACATTCCATCTGGGAATGCTTGCTTGAAAT
+>.01.o11 50bp
+CATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAGCCAGC
+>.01.o12 54bp
+GGATGAAGCAATTTCCTTCGAGTCGAATGTTCCAGCTGGCTGTAGCAACTGCTC
+>.01.o13 55bp
+GACTCGAAGGAAATTGCTTCATCCACAAATCCATCTTTCATGGCGTAAACTTTCC
+>.01.o14 56bp
+GGTCTTCTTTTTCATTACGGGTCCATCAGCGGGAAAGTTTACGCCATGAAAGATGG
+>.01.o15 58bp
+ATGGACCCGTAATGAAAAAGAAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGAC
+>.01.o16 54bp
+CACCTCTTAGCACCTCTTTAGACACAGTCATTTTTTCGAAGGACTTATCCCAGT
+>.01.o17 55bp
+TGTCTAAAGAGGTGCTAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGG
+>.01.o18 54bp
+TGGAGTGAAATTGGCATCTGTGAGAACCACCTCCTTCGAGCATAAGAAACATAG
+>.01.o19 53bp
+CTCACAGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTG
+>.01.o20 59bp
+CCTCACAATTTGATGTTCTACGACATGATTCGGGGGCAGTGTGACCGGCTTCTCTGTTT
+>.01.o21 50bp
+ATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAAGTGCA
+>.01.o22 52bp
+GCATGTGCTTCCAGCTTGACTGTAAAGCCTTTTGCACTTTGGCCAAGGTCGG
+>.01.o23 59bp
+CAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAAACT
+>.01.o24 50bp
+GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
+  <template class="desc">The same question run the other way: design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Polymerase Chain Assembly, with the amilGFP open reading frame printed below.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 23 -->
+<article class="slide">
+  <h1>Why don&rsquo;t we always do this?</h1>
+  <ul class="tight">
+    <li>In practice it&rsquo;s slow (our designs took 6 months)</li>
+    <li>It only gets you to 3kb before you need to break into two steps, due to mutation rates</li>
+    <li>$$</li>
+    <li>Total number of bases for 2014&rsquo;s 140L: 43517</li>
+    <li>Would cost about ~$22,000 for basic parts</li>
+    <li>Would cost ~$741,459 for all the composite parts</li>
+    <li>Difficult to synthesize repetitive sequences, biased GC-content, secondary structure (promoters and terminators are problematic)</li>
+  </ul>
+  <template class="notes">Today, it is still the case that gene synthesis is used somewhat sparingly along side more conventional fabrication methods. It’s main drawback is that it is slow, and it is also expensive. At the current price, it is impractical for even commercial users to not reuse previously-synthesized genes.  When I teach my BioE 140L course at Berkeley, around 20 students each produce around 3 parts.  In a typicall year, this amounts to around 40000 bases which for the basic parts alone would cost around $20K.  If all the composite parts that got generated during a project were synthesized de novo without reuse, the costs would begin pushing $1 million.  Thus, this methodology has a long way to go before other methods of fabrication can be fully eliminated from the design-build-test cycle.  However, combined with automated assembly methods that enable reuse of synthetic sequence, the price point for these procedures is already making non-standardized DNA fabrication a thing of the past.</template>
+  <template class="desc">The limits of gene synthesis, in seven lines: it is slow, six months for our designs; it reaches only 3 kilobases before the work has to be split in two because of mutation rates; and it is expensive. The 43517 bases of the 2014 course would have cost about 22,000 dollars as basic parts and about 741,459 dollars if every composite part were synthesized too. Repetitive sequence, biased GC content and secondary structure are all hard, which makes promoters and terminators the problem cases.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/03-ladder.js" defer></script>
+<script src="seq/03-phosphoramidite.js" defer></script>
+<script src="seq/03-lca.js" defer></script>
+<script src="seq/03-pca.js" defer></script>
+</body>
+</html>

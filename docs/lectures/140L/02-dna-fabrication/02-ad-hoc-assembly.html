@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Ad hoc Assembly &ndash; DNA Fabrication</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* Page-local layout only.  Nothing here belongs in the shared deck.css. */
+
+/* The PMID 16524465 lineage figure.  It is a published figure, so it stays
+   a raster; but it was drawn in white line on the source deck's grey ground
+   and is invisible on white, so it sits on an ink panel, the same move
+   deck.css already makes for figure.fig.dark.
+
+   Ten copies of the one file (the browser fetches it once).  The first is
+   the whole diagram held at low strength, so nothing is ever hidden; each
+   click stacks full-strength copies, clipped to the parts of the lineage
+   that the narration has reached.  Coordinates are percentages of the
+   figure's own 702x748 pixel box. */
+.slide .lin{position:absolute;left:8px;top:8px;width:683px;height:728px}
+.slide .lin.dim{opacity:.3}
+
+/* The two "ponder" slides.  The icon is the source deck's own marker for a
+   question that the room is meant to answer; .q is the deck's question
+   headline. */
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{margin-bottom:0}
+.slide .prose{flex:1 1 auto;min-height:0;display:flex;align-items:center}
+.slide .prose p{max-width:1120px;font-size:30px;line-height:1.55;margin:0}
+</style>
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1><em>Ad hoc</em> Assembly</h1>
+  <p>Using the full catalog of enzymes in a cloning experiment</p>
+  <template class="notes">Ad hoc cloning means any non-standardized method of constructing DNAs.  There are no constraints on the methodologies employed and these approaches make full use of the catalog of available enzymes and techniques to perform a cloning experiment.  The other methodologies we’ll discuss correspond to standardized methods of fabrication.  Though ad hoc cloning would be difficult both computationally and physically to automate, automation is not the catch-all-scenario solution to DNA manipulation.  For example, various library generation methods are best implemented with ad hoc methods.  Additionally, until the price of commercial DNA fabrication comes down one more order of magnitide, there will still be some motivation to use these methods in the wetlab in contexts where the change to a sequence is fairly simple.</template>
+  <template class="desc">Section divider: Ad hoc Assembly. Using the full catalog of enzymes in a cloning experiment.</template>
+</article>
+
+<article class="slide">
+  <div style="display:flex;gap:64px;height:744px">
+    <div style="flex:1 1 auto;min-width:0;display:flex;flex-direction:column;justify-content:center">
+      <h1 style="margin:0"><em>Ad Hoc</em> Cloning Strategies</h1>
+    </div>
+    <div style="flex:0 0 699px;position:relative;background:var(--ink);border-radius:5px">
+      <img class="lin dim" src="img/02-adhoc-lineage.png"
+           alt="A lineage of plasmid maps joined by arrows labelled with restriction enzymes, running from pDisplay and pEGFP-C1 at the top down to the finished construct pIN-G at the bottom">
+      <img class="lin" src="img/02-adhoc-lineage.png" alt="" aria-hidden="true"
+           data-build="1"
+           data-note="First, they take a plasmid called pDisplay, cut it with XmaI and SalI, and isolate the larger of the two resulting DNAs."
+           data-desc="pDisplay comes up to full strength at the top left, with its XmaI and SalI sites marked, and below it the larger of the two fragments that digest gives."
+           style="clip-path:inset(0% 56.553% 63.636% 0%)">
+      <img class="lin" src="img/02-adhoc-lineage.png" alt="" aria-hidden="true"
+           data-build="1"
+           style="clip-path:inset(36.364% 63.248% 47.861% 0%)">
+      <img class="lin" src="img/02-adhoc-lineage.png" alt="" aria-hidden="true"
+           data-build="2"
+           data-note="They similarly digest pEGFP-C1 with AgeI and SalI, then combine the two fragments into a new plasmid."
+           data-desc="pEGFP-C1 lights up at the top, then the small AgeI to SalI fragment carrying EGFP, and then the new plasmid at the lower left that the two pieces are ligated into."
+           style="clip-path:inset(0% 20.228% 74.198% 43.447%)">
+      <img class="lin" src="img/02-adhoc-lineage.png" alt="" aria-hidden="true"
+           data-build="2"
+           style="clip-path:inset(25.802% 34.758% 63.636% 43.447%)">
+      <img class="lin" src="img/02-adhoc-lineage.png" alt="" aria-hidden="true"
+           data-build="2"
+           style="clip-path:inset(36.364% 38.746% 47.861% 36.752%)">
+      <img class="lin" src="img/02-adhoc-lineage.png" alt="" aria-hidden="true"
+           data-build="2"
+           style="clip-path:inset(52.139% 56.98% 22.46% 16.809%)">
+      <img class="lin" src="img/02-adhoc-lineage.png" alt="" aria-hidden="true"
+           data-build="3"
+           data-note="That plasmid is then used as template for PCR to introduce NheI and KpnI restriction sites, which are inserted into pEGFP-C1 DNA that has been digested with NheI and KpnI."
+           data-desc="The right-hand branch lights up: pEGFP-C1 cut with NheI and KpnI, and the PCR product amplified off the new plasmid, which carries an NheI end and a KpnI end."
+           style="clip-path:inset(25.802% 0% 47.594% 61.254%)">
+      <img class="lin" src="img/02-adhoc-lineage.png" alt="" aria-hidden="true"
+           data-build="3"
+           style="clip-path:inset(50.802% 20.228% 40.107% 66.952%)">
+      <img class="lin" src="img/02-adhoc-lineage.png" alt="" aria-hidden="true"
+           data-build="3"
+           style="clip-path:inset(58.824% 0% 26.738% 40.456%)">
+      <img class="lin" src="img/02-adhoc-lineage.png" alt="" aria-hidden="true"
+           data-build="4"
+           data-note="The resulting construct is called pIN-G.  This text I just described is the sort of language you will very often find in papers, and ocassionally it will be drawn out as a diagram like the one shown. The sequence of the product is knowable based on the series of manipulations performed and the sequence of the original plasmids."
+           data-desc="The finished construct at the bottom, pIN-G, 5042 base pairs, annotated with the Igk leader, an HA tag, EGFP, a cMyc tag, a TM domain, two multiple cloning sites, hCMV, SV40 poly A, the pUC origin and a kanamycin marker."
+           style="clip-path:inset(73.262% 0% 0% 45.014%)">
+    </div>
+  </div>
+  <div class="src">From PMID: 16524465</div>
+  <template class="notes">The primary reason you should understand ad hoc cloning strategies is that prior to 2000, there were no standardized fabrication methods and all published work is some ad hoc strategy.  Here we see an example ad hoc method.</template>
+  <template class="desc">The published lineage diagram of one ad hoc strategy, shown whole but held at low strength: plasmid maps joined by arrows, each arrow labelled with the restriction enzymes used at that step, running from pDisplay and pEGFP-C1 at the top down to pIN-G at the bottom. Each click brings one stage of the lineage up to full strength.</template>
+</article>
+
+<article class="slide">
+  <div class="qhead">
+    <img src="img/02-ponder.png" alt="" aria-hidden="true">
+    <div class="q">Predict the product</div>
+  </div>
+  <div class="prose"><p>Plasmid pKQ-GFPuv was digested with BglII and Mung Bean Nuclease, purifed on a zymo column, and then digested with EcoRI.  The material was run on a gel resulting in two bands.  The smaller of the bands was gel purified to give fragment A.  Meanwhile, plasmid pSC101 was digested with HindIII, purified, and then added to a reaction containing polymerase buffer, 0.2 mM dNTPs, and T4 DNA polymerase.  After purifying the DNA on a zymo column, the material was digested with EcoRI and then subjected to gel electrophoresis.  The larger of two bands was purified from the gel affording fragment B.  Fragment A and fragment B were combined in a reaction with ligase buffer and T4 DNA ligase, introduced into <em>E. coli</em> by transformation, and spread on LB plates supplemented with Ampicillin.</p></div>
+  <template class="notes">pKQ-GFPuv  and pSC101 are available on bcourses in the Files/Lectures/DNA Fabrication Examples.zip folder.  You can practice by rewriting this paragraph as a Construction File, and simulating the intermediates and product.
+
+Predicted product:
+gAATTCATTATTTGTAGAGCTCATCCATGCCATGTGTAATCCCAGCAGCAGTTACAAACTCAAGAAGGACCATGTGGTCACGCTTTTCGTTGGGATCTTTCGAAAGGGCAGATTGTGTCGACAGGTAATGGTTGTCTGGTAAAAGGACAGGGCCATCGCCAATTGGAGTATTTTGTTGATAATGGTCTGCTAGTTGAACGGATCCATCTTCAATGTTGTGGCGAATTTTGAAGTTAGCTTTGATTCCATTCTTTTGTTTGTCTGCCGTGATGTATACATTGTGTGAGTTATAGTTGTACTCGAGTTTGTGTCCGAGAATGTTTCCATCTTCTTTAAAATCAATACCTTTTAACTCGATACGATTAACAAGGGTATCACCTTCAAACTTGACTTCAGCACGCGTCTTGTAGTTCCCGTCATCTTTGAAAGATATAGTGCGTTCCTGTACATAACCTTCGGGCATGGCACTCTTGAAAAAGTCATGCCGTTTCATATGATCCGGATAACGGGAAAAGCATTGAACACCATAAGAGAAAGTAGTGACAAGTGTTGGCCATGGAACAGGTAGTTTTCCAGTAGTGCAAATAAATTTAAGGGTAAGTTTTCCGTATGTTGCATCACCTTCACCCTCTCCACTGACAGAAAATTTGTGCCCATTAACATCACCATCTAATTCAACAAGAATTGGGACAACTCCAGTGAAAAGTTCTTCTCCTTTACTCATTTTTTCTACCGGTACCCGGGGATCCTCTAGAGTCGACCTGCAGGCATGCAAGCTTGGCGTAATCATGGTCATAGCTGTTTCCTGTGTGAAATTGTTATCCGCTCACAATTCCACACAACATACGAGCCGGAAGCATAAAGTGTAAAGCCTGGGGTGCCTAATGAGTGAGCTAACTCACATTAATTGCGTTGCGCTCACTGCCCGCTTTCCAGTCGGGAAACCTGTCGTGCCAGCTGCAagctttaatgcggtagtttatcacagttaaattgctaacgcagtcaggcaccgtgtatgaaatctaacaatgcgctcatcgtcatcctcggcaccgtcaccctggatgctgtaggcataggcttggttatgccggtactgccgggcctcttgcgggatatcgtccattccgacagcatcgccagtcactatggcgtgctgctagcgctatatgcgttgatgcaatttctatgcgcacccgttctcggagcactgtccgaccgctttggccgccgcccagtcctgctcgcttcgctacttggagccactatcgactacgcgatcatggcgaccacacccgtcctgtggatcctctacgccggacgcatcgtggccggcatcaccggcgccacaggtgcggttgctggcgcctatatcgccgacatcaccgatggggaagatcgggctcgccacttcgggctcatgagcgcttgtttcggcgtgggtatggtggcaggccccgtggccgggggactgttgggcgccatctccttgcatgcaccattccttgcggcggcggtgctcaacggcctcaacctactactgggctgcttcctaatgcaggagtcgcataagggagagcgtcgaccgatgcccttgagagccttcaacccagtcagctccttccggtgggcgcggggcatgactatcgtcgccgcacttatgactgtcttctttatcatgcaactcgtaggacaggtgccggcagcgctctgggtcattttcggcgaggaccgctttcgctggagcgcgacgatgatcggcctgtcgcttgcggtattcggaatcttgcacgccctcgctcaagccttcgtcactggtcccgccaccaaacgtttcggcgagaagcaggccattatcgccggcatggcggccgacgcgctgggctacgtcttgctggcgttcgcgacgcgaggctggatggccttccccattatgattcttctcgcttccggcggcatcgggatgcccgcgttgcaggccatgctgtccaggcaggtagatgacgaccatcagggacagcttcaaggatcgctcgcggctcttaccagcctaacttcgatcactggaccgctgatcgtcacggcgatttatgccgcctcggcgagcacatggaacgggttggcatggattgtaggcgccgccctataccttgtctgcctccccgcgttgcgtcgcggtgcatggagccgggccacctcgacctgaatggaagccggcggcacctcgctaacggattcaccactccaagaattggagccaatcaattcttgcggagaactgtgaatgcgcaaaccaacccttggcagaacatatccatcgcgtccgccatctccagcagccgcacgcggcgcatctcgggcagcgttgggtcctggccacgggtgcgcatgatcgtgctcctgtcgttgaggacccggctaggctggcggggttgccttactggttagcagaatgaatcaccgatacgcgagcgaacgtgaagcgactgctgctgcaaaacgtctgcgacctgagcaacaacatgaatggtcttcggtttccgtgtttcgtaaagtctggaaacgcggaagtcccctacgtgctgctgaagttgcccgcaacagagagtggaaccaaccggtgataccacgatactatgactgagagtcaacgccatgagcggcctcatttcttattctgagttacaacagtccgcaccgctgccggtagctacttgactatccggctgcactagccctgcgtcagatggctctgatccaaggcaaactgccaaaatatctgctggcaccggaagtcagcgccctgcaccattatgttccggatctgcatcgcaggatgctgctggctaccctgtggaacacctacatctgtattaacgaagcgctggcattgaccctgagtgatttttctctggtgccgccctatccctttgtgcagcttgccacgctcaaaggggtttgaggtccaaccgtacgaaaacgtacggtaagaggaaaattatcgtctgaaaaatcgattagtagacaagaaagtccgttaagtgccaattttcgattaaaaagacaccgttttgatggcgttttccaatgtacattatgtttcgatatatcagacagttacttcactaacgtacgttttcgttctattggccttcagaccccatatccttaatgtcctttatttgctggggttatcagatccccccgacacgtttaattaatgctttctccgccggagatcgacgcacaggcttctgtgtctatgatgttatttcttaataatcatccaggtattctctttatcaccatacgtagtgcgagtgtccaccttaacgcagggctttccgtcacagcgcgatatgtcagccagcggggctttcttttgccagaccgcttccatcctctgcatttcagcaatctggctatacccgtcattcataaaccacgtaaatgccgtcacgcaggaagccaggacgaagaatatcgtcagtacaagataaatcgcggatttccacgtatagcgtgacatctcacgacgcatttcatggatcatcgctttcgccgtatcggcagcctgattcagcgcttctgtcgccggtttctgctgtgctaatccggcttgtttcagttctttctcaacctgagtgagcgcggaactcaccgatttcctgacggtgtcagtcatattaccggacgcgctgtccagctcacgaatgaccctgctcagcgtttcactttgctgctgtaattgtgatgaggcggcctgaaactgttctgtcagagaagtaacacgcttttccagcgcctgatgatgcccgataagggcggcaatttgtttaatttcgtcgctcatacaaaatcctgcctatcgtgagaatgaccagcctttatccggcttctgtcgtatctgttcggcgagtcgctgtcgttctttctcctgctgacgctgtttttccgccagacgttcgcgctctctctgcctttccatctcctgatgtatcccctggaactccgccatcgcatcgttaacaagggactgaagatcgatttcttcctgtatatccttcatggcatcactgaccagtgcgttcagcttgtcaggctctttttcaaaatcaaacgttctgccggaatgggattcctgctcaggctctgacttcagctcctgttttagcgtcagagtatccctctcgctgagggcttcccgtaacgaggtagtcacgtcaattacgctgtcacgttcatcacgggactgctgcacctgcctttcagcctccctgcgctcaagaatggcctgtagctgctcagtatcgaatcgctgaacctgacccgcgcccagatgccgctcaggctcacggtcaatgccctgcgccttcagggaacgggaatcaacccggtcagcgtgctgataccgttcaaggtgcttattctggaggtcagcccagcgtctccctctgggcaacaaggtattctttgcgttcggtcggtgtttccccgaaacgtgccttttttgcgccaccgcgtccggctctttggtgttagcccgtttaaaatactgctcagggtcacggtgaataccgtcattaatgcgttcagagaacatgatatgggcgtggggctgctcgccaccggctatcgctgctttcggattatggatagcgaactgataggcatggcggtcgccaatttcctgttggacaaaatcgcggacaagctcaagacgttgttcgggttttaactcacgcggcagggcaatctcgatttcacggtaggtacagccgttggcacgttcagacgtgtcagcggctttccagaactcggacggtttatgcgctgcccacgccggcatattgccggactccttgtgctcaaggtcggagtctttttcacgggcatactttccctcacgcgcaatataatcggcatgaggagaggcactgccttttccgccggtttttacgctgagatgataggatgccatcgtgttttatcccgctgaagggcgcacgtttctgaacgaagtgaagaaagtctaagtgcgccctgataaataaaagagttatcagggattgtagtgggatttgacctcctctgccatcatgagcgtaatcattccgttagcattcaggaggtaaacagcatgaataaaagcgaaaaaacaggaacaatgggcagcagaaagagtgcagtatattcgcggcttaaagtcgccgaatgagcaacagaaacttatgctgatactgacggataaagcagataaaacagcacaggatatcaaaacgctgtccctgctgatgaaggctgaacaggcagcagagaaagcgcaggaagccagagcgaaagtcatgaacctgatacaggcagaaaagcgagccgaagccagagccgcccgtaaagcccgtgaccatgctctgtaccagtctgccggattgcttatcctggcgggtctggttgacagtaagacgggtaagcctgttgatgataccgctgccttactgggtgcattagccagtctgaatgacctgtcacgggataatccgaagtggtcagactggaaaatcagagggcaggaactgctgaacagcaaaaagtcagatagcaccacatagcagacccgccataaaacgccctgagaagcccgtgacgggcttttcttgtattatgggtagtttccttgcatgaatccataaaaggcgcctgtagtgccatttacccccattcactgccagagccgtgagcgcagcgaactgaatgtcacgaaaaagacagcgactcaggtgcctgatggtcggagacaaaaggaatattcagcgatttgcccgagcttgcgagggtgctacttaagcctttagggttttaaggtctgttttgtagaggagcaaacagcgtttgcgacatccttttgtaatactgcggaactgactaaagtagtgagttatacacagggctgggatctattctttttatctttttttattctttctttattctataaattataaccacttgaatataaacaaaaaaaacacacaaaggtctagcggaatttacagagggtctagcagaatttacaagttttccagcaaaggtctagcagaatttacagatacccacaactcaaaggaaaaggactagtaattatcattgactagcccatctcaattggtatagtgattaaaatcacctagaccaattgagatgtatgtctgaattagttgttttcaaagcaaatgaactagcgattagtcgctatgacttaacggagcatgaaaccaagctaattttatgctgtgtggcactactcaaccccacgattgaaaaccctacaaggaaagaacggacggtatcgttcacttataaccaatacgctcagatgatgaacatcagtagggaaaatgcttatggtgtattagctaaagcaaccagagagctgatgacgagaactgtggaaatcaggaatcctttggttaaaggctttgagattttccagtggacaaactatgccaagttctcaagcgaaaaattagaattagtttttagtgaagagatattgccttatcttttccagttaaaaaaattcataaaatataatctggaacatgttaagtcttttgaaaacaaatactctatgaggatttatgagtggttattaaaagaactaacacaaaagaaaactcacaaggcaaatatagagattagccttgatgaatttaagttcatgttaatgcttgaaaataactaccatgagtttaaaaggcttaaccaatgggttttgaaaccaataagtaaagatttaaacacttacagcaatatgaaattggtggttgataagcgaggccgcccgactgatacgttgattttccaagttgaactagatagacaaatggatctcgtaaccgaacttgagaacaaccagataaaaatgaatggtgacaaaataccaacaaccattacatcagattcctacctacgtaacggactaagaaaaacactacacgatgctttaactgcaaaaattcagctcaccagttttgaggcaaaatttttgagtgacatgcaaagtaagcatgatctcaatggttcgttctcatggctcacgcaaaaacaacgaaccacactagagaacatactggctaaatacggaaggatctgaggttcttatggctcttgtatctatcagtgaagcatcaagactaacaaacaaaagtagaacaactgttcaccgttagatatcaaagggaaaactgtccatatgcacagatgaaaacggtgtaaaaaagatagatacatcagagcttttacgagtttttggtgcatttaaagctgttcaccatgaacagatcgacaatgtaacagatgaacagcatgtaacacctaatagaacaggtgaaaccagtaaaacaaagcaactagaacatgaaattgaacacctgagacaacttgttacagctcaacagtcacacatagacagcctgaaacaggcgatgctgcttatcgaatcaaagctgccgacaacacgggagccagtgacgcctcccgtggggaaaaaatcatggcaattctggaagaaatagcgctttcagccggcaaacctgaagccggatctgcgattctgataacaaactagcaacaccagaacagcccgtttgcgggcagcaaaacccgtacttttggacgttccggcggttttttgtggcgagtggtgttcgggcggtgcgcgcaagatccattatgttaaacgggcgagtttacatctcaaaaccgcccgcttaacaccatcagaaatcctcagcgcgattttaagcaccaacccccccccgtaacacccaaatccatactgaaagtggctttgttgaataaatcgaacttttgctgagttgaaggatcagatcacgcatcctcccgacaacacagaccattccgtggcaaagcaaaagttcagaatcaccaactggtccacctacaacaaagctctcatcaaccgtggctccctcactttctggctggatgatgaggcgattcaggcctggtatgagtcggcaacaccttcatcacgaggaaggccccagcgctattctgatctcgccatcaccaccgttctggtgattaaacgcgtattccggctgaccctgcgggctgcgcagggttttattgattccatttttgccctgatgaacgttccgttgcgctgcccggattacaccagtgtcagtaagcgggcaaagtcggttaatgtcagtttcaaaacgtccacccggggtgaaatcgcacacctggtgattgattccaccgggctgaaggtctttggtgaaggcgaatggaaagtcagaaagcacggcaaagagcgccgtcgtatctggcgaaagttgcatcttgctgttgacagcaacacacatgaagttgtctgtgcagacctgtcgctgaataacgtcacggactcagaagccttcccgggccttatccggcagactcacagaaaaatcagggcagccgcggcagacggggcttacgatacccggctctgtcacgatgaactgcgccgcaaaaaaatcagcgcgcttattcctccccgaaaaggtgcgggttactggcccggtgaatatgcagaccgtaaccgtgcagtggctaatcagcgaatgaccgggagtaatgcgcggtggaaatggacaacagattacaaccgtcgctcgatagcggaaacggcgatgtaccgggtaaaacagctgttcgggggttcactgacgctgcgtgactacgatggtcaggttgcggaggctatggccctggtacgagcgctgaacaaaatgacgaaagcaggtatgcctgaaagcgtgcgtattgcctgaaaacacaacccgctacgggggagacttacccgaaatctgatttattcaacaaagccgggtgtggtgaactacaaagcagacccgttgaggttatcagttcgatgcacaatcagcagcgcataaaatatgcacaagaacaggagcacccttcgcattaagctgtggtggtaacaagtagtgccgggctaccatcagcgagcatgatgcgctcccacagcattcgccttggcagtatggaagttcctcgctccagttcgggccggtatccacctcgagtgaccccagccgcccctcatgccaaccgagcccattaagcgcagagtcggccgcaactatctcggggacgcataaacacgcagcgatttaccaaggagttcggctaggtcaatccgcaattccctttgcctggccggagatgccgcgagcaaacaatgtgtccggtcgctaccagatggactttgtgggcggaggattgcaccagacgcttcagcgcagcgtcgtacgatgaatcggaaggcccggtaagcaattgaagaaccgctgaccacctcccatccgacaatgcaagggtgccccgctcccagcgcgacacggttgcctgatccacacccattaattcagctaggtgactttgcttcatatgacgaagcaaccgcgccctccgcacctgccgccccctgtcattcgtcaacattcttcagcacctcaatgtcgttcgtagtgagcctcattttttcaagaccgccgatgatgagagccaggcctcgctcgaatgccgcgtccggaccgccttcgtagacgattttcatcgcgctctgtaggcgcgccggcatcgtagacgctgaggtggtcaactgatcttcgccccgctcctcggcgtctgcctcgctagcttgctgctcaagaacagcgccgacggtgaagtagctgattgccatcaacgcataggtcgcgtcacctgccgaaaagccagcatcgcaaaggaagcgaagctgcgcgtcggctttttccatctgcggcgcggctggccgcgtcccggcatgaatacgcgcgccatcgcgataagcgagcaacgcccgtcgaaaactgcatgcattgcccttcaggaacgaacgccagtcgtcgtcatcccttggcgtcgaatgcgtgtgatttatcgtcagcatggcttcggcaagtgcgtcgagcaacgcacgcttgttcttgaaatgccagtagagcgctggctgttgcaccccgaggcgctcagccagtcggcgcgtcgttagaccttccatgcccacgtcgttaagcagttcgagcgcggttcggatcacggcctcgcgttggagcttgttcattcgc</template>
+  <template class="desc">A question for the room, marked with the deck's thinking figure. One paragraph of prose describes a cloning procedure: pKQ-GFPuv cut with BglII, blunted with mung bean nuclease and cut again with EcoRI, the smaller gel band taken as fragment A; pSC101 cut with HindIII, blunted by fill-in with T4 DNA polymerase and cut with EcoRI, the larger gel band taken as fragment B; the two ligated with T4 DNA ligase, transformed, and plated on ampicillin. The answer is not on the slide.</template>
+</article>
+
+<article class="slide">
+  <div class="qhead">
+    <img src="img/02-ponder.png" alt="" aria-hidden="true">
+    <div class="q">Ad Hoc example2</div>
+  </div>
+  <div class="prose"><p>The paper PMID12732624.pdf describes construction of plasmid pGN-CYP719.  What is its sequence of the NcoI/XhoI &ldquo;coding fragment&rdquo; described in that construction?  (include the complete NcoI and XhoI sites in your answer. Helper files available for template sequences).</p></div>
+  <template class="notes">Paper is PMID 12732624 (supplied)
+Vector pasted into is pBlueScript SK-  (can be found by googling, provided in files)
+Insert template can be found at LOCUS AB026122  (can be found from ncbi protein search, provided in files)
+
+Product is:
+CCATGGAGATGAATCCACTGCttgtgtgtgccactgtagcaattgtgtttgccacaacaaccataatccgaattttattctcgtcctcgtcattgccacagatgaaatggccaagcggtccgagaaaattaccaatcatagggaacttgcaccaactaggtgatgatgtgctccacgtcgccttggccaaacttgccaaagttcacggcagtgtgatgacaatctggattggtagctggcgacccgtcattgtcatcagtgacattgaaaaggcatgggaggtccttgtgaacaagtcagcagattatggagcgcgtgacatgcccgaaataactaaaattgcatcagctagctggcacaccatatccacctcggatgctggttccttctggcagaatgttcgtaagggacttcaaagtggagcaatgggtcctctcaatgttgccgcacaaaatcaatatcaagaaagggacatgaaacgcttgatcaaagctatgagcgacgaagcagcgaacaacaatggcattgtcaaaccacttgaccacattaaaaagaacactgtcaggttactaactcgccttattttcggtcaggcctttgatgataacaagtttattgagtctatgcattatgagattgaagatattattcgcattagtggctatgctcgtcttgccgaggcattctattatgcaaagtacctccccagtcacaaaaaagccgagagagaggcatttctggtgaagtgtagagttgaagaattggtgaggccacttctctcttcaaaacctccaacaaatagctatttgtactttcttctctcacagaatttcgaagaggaagttatcatattttgcatttttgagctgtaccttcttggggtggacagtacttcctctaccactacatgggcactcgcttacttgatccgtgaacaaggagcacaagagaagctctaccaagatattaggatgacacttggtgatgtggatcttgtgaagattgaagatgtgaataaattgaagtatttgcaaggtgttgttaaagaaacaatgagaatgaagccaattgcacctcttgctattccacacaagactgctaaggaaactacgttgatgggaactaaggtagccaagggtacacgaattatggtgaacctttacgccttgcatcataaccaaaacatatggcctgatccttacaagttcatgcctgagagattcttggaaggtgaaactggtactgcatataacaaagcaatggaacaatcgtttcttcccttcagtgctggaatgagaatttgcgcaggaatggacttgggaaagcttcagtttgcttttgctcttgctaacttggtgaacgcattcaaatggtcatgtgttgaggaaggtaagcttcctgatatgggcgaggaactatcttttgttctcctgatgaaaacgccacttgaggcaaggatCGCTGGTAGAAATGTTTGAGTTGGATATCAAGCTTATCGATACCGTCGACCTCGAG</template>
+  <template class="desc">A second question for the room, marked with the deck's thinking figure. It asks for the sequence of the NcoI to XhoI coding fragment used to build plasmid pGN-CYP719 in the paper PMID 12732624, both restriction sites included in full, with the template sequences supplied as helper files. The answer is not on the slide.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
