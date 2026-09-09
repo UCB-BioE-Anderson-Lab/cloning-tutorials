@@ -30,8 +30,14 @@ const n2 = v => Math.round(v*10)/10;
 
 const XA = 320, XB = 1380;
 const L = 220, S = 120;                  /* oligo length, and the step  */
-const YT = 460, YB = 520;                /* the two strands             */
-const YPF = 414, YPR = 566;              /* the two outer primers       */
+const YT = 460, YB = 520;                /* the seeds, and the product  */
+/* Once every 3' end has been run out, the eight oligos are four separate
+   double-stranded pieces that OVERLAP one another, so they cannot share a
+   line: drawn there they would read as one molecule. Alternate pieces
+   drop to a second row, which is how the source figure draws them too. */
+const RY = [424, 512];                   /* the two rows, top strand of  */
+const RSEP = 56;                         /* each piece; its partner below*/
+const YPF = 380, YPR = 612;              /* the two outer primers        */
 
 const BARB = 24, BW = 0.49;
 function strand(x1, y1, x2, y2){
@@ -116,7 +122,10 @@ window.Deck.sequence("gs-pca", function(slide){
 
   function draw(extended){
     for (let k = 0; k < 8; k++){
-      const y = k % 2 === 0 ? YT : YB, q = seed(k), g = grown(k);
+      const pair = k >> 1;
+      const y = extended ? RY[pair % 2] + (k % 2) * RSEP
+                         : (k % 2 === 0 ? YT : YB);
+      const q = seed(k), g = grown(k);
       /* forward oligos are barbed at the right, reverse ones at the left,
          and once a strand has been extended the barb travels to the new
          3' end and the ordered part is drawn plain */

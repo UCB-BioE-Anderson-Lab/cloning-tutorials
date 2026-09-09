@@ -30,6 +30,13 @@
 .slide pre.orf{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   font-size:24px;line-height:1.32;letter-spacing:.01em;margin:6px 0 0;white-space:pre}
 
+/* The two "ponder" slides, set the way 02-ad-hoc-assembly.html sets its
+   pair: the source deck's own marker for a question the room is meant to
+   answer, beside the deck's question headline. */
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{margin-bottom:0}
+
 /* The design-tool URL, kept exactly as it is written on the source slide.
    It is long, so it breaks anywhere rather than running off the slide. */
 .slide a.tool{font-size:23px;line-height:1.4;color:var(--blue);
@@ -115,7 +122,7 @@
       <text x="828" y="34" text-anchor="end" font-size="24" fill="#767676">3&#8242;</text>
       <path d="M560 22H472M486 12L470 22L486 32" fill="none" stroke="#004373"
             stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-      <text x="578" y="30" font-size="24" fill="#004373">each new base is added here</text>
+      <text x="452" y="30" text-anchor="end" font-size="24" fill="#004373">each new base is added here</text>
 
       <!-- a polymerase: adds to the 3' end, which gets the half barb -->
       <text x="0" y="182" font-size="27" font-weight="700" fill="#111111">A polymerase</text>
@@ -178,7 +185,10 @@
 
 <!-- ---------------------------------------------------------------- 18 -->
 <article class="slide">
-  <div class="q">LCA example question</div>
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">LCA example question</div>
+  </div>
   <p>Design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Ligase Chain Assembly</p>
   <p style="margin-bottom:0"><b>amilGFP ORF:</b></p>
   <pre class="orf">ATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGC
@@ -232,7 +242,7 @@ ATGATCACTAATTCGGACATCTGTTTCCCTTCGTAAGGGTACCCAGTTCC
 TACACCTTCGATCGTAAATTCATGGCCATTGACACTGCCTTCCATATGGT
 ATTTCGTCTTCATTTCTTGTACGATGCCATGCTTTGAATAAGACATctag
 aagcggccgcgaattcaatgg</template>
-  <template class="desc">A question to work: design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Ligase Chain Assembly. The amilGFP open reading frame is printed below it, 696 bases in twelve lines.</template>
+  <template class="desc">A question for the room, marked with the deck's thinking figure: design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Ligase Chain Assembly. The amilGFP open reading frame is printed below it, 696 bases in twelve lines.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 19 -->
@@ -294,7 +304,10 @@ aagcggccgcgaattcaatgg</template>
 
 <!-- ---------------------------------------------------------------- 22 -->
 <article class="slide">
-  <div class="q">PCA example question</div>
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">PCA example question</div>
+  </div>
   <p>Design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Polymerase Chain Assembly</p>
   <p style="margin-bottom:0"><b>amilGFP ORF:</b></p>
   <pre class="orf">ATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGC
@@ -362,7 +375,7 @@ GCATGTGCTTCCAGCTTGACTGTAAAGCCTTTTGCACTTTGGCCAAGGTCGG
 CAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAAACT
 >.01.o24 50bp
 GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
-  <template class="desc">The same question run the other way: design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Polymerase Chain Assembly, with the amilGFP open reading frame printed below.</template>
+  <template class="desc">The same question run the other way, marked with the deck's thinking figure: design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Polymerase Chain Assembly, with the amilGFP open reading frame printed below.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 23 -->

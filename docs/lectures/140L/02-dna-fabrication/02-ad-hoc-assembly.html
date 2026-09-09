@@ -11,17 +11,22 @@
 /* Page-local layout only.  Nothing here belongs in the shared deck.css. */
 
 /* The PMID 16524465 lineage figure.  It is a published figure, so it stays
-   a raster; but it was drawn in white line on the source deck's grey ground
-   and is invisible on white, so it sits on an ink panel, the same move
-   deck.css already makes for figure.fig.dark.
+   a raster.  It has been recoloured out of the source deck's white-on-grey
+   line art into the deck palette, so it is an ordinary dark-on-white figure
+   and sits on the white slide with nothing behind it.
 
    Ten copies of the one file (the browser fetches it once).  The first is
    the whole diagram held at low strength, so nothing is ever hidden; each
    click stacks full-strength copies, clipped to the parts of the lineage
    that the narration has reached.  Coordinates are percentages of the
-   figure's own 702x748 pixel box. */
-.slide .lin{position:absolute;left:8px;top:8px;width:683px;height:728px}
-.slide .lin.dim{opacity:.3}
+   figure's own 702x748 pixel box, so the box may be resized freely.
+
+   .dim is 45%, not 30%.  Ink at 30% on white composites to #b8b8b8, which
+   measures 1.98:1 and misses the 3:1 that 1.4.11 asks of a graphical
+   object.  45% composites to about #959595 and lands on 3.0:1 — still
+   plainly subordinate to the 18.9:1 copies stacked on top of it. */
+.slide .lin{position:absolute;left:0;top:0;width:777px;height:828px}
+.slide .lin.dim{opacity:.45}
 
 /* The two "ponder" slides.  The icon is the source deck's own marker for a
    question that the room is meant to answer; .q is the deck's question
@@ -42,12 +47,17 @@
   <template class="desc">Section divider: Ad hoc Assembly. Using the full catalog of enzymes in a cloning experiment.</template>
 </article>
 
-<article class="slide">
-  <div style="display:flex;gap:64px;height:744px">
+<!-- The figure is height-bound, not width-bound: at 702x748 it is taller
+     than it is wide, so the only way to make it bigger is to give it more
+     vertical room.  This one slide trades the deck's 86/70 top and bottom
+     padding for 36/36, which buys 84px of height and about 11% of linear
+     size.  The title column is centred and loses nothing. -->
+<article class="slide" style="padding-top:36px;padding-bottom:36px">
+  <div style="display:flex;gap:64px;height:828px">
     <div style="flex:1 1 auto;min-width:0;display:flex;flex-direction:column;justify-content:center">
       <h1 style="margin:0"><em>Ad Hoc</em> Cloning Strategies</h1>
     </div>
-    <div style="flex:0 0 699px;position:relative;background:var(--ink);border-radius:5px">
+    <div style="flex:0 0 777px;position:relative">
       <img class="lin dim" src="img/02-adhoc-lineage.png"
            alt="A lineage of plasmid maps joined by arrows labelled with restriction enzymes, running from pDisplay and pEGFP-C1 at the top down to the finished construct pIN-G at the bottom">
       <img class="lin" src="img/02-adhoc-lineage.png" alt="" aria-hidden="true"
@@ -97,7 +107,7 @@
 
 <article class="slide">
   <div class="qhead">
-    <img src="img/02-ponder.png" alt="" aria-hidden="true">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
     <div class="q">Predict the product</div>
   </div>
   <div class="prose"><p>Plasmid pKQ-GFPuv was digested with BglII and Mung Bean Nuclease, purifed on a zymo column, and then digested with EcoRI.  The material was run on a gel resulting in two bands.  The smaller of the bands was gel purified to give fragment A.  Meanwhile, plasmid pSC101 was digested with HindIII, purified, and then added to a reaction containing polymerase buffer, 0.2 mM dNTPs, and T4 DNA polymerase.  After purifying the DNA on a zymo column, the material was digested with EcoRI and then subjected to gel electrophoresis.  The larger of two bands was purified from the gel affording fragment B.  Fragment A and fragment B were combined in a reaction with ligase buffer and T4 DNA ligase, introduced into <em>E. coli</em> by transformation, and spread on LB plates supplemented with Ampicillin.</p></div>
@@ -110,7 +120,7 @@ gAATTCATTATTTGTAGAGCTCATCCATGCCATGTGTAATCCCAGCAGCAGTTACAAACTCAAGAAGGACCATGTGGTCA
 
 <article class="slide">
   <div class="qhead">
-    <img src="img/02-ponder.png" alt="" aria-hidden="true">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
     <div class="q">Ad Hoc example2</div>
   </div>
   <div class="prose"><p>The paper PMID12732624.pdf describes construction of plasmid pGN-CYP719.  What is its sequence of the NcoI/XhoI &ldquo;coding fragment&rdquo; described in that construction?  (include the complete NcoI and XhoI sites in your answer. Helper files available for template sequences).</p></div>

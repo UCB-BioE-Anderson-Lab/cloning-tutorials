@@ -94,10 +94,10 @@ window.Deck.sequence("gs-ladder", function(slide){
          'font-size="32" font-weight="700" fill="'+INK+'">bases</text>' +
        '<g data-hi="f" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" ' +
          'font-size="54" font-weight="600" text-anchor="middle" fill="'+INK+'">' +
-         '<text x="'+(CX[0]-46)+'" y="'+(YICON-32)+'">A</text>' +
-         '<text x="'+(CX[0]+46)+'" y="'+(YICON-32)+'">T</text>' +
-         '<text x="'+(CX[0]-46)+'" y="'+(YICON+30)+'">C</text>' +
-         '<text x="'+(CX[0]+46)+'" y="'+(YICON+30)+'">G</text>' +
+         '<text x="'+(CX[0]-46)+'" y="'+(YICON-20)+'">A</text>' +
+         '<text x="'+(CX[0]+46)+'" y="'+(YICON-20)+'">T</text>' +
+         '<text x="'+(CX[0]-46)+'" y="'+(YICON+42)+'">C</text>' +
+         '<text x="'+(CX[0]+46)+'" y="'+(YICON+42)+'">G</text>' +
        '</g>' +
        '<text x="'+CX[0]+'" y="'+YSIZE+'" text-anchor="middle" font-size="26" ' +
          'fill="'+MUTED+'">1bp</text>' +

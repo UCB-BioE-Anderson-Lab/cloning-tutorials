@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>BioBrick Assembly &ndash; DNA Fabrication</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.  deck.css is shared by every lecture in the course and
+ * is not touched from here.
+ *
+ * THE SCAR.  It is the point of the sequence slide, so it lands on its own
+ * click.  It cannot use the ordinary build, because [data-build] starts at
+ * opacity 0 and that would punch a six-base hole in the middle of a duplex
+ * until the click arrived.  Instead the letters are drawn in ink with the
+ * ligation product and only change colour when the click lands: present
+ * from the moment it exists, singled out at the moment it is the subject.
+ * The specificity here (0,3,2) beats deck.css's .slide [data-build] (0,2,1)
+ * without !important.
+ *
+ * Bold monospace has the same advance width as regular, so the weight
+ * change does not shift the columns.  pre.dna .site already relies on that.
+ * --------------------------------------------------------------------- */
+.slide pre.dna .scar[data-build]{opacity:1;color:var(--ink);
+  transition:color .32s ease}
+.slide pre.dna .scar[data-build].in{color:var(--red);font-weight:700}
+
+/* The widest block on the sequence slide is the digest row, at 92 columns
+   across two molecules.  92 characters is 1351px at 24px in the mono face,
+   against a 1380px content box, so 24px is the largest size that fits and
+   the height is spent on line spacing instead. */
+#bb-seq .cascade pre.dna{font-size:24px;line-height:1.5}
+#bb-seq .cascade .step{margin:22px 0 14px;font-size:26px}
+</style>
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>BioBrick<br>Standard Assembly</h1>
+  <p>Building up larger DNAs from standardized intermediates (Parts)</p>
+  <template class="notes">BioBrick standard assembly was the first proposed method of fabricating multi-gene DNAs using one standardized chemistry. It was proposed by Tom Knight at MIT and was popularized through the international genetically engineered machines competition.</template>
+  <template class="desc">Section divider: BioBrick Standard Assembly. Underneath, a line reading "Building up larger DNAs from standardized intermediates (Parts)".</template>
+</article>
+
+<article class="slide" data-seq="bb-standard">
+  <h1 class="small">Biobricks</h1>
+</article>
+
+<article class="slide" id="bb-seq">
+  <h1 class="small">Biobricks</h1>
+  <div class="cascade">
+<pre class="dna"><span class="site">EcoRI</span>         <span class="site">XbaI</span>       partA            <span class="site">SpeI</span>         <span class="site">PstI</span>
+<span class="site">GAATTC</span>GCGGCCGCA<span class="site">TCTAGA</span>GTCCCTAGATACTGAGCACT<span class="site">ACTAGT</span>AGCGGCCG<span class="site">CTGCAG</span>
+<span class="site">CTTAAG</span>CGCCGGCGT<span class="site">AGATCT</span>CAGGGATCTATGACTCGTGA<span class="site">TGATCA</span>TCGCCGGC<span class="site">GACGTC</span></pre>
+<pre class="dna" style="margin-top:20px"><span class="site">EcoRI</span>          <span class="site">XbaI</span>      partB         <span class="site">SpeI</span>         <span class="site">PstI</span>
+<span class="site">GAATTC</span>GCGGCCGCA<span class="site">TCTAGA</span>TCTCCCTTCGGGAAGCGT<span class="site">ACTAGT</span>AGCGGCCG<span class="site">CTGCAG</span>
+<span class="site">CTTAAG</span>CGCCGGCGT<span class="site">AGATCT</span>AGAGGGAAGCCCTTCGCA<span class="site">TGATCA</span>TCGCCGGC<span class="site">GACGTC</span></pre>
+
+  <div class="step" data-build="1"
+       data-desc="First click: both plasmids have been cut, and the two pieces are drawn apart from one another. On the left, partA still carries its EcoRI end and now ends in the SpeI half site, four bases of single-stranded CTAG on the bottom strand. On the right, partB begins with the XbaI half site, four bases of single-stranded CTAG on the top strand, and runs on through its own SpeI and PstI sites. The two overhangs are the same four bases, so they can pair."><span class="arrow">&darr;</span> Digest</div>
+<pre class="dna" data-build="1"><span class="site">EcoRI</span>         <span class="site">XbaI</span>       partA            <span class="site">SpeI</span>  <span class="site">XbaI</span>      partB         <span class="site">SpeI</span>         <span class="site">PstI</span>
+ <span class="site">AATTC</span>GCGGCCGCA<span class="site">TCTAGA</span>GTCCCTAGATACTGAGCACT<span class="site">A</span>       <span class="site">CTAGA</span>TCTCCCTTCGGGAAGCGT<span class="site">ACTAGT</span>AGCGGCCG<span class="site">CTGCAG</span>
+     <span class="site">G</span>CGCCGGCGT<span class="site">AGATCT</span>CAGGGATCTATGACTCGTGA<span class="site">TGATC</span>       <span class="site">T</span>AGAGGGAAGCCCTTCGCA<span class="site">TGATCA</span>TCGCCGGC<span class="site">GACGTC</span></pre>
+
+  <div class="step" data-build="2"
+       data-desc="Second click: the two CTAG overhangs have paired and been ligated, and the whole thing is one continuous duplex. partA and partB now sit end to end in a single molecule, which still has an EcoRI end on the left and an intact SpeI and PstI at the right, so the product is itself a part that can go into the next round."><span class="arrow">&darr;</span> Ligate</div>
+<pre class="dna" data-build="2"><span class="site">EcoRI</span>         <span class="site">XbaI</span>       partA           <span class="scar" data-build="3" data-desc="Third click: the six bases at the junction turn red on both strands, and the label above them reads (scar). The top strand there is ACTAGA. It is not the XbaI site TCTAGA and it is not the SpeI site ACTAGT: joining the two compatible ends has destroyed both of them and left something neither enzyme will cut. Everything else on the molecule, the EcoRI end, the XbaI site in front of partA, and the SpeI and PstI sites at the far end, is still blue and still intact.">(scar)</span>    partB         <span class="site">SpeI</span>         <span class="site">PstI</span>
+ <span class="site">AATTC</span>GCGGCCGCA<span class="site">TCTAGA</span>GTCCCTAGATACTGAGCACT<span class="scar" data-build="3">ACTAGA</span>TCTCCCTTCGGGAAGCGT<span class="site">ACTAGT</span>AGCGGCCG<span class="site">CTGCAG</span>
+     <span class="site">G</span>CGCCGGCGT<span class="site">AGATCT</span>CAGGGATCTATGACTCGTGA<span class="scar" data-build="3">TGATCT</span>AGAGGGAAGCCCTTCGCA<span class="site">TGATCA</span>TCGCCGGC<span class="site">GACGTC</span></pre>
+  </div>
+  <template class="desc">Two BioBrick parts written out as letters. Each one is the same prefix and suffix around a different middle: EcoRI, then XbaI, then the part, then SpeI, then PstI, with all four restriction sites picked out in blue and the part itself in black. partA is on top, partB below it.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Biobricks</h1>
+  <div style="flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center">
+  <ul style="margin:0">
+    <li>Optional slides from YouTube:<br>
+      <small><a href="https://www.youtube.com/watch?v=F1mXoy1-Vr0&amp;list=PL2aPXzks-TgPX7HU4pogNUSBN9OK2PhBK&amp;index=4">https://www.youtube.com/watch?v=F1mXoy1-Vr0&amp;list=PL2aPXzks-TgPX7HU4pogNUSBN9OK2PhBK&amp;index=4</a></small></li>
+    <li data-build="1"
+        data-desc="Second bullet: still popular in iGEM program, but slow relative to other assembly methods.">Still popular in iGEM program, but slow relative to other assembly methods</li>
+    <li data-build="2"
+        data-desc="Third bullet: often requires gel purification, which can be tricky, and super hard for lower-copy plasmids.">Often requires gel purification, which can be tricky, and super hard for lower-copy plasmids</li>
+  </ul>
+  </div>
+  <template class="desc">A closing list. It opens with a link to optional slides on YouTube, then adds two bullets on how BioBrick assembly stands up against the alternatives.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/biobrick.js" defer></script>
+</body>
+</html>

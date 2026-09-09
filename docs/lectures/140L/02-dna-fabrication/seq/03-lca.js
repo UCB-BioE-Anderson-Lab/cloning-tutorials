@@ -41,7 +41,7 @@ const BOT = [XA, 497, 850, 1203, XB];
 /* each oligo drifts in from its own place: seven oligos in a tube are
    seven molecules, not a row */
 const FT = [[-30,-118],[8,-160],[44,-126]];
-const FB = [[-40,116],[-4,150],[30,122],[62,110]];
+const FB = [[-40,100],[-4,124],[30,108],[62,96]];
 
 const BARB = 24, BW = 0.49;
 function strand(x1, y1, x2, y2){
@@ -149,7 +149,9 @@ window.Deck.sequence("gs-lca", function(slide){
   const r = {};
   svg.querySelectorAll("[data-r]").forEach(el => r[el.getAttribute("data-r")] = el);
 
-  let sealed = false, cur = { an:1, seal:1, phos:0 }, raf = null;
+  /* step 0 is the target molecule, which was never nicked: the red bond
+     marks belong to the ligation at the end, not to it */
+  let sealed = false, marks = false, cur = { an:1, seal:1, phos:0 }, raf = null;
 
   function paint(s){
     for (let i = 0; i < 3; i++){
@@ -172,12 +174,13 @@ window.Deck.sequence("gs-lca", function(slide){
       r["pb"+i].setAttribute("cy", n2(OB+dy+16));
     }
     r.phos.setAttribute("opacity", n2(s.phos));
-    r.seals.setAttribute("opacity", n2(Math.max(0, s.seal*1.6 - 0.6)));
+    r.seals.setAttribute("opacity", marks ? n2(Math.max(0, s.seal*1.6 - 0.6)) : 0);
   }
 
   function go(i, animated){
     if (raf){ cancelAnimationFrame(raf); raf = null; }
     sealed = (i === 0 || i === 3);
+    marks  = (i === 3);
     const st = STEPS[i];
     r.label.textContent = st.label;
     r.sub.textContent   = st.call ? "" : (st.sub || "");
