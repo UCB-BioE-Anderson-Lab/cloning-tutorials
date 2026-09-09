@@ -61,18 +61,15 @@
  * even on purpose: equal bands assert nothing about size or rank.
  * --------------------------------------------------------------------- */
 #fm-map ul{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
-  justify-content:stretch;list-style:none;margin:0;padding:0;
-  width:max-content;max-width:100%}
-#fm-map li{flex:1 1 0;min-height:0;display:flex;align-items:center;margin:0;
-  border-bottom:2px solid var(--rule);
-  font-family:var(--slab);font-weight:700;font-size:44px;line-height:1.15}
+  justify-content:center;margin:0;padding-left:1.1em;width:max-content;max-width:100%}
+/* The deck's own list register, not the h1 register.  An earlier draft set these
+   at 62px slab bold with a rule under each, which is exactly how a slide title is
+   styled, so six method names read as six titles.  They are a list. */
+#fm-map li{margin:0 0 6px}
 /* JCA's column has a blank line between the third and fourth methods, and it is
-   his break, not an artefact of where the column ran out: the first three are
-   ways of getting DNA and the last three are assembly standards.  Carried as a
-   gap above the fourth band rather than as a bigger band, so all six stay the
-   same size and the gap reads as a break rather than as one entry weighing more
-   than the others. */
-#fm-map li:nth-child(4){margin-top:38px}
+   his break: the first three are ways of getting DNA, the last three are assembly
+   standards. */
+#fm-map li:nth-child(4){margin-top:30px}
 </style>
 </head>
 <body>
@@ -92,19 +89,14 @@
 
 <article class="slide" id="fm-map">
   <ul>
-    <li><span>Basic Cloning</span></li>
-    <li><span data-build="1"
-        data-desc="The second band down fills in: Ad hoc Assembly.">Ad hoc Assembly</span></li>
-    <li><span data-build="2"
-        data-desc="The third band down: Gene Synthesis.">Gene Synthesis</span></li>
-    <li><span data-build="3"
-        data-desc="The fourth band down: BioBrick Assembly.">BioBrick Assembly</span></li>
-    <li><span data-build="4"
-        data-desc="The fifth band down: Homology-based Assembly.">Homology-based Assembly</span></li>
-    <li><span data-build="5"
-        data-desc="The list is full. Six method names stacked in one column, every one in a band the same size as the others, read top to bottom: Basic Cloning, Ad hoc Assembly, Gene Synthesis, BioBrick Assembly, Homology-based Assembly, Golden Gate Assembly. This is the order the rest of the lecture takes them in.">Golden Gate Assembly</span></li>
+    <li>Basic Cloning</li>
+    <li>Ad hoc Assembly</li>
+    <li>Gene Synthesis</li>
+    <li>BioBrick Assembly</li>
+    <li>Homology-based Assembly</li>
+    <li>Golden Gate Assembly</li>
   </ul>
-  <template class="desc">An empty stack of six equal bands down the left of the slide, each closed by a hairline rule. The names fill it in one at a time from the top, and the first is Basic Cloning.</template>
+  <template class="desc">A list of the six fabrication methods this lecture covers, in the order it takes them: Basic Cloning, Ad hoc Assembly, Gene Synthesis, then after a break BioBrick Assembly, Homology-based Assembly, Golden Gate Assembly.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
