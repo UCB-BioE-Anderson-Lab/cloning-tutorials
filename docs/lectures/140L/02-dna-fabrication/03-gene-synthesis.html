@@ -54,7 +54,7 @@
    "$$" bullet is a heading over the three lines that follow it, so it is
    set as one, and the two figures under it are drawn to length against a
    shared left edge: the gap between them is the argument, and a reader
-   should not have to divide 741,459 by 22,000 to see it.  The bars carry
+   should not have to divide 200,000 by 6,000 to see it.  The bars carry
    no axis and no scale of their own; they are the two numbers already in
    the sentences above them, laid out end to end. */
 .slide .money{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
@@ -417,7 +417,7 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
   <h1>Why don&rsquo;t we always do this?</h1>
   <ul>
     <li>In practice it&rsquo;s slow (our designs took 6 months)</li>
-    <li>It only gets you to 3kb before you need to break into two steps, due to mutation rates</li>
+    <li>As a non-clonal fragment it only gets you to 3kb before you need to break into two steps, due to mutation rates; sequence-verified clonal genes go further (7kb at Twist, 15kb at Elegen, 50kb at Ansa)</li>
     <li>Difficult to synthesize repetitive sequences, biased GC-content, secondary structure (promoters and terminators are problematic)</li>
   </ul>
 
@@ -425,18 +425,26 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
     <p class="mhead">$$</p>
     <p>Total number of bases for 2014&rsquo;s 140L: 43517</p>
     <div class="costs">
-      <p>Would cost about ~<b>$22,000</b> for basic parts</p>
-      <!-- 22,000 / 741,459 = 2.97 percent.  The two bars share a left
+      <!-- Twist Clonal Genes, 0.5-1.8 kb tier: 43517 x $0.09 = $3,917, plus
+           the $35 cloning vector on each of about 60 parts = $2,100.  About
+           $6,000 all in, or $0.1383 per bp against 2014's $0.5055.  The
+           composite figure is JCA's own $741,459 scaled by that same 0.274,
+           since the base count behind it came from his project data and we
+           do not have it.  Composites run longer and would mostly fall in
+           Twist's 13 cent tier, so $200,000 is a floor, not a midpoint. -->
+      <p>Would cost about ~<b>$6,000</b> for basic parts</p>
+      <!-- 6,000 / 200,000 = 3.00 percent.  The two bars share a left
            edge and one scale; neither carries an axis of its own. -->
-      <div class="bar" style="width:2.97%"></div>
+      <div class="bar" style="width:3.00%"></div>
       <p data-build="1"
-         data-desc="The second figure arrives under the first: it would cost about 741,459 dollars for all the composite parts. Its bar runs the full width of the block, against the stub drawn for the basic parts above it.">Would cost ~<b>$741,459</b> for all the composite parts</p>
+         data-desc="The second figure arrives under the first: it would cost about 200,000 dollars for all the composite parts. Its bar runs the full width of the block, against the stub drawn for the basic parts above it.">Would cost ~<b>$200,000</b> for all the composite parts</p>
       <div class="bar big" data-build="1"></div>
     </div>
   </div>
+  <div class="src">Twist Clonal Genes list price, September 2026</div>
 
-  <template class="notes">Today, it is still the case that gene synthesis is used somewhat sparingly along side more conventional fabrication methods. It’s main drawback is that it is slow, and it is also expensive. At the current price, it is impractical for even commercial users to not reuse previously-synthesized genes.  When I teach my BioE 140L course at Berkeley, around 20 students each produce around 3 parts.  In a typicall year, this amounts to around 40000 bases which for the basic parts alone would cost around $20K.  If all the composite parts that got generated during a project were synthesized de novo without reuse, the costs would begin pushing $1 million.  Thus, this methodology has a long way to go before other methods of fabrication can be fully eliminated from the design-build-test cycle.  However, combined with automated assembly methods that enable reuse of synthetic sequence, the price point for these procedures is already making non-standardized DNA fabrication a thing of the past.</template>
-  <template class="desc">The limits of gene synthesis. Three objections first, as a list: it is slow, six months for our designs; it reaches only 3 kilobases before the work has to be split in two because of mutation rates; and repetitive sequence, biased GC content and secondary structure are all hard, which makes promoters and terminators the problem cases. Then cost, under a heading of two dollar signs: the total number of bases for the 2014 course was 43517, which would cost about 22,000 dollars for basic parts. That figure is drawn as a short bar.</template>
+  <template class="notes">Today, it is still the case that gene synthesis is used somewhat sparingly along side more conventional fabrication methods. It’s main drawback is that it is slow, and it is also expensive. At the current price, it is impractical for even commercial users to not reuse previously-synthesized genes.  When I teach my BioE 140L course at Berkeley, around 20 students each produce around 3 parts.  In a typicall year, this amounts to around 40000 bases which for the basic parts alone would cost around $6K.  If all the composite parts that got generated during a project were synthesized de novo without reuse, the costs would begin pushing $200K.  Thus, this methodology has a long way to go before other methods of fabrication can be fully eliminated from the design-build-test cycle.  However, combined with automated assembly methods that enable reuse of synthetic sequence, the price point for these procedures is already making non-standardized DNA fabrication a thing of the past.</template>
+  <template class="desc">The limits of gene synthesis. Three objections first, as a list: it is slow, six months for our designs; as a non-clonal fragment it reaches only 3 kilobases before the work has to be split in two because of mutation rates, while sequence-verified clonal genes go further, to 7 kilobases at Twist, 15 at Elegen and 50 at Ansa; and repetitive sequence, biased GC content and secondary structure are all hard, which makes promoters and terminators the problem cases. Then cost, under a heading of two dollar signs: the total number of bases for the 2014 course was 43517, which would cost about 6,000 dollars for basic parts. That figure is drawn as a short bar. A source line at the foot of the slide reads, Twist Clonal Genes list price, September 2026.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
