@@ -11,8 +11,8 @@
  *
  * The frame is deliberately the same one seq/05-gibson.js uses:
  *
- *   fragment A     220 .......... 880     shared homology = 720..880
- *   fragment B            720 .......... 1380
+ *   fragment A     240 .......... 880     shared homology = 720..880
+ *   fragment B            720 .......... 1360
  *
  * They are the same design.  A Gibson junction and a SOEing junction are
  * both "put the same 20 to 40 bases on the end of both fragments"; only
@@ -48,8 +48,8 @@ const ease = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
 const lerp = (a, b, t) => a + (b-a)*t;
 
 /* ---- the frame ------------------------------------------------------ */
-const AL = 220, AR = 880;            /* fragment A */
-const BL = 720, BR = 1380;           /* fragment B */
+const AL = 240, AR = 880;            /* fragment A */
+const BL = 720, BR = 1360;           /* fragment B */
 const OVL = 720, OVR = 880;          /* the shared homology */
 const SEP = 100;                     /* half the separation, un-annealed */
 

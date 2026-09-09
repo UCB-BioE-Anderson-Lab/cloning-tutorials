@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Homology-based Assembly &ndash; DNA Fabrication</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* Page-local layout only.  Nothing here belongs in the shared deck.css. */
+
+/* A subtitle sitting directly under the h1, in the source deck's own
+   parenthetical form — the same rule 03-gene-synthesis.html uses. */
+.slide p.sub{font-size:34px;color:var(--muted);margin:-14px 0 0}
+
+/* A Construction File.  The deck has no CF idiom yet: this is the first
+   one in either lecture, and it is the format the course writes its
+   procedures in, so it is set as code and left exactly as written —
+   spacing, capitalisation and all.  Comment lines are dropped to the
+   muted grey so the four blocks separate at a glance; nothing else is
+   touched.  30px is the largest that fits fifteen lines under the
+   heading, and the longest oligo line still clears the right margin. */
+.slide pre.cf{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:30px;line-height:1.42;letter-spacing:.01em;margin:0;white-space:pre}
+.slide pre.cf .c{color:var(--muted)}
+
+/* The amilGFP ORF on the ponder slide, set the way 03-gene-synthesis.html
+   sets the same sequence: too long for the deck's 27px mono. */
+.slide pre.orf{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:24px;line-height:1.32;letter-spacing:.01em;margin:6px 0 0;white-space:pre}
+
+/* The "ponder" slide, set the way 02-ad-hoc-assembly.html and
+   03-gene-synthesis.html set theirs: the source deck's own marker for a
+   question the room is meant to answer, beside the deck's .q headline. */
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{margin-bottom:0}
+
+/* The PNAS citation under the last slide's bullets.  Four lines of
+   reference matter, not a bullet: it sits at the foot of the slide in
+   the size deck.css gives <small>. */
+.slide .cite{margin-top:auto;font-size:21px;line-height:1.42;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 28 -->
+<article class="slide" data-bg="section">
+  <h1>Homology-based<br>Assembly Methods</h1>
+  <p>Employing homologous ends to stitch together fragments into full length products</p>
+  <template class="notes">There are many strategies for assembling synthon or gene-length DNAs into larger molecules.  In PCR-based methods, DNAs are stitched together into full length products through polymerase-based reactions.</template>
+  <template class="desc">Section divider: Homology-based Assembly Methods. Employing homologous ends to stitch together fragments into full length products.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 29 -->
+<!-- The source figure is a stack of four panels of coloured PowerPoint
+     arrows.  Rebuilt natively in seq/05-soeing.js as one band that goes
+     through the four stages, because the notes walk them in order. -->
+<article class="slide" data-seq="soeing">
+  <h1 class="small">SOEing <span style="font-weight:400">(Splicing by Overlap Extension)</span></h1>
+</article>
+
+<!-- ---------------------------------------------------------------- 30 -->
+<article class="slide" data-seq="cassette">
+  <h1 class="small">Example: multiple site substitutions</h1>
+  <p class="sub">(aka cassette mutagenesis) &nbsp; (aka megaprimer mutagenesis)</p>
+</article>
+
+<!-- ------------------------------------------------------------ 31 - 38 -->
+<!-- Eight source slides, and eight <article> elements, so the count
+     survives.  They are one storyboard: seq/05-gibson.js holds the
+     single state table and each slide renders one frame of it, tweening
+     in from the frame before.  Notes are verbatim from the source deck,
+     which means two things it gets wrong stay in:
+
+       * slides 32 to 34 say "T4 exonuclease".  The reagent is T5, as
+         the slide body itself says three times.  Flagged for the
+         content pass, not silently corrected here.
+       * slide 36's note is the polymerase line, while the slide is
+         still captioned Annealing; slide 37 then repeats the result.
+         The notes are one beat ahead of the pictures from 36 onward.
+-->
+<article class="slide" data-seq="gib1">
+  <h1>Gibson Method</h1>
+  <div class="src">PMID: 19363495</div>
+  <template class="notes">The Gibson method is a highly popular and actively-used method.  From a design perspective, a Gibson cloning experiment is the same as SLIC involving 40 bp of homology between fragments.  * The method involves a cocktail of purified enzymes containing T5 exo, phusion polymerase, and Taq ligase in a special buffer.  All these reagents are combined along with the DNA fragments and incubated at 50 degrees.</template>
+  <template class="desc">The design, not yet the reaction: two double-stranded fragments, the right-hand end of one and the left-hand end of the other drawn in red and labelled 40 bp, and an arrow down to the single molecule they are meant to become, with that red stretch now in the middle of it. The three enzymes are listed at the right, with the buffer beneath them and the words one pot, 50 degrees.</template>
+</article>
+
+<article class="slide" data-seq="gib2">
+  <h1>Gibson Method</h1>
+  <template class="notes">The T4 exonuclease activity will partially degrade the end of the DNA generating single-stranded overhangs of arbitrary length.</template>
+  <template class="desc">The two fragments now drawn as separate double-stranded molecules with a gap between them, each with a half barb on every 3-prime end and every 5-prime end labelled. T5 exonuclease is lit in red in the reagent list and has begun: each 5-prime label has moved a little way inward along its own strand. Brackets underneath mark the 40 bp that is the same sequence in both.</template>
+</article>
+
+<article class="slide" data-seq="gib3">
+  <h1>Gibson Method</h1>
+  <template class="notes">The T4 exonuclease activity will partially degrade the end of the DNA generating single-stranded overhangs of arbitrary length.</template>
+  <template class="desc">The same picture with the enzyme further along: all four 5-prime ends have retreated further, and each molecule now trails a long single-stranded tail at both ends. Because the surviving strand at each end is the one terminating in a 3-prime end, a five-prime-to-three-prime exonuclease leaves 3-prime overhangs.</template>
+</article>
+
+<article class="slide" data-seq="gib4">
+  <h1>Gibson Method</h1>
+  <template class="notes">The T4 exonuclease activity will partially degrade the end of the DNA generating single-stranded overhangs of arbitrary length.</template>
+  <template class="desc">The chew is complete. The red 40 bp is now fully single-stranded on the top strand of the left molecule and on the bottom strand of the right one, and the enzyme has gone past it: there is bare single strand beyond the red on each. All four ends have been chewed, including the two outer ones, because nothing about the enzyme is specific to your overlap.</template>
+</article>
+
+<article class="slide" data-seq="gib5">
+  <h1>Gibson Method</h1>
+  <template class="notes">Two such ends with homology to one another can anneal</template>
+  <template class="desc">The two molecules have moved toward each other, the two red single-stranded tails facing across the shrinking gap. Of the four exposed tails only these two are complementary, because they are the sequence you deliberately put on both fragments.</template>
+</article>
+
+<article class="slide" data-seq="gib6">
+  <h1>Gibson Method</h1>
+  <template class="notes">And a polymerase can fill in any gaps between the junction</template>
+  <template class="desc">The two red tails have paired, making one double-stranded red stretch in the middle of a single long molecule. The molecules are held together but not joined: a stretch of each strand still has no partner underneath it, one gap in the top strand just right of the join and one in the bottom strand just left of it, each bounded by a barbed 3-prime end on one side and a labelled 5-prime end on the other.</template>
+</article>
+
+<article class="slide" data-seq="gib7">
+  <h1>Gibson Method</h1>
+  <template class="notes">This results in a nicked DNA with no gaps</template>
+  <template class="desc">Phusion is lit in the reagent list and new DNA, drawn in blue, has filled both gaps. Both strands run the whole length of the molecule again, but the 3-prime barbs and 5-prime labels at the two former gaps are still there: the DNA is nicked, with no gap.</template>
+</article>
+
+<article class="slide" data-seq="gib8">
+  <h1>Gibson Method</h1>
+  <template class="notes">And these gaps can be sealed with Taq ligase.</template>
+  <template class="desc">Taq ligase is lit in the reagent list and the two inner 3-prime barbs and 5-prime labels have gone, because those positions are no longer ends. What is left is one continuous double-stranded molecule with no gaps and no nicks, still carrying a single-stranded 3-prime tail at each far end where the next junction of the assembly would be.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 39 -->
+<article class="slide">
+  <h1>Gibson Method</h1>
+  <ul class="tight">
+    <li>Fast&mdash;order oligos (1 day), pcr (2hr), gel purify (1hr), then a 1hr ligation, transform</li>
+    <li>Can handle very large sequences</li>
+    <li>Get degradation of parts &lt;200 bp</li>
+    <li>Most reliable of the PCR-based methods</li>
+    <li>Like all homology-based methods:
+      <ul>
+        <li>Less reliable than cut-and paste methods</li>
+        <li>Requires sequencing (can get odd products)</li>
+        <li>Get deletions with repetitive target parts</li>
+        <li>Need custom oligos for each junction</li>
+      </ul>
+    </li>
+  </ul>
+  <template class="notes">The advantages of Gibson are primarily that it is fast and automatable.  Like all PCR methods, it requires the purchase of oligos specific to each junction, and this takes around 24 hours and $10 per junction, but after that the remaining steps can all be implemented in one day.  Additionally, the methodology can handle very large sequences such as 25kb fragments, and in fact this methodology is best used on larger sequences.  Short parts under 200 bp often get degraded under the conditions of the experiment.  Gibson is currently the most popular method because it is fast and more reliable than others, and its drawbacks are those common to all methods.  The reactions are less reliable than cut-and-paste procedures, and thus a fabrication strategy sometimes must be redesigned.  The use of PCR can introduce mutations, and thus the constructs must be confirmed by sequencing.  With repetitive sequences, there can be deletions and thus not all sequences are amenable to the reaction.  Finally, PCR methods are more expensive than BioBrick or MoClo-style methods because they require custom oligos for each assembly junction.</template>
+  <template class="desc">Four bullets on what Gibson buys you: it is fast, ordering oligos in a day and then PCR, gel purification and a one-hour ligation; it handles very large sequences; parts under 200 base pairs get degraded; and it is the most reliable of the PCR-based methods. A fifth bullet, like all homology-based methods, opens onto four more: less reliable than cut-and-paste methods, requires sequencing because odd products turn up, gives deletions with repetitive target parts, and needs custom oligos for every junction.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 40 -->
+<article class="slide">
+  <h1 class="small">Gibson Construction File</h1>
+<pre class="cf"><span class="c"># PCR 2 fragments</span>
+PCR targAf targAr p20N5 pcrA
+PCR targBf targBr pTargetF pcrB
+
+<span class="c"># Gibson Assemble them</span>
+Gibson pcrA pcrB pTarg2
+
+<span class="c"># Transform them</span>
+Transform pTarg2 Mach1 Amp
+
+<span class="c"># Sequences</span>
+oligo targAf GAGTTCATGTGCAGCTCCATAAGCTGAAATTCTGCCTCGTGATAC
+oligo targAr GTTAAGGGATTTTGGTCATGAGATTATCAAAAAGGATCTTC
+oligo targBf GAAGATCCTTTTTGATAATCTCATGACCAAAATCCCTTAAC
+oligo targBr GTATCACGAGGCAGAATTTCAGCTTATGGAGCTGCACATGAACTC</pre>
+  <template class="notes">&gt;p20N5
+attaccgcctttgagtgagctgataccgctcgccgcagccgaacgaccgagcgcagcgagtcagtgagcgaggaagcctgcaaCTCGAGcgatcagatACTAGTaaccaatataccaaataaagagttgaggacgtcaaggATGGCTTCCTCCGAAGACGTTATCAAAGAGTTCATGCGTTTCAAAGTTCGTATGGAAGGTTCCGTTAACGGTCACGAGTTCGAAATCGAAGGTGAAGGTGAAGGTCGTCCGTACGAAGGTACCCAGACCGCTAAACTGAAAGTTACCAAAGGTGGTCCGCTGCCGTTCGCTTGGGACATCCTGTCCCCGCAGTTCCAGTACGGTTCCAAGGCTTACGTTAAACACCCGGCTGACATCCCGGACTACCTGAAACTGTCCTTCCCGGAAGGTTTCAAATGGGAACGTGTTATGAACTTCGAAGACGGTGGTGTTGTTACCGTTACCCAGGATTCCTCCCTGCAAGACGGTGAGTTCATCTACAAAGTTAAACTGCGTGGTACCAACTTCCCGTCCGACGGTCCGGTTATGCAGAAAAAAACCATGGGTTGGGAGGCTTCCACCGAACGTATGTACCCGGAAGACGGTGCTCTGAAAGGTGAAATCAAAATGCGTCTGAAACTGAAAGACGGTGGTCACTACGACGCTGAAGTTAAAACCACCTACATGGCTAAAAAACCGGTTCAGCTGCCGGGTGCTTACAAAACCGACATCAAACTGGACATCACCTCCCACAACGAAGACTACACCATCGTTGAACAGTACGAACGTGCTGAAGGTCGTCACTCCACCGGTGCTTAAGAATTCccctAGAGACCCCTCCTCcagaaatcatccttagcgaaagctaaggattttttttatctgaaattctgcctcgtgatacgcctatttttataggttaatgtcatgataataatggtttcttagacgtcaggtggcacttttcggggaaatgtgcgcggaacccctatttgtttatttttctaaatacattcaaatatgtatccgctcatgagacaataaccctgataaatgcttcaataatattgaaaaaggaagagtatgagtattcaacatttccgtgtcgcccttattcccttttttgcggcattttgccttcctgtttttgctcacccagaaacgctggtgaaagtaaaagatgctgaagatcagttgggtgcacgagtgggttacatcgaactggatctcaacagcggtaagatccttgagagttttcgccccgaagaacgttttccaatgatgagcacttttaaagttctgctatgtggcgcggtattatcccgtattgacgccgggcaagagcaactcggtcgccgcatacactattctcagaatgacttggttgagtactcaccagtcacagaaaagcatcttacggatggcatgacagtaagagaattatgcagtgctgccataaccatgagtgataacactgcggccaacttacttctgacaacgatcggaggaccgaaggagctaaccgcttttttgcacaacatgggggatcatgtaactcgccttgatcgttgggaaccggagctgaatgaagccataccaaacgacgagcgtgacaccacgatgcctgtagcaatggcaacaacgttgcgcaaactattaactggcgaactacttactctagcttcccggcaacaattaatagactggatggaggcggataaagttgcaggaccacttctgcgctcggcccttccggctggctggtttattgctgataaatctggagccggtgagcgtggCtctcgcggtatcattgcagcactggggccagatggtaagccctcccgtatcgtagttatctacacgacggggagtcaggcaactatggatgaacgaaatagacagatcgctgagataggtgcctcactgattaagcattggtaactgtcagaccaagtttactcatatatactttagattgatttaaaacttcatttttaatttaaaaggatctaggtgaagatcctttttgataatctcatgaccaaaatcccttaacgtgagttttcgttccactgagcgtcagaccccgtagaaaagatcaaaggatcttcttgagatcctttttttctgcgcgtaatctgctgcttgcaaacaaaaaaaccaccgctaccagcggtggtttgtttgccggatcaagagctaccaactctttttccgaaggtaactggcttcagcagagcgcagataccaaatactgtccttctagtgtagccgtagttaggccaccacttcaagaactctgtagcaccgcctacatacctcgctctgctaatcctgttaccagtggctgctgccagtggcgataagtcgtgtcttaccgggttggactcaagacgatagttaccggataaggcgcagcggtcgggctgaacggggggttcgtgcacacagcccagcttggagcgaacgacctacaccgaactgagatacctacagcgtgagctatgagaaagcgccacgcttcccgaagggagaaaggcggacaggtatccggtaagcggcagggtcggaacaggagagcgcacgagggagcttccagggggaaacgcctggtatctttatagtcctgtcgggtttcgccacctctgacttgagcgtcgatttttgtgatgctcgtcaggggggcggagcctatggaaaaacgccagcaacgcggcctttttacggttcctggccttttgctggccttttgctcacatgttctttcctgcgttatcccctgattctgtggataaccgt
+
+&gt;pTargetF
+catgttctttcctgcgttatcccctgattctgtggataaccgtattaccgcctttgagtgagctgataccgctcgccgcagccgaacgaccgagcgcagcgagtcagtgagcgaggaagcggaagagcgcctgatgcggtattttctccttacgcatctgtgcggtatttcacaccgcatatgctggatccttgacagctagctcagtcctaggtataatactagtcatcgccgcagcggtttcaggttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgctttttttgaattctctagagtcgacctgcagaagcttagatctattaccctgttatccctactcgagttcatgtgcagctccataagcaaaaggggatgataagtttatcaccaccgactatttgcaacagtgccgttgatcgtgctatgatcgactgatgtcatcagcggtggagtgcaatgtcatgagggaagcggtgatcgccgaagtatcgactcaactatcagaggtagttggcgtcatcgagcgccatctcgaaccgacgttgctggccgtacatttgtacggctccgcagtggatggcggcctgaagccacacagtgatattgatttgctggttacggtgaccgtaaggcttgatgaaacaacgcggcgagctttgatcaacgaccttttggaaacttcggcttcccctggagagagcgagattctccgcgctgtagaagtcaccattgttgtgcacgacgacatcattccgtggcgttatccagctaagcgcgaactgcaatttggagaatggcagcgcaatgacattcttgcaggtatcttcgagccagccacgatcgacattgatctggctatcttgctgacaaaagcaagagaacatagcgttgccttggtaggtccagcggcggaggaactctttgatccggttcctgaacaggatctatttgaggcgctaaatgaaaccttaacgctatggaactcgccgcccgactgggctggcgatgagcgaaatgtagtgcttacgttgtcccgcatttggtacagcgcagtaaccggcaaaatcgcgccgaaggatgtcgctgccgactgggcaatggagcgcctgccggcccagtatcagcccgtcatacttgaagctagacaggcttatcttggacaagaagaagatcgcttggcctcgcgcgcagatcagttggaagaatttgtccactacgtgaaaggcgagatcaccaaggtagtcggcaaataagatgccgctcgccagtcgattggctgagctcataagttcctattccgaagttccgcgaacgcgtaaaggatctaggtgaagatcctttttgataatctcatgaccaaaatcccttaacgtgagttttcgttccactgagcgtcagaccccgtagaaaagatcaaaggatcttcttgagatcctttttttctgcgcgtaatctgctgcttgcaaacaaaaaaaccaccgctaccagcggtggtttgtttgccggatcaagagctaccaactctttttccgaaggtaactggcttcagcagagcgcagataccaaatactgtccttctagtgtagccgtagttaggccaccacttcaagaactctgtagcaccgcctacatacctcgctctgctaatcctgttaccagtggctgctgccagtggcgataagtcgtgtcttaccgggttggactcaagacgatagttaccggataaggcgcagcggtcgggctgaacggggggttcgtgcacacagcccagcttggagcgaacgacctacaccgaactgagatacctacagcgtgagctatgagaaagcgccacgcttcccgaagggagaaaggcggacaggtatccggtaagcggcagggtcggaacaggagagcgcacgagggagcttccagggggaaacgcctggtatctttatagtcctgtcgggtttcgccacctctgacttgagcgtcgatttttgtgatgctcgtcaggggggcggagcctatggaaaaacgccagcaacgcggcctttttacggttcctggccttttgctggccttttgctca
+
+&gt;pTarg2
+attaccgcctttgagtgagctgataccgctcgccgcagccgaacgaccgagcgcagcgagtcagtgagcgaggaagcggaagagcgcctgatgcggtattttctccttacgcatctgtgcggtatttcacaccgcatatgctggatccttgacagctagctcagtcctaggtataatactagtcatcgccgcagcggtttcaggttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgctttttttgaattctctagagtcgacctgcagaagcttagatctattaccctgttatccctactcGAGTTCATGTGCAGCTCCATAAGCTGAAATTCTGCCTCGTGATACgcctatttttataggttaatgtcatgataataatggtttcttagacgtcaggtggcacttttcggggaaatgtgcgcggaacccctatttgtttatttttctaaatacattcaaatatgtatccgctcatgagacaataaccctgataaatgcttcaataatattgaaaaaggaagagtatgagtattcaacatttccgtgtcgcccttattcccttttttgcggcattttgccttcctgtttttgctcacccagaaacgctggtgaaagtaaaagatgctgaagatcagttgggtgcacgagtgggttacatcgaactggatctcaacagcggtaagatccttgagagttttcgccccgaagaacgttttccaatgatgagcacttttaaagttctgctatgtggcgcggtattatcccgtattgacgccgggcaagagcaactcggtcgccgcatacactattctcagaatgacttggttgagtactcaccagtcacagaaaagcatcttacggatggcatgacagtaagagaattatgcagtgctgccataaccatgagtgataacactgcggccaacttacttctgacaacgatcggaggaccgaaggagctaaccgcttttttgcacaacatgggggatcatgtaactcgccttgatcgttgggaaccggagctgaatgaagccataccaaacgacgagcgtgacaccacgatgcctgtagcaatggcaacaacgttgcgcaaactattaactggcgaactacttactctagcttcccggcaacaattaatagactggatggaggcggataaagttgcaggaccacttctgcgctcggcccttccggctggctggtttattgctgataaatctggagccggtgagcgtggCtctcgcggtatcattgcagcactggggccagatggtaagccctcccgtatcgtagttatctacacgacggggagtcaggcaactatggatgaacgaaatagacagatcgctgagataggtgcctcactgattaagcattggtaactgtcagaccaagtttactcatatatactttagattgatttaaaacttcatttttaatttaaaaggatctaggtGAAGATCCTTTTTGATAATCTCATGACCAAAATCCCTTAACgtgagttttcgttccactgagcgtcagaccccgtagaaaagatcaaaggatcttcttgagatcctttttttctgcgcgtaatctgctgcttgcaaacaaaaaaaccaccgctaccagcggtggtttgtttgccggatcaagagctaccaactctttttccgaaggtaactggcttcagcagagcgcagataccaaatactgtccttctagtgtagccgtagttaggccaccacttcaagaactctgtagcaccgcctacatacctcgctctgctaatcctgttaccagtggctgctgccagtggcgataagtcgtgtcttaccgggttggactcaagacgatagttaccggataaggcgcagcggtcgggctgaacggggggttcgtgcacacagcccagcttggagcgaacgacctacaccgaactgagatacctacagcgtgagctatgagaaagcgccacgcttcccgaagggagaaaggcggacaggtatccggtaagcggcagggtcggaacaggagagcgcacgagggagcttccagggggaaacgcctggtatctttatagtcctgtcgggtttcgccacctctgacttgagcgtcgatttttgtgatgctcgtcaggggggcggagcctatggaaaaacgccagcaacgcggcctttttacggttcctggccttttgctggccttttgctcacatgttctttcctgcgttatcccctgattctgtggataaccgt</template>
+  <template class="desc">A Gibson construction file, set as code in four commented blocks. First two PCRs, one off p20N5 and one off pTargetF, giving pcrA and pcrB. Then a single Gibson line assembling those two products into pTarg2. Then a transformation of pTarg2 into Mach1 selecting on ampicillin. Then the sequences block, listing the four oligos targAf, targAr, targBf and targBr that put the shared ends on the two PCR products.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 41 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">Gibson Assembly Example</div>
+  </div>
+  <p>Replace the RFP cds in pSB1A2-I13521 with amilGFP retaining its native regulation using Gibson assembly</p>
+  <p style="margin-bottom:0"><b>amilGFP ORF:</b></p>
+  <pre class="orf">ATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGC
+AGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGG
+AAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTT
+GACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGAC
+ATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTA
+TTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTC
+ATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAG
+AAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGA
+GGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCAC
+TCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAA
+ATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACAT
+GCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAA</pre>
+  <template class="notes">To design this, start by constructing the sequence of the product keeping note of the junctions between the vector and the inserted amilGFP sequence.  Pick ~20bp annealing regions on either side of each junction.  The entire ~40bp sequence flanking both junctions in the forward and reverse orientations are the 4 oligos.
+
+# PCR amplification of fragments
+PCR o1 o2 amilGFP amil
+PCR o3 o4 pSB1A2-I13521 vec
+
+# Gibson Assembly of PCR products
+Gibson amil vec pdt
+
+# Transformation of assembly product
+Transform pdt Mach1
+
+# Sequences
+oligo o1 gagaaagaggagaaatactagATGTCTTATTCAAAGCATGGC
+oligo o2 ctacactagcactatcagcgTTATTTAACCTTCAAAGGGTTAAC
+oligo o3 GTTAACCCTTTGAAGGTTAAATAAcgctgatagtgctagtgtag
+oligo o4 GCCATGCTTTGAATAAGACATctagtatttctcctctttctc
+
+&gt;pdt
+gaattcgcggccgcttctagagtccctatcagtgatagagattgacatccctatcagtgatagagatactgagcactactagagaaagaggagaaatactagATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGCAGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGGAAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTCATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAGAAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAAcgctgatagtgctagtgtagatcgctactagagccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctctactagagtcacactggctcaccttcgggtgggcctttctgcgtttatatactagtagcggccgctgcagttgcaggcttcctcgctcactgactcgctgcgctcggtcgttcggctgcggcgagcggtatcagctcactcaaaggcggtaatacggttatccacagaatcaggggataacgcaggaaagaacatgtgagcaaaaggccagcaaaaggccaggaaccgtaaaaaggccgcgttgctggcgtttttccataggctccgcccccctgacgagcatcacaaaaatcgacgctcaagtcagaggtggcgaaacccgacaggactataaagataccaggcgtttccccctggaagctccctcgtgcgctctcctgttccgaccctgccgcttaccggatacctgtccgcctttctcccttcgggaagcgtggcgctttctcatagctcacgctgtaggtatctcagttcggtgtaggtcgttcgctccaagctgggctgtgtgcacgaaccccccgttcagcccgaccgctgcgccttatccggtaactatcgtcttgagtccaacccggtaagacacgacttatcgccactggcagcagccactggtaacaggattagcagagcgaggtatgtaggcggtgctacagagttcttgaagtggtggcctaactacggctacactagaaggacagtatttggtatctgcgctctgctgaagccagttaccttcggaaaaagagttggtagctcttgatccggcaaacaaaccaccgctggtagcggtggtttttttgtttgcaagcagcagattacgcgcagaaaaaaaggatctcaagaagatcctttgatcttttctacggggtctgacgctcagtggaacgaaaactcacgttaagggattttggtcatgagattatcaaaaaggatcttcacctagatccttttaaattaaaaatgaagttttaaatcaatctaaagtatatatgagtaaacttggtctgacagttaccaatgcttaatcagtgaggcacctatctcagcgatctgtctatttcgttcatccatagttgcctgactccccgtcgtgtagataactacgatacgggagggcttaccatctggccccagtgctgcaatgataccgcgagacccacgctcaccggctccagatttatcagcaataaaccagccagccggaagggccgagcgcagaagtggtcctgcaactttatccgcctccatccagtctattaattgttgccgggaagctagagtaagtagttcgccagttaatagtttgcgcaacgttgttgccattgctacaggcatcgtggtgtcacgctcgtcgtttggtatggcttcattcagctccggttcccaacgatcaaggcgagttacatgatcccccatgttgtgcaaaaaagcggttagctccttcggtcctccgatcgttgtcagaagtaagttggccgcagtgttatcactcatggttatggcagcactgcataattctcttactgtcatgccatccgtaagatgcttttctgtgactggtgagtactcaaccaagtcattctgagaatagtgtatgcggcgaccgagttgctcttgcccggcgtcaatacgggataataccgcgccacatagcagaactttaaaagtgctcatcattggaaaacgttcttcggggcgaaaactctcaaggatcttaccgctgttgagatccagttcgatgtaacccactcgtgcacccaactgatcttcagcatcttttactttcaccagcgtttctgggtgagcaaaaacaggaaggcaaaatgccgcaaaaaagggaataagggcgacacggaaatgttgaatactcatactcttcctttttcaatattattgaagcatttatcagggttattgtctcatgagcggatacatatttgaatgtatttagaaaaataaacaaataggggttccgcgcacatttccccgaaaagtgccacctgacgtctaagaaaccattattatcatgacattaacctataaaaataggcgtatcacgaggcagaatttcagataaaaaaaatccttagctttcgctaaggatgatttctg</template>
+  <template class="desc">A question for the room, marked with the deck's thinking figure. Replace the RFP coding sequence in pSB1A2-I13521 with amilGFP, keeping its native regulation, using Gibson assembly. The amilGFP open reading frame is printed below in twelve lines of sequence. The answer is not on the slide.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 42 -->
+<article class="slide">
+  <h1><em>In vivo</em> recombination</h1>
+  <ul class="tight">
+    <li>Design oligos just like SOEing / Gibson with 40bp or more homology</li>
+    <li>Make the individual PCR cassettes</li>
+    <li>Transform them into yeast (preferred) or <em>B. subtilus</em> or <em>E. coli</em> containing the lambda red genes</li>
+    <li>Recombination <em>in vivo</em> results in assembly</li>
+    <li>Cost/Benefit analysis similar to Gibson, but more efficient and better for larger DNAs</li>
+    <li>Main drawback is use of cells, extra time, yeast origins</li>
+    <li class="accent">This is how our DNAs were assembled, in yeast</li>
+  </ul>
+  <div class="cite">One-step assembly in yeast of 25 overlapping DNA fragments to form a complete synthetic <em>Mycoplasma genitalium</em> genome.<br>
+    Gibson DG, Benders GA, Axelrod KC, Zaveri J, Algire MA, Moodie M, Montague MG, Venter JC, Smith HO, Hutchison CA 3rd.<br>
+    Proc Natl Acad Sci U S A. 2008 Dec 23;105(51):20404-9. PMID: 19073939</div>
+  <template class="notes">Dan Gibson, of Gibson reaction fame, has also extensively developed yeast-based in vivo recombination.  The design of the fragments for the assembly reaction is no different than with the other methods employing 40 bp or more homology between fragments, and the fragments are constructed from parallel PCR reactions.  The mix of fragments is then introduced into yeast, B. subtilis, or lambda-red-expressing E. coli wherein they undergo homologous recombination.  Yeast homologous recombination is currently claimed to be the most robust homology-based assembly method.  It&rsquo;s main drawback is that it employs cells which slow the process down somewhat.  To use Yeast, you must wait for yeast to grow which takes longer than E. coli.</template>
+  <template class="desc">Seven bullets on doing the assembly in a cell instead of a tube: design the oligos as for SOEing or Gibson with 40 base pairs or more of homology, make the individual PCR cassettes, transform them into yeast or B. subtilus or lambda-red E. coli, and recombination in vivo does the assembly. The cost and benefit are similar to Gibson but more efficient and better for larger DNAs; the drawback is the cells, the extra time and the yeast origins. The last bullet, in red, says this is how our DNAs were assembled, in yeast. The 2008 PNAS paper assembling a synthetic Mycoplasma genitalium genome from 25 fragments in one step is cited at the foot of the slide.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/05-soeing.js" defer></script>
+<script src="seq/05-cassette.js" defer></script>
+<script src="seq/05-gibson.js" defer></script>
+</body>
+</html>
