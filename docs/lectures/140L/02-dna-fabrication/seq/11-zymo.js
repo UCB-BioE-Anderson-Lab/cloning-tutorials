@@ -351,7 +351,7 @@ const LEGEND =
     txt(452, 222, 24, INK, "DNA", {anchor:"start"}) +
 
     rod(674, 208, -28) + rod(696, 224, -28) +
-    txt(716, 222, 24, INK, "Contaminents", {anchor:"start"}) +
+    txt(716, 222, 24, INK, "Contaminants", {anchor:"start"}) +
 
     '<g transform="translate(984 196) scale(0.115)">' +
       '<rect x="-52" y="34" width="104" height="218" fill="#ffffff" stroke="' + INK +

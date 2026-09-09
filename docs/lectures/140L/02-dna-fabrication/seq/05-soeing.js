@@ -133,16 +133,16 @@ function scene(s){
 
   /* the productive pair: A's top strand and B's bottom strand */
   const yA = lerp(YT, Y1, open), yB = lerp(YB, Y2, open);
-  g += stroke(seg(AL + dA, at3 + dA, yA), BLUE);
+  g += stroke(seg(AL + dA, at3 + dA, yA), INK);
   g += stroke(seg(BR + dB, bt3 + dB, yB), INK);
   if (s.ext > 0.004){
-    g += stroke(seg(AR + dA, at3 + dA, yA), AMBER);
-    g += stroke(seg(BL + dB, bt3 + dB, yB), AMBER);
+    g += stroke(seg(AR + dA, at3 + dA, yA), BLUE);
+    g += stroke(seg(BL + dB, bt3 + dB, yB), BLUE);
   }
   g += stroke(clipSeg(AL + dA, at3 + dA, OVL + dA, OVR + dA, yA), VERM);
   g += stroke(clipSeg(BR + dB, bt3 + dB, OVL + dB, OVR + dB, yB), VERM);
-  g += stroke(barbAt(AL + dA, at3 + dA, yA, true),  s.ext > 0.02 ? AMBER : VERM);
-  g += stroke(barbAt(BR + dB, bt3 + dB, yB, false), s.ext > 0.02 ? AMBER : VERM);
+  g += stroke(barbAt(AL + dA, at3 + dA, yA, true),  s.ext > 0.02 ? BLUE : VERM);
+  g += stroke(barbAt(BR + dB, bt3 + dB, yB, false), s.ext > 0.02 ? BLUE : VERM);
   g += txt(AL + dA - 8, yA - 24, "5&#8242;", 26, MUTED, 700);
   g += txt(BR + dB + 8, yB + 42, "5&#8242;", 26, MUTED, 700);
 
@@ -188,7 +188,7 @@ const S = [
   { s:{melt:1, pair:1, ext:1, olig:0, mark:0},
     stage:"Polymerization", cap:"one full-length product, both strands complete",
     note:"The polymerase can extend that duplex to the full length double-stranded product.",
-    desc:"New DNA in amber runs out from each recessed 3-prime end to the far end of its template. Both strands are now continuous and the molecule is one full-length duplex spanning the whole of both original fragments, with the red shared sequence buried in the middle of it." },
+    desc:"New DNA in blue runs out from each recessed 3-prime end to the far end of its template. Both strands are now continuous and the molecule is one full-length duplex spanning the whole of both original fragments, with the red shared sequence buried in the middle of it." },
 
   { s:{melt:1, pair:1, ext:1, olig:1, mark:0},
     stage:"Amplification", cap:"and now two outer oligos amplify it, exponentially",
