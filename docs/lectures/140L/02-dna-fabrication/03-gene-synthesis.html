@@ -277,43 +277,39 @@ aagcggccgcgaattcaatgg</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 19 -->
+<!-- The two PCA slides used to animate the same reaction twice.  They are
+     split here along JCA's own storyboard: this one is the DESIGN, all of
+     which happens at a desk, and slide 20 is the tube.  seq/03-pca.js
+     takes the gene, cuts it into four overlapping oligos with the shared
+     regions marked, adds the two external oligos, and breaks the lot into
+     a 5' to 3' order form. -->
 <article class="slide" data-seq="gs-pca">
   <h1>PCA  Assembly</h1>
   <p class="sub">(Polymerase chain assembly)</p>
 </article>
 
 <!-- ---------------------------------------------------------------- 20 -->
-<!-- The published figure this slide carried is drawn natively instead, by
-     seq/03-pca-cycles.js, which claims the right-hand column of the .cols
-     below and adds a row of molecules per click.  The list is the slide's
-     own and keeps its data-note and data-desc: a sequence-driven slide
-     does not run its data-build steps, so the sequence reveals the lines
-     itself and reads those two attributes off the <li>. -->
+<!-- The reaction, drawn natively by seq/03-pca-cycles.js in the right-hand
+     column of the .cols below: set up the tube, then two rounds of
+     denature, anneal and extend on one persistent set of four strands,
+     the full-length product, and the PCR and clone at the end.  The list
+     is the slide's own, kept as written; a sequence-driven slide does not
+     run its data-build steps, so the sequence reveals the lines itself,
+     each alongside the beat it describes.  The source deck's "TRENDS in
+     Biotechnology" credit went with the published figure it belonged to,
+     which is no longer what is drawn here. -->
 <article class="slide" data-seq="gs-pca-cycles">
   <h1>PCA  Assembly</h1>
   <p class="sub">(Polymerase chain assembly)</p>
-  <div class="cols wide-left" style="margin-top:26px">
+  <div class="cols wide-right" style="margin-top:26px">
     <ul class="tight">
-      <li data-build="1"
-          data-note="Like with LCA, the target sequence is synthesized as a pool of shorter oligonucoetide sequences that can assemble into the full length sequence in a one-pot reaction."
-          data-desc="First line appears: start with overlapping 50 to 60 base pair oligos.">Start with overlapping 50-60bp Oligos</li>
-      <li data-build="2"
-          data-note="The difference is that 1) the assembly reaction involves a thermostable polymerase rather than a ligase, and 2) there can be gaps in the sequence that will be filled in by the polymerase during assembly."
-          data-desc="Second line appears: combine them in a thermostable polymerase reaction.">Combine in a thermostable polymerase reaction</li>
-      <li data-build="3"
-          data-note="Typically PCA is done in two stages. First, the equimolar mix of oligos is reacted with a polymerase under PCR-like conditions."
-          data-desc="Third line appears: run a PCR-like program.">Run a PCR-like program</li>
-      <li data-build="4"
-          data-note="Second, the material for the first reaction is used as the template for a conventional PCR reaction involving two external primers."
-          data-desc="Fourth line appears: use the assembly product as the template for a conventional PCR with external oligos.">Use &ldquo;assembly product&rdquo; as template for a conventional PCR with external oligos</li>
-      <li data-build="5"
-          data-note="Regardless of whether the double-stranded DNA is assembled using LCA, PCA, or a mixture of the two, the full length product is typically cloned into a vector, introduced into cells, and individual clones are sequence confirmed."
-          data-desc="Fifth line appears: clone the product into a vector to generate a synthon.">Clone the product into a vector to generate a synthon</li>
+      <li data-build="1">Start with overlapping 50-60bp Oligos</li>
+      <li data-build="2">Combine in a thermostable polymerase reaction</li>
+      <li data-build="3">Run a PCR-like program</li>
+      <li data-build="4">Use &ldquo;assembly product&rdquo; as template for a conventional PCR with external oligos</li>
+      <li data-build="5">Clone the product into a vector to generate a synthon</li>
     </ul>
   </div>
-  <div class="src">TRENDS in Biotechnology</div>
-  <template class="notes">The other common way of assembling oligonuceotides into gene-length DNAs is polymerase chain assembly, or PCA.</template>
-  <template class="desc">The five steps of a PCA, listed one at a time beside a drawing of the whole cycle series that gains a row of molecules per click. Nothing is listed yet, and the drawing holds only its top row: a grey rule labelled Target sequence, the length the reaction has to reach.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 21 -->
