@@ -3,7 +3,7 @@
  *
  * Registers, in slide order:
  *     moclo     58  the MoClo standard                      3 steps
- *     rotate    59  why TPcon differs — the rotation        2 steps
+ *     rotate    59  why TPcon differs, the rotation        2 steps
  *     uctp      60  the UC.TP variation, iterated           1 step
  *     ucarch    61  the UC part                             1 step
  *     tparch    62  the TPcon6 part                         1 step
@@ -21,27 +21,27 @@
  * The section ships fifteen extracted images.  Every one is a fragment:
  * the largest is 595x77 and most are near 220x50, which on a 1600x900
  * slide is a two- to sevenfold upscale of a JPEG-artefacted raster.
- * They are also in three foreign palettes at once — Addgene's pastels on
+ * They are also in three foreign palettes at once: Addgene's pastels on
  * 58 to 60, a saturated primary red and blue on 59 to 62, SnapGene's
  * olive, cyan and purple on 64 and 65.  What they draw is labelled
  * boxes, ticks and block arrows: the rebuild-natively case, as on the
  * BioBrick slide.  Rebuilt they also earn what a flat picture cannot
- * give — the rotation on slide 59 becomes a move rather than a claim,
+ * give, the rotation on slide 59 becomes a move rather than a claim,
  * and Tlib2's three levels of Golden Gate site land one at a time, on
  * the six beats its notes are already written in.
  *
  * COLOUR.  One assignment, held from slide 58 to slide 65:
  *
- *   vermillion  A JUNCTION.  The 4 bp MoClo code — GGAG TACT AATG AGGT
- *               GCTT CGCT — and the 2 bp BseRI sticky ends TC and GT.
+ *   vermillion  A JUNCTION.  The 4 bp MoClo code: GGAG TACT AATG AGGT
+ *               GCTT CGCT, and the 2 bp BseRI sticky ends TC and GT.
  *               Always monospace; boxed on a leader in a figure, bare in
  *               a line of letters, so the same GCTT is the same object
  *               on every slide it appears on.  This is what the section
  *               is about, so it takes the loud rung and keeps it, and
  *               nothing else here is ever vermillion.
  *   blue        THE ENZYME.  A recognition site in letters, a tick and a
- *               name in a figure.  On slide 64 it travels — BsmBI, then
- *               BsaI, then BseRI — because the slide is about each of
+ *               name in a figure.  On slide 64 it travels: BsmBI, then
+ *               BsaI, then BseRI, because the slide is about each of
  *               them in turn, which is what the ladder is for.
  *   ink         everything merely present: backbone, parts, spacers,
  *               terminator, promoter.
@@ -100,7 +100,7 @@ function bone(x0, x1, y){
   return path("M" + n2(x0) + " " + n2(y) + "H" + n2(x1), INK, 3);
 }
 
-/* A JUNCTION TAG — the 4 bp code, boxed, above the boundary it names,
+/* A JUNCTION TAG, the 4 bp code, boxed, above the boundary it names,
    on a leader down to the backbone.  Deliberately the most distinctive
    mark in the vocabulary: it is the one thing the section repeats, and
    nothing else here looks like it. */
@@ -152,8 +152,8 @@ function octagon(cx, cy, r, hollow){
 }
 
 /* The promoter: up from the backbone, then right, with a head.  An
-   outline rather than a solid, so the hollow variant on slide 64 — where
-   the promoter is precisely the thing NOT in the oligo — is the same
+   outline rather than a solid, so the hollow variant on slide 64, where
+   the promoter is precisely the thing NOT in the oligo, is the same
    shape with a dashed edge and reads as an absence rather than as a
    different object. */
 function promoter(x, ybone, rise, run, hollow, t){
@@ -165,13 +165,13 @@ function promoter(x, ybone, rise, run, hollow, t){
               INK, hollow ? 2.5 : 3, "#ffffff", hollow ? ' stroke-dasharray="7 6"' : "");
 }
 
-/* a spacer: a plain block, named underneath — "20 bp spacer" will not
+/* a spacer: a plain block, named underneath: "20 bp spacer" will not
    fit inside one, and the three of them are peers anyway */
 function spacer(x0, x1, ybone, h){
   return rect(x0, ybone - h/2, x1 - x0, h, INK, 2.6, "#ffffff", 3);
 }
 
-/* A feature on an annotation strip — the SnapGene idiom of slides 64 and
+/* A feature on an annotation strip, the SnapGene idiom of slides 64 and
    65, rebuilt.  side -1 puts the name above the arrow, +1 below, which
    is how the source keeps a dozen labels from colliding. */
 function feature(x0, x1, y, label, colour, side, dir, backing, sw){
@@ -233,7 +233,7 @@ function painter(slide, r, ON, extra){
 }
 
 /* ================================================================== *
- * 58 — the MoClo standard
+ * 58, the MoClo standard
  *
  * Three bands, one per beat, and the beats are the three the source
  * author marked with asterisks in the note: the four part types, the
@@ -264,7 +264,7 @@ function painter(slide, r, ON, extra){
   const MOD = [["P","GGAG","TACT"],["U","TACT","AATG"],["SP","AATG","AGGT"],
                ["CDS","AGGT","GCTT"],["T","GCTT","CGCT"]];
   const PITCH = 268, MW = 236, MX = 130;
-  let bandC = txt(800, 545, "Level 0 modules — one plasmid each, flanked by BsaI", 24, MUTED);
+  let bandC = txt(800, 545, "Level 0 modules: one plasmid each, flanked by BsaI", 24, MUTED);
   MOD.forEach(function(m, i){
     const x = MX + i * PITCH;
     bandC += bone(x, x + MW, CY) +
@@ -273,11 +273,11 @@ function painter(slide, r, ON, extra){
              tag(x + 26, CY, m[1]) + tag(x + 210, CY, m[2]);
   });
 
-  /* the ladder the note ends on — three stations rather than a sentence,
+  /* the ladder the note ends on, three stations rather than a sentence,
      because the point of it is that it repeats */
   let ladder = "";
-  [[250, 470, "Level 0"], [580, 950, "Level 1 — one gene"],
-   [1060, 1450, "Level 2 — multi-gene"]].forEach(function(b){
+  [[250, 470, "Level 0"], [580, 950, "Level 1: one gene"],
+   [1060, 1450, "Level 2: multi-gene"]].forEach(function(b){
     ladder += rect(b[0], 739, b[1] - b[0], 46, INK, 2.6, "#ffffff", 5) +
               txt((b[0] + b[1]) / 2, 770, b[2], 23, INK, 700);
   });
@@ -290,7 +290,7 @@ function painter(slide, r, ON, extra){
 
   const S = [
 { note:"Image from: https://www.addgene.org/cloning/moclo/ Original publication: PMID: 21364738 MoClo standardizes the junctions between elements within in a single-gene operon. It effectively breaks a gene into P (Promoter), U (5’ UTR), C (CDS/ORF), and T (terminator) parts.",
-  desc:"A single-gene operon drawn as one line of boxes: P for promoter, U for the five prime UTR, CDS, and T for terminator, captioned Cytosolic protein. At each boundary a four base code hangs above the line in a red tag — GGAG before P, TACT between P and U, AATG between U and CDS, GCTT between CDS and T, CGCT after T. Those codes are the standard, and the same six reappear on every slide of this section." },
+  desc:"A single-gene operon drawn as one line of boxes: P for promoter, U for the five prime UTR, CDS, and T for terminator, captioned Cytosolic protein. At each boundary a four base code hangs above the line in a red tag: GGAG before P, TACT between P and U, AATG between U and CDS, GCTT between CDS and T, CGCT after T. Those codes are the standard, and the same six reappear on every slide of this section." },
 
 { note:"They also include a scenario where you break the CDS into two parts, one with a secretory sequence, and one with the active peptide",
   desc:"Below it a second row, captioned Secreted protein. It is the same gene with the CDS split in two: a short SP box for the secretion signal, then the CDS proper. Splitting it adds one junction and one code, AGGT, between them. Every other code is unchanged." },
@@ -312,14 +312,14 @@ function painter(slide, r, ON, extra){
 })();
 
 /* ================================================================== *
- * 59 and 60 — the rotation, and what it is for
+ * 59 and 60, the rotation, and what it is for
  *
  * The source draws these as two slides carrying the same picture with
  * the promoter box in a different place, which is an animation that ran
  * out of slide.  Here the modules are five groups on one row and the
  * rotation is a translate: U, SP, CDS and T each step one slot left and
  * P travels four slots right.  The codes ride along with their parts,
- * which is the whole content of the move — GGAG and TACT stay stuck to P
+ * which is the whole content of the move: GGAG and TACT stay stuck to P
  * wherever P goes.
  *
  * Slide 60 holds the rotated row at identical coordinates, so nothing
@@ -328,7 +328,7 @@ function painter(slide, r, ON, extra){
  * one line with the head-to-tail strip.
  * ================================================================== */
 (function(){
-  const CY = 532, PITCH = 268, MW = 236, MX = 130, LY = 250;
+  const CY = 532, PITCH = 268, MW = 236, MX = 130, LY = 280;
   const ORDER = [["P","GGAG","TACT"],["U","TACT","AATG"],["SP","AATG","AGGT"],
                  ["CDS","AGGT","GCTT"],["T","GCTT","CGCT"]];
   const AFTER = [4, 0, 1, 2, 3];      /* slot each module rotates into */
@@ -336,10 +336,10 @@ function painter(slide, r, ON, extra){
   const legend =
     bone(190, 730, LY) + rbs(300, LY, 27) + orf(380, 690, LY, 54) +
     txt(300, LY + 48, "RBS", 20, MUTED) + txt(535, LY + 48, "ORF", 20, MUTED) +
-    txt(460, 152, "UC", 32, INK, 700) + txt(460, 184, "transcribed", 22, MUTED) +
+    txt(460, 186, "UC", 32, INK, 700) + txt(460, 218, "transcribed", 22, MUTED) +
     bone(870, 1410, LY) + octagon(960, LY, 42) + promoter(1150, LY, 62, 190) +
     txt(960, LY + 68, "terminator", 20, MUTED) + txt(1250, LY + 48, "promoter", 20, MUTED) +
-    txt(930, 152, "TP", 32, INK, 700) + txt(930, 184, "not transcribed", 22, MUTED);
+    txt(930, 186, "TP", 32, INK, 700) + txt(930, 218, "not transcribed", 22, MUTED);
 
   const modules = ORDER.map(function(m, i){
     const x = MX + i * PITCH;
@@ -356,13 +356,13 @@ function painter(slide, r, ON, extra){
            txt((a + b) / 2, BY + 34, label, 27, INK, 700);
   }
   /* The dashed mark is the seam inside TP.  MoClo sets that one with
-     BsmBI during level 2 assembly, so it has no standardized 4 bp code —
+     BsmBI during level 2 assembly, so it has no standardized 4 bp code -
      and TPcon never varies the pairing, so it never needs one. */
   const brackets = bracket(0, 2, "UC") + bracket(3, 4, "TP") +
     path("M1186 470V596", MUTED, 2.4, "none", ' stroke-dasharray="6 7"');
 
   const seam = txt(800, 706,
-    "MoClo sets the T–P seam with BsmBI, not with a 4 bp code — and TPcon never varies that pairing, so it needs none",
+    "MoClo sets the T–P seam with BsmBI, not with a 4 bp code, and TPcon never varies that pairing, so it needs none",
     22, MUTED);
 
   /* slide 60: the parts iterated head to tail */
@@ -389,12 +389,12 @@ function painter(slide, r, ON, extra){
   desc:"Across the top, the two primitives TPcon uses. On the left, labelled UC and transcribed: a dome for the ribosome binding site and a block arrow for the open reading frame. On the right, labelled TP and not transcribed: an octagon for the terminator and a bent arrow for the promoter. Below them, the five MoClo level zero modules in their MoClo order, P first, each with its blue BsaI ticks and its pair of red junction codes." },
 
 { note:"To adapt MoClo for this, we effectively just rotate the sequence such that the promoter comes after the terminator. That junction would be set with a BsmBI site during the second level of assembly in MoClo, so there is no standardized junction for it. In our TPcon system, we will never be varying the pairing of terminator and promoter, so we won’t need a junction, so there is none present.",
-  desc:"The row rotates. P slides the whole way from the front to the back and the other four modules each step one place left, so the order becomes U, SP, CDS, T, P. The codes travel with their parts — P still carries GGAG and TACT wherever it goes. Brackets underneath name the new grouping: U, SP and CDS together are the UC part; T and P together are the TP part. A dashed line marks the seam between T and P, and a line beneath says MoClo sets that seam with BsmBI rather than a four base code, and TPcon never varies the pairing, so it needs none." }
+  desc:"The row rotates. P slides the whole way from the front to the back and the other four modules each step one place left, so the order becomes U, SP, CDS, T, P. The codes travel with their parts: P still carries GGAG and TACT wherever it goes. Brackets underneath name the new grouping: U, SP and CDS together are the UC part; T and P together are the TP part. A dashed line marks the seam between T and P, and a line beneath says MoClo sets that seam with BsmBI rather than a four base code, and TPcon never varies the pairing, so it needs none." }
   ];
 
   const B = [
 { note:"In a multi-operon system, these UC and TP parts are iterated head to tail restoring the expected gene structure.",
-  desc:"The rotated row is held exactly where it was, with the UC and TP brackets still under it. Beneath, the same two glyphs repeated along one line — TP then UC, four times over: terminator, promoter, ribosome binding site, open reading frame, and round again. Read across, the alternation restores the ordinary gene structure, since every promoter is still followed by the thing it transcribes, but the parts you hold and swap are the two TPcon primitives rather than four or five MoClo ones." }
+  desc:"The rotated row is held exactly where it was, with the UC and TP brackets still under it. Beneath, the same two glyphs repeated along one line: TP then UC, four times over: terminator, promoter, ribosome binding site, open reading frame, and round again. Read across, the alternation restores the ordinary gene structure, since every promoter is still followed by the thing it transcribes, but the parts you hold and swap are the two TPcon primitives rather than four or five MoClo ones." }
   ];
 
   window.Deck.sequence("rotate", function(slide){
@@ -417,8 +417,8 @@ function painter(slide, r, ON, extra){
 })();
 
 /* ================================================================== *
- * 61 — the UC part.  One drawing, no build; the slide's other two
- * elements — the BsaI cut and the worked example — are letters and live
+ * 61, the UC part.  One drawing, no build; the slide's other two
+ * elements, the BsaI cut and the worked example, are letters and live
  * in the markup.  .figgap there is 380px, which puts this band at
  * y 282..662.
  * ================================================================== */
@@ -443,20 +443,23 @@ function painter(slide, r, ON, extra){
 })();
 
 /* ================================================================== *
- * 62 — the TPcon6 part.
+ * 62.  The TPcon6 part.
  *
- * GCTT and TACT are on the ends in the opposite order to the UC part —
- * which is the whole reason the two iterate head to tail — so they are
- * set in the same size and face as on slide 61 and the two slides can be
- * flipped between.
+ * GCTT and TACT are on the ends in the opposite order to the UC part,
+ * which is the whole reason the two iterate head to tail, so they are
+ * set in the same size and face as on slide 61 and the two slides can
+ * be flipped between.
  *
- * The two muted lines at the foot are not on the source slide.  They are
- * the middle sentences of the source note, which is the only place the
- * spacers are ever explained; without them, three identical unlabelled
- * blocks are decoration.
+ * What the three spacers are FOR stays in the note.  An earlier draft
+ * wrote it at the foot of the slide; the source slide carries no such
+ * line, so it is the presenter's, and the drawing names the blocks and
+ * stops there.
  * ================================================================== */
 (function(){
-  const Y = 500;
+  /* Y sits the drawing in the middle of the whole 157..830 band: this
+     slide carries no flow content, and with the foot line gone there is
+     nothing below the spacer captions to balance against. */
+  const Y = 540;
   const fig =
     txt(165, Y + 15, "GCTT", 42, RED, 700, "start", MONO) +
     txt(1435, Y + 15, "TACT", 42, RED, 700, "end", MONO) +
@@ -464,10 +467,8 @@ function painter(slide, r, ON, extra){
     spacer(285, 425, Y, 44) + txt(355, Y + 88, "20 bp", 23, MUTED) + txt(355, Y + 118, "spacer", 23, MUTED) +
     octagon(560, Y, 78) + txt(560, Y + 118, "terminator", 23, MUTED) +
     spacer(700, 840, Y, 44) + txt(770, Y + 88, "20 bp", 23, MUTED) + txt(770, Y + 118, "spacer", 23, MUTED) +
-    promoter(900, Y, 170, 190) + txt(1000, 296, "Promoter", 27, INK, 700) +
-    spacer(1150, 1290, Y, 44) + txt(1220, Y + 88, "20 bp", 23, MUTED) + txt(1220, Y + 118, "spacer", 23, MUTED) +
-    txt(800, 700, "the three spacers are unique to every TP part — they are the priming sites", 22, MUTED) +
-    txt(800, 732, "for the PCR that swaps one UC part for another", 22, MUTED);
+    promoter(900, Y, 170, 190) + txt(1000, Y - 204, "Promoter", 27, INK, 700) +
+    spacer(1150, 1290, Y, 44) + txt(1220, Y + 88, "20 bp", 23, MUTED) + txt(1220, Y + 118, "spacer", 23, MUTED);
 
   window.Deck.sequence("tparch", function(slide){
     const r = mount(slide, { fig: fig });
@@ -475,20 +476,20 @@ function painter(slide, r, ON, extra){
     paint(0, false);
     return { steps: [
 { note:"And TP parts have GCTT and TACT sticky ends (flipped order) and include terminator and promoter elements. They also have unique spacer elements. This is done to provide sites for initiating PCR for doing editing reactions involving the replacement of a UC part. These are the parts we are trying to make right now.",
-  desc:"The TPcon6 part drawn at the same scale as the UC part on the slide before, and with its two end codes in the opposite order: GCTT on the left, TACT on the right. Along the line, a 20 bp spacer, then an octagon for the terminator, then a second 20 bp spacer, then the bent arrow of the promoter, then a third 20 bp spacer. A line at the foot notes that the three spacers are unique to every TP part and are the priming sites for the PCR that swaps one UC part for another." }
+  desc:"The TPcon6 part drawn at the same scale as the UC part on the slide before, and with its two end codes in the opposite order: GCTT on the left, TACT on the right. Along the line, a 20 bp spacer, then an octagon for the terminator, then a second 20 bp spacer, then the bent arrow of the promoter, then a third 20 bp spacer." }
     ], go: paint };
   });
 })();
 
 /* ================================================================== *
- * 64 — Tlib2
+ * 64: Tlib2
  *
  * The richest notes in the deck: six paragraphs, and the last three are
  * one each for the three levels of Golden Gate site.  So this is six
  * beats, and the three enzymes light up one at a time with the job the
  * note gives them written underneath.  They accumulate rather than
  * replacing one another, so the slide ends as a three-line legend of
- * what each nested pair is for — which is the thing the flat SnapGene
+ * what each nested pair is for, which is the thing the flat SnapGene
  * strip cannot do, since there all twelve features arrive at once and
  * the three levels have to be picked out by ear.
  * ================================================================== */
@@ -504,12 +505,18 @@ function painter(slide, r, ON, extra){
     spacer(290, 410, CY, 38) + txt(350, CY + 76, "spacer", 21, MUTED) +
     octagon(560, CY, 62) + txt(560, CY + 76, "terminator", 21, MUTED) +
     spacer(700, 820, CY, 38) + txt(760, CY + 76, "spacer", 21, MUTED) +
-    promoter(900, CY, 100, 170, true) + txt(985, CY + 76, "promoter — not in the oligo", 21, MUTED) +
+    promoter(900, CY, 100, 170, true) + txt(985, CY + 76, "promoter", 21, MUTED) +
     spacer(1180, 1300, CY, 38) + txt(1240, CY + 76, "spacer", 21, MUTED);
 
+  /* Direction is not decoration: a type IIS site cuts AWAY from itself,
+     so each pair has to read outward from the piece it is meant to leave
+     behind.  Both BsmBI and both BsaI sites therefore point inward, at
+     the material they keep; the BseRI pair in the middle points outward,
+     because there it is the middle, the missing promoter, that is
+     being opened up. */
   const F = [
     [150, 262, "G00101", MUTED, -1,  1],
-    [278, 320, "BsmBI",  INK,    1, -1],
+    [278, 320, "BsmBI",  INK,    1,  1],
     [336, 378, "BsaI",   INK,   -1,  1],
     [394, 512, "spacer", MUTED,  1,  1],
     [536, 780, "terminator", INK, -1, 1],
@@ -518,26 +525,28 @@ function painter(slide, r, ON, extra){
     [1002, 1044, "BseRI", INK,   1,  1],
     [1060, 1178, "spacer", MUTED, 1, 1],
     [1194, 1236, "BsaI",  INK,    1, -1],
-    [1252, 1294, "BsmBI", INK,   -1,  1],
+    [1252, 1294, "BsmBI", INK,   -1, -1],
     [1310, 1450, "CA998", MUTED,  1, -1]
   ];
   const strip = F.map(f => feature(f[0], f[1], SY, f[2], f[3], f[4], f[5])).join("");
 
-  /* The highlight is the feature redrawn on the attention rung — same
+  /* The highlight is the feature redrawn on the attention rung, same
      shape, heavier stroke, blue name over a white patch that hides the
      ink one.  An earlier version boxed each site instead, and at this
      spacing the boxes of neighbouring levels ran into one another. */
-  function level(pair, jobY, job){
-    return pair.map(f => feature(f[0], f[1], SY, f[2], BLUE, f[4], f[5], true, 4.5)).join("") +
-      txt(800, jobY, job, 23, BLUE, 700);
+  /* Lighting the pair IS the statement; the job each level does is in the
+     spoken note, where the source deck keeps it.  An earlier draft captioned
+     each one on the slide, which is text JCA's slide does not carry. */
+  function level(pair){
+    return pair.map(f => feature(f[0], f[1], SY, f[2], BLUE, f[4], f[5], true, 4.5)).join("");
   }
 
   const G = {
     cass: cassette,
     strip: strip,
-    a: level([F[1], F[10]], 690, "BsmBI — clone the oligo pool into the reporter plasmid pTP2"),
-    b: level([F[2], F[9]],  726, "BsaI — survives into the TPcon part, to install it in a prototype"),
-    c: level([F[6], F[7]],  762, "BseRI — join the promoter in, between the two inner spacers")
+    a: level([F[1], F[10]]),
+    b: level([F[2], F[9]]),
+    c: level([F[6], F[7]])
   };
 
   const S = [
@@ -554,7 +563,7 @@ function painter(slide, r, ON, extra){
   desc:"The outermost pair lights up in blue: the two BsmBI sites, one near each end of the oligo, boxed. A line beneath says they are what gets the pool into the reporter plasmid pTP2." },
 
 { note:"The BsaI sites will exist in the final TPcon part. It is used for integrationof the TPcon into a prototype plasmid undergoing optimization.",
-  desc:"The next pair in lights up as well: the two BsaI sites, just inside the BsmBI ones. These are the pair that survives into the finished TPcon part and installs it in a prototype plasmid being optimised — they are the same pair that reads out as GCTT and TACT on the cassette above." },
+  desc:"The next pair in lights up as well: the two BsaI sites, just inside the BsmBI ones. These are the pair that survives into the finished TPcon part and installs it in a prototype plasmid being optimised, they are the same pair that reads out as GCTT and TACT on the cassette above." },
 
 { note:"The BseRI sites are for joining the promoter into this reporter plasmid with the terminator.",
   desc:"The innermost pair lights up: the two BseRI sites in the middle, facing each other across the gap where the promoter is not. All three levels are now boxed and named, one line each, and the BseRI pair is what the promoter gets dropped into on the next slide." }
@@ -569,13 +578,13 @@ function painter(slide, r, ON, extra){
 })();
 
 /* ================================================================== *
- * 65 — pP6-2A x pT6B3 = pT6B3P2A
+ * 65, pP6-2A x pT6B3 = pT6B3P2A
  *
  * The payoff.  Both inputs already exist and both were made on the two
  * slides before this one; the only new thing is a BseRI Golden Gate
  * between them.  The two sticky ends are drawn and named, and they are
  * the same TC and GT that were marked red in the pP6 sequence on slide
- * 63 — which is the reason for holding one treatment for junctions all
+ * 63, which is the reason for holding one treatment for junctions all
  * the way across the section.  The third step draws the product as the
  * TP cassette of slide 62, closing the section on the architecture it
  * opened with.
@@ -597,7 +606,7 @@ function painter(slide, r, ON, extra){
     /* These two point inward, toward the promoter: BseRI cuts away from
        its own site, so to release the promoter with the TC and GT
        overhangs the sites have to read across it.  The pair in pT6B3
-       points the other way for the same reason — there the middle is
+       points the other way for the same reason, there the middle is
        what gets discarded. */
     [[200, 300, "BseRI", INK, -1, 1],
      [430, 1130, "pP6-2A UBER promoter", INK, 1, 1],
@@ -616,17 +625,21 @@ function painter(slide, r, ON, extra){
     bone(265, 1335, QY) +
     spacer(300, 400, QY, 34) + octagon(540, QY, 48) + spacer(680, 780, QY, 34) +
     promoter(880, QY, 74, 150) + spacer(1130, 1230, QY, 34) +
-    txt(800, 818, "one complete TP part — the architecture slide 62 specified", 21, MUTED);
+    txt(800, 818, "one complete TP part, the architecture slide 62 specified", 21, MUTED);
 
   const S = [
-{ note:"Joining one of the hits from Tlib2, like pT6B3 here and a hit of pP6 – here clone 2A, is just an assembly reaction applied directly to the two plasmid DNAs using BseRI.",
+/* The source has two sentences for three beats, so one beat is silent.
+   It is the first, a presenter can name two plasmids off the slide -
+   rather than the join, which is the beat the section has been building
+   to.  Nothing is invented to fill it. */
+{ note:"",
   desc:"Two plasmids drawn as annotation maps, one above the other. pT6B3 on top is a Tlib2 hit: BsaI, a spacer, the terminator, a spacer, then two BseRI sites facing each other in the middle where the promoter is missing, then a spacer and the far BsaI. pP6-2A below is a pP6 hit: a BseRI site, the UBER promoter of clone 2A, and a second BseRI site. Neither has been cut yet." },
 
-{ note:"",
+{ note:"Joining one of the hits from Tlib2, like pT6B3 here and a hit of pP6 – here clone 2A, is just an assembly reaction applied directly to the two plasmid DNAs using BseRI.",
   desc:"Two dashed red lines run from the BseRI pair in pT6B3 down to the two ends of the promoter in pP6-2A, showing which end meets which, and each is labelled with the two base sticky end it runs on: TC on the left, GT on the right. Those are the same two overhangs marked in red in the pP6 sequence on the slide before. Above, the construction file: GoldenGate pT6B3 pP6-2A BseRI gg, then Transform gg Mach1 Amp pT6B3P2A." },
 
 { note:"Try simulating the product of BseRI-based Golden Gate",
-  desc:"The product, pT6B3P2A, drawn out: GCTT at the left end, a spacer, the terminator, a spacer, the promoter now solid and in place, a third spacer, and TACT at the right end. It is one complete TP part — exactly the architecture slide 62 specified." }
+  desc:"The product, pT6B3P2A, drawn out: GCTT at the left end, a spacer, the terminator, a spacer, the promoter now solid and in place, a third spacer, and TACT at the right end. It is one complete TP part, exactly the architecture slide 62 specified." }
   ];
 
   window.Deck.sequence("bseri", function(slide){

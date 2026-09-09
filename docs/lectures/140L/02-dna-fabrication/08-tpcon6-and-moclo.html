@@ -15,13 +15,13 @@
  * COLOUR.  The same four marks as seq/08-tpcon.js, so a junction looks
  * the same whether it is drawn or written:
  *
- *   .j     vermillion  a JUNCTION — a 4 bp MoClo code, or one of the 2 bp
+ *   .j     vermillion  a JUNCTION, a 4 bp MoClo code, or one of the 2 bp
  *                      BseRI sticky ends TC and GT.  The one mark held
  *                      identical from slide 58 to slide 65, and the only
  *                      vermillion in the section.
  *   .site  blue        an enzyme recognition site (deck.css already has
  *                      it; nothing is redefined here)
- *   .anno  ink + rule  a functional element that is being pointed at —
+ *   .anno  ink + rule  a functional element that is being pointed at -
  *                      the RBS, the ORF, -35, -10, +1
  *   .lo    muted       tails and spacer bases: present, not the point
  *
@@ -97,7 +97,7 @@
 <!-- 61.  The BsaI cut is drawn as letters rather than kept as the 202x44
      raster from the source: at that size it is a four-fold upscale, and
      written out it can show the thing the source's little (N)1 / (N)5
-     figure only implies — that the four bases left standing are what a
+     figure only implies, that the four bases left standing are what a
      junction code IS. -->
 <article class="slide" data-seq="ucarch" id="uc">
   <h1 class="small">UC architecture</h1>
@@ -119,7 +119,7 @@
 
 <!-- 63.  All letters, no figure, so nothing is drawn here: the whole
      slide is markup.  Four builds, one per paragraph of the source note,
-     which is also the order you would work through it at the bench — the
+     which is also the order you would work through it at the bench, the
      recipe, then the two oligos you order, then the product to compare
      against, then the two clones that came back. -->
 <article class="slide" id="pp6">
@@ -130,20 +130,18 @@ Transform  gg     Mach1  Amp  pP6</pre>
 
   <div class="blk" data-build="1" style="margin-top:22px"
        data-note="Try simulating the construction file to see how pP6 assembles. The map of pTP1 (and other sequences) at: https://drive.google.com/drive/folders/16-0ek2biyB-hI1RY2xgW6p4fe32FbAJh?usp=share_link"
-       data-desc="The two library oligos appear. P6libF and P6libR each carry a blue BsaI site near the 5-prime end, then the four bases of the junction in red — TTAT on the forward oligo, its complement ATAA on the reverse. On each, an ink underline spans six bases across that junction and is labelled -10, because the promoter's -10 box straddles the join, which is why the junction was put there. Further along, each carries a red two-base BseRI overhang and a blue BseRI site. Both oligos are long runs of N: that is the library.">
+       data-desc="The two library oligos appear. P6libF and P6libR each carry a blue BsaI site near the 5-prime end, then the four bases of the junction in red: TTAT on the forward oligo, its complement ATAA on the reverse. On each, an ink underline spans six bases across that junction and is labelled -10, because the promoter's -10 box straddles the join, which is why the junction was put there. Further along, each carries a red two-base BseRI overhang and a blue BseRI site. Both oligos are long runs of N: that is the library. On P6libF the -10 and -35 are labelled rev, because that oligo runs the other way and carries them as reverse complements; P6libR reads in the same direction as the pP6 map below and also carries the plus one base.">
     <p class="nm">P6libF</p>
 <pre class="dna"><span class="lo">ccaaa</span><span class="site">ggtctc</span><span class="anno">A<span class="j">TTAT</span>A</span>NNNNNNNNNNNNNNNNN<span class="anno">TGTCAA</span>NNNN<span class="j">GA</span>acccagga<span class="site">ctcctc</span><span class="lo">gaagtcgttcttaagacaac</span></pre>
 <pre class="dna ann">      BsaI -10 rev                -35 rev              BseRI</pre>
   </div>
 
-  <div class="blk" data-build="2"
-       data-desc="P6libR, the reverse oligo, on the same pattern: blue BsaI, the red ATAA junction with the -10 underlined across it, then the plus one base, then the red GT BseRI overhang and the blue BseRI site.">
-    <p class="nm">P6libR</p>
+    <p class="nm" style="margin-top:12px">P6libR</p>
 <pre class="dna"><span class="lo">Cagtt</span><span class="site">GGTCTC</span>A<span class="anno"><span class="j">ATAA</span>T</span>NNNNNN<span class="anno">A</span>NNNN<span class="j">GT</span>tagtattt<span class="site">ctcctc</span><span class="lo">gtctacggttaactgatactc</span></pre>
 <pre class="dna ann">      BsaI   -10      +1               BseRI</pre>
   </div>
 
-  <div class="blk" data-build="3"
+  <div class="blk" data-build="2"
        data-note="It is no different than how you did it for the tutorials – first simulate the PCR, then simulate cutting with BsaI, then simulate ligation. You can compare the sequence to the map of pP6."
        data-desc="pP6 itself, the product of that construction file, written as one 76 base line. The BseRI sites GAGGAG and CTCCTC are blue at either end, the two base overhangs TC and GT are red just inside them, and three underlined runs are labelled -35, -10 and plus one. Everything else is N: this is a library, not a sequence.">
     <p class="nm">pP6</p>
@@ -151,7 +149,7 @@ Transform  gg     Mach1  Amp  pP6</pre>
 <pre class="dna ann"> BseRI                -35                    -10      +1               BseRI</pre>
   </div>
 
-  <div class="blk" data-build="4"
+  <div class="blk" data-build="3"
        data-note="2A and 14C are two strong hits identified from the pP6 library. The numbers were the student’s assigned ID’s, and the letters refer to individual colonies picked. Note that these are very different sequences. All they have in common is the BseRI sites and -10/-35/+! sites."
        data-desc="Two real clones, pP6-2A and pP6-14C, set directly under pP6 in the same columns. Every one of the N runs has become a different real sequence and the two clones agree nowhere in them. What is identical, column for column, is exactly what was marked: the blue BseRI sites, the red TC and GT overhangs, and the underlined -35, -10 and plus one. That is the whole claim of the slide, and it can be checked by eye down the columns.">
     <p class="nm">pP6-2A</p>
