@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>TPcon6 and MoClo &ndash; DNA Fabrication</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.  deck.css is shared by every lecture in the course and
+ * is not touched from here.
+ *
+ * COLOUR.  The same four marks as seq/08-tpcon.js, so a junction looks
+ * the same whether it is drawn or written:
+ *
+ *   .j     vermillion  a JUNCTION — a 4 bp MoClo code, or one of the 2 bp
+ *                      BseRI sticky ends TC and GT.  The one mark held
+ *                      identical from slide 58 to slide 65, and the only
+ *                      vermillion in the section.
+ *   .site  blue        an enzyme recognition site (deck.css already has
+ *                      it; nothing is redefined here)
+ *   .anno  ink + rule  a functional element that is being pointed at —
+ *                      the RBS, the ORF, -35, -10, +1
+ *   .lo    muted       tails and spacer bases: present, not the point
+ *
+ * The promoter elements take a rule rather than the fourth colour rung.
+ * Amber and vermillion differ only in lightness under red-green CVD, and
+ * on slide 63 the -10 and the BsaI overhang are not merely on the same
+ * line, they OVERLAP: the -10 straddles the junction, which is why the
+ * junction was put there.  So the -10 is written as an ink underline
+ * spanning six bases with the four vermillion junction bases inside it,
+ * and the two channels can both be read at once.  Every underlined run
+ * is also named in the muted row directly beneath it, which is what
+ * 1.4.1 asks for anyway.
+ *
+ * Bold monospace has the same advance width as regular, so none of these
+ * shifts a column; the label rows are pre.dna too, at the same size and
+ * letter-spacing, so they stay in register with the sequence above them.
+ * --------------------------------------------------------------------- */
+.slide pre.dna .j{color:var(--red);font-weight:700}
+.slide pre.dna .lo{color:var(--muted)}
+.slide pre.dna .anno{font-weight:700;text-decoration:underline;
+  text-decoration-thickness:2px;text-underline-offset:6px;
+  text-decoration-color:var(--ink)}
+.slide pre.dna.ann{color:var(--muted);margin-top:2px}
+.slide pre.dna.cf{font-size:25px;line-height:1.42}
+
+/* Slide 63 is six blocks of sequence stacked down the slide, and they
+   have to hold their columns as the builds arrive, so each block states
+   its own height rather than being centred as a group. */
+#pp6 .blk{margin-bottom:12px}
+#pp6 .nm{font-size:20px;font-weight:700;line-height:1.45;margin:0}
+
+/* The figure bands.  seq/08-tpcon.js draws into an absolutely positioned
+   svg over the whole slide, so on the three slides that also carry flow
+   content this spacer is the contract that holds the words clear of the
+   drawing.  The heights are stated in that file's geometry note. */
+.slide .figgap{flex:0 0 auto}
+#uc .cut{margin-bottom:14px}
+#uc .exlab{font-size:22px;color:var(--muted);margin:6px 0 2px}
+#uc pre.dna.ex{font-size:27px}
+</style>
+</head>
+<body>
+
+<!-- 57.  The source divider is on a flat green ground, one of the four
+     colours AUTHORING.txt records as removed; a section break takes the
+     amber ground like every other one in this deck.  The Drive URL is
+     kept exactly as written. -->
+<article class="slide" data-bg="section">
+  <h1>TPcon6 and MoClo</h1>
+  <p style="margin-top:120px"><strong>Plasmid maps available at:</strong><br>
+    <small><a href="https://drive.google.com/drive/folders/16-0ek2biyB-hI1RY2xgW6p4fe32FbAJh?usp=share_link">https://drive.google.com/drive/folders/16-0ek2biyB-hI1RY2xgW6p4fe32FbAJh?usp=share_link</a></small></p>
+  <template class="desc">Section divider: TPcon6 and MoClo. Below it, a line reading Plasmid maps available at, and a Google Drive folder link.</template>
+</article>
+
+<!-- 58 -->
+<article class="slide" data-seq="moclo">
+  <h1 class="small">MoClo Standard</h1>
+  <p class="src">Figure after addgene.org/cloning/moclo &mdash; Weber et al., PMID 21364738</p>
+</article>
+
+<!-- 59 -->
+<article class="slide" data-seq="rotate">
+  <h1 class="small">MoClo Standard</h1>
+</article>
+
+<!-- 60.  Holds slide 59's end state at identical coordinates, so the row
+     does not move when the deck steps across the pair; only what sits
+     under it changes. -->
+<article class="slide" data-seq="uctp">
+  <h1 class="small">UC.TP Variation</h1>
+</article>
+
+<!-- 61.  The BsaI cut is drawn as letters rather than kept as the 202x44
+     raster from the source: at that size it is a four-fold upscale, and
+     written out it can show the thing the source's little (N)1 / (N)5
+     figure only implies — that the four bases left standing are what a
+     junction code IS. -->
+<article class="slide" data-seq="ucarch" id="uc">
+  <h1 class="small">UC architecture</h1>
+  <div class="cut">
+<pre class="dna">   <span class="site">BsaI</span>
+5&rsquo;-<span class="site">GGTCTC</span>N       <span class="j">NNNN</span>&hellip;-3&rsquo;
+3&rsquo;-<span class="site">CCAGAG</span>N<span class="j">NNNN</span>       &hellip;-5&rsquo;</pre>
+  </div>
+  <div class="figgap" style="height:380px" aria-hidden="true"></div>
+  <p class="exlab">Example:</p>
+<pre class="dna ex"><span class="site">GGTCTC</span><span class="lo">A</span><span class="j">TACT</span>GTGCAGGAGTAC<span class="anno">AGGAG</span>CACAC<span class="anno">ATGCCACCGCCGCGACCGCCGGCGACAACGTGA</span><span class="j">GCTT</span><span class="lo">T</span><span class="site">GAGACC</span></pre>
+<pre class="dna ex ann"> BsaI                 SD/RBS                  CDS/ORF                   BsaI</pre>
+</article>
+
+<!-- 62 -->
+<article class="slide" data-seq="tparch">
+  <h1 class="small">TPcon6 architecture</h1>
+</article>
+
+<!-- 63.  All letters, no figure, so nothing is drawn here: the whole
+     slide is markup.  Four builds, one per paragraph of the source note,
+     which is also the order you would work through it at the bench — the
+     recipe, then the two oligos you order, then the product to compare
+     against, then the two clones that came back. -->
+<article class="slide" id="pp6">
+  <h1 class="small">Making pP6</h1>
+<pre class="dna cf">PCR        P6libF P6libR pTP1 P6
+GoldenGate P6     BsaI        gg
+Transform  gg     Mach1  Amp  pP6</pre>
+
+  <div class="blk" data-build="1" style="margin-top:22px"
+       data-note="Try simulating the construction file to see how pP6 assembles. The map of pTP1 (and other sequences) at: https://drive.google.com/drive/folders/16-0ek2biyB-hI1RY2xgW6p4fe32FbAJh?usp=share_link"
+       data-desc="The two library oligos appear. P6libF and P6libR each carry a blue BsaI site near the 5-prime end, then the four bases of the junction in red — TTAT on the forward oligo, its complement ATAA on the reverse. On each, an ink underline spans six bases across that junction and is labelled -10, because the promoter's -10 box straddles the join, which is why the junction was put there. Further along, each carries a red two-base BseRI overhang and a blue BseRI site. Both oligos are long runs of N: that is the library.">
+    <p class="nm">P6libF</p>
+<pre class="dna"><span class="lo">ccaaa</span><span class="site">ggtctc</span><span class="anno">A<span class="j">TTAT</span>A</span>NNNNNNNNNNNNNNNNN<span class="anno">TGTCAA</span>NNNN<span class="j">GA</span>acccagga<span class="site">ctcctc</span><span class="lo">gaagtcgttcttaagacaac</span></pre>
+<pre class="dna ann">      BsaI -10 rev                -35 rev              BseRI</pre>
+  </div>
+
+  <div class="blk" data-build="2"
+       data-desc="P6libR, the reverse oligo, on the same pattern: blue BsaI, the red ATAA junction with the -10 underlined across it, then the plus one base, then the red GT BseRI overhang and the blue BseRI site.">
+    <p class="nm">P6libR</p>
+<pre class="dna"><span class="lo">Cagtt</span><span class="site">GGTCTC</span>A<span class="anno"><span class="j">ATAA</span>T</span>NNNNNN<span class="anno">A</span>NNNN<span class="j">GT</span>tagtattt<span class="site">ctcctc</span><span class="lo">gtctacggttaactgatactc</span></pre>
+<pre class="dna ann">      BsaI   -10      +1               BseRI</pre>
+  </div>
+
+  <div class="blk" data-build="3"
+       data-note="It is no different than how you did it for the tutorials – first simulate the PCR, then simulate cutting with BsaI, then simulate ligation. You can compare the sequence to the map of pP6."
+       data-desc="pP6 itself, the product of that construction file, written as one 76 base line. The BseRI sites GAGGAG and CTCCTC are blue at either end, the two base overhangs TC and GT are red just inside them, and three underlined runs are labelled -35, -10 and plus one. Everything else is N: this is a library, not a sequence.">
+    <p class="nm">pP6</p>
+<pre class="dna"><span class="site">GAGGAG</span>TCCTGGGT<span class="j">TC</span>NNNN<span class="anno">TTGACA</span>NNNNNNNNNNNNNNNNN<span class="anno">TATAAT</span>NNNNNN<span class="anno">A</span>NNNN<span class="j">GT</span>TAGTATTT<span class="site">CTCCTC</span></pre>
+<pre class="dna ann"> BseRI                -35                    -10      +1               BseRI</pre>
+  </div>
+
+  <div class="blk" data-build="4"
+       data-note="2A and 14C are two strong hits identified from the pP6 library. The numbers were the student’s assigned ID’s, and the letters refer to individual colonies picked. Note that these are very different sequences. All they have in common is the BseRI sites and -10/-35/+! sites."
+       data-desc="Two real clones, pP6-2A and pP6-14C, set directly under pP6 in the same columns. Every one of the N runs has become a different real sequence and the two clones agree nowhere in them. What is identical, column for column, is exactly what was marked: the blue BseRI sites, the red TC and GT overhangs, and the underlined -35, -10 and plus one. That is the whole claim of the slide, and it can be checked by eye down the columns.">
+    <p class="nm">pP6-2A</p>
+<pre class="dna"><span class="site">GAGGAG</span>TCCTGGGT<span class="j">TC</span>GTGA<span class="anno">TTGACA</span>TCTGGCCGATCCCAGCC<span class="anno">TATAAT</span>CTGTCC<span class="anno">A</span>TGAG<span class="j">GT</span>TAGTATTT<span class="site">CTCCTC</span></pre>
+    <p class="nm" style="margin-top:10px">pP6-14C</p>
+<pre class="dna"><span class="site">GAGGAG</span>TCCTGGGT<span class="j">TC</span>GGAC<span class="anno">TTGACA</span>TGAGGTATGAACTCTAC<span class="anno">TATAAT</span>ATCTAC<span class="anno">A</span>GTGG<span class="j">GT</span>TAGTATTT<span class="site">CTCCTC</span></pre>
+  </div>
+
+  <template class="notes">The first step is isolating strongly-expressing variants of the concensus promoter of unique sequences. This is the experiment you are doing in the wetlab as your first experiment. It is a BsaI-based golden gate reaction with one fragment (also called an EIPCR).</template>
+  <template class="desc">A construction file for making pP6, in monospace: PCR with P6libF and P6libR on pTP1 to give P6; GoldenGate P6 with BsaI to give gg; Transform gg into Mach1 on Amp to give pP6. One PCR, one enzyme, one fragment that closes on itself.</template>
+</article>
+
+<!-- 64 -->
+<article class="slide" data-seq="tlib2">
+  <h1 class="small">Tlib2</h1>
+  <p data-part="1" style="font-size:26px;max-width:1180px;margin:0 0 14px">Synthesized 61 of these cassettes as an oligo pool, everything but the promoter was included, and in its place were BseRI sites</p>
+  <div class="figgap" style="height:540px" aria-hidden="true"></div>
+</article>
+
+<!-- 65 -->
+<article class="slide" data-seq="bseri">
+  <h1 class="small">pP6-2A &times; pT6B3 &nbsp;=&nbsp; pT6B3P2A</h1>
+<pre class="dna cf" data-part="1" style="margin-top:8px">GoldenGate pT6B3 pP6-2A BseRI gg
+Transform  gg    Mach1  Amp   pT6B3P2A</pre>
+  <div class="figgap" style="height:560px" aria-hidden="true"></div>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/08-tpcon.js" defer></script>
+</body>
+</html>

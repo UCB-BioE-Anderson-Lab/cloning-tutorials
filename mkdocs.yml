@@ -6,6 +6,13 @@ theme:
   name: material
   logo: images/logo.png
 
+# The deck tools are node scripts, and npm installs their dependencies right
+# here under docs/.  Everything under docs/ is copied verbatim into gh-pages,
+# so without this a deploy would publish ~84 npm packages to the public site,
+# and their READMEs break `mkdocs build --strict` as broken-link warnings.
+exclude_docs: |
+  lectures/tools/node_modules/
+
 nav:
   - Overview: index.md
   - Wetlab:
