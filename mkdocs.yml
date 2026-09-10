@@ -12,6 +12,8 @@ theme:
 # and their READMEs break `mkdocs build --strict` as broken-link warnings.
 exclude_docs: |
   lectures/tools/node_modules/
+  protocols/GENERATED.md
+  protocols/sync-from-c6.sh
 
 nav:
   - Overview: index.md
