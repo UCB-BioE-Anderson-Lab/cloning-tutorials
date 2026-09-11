@@ -646,9 +646,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#print-the-whole-set" class="md-nav__link">
+  <a href="#the-whole-set" class="md-nav__link">
     <span class="md-ellipsis">
-      Print the whole set
+      The whole set
     </span>
   </a>
   
@@ -1737,9 +1737,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#print-the-whole-set" class="md-nav__link">
+  <a href="#the-whole-set" class="md-nav__link">
     <span class="md-ellipsis">
-      Print the whole set
+      The whole set
     </span>
   </a>
   
@@ -1783,15 +1783,13 @@
 
 
 <h1 id="bench-cheatsheets">Bench Cheatsheets<a class="headerlink" href="#bench-cheatsheets" title="Permanent link">&para;</a></h1>
-<p>One-page printable summaries to take to the bench. Each is generated from the same protocol
-module the <a href="../protocols/protocols/">Protocol Builder</a> uses, so a cheatsheet and the protocol it
-comes from cannot disagree — fixing one fixes both.</p>
+<p>A one-page card for each wetlab protocol. <strong>Copies are at the bench</strong> — these are the same
+cards, here so you can look at one before lab, or from anywhere.</p>
 <p>They are quick-start cards, not tutorials. They assume you have read the tutorial and want the
-volumes, the order and the things that go silently wrong. Every sheet fits one US Letter page
-and prints correctly in black and white.</p>
-<h2 id="print-the-whole-set">Print the whole set<a class="headerlink" href="#print-the-whole-set" title="Permanent link">&para;</a></h2>
-<p><strong><a href="all-cheatsheets.pdf">⬇ All eight cheatsheets in one file</a></strong> — 8 pages, in
-experiment order.</p>
+volumes, the order, and the things that go wrong quietly.</p>
+<h2 id="the-whole-set">The whole set<a class="headerlink" href="#the-whole-set" title="Permanent link">&para;</a></h2>
+<p><strong><a href="all-cheatsheets.pdf">⬇ All eight in one file</a></strong> — 8 pages, in experiment order.
+Useful if a bench copy has gone missing and needs reprinting.</p>
 <h2 id="individual-sheets">Individual sheets<a class="headerlink" href="#individual-sheets" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1845,8 +1843,12 @@ experiment order.</p>
 </tbody>
 </table>
 <h2 id="if-a-sheet-looks-wrong">If a sheet looks wrong<a class="headerlink" href="#if-a-sheet-looks-wrong" title="Permanent link">&para;</a></h2>
-<p>Do not edit the PDF, and do not edit the HTML beside it — both are generated. The content lives
-in <code>docs/protocols/modules/*.js</code> and <code>docs/cheatsheets/src/*.mjs</code>. Change the module, then:</p>
+<p>Each card is generated from the same protocol module the
+<a href="../protocols/protocols/">Protocol Builder</a> uses, so a card and the protocol it comes from
+cannot disagree — fixing one fixes both.</p>
+<p>So do not edit the PDF, and do not edit the HTML beside it; both are generated output. The
+content lives in <code>docs/protocols/modules/*.js</code> and <code>docs/cheatsheets/src/*.mjs</code>. Change the
+module, then:</p>
 <div class="highlight"><pre><span></span><code>node docs/cheatsheets/build.mjs
 </code></pre></div>
 <p><code>node docs/cheatsheets/build.mjs --check</code> reports whether any sheet has drifted from its
