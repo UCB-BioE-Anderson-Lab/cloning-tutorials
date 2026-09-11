@@ -2,8 +2,8 @@
 
 <!-- cheatsheet -->
 !!! tip "Bench cheatsheet"
-    **[Print the one-page cheatsheet for this protocol](../cheatsheets/gel.pdf)** — generated
-    from the same protocol module as the [Protocol Builder](../protocols/protocols.md), so the two cannot disagree.
+    **[Analytical Gel](../cheatsheets/gel.pdf)** — the one-page version of this protocol.
+    It is the same as the printed copies at the bench.
 
 After PCR, it’s important to confirm that the reaction worked by checking for the presence and size of the product. We do this by running a small portion of each PCR reaction on an **analytical agarose gel**.
 

@@ -2,8 +2,8 @@
 
 <!-- cheatsheet -->
 !!! tip "Bench cheatsheet"
-    **[Print the one-page cheatsheet for this protocol](../cheatsheets/picking.pdf)** — generated
-    from the same protocol module as the [Protocol Builder](../protocols/protocols.md), so the two cannot disagree.
+    **[Picking Colonies](../cheatsheets/picking.pdf)** — the one-page version of this protocol.
+    It is the same as the printed copies at the bench.
 
 After plating your transformation and incubating overnight, if everything goes well you will see colonies that look something like this:
 

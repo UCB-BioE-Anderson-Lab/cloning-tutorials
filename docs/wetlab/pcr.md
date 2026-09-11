@@ -3,8 +3,8 @@
 
 <!-- cheatsheet -->
 !!! tip "Bench cheatsheet"
-    **[Print the one-page cheatsheet for this protocol](../cheatsheets/pcr.pdf)** — generated
-    from the same protocol module as the [Protocol Builder](../protocols/protocols.md), so the two cannot disagree.
+    **[PrimeSTAR PCR](../cheatsheets/pcr.pdf)** — the one-page version of this protocol.
+    It is the same as the printed copies at the bench.
 
 In this step, you’ll perform a PCR reaction to generate a pool of DNA molecules, each containing a different variant of a synthetic promoter.
 
