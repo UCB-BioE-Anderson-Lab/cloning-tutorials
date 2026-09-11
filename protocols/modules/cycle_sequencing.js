@@ -74,6 +74,8 @@ export function factory(values = {}) {
       water_uL: water,
       copy_number: key in COPY ? key : "medium",
       copy_label: copy.label,
+      copy_table: COPY,
+      dna_plus_water_uL: DNA_PLUS_WATER_UL,
       needs_pcr: needsPcr
     },
     template: `

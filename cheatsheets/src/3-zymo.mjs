@@ -21,13 +21,13 @@ export default {
               "<b>Alternatively</b>, premix ADB and sample in an Eppendorf tube, vortex, spin, then transfer to the column. Several ways work — what matters is that it ends up <b>well mixed and in the column</b>."
             ]),
 
-          "<b>Spin 15 s</b> at full speed. Discard the flow-through.",
+          `<b>Spin ${d.bind_s} s</b> at full speed. Discard the flow-through.`,
 
-          `Add <b>${d.pe_uL} µL PE</b>. <b>Spin 15 s.</b> Discard the flow-through.`,
+          `Add <b>${d.pe_uL} µL PE</b>. <b>Spin ${d.wash_s} s.</b> Discard the flow-through.`,
 
-          `Add <b>${d.pe_uL} µL PE</b>. <b>Spin 15 s.</b> Discard the flow-through.`,
+          `Add <b>${d.pe_uL} µL PE</b>. <b>Spin ${d.wash_s} s.</b> Discard the flow-through.`,
 
-          "<b>Spin 90 s</b> to dry the column. PE is 70% ethanol and carryover inhibits downstream enzymes.",
+          `<b>Spin ${d.dry_s} s</b> to dry the column. PE is 70% ethanol and carryover inhibits downstream enzymes.`,
 
           "<b>While the drying spin runs, clean up.</b> Check the bench for drips of salt or ADB. Use <b>70% ethanol</b> if you suspect any.",
 
@@ -37,7 +37,7 @@ export default {
 
           `Add <b>${d.elution_uL} µL EB</b> slowly to the <b>centre of the membrane</b>. Do not let it run down the walls.`,
 
-          "<b>Spin 45 s</b> to elute.",
+          `<b>Spin ${d.elute_s} s</b> to elute.`,
 
           "<b>Discard the column.</b> The DNA is in the tube."
         ])

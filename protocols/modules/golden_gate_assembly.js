@@ -24,6 +24,9 @@ const GG1 = {
   step80_min: 10
 };
 
+// Above this many fragments, premix the DNAs before taking the reaction's DNA from the mix.
+const PREMIX_ABOVE = 2;
+
 // The Type IIS enzymes in use here. Which one is set by the construction file, not by
 // the protocol — a card that names just one will have someone pipette the wrong tube.
 const ENZYMES = ["BsaI", "BsmBI", "BseRI", "AarI", "SapI", "BbsI"];
@@ -61,7 +64,7 @@ export function factory(values = {}) {
   // the balance so the buffer stays at 1×.
   const per = { dna_total: 2, buffer10x: 1, enzyme: 0.5, ligase: 0.5 };
   const water = 10 - (per.dna_total + per.buffer10x + per.enzyme + per.ligase);
-  const premix = frags > 2;
+  const premix = frags > PREMIX_ABOVE;
 
   return {
     name: "Golden Gate Assembly",
@@ -74,6 +77,7 @@ export function factory(values = {}) {
       enzyme_named: named,
       enzyme_options: ENZYMES,
       needs_premix: premix,
+      premix_above: PREMIX_ABOVE,
       total_uL: 10,
       water_uL: water,
       dna_total_uL: per.dna_total,
@@ -100,7 +104,7 @@ export function factory(values = {}) {
    - **${per.enzyme} µL** ${named ? enzymeRaw : "restriction enzyme"}
    - **${10} µL** total
 
-   - If you have **more than 2 fragments** to join, premix **equal volumes of each DNA** in a
+   - If you have **more than ${PREMIX_ABOVE} fragments** to join, premix **equal volumes of each DNA** in a
      tube, then use **${per.dna_total} µL of that mix** for the reaction.
    - Be sure you are using the **right one** of ${ENZYMES.join(", ")}, as indicated in your
      **construction file and labsheets**.

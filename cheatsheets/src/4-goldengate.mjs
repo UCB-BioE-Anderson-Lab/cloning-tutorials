@@ -33,7 +33,7 @@ export default {
           "Set up the reaction, in order:" +
             recipe +
             bullets([
-              `If you have <b>more than 2 fragments</b> to join, premix <b>equal volumes of each DNA</b> in a tube, then use <b>${d.dna_total_uL} µL of that mix</b> for the reaction.`,
+              `If you have <b>more than ${d.premix_above} fragments</b> to join, premix <b>equal volumes of each DNA</b> in a tube, then use <b>${d.dna_total_uL} µL of that mix</b> for the reaction.`,
               `Be sure you are using the <b>right one</b> of ${d.enzyme_options.join(", ")}, as indicated in your <b>construction file and labsheets</b>.`
             ]),
 
