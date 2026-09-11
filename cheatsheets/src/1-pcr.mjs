@@ -44,7 +44,7 @@ export default {
       ),
 
       blk(
-        "Master mix — 5 or more reactions",
+        `Master mix — ${d.mastermix_from} or more reactions`,
         p(
           `Scale <b>everything except the template</b> by the number of reactions, plus ` +
             `<b>${overagePct}%</b> so you do not run short on the last tube.`

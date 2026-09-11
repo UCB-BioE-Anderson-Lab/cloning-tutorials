@@ -13,6 +13,9 @@ export const timing = {
   unknown: ["hands-on setup time, for one reaction and for a master mix"]
 };
 
+// Number of reactions at which a master mix becomes the default.
+const MASTERMIX_FROM = 4;
+
 export const inputs = [
   { name: "reactions", type: "number", label: "Number of PCRs (50 µL each)", default: 1, step: 1 },
   { name: "template_name", type: "text", label: "Template", default: "template_dna" },
@@ -34,7 +37,9 @@ export function factory(values = {}) {
   const mmParsed = (mmRaw === true || mmRaw === "true" || mmRaw === "on");
   // FOUR OR MORE, NOT MORE THAN FOUR. JCA ruled 2026-09-10 after two statements of the rule
   // disagreed at exactly 4, which is a common batch size: ">=4 is right".
-  const useMastermix = (mmRaw === undefined ? (n >= 4) : mmParsed);
+  // Exposed in `derived` so the printed cheatsheet reads the threshold from here rather
+  // than carrying its own copy — that is how it came to say "5 or more".
+  const useMastermix = (mmRaw === undefined ? (n >= MASTERMIX_FROM) : mmParsed);
 
   // Per-reaction volumes (µL), 50 µL total
   const per = {
@@ -114,6 +119,7 @@ ${useMastermix ? `
       reactions: n,
       overage_fraction: overage,
       use_mastermix: useMastermix,
+      mastermix_from: MASTERMIX_FROM,
       per_reaction_uL: per,
       master_mix_totals_uL: totals,
       labels
