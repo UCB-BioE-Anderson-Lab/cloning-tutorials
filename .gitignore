@@ -182,3 +182,6 @@ site/
 
 # Excel lock files
 ~$*
+
+# the deck tools pull a browser driver; the package.json is enough to restore it
+docs/lectures/tools/node_modules/

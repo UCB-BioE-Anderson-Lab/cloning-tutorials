@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>All-Hands &ndash; DNA Fabrication</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.  deck.css is shared and is not touched from here.
+ *
+ * This is the logistics half of the deck: office hours, assignments, bench
+ * discipline, what to turn in.  None of it is an argument, so none of it
+ * gets an animation.  Everything below exists to make five plain slides
+ * legible from the back of the room, and nothing else.
+ * --------------------------------------------------------------------- */
+
+/* THE WEEKLY GRID.  It is a schedule, so it is a table: days across,
+   hours down, an empty hour an empty cell.  The source draws it as
+   coloured rectangles with the hour numbers floating beside them, which
+   reads as a picture of a table and is unavailable to a screen reader.
+
+   Colour: the source fills the wetlab and OH cells yellow and the Zoom
+   cell orange.  Neither hue exists in this deck's palette, and yellow is
+   the one thing style/palette.css explicitly warns off for small text.
+   The occupied cells take the deck's box idiom instead -- blue rule on a
+   pale ground, the same as .boxes -- and the Zoom cell, which is the odd
+   one out in both time and modality, is promoted to vermillion.  It is
+   also the only cell whose label says Zoom, so hue is not carrying the
+   distinction alone (1.4.1). */
+.slide .gridwrap{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center}
+.slide table.sched{width:100%;table-layout:fixed;margin:0;
+  border-collapse:separate;border-spacing:7px}
+.slide table.sched th,.slide table.sched td{font-size:28px;font-weight:400;
+  line-height:1.2;padding:13px 0;text-align:center}
+.slide table.sched thead th{font-weight:700;padding:0 0 2px}
+.slide table.sched th[scope="row"]{padding-right:18px;
+  text-align:right;color:var(--muted)}
+.slide table.sched td.on{border:2px solid var(--blue);border-radius:5px;
+  background:#f5f7fa}
+.slide table.sched td.zoom{border-color:var(--vermillion);
+  color:var(--vermillion);font-weight:700}
+
+/* THE ENZYME BOX on the bench-discipline slide.  In the source this is a
+   screenshot of a spreadsheet cell, gridlines and all.  It is text, not a
+   photograph, so it is set as text -- the same reason the sequence slides
+   earlier in this deck are typed out rather than captured. */
+.slide .callout{border:2px solid var(--blue);border-radius:6px;
+  background:#f5f7fa;padding:20px 28px 22px;margin:0 0 34px;
+  font-size:28px;line-height:1.4}
+
+/* THE TUBE PHOTO.  A photograph, so it stays a photograph.  The red X and
+   the two captions are PowerPoint objects sitting on top of it in the
+   source, not part of the image, so they are drawn here: the X in the
+   deck's vermillion over the domed tube, the captions under each tube.
+   The overlay is positioned in percentages of a square box, which is the
+   image's own aspect ratio, so it tracks the photo at any scale. */
+.slide .tubes{margin:0;display:flex;flex-direction:column;align-items:center}
+.slide .tubes .photo{position:relative;width:min(100%,420px);aspect-ratio:1}
+.slide .tubes .photo img{display:block;width:100%;height:100%;object-fit:contain}
+.slide .tubes .photo svg{position:absolute;inset:0;width:100%;height:100%}
+.slide .tubes .caps{display:flex;width:min(100%,420px);margin-top:6px;
+  font-size:24px}
+.slide .tubes .caps span{flex:1 1 0;text-align:center}
+.slide .tubes .caps .no{color:var(--vermillion);font-weight:700}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 51 -->
+<!-- The hinge.  The lecture proper ended on "Questions?" at the close of
+     06; from here the deck is the weekly meeting.  The source marks that
+     with a full-bleed slide in the deck's own blue -- the title slide's
+     blue, not a section divider's amber -- so this is data-bg="lecture",
+     which is also why lecture.js files it as kind: "lecture". -->
+<article class="slide" data-bg="lecture">
+  <h1>All-Hands</h1>
+  <template class="desc">A full-bleed blue slide, the same blue as the title slide, reading All-Hands. The lecture ends here and the weekly meeting begins.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 52 -->
+<article class="slide">
+  <h1>Office Hours and Wetlab Availability</h1>
+  <p>Javad: 2-3pm Tuesday</p>
+  <p>JCA: 2-3pm Thursday (and 6pm Wednesday on Zoom)</p>
+
+  <div class="gridwrap">
+    <table class="sched">
+      <!-- table-layout is fixed, so the column widths come from here and
+           not from a width on a tbody cell, which fixed layout ignores.
+           Without this the hour column takes a full sixth of the slide. -->
+      <colgroup>
+        <col style="width:92px"><col><col><col><col><col>
+      </colgroup>
+      <thead>
+        <tr>
+          <td></td>
+          <th scope="col">M</th>
+          <th scope="col">Tu</th>
+          <th scope="col">W</th>
+          <th scope="col">Th</th>
+          <th scope="col">F</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">2</th>
+          <td class="on">wetlab</td>
+          <td class="on">OH/lab</td>
+          <td class="on">wetlab</td>
+          <td class="on">OH/lab</td>
+          <td class="on">wetlab</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td class="on">wetlab</td>
+          <td></td>
+          <td class="on">wetlab</td>
+          <td></td>
+          <td class="on">wetlab</td>
+        </tr>
+        <tr>
+          <th scope="row">6</th>
+          <td></td>
+          <td></td>
+          <td class="on zoom">Zoom OH</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <template class="desc">Office hours and wetlab availability. Javad holds office hours 2 to 3pm Tuesday; JCA holds them 2 to 3pm Thursday, and 6pm Wednesday on Zoom. Below, the week as a grid, days across and hours down. At 2pm: wetlab Monday, Wednesday and Friday, office hours or lab Tuesday and Thursday. At 3pm: wetlab Monday, Wednesday and Friday only. At 6pm: Zoom office hours on Wednesday, the one entry that is not in the building.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 53 -->
+<!-- A bCourses screenshot.  Kept as a raster: it is a picture of the page
+     the students actually have to go to, and retyping it would be a
+     different claim -- it would say "here are the deadlines" rather than
+     "here is where the deadlines live". -->
+<article class="slide">
+  <h1>Week 2 Assignments</h1>
+  <figure class="fig">
+    <img src="img/07-bcourses-week2.png"
+         alt="The Week 2 module on bCourses, listing two assignments. Wetlab4: Projects, available until Dec 20 at 11:59pm, due Dec 16 at 11:59pm, 79 points. Design 2: Basic Cloning, available until Dec 22 at 11:59pm, due Sep 17 at 11:59pm, 10 points. Both are published.">
+  </figure>
+  <template class="desc">A screenshot of the Week 2 module on bCourses. It holds two published assignments: Wetlab4: Projects, due Dec 16, 79 points; and Design 2: Basic Cloning, due Sep 17, 10 points.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 54 -->
+<!-- Bench discipline.  The source carries "never let the enzymes warm up"
+     TWICE -- once in the box at the top and once as the first bullet --
+     and both are reproduced, because that repetition is the slide making
+     its point rather than an authoring slip.  No h1: the source slide has
+     no title, and the box is the title. -->
+<article class="slide">
+  <div class="callout"><strong>Never let enzymes warm up!</strong> Only take the enzyme cooler out of the freezer when you are actively using it, and only take the tubes out of it when actively dispensing. Hold the enzyme tube by the top of the tube while dispensing and do not place it in a rack.</div>
+
+  <div class="cols wide-left">
+    <ul>
+      <li>Do not let the enzymes warm up &ndash; do not put them in a rack, do not leave them out of the freezer for extended periods</li>
+      <li>The buffer tubes are not trash</li>
+      <li>Avoid domed cap PCR tubes</li>
+    </ul>
+
+    <figure class="tubes">
+      <div class="photo">
+        <img src="img/07-pcr-tubes.png"
+             alt="Two PCR tubes photographed side by side. The one on the left has a flat cap; the one on the right has a cap domed upwards.">
+        <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+          <path d="M66 53L84 77M84 53L66 77" fill="none" stroke="#ba3a13"
+                stroke-width="6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="caps"><span>Flat Cap</span><span class="no">Domed</span></div>
+    </figure>
+  </div>
+
+  <template class="desc">Bench discipline. A box across the top: never let enzymes warm up. Only take the enzyme cooler out of the freezer when you are actively using it, and only take the tubes out of it when actively dispensing; hold the enzyme tube by the top while dispensing and do not place it in a rack. Three bullets repeat and extend that: do not let the enzymes warm up, do not put them in a rack, do not leave them out of the freezer for extended periods; the buffer tubes are not trash; avoid domed cap PCR tubes. Beside the bullets, a photograph of two PCR tubes. The left one, captioned Flat Cap, is the one to use. The right one, captioned Domed, is struck through with a red X.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 55 -->
+<article class="slide">
+  <h1>Wetlab Project Results</h1>
+  <ul class="tight">
+    <li>The &lsquo;Analysis&rsquo; page of pP6 and &lsquo;miniprep&rsquo; page of BestP outline what you turn in</li>
+    <li>You do not need to give us physical paper</li>
+  </ul>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/07-pp6-analysis.png"
+           alt="The pP6 Sequence Analysis worksheet, TPcon6-P6 (79): where to find your sequencing results, how to compare your reads against the pP6 map, which spreadsheet page to fill out for each well-read clone, and the steps for closing out the experiment with your supervisor. Below that, a table naming every field you have to fill in, from exp and clone_id through to Notes.">
+    </figure>
+    <figure class="fig">
+      <img src="img/07-bestp-miniprep.png"
+           alt="The BestP Secondary Minipreps worksheet, TPcon6-BestP (79): identify one culture of any promoter at 95 percent of the activity of pJ19, miniprep at most four of them, label and side-label each elution tube, record the box and well location, copy all the relative activity data to the BestP Results tab, then clean up.">
+    </figure>
+  </div>
+  <template class="desc">Wetlab project results. The Analysis page of pP6 and the miniprep page of BestP are what set out the deliverables, and nothing has to be handed in on paper. The two worksheets are shown side by side: the pP6 sequence analysis sheet on the left, with its field table, and the BestP secondary miniprep protocol on the right.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 56 -->
+<article class="slide">
+  <h1>Week 3 Assignments</h1>
+  <figure class="fig">
+    <img src="img/07-bcourses-week3.png"
+         alt="Three bCourses modules. Week 3 holds Design3: Gibson Assembly, due Sep 17 at 11:59pm, 15 points. Week 4 holds Design4: Golden Gate Assembly, due Sep 24 at 11:59pm, 15 points. Week 5 holds Design5: Site-Directed Mutagenesis, due Oct 1 at 11:59pm, 15 points.">
+  </figure>
+  <ul class="tight" style="margin:22px 0 0">
+    <li data-build="1"
+        data-desc="First bullet: you should be done with pipette training in the next week. Contact JCA if you have not gotten your points on bcourses.">Should be done with pipette training in the next week, contact JCA if you haven&rsquo;t gotten your points on bcourses</li>
+    <li data-build="2"
+        data-desc="Second bullet: you should start pP6 this week, or next week at the latest.">Should start pP6 this week or next at latest</li>
+  </ul>
+  <template class="desc">A screenshot of the next three bCourses modules: Week 3, Design3: Gibson Assembly, due Sep 17; Week 4, Design4: Golden Gate Assembly, due Sep 24; Week 5, Design5: Site-Directed Mutagenesis, due Oct 1. Fifteen points each. Two reminders follow, one at a time.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

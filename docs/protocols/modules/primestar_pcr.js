@@ -32,7 +32,9 @@ export function factory(values = {}) {
   const overage = Math.max(0, Number(values.overage ?? 0.10));
   const mmRaw = values.use_mastermix;
   const mmParsed = (mmRaw === true || mmRaw === "true" || mmRaw === "on");
-  const useMastermix = (mmRaw === undefined ? (n > 4) : mmParsed);
+  // FOUR OR MORE, NOT MORE THAN FOUR. JCA ruled 2026-09-10 after two statements of the rule
+  // disagreed at exactly 4, which is a common batch size: ">=4 is right".
+  const useMastermix = (mmRaw === undefined ? (n >= 4) : mmParsed);
 
   // Per-reaction volumes (µL), 50 µL total
   const per = {

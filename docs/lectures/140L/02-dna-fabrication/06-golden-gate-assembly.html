@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Golden Gate Assembly &ndash; DNA Fabrication</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* Page-local only.  Nothing here belongs in the shared deck.css.
+
+   COLOUR, held across every slide of this section so a student can track
+   one thing down four slides:
+
+     .site  blue        the BsaI recognition site, GGTCTC / GAGACC
+     .mut   vermillion  the 4 bp junction — what Golden Gate is about
+     .pt    ink + rule  the point mutation, on the EIPCR slides
+     .off   muted       a piece that has been cut away and thrown out
+
+   The point mutation gets ink and an underline rather than the third
+   colour rung.  Amber and vermillion differ only in lightness under
+   red-green CVD, and on slides 45, 46 and 49 the junction and the
+   mutation sit inside the SAME line of sequence — the one pairing
+   style/palette.css explicitly warns off.  A rule is a second channel,
+   which is what 1.4.1 asks for anyway. */
+.slide pre.dna .pt{font-weight:700;text-decoration:underline;
+  text-decoration-thickness:2px;text-underline-offset:5px}
+.slide .pt{font-weight:700;text-decoration:underline;
+  text-decoration-thickness:2px;text-underline-offset:4px}
+.slide pre.dna .off{color:var(--muted);font-weight:400}
+
+/* .step is a flex row, so its text must be ONE child or the 14px gap
+   opens up between every inline element.  And .site/.mut are scoped to
+   pre.dna in deck.css, so a step line that names a site needs its own
+   pair — same two colours, no new ones. */
+.slide .step .site{color:var(--slate)}
+.slide .step .mut{color:var(--red)}
+
+/* Slide 49 sets the oligos apart from the template by WEIGHT, not hue,
+   because the four hues are already spoken for above — and because the
+   source slide's own instruction is "your oligos are in black". */
+.slide pre.dna .tpl{color:var(--muted)}
+.slide pre.dna .oli{font-weight:700}
+
+/* The EIPCR pair.  seq/06-eipcr.js draws one figure into both slides at
+   identical coordinates, so nothing moves when the deck steps from the
+   first to the second — that is the point of the pair.  This spacer is
+   the contract: it holds the flow content clear of the drawing. */
+.slide .figgap{height:452px}
+
+/* the "ponder" idiom, as section 02 sets it */
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{margin-bottom:0}
+.slide .prose{flex:1 1 auto;min-height:0;display:flex;align-items:center}
+.slide .prose p{max-width:1180px;font-size:30px;line-height:1.55;margin:0}
+</style>
+</head>
+<body>
+
+<!-- 43 -->
+<article class="slide" data-bg="section">
+  <h1>Golden Gate Assembly</h1>
+  <p><code>GoldenGate frag1 frag2 frag3 BsaI product_name</code></p>
+  <template class="desc">Section divider: Golden Gate Assembly. Beneath it, the Construction File line for the operation, in monospace: GoldenGate, then three fragments frag1 frag2 frag3, then BsaI, then the name of the product.</template>
+</article>
+
+<!-- 44.  Sequence text in the source, so it is rebuilt natively rather
+     than captured: three states of the same two molecules, aligned
+     column for column so a base can be tracked down the cascade.
+
+     The discarded ends are drawn.  The source does not draw them, but
+     the whole claim of this slide is that a Type IIS enzyme cuts OUTSIDE
+     its site and therefore removes itself — and the only way to see that
+     land is to watch the blue leave with the grey. -->
+<article class="slide">
+  <h1 class="small" style="margin-bottom:4px">Golden Gate Reactions</h1>
+  <p style="font-size:24px;color:var(--muted);margin:0 0 12px"><span class="seqtext" style="font-size:24px">BsaI &nbsp;GGTCTC(N)<sub>1</sub> &middot; CCAGAG(N)<sub>5</sub></span> &mdash; the cut lands one base past the site on the top strand, five on the bottom</p>
+  <div class="cascade">
+<pre class="dna">5&rsquo;-ATGCCATAGCATTTTTATCCATAAGATTAGCG<span class="mut">GATC</span>t<span class="site">GAGACC</span>ccatg-3&rsquo;
+3&rsquo;-TACGGTATCGTAAAAATAGGTATTCTAATCGC<span class="mut">CTAG</span>a<span class="site">CTCTGG</span>ggtac-5&rsquo;
+
+                    5&rsquo;-cactg<span class="site">GGTCTC</span>G<span class="mut">GATC</span>TTACCTGACGCTTTTTATCGCAACTCTCTAC-3&rsquo;
+                    3&rsquo;-gtgac<span class="site">CCAGAG</span>C<span class="mut">CTAG</span>AATGGACTGCGAAAAATAGCGTTGAGAGATG-5&rsquo;</pre>
+
+  <div class="step" data-build="1"
+       data-desc="On the click the two molecules have been cut. Each keeps a four-base 5-prime overhang, GATC, shown in red. The two ends carrying the blue GGTCTC sites have been thrown outward and are drawn in grey: the right-hand end of the first molecule, and the left-hand end of the second. Neither of the two pieces that are kept has a BsaI site left in it."><span class="arrow">&darr;</span><span>BsaI cuts <em>outside</em> its own site, so both <span class="site">GGTCTC</span> sites leave with the grey ends</span></div>
+<pre class="dna" data-build="1">5&rsquo;-ATGCCATAGCATTTTTATCCATAAGATTAGCG-3&rsquo;          5&rsquo;-<span class="mut">GATC</span><span class="off">t</span><span class="site">GAGACC</span><span class="off">ccatg</span>-3&rsquo;
+3&rsquo;-TACGGTATCGTAAAAATAGGTATTCTAATCGC<span class="mut">CTAG</span>-5&rsquo;          3&rsquo;-<span class="off">a</span><span class="site">CTCTGG</span><span class="off">ggtac</span>-5&rsquo;
+
+5&rsquo;-<span class="off">cactg</span><span class="site">GGTCTC</span><span class="off">G</span>-3&rsquo;              5&rsquo;-<span class="mut">GATC</span>TTACCTGACGCTTTTTATCGCAACTCTCTAC-3&rsquo;
+3&rsquo;-<span class="off">gtgac</span><span class="site">CCAGAG</span><span class="off">C</span><span class="mut">CTAG</span>-5&rsquo;              3&rsquo;-AATGGACTGCGAAAAATAGCGTTGAGAGATG-5&rsquo;</pre>
+
+  <div class="step" data-build="2"
+       data-desc="Second click: the two kept pieces have joined through their shared GATC overhang into one continuous duplex, sixty-seven base pairs long, with the four junction bases still in red at the seam."><span class="arrow">&darr;</span><span>T4 DNA Ligase &mdash; one <span class="mut">GATC</span> overhang on each piece, so they join one way only</span></div>
+<pre class="dna" data-build="2">5&rsquo;-ATGCCATAGCATTTTTATCCATAAGATTAGCG<span class="mut">GATC</span>TTACCTGACGCTTTTTATCGCAACTCTCTAC-3&rsquo;
+3&rsquo;-TACGGTATCGTAAAAATAGGTATTCTAATCGC<span class="mut">CTAG</span>AATGGACTGCGAAAAATAGCGTTGAGAGATG-5&rsquo;</pre>
+  <p data-build="2" style="margin-top:10px;font-size:26px;max-width:1160px"><strong>No BsaI site in the product</strong> &mdash; no scar. Then PCR with external oligos</p>
+  </div>
+  <template class="desc">Under the title, the catalogue entry for BsaI: GGTCTC with the cut one base past the site on the top strand and five past on the bottom. Then two molecules written as letters, each carrying a BsaI site in blue near one end, the two sites pointing inward at each other. Four bases at the coming junction are red on both: GATC on the top strand, CTAG on the bottom. The molecules are set one above the other with the junctions in the same column, so the two GATCs line up.</template>
+</article>
+
+<!-- 45 and 46.  One animation in the source, split across two slides
+     carrying the identical figure; only the sequence underneath changes.
+     seq/06-eipcr.js draws the figure into both at the same coordinates.
+     The narration is the source deck's note for slide 45, split at the
+     three asterisks its author left in it to mark the beats. -->
+<article class="slide" data-seq="eipcr-a">
+  <h1 class="small">EIPCR Mutagenesis</h1>
+  <div class="figgap" aria-hidden="true"></div>
+  <div data-part="1" style="width:max-content;max-width:100%;margin:0 auto">
+<pre class="dna">5&rsquo;-&hellip;ATGCCATAGCATTTTTATCCATAAGA<span class="mut">TTAG</span>C<span class="site">GAGACC</span>ccatg-3&rsquo;
+3&rsquo;-&hellip;TACGGTATCGTAAAAATAGGTATTCT<span class="mut">AATC</span>G<span class="site">CTCTGG</span>ggtac-5&rsquo;
+
+               5&rsquo;-cactg<span class="site">GGTCTC</span>a<span class="mut">TTAG</span>TAC<span class="pt">ctt</span>ACGCTTTTTATCGCAACTCTCTAC&hellip;-3&rsquo;
+               3&rsquo;-gtgac<span class="site">CCAGAG</span>t<span class="mut">AATC</span>ATG<span class="pt">gaa</span>TGCGAAAAATAGCGTTGAGAGATG&hellip;-5&rsquo;</pre>
+  </div>
+</article>
+
+<article class="slide" data-seq="eipcr-b">
+  <h1 class="small">EIPCR Mutagenesis</h1>
+  <div class="figgap" aria-hidden="true"></div>
+  <div data-part="0" style="width:max-content;max-width:100%;margin:0 auto">
+<pre class="dna">5&rsquo;-&hellip;ATGCCATAGCATTTTTATCCATAAGA<span class="mut">TTAG</span>TAC<span class="pt">ctt</span>ACGCTTTTTATCGCAACTCTCTAC&hellip;-3&rsquo;
+3&rsquo;-&hellip;TACGGTATCGTAAAAATAGGTATTCT<span class="mut">AATC</span>ATG<span class="pt">gaa</span>TGCGAAAAATAGCGTTGAGAGATG&hellip;-5&rsquo;</pre>
+  </div>
+</article>
+
+<!-- 47 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">EIPCR</div>
+  </div>
+  <div class="prose"><p>Design a Construction File to change the 5&rsquo; end of RFP in pBca9145-Bca1144 from atggc<span class="pt">g</span>agtagcgaagacg to atggc<span class="pt">t</span>agtagcgaagacg without making additional mutations using BsaI EIPCR</p></div>
+  <template class="notes">
+# PCR amplification
+PCR o1 o2 pBca9145-Bca1144#5 ipcr
+
+# Golden Gate Assembly
+GoldenGate ipcr BsaI pBca9145-mutRFP
+
+# Sequences
+oligo o1 CCAAAggtctcGatggcTagtagcgaagacgttatc
+oligo o2 CAGTAggtctcAccatAGATCCTTTCTCCTCTTTC
+
+To arrive at this,
+1) start with the map of on pBca9145-Bca1144#5 (from the tutorials)
+2) Make the single base change to that map
+3) Pick a golden gate junction.  I chose the first 4 bp of the ORF
+4) Including the 4bp junction, find ~20 bp annealing regions forward and reverse
+5) Add BsaI restriction sites and 5&rsquo; tails
+  </template>
+  <template class="desc">A question for the room, marked with the deck's thinking figure. It asks for a Construction File that changes the 5-prime end of RFP in pBca9145-Bca1144 from atggcgagtagcgaagacg to atggctagtagcgaagacg — one base, g to t, marked in bold and underlined in each — without making any other mutation, using BsaI EIPCR. The answer is not on the slide.</template>
+</article>
+
+<!-- 48 -->
+<article class="slide">
+  <h1 class="small">Golden Gate from Plasmids</h1>
+  <p>One vector per bin, each has matching, unique 4bp overhangs:</p>
+  <figure class="fig">
+    <img src="img/06-gg-plasmids.png"
+         alt="Nine small plasmids in a row, each carrying a spectinomycin marker and one part C1 to C9 flanked by a BsaI site, with a different four-base overhang written at each side: aggt, ccac, ggta, ccga, tacg, tgaa, atcg, atca, gaac, gctt. A tenth plasmid, pX-LacZ, carries a LacZ cassette between the same kind of sites. One arrow labelled one tube, BsaI plus ligase, leads to a single large plasmid, pGFPi, in which all nine parts sit in order between the same four-base junctions">
+  </figure>
+  <ul class="tighter" style="margin-top:18px">
+    <li>Build basic parts in plasmids and sequence-confirm</li>
+    <li>Assembly them by pooling the plasmid DNA, then digest (BsaI) and ligate (T4 Ligase) simultaneously</li>
+  </ul>
+  <template class="notes">The golden gate method is a popular one-pot assembly method that employs type Iis-generated overhangs.  A different 4 bp overhang is chosen for each junction by inclusion in a vector set.  Each vector contains the BsaI site, and each fragment to be assembled is constructed as a golden gate part in one of these vectors.  The various part-containing plasmids are mixed together in a reaction containing BsaI and T4 Ligase.  Since all the overhangs are designed to be unique, there is only one way for the fragments to assemble into a transformable product.</template>
+  <template class="desc">A row of nine part-carrying plasmids, each with its part flanked by BsaI sites and by a four-base overhang that is written out and is different for every junction, plus a tenth vector carrying LacZ. One arrow, labelled one tube, BsaI plus ligase, leads to a single assembled plasmid in which all nine parts sit in the one order the overhangs allow.</template>
+</article>
+
+<!-- 49.  This slide renders with white rectangles over the sequence in
+     LibreOffice.  That is a PowerPoint animation state, not damage: the
+     bold black oligo lines are drawn on top of the coloured duplexes and
+     the exporter flattens the wrong frame.  Rebuilt here from the notes
+     and the underlying text, with the oligo/template distinction carried
+     by weight, which is what "your oligos are in black" means. -->
+<article class="slide">
+  <h1 class="small">Design of a Golden Gate junction</h1>
+  <ul class="tight">
+    <li>Construct the sequences of the fragments you are joining</li>
+    <li data-build="1"
+        data-desc="Second step: add 4 bp as the annealing region, or pick the last 4 bp of one of the two fragments, or have it flank the junction. In the sequences below this is the red TTAG and its partner AATC.">Add 4 bp as the annealing region, or pick the last 4 bp of one of the two fragments, or have it flank the junction</li>
+    <li data-build="2"
+        data-desc="Third step: copy and paste the BsaI sites and 5-prime tails. These are the blue GAGACC and GGTCTC and the lowercase ccatg and cactg outside them.">Copy and paste the BsaI sites and 5&rsquo; tails</li>
+    <li data-build="3"
+        data-desc="Fourth step: find a roughly 20 bp annealing region on the fragment ends.">Find a ~20 bp annealing region on the fragment ends</li>
+    <li data-build="4"
+        data-desc="Fifth step: your oligos are in black. In the pair of duplexes below, the bottom strand of the upper one and the top strand of the lower one are set in bold black — those two strands are the oligos you order. The strands they are annealed to are grey, because they are template you already have.">Your oligos are in black</li>
+  </ul>
+  <div class="cascade">
+<pre class="dna">5&rsquo;-<span class="tpl">&hellip;ATGCCATAGCATTTTTATCCATAAGA</span><span class="mut">TTAG</span><span class="tpl">C</span><span class="site">GAGACC</span><span class="tpl">ccatg</span>-3&rsquo;
+3&rsquo;-<span class="tpl">&hellip;</span><span class="oli">TACGGTATCGTAAAAATAGGTATTCT</span><span class="mut">AATC</span><span class="oli">G</span><span class="site">CTCTGG</span><span class="oli">ggtac</span>-5&rsquo;
+
+               5&rsquo;-<span class="oli">cactg</span><span class="site">GGTCTC</span><span class="oli">a</span><span class="mut">TTAG</span><span class="oli">TAC</span><span class="pt">ctt</span><span class="oli">ACGCTTTTTATCGCAACTCTCTAC</span><span class="tpl">&hellip;</span>-3&rsquo;
+               3&rsquo;-<span class="tpl">gtgac</span><span class="site">CCAGAG</span><span class="tpl">t</span><span class="mut">AATC</span><span class="tpl">ATG</span><span class="pt">gaa</span><span class="tpl">TGCGAAAAATAGCGTTGAGAGATG&hellip;</span>-5&rsquo;</pre>
+  </div>
+  <template class="desc">A five-step recipe for designing one Golden Gate junction, revealed a step at a time, over a worked pair of sequences: the end of one fragment above and the start of the next below, offset so their four-base junctions sit in the same column. The junction TTAG and AATC is red, the BsaI sites GAGACC and GGTCTC are blue, and the two strands you would actually order as oligos are set in bold black against the grey of the template.</template>
+</article>
+
+<!-- 50 -->
+<article class="slide" data-bg="section">
+  <h1>Questions?</h1>
+  <template class="desc">The closing slide of the lecture half of the deck: Questions?</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/06-eipcr.js" defer></script>
+</body>
+</html>

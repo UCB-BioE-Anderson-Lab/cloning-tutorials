@@ -51,7 +51,13 @@ function sectionIndex(){
  * ------------------------------------------------------------------ */
 function tpl(slide, cls){
   const t = slide.querySelector(":scope > template." + cls);
-  return t ? t.innerHTML.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim() : "";
+  /* Read the template's parsed content, not its innerHTML.  Serialising a
+     template back to HTML re-escapes its text, so a note containing a literal
+     ">" -- a FASTA header, say -- arrived in the presenter panel and the speech
+     channel as the four characters "&gt;".  textContent on the content fragment
+     also drops inline markup cleanly, where the old tag-stripping regex left a
+     space behind and so put one before the following comma. */
+  return t ? t.content.textContent.replace(/\s+/g, " ").trim() : "";
 }
 
 function buildSteps(){

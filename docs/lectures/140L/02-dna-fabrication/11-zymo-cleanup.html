@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Zymo Cleanup &ndash; DNA Fabrication</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* Page-local only.  deck.css is shared and is not touched from here.
+
+   Six slides.  Two of them are drawings and live in seq/11-zymo.js; the
+   other four are a divider, two product photographs and a screenshot,
+   and need almost nothing beyond what deck.css already gives them.
+
+   THE WHITE-LINE-ART CHECK, run on each raster before it was kept.  A
+   figure drawn for the source deck's grey ground disappears on white.
+   None of the three here is at risk: 79 and 80 are photographs shot on a
+   light ground, 83 is a screenshot of a white page with dark text.  The
+   one figure that WAS drawn in a hue set this deck does not own is the
+   silica diagram on 81, in olive on a grey disc, and that one is not
+   kept -- it is redrawn in the palette. */
+
+/* The two figure slides reserve their drawing area with a spacer, the
+   same contract 06 uses: the sequence appends an absolutely positioned
+   SVG, and this holds the flow content out of its way.  Nothing else is
+   in the flow on either slide, so the spacer is the whole body. */
+.slide .figbox{flex:1 1 auto;min-height:0}
+
+/* Slide 83's closing line is the source's, set under the screenshot at
+   reading size rather than bullet size: it is an aside about two variant
+   protocols, not a fourth thing to do. */
+.slide p.aside{font-size:28px;margin:22px 0 0;max-width:1180px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 78 -->
+<article class="slide" data-bg="section">
+  <h1>Zymo Cleanup</h1>
+  <template class="desc">Section divider: Zymo Cleanup. The bench half of the deck turns from running a gel to getting DNA out of a reaction and into clean water.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 79 -->
+<!-- A product photograph, so it stays a photograph.  The point of the
+     slide is recognising the box on the shelf, which is not a thing a
+     redrawing can do. -->
+<article class="slide">
+  <h1 class="small">Zymo Research: DNA Clean &amp; Concentrator</h1>
+  <figure class="fig">
+    <img src="img/11-zymo-kit.jpg"
+         alt="The Zymo Research DNA Clean and Concentrator-5 kit as it is sold: a yellow box with the Zymo Research logo, flanked by a bottle of DNA Wash Buffer and a bottle of DNA Binding Buffer, a small vial of elution buffer, and a row of six small clear spin columns lying in front.">
+  </figure>
+  <template class="desc">A photograph of the Zymo Research DNA Clean and Concentrator-5 kit: the yellow box, the wash and binding buffer bottles, the elution buffer vial, and a row of the small clear spin columns the DNA actually goes through.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 80 -->
+<article class="slide">
+  <h1 class="small">Qiagen: QIAquick PCR Purification Kit Print</h1>
+  <figure class="fig">
+    <img src="img/11-qiagen-kit.jpg"
+         alt="The Qiagen QIAquick PCR Purification Kit (250) as it is sold: a blue box, two large bottles labelled Buffer PBI binding buffer and Buffer PE wash buffer, a small bottle of Buffer EB elution buffer, and several purple-topped spin columns lying beside it.">
+  </figure>
+  <template class="desc">A photograph of the Qiagen QIAquick PCR Purification Kit: the blue box, the binding and wash buffer bottles, the elution buffer, and the purple-topped spin columns. It is the same method as the Zymo kit sold by someone else, with the buffers under different names.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 81 -->
+<!-- The chemistry.  Redrawn rather than kept: the source's magnified
+     disc is line art in olive and pale blue, and the guanidinium
+     structure is a small molecule, which is the case the deck rebuilds
+     natively every time.  seq/11-zymo.js draws it in three beats that
+     follow the sentences of the source note.
+
+     The source draws the column TWICE -- once on the left with the load
+     and the product written round it, once on the right as the thing the
+     magnifier is pointed at.  They are the same column, so here there is
+     one, and the cone comes off its silica pad, which is what the disc
+     is a magnification of. -->
+<article class="slide" data-seq="zymo-chem">
+  <h1 class="small">Zymo Cleanup Chemistry</h1>
+  <div class="figbox" aria-hidden="true"></div>
+</article>
+
+<!-- ---------------------------------------------------------------- 82 -->
+<!-- The column run.  The source shows three states side by side and
+     leaves the room to reverse-engineer the order; the note walks four,
+     in order, so it is built one per click.  The fourth is the drying
+     spin, which the source figure does not draw and the note does. -->
+<article class="slide" data-seq="zymo-column">
+  <h1 class="small">DNA Purification Columns</h1>
+  <div class="figbox" aria-hidden="true"></div>
+  <div class="src">Adapted from takarabio.com</div>
+</article>
+
+<!-- ---------------------------------------------------------------- 83 -->
+<!-- The cheatsheet.  Kept as a raster on purpose: this slide is not
+     asking anyone to read nine steps off a projector, it is saying that
+     the sheet exists and is on the bench.  Retyping it would turn a
+     pointer into a protocol, which is a different claim and a second
+     copy of a number that has to stay in step with the lab's. -->
+<article class="slide">
+  <h1>Zymo Cleanup</h1>
+  <figure class="fig">
+    <img src="img/11-zymo-cheatsheet.png"
+         alt="The Regular Zymo Cleanup cheatsheet. It removes the polymerase, dNTPs, buffer and most of the oligonucleotides from a PCR reaction, and the buffer and restriction enzymes from a digest. Nine steps: add 180 microlitres of Zymo ADB buffer to the reaction; transfer into the Zymo column; spin at full speed 15 seconds and discard the waste; add 200 microlitres of PE Buffer; spin 15 seconds, discard; add 200 microlitres of PE Buffer again; spin 15 seconds, discard; spin 90 seconds to dry the sample, discard; elute with Elution Buffer into a fresh 1.5 millilitre Eppendorf tube, adding the volume on your protocol sheet down the middle of the column without letting it stick to the sides, then spin 45 seconds.">
+  </figure>
+  <p class="aside">There are also variant protocols for small fragments (&lt;200 bp long) and for DNA embedded in agarose gel</p>
+  <template class="notes">These cheatsheats with the protocol are in the lab</template>
+  <template class="desc">A screenshot of the Regular Zymo Cleanup cheatsheet, the one that is printed and kept at the bench: a short paragraph on what the procedure removes, then the nine numbered steps, from adding 180 microlitres of ADB buffer through two PE buffer washes and a 90 second drying spin to the elution. Below it, a line noting that there are also variant protocols for fragments under 200 base pairs and for DNA embedded in agarose gel.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/11-zymo.js" defer></script>
+</body>
+</html>

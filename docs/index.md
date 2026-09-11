@@ -118,3 +118,10 @@ wrong quietly. Copies are at the bench; these are the same cards, for looking at
    Design an ortholog scan for the complex gene *ispA* as a capstone project, integrating bioinformatics, cloning strategy, and documentation.
 
 Each tutorial includes **step-by-step instructions, videos, and interactive examples**.
+
+## Lectures
+
+Slide decks from BioE 140L. They run in the browser: arrow keys advance a step, **G** jumps between sections, and **P** opens presenter view with the narration.
+
+1. **[DNA Manipulation Enzymes](lectures/140L/01-dna-enzymes/00-intro.html)**  
+   The enzymes that cut, join, copy, and modify DNA, grouped by the reaction each one runs.
