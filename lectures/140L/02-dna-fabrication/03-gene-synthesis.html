@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Gene Synthesis &ndash; DNA Fabrication</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* A subtitle sitting directly under the h1, in the source deck's own
+   parenthetical form.  Not a heading: it names the same thing twice. */
+.slide p.sub{font-size:34px;color:var(--muted);margin:-14px 0 0}
+
+/* The two vendor specifications on the metrics slide.  They quote the
+   same five measures, so stacking them made the reader hold four numbers
+   in their head to compare the fifth.  Set as one comparison instead:
+   the measures down the left, a vendor to a column, values reading
+   straight across.  No rules are drawn; space holds the columns apart,
+   and the table claims the leftover height so the rows breathe rather
+   than piling against the title. */
+.slide table.metrics{border-collapse:collapse;table-layout:fixed;width:100%;
+  margin:0;flex:1 1 auto;min-height:0}
+.slide table.metrics col.measure{width:300px}
+.slide table.metrics th,.slide table.metrics td{font-size:28px;line-height:1.34;
+  text-align:left;vertical-align:top;font-weight:400;padding:0 44px 22px 0}
+.slide table.metrics thead th{font-weight:700;padding-bottom:40px}
+.slide table.metrics tbody th{font-weight:700}
+
+/* The oligo lists on the two ponder slides.  Long enough that the deck's
+   27px mono would not fit the box, so they are set smaller and tighter;
+   the sequence still has to be readable from the back of the room. */
+.slide pre.orf{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:24px;line-height:1.32;letter-spacing:.01em;margin:6px 0 0;white-space:pre}
+
+/* The two "ponder" slides, set the way 02-ad-hoc-assembly.html sets its
+   pair: the source deck's own marker for a question the room is meant to
+   answer, beside the deck's question headline. */
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{margin-bottom:0}
+
+/* The design-tool URL, kept exactly as it is written on the source slide.
+   It is long, so it breaks anywhere rather than running off the slide. */
+.slide a.tool{font-size:23px;line-height:1.4;color:var(--blue);
+  overflow-wrap:anywhere;display:inline-block}
+
+/* A drawing that follows a list takes the leftover height and centres in
+   it, rather than sitting tight under the last bullet with the bottom of
+   the box empty. */
+.slide .growfig{flex:1 1 auto;min-height:0;display:flex;align-items:center}
+
+/* The cost half of "Why don't we always do this?".  The source's bare
+   "$$" bullet is a heading over the three lines that follow it, so it is
+   set as one, and the two figures under it are drawn to length against a
+   shared left edge: the gap between them is the argument, and a reader
+   should not have to divide 200,000 by 6,000 to see it.  The bars carry
+   no axis and no scale of their own; they are the two numbers already in
+   the sentences above them, laid out end to end. */
+.slide .money{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center}
+.slide .money > p{margin:0 0 26px}
+.slide .money p.mhead{font-size:34px;font-weight:700;margin:0 0 18px}
+.slide .costs p{margin:0 0 10px}
+.slide .costs{max-width:1240px}
+.slide .costs .bar{height:22px;background:var(--ink);margin:0 0 34px}
+.slide .costs .bar.big{background:var(--blue);margin-bottom:0}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 10 -->
+<article class="slide" data-bg="section">
+  <h1>Gene Synthesis</h1>
+  <p>Building up gene-length DNAs from single bases</p>
+  <template class="notes">Gene Synthesis refers to the construction of gene-length DNA, typically 800bp to 3kb in length, at base-level precision.</template>
+  <template class="desc">Section divider: Gene Synthesis. The subtitle reads, building up gene-length DNAs from single bases.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 11 -->
+<article class="slide" data-seq="gs-ladder">
+  <h1>Gene Synthesis</h1>
+  <p class="sub">(aka DNA total synthesis)</p>
+  <div class="src">Trends Biotechnol. 2009 Feb;27(2):63-72 PMID: 19111926</div>
+</article>
+
+<!-- ---------------------------------------------------------------- 12 -->
+<article class="slide">
+  <h1>Current metrics</h1>
+
+  <table class="metrics">
+    <colgroup><col class="measure"><col><col></colgroup>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">IDT single-sequence oligonucleotide synthesis, 25 nmole scale, 2026</th>
+        <th scope="col" data-build="1"
+            data-desc="The second column arrives: Twist Clonal Genes, 2026, and the five measures can now be read across. Size 0.3 to 5.0 kb of insert against 15 to 60 bases at this synthesis scale. Price from 9 cents per base pair plus a cloning fee of 35 dollars and up per construct, against 47 cents per base at US list. Yield 1 microgram to 1 milligram against 10 nanomoles. Turnaround 10 business days against over 90 percent of orders shipping within 24 hours. And the DNA arrives as an NGS-verified double-stranded plasmid clone rather than a chemically pure, sequence non-clonal, single-stranded oligo.">Twist Clonal Genes, 2026</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">Size</th>
+          <td>15-60 bases at this scale</td>
+          <td data-build="1">0.3 - 5.0 kb insert</td></tr>
+      <tr><th scope="row">Price</th>
+          <td>$0.47 per base, US list</td>
+          <td data-build="1">From 9&cent; per bp, plus a cloning fee of $35 and up per construct</td></tr>
+      <tr><th scope="row">Yield</th>
+          <td>10nmol</td>
+          <td data-build="1">1 ug - 1 mg</td></tr>
+      <tr><th scope="row">Turnaround time</th>
+          <td>Over 90% of orders ship in 24 hrs</td>
+          <td data-build="1">10 business days</td></tr>
+      <tr><th scope="row">State</th>
+          <td>Chemically pure, sequence non-clonal, single-stranded</td>
+          <td data-build="1">NGS-verified double-stranded plasmid clone</td></tr>
+    </tbody>
+  </table>
+  <div class="src">Vendor list prices, September 2026</div>
+
+  <template class="desc">The two vendor specifications set as one comparison: the five measures down the left, a vendor to a column, values reading straight across. The first column is IDT single-sequence oligonucleotide synthesis at the 25 nanomole scale in 2026: size 15 to 60 bases, price 47 cents per base at US list, yield 10 nanomoles, turnaround with over 90 percent of orders shipping within 24 hours, and the DNA arrives chemically pure, sequence non-clonal and single-stranded. The second column is empty until a click. A source line under the table reads, vendor list prices, September 2026.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 13 -->
+<article class="slide" data-seq="gs-amidite">
+  <h1>Oligonucleotide Synthesis</h1>
+</article>
+
+<!-- ---------------------------------------------------------------- 14 -->
+<article class="slide">
+  <h1 class="small">Phosphoramidite oligonucleotide synthesis</h1>
+  <ul class="tight">
+    <li>Cost ~$11 at an academic contract rate (~$28 at list) and come in 24 hrs reliably</li>
+    <li>Available from 6 bases up to 200 with a long-oligo product (IDT Ultramer, Eurofins EXTREmer)</li>
+    <li>The price break is a scale boundary, not a length penalty: the 25 nmole scale stops at 60 bases, so a 61-mer forces the 100 nmole scale and $0.47 per base becomes $0.86</li>
+    <li>They are synthesized 3&rsquo; to 5&rsquo;, opposite that of polymerases</li>
+    <li>Non-clonal, deletions and truncations increase towards the 5&rsquo; end</li>
+  </ul>
+
+  <div class="growfig" data-build="1"
+       data-desc="A drawing of the fourth line. Both strands are written with the 5-prime end at the left. The chemistry builds the oligo on a CPG bead that holds its 3-prime end, so the chain grows leftward, at the 5-prime end. A polymerase extends the other way, adding to the 3-prime end, which carries a half barb.">
+  <svg width="1380" height="212" viewBox="0 0 1380 212" aria-hidden="true">
+    <g font-family="Helvetica Neue,Arial,Helvetica,sans-serif">
+      <!-- phosphoramidite chemistry: the 3' end is held by the bead, so
+           every new base is added at the 5' end and the chain grows left -->
+      <text x="0" y="72" font-size="27" font-weight="700" fill="#111111">Phosphoramidite chemistry</text>
+      <g fill="none" stroke="#111111" stroke-width="3.4" stroke-linecap="round">
+        <path d="M470 62H830"/>
+        <circle cx="866" cy="62" r="30"/>
+      </g>
+      <text x="866" y="69" text-anchor="middle" font-size="20" fill="#767676">CPG</text>
+      <text x="452" y="70" text-anchor="end" font-size="24" fill="#767676">5&#8242;</text>
+      <text x="828" y="34" text-anchor="end" font-size="24" fill="#767676">3&#8242;</text>
+      <path d="M560 22H472M486 12L470 22L486 32" fill="none" stroke="#004373"
+            stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="452" y="30" text-anchor="end" font-size="24" fill="#004373">each new base is added here</text>
+
+      <!-- a polymerase: adds to the 3' end, which gets the half barb -->
+      <text x="0" y="182" font-size="27" font-weight="700" fill="#111111">A polymerase</text>
+      <g fill="none" stroke="#111111" stroke-width="3.4" stroke-linecap="round">
+        <path d="M470 172H830M807 160L830 172"/>
+      </g>
+      <text x="452" y="180" text-anchor="end" font-size="24" fill="#767676">5&#8242;</text>
+      <text x="848" y="180" font-size="24" fill="#767676">3&#8242;</text>
+      <path d="M740 132H828M814 122L830 132L814 142" fill="none" stroke="#004373"
+            stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="722" y="140" text-anchor="end" font-size="24" fill="#004373">each new base is added here</text>
+    </g>
+  </svg>
+  </div>
+
+  <template class="desc">Five lines on what phosphoramidite oligonucleotide synthesis costs and can do: about eleven dollars at an academic contract rate, about twenty-eight at list, and 24 hours; 6 bases up to 200 with a long-oligo product; a price break that is a scale boundary rather than a length penalty, because the 25 nanomole scale stops at 60 bases and a 61-mer forces the 100 nanomole scale; built 3-prime to 5-prime unlike a polymerase; and non-clonal with deletions and truncations rising toward the 5-prime end.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 15 -->
+<article class="slide" data-seq="gs-lca">
+  <h1>Ligase Chain Assembly</h1>
+</article>
+
+<!-- ---------------------------------------------------------------- 16 -->
+<article class="slide">
+  <h1 class="small">Example: <span style="font-size:.72em">Gene synthesis oligo design</span></h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/03-lca-editor.png" alt="A sequence editor window showing the lambda repressor sequence, with restriction sites highlighted and the whole insert selected">
+    </figure>
+    <ul class="tight">
+      <li data-build="1"
+          data-desc="First instruction appears: construct the complete sequence to be synthesized, including restriction sites and 5-prime tails.">Construct the complete sequence to be synthesized, including restriction sites and 5&rsquo; tails</li>
+      <li data-build="2"
+          data-desc="Second instruction appears: copy the sequence to the clipboard.">Copy to the clipboard</li>
+    </ul>
+  </div>
+  <template class="desc">A screenshot of a sequence editor holding the lambda repressor sequence with its restriction sites highlighted, beside the two instructions that go with it.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 17 -->
+<article class="slide">
+  <h1 class="small">Example: <span style="font-size:.72em">Gene synthesis oligo design</span></h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/03-lca-spreadsheet.png" alt="A spreadsheet with the target sequence pasted in red at the top and the 50-base oligos it has been cut into listed in blue below, then the reverse complement pasted below that and cut the same way">
+    </figure>
+    <ul class="tight">
+      <li data-build="1"
+          data-desc="First instruction appears: paste the sequence you wish to synthesize into the spreadsheet.">Paste the sequence you wish to synthesize into the spreadsheet</li>
+      <li data-build="2"
+          data-desc="Second instruction appears: also paste in the reverse complement sequence.">Also paste in the reverse complement sequence</li>
+      <li data-build="3"
+          data-desc="Third instruction appears: the sequences in blue are the ones you order synthesized.">Sequences in blue here are ones you order synthesized</li>
+    </ul>
+  </div>
+  <template class="notes">File Demo of LCR design.xls  in DNA Fabrication Examples zip file</template>
+  <template class="desc">A screenshot of the design spreadsheet: the target sequence pasted in red across the top, the 50-base oligos it has been cut into listed in blue beneath it, and the reverse complement pasted and cut the same way below.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 18 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">LCA example question</div>
+  </div>
+  <p>Design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Ligase Chain Assembly</p>
+  <p style="margin-bottom:0"><b>amilGFP ORF:</b></p>
+  <pre class="orf">ATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGC
+AGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGG
+AAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTT
+GACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGAC
+ATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTA
+TTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTC
+ATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAG
+AAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGA
+GGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCAC
+TCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAA
+ATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACAT
+GCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAA</pre>
+  <template class="notes">First assembly the sequence of the PCR product including the BioBrick ends:
+ccattgaattcgcggccgcttctagATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGCAGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGGAAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTCATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAGAAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAAactagtagcggccgctgcagacsgc
+
+Then paste that and its reverse complement into “Demo of LCR design.xls”to get:
+
+Forward oligos:
+ccattgaattcgcggccgcttctagATGTCTTATTCAAAGCATGGCATCG
+TACAAGAAATGAAGACGAAATACCATATGGAAGGCAGTGTCAATGGCCAT
+GAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGGAAACA
+GATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCT
+CCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACA
+AAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGG
+AATGTCATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAG
+CCAGCTGGAACATTCGACTCGAAGGAAATTGCTTCATCCACAAATCCATC
+TTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAGAAGAC
+CATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGC
+TAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCAC
+AGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTGCC
+CCCGAATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAA
+GTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTT
+AACCCTTTGAAGGTTAAATAAactagtagcggccgctgcagacsgc
+
+Reverse oligos:
+gcsgtctgcagcggccgctactagt
+TTATTTAACCTTCAAAGGGTTAACATGAGCCGCGGCATGTGCTTCCAGCT
+TGACTGTAAAGCCTTTTGCACTTTGGCCAAGGTCGGTCCTCACAATTTGA
+TGTTCTACGACATGATTCGGGGGCAGTGTGACCGGCTTCTCTGTTTTGTA
+AGTGGAGTGAAATTGGCATCTGTGAGAACCACCTCCTTCGAGCATAAGAA
+ACATAGTCACGTCACCTCTTAGCACCTCTTTAGACACAGTCATTTTTTCG
+AAGGACTTATCCCAGTCAATGGTCTTCTTTTTCATTACGGGTCCATCAGC
+GGGAAAGTTTACGCCATGAAAGATGGATTTGTGGATGAAGCAATTTCCTT
+CGAGTCGAATGTTCCAGCTGGCTGTAGCAACTGCTCCATCCTCAAATAGA
+AATGACCTTTCATATGACATTCCATCTGGGAATGCTTGCTTGAAATAGTC
+AGGCATGTCTGCCGGGTACTTTGTGAAGCAACGGTTTCCATATTGAAAGA
+CTGATGACAGTATGTCAAAGGAGAATGGAAGGGGTTTTCCCGCAGGCTTG
+ATGATCACTAATTCGGACATCTGTTTCCCTTCGTAAGGGTACCCAGTTCC
+TACACCTTCGATCGTAAATTCATGGCCATTGACACTGCCTTCCATATGGT
+ATTTCGTCTTCATTTCTTGTACGATGCCATGCTTTGAATAAGACATctag
+aagcggccgcgaattcaatgg</template>
+  <template class="desc">A question for the room, marked with the deck's thinking figure: design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Ligase Chain Assembly. The amilGFP open reading frame is printed below it, 696 bases in twelve lines.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 19 -->
+<!-- The two PCA slides used to animate the same reaction twice.  They are
+     split here along JCA's own storyboard: this one is the DESIGN, all of
+     which happens at a desk, and slide 20 is the tube.  seq/03-pca.js
+     takes the gene, cuts it into four overlapping oligos with the shared
+     regions marked, adds the two external oligos, and breaks the lot into
+     a 5' to 3' order form. -->
+<article class="slide" data-seq="gs-pca">
+  <h1>PCA  Assembly</h1>
+  <p class="sub">(Polymerase chain assembly)</p>
+</article>
+
+<!-- ---------------------------------------------------------------- 20 -->
+<!-- The reaction, drawn natively by seq/03-pca-cycles.js in the right-hand
+     column of the .cols below: set up the tube, then two rounds of
+     denature, anneal and extend on one persistent set of four strands,
+     the full-length product, and the PCR and clone at the end.  The list
+     is the slide's own, kept as written; a sequence-driven slide does not
+     run its data-build steps, so the sequence reveals the lines itself,
+     each alongside the beat it describes.  The source deck's "TRENDS in
+     Biotechnology" credit went with the published figure it belonged to,
+     which is no longer what is drawn here. -->
+<article class="slide" data-seq="gs-pca-cycles">
+  <h1>PCA  Assembly</h1>
+  <p class="sub">(Polymerase chain assembly)</p>
+  <div class="cols wide-right" style="margin-top:26px">
+    <ul class="tight">
+      <li data-build="1">Start with overlapping 50-60bp Oligos</li>
+      <li data-build="2">Combine in a thermostable polymerase reaction</li>
+      <li data-build="3">Run a PCR-like program</li>
+      <li data-build="4">Use &ldquo;assembly product&rdquo; as template for a conventional PCR with external oligos</li>
+      <li data-build="5">Clone the product into a vector to generate a synthon</li>
+    </ul>
+  </div>
+</article>
+
+<!-- ---------------------------------------------------------------- 21 -->
+<article class="slide">
+  <h1 class="small">Example: <span style="font-size:.72em">Gene synthesis oligo design</span></h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/03-lca-editor.png" alt="The same sequence editor window, showing the complete cassette with its restriction sites highlighted">
+    </figure>
+    <div>
+      <ul class="tight">
+        <li data-build="1"
+            data-desc="First instruction appears: design the complete cassette as you did with LCA.">Design the complete cassette as you did with LCA</li>
+        <li data-build="2"
+            data-desc="Second instruction appears: design the PCA oligos with the design tool called LCA and PCA Calculator, and the link to that spreadsheet.">Design PCA oligos using a design tool &ldquo;LCA and PCA Calculator&rdquo;</li>
+      </ul>
+      <p data-build="2" style="margin:0"><a class="tool" href="https://docs.google.com/spreadsheets/d/1eNCzKm96QCwKWe_z9HStvaNXQ8GecXSNM7IuTrw-WDs/edit#gid=452338215">https://docs.google.com/spreadsheets/d/1eNCzKm96QCwKWe_z9HStvaNXQ8GecXSNM7IuTrw-WDs/edit#gid=452338215</a></p>
+    </div>
+  </div>
+  <template class="desc">The same sequence editor screenshot beside two instructions: design the complete cassette as for LCA, then design the PCA oligos with the LCA and PCA Calculator, whose link is given below them.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 22 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">PCA example question</div>
+  </div>
+  <p>Design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Polymerase Chain Assembly</p>
+  <p style="margin-bottom:0"><b>amilGFP ORF:</b></p>
+  <pre class="orf">ATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGC
+AGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGG
+AAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTT
+GACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGAC
+ATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTA
+TTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTC
+ATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAG
+AAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGA
+GGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCAC
+TCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAA
+ATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACAT
+GCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAA</pre>
+  <template class="notes">First assembly the sequence of the PCR product including the BioBrick ends:
+ccattgaattcgcggccgcttctagATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGCAGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGGAAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTCATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAGAAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAAactagtagcggccgctgcagacsgc
+
+Then paste that into GeneDesign to get:
+
+>.01.o01 59bp
+CCATTGAATTCGCGGCCGCTTCTAGATGTCTTATTCAAAGCATGGCATCGTACAAGAAA
+>.01.o02 56bp
+CTGCCTTCCATATGGTATTTCGTCTTCATTTCTTGTACGATGCCATGCTTTGAATA
+>.01.o03 55bp
+AGACGAAATACCATATGGAAGGCAGTGTCAATGGCCATGAATTTACGATCGAAGG
+>.01.o04 52bp
+CCCTTCGTAAGGGTACCCAGTTCCTACACCTTCGATCGTAAATTCATGGCCA
+>.01.o05 55bp
+ACTGGGTACCCTTACGAAGGGAAACAGATGTCCGAATTAGTGATCATCAAGCCTG
+>.01.o06 54bp
+TGTCAAAGGAGAATGGAAGGGGTTTTCCCGCAGGCTTGATGATCACTAATTCGG
+>.01.o07 58bp
+AACCCCTTCCATTCTCCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTG
+>.01.o08 53bp
+CATGTCTGCCGGGTACTTTGTGAAGCAACGGTTTCCATATTGAAAGACTGATG
+>.01.o09 55bp
+TCACAAAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGG
+>.01.o10 59bp
+ATCCTCAAATAGAAATGACCTTTCATATGACATTCCATCTGGGAATGCTTGCTTGAAAT
+>.01.o11 50bp
+CATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAGCCAGC
+>.01.o12 54bp
+GGATGAAGCAATTTCCTTCGAGTCGAATGTTCCAGCTGGCTGTAGCAACTGCTC
+>.01.o13 55bp
+GACTCGAAGGAAATTGCTTCATCCACAAATCCATCTTTCATGGCGTAAACTTTCC
+>.01.o14 56bp
+GGTCTTCTTTTTCATTACGGGTCCATCAGCGGGAAAGTTTACGCCATGAAAGATGG
+>.01.o15 58bp
+ATGGACCCGTAATGAAAAAGAAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGAC
+>.01.o16 54bp
+CACCTCTTAGCACCTCTTTAGACACAGTCATTTTTTCGAAGGACTTATCCCAGT
+>.01.o17 55bp
+TGTCTAAAGAGGTGCTAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGG
+>.01.o18 54bp
+TGGAGTGAAATTGGCATCTGTGAGAACCACCTCCTTCGAGCATAAGAAACATAG
+>.01.o19 53bp
+CTCACAGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTG
+>.01.o20 59bp
+CCTCACAATTTGATGTTCTACGACATGATTCGGGGGCAGTGTGACCGGCTTCTCTGTTT
+>.01.o21 50bp
+ATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAAGTGCA
+>.01.o22 52bp
+GCATGTGCTTCCAGCTTGACTGTAAAGCCTTTTGCACTTTGGCCAAGGTCGG
+>.01.o23 59bp
+CAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAAACT
+>.01.o24 50bp
+GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
+  <template class="desc">The same question run the other way, marked with the deck's thinking figure: design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Polymerase Chain Assembly, with the amilGFP open reading frame printed below.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 23 -->
+<article class="slide">
+  <h1>Why don&rsquo;t we always do this?</h1>
+  <ul>
+    <li>In practice it&rsquo;s slow (our designs took 6 months)</li>
+    <li>As a non-clonal fragment it only gets you to 3kb before you need to break into two steps, due to mutation rates; sequence-verified clonal genes go further (7kb at Twist, 15kb at Elegen, 50kb at Ansa)</li>
+    <li>Difficult to synthesize repetitive sequences, biased GC-content, secondary structure (promoters and terminators are problematic)</li>
+  </ul>
+
+  <div class="money">
+    <p class="mhead">$$</p>
+    <p>Total number of bases for 2014&rsquo;s 140L: 43517</p>
+    <div class="costs">
+      <!-- Twist Clonal Genes, 0.5-1.8 kb tier: 43517 x $0.09 = $3,917, plus
+           the $35 cloning vector on each of about 60 parts = $2,100.  About
+           $6,000 all in, or $0.1383 per bp against 2014's $0.5055.  The
+           composite figure is JCA's own $741,459 scaled by that same 0.274,
+           since the base count behind it came from his project data and we
+           do not have it.  Composites run longer and would mostly fall in
+           Twist's 13 cent tier, so $200,000 is a floor, not a midpoint. -->
+      <p>Would cost about ~<b>$6,000</b> for basic parts</p>
+      <!-- 6,000 / 200,000 = 3.00 percent.  The two bars share a left
+           edge and one scale; neither carries an axis of its own. -->
+      <div class="bar" style="width:3.00%"></div>
+      <p data-build="1"
+         data-desc="The second figure arrives under the first: it would cost about 200,000 dollars for all the composite parts. Its bar runs the full width of the block, against the stub drawn for the basic parts above it.">Would cost ~<b>$200,000</b> for all the composite parts</p>
+      <div class="bar big" data-build="1"></div>
+    </div>
+  </div>
+  <div class="src">Twist Clonal Genes list price, September 2026</div>
+
+  <template class="notes">Today, it is still the case that gene synthesis is used somewhat sparingly along side more conventional fabrication methods. It’s main drawback is that it is slow, and it is also expensive. At the current price, it is impractical for even commercial users to not reuse previously-synthesized genes.  When I teach my BioE 140L course at Berkeley, around 20 students each produce around 3 parts.  In a typicall year, this amounts to around 40000 bases which for the basic parts alone would cost around $6K.  If all the composite parts that got generated during a project were synthesized de novo without reuse, the costs would begin pushing $200K.  Thus, this methodology has a long way to go before other methods of fabrication can be fully eliminated from the design-build-test cycle.  However, combined with automated assembly methods that enable reuse of synthetic sequence, the price point for these procedures is already making non-standardized DNA fabrication a thing of the past.</template>
+  <template class="desc">The limits of gene synthesis. Three objections first, as a list: it is slow, six months for our designs; as a non-clonal fragment it reaches only 3 kilobases before the work has to be split in two because of mutation rates, while sequence-verified clonal genes go further, to 7 kilobases at Twist, 15 at Elegen and 50 at Ansa; and repetitive sequence, biased GC content and secondary structure are all hard, which makes promoters and terminators the problem cases. Then cost, under a heading of two dollar signs: the total number of bases for the 2014 course was 43517, which would cost about 6,000 dollars for basic parts. That figure is drawn as a short bar. A source line at the foot of the slide reads, Twist Clonal Genes list price, September 2026.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/03-ladder.js" defer></script>
+<script src="seq/03-phosphoramidite.js" defer></script>
+<script src="seq/03-lca.js" defer></script>
+<script src="seq/03-pca.js" defer></script>
+<script src="seq/03-pca-cycles.js" defer></script>
+</body>
+</html>

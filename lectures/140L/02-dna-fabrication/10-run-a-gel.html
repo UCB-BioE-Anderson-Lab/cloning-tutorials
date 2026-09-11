@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Run a Gel &ndash; DNA Fabrication</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.  deck.css is shared and is not touched from here.
+ *
+ * Three slides: a divider, the dye slide, and the protocol.  Only one of
+ * them needed anything invented, and that is the dye slide's grid.
+ *
+ * THE WHITE-LINE-ART CHECK, run on every raster before it was kept.  The
+ * source slide carries four pictures and two of them survive as rasters:
+ * both are photographs shot in this lab under room light, on dark
+ * benchtops, so neither depends on the source deck's grey ground to be
+ * visible.  The other two pictures are chemical line drawings in pure
+ * black on transparent -- they would not have vanished on white either,
+ * but they are line art, so they are rebuilt natively in seq/10-gel.js,
+ * where the reasoning for that call is written out in full.
+ * --------------------------------------------------------------------- */
+
+/* SLIDE 76.  Four pictures with captions under two of the columns, which
+   is the source's own arrangement kept.  It is set as a four-row grid --
+   picture, caption, picture, caption -- rather than as four independent
+   cells, because that is what makes the two molecules share a baseline
+   and the two photographs share theirs.  Cells sized per column would
+   let each picture grow to its own caption's height and the row would
+   come out ragged.
+
+   The height is the binding constraint and there is no way around it: a
+   1600x900 slide, less the title and two caption rows, leaves 456px for
+   two rows of picture.  The source deck is 4:3 and had more of it. */
+.slide .dyes{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:minmax(0,1fr) auto minmax(0,1fr) auto;
+  column-gap:56px;row-gap:10px;align-items:stretch;justify-items:center}
+/* minmax(0,1fr), not 1fr: a grid row's automatic minimum is its content,
+   so the intrinsic 800px of the Safe Imager photograph claimed the whole
+   column and squeezed the molecule row to nothing.  Same reason every
+   min-height:0 in deck.css is there. */
+.slide .dyes .mol{width:100%;height:100%;min-height:0;min-width:0}
+.slide .dyes img{min-height:0;min-width:0;max-width:100%;width:auto;
+  height:100%;object-fit:contain}
+
+/* A caption block.  Shrink-wrapped and centred under its column, but set
+   LEFT inside itself: the source aligns "SYBR Green" and "(maybe not a
+   carcinogen?)" on the same left edge, and the two safety asides hang
+   indented off that edge.  Both of those relationships are the source's
+   and both are kept. */
+.slide .dyes .cap{width:max-content;max-width:100%;margin:2px 0 0;
+  font-size:26px;line-height:1.3;text-align:left}
+.slide .dyes .cap .aside{display:block;padding-left:2.6em}
+
+/* "(carcinogen)".  Vermillion is the palette's second rung, for a second
+   thing to look at, and this slide has exactly one thing that is a
+   warning rather than a label: everything else here is a name.  The
+   structures themselves stay ink, which is the call seq/10-gel.js makes
+   and explains. */
+.slide .dyes .cap .warn{color:var(--vermillion)}
+
+/* SLIDE 77.  Two different things on one slide: five things to do at the
+   bench, and the two recipes that say why they work.  The source runs
+   them down one column and interleaves them, so the structure has to be
+   reverse-engineered off the indent; here the procedure holds the left
+   column and the compositions arrive in the right one afterwards, which
+   shows the same structure without moving a word.
+
+   The procedure is set at 32px, larger than the deck's 30px default, and
+   the compositions at 25px.  The volumes, the percentage and the voltage
+   are what a student carries to the bench, so they are the most legible
+   marks on the slide and the reasons are plainly secondary to them. */
+/* 2.2em, not the usual 1.5: a list marker sits OUTSIDE the content edge,
+   so at 1.5em the "1." of a 32px list hung out past x=110 and into the
+   slide's left padding.  Measured, at 2.2em it clears.  The auditor
+   catches this; the eye does not. */
+.slide ol.bench{margin:0;padding-left:2.2em}
+.slide ol.bench li{font-size:32px;line-height:1.32;margin-bottom:42px}
+.slide ol.bench li:last-child{margin-bottom:0}
+.slide ol.bench li b{font-weight:700}
+
+.slide .recipe-h{font-family:var(--sans);font-size:26px;font-style:italic;
+  font-weight:400;margin:0 0 14px}
+.slide ul.comp{margin:0 0 42px;padding:0;list-style:none}
+.slide ul.comp li{font-size:25px;line-height:1.32;margin-bottom:14px}
+.slide ul.comp li:last-child{margin-bottom:0}
+.slide .recipes > div:last-child ul.comp{margin-bottom:0}
+/* Both columns start under the title rather than being centred in the
+   space below it.  deck.css centres a .cols column, which is right when a
+   column holds one figure; here each holds a list, and two lists that
+   start on different lines read as two unrelated slides. */
+.slide .protocol > *{justify-content:flex-start}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 75 -->
+<!-- Divider.  Olive in the source; the house has one section ground and
+     it is amber.  No speaker notes on this slide in the original, so no
+     notes template: the deck shows an empty note rather than narration
+     somebody made up. -->
+<article class="slide" data-bg="section">
+  <h1>Run a gel</h1>
+  <template class="desc">Section divider: Run a gel. The PCR is off the thermocycler, and the next question is whether it made anything.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 76 -->
+<!-- The dyes and the hardware.  Two structures, redrawn natively by
+     seq/10-gel.js into the two boxes below; two photographs, kept as
+     photographs, because the point of a picture of equipment is
+     recognising the thing on the bench when you walk up to it.
+
+     The sequence draws only the molecules.  Every word on this slide,
+     including the two parenthetical risk notes and the two safety
+     asides, is markup here, so there is one place to read the slide's
+     text and it is this file. -->
+<article class="slide" data-seq="dyes">
+  <h1 class="small">SYBR Green / Safe</h1>
+  <div class="dyes">
+    <div class="mol" data-mol="sybr" aria-hidden="true"></div>
+    <div class="mol" data-mol="etbr" aria-hidden="true"></div>
+    <p class="cap">SYBR Green<br>(maybe not a carcinogen?)<span class="aside">….wear gloves</span></p>
+    <p class="cap">Ethidium Bromide<br><span class="warn">(carcinogen)</span></p>
+    <img src="img/10-safe-imager.jpg"
+         alt="An Invitrogen Safe Imager on the bench: a black box whose top is a deep orange filter screen, lit from underneath by a strip of blue light along the front edge. A pair of orange safety goggles is lying on the filter.">
+    <img src="img/10-gel-rig.jpg"
+         alt="A gel rig sitting on top of a Bio-Rad PowerPac 1000 power supply. The clear acrylic tank has a comb in place at one end and two yellow hazard triangles on its wall; a red lead and a black lead run from its lid down to the power supply's terminals.">
+    <p class="cap">Blue light imager (not UV)<span class="aside">….but wear orange goggles</span></p>
+  </div>
+  <template class="notes">We use SYBR Safe dye which involves a blue lamp, not UV.  This is a safety decision, but actually Ethidium Bromide and a UV lamp works better, though it causes cancer the dye and burns from the UV, so you have to be more careful with it.  The big downside is that these ‘safe’ dyes, of which sybr green is one of a family of products, are not as sensitive, less linear relationship between intensity and signal, and have to be prepared fresh wherease ethidium bromide is highly stable at room temp.</template>
+  <template class="desc">Four things, in two rows. Along the top, the two dyes drawn as structures: SYBR Green on the left, an asymmetric cyanine, a benzothiazolium ring joined by a single carbon bridge to a quinoline that carries a phenyl on its nitrogen and a long amine chain off the ring, captioned as maybe not a carcinogen; and ethidium bromide on the right, a much smaller flat three-ring phenanthridinium with an ethyl on the nitrogen, a phenyl beside it, an amino group on each outer ring and a bromide counterion, captioned as a carcinogen. Wear gloves for either. Along the bottom, the hardware: an Invitrogen Safe Imager, a black box with an orange filter screen lit from below by blue light, with orange goggles lying on it, and beside it the gel rig itself, a clear acrylic tank leaded up to a Bio-Rad power supply.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 77 -->
+<!-- The protocol.  Five numbered steps in the source, numbered 1, 2, 2, 2,
+     2 because PowerPoint restarted the list at every indent change; an
+     ordered list numbers them 1 to 5, which is what the source means and
+     what a student counts off at the bench.  No word is changed,
+     including the source's own "Bromphenol" and "Cylanol".
+
+     The compositions are one build behind the procedure so that the
+     slide reads in the order the room needs it: do this, and here is
+     why it works.  Builds are opacity-only in deck.css, so the right
+     column holds its space from the first frame and nothing reflows. -->
+<article class="slide">
+  <h1>Run the gel</h1>
+  <div class="cols wide-left protocol">
+    <div>
+      <ol class="bench">
+        <li>Add <b>8 uL</b> loading dye and <b>3 uL</b> PCR product to a new PCR tube</li>
+        <li>Cut off a slab of pre-poured <b>1%</b> TAE Agarose Gel</li>
+        <li>Load <b>9uL</b> samples and an additional lane of BstEII ladder</li>
+        <li>Run the gel at <b>175 volts</b> for around <b>10 min</b></li>
+        <li>Take a picture, describe in a Github issue, summarize the results</li>
+      </ol>
+    </div>
+    <div class="recipes">
+      <div data-build="1" data-desc="Beside the procedure, what is in the loading dye: Bromphenol Blue and Xylene Cylanol, the two blue dyes that make the sample visible as it runs; EDTA, to chelate any magnesium and stop the reaction going any further; glycerol, which makes the sample dense enough to sink into the well; and the SYBR Green itself, which rides in with the sample rather than being in the gel or the running buffer.">
+        <p class="recipe-h">Loading dye contains:</p>
+        <ul class="comp">
+          <li>Bromphenol Blue and Xylene Cylanol blue dyes</li>
+          <li>EDTA (to chelate any Mg ions and prevent reactions)</li>
+          <li>Glycerol (makes it dense)</li>
+          <li>SYBR Green (none in the gel or running buffer)</li>
+        </ul>
+      </div>
+      <div data-build="2" data-desc="And below it, what is in TAE, the buffer the gel is cast in and run under: Tris, which holds the pH near neutral, acetate as its counterion, and EDTA again to chelate magnesium.">
+        <p class="recipe-h">TAE contains:</p>
+        <ul class="comp">
+          <li>Tris (buffer at neutral pH)</li>
+          <li>Acetate (counterion to TRIS)</li>
+          <li>EDTA (chelate Mg)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <template class="notes">These cheatsheats with the protocol are in the lab</template>
+  <template class="desc">The gel protocol, five steps. Add 8 microlitres of loading dye and 3 microlitres of PCR product to a new PCR tube. Cut off a slab of pre-poured 1 percent TAE agarose gel. Load 9 microlitre samples plus one extra lane of BstEII ladder. Run at 175 volts for around 10 minutes. Then photograph it, describe it in a Github issue and summarize the results. The right half of the slide is empty for now; the two recipes that explain the procedure arrive there next.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/10-gel.js" defer></script>
+</body>
+</html>

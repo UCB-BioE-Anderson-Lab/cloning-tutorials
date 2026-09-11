@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Digestion, Ligation, Assembly &ndash; DNA Fabrication</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.  deck.css is shared and is not touched from here.
+ *
+ * The last six slides of the deck: a divider, two slides of product
+ * photographs, the ligation cheatsheet, the time-passes card, and
+ * "Questions?".  Nothing here is geometric, so nothing here is a
+ * sequence.  The two decisions that took thought are both recorded
+ * against the slide they belong to.
+ *
+ * THE WHITE-LINE-ART CHECK, run on every raster kept.  None of the four
+ * photographs is line art on the source deck's grey: 85 and 86 are
+ * catalogue product shots on white and a freezer-tray snapshot on blue,
+ * 88 is a flat orange title card.  All survive a white ground unchanged.
+ * --------------------------------------------------------------------- */
+
+/* THE TWO PHOTO SLIDES, 85 and 86.  Both pair one decent-resolution
+   photograph with one small one, so the columns are uneven on purpose:
+   the bigger share goes to whichever image the source deck stored at a
+   usable size, and the small one is capped rather than blown up to fill
+   its column.  228px and 224px wide is all there is; past about twice
+   that they stop being photographs and start being porridge.  The source
+   scales both to roughly 3x, which is why the tubes are soft there. */
+.slide .photos{gap:54px}
+.slide .photos figure.fig img{max-width:100%}
+.slide .photos .small img{max-width:470px;max-height:470px;align-self:center}
+
+/* THE CHEATSHEET, slide 87.  In the source this is a 763x539 screenshot
+   of a web page, and it is text: five volumes, a temperature and a time,
+   which are the reason the slide is in the deck at all.  Blown up to fill
+   1600x900 it is a 1.8x upscale of 13px type, so it is set as type here
+   instead, the same call 09 made on the PCR cheatsheet at slide 73.
+   Wording is the source's throughout, including the sheet's own "ddH20"
+   with a zero and its straight quotes round "T4ligation".
+
+   The page is one column in the browser and would run off the bottom of a
+   16:9 slide set at a readable size, so it is broken at the sheet's own
+   heading: the reaction on the left, the thermocycler program on the
+   right.  No words move between the halves. */
+.slide .sheet-h{font-family:var(--sans);font-size:34px;font-weight:700;
+  margin:0 0 8px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+.slide .sheet-sub{font-family:var(--sans);font-size:29px;font-weight:700;
+  margin:0 0 12px}
+/* The one admonition on the sheet, and the only thing on this slide that
+   stops someone pipetting an example volume into a real reaction.  Bold
+   caps in the source; bold caps in vermillion here, which is the rung the
+   palette keeps for a second thing to look at and nothing else on the
+   slide is claiming. */
+.slide p.warn{font-size:26px;line-height:1.35;font-weight:700;
+  color:var(--vermillion);margin:0 0 22px}
+.slide .sheet p.lead{font-size:27px;line-height:1.35;margin:0 0 18px}
+.slide pre.recipe{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:26px;line-height:1.42;margin:0 0 24px;white-space:pre;
+  background:#f5f7fa;border-radius:6px;padding:20px 28px 22px}
+.slide ol.howto{margin:0;padding-left:1.5em}
+.slide ol.howto li{font-size:27px;line-height:1.35;margin-bottom:12px}
+.slide ol.howto li:last-child{margin-bottom:0}
+.slide .sheet pre.recipe:last-child{margin-bottom:0}
+
+/* SLIDE 88, the time-passes card.  Set exactly as the one at slide 74:
+   full-bleed coloured ground, the card centred on it, and the source's
+   two extra words parked at the bottom right where PowerPoint puts them.
+   The deck has one idiom for this and this is it. */
+.slide .orlater{flex:0 0 auto;margin:14px 0 0;text-align:right;
+  font-style:italic;font-size:30px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 84 -->
+<!-- Divider.  Bright green in the source, like the olive ones earlier;
+     the house has one section ground and it is amber.
+
+     The source breaks the title after the second slash purely because the
+     text box is too narrow, leaving a slash dangling at the end of a line.
+     All three words and both slashes are kept, set on one line, which fits
+     the 1380 content box at the divider's own 76px with room to spare. -->
+<article class="slide" data-bg="section">
+  <h1>Digestion/Ligation/Assembly</h1>
+  <template class="desc">Section divider: Digestion, Ligation, Assembly. The last stretch of the deck, and the step where the purified pieces are cut and joined into the plasmid the experiment is after.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 85 -->
+<!-- Two photographs, so two photographs.  The catalogue shot of the four
+     Thermo tubes is what a restriction enzyme is sold as; the tray shot is
+     what one looks like in this lab's freezer, with the name written on
+     the cap in pen.  The tray is the sharper file and carries the readable
+     labels, so it takes the wider column. -->
+<article class="slide">
+  <h1>Restriction Enzymes</h1>
+  <div class="cols photos">
+    <figure class="fig small">
+      <img src="img/12-thermo-tubes.jpg"
+           alt="A catalogue photograph of four identical Thermo Scientific screw-cap tubes standing in a row on white, their labels reading 10x Unique Buffer, 10x Buffer Tango, Restriction Enzyme and 50x Oligonucleotide. Only the yellow cap on the Buffer Tango tube tells any of them apart at a glance.">
+    </figure>
+    <figure class="fig">
+      <img src="img/12-neb-tray.jpg"
+           alt="Looking down into a blue freezer tray at four white screw caps, each with an enzyme name written on it by hand: BsaI-HFv2, BseRI, 2X G.A. Master Mix and BsmBI-v2. Three of the four are sitting upside down relative to the reader.">
+    </figure>
+  </div>
+  <template class="desc">Two photographs of restriction enzymes. On the left, four Thermo Scientific screw-cap tubes in a row: 10x Unique Buffer, 10x Buffer Tango, Restriction Enzyme, 50x Oligonucleotide. Apart from one yellow cap they are indistinguishable. On the right, a blue freezer tray seen from above with four white caps in it, each hand-lettered with what is inside: BsaI-HFv2, BseRI, 2X G.A. Master Mix, BsmBI-v2.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 86 -->
+<!-- The same pair of pictures for the ligase, and the reason the two
+     slides are next to each other: the note is that these look exactly
+     like the ones on the previous slide.  Invitrogen on the left, New
+     England Biolabs on the right, in the source's own order, and neither
+     is captioned because the source captions neither. -->
+<article class="slide">
+  <h1>T4 DNA Ligase</h1>
+  <div class="cols wide-left photos">
+    <figure class="fig">
+      <img src="img/12-invitrogen-ligase.jpg"
+           alt="A catalogue photograph of the Invitrogen 5X T4 DNA Ligase Buffer product: a white and red carton reading 5X T4 DNA Ligase Buffer, store at minus 20 degrees Celsius, two by 1 millilitre, catalogue number 46300-018, with two blue-capped screw-cap tubes standing in front of it on a white reflective surface.">
+    </figure>
+    <figure class="fig small">
+      <img src="img/12-neb-ligase.jpg"
+           alt="A photograph of two New England Biolabs screw-cap tubes lying side by side: T4 DNA Ligase, catalogue number M0202S, and 10X T4 DNA Ligase Buffer with 10 millimolar ATP. Both are white-capped, clear-bodied and the same shape and size as the Thermo and Invitrogen tubes on the previous slides.">
+    </figure>
+  </div>
+  <template class="notes">All the enzymes come in similarly-looking screw cap tubes, regardless of supplier.  They all look the same, so you need to read the label carefully to know what you are using.</template>
+  <template class="desc">Two photographs of T4 DNA ligase. On the left, the Invitrogen carton of 5X T4 DNA Ligase Buffer with two blue-capped tubes in front of it. On the right, two New England Biolabs tubes, the ligase and its 10X buffer. Different suppliers, different label colours, and the same small clear screw-cap tube in every case.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 87 -->
+<article class="slide">
+  <h1 class="small">Setting up a Ligation Reaction</h1>
+  <h2 class="sheet-h">Ligation of Purified, Digested DNAs</h2>
+  <p class="warn">THIS IS AN EXAMPLE PROTOCOL. FOLLOW THE PROTOCOL ON YOUR INDIVIDUAL WORKSHEET</p>
+  <div class="cols wide-left sheet">
+    <div>
+      <p class="lead">Set up the following reaction in a PCR tube, in the following order:</p>
+      <pre class="recipe">6.5 uL ddH20
+1   uL T4 DNA Ligase Buffer
+1   uL Vector digest
+1   uL Insert digest
+0.5 uL T4 DNA Ligase</pre>
+      <ol class="howto">
+        <li>Pound upside down on the bench to mix thoroughly</li>
+        <li>Give a quick spin to send it back to the bottom of the tube</li>
+        <li>Run the appropriate PCR program on your individual worksheet</li>
+      </ol>
+    </div>
+    <div>
+      <h3 class="sheet-sub">Example PCR program</h3>
+      <p class="lead">Run the "T4ligation" program on the thermocycler:</p>
+      <pre class="recipe">25&deg;C for 30 minutes
+ 4&deg;C forever</pre>
+    </div>
+  </div>
+  <template class="notes">These cheatsheats with the protocol are in the lab</template>
+  <template class="desc">The ligation cheatsheet that is printed and kept in the lab, headed Ligation of Purified, Digested DNAs, with a warning in capitals that this is an example protocol and the protocol to follow is the one on your individual worksheet. The reaction, in the order it is pipetted: 6.5 microlitres of water, 1 of T4 DNA ligase buffer, 1 of vector digest, 1 of insert digest, and last, 0.5 of T4 DNA ligase. Then pound the tube upside down on the bench to mix, give it a quick spin, and run the program from your worksheet. Beside it, the example program: run T4ligation on the thermocycler, which holds 25 degrees Celsius for 30 minutes and then 4 degrees forever.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 88 -->
+<!-- The second time-passes card, and the deck's second one: slide 74 is
+     the same slide with a different card.  Handled the same way, so the
+     deck does this once rather than twice.  The words "THREE HOURS
+     LATER..." are lettered into the image, so they live in the alt text
+     rather than being set again as type; "(or later)" is a separate text
+     box in the source and stays one. -->
+<article class="slide" data-bg="lecture">
+  <figure class="fig">
+    <img src="img/12-three-hours-later.jpg"
+         alt="The SpongeBob SquarePants time card: the words THREE HOURS LATER, followed by an ellipsis, hand-lettered in teal capitals across a squiggly orange and yellow ground.">
+  </figure>
+  <p class="orlater">(or later)</p>
+  <template class="desc">A time-passes card: a squiggly orange title card lettered THREE HOURS LATER, with the words or later added beneath it in brackets. The ligation goes in the thermocycler and the room waits.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 89 -->
+<!-- The last slide of the deck.  Set exactly as the "Questions?" that
+     closes the lecture half at slide 50. -->
+<article class="slide" data-bg="section">
+  <h1>Questions?</h1>
+  <template class="desc">The closing slide of the deck: Questions?</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

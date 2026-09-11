@@ -13,9 +13,11 @@ Do NOT add .md files under docs/lectures/. MkDocs would build them into real
 site pages and index them for search, which is exactly what we don't want.
 That is why this file is .txt.
 
-The source PowerPoint decks live OUTSIDE docs/, in lectures-src/, for the
-same reason: anything under docs/ is copied to the public site, and a 1.6 MB
-binary does not need to ship with every deploy.
+The source PowerPoint decks are NOT in this repo at all.  They live in the
+course Dropbox, and a deck is converted by rendering it to images in a
+scratch directory and building from those.  Anything under docs/ is copied
+to the public site on every deploy, so a 70 MB binary has no business here;
+an earlier lectures-src/ held one and has been removed.
 
 Live URL:  https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/lectures/
 Local:     mkdocs serve  ->  http://127.0.0.1:8000/cloning-tutorials/lectures/
@@ -29,7 +31,8 @@ docs/lectures/
   index.html                   the private index of lectures
   AUTHORING.txt                this file
   140L/
-    01-dna-enzymes/
+    02-dna-fabrication/          DNA Fabrication, same shape as below
+    01-dna-enzymes/              DNA Manipulation Enzymes
       lecture.js               section order — the ONE place order lives
       00-intro.html            a section
       01-endonucleases.html    a section
@@ -48,7 +51,7 @@ panel, overlays, live regions) at load.
 
   <link rel="stylesheet" href="../../deck.css">
   ...
-  <article class="slide" data-bg="green">
+  <article class="slide" data-bg="section">
     <h1>Endonucleases</h1>
     <ul><li>...</li></ul>
     <template class="notes">Spoken narration for this slide.</template>
@@ -61,11 +64,17 @@ panel, overlays, live regions) at load.
 Order matters: deck.js first (it defines window.Deck), then lecture.js
 (sets window.LECTURE), then any sequence files.
 
-data-bg  omitted -> white (the default for content slides)
-         "blue"  -> #1F497D, the lecture intro
-         "green" -> #008000, a section divider
-         "red"   -> #C1272D, enzymes not covered again; skipped in lecture
-         "black" -> #111, the assignment/logistics slides
+data-bg  omitted   -> white.  This is the default and almost every
+                      content slide should use it.
+         "lecture" -> --ground-lecture, the blue title slide of a lecture
+         "section" -> --ground-section, the amber ground of a section divider
+
+Those two are the only values deck.css defines.  The grounds come from
+docs/lectures/style/palette.css, so a palette change moves every deck at
+once; never write a colour here.  Earlier drafts had "blue"/"green"/"red"/
+"black" grounds, which is why some notes still mention them.  They are gone:
+the red one in particular said "we are skipping this", which is a thing to
+say out loud rather than encode as a colour nobody is told the key to.
 
 BUILDS
 ------
@@ -132,9 +141,12 @@ That is all — prev/next and the G menu both read lecture.js.
 
 ADDING A LECTURE
 ----------------
-1. Copy 140L/01-dna-enzymes/ to 140L/NN-name/.
-2. Rewrite lecture.js for the new sections.
+1. Make 140L/NN-name/ with a lecture.js and a seq/ folder.
+2. Write lecture.js for the new sections; it is the only place order lives.
 3. Add a block to docs/lectures/index.html.
+4. If the lecture should be reachable from the site, add a line under the
+   Lectures heading in docs/index.md.  Everything under docs/lectures/ is
+   unlisted until something links to it.
 
 
 PRESENTING

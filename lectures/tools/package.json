@@ -1,0 +1,9 @@
+{
+  "name": "lecture-deck-tools",
+  "private": true,
+  "description": "Render, audit and export the 140L HTML lecture decks. Needs a running mkdocs serve and Google Chrome; puppeteer-core deliberately does not bundle a browser.",
+  "dependencies": {
+    "puppeteer-core": "^24.43.1",
+    "pngjs": "^7.0.0"
+  }
+}

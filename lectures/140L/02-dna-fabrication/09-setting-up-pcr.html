@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Setting up PCR &ndash; DNA Fabrication</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.  deck.css is shared and is not touched from here.
+ *
+ * This section is the bench, not the theory: nine slides of which seven
+ * carry a real photograph of the lab.  Nothing here is redrawn.  Every
+ * image is the source deck's own JPEG, rotated back to the orientation
+ * PowerPoint was displaying it in (four of them are stored on their side
+ * and rotated by the shape, not the file) and otherwise untouched.  The
+ * only things drawn in this file are the arrows, which in the source are
+ * PowerPoint connectors sitting on top of the photographs rather than
+ * part of them.
+ *
+ * Two slides are laid out by absolute position rather than by flow.  They
+ * are flow DIAGRAMS made of photographs -- a thing turns into another
+ * thing, and where each arrow lands is the content -- and the slide is a
+ * fixed 1600x900 authoring surface, so pinning them is exact rather than
+ * fragile.  .bench is that surface: the content box, less the h1 block.
+ * --------------------------------------------------------------------- */
+/* 744 content box, less the 92px the h1 block occupies (60px at 1.1,
+   plus its 26px margin), leaves 652.  650 keeps two pixels in hand. */
+.slide .bench{position:relative;width:1380px;height:650px;flex:0 0 auto}
+.slide .bench img{position:absolute;object-fit:contain}
+.slide .bench .cap{position:absolute;font-size:26px;line-height:1.25;
+  text-align:center}
+.slide .bench .wire{position:absolute;left:0;top:0}
+
+/* The two arrow labels that ride above a horizontal arrow, and the big
+   blue ordinals on the reaction slide.  Blue is rung 1 of the palette:
+   these are the marks the eye is meant to follow. */
+.slide .bench .lab{position:absolute;font-size:28px;line-height:1.2}
+.slide .bench .ord{position:absolute;font-size:42px;font-weight:700;
+  color:var(--blue);line-height:1}
+
+/* "pP6 begins here".  A red-ruled box in the source, and it survives as
+   one: it is the single mark on the slide that says which of these tubes
+   the students' own experiment starts from, so it earns vermillion. */
+.slide .bench .pp6{position:absolute;border:2px solid var(--vermillion);
+  border-radius:5px;color:var(--vermillion);font-size:26px;
+  padding:9px 0 11px;text-align:center}
+
+/* THE FREEZER TOUR.  Five photographs and three labels; a plain grid.
+   The source overlaps the two freezer shots so that the open one sits on
+   the corner of the closed one, which is a PowerPoint habit rather than a
+   claim, so they are set side by side instead.  Captions are only on the
+   three that the source captions -- the freezer is named by the title. */
+.slide .tour{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:repeat(6,1fr);grid-template-rows:1fr 1fr;
+  gap:16px 26px}
+.slide .tour figure{min-height:0;min-width:0;display:flex;
+  flex-direction:column;align-items:center;justify-content:center}
+.slide .tour figure img{flex:1 1 auto;min-height:0;width:100%;
+  object-fit:contain}
+.slide .tour figcaption{flex:0 0 auto;margin-top:9px;font-size:26px;
+  text-align:center}
+.slide .tour .f1{grid-column:1/3}
+.slide .tour .f2{grid-column:3/5}
+.slide .tour .f3{grid-column:5/7}
+.slide .tour .f4{grid-column:1/4}
+.slide .tour .f5{grid-column:4/7}
+
+/* THE CHEATSHEET, slide 73.  In the source this is a 464x309 screenshot of
+   a web page.  It is text -- seven volumes and three instructions, the
+   numbers a student has to read off from the back of the room -- so it is
+   set as text, the same call as the spreadsheet-cell box in 07.  Scaled to
+   fill the slide the screenshot is a 3x upscale of 12px type and the
+   volumes stop being readable, which is the whole reason the slide exists.
+   Wording, including the cheatsheet's own "ddH20" with a zero, is the
+   source's. */
+.slide .sheet-h{font-family:var(--sans);font-size:38px;font-weight:700;
+  margin:0 0 6px;padding-bottom:14px;border-bottom:1px solid var(--rule)}
+.slide pre.recipe{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:28px;line-height:1.42;margin:0 0 26px;white-space:pre;
+  background:#f5f7fa;border-radius:6px;padding:22px 30px 24px}
+.slide ol.howto{margin:0;padding-left:1.5em}
+.slide ol.howto li{font-size:28px;margin-bottom:10px}
+
+/* SLIDE 74.  A full-bleed blue slide carrying one square image, with the
+   source's two words parked at the bottom right where it puts them. */
+.slide .orlater{flex:0 0 auto;margin:14px 0 0;text-align:right;
+  font-style:italic;font-size:30px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 66 -->
+<!-- Divider.  Green in the source; the house has one section ground and it
+     is amber, which is what every other divider in this deck uses. -->
+<article class="slide" data-bg="section">
+  <h1>Setting up PCR</h1>
+  <template class="notes">Let&rsquo;s go through the pP6 experiment step by step</template>
+  <template class="desc">Section divider: Setting up PCR. The lecture stops describing methods here and starts walking through the pP6 experiment at the bench.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 67 -->
+<!-- A screenshot of the actual Google Sheet, kept as a raster for the same
+     reason the bCourses shot in 07 was: it is a picture of the tool the
+     students have to open, not a table of values to be retyped. -->
+<article class="slide">
+  <h1>LabSheets</h1>
+  <p>Step-by-step instructions you bring into the lab, videos explain how to interpret each one</p>
+  <figure class="fig">
+    <img src="img/09-labsheet.png"
+         alt="A Google Sheets window titled TPcon6-P6 Experiment. The open tab is PCR. It carries a signature and date line, the heading TPcon6-P6: PCR (79), then protocol PrimeStar, program PG4K55 and a blank for the thermocycler. A source table lists three items with their construct, concentration and location: F# is P6libF at 10uM in Training1/A, R# is P6libR at 10uM in Training1/B, T# is pTP1 at dil20x in Training1/C. A samples table gives sample 79 as primer1 F#, primer2 R#, template T#, product 3583 bp. The reaction begins 32 uL ddH2O. Tabs along the bottom read Entry, Construction, Samples, PCR, Gel, ZymoAssembly.">
+  </figure>
+  <template class="desc">A screenshot of the TPcon6-P6 experiment LabSheet, a Google Sheet open on its PCR tab. It names the protocol and the thermocycler program, lists where each primer and template is stored, gives the expected 3583 bp product, and then the reaction itself. The other tabs of the workbook, Entry through ZymoAssembly, run along the bottom.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 68 -->
+<!-- The longest slide in the section, and the only one that is a process
+     rather than a place.  Four photographs pinned where the source pins
+     them, with the arrows drawn.
+
+     Build order follows the physical order: what arrives, then the
+     resuspension, then the dilution, then the marker saying this is where
+     the students' own experiment starts.  The labware photograph at the
+     bottom left is present from the first beat -- it is a standing note
+     about which tube to use rather than a step, and it has no arrow into
+     the chain -- and JCA's paragraph about it rides on the beat where the
+     Eppendorf is first named.
+
+     The arithmetic that actually matters here (nmol on the tube label,
+     times ten, is the microlitres of water) is in the narration and NOT on
+     the slide.  It stays in the narration; see the report. -->
+<article class="slide">
+  <h1>Resuspend and dilute oligos</h1>
+
+  <div class="bench">
+    <img src="img/09-oligo-lyophilized.jpg" style="left:76px;top:0;width:120px;height:248px"
+         alt="A small screw-cap tube with a blue lid standing upright, its printed label reading 21087941, J ANDERSON, 54706372, cscB-F, with a sequence and a yield in nanomoles beneath. The tube looks empty.">
+    <div class="cap" style="left:6px;top:254px;width:260px">Lyophilized Oligos<br>from IDT</div>
+
+    <div class="lab" data-build="1" style="left:250px;top:112px;width:110px;text-align:center"
+         data-note="The oligos show up at different amounts, but this value is on the side of the tube in nmoles and also supplied in online documentation. You take the number of nmoles, multiply by 10, and this is the volume of ddH2O to add in microliters. This is special high-quality water that we purchase for molecular biology applications. As a rule of thumb, always use ddH2O when you are working with naked DNA. The DNA redissolves instantly, so just give it a quick shake and a human centrifuge and the 100uM stock is done. For plates, you typically want to start with a spin on a special plate centrifuge. You can order the plate oligos normalized to 5 nM, and thus you can multichannel 50 uL of ddH2O to each sample and mix by pipetting up and down."
+         data-desc="Three arrows lead right from the tube as it arrived, labelled spin, add ddH2O, and shake. They end at a second photograph of the same tube, now holding clear liquid, captioned 100 micromolar stock.">Spin</div>
+    <div class="lab" data-build="1" style="left:390px;top:112px;width:170px;text-align:center">Add ddH<sub>2</sub>O</div>
+    <div class="lab" data-build="1" style="left:590px;top:112px;width:170px;text-align:center">Shake</div>
+
+    <svg class="wire" width="1380" height="650" viewBox="0 0 1380 650"
+         aria-hidden="true" focusable="false">
+      <defs>
+        <marker id="a68" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0 L10 5 L0 10 Z" fill="#767676"/>
+        </marker>
+      </defs>
+      <g data-build="1" fill="none" stroke="#767676" stroke-width="5"
+         marker-end="url(#a68)">
+        <path d="M250 158 H348"/>
+        <path d="M390 158 H548"/>
+        <path d="M590 158 H748"/>
+      </g>
+      <path data-build="2" d="M900 276 V330" fill="none" stroke="#767676"
+            stroke-width="5" marker-end="url(#a68)"
+            data-note="You then make a 10x dilution in water in a 1.5mL Eppendorf tube to make the 10 um aliquot that is the working concentration for PCR. We don&rsquo;t directly make a 10 uM stock in the blue cap tube because the volume would exceed the volume of the container. We typically do the dilutions in the bigger 1.5 mL Eppendorf and run reactions in PCR tubes. 1.5 mL microcentrifuge tubes, or Eppendorf tubes, are thicker plastic than PCR tubes, and have a more durable seal. There is also more writing space on the eppendorfs including a place for a side-label on the side. PCR tubes are a use-once thing, but for things you want to save and access many times, you use an Eppendorf."
+            data-desc="An arrow drops from the 100 micromolar stock, labelled 5 microlitres of stock plus 45 microlitres of water, to a photograph of a 1.5 millilitre Eppendorf cap marked 10 uM. This tenfold dilution is the working concentration for PCR, and it is made in an Eppendorf because 500 microlitres would not fit in the blue-capped tube."/>
+    </svg>
+
+    <img data-build="1" src="img/09-oligo-100um.jpg" style="left:822px;top:0;width:157px;height:220px"
+         alt="The same kind of blue-capped tube, now standing cap downwards in a rack, with a barcoded label wrapped round it. It holds a clear liquid.">
+    <div class="cap" data-build="1" style="left:790px;top:230px;width:220px">100uM Stock</div>
+
+    <div class="lab" data-build="2" style="left:940px;top:272px;width:260px">5 uL stock +<br>45 uL ddH<sub>2</sub>O</div>
+
+    <img data-build="2" src="img/09-oligo-10um.jpg" style="left:823px;top:352px;width:154px;height:120px"
+         alt="Looking down on the hinged flat cap of a 1.5 millilitre Eppendorf tube sitting in a dark rack, with GoO1o1 and 10 uM written across it in marker pen.">
+    <div class="cap" data-build="2" style="left:780px;top:482px;width:240px">10uM Stock<br>1.5 mL Eppendorf</div>
+
+    <div class="pp6" data-build="3" style="left:772px;top:562px;width:256px"
+         data-desc="A red-ruled box under the 10 micromolar stock: pP6 begins here. That working dilution is the first tube of the students&rsquo; own experiment.">pP6 begins here</div>
+
+    <img src="img/09-tubes-eppendorf-pcr.jpg" style="left:90px;top:332px;width:300px;height:268px"
+         alt="Two open tubes side by side on a white bench. The left one is a 1.5 millilitre Eppendorf, taller and in noticeably thicker plastic, with a hinged flat cap. The right one is a PCR tube, smaller, thinner-walled and more sharply tapered.">
+    <div class="cap" style="left:30px;top:608px;width:210px">1.5 mL Eppendorf</div>
+    <div class="cap" style="left:240px;top:608px;width:210px">PCR Tube</div>
+  </div>
+
+  <template class="notes">The oligos from IDT show up lyophilized (freeze dried) in single tubes with a blue lid, or in 96 well plates for a minimum order of 24 oligos. The tubes look empty, but there is a small amount of DNA residue inside you typically can&rsquo;t see. Because you can&rsquo;t see it, there is some risk that it has been dislodged and gotten on the lid. So, step 1 is to give it a quick spin to knock the material to the bottom.</template>
+  <template class="desc">Resuspending and diluting oligos, drawn as a chain of photographs. At the top left, a blue-capped tube of lyophilized oligos as it arrives from IDT. Below it, a photograph of the two kinds of tube used in this lab side by side: a 1.5 millilitre Eppendorf and a PCR tube.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 69 -->
+<article class="slide">
+  <h1>Location of all enzymes and buffers</h1>
+  <div class="tour">
+    <figure class="f1">
+      <img src="img/09-freezer-closed.jpg"
+           alt="A small chest-height laboratory freezer standing closed on top of a white under-counter fridge, with hazard stickers reading laboratory use only, no food or drink allowed, and unsafe for storage of flammable solvents.">
+    </figure>
+    <figure class="f2">
+      <img src="img/09-freezer-open.jpg"
+           alt="The same freezer with its door open. A wire shelf carries several white cardboard cryo boxes, a yellow enzyme cooler and a blue rack.">
+    </figure>
+    <figure class="f3">
+      <img src="img/09-enzyme-coolers.jpg"
+           alt="Two moulded benchtop coolers photographed from above, a yellow minus twenty degree one and a blue one, their wells holding small screw-cap tubes labelled in marker with enzyme names including BamHI, DpnI and T4.">
+      <figcaption>All Enzymes</figcaption>
+    </figure>
+    <figure class="f4">
+      <img src="img/09-oligo-box.jpg"
+           alt="A pink hundred-well storage box seen from above, about half filled with small tubes, each cap numbered in marker pen.">
+      <figcaption>Oligos, templates</figcaption>
+    </figure>
+    <figure class="f5">
+      <img src="img/09-buffer-box.jpg"
+           alt="A blue hundred-well storage box seen from above, with handwritten paper labels standing in the rows: T4 DNA Ligase Buffer 10x, Molecular Biology Grade ddH2O, PrimeStar dNTP Mixture 2.5 mM, PrimeStar GXL Buffer 5x. Each label heads a column of numbered aliquot tubes.">
+      <figcaption>All Buffers, dNTPs, etc.</figcaption>
+    </figure>
+  </div>
+  <template class="notes">The buffer and dNTPs and such are now aliquoted into many smaller tubes. The enzymes still live solo in a cooler. Keep them cold! Use what you need from these tubes, then put them back in the freezer when you&rsquo;re done. The remaining tube is not trash.</template>
+  <template class="desc">Where everything lives. Along the top, the lab freezer shut and then open, and the two benchtop coolers that hold all the enzymes. Along the bottom, a pink box of oligos and templates and a blue box of all the buffers and dNTPs, each aliquoted into many small numbered tubes under a handwritten label.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 70 -->
+<!-- The ordering IS the slide.  Six reagents go into the tube in the order
+     written, and the polymerase goes in seventh and last, which is why the
+     source brackets the first six as "1-6" and gives the polymerase its own
+     "7" with its own arrow.  Those two labels are the source's own text, so
+     the individual lines are NOT renumbered 1 through 6 here; the bracket
+     and the reveal carry the order instead. -->
+<article class="slide">
+  <h1>Set up a single PCR reaction</h1>
+
+  <div class="bench">
+    <div style="position:absolute;left:20px;top:34px;width:400px;font-size:30px;line-height:1.1">
+      <p style="margin:0 0 34px">ddH2O</p>
+      <p style="margin:0 0 34px">Buffer</p>
+      <p style="margin:0 0 34px">dNTPs</p>
+      <p style="margin:0 0 34px">Oligo1 (10 uM)</p>
+      <p style="margin:0 0 34px">Oligo2 (10 uM)</p>
+      <p style="margin:0">Template (dil20x)</p>
+    </div>
+
+    <div class="ord" data-build="1" style="left:466px;top:229px"
+         data-desc="A bracket gathers all six of those reagents and is labelled 1 to 6: they go into the tube first, in the order they are listed, and an arrow carries them in.">1-6</div>
+    <div class="ord" data-build="2" style="left:986px;top:150px"
+         data-desc="A second arrow comes in from the right, labelled 7, carrying the polymerase. It is the seventh addition and it goes in last, after everything else is already in the tube.">7</div>
+    <div class="lab" data-build="2" style="left:1048px;top:238px;font-size:30px">Polymerase</div>
+
+    <svg class="wire" width="1380" height="650" viewBox="0 0 1380 650"
+         aria-hidden="true" focusable="false">
+      <defs>
+        <marker id="a70" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0 L10 5 L0 10 Z" fill="#767676"/>
+        </marker>
+      </defs>
+      <g data-build="1" fill="none" stroke="#767676" stroke-width="5">
+        <path d="M430 26 h22 v448 h-22" stroke-linejoin="round"/>
+        <path d="M558 250 C 634 214, 706 230, 748 280" marker-end="url(#a70)"/>
+      </g>
+      <path data-build="2" d="M1032 262 C 972 250, 916 254, 878 286"
+            fill="none" stroke="#767676" stroke-width="5"
+            marker-end="url(#a70)"/>
+    </svg>
+
+    <img src="img/09-pcr-tube.jpg" style="left:660px;top:300px;width:300px;height:260px"
+         alt="A single empty PCR tube standing on a white bench, its flat cap open and folded back.">
+    <div class="cap" style="left:660px;top:572px;width:300px">PCR Tube</div>
+  </div>
+
+  <template class="desc">Setting up one PCR reaction. Down the left, the six things that go into the tube, in order: water, buffer, dNTPs, the two oligos at 10 micromolar, and the template at a twentyfold dilution. In the middle, an empty PCR tube.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 71 -->
+<article class="slide">
+  <h1>Run the thermocycler</h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/09-thermocycler.jpg"
+           alt="A Bio-Rad DNA Engine Peltier thermal cycler on a bench, both lids raised. The two blocks are full of tubes and are labelled 1A and 1B on strips of tape. Below them, the display and the keypad.">
+    </figure>
+    <p>The LabSheet will tell you which polymerase and which program to run</p>
+  </div>
+  <template class="desc">A Bio-Rad DNA Engine thermal cycler with both of its blocks open and loaded, the blocks labelled 1A and 1B. Beside it, the reminder that the LabSheet names the polymerase and the program.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 72 -->
+<article class="slide">
+  <h1>Buffer and Polymerase Kits</h1>
+  <div class="cols">
+    <div>
+      <h2>PrimeSTAR GXL</h2>
+      <ul>
+        <li>High Fidelity</li>
+        <li>Extremely reliable</li>
+        <li>Good on genomic DNA</li>
+        <li>Use up to 30+ kb</li>
+      </ul>
+    </div>
+    <figure class="fig">
+      <img src="img/09-primestar-tubes.jpg"
+           alt="Three small white-capped kit vials lying on a pale bench, their printed labels turned mostly away from the camera.">
+    </figure>
+  </div>
+  <template class="desc">The kit this course uses: PrimeSTAR GXL. High fidelity, extremely reliable, good on genomic DNA, usable up to thirty kilobases and beyond. Beside the list, the three vials the kit ships as.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 73 -->
+<article class="slide">
+  <h1>PCR Protocol <small>(printed out in lab)</small></h1>
+  <h2 class="sheet-h">Set up a PrimeSTAR PCR (2-40 kb)</h2>
+  <p>Set up the following reaction in a PCR tube, in the following order:</p>
+  <pre class="recipe">32 uL ddH20
+10 uL 5X PrimeSTAR GXL Buffer
+4 uL dNTP Mixture (2.5 mM each)
+1 uL 10uM primer 1
+1 uL 10uM primer 2
+1 uL dil20x plasmid template
+1 uL PrimeSTAR GXL DNA Polymerase</pre>
+  <ol class="howto">
+    <li>Slam on the benchtop to mix thoroughly</li>
+    <li>Give a quick spin to knock all the liquid to the bottom of the tube</li>
+    <li>Run the appropriate PCR program from your worksheet</li>
+  </ol>
+  <template class="notes">These cheatsheats with the protocol are in the lab</template>
+  <template class="desc">The PrimeSTAR PCR cheatsheet that hangs in the lab, for products of 2 to 40 kilobases. The reaction, in the order it is pipetted: 32 microlitres of water, 10 of 5X PrimeSTAR GXL buffer, 4 of dNTP mixture at 2.5 millimolar each, 1 each of the two 10 micromolar primers, 1 of twentyfold diluted plasmid template, and last, 1 of PrimeSTAR GXL polymerase. Then slam the tube on the benchtop to mix, give it a quick spin, and run the program from your worksheet.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 74 -->
+<!-- The time-passes card.  The words "4 hours later..." are lettered into
+     the image itself, so they are in the alt text rather than set again as
+     type; "(or later)" is a separate text box in the source and stays one. -->
+<article class="slide" data-bg="lecture">
+  <figure class="fig">
+    <img src="img/09-four-hours-later.jpg"
+         alt="A blue and turquoise batik print of stylised four-petalled flowers in a grid of squares, with the words 4 hours later, followed by an ellipsis, lettered across the middle of it in white.">
+  </figure>
+  <p class="orlater">(or later)</p>
+  <template class="desc">A time-passes card: a blue batik print lettered 4 hours later, with the words or later added beneath it in brackets.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
