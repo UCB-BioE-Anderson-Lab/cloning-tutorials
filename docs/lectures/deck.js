@@ -262,9 +262,20 @@ document.addEventListener("fullscreenchange", function(){
   b.textContent = isFull() ? "Exit full screen" : "Full screen";
 });
 
-/* Full screen is dropped by the browser on navigation and cannot be
-   re-entered without a gesture, so re-enter on the presenter's next key
-   or click.  (F11 / control-command-F survives the hop on its own.) */
+/* Full screen is dropped by the browser when a section page navigates to
+   the next one, and a section change IS a navigation.  The Fullscreen API
+   cannot be re-entered without a user gesture and a fresh document has
+   none, so this re-enters on the presenter's next key or click.
+
+   Do not try requesting it immediately on load instead.  It looks like it
+   works when you test it through a devtools-driven evaluate(), because
+   that fakes user activation -- navigator.userActivation.isActive reads
+   true on a blank page under Puppeteer.  Driven by real keystrokes on
+   Chrome 152 the request is refused, and the seam still shows.  The way
+   to not see the seam at all is browser-chrome full screen, control-
+   command-F on macOS or F11 elsewhere: that is a window state rather than
+   a document state, so navigating inside the window cannot touch it.
+   Both are in the help list. */
 function armFullscreenResume(){
   if (store.get("deck:fs", "0") !== "1" || isFull()) return;
   const resume = function(){
@@ -331,7 +342,7 @@ function injectChrome(){
         '<button id="nextb" aria-label="Next step" title="Next (right arrow)">&#8250;</button>' +
         '<span class="sep"></span>' +
         '<button id="bjump" aria-expanded="false" title="Sections (G)">Sections</button>' +
-        '<button id="bfull" aria-pressed="false" title="Full screen (shift-Esc or F)">Full screen</button>' +
+        '<button id="bfull" aria-pressed="false" title="Full screen (shift-Esc or F). To present, use ctrl-cmd-F / F11: it survives section changes.">Full screen</button>' +
         '<button id="bpres" aria-pressed="false" title="Presenter view (P)">Presenter</button>' +
         '<button id="bwcag" aria-pressed="false" title="Text channels (W)">Text</button>' +
         '<button id="bhelp" aria-label="Keyboard shortcuts" aria-expanded="false" title="Shortcuts (?)">?</button>' +
@@ -341,7 +352,8 @@ function injectChrome(){
         '<dt>left / up</dt><dd>Previous</dd>' +
         '<dt>Home / End</dt><dd>First / last slide of this section</dd>' +
         '<dt>G</dt><dd>Jump to a section</dd>' +
-        '<dt>shift-Esc / F</dt><dd>Full screen (F11 survives section changes)</dd>' +
+        '<dt>shift-Esc / F</dt><dd>Full screen</dd>' +
+        '<dt>&#8963;&#8984;F / F11</dt><dd>Full screen that survives section changes &mdash; use this to present</dd>' +
         '<dt>P</dt><dd>Presenter view</dd>' +
         '<dt>W</dt><dd>Text-channel (WCAG) view</dd>' +
         '<dt>S</dt><dd>Speak the two channels</dd>' +
