@@ -20,7 +20,7 @@
 
    kind: lecture | section — only used to colour the jump menu key. */
 window.LECTURE = {
-  title: "DNA Manipulation Enzymes",
+  title: "DNA Modification Enzymes",
   course: "140L",
   sections: [
     { file: "00-intro.html",              title: "Introduction",        kind: "lecture" },

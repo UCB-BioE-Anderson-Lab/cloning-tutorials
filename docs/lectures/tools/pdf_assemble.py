@@ -23,12 +23,13 @@ from reportlab.lib.colors import HexColor
 
 D    = sys.argv[1]
 OUTDIR = sys.argv[2] if len(sys.argv) > 2 else os.path.join(D, "..")
-_M   = json.load(open(os.path.join(D, "manifest.json")))
-# The manifest was a bare list before there was a second deck to build.
-MAN   = _M["frames"] if isinstance(_M, dict) else _M
-TITLE = _M.get("title", "DNA Manipulation Enzymes") if isinstance(_M, dict) else "DNA Manipulation Enzymes"
-COURSE= _M.get("course", "140L") if isinstance(_M, dict) else "140L"
-SLUG  = _M.get("slug", "dna-enzymes") if isinstance(_M, dict) else "dna-enzymes"
+_M    = json.load(open(os.path.join(D, "manifest.json")))
+# capture and assemble ship together, so the manifest is always the object
+# form; the list form is what the very first build wrote and is long gone.
+MAN   = _M["frames"]
+TITLE = _M["title"]
+COURSE= _M.get("course", "140L")
+SLUG  = _M["slug"]
 NAME  = "%s - BioE %s" % (TITLE, COURSE)
 W, H = 1600, 900
 NOTE_H = 420                       # strip under the slide in the notes build

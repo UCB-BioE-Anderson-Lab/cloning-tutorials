@@ -17,7 +17,7 @@
  * annealing, then Phusion, then Taq ligase.  Nothing was cut except
  * clicks; every caption from the eight survives on one of the five.
  *
- * The drawing deliberately matches seq/gibson.js in the DNA Manipulation
+ * The drawing deliberately matches seq/gibson.js in the DNA Modification
  * Enzymes lecture, which drew this same reaction once already: the same
  * annealed-frame construction, the same half barb laid back on every 3'
  * end, red for the shared sequence and nothing else, and 5' labels that
