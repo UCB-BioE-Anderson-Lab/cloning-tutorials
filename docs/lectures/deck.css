@@ -200,6 +200,18 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);o
 .slide ul.tight li{font-size:26px;margin-bottom:9px}
 .slide ul.tighter li{font-size:23px;margin-bottom:6px}
 .slide h1.small{font-size:48px;margin-bottom:18px}
+/* Things you press.  A control on a slide is the blue of a link drawn as
+   an outline, so it reads as pressable from the back of a lecture hall
+   and never as a filled block competing with the figure.  Used by the
+   oligo calculators, the answer reveals and the download links. */
+.slide .btn{font:600 21px/1 "Helvetica Neue",Arial,Helvetica,sans-serif;
+  color:var(--blue);background:#fff;border:1.6px solid var(--blue);border-radius:5px;
+  padding:11px 17px;cursor:pointer;text-decoration:none;display:inline-block}
+.slide .btn:hover{background:var(--blue);color:#fff}
+.slide .btn:focus-visible{outline:3px solid var(--vermillion);outline-offset:3px}
+.slide .btn.done{border-color:var(--ink);color:var(--ink)}
+.slide p.acts{display:flex;flex-wrap:wrap;gap:14px;margin:18px 0 0}
+
 .slide .src{position:absolute;left:110px;bottom:34px;font-size:18px;color:var(--muted)}
 .slide[data-bg="lecture"] .src{color:rgba(255,255,255,.72)}
 .slide[data-bg="section"] .src{color:rgba(0,0,0,.78)}   /* was 3.61:1 */

@@ -82,17 +82,7 @@
      and the figures are printed above both, so nothing is overstated. */
   min-width:26px}
 .slide .costs .bar.big{background:var(--blue);margin-bottom:0}
-/* Things you press.  The deck has never had a control on a slide before,
-   so this is the one definition of what one looks like: the blue of a
-   link, drawn as an outline so it reads as pressable from the back of a
-   lecture hall, and never a filled block that competes with the figure. */
-.slide .btn{font:600 21px/1 "Helvetica Neue",Arial,Helvetica,sans-serif;
-  color:var(--blue);background:#fff;border:1.6px solid var(--blue);border-radius:5px;
-  padding:11px 17px;cursor:pointer;text-decoration:none;display:inline-block}
-.slide .btn:hover{background:var(--blue);color:#fff}
-.slide .btn:focus-visible{outline:3px solid var(--vermillion);outline-offset:3px}
-.slide .btn.done{border-color:var(--ink);color:var(--ink)}
-.slide p.acts{display:flex;flex-wrap:wrap;gap:14px;margin:18px 0 0}
+/* .btn and .acts live in deck.css: a second slide wants them now. */
 
 /* The oligo calculator.  The spreadsheet on the previous slide is the
    thing being taught, and this is the same arithmetic wired into the
