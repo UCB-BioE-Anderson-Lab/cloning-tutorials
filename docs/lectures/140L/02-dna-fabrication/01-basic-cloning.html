@@ -7,12 +7,34 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Basic Cloning &ndash; DNA Fabrication</title>
 <link rel="stylesheet" href="../../deck.css">
+<style>
+/* deck.css defines no --mono; it sets the stack literally on .slide code, so
+   match that stack rather than inventing a variable that resolves to nothing
+   and silently drops the block into the body face. */
+.slide pre.cf{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:26px;line-height:1.55;letter-spacing:.02em;margin:40px 0 0;white-space:pre}
+.slide pre.cf code{font:inherit;color:inherit}
+</style>
 </head>
 <body>
 
 <article class="slide" data-bg="section">
   <h1>Basic Cloning</h1>
-  <template class="desc">Section divider: Basic Cloning.</template>
+  <!-- The Golden Gate divider carries its one-line Construction File, so this
+       one carries the four lines basic cloning actually takes.  Side by side
+       across the lecture, the CF is the honest measure of what each method
+       costs you: one line there, four here, and the fragment index on every
+       Digest because cutting twice leaves you three pieces to choose from.
+       Enzymes are NcoI and XhoI, which is what the next slide draws: CATG and
+       TCGA are their overhangs, and it is the pair the course's own tutorials
+       use for this same pET-28a construction. -->
+  <pre class="cf"><code>PCR        insF     insR    insulin_cDNA   pcr_ins
+Digest     pcr_ins  NcoI,XhoI   1          ins_dig
+Digest     pET28a   NcoI,XhoI   1          vec_dig
+Ligate     ins_dig  vec_dig                pET-INS
+Transform  pET-INS  Mach1   Kan</code></pre>
+  <template class="notes">Four lines, where Golden Gate will take one. PCR the insert with primers that carry the two sites, cut it and cut the vector with the same pair, ligate, transform. Notice the number on each Digest line: cutting with two enzymes leaves three pieces, and you have to say which one you want. That bookkeeping is the thing the standardized methods later in this lecture are trying to take off your hands.</template>
+  <template class="desc">Section divider: Basic Cloning. Beneath it, the Construction File for the experiment, in monospace, five lines: PCR the insulin cDNA with primers insF and insR to give pcr_ins; Digest pcr_ins with NcoI and XhoI, keeping fragment 1; Digest pET28a the same way; Ligate the two digests into pET-INS; Transform it into Mach1 with kanamycin selection.</template>
 </article>
 
 <article class="slide" data-seq="pcrcutligate">
