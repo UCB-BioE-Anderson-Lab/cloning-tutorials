@@ -58,6 +58,21 @@
 .slide pre.dna .new.lit{opacity:1}
 @media (prefers-reduced-motion:reduce){.slide pre.dna .new{transition:none}}
 
+/* The junction block's last beat.  Each line is its own inline-block so
+   one of them can be turned over without the other three shifting: the
+   templates and the elisions fade to nothing in place, keeping the
+   block's width and so its centring, and then the lower-left oligo --
+   drawn 3' to 5' because that is how it lies on the duplex -- collapses
+   through scaleX(0), is rewritten the other way round, and opens again
+   reading 5' to 3'. */
+.slide pre.dna .ln{display:inline-block;transition:transform .26s ease}
+.slide pre.dna .ln.turn{transform:scaleX(0)}
+.slide pre.dna .shed,.slide pre.dna .ln .tpl{transition:opacity .42s ease}
+.slide pre.dna.shedding .shed,.slide pre.dna.shedding .ln .tpl{opacity:0}
+.slide pre.dna .gone{opacity:0}
+@media (prefers-reduced-motion:reduce){
+  .slide pre.dna .ln,.slide pre.dna .shed,.slide pre.dna .ln .tpl{transition:none}}
+
 /* the "ponder" idiom, as section 02 sets it */
 .slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
@@ -213,8 +228,8 @@ To arrive at this,
         data-note="Now the part that has to match your template: about twenty bases of real fragment sequence running out from the junction on each side. Everything else on the oligo was either constant or chosen."
         data-desc="Fourth step: find a roughly 20 bp annealing region on the fragment ends.">Find a ~20 bp annealing region on the fragment ends</li>
     <li data-build="4"
-        data-note="Now read off what you are actually ordering. Bold black is oligo, one per duplex, and grey is template you already have. Everything you added in the last three clicks is sitting in the 5&rsquo; tail of one of those two oligos, which is the reason this works: the sites and the junction ride in on the primers, and the template never has to contain them."
-        data-desc="Fifth step: your oligos are in black. In the pair of duplexes below, the bottom strand of the upper one and the top strand of the lower one are set in bold black: those two strands are the oligos you order. The strands they are annealed to are grey, because they are template you already have.">Your oligos are in black</li>
+        data-note="Now read off what you are actually ordering. The grey drops away, because those two strands are the fragment you already have and nobody makes them. What is left is two oligos. The lower one was drawn three-prime to five-prime, since that is how it lies on the duplex, so it turns over here to read the way you would type it into an order form. And notice what rode in on them: the sites, the junction and the tails are all in the oligos, which is the reason this works at all. The template never has to contain any of it."
+        data-desc="Fifth step. The two template strands and the elisions fade away, leaving only the two strands that are ordered as oligos. The lower-left one, which was drawn three-prime to five-prime, turns over and is rewritten five-prime to three-prime, so both now read the same way: catgg, then the blue BsaI site GGTCTC, a spacer G, the red four-base junction CTAA and twenty-six bases of fragment; and cactg, GGTCTC, a spacer a, the red TTAG, then fragment sequence carrying the underlined point mutation.">Keep those two strands &mdash; and write the reverse one 5&rsquo; to 3&rsquo;</li>
   </ul>
   <div class="cascade">
 <pre class="dna">5&rsquo;-<span class="tpl">&hellip;ATGCCATAGCATTTTTATCCATAAGA</span><span class="mut">TTAG</span><span class="tpl">C</span><span class="site">GAGACC</span><span class="tpl">ccatg</span>-3&rsquo;

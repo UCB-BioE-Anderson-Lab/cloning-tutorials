@@ -21,12 +21,27 @@
  *   3  the BsaI sites and the 5' tails ARRIVE.  New characters, faded
  *      in, not a recolour: this is the one beat where the molecule
  *      gains something it did not have.
- *   4  the ~20 bp that has to anneal to the fragment end goes to ink,
- *      on both strands of each duplex — at this point in the recipe
- *      you do not yet know which strand you will order.
- *   5  that resolves: the two strands you order stay ink and take the
- *      tails and the spacer bases with them, and the two strands you
- *      already have drop to muted.  "Your oligos are in black."
+ *   4  the ~20 bp that has to anneal goes to ink.  Twenty bases, not
+ *      the whole end, and on ONE strand of each duplex: the strand you
+ *      will order, which is the bottom of the left duplex and the top
+ *      of the right one.  An earlier version lit both strands whole, on
+ *      the reasoning that you do not yet know which one you will order.
+ *      JCA: "don\'t make all the ends black, just the chosen annealing
+ *      region, which is only a substring of it (20 bp), and it is only
+ *      on the appropriate strand."  The count runs from the junction
+ *      outward; on the right duplex the point mutation falls inside it.
+ *   5  the two template strands and the elisions fade out, and what is
+ *      left turns over: the lower-left oligo was drawn 3' to 5' because
+ *      that is how it sits on the duplex, and it flips to read the way
+ *      you would type it into an order form.  The beat used to say
+ *      "Your oligos are in black", which stopped being true the moment
+ *      beat 4 started using black for the annealing region.
+ *
+ * THE FLIPPED STRAND IS DERIVED, NEVER TYPED.  finalLine() walks the
+ * same segment table, drops what is template at beat 5, reverses the
+ * order and reverses each segment's characters.  Type it out by hand
+ * and it is a second copy of the design, wrong the first time either
+ * one is edited.
  *
  * THE COLUMNS ARE THE CONTRACT.  Every beat pads to put the junction in
  * column 30, so no base ever moves sideways; what moves is the 5'/3'
@@ -34,11 +49,12 @@
  * characters at every beat, so .cascade's max-content width — and with
  * it the centring of the whole block — never shifts either.
  *
- * BEAT 5 IS THE BLOCK THAT IS IN THE MARKUP.  The <pre class="dna"> in
- * 06-golden-gate-assembly.html still carries the finished design: it is
- * the no-JS fallback and it is the checked reference.  Adjacent runs
- * sharing a class are merged here precisely so that the beat-5 render
- * comes out byte-identical to it.  If you change one, change both.
+ * THE MARKUP IS THE FRAME BEAT 5 STARTS FROM.  The <pre class="dna"> in
+ * 06-golden-gate-assembly.html carries the finished design: it is the
+ * no-JS fallback, and it is what beat 5 puts on screen for a moment
+ * before the templates fade.  Adjacent runs sharing a class are merged
+ * here so that frame still matches it character for character inside
+ * the line wrappers.  If you change one, change both.
  *
  * COLOUR is the section's, unchanged:  .site blue, .mut vermillion,
  * .pt ink + rule, .tpl muted, .oli ink + weight.
@@ -64,15 +80,16 @@ const LINES = [
      top strand is template here; the oligo is the bottom strand.       */
   { end:"3", segs:[
     seg(E,                              _, _, _,  _, T),
-    seg("ATGCCATAGCATTTTTATCCATAAGA",   _, _, _,  O, T),
+    seg("ATGCCATAGCATTTTTATCCATAAGA",   _, _, _,  _, T),
     jct("TTAG",                         _, M, M,  M, M),
     seg("C",                         null, null, _, _, T),   /* the N spacer */
     seg("GAGACC",                    null, null, S, S, S),   /* BsaI, reading in */
     seg("ccatg",                     null, null, _, _, T)    /* the 5' tail  */
   ]},
-  { end:"5", segs:[
+  { end:"5", oligo:true, segs:[
     seg(E,                              _, _, _,  _, T),
-    seg("TACGGTATCGTAAAAATAGGTATTCT",   _, _, _,  O, O),
+    seg("TACGGT",                       _, _, _,  _, O),
+    seg("ATCGTAAAAATAGGTATTCT",         _, _, _,  O, O),   /* the 20 bp */
     jct("AATC",                         _, M, M,  M, M),
     seg("G",                         null, null, _, _, O),
     seg("CTCTGG",                    null, null, S, S, S),
@@ -83,14 +100,15 @@ const LINES = [
 
   /* ---- the start of the second fragment --------------------------- *
      the oligo is the top strand here, so the weights are mirrored.     */
-  { end:"3", segs:[
+  { end:"3", oligo:true, segs:[
     seg("cactg",                     null, null, _, _, O),
     seg("GGTCTC",                    null, null, S, S, S),
     seg("a",                         null, null, _, _, O),
     jct("TTAG",                         _, M, M,  M, M),
     seg("TAC",                          _, _, _,  O, O),
     seg("ctt",                          _, _, _,  P, P),    /* the point mutation */
-    seg("ACGCTTTTTATCGCAACTCTCTAC",     _, _, _,  O, O),
+    seg("ACGCTTTTTATCGC",               _, _, _,  O, O),   /* 3+3+14 = 20 */
+    seg("AACTCTCTAC",                   _, _, _,  _, O),
     seg(E,                              _, _, _,  _, T)
   ]},
   { end:"5", segs:[
@@ -98,9 +116,9 @@ const LINES = [
     seg("CCAGAG",                    null, null, S, S, S),
     seg("t",                         null, null, _, _, T),
     jct("AATC",                         _, M, M,  M, M),
-    seg("ATG",                          _, _, _,  O, T),
+    seg("ATG",                          _, _, _,  _, T),
     seg("gaa",                          _, _, _,  P, P),
-    seg("TGCGAAAAATAGCGTTGAGAGATG",     _, _, _,  O, T),
+    seg("TGCGAAAAATAGCGTTGAGAGATG",     _, _, _,  _, T),
     seg(E,                              _, _, _,  _, T)
   ]}
 ];
@@ -142,21 +160,99 @@ function line(L, b){
   return " ".repeat(Math.max(0, JCOL - pre)) + head + out + "-" + L.end + F;
 }
 
-function block(b){ return LINES.map(function(L){ return line(L, b); }).join("\n"); }
+/* One <span class="ln"> per line, so a single line can be faded or turned
+   over without the other three moving. */
+function wrap(inner, cls){
+  return '<span class="ln' + (cls ? " " + cls : "") + '">' + inner + "</span>";
+}
+function block(b, mark){
+  return LINES.map(function(L){
+    if (!L) return wrap("");
+    const c = mark && !L.oligo ? mark : (mark && L.end === "5" ? "turnme" : "");
+    return wrap(line(L, b), c);
+  }).join("\n");
+}
+
+/* ---- the last frame -----------------------------------------------
+   What survives is the two oligos.  Both are written 5' to 3', which
+   means the one the duplex drew backwards has to be turned over: the
+   segments run the other way and so do the characters inside them.
+   Nothing here is a second copy of the sequence -- it is the same
+   segment table read in reverse. */
+function finalInner(L){
+  const runs = [];
+  L.segs.forEach(function(s){
+    const c = s.c[4];
+    if (c === null || c === T) return;      /* the elision is not yours */
+    runs.push({ cls:c, text:s.t });
+  });
+  if (L.end === "5"){
+    runs.reverse();
+    runs.forEach(function(r){ r.text = r.text.split("").reverse().join(""); });
+  }
+  let out = "";
+  runs.forEach(function(r, i){
+    if (i && runs[i-1].cls === r.cls){ out = out.slice(0, -7) + r.text + "</span>"; return; }
+    out += r.cls ? '<span class="' + r.cls + '">' + r.text + "</span>" : r.text;
+  });
+  return "5" + F + "-" + out + "-3" + F;
+}
+/* the same left pad line() computes, so nothing slides sideways */
+function padOf(L, b){
+  let pre = 3;
+  for (let i = 0; i < L.segs.length; i++){
+    const s = L.segs[i];
+    if (s.j) break;
+    if (s.c[b] !== null) pre += s.t.length;
+  }
+  return " ".repeat(Math.max(0, JCOL - pre));
+}
+function finalBlock(){
+  return LINES.map(function(L){
+    if (!L) return wrap("");
+    /* A template line keeps its characters and loses its ink: the block
+       has to hold its 68 columns or the whole thing re-centres. */
+    if (!L.oligo) return wrap(line(L, 4), "gone");
+    return wrap(padOf(L, 4) + finalInner(L), L.end === "5" ? "turnme" : "");
+  }).join("\n");
+}
 
 window.Deck.sequence("gg-junction", function(slide){
   const pre = slide.querySelector("pre.dna");
   const bullets = Array.from(slide.querySelectorAll("ul [data-build]"));
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const LAST = LINES[0].segs[0].c.length - 1;
+  let timers = [];
+
+  function clear(){ timers.forEach(clearTimeout); timers = []; pre.classList.remove("shedding"); }
+  function at(ms, fn){ timers.push(setTimeout(fn, ms)); }
 
   function go(i, animated){
-    const b = Math.max(0, Math.min(LINES[0].segs[0].c.length - 1, i | 0));
+    const b = Math.max(0, Math.min(LAST, i | 0));
+    clear();
     bullets.forEach(function(el){
       const g = parseInt(el.getAttribute("data-build"), 10) || 1;
       el.classList.toggle("in", g <= b);
     });
-    pre.innerHTML = block(b);
 
+    /* The last beat is not a recolour, so it does not go through the
+       per-beat block at all unless it is being animated into. */
+    if (b === LAST){
+      if (animated === false || reduce.matches){ pre.innerHTML = finalBlock(); return; }
+      pre.innerHTML = block(LAST, "shed");          /* the finished design */
+      const turn = pre.querySelector(".turnme");
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        if (pre.isConnected) pre.classList.add("shedding");
+      }); });
+      at(520, function(){ turn.classList.add("turn"); });
+      at(790, function(){
+        turn.innerHTML = finalInner(LINES[1]);
+        turn.classList.remove("turn");
+      });
+      return;
+    }
+
+    pre.innerHTML = block(b);
     const fresh = Array.from(pre.querySelectorAll(".new"));
     if (!fresh.length) return;
     if (animated === false || reduce.matches){
@@ -181,4 +277,5 @@ window.Deck.sequence("gg-junction", function(slide){
 
   return { steps:steps, go:go };
 });
+
 })();
