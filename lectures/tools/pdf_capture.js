@@ -13,16 +13,29 @@
  *
  *   npm install puppeteer-core        (Chrome itself is the browser)
  *   mkdocs serve                      (the deck is driven live)
- *   node pdf_capture.js <outdir> [00-intro.html,...]
+ *   node pdf_capture.js <outdir> <deck-dir> [00-intro.html,...]
+ *
+ * deck-dir is a directory under lectures/140L/, e.g. 02-dna-fabrication.
+ * The section list, the lecture title and the slug the PDFs are named
+ * after all come out of that deck's own lecture.js, which is fetched and
+ * evaluated rather than parsed: it is already the one place the order
+ * lives, and a second list here would be a second place to forget.
  * ------------------------------------------------------------------ */
 /* installed into the working directory, not next to this file */
 const puppeteer = require(require.resolve('puppeteer-core', {paths:[process.cwd(), __dirname]}));
 const fs = require('fs');
 const path = require('path');
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const BASE = 'http://127.0.0.1:8000/cloning-tutorials/lectures/140L/01-dna-enzymes/';
+const ROOT = 'http://127.0.0.1:8000/cloning-tutorials/lectures/140L/';
 const OUT = process.argv[2];
-const ONLY = process.argv[3] ? process.argv[3].split(',') : null;
+const DECK = process.argv[3];
+const ONLY = process.argv[4] ? process.argv[4].split(',') : null;
+if (!OUT || !DECK){
+  console.error('usage: node pdf_capture.js <outdir> <deck-dir> [file.html,...]');
+  process.exit(2);
+}
+const BASE = ROOT + DECK.replace(/\/*$/, '') + '/';
+const slug = t => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 (async () => {
   fs.mkdirSync(OUT, {recursive:true});
@@ -36,10 +49,14 @@ const ONLY = process.argv[3] ? process.argv[3].split(',') : null;
   // data-build group snap to full opacity.
   await page.emulateMediaFeatures([{name:'prefers-reduced-motion', value:'reduce'}]);
 
-  // section list from lecture.js
-  await page.goto(BASE+'00-intro.html', {waitUntil:'load', timeout:60000});
-  const sections = await page.evaluate(() => window.LECTURE.sections.map(s => ({file:s.file, title:s.title})));
+  // The deck's own manifest, evaluated straight out of lecture.js, so
+  // this does not have to know which file the deck starts on.
+  const w = {};
+  new Function('window', await (await fetch(BASE+'lecture.js')).text())(w);
+  const L = w.LECTURE;
+  const sections = L.sections.map(s => ({file:s.file, title:s.title}));
   const list = ONLY ? sections.filter(s => ONLY.includes(s.file)) : sections;
+  console.log(L.title + '  (' + list.length + ' sections)');
 
   const manifest = [];
   let n = 0;
@@ -70,7 +87,8 @@ const ONLY = process.argv[3] ? process.argv[3].split(',') : null;
     }
     console.log(`  ${sec.file}  ${total} frames`);
   }
-  fs.writeFileSync(path.join(OUT,'manifest.json'), JSON.stringify(manifest, null, 1));
+  fs.writeFileSync(path.join(OUT,'manifest.json'), JSON.stringify(
+    {title:L.title, course:L.course || '', slug:slug(L.title), frames:manifest}, null, 1));
   await browser.close();
   console.log('total frames:', n);
 })();
