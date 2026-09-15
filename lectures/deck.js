@@ -267,13 +267,28 @@ document.addEventListener("fullscreenchange", function(){
    cannot be re-entered without a user gesture and a fresh document has
    none, so this re-enters on the presenter's next key or click.
 
-   Do not try requesting it immediately on load instead.  It looks like it
-   works when you test it through a devtools-driven evaluate(), because
-   that fakes user activation -- navigator.userActivation.isActive reads
-   true on a blank page under Puppeteer.  Driven by real keystrokes on
-   Chrome 152 the request is refused, and the seam still shows.  The way
-   to not see the seam at all is browser-chrome full screen, control-
-   command-F on macOS or F11 elsewhere: that is a window state rather than
+   The stored intent is not the missing piece and never was.  deck:fs is
+   sessionStorage, which is per-tab and survives navigation, so the new
+   page knows perfectly well it is supposed to be full screen.  Measured
+   on the page an arrow key had just navigated to, Chrome 152:
+
+       sessionStorage["deck:fs"]                "1"
+       navigator.userActivation.hasBeenActive   true     (sticky)
+       navigator.userActivation.isActive        false    (transient, gone)
+       requestFullscreen()                      TypeError: Permissions
+                                                check failed
+
+   Fullscreen wants TRANSIENT activation, and transient activation is what
+   a navigation spends.  No amount of remembering fixes that; the browser
+   is refusing the call, not failing to know what we want.
+
+   Do not be fooled into thinking otherwise by a devtools-driven
+   evaluate(): it fakes activation, and isActive reads true on a blank
+   page under Puppeteer, so a probe written that way reports GRANTED.
+   Probe from the page's own context instead.
+
+   The way not to see the seam at all is browser-chrome full screen,
+   control-command-F on macOS or F11 elsewhere: a window state rather than
    a document state, so navigating inside the window cannot touch it.
    Both are in the help list. */
 function armFullscreenResume(){
