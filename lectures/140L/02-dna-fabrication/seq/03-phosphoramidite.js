@@ -20,9 +20,15 @@
  * real furanose geometry, the cyanoethyl and the diisopropylamino on a
  * phosphorus with three bonds and no double bond -- and then colours its
  * regions to key them to the glyphs the cycle uses. After that the
- * coupling itself is drawn with arrows, attacking and leaving, and that
- * frame is HELD at the left for the whole of the cycle, so the cartoon
- * on the right always has the real bond-making next to it.
+ * coupling itself is drawn with arrows, attacking and leaving.
+ *
+ * Then the cycle turns, and the left of the slide keeps drawing: each
+ * of its beats has the reaction it is actually on there in full, with
+ * the panel heading naming that reaction. An earlier pass held the
+ * coupling frame at the left for all five cycle beats, so the panel
+ * drew an amine leaving under the caption "oxidation: iodine and water
+ * make it a phosphate". Four reactions, four mechanisms; see THE OTHER
+ * THREE REACTIONS below.
  *
  * The earlier version of this file argued that the source deck's
  * protecting-group chemistry was unreadable from the back of the room.
@@ -71,14 +77,27 @@ const n2 = v => Math.round(v*10)/10;
  * PRIMITIVES.  Same conventions as the enzymes deck: a bond order above
  * one is extra parallel lines and never a wedge, which would assert
  * stereochemistry instead; a lone pair is two dots set off the atom; a
- * curly arrow is a quadratic with a solid head.  There is no dbl() here
- * only because nothing on this slide has a double bond -- which is the
- * whole point of a phosphite.
+ * curly arrow is a quadratic with a solid head.
+ *
+ * dbl() exists for exactly two bonds on this slide, and both of them are
+ * the point of the frame they are in: the P=O that oxidation makes, and
+ * the C=O of the anhydride that capping opens.  Everywhere else a
+ * phosphorus with no double bond is the whole argument.
  * ==================================================================== */
 function bond(a,b,c,w){
   return '<path d="M'+n2(a[0])+' '+n2(a[1])+'L'+n2(b[0])+' '+n2(b[1])+
          '" fill="none" stroke="'+(c||INK)+'" stroke-width="'+(w||3)+
          '" stroke-linecap="round"/>';
+}
+/* a second parallel line, offset away from `away` -- never a wedge */
+function dbl(a,b,away,c,w,off){
+  const dx=b[0]-a[0], dy=b[1]-a[1], L=Math.hypot(dx,dy)||1, d=off||7;
+  let nx=-dy/L*d, ny=dx/L*d;
+  const mx=(a[0]+b[0])/2, my=(a[1]+b[1])/2;
+  if((mx+nx-away[0])**2+(my+ny-away[1])**2 < (mx-nx-away[0])**2+(my-ny-away[1])**2){
+    nx=-nx; ny=-ny;
+  }
+  return bond(a,b,c,w)+bond([a[0]+nx,a[1]+ny],[b[0]+nx,b[1]+ny],c,w);
 }
 /* the inner line of an aromatic bond, drawn toward the ring centre */
 function inner(a,b,ctr,c){
@@ -112,23 +131,26 @@ function txt(p,t,c,sz,anchor,weight){
          t+'</text>';
 }
 /* a lone pair: two dots, set off the atom in a given direction */
-function pair(p,deg,c,d){
-  const t=deg*Math.PI/180, ux=Math.cos(t), uy=Math.sin(t);
+function pair(p,deg,c,d,r){
+  const t=deg*Math.PI/180, ux=Math.cos(t), uy=Math.sin(t), s=(r||4.6)*1.52;
   const q=[p[0]+ux*(d||30), p[1]+uy*(d||30)];
-  return '<circle cx="'+n2(q[0]-uy*7)+'" cy="'+n2(q[1]+ux*7)+'" r="4.6" fill="'+(c||INK)+'"/>'+
-         '<circle cx="'+n2(q[0]+uy*7)+'" cy="'+n2(q[1]-ux*7)+'" r="4.6" fill="'+(c||INK)+'"/>';
+  return '<circle cx="'+n2(q[0]-uy*s)+'" cy="'+n2(q[1]+ux*s)+'" r="'+n2(r||4.6)+
+           '" fill="'+(c||INK)+'"/>'+
+         '<circle cx="'+n2(q[0]+uy*s)+'" cy="'+n2(q[1]-ux*s)+'" r="'+n2(r||4.6)+
+           '" fill="'+(c||INK)+'"/>';
 }
 const pairAt=(p,deg,d)=>{const t=deg*Math.PI/180;
   return [p[0]+Math.cos(t)*(d||30), p[1]+Math.sin(t)*(d||30)];};
 /* stroke-width 2.4, not 3: the marker scales with the stroke, and the
    short proton-transfer arrows here are barely longer than a head drawn
    for a wider one */
-function arrow(a,b,bow,c){
+function arrow(a,b,bow,c,w){
   const mx=(a[0]+b[0])/2, my=(a[1]+b[1])/2;
   const dx=b[0]-a[0], dy=b[1]-a[1], L=Math.hypot(dx,dy)||1;
   const cx=mx-dy/L*bow, cy=my+dx/L*bow;
   return '<path d="M'+n2(a[0])+' '+n2(a[1])+'Q'+n2(cx)+' '+n2(cy)+' '+n2(b[0])+' '+n2(b[1])+
-         '" fill="none" stroke="'+(c||RED)+'" stroke-width="2.4" marker-end="url(#gsAmdHead)"/>';
+         '" fill="none" stroke="'+(c||RED)+'" stroke-width="'+n2(w||2.4)+
+         '" marker-end="url(#gsAmdHead)"/>';
 }
 function sign(p,t,c,sz){
   return '<text x="'+n2(p[0])+'" y="'+n2(p[1])+'" text-anchor="middle" font-size="'+(sz||27)+
@@ -426,6 +448,267 @@ product:function(){
 }};
 
 /* ==================================================================== *
+ * THE OTHER THREE REACTIONS, each drawn atom by atom.
+ *
+ * The cycle beats used to HOLD the coupling frame at the left for all
+ * five of them, so the panel drew an amine leaving under the caption
+ * "oxidation: iodine and water make it a phosphate".  That is worse
+ * than no panel.  Each beat now draws its own reaction, and the panel
+ * heading names the one it is drawing.
+ *
+ * A reaction that takes more than one structure is drawn as CELLS: a
+ * cell is one structure with the arrows that act on it, placed by a
+ * translate and a scale.  Inside a cell every bond is still MB or MS,
+ * exactly as in the coupling panel -- the scale lives on the group and
+ * never on the geometry, so the bond audit measures the same two
+ * lengths everywhere.  ink() divides the cell's scale back out of the
+ * stroke widths and the type, so a cell at 0.5 carries the same weight
+ * of line and the same size of letter as the coupling panel at 0.82.
+ *
+ * Every structure drawn is a species that really exists, with the
+ * charge it really carries; what is compressed is stated in words
+ * between the cells rather than drawn as a wrong intermediate.  Two
+ * such compressions, both deliberate, both the same kind as the
+ * tetrazole simplification noted at the top of this file:
+ *
+ *   OXIDATION.  (RO)3P: + I2 -> [(RO)3P-I]+ + I-, then water displaces
+ *   the iodide and pyridine takes the two protons, leaving (RO)3P=O and
+ *   two HI.  The cells draw the iodine attack, the water attack, and the
+ *   product; the proton bookkeeping is a line of type, because drawing
+ *   it needs two more bases and four more arrows and buys nothing.
+ *
+ *   CAPPING.  With N-methylimidazole the acylating species is really the
+ *   N-acylimidazolium, made first from the anhydride.  Drawn here as the
+ *   5' oxygen onto the anhydride directly: the arrows a student has to
+ *   own are addition and collapse, and the catalyst changes neither.
+ * ==================================================================== */
+
+/* screen-constant ink for a cell at scale s.  0.82 is the coupling
+   panel's scale, and every number here is that panel's value */
+function ink(s){
+  const k=0.82/s;
+  return {k:k, bw:3*k, lw:2*k, aw:2.4*k, ls:31*k, ts:22*k, dot:4.6*k};
+}
+function cell(x,y,s,g){
+  return '<g transform="translate('+n2(x)+','+n2(y)+') scale('+n2(s)+')">'+g+'</g>';
+}
+/* a cell's caption, in slide coordinates: what that structure IS */
+function cellCap(x,y,t,s,sz){
+  return txt([x,y],t,INK,(sz||22),"middle",700)+
+         txt([x,y+27],s,MUTED,(sz||22)-3,"middle");
+}
+function bead(p,i,r){
+  return '<circle cx="'+n2(p[0])+'" cy="'+n2(p[1])+'" r="'+n2(r||34)+'" fill="#fff" stroke="'+
+           MUTED+'" stroke-width="'+n2(i.lw*1.7)+'"/>'+
+         txt([p[0],p[1]+i.ts*0.32],"CPG",MUTED,i.ts*0.76);
+}
+
+/* ---- DEBLOCKING ---------------------------------------------------- *
+ * The 5' end of the chain is an ether: one oxygen between C5' of the
+ * sugar and the trityl carbon.  Acid protonates that oxygen, and then
+ * the O-C bond heterolyses with the electrons going to the oxygen, so
+ * what leaves is the dimethoxytrityl CATION -- stabilised by the two
+ * para methoxy groups, orange, and the thing the instrument watches to
+ * score the coupling.  The three rings are glyphs here: the real ones
+ * are drawn full size on beat 0, and three hexagons at this scale would
+ * be a wall of line work over the only two atoms that matter.
+ * ------------------------------------------------------------------- */
+const DO5=[0,0];
+const DC5=mw(DO5,240,MB);              /* up-left: C5', then the bead   */
+const DCT=mw(DO5,0,MB);                /* right: the trityl carbon      */
+const DBD=mw(DC5,200,MS*1.5);          /* the leader turns at C5'       */
+const DAR=[mw(DCT,270,MS),mw(DCT,0,MS),mw(DCT,90,MS)];
+const DH =mw(DO5,90,MS);               /* the proton once it is bonded  */
+/* where the acid holds that proton before it is handed over.  Not a
+   bond and so not MS: it is the distance two molecules are apart, and
+   drawn at MS the curly arrow has no room between the lone pair it
+   starts on and the hydrogen it ends on. */
+const DHA=mw(DO5,90,MS*1.75);
+const DAC=mw(DHA,141,MS);              /* the acid itself               */
+
+function deblockCore(o){
+  const i=o.i; let b="", l="";
+  b+=bond(DO5,DC5,INK,i.bw)+bond(DC5,DBD,MUTED,i.lw)+bead(DBD,i);
+  b+=bond(DO5,DCT,BLUE,i.bw);
+  DAR.forEach(function(p){ b+=bond(DCT,p,BLUE,i.bw); });
+  l+=lab(DAR[0],"Ar",BLUE,i.ls)+lab(DAR[1],"Ph",BLUE,i.ls)+lab(DAR[2],"Ar",BLUE,i.ls);
+  if(o.protonated){
+    b+=bond(DO5,DH,INK,i.bw);
+    l+=lab(DH,"H",INK,i.ls*0.92)+sign(mw(DO5,167,i.ls*1.5),"+",INK,i.ts*1.3);
+  }else{
+    l+=pair(DO5,90,INK,i.ls*1.15,i.dot);
+    if(o.acid){
+      b+=bond(DHA,DAC,INK,i.bw);
+      l+=lab(DHA,"H",INK,i.ls*0.92)+txt([DAC[0]-20,DAC[1]+10],"the acid",MUTED,i.ts,"end");
+    }else{
+      l+=pair(DO5,180,INK,i.ls*1.15,i.dot);
+    }
+  }
+  l+=lab(DO5,"O",INK,i.ls);
+  return b+l;
+}
+
+/* ---- OXIDATION ----------------------------------------------------- *
+ * Three oxygens on the phosphorus and a LONE PAIR, which is the whole
+ * reason this step exists: that pair attacks iodine.  The three O's sit
+ * at 150, 30 and 90 with the reaction running up the 270 axis, and each
+ * one carries its own C at MS -- bare vertices, because which oxygen is
+ * which is not what this frame is counting.
+ * ------------------------------------------------------------------- */
+const XA=140, XB=40, XC=90;
+const XOA=mw(P0,XA,MB), XOB=mw(P0,XB,MB), XOC=mw(P0,XC,MB);
+const XI1=mw(P0,270,MB), XI2=mw(XI1,270,MB);     /* iodine, up the axis */
+const XW =mw(P0,240,MB);                         /* the attacking water */
+const XWH=[mw(XW,180,MS),mw(XW,300,MS)];
+
+function oxCore(o){
+  const i=o.i; let b="", l="";
+  /* each ester oxygen carries on to its own carbon.  The leader is
+     muted and thin, so it is a "this continues" and not a bond, and it
+     leaves at an angle to the P-O bond rather than straight on, because
+     an oxygen with two bonds is bent and a collinear stub reads as one
+     line through the atom. */
+  [[XOA,XA-15],[XOB,XB+15],[XOC,XC+15]].forEach(function(q){
+    b+=bond(P0,q[0],INK,i.bw)+bond(q[0],mw(q[0],q[1],66),MUTED,i.lw);
+    l+=lab(q[0],"O",INK,i.ls);
+  });
+  if(o.up==="lp")  l+=pair(P0,270,INK,i.ls*1.25,i.dot);
+  if(o.up==="I"){  b+=bond(P0,XI1,INK,i.bw); l+=lab(XI1,"I",INK,i.ls); }
+  if(o.up==="dbl"){b+=dbl(P0,XI1,[MB*2,0],INK,i.bw,7*i.k); l+=lab(XI1,"O",INK,i.ls); }
+  if(o.i2){        b+=bond(XI1,XI2,INK,i.bw);
+                   l+=lab(XI1,"I",INK,i.ls)+lab(XI2,"I",INK,i.ls); }
+  if(o.water){
+    b+=bond(XW,XWH[0],INK,i.bw)+bond(XW,XWH[1],INK,i.bw);
+    l+=lab(XWH[0],"H",INK,i.ls*0.92)+lab(XWH[1],"H",INK,i.ls*0.92)+
+       lab(XW,"O",INK,i.ls)+pair(XW,60,INK,i.ls*1.15,i.dot);
+  }
+  l+=lab(P0,"P",RED,i.ls*1.08);
+  if(o.plus) l+=sign(mw(P0,345,i.ls*1.7),"+",RED,i.ts*1.3);
+  return b+l;
+}
+
+/* ---- CAPPING ------------------------------------------------------- *
+ * The chains that missed the coupling still carry a free 5' hydroxyl.
+ * That oxygen attacks a carbonyl carbon of acetic anhydride, the C=O
+ * opens up onto its oxygen, and the tetrahedral intermediate collapses
+ * back and throws out acetate.  The 5' end is an acetate ester after
+ * that, and no acid in the cycle takes an ester off: the chain is dead
+ * on purpose, so it leaves the pool instead of coming back later as a
+ * deletion product.
+ * ------------------------------------------------------------------- */
+const KC =[0,0];                       /* the carbonyl carbon           */
+const KOC=mw(KC,270,MB);               /* its oxygen, up                */
+const KME=mw(KC,30,MB);                /* its methyl, a bare vertex     */
+const KOB=mw(KC,150,MB);               /* the bridging oxygen           */
+const KAC=mw(KOB,150,MS);              /* the second acyl carbon        */
+const KAO=mw(KAC,90,MS), KAM=mw(KAC,210,MS);
+const KO5=mw(KC,90,MB);                /* the chain's free 5' oxygen    */
+const KH5=mw(KO5,30,MS), KC5=mw(KO5,110,MS);
+const KBD=mw(KC5,110,MS*1.6);
+
+function capCore(o){
+  const i=o.i; let b="", l="";
+  /* the anhydride: two acyls sharing one oxygen */
+  b+=bond(KC,KME,INK,i.bw)+bond(KC,KOB,INK,i.bw)+bond(KOB,KAC,INK,i.bw)+
+     bond(KAC,KAM,INK,i.bw)+dbl(KAC,KAO,[0,0],INK,i.bw,7*i.k);
+  l+=lab(KOB,"O",INK,i.ls)+lab(KAO,"O",INK,i.ls);
+  if(o.tetra){
+    b+=bond(KC,KOC,INK,i.bw);
+    l+=sign(mw(KOC,325,i.ls*1.25),"&#8722;",INK,i.ts*1.3)+pair(KOC,200,INK,i.ls*1.15,i.dot);
+  }else{
+    b+=dbl(KC,KOC,[MB,0],INK,i.bw,7*i.k);
+  }
+  l+=lab(KOC,"O",INK,i.ls);
+  /* the chain that missed, with its 5' hydroxyl still free */
+  b+=bond(KO5,KH5,INK,i.bw)+bond(KO5,KC5,INK,i.bw)+bond(KC5,KBD,MUTED,i.lw)+bead(KBD,i);
+  if(o.tetra){
+    b+=bond(KC,KO5,INK,i.bw);
+    l+=sign(mw(KO5,185,i.ls*1.6),"+",INK,i.ts*1.3);
+  }else{
+    l+=pair(KO5,270,INK,i.ls*1.15,i.dot);
+  }
+  l+=lab(KO5,"O",INK,i.ls)+lab(KH5,"H",INK,i.ls*0.92);
+  return b+l;
+}
+
+/* ---- the four panels ----------------------------------------------- */
+const SCHEME={
+
+/* beat 5: no reaction yet -- the bond acid is about to find */
+ether:function(){
+  const s=0.78, i=ink(s);
+  return cell(404,606,s,deblockCore({i:i})) +
+    cellCap(437,752,"the 5&#8242; end is an ether",
+            "an oxygen between the sugar and the trityl, with two lone pairs on it") +
+    txt([437,808],"Ar = 4-methoxyphenyl; the three rings together are the cartoon&#8217;s DMT",
+        MUTED,18);
+},
+
+/* beat 6: acid protonates that oxygen; the trityl leaves as a cation */
+deblock:function(){
+  const s=0.60, i=ink(s), y=498;
+  let g="", c;
+  c =deblockCore({i:i,acid:1});
+  c+=arrow(pairAt(DO5,90,i.ls*1.15+8),[DHA[0]+2,DHA[1]-30],34,RED,i.aw);
+  c+=arrow([DHA[0]+(DAC[0]-DHA[0])*0.35, DHA[1]+(DAC[1]-DHA[1])*0.35],
+           [DAC[0]+8,DAC[1]+18],-40,RED,i.aw);
+  g+=cell(272,y,s,c)+cellCap(272,y+178,"acid finds the ether oxygen",
+                             "dichloroacetic acid, in DCM",20);
+  c =deblockCore({i:i,protonated:1});
+  c+=arrow(mid(DO5,DCT),mw(DO5,315,i.ls*1.1),44,RED,i.aw);
+  g+=cell(604,y,s,c)+cellCap(604,y+178,"the trityl leaves as a cation",
+                             "the electrons stay on the oxygen",20);
+  g+=txt([437,y+247],
+         "that cation is orange, and the instrument counts it to score the coupling",
+         MUTED,18);
+  g+=txt([437,y+275],
+         "Ar = 4-methoxyphenyl: those two oxygens are what make it stable",MUTED,18);
+  return g;
+},
+
+/* beat 8: the lone pair attacks iodine, water takes the iodide's place */
+oxidize:function(){
+  const s=0.50, i=ink(s), y=480;
+  let g="", c;
+  c =oxCore({i:i,up:"lp",i2:1});
+  c+=arrow(pairAt(P0,270,i.ls*1.25+10),[XI1[0]-12,XI1[1]+38],38,RED,i.aw);
+  c+=arrow([XI1[0]+10,(XI1[1]+XI2[1])/2],mw(XI2,338,i.ls*1.2),-42,RED,i.aw);
+  g+=cell(218,y,s,c)+cellCap(218,y+168,"phosphite","three bonds, and a lone pair",20);
+  c =oxCore({i:i,up:"I",plus:1,water:1});
+  c+=arrow(pairAt(XW,60,i.ls*0.9),mw(P0,240,i.ls*0.8),-44,RED,i.aw);
+  c+=arrow(mid(P0,XI1),mw(XI1,318,i.ls*1.2),-46,RED,i.aw);
+  g+=cell(442,y,s,c)+cellCap(442,y+168,"iodophosphonium","four bonds, and a charge",20);
+  g+=cell(660,y,s,oxCore({i:i,up:"dbl"}))+
+     cellCap(660,y+168,"phosphate triester","four bonds, one double",20);
+  g+=txt([437,y+236],
+         "iodine takes the lone pair, then water takes the iodide&#8217;s place",MUTED,18);
+  g+=txt([437,y+262],"and pyridine takes the two protons that are left",MUTED,18);
+  g+=txt([437,y+288],
+         "the three oxygens: the chain, the new residue, the cyanoethyl",MUTED,18);
+  return g;
+},
+
+/* beat 9: the chains that missed are acetylated, and that is fatal */
+cap:function(){
+  const s=0.58, i=ink(s), y=468;
+  let g="", c;
+  c =capCore({i:i});
+  c+=arrow(pairAt(KO5,270,i.ls*1.15+8),mw(KC,90,i.ls*0.6),44,RED,i.aw);
+  c+=arrow(mid(KC,KOC),mw(KOC,300,i.ls*0.55),-44,RED,i.aw);
+  g+=cell(300,y,s,c)+cellCap(300,y+290,"the free 5&#8242;-OH attacks",
+                             "acetic anhydride, with N-methylimidazole",20);
+  c =capCore({i:i,tetra:1});
+  c+=arrow(pairAt(KOC,200,i.ls*1.15+8),mid(KC,KOC),46,RED,i.aw);
+  c+=arrow(mid(KC,KOB),mw(KOB,208,i.ls*0.62),44,RED,i.aw);
+  g+=cell(620,y,s,c)+cellCap(620,y+290,"it collapses, and acetate leaves",
+                             "the 5&#8242; end is an ester now",20);
+  g+=txt([437,y+344],
+         "acetate takes that proton, and no acid in the cycle takes an ester off",
+         MUTED,18);
+  return g;
+}};
+
+/* ==================================================================== *
  * THE CARTOON CYCLE.  Same drawing as before, moved right and scaled
  * down to leave the left of the slide to the chemistry.
  * ==================================================================== */
@@ -487,45 +770,57 @@ const STEPS = [
   desc:"The same structure, now colour-coded, with a key down the right-hand side under the heading, what the cartoon stands for. The dimethoxytrityl group is drawn in blue and keyed to the word DMT. The base is keyed to a filled black dot, on carbon 1-prime with its amines protected. The sugar and backbone are keyed to plain black lines, 2-prime-deoxyribose, 3-prime to 5-prime. The phosphoramidite is drawn in vermillion and keyed to a vermillion circle marked P, three bonds on P and no double bond. A grey circle marked CPG is keyed to the bead, which holds the chain and is not part of this molecule." },
 
 { show:"mech-act",
+  panel:"The coupling step, atom by atom",
   label:"Coupling, 1 &nbsp;&middot;&nbsp; tetrazole activates the monomer",
   note:"Here are the two molecules, side by side and zoomed in on the only part that reacts. At the upper left, the chain the bead is holding, with its five prime hydroxyl free. At the right, the monomer, hanging off that three prime oxygen. And the catalyst does the first thing: tetrazole is a weak acid, and the nitrogen of the diisopropylamino group has a lone pair, so that lone pair takes the proton. Two arrows, and neither of them is optional bookkeeping: one makes the nitrogen-hydrogen bond, the other puts the electrons of the old bond back on the tetrazole. What you have afterwards is a nitrogen with four bonds and a positive charge, which is the point. A neutral amine is a terrible leaving group. A protonated one is a decent one.",
   desc:"The coupling drawn at the left of the slide as real chemistry. A phosphorus in vermillion carries three bonds: an oxygen to the right leading out to the incoming monomer, drawn as the cartoon glyph with its base dot and DMT label; an oxygen to the left leading to a cyanoethyl group; and a nitrogen below carrying two isopropyl groups. Up and to the left, a separate molecule: the growing chain on its bead, drawn as a grey circle marked CPG, ending in a free 5-prime oxygen with its hydrogen. A curved arrow runs from a lone pair on the amidite nitrogen to a hydrogen held by tetrazole, and a second arrow runs from that hydrogen-tetrazole bond back onto the tetrazole." },
 
 { show:"mech-att",
+  panel:"The coupling step, atom by atom",
   label:"Coupling, 2 &nbsp;&middot;&nbsp; the 5&#8242;-OH attacks, the amine leaves",
   note:"And now the bond you are paying for. The free five prime hydroxyl on the chain comes in at the phosphorus, and the arrow starts where the electrons actually are, on a lone pair of that oxygen. At the same time the protonated nitrogen goes, and that arrow starts on the phosphorus-nitrogen bond and ends on the nitrogen, because the leaving group takes both of those electrons with it. One arrow makes a bond, one arrow breaks a bond, and they are drawn together because the nucleophile comes in on the axis opposite the group that is leaving. That is the same geometry you saw for every phosphoryl transfer in the enzymes lecture. The difference here is only that a chemist, not an enzyme, is holding the substrates still.",
   desc:"The same two molecules, with the amidite nitrogen now protonated and carrying a plus sign. Two curved arrows: one from a lone pair on the chain's 5-prime oxygen to the phosphorus, coming in on the axis opposite the nitrogen, and one from the phosphorus-nitrogen bond onto the nitrogen itself." },
 
 { show:"mech-prod",
+  panel:"The coupling step, atom by atom",
   label:"Coupling, 3 &nbsp;&middot;&nbsp; a phosphite triester: three oxygens, no double bond",
   note:"There is the product, and there are the pieces. Diisopropylamine leaves as a neutral amine, taking back the proton tetrazole gave it. The oxygen that attacked is briefly holding three bonds, so it is positive, and tetrazolide takes that proton straight back off it, which regenerates the tetrazole you started with. Follow it through and the catalyst is exactly where it began. What is left is the linkage: count the oxygens on that phosphorus. Three, and no double bond anywhere on it. That is not the bond DNA has. It is a phosphite triester, and it is why the very next thing the cycle does is throw iodine and water at it.",
   desc:"The product. The phosphorus is now bonded to three oxygens, with no double bond: the 3-prime oxygen of the monomer, the cyanoethyl oxygen, and the 5-prime oxygen of the chain that attacked. That attacking oxygen carries a plus sign and still holds its hydrogen, and a curved arrow runs from a lone pair on tetrazolide to that hydrogen, with a second arrow from the oxygen-hydrogen bond back onto the oxygen. Below, detached, the released diisopropylamine." },
 
-/* ---- the five cycle beats, notes verbatim from the source deck ----- */
+/* ---- the five cycle beats, notes verbatim from the source deck.
+       The left panel draws the reaction the beat is on: the bond acid
+       is about to open, then deblocking, coupling, oxidation, capping.
+       The captions and the notes are unchanged; only what the panel
+       draws, the panel heading, and the descriptions are new. -------- */
 { show:"cycle", node:"A1", arrow:null,
+  panel:"What the column starts with, atom by atom",
   label:"a single base on the column, 5&#8242; blocked",
   note:"Regardless of the downstream processing steps and final format, gene synthesis begins with phosphoramidite chemistry.  Companies such as Glen Research sell controlled-pore-glass, or CPG columns covalently attached to a single DNA base via the 3’ hydroxyl.  Solid-phase oligonucleotide synthesis begins with one of these columns chosen based on the desired 3’ end of the oligo being synthesized.  These bases are protected on the 5’ end with a trityl group, and several positions on the nucleobase are similar blocked to avoid side reactions. These bases initiate the formation of the oligonucleotide through cycles of reactions.",
-  desc:"The coupling mechanism stays at the left for the rest of the slide, and the cartoon cycle appears at the right: four reactions drawn as a ring, labelled deblocking, coupling, oxidation and capping. At the top left of the ring, the starting material: a bead of controlled-pore glass holding one nucleotide by its 3-prime end, with a trityl group blocking the 5-prime end above it." },
+  desc:"The cartoon cycle appears at the right: four reactions drawn as a ring, labelled deblocking, coupling, oxidation and capping. At the top left of the ring, the starting material: a bead of controlled-pore glass holding one nucleotide by its 3-prime end, with a trityl group blocking the 5-prime end above it. The left of the slide now carries a panel that draws, atom by atom, whichever reaction the cycle is on. On this beat no reaction has started, so it draws the bond that is about to be attacked: the 5-prime end as an ether, one oxygen carrying two lone pairs, bonded on one side to carbon 5-prime of the sugar, which runs out to the bead, and on the other to the trityl carbon and its three rings." },
 
 { show:"cycle", node:"B", arrow:"ab",
+  panel:"The deblocking step, atom by atom",
   label:"deblocking: acid takes the trityl off, leaving a free 5&#8242;-OH",
   note:"In the deblocking step, the column is treated with a strong acid to remove the trityl group.",
-  desc:"The first arrow lights up. Acid removes the trityl group, and the second structure appears at the top right of the ring: the same bead and base, now with a bare 5-prime hydroxyl." },
+  desc:"The first arrow lights up. Acid removes the trityl group, and the second structure appears at the top right of the ring: the same bead and base, now with a bare 5-prime hydroxyl. The panel at the left draws deblocking in two frames. In the first, the acid holds a proton below the ether oxygen, and two curved arrows run: one from a lone pair on that oxygen to the proton, and one from the proton's bond back onto the acid. In the second, the oxygen carries three bonds and a positive charge, and a single arrow runs from the oxygen-to-trityl bond back onto the oxygen, so the electrons stay with the oxygen and the trityl leaves as a cation. A line beneath notes that the two methoxy groups on its rings are what make that cation stable, and that it is the orange species the instrument counts." },
 
 { show:"cycle", node:"C", arrow:"bc",
+  panel:"The coupling step, atom by atom",
   label:"coupling: the next phosphoramidite joins, P carries only 3 oxygens",
   note:"The column is then washed with the next phosphoramidite that will be joined to the growing chain along with a catalyst.  This coupling step creates the bond between the backbone phosphate and the 5’ hydroxyl.  Note that there are only 3 oxygens on this phosphorus atom: it is in a different oxidation state than the phosphate in the desired DNA.",
-  desc:"The incoming phosphoramidite is drawn to the right of the ring, itself trityl-blocked. With tetrazole as the catalyst it joins the free hydroxyl, and the chain on the bead is now two residues long, joined by a phosphorus marked in vermillion because it carries only three oxygens. This is the step the mechanism at the left is drawing." },
+  desc:"The incoming phosphoramidite is drawn to the right of the ring, itself trityl-blocked. With tetrazole as the catalyst it joins the free hydroxyl, and the chain on the bead is now two residues long, joined by a phosphorus marked in vermillion because it carries only three oxygens. The panel at the left returns to the coupling mechanism itself: the amidite nitrogen protonated and carrying a plus sign, a curved arrow from a lone pair on the chain's 5-prime oxygen to the phosphorus, coming in on the axis opposite the nitrogen, and a second arrow from the phosphorus-nitrogen bond onto the nitrogen that leaves." },
 
 { show:"cycle", node:"D", arrow:"cd",
+  panel:"The oxidation step, atom by atom",
   label:"oxidation: iodine and water make it a phosphate",
   note:"In the next step of the cycle, the phosphate is oxidized with iodine to generate the phosphate.",
-  desc:"Iodine and water oxidize that phosphorus, and the linkage at the bottom right of the ring turns black: a normal phosphate, the backbone bond that belongs in DNA." },
+  desc:"Iodine and water oxidize that phosphorus, and the linkage at the bottom right of the ring turns black: a normal phosphate, the backbone bond that belongs in DNA. The panel at the left draws that oxidation in three frames. In the first, the phosphorus carries three oxygens and a lone pair, with an iodine molecule above it on the same axis; one arrow runs from that lone pair to the near iodine, and another from the iodine-iodine bond onto the far iodine, which leaves as iodide. In the second, the phosphorus has four bonds, one of them to iodine, and a positive charge; a water molecule comes in from the left, with an arrow from a lone pair on its oxygen to the phosphorus and an arrow from the phosphorus-iodine bond onto the iodine. In the third, the product: a phosphorus with four bonds, one of them a double bond to oxygen. Lines beneath note that pyridine takes the two protons, and that the three oxygens throughout are the chain, the new residue and the cyanoethyl." },
 
 { show:"cycle", node:"A2", arrow:"da",
+  panel:"The capping step, atom by atom",
   label:"capping: acetic anhydride kills the chains that missed",
   note:"Finally, the column is capped with acetic anhydride to terminate any chains that did not receive the added base. At the end of the synthesis, the oligonucleotides are full-length but are immobilized on the column and contain multiple protecting groups.  These linkages are broken by treatment with methylamine and ammonium hydroxide.  Upon purification, a structurally-normal synthetic DNA is obtained.",
-  desc:"Acetic anhydride caps every chain that failed to couple, drawn as a short dead chain inside the ring and out of the run, and the cycle closes. The starting structure is back with the chain one base longer and blocked again, ready for the next round." }
+  desc:"Acetic anhydride caps every chain that failed to couple, drawn as a short dead chain inside the ring and out of the run, and the cycle closes. The starting structure is back with the chain one base longer and blocked again, ready for the next round. The panel at the left draws the capping in two frames. In the first, a chain that missed still holds its free 5-prime hydroxyl, below a molecule of acetic anhydride: two acetyl groups sharing one oxygen. Two arrows: one from a lone pair on that 5-prime oxygen up to a carbonyl carbon, and one from the carbon-oxygen double bond up onto its own oxygen. In the second, the tetrahedral intermediate, with a minus on the oxygen above and a plus on the attacking oxygen below; two more arrows collapse it, one from a lone pair on the negative oxygen back into the carbon-oxygen bond, and one from the bond to the shared oxygen onto that oxygen, which leaves as acetate. The 5-prime end is an acetate ester afterwards, and no acid in the cycle takes an ester off." }
 ];
 
 window.Deck.sequence("gs-amidite", function(slide){
@@ -549,12 +844,18 @@ window.Deck.sequence("gs-amidite", function(slide){
   h += '<g data-r="key" opacity="0">' + keyPanel() + '</g>';
 
   /* ---- the coupling, three frames in the same place ---- */
-  h += '<text data-r="mech-hd" x="455" y="268" text-anchor="middle" font-size="24" ' +
-         'font-weight="700" fill="'+BLUE+'" opacity="0">The coupling step, atom by atom</text>';
+  h += '<text data-r="mech-hd" x="437" y="268" text-anchor="middle" font-size="24" ' +
+         'font-weight="700" fill="'+BLUE+'" opacity="0"></text>';
   ["act","att","prod"].forEach(function(k,j){
     h += '<g data-r="mech-'+k+'" opacity="0" transform="translate(434,548) scale(0.82)">' +
          [MECH.activate,MECH.attack,MECH.product][j]() + '</g>';
   });
+
+  /* ---- and one panel per cycle beat, each its own reaction ---- */
+  h += '<g data-r="mech-eth" opacity="0">' + SCHEME.ether()   + '</g>';
+  h += '<g data-r="mech-deb" opacity="0">' + SCHEME.deblock() + '</g>';
+  h += '<g data-r="mech-oxi" opacity="0">' + SCHEME.oxidize() + '</g>';
+  h += '<g data-r="mech-cap" opacity="0">' + SCHEME.cap()     + '</g>';
 
   /* ================= the cartoon cycle ================= */
   h += '<g data-r="cycle" opacity="0">';
@@ -646,7 +947,8 @@ window.Deck.sequence("gs-amidite", function(slide){
   const ARROWS = ["ab", "bc", "cd", "da"];
   const SHOWN = {
     "mono-ink":[0], "mono-key":[1], key:[1,2,3,4],
-    "mech-act":[2], "mech-att":[3,5,6,7,8,9], "mech-prod":[4],
+    "mech-act":[2], "mech-att":[3,7], "mech-prod":[4],
+    "mech-eth":[5], "mech-deb":[6], "mech-oxi":[8], "mech-cap":[9],
     "mech-hd":[2,3,4,5,6,7,8,9],
     cycle:[5,6,7,8,9],
     A1:[5,6,7,8], A2:[9], B:[6,7,8,9], C:[7,8,9], D:[8,9],
@@ -669,6 +971,7 @@ window.Deck.sequence("gs-amidite", function(slide){
       r["r-"+a].setAttribute("opacity", live ? "1" : "0");
     });
     r.cap.innerHTML = STEPS[i].label;
+    r["mech-hd"].innerHTML = STEPS[i].panel || "";
   }
 
   go(0, false);
