@@ -247,10 +247,14 @@ function scene(s){
         where no label of the band above or below lands. */
   const da = smooth(s.dig, 0, 0.45);
   g += downArrow(420, 505, 539, da);
-  g += fade(smooth(s.dig, 0.15, 0.5), txt(444, 529, "Digest NcoI/EcoRI", F, INK, 700, "start"));
+  /* The source deck labels both of these "NcoI/EcoRI", which contradicts its own
+     drawing: the ends it produces are CATG and TCGA, the NcoI and XhoI overhangs,
+     and EcoRI leaves AATT. The course's own tutorials cut this same pET-28a
+     construction with NcoI,XhoI. Corrected on JCA's instruction. */
+  g += fade(smooth(s.dig, 0.15, 0.5), txt(444, 529, "Digest NcoI/XhoI", F, INK, 700, "start"));
   if (s.vec > 0.5){
     g += downArrow(1160, 505, 539, da);
-    g += fade(smooth(s.dig, 0.15, 0.5), txt(1184, 529, "Digest NcoI/EcoRI", F, INK, 700, "start"));
+    g += fade(smooth(s.dig, 0.15, 0.5), txt(1184, 529, "Digest NcoI/XhoI", F, INK, 700, "start"));
   }
   const cut = smooth(s.dig, 0.4, 1);
   if (cut > 0.004){
@@ -307,7 +311,7 @@ window.Deck.sequence("pcrcutligate", function(slide){
     { s:{cdna:1, pcr:1, vec:1, dig:0, lig:0}, dur:800,
       desc:"On the right, pET-28a(+) appears as a circle. Clockwise from the top: a blue T7 promoter bar, then a short black block carrying the NcoI and XhoI sites, then kanR down the right side, ori at the bottom, and lacI in amber up the left side." },
     { s:{cdna:1, pcr:1, vec:1, dig:1, lig:0}, dur:1200,
-      desc:"An arrow labelled Digest NcoI/EcoRI points down from the fragment and another from the plasmid. The fragment becomes a piece reading CATG at its left end and TCGA at its right, with the INS arrow between them. The plasmid opens into a line with the same two ends, carrying lacI, ori and kanR in that order between them." },
+      desc:"An arrow labelled Digest NcoI/XhoI points down from the fragment and another from the plasmid. The fragment becomes a piece reading CATG at its left end and TCGA at its right, with the INS arrow between them. The plasmid opens into a line with the same two ends, carrying lacI, ori and kanR in that order between them." },
     { s:{cdna:1, pcr:1, vec:1, dig:1, lig:1}, dur:1100,
       desc:"An arrow labelled T4 DNA Ligase leads down to a single circle, pET-INS. It carries lacI, ori and kanR as before, and the INS arrow now sits between the NcoI and XhoI sites, just downstream of the T7 promoter." }
   ];

@@ -7,12 +7,38 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Basic Cloning &ndash; DNA Fabrication</title>
 <link rel="stylesheet" href="../../deck.css">
+<style>
+/* deck.css defines no --mono; it sets the stack literally on .slide code, so
+   match that stack rather than inventing a variable that resolves to nothing
+   and silently drops the block into the body face. */
+.slide pre.cf{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:26px;line-height:1.55;letter-spacing:.02em;margin:40px 0 0;white-space:pre}
+.slide pre.cf code{font:inherit;color:inherit}
+</style>
 </head>
 <body>
 
 <article class="slide" data-bg="section">
   <h1>Basic Cloning</h1>
-  <template class="desc">Section divider: Basic Cloning.</template>
+  <!-- The Golden Gate divider carries its one-line Construction File, so this
+       one carries the five lines basic cloning actually takes.  Side by side
+       across the lecture, the CF is the honest measure of what each method
+       costs you: one line there, five here, and the fragment index on every
+       Digest because cutting twice leaves you three pieces to choose from.
+
+       COPIED VERBATIM from docs/construction/basic_cloning.md, on JCA's
+       instruction, so the lecture and the tutorial cannot drift apart. Do not
+       tidy the column alignment or rename an intermediate: this block is the
+       tutorial's, character for character, and a student may be reading both.
+       The tutorial also carries the two oligo lines with real sequences; they
+       are left there rather than duplicated here. -->
+  <pre class="cf"><code>PCR     ins-F       ins-R       insulin_cDNA     pcr_ins
+Digest  pcr_ins     NcoI,XhoI   1                pcr_dig
+Digest  pET28a      NcoI,XhoI   1                vec_dig
+Ligate  pcr_dig     vec_dig                      lig
+Transform lig      Mach1       Kan      37      pET-INS</code></pre>
+  <template class="notes">Five lines, where Golden Gate will take one. PCR the insert with primers that carry the two sites, cut it and cut the vector with the same pair, ligate, transform. This is the construction file from the basic cloning tutorial, the same one you will run, so read it there as well. Notice the number on each Digest line: cutting with two enzymes leaves three pieces, and you have to say which one you want. That bookkeeping is the thing the standardized methods later in this lecture are trying to take off your hands.</template>
+  <template class="desc">Section divider: Basic Cloning. Beneath it, the Construction File for the experiment, in monospace, five lines: PCR the insulin cDNA with primers ins-F and ins-R to give pcr_ins; Digest pcr_ins with NcoI and XhoI, keeping fragment 1, to give pcr_dig; Digest pET28a the same way to give vec_dig; Ligate the two digests to give lig; Transform lig into Mach1 on kanamycin at 37 degrees to give pET-INS.</template>
 </article>
 
 <article class="slide" data-seq="pcrcutligate">
