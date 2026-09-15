@@ -26,18 +26,24 @@
  *      each duplex: the strand you will order, which is the bottom of
  *      the left duplex and the top of the right one.
  *
- *      The two ends are counted DIFFERENTLY, and that is the lesson.
- *      JCA: "you need 20 bp of exact match for the oligo to anneal.  If
- *      the junction is in the template, it can be included in that 20 bp
- *      count, otherwise, you need to extend 4 bp further."  TTAG is the
- *      left fragment's own last four bases, so the left oligo counts it
- *      and takes 16 more.  On the right it is a 5' tail -- the right
- *      fragment starts at TAC -- so the right oligo gets no credit for
- *      it and takes a full 20 beyond -- and beyond the point mutation
- *      too, because ctt is not in the template either, so the three
- *      bases of TAC caught between the junction and the mutation cannot
- *      be part of an anneal.  Sixteen ink bases on the left, twenty on
- *      the right, twenty of exact match either way.  An earlier version lit both strands whole, on
+ *      Twenty PAST the junction, and past anything else that is not in
+ *      the template.  Measured off JCA's own answer to the EIPCR
+ *      question two slides on, which is the authority here:
+ *
+ *        o1  CCAAA ggtctc G atgg cTagtagcgaagacgttatc   20 past atgg
+ *        o2  CAGTA ggtctc A ccat AGATCCTTTCTCCTCTTTC    19 past ccat
+ *
+ *      Both of those junctions ARE template -- atgg is the first four
+ *      bases of the ORF -- and he still puts a full twenty after them.
+ *      A junction that happens to be template buys margin, not a
+ *      shorter oligo.  An earlier pass here cut the left end to sixteen
+ *      on the reasoning that the junction could be counted toward the
+ *      twenty; JCA: "the annealing region doesn't match the next slide.
+ *      The next slide is right, this one is too short."
+ *
+ *      On the right the count also has to clear the point mutation,
+ *      because ctt is not in the template either, which strands the TAC
+ *      between them: template, but on the wrong side of a mismatch.  An earlier version lit both strands whole, on
  *      the reasoning that you do not yet know which one you will order.
  *      JCA: "don\'t make all the ends black, just the chosen annealing
  *      region, which is only a substring of it (20 bp), and it is only
@@ -105,8 +111,8 @@ const LINES = [
   ]},
   { end:"5", oligo:true, segs:[
     seg(E,                              _, _, _,  _, T),
-    seg("TACGGTATCG",                   _, _, _,  _, O),
-    seg("TAAAAATAGGTATTCT",             _, _, _,  O, O),   /* 16 + the junction */
+    seg("TACGGT",                       _, _, _,  _, O),
+    seg("ATCGTAAAAATAGGTATTCT",         _, _, _,  O, O),   /* 20 past the junction */
     jct("AATC",                         _, M, M,  M, M),
     seg("G",                         null, null, _, _, O),
     seg("CTCTGG",                    null, null, S, S, S),
