@@ -23,7 +23,18 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);o
   #app[data-mode="presenter"],#app[data-mode="wcag"]{grid-template-columns:1fr;grid-template-rows:1fr 45vh}
 }
 
-#deck{position:relative;min-width:0;min-height:0;overflow:hidden;background:#f2f2f2}
+/* The slide is 1600x900 scaled to fit, so any screen that is not 16:9
+   letterboxes it -- a 16:10 laptop or projector leaves a band top and
+   bottom.  That band used to be grey, which framed the slide usefully
+   inside a browser window and read as a defect thrown on a wall.  It
+   takes the colour of the slide that is showing instead, so a white
+   slide fills the screen edge to edge and a coloured divider letterboxes
+   in its own colour.  :has() rather than a class toggled from deck.js,
+   because this has to be right under F11 too, where there is no
+   fullscreen element for script to hang anything on. */
+#deck{position:relative;min-width:0;min-height:0;overflow:hidden;background:var(--paper)}
+#deck:has(> #stage > .slide.on[data-bg="lecture"]){background:var(--ground-lecture)}
+#deck:has(> #stage > .slide.on[data-bg="section"]){background:var(--ground-section)}
 #app[data-mode="presenter"] #deck,#app[data-mode="wcag"] #deck{border-right:1px solid var(--rule)}
 @media (max-width:860px){
   #app[data-mode="presenter"] #deck,#app[data-mode="wcag"] #deck{border-right:0;border-bottom:1px solid var(--rule)}
