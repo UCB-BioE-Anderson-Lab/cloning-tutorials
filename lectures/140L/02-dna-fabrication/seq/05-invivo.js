@@ -162,13 +162,13 @@ function scene(s){
 const KEYS = ["ext", "cell", "join"];
 const S = [
   { s:{ext:0, cell:0, join:0},
-    cap:"Design oligos just like SOEing / Gibson with 40bp or more homology",
+    cap:"Design oligos just like SOEing / Gibson with 20bp or more homology",
     note:"Dan Gibson, of Gibson reaction fame, has also extensively developed yeast-based in vivo recombination.",
     desc:"Four oligos, drawn as short lines with a half barb at each 3-prime end, two of them blue and two black, sitting where the two cassettes will be. The two that face each other across the middle carry a red segment at their 5-prime ends: that is the forty or more bases both cassettes will end up sharing, and it is on the oligo because that is where you put it." },
 
   { s:{ext:1, cell:0, join:0},
     cap:"Make the individual PCR cassettes",
-    note:"The design of the fragments for the assembly reaction is no different than with the other methods employing 40 bp or more homology between fragments, and the fragments are constructed from parallel PCR reactions.",
+    note:"The design of the fragments for the assembly reaction is no different than with the other methods employing 20 bp or more homology between fragments, and the fragments are constructed from parallel PCR reactions.",
     desc:"Each oligo has run out to the far end of its template, so the four short lines are now two full double-stranded cassettes with a gap between them, the left one blue and the right one black. The red shared sequence is now on both strands at the right-hand end of the left cassette and at the left-hand end of the right one." },
 
   { s:{ext:1, cell:1, join:0},
