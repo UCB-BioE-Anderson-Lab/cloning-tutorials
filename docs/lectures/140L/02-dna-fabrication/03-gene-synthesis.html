@@ -137,18 +137,17 @@
 <article class="slide">
   <h1 class="small">Phosphoramidite oligonucleotide synthesis</h1>
   <ul class="tight">
-    <li>About <b>$0.18 a base</b> on an academic contract, $0.47 at list, so a 35-mer primer is roughly $6, or $16 at list. Reliably 24 hrs</li>
-    <li>That rate is the <b>standard CPG product at the smallest scale</b>, which runs 15 to 60 bases</li>
-    <li>The price break is a scale boundary, not a length penalty: the 25 nmole scale stops at 60 bases, so a 61-mer forces the 100 nmole scale and $0.47 per base becomes $0.86</li>
-    <li>Past the standard scales it is a <b>different product</b>: IDT Ultramer and Eurofins EXTREmer reach 200 bases, at roughly $1 a base</li>
+    <li>A 35-mer primer runs about <b>$5</b>, and it is in hand the next day</li>
+    <li><b>Over 60 bases</b> the order moves up a scale, and the price per base roughly doubles</li>
+    <li><b>Past about 100</b> it is a different product altogether &mdash; several vendors sell one, all of them much more expensive</li>
     <li>They are synthesized 3&rsquo; to 5&rsquo;, opposite that of polymerases</li>
-    <li>Non-clonal, deletions and truncations increase towards the 5&rsquo; end</li>
+    <li>Non-clonal: deletions and truncations increase towards the 5&rsquo; end</li>
   </ul>
 
   <div class="growfig" data-build="1"
-       data-note="Here is the fourth line drawn, because it is the one people get backwards. The bead holds the 3-prime end, so the only end free to react is the 5-prime end and the chain grows leftward here. A polymerase does the opposite. That is not trivia: it is why the last line is true. The last base added is the one at the 5-prime end, so the chains that fell out along the way are all missing sequence from that end."
+       data-note="Here is the fourth line drawn, because it is the one people get backwards. The bead holds the 3-prime end, so the only end free to react is the 5-prime end and the chain grows leftward here. A polymerase does the opposite."
        data-desc="A drawing of the fourth line. Both strands are written with the 5-prime end at the left. The chemistry builds the oligo on a CPG bead that holds its 3-prime end, so the chain grows leftward, at the 5-prime end. A polymerase extends the other way, adding to the 3-prime end, which carries a half barb.">
-  <svg width="1380" height="212" viewBox="0 0 1380 212" aria-hidden="true">
+  <svg width="1380" height="386" viewBox="0 0 1380 386" aria-hidden="true">
     <g font-family="Helvetica Neue,Arial,Helvetica,sans-serif">
       <!-- phosphoramidite chemistry: the 3' end is held by the bead, so
            every new base is added at the 5' end and the chain grows left -->
@@ -174,12 +173,36 @@
       <path d="M740 132H828M814 122L830 132L814 142" fill="none" stroke="#004373"
             stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
       <text x="722" y="140" text-anchor="end" font-size="24" fill="#004373">each new base is added here</text>
+
+      <!-- the last line drawn: the product is a POPULATION.  Every chain is
+           anchored at the 3' end, so every chain has that end; the 5' end is
+           made last, so it is the end a failed coupling costs you.  Each
+           strand is drawn in the same column as the two rows above, solid
+           ink for what is there and dashed vermillion for what is missing,
+           which stacks the missing pieces into a wedge opening to the 5' end. -->
+      <g data-build="2"
+         data-note="And this is why the last line is true. The bead holds the 3-prime end, so every chain that ever started carries it. The 5-prime end is the last thing made, so a chain that missed a coupling anywhere along the way gets capped and stops short. The dashed pieces are what is missing. Errors are not spread evenly down the molecule: they pile up at the 5-prime end, which is exactly where your restriction site or your annealing region usually sits."
+         data-desc="A stack of five product strands, all ending together at the right at their 3-prime ends and ragged at the left. The top strand is full length; the four below it start further and further to the right, and the missing part of each is drawn as a dashed red segment, so the dashes stack into a wedge that widens toward the 5-prime end. A caption reads: the 5-prime end is made last, so it is the end most often missing.">
+        <text x="0" y="305" font-size="27" font-weight="700" fill="#111111">What comes off the bead</text>
+        <g fill="none" stroke="#111111" stroke-width="3.4" stroke-linecap="round">
+          <path d="M470 252H830"/><path d="M512 274H830"/><path d="M578 296H830"/>
+          <path d="M664 318H830"/><path d="M742 340H830"/>
+        </g>
+        <g fill="none" stroke="#ba3a13" stroke-width="3.4" stroke-linecap="round"
+           stroke-dasharray="7 9">
+          <path d="M470 274H512"/><path d="M470 296H578"/>
+          <path d="M470 318H664"/><path d="M470 340H742"/>
+        </g>
+        <text x="452" y="260" text-anchor="end" font-size="24" fill="#767676">5&#8242;</text>
+        <text x="848" y="260" font-size="24" fill="#767676">3&#8242;</text>
+        <text x="470" y="378" font-size="24" fill="#ba3a13">the 5&#8242; end is made last, so it is the end most often missing</text>
+      </g>
     </g>
   </svg>
   </div>
 
-  <template class="notes">These are the numbers you will design against, so take the third line seriously. Nothing about a 61-mer is chemically harder than a 60-mer. It simply does not fit the 25 nanomole scale, so the whole order moves up a scale and the per-base price nearly doubles. Keep your oligos at 60 and under unless you have a reason not to, and when you genuinely need 200 bases, know that you are buying a different product.</template>
-  <template class="desc">Five lines on what phosphoramidite oligonucleotide synthesis costs and can do: about eleven dollars at an academic contract rate, about twenty-eight at list, and 24 hours; 6 bases up to 200 with a long-oligo product; a price break that is a scale boundary rather than a length penalty, because the 25 nanomole scale stops at 60 bases and a 61-mer forces the 100 nanomole scale; built 3-prime to 5-prime unlike a polymerase; and non-clonal with deletions and truncations rising toward the 5-prime end.</template>
+  <template class="notes">These are the numbers you will design against, so take the second line seriously. Nothing about a 61-mer is chemically harder than a 60-mer. It simply does not fit the smallest scale, so the whole order moves up a scale and the per-base price nearly doubles. Keep your oligos at 60 and under unless you have a reason not to, and when you genuinely need two hundred bases, know that you are buying a different product at a different price.</template>
+  <template class="desc">Five short lines on what phosphoramidite oligonucleotide synthesis costs and can do: a 35-mer primer runs about five dollars and arrives the next day; over 60 bases the order moves up a scale and the price per base roughly doubles; past about a hundred bases it is a different product altogether, sold by several vendors and much more expensive; the oligo is built 3-prime to 5-prime, opposite a polymerase; and it is non-clonal, with deletions and truncations increasing towards the 5-prime end.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 15 -->
