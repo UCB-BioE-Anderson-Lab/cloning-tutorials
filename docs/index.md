@@ -121,10 +121,7 @@ Each tutorial includes **step-by-step instructions, videos, and interactive exam
 
 ## Lectures
 
-Slide decks from BioE 140L, listed section by section on the **[lecture index](lectures/140L/)**. They run in the browser: arrow keys advance a step, **G** jumps between sections, and **P** opens presenter view with the narration.
+Slide decks from the BioE courses, built to run in a browser: the arrow keys advance one step at a time, **G** jumps between sections, and **P** opens presenter view with the narration. Start at the **[lecture index](lectures/)**.
 
-1. **[DNA Manipulation Enzymes](lectures/140L/01-dna-enzymes/00-intro.html)**  
-   The enzymes that cut, join, copy, and modify DNA, grouped by the reaction each one runs.
-
-2. **[DNA Fabrication](lectures/140L/02-dna-fabrication/00-front-matter.html)**  
-   How a physical DNA of a given sequence actually gets made: basic cloning, ad hoc assembly, gene synthesis, BioBricks, homology-based assembly and Golden Gate.
+- **[BioE 140L](lectures/140L/)** — thirteen lectures, from an overview of the field through the enzymes and DNA fabrication methods the bench work depends on, to how engineered cells are assayed and characterised. Two decks are built so far.
+- **BioE 234** — next semester.
