@@ -70,6 +70,43 @@
      and the figures are printed above both, so nothing is overstated. */
   min-width:26px}
 .slide .costs .bar.big{background:var(--blue);margin-bottom:0}
+/* Things you press.  The deck has never had a control on a slide before,
+   so this is the one definition of what one looks like: the blue of a
+   link, drawn as an outline so it reads as pressable from the back of a
+   lecture hall, and never a filled block that competes with the figure. */
+.slide .btn{font:600 21px/1 "Helvetica Neue",Arial,Helvetica,sans-serif;
+  color:var(--blue);background:#fff;border:1.6px solid var(--blue);border-radius:5px;
+  padding:11px 17px;cursor:pointer;text-decoration:none;display:inline-block}
+.slide .btn:hover{background:var(--blue);color:#fff}
+.slide .btn:focus-visible{outline:3px solid var(--vermillion);outline-offset:3px}
+.slide .btn.done{border-color:var(--ink);color:var(--ink)}
+.slide p.acts{display:flex;flex-wrap:wrap;gap:14px;margin:18px 0 0}
+
+/* The oligo calculator.  The spreadsheet on the previous slide is the
+   thing being taught, and this is the same arithmetic wired into the
+   slide so the demo can happen without leaving it: paste on the left,
+   the order on the right, recomputed on every keystroke.  Both columns
+   claim the leftover height rather than sizing to their content, so the
+   box does not change shape as the output grows. */
+.slide .calc{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:1fr 1.34fr;gap:40px}
+.slide .calc > div{min-width:0;min-height:0;display:flex;flex-direction:column}
+.slide .calc label.lbl{display:flex;flex-direction:column;flex:1 1 auto;min-height:0;
+  font-size:22px;color:var(--muted)}
+.slide .calc textarea,.slide .calc pre.out{flex:1 1 auto;min-height:0;width:100%;
+  margin:8px 0 0;padding:12px;box-sizing:border-box;
+  border:1px solid var(--rule);border-radius:5px;background:#fff;color:var(--ink);
+  font:20px/1.42 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.slide .calc textarea{resize:none}
+/* An oligo name and a 50-mer have to sit on one line without scrolling
+   sideways: 59 monospace characters inside the wider column. */
+.slide .calc pre.out{overflow:auto;white-space:pre;font-size:18px}
+.slide .calc pre.out b{font-weight:700;color:var(--blue)}
+.slide .calc .row{display:flex;align-items:center;gap:16px;margin-top:16px;
+  font-size:22px;color:var(--muted)}
+.slide .calc .row.head{margin:0 0 8px;justify-content:space-between}
+.slide .calc input.lca-len{width:88px;font:20px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  padding:9px 8px;border:1px solid var(--rule);border-radius:5px;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -217,14 +254,23 @@
     <figure class="fig">
       <img src="img/03-lca-editor.png" alt="A sequence editor window showing the lambda repressor sequence, with restriction sites highlighted and the whole insert selected">
     </figure>
-    <ul class="tight">
-      <li data-build="1"
-          data-note="What you paste in has to be the finished molecule, sites and tails and all. The assembly builds exactly the sequence you hand it, so anything you leave off here you simply will not have at the end."
-          data-desc="First instruction appears: construct the complete sequence to be synthesized, including restriction sites and 5-prime tails.">Construct the complete sequence to be synthesized, including restriction sites and 5&rsquo; tails</li>
-      <li data-build="2"
-          data-note="Then take the whole thing. It goes into a spreadsheet, which is the next slide."
-          data-desc="Second instruction appears: copy the sequence to the clipboard.">Copy to the clipboard</li>
-    </ul>
+    <div>
+      <ul class="tight">
+        <li data-build="1"
+            data-note="What you paste in has to be the finished molecule, sites and tails and all. The assembly builds exactly the sequence you hand it, so anything you leave off here you simply will not have at the end."
+            data-desc="First instruction appears: construct the complete sequence to be synthesized, including restriction sites and 5-prime tails.">Construct the complete sequence to be synthesized, including restriction sites and 5&rsquo; tails</li>
+        <li data-build="2"
+            data-note="Then take the whole thing. The button puts this exact cassette on your clipboard, all 742 bases of it, so you can paste it straight into the calculator two slides on. The file beside it is the annotated version, the one in the screenshot, if you would rather open it in a sequence editor first."
+            data-desc="Second instruction appears: copy the sequence to the clipboard, with a button that copies the 742-base lambda repressor cassette and a link that downloads the annotated sequence file.">Copy to the clipboard</li>
+      </ul>
+      <!-- The one place in the deck where a slide hands you something.  The
+           button copies the same 742 bases the .str file holds, so the demo
+           can start from a clipboard rather than from a retyped sequence. -->
+      <p class="acts" data-build="2">
+        <button class="btn" type="button" data-copy="lambda">Copy the sequence</button>
+        <a class="btn" href="assets/lambda-repressor.str" download="Lambda repressor.str">Download the annotated file</a>
+      </p>
+    </div>
   </div>
   <template class="notes">This is the design step, and all of it happens before you order anything. The window is a sequence editor with the part you want in it.</template>
   <template class="desc">A screenshot of a sequence editor holding the lambda repressor sequence with its restriction sites highlighted, beside the two instructions that go with it.</template>
@@ -237,20 +283,55 @@
     <figure class="fig">
       <img src="img/03-lca-spreadsheet.png" alt="A spreadsheet with the target sequence pasted in red at the top and the 50-base oligos it has been cut into listed in blue below, then the reverse complement pasted below that and cut the same way">
     </figure>
-    <ul class="tight">
-      <li data-build="1"
-          data-note="Paste it in at the top. The red line is your target, untouched, and the sheet cuts it up underneath."
-          data-desc="First instruction appears: paste the sequence you wish to synthesize into the spreadsheet.">Paste the sequence you wish to synthesize into the spreadsheet</li>
-      <li data-build="2"
-          data-note="Then the reverse complement below it, and cut the same way. LCA tiles both strands completely, so you are buying the whole molecule twice over, once from each side."
-          data-desc="Second instruction appears: also paste in the reverse complement sequence.">Also paste in the reverse complement sequence</li>
-      <li data-build="3"
-          data-note="The blue rows are the order, and nothing else on this sheet is. Both strands, already cut into 50-mers for you. You paste that column into the order form and you are done designing."
-          data-desc="Third instruction appears: the sequences in blue are the ones you order synthesized.">Sequences in blue here are ones you order synthesized</li>
-    </ul>
+    <div>
+      <ul class="tight">
+        <li data-build="1"
+            data-note="Paste it in at the top. The red line is your target, untouched, and the sheet cuts it up underneath."
+            data-desc="First instruction appears: paste the sequence you wish to synthesize into the spreadsheet.">Paste the sequence you wish to synthesize into the spreadsheet</li>
+        <li data-build="2"
+            data-note="Then the reverse complement below it, and cut the same way. LCA tiles both strands completely, so you are buying the whole molecule twice over, once from each side."
+            data-desc="Second instruction appears: also paste in the reverse complement sequence.">Also paste in the reverse complement sequence</li>
+        <li data-build="3"
+            data-note="The blue rows are the order, and nothing else on this sheet is. Both strands, already cut into 50-mers for you. You paste that column into the order form and you are done designing."
+            data-desc="Third instruction appears: the sequences in blue are the ones you order synthesized.">Sequences in blue here are ones you order synthesized</li>
+      </ul>
+      <p class="tight" data-build="4" style="font-size:24px;margin:22px 0 10px"
+         data-note="It is a Google Sheet now, and the link is on the slide. Do not expect anything clever of it. Every oligo is the same length and every junction sits at the same stagger, so each oligo anneals to its neighbour over half its length. It does not look at melting temperature, it does not avoid hairpins, it does not move a junction to a better place. For a gene this size that is good enough, and the fact that it is good enough is worth noticing."
+         data-desc="A note about the spreadsheet and the link to it: it is a Google Sheet, and the algorithm is deliberately simple, with every oligo cut to one fixed length and every junction placed at the same fixed stagger, so each oligo anneals to its neighbour over half its length.">A Google Sheet. The algorithm is deliberately plain: <b>every oligo the same length</b>, every junction at the same stagger, so each anneals to its neighbour over half its length</p>
+      <p data-build="4" style="margin:0"><a class="tool" href="https://docs.google.com/spreadsheets/d/14a5r2Pzol-O23Tq93P0qf6C69UbULpf06cuOVljk0OU/edit?gid=0#gid=0">https://docs.google.com/spreadsheets/d/14a5r2Pzol-O23Tq93P0qf6C69UbULpf06cuOVljk0OU/edit?gid=0</a></p>
+    </div>
   </div>
-  <template class="notes">File Demo of LCR design.xls  in DNA Fabrication Examples zip file</template>
+  <template class="notes">This is the sheet that does the cutting, and the screenshot is the old Excel copy of it. The live one is a Google Sheet, linked at the bottom of the slide.</template>
   <template class="desc">A screenshot of the design spreadsheet: the target sequence pasted in red across the top, the 50-base oligos it has been cut into listed in blue beneath it, and the reverse complement pasted and cut the same way below.</template>
+</article>
+
+<!-- ------------------------------------------------------------- 17b -->
+<!-- The same arithmetic as the sheet, wired into the slide, so the demo
+     can be run without leaving the deck and without signing in to
+     anything.  It is deliberately the SAME algorithm and not a better
+     one: fixed oligo length, junctions at half that length. -->
+<article class="slide">
+  <h1 class="small">LCA oligo calculator</h1>
+  <div class="calc" data-lca>
+    <div>
+      <label class="lbl">Paste the complete cassette
+        <textarea class="lca-in" spellcheck="false" autocapitalize="off"
+                  autocomplete="off" aria-label="Sequence to cut into oligos"
+                  placeholder="paste a sequence here &mdash; numbers and line breaks are ignored, so a GenBank block works"></textarea>
+      </label>
+      <p class="row">
+        <label>Oligo length <input class="lca-len" type="number" value="50" min="20" max="120" step="1"></label>
+        <button class="btn lca-load" type="button">Load the lambda repressor</button>
+      </p>
+    </div>
+    <div>
+      <p class="row head"><span class="lca-count">nothing pasted yet</span>
+         <button class="btn lca-copy" type="button">Copy the order</button></p>
+      <pre class="out lca-out"></pre>
+    </div>
+  </div>
+  <template class="notes">Paste a cassette on the left and the order appears on the right, recomputed as you type. It is the same arithmetic as the sheet, so you can use either. Load the lambda repressor and watch the two counts: the forward strand cuts into whole 50-mers from base one, and the reverse cuts 25 first and then 50s, which is what puts every junction in the middle of an oligo on the other strand. Change the oligo length and the whole set redraws, which is the quickest way to show that nothing here is chosen for a reason beyond arithmetic.</template>
+  <template class="desc">A working calculator on the slide. On the left, a box to paste the complete cassette into and a field for the oligo length, set to 50, with a button that loads the lambda repressor sequence. On the right, the resulting order: the forward oligos listed first and then the reverse oligos, each named and numbered, with a count above them and a button that copies the whole set.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 18 -->
@@ -493,5 +574,157 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
 <script src="seq/03-lca.js" defer></script>
 <script src="seq/03-pca.js" defer></script>
 <script src="seq/03-pca-cycles.js" defer></script>
+<script>
+/* ------------------------------------------------------------------ *
+ * The two live controls in this section: the clipboard button on the
+ * design slide and the oligo calculator two slides later.
+ *
+ * Nothing here uses an id.  Presenter mode clones the NEXT slide into
+ * its preview pane, so any id on a slide exists twice the moment the
+ * slide before it is showing.  Everything is found by class, inside the
+ * element the event actually came from.
+ *
+ * deck.js already ignores keystrokes whose target is an input or a
+ * textarea, so typing a sequence here does not walk the deck.
+ * ------------------------------------------------------------------ */
+(function(){
+  "use strict";
+
+  /* The same 742 bases as assets/lambda-repressor.str, which is the
+     annotated copy offered for download beside the button.  Keep the two
+     in step: this is the sequence the demo pastes. */
+  var LAMBDA =
+  "ccataGAATTCatgAGATCTagcacaaaaaagaaaccattaacacaagagcagcttgagg" +
+  "acgcacgtcgccttaaagcaatttatgaaaaaaagaaaaatgaacttggcttatcccagg" +
+  "aatctgtcgcagacaagatggggatggggcagtcaggcgttggtgctttatttaatggca" +
+  "tcaatgcattaaatgcttataacgccgcattgcttgcaaaaattctcaaagttagcgttg" +
+  "aagaatttagcccttcaatcgccagagaaatctacgagatgtatgaagcggttagtatgc" +
+  "agccgtcacttagaagtgagtatgagtaccctgttttttctcatgttcaggcagggatgt" +
+  "tctcacctgagcttagaacctttaccaaaggtgatgcggagagatgggtaagcacaacca" +
+  "aaaaagccagtgattctgcattctggcttgaggttgaaggtaattccatgaccgcaccaa" +
+  "caggctccaagccaagctttcctgacggaatgttaattctcgttgaccctgagcaggctg" +
+  "ttgagccaggtgatttctgcatagccagacttgggggtgatgagtttaccttcaagaaac" +
+  "tgatcagggatagcggtcaggtgtttttacaaccactaaacccacagtacccaatgatcc" +
+  "catgcaatgagagttgttccgttgtggggaaagttatcgctagtcagtggcctgaagaga" +
+  "cgtttggctgaGGATCCatcag";
+
+  /* ---- clipboard ------------------------------------------------- */
+  /* The modern API is the right one, but it rejects on a page that is not
+     focused and it does not exist at all over plain http, which is what a
+     projector laptop serving the deck off a stick will be.  So the old
+     selection trick stays as the fallback for BOTH cases. */
+  function legacy(text){
+    var t = document.createElement("textarea"), ok = false;
+    t.value = text;
+    t.style.position = "fixed"; t.style.top = "0"; t.style.opacity = "0";
+    document.body.appendChild(t);
+    t.focus(); t.select();
+    try { ok = document.execCommand("copy"); } catch(e){}
+    document.body.removeChild(t);
+    return ok;
+  }
+  function copy(text){
+    if (navigator.clipboard && window.isSecureContext)
+      return navigator.clipboard.writeText(text).catch(function(){
+        return legacy(text) ? undefined : Promise.reject();
+      });
+    return legacy(text) ? Promise.resolve() : Promise.reject();
+  }
+  function flash(btn, word){
+    if (btn._t) { clearTimeout(btn._t); } else { btn._was = btn.textContent; }
+    btn.textContent = word; btn.classList.add("done");
+    btn._t = setTimeout(function(){
+      btn.textContent = btn._was; btn.classList.remove("done"); btn._t = null;
+    }, 1600);
+  }
+
+  /* ---- the cut --------------------------------------------------- */
+  var COMP = {A:"T",C:"G",G:"C",T:"A",U:"A",R:"Y",Y:"R",S:"S",W:"W",K:"M",
+              M:"K",B:"V",V:"B",D:"H",H:"D",N:"N"};
+  function revcomp(s){
+    var o = "", i, c, up, m;
+    for (i = s.length - 1; i >= 0; i--){
+      c = s.charAt(i); up = c.toUpperCase(); m = COMP[up] || "N";
+      o += (c === up) ? m : m.toLowerCase();
+    }
+    return o;
+  }
+  /* First block may be short, every block after it is full length.  That
+     one asymmetry is the whole design: it offsets the reverse strand by
+     half an oligo, so each junction on one strand is spanned by the
+     middle of an oligo on the other. */
+  function blocks(s, first, len){
+    var out = [], i = 0, n = first;
+    while (i < s.length){ out.push(s.slice(i, i + n)); i += n; n = len; }
+    return out;
+  }
+  function design(raw, len){
+    var clean = String(raw).replace(/[^A-Za-z]/g, "");
+    if (!clean) return null;
+    return { clean: clean, len: clean.length,
+             fwd: blocks(clean, len, len),
+             rev: blocks(revcomp(clean), Math.round(len / 2), len) };
+  }
+  function pad(n){ return (n < 10 ? "0" : "") + n; }
+  function rows(d){
+    var r = [];
+    d.fwd.forEach(function(o, i){ r.push(["LCA-F" + pad(i + 1), o]); });
+    d.rev.forEach(function(o, i){ r.push(["LCA-R" + pad(i + 1), o]); });
+    return r;
+  }
+
+  function render(box){
+    var ta    = box.querySelector(".lca-in"),
+        out   = box.querySelector(".lca-out"),
+        count = box.querySelector(".lca-count"),
+        len   = parseInt(box.querySelector(".lca-len").value, 10);
+    if (!(len >= 20 && len <= 120)) len = 50;
+    var d = design(ta.value, len);
+    if (!d){ out.textContent = ""; count.textContent = "nothing pasted yet"; return; }
+    var lines = ["Forward oligos  (" + d.fwd.length + ")"];
+    d.fwd.forEach(function(o, i){ lines.push("LCA-F" + pad(i + 1) + "  " + o); });
+    lines.push("", "Reverse oligos  (" + d.rev.length + ")");
+    d.rev.forEach(function(o, i){ lines.push("LCA-R" + pad(i + 1) + "  " + o); });
+    out.textContent = lines.join("\n");
+    out.scrollTop = 0;
+    count.textContent = d.len + " bases  \u2192  " +
+                        (d.fwd.length + d.rev.length) + " oligos";
+  }
+
+  /* ---- wiring, all delegated ------------------------------------- */
+  document.addEventListener("input", function(e){
+    var box = e.target.closest && e.target.closest("[data-lca]");
+    if (box) render(box);
+  });
+  document.addEventListener("click", function(e){
+    var t = e.target;
+    if (!t.closest) return;
+
+    var btn = t.closest("[data-copy]");
+    if (btn){
+      copy(LAMBDA).then(function(){ flash(btn, "Copied \u2713"); },
+                        function(){ flash(btn, "Copy failed"); });
+      return;
+    }
+    var box = t.closest("[data-lca]");
+    if (!box) return;
+    if (t.closest(".lca-load")){
+      box.querySelector(".lca-in").value = LAMBDA;
+      render(box);
+      return;
+    }
+    var cp = t.closest(".lca-copy");
+    if (cp){
+      var d = design(box.querySelector(".lca-in").value,
+                     parseInt(box.querySelector(".lca-len").value, 10) || 50);
+      if (!d){ flash(cp, "Nothing to copy"); return; }
+      /* tab separated, so it drops straight into an order form */
+      var text = rows(d).map(function(r){ return r[0] + "\t" + r[1]; }).join("\n");
+      copy(text).then(function(){ flash(cp, "Copied \u2713"); },
+                      function(){ flash(cp, "Copy failed"); });
+    }
+  });
+})();
+</script>
 </body>
 </html>

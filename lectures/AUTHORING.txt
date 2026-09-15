@@ -180,6 +180,22 @@ it is line work in a few flat colours; keep it on a dark panel only when the
 figure's own data colours overlap its line colours, where recolouring destroys
 the data.
 
+A CONTROL ON A SLIDE MUST NOT USE AN id.  Presenter mode clones the NEXT slide
+into its preview pane, so every id on a slide exists twice the moment the slide
+before it is showing, and getElementById can hand you the dead copy.  Find
+things by class, inside the element the event came from: mark the widget with a
+data- attribute, delegate the listener on document, and scope every lookup with
+closest().  03-gene-synthesis.html's oligo calculator is the worked example.
+Typing is safe -- deck.js already ignores keystrokes aimed at an input,
+textarea, select or contenteditable, so a textarea on a slide does not walk the
+deck.  Buttons and download links use .btn, defined in that same file.
+
+A FILE THE SLIDE HANDS OUT GOES IN THE SECTION'S assets/ DIRECTORY, beside
+img/.  mkdocs copies anything that is not .md straight through, so it needs no
+registration; give the <a> a download attribute with the human filename.  If the
+same bytes also live in a JS string on the slide (a clipboard button), say so in
+a comment at both ends -- they will drift otherwise.
+
 AUDITING
 --------
 tools/check_section.js walks a section step by step with settled frames and
