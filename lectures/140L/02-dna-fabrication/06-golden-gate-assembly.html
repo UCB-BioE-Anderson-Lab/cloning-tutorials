@@ -159,34 +159,6 @@
   </div>
 </article>
 
-<!-- 47 -->
-<article class="slide">
-  <div class="qhead">
-    <img src="img/ponder.png" alt="" aria-hidden="true">
-    <div class="q">EIPCR</div>
-  </div>
-  <div class="prose"><p>Design a Construction File to change the 5&rsquo; end of RFP in pBca9145-Bca1144 from atggc<span class="pt">g</span>agtagcgaagacg to atggc<span class="pt">t</span>agtagcgaagacg without making additional mutations using BsaI EIPCR</p></div>
-  <template class="notes">
-# PCR amplification
-PCR o1 o2 pBca9145-Bca1144#5 ipcr
-
-# Golden Gate Assembly
-GoldenGate ipcr BsaI pBca9145-mutRFP
-
-# Sequences
-oligo o1 CCAAAggtctcGatggcTagtagcgaagacgttatc
-oligo o2 CAGTAggtctcAccatAGATCCTTTCTCCTCTTTC
-
-To arrive at this,
-1) start with the map of on pBca9145-Bca1144#5 (from the tutorials)
-2) Make the single base change to that map
-3) Pick a golden gate junction.  I chose the first 4 bp of the ORF
-4) Including the 4bp junction, find ~20 bp annealing regions forward and reverse
-5) Add BsaI restriction sites and 5&rsquo; tails
-  </template>
-  <template class="desc">A question for the room, marked with the deck's thinking figure. It asks for a Construction File that changes the 5-prime end of RFP in pBca9145-Bca1144 from atggcgagtagcgaagacg to atggctagtagcgaagacg: one base, g to t, marked in bold and underlined in each: without making any other mutation, using BsaI EIPCR. The answer is not on the slide.</template>
-</article>
-
 <!-- 48 -->
 <article class="slide">
   <h1 class="small">Golden Gate from Plasmids</h1>
@@ -244,6 +216,37 @@ To arrive at this,
   </div>
   <template class="notes">Five steps, in this order, every time. The first is bookkeeping: write out the two fragment ends as they really are, with none of the Golden Gate machinery on them yet. Everything in the next four clicks gets added to that.</template>
   <template class="desc">A five-step recipe for designing one Golden Gate junction, worked on a pair of sequences below it that is built up as the recipe goes. First step: construct the sequences of the fragments you are joining. So on this frame the sequences are the bare fragment ends and nothing else: the end of one fragment above and the start of the next below, offset so the four bases they share sit in the same column. Nothing is coloured, and neither end carries a BsaI site or a tail yet.</template>
+</article>
+
+<!-- 47, moved.  JCA: "Move this slide to after we explain how to design
+     the oligos."  It used to ask for a Construction File four slides
+     before the recipe that tells you how to build one.  The source
+     numbering is kept so the marker still points at the PowerPoint. -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">EIPCR</div>
+  </div>
+  <div class="prose"><p>Design a Construction File to change the 5&rsquo; end of RFP in pBca9145-Bca1144 from atggc<span class="pt">g</span>agtagcgaagacg to atggc<span class="pt">t</span>agtagcgaagacg without making additional mutations using BsaI EIPCR</p></div>
+  <template class="notes">
+# PCR amplification
+PCR o1 o2 pBca9145-Bca1144#5 ipcr
+
+# Golden Gate Assembly
+GoldenGate ipcr BsaI pBca9145-mutRFP
+
+# Sequences
+oligo o1 CCAAAggtctcGatggcTagtagcgaagacgttatc
+oligo o2 CAGTAggtctcAccatAGATCCTTTCTCCTCTTTC
+
+To arrive at this,
+1) start with the map of on pBca9145-Bca1144#5 (from the tutorials)
+2) Make the single base change to that map
+3) Pick a golden gate junction.  I chose the first 4 bp of the ORF
+4) Including the 4bp junction, find ~20 bp annealing regions forward and reverse
+5) Add BsaI restriction sites and 5&rsquo; tails
+  </template>
+  <template class="desc">A question for the room, marked with the deck's thinking figure. It asks for a Construction File that changes the 5-prime end of RFP in pBca9145-Bca1144 from atggcgagtagcgaagacg to atggctagtagcgaagacg: one base, g to t, marked in bold and underlined in each: without making any other mutation, using BsaI EIPCR. The answer is not on the slide.</template>
 </article>
 
 <!-- 50 -->
