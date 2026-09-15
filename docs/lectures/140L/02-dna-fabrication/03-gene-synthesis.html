@@ -63,7 +63,12 @@
 .slide .money p.mhead{font-size:34px;font-weight:700;margin:0 0 18px}
 .slide .costs p{margin:0 0 10px}
 .slide .costs{max-width:1240px}
-.slide .costs .bar{height:22px;background:var(--ink);margin:0 0 34px}
+.slide .costs .bar{height:22px;background:var(--ink);margin:0 0 34px;
+  /* At $6,000 against $200,000 the short bar is 3% of the track, which at this
+     height renders as a smudge rather than as a bar. Give it a minimum length so
+     it still reads as a measured quantity; the LONG bar carries the comparison,
+     and the figures are printed above both, so nothing is overstated. */
+  min-width:26px}
 .slide .costs .bar.big{background:var(--blue);margin-bottom:0}
 </style>
 </head>
@@ -95,6 +100,7 @@
         <td></td>
         <th scope="col">IDT single-sequence oligonucleotide synthesis, 25 nmole scale, 2026</th>
         <th scope="col" data-build="1"
+            data-note="Now read across. Ten business days against overnight, kilobases against tens of bases, nine cents a base pair against forty-seven cents a base. But the row that actually separates these two is the last one. One is a single strand, chemically pure and non-clonal. The other is a double-stranded clone sitting in a vector that somebody has already sequenced for you. That is a difference in kind, not a difference in number, and notice where you pay for it: the cloning fee is charged per construct, not per base."
             data-desc="The second column arrives: Twist Clonal Genes, 2026, and the five measures can now be read across. Size 0.3 to 5.0 kb of insert against 15 to 60 bases at this synthesis scale. Price from 9 cents per base pair plus a cloning fee of 35 dollars and up per construct, against 47 cents per base at US list. Yield 1 microgram to 1 milligram against 10 nanomoles. Turnaround 10 business days against over 90 percent of orders shipping within 24 hours. And the DNA arrives as an NGS-verified double-stranded plasmid clone rather than a chemically pure, sequence non-clonal, single-stranded oligo.">Twist Clonal Genes, 2026</th>
       </tr>
     </thead>
@@ -118,6 +124,7 @@
   </table>
   <div class="src">Vendor list prices, September 2026</div>
 
+  <template class="notes">Two ways to buy DNA, measured the same five ways, so read them across rather than down. This column is one oligo from IDT at the 25 nanomole scale. It is short, it is cheap by the base, and over ninety percent of these orders ship inside a day. What arrives is chemically pure, single-stranded, and non-clonal.</template>
   <template class="desc">The two vendor specifications set as one comparison: the five measures down the left, a vendor to a column, values reading straight across. The first column is IDT single-sequence oligonucleotide synthesis at the 25 nanomole scale in 2026: size 15 to 60 bases, price 47 cents per base at US list, yield 10 nanomoles, turnaround with over 90 percent of orders shipping within 24 hours, and the DNA arrives chemically pure, sequence non-clonal and single-stranded. The second column is empty until a click. A source line under the table reads, vendor list prices, September 2026.</template>
 </article>
 
@@ -138,6 +145,7 @@
   </ul>
 
   <div class="growfig" data-build="1"
+       data-note="Here is the fourth line drawn, because it is the one people get backwards. The bead holds the 3-prime end, so the only end free to react is the 5-prime end and the chain grows leftward here. A polymerase does the opposite. That is not trivia: it is why the last line is true. The last base added is the one at the 5-prime end, so the chains that fell out along the way are all missing sequence from that end."
        data-desc="A drawing of the fourth line. Both strands are written with the 5-prime end at the left. The chemistry builds the oligo on a CPG bead that holds its 3-prime end, so the chain grows leftward, at the 5-prime end. A polymerase extends the other way, adding to the 3-prime end, which carries a half barb.">
   <svg width="1380" height="212" viewBox="0 0 1380 212" aria-hidden="true">
     <g font-family="Helvetica Neue,Arial,Helvetica,sans-serif">
@@ -169,6 +177,7 @@
   </svg>
   </div>
 
+  <template class="notes">These are the numbers you will design against, so take the third line seriously. Nothing about a 61-mer is chemically harder than a 60-mer. It simply does not fit the 25 nanomole scale, so the whole order moves up a scale and the per-base price nearly doubles. Keep your oligos at 60 and under unless you have a reason not to, and when you genuinely need 200 bases, know that you are buying a different product.</template>
   <template class="desc">Five lines on what phosphoramidite oligonucleotide synthesis costs and can do: about eleven dollars at an academic contract rate, about twenty-eight at list, and 24 hours; 6 bases up to 200 with a long-oligo product; a price break that is a scale boundary rather than a length penalty, because the 25 nanomole scale stops at 60 bases and a 61-mer forces the 100 nanomole scale; built 3-prime to 5-prime unlike a polymerase; and non-clonal with deletions and truncations rising toward the 5-prime end.</template>
 </article>
 
@@ -186,11 +195,14 @@
     </figure>
     <ul class="tight">
       <li data-build="1"
+          data-note="What you paste in has to be the finished molecule, sites and tails and all. The assembly builds exactly the sequence you hand it, so anything you leave off here you simply will not have at the end."
           data-desc="First instruction appears: construct the complete sequence to be synthesized, including restriction sites and 5-prime tails.">Construct the complete sequence to be synthesized, including restriction sites and 5&rsquo; tails</li>
       <li data-build="2"
+          data-note="Then take the whole thing. It goes into a spreadsheet, which is the next slide."
           data-desc="Second instruction appears: copy the sequence to the clipboard.">Copy to the clipboard</li>
     </ul>
   </div>
+  <template class="notes">This is the design step, and all of it happens before you order anything. The window is a sequence editor with the part you want in it.</template>
   <template class="desc">A screenshot of a sequence editor holding the lambda repressor sequence with its restriction sites highlighted, beside the two instructions that go with it.</template>
 </article>
 
@@ -203,10 +215,13 @@
     </figure>
     <ul class="tight">
       <li data-build="1"
+          data-note="Paste it in at the top. The red line is your target, untouched, and the sheet cuts it up underneath."
           data-desc="First instruction appears: paste the sequence you wish to synthesize into the spreadsheet.">Paste the sequence you wish to synthesize into the spreadsheet</li>
       <li data-build="2"
+          data-note="Then the reverse complement below it, and cut the same way. LCA tiles both strands completely, so you are buying the whole molecule twice over, once from each side."
           data-desc="Second instruction appears: also paste in the reverse complement sequence.">Also paste in the reverse complement sequence</li>
       <li data-build="3"
+          data-note="The blue rows are the order, and nothing else on this sheet is. Both strands, already cut into 50-mers for you. You paste that column into the order form and you are done designing."
           data-desc="Third instruction appears: the sequences in blue are the ones you order synthesized.">Sequences in blue here are ones you order synthesized</li>
     </ul>
   </div>
@@ -322,13 +337,16 @@ aagcggccgcgaattcaatgg</template>
     <div>
       <ul class="tight">
         <li data-build="1"
+            data-note="The front of the job is identical. Complete cassette, sites and tails in, before anything gets cut."
             data-desc="First instruction appears: design the complete cassette as you did with LCA.">Design the complete cassette as you did with LCA</li>
         <li data-build="2"
+            data-note="Where it differs is the cut, and you do not do that one by hand. The calculator takes the cassette and hands back the oligo set with the overlaps already placed. The link is on the slide."
             data-desc="Second instruction appears: design the PCA oligos with the design tool called LCA and PCA Calculator, and the link to that spreadsheet.">Design PCA oligos using a design tool &ldquo;LCA and PCA Calculator&rdquo;</li>
       </ul>
       <p data-build="2" style="margin:0"><a class="tool" href="https://docs.google.com/spreadsheets/d/1eNCzKm96QCwKWe_z9HStvaNXQ8GecXSNM7IuTrw-WDs/edit#gid=452338215">https://docs.google.com/spreadsheets/d/1eNCzKm96QCwKWe_z9HStvaNXQ8GecXSNM7IuTrw-WDs/edit#gid=452338215</a></p>
     </div>
   </div>
+  <template class="notes">You have seen this screenshot already, and that is the point. Whichever assembly you are heading for, the design starts in the same place with the same window.</template>
   <template class="desc">The same sequence editor screenshot beside two instructions: design the complete cassette as for LCA, then design the PCA oligos with the LCA and PCA Calculator, whose link is given below them.</template>
 </article>
 
@@ -433,6 +451,7 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
            edge and one scale; neither carries an axis of its own. -->
       <div class="bar" style="width:3.00%"></div>
       <p data-build="1"
+         data-note="Both bars are drawn on one scale, which is the only reason to draw them at all. Everything between the stub and the long bar is what reuse buys you, and that is why nobody, in a company or in this course, synthesizes a composite part from scratch when they already have the pieces."
          data-desc="The second figure arrives under the first: it would cost about 200,000 dollars for all the composite parts. Its bar runs the full width of the block, against the stub drawn for the basic parts above it.">Would cost ~<b>$200,000</b> for all the composite parts</p>
       <div class="bar big" data-build="1"></div>
     </div>
