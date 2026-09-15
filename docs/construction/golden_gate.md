@@ -4,11 +4,8 @@
 
 <!-- cheatsheet -->
 !!! tip "Bench cheatsheet"
-    Setting one up at the bench? **[Print the one-page cheatsheet](../cheatsheets/goldengate.pdf)** —
-    or the [whole set](../cheatsheets/all-cheatsheets.pdf).
- 
- In previous tutorials, we built the **pET-INS** plasmid using both traditional restriction enzyme cloning and Gibson Assembly. In this tutorial, you'll use **Golden Gate Assembly** to build the same construct—while learning how this method enables precise, scar-controlled, multi-part DNA construction.
- 
+    **[Golden Gate Assembly](../cheatsheets/goldengate.pdf)** — the one-page version of this protocol.
+    It is the same as the printed copies at the bench.
 ## What is Golden Gate Assembly?
  
 ![Diagram of Golden Gate Assembly showing a DNA fragment with BsaI recognition sites flanking the sequence. After digestion, the enzyme produces non-palindromic sticky ends which guide correct ligation orientation. Final product is a seamless joint between two DNA fragments.](../images/golden_gate_reaction.png)

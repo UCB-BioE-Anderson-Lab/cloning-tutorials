@@ -26,8 +26,10 @@ export default {
             ) +
             bullets([
               `Our sequencing oligos are standardised to <b>${d.primer_uM} µM</b>, so <b>${d.primer_uL} µL is exactly one reaction's worth</b>.`,
-              "<b>Medium copy</b> — pBR322, pAC, and <b>pP6</b>: <b>10 µL</b> miniprep.",
-              "<b>High copy</b> — pUC: <b>4 µL</b> miniprep + 6 µL water.",
+              // Rendered from the module's own copy-number table, so a change to a volume
+              // there reaches the card.
+              `<b>Medium copy</b> — pBR322, pAC, and <b>pP6</b>: <b>${d.copy_table.medium.dna_uL} µL</b> miniprep.`,
+              `<b>High copy</b> — pUC: <b>${d.copy_table.high.dna_uL} µL</b> miniprep + ${d.dna_plus_water_uL - d.copy_table.high.dna_uL} µL water.`,
               "<b>Low copy</b> — pSC101, BACs: <b>PCR the region first</b> and sequence the product."
             ]),
 

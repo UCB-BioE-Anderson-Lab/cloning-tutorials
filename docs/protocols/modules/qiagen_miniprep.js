@@ -1,6 +1,10 @@
 // qiagen_miniprep.js
 // Alkaline lysis + silica spin column plasmid prep. Matches docs/wetlab/miniprep.md.
 
+// Spin times. Seconds unless the name says min. Named here so the template, the printed
+// cheatsheet and the timing block below cannot disagree.
+const SPIN = { pellet_min: 1, clear_min: 5, bind_s: 15, wash_s: 15, dry_s: 90, elute_s: 45 };
+
 // Timing — see docs/protocols/TIMING.txt. Minutes.
 export const timing = {
   ends_at: "eluting into the labelled tube",
@@ -9,12 +13,12 @@ export const timing = {
     { label: "handling between spins", min: 2, max: 2, each: "spin" }
   ],
   wait: [
-    { label: "clearing spin", min: 5, max: 5 },
-    { label: "column bind spin", min: 0.25, max: 0.25 },
-    { label: "PB spin", min: 0.25, max: 0.25 },
-    { label: "PE spin", min: 0.25, max: 0.25 },
-    { label: "dry spin", min: 1.5, max: 1.5 },
-    { label: "elution spin", min: 0.75, max: 0.75 }
+    { label: "clearing spin", min: SPIN.clear_min, max: SPIN.clear_min },
+    { label: "column bind spin", min: SPIN.bind_s / 60, max: SPIN.bind_s / 60 },
+    { label: "PB spin", min: SPIN.wash_s / 60, max: SPIN.wash_s / 60 },
+    { label: "PE spin", min: SPIN.wash_s / 60, max: SPIN.wash_s / 60 },
+    { label: "dry spin", min: SPIN.dry_s / 60, max: SPIN.dry_s / 60 },
+    { label: "elution spin", min: SPIN.elute_s / 60, max: SPIN.elute_s / 60 }
   ],
   limits: [
     {
@@ -54,7 +58,7 @@ export function factory(values = {}) {
     name: "Qiagen Miniprep",
     description: "Purify plasmid DNA from a saturated culture by alkaline lysis and spin column.",
     includes: { required: [], optional: [] },
-    derived: { culture_mL: culture, elution_uL: elution, ...q },
+    derived: { culture_mL: culture, elution_uL: elution, ...q, ...SPIN },
     template: `
 **Reagents**
 - **P1** (with RNase A added) · **P2** (NaOH/SDS) · **N3** (acidic, guanidinium)

@@ -6,6 +6,10 @@
 // the start puts an empty, labelled 1.5 mL tube on the bench during the ADB transfers, and
 // it gets the ADB.
 
+// Spin times, seconds. Named here because they were previously typed into three separate
+// places — this template, the printed cheatsheet, and the timing block below.
+const SPIN = { bind_s: 15, wash_s: 15, dry_s: 90, elute_s: 45 };
+
 // Timing — see docs/protocols/TIMING.txt. Minutes.
 export const timing = {
   ends_at: "eluting into the labelled tube",
@@ -14,11 +18,11 @@ export const timing = {
     { label: "handling between spins", min: 1, max: 2, each: "spin" }
   ],
   wait: [
-    { label: "bind spin", min: 0.25, max: 0.25 },
-    { label: "PE wash spin", min: 0.25, max: 0.25 },
-    { label: "PE wash spin", min: 0.25, max: 0.25 },
-    { label: "dry spin", min: 1.5, max: 1.5 },
-    { label: "elution spin", min: 0.75, max: 0.75 }
+    { label: "bind spin", min: SPIN.bind_s / 60, max: SPIN.bind_s / 60 },
+    { label: "PE wash spin", min: SPIN.wash_s / 60, max: SPIN.wash_s / 60 },
+    { label: "PE wash spin", min: SPIN.wash_s / 60, max: SPIN.wash_s / 60 },
+    { label: "dry spin", min: SPIN.dry_s / 60, max: SPIN.dry_s / 60 },
+    { label: "elution spin", min: SPIN.elute_s / 60, max: SPIN.elute_s / 60 }
   ],
   limits: [],
   unknown: []
@@ -51,7 +55,8 @@ export function factory(values = {}) {
       elution_uL: elution,
       adb_uL: adb,
       pe_uL: pe,
-      small_fragment: small
+      small_fragment: small,
+      ...SPIN
     },
     template: `
 **What this removes**
@@ -69,10 +74,10 @@ export function factory(values = {}) {
      solutions end up **well mixed and in the column**.
 ${small ? `   - **Fragment under 250 bp:** bind with **1 part ADB + 3 parts isopropanol** instead of ADB
      alone, or the fragment washes straight through.
-` : ``}4. **Spin 15 s** at full speed. Discard the flow-through.
-5. Add **${pe} µL PE**. **Spin 15 s.** Discard the flow-through.
-6. Add **${pe} µL PE**. **Spin 15 s.** Discard the flow-through.
-7. **Spin 90 s** at full speed to dry the column. PE is 70% ethanol and any carryover
+` : ``}4. **Spin ${SPIN.bind_s} s** at full speed. Discard the flow-through.
+5. Add **${pe} µL PE**. **Spin ${SPIN.wash_s} s.** Discard the flow-through.
+6. Add **${pe} µL PE**. **Spin ${SPIN.wash_s} s.** Discard the flow-through.
+7. **Spin ${SPIN.dry_s} s** at full speed to dry the column. PE is 70% ethanol and any carryover
    inhibits downstream enzymes.
 8. **While the drying spin runs, clean up.** Check the bench for drips of salt or ADB
    solution. Use **70% ethanol** if you suspect any.
@@ -81,7 +86,7 @@ ${small ? `   - **Fragment under 250 bp:** bind with **1 part ADB + 3 parts isop
 10. Insert the **dry column** into its elution tube.
 11. Add **${elution} µL EB** slowly to the **centre of the membrane**. Do not let it run down
     the walls.
-12. **Spin 45 s** to elute.
+12. **Spin ${SPIN.elute_s} s** to elute.
 13. **Discard the column.** The DNA is in the tube.
 
 **Notes**

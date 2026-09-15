@@ -14,11 +14,10 @@ Each tutorial includes embedded quizzes, videos, and progress tracking. This pla
 
 ## [Bench Cheatsheets](cheatsheets.md)
 
-One-page printable summaries to take to the bench. Each is generated from the same protocol
-module the [Protocol Builder](protocols/protocols.md) uses, so a cheatsheet and the protocol it
-comes from cannot disagree.
+A one-page card for each wetlab protocol — the volumes, the order, and the things that go
+wrong quietly. Copies are at the bench; these are the same cards, for looking at beforehand.
 
-**[⬇ Print all eight in one file](cheatsheets/all-cheatsheets.pdf)**, or take them individually:
+**[⬇ All eight in one file](cheatsheets/all-cheatsheets.pdf)**, or individually:
 
 | Cheatsheet | Tutorial |
 |---|---|

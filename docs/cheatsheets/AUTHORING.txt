@@ -150,3 +150,30 @@ OPEN ITEMS
 - The gel sheet gives 175 V and about 10 min, and says plainly not to set a timer
   and walk away — you check every minute or so and stop when the blue front is
   2/3 to 3/4 down. The time is an expectation, not a setting.
+
+
+NUMBERS TYPED INTO A SHEET
+--------------------------
+  node docs/cheatsheets/check_numbers.mjs
+
+THE RULE, restated because it has been broken twice: never type a number into a
+sheet file. Not in a step, not in a heading, not in a note. If a sheet needs a
+number, it comes from the module's `derived`.
+
+`build.mjs --check` does NOT catch a violation. It compares rendered output
+against the sources, so a hardcoded number is perfectly self-consistent with
+itself. Both times this bit:
+
+  - The PCR sheet said "Master mix — 5 or more reactions". The rule changed to
+    ">= 4" in the module and the card kept saying 5, deployed, for days.
+  - The transformation sheet read `d.rescue_h` after the module renamed it to a
+    min/max pair, and printed "undefined h".
+
+check_numbers.mjs reports every numeric literal in authored sheet text and marks
+the ones that also exist in the module's `derived`. It is a triage aid, not a
+gate — it cannot tell a real duplicate from a "3" inside "2/3-3/4 down the gel".
+
+What is still typed in both a module and its sheet, deliberately: kit and vessel
+properties that do not move when a protocol parameter changes — 70% ethanol,
+1.5 mL tubes, 10 uM oligos, 5x buffer, and read lengths like "400-1000 bp". If
+one of those ever does change, it should be lifted into the module first.

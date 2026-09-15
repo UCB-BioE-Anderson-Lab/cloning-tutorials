@@ -1,17 +1,15 @@
 # Bench Cheatsheets
 
-One-page printable summaries to take to the bench. Each is generated from the same protocol
-module the [Protocol Builder](protocols/protocols.md) uses, so a cheatsheet and the protocol it
-comes from cannot disagree — fixing one fixes both.
+A one-page card for each wetlab protocol. **Copies are at the bench** — these are the same
+cards, here so you can look at one before lab, or from anywhere.
 
 They are quick-start cards, not tutorials. They assume you have read the tutorial and want the
-volumes, the order and the things that go silently wrong. Every sheet fits one US Letter page
-and prints correctly in black and white.
+volumes, the order, and the things that go wrong quietly.
 
-## Print the whole set
+## The whole set
 
-**[⬇ All eight cheatsheets in one file](cheatsheets/all-cheatsheets.pdf)** — 8 pages, in
-experiment order.
+**[⬇ All eight in one file](cheatsheets/all-cheatsheets.pdf)** — 8 pages, in experiment order.
+Useful if a bench copy has gone missing and needs reprinting.
 
 ## Individual sheets
 
@@ -28,8 +26,13 @@ experiment order.
 
 ## If a sheet looks wrong
 
-Do not edit the PDF, and do not edit the HTML beside it — both are generated. The content lives
-in `docs/protocols/modules/*.js` and `docs/cheatsheets/src/*.mjs`. Change the module, then:
+Each card is generated from the same protocol module the
+[Protocol Builder](protocols/protocols.md) uses, so a card and the protocol it comes from
+cannot disagree — fixing one fixes both.
+
+So do not edit the PDF, and do not edit the HTML beside it; both are generated output. The
+content lives in `docs/protocols/modules/*.js` and `docs/cheatsheets/src/*.mjs`. Change the
+module, then:
 
 ```
 node docs/cheatsheets/build.mjs

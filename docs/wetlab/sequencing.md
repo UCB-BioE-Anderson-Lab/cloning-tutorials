@@ -2,8 +2,8 @@
 
 <!-- cheatsheet -->
 !!! tip "Bench cheatsheet"
-    **[Print the one-page cheatsheet for this protocol](../cheatsheets/sequencing.pdf)** — generated
-    from the same protocol module as the [Protocol Builder](../protocols/protocols.md), so the two cannot disagree.
+    **[Cycle Sequencing](../cheatsheets/sequencing.pdf)** — the one-page version of this protocol.
+    It is the same as the printed copies at the bench.
 
 After you’ve picked colonies and completed your minipreps, you’ve finished the fabrication phase. The next question: **what did you actually make?** This tutorial will guide you through how to determine if your plasmid contains the correct sequence.
 
