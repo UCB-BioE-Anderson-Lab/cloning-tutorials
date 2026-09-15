@@ -49,6 +49,15 @@
    the contract: it holds the flow content clear of the drawing. */
 .slide .figgap{height:452px}
 
+/* Slide 49, beat 3: the BsaI sites and the 5&rsquo; tails ARRIVE.  They are
+   new characters, not a recolour, and seq/06-gg-junction.js wraps the run
+   of them so the arrival is visible rather than a pop.  The sequence adds
+   .lit on the next frame, or immediately under reduced motion, so a
+   settled audit frame is never a blank. */
+.slide pre.dna .new{opacity:0;transition:opacity .45s ease}
+.slide pre.dna .new.lit{opacity:1}
+@media (prefers-reduced-motion:reduce){.slide pre.dna .new{transition:none}}
+
 /* the "ponder" idiom, as section 02 sets it */
 .slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
@@ -180,8 +189,17 @@ To arrive at this,
      bold black oligo lines are drawn on top of the coloured duplexes and
      the exporter flattens the wrong frame.  Rebuilt here from the notes
      and the underlying text, with the oligo/template distinction carried
-     by weight, which is what "your oligos are in black" means. -->
-<article class="slide">
+     by weight, which is what "your oligos are in black" means.
+
+     The five bullets are a recipe, so the sequence below has to BE the
+     state each bullet describes — otherwise the finished answer sits on
+     screen from the first frame while the recipe ticks past above it.
+     Three of the five beats change the text, which data-build cannot do,
+     so seq/06-gg-junction.js owns the block and reveals these <li> in
+     step with it.  The <pre> below is beat 5, which is both the no-JS
+     fallback and the reference the sequence is built back from: its
+     beat-5 render is byte-identical to it.  Change one, change both. -->
+<article class="slide" data-seq="gg-junction">
   <h1 class="small">Design of a Golden Gate junction</h1>
   <ul class="tight">
     <li>Construct the sequences of the fragments you are joining</li>
@@ -206,7 +224,7 @@ To arrive at this,
                3&rsquo;-<span class="tpl">gtgac</span><span class="site">CCAGAG</span><span class="tpl">t</span><span class="mut">AATC</span><span class="tpl">ATG</span><span class="pt">gaa</span><span class="tpl">TGCGAAAAATAGCGTTGAGAGATG&hellip;</span>-5&rsquo;</pre>
   </div>
   <template class="notes">Five steps, in this order, every time. The first is bookkeeping: write out the two fragment ends as they really are, with none of the Golden Gate machinery on them yet. Everything in the next four clicks gets added to that.</template>
-  <template class="desc">A five-step recipe for designing one Golden Gate junction, revealed a step at a time, over a worked pair of sequences: the end of one fragment above and the start of the next below, offset so their four-base junctions sit in the same column. The junction TTAG and AATC is red, the BsaI sites GAGACC and GGTCTC are blue, and the two strands you would actually order as oligos are set in bold black against the grey of the template.</template>
+  <template class="desc">A five-step recipe for designing one Golden Gate junction, worked on a pair of sequences below it that is built up as the recipe goes. First step: construct the sequences of the fragments you are joining. So on this frame the sequences are the bare fragment ends and nothing else: the end of one fragment above and the start of the next below, offset so the four bases they share sit in the same column. Nothing is coloured, and neither end carries a BsaI site or a tail yet.</template>
 </article>
 
 <!-- 50 -->
@@ -218,5 +236,6 @@ To arrive at this,
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/06-eipcr.js" defer></script>
+<script src="seq/06-gg-junction.js" defer></script>
 </body>
 </html>
