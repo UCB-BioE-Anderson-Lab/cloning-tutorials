@@ -33,8 +33,11 @@
  *      left fragment's own last four bases, so the left oligo counts it
  *      and takes 16 more.  On the right it is a 5' tail -- the right
  *      fragment starts at TAC -- so the right oligo gets no credit for
- *      it and takes a full 20 beyond.  Sixteen ink bases on the left,
- *      twenty on the right, twenty of match either way.  An earlier version lit both strands whole, on
+ *      it and takes a full 20 beyond -- and beyond the point mutation
+ *      too, because ctt is not in the template either, so the three
+ *      bases of TAC caught between the junction and the mutation cannot
+ *      be part of an anneal.  Sixteen ink bases on the left, twenty on
+ *      the right, twenty of exact match either way.  An earlier version lit both strands whole, on
  *      the reasoning that you do not yet know which one you will order.
  *      JCA: "don\'t make all the ends black, just the chosen annealing
  *      region, which is only a substring of it (20 bp), and it is only
@@ -81,7 +84,11 @@ const JCOL = 30;               /* the column the 4 bp junction sits in        */
 function seg(t, c1, c2, c3, c4, c5){ return { t:t, c:[c1, c2, c3, c4, c5] }; }
 function jct(t, c1, c2, c3, c4, c5){ const s = seg(t, c1, c2, c3, c4, c5); s.j = true; return s; }
 
-const T = "tpl", O = "oli", M = "mut", S = "site", P = "pt", _ = "";
+/* X is the point mutation while it is OUTSIDE the annealing region: still
+   underlined, because it is still the mutation, but not bold, because at
+   beat 4 bold means "this anneals" and the mutation is the one thing on
+   the oligo that cannot.  It goes back to P once the whole oligo is ink. */
+const T = "tpl", O = "oli", M = "mut", S = "site", P = "pt", X = "ptx", _ = "";
 
 /* end: which prime the line finishes on, so the line opens on the other */
 const LINES = [
@@ -115,10 +122,12 @@ const LINES = [
     seg("GGTCTC",                    null, null, S, S, S),
     seg("a",                         null, null, _, _, O),
     jct("TTAG",                         _, M, M,  M, M),
-    seg("TAC",                          _, _, _,  O, O),
-    seg("ctt",                          _, _, _,  P, P),    /* the point mutation */
-    seg("ACGCTTTTTATCGC",               _, _, _,  O, O),   /* 3+3+14 = 20 */
-    seg("AACTCTCTAC",                   _, _, _,  _, O),
+    seg("TAC",                          _, _, _,  _, O),
+    seg("ctt",                          _, _, _,  X, P),    /* the point mutation */
+    /* The count starts AFTER the mutation: ctt is not in the template
+       either, so nothing 5' of it can anneal.  Twenty from here. */
+    seg("ACGCTTTTTATCGCAACTCT",         _, _, _,  O, O),   /* the 20 bp */
+    seg("CTAC",                         _, _, _,  _, O),
     seg(E,                              _, _, _,  _, T)
   ]},
   { end:"5", segs:[
@@ -127,7 +136,7 @@ const LINES = [
     seg("t",                         null, null, _, _, T),
     jct("AATC",                         _, M, M,  M, M),
     seg("ATG",                          _, _, _,  _, T),
-    seg("gaa",                          _, _, _,  P, P),
+    seg("gaa",                          _, _, _,  X, P),
     seg("TGCGAAAAATAGCGTTGAGAGATG",     _, _, _,  _, T),
     seg(E,                              _, _, _,  _, T)
   ]}
