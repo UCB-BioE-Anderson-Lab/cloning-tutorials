@@ -89,8 +89,19 @@
    claim the leftover height rather than sizing to their content, so the
    box does not change shape as the output grows. */
 .slide .calc{flex:1 1 auto;min-height:0;display:grid;
-  grid-template-columns:1fr 1.34fr;gap:40px}
+  grid-template-columns:1fr 1.34fr;
+  /* map, then its caption, then the two panes.  minmax(0,1fr) and not 1fr:
+     a bare 1fr row refuses to shrink below its content and the panes push
+     the map off the slide. */
+  grid-template-rows:auto auto minmax(0,1fr);gap:16px 40px}
 .slide .calc > div{min-width:0;min-height:0;display:flex;flex-direction:column}
+
+/* The map: the same cut the list below it describes, drawn to scale from
+   whatever is in the box.  Full width, because it is a molecule. */
+.slide .calc .map{grid-column:1/-1;display:block}
+.slide .calc .map svg{display:block;width:100%;height:auto}
+.slide .calc p.mapnote{grid-column:1/-1;margin:0;font-size:22px;color:var(--muted)}
+.slide .calc p.mapnote b{color:var(--ink);font-weight:700}
 .slide .calc label.lbl{display:flex;flex-direction:column;flex:1 1 auto;min-height:0;
   font-size:22px;color:var(--muted)}
 .slide .calc textarea,.slide .calc pre.out{flex:1 1 auto;min-height:0;width:100%;
@@ -256,63 +267,37 @@
     </figure>
     <div>
       <ul class="tight">
-        <li data-build="1"
-            data-note="What you paste in has to be the finished molecule, sites and tails and all. The assembly builds exactly the sequence you hand it, so anything you leave off here you simply will not have at the end."
-            data-desc="First instruction appears: construct the complete sequence to be synthesized, including restriction sites and 5-prime tails.">Construct the complete sequence to be synthesized, including restriction sites and 5&rsquo; tails</li>
-        <li data-build="2"
-            data-note="Then take the whole thing. The button puts this exact cassette on your clipboard, all 742 bases of it, so you can paste it straight into the calculator two slides on. The file beside it is the annotated version, the one in the screenshot, if you would rather open it in a sequence editor first."
-            data-desc="Second instruction appears: copy the sequence to the clipboard, with a button that copies the 742-base lambda repressor cassette and a link that downloads the annotated sequence file.">Copy to the clipboard</li>
+        <li>Construct the complete sequence to be synthesized, including restriction sites and 5&rsquo; tails</li>
+        <li>Copy to the clipboard</li>
       </ul>
       <!-- The one place in the deck where a slide hands you something.  The
            button copies the same 742 bases the .str file holds, so the demo
            can start from a clipboard rather than from a retyped sequence. -->
-      <p class="acts" data-build="2">
+      <p class="acts">
         <button class="btn" type="button" data-copy="lambda">Copy the sequence</button>
         <a class="btn" href="assets/lambda-repressor.str" download="Lambda repressor.str">Download the annotated file</a>
       </p>
     </div>
   </div>
-  <template class="notes">This is the design step, and all of it happens before you order anything. The window is a sequence editor with the part you want in it.</template>
-  <template class="desc">A screenshot of a sequence editor holding the lambda repressor sequence with its restriction sites highlighted, beside the two instructions that go with it.</template>
+  <template class="notes">This is the design step, and all of it happens before you order anything. The window is a sequence editor with the part you want in it. What you paste in has to be the finished molecule, sites and tails and all, because the assembly builds exactly the sequence you hand it and anything you leave off here you simply will not have at the end. The button puts this exact cassette on your clipboard, all 742 bases of it, ready to paste into the calculator on the next slide. The file beside it is the annotated version, the one in the screenshot, if you would rather open it in a sequence editor first.</template>
+  <template class="desc">A screenshot of a sequence editor holding the lambda repressor sequence with its restriction sites highlighted, beside the two instructions that go with it: construct the complete sequence to be synthesized, including restriction sites and 5-prime tails, then copy it to the clipboard. Under them, a button that copies the 742-base lambda repressor cassette and a link that downloads the annotated sequence file.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 17 -->
+<!-- The spreadsheet screenshot and the link to the sheet are both gone:
+     the slide IS the tool now.  The map above the controls is the
+     teaching half of it, redrawn from whatever is in the box, so the cut
+     being explained and the oligos being ordered are the same object and
+     cannot drift apart. -->
 <article class="slide">
-  <h1 class="small">Example: <span style="font-size:.72em">Gene synthesis oligo design</span></h1>
-  <div class="cols">
-    <figure class="fig">
-      <img src="img/03-lca-spreadsheet.png" alt="A spreadsheet with the target sequence pasted in red at the top and the 50-base oligos it has been cut into listed in blue below, then the reverse complement pasted below that and cut the same way">
-    </figure>
-    <div>
-      <ul class="tight">
-        <li data-build="1"
-            data-note="Paste it in at the top. The red line is your target, untouched, and the sheet cuts it up underneath."
-            data-desc="First instruction appears: paste the sequence you wish to synthesize into the spreadsheet.">Paste the sequence you wish to synthesize into the spreadsheet</li>
-        <li data-build="2"
-            data-note="Then the reverse complement below it, and cut the same way. LCA tiles both strands completely, so you are buying the whole molecule twice over, once from each side."
-            data-desc="Second instruction appears: also paste in the reverse complement sequence.">Also paste in the reverse complement sequence</li>
-        <li data-build="3"
-            data-note="The blue rows are the order, and nothing else on this sheet is. Both strands, already cut into 50-mers for you. You paste that column into the order form and you are done designing."
-            data-desc="Third instruction appears: the sequences in blue are the ones you order synthesized.">Sequences in blue here are ones you order synthesized</li>
-      </ul>
-      <p class="tight" data-build="4" style="font-size:24px;margin:22px 0 10px"
-         data-note="It is a Google Sheet now, and the link is on the slide. Do not expect anything clever of it. Every oligo is the same length and every junction sits at the same stagger, so each oligo anneals to its neighbour over half its length. It does not look at melting temperature, it does not avoid hairpins, it does not move a junction to a better place. For a gene this size that is good enough, and the fact that it is good enough is worth noticing."
-         data-desc="A note about the spreadsheet and the link to it: it is a Google Sheet, and the algorithm is deliberately simple, with every oligo cut to one fixed length and every junction placed at the same fixed stagger, so each oligo anneals to its neighbour over half its length.">A Google Sheet. The algorithm is deliberately plain: <b>every oligo the same length</b>, every junction at the same stagger, so each anneals to its neighbour over half its length</p>
-      <p data-build="4" style="margin:0"><a class="tool" href="https://docs.google.com/spreadsheets/d/14a5r2Pzol-O23Tq93P0qf6C69UbULpf06cuOVljk0OU/edit?gid=0#gid=0">https://docs.google.com/spreadsheets/d/14a5r2Pzol-O23Tq93P0qf6C69UbULpf06cuOVljk0OU/edit?gid=0</a></p>
-    </div>
-  </div>
-  <template class="notes">This is the sheet that does the cutting, and the screenshot is the old Excel copy of it. The live one is a Google Sheet, linked at the bottom of the slide.</template>
-  <template class="desc">A screenshot of the design spreadsheet: the target sequence pasted in red across the top, the 50-base oligos it has been cut into listed in blue beneath it, and the reverse complement pasted and cut the same way below.</template>
-</article>
-
-<!-- ------------------------------------------------------------- 17b -->
-<!-- The same arithmetic as the sheet, wired into the slide, so the demo
-     can be run without leaving the deck and without signing in to
-     anything.  It is deliberately the SAME algorithm and not a better
-     one: fixed oligo length, junctions at half that length. -->
-<article class="slide">
-  <h1 class="small">LCA oligo calculator</h1>
+  <h1 class="small">Cut both strands, <span style="font-size:.72em">half an oligo out of step</span></h1>
   <div class="calc" data-lca>
+    <div class="map">
+      <svg class="lca-map" viewBox="0 0 1380 180" role="img"
+           font-family="Helvetica Neue,Arial,Helvetica,sans-serif"
+           aria-label="A map of how the sequence is cut into oligos"></svg>
+    </div>
+    <p class="mapnote">&nbsp;</p>
     <div>
       <label class="lbl">Paste the complete cassette
         <textarea class="lca-in" spellcheck="false" autocapitalize="off"
@@ -330,8 +315,9 @@
       <pre class="out lca-out"></pre>
     </div>
   </div>
-  <template class="notes">Paste a cassette on the left and the order appears on the right, recomputed as you type. It is the same arithmetic as the sheet, so you can use either. Load the lambda repressor and watch the two counts: the forward strand cuts into whole 50-mers from base one, and the reverse cuts 25 first and then 50s, which is what puts every junction in the middle of an oligo on the other strand. Change the oligo length and the whole set redraws, which is the quickest way to show that nothing here is chosen for a reason beyond arithmetic.</template>
-  <template class="desc">A working calculator on the slide. On the left, a box to paste the complete cassette into and a field for the oligo length, set to 50, with a button that loads the lambda repressor sequence. On the right, the resulting order: the forward oligos listed first and then the reverse oligos, each named and numbered, with a count above them and a button that copies the whole set.</template>
+  <div class="src">C6-Tools does this job too, inside the spreadsheet suite you get later in the course</div>
+  <template class="notes">This is the tool, and the picture above it is the algorithm. Paste a cassette in and all of it redraws. The blue row is the forward strand cut into fifty-base oligos from the left. The red row is the same molecule cut from the other side: fifty-base oligos from the right, starting twenty-five bases in. That offset is the entire design. Every junction in the blue row falls in the middle of a red oligo, and every junction in the red row falls in the middle of a blue one, so at every nick there is always a strand running across it holding the two neighbours together for the ligase to seal. The dashed lines are the blue junctions dropped through, so you can watch where each one lands. Nothing here is clever. It does not look at melting temperature, it does not avoid hairpins, it does not move a junction to a better place, and for a gene this size that is good enough. Watch the shortest overlap as you change the oligo length: the two strands are measured from opposite ends, so unless the molecule happens to be a whole number of oligos long the overlaps do not all come out the same. C6-Tools does this job too, in the spreadsheet suite you get later in the course, along with everything else.</template>
+  <template class="desc">A working calculator, with a map of the cut across the top. In the map the molecule is drawn twice, to scale: an upper row of blue blocks, the forward strand cut into fifty-base oligos from the left, and a lower row of red blocks, the same molecule cut into fifty-base oligos from the right starting twenty-five bases in, so the two rows of blocks are offset by half a block. Dashed lines drop from every junction in the upper row and land in the middle of a block in the lower row. Under the map, a box to paste the complete cassette into, a field for the oligo length set to 50, and a button that loads the lambda repressor; beside them the resulting order, forward oligos then reverse oligos, each named and numbered, with the base count, the oligo count and the shortest overlap above them and a button that copies the whole set. A line at the foot of the slide notes that C6-Tools does this job too, inside the spreadsheet suite given later in the course.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 18 -->
@@ -666,6 +652,90 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
              rev: blocks(revcomp(clean), Math.round(len / 2), len) };
   }
   function pad(n){ return (n < 10 ? "0" : "") + n; }
+
+  /* ---- where every oligo sits on the molecule --------------------- *
+   * Both strands are measured in FORWARD coordinates so they can be
+   * drawn over one another.  The forward blocks run left to right from
+   * base 1; the reverse blocks are cut from the reverse complement, so
+   * in forward coordinates they run from the RIGHT end inward -- which
+   * is what puts them half an oligo out of step, and also why the two
+   * rows do not line up at either end when the molecule is not a whole
+   * number of oligos long. */
+  function spans(d){
+    var f = [], r = [], p = 0, q = 0, i;
+    for (i = 0; i < d.fwd.length; i++){
+      f.push([p, p + d.fwd[i].length, i + 1]); p += d.fwd[i].length;
+    }
+    for (i = 0; i < d.rev.length; i++){
+      r.push([d.len - q - d.rev[i].length, d.len - q, i + 1]); q += d.rev[i].length;
+    }
+    return {f:f, r:r};
+  }
+  /* Every cut point from both strands, merged, partitions the molecule
+     into stretches that are each covered by exactly one forward and one
+     reverse oligo -- so those stretches ARE the duplex overlaps, and the
+     shortest one is the weakest anneal in the set. */
+  function shortestOverlap(d){
+    var sp = spans(d), seen = {}, a = [], i, k, mn = Infinity;
+    for (i = 0; i < sp.f.length; i++){ seen[sp.f[i][0]] = 1; seen[sp.f[i][1]] = 1; }
+    for (i = 0; i < sp.r.length; i++){ seen[sp.r[i][0]] = 1; seen[sp.r[i][1]] = 1; }
+    for (k in seen) if (seen.hasOwnProperty(k)) a.push(+k);
+    a.sort(function(x, y){ return x - y; });
+    for (i = 1; i < a.length; i++) if (a[i] - a[i-1] < mn) mn = a[i] - a[i-1];
+    return mn === Infinity ? 0 : mn;
+  }
+
+  /* ---- the map ---------------------------------------------------- */
+  var NS = "http://www.w3.org/2000/svg";
+  function mk(n, at, txt){
+    var e = document.createElementNS(NS, n), k;
+    for (k in at) if (at.hasOwnProperty(k)) e.setAttribute(k, at[k]);
+    if (txt != null) e.textContent = txt;
+    return e;
+  }
+  var X0 = 152, X1 = 1362, YF = 40, YR = 112, BH = 34,
+      BLUE = "#004373", VERM = "#ba3a13", MUTED = "#767676";
+
+  function drawMap(svg, d){
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    if (!d) return;
+    var sp = spans(d), k = (X1 - X0) / d.len, i, x, w, g;
+
+    /* the junctions first, so the blocks sit on top of them */
+    g = mk("g", {stroke:MUTED, "stroke-width":"1.3",
+                 "stroke-dasharray":"4 5", opacity:".6"});
+    for (i = 1; i < sp.f.length; i++){
+      x = X0 + sp.f[i][0] * k;
+      g.appendChild(mk("line", {x1:x, y1:YF + BH, x2:x, y2:YR + BH}));
+    }
+    svg.appendChild(g);
+
+    function row(list, y, col){
+      var gg = mk("g", {}), j, b;
+      for (j = 0; j < list.length; j++){
+        b = list[j]; x = X0 + b[0] * k; w = Math.max(1, (b[1] - b[0]) * k - 3);
+        gg.appendChild(mk("rect", {x:x, y:y, width:w, height:BH, rx:3,
+          fill:col, "fill-opacity":".13", stroke:col, "stroke-width":"1.6"}));
+        /* the number only when the block is wide enough to hold it */
+        if (w >= 27) gg.appendChild(mk("text", {x:x + w/2, y:y + BH/2 + 6,
+          "text-anchor":"middle", "font-size":"15", fill:col}, String(b[2])));
+      }
+      svg.appendChild(gg);
+    }
+    row(sp.f, YF, BLUE);
+    row(sp.r, YR, VERM);
+
+    svg.appendChild(mk("text", {x:138, y:YF + BH/2 + 8, "text-anchor":"end",
+      "font-size":"22", "font-weight":"700", fill:BLUE}, "forward"));
+    svg.appendChild(mk("text", {x:138, y:YR + BH/2 + 8, "text-anchor":"end",
+      "font-size":"22", "font-weight":"700", fill:VERM}, "reverse"));
+    [[X0, YF - 11, "start", "5\u2032"], [X1, YF - 11, "end", "3\u2032"],
+     [X0, YR + BH + 26, "start", "3\u2032"], [X1, YR + BH + 26, "end", "5\u2032"]
+    ].forEach(function(t){
+      svg.appendChild(mk("text", {x:t[0], y:t[1], "text-anchor":t[2],
+        "font-size":"20", fill:MUTED}, t[3]));
+    });
+  }
   function rows(d){
     var r = [];
     d.fwd.forEach(function(o, i){ r.push(["LCA-F" + pad(i + 1), o]); });
@@ -680,7 +750,12 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
         len   = parseInt(box.querySelector(".lca-len").value, 10);
     if (!(len >= 20 && len <= 120)) len = 50;
     var d = design(ta.value, len);
-    if (!d){ out.textContent = ""; count.textContent = "nothing pasted yet"; return; }
+    if (!d){
+      out.textContent = ""; count.textContent = "nothing pasted yet";
+      drawMap(box.querySelector(".lca-map"), null);
+      box.querySelector(".mapnote").innerHTML = "&nbsp;";
+      return;
+    }
     var lines = ["Forward oligos  (" + d.fwd.length + ")"];
     d.fwd.forEach(function(o, i){ lines.push("LCA-F" + pad(i + 1) + "  " + o); });
     lines.push("", "Reverse oligos  (" + d.rev.length + ")");
@@ -688,7 +763,14 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
     out.textContent = lines.join("\n");
     out.scrollTop = 0;
     count.textContent = d.len + " bases  \u2192  " +
-                        (d.fwd.length + d.rev.length) + " oligos";
+                        (d.fwd.length + d.rev.length) + " oligos  \u00b7  " +
+                        "shortest overlap " + shortestOverlap(d) + " bases";
+    drawMap(box.querySelector(".lca-map"), d);
+    box.querySelector(".mapnote").innerHTML =
+      "Forward strand cut every <b>" + len + "</b> bases from the left; " +
+      "reverse strand cut every <b>" + len + "</b> from the right, starting <b>" +
+      Math.round(len / 2) + "</b> in \u2014 so every junction on one strand " +
+      "is spanned by an oligo on the other";
   }
 
   /* ---- wiring, all delegated ------------------------------------- */
