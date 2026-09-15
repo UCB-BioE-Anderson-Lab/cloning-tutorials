@@ -39,6 +39,18 @@
 .slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
 .slide .qhead .q{margin-bottom:0}
+.slide .qhead .btn{margin-left:auto}
+
+/* The revealed answer.  The cassette is one 746-base token, so it is
+   wrapped by character rather than by word and the two BioBrick ends
+   stay coloured across whatever line break lands inside them. */
+.slide .astep{font-size:27px;margin:0 0 10px}
+.slide .aresult{font-size:27px;margin:0 0 6px;color:var(--muted)}
+.slide .aresult b{color:var(--ink)}
+.slide .tail{color:var(--blue);font-weight:700}
+.slide pre.cassette{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:24px;line-height:1.34;letter-spacing:.01em;margin:0 0 26px;
+  white-space:pre-wrap;overflow-wrap:anywhere}
 
 /* The design-tool URL, kept exactly as it is written on the source slide.
    It is long, so it breaks anywhere rather than running off the slide. */
@@ -325,10 +337,18 @@
   <div class="qhead">
     <img src="img/ponder.png" alt="" aria-hidden="true">
     <div class="q">LCA example question</div>
+    <button class="btn" type="button" data-reveal>Show the answer</button>
   </div>
   <p>Design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Ligase Chain Assembly</p>
-  <p style="margin-bottom:0"><b>amilGFP ORF:</b></p>
-  <pre class="orf">ATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGC
+  <!-- The answer used to live only in the speaker note, as one 746-base run
+       of sequence followed by both oligo lists.  It is a button now, and
+       nothing in it is stored twice: the cassette is the ORF above with the
+       two BioBrick ends spliced on, and the counts and the list the second
+       button copies are computed by the same design() the calculator slide
+       uses, so the answer cannot drift away from the tool. -->
+  <div class="qshow">
+    <p style="margin-bottom:0"><b>amilGFP ORF:</b></p>
+    <pre class="orf">ATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGC
 AGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGG
 AAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTT
 GACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGAC
@@ -340,45 +360,19 @@ GGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCAC
 TCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAA
 ATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACAT
 GCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAA</pre>
-  <template class="notes">First assembly the sequence of the PCR product including the BioBrick ends:
-ccattgaattcgcggccgcttctagATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGCAGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGGAAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTCATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAGAAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAAactagtagcggccgctgcagacsgc
+  </div>
 
-Then paste that and its reverse complement into “Demo of LCR design.xls”to get:
-
-Forward oligos:
-ccattgaattcgcggccgcttctagATGTCTTATTCAAAGCATGGCATCG
-TACAAGAAATGAAGACGAAATACCATATGGAAGGCAGTGTCAATGGCCAT
-GAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGGAAACA
-GATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCT
-CCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACA
-AAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGG
-AATGTCATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAG
-CCAGCTGGAACATTCGACTCGAAGGAAATTGCTTCATCCACAAATCCATC
-TTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAGAAGAC
-CATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGC
-TAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCAC
-AGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTGCC
-CCCGAATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAA
-GTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTT
-AACCCTTTGAAGGTTAAATAAactagtagcggccgctgcagacsgc
-
-Reverse oligos:
-gcsgtctgcagcggccgctactagt
-TTATTTAACCTTCAAAGGGTTAACATGAGCCGCGGCATGTGCTTCCAGCT
-TGACTGTAAAGCCTTTTGCACTTTGGCCAAGGTCGGTCCTCACAATTTGA
-TGTTCTACGACATGATTCGGGGGCAGTGTGACCGGCTTCTCTGTTTTGTA
-AGTGGAGTGAAATTGGCATCTGTGAGAACCACCTCCTTCGAGCATAAGAA
-ACATAGTCACGTCACCTCTTAGCACCTCTTTAGACACAGTCATTTTTTCG
-AAGGACTTATCCCAGTCAATGGTCTTCTTTTTCATTACGGGTCCATCAGC
-GGGAAAGTTTACGCCATGAAAGATGGATTTGTGGATGAAGCAATTTCCTT
-CGAGTCGAATGTTCCAGCTGGCTGTAGCAACTGCTCCATCCTCAAATAGA
-AATGACCTTTCATATGACATTCCATCTGGGAATGCTTGCTTGAAATAGTC
-AGGCATGTCTGCCGGGTACTTTGTGAAGCAACGGTTTCCATATTGAAAGA
-CTGATGACAGTATGTCAAAGGAGAATGGAAGGGGTTTTCCCGCAGGCTTG
-ATGATCACTAATTCGGACATCTGTTTCCCTTCGTAAGGGTACCCAGTTCC
-TACACCTTCGATCGTAAATTCATGGCCATTGACACTGCCTTCCATATGGT
-ATTTCGTCTTCATTTCTTGTACGATGCCATGCTTTGAATAAGACATctag
-aagcggccgcgaattcaatgg</template>
+  <div class="qans" hidden>
+    <p class="astep"><b>1.</b> Put the BioBrick ends on the ORF &mdash; <span class="tail">they are the blue stretches</span></p>
+    <pre class="cassette"><span class="tail">ccattgaattcgcggccgcttctag</span>ATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGCAGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGGAAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTCATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAGAAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAA<span class="tail">actagtagcggccgctgcagacsgc</span></pre>
+    <p class="astep"><b>2.</b> Cut both strands, 50 bases at a time</p>
+    <p class="aresult"></p>
+    <p class="acts">
+      <button class="btn" type="button" data-copy=".cassette">Copy the cassette</button>
+      <button class="btn" type="button" data-copy=".cassette" data-oligos>Copy the oligos</button>
+    </p>
+  </div>
+  <template class="notes">Give them a few minutes on this before you press the button. The work is the first step, not the second: take the open reading frame printed here and put the BioBrick ends on it, twenty-five bases at each side, because the assembly builds exactly the molecule you hand it. The cutting is arithmetic, and the calculator two slides back does it. The button shows the finished cassette with the tails picked out in blue and the counts underneath. The two buttons beside it put the cassette and the whole oligo list on your clipboard, so you can paste the cassette back into the calculator and watch the map redraw for this gene rather than for lambda.</template>
   <template class="desc">A question for the room, marked with the deck's thinking figure: design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Ligase Chain Assembly. The amilGFP open reading frame is printed below it, 696 bases in twelve lines.</template>
 </article>
 
@@ -782,10 +776,46 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
     var t = e.target;
     if (!t.closest) return;
 
+    /* data-copy is either the literal "lambda" or a selector for an
+       element on the same slide holding a sequence; data-oligos beside it
+       asks for that sequence cut up rather than the sequence itself. */
     var btn = t.closest("[data-copy]");
     if (btn){
-      copy(LAMBDA).then(function(){ flash(btn, "Copied \u2713"); },
-                        function(){ flash(btn, "Copy failed"); });
+      var what = btn.getAttribute("data-copy"), text = null, src, d;
+      if (what === "lambda") text = LAMBDA;
+      else {
+        src = btn.closest(".slide").querySelector(what);
+        if (src){
+          d = design(src.textContent, 50);
+          text = !d ? null
+               : btn.hasAttribute("data-oligos")
+                 ? rows(d).map(function(r){ return r[0] + "\t" + r[1]; }).join("\n")
+                 : d.clean;
+        }
+      }
+      if (text == null) flash(btn, "Nothing to copy");
+      else copy(text).then(function(){ flash(btn, "Copied \u2713"); },
+                           function(){ flash(btn, "Copy failed"); });
+      return;
+    }
+
+    /* The answer on a question slide is behind a button, not behind a
+       click of the deck, so that arrowing through does not spoil it. */
+    var rv = t.closest("[data-reveal]");
+    if (rv){
+      var sl = rv.closest(".slide"),
+          ans = sl.querySelector(".qans"), q = sl.querySelector(".qshow"),
+          opening = ans.hidden;
+      ans.hidden = !opening;
+      if (q) q.hidden = opening;
+      rv.textContent = opening ? "Hide the answer" : "Show the answer";
+      if (opening){
+        var c = sl.querySelector(".cassette"), line = sl.querySelector(".aresult"), dd;
+        if (c && line && (dd = design(c.textContent, 50)))
+          line.innerHTML = dd.len + " bases cut into <b>" + dd.fwd.length +
+            " forward</b> and <b>" + dd.rev.length + " reverse</b> oligos, " +
+            "shortest overlap <b>" + shortestOverlap(dd) + "</b> bases";
+      }
       return;
     }
     var box = t.closest("[data-lca]");
