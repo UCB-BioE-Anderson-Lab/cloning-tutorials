@@ -1,7 +1,10 @@
 """pdf_assemble.py -- stitch the per-step frames into two PDFs.
 
-  dna-enzymes-slides.pdf   the deck, one page per click, section bookmarks
-  dna-enzymes-notes.pdf    the same pages with the spoken narration beneath
+  <slug>-slides.pdf   the deck, one page per click, section bookmarks
+  <slug>-notes.pdf    the same pages with the spoken narration beneath
+
+The slug and the title come from the manifest, which took them from the
+deck's own lecture.js.  Nothing here knows which lecture it is building.
 
 The narration strip is type-set at the largest size that fits, measured
 rather than guessed: reportlab drops overflow from a Frame in silence.
@@ -20,7 +23,13 @@ from reportlab.lib.colors import HexColor
 
 D    = sys.argv[1]
 OUTDIR = sys.argv[2] if len(sys.argv) > 2 else os.path.join(D, "..")
-MAN  = json.load(open(os.path.join(D, "manifest.json")))
+_M   = json.load(open(os.path.join(D, "manifest.json")))
+# The manifest was a bare list before there was a second deck to build.
+MAN   = _M["frames"] if isinstance(_M, dict) else _M
+TITLE = _M.get("title", "DNA Manipulation Enzymes") if isinstance(_M, dict) else "DNA Manipulation Enzymes"
+COURSE= _M.get("course", "140L") if isinstance(_M, dict) else "140L"
+SLUG  = _M.get("slug", "dna-enzymes") if isinstance(_M, dict) else "dna-enzymes"
+NAME  = "%s - BioE %s" % (TITLE, COURSE)
 W, H = 1600, 900
 NOTE_H = 420                       # strip under the slide in the notes build
 
@@ -38,10 +47,10 @@ for m in MAN:
 for title, pg in sec_first.items():
     w.add_outline_item(title, pg)
 w.compress_identical_objects()
-w.add_metadata({"/Title": "DNA Manipulation Enzymes - BioE 140L",
+w.add_metadata({"/Title": NAME,
                 "/Author": "J. Christopher Anderson",
                 "/Subject": "Full lecture deck, one page per animation step"})
-with open(os.path.join(OUTDIR, "dna-enzymes-slides.pdf"), "wb") as f:
+with open(os.path.join(OUTDIR, SLUG + "-slides.pdf"), "wb") as f:
     w.write(f)
 print("slides:", len(MAN), "pages")
 
@@ -59,38 +68,62 @@ def fitted(txt):
         if Paragraph(txt, st).wrap(AVAIL_W, AVAIL_H)[1] <= AVAIL_H:
             return st, True
     return st, False
-overflow = []
+# A handful of notes are reference dumps -- a predicted product, a whole
+# plasmid -- and no type size puts 10,000 characters in a 270pt strip.  They
+# used to be dropped where they ran out of room, which is the one failure the
+# docstring above warns about, so they continue onto another page instead: the
+# same slide again, the narration carrying on underneath it.  pages[] records
+# how many pages each frame took so the merge can repeat the slide.
+pages = []
+spilled = []
 for m in MAN:
-    c.setStrokeColor(RULE); c.setLineWidth(1)
-    c.line(90, NOTE_H - 34, W - 90, NOTE_H - 34)
-    f = Frame(90, 96, AVAIL_W, AVAIL_H, showBoundary=0,
-              leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
     txt = m["note"].strip() or "(no narration on this step)"
     body, ok = fitted(txt)
-    if not ok:
-        overflow.append(m["i"] + 1)
-    f.addFromList([Paragraph(txt, body)], c)
-    c.setFillColor(MUTED); c.setFont("Helvetica", 16)
-    c.drawString(90, 52, "%s  ·  step %d of %d" % (m["section"], m["step"], m["of"]))
-    c.drawRightString(W - 90, 52, str(m["i"] + 1))
-    c.showPage()
+    parts = [Paragraph(txt, body)]
+    n = 0
+    while parts:
+        n += 1
+        c.setStrokeColor(RULE); c.setLineWidth(1)
+        c.line(90, NOTE_H - 34, W - 90, NOTE_H - 34)
+        f = Frame(90, 96, AVAIL_W, AVAIL_H, showBoundary=0,
+                  leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
+        head = parts[0]
+        rest = head.split(AVAIL_W, AVAIL_H)
+        if len(rest) > 1:                       # does not fit: take what does
+            f.addFromList([rest[0]], c)
+            parts = rest[1:] + parts[1:]
+        else:
+            f.addFromList([head], c)
+            parts = parts[1:]
+        c.setFillColor(MUTED); c.setFont("Helvetica", 16)
+        c.drawString(90, 52, "%s  ·  step %d of %d%s" %
+                     (m["section"], m["step"], m["of"], "" if n == 1 else "  (cont.)"))
+        c.drawRightString(W - 90, 52, str(m["i"] + 1))
+        c.showPage()
+    pages.append(n)
+    if n > 1:
+        spilled.append((m["i"] + 1, n))
 c.save()
-print("overflowing notes:", overflow or "none")
+print("notes continued onto extra pages:",
+      ", ".join("step %d over %d pages" % t for t in spilled) or "none")
 
 ov = PdfReader(overlay)
 w2 = PdfWriter()
 sec_first = {}
+o = 0
 for i, m in enumerate(MAN):
-    page = w2.add_blank_page(width=W, height=H + NOTE_H)
-    page.merge_transformed_page(ov.pages[i], Transformation())
     slide = PdfReader(m["file_pdf"]).pages[0]
-    page.merge_transformed_page(slide, Transformation().translate(0, NOTE_H))
-    sec_first.setdefault(m["section"], i)
+    for _ in range(pages[i]):
+        page = w2.add_blank_page(width=W, height=H + NOTE_H)
+        page.merge_transformed_page(ov.pages[o], Transformation())
+        page.merge_transformed_page(slide, Transformation().translate(0, NOTE_H))
+        sec_first.setdefault(m["section"], len(w2.pages) - 1)
+        o += 1
 for title, pg in sec_first.items():
     w2.add_outline_item(title, pg)
 w2.compress_identical_objects()
-w2.add_metadata({"/Title": "DNA Manipulation Enzymes - BioE 140L (with narration)",
+w2.add_metadata({"/Title": NAME + " (with narration)",
                  "/Author": "J. Christopher Anderson"})
-with open(os.path.join(OUTDIR, "dna-enzymes-notes.pdf"), "wb") as f:
+with open(os.path.join(OUTDIR, SLUG + "-notes.pdf"), "wb") as f:
     w2.write(f)
-print("notes:", len(MAN), "pages")
+print("notes:", sum(pages), "pages for", len(MAN), "steps")

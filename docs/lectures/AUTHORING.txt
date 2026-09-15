@@ -226,6 +226,25 @@ an edit; and a step under about 40 percent fill is usually a drawing laid out at
 the source deck's scale and never grown into 1600x900, though the first beat of
 a cumulative build is legitimately sparse.
 
+MAKING THE PDFs
+---------------
+tools/make_pdf.sh builds two PDFs of a deck: the slides, one page per click,
+and the same pages with the spoken narration set underneath.  It needs a
+running `mkdocs serve` and Google Chrome; the pages are vector, captured from
+the live deck with reduced motion on and transitions killed so every frame is
+the settled one.
+
+    cd docs/lectures/tools && sh make_pdf.sh 02-dna-fabrication
+
+The deck directory is the only argument that matters -- the section list, the
+lecture title and the output filenames all come out of that deck's own
+lecture.js, so there is no list to keep in step.  A second argument sets the
+output directory (default ~/Downloads).
+
+A note too long for the narration strip continues onto another page carrying
+the same slide, rather than being silently cut off at the frame edge, which is
+what reportlab does on its own.  The run prints which steps did that.
+
 ADDING A SECTION
 ----------------
 1. Create the .html file in the lecture folder.
