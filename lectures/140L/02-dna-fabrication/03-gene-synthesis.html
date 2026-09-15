@@ -121,14 +121,15 @@
   border:1px solid var(--rule);border-radius:5px;background:#fff;color:var(--ink);
   font:20px/1.42 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .slide .calc textarea{resize:none}
-/* An oligo name and a 50-mer have to sit on one line without scrolling
-   sideways: 59 monospace characters inside the wider column. */
-.slide .calc pre.out{overflow:auto;white-space:pre;font-size:18px}
+/* A name and an oligo have to sit on one line without scrolling
+   sideways.  LCA's longest is a name plus 50 bases; PCA's first oligo
+   runs past 60, so the column is sized for about 73 characters. */
+.slide .calc pre.out{overflow:auto;white-space:pre;font-size:17px}
 .slide .calc pre.out b{font-weight:700;color:var(--blue)}
 .slide .calc .row{display:flex;align-items:center;gap:16px;margin-top:16px;
   font-size:22px;color:var(--muted)}
 .slide .calc .row.head{margin:0 0 8px;justify-content:space-between}
-.slide .calc input.lca-len{width:88px;font:20px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+.slide .calc input.calc-len{width:88px;font:20px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   padding:9px 8px;border:1px solid var(--rule);border-radius:5px;color:var(--ink)}
 </style>
 </head>
@@ -303,28 +304,28 @@
      cannot drift apart. -->
 <article class="slide">
   <h1 class="small">Cut both strands, <span style="font-size:.72em">half an oligo out of step</span></h1>
-  <div class="calc" data-lca>
+  <div class="calc" data-calc="lca">
     <div class="map">
-      <svg class="lca-map" viewBox="0 0 1380 180" role="img"
+      <svg class="calc-map" viewBox="0 0 1380 180" role="img"
            font-family="Helvetica Neue,Arial,Helvetica,sans-serif"
            aria-label="A map of how the sequence is cut into oligos"></svg>
     </div>
     <p class="mapnote">&nbsp;</p>
     <div>
       <label class="lbl">Paste the complete cassette
-        <textarea class="lca-in" spellcheck="false" autocapitalize="off"
+        <textarea class="calc-in" spellcheck="false" autocapitalize="off"
                   autocomplete="off" aria-label="Sequence to cut into oligos"
                   placeholder="paste a sequence here &mdash; numbers and line breaks are ignored, so a GenBank block works"></textarea>
       </label>
       <p class="row">
-        <label>Oligo length <input class="lca-len" type="number" value="50" min="20" max="120" step="1"></label>
-        <button class="btn lca-load" type="button">Load the lambda repressor</button>
+        <label>Oligo length <input class="calc-len" type="number" value="50" min="20" max="120" step="1"></label>
+        <button class="btn calc-load" type="button">Load the lambda repressor</button>
       </p>
     </div>
     <div>
-      <p class="row head"><span class="lca-count">nothing pasted yet</span>
-         <button class="btn lca-copy" type="button">Copy the order</button></p>
-      <pre class="out lca-out"></pre>
+      <p class="row head"><span class="calc-count">nothing pasted yet</span>
+         <button class="btn calc-copy" type="button">Copy the order</button></p>
+      <pre class="out calc-out"></pre>
     </div>
   </div>
   <div class="src">C6-Tools does this job too, inside the spreadsheet suite you get later in the course</div>
@@ -413,26 +414,39 @@ GCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAA</pre>
 </article>
 
 <!-- ---------------------------------------------------------------- 21 -->
+<!-- The PCA counterpart of the LCA calculator slide, and deliberately the
+     same shape so the two pictures can be compared.  The oligos are not
+     computed here: this calls C6's own pca(), vendored under
+     docs/lectures/c6/, because the set the slide hands out has to be the
+     set the students get from the tool they are told to use. -->
 <article class="slide">
-  <h1 class="small">Example: <span style="font-size:.72em">Gene synthesis oligo design</span></h1>
-  <div class="cols">
-    <figure class="fig">
-      <img src="img/03-lca-editor.png" alt="The same sequence editor window, showing the complete cassette with its restriction sites highlighted">
-    </figure>
+  <h1 class="small">Cut once, <span style="font-size:.72em">and let the oligos overlap</span></h1>
+  <div class="calc" data-calc="pca">
+    <div class="map">
+      <svg class="calc-map" viewBox="0 0 1380 180" role="img"
+           font-family="Helvetica Neue,Arial,Helvetica,sans-serif"
+           aria-label="A map of how the sequence is cut into PCA oligos"></svg>
+    </div>
+    <p class="mapnote">&nbsp;</p>
     <div>
-      <ul class="tight">
-        <li data-build="1"
-            data-note="The front of the job is identical. Complete cassette, sites and tails in, before anything gets cut."
-            data-desc="First instruction appears: design the complete cassette as you did with LCA.">Design the complete cassette as you did with LCA</li>
-        <li data-build="2"
-            data-note="Where it differs is the cut, and you do not do that one by hand. The calculator takes the cassette and hands back the oligo set with the overlaps already placed. The link is on the slide."
-            data-desc="Second instruction appears: design the PCA oligos with the design tool called LCA and PCA Calculator, and the link to that spreadsheet.">Design PCA oligos using a design tool &ldquo;LCA and PCA Calculator&rdquo;</li>
-      </ul>
-      <p data-build="2" style="margin:0"><a class="tool" href="https://docs.google.com/spreadsheets/d/1eNCzKm96QCwKWe_z9HStvaNXQ8GecXSNM7IuTrw-WDs/edit#gid=452338215">https://docs.google.com/spreadsheets/d/1eNCzKm96QCwKWe_z9HStvaNXQ8GecXSNM7IuTrw-WDs/edit#gid=452338215</a></p>
+      <label class="lbl">Paste the complete cassette
+        <textarea class="calc-in" spellcheck="false" autocapitalize="off"
+                  autocomplete="off" aria-label="Sequence to cut into PCA oligos"
+                  placeholder="paste a sequence here &mdash; numbers and line breaks are ignored, so a GenBank block works"></textarea>
+      </label>
+      <p class="row">
+        <button class="btn calc-load" type="button">Load the lambda repressor</button>
+      </p>
+    </div>
+    <div>
+      <p class="row head"><span class="calc-count">nothing pasted yet</span>
+         <button class="btn calc-copy" type="button">Copy the order</button></p>
+      <pre class="out calc-out"></pre>
     </div>
   </div>
-  <template class="notes">You have seen this screenshot already, and that is the point. Whichever assembly you are heading for, the design starts in the same place with the same window.</template>
-  <template class="desc">The same sequence editor screenshot beside two instructions: design the complete cassette as for LCA, then design the PCA oligos with the LCA and PCA Calculator, whose link is given below them.</template>
+  <div class="src">C6-Tools, the same pca() function, in the spreadsheet suite you get later in the course</div>
+  <template class="notes">Same slide, different assembly, and the difference is the whole point of putting them side by side. LCA tiled both strands completely, so every base was ordered twice. PCA orders every base once. The oligos hop from strand to strand, each one overlapping its neighbour by about twenty bases, and the shaded columns are those overlaps. Everything between them is not ordered at all; the polymerase fills it in. That is why the oligo count roughly halves for the same gene, and it is also why PCA cares about the sequence in a way LCA does not: the overlap has to anneal, so the tool moves each junction a few bases to find a stretch with a decent G-C content that does not fold back on itself. You can see that in the readout, where the overlaps are not all the same length. This is C6's own pca function running in the page, so what you get here is what you get from the toolkit.</template>
+  <template class="desc">A working PCA calculator, with a map of the cut across the top. In the map the molecule is drawn as a single row of oligos that alternate between an upper blue band and a lower red band, each one overlapping its neighbour by roughly twenty bases, with the overlaps picked out as shaded vertical columns running through both bands. Under the map, a box to paste the complete cassette into and a button that loads the lambda repressor; beside them the resulting order, each oligo named and numbered, with the base count, the oligo count and the range of overlap lengths above them and a button that copies the whole set. A line at the foot of the slide notes that this is the same pca function C6-Tools provides in the spreadsheet suite given later in the course.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 22 -->
@@ -440,10 +454,12 @@ GCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAA</pre>
   <div class="qhead">
     <img src="img/ponder.png" alt="" aria-hidden="true">
     <div class="q">PCA example question</div>
+    <button class="btn" type="button" data-reveal="pca">Show the answer</button>
   </div>
   <p>Design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Polymerase Chain Assembly</p>
-  <p style="margin-bottom:0"><b>amilGFP ORF:</b></p>
-  <pre class="orf">ATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGC
+  <div class="qshow">
+    <p style="margin-bottom:0"><b>amilGFP ORF:</b></p>
+    <pre class="orf">ATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGC
 AGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGG
 AAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTT
 GACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGAC
@@ -455,59 +471,19 @@ GGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCAC
 TCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAA
 ATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACAT
 GCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAA</pre>
-  <template class="notes">First assembly the sequence of the PCR product including the BioBrick ends:
-ccattgaattcgcggccgcttctagATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGCAGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGGAAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTCATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAGAAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAAactagtagcggccgctgcagacsgc
+  </div>
 
-Then paste that into GeneDesign to get:
-
->.01.o01 59bp
-CCATTGAATTCGCGGCCGCTTCTAGATGTCTTATTCAAAGCATGGCATCGTACAAGAAA
->.01.o02 56bp
-CTGCCTTCCATATGGTATTTCGTCTTCATTTCTTGTACGATGCCATGCTTTGAATA
->.01.o03 55bp
-AGACGAAATACCATATGGAAGGCAGTGTCAATGGCCATGAATTTACGATCGAAGG
->.01.o04 52bp
-CCCTTCGTAAGGGTACCCAGTTCCTACACCTTCGATCGTAAATTCATGGCCA
->.01.o05 55bp
-ACTGGGTACCCTTACGAAGGGAAACAGATGTCCGAATTAGTGATCATCAAGCCTG
->.01.o06 54bp
-TGTCAAAGGAGAATGGAAGGGGTTTTCCCGCAGGCTTGATGATCACTAATTCGG
->.01.o07 58bp
-AACCCCTTCCATTCTCCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTG
->.01.o08 53bp
-CATGTCTGCCGGGTACTTTGTGAAGCAACGGTTTCCATATTGAAAGACTGATG
->.01.o09 55bp
-TCACAAAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGG
->.01.o10 59bp
-ATCCTCAAATAGAAATGACCTTTCATATGACATTCCATCTGGGAATGCTTGCTTGAAAT
->.01.o11 50bp
-CATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAGCCAGC
->.01.o12 54bp
-GGATGAAGCAATTTCCTTCGAGTCGAATGTTCCAGCTGGCTGTAGCAACTGCTC
->.01.o13 55bp
-GACTCGAAGGAAATTGCTTCATCCACAAATCCATCTTTCATGGCGTAAACTTTCC
->.01.o14 56bp
-GGTCTTCTTTTTCATTACGGGTCCATCAGCGGGAAAGTTTACGCCATGAAAGATGG
->.01.o15 58bp
-ATGGACCCGTAATGAAAAAGAAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGAC
->.01.o16 54bp
-CACCTCTTAGCACCTCTTTAGACACAGTCATTTTTTCGAAGGACTTATCCCAGT
->.01.o17 55bp
-TGTCTAAAGAGGTGCTAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGG
->.01.o18 54bp
-TGGAGTGAAATTGGCATCTGTGAGAACCACCTCCTTCGAGCATAAGAAACATAG
->.01.o19 53bp
-CTCACAGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTG
->.01.o20 59bp
-CCTCACAATTTGATGTTCTACGACATGATTCGGGGGCAGTGTGACCGGCTTCTCTGTTT
->.01.o21 50bp
-ATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAAGTGCA
->.01.o22 52bp
-GCATGTGCTTCCAGCTTGACTGTAAAGCCTTTTGCACTTTGGCCAAGGTCGG
->.01.o23 59bp
-CAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAAACT
->.01.o24 50bp
-GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
+  <div class="qans" hidden>
+    <p class="astep"><b>1.</b> The same cassette as the LCA question &mdash; <span class="tail">BioBrick ends in blue</span></p>
+    <pre class="cassette"><span class="tail">ccattgaattcgcggccgcttctag</span>ATGTCTTATTCAAAGCATGGCATCGTACAAGAAATGAAGACGAAATACCATATGGAAGGCAGTGTCAATGGCCATGAATTTACGATCGAAGGTGTAGGAACTGGGTACCCTTACGAAGGGAAACAGATGTCCGAATTAGTGATCATCAAGCCTGCGGGAAAACCCCTTCCATTCTCCTTTGACATACTGTCATCAGTCTTTCAATATGGAAACCGTTGCTTCACAAAGTACCCGGCAGACATGCCTGACTATTTCAAGCAAGCATTCCCAGATGGAATGTCATATGAAAGGTCATTTCTATTTGAGGATGGAGCAGTTGCTACAGCCAGCTGGAACATTCGACTCGAAGGAAATTGCTTCATCCACAAATCCATCTTTCATGGCGTAAACTTTCCCGCTGATGGACCCGTAATGAAAAAGAAGACCATTGACTGGGATAAGTCCTTCGAAAAAATGACTGTGTCTAAAGAGGTGCTAAGAGGTGACGTGACTATGTTTCTTATGCTCGAAGGAGGTGGTTCTCACAGATGCCAATTTCACTCCACTTACAAAACAGAGAAGCCGGTCACACTGCCCCCGAATCATGTCGTAGAACATCAAATTGTGAGGACCGACCTTGGCCAAAGTGCAAAAGGCTTTACAGTCAAGCTGGAAGCACATGCCGCGGCTCATGTTAACCCTTTGAAGGTTAAATAA<span class="tail">actagtagcggccgctgcagacsgc</span></pre>
+    <p class="astep"><b>2.</b> Hand it to PCA</p>
+    <p class="aresult"></p>
+    <p class="acts">
+      <button class="btn" type="button" data-copy=".cassette">Copy the cassette</button>
+      <button class="btn" type="button" data-copy=".cassette" data-oligos="pca">Copy the oligos</button>
+    </p>
+  </div>
+  <template class="notes">The cassette is the same one they built for the LCA question, so the first step is already done and the only new work is handing it to a different tool. Press the button and compare the two answers: LCA wanted thirty-one oligos for this gene and PCA wants twenty-eight, but the PCA set covers each base once rather than twice, so it is about half the synthesis. The old answer on this slide came out of GeneDesign, which is a different program with a different junction rule; what you see now is C6's pca, the function in the calculator two slides back and in the toolkit they will use.</template>
   <template class="desc">The same question run the other way, marked with the deck's thinking figure: design a set of oligos to synthesize the amilGFP gene as a BioBricks part using Polymerase Chain Assembly, with the amilGFP open reading frame printed below.</template>
 </article>
 
@@ -554,10 +530,10 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
 <script src="seq/03-lca.js" defer></script>
 <script src="seq/03-pca.js" defer></script>
 <script src="seq/03-pca-cycles.js" defer></script>
-<script>
+<script type="module">
 /* ------------------------------------------------------------------ *
- * The two live controls in this section: the clipboard button on the
- * design slide and the oligo calculator two slides later.
+ * The live controls in this section: the clipboard buttons, the two
+ * oligo calculators, and the answer reveals on the two question slides.
  *
  * Nothing here uses an id.  Presenter mode clones the NEXT slide into
  * its preview pane, so any id on a slide exists twice the moment the
@@ -569,6 +545,23 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
  * ------------------------------------------------------------------ */
 (function(){
   "use strict";
+
+  /* PCA is not reimplemented here.  It is C6's own pca(), vendored under
+     docs/lectures/c6/ by sync-from-c6.sh, so the oligos this slide hands
+     out are the oligos the toolkit hands out.  Loaded dynamically and on
+     purpose: if it is missing, the PCA slide says so and everything else
+     on the page -- LCA, the clipboard buttons, the LCA reveal -- still
+     works. */
+  var C6 = null, C6err = null;
+  import("../../c6/C6-Oligos.js").then(function(m){
+    C6 = m;
+    document.querySelectorAll('[data-calc="pca"]').forEach(render);
+  }).catch(function(e){
+    C6err = e && e.message ? e.message : String(e);
+    document.querySelectorAll('[data-calc="pca"] .calc-count').forEach(function(n){
+      n.textContent = "C6 oligo library did not load";
+    });
+  });
 
   /* The same 742 bases as assets/lambda-repressor.str, which is the
      annotated copy offered for download beside the button.  Keep the two
@@ -737,16 +730,106 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
     return r;
   }
 
+  /* ---- PCA ------------------------------------------------------- *
+   * C6 returns the oligo strings and nothing else, so each one is put
+   * back on the synthon by searching for it, forward then reverse
+   * complement.  At forty-odd bases a match is unique in a gene this
+   * size.  Those spans are the map: consecutive oligos alternate strands
+   * and overlap, and the overlap is where they anneal. */
+  function pcaDesign(raw){
+    var clean = String(raw).replace(/[^A-Za-z]/g, "");
+    if (!clean) return null;
+    if (!C6) return {err: C6err ? "C6 oligo library did not load" : "loading C6\u2026"};
+    if (clean.length < 120) return {err: "too short for PCA \u2014 paste at least 120 bases"};
+    var o;
+    try { o = C6.pca(clean); }
+    catch (e){ return {err: (e && e.message) || "C6 could not design this one"}; }
+
+    var S = clean.toUpperCase(), sp = [], i, u, r, k;
+    for (i = 0; i < o.length; i++){
+      u = o[i].toUpperCase(); k = S.indexOf(u);
+      if (k >= 0){ sp.push([k, k + u.length, "F", i + 1]); continue; }
+      r = revcomp(u); k = S.indexOf(r);
+      if (k >= 0){ sp.push([k, k + r.length, "R", i + 1]); continue; }
+      return {err: "oligo " + (i + 1) + " is not on the sequence"};
+    }
+    var ov = [];
+    for (i = 1; i < sp.length; i++) ov.push(sp[i-1][1] - sp[i][0]);
+    return {clean: clean, len: clean.length, oligos: o, spans: sp,
+            lo: Math.min.apply(null, ov), hi: Math.max.apply(null, ov)};
+  }
+
+  function drawPcaMap(svg, d){
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    if (!d || d.err) return;
+    var k = (X1 - X0) / d.len, i, b, x, w, y;
+
+    /* the annealing columns first, behind the oligos */
+    var g = mk("g", {fill:"#a99011", "fill-opacity":".22"});
+    for (i = 1; i < d.spans.length; i++){
+      x = X0 + d.spans[i][0] * k;
+      w = Math.max(1, (d.spans[i-1][1] - d.spans[i][0]) * k);
+      g.appendChild(mk("rect", {x:x, y:YF, width:w, height:YR + BH - YF}));
+    }
+    svg.appendChild(g);
+
+    for (i = 0; i < d.spans.length; i++){
+      b = d.spans[i];
+      y = b[2] === "F" ? YF : YR;
+      x = X0 + b[0] * k; w = Math.max(1, (b[1] - b[0]) * k);
+      var col = b[2] === "F" ? BLUE : VERM;
+      svg.appendChild(mk("rect", {x:x, y:y, width:w, height:BH, rx:3,
+        fill:col, "fill-opacity":".13", stroke:col, "stroke-width":"1.6"}));
+      if (w >= 27) svg.appendChild(mk("text", {x:x + w/2, y:y + BH/2 + 6,
+        "text-anchor":"middle", "font-size":"15", fill:col}, String(b[3])));
+    }
+    svg.appendChild(mk("text", {x:138, y:YF + BH/2 + 8, "text-anchor":"end",
+      "font-size":"22", "font-weight":"700", fill:BLUE}, "forward"));
+    svg.appendChild(mk("text", {x:138, y:YR + BH/2 + 8, "text-anchor":"end",
+      "font-size":"22", "font-weight":"700", fill:VERM}, "reverse"));
+    [[X0, YF - 11, "start", "5\u2032"], [X1, YF - 11, "end", "3\u2032"],
+     [X0, YR + BH + 26, "start", "3\u2032"], [X1, YR + BH + 26, "end", "5\u2032"]
+    ].forEach(function(t){
+      svg.appendChild(mk("text", {x:t[0], y:t[1], "text-anchor":t[2],
+        "font-size":"20", fill:MUTED}, t[3]));
+    });
+  }
+
+  function renderPca(box){
+    var out = box.querySelector(".calc-out"),
+        count = box.querySelector(".calc-count"),
+        note = box.querySelector(".mapnote"),
+        svg = box.querySelector(".calc-map"),
+        d = pcaDesign(box.querySelector(".calc-in").value);
+    if (!d || d.err){
+      out.textContent = ""; drawPcaMap(svg, null);
+      count.textContent = d ? d.err : "nothing pasted yet";
+      note.innerHTML = "&nbsp;";
+      return;
+    }
+    var lines = ["Oligos  (" + d.oligos.length + ")"];
+    d.oligos.forEach(function(o, i){ lines.push("PCA-" + pad(i + 1) + "  " + o); });
+    out.textContent = lines.join("\n");
+    out.scrollTop = 0;
+    count.textContent = d.len + " bases  \u2192  " + d.oligos.length +
+      " oligos  \u00b7  overlaps " + d.lo + "\u2013" + d.hi + " bases";
+    drawPcaMap(svg, d);
+    note.innerHTML = "Each oligo <b>overlaps the next</b> by about twenty bases, on the " +
+      "other strand, and the shaded columns are those overlaps \u2014 everything between " +
+      "them is filled in by the polymerase, so each base is ordered <b>once</b>, not twice";
+  }
+
   function render(box){
-    var ta    = box.querySelector(".lca-in"),
-        out   = box.querySelector(".lca-out"),
-        count = box.querySelector(".lca-count"),
-        len   = parseInt(box.querySelector(".lca-len").value, 10);
+    if (box.getAttribute("data-calc") === "pca") return renderPca(box);
+    var ta    = box.querySelector(".calc-in"),
+        out   = box.querySelector(".calc-out"),
+        count = box.querySelector(".calc-count"),
+        len   = parseInt(box.querySelector(".calc-len").value, 10);
     if (!(len >= 20 && len <= 120)) len = 50;
     var d = design(ta.value, len);
     if (!d){
       out.textContent = ""; count.textContent = "nothing pasted yet";
-      drawMap(box.querySelector(".lca-map"), null);
+      drawMap(box.querySelector(".calc-map"), null);
       box.querySelector(".mapnote").innerHTML = "&nbsp;";
       return;
     }
@@ -759,7 +842,7 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
     count.textContent = d.len + " bases  \u2192  " +
                         (d.fwd.length + d.rev.length) + " oligos  \u00b7  " +
                         "shortest overlap " + shortestOverlap(d) + " bases";
-    drawMap(box.querySelector(".lca-map"), d);
+    drawMap(box.querySelector(".calc-map"), d);
     box.querySelector(".mapnote").innerHTML =
       "Forward strand cut every <b>" + len + "</b> bases from the left; " +
       "reverse strand cut every <b>" + len + "</b> from the right, starting <b>" +
@@ -769,7 +852,7 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
 
   /* ---- wiring, all delegated ------------------------------------- */
   document.addEventListener("input", function(e){
-    var box = e.target.closest && e.target.closest("[data-lca]");
+    var box = e.target.closest && e.target.closest("[data-calc]");
     if (box) render(box);
   });
   document.addEventListener("click", function(e){
@@ -786,11 +869,18 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
       else {
         src = btn.closest(".slide").querySelector(what);
         if (src){
-          d = design(src.textContent, 50);
-          text = !d ? null
-               : btn.hasAttribute("data-oligos")
-                 ? rows(d).map(function(r){ return r[0] + "\t" + r[1]; }).join("\n")
-                 : d.clean;
+          var how = btn.getAttribute("data-oligos");
+          if (how === "pca"){
+            var pd = pcaDesign(src.textContent);
+            text = (!pd || pd.err) ? null
+                 : pd.oligos.map(function(o, i){ return "PCA-" + pad(i+1) + "\t" + o; }).join("\n");
+          } else {
+            d = design(src.textContent, 50);
+            text = !d ? null
+                 : (how != null)
+                   ? rows(d).map(function(r){ return r[0] + "\t" + r[1]; }).join("\n")
+                   : d.clean;
+          }
         }
       }
       if (text == null) flash(btn, "Nothing to copy");
@@ -810,28 +900,44 @@ GCGTCTGCAGCGGCCGCTACTAGTTTATTTAACCTTCAAAGGGTTAACAT</template>
       if (q) q.hidden = opening;
       rv.textContent = opening ? "Hide the answer" : "Show the answer";
       if (opening){
-        var c = sl.querySelector(".cassette"), line = sl.querySelector(".aresult"), dd;
-        if (c && line && (dd = design(c.textContent, 50)))
+        var c = sl.querySelector(".cassette"), line = sl.querySelector(".aresult"),
+            how = rv.getAttribute("data-reveal"), dd, pd, lens;
+        if (c && line && how === "pca"){
+          pd = pcaDesign(c.textContent);
+          line.innerHTML = (!pd || pd.err) ? (pd ? pd.err : "")
+            : pd.len + " bases into <b>" + pd.oligos.length + " oligos</b>, " +
+              (lens = pd.oligos.map(function(o){ return o.length; }),
+               Math.min.apply(null, lens) + " to " + Math.max.apply(null, lens)) +
+              " bases each, overlapping by <b>" + pd.lo + "\u2013" + pd.hi + "</b>";
+        } else if (c && line && (dd = design(c.textContent, 50))){
           line.innerHTML = dd.len + " bases cut into <b>" + dd.fwd.length +
             " forward</b> and <b>" + dd.rev.length + " reverse</b> oligos, " +
             "shortest overlap <b>" + shortestOverlap(dd) + "</b> bases";
+        }
       }
       return;
     }
-    var box = t.closest("[data-lca]");
+    var box = t.closest("[data-calc]");
     if (!box) return;
-    if (t.closest(".lca-load")){
-      box.querySelector(".lca-in").value = LAMBDA;
+    if (t.closest(".calc-load")){
+      box.querySelector(".calc-in").value = LAMBDA;
       render(box);
       return;
     }
-    var cp = t.closest(".lca-copy");
+    var cp = t.closest(".calc-copy");
     if (cp){
-      var d = design(box.querySelector(".lca-in").value,
-                     parseInt(box.querySelector(".lca-len").value, 10) || 50);
-      if (!d){ flash(cp, "Nothing to copy"); return; }
-      /* tab separated, so it drops straight into an order form */
-      var text = rows(d).map(function(r){ return r[0] + "\t" + r[1]; }).join("\n");
+      /* tab separated, so it drops straight into an order form.  The PCA
+         box has no length field -- its chunking is C6's business. */
+      var seq = box.querySelector(".calc-in").value, text = null, dd;
+      if (box.getAttribute("data-calc") === "pca"){
+        dd = pcaDesign(seq);
+        if (dd && !dd.err)
+          text = dd.oligos.map(function(o, i){ return "PCA-" + pad(i+1) + "\t" + o; }).join("\n");
+      } else {
+        dd = design(seq, parseInt(box.querySelector(".calc-len").value, 10) || 50);
+        if (dd) text = rows(dd).map(function(r){ return r[0] + "\t" + r[1]; }).join("\n");
+      }
+      if (text == null){ flash(cp, "Nothing to copy"); return; }
       copy(text).then(function(){ flash(cp, "Copied \u2713"); },
                       function(){ flash(cp, "Copy failed"); });
     }
