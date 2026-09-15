@@ -6,6 +6,16 @@
 <meta name="color-scheme" content="light">
 <meta name="robots" content="noindex,nofollow">
 <title>140L Lectures</title>
+<!-- The course index.  One entry per lecture on the syllabus, in the
+     syllabus's own words, so this page and the course outline cannot drift
+     apart.  A lecture that has a deck links to its first page; the rest are
+     listed unlinked so the shape of the term is visible from here.
+
+     The sections live behind a <details> on purpose.  JCA: "They can also
+     expand the individual lecture links to see the individual links of the
+     sections.  It's overwhelming to see all the sections for all the
+     lectures on one page."  Open, the two built decks alone put 23 rows on
+     the page; the eleven still to come would bury them. -->
 <style>
   :root{--ink:#111;--lecture:#004373;--section:#a99011;--muted:#767676;--rule:#e2e2e2;
         --sans:"Helvetica Neue",Arial,Helvetica,sans-serif;
@@ -13,77 +23,144 @@
   *{box-sizing:border-box}
   body{margin:0;background:#fff;color:var(--ink);font-family:var(--sans);
        padding:64px 28px 90px;line-height:1.5}
-  main{max-width:760px;margin:0 auto}
+  main{max-width:780px;margin:0 auto}
   h1{font-family:var(--slab);font-weight:700;font-size:40px;margin:0 0 6px}
-  .sub{color:var(--muted);font-size:14px;margin:0 0 42px}
-  h2{font-size:13px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);
-     font-weight:700;margin:38px 0 12px;border-bottom:1px solid var(--rule);padding-bottom:8px}
-  ol{list-style:none;margin:0;padding:0}
-  li{border-bottom:1px solid var(--rule)}
-  a.row{display:flex;gap:14px;align-items:center;padding:12px 6px;text-decoration:none;color:var(--ink)}
-  a.row:hover{background:#f4f6f9}
-  .n{color:var(--muted);font-variant-numeric:tabular-nums;min-width:2.2em;font-size:14px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 26px}
+  .up{font-size:14px;margin:0 0 30px}
+  .up a{color:var(--lecture)}
+  .note{font-size:13px;color:var(--muted);border:1px solid var(--rule);border-radius:5px;
+        padding:12px 14px;margin-bottom:38px}
+
+  .lec{border-top:1px solid var(--rule);padding:22px 0 20px}
+  .lec h2{display:flex;gap:14px;align-items:baseline;font-size:21px;font-weight:700;
+          margin:0 0 8px;font-family:var(--sans)}
+  .lec h2 a{color:var(--ink);text-decoration:none}
+  .lec h2 a:hover{text-decoration:underline}
+  .n{color:var(--muted);font-variant-numeric:tabular-nums;min-width:1.9em;
+     font-size:14px;font-weight:400;flex:none}
+  .topics{margin:0;font-size:14px;color:var(--muted);max-width:62em}
+  /* A lecture with no deck yet: listed, so the term has a shape, but plainly
+     not a link and not pretending to be one. */
+  .lec.todo h2 .soon{color:var(--muted);font-weight:400}
+  .lec.todo h2 .soon::after{content:"deck to come";font-size:11px;letter-spacing:.09em;
+     text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);
+     border-radius:3px;padding:2px 6px;margin-left:12px;vertical-align:2px}
+
+  details{margin-top:12px}
+  summary{cursor:pointer;font-size:13px;color:var(--lecture);width:max-content;
+          list-style:none;padding:3px 0}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"\25B8  ";display:inline-block;transition:transform .15s ease}
+  details[open] summary::before{content:"\25BE  "}
+  details ol{list-style:none;margin:8px 0 0;padding:0;border-top:1px solid var(--rule)}
+  details li{border-bottom:1px solid var(--rule)}
+  details li a{display:flex;gap:12px;align-items:center;padding:9px 6px;
+               text-decoration:none;color:var(--ink);font-size:15px}
+  details li a:hover{background:#f4f6f9}
   .k{width:10px;height:10px;border-radius:2px;flex:none;border:1px solid var(--rule)}
   .k.lecture{background:var(--lecture);border-color:var(--lecture)}
   .k.section{background:var(--section);border-color:var(--section)}
-  .k.white{background:#fff}
-  .lead{display:flex;gap:14px;align-items:baseline;margin:0 0 4px}
-  .lead a{font-size:20px;font-weight:700;color:var(--ink)}
-  .note{font-size:13px;color:var(--muted);border:1px solid var(--rule);border-radius:5px;
-        padding:12px 14px;margin-bottom:34px}
+  @media (prefers-reduced-motion:reduce){summary::before{transition:none}}
 </style>
 </head>
 <body>
 <main>
   <h1>BioE 140L Lectures</h1>
   <p class="sub">Unlisted &mdash; not in the site navigation, search, or sitemap.</p>
+  <p class="up"><a href="../">&larr; All lectures</a></p>
 
-  <p class="note">Advance with the arrow keys &mdash; clicking the slide does nothing. <strong>F11</strong>
-     (<strong>&#8963;&#8984;F</strong> on a Mac) is the full screen to use &mdash; it survives moving
-     between sections, which the in-page <em>Full screen</em> button cannot.
-     <strong>G</strong> jumps between sections, <strong>P</strong> is presenter view,
-     <strong>W</strong> is the two text channels, <strong>?</strong> lists every key.</p>
+  <p class="note">Advance with the arrow keys &mdash; clicking the slide does nothing.
+     <strong>F11</strong> (<strong>&#8963;&#8984;F</strong> on a Mac) is the full screen to
+     use: it survives moving between sections, which the in-page <em>Full screen</em>
+     button cannot. <strong>G</strong> jumps between sections, <strong>P</strong> is
+     presenter view, <strong>W</strong> is the two text channels, <strong>?</strong>
+     lists every key.</p>
 
-  <h2>DNA Manipulation Enzymes</h2>
-  <ol>
-    <li><a class="row" href="01-dna-enzymes/00-intro.html"><span class="n">1</span><span class="k lecture"></span>Introduction</a></li>
-    <li><a class="row" href="01-dna-enzymes/01-endonucleases.html"><span class="n">2</span><span class="k section"></span>Endonucleases</a></li>
-    <li><a class="row" href="01-dna-enzymes/02-exonucleases.html"><span class="n">3</span><span class="k section"></span>Exonucleases</a></li>
-    <li><a class="row" href="01-dna-enzymes/03-phosphatases.html"><span class="n">4</span><span class="k section"></span>Phosphatases</a></li>
-    <li><a class="row" href="01-dna-enzymes/04-dna-polymerases.html"><span class="n">5</span><span class="k section"></span>DNA Polymerases <small style="color:var(--muted)">&nbsp;&mdash; 6 animations, incl. rolling circle</small></a></li>
-    <li><a class="row" href="01-dna-enzymes/05-rna-polymerases.html"><span class="n">6</span><span class="k section"></span>RNA Polymerases</a></li>
-    <li><a class="row" href="01-dna-enzymes/06-ligases.html"><span class="n">7</span><span class="k section"></span>Ligases</a></li>
-    <li><a class="row" href="01-dna-enzymes/07-kinases.html"><span class="n">8</span><span class="k section"></span>Kinases</a></li>
-    <li><a class="row" href="01-dna-enzymes/08-recombinases.html"><span class="n">9</span><span class="k section"></span>Recombinases</a></li>
-    <li><a class="row" href="01-dna-enzymes/09-methyltransferases.html"><span class="n">10</span><span class="k section"></span>Methyltransferases</a></li>
-    <li><a class="row" href="01-dna-enzymes/10-questions.html"><span class="n">11</span><span class="k section"></span>Questions</a></li>
-  </ol>
-
-  <h2>DNA Fabrication</h2>
-  <ol>
-    <li><a class="row" href="02-dna-fabrication/00-front-matter.html"><span class="n">1</span><span class="k lecture"></span>Introduction</a></li>
-    <li><a class="row" href="02-dna-fabrication/01-basic-cloning.html"><span class="n">2</span><span class="k section"></span>Basic Cloning</a></li>
-    <li><a class="row" href="02-dna-fabrication/02-ad-hoc-assembly.html"><span class="n">3</span><span class="k section"></span>Ad hoc Assembly</a></li>
-    <li><a class="row" href="02-dna-fabrication/03-gene-synthesis.html"><span class="n">4</span><span class="k section"></span>Gene Synthesis</a></li>
-    <li><a class="row" href="02-dna-fabrication/04-biobrick-assembly.html"><span class="n">5</span><span class="k section"></span>BioBrick Assembly</a></li>
-    <li><a class="row" href="02-dna-fabrication/05-homology-based-assembly.html"><span class="n">6</span><span class="k section"></span>Homology-based Assembly</a></li>
-    <li><a class="row" href="02-dna-fabrication/06-golden-gate-assembly.html"><span class="n">7</span><span class="k section"></span>Golden Gate Assembly</a></li>
-    <li><a class="row" href="02-dna-fabrication/08-tpcon6-and-moclo.html"><span class="n">8</span><span class="k section"></span>TPcon6 and MoClo</a></li>
-    <li><a class="row" href="02-dna-fabrication/09-setting-up-pcr.html"><span class="n">9</span><span class="k section"></span>Setting up PCR</a></li>
-    <li><a class="row" href="02-dna-fabrication/10-run-a-gel.html"><span class="n">10</span><span class="k section"></span>Run a Gel</a></li>
-    <li><a class="row" href="02-dna-fabrication/11-zymo-cleanup.html"><span class="n">11</span><span class="k section"></span>Zymo Cleanup</a></li>
-    <li><a class="row" href="02-dna-fabrication/12-digestion-ligation-assembly.html"><span class="n">12</span><span class="k section"></span>Digestion, Ligation, Assembly</a></li>
-  </ol>
-
-  <h2>Reference</h2>
-  <ol>
-    <li><a class="row" href="../style/guide.html"><span class="n">&nbsp;</span><span class="k white"></span>Slide style guide &mdash; colour, type, pacing, DNA conventions, animation, line art</a></li>
-    <li><a class="row" href="../style/palette.pdf"><span class="n">&nbsp;</span><span class="k white"></span>Palette demonstration (PDF)</a></li>
-  </ol>
-
-  <h2>Still to build</h2>
-  <p class="sub" style="margin:0">Lectures 3&ndash;15. Make <code>NN-name/</code> with a
-     <code>lecture.js</code>, add a block above. See <a href="../AUTHORING.txt">AUTHORING.txt</a>.</p>
+  <article class="lec todo">
+    <h2><span class="n">1</span><span class="soon">Introduction to Synthetic Biology</span></h2>
+    <p class="topics">An overview of Synthetic Biology, the course format, the group project, and the first tutorial.</p>
+  </article>
+  <article class="lec">
+    <h2><span class="n">2</span><a href="01-dna-enzymes/00-intro.html">DNA Modification Enzymes</a></h2>
+    <p class="topics">An in-depth look at the enzymes fundamental to synthetic biology for DNA manipulation. It examines the intricate chemistry and functionality of various enzyme classes, such as nucleases, polymerases, ligases, and methyltransferases, and their essential roles in DNA modification. The discussion encompasses a range of DNA modification reactions, emphasizing their importance in DNA fabrication and genome editing within the scope of synthetic biology research.</p>
+    <details>
+      <summary>11 sections</summary>
+      <ol>
+        <li><a href="01-dna-enzymes/00-intro.html"><span class="k lecture"></span>Introduction</a></li>
+        <li><a href="01-dna-enzymes/01-endonucleases.html"><span class="k section"></span>Endonucleases</a></li>
+        <li><a href="01-dna-enzymes/02-exonucleases.html"><span class="k section"></span>Exonucleases</a></li>
+        <li><a href="01-dna-enzymes/03-phosphatases.html"><span class="k section"></span>Phosphatases</a></li>
+        <li><a href="01-dna-enzymes/04-dna-polymerases.html"><span class="k section"></span>DNA Polymerases</a></li>
+        <li><a href="01-dna-enzymes/05-rna-polymerases.html"><span class="k section"></span>RNA Polymerases</a></li>
+        <li><a href="01-dna-enzymes/06-ligases.html"><span class="k section"></span>Ligases</a></li>
+        <li><a href="01-dna-enzymes/07-kinases.html"><span class="k section"></span>Kinases</a></li>
+        <li><a href="01-dna-enzymes/08-recombinases.html"><span class="k section"></span>Recombinases</a></li>
+        <li><a href="01-dna-enzymes/09-methyltransferases.html"><span class="k section"></span>Methyltransferases</a></li>
+        <li><a href="01-dna-enzymes/10-questions.html"><span class="k section"></span>Questions</a></li>
+      </ol>
+    </details>
+  </article>
+  <article class="lec">
+    <h2><span class="n">3</span><a href="02-dna-fabrication/00-front-matter.html">DNA Fabrication</a></h2>
+    <p class="topics">This comprehensive lecture on DNA fabrication chronicles the evolution and range of in vitro methods used in the field, from early techniques to advanced modern methods. It includes discussions on gene-length DNA fabrication, emphasizing ligase chain assembly and polymerase chain assembly, as well as larger DNA assembly methods such as Gibson, Golden Gate, and BioBrick methods.</p>
+    <details>
+      <summary>12 sections</summary>
+      <ol>
+        <li><a href="02-dna-fabrication/00-front-matter.html"><span class="k lecture"></span>Introduction</a></li>
+        <li><a href="02-dna-fabrication/01-basic-cloning.html"><span class="k section"></span>Basic Cloning</a></li>
+        <li><a href="02-dna-fabrication/02-ad-hoc-assembly.html"><span class="k section"></span>Ad hoc Assembly</a></li>
+        <li><a href="02-dna-fabrication/03-gene-synthesis.html"><span class="k section"></span>Gene Synthesis</a></li>
+        <li><a href="02-dna-fabrication/04-biobrick-assembly.html"><span class="k section"></span>BioBrick Assembly</a></li>
+        <li><a href="02-dna-fabrication/05-homology-based-assembly.html"><span class="k section"></span>Homology-based Assembly</a></li>
+        <li><a href="02-dna-fabrication/06-golden-gate-assembly.html"><span class="k section"></span>Golden Gate Assembly</a></li>
+        <li><a href="02-dna-fabrication/08-tpcon6-and-moclo.html"><span class="k section"></span>TPcon6 and MoClo</a></li>
+        <li><a href="02-dna-fabrication/09-setting-up-pcr.html"><span class="k section"></span>Setting up PCR</a></li>
+        <li><a href="02-dna-fabrication/10-run-a-gel.html"><span class="k section"></span>Run a Gel</a></li>
+        <li><a href="02-dna-fabrication/11-zymo-cleanup.html"><span class="k section"></span>Zymo Cleanup</a></li>
+        <li><a href="02-dna-fabrication/12-digestion-ligation-assembly.html"><span class="k section"></span>Digestion, Ligation, Assembly</a></li>
+      </ol>
+    </details>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">4</span><span class="soon">Genome Editing</span></h2>
+    <p class="topics">A comprehensive exploration of genome modification techniques. It delves into traditional and modern methods, discussing approaches like phage att site integration, site-specific recombinases, homologous recombination, CRISPR, conjugation, transposons, and phage transduction. The lecture emphasizes the importance of these techniques in modifying pre-existing DNA in cells and discusses the reasons for choosing genome modification over plasmid introduction.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">5</span><span class="soon">Chassis</span></h2>
+    <p class="topics">Examines the concept of using well-characterized host strains in synthetic biology, with a focus on E. coli. While acknowledging the potential of yeast, human, and plant cell lines as chassis, the lecture primarily explores E. coli due to its extensive characterization and relevance. The discussion underlines the importance of choosing the right chassis for genetic engineering, highlighting how the principles learned from E. coli can be extrapolated to other organisms in synthetic biology research.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">6</span><span class="soon">Parts</span></h2>
+    <p class="topics">Delves into the categorization of parts based on their molecular function at different stages of the central dogma, encompassing DNA, RNA, and protein. The lecture also examines functional classifications of genes, focusing on their utility in synthetic biology designs and the principles of combinatorial assembly. Emphasis is placed on the concept of objectifying specific DNA sequences as functional primitives for design purposes in synthetic biology.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">7</span><span class="soon">Practices</span></h2>
+    <p class="topics">Explores various ethical, legal, and social issues in synthetic biology. It discusses the concept of &#x27;human practices&#x27; in genetic engineering, covering aspects like biosafety, biosecurity, intellectual property, government regulation, public perception, and education. Topics include the ethics and controversies of patenting genetic parts, application-specific ethical considerations, and regulatory challenges posed by biosafety and biosecurity concerns. The lecture also addresses the risks and classifications of biohazardous agents, emphasizing the importance of conscientious design and responsible practices in synthetic biology.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">8</span><span class="soon">Whole-Cell Analysis</span></h2>
+    <p class="topics">The methods for assaying phenotypes in live cells, the T in the DBTL cycle where we learn whether our designs work or not. It covers non-destructive assay techniques like fluorescence microscopy and cytometry, emphasizing their role in analyzing cell behavior and properties in response to genetic changes. The focus is on live-cell assays which provide insights into the dynamic functional states of engineered cells without compromising their viability.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">9</span><span class="soon">In vitro Assays</span></h2>
+    <p class="topics">The range of techniques for analyzing cellular components after cell destruction. This covers methods for extracting and observing the activity, structure, or abundance of purified cellular fractions. Techniques like centrifugation for separating cell components, various chromatography methods for purification, and destructive methods like sonication and lysis for cell component extraction are explored. The lecture also examines detection methods like analytical HPLC and mass spectrometry, providing a comprehensive overview of in vitro assay methodologies in synthetic biology.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">10</span><span class="soon">Directed Evolution</span></h2>
+    <p class="topics">A method for protein engineering that involves the iterative modification of protein sequences to enhance their functions. This technique simulates natural evolutionary processes in a laboratory setting to optimize proteins for specific traits. The lecture covers the principles and applications of directed evolution, including library design, screening methods, and examples of successful protein optimization. It highlights the role of directed evolution in advancing synthetic biology by creating proteins with improved or novel functionalities.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">11</span><span class="soon">Combinatorial Methods</span></h2>
+    <p class="topics">The creation and use of large-scale libraries for genetic engineering. It focuses on the concept of combinatorial methods for generating diverse genetic variations. The lecture outlines the process of constructing these libraries, including techniques for creating and assessing diversity, and addresses challenges such as library quality and bias. It also explores applications and strategies for using these libraries in protein engineering, highlighting their potential for discovering new functionalities and enhancing existing ones.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">12</span><span class="soon">Multiplex Characterization</span></h2>
+    <p class="topics">Use of next-generation sequencing as a tool for analyzing all members of a library. It emphasizes how this approach differs from directed evolution and combinatorial methods by providing data on the entire library rather than just the successful variants. This method allows for a more comprehensive understanding of the library&#x27;s parameter space, aiding in the identification of broader trends and interactions within the genetic or protein variations.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">13</span><span class="soon">Automation</span></h2>
+    <p class="topics">The role of software in automating the design and execution of wet lab experiments in synthetic biology. It discusses how software tools aid in planning, conducting, and analyzing biological experiments, improving efficiency and precision. The focus is on the integration of software for experimental design, management, and data analysis, demonstrating the significant impact of automation in streamlining synthetic biology research.</p>
+  </article>
 </main>
 </body>
 </html>
