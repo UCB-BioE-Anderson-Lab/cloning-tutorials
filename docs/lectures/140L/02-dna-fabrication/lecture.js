@@ -24,8 +24,7 @@ window.LECTURE = {
     { file: "05-homology-based-assembly.html",    title: "Homology-based Assembly",   kind: "section" },
     { file: "06-golden-gate-assembly.html",       title: "Golden Gate Assembly",      kind: "section" },
 
-    /* --- the all-hands --------------------------------------------- */
-    { file: "07-all-hands.html",                  title: "All-Hands",                 kind: "lecture" },
+    /* --- the project standard, and the bench ----------------------- */
     { file: "08-tpcon6-and-moclo.html",           title: "TPcon6 and MoClo",          kind: "section" },
     { file: "09-setting-up-pcr.html",             title: "Setting up PCR",            kind: "section" },
     { file: "10-run-a-gel.html",                  title: "Run a Gel",                 kind: "section" },
