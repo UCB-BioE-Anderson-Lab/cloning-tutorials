@@ -17,32 +17,8 @@
  * legible from the back of the room, and nothing else.
  * --------------------------------------------------------------------- */
 
-/* THE WEEKLY GRID.  It is a schedule, so it is a table: days across,
-   hours down, an empty hour an empty cell.  The source draws it as
-   coloured rectangles with the hour numbers floating beside them, which
-   reads as a picture of a table and is unavailable to a screen reader.
-
-   Colour: the source fills the wetlab and OH cells yellow and the Zoom
-   cell orange.  Neither hue exists in this deck's palette, and yellow is
-   the one thing style/palette.css explicitly warns off for small text.
-   The occupied cells take the deck's box idiom instead -- blue rule on a
-   pale ground, the same as .boxes -- and the Zoom cell, which is the odd
-   one out in both time and modality, is promoted to vermillion.  It is
-   also the only cell whose label says Zoom, so hue is not carrying the
-   distinction alone (1.4.1). */
 .slide .gridwrap{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
   justify-content:center}
-.slide table.sched{width:100%;table-layout:fixed;margin:0;
-  border-collapse:separate;border-spacing:7px}
-.slide table.sched th,.slide table.sched td{font-size:28px;font-weight:400;
-  line-height:1.2;padding:13px 0;text-align:center}
-.slide table.sched thead th{font-weight:700;padding:0 0 2px}
-.slide table.sched th[scope="row"]{padding-right:18px;
-  text-align:right;color:var(--muted)}
-.slide table.sched td.on{border:2px solid var(--blue);border-radius:5px;
-  background:#f5f7fa}
-.slide table.sched td.zoom{border-color:var(--vermillion);
-  color:var(--vermillion);font-weight:700}
 
 /* THE ENZYME BOX on the bench-discipline slide.  In the source this is a
    screenshot of a spreadsheet cell, gridlines and all.  It is text, not a
@@ -82,61 +58,6 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 52 -->
-<article class="slide">
-  <h1>Office Hours and Wetlab Availability</h1>
-  <p>Javad: 2-3pm Tuesday</p>
-  <p>JCA: 2-3pm Thursday (and 6pm Wednesday on Zoom)</p>
-
-  <div class="gridwrap">
-    <table class="sched">
-      <!-- table-layout is fixed, so the column widths come from here and
-           not from a width on a tbody cell, which fixed layout ignores.
-           Without this the hour column takes a full sixth of the slide. -->
-      <colgroup>
-        <col style="width:92px"><col><col><col><col><col>
-      </colgroup>
-      <thead>
-        <tr>
-          <td></td>
-          <th scope="col">M</th>
-          <th scope="col">Tu</th>
-          <th scope="col">W</th>
-          <th scope="col">Th</th>
-          <th scope="col">F</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">2</th>
-          <td class="on">wetlab</td>
-          <td class="on">OH/lab</td>
-          <td class="on">wetlab</td>
-          <td class="on">OH/lab</td>
-          <td class="on">wetlab</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td class="on">wetlab</td>
-          <td></td>
-          <td class="on">wetlab</td>
-          <td></td>
-          <td class="on">wetlab</td>
-        </tr>
-        <tr>
-          <th scope="row">6</th>
-          <td></td>
-          <td></td>
-          <td class="on zoom">Zoom OH</td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <template class="desc">Office hours and wetlab availability. Javad holds office hours 2 to 3pm Tuesday; JCA holds them 2 to 3pm Thursday, and 6pm Wednesday on Zoom. Below, the week as a grid, days across and hours down. At 2pm: wetlab Monday, Wednesday and Friday, office hours or lab Tuesday and Thursday. At 3pm: wetlab Monday, Wednesday and Friday only. At 6pm: Zoom office hours on Wednesday, the one entry that is not in the building.</template>
-</article>
-
 <!-- ---------------------------------------------------------------- 53 -->
 <!-- A bCourses screenshot.  Kept as a raster: it is a picture of the page
      the students actually have to go to, and retyping it would be a
