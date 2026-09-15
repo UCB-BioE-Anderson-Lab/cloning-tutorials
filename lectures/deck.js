@@ -331,7 +331,7 @@ function injectChrome(){
         '<button id="nextb" aria-label="Next step" title="Next (right arrow)">&#8250;</button>' +
         '<span class="sep"></span>' +
         '<button id="bjump" aria-expanded="false" title="Sections (G)">Sections</button>' +
-        '<button id="bfull" aria-pressed="false" title="Full screen (F)">Full screen</button>' +
+        '<button id="bfull" aria-pressed="false" title="Full screen (shift-Esc or F)">Full screen</button>' +
         '<button id="bpres" aria-pressed="false" title="Presenter view (P)">Presenter</button>' +
         '<button id="bwcag" aria-pressed="false" title="Text channels (W)">Text</button>' +
         '<button id="bhelp" aria-label="Keyboard shortcuts" aria-expanded="false" title="Shortcuts (?)">?</button>' +
@@ -341,11 +341,11 @@ function injectChrome(){
         '<dt>left / up</dt><dd>Previous</dd>' +
         '<dt>Home / End</dt><dd>First / last slide of this section</dd>' +
         '<dt>G</dt><dd>Jump to a section</dd>' +
-        '<dt>F</dt><dd>Full screen (F11 survives section changes)</dd>' +
+        '<dt>shift-Esc / F</dt><dd>Full screen (F11 survives section changes)</dd>' +
         '<dt>P</dt><dd>Presenter view</dd>' +
         '<dt>W</dt><dd>Text-channel (WCAG) view</dd>' +
         '<dt>S</dt><dd>Speak the two channels</dd>' +
-        '<dt>Esc</dt><dd>Back to the in-frame slide</dd>' +
+        '<dt>Esc</dt><dd>Leave full screen, then back to the in-frame slide</dd>' +
         '<dt>?</dt><dd>This list</dd>' +
       '</dl></div>' +
       '<div id="jump" class="overlay"><div><h2></h2><ol></ol></div></div>' +
@@ -432,6 +432,10 @@ document.addEventListener("DOMContentLoaded", function(){
     else if (k === "s" || k === "S"){ setSpeak(!speaking); e.preventDefault(); }
     else if (k === "g" || k === "G"){ jump.classList.toggle("show"); e.preventDefault(); }
     else if (k === "?"){ help.classList.toggle("show"); e.preventDefault(); }
+    /* Shift-Esc in, Esc out.  F still does it, and still has to, because
+       Shift-Esc is Chrome's task-manager accelerator on Windows and Linux
+       and a page cannot take it there.  On macOS it is free. */
+    else if (k === "Escape" && e.shiftKey){ toggleFull(); e.preventDefault(); }
     else if (k === "Escape"){
       if (help.classList.contains("show")) help.classList.remove("show");
       else if (jump.classList.contains("show")) jump.classList.remove("show");
