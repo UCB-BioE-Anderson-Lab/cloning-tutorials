@@ -30,7 +30,7 @@
  * apart by -/+SEP for the un-annealed frames, so annealing is one
  * symmetric convergence.
  *
- *   left fragment    225 .......... 885     shared 40 bp = 725..885
+ *   left fragment    225 .......... 885     shared 20 bp = 725..885
  *   right fragment          725 .......... 1385
  *
  * The three lengths are not free.  Writing L for a fragment, W for the
@@ -62,7 +62,7 @@ const ease = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
 /* ---- the annealed frame -------------------------------------------- */
 const LFL = 225, LFR = 885;          /* left fragment,  5' top .. 3' top   */
 const RFL = 725, RFR = 1385;         /* right fragment                     */
-const OVL = 725, OVR = 885;          /* the shared 40 bp                   */
+const OVL = 725, OVR = 885;          /* the shared 20 bp                   */
 const W    = OVR - OVL;              /* 160                                */
 const C    = 250;                    /* how far T5 chews each 5' end       */
 const FILL = C - W;                  /* 90, the gap Phusion fills          */
@@ -130,7 +130,7 @@ function reagents(act){
 }
 
 /* ---- frame 1: the design view --------------------------------------- *
- * Not the reaction, the plan: two fragments that already share 40 bp,
+ * Not the reaction, the plan: two fragments that already share 20 bp,
  * and the molecule they are meant to become.  Same colour key as the
  * rest, so the red reads as the same thing all eight frames.           */
 function duplex(x0, x1, y, ovL, ovR){
@@ -154,11 +154,11 @@ function duplex(x0, x1, y, ovL, ovR){
 function designFrame(){
   let g = duplex(LFL - SEP, LFR - SEP, 524, OVL - SEP, OVR - SEP);
   g += duplex(RFL + SEP, RFR + SEP, 524, OVL + SEP, OVR + SEP);
-  g += txt(OVL - SEP + W/2, 588, "40 bp", 30, VERM, 700);
-  g += txt(OVL + SEP + W/2, 588, "40 bp", 30, VERM, 700);
+  g += txt(OVL - SEP + W/2, 588, "20 bp", 30, VERM, 700);
+  g += txt(OVL + SEP + W/2, 588, "20 bp", 30, VERM, 700);
   g += downArrow(800, 610, 670);
   g += duplex(LFL, RFR, 730, OVL, OVR);
-  g += txt(800, 802, "one 40 bp overlap per junction, and that is the whole design",
+  g += txt(800, 802, "one 20 bp overlap per junction, and that is the whole design",
            32, INK, 700);
   return g;
 }
@@ -180,7 +180,7 @@ function reaction(s){
           stroke(seg(rt5+dR, rt3+dR, YT), INK) +
           stroke(seg(rb5+dR, rb3+dR, YB), INK);
 
-  /* the shared 40 bp, wherever a strand still covers it */
+  /* the shared 20 bp, wherever a strand still covers it */
   g += stroke(clipSeg(lt5, lt3, OVL, OVR, dL, YT), VERM) +
        stroke(clipSeg(lb3, lb5, OVL, OVR, dL, YB), VERM) +
        stroke(clipSeg(rt5, rt3, OVL, OVR, dR, YT), VERM) +
@@ -219,9 +219,9 @@ function scene(s){
     /* The brackets and a caption both want y=730.  They never collided
        while the chew had three slides to itself; now that it has one,
        the brackets keep the position they mark and the label gives way
-       to the caption -- the design frame has already said 40 bp. */
+       to the caption -- the design frame has already said 20 bp. */
     g += fade(s.mark, bracket(OVL, OVR, -SEP*s.sep) + bracket(OVL, OVR, SEP*s.sep) +
-              (s.cap ? "" : txt(800, 730, "40 bp, the same sequence in both", 30, VERM, 700)));
+              (s.cap ? "" : txt(800, 730, "20 bp, the same sequence in both", 30, VERM, 700)));
   }
   if (s.stage) g += txt(130, 300, s.stage, 40, VERM, 700, "start");
   if (s.cap)   g += txt(800, 730, s.cap, 32, INK, 700);
@@ -240,7 +240,7 @@ const FR = [
   /* T5     */ { sep:1, chew:1, close:0, seal:0, mark:1, act:0,
                  stage:"T5 Exonuclease",
                  cap:"it eats 5&#8242; ends, so what it leaves behind is a 3&#8242; overhang",
-                 call:"all four of them, indiscriminately &#183; and past the 40 bp, which is why there will be a gap" },
+                 call:"all four of them, indiscriminately &#183; and past the 20 bp, which is why there will be a gap" },
   /* anneal */ { sep:0, chew:1, close:0, seal:0, mark:0, act:0,
                  stage:"Annealing",
                  cap:"of the four exposed tails, only these two are complementary",
