@@ -133,6 +133,69 @@ The sequence supplies its own per-step channels, so notes and descriptions
 for an animation live next to the geometry that draws it.
 
 
+TRAPS
+-----
+Every one of these cost somebody an afternoon.  None of them errors; they all
+just render wrong, or read wrong, and a source review will not catch any of them.
+
+ENTITIES IN THE TWO CHANNELS.  deck.js reads both channels with
+t.content.textContent, so an HTML entity in a <template class="notes"> or in a
+data-note attribute is decoded by the parser and arrives correct.  A JS string
+in seq/*.js is NOT parsed as HTML, so "&rsquo;" there is read aloud as five
+literal characters.  Entities are fine in slide HTML and wrong in sequence
+files.  The same file can legitimately contain both.
+
+THE CONTENT BOX is x 110-1490, y 86-830: .slide minus its declared
+86px 110px 70px padding.  On a slide with an h1 the art starts nearer y 206,
+because the title is above it.  Both numbers are right, for different slides.
+.slide is overflow:hidden, so ink past 1600x900 is silently cut off, while ink
+merely in the padding is often deliberate (.src pins a citation at bottom:34px).
+
+.slide .step IS display:flex WITH gap:14px.  Any inline element inside a step
+line becomes its own flex item and opens a 14px gap on BOTH sides.  Wrap
+everything after the arrow in one <span>.
+
+.slide .cascade IS width:max-content.  A long <p> inside it has a max-content
+width wider than 1380, which clamps the cascade to full width and silently
+kills its margin:0 auto centring.  Cap the paragraph.
+
+.site AND .mut ARE SCOPED TO pre.dna and do nothing inside a .step or a prose
+line.
+
+grid-template-rows:1fr IS NOT ENOUGH.  A grid row's automatic minimum is its
+content, so one tall image claims the whole column and squeezes its neighbour
+to a zero-height box, where it renders perfectly and is invisible.  Use
+minmax(0,1fr).  Same family as every min-height:0 in deck.css.
+
+SVG MARKER IDS MUST BE UNIQUE ACROSS THE WHOLE DECK.  Hidden slides stay in the
+DOM, so two markers sharing an id both resolve to the first and the second arrow
+loses its head.  Most seq files sidestep this by drawing arrowheads as paths.
+
+AN OPEN SVG PATH IS IMPLICITLY CLOSED WHEN FILLED, so a traced open contour
+fills as a wedge.  Use fill="none".
+
+ART DRAWN FOR A GREY GROUND VANISHES ON WHITE.  Line art exported from an older
+deck is often white strokes on transparency.  Recolour it into the palette when
+it is line work in a few flat colours; keep it on a dark panel only when the
+figure's own data colours overlap its line colours, where recolouring destroys
+the data.
+
+AUDITING
+--------
+tools/check_section.js walks a section step by step with settled frames and
+reports ink outside the content box, how much of the box each step spans,
+entities surviving into either channel, and console errors.  It writes a PNG per
+step, which you should then actually look at.
+
+    cd docs/lectures/tools && npm install     # once; node_modules is gitignored
+    node check_section.js 02-dna-fabrication 05-homology.html /tmp/shots
+
+Needs a running `mkdocs serve` and Google Chrome.  Two cautions: livereload
+navigating the page mid-run produces false readings, so let things settle after
+an edit; and a step under about 40 percent fill is usually a drawing laid out at
+the source deck's scale and never grown into 1600x900, though the first beat of
+a cumulative build is legitimately sparse.
+
 ADDING A SECTION
 ----------------
 1. Create the .html file in the lecture folder.

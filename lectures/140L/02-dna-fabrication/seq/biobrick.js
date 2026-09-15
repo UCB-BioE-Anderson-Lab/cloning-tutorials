@@ -213,19 +213,20 @@ window.Deck.sequence("bb-standard", function(slide){
   }
   go(0, false);
 
-  /* The source slide has no speaker notes, so none are written here. The
-     description channel is this file's own, and describes only what is
-     drawn. */
+  /* The source slide had no speaker notes.  The narration below was
+     written afterwards, at JCA's request, to give the presenter panel a
+     voice on these beats; it says only what the drawing already shows.
+     The description channel is this file's own. */
   const S = [
-    { note:"",
+    { note:"Two parts, and outside the part they are the same molecule. The same four sites in the same order, EcoRI and XbaI in front, SpeI and PstI behind, and the marker below. That sameness is the standard: you never have to look up what a part is flanked by, because every part is flanked by this.",
       desc:"Two plasmid maps side by side, each drawn as a rounded loop. Both carry the same four sites along the top in the same order: E and X to the left, S and P to the right. Between them sits the part, B0034 in blue on the left plasmid and C0010 in red on the right. Each plasmid also carries an AMP marker on its lower edge." },
-    { note:"",
+    { note:"The left plasmid gets EcoRI and SpeI, and what falls out is the part itself, linear, with its XbaI site still in front of it and a cut end at either side. That is the insert.",
       desc:"First click: an arrow labelled Cut with E and S drops from the left plasmid, and below it the B0034 part has come out as a straight piece of DNA, with a cut end at E on the left, X beside it, and a cut end at S on the right." },
-    { note:"",
+    { note:"The right plasmid gets EcoRI and XbaI, and notice that is a different pair from the one you just used. It does not release C0010, it opens the plasmid in front of it, so the part, the suffix and the marker all stay on the piece you keep and the only thing discarded is the short stub between the two sites. The asymmetry between this digest and the last one is what makes the method work.",
       desc:"Second click: an arrow labelled Cut with E and X drops from the right plasmid, and below it the C0010 plasmid has been opened. The short stub between its E and X sites has gone, leaving a gap in the top of the loop with a free end at E and another at X. C0010, S, P and the AMP marker are all still on the piece that remains." },
-    { note:"",
+    { note:"Two joins to make. EcoRI to EcoRI, which is obvious, and the SpeI end of the insert to the XbaI end of the vector, which is not. Those two ends carry the same four bases, so they anneal. Hold onto that, because the next slide is about what it costs you.",
       desc:"Third click: two arrows converge from the two cut pieces onto a single point, labelled Mix and Ligate." },
-    { note:"",
+    { note:"One plasmid, both parts in it, and the prefix and suffix are back on the outside of the pair. So the product is itself a part: it goes into the next round against a third part, with the same two digests and the same ligation. One chemistry, any number of rounds, and that is the whole promise of the standard.",
       desc:"Fourth click: one plasmid, wider than the two it came from. Along its top edge, E and X, then B0034 and C0010 sitting directly against one another, then S and P, with the AMP marker below. The prefix and suffix are back on the outside of the pair, so the product is itself a part." }
   ];
 

@@ -204,21 +204,25 @@ const S = [
 { s:{cut:0, olig:0, list:0},
   label:"Start with the gene you want to synthesize",
   sub:"one double-stranded target, and nothing yet about how to build it",
+  note:"Same starting point as ligase chain assembly: one double-stranded target, and nothing about the molecule itself telling you how to build it. Everything on this slide happens at a desk. Nothing is in a tube until the next one.",
   desc:"One double-stranded DNA running the width of the slide, labelled target sequence. The top strand runs left to right with a half barb at its right-hand 3-prime end and the bottom strand runs the other way, barbed at the left. This is the whole gene and it is the only thing on the slide." },
 
 { s:{cut:1, olig:0, list:0},
   label:"Break it into overlapping oligos",
   sub:"still in register, and the vermillion is what every pair shares",
+  note:"Now the cut, and this is where PCA parts company with LCA. The oligos stay annealed and in register, but they alternate between the two strands, so a break on the top never faces a break on the bottom. It faces a gap. Nobody orders the DNA in those gaps. The polymerase makes it. The vermillion is the stretch each pair has in common, and that shared sequence is the only thing that will make the right two oligos find each other in a tube with five others in it.",
   desc:"The same duplex, now divided into four oligos and still annealed in register: two on the top strand and two on the bottom, laid alternately so that no break on one strand faces a break on the other. Each oligo has given ground at its own 3-prime end, so a short single-stranded gap now sits opposite every junction. The three stretches where a top oligo and a bottom oligo overlap are drawn in vermillion: those homology regions are what will make each pair find the other." },
 
 { s:{cut:1, olig:1, list:0},
   label:"You also need two external oligos",
   sub:"one at each end of the target, for the PCR that comes after",
+  note:"Two more, one at each end. They take no part in the assembly itself. They are the primers for the conventional PCR that comes after it, and you order them at the same time as the other four, because you have to.",
   desc:"Two more oligos appear at the positions they anneal to: a short forward one above the left end of the top strand, and a short reverse one below the right end of the bottom strand. Both are set well clear of the duplex so they read as separate molecules, and both are drawn in the same solid ink, because they are ordered like everything else." },
 
 { s:{cut:1, olig:1, list:1},
   label:"Order all six",
   sub:"each one written 5&#8242; to 3&#8242;, which is what goes on the order form",
+  note:"Annealed is how you design it. A list is what you buy. Every one of the six gets written out 5-prime to 3-prime, because that is the only form an order takes, and the moment you do that the picture you have been looking at is gone. Six lines of sequence is all the supplier ever sees, and it is all you get back.",
   desc:"The annealed picture comes apart. All six oligos leave the target and stack up as a list of six separate single strands, each turned so it reads 5-prime to 3-prime from left to right and each labelled at both ends. They keep their vermillion, so you can still see which of them shares sequence with which. An arrow labelled order leads from the list to a plain box: an oligo supplier, named IDT." }
 ];
 
@@ -258,9 +262,11 @@ window.Deck.sequence("gs-pca", function(slide){
     });
   }
   go(0, false);
-  /* Source slide 19 carries no speaker notes at all, so every step here
-     has an empty one.  Nothing is invented to fill them. */
-  return { steps: S.map(x => ({ note:"", desc:x.desc })), go: go };
+  /* Source slide 19 carried no speaker notes at all, which left the
+     presenter panel blank through the whole design half of PCA.  The
+     narration here was written to JCA's storyboard for these four beats
+     and says nothing the drawing or the slide before it does not. */
+  return { steps: S.map(x => ({ note:x.note, desc:x.desc })), go: go };
 });
 
 })();

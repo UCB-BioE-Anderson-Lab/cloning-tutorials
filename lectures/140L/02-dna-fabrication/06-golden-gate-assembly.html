@@ -63,6 +63,7 @@
 <article class="slide" data-bg="section">
   <h1>Golden Gate Assembly</h1>
   <p><code>GoldenGate frag1 frag2 frag3 BsaI product_name</code></p>
+  <template class="notes">One line, three fragments, one enzyme, one product. The rest of this section is about why that line can have three fragments in it when BioBrick could only ever have two.</template>
   <template class="desc">Section divider: Golden Gate Assembly. Beneath it, the Construction File line for the operation, in monospace: GoldenGate, then three fragments frag1 frag2 frag3, then BsaI, then the name of the product.</template>
 </article>
 
@@ -85,6 +86,7 @@
                     3&rsquo;-gtgac<span class="site">CCAGAG</span>C<span class="mut">CTAG</span>AATGGACTGCGAAAAATAGCGTTGAGAGATG-5&rsquo;</pre>
 
   <div class="step" data-build="1"
+       data-note="Watch the blue leave with the grey. Because the cut lands outside the site, the enzyme carries its own recognition sequence off on the discarded end, and the two pieces you keep have no BsaI site anywhere in them. Each keeps a four base GATC overhang, and the enzyme never read those four bases, so they are bases you chose."
        data-desc="On the click the two molecules have been cut. Each keeps a four-base 5-prime overhang, GATC, shown in red. The two ends carrying the blue GGTCTC sites have been thrown outward and are drawn in grey: the right-hand end of the first molecule, and the left-hand end of the second. Neither of the two pieces that are kept has a BsaI site left in it."><span class="arrow">&darr;</span><span>BsaI cuts <em>outside</em> its own site, so both <span class="site">GGTCTC</span> sites leave with the grey ends</span></div>
 <pre class="dna" data-build="1">5&rsquo;-ATGCCATAGCATTTTTATCCATAAGATTAGCG-3&rsquo;          5&rsquo;-<span class="mut">GATC</span><span class="off">t</span><span class="site">GAGACC</span><span class="off">ccatg</span>-3&rsquo;
 3&rsquo;-TACGGTATCGTAAAAATAGGTATTCTAATCGC<span class="mut">CTAG</span>-5&rsquo;          3&rsquo;-<span class="off">a</span><span class="site">CTCTGG</span><span class="off">ggtac</span>-5&rsquo;
@@ -93,11 +95,13 @@
 3&rsquo;-<span class="off">gtgac</span><span class="site">CCAGAG</span><span class="off">C</span><span class="mut">CTAG</span>-5&rsquo;              3&rsquo;-AATGGACTGCGAAAAATAGCGTTGAGAGATG-5&rsquo;</pre>
 
   <div class="step" data-build="2"
+       data-note="One GATC on each piece, so there is exactly one way for them to go together and ligase has no choice to make. The product is a plain duplex with no site left in it: nothing to cut again, and nothing at the seam that you did not put there on purpose. That is the direct answer to the BioBrick scar. And because the four junction bases are yours to pick, a different four is a different junction, which is how more than two fragments go into one tube."
        data-desc="Second click: the two kept pieces have joined through their shared GATC overhang into one continuous duplex, sixty-seven base pairs long, with the four junction bases still in red at the seam."><span class="arrow">&darr;</span><span>T4 DNA Ligase &mdash; one <span class="mut">GATC</span> overhang on each piece, so they join one way only</span></div>
 <pre class="dna" data-build="2">5&rsquo;-ATGCCATAGCATTTTTATCCATAAGATTAGCG<span class="mut">GATC</span>TTACCTGACGCTTTTTATCGCAACTCTCTAC-3&rsquo;
 3&rsquo;-TACGGTATCGTAAAAATAGGTATTCTAATCGC<span class="mut">CTAG</span>AATGGACTGCGAAAAATAGCGTTGAGAGATG-5&rsquo;</pre>
   <p data-build="2" style="margin-top:10px;font-size:26px;max-width:1160px"><strong>No BsaI site in the product</strong> &mdash; no scar. Then PCR with external oligos</p>
   </div>
+  <template class="notes">Read the catalogue line at the top before anything else. The recognition sequence is GGTCTC, but the cut is not inside it: one base past the site on the top strand, five past on the bottom, which is what the N subscripts mean. That offset is the whole method. Both sites here point inward, at each other, so both cuts land between them.</template>
   <template class="desc">Under the title, the catalogue entry for BsaI: GGTCTC with the cut one base past the site on the top strand and five past on the bottom. Then two molecules written as letters, each carrying a BsaI site in blue near one end, the two sites pointing inward at each other. Four bases at the coming junction are red on both: GATC on the top strand, CTAG on the bottom. The molecules are set one above the other with the junctions in the same column, so the two GATCs line up.</template>
 </article>
 
@@ -152,7 +156,7 @@ To arrive at this,
 4) Including the 4bp junction, find ~20 bp annealing regions forward and reverse
 5) Add BsaI restriction sites and 5&rsquo; tails
   </template>
-  <template class="desc">A question for the room, marked with the deck's thinking figure. It asks for a Construction File that changes the 5-prime end of RFP in pBca9145-Bca1144 from atggcgagtagcgaagacg to atggctagtagcgaagacg — one base, g to t, marked in bold and underlined in each — without making any other mutation, using BsaI EIPCR. The answer is not on the slide.</template>
+  <template class="desc">A question for the room, marked with the deck's thinking figure. It asks for a Construction File that changes the 5-prime end of RFP in pBca9145-Bca1144 from atggcgagtagcgaagacg to atggctagtagcgaagacg: one base, g to t, marked in bold and underlined in each: without making any other mutation, using BsaI EIPCR. The answer is not on the slide.</template>
 </article>
 
 <!-- 48 -->
@@ -182,13 +186,17 @@ To arrive at this,
   <ul class="tight">
     <li>Construct the sequences of the fragments you are joining</li>
     <li data-build="1"
+        data-note="The junction comes next, and the bullet gives you three ways to get it. The cheapest is the middle one, take four bases that are already there, because then the junction costs the product nothing. Here it is the red TTAG."
         data-desc="Second step: add 4 bp as the annealing region, or pick the last 4 bp of one of the two fragments, or have it flank the junction. In the sequences below this is the red TTAG and its partner AATC.">Add 4 bp as the annealing region, or pick the last 4 bp of one of the two fragments, or have it flank the junction</li>
     <li data-build="2"
+        data-note="Copy and paste is meant literally. The blue sites and the lowercase tails outside them are the same characters in every Golden Gate oligo you will ever design, so keep them somewhere you can paste from and do not type them by eye."
         data-desc="Third step: copy and paste the BsaI sites and 5-prime tails. These are the blue GAGACC and GGTCTC and the lowercase ccatg and cactg outside them.">Copy and paste the BsaI sites and 5&rsquo; tails</li>
     <li data-build="3"
+        data-note="Now the part that has to match your template: about twenty bases of real fragment sequence running out from the junction on each side. Everything else on the oligo was either constant or chosen."
         data-desc="Fourth step: find a roughly 20 bp annealing region on the fragment ends.">Find a ~20 bp annealing region on the fragment ends</li>
     <li data-build="4"
-        data-desc="Fifth step: your oligos are in black. In the pair of duplexes below, the bottom strand of the upper one and the top strand of the lower one are set in bold black — those two strands are the oligos you order. The strands they are annealed to are grey, because they are template you already have.">Your oligos are in black</li>
+        data-note="Now read off what you are actually ordering. Bold black is oligo, one per duplex, and grey is template you already have. Everything you added in the last three clicks is sitting in the 5&rsquo; tail of one of those two oligos, which is the reason this works: the sites and the junction ride in on the primers, and the template never has to contain them."
+        data-desc="Fifth step: your oligos are in black. In the pair of duplexes below, the bottom strand of the upper one and the top strand of the lower one are set in bold black: those two strands are the oligos you order. The strands they are annealed to are grey, because they are template you already have.">Your oligos are in black</li>
   </ul>
   <div class="cascade">
 <pre class="dna">5&rsquo;-<span class="tpl">&hellip;ATGCCATAGCATTTTTATCCATAAGA</span><span class="mut">TTAG</span><span class="tpl">C</span><span class="site">GAGACC</span><span class="tpl">ccatg</span>-3&rsquo;
@@ -197,6 +205,7 @@ To arrive at this,
                5&rsquo;-<span class="oli">cactg</span><span class="site">GGTCTC</span><span class="oli">a</span><span class="mut">TTAG</span><span class="oli">TAC</span><span class="pt">ctt</span><span class="oli">ACGCTTTTTATCGCAACTCTCTAC</span><span class="tpl">&hellip;</span>-3&rsquo;
                3&rsquo;-<span class="tpl">gtgac</span><span class="site">CCAGAG</span><span class="tpl">t</span><span class="mut">AATC</span><span class="tpl">ATG</span><span class="pt">gaa</span><span class="tpl">TGCGAAAAATAGCGTTGAGAGATG&hellip;</span>-5&rsquo;</pre>
   </div>
+  <template class="notes">Five steps, in this order, every time. The first is bookkeeping: write out the two fragment ends as they really are, with none of the Golden Gate machinery on them yet. Everything in the next four clicks gets added to that.</template>
   <template class="desc">A five-step recipe for designing one Golden Gate junction, revealed a step at a time, over a worked pair of sequences: the end of one fragment above and the start of the next below, offset so their four-base junctions sit in the same column. The junction TTAG and AATC is red, the BsaI sites GAGACC and GGTCTC are blue, and the two strands you would actually order as oligos are set in bold black against the grey of the template.</template>
 </article>
 

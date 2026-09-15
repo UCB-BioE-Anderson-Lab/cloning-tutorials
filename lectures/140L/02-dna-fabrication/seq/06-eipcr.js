@@ -188,7 +188,7 @@ const A = [
 
 const B = [
 { note:"Alternatively, it can be done with a type IIs enzyme like BsaI. Because BsaI will cut itself off the ends of the PCR product, it will be absent in the final product. Thus, ‘scarless’ mutagenesis can be performed. EIPCR turns out to be an exceptional method of saturation mutagenesis for construction of libraries, which we’ll revisit in a later lecture on combinatorial libraries.",
-  desc:"The same figure, unchanged. The sequence beneath it has been replaced by the closed product: one continuous duplex in which the two ends have joined through the TTAG junction, carrying the three mutated bases. There is no BsaI site anywhere in it — nothing is blue — so the mutation has been made without leaving a scar." }
+  desc:"The same figure, unchanged. The sequence beneath it has been replaced by the closed product: one continuous duplex in which the two ends have joined through the TTAG junction, carrying the three mutated bases. There is no BsaI site anywhere in it: nothing is blue: so the mutation has been made without leaving a scar." }
 ];
 
 window.Deck.sequence("eipcr-a", function(slide){
