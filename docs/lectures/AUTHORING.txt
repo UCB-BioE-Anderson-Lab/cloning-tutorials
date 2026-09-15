@@ -196,6 +196,17 @@ registration; give the <a> a download attribute with the human filename.  If the
 same bytes also live in a JS string on the slide (a clipboard button), say so in
 a comment at both ends -- they will drift otherwise.
 
+A SLIDE THAT COMPUTES A REAL ANSWER CALLS C6, IT DOES NOT REIMPLEMENT IT.
+c6/ holds a vendored copy of C6-Oligos.js and C6-Seq.js, pulled by
+c6/sync-from-c6.sh and refreshed with the same script; run it with --check before
+a deploy.  Import it from an inline <script type="module"> with a DYNAMIC
+import(), not a static one, so that a missing or broken library takes down only
+the slide that needs it and not every control on the page.  A reimplementation
+in the deck is a second answer key, and two answer keys agree only until one of
+them is edited.  The exception is a tool the lecture is teaching as an algorithm
+rather than as software: the LCA calculator deliberately reproduces the
+spreadsheet's own arithmetic, which is not C6's lca().
+
 AUDITING
 --------
 tools/check_section.js walks a section step by step with settled frames and
