@@ -21,10 +21,20 @@
  *   3  the BsaI sites and the 5' tails ARRIVE.  New characters, faded
  *      in, not a recolour: this is the one beat where the molecule
  *      gains something it did not have.
- *   4  the ~20 bp that has to anneal goes to ink.  Twenty bases, not
- *      the whole end, and on ONE strand of each duplex: the strand you
- *      will order, which is the bottom of the left duplex and the top
- *      of the right one.  An earlier version lit both strands whole, on
+ *   4  the ~20 bp that has to anneal goes to ink.  Twenty bases of exact
+ *      match to the template, not the whole end, and on ONE strand of
+ *      each duplex: the strand you will order, which is the bottom of
+ *      the left duplex and the top of the right one.
+ *
+ *      The two ends are counted DIFFERENTLY, and that is the lesson.
+ *      JCA: "you need 20 bp of exact match for the oligo to anneal.  If
+ *      the junction is in the template, it can be included in that 20 bp
+ *      count, otherwise, you need to extend 4 bp further."  TTAG is the
+ *      left fragment's own last four bases, so the left oligo counts it
+ *      and takes 16 more.  On the right it is a 5' tail -- the right
+ *      fragment starts at TAC -- so the right oligo gets no credit for
+ *      it and takes a full 20 beyond.  Sixteen ink bases on the left,
+ *      twenty on the right, twenty of match either way.  An earlier version lit both strands whole, on
  *      the reasoning that you do not yet know which one you will order.
  *      JCA: "don\'t make all the ends black, just the chosen annealing
  *      region, which is only a substring of it (20 bp), and it is only
@@ -88,8 +98,8 @@ const LINES = [
   ]},
   { end:"5", oligo:true, segs:[
     seg(E,                              _, _, _,  _, T),
-    seg("TACGGT",                       _, _, _,  _, O),
-    seg("ATCGTAAAAATAGGTATTCT",         _, _, _,  O, O),   /* the 20 bp */
+    seg("TACGGTATCG",                   _, _, _,  _, O),
+    seg("TAAAAATAGGTATTCT",             _, _, _,  O, O),   /* 16 + the junction */
     jct("AATC",                         _, M, M,  M, M),
     seg("G",                         null, null, _, _, O),
     seg("CTCTGG",                    null, null, S, S, S),
