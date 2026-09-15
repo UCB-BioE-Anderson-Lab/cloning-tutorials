@@ -89,65 +89,48 @@
 </article>
 
 <!-- ------------------------------------------------------------ 31 - 38 -->
-<!-- Eight source slides, and eight <article> elements, so the count
-     survives.  They are one storyboard: seq/05-gibson.js holds the
-     single state table and each slide renders one frame of it, tweening
-     in from the frame before.  Notes are verbatim from the source deck,
-     which means two things it gets wrong stay in:
+<!-- Eight source slides, five <article> elements.  The first pass kept
+     the source's count; JCA on seeing it run: "rethink the clicks on this
+     gibson sequence.  It is an excessive number of clicks."  Three of the
+     eight were T5 chewing 35, 70 and 100 percent and two more were the
+     fragments converging, which are frames of a beat rather than beats.
+     They are tweens now, so the chew and the annealing are animations and
+     the five clicks are the five things that happen: the design, T5,
+     annealing, Phusion, Taq ligase.  Every caption from the eight survives
+     on one of the five; seq/05-gibson.js holds the state table.
 
-       * slides 32 to 34 say "T4 exonuclease".  The reagent is T5, as
-         the slide body itself says three times.  Flagged for the
-         content pass, not silently corrected here.
-       * slide 36's note is the polymerase line, while the slide is
-         still captioned Annealing; slide 37 then repeats the result.
-         The notes are one beat ahead of the pictures from 36 onward.
--->
+     The notes were verbatim from the source deck, which meant carrying two
+     of its mistakes.  Merging them meant rewriting them, so both are fixed:
+     the reagent is T5 exonuclease and not T4, as the slide body says three
+     times over, and the notes no longer run a beat ahead of the pictures. -->
 <article class="slide" data-seq="gib1">
   <h1>Gibson Method</h1>
   <div class="src">PMID: 19363495</div>
-  <template class="notes">The Gibson method is a highly popular and actively-used method.  From a design perspective, a Gibson cloning experiment is the same as SLIC involving 40 bp of homology between fragments.  * The method involves a cocktail of purified enzymes containing T5 exo, phusion polymerase, and Taq ligase in a special buffer.  All these reagents are combined along with the DNA fragments and incubated at 50 degrees.</template>
+  <template class="notes">The Gibson method is a highly popular and actively-used method. From a design perspective, a Gibson cloning experiment is the same as SLIC involving 40 bp of homology between fragments. The method involves a cocktail of purified enzymes containing T5 exo, phusion polymerase, and Taq ligase in a special buffer. All these reagents are combined along with the DNA fragments and incubated at 50 degrees.</template>
   <template class="desc">The design, not yet the reaction: two double-stranded fragments, the right-hand end of one and the left-hand end of the other drawn in red and labelled 40 bp, and an arrow down to the single molecule they are meant to become, with that red stretch now in the middle of it. The three enzymes are listed at the right, with the buffer beneath them and the words one pot, 50 degrees.</template>
 </article>
 
 <article class="slide" data-seq="gib2">
   <h1>Gibson Method</h1>
-  <template class="notes">The T4 exonuclease activity will partially degrade the end of the DNA generating single-stranded overhangs of arbitrary length.</template>
-  <template class="desc">The two fragments now drawn as separate double-stranded molecules with a gap between them, each with a half barb on every 3-prime end and every 5-prime end labelled. T5 exonuclease is lit in red in the reagent list and has begun: each 5-prime label has moved a little way inward along its own strand. Brackets underneath mark the 40 bp that is the same sequence in both.</template>
+  <template class="notes">T5 exonuclease degrades the ends, generating single-stranded overhangs of arbitrary length. Two things to point at while it runs. It eats 5-prime ends, so what survives at each end is the strand terminating in a 3-prime end, which is why the overhangs are 3-prime. And it does all four ends, not just the two you care about, because nothing about the enzyme knows where your overlap is. It also keeps going past the 40 bp. That is not a failure, it is where the gap comes from, and the gap is why there is a polymerase in the tube.</template>
+  <template class="desc">The two fragments, drawn as separate double-stranded molecules with a gap between them, a half barb on every 3-prime end and every 5-prime end labelled. T5 exonuclease is lit in red in the reagent list, and as the frame arrives all four 5-prime labels retreat inward along their own strands until each molecule trails a long single-stranded tail at both ends. The red 40 bp is now fully single-stranded, on the top strand of the left molecule and the bottom strand of the right one, and the enzyme has gone beyond it: there is bare single strand past the red on each. Brackets underneath mark the 40 bp that is the same sequence in both.</template>
 </article>
 
 <article class="slide" data-seq="gib3">
   <h1>Gibson Method</h1>
-  <template class="notes">The T4 exonuclease activity will partially degrade the end of the DNA generating single-stranded overhangs of arbitrary length.</template>
-  <template class="desc">The same picture with the enzyme further along: all four 5-prime ends have retreated further, and each molecule now trails a long single-stranded tail at both ends. Because the surviving strand at each end is the one terminating in a 3-prime end, a five-prime-to-three-prime exonuclease leaves 3-prime overhangs.</template>
+  <template class="notes">Two such ends with homology to one another can anneal. Of the four tails T5 exposed, only these two are complementary, because that is the sequence you deliberately put on both fragments; the two outer tails have nothing to pair with and stay single-stranded. What you have now is held together but not joined. There is still a gap in each strand, and nothing so far has made a bond.</template>
+  <template class="desc">The two molecules converge until the two red single-stranded tails pair, making one double-stranded red stretch in the middle of a single long molecule. They are held together but not joined: a stretch of each strand still has no partner underneath it, one gap in the top strand just right of the join and one in the bottom strand just left of it, each bounded by a barbed 3-prime end on one side and a labelled 5-prime end on the other.</template>
 </article>
 
 <article class="slide" data-seq="gib4">
   <h1>Gibson Method</h1>
-  <template class="notes">The T4 exonuclease activity will partially degrade the end of the DNA generating single-stranded overhangs of arbitrary length.</template>
-  <template class="desc">The chew is complete. The red 40 bp is now fully single-stranded on the top strand of the left molecule and on the bottom strand of the right one, and the enzyme has gone past it: there is bare single strand beyond the red on each. All four ends have been chewed, including the two outer ones, because nothing about the enzyme is specific to your overlap.</template>
+  <template class="notes">And a polymerase fills in the gaps at the junction. Each gap was a recessed 3-prime end sitting on a template, which is exactly the substrate a polymerase wants. This results in a nicked DNA with no gaps.</template>
+  <template class="desc">Phusion is lit in the reagent list and new DNA, drawn in blue, has filled both gaps. Both strands run the whole length of the molecule again, but the 3-prime barbs and 5-prime labels at the two former gaps are still there: the DNA is nicked, with no gap.</template>
 </article>
 
 <article class="slide" data-seq="gib5">
   <h1>Gibson Method</h1>
-  <template class="notes">Two such ends with homology to one another can anneal</template>
-  <template class="desc">The two molecules have moved toward each other, the two red single-stranded tails facing across the shrinking gap. Of the four exposed tails only these two are complementary, because they are the sequence you deliberately put on both fragments.</template>
-</article>
-
-<article class="slide" data-seq="gib6">
-  <h1>Gibson Method</h1>
-  <template class="notes">And a polymerase can fill in any gaps between the junction</template>
-  <template class="desc">The two red tails have paired, making one double-stranded red stretch in the middle of a single long molecule. The molecules are held together but not joined: a stretch of each strand still has no partner underneath it, one gap in the top strand just right of the join and one in the bottom strand just left of it, each bounded by a barbed 3-prime end on one side and a labelled 5-prime end on the other.</template>
-</article>
-
-<article class="slide" data-seq="gib7">
-  <h1>Gibson Method</h1>
-  <template class="notes">This results in a nicked DNA with no gaps</template>
-  <template class="desc">Phusion is lit in the reagent list and new DNA, drawn in blue, has filled both gaps. Both strands run the whole length of the molecule again, but the 3-prime barbs and 5-prime labels at the two former gaps are still there: the DNA is nicked, with no gap.</template>
-</article>
-
-<article class="slide" data-seq="gib8">
-  <h1>Gibson Method</h1>
-  <template class="notes">And these gaps can be sealed with Taq ligase.</template>
+  <template class="notes">And those nicks are sealed with Taq ligase. The NAD+ in the buffer is there for exactly this step. What comes out is double-stranded with no gaps and no nicks, and that is why there are three enzymes in the tube rather than two: filling a gap and sealing a nick are different jobs.</template>
   <template class="desc">Taq ligase is lit in the reagent list and the two inner 3-prime barbs and 5-prime labels have gone, because those positions are no longer ends. What is left is one continuous double-stranded molecule with no gaps and no nicks, still carrying a single-stranded 3-prime tail at each far end where the next junction of the assembly would be.</template>
 </article>
 

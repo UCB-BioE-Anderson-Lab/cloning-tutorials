@@ -1,13 +1,21 @@
 /* ------------------------------------------------------------------ *
- * 05-gibson.js — the Gibson reaction as the source deck tells it:
- * eight near-identical slides where one thing changes each time.
+ * 05-gibson.js — the Gibson reaction, one click per enzyme.
  *
- * Source slides 31 to 38.  The slide count has to survive, so this is
- * NOT one slide with eight clicks: it is eight <article> elements, each
- * carrying data-seq="gib1" .. "gib8", all driven from the single state
- * table below.  Each registration renders exactly one frame and, on the
- * way in, tweens from the frame before it — so advancing looks like the
- * reaction running rather than eight stills being cut between.
+ * Source slides 31 to 38, and it WAS eight slides: the first pass kept
+ * the source's count so nothing went missing in translation.  JCA, on
+ * seeing it run: "rethink the clicks on this gibson sequence.  It is an
+ * excessive number of clicks."  He is right — three of the eight were
+ * T5 chewing 35, 70 and 100 percent, and two more were the fragments
+ * converging.  Those are not beats, they are frames of one beat, and
+ * the tween already draws them.
+ *
+ * So five slides, each carrying data-seq="gib1" .. "gib5", all driven
+ * from the single state table below.  Each registration renders exactly
+ * one frame and, on the way in, tweens from the frame before it, which
+ * means the chew and the annealing are now animations rather than
+ * stills.  The beats are the reaction: the design, then T5, then
+ * annealing, then Phusion, then Taq ligase.  Nothing was cut except
+ * clicks; every caption from the eight survives on one of the five.
  *
  * The drawing deliberately matches seq/gibson.js in the DNA Manipulation
  * Enzymes lecture, which drew this same reaction once already: the same
@@ -208,8 +216,12 @@ function scene(s){
 
   let g = reagents(s.act) + reaction(s);
   if (s.mark > 0.004){
+    /* The brackets and a caption both want y=730.  They never collided
+       while the chew had three slides to itself; now that it has one,
+       the brackets keep the position they mark and the label gives way
+       to the caption -- the design frame has already said 40 bp. */
     g += fade(s.mark, bracket(OVL, OVR, -SEP*s.sep) + bracket(OVL, OVR, SEP*s.sep) +
-              txt(800, 730, "40 bp, the same sequence in both", 30, VERM, 700));
+              (s.cap ? "" : txt(800, 730, "40 bp, the same sequence in both", 30, VERM, 700)));
   }
   if (s.stage) g += txt(130, 300, s.stage, 40, VERM, 700, "start");
   if (s.cap)   g += txt(800, 730, s.cap, 32, INK, 700);
@@ -217,43 +229,39 @@ function scene(s){
   return g;
 }
 
-/* ---- the eight frames ------------------------------------------------ *
+/* ---- the five frames ------------------------------------------------ *
  * KEYS are tweened; stage, cap, call and act are taken from the target
- * frame the moment the slide is entered. */
+ * frame the moment the slide is entered.  cap is the ink line, what is
+ * happening and why; call is the vermillion line under it, what you are
+ * holding once it has happened. */
 const KEYS = ["sep", "chew", "close", "seal", "mark"];
 const FR = [
-  /* 31 */ { design:1, sep:1, chew:0, close:0, seal:0, mark:0, act:-1 },
-  /* 32 */ { sep:1, chew:0.35, close:0, seal:0, mark:1, act:0,
-             stage:"T5 Exonuclease" },
-  /* 33 */ { sep:1, chew:0.70, close:0, seal:0, mark:0, act:0,
-             stage:"T5 Exonuclease",
-             cap:"it eats 5&#8242; ends, so what it leaves behind is a 3&#8242; overhang" },
-  /* 34 */ { sep:1, chew:1, close:0, seal:0, mark:0, act:0,
-             stage:"T5 Exonuclease",
-             cap:"all four ends, indiscriminately &#183; it cannot see your overlap",
-             call:"and it has chewed past the 40 bp, which is why there will be a gap" },
-  /* 35 */ { sep:0.42, chew:1, close:0, seal:0, mark:0, act:0,
-             stage:"Annealing",
-             cap:"of the four exposed tails, only two are complementary" },
-  /* 36 */ { sep:0, chew:1, close:0, seal:0, mark:0, act:0,
-             stage:"Annealing",
-             cap:"held together, not joined &#183; a gap in each strand" },
-  /* 37 */ { sep:0, chew:1, close:1, seal:0, mark:0, act:1,
-             stage:"Phusion",
-             cap:"each gap was a recessed 3&#8242; end sitting on a template",
-             call:"nicked, but no gap" },
-  /* 38 */ { sep:0, chew:1, close:1, seal:1, mark:0, act:2,
-             stage:"Taq Ligase",
-             cap:"the NAD+ in the buffer is there for exactly this step",
-             call:"dsDNA, no gaps, no nicks" }
+  /* design */ { design:1, sep:1, chew:0, close:0, seal:0, mark:0, act:-1 },
+  /* T5     */ { sep:1, chew:1, close:0, seal:0, mark:1, act:0,
+                 stage:"T5 Exonuclease",
+                 cap:"it eats 5&#8242; ends, so what it leaves behind is a 3&#8242; overhang",
+                 call:"all four of them, indiscriminately &#183; and past the 40 bp, which is why there will be a gap" },
+  /* anneal */ { sep:0, chew:1, close:0, seal:0, mark:0, act:0,
+                 stage:"Annealing",
+                 cap:"of the four exposed tails, only these two are complementary",
+                 call:"held together, not joined &#183; a gap in each strand" },
+  /* fill   */ { sep:0, chew:1, close:1, seal:0, mark:0, act:1,
+                 stage:"Phusion",
+                 cap:"each gap was a recessed 3&#8242; end sitting on a template",
+                 call:"nicked, but no gap" },
+  /* seal   */ { sep:0, chew:1, close:1, seal:1, mark:0, act:2,
+                 stage:"Taq Ligase",
+                 cap:"the NAD+ in the buffer is there for exactly this step",
+                 call:"dsDNA, no gaps, no nicks" }
 ];
-/* What each frame animates FROM.  Frame 32 starts from an unchewed
-   duplex so the first click actually shows T5 bite; the design frame is
-   a different picture and is never tweened into or out of. */
+/* What each frame animates FROM.  The T5 frame starts from an unchewed
+   duplex with the brackets already placed, so the first click is the
+   whole chew rather than the tail of one; the design frame is a
+   different picture and is never tweened into or out of. */
 const FROM = [
   null,
   { sep:1, chew:0, close:0, seal:0, mark:1 },
-  FR[1], FR[2], FR[3], FR[4], FR[5], FR[6]
+  FR[1], FR[2], FR[3]
 ];
 
 function make(k){
