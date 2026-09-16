@@ -89,9 +89,90 @@
   <template class="desc">A cell drawn as a rounded box with its genome as a line along the floor. On the genome, the phi80 att B site is marked in blue.</template>
 </article>
 
+
+<!-- ----------------------------------------------------------------- 9 -->
+<article class="slide" data-seq="flp">
+  <h1 class="small">Flp/FRT marker excision</h1>
+  <template class="notes">There are various ways in which you can make this process markerless. One common strategy is to flox the selectable marker. Here, a DNA is constructed with FRT sites in a parallel orientation flanking an antibiotic resistance gene. This cassette is introduced into the genome conferring chloramphenicol resistance allowing selection. Subsequently, Flp recombinase is introduced into the cell resulting in excision of the marker leaving behind only the FRT site.</template>
+  <template class="desc">A stretch of DNA drawn as a line, carrying a chloramphenicol resistance marker between two FRT sites that point the same way.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 10 - 11 -->
+<article class="slide" data-seq="markerless">
+  <h1 class="small">Markerless integration</h1>
+  <template class="notes">Let's take a look at how that would be implemented in the CRIM system. First, the helper plasmid is used to insert the CRIM into the genome and then cleared.</template>
+  <template class="desc">The cell from the last sequence, with the CRIM now in its genome: attL, the R6K origin, an FRT site, the chloramphenicol marker, a second FRT site, the gene, and attR.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 12 - 16 -->
+<!-- The worked files.  Screenshots of a sequence editor, kept as pictures
+     because that is what the room will be looking at when they do it
+     themselves; the source's own file names are on them so they can be
+     found in the zip. -->
+<article class="slide">
+  <h1 class="small">&Phi;80 CRIM plasmid</h1>
+  <figure class="fig">
+    <img src="img/01-crim-plasmid-labelled.png" alt="A circular map of the 3173 bp CRIM plasmid, with its features marked: the gene, CmR, the R6K origin, an FRT site, the phi80 att site, and the homology region used for recombination.">
+    <figcaption>CRIM.seq &nbsp;&mdash;&nbsp; in the Genome Editing Examples zip</figcaption>
+  </figure>
+  <template class="notes">File in Genome Editing Examples.zip, this file is CRIM.seq.</template>
+  <template class="desc">A circular map of the 3173 base pair phi80 CRIM plasmid with its features labelled, captioned with the file name CRIM.seq.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small"><em>attB</em> site in the <em>E. coli</em> genome</h1>
+  <figure class="fig">
+    <img src="img/01-attb-genome.png" alt="A sequence editor window showing the region of the E. coli genome that carries the phi80 attB site, with the recombination sequence highlighted.">
+  </figure>
+  <template class="desc">A sequence editor window showing the phi80 attB site in its genomic context.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Recombination and integration</h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/01-recomb-attb.png" alt="The genomic attB sequence in a sequence editor, with the seventeen-base recombination sequence highlighted.">
+      <figcaption>Genomic <em>attB</em></figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="img/01-recomb-attp.png" alt="The CRIM plasmid's attP sequence, with the same seventeen bases highlighted.">
+      <figcaption>CRIM <em>attP</em></figcaption>
+    </figure>
+  </div>
+  <figure class="fig" data-build="1"
+          data-note="To predict the CRIM integration sequence, move the origin of the CRIM sequence such that it begins with the recombination sequence, atttaagaaagtgttct. Duplicate this sequence at the end of the CRIM sequence, such that the final sequence has atttaagaaagtgttct on both ends in the same orientation. Then copy and paste over the atttaagaaagtgttct sequence in the genomic file."
+          data-desc="The product arrives: the five-prime end of the integrated CRIM in the genome, with the recombination sequence now appearing at both ends of the inserted DNA.">
+    <img src="img/01-recomb-product.png" alt="The five-prime end of the integrated sequence, with the recombination sequence appearing at both ends of the inserted CRIM.">
+    <figcaption>Genomic CRIM after integration.seq &nbsp;&mdash;&nbsp; the 5&rsquo; end of the integration</figcaption>
+  </figure>
+  <template class="notes">The recombination sequence is seventeen bases, atttaagaaagtgttct, and it is in both molecules. That is the whole trick: the integrase lines those two copies up and crosses them over, so the product has that sequence at both ends of the DNA that went in.</template>
+  <template class="desc">The two parent sequences side by side, the genomic attB and the CRIM attP, each with the same seventeen-base recombination sequence highlighted.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">And after Flp</h1>
+  <figure class="fig">
+    <img src="img/01-after-flp.png" alt="The genomic locus after Flp recombinase has excised the marker, leaving a single FRT site in the sequence.">
+    <figcaption>Genomic CRIM after flp.seq</figcaption>
+  </figure>
+  <template class="desc">The same genomic locus after Flp excision, with a single FRT site remaining.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 17 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">No pUC for CRIM</div>
+  </div>
+  <p>Why can&rsquo;t you use a normal pUC plasmid for doing CRIM integration?</p>
+  <template class="notes">A pUC origin replicates a plasmid constitutively. So, when you transform in the plasmid to integrate it, it will stably replicate as a plasmid and there will be no way to select for the integrants. You will just get a lawn of transformed cells. That is what the R6K origin buys you: in a strain without pir it cannot replicate at all, so the only cells that keep the marker are the ones that put it in the genome.</template>
+  <template class="desc">A question for the room, marked with the deck's thinking figure: why can't you use a normal pUC plasmid for doing CRIM integration? The answer is not on the slide.</template>
+</article>
+
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/parts.js" defer></script>
 <script src="seq/01-crim.js" defer></script>
+<script src="seq/01-flp.js" defer></script>
 </body>
 </html>
