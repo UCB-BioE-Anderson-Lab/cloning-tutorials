@@ -24,6 +24,7 @@
 <!-- ---------------------------------------------------------- 96 - 99 -->
 <article class="slide" data-bg="section">
   <h1>Sequencing</h1>
+  <template class="notes">And finally, finding out whether any of it worked. Sequencing is the only step in the week that tells you what you actually made rather than what grew.</template>
   <template class="desc">Section divider: Sequencing.</template>
 </article>
 
@@ -38,9 +39,10 @@
     </figure>
   </div>
   <figure class="fig" data-build="1"
-          data-note="Then they are separated by length, one base at a time, and the dye on the last base of each fragment is read as it comes past. The order the colours arrive in is the sequence."
-          data-desc="A third figure arrives: capillary separation of the terminated fragments by length, with the dye on each read as it passes the detector.">
-    <img src="img/08-cycle-seq-c.png" alt="The terminated fragments separated by length in a capillary, the dye on the last base of each read as it passes the detector.">
+          data-note="Then they are separated by length, one base at a time, and the dye on the last base of each fragment is read as it comes past. The order the colours arrive in is the sequence, and that is the trace. Read the trace and not just the base calls: the ends of every read are guesses, and a double peak in the middle usually means you picked two colonies at once."
+          data-desc="A third figure arrives: the electropherogram, four coloured peak traces with one peak per base and the called sequence printed above them.">
+    <img src="img/08-cycle-seq-c.png" alt="An electropherogram: four coloured peak traces running left to right, one peak per base, with the called sequence printed above them.">
+    <figcaption>and this is what that looks like when it is read &mdash; one peak per base, coloured by which dye terminated it</figcaption>
   </figure>
   <template class="notes">It is a PCR with one primer and a few percent of dideoxy bases thrown in. Every molecule stops somewhere, the dye tells you what base stopped it, and separating them by length puts those bases in order.</template>
   <template class="desc">How cycle sequencing works, in two figures: a dideoxynucleotide that cannot be extended past, and the ladder of terminated products it creates.</template>
@@ -56,12 +58,12 @@
   </ul>
   <div class="cols">
     <figure class="fig">
-      <img src="img/08-trace.png" alt="A sequencing trace: four coloured peak traces along the read, clean in the middle and noisy at both ends.">
-      <figcaption>the trace</figcaption>
+      <img src="img/08-submission.png" alt="A sequencing service's submission form: a table with a row per sample, each naming the template, its type and concentration, the primer, and whether it was premixed.">
+      <figcaption>what you fill in</figcaption>
     </figure>
     <figure class="fig">
-      <img src="img/08-read.png" alt="The base calls from the same read, written out as a sequence file.">
-      <figcaption>the read</figcaption>
+      <img src="img/08-read.png" alt="The base calls that come back, written out as a numbered sequence file about a thousand bases long.">
+      <figcaption>the read that comes back</figcaption>
     </figure>
   </div>
   <p class="see">Step by step: <a href="../../../wetlab/sequencing/">Cycle Sequencing tutorial</a> &nbsp;&middot;&nbsp;
@@ -72,6 +74,7 @@
 
 <article class="slide">
   <h1>Questions?</h1>
+  <template class="notes">That is the week. Questions.</template>
   <template class="desc">A slide reading Questions.</template>
 </article>
 

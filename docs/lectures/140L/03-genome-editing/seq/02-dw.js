@@ -29,27 +29,43 @@ const TX0 = 470, TX1 = 1200;
 
 const FR = [
   { on:["target"],
-    cap:"any strain that has the gene you want gone" },
+    cap:"any strain that has the gene you want gone",
+    note:"It begins with pretty much any E. coli strain containing the target sequence we wish to remove.",
+    desc:"A cell drawn as a rounded box with its genome along the floor, and the gene to be removed marked on it." },
   { on:["target","kd46"],
     cap:"pKD46 carries the lambda red genes under Pbad &#183; 30&#176;C to keep the plasmid, arabinose to switch them on",
-    call:"E. coli will not recombine on its own; this is what makes it able to" },
+    call:"E. coli will not recombine on its own; this is what makes it able to",
+    note:"The cell is first transformed with a helper plasmid, pKD46, and grown at the permissive temperature of 30 degrees. This temperature-sensitive plasmid encodes the lambda red genes under a Pbad promoter. Growth of the cells with arabinose present will induce expression of this cassette, resulting in the production of lambda red and enhancement of homologous recombination in the cell.",
+    desc:"A plasmid labelled pKD46 appears inside the cell, carrying the lambda red genes and bla in blue and a temperature-sensitive origin in amber." },
   { on:["target","kd46","tmpl"],
     cap:"the marker comes off a template plasmid, pKD3, with FRT sites already flanking it",
-    call:"P1 and P2 are just the twenty bases your oligos will prime on" },
+    call:"P1 and P2 are just the twenty bases your oligos will prime on",
+    note:"The knockout cassette begins with a template plasmid. The plasmids pKD3, pKD4 and pKD13 were originally designed for this experiment, and they essentially are sources of the chloramphenicol resistance gene, for pKD3, or the kanamycin resistance gene, for pKD4. There are specific 20bp regions of the plasmid called P1 and P2 which are the sites where oligos can prime to amplify the selectable marker by PCR.",
+    desc:"Above the cell, a stretch of pKD3 appears: the P1 and P2 priming sites in grey with the FRT-CmR-FRT cassette between them." },
   { on:["target","kd46","tmpl","oligos"],
     cap:"each oligo is those twenty bases, with forty bases of the genome added to its 5&#8242; end",
-    call:"the forty is the only part you design &#183; everything else is copied from the paper" },
+    call:"the forty is the only part you design &#183; everything else is copied from the paper",
+    note:"These PCR oligos are designed to contain those 20bp sequences on their 3-prime ends, and then 40bp of homology to the genome target on their 5-prime ends. The forty is the only part of this you choose.",
+    desc:"Below it, the two oligos appear as short pieces: forty bases of genome homology in blue, then the twenty that prime on P1 or P2 in red." },
   { on:["target","kd46","tmpl","oligos","pcr"],
-    cap:"PCR gives one linear double-stranded DNA with genome homology at both ends" },
+    cap:"PCR gives one linear double-stranded DNA with genome homology at both ends",
+    note:"PCR results in a double stranded, linear PCR product with homology to the genome on both ends.",
+    desc:"Below those, the PCR product: one linear DNA carrying forty bases of homology, P1, the marker cassette, P2, and forty more bases of homology." },
   { on:["target","kd46","inside"],
     cap:"electroporated into the cell",
-    call:"linear, which is what lambda red wants &#183; it would do nothing with a circle" },
+    call:"linear, which is what lambda red wants &#183; it would do nothing with a circle",
+    note:"The cells containing the lambda red genes are transformed with this PCR product, usually by electroporation. Linear is the point: lambda red would do nothing with a circle.",
+    desc:"The three rows above the cell have gone and the same product is now inside the cell, lying above the genome." },
   { on:["kd46","ko"],
     cap:"lambda red crosses it over at both ends at once, so the target goes and the marker takes its place",
-    call:"chloramphenicol now selects the cells that did it" },
+    call:"chloramphenicol now selects the cells that did it",
+    note:"Inside the cell, the lambda red genes cause the double-crossover recombination of the PCR product over the sequence homologous to its ends in the target. Because recombined cells contain the chloramphenicol resistance gene, they can be selected by growth on antibiotic-containing medium.",
+    desc:"The product has gone and the genome now carries P1, the two FRT sites with CmR between them, and P2, where the target gene used to be." },
   { on:["ko"],
     cap:"42&#176;C clears pKD46",
-    call:"the gene is disrupted, and the cell is carrying nothing it should not be" }
+    call:"the gene is disrupted, and the cell is carrying nothing it should not be",
+    note:"The helper plasmid pKD46 is then cleared from the cell by growth at elevated temperature. This results in a strain in which the target sequence has been disrupted.",
+    desc:"The pKD46 plasmid has gone, leaving the cell with the disrupted locus and nothing else." }
 ];
 
 window.Deck.sequence("dw", function(slide){
@@ -129,21 +145,32 @@ window.Deck.sequence("dw", function(slide){
     s.show(f.on, f, animated === false || reduce.matches);
   }
   go(0, false);
-  return { steps: FR.map(() => ({})), go: go };
+  /* one note and one desc per beat: without these deck.js falls back
+     to the slide\'s single <template>, and presenter view shows the
+     same sentence for every click while the picture changes */
+  return { steps: FR.map(f => ({note:f.note, desc:f.desc})), go: go };
 });
 
 /* ---- and making it markerless, source slides 25 and 26 -------------- */
 const MK = [
   { on:["ko"],
     cap:"the template's FRT sites came along with the marker",
-    call:"which is the whole reason pKD3 has them" },
+    call:"which is the whole reason pKD3 has them",
+    note:"If the original template sequence contains FRT sites flanking the selectable marker, recombination of the PCR product into the genome will retain these sequences. That is why pKD3 has them.",
+    desc:"The cell after the knockout, its genome carrying the chloramphenicol marker between the two FRT sites that came in with it." },
   { on:["ko","cp20"],
-    cap:"pCP20 brings Flp in" },
+    cap:"pCP20 brings Flp in",
+    note:"Transformation with a second helper plasmid encoding a site-specific recombinase, pCP20, brings Flp into the cell.",
+    desc:"A plasmid labelled pCP20 appears inside the cell, carrying Flp and bla in blue and a temperature-sensitive origin in amber." },
   { on:["scar","cp20"],
-    cap:"Flp loops the marker out between the two FRTs" },
+    cap:"Flp loops the marker out between the two FRTs",
+    note:"Flp catalyzes the excision of the intervening marker, leaving behind only a single FRT site in the genome.",
+    desc:"The marker and one FRT site have gone from the genome, leaving a single FRT site where the gene was." },
   { on:["scar"],
     cap:"42&#176;C clears pCP20",
-    call:"the target is gone and one FRT is all that marks where it was" }
+    call:"the target is gone and one FRT is all that marks where it was",
+    note:"Growth of the cells at a non-permissive temperature results in clearance of the helper plasmid. Thus, the original target is disrupted with no residual modifications.",
+    desc:"The pCP20 plasmid has gone, leaving the cell with one FRT site marking the disrupted locus." }
 ];
 
 window.Deck.sequence("dw-markerless", function(slide){
@@ -169,6 +196,9 @@ window.Deck.sequence("dw-markerless", function(slide){
     s.show(f.on, f, animated === false || reduce.matches);
   }
   go(0, false);
-  return { steps: MK.map(() => ({})), go: go };
+  /* one note and one desc per beat: without these deck.js falls back
+     to the slide\'s single <template>, and presenter view shows the
+     same sentence for every click while the picture changes */
+  return { steps: MK.map(f => ({note:f.note, desc:f.desc})), go: go };
 });
 })();

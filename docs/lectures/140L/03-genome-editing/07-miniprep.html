@@ -24,6 +24,7 @@
 <!-- ---------------------------------------------------------- 92 - 95 -->
 <article class="slide" data-bg="section">
   <h1>Miniprepping</h1>
+  <template class="notes">Now getting the plasmid back out of the cells you grew. Two halves: break the cells open in a way that leaves the plasmid intact, then pull it out of everything else.</template>
   <template class="desc">Section divider: Miniprepping.</template>
 </article>
 
@@ -32,6 +33,7 @@
   <figure class="fig">
     <img src="img/07-miniprep-kit.png" alt="A Qiagen miniprep kit box with its bottles of buffers and a bag of spin columns beside it.">
   </figure>
+  <template class="notes">The kit is buffers and columns, and the buffers have names that tell you nothing. So here is what is in them and why, because two of these steps are the whole method and the rest is washing.</template>
   <template class="desc">A photograph of a Qiagen miniprep kit: the box, the buffer bottles and the spin columns.</template>
 </article>
 
@@ -39,7 +41,8 @@
   <h1 class="small">Alkaline lysis</h1>
   <ul class="buf">
     <li>Fill a 2 mL tube with saturated culture</li>
-    <li data-build="1" data-desc="Second step: spin one minute and toss the supernatant, bleaching it and disposing of it in the drain.">Spin 1 min, toss the supernatant <span>(bleach, then drain)</span></li>
+    <li data-build="1" data-desc="Second step: spin one minute and toss the supernatant, bleaching it and disposing of it in the drain."
+        data-note="Bleach the supernatant before it goes down the drain. It is a saturated culture of engineered cells.">Spin 1 min, toss the supernatant <span>(bleach, then drain)</span></li>
     <li data-build="2"
         data-note="P1 is just buffer with RNase in it. The EDTA chelates magnesium so nucleases cannot work, and the RNase is there because you are about to release an enormous amount of RNA that you do not want."
         data-desc="Third step: resuspend in 250 microlitres of P1 buffer, which is Tris buffer, EDTA and RNase A.">Resuspend in 250 uL <b>P1</b> <span>&mdash; Tris, EDTA, RNase A</span></li>
@@ -49,7 +52,8 @@
     <li data-build="4"
         data-note="N3 drops the pH back. The plasmid is small and still base-paired, so it snaps back to double-stranded and stays in solution; the chromosome is far too long to find its partner again and comes out of solution with the protein and the SDS. That difference is the entire method."
         data-desc="Fifth step: neutralize with 350 microlitres of N3 buffer, which is guanidinium chloride and acetate.">Neutralize with 350 uL <b>N3</b> <span>&mdash; guanidinium chloride, acetate</span></li>
-    <li data-build="5" data-desc="Sixth step: spin five minutes.">Spin 5 min</li>
+    <li data-build="5" data-desc="Sixth step: spin five minutes."
+        data-note="The pellet here is chromosome, protein and SDS all together. What stays in solution is your plasmid.">Spin 5 min</li>
   </ul>
   <template class="notes">Six steps, and the fifth is the one that matters: the plasmid renatures and the chromosome does not.</template>
   <template class="desc">The alkaline lysis half of a miniprep, six steps arriving one at a time, each buffer named with what is actually in it.</template>
@@ -59,19 +63,27 @@
   <h1 class="small">Column cleanup</h1>
   <ul class="buf">
     <li>Transfer the clarified supernatant to a column</li>
-    <li data-build="1" data-desc="Second step: spin fifteen seconds and discard the flow-through; the DNA is now bound to the column.">Spin 15 s, discard <span>&mdash; the DNA is now bound to the column</span></li>
-    <li data-build="2" data-desc="Third step: add 500 microlitres of PB buffer.">Add 500 uL <b>PB</b></li>
-    <li data-build="3" data-desc="Fourth step: spin fifteen seconds and discard; protein is removed.">Spin 15 s, discard <span>&mdash; protein is removed</span></li>
-    <li data-build="4" data-desc="Fifth step: add 750 microlitres of PE buffer.">Add 750 uL <b>PE</b></li>
-    <li data-build="5" data-desc="Sixth step: spin fifteen seconds and discard; salts are removed.">Spin 15 s, discard <span>&mdash; salts are removed</span></li>
+    <li data-build="1" data-desc="Second step: spin fifteen seconds and discard the flow-through; the DNA is now bound to the column."
+        data-note="The DNA binds because the guanidinium is still in there. That is why you do not wash with water at this point: it would take the plasmid with it.">Spin 15 s, discard <span>&mdash; the DNA is now bound to the column</span></li>
+    <li data-build="2" data-desc="Third step: add 500 microlitres of PB buffer."
+        data-note="PB is more chaotrope. It keeps the DNA stuck while the protein comes off.">Add 500 uL <b>PB</b></li>
+    <li data-build="3" data-desc="Fourth step: spin fifteen seconds and discard; protein is removed."
+        data-note="Protein gone.">Spin 15 s, discard <span>&mdash; protein is removed</span></li>
+    <li data-build="4" data-desc="Fifth step: add 750 microlitres of PE buffer."
+        data-note="PE is the ethanol wash, and it is what gets rid of the salt.">Add 750 uL <b>PE</b></li>
+    <li data-build="5" data-desc="Sixth step: spin fifteen seconds and discard; salts are removed."
+        data-note="Salt gone. What is left on the column is DNA and ethanol.">Spin 15 s, discard <span>&mdash; salts are removed</span></li>
     <li data-build="6"
         data-note="Ethanol in the wash carries over and will ruin the sequencing read, so the dry spin is not optional."
         data-desc="Seventh step: spin ninety seconds to dry the column.">Spin 90 s to <b>dry</b> the column</li>
-    <li data-build="7" data-desc="Eighth step: add 50 microlitres of water.">Add 50 uL water</li>
-    <li data-build="8" data-desc="Ninth step: spin forty-five seconds into a fresh tube and discard the column.">Spin 45 s into a fresh tube, discard the column</li>
+    <li data-build="7" data-desc="Eighth step: add 50 microlitres of water."
+        data-note="Water, and low salt, is what makes the DNA let go of the silica. Warm water elutes a little better if you are chasing yield.">Add 50 uL water</li>
+    <li data-build="8" data-desc="Ninth step: spin forty-five seconds into a fresh tube and discard the column."
+        data-note="Fresh tube, or you will collect your plasmid into the wash you just threw away.">Spin 45 s into a fresh tube, discard the column</li>
   </ul>
   <p class="see">Step by step: <a href="../../../wetlab/miniprep/">Miniprep tutorial</a> &nbsp;&middot;&nbsp;
      <a href="../../../cheatsheets/miniprep.pdf">bench cheatsheet</a></p>
+  <template class="notes">The second half is a silica column and three washes. The DNA binds in chaotropic salt, the protein comes off in one wash, the salt comes off in the next, and the dry spin gets rid of the ethanol that would otherwise ruin your sequencing read.</template>
   <template class="desc">The column half of a miniprep, nine steps arriving one at a time, each spin labelled with what it removes.</template>
 </article>
 

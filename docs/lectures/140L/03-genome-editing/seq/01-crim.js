@@ -23,18 +23,28 @@ const PR = 112, HX = 470, CX = 1090, PY = 452;
 const FR = [
   { on:["attB"],
     cap:"MG1655 and everything descended from it already carries the att site",
-    call:"so most laboratory strains are ready for this without any work" },
+    call:"so most laboratory strains are ready for this without any work",
+    note:"Let me describe the different stages of the CRIM integration experiment. Let's consider that it is the phi80 system. First, we start with an E. coli cell. MG1655, the grandaddy of most modern lab E. coli strains, contains the phi80 att site, so most laboratory strains are acceptable for this experiment.",
+    desc:"A cell drawn as a rounded box with its genome as a line along the floor. On the genome, the phi80 attB site is marked in blue." },
   { on:["attB","helper"],
-    cap:"the helper plasmid brings the integrase &#183; bla selects it, and its origin only works at 30&#176;C" },
+    cap:"the helper plasmid brings the integrase &#183; bla selects it, and its origin only works at 30&#176;C",
+    note:"A helper plasmid with a beta-lactamase gene is introduced into the cell by transformation and selected on ampicillin. The plasmid contains a temperature sensitive origin of replication, so the cells are grown at the permissive temperature of 30 degrees. It also encodes the phi80 integrase, and the cells start producing the protein.",
+    desc:"A plasmid labelled helper appears inside the cell, carrying the phi80 integrase and bla in blue and a temperature-sensitive origin in amber." },
   { on:["attB","helper","crim"],
     cap:"the CRIM carries attP, the marker, and an R6K origin that cannot replicate here",
-    call:"so it is in the cell, but only passing through" },
+    call:"so it is in the cell, but only passing through",
+    note:"The cells are then transformed again with the CRIM plasmid. This plasmid has a conditional origin of replication called R6K. In a cell that lacks the pir gene, which is true of most laboratory strains, this origin cannot replicate. Thus, this plasmid is only transiently present in the cell. It also contains an antibiotic selection marker, CmR, and the attP site.",
+    desc:"A second plasmid labelled CRIM appears beside it, carrying CmR and attP in red and the R6K origin in amber." },
   { on:["helper","ing"],
     cap:"integrase recombines attP with attB, and the whole plasmid lands in the genome",
-    call:"one crossover, so all of it goes in &#183; CmR now selects the integrants" },
+    call:"one crossover, so all of it goes in &#183; CmR now selects the integrants",
+    note:"Integrase from the helper plasmid catalyzes the single-crossover recombination of the CRIM plasmid into the attB site of the genome. Now that it is in the genome, it will replicate with the rest of the genome. The CmR gene confers chloramphenicol resistance, allowing the selection of integrants on antibiotic-containing medium.",
+    desc:"The CRIM plasmid has gone from inside the cell and its contents are now laid out along the genome: attL, the R6K origin, CmR and attR, all sitting on the line where the att B site used to be." },
   { on:["ing"],
     cap:"grown at 42&#176;C the helper cannot replicate, and is lost",
-    call:"the cargo is in the genome and nothing else has changed" }
+    call:"the cargo is in the genome and nothing else has changed",
+    note:"The cells are grown at a temperature non-permissive for replication of the helper plasmid, 42 degrees, resulting in the final product, which is a cell with the CRIM inserted into the genome, and no other residual modification to the strain's original composition.",
+    desc:"The helper plasmid has gone. What is left is the cell, its genome, and the integrated cargo on it." }
 ];
 
 window.Deck.sequence("crim", function(slide){
@@ -66,6 +76,9 @@ window.Deck.sequence("crim", function(slide){
     s.show(f.on, f, animated === false || reduce.matches);
   }
   go(0, false);
-  return { steps: FR.map(() => ({})), go: go };
+  /* one note and one desc per beat: without these deck.js falls back
+     to the slide\'s single <template>, and presenter view shows the
+     same sentence for every click while the picture changes */
+  return { steps: FR.map(f => ({note:f.note, desc:f.desc})), go: go };
 });
 })();

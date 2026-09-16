@@ -49,20 +49,32 @@ function swarm(x0, y0, cols, rows, dx, dy, col, skip){
 
 const FR = [
   { on:["dcell","dgen","marker","rcell","rgen"],
-    cap:"the donor is a strain you have already modified &#183; the marker is in its genome" },
+    cap:"the donor is a strain you have already modified &#183; the marker is in its genome",
+    note:"P1 generalized transduction involves the transfer of random DNA fragments from one strain of E. coli to another. You start with a donor: a strain whose genome you have already modified, carrying a selectable marker.",
+    desc:"Two cells side by side, a donor on the left with a marker in its genome and a recipient on the right." },
   { on:["dcell","dgen","marker","rcell","rgen","infect"],
-    cap:"infect it with P1vir &#183; a lytic phage, so it replicates and packages and kills" },
+    cap:"infect it with P1vir &#183; a lytic phage, so it replicates and packages and kills",
+    note:"First, the donor cell is infected with P1vir phage. It is a lytic phage, so it will replicate inside the cell, package itself, and kill the host.",
+    desc:"A single phage particle is drawn over the donor cell." },
   { on:["dcell","rcell","rgen","burst","oddone"],
     cap:"most heads get phage DNA &#183; about two in a hundred get a random 90 kb piece of the host genome instead",
-    call:"nothing aims that &#183; it is a packaging mistake, and the method is built on it" },
+    call:"nothing aims that &#183; it is a packaging mistake, and the method is built on it",
+    note:"When a lytic phage infects a cell, usually it will package its own DNA. However, the process incorporates a piece of genomic DNA instead around 2 percent of the time, and the sequence incorporated into the phage head is a random one. Nothing directs it. The whole method is built on a packaging mistake.",
+    desc:"The donor's genome has gone and the cell is full of phage particles, fourteen of them drawn in blue. One, in the bottom right corner, is drawn in red and labelled one head in fifty." },
   { on:["rcell","rgen","lysate"],
-    cap:"chloroform kills anything unlysed, and the lysate goes onto the recipient" },
+    cap:"chloroform kills anything unlysed, and the lysate goes onto the recipient",
+    note:"The cell lysate is then sterilized with chloroform to kill any un-lysed bacteria, and then added to a sample of recipient cells.",
+    desc:"The donor cell is empty and a group of phage particles has moved across to sit between the two cells, an arrow carrying them toward the recipient. One of them is red." },
   { on:["rcell","rgen","inject","frag"],
     cap:"a phage carrying genome injects it like any other cargo",
-    call:"the recipient is not infected by it &#183; there is no phage DNA in that head" },
+    call:"the recipient is not infected by it &#183; there is no phage DNA in that head",
+    note:"For the rare phages that contain a piece of genome, this DNA will be injected into the recipient cell. Note what does not happen: there is no phage DNA in that head, so the recipient is not infected.",
+    desc:"The red phage is now at the recipient cell, and a red segment labelled 90 kb has appeared on the recipient's genome." },
   { on:["rcell","rgen","moved"],
     cap:"the fragment recombines with the recipient&rsquo;s own genome",
-    call:"select the marker and you have moved a locus between two strains" }
+    call:"select the marker and you have moved a locus between two strains",
+    note:"The injected fragment will undergo homologous recombination with the recipient genome. If that fragment of DNA contains a selectable marker, these transduced cells can be selected. P1 moves 90kb random chunks, which makes it useful for transferring single genes or even large gene clusters from one genome to another.",
+    desc:"The phage has gone and the segment on the recipient's genome is now labelled marker: the donor's modification is in the recipient's chromosome." }
 ];
 
 window.Deck.sequence("p1", function(slide){
@@ -116,6 +128,9 @@ window.Deck.sequence("p1", function(slide){
     s.show(f.on, f, animated === false || reduce.matches);
   }
   go(0, false);
-  return { steps: FR.map(() => ({})), go: go };
+  /* one note and one desc per beat: without these deck.js falls back
+     to the slide\'s single <template>, and presenter view shows the
+     same sentence for every click while the picture changes */
+  return { steps: FR.map(f => ({note:f.note, desc:f.desc})), go: go };
 });
 })();
