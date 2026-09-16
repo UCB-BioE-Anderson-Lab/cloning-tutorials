@@ -43,7 +43,10 @@ function cell(box, gy, gx0, gx1){
     rx:box.r || 54, fill:"none", stroke:C.ink, "stroke-width":3}));
   g.appendChild(el("path", {d:"M"+gx0+" "+gy+"H"+gx1, stroke:C.ink,
     "stroke-width":3.5, fill:"none", "stroke-linecap":"round"}));
-  g.appendChild(text(gx0, box.y + box.h - 22, "Genome", 25, C.muted, 400, "start"));
+  /* below the line and clear of it: at 25px the label's ascender
+     reaches ~18px, so anything tighter than that draws it through
+     the molecule it is naming. */
+  g.appendChild(text(gx0, gy + 42, "Genome", 25, C.muted, 400, "start"));
   return g;
 }
 
@@ -90,8 +93,8 @@ function scene(slide, capY, callY){
   const root = el("g", {});
   svg.appendChild(root);
   const parts = {};
-  const cap  = text(800, capY  || 782, "", 30, C.ink,  700);
-  const call = text(800, callY || 826, "", 28, C.verm, 700);
+  const cap  = text(800, capY  || 792, "", 30, C.ink,  700);
+  const call = text(800, callY || 834, "", 28, C.verm, 700);
 
   const api = {
     svg:svg, root:root, parts:parts,

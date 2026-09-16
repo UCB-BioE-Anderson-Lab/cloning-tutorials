@@ -26,6 +26,8 @@ window.LECTURE = {
      of the slide before it.  The full plan is in the comment above. */
   sections: [
     { file: "00-front-matter.html",     title: "Introduction",             kind: "lecture" },
-    { file: "01-att-integrases.html",   title: "att Integrases",           kind: "section" }
+    { file: "01-att-integrases.html",   title: "att Integrases",           kind: "section" },
+    { file: "02-homologous-recombination.html",
+                                        title: "Homologous Recombination", kind: "section" }
   ]
 };

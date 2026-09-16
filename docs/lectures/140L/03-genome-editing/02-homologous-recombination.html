@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Homologous Recombination &ndash; Genome Editing</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* Page-local only.  The three rules the sequences need, and the question
+   head, are the same as section 01's -- see the comment there. */
+.slide svg .o{opacity:0;transition:opacity .42s ease}
+.slide svg .o.in{opacity:1}
+.slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+@media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
+
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:10px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{font-size:38px;font-weight:700}
+
+/* The open reading frames on the two question slides.  Long enough that
+   the deck's 27px mono would not fit the box, so they are set smaller and
+   tighter; they still have to be readable from the back of the room. */
+.slide pre.orf{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:22px;line-height:1.3;letter-spacing:.01em;margin:6px 0 0;white-space:pre}
+.slide figure.fig figcaption{max-width:1180px;text-align:left}
+
+/* The revealed answers.  Same idea as the gene synthesis deck: the answer
+   is on the slide behind a button rather than buried in the note, and a
+   button rather than a click of the deck so arrowing past cannot spoil
+   it.  No ids anywhere -- presenter mode clones the next slide, so an id
+   on a slide exists twice the moment the slide before it is showing. */
+.slide .astep{font-size:26px;margin:0 0 8px}
+.slide pre.ans{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:21px;line-height:1.42;margin:0 0 20px;white-space:pre-wrap;
+  overflow-wrap:anywhere}
+.slide pre.ans b{color:var(--blue)}
+.slide pre.ans i{color:var(--vermillion);font-style:normal}
+.slide .qhead .btn{margin-left:auto}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 18 -->
+<article class="slide" data-bg="section">
+  <h1>Homologous<br>Recombination</h1>
+  <p>Inserting genes into the genome at arbitrary locations based on homology</p>
+  <template class="notes">Homologous recombination underlies many genome engineering methods. It involves inserting DNAs into the genome at arbitrarily-chosen locations of the genome based on their homology to that sequence.</template>
+  <template class="desc">Section divider: Homologous Recombination. Inserting genes into the genome at arbitrary locations based on homology.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 19 -->
+<article class="slide">
+  <h1 class="small">Lambda Red recombinase</h1>
+  <ul class="tight">
+    <li><em>E. coli</em> by itself is very inefficient at homologous recombination (unlike yeast and <em>B. subtilis</em>)</li>
+    <li data-build="1"
+        data-note="In E. coli and other bacteria that lack efficient homologous recombination systems, this functionality can be enhanced by expression of lambda red recombinase."
+        data-desc="Second point: expression of the phage lambda Red genes, exo, gam and bet, enhances recombination dramatically.">Expression of the phage lambda Red genes (<b>exo</b>, <b>gam</b>, and <b>bet</b>) enhances recombination dramatically</li>
+    <li data-build="2"
+        data-note="Lambda red is in common use for producing knockins and knockouts in prokaryotic genomes."
+        data-desc="Third point: it is commonly used for knockins and knockouts.">Commonly used for knockins and knockouts</li>
+    <li data-build="3"
+        data-note="Mechanistically, the recombinagenic species is linear single-stranded DNA, such as oligonucleotides that is introduced into the cell by transformation."
+        data-desc="Fourth point: the active species is linear single-stranded DNA, so oligonucleotides can be used.">Active species is <b>linear single-stranded DNA</b> (can use oligonucleotides)</li>
+    <li data-build="4"
+        data-note="Alternatively, a linear double-stranded DNA can be provided and the exo protein of lambda red will degrade it into single-stranded molecules that can undergo recombination. Often that linear DNA is a PCR product."
+        data-desc="Fifth point: the Exo protein degrades linear double-stranded DNAs to single-stranded DNAs, so PCR-derived DNAs can be used.">Exo degrades linear double-stranded DNAs to single-stranded DNAs (can use PCR products)</li>
+    <li class="accent" data-build="5"
+        data-note="The method does not work directly on circular DNAs, but linear DNAs can be generated from circular DNAs by treatment with any of the various restriction enzymes."
+        data-desc="Sixth point, in red: it will not work directly on circular DNAs.">Won&rsquo;t work directly on circular DNAs</li>
+  </ul>
+  <div class="src">Proc Natl Acad Sci U S A. 2000 Jun 6;97(12):6640-5 &nbsp; PMID: 10829079</div>
+  <template class="notes">Lambda Red is the thing that makes the next twenty slides possible. Without it E. coli simply does not recombine at a useful rate, which is why all of this is harder in E. coli than it is in yeast.</template>
+  <template class="desc">Six points on lambda Red recombinase. The first is on the slide already: E. coli by itself is very inefficient at homologous recombination, unlike yeast and B. subtilis.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 20 - 24 -->
+<!-- Five source slides, eight beats.  The source draws the PCR and the
+     cell in one frame; here they are two bands, and the tube clears the
+     moment the product goes in.  seq/02-dw.js holds the scene. -->
+<article class="slide" data-seq="dw">
+  <h1 class="small">Datsenko/Wanner knockouts</h1>
+  <template class="notes">A very popular setup for homologous recombination in E. coli and other prokaryotes is the Datsenko/Wanner method. It is a lambda red-based method for knocking out genes in the genome. It begins with pretty much any E. coli strain containing the target sequence we wish to remove.</template>
+  <template class="desc">A cell drawn as a rounded box with its genome along the floor, and the gene to be removed marked on it.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 25 - 26 -->
+<article class="slide" data-seq="dw-markerless">
+  <h1 class="small">Markerless knockouts</h1>
+  <template class="notes">As with other genome modification strategies, there are several ways to make them markerless. If the original template sequence contains FRT sites flanking the selectable marker, recombination of the PCR product into the genome will retain these sequences. Datsenko/Wanner is just one specific use case of homologous recombination. In some organisms like S. cerevisiae yeast, homologous recombination is sufficiently robust out-of-the-box that unmodified strains can be transformed with PCR products like these to disrupt a gene. In mammalian and plant cells it is also fairly robust, but is greatly enhanced by introduction of double-stranded breaks near the sites of intended recombination. And though we describe knocking genes out, the same procedure knocks sequence in: put the sequence you want into the PCR product and it will land wherever that DNA's ends direct it.</template>
+  <template class="desc">The cell after the knockout, its genome carrying the chloramphenicol marker between the two FRT sites that came in with it.</template>
+</article>
+
+
+<!-- ------------------------------------------------------------ 27 - 34 -->
+<!-- The worked knockout, as the source works it: the locus, the ends you
+     pick, the template you amplify off, the two oligos that come out of
+     those two choices, and the three products. -->
+<article class="slide">
+  <h1 class="small">glgS region <span style="font-size:.6em">(K12 genome context)</span></h1>
+  <ul class="tight">
+    <li>From the genome download, it is reverse complemented</li>
+    <li>Reverse complement the entire file if your goal is to knock the gene out <b>without a frameshift</b> &mdash; the safest option</li>
+    <li>For this example, we won&rsquo;t worry about the frame</li>
+  </ul>
+  <figure class="fig">
+    <img src="img/02-glgs-region.png" alt="A sequence editor window showing the glgS gene in its K12 genome context, reverse complemented relative to the genome download.">
+  </figure>
+  <template class="notes">Frame matters if you are knocking a gene out of an operon and something downstream still has to be translated. Here it does not, so we leave it.</template>
+  <template class="desc">The glgS locus in a sequence editor, in its K12 genome context, with three notes about the orientation it came in and why you might reverse complement it before you start.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Choose the ends as 40 bp homology regions</h1>
+  <p class="lead">The regions wherein recombination will occur</p>
+  <figure class="fig">
+    <img src="img/02-glgs-homology.png" alt="The same glgS locus with two forty-base stretches highlighted, one at each end of the gene: the regions the PCR product will recombine over.">
+  </figure>
+  <template class="notes">Those two forty-base stretches are the only part of this design you choose. Everything else on the oligos is copied.</template>
+  <template class="desc">The glgS locus with a forty-base region highlighted at each end of the gene: the two stretches the knockout cassette will recombine over.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Template plasmid pKD3</h1>
+  <div class="cols wide-right">
+    <figure class="fig">
+      <img src="img/02-pkd3.png" alt="A circular map of pKD3, with the FRT-CmR-FRT cassette marked and the P1 and P2 priming sites picked out in red at its edges.">
+    </figure>
+    <ul class="tight">
+      <li>Source of the <b>FRT-Cm-FRT</b> cassette, template for the PCR</li>
+      <li data-build="1"
+          data-note="R6K again, and for the same reason it was used in the CRIM: a template plasmid that could replicate in your strain would come through the transformation and give you colonies that never recombined anything."
+          data-desc="Second point: it has an R6K conditional origin of replication, to avoid plasmid bleedthrough.">Has an <b>R6K</b> conditional origin, to avoid plasmid bleedthrough</li>
+      <li class="accent" data-build="2"
+          data-note="Everything else on this plasmid is irrelevant to you. You never clone with it; you only ever prime on it."
+          data-desc="Third point, in red: all you really need from it are the sequences in red, which are the intended annealing sites for your oligos.">All you really need are the sequences in red &mdash; the annealing sites for your oligos</li>
+    </ul>
+  </div>
+  <template class="desc">A map of the template plasmid pKD3 beside three points about it. The first is on the slide already: it is the source of the FRT-Cm-FRT cassette and the template for the PCR.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">The forward oligo</h1>
+  <p class="lead">Forty bases of the genome, then the twenty that prime on P1</p>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/02-glgs-homology.png" alt="The glgS locus with the forty-base homology region at its left end highlighted.">
+      <figcaption>the 40 bp you picked</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="img/02-fwd-oligo.png" alt="The P1 priming site on pKD3, the twenty bases the forward oligo ends on.">
+      <figcaption>P1, from pKD3</figcaption>
+    </figure>
+  </div>
+  <template class="notes">Forward oligo: atggatcatagtcttaattctttaaataatttcgatttccgtgtaggctggagctgcttc</template>
+  <template class="desc">The forward oligo built from two pieces shown side by side: the forty-base homology region taken from the left end of glgS, and the twenty-base P1 priming site taken from pKD3.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">The reverse oligo</h1>
+  <p class="lead">The reverse complement of the homology region, then the reverse complement of P2</p>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/02-glgs-homology.png" alt="The glgS locus with the forty-base homology region at its right end highlighted.">
+      <figcaption>the 40 bp at the other end</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="img/02-rev-oligo.png" alt="The P2 priming site on pKD3, whose reverse complement is the three-prime end of the reverse oligo.">
+      <figcaption>P2, from pKD3</figcaption>
+    </figure>
+  </div>
+  <template class="notes">Reverse oligo: tcagtgctctaactccagctctcttgcctgcatcatctgttgatgggaattagccatggtcc</template>
+  <template class="desc">The reverse oligo built the same way, from the forty-base region at the other end of glgS and the P2 priming site on pKD3, both taken as reverse complements.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Knockout PCR product</h1>
+  <figure class="fig">
+    <img src="img/02-ko-pcr-product.png" alt="The PCR product in a sequence editor: forty bases of genome homology, P1, the FRT-CmR-FRT cassette, P2, and forty more bases of genome homology.">
+    <figcaption>Knockout PCR product.seq &nbsp;&mdash;&nbsp; the two oligos on pKD3</figcaption>
+  </figure>
+  <template class="notes">Forward oligo: atggatcatagtcttaattctttaaataatttcgatttccgtgtaggctggagctgcttc. Reverse oligo: tcagtgctctaactccagctctcttgcctgcatcatctgttgatgggaattagccatggtcc. Template: pKD3.</template>
+  <template class="desc">The knockout PCR product in a sequence editor, carrying the marker cassette with forty bases of genome homology at each end.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">glgS knockout region</h1>
+  <p class="lead">The recombination sites are the two glgS fragments</p>
+  <figure class="fig">
+    <img src="img/02-glgs-ko-region.png" alt="The glgS locus after recombination, with the marker cassette in place of the gene and the two forty-base fragments of glgS left flanking it.">
+    <figcaption>glgS knockout region.seq</figcaption>
+  </figure>
+  <template class="desc">The glgS locus after the knockout: the marker cassette sits where the gene was, flanked by the two forty-base fragments of glgS that the recombination happened over.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">And after Flp</h1>
+  <ul class="tight">
+    <li>The CmR marker is looped out</li>
+    <li>Only <b>1 FRT site</b> remains</li>
+  </ul>
+  <figure class="fig">
+    <img src="img/02-glgs-after-flp.png" alt="The same locus after Flp recombinase, with the marker gone and a single FRT site remaining between the two glgS fragments.">
+    <figcaption>glgS region after flp.seq</figcaption>
+  </figure>
+  <template class="desc">The knockout locus after Flp excision, with the chloramphenicol marker gone and one FRT site left between the two glgS fragments.</template>
+</article>
+
+
+<!-- ---------------------------------------------------------------- 35 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">fimA knockout</div>
+    <button class="btn" type="button" data-reveal>Show the answer</button>
+  </div>
+  <p>Design oligos to do a Datsenko/Wanner markerless knockout of the <em>fimA</em> gene in MG1655 using plasmids pKD3 and pKD46</p>
+
+  <div class="qshow">
+    <p style="margin-bottom:0"><b><em>fimA</em> ORF:</b></p>
+    <pre class="orf">ATGAAAATTAAAACTCTGGCAATCGTTGTTCTGTCGGCTCTGTCCCTCAGTTCTACAGCG
+GCTCTGGCCGCTGCCACGACGGTTAATGGTGGGACCGTTCACTTTAAAGGGGAAGTTGTT
+AACGCCGCTTGCGCAGTTGATGCAGGCTCTGTTGATCAAACCGTTCAGTTAGGACAGGTT
+CGTACCGCATCGCTGGCACAGGAAGGAGCAACCAGTTCTGCTGTCGGTTTTAACATTCAG
+CTGAATGATTGCGATACCAATGTTGCATCTAAAGCCGCTGTTGCCTTTTTAGGTACGGCG
+ATTGATGCGGGTCATACCAACGTTCTGGCTCTGCAGAGTTCAGCTGCGGGTAGCGCAACA
+AACGTTGGTGTGCAGATCCTGGACAGAACGGGTGCTGCGCTGACGCTGGATGGTGCGACA
+TTTAGTTCAGAAACAACCCTGAATAACGGAACCAATACCATTCCGTTCCAGGCGCGTTAT
+TTTGCAACCGGGGCCGCAACCCCGGGTGCTGCTAATGCGGATGCGACCTTCAAGGTTCAG
+TATCAATAA</pre>
+  </div>
+
+  <div class="qans" hidden>
+    <p class="astep">Each oligo is <b class="tail">forty bases of the genome</b> with <i>twenty that prime on pKD3</i> after it. Nothing else is chosen.</p>
+    <pre class="ans">first ~40 bp of fimA        <b>ATGAAAATTAAAACTCTGGCAATCGTTGTTCTGTCGGCTC</b>
+revcomp of the last ~40 bp  <b>TTATTGATACTGAACCTTGAAGGTCGCATCCGCATTAGCA</b>
+P1, from pKD3               <i>gtgtaggctggagctgcttc</i>
+P2, from pKD3               <i>atgggaattagccatggtcc</i></pre>
+    <p class="astep">So the two oligos are:</p>
+    <pre class="ans">dwF  <b>ATGAAAATTAAAACTCTGGCAATCGTTGTTCTGTCGGCTC</b><i>gtgtaggctggagctgcttc</i>
+dwR  <b>TTATTGATACTGAACCTTGAAGGTCGCATCCGCATTAGCA</b><i>atgggaattagccatggtcc</i></pre>
+  </div>
+
+  <template class="notes">Give them time on this one. The only design decision is where the forty-base regions start and stop; P1 and P2 are copied out of the paper every time. Press the button when they have had a go.</template>
+  <template class="desc">A question for the room, marked with the deck's thinking figure: design oligos to do a Datsenko/Wanner markerless knockout of the fimA gene in MG1655 using pKD3 and pKD46. The fimA open reading frame is printed below it, 549 bases in ten lines.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 36 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">fimA knockout result</div>
+    <button class="btn" type="button" data-reveal>Show the answer</button>
+  </div>
+  <p>Predict the product of the genome locus from the previous experiment, after integration and after Flp excision of CmR</p>
+
+  <div class="qshow">
+    <p class="lead">The locus is <em>fimA</em> with its neighbours &mdash; the file is in the Genome Editing Examples zip</p>
+  </div>
+
+  <div class="qans" hidden>
+    <p class="astep"><b>1.</b> Predict the PCR product of dwF and dwR on pKD3.</p>
+    <p class="astep"><b>2.</b> Find where its two forty-base ends match the genome, and recombine over them. Everything between those two matches is replaced.</p>
+    <p class="astep"><b>3.</b> For the Flp product, loop out everything between the two FRT sites and leave one behind.</p>
+    <p class="astep" style="margin-top:22px;color:var(--muted)">The three sequences are in the speaker notes, and in the zip.</p>
+  </div>
+
+  <template class="notes">To answer this, predict the PCR product of dwF and dwR on pKD3. Find where the ends match up with the genome sequence and recombine the fragment. The three sequences, the PCR product, the locus after integration and the locus after excision, are in Genome Editing Examples.zip.</template>
+  <template class="desc">A second question for the room: predict the product of the genome locus after integration and after Flp excision of the chloramphenicol marker. The answer is a three-step method rather than a printed sequence.</template>
+</article>
+
+<script>
+/* The answer reveals.  Delegated and id-free, for the reason written on
+   the gene synthesis deck: presenter mode clones the NEXT slide into its
+   preview pane, so any id on a slide exists twice the moment the slide
+   before it is showing. */
+document.addEventListener("click", function(e){
+  const rv = e.target.closest && e.target.closest("[data-reveal]");
+  if (!rv) return;
+  const sl = rv.closest(".slide"),
+        ans = sl.querySelector(".qans"), q = sl.querySelector(".qshow"),
+        opening = ans.hidden;
+  ans.hidden = !opening;
+  if (q) q.hidden = opening;
+  rv.textContent = opening ? "Hide the answer" : "Show the answer";
+});
+</script>
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/02-dw.js" defer></script>
+</body>
+</html>
