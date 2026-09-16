@@ -29,6 +29,8 @@ window.LECTURE = {
     { file: "01-att-integrases.html",   title: "att Integrases",           kind: "section" },
     { file: "02-homologous-recombination.html",
                                         title: "Homologous Recombination", kind: "section" },
-    { file: "03-crispr.html",           title: "Cas9 and CRISPR",          kind: "section" }
+    { file: "03-crispr.html",           title: "Cas9 and CRISPR",          kind: "section" },
+    { file: "04-moving-loci.html",      title: "Conjugation, Transposition, Transduction",
+                                                                           kind: "section" }
   ]
 };
