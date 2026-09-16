@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Conjugation, Transposition, Transduction &ndash; Genome Editing</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide svg .o{opacity:0;transition:opacity .42s ease}
+.slide svg .o.in{opacity:1}
+.slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+@media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
+
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:10px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{font-size:38px;font-weight:700}
+.slide .qhead .btn{margin-left:auto}
+.slide p.lead{font-size:28px;color:var(--muted);margin:0 0 10px}
+.slide .astep{font-size:27px;margin:0 0 14px}
+.slide .astep b{color:var(--vermillion)}
+/* The two accessions, set as the lookup they are. */
+.slide pre.acc{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:24px;line-height:1.5;margin:0 0 18px;white-space:pre;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 54 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Conjugation, Transposition,<br>and Transduction</h1>
+  <p>Knocking DNAs in and out at random with transposons, and moving genome loci between strains by phage transduction or conjugation</p>
+  <div class="src">Bacterial and Bacteriophage Genetics &nbsp;&mdash;&nbsp; ISBN 978-3540942702</div>
+  <template class="notes">Conjugation, Transposition, and Transduction are old-school ways of performing genome manipulation that pre-date recombinant DNA methods. Despite their age, they are still commonly used techniques. Conjugation involves the transfer of DNAs from one cell to another through mating. Transduction involves the transfer of DNAs from one cell to another via a phage particle intermediate. Transposition moves a DNA to a random position in the genome.</template>
+  <template class="desc">Section divider: Conjugation, Transposition, and Transduction. Knocking DNAs in and out at random with transposons, and moving genome loci between strains by phage transduction or conjugation.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 55 -->
+<!-- The source has a borrowed figure here.  It is drawn instead, because
+     the method turns on a packaging mistake that happens about two
+     percent of the time, and a still picture cannot show a thing being
+     rare.  seq/04-p1.js; six beats, and the third is the mistake. -->
+<article class="slide" data-seq="p1">
+  <h1 class="small">P1 generalized transduction</h1>
+  <div class="src">Moves ~90 kb chunks at a time &nbsp;&middot;&nbsp; some strains, DH10B among them, are P1 resistant</div>
+  <template class="notes">P1 generalized transduction involves the transfer of random DNA fragments from one strain of E. coli to another. First, the donor cell is infected with P1vir phage. When a lytic phage infects a cell, usually it will package its own DNA. However, the process incorporates a piece of genomic DNA instead around 2% of the time, and the sequence incorporated into the phage head is a random one. The cell lysate is then sterilized with chloroform to kill any un-lysed bacteria and then added to a sample of recipient cells. For the rare phages that contain a piece of genome, this DNA will be injected into the recipient cell where it will undergo homologous recombination with the recipient genome. If that fragment of DNA contains a selectable marker, these transduced cells can be selected. P1 transduction moves 90kb random chunks of the genome. It is thus useful for transferring single genes or even large gene clusters from one genome to another. Often people will use homologous recombination or phage att integration methods to first modify one cell's genome, and then combine several such mutant genomes into one using P1 transduction. Note that some of the popular E. coli strains are P1 resistant.</template>
+  <template class="desc">Two cells side by side, a donor on the left with a marker in its genome and a recipient on the right.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 56 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">glgS troubles</div>
+    <button class="btn" type="button" data-reveal>Show the answer</button>
+  </div>
+  <p>Susan did a markerless <em>glgS</em> knockout of MG1655, a second knockout with CmR of the <em>rfaE</em> gene in another MG1655, and then tried to move the <em>rfaE</em>::Cm marker into the <em>glgS</em> knockout strain by P1 transduction. Her products only have <em>rfaE</em> knocked out. What happened?</p>
+
+  <div class="qshow">
+    <p class="lead" style="margin-top:34px">In PubMed, protein-search each gene, then navigate from the protein to the CDS to the GenBank sequence</p>
+  </div>
+
+  <div class="qans" hidden>
+    <p class="astep">Look up where the two genes actually are:</p>
+    <pre class="acc">glgS in MG1655   NC_000913  REGION: 3191739..3191939
+rfaE in MG1655   NC_000913  REGION: 3195320..3196753</pre>
+    <p class="astep">They are <b>about 3.4 kb apart</b> &mdash; well inside the ~90 kb that P1 carries in one head.</p>
+    <p class="astep">So the fragment that brings <em>rfaE</em>::Cm in brings the donor&rsquo;s <b>wild-type <em>glgS</em></b> with it, and recombination puts both in. Selecting chloramphenicol selects for exactly the event that undoes her first knockout.</p>
+  </div>
+
+  <template class="notes">If you look up where these genes are on the genome, you will find that they are well within 90kb of each other. What is undoubtedly happening is that the glgS knockout cassette is getting displaced by the wild-type locus upon transduction.</template>
+  <template class="desc">A question for the room about a P1 transduction that lost a knockout, with the hint that you should look up where the two genes sit on the genome. The answer is not on the slide.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 57 -->
+<article class="slide">
+  <h1>Questions?</h1>
+  <template class="desc">A slide reading Questions.</template>
+</article>
+
+<script>
+document.addEventListener("click", function(e){
+  const rv = e.target.closest && e.target.closest("[data-reveal]");
+  if (!rv) return;
+  const sl = rv.closest(".slide"),
+        ans = sl.querySelector(".qans"), q = sl.querySelector(".qshow"),
+        opening = ans.hidden;
+  ans.hidden = !opening;
+  if (q) q.hidden = opening;
+  rv.textContent = opening ? "Hide the answer" : "Show the answer";
+});
+</script>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/04-p1.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Sequencing &ndash; Genome Editing</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig figcaption{max-width:1180px;text-align:left}
+.slide p.lead{font-size:28px;color:var(--muted);margin:0 0 10px}
+.slide p.see{font-size:24px;margin:16px 0 0}
+.slide p.see a{color:var(--blue)}
+/* What each buffer is for, set beside its name rather than under it: the
+   names are meaningless and the contents are the whole lesson. */
+.slide ul.buf li{font-size:27px;margin-bottom:11px}
+.slide ul.buf li b{color:var(--blue)}
+.slide ul.buf li span{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------- 96 - 99 -->
+<article class="slide" data-bg="section">
+  <h1>Sequencing</h1>
+  <template class="desc">Section divider: Sequencing.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Cycle sequencing</h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/08-cycle-seq-a.png" alt="A dideoxynucleotide: the same base as a normal dNTP but with no three-prime hydroxyl, so a polymerase that adds one cannot add another.">
+    </figure>
+    <figure class="fig">
+      <img src="img/08-cycle-seq-b.png" alt="The population of products from a cycle sequencing reaction: one molecule terminated at every position, each carrying the dye of whichever base ended it.">
+    </figure>
+  </div>
+  <figure class="fig" data-build="1"
+          data-note="Then they are separated by length, one base at a time, and the dye on the last base of each fragment is read as it comes past. The order the colours arrive in is the sequence."
+          data-desc="A third figure arrives: capillary separation of the terminated fragments by length, with the dye on each read as it passes the detector.">
+    <img src="img/08-cycle-seq-c.png" alt="The terminated fragments separated by length in a capillary, the dye on the last base of each read as it passes the detector.">
+  </figure>
+  <template class="notes">It is a PCR with one primer and a few percent of dideoxy bases thrown in. Every molecule stops somewhere, the dye tells you what base stopped it, and separating them by length puts those bases in order.</template>
+  <template class="desc">How cycle sequencing works, in two figures: a dideoxynucleotide that cannot be extended past, and the ladder of terminated products it creates.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Submitting sequencing</h1>
+  <ul class="tight">
+    <li>Submit <b>10 uL</b> of miniprep plasmid</li>
+    <li>And <b>3 uL</b> of sequencing primer per read</li>
+    <li>Different services want different volumes, premixing and submission methods</li>
+    <li class="accent">Next day you get two files: the <b>trace</b> (peaks) and the <b>read</b> (GenBank)</li>
+  </ul>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/08-trace.png" alt="A sequencing trace: four coloured peak traces along the read, clean in the middle and noisy at both ends.">
+      <figcaption>the trace</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="img/08-read.png" alt="The base calls from the same read, written out as a sequence file.">
+      <figcaption>the read</figcaption>
+    </figure>
+  </div>
+  <p class="see">Step by step: <a href="../../../wetlab/sequencing/">Cycle Sequencing tutorial</a> &nbsp;&middot;&nbsp;
+     <a href="../../../cheatsheets/sequencing.pdf">bench cheatsheet</a></p>
+  <template class="notes">Always read the trace, not just the sequence. The base calls at the two ends of a read are guesses, and a heterozygous-looking double peak in the middle usually means you picked two colonies at once.</template>
+  <template class="desc">What you send and what comes back: ten microlitres of miniprep and three of primer per read, and next day a trace of coloured peaks and a sequence file of base calls.</template>
+</article>
+
+<article class="slide">
+  <h1>Questions?</h1>
+  <template class="desc">A slide reading Questions.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
+

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Miniprepping &ndash; Genome Editing</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig figcaption{max-width:1180px;text-align:left}
+.slide p.lead{font-size:28px;color:var(--muted);margin:0 0 10px}
+.slide p.see{font-size:24px;margin:16px 0 0}
+.slide p.see a{color:var(--blue)}
+/* What each buffer is for, set beside its name rather than under it: the
+   names are meaningless and the contents are the whole lesson. */
+.slide ul.buf li{font-size:27px;margin-bottom:11px}
+.slide ul.buf li b{color:var(--blue)}
+.slide ul.buf li span{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------- 92 - 95 -->
+<article class="slide" data-bg="section">
+  <h1>Miniprepping</h1>
+  <template class="desc">Section divider: Miniprepping.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Miniprep kit</h1>
+  <figure class="fig">
+    <img src="img/07-miniprep-kit.png" alt="A Qiagen miniprep kit box with its bottles of buffers and a bag of spin columns beside it.">
+  </figure>
+  <template class="desc">A photograph of a Qiagen miniprep kit: the box, the buffer bottles and the spin columns.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Alkaline lysis</h1>
+  <ul class="buf">
+    <li>Fill a 2 mL tube with saturated culture</li>
+    <li data-build="1" data-desc="Second step: spin one minute and toss the supernatant, bleaching it and disposing of it in the drain.">Spin 1 min, toss the supernatant <span>(bleach, then drain)</span></li>
+    <li data-build="2"
+        data-note="P1 is just buffer with RNase in it. The EDTA chelates magnesium so nucleases cannot work, and the RNase is there because you are about to release an enormous amount of RNA that you do not want."
+        data-desc="Third step: resuspend in 250 microlitres of P1 buffer, which is Tris buffer, EDTA and RNase A.">Resuspend in 250 uL <b>P1</b> <span>&mdash; Tris, EDTA, RNase A</span></li>
+    <li data-build="3"
+        data-note="P2 is the lysis. NaOH opens the cells and denatures everything, chromosome included; SDS dissolves the membrane. This is the step you do not leave running, because given long enough the plasmid denatures too."
+        data-desc="Fourth step: lyse with 250 microlitres of P2 buffer, which is sodium hydroxide and SDS.">Lyse with 250 uL <b>P2</b> <span>&mdash; NaOH, SDS</span></li>
+    <li data-build="4"
+        data-note="N3 drops the pH back. The plasmid is small and still base-paired, so it snaps back to double-stranded and stays in solution; the chromosome is far too long to find its partner again and comes out of solution with the protein and the SDS. That difference is the entire method."
+        data-desc="Fifth step: neutralize with 350 microlitres of N3 buffer, which is guanidinium chloride and acetate.">Neutralize with 350 uL <b>N3</b> <span>&mdash; guanidinium chloride, acetate</span></li>
+    <li data-build="5" data-desc="Sixth step: spin five minutes.">Spin 5 min</li>
+  </ul>
+  <template class="notes">Six steps, and the fifth is the one that matters: the plasmid renatures and the chromosome does not.</template>
+  <template class="desc">The alkaline lysis half of a miniprep, six steps arriving one at a time, each buffer named with what is actually in it.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Column cleanup</h1>
+  <ul class="buf">
+    <li>Transfer the clarified supernatant to a column</li>
+    <li data-build="1" data-desc="Second step: spin fifteen seconds and discard the flow-through; the DNA is now bound to the column.">Spin 15 s, discard <span>&mdash; the DNA is now bound to the column</span></li>
+    <li data-build="2" data-desc="Third step: add 500 microlitres of PB buffer.">Add 500 uL <b>PB</b></li>
+    <li data-build="3" data-desc="Fourth step: spin fifteen seconds and discard; protein is removed.">Spin 15 s, discard <span>&mdash; protein is removed</span></li>
+    <li data-build="4" data-desc="Fifth step: add 750 microlitres of PE buffer.">Add 750 uL <b>PE</b></li>
+    <li data-build="5" data-desc="Sixth step: spin fifteen seconds and discard; salts are removed.">Spin 15 s, discard <span>&mdash; salts are removed</span></li>
+    <li data-build="6"
+        data-note="Ethanol in the wash carries over and will ruin the sequencing read, so the dry spin is not optional."
+        data-desc="Seventh step: spin ninety seconds to dry the column.">Spin 90 s to <b>dry</b> the column</li>
+    <li data-build="7" data-desc="Eighth step: add 50 microlitres of water.">Add 50 uL water</li>
+    <li data-build="8" data-desc="Ninth step: spin forty-five seconds into a fresh tube and discard the column.">Spin 45 s into a fresh tube, discard the column</li>
+  </ul>
+  <p class="see">Step by step: <a href="../../../wetlab/miniprep/">Miniprep tutorial</a> &nbsp;&middot;&nbsp;
+     <a href="../../../cheatsheets/miniprep.pdf">bench cheatsheet</a></p>
+  <template class="desc">The column half of a miniprep, nine steps arriving one at a time, each spin labelled with what it removes.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
+

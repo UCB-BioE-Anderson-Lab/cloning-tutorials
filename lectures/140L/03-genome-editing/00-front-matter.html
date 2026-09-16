@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Introduction &ndash; Genome Editing</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.  deck.css is shared by every lecture in the course and
+ * is not touched from here.
+ *
+ * THE ROADMAP.  Seven method names and nothing else, which is the map of
+ * the next hour.  The source greys two of them, Conjugation and
+ * Transposons, and that greying is load-bearing: five of the seven get a
+ * worked mechanism later in the deck and those two get a sentence.  The
+ * muted pair is kept, so the slide promises what the lecture delivers.
+ *
+ * One column with a hairline under each name, for the reason worked out on
+ * the DNA Fabrication front matter: two columns of this many names read
+ * across rather than down, and on the slide that sets the order of the
+ * sections, order beats a fuller box.  The rules are on the li so the empty
+ * frame is there from the first frame and the names land into it.
+ * --------------------------------------------------------------------- */
+.slide ul.map{margin:14px 0 0;padding:0;list-style:none;max-width:980px}
+.slide ul.map li{font-size:46px;line-height:1.24;padding:19px 0 17px;
+  border-bottom:1px solid var(--rule);margin:0}
+.slide ul.map li span{opacity:0;transition:opacity .3s ease}
+.slide ul.map li.in span{opacity:1}
+.slide ul.map li.aside span{color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.slide ul.map li span{transition:none}}
+
+/* "Why change the genome?" — six reasons, each with the phrase that is the
+   reason itself picked out.  The source accents those phrases; they are
+   what a reader scanning the slide should land on. */
+.slide ul.why li{font-size:34px;margin-bottom:19px}
+</style>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- 1 -->
+<article class="slide" data-bg="lecture">
+  <h1>Genome<br>Editing</h1>
+  <p style="margin-top:150px"><small>Example files available on bcourses as &ldquo;Genome Editing Examples.zip&rdquo;</small></p>
+  <p><small>YouTube playlist:<br>
+    <a href="https://www.youtube.com/watch?v=vfmuDvEgD28&amp;list=PL2aPXzks-TgOtngzKdocz4P50TCncRyPy">https://www.youtube.com/watch?v=vfmuDvEgD28&amp;list=PL2aPXzks-TgOtngzKdocz4P50TCncRyPy</a></small></p>
+  <template class="notes">When genetically modifying a cell, one can add additional DNAs, such as plasmids, that replicate as distinct molecules in the host. Alternatively, one can modify the sequence of the host's genomic DNA. Today we will discuss the various means of modifying a preexisting DNA inside a cell.</template>
+  <template class="desc">Lecture title slide: Genome Editing. Beneath it, a note that the example files are on bcourses as "Genome Editing Examples.zip", and a link to the YouTube playlist for the lecture.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 2 -->
+<article class="slide">
+  <ul class="map">
+    <li data-build="1"><span>Phage Integration</span></li>
+    <li data-build="2"><span>Site-Specific Recombinases</span></li>
+    <li data-build="3"><span>Homologous Recombination</span></li>
+    <li data-build="4"><span>CRISPR</span></li>
+    <li class="aside" data-build="5"><span>Conjugation</span></li>
+    <li class="aside" data-build="5"><span>Transposons</span></li>
+    <li data-build="6"><span>Phage Transduction</span></li>
+  </ul>
+  <template class="notes">We will discuss: Phage att site Integration, Site-Specific Recombinases, Homologous Recombination, CRISPR, Conjugation, Transposons, and Phage Transduction.</template>
+  <template class="desc">The map of the lecture, arriving a name at a time into an empty frame of seven ruled bands: Phage Integration, Site-Specific Recombinases, Homologous Recombination, CRISPR, then Conjugation and Transposons together and in grey, then Phage Transduction. The two in grey are the two the lecture mentions rather than works through.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 3 -->
+<article class="slide">
+  <h1 class="small">Why change the genome?</h1>
+  <ul class="why">
+    <li>Most applications require both the addition of functions and <span class="accent">removal of existing genes</span> (ex, knocking out a branch of biosynthesis for small molecule production)</li>
+    <li data-build="1"
+        data-note="Genetic manipulations are most conveniently done in vitro on plasmid DNAs for cassettes as large as 30kb. However, for larger DNAs, it is easier to assemble such molecules in vivo."
+        data-desc="Second reason: for larger systems, it is difficult to put large numbers of genes into plasmids.">For larger systems, it is difficult to put <span class="accent">large numbers of genes</span> into plasmids</li>
+    <li data-build="2"
+        data-note="For most end-use applications, putting genes into the genome is necessary for genetic stability. Cells tend to lose plasmid DNAs when there is some evolutionary incentive to do so."
+        data-desc="Third reason: you get better genetic stability, because plasmids can get lost somewhat easily.">Get better <span class="accent">genetic stability</span> (plasmids can get lost somewhat easily)</li>
+    <li data-build="3"
+        data-note="Related to the previous, trying to put too many plasmids in one cell is usually toxic and unstable leading to growth defects and inconsistent behavior."
+        data-desc="Fourth reason: many plasmids in one cell is usually a little toxic and unstable.">Many plasmids in one cell is usually a little <span class="accent">toxic and unstable</span></li>
+    <li data-build="4"
+        data-note="Additionally, the genome allows you to park genes at distinct loci that enables one to preserve the local context of the gene and potentially obtain more consistent expression upon additional changes."
+        data-desc="Fifth reason: to preserve local context.">To <span class="accent">preserve local context</span></li>
+    <li data-build="5"
+        data-note="Finally, parking a DNA in the genome is the best way to get stable single-copy number. There are some plasmids that replicate at very low levels, but the only way to guarantee that your genes are at the exact same copy number as the native ones is to put them in the genome."
+        data-desc="Sixth reason: it is the best way to get a stable single-copy number.">Best way to get stable &ldquo;<span class="accent">single-copy</span>&rdquo; number</li>
+  </ul>
+  <template class="notes">There are a variety of reasons one might choose to modify the genome rather than introduce a plasmid. Most applications require both the addition of genes and removal of native genes. For example, one might knock out a branch of biosynthesis for small molecule production to divert flux towards a desired product.</template>
+  <template class="desc">Six reasons to edit the genome rather than carry a plasmid, arriving one at a time, with the phrase that is the reason picked out in red in each. The first is on the slide already: most applications require both the addition of functions and the removal of existing genes, for example knocking out a branch of biosynthesis for small molecule production.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

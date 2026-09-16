@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Cas9 and CRISPR &ndash; Genome Editing</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* Page-local only.  Same three rules the other sections' sequences need. */
+.slide svg .o{opacity:0;transition:opacity .42s ease}
+.slide svg .o.in{opacity:1}
+.slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+@media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
+
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:10px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{font-size:38px;font-weight:700}
+.slide .qhead .btn{margin-left:auto}
+.slide p.lead{font-size:28px;color:var(--muted);margin:0 0 10px}
+.slide figure.fig figcaption{max-width:1180px;text-align:left}
+
+/* The oligos, and the construction file.  Both are things you would type,
+   so both are mono and neither is a figure. */
+.slide pre.oli{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:23px;line-height:1.5;margin:0;white-space:pre;overflow-x:auto}
+.slide pre.oli b{color:var(--blue)}          /* the SpeI sites          */
+.slide pre.oli i{color:var(--vermillion);font-style:normal}  /* protospacer */
+.slide pre.oli u{color:var(--amber);text-decoration:none}    /* scaffold/J23119 */
+.slide pre.cf{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:26px;line-height:1.55;margin:0;white-space:pre}
+.slide .astep{font-size:26px;margin:0 0 10px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 37 -->
+<article class="slide" data-bg="section">
+  <h1>Cas9 and CRISPR</h1>
+  <template class="desc">Section divider: Cas9 and CRISPR.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 38 -->
+<article class="slide">
+  <h1 class="small">CRISPR/Cas9 genome editing</h1>
+  <figure class="fig">
+    <img src="img/03-crispr-overview.png" alt="An overview figure of CRISPR/Cas9 editing: a guide RNA programmed to match a genomic sequence, Cas9 cutting both strands beside the PAM, and the cell repairing the break either by joining the ends or by copying a supplied donor DNA.">
+  </figure>
+  <div class="src">livemint.com</div>
+  <template class="desc">An overview figure of CRISPR/Cas9 genome editing: the guide RNA finding its matching genomic sequence, Cas9 cutting there, and the two ways the break is repaired.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 39 -->
+<article class="slide">
+  <h1 class="small"><em>E. coli</em> knockouts: the current best method</h1>
+  <p>Multigene editing in the <em>Escherichia coli</em> genome via the CRISPR-Cas9 system</p>
+  <p class="lead">Jiang Y, Chen B, Duan C, Sun B, Yang J, Yang S.<br>
+     Appl Environ Microbiol. 2015 Apr;81(7):2506-14 &nbsp; PMID: 25636838</p>
+  <template class="notes">Everything in the rest of this section comes out of this paper. It is the method to reach for in E. coli now, and it is markerless without a second recombinase step.</template>
+  <template class="desc">The reference this section works from: Multigene editing in the Escherichia coli genome via the CRISPR-Cas9 system, Jiang and colleagues, Applied and Environmental Microbiology 2015, PMID 25636838.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 40 - 45 -->
+<!-- Six source slides, seven beats.  The extra one is the cut itself: the
+     source draws it with the repair template already in frame, so the
+     moment the genome is broken never gets a picture.  seq/03-crispr.js. -->
+<article class="slide" data-seq="crispr">
+  <h1 class="small">Two plasmids, four switches</h1>
+  <div class="src">Addgene 62225 (pCas) and 62226 (pTargetF)</div>
+  <template class="notes">pCas needs no modification and is available from Addgene as 62225. It has lambda red under Pbad and a temperature sensitive origin, and it includes a kanamycin resistance gene, Cas9, and a guide RNA targeting the pMB1 origin of replication under IPTG control. pTargetF, Addgene 62226, is the one you build: it encodes the guide RNA targeting the gene to be knocked out, and a template to direct repair. A variant of it is constructed for each site being targeted. It also has the pMB1 origin and a spectinomycin-resistance gene.</template>
+  <template class="desc">A cell drawn as a rounded box with its genome along the floor and the gene to be removed marked on it.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 46 - 47 -->
+<article class="slide">
+  <h1 class="small">A closer look at pTargetF</h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/03-ptargetf-map.png" alt="A detailed circular map of pTargetF showing its restriction sites, the sgRNA cassette, the pMB1 origin and the spectinomycin resistance gene.">
+    </figure>
+    <figure class="fig" data-build="1"
+            data-note="This is what the guide actually does. The twenty bases you chose are the spacer; they pair with the genomic target, and Cas9 cuts three bases in from the PAM. The PAM is not in the plasmid at all -- it has to already be in the genome, which is why you cannot target just anywhere."
+            data-desc="The second figure arrives: Cas9 holding the guide RNA, with the twenty-base protospacer paired to the genomic target and the PAM sequence marked just beyond it.">
+      <img src="img/03-cas9-protospacer.png" alt="Cas9 drawn holding its guide RNA, with the protospacer paired to the genomic target strand and the PAM sequence labelled immediately beyond the paired region.">
+      <figcaption>the <span style="color:var(--blue)">protospacer</span> is the part you change</figcaption>
+    </figure>
+  </div>
+  <template class="desc">A detailed map of pTargetF, the plasmid the guide is built into.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 48 - 50 -->
+<article class="slide">
+  <h1 class="small">Designing a gRNA</h1>
+  <ul class="tight">
+    <li>Download the genome sequence &mdash; here <em>cscR</em>, GenBank CP002185.1</li>
+    <li><em>cscR</em> regulates sucrose uptake in <em>E. coli</em> W and Mach1, our strain, so we may want it gone</li>
+  </ul>
+  <figure class="fig">
+    <img src="img/03-cscr-sequence.png" alt="The cscR sequence open in a sequence editor.">
+  </figure>
+  <template class="desc">The cscR sequence in a sequence editor, with a note that it regulates sucrose uptake in the strain being used.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Find a GG</h1>
+  <ul class="tight">
+    <li>Cas9 needs a <b>PAM</b>, so the target has to be followed by GG &mdash; these are your options in <em>cscR</em></li>
+    <li>On the coding strand. You can also look for <b>CC</b>, which are targets on the non-coding strand</li>
+  </ul>
+  <figure class="fig">
+    <img src="img/03-cscr-gg-sites.png" alt="The cscR sequence with every GG dinucleotide highlighted, showing how many candidate PAM sites there are.">
+  </figure>
+  <template class="desc">The cscR sequence with every GG highlighted: the candidate PAM sites on the coding strand.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">And ideally start with an A</h1>
+  <ul class="tight">
+    <li>The guide is transcribed from a sigma70 promoter, which prefers to start on an <b>A</b></li>
+    <li>It also helps to pick a spacer with no internal GG</li>
+    <li class="accent">So search for <span style="font-family:ui-monospace,Menlo,monospace">AnnnnnnnnnnnnnnnnnnnnGG</span> and take your pick</li>
+  </ul>
+  <figure class="fig">
+    <img src="img/03-cscr-search.png" alt="A sequence editor find dialog searching for A followed by twenty any-bases followed by GG, with the hits listed.">
+  </figure>
+  <template class="notes">The A is about transcription, not about Cas9: the guide has to be made before it can do anything, and sigma70 starts best on an A. That is the kind of constraint that only shows up when you build one.</template>
+  <template class="desc">The search that finds a usable protospacer: A, then twenty of anything, then GG, run over the cscR sequence.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 51 - 52 -->
+<article class="slide">
+  <h1 class="small">Put the protospacer in these oligos</h1>
+  <pre class="oli">Forward primer
+         <b>SpeI</b>       <i>protospacer</i>         <u>guide scaffold</u>
+5&rsquo;-ccata<b>ACTAGT</b><i>acgctgcctgagtctctgta</i><u>gttttagagctagaaatagcaag</u>-3&rsquo;
+
+Reverse primer
+         <b>SpeI</b>       <u>J23119</u>
+5&rsquo;-ctcag<b>ACTAGT</b><u>attatacctaggactgagctag</u>-3&rsquo;</pre>
+  <p class="lead" style="margin-top:26px">Only the red changes. Everything else is the same in every guide you will ever order.</p>
+  <template class="notes">These two oligos are then used with pTargetF in an EIPCR, closing the circle with SpeI. The sequence in red is the chosen region in cscR. You can search for it in the file and see that it is adjacent to NGG and begins with an A.</template>
+  <template class="desc">The two oligos for building a guide, set as text: a forward primer made of a five-base tail, a SpeI site, the twenty-base protospacer in red and the guide scaffold, and a reverse primer made of a tail, a SpeI site and the J23119 promoter. A note underneath says only the protospacer changes.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">EIPCR/CRISPR construction file</h1>
+  <pre class="cf">PCR       ca4238 ca4239 pTargetF ipcr
+Digest    ipcr   SpeI   1        dig
+Ligate    dig                    lig
+Transform lig    Mach1  Spec  37 pTarg-cscR</pre>
+  <template class="notes">It is an EIPCR like any other: amplify the whole plasmid with the change built into the primer tails, cut the tails, and close the circle.</template>
+  <template class="desc">The construction file for building the guide plasmid: PCR pTargetF with the two oligos, digest the product with SpeI, ligate it closed, and transform into Mach1 on spectinomycin at 37 degrees to give pTarg-cscR.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 53 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">fimA cleavage by CRISPR</div>
+    <button class="btn" type="button" data-reveal>Show the answer</button>
+  </div>
+  <p>Design the oligos for an EIPCR with SpeI on pTargetF to make a guide that will target <em>fimA</em> for cleavage</p>
+
+  <div class="qshow">
+    <pre class="oli">Forward primer
+         <b>SpeI</b>       <i>protospacer</i>         <u>guide scaffold</u>
+5&rsquo;-ccata<b>ACTAGT</b><i>acgctgcctgagtctctgta</i><u>gttttagagctagaaatagcaag</u>-3&rsquo;
+
+Reverse primer
+         <b>SpeI</b>       <u>J23119</u>
+5&rsquo;-ctcag<b>ACTAGT</b><u>attatacctaggactgagctag</u>-3&rsquo;</pre>
+    <p class="lead" style="margin-top:20px">pTargetF&rsquo;s original protospacer, for you to replace</p>
+  </div>
+
+  <div class="qans" hidden>
+    <p class="astep">Search <span style="font-family:ui-monospace,Menlo,monospace">AnnnnnnnnnnnnnnnnnnnnGG</span> in <em>fimA</em>. One hit is <span style="font-family:ui-monospace,Menlo,monospace">AAACGTTGGTGTGCAGATCC<b>TGG</b></span> &mdash; the first twenty bases are the spacer, and the <b>TGG</b> after them is the PAM, which stays in the genome and never goes in the oligo.</p>
+    <pre class="oli">Forward primer
+         <b>SpeI</b>       <i>protospacer</i>         <u>guide scaffold</u>
+5&rsquo;-ccata<b>ACTAGT</b><i>AAACGTTGGTGTGCAGATCC</i><u>gttttagagctagaaatagcaag</u>-3&rsquo;
+
+Reverse primer
+         <b>SpeI</b>       <u>J23119</u>
+5&rsquo;-ctcag<b>ACTAGT</b><u>attatacctaggactgagctag</u>-3&rsquo;</pre>
+    <p class="lead" style="margin-top:20px">The reverse primer never changes.</p>
+  </div>
+
+  <template class="notes">Search the sequence for AnnnnnnnnnnnnnnnnnnnnGG. Pick one of the sites. I chose AAACGTTGGTGTGCAGATCCTGG. Put the first 20 bp into the oligos.</template>
+  <template class="desc">A question for the room: design the oligos for an EIPCR on pTargetF that makes a guide against fimA. The plasmid's original oligos are printed as the starting point, with the protospacer picked out in red as the only part that changes.</template>
+</article>
+
+<script>
+/* The answer reveal.  Delegated and id-free: presenter mode clones the
+   NEXT slide, so an id on a slide exists twice while the one before it
+   is showing. */
+document.addEventListener("click", function(e){
+  const rv = e.target.closest && e.target.closest("[data-reveal]");
+  if (!rv) return;
+  const sl = rv.closest(".slide"),
+        ans = sl.querySelector(".qans"), q = sl.querySelector(".qshow"),
+        opening = ans.hidden;
+  ans.hidden = !opening;
+  if (q) q.hidden = opening;
+  rv.textContent = opening ? "Hide the answer" : "Show the answer";
+});
+</script>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/03-crispr.js" defer></script>
+</body>
+</html>
