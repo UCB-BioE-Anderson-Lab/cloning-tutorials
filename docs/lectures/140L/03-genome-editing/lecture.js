@@ -31,6 +31,12 @@ window.LECTURE = {
                                         title: "Homologous Recombination", kind: "section" },
     { file: "03-crispr.html",           title: "Cas9 and CRISPR",          kind: "section" },
     { file: "04-moving-loci.html",      title: "Conjugation, Transposition, Transduction",
-                                                                           kind: "section" }
+                                                                           kind: "section" },
+
+    /* --- the bench half, from transformation on ---------------------- */
+    { file: "05-transformation.html",   title: "Transformation and Plating", kind: "section" },
+    { file: "06-colony-picking.html",   title: "Colony Picking",           kind: "section" },
+    { file: "07-miniprep.html",         title: "Miniprepping",             kind: "section" },
+    { file: "08-sequencing.html",       title: "Sequencing",               kind: "section" }
   ]
 };
