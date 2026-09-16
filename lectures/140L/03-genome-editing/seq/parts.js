@@ -83,6 +83,19 @@ function feat(x, y, w, label, col, h){
   return g;
 }
 
+/* <b> and <em> are HTML, and an SVG <text> is not HTML: assigning them
+   through innerHTML drops the element AND the words inside it, silently.
+   A caption reading "Exo eats 5' ends" came out as "eats 5' ends" and
+   nothing anywhere said so.  Captions are written with <b> and <em>
+   because that is what everything else in these decks uses, and this
+   turns them into the tspans SVG will actually render. */
+function rich(t){
+  return String(t)
+    .replace(/<b>/g,  '<tspan font-weight="700">')
+    .replace(/<em>/g, '<tspan font-style="italic">')
+    .replace(/<\/(?:b|em)>/g, "</tspan>");
+}
+
 /* The shell every sequence in this lecture wants: a full-slide SVG, a
    root the .nofx class can hang on, a registry of things that come and
    go, and the two caption lines under the drawing. */
@@ -109,8 +122,8 @@ function scene(slide, capY, callY){
     show: function(on, f, animated){
       root.classList.toggle("nofx", animated === false);
       for (const k in parts) parts[k].classList.toggle("in", on.indexOf(k) >= 0);
-      cap.innerHTML  = (f && f.cap)  || "";
-      call.innerHTML = (f && f.call) || "";
+      cap.innerHTML  = rich((f && f.cap)  || "");
+      call.innerHTML = rich((f && f.call) || "");
     }
   };
   return api;

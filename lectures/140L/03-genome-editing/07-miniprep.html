@@ -8,6 +8,10 @@
 <title>Miniprepping &ndash; Genome Editing</title>
 <link rel="stylesheet" href="../../deck.css">
 <style>
+.slide svg .o{opacity:0;transition:opacity .42s ease}
+.slide svg .o.in{opacity:1}
+.slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+@media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
 .slide figure.fig figcaption{max-width:1180px;text-align:left}
 .slide p.lead{font-size:28px;color:var(--muted);margin:0 0 10px}
 .slide p.see{font-size:24px;margin:16px 0 0}
@@ -35,6 +39,16 @@
   </figure>
   <template class="notes">The kit is buffers and columns, and the buffers have names that tell you nothing. So here is what is in them and why, because two of these steps are the whole method and the rest is washing.</template>
   <template class="desc">A photograph of a Qiagen miniprep kit: the box, the buffer bottles and the spin columns.</template>
+</article>
+
+<!-- The reason, before the pipetting.  The list that follows is six
+     volumes and three buffer names; the one idea the whole procedure
+     turns on is that a small circle re-pairs and a chromosome cannot,
+     and it was only ever in the speaker note.  seq/07-lysis.js. -->
+<article class="slide" data-seq="lysis">
+  <h1 class="small">Why this works at all</h1>
+  <template class="notes">Before the volumes, the reason. Everything in the cell is a double-stranded circle; the only difference this method uses is that one of them is fifteen hundred times longer than the other.</template>
+  <template class="desc">A cell drawn as a rounded box, with one long wandering line for the chromosome and six small circles for the plasmid.</template>
 </article>
 
 <article class="slide">
@@ -89,6 +103,8 @@
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/07-lysis.js" defer></script>
 </body>
 </html>
 

@@ -21,6 +21,7 @@
 .slide .astep{font-size:27px;margin:0 0 14px}
 .slide .astep b{color:var(--vermillion)}
 /* The two accessions, set as the lookup they are. */
+.slide svg.map{display:block;width:100%;height:auto;margin:6px 0 0}
 .slide pre.acc{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   font-size:24px;line-height:1.5;margin:0 0 18px;white-space:pre;color:var(--muted)}
 </style>
@@ -65,8 +66,23 @@
     <p class="astep">Look up where the two genes actually are:</p>
     <pre class="acc">glgS in MG1655   NC_000913  REGION: 3191739..3191939
 rfaE in MG1655   NC_000913  REGION: 3195320..3196753</pre>
-    <p class="astep">They are <b>about 3.4 kb apart</b> &mdash; well inside the ~90 kb that P1 carries in one head.</p>
-    <p class="astep">So the fragment that brings <em>rfaE</em>::Cm in brings the donor&rsquo;s <b>wild-type <em>glgS</em></b> with it, and recombination puts both in. Selecting chloramphenicol selects for exactly the event that undoes her first knockout.</p>
+    <p class="astep">Drawn to scale, that is the whole answer:</p>
+    <svg viewBox="0 0 1380 214" class="map" role="img" font-family="Helvetica Neue,Arial,Helvetica,sans-serif"
+         aria-label="The two genes drawn to scale inside one P1 fragment: a 90 kilobase bracket spans almost the whole width, and glgS and rfaE sit as two touching marks near its middle, 3.4 kilobases apart.">
+      <!-- the window P1 carries -->
+      <path d="M70 60V96M1310 60V96M70 78H1310" stroke="#767676" stroke-width="2.5" fill="none"/>
+      <text x="690" y="46" text-anchor="middle" font-size="26" fill="#767676">one P1 head carries ~90 kb of the donor</text>
+      <!-- the genome, and the two genes on it, at 1150px per 90 kb -->
+      <path d="M70 150H1310" stroke="#111111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <rect x="676" y="139" width="3" height="22" fill="#004373"/>
+      <rect x="682" y="139" width="18" height="22" fill="#ba3a13"/>
+      <path d="M676 176V196M700 176V196M676 186H700" stroke="#ba3a13" stroke-width="2" fill="none"/>
+      <text x="688" y="216" text-anchor="middle" font-size="23" fill="#ba3a13" font-weight="700">3.4 kb</text>
+      <text x="640" y="130" text-anchor="end" font-size="23" fill="#004373" font-weight="700">glgS</text>
+      <text x="736" y="130" font-size="23" fill="#ba3a13" font-weight="700">rfaE</text>
+      <path d="M646 124L672 140M730 124L704 140" stroke="#767676" stroke-width="1.6" fill="none"/>
+    </svg>
+    <p class="astep" style="margin-top:26px">You cannot move one without the other. The fragment that brings <em>rfaE</em>::Cm in brings the donor&rsquo;s <b>wild-type <em>glgS</em></b> with it, and recombination puts both in &mdash; so selecting chloramphenicol selects for exactly the event that undoes her first knockout.</p>
   </div>
 
   <template class="notes">If you look up where these genes are on the genome, you will find that they are well within 90kb of each other. What is undoubtedly happening is that the glgS knockout cassette is getting displaced by the wild-type locus upon transduction.</template>

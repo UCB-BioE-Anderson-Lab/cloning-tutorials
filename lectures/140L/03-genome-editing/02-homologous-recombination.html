@@ -51,29 +51,15 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 19 -->
-<article class="slide">
+<!-- Six bullets in the source, and an animation here.  Five of the six
+     are about a molecule's ends, and the sixth -- that Red does nothing
+     to a circle -- is a rule you take on trust when it is written down
+     and is obvious the moment the circle is drawn.  seq/02-lambda-red.js. -->
+<article class="slide" data-seq="lambda-red">
   <h1 class="small">Lambda Red recombinase</h1>
-  <ul class="tight">
-    <li><em>E. coli</em> by itself is very inefficient at homologous recombination (unlike yeast and <em>B. subtilis</em>)</li>
-    <li data-build="1"
-        data-note="In E. coli and other bacteria that lack efficient homologous recombination systems, this functionality can be enhanced by expression of lambda red recombinase."
-        data-desc="Second point: expression of the phage lambda Red genes, exo, gam and bet, enhances recombination dramatically.">Expression of the phage lambda Red genes (<b>exo</b>, <b>gam</b>, and <b>bet</b>) enhances recombination dramatically</li>
-    <li data-build="2"
-        data-note="Lambda red is in common use for producing knockins and knockouts in prokaryotic genomes."
-        data-desc="Third point: it is commonly used for knockins and knockouts.">Commonly used for knockins and knockouts</li>
-    <li data-build="3"
-        data-note="Mechanistically, the recombinagenic species is linear single-stranded DNA, such as oligonucleotides that is introduced into the cell by transformation."
-        data-desc="Fourth point: the active species is linear single-stranded DNA, so oligonucleotides can be used.">Active species is <b>linear single-stranded DNA</b> (can use oligonucleotides)</li>
-    <li data-build="4"
-        data-note="Alternatively, a linear double-stranded DNA can be provided and the exo protein of lambda red will degrade it into single-stranded molecules that can undergo recombination. Often that linear DNA is a PCR product."
-        data-desc="Fifth point: the Exo protein degrades linear double-stranded DNAs to single-stranded DNAs, so PCR-derived DNAs can be used.">Exo degrades linear double-stranded DNAs to single-stranded DNAs (can use PCR products)</li>
-    <li class="accent" data-build="5"
-        data-note="The method does not work directly on circular DNAs, but linear DNAs can be generated from circular DNAs by treatment with any of the various restriction enzymes."
-        data-desc="Sixth point, in red: it will not work directly on circular DNAs.">Won&rsquo;t work directly on circular DNAs</li>
-  </ul>
   <div class="src">Proc Natl Acad Sci U S A. 2000 Jun 6;97(12):6640-5 &nbsp; PMID: 10829079</div>
   <template class="notes">Lambda Red is the thing that makes the next twenty slides possible. Without it E. coli simply does not recombine at a useful rate, which is why all of this is harder in E. coli than it is in yeast.</template>
-  <template class="desc">Six points on lambda Red recombinase. The first is on the slide already: E. coli by itself is very inefficient at homologous recombination, unlike yeast and B. subtilis.</template>
+  <template class="desc">A linear double-stranded donor DNA drawn above the genome, which carries a target region. Nothing is happening between them.</template>
 </article>
 
 <!-- ------------------------------------------------------------ 20 - 24 -->
@@ -143,37 +129,28 @@
 </article>
 
 <article class="slide">
-  <h1 class="small">The forward oligo</h1>
-  <p class="lead">Forty bases of the genome, then the twenty that prime on P1</p>
+  <h1 class="small">The two oligos</h1>
+  <p class="lead">Each one is forty bases of the genome with twenty that prime on pKD3 after it &mdash; the same two sources, taken from opposite ends</p>
   <div class="cols">
     <figure class="fig">
-      <img src="img/02-glgs-homology.png" alt="The glgS locus with the forty-base homology region at its left end highlighted.">
-      <figcaption>the 40 bp you picked</figcaption>
+      <img src="img/02-glgs-homology.png" alt="The glgS locus with a forty-base homology region highlighted at each end of the gene.">
+      <figcaption>the 40 bp you picked &mdash; the left end goes on the forward oligo, the right end reverse complemented onto the reverse</figcaption>
     </figure>
-    <figure class="fig">
-      <img src="img/02-fwd-oligo.png" alt="The P1 priming site on pKD3, the twenty bases the forward oligo ends on.">
-      <figcaption>P1, from pKD3</figcaption>
-    </figure>
+    <div>
+      <figure class="fig">
+        <img src="img/02-fwd-oligo.png" alt="The P1 priming site on pKD3, the twenty bases the forward oligo ends on.">
+        <figcaption>P1 &mdash; the 3&rsquo; end of the forward oligo</figcaption>
+      </figure>
+      <figure class="fig" data-build="1"
+              data-note="And the reverse is built the same way from the other end: the homology region reverse complemented, then the reverse complement of P2. It is the same two decisions made twice, which is why one slide is enough for both."
+              data-desc="The second source arrives: the P2 priming site on pKD3, whose reverse complement is the three-prime end of the reverse oligo.">
+        <img src="img/02-rev-oligo.png" alt="The P2 priming site on pKD3, whose reverse complement is the three-prime end of the reverse oligo.">
+        <figcaption>P2 &mdash; reverse complemented, the 3&rsquo; end of the reverse oligo</figcaption>
+      </figure>
+    </div>
   </div>
-  <template class="notes">Forward oligo: atggatcatagtcttaattctttaaataatttcgatttccgtgtaggctggagctgcttc</template>
-  <template class="desc">The forward oligo built from two pieces shown side by side: the forty-base homology region taken from the left end of glgS, and the twenty-base P1 priming site taken from pKD3.</template>
-</article>
-
-<article class="slide">
-  <h1 class="small">The reverse oligo</h1>
-  <p class="lead">The reverse complement of the homology region, then the reverse complement of P2</p>
-  <div class="cols">
-    <figure class="fig">
-      <img src="img/02-glgs-homology.png" alt="The glgS locus with the forty-base homology region at its right end highlighted.">
-      <figcaption>the 40 bp at the other end</figcaption>
-    </figure>
-    <figure class="fig">
-      <img src="img/02-rev-oligo.png" alt="The P2 priming site on pKD3, whose reverse complement is the three-prime end of the reverse oligo.">
-      <figcaption>P2, from pKD3</figcaption>
-    </figure>
-  </div>
-  <template class="notes">Reverse oligo: tcagtgctctaactccagctctcttgcctgcatcatctgttgatgggaattagccatggtcc</template>
-  <template class="desc">The reverse oligo built the same way, from the forty-base region at the other end of glgS and the P2 priming site on pKD3, both taken as reverse complements.</template>
+  <template class="notes">Forward oligo: atggatcatagtcttaattctttaaataatttcgatttccgtgtaggctggagctgcttc. Reverse oligo: tcagtgctctaactccagctctcttgcctgcatcatctgttgatgggaattagccatggtcc. Two oligos, and between them only four decisions: where each forty-base region starts, and which of P1 or P2 it is paired with.</template>
+  <template class="desc">Both oligos built from the same two sources: the forty-base homology regions at the two ends of glgS, and the P1 and P2 priming sites on pKD3. The forward oligo takes the left region and P1; the reverse takes the right region and P2, both reverse complemented.</template>
 </article>
 
 <article class="slide">
@@ -293,6 +270,7 @@ document.addEventListener("click", function(e){
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/parts.js" defer></script>
+<script src="seq/02-lambda-red.js" defer></script>
 <script src="seq/02-dw.js" defer></script>
 </body>
 </html>
