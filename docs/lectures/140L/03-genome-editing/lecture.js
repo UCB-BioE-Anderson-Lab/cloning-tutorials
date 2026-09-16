@@ -28,6 +28,7 @@ window.LECTURE = {
     { file: "00-front-matter.html",     title: "Introduction",             kind: "lecture" },
     { file: "01-att-integrases.html",   title: "att Integrases",           kind: "section" },
     { file: "02-homologous-recombination.html",
-                                        title: "Homologous Recombination", kind: "section" }
+                                        title: "Homologous Recombination", kind: "section" },
+    { file: "03-crispr.html",           title: "Cas9 and CRISPR",          kind: "section" }
   ]
 };
