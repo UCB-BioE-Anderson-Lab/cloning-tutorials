@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>att Integrases &ndash; Genome Editing</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.  deck.css is shared by every lecture in the course.
+ *
+ * THE SEQUENCES FADE RATHER THAN REDRAW.  seq/01-crim.js and
+ * seq/01-markerless.js build their scene once and move opacities, because
+ * nothing in either drawing changes shape -- a plasmid is present or it is
+ * not.  These three rules are the transition those files rely on, and the
+ * .nofx escape is how they honour go(i, false) for the auditor and for
+ * reduced motion.
+ * --------------------------------------------------------------------- */
+.slide svg .o{opacity:0;transition:opacity .42s ease}
+.slide svg .o.in{opacity:1}
+.slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+@media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
+
+/* A question for the room, with the source deck's thinking figure. */
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:10px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{font-size:38px;font-weight:700}
+
+/* The worked sequence files.  They are screenshots of a sequence editor,
+   so they are wide and short; letting them claim the leftover height and
+   centre is the same treatment the fabrication deck gives its editor
+   windows. */
+.slide figure.fig figcaption{max-width:1180px;text-align:left}
+.slide p.lead{font-size:28px;color:var(--muted);margin:0 0 10px}
+</style>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- 4 -->
+<article class="slide" data-bg="section">
+  <h1><em>att</em> Integrases</h1>
+  <p>Employing site-specific integrases from various phages to insert a DNA at a single locus of the genome</p>
+  <template class="notes">Phage-derived att integrases employ a site specific recombinase to insert a DNA at a single locus of the genome.</template>
+  <template class="desc">Section divider: att Integrases. Employing site-specific integrases from various phages to insert a DNA at a single locus of the genome.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 5 -->
+<article class="slide">
+  <h1 class="small">Phage <em>att</em> site integration</h1>
+  <div class="cols wide-right">
+    <figure class="fig">
+      <img src="img/01-phage-lambda.png" alt="The phage lambda life cycle drawn as a reaction: a circular phage lambda genome carrying attP crossed with the linear E. coli genome carrying attB, and below it the integrated product, one genome with attL at one end of the phage DNA and attR at the other. Integration is labelled Int and IHF, excision Int, Xis and IHF.">
+    </figure>
+    <ul class="tight">
+      <li><b>CRIM</b> systems: Conditional-Replication, Integration, Excision, and Retrieval Plasmid-Host Systems</li>
+      <li data-build="1"
+          data-note="These attP and integrase components are derived from various phages which integrate themselves into genomes at these sites."
+          data-desc="Second point: the systems are based on native phage-integration sites.">Based on native <b>phage-integration sites</b></li>
+      <li data-build="2"
+          data-note="There are at least 6 of these systems, many-but-not-all are from E. coli phages. The common ones are phi80, lambda, HK022, P21, P22, and phiC31."
+          data-desc="Third point: there are multiple orthogonal systems, phi80, lambda, HK022, P21, P22 and phiC31.">Multiple <b>orthogonal</b> systems: phi80, lambda, HK022, P21, P22, and phiC31</li>
+      <li data-build="3"
+          data-note="In each case, there is a specific attB sequence in the genome that undergoes recombination with the attP sequence. Different phages use different attB sequences, and each encodes its own sequence-specific integrase."
+          data-desc="Fourth point: site specific recombination of a circular DNA into the att site of the genome.">Site specific recombination of a <b>circular DNA</b> into the <em>att</em> site of the genome</li>
+      <li data-build="4"
+          data-note="Most of these systems only work on DNAs up to around 10kb. PhiC31 is distinctive in that it allows the integration of DNAs larger than 10kb. Thus, in the more advanced usages of phage att site integration, such as its use in mammalian cells, phiC31 is usually employed."
+          data-desc="Fifth point: phiC31 allows the integration of DNAs larger than 10 kilobases.">phiC31 allows the integration of &gt;10kb DNAs</li>
+      <li data-build="5"
+          data-note="The integration chemistry requires the use of helper plasmids to transiently produce the phage-derived integrase. Helper plasmids are typically constructed from temperature-sensitive origins of replication and thus transformed bacteria can be cured by growth at elevated temperatures."
+          data-desc="Sixth point: the method involves helper plasmids.">Involves &ldquo;<b>Helper Plasmids</b>&rdquo;</li>
+    </ul>
+  </div>
+  <div class="src">J Bacteriol. 2001 Nov;183(21):6384-93 &nbsp; PMID: 11591683</div>
+  <template class="notes">In these methods, you first construct a circular plasmid DNA containing the attP sequence. That plasmid is then introduced into cells engineered with att integrases. The plasmid recombines itself into the genome. The CRIM system is one popular implementation of this biochemistry. The CRIM plasmids can be inserted into the genome using an integrase, and then later excised by expression of integrase and xis.</template>
+  <template class="desc">The phage lambda integration reaction drawn as a cycle, beside six points about the CRIM systems built on it. The first is on the slide already: CRIM stands for Conditional-Replication, Integration, Excision, and Retrieval Plasmid-Host Systems.</template>
+</article>
+
+<!-- ------------------------------------------------------------- 6 - 8 -->
+<!-- Three source slides, five beats.  The source marks two of its own
+     clicks with a "*" mid-note, and both are a plasmid arriving or
+     leaving, so the beats are the five things that happen rather than the
+     three pictures drawn of them.  seq/01-crim.js holds the scene. -->
+<article class="slide" data-seq="crim">
+  <h1 class="small">CRIM <em>att</em> &phi;80 integration</h1>
+  <div class="src">J Bacteriol. 2001 Nov;183(21):6384-93 &nbsp; PMID: 11591683</div>
+  <template class="notes">Let me describe the different stages of the CRIM integration experiment. Let's consider that it is the phi80 system. First, we start with an E. coli cell. MG1655, the grandaddy of most modern lab E. coli strains, contains the phi80 att site, so most laboratory strains are acceptable for this experiment.</template>
+  <template class="desc">A cell drawn as a rounded box with its genome as a line along the floor. On the genome, the phi80 att B site is marked in blue.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/01-crim.js" defer></script>
+</body>
+</html>

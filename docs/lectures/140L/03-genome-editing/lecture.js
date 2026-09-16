@@ -25,6 +25,7 @@ window.LECTURE = {
      for prev/next, so a file named before it exists is a 404 off the end
      of the slide before it.  The full plan is in the comment above. */
   sections: [
-    { file: "00-front-matter.html",     title: "Introduction",             kind: "lecture" }
+    { file: "00-front-matter.html",     title: "Introduction",             kind: "lecture" },
+    { file: "01-att-integrases.html",   title: "att Integrases",           kind: "section" }
   ]
 };
