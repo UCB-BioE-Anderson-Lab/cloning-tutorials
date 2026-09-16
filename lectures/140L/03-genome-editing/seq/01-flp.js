@@ -27,10 +27,14 @@ const G = window.GE, C = G.C;
 const FLP = [
   { on:["before"],
     cap:"the marker goes in between two FRT sites, pointing the same way",
-    call:"" },
+    call:"",
+    note:"There are various ways in which you can make this process markerless. One common strategy is to flox the selectable marker. Here, a DNA is constructed with FRT sites in a parallel orientation flanking an antibiotic resistance gene. This cassette is introduced into the genome conferring chloramphenicol resistance, which is what lets you select it.",
+    desc:"A stretch of DNA drawn as a line, carrying a chloramphenicol resistance marker between two FRT sites." },
   { on:["before","arrow","after"],
     cap:"Flp recombines the two FRTs and loops out everything between them",
-    call:"one FRT is left behind &#183; the marker is gone and can be used again" }
+    call:"one FRT is left behind &#183; the marker is gone and can be used again",
+    note:"Subsequently, Flp recombinase is introduced into the cell, resulting in excision of the marker and leaving behind only the FRT site. The two FRTs point the same way, which is what makes this an excision rather than an inversion.",
+    desc:"An arrow labelled Flp recombinase points down to a second line below the first, which carries a single FRT site and nothing else." }
 ];
 
 window.Deck.sequence("flp", function(slide){
@@ -68,7 +72,10 @@ window.Deck.sequence("flp", function(slide){
     s.show(f.on, f, animated === false || reduce.matches);
   }
   go(0, false);
-  return { steps: FLP.map(() => ({})), go: go };
+  /* one note and one desc per beat: without these deck.js falls back
+     to the slide\'s single <template>, and presenter view shows the
+     same sentence for every click while the picture changes */
+  return { steps: FLP.map(f => ({note:f.note, desc:f.desc})), go: go };
 });
 
 /* ---- the same trick, on the integrated CRIM ------------------------- */
@@ -79,15 +86,23 @@ const PR = 112, HX = 400, PY = 452;
 const ML = [
   { on:["pre"],
     cap:"the CRIM went in with FRT sites flanking its marker",
-    call:"everything between them is now disposable" },
+    call:"everything between them is now disposable",
+    note:"Let's take a look at how that would be implemented in the CRIM system. The helper plasmid was used to insert the CRIM into the genome and then cleared, and the cassette that went in had FRT sites flanking its marker.",
+    desc:"The cell with the CRIM in its genome: attL, the R6K origin, an FRT site, the CmR marker, a second FRT site, the gene, and attR." },
   { on:["pre","cp20"],
-    cap:"a second helper, pCP20, brings Flp in &#183; again on a temperature-sensitive origin" },
+    cap:"a second helper, pCP20, brings Flp in &#183; again on a temperature-sensitive origin",
+    note:"The cell is now transformed with a second helper plasmid, pCP20, encoding the Flp recombinase. Same trick as before: temperature-sensitive origin, so it can be cleared afterwards.",
+    desc:"A plasmid labelled pCP20 appears inside the cell, carrying Flp and bla in blue and a temperature-sensitive origin in amber." },
   { on:["post","cp20"],
     cap:"Flp loops out the marker and the origin it came in with",
-    call:"one FRT left, and the gene" },
+    call:"one FRT left, and the gene",
+    note:"The recombinase will excise the intervening region of the DNA, leaving behind only the FRT site. Notice what goes with it: the marker and the R6K origin that carried the whole thing in.",
+    desc:"The genome has contracted: the R6K origin, the marker and one of the two FRT sites have gone, leaving attL, one FRT, the gene and attR." },
   { on:["post"],
     cap:"42&#176;C clears pCP20",
-    call:"a gene and one FRT scar in an otherwise untouched strain" }
+    call:"a gene and one FRT scar in an otherwise untouched strain",
+    note:"The cells are grown again at 42 degrees to cure them of the helper plasmid. At the end of this process, a gene and a single FRT site are introduced into the genome of an otherwise unmodified cell containing no residual selectable markers.",
+    desc:"The pCP20 plasmid has gone, leaving the cell with the gene and a single FRT scar in its genome." }
 ];
 
 window.Deck.sequence("markerless", function(slide){
@@ -122,6 +137,9 @@ window.Deck.sequence("markerless", function(slide){
     s.show(f.on, f, animated === false || reduce.matches);
   }
   go(0, false);
-  return { steps: ML.map(() => ({})), go: go };
+  /* one note and one desc per beat: without these deck.js falls back
+     to the slide\'s single <template>, and presenter view shows the
+     same sentence for every click while the picture changes */
+  return { steps: ML.map(f => ({note:f.note, desc:f.desc})), go: go };
 });
 })();

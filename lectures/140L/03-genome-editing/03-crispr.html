@@ -38,6 +38,7 @@
 <!-- ---------------------------------------------------------------- 37 -->
 <article class="slide" data-bg="section">
   <h1>Cas9 and CRISPR</h1>
+  <template class="notes">Everything so far has needed a recombinase, or a phage, or both. CRISPR needs neither. What it brings is a way to cut the genome wherever you like, and the cell's own repair does the rest.</template>
   <template class="desc">Section divider: Cas9 and CRISPR.</template>
 </article>
 
@@ -48,6 +49,7 @@
     <img src="img/03-crispr-overview.png" alt="An overview figure of CRISPR/Cas9 editing: a guide RNA programmed to match a genomic sequence, Cas9 cutting both strands beside the PAM, and the cell repairing the break either by joining the ends or by copying a supplied donor DNA.">
   </figure>
   <div class="src">livemint.com</div>
+  <template class="notes">The picture in general terms before we do it in E. coli. A guide RNA is programmed to match a sequence, Cas9 cuts there, and the cell either joins the ends back together or copies a donor DNA across the break.</template>
   <template class="desc">An overview figure of CRISPR/Cas9 genome editing: the guide RNA finding its matching genomic sequence, Cas9 cutting there, and the two ways the break is repaired.</template>
 </article>
 
@@ -86,6 +88,7 @@
       <figcaption>the <span style="color:var(--blue)">protospacer</span> is the part you change</figcaption>
     </figure>
   </div>
+  <template class="notes">This is the plasmid you actually build, so it is worth knowing what is on it. Everything except the twenty-base spacer is the same in every guide anybody makes.</template>
   <template class="desc">A detailed map of pTargetF, the plasmid the guide is built into.</template>
 </article>
 
@@ -99,6 +102,7 @@
   <figure class="fig">
     <img src="img/03-cscr-sequence.png" alt="The cscR sequence open in a sequence editor.">
   </figure>
+  <template class="notes">Now the design. cscR regulates sucrose uptake in E. coli W and in Mach1, which is our strain, so it is a reasonable thing to want gone.</template>
   <template class="desc">The cscR sequence in a sequence editor, with a note that it regulates sucrose uptake in the strain being used.</template>
 </article>
 
@@ -111,6 +115,7 @@
   <figure class="fig">
     <img src="img/03-cscr-gg-sites.png" alt="The cscR sequence with every GG dinucleotide highlighted, showing how many candidate PAM sites there are.">
   </figure>
+  <template class="notes">Cas9 will not cut without a PAM next to the target, so the first constraint is entirely about the genome and not about you: find the GGs. On the coding strand these are your options, and you can look for CC as well, which are targets on the other strand.</template>
   <template class="desc">The cscR sequence with every GG highlighted: the candidate PAM sites on the coding strand.</template>
 </article>
 
