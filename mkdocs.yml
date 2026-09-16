@@ -17,6 +17,7 @@ exclude_docs: |
 
 nav:
   - Overview: index.md
+
   - Wetlab:
       - 1. Lab Safety: wetlab/safety.md
       - 2. Pipetting: wetlab/pipetting.md
@@ -31,10 +32,6 @@ nav:
       - 11. Cycle Sequencing: wetlab/sequencing.md
       - 12. Measuring Fluorescence: wetlab/bestp.md
       - 13. Equipment Training: trainings/qr_training.md
-
-  - Bench Cheatsheets: cheatsheets.md
-
-  - Lectures: lectures/index.md
 
   - Cloning Techniques:
       - 1. DNA Basics: construction/dna_basics.md
@@ -55,6 +52,10 @@ nav:
       - 5. Simulation Tools: planning/cfs_simulation.md
       - 6. Inventory and Labsheets: planning/inventory_labsheets.md
       - 7. Ortholog Scan Project: planning/project_ispA.md
+
+  - Lectures: lectures/index.md
+
+  - Bench Cheatsheets: cheatsheets.md
 
   - Tools:
       - Protocol Builder: protocols/protocols.md
@@ -79,6 +80,7 @@ nav:
       - "Microwave": trainings/microwave.md
       - "Echotherm": trainings/echotherm.md
       - "Proflex": trainings/proflex.md
+
   - About: about.md
 
 markdown_extensions:
