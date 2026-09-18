@@ -104,15 +104,15 @@ const FR = [
 
   { on:["chomp","recbcd"],
     cap:"without help, <b>RecBCD</b> takes it apart from both ends",
-    call:"a host exonuclease that treats a free end as damage &#183; this is most of why <em>E. coli</em> will not do this for you",
-    note:"E. coli treats free double-stranded ends as damage. RecBCD, also called exonuclease five, loads on a blunt end and degrades the DNA processively from it. It is there to deal with broken chromosomes and invading phage DNA, and it cannot tell the difference between those and the cassette you spent a week making. So the first problem is not getting the recombination to happen. It is keeping the substrate alive long enough to try.",
+    call:"a helicase-nuclease, and it loads at any free double-stranded end",
+    note:"E. coli has a problem with free double-stranded ends, and RecBCD is what it does about them. Historically it was called exonuclease five. It loads at a free end, unwinds the duplex and degrades it as it goes, and it goes fast. That is not simple vandalism, and this is worth saying because it is the bit people get wrong: RecBCD is the front end of the cell's main double-strand break repair pathway. On a broken chromosome it chews inward until it meets a Chi site in the right orientation, and then it changes behaviour and hands the three-prime strand to RecA to go and find a homologous partner. Your cassette is a free-ended linear DNA that is not a broken chromosome, so what it gets is the first half of that and not the second. The first problem here is therefore not getting the recombination to happen. It is keeping the substrate alive long enough to try.",
     desc:"Two protein lumps labelled RecBCD sit on the ends of the donor DNA, which has been eaten back from both ends to a short stub." },
 
-  { on:["core","ends","genes"],
+  { on:["chomp","recbcd","genes"],
     cap:"three genes off phage &#955;, doing three different jobs",
     call:"only one of them ever touches your DNA at both ends &#183; the other two are a bodyguard and a matchmaker",
-    note:"Phage lambda has the same problem: it injects a linear genome into a cell full of RecBCD. Its solution is three genes, and it is worth being clear that they are not three versions of one activity. Gam is a bodyguard, exo is a nuclease, and bet is what actually does the recombining. Expressing all three from pKD46 is what turns E. coli into a strain you can do this in.",
-    desc:"A cassette of three genes appears above the donor, labelled exo, gam and bet, marked as coming from phage lambda, with the job of each written beneath it: resects, protects, anneals." },
+    note:"Phage lambda has the same problem: it injects a linear genome into a cell full of RecBCD. Its solution is three genes, and it is worth being clear that they are not three versions of one activity. Gam is a bodyguard, exo is a nuclease, and bet is what actually does the recombining. Expressing all three from pKD46 is what turns E. coli into a strain you can do this in. And be clear about what E. coli is actually missing, because it is two things and not one. It recombines perfectly well by its own RecA pathway, but that pathway wants hundreds to thousands of bases of homology. Red will work off forty. So Red buys you the short homology as well as the survival.",
+    desc:"A cassette of three genes appears above the donor, labelled exo, gam and bet, marked as coming from phage lambda, with the job of each written beneath it: resects, protects, anneals. The donor is still eaten back and RecBCD is still sitting on it." },
 
   { on:["core","ends","genes","gam"],
     cap:"<b>Gam</b> never touches your DNA. It binds RecBCD and switches it off",
@@ -120,11 +120,17 @@ const FR = [
     note:"Gam is an inhibitor of RecBCD, and of SbcCD as well. It binds the nuclease, not the DNA. That is worth saying out loud because it is the one of the three whose job is easiest to guess wrong: nothing about the donor changes on this click. All that has changed is that the enzyme which was destroying it has been taken out of service. It is also why Gam matters for a PCR product and does not matter for a single-stranded oligo: RecBCD needs a double-stranded end to load on.",
     desc:"A lump labelled Gam has appeared above each RecBCD, joined to it by an inhibition bar. The donor DNA is whole again and entirely unchanged." },
 
+  { on:["core","ends","genes"],
+    cap:"RecBCD lets go, and the donor is whole",
+    call:"nothing has been added to the DNA &#183; it has simply stopped being destroyed",
+    note:"Worth one click on its own, because it is the only moment in this sequence where the donor is both intact and unoccupied. Everything before it was damage, everything after it is deliberate processing by the other two proteins. If a student takes one thing from Gam it should be this: the payoff is a molecule that is still exactly what you electroporated in.",
+    desc:"The RecBCD lumps and the Gam lumps have gone. The donor DNA is drawn whole and bare, with the three-gene cassette still above it." },
+
   { on:["core","ss","genes","exo"],
     cap:"<b>Exo</b> eats the 5&#8242;-ended strand in from each end, leaving a 3&#8242; single-stranded tail",
     call:"which is why a PCR product works &#183; you hand it a duplex and it makes the substrate itself",
     note:"Exo is a five-prime to three-prime exonuclease, and it only works on double-stranded DNA. It loads on an end and degrades the strand whose five-prime end is there, so on a linear duplex it eats the top strand from the left and the bottom strand from the right. What survives at each end is a single strand terminating in a three-prime end, and it is long: Exo is processive over thousands of bases. That is why a PCR product is perfectly good starting material. It is not the substrate of the reaction, but Exo turns it into one.",
-    desc:"The two RecBCD lumps have been replaced by lumps labelled Exo, and the donor's strands have been eaten back from opposite ends, leaving a long single-stranded three-prime tail hanging off each end, each ending in a half barb." },
+    desc:"Lumps labelled Exo have loaded on each end, and the donor's strands have been eaten back from opposite ends, leaving a long single-stranded three-prime tail hanging off each end, each ending in a half barb." },
 
   { on:["core","ss","genes","bet"],
     cap:"<b>Bet</b> binds those tails as they come out of Exo, and holds them ready to pair",
@@ -190,8 +196,15 @@ window.Deck.sequence("lambda-red", function(slide){
   })());
   s.part("recbcd", (function(){
     const g = G.el("g", {});
+    /* Two complexes, not one reaction with two heads.  Each one loads at
+       a free end of its own and travels inward from it, which is why a
+       linear molecule with two accessible ends gets attacked twice; the
+       arrows are there so the drawing cannot be read as a single enzyme
+       eating from both sides at once. */
     g.appendChild(prot(628, (YT+YB)/2, 66, 46, "RecBCD", C.muted));
     g.appendChild(prot(972, (YT+YB)/2, 66, 46, "RecBCD", C.muted));
+    g.appendChild(path("M704 396H786M770 384L788 396L770 408", C.muted, 3));
+    g.appendChild(path("M896 396H814M830 384L812 396L830 408", C.muted, 3));
     return g;
   })());
 
