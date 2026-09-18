@@ -33,7 +33,7 @@
 const G = window.GE, C = G.C;
 
 const CELL = {x:150, y:292, w:750, h:412, r:56};
-const TUBE = {x:980, y:262, w:250, h:442};
+const TUBE = {x:1037, y:262, w:136, h:500};   /* a 2.0 mL, from G.V */
 const W = 3;                          /* one strand's weight */
 
 const n1 = v => Math.round(v*10)/10;
@@ -159,7 +159,7 @@ const SEPB = [[190,514],[300,458],[416,538],[530,468],[648,520],[764,452],
 const FR = [
   { on:["cell","chrom","plas"],
     cap:"one cell: a <b>4.6 Mb</b> chromosome and dozens of copies of a <b>3 kb</b> plasmid",
-    call:"both are circular double-stranded DNA &#183; what differs is scale, and scale decides everything after this",
+    call:"both are circular double-stranded DNA &#183; what differs is length, and length decides everything after this",
     note:"Start with what is in the cell. One chromosome, four and a half million base pairs of it, folded into a nucleoid, and some tens of copies of your plasmid at three thousand, loose in the cytoplasm beside it. Both are double-stranded and both are covalently closed circles, which is why each is drawn with two lines. That difference in length is the only thing this method uses.",
     desc:"A cell drawn as a rounded box. In its left half the chromosome is folded back and forth into a compact nucleoid, drawn as a long double-stranded molecule. In the cytoplasm beside it, clear of the chromosome, eight small double-stranded rings standing for copies of the plasmid." },
 
@@ -240,40 +240,31 @@ window.Deck.sequence("lysis", function(slide){
   s.part("n3", G.text(578, 262, "N3 · neutralise + high salt", 27, C.verm, 700));
 
   s.part("tube", (function(){
-    const g = G.el("g", {});
+    const g = G.el("g", {}), V = G.V, T = TUBE;
+    const cn = V.CONE20, ML = T.y + 68;
     /* The liquid.  Without it the tube is an outline with things
        floating in mid-air, and the caption's word -- supernatant -- has
-       nothing on the slide to point at.  Meniscus dipped in the middle,
-       because an aqueous solution wets the wall and climbs it. */
-    const ML = TUBE.y + 68;
-    g.appendChild(G.el("path", {
-      d:"M"+TUBE.x+" "+ML+
-        "Q"+(TUBE.x+TUBE.w/2)+" "+(ML+20)+" "+(TUBE.x+TUBE.w)+" "+ML+
-        "V"+(TUBE.y+TUBE.h-70)+
-        "Q"+(TUBE.x+TUBE.w/2)+" "+(TUBE.y+TUBE.h+50)+" "+TUBE.x+" "+(TUBE.y+TUBE.h-70)+"Z",
-      fill:C.blue, "fill-opacity":".09", stroke:"none"}));
-    g.appendChild(G.el("path", {
-      d:"M"+TUBE.x+" "+ML+"Q"+(TUBE.x+TUBE.w/2)+" "+(ML+20)+" "+(TUBE.x+TUBE.w)+" "+ML,
-      fill:"none", stroke:C.muted, "stroke-width":2.2}));
-    g.appendChild(G.text(TUBE.x - 22, TUBE.y + 250, "supernatant", 21, C.muted, 400, "end"));
-    g.appendChild(G.el("path", {
-      d:"M"+TUBE.x+" "+TUBE.y+"V"+(TUBE.y+TUBE.h-70)+
-        "Q"+(TUBE.x+TUBE.w/2)+" "+(TUBE.y+TUBE.h+50)+" "+(TUBE.x+TUBE.w)+" "+(TUBE.y+TUBE.h-70)+
-        "V"+TUBE.y, fill:"none", stroke:C.ink, "stroke-width":3, "stroke-linejoin":"round"}));
-    g.appendChild(G.el("path", {
-      d:"M"+(TUBE.x+42)+" "+(TUBE.y+TUBE.h-84)+
-        "Q"+(TUBE.x+TUBE.w/2)+" "+(TUBE.y+TUBE.h+34)+" "+(TUBE.x+TUBE.w-42)+" "+(TUBE.y+TUBE.h-84)+"Z",
-      fill:C.ink, "fill-opacity":".82", stroke:"none"}));
+       nothing on the slide to point at.  The glassware is the shared
+       2.0 mL from parts.js: this slide used to draw its own tube, a
+       squat thing with a round bottom, and it no longer matched the one
+       the bench slides put the same lysate in. */
+    g.appendChild(V.contents(T.x, T.w, T.y, T.h, ML, C.blue, ".09", cn));
+    g.appendChild(V.eppy(T.x, T.w, T.y, T.h, cn));
+    g.appendChild(V.pellet(T.x, T.w, T.y, T.h, C.ink, ".82", cn));
+    g.appendChild(G.text(T.x - 22, T.y + 250, "supernatant", 21, C.muted, 400, "end"));
     /* two lines: naming everything in the pellet put the label off the
        right edge of the slide */
-    g.appendChild(G.text(TUBE.x+TUBE.w+22, TUBE.y+TUBE.h-40,
+    g.appendChild(G.text(T.x + T.w + 22, T.y + T.h - 52,
       "chromosomal DNA, protein,", 21, C.muted, 400, "start"));
-    g.appendChild(G.text(TUBE.x+TUBE.w+22, TUBE.y+TUBE.h-14,
+    g.appendChild(G.text(T.x + T.w + 22, T.y + T.h - 26,
       "cell debris, precipitated SDS", 21, C.muted, 400, "start"));
-    g.appendChild(G.text(TUBE.x+TUBE.w+22, TUBE.y+112, "plasmid", 23, C.blue, 700, "start"));
-    /* all four below the meniscus: one used to sit above it, in mid-air */
-    [[1044,398,20],[1150,374,20],[1086,472,20],[1174,444,20]]
-      .forEach(c => g.appendChild(duplex(ringPts(c[0], c[1], c[2]), 4.5, C.blue)));
+    g.appendChild(G.text(T.x + T.w + 22, T.y + 132, "plasmid", 23, C.blue, 700, "start"));
+    /* all four below the meniscus and above the pellet, placed by the
+       tube's own geometry so none of them can end up in the wall */
+    [[-.78,-.88],[.62,-.55],[-.66,-.10],[.55,.28]].forEach(function(c){
+      const q = V.inLiquid(T.x, T.w, T.y, T.h, ML, c[0], c[1], 28, cn);
+      if (q) g.appendChild(duplex(ringPts(q[0], q[1], 20), 4.5, C.blue));
+    });
     return g;
   })());
   s.finish();

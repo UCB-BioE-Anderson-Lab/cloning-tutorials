@@ -287,6 +287,156 @@ function scene(slide, capY, callY){
   return api;
 }
 
+/* A minimal path helper, local to the glassware. */
+function vpath(d, col, w){
+  return el("path", {d:d, fill:"none", stroke:col || C.ink,
+    "stroke-width":w || 3, "stroke-linecap":"round", "stroke-linejoin":"round"});
+}
+/* ------------------------------------------------------------------ *
+ * REAL GLASSWARE.  JCA: "make the column and tubes more real to aspect
+ * ratio and shape.  The collection tube is an open-top tube.  The
+ * elution tube is a 1.5 mL eppendorf with a lid hanging off the side."
+ *
+ * So: one profile function for a conical-bottomed tube, used for the
+ * outline and for whatever is in it, and the three vessels differ in
+ * what is bolted to the top of it -- a flange and an open lid for an
+ * Eppendorf, a bare rim for a collection tube, a wide lip and a frit and
+ * a spout for the column.  Proportions are about right: a 1.5 mL tube is
+ * roughly four times as tall as it is wide, and the old ones were less
+ * than twice.
+ * ------------------------------------------------------------------ */
+/* Where the straight wall gives out.  This is the whole visual
+   difference between the two tubes on the bench: a 1.5 mL tapers for the
+   bottom third, a 2.0 mL runs straight almost to the floor and then
+   turns a short blunt cone.  Every helper below takes the value as an
+   optional last argument and defaults to the 1.5 mL. */
+const CONE = 0.56, CONE20 = 0.80;
+function hw(w, h, d, cn){             /* half width at depth d        */
+  cn = cn || CONE;
+  if (d <= h*cn) return w/2;
+  const t = Math.min(1, (d - h*cn)/(h*(0.94 - cn)));
+  return w/2 * (1 - 0.62*t);
+}
+function wallD(x, w, top, h, up, cn){
+  const cx = x + w/2, N = 12, sgn = up ? 1 : -1;
+  let d = "";
+  for (let i = 0; i <= N; i++){
+    const dd = h*0.94*(up ? N - i : i)/N;
+    d += "L" + n2(cx + sgn*hw(w, h, dd, cn)) + " " + n2(top + dd);
+  }
+  return d;
+}
+function tubeOutline(x, w, top, h, cn){
+  const cx = x + w/2;
+  return "M" + n2(cx - w/2) + " " + top + wallD(x, w, top, h, false, cn) +
+         "Q" + n2(cx) + " " + n2(top + h) + " " + n2(cx + hw(w, h, h*0.94, cn)) +
+         " " + n2(top + h*0.94) + wallD(x, w, top, h, true, cn);
+}
+function tubeFill(x, w, top, h, L, cn){
+  const cx = x + w/2, N = 12, dL = Math.max(0, Math.min(h*0.9, L - top));
+  let d = "M" + n2(cx - hw(w, h, dL, cn)) + " " + n2(top + dL) +
+          "Q" + n2(cx) + " " + n2(top + dL + 12) + " " +
+          n2(cx + hw(w, h, dL, cn)) + " " + n2(top + dL);
+  for (let i = 0; i <= N; i++){
+    const dd = dL + (h*0.94 - dL)*i/N;
+    d += "L" + n2(cx + hw(w, h, dd, cn)) + " " + n2(top + dd);
+  }
+  d += "Q" + n2(cx) + " " + n2(top + h) + " " + n2(cx - hw(w, h, h*0.94, cn)) +
+       " " + n2(top + h*0.94);
+  for (let i = N; i >= 0; i--){
+    const dd = dL + (h*0.94 - dL)*i/N;
+    d += "L" + n2(cx - hw(w, h, dd, cn)) + " " + n2(top + dd);
+  }
+  return d + "Z";
+}
+function contents(x, w, top, h, L, col, op, cn){
+  const g = el("g", {});
+  g.appendChild(el("path", {d:tubeFill(x, w, top, h, L, cn), fill:col,
+    "fill-opacity":op == null ? ".13" : op, stroke:"none"}));
+  const cx = x + w/2, dL = Math.max(0, Math.min(h*0.9, L - top));
+  g.appendChild(vpath("M" + n2(cx - hw(w, h, dL, cn)) + " " + n2(top + dL) +
+    "Q" + n2(cx) + " " + n2(top + dL + 12) + " " + n2(cx + hw(w, h, dL, cn)) +
+    " " + n2(top + dL), C.muted, 2));
+  return g;
+}
+/* A part of the wall, between two depths.  wallD always runs the whole
+   way from the rim, which is what put a band of pellet colour up both
+   sides of the tube: the pellet was tracing the entire wall and then
+   cutting straight across, so everything above the cut was filled too. */
+function wallSeg(x, w, top, h, d0, d1, side, cn){
+  const cx = x + w/2, N = 8;
+  let d = "";
+  for (let i = 0; i <= N; i++){
+    const dd = d0 + (d1 - d0)*i/N;
+    d += "L" + n2(cx + side*hw(w, h, dd, cn)) + " " + n2(top + dd);
+  }
+  return d;
+}
+/* whatever has gone to the bottom, sitting in the cone */
+function pellet(x, w, top, h, col, op, cn){
+  const cx = x + w/2, d0 = h*((cn || CONE) - 0.02), d1 = h*0.94;
+  return el("path", {d:"M" + n2(cx - hw(w, h, d0, cn)) + " " + n2(top + d0) +
+    wallSeg(x, w, top, h, d0, d1, -1, cn) +
+    "Q" + n2(cx) + " " + n2(top + h) + " " + n2(cx + hw(w, h, d1, cn)) + " " + n2(top + d1) +
+    wallSeg(x, w, top, h, d1, d0, 1, cn) + "Z",
+    fill:col, "fill-opacity":op || ".7", stroke:"none"});
+}
+/* an Eppendorf: a flange, and the lid hanging open off the side */
+function eppy(x, w, top, h, cn){
+  const g = el("g", {});
+  g.appendChild(vpath(tubeOutline(x, w, top, h, cn)));
+  g.appendChild(el("rect", {x:x-8, y:top-13, width:w+16, height:13, rx:3,
+    fill:"none", stroke:C.ink, "stroke-width":2.6}));
+  /* An open Eppendorf lid is a flat disc lying almost edge-on at about
+     rim height, with a squat plug standing on it, on a short flat strap.
+     It was a small ring floating up and to the right, a third of the
+     diameter of the mouth it is supposed to close. */
+  const hx = x + w + 8;
+  const rx = w*0.56, ry = w*0.155, th = w*0.075;
+  const lx = hx + 14 + rx, ly = top - 4;
+  g.appendChild(vpath("M"+n2(hx)+" "+n2(top-11)+
+    "Q"+n2(hx+18)+" "+n2(top-14)+" "+n2(lx - rx*0.92)+" "+n2(ly-6)+
+    "L"+n2(lx - rx*0.92)+" "+n2(ly+3)+
+    "Q"+n2(hx+18)+" "+n2(top-3)+" "+n2(hx)+" "+n2(top-2)+"Z",
+    C.ink, 2.2));
+  g.appendChild(vpath("M"+n2(lx-rx)+" "+n2(ly)+"v"+n2(th)+
+    "A"+n2(rx)+" "+n2(ry)+" 0 0 0 "+n2(lx+rx)+" "+n2(ly+th)+"v"+n2(-th),
+    C.ink, 2.6));
+  g.appendChild(el("ellipse", {cx:n2(lx), cy:n2(ly), rx:n2(rx), ry:n2(ry),
+    fill:"none", stroke:C.ink, "stroke-width":2.6}));
+  const px = lx - rx*0.10, py = ly - w*0.02;
+  const prx = w*0.36, pry = w*0.10, ph = w*0.21;
+  g.appendChild(vpath("M"+n2(px-prx)+" "+n2(py-ph)+"v"+n2(ph)+
+    "A"+n2(prx)+" "+n2(pry)+" 0 0 0 "+n2(px+prx)+" "+n2(py)+"v"+n2(-ph),
+    C.ink, 2.6));
+  g.appendChild(el("ellipse", {cx:n2(px), cy:n2(py-ph), rx:n2(prx),
+    ry:n2(pry), fill:"none", stroke:C.ink, "stroke-width":2.6}));
+  return g;
+}
+/* a collection tube: the same body, open at the top, no lid */
+function openTube(x, w, top, h, cn){
+  const g = el("g", {});
+  g.appendChild(vpath(tubeOutline(x, w, top, h, cn)));
+  g.appendChild(vpath("M"+(x-6)+" "+top+"h12M"+(x+w-6)+" "+top+"h12", C.ink, 2.6));
+  return g;
+}
+
+/* Put something inside a tube's liquid, given a position in -1..1 on
+   each axis.  The horizontal room runs out in the cone, so the width is
+   taken at that actual depth rather than assumed: scattering by a fixed
+   fraction of the tube's width either bunches everything in the middle
+   or pokes it through the wall near the tip. */
+function inLiquid(x, w, top, h, lvl, fx, fy, pad, cn){
+  const yTop = lvl + 26, yBot = top + h*0.86;
+  const y = yTop + (yBot - yTop)*(fy*0.5 + 0.5);
+  const half = hw(w, h, y - top, cn) - pad;
+  return half <= 6 ? null : [x + w/2 + fx*half, y];
+}
+
+
 window.GE = { C:C, el:el, text:text, pt:pt, cell:cell, plasmid:plasmid,
-              feat:feat, scene:scene, excision:excision, run:run };
+              feat:feat, scene:scene, excision:excision, run:run,
+              V:{ CONE:CONE, CONE20:CONE20, hw:hw, tubeOutline:tubeOutline,
+                  tubeFill:tubeFill, contents:contents, wallSeg:wallSeg,
+                  pellet:pellet, eppy:eppy, openTube:openTube, inLiquid:inLiquid } };
 })();
