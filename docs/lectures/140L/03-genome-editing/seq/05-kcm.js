@@ -142,7 +142,8 @@ function tubeProfile(cx, pad){
          "V"+n1(T_SH)+
          "L"+n1(cx - T_TW - p)+" "+n1(tip - 12)+
          "Q"+n1(cx)+" "+n1(tip)+" "+n1(cx + T_TW + p)+" "+n1(tip - 12)+
-         "L"+n1(cx + halfAt(top, p))+" "+n1(top)+"Z";
+         "L"+n1(cx + halfAt(T_SH, p))+" "+n1(T_SH)+
+         "V"+n1(top)+"Z";
 }
 /* liquid, filling the inside from the tip up to a level */
 function liquid(cx, lvl, col, op){
@@ -186,9 +187,18 @@ function blockCut(x, w, wells, on, col, label){
   g.appendChild(G.text(x + w/2, y + h + 40, label, 26, col, 700));
   return g;
 }
+/* -1..1 across and down the liquid.  Positions were absolute before, so
+   a ring could sit above the meniscus or through the wall -- there is
+   very little room in a cone and none of it is where you guess. */
+function inTube(cx, lvl, fx, fy, pad){
+  const yTop = lvl + 16, yBot = T_TIP - 26;
+  const y = yTop + (yBot - yTop)*(fy*0.5 + 0.5);
+  const half = halfAt(y, -5) - pad;
+  return half <= 3 ? null : [cx + fx*half, y];
+}
 function cellAt(x, y, o){
   const g = G.el("g", {opacity:n1(cl(o == null ? 1 : o, 0, 1))});
-  g.appendChild(G.el("rect", {x:n1(x-15), y:n1(y-8), width:30, height:16, rx:8,
+  g.appendChild(G.el("rect", {x:n1(x-13), y:n1(y-7), width:26, height:14, rx:7,
     fill:C.amber, "fill-opacity":".40", stroke:C.amber, "stroke-width":1.8}));
   return g;
 }
@@ -245,6 +255,9 @@ function transfer(fromX, toX, label){
  * assembly reaction.  The direction matters -- cells go to the DNA.
  * ------------------------------------------------------------------ */
 const WCOLD = [516, 716], WHOT = [942, 1114];
+/* scattered in -1..1, so the same arrangement works at either level */
+const CELLPOS = [[-0.42, -0.62], [0.34, 0.04], [-0.12, 0.72]];
+const DNAPOS = [[0.52, -0.58], [-0.5, 0.08], [0.22, 0.78]];
 const XASM = WCOLD[1], XCOMP = WCOLD[0], XWARM = WHOT[0];
 
 const FR = [
@@ -362,8 +375,10 @@ window.Deck.sequence("kcm", function(slide){
       if (v.comp > 0.02){
         const t = grp(v.comp * (1 - v.mixed*0.55));
         t.appendChild(tubeCut(XCOMP, 508, C.amber));
-        [[-16, 548], [14, 568], [-4, 588]].forEach(p =>
-          t.appendChild(cellAt(XCOMP + p[0], p[1], 1)));
+        CELLPOS.forEach(function(p){
+          const q = inTube(XCOMP, 508, p[0], p[1], 14);
+          if (q) t.appendChild(cellAt(q[0], q[1], 1));
+        });
         t.appendChild(G.text(XCOMP, 370, "competent cells", 22, C.muted, 400));
         k.appendChild(t);
       }
@@ -371,19 +386,26 @@ window.Deck.sequence("kcm", function(slide){
         const t = grp(v.asm);
         t.appendChild(tubeCut(ax, v.mixed > 0.5 ? 508 : 560,
           v.mixed > 0.5 ? C.amber : C.blue));
+        const alvl = v.mixed > 0.5 ? 508 : 560;
         if (v.mixed > 0.02)
-          [[-16, 548], [14, 568], [-4, 588]].forEach(p =>
-            t.appendChild(cellAt(ax + p[0], p[1], v.mixed)));
+          CELLPOS.forEach(function(p){
+            const q = inTube(ax, alvl, p[0], p[1], 14);
+            if (q) t.appendChild(cellAt(q[0], q[1], v.mixed));
+          });
         if (v.dna > 0.02 && v.inside < 0.98){
           const d = grp(v.dna * (1 - v.inside));
-          [[18, 540], [-20, 562], [16, 584]].forEach(p =>
-            d.appendChild(ring(ax + p[0], p[1], 8)));
+          DNAPOS.forEach(function(p){
+            const q = inTube(ax, alvl, p[0], p[1], 8);
+            if (q) d.appendChild(ring(q[0], q[1], 6));
+          });
           t.appendChild(d);
         }
         if (v.inside > 0.02){
           const d = grp(v.inside);
-          [[-16, 548], [14, 568]].forEach(p =>
-            d.appendChild(ring(ax + p[0], p[1], 6)));
+          CELLPOS.slice(0, 2).forEach(function(p){
+            const q = inTube(ax, alvl, p[0], p[1], 14);
+            if (q) d.appendChild(ring(q[0], q[1], 5));
+          });
           t.appendChild(d);
         }
         t.appendChild(G.text(ax, 370, "assembly reaction", 22, C.muted, 400));
