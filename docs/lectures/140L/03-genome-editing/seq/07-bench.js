@@ -243,7 +243,7 @@ const LIST2 = steps([
   ["Spin 90 s dry", "ethanol leaves"],
   ["Swap for a clean tube", "or you elute into the waste"],
   ["Add 50 \u00b5L water", "low salt lets it go"],
-  ["Spin 45 s", "the blue lands in the tube"]
+  ["Spin 45 s", "the DNA lands in the tube"]
 ], 130, 250, 52);
 
 
@@ -292,7 +292,7 @@ const CFR = [
     note:"Fifteen seconds. The liquid passes the frit and the plasmid stays on it, held there by the salt. Look at the two containers: everything in the tube underneath is waste, and everything you care about is now a film on a disc of silica a few millimetres across. Tip the flow-through away.",
     desc:"The column has emptied into the collection tube. The frit is now blue: the plasmid is bound to it. The flow-through below is grey waste." },
 
-  { s:{step:2, col:1, blueCol:0, thru:0, bound:1, swap:0, elu:0}, on:["pb"],
+  { s:{step:2, col:0.62, blueCol:0, thru:0, bound:1, swap:0, elu:0}, on:["pb"],
     cap:"<b>PB</b>, 500 &micro;L &#183; more chaotrope",
     call:"clear liquid in, and the blue does not move",
     note:"PB is more of the same salt. Nothing about the plasmid changes here: the point is that it stays put while everything that is not DNA is persuaded to let go.",
@@ -304,7 +304,7 @@ const CFR = [
     note:"Protein gone. This is the first of three spins that read identically on a protocol sheet and are not: each removes a different thing, and the order is not arbitrary.",
     desc:"The column has emptied again. The flow-through is labelled protein; the frit is still blue." },
 
-  { s:{step:4, col:1, blueCol:0, thru:0, bound:1, swap:0, elu:0}, on:["pe"],
+  { s:{step:4, col:0.90, blueCol:0, thru:0, bound:1, swap:0, elu:0}, on:["pe"],
     cap:"<b>PE</b>, 750 &micro;L &#183; the ethanol wash",
     call:"DNA will not dissolve in ethanol, so the blue stays",
     note:"PE is ethanol with a little buffer. DNA is not soluble in it so the plasmid stays on the silica, and the salt that has been holding it there is soluble, so the salt leaves.",
@@ -328,7 +328,7 @@ const CFR = [
     note:"This is the one step everybody has skipped at least once. Up to now the tube underneath has been catching waste, and the next thing through the frit is what you came for. Elute into the tube you have been throwing away and you have done the whole prep to produce fifty microlitres of ethanol wash.",
     desc:"The used collection tube slides out from under the column and a clean one takes its place." },
 
-  { s:{step:8, col:1, blueCol:0, thru:0, bound:1, swap:1, elu:0}, on:["water"],
+  { s:{step:8, col:0.12, blueCol:0, thru:0, bound:1, swap:1, elu:0}, on:["water"],
     cap:"water, 50 &micro;L &#183; low salt is what makes it let go",
     call:"the binding step, run backwards",
     note:"Water, and no salt. Silica holds DNA in high chaotropic salt and releases it in low salt, so this is the loading step in reverse. Put it on the middle of the frit rather than down the side, and warm it first if you are chasing yield.",
@@ -371,29 +371,37 @@ window.Deck.sequence("column", function(slide){
 
     /* the waste tube is open-topped; the one you elute into is a 1.5 mL
        Eppendorf, lid hanging off the side */
-    function below(dx, lvl, col, tag, fade, eppen){
+    /* depth is what a full measure of this liquid looks like, as a
+       fraction of the tube.  The two are nothing like each other: the
+       flow-through is the best part of a millilitre, the eluate is
+       fifty microlitres and does not reach out of the cone.  Both were
+       drawn at the same depth, so the elution looked like a millilitre
+       of plasmid. */
+    function below(dx, lvl, col, tag, fade, eppen, depth, op, tagY){
       const t = G.el("g", {transform:"translate("+n1(dx)+" 0)"});
       if (fade != null && fade < 0.995) t.setAttribute("opacity", n1(fade));
       if (lvl > 0.02)
         t.appendChild(contents(TX, TW, TTOP, TH,
-          TTOP + TH*0.9 - (TH*0.26)*lvl, col, ".15", eppen ? CONE : CONE20));
+          TTOP + TH*0.9 - (TH*depth)*lvl, col, op, eppen ? CONE : CONE20));
       t.appendChild(eppen ? eppy(TX, TW, TTOP, TH)
                           : openTube(TX, TW, TTOP, TH, CONE20));
-      if (tag) t.appendChild(G.text(TX - 22, TTOP + 82, tag, 22,
+      if (tag) t.appendChild(G.text(TX - 22, tagY, tag, 22,
         col === C.blue ? C.blue : C.muted, col === C.blue ? 700 : 400, "end"));
       return t;
     }
     g.appendChild(below(-430*v.swap, v.thru, C.muted,
-      v.swap < 0.5 ? (WASTE[st] || "waste") : "", 1 - v.swap, false));
+      v.swap < 0.5 ? (WASTE[st] || "waste") : "", 1 - v.swap, false,
+      0.26, ".15", TTOP + 82));
     if (v.swap > 0.02){
       const nt = below(430*(1 - v.swap), v.elu, C.blue,
-        v.elu > 0.3 ? "your plasmid" : "clean tube", 1, true);
+        v.elu > 0.3 ? "your plasmid" : "clean tube", 1, true,
+        0.10, ".28", v.elu > 0.3 ? TTOP + 336 : TTOP + 82);
       g.appendChild(nt);
       if (v.elu > 0.3){
         const k = G.el("g", {opacity:n1(v.elu), transform:"translate("+
           n1(430*(1 - v.swap))+" 0)"});
-        [[-22,-6],[16,-18],[6,10],[-2,-30]].forEach(p =>
-          k.appendChild(ring(TX + TW/2 + p[0], TTOP + TH*0.66 + p[1], 10)));
+        [[-26,-58],[24,-64],[0,-40]].forEach(p =>
+          k.appendChild(ring(TX + TW/2 + p[0], TTOP + TH + p[1], 9)));
         g.appendChild(k);
       }
     }
