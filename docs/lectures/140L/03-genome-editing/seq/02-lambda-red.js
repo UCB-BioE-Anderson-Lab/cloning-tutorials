@@ -49,9 +49,13 @@ function path(d, col, w, dash){
   if (dash) a["stroke-dasharray"] = dash;
   return G.el("path", a);
 }
-/* a half barb, laid back along the strand, marking a 3' end */
-function barb(x, y, dir, col){
-  return G.el("path", {d:"M"+(x - dir*22)+" "+(y - 13)+"L"+x+" "+y,
+/* A half barb, laid back along the strand, marking a 3' end.  `side` is
+   which way it lays: -1 above the strand (the default), +1 below.  On a
+   duplex it goes on the OUTER side, so the two strands' barbs mirror each
+   other and neither one points into the space between them.  Both used to
+   go up, which put the lower strand's barb inside the duplex. */
+function barb(x, y, dir, col, side){
+  return G.el("path", {d:"M"+(x - dir*22)+" "+(y + (side || -1)*13)+"L"+x+" "+y,
     stroke:col || C.ink, "stroke-width":S, fill:"none", "stroke-linecap":"round"});
 }
 function prime(x, y, s, anchor){
@@ -150,7 +154,7 @@ window.Deck.sequence("lambda-red", function(slide){
   s.part("core", (function(){
     const g = G.el("g", {});
     g.appendChild(seg(X0 + CHEW, X1, YT, C.verm)); g.appendChild(barb(X1, YT, 1, C.verm));
-    g.appendChild(seg(X0, X1 - CHEW, YB, C.verm)); g.appendChild(barb(X0, YB, -1, C.verm));
+    g.appendChild(seg(X0, X1 - CHEW, YB, C.verm)); g.appendChild(barb(X0, YB, -1, C.verm, 1));
     return g;
   })());
   s.part("ends", (function(){
@@ -386,7 +390,7 @@ window.Deck.sequence("red-fork", function(slide){
     /* lagging: fragments, each made away from the fork */
     [[OK0, 1390], [1410, ARM1]].forEach(function(f){
       g.appendChild(seg(f[0], f[1], LN, C.blue));
-      g.appendChild(barb(f[1], LN, 1, C.blue));
+      g.appendChild(barb(f[1], LN, 1, C.blue, 1));
     });
     g.appendChild(G.text(ARM1, LN + 76, "Okazaki fragments", 23, C.muted, 400, "end"));
     return g;
@@ -443,7 +447,7 @@ window.Deck.sequence("red-fork", function(slide){
     const g = G.el("g", {});
     g.appendChild(seg(AX, MX, LN, C.verm));
     g.appendChild(seg(BX, LOC1, LN, C.verm));
-    g.appendChild(barb(LOC1, LN, 1, C.verm));
+    g.appendChild(barb(LOC1, LN, 1, C.verm, 1));
     g.appendChild(path("M"+MX+" "+LN+"C"+(MX+40)+" "+(LN+116)+" "+(BX-40)+" "+(LN+116)+" "+BX+" "+LN, C.verm));
     g.appendChild(G.text((MX+BX)/2, LN + 104, "your cassette", 24, C.verm, 700));
     g.appendChild(G.text(AX + AW/2, LN + 32, "A", 23, C.verm, 700));

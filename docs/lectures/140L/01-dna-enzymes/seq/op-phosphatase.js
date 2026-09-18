@@ -34,8 +34,11 @@ function P(x,y,gone){
     '<circle r="17" fill="#fff" stroke="'+RED+'" stroke-width="3.4"/>'+
     '<text y="8" text-anchor="middle" font-size="23" font-weight="700" fill="'+RED+'">P</text></g>';
 }
-function barb(x,y,dir){
-  return line([x,y],[x-dir*20,y-13],BLUE,4);
+/* `side` is which way the barb lays: -1 above the strand (the default),
+   +1 below.  On a duplex it goes on the OUTER side, so the two strands
+   mirror each other instead of one barb pointing into the gap. */
+function barb(x,y,dir,side){
+  return line([x,y],[x-dir*20,y+(side||-1)*13],BLUE,4);
 }
 function label(x,y,t,c,sz){
   return '<text x="'+n2(x)+'" y="'+n2(y)+'" text-anchor="middle" font-size="'+(sz||23)+
@@ -84,7 +87,7 @@ function pnpp(x,y,g){
 /* ---- and the one that is not a substrate ---- */
 function internal(x,y){
   const s=line([x-150,y],[x+150,y],BLUE)+barb(x+150,y,1)+
-          line([x-150,y+40],[x+150,y+40],BLUE)+barb(x-150,y+40,-1)+
+          line([x-150,y+40],[x+150,y+40],BLUE)+barb(x-150,y+40,-1,1)+
           P(x,y,0);
   return s+label(x,y+96,"phosphate <tspan font-style=\"italic\">inside</tspan> a backbone",MUT,21);
 }
