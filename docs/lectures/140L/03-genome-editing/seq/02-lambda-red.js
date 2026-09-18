@@ -256,16 +256,37 @@ window.Deck.sequence("lambda-red", function(slide){
   return { steps: FR.map(f => ({note:f.note, desc:f.desc})), go: go };
 });
 
+
 /* ================================================================== *
- * 2.  red-fork — where the annealing actually happens
+ * 2.  red-fork — where the annealing happens, and how it finishes
  *
  * The one thing that makes the rest of this section make sense: the
  * target is not the duplex genome, it is the stretch of lagging-strand
- * template that is single-stranded for as long as it takes the next
- * Okazaki fragment to cover it.  Everything practical falls out of that
- * -- why an oligo needs no Exo and no Gam, why one of the two oligos
- * beats the other by more than an order of magnitude, and why you have
- * to be growing the cells.
+ * template that is single-stranded until the next Okazaki fragment
+ * covers it.
+ *
+ * HOW IT FINISHES.  JCA: "It needs to show A and B homology arms (40
+ * mers) and where they live in the sequence.  It needs to explain how
+ * the end gets resolved, which this one does not."  Both fair.  The
+ * slide used to show one 3' tail pairing and the other "still waiting",
+ * which is not an ending.
+ *
+ * The model it now draws is the one that fits the data best: Exo does
+ * not stop at the ends, it takes ONE WHOLE STRAND off, so what Bet is
+ * holding is a full-length single strand of the cassette with the A arm
+ * at one end and the B arm at the other.  Both arms then find their
+ * partners on the same exposed template, and what lies between them --
+ * your cassette on one strand, the target on the other -- has no partner
+ * and loops out.  (Mosberg, Lajoie & Church, Genetics 2010.  CHECK THIS
+ * CITATION before presenting: the finding is solid, the reference is
+ * from memory.)
+ *
+ * That ending also earns the bench rule at the end of the section: the
+ * two strands at the locus now disagree, so the first colony is mixed
+ * and you streak for singles before you believe anything.
+ *
+ * It also makes dsDNA and oligo recombineering the same reaction.  An
+ * oligo IS the annealed strand; the dsDNA case just pays Exo to make one.
  * ================================================================== */
 
 /* THE FORK RUNS RIGHT TO LEFT: the parental duplex is on the left, the
@@ -281,43 +302,56 @@ window.Deck.sequence("lambda-red", function(slide){
                of template with nothing paired to it
 
    The donor sits BELOW the fork rather than above it.  Above, the strand
-   coming down to anneal has to cross the leading arm, which reads as a
-   junction between two molecules that never touch.  From below it
-   reaches the lagging arm without crossing anything. */
+   coming up to anneal has to cross the leading arm, which reads as a
+   junction between two molecules that never touch. */
 const FX = 610, SEP = 22;
 const FY = 320;                      /* the parental duplex, ahead of the fork */
 const UY = 228, LY = 436;            /* the two daughter arms                  */
 const UT = UY + SEP/2, UN = UY - SEP/2;   /* leading: template, new strand     */
 const LT = LY - SEP/2, LN = LY + SEP/2;   /* lagging: template, fragments      */
-const ARM0 = 720, ARM1 = 1430;       /* how far the copied arms run            */
-const OK0 = 1240;                    /* the nearest Okazaki fragment starts here */
-const DY = 648, DX0 = 400, DX1 = 1240, DCH = 300;   /* the donor, below        */
-const DA = DX0 + DCH, DB = DX1 - DCH;               /* its duplex, DA to DB    */
+const ARM0 = 700, ARM1 = 1450;       /* how far the copied arms run            */
+const BARE = 720;                    /* the exposed stretch starts here        */
+
+/* The locus, on the exposed template.  One set of x positions, used by
+   the genome, by the donor, and by the two daughters, so a part can be
+   tracked straight down the slide. */
+const AX = 850, AW = 80;             /* the A homology arm      */
+const MX = 930, MW = 280;            /* what sits between them  */
+const BX = 1210, BW = 80;            /* the B homology arm      */
+const LOC0 = AX, LOC1 = BX + BW;     /* the whole of it         */
+const OK0 = 1320;                    /* the nearest Okazaki fragment */
+const DY = 660;                      /* the donor, waiting below     */
 
 const RF = [
-  { on:["fork","bare"],
-    cap:"meanwhile the genome is being copied",
-    call:"and a replication fork leaves one of the two templates bare for a moment",
-    note:"Here is the other half of the reaction, and it is the half that is usually left out. The genome is not a static duplex. Where a replication fork is passing, the two parental strands are separated, and the two sides are not treated alike. The leading-strand template is copied continuously and is duplex again almost at once. The lagging-strand template is copied in fragments, backwards, so between the fork and the last Okazaki fragment there is always a stretch of it with no partner. That stretch is single-stranded DNA sitting in the genome, and it is there for as long as it takes the next fragment to be made.",
-    desc:"A replication fork: a parental duplex arriving from the left and splitting into two arms. The upper arm is complete duplex, labelled leading. The lower arm has its new strand made in short Okazaki fragments, with a length of bare single-stranded template between the fork and the nearest fragment." },
+  { on:["fork","flat","bare","locus","tgt"],
+    cap:"the fork leaves one stretch of template with nothing paired to it",
+    call:"and the two 40 bp arms you chose are sitting right there in it",
+    note:"Here is the other half of the reaction, and it is the half that usually gets left out. The genome is not a static duplex. Where a replication fork is passing, the leading-strand template is copied continuously and is duplex again almost at once, but the lagging-strand template is copied in fragments, backwards, so between the fork and the last Okazaki fragment there is always a stretch of it with no partner. Now look at what is in that stretch. The gene you want gone, and either side of it the forty bases you copied into your oligos. Those are the arms. They are not a separate thing you added to the genome; they are genome, and choosing them is choosing where in this picture your DNA is allowed to land.",
+    desc:"A replication fork. The upper arm is complete duplex, its new leading strand made continuously toward the fork. The lower arm is copied in Okazaki fragments, and between the fork and the nearest fragment lies a length of bare single-stranded template, marked in amber. On that bare stretch, three regions: the A homology arm, the target gene, and the B homology arm." },
 
-  { on:["fork","bare","stem","tailup"],
-    cap:"and this is what Bet is holding",
-    call:"a long 3&#8242; single strand, coated, and complementary to that bare stretch",
-    note:"And this is the molecule from the last slide: a long three-prime single strand with Bet along it. Put the two pictures next to each other and the reaction is nearly obvious. Bet is holding a single strand. The fork has just exposed a single strand. The forty bases you chose make them complementary.",
-    desc:"The resected donor from the previous slide appears above the fork, its three-prime single-stranded tail coated with Bet." },
+  { on:["fork","flat","bare","locus","tgt","donor"],
+    cap:"and <b>Exo</b> does not stop at the ends &#8212; it takes one whole strand off",
+    call:"so what Bet is holding is the entire cassette, single-stranded, with A at one end and B at the other",
+    note:"Back to the molecule from the last slide. Exo is processive over thousands of bases, and the model that fits the data best is that it does not stop partway: it degrades one strand of the cassette completely. What is left is a full-length single strand, coated along its length with Bet. And look at its ends. The forty bases at one end are A, the forty at the other are B, and they are the same forty bases as the two regions on the genome above, because that is how you designed the oligos.",
+    desc:"Below the fork, the donor appears as a single strand rather than a duplex, coated along its length with Bet, and bracketed into three parts: the A arm of forty base pairs, the cassette you made, and the B arm of forty base pairs, aligned with the matching regions on the genome above." },
 
-  { on:["fork","bare2","stem","tailon"],
-    cap:"Bet pairs it with the exposed template, and the fork carries on over it",
-    call:"so the change ends up in one of the two daughter chromosomes",
-    note:"Bet anneals the strand it is holding to the complementary bare template, and from there the cell does the rest: the next round of synthesis copies the new strand as though it belonged there. Notice the two consequences. The recombinant appears in one daughter chromosome and not the other, so the colony you pick has to be purified. And the whole thing is replication-dependent, which is why this is done on cells in mid-log growth and why it does not work on a culture that has stopped.",
-    desc:"The donor's coated strand has moved down and paired with the bare stretch of lagging-strand template, becoming part of that arm of the fork." },
+  { on:["fork","loop","locus","annealed"],
+    cap:"both arms find their partners at once, and what is between them has nowhere to go",
+    call:"the target loops out of the template &#183; your cassette loops out of the new strand",
+    note:"Bet pairs A with A and B with B, and because both arms are on the same single strand of the genome, both can pair at the same time. That is the whole reaction. Now follow what happens to the middle. The template between the arms still carries the target, and your strand between the arms still carries the cassette, and neither has anything to pair with, so both loop out. This is where the gene is lost: not by being cut out, but by ending up on a loop that is not going to be copied.",
+    desc:"The donor strand has moved up onto the template. Its A and B arms lie paired against the genome's A and B. Between them the genome's target arcs up and away from the line, and the donor's cassette arcs down, each on its own loop with no partner." },
 
-  { on:["fork","bare2","oligo"],
+  { on:["daughters"],
+    cap:"so the two strands at that locus now disagree",
+    call:"one gets your cassette, the other keeps the gene &#183; so streak for singles before you believe anything",
+    note:"And here is the ending. The strand Bet annealed becomes the new strand, joined up to the Okazaki fragments either side of it, and the template it is paired with still carries the target. The two strands of that one duplex disagree with each other. When the cell divides, they separate, and only one of the two chromosomes has your cassette in it. Two practical things come out of that. The colony you pick off the selection plate is a mixture, so you streak for single colonies before you trust any of it. And all of this only happens where a fork is passing, which is why this is done on cells in mid-log growth and does not work on a culture that has stopped.",
+    desc:"The fork has gone. In its place, the same locus drawn twice: one chromosome carrying the A arm, your cassette and the B arm, and the other carrying the A arm, the original target gene and the B arm." },
+
+  { on:["fork","flat","bare","locus","oligo"],
     cap:"which is why a plain oligo is enough",
-    call:"no Exo needed, and no Gam either &#183; RecBCD does not eat single strands",
-    note:"Follow that through and the practical rule falls out. If the recombinagenic species is a coated single strand, then handing the cell a single strand directly skips two of the three proteins. No Exo, because there is nothing to resect. No Gam, because RecBCD needs a double-stranded end to load on and an oligo does not give it one. Just Bet. The oligo is not immortal — the cell's single-strand exonucleases will get it eventually, which is why some protocols order the last few linkages as phosphorothioates — but it does not need protecting from RecBCD. So for a point mutation or a small insertion you can skip the PCR entirely and electroporate a seventy-mer. And there is a catch worth knowing: of the two oligos you could order, the one that anneals to the lagging-strand template works far better, often by ten to thirty fold, because that is the template that is exposed. Same change, same locus, one strand or the other, and an order of magnitude between them.",
-    desc:"The donor has been replaced by a single short oligonucleotide, coated with Bet, annealed at the same place on the lagging-strand template." }
+    call:"no Exo needed, and no Gam either &#183; RecBCD needs a double-stranded end and an oligo does not give it one",
+    note:"Follow that through and the practical rule falls out. If the thing that recombines is a coated single strand, then handing the cell a single strand directly skips two of the three proteins. No Exo, because there is nothing to resect. No Gam, because RecBCD needs a double-stranded end to load on. Just Bet. So for a point mutation you can skip the PCR entirely and electroporate a seventy-mer with the change in the middle of it. The oligo is not immortal, the cell's single-strand exonucleases will get it eventually, which is why some protocols order the last few linkages as phosphorothioates. And there is a catch worth knowing: of the two oligos you could order, the one that anneals to the lagging-strand template works far better, often by ten to thirty fold, because that is the template that is exposed. Same change, same locus, one strand or the other, and an order of magnitude between them.",
+    desc:"The donor has been replaced by a short oligonucleotide annealed to the same exposed template, with a cross marking the single base where it disagrees with the genome." }
 ];
 
 window.Deck.sequence("red-fork", function(slide){
@@ -328,10 +362,10 @@ window.Deck.sequence("red-fork", function(slide){
      and red lines and the room is guessing which is whose. */
   s.add((function(){
     const g = G.el("g", {}), x = 150;
-    [[C.ink,   "the chromosome"],
-     [C.blue,  "new DNA the cell is making"],
-     [C.verm,  "the DNA you put in"]].forEach(function(r, k){
-      const y = 604 + k*36;
+    [[C.ink,  "the chromosome"],
+     [C.blue, "new DNA the cell is making"],
+     [C.verm, "the DNA you put in"]].forEach(function(r, k){
+      const y = 560 + k*36;
       g.appendChild(seg(x, x + 38, y - 8, r[0]));
       g.appendChild(G.text(x + 52, y, r[1], 23, C.muted, 400, "start"));
     });
@@ -340,9 +374,12 @@ window.Deck.sequence("red-fork", function(slide){
 
   s.part("fork", (function(){
     const g = G.el("g", {});
-    /* the parental duplex, and the two templates peeling apart */
-    g.appendChild(path("M150 "+(FY-SEP/2)+"H"+FX+"Q"+(FX+66)+" "+(FY-SEP/2)+" "+ARM0+" "+UT+"H"+ARM1));
-    g.appendChild(path("M150 "+(FY+SEP/2)+"H"+FX+"Q"+(FX+66)+" "+(FY+SEP/2)+" "+ARM0+" "+LT+"H"+ARM1));
+    /* the parental duplex, and the two templates peeling apart.  The
+       lagging template stops short of the locus and picks up after it,
+       because on one beat its middle is up in a loop. */
+    g.appendChild(path("M150 "+(FY-SEP/2)+"H"+FX+"Q"+(FX+60)+" "+(FY-SEP/2)+" "+ARM0+" "+UT+"H"+ARM1));
+    g.appendChild(path("M150 "+(FY+SEP/2)+"H"+FX+"Q"+(FX+60)+" "+(FY+SEP/2)+" "+ARM0+" "+LT+"H"+MX));
+    g.appendChild(seg(BX, ARM1, LT));
 
     /* which way it is going, because everything else depends on it */
     g.appendChild(path("M580 250H400M424 236L400 250L424 264", C.muted, 3));
@@ -357,75 +394,98 @@ window.Deck.sequence("red-fork", function(slide){
       23, C.muted, 400, "start"));
 
     /* lagging: fragments, each made away from the fork */
-    [[OK0, 1350], [1374, ARM1]].forEach(function(f){
+    [[OK0, 1390], [1410, ARM1]].forEach(function(f){
       g.appendChild(seg(f[0], f[1], LN, C.blue));
       g.appendChild(barb(f[1], LN, 1, C.blue));
     });
-    /* short, and hard against the fragments: the long version reached far
-       enough left to sit on top of the annealed strand's label */
-    g.appendChild(G.text(ARM1, LN + 40, "Okazaki fragments", 23, C.muted, 400, "end"));
+    g.appendChild(G.text(ARM1, LN + 76, "Okazaki fragments", 23, C.muted, 400, "end"));
     return g;
   })());
 
-  /* The stretch with nothing paired to it: from the fork to the nearest
-     fragment.  Drawn as itself rather than boxed, because a dashed box
-     round a line reads as an annotation and this is the molecule.  It is
-     its own part because it stops being true once the donor anneals --
-     leaving it up would have the slide contradicting itself -- and it
-     comes in two lengths, since the donor covers only the homologous
-     part of it. */
-  function bare(x1){
+  /* the lagging template's middle: flat while nothing is paired to it,
+     and arced up out of the way once the donor takes its place */
+  s.part("flat", seg(MX, BX, LT));
+  s.part("loop", (function(){
     const g = G.el("g", {});
-    g.appendChild(seg(ARM0 + 20, x1, LT, C.amber, 8));
-    g.appendChild(G.text((ARM0 + 20 + x1)/2, LT - 26, "nothing paired to it yet", 23, C.amber, 700));
-    return g;
-  }
-  s.part("bare",  bare(OK0));
-  s.part("bare2", bare(DB));
-
-  /* THE DONOR IS ONE MOLECULE WHOSE TAIL MOVES.  Everything except that
-     tail -- the duplex, the other tail, its label -- is the same in both
-     beats, so it is drawn once and left alone.  Drawn as two whole
-     donors it was two nearly identical pictures cross-dissolving, which
-     reads as a flicker instead of as one thing moving. */
-  s.part("stem", (function(){
-    const g = G.el("g", {});
-    g.appendChild(seg(DX0, DB, DY + 44, C.verm));
-    g.appendChild(barb(DX0, DY + 44, -1, C.verm));
-    g.appendChild(coat(DX0, DA, DY + 44, C.blue));
-    g.appendChild(seg(DA, DB, DY, C.verm));
-    g.appendChild(G.text((DX0 + DA)/2, DY + 96, "the other 3\u2032 tail, still waiting", 23, C.muted));
-    return g;
-  })());
-  s.part("tailup", (function(){
-    const g = G.el("g", {});
-    g.appendChild(seg(DB, DX1, DY, C.verm));
-    g.appendChild(barb(DX1, DY, 1, C.verm));
-    g.appendChild(coat(DB, DX1, DY, C.blue));
-    g.appendChild(G.text(800, DY - 44, "the strand Bet is holding", 25, C.muted, 400));
+    g.appendChild(path("M"+MX+" "+LT+"C"+(MX+40)+" "+(LT-116)+" "+(BX-40)+" "+(LT-116)+" "+BX+" "+LT));
+    /* clear of the arc: its apex is at LT-87, so anything below that is
+       drawn through by the curve it belongs to */
+    g.appendChild(G.text((MX+BX)/2, LT - 112, "target", 24, C.ink, 700));
     return g;
   })());
 
-  /* the same tail, lifted onto the bare template.  It lies where an
-     Okazaki fragment would lie, because that is what it is standing in
-     for, and its 3' end points the way theirs do. */
-  s.part("tailon", (function(){
+  s.part("bare", (function(){
     const g = G.el("g", {});
-    g.appendChild(path("M"+DB+" "+DY+"Q"+(DB-30)+" "+((DY+LN)/2)+" "+DB+" "+LN, C.verm));
-    g.appendChild(seg(DB, DX1, LN, C.verm));
-    g.appendChild(barb(DX1, LN, 1, C.verm));
-    g.appendChild(coat(DB, DX1, LN, C.blue));
-    g.appendChild(G.text((DB + DX1)/2, LN + 80, "your strand, paired", 24, C.verm, 700));
+    g.appendChild(seg(BARE, OK0 - 10, LT, C.amber, 8));
+    g.appendChild(G.text(BARE + 6, LT + 46, "single-stranded", 23, C.amber, 700, "start"));
     return g;
   })());
 
-  /* an oligo is the annealed strand and nothing else */
+  /* where A and B live: on the genome, either side of the target */
+  s.part("locus", (function(){
+    const g = G.el("g", {});
+    g.appendChild(G.feat(AX, LT, AW, "A", C.amber));
+    g.appendChild(G.feat(BX, LT, BW, "B", C.amber));
+    g.appendChild(G.text(AX + AW/2, LT - 34, "40 bp", 22, C.amber, 700));
+    g.appendChild(G.text(BX + BW/2, LT - 34, "40 bp", 22, C.amber, 700));
+    return g;
+  })());
+  s.part("tgt", G.feat(MX + 10, LT, MW - 20, "target", C.ink));
+
+  /* the donor: one full-length single strand, bracketed rather than
+     boxed so the Bet subunits along it stay visible */
+  s.part("donor", (function(){
+    const g = G.el("g", {});
+    g.appendChild(seg(AX, LOC1, DY, C.verm));
+    g.appendChild(barb(LOC1, DY, 1, C.verm));
+    g.appendChild(coat(AX, LOC1, DY, C.blue));
+    [[AX, AX+AW, "A · 40 bp"], [MX, BX, "your cassette"],
+     [BX, LOC1, "B · 40 bp"]].forEach(function(b){
+      g.appendChild(path("M"+b[0]+" "+(DY-26)+"V"+(DY-39)+"H"+b[1]+"V"+(DY-26)+"", C.verm, 2.4));
+      g.appendChild(G.text((b[0]+b[1])/2, DY - 50, b[2], 22, C.verm, 700));
+    });
+    g.appendChild(G.text((AX+LOC1)/2, DY + 58, "one whole strand, coated with Bet", 25, C.muted, 400));
+    return g;
+  })());
+
+  /* both arms paired, the cassette looping out below */
+  s.part("annealed", (function(){
+    const g = G.el("g", {});
+    g.appendChild(seg(AX, MX, LN, C.verm));
+    g.appendChild(seg(BX, LOC1, LN, C.verm));
+    g.appendChild(barb(LOC1, LN, 1, C.verm));
+    g.appendChild(path("M"+MX+" "+LN+"C"+(MX+40)+" "+(LN+116)+" "+(BX-40)+" "+(LN+116)+" "+BX+" "+LN, C.verm));
+    g.appendChild(G.text((MX+BX)/2, LN + 104, "your cassette", 24, C.verm, 700));
+    g.appendChild(G.text(AX + AW/2, LN + 32, "A", 23, C.verm, 700));
+    g.appendChild(G.text(BX + BW/2, LN + 32, "B", 23, C.verm, 700));
+    return g;
+  })());
+
+  /* an oligo: the annealed strand and nothing else */
   s.part("oligo", (function(){
+    const g = G.el("g", {}), x0 = MX + 20, x1 = BX - 20, mid = (x0+x1)/2;
+    g.appendChild(seg(x0, x1, LN, C.verm));
+    g.appendChild(barb(x1, LN, 1, C.verm));
+    /* no Bet along it: by the time it is paired Bet has done its job, and
+       the coat is exactly what the mismatch mark would get lost among */
+    g.appendChild(xout(mid, LN, 10, C.verm));
+    g.appendChild(G.text(mid, LN + 44, "a 70-mer · the cross is the base you are changing", 23, C.verm, 700));
+    return g;
+  })());
+
+  /* how it ends: the same locus, twice, once per daughter */
+  s.part("daughters", (function(){
     const g = G.el("g", {});
-    g.appendChild(seg(DB + 60, DX1, LN, C.verm));
-    g.appendChild(barb(DX1, LN, 1, C.verm));
-    g.appendChild(coat(DB + 60, DX1, LN, C.blue));
-    g.appendChild(G.text((DB + 60 + DX1)/2, LN + 80, "a 70-mer, and nothing else", 24, C.verm, 700));
+    [[330, C.verm, "your cassette", "one daughter chromosome"],
+     [560, C.ink,  "target",        "the other"]].forEach(function(r){
+      g.appendChild(seg(560, 1420, r[0]));
+      g.appendChild(G.feat(AX, r[0], AW, "A", C.amber));
+      g.appendChild(G.feat(MX + 10, r[0], MW - 20, r[2], r[1]));
+      g.appendChild(G.feat(BX, r[0], BW, "B", C.amber));
+      g.appendChild(G.text(560, r[0] - 42, r[3], 25, C.muted, 400, "start"));
+    });
+    g.appendChild(path("M760 372V518M746 496L760 520L774 496", C.muted, 3));
+    g.appendChild(G.text(790, 452, "they separate when the cell divides", 24, C.muted, 400, "start"));
     return g;
   })());
   s.finish();
