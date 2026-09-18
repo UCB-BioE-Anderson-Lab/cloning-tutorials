@@ -28,24 +28,17 @@
   <template class="desc">Section divider: Sequencing.</template>
 </article>
 
-<article class="slide">
+<!-- Three borrowed rasters -- a ddNTP, a cartoon of the products, and
+     somebody else's electropherogram -- replaced by the method being run.
+     JCA: "Sequencing needs to be animated instead of what we got", with
+     the beats named: anneal, extend, the dideoxy base with its real
+     structure in a callout, incorporation and release, the ladder of
+     lengths, the capillary and the fluorimeter writing the trace, and
+     the software turning the trace into a read. -->
+<article class="slide" data-seq="cycleseq">
   <h1 class="small">Cycle sequencing</h1>
-  <div class="cols">
-    <figure class="fig">
-      <img src="img/08-cycle-seq-a.png" alt="A dideoxynucleotide: the same base as a normal dNTP but with no three-prime hydroxyl, so a polymerase that adds one cannot add another.">
-    </figure>
-    <figure class="fig">
-      <img src="img/08-cycle-seq-b.png" alt="The population of products from a cycle sequencing reaction: one molecule terminated at every position, each carrying the dye of whichever base ended it.">
-    </figure>
-  </div>
-  <figure class="fig" data-build="1"
-          data-note="Then they are separated by length, one base at a time, and the dye on the last base of each fragment is read as it comes past. The order the colours arrive in is the sequence, and that is the trace. Read the trace and not just the base calls: the ends of every read are guesses, and a double peak in the middle usually means you picked two colonies at once."
-          data-desc="A third figure arrives: the electropherogram, four coloured peak traces with one peak per base and the called sequence printed above them.">
-    <img src="img/08-cycle-seq-c.png" alt="An electropherogram: four coloured peak traces running left to right, one peak per base, with the called sequence printed above them.">
-    <figcaption>and this is what that looks like when it is read &mdash; one peak per base, coloured by which dye terminated it</figcaption>
-  </figure>
-  <template class="notes">It is a PCR with one primer and a few percent of dideoxy bases thrown in. Every molecule stops somewhere, the dye tells you what base stopped it, and separating them by length puts those bases in order.</template>
-  <template class="desc">How cycle sequencing works, in two figures: a dideoxynucleotide that cannot be extended past, and the ladder of terminated products it creates.</template>
+  <template class="notes">One molecule, followed the whole way: an oligo anneals, a polymerase extends it, a dideoxy base stops it dead, and the length of the fragment plus the colour of the dye on its end is the entire readout.</template>
+  <template class="desc">Cycle sequencing run end to end: annealing, extension, termination by a dideoxynucleotide shown in full structure, the ladder of terminated products, their separation down a capillary past a fluorimeter, and the trace and read that come back.</template>
 </article>
 
 <article class="slide">
@@ -80,6 +73,8 @@
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/08-seq.js" defer></script>
 </body>
 </html>
 
