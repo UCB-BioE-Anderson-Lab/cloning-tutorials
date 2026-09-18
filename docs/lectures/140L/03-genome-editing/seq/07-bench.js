@@ -226,10 +226,15 @@ window.Deck.sequence("lysisrun", function(slide){
 /* ================================================================== *
  * 2.  column — the silica half
  * ================================================================== */
-const CX = 1100, CW = 146, CTOP = 232, FRIT = 408, SPOUT = 458;
+/* The column, off the photograph of one: a thin lip, then a barrel
+   about twice as long as it is wide, a short shoulder, and a narrow
+   nozzle with a lip of its own at the tip.  It was a wide squat funnel
+   with a stub on it.  Centre line unchanged at CX + CW/2. */
+const CX = 1109, CW = 128, CTOP = 202, FRIT = 455;
+const SHH = 36, SW = 40, SPOUT = 560;
 const TX = 1086, TW = 174, TTOP = 322, TH = 404;
 const LIST2 = steps([
-  ["Load the cleared lysate", "the blue arrives with it"],
+  ["Load the cleared lysate", ""],
   ["Spin 15 s, discard", "DNA binds the silica"],
   ["Add 500 \u00b5L PB", "more chaotrope"],
   ["Spin 15 s, discard", "protein leaves"],
@@ -246,9 +251,12 @@ const LIST2 = steps([
    straight barrel, the frit, and a spout that reaches down inside. */
 function barrel(){
   const g = G.el("g", {});
-  g.appendChild(path("M"+CX+" "+CTOP+"V"+FRIT+"L"+n1(CX+CW*0.30)+" "+(FRIT+34)+
-    "V"+SPOUT+"H"+n1(CX+CW*0.70)+"V"+(FRIT+34)+"L"+(CX+CW)+" "+FRIT+"V"+CTOP));
-  g.appendChild(G.el("rect", {x:CX-22, y:CTOP-14, width:CW+44, height:14, rx:3,
+  const sl = CX + (CW - SW)/2, sr = CX + (CW + SW)/2, sh = FRIT + SHH;
+  g.appendChild(path("M"+CX+" "+CTOP+"V"+FRIT+
+    "L"+n1(sl)+" "+n1(sh)+"V"+n1(SPOUT-9)+
+    "L"+n1(sl-3.5)+" "+SPOUT+"H"+n1(sr+3.5)+"L"+n1(sr)+" "+n1(SPOUT-9)+
+    "V"+n1(sh)+"L"+(CX+CW)+" "+FRIT+"V"+CTOP));
+  g.appendChild(G.el("rect", {x:CX-15, y:CTOP-12, width:CW+30, height:12, rx:2.5,
     fill:"none", stroke:C.ink, "stroke-width":2.6}));
   return g;
 }
@@ -368,7 +376,7 @@ window.Deck.sequence("column", function(slide){
       if (fade != null && fade < 0.995) t.setAttribute("opacity", n1(fade));
       if (lvl > 0.02)
         t.appendChild(contents(TX, TW, TTOP, TH,
-          TTOP + TH*0.9 - (TH*0.42)*lvl, col, ".15", eppen ? CONE : CONE20));
+          TTOP + TH*0.9 - (TH*0.26)*lvl, col, ".15", eppen ? CONE : CONE20));
       t.appendChild(eppen ? eppy(TX, TW, TTOP, TH)
                           : openTube(TX, TW, TTOP, TH, CONE20));
       if (tag) t.appendChild(G.text(TX - 22, TTOP + 82, tag, 22,
