@@ -13,8 +13,7 @@
  * mechanism in more detail and more accurately?"  They do genuinely
  * different jobs -- Gam never touches your DNA at all, it inhibits a
  * host nuclease -- and the annealing step happens somewhere specific,
- * which is the part that explains why a plain oligo works and why one of
- * the two oligos works far better than the other.
+ * which is what the second slide is for.
  *
  * ACCURACY, and where the field hedges.  Firm: Exo is a 5'-to-3'
  * double-strand-specific exonuclease that leaves 3' overhangs; Bet is a
@@ -114,7 +113,7 @@ const FR = [
   { on:["core","ends","genes","gam"],
     cap:"<b>Gam</b> never touches your DNA. It binds RecBCD and switches it off",
     call:"so the molecule survives long enough for the other two to work on it",
-    note:"Gam is an inhibitor of RecBCD, and of SbcCD as well. It binds the nuclease, not the DNA. That is worth saying out loud because it is the one of the three whose job is easiest to guess wrong: nothing about the donor changes on this click. All that has changed is that the enzyme which was destroying it has been taken out of service. This is also why Gam matters for a PCR product and does not matter for an oligo, which we will come back to.",
+    note:"Gam is an inhibitor of RecBCD, and of SbcCD as well. It binds the nuclease, not the DNA. That is worth saying out loud because it is the one of the three whose job is easiest to guess wrong: nothing about the donor changes on this click. All that has changed is that the enzyme which was destroying it has been taken out of service. It is also why Gam matters for a PCR product and does not matter for a single-stranded oligo: RecBCD needs a double-stranded end to load on.",
     desc:"A lump labelled Gam has appeared above each RecBCD, joined to it by an inhibition bar. The donor DNA is whole again and entirely unchanged." },
 
   { on:["core","ss","genes","exo"],
@@ -284,9 +283,6 @@ window.Deck.sequence("lambda-red", function(slide){
  * That ending also earns the bench rule at the end of the section: the
  * two strands at the locus now disagree, so the first colony is mixed
  * and you streak for singles before you believe anything.
- *
- * It also makes dsDNA and oligo recombineering the same reaction.  An
- * oligo IS the annealed strand; the dsDNA case just pays Exo to make one.
  * ================================================================== */
 
 /* THE FORK RUNS RIGHT TO LEFT: the parental duplex is on the left, the
@@ -343,15 +339,9 @@ const RF = [
 
   { on:["daughters"],
     cap:"so the two strands at that locus now disagree",
-    call:"one gets your cassette, the other keeps the gene &#183; so streak for singles before you believe anything",
+    call:"one gets your cassette, the other keeps the gene &#183; streak for singles",
     note:"And here is the ending. The strand Bet annealed becomes the new strand, joined up to the Okazaki fragments either side of it, and the template it is paired with still carries the target. The two strands of that one duplex disagree with each other. When the cell divides, they separate, and only one of the two chromosomes has your cassette in it. Two practical things come out of that. The colony you pick off the selection plate is a mixture, so you streak for single colonies before you trust any of it. And all of this only happens where a fork is passing, which is why this is done on cells in mid-log growth and does not work on a culture that has stopped.",
-    desc:"The fork has gone. In its place, the same locus drawn twice: one chromosome carrying the A arm, your cassette and the B arm, and the other carrying the A arm, the original target gene and the B arm." },
-
-  { on:["fork","flat","bare","locus","oligo"],
-    cap:"which is why a plain oligo is enough",
-    call:"no Exo needed, and no Gam either &#183; RecBCD needs a double-stranded end and an oligo does not give it one",
-    note:"Follow that through and the practical rule falls out. If the thing that recombines is a coated single strand, then handing the cell a single strand directly skips two of the three proteins. No Exo, because there is nothing to resect. No Gam, because RecBCD needs a double-stranded end to load on. Just Bet. So for a point mutation you can skip the PCR entirely and electroporate a seventy-mer with the change in the middle of it. The oligo is not immortal, the cell's single-strand exonucleases will get it eventually, which is why some protocols order the last few linkages as phosphorothioates. And there is a catch worth knowing: of the two oligos you could order, the one that anneals to the lagging-strand template works far better, often by ten to thirty fold, because that is the template that is exposed. Same change, same locus, one strand or the other, and an order of magnitude between them.",
-    desc:"The donor has been replaced by a short oligonucleotide annealed to the same exposed template, with a cross marking the single base where it disagrees with the genome." }
+    desc:"The fork has gone. In its place, the same locus drawn twice: one chromosome carrying the A arm, your cassette and the B arm, and the other carrying the A arm, the original target gene and the B arm." }
 ];
 
 window.Deck.sequence("red-fork", function(slide){
@@ -458,18 +448,6 @@ window.Deck.sequence("red-fork", function(slide){
     g.appendChild(G.text((MX+BX)/2, LN + 104, "your cassette", 24, C.verm, 700));
     g.appendChild(G.text(AX + AW/2, LN + 32, "A", 23, C.verm, 700));
     g.appendChild(G.text(BX + BW/2, LN + 32, "B", 23, C.verm, 700));
-    return g;
-  })());
-
-  /* an oligo: the annealed strand and nothing else */
-  s.part("oligo", (function(){
-    const g = G.el("g", {}), x0 = MX + 20, x1 = BX - 20, mid = (x0+x1)/2;
-    g.appendChild(seg(x0, x1, LN, C.verm));
-    g.appendChild(barb(x1, LN, 1, C.verm));
-    /* no Bet along it: by the time it is paired Bet has done its job, and
-       the coat is exactly what the mismatch mark would get lost among */
-    g.appendChild(xout(mid, LN, 10, C.verm));
-    g.appendChild(G.text(mid, LN + 44, "a 70-mer · the cross is the base you are changing", 23, C.verm, 700));
     return g;
   })());
 
