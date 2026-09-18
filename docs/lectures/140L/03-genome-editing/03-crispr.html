@@ -43,14 +43,16 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 38 -->
-<article class="slide">
-  <h1 class="small">CRISPR/Cas9 genome editing</h1>
-  <figure class="fig">
-    <img src="img/03-crispr-overview.png" alt="An overview figure of CRISPR/Cas9 editing: a guide RNA programmed to match a genomic sequence, Cas9 cutting both strands beside the PAM, and the cell repairing the break either by joining the ends or by copying a supplied donor DNA.">
-  </figure>
-  <div class="src">livemint.com</div>
-  <template class="notes">The picture in general terms before we do it in E. coli. A guide RNA is programmed to match a sequence, Cas9 cuts there, and the cell either joins the ends back together or copies a donor DNA across the break.</template>
-  <template class="desc">An overview figure of CRISPR/Cas9 genome editing: the guide RNA finding its matching genomic sequence, Cas9 cutting there, and the two ways the break is repaired.</template>
+<!-- The borrowed infographic that used to be here showed the cut and the
+     repair but not the two things that make CRISPR both programmable and
+     constrained: Cas9 reads the PAM BEFORE your sequence, and what it
+     builds when it matches is an R-loop.  Those are what the "find a GG"
+     slides later in this section are working around, so they are worth a
+     picture.  seq/03-cas9.js. -->
+<article class="slide" data-seq="cas9">
+  <h1 class="small">What Cas9 actually does</h1>
+  <template class="notes">The mechanism in general terms before we do it in E. coli. Cas9 finds a PAM first, opens the duplex beside it, checks the twenty bases there against its guide, and cuts both strands three bases in from the PAM. Then it lets go. What happens to the break after that is the cell's business, and E. coli and a mammalian cell answer very differently.</template>
+  <template class="desc">The Cas9 reaction animated: the guide RNA as the only programmed part, PAM recognition, the duplex opening into an R-loop with the guide paired to one strand and the other displaced, the blunt cut three bases from the PAM, and then the two fates of the break - sloppy end joining in a eukaryote, and no repair at all in E. coli.</template>
 </article>
 
 <!-- ------------------------------------------------------------ 40 - 45 -->
@@ -203,6 +205,7 @@ document.addEventListener("click", function(e){
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/parts.js" defer></script>
+<script src="seq/03-cas9.js" defer></script>
 <script src="seq/03-crispr.js" defer></script>
 </body>
 </html>
