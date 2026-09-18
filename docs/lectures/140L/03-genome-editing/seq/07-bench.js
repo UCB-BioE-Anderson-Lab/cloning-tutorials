@@ -238,37 +238,43 @@ const CELLS = [[-.85,-.74],[.06,-.97],[.83,-.64],[-.46,-.27],[.54,-.17],[-1,.2],
                [.25,.32],[.98,.08],[-.31,.56],[.64,.7],[-.9,.84],[.1,1]];
 
 const LFR = [
-  { s:{step:0, lvl:1, cells:1, cpel:0, free:0, floc:0, ppel:0}, on:["t0"],
+  { s:{step:0, lvl:1, liq:1, cells:1, cpel:0, free:0, floc:0, ppel:0}, on:["t0"],
     cap:"a saturated overnight, and the plasmid is inside the cells",
     call:"blue is the plasmid &#183; watch where it is on every step from here",
     note:"Two millilitres of a saturated overnight. Every one of those cells has some tens of copies of your plasmid in it, and that is the blue. Keep an eye on the blue for the rest of this: it is inside the cells now, it will be loose in the lysate in three steps, then stuck to a piece of silica, and finally in a tube on its own. The whole procedure is just moving it between those places.",
     desc:"A two millilitre tube full of turbid culture. Cells are drawn as small grey capsules suspended in it, each with a blue ring inside it: the plasmid." },
 
-  { s:{step:1, lvl:1, cells:0, cpel:1, free:0, floc:0, ppel:0}, on:["t1"],
+  { s:{step:1, lvl:1, liq:1, cells:0, cpel:1, free:0, floc:0, ppel:0}, on:["t1","sup"],
     cap:"spin one minute &#183; the cells go to the bottom",
-    call:"the blue went down with them &#183; now tip the medium off",
-    note:"One minute is plenty. Watch what moves and what does not: the cells go to the bottom and the liquid stays exactly where it was. Only then do you pour the medium off. Nothing has been done to the DNA yet. It is still inside the cells, and the cells are now at the bottom of the tube.",
-    desc:"The liquid has not moved. The cells have gone to the bottom of the tube as a grey pellet, still carrying the blue plasmid." },
+    call:"the blue went down with them &#183; everything above is spent medium",
+    note:"One minute is plenty. Watch what moves and what does not: the cells go to the bottom and the liquid stays exactly where it was. That liquid is the supernatant, and there is nothing in it you want \u2014 it is spent medium. Nothing has been done to the DNA yet. It is still inside the cells, and the cells are now at the bottom of the tube.",
+    desc:"The liquid has not moved. The cells have gone to the bottom of the tube as a yellow pellet, still carrying the blue plasmid. The liquid above them is labelled supernatant." },
 
-  { s:{step:2, lvl:0.5, cells:1, cpel:0, free:0, floc:0, ppel:0}, on:["t2"],
+  { s:{step:1, lvl:1, liq:0, cells:0, cpel:1, free:0, floc:0, ppel:0}, on:["t1"],
+    cap:"tip the supernatant off &#183; keep the pellet",
+    call:"nothing you want is in it &#183; the blue is all in the pellet",
+    note:"Now pour it off, in one motion, and drain the tube upside down on a paper towel for a second. The pellet is firm enough to stay put. Everything you care about is in that pellet: the cells are there and the plasmid is in the cells. If the pellet is loose and some of it goes down the sink with the medium, that is yield you are not getting back.",
+    desc:"The supernatant has been poured off. Only the yellow cell pellet is left in the bottom of the tube." },
+
+  { s:{step:2, lvl:0.5, liq:1, cells:1, cpel:0, free:0, floc:0, ppel:0}, on:["t2"],
     cap:"<b>P1</b> &#183; resuspend the pellet, 250 &micro;L",
     call:"Tris to buffer it, EDTA to stop nucleases, RNase to deal with the RNA",
     note:"P1 is buffer with RNase in it. The EDTA chelates magnesium so that any nuclease that gets loose cannot work, and the RNase is there because you are about to release an enormous amount of RNA that would otherwise come all the way through the prep with you. Resuspend properly: if there are clumps of cells left, P2 will not reach them and you have simply thrown that fraction away. The cells are whole again and the blue is still in them.",
     desc:"The pellet has been resuspended in P1. The cells are suspended in the liquid again, each still carrying its blue plasmid." },
 
-  { s:{step:3, lvl:0.72, cells:0, cpel:0, free:1, floc:0, ppel:0}, on:["t3"],
+  { s:{step:3, lvl:0.72, liq:1, cells:0, cpel:0, free:1, floc:0, ppel:0}, on:["t3"],
     cap:"<b>P2</b> &#183; lyse and denature, 250 &micro;L",
     call:"the cells burst and the blue is now loose in the liquid &#183; invert, do not vortex",
     note:"P2 is the lysis. SDS dissolves the membranes and denatures protein, and the sodium hydroxide denatures the DNA. The cells are gone, and everything that was in them, your plasmid included, is now loose in the tube. This is the step where the liquid goes clear and viscous, and the step you invert gently rather than vortex, because the chromosome is enormous and you do not want it sheared into pieces small enough to follow the plasmid through the rest of the prep.",
     desc:"The cells have burst. The liquid is clear, and the blue plasmid rings are now loose in it along with grey strands of chromosomal DNA." },
 
-  { s:{step:4, lvl:0.95, cells:0, cpel:0, free:1, floc:1, ppel:0}, on:["t4"],
+  { s:{step:4, lvl:0.95, liq:1, cells:0, cpel:0, free:1, floc:1, ppel:0}, on:["t4"],
     cap:"<b>N3</b> &#183; neutralise into high salt, 350 &micro;L",
     call:"everything except the plasmid comes out of solution &#183; the blue stays in",
     note:"N3 drops the pH back and puts the tube into high salt at the same time. The plasmid re-pairs and stays dissolved. Everything else does not: the chromosome, the denatured protein, the cell debris and the detergent all come out of solution together as a white precipitate, which you can watch appear. The blue is still in the liquid.",
     desc:"White flecks of precipitate have appeared throughout the liquid. The blue plasmid rings are still in solution among them." },
 
-  { s:{step:5, lvl:0.95, cells:0, cpel:0, free:1, floc:0, ppel:1}, on:["t5"],
+  { s:{step:5, lvl:0.95, liq:1, cells:0, cpel:0, free:1, floc:0, ppel:1}, on:["t5"],
     cap:"spin five minutes, and take the liquid off the top",
     call:"the blue is in the supernatant &#183; that is what goes on the column",
     note:"Five minutes and the precipitate is a firm pellet at the bottom with everything you do not want in it. The supernatant above it is clear and carries your plasmid. That is the cleared lysate, and it is what goes on the column on the next slide. Do not disturb the pellet on the way out of the tube: a bit of it carried over is chromosomal DNA in your prep.",
@@ -280,6 +286,12 @@ window.Deck.sequence("lysisrun", function(slide){
   const lab = t => G.text(LX + LW/2, 174, t, 25, C.muted, 400);
   s.part("t0", lab("saturated culture"));
   s.part("t1", lab("cell pellet"));
+  s.part("sup", (function(){
+    const k = G.el("g", {}), y = LTOP + LH*0.38;
+    k.appendChild(G.text(LX - 28, y + 8, "supernatant", 25, C.muted, 400, "end"));
+    k.appendChild(path("M" + n1(LX - 20) + " " + n1(y) + "h14", C.muted, 2));
+    return k;
+  })());
   s.part("t2", lab("resuspended"));
   s.part("t3", lab("lysate"));
   s.part("t4", lab("precipitate forming"));
@@ -291,9 +303,12 @@ window.Deck.sequence("lysisrun", function(slide){
     g.appendChild(LIST1(f.s.step));        /* snaps on the click, not mid-tween */
 
     const lvl = LTOP + LH*0.9 - (LH*0.9 - 18)*v.lvl;
-    if (v.lvl > 0.02)
-      g.appendChild(contents(LX, LW, LTOP, LH, lvl,
+    if (v.lvl > 0.02 && v.liq > 0.02){
+      const q = G.el("g", {opacity:n1(v.liq)});
+      q.appendChild(contents(LX, LW, LTOP, LH, lvl,
         v.cells > 0.5 ? C.amber : C.blue, v.cells > 0.5 ? ".13" : ".08", CONE20));
+      g.appendChild(q);
+    }
     g.appendChild(eppy(LX, LW, LTOP, LH, CONE20));
 
     const cx = LX + LW/2;
