@@ -101,11 +101,13 @@ function chip(x, y, letter, o){
  *   dR6G             the acceptor, and the thing that actually decides
  *                     what colour A comes out: 4,7-dichlororhodamine 6G
  *
- * The chlorines sit on the two ring carbons flanking the xanthene
- * oxygen, each one ortho to an ethylamino nitrogen.  That is what the
- * dye is for: it narrows the emission band by 20-30% and red-shifts it,
- * which is what lets four dyes share one detector without bleeding into
- * each other.
+ * The two chlorines that make it a "dichloro" rhodamine sit on the
+ * PENDANT ring, not on the xanthene -- checked against the published
+ * ddA-dR6G structure after I first drew them flanking the xanthene
+ * oxygen, which was an inference from the name and was wrong.  What
+ * they buy is a 20-30% narrower emission band and a red shift, which is
+ * what lets four dyes share one detector without bleeding into each
+ * other; where they sit is a fact, why that works is not mine to claim.
  *
  * The outer rings carry aromatic circles rather than a chosen Kekule
  * form, because the charge on a xanthylium really is delocalised across
@@ -163,7 +165,7 @@ function atom(p, t, col, sz){
 const FR5 = 46;
 function terminatorA(){
   /* sat high on the slide with a dead band under it */
-  const g = G.el("g", {transform:"translate(0 62)"}), col = BASE.A;
+  const g = G.el("g", {transform:"translate(52 44)"}), col = BASE.A;
 
   /* ---- the dideoxyribose ------------------------------------- */
   const sx = 690, sy = 430;
@@ -230,7 +232,7 @@ function terminatorA(){
 
   /* ---- the propargylamino arm -------------------------------- */
   const Ca = [830, 252], Cb = [906, 252], Cc = [946, 275],
-        Nl = [986, 252], Cd = [1026, 275], Od = [1026, 229];
+        Nl = [986, 252], Cd = [1026, 275], Od = [1066, 252];
   g.appendChild(bd(C7, Ca));
   g.appendChild(bd(Ca, Cb));
   g.appendChild(dbl(shrink(Ca, Cb, 2), shrink(Cb, Ca, 2)));
@@ -248,7 +250,7 @@ function terminatorA(){
   g.appendChild(atom(Od, "O"));
 
   /* ---- dR6G -------------------------------------------------- */
-  const px = 1066 + 31, py = 316, PRr = 36;
+  const px = 1026, py = 357, PRr = 36;
   const dx = px, dy = py + 124, R = 40, W = 1.7320508*R;
   const L = hexV(dx - W, dy, R), M = hexV(dx, dy, R), Rg = hexV(dx + W, dy, R);
   g.appendChild(ringPath(L));
@@ -260,11 +262,6 @@ function terminatorA(){
   g.appendChild(atom(M[1], "O"));
   g.appendChild(arom(dx - W, dy, R));
   g.appendChild(arom(dx + W, dy, R));
-  [[L[1], -1], [Rg[1], 1]].forEach(function(q){
-    const t = [q[0][0] + q[1]*6, q[0][1] + 48];
-    g.appendChild(bd(q[0], shrink(q[0], t, 22)));
-    g.appendChild(atom(t, "Cl"));
-  });
   const NL = [L[2][0] - 48, L[2][1] + 26], NR = [Rg[0][0] + 48, Rg[0][1] + 26];
   g.appendChild(bd(L[2], shrink(L[2], NL, 24)));
   g.appendChild(atom(NL, "N"));
@@ -278,11 +275,25 @@ function terminatorA(){
   [[L[3], -1], [Rg[5], 1]].forEach(function(q){
     g.appendChild(bd(q[0], [q[0][0] + q[1]*40, q[0][1] - 24]));
   });
+  /* THE CHLORINES ARE ON THIS RING, NOT ON THE XANTHENE.  I had them
+     flanking the xanthene oxygen, which was an inference from the name
+     "4,7-dichlororhodamine" and it was wrong.  JCA produced the
+     published ddA-dR6G structure: the xanthene carries only the two
+     ethylaminos and the two methyls, and both chlorines sit on the
+     pendant ring, para to each other -- one next to the bond to the
+     xanthene, one next to the amide.
+     Ring order from the xanthene: P1 attachment, P0 carboxylate,
+     P5 chlorine, P4 amide (para to the attachment), P3 H, P2 chlorine. */
   const P = hexV(px, py, PRr);
   g.appendChild(ringPath(P));
   g.appendChild(arom(px, py, PRr));
   g.appendChild(bd(P[1], M[4]));
-  g.appendChild(bd(P[3], Cd));
+  g.appendChild(bd(P[4], Cd));
+  [[P[5], 1, -1], [P[2], -1, 1]].forEach(function(q){
+    const t = [q[0][0] + q[1]*38.1, q[0][1] + q[2]*22];
+    g.appendChild(bd(q[0], shrink(q[0], t, 22)));
+    g.appendChild(atom(t, "Cl"));
+  });
   const CO = [P[0][0] + 48, P[0][1] + 8];
   g.appendChild(bd(P[0], shrink(P[0], CO, 16)));
   g.appendChild(G.text(CO[0] + 22, CO[1] + 9, "CO₂⁻", 23, C.ink, 600));
@@ -360,7 +371,7 @@ const FR = [
   note:"That was one molecule. In the tube there are billions of them, the dideoxy bases are rare enough that each one gets some distance before it meets one, and the position it stops at is essentially random. So you end up with a population containing a molecule terminated at every single position along the read, each one carrying the dye of the base that stopped it. Six drawn here; in reality it is eight hundred or a thousand, and that is your read length.",
   desc:"Six finished strands are stacked below the template, each one base longer than the last, with the coloured terminating chips forming a diagonal staircase down the right-hand side." },
 
-{ s:{mach:1, trace:1, ext:1, inc:1, off:1},
+{ s:{mach:1, trace:1, ext:1, inc:1, off:1}, dur:6500,
   cap:"a capillary separates them by length, and a detector reads the dye",
   call:"shortest first &#183; the order the colours arrive in <em>is</em> the sequence",
   note:"Now they get separated by size down a capillary, shortest first, one base of resolution. As each one comes past the window a laser excites its dye and a fluorimeter records which colour came off. Short ones arrive early, long ones late, so the colours arrive in the order the bases sit in on the molecule. What gets written down is a plot of colour against time, and that is the trace file.",

@@ -236,7 +236,11 @@ function run(api, FR, paint){
     api.show(f.on, f, instant);
     const to = state(f);
     if (!cur || instant){ cur = to; api.dyn.replaceChildren(paint(cur, f)); return; }
-    const from = cur, t0 = performance.now(), dur = 1300;
+    /* A beat can ask for longer.  Most transitions are a single thing
+       moving and 1.3s is right; a whole run down a capillary with six
+       fragments arriving one at a time is not, and at that speed it is
+       over before anyone has seen what it was showing. */
+    const from = cur, t0 = performance.now(), dur = f.dur || 1300;
     raf = requestAnimationFrame(function step(now){
       const t = Math.min(1, (now - t0)/dur), e = ease(t), st = {};
       keys.forEach(k => st[k] = from[k] + (to[k] - from[k])*e);
