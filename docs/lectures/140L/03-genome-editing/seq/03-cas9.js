@@ -34,7 +34,7 @@ const X0 = 190, X1 = 1410;           /* how far the genome runs    */
 const PS0 = 700, PS1 = 1100;         /* protospacer, 20 bp at 20px */
 const PAM0 = 1100, PAM1 = 1160;      /* the three bases after it   */
 const CUT = 1040;                    /* three bases in from the PAM */
-const CX = 940, LOBE = 380;          /* Cas9: centre, and its big lobe */
+const CX = 940, LOBE = 380;          /* where the guide sits inside it */
 const LOOP = 130, GAPW = 44;
 
 const n2 = v => Math.round(v*10)/10;
@@ -59,27 +59,45 @@ function bulge(x0, x1, y, h){
 }
 const mix = (a, b, t) => a + (b - a)*t;
 
-/* Cas9: two lobes with the DNA running through the cleft between them,
-   which is the one feature of the protein that has to be drawn -- a
-   closed lump would say nothing.  Translucent, so the molecule it is
-   holding reads straight through it, and kept clear of the two labels
-   that live just above and just below the DNA. */
-function cas9(dy, land, o){
-  const g = G.el("g", {opacity:n2(o), transform:"translate(0 "+n2(dy)+")"});
-  const sk = {fill:C.blue, "fill-opacity":".09", stroke:C.blue,
-              "stroke-width":2.6, "stroke-opacity":".6"};
-  /* The clamshell opens as it lands.  Lifting the whole protein clear of
-     the DNA is not possible -- the two lobes are three hundred apart and
-     raising them far enough to clear the molecule puts the top one
-     through the slide title -- so the lower lobe swings down into place
-     instead, which is closer to what the protein does anyway. */
-  const ly = mix(496, 688, land);
-  g.appendChild(G.el("ellipse", Object.assign({cx:CX, cy:LOBE, rx:300, ry:104}, sk)));
-  g.appendChild(G.el("ellipse", Object.assign({cx:1184, cy:n2(ly), rx:150, ry:62}, sk)));
-  g.appendChild(path("M"+(CX+286)+" "+(LOBE+56)+"Q1290 "+n2(ly-110)+" 1284 "+n2(ly-56),
-    C.blue, 2.6, null, 0.5));
-  g.appendChild(G.text(CX - 150, LOBE - 22, "Cas9", 30, C.blue, 700));
-  g.appendChild(G.text(1184, n2(ly + 8), "PAM-reading lobe", 21, C.blue, 700));
+/* Cas9, as JCA's line art: one filled silhouette with a slot punched
+   through it (seq/art-cas9.js), rotated a little past a quarter turn so
+   the deep bite in what was its right-hand edge opens downward.  That
+   bite is the cleft, and the duplex sits in it.
+
+   Two ellipses used to do this job and had to open like a clamshell,
+   because a pair of lobes lifted far enough to clear the DNA put the top
+   one through the slide title.  One shape with a notch has no such
+   problem: it just comes down, and the molecule ends up in the groove.
+
+   Translucent, per the house rule for an enzyme sitting on a substrate,
+   so the DNA and the R-loop read straight through it. */
+/* Placement is solved rather than eyeballed.  The shape was rasterised
+   at each candidate rotation and its bottom edge profiled; at 110 the
+   deepest notch is 200 units and sits 146 left of and 89 below the
+   shape's centre.  ART_T is then just the arithmetic that puts that
+   notch where the duplex wants it: apex a little ABOVE the top strand,
+   so the molecule passes under the roof of the cleft and the two arms of
+   the protein come down either side of it. */
+const ART_W = 558.6, ART_H = 525.3, ART_ROT = 110;
+const ART_KX = 1.08, ART_KY = 0.80;  /* see below for why these differ */
+const ART_NX = -146, ART_NY = 89;    /* the notch, from the shape centre */
+const SEATX = 819, SEATY = 536;      /* where that notch is to sit       */
+const ART_TX = SEATX - ART_KX*ART_NX, ART_TY = SEATY - ART_KY*ART_NY;
+
+/* The scale is not uniform, and the squash is applied OUTSIDE the
+   rotation so it happens along the slide's axes rather than the shape's.
+   The source is very nearly square, and the protein has to be wide
+   enough to contain the whole R-loop while leaving the slide title
+   alone; scaled evenly it can do one or the other.  A blob squashed by a
+   fifth is still a blob.  The stroke is told not to scale with it, or
+   the outline would come out heavier across than down. */
+function cas9(dy, o){
+  const g = G.el("g", {opacity:n2(o), fill:C.blue, "fill-opacity":".13",
+    stroke:C.blue, "stroke-width":2.6, "stroke-opacity":".62",
+    "vector-effect":"non-scaling-stroke",
+    transform:"translate("+n2(ART_TX)+" "+n2(ART_TY + dy)+") scale("+ART_KX+" "+ART_KY+
+              ") rotate("+ART_ROT+") translate("+n2(-ART_W/2)+" "+n2(-ART_H/2)+")"});
+  g.innerHTML = window.ART.cas9;
   return g;
 }
 
@@ -100,7 +118,7 @@ function cas9(dy, land, o){
    end -- the end the scaffold continues from -- is the PAM-proximal one.
    The scaffold therefore sits on the PAM side, and it stays up in the
    protein while the spacer reaches down to pair. */
-const SCX = 1150, SCY = 452;         /* where the scaffold sits in Cas9 */
+const SCX = 1124, SCY = 452;         /* where the scaffold sits in Cas9 */
 
 function scaffold(x, y){
   const g = G.el("g", {});
@@ -235,7 +253,8 @@ window.Deck.sequence("cas9", function(slide){
        away again. */
     const o = 1 - v.off, dy = -(1 - v.land)*120;
     if (o > 0.02){
-      g.appendChild(cas9(dy, v.land, o));
+      g.appendChild(cas9(dy, o));
+      g.appendChild(G.text(742, 336 + dy, "Cas9", 30, C.blue, 700));
       /* One RNA.  The spacer is the only part that moves: it lies in
          the protein until the duplex opens and then reaches down to the
          strand it pairs with, while the scaffold stays where it is and
