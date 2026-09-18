@@ -83,21 +83,41 @@ function cas9(dy, land, o){
   return g;
 }
 
-/* the guide: a scaffold hairpin, and the twenty bases you choose */
-function hairpin(dy, o){
-  const g = G.el("g", {opacity:n2(o), transform:"translate(0 "+n2(dy)+")"});
-  const x = CX + 246, y = 206;
-  g.appendChild(path("M"+x+" "+(y+70)+"V"+(y+22)+"a28 28 0 1 1 56 0V"+(y+70), C.verm, 3.2));
-  g.appendChild(G.text(x + 96, y + 40, "guide RNA", 24, C.verm, 700, "start"));
+/* THE GUIDE IS ONE MOLECULE.  The first version drew the twenty bases
+   inside Cas9 and a hairpin outside it, which reads as two things and
+   raises exactly the question JCA asked: is there processing between
+   them?  In nature, yes -- a type II CRISPR array is transcribed as one
+   long pre-crRNA, a separate tracrRNA pairs with its repeats, RNase III
+   cuts it up, and what loads into Cas9 is a crRNA:tracrRNA pair.  But
+   nothing you will use works that way.  Jinek and Charpentier's 2012
+   result was that the two could be fused into one chimeric RNA, and that
+   single guide is what every plasmid in this lecture encodes: twenty
+   bases you choose at the 5' end, running straight on into a scaffold
+   that is the same in every guide ever made.
+
+   Which end is which matters and is easy to get backwards: the spacer
+   carries the protospacer's sequence 5'-to-3' toward the PAM, so its 3'
+   end -- the end the scaffold continues from -- is the PAM-proximal one.
+   The scaffold therefore sits on the PAM side, and it stays up in the
+   protein while the spacer reaches down to pair. */
+const SCX = 1150, SCY = 452;         /* where the scaffold sits in Cas9 */
+
+function scaffold(x, y){
+  const g = G.el("g", {});
+  for (let i = 0; i < 3; i++){
+    const hx = x + i*40;
+    g.appendChild(path("M"+hx+" "+y+"V"+(y-40)+"a15 15 0 1 1 30 0V"+y, C.verm, 3.2));
+  }
+  g.appendChild(path("M"+x+" "+y+"H"+(x + 110), C.verm, 3.2));
   return g;
 }
 
 const FR = [
   { s:{land:0, open:0, cut:0, gap:0, off:0, join:0}, on:["prog"],
-    cap:"the only part you design is twenty bases of RNA",
-    call:"everything else about Cas9 is the same whatever you are cutting",
-    note:"Start with what makes this different from everything else in the lecture. Cas9 is one protein and it is always the same protein. What you change is a twenty base stretch of an RNA it carries, and those twenty bases are what decide where in a genome it cuts. That is the whole of the programming. No new enzyme, no new binding site engineered into the chromosome, just an oligo.",
-    desc:"A double-stranded genome drawn as two lines, with Cas9 above it as a two-lobed shape carrying a guide RNA hairpin, the guide's twenty variable bases picked out in red." },
+    cap:"the guide is <b>one</b> RNA: twenty bases you choose, then a scaffold that never changes",
+    call:"in nature it is two RNAs that have to be processed and paired &#183; fusing them into one is what made this usable",
+    note:"Start with what makes this different from everything else in the lecture. Cas9 is one protein and it is always the same protein. What you change is the first twenty bases of a single RNA it carries, and those twenty bases decide where in a genome it cuts. That is the whole of the programming: no new enzyme, no new site engineered into the chromosome, just an oligo. And it is worth being clear that it really is one molecule, because in nature it is not. A type II CRISPR array is transcribed as one long pre-crRNA, a separate tracrRNA base-pairs with its repeats, RNase III cuts the thing up, and what loads into Cas9 is a crRNA paired to a tracrRNA. Jinek and Charpentier showed in 2012 that the two could be fused into one chimeric RNA, and that single guide is what every plasmid in this lecture encodes. So there is processing, and the engineering was getting rid of it.",
+    desc:"A double-stranded genome drawn as two lines, with Cas9 above it as a two-lobed shape holding a single guide RNA: a straight stretch of twenty bases running on into three stem-loops of scaffold, all one molecule and all in red." },
 
   { s:{land:1, open:0, cut:0, gap:0, off:0, join:0}, on:["prog","pam"],
     cap:"but it reads a <b>PAM</b> first, not your sequence",
@@ -142,7 +162,7 @@ window.Deck.sequence("cas9", function(slide){
   /* The labels that come and go rather than move.  They live just above
      the top strand and just below the bottom one, which is the band
      Cas9's two lobes are shaped to leave clear. */
-  s.part("pam", G.text((PAM0+PAM1)/2, YT - 34, "PAM \u00b7 NGG", 25, C.amber, 700));
+  s.part("pam", G.text(PAM1 + 14, YT - 30, "PAM \u00b7 NGG", 25, C.amber, 700, "start"));
   s.part("ps", (function(){
     const g = G.el("g", {});
     g.appendChild(path("M"+PS0+" "+(YB+26)+"V"+(YB+40)+"H"+PS1+"V"+(YB+26), C.muted, 2.6));
@@ -216,15 +236,22 @@ window.Deck.sequence("cas9", function(slide){
     const o = 1 - v.off, dy = -(1 - v.land)*120;
     if (o > 0.02){
       g.appendChild(cas9(dy, v.land, o));
-      g.appendChild(hairpin(dy, o));
-      /* the twenty bases: inside the protein until the duplex opens,
-         then lying against the strand they have just paired with */
-      const gy = mix(LOBE + 40 + dy, YB - 13, v.open);
-      const gx0 = mix(CX - 150, PS0 + dL, v.open);
-      const gx1 = mix(CX + 150, PS1 + dR, v.open);
+      /* One RNA.  The spacer is the only part that moves: it lies in
+         the protein until the duplex opens and then reaches down to the
+         strand it pairs with, while the scaffold stays where it is and
+         the molecule stretches between them. */
+      const gy = mix(LOBE + 46 + dy, YB - 13, v.open);
+      const gx0 = mix(CX - 170, PS0 + dL, v.open);
+      const gx1 = mix(CX + 130, PS1 + dR, v.open);
+      const sy = SCY + dy;
+      g.appendChild(path("M"+n2(gx1)+" "+n2(gy)+"V"+n2(sy+26)+
+        "Q"+n2(gx1)+" "+n2(sy)+" "+n2(gx1+34)+" "+n2(sy)+"H"+n2(SCX), C.verm, 3.2));
       g.appendChild(path("M"+n2(gx0)+" "+n2(gy)+"H"+n2(gx1), C.verm, 7));
-      if (v.open < 0.3)
-        g.appendChild(G.text((gx0+gx1)/2, gy + 34, "20 bases", 22, C.verm, 700));
+      g.appendChild(scaffold(SCX, sy));
+      if (v.open < 0.3){
+        g.appendChild(G.text((gx0+gx1)/2, gy + 34, "spacer \u00b7 the 20 you choose", 22, C.verm, 700));
+        g.appendChild(G.text(SCX + 55, sy - 58, "scaffold \u00b7 always the same", 22, C.verm, 700));
+      }
     }
     return g;
   }
