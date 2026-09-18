@@ -73,38 +73,24 @@
   <template class="desc">The alkaline lysis half of a miniprep, six steps arriving one at a time, each buffer named with what is actually in it.</template>
 </article>
 
-<article class="slide">
+<!-- Nine bullets replaced by the column being run.  Every line of that
+     list read "spin 15 s, discard" and nothing on the slide said what
+     had left the column that time.  JCA: "showing the column and what is
+     happening to it, like exchange of tubes below it, liquids in it with
+     their labels being squirted in."  seq/07-column.js. -->
+<article class="slide" data-seq="column">
   <h1 class="small">Column cleanup</h1>
-  <ul class="buf">
-    <li>Transfer the clarified supernatant to a column</li>
-    <li data-build="1" data-desc="Second step: spin fifteen seconds and discard the flow-through; the DNA is now bound to the column."
-        data-note="The DNA binds because the guanidinium is still in there. That is why you do not wash with water at this point: it would take the plasmid with it.">Spin 15 s, discard <span>&mdash; the DNA is now bound to the column</span></li>
-    <li data-build="2" data-desc="Third step: add 500 microlitres of PB buffer."
-        data-note="PB is more chaotrope. It keeps the DNA stuck while the protein comes off.">Add 500 uL <b>PB</b></li>
-    <li data-build="3" data-desc="Fourth step: spin fifteen seconds and discard; protein is removed."
-        data-note="Protein gone.">Spin 15 s, discard <span>&mdash; protein is removed</span></li>
-    <li data-build="4" data-desc="Fifth step: add 750 microlitres of PE buffer."
-        data-note="PE is the ethanol wash, and it is what gets rid of the salt.">Add 750 uL <b>PE</b></li>
-    <li data-build="5" data-desc="Sixth step: spin fifteen seconds and discard; salts are removed."
-        data-note="Salt gone. What is left on the column is DNA and ethanol.">Spin 15 s, discard <span>&mdash; salts are removed</span></li>
-    <li data-build="6"
-        data-note="Ethanol in the wash carries over and will ruin the sequencing read, so the dry spin is not optional."
-        data-desc="Seventh step: spin ninety seconds to dry the column.">Spin 90 s to <b>dry</b> the column</li>
-    <li data-build="7" data-desc="Eighth step: add 50 microlitres of water."
-        data-note="Water, and low salt, is what makes the DNA let go of the silica. Warm water elutes a little better if you are chasing yield.">Add 50 uL water</li>
-    <li data-build="8" data-desc="Ninth step: spin forty-five seconds into a fresh tube and discard the column."
-        data-note="Fresh tube, or you will collect your plasmid into the wash you just threw away.">Spin 45 s into a fresh tube, discard the column</li>
-  </ul>
   <p class="see">Step by step: <a href="../../../wetlab/miniprep/">Miniprep tutorial</a> &nbsp;&middot;&nbsp;
      <a href="../../../cheatsheets/miniprep.pdf">bench cheatsheet</a></p>
   <template class="notes">The second half is a silica column and three washes. The DNA binds in chaotropic salt, the protein comes off in one wash, the salt comes off in the next, and the dry spin gets rid of the ethanol that would otherwise ruin your sequencing read.</template>
-  <template class="desc">The column half of a miniprep, nine steps arriving one at a time, each spin labelled with what it removes.</template>
+  <template class="desc">The column half of a miniprep, run rather than listed: the lysate loaded, the DNA bound to the frit, three washes squirted in and spun through, a dry spin, the waste tube exchanged for a clean one, and the plasmid eluted into it.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/parts.js" defer></script>
 <script src="seq/07-lysis.js" defer></script>
+<script src="seq/07-column.js" defer></script>
 </body>
 </html>
 
