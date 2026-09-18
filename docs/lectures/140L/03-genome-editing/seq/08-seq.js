@@ -238,8 +238,13 @@ function terminatorA(){
   g.appendChild(bd(Cc, shrink(Cc, Nl, 18)));
   g.appendChild(atom(Nl, "N"));
   g.appendChild(G.text(Nl[0], Nl[1] + 34, "H", 20, C.ink, 600));
-  g.appendChild(bd(shrink(Nl, Cd, 18), Cd));
-  g.appendChild(dbl(shrink(Cd, Od, 4), shrink(Od, Cd, 22)));
+  /* shrink(a, b, g) trims the END b, so the labelled atom is the one
+     that goes second.  Both of these had it the other way round: the
+     N-C bond was an 18px stub with a gap after the nitrogen, and the
+     C=O was trimmed at the carbon end, which left it floating clear of
+     the carbonyl it belongs to. */
+  g.appendChild(bd(shrink(Cd, Nl, 18), Cd));
+  g.appendChild(dbl(Cd, shrink(Cd, Od, 20)));
   g.appendChild(atom(Od, "O"));
 
   /* ---- dR6G -------------------------------------------------- */
