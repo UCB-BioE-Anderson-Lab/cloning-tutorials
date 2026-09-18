@@ -179,7 +179,7 @@ const FR = [
     cap:"spin, and the tangle goes to the bottom",
     call:"the plasmid stays in solution, and the supernatant is what you put on the column",
     note:"Five minutes in the centrifuge and the aggregate pellets, taking the protein, the debris and the precipitated detergent down with it. What is left floating is your plasmid, still double-stranded, still covalently closed, and that supernatant is the cleared lysate that goes on the column. And now you can see why the protocol keeps telling you not to vortex: shear the chromosome into short enough pieces and they re-pair well enough to stay in solution, and they come through into your prep. Inverting gently keeps it long, and long is what gets left behind.",
-    desc:"The tangle, and beside it a tube with a dense pellet at its bottom and clear liquid above it carrying the small double-stranded rings." }
+    desc:"The tangle, and beside it a tube of liquid with a meniscus near the top, a dense pellet at the bottom, and the small double-stranded rings floating in the supernatant between them." }
 ];
 
 
@@ -241,6 +241,21 @@ window.Deck.sequence("lysis", function(slide){
 
   s.part("tube", (function(){
     const g = G.el("g", {});
+    /* The liquid.  Without it the tube is an outline with things
+       floating in mid-air, and the caption's word -- supernatant -- has
+       nothing on the slide to point at.  Meniscus dipped in the middle,
+       because an aqueous solution wets the wall and climbs it. */
+    const ML = TUBE.y + 68;
+    g.appendChild(G.el("path", {
+      d:"M"+TUBE.x+" "+ML+
+        "Q"+(TUBE.x+TUBE.w/2)+" "+(ML+20)+" "+(TUBE.x+TUBE.w)+" "+ML+
+        "V"+(TUBE.y+TUBE.h-70)+
+        "Q"+(TUBE.x+TUBE.w/2)+" "+(TUBE.y+TUBE.h+50)+" "+TUBE.x+" "+(TUBE.y+TUBE.h-70)+"Z",
+      fill:C.blue, "fill-opacity":".09", stroke:"none"}));
+    g.appendChild(G.el("path", {
+      d:"M"+TUBE.x+" "+ML+"Q"+(TUBE.x+TUBE.w/2)+" "+(ML+20)+" "+(TUBE.x+TUBE.w)+" "+ML,
+      fill:"none", stroke:C.muted, "stroke-width":2.2}));
+    g.appendChild(G.text(TUBE.x - 22, TUBE.y + 250, "supernatant", 21, C.muted, 400, "end"));
     g.appendChild(G.el("path", {
       d:"M"+TUBE.x+" "+TUBE.y+"V"+(TUBE.y+TUBE.h-70)+
         "Q"+(TUBE.x+TUBE.w/2)+" "+(TUBE.y+TUBE.h+50)+" "+(TUBE.x+TUBE.w)+" "+(TUBE.y+TUBE.h-70)+
@@ -256,7 +271,8 @@ window.Deck.sequence("lysis", function(slide){
     g.appendChild(G.text(TUBE.x+TUBE.w+22, TUBE.y+TUBE.h-14,
       "cell debris, precipitated SDS", 21, C.muted, 400, "start"));
     g.appendChild(G.text(TUBE.x+TUBE.w+22, TUBE.y+112, "plasmid", 23, C.blue, 700, "start"));
-    [[1048,352,20],[1136,398,20],[1072,456,20],[1162,326,20]]
+    /* all four below the meniscus: one used to sit above it, in mid-air */
+    [[1044,398,20],[1150,374,20],[1086,472,20],[1174,444,20]]
       .forEach(c => g.appendChild(duplex(ringPts(c[0], c[1], c[2]), 4.5, C.blue)));
     return g;
   })());
