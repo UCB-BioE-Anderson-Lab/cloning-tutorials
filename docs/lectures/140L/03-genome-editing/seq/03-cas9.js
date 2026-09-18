@@ -36,6 +36,15 @@ const PAM0 = 1100, PAM1 = 1160;      /* the three bases after it   */
 const CUT = 1040;                    /* three bases in from the PAM */
 const CX = 940, LOBE = 380;          /* where the guide sits inside it */
 const LOOP = 130, GAPW = 44;
+/* the repair template, and the regions it is homologous to.  The arms
+   are placed so that at the moment the two are being compared -- ends
+   apart by GAPW -- the genome's copies sit directly under the template's,
+   because that correspondence is the whole point of the picture. */
+const MY = 320, ARM = 240, GENE = 200;
+const TL0 = 700, TL1 = TL0 + ARM;            /* template: left arm   */
+const TG0 = TL1, TG1 = TG0 + GENE;           /*           the gene   */
+const TR0 = TG1, TR1 = TR0 + ARM;            /*           right arm  */
+const HL0 = TL0 + GAPW, HR0 = TR0 - GAPW;    /* the genome's copies  */
 
 const n2 = v => Math.round(v*10)/10;
 const S = 3.5;
@@ -131,47 +140,59 @@ function scaffold(x, y){
 }
 
 const FR = [
-  { s:{land:0, open:0, cut:0, gap:0, off:0, join:0}, on:["prog"],
+  { s:{land:0, open:0, cut:0, gap:0, off:0, join:0, arms:0, ins:0}, on:["prog"],
     cap:"the guide is <b>one</b> RNA: twenty bases you choose, then a scaffold that never changes",
     call:"in nature it is two RNAs that have to be processed and paired &#183; fusing them into one is what made this usable",
     note:"Start with what makes this different from everything else in the lecture. Cas9 is one protein and it is always the same protein. What you change is the first twenty bases of a single RNA it carries, and those twenty bases decide where in a genome it cuts. That is the whole of the programming: no new enzyme, no new site engineered into the chromosome, just an oligo. And it is worth being clear that it really is one molecule, because in nature it is not. A type II CRISPR array is transcribed as one long pre-crRNA, a separate tracrRNA base-pairs with its repeats, RNase III cuts the thing up, and what loads into Cas9 is a crRNA paired to a tracrRNA. Jinek and Charpentier showed in 2012 that the two could be fused into one chimeric RNA, and that single guide is what every plasmid in this lecture encodes. So there is processing, and the engineering was getting rid of it.",
     desc:"A double-stranded genome drawn as two lines, with Cas9 above it as a two-lobed shape holding a single guide RNA: a straight stretch of twenty bases running on into three stem-loops of scaffold, all one molecule and all in red." },
 
-  { s:{land:1, open:0, cut:0, gap:0, off:0, join:0}, on:["prog","pam"],
+  { s:{land:1, open:0, cut:0, gap:0, off:0, join:0, arms:0, ins:0}, on:["prog","pam"],
     cap:"but it reads a <b>PAM</b> first, not your sequence",
     call:"NGG &#183; three bases, and nothing happens anywhere that does not have one",
     note:"And here is the constraint that everything later in this section is working around. Cas9 does not scan for your twenty bases. It scans for a PAM, which for the Streptococcus pyogenes enzyme is NGG: any base, then two Gs. It collides with the DNA, checks for a PAM, and lets go again if there is not one. Only where it finds one does it even look at the sequence next door. So you cannot cut wherever you like. You can cut next to a GG.",
     desc:"Cas9 has come down onto the genome. A short segment of the top strand is marked PAM, and Cas9's lower lobe is sitting against it." },
 
-  { s:{land:1, open:1, cut:0, gap:0, off:0, join:0}, on:["prog","pam","ps"],
+  { s:{land:1, open:1, cut:0, gap:0, off:0, join:0, arms:0, ins:0}, on:["prog","pam","ps"],
     cap:"then it opens the duplex beside the PAM and checks the twenty bases there",
     call:"the guide pairs with one strand &#183; the other is pushed out of the way",
     note:"Having found a PAM, Cas9 prises the two strands apart just next to it and offers its guide to one of them. If the twenty bases match, the guide base-pairs with them and stays. Watch which strand is which, because it is easy to get backwards: the protospacer and the PAM are on the same strand, the guide carries that strand's sequence, so the guide pairs with the opposite strand and the PAM-bearing strand is the one with nothing left to pair with. It gets pushed out into a loop. That structure is called an R-loop, and it is the thing that holds Cas9 on target.",
     desc:"The duplex has opened over the twenty bases next to the PAM. The guide RNA lies paired against the lower strand, and the upper strand has been displaced into a loop above it." },
 
-  { s:{land:1, open:1, cut:1, gap:0, off:0, join:0}, on:["prog","pam","ps","cuts"],
+  { s:{land:1, open:1, cut:1, gap:0, off:0, join:0, arms:0, ins:0}, on:["prog","pam","ps","cuts"],
     cap:"held on target, it cuts both strands three bases in from the PAM",
     call:"two nuclease domains, one per strand, and the ends come out blunt",
     note:"Only once the R-loop is complete do the nuclease domains fire. There are two of them and they take one strand each, both of them cutting between the third and fourth base counting back from the PAM. Because both cuts are at the same position, the ends come out blunt. That predictability is worth noticing, and you will use it in a minute: you can write down exactly where the break is going to be from the sequence alone.",
     desc:"Two cut marks appear across the strands, at the same position three bases in from the PAM." },
 
-  { s:{land:1, open:0, cut:0, gap:1, off:1, join:0}, on:["prog","broke"],
+  { s:{land:1, open:0, cut:0, gap:1, off:1, join:0, arms:0, ins:0}, on:["prog","broke"],
     cap:"and then it lets go, leaving a blunt double-strand break",
     call:"a chromosome in two pieces &#183; this is all Cas9 does",
     note:"Cas9 releases, the loop collapses, and what is left behind is a chromosome in two pieces. That is the entire contribution of the protein. It does not insert anything, it does not repair anything, it does not edit anything. It makes one break in one place. Everything that happens next is the cell's own machinery, and which machinery the cell has is what decides what you get.",
     desc:"Cas9 and the guide have gone. The genome is in two pieces with blunt ends, separated by a gap." },
 
-  { s:{land:1, open:0, cut:0, gap:1, off:1, join:1}, on:["prog","nhej"],
+  { s:{land:1, open:0, cut:0, gap:1, off:1, join:1, arms:0, ins:0}, on:["prog","nhej"],
     cap:"in a plant or an animal cell, the ends get stuck back together badly",
     call:"non-homologous end joining &#183; a few bases lost, the reading frame wrecked, the gene dead",
     note:"In most eukaryotic cells there is a pathway called non-homologous end joining that grabs two free ends and ligates them, and it is not careful: it usually chews or adds a few bases first. That sloppiness is the point. A small insertion or deletion in a coding sequence throws the reading frame out and the gene stops working. So in a mammalian or plant cell, cutting is enough to knock a gene out, and most of what you read about CRISPR knockouts is this.",
     desc:"The two ends have been joined back together, with a small red mark at the junction showing the few bases lost or gained in the process." },
 
-  { s:{land:1, open:0, cut:0, gap:1, off:1, join:0}, on:["prog","noneh"],
-    cap:"<em>E. coli</em> has essentially none of that pathway",
-    call:"so the break is not an edit, it is a death sentence &#8212; unless you hand the cell a template",
-    note:"And here is why this section is built the way it is. E. coli has essentially no non-homologous end joining. Hand it a double-strand break in its only chromosome and it does not repair it badly, it does not repair it at all, and the cell dies. Which sounds like a problem and is actually the trick. It means a cut is a very strong selection: the only cells that live are the ones that repaired, and the only way to repair is homologous recombination off a template. So you supply the template, and every survivor is an edit. That is the two plasmid system on the next slide.",
-    desc:"The broken genome again, with a separate short piece of double-stranded DNA above it labelled repair template, and a note that E. coli has no end-joining pathway." }
+  { s:{land:1, open:0, cut:0, gap:1, off:1, join:0, arms:1, ins:0}, on:["prog","tmpl","hdr"],
+    cap:"or hand the cell a template, and it will copy the change in instead",
+    call:"two arms of genome sequence, and whatever you want between them",
+    note:"The other thing a eukaryotic cell can do with a broken chromosome is repair it properly, off a homologous template, and that is the route you take when you want to put something in rather than just break something. The template is a piece of DNA carrying two arms that match the genome either side of the cut, with your gene between them. Look at the two pictures: the grey stretches are the same sequence top and bottom, and that is the only thing holding the reaction together. In a mammalian cell those arms are usually several hundred bases to a kilobase each. This is a much less efficient route than end joining, which is why getting a knock-IN is harder than getting a knockout.",
+    desc:"Above the broken genome, a repair template appears: a length of double-stranded DNA carrying a homology arm, a gene, and a second homology arm. The two arms sit directly above the matching stretches of genome either side of the break, which are marked in the same grey." },
+
+  { s:{land:1, open:0, cut:0, gap:1, off:1, join:0, arms:1, ins:1}, on:["prog","done"],
+    cap:"homologous recombination copies it in, and the chromosome is whole",
+    call:"the arms pair, the middle comes across, and the break is gone",
+    note:"The cell's own recombination machinery pairs the arms with their copies in the chromosome and resolves the whole thing, and what comes across in the middle is your gene. The break is repaired and the edit is made in the same act, which is the thing that makes this worth the trouble. Notice what decided where the gene went: not Cas9, which has been gone for three clicks. The arms did. Cas9 only chose where the break was.",
+    desc:"The template has gone and the genome is continuous again, now carrying the gene between the two homology regions." },
+
+  { s:{land:1, open:0, cut:0, gap:1, off:1, join:0, arms:1, ins:1}, on:["prog","done","noneh"],
+    cap:"and in <em>E. coli</em> this is the only route, which makes it Datsenko/Wanner",
+    call:"no end joining, so an unrepaired break is fatal &#183; repair off the template or die",
+    note:"Now put that beside the section we just did. E. coli has essentially no end joining, so the first route does not exist here: hand it a break and it does not repair badly, it dies. Which sounds like a problem and is the trick. It turns the cut into a very strong selection, because the only survivors are the ones that repaired, and the only way to repair is off a template. So this is Datsenko and Wanner with one substitution. There, you made the linear DNA yourself and lambda Red recombined it. Here, Cas9 makes the break and the template rides in on a plasmid, and lambda Red still does the recombining, because the plasmid you buy carries it. The difference is not the chemistry, it is that the cut kills everything that did not take the edit. That is the two plasmid system on the next slide.",
+    desc:"The same edited genome, with a note that E. coli has no end-joining pathway, so repair off the template is the only outcome that leaves a living cell." }
 ];
 
 window.Deck.sequence("cas9", function(slide){
@@ -197,12 +218,29 @@ window.Deck.sequence("cas9", function(slide){
     g.appendChild(G.text(CUT, YB + 74, "a few bases lost or gained", 24, C.verm, 700));
     return g;
   })());
+  /* The repair template: two arms of genome sequence with whatever you
+     want between them.  Blue for the gene is safe here even though Cas9
+     is blue, because Cas9 has left the picture three beats earlier; the
+     arms are muted because they are not yours, they are copies of the
+     chromosome either side of the cut. */
+  s.part("tmpl", (function(){
+    const g = G.el("g", {});
+    g.appendChild(path("M"+(TL0-14)+" "+(MY-20)+"H"+(TR1+14), C.ink, S));
+    g.appendChild(path("M"+(TL0-14)+" "+(MY+20)+"H"+(TR1+14), C.ink, S));
+    g.appendChild(G.feat(TL0, MY, ARM,  "homology",  C.muted, 62));
+    g.appendChild(G.feat(TG0, MY, GENE, "your gene", C.blue,  62));
+    g.appendChild(G.feat(TR0, MY, ARM,  "homology",  C.muted, 62));
+    g.appendChild(G.text((TL0+TR1)/2, MY - 52, "a repair template, which you supply", 25, C.ink, 700));
+    return g;
+  })());
+  s.part("hdr", G.text(CUT, YB + 74, "the same sequence, top and bottom", 24, C.muted));
+  s.part("done", G.text(CUT, YB + 74, "whole again, and carrying your gene", 24, C.blue, 700));
   s.part("noneh", (function(){
     const g = G.el("g", {});
-    g.appendChild(path("M680 330H1200", C.blue, S));
-    g.appendChild(path("M680 366H1200", C.blue, S));
-    g.appendChild(G.text(940, 302, "a repair template, which you have to supply", 25, C.blue, 700));
-    g.appendChild(G.text(CUT, YB + 74, "nothing here will put these back together", 24, C.verm, 700));
+    /* G.text writes textContent, so markup here ships as its own source.
+       The captions go through rich() and can take it; this cannot. */
+    g.appendChild(G.text(CUT, MY, "E. coli has no end joining at all", 30, C.verm, 700));
+    g.appendChild(G.text(CUT, MY + 40, "so nothing survives except the cells that did this", 25, C.muted));
     return g;
   })());
   s.part("prog", G.text(X0, YB + 74, "genome", 25, C.muted, 400, "start"));
@@ -210,7 +248,10 @@ window.Deck.sequence("cas9", function(slide){
 
   function paint(v){
     const g = G.el("g", {});
-    const dL = -v.gap*GAPW, dR = v.gap*GAPW, h = v.open*LOOP;
+    /* Once the gene is in, the two ends are not apart, they are
+       exactly one gene apart and joined by it. */
+    const sep = GAPW*v.gap*(1 - v.ins) + (GENE/2)*v.ins;
+    const dL = -sep, dR = sep, h = v.open*LOOP;
 
     /* bottom strand: the one the guide pairs with, never displaced */
     g.appendChild(path("M"+n2(X0+dL)+" "+YB+"H"+n2(CUT+dL)+
@@ -241,6 +282,19 @@ window.Deck.sequence("cas9", function(slide){
                          "M"+n2(CUT)+" "+(YB-22)+"V"+(YB+22),
                          C.verm, 4.6, null, v.cut));
     }
+    /* the stretch of genome the template's arms match */
+    if (v.arms > 0.02){
+      const a = G.el("g", {opacity:n2(v.arms)});
+      a.appendChild(G.feat(HL0 + dL, (YT+YB)/2, ARM, "homology", C.muted, 62));
+      a.appendChild(G.feat(HR0 + dR, (YT+YB)/2, ARM, "homology", C.muted, 62));
+      g.appendChild(a);
+    }
+    /* and what the cell copies in between them */
+    if (v.ins > 0.02){
+      const b = G.feat(CUT - GENE/2, (YT+YB)/2, GENE, "your gene", C.blue, 62);
+      b.setAttribute("opacity", n2(v.ins)); g.appendChild(b);
+    }
+
     /* the scar left by end joining */
     if (v.join > 0.02){
       g.appendChild(G.el("rect", {x:n2(CUT+dL-14), y:YT-16, width:28, height:72,
