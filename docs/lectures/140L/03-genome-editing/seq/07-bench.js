@@ -96,13 +96,26 @@ function contents(x, w, top, h, L, col, op){
     " " + n1(top + dL), C.muted, 2));
   return g;
 }
+/* A part of the wall, between two depths.  wallD always runs the whole
+   way from the rim, which is what put a band of pellet colour up both
+   sides of the tube: the pellet was tracing the entire wall and then
+   cutting straight across, so everything above the cut was filled too. */
+function wallSeg(x, w, top, h, d0, d1, side){
+  const cx = x + w/2, N = 8;
+  let d = "";
+  for (let i = 0; i <= N; i++){
+    const dd = d0 + (d1 - d0)*i/N;
+    d += "L" + n1(cx + side*hw(w, h, dd)) + " " + n1(top + dd);
+  }
+  return d;
+}
 /* whatever has gone to the bottom, sitting in the cone */
 function pellet(x, w, top, h, col, op){
-  const cx = x + w/2, d0 = h*0.74;
+  const cx = x + w/2, d0 = h*0.74, d1 = h*0.94;
   return G.el("path", {d:"M" + n1(cx - hw(w, h, d0)) + " " + n1(top + d0) +
-    wallD(x, w, top, h, false) + "Q" + n1(cx) + " " + n1(top + h) + " " +
-    n1(cx + hw(w, h, h*0.94)) + " " + n1(top + h*0.94) +
-    "L" + n1(cx + hw(w, h, d0)) + " " + n1(top + d0) + "Z",
+    wallSeg(x, w, top, h, d0, d1, -1) +
+    "Q" + n1(cx) + " " + n1(top + h) + " " + n1(cx + hw(w, h, d1)) + " " + n1(top + d1) +
+    wallSeg(x, w, top, h, d1, d0, 1) + "Z",
     fill:col, "fill-opacity":op || ".7", stroke:"none"});
 }
 /* an Eppendorf: a flange, and the lid hanging open off the side */
@@ -128,6 +141,18 @@ function openTube(x, w, top, h){
   return g;
 }
 
+/* Put something inside a tube's liquid, given a position in -1..1 on
+   each axis.  The horizontal room runs out in the cone, so the width is
+   taken at that actual depth rather than assumed: scattering by a fixed
+   fraction of the tube's width either bunches everything in the middle
+   or pokes it through the wall near the tip. */
+function inLiquid(x, w, top, h, lvl, fx, fy, pad){
+  const yTop = lvl + 26, yBot = top + h*0.86;
+  const y = yTop + (yBot - yTop)*(fy*0.5 + 0.5);
+  const half = hw(w, h, y - top) - pad;
+  return half <= 6 ? null : [x + w/2 + fx*half, y];
+}
+
 /* The plasmid, wherever it currently is: a small double ring. */
 function ring(cx, cy, r){
   const g = G.el("g", {});
@@ -139,7 +164,7 @@ function ring(cx, cy, r){
 function cellAt(cx, cy, o){
   const g = G.el("g", {opacity:n1(o)});
   g.appendChild(G.el("rect", {x:n1(cx-22), y:n1(cy-12), width:44, height:24, rx:12,
-    fill:C.muted, "fill-opacity":".16", stroke:C.muted, "stroke-width":2}));
+    fill:C.amber, "fill-opacity":".30", stroke:C.amber, "stroke-width":2}));
   g.appendChild(G.el("circle", {cx:n1(cx), cy:n1(cy), r:7, fill:"none",
     stroke:C.blue, "stroke-width":2.6}));
   return g;
@@ -177,15 +202,17 @@ function steps(items, x, y0, gap){
 const LX = 1080, LW = 168, LTOP = 214, LH = 508;     /* a 2 mL Eppendorf */
 const LIST1 = steps([
   ["Fill a 2 mL tube with saturated culture", ""],
-  ["Spin 1 min, toss the supernatant", "bleach it, then drain"],
+  ["Spin 1 min, toss the supernatant", ""],
   ["Resuspend in 250 µL P1", "Tris, EDTA, RNase A"],
   ["Lyse with 250 µL P2", "NaOH, SDS"],
   ["Neutralize with 350 µL N3", "guanidinium chloride, acetate"],
   ["Spin 5 min", ""]
 ], 130, 286, 68);
 
-const CELLS = [[-82,-96],[6,-128],[80,-84],[-44,-36],[52,-22],[-96,26],[24,42],[94,10],
-               [-30,74],[62,92],[-86,110],[10,132]];
+/* -1..1 on each axis, so the same scatter works whatever the liquid
+   level is and whatever the tube is doing at that depth */
+const CELLS = [[-.85,-.74],[.06,-.97],[.83,-.64],[-.46,-.27],[.54,-.17],[-1,.2],
+               [.25,.32],[.98,.08],[-.31,.56],[.64,.7],[-.9,.84],[.1,1]];
 
 const LFR = [
   { s:{step:0, lvl:1, cells:1, cpel:0, free:0, floc:0, ppel:0}, on:["t0"],
@@ -196,8 +223,8 @@ const LFR = [
 
   { s:{step:1, lvl:1, cells:0, cpel:1, free:0, floc:0, ppel:0}, on:["t1"],
     cap:"spin one minute &#183; the cells go to the bottom",
-    call:"the blue went down with them &#183; now tip the medium off, and bleach it",
-    note:"One minute is plenty. Watch what moves and what does not: the cells go to the bottom and the liquid stays exactly where it was. Only then do you pour the medium off, and it needs bleaching before it goes down the drain because it is a saturated culture of engineered bacteria. Nothing has been done to the DNA yet. It is still inside the cells, and the cells are now at the bottom of the tube.",
+    call:"the blue went down with them &#183; now tip the medium off",
+    note:"One minute is plenty. Watch what moves and what does not: the cells go to the bottom and the liquid stays exactly where it was. Only then do you pour the medium off. Nothing has been done to the DNA yet. It is still inside the cells, and the cells are now at the bottom of the tube.",
     desc:"The liquid has not moved. The cells have gone to the bottom of the tube as a grey pellet, still carrying the blue plasmid." },
 
   { s:{step:2, lvl:0.5, cells:1, cpel:0, free:0, floc:0, ppel:0}, on:["t2"],
@@ -243,31 +270,38 @@ window.Deck.sequence("lysisrun", function(slide){
     const lvl = LTOP + LH*0.9 - (LH*0.9 - 18)*v.lvl;
     if (v.lvl > 0.02)
       g.appendChild(contents(LX, LW, LTOP, LH, lvl,
-        v.cells > 0.5 ? C.muted : C.blue, v.cells > 0.5 ? ".14" : ".08"));
+        v.cells > 0.5 ? C.amber : C.blue, v.cells > 0.5 ? ".13" : ".08"));
     g.appendChild(eppy(LX, LW, LTOP, LH));
 
-    const cx = LX + LW/2, mid = (lvl + LTOP + LH*0.62)/2;
+    const cx = LX + LW/2;
+    const at = (p, pad) => inLiquid(LX, LW, LTOP, LH, lvl, p[0], p[1], pad);
+
     if (v.cells > 0.02)
       CELLS.forEach(function(p, i){
         if (i % 2 && v.lvl < 0.62) return;
-        g.appendChild(cellAt(cx + p[0]*0.5, mid + p[1]*0.5*v.lvl, v.cells));
+        const q = at(p, 30);
+        if (q) g.appendChild(cellAt(q[0], q[1], v.cells));
       });
     if (v.free > 0.02){
       const k = G.el("g", {opacity:n1(v.free)});
       CELLS.forEach(function(p, i){
         if (i % 3 === 2) return;
-        k.appendChild(ring(cx + p[0]*0.44, mid + p[1]*0.5, 10));
+        const q = at(p, 18);
+        if (q) k.appendChild(ring(q[0], q[1], 10));
       });
       g.appendChild(k);
     }
     if (v.floc > 0.02){
       const k = G.el("g", {opacity:n1(v.floc)});
-      CELLS.forEach(p => k.appendChild(G.el("circle", {cx:cx + p[1]*0.34,
-        cy:mid + p[0]*0.5, r:6, fill:C.ink, "fill-opacity":".3", stroke:"none"})));
+      CELLS.forEach(function(p){
+        const q = at([p[1], p[0]], 14);
+        if (q) k.appendChild(G.el("circle", {cx:n1(q[0]), cy:n1(q[1]), r:6,
+          fill:C.ink, "fill-opacity":".3", stroke:"none"}));
+      });
       g.appendChild(k);
     }
-    if (v.cpel > 0.02) g.appendChild(pellet(LX, LW, LTOP, LH, C.muted, n1(0.5*v.cpel)));
-    if (v.ppel > 0.02) g.appendChild(pellet(LX, LW, LTOP, LH, C.ink, n1(0.68*v.ppel)));
+    if (v.cpel > 0.02) g.appendChild(pellet(LX, LW, LTOP, LH, C.amber, n1(0.46*v.cpel)));
+    if (v.ppel > 0.02) g.appendChild(pellet(LX, LW, LTOP, LH, C.muted, n1(0.55*v.ppel)));
     if (v.cpel > 0.5) g.appendChild(ring(cx, LTOP + LH*0.86, 9));
     return g;
   }
