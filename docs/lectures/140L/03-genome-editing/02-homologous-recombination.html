@@ -54,12 +54,25 @@
 <!-- Six bullets in the source, and an animation here.  Five of the six
      are about a molecule's ends, and the sixth -- that Red does nothing
      to a circle -- is a rule you take on trust when it is written down
-     and is obvious the moment the circle is drawn.  seq/02-lambda-red.js. -->
+     and is obvious the moment the circle is drawn.
+
+     It is two slides because it names three proteins and used to draw
+     only one of them.  JCA: "what do gam and bet do?  Could we
+     illustrate this mechanism in more detail and more accurately?"  The
+     first slide is the donor DNA's fate and the second is the genome's
+     side of it, which is where the practical rules come from.
+     seq/02-lambda-red.js holds both. -->
 <article class="slide" data-seq="lambda-red">
-  <h1 class="small">Lambda Red recombinase</h1>
+  <h1 class="small">Lambda Red: three proteins, three jobs</h1>
   <div class="src">Proc Natl Acad Sci U S A. 2000 Jun 6;97(12):6640-5 &nbsp; PMID: 10829079</div>
-  <template class="notes">Lambda Red is the thing that makes the next twenty slides possible. Without it E. coli simply does not recombine at a useful rate, which is why all of this is harder in E. coli than it is in yeast.</template>
-  <template class="desc">A linear double-stranded donor DNA drawn above the genome, which carries a target region. Nothing is happening between them.</template>
+  <template class="notes">Lambda Red is the thing that makes the next twenty slides possible. Without it E. coli simply does not recombine at a useful rate, which is why all of this is harder in E. coli than it is in yeast. Three genes, and they are not three versions of one activity: Gam protects the DNA by inhibiting a host nuclease, Exo resects it, and Bet is the one that actually recombines.</template>
+  <template class="desc">The fate of a linear donor DNA in E. coli, in seven steps: RecBCD degrading it, the three lambda genes, Gam inhibiting RecBCD, Exo resecting the ends to three-prime tails, Bet coating those tails, and a circle that none of it can touch.</template>
+</article>
+
+<article class="slide" data-seq="red-fork">
+  <h1 class="small">Where the recombination happens</h1>
+  <template class="notes">The half of this that usually gets left out: the target is not the duplex genome, it is the stretch of lagging-strand template that is single-stranded until the next Okazaki fragment covers it. Everything practical comes out of that — why an oligo works with no Exo and no Gam, why one of the two oligos beats the other by an order of magnitude, and why the cells have to be growing.</template>
+  <template class="desc">A replication fork in the genome, with a bare stretch of lagging-strand template behind it, and the Bet-coated donor strand annealing there.</template>
 </article>
 
 <!-- ------------------------------------------------------------ 20 - 24 -->
