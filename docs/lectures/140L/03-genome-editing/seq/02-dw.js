@@ -21,11 +21,33 @@ const G = window.GE, C = G.C;
    lands on the cell wall and the bottom one on the genome. */
 const BOX = {x:170, y:420, w:1260, h:336, r:46};
 const GY = 690, GX0 = 226, GX1 = 1374;
-const PR = 76, PX = 360, PY = 546;
+const PR = 76, PX = 330, PY = 546;
 
 /* the tube: three rows, template then oligos then product */
 const Y1 = 208, Y2 = 286, Y3 = 364;
-const TX0 = 470, TX1 = 1200;
+const TX0 = 440, TX1 = 1160;      /* pKD3's line, which runs past both ends */
+const LABX = 418;                 /* the row names, right-aligned together */
+
+/* ONE table for the PCR product, offsets from its left end, and every
+   row that draws part of it measures from here.  The three rows of the
+   tube are the same molecule seen three ways, so a box has to sit at the
+   same x in all three or the reader cannot follow a part down the
+   picture -- which is exactly what had gone wrong: the product row had
+   drifted a few pixels per feature and by P2 it was twenty out.  Every
+   row of the tube, the product inside the cell, and the locus it makes
+   are all cut from this one table, so they cannot drift again.  PX0
+   centres it on 800, which is where the target sits on the genome. */
+const PX0 = 800 - 640/2, PW = 640;
+const CASS = [
+  [  0, 100, "40 bp", "blue" ], [100,  76, "P1",  "verm" ],
+  [186,  66, "FRT",   "amber"], [262, 116, "CmR", "verm" ],
+  [388,  66, "FRT",   "amber"], [464,  76, "P2",  "verm" ],
+  [540, 100, "40 bp", "blue" ]
+];
+/* `from` and `to` slice it: the genome keeps the cassette but not the
+   homology arms, which have recombined into the chromosome. */
+const cass = (x0, from, to) => CASS.slice(from, to)
+  .map(f => [x0 + f[0], f[1], f[2], C[f[3]]]);
 
 const FR = [
   { on:["target"],
@@ -42,26 +64,26 @@ const FR = [
     call:"P1 and P2 are just the twenty bases your oligos will prime on",
     note:"The knockout cassette begins with a template plasmid. The plasmids pKD3, pKD4 and pKD13 were originally designed for this experiment, and they essentially are sources of the chloramphenicol resistance gene, for pKD3, or the kanamycin resistance gene, for pKD4. There are specific 20bp regions of the plasmid called P1 and P2 which are the sites where oligos can prime to amplify the selectable marker by PCR.",
     desc:"Above the cell, a stretch of pKD3 appears: the P1 and P2 priming sites in grey with the FRT-CmR-FRT cassette between them." },
-  { on:["target","kd46","tmpl","oligos"],
+  { on:["target","arms","kd46","tmpl","oligos"],
     cap:"each oligo is those twenty bases, with forty bases of the genome added to its 5&#8242; end",
     call:"the forty is the only part you design &#183; everything else is copied from the paper",
     note:"These PCR oligos are designed to contain those 20bp sequences on their 3-prime ends, and then 40bp of homology to the genome target on their 5-prime ends. The forty is the only part of this you choose.",
     desc:"Below it, the two oligos appear as short pieces: forty bases of genome homology in blue, then the twenty that prime on P1 or P2 in red." },
-  { on:["target","kd46","tmpl","oligos","pcr"],
+  { on:["target","arms","kd46","tmpl","oligos","pcr"],
     cap:"PCR gives one linear double-stranded DNA with genome homology at both ends",
     note:"PCR results in a double stranded, linear PCR product with homology to the genome on both ends.",
     desc:"Below those, the PCR product: one linear DNA carrying forty bases of homology, P1, the marker cassette, P2, and forty more bases of homology." },
-  { on:["target","kd46","inside"],
+  { on:["target","arms","kd46","inside"],
     cap:"electroporated into the cell",
     call:"linear, which is what lambda red wants &#183; it would do nothing with a circle",
     note:"The cells containing the lambda red genes are transformed with this PCR product, usually by electroporation. Linear is the point: lambda red would do nothing with a circle.",
     desc:"The three rows above the cell have gone and the same product is now inside the cell, lying above the genome." },
-  { on:["kd46","ko"],
+  { on:["arms","kd46","ko"],
     cap:"lambda red crosses it over at both ends at once, so the target goes and the marker takes its place",
     call:"chloramphenicol now selects the cells that did it",
     note:"Inside the cell, the lambda red genes cause the double-crossover recombination of the PCR product over the sequence homologous to its ends in the target. Because recombined cells contain the chloramphenicol resistance gene, they can be selected by growth on antibiotic-containing medium.",
     desc:"The product has gone and the genome now carries P1, the two FRT sites with CmR between them, and P2, where the target gene used to be." },
-  { on:["ko"],
+  { on:["arms","ko"],
     cap:"42&#176;C clears pKD46",
     call:"the gene is disrupted, and the cell is carrying nothing it should not be",
     note:"The helper plasmid pKD46 is then cleared from the cell by growth at elevated temperature. This results in a strain in which the target sequence has been disrupted.",
@@ -84,7 +106,19 @@ window.Deck.sequence("dw", function(slide){
   }
 
   s.add(G.cell(BOX, GY, GX0, GX1));
-  s.part("target", G.feat(700, GY, 200, "target", C.ink));
+  /* The target spans exactly the stretch the cassette replaces, and the
+     two 40 bp arms sit hard against it, because that is what the oligo
+     design means: the forty bases you pick are the genome immediately
+     flanking what you are deleting.  Drawn this way the product lying
+     above lines up box for box with the genome below it, and the double
+     crossover is something you can see rather than something told. */
+  s.part("target", G.feat(PX0 + 100, GY, PW - 200, "target", C.ink));
+  s.part("arms", (function(){
+    const g = G.el("g", {});
+    g.appendChild(G.feat(PX0, GY, 100, "40 bp", C.blue));
+    g.appendChild(G.feat(PX0 + PW - 100, GY, 100, "40 bp", C.blue));
+    return g;
+  })());
   s.part("kd46", G.plasmid(PX, PY, PR, [
     {a0:-136, a1:-44, col:C.blue,  txt:"red genes"},
     {a0:-24,  a1:64,  col:C.blue,  txt:"bla"},
@@ -92,51 +126,44 @@ window.Deck.sequence("dw", function(slide){
   ], "pKD46"));
 
   /* ---- the tube ---------------------------------------------------- */
+  const put = (g, y, f) => g.appendChild(G.feat(f[0], y, f[1], f[2], f[3]));
+
   s.part("tmpl", (function(){
-    const g = row(Y1, TX0, TX1, [
-      [566, 76,"P1", C.muted],  [652, 66,"FRT",C.amber],
-      [728,116,"CmR",C.verm],   [854, 66,"FRT",C.amber],
-      [930, 76,"P2", C.muted]
-    ]);
-    g.appendChild(G.text(TX0 - 22, Y1 + 9, "pKD3", 25, C.muted, 400, "end"));
+    /* the cassette without the homology arms, and with P1 and P2 muted:
+       on the template they are only somewhere for an oligo to land */
+    const f = cass(PX0, 1, 6);
+    f[0][3] = f[4][3] = C.muted;
+    const g = row(Y1, TX0, TX1, f);
+    g.appendChild(G.text(LABX, Y1 + 9, "pKD3", 25, C.muted, 400, "end"));
     return g;
   })());
   s.part("oligos", (function(){
+    /* each oligo: 40 bases of genome on the 5' end, then 20 that prime.
+       Two separate molecules, so no line joins them. */
     const g = G.el("g", {});
-    /* each oligo: 40 bases of genome on the 5' end, then 20 that prime */
-    g.appendChild(G.feat(466, Y2, 100, "40 bp", C.blue));
-    g.appendChild(G.feat(566, Y2,  76, "P1",    C.verm));
-    g.appendChild(G.feat(930, Y2,  76, "P2",    C.verm));
-    g.appendChild(G.feat(1006,Y2, 100, "40 bp", C.blue));
-    g.appendChild(G.text(TX0 - 22, Y2 + 9, "oligos", 25, C.muted, 400, "end"));
+    cass(PX0, 0, 2).forEach(f => put(g, Y2, f));
+    cass(PX0, 5, 7).forEach(f => put(g, Y2, f));
+    g.appendChild(G.text(LABX, Y2 + 9, "oligos", 25, C.muted, 400, "end"));
     return g;
   })());
   s.part("pcr", (function(){
-    const g = row(Y3, 452, 1104, [
-      [466,100,"40 bp",C.blue], [570, 76,"P1", C.verm],
-      [650, 66,"FRT",  C.amber],[720,116,"CmR",C.verm],
-      [840, 66,"FRT",  C.amber],[910, 76,"P2", C.verm],
-      [990,100,"40 bp",C.blue]
-    ]);
-    g.appendChild(G.text(444, Y3 + 9, "product", 25, C.muted, 400, "end"));
+    /* the line runs end to end and no further: a PCR product stops where
+       the homology arms stop, so a stub either side would be DNA that is
+       not there.  It shows only in the gaps between boxes, which is what
+       ties them into one molecule. */
+    const g = row(Y3, PX0, PX0 + PW, cass(PX0, 0, 7));
+    g.appendChild(G.text(LABX, Y3 + 9, "product", 25, C.muted, 400, "end"));
     return g;
   })());
 
   /* ---- the same product, now in the cell --------------------------- */
-  s.part("inside", (function(){
-    const g = row(550, 546, 1198, [
-      [560,100,"40 bp",C.blue], [664, 76,"P1", C.verm],
-      [744, 66,"FRT",  C.amber],[814,116,"CmR",C.verm],
-      [934, 66,"FRT",  C.amber],[1004,76,"P2", C.verm],
-      [1084,100,"40 bp",C.blue]
-    ]);
-    return g;
-  })());
+  /* directly over what it is about to replace */
+  s.part("inside", row(550, PX0, PX0 + PW, cass(PX0, 0, 7)));
 
+  /* what is left on the genome: the cassette without its homology arms,
+     at the x the arms put it */
   const ko = G.el("g", {});
-  [[600,76,"P1",C.verm],[680,66,"FRT",C.amber],[750,116,"CmR",C.verm],
-   [870,66,"FRT",C.amber],[940,76,"P2",C.verm]]
-    .forEach(f => ko.appendChild(G.feat(f[0], GY, f[1], f[2], f[3])));
+  cass(PX0, 1, 6).forEach(f => ko.appendChild(G.feat(f[0], GY, f[1], f[2], f[3])));
   s.part("ko", ko);
   s.finish();
 
@@ -163,14 +190,14 @@ const MK = [
     note:"Transformation with a second helper plasmid encoding a site-specific recombinase, pCP20, brings Flp into the cell.",
     desc:"A plasmid labelled pCP20 appears inside the cell, carrying Flp and bla in blue and a temperature-sensitive origin in amber." },
   { on:["scar","cp20"],
-    cap:"Flp loops the marker out between the two FRTs",
-    note:"Flp catalyzes the excision of the intervening marker, leaving behind only a single FRT site in the genome.",
-    desc:"The marker and one FRT site have gone from the genome, leaving a single FRT site where the gene was." },
+    cap:"Flp recombines the two FRTs and everything between them comes out",
+    note:"Flp catalyzes the excision of everything between the two FRT sites, which is the marker and one of the two FRTs. What is left behind is a single FRT site \u2014 and, either side of it, P1 and P2, because those came in on the oligos and they sit outside the FRTs. So the scar is about a hundred bases, not a single site. No marker, though, which is the point.",
+    desc:"The marker and one FRT site have gone from the genome. What is left is the two 40 bp homology regions with P1, a single FRT and P2 between them, the DNA having contracted around what was removed." },
   { on:["scar"],
     cap:"42&#176;C clears pCP20",
-    call:"the target is gone and one FRT is all that marks where it was",
-    note:"Growth of the cells at a non-permissive temperature results in clearance of the helper plasmid. Thus, the original target is disrupted with no residual modifications.",
-    desc:"The pCP20 plasmid has gone, leaving the cell with one FRT site marking the disrupted locus." }
+    call:"the target is gone and a hundred-base scar is all that marks where it was",
+    note:"Growth of the cells at a non-permissive temperature results in clearance of the helper plasmid. The original target is disrupted, and nothing selectable is left behind \u2014 just the FRT site and the priming sequences either side of it.",
+    desc:"The pCP20 plasmid has gone, leaving the cell with the scar \u2014 P1, one FRT site and P2 between the two homology regions \u2014 marking the disrupted locus." }
 ];
 
 window.Deck.sequence("dw-markerless", function(slide){
@@ -178,12 +205,28 @@ window.Deck.sequence("dw-markerless", function(slide){
   const s = G.scene(slide);
   s.add(G.cell(BOX, GY, GX0, GX1));
 
+  /* The locus exactly as the sequence before this one left it: the two
+     40 bp arms with the cassette between them, at the same x. */
   const ko = G.el("g", {});
-  [[600,76,"P1",C.verm],[680,66,"FRT",C.amber],[750,116,"CmR",C.verm],
-   [870,66,"FRT",C.amber],[940,76,"P2",C.verm]]
-    .forEach(f => ko.appendChild(G.feat(f[0], GY, f[1], f[2], f[3])));
+  cass(PX0, 0, 7).forEach(f => ko.appendChild(G.feat(f[0], GY, f[1], f[2], f[3])));
   s.part("ko", ko);
-  s.part("scar", G.feat(737, GY, 66, "FRT", C.amber));
+
+  /* What Flp actually leaves.  It recombines the two FRT sites, so what
+     comes out is everything BETWEEN them -- the marker and one FRT.
+     Everything outside them stays, and that includes P1 and P2: the two
+     twenty-base priming sites the oligos carried in.  So the scar is a
+     hundred-odd bases, not a single site.  The DNA contracts around
+     what is gone, or there would be a gap in the molecule. */
+  const SCAR = [
+    [  0, 100, "40 bp", C.blue ], [100, 76, "P1", C.verm ],
+    [186,  66, "FRT",   C.amber], [262, 76, "P2", C.verm ],
+    [338, 100, "40 bp", C.blue ]
+  ];
+  s.part("scar", (function(){
+    const g = G.el("g", {}), x0 = 800 - (186 + 33);   /* the FRT on 800 */
+    SCAR.forEach(f => g.appendChild(G.feat(x0 + f[0], GY, f[1], f[2], f[3])));
+    return g;
+  })());
   s.part("cp20", G.plasmid(PX, PY, PR, [
     {a0:-136, a1:-44, col:C.blue,  txt:"Flp"},
     {a0:-24,  a1:64,  col:C.blue,  txt:"bla"},
