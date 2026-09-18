@@ -96,6 +96,140 @@ function rich(t){
     .replace(/<\/(?:b|em)>/g, "</tspan>");
 }
 
+/* ------------------------------------------------------------------ *
+ * excision(o) -- Flp taking out what lies between two sites, drawn as
+ * one continuous move rather than a cut to the answer.
+ *
+ * Returns paint(u), u in 0..1:
+ *   0 .. 0.8   the piece between the sites bows out, its two ends
+ *              converging, until it is a closed loop on the molecule
+ *   0.8 .. 1   the loop lets go, drifts off and fades
+ *
+ * THE LOOP IS A CUBIC, NOT AN ARC OF THE RIGHT LENGTH.  An arc that
+ * conserves the DNA's length closes into a circle of circumference d,
+ * and d here is about two hundred pixels, so the circle comes out
+ * sixty-odd across -- smaller than the marker box riding on it, and the
+ * whole thing reads as a fold rather than a loop.  The control points
+ * are driven directly instead: at bend 0 they sit at the thirds of a
+ * straight segment, so the curve IS the flat molecule and every feature
+ * is at its own x; at bend 1 the two feet have met and the controls are
+ * splayed, so it is a loop big enough to carry what is on it.
+ *
+ * o = { y, x0, x1, feats, a, b, dx, h, w }
+ *   feats  [x, w, label, colour] in the BEFORE layout
+ *   a, b   the span that leaves; features inside it ride the loop
+ *   x0,x1  the molecule's own ends, if it has drawn ends.  Omit inside a
+ *          cell: a chromosome does not visibly shorten by two hundred
+ *          bases, so there only the features slide together.
+ *   dx     how far the molecule slides as it contracts, so the finished
+ *          thing is still centred where the room was looking
+ * ------------------------------------------------------------------ */
+function bez(P, t){
+  const m = 1 - t;
+  return [m*m*m*P[0][0] + 3*m*m*t*P[1][0] + 3*m*t*t*P[2][0] + t*t*t*P[3][0],
+          m*m*m*P[0][1] + 3*m*m*t*P[1][1] + 3*m*t*t*P[2][1] + t*t*t*P[3][1]];
+}
+function bezAng(P, t){
+  const m = 1 - t;
+  const x = 3*m*m*(P[1][0]-P[0][0]) + 6*m*t*(P[2][0]-P[1][0]) + 3*t*t*(P[3][0]-P[2][0]);
+  const y = 3*m*m*(P[1][1]-P[0][1]) + 6*m*t*(P[2][1]-P[1][1]) + 3*t*t*(P[3][1]-P[2][1]);
+  return Math.atan2(y, x) * 180/Math.PI;
+}
+
+function excision(o){
+  const d = o.b - o.a, RISE = 210;
+  /* Wide and low rather than tall and narrow.  A narrow loop puts what
+     is riding on it out on the steep flanks, where a feature box comes
+     out nearly vertical and its label stops being readable from the back
+     of a room.  A broad arch keeps them near the top, where the tangent
+     is shallow.  Note that a cubic with its two ends together and its
+     controls at plus and minus W is only about 0.29*W across and 0.75*H
+     tall, so both numbers are much larger than the loop they draw. */
+  const H = o.h || 215, W = o.w || 540;
+  return function(u){
+    const g = el("g", {});
+    const bend = Math.min(u/0.8, 1);
+    const away = u <= 0.8 ? 0 : (u - 0.8)/0.2;
+    const shift = d*bend, dx = (o.dx || 0) * bend;
+    const f0 = o.a + dx, gap = d - shift, f1 = f0 + gap;
+    const P = [[f0, o.y],
+               [f0 + gap/3 - W*bend, o.y - H*bend],
+               [f0 + 2*gap/3 + W*bend, o.y - H*bend],
+               [f1, o.y]];
+
+    if (o.x0 != null){
+      g.appendChild(el("path", {d:"M"+n2(o.x0 + dx)+" "+o.y+"H"+n2(f0)+
+        "M"+n2(f1)+" "+o.y+"H"+n2(o.x1 - shift + dx), stroke:C.ink,
+        "stroke-width":3.5, fill:"none", "stroke-linecap":"round"}));
+    }
+
+    /* Once the two feet meet, the circle is a SEPARATE MOLECULE, and
+       separate molecules are drawn with a visible gap in these decks.
+       So it lifts clear of the line as it closes, before it starts to
+       drift; without that it reads as a fold still attached at a point. */
+    const tt = Math.max(0, Math.min(1, (bend - 0.9)/0.1));
+    const lift = 30*tt*tt*(3 - 2*tt) + RISE*away;
+    const loop = el("g", {});
+    if (lift > 0.4) loop.setAttribute("transform", "translate(0 " + n2(-lift) + ")");
+    if (away > 0) loop.setAttribute("opacity", n2(1 - away));
+    loop.appendChild(el("path", {d:"M"+n2(P[0][0])+" "+n2(P[0][1])+
+      "C"+n2(P[1][0])+" "+n2(P[1][1])+" "+n2(P[2][0])+" "+n2(P[2][1])+
+      " "+n2(P[3][0])+" "+n2(P[3][1]),
+      stroke:C.ink, "stroke-width":3.5, fill:"none", "stroke-linecap":"round"}));
+
+    o.feats.forEach(function(f){
+      const fx = f[0], fw = f[1];
+      if (fx + fw <= o.a + 1){            /* left of the loop, stays put  */
+        g.appendChild(feat(fx + dx, o.y, fw, f[2], f[3]));
+      } else if (fx >= o.b - 1){          /* right of it, slides across   */
+        g.appendChild(feat(fx - shift + dx, o.y, fw, f[2], f[3]));
+      } else {                            /* inside it, rides the loop    */
+        /* and pulled in toward the top of the arch as it closes, for
+           the same reason: at the true parameter the outer one ends up
+           on the flank */
+        const t0 = (fx + fw/2 - o.a)/d;
+        const t = 0.5 + (t0 - 0.5)*(1 - 0.34*bend), q = bez(P, t);
+        const r = el("g", {transform:"translate(" + n2(q[0]) + " " + n2(q[1]) +
+          ") rotate(" + n2(bezAng(P, t)) + ")"});
+        r.appendChild(feat(-fw/2, 0, fw, f[2], f[3]));
+        loop.appendChild(r);
+      }
+    });
+    g.appendChild(loop);
+    return g;
+  };
+}
+
+/* Drive a sequence whose scene both fades AND changes shape.  `paint`
+   returns the node for the changing part, keyed off the numbers in each
+   frame's `s`; everything else is scene.show as usual. */
+function run(api, FR, keys, paint){
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const ease = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
+  let cur = null, raf = null;
+  function go(i, animated){
+    const f = FR[Math.max(0, Math.min(FR.length - 1, i | 0))];
+    if (raf){ cancelAnimationFrame(raf); raf = null; }
+    const instant = animated === false || reduce.matches;
+    api.show(f.on, f, instant);
+    const to = f.s || {};
+    if (!cur || instant){
+      cur = Object.assign({}, to); api.dyn.replaceChildren(paint(cur)); return;
+    }
+    const from = Object.assign({}, cur), t0 = performance.now(), dur = 1300;
+    raf = requestAnimationFrame(function step(now){
+      const t = Math.min(1, (now - t0)/dur), e = ease(t), st = {};
+      keys.forEach(k => st[k] = from[k] + (to[k] - from[k])*e);
+      api.dyn.replaceChildren(paint(st)); cur = st;
+      raf = t < 1 ? requestAnimationFrame(step) : null;
+    });
+  }
+  go(0, false);
+  /* one note and one desc per beat: without these deck.js falls back to
+     the slide's single <template> and every click reads the same */
+  return { steps: FR.map(x => ({note:x.note, desc:x.desc})), go: go };
+}
+
 /* The shell every sequence in this lecture wants: a full-slide SVG, a
    root the .nofx class can hang on, a registry of things that come and
    go, and the two caption lines under the drawing. */
@@ -106,18 +240,22 @@ function scene(slide, capY, callY){
   const root = el("g", {});
   svg.appendChild(root);
   const parts = {};
+  /* things that change SHAPE rather than come and go: redrawn per frame
+     by run(), over the fading parts and under the captions */
+  const dyn = el("g", {});
   const cap  = text(800, capY  || 792, "", 30, C.ink,  700);
   const call = text(800, callY || 834, "", 28, C.verm, 700);
 
   const api = {
-    svg:svg, root:root, parts:parts,
+    svg:svg, root:root, parts:parts, dyn:dyn,
     add: function(node){ root.appendChild(node); return node; },
     part: function(name, node){
       const g = el("g", {class:"o", "data-o":name});
       g.appendChild(node); root.appendChild(g); parts[name] = g; return g;
     },
     /* call last: the captions have to sit on top of the drawing */
-    finish: function(){ root.appendChild(cap); root.appendChild(call);
+    finish: function(){ root.appendChild(dyn);
+                        root.appendChild(cap); root.appendChild(call);
                         slide.appendChild(svg); return api; },
     show: function(on, f, animated){
       root.classList.toggle("nofx", animated === false);
@@ -130,5 +268,5 @@ function scene(slide, capY, callY){
 }
 
 window.GE = { C:C, el:el, text:text, pt:pt, cell:cell, plasmid:plasmid,
-              feat:feat, scene:scene };
+              feat:feat, scene:scene, excision:excision, run:run };
 })();

@@ -180,68 +180,51 @@ window.Deck.sequence("dw", function(slide){
 
 /* ---- and making it markerless, source slides 25 and 26 -------------- */
 const MK = [
-  { on:["ko"],
+  { on:[], s:{u:0},
     cap:"the template's FRT sites came along with the marker",
     call:"which is the whole reason pKD3 has them",
     note:"If the original template sequence contains FRT sites flanking the selectable marker, recombination of the PCR product into the genome will retain these sequences. That is why pKD3 has them.",
     desc:"The cell after the knockout, its genome carrying the chloramphenicol marker between the two FRT sites that came in with it." },
-  { on:["ko","cp20"],
+  { on:["cp20"], s:{u:0},
     cap:"pCP20 brings Flp in",
     note:"Transformation with a second helper plasmid encoding a site-specific recombinase, pCP20, brings Flp into the cell.",
     desc:"A plasmid labelled pCP20 appears inside the cell, carrying Flp and bla in blue and a temperature-sensitive origin in amber." },
-  { on:["scar","cp20"],
+  { on:["cp20"], s:{u:0.8},
     cap:"Flp recombines the two FRTs and everything between them comes out",
-    note:"Flp catalyzes the excision of everything between the two FRT sites, which is the marker and one of the two FRTs. What is left behind is a single FRT site \u2014 and, either side of it, P1 and P2, because those came in on the oligos and they sit outside the FRTs. So the scar is about a hundred bases, not a single site. No marker, though, which is the point.",
-    desc:"The marker and one FRT site have gone from the genome. What is left is the two 40 bp homology regions with P1, a single FRT and P2 between them, the DNA having contracted around what was removed." },
-  { on:["scar"],
-    cap:"42&#176;C clears pCP20",
-    call:"the target is gone and a hundred-base scar is all that marks where it was",
-    note:"Growth of the cells at a non-permissive temperature results in clearance of the helper plasmid. The original target is disrupted, and nothing selectable is left behind \u2014 just the FRT site and the priming sequences either side of it.",
-    desc:"The pCP20 plasmid has gone, leaving the cell with the scar \u2014 P1, one FRT site and P2 between the two homology regions \u2014 marking the disrupted locus." }
+    note:"Watch what leaves. Flp brings the two FRT sites together, so the DNA between them bows out into a loop and is cut free as a circle: the marker, and one of the two FRTs. That circle has no origin of replication in it, so it cannot be copied, and it is diluted away as the cells divide. That is the whole of how the marker goes. What is left behind is a single FRT site \u2014 and, either side of it, P1 and P2, because those came in on the oligos and they sit outside the FRTs. So the scar is about a hundred bases, not a single site. No marker, though, which is the point.",
+    desc:"The stretch between the two FRT sites bows out of the genome into a loop carrying the marker and one FRT, closes into a circle, lets go and drifts away. The genome closes up behind it: the two 40 bp homology regions with P1, a single FRT and P2 between them." },
+  { on:[], s:{u:1},
+    cap:"grow them out, and both circles are lost",
+    call:"42&#176;C clears pCP20 &#183; the excised one has no origin, so it is simply diluted away",
+    note:"Two things leave on this click and they leave for the same reason. The cells are grown at a temperature non-permissive for the pCP20 origin, so the helper is cured. And the circle Flp cut out has no origin of replication in it at all, so it was never going to be copied; it is diluted out as the cells divide. The original target is disrupted, and nothing selectable is left behind \u2014 just the FRT site and the priming sequences either side of it.",
+    desc:"The excised circle and the pCP20 plasmid have both gone, leaving the cell with the scar \u2014 P1, one FRT site and P2 between the two homology regions \u2014 marking the disrupted locus." }
 ];
 
 window.Deck.sequence("dw-markerless", function(slide){
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const s = G.scene(slide);
   s.add(G.cell(BOX, GY, GX0, GX1));
-
-  /* The locus exactly as the sequence before this one left it: the two
-     40 bp arms with the cassette between them, at the same x. */
-  const ko = G.el("g", {});
-  cass(PX0, 0, 7).forEach(f => ko.appendChild(G.feat(f[0], GY, f[1], f[2], f[3])));
-  s.part("ko", ko);
-
-  /* What Flp actually leaves.  It recombines the two FRT sites, so what
-     comes out is everything BETWEEN them -- the marker and one FRT.
-     Everything outside them stays, and that includes P1 and P2: the two
-     twenty-base priming sites the oligos carried in.  So the scar is a
-     hundred-odd bases, not a single site.  The DNA contracts around
-     what is gone, or there would be a gap in the molecule. */
-  const SCAR = [
-    [  0, 100, "40 bp", C.blue ], [100, 76, "P1", C.verm ],
-    [186,  66, "FRT",   C.amber], [262, 76, "P2", C.verm ],
-    [338, 100, "40 bp", C.blue ]
-  ];
-  s.part("scar", (function(){
-    const g = G.el("g", {}), x0 = 800 - (186 + 33);   /* the FRT on 800 */
-    SCAR.forEach(f => g.appendChild(G.feat(x0 + f[0], GY, f[1], f[2], f[3])));
-    return g;
-  })());
   s.part("cp20", G.plasmid(PX, PY, PR, [
     {a0:-136, a1:-44, col:C.blue,  txt:"Flp"},
     {a0:-24,  a1:64,  col:C.blue,  txt:"bla"},
     {a0:92,   a1:172, col:C.amber, txt:"ori ts"}
   ], "pCP20"));
-  s.finish();
 
-  function go(i, animated){
-    const f = MK[Math.max(0, Math.min(MK.length - 1, i | 0))];
-    s.show(f.on, f, animated === false || reduce.matches);
-  }
-  go(0, false);
-  /* one note and one desc per beat: without these deck.js falls back
-     to the slide\'s single <template>, and presenter view shows the
-     same sentence for every click while the picture changes */
-  return { steps: MK.map(f => ({note:f.note, desc:f.desc})), go: go };
+  /* The excision is drawn rather than cut to.  Flp recombines the two
+     FRT sites, so the piece that leaves runs from the right-hand edge of
+     one to the right-hand edge of the other: the marker, and one of the
+     two FRTs.  Everything outside stays, and that includes P1 and P2 --
+     the priming sites came in on the oligos and sit outside the FRTs --
+     so the scar is a hundred-odd bases and not a single site.
+
+     a and b are the ends of that piece.  dx slides the molecule as it
+     contracts so the finished locus is still centred on 800; without it
+     the whole cassette ends up a hundred pixels left of where the room
+     was looking. */
+  const A = PX0 + 186 + 66, B = PX0 + 388 + 66;
+  const paint = G.excision({
+    y:GY, feats:cass(PX0, 0, 7), a:A, b:B, dx:(B - A)/2
+  });
+  s.finish();
+  return G.run(s, MK, ["u"], f => paint(f.u));
 });
 })();
