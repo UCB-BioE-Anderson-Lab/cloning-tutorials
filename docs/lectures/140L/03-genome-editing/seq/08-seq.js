@@ -337,7 +337,7 @@ const FR = [
   note:"A polymerase sits on that three prime end and extends. Every base it adds is chosen by whatever is opposite it on the template, so what gets written is the complement of the sequence you are trying to read. This is ordinary polymerase chemistry and nothing about it is specific to sequencing yet. The trick is entirely in what else is in the tube.",
   desc:"The primer is being extended: new bases appear one at a time along the template, with a polymerase drawn as a shape sitting at the growing three prime end." },
 
-{ s:{dye:1},
+{ s:{dye:1, ext:1},
   cap:"and a few per cent of the bases in the tube are <b>dideoxy</b>",
   call:"no 3&#8242; hydroxyl, and a dye on the base &#183; the polymerase cannot tell until it is too late",
   note:"Here is the whole method, and this is a real reagent — a dideoxy A terminator, drawn end to end. Start in the middle, at the sugar. The three prime position is a hydrogen where a hydroxyl should be, and that is the entire trick. A polymerase takes one of these perfectly happily, because the parts it inspects are the base pairing and the five prime triphosphate, and both of those are completely normal. But the next base along has to attack a three prime hydroxyl that is not there, so the chain stops. Left hand end: the triphosphate, exactly as any dNTP. The arm on the base is propargylamino, a rigid alkyne that holds the dye out away from the base so it cannot fold back and stack on it and quench itself. It goes on carbon five of a pyrimidine, but it cannot go on N7 of a purine without making a quaternary nitrogen, so the base here is seven-deaza-adenine: N7 swapped for a carbon that will hold a substituent. That swap pays for itself twice over, because it also cuts the compressions that G-rich secondary structure causes. The dye arrives as an activated ester and acylates the amine, so the join is an amide. And the dye is dR6G, a dichlororhodamine, which is what makes A come out amber. In BigDye there is a fluorescein spliced into that linker as well, which takes the laser light and hands the energy across, so one laser line can drive all four terminators.",
@@ -349,19 +349,19 @@ const FR = [
   note:"One goes in, and that molecule is done. It falls off the template carrying a dye, and which dye it carries tells you what base was at that position. Note what has happened to the length: this molecule is exactly as long as the distance from the primer to the base that stopped it. The dye says which base, and the length says where. Those two facts together are the entire readout.",
   desc:"A dideoxy base has been added at the end of the new strand and the finished strand has lifted off the template, its three prime end capped by a coloured chip carrying a dye." },
 
-{ s:{rx:1, lad:1},
+{ s:{rx:1, lad:1, ext:1, inc:1, off:1},
   cap:"and it happens at every position, in millions of molecules at once",
   call:"one product terminated at each base &#183; a ladder one base apart",
   note:"That was one molecule. In the tube there are billions of them, the dideoxy bases are rare enough that each one gets some distance before it meets one, and the position it stops at is essentially random. So you end up with a population containing a molecule terminated at every single position along the read, each one carrying the dye of the base that stopped it. Six drawn here; in reality it is eight hundred or a thousand, and that is your read length.",
   desc:"Six finished strands are stacked below the template, each one base longer than the last, with the coloured terminating chips forming a diagonal staircase down the right-hand side." },
 
-{ s:{mach:1, trace:1},
+{ s:{mach:1, trace:1, ext:1, inc:1, off:1},
   cap:"a capillary separates them by length, and a detector reads the dye",
   call:"shortest first &#183; the order the colours arrive in <em>is</em> the sequence",
   note:"Now they get separated by size down a capillary, shortest first, one base of resolution. As each one comes past the window a laser excites its dye and a fluorimeter records which colour came off. Short ones arrive early, long ones late, so the colours arrive in the order the bases sit in on the molecule. What gets written down is a plot of colour against time, and that is the trace file.",
   desc:"The products travel down a capillary from left to right, shortest leading, past a detector at the far end. As each one passes, a coloured peak is added to a trace being drawn along the bottom of the slide." },
 
-{ s:{trace:1, calls:1, files:1},
+{ s:{trace:1, calls:1, files:1, ext:1, inc:1, off:1},
   cap:"software calls a base from each peak, and you are emailed both",
   call:"read the trace, not just the calls &#183; the ends are guesses and a double peak means two colonies",
   note:"Last step is software: it finds each peak, decides which colour it is and writes down a letter, and that string of letters is the read. You get both files. Always look at the trace and not only at the base calls, because the calls are an interpretation and the trace is the measurement. The first and last stretch of every read is guesswork where the peaks are not resolved, and a clean double peak in the middle of an otherwise good read almost always means you picked two colonies at once rather than a real mixed base.",
