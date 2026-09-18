@@ -255,6 +255,19 @@ window.Deck.sequence("cycleseq", function(slide){
   function paint(v){
     const g = G.el("g", {});
 
+    /* CLEAR, THEN BUILD.  Every key tweens on the same curve, so a beat
+       that swaps one whole scene for another used to cross-dissolve the
+       two on top of each other -- the ladder still fading out through
+       the capillary fading in.  The scene-level opacities are squeezed
+       into half the tween instead: whatever is leaving is gone by the
+       midpoint, and only then does the next thing start to arrive.
+       Motion WITHIN a scene (the extension, the release) is left on the
+       full curve, because there is nothing for it to collide with. */
+    const half = x => cl(x*2 - 1, 0, 1);
+    v = {ext:v.ext, inc:v.inc, off:v.off, pol:v.pol, calls:v.calls,
+         rx:half(v.rx), one:half(v.one), lad:half(v.lad), dd:half(v.dd),
+         mach:half(v.mach), trace:half(v.trace), files:half(v.files)};
+
     /* ---- the reaction ------------------------------------------- */
     if (v.rx > 0.02){
       const r = grp(v.rx);
