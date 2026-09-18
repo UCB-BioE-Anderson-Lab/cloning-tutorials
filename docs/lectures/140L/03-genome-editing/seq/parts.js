@@ -204,6 +204,12 @@ function excision(o){
    returns the node for the changing part, keyed off the numbers in each
    frame's `s`; everything else is scene.show as usual.
 
+   paint gets TWO arguments: the tweening numbers, and the frame being
+   moved to.  Not everything on a slide should ease -- a highlight on a
+   protocol list is answering "which step am I on", and a tweened index
+   flips it halfway through the animation instead of when the click
+   happened.  Anything read off the second argument changes at once.
+
    THE KEYS ARE READ OFF THE FRAMES, not passed in.  They used to be an
    argument, and adding two numbers to a sequence's frames without adding
    them to that list left them untweened: the settled frames were right,
@@ -229,12 +235,12 @@ function run(api, FR, paint){
     const instant = animated === false || reduce.matches;
     api.show(f.on, f, instant);
     const to = state(f);
-    if (!cur || instant){ cur = to; api.dyn.replaceChildren(paint(cur)); return; }
+    if (!cur || instant){ cur = to; api.dyn.replaceChildren(paint(cur, f)); return; }
     const from = cur, t0 = performance.now(), dur = 1300;
     raf = requestAnimationFrame(function step(now){
       const t = Math.min(1, (now - t0)/dur), e = ease(t), st = {};
       keys.forEach(k => st[k] = from[k] + (to[k] - from[k])*e);
-      api.dyn.replaceChildren(paint(st)); cur = st;
+      api.dyn.replaceChildren(paint(st, f)); cur = st;
       raf = t < 1 ? requestAnimationFrame(step) : null;
     });
   }
