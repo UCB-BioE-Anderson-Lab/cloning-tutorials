@@ -81,7 +81,7 @@ const BW = 190, BGAP = 12, BX = 200, TBY = 182, TBH = 54;
 const boxX = i => BX + i*(BW + BGAP);
 
 /* which box each beat lights up; -1 means the conditional strip */
-const LIT = [0, 0, 1, 1, 2, 3, 4, -1, 5];
+const LIT = [0, 0, 1, 1, 1, 1, 2, 3, 4, -1, 5];
 
 function timeline(step){
   const g = G.el("g", {}), lit = LIT[step];
@@ -114,62 +114,88 @@ function timeline(step){
 }
 
 /* ------------------------------------------------------------------ *
- * The bench kit.
+ * The bench kit, in section.  JCA: "show it more truly as a pcr tube in
+ * a metal block.  do it like a cutaway like you cut the block and the
+ * tube in half and are looking at the side."
+ *
+ * So the block is drawn as cut metal -- hatched, with the wells as voids
+ * machined into it -- and the tube is cut with it, which is the only way
+ * to show the thing that matters: the liquid sits down in the cone,
+ * below the surface of the metal, which is why the block holds it at
+ * temperature at all.
  * ------------------------------------------------------------------ */
-/* a PCR tube: flanged rim, short straight wall, long cone */
-function pcr(cx, top, w, h){
-  const g = G.el("g", {}), x = cx - w/2, sh = top + h*0.38;
-  g.appendChild(path("M"+n1(x)+" "+n1(top)+"V"+n1(sh)+"L"+n1(cx)+" "+n1(top+h)+
-    "L"+n1(x+w)+" "+n1(sh)+"V"+n1(top)));
-  g.appendChild(rect(x - 6, top - 12, w + 12, 12, {rx:2}));
+const TUBE = {w:104, h:220, top:400};
+const T_SH = TUBE.top + TUBE.h*0.42;         /* wall gives way to cone */
+const T_TIP = TUBE.top + TUBE.h;
+const T_TW = TUBE.w*0.15;                    /* half width at the tip   */
+function halfAt(y, pad){
+  const p = pad || 0, W = TUBE.w/2;
+  if (y <= T_SH) return W + p;
+  if (y >= T_TIP) return T_TW + p;
+  return W - (W - T_TW)*(y - T_SH)/(T_TIP - T_SH) + p;
+}
+/* the tube's own outline, or -- with a positive pad -- the void that has
+   to be machined into the block for it to sit in */
+function tubeProfile(cx, pad){
+  const p = pad || 0, top = TUBE.top - p, tip = T_TIP + p;
+  return "M"+n1(cx - halfAt(top, p))+" "+n1(top)+
+         "V"+n1(T_SH)+
+         "L"+n1(cx - T_TW - p)+" "+n1(tip - 12)+
+         "Q"+n1(cx)+" "+n1(tip)+" "+n1(cx + T_TW + p)+" "+n1(tip - 12)+
+         "L"+n1(cx + halfAt(top, p))+" "+n1(top)+"Z";
+}
+/* liquid, filling the inside from the tip up to a level */
+function liquid(cx, lvl, col, op){
+  const inner = -5, tip = T_TIP + inner;
+  let d = "M"+n1(cx - halfAt(lvl, inner))+" "+n1(lvl);
+  for (let y = lvl; y <= tip - 12; y += 8)
+    d += "L"+n1(cx - halfAt(y, inner))+" "+n1(y);
+  d += "L"+n1(cx - T_TW - inner)+" "+n1(tip - 12)+
+       "Q"+n1(cx)+" "+n1(tip)+" "+n1(cx + T_TW - inner)+" "+n1(tip - 12);
+  for (let y = tip - 12; y >= lvl; y -= 8)
+    d += "L"+n1(cx + halfAt(y, inner))+" "+n1(y);
+  return G.el("path", {d:d + "Z", fill:col, "fill-opacity":op || ".20",
+    stroke:"none"});
+}
+function tubeCut(cx, lvl, col){
+  const g = G.el("g", {});
+  g.appendChild(G.el("path", {d:tubeProfile(cx, 0), fill:"#ffffff",
+    stroke:C.ink, "stroke-width":2.8, "stroke-linejoin":"round"}));
+  if (lvl) g.appendChild(liquid(cx, lvl, col || C.amber));
+  g.appendChild(G.el("path", {d:tubeProfile(cx, -5), fill:"none",
+    stroke:C.ink, "stroke-width":1.6, "stroke-linejoin":"round"}));
+  /* the hinged flange, cut through with everything else */
+  g.appendChild(rect(cx - TUBE.w/2 - 10, TUBE.top - 16, TUBE.w + 20, 16, {rx:3}));
   return g;
 }
-/* whatever is in it, filling from the tip up to a fraction of the cone */
-function pcrFill(cx, top, w, h, frac, col, op){
-  const sh = top + h*0.38, x = cx - w/2;
-  const y = (top + h) - h*cl(frac, 0, 1);
-  const half = y >= sh ? (w/2)*((top + h - y)/(top + h - sh)) : w/2;
-  const d = y >= sh
-    ? "M"+n1(cx-half)+" "+n1(y)+"L"+n1(cx)+" "+n1(top+h)+"L"+n1(cx+half)+" "+n1(y)+"Z"
-    : "M"+n1(x)+" "+n1(y)+"V"+n1(sh)+"L"+n1(cx)+" "+n1(top+h)+"L"+n1(x+w)+" "+n1(sh)+
-      "V"+n1(y)+"Z";
-  return G.el("path", {d:d, fill:col, "fill-opacity":op || ".18", stroke:"none"});
+/* the block: one slab of metal with the wells cut out of its top face */
+const BLK = {y:540, h:160};
+function blockCut(x, w, wells, on, col, label){
+  const g = G.el("g", {}), y = BLK.y, h = BLK.h;
+  let d = "M"+n1(x)+" "+n1(y + h)+"V"+n1(y);
+  wells.forEach(function(cx){
+    d += "H"+n1(cx - halfAt(y, 8));
+    d += "L"+n1(cx - T_TW - 8)+" "+n1(T_TIP - 4)+
+         "Q"+n1(cx)+" "+n1(T_TIP + 10)+" "+n1(cx + T_TW + 8)+" "+n1(T_TIP - 4);
+    d += "L"+n1(cx + halfAt(y, 8))+" "+n1(y);
+  });
+  d += "H"+n1(x + w)+"V"+n1(y + h)+"Z";
+  g.appendChild(G.el("path", {d:d, fill:"url(#kcmhatch)", stroke:"none"}));
+  g.appendChild(G.el("path", {d:d, fill:col, "fill-opacity":on ? ".22" : ".07",
+    stroke:C.ink, "stroke-width":2.8, "stroke-linejoin":"round"}));
+  g.appendChild(G.text(x + w/2, y + h + 40, label, 26, col, 700));
+  return g;
 }
 function cellAt(x, y, o){
-  const g = grp(o == null ? 1 : o);
-  g.appendChild(G.el("rect", {x:n1(x-17), y:n1(y-9), width:34, height:18, rx:9,
-    fill:C.amber, "fill-opacity":".32", stroke:C.amber, "stroke-width":2}));
+  const g = G.el("g", {opacity:n1(cl(o == null ? 1 : o, 0, 1))});
+  g.appendChild(G.el("rect", {x:n1(x-15), y:n1(y-8), width:30, height:16, rx:8,
+    fill:C.amber, "fill-opacity":".40", stroke:C.amber, "stroke-width":1.8}));
   return g;
 }
 function ring(x, y, r){
   const g = G.el("g", {});
-  [r, r - 3.6].forEach(rr => g.appendChild(G.el("circle", {cx:n1(x), cy:n1(y),
-    r:n1(rr), fill:"none", stroke:C.blue, "stroke-width":2.2})));
-  return g;
-}
-/* the two-block incubator the whole middle of this protocol happens on */
-const EB = {x:470, y:580, w:660, h:132};
-function echoBody(){
-  const g = G.el("g", {});
-  g.appendChild(rect(EB.x, EB.y, EB.w, EB.h, {rx:10, fill:"#ffffff", op:"1"}));
-  g.appendChild(G.text(EB.x + EB.w/2, EB.y + EB.h + 34, "EchoTherm", 23, C.muted, 400));
-  return g;
-}
-/* drawn AFTER the tube: a tube standing in a block is behind the block's
-   wall, and drawing the wells first left the tip and its liquid painted
-   across the block instead of down inside it */
-function echoWells(hot){
-  const g = G.el("g", {});
-  [[620, C.blue, P.coldC], [980, C.verm, P.hotC]].forEach(function(q, i){
-    const on = (i === 1) === (hot > 0.5);
-    /* opaque, so the tube standing in it is actually hidden below the
-       rim rather than showing through a 22% tint */
-    g.appendChild(rect(q[0] - 76, EB.y + 16, 152, 58,
-      {fill:"#ffffff", op:"1", stroke:"none", rx:6}));
-    g.appendChild(rect(q[0] - 76, EB.y + 16, 152, 58,
-      {fill:q[1], op:on ? ".22" : ".08", stroke:q[1], sw:on ? 2.8 : 1.8, rx:6}));
-    g.appendChild(G.text(q[0], EB.y + 104, q[2] + "\u00a0\u00b0C", 26, q[1], 700));
-  });
+  [r, r - 3.4].forEach(rr => g.appendChild(G.el("circle", {cx:n1(x), cy:n1(y),
+    r:n1(rr), fill:"none", stroke:C.blue, "stroke-width":2})));
   return g;
 }
 function dish(cx, cy, r, o){
@@ -188,86 +214,118 @@ function boxLabel(x, y, w, h, t, sub){
   if (sub) g.appendChild(G.text(x + w/2, y + h + 58, sub, 21, C.muted, 400));
   return g;
 }
-/* WHAT YOU ARE ADDING IS NAMED BESIDE THE TUBE.  It used to be written
-   across the tube's own rim with the arrow starting inside the tube,
-   which put three things on top of each other. */
+/* what you are adding, named beside the tube it goes into */
 function reagent(label, sub, tubeX){
-  const g = G.el("g", {});
-  g.appendChild(G.text(424, 474, label, 25, C.ink, 700, "end"));
-  if (sub) g.appendChild(G.text(424, 502, sub, 21, C.muted, 400, "end"));
-  /* over and then down into the mouth, so the arrow points where the
-     liquid goes.  It used to end beside the tube pointing up and away. */
-  const ex = tubeX - 16;
-  g.appendChild(path("M440 472C498 458 532 424 "+n1(ex-6)+" 438", C.ink, 2.6, "7 6"));
-  /* a filled head, because two thin strokes at the end of a dashed line
-     read as one more dash */
-  g.appendChild(G.el("path", {d:"M"+n1(ex)+" 440L"+n1(ex-21)+" 429L"+
-    n1(ex-17)+" 445Z", fill:C.ink, stroke:"none"}));
+  const g = G.el("g", {}), ex = tubeX - TUBE.w/2 - 10;
+  g.appendChild(G.text(300, 430, label, 25, C.ink, 700, "end"));
+  if (sub) g.appendChild(G.text(300, 458, sub, 21, C.muted, 400, "end"));
+  g.appendChild(path("M316 420C"+n1(ex-92)+" 406 "+n1(ex-56)+" 366 "+n1(ex-4)+" 382,",
+    C.ink, 2.6, "7 6"));
+  g.appendChild(G.el("path", {d:"M"+n1(ex+8)+" 384L"+n1(ex-12)+" 372L"+
+    n1(ex-9)+" 389Z", fill:C.ink, stroke:"none"}));
+  return g;
+}
+/* the transfer between the two tubes, which is the step that was missing */
+function transfer(fromX, toX, label){
+  const g = G.el("g", {}), y = 336;
+  g.appendChild(path("M"+n1(fromX)+" "+n1(y)+"C"+n1(fromX+30)+" "+n1(y-34)+" "+
+    n1(toX-30)+" "+n1(y-34)+" "+n1(toX-6)+" "+n1(y), C.ink, 2.8, "7 6"));
+  g.appendChild(G.el("path", {d:"M"+n1(toX)+" "+n1(y+8)+"L"+n1(toX-14)+" "+
+    n1(y-10)+"L"+n1(toX+8)+" "+n1(y-6)+"Z", fill:C.ink, stroke:"none"}));
+  g.appendChild(G.text((fromX + toX)/2, y - 44, label, 24, C.ink, 700));
   return g;
 }
 
 /* ------------------------------------------------------------------ *
- * The beats.
+ * The beats.  THIS IS TWO TUBES, NOT ONE.  The first version had the
+ * cells and the DNA in a single tube from the start and then "added the
+ * mix to the DNA" with nothing to add it to.  JCA wrote the order out:
+ * assembly reaction on the cold block, competent cells as a SECOND tube,
+ * KCM into the cells, then forty microlitres of cells across into the
+ * assembly reaction.  The direction matters -- cells go to the DNA.
  * ------------------------------------------------------------------ */
+const WCOLD = [516, 716], WHOT = [942, 1114];
+const XASM = WCOLD[1], XCOMP = WCOLD[0], XWARM = WHOT[0];
+
 const FR = [
 { s:{step:0, inc:1},
   cap:"plates into the incubator <b>first</b> &#183; they are the slow thing",
   call:"a cold plate carries condensation, and you cannot write on a wet plate",
-  note:"Plates first, before anything else, because they are the only slow item on the bench and everything else waits on them. They need about ten minutes at thirty-seven to come up to temperature and dry off. A plate straight out of the fridge has condensation on the agar and on the lid, and you cannot write on a wet plate, so the labelling waits for the drying. Check while you are there that the plate actually carries the antibiotic on your labsheet: plating a transformation onto the wrong selection is a whole day gone and it looks exactly like a failed transformation.",
-  desc:"Petri dishes going into a thirty-seven degree incubator, with the timeline above showing the ten minutes they need to warm and dry." },
+  note:"Plates first, before anything else, because they are the only slow item on the bench and everything else waits on them. They need about ten minutes at thirty-seven to come up to temperature and dry off. A plate straight out of the fridge has condensation on the agar and on the lid, and you cannot write on a wet plate, so the labelling waits for the drying. Check while you are there that the plate carries the antibiotic on your labsheet.",
+  desc:"Petri dishes going into a thirty-seven degree incubator." },
 
-{ s:{step:1, echo:1},
+{ s:{step:1, blk:1},
   cap:"<b>EchoTherm</b> on &#183; cold block " + P.coldC + " °C, warm block " + P.hotC + " °C",
-  call:"about two minutes to come down &#183; the cells cannot go on until it is cold",
-  note:"Two blocks, set once and left alone for the whole protocol: one at four degrees, one at forty-two. The cold one takes a couple of minutes to come down and nothing can start until it has, which is why it goes on at the same time as the plates rather than when you are ready for it. Leave both running the whole way through. You will be moving tubes between them rather than changing the temperature of either.",
-  desc:"The EchoTherm with two blocks, one at four degrees and one at forty-two, with the timeline above showing the two minutes it takes to cool." },
+  call:"about two minutes to come down &#183; nothing goes on until it is cold",
+  note:"Two blocks, set once and left alone for the whole protocol: one at four degrees, one at forty-two. Drawn cut in half, because the point of a block is that the tube sits down inside it and the liquid is below the surface of the metal. The cold one takes a couple of minutes to come down and nothing can start until it has, which is why it goes on at the same time as the plates.",
+  desc:"Two metal blocks drawn in cutaway section, one at four degrees and one at forty-two, with tube-shaped wells machined into them." },
 
-{ s:{step:2, echo:1, tube:1, cells:1},
-  cap:"<b>" + P.aliquot + " µL</b> of competent cells on the cold block, thaw ~" + P.thawS + " s",
-  call:"then <b>" + P.kcm + " µL KCM</b> &#183; one aliquot does " + P.reactions + " reactions",
-  note:"An aliquot of competent cells onto the cold block, and the DNA tube with it. They thaw in about thirty seconds, and you want them thawed and not warm. Then twenty-five microlitres of KCM into the aliquot and pipette gently to mix. KCM is the potassium, calcium and magnesium that makes this work at all, and gentle is the word: competent cells are fragile and vortexing them costs you efficiency. One aliquot of a hundred microlitres does three reactions, so do not open one per sample.",
-  desc:"A PCR tube of competent cells on the cold block, with KCM being added." },
+{ s:{step:2, blk:1, asm:1, dna:1},
+  cap:"your <b>assembly reaction</b> goes on the cold block",
+  call:"this is the tube everything else gets added to",
+  note:"The assembly or ligation reaction goes onto the cold block first, and it stays there. This is the tube that everything else joins: nothing is being moved out of it at any point. If you are transforming pure plasmid rather than a reaction, this is a fresh tube with the DNA in it, and you want that DNA diluted ten to twenty fold first, using about a microlitre.",
+  desc:"A PCR tube of assembly reaction seated in a well of the cold block, drawn in cutaway, with blue plasmid in the liquid." },
 
-{ s:{step:3, echo:1, tube:1, cells:1, kcm:1, dna:1},
-  cap:"<b>" + P.cells + " µL</b> of the cell/KCM mix onto the DNA",
-  call:"the DNA should be about a fifth of the total &#183; more than that and the salts are too dilute",
-  note:"Forty microlitres of the cell and KCM mix onto the DNA, not the other way round, and mix gently again. The ratio matters: the DNA wants to be about a fifth of the total volume, because everything you add dilutes the salts that are doing the work. If you are retransforming a miniprep rather than a ligation, half a microlitre into ten of cells is plenty, and if you are transforming pure DNA you want it diluted ten to twenty fold first. Too much DNA is a real failure mode here and it does not look like too much DNA, it looks like nothing grew.",
-  desc:"The cell and KCM mix being added to the DNA tube, with blue plasmid drawn in the tube." },
+{ s:{step:3, blk:1, asm:1, dna:1, comp:1},
+  cap:"<b>" + P.aliquot + " µL</b> of competent cells &#183; a <b>second</b> tube",
+  call:"thaw about " + P.thawS + " s on the cold block &#183; one aliquot does " + P.reactions + " reactions",
+  note:"Competent cells come as their own aliquot and they are a separate tube. Onto the cold block beside the reaction, and they thaw in about thirty seconds. You want them thawed and not warm. One aliquot of a hundred microlitres serves three reactions, so do not open one per sample, and do not leave them sitting out while you find your labsheet.",
+  desc:"A second tube of competent cells seated in the next well along on the cold block." },
 
-{ s:{step:4, echo:1, tube:1, cells:1, kcm:1, dna:1, out:1},
+{ s:{step:4, blk:1, asm:1, dna:1, comp:1, kcm:1},
+  cap:"<b>" + P.kcm + " µL KCM</b> into the <b>cells</b>",
+  call:"into the cell tube, not the reaction &#183; pipette gently, they are fragile",
+  note:"Twenty-five microlitres of KCM into the cell aliquot, not into the reaction. KCM is the potassium, calcium and magnesium that make the whole thing work: the divalent cations screen the charge on the DNA backbone and on the membrane so the two can approach each other at all. Pipette gently to mix. Competent cells are fragile and vortexing them costs you efficiency you cannot get back.",
+  desc:"KCM being added to the competent cell tube, with a leader from the label to that tube's mouth." },
+
+{ s:{step:5, blk:1, asm:1, dna:1, comp:1, kcm:1, xfer:1, mixed:1},
+  cap:"<b>" + P.cells + " µL</b> of cells across into the <b>reaction</b>",
+  call:"cells go to the DNA, not the other way round &#183; pipette gently to mix",
+  note:"Forty microlitres of the cell and KCM mix across into the assembly reaction. That direction, not the other way: the reaction is the tube you keep. Mix by pipetting gently. The ratio matters too, because everything you add dilutes the salts that are doing the work, so you want the DNA to be about a fifth of the total. Retransforming a miniprep, half a microlitre into ten of cells is plenty.",
+  desc:"Forty microlitres transferred from the competent cell tube into the assembly reaction tube, drawn as an arrow between the two tubes." },
+
+{ s:{step:6, blk:1, asm:1, dna:1, mixed:1, out:1},
   cap:"<b>" + P.coldMin + " min</b> on the cold block",
-  call:"the DNA and the cells are together in the cold, and nothing has gone in yet",
-  note:"Ten minutes at four degrees. Nothing dramatic is happening that you can see: the DNA and the cells are simply sitting together in the cold with a lot of divalent cations, which screen the charge on the DNA backbone and on the membrane so that the two can get near each other at all. The DNA is stuck to the outside of the cells at the end of this, not inside them. This is the long hold, and it is the one people shorten when they are in a hurry, which is exactly the wrong one to shorten.",
-  desc:"The tube sitting on the cold block, with blue plasmid drawn outside the cells." },
+  call:"nothing has gone in yet &#183; the DNA is stuck to the outside of the cells",
+  note:"Ten minutes at four degrees, and nothing dramatic is happening that you can see. The DNA and the cells are simply sitting together in the cold with a lot of divalent cations around them. At the end of this the DNA is stuck to the outside of the cells, not inside them. This is the long hold and it is the one people shorten when they are in a hurry, which is exactly the wrong one to shorten.",
+  desc:"The assembly reaction tube resting in the cold block, with blue plasmid drawn outside the cells." },
 
-{ s:{step:5, echo:1, hot:1, tube:1, cells:1, kcm:1, dna:1, out:1, warm:1},
-  cap:"<b>" + P.heatS + " s</b> at " + P.hotC + " °C",
+{ s:{step:7, blk:1, asm:1, dna:1, mixed:1, out:1, warm:1},
+  cap:"move the tube to the warm block &#183; <b>" + P.heatS + " s</b> at " + P.hotC + " °C",
   call:"move the tube, not the block &#183; this is the step that puts the DNA in",
-  note:"Ninety seconds at forty-two. This is the actual transformation. The jump in temperature makes the membrane briefly permeable and the DNA that was stuck to the outside gets in. Move the tube across to the warm block rather than reprogramming anything, because the whole point of running two blocks is that the transition is instant. The protocol says ninety seconds and a bit longer may work better, but do not wander off: this is the step where a minute of inattention costs you the experiment.",
-  desc:"The tube moved across to the forty-two degree block, with a plasmid drawn entering a cell." },
+  note:"Ninety seconds at forty-two, and this is the actual transformation. The jump in temperature makes the membrane briefly permeable and the DNA that was stuck to the outside gets in. Move the tube across rather than reprogramming anything: the whole reason for running two blocks is that the transition is instant. Ninety seconds, and a little longer may work better, but do not wander off.",
+  desc:"The tube lifted out of the cold block and seated in the forty-two degree block." },
 
-{ s:{step:6, echo:1, tube:1, cells:1, kcm:1, dna:1, inside:1},
-  cap:"<b>" + P.recoverMin + " min</b> back on the cold block",
-  call:"the plasmid is inside now &#183; the cells still have to be rescued or plated",
-  note:"Straight back to four degrees for a minute. The cold closes the membrane again and the plasmid is inside. What you have at this point is a cell carrying your plasmid but not yet expressing anything from it, which matters for what happens next: it has no resistance protein yet, so putting it on a plate that requires one is only safe if the antibiotic is slow enough to let it catch up.",
-  desc:"The tube back on the cold block, with the plasmid now drawn inside a cell." },
+{ s:{step:8, blk:1, asm:1, dna:1, mixed:1, inside:1},
+  cap:"straight back to the cold block &#183; <b>" + P.recoverMin + " min</b>",
+  call:"the plasmid is inside now &#183; but the cell has not made anything from it yet",
+  note:"Straight back to four degrees for a minute. The cold closes the membrane again and the plasmid is inside. What you have now is a cell carrying your plasmid but not yet expressing anything from it, and that is exactly what decides the next step: it has no resistance protein, so putting it on a plate that demands one is only safe if the antibiotic is slow enough to let it catch up.",
+  desc:"The tube returned to the cold block, with the plasmid now drawn inside the cells." },
 
-{ s:{step:7, resc:1},
+{ s:{step:9, resc:1},
   cap:"<b>rescue only if it is not Amp or Carb</b> &#183; " + P.rescueUL + " µL 2YT, " +
       P.incC + " °C, " + P.rescueMin + " min – " + P.rescueMaxH + " h",
   call:"not less, not more &#183; ampicillin forgives you the wait, kanamycin does not",
-  note:"This is a branch and not a step, which is why the timeline draws it hanging off the side. Ampicillin and carbenicillin work on a cell that is already dividing, so a freshly transformed cell has time to make beta-lactamase before the drug can hurt it, and you can plate straight away. Every other selection kills faster than that: kanamycin, chloramphenicol, spectinomycin all need the cell to have made the resistance protein before it meets the drug. So for those, two hundred microlitres of 2YT, move it to a 1.5 millilitre tube, and shake at thirty-seven for forty-five minutes to two hours. Not less, because it will not have expressed. Not more, because you start selecting for whichever transformant grew fastest rather than sampling what you made.",
-  desc:"The reaction moved to a 1.5 millilitre tube with 2YT and put in a thirty-seven degree shaker, drawn hanging off the main timeline as a branch." },
+  note:"A branch, not a step. Ampicillin and carbenicillin act on a cell that is already dividing, so a freshly transformed cell has time to make beta-lactamase before the drug can hurt it and you can plate straight away. Every other selection kills faster than that: kanamycin, chloramphenicol, spectinomycin all need the resistance protein to exist before the cell meets the drug. For those, two hundred microlitres of 2YT, move it to a 1.5 millilitre tube, shake at thirty-seven for forty-five minutes to two hours. Not less, because it will not have expressed. Not more, because you start selecting for whichever transformant grew fastest rather than sampling what you made.",
+  desc:"The reaction moved to a 1.5 millilitre tube with 2YT and put in a thirty-seven degree shaker." },
 
-{ s:{step:8, plate:1},
+{ s:{step:10, plate:1},
   cap:"plate it all, spread with beads, and invert into " + P.incC + " °C overnight",
   call:"and cancel the programs on the thermocycler on your way out",
-  note:"All of it onto the plate, spread with beads rather than a spreader, and into the incubator inverted so that condensation collects in the lid instead of running across your colonies and smearing them into each other. Overnight, and nothing you do now changes the result. Cancel the temperature programs on the way out: an EchoTherm left at forty-two overnight is the next person's problem and a block left at four collects condensation.",
+  note:"All of it onto the plate, spread with beads rather than a spreader, and into the incubator inverted so that condensation collects in the lid instead of running across your colonies and smearing them together. Overnight, and nothing you do now changes the result. Cancel the temperature programs on the way out: a block left at forty-two overnight is the next person's problem and one left at four collects condensation.",
   desc:"The transformation spread on a plate with beads and the plate going inverted into the thirty-seven degree incubator." }
 ];
 
 window.Deck.sequence("kcm", function(slide){
   const s = G.scene(slide, 800, 846);
+  /* section hatching for the cut metal */
+  const defs = G.el("defs", {});
+  const pat = G.el("pattern", {id:"kcmhatch", width:10, height:10,
+    patternUnits:"userSpaceOnUse", patternTransform:"rotate(45)"});
+  pat.appendChild(G.el("line", {x1:0, y1:0, x2:0, y2:10,
+    stroke:C.muted, "stroke-width":2, "stroke-opacity":".55"}));
+  defs.appendChild(pat);
+  s.add(defs);
   s.finish();
 
   function paint(v, f){
@@ -291,43 +349,51 @@ window.Deck.sequence("kcm", function(slide){
       g.appendChild(k);
     }
 
-    /* ---- the blocks, and the tube that moves between them ------- */
-    if (half(v.echo) > 0.02){
-      const k = grp(half(v.echo));
-      k.appendChild(echoBody());
-      if (v.tube > 0.02){
-        const cx = 620 + 360*v.warm, top = 462, w = 110, h = 190;
-        const t = grp(v.tube);
-        if (v.cells > 0.02)
-          t.appendChild(pcrFill(cx, top, w, h, 0.77, C.amber, ".20"));
-        t.appendChild(pcr(cx, top, w, h));
-        /* WHERE THE PLASMID IS, at every beat: loose in the tube until
-           the heat shock, then inside a cell.  That is the one thing the
-           protocol text cannot show and the whole reason to draw it. */
-        const CELLS = [[-14, 72], [12, 94], [-4, 114]];
-        if (v.cells > 0.02)
-          CELLS.forEach(p => t.appendChild(cellAt(cx + p[0], top + p[1], v.cells)));
+    /* ---- the two blocks, cut, and the tubes in them ------------- */
+    if (half(v.blk) > 0.02){
+      const k = grp(half(v.blk));
+      /* tubes are drawn between the block's far wall and its near wall,
+         which is the whole point of cutting it open */
+      k.appendChild(blockCut(444, 372, WCOLD, v.warm < 0.5, C.blue,
+        P.coldC + " °C"));
+      k.appendChild(blockCut(870, 372, WHOT, v.warm > 0.5, C.verm,
+        P.hotC + " °C"));
+      const ax = XASM + (XWARM - XASM)*v.warm;
+      if (v.comp > 0.02){
+        const t = grp(v.comp * (1 - v.mixed*0.55));
+        t.appendChild(tubeCut(XCOMP, 508, C.amber));
+        [[-16, 548], [14, 568], [-4, 588]].forEach(p =>
+          t.appendChild(cellAt(XCOMP + p[0], p[1], 1)));
+        t.appendChild(G.text(XCOMP, 370, "competent cells", 22, C.muted, 400));
+        k.appendChild(t);
+      }
+      if (v.asm > 0.02){
+        const t = grp(v.asm);
+        t.appendChild(tubeCut(ax, v.mixed > 0.5 ? 508 : 560,
+          v.mixed > 0.5 ? C.amber : C.blue));
+        if (v.mixed > 0.02)
+          [[-16, 548], [14, 568], [-4, 588]].forEach(p =>
+            t.appendChild(cellAt(ax + p[0], p[1], v.mixed)));
         if (v.dna > 0.02 && v.inside < 0.98){
           const d = grp(v.dna * (1 - v.inside));
-          [[20, 64], [-22, 86], [18, 106]].forEach(p =>
-            d.appendChild(ring(cx + p[0], top + p[1], 8)));
+          [[18, 540], [-20, 562], [16, 584]].forEach(p =>
+            d.appendChild(ring(ax + p[0], p[1], 8)));
           t.appendChild(d);
         }
         if (v.inside > 0.02){
           const d = grp(v.inside);
-          CELLS.slice(0, 2).forEach(p =>
-            d.appendChild(ring(cx + p[0], top + p[1], 6)));
+          [[-16, 548], [14, 568]].forEach(p =>
+            d.appendChild(ring(ax + p[0], p[1], 6)));
           t.appendChild(d);
         }
+        t.appendChild(G.text(ax, 370, "assembly reaction", 22, C.muted, 400));
         k.appendChild(t);
       }
-      k.appendChild(echoWells(v.warm));
-      if (v.kcm < 0.5 && v.cells > 0.5)
-        k.appendChild(reagent(P.kcm + " \u00b5L KCM",
-          "K\u207a, Ca\u00b2\u207a, Mg\u00b2\u207a", 620));
-      if (v.kcm > 0.5 && v.out < 0.5 && v.inside < 0.5)
-        k.appendChild(reagent(P.cells + " \u00b5L cell/KCM mix",
-          "onto the DNA", 620));
+      if (v.kcm > 0.5 && v.xfer < 0.5)
+        k.appendChild(reagent(P.kcm + " µL KCM",
+          "K⁺, Ca²⁺, Mg²⁺", XCOMP));
+      if (v.xfer > 0.5)
+        k.appendChild(transfer(XCOMP + 30, XASM - 24, P.cells + " µL of cells"));
       g.appendChild(k);
     }
 
@@ -338,8 +404,6 @@ window.Deck.sequence("kcm", function(slide){
         P.rescueMin + " min – " + P.rescueMaxH + " h"));
       k.appendChild(G.text(700, 444, P.rescueUL + " µL 2YT in a 1.5 mL tube", 24,
         C.ink, 700));
-      /* the real thing, from the shared glassware, because this is the
-         same 1.5 mL Eppendorf the miniprep slides draw */
       const V = G.V, ex = 620, ew = 100, etop = 512, eh = 158;
       k.appendChild(V.contents(ex, ew, etop, eh, etop + eh*0.52, C.amber, ".16"));
       k.appendChild(V.eppy(ex, ew, etop, eh));
