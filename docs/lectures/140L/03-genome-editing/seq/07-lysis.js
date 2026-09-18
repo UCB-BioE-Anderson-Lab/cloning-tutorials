@@ -87,7 +87,19 @@ function serpPts(x0, y0, w, h, rows){
   return pts;
 }
 
-/* A plasmid: a covalently closed circle, so a duplex ring. */
+/* A plasmid: a covalently closed circle, so a duplex ring -- and once
+   the alkali has been through it, two loops that have lost their shape
+   but not their grip on each other.  Two neat offset circles read as two
+   intact plasmids side by side, which is the wrong reading entirely. */
+function lobePts(cx, cy, r, k, ph, n){
+  const pts = [];
+  for (let i = 0; i <= (n || 44); i++){
+    const a = 2*Math.PI*i/(n || 44);
+    const rr = r*(1 + k*Math.sin(2*a + ph) + k*0.55*Math.sin(3*a - ph*1.7));
+    pts.push([cx + rr*Math.cos(a), cy + rr*Math.sin(a)]);
+  }
+  return pts;
+}
 function ringPts(cx, cy, r, n){
   const pts = [];
   for (let i = 0; i <= (n || 40); i++){
@@ -147,26 +159,26 @@ const SEPB = [[190,514],[300,458],[416,538],[530,468],[648,520],[764,452],
 const FR = [
   { on:["cell","chrom","plas"],
     cap:"one cell: a <b>4.6 Mb</b> chromosome and dozens of copies of a <b>3 kb</b> plasmid",
-    call:"both are covalently closed circles &#183; the only difference that matters is length",
+    call:"both are circular double-stranded DNA &#183; what differs is scale, and scale decides everything after this",
     note:"Start with what is in the cell. One chromosome, four and a half million base pairs of it, folded into a nucleoid, and some tens of copies of your plasmid at three thousand, loose in the cytoplasm beside it. Both are double-stranded and both are covalently closed circles, which is why each is drawn with two lines. That difference in length is the only thing this method uses.",
     desc:"A cell drawn as a rounded box. In its left half the chromosome is folded back and forth into a compact nucleoid, drawn as a long double-stranded molecule. In the cytoplasm beside it, clear of the chromosome, eight small double-stranded rings standing for copies of the plasmid." },
 
   { on:["sep","plasX","p2"],
-    cap:"<b>P2</b> is SDS and NaOH &#183; it bursts the cell and pulls every base pair apart",
-    call:"the chromosome&rsquo;s two strands come away from each other &#183; the plasmid&rsquo;s cannot",
-    note:"P2 does two things at once. The SDS dissolves the membrane, and the sodium hydroxide denatures everything in the tube: every base pair in the cell lets go. Now watch the difference, because it is the whole method. Nothing holds the chromosome's two strands together once the pairing is gone, so they simply come away from each other and drift off as two separate molecules. The plasmid cannot do that. Its two strands are wound round each other in a closed circle and neither of them has an end to thread out through, so they come unpaired without ever separating. This is the step you do not leave running longer than the protocol says, because given long enough even that gives way.",
+    cap:"<b>P2</b> is SDS and NaOH &#183; it bursts the cell and denatures everything in it",
+    call:"the chromosome loses all its organisation &#183; the plasmid&rsquo;s two strands stay topologically linked",
+    note:"P2 does two things at once. The SDS dissolves the membrane and denatures protein, and the sodium hydroxide denatures the DNA: every base pair in the tube lets go, the plasmid's included. Be clear that the plasmid denatures too, because the difference is not whether they come unpaired, it is what happens to them once they have. The chromosome is four and a half megabases of unpaired strand with nothing organising it any more, and its two strands simply drift apart. The plasmid's cannot drift anywhere: they are wound round each other in a closed circle and neither has an end to thread out through, so they stay interlinked however thoroughly the pairing is broken. That is why this is the step you do not leave running longer than the protocol says. Given long enough the plasmid denatures irreversibly too.",
     desc:"The cell has burst. The chromosome is now two long single strands wandering separately across the field, one dark and one grey. Each plasmid is drawn as two rings offset from each other and crossing, unpaired but still threaded together." },
 
   { on:["tangle","plasW","n3"],
-    cap:"<b>N3</b> is acetate &#183; the pH crashes back down and everything tries to re-pair",
-    call:"the plasmid&rsquo;s partner never went anywhere &#183; the chromosome finds the wrong strand and cross-links",
-    note:"N3 is acetate and it drops the pH back in one go. Everything in the tube tries to re-pair at once. The plasmid manages it immediately, because its partner strand was never anywhere else to begin with, and it zips straight back into a clean closed circle. The chromosome does not. Its strands have drifted, and at four and a half megabases a strand looking for its own partner finds a stretch of a neighbour first, and then another one, and what it ends up in is a cross-linked mess that traps the protein and the SDS along with it. That difference, one molecule re-pairing and the other knotting, is the entire method.",
+    cap:"<b>N3</b> neutralises &#183; the pH crashes back down and everything tries to re-pair",
+    call:"small and still linked &#8594; it renatures &#183; huge and disorganised &#8594; it ends up in the precipitate",
+    note:"N3 drops the pH back in one go and puts the tube into high salt at the same time, and everything tries to re-pair at once. The plasmid manages it, because its partner strand never went anywhere, and it zips straight back into a clean closed circle that stays in solution. The chromosome cannot. Its strands have drifted apart and there is nothing left holding the molecule in register, so instead of re-pairing cleanly it tangles with itself and with everything else in the tube. And the tube is full of things to tangle with: denatured protein, cell debris, and the SDS, which in potassium acetate comes out of solution as potassium dodecyl sulfate. The chromosome ends up inside that precipitate. Nothing is chemically cross-linked here, it is an aggregate, and that is the whole of the separation.",
     desc:"The plasmid rings have gone back to being clean double-stranded circles. The chromosome has collapsed into a dense cross-linked tangle of strands crossing each other." },
 
   { on:["tangle","tube","n3"],
     cap:"spin, and the tangle goes to the bottom",
     call:"the plasmid stays in solution, and the supernatant is what you put on the column",
-    note:"Five minutes in the centrifuge and the tangle pellets, taking the protein and the SDS down with it. What is left floating is your plasmid, still double-stranded, still covalently closed, and that supernatant is what goes on the column.",
+    note:"Five minutes in the centrifuge and the aggregate pellets, taking the protein, the debris and the precipitated detergent down with it. What is left floating is your plasmid, still double-stranded, still covalently closed, and that supernatant is the cleared lysate that goes on the column. And now you can see why the protocol keeps telling you not to vortex: shear the chromosome into short enough pieces and they re-pair well enough to stay in solution, and they come through into your prep. Inverting gently keeps it long, and long is what gets left behind.",
     desc:"The tangle, and beside it a tube with a dense pellet at its bottom and clear liquid above it carrying the small double-stranded rings." }
 ];
 
@@ -212,8 +224,8 @@ window.Deck.sequence("lysis", function(slide){
       if (off){
         /* unpaired but still threaded: two rings of the same size whose
            centres have drifted, so they cross rather than nest */
-        g.appendChild(strand(ringPts(p[0] - off, p[1] - off, p[2]), 0, C.blue));
-        g.appendChild(strand(ringPts(p[0] + off, p[1] + off, p[2]), 0, C.muted));
+        g.appendChild(strand(lobePts(p[0] - off*0.7, p[1] - off*0.7, p[2], 0.20, 0.7), 0, C.blue));
+        g.appendChild(strand(lobePts(p[0] + off*0.7, p[1] + off*0.7, p[2], 0.20, 2.5), 0, C.muted));
       } else {
         g.appendChild(duplex(ringPts(p[0], p[1], p[2]), 4.5, C.blue));
       }
@@ -225,7 +237,7 @@ window.Deck.sequence("lysis", function(slide){
   s.part("plasX", plasmids(PLASW, 13));
 
   s.part("p2", G.text(760, 258, "P2 · SDS + NaOH", 27, C.verm, 700));
-  s.part("n3", G.text(578, 262, "N3 · acetate", 27, C.verm, 700));
+  s.part("n3", G.text(578, 262, "N3 · neutralise + high salt", 27, C.verm, 700));
 
   s.part("tube", (function(){
     const g = G.el("g", {});
@@ -237,8 +249,12 @@ window.Deck.sequence("lysis", function(slide){
       d:"M"+(TUBE.x+42)+" "+(TUBE.y+TUBE.h-84)+
         "Q"+(TUBE.x+TUBE.w/2)+" "+(TUBE.y+TUBE.h+34)+" "+(TUBE.x+TUBE.w-42)+" "+(TUBE.y+TUBE.h-84)+"Z",
       fill:C.ink, "fill-opacity":".82", stroke:"none"}));
-    g.appendChild(G.text(TUBE.x+TUBE.w+22, TUBE.y+TUBE.h-24,
-      "chromosome, protein, SDS", 23, C.muted, 400, "start"));
+    /* two lines: naming everything in the pellet put the label off the
+       right edge of the slide */
+    g.appendChild(G.text(TUBE.x+TUBE.w+22, TUBE.y+TUBE.h-40,
+      "chromosomal DNA, protein,", 21, C.muted, 400, "start"));
+    g.appendChild(G.text(TUBE.x+TUBE.w+22, TUBE.y+TUBE.h-14,
+      "cell debris, precipitated SDS", 21, C.muted, 400, "start"));
     g.appendChild(G.text(TUBE.x+TUBE.w+22, TUBE.y+112, "plasmid", 23, C.blue, 700, "start"));
     [[1048,352,20],[1136,398,20],[1072,456,20],[1162,326,20]]
       .forEach(c => g.appendChild(duplex(ringPts(c[0], c[1], c[2]), 4.5, C.blue)));
