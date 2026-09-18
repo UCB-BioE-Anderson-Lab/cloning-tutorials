@@ -34,6 +34,8 @@
 
 <article class="slide">
   <h1 class="small">Miniprep kit</h1>
+  <p class="see">Step by step: <a href="../../../wetlab/miniprep/">Miniprep tutorial</a> &nbsp;&middot;&nbsp;
+     <a href="../../../cheatsheets/miniprep.pdf">bench cheatsheet</a></p>
   <figure class="fig">
     <img src="img/07-miniprep-kit.png" alt="A Qiagen miniprep kit box with its bottles of buffers and a bag of spin columns beside it.">
   </figure>
@@ -51,26 +53,16 @@
   <template class="desc">A cell drawn as a rounded box, with one long wandering line for the chromosome and six small circles for the plasmid.</template>
 </article>
 
-<article class="slide">
+<!-- The six-step list is not a slide any more.  JCA: "ditch this slide as
+     a standalone... instead, have that repeated on each of the animation
+     slides of the procedure highlighting in red which step you are on."
+     So it runs down the left of every beat with the current line in red,
+     and the blue -- the plasmid -- is somewhere you can point at on all
+     of them.  seq/07-bench.js. -->
+<article class="slide" data-seq="lysisrun">
   <h1 class="small">Alkaline lysis</h1>
-  <ul class="buf">
-    <li>Fill a 2 mL tube with saturated culture</li>
-    <li data-build="1" data-desc="Second step: spin one minute and toss the supernatant, bleaching it and disposing of it in the drain."
-        data-note="Bleach the supernatant before it goes down the drain. It is a saturated culture of engineered cells.">Spin 1 min, toss the supernatant <span>(bleach, then drain)</span></li>
-    <li data-build="2"
-        data-note="P1 is just buffer with RNase in it. The EDTA chelates magnesium so nucleases cannot work, and the RNase is there because you are about to release an enormous amount of RNA that you do not want."
-        data-desc="Third step: resuspend in 250 microlitres of P1 buffer, which is Tris buffer, EDTA and RNase A.">Resuspend in 250 uL <b>P1</b> <span>&mdash; Tris, EDTA, RNase A</span></li>
-    <li data-build="3"
-        data-note="P2 is the lysis. SDS dissolves the membrane and denatures protein; NaOH denatures the DNA, all of it, plasmid included. This is the step you do not leave running, because given long enough the plasmid denatures irreversibly too and never comes back."
-        data-desc="Fourth step: lyse with 250 microlitres of P2 buffer, which is sodium hydroxide and SDS.">Lyse with 250 uL <b>P2</b> <span>&mdash; NaOH, SDS</span></li>
-    <li data-build="4"
-        data-note="N3 drops the pH back and puts the tube into high salt. The plasmid was denatured too, but its two strands are still interlinked, so it re-pairs correctly and stays in solution. The chromosome cannot get back in register and ends up inside the precipitate along with the protein, the cell debris and the SDS. That difference is the entire method."
-        data-desc="Fifth step: neutralize with 350 microlitres of N3 buffer, which is guanidinium chloride and acetate.">Neutralize with 350 uL <b>N3</b> <span>&mdash; guanidinium chloride, acetate</span></li>
-    <li data-build="5" data-desc="Sixth step: spin five minutes."
-        data-note="The pellet here is chromosomal DNA, protein, cell debris and precipitated detergent all together. What stays in solution is your plasmid. This is also where not vortexing pays off: shear the chromosome short enough and the pieces re-pair well enough to stay up in the supernatant and come through into your prep.">Spin 5 min</li>
-  </ul>
-  <template class="notes">Six steps, and the fifth is the one that matters: the plasmid renatures correctly and the chromosome ends up in the precipitate.</template>
-  <template class="desc">The alkaline lysis half of a miniprep, six steps arriving one at a time, each buffer named with what is actually in it.</template>
+  <template class="notes">The recipe is on the slide the whole way through, with the step you are on picked out. Watch the blue: it starts inside the cells and ends up in the supernatant, and every step is just moving it.</template>
+  <template class="desc">The alkaline lysis half of a miniprep, run in a tube beside the six-step protocol, with the current step picked out in red and the plasmid drawn in blue at every stage.</template>
 </article>
 
 <!-- Nine bullets replaced by the column being run.  Every line of that
@@ -80,8 +72,6 @@
      their labels being squirted in."  seq/07-column.js. -->
 <article class="slide" data-seq="column">
   <h1 class="small">Column cleanup</h1>
-  <p class="see">Step by step: <a href="../../../wetlab/miniprep/">Miniprep tutorial</a> &nbsp;&middot;&nbsp;
-     <a href="../../../cheatsheets/miniprep.pdf">bench cheatsheet</a></p>
   <template class="notes">The second half is a silica column and three washes. The DNA binds in chaotropic salt, the protein comes off in one wash, the salt comes off in the next, and the dry spin gets rid of the ethanol that would otherwise ruin your sequencing read.</template>
   <template class="desc">The column half of a miniprep, run rather than listed: the lysate loaded, the DNA bound to the frit, three washes squirted in and spun through, a dry spin, the waste tube exchanged for a clean one, and the plasmid eluted into it.</template>
 </article>
@@ -90,7 +80,7 @@
 <script src="lecture.js" defer></script>
 <script src="seq/parts.js" defer></script>
 <script src="seq/07-lysis.js" defer></script>
-<script src="seq/07-column.js" defer></script>
+<script src="seq/07-bench.js" defer></script>
 </body>
 </html>
 
