@@ -57,71 +57,59 @@ const HOT = COLD + P.heatS/60;
 const BACK = HOT + P.recoverMin;         /* ~25 min to the fork */
 
 /* ------------------------------------------------------------------ *
- * The timeline, drawn once.  x maps minutes; the block sequence is too
- * short to read at that scale, so it is expanded on its own strip
- * underneath rather than squashed -- which is what the cheatsheet does.
+ * The timeline.  It was two rows -- a to-scale axis with the block
+ * stretch blown out underneath -- which is right on a printed cheatsheet
+ * and wrong here.  JCA: "I don't understand that.  10 min?  13 min?  too
+ * complicated."  The 13 was the sum of the three holds below it, and
+ * asking a room to reconcile a total against its parts, live, while
+ * something else is being explained, is a bad trade.
+ *
+ * So: one row, one box per thing you do, each carrying its own duration.
+ * The boxes are equal width and therefore not to scale, which is the
+ * price of being able to put 90 seconds and 10 minutes on the same line
+ * and have both be readable.  The number under each box is the truth.
  * ------------------------------------------------------------------ */
-const AX0 = 208, AX1 = 1046, AY = 236;
-const K = (AX1 - AX0)/BACK;
-const tx = m => AX0 + m*K;
-const BX0 = 262, BX1 = 1402, BY = 348;
-const BK = (BX1 - BX0)/(BACK - MIX);
-const bx = m => BX0 + (m - MIX)*BK;
+const STEPS = [
+  ["prep",  "plates + EchoTherm on"],
+  ["set up", "~" + P.setup + " min"],
+  [P.coldC + " \u00b0C", P.coldMin + " min"],
+  [P.hotC + " \u00b0C", P.heatS + " s"],
+  [P.coldC + " \u00b0C", P.recoverMin + " min"],
+  ["plate", P.incC + " \u00b0C overnight"]
+];
+const BW = 190, BGAP = 12, BX = 200, TBY = 182, TBH = 54;
+const boxX = i => BX + i*(BW + BGAP);
 
-/* which band of the timeline each beat lights up */
-const LIT = ["plates", "echo", "setup", "setup", "cold", "hot", "back",
-             "rescue", "plate"];
-
-function band(x0, x1, y, h, on, lab, sub, anchor){
-  const g = G.el("g", {}), above = anchor === "start";
-  g.appendChild(rect(x0, y, x1 - x0, h,
-    {fill:on ? C.verm : C.muted, op:on ? ".22" : ".10",
-     stroke:on ? C.verm : C.muted, sw:on ? 2.4 : 1.6, rx:4}));
-  const cx = above ? x0 + 2 : (x0 + x1)/2;
-  const a = above ? "start" : "middle";
-  if (lab) g.appendChild(G.text(above ? x1 + 12 : cx, above ? y + h - 5 : y + h + 22,
-    lab, 21, on ? C.verm : C.muted, on ? 700 : 400, a));
-  if (sub) g.appendChild(G.text(cx, y + h + 44, sub, 19,
-    on ? C.verm : C.muted, 400, a));
-  return g;
-}
+/* which box each beat lights up; -1 means the conditional strip */
+const LIT = [0, 0, 1, 1, 2, 3, 4, -1, 5];
 
 function timeline(step){
   const g = G.el("g", {}), lit = LIT[step];
-  /* the two prep jobs, run in parallel before anything else can start */
-  g.appendChild(band(tx(0.5), tx(P.warm), 158, 20, lit === "plates",
-    "plates: into " + P.incC + " °C, warm, dry, label", null, "start"));
-  g.appendChild(band(tx(0), tx(P.cool), 198, 20, lit === "echo",
-    "EchoTherm → " + P.coldC + " °C / " + P.hotC + " °C", null, "start"));
-  /* the run itself */
-  g.appendChild(path("M"+AX0+" "+AY+"H"+n1(AX1), C.ink, 2.6));
-  g.appendChild(band(tx(T0), tx(MIX), AY + 4, 26, lit === "setup",
-    "~" + P.setup + " min", "set up · hands on"));
-  g.appendChild(band(tx(MIX), tx(BACK), AY + 4, 26,
-    lit === "cold" || lit === "hot" || lit === "back",
-    Math.round(BACK - MIX) + " min", "on the blocks"));
-  g.appendChild(G.text(AX0 - 12, AY + 8, "0", 20, C.muted, 400, "end"));
-  /* the fork: the rescue is a branch, not a step */
-  g.appendChild(path("M"+n1(AX1)+" "+AY+"L"+n1(AX1+46)+" 194H1444", C.ink, 2.6));
-  g.appendChild(path("M"+n1(AX1)+" "+AY+"L"+n1(AX1+46)+" 280H1444",
-    lit === "rescue" ? C.verm : C.muted, 2.6, "7 6"));
-  g.appendChild(G.text(1444, 186, "plate → " + P.incC + " °C overnight", 21,
-    lit === "plate" ? C.verm : C.ink, lit === "plate" ? 700 : 400, "end"));
-  g.appendChild(G.text(1444, 162, "Amp / Carb — usual", 19, C.muted, 400, "end"));
-  g.appendChild(G.text(1444, 306, "+ " + P.rescueMin + " min – " + P.rescueMaxH +
-    " h rescue, then plate", 21, lit === "rescue" ? C.verm : C.muted,
-    lit === "rescue" ? 700 : 400, "end"));
-  g.appendChild(G.text(1444, 272, "any other selection", 19, C.muted, 400, "end"));
-  /* the block sequence, expanded, because 90 s does not survive the
-     scale that 25 minutes needs */
-  g.appendChild(path("M"+n1((tx(MIX)+tx(BACK))/2)+" "+(AY+34)+"V"+(BY-16),
-    C.muted, 2, "6 6"));
-  g.appendChild(band(bx(MIX), bx(COLD), BY, 26, lit === "cold",
-    P.coldMin + " min", P.coldC + " °C"));
-  g.appendChild(band(bx(COLD), bx(HOT), BY, 26, lit === "hot",
-    P.heatS + " s", P.hotC + " °C"));
-  g.appendChild(band(bx(HOT), bx(BACK), BY, 26, lit === "back",
-    P.recoverMin + " min", P.coldC + " °C"));
+  STEPS.forEach(function(t, i){
+    const x = boxX(i), on = lit === i;
+    g.appendChild(rect(x, TBY, BW, TBH,
+      {fill:on ? C.verm : C.muted, op:on ? ".20" : ".09",
+       stroke:on ? C.verm : C.muted, sw:on ? 2.6 : 1.6, rx:6}));
+    g.appendChild(G.text(x + BW/2, TBY + 36, t[0], 25,
+      on ? C.verm : C.ink, 700));
+    g.appendChild(G.text(x + BW/2, TBY + TBH + 30, t[1], 22,
+      on ? C.verm : C.muted, on ? 700 : 400));
+    if (i < STEPS.length - 1)
+      g.appendChild(path("M"+n1(x + BW + 2)+" "+(TBY + 20)+"l7 9l-7 9",
+        C.muted, 2.4));
+  });
+  /* the rescue is a condition on the last box, not a step of its own */
+  const on = lit === -1, rx0 = boxX(4), rx1 = boxX(5) + BW;
+  g.appendChild(rect(rx0, 300, rx1 - rx0, 62,
+    {fill:on ? C.verm : C.muted, op:on ? ".16" : ".05",
+     stroke:on ? C.verm : C.muted, sw:2, rx:6}));
+  g.appendChild(G.el("rect", {x:n1(rx0), y:300, width:n1(rx1-rx0), height:62, rx:6,
+    fill:"none", stroke:on ? C.verm : C.muted, "stroke-width":2,
+    "stroke-dasharray":"7 6"}));
+  g.appendChild(G.text((rx0+rx1)/2, 326, "not Amp or Carb?", 22,
+    on ? C.verm : C.muted, 700));
+  g.appendChild(G.text((rx0+rx1)/2, 350, P.rescueMin + " min \u2013 " +
+    P.rescueMaxH + " h rescue first", 22, on ? C.verm : C.muted, 400));
   return g;
 }
 
@@ -139,7 +127,7 @@ function pcr(cx, top, w, h){
 /* whatever is in it, filling from the tip up to a fraction of the cone */
 function pcrFill(cx, top, w, h, frac, col, op){
   const sh = top + h*0.38, x = cx - w/2;
-  const y = (top + h) - (h - (sh - top))*cl(frac, 0, 1);
+  const y = (top + h) - h*cl(frac, 0, 1);
   const half = y >= sh ? (w/2)*((top + h - y)/(top + h - sh)) : w/2;
   const d = y >= sh
     ? "M"+n1(cx-half)+" "+n1(y)+"L"+n1(cx)+" "+n1(top+h)+"L"+n1(cx+half)+" "+n1(y)+"Z"
@@ -160,15 +148,27 @@ function ring(x, y, r){
   return g;
 }
 /* the two-block incubator the whole middle of this protocol happens on */
-function echoTherm(hot){
-  const g = G.el("g", {}), x = 470, y = 580, w = 660, h = 132;
-  g.appendChild(rect(x, y, w, h, {rx:10}));
-  g.appendChild(G.text(x + w/2, y + h + 34, "EchoTherm", 23, C.muted, 400));
+const EB = {x:470, y:580, w:660, h:132};
+function echoBody(){
+  const g = G.el("g", {});
+  g.appendChild(rect(EB.x, EB.y, EB.w, EB.h, {rx:10, fill:"#ffffff", op:"1"}));
+  g.appendChild(G.text(EB.x + EB.w/2, EB.y + EB.h + 34, "EchoTherm", 23, C.muted, 400));
+  return g;
+}
+/* drawn AFTER the tube: a tube standing in a block is behind the block's
+   wall, and drawing the wells first left the tip and its liquid painted
+   across the block instead of down inside it */
+function echoWells(hot){
+  const g = G.el("g", {});
   [[620, C.blue, P.coldC], [980, C.verm, P.hotC]].forEach(function(q, i){
     const on = (i === 1) === (hot > 0.5);
-    g.appendChild(rect(q[0] - 76, y + 16, 152, 58,
+    /* opaque, so the tube standing in it is actually hidden below the
+       rim rather than showing through a 22% tint */
+    g.appendChild(rect(q[0] - 76, EB.y + 16, 152, 58,
+      {fill:"#ffffff", op:"1", stroke:"none", rx:6}));
+    g.appendChild(rect(q[0] - 76, EB.y + 16, 152, 58,
       {fill:q[1], op:on ? ".22" : ".08", stroke:q[1], sw:on ? 2.8 : 1.8, rx:6}));
-    g.appendChild(G.text(q[0], y + 104, q[2] + " °C", 26, q[1], 700));
+    g.appendChild(G.text(q[0], EB.y + 104, q[2] + "\u00a0\u00b0C", 26, q[1], 700));
   });
   return g;
 }
@@ -188,13 +188,21 @@ function boxLabel(x, y, w, h, t, sub){
   if (sub) g.appendChild(G.text(x + w/2, y + h + 58, sub, 21, C.muted, 400));
   return g;
 }
-function squirt(x, y, label, sub, col){
+/* WHAT YOU ARE ADDING IS NAMED BESIDE THE TUBE.  It used to be written
+   across the tube's own rim with the arrow starting inside the tube,
+   which put three things on top of each other. */
+function reagent(label, sub, tubeX){
   const g = G.el("g", {});
-  g.appendChild(path("M"+n1(x)+" "+n1(y)+"V"+n1(y+56), col || C.ink, 3, "7 6"));
-  g.appendChild(path("M"+n1(x-8)+" "+n1(y+44)+"L"+n1(x)+" "+n1(y+58)+"L"+n1(x+8)+
-    " "+n1(y+44), col || C.ink, 3));
-  g.appendChild(G.text(x, y - 26, label, 25, col || C.ink, 700));
-  if (sub) g.appendChild(G.text(x, y - 2, sub, 21, C.muted, 400));
+  g.appendChild(G.text(424, 474, label, 25, C.ink, 700, "end"));
+  if (sub) g.appendChild(G.text(424, 502, sub, 21, C.muted, 400, "end"));
+  /* over and then down into the mouth, so the arrow points where the
+     liquid goes.  It used to end beside the tube pointing up and away. */
+  const ex = tubeX - 16;
+  g.appendChild(path("M440 472C498 458 532 424 "+n1(ex-6)+" 438", C.ink, 2.6, "7 6"));
+  /* a filled head, because two thin strokes at the end of a dashed line
+     read as one more dash */
+  g.appendChild(G.el("path", {d:"M"+n1(ex)+" 440L"+n1(ex-21)+" 429L"+
+    n1(ex-17)+" 445Z", fill:C.ink, stroke:"none"}));
   return g;
 }
 
@@ -286,22 +294,22 @@ window.Deck.sequence("kcm", function(slide){
     /* ---- the blocks, and the tube that moves between them ------- */
     if (half(v.echo) > 0.02){
       const k = grp(half(v.echo));
-      k.appendChild(echoTherm(v.warm));
+      k.appendChild(echoBody());
       if (v.tube > 0.02){
         const cx = 620 + 360*v.warm, top = 462, w = 110, h = 190;
         const t = grp(v.tube);
         if (v.cells > 0.02)
-          t.appendChild(pcrFill(cx, top, w, h, 0.78, C.amber, ".20"));
+          t.appendChild(pcrFill(cx, top, w, h, 0.77, C.amber, ".20"));
         t.appendChild(pcr(cx, top, w, h));
         /* WHERE THE PLASMID IS, at every beat: loose in the tube until
            the heat shock, then inside a cell.  That is the one thing the
            protocol text cannot show and the whole reason to draw it. */
-        const CELLS = [[-14, 62], [12, 84], [-4, 104]];
+        const CELLS = [[-14, 72], [12, 94], [-4, 114]];
         if (v.cells > 0.02)
           CELLS.forEach(p => t.appendChild(cellAt(cx + p[0], top + p[1], v.cells)));
         if (v.dna > 0.02 && v.inside < 0.98){
           const d = grp(v.dna * (1 - v.inside));
-          [[20, 54], [-22, 76], [18, 96]].forEach(p =>
+          [[20, 64], [-22, 86], [18, 106]].forEach(p =>
             d.appendChild(ring(cx + p[0], top + p[1], 8)));
           t.appendChild(d);
         }
@@ -313,12 +321,13 @@ window.Deck.sequence("kcm", function(slide){
         }
         k.appendChild(t);
       }
+      k.appendChild(echoWells(v.warm));
       if (v.kcm < 0.5 && v.cells > 0.5)
-        k.appendChild(squirt(620, 486, P.kcm + " µL KCM",
-          "K⁺, Ca²⁺, Mg²⁺", C.ink));
+        k.appendChild(reagent(P.kcm + " \u00b5L KCM",
+          "K\u207a, Ca\u00b2\u207a, Mg\u00b2\u207a", 620));
       if (v.kcm > 0.5 && v.out < 0.5 && v.inside < 0.5)
-        k.appendChild(squirt(620, 486, P.cells + " µL cell/KCM mix",
-          "onto the DNA", C.ink));
+        k.appendChild(reagent(P.cells + " \u00b5L cell/KCM mix",
+          "onto the DNA", 620));
       g.appendChild(k);
     }
 
