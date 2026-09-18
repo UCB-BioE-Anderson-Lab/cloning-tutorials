@@ -196,10 +196,11 @@ function inTube(cx, lvl, fx, fy, pad){
   const half = halfAt(y, -5) - pad;
   return half <= 3 ? null : [cx + fx*half, y];
 }
-function cellAt(x, y, o){
-  const g = G.el("g", {opacity:n1(cl(o == null ? 1 : o, 0, 1))});
-  g.appendChild(G.el("rect", {x:n1(x-13), y:n1(y-7), width:26, height:14, rx:7,
-    fill:C.amber, "fill-opacity":".40", stroke:C.amber, "stroke-width":1.8}));
+function cellAt(x, y, o, k){
+  const g = G.el("g", {opacity:n1(cl(o == null ? 1 : o, 0, 1))}), z = k || 1;
+  g.appendChild(G.el("rect", {x:n1(x-13*z), y:n1(y-7*z), width:n1(26*z),
+    height:n1(14*z), rx:n1(7*z), fill:C.amber, "fill-opacity":".40",
+    stroke:C.amber, "stroke-width":1.8}));
   return g;
 }
 function ring(x, y, r){
@@ -422,15 +423,23 @@ window.Deck.sequence("kcm", function(slide){
     /* ---- the rescue branch ------------------------------------- */
     if (half(v.resc) > 0.02){
       const k = grp(half(v.resc));
-      k.appendChild(boxLabel(540, 470, 460, 220, P.incC + " °C shaker",
+      /* A 1.5 mL tube is about three and a half times as tall as it is
+         wide.  This one was drawn 100 across by 158 tall, squeezed to
+         fit a box I had made too short, and it looked squashed because
+         it was. */
+      k.appendChild(boxLabel(500, 430, 420, 296, P.incC + " °C shaker · " +
         P.rescueMin + " min – " + P.rescueMaxH + " h"));
-      k.appendChild(G.text(700, 444, P.rescueUL + " µL 2YT in a 1.5 mL tube", 24,
+      k.appendChild(G.text(710, 408, P.rescueUL + " µL 2YT in a 1.5 mL tube", 24,
         C.ink, 700));
-      const V = G.V, ex = 620, ew = 100, etop = 512, eh = 158;
-      k.appendChild(V.contents(ex, ew, etop, eh, etop + eh*0.52, C.amber, ".16"));
+      const V = G.V, ex = 612, ew = 78, etop = 462, eh = 252;
+      const elvl = etop + eh*0.66;   /* a couple of hundred uL: it does
+                                       not get out of the cone */
+      k.appendChild(V.contents(ex, ew, etop, eh, elvl, C.amber, ".16"));
       k.appendChild(V.eppy(ex, ew, etop, eh));
-      [[-20, 112], [16, 130]].forEach(p =>
-        k.appendChild(cellAt(ex + ew/2 + p[0], etop + p[1], 1)));
+      [[-0.4, -0.6], [0.35, 0.4]].forEach(function(p){
+        const q = V.inLiquid(ex, ew, etop, eh, elvl, p[0], p[1], 12);
+        if (q) k.appendChild(cellAt(q[0], q[1], 1, 0.78));
+      });
       k.appendChild(G.text(1130, 540, "Amp or Carb?", 24, C.ink, 700));
       k.appendChild(G.text(1130, 572, "skip this — plate now", 22, C.muted, 400));
       k.appendChild(G.text(1130, 618, "anything else?", 24, C.verm, 700));
