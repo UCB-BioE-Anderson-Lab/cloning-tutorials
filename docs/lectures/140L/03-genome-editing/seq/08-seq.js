@@ -165,6 +165,189 @@ function ddntp(letter){
   return g;
 }
 
+
+/* ------------------------------------------------------------------ *
+ * THE A TERMINATOR, DRAWN OUT.  JCA: "do you know the actual structure
+ * of this dye and how it is linked?  I generally like to explain things
+ * down to the atom whenever possible."
+ *
+ * ddA-PA-6CFB-dR6G, which unpacks as:
+ *
+ *   7-deaza-adenine   N7 of the purine replaced by carbon, because you
+ *                     cannot hang a substituent off N7 without making a
+ *                     quaternary nitrogen.  It also cuts the band
+ *                     compressions that G-rich secondary structure gives
+ *   PA               propargylamino, C7-C#C-CH2-NH-.  The alkyne is
+ *                     rigid on purpose: it holds the dye clear of the
+ *                     base so it neither stacks on it and quenches nor
+ *                     fouls the polymerase
+ *   amide            the dye arrives as an NHS ester and acylates that
+ *                     amine
+ *   6-FAM            the donor half of an energy transfer pair, so that
+ *                     one laser line drives all four terminators
+ *   dR6G             the acceptor, and the thing that actually decides
+ *                     what colour A comes out: 4,7-dichlororhodamine 6G
+ *
+ * The chlorines sit on the two ring carbons flanking the xanthene
+ * oxygen, each one ortho to an ethylamino nitrogen.  That is what the
+ * dye is for: it narrows the emission band by 20-30% and red-shifts it,
+ * which is what lets four dyes share one detector without bleeding into
+ * each other.
+ *
+ * The outer rings carry aromatic circles rather than a chosen Kekule
+ * form, because the charge on a xanthylium really is delocalised across
+ * both nitrogens and picking one form would be the less honest drawing.
+ * ------------------------------------------------------------------ */
+function hexV(cx, cy, r){
+  return [30, 90, 150, 210, 270, 330].map(function(d){
+    const t = d*Math.PI/180;
+    return [cx + r*Math.cos(t), cy + r*Math.sin(t)];
+  });                       /* [BR, B, BL, TL, T, TR] */
+}
+function ringPath(v, skip){
+  let d = "";
+  for (let i = 0; i < 6; i++){
+    const a = v[i], b = v[(i+1) % 6];
+    if (skip && skip.indexOf(i) >= 0) continue;
+    d += "M" + n1(a[0]) + " " + n1(a[1]) + "L" + n1(b[0]) + " " + n1(b[1]);
+  }
+  return path(d, C.ink, 2.6);
+}
+function arom(cx, cy, r){
+  return G.el("circle", {cx:n1(cx), cy:n1(cy), r:n1(r*0.52), fill:"none",
+    stroke:C.ink, "stroke-width":2.2});
+}
+function note(x, y, lines, col, anchor){
+  const g = G.el("g", {});
+  lines.forEach(function(t, i){
+    g.appendChild(G.text(x, y + i*26, t, 21, col || C.muted, 400, anchor || "middle"));
+  });
+  return g;
+}
+function terminatorA(){
+  const g = G.el("g", {}), col = BASE.A;
+
+  /* ---- 7-deazaadenine ---------------------------------------- */
+  const BR = 40, bx = 452, by = 596;
+  const H = hexV(bx, by, BR);
+  /* [BR,B,BL,TL,T,TR] = [C4, N3, C2, N1, C6, C5] */
+  const C4 = H[0], N3 = H[1], C2 = H[2], N1 = H[3], C6 = H[4], C5 = H[5];
+  g.appendChild(ringPath(H, [5]));                 /* C5-C4 is the fusion */
+  g.appendChild(arom(bx, by, BR));
+  [[N3, "N"], [N1, "N"]].forEach(p => g.appendChild(atom(p[0], p[1])));
+  /* the fused five-ring, sharing the C5-C4 edge */
+  const pc = [C4[0] + 27.5, by], PR = 34.0;
+  const pv = [72, 0, 288].map(function(d){
+    const t = d*Math.PI/180;
+    return [pc[0] + PR*Math.cos(t), pc[1] + PR*Math.sin(t)];
+  });                                              /* [N9, C8, C7] */
+  const N9 = pv[0], C8 = pv[1], C7 = pv[2];
+  g.appendChild(path("M"+n1(C4[0])+" "+n1(C4[1])+"L"+n1(N9[0])+" "+n1(N9[1])+
+    "L"+n1(C8[0])+" "+n1(C8[1])+"L"+n1(C7[0])+" "+n1(C7[1])+
+    "L"+n1(C5[0])+" "+n1(C5[1]), C.ink, 2.6));
+  g.appendChild(path("M"+n1(C5[0])+" "+n1(C5[1])+"L"+n1(C4[0])+" "+n1(C4[1]), C.ink, 2.6));
+  g.appendChild(atom(N9, "N"));
+  /* the 6-amino */
+  const NH2 = [C6[0] - 20, C6[1] - 50];
+  g.appendChild(bd(C6, shrink(C6, NH2, 26), 2.6));
+  g.appendChild(atom(NH2, "NH₂"));
+  /* N9 to the sugar, which beat three already drew in full */
+  const SG = [N9[0] + 96, N9[1] + 70];
+  g.appendChild(bd(N9, shrink(N9, SG, 16), 2.6));
+  g.appendChild(G.el("rect", {x:n1(SG[0]-16), y:n1(SG[1]-27), width:184, height:54,
+    rx:9, fill:C.muted, "fill-opacity":".10", stroke:C.muted, "stroke-width":2,
+    "stroke-dasharray":"6 5"}));
+  g.appendChild(G.text(SG[0] + 76, SG[1] - 2, "dideoxyribose", 21, C.muted, 400));
+  g.appendChild(G.text(SG[0] + 76, SG[1] + 22, "+ triphosphate", 21, C.muted, 400));
+  g.appendChild(G.text(182, 688, "7-deazaadenine", 23, C.verm, 700, "start"));
+  g.appendChild(note(182, 716,
+    ["N7 is a carbon here, so there is", "something to hang the arm on"],
+    C.verm, "start"));
+  /* ---- the propargylamino arm -------------------------------- */
+  const Ca = [572, 532], Cb = [648, 532], Cc = [694, 505],
+        Nl = [740, 532], Cd = [786, 505], Od = [786, 457];
+  g.appendChild(bd(C7, Ca, 2.6));
+  g.appendChild(dbl(shrink(Ca, Cb, 2), shrink(Cb, Ca, 2)));      /* alkyne, */
+  g.appendChild(bd(Ca, Cb, 2.6));                                /* three lines */
+  g.appendChild(bd(Cb, Cc, 2.6));
+  g.appendChild(bd(Cc, shrink(Cc, Nl, 18), 2.6));
+  g.appendChild(atom(Nl, "N"));
+  g.appendChild(G.text(Nl[0], Nl[1] + 34, "H", 20, C.ink, 600));
+  g.appendChild(bd(shrink(Nl, Cd, 18), Cd, 2.6));
+  g.appendChild(dbl(shrink(Cd, Od, 4), shrink(Od, Cd, 22)));
+  g.appendChild(atom(Od, "O"));
+  g.appendChild(note(604, 446, ["rigid alkyne \u00b7 keeps the", "dye clear of the base"]));
+  g.appendChild(note(872, 608, ["amide, from the", "dye\u2019s NHS ester"]));
+
+  /* ---- the fluorescein donor, in the middle of the linker ----- */
+  g.appendChild(G.el("rect", {x:840, y:478, width:158, height:58, rx:10,
+    fill:C.ink, "fill-opacity":".05", stroke:C.ink, "stroke-width":2.2}));
+  g.appendChild(G.text(919, 504, "6-FAM", 24, C.ink, 700));
+  g.appendChild(G.text(919, 528, "donor", 20, C.muted, 400));
+  g.appendChild(bd(Cd, [840, 505], 2.6));
+  const Nx = [1046, 480], Cx = [1092, 456], Ox = [1092, 410];
+  g.appendChild(bd([998, 505], shrink([998, 505], Nx, 18), 2.6));
+  g.appendChild(atom(Nx, "N"));
+  g.appendChild(G.text(Nx[0], Nx[1] + 34, "H", 20, C.ink, 600));
+  g.appendChild(bd(shrink(Nx, Cx, 18), Cx, 2.6));
+  g.appendChild(dbl(shrink(Cx, Ox, 4), shrink(Ox, Cx, 22)));
+  g.appendChild(atom(Ox, "O"));
+
+  /* ---- dR6G, the acceptor ------------------------------------ */
+  const dx = 1205, dy = 628, R = 36, W = 1.7320508*R;
+  const L = hexV(dx - W, dy, R), M = hexV(dx, dy, R), Rg = hexV(dx + W, dy, R);
+  g.appendChild(ringPath(L));
+  g.appendChild(ringPath(Rg));
+  g.appendChild(path("M"+n1(M[3][0])+" "+n1(M[3][1])+"L"+n1(M[4][0])+" "+n1(M[4][1])+
+    "L"+n1(M[5][0])+" "+n1(M[5][1]), C.ink, 2.6));
+  g.appendChild(bd(M[2], shrink(M[2], M[1], 20), 2.6));
+  g.appendChild(bd(M[0], shrink(M[0], M[1], 20), 2.6));
+  g.appendChild(atom(M[1], "O"));
+  g.appendChild(arom(dx - W, dy, R));
+  g.appendChild(arom(dx + W, dy, R));
+  /* the two chlorines, on the carbons either side of that oxygen */
+  [[L[1], -1], [Rg[1], 1]].forEach(function(q){
+    const t = [q[0][0] + q[1]*6, q[0][1] + 48];
+    g.appendChild(bd(q[0], shrink(q[0], t, 22), 2.6));
+    g.appendChild(atom(t, "Cl", C.verm));
+  });
+  /* 3,6-bis(ethylamino) and 2,7-dimethyl */
+  const NL = [L[2][0] - 48, L[2][1] + 26], NR = [Rg[0][0] + 48, Rg[0][1] + 26];
+  g.appendChild(bd(L[2], shrink(L[2], NL, 24), 2.6));
+  g.appendChild(atom(NL, "N"));
+  g.appendChild(G.text(NL[0] - 34, NL[1] + 9, "Et", 24, C.ink, 600));
+  g.appendChild(bd(shrink(NL, [NL[0]-30, NL[1]], 16), [NL[0]-22, NL[1]], 2.6));
+  g.appendChild(bd(Rg[0], shrink(Rg[0], NR, 24), 2.6));
+  g.appendChild(atom(NR, "N"));
+  g.appendChild(G.text(NR[0] + 36, NR[1] + 9, "Et", 24, C.ink, 600));
+  g.appendChild(G.text(NR[0] + 16, NR[1] - 20, "+", 24, C.ink, 700));
+  g.appendChild(bd(shrink(NR, [NR[0]+30, NR[1]], 16), [NR[0]+22, NR[1]], 2.6));
+  [[L[3], -1], [Rg[5], 1]].forEach(function(q){
+    const t = [q[0][0] + q[1]*40, q[0][1] - 24];
+    g.appendChild(bd(q[0], t, 2.6));
+  });
+  /* the pendant ring, and the carboxyl that is not the one conjugated */
+  const px = dx, py = dy - 124, PRr = 36;
+  const P = hexV(px, py, PRr);
+  g.appendChild(ringPath(P));
+  g.appendChild(arom(px, py, PRr));
+  g.appendChild(bd(P[1], M[4], 2.6));
+  g.appendChild(bd(P[2], Cx, 2.6));
+  const CO = [P[0][0] + 48, P[0][1] + 8];
+  g.appendChild(bd(P[0], shrink(P[0], CO, 16), 2.6));
+  g.appendChild(G.text(CO[0] + 22, CO[1] + 9, "CO₂⁻", 23, C.ink, 600));
+  g.appendChild(G.text(dx, dy + 120, "dR6G \u00b7 4,7-dichlororhodamine 6G", 24, col, 700));
+  g.appendChild(note(1442, 424,
+    ["chlorines flank the ring oxygen", "\u2014 they narrow the emission band"],
+    C.verm, "end"));
+
+  /* the energy transfer itself */
+  g.appendChild(path("M916 470C960 416 1060 408 1148 446", C.amber, 2.8, "8 7"));
+  g.appendChild(path("M1130 436L1150 447L1132 458", C.amber, 2.8));
+  g.appendChild(G.text(1022, 404, "FRET", 22, C.amber, 700));
+  return g;
+}
+
 /* ------------------------------------------------------------------ *
  * The instrument end: a capillary, a detector, and the trace it writes.
  * ------------------------------------------------------------------ */
@@ -217,11 +400,17 @@ const FR = [
   note:"A polymerase sits on that three prime end and extends. Every base it adds is chosen by whatever is opposite it on the template, so what gets written is the complement of the sequence you are trying to read. This is ordinary polymerase chemistry and nothing about it is specific to sequencing yet. The trick is entirely in what else is in the tube.",
   desc:"The primer is being extended: new bases appear one at a time along the template, with a polymerase drawn as a shape sitting at the growing three prime end." },
 
-{ s:{rx:1, one:1, ext:1, pol:1, dd:1},
+{ s:{rx:1, one:1, ext:1, pol:1, box:1, dd:1},
   cap:"and a few per cent of the bases in the tube are <b>dideoxy</b>",
   call:"no 3&#8242; hydroxyl, and a dye on the base &#183; the polymerase cannot tell until it is too late",
   note:"Here is the whole method. A few per cent of the nucleotides in the tube are dideoxy: the three prime position is a hydrogen instead of a hydroxyl. A polymerase will take one perfectly happily, because the part it checks is the base pairing and the five prime triphosphate, both of which are normal. But the next base has to attack a three prime hydroxyl that is not there, so the chain stops at that point and cannot continue. And each of the four dideoxy bases carries a different dye, which is the part that makes it readable.",
   desc:"A dideoxynucleotide is drawn in full skeletal structure in a callout: the furanose ring, the five prime triphosphate, hydrogens at both the two prime and three prime positions with the three prime one ringed in red and labelled no three prime OH, and a coloured dye hung off the base. An arrow connects it to the simplified chip used for the same thing in the animation." },
+
+{ s:{rx:1, one:1, ext:1, pol:1, box:1, dye:1},
+  cap:"the dye, and how it is hung on",
+  call:"7-deazaadenine &#183; propargylamino &#183; amide &#183; and <b>dR6G</b>, which is what makes A amber",
+  note:"Down to the atom, because every shortcut here has a reason. The arm is propargylamino: a rigid alkyne, a methylene, a nitrogen. Rigid on purpose, because a floppy tether would let the dye fold back and stack on the base, which quenches it and drags on the mobility. On a pyrimidine that arm goes on carbon five. On a purine it cannot go on N7, because you would be making a quaternary nitrogen, so the base is a seven-deazapurine instead, N7 swapped for a carbon that will hold a substituent. That substitution earns its keep twice, because it also cuts the compressions that G-rich secondary structure causes. The dye is delivered as an NHS ester and acylates that amine, so the join is an amide. And the dye on A is dR6G, four-seven-dichlororhodamine 6G. The two chlorines sit on the ring carbons either side of the xanthene oxygen, each next to an ethylamino nitrogen, and they are the reason this dye exists: they narrow the emission band by twenty to thirty per cent and shift it, which is what lets four dyes share one detector without bleeding into each other. In BigDye there is a fluorescein donor spliced into the linker as well, so one laser line excites all four terminators and hands the energy across to whichever rhodamine is on the end.",
+  desc:"The complete A terminator drawn as a structure: seven-deazaadenine with its sugar and triphosphate abbreviated, a propargylamino arm of alkyne, methylene and nitrogen, an amide to a fluorescein donor, and beyond it the acceptor dye dR6G drawn in full, a dichlororhodamine with its two chlorines marked on the carbons flanking the xanthene oxygen." },
 
 { s:{rx:1, one:1, ext:1, inc:1, off:1},
   cap:"one lands, and that strand is finished",
@@ -266,6 +455,7 @@ window.Deck.sequence("cycleseq", function(slide){
     const half = x => cl(x*2 - 1, 0, 1);
     v = {ext:v.ext, inc:v.inc, off:v.off, pol:v.pol, calls:v.calls,
          rx:half(v.rx), one:half(v.one), lad:half(v.lad), dd:half(v.dd),
+         dye:half(v.dye), box:half(v.box),
          mach:half(v.mach), trace:half(v.trace), files:half(v.files)};
 
     /* ---- the reaction ------------------------------------------- */
@@ -347,23 +537,34 @@ window.Deck.sequence("cycleseq", function(slide){
       }
 
       /* the callout: a real ddNTP, with an arrow to the chip above it */
-      if (v.dd > 0.02){
-        const d = grp(v.dd);
+      if (v.box > 0.02){
+        const d = grp(v.box);
         /* the incoming base waits clear of the duplex, on the right, and
            the leader climbs the outside of the slide to reach it: run it
            straight up from the box and it goes through the template. */
         d.appendChild(chip(1300, 178, NEW[RUN], 1));
         d.appendChild(G.text(1300, 244, "the next base in", 22, C.muted, 400));
-        d.appendChild(G.el("rect", {x:150, y:414, width:1235, height:338, rx:14,
+        d.appendChild(G.el("rect", {x:150, y:396, width:1300, height:364, rx:14,
           fill:C.ink, "fill-opacity":".03", stroke:C.muted, "stroke-width":2,
           "stroke-dasharray":"7 7"}));
         d.appendChild(path("M1352 410C1378 358 1338 318 1312 274", C.muted, 2.4, "8 8"));
         d.appendChild(path("M1318 296L1311 272L1333 283", C.muted, 2.4));
-        const st = G.el("g", {transform:"translate(940 566) scale(0.86)"});
-        st.appendChild(ddntp(NEW[RUN]));
-        d.appendChild(st);
-        d.appendChild(G.text(178, 456, "a 2\u2032,3\u2032-dideoxynucleotide", 26, C.ink, 700, "start"));
         g.appendChild(d);
+      }
+      /* the two structures share the one frame and swap inside it */
+      if (v.dd > 0.02){
+        const k = grp(v.dd);
+        const st = G.el("g", {transform:"translate(940 578) scale(0.86)"});
+        st.appendChild(ddntp(NEW[RUN]));
+        k.appendChild(st);
+        k.appendChild(G.text(178, 438, "a 2′,3′-dideoxynucleotide", 26, C.ink, 700, "start"));
+        g.appendChild(k);
+      }
+      if (v.dye > 0.02){
+        const k = grp(v.dye);
+        k.appendChild(terminatorA());
+        k.appendChild(G.text(178, 438, "the whole A terminator", 26, C.ink, 700, "start"));
+        g.appendChild(k);
       }
 
       /* the population: one product terminated at every position */
