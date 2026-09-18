@@ -14,15 +14,17 @@
  * or keeping it.  So a duplex is two lines here, a single strand is one,
  * and every state of the story is legible from the line count alone.
  *
- * THE MECHANISM THE OLD VERSION SKIPPED.  It had the chromosome failing
- * to re-pair purely because it is long.  That is half of it.  The other
- * half, and the half that earns "invert gently, do not vortex", is that
- * the chromosome does not survive lysis intact -- you cannot get 4.6 Mb
- * out of a cell without shearing it -- so its strands are free to come
- * apart altogether.  The plasmid is small enough to come out whole, and
- * a covalently closed circle's two strands are threaded through each
- * other: the alkali can unpair them but it cannot separate them.  That
- * is why one zips straight back and the other cannot.
+ * WHAT THE STORY IS.  JCA: "what you should be illustrating is that
+ * NaOH separates the strands.  Then in the next beat acetate crashes the
+ * pH back down and the genome does not properly find its strand and gets
+ * crosslinked."  An earlier pass had the chromosome shearing on its way
+ * out of the cell and coming apart because it was in pieces; that is a
+ * distraction here and it is not what the slide is for.  The alkali
+ * separates the chromosome's two strands because nothing holds them
+ * together once the base pairing is gone.  It cannot do that to the
+ * plasmid, because a covalently closed circle's two strands are threaded
+ * through each other and neither has an end to thread out through.  That
+ * one difference is the whole method.
  *
  * Drawing kit and the build-once-then-fade rule: seq/parts.js.
  * ------------------------------------------------------------------ */
@@ -30,7 +32,7 @@
 "use strict";
 const G = window.GE, C = G.C;
 
-const CELL = {x:150, y:292, w:640, h:412, r:56};
+const CELL = {x:150, y:292, w:750, h:412, r:56};
 const TUBE = {x:980, y:262, w:250, h:442};
 const W = 3;                          /* one strand's weight */
 
@@ -94,12 +96,23 @@ function ringPts(cx, cy, r, n){
   }
   return pts;
 }
-const PLAS = [[268,372,30],[452,372,30],[636,372,30],
-              [360,502,30],[544,502,30],[268,632,30],[636,632,30]];
-/* and where they are once there is no cell to be in */
-const PLASW = [[256,406,30],[598,392,30],[930,430,30],[1256,350,30],
-               [246,570,30],[556,608,30],[906,586,30],[1250,486,30],
-               [420,706,30],[1120,716,30]];
+/* THE PLASMIDS DO NOT SIT ON THE CHROMOSOME.  Threaded along its folds
+   they read as beads on a string -- JCA: "that looks like you are
+   illustrating histones on chromosome, or balls on a track.  It does not
+   read as 2 populations."  So the chromosome is a nucleoid occupying its
+   own part of the cell and the plasmids are in the cytoplasm beside it,
+   which is both what the picture has to say and where they actually are.
+   The same split keeps them clear of the tangle three beats later. */
+const PLAS = [[632,366,28],[752,340,28],[856,424,28],[624,492,28],
+              [748,470,28],[852,570,28],[660,616,28],[784,640,28]];
+/* And where they are once there is no cell to be in.  ONE BAND EACH,
+   for the rest of the sequence: the chromosome across the top and the
+   plasmids in a row underneath it.  They were interleaved and it read
+   as one population of beads on one molecule, which is the opposite of
+   what the slide is for.  Nothing here ever has to be on top of
+   anything else, so nothing is. */
+const PLASW = [[252,648,28],[408,624,28],[576,664,28],[718,632,28],
+               [892,658,28],[1030,622,28],[1198,662,28],[1338,638,28]];
 
 /* A deterministic wander, for the sheared fragments and for the tangle,
    so the drawing is the same on every build. */
@@ -122,74 +135,41 @@ function walk(cx, cy, rx, ry, n, seed, step){
   return pts;
 }
 
-/* The pieces the chromosome comes out in.  Scattered and at angles with
-   their ends inside the frame, because five full-width wavy lines read
-   as five molecules lying in parallel rather than as one molecule that
-   broke: what says "broken" is the free ends, so they have to be where
-   they can be seen. */
-function piece(cx, cy, len, ang, bow){
-  const c = Math.cos(ang), sn = Math.sin(ang), pts = [];
-  for (let k = 0; k <= 4; k++){
-    const t = (k/4 - 0.5)*len, b = bow*Math.sin(Math.PI*k/4);
-    pts.push([cx + c*t - sn*b, cy + sn*t + c*b]);
-  }
-  return pts;
-}
-/* Once the cell has burst its contents are in a tube, not in a cell, so
-   from here to the tangle they use the whole slide.  The collapse back
-   to a clump at the neutralisation beat then reads as the aggregation
-   it is, rather than as the drawing happening to move. */
-const FRAG = [piece(400, 352, 262, -0.16,  24), piece( 762, 340, 224,  0.24, -20),
-              piece(1094, 370, 244,  0.18,  22), piece(330, 500, 232,  0.30, -22),
-              piece(702, 512, 262, -0.26,  26), piece(1062, 522, 226, -0.20, -20),
-              piece(432, 648, 244,  0.12,  22), piece( 800, 662, 214, -0.34, -18),
-              piece(1132, 640, 234,  0.26,  20)];
-
-/* The same piece, as the two strands it comes apart into: rotated a
-   little in opposite directions about its own centre as well as pushed
-   apart, so they splay rather than staying parallel.  Two parallel
-   curves is a duplex however far apart you put them. */
-function apart(pts, k){
-  let cx = 0, cy = 0;
-  pts.forEach(p => { cx += p[0]/pts.length; cy += p[1]/pts.length; });
-  const c = Math.cos(k), sn = Math.sin(k);
-  return pts.map(function(p){
-    const x = p[0] - cx, y = p[1] - cy;
-    return [cx + x*c - y*sn, cy + x*sn + y*c + (k > 0 ? 17 : -17)];
-  });
-}
+/* The chromosome once the alkali has been through it: one molecule, two
+   strands, no longer holding on to each other.  Long loose meanders
+   rather than anything folded, because the thing that kept it compact
+   was the cell it was in. */
+const SEPA = [[190,384],[282,436],[382,348],[496,400],[614,330],[728,394],
+              [848,342],[970,428],[1088,346],[1208,394],[1324,350],[1400,388]];
+const SEPB = [[190,514],[300,458],[416,538],[530,468],[648,520],[764,452],
+              [882,536],[1002,470],[1120,516],[1240,456],[1352,524],[1400,488]];
 
 const FR = [
   { on:["cell","chrom","plas"],
     cap:"one cell: a <b>4.6 Mb</b> chromosome and dozens of copies of a <b>3 kb</b> plasmid",
     call:"both are covalently closed circles &#183; the only difference that matters is length",
-    note:"Start with what is in the cell. One chromosome, four and a half million base pairs of it, folded into a space a couple of microns across, and some tens of copies of your plasmid at three thousand. Both are double-stranded, and both are covalently closed circles, which is why they are drawn with two lines each. That difference in length is the only thing this method uses, and it is going to use it twice.",
-    desc:"A cell drawn as a rounded box. Inside it, the chromosome as a long double-stranded molecule folded back and forth across the whole box, and seven small double-stranded rings standing for copies of the plasmid." },
+    note:"Start with what is in the cell. One chromosome, four and a half million base pairs of it, folded into a nucleoid, and some tens of copies of your plasmid at three thousand, loose in the cytoplasm beside it. Both are double-stranded and both are covalently closed circles, which is why each is drawn with two lines. That difference in length is the only thing this method uses.",
+    desc:"A cell drawn as a rounded box. In its left half the chromosome is folded back and forth into a compact nucleoid, drawn as a long double-stranded molecule. In the cytoplasm beside it, clear of the chromosome, eight small double-stranded rings standing for copies of the plasmid." },
 
-  { on:["frag","plasW","p2a"],
-    cap:"<b>P2</b> bursts the cell, and the chromosome does not survive the trip",
-    call:"you cannot get 4.6 Mb out of a cell in one piece &#183; the plasmid is small enough to come out whole",
-    note:"P2 is sodium hydroxide and SDS, and the SDS does the lysis. Watch what that costs the chromosome: four and a half megabases of DNA is long and fragile and it shears on the way out, so what you actually have in the tube is pieces with free ends. Your plasmid, at three kilobases, is short enough to survive intact. This is the step the protocol means by invert gently and do not vortex, and what being rough costs you is purity rather than yield: the harder you shear it the shorter the pieces get, and short pieces re-pair well enough to stay in solution and come through into your prep.",
-    desc:"The cell has burst. The chromosome is now several separate double-stranded pieces with free ends, while the plasmid rings are still whole." },
+  { on:["sep","plasX","p2"],
+    cap:"<b>P2</b> is SDS and NaOH &#183; it bursts the cell and pulls every base pair apart",
+    call:"the chromosome&rsquo;s two strands come away from each other &#183; the plasmid&rsquo;s cannot",
+    note:"P2 does two things at once. The SDS dissolves the membrane, and the sodium hydroxide denatures everything in the tube: every base pair in the cell lets go. Now watch the difference, because it is the whole method. Nothing holds the chromosome's two strands together once the pairing is gone, so they simply come away from each other and drift off as two separate molecules. The plasmid cannot do that. Its two strands are wound round each other in a closed circle and neither of them has an end to thread out through, so they come unpaired without ever separating. This is the step you do not leave running longer than the protocol says, because given long enough even that gives way.",
+    desc:"The cell has burst. The chromosome is now two long single strands wandering separately across the field, one dark and one grey. Each plasmid is drawn as two rings offset from each other and crossing, unpaired but still threaded together." },
 
-  { on:["single","plasX","p2b"],
-    cap:"and the alkali pulls every base pair apart",
-    call:"a fragment has free ends, so its strands drift apart &#183; a closed circle&rsquo;s cannot",
-    note:"Now the sodium hydroxide. It denatures everything it can reach, plasmid and chromosome alike, and every base pair in the tube lets go. But unpairing is not the same as separating. A sheared fragment has free ends, so its two strands simply come apart and drift. A covalently closed circle does not: its two strands are wound round each other and neither has an end to thread out through, so they stay threaded no matter how thoroughly the base pairing is broken. That is the whole of the trick, and it is why you do not leave this step running longer than the protocol says.",
-    desc:"Each chromosome fragment has come apart into two separate single strands, drawn as single lines. Each plasmid is now drawn as two rings offset from each other and crossing, unpaired but still threaded together." },
+  { on:["tangle","plasW","n3"],
+    cap:"<b>N3</b> is acetate &#183; the pH crashes back down and everything tries to re-pair",
+    call:"the plasmid&rsquo;s partner never went anywhere &#183; the chromosome finds the wrong strand and cross-links",
+    note:"N3 is acetate and it drops the pH back in one go. Everything in the tube tries to re-pair at once. The plasmid manages it immediately, because its partner strand was never anywhere else to begin with, and it zips straight back into a clean closed circle. The chromosome does not. Its strands have drifted, and at four and a half megabases a strand looking for its own partner finds a stretch of a neighbour first, and then another one, and what it ends up in is a cross-linked mess that traps the protein and the SDS along with it. That difference, one molecule re-pairing and the other knotting, is the entire method.",
+    desc:"The plasmid rings have gone back to being clean double-stranded circles. The chromosome has collapsed into a dense cross-linked tangle of strands crossing each other." },
 
-  { on:["tangle","plas","n3"],
-    cap:"<b>N3</b> drops the pH back, and only one of them can re-pair",
-    call:"the plasmid&rsquo;s partner never left &#183; the fragments grab whatever is nearest",
-    note:"N3 brings the pH back down and everything tries to re-pair at once. The plasmid manages it immediately, because its partner strand was never anywhere else. The fragments cannot: a strand that has drifted has to find its own partner among millions of near-misses, and what it finds instead is a neighbour, and a bit of another one after that. The result is a tangled aggregate that traps the protein and the SDS along with it. That difference, one molecule re-pairing and the other knotting, is the entire method.",
-    desc:"The plasmid rings have gone back to being clean double-stranded circles. The chromosome fragments have collapsed into a dense tangle of strands crossing each other." },
-
-  { on:["tangle","plas","tube","n3"],
+  { on:["tangle","tube","n3"],
     cap:"spin, and the tangle goes to the bottom",
     call:"the plasmid stays in solution, and the supernatant is what you put on the column",
     note:"Five minutes in the centrifuge and the tangle pellets, taking the protein and the SDS down with it. What is left floating is your plasmid, still double-stranded, still covalently closed, and that supernatant is what goes on the column.",
-    desc:"A tube beside the cell, with a dense pellet at its bottom and clear liquid above it carrying the small double-stranded rings." }
+    desc:"The tangle, and beside it a tube with a dense pellet at its bottom and clear liquid above it carrying the small double-stranded rings." }
 ];
+
 
 window.Deck.sequence("lysis", function(slide){
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -198,23 +178,14 @@ window.Deck.sequence("lysis", function(slide){
   s.part("cell", G.el("rect", {x:CELL.x, y:CELL.y, width:CELL.w, height:CELL.h,
     rx:CELL.r, fill:"none", stroke:C.ink, "stroke-width":3}));
 
-  s.part("chrom", duplex(serpPts(200, 336, 540, 336, 9), 5, C.ink));
+  s.part("chrom", duplex(serpPts(202, 350, 336, 296, 9), 4.5, C.ink));
 
-  s.part("frag", (function(){
-    const g = G.el("g", {});
-    FRAG.forEach(f => g.appendChild(duplex(f, 5, C.ink)));
-    return g;
-  })());
 
-  /* denatured: each fragment as its two strands, pulled apart.  They are
-     drawn from the same points as the fragment they came from, so the
-     eye can follow which came from where. */
-  s.part("single", (function(){
+  /* denatured: the same molecule, its two strands no longer paired */
+  s.part("sep", (function(){
     const g = G.el("g", {});
-    FRAG.forEach(function(f, i){
-      g.appendChild(strand(apart(f, -0.13 - (i%2)*0.04), 0, C.ink));
-      g.appendChild(strand(apart(f,  0.13 + (i%2)*0.04), 0, C.muted));
-    });
+    g.appendChild(strand(SEPA, 0, C.ink));
+    g.appendChild(strand(SEPB, 0, C.muted));
     return g;
   })());
 
@@ -222,7 +193,7 @@ window.Deck.sequence("lysis", function(slide){
     const g = G.el("g", {});
     [[11, C.ink], [83, C.muted], [157, C.ink], [229, C.muted], [313, C.ink]]
       .forEach(function(t, i){
-        g.appendChild(strand(walk(468, 500, 208, 148, 46, t[0], 46), 0, t[1]));
+        g.appendChild(strand(walk(578, 428, 228, 104, 46, t[0], 42), 0, t[1]));
       });
     return g;
   })());
@@ -253,9 +224,8 @@ window.Deck.sequence("lysis", function(slide){
   s.part("plasW", plasmids(PLASW, 0));
   s.part("plasX", plasmids(PLASW, 13));
 
-  s.part("p2a", G.text(760, 258, "P2 · SDS bursts the cell", 27, C.verm, 700));
-  s.part("p2b", G.text(760, 258, "P2 · NaOH denatures it all", 27, C.verm, 700));
-  s.part("n3",  G.text(470, 258, "N3 · back to neutral", 27, C.verm, 700));
+  s.part("p2", G.text(760, 258, "P2 · SDS + NaOH", 27, C.verm, 700));
+  s.part("n3", G.text(578, 262, "N3 · acetate", 27, C.verm, 700));
 
   s.part("tube", (function(){
     const g = G.el("g", {});
