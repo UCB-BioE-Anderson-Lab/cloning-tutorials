@@ -329,6 +329,6 @@ window.Deck.sequence("cas9", function(slide){
     return g;
   }
 
-  return G.run(s, FR, ["land","open","cut","gap","off","join"], paint);
+  return G.run(s, FR, paint);
 });
 })();

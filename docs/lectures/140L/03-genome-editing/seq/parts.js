@@ -202,21 +202,35 @@ function excision(o){
 
 /* Drive a sequence whose scene both fades AND changes shape.  `paint`
    returns the node for the changing part, keyed off the numbers in each
-   frame's `s`; everything else is scene.show as usual. */
-function run(api, FR, keys, paint){
+   frame's `s`; everything else is scene.show as usual.
+
+   THE KEYS ARE READ OFF THE FRAMES, not passed in.  They used to be an
+   argument, and adding two numbers to a sequence's frames without adding
+   them to that list left them untweened: the settled frames were right,
+   because those copy the whole object, but the moment anything animated
+   the interpolated state was missing them, arithmetic on undefined gave
+   NaN, and the drawing vanished.  The auditor walks settled frames, so
+   it saw nothing wrong.  Deriving the list here means a frame cannot
+   carry a number the driver does not know about.  A key absent from one
+   frame and present in another counts as zero there, which is what
+   "nothing of this yet" means everywhere it comes up. */
+function run(api, FR, paint){
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const ease = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
+  const keys = [];
+  FR.forEach(f => { for (const k in (f.s || {})) if (keys.indexOf(k) < 0) keys.push(k); });
+  const state = f => {
+    const o = {}; keys.forEach(k => o[k] = (f.s && f.s[k]) || 0); return o;
+  };
   let cur = null, raf = null;
   function go(i, animated){
     const f = FR[Math.max(0, Math.min(FR.length - 1, i | 0))];
     if (raf){ cancelAnimationFrame(raf); raf = null; }
     const instant = animated === false || reduce.matches;
     api.show(f.on, f, instant);
-    const to = f.s || {};
-    if (!cur || instant){
-      cur = Object.assign({}, to); api.dyn.replaceChildren(paint(cur)); return;
-    }
-    const from = Object.assign({}, cur), t0 = performance.now(), dur = 1300;
+    const to = state(f);
+    if (!cur || instant){ cur = to; api.dyn.replaceChildren(paint(cur)); return; }
+    const from = cur, t0 = performance.now(), dur = 1300;
     raf = requestAnimationFrame(function step(now){
       const t = Math.min(1, (now - t0)/dur), e = ease(t), st = {};
       keys.forEach(k => st[k] = from[k] + (to[k] - from[k])*e);

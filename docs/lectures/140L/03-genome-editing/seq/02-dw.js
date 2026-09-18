@@ -225,6 +225,6 @@ window.Deck.sequence("dw-markerless", function(slide){
     y:GY, feats:cass(PX0, 0, 7), a:A, b:B, dx:(B - A)/2
   });
   s.finish();
-  return G.run(s, MK, ["u"], f => paint(f.u));
+  return G.run(s, MK, f => paint(f.u));
 });
 })();

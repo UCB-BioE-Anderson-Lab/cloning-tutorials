@@ -54,7 +54,7 @@ window.Deck.sequence("flp", function(slide){
     dx:(X1 - X0)/2 - (X1 - X0 - (B - A))/2
   });
   s.finish();
-  return G.run(s, FLP, ["u"], f => paint(f.u));
+  return G.run(s, FLP, f => paint(f.u));
 });
 
 /* ---- the same trick, on the integrated CRIM ------------------------- */
@@ -114,6 +114,6 @@ window.Deck.sequence("markerless", function(slide){
     y:GY, feats:FEATS, a:A, b:B, dx:(B - A)/2
   });
   s.finish();
-  return G.run(s, ML, ["u"], f => paint(f.u));
+  return G.run(s, ML, f => paint(f.u));
 });
 })();
