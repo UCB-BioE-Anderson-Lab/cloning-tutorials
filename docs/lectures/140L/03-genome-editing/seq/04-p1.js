@@ -63,7 +63,7 @@ const FR = [
     desc:"The donor's genome has gone and the cell is full of phage particles, fourteen of them drawn in blue. One, in the bottom right corner, is drawn in red and labelled one head in fifty." },
   { on:["rcell","rgen","lysate"],
     cap:"chloroform kills anything unlysed, and the lysate goes onto the recipient",
-    note:"The cell lysate is then sterilized with chloroform to kill any un-lysed bacteria, and then added to a sample of recipient cells.",
+    note:"Chloroform into the lysate, which kills any donor cell that did not lyse. That matters more than it sounds: without it you are carrying live donor cells into the recipient culture, and since the donor is the strain that already has the marker, those cells will grow on your selection and look exactly like the transductants you are trying to make. Phage particles are unharmed by chloroform, so what goes onto the recipient is phage and nothing else.",
     desc:"The donor cell is empty and a group of phage particles has moved across to sit between the two cells, an arrow carrying them toward the recipient. One of them is red." },
   { on:["rcell","rgen","inject","frag"],
     cap:"a phage carrying genome injects it like any other cargo",

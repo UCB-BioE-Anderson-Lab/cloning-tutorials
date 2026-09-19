@@ -160,7 +160,7 @@ const FR = [
   { on:["cell","chrom","plas"],
     cap:"one cell: a <b>4.6 Mb</b> chromosome and dozens of copies of a <b>3 kb</b> plasmid",
     call:"both are circular double-stranded DNA &#183; what differs is length, and length decides everything after this",
-    note:"Start with what is in the cell. One chromosome, four and a half million base pairs of it, folded into a nucleoid, and some tens of copies of your plasmid at three thousand, loose in the cytoplasm beside it. Both are double-stranded and both are covalently closed circles, which is why each is drawn with two lines. That difference in length is the only thing this method uses.",
+    note:"Start with what is in the cell. One chromosome, four and a half million base pairs of it, folded into a nucleoid, and some tens of copies of your plasmid at three thousand, loose in the cytoplasm beside it. Both are double-stranded and both are covalently closed circles, which is why each is drawn with two lines. Hold on to both of those facts, because the method needs them separately: the length is what lets the chromosome's two strands drift apart once you denature it, and the closed circle is what stops the plasmid's doing the same.",
     desc:"A cell drawn as a rounded box. In its left half the chromosome is folded back and forth into a compact nucleoid, drawn as a long double-stranded molecule. In the cytoplasm beside it, clear of the chromosome, eight small double-stranded rings standing for copies of the plasmid." },
 
   { on:["sep","plasX","p2"],

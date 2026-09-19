@@ -24,7 +24,7 @@ const FR = [
   { on:["attB"],
     cap:"MG1655 and everything descended from it already carries the att site",
     call:"so most laboratory strains are ready for this without any work",
-    note:"Let me describe the different stages of the CRIM integration experiment. Let's consider that it is the phi80 system. First, we start with an E. coli cell. MG1655, the grandaddy of most modern lab E. coli strains, contains the phi80 att site, so most laboratory strains are acceptable for this experiment.",
+    note:"Start with the cell, and notice that nothing has been done to it. MG1655 is the grandaddy of most modern lab E. coli strains and it carries the phi80 att site already, so anything descended from it \u2014 which is most of what is in your freezer \u2014 is ready for this without any preparation. That is the thing to appreciate before we add anything: the landing pad is not something you build. It is a phage integration site the strain has had all along, and the whole method is borrowing it.",
     desc:"A cell drawn as a rounded box with its genome as a line along the floor. On the genome, the phi80 attB site is marked in blue." },
   { on:["attB","helper"],
     cap:"the helper plasmid brings the integrase &#183; bla selects it, and its origin only works at 30&#176;C",
