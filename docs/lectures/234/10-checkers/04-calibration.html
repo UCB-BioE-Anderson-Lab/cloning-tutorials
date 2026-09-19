@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Calibration &ndash; Checkers I</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide">
+  <h1 class="small">Every gene here already works</h1>
+  <p class="q">4,310 coding sequences from <em>E. coli</em> K-12 MG1655. All of them
+     are transcribed, translated and load-bearing.</p>
+  <p>So every gene your checker flags is, by construction, a false positive.</p>
+  <p style="margin-top:30px"><small>That is what a calibration set is: not sequences you hope are right,
+     sequences whose answer you already know by a route the checker had no part in.</small></p>
+  <template class="notes">Before the answer, the move that produces it. Here is a set of 4,310 coding sequences from E. coli K-12 MG1655 — the reference genome, the real thing. Every one of these genes is transcribed, translated, and doing a job; the organism is alive and they are why. So if your internal-promoter checker flags one of them, it is wrong. Not probably wrong, not arguably wrong: wrong by construction, because the gene demonstrably works. That is what a calibration set is. Not sequences you hope are correct. Sequences whose answer you already know by a route your checker had nothing to do with.</template>
+  <template class="desc">The calibration set: 4,310 coding sequences from the E. coli K-12 MG1655 reference genome, all of which are transcribed and translated in a living organism. Therefore any gene the checker flags is a false positive by construction.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">How many real genes does that cutoff reject?</h1>
+  <figure class="fig">
+<svg viewBox="0 0 1180 560" xmlns="http://www.w3.org/2000/svg" class="sweep">
+<style>
+ .sweep .grid{stroke:var(--rule);stroke-width:1}
+ .sweep .axis{stroke:var(--ink);stroke-width:1.5}
+ .sweep .line{fill:none;stroke:var(--blue);stroke-width:2.5;stroke-linejoin:round}
+ .sweep .dot{fill:var(--blue)}
+ .sweep .band{fill:var(--vermillion);opacity:.09}
+ .sweep .tick{font-size:17px;fill:var(--muted)}
+ .sweep .lab{font-size:19px;font-weight:700;fill:var(--ink)}
+ .sweep .cap{font-size:18px;fill:var(--muted)}
+ .sweep .axname{font-size:19px;fill:var(--ink)}
+</style>
+<rect class="band" x="92" y="40" width="524" height="446"/>
+<line class="grid" x1="92" y1="486.0" x2="1140" y2="486.0"/>
+<text class="tick" x="80" y="492.0" text-anchor="end">0%</text>
+<line class="grid" x1="92" y1="374.5" x2="1140" y2="374.5"/>
+<text class="tick" x="80" y="380.5" text-anchor="end">25%</text>
+<line class="grid" x1="92" y1="263.0" x2="1140" y2="263.0"/>
+<text class="tick" x="80" y="269.0" text-anchor="end">50%</text>
+<line class="grid" x1="92" y1="151.5" x2="1140" y2="151.5"/>
+<text class="tick" x="80" y="157.5" text-anchor="end">75%</text>
+<line class="grid" x1="92" y1="40.0" x2="1140" y2="40.0"/>
+<text class="tick" x="80" y="46.0" text-anchor="end">100%</text>
+<text class="tick" x="92.0" y="512" text-anchor="middle">4</text>
+<text class="tick" x="187.3" y="512" text-anchor="middle">5</text>
+<text class="tick" x="282.5" y="512" text-anchor="middle">6</text>
+<text class="tick" x="377.8" y="512" text-anchor="middle">7</text>
+<text class="tick" x="473.1" y="512" text-anchor="middle">8</text>
+<text class="tick" x="568.4" y="512" text-anchor="middle">9</text>
+<text class="tick" x="663.6" y="512" text-anchor="middle">10</text>
+<text class="tick" x="758.9" y="512" text-anchor="middle">11</text>
+<text class="tick" x="854.2" y="512" text-anchor="middle">12</text>
+<text class="tick" x="949.5" y="512" text-anchor="middle">13</text>
+<text class="tick" x="1044.7" y="512" text-anchor="middle">14</text>
+<text class="tick" x="1140.0" y="512" text-anchor="middle">15</text>
+<line class="axis" x1="92" y1="486.0" x2="1140" y2="486.0"/>
+<polyline class="line" points="92.0,40.9 187.3,43.9 282.5,52.0 377.8,81.8 473.1,153.2 568.4,274.7 663.6,385.4 758.9,458.1 854.2,474.2 949.5,485.1 1044.7,485.1 1140.0,486.0"/>
+<circle class="dot" cx="92.0" cy="40.9" r="4.5"/>
+<circle class="dot" cx="187.3" cy="43.9" r="4.5"/>
+<circle class="dot" cx="282.5" cy="52.0" r="4.5"/>
+<circle class="dot" cx="377.8" cy="81.8" r="4.5"/>
+<circle class="dot" cx="473.1" cy="153.2" r="4.5"/>
+<circle class="dot" cx="568.4" cy="274.7" r="4.5"/>
+<circle class="dot" cx="663.6" cy="385.4" r="4.5"/>
+<circle class="dot" cx="758.9" cy="458.1" r="4.5"/>
+<circle class="dot" cx="854.2" cy="474.2" r="4.5"/>
+<circle class="dot" cx="949.5" cy="485.1" r="4.5"/>
+<circle class="dot" cx="1044.7" cy="485.1" r="4.5"/>
+<circle class="dot" cx="1140.0" cy="486.0" r="4.5"/>
+<text class="lab" x="487.1" y="139.2" text-anchor="start">75%</text>
+<text class="lab" x="677.6" y="373.4" text-anchor="start">23%</text>
+<text class="lab" x="870.2" y="478.2" text-anchor="start">3%</text>
+<text class="axname" x="616" y="552" text-anchor="middle">PWM score cutoff  (maximum possible 16.5)</text>
+<text class="cap" x="1132" y="70" text-anchor="end">4,310 real E. coli genes</text>
+<text class="cap" x="1132" y="94" text-anchor="end">every gene flagged is a false positive</text>
+<text class="cap" x="349" y="468" text-anchor="middle" fill="var(--vermillion)">most of a working genome rejected</text>
+</svg>  </figure>
+  <template class="notes">Here it is. On the x axis, where you put the cutoff; on the y, the fraction of real working E. coli genes your checker would throw out. If you said eight — half of 16.5, the reasonable-sounding bar — you are rejecting seventy-five percent of the genome. Three genes in four. A designer using that checker would reject almost every candidate you handed it and you would conclude the design problem was hard, when actually your ruler was broken. Move to ten and you are at twenty-three percent, which is still catastrophic. You need to get to about twelve before the false-positive rate is under three percent. And notice the shape: between eight and twelve the curve falls off a cliff, so small changes in a number somebody picked by feel swing the behaviour of the tool enormously. That is why the number needs evidence rather than intuition.</template>
+  <template class="desc">A line chart. The horizontal axis is the position weight matrix score cutoff, from 4 to 15, against a maximum possible score of 16.5. The vertical axis is the fraction of the 4,310 real E. coli genes the checker would flag, every one of which is a false positive. The curve starts at 100 percent and falls steeply: at a cutoff of 8 it is 75 percent, at 10 it is 23 percent, and at 12 it is 3 percent. The region below 9.5, where most of a working genome is being rejected, is shaded.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">What the curve is telling you</h1>
+  <ul>
+    <li data-build="1">The intuitive answer was wrong by a factor of twenty-five</li>
+    <li data-build="2">And it was wrong <em>silently</em> &mdash; the code runs, the tests pass</li>
+    <li data-build="3">The cliff between 8 and 12 means feel is not precise enough to pick with</li>
+    <li data-build="4">You cannot defend a threshold whose consequences you have not looked at</li>
+  </ul>
+  <template class="notes">Four things to take out of this. The intuitive answer was wrong by a factor of twenty-five in false-positive rate. It was wrong silently — nothing in the code complains, every unit test passes, the function does exactly what it says. The cliff between eight and twelve tells you that feel is not a precise enough instrument for this job, because the difference between a usable checker and a useless one is about two points on a scale nobody has intuition for. And the general form: you cannot defend a threshold whose consequences you have not looked at. This is not a rule about promoters. It is the rule for every number in every checker you will write, in this homework and afterwards.</template>
+  <template class="desc">Four conclusions from the curve: the intuitive cutoff was wrong by a factor of twenty-five in false-positive rate; it failed silently, with the code running and tests passing; the steepness between 8 and 12 means intuition is not precise enough to choose with; and a threshold whose consequences you have not examined cannot be defended.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">And the other half of the problem</h1>
+  <p class="q">A cutoff of 16 flags nothing. It also catches nothing.</p>
+  <p>The false-positive rate is only one side. A checker that never fires is
+     perfectly calibrated and perfectly useless, and this genome cannot tell
+     you that &mdash; it has no true positives in it to miss.</p>
+  <p style="margin-top:28px"><small>For that you need sequences that <em>should</em> fail:
+     known internal promoters, or a promoter family whose strengths were measured.
+     That is the J23100 set, and it is where L12 picks this up.</small></p>
+  <template class="notes">One honest caveat before you go and set every threshold to sixteen. The false-positive rate is only half the picture. Push the cutoff high enough and you flag nothing at all — which looks perfect on this chart and is completely useless, because the checker now never fires and never catches the thing it exists to catch. This genome cannot tell you that, because it contains no examples that ought to fail; there are no true positives in it to miss. To see the other side you need sequences that should be rejected: characterised internal promoters, or better, a promoter family whose relative strengths were actually measured, so you can ask whether your matrix ranks them in the right order. That is the J23100 series, and that is exactly where we pick this up in Checkers II.</template>
+  <template class="desc">The counterpoint: a cutoff of 16 flags nothing and therefore catches nothing. False-positive rate is only one side of calibration, and this genome cannot reveal the other because it contains no sequences that should fail. Detecting that requires known positives, such as a promoter family with measured strengths, which is where the following lecture begins.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

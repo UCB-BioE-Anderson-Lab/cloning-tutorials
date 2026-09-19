@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>The Pattern &ndash; Checkers I</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+  /* One diagram, five reveals.  The source deck drew this five separate
+     times -- image3.png appears six times across slides 15 to 19, the same
+     picture with a different part highlighted -- so it was already a build.
+     It had just never been drawn as one. */
+  .hub text{font-family:"Helvetica Neue",Arial,sans-serif}
+  .hub .box{fill:var(--paper);stroke:var(--ink);stroke-width:2;rx:6}
+  .hub .hubbox{fill:var(--blue);stroke:var(--blue)}
+  .hub .name{font-size:23px;font-weight:700;fill:var(--ink)}
+  .hub .hubname{font-size:26px;font-weight:700;fill:#fff}
+  .hub .gloss{font-size:18px;fill:var(--muted)}
+  .hub .arrow{stroke:var(--ink);stroke-width:2;fill:none}
+  .hub .head{fill:var(--ink)}
+</style>
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>The pattern</h1>
+  <template class="desc">Section divider: The pattern.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">One rule, five callers</h1>
+  <figure class="fig">
+  <svg viewBox="0 0 1380 620" class="hub" role="img"
+       aria-label="A central Checker function called by five different parts of the program">
+    <rect class="box hubbox" x="60" y="256" width="380" height="104"/>
+    <text class="hubname" x="250" y="304" text-anchor="middle">Checker</text>
+    <text class="gloss" x="250" y="336" text-anchor="middle" fill="#dfe8f5">design &#8594; true / false</text>
+    <path class="arrow" d="M545 60 V 556"/>
+    <path class="arrow" d="M545 308 H 462"/>
+    <path class="head" d="M440 308 l20 -9 v18 z"/>
+    <g data-build="1">
+      <rect class="box" x="620" y="8" width="750" height="104"/>
+      <text class="name" x="646" y="54">The algorithm</text>
+      <text class="gloss" x="646" y="84">calls it to choose among candidate designs</text>
+      <path class="arrow" d="M620 60 H 545"/>
+    </g>
+    <g data-build="2">
+      <rect class="box" x="620" y="132" width="750" height="104"/>
+      <text class="name" x="646" y="178">A CheckerTest</text>
+      <text class="gloss" x="646" y="208">asserts the rule itself &#8212; including that BOB raises rather than returning false</text>
+      <path class="arrow" d="M620 184 H 545"/>
+    </g>
+    <g data-build="3">
+      <rect class="box" x="620" y="256" width="750" height="104"/>
+      <text class="name" x="646" y="302">An edge-case test</text>
+      <text class="gloss" x="646" y="332">attacks the algorithm where it breaks &#8212; MKKKKKKK invites a poly-A solution</text>
+      <path class="arrow" d="M620 308 H 545"/>
+    </g>
+    <g data-build="4">
+      <rect class="box" x="620" y="380" width="750" height="104"/>
+      <text class="name" x="646" y="426">A benchmark</text>
+      <text class="gloss" x="646" y="456">runs thousands of real inputs through and counts what fails, and why</text>
+      <path class="arrow" d="M620 432 H 545"/>
+    </g>
+    <g data-build="5">
+      <rect class="box" x="620" y="504" width="750" height="104"/>
+      <text class="name" x="646" y="550">The top-level function</text>
+      <text class="gloss" x="646" y="580">one last check before it returns, rather than ship a design it knows is bad</text>
+      <path class="arrow" d="M620 556 H 545"/>
+    </g>
+  </svg>
+  </figure>
+  <template class="notes">Here is the whole pattern on one picture, and the reason it is worth drawing once rather than five times is that the checker in the middle never changes. Same function, five callers. The algorithm calls it to decide among candidates — that is the use that makes designs better. A CheckerTest calls it to assert the rule itself: this is the one that only became possible when you factored the logic out. An edge-case test calls the algorithm on an input chosen to break it; MKKKKKKK is the reliable one for TranscriptDesigner, because a run of lysines invites a poly-A solution and poly-A is forbidden. A benchmark runs thousands of real inputs through and counts what fails and why, which is how you find the failures you were not clever enough to anticipate. And the top-level function checks once more before returning, because shipping a design you already know is invalid is worse than raising.</template>
+  <template class="desc">A central Checker function, described as taking a design and returning true or false, with five callers arranged to its right, each with an arrow pointing back at it. The algorithm calls it to choose among candidates. A CheckerTest asserts the rule itself. An edge-case test attacks the algorithm with an input designed to break it. A benchmark runs thousands of real inputs and counts the failures. The top-level function checks once more before returning.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">True, false, or raise</h1>
+  <div class="step" data-build="1"><span><strong>true</strong> &mdash; <small>the design is acceptable on this axis</small></span></div>
+  <div class="step" data-build="2"><span><strong>false</strong> &mdash; <small>a real design, and it violates the rule</small></span></div>
+  <div class="step" data-build="3"><span><strong>raise</strong> &mdash; <small>not a design at all &mdash; <code>BOB</code> is not DNA, and silently returning false would hide that</small></span></div>
+  <p style="margin-top:38px" data-build="4"><small>Same distinction as HW1: invalid input raises, valid-but-failing returns.</small></p>
+  <template class="notes">Three outcomes, and the third is the one people collapse. True means the design is acceptable on this axis — not that it is good, just that this particular rule has nothing to say against it. False means it is a real design and it breaks the rule. Raise means it was never a design in the first place: BOB is not a DNA sequence, and if you return false there you have quietly reported a biological verdict on something that was a typo. This is the same distinction you met in the first homework, where invalid input raised and a valid input with no answer returned. It comes back every time.</template>
+  <template class="desc">Three possible outcomes for a checker: true when the design is acceptable on that axis, false when a real design violates the rule, and raise when the input is not a design at all. A note that this is the same distinction as homework one, where invalid input raises and valid-but-empty returns.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

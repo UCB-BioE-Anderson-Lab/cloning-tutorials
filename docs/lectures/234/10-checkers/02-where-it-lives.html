@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Where It Lives &ndash; Checkers I</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide">
+  <h1 class="small">Where it lives</h1>
+  <div class="cols">
+    <div>
+      <pre class="dna" style="font-size:22px;line-height:1.7">src/
+  checkers/
+    forbidden_sequence.py
+    internal_promoter.py
+    codon_usage.py
+  transcript_designer.py</pre>
+    </div>
+    <div>
+      <pre class="dna" style="font-size:22px;line-height:1.7">tests/
+  checkers/
+    test_forbidden_sequence.py
+    test_internal_promoter.py
+    test_codon_usage.py
+  test_transcript_designer.py</pre>
+    </div>
+  </div>
+  <p style="margin-top:34px"><small>Checkers are functions, so they live in <code>src</code>.
+     Tests mirror the package structure, so the test for a file is always where you
+     would guess. <code>gc_checker.py</code> pairs with <code>test_gc_checker.py</code>, every time.</small></p>
+  <template class="notes">Quickly, because it is a convention rather than an idea. All functions are in src, and checkers are functions, so checkers are in src — in their own subpackage, the same way data and models get their own. All tests are pytests and all pytests are in tests, and the package structure is mirrored, so the test for a given file is always where you would guess it is. The naming is mechanical: gc_checker.py pairs with test_gc_checker.py. You will thank yourself for this in the third homework when there are a dozen of them.</template>
+  <template class="desc">Two directory trees side by side. On the left, src contains a checkers subpackage holding forbidden_sequence.py, internal_promoter.py and codon_usage.py, alongside transcript_designer.py. On the right, tests mirrors that structure exactly, with a checkers subpackage of matching test files. A note that the naming is mechanical: a checker file pairs with a test file of the same name prefixed with test.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

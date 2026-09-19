@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Where the Threshold Comes From &ndash; Checkers I</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>Where the threshold comes from</h1>
+  <template class="notes">Everything so far has been structure, and structure is the easy half. Here is the half that is actually yours.</template>
+  <template class="desc">Section divider: Where the threshold comes from.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">The code is not the hard part</h1>
+  <pre class="dna" style="font-size:24px;line-height:1.6">def run(self, seq: str) -> bool:
+    return max(self._score(seq, i) for i in range(len(seq) - 5)) <span class="accent">&lt; CUTOFF</span></pre>
+  <p class="q" style="margin-top:40px">Any model writes that in about four seconds.</p>
+  <p>None of them can tell you what <code class="accent">CUTOFF</code> should be.</p>
+  <template class="notes">Here is a checker, more or less. Score every window, take the biggest, compare it to a cutoff. Ask a language model for that function and you will have it in four seconds, correct, with a docstring and type hints you did not ask for. I am not being cute about this — you should use one. That part of the work is genuinely finished. What it cannot do, and what no amount of better model will fix, is tell you what that constant should be. That number is a claim about E. coli. It is the only part of this file that is biology, and it is the part you are graded on.</template>
+  <template class="desc">A three-line checker function: score every window in the sequence, take the maximum, and return whether it falls below a cutoff constant. The cutoff is highlighted. Two statements follow: any language model writes this function in seconds, and none of them can tell you what the cutoff should be.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">What makes a number defensible</h1>
+  <div class="step" data-build="1"><span><strong>A source</strong> &mdash; <small>somebody measured this, and you can say who and where</small></span></div>
+  <div class="step" data-build="2"><span><strong>A calibration set</strong> &mdash; <small>sequences whose answer you already know, independently</small></span></div>
+  <div class="step" data-build="3"><span><strong>A consequence you can see</strong> &mdash; <small>move the number, and watch what changes</small></span></div>
+  <p style="margin-top:36px" data-build="4"><small>A threshold with none of these is a guess wearing a lab coat.
+     It will be wrong, and worse, nothing in your code will ever tell you.</small></p>
+  <template class="notes">Three things. A source: somebody measured this, and you can name them — not because citation is a virtue in itself, but because it is the difference between a number you can revise and a number you are stuck with. A calibration set: sequences whose answer you already know by some independent route, so the checker can be scored rather than believed. And a consequence you can see: you should be able to move the number and watch something change, because if nothing observable moves, you have no way to tell a good value from a bad one. A threshold with none of the three is a guess wearing a lab coat. What makes that dangerous is not that it is wrong — everything is a bit wrong — it is that nothing in the code will ever tell you so. It will fail silently, forever, and your benchmark will look fine.</template>
+  <template class="desc">Three requirements for a defensible threshold, revealed in turn: a source, meaning someone measured it and you can say who; a calibration set of sequences whose answer you already know independently; and a visible consequence, so that moving the number changes something you can observe. A closing note that a threshold with none of these fails silently.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Where would you put it?</h1>
+  <p class="q">An internal &sigma;<sup>70</sup> promoter inside your coding sequence would
+     transcribe antisense RNA and knock your own gene down.</p>
+  <p>You score the sequence against a position weight matrix. The maximum possible
+     score is 16.5.</p>
+  <p style="margin-top:34px"><strong>Pick a cutoff. Defend it.</strong></p>
+  <template class="notes">So let us do one. An internal sigma70 promoter inside a coding sequence is a real problem: it transcribes antisense RNA and knocks down the very gene you are trying to express. You want a checker that rejects designs containing one. You score against a position weight matrix, the maximum possible score is 16.5, and now you have to pick a number. Take thirty seconds and commit to one before I show you anything. Write it down. Most people say eight, on the reasoning that half the maximum sounds like a reasonable bar. Hold that thought.</template>
+  <template class="desc">The problem posed: an internal sigma-70 promoter inside a coding sequence transcribes antisense RNA and knocks down the gene. The sequence is scored against a position weight matrix with a maximum possible score of 16.5. The students are asked to pick a cutoff and defend it.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>The Duplication Problem &ndash; Checkers I</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="lecture">
+  <h1>Checkers</h1>
+  <p><small>Biology as a predicate &middot; BioE 134/234</small></p>
+  <template class="notes">Today is the one that the rest of the course is built on. By the end you should be able to take something known about biology, write it down as a function that returns true or false, and — the harder half — defend the number inside it. The code is short. The number is the science.</template>
+  <template class="desc">Lecture title slide: Checkers, biology as a predicate.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Start with a test that fails</h1>
+  <pre class="dna">&hellip;aatatcag<span class="site">GGTCTC</span>atacagtagc&hellip;</pre>
+  <p class="q" style="margin-top:34px">Your designer emitted this. Your test looks for BsaI. It fails.</p>
+  <template class="notes">To introduce the checker pattern, take TranscriptDesigner as the example. It inputs a protein and outputs DNA encoding that protein; call that the algorithm. You also have a test examining the products of that algorithm and asserting things about them. Here it is looking for the BsaI site, GGTCTC, and one is present, so the test fails. Fine. Now — how do you make it pass?</template>
+  <template class="desc">A DNA sequence with the BsaI recognition site GGTCTC highlighted inside it. The designer produced this sequence and a test looking for BsaI has failed on it.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">There is only one way it ever passes</h1>
+  <ul>
+    <li data-build="1">The algorithm has to know about GGTCTC too</li>
+    <li data-build="2">Otherwise it stays blissfully unaware it is making the error</li>
+    <li data-build="3">So now the same rule is written down in two places</li>
+    <li data-build="4" class="accent">And they only agree until one of them is edited</li>
+  </ul>
+  <template class="notes">The only way this ever passes on a corpus of arguments is if the algorithm is also aware of the BsaI site and avoiding it. Without that, the algorithm is blissfully unaware that it is making errors, and the test just keeps failing. But look at what that means: both the algorithm and the test now contain essentially the same logic, and the only way it passes in all scenarios is if that logic is identical between the two. So you have inevitably duplicated the rule. And duplicated rules agree exactly until somebody edits one of them — which is a question of when, not whether.</template>
+  <template class="desc">Four steps of the argument: the algorithm must also know about the forbidden site; otherwise it cannot avoid it; that means the same rule exists in two places; and two copies agree only until one is edited.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">So take the rule out of both</h1>
+  <p class="q">One function. &ldquo;Is there a BsaI site in this?&rdquo;</p>
+  <p>The algorithm calls it to choose. The test calls it to judge.
+     There is one definition of the rule, so there is nothing to drift.</p>
+  <p style="margin-top:30px"><small>And now the rule itself can be tested, which it could not be when it
+     was spread across two files.</small></p>
+  <template class="notes">The idea of the checker is to segregate that logic out of the rest of the program, and then let both the test and the algorithm call it as a function when they need it. One definition, two callers, nothing to drift. And there is a third thing you get almost for free, which is easy to miss: once the domain logic is its own function, you can test the domain logic directly. When it was smeared across the designer and the test, there was no way to ask whether the rule itself was right — only whether the designer happened to satisfy it.</template>
+  <template class="desc">The resolution: extract the rule into a single function asking whether a BsaI site is present. The algorithm calls it to choose among options and the test calls it to judge the result, so there is only one definition. A note that the rule itself now becomes testable.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
