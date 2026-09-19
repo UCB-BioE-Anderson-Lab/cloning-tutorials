@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>What You Should Leave With &ndash; Biodesign Automation</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>What you should leave with</h1>
+  <template class="desc">Section divider: What you should leave with.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">What is actually scarce</h1>
+  <p class="q">Not people who can write Python. Not people who know the facts.</p>
+  <p>People who can look at a piece of biology and say precisely what it is &mdash;
+     precisely enough that a machine can act on it, and well enough to know
+     when the machine is wrong.</p>
+  <template class="notes">Be clear-eyed about what this course is for. It is not to make you able to write Python; a model writes Python. It is not to make you know molecular biology facts; textbooks have those, and so does every model. What is scarce is people who can look at an experimental problem and say precisely what the objects are, what is essential and what is incidental, and where the representation will leak. A model will happily write you a construction file parser. It cannot tell you whether ConstructionFile is the right abstraction, that it deliberately omits buffers and temperatures and deck positions, and that the omission is exactly what makes it useful. That judgment needs the biology and the purpose together, and it is the one thing that gets more valuable as the models get better, because someone has to specify the work.</template>
+  <template class="desc">A statement of what the course is for: not coding ability and not biological facts, but the ability to represent a piece of biology precisely enough for a machine to act on, and to recognize when the machine is wrong.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Four things</h1>
+  <div class="step" data-build="1"><span>Formalize a domain &mdash; <small>the nouns, a schema, the operations, and what it discards</small></span></div>
+  <div class="step" data-build="2"><span>Encode and calibrate a constraint &mdash; <small>a biological fact as a predicate with a defensible threshold</small></span></div>
+  <div class="step" data-build="3"><span>Judge an artifact biologically &mdash; <small>recognize output that runs cleanly and is false</small></span></div>
+  <div class="step" data-build="4"><span>Compose all three into something someone else can use</span></div>
+  <template class="notes">So: four objectives, and everything in the term is assessed against one of them. Formalize a domain — given something you have not seen, produce the nouns, a schema with defensible commitments, and an explicit statement of what it throws away. Encode and calibrate a constraint — turn a biological fact into a predicate with a threshold you can defend against real data; that is the second homework. Judge an artifact biologically rather than syntactically — recognize output that runs cleanly and is scientifically false; that is on both exams, and it is what the papers we read are for. And compose all of it into something someone else can use, human or model; that is the final project, and it is why the project is worth thirty percent rather than ten.</template>
+  <template class="desc">The four course objectives, revealed one at a time: formalize a domain; encode and calibrate a constraint; judge an artifact biologically rather than syntactically; and compose the three into something another person or model can use.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">One sentence</h1>
+  <p class="q">Represent biological systems precisely enough that machines can act on
+     them &mdash; and recognize when the machine is wrong.</p>
+  <template class="notes">If you remember one sentence from today, that is the one. Every decision in this course — which lectures exist, what the homework asks, how the exams are written — comes back to whether it makes you better at that.</template>
+  <template class="desc">The course thesis in one sentence: represent biological systems precisely enough that machines can act on them, and recognize when the machine is wrong.</template>
+</article>
+
+<article class="slide" data-bg="section">
+  <h1>Questions?</h1>
+  <template class="desc">Closing slide: Questions?</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

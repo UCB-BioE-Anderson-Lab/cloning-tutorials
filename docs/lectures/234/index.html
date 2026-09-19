@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>134/234 Lectures</title>
+<!-- The course index, the same shape as 140L/index.html: one entry per
+     lecture, a lecture with a deck links to its first page, the rest are
+     listed unlinked so the shape of the course is visible from here.
+
+     TWO THINGS DIFFER FROM 140L, both on purpose.
+
+     Unit headings.  140L lists thirteen lectures flat.  This course has
+     twenty-five, and flat they read as a wall.  The units are also the
+     argument — the course climbs UP the ladder of abstraction through
+     Fabrication and back DOWN through the last unit — so the grouping is
+     content, not filing.
+
+     Nothing here is dated.  This page is meant to outlive any one
+     semester: no due dates, no office hours, no calendar.  Which lecture
+     falls in which week lives in the course plan and on bCourses, and
+     changes every year.  Titles and topics do not.
+
+     Folder numbers are BUILD order, not syllabus position — the same
+     convention as 140L, where lecture 2 lives in 01-dna-enzymes.  The
+     number in <span class="n"> is the syllabus position. -->
+<style>
+  :root{--ink:#111;--lecture:#004373;--section:#a99011;--muted:#767676;--rule:#e2e2e2;
+        --sans:"Helvetica Neue",Arial,Helvetica,sans-serif;
+        --slab:Rockwell,"Bookman Old Style",Georgia,serif}
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:var(--ink);font-family:var(--sans);
+       padding:64px 28px 90px;line-height:1.5}
+  main{max-width:780px;margin:0 auto}
+  h1{font-family:var(--slab);font-weight:700;font-size:40px;margin:0 0 6px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 26px}
+  .up{font-size:14px;margin:0 0 30px}
+  .up a{color:var(--lecture)}
+  .note{font-size:13px;color:var(--muted);border:1px solid var(--rule);border-radius:5px;
+        padding:12px 14px;margin-bottom:38px}
+
+  /* Unit heading.  Not a lecture; a divider that names the argument. */
+  .unit{margin:44px 0 0;padding:0 0 2px;font-family:var(--sans);font-size:12px;
+        font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--section)}
+  .unit:first-of-type{margin-top:0}
+  .unit .gloss{display:block;font-size:13px;font-weight:400;letter-spacing:0;
+               text-transform:none;color:var(--muted);margin-top:4px}
+
+  .lec{border-top:1px solid var(--rule);padding:22px 0 20px}
+  .lec h2{display:flex;gap:14px;align-items:baseline;font-size:21px;font-weight:700;
+          margin:0 0 8px;font-family:var(--sans)}
+  .lec h2 a{color:var(--ink);text-decoration:none}
+  .lec h2 a:hover{text-decoration:underline}
+  .n{color:var(--muted);font-variant-numeric:tabular-nums;min-width:1.9em;
+     font-size:14px;font-weight:400;flex:none}
+  .topics{margin:0;font-size:14px;color:var(--muted);max-width:62em}
+  .lec.todo h2 .soon{color:var(--muted);font-weight:400}
+  .lec.todo h2 .soon::after{content:"deck to come";font-size:11px;letter-spacing:.09em;
+     text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);
+     border-radius:3px;padding:2px 6px;margin-left:12px;vertical-align:2px}
+
+  details{margin-top:12px}
+  summary{cursor:pointer;font-size:13px;color:var(--lecture);width:max-content;
+          list-style:none;padding:3px 0}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"\25B8  ";display:inline-block;transition:transform .15s ease}
+  details[open] summary::before{content:"\25BE  "}
+  details ol{list-style:none;margin:8px 0 0;padding:0;border-top:1px solid var(--rule)}
+  details li{border-bottom:1px solid var(--rule)}
+  details li a{display:flex;gap:12px;align-items:center;padding:9px 6px;
+               text-decoration:none;color:var(--ink);font-size:15px}
+  details li a:hover{background:#f4f6f9}
+  .k{width:10px;height:10px;border-radius:2px;flex:none;border:1px solid var(--rule)}
+  .k.lecture{background:var(--lecture);border-color:var(--lecture)}
+  .k.section{background:var(--section);border-color:var(--section)}
+  @media (prefers-reduced-motion:reduce){summary::before{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>BioE 134/234 Lectures</h1>
+  <p class="sub">Biodesign Automation &middot; unlisted &mdash; not in the site navigation, search, or sitemap.</p>
+  <p class="up"><a href="../">&larr; All lectures</a></p>
+
+  <p class="note">Advance with the arrow keys &mdash; clicking the slide does nothing.
+     <strong>F11</strong> (<strong>&#8963;&#8984;F</strong> on a Mac) is the full screen to
+     use: it survives moving between sections, which the in-page <em>Full screen</em>
+     button cannot. <strong>G</strong> jumps between sections, <strong>P</strong> is
+     presenter view, <strong>W</strong> is the two text channels, <strong>?</strong>
+     lists every key.</p>
+
+  <!-- ============================================================ -->
+  <h2 class="unit">Foundations and Targeting
+    <span class="gloss">What a schema is, and one biological rule encoded end to end.</span></h2>
+
+  <article class="lec">
+    <h2><span class="n">1</span><a href="01-introduction/00-intro.html">Introduction</a></h2>
+    <p class="topics">Why biology is now a software problem, the Design&ndash;Build&ndash;Test&ndash;Learn cycle the course follows, and what an AI model does and does not do for you when the hard part is the biology.</p>
+    <details>
+      <summary>7 sections</summary>
+      <ol>
+        <li><a href="01-introduction/00-intro.html"><span class="k lecture"></span>Introduction</a></li>
+        <li><a href="01-introduction/01-engineering-is-software.html"><span class="k section"></span>Engineering Is Now Software</a></li>
+        <li><a href="01-introduction/02-what-we-have-now.html"><span class="k section"></span>What We Have Now</a></li>
+        <li><a href="01-introduction/03-three-domains.html"><span class="k section"></span>Three Domains</a></li>
+        <li><a href="01-introduction/04-course-arc.html"><span class="k section"></span>The Course Arc</a></li>
+        <li><a href="01-introduction/05-final-project.html"><span class="k section"></span>The Final Project</a></li>
+        <li><a href="01-introduction/06-objectives.html"><span class="k section"></span>What You Should Leave With</a></li>
+      </ol>
+    </details>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">2</span><span class="soon">Schemas and Models</span></h2>
+    <p class="topics">The move the whole course is built on, taught on a plastic egg before the biology gets hard: name the nouns, write the schema, say what the abstraction throws away. Classes and instances, state, and immutability as a design choice.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">3</span><span class="soon">CRISPR I &mdash; The Biology</span></h2>
+    <p class="topics">Genomes, plasmids and oligos as sources of DNA; the Cas9&ndash;guide&ndash;target complex; what the PAM is and why it exists; what happens after the cut, and what a design tool can reasonably ignore.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">4</span><span class="soon">CRISPR II &mdash; Design Logic and Encoding a Rule</span></h2>
+    <p class="topics">Turning the mechanism into a function, and surfacing every judgment call on the way: which protospacer, which strand, and when the right move is not to design a guide at all. Guard clauses, failing loudly, and the difference between an error and an empty result.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">5</span><span class="soon">Validation as Science</span></h2>
+    <p class="topics">A test is an empirical claim. Deriving test cases from published, experimentally-validated constructs, why &ldquo;it runs&rdquo; is not &ldquo;it is right,&rdquo; and the cheap correctness properties worth asserting even when you cannot check the answer.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">6</span><span class="soon">Composition and Construct</span></h2>
+    <p class="topics">Strain, genotype and Composition are three different things. Composition as a specification rather than an implementation &mdash; and an explicit account of what it leaves out: expression level, regulatory parts, codon usage, plasmid or genome.</p>
+  </article>
+
+  <!-- ============================================================ -->
+  <h2 class="unit">Expression
+    <span class="gloss">The design problem, one constraint at a time &mdash; and the predicates that catch each one.</span></h2>
+
+  <article class="lec todo">
+    <h2><span class="n">7</span><span class="soon">The Central Dogma as Engineering Constraint</span></h2>
+    <p class="topics">Transcription and translation from the designer's side, where every element is a knob that can be set wrong. Promoter, ribosome binding site, coding sequence, terminator, and the regions that actually govern how much protein you get.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">8</span><span class="soon">Translation Initiation and the RBS</span></h2>
+    <p class="topics">The most failure-prone step in heterologous expression. Shine&ndash;Dalgarno pairing with 16S rRNA, spacing and its tolerance, occlusion by secondary structure, and proteomics as objective evidence that a sequence expresses.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">9</span><span class="soon">Two Models of the RBS</span></h2>
+    <p class="topics">A biophysical free-energy model and a curated set of evolved sequences, solving the same problem from opposite directions. What each one buys, what each one costs, and how you would find out which to trust.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">10</span><span class="soon">Checkers I &mdash; Biology as a Predicate</span></h2>
+    <p class="topics">The load-bearing idea of the course. A checker is a biological claim made executable and falsifiable; centralising that logic is what keeps an algorithm and its tests from drifting apart. Choosing a threshold, and what makes a threshold defensible.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">11</span><span class="soon">What Actually Predicts Expression</span></h2>
+    <p class="topics">The randomised-codon experiments: a 250-fold range from codon choice alone, full-length codon adaptation index that does not correlate with expression, and folding energy near the start that does. Which checkers this justifies, and how heavily.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">12</span><span class="soon">Checkers II &mdash; Motifs, PWMs, and Calibration</span></h2>
+    <p class="topics">The harder predicates, where the threshold is a real scientific judgment. Internal ribosome binding sites, position weight matrices for &sigma;<sup>70</sup> promoters calibrated against a known promoter family, and false-positive rate against a real proteome as the correctness signal.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">13</span><span class="soon">Codon Usage, CAI, and RSCU</span></h2>
+    <p class="topics">The arithmetic of codon bias made concrete: normalised codon frequency, the relative adaptiveness parameter, codon adaptation index as a geometric mean, what RSCU measures instead, and why adjacent codons matter too.</p>
+  </article>
+
+  <!-- ============================================================ -->
+  <h2 class="unit">Fabrication
+    <span class="gloss">Searching a design space, and where the constraints came from in the first place.</span></h2>
+
+  <article class="lec todo">
+    <h2><span class="n">14</span><span class="soon">Codon Optimization Algorithms</span></h2>
+    <p class="topics">From scoring one sequence to searching a space of them. One-codon lookup, enumerate-and-rank and its combinatorial wall, guided random selection, and the sliding window &mdash; with the checkers as the fitness function.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">15</span><span class="soon">Fabrication and Assembly</span></h2>
+    <p class="topics">Where the forbidden sequences come from. PCR and what a product is specified by, isothermal and Type IIS assembly, the length limits of commercial and DIY synthesis, and how a fabrication constraint propagates backwards into a design rule.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">16</span><span class="soon">MCP &mdash; Wrapping Capabilities for LLMs</span></h2>
+    <p class="topics">Making a function callable by a language model. Client, server and the protocol between them; tools, resources and prompts; and what belongs in a semantic wrapper &mdash; purpose, constraints, non-goals, guarantees &mdash; as opposed to a developer spec.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">17</span><span class="soon">Project Scope</span></h2>
+    <p class="topics">What a good project scope looks like and what a bad one looks like: what is in, what is out, what it depends on, and how anyone will know when it is right.</p>
+  </article>
+
+  <!-- ============================================================ -->
+  <h2 class="unit">Build, Test, Learn
+    <span class="gloss">Down the ladder: each layer supplies what the one above it discarded.</span></h2>
+
+  <article class="lec todo">
+    <h2><span class="n">18</span><span class="soon">Construction Files</span></h2>
+    <p class="topics">The abstraction that separates molecular biology from lab implementation. Reference by identifier, the shorthand and its operations, and an explicit account of what a construction file deliberately omits &mdash; tubes, volumes, temperatures, buffers.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">19</span><span class="soon">LabPlanner, Inventory, and Robotics</span></h2>
+    <p class="topics">The layer below, where everything the construction file discarded has to be supplied. LabSheets, inventory and sample location, mastermixes and tip reuse, liquid-handler APIs, and human burden and cost as objective functions.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">20</span><span class="soon">Prototyping and Optimization</span></h2>
+    <p class="topics">Building something new and improving something that exists are different design problems. Single-part edit libraries, promoter and ortholog scans, and why a combinatorial space you cannot enumerate still has a tractable edge.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">21</span><span class="soon">Analysis &mdash; LCMS and Inference</span></h2>
+    <p class="topics">Closing the loop. Chromatography and mass spectrometry far enough to read the data; targeted analysis against a defined set of chemicals of interest; feeding experiments as positive controls; and what a table of peak calls does and does not license you to conclude.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">22</span><span class="soon">Atoms, Molecules, and Reactions</span></h2>
+    <p class="topics">The same analytical move, one level below biology. A molecule as a graph, a canonical identifier as a hash, a reaction as a difference between two states, reactive centres, and patterns and transformations over chemical structure.</p>
+  </article>
+  <article class="lec todo">
+    <h2><span class="n">23</span><span class="soon">Synthesis, Reachability, and the Limits of Abstraction</span></h2>
+    <p class="topics">Expanding a metabolic network shell by shell to find what a cell could make; tracing back from a target to the routes that reach it; and reaction operators, which keep the mechanism and throw away the active site &mdash; which is exactly why they predict far more chemistry than any enzyme will actually do.</p>
+  </article>
+</main>
+</body>
+</html>

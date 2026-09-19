@@ -30,7 +30,13 @@ const fs = require('fs'), path = require('path');
 const { PNG } = (() => { try { return require(require.resolve('pngjs', {paths:[process.cwd(), __dirname]})); }
                          catch (e) { return {}; } })();
 
-const BASE = 'http://127.0.0.1:8000/cloning-tutorials/lectures/140L/';
+/* The 140L deck on a default `mkdocs serve` is the overwhelmingly common case,
+   so it stays the default and no existing invocation changes.  DECK_BASE
+   overrides it for the 234 decks, or for a second serve on another port:
+     DECK_BASE=http://127.0.0.1:8234/cloning-tutorials/lectures/234/ \
+       node check_section.js 01-introduction 02-what-we-have-now.html /tmp/shots */
+const BASE = process.env.DECK_BASE ||
+             'http://127.0.0.1:8000/cloning-tutorials/lectures/140L/';
 const CB = {x0:110, y0:86, x1:1490, y1:830};
 /* Two different questions, and an earlier version of this tool conflated them.
    The padding box is where FLOWED content belongs, and it drives the fill

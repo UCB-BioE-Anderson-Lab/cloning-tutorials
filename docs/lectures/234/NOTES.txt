@@ -1,0 +1,37 @@
+BioE 134/234 DECKS — what differs from 140L
+===========================================
+
+The format, the tooling and every trap are the same; read ../AUTHORING.txt
+first.  deck.css, deck.js, the two text channels, lecture.js as the single
+place section order lives, tools/check_section.js and tools/make_pdf.sh all
+work here unchanged.  A section file in 234/NN-name/ reaches the shared
+assets at the same depth 140L does:
+
+    <link rel="stylesheet" href="../../deck.css">
+    <script src="../../deck.js" defer></script>
+
+Only these three things are particular to this course.
+
+NOTHING ON THIS PAGE IS DATED.  index.html carries titles and topics and no
+calendar: no due dates, no office hours, no week numbers, no year.  Which
+lecture falls in which week is a property of a semester, not of the course,
+and it lives in the course plan and on bCourses.  A deck that names a date
+has to be edited every year, and will not be.
+
+TWENTY-THREE LECTURES, NOT TWENTY-FIVE.  The teaching plan has twenty-five
+meeting slots, but two of them are activities with no deck — the project
+spec workshop and the final exam review — and the teaming half of the
+project-ideas lecture is also semester mechanics.  They are absent here on
+purpose.  The site lists content; the plan lists the term.
+
+FOLDER NUMBERS ARE BUILD ORDER.  Same as 140L, where lecture 2 lives in
+01-dna-enzymes.  The syllabus position is the number in <span class="n"> in
+index.html, and the two are not expected to match.  Order is an argument
+this course is still having; build order is just a fact about what exists.
+
+ADDING A LECTURE
+----------------
+1. Make 234/NN-name/ with a lecture.js, and a seq/ folder if it needs one.
+2. Write lecture.js — it is the only place section order lives.
+3. Turn that lecture's <article class="lec todo"> in index.html into a link
+   to its first section, and add the <details> list of sections.

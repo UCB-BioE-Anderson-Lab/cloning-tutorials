@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>What We Have Now &ndash; Biodesign Automation</title>
+<link rel="stylesheet" href="../../deck.css">
+</head>
+<body>
+
+<article class="slide" data-bg="section">
+  <h1>What we have now</h1>
+  <template class="desc">Section divider: What we have now.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">From paper to sparse tools</h1>
+  <figure class="fig"><img src="img/paper-notebook.jpg" alt="A hand-drawn plasmid map in a paper lab notebook"></figure>
+  <template class="notes">Before 2000 or so, synthetic biology was very old-school. We still used paper notebooks and drew diagrams of our plasmids. Full plasmid sequencing was not a thing yet, and it was expensive to obtain sequencing data, so we used it sparingly. As a result, often what we knew of a sequence was just its general layout and features, and not always the exact DNA sequence. So this representation as a cartoon is not far from the reality of the information we had about the DNA.</template>
+  <template class="desc">A hand-drawn plasmid map in a paper notebook: a circle with labelled arcs for features, and no sequence.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Sequence editors as the interface</h1>
+  <figure class="fig"><img src="img/benchling.jpg" alt="A Benchling window showing a plasmid map and its annotated sequence"><figcaption>Benchling</figcaption></figure>
+  <template class="notes">Since 2000, tools like ApE, SnapGene, VectorNTI and Benchling have become the primary tools for synthetic biology. In them you have a DNA sequence model of all your DNAs and the features within them. Current versions provide all sorts of analysis and design tools to help operate on that sequence and to organize wetlab information. But this is still a far cry from a biodesign automation framework. It is still largely a manual process of thinking and clicking with your mouse and keyboard.</template>
+  <template class="desc">A screenshot of Benchling: a circular plasmid map on one side, the annotated sequence on the other, with feature tracks. Every operation on it is a mouse click.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Then the interface changed</h1>
+  <p class="q">&ldquo;Natural language is now the primary interface that we&rsquo;re going to use to describe things, even to computers&rdquo;</p>
+  <p><small>&mdash; Bill Gates, 2023</small></p>
+  <template class="notes">Then there is the new tech on the scene: the large language model. Think about it primarily in terms of the interface rather than the implementation under the hood — you have a chat interface, you use ordinary language to talk to the computer, and it talks back. The quote captures the idea that in principle a model could become the control surface for complex technical work, including genetic design, the same way it is already becoming indispensable for writing code. In practice, using one well still requires understanding the problem, specifying constraints and guiding the process. Models draft and iterate quickly, but they are not omniscient and they are not reliable on their own, so correctness has to come from the engineering around them.</template>
+  <template class="desc">A quotation from Bill Gates in 2023: natural language is now the primary interface we are going to use to describe things, even to computers.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Ask one to plan an experiment</h1>
+  <figure class="fig"><img src="img/llm-cannot-plan.jpg" alt="A chat transcript in which a model answers a genetic engineering planning request with plausible but unusable generalities"></figure>
+  <template class="notes">Here is the gap between what a model can talk about and what it can reliably do. Asked to plan and execute a complex genetic engineering experiment end to end, it responds with plausible high-level language but cannot produce a complete, actionable plan, run experiments, or verify results. If you repeat this test today you may get a better-structured response, but the core limitation is the same: the task is too complex and too detail-sensitive to hand over directly. Where models are immediately useful is in software. They write code, including biology code, and help you iterate fast. The move that works is to use one inside a controlled engineering workflow, where concrete tools, data and algorithms do the precise work.</template>
+  <template class="desc">A chat transcript in which a language model, asked to plan a full genetic engineering experiment, answers with confident generalities that cannot actually be executed.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Each is bad at what the other is good at</h1>
+  <div class="cols">
+    <div>
+      <p class="q">The model</p>
+      <ul class="tight">
+        <li>Interprets natural language</li>
+        <li>Handles fuzzy requests</li>
+        <li>Drafts text and code fast</li>
+        <li class="accent">Is not consistently correct</li>
+        <li class="accent">Drifts from precise rules</li>
+      </ul>
+    </div>
+    <div>
+      <p class="q">The code</p>
+      <ul class="tight">
+        <li>Exact logic, every time</li>
+        <li>Deterministic and testable</li>
+        <li>Efficient</li>
+        <li class="accent">Not flexible</li>
+        <li class="accent">Needs its interface specified</li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">Models are good at interpreting natural language, handling fuzzy requests, and generating drafts of text and code. They are bad at being consistently correct, following precise rules without drift, and guaranteeing reproducible results. Traditional code is good at exact logic, deterministic behaviour, testing and efficiency, but it is not flexible and it requires you to specify interfaces and requirements explicitly. Put them together and you get the usability of a chat interface with the correctness of real algorithms: the model translates intent into actions, and the code carries out those actions in a verifiable, repeatable way. That division of labour is the thesis of this course, and it is the reason the homework is about writing the code rather than about writing the prompts.</template>
+  <template class="desc">Two columns comparing what a language model is good and bad at against what ordinary code is good and bad at. The model interprets language and drafts quickly but is not consistently correct; code is exact, deterministic and testable but inflexible and must have its interface specified.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">MCP connects the two</h1>
+  <figure class="fig"><img src="img/mcp-connects.png" alt="An MCP server exposing resources, tools and prompts between a language model and external capabilities"></figure>
+  <template class="notes">In 2025, MCP arrived as a standardized method for facilitating the interactions between a model and code. The Model Context Protocol provides a standard way for a model to reach external capabilities through a server, which exposes three kinds of building block: resources, which are readable context and data; tools, which are callable functions the model can invoke; and prompts, which are reusable templates and workflows. This replaces one-off integrations with a common interface, so the same tool suite can be used by different clients while precise computation and data access stay in normal code rather than in the model. Your final project is one of these servers.</template>
+  <template class="desc">A diagram of the Model Context Protocol: a language model on one side, an MCP server in the middle exposing resources, tools and prompts, and external capabilities and data on the other side.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

@@ -26,6 +26,19 @@ software that runs the rest.
 
 [**140L lectures →**](140L/)
 
-## BioE 234
+## BioE 134/234 — Biodesign Automation
 
-Decks for BioE 234 will be added next semester.
+The computational companion to 140L. Where 140L asks how a reaction works, this
+course asks how to write down a piece of biology precisely enough that a program
+can act on it — and how to tell when the program is wrong.
+
+Twenty-three lectures. It opens on what a schema is, and on CRISPR, where one
+biological rule is small enough to encode end to end. Then expression: what makes
+a transcript express or fail, and how each of those failure modes becomes a
+predicate you can test a design against. Then fabrication, where the constraints
+came from, and the wrappers that let a language model call any of it. The last
+unit goes back down the ladder — construction files, the bench, the analysis, and
+finally the chemistry underneath, where the same question about what an
+abstraction discards has the sharpest answer in the course.
+
+[**134/234 lectures →**](234/)
