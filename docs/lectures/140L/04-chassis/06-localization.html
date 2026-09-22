@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Protein Localization &ndash; Chassis</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* Page-local only.
+   THE FIVE COMPARTMENTS, as a table rather than a picture with labels
+   scattered round it: the slide's real content is how hard each
+   destination is, and that is a column. */
+.slide table.comp{border-collapse:collapse;width:100%;margin-top:6px}
+.slide table.comp th{text-align:left;font-size:21px;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.06em;padding:0 16px 8px 0;font-weight:400}
+.slide table.comp td{font-size:25px;padding:11px 16px 11px 0;
+  border-top:1px solid var(--rule);vertical-align:top}
+.slide table.comp td.where{font-weight:700;white-space:nowrap}
+.slide table.comp tr.easy td.where{color:var(--blue)}
+.slide table.comp tr.hard td.where{color:var(--vermillion)}
+.slide p.lead{font-size:28px;color:var(--muted);margin:0 0 14px}
+.slide p.src-link{font-size:21px;color:var(--muted);margin:18px 0 0}
+.slide p.src-link a{color:var(--blue)}
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:10px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{font-size:38px;font-weight:700}
+.slide p.astep{font-size:30px;margin:24px 0 0}
+.slide p.astep b{color:var(--vermillion)}
+.slide ul.sig li{font-size:25px;margin-bottom:8px}
+.slide ul.sig li b{color:var(--blue)}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 53 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Protein Localization</h1>
+  <ul class="tight">
+    <li>What distinct compartments exist in a bacterium?</li>
+    <li>Where can a protein be directed in the cell?</li>
+  </ul>
+  <template class="notes">Though bacteria lack organelles, they nevertheless have several distinct compartments, and which one your protein ends up in is something you control.</template>
+  <template class="desc">Section divider: Protein Localization. What distinct compartments exist in a bacterium, and where can a protein be directed?</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 54 -->
+<article class="slide">
+  <h1 class="small">Five places a protein can be</h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/06-localization.png" alt="A cross-section of a gram-negative envelope: cytoplasm, inner membrane, periplasm, outer membrane, and the extracellular space beyond.">
+    </figure>
+    <div>
+      <ul class="tight">
+        <li><b>Cytoplasm</b> &mdash; where the central dogma happens</li>
+        <li><b>Inner membrane</b> &mdash; peripherally on either face, or fully integrated</li>
+        <li><b>Periplasm</b> &mdash; the gelatinous space between the membranes</li>
+        <li><b>Outer membrane</b></li>
+        <li><b>Secreted</b> &mdash; outside the cell entirely</li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">The largest compartment is the cytoplasm, where all the central dogma processes happen. Around it is the inner membrane, and a protein can be peripherally associated with either face of it or fully integrated into it. Beyond the inner membrane is a gelatinous environment called the periplasm, and proteins can be targeted there. Then the outer membrane, which also has proteins in it. And finally outside the cell. So there are five distinct regions in a gram-negative bacterium, and proteins get to them by targeting.</template>
+  <template class="desc">A cross-section of the gram-negative envelope beside the five compartments: cytoplasm, inner membrane, periplasm, outer membrane, and secreted.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 55 -->
+<article class="slide">
+  <h1 class="small">In a nutshell: how hard is each one?</h1>
+  <table class="comp">
+    <tr><th>Destination</th><th>How you get there</th></tr>
+    <tr class="easy"><td class="where">Cytoplasm</td>
+        <td>Happens <b>by default</b> &mdash; translation is already there</td></tr>
+    <tr class="easy"><td class="where">Inner membrane</td>
+        <td>Easy for things that belong there. Done through the <b>sec</b> pathway (<i>pre</i>)</td></tr>
+    <tr class="easy"><td class="where">Periplasm</td>
+        <td>Easy for sec secretion (<i>prepro</i>). Alternate <b>tat</b> pathway for things
+            that cannot fold there</td></tr>
+    <tr class="hard"><td class="where">Outer membrane</td>
+        <td>Happens naturally for things that naturally belong there.
+            <b>Difficult</b> &mdash; but doable &mdash; for things that do not</td></tr>
+    <tr class="hard"><td class="where">Secreted</td>
+        <td>Many methods, <b>all of them iffy</b>. Gram positives do this much more easily</td></tr>
+  </table>
+  <template class="notes">Since translation happens in the cytoplasm, the cytoplasm is the default and you get it for free. It is very easy to target a protein to the inner membrane or the periplasm, by putting a short sequence called pre or prepro on the N-terminus. Some proteins targeted to the periplasm will spontaneously insert into the outer membrane, but it is often hard to direct something there that does not come from there. And there are many ways to secrete a protein, all of which are awkward in E. coli. Gram positive bacteria have no outer membrane, so periplasmic targeting in them results in secretion, and the process is far more efficient. Which is why in most biotechnology applications that need a secreted protein, people reach for a Bacillus strain or Pichia yeast instead.</template>
+  <template class="desc">A table of the five destinations against how hard each is: the cytoplasm by default, the inner membrane and periplasm easily via the sec pathway with a pre or prepro sequence, the outer membrane naturally only for things that belong there, and secretion by many methods all of which are unreliable in E. coli.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 56 -->
+<article class="slide">
+  <h1 class="small">Sec pathway secretion</h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/06-sec.png" alt="The sec translocon in the inner membrane, threading a nascent protein through as it is translated.">
+    </figure>
+    <div>
+      <p class="lead">The signal (<i>pre</i>) sequence</p>
+      <p class="lead" style="margin-bottom:18px">also &ldquo;signal sequence&rdquo;, also &ldquo;leader sequence&rdquo;</p>
+      <ul class="sig">
+        <li><b>18&ndash;30 amino acids</b> in length</li>
+        <li>One or more <b>basic</b> residues near the N-terminus</li>
+        <li>A central <b>hydrophobic core</b> of 7 residues or more</li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">To target a protein to the inner membrane or the periplasm you put a pre sequence on its N-terminus. These are typically eighteen to thirty amino acids, with one or more basic residues near the N-terminus and a hydrophobic core of about seven residues in the middle. It goes by three names, pre sequence, signal sequence and leader sequence, and they all mean the same thing. It is recognised by a set of sec proteins that associate with the ribosome and actively push the protein through the membrane as it is made.</template>
+  <template class="desc">The sec translocon threading a protein through the inner membrane, beside the anatomy of a signal sequence: eighteen to thirty amino acids, basic residues near the N-terminus and a central hydrophobic core of at least seven.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 57 -->
+<article class="slide">
+  <h1 class="small">Signal peptide prediction</h1>
+  <figure class="fig">
+    <img src="img/06-signalp.png" alt="SignalP output: a plot of cleavage site probability along the first residues of a protein sequence.">
+    <figcaption><a href="http://www.cbs.dtu.dk/services/SignalP/">cbs.dtu.dk/services/SignalP</a></figcaption>
+  </figure>
+  <template class="notes">And you do not have to eyeball it. SignalP will take a sequence and tell you whether it thinks there is a signal peptide on the front of it and where the cleavage site is. Which is the tool you want for the question at the end of this section.</template>
+  <template class="desc">SignalP output: a plot of cleavage site probability along the N-terminal residues of a protein sequence.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 58 -->
+<article class="slide">
+  <h1 class="small">Periplasmic expression</h1>
+  <div class="cols">
+    <div>
+      <p class="lead">Leader peptidases</p>
+      <ul class="tight">
+        <li><b>LspA</b> processes prolipoproteins &mdash; major outer membrane components</li>
+        <li><b>LepB</b>, &ldquo;signal peptidase&rdquo; or SPaseI, cleaves most other proteins</li>
+      </ul>
+    </div>
+    <div>
+      <p class="lead">Prepro sequences</p>
+      <ul class="tight">
+        <li>Use parts from <b>well-expressed periplasmic proteins</b> &mdash;
+            <b>pelB</b>, <b>ompA</b>, <b>ompT</b> are the common ones</li>
+        <li>Some proteins are <b>toxic in the cytoplasm</b> and fine in the periplasm</li>
+        <li>Some need the <b>oxidative environment</b> to fold &mdash; antibodies, for instance</li>
+        <li>And it is a <b>precursor</b> to outer membrane localization or secretion</li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">To get a protein from the inner membrane into the periplasm, all that is needed is cleavage of the sec signal peptide, and there are periplasmic enzymes called leader peptidases that do it: LspA and LepB are two. The sequences they act on are pre sequences more specifically called prepro, because of the extra processing. Rather than design one from scratch, take one from a protein that is already well expressed in the periplasm; pelB, ompA and ompT are the ones people reach for. As for why you would want the periplasm at all: some proteins are toxic in the cytoplasm and perfectly fine there, some — antibodies are the standard example — need the oxidative, calcium-rich environment in order to fold at all, and anything destined for the outer membrane or for secretion goes through the periplasm on the way.</template>
+  <template class="desc">Periplasmic expression: the leader peptidases LspA and LepB that cleave the signal, and the prepro sequences taken from well-expressed periplasmic proteins pelB, ompA and ompT, with the reasons for sending a protein there.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 59 -->
+<article class="slide">
+  <h1 class="small">Outer membrane localization</h1>
+  <div class="cols">
+    <div>
+      <p class="lead">Beta barrel-type proteins</p>
+      <ul class="tight">
+        <li><b>OmpA</b>, <b>OmpT</b>, <b>OmpG</b>, <b>LamB</b></li>
+        <li>Start with <b>sec</b> secretion to the periplasm</li>
+        <li>Then <b>spontaneously insert</b> into the outer membrane</li>
+      </ul>
+      <p class="lead" style="margin-top:22px">Autotransporters / two-partner secretion</p>
+      <ul class="tight">
+        <li><b>Ag43</b> is the well-studied example</li>
+        <li>Often a cleaved &ldquo;passenger&rdquo; &mdash; <b>type V secretion</b></li>
+        <li>A dedicated secretion system for a single protein</li>
+        <li>Also begins with sec secretion</li>
+      </ul>
+    </div>
+    <figure class="fig">
+      <img src="img/06-autotransporter.png" alt="An autotransporter: a beta barrel domain in the outer membrane with the passenger domain threaded through it and displayed on the surface.">
+    </figure>
+  </div>
+  <template class="notes">Outer membrane proteins typically have a beta barrel structure that lets them spontaneously insert into the outer membrane, but the first step is still getting to the periplasm by sec. There are many mechanisms for getting a protein outside the cell, and the simplest is autotransporters and two-partner secretion. Ag43 is the most studied. In an autotransporter, one domain of the protein is a beta barrel that inserts into the outer membrane, and then the passenger domain is pulled through the pore it forms and displayed on the surface. Often the passenger is then cleaved off, which amounts to secretion. Two-partner systems do the same thing with the passenger and the displayer as two separate polypeptides.</template>
+  <template class="desc">Outer membrane localization: beta barrel proteins OmpA, OmpT, OmpG and LamB that reach the periplasm by sec and then insert spontaneously, and autotransporters such as Ag43 that form their own barrel and thread a passenger domain through it.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 60 -->
+<article class="slide">
+  <h1 class="small">Extracellular secretion</h1>
+  <div class="cols">
+    <div>
+      <p class="lead">In gram positives, like <i>B. subtilis</i></p>
+      <ul class="tight">
+        <li><b>No second membrane</b> to get past</li>
+        <li>So prepro targeting results in <b>extracellular secretion</b> directly</li>
+      </ul>
+      <p class="lead" style="margin-top:22px">Type I, II and III secretion</p>
+      <ul class="tight">
+        <li>One set of genes assembles the <b>pore apparatus</b></li>
+        <li>That apparatus transports a set of substrates through the channel</li>
+      </ul>
+    </div>
+    <figure class="fig">
+      <img src="img/06-secretion-types.png" alt="The types of bacterial secretion system, each spanning the membranes with a different architecture.">
+    </figure>
+  </div>
+  <template class="notes">Targeting a protein for secretion is very simple in a gram positive organism like B. subtilis, because there is no second membrane: a gene that encodes a periplasm-targeted protein in E. coli encodes a secreted protein there. In a gram negative there are other routes. We have already seen autotransporters; types I, II and III are the more elaborate ones, and each needs additional proteins that assemble a channel spanning both membranes so that specific substrates can travel through.</template>
+  <template class="desc">Extracellular secretion: in gram positives like B. subtilis there is no second membrane so prepro targeting secretes directly, while in gram negatives the type I, II and III systems assemble a dedicated pore apparatus to move a set of substrates through.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 61 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">Periplasmic expression</div>
+  </div>
+  <p>I want to express alkaline phosphatase from <i>Thermus thermophilus</i> (CAC83793.1)
+     in the periplasm of <i>E. coli</i>. Do I need to alter the CDS to get proper localization?</p>
+  <figure class="fig">
+    <img src="img/06-phoa.png" alt="The N-terminal sequence of the Thermus thermophilus alkaline phosphatase, showing a signal peptide already present.">
+  </figure>
+  <p class="astep" data-build="1"
+     data-note="No. Run it through SignalP and you will see the signal peptide is already on the front of it, because it is a periplasmic protein in its native organism too. The sec pathway is old and it is conserved, so a signal sequence from a distant bacterium is generally read correctly by E. coli. That is the useful generalisation here: check before you engineer, because the protein may already be doing what you want."
+     data-desc="The answer: no, it should already go to the periplasm, because the signal peptide is already present and the sec pathway is conserved."><b>No.</b> It already carries a signal peptide &mdash; it is periplasmic in its own
+     organism too, and the <b>sec pathway is conserved</b> enough to read it.</p>
+  <template class="notes">No, it should already go to the periplasm.</template>
+  <template class="desc">A question for the room: to express Thermus thermophilus alkaline phosphatase in the E. coli periplasm, does the coding sequence need altering? The sequence is shown. The answer arrives on a click.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 62 -->
+<article class="slide">
+  <h1>Questions?</h1>
+  <template class="notes">That is the chassis. What you inherit when you pick a strain, how to read what has been done to it, and where inside it you can put things.</template>
+  <template class="desc">A slide reading Questions.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

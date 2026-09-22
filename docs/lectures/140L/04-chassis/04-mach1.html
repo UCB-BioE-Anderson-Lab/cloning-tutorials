@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Mach1 &ndash; Chassis</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* Page-local only.
+   THE SAME GENOTYPE, SEVEN TIMES.  The source walks the Mach1 string one
+   token at a time across seven slides, and the string has to sit in the
+   same place on every one of them or the walk does not read as a walk.
+   So it is one block at one size with one position, and only the
+   highlight moves. */
+.slide pre.gt{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:30px;line-height:1.5;white-space:pre-wrap;margin:12px 0 30px;
+  color:var(--muted)}
+.slide pre.gt .on{color:var(--vermillion);font-weight:700}
+.slide h1.small + p.strain{font-size:34px;font-weight:700;margin:0 0 4px}
+.slide p.lead{font-size:28px;color:var(--muted);margin:0 0 14px}
+.slide p.src-link{font-size:21px;color:var(--muted);margin:20px 0 0}
+.slide p.src-link a{color:var(--blue)}
+.slide .card{border:2px solid var(--rule);border-radius:8px;padding:18px 24px 20px}
+.slide .card h2{font-size:27px;margin:0 0 8px}
+.slide .card ul{margin:0;padding-left:1.1em}
+.slide .card li{font-size:23px;margin-bottom:5px}
+.slide .card .tag{font-size:20px;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.06em;margin:14px 0 4px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 29 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Mach1</h1>
+  <p>The strain on your bench, read one token at a time</p>
+  <template class="notes">And now the one you actually use.</template>
+  <template class="desc">Section divider: Mach1.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 30 -->
+<article class="slide">
+  <h1 class="small">Our chassis</h1>
+  <p class="strain">Mach1</p>
+  <pre class="gt">str. W &Delta;recA1398 endA1 fhuA &Phi;80&Delta;(lac)M15 &Delta;(lac)X74 hsdR(rK&ndash; mK+)</pre>
+  <ul class="tight">
+    <li>From Invitrogen &mdash; <b>lacZ&alpha;-complementation ready</b></li>
+    <li><b>T1 / T5 / &Phi;80 phage resistant</b></li>
+    <li>Doubling time about <b>50 min</b>; sold as the fastest-growing chemically competent cloning strain available</li>
+    <li>Derived from <i>E. coli</i> <b>W</b> (ATCC 9637), <b>not</b> K-12 &mdash; which has implications for BL-1 status at some facilities</li>
+  </ul>
+  <p class="src-link">See the Bloom04 patent for the construction and properties &nbsp;&middot;&nbsp;
+     <a href="http://www.openwetware.org/wiki/E._coli_genotypes#Mach1">openwetware.org/wiki/E._coli_genotypes#Mach1</a></p>
+  <template class="notes">These are the cells you are using. Invitrogen sells them as a cloning strain and the selling points are the ones listed: ready for blue-white screening, resistant to the phages that most often contaminate a lab, and fast. Note the last line, because it is the one that matters for the next few slides: Mach1 is not a K-12 strain.</template>
+  <template class="desc">Mach1, its genotype, and what Invitrogen sells it on: lacZ-alpha complementation ready, resistant to T1, T5 and phi80, a doubling time of about fifty minutes, and derivation from E. coli W rather than K-12.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 31 -->
+<article class="slide">
+  <h1 class="small">Our chassis</h1>
+  <p class="strain">Mach1</p>
+  <pre class="gt"><span class="on">str. W</span> &Delta;recA1398 endA1 fhuA &Phi;80&Delta;(lac)M15 &Delta;(lac)X74 hsdR(rK&ndash; mK+)</pre>
+  <ul class="tight">
+    <li>The organism the strain was derived from. <b>Default is MG1655</b> &mdash; so when it is stated, it is because it is not.</li>
+    <li>Mach1 came from <i>E. coli</i> <b>W</b> (ATCC 9637), a natural isolate distinct from MG1655</li>
+    <li><i>E. coli</i> W has been sequenced &mdash; <b>GenBank CP002185.1</b></li>
+    <li><b>No public genome sequence is available for Mach1</b></li>
+  </ul>
+  <template class="notes">The first token is the parent. A genotype is a list of differences from a reference, and the reference is MG1655 unless someone tells you otherwise. Here someone has told you otherwise: Mach1 descends from E. coli W, a natural isolate that is not K-12. W has been sequenced and you can go and read it. Mach1 has not, publicly, so everything past the first token is a claim about differences from a genome you can read, applied to a strain you cannot.</template>
+  <template class="desc">The same genotype with the first token, str. W, picked out: the parent organism. The default parent is MG1655, so naming one means it is not MG1655. E. coli W is sequenced as GenBank CP002185.1, but no public genome sequence exists for Mach1 itself.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 32 -->
+<article class="slide">
+  <h1 class="small">Our chassis</h1>
+  <p class="strain">Mach1</p>
+  <pre class="gt">str. W <span class="on">&Delta;recA1398 endA1 fhuA &Phi;80&Delta;(lac)M15 &Delta;(lac)X74 hsdR(rK&ndash; mK+)</span></pre>
+  <ul class="tight">
+    <li>Each space-separated token is <b>one specific mutation</b>, relative to that parent</li>
+    <li>These were introduced <b>on purpose</b>, to make a robust cloning strain that is also
+        usable for industrial production</li>
+  </ul>
+  <template class="notes">Everything after the parent is a list of deliberate modifications. None of these happened by accident and none of them is there to make the organism better at living. They are there to make it better at the job.</template>
+  <template class="desc">The genotype with everything after the parent picked out: each space-separated token is one specific mutation relative to the parent, introduced deliberately to make a robust cloning and production strain.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 33 -->
+<article class="slide">
+  <h1 class="small">Our chassis</h1>
+  <p class="strain">Mach1</p>
+  <pre class="gt">str. W <span class="on">&Delta;recA1398</span> <span class="on">endA1</span> fhuA &Phi;80&Delta;(lac)M15 &Delta;(lac)X74 <span class="on">hsdR(rK&ndash; mK+)</span></pre>
+  <ul class="tight">
+    <li>The same three you saw on DH10B, and for the same three reasons</li>
+    <li><b>recA</b> &mdash; plasmid stability: no recombination between repeats in your construct</li>
+    <li><b>endA</b> &mdash; plasmid purity: no endonuclease chewing your miniprep</li>
+    <li><b>hsdR</b> &mdash; transformation efficiency: incoming DNA is not restricted</li>
+  </ul>
+  <template class="notes">Three of these are the standard cloning-strain mutations and you have already met them on DH10B. They are about plasmid stability, plasmid purity and transformation efficiency, in that order. Note hsdR specifically: r minus m plus means restriction is off but methylation is on, so the strain will not cut your incoming DNA, but it will still methylate what it keeps, which matters if you then move that DNA into something else.</template>
+  <template class="desc">The genotype with recA1398, endA1 and hsdR picked out: the three standard cloning-strain mutations, for plasmid stability, plasmid purity and transformation efficiency.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 34 -->
+<article class="slide">
+  <h1 class="small">Our chassis</h1>
+  <p class="strain">Mach1</p>
+  <pre class="gt">str. W &Delta;recA1398 endA1 fhuA &Phi;80&Delta;(lac)M15 <span class="on">&Delta;(lac)X74</span> hsdR(rK&ndash; mK+)</pre>
+  <p class="lead">&Delta;(lac)X74 = deletion of the <b>entire lac operon</b> as well as some flanking DNA</p>
+  <p class="lead">The complete deletion is &Delta;<i>cod&ndash;mhpF</i></p>
+  <p class="src-link">Quoted from <a href="http://www.openwetware.org/wiki/E._coli_genotypes">openwetware.org/wiki/E._coli_genotypes</a>
+     &nbsp;&middot;&nbsp; <i>Mol. Micro.</i> 6:1335 &nbsp;&middot;&nbsp; <i>J. Bact.</i> 179:2573</p>
+  <template class="notes">This one takes out the whole lac operon and some of what is around it. Which raises an obvious question, since the strain is sold as ready for blue-white screening, and blue-white screening needs lacZ. Hold that thought for two slides.</template>
+  <template class="desc">The genotype with the lacX74 deletion picked out: a deletion of the entire lac operon plus flanking DNA, the complete form being delta cod to mhpF.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 35 -->
+<article class="slide">
+  <h1 class="small">Our chassis</h1>
+  <p class="strain">Mach1</p>
+  <pre class="gt">str. W &Delta;recA1398 endA1 fhuA <span class="on">&Phi;80&Delta;(lac)M15</span> &Delta;(lac)X74 hsdR(rK&ndash; mK+)</pre>
+  <ul class="tight">
+    <li>The cell carries the lambdoid <b>prophage &Phi;80</b></li>
+    <li>A defective version of it carries the <b>lacZ&Delta;M15</b> deletion, along with
+        wild-type <i>lacI</i>, <i>lacYA</i> and flanking sequence</li>
+    <li>The &Phi;80 attachment site sits just next to <i>tonB</i></li>
+    <li>This is what makes <b>lacZ&alpha; complementation</b> and blue-white screening work</li>
+  </ul>
+  <template class="notes">And here is the answer. The lac operon was deleted from the chromosome, and then a piece of it was put back on a defective phi80 prophage, carrying a lacZ gene with the M15 deletion in it. That gene makes a beta-galactosidase that is broken on its own and can be rescued by a small fragment supplied in trans. That is lacZ-alpha complementation, and it is the basis of blue-white screening. Also worth noticing: this is the same phi80 attachment site you used for CRIM integration two lectures ago, and here it is being used as a place to park a gene. Same site, same logic, different purpose.</template>
+  <template class="desc">The genotype with the phi80 lacZ delta M15 token picked out: the cell carries a defective phi80 prophage bearing the lacZ delta M15 deletion along with wild-type lacI and lacYA, integrated at the phi80 attachment site next to tonB, and that is what makes lacZ-alpha complementation possible.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 36 -->
+<article class="slide">
+  <h1 class="small">LacZ &beta;-galactosidase</h1>
+  <figure class="fig">
+    <img src="img/04-lacz.jpg" alt="Beta-galactosidase hydrolysing lactose into glucose and galactose.">
+  </figure>
+  <template class="notes">The enzyme itself: beta-galactosidase, which cuts lactose into glucose and galactose. Its natural job is letting the cell eat lactose. Its job in your hands is that it will also cut X-gal, and one of the products of that reaction is blue.</template>
+  <template class="desc">A diagram of beta-galactosidase hydrolysing lactose into glucose and galactose.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 37 -->
+<article class="slide">
+  <h1 class="small">LacZ&alpha; complementation</h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/04-lacz-alpha-1.png" alt="The lacZ alpha fragment supplied on a plasmid complementing the lacZ delta M15 gene in the genome to reconstitute active beta-galactosidase.">
+    </figure>
+    <figure class="fig">
+      <img src="img/04-lacz-alpha-2.jpg" alt="A plate of blue and white colonies: blue where the alpha fragment is intact, white where an insert has disrupted it.">
+    </figure>
+  </div>
+  <template class="notes">The genome carries a beta-galactosidase missing a piece near its N-terminus, and it does not work. The plasmid carries that missing piece, the alpha fragment, and when both are present in the same cell they associate and the enzyme works. So a colony goes blue on X-gal when the plasmid's alpha fragment is intact. Cloning a fragment into the middle of that alpha sequence breaks it, and that colony stays white. Blue means empty vector, white means you got an insert. It is a screen and not a selection, so you still have to check, but it saves you picking twenty blue colonies.</template>
+  <template class="desc">LacZ-alpha complementation: the alpha fragment on the plasmid completing the lacZ delta M15 gene in the genome to give an active enzyme, and the resulting plate of blue and white colonies.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 38 -->
+<article class="slide">
+  <h1 class="small">Our chassis</h1>
+  <p class="strain">Mach1</p>
+  <pre class="gt">str. W &Delta;recA1398 endA1 <span class="on">fhuA</span> &Phi;80&Delta;(lac)M15 &Delta;(lac)X74 hsdR(rK&ndash; mK+)</pre>
+  <ul class="tight">
+    <li>FhuA in the outer membrane is a transporter for <b>ferrichrome</b>, for the antibiotics
+        albomycin and rifamycin CGP4832, and for colicin M</li>
+    <li>It is also the <b>receptor for phages T1, T5 and &Phi;80</b></li>
+    <li>Knock it out and the strain is <b>phage resistant</b> &mdash; which is why it is on the list</li>
+  </ul>
+  <p class="src-link">Quoted from <a href="https://www.wikigenes.org/e/gene/e/944856.html">wikigenes.org</a></p>
+  <template class="notes">FhuA is an iron transporter, and it is also the door those three phages use to get in. Take it away and they cannot. T1 in particular is the reason anybody bothers: it is tough, it spreads through a lab fast, and a T1 contamination can take out every culture on the bench. So this mutation is not about the biology of iron at all. It is insurance.</template>
+  <template class="desc">The genotype with fhuA picked out: FhuA is an outer membrane transporter for ferrichrome and certain antibiotics, and also the receptor for phages T1, T5 and phi80, so knocking it out makes the strain phage resistant.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 39 -->
+<article class="slide">
+  <h1 class="small">Why Mach1?</h1>
+  <ul class="tight">
+    <li>Great for <b>cloning</b>, and for <b>industrial-scale production</b></li>
+    <li><b>Phage resistant</b>, and commercially available</li>
+    <li data-build="1" data-desc="It can also grow on sucrose as a feedstock."
+        data-note="Which is not true of K-12 strains, and is a genuine reason to pick a W strain. Sucrose is a cheap feedstock."><b>Grows on sucrose</b> as a feedstock</li>
+    <li data-build="2" data-desc="It reliably grows on minimal medium, sucrose and salts, to high densities."
+        data-note="And unlike DH10B, which you just saw cannot grow on M9 at all, this one grows on minimal medium to high density. That is the difference between a cloning strain and a strain you could actually make something in."><b>Reliably grows on minimal medium</b> &mdash; sucrose and some salts &mdash; to high densities</li>
+    <li data-build="3" data-desc="It produces little acetate, which is a common loss of carbon when making products at high titre."
+        data-note="Acetate is where carbon goes when a cell is growing faster than it can respire. It is wasted feedstock and it is toxic, so a low-acetate strain is worth real money at scale."><b>Produces little acetate</b>, a common loss of carbon at high titre</li>
+    <li data-build="4" data-desc="And it is increasingly mentioned in the literature."
+        data-note="Which matters more than it sounds: a strain other people use is a strain with published protocols, troubleshooting and parts that are known to work in it.">Increasingly mentioned in the <b>literature</b></li>
+  </ul>
+  <template class="notes">So why this one. The first two lines are why Invitrogen sells it. The rest are why it is a reasonable choice for this course rather than just a convenient one, and the middle two are the ones to pay attention to: it grows on minimal medium, which the standard cloning strains do not, and it wastes less carbon as acetate. Those are the properties of something you could scale.</template>
+  <template class="desc">Why Mach1: good for cloning and industrial production, phage resistant and commercially available, and then four more arriving one at a time — it grows on sucrose, grows reliably on minimal medium to high density, produces little acetate, and is increasingly used in the literature.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 40 -->
+<article class="slide">
+  <h1 class="small">Two others worth knowing</h1>
+  <div class="cols">
+    <div class="card">
+      <h2>BL21(DE3)</h2>
+      <p class="tag">Lineage</p>
+      <ul><li><i>E. coli</i> <b>B</b>, not K-12</li></ul>
+      <p class="tag">Use case</p>
+      <ul><li>High-level <b>protein expression</b>, usually with T7 systems</li></ul>
+      <p class="tag">Key features</p>
+      <ul>
+        <li>Carries <b>T7 RNA polymerase</b> (DE3 lysogen, lacUV5 promoter)</li>
+        <li>Lacks <b>lon</b> and <b>ompT</b> proteases &rarr; better protein stability</li>
+        <li>Fast-growing in rich media</li>
+      </ul>
+      <p class="tag">Tradeoffs</p>
+      <ul>
+        <li>Harder to transform</li>
+        <li><b>recA+, endA+</b> &rarr; not good for cloning</li>
+        <li>High expression can be toxic</li>
+      </ul>
+      <p class="tag">Biosafety</p>
+      <ul><li>No known virulence factors &middot; BSL-1</li></ul>
+    </div>
+    <div class="card">
+      <h2>Nissle 1917</h2>
+      <p class="tag">Lineage</p>
+      <ul><li>Wild-type <i>E. coli</i>, <b>not lab-adapted</b>. Isolated in WWI as a
+          non-pathogenic competitor to harmful strains</li></ul>
+      <p class="tag">Use case</p>
+      <ul><li><b>Live biotherapeutics</b> and gut microbiome studies</li></ul>
+      <p class="tag">Key features</p>
+      <ul>
+        <li>Fully tractable for engineering</li>
+        <li>Retains <b>immune interaction</b> pathways</li>
+      </ul>
+      <p class="tag">Tradeoffs</p>
+      <ul>
+        <li><b>Not attenuated</b> &mdash; more robust than lab strains</li>
+        <li>Requires more biosafety oversight, especially clinically</li>
+      </ul>
+      <p class="tag">Biosafety</p>
+      <ul><li>Generally BSL-1, but caution for vulnerable populations</li></ul>
+    </div>
+  </div>
+  <template class="notes">Two strains you will hear about. BL21 is what you use when the point is to make a lot of one protein: it carries T7 polymerase so a T7 promoter on your plasmid fires hard, and it has had two proteases removed so the protein survives long enough to purify. It is a bad cloning strain, recA plus and endA plus, so people keep their constructs in a cloning strain and move them into BL21 only to express. Nissle is the opposite end: a wild isolate taken from a soldier in the First World War because it outcompeted the pathogens, still sold as a probiotic, and now used as the chassis for engineered therapeutics that have to survive in a real gut. The tradeoff is right there in the description: it is good at living in people, which is the point and also the risk.</template>
+  <template class="desc">Two cards side by side. BL21(DE3): the E. coli B lineage, built for T7-driven protein expression, carrying T7 RNA polymerase and lacking lon and ompT proteases, but recA and endA positive so a poor cloning strain. Nissle 1917: a wild-type non-lab-adapted isolate from the First World War, used for live biotherapeutics, fully engineerable and retaining immune interaction pathways, but not attenuated and needing more biosafety oversight.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

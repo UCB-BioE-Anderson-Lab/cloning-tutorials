@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Pathogenicity &ndash; Chassis</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* Page-local only. */
+.slide p.lead{font-size:28px;color:var(--muted);margin:0 0 14px}
+.slide ul.core li{font-size:28px;margin-bottom:10px}
+.slide ul.core li b{color:var(--blue)}
+.slide .facts{margin-top:26px;font-size:26px;color:var(--muted)}
+.slide .facts b{color:var(--ink)}
+.slide .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:8px}
+.slide .row3 img{width:100%;max-height:330px;object-fit:contain;object-position:top}
+.slide .row2{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:8px}
+.slide .row2 img{width:100%;max-height:360px;object-fit:contain;object-position:top}
+.slide ul.vf li{font-size:29px;margin-bottom:12px}
+.slide ul.vf li b{color:var(--vermillion)}
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:10px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{font-size:38px;font-weight:700}
+.slide p.astep{font-size:30px;margin:26px 0 0}
+.slide p.astep b{color:var(--vermillion)}
+.slide p.src-link{font-size:21px;color:var(--muted);margin:18px 0 0}
+.slide p.src-link a{color:var(--blue)}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 42 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Pathogenicity</h1>
+  <ul class="tight">
+    <li>What are virulence factors?</li>
+    <li>What is present in lab strains of <i>E. coli</i>?</li>
+    <li>What other dangers lurk in the genome?</li>
+  </ul>
+  <p class="src-link">Biological Relationships, from BioE132 &nbsp;&middot;&nbsp;
+     <a href="https://www.youtube.com/watch?v=twPkRfnXQVw">youtube.com/watch?v=twPkRfnXQVw</a></p>
+  <template class="notes">If you become a practising genetic engineer, at some point somebody will ask you whether what you are doing is dangerous. The short answer is: sometimes. There are unquestionably dangerous things that can be built, and it is worth understanding the axis of risk and how it arises. Pathogenicity is only one category of concern, but it is the one most people have in mind when they ask, so it is the one to understand.</template>
+  <template class="desc">Section divider: Pathogenicity. Three questions: what are virulence factors, what is present in lab strains of E. coli, and what other dangers lurk in the genome.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 43 -->
+<article class="slide">
+  <h1 class="small">A core bacterial chassis</h1>
+  <ul class="core">
+    <li><b>Cell growth and division</b></li>
+    <li><b>The central dogma</b></li>
+    <li><b>Primary metabolism</b></li>
+    <li><b>Environment sensing</b></li>
+  </ul>
+  <p class="facts">about <b>3000 genes</b> &middot; <b>~3 million bases</b> &middot;
+     almost identical among Enterobacteria &nbsp;&mdash;&nbsp;
+     and <b>none of it is enough to make a pathogen</b></p>
+  <template class="notes">Back to the core chassis, because it makes the point cleanly. Every bacterium has these essential processes and most encode about three megabases of them. Some are dependent on a host to supply primary metabolism, and how much environmental sensing they do varies. But there are things a cell simply needs in order to be a cell. Now: pathogenesis always requires additional genes on top of this. The core processes are not sufficient for it. The added genes associated with commensal or pathogenic behaviour are collectively called virulence factors, and that is what the rest of this section is about.</template>
+  <template class="desc">The core bacterial chassis again — cell growth and division, the central dogma, primary metabolism, environment sensing, about three thousand genes — with the added point that none of it is sufficient to make a pathogen.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 44 -->
+<article class="slide">
+  <h1 class="small">Type I pili</h1>
+  <div class="row3">
+    <img src="img/05-pili-1.png" alt="An electron micrograph of E. coli covered in type I pili.">
+    <img src="img/05-pili-2.png" alt="The fim gene cluster that encodes type I pili, drawn as a map.">
+    <img src="img/05-pili-3.png" alt="A pilus binding to the surface of a host cell.">
+  </div>
+  <template class="notes">In K-12 strains there is one important virulence factor, and this is it. Type I pili are proteinaceous appendages on the surface that mediate attachment to the wall of the intestine. They are what keeps a commensal bacterium in the gut, and they do the same job for a pathogenic one. The genes are the fim cluster, about twelve kilobases, and they all sit together at one place in the genome, which makes this virulence factor unusually easy to remove completely. It is present in most laboratory strains, DH10B and DH5-alpha included.</template>
+  <template class="desc">Type I pili: a micrograph of E. coli covered in them, the fim gene cluster that encodes them, and a pilus binding to a host cell surface.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 45 -->
+<article class="slide">
+  <h1 class="small">Type I pili, in detail</h1>
+  <div class="row3">
+    <img src="img/05-pili-4.png" alt="The structure of the pilus: a helical rod of repeated subunits with a tip adhesin.">
+    <img src="img/05-pili-5.png" alt="The regulatory genes of the fim cluster controlling expression of the structural components.">
+    <img src="img/05-pili-6.jpg" alt="The mannose-binding adhesin at the tip of the pilus engaging a receptor.">
+  </div>
+  <template class="notes">The appendage takes a lot of genes. Some of them regulate the process and set the expression level of the functional components. The pilus itself is a long polymer extending from the surface, and on the tip is an adhesin that binds mannose. That tip binds mannose residues on the proteins lining the surface of gut epithelial cells, and that is the whole mechanism: a long sticky rod with a specific grip on the end.</template>
+  <template class="desc">The pilus in detail: its structure as a helical rod of repeated subunits, the regulatory genes that set its expression level, and the mannose-binding adhesin at the tip.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 46 -->
+<article class="slide">
+  <h1 class="small">(Some) virulence factors</h1>
+  <div class="cols">
+    <ul class="vf">
+      <li><b>Adhesion factors</b></li>
+      <li><b>High-affinity iron transport</b></li>
+      <li><b>Capsular polysaccharides</b></li>
+      <li><b>Vacuole modifications</b></li>
+      <li><b>Toxins</b></li>
+    </ul>
+    <figure class="fig">
+      <img src="img/05-virulence.png" alt="A diagram of a host cell under attack, showing the several distinct mechanisms bacteria use against it.">
+    </figure>
+  </div>
+  <p class="src-link"><i>Bacterial Disease Mechanisms: An Introduction to Cellular Microbiology</i>
+     &mdash; Wilson, McNab &amp; Henderson</p>
+  <template class="notes">Virulence factors work by diverse mechanisms and they address distinguishable problems, which is the useful way to hold them. Adhesion, so you do not get washed out. Iron transport, because the host deliberately keeps free iron vanishingly low and a pathogen has to out-compete that. Capsules, to hide from the immune system. Vacuole modification, for organisms that live inside host cells. And toxins, which actively damage. Wilson, McNab and Henderson is the book if you want the mechanisms properly.</template>
+  <template class="desc">Five categories of virulence factor — adhesion factors, high-affinity iron transport, capsular polysaccharides, vacuole modifications and toxins — beside a diagram of the mechanisms, with the Wilson, McNab and Henderson reference.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 47 -->
+<article class="slide">
+  <h1 class="small">Capsular polysaccharides</h1>
+  <div class="cols">
+    <div>
+      <p class="lead">A sugar shield</p>
+      <ul class="tight">
+        <li>Blocks <b>opsonization</b> with antibodies</li>
+        <li>Blocks <b>complement</b>, <b>neutrophils</b> and <b>macrophages</b></li>
+      </ul>
+      <figure class="fig">
+        <img src="img/05-capsule.png" alt="The layers of the gram-negative envelope: periplasm, O-antigen and the K-capsule beyond it.">
+      </figure>
+    </div>
+    <figure class="fig">
+      <img src="img/05-capsule-em.jpg" alt="Electron micrographs comparing MG1655 with a strain carrying O antigen and a K capsule.">
+      <figcaption>MG1655 &nbsp;&middot;&nbsp; O antigen, K capsule, NFA <i>E. coli</i>
+        &nbsp;&mdash;&nbsp; Jann et al., 1990</figcaption>
+    </figure>
+  </div>
+  <template class="notes">A capsule is a layer of sugar outside the outer membrane, and it works by being in the way. Antibodies cannot get to the surface to mark the cell for destruction, complement cannot assemble on it, and phagocytes have nothing to grip. The micrographs are the thing to look at: the lab strain on one side and the encapsulated strain on the other, with a visible halo. That halo is most of the difference between an organism your immune system clears and one it does not.</template>
+  <template class="desc">Capsular polysaccharides as a sugar shield that blocks opsonization, complement, neutrophils and macrophages, with a diagram of the envelope layers and electron micrographs comparing MG1655 with an encapsulated strain.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 48 -->
+<article class="slide">
+  <h1 class="small">High-affinity iron transport</h1>
+  <figure class="fig">
+    <img src="img/05-iron.png" alt="A siderophore-based iron acquisition system: the molecule secreted, bound to iron, and retrieved through a dedicated receptor.">
+  </figure>
+  <template class="notes">The host keeps free iron effectively at zero, bound up in transferrin and lactoferrin, and that is an immune strategy in itself. A pathogen answers it by secreting siderophores, small molecules with a ferocious affinity for iron, and then retrieving them through a dedicated receptor. Recall FhuA on the Mach1 genotype, which is a ferrichrome transporter. That is one of these. It is also, as you saw, the door three phages use, which is a nice reminder that a surface receptor is a liability as well as an asset.</template>
+  <template class="desc">A high-affinity iron transport system: a siderophore secreted, binding iron, and being retrieved through a dedicated outer-membrane receptor.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 49 -->
+<article class="slide">
+  <h1 class="small">Vacuole modification</h1>
+  <div class="cols">
+    <div>
+      <p class="lead">Enables <b>intracellular survival</b></p>
+      <ul class="tight">
+        <li><i>Listeria</i></li>
+        <li><i>Shigella</i></li>
+        <li><i>Salmonella</i></li>
+      </ul>
+    </div>
+    <figure class="fig">
+      <img src="img/05-vacuole.png" alt="A bacterium taken into a host cell vacuole and modifying it to avoid destruction.">
+    </figure>
+  </div>
+  <template class="notes">When a phagocyte eats a bacterium it puts it in a vacuole and then acidifies it and fuses it with a lysosome. Some organisms have worked out how to interfere with that. They either stop the vacuole maturing, so they sit inside it safely, or they break out of it into the cytoplasm entirely. Listeria, Shigella and Salmonella all do a version of this, and it turns the immune system's own mechanism into a delivery service.</template>
+  <template class="desc">Vacuole modification enabling intracellular survival, as practised by Listeria, Shigella and Salmonella, with a diagram of a bacterium modifying the vacuole it was taken into.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 50 -->
+<article class="slide">
+  <h1 class="small">Toxins &mdash; and PAMPs, which are not the same thing</h1>
+  <div class="cols">
+    <div>
+      <p class="lead"><b>PAMPs</b> &mdash; pathogen-associated molecular patterns</p>
+      <ul class="tight">
+        <li>Endotoxin (<b>LPS</b>), lipoprotein, non-CpG DNA, fMet proteins</li>
+        <li>Structural features of <b>ordinary</b> prokaryotic biology</li>
+        <li>Elicit strong immune responses &mdash; and <b>cause sepsis</b></li>
+        <li>But <b>not</b> virulence factors as such</li>
+      </ul>
+      <p class="lead" style="margin-top:22px"><b>Toxins</b> &mdash; which are</p>
+      <ul class="tight">
+        <li>Shiga toxin, botulinum toxin, diphtheria toxin, hemolysins</li>
+        <li>Actively damage host cells: lysing them, or entering and stopping translation</li>
+      </ul>
+    </div>
+    <figure class="fig">
+      <img src="img/05-toxins.jpg" alt="The structure of a bacterial toxin and its route into a host cell.">
+    </figure>
+  </div>
+  <template class="notes">This distinction is worth getting right. LPS is lipopolysaccharide, the molecule containing fatty acids in the outer membrane; lipid A is its lipid portion; endotoxin is the generic term for molecules like it. Most bacteria have PAMPs, because PAMPs are just structural features of being a prokaryote, and the immune system recognises them for exactly that reason. They provoke a strong response and at high dose that response is sepsis, and sepsis kills. But they are not virulence factors, because they are not there to do harm; they are simply what a bacterium is made of. Toxins are different. A toxin is a dedicated molecule whose function is to damage the host: lysing cells, or getting inside them and shutting down translation. Those are virulence factors in the proper sense. Hold on to that distinction, because it decides the answer to the next two slides.</template>
+  <template class="desc">Toxins and PAMPs distinguished. PAMPs — endotoxin or LPS, lipoprotein, non-CpG DNA, fMet proteins — are structural features of ordinary prokaryotic biology that provoke strong immune responses and cause sepsis, but are not virulence factors. Toxins — Shiga, botulinum, diphtheria, hemolysins — actively damage host cells and are.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 51 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">Drinking bacteria</div>
+  </div>
+  <p>Jimmy drank a flask of MG1655. Is he going to die?</p>
+  <p class="astep" data-build="1"
+     data-note="No. Lab strains of E. coli are harmless taken by mouth. They do not survive the journey, they carry no toxin that can be delivered that way, and they have been domesticated to the point of being bad at colonising anything. This is worth saying plainly because people are frightened of the wrong thing."
+     data-desc="The answer: no. Lab strains of E. coli are harmless ingested orally, they do not survive, and no toxin present can be delivered that way."><b>No.</b> Lab strains are harmless by mouth &mdash; they will not survive the trip,
+     and they carry no toxin that can be delivered that way.</p>
+  <template class="notes">No. Lab strains of E. coli are harmless ingested orally. They will not survive, and no toxins are present that can be delivered this way.</template>
+  <template class="desc">A question for the room: Jimmy drank a flask of MG1655, is he going to die? The answer arrives on a click.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 52 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">Injecting bacteria</div>
+  </div>
+  <p>Jill injected herself with MG1655. Is she going to die?</p>
+  <p class="astep" data-build="1"
+     data-note="She might. And the reason is the distinction from two slides ago: it is not a toxin and it is not a virulence factor. It is the LPS. A millilitre of saturated culture is around a billion colony forming units, and injected into a human that is about where sepsis begins. The strain is harmless in the sense that it cannot infect her. It is dangerous in the sense that a billion cells' worth of endotoxin in the bloodstream provokes a response that can kill. Route of exposure is doing all the work here, not the genotype."
+     data-desc="The answer: she might. About a billion colony-forming units, which is one millilitre of saturated culture, injected into a human is where sepsis begins."><b>She might.</b> Around 1&times;10<sup>9</sup> CFU &mdash; one millilitre of saturated
+     culture &mdash; injected into a human is where <b>sepsis</b> begins. Not a toxin. The LPS.</p>
+  <template class="notes">She might. One millilitre of saturated culture, around a billion colony forming units, injected into a human is where sepsis begins.</template>
+  <template class="desc">A second question: Jill injected herself with MG1655, is she going to die? The answer arrives on a click.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
