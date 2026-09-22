@@ -54,12 +54,26 @@
 <!-- Six bullets in the source, and an animation here.  Five of the six
      are about a molecule's ends, and the sixth -- that Red does nothing
      to a circle -- is a rule you take on trust when it is written down
-     and is obvious the moment the circle is drawn.  seq/02-lambda-red.js. -->
+     and is obvious the moment the circle is drawn.
+
+     It is two slides because it names three proteins and used to draw
+     only one of them.  JCA: "what do gam and bet do?  Could we
+     illustrate this mechanism in more detail and more accurately?"  The
+     first slide is the donor DNA's fate and the second is the genome's
+     side of it, which is where the practical rules come from.
+     seq/02-lambda-red.js holds both. -->
 <article class="slide" data-seq="lambda-red">
-  <h1 class="small">Lambda Red recombinase</h1>
+  <h1 class="small">Lambda Red: three proteins, three jobs</h1>
   <div class="src">Proc Natl Acad Sci U S A. 2000 Jun 6;97(12):6640-5 &nbsp; PMID: 10829079</div>
-  <template class="notes">Lambda Red is the thing that makes the next twenty slides possible. Without it E. coli simply does not recombine at a useful rate, which is why all of this is harder in E. coli than it is in yeast.</template>
-  <template class="desc">A linear double-stranded donor DNA drawn above the genome, which carries a target region. Nothing is happening between them.</template>
+  <template class="notes">Lambda Red is the thing that makes the next twenty slides possible. Without it E. coli simply does not recombine at a useful rate, which is why all of this is harder in E. coli than it is in yeast. Three genes, and they are not three versions of one activity: Gam protects the DNA by inhibiting a host nuclease, Exo resects it, and Bet is the one that actually recombines.</template>
+  <template class="desc">The fate of a linear donor DNA in E. coli, in seven steps: RecBCD degrading it, the three lambda genes, Gam inhibiting RecBCD, Exo resecting the ends to three-prime tails, Bet coating those tails, and a circle that none of it can touch.</template>
+</article>
+
+<article class="slide" data-seq="red-fork">
+  <h1 class="small">Where the recombination happens</h1>
+  <div class="src">Mosberg, Lajoie &amp; Church, <em>Genetics</em> 2010</div>
+  <template class="notes">The half of this that usually gets left out. The target is not the duplex genome, it is the stretch of lagging-strand template that is single-stranded until the next Okazaki fragment covers it — and the two 40 bp arms you chose are sitting in that stretch. Exo takes one whole strand off the cassette, so what Bet is holding is a full-length single strand with A at one end and B at the other; both arms pair at once and everything between them loops out. The ending is a heteroduplex: the two strands of that locus disagree, they separate at the next division, and only one daughter has your cassette. Hence single-colony purification, and hence mid-log cells.</template>
+  <template class="desc">A replication fork with the A arm, the target gene and the B arm marked on the exposed lagging-strand template; the donor arriving as a full-length single strand; both arms pairing at once with the target and the cassette looping out; and the two daughter chromosomes that result, only one of which carries the cassette.</template>
 </article>
 
 <!-- ------------------------------------------------------------ 20 - 24 -->
@@ -159,7 +173,7 @@
     <img src="img/02-ko-pcr-product.png" alt="The PCR product in a sequence editor: forty bases of genome homology, P1, the FRT-CmR-FRT cassette, P2, and forty more bases of genome homology.">
     <figcaption>Knockout PCR product.seq &nbsp;&mdash;&nbsp; the two oligos on pKD3</figcaption>
   </figure>
-  <template class="notes">Forward oligo: atggatcatagtcttaattctttaaataatttcgatttccgtgtaggctggagctgcttc. Reverse oligo: tcagtgctctaactccagctctcttgcctgcatcatctgttgatgggaattagccatggtcc. Template: pKD3.</template>
+  <template class="notes">And this is what those two oligos give you on pKD3. Read it left to right and it is five pieces: forty bases of genome, P1, the cassette with its two FRT sites, P2, forty more bases of genome. Two of those five you chose and the other three were copied. Worth pointing out that the forty-base ends are single-stranded in neither sense here, they are part of a perfectly ordinary blunt PCR product; the homology does not do anything until lambda Red gets hold of it. The reaction itself, if you want to write it down: forward oligo atggatcatagtcttaattctttaaataatttcgatttccgtgtaggctggagctgcttc, reverse oligo tcagtgctctaactccagctctcttgcctgcatcatctgttgatgggaattagccatggtcc, template pKD3.</template>
   <template class="desc">The knockout PCR product in a sequence editor, carrying the marker cassette with forty bases of genome homology at each end.</template>
 </article>
 

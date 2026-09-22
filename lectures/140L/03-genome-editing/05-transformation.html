@@ -26,26 +26,30 @@
   <template class="desc">Section divider: Transformation and Plating.</template>
 </article>
 
+<!-- The note and the alt text here described a plate covered in colonies.
+     The picture is somebody pouring LB agar into empty dishes.  JCA:
+     "that note is hella wrong.  The note should be describing the process
+     of making lb agar and pouring plates."  Rewritten off
+     protocols/modules/preparation_of_lb_agar.js and pouring_petri_dishes.js. -->
 <article class="slide">
-  <h1 class="small">Petri dish</h1>
+  <h1 class="small">Where the plates come from</h1>
   <figure class="fig">
-    <img src="img/05-petri-dish.png" alt="A petri dish after plating, covered in a dense lawn of small colonies.">
+    <img src="img/05-petri-dish.png" alt="LB agar being poured from a 250 millilitre bottle into an open petri dish, with stacks of empty dishes waiting on the bench and poured plates stacked behind.">
   </figure>
-  <template class="notes">This is what too many cells looks like. You want countable colonies, not a lawn, which is mostly a question of how much you plate.</template>
-  <template class="desc">A photograph of a petri dish carrying a dense lawn of colonies.</template>
+  <template class="notes">Plates do not arrive from anywhere, somebody makes them. LB agar is a powder: a level tablespoon into a 250 millilitre bottle, fill it with DI water, shake to knock the powder off the bottom, and sterilise it immediately, because hydrated agar is not sterile and will grow something quite happily if you leave it on the bench. Twenty minutes at pressure in the cooker, then swirl it while it is still hot so it disperses and the bottom runs clear. Then you wait, because antibiotic goes in at about fifty-five degrees and not before: too hot and you destroy the drug, too cold and the agar sets in the bottle. The practical test is whether you can hold the bottle without it hurting. Every antibiotic stock in this lab is a thousand times, so it is one microlitre per millilitre of agar. Then pour, about twenty-five millilitres a plate, which is roughly ten plates from a bottle and about three sixteenths of an inch deep. That happens in the chemical hood over a lit Bunsen, because the hood has the only gas line, and the flame is not sterilising anything: the column of hot air rising off it stops dust and airborne spores settling into open plates. If bubbles form, pass the flame across the surface and they pop. Lids back on and let them set. The flame makes this supervisor work, so you will be asking for plates rather than pouring them, but it is worth knowing what you are being handed and why it has stripes on the side.</template>
+  <template class="desc">A photograph of LB agar being poured from a 250 millilitre bottle into a petri dish, with stacks of empty dishes waiting on the bench and poured plates stacked behind.</template>
 </article>
 
-<article class="slide">
+<!-- A screenshot of the protocol text replaced by the protocol being run.
+     JCA: "look up the cloning-tutorials cheat sheet for this.  It has a
+     timeline.  I think you want to animate each action with the timeline
+     above it indicating where you are at."  The timeline is the one off
+     the bench cheatsheet and every number comes from the same module the
+     cheatsheet is built from. -->
+<article class="slide" data-seq="kcm">
   <h1 class="small">KCM heat-shock transformation</h1>
-  <figure class="fig">
-    <img src="img/05-kcm-protocol.png" alt="The KCM heat-shock transformation protocol written out in thirteen numbered steps: thaw the competent cells, add KCM, hold on ice, heat shock at 42 degrees, recover in 2YT, and plate on selective medium.">
-    <figcaption>The protocol as it is written at the bench &mdash; thirteen steps from thawed cells to a plated transformation</figcaption>
-  </figure>
-  <p class="see">The same protocol, step by step:
-     <a href="../../../wetlab/transformation/">Transformation tutorial</a> &nbsp;&middot;&nbsp;
-     <a href="../../../cheatsheets/transformation.pdf">bench cheatsheet</a></p>
-  <template class="notes">This protocol describes the KCM heat shock protocol for E. coli transformation from a ligation reaction or pure DNA. If you are transforming pure DNA, you will likely want to dilute the material 10 to 20 times in water and use 1 microlitre of the dilution for transformation.</template>
-  <template class="desc">The KCM heat-shock transformation protocol in full, thirteen numbered steps, with links to the same protocol in the tutorials and on the bench cheatsheet.</template>
+  <template class="notes">The timeline across the top is the one from the bench cheatsheet. Watch where the red mark is as much as what is happening underneath it. Three things it says that a numbered list does not: the plates go in first because they are the only slow item and everything else waits on them; the ninety second heat shock is the shortest box on the row and the only one that matters, sitting between two holds that are ten times longer; and the rescue hangs underneath rather than sitting in the line, because it is a condition and not a step.</template>
+  <template class="desc">KCM heat-shock transformation run step by step, with the bench cheatsheet's timeline across the top and the current step picked out on it in red.</template>
 </article>
 
 <article class="slide">
@@ -59,6 +63,8 @@
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/05-kcm.js" defer></script>
 </body>
 </html>
 

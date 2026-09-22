@@ -26,7 +26,7 @@ const TX = 700, TW = 200;            /* the target gene on the genome */
 const FR = [
   { on:["whole","target"],
     cap:"any strain carrying the gene you want gone",
-    note:"It begins with any strain carrying the gene you want gone. No modification to the strain is required.",
+    note:"Any strain carrying the gene you want gone, and nothing done to it first. Compare that with the two methods we have just been through. CRIM needed an att site in the chromosome. Datsenko and Wanner needed the strain to be carrying pKD46 before the cassette arrives. Here the strain is whatever came out of the freezer, because everything the method needs rides in on the two plasmids.",
     desc:"A cell drawn as a rounded box with its genome along the floor and the gene to be removed marked on it." },
   { on:["whole","target","pcas"],
     cap:"pCas needs no modification &#183; it brings Cas9, lambda red under Pbad, and a guide against pMB1 under IPTG",

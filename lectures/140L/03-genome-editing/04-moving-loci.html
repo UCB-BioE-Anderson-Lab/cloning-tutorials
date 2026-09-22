@@ -16,12 +16,11 @@
 .slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:10px}
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
 .slide .qhead .q{font-size:38px;font-weight:700}
-.slide .qhead .btn{margin-left:auto}
 .slide p.lead{font-size:28px;color:var(--muted);margin:0 0 10px}
 .slide .astep{font-size:27px;margin:0 0 14px}
 .slide .astep b{color:var(--vermillion)}
 /* The two accessions, set as the lookup they are. */
-.slide svg.map{display:block;width:100%;height:auto;margin:6px 0 0}
+.slide svg.map{display:block;width:100%;height:auto;margin:14px 0 8px}
 .slide pre.acc{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   font-size:24px;line-height:1.5;margin:0 0 18px;white-space:pre;color:var(--muted)}
 </style>
@@ -54,20 +53,22 @@
   <div class="qhead">
     <img src="img/ponder.png" alt="" aria-hidden="true">
     <div class="q">glgS troubles</div>
-    <button class="btn" type="button" data-reveal>Show the answer</button>
   </div>
   <p>Susan did a markerless <em>glgS</em> knockout of MG1655, a second knockout with CmR of the <em>rfaE</em> gene in another MG1655, and then tried to move the <em>rfaE</em>::Cm marker into the <em>glgS</em> knockout strain by P1 transduction. Her products only have <em>rfaE</em> knocked out. What happened?</p>
+  <p class="lead">In PubMed, protein-search each gene, then navigate from the protein to the CDS to the GenBank sequence</p>
 
-  <div class="qshow">
-    <p class="lead" style="margin-top:34px">In PubMed, protein-search each gene, then navigate from the protein to the CDS to the GenBank sequence</p>
-  </div>
-
-  <div class="qans" hidden>
+  <div data-build="1"
+       data-note="So look them up. glgS runs from 3,191,739 to 3,191,939 and rfaE from 3,195,320 to 3,196,753, both on NC_000913, which is the MG1655 genome. Take the difference and the two genes are about three and a half kilobases apart. Now hold that against the number from the transduction slide: one P1 head carries about ninety kilobases."
+       data-desc="The two accessions appear: glgS in MG1655 at NC_000913 region 3,191,739 to 3,191,939, and rfaE at 3,195,320 to 3,196,753.">
     <p class="astep">Look up where the two genes actually are:</p>
     <pre class="acc">glgS in MG1655   NC_000913  REGION: 3191739..3191939
 rfaE in MG1655   NC_000913  REGION: 3195320..3196753</pre>
-    <p class="astep">Drawn to scale, that is the whole answer:</p>
-    <svg viewBox="0 0 1380 214" class="map" role="img" font-family="Helvetica Neue,Arial,Helvetica,sans-serif"
+  </div>
+
+  <div data-build="2"
+       data-note="Drawn to scale it is not close, it is touching. Three and a half kilobases inside a ninety kilobase window means every P1 fragment that carries rfaE carries glgS as well, and the glgS it carries is the donor's, which is wild type. Recombination puts the whole fragment in, so both genes arrive together. Selecting on chloramphenicol therefore selects for exactly the event that undoes her first knockout: she gets rfaE::Cm and a restored wild-type glgS every time. The fix is to do it the other way round, moving the marked knockout in first and making the markerless one second, or to pick a donor fragment that cannot reach both."
+       data-desc="The two genes drawn to scale inside one P1 fragment: a ninety kilobase bracket spans almost the whole slide, and glgS and rfaE sit as two touching marks near its middle, 3.4 kilobases apart. Below it, the explanation: the fragment that brings rfaE::Cm in brings the donor's wild-type glgS with it.">
+    <svg viewBox="0 0 1380 236" class="map" role="img" font-family="Helvetica Neue,Arial,Helvetica,sans-serif"
          aria-label="The two genes drawn to scale inside one P1 fragment: a 90 kilobase bracket spans almost the whole width, and glgS and rfaE sit as two touching marks near its middle, 3.4 kilobases apart.">
       <!-- the window P1 carries -->
       <path d="M70 60V96M1310 60V96M70 78H1310" stroke="#767676" stroke-width="2.5" fill="none"/>
@@ -82,11 +83,11 @@ rfaE in MG1655   NC_000913  REGION: 3195320..3196753</pre>
       <text x="736" y="130" font-size="23" fill="#ba3a13" font-weight="700">rfaE</text>
       <path d="M646 124L672 140M730 124L704 140" stroke="#767676" stroke-width="1.6" fill="none"/>
     </svg>
-    <p class="astep" style="margin-top:26px">You cannot move one without the other. The fragment that brings <em>rfaE</em>::Cm in brings the donor&rsquo;s <b>wild-type <em>glgS</em></b> with it, and recombination puts both in &mdash; so selecting chloramphenicol selects for exactly the event that undoes her first knockout.</p>
+    <p class="astep">You cannot move one without the other. The fragment that brings <em>rfaE</em>::Cm in brings the donor&rsquo;s <b>wild-type <em>glgS</em></b> with it, so selecting chloramphenicol selects for exactly the event that undoes her first knockout.</p>
   </div>
 
-  <template class="notes">If you look up where these genes are on the genome, you will find that they are well within 90kb of each other. What is undoubtedly happening is that the glgS knockout cassette is getting displaced by the wild-type locus upon transduction.</template>
-  <template class="desc">A question for the room about a P1 transduction that lost a knockout, with the hint that you should look up where the two genes sit on the genome. The answer is not on the slide.</template>
+  <template class="notes">Give them a moment with this one before clicking. Everything needed to answer it is on the slide already, plus one number from the transduction slide a few clicks back.</template>
+  <template class="desc">A question for the room about a P1 transduction that lost a knockout, with the hint that you should look up where the two genes sit on the genome. The answer arrives in two steps.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 57 -->
@@ -96,18 +97,6 @@ rfaE in MG1655   NC_000913  REGION: 3195320..3196753</pre>
   <template class="desc">A slide reading Questions.</template>
 </article>
 
-<script>
-document.addEventListener("click", function(e){
-  const rv = e.target.closest && e.target.closest("[data-reveal]");
-  if (!rv) return;
-  const sl = rv.closest(".slide"),
-        ans = sl.querySelector(".qans"), q = sl.querySelector(".qshow"),
-        opening = ans.hidden;
-  ans.hidden = !opening;
-  if (q) q.hidden = opening;
-  rv.textContent = opening ? "Hide the answer" : "Show the answer";
-});
-</script>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>

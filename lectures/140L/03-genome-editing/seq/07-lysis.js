@@ -2,16 +2,29 @@
  * 07-lysis.js — why alkaline lysis separates a plasmid from a genome.
  *
  * The slide was six volumes and three buffer names, and the one idea the
- * whole procedure turns on was only in the speaker note: a small circle
- * finds its partner strand again when the pH comes back down, and a 4.6
- * megabase chromosome does not.  Everything else on that slide is
- * pipetting.  So the pipetting stays as a list and this is the reason,
- * in four beats.
+ * whole procedure turns on was only in the speaker note.  Everything
+ * else on that slide is pipetting, so the pipetting stays as a list and
+ * this is the reason.
  *
- * The chromosome is drawn as one long line that wanders, the plasmid as
- * small circles, and the whole argument is the difference in length --
- * which is why the chromosome is drawn crossing itself and the plasmids
- * are not.  Nothing here is to scale; 4.6 Mb against 3 kb could not be.
+ * EVERYTHING HERE IS DOUBLE-STRANDED UNTIL IT IS NOT.  The first version
+ * drew the chromosome as one wandering line and the plasmids as plain
+ * rings, and JCA: "it doesn't look like a dna, too abstract."  Fair, and
+ * worse than cosmetic: the whole argument is about what happens to the
+ * TWO STRANDS, and a single line cannot show a strand losing its partner
+ * or keeping it.  So a duplex is two lines here, a single strand is one,
+ * and every state of the story is legible from the line count alone.
+ *
+ * WHAT THE STORY IS.  JCA: "what you should be illustrating is that
+ * NaOH separates the strands.  Then in the next beat acetate crashes the
+ * pH back down and the genome does not properly find its strand and gets
+ * crosslinked."  An earlier pass had the chromosome shearing on its way
+ * out of the cell and coming apart because it was in pieces; that is a
+ * distraction here and it is not what the slide is for.  The alkali
+ * separates the chromosome's two strands because nothing holds them
+ * together once the base pairing is gone.  It cannot do that to the
+ * plasmid, because a covalently closed circle's two strands are threaded
+ * through each other and neither has an end to thread out through.  That
+ * one difference is the whole method.
  *
  * Drawing kit and the build-once-then-fade rule: seq/parts.js.
  * ------------------------------------------------------------------ */
@@ -19,142 +32,239 @@
 "use strict";
 const G = window.GE, C = G.C;
 
-const CELL = {x:150, y:292, w:640, h:412, r:56};
-const TUBE = {x:980, y:262, w:250, h:442};
+const CELL = {x:150, y:292, w:750, h:412, r:56};
+const TUBE = {x:1037, y:262, w:136, h:500};   /* a 2.0 mL, from G.V */
+const W = 3;                          /* one strand's weight */
 
-/* One very long molecule folded into a small space: a serpentine with
-   rounded turns.  The first attempt used a sine of x, which draws a
-   sawtooth -- it reads as a graph, not as DNA.  What makes this read as
-   length is the folding, so the folding is the drawing. */
-function serpentine(x0, y0, w, h, rows, col, dash){
-  const gap = h / (rows - 1), r = gap / 2;
-  let d = "M" + x0 + " " + y0;
-  for (let i = 0; i < rows - 1; i++){
-    const y = y0 + i*gap, right = i % 2 === 0;
-    d += "H" + (right ? x0 + w : x0);
-    d += "a" + r + " " + r + " 0 0 " + (right ? 1 : 0) + " 0 " + gap;
-  }
-  d += "H" + ((rows - 1) % 2 === 0 ? x0 + w : x0);
-  const at = {d:d, fill:"none", stroke:col, "stroke-width":3,
-              "stroke-linecap":"round", "stroke-linejoin":"round"};
-  if (dash) at["stroke-dasharray"] = dash;
-  return G.el("path", at);
-}
-/* A plasmid lays down paper first, so it reads as being in front of the
-   chromosome rather than tangled into it. */
-function circles(spec, col, off){
-  const g = G.el("g", {});
-  spec.forEach(function(c){
-    g.appendChild(G.el("circle", {cx:c[0], cy:c[1], r:c[2] + 5, fill:C.paper, stroke:"none"}));
-    g.appendChild(G.el("circle", {cx:c[0], cy:c[1], r:c[2], fill:"none",
-      stroke:col, "stroke-width":3}));
-    if (off) g.appendChild(G.el("circle", {cx:c[0] + off, cy:c[1] + off, r:c[2],
-      fill:"none", stroke:col, "stroke-width":3, "stroke-dasharray":"7 6"}));
+const n1 = v => Math.round(v*10)/10;
+
+/* ------------------------------------------------------------------ *
+ * One strand, as a smooth line through a set of points, optionally
+ * offset perpendicular by `e`.  Draw it twice at +e and -e and you have
+ * a duplex; draw it once at 0 and you have a single strand.  Smooth
+ * rather than straight: the old tangle was a polyline and came out an
+ * angular star, which is the one thing DNA never looks like.
+ * ------------------------------------------------------------------ */
+function strand(pts, e, col, w){
+  const q = pts.map(function(p, i){
+    const a = pts[Math.max(0, i-1)], b = pts[Math.min(pts.length-1, i+1)];
+    let nx = -(b[1]-a[1]), ny = b[0]-a[0];
+    const L = Math.hypot(nx, ny) || 1;
+    return [p[0] + nx/L*e, p[1] + ny/L*e];
   });
+  let d = "M" + n1(q[0][0]) + " " + n1(q[0][1]);
+  for (let i = 1; i < q.length - 1; i++){
+    const mx = (q[i][0] + q[i+1][0])/2, my = (q[i][1] + q[i+1][1])/2;
+    d += "Q" + n1(q[i][0]) + " " + n1(q[i][1]) + " " + n1(mx) + " " + n1(my);
+  }
+  d += "L" + n1(q[q.length-1][0]) + " " + n1(q[q.length-1][1]);
+  return G.el("path", {d:d, fill:"none", stroke:col || C.ink, "stroke-width":w || W,
+    "stroke-linecap":"round", "stroke-linejoin":"round"});
+}
+function duplex(pts, e, col){
+  const g = G.el("g", {});
+  g.appendChild(strand(pts, e, col));
+  g.appendChild(strand(pts, -e, col));
   return g;
 }
-/* tucked between the folds, and sized so the paper underlay clears the
-   line on either side */
-const PLAS = [[268,372,26],[452,372,26],[636,372,26],
-              [360,500,26],[544,500,26],[268,628,26],[636,628,26]];
+
+/* The chromosome, folded into the cell: a serpentine sampled as points
+   so the same duplex() draws it as the others. */
+function serpPts(x0, y0, w, h, rows){
+  const gap = h/(rows - 1), r = gap/2, pts = [];
+  for (let i = 0; i < rows; i++){
+    const y = y0 + i*gap, right = i % 2 === 0;
+    const a = right ? x0 + r : x0 + w - r, b = right ? x0 + w - r : x0 + r;
+    for (let k = 0; k <= 10; k++) pts.push([a + (b - a)*k/10, y]);
+    if (i < rows - 1){
+      const cx = right ? x0 + w - r : x0 + r;
+      for (let k = 1; k <= 8; k++){
+        const t = Math.PI*k/8, s = right ? 1 : -1;
+        pts.push([cx + s*r*Math.sin(t), y + r - r*Math.cos(t)]);
+      }
+    }
+  }
+  return pts;
+}
+
+/* A plasmid: a covalently closed circle, so a duplex ring -- and once
+   the alkali has been through it, two loops that have lost their shape
+   but not their grip on each other.  Two neat offset circles read as two
+   intact plasmids side by side, which is the wrong reading entirely. */
+function lobePts(cx, cy, r, k, ph, n){
+  const pts = [];
+  for (let i = 0; i <= (n || 44); i++){
+    const a = 2*Math.PI*i/(n || 44);
+    const rr = r*(1 + k*Math.sin(2*a + ph) + k*0.55*Math.sin(3*a - ph*1.7));
+    pts.push([cx + rr*Math.cos(a), cy + rr*Math.sin(a)]);
+  }
+  return pts;
+}
+function ringPts(cx, cy, r, n){
+  const pts = [];
+  for (let i = 0; i <= (n || 40); i++){
+    const a = 2*Math.PI*i/(n || 40);
+    pts.push([cx + r*Math.cos(a), cy + r*Math.sin(a)]);
+  }
+  return pts;
+}
+/* THE PLASMIDS DO NOT SIT ON THE CHROMOSOME.  Threaded along its folds
+   they read as beads on a string -- JCA: "that looks like you are
+   illustrating histones on chromosome, or balls on a track.  It does not
+   read as 2 populations."  So the chromosome is a nucleoid occupying its
+   own part of the cell and the plasmids are in the cytoplasm beside it,
+   which is both what the picture has to say and where they actually are.
+   The same split keeps them clear of the tangle three beats later. */
+const PLAS = [[632,366,28],[752,340,28],[856,424,28],[624,492,28],
+              [748,470,28],[852,570,28],[660,616,28],[784,640,28]];
+/* And where they are once there is no cell to be in.  ONE BAND EACH,
+   for the rest of the sequence: the chromosome across the top and the
+   plasmids in a row underneath it.  They were interleaved and it read
+   as one population of beads on one molecule, which is the opposite of
+   what the slide is for.  Nothing here ever has to be on top of
+   anything else, so nothing is. */
+const PLASW = [[252,648,28],[408,624,28],[576,664,28],[718,632,28],
+               [892,658,28],[1030,622,28],[1198,662,28],[1338,638,28]];
+
+/* A deterministic wander, for the sheared fragments and for the tangle,
+   so the drawing is the same on every build. */
+function lcg(seed){
+  let t = seed;
+  return function(){ t = (t*1103515245 + 12345) % 2147483648; return t/2147483648; };
+}
+function walk(cx, cy, rx, ry, n, seed, step){
+  const rnd = lcg(seed), pts = [];
+  let a = rnd()*6.28, x = cx + (rnd()-0.5)*rx, y = cy + (rnd()-0.5)*ry;
+  for (let i = 0; i <= n; i++){
+    pts.push([x, y]);
+    a += (rnd() - 0.5)*1.9;
+    x += Math.cos(a)*step; y += Math.sin(a)*step;
+    /* steer back before it leaves the blob, so the walk stays a tangle
+       rather than wandering off across the slide */
+    if (Math.abs(x - cx) > rx) a = Math.atan2(cy - y, cx - x);
+    if (Math.abs(y - cy) > ry) a = Math.atan2(cy - y, cx - x);
+  }
+  return pts;
+}
+
+/* The chromosome once the alkali has been through it: one molecule, two
+   strands, no longer holding on to each other.  Long loose meanders
+   rather than anything folded, because the thing that kept it compact
+   was the cell it was in. */
+const SEPA = [[190,384],[282,436],[382,348],[496,400],[614,330],[728,394],
+              [848,342],[970,428],[1088,346],[1208,394],[1324,350],[1400,388]];
+const SEPB = [[190,514],[300,458],[416,538],[530,468],[648,520],[764,452],
+              [882,536],[1002,470],[1120,516],[1240,456],[1352,524],[1400,488]];
 
 const FR = [
-  { on:["chrom","plas"],
-    cap:"one cell: a <b>4.6 Mb</b> chromosome, and dozens of copies of a <b>3 kb</b> plasmid",
-    call:"both are double-stranded circles &#183; the only difference that matters is length",
-    note:"Start with what is in the cell. One chromosome, four and a half million base pairs of it, and some tens of copies of your plasmid at three thousand. Both are covalently closed circles. That difference in length is the only thing this method uses.",
-    desc:"A cell drawn as a rounded box. Inside it, one long line that wanders back and forth across the whole box and crosses itself, standing for the chromosome, and six small circles standing for copies of the plasmid." },
-  { on:["chromX","plasX","p2"],
-    cap:"<b>P2</b> is NaOH and SDS &#183; it pulls every base pair in the cell apart",
-    call:"the plasmid&rsquo;s two strands are still wound round each other &#183; they cannot float away",
-    note:"P2 is the lysis. The SDS dissolves the membrane and the sodium hydroxide denatures everything it can reach, chromosome and plasmid alike. But notice what denaturing does not do to a covalently closed circle: the two strands are interlinked, so they come unpaired without ever separating. This is the step you do not leave running, because given long enough even that gives way.",
-    desc:"Every molecule in the cell has come apart into single strands. The chromosome is now two long separate lines, and each plasmid is drawn as two circles slightly offset from each other, still threaded together." },
-  { on:["chromT","plas","n3"],
-    cap:"<b>N3</b> drops the pH back &#183; the small one finds its partner instantly",
-    call:"the chromosome cannot &#183; nothing that long finds the right strand again, so it tangles",
-    note:"N3 brings the pH back down and everything tries to re-pair. The plasmid manages it immediately, because its partner strand never went anywhere. The chromosome does not: at four and a half megabases the odds of a strand finding its own partner rather than a neighbour are nil, so it tangles with itself, with the other strands and with the SDS and protein. That difference is the entire method.",
-    desc:"The plasmids have gone back to being clean circles. The chromosome has collapsed into a dense tangle." },
-  { on:["chromT","plas","tube","n3"],
+  { on:["cell","chrom","plas"],
+    cap:"one cell: a <b>4.6 Mb</b> chromosome and dozens of copies of a <b>3 kb</b> plasmid",
+    call:"both are circular double-stranded DNA &#183; what differs is length, and length decides everything after this",
+    note:"Start with what is in the cell. One chromosome, four and a half million base pairs of it, folded into a nucleoid, and some tens of copies of your plasmid at three thousand, loose in the cytoplasm beside it. Both are double-stranded and both are covalently closed circles, which is why each is drawn with two lines. Hold on to both of those facts, because the method needs them separately: the length is what lets the chromosome's two strands drift apart once you denature it, and the closed circle is what stops the plasmid's doing the same.",
+    desc:"A cell drawn as a rounded box. In its left half the chromosome is folded back and forth into a compact nucleoid, drawn as a long double-stranded molecule. In the cytoplasm beside it, clear of the chromosome, eight small double-stranded rings standing for copies of the plasmid." },
+
+  { on:["sep","plasX","p2"],
+    cap:"<b>P2</b> is SDS and NaOH &#183; it bursts the cell and denatures everything in it",
+    call:"the chromosome loses all its organisation &#183; the plasmid&rsquo;s two strands stay topologically linked",
+    note:"P2 does two things at once. The SDS dissolves the membrane and denatures protein, and the sodium hydroxide denatures the DNA: every base pair in the tube lets go, the plasmid's included. Be clear that the plasmid denatures too, because the difference is not whether they come unpaired, it is what happens to them once they have. The chromosome is four and a half megabases of unpaired strand with nothing organising it any more, and its two strands simply drift apart. The plasmid's cannot drift anywhere: they are wound round each other in a closed circle and neither has an end to thread out through, so they stay interlinked however thoroughly the pairing is broken. That is why this is the step you do not leave running longer than the protocol says. Given long enough the plasmid denatures irreversibly too.",
+    desc:"The cell has burst. The chromosome is now two long single strands wandering separately across the field, one dark and one grey. Each plasmid is drawn as two rings offset from each other and crossing, unpaired but still threaded together." },
+
+  { on:["tangle","plasW","n3"],
+    cap:"<b>N3</b> neutralises &#183; the pH crashes back down and everything tries to re-pair",
+    call:"small and still linked &#8594; it renatures &#183; huge and disorganised &#8594; it ends up in the precipitate",
+    note:"N3 drops the pH back in one go and puts the tube into high salt at the same time, and everything tries to re-pair at once. The plasmid manages it, because its partner strand never went anywhere, and it zips straight back into a clean closed circle that stays in solution. The chromosome cannot. Its strands have drifted apart and there is nothing left holding the molecule in register, so instead of re-pairing cleanly it tangles with itself and with everything else in the tube. And the tube is full of things to tangle with: denatured protein, cell debris, and the SDS, which in potassium acetate comes out of solution as potassium dodecyl sulfate. The chromosome ends up inside that precipitate. Nothing is chemically cross-linked here, it is an aggregate, and that is the whole of the separation.",
+    desc:"The plasmid rings have gone back to being clean double-stranded circles. The chromosome has collapsed into a dense cross-linked tangle of strands crossing each other." },
+
+  { on:["tangle","tube","n3"],
     cap:"spin, and the tangle goes to the bottom",
     call:"the plasmid stays in solution, and the supernatant is what you put on the column",
-    note:"Five minutes in the centrifuge and the tangle pellets, taking the protein and the SDS with it. What is left floating is your plasmid, and that supernatant is what goes on the column.",
-    desc:"A tube beside the cell, with a dense pellet at its bottom and clear liquid above it carrying the small circles." }
+    note:"Five minutes in the centrifuge and the aggregate pellets, taking the protein, the debris and the precipitated detergent down with it. What is left floating is your plasmid, still double-stranded, still covalently closed, and that supernatant is the cleared lysate that goes on the column. And now you can see why the protocol keeps telling you not to vortex: shear the chromosome into short enough pieces and they re-pair well enough to stay in solution, and they come through into your prep. Inverting gently keeps it long, and long is what gets left behind.",
+    desc:"The tangle, and beside it a tube of liquid with a meniscus near the top, a dense pellet at the bottom, and the small double-stranded rings floating in the supernatant between them." }
 ];
+
 
 window.Deck.sequence("lysis", function(slide){
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const s = G.scene(slide, 786, 830);
 
-  s.add(G.el("rect", {x:CELL.x, y:CELL.y, width:CELL.w, height:CELL.h, rx:CELL.r,
-    fill:"none", stroke:C.ink, "stroke-width":3}));
+  s.part("cell", G.el("rect", {x:CELL.x, y:CELL.y, width:CELL.w, height:CELL.h,
+    rx:CELL.r, fill:"none", stroke:C.ink, "stroke-width":3}));
 
-  s.part("chrom",  serpentine(196, 330, 548, 340, 9, C.ink));
-  /* denatured: the chromosome as two separate lines, the plasmid as two
-     circles that are unpaired but still threaded through each other */
-  s.part("chromX", (function(){
+  s.part("chrom", duplex(serpPts(202, 350, 336, 296, 9), 4.5, C.ink));
+
+
+  /* denatured: the same molecule, its two strands no longer paired */
+  s.part("sep", (function(){
     const g = G.el("g", {});
-    g.appendChild(serpentine(196, 324, 548, 340, 9, C.ink));
-    g.appendChild(serpentine(196, 340, 548, 340, 9, C.muted, "9 7"));
+    g.appendChild(strand(SEPA, 0, C.ink));
+    g.appendChild(strand(SEPB, 0, C.muted));
     return g;
   })());
-  /* renatured: the chromosome is a tangle, drawn as many turns in a small
-     box, because that is what "could not find its partner" looks like */
-  /* A tangle is not a neat stack.  The serpentine was reused here at
-     first and it read as orderly -- parallel lines, evenly spaced, which
-     is the opposite of the point.  This is a scribble that crosses
-     itself, generated from a fixed seed so it never changes between
-     builds. */
-  s.part("chromT", (function(){
+
+  s.part("tangle", (function(){
     const g = G.el("g", {});
-    /* A CONSTANT angular step draws a rosette, however irregular the
-       radius is -- the golden angle gave a tidy geometric star, which is
-       not what a tangle looks like either.  Both the angle and the radius
-       have to wander, so both come off one small deterministic generator
-       and the drawing is the same on every build. */
-    function scribble(cx, cy, rx, ry, n, seed, col, dash){
-      let t = seed, a = 0, d = "";
-      const rnd = function(){ t = (t * 1103515245 + 12345) % 2147483648; return t / 2147483648; };
-      for (let i = 0; i <= n; i++){
-        a += 1.1 + rnd() * 3.4;
-        const k = 0.30 + 0.70 * rnd();
-        d += (i ? "L" : "M") + Math.round(cx + rx * k * Math.cos(a)) + " " +
-                               Math.round(cy + ry * k * Math.sin(a));
+    [[11, C.ink], [83, C.muted], [157, C.ink], [229, C.muted], [313, C.ink]]
+      .forEach(function(t, i){
+        g.appendChild(strand(walk(578, 428, 228, 104, 46, t[0], 42), 0, t[1]));
+      });
+    return g;
+  })());
+
+  /* The plasmids go on LAST so they sit in front of the chromosome: at
+     the tangle beat they were disappearing into it. */
+  /* The paper underlay is what puts a plasmid in FRONT of the
+     chromosome.  It was r+10, which bit a visible notch out of every
+     fragment it crossed -- and on a beat whose whole point is that the
+     chromosome is in pieces, a drawing must not invent extra breaks. */
+  function plasmids(where, off){
+    const g = G.el("g", {});
+    where.forEach(function(p){
+      g.appendChild(G.el("circle", {cx:p[0], cy:p[1], r:p[2] + 5,
+        fill:C.paper, stroke:"none"}));
+      if (off){
+        /* unpaired but still threaded: two rings of the same size whose
+           centres have drifted, so they cross rather than nest */
+        g.appendChild(strand(lobePts(p[0] - off*0.7, p[1] - off*0.7, p[2], 0.20, 0.7), 0, C.blue));
+        g.appendChild(strand(lobePts(p[0] + off*0.7, p[1] + off*0.7, p[2], 0.20, 2.5), 0, C.muted));
+      } else {
+        g.appendChild(duplex(ringPts(p[0], p[1], p[2]), 4.5, C.blue));
       }
-      const at = {d:d, fill:"none", stroke:col,
-        "stroke-width":3, "stroke-linecap":"round", "stroke-linejoin":"round"};
-      if (dash) at["stroke-dasharray"] = dash;
-      return G.el("path", at);
-    }
-    g.appendChild(scribble(468, 512, 200, 132, 54, 7, C.ink));
-    g.appendChild(scribble(468, 512, 186, 122, 54, 91, C.muted, "9 7"));
+    });
     return g;
-  })());
+  }
+  s.part("plas",  plasmids(PLAS,  0));
+  s.part("plasW", plasmids(PLASW, 0));
+  s.part("plasX", plasmids(PLASW, 13));
 
-  /* the plasmids go on LAST so they sit in front of the chromosome: at
-     the tangle beat the scribble is drawn over everything added before
-     it, and two of them were disappearing into it. */
-  s.part("plas",   circles(PLAS, C.blue));
-  s.part("plasX",  circles(PLAS, C.blue, 9));
-
-  s.part("p2", G.text(470, 262, "NaOH + SDS", 27, C.verm, 700));
-  s.part("n3", G.text(470, 262, "back to neutral", 27, C.verm, 700));
+  s.part("p2", G.text(760, 258, "P2 · SDS + NaOH", 27, C.verm, 700));
+  s.part("n3", G.text(578, 262, "N3 · neutralise + high salt", 27, C.verm, 700));
 
   s.part("tube", (function(){
-    const g = G.el("g", {});
-    g.appendChild(G.el("path", {
-      d:"M"+TUBE.x+" "+TUBE.y+"V"+(TUBE.y+TUBE.h-70)+
-        "Q"+(TUBE.x+TUBE.w/2)+" "+(TUBE.y+TUBE.h+50)+" "+(TUBE.x+TUBE.w)+" "+(TUBE.y+TUBE.h-70)+
-        "V"+TUBE.y, fill:"none", stroke:C.ink, "stroke-width":3, "stroke-linejoin":"round"}));
-    g.appendChild(G.el("path", {
-      d:"M"+(TUBE.x+42)+" "+(TUBE.y+TUBE.h-84)+
-        "Q"+(TUBE.x+TUBE.w/2)+" "+(TUBE.y+TUBE.h+34)+" "+(TUBE.x+TUBE.w-42)+" "+(TUBE.y+TUBE.h-84)+"Z",
-      fill:C.ink, "fill-opacity":".82", stroke:"none"}));
-    g.appendChild(G.text(TUBE.x+TUBE.w+22, TUBE.y+TUBE.h-24,
-      "chromosome, protein, SDS", 23, C.muted, 400, "start"));
-    g.appendChild(G.text(TUBE.x+TUBE.w+22, TUBE.y+120, "plasmid", 23, C.blue, 700, "start"));
-    [[1048,344,17],[1130,392,17],[1070,446,17],[1160,318,17]]
-      .forEach(c => g.appendChild(G.el("circle", {cx:c[0], cy:c[1], r:c[2],
-        fill:"none", stroke:C.blue, "stroke-width":3})));
+    const g = G.el("g", {}), V = G.V, T = TUBE;
+    const cn = V.CONE20, ML = T.y + 68;
+    /* The liquid.  Without it the tube is an outline with things
+       floating in mid-air, and the caption's word -- supernatant -- has
+       nothing on the slide to point at.  The glassware is the shared
+       2.0 mL from parts.js: this slide used to draw its own tube, a
+       squat thing with a round bottom, and it no longer matched the one
+       the bench slides put the same lysate in. */
+    g.appendChild(V.contents(T.x, T.w, T.y, T.h, ML, C.blue, ".09", cn));
+    g.appendChild(V.eppy(T.x, T.w, T.y, T.h, cn));
+    g.appendChild(V.pellet(T.x, T.w, T.y, T.h, C.ink, ".82", cn));
+    g.appendChild(G.text(T.x - 22, T.y + 250, "supernatant", 21, C.muted, 400, "end"));
+    /* two lines: naming everything in the pellet put the label off the
+       right edge of the slide */
+    g.appendChild(G.text(T.x + T.w + 22, T.y + T.h - 52,
+      "chromosomal DNA, protein,", 21, C.muted, 400, "start"));
+    g.appendChild(G.text(T.x + T.w + 22, T.y + T.h - 26,
+      "cell debris, precipitated SDS", 21, C.muted, 400, "start"));
+    g.appendChild(G.text(T.x + T.w + 22, T.y + 132, "plasmid", 23, C.blue, 700, "start"));
+    /* all four below the meniscus and above the pellet, placed by the
+       tube's own geometry so none of them can end up in the wall */
+    [[-.78,-.88],[.62,-.55],[-.66,-.10],[.55,.28]].forEach(function(c){
+      const q = V.inLiquid(T.x, T.w, T.y, T.h, ML, c[0], c[1], 28, cn);
+      if (q) g.appendChild(duplex(ringPts(q[0], q[1], 20), 4.5, C.blue));
+    });
     return g;
   })());
   s.finish();

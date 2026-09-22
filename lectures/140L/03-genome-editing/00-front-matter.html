@@ -21,16 +21,14 @@
  * One column with a hairline under each name, for the reason worked out on
  * the DNA Fabrication front matter: two columns of this many names read
  * across rather than down, and on the slide that sets the order of the
- * sections, order beats a fuller box.  The rules are on the li so the empty
- * frame is there from the first frame and the names land into it.
+ * sections, order beats a fuller box.  The whole map is there at once: it is
+ * the contents page, and a contents page that arrives a line at a time is a
+ * click tax on a slide nobody needs to be walked through.
  * --------------------------------------------------------------------- */
 .slide ul.map{margin:14px 0 0;padding:0;list-style:none;max-width:980px}
 .slide ul.map li{font-size:46px;line-height:1.24;padding:19px 0 17px;
   border-bottom:1px solid var(--rule);margin:0}
-.slide ul.map li span{opacity:0;transition:opacity .3s ease}
-.slide ul.map li.in span{opacity:1}
 .slide ul.map li.aside span{color:var(--muted)}
-@media (prefers-reduced-motion:reduce){.slide ul.map li span{transition:none}}
 
 /* "Why change the genome?" — six reasons, each with the phrase that is the
    reason itself picked out.  The source accents those phrases; they are
@@ -53,22 +51,16 @@
 <!-- ----------------------------------------------------------------- 2 -->
 <article class="slide">
   <ul class="map">
-    <li data-build="1"
-        data-note="First, phage att site integration. A circular plasmid recombines itself into one fixed place in the genome, using an integrase the phage brought with it. Section one."><span>Phage Integration</span></li>
-    <li data-build="2"
-        data-note="Site-specific recombinases come in the same section, because they are the same chemistry pointed at a different job: Flp and its FRT sites, used to take the marker back out afterwards."><span>Site-Specific Recombinases</span></li>
-    <li data-build="3"
-        data-note="Then homologous recombination, which is the one that puts DNA wherever you choose rather than where a phage chose. That is Datsenko/Wanner, and it is the longest section."><span>Homologous Recombination</span></li>
-    <li data-build="4"
-        data-note="Then CRISPR, which is homologous recombination again with a way to force it: cut the genome and the cell has to repair off your template or die."><span>CRISPR</span></li>
-    <li class="aside" data-build="5"
-        data-note="Conjugation and transposons get a mention rather than a mechanism. They are older than recombinant DNA and still in use, but we are not going to work either of them through."><span>Conjugation</span></li>
-    <li class="aside" data-build="5"><span>Transposons</span></li>
-    <li data-build="6"
-        data-note="And phage transduction, which moves ninety kilobases of somebody else's genome into your strain, and is how you combine two edits that were made in two different cells."><span>Phage Transduction</span></li>
+    <li><span>Phage Integration</span></li>
+    <li><span>Site-Specific Recombinases</span></li>
+    <li><span>Homologous Recombination</span></li>
+    <li><span>CRISPR</span></li>
+    <li class="aside"><span>Conjugation</span></li>
+    <li class="aside"><span>Transposons</span></li>
+    <li><span>Phage Transduction</span></li>
   </ul>
-  <template class="notes">We will discuss: Phage att site Integration, Site-Specific Recombinases, Homologous Recombination, CRISPR, Conjugation, Transposons, and Phage Transduction.</template>
-  <template class="desc">The map of the lecture, arriving a name at a time into an empty frame of seven ruled bands: Phage Integration, Site-Specific Recombinases, Homologous Recombination, CRISPR, then Conjugation and Transposons together and in grey, then Phage Transduction. The two in grey are the two the lecture mentions rather than works through.</template>
+  <template class="notes">The map of the next hour. Phage att site integration first: a circular plasmid recombines itself into one fixed place in the genome, using an integrase the phage brought with it. Site-specific recombinases come in the same section, because they are the same chemistry pointed at a different job &mdash; Flp and its FRT sites, used to take the marker back out afterwards. Then homologous recombination, which is the one that puts DNA wherever you choose rather than where a phage chose; that is Datsenko/Wanner, and it is the longest section. Then CRISPR, which is homologous recombination again with a way to force it: cut the genome and the cell has to repair off your template or die. Conjugation and transposons are in grey because they get a mention rather than a mechanism &mdash; older than recombinant DNA and still in use, but we are not going to work either of them through. And phage transduction, which moves ninety kilobases of somebody else's genome into your strain, and is how you combine two edits that were made in two different cells.</template>
+  <template class="desc">The map of the lecture: seven method names in one column, each on its own ruled band. Phage Integration, Site-Specific Recombinases, Homologous Recombination, CRISPR, then Conjugation and Transposons in grey, then Phage Transduction. The two in grey are the two the lecture mentions rather than works through.</template>
 </article>
 
 <!-- ----------------------------------------------------------------- 3 -->
@@ -92,7 +84,7 @@
         data-note="Finally, parking a DNA in the genome is the best way to get stable single-copy number. There are some plasmids that replicate at very low levels, but the only way to guarantee that your genes are at the exact same copy number as the native ones is to put them in the genome."
         data-desc="Sixth reason: it is the best way to get a stable single-copy number.">Best way to get stable &ldquo;<span class="accent">single-copy</span>&rdquo; number</li>
   </ul>
-  <template class="notes">There are a variety of reasons one might choose to modify the genome rather than introduce a plasmid. Most applications require both the addition of genes and removal of native genes. For example, one might knock out a branch of biosynthesis for small molecule production to divert flux towards a desired product.</template>
+  <template class="notes">Six reasons, and they are not equally weighted. The first is the one that actually forces the decision: most real projects need genes removed as well as added, and a plasmid can only add. Knocking out a branch of biosynthesis to push flux towards the product you want is the standard example, and there is no plasmid that does it. The next two are about scale and about keeping what you built: a large pathway does not fit comfortably on a plasmid, and a plasmid is lost whenever selection lapses, which over a fermentation it will. Then toxicity, which is the one people discover rather than plan for, because several plasmids in one cell fight over the replication and expression machinery. Local context matters when the thing you are changing has to sit in the operon it came from and be read with its neighbours. And single copy is the last one: on the genome a gene is present once per chromosome and stays there, which you cannot get from a plasmid at all.</template>
   <template class="desc">Six reasons to edit the genome rather than carry a plasmid, arriving one at a time, with the phrase that is the reason picked out in red in each. The first is on the slide already: most applications require both the addition of functions and the removal of existing genes, for example knocking out a branch of biosynthesis for small molecule production.</template>
 </article>
 
