@@ -33,6 +33,14 @@
 .slide svg .nofx .o,.slide svg.nofx .o{transition:none}
 @media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
 
+/* The locus map, drawn rather than screenshotted, and the caption under
+   it.  Both page-local: only this slide uses them. */
+.slide svg.map{display:block;width:100%;height:auto;margin:22px 0 4px}
+.slide p.cap{font-size:20px;color:var(--muted);margin:0}
+/* The answer to a question, revealed on a click. */
+.slide p.astep{font-size:30px;margin:26px 0 0}
+.slide p.astep b{color:var(--vermillion)}
+
 /* A question for the room, with the source deck's thinking figure. */
 .slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:10px}
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
@@ -191,10 +199,51 @@
 
 <article class="slide">
   <h1 class="small">And after Flp</h1>
-  <figure class="fig">
-    <img src="img/01-after-flp.png" alt="The genomic locus after Flp recombinase has excised the marker, leaving a single FRT site in the sequence.">
-    <figcaption>Genomic CRIM after flp.seq</figcaption>
-  </figure>
+  <!-- Was a screenshot of APE's own feature map.  JCA: "this slide is a
+       mess... I think you could draw something more clear preserving the
+       colors and shapes."  Redrawn with APE's exact feature colours,
+       sampled out of that PNG, but at readable widths instead of to
+       scale, which is what made the labels collide in the original: FRT
+       is a 34 bp feature next to a 1 kb gene. -->
+  <svg viewBox="0 0 1380 330" class="map" role="img"
+       font-family="Helvetica Neue,Arial,Helvetica,sans-serif"
+       aria-label="The genomic locus after Flp, drawn as a feature map: the five prime part of ycjI, Phi80-attL, the R0040 promoter, the gene for BamHI methyltransferase, a single FRT site, Phi80-attR, the three prime part of ycjI, and then kch. A bracket marks everything between the two att sites as what arrived on the CRIM, and a note says the chloramphenicol marker and the R6K origin left with the Flp circle.">
+    <defs>
+      <marker id="fend" markerWidth="9" markerHeight="9" refX="0" refY="4.5" orient="auto">
+        <path d="M0 0L9 4.5L0 9z" fill="#767676"/>
+      </marker>
+    </defs>
+    <path d="M40 132H1340" stroke="#111111" stroke-width="3" fill="none"/>
+    <g stroke="#111111" stroke-width="2">
+      <path d="M70 110h130l30 22l-30 22H70z" fill="#ff8040"/>
+      <path d="M244 110h100l30 22l-30 22H244z" fill="#5889a7"/>
+      <path d="M384 110h60l30 22l-30 22H384z" fill="#dfd0df"/>
+      <path d="M484 110h320l30 22l-30 22H484z" fill="#ff00ff"/>
+      <path d="M844 110h40l30 22l-30 22H844z" fill="#800080"/>
+      <path d="M924 110h100l30 22l-30 22H924z" fill="#5889a7"/>
+      <path d="M1064 110h60l30 22l-30 22H1064z" fill="#ff8040"/>
+      <path d="M1184 110h126l30 22l-30 22H1184z" fill="#ffff00"/>
+    </g>
+    <g font-size="23" fill="#111111" text-anchor="middle">
+      <text x="150" y="190">ycjI</text>
+      <text x="309" y="190">Phi80-<tspan font-weight="700">attL</tspan></text>
+      <text x="429" y="190">R0040</text>
+      <text x="669" y="190">gene (BamHI methyltransferase)</text>
+      <text x="879" y="190" font-weight="700">FRT</text>
+      <text x="989" y="190">Phi80-<tspan font-weight="700">attR</tspan></text>
+      <text x="1109" y="190">ycjI</text>
+      <text x="1262" y="190">kch</text>
+    </g>
+    <g font-size="21" fill="#767676" text-anchor="middle">
+      <text x="150" y="86">genome</text>
+      <text x="1262" y="86">genome</text>
+      <text x="1109" y="216">(other half)</text>
+    </g>
+    <path d="M244 236v16h810v-16" stroke="#767676" stroke-width="2" fill="none"/>
+    <text x="649" y="276" text-anchor="middle" font-size="22" fill="#767676">everything between the att sites arrived on the CRIM</text>
+    <text x="649" y="312" text-anchor="middle" font-size="23" fill="#ba3a13" font-weight="700">and what is not here any more: CmR, and the R6K origin</text>
+  </svg>
+  <p class="cap">Genomic CRIM after flp.seq &nbsp;&middot;&nbsp; drawn schematically, not to scale</p>
   <template class="notes">And this is what the locus looks like at the end. One FRT site, the gene, and nothing else you added. Compare it with the map two slides ago and the difference is the marker and the origin, both gone.</template>
   <template class="desc">The same genomic locus after Flp excision, with a single FRT site remaining.</template>
 </article>
@@ -206,6 +255,9 @@
     <div class="q">No pUC for CRIM</div>
   </div>
   <p>Why can&rsquo;t you use a normal pUC plasmid for doing CRIM integration?</p>
+  <p class="astep" data-build="1"
+     data-note="Say the sentence, then the consequence. A pUC origin replicates constitutively, so the plasmid survives in the cell whether or not it ever integrates, and every transformant is chloramphenicol resistant. There is nothing to select. The R6K origin cannot replicate in a strain without pir, so the only way to keep the marker is to have put it in the genome, and the plate does the sorting for you."
+     data-desc="The answer arrives: because a pUC origin replicates, so every transformant keeps the marker whether or not it integrated, and there is nothing left to select.">Because it would <b>replicate</b> &mdash; so every transformant keeps the marker whether or not it integrated, and there is <b>nothing to select</b>.</p>
   <template class="notes">A pUC origin replicates a plasmid constitutively. So, when you transform in the plasmid to integrate it, it will stably replicate as a plasmid and there will be no way to select for the integrants. You will just get a lawn of transformed cells. That is what the R6K origin buys you: in a strain without pir it cannot replicate at all, so the only cells that keep the marker are the ones that put it in the genome.</template>
   <template class="desc">A question for the room, marked with the deck's thinking figure: why can't you use a normal pUC plasmid for doing CRIM integration? The answer is not on the slide.</template>
 </article>
