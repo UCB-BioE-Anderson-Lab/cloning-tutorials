@@ -45,25 +45,17 @@
   <template class="desc">Section divider: Protein Localization. What distinct compartments exist in a bacterium, and where can a protein be directed?</template>
 </article>
 
-<!-- ---------------------------------------------------------------- 54 -->
-<article class="slide">
+<!-- The source has three borrowed figures for this: a labelled
+     cross-section, the same cross-section again with the difficulty of
+     each destination beside it, and a sec translocon diagram.  Three
+     pictures of one thing, and the thing is a journey, so it is drawn
+     once and walked.  The "in a nutshell" table on the next slide is
+     kept, because it is the summary you would want on screen while
+     talking, and the detail slides after it are kept too. -->
+<article class="slide" data-seq="localize">
   <h1 class="small">Five places a protein can be</h1>
-  <div class="cols">
-    <figure class="fig">
-      <img src="img/06-localization.png" alt="A cross-section of a gram-negative envelope: cytoplasm, inner membrane, periplasm, outer membrane, and the extracellular space beyond.">
-    </figure>
-    <div>
-      <ul class="tight">
-        <li><b>Cytoplasm</b> &mdash; where the central dogma happens</li>
-        <li><b>Inner membrane</b> &mdash; peripherally on either face, or fully integrated</li>
-        <li><b>Periplasm</b> &mdash; the gelatinous space between the membranes</li>
-        <li><b>Outer membrane</b></li>
-        <li><b>Secreted</b> &mdash; outside the cell entirely</li>
-      </ul>
-    </div>
-  </div>
-  <template class="notes">The largest compartment is the cytoplasm, where all the central dogma processes happen. Around it is the inner membrane, and a protein can be peripherally associated with either face of it or fully integrated into it. Beyond the inner membrane is a gelatinous environment called the periplasm, and proteins can be targeted there. Then the outer membrane, which also has proteins in it. And finally outside the cell. So there are five distinct regions in a gram-negative bacterium, and proteins get to them by targeting.</template>
-  <template class="desc">A cross-section of the gram-negative envelope beside the five compartments: cytoplasm, inner membrane, periplasm, outer membrane, and secreted.</template>
+  <template class="notes">Bacteria have no organelles, but they are not one compartment either. Five, and which one your protein ends up in is something you control — by doing nothing, or by adding twenty amino acids, or by building an apparatus.</template>
+  <template class="desc">The gram-negative envelope in cross-section, and a protein routed to each of its five compartments in turn: staying in the cytoplasm by default, threaded through the inner membrane by the sec translocon after a signal sequence, released into the periplasm when that signal is cleaved, inserted into the outer membrane as a beta barrel, and finally secreted through a dedicated apparatus.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 55 -->
@@ -225,5 +217,7 @@
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/06-localize.js" defer></script>
 </body>
 </html>

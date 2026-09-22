@@ -140,19 +140,15 @@
   <template class="desc">A diagram of beta-galactosidase hydrolysing lactose into glucose and galactose.</template>
 </article>
 
-<!-- ---------------------------------------------------------------- 37 -->
-<article class="slide">
+<!-- The source has two borrowed figures for this, one of them a
+     slideplayer screenshot.  Drawn instead, because the idea is that the
+     enzyme is in two pieces on two different molecules and cloning
+     breaks the small one, and two pieces drawn as two pieces explains
+     itself.  It also pays off the genotype walk three slides back. -->
+<article class="slide" data-seq="lacz">
   <h1 class="small">LacZ&alpha; complementation</h1>
-  <div class="cols">
-    <figure class="fig">
-      <img src="img/04-lacz-alpha-1.png" alt="The lacZ alpha fragment supplied on a plasmid complementing the lacZ delta M15 gene in the genome to reconstitute active beta-galactosidase.">
-    </figure>
-    <figure class="fig">
-      <img src="img/04-lacz-alpha-2.jpg" alt="A plate of blue and white colonies: blue where the alpha fragment is intact, white where an insert has disrupted it.">
-    </figure>
-  </div>
-  <template class="notes">The genome carries a beta-galactosidase missing a piece near its N-terminus, and it does not work. The plasmid carries that missing piece, the alpha fragment, and when both are present in the same cell they associate and the enzyme works. So a colony goes blue on X-gal when the plasmid's alpha fragment is intact. Cloning a fragment into the middle of that alpha sequence breaks it, and that colony stays white. Blue means empty vector, white means you got an insert. It is a screen and not a selection, so you still have to check, but it saves you picking twenty blue colonies.</template>
-  <template class="desc">LacZ-alpha complementation: the alpha fragment on the plasmid completing the lacZ delta M15 gene in the genome to give an active enzyme, and the resulting plate of blue and white colonies.</template>
+  <template class="notes">This is what the phi80 token on the genotype was for. The enzyme is in two pieces on two different molecules, and cloning breaks the small one.</template>
+  <template class="desc">LacZ-alpha complementation drawn out: the chromosome making a beta-galactosidase with a piece missing, the plasmid carrying that missing piece, the two associating into a working enzyme that cuts X-gal and turns a colony blue, and then an insert cloned into the middle of the alpha fragment so that nothing complements and the colony stays white.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 38 -->
@@ -242,5 +238,7 @@
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/04-lacz.js" defer></script>
 </body>
 </html>
