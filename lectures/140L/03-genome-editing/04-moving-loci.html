@@ -101,26 +101,55 @@
         data-note="Different machinery entirely, but the same bargain: integration without having to choose or find a target site, and the price is that you do not know where it went until you sequence it."
         data-desc="Fifth point: in human cells the same job is usually done with a virus, such as lentivirus, which integrates its payload at random.">In human cells the same job is usually viral &mdash; <b>lentivirus</b> integrates at random</li>
   </ul>
-    <svg viewBox="0 0 1380 300" class="map" role="img" font-family="Helvetica Neue,Arial,Helvetica,sans-serif"
-         aria-label="A transposon drawn as a bar with inward-pointing terminal repeats at each end and the payload between them, and three dashed arrows from it down to three different positions on a genome line below.">
-      <path d="M470 64h440v44h-440z" fill="none" stroke="#111111" stroke-width="3.5"/>
-      <path d="M470 64h58l-58 44z" fill="#ba3a13"/>
-      <path d="M910 64h-58l58 44z" fill="#ba3a13"/>
-      <text x="690" y="94" text-anchor="middle" font-size="25" fill="#111111" font-weight="700">your DNA</text>
-      <text x="470" y="46" text-anchor="middle" font-size="23" fill="#ba3a13" font-weight="700">repeat</text>
-      <text x="910" y="46" text-anchor="middle" font-size="23" fill="#ba3a13" font-weight="700">repeat</text>
-      <path d="M540 116C470 160 360 176 286 210M690 116V206M840 116C912 160 1018 176 1092 210"
-            stroke="#767676" stroke-width="2.4" fill="none" stroke-dasharray="7 6"/>
-      <path d="M277 196l10 18l12 -16M681 194l9 18l9 -18M1083 196l10 18l12 -16"
-            stroke="#767676" stroke-width="2.4" fill="none"/>
-      <path d="M90 240H1290" stroke="#111111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-      <rect x="262" y="228" width="50" height="24" fill="#ba3a13" fill-opacity=".55"/>
-      <rect x="666" y="228" width="50" height="24" fill="#ba3a13" fill-opacity=".55"/>
-      <rect x="1068" y="228" width="50" height="24" fill="#ba3a13" fill-opacity=".55"/>
-      <text x="690" y="288" text-anchor="middle" font-size="23" fill="#767676">the genome &#183; wherever it lands</text>
+    <svg viewBox="0 0 1380 406" class="map" role="img" font-family="Helvetica Neue,Arial,Helvetica,sans-serif"
+         aria-label="Transposition in three panels. One: the DNA you want to insert, drawn as a bar with an inward-pointing terminal repeat at each end. Two: transposase wraps both repeats and holds them together, so the DNA between them loops out below the enzyme; the enzyme and the DNA it holds are the transposome. Three: it cuts the transposon out and pastes it into the genome at a random site, here in the middle of a gene, splitting the gene in two.">
+      <g font-size="25" font-weight="700" fill="#ffffff">
+        <circle cx="58" cy="36" r="19" fill="#ba3a13"/><text x="58" y="45" text-anchor="middle">1</text>
+        <circle cx="516" cy="36" r="19" fill="#ba3a13"/><text x="516" y="45" text-anchor="middle">2</text>
+        <circle cx="966" cy="36" r="19" fill="#ba3a13"/><text x="966" y="45" text-anchor="middle">3</text>
+      </g>
+
+      <!-- 1.  the construct.  The backbone stops either side of the bar
+           rather than running through it. -->
+      <path d="M58 148H124M368 148H434" stroke="#111111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M124 126h244v44H124z" fill="#004373" fill-opacity=".12" stroke="#004373" stroke-width="2.6"/>
+      <path d="M124 126L168 148L124 170z" fill="#ba3a13"/>
+      <path d="M368 126L324 148L368 170z" fill="#ba3a13"/>
+      <text x="246" y="157" text-anchor="middle" font-size="24" fill="#004373" font-weight="700">your DNA</text>
+      <text x="246" y="206" text-anchor="middle" font-size="22" fill="#ba3a13" font-weight="700">a terminal repeat at each end</text>
+      <text x="246" y="236" text-anchor="middle" font-size="22" fill="#767676">that is the only thing you add</text>
+
+      <!-- 2.  the transposome: the enzyme is a horseshoe that wraps both
+           ends, and the DNA between them has to loop out through the gap
+           in it.  The cavity is cut wide enough for the loop to hang
+           clear of the two legs. -->
+      <path d="M600 272C592 152 640 110 706 110C772 110 820 152 812 272L764 272C760 216 740 198 706 198C672 198 652 216 648 272Z"
+            fill="#111111" fill-opacity=".08" stroke="#111111" stroke-width="2.8" stroke-opacity=".6"
+            stroke-linejoin="round"/>
+      <!-- the loop leaves each repeat from its OUTER face, which is where
+           the rest of the transposon actually continues -->
+      <path d="M668 214C642 258 652 330 706 330C760 330 770 258 744 214"
+            stroke="#004373" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M668 194L706 212L668 230z" fill="#ba3a13"/>
+      <path d="M744 194L706 212L744 230z" fill="#ba3a13"/>
+      <text x="706" y="96" text-anchor="middle" font-size="23" fill="#111111" font-weight="700">transposase</text>
+      <text x="706" y="362" text-anchor="middle" font-size="22" fill="#767676">both ends held, so the DNA loops out</text>
+      <text x="706" y="392" text-anchor="middle" font-size="23" fill="#111111" font-weight="700">enzyme + DNA = transposome</text>
+
+      <!-- 3.  pasted in, in the middle of something -->
+      <path d="M902 148h50m-15-12l15 12l-15 12" stroke="#ba3a13" stroke-width="3.2" fill="none"/>
+      <path d="M966 148H1004M1322 148H1348" stroke="#111111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M1004 130h78v36h-78z" fill="#a99011" fill-opacity=".38" stroke="#a99011" stroke-width="2.4"/>
+      <path d="M1244 130h78v36h-78z" fill="#a99011" fill-opacity=".38" stroke="#a99011" stroke-width="2.4"/>
+      <path d="M1082 126h162v44h-162z" fill="#004373" fill-opacity=".12" stroke="#004373" stroke-width="2.6"/>
+      <path d="M1082 126L1120 148L1082 170z" fill="#ba3a13"/>
+      <path d="M1244 126L1206 148L1244 170z" fill="#ba3a13"/>
+      <text x="1163" y="206" text-anchor="middle" font-size="22" fill="#004373" font-weight="700">wherever it lands</text>
+      <text x="1163" y="236" text-anchor="middle" font-size="22" fill="#a99011" font-weight="700">and whatever it landed in</text>
+      <text x="1163" y="262" text-anchor="middle" font-size="22" fill="#a99011" font-weight="700">is now in two pieces</text>
     </svg>
-  <template class="notes">Transposons are for the case where random is what you want. If you are asking which gene does something, or hunting for an insertion that gives you a phenotype, you do not want one defined edit. You want ten thousand strains with the DNA in ten thousand different places, and then a screen. Everything else in this lecture has been about control over where the DNA goes; this is the one method that deliberately gives that up.</template>
-  <template class="desc">Transposons, in five points: random insertion is the point; put terminal repeats on the ends of the DNA; mix with transposase and transform, and it inserts wherever it lands; or encode it on a plasmid and conjugate it in; and in human cells the same job is usually done with a lentivirus.</template>
+  <template class="notes">Transposons are for the case where random is what you want. If you are asking which gene does something, or hunting for an insertion that gives you a phenotype, you do not want one defined edit. You want ten thousand strains with the DNA in ten thousand different places, and then a screen. Everything else in this lecture has been about control over where the DNA goes; this is the one method that deliberately gives that up. The picture is worth walking: the transposase grabs both terminal repeats and holds them against each other, which forces everything between them into a loop, and that complex of enzyme and DNA is what is called a transposome. It is a real thing you can buy in a tube, preloaded, and electroporate straight into cells. Once it is in, it cuts at both repeats and pastes the whole loop somewhere else, and nothing about the choice of somewhere else is yours.</template>
+  <template class="desc">Transposons, in five points: random insertion is the point; put terminal repeats on the ends of the DNA; mix with transposase and transform, and it inserts wherever it lands; or encode it on a plasmid and conjugate it in; and in human cells the same job is usually done with a lentivirus. Beside them, a three-panel figure: the construct with a terminal repeat at each end, then transposase gripping both repeats so the DNA between them loops out, which is the transposome, and then the transposon pasted into the middle of a gene in the genome.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 55 -->
