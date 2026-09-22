@@ -36,6 +36,93 @@
   <template class="desc">Section divider: Conjugation, Transposition, and Transduction. Knocking DNAs in and out at random with transposons, and moving genome loci between strains by phage transduction or conjugation.</template>
 </article>
 
+<!-- Conjugation and transposons were a sentence each on the roadmap and
+     nothing in the deck, which is why they were greyed there.  JCA asked
+     for a slide each so they could be ungreyed.  Deliberately two slides
+     and not two sequences: "that's all we will say about it". -->
+<article class="slide">
+  <h1 class="small">Conjugation</h1>
+  <p class="lead">For a strain that will not take DNA at all</p>
+  <ul class="tight">
+    <li>Some organisms cannot be transformed or electroporated, and no amount of technique fixes it</li>
+    <li data-build="1"
+        data-note="The engineering is almost nothing. An origin of transfer is a short sequence the transfer machinery nicks and threads a single strand through. It is the only thing you add."
+        data-desc="Second point: put an oriT, an origin of transfer, on your plasmid. That is the only change to the DNA.">Put an <b>oriT</b> on your plasmid &mdash; that is the only change to the DNA</li>
+    <li data-build="2"
+        data-note="The machinery itself is far too big to put on your plasmid, so it lives in the donor strain instead. WM3064 carries the RP4 transfer functions in its chromosome and will mobilise anything carrying an oriT."
+        data-desc="Third point: transform the plasmid into a donor E. coli that carries the RP4 conjugation machinery, usually the strain WM3064.">Transform it into a donor <i>E. coli</i> carrying the <b>RP4</b> machinery &mdash; usually <b>WM3064</b></li>
+    <li data-build="3"
+        data-note="Mix them on a plate and leave them a few hours. Nothing goes through the medium: the donor makes contact and a single strand is pulled across and copied on both sides, so both cells end up with a copy."
+        data-desc="Fourth point: mix donor and recipient on a plate, and the plasmid is donated from one cell to the other.">Mix donor and recipient on a plate, and the plasmid is <b>donated</b> cell to cell</li>
+    <li data-build="4"
+        data-note="And then you have to get rid of the donor, which is the one practical wrinkle. WM3064 is a diaminopimelate auxotroph: leave DAP out of the selection plate and the donor cannot grow, so everything that comes up is a recipient. Worth checking the genotype of whatever strain you are handed before you rely on that, but it is why that particular strain is the one everybody uses."
+        data-desc="Fifth point: select for the plasmid and against the donor strain.">Then select <b>for</b> the plasmid and <b>against</b> the donor</li>
+  </ul>
+    <svg viewBox="0 0 1380 288" class="map" role="img" font-family="Helvetica Neue,Arial,Helvetica,sans-serif"
+         aria-label="A donor cell on the left holding a plasmid marked oriT, joined to a recipient cell on the right by a mating bridge, with a copy of the plasmid crossing the bridge and a copy in the recipient at the end.">
+      <rect x="90" y="74" width="336" height="150" rx="66" fill="none" stroke="#111111" stroke-width="3.5"/>
+      <rect x="954" y="74" width="336" height="150" rx="66" fill="none" stroke="#111111" stroke-width="3.5"/>
+      <path d="M426 128H954M426 170H954" stroke="#111111" stroke-width="3" fill="none"/>
+      <circle cx="258" cy="149" r="36" fill="none" stroke="#004373" stroke-width="3.2"/>
+      <circle cx="258" cy="149" r="28" fill="none" stroke="#004373" stroke-width="3.2"/>
+      <rect x="250" y="109" width="16" height="10" fill="#ba3a13"/>
+      <text x="258" y="98" text-anchor="middle" font-size="23" fill="#ba3a13" font-weight="700">oriT</text>
+      <circle cx="690" cy="149" r="26" fill="none" stroke="#004373" stroke-width="2.6" stroke-dasharray="6 5"/>
+      <circle cx="690" cy="149" r="19" fill="none" stroke="#004373" stroke-width="2.6" stroke-dasharray="6 5"/>
+      <path d="M790 149h74m-20-14l20 14l-20 14" stroke="#004373" stroke-width="3" fill="none"/>
+      <circle cx="1122" cy="149" r="36" fill="none" stroke="#004373" stroke-width="3.2"/>
+      <circle cx="1122" cy="149" r="28" fill="none" stroke="#004373" stroke-width="3.2"/>
+      <rect x="1114" y="109" width="16" height="10" fill="#ba3a13"/>
+      <text x="258" y="60" text-anchor="middle" font-size="25" fill="#111111" font-weight="700">donor</text>
+      <text x="258" y="258" text-anchor="middle" font-size="23" fill="#767676">WM3064, carries RP4</text>
+      <text x="1122" y="60" text-anchor="middle" font-size="25" fill="#111111" font-weight="700">recipient</text>
+      <text x="1122" y="258" text-anchor="middle" font-size="23" fill="#767676">will not transform</text>
+      <text x="690" y="258" text-anchor="middle" font-size="23" fill="#767676">one strand across, copied both sides</text>
+    </svg>
+  <template class="notes">This is the one to reach for when a strain simply will not take DNA. Transformation and electroporation both work by damaging the envelope enough to let DNA through, and there are plenty of organisms where that either does not work at all or kills the cell first. Conjugation does not go through the outside of the cell in that way: the donor makes physical contact and the DNA is handed across. And the part that makes it usable is how little you have to do to your own construct.</template>
+  <template class="desc">Conjugation, in five points: some strains cannot be transformed at all; put an oriT on the plasmid; transform it into a donor carrying the RP4 machinery, usually WM3064; mix donor and recipient on a plate so the plasmid is donated cell to cell; then select for the plasmid and against the donor.</template>
+</article>
+
+<article class="slide">
+  <h1 class="small">Transposons</h1>
+  <p class="lead">For putting DNA in the genome when you do not care where</p>
+  <ul class="tight">
+    <li>Random insertion, and that is the <b>point</b> &mdash; one library of strains, each with the payload somewhere different</li>
+    <li data-build="1"
+        data-note="The terminal repeats are the sequences the enzyme recognises. Everything between them is cargo and the enzyme does not care what it is."
+        data-desc="Second point: put terminal repeats on the ends of the DNA you want to insert.">Put <b>terminal repeats</b> on the ends of the DNA you want in</li>
+    <li data-build="2"
+        data-note="Transposase cuts at those repeats and pastes the whole thing into a more or less random site in the genome. You can electroporate a preformed complex of enzyme and DNA, or put the transposase gene on the same plasmid and let the cell make it."
+        data-desc="Third point: mix it with transposase, transform, and it inserts wherever it lands.">Mix with <b>transposase</b>, transform, and it inserts <b>wherever it lands</b></li>
+    <li data-build="3"
+        data-note="Which is what ties this back to the slide before. A transposon on a conjugative plasmid is the standard way to mutagenise an organism you cannot transform: conjugation gets it in, the transposase puts it somewhere, and the plasmid itself cannot replicate so it is lost."
+        data-desc="Fourth point: or encode the whole thing on a plasmid and conjugate it in, for a strain that will not transform.">Or encode it on a plasmid and <b>conjugate it in</b> &mdash; for a strain that will not transform</li>
+    <li data-build="4"
+        data-note="Different machinery entirely, but the same bargain: integration without having to choose or find a target site, and the price is that you do not know where it went until you sequence it."
+        data-desc="Fifth point: in human cells the same job is usually done with a virus, such as lentivirus, which integrates its payload at random.">In human cells the same job is usually viral &mdash; <b>lentivirus</b> integrates at random</li>
+  </ul>
+    <svg viewBox="0 0 1380 300" class="map" role="img" font-family="Helvetica Neue,Arial,Helvetica,sans-serif"
+         aria-label="A transposon drawn as a bar with inward-pointing terminal repeats at each end and the payload between them, and three dashed arrows from it down to three different positions on a genome line below.">
+      <path d="M470 64h440v44h-440z" fill="none" stroke="#111111" stroke-width="3.5"/>
+      <path d="M470 64h58l-58 44z" fill="#ba3a13"/>
+      <path d="M910 64h-58l58 44z" fill="#ba3a13"/>
+      <text x="690" y="94" text-anchor="middle" font-size="25" fill="#111111" font-weight="700">your DNA</text>
+      <text x="470" y="46" text-anchor="middle" font-size="23" fill="#ba3a13" font-weight="700">repeat</text>
+      <text x="910" y="46" text-anchor="middle" font-size="23" fill="#ba3a13" font-weight="700">repeat</text>
+      <path d="M540 116C470 160 360 176 286 210M690 116V206M840 116C912 160 1018 176 1092 210"
+            stroke="#767676" stroke-width="2.4" fill="none" stroke-dasharray="7 6"/>
+      <path d="M277 196l10 18l12 -16M681 194l9 18l9 -18M1083 196l10 18l12 -16"
+            stroke="#767676" stroke-width="2.4" fill="none"/>
+      <path d="M90 240H1290" stroke="#111111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <rect x="262" y="228" width="50" height="24" fill="#ba3a13" fill-opacity=".55"/>
+      <rect x="666" y="228" width="50" height="24" fill="#ba3a13" fill-opacity=".55"/>
+      <rect x="1068" y="228" width="50" height="24" fill="#ba3a13" fill-opacity=".55"/>
+      <text x="690" y="288" text-anchor="middle" font-size="23" fill="#767676">the genome &#183; wherever it lands</text>
+    </svg>
+  <template class="notes">Transposons are for the case where random is what you want. If you are asking which gene does something, or hunting for an insertion that gives you a phenotype, you do not want one defined edit. You want ten thousand strains with the DNA in ten thousand different places, and then a screen. Everything else in this lecture has been about control over where the DNA goes; this is the one method that deliberately gives that up.</template>
+  <template class="desc">Transposons, in five points: random insertion is the point; put terminal repeats on the ends of the DNA; mix with transposase and transform, and it inserts wherever it lands; or encode it on a plasmid and conjugate it in; and in human cells the same job is usually done with a lentivirus.</template>
+</article>
+
 <!-- ---------------------------------------------------------------- 55 -->
 <!-- The source has a borrowed figure here.  It is drawn instead, because
      the method turns on a packaging mistake that happens about two
@@ -93,7 +180,7 @@ rfaE in MG1655   NC_000913  REGION: 3195320..3196753</pre>
 <!-- ---------------------------------------------------------------- 57 -->
 <article class="slide">
   <h1>Questions?</h1>
-  <template class="notes">That is the lecture. Four ways to change a genome and two ways to move a change you already have.</template>
+  <template class="notes">That is the lecture, and it adds up to the seven names on the map at the start. Four ways to put DNA into a genome: a phage att site, homologous recombination, CRISPR forcing that recombination, and a transposon when you do not care where it lands. One way to take the marker back out afterwards, which is Flp. And two ways to move a change between strains once you have made it: conjugation, and P1.</template>
   <template class="desc">A slide reading Questions.</template>
 </article>
 
