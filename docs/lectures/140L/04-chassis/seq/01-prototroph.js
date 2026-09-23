@@ -39,6 +39,12 @@ const OUT = ["DNA", "RNA", "protein", "membrane", "cell wall", "cofactors",
              "every metabolite"];
 
 const FR = [
+{ s:{ask:1},
+  cap:"you can make the answer as small as you like",
+  call:"by letting the <b>environment</b> do more of the work",
+  note:"Ask it first and let them try. The smallest living system — and then notice that the question is broken, because the answer depends entirely on what you are allowed to assume about the surroundings. A prion is one self-propagating protein conformation, and it only manages that because a cell supplies the gene, the ribosome, the energy and everything else. A virus encodes more and still borrows translation and metabolism wholesale. JCVI-syn3.0 is a real cell with five hundred and thirty-one kilobases and four hundred and seventy-three genes, and it got that small by being minimised in a rich medium, so every gene whose product the medium supplied is gone. None of those is a fact about life. They are facts about how generous somebody was being. So genome size on its own is not a useful definition, and what we need instead is a boundary that says what the environment is allowed to hand over.",
+  desc:"The opening claim: the minimum size of a living system depends entirely on how much the environment supplies." },
+
 { s:{in:1},
   cap:"state the environment, and the definition becomes an <b>experiment</b>",
   call:"one carbon source &#183; nitrogen, phosphorus, sulfur &#183; ions &#183; water",
@@ -66,6 +72,15 @@ window.Deck.sequence("prototroph", function(slide){
   function paint(v){
     const g = G.el("g", {});
 
+    if (v.ask > 0.02 && !(v.in > 0.02)){
+      const q = grp(v.ask);
+      q.appendChild(G.text(800, 440, "there is no single minimum.", 44, C.ink, 700));
+      q.appendChild(G.text(800, 512, "there is a trade.", 44, C.verm, 700));
+      q.appendChild(G.text(800, 588,
+        "a smaller encoded system \u00b7 more assumptions about the world",
+        26, C.muted, 400));
+      g.appendChild(q);
+    }
     const a = grp(v.in);
     IN.forEach(function(t, i){
       const y = 300 + i*58;
