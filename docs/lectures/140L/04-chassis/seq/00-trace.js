@@ -108,73 +108,66 @@ const PMB1 = [150, 240], J231 = [330, 514];
 /* ---- the chromosome and the donor ---------------------------------- */
 const ASPC = [480, 650], DON = [700, 900], DON_Y = 636;
 
-/* ---- the only list on the slide ------------------------------------ */
-const PROT = [["Cas9", "cas9"], ["Gam", "red"], ["Bet", "red"],
-              ["Exo", "red"], ["RepA", "repa"]];
-const CK_X = 1090, CK_Y0 = 318, CK_DY = 56;
-
-const EV = {
-  1: ["Cas9 is made, and has nothing to aim at."],
-  2: ["Gam blocks RecBCD — which is the only",
-      "reason a linear donor will survive."],
-  3: ["pTarget brings a guide that needs no inducer.",
-      "Cas9 finally has an address."],
-  4: ["Cut, then repaired off the donor.",
-      "Cells that cannot repair die.",
-      "That is the selection — there is no other."],
-  5: ["Plac fires. The guide it makes hits pMB1,",
-      "and pTarget has a pMB1 origin."],
-  6: ["RepA is the protein that fails at 42°.",
-      "No RepA, no pCas."]
-};
+/* ---- the only list on the slide, and it has three levels -----------
+ * Every biomolecule in the system gets a name and a row, sorted by what
+ * kind of molecule it is.  The Parts lecture is organised on the same
+ * three planes, so the room meets the frame here first. */
+const LEVELS = [
+  ["DNA", [["pCas", "pcas"], ["pTarget", "ptar"],
+           ["donor", "donor"], ["chromosome", "chr"]]],
+  ["RNA", [["sgRNA \u2715 aspC1", "g1"], ["sgRNA \u2715 pMB1", "g2"]]],
+  ["protein", [["Cas9", "cas9"], ["Gam", "red"], ["Bet", "red"],
+               ["Exo", "red"], ["RepA", "repa"]]]
+];
+const CK_X = 1070, CK_W = 330, CK_TOP = 286, CK_ROW = 32, CK_HEAD = 34, CK_GAP = 10;
 
 const FR = [
-{ s:{sc:1, step:0, pcas:1, repa:1},
+{ s:{sc:1, step:0, pcas:1, chr:1},
   cap:"before we go on — <b>work it out</b>",
   call:"which transcription units fire, when, and what does the product then do?",
-  note:"Before the next slide, an exercise, because this is the habit the whole back half of the course runs on. Here is the circuit. One plasmid to start with, four transcription units between the two plasmids, two origins. The six conditions along the top are the six lines from the slide before, in order. Work along them. At each one, which promoters are firing? What does that put in the cell? And what does the thing it made then do? Give the room a minute on it before you walk it, because the answer is not hard and the method is the entire point.",
-  desc:"A gene cartoon of pCas with its three transcription units and its origin, beside an empty checklist of the proteins in the system, and the six growth conditions along the top." },
+  note:"Before the next slide, an exercise, because this is the habit the whole back half of the course runs on. Here is the circuit on the left and, on the right, every molecule in the system by kind: the DNAs, the RNAs and the proteins. Four transcription units between the two plasmids, two origins, eleven molecules in total. The six conditions along the top are the six lines from the slide before, in order. Work along them. At each one, which promoters are firing? What does that put in the cell? And what does the thing it made then do? Give the room a minute on it before you walk it, because the answer is not hard and the method is the entire point.",
+  desc:"A gene cartoon of pCas with its transcription units, beside a list of every molecule in the system grouped into DNA, RNA and protein, and the six growth conditions along the top." },
 
-{ s:{sc:1, step:1, pcas:1, repa:1, cas9:1, ev:1},
+{ s:{sc:1, step:1, pcas:1, chr:1, cas9:1, repa:1},
   cap:"<b>Kan &#183; 30&#176;</b> &#183; the strain on its own",
   call:"a nuclease with no guide is an expensive way to do nothing",
   note:"First condition. Kanamycin at thirty degrees, which is just keeping pCas alive. The constitutive promoter fires, so Cas9 appears, and RepA is made and works because thirty degrees is permissive for it. So the cell is now full of Cas9, and Cas9 does nothing at all, because a guide is the only thing that tells it where to go and there is no guide in the cell.",
   desc:"At Kan and 30 degrees, Cas9 pops up off its constitutive promoter and RepA is working, so two boxes are ticked." },
 
-{ s:{sc:1, step:2, pcas:1, repa:1, cas9:1, red:1, ev:1},
+{ s:{sc:1, step:2, pcas:1, chr:1, cas9:1, repa:1, red:1},
   cap:"<b>+ arabinose</b> &#183; and now the order starts to matter",
   call:"Gam blocks RecBCD, which is the only reason a linear donor survives",
   note:"Add arabinose and the araBAD promoter fires, so three more proteins appear: Gam, Bet and Exo. Still nothing to cut. But look at what Gam does, because this is the answer to why the induction has to come first. Gam inhibits RecBCD, and RecBCD is the nuclease that chews up linear DNA in E. coli. The donor is linear. Electroporate it into cells that have not been induced and RecBCD destroys it, the break has nothing to repair from, and every cell dies. The order is not a convention, it is the mechanism.",
   desc:"Arabinose fires the araBAD promoter and Gam, Bet and Exo pop up, ticking three more boxes." },
 
-{ s:{sc:1, step:3, pcas:1, repa:1, cas9:1, red:1, ptar:1, g1:1, donor:1, ev:1},
+{ s:{sc:1, step:3, pcas:1, chr:1, cas9:1, repa:1, red:1, tardraw:1, ptar:1, g1:1, donor:1},
   cap:"<b>transform</b> &#183; two molecules arrive at once",
   call:"pTarget&#8217;s guide needs no inducer &#183; Cas9 finally has an address",
-  note:"Now electroporate, and two things land. The donor, which is linear and would already be gone if we had skipped the last step. And pTarget, which replicates from its own pMB1 origin and carries its guide under a constitutive promoter, so the guide appears immediately with no induction step. Notice that the guide is an RNA and not a protein, which is why nothing new appears on the checklist. The moment pTarget is in, Cas9 has an address, and the address is on the chromosome.",
-  desc:"pTarget and the linear donor arrive. pTarget's constitutive promoter makes a guide RNA, which is not a protein, so the checklist does not change." },
+  note:"Now electroporate, and two things land. The donor, which is linear and would already be gone if we had skipped the last step. And pTarget, which replicates from its own pMB1 origin and carries its guide under a constitutive promoter, so the guide appears immediately with no induction step. And watch where it lands on the list: the guide is an RNA, so it ticks on the RNA level and nothing appears under protein. Keep an eye on those three levels, because they are how we will organise everything from here, and a part is a thing that lives on one of them. The moment pTarget is in, Cas9 has an address, and the address is on the chromosome.",
+  desc:"pTarget and the linear donor arrive. pTarget's constitutive promoter makes a guide RNA, which ticks on the RNA level rather than the protein level." },
 
-{ s:{sc:1, step:4, pcas:1, repa:1, cas9:1, red:1, ptar:1, g1:1, edited:1, ev:1},
+{ s:{sc:1, step:4, pcas:1, chr:1, cas9:1, repa:1, red:1, tardraw:1, ptar:1, g1:1, edited:1},
   cap:"<b>Spec &#183; Kan</b> &#183; everything happens here",
   call:"the cut, the repair, and the death of everything that failed",
   note:"And this growth is where the entire experiment happens. Cas9 plus the guide cuts the chromosome at aspC1. The break is lethal on its own, because E. coli has no non-homologous end joining. Gam has kept the donor intact, Exo chews back a strand to leave overhangs, Bet anneals them onto the homology arms, and the deletion is installed. Any cell that failed at that is dead. Notice you never selected for the edit. You selected for two plasmids, and the edit is the only way to survive what those plasmids do to you.",
   desc:"During the growth, the chromosome is cut and repaired off the donor, the donor is consumed, and the chromosome now reads delta-aspC1." },
 
-{ s:{sc:1, step:5, pcas:1, repa:1, cas9:1, ptar:1, g2:1, edited:1, ev:1},
+{ s:{sc:1, step:5, pcas:1, chr:1, cas9:1, repa:1, tardraw:1, g2:1, edited:1},
   cap:"<b>+ IPTG</b> &#183; the plasmid you built removes itself",
   call:"pCas has been carrying a guide against pMB1 the whole time",
   note:"Now IPTG. The lac promoter on pCas fires, and it has been sitting there the whole time carrying a guide aimed at the pMB1 origin. pTarget has a pMB1 origin. So Cas9, which is still present, cuts pTarget, and pTarget is gone and the guide against aspC1 goes with it. pCas survives because its origin is repA101, not pMB1. That is a deliberate design choice and you can read it straight off the cartoon: the one origin the guide can reach is the one you want to lose. Also note the arabinose is gone by now, so lambda red has switched off.",
   desc:"IPTG fires the lac promoter, making a guide against pMB1, and pTarget is destroyed. Lambda-Red is off again because the arabinose is gone." },
 
-{ s:{sc:1, step:6, edited:1, ev:1},
+{ s:{sc:1, step:6, chr:1, edited:1},
   cap:"<b>42&#176;</b> &#183; and the last of it goes",
   call:"RepA is a protein, and 42&#176; is what it cannot do",
-  note:"And finally forty-two degrees. This one is worth saying out loud because people treat it as magic: the temperature does not melt the plasmid, it denatures a protein. RepA101 is the replication initiator, the ts allele stops working at forty-two, pCas cannot replicate, and it is diluted out over a few divisions. Every box on the checklist is now empty, both plasmids are gone, and what is left is a strain whose chromosome is missing aspC1 and which carries nothing else at all.",
-  desc:"At 42 degrees the temperature-sensitive RepA fails, pCas is lost, and every box on the checklist is empty." },
+  note:"And finally forty-two degrees. This one is worth saying out loud because people treat it as magic: the temperature does not melt the plasmid, it denatures a protein. RepA101 is the replication initiator, the ts allele stops working at forty-two, pCas cannot replicate, and it is diluted out over a few divisions. And look at the list: eleven molecules, and exactly one of them is still there. Both plasmids are gone, both guides are gone, every protein is gone, and what is left is a strain whose chromosome is missing aspC1 and which carries nothing else at all.",
+  desc:"At 42 degrees the temperature-sensitive RepA fails and pCas is lost. Of the eleven molecules listed, only the chromosome remains." },
 
-{ s:{sc:1, step:6, edited:1, pt:1},
+{ s:{sc:1, step:6, chr:1, edited:1, pt:1},
   cap:"none of that needed a mechanism you did not already have",
   call:"and the next slide is what happens when you skip it",
-  note:"Look back at what we just did. We needed a picture of the promoters, a list of what they make, and the conditions in order. Everything else followed from those three things. That is the habit, and it is the one thing to take from this lecture if you take nothing else, because from here on you are not designing DNA in a tube, you are predicting what a cell will do with the DNA you gave it. And the next slide is what happens when you skip it: an edit that is exactly right, in a cell that behaves as though you had deleted a gene you never touched.",
+  note:"Look back at what we just did. We needed a picture of the promoters, a list of every molecule in the cell sorted by whether it is DNA, RNA or protein, and the conditions in order. Everything else followed from those three things. That is the habit, and it is the one thing to take from this lecture if you take nothing else, because from here on you are not designing DNA in a tube, you are predicting what a cell will do with the DNA you gave it. And the next slide is what happens when you skip it: an edit that is exactly right, in a cell that behaves as though you had deleted a gene you never touched.",
   desc:"The point of the exercise: the whole procedure followed from the circuit, the proteins it makes, and the order of the conditions." }
 ];
 
@@ -234,8 +227,8 @@ window.Deck.sequence("trace", function(slide){
         rna((GPMB[0] + GPMB[1])/2, CAS_Y, CAS_P, "guide"));
 
     /* ---- pTarget --------------------------------------------------- */
-    if (v.ptar > 0.02){
-      const p = grp(v.ptar);
+    if (v.tardraw > 0.02){
+      const p = grp(v.tardraw);
       p.appendChild(backbone(TAR_Y, 150, 660, [PMB1, J231], C.blue));
       p.appendChild(ori(PMB1[0], PMB1[1], TAR_Y, "pMB1", C.blue));
       p.appendChild(promoter(J231[0] - 46, TAR_Y, C.blue));
@@ -278,32 +271,28 @@ window.Deck.sequence("trace", function(slide){
     ch.appendChild(G.text(150, CHR_Y + 46, "chromosome", 22, C.muted, 400, "start"));
     g.appendChild(ch);
 
-    /* ---- the only list on the slide -------------------------------- */
+    /* ---- every molecule in the system, by kind -------------------- */
     const k = grp(v.sc);
-    k.appendChild(G.text(CK_X, CK_Y0 - 42, "proteins in the cell", 21,
-      C.muted, 400, "start"));
-    PROT.forEach(function(row, i){
-      const y = CK_Y0 + CK_DY*i, on = (v[row[1]] || 0) > 0.5;
-      k.appendChild(G.el("rect", {x:CK_X, y:n1(y - 20), width:28, height:28, rx:6,
-        fill:on ? C.verm : "none", "fill-opacity":on ? ".8" : "0",
-        stroke:on ? C.verm : C.muted, "stroke-width":on ? 3 : 2}));
-      if (on) k.appendChild(path("M"+n1(CK_X + 7)+" "+n1(y - 6)+
-        "l6 7l9 -12", C.paper, 3));
-      k.appendChild(G.text(CK_X + 44, y, row[0], 25, on ? C.verm : C.muted,
-        on ? 700 : 400, "start"));
+    let cy = CK_TOP;
+    LEVELS.forEach(function(lv){
+      k.appendChild(G.text(CK_X, cy, lv[0], 18, C.muted, 700, "start"));
+      k.appendChild(path("M"+CK_X+" "+n1(cy + 10)+"H"+n1(CK_X + CK_W), C.muted, 1.4));
+      cy += CK_HEAD;
+      lv[1].forEach(function(row){
+        const on = (v[row[1]] || 0) > 0.5, y = cy;
+        k.appendChild(G.el("rect", {x:CK_X, y:n1(y - 17), width:22, height:22, rx:5,
+          fill:on ? C.verm : "none", "fill-opacity":on ? ".85" : "0",
+          stroke:on ? C.verm : C.muted, "stroke-width":on ? 2.6 : 1.8}));
+        if (on) k.appendChild(path("M"+n1(CK_X + 5)+" "+n1(y - 6)+
+          "l5 6l7 -10", C.paper, 2.6));
+        k.appendChild(G.text(CK_X + 34, y, row[0], 21, on ? C.verm : C.muted,
+          on ? 700 : 400, "start"));
+        cy += CK_ROW;
+      });
+      cy += CK_GAP;
     });
     g.appendChild(k);
 
-    /* ---- and what the proteins then do ----------------------------- */
-    if (v.ev > 0.02 && EV[step]){
-      const e = grp(v.ev), y0 = CK_Y0 + CK_DY*PROT.length + 18;
-      e.appendChild(path("M"+CK_X+" "+n1(y0 - 18)+"V"+n1(y0 - 18 + 34*EV[step].length),
-        C.verm, 3));
-      EV[step].forEach(function(line, i){
-        e.appendChild(G.text(CK_X + 22, y0 + 4 + i*34, line, 20, C.ink, 400, "start"));
-      });
-      g.appendChild(e);
-    }
     if (v.pt > 0.02){
       const p = grp(v.pt);
       ["what is on?", "what does it make?", "what does that then do?"]
