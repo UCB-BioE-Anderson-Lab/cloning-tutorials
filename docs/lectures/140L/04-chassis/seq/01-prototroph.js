@@ -33,6 +33,16 @@ function cell(cx, cy, r, col){
     stroke:col, "stroke-width":3});
 }
 
+/* The layer decomposition, as the consequence of the definition rather
+   than a diagram of its own: once you know what the core has to do, the
+   question "what is the rest of E. coli for" answers itself. */
+const BX0 = 230, BW = 1160, BBY = 330, BBH = 76;
+const LAY = [["information", 0.30, "#004373"], ["biosynthesis", 0.16, "#004373"],
+             ["robustness", 0.26, "#a99011"], ["ecological", 0.28, "#ba3a13"]];
+const BRACK = [[0, 1, "make another cell"],
+               [2, 2, "keep it alive when things change"],
+               [3, 3, "let it compete somewhere"]];
+
 const IN  = ["glucose", "NH₄⁺", "PO₄³⁻",
              "SO₄²⁻", "ions", "H₂O"];
 const OUT = ["DNA", "RNA", "protein", "membrane", "cell wall", "cofactors",
@@ -61,7 +71,13 @@ const FR = [
   cap:"if it grows here, it encodes the chemistry to <b>build itself</b>",
   call:"<b>prototrophy</b> &#183; and this is the boundary the rest of the lecture uses",
   note:"And if it grows, that is the whole result. Growth on a rich medium tells you the cell can reproduce when somebody hands it most of its parts. Growth on a defined minimal medium tells you the cell can construct itself, which is a completely different claim and a much more useful one. The word is prototrophy, and say the caveat out loud: prototrophy is always relative to a stated set of nutrients, so glucose and salts is an operational definition for a heterotroph like E. coli rather than a universal one. When the media slides come back later with LB and M9 and auxotrophic lab strains, they are demonstrations of this line, not a separate topic.",
-  desc:"Two cells, and the term prototrophy: if it grows on this medium it must encode the chemistry to build itself." }
+  desc:"Two cells, and the term prototrophy: if it grows on this medium it must encode the chemistry to build itself." },
+
+{ s:{bar:1},
+  cap:"so what is the other <b>2.6 Mb</b> of <em>E. coli</em> for?",
+  call:"it is a good chassis precisely because it is <b>not minimal</b>",
+  note:"And now the definition pays for itself, because it lets you ask what the rest of the genome is doing. The first stretch is the prototrophic core: replication, transcription, translation, a membrane, division, and the metabolic network that feeds all of it, which is the larger half of the two. After that is robustness, and none of it is needed to be alive: sensing, regulation, stress responses, DNA repair, nutrient switching, defence against foreign DNA. A cell in one perfectly controlled condition needs none of that. A cell in a changing world does. And the last stretch is what makes one organism different from another rather than different from a rock. The proportions are qualitative and not every base assigns cleanly, so say that out loud. The conclusion is the opposite of the one people usually reach for: E. coli is a good chassis because it is not minimal. All of that robustness comes free with the host, and reducing a genome removes exactly the part that made it worth having.",
+  desc:"The E. coli genome partitioned into information, biosynthesis, robustness and ecological function, with brackets for making another cell, keeping it alive, and letting it compete." }
 ];
 
 window.Deck.sequence("prototroph", function(slide){
@@ -72,6 +88,33 @@ window.Deck.sequence("prototroph", function(slide){
   function paint(v){
     const g = G.el("g", {});
 
+    if (v.bar > 0.02){
+      const f = grp(v.bar);
+      let x = BX0;
+      LAY.forEach(function(L){
+        const w = BW*L[1];
+        f.appendChild(G.el("rect", {x:n1(x), y:BBY, width:n1(w), height:BBH,
+          fill:L[2], "fill-opacity":".20", stroke:L[2], "stroke-width":2.8}));
+        f.appendChild(G.text(x + w/2, BBY + BBH + 30, L[0], 21, L[2], 700));
+        x += w;
+      });
+      f.appendChild(G.el("text", {x:BX0, y:BBY - 22, "font-size":25, fill:C.ink,
+        "font-weight":700, "font-style":"italic"}, "E. coli"));
+      f.appendChild(G.text(BX0 + BW, BBY - 22, "4.64 Mb", 24, C.muted, 400, "end"));
+      BRACK.forEach(function(k, i){
+        let x0 = BX0, x1 = BX0;
+        LAY.forEach(function(L, j){
+          if (j < k[0]) x0 += BW*L[1];
+          if (j <= k[1]) x1 += BW*L[1];
+        });
+        const by = BBY + BBH + 76 + i*88;
+        f.appendChild(path("M"+n1(x0)+" "+n1(by)+"V"+n1(by + 14)+"H"+n1(x1)+
+          "V"+n1(by), C.muted, 2.4));
+        f.appendChild(G.text((x0 + x1)/2, by + 46, k[2], 25, C.ink, 700));
+      });
+      g.appendChild(f);
+      return g;
+    }
     if (v.ask > 0.02 && !(v.in > 0.02)){
       const q = grp(v.ask);
       q.appendChild(G.text(800, 440, "there is no single minimum.", 44, C.ink, 700));
