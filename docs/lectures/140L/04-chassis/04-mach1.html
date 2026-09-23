@@ -58,94 +58,33 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 30 -->
-<article class="slide">
+<!-- ----------------------------------------------------------------- *
+     Seven source slides, each reprinting the whole genotype and adding
+     bullets under it.  One walk instead: the string stays put and the
+     tokens light in the order that makes an argument.
+     ----------------------------------------------------------------- -->
+<article class="slide" data-seq="genotype">
   <h1 class="small">Our chassis</h1>
-  <p class="strain">Mach1</p>
-  <pre class="gt">str. W &Delta;recA1398 endA1 fhuA &Phi;80&Delta;(lac)M15 &Delta;(lac)X74 hsdR(rK&ndash; mK+)</pre>
-  <ul class="tight">
-    <li>From Invitrogen &mdash; <b>lacZ&alpha;-complementation ready</b></li>
-    <li><b>T1 / T5 / &Phi;80 phage resistant</b></li>
-    <li>Doubling time about <b>50 min</b>; sold as the fastest-growing chemically competent cloning strain available</li>
-    <li>Derived from <i>E. coli</i> <b>W</b> (ATCC 9637), <b>not</b> K-12 &mdash; which has implications for BL-1 status at some facilities</li>
-  </ul>
-  <p class="src-link">See the Bloom04 patent for the construction and properties &nbsp;&middot;&nbsp;
-     <a href="http://www.openwetware.org/wiki/E._coli_genotypes#Mach1">openwetware.org/wiki/E._coli_genotypes#Mach1</a></p>
-  <template class="notes">These are the cells you are using. Invitrogen sells them as a cloning strain and the selling points are the ones listed: ready for blue-white screening, resistant to the phages that most often contaminate a lab, and fast. Note the last line, because it is the one that matters for the next few slides: Mach1 is not a K-12 strain.</template>
-  <template class="desc">Mach1, its genotype, and what Invitrogen sells it on: lacZ-alpha complementation ready, resistant to T1, T5 and phi80, a doubling time of about fifty minutes, and derivation from E. coli W rather than K-12.</template>
+  <template class="notes">The Mach1 genotype, walked one token at a time. Seven source slides collapse here; the order is deliberate, and the two lac tokens are last because the first of them raises the question the second answers.</template>
+  <template class="desc">The Mach1 genotype walked one token at a time, each token highlighted in turn with a drawing of what it does.</template>
 </article>
+
+
 
 <!-- ---------------------------------------------------------------- 31 -->
-<article class="slide">
-  <h1 class="small">Our chassis</h1>
-  <p class="strain">Mach1</p>
-  <pre class="gt"><span class="on">str. W</span> &Delta;recA1398 endA1 fhuA &Phi;80&Delta;(lac)M15 &Delta;(lac)X74 hsdR(rK&ndash; mK+)</pre>
-  <ul class="tight">
-    <li>The organism the strain was derived from. <b>Default is MG1655</b> &mdash; so when it is stated, it is because it is not.</li>
-    <li>Mach1 came from <i>E. coli</i> <b>W</b> (ATCC 9637), a natural isolate distinct from MG1655</li>
-    <li><i>E. coli</i> W has been sequenced &mdash; <b>GenBank CP002185.1</b></li>
-    <li><b>No public genome sequence is available for Mach1</b></li>
-  </ul>
-  <template class="notes">The first token is the parent. A genotype is a list of differences from a reference, and the reference is MG1655 unless someone tells you otherwise. Here someone has told you otherwise: Mach1 descends from E. coli W, a natural isolate that is not K-12. W has been sequenced and you can go and read it. Mach1 has not, publicly, so everything past the first token is a claim about differences from a genome you can read, applied to a strain you cannot.</template>
-  <template class="desc">The same genotype with the first token, str. W, picked out: the parent organism. The default parent is MG1655, so naming one means it is not MG1655. E. coli W is sequenced as GenBank CP002185.1, but no public genome sequence exists for Mach1 itself.</template>
-</article>
+
 
 <!-- ---------------------------------------------------------------- 32 -->
-<article class="slide">
-  <h1 class="small">Our chassis</h1>
-  <p class="strain">Mach1</p>
-  <pre class="gt">str. W <span class="on">&Delta;recA1398 endA1 fhuA &Phi;80&Delta;(lac)M15 &Delta;(lac)X74 hsdR(rK&ndash; mK+)</span></pre>
-  <ul class="tight">
-    <li>Each space-separated token is <b>one specific mutation</b>, relative to that parent</li>
-    <li>These were introduced <b>on purpose</b>, to make a robust cloning strain that is also
-        usable for industrial production</li>
-  </ul>
-  <template class="notes">Everything after the parent is a list of deliberate modifications. None of these happened by accident and none of them is there to make the organism better at living. They are there to make it better at the job.</template>
-  <template class="desc">The genotype with everything after the parent picked out: each space-separated token is one specific mutation relative to the parent, introduced deliberately to make a robust cloning and production strain.</template>
-</article>
+
 
 <!-- ---------------------------------------------------------------- 33 -->
-<article class="slide">
-  <h1 class="small">Our chassis</h1>
-  <p class="strain">Mach1</p>
-  <pre class="gt">str. W <span class="on">&Delta;recA1398</span> <span class="on">endA1</span> fhuA &Phi;80&Delta;(lac)M15 &Delta;(lac)X74 <span class="on">hsdR(rK&ndash; mK+)</span></pre>
-  <ul class="tight">
-    <li>The same three you saw on DH10B, and for the same three reasons</li>
-    <li><b>recA</b> &mdash; plasmid stability: no recombination between repeats in your construct</li>
-    <li><b>endA</b> &mdash; plasmid purity: no endonuclease chewing your miniprep</li>
-    <li><b>hsdR</b> &mdash; transformation efficiency: incoming DNA is not restricted</li>
-  </ul>
-  <template class="notes">Three of these are the standard cloning-strain mutations and you have already met them on DH10B. They are about plasmid stability, plasmid purity and transformation efficiency, in that order. Note hsdR specifically: r minus m plus means restriction is off but methylation is on, so the strain will not cut your incoming DNA, but it will still methylate what it keeps, which matters if you then move that DNA into something else.</template>
-  <template class="desc">The genotype with recA1398, endA1 and hsdR picked out: the three standard cloning-strain mutations, for plasmid stability, plasmid purity and transformation efficiency.</template>
-</article>
+
 
 <!-- ---------------------------------------------------------------- 34 -->
-<article class="slide">
-  <h1 class="small">Our chassis</h1>
-  <p class="strain">Mach1</p>
-  <pre class="gt">str. W &Delta;recA1398 endA1 fhuA &Phi;80&Delta;(lac)M15 <span class="on">&Delta;(lac)X74</span> hsdR(rK&ndash; mK+)</pre>
-  <p class="lead">&Delta;(lac)X74 = deletion of the <b>entire lac operon</b> as well as some flanking DNA</p>
-  <p class="lead">The complete deletion is &Delta;<i>cod&ndash;mhpF</i></p>
-  <p class="src-link">Quoted from <a href="http://www.openwetware.org/wiki/E._coli_genotypes">openwetware.org/wiki/E._coli_genotypes</a>
-     &nbsp;&middot;&nbsp; <i>Mol. Micro.</i> 6:1335 &nbsp;&middot;&nbsp; <i>J. Bact.</i> 179:2573</p>
-  <template class="notes">This one takes out the whole lac operon and some of what is around it. Which raises an obvious question, since the strain is sold as ready for blue-white screening, and blue-white screening needs lacZ. Hold that thought for two slides.</template>
-  <template class="desc">The genotype with the lacX74 deletion picked out: a deletion of the entire lac operon plus flanking DNA, the complete form being delta cod to mhpF.</template>
-</article>
+
 
 <!-- ---------------------------------------------------------------- 35 -->
-<article class="slide">
-  <h1 class="small">Our chassis</h1>
-  <p class="strain">Mach1</p>
-  <pre class="gt">str. W &Delta;recA1398 endA1 fhuA <span class="on">&Phi;80&Delta;(lac)M15</span> &Delta;(lac)X74 hsdR(rK&ndash; mK+)</pre>
-  <ul class="tight">
-    <li>The cell carries the lambdoid <b>prophage &Phi;80</b></li>
-    <li>A defective version of it carries the <b>lacZ&Delta;M15</b> deletion, along with
-        wild-type <i>lacI</i>, <i>lacYA</i> and flanking sequence</li>
-    <li>The &Phi;80 attachment site sits just next to <i>tonB</i></li>
-    <li>This is what makes <b>lacZ&alpha; complementation</b> and blue-white screening work</li>
-  </ul>
-  <template class="notes">And here is the answer. The lac operon was deleted from the chromosome, and then a piece of it was put back on a defective phi80 prophage, carrying a lacZ gene with the M15 deletion in it. That gene makes a beta-galactosidase that is broken on its own and can be rescued by a small fragment supplied in trans. That is lacZ-alpha complementation, and it is the basis of blue-white screening. Also worth noticing: this is the same phi80 attachment site you used for CRIM integration two lectures ago, and here it is being used as a place to park a gene. Same site, same logic, different purpose.</template>
-  <template class="desc">The genotype with the phi80 lacZ delta M15 token picked out: the cell carries a defective phi80 prophage bearing the lacZ delta M15 deletion along with wild-type lacI and lacYA, integrated at the phi80 attachment site next to tonB, and that is what makes lacZ-alpha complementation possible.</template>
-</article>
+
 
 <!-- ---------------------------------------------------------------- 36 -->
 <article class="slide">
@@ -169,20 +108,7 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 38 -->
-<article class="slide">
-  <h1 class="small">Our chassis</h1>
-  <p class="strain">Mach1</p>
-  <pre class="gt">str. W &Delta;recA1398 endA1 <span class="on">fhuA</span> &Phi;80&Delta;(lac)M15 &Delta;(lac)X74 hsdR(rK&ndash; mK+)</pre>
-  <ul class="tight">
-    <li>FhuA in the outer membrane is a transporter for <b>ferrichrome</b>, for the antibiotics
-        albomycin and rifamycin CGP4832, and for colicin M</li>
-    <li>It is also the <b>receptor for phages T1, T5 and &Phi;80</b></li>
-    <li>Knock it out and the strain is <b>phage resistant</b> &mdash; which is why it is on the list</li>
-  </ul>
-  <p class="src-link">Quoted from <a href="https://www.wikigenes.org/e/gene/e/944856.html">wikigenes.org</a></p>
-  <template class="notes">FhuA is an iron transporter, and it is also the door those three phages use to get in. Take it away and they cannot. T1 in particular is the reason anybody bothers: it is tough, it spreads through a lab fast, and a T1 contamination can take out every culture on the bench. So this mutation is not about the biology of iron at all. It is insurance.</template>
-  <template class="desc">The genotype with fhuA picked out: FhuA is an outer membrane transporter for ferrichrome and certain antibiotics, and also the receptor for phages T1, T5 and phi80, so knocking it out makes the strain phage resistant.</template>
-</article>
+
 
 <!-- ---------------------------------------------------------------- 39 -->
 <article class="slide">
@@ -238,6 +164,7 @@
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/parts.js" defer></script>
+<script src="seq/04-genotype.js" defer></script>
 <script src="seq/04-lacz.js" defer></script>
 </body>
 </html>
