@@ -24,6 +24,7 @@
 .slide p.lead{font-size:28px;color:var(--muted);margin:22px 0 0}
 .slide p.foot{font-size:22px;color:var(--muted);margin:20px 0 0}
 .slide p.foot b{color:var(--vermillion)}
+.slide pre.cf .cmt{color:var(--muted)}
 </style>
 </head>
 <body>
@@ -42,21 +43,20 @@
      of this slide is that its output is not a DNA but a strain. -->
 <article class="slide">
   <h1 class="small">Where we left off</h1>
-  <pre class="cf"><code>PCR       aspC1     pTargRev  pTargetF    <span class="out">pcrpdt</span>
-Digest    <span class="out">pcrpdt</span>    SpeI      1           <span class="out">spedig</span>
-Ligate    <span class="out">spedig</span>                          <span class="out">lig</span>
-Transform <span class="out">lig</span>       Mach1     Spec        <span class="out">pTarget-aspC1</span>
+  <pre class="cf"><code>dsdna     donor                                 <span class="cmt">2 &#215; 500 bp flanking aspC1</span>
 
-PCR       aspC1upF  aspC1upR  Mach1_gDNA  <span class="out">up</span>
-PCR       aspC1dnF  aspC1dnR  Mach1_gDNA  <span class="out">dn</span>
-PCR       aspC1upF  aspC1dnR  <span class="out">up</span>+<span class="out">dn</span>       <span class="out">donor</span></code></pre>
+PCR       aspC1   pTargRev   pTargetF   <span class="out">pcrpdt</span>
+Digest    <span class="out">pcrpdt</span>  SpeI       1          <span class="out">spedig</span>
+Ligate    <span class="out">spedig</span>                        <span class="out">lig</span>
+Transform <span class="out">lig</span>     Mach1      Spec       <span class="out">pTarget-aspC1</span></code></pre>
   <p class="lead" data-build="1"
-     data-note="And then the part that is not a cloning step at all. Both DNAs go into the same cuvette, into cells that are already carrying pCas and have already been grown with arabinose, so that lambda red is switched on before the break is made. Cas9 cuts the chromosome at aspC1, and the only cells that come up on the plate are the ones that repaired the cut off the donor. The cut is the selection. That is also why a guide on its own is useless here: a double-strand break in E. coli with nothing to repair from is lethal, so transforming pTarget alone would not give you an unedited strain, it would give you an empty plate."
-     data-desc="Then, in the cell: transform the guide plasmid and the donor together into Mach1 carrying pCas, selecting on spectinomycin, to give the strain Mach1 delta-aspC1.">Then, in the cell:</p>
-  <pre class="cf" data-build="1"><code>Transform <span class="out">pTarget-aspC1</span>+<span class="out">donor</span>  Mach1/pCas  Spec  <span class="out">Mach1 &Delta;aspC1</span></code></pre>
-  <p class="foot" data-build="1">the pCas cells are grown on <b>arabinose</b> first &mdash; &lambda;&#8209;red has to be on before the break is made</p>
-  <template class="notes">Last time we built a plasmid in vitro, built a repair template beside it, and put both into a cell carrying a helper; the reactions that followed happened inside the cell and ended in a modified genome. Two things to notice. The guide plasmid and the donor are separate molecules that meet for the first time in the cuvette, which is how this is normally done, and neither one alone does anything: the guide without the donor kills the cell, and the donor without the guide is never recombined. And then look at what is on the last line. Every other product in this file is a DNA, and that one is a strain. Mach1 delta-aspC1 is not a molecule you can put in a tube on its own; it is an organism, and everything it does apart from the edit you made is inherited from whatever it was before. That is the subject of today.</template>
-  <template class="desc">The CRISPR construction file from the end of the last lecture. First the guide: PCR pTargetF with the aspC1 oligo and pTargRev, digest with SpeI, ligate, transform into Mach1 on spectinomycin to give pTarget-aspC1. Then the repair template: two homology arms amplified from Mach1 genomic DNA and fused by overlap-extension PCR to give the donor.</template>
+     data-note="And then the part that is not cloning at all. The cells already carry pCas, and they are grown on arabinose first, so that lambda red is switched on before the break is ever made. Both DNAs go into that one cuvette. Cas9 cuts the chromosome at aspC1, and the only colonies that come up are the ones that repaired the cut off the donor, because E. coli cannot mend a double-strand break on its own. The cut is the selection. Which is also why the guide on its own is useless here: transform pTarget alone into those cells and you do not get an unedited strain, you get an empty plate."
+     data-desc="Then, in the cell: induce the pCas strain with arabinose, then edit it with the guide plasmid and the donor together, selecting on spectinomycin, to give the strain Mach1 delta-aspC1.">Then, in the cell:</p>
+  <pre class="cf" data-build="1"><code>Induce    Mach1/pCas  ara                              <span class="out">pCas*</span>
+Edit      <span class="out">pCas*</span>  <span class="out">pTarget-aspC1</span>  donor  Spec       <span class="out">Mach1 &Delta;aspC1</span></code></pre>
+  <p class="foot" data-build="1">&lambda;&#8209;red has to be <b>on before the break is made</b> &mdash; and nothing repairs a double-strand break in <i>E.&nbsp;coli</i> but the donor</p>
+  <template class="notes">Last time we built a plasmid in vitro, ordered a repair template beside it, and put both into a cell that was already carrying a helper. The reactions that followed happened inside the cell and ended in a modified genome. Two things to notice before we move on. Neither DNA does anything alone: the guide without the donor kills the cell, and the donor without the guide is never recombined. And then look at what is on the last line. Every other product in this file is a DNA, and that one is a strain. Mach1 delta-aspC1 is not a molecule you can put in a tube on its own; it is an organism, and everything it does apart from the edit you made is inherited from whatever it was before. That is the subject of today.</template>
+  <template class="desc">The CRISPR construction file from the end of the last lecture: a synthetic donor spanning aspC1, then the guide built by inverse PCR on pTargetF, digested with SpeI, ligated and transformed into Mach1 on spectinomycin to give pTarget-aspC1.</template>
 </article>
 
 <!-- ----------------------------------------------------------------- 3 -->
