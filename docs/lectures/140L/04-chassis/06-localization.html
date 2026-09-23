@@ -8,6 +8,19 @@
 <title>Protein Localization &ndash; Chassis</title>
 <link rel="stylesheet" href="../../deck.css">
 <style>
+/* The three reasons ARE the slide; the mechanism is a footnote.  It was
+   two columns of bullets that mixed the two, so the reasons -- which is
+   what a student has to decide with -- read as one item of six. */
+.slide p.ask{font-size:27px;color:var(--muted);margin:0 0 6px}
+.slide ol.why{margin:26px 0 0;padding-left:0;list-style:none;counter-reset:w}
+.slide ol.why li{font-size:30px;margin-bottom:26px;padding-left:64px;position:relative;
+  line-height:1.3;counter-increment:w}
+.slide ol.why li::before{content:counter(w);position:absolute;left:0;top:-2px;
+  font-size:30px;font-weight:700;color:var(--vermillion)}
+.slide ol.why b{color:var(--ink)}
+.slide ol.why .sub{font-size:22px;color:var(--muted)}
+.slide p.how{margin-top:10px;font-size:22px;color:var(--muted);line-height:1.45}
+.slide p.how b{color:var(--blue)}
 /* Page-local only.
    THE FIVE COMPARTMENTS, as a table rather than a picture with labels
    scattered round it: the slide's real content is how hard each
@@ -100,27 +113,17 @@
 <!-- ---------------------------------------------------------------- 58 -->
 <article class="slide">
   <h1 class="small">Periplasmic expression</h1>
-  <div class="cols">
-    <div>
-      <p class="lead">Leader peptidases</p>
-      <ul class="tight">
-        <li><b>LspA</b> processes prolipoproteins &mdash; major outer membrane components</li>
-        <li><b>LepB</b>, &ldquo;signal peptidase&rdquo; or SPaseI, cleaves most other proteins</li>
-      </ul>
-    </div>
-    <div>
-      <p class="lead">Prepro sequences</p>
-      <ul class="tight">
-        <li>Use parts from <b>well-expressed periplasmic proteins</b> &mdash;
-            <b>pelB</b>, <b>ompA</b>, <b>ompT</b> are the common ones</li>
-        <li>Some proteins are <b>toxic in the cytoplasm</b> and fine in the periplasm</li>
-        <li>Some need the <b>oxidative environment</b> to fold &mdash; antibodies, for instance</li>
-        <li>And it is a <b>precursor</b> to outer membrane localization or secretion</li>
-      </ul>
-    </div>
-  </div>
-  <template class="notes">To get a protein from the inner membrane into the periplasm, all that is needed is cleavage of the sec signal peptide, and there are periplasmic enzymes called leader peptidases that do it: LspA and LepB are two. The sequences they act on are pre sequences more specifically called prepro, because of the extra processing. Rather than design one from scratch, take one from a protein that is already well expressed in the periplasm; pelB, ompA and ompT are the ones people reach for. As for why you would want the periplasm at all: some proteins are toxic in the cytoplasm and perfectly fine there, some — antibodies are the standard example — need the oxidative, calcium-rich environment in order to fold at all, and anything destined for the outer membrane or for secretion goes through the periplasm on the way.</template>
-  <template class="desc">Periplasmic expression: the leader peptidases LspA and LepB that cleave the signal, and the prepro sequences taken from well-expressed periplasmic proteins pelB, ompA and ompT, with the reasons for sending a protein there.</template>
+  <p class="ask">Three reasons to send a protein there, and they are the only three.</p>
+  <ol class="why">
+    <li><b>It is toxic in the cytoplasm</b><br><span class="sub">and perfectly well behaved on the other side of the membrane</span></li>
+    <li><b>It cannot fold in the cytoplasm</b><br><span class="sub">the periplasm is oxidising, so disulfides form &mdash; antibodies are the standard case</span></li>
+    <li><b>It is on its way somewhere else</b><br><span class="sub">everything bound for the outer membrane or the outside goes through here first</span></li>
+  </ol>
+  <p class="how">Getting it there is a <b>prepro</b> signal on the front, and you take one that already works &mdash;
+     <b>pelB</b>, <b>ompA</b>, <b>ompT</b>. A periplasmic leader peptidase, <b>LepB</b> for most proteins
+     and <b>LspA</b> for lipoproteins, cuts it off on arrival.</p>
+  <template class="notes">Why you would want the periplasm at all, which is the question the slide should answer, and there are only three answers. Some proteins are toxic in the cytoplasm and perfectly fine there. Some cannot fold in the cytoplasm at all because it is a reducing environment and they need disulfides: antibody fragments are the standard example. And anything destined for the outer membrane or for secretion passes through the periplasm on the way, so you are going there whether you meant to or not. The mechanism is one line underneath and deliberately so: put a prepro signal on the front, take one from a protein already well expressed in the periplasm rather than designing your own, and a leader peptidase cleaves it when it arrives. LepB does most proteins and LspA does the lipoproteins.</template>
+  <template class="desc">The three reasons to target the periplasm — cytoplasmic toxicity, a need for the oxidising environment to fold, and being en route to the outer membrane or the outside — with a note that the mechanism is a prepro signal borrowed from pelB, ompA or ompT, cleaved by LepB or LspA.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 59 -->

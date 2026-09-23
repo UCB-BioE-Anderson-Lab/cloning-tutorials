@@ -21,13 +21,24 @@
 .slide p.lead{font-size:28px;color:var(--muted);margin:0 0 14px}
 .slide p.src-link{font-size:21px;color:var(--muted);margin:18px 0 0}
 .slide p.src-link a{color:var(--blue)}
-/* The three media, as three recipes side by side. */
-.slide .media{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:8px}
-.slide .media h2{font-size:29px;margin:0 0 10px}
-.slide .media ul{margin:0;padding-left:1.1em}
-.slide .media li{font-size:24px;margin-bottom:5px}
-.slide .gloss{margin-top:26px;font-size:24px;color:var(--muted);line-height:1.5}
-.slide .gloss b{color:var(--ink)}
+/* The three media as ONE table.  They were three parallel lists plus a
+   glossary underneath, which is ten bullets to say that the recipes
+   differ in two numbers and that only two of the three ingredients feed
+   anything. */
+.slide .rec{display:grid;grid-template-columns:230px repeat(3,110px) 1fr;
+  column-gap:26px;margin-top:26px;align-items:center}
+.slide .rec .h{font-size:27px;font-weight:700;padding-bottom:10px;
+  border-bottom:2px solid var(--ink);text-align:center}
+.slide .rec .h.gives{text-align:left;font-size:22px;color:var(--muted);
+  border-bottom-color:var(--rule)}
+.slide .rec .rl{font-size:25px;font-weight:700;color:var(--blue);padding:20px 0}
+.slide .rec .q{font-size:25px;text-align:center;font-family:ui-monospace,Menlo,monospace}
+.slide .rec .gives{font-size:22px;padding:16px 0;line-height:1.3}
+.slide .rec .gives b{color:var(--vermillion)}
+.slide .rec .gives .sub{font-size:19px;color:var(--muted)}
+.slide p.soc{margin-top:22px;font-size:21px;color:var(--muted)}
+.slide p.punch{margin-top:16px;font-size:26px}
+.slide p.punch b{color:var(--vermillion)}
 .slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:10px}
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
 .slide .qhead .q{font-size:38px;font-weight:700}
@@ -88,21 +99,26 @@
 <!-- ---------------------------------------------------------------- 22 -->
 <article class="slide">
   <h1 class="small">Rich media</h1>
-  <div class="media">
-    <div><h2>LB</h2><ul>
-      <li>10 g peptone</li><li>5 g yeast extract</li><li>5 g sodium chloride</li></ul></div>
-    <div><h2>2YT</h2><ul>
-      <li>16 g peptone</li><li>10 g yeast extract</li><li>5 g sodium chloride</li></ul></div>
-    <div><h2>SOB</h2><ul>
-      <li>20 g peptone</li><li>5 g yeast extract</li><li>0.5 g sodium chloride</li>
-      <li><i>SOC adds glucose</i></li></ul></div>
+  <div class="rec">
+    <div class="rl"></div><div class="h">LB</div><div class="h">2YT</div>
+    <div class="h">SOB</div><div class="h gives">what it hands the cell</div>
+
+    <div class="rl">peptone</div>
+    <div class="q">10 g</div><div class="q">16 g</div><div class="q">20 g</div>
+    <div class="gives"><b>every amino acid</b>, pre-made<br><span class="sub">a digest of animal protein</span></div>
+
+    <div class="rl">yeast extract</div>
+    <div class="q">5 g</div><div class="q">10 g</div><div class="q">5 g</div>
+    <div class="gives"><b>nucleotides, vitamins, cofactors</b><br><span class="sub">lysed yeast, minus the walls</span></div>
+
+    <div class="rl">sodium chloride</div>
+    <div class="q">5 g</div><div class="q">5 g</div><div class="q">0.5 g</div>
+    <div class="gives"><b>nothing</b><br><span class="sub">osmotic balance only</span></div>
   </div>
-  <p class="gloss">
-    <b>peptone</b> &mdash; an enzymatic digest of animal protein, so: every amino acid, pre-made<br>
-    <b>yeast extract</b> &mdash; the contents of yeast cells minus the walls, so: nucleotides, vitamins, cofactors<br>
-    <b>sodium chloride</b> &mdash; osmotic balance, and no nutritional contribution at all</p>
-  <template class="notes">Rich medium means the cell is handed nutrients it would otherwise have to make. That is the whole definition and it matters enormously for what a genotype does to you. Peptone is a digest of protein, so it supplies all twenty amino acids ready-made and the cell need not synthesise any of them. Yeast extract is lysed yeast, which brings nucleotides, B vitamins, amino acids and cofactors, so purine and pyrimidine biosynthesis can be skipped too. Salt does nothing nutritional. The consequence: a strain with a broken biosynthetic pathway grows perfectly well on LB and fails on a defined medium, and that difference is how you find out what is broken.</template>
-  <template class="desc">Three rich media recipes side by side: LB with 10 g peptone, 5 g yeast extract and 5 g salt; 2YT with 16, 10 and 5; and SOB with 20, 5 and 0.5, with glucose added to make SOC. Beneath them, what each ingredient supplies.</template>
+  <p class="soc">SOC is SOB with glucose added &mdash; which is why it is the recovery medium and not the growth medium</p>
+  <p class="punch">So a strain with a broken biosynthetic pathway grows perfectly well on any of these. <b>The medium is doing the work it cannot.</b></p>
+  <template class="notes">Rich medium means the cell is handed nutrients it would otherwise have to make, and that is the whole definition. Peptone is a digest of protein, so all twenty amino acids arrive ready-made and none of them has to be synthesised. Yeast extract is lysed yeast, which brings nucleotides, B vitamins and cofactors, so purine and pyrimidine biosynthesis can be skipped too. Salt does nothing nutritional at all. The three recipes differ only in how much of the first two they carry, which is why they are one table rather than three lists. And the consequence is the line at the bottom: a strain with a broken biosynthetic pathway grows perfectly well on any of them, and you will not find out what is broken until you move it onto something defined.</template>
+  <template class="desc">Three rich media recipes as one table: LB, 2YT and SOB with their quantities of peptone, yeast extract and sodium chloride, and a column saying what each ingredient hands the cell. SOC is SOB plus glucose.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 23 -->

@@ -27,6 +27,16 @@
    slide -- JCA: "that's a lot of words.  Looks painful to present."  It
    is three rows now, and the detail lives in the notes where a presenter
    can reach it. */
+.slide p.ask{font-size:28px;margin:0 0 4px}
+.slide p.ask b{color:var(--vermillion)}
+.slide .two{display:grid;grid-template-columns:1fr 1.25fr;gap:56px;margin-top:26px}
+.slide .two .tag{font-size:21px;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.06em;margin:0 0 10px}
+.slide .two .tag b{color:var(--muted)}
+.slide .two .big{font-size:36px;font-weight:700;margin:0 0 16px;color:var(--vermillion)}
+.slide .two .sub{font-size:23px;color:var(--muted);line-height:1.4;margin:0}
+.slide .two ul.pts{margin:0;padding-left:1.1em}
+.slide .two ul.pts li{font-size:24px;margin-bottom:14px;line-height:1.35}
 .slide .cmp{display:grid;grid-template-columns:230px repeat(3,1fr);
   column-gap:34px;margin-top:30px}
 .slide .cmp .h{font-size:31px;font-weight:700;padding:0 0 12px;
@@ -113,20 +123,27 @@
 <!-- ---------------------------------------------------------------- 39 -->
 <article class="slide">
   <h1 class="small">Why Mach1?</h1>
-  <ul class="tight">
-    <li>Great for <b>cloning</b>, and for <b>industrial-scale production</b></li>
-    <li><b>Phage resistant</b>, and commercially available</li>
-    <li data-build="1" data-desc="It can also grow on sucrose as a feedstock."
-        data-note="Which is not true of K-12 strains, and is a genuine reason to pick a W strain. Sucrose is a cheap feedstock."><b>Grows on sucrose</b> as a feedstock</li>
-    <li data-build="2" data-desc="It reliably grows on minimal medium, sucrose and salts, to high densities."
-        data-note="And unlike DH10B, which you just saw cannot grow on M9 at all, this one grows on minimal medium to high density. That is the difference between a cloning strain and a strain you could actually make something in."><b>Reliably grows on minimal medium</b> &mdash; sucrose and some salts &mdash; to high densities</li>
-    <li data-build="3" data-desc="It produces little acetate, which is a common loss of carbon when making products at high titre."
-        data-note="Acetate is where carbon goes when a cell is growing faster than it can respire. It is wasted feedstock and it is toxic, so a low-acetate strain is worth real money at scale."><b>Produces little acetate</b>, a common loss of carbon at high titre</li>
-    <li data-build="4" data-desc="And it is increasingly mentioned in the literature."
-        data-note="Which matters more than it sounds: a strain other people use is a strain with published protocols, troubleshooting and parts that are known to work in it.">Increasingly mentioned in the <b>literature</b></li>
-  </ul>
-  <template class="notes">So why this one. The first two lines are why Invitrogen sells it. The rest are why it is a reasonable choice for this course rather than just a convenient one, and the middle two are the ones to pay attention to: it grows on minimal medium, which the standard cloning strains do not, and it wastes less carbon as acetate. Those are the properties of something you could scale.</template>
-  <template class="desc">Why Mach1: good for cloning and industrial production, phage resistant and commercially available, and then four more arriving one at a time — it grows on sucrose, grows reliably on minimal medium to high density, produces little acetate, and is increasingly used in the literature.</template>
+  <p class="ask">You have just seen a perfectly good cloning strain. <b>Why not DH10B?</b></p>
+  <div class="two">
+    <div>
+      <p class="tag">as a cloning strain</p>
+      <p class="big">nothing special</p>
+      <p class="sub">the same three mutations, the same complementation, the same blue-white plate. If this were all, it would not matter which you used.</p>
+    </div>
+    <div data-build="1"
+         data-note="And here is the difference, and it is the whole answer. DH10B cannot grow on M9 at all -- you saw why two sections ago, it is an auxotroph. Mach1 grows on minimal medium to high density, on sucrose, which is a cheap feedstock that K-12 strains cannot use at all. And it wastes less carbon as acetate, which is where carbon goes when a cell grows faster than it can respire: wasted feedstock, and toxic on top of that. None of those three matters for a miniprep. All three matter the moment somebody asks you to make a kilogram of something."
+         data-desc="As a production strain: it grows on sucrose, which K-12 strains cannot; it reaches high density on minimal medium, which DH10B cannot; and it wastes little carbon as acetate.">
+      <p class="tag">as a <b>production</b> strain</p>
+      <p class="big">three things K&#8209;12 cannot do</p>
+      <ul class="pts">
+        <li><b>sucrose</b> as a feedstock &mdash; cheap, and K-12 cannot use it</li>
+        <li><b>high density on minimal medium</b> &mdash; DH10B will not grow on M9 at all</li>
+        <li><b>little acetate</b> &mdash; wasted carbon, and toxic at titre</li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">The honest answer to why this strain. As a cloning strain it is unremarkable, and that is worth saying out loud, because the first half of this section could have been done on DH10B and nothing would have changed. The reason to pick it is the second column, and the three items there are all about scale rather than about cloning. Dropped from the source list: phage resistance, which the fhuA token already covered; commercial availability; and that it is increasingly in the literature, which is true and is not a reason.</template>
+  <template class="desc">Why Mach1 rather than DH10B: as a cloning strain it is unremarkable, and as a production strain it does three things K-12 strains cannot — grow on sucrose, reach high density on minimal medium, and waste little carbon as acetate.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 40 -->
