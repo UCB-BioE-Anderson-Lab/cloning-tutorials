@@ -12,6 +12,15 @@
    needs that deck.css does not already have: six photographs that are
    only meaningful with their captions attached, so each is a figure and
    they sit in a grid rather than a row. */
+.slide p.anal{font-size:25px;line-height:1.4;margin:0 0 22px}
+.slide p.anal.last{margin:22px 0 0;color:var(--vermillion);font-weight:700}
+.slide dl.map{margin:0;font-size:23px}
+.slide dl.map div{display:flex;gap:16px;margin-bottom:12px;align-items:baseline}
+.slide dl.map dt{flex:0 0 300px;color:var(--muted)}
+.slide dl.map dd{margin:0}
+.slide dl.map dd b{color:var(--blue)}
+.slide p.outer{font-size:24px;color:var(--muted);margin:0 0 10px}
+.slide p.outer b{color:var(--vermillion)}
 .slide .zoo{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 30px;margin:10px 0 0}
 .slide .zoo figure{margin:0;display:flex;flex-direction:column}
 .slide .zoo img{width:100%;height:190px;object-fit:cover;border-radius:4px}
@@ -66,6 +75,38 @@
   <template class="desc">Two lines. The first: no living system has ever been generated without descent from a preexisting one. The second arrives on a click: all strains are derived from a parent strain.</template>
 </article>
 
+<!-- ----------------------------------------------------------------- *
+     The minimal-life rework.  The old framing -- a ~3 Mb, ~3000-gene
+     bacterial core made of central dogma plus primary metabolism plus
+     environmental sensing -- is replaced by environmental subsidy as
+     the organising variable.  A genome gets small by moving work into
+     its niche, so the question becomes: how much must the organism
+     encode, given a stated environment?
+     ----------------------------------------------------------------- -->
+<article class="slide" data-seq="autonomy">
+  <h1 class="small">What is the minimum required for life?</h1>
+  <template class="notes">Six self-propagating systems, and the only question asked of each is how much of what it takes to make another one is encoded rather than borrowed. Ends by separating the three different questions that all get called minimal.</template>
+  <template class="desc">A spectrum from a prion to an ecological specialist, showing for each how much it encodes itself and how much the environment supplies, and then the three different meanings of minimal.</template>
+</article>
+
+<article class="slide" data-seq="prototroph">
+  <h1 class="small">Minimal medium draws a useful boundary</h1>
+  <template class="notes">The definition the rest of the lecture uses, stated as an experiment rather than a philosophy. This is also where the later rich-media and M9 material stops being a microbiology aside.</template>
+  <template class="desc">A defined minimal medium as inputs, a cell, and everything it must build from them: the operational definition of prototrophy.</template>
+</article>
+
+<article class="slide" data-seq="minimal">
+  <h1 class="small">How small can a genome get?</h1>
+  <template class="notes">Four landmarks on one scale, each with the caveat that complicates it. The band is shaded rather than lined, because there is no established smallest natural glucose-and-salts prototroph.</template>
+  <template class="desc">JCVI-syn3.0, Pelagibacter, Prochlorococcus and E. coli drawn as bars on one scale, with a shaded 1.5 to 2 megabase neighbourhood.</template>
+</article>
+
+<article class="slide" data-seq="layers">
+  <h1 class="small">The genome as nested layers of capability</h1>
+  <template class="notes">The conceptual centrepiece, and the replacement for the old core-chassis bullets. The boundaries are an engineering decomposition, not a phylogenetic claim.</template>
+  <template class="desc">Four nested layers of the genome — information and reproduction, biosynthesis, robustness, and ecological function — then the same four unrolled onto the E. coli genome.</template>
+</article>
+
 <!-- -------------------------------------------------------------- 8, 9 -->
 <article class="slide" data-seq="chasses">
   <h1 class="small">Popular chasses</h1>
@@ -74,16 +115,10 @@
   <template class="desc">A schematic tree of life with five tips highlighted, then the six chasses people actually use, with a photograph of each.</template>
 </article>
 
-<!-- ---------------------------------------------------------------- 10 -->
-<article class="slide" data-seq="genome">
-  <h1 class="small">A core bacterial chassis</h1>
-  <template class="notes">The source slide states the proportion in words and numbers: about three thousand genes out of four and a half thousand, about three megabases out of four and a half. A proportion drawn to scale says it in one look, and it sets up the next slide, since every phenotype on it is encoded in the piece on the right.</template>
-  <template class="desc">The E. coli genome drawn to scale and split into the core that every bacterium carries and the accessory portion that makes a strain a particular strain.</template>
-</article>
-
 <!-- ---------------------------------------------------------------- 11 -->
 <article class="slide">
   <h1 class="small">Celebrities of the prokaryotic world</h1>
+  <p class="outer">the <b>outermost layer</b> &#183; none of this is needed to make a cell</p>
   <div class="zoo">
     <figure><img src="img/01-celeb-squid.jpg" alt="A bobtail squid, which houses luminous Vibrio fischeri in a dedicated light organ.">
       <figcaption><i>Euprymna scolopes</i> and symbiotic <i>Vibrio fischeri</i></figcaption></figure>
@@ -102,19 +137,40 @@
   <template class="desc">Six photographs of bacteria doing things no core chassis does: the bobtail squid and its luminous Vibrio fischeri, a plant gall from Agrobacterium infection, a Myxococcus xanthus fruiting body, bacterial cellulose from Acetobacter xylinum, erythromycin from Saccharopolyspora erythraea, and oiled penguins standing for Acinetobacter bioremediation.</template>
 </article>
 
-<!-- ---------------------------------------------------------------- 12 -->
-<article class="slide" data-seq="minimal">
-  <h1 class="small">How small can a genome get?</h1>
-  <div class="credit">MDS42: P&oacute;sfai <i>et al</i>, <i>Science</i> 2006 May 19;312(5776):1044&ndash;6<br>Lengths: MG1655 4,641,652 bp &middot; MDS42 3,976,195 bp<br><i>P. ubique</i> HTCC1062 1,308,759 bp &middot; <i>M. genitalium</i> G37 580,076 bp</div>
-  <template class="notes">The source slide is the published ring map from that paper with the deletions marked, and the speaker note compares four genome lengths of which the ring map shows one. Four bars on one scale is the comparison the note was making, and it puts the three-megabase floor on the slide instead of in the telling.</template>
-  <template class="desc">Four genomes drawn as bars on one scale: E. coli MG1655, the reduced strain MDS42, Pelagibacter ubique and Mycoplasma genitalium, with a line marking three megabases.</template>
+<!-- ----------------------------------------------------------------- *
+     The metaphor returns, with the hierarchy behind it.  JCA: "A race
+     car stripped to the absolute minimum can move under one set of
+     conditions.  A useful chassis contains steering, brakes,
+     suspension, cooling, sensors, and standardized attachment points."
+     ----------------------------------------------------------------- -->
+<article class="slide">
+  <h1 class="small">So what should a chassis contain?</h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/01-car-chassis.jpg" alt="A car chassis: the frame, wheels, suspension and drivetrain of a vehicle, with no body on it.">
+    </figure>
+    <div>
+      <p class="anal">A car stripped to the absolute minimum moves, under one set of conditions. Nobody builds on one.</p>
+      <dl class="map">
+        <div><dt>engine and drivetrain</dt><dd>the <b>prototrophic core</b></dd></div>
+        <div><dt>steering, brakes, suspension</dt><dd><b>regulation and defence</b></dd></div>
+        <div><dt>standard mounting points</dt><dd><b>the parts you will add</b></dd></div>
+        <div><dt>the body</dt><dd>whatever you are actually building</dd></div>
+      </dl>
+      <p class="anal last">Replication alone is not a chassis. It is a thing that moves once.</p>
+    </div>
+  </div>
+  <template class="notes">Close the loop on the metaphor, now that it means something specific. A chassis is not the smallest thing that moves; it is the standardised, robust intermediate that other things get built onto, and the reason you buy one is precisely that it already contains the steering and the brakes. The biological translation is the hierarchy we just built: the prototrophic core is the engine and drivetrain, the regulation and defence layers are steering and suspension, and the ecological layer is where your payload bolts on. Which is also the argument against reaching for a minimal genome: you can strip a chassis down until it only works on a test track, and then it is not a chassis any more.</template>
+  <template class="desc">The car chassis image again, now mapped onto the hierarchy: engine and drivetrain as the prototrophic core, steering and brakes as regulation and defence, mounting points as the parts you will add, and the body as the application.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/parts.js" defer></script>
 <script src="seq/01-chasses.js" defer></script>
-<script src="seq/01-genome.js" defer></script>
+<script src="seq/01-autonomy.js" defer></script>
+<script src="seq/01-prototroph.js" defer></script>
+<script src="seq/01-layers.js" defer></script>
 <script src="seq/01-minimal.js" defer></script>
 </body>
 </html>

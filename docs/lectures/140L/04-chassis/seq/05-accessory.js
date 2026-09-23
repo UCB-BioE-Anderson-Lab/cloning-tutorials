@@ -27,15 +27,15 @@ const X0 = 200, PXMB = 245.7, TOT = 4.64, CORE = 3.0;
 const XC = X0 + PXMB*CORE, X1 = X0 + PXMB*TOT;
 const BY = 300, BH = 64;
 
-const JOBS = ["cell growth and division", "the central dogma",
-              "primary metabolism", "environment sensing"];
+const JOBS = ["information and reproduction", "biosynthesis",
+              "robustness and control", ""];
 const VIR = ["adhesion", "iron", "capsule", "vacuole", "toxins"];
 
 const FR = [
 { s:{bar:1},
   cap:"the same genome you have already read",
-  call:"<b>~3 Mb</b> of core, and it is nearly identical in every <em>E. coli</em> there is",
-  note:"Back to the bar from the first section, because it makes this point in one look. Every bacterium has the same core processes and most encode about three megabases of them: growing and dividing, the central dogma, primary metabolism, sensing what is out there. Among the enterobacteria that part is nearly identical base for base. A commensal and something that will put you in hospital share essentially all of it.",
+  call:"the inner layers are nearly identical in every <em>E. coli</em> there is",
+  note:"Back to the layered genome from the first section, because it makes this point in one look. The inner layers -- information and reproduction, biosynthesis, and the robustness layer around them -- are nearly identical base for base across the enterobacteria. A commensal and something that will put you in hospital share essentially all of it.",
   desc:"The E. coli genome bar again, split into the roughly three megabase core and the rest." },
 
 { s:{bar:1, split:1},
@@ -57,7 +57,7 @@ window.Deck.sequence("accessory", function(slide){
       fill:C.muted, "fill-opacity":".10", stroke:C.ink, "stroke-width":2.6}));
     b.appendChild(G.el("rect", {x:X0, y:BY, width:n1(XC - X0), height:BH, rx:6,
       fill:C.blue, "fill-opacity":".16", stroke:C.blue, "stroke-width":3}));
-    b.appendChild(G.text((X0 + XC)/2, BY + 41, "core", 28, C.blue, 700));
+    b.appendChild(G.text((X0 + XC)/2, BY + 41, "make a cell, and keep it alive", 25, C.blue, 700));
     b.appendChild(G.text(X1, BY - 24, "4.64 Mb", 24, C.muted, 400, "end"));
     b.appendChild(G.el("text", {x:X0, y:BY - 24, "font-size":25, fill:C.ink,
       "font-weight":700, "font-style":"italic"}, "E. coli"));
@@ -75,7 +75,7 @@ window.Deck.sequence("accessory", function(slide){
       const a = grp(v.split);
       a.appendChild(G.el("rect", {x:n1(XC), y:BY, width:n1(X1 - XC), height:BH, rx:6,
         fill:C.verm, "fill-opacity":".18", stroke:C.verm, "stroke-width":3}));
-      a.appendChild(G.text((XC + X1)/2, BY + 41, "the rest", 26, C.verm, 700));
+      a.appendChild(G.text((XC + X1)/2, BY + 41, "the outer layer", 25, C.verm, 700));
       VIR.forEach(function(t, i){
         const y = BY + BH + 56 + i*58;
         a.appendChild(path("M"+n1(XC + 20)+" "+n1(y - 20)+"V"+n1(y + 8), C.verm, 3));

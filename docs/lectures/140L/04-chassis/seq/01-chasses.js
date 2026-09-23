@@ -98,15 +98,9 @@ const FR = [
 
 { s:{tree:1, lit:1, six:1, shift:1},
   cap:"the six you will hear named",
-  call:"and the sixth is not an organism at all",
+  call:"and the sixth is not an organism at all &#183; the rest of this section is what each owes you",
   note:"Named, with faces on them. E. coli, because it grows in twenty minutes, takes up DNA and has the whole toolkit. Saccharomyces, because it is a eukaryote that still behaves like a microbe: you can streak it out and pick colonies. Human cells, when the product has to be folded and glycosylated the way a human does it. Synechococcus elongatus, which runs on light and carbon dioxide and fixes carbon inside protein-shelled compartments called carboxysomes, which E. coli has no version of at all. Plants, where the biomass is essentially free and the scale is a field. And then in vitro, which is the case where you decide the chassis is more trouble than it is worth and supply the transcription and translation machinery yourself.",
-  desc:"The six chasses with images: E. coli, S. cerevisiae, H. sapiens, S. elongatus, plants, and in vitro, which has no organism at all." },
-
-{ s:{tree:0, lit:0, six:1, must:1, shift:1},
-  cap:"whatever you pick, it owes you three things",
-  call:"everything past that is a bonus, and every bonus is also a constraint",
-  note:"And whichever of those you pick, the job is the same. It has to run the central dogma, so that a gene you put in is actually transcribed and translated. It has to represent the initial state of the biochemical system your part lands in, because your gene is not expressed in a vacuum, it is expressed in the middle of an ongoing metabolism. And it has to replicate your DNA stably, generation after generation, or you do not have a strain, you have an experiment that works once. Everything beyond those three is a bonus the organism happens to provide, and every one of those bonuses is also something you have to work around.",
-  desc:"The three things any chassis must provide: the central dogma, an initial biochemical state, and stable replication of your DNA." }
+  desc:"The six chasses with images: E. coli, S. cerevisiae, H. sapiens, S. elongatus, plants, and in vitro, which has no organism at all." }
 ];
 
 window.Deck.sequence("chasses", function(slide){

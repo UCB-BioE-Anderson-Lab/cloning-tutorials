@@ -1,0 +1,107 @@
+/* ------------------------------------------------------------------ *
+ * 01-prototroph.js — the boundary, drawn as an experiment.
+ *
+ * The previous slide argued that "minimal" is meaningless without
+ * stating what the environment supplies.  This one states it, and the
+ * statement is a medium: a sugar and some salts.  Everything the cell
+ * is made of has to be built from that, which is exactly what M9 tests
+ * and exactly why the media slides later in the deck stop being a
+ * microbiology aside and become the demonstration of this definition.
+ * ------------------------------------------------------------------ */
+(function(){
+"use strict";
+const G = window.GE, C = G.C;
+const n1 = v => Math.round(v*10)/10;
+const cl = (v, a, b) => v < a ? a : (v > b ? b : v);
+function grp(o){ return G.el("g", {opacity:n1(cl(o == null ? 1 : o, 0, 1))}); }
+function path(d, col, w, dash){
+  const a = {d:d, fill:"none", stroke:col || C.ink, "stroke-width":w || 2.6,
+    "stroke-linecap":"round", "stroke-linejoin":"round"};
+  if (dash) a["stroke-dasharray"] = dash;
+  return G.el("path", a);
+}
+function arrow(x0, x1, y, col, w){
+  const g = G.el("g", {});
+  g.appendChild(path("M"+n1(x0)+" "+n1(y)+"H"+n1(x1 - 12), col, w || 3));
+  g.appendChild(path("M"+n1(x1 - 20)+" "+n1(y - 10)+"L"+n1(x1)+" "+n1(y)+
+    "L"+n1(x1 - 20)+" "+n1(y + 10), col, w || 3));
+  return g;
+}
+function cell(cx, cy, r, col){
+  return G.el("rect", {x:n1(cx - r), y:n1(cy - r*0.62), width:n1(r*2),
+    height:n1(r*1.24), rx:n1(r*0.62), fill:col, "fill-opacity":".10",
+    stroke:col, "stroke-width":3});
+}
+
+const IN  = ["glucose", "NH₄⁺", "PO₄³⁻",
+             "SO₄²⁻", "ions", "H₂O"];
+const OUT = ["DNA", "RNA", "protein", "membrane", "cell wall", "cofactors",
+             "every metabolite"];
+
+const FR = [
+{ s:{in:1},
+  cap:"state the environment, and the definition becomes an <b>experiment</b>",
+  call:"one carbon source &#183; nitrogen, phosphorus, sulfur &#183; ions &#183; water",
+  note:"So let us state the environment, because that is the thing the previous slide said you have to state. Here it is: one carbon and energy source, in our case glucose. Ammonium for nitrogen. Phosphate. Sulfate. A handful of inorganic ions. Water. Nothing on this list is a biological molecule. Nothing here was made by something alive.",
+  desc:"The inputs of a minimal medium: glucose, ammonium, phosphate, sulfate, ions and water." },
+
+{ s:{in:1, mk:1},
+  cap:"and everything else has to be <b>made</b>",
+  call:"amino acids, nucleotides, lipids, cofactors &#8212; all of it, from that",
+  note:"And then everything the cell is made of has to be built from those inputs. Not just replication, transcription and translation, but the whole metabolic network that feeds them: twenty amino acids, four nucleotides and their deoxy forms, fatty acids and phospholipids, the peptidoglycan, every cofactor, every intermediate. The central dogma is the part people draw. The biosynthesis is the part that actually dominates the gene count.",
+  desc:"Everything the cell has to build from those inputs: DNA, RNA, protein, membrane, cell wall, cofactors and every metabolite." },
+
+{ s:{in:1, mk:1, two:1},
+  cap:"if it grows here, it encodes the chemistry to <b>build itself</b>",
+  call:"<b>prototrophy</b> &#183; and this is the boundary the rest of the lecture uses",
+  note:"And if it grows, that is the whole result. Growth on a rich medium tells you the cell can reproduce when somebody hands it most of its parts. Growth on a defined minimal medium tells you the cell can construct itself, which is a completely different claim and a much more useful one. The word is prototrophy, and say the caveat out loud: prototrophy is always relative to a stated set of nutrients, so glucose and salts is an operational definition for a heterotroph like E. coli rather than a universal one. When the media slides come back later with LB and M9 and auxotrophic lab strains, they are demonstrations of this line, not a separate topic.",
+  desc:"Two cells, and the term prototrophy: if it grows on this medium it must encode the chemistry to build itself." }
+];
+
+window.Deck.sequence("prototroph", function(slide){
+  const s = G.scene(slide, 792, 838);
+  s.finish();
+  const CY = 470;
+
+  function paint(v){
+    const g = G.el("g", {});
+
+    const a = grp(v.in);
+    IN.forEach(function(t, i){
+      const y = 300 + i*58;
+      a.appendChild(G.el("rect", {x:172, y:n1(y - 24), width:200, height:44, rx:8,
+        fill:C.muted, "fill-opacity":".07", stroke:C.muted, "stroke-width":2}));
+      a.appendChild(G.text(272, y + 6, t, 22, C.ink, 700));
+    });
+    a.appendChild(G.text(272, 254, "what you put in", 20, C.muted, 400));
+    a.appendChild(arrow(392, 470, CY, C.muted));
+    a.appendChild(cell(590, CY, 116, C.blue));
+    a.appendChild(G.text(590, CY + 8, "one cell", 24, C.blue, 700));
+    g.appendChild(a);
+
+    if (v.mk > 0.02){
+      const m = grp(v.mk);
+      m.appendChild(arrow(712, 790, CY, C.blue));
+      OUT.forEach(function(t, i){
+        const y = 286 + i*50;
+        m.appendChild(path("M812 "+n1(y - 16)+"V"+n1(y + 8), C.blue, 3));
+        m.appendChild(G.text(830, y, t, 23, C.blue, 700, "start"));
+      });
+      m.appendChild(G.text(812, 254, "what it has to make", 20, C.muted, 400, "start"));
+      g.appendChild(m);
+    }
+
+    if (v.two > 0.02){
+      const t = grp(v.two);
+      t.appendChild(arrow(1120, 1196, CY, C.verm));
+      t.appendChild(cell(1300, CY - 92, 104, C.verm));
+      t.appendChild(cell(1300, CY + 92, 104, C.verm));
+      t.appendChild(G.text(1300, CY + 218, "two cells", 24, C.verm, 700));
+      t.appendChild(G.text(1300, 254, "prototrophy", 26, C.verm, 700));
+      g.appendChild(t);
+    }
+    return g;
+  }
+  return G.run(s, FR, paint);
+});
+})();

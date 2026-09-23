@@ -1,19 +1,21 @@
 /* ------------------------------------------------------------------ *
- * 01-minimal.js — how small a genome gets, and why it stops there.
+ * 01-minimal.js — genome size as a measure of what has been outsourced.
  *
- * The source slide is the published ring map from Posfai 2006 with the
- * deletions marked, and a speaker note that does the actual arguing:
- * Mycoplasma under a megabase, Pelagibacter at 1.3, most bacteria
- * carrying about three megabases of housekeeping whatever else they
- * carry.  Those are four lengths being compared, and the ring map shows
- * exactly one of them.  Drawn as four bars on one scale, the comparison
- * is the figure, and the floor at three megabases is visible rather
- * than asserted.
+ * NOT "how small can it get", which was the old framing and which
+ * invites a single number as the answer.  Genome size falls when the
+ * environment supplies more, so the four landmarks are chosen to make
+ * that trade visible and each one carries the caveat that complicates
+ * it.
  *
- * Lengths: MG1655 4,641,652 bp; MDS42 3,976,195 bp (Posfai et al,
- * Science 2006, 14.3 percent removed); Pelagibacter ubique HTCC1062
- * 1,308,759 bp, the smallest free-living bacterium; Mycoplasma
- * genitalium G37 580,076 bp.
+ * Deliberately no vertical line labelled "minimum".  The 1.5-2 Mb band
+ * is shaded and labelled as an empirical neighbourhood, because there
+ * is no cleanly established smallest natural glucose-and-salts
+ * prototroph and pretending otherwise would be inventing a record.
+ *
+ * Lengths: JCVI-syn3.0 531 kb / 473 genes (Hutchison, Science 2016);
+ * Pelagibacter ubique HTCC1062 ~1.31 Mb / ~1,354 ORFs; Prochlorococcus
+ * MED4 1,657,990 bp / ~1,716 genes (Rocap, Nature 2003); E. coli K-12
+ * MG1655 ~4.64 Mb.
  * ------------------------------------------------------------------ */
 (function(){
 "use strict";
@@ -33,55 +35,56 @@ function name(x, y, it, rest, col){
   const g = G.el("g", {});
   g.appendChild(G.el("text", {x:n1(x), y:n1(y), "font-size":24, fill:col,
     "font-weight":700, "font-style":"italic"}, it));
-  if (rest) g.appendChild(G.el("text", {x:n1(x + it.length*11.5 + 9), y:n1(y),
+  if (rest) g.appendChild(G.el("text", {x:n1(x + it.length*13 + 10), y:n1(y),
     "font-size":24, fill:col, "font-weight":700}, rest));
   return g;
 }
 
-const X0 = 200, PXMB = 245.7, BH = 44;
-const ROW = [268, 392, 516, 640];
+const X0 = 250, PXMB = 232, BH = 46;
+const ROW = [258, 388, 518, 648];
 const BARS = [
-  ["ecoli", 4.64, "E. coli", "MG1655", C.ink,
-   "the one you use · nothing removed"],
-  ["mds",   3.98, "E. coli", "MDS42",  C.verm,
-   "everything Blattner’s group could take out — 14% gone"],
-  ["pel",   1.31, "P. ubique", "",     C.blue,
-   "the smallest free-living bacterium known"],
-  ["myc",   0.58, "M. genitalium", "", C.blue,
-   "lives inside you, and has given up most of metabolism"]
+  ["syn",  0.53, "JCVI-syn3.0", "", C.muted,
+   "dependent minimal cell", "minimised in a rich medium \u2014 so it imports most of its chemistry"],
+  ["pel",  1.31, "P. ubique", "", C.blue,
+   "streamlined free-living heterotroph", "needs reduced sulfur, and glycine or serine, and pyruvate"],
+  ["pro",  1.66, "Prochlorococcus", " MED4", C.blue,
+   "biosynthetically autonomous \u2014 on light and CO\u2082",
+   "a phototroph, so not the glucose heterotroph in our definition"],
+  ["ecoli", 4.64, "E. coli", " K-12", C.ink,
+   "versatile prototrophic heterotroph", "and far more capability than turning glucose into a cell"]
 ];
-const FLOOR = X0 + PXMB*3.0;
+const BAND = [1.5, 2.0];
 
 const FR = [
 { s:{ecoli:1},
-  cap:"so how far down can it go?",
-  call:"start from the one you use &#183; <b>4.64 Mb</b>",
-  note:"People have gone at the minimal chassis directly, from both ends. Start from where we are: MG1655, four point six four megabases, the same bar as the previous slide.",
-  desc:"The E. coli MG1655 genome as a bar, 4.64 megabases, as a starting point for comparison." },
+  cap:"genome size is partly a measure of <b>what has been outsourced</b>",
+  call:"start from the one you use &#183; <em>E. coli</em> K-12, <b>4.64 Mb</b>",
+  note:"Four landmarks, and the point of putting them on one axis is not to find the smallest. It is that genome size falls when the environment takes over more of the work, so a small genome is as much a statement about a niche as about an organism. Start from the one you use: four point six four megabases, a prototroph, grows on glucose and salts.",
+  desc:"The E. coli K-12 genome as a bar to scale, 4.64 megabases, as the starting point for comparison." },
 
-{ s:{ecoli:1, mds:1},
-  cap:"take out everything you can find",
-  call:"MDS42 &#183; <b>3.98 Mb</b> &#183; fourteen per cent gone, and it still grows",
-  note:"Blattner's group took the K-12 genome and removed chunk after chunk to see how far down it could be whittled, guided by what is already absent from other enterobacteria. The result is the multiple-deletion series, and MDS42 is the far end of it: about fourteen per cent of the genome gone, insertion sequences and cryptic prophages and a great deal else, and the strain still grows. So a lot of what is in there is genuinely not needed, at least not in a flask.",
-  desc:"A second, shorter bar for MDS42 at 3.98 megabases, about fourteen per cent shorter than MG1655." },
+{ s:{ecoli:1, syn:1},
+  cap:"<b>JCVI-syn3.0</b> &#183; 0.53 Mb &#183; 473 genes",
+  call:"a cell that reproduces &#8212; and was minimised <b>in a rich medium</b>",
+  note:"The smallest self-reproducing cell anybody has built. Five hundred and thirty-one kilobases, four hundred and seventy-three genes, and it divides. But it was minimised by deleting genes in a rich medium, so every gene whose product the medium supplied is gone. Read it as an answer to what a cell must encode when almost everything is handed to it, not as an answer to what it takes to build a cell from chemicals. Breuer and colleagues did the metabolic reconstruction on syn3A, five hundred and forty-three kilobases, and the story there is import, import, import.",
+  desc:"A much shorter bar for JCVI-syn3.0 at 0.53 megabases, marked as minimised in a rich medium." },
 
-{ s:{ecoli:1, mds:1, pel:1},
-  cap:"and nature has done better",
-  call:"<em>Pelagibacter ubique</em> &#183; <b>1.31 Mb</b> &#183; free-living, in open ocean",
-  note:"But nature beat that by a long way. Pelagibacter ubique, which is one of the most abundant organisms on the planet and lives free in open ocean, runs on one point three one megabases. It is the smallest genome of any free-living bacterium known. So the three megabases of housekeeping we just drew is clearly not a hard requirement for being alive on your own.",
-  desc:"A much shorter bar for Pelagibacter ubique at 1.31 megabases, the smallest free-living bacterium." },
+{ s:{ecoli:1, syn:1, pel:1},
+  cap:"<b><em>Pelagibacter ubique</em></b> &#183; 1.31 Mb",
+  call:"free-living, and it made a very specific bargain with the ocean",
+  note:"The natural version of the same lesson, and one of the most abundant organisms on the planet. One point three one megabases, free-living in open ocean, and streamlined rather than parasitic. But defined-medium work shows what streamlining cost: it cannot do assimilatory sulfate reduction, so it needs reduced sulfur handed to it, and it has requirements involving glycine or serine and pyruvate. Free-living, and still not autonomous in the sense we care about.",
+  desc:"A bar for Pelagibacter ubique at 1.31 megabases, free-living but with specific metabolite dependencies." },
 
-{ s:{ecoli:1, mds:1, pel:1, myc:1},
-  cap:"and the smallest of all is cheating",
-  call:"<em>Mycoplasma genitalium</em> &#183; <b>0.58 Mb</b> &#183; it lives inside you",
-  note:"And the smallest cellular genomes belong to the Mycoplasma, which are pathogens so dependent on their host cells that much of metabolism is simply missing from their genomes. Mycoplasma genitalium comes in around five hundred and eighty kilobases. But that is not a minimal cell, it is a cell that outsourced. If you had to supply everything it gets from a human, the total would be much larger than the bar drawn here.",
-  desc:"The shortest bar, Mycoplasma genitalium at 0.58 megabases, an obligate parasite." },
+{ s:{ecoli:1, syn:1, pel:1, pro:1},
+  cap:"<b><em>Prochlorococcus</em></b> MED4 &#183; 1.66 Mb",
+  call:"a complete biosynthetic network &#183; on <b>light and CO&#8322;</b>",
+  note:"And this one is the proof of principle. One point six six megabases, about seventeen hundred genes, and it encodes a complete metabolic network: it makes everything it is out of carbon dioxide, mineral nutrients and light. Say the caveat plainly, because it matters: it is a phototroph, not the glucose heterotroph our operational definition describes. What it demonstrates is that near-complete biosynthetic autonomy can fit in a genome of this order, which is the useful claim.",
+  desc:"A bar for Prochlorococcus MED4 at 1.66 megabases, a phototroph with a complete biosynthetic network." },
 
-{ s:{ecoli:1, mds:1, pel:1, myc:1, floor:1},
-  cap:"about <b>3 Mb</b> of housekeeping, and then whatever you need to live somewhere",
-  call:"everything to the right of it is what makes a strain worth having",
-  note:"Put the three megabase line on and the shape of it is clear. Smaller than three megabases is certainly possible. But most free-living bacteria carry about three megabases of housekeeping whatever else they carry, and the additional DNA on top of that is what lets a particular strain survive somewhere particular: in soil, in competition, inside another organism. That extra DNA is where all the diversity lives, and it is where every phenotype from the previous slide is encoded. The minimal genome is an interesting question and a bad chassis. What you want is not the smallest genome, it is the smallest genome that still does the thing you need.",
-  desc:"A line marking three megabases across all four bars, separating the housekeeping core from the DNA that adapts a strain to a place." }
+{ s:{ecoli:1, syn:1, pel:1, pro:1, band:1},
+  cap:"so autonomy is an <b>order-of-magnitude</b> answer, not a number",
+  call:"and the difference between 2 Mb and 4.6 Mb is not <em>life</em>",
+  note:"Shade the neighbourhood rather than drawing a line, because there is no cleanly established smallest natural glucose-and-salts prototroph and it would be inventing a record to claim one. What the landmarks support is an order-of-magnitude statement: a metabolically dependent cell can be half a megabase, a fully biosynthetic bacterial system is plausibly a one and a half to two megabase problem, and E. coli is four point six. Which means the gap between those two is not life. It is flexibility, sensing, regulation, repair, defence, alternative nutrients, stress response, and everything that lets an organism live somewhere real. That gap is the next slide.",
+  desc:"A shaded band from 1.5 to 2 megabases, labelled as the empirical neighbourhood in which near-complete biosynthetic autonomy is demonstrably possible, with the gap up to E. coli marked as capability rather than life." }
 ];
 
 window.Deck.sequence("minimal", function(slide){
@@ -91,6 +94,21 @@ window.Deck.sequence("minimal", function(slide){
   function paint(v){
     const g = G.el("g", {});
 
+    /* ---- the neighbourhood, shaded and never a line -------------- */
+    if (v.band > 0.02){
+      const f = grp(v.band);
+      const x0 = X0 + PXMB*BAND[0], x1 = X0 + PXMB*BAND[1];
+      f.appendChild(G.el("rect", {x:n1(x0), y:262, width:n1(x1 - x0),
+        height:n1(ROW[3] + BH + 6 - 262), fill:C.verm, "fill-opacity":".09",
+        stroke:"none"}));
+      f.appendChild(G.text((x0 + x1)/2, 196, "1.5\u20132 Mb", 24, C.verm, 700));
+      f.appendChild(G.text((x0 + x1)/2, 226,
+        "near-complete biosynthetic autonomy is", 19, C.verm, 400));
+      f.appendChild(G.text((x0 + x1)/2, 250,
+        "demonstrably possible here \u2014 not a minimum", 19, C.verm, 400));
+      g.appendChild(f);
+    }
+
     BARS.forEach(function(row, i){
       const o = v[row[0]];
       if (!(o > 0.02)) return;
@@ -98,23 +116,12 @@ window.Deck.sequence("minimal", function(slide){
       b.appendChild(G.el("rect", {x:X0, y:y, width:n1(w), height:BH, rx:5,
         fill:col, "fill-opacity":".14", stroke:col, "stroke-width":2.8}));
       b.appendChild(name(X0, y - 16, row[2], row[3], col));
-      b.appendChild(G.text(X0 + w + 18, y + 30, row[1].toFixed(2) + " Mb", 24,
+      b.appendChild(G.text(X0 + w + 18, y + 32, row[1].toFixed(2) + " Mb", 24,
         col, 700, "start"));
-      /* the note goes UNDER the bar: the top bar is 1140px long, so
-         anything hung off its right-hand end runs off the slide */
-      b.appendChild(G.text(X0 + 4, y + BH + 24, row[5], 19, C.muted, 400, "start"));
+      b.appendChild(G.text(X0 + 4, y + BH + 24, row[5], 20, C.ink, 700, "start"));
+      b.appendChild(G.text(X0 + 4, y + BH + 50, row[6], 18, C.muted, 400, "start"));
       g.appendChild(b);
     });
-
-    /* ---- the floor ----------------------------------------------- */
-    if (v.floor > 0.02){
-      const f = grp(v.floor);
-      f.appendChild(path("M"+n1(FLOOR)+" "+n1(ROW[0] - 44)+
-        "V"+n1(ROW[3] + BH + 34), C.blue, 3, "9 7"));
-      f.appendChild(G.text(FLOOR, ROW[0] - 56,
-        "∼3 Mb of housekeeping", 23, C.blue, 700));
-      g.appendChild(f);
-    }
     return g;
   }
   return G.run(s, FR, paint);
