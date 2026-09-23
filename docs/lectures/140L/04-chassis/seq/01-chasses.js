@@ -28,6 +28,13 @@ function path(d, col, w, dash){
   if (dash) a["stroke-dasharray"] = dash;
   return G.el("path", a);
 }
+function mixed(x, y, a, b, size, col){
+  const t = G.el("text", {x:n1(x), y:n1(y), "font-size":size, fill:col,
+    "font-weight":400, "text-anchor":"start"});
+  t.appendChild(G.el("tspan", {}, a));
+  if (b) t.appendChild(G.el("tspan", {"font-style":"italic", dx:7}, b));
+  return t;
+}
 function ital(x, y, s, size, col, weight, anchor){
   return G.el("text", {x:n1(x), y:n1(y), "font-size":size, fill:col,
     "font-weight":weight || 400, "text-anchor":anchor || "start",
@@ -58,14 +65,29 @@ const DEPOT = [["mammalian", 82381], ["bacterial", 33902], ["yeast", 8431],
                ["insect", 5076], ["plant", 4796], ["worm", 1910]];
 const DTOT = 177561, DX = 900, DW = 420, DY0 = 300, DDY = 62;
 
-/* And inside "bacterial", by genus.  These are free-text mentions
-   within the bacterial-expression set, which is the only honest way to
-   do it: Addgene's host facet stops at kingdom, and the same query on
-   the mammalian set returns 42,341 for "Homo sapiens" because it is
-   matching the INSERT's species, not the host.
-   The bias runs one way and it is the finding: E. coli is the unmarked
-   default, so almost nobody writes it down, and its 93% is a floor
-   rather than a measurement.  The twenty genera counted sum to ~2,500. */
+/* And inside "bacterial", one level down.  Addgene's host facet stops
+   at kingdom, so this is counted two ways instead, from opposite ends,
+   because neither count is clean on its own.
+
+   By genus name: 2,528 of the 33,902 name a genus other than
+   Escherichia.  E. coli is the unmarked default so it is rarely written
+   down, which pushes the figure down; but a "Bacillus" in the record
+   may be the INSERT's source rather than the host, which pushes it back
+   up.  (That same confound is what makes the mammalian set unusable at
+   genus level -- "Homo sapiens" returns 42,341 there, nearly all of them
+   human genes in human-cell vectors, not a host count.)
+
+   By replicon: 584 name a broad-host-range origin -- pSEVA 233, pBBR1
+   223, RSF1010 108, pRK2 18, pAMbeta1 2.  This one is mechanistic
+   rather than nominal, since the origin decides what a plasmid can
+   replicate in, and it cannot be confounded by an insert.  It is a
+   floor: a host-specific origin like pUB110 works outside E. coli too
+   and is not counted here.
+
+   The two disagree by a factor of four and still land in the same
+   place, which is the honest way to put the number on a slide.
+   For scale in the other direction: pET alone is 8,724.  All figures
+   retrieved 2026-09-23. */
 const GEN = [["Bacillus", 527, "secretes, and it is GRAS"],
              ["Pseudomonas", 487, "eats what other things cannot"],
              ["Streptomyces", 232, "makes the antibiotics"],
@@ -73,6 +95,8 @@ const GEN = [["Bacillus", 527, "secretes, and it is GRAS"],
              ["Synechocystis", 109, "photosynthesis"],
              ["Corynebacterium", 43, "industrial amino acids"]];
 const GTOT = 33902, GNAMED = 2528;
+const EVID = [["2,528", "name a genus other than", "Escherichia", "7.5%"],
+              ["584",   "carry a broad-host-range replicon", "", "1.7%"]];
 const Y0 = 216, DY = 22.4;                 /* one row per tip, plus a   */
                                            /* blank row between domains */
 /* pre-compute every tip's row so the spines and labels agree */
@@ -125,9 +149,9 @@ const FR = [
 
 { s:{tree:1, lit:1, shift:1, gen:1},
   cap:"and inside &#8220;bacterial&#8221;, it is <b>one organism</b>",
-  call:"every other genus named adds up to about <b>7%</b>",
-  note:"Go one level down, because kingdom is too coarse to be interesting. Of the thirty-four thousand bacterial plasmids, everything that names a genus other than Escherichia comes to about two and a half thousand, which is seven per cent. The rest is E. coli, and most of those do not say so, because you only write the host down when it is not the obvious one. That bias runs one way, so ninety-three per cent is a floor and not a measurement. Now read the right-hand column, because this is the thing worth taking away. Not one of those genera is on the list for being easy to work with. Bacillus secretes properly and is generally regarded as safe, so it is where you go for enzymes in food. Pseudomonas eats solvents and aromatics that would kill E. coli. Streptomyces makes most of the antibiotics anybody has ever isolated. Mycobacterium is there because tuberculosis is. Every one of them is being used for a property it already had, and somebody paid to build the tooling afterwards.",
-  desc:"The bacterial category broken down by genus: about 93 per cent is E. coli, and the named alternatives — Bacillus, Pseudomonas, Streptomyces, Mycobacterium, Synechocystis, Corynebacterium — are each used for a capability they already had." },
+  call:"counted two ways &#183; every alternative together is about <b>7%</b>",
+  note:"Go one level down, because kingdom is too coarse to be interesting. Of the thirty-four thousand bacterial plasmids, everything that names a genus other than Escherichia comes to about two and a half thousand. Seven per cent. You can check that from the other end, and you should, because neither count is clean on its own: only five hundred and eighty-four carry a broad-host-range replicon -- an origin that can physically replicate outside E. coli. Two counts, made in completely different ways, disagreeing by a factor of four, and both of them still say the same thing. Inside bacterial, this is one organism. Now read the right-hand column, because that is what is actually worth taking away. Not one of those genera is on the list for being easy to work with. Bacillus secretes properly and is generally regarded as safe, so it is where you go for enzymes in food. Pseudomonas eats solvents and aromatics that would kill E. coli. Streptomyces makes most of the antibiotics anybody has ever isolated. Mycobacterium is there because tuberculosis is. Every one of them is being used for a property it already had, and somebody paid to build the tooling afterwards.",
+  desc:"The bacterial category broken down: about 93 per cent is E. coli, supported by two independent counts, and the named alternatives \u2014 Bacillus, Pseudomonas, Streptomyces, Mycobacterium, Synechocystis, Corynebacterium \u2014 are each used for a capability they already had." },
 
 { s:{tree:1, lit:1, six:1, shift:1},
   cap:"the six you will hear named",
@@ -210,9 +234,9 @@ window.Deck.sequence("chasses", function(slide){
 
     /* ---- and one level down, where it is one organism ------------ */
     if (v.gen > 0.02){
-      const q = grp(v.gen), BX = 730, BWD = 710, BYY = 268, BHH = 44;
+      const q = grp(v.gen), BX = 730, BWD = 710, BYY = 262, BHH = 44;
       const share = 1 - GNAMED/GTOT, split = BX + BWD*share;
-      q.appendChild(G.text(BX, BYY - 46, "the 33,902 \u201cbacterial\u201d plasmids",
+      q.appendChild(G.text(BX, BYY - 20, "the 33,902 \u201cbacterial\u201d plasmids",
         21, C.muted, 700, "start"));
       q.appendChild(G.el("rect", {x:BX, y:BYY, width:n1(split - BX), height:BHH,
         rx:5, fill:C.verm, "fill-opacity":".22", stroke:C.verm, "stroke-width":2.6}));
@@ -222,23 +246,28 @@ window.Deck.sequence("chasses", function(slide){
       q.appendChild(G.el("text", {x:n1((BX + split)/2), y:n1(BYY + 29),
         "font-size":22, fill:C.verm, "font-weight":700, "text-anchor":"middle",
         "font-style":"italic"}, "E. coli"));
-      q.appendChild(G.text((BX + split)/2, BYY + 68,
-        "and everything that does not bother to say", 18, C.muted, 400));
       q.appendChild(path("M"+n1(split)+" "+n1(BYY - 10)+"V"+n1(BYY - 24)+
         "H"+n1(BX + BWD)+"V"+n1(BYY - 10), C.muted, 2));
-      q.appendChild(G.text(BX + BWD, BYY - 34, "7%", 21, C.ink, 700, "end"));
+      q.appendChild(G.text(BX + BWD, BYY - 34, "everything else", 19, C.ink, 700, "end"));
+      /* Two counts made in unrelated ways.  Shown side by side because
+         the agreement is the evidence -- either one alone is arguable. */
+      q.appendChild(G.text(BX, BYY + BHH + 42, "counted two ways \u2014",
+        20, C.ink, 700, "start"));
+      EVID.forEach(function(e, i){
+        const y = BYY + BHH + 76 + i*32;
+        q.appendChild(G.text(834, y, e[0], 22, C.verm, 700, "end"));
+        q.appendChild(mixed(850, y, e[1], e[2], 20, C.muted));
+        q.appendChild(G.text(BX + BWD, y, e[3], 20, C.muted, 400, "end"));
+      });
       GEN.forEach(function(r, i){
-        const y = 400 + i*56;
+        const y = 462 + i*48;
         q.appendChild(G.el("text", {x:990, y:n1(y), "font-size":23, fill:C.ink,
           "font-weight":700, "text-anchor":"end", "font-style":"italic"}, r[0]));
         q.appendChild(G.text(1012, y, String(r[1]), 21, C.muted, 400, "start"));
         q.appendChild(G.text(1088, y, r[2], 20, C.verm, 400, "start"));
       });
-      q.appendChild(G.text(730, 400 + 6*56 + 10,
+      q.appendChild(G.text(BX, 742,
         "each one used for something it could already do", 21, C.ink, 700, "start"));
-      q.appendChild(G.text(730, 400 + 6*56 + 38,
-        "free-text mentions \u00b7 E. coli is the unmarked default, so 93% is a floor",
-        17, C.muted, 400, "start"));
       g.appendChild(q);
     }
 
