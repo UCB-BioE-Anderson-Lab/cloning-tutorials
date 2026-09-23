@@ -59,25 +59,10 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 55 -->
-<article class="slide">
+<article class="slide" data-seq="howhard">
   <h1 class="small">In a nutshell: how hard is each one?</h1>
-  <table class="comp">
-    <tr><th>Destination</th><th>How you get there</th></tr>
-    <tr class="easy"><td class="where">Cytoplasm</td>
-        <td>Happens <b>by default</b> &mdash; translation is already there</td></tr>
-    <tr class="easy"><td class="where">Inner membrane</td>
-        <td>Easy for things that belong there. Done through the <b>sec</b> pathway (<i>pre</i>)</td></tr>
-    <tr class="easy"><td class="where">Periplasm</td>
-        <td>Easy for sec secretion (<i>prepro</i>). Alternate <b>tat</b> pathway for things
-            that cannot fold there</td></tr>
-    <tr class="hard"><td class="where">Outer membrane</td>
-        <td>Happens naturally for things that naturally belong there.
-            <b>Difficult</b> &mdash; but doable &mdash; for things that do not</td></tr>
-    <tr class="hard"><td class="where">Secreted</td>
-        <td>Many methods, <b>all of them iffy</b>. Gram positives do this much more easily</td></tr>
-  </table>
-  <template class="notes">Since translation happens in the cytoplasm, the cytoplasm is the default and you get it for free. It is very easy to target a protein to the inner membrane or the periplasm, by putting a short sequence called pre or prepro on the N-terminus. Some proteins targeted to the periplasm will spontaneously insert into the outer membrane, but it is often hard to direct something there that does not come from there. And there are many ways to secrete a protein, all of which are awkward in E. coli. Gram positive bacteria have no outer membrane, so periplasmic targeting in them results in secretion, and the process is far more efficient. Which is why in most biotechnology applications that need a secreted protein, people reach for a Bacillus strain or Pichia yeast instead.</template>
-  <template class="desc">A table of the five destinations against how hard each is: the cytoplasm by default, the inner membrane and periplasm easily via the sec pathway with a pre or prepro sequence, the outer membrane naturally only for things that belong there, and secretion by many methods all of which are unreliable in E. coli.</template>
+  <template class="notes">The source slide states the answer as five rows of prose. It is a scale, so it goes on the cutaway the section opened with, and drawn that way it turns out to track the number of membranes involved.</template>
+  <template class="desc">The five destinations on the cell cutaway, each with a difficulty rating, and then the pattern: difficulty tracks how many membranes the protein has to cross.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 56 -->
@@ -219,5 +204,6 @@
 <script src="lecture.js" defer></script>
 <script src="seq/parts.js" defer></script>
 <script src="seq/06-localize.js" defer></script>
+<script src="seq/06-howhard.js" defer></script>
 </body>
 </html>
