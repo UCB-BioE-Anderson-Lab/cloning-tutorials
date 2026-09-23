@@ -57,6 +57,22 @@ const LIT = {Proteobacteria:1, Fungi:1, Plants:1, Animals:1};
 const DEPOT = [["mammalian", 82381], ["bacterial", 33902], ["yeast", 8431],
                ["insect", 5076], ["plant", 4796], ["worm", 1910]];
 const DTOT = 177561, DX = 900, DW = 420, DY0 = 300, DDY = 62;
+
+/* And inside "bacterial", by genus.  These are free-text mentions
+   within the bacterial-expression set, which is the only honest way to
+   do it: Addgene's host facet stops at kingdom, and the same query on
+   the mammalian set returns 42,341 for "Homo sapiens" because it is
+   matching the INSERT's species, not the host.
+   The bias runs one way and it is the finding: E. coli is the unmarked
+   default, so almost nobody writes it down, and its 93% is a floor
+   rather than a measurement.  The twenty genera counted sum to ~2,500. */
+const GEN = [["Bacillus", 527, "secretes, and it is GRAS"],
+             ["Pseudomonas", 487, "eats what other things cannot"],
+             ["Streptomyces", 232, "makes the antibiotics"],
+             ["Mycobacterium", 194, "the disease is the reason"],
+             ["Synechocystis", 109, "photosynthesis"],
+             ["Corynebacterium", 43, "industrial amino acids"]];
+const GTOT = 33902, GNAMED = 2528;
 const Y0 = 216, DY = 22.4;                 /* one row per tip, plus a   */
                                            /* blank row between domains */
 /* pre-compute every tip's row so the spines and labels agree */
@@ -106,6 +122,12 @@ const FR = [
   call:"of <b>177,561</b> plasmids shared at Addgene, two categories are <b>two thirds</b>",
   note:"Correct the impression the last slide might have given, because tools exist for far more organisms than most people assume. Somebody has made transgenic jellyfish. There are published parts for halophilic archaea. The constraint is not that tooling is absent, it is that it is piled up in a few places. These are deposits at Addgene by expression host, and the shape is stark: mammalian cells are forty-six per cent of everything shared, bacteria another nineteen, and those two together are two thirds of a hundred and seventy-seven thousand plasmids. Yeast is five per cent. Everything else is noise by comparison. And notice the two big ones are big for opposite reasons. Bacteria because they are easy -- fast, transformable, they grow on defined medium, and a century of genetics was done on them before anybody said synthetic biology. Mammalian cells because that is where the medicine is, and people build the tools anyway, in spite of the cells being slow, fragile and expensive. So the honest rule is not that you must pick from a short list. It is that picking outside it means you are also signing up to build the tooling.",
   desc:"Addgene deposits by expression host: mammalian 82,381, bacterial 33,902, yeast 8,431, insect 5,076, plant 4,796, worm 1,910, out of 177,561 plasmids in total." },
+
+{ s:{tree:1, lit:1, shift:1, gen:1},
+  cap:"and inside &#8220;bacterial&#8221;, it is <b>one organism</b>",
+  call:"every other genus named adds up to about <b>7%</b>",
+  note:"Go one level down, because kingdom is too coarse to be interesting. Of the thirty-four thousand bacterial plasmids, everything that names a genus other than Escherichia comes to about two and a half thousand, which is seven per cent. The rest is E. coli, and most of those do not say so, because you only write the host down when it is not the obvious one. That bias runs one way, so ninety-three per cent is a floor and not a measurement. Now read the right-hand column, because this is the thing worth taking away. Not one of those genera is on the list for being easy to work with. Bacillus secretes properly and is generally regarded as safe, so it is where you go for enzymes in food. Pseudomonas eats solvents and aromatics that would kill E. coli. Streptomyces makes most of the antibiotics anybody has ever isolated. Mycobacterium is there because tuberculosis is. Every one of them is being used for a property it already had, and somebody paid to build the tooling afterwards.",
+  desc:"The bacterial category broken down by genus: about 93 per cent is E. coli, and the named alternatives — Bacillus, Pseudomonas, Streptomyces, Mycobacterium, Synechocystis, Corynebacterium — are each used for a capability they already had." },
 
 { s:{tree:1, lit:1, six:1, shift:1},
   cap:"the six you will hear named",
@@ -184,6 +206,40 @@ window.Deck.sequence("chasses", function(slide){
       d.appendChild(G.text(730, DY0 + 6*DDY + 42,
         "and they are big for opposite reasons", 19, C.muted, 400, "start"));
       g.appendChild(d);
+    }
+
+    /* ---- and one level down, where it is one organism ------------ */
+    if (v.gen > 0.02){
+      const q = grp(v.gen), BX = 730, BWD = 710, BYY = 268, BHH = 44;
+      const share = 1 - GNAMED/GTOT, split = BX + BWD*share;
+      q.appendChild(G.text(BX, BYY - 46, "the 33,902 \u201cbacterial\u201d plasmids",
+        21, C.muted, 700, "start"));
+      q.appendChild(G.el("rect", {x:BX, y:BYY, width:n1(split - BX), height:BHH,
+        rx:5, fill:C.verm, "fill-opacity":".22", stroke:C.verm, "stroke-width":2.6}));
+      q.appendChild(G.el("rect", {x:n1(split), y:BYY, width:n1(BX + BWD - split),
+        height:BHH, rx:5, fill:C.muted, "fill-opacity":".18", stroke:C.muted,
+        "stroke-width":2.6}));
+      q.appendChild(G.el("text", {x:n1((BX + split)/2), y:n1(BYY + 29),
+        "font-size":22, fill:C.verm, "font-weight":700, "text-anchor":"middle",
+        "font-style":"italic"}, "E. coli"));
+      q.appendChild(G.text((BX + split)/2, BYY + 68,
+        "and everything that does not bother to say", 18, C.muted, 400));
+      q.appendChild(path("M"+n1(split)+" "+n1(BYY - 10)+"V"+n1(BYY - 24)+
+        "H"+n1(BX + BWD)+"V"+n1(BYY - 10), C.muted, 2));
+      q.appendChild(G.text(BX + BWD, BYY - 34, "7%", 21, C.ink, 700, "end"));
+      GEN.forEach(function(r, i){
+        const y = 400 + i*56;
+        q.appendChild(G.el("text", {x:990, y:n1(y), "font-size":23, fill:C.ink,
+          "font-weight":700, "text-anchor":"end", "font-style":"italic"}, r[0]));
+        q.appendChild(G.text(1012, y, String(r[1]), 21, C.muted, 400, "start"));
+        q.appendChild(G.text(1088, y, r[2], 20, C.verm, 400, "start"));
+      });
+      q.appendChild(G.text(730, 400 + 6*56 + 10,
+        "each one used for something it could already do", 21, C.ink, 700, "start"));
+      q.appendChild(G.text(730, 400 + 6*56 + 38,
+        "free-text mentions \u00b7 E. coli is the unmarked default, so 93% is a floor",
+        17, C.muted, 400, "start"));
+      g.appendChild(q);
     }
 
     /* ---- the six ------------------------------------------------- */
