@@ -42,22 +42,21 @@ const TX0 = 200, TW = 200, TY = 190, TH = 48;
  * carry the whole point of the frame: gam-bet-exo is one mRNA making
  * three proteins, and the guides are RNAs that make none.
  * ------------------------------------------------------------------ */
-const RY0 = 314, RDY = 61;
+const RY0 = 320, RDY = 72;
 const LBL = 214, RULE = 226, DNA0 = 246, TX_A = 664, RNA_C = 856, TX_B = 1024, PRO0 = 1070;
 const ry = i => RY0 + RDY*i;
 
 const ROWS = [
-  {mol:"pcas",  key:"repa",  rna:"repA mRNA",         prot:["RepA"]},
-  {mol:"pcas",  key:"cas9",  rna:"cas9 mRNA",         prot:["Cas9"]},
-  {mol:"pcas",  key:"red",   rna:"gam-bet-exo mRNA",  prot:["Gam", "Bet", "Exo"]},
+  {mol:"pcas",  key:"repa",  rna:"repA",         prot:["RepA"]},
+  {mol:"pcas",  key:"cas9",  rna:"cas9",         prot:["Cas9"]},
+  {mol:"pcas",  key:"red",   rna:"gam-bet-exo",  prot:["Gam", "Bet", "Exo"]},
   {mol:"pcas",  key:"g2",    rna:"sgRNA ✕ pMB1", prot:[]},
-  {mol:"ptar",  key:"pmb1",  rna:null,                prot:[]},
   {mol:"ptar",  key:"g1",    rna:"sgRNA ✕ aspC1",prot:[]},
   {mol:"donor", key:"donor", rna:null,                prot:[]},
-  {mol:"chr",   key:"aspc",  rna:"aspC1 mRNA",        prot:["AspC1"]}
+  {mol:"chr",   key:"aspc",  rna:"aspC1",             prot:["AspC1"]}
 ];
-const MOLS = [["pCas", 0, 3], ["pTarget", 4, 5], ["donor", 6, 6],
-              ["chromosome", 7, 7]];
+const MOLS = [["pCas", 0, 3], ["pTarget", 4, 4], ["donor", 5, 5],
+              ["chromosome", 6, 6]];
 
 /* a promoter: the bent arrow every genetics figure uses */
 function promoter(x, y, col){
@@ -93,10 +92,10 @@ function ori(x0, x1, y, label, col){
 function seg(x0, x1, y, col){ return path("M"+n1(x0)+" "+n1(y)+"H"+n1(x1), col, 2.4); }
 /* an RNA, one wave, so it can never be mistaken for a protein */
 function wave(cx, y, col){
-  const w = 96;
+  const w = 76;
   let d = "M"+n1(cx - w/2)+" "+n1(y);
   for (let i = 0; i < 4; i++)
-    d += "q"+n1(w/8)+" -8 "+n1(w/4)+" 0 q"+n1(w/8)+" 8 "+n1(w/4)+" 0";
+    d += "q"+n1(w/16)+" -7 "+n1(w/8)+" 0 q"+n1(w/16)+" 7 "+n1(w/8)+" 0";
   return path(d, col, 3);
 }
 /* a protein, which is a blob because it is not a sequence any more */
@@ -135,19 +134,19 @@ const FR = [
   note:"Add arabinose and the araBAD promoter fires, so three more proteins appear: Gam, Bet and Exo. Still nothing to cut. But look at what Gam does, because this is the answer to why the induction has to come first. Gam inhibits RecBCD, and RecBCD is the nuclease that chews up linear DNA in E. coli. The donor is linear. Electroporate it into cells that have not been induced and RecBCD destroys it, the break has nothing to repair from, and every cell dies. The order is not a convention, it is the mechanism.",
   desc:"Arabinose fires the araBAD promoter and Gam, Bet and Exo pop up, ticking three more boxes." },
 
-{ s:{sc:1, step:3, pcas:1, chr:1, aspc:1, cas9:1, repa:1, red:1, ptar:1, pmb1:1, g1:1, donor:1},
+{ s:{sc:1, step:3, pcas:1, chr:1, aspc:1, cas9:1, repa:1, red:1, ptar:1, g1:1, donor:1},
   cap:"<b>transform</b> &#183; two molecules arrive at once",
   call:"pTarget&#8217;s guide needs no inducer &#183; Cas9 finally has an address",
   note:"Now electroporate, and two things land. The donor, which is linear and would already be gone if we had skipped the last step. And pTarget, which replicates from its own pMB1 origin and carries its guide under a constitutive promoter, so the guide appears immediately with no induction step. And watch where it lands on the list: the guide is an RNA, so it ticks on the RNA level and nothing appears under protein. Keep an eye on those three levels, because they are how we will organise everything from here, and a part is a thing that lives on one of them. The moment pTarget is in, Cas9 has an address, and the address is on the chromosome.",
   desc:"pTarget and the linear donor arrive. pTarget's constitutive promoter makes a guide RNA, which ticks on the RNA level rather than the protein level." },
 
-{ s:{sc:1, step:4, pcas:1, chr:1, cas9:1, repa:1, red:1, ptar:1, pmb1:1, g1:1, edited:1},
+{ s:{sc:1, step:4, pcas:1, chr:1, cas9:1, repa:1, red:1, ptar:1, g1:1, edited:1},
   cap:"<b>Spec &#183; Kan</b> &#183; everything happens here",
   call:"the cut, the repair, and the death of everything that failed",
   note:"And this growth is where the entire experiment happens. Cas9 plus the guide cuts the chromosome at aspC1. The break is lethal on its own, because E. coli has no non-homologous end joining. Gam has kept the donor intact, Exo chews back a strand to leave overhangs, Bet anneals them onto the homology arms, and the deletion is installed. Any cell that failed at that is dead. Notice you never selected for the edit. You selected for two plasmids, and the edit is the only way to survive what those plasmids do to you.",
   desc:"During the growth, the chromosome is cut and repaired off the donor, the donor is consumed, and the chromosome now reads delta-aspC1." },
 
-{ s:{sc:1, step:5, pcas:1, chr:1, cas9:1, repa:1, ptar:1, g2:1, edited:1},
+{ s:{sc:1, step:5, pcas:1, chr:1, cas9:1, repa:1, g2:1, edited:1},
   cap:"<b>+ IPTG</b> &#183; the plasmid you built removes itself",
   call:"pCas has been carrying a guide against pMB1 the whole time",
   note:"Now IPTG. The lac promoter on pCas fires, and it has been sitting there the whole time carrying a guide aimed at the pMB1 origin. pTarget has a pMB1 origin. So Cas9, which is still present, cuts pTarget, and pTarget is gone and the guide against aspC1 goes with it. pCas survives because its origin is repA101, not pMB1. That is a deliberate design choice and you can read it straight off the cartoon: the one origin the guide can reach is the one you want to lose. Also note the arabinose is gone by now, so lambda red has switched off.",
@@ -189,12 +188,9 @@ window.Deck.sequence("trace", function(slide){
     const grid = grp(dim*(v.sc || 0));
 
     /* ---- the three planes, named once ------------------------------ */
-    [[DNA0 + 130, "DNA"], [RNA_C, "RNA"], [PRO0 + 150, "protein"]]
-      .forEach(function(h, i){
-        grid.appendChild(G.text(h[0], 272, h[1], 20, C.muted, 700));
-        if (i) grid.appendChild(arrow(i === 1 ? TX_A : TX_B,
-          (i === 1 ? TX_A : TX_B) + 40, 266, C.muted));
-      });
+    [[DNA0 + 160, "DNA"], [RNA_C + 40, "RNA"], [PRO0 + 150, "protein"]]
+      .forEach(function(h){ grid.appendChild(G.text(h[0], 276, h[1], 20,
+        C.muted, 700)); });
 
     /* ---- which molecule each row belongs to ------------------------ */
     MOLS.forEach(function(m){
@@ -229,15 +225,11 @@ window.Deck.sequence("trace", function(slide){
         grid.appendChild(seg(DNA0, 544, y, dcol));
         grid.appendChild(promoter(DNA0 + 6, y, dcol));
         grid.appendChild(gene(DNA0 + 62, 538, y, "sgRNA ✕ pMB1", dcol, 16));
-      } else if (r.key === "pmb1"){
-        grid.appendChild(seg(DNA0, 390, y, dcol));
-        grid.appendChild(ori(DNA0 + 4, 384, y, "pMB1 origin", dcol));
-        if (step === 5) grid.appendChild(path("M"+n1(DNA0 + 40)+" "+n1(y - 24)+
-          "L"+n1(DNA0 + 140)+" "+n1(y + 24), C.verm, 4));
       } else if (r.key === "g1"){
-        grid.appendChild(seg(DNA0, 550, y, dcol));
-        grid.appendChild(promoter(DNA0 + 6, y, dcol));
-        grid.appendChild(gene(DNA0 + 62, 544, y, "sgRNA ✕ aspC1", dcol, 16));
+        grid.appendChild(seg(DNA0, 628, y, dcol));
+        grid.appendChild(ori(DNA0, 344, y, "pMB1", dcol));
+        grid.appendChild(promoter(364, y, dcol));
+        grid.appendChild(gene(420, 622, y, "sgRNA ✕ aspC1", dcol, 16));
       } else if (r.key === "donor"){
         grid.appendChild(G.el("rect", {x:DNA0, y:n1(y - 13), width:200, height:26,
           rx:4, fill:dcol, "fill-opacity":".14", stroke:dcol, "stroke-width":2.2}));
@@ -261,11 +253,11 @@ window.Deck.sequence("trace", function(slide){
       /* the RNA it is read into */
       if (r.rna){
         grid.appendChild(arrow(TX_A, TX_A + 44, y, on ? C.verm : C.muted));
-        grid.appendChild(wave(RNA_C, y - 6, on ? C.verm : C.muted));
-        grid.appendChild(G.text(RNA_C, y + 22, r.rna, 17,
-          on ? C.verm : C.muted, on ? 700 : 400));
+        grid.appendChild(wave(RNA_C - 42, y, on ? C.verm : C.muted));
+        grid.appendChild(G.text(RNA_C + 22, y + 7, r.rna, 19,
+          on ? C.verm : C.muted, on ? 700 : 400, "start"));
       } else {
-        grid.appendChild(G.text(RNA_C, y + 6, "—", 24, C.muted, 400));
+        grid.appendChild(G.text(RNA_C - 42, y + 6, "—", 24, C.muted, 400));
       }
 
       /* and whatever that RNA makes */
