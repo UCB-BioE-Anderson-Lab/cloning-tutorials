@@ -25,22 +25,31 @@ function path(d, col, w, dash){
 }
 function grp(o){ return G.el("g", {opacity:n1(cl(o, 0, 1))}); }
 
-/* The big piece, with a rectangular bite out of its corner.  A notch
-   reads as "a missing piece" in a way that a blob does not. */
-const NW = 64, NH = 58;
-function omega(cx, cy, col){
-  const g = G.el("g", {});
-  g.appendChild(G.el("path", {d:
-    "M"+n1(cx-104)+" "+n1(cy-76+NH)+"V"+n1(cy+76)+"H"+n1(cx+104)+
-    "V"+n1(cy-76)+"H"+n1(cx-104+NW)+"V"+n1(cy-76+NH)+"Z",
-    fill:col || C.blue, "fill-opacity":".16", stroke:col || C.blue,
-    "stroke-width":3, "stroke-linejoin":"round"}));
-  return g;
+/* The enzyme, in two pieces that tile one rectangle.  A rectangular
+   tab and a matching socket, because a curve here is ambiguous at slide
+   scale and a blob says nothing at all.  Both are drawn from the
+   assembled geometry, so when they meet there is no seam to line up. */
+const EH = 150, AW = 100, OW = 224, TAB = 30, TH = 30;
+function alphaPiece(x, y, col, o){
+  const cy = y + EH/2, mx = x + AW;
+  return G.el("path", {d:"M"+n1(x)+" "+n1(y)+"H"+n1(mx)+"V"+n1(cy-TH)+
+    "H"+n1(mx+TAB)+"V"+n1(cy+TH)+"H"+n1(mx)+"V"+n1(y+EH)+"H"+n1(x)+"Z",
+    fill:col, "fill-opacity":n1(0.26*(o == null ? 1 : o)), stroke:col,
+    "stroke-width":3, "stroke-linejoin":"round"});
 }
-function alpha(x, y, col){
-  return G.el("rect", {x:n1(x), y:n1(y), width:NW, height:NH, rx:4,
-    fill:col || C.verm, "fill-opacity":".28", stroke:col || C.verm,
-    "stroke-width":3});
+function omegaPiece(x, y, col){
+  const cy = y + EH/2;
+  return G.el("path", {d:"M"+n1(x)+" "+n1(y)+"H"+n1(x+OW)+"V"+n1(y+EH)+
+    "H"+n1(x)+"V"+n1(cy+TH)+"H"+n1(x+TAB)+"V"+n1(cy-TH)+"H"+n1(x)+"Z",
+    fill:col, "fill-opacity":".16", stroke:col, "stroke-width":3,
+    "stroke-linejoin":"round"});
+}
+function arrow(x0, x1, y, col){
+  const g = G.el("g", {});
+  g.appendChild(path("M"+n1(x0)+" "+n1(y)+"H"+n1(x1-10), col, 2.8));
+  g.appendChild(path("M"+n1(x1-17)+" "+n1(y-8)+"L"+n1(x1)+" "+n1(y)+
+    "L"+n1(x1-17)+" "+n1(y+8), col, 2.8));
+  return g;
 }
 /* a plate, from above */
 function plate(cx, cy, r, dots){
@@ -89,85 +98,96 @@ const FR = [
 ];
 
 window.Deck.sequence("lacz", function(slide){
-  const s = G.scene(slide, 800, 846);
+  const s = G.scene(slide, 792, 838);
   s.finish();
 
-  const GY = 250, PX = 360, PY = 606;     /* genome line, plasmid centre */
-  const OX = 1010, OY = 430;              /* the big fragment            */
+  const GY = 236, PX = 322, PY = 560;      /* chromosome, plasmid centre */
+  const EY = 382;                          /* where the enzyme assembles */
+  const AX_IN = 744, OX_IN = 844;          /* assembled                  */
+  const AX_OUT = 640, OX_OUT = 900;        /* apart                      */
 
-  function paint(v){
-    const g = G.el("g", {});
+  function paint(v, f){
+    const g = G.el("g", {}), st = f.s || {};
     const half = x => cl(x*2 - 1, 0, 1);
+    const fit = cl(v.fit || 0, 0, 1);
+    const ax = AX_OUT + (AX_IN - AX_OUT)*fit, ay = 508 - (508 - EY)*fit;
+    const ox = OX_OUT + (OX_IN - OX_OUT)*fit, oy = 232 + (EY - 232)*fit;
 
     /* ---- the chromosome, and what it makes ---------------------- */
     const a = grp(half(v.gen));
-    a.appendChild(path("M180 "+GY+"H700", C.ink, 3));
-    a.appendChild(G.el("rect", {x:330, y:GY-20, width:190, height:40, rx:5,
+    a.appendChild(path("M150 "+GY+"H300", C.ink, 3));
+    a.appendChild(path("M560 "+GY+"H620", C.ink, 3));
+    a.appendChild(G.el("rect", {x:300, y:GY-22, width:260, height:44, rx:6,
+      fill:C.muted, "fill-opacity":".07", stroke:C.muted, "stroke-width":2,
+      "stroke-dasharray":"7 5"}));
+    a.appendChild(G.el("rect", {x:330, y:GY-17, width:200, height:34, rx:5,
       fill:C.blue, "fill-opacity":".16", stroke:C.blue, "stroke-width":2.6}));
-    a.appendChild(G.text(425, GY+8, "lacZΔM15", 23, C.blue, 700));
-    a.appendChild(G.text(425, GY-38, "Φ80 prophage", 21, C.muted, 400));
-    a.appendChild(G.text(180, GY+44, "chromosome", 21, C.muted, 400, "start"));
+    a.appendChild(G.text(430, GY+9, "lacZ\u0394M15", 23, C.blue, 700));
+    a.appendChild(G.text(430, GY-38, "\u03a680 prophage", 20, C.muted, 400));
+    a.appendChild(G.text(150, GY+46, "chromosome", 20, C.muted, 400, "start"));
+    a.appendChild(arrow(646, 720, GY, C.muted));
     g.appendChild(a);
 
     /* ---- the plasmid, and what it makes ------------------------- */
     if (v.pls > 0.02){
       const b = grp(half(v.pls));
-      b.appendChild(G.el("circle", {cx:PX, cy:PY, r:104, fill:"none",
+      b.appendChild(G.el("circle", {cx:PX, cy:PY, r:98, fill:"none",
         stroke:C.ink, "stroke-width":3}));
-      b.appendChild(G.el("path", {d:"M"+n1(PX-62)+" "+n1(PY-84)+
-        "A104 104 0 0 1 "+n1(PX+62)+" "+n1(PY-84),
+      b.appendChild(G.el("path", {d:"M"+n1(PX-58)+" "+n1(PY-79)+
+        "A98 98 0 0 1 "+n1(PX+58)+" "+n1(PY-79),
         fill:"none", stroke:C.verm, "stroke-width":13, "stroke-linecap":"round"}));
-      b.appendChild(G.text(PX, PY-118, "lacZα", 23, C.verm, 700));
-      b.appendChild(G.text(PX, PY+140, "your vector", 21, C.muted, 400));
-      if (v.ins > 0.02){
-        const q = grp(half(v.ins));
-        q.appendChild(G.el("rect", {x:n1(PX-26), y:n1(PY-112), width:52,
-          height:26, rx:5, fill:"#ffffff", stroke:C.blue, "stroke-width":3}));
-        q.appendChild(G.text(PX, PY-92, "ins", 18, C.blue, 700));
-        b.appendChild(q);
-      }
+      b.appendChild(G.text(PX, PY-116, "lacZ\u03b1", 23, C.verm, 700));
+      b.appendChild(G.text(PX, PY+132, "your vector", 20, C.muted, 400));
+      b.appendChild(arrow(440, 556, PY, C.muted));
       g.appendChild(b);
     }
 
-    /* ---- the two pieces of the enzyme --------------------------- */
-    const om = grp(half(v.gen));
-    om.appendChild(omega(OX, OY));
-    g.appendChild(om);
+    /* ---- the big piece, which the strain supplies --------------- */
+    if (v.gen > 0.02){
+      const om = grp(half(v.gen));
+      om.appendChild(omegaPiece(ox, oy, C.blue));
+      if (fit < 0.5) om.appendChild(G.text(ox + OW/2, oy - 20,
+        "\u03c9 \u00b7 no activity", 21, C.muted, 400));
+      g.appendChild(om);
+    }
 
-    if (v.pls > 0.02 && v.ins < 0.5){
+    /* ---- the small piece, which your plasmid supplies ----------- */
+    if (v.pls > 0.02 && !(st.ins > 0.5)){
       const p = grp(half(v.pls));
-      /* apart until they are put together */
-      const ax = v.fit > 0.5 ? OX - 104 : OX - 320;
-      const ay = v.fit > 0.5 ? OY - 76 : OY - 34;
-      p.appendChild(alpha(ax, ay));
-      if (v.fit < 0.5)
-        p.appendChild(G.text(ax + NW/2, ay - 18, "α fragment", 21, C.verm, 700));
-      g.appendChild(p);
-    }
-    /* broken, once something has been cloned into the middle of it */
-    if (v.ins > 0.02){
-      const p = grp(half(v.ins));
-      p.appendChild(alpha(OX - 340, OY - 34));
-      p.appendChild(alpha(OX - 250, OY - 34));
-      p.appendChild(path("M"+n1(OX-268)+" "+n1(OY-56)+"V"+n1(OY+50), C.blue, 3.4));
-      p.appendChild(G.text(OX - 250, OY - 54, "broken in two", 21, C.verm, 700));
+      p.appendChild(alphaPiece(ax, ay, C.verm));
+      if (fit < 0.5) p.appendChild(G.text(ax + AW/2, ay + EH + 30,
+        "\u03b1 \u00b7 no activity", 21, C.muted, 400));
       g.appendChild(p);
     }
 
-    /* ---- what it says about the enzyme -------------------------- */
-    const verdict = v.fit > 0.5 ? ["active", C.blue]
-                  : (v.ins > 0.5 ? ["still nothing", C.muted] : ["inactive", C.muted]);
-    g.appendChild(G.text(OX, OY + 128, verdict[0], 26, verdict[1], 700));
+    /* ---- clone into the middle and the small piece is never made - */
+    if (v.ins > 0.02){
+      const q = grp(half(v.ins));
+      q.appendChild(G.el("rect", {x:n1(PX-30), y:n1(PY-111), width:60,
+        height:28, rx:5, fill:C.paper, stroke:C.blue, "stroke-width":3}));
+      q.appendChild(G.text(PX, PY-90, "insert", 17, C.blue, 700));
+      q.appendChild(G.text(AX_IN + AW/2, EY + EH/2 + 8, "?", 46, C.muted, 700));
+      q.appendChild(G.text(AX_IN + AW/2 + 10, EY + EH + 34,
+        "no \u03b1 \u00b7 nothing to complement", 21, C.muted, 400));
+      g.appendChild(q);
+    }
+
+    /* ---- what the two of them add up to ------------------------- */
+    if (fit > 0.5 && !(st.ins > 0.5))
+      g.appendChild(G.text(AX_IN + (AW + OW)/2, EY - 22,
+        "one working \u03b2-galactosidase", 23, C.blue, 700));
 
     /* ---- and the plate ------------------------------------------ */
     if (v.blue > 0.02 || v.white > 0.02){
-      const bl = v.blue > 0.5;
+      const bl = (st.blue || 0) > 0.5;
       const k = grp(half(Math.max(v.blue, v.white)));
-      k.appendChild(plate(1300, 648, 128,
+      k.appendChild(arrow(1112, 1176, EY + EH/2, C.muted));
+      k.appendChild(G.text(1144, EY + EH/2 - 18, "X-gal", 20, C.muted, 400));
+      k.appendChild(plate(1306, EY + EH/2, 124,
         COL.map(d => [d[0], d[1], bl ? C.blue : "#ffffff"])));
-      k.appendChild(G.text(1300, 802, bl ? "blue · no insert" : "white · you got one",
+      k.appendChild(G.text(1306, EY + EH/2 + 156,
+        bl ? "blue \u00b7 no insert" : "white \u00b7 you got one",
         23, bl ? C.blue : C.ink, 700));
-      if (bl) k.appendChild(G.text(1300, 500, "X-gal", 23, C.muted, 400));
       g.appendChild(k);
     }
     return g;

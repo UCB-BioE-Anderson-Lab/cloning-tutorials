@@ -22,6 +22,23 @@
 .slide p.lead{font-size:28px;color:var(--muted);margin:0 0 14px}
 .slide p.src-link{font-size:21px;color:var(--muted);margin:20px 0 0}
 .slide p.src-link a{color:var(--blue)}
+/* The comparison grid.  This slide was two cards of eleven bullets each
+   under five sub-headings, which is a specification sheet rather than a
+   slide -- JCA: "that's a lot of words.  Looks painful to present."  It
+   is three rows now, and the detail lives in the notes where a presenter
+   can reach it. */
+.slide .cmp{display:grid;grid-template-columns:230px repeat(3,1fr);
+  column-gap:34px;margin-top:30px}
+.slide .cmp .h{font-size:31px;font-weight:700;padding:0 0 12px;
+  border-bottom:2px solid var(--ink)}
+.slide .cmp .h.ref{border-bottom-color:var(--rule);color:var(--muted)}
+.slide .cmp .rl{font-size:20px;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.06em;align-self:center;padding-top:8px}
+.slide .cmp .c{font-size:27px;line-height:1.3;padding:22px 0;
+  border-bottom:1px solid var(--rule)}
+.slide .cmp .c b{color:var(--vermillion)}
+.slide .cmp .c .sub{font-size:21px;color:var(--muted)}
+.slide .cmp .ref,.slide .cmp .ref b{color:var(--muted)}
 .slide .card{border:2px solid var(--rule);border-radius:8px;padding:18px 24px 20px}
 .slide .card h2{font-size:27px;margin:0 0 8px}
 .slide .card ul{margin:0;padding-left:1.1em}
@@ -189,51 +206,33 @@
 <!-- ---------------------------------------------------------------- 40 -->
 <article class="slide">
   <h1 class="small">Two others worth knowing</h1>
-  <div class="cols">
-    <div class="card">
-      <h2>BL21(DE3)</h2>
-      <p class="tag">Lineage</p>
-      <ul><li><i>E. coli</i> <b>B</b>, not K-12</li></ul>
-      <p class="tag">Use case</p>
-      <ul><li>High-level <b>protein expression</b>, usually with T7 systems</li></ul>
-      <p class="tag">Key features</p>
-      <ul>
-        <li>Carries <b>T7 RNA polymerase</b> (DE3 lysogen, lacUV5 promoter)</li>
-        <li>Lacks <b>lon</b> and <b>ompT</b> proteases &rarr; better protein stability</li>
-        <li>Fast-growing in rich media</li>
-      </ul>
-      <p class="tag">Tradeoffs</p>
-      <ul>
-        <li>Harder to transform</li>
-        <li><b>recA+, endA+</b> &rarr; not good for cloning</li>
-        <li>High expression can be toxic</li>
-      </ul>
-      <p class="tag">Biosafety</p>
-      <ul><li>No known virulence factors &middot; BSL-1</li></ul>
-    </div>
-    <div class="card">
-      <h2>Nissle 1917</h2>
-      <p class="tag">Lineage</p>
-      <ul><li>Wild-type <i>E. coli</i>, <b>not lab-adapted</b>. Isolated in WWI as a
-          non-pathogenic competitor to harmful strains</li></ul>
-      <p class="tag">Use case</p>
-      <ul><li><b>Live biotherapeutics</b> and gut microbiome studies</li></ul>
-      <p class="tag">Key features</p>
-      <ul>
-        <li>Fully tractable for engineering</li>
-        <li>Retains <b>immune interaction</b> pathways</li>
-      </ul>
-      <p class="tag">Tradeoffs</p>
-      <ul>
-        <li><b>Not attenuated</b> &mdash; more robust than lab strains</li>
-        <li>Requires more biosafety oversight, especially clinically</li>
-      </ul>
-      <p class="tag">Biosafety</p>
-      <ul><li>Generally BSL-1, but caution for vulnerable populations</li></ul>
-    </div>
+  <div class="cmp">
+    <div></div>
+    <div class="h ref">Mach1</div>
+    <div class="h" data-build="1"
+         data-note="BL21 first, and the thing to notice is the first row. It is not K-12 and it is not W, it is E. coli B, which is the lineage the phage group standardised on in the nineteen forties. You use it for one job: high-level protein expression, almost always driven by T7. It carries T7 RNA polymerase on a lambda lysogen called DE3 under a lacUV5 promoter, which is what the DE3 in the name means, and it lacks the lon and ompT proteases, so what you express survives longer. It is also recA positive and endA positive, which is exactly what you spent the genotype slide learning to avoid: your plasmid will recombine and your miniprep will be degraded. It is harder to transform than a cloning strain, and pushing expression hard enough can simply kill it. So people keep both on the bench and use each for the one thing it is good at."
+         data-desc="A second column for BL21(DE3): E. coli B lineage, used for protein expression, and a poor cloning strain because it is recA and endA positive.">BL21(DE3)</div>
+    <div class="h" data-build="2"
+         data-note="And Nissle, which is a different kind of thing altogether. Look at the first row again: it is not K-12, not B, not W. It is a wild commensal isolated from a soldier in the First World War, picked because he did not get dysentery when everyone around him did, and it has been sold as a probiotic ever since. It is fully engineerable, so people build live biotherapeutics in it, and the reason to use it rather than a lab strain is exactly that it still does everything a real gut organism does, including interacting with the immune system. Which is also the cost. It is not attenuated. A K-12 derivative has been in flasks for a century and has lost most of what made it a gut organism; Nissle has not. That is a biosafety conversation, not a checkbox, and it is the one you will have to have before you put anything into an animal."
+         data-desc="A third column for Nissle 1917: a wild commensal from neither K-12, B nor W, used for live biotherapeutics, and not attenuated.">Nissle 1917</div>
+
+    <div class="rl">comes from</div>
+    <div class="c ref"><i>E. coli</i> <b>W</b></div>
+    <div class="c" data-build="1"><i>E. coli</i> <b>B</b></div>
+    <div class="c" data-build="2"><b>none of the three</b><br><span class="sub">a wild commensal, 1917</span></div>
+
+    <div class="rl">what it is for</div>
+    <div class="c ref">cloning</div>
+    <div class="c" data-build="1"><b>protein</b><br><span class="sub">T7 polymerase on board</span></div>
+    <div class="c" data-build="2"><b>living in a gut</b><br><span class="sub">live biotherapeutics</span></div>
+
+    <div class="rl">what it costs you</div>
+    <div class="c ref">nothing you have met yet</div>
+    <div class="c" data-build="1"><b>recA&#8314; endA&#8314;</b><br><span class="sub">a bad cloning strain</span></div>
+    <div class="c" data-build="2"><b>not attenuated</b><br><span class="sub">a real biosafety conversation</span></div>
   </div>
-  <template class="notes">Two strains you will hear about. BL21 is what you use when the point is to make a lot of one protein: it carries T7 polymerase so a T7 promoter on your plasmid fires hard, and it has had two proteases removed so the protein survives long enough to purify. It is a bad cloning strain, recA plus and endA plus, so people keep their constructs in a cloning strain and move them into BL21 only to express. Nissle is the opposite end: a wild isolate taken from a soldier in the First World War because it outcompeted the pathogens, still sold as a probiotic, and now used as the chassis for engineered therapeutics that have to survive in a real gut. The tradeoff is right there in the description: it is good at living in people, which is the point and also the risk.</template>
-  <template class="desc">Two cards side by side. BL21(DE3): the E. coli B lineage, built for T7-driven protein expression, carrying T7 RNA polymerase and lacking lon and ompT proteases, but recA and endA positive so a poor cloning strain. Nissle 1917: a wild-type non-lab-adapted isolate from the First World War, used for live biotherapeutics, fully engineerable and retaining immune interaction pathways, but not attenuated and needing more biosafety oversight.</template>
+  <template class="notes">Two strains you will hear named, set against the one you are using so the differences are the content rather than the specifications. Everything else about them is in the per-column notes.</template>
+  <template class="desc">A comparison of three strains: Mach1, which the class uses, and two others arriving one at a time. Three rows: where each comes from, what each is for, and what each costs you.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
