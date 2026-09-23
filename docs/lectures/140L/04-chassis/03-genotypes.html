@@ -79,17 +79,10 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 21 -->
-<article class="slide">
+<article class="slide" data-seq="dnatok">
   <h1 class="small">What most lab strains have had removed</h1>
-  <p class="lead">DH10B &mdash; the DNA-handling mutations</p>
-  <pre class="gt">F&minus; <span class="on">endA1</span> <span class="on">recA1</span> galE15 galK16 nupG rpsL &Delta;lacX74 &Phi;80lacZ&Delta;M15 araD139 &Delta;(ara,leu)7697 <span class="on">mcrA</span> <span class="on">&Delta;(mrr-hsdRMS-mcrBC)</span> &lambda;&minus;</pre>
-  <ul class="tight">
-    <li><b>endA</b> &mdash; an endonuclease that degrades plasmid DNA during prep</li>
-    <li><b>recA</b> &mdash; recombination, which rearranges repeats in your construct</li>
-    <li><b>mcr</b>, <b>mrr</b>, <b>hsd</b> &mdash; methylation-dependent restriction, which cuts incoming DNA</li>
-  </ul>
-  <template class="notes">There are mutations you will see in nearly every popular strain, and they are all about making the strain better at receiving and keeping DNA. The endonuclease endA degrades DNA and knocking it out gives cleaner minipreps. The recombination gene recA is removed because recombination between repeated sequences in your plasmid will quietly rearrange your construct. And the mcr, mrr and hsd systems restrict incoming DNA based on its methylation pattern, which is a defence against phage and a nuisance when you are the one bringing DNA in. None of these mutations makes the cell better at being a cell. They make it better at being a tool.</template>
-  <template class="desc">The DH10B genotype again with four tokens picked out in red: endA1, recA1, mcrA and the mrr-hsdRMS-mcrBC deletion. Beneath, what each is for: endA degrades plasmid DNA, recA rearranges repeats, and the mcr, mrr and hsd systems restrict incoming DNA by its methylation.</template>
+  <template class="notes">The DH10B genotype walked for the three tokens that are about handling DNA. The same three drawings come back on Mach1 two sections later, deliberately.</template>
+  <template class="desc">The DH10B genotype with its three DNA-handling tokens highlighted one at a time, each with a drawing of what it does.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 22 -->
@@ -136,19 +129,10 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 24 -->
-<article class="slide">
+<article class="slide" data-seq="mettok">
   <h1 class="small">And what has had its metabolism removed</h1>
-  <p class="lead">DH10B &mdash; the metabolic mutations</p>
-  <pre class="gt">F&minus; endA1 recA1 <span class="on">galE15</span> <span class="on">galK16</span> nupG rpsL &Delta;lacX74 &Phi;80lacZ&Delta;M15 <span class="on">araD139</span> <span class="on">&Delta;(ara,leu)7697</span> mcrA &Delta;(mrr-hsdRMS-mcrBC) &lambda;&minus;</pre>
-  <ul class="tight">
-    <li><b>galE</b>, <b>galK</b> &mdash; cannot use galactose as a carbon source</li>
-    <li><b>araD</b> &mdash; a defect in arabinose utilisation</li>
-    <li><b>&Delta;(ara,leu)</b> &mdash; a large deletion running from the arabinose catabolic genes
-        all the way to leucine biosynthesis, taking several other things with it</li>
-  </ul>
-  <p class="gloss">So DH10B <b>will not grow on minimal medium</b>. Most lab strains will not.</p>
-  <template class="notes">The other kind of token refers to a metabolic defect, and the name is usually descriptive of the resulting phenotype. galE15 and galK16 are mutations in galE and galK that leave the strain unable to use galactose as a carbon source. araD is a defect in arabinose utilisation. And the delta-ara-leu mutation is a large deletion that starts in a cluster of arabinose catabolic genes and runs many kilobases to the leucine biosynthesis genes, so arabinose catabolism and leucine biosynthesis and several other processes in between are simply gone. Put those together and this strain cannot make its own leucine, which means it cannot grow on M9 at all.</template>
-  <template class="desc">The DH10B genotype with the metabolic mutations picked out: galE15, galK16, araD139 and the ara-leu deletion, and what each removes. The consequence: DH10B will not grow on minimal medium.</template>
+  <template class="notes">The same genotype again, now for the metabolic tokens, and deliberately after the two media slides: on rich medium none of these is visible.</template>
+  <template class="desc">The DH10B genotype with its three metabolic tokens highlighted one at a time, each showing growth on LB and none on minimal medium.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 25 -->
@@ -217,5 +201,8 @@
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/token-art.js" defer></script>
+<script src="seq/03-tokens.js" defer></script>
 </body>
 </html>
