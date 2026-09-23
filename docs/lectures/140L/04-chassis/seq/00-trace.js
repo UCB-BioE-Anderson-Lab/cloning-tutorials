@@ -125,7 +125,7 @@ const FR = [
 { s:{sc:1, step:0, pcas:1, chr:1},
   cap:"before we go on — <b>work it out</b>",
   call:"which transcription units fire, when, and what does the product then do?",
-  note:"Before the next slide, an exercise, because this is the habit the whole back half of the course runs on. Here is the circuit on the left and, on the right, every molecule in the system by kind: the DNAs, the RNAs and the proteins. Four transcription units between the two plasmids, two origins, eleven molecules in total. The six conditions along the top are the six lines from the slide before, in order. Work along them. At each one, which promoters are firing? What does that put in the cell? And what does the thing it made then do? Give the room a minute on it before you walk it, because the answer is not hard and the method is the entire point.",
+  note:"Here is that same experiment as a circuit. On the left, the two plasmids and the chromosome, with four transcription units and two origins between them. On the right, every molecule in the system sorted by kind: the DNAs, the RNAs, the proteins, eleven of them. And along the top, the six conditions from the last slide in the same order. So work along them. At each condition, which promoters are firing? What does that put in the cell? And what does the thing it made then do? Let them have a go at it before you walk it.",
   desc:"A gene cartoon of pCas with its transcription units, beside a list of every molecule in the system grouped into DNA, RNA and protein, and the six growth conditions along the top." },
 
 { s:{sc:1, step:1, pcas:1, chr:1, cas9:1, repa:1},
@@ -167,7 +167,7 @@ const FR = [
 { s:{sc:1, step:6, chr:1, edited:1, pt:1},
   cap:"none of that needed a mechanism you did not already have",
   call:"and the next slide is what happens when you skip it",
-  note:"Look back at what we just did. We needed a picture of the promoters, a list of every molecule in the cell sorted by whether it is DNA, RNA or protein, and the conditions in order. Everything else followed from those three things. That is the habit, and it is the one thing to take from this lecture if you take nothing else, because from here on you are not designing DNA in a tube, you are predicting what a cell will do with the DNA you gave it. And the next slide is what happens when you skip it: an edit that is exactly right, in a cell that behaves as though you had deleted a gene you never touched.",
+  note:"Look back at what we just did. We needed a picture of the promoters, a list of every molecule in the cell sorted by whether it is DNA, RNA or protein, and the conditions in order. Everything else followed from those three things. From here on you are not designing DNA in a tube, you are predicting what a cell will do with the DNA you gave it, and this is how that is done. And the next slide is what happens when you skip it: an edit that is exactly right, in a cell that behaves as though you had deleted a gene you never touched.",
   desc:"The point of the exercise: the whole procedure followed from the circuit, the proteins it makes, and the order of the conditions." }
 ];
 
