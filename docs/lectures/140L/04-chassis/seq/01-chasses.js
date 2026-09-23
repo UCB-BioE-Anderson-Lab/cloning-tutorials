@@ -45,7 +45,18 @@ const TREE = [
   ["Eucaryota", ["Diplomonads", "Microsporidia", "Trichomonads", "Flagellates",
                  "Ciliates", "Slime moulds", "Fungi", "Plants", "Animals"]]
 ];
-const LIT = {Cyanobacteria:1, Proteobacteria:1, Fungi:1, Plants:1, Animals:1};
+/* Where the tools are actually piled up, which is not the same as where
+   they exist.  Cyanobacteria is deliberately NOT lit: it is on the list
+   of six because of what it can do, not because the toolkit is deep,
+   and that distinction is the point of this slide. */
+const LIT = {Proteobacteria:1, Fungi:1, Plants:1, Animals:1};
+
+/* Addgene plasmid deposits by expression host, retrieved 2026-09-23.
+   Categories are Addgene's own; 177,561 plasmids in the repository, of
+   which these six carry a host tag. */
+const DEPOT = [["mammalian", 82381], ["bacterial", 33902], ["yeast", 8431],
+               ["insect", 5076], ["plant", 4796], ["worm", 1910]];
+const DTOT = 177561, DX = 900, DW = 420, DY0 = 300, DDY = 62;
 const Y0 = 216, DY = 22.4;                 /* one row per tip, plus a   */
                                            /* blank row between domains */
 /* pre-compute every tip's row so the spines and labels agree */
@@ -90,11 +101,11 @@ const FR = [
   note:"There is no shortage of candidate chassis. This is the tree of life, drawn schematically, and every tip on it is a lineage somebody could in principle build in. The problem is never choice. The problem is that our understanding of almost everything on this tree is thin, and the genetic toolkits, the strains, the protocols and the accumulated lore all sit on a very small number of organisms.",
   desc:"A schematic tree of life with three domains, Bacteria, Archaea and Eucaryota, and around twenty named groups branching off them." },
 
-{ s:{tree:1, lit:1, shift:0},
-  cap:"and the toolkits exist for <b>five</b> of them",
-  call:"you do not pick a chassis, you pick one somebody already made tractable",
-  note:"And here is what people actually work in. Five tips: the proteobacteria, which is E. coli, the cyanobacteria, the fungi, the plants and the animals. Everything else on this tree is a research project before it is a chassis. So in practice you are not choosing an organism on its merits, you are choosing one that somebody else has already spent decades making tractable, and you are inheriting their tools along with their organism.",
-  desc:"Five tips on the tree are highlighted: Cyanobacteria, Proteobacteria, Fungi, Plants and Animals." },
+{ s:{tree:1, lit:1, shift:1, dep:1},
+  cap:"tools exist almost everywhere &#8212; they are just not spread <b>evenly</b>",
+  call:"of <b>177,561</b> plasmids shared at Addgene, two categories are <b>two thirds</b>",
+  note:"Correct the impression the last slide might have given, because tools exist for far more organisms than most people assume. Somebody has made transgenic jellyfish. There are published parts for halophilic archaea. The constraint is not that tooling is absent, it is that it is piled up in a few places. These are deposits at Addgene by expression host, and the shape is stark: mammalian cells are forty-six per cent of everything shared, bacteria another nineteen, and those two together are two thirds of a hundred and seventy-seven thousand plasmids. Yeast is five per cent. Everything else is noise by comparison. And notice the two big ones are big for opposite reasons. Bacteria because they are easy -- fast, transformable, they grow on defined medium, and a century of genetics was done on them before anybody said synthetic biology. Mammalian cells because that is where the medicine is, and people build the tools anyway, in spite of the cells being slow, fragile and expensive. So the honest rule is not that you must pick from a short list. It is that picking outside it means you are also signing up to build the tooling.",
+  desc:"Addgene deposits by expression host: mammalian 82,381, bacterial 33,902, yeast 8,431, insect 5,076, plant 4,796, worm 1,910, out of 177,561 plasmids in total." },
 
 { s:{tree:1, lit:1, six:1, shift:1},
   cap:"the six you will hear named",
@@ -146,6 +157,33 @@ window.Deck.sequence("chasses", function(slide){
         t.appendChild(G.text(SPINE - 26, m + 7, dl, 21, C.ink, 700, "end"));
       });
       g.appendChild(t);
+    }
+
+    /* ---- where the tools are actually piled up ------------------- */
+    if (v.dep > 0.02){
+      const d = grp(v.dep), max = DEPOT[0][1];
+      d.appendChild(G.text(730, DY0 - 52, "plasmids shared at Addgene", 21,
+        C.muted, 700, "start"));
+      d.appendChild(G.text(730, DY0 - 26, "177,561 in the repository", 19,
+        C.muted, 400, "start"));
+      DEPOT.forEach(function(row, i){
+        const y = DY0 + i*DDY, w = DW*row[1]/max;
+        const hot = i < 2;
+        d.appendChild(G.text(884, y + 7, row[0], 21,
+          hot ? C.verm : C.muted, hot ? 700 : 400, "end"));
+        d.appendChild(G.el("rect", {x:DX, y:n1(y - 14), width:n1(w), height:28,
+          rx:4, fill:hot ? C.verm : C.muted, "fill-opacity":hot ? ".26" : ".14",
+          stroke:hot ? C.verm : C.muted, "stroke-width":2}));
+        d.appendChild(G.text(DX + w + 14, y + 7,
+          row[1].toLocaleString() + "  \u00b7  " +
+          Math.round(100*row[1]/DTOT) + "%", 19,
+          hot ? C.verm : C.muted, hot ? 700 : 400, "start"));
+      });
+      d.appendChild(G.text(730, DY0 + 6*DDY + 14,
+        "two categories, two thirds of everything", 21, C.ink, 700, "start"));
+      d.appendChild(G.text(730, DY0 + 6*DDY + 42,
+        "and they are big for opposite reasons", 19, C.muted, 400, "start"));
+      g.appendChild(d);
     }
 
     /* ---- the six ------------------------------------------------- */
