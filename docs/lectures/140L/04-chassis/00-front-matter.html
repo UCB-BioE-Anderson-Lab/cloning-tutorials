@@ -23,18 +23,13 @@
 .slide pre.cf .out{color:var(--blue)}
 .slide p.lead{font-size:28px;color:var(--muted);margin:22px 0 0}
 .slide pre.cf .cmt{color:var(--muted)}
-/* The question slide's furniture, matching the Genome Editing deck so a
-   student reading both meets the same object twice. */
-.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
+/* The question head, matching the Genome Editing deck so a student
+   reading both meets the same figure twice.  The answer here is a click
+   rather than a button, because the slide is an animated sequence and
+   deck.js already owns the clicks. */
+.slide .qhead{display:flex;align-items:center;gap:28px;margin-bottom:6px}
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
-.slide .qhead .q{font-size:38px;font-weight:700}
-.slide .qhead .btn{margin-left:auto}
-.slide .qask{font-size:28px;margin:0 0 4px}
-.slide .qask b{color:var(--vermillion)}
-.slide figure.qfig{margin:14px 0 0;flex:0 0 auto}
-.slide figure.qfig svg{width:100%;height:auto;display:block}
-.slide .qans .astep{font-size:27px;margin:14px 0 0;line-height:1.4}
-.slide .qans .astep b{color:var(--vermillion)}
+.slide .qhead h1{margin:0}
 </style>
 </head>
 <body>
@@ -84,88 +79,15 @@ Grow      <span class="out">cured</span>       42&#176;C               <span cla
   <template class="desc">An exercise: every promoter and origin in the Jiang system with an indicator lamp, walked through the six growth conditions from the previous slide.</template>
 </article>
 
-<!-- ------------------------------------------------------------- 2c -->
-<!-- Ask before telling.  The mechanism slide that follows is the worked
-     answer, so this one only has to get them to commit to a prediction --
-     and the prediction people get wrong is always c. -->
-<article class="slide">
-  <div class="qhead">
-    <img src="img/ponder.png" alt="" aria-hidden="true">
-    <div class="q">What happens to <i>a</i>, <i>b</i> and <i>c</i>?</div>
-    <button class="btn" type="button" data-reveal>Show the answer</button>
-  </div>
-  <p class="qask">You knocked <b>b</b> out properly: a marker with <b>its own promoter</b> so it is expressed wherever it lands, and <b>its own terminator</b> so it stops cleanly. Nothing was done to <i>a</i> or <i>c</i>.</p>
-  <figure class="qfig">
-    <svg viewBox="0 -26 980 292" role="img" aria-hidden="true"
-         font-family="Helvetica Neue,Arial,Helvetica,sans-serif">
-      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <!-- before -->
-        <path d="M60 70H140M280 70H300M440 70H460M600 70H940" stroke="var(--ink)" stroke-width="3"/>
-        <path d="M100 82V48H130" stroke="var(--blue)" stroke-width="3"/>
-        <path d="M122 40L132 48L122 56" stroke="var(--blue)" stroke-width="3"/>
-        <path d="M140 55H266L280 70L266 85H140Z" fill="var(--blue)" fill-opacity=".16" stroke="var(--blue)" stroke-width="2.6"/>
-        <path d="M300 55H426L440 70L426 85H300Z" fill="var(--blue)" fill-opacity=".16" stroke="var(--blue)" stroke-width="2.6"/>
-        <path d="M460 55H586L600 70L586 85H460Z" fill="var(--blue)" fill-opacity=".16" stroke="var(--blue)" stroke-width="2.6"/>
-        <path d="M640 82V44" stroke="var(--blue)" stroke-width="3"/><circle cx="640" cy="33" r="11" stroke="var(--blue)" stroke-width="3"/>
-        <path d="M136 14H612" stroke="var(--amber)" stroke-width="4"/>
-        <path d="M600 6L616 14L600 22" stroke="var(--amber)" stroke-width="4"/>
-        <!-- after -->
-        <path d="M60 200H140M280 200H340M500 200H560M660 200H940" stroke="var(--ink)" stroke-width="3"/>
-        <path d="M100 212V178H130" stroke="var(--blue)" stroke-width="3"/>
-        <path d="M122 170L132 178L122 186" stroke="var(--blue)" stroke-width="3"/>
-        <path d="M140 185H266L280 200L266 215H140Z" fill="var(--blue)" fill-opacity=".16" stroke="var(--blue)" stroke-width="2.6"/>
-        <path d="M340 212V178H370" stroke="var(--vermillion)" stroke-width="3"/>
-        <path d="M362 170L372 178L362 186" stroke="var(--vermillion)" stroke-width="3"/>
-        <path d="M380 185H486L500 200L486 215H380Z" fill="var(--vermillion)" fill-opacity=".16" stroke="var(--vermillion)" stroke-width="2.6"/>
-        <path d="M530 212V174" stroke="var(--vermillion)" stroke-width="3"/><circle cx="530" cy="163" r="11" stroke="var(--vermillion)" stroke-width="3"/>
-        <path d="M560 185H646L660 200L646 215H560Z" fill="var(--blue)" fill-opacity=".16" stroke="var(--blue)" stroke-width="2.6"/>
-        <path d="M700 212V174" stroke="var(--blue)" stroke-width="3"/><circle cx="700" cy="163" r="11" stroke="var(--blue)" stroke-width="3"/>
-      </g>
-      <g font-weight="700" text-anchor="middle">
-        <text x="203" y="79" font-size="25" fill="var(--blue)">a</text>
-        <text x="363" y="79" font-size="25" fill="var(--blue)">b</text>
-        <text x="523" y="79" font-size="25" fill="var(--blue)">c</text>
-        <text x="374" y="8" font-size="22" fill="var(--amber)">one mRNA</text>
-        <text x="203" y="209" font-size="25" fill="var(--blue)">a</text>
-        <text x="433" y="209" font-size="25" fill="var(--vermillion)">kanR</text>
-        <text x="603" y="209" font-size="25" fill="var(--blue)">c</text>
-        <text x="435" y="246" font-size="21" fill="var(--muted)" font-weight="400">its own promoter, its own terminator</text>
-      </g>
-      <g font-size="22" fill="var(--muted)" text-anchor="end">
-        <text x="48" y="78">5&#8242;</text><text x="48" y="208">5&#8242;</text>
-      </g>
-    </svg>
-  </figure>
-  <div class="qans" hidden>
-    <p class="astep"><b><i>a</i> is fine.</b> The operon promoter is untouched and still reads through it.</p>
-    <p class="astep"><b><i>b</i> is gone,</b> which is what you wanted.</p>
-    <p class="astep"><b><i>c</i> is silent</b> &mdash; and nobody touched <i>c</i>. The cassette brought a terminator with it, and that terminator now sits between <i>c</i> and the only promoter that ever drove it.</p>
-  </div>
-  <template class="notes">Same reading as the last slide, on a different molecule. No plasmid this time and no inducers, just a stretch of chromosome and the question of which promoter reaches which gene. Give them a minute on it before revealing anything. Almost everyone gets a and b right away. The one that decides whether they have understood operons is c, and the common answer is that c is fine because nothing was done to it. Take a show of hands before you click. The slide after this one walks the mechanism.</template>
-  <template class="desc">A question for the room. Above, the operon as it was: a promoter, genes a, b and c, one terminator, one mRNA. Below, the same operon with b replaced by a kanamycin cassette carrying its own promoter and its own terminator. The question is what happens to a, b and c, with the answer revealed on a click.</template>
-</article>
-
 <!-- ----------------------------------------------------------------- 3 -->
 <article class="slide" data-seq="polar">
-  <h1 class="small">Polar mutations</h1>
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <h1 class="small">Polar mutations</h1>
+  </div>
   <template class="notes">Now the mechanism, for the ones who guessed and the ones who worked it out. You cannot treat the organism as a black box while you are editing it. A polar mutation is the standard way that goes wrong: the edit does what you asked, and the cell behaves as though you had deleted something else as well.</template>
   <template class="desc">An operon of three genes transcribed as one mRNA, then the same operon with the middle gene replaced by a marker cassette carrying its own promoter and terminator, and the consequence: the third gene is no longer transcribed even though it was never touched.</template>
 </article>
-
-<script>
-/* The answer reveal.  Delegated and id-free: presenter mode clones the
-   NEXT slide, so an id on a slide exists twice while the one before it
-   is showing. */
-document.addEventListener("click", function(e){
-  const rv = e.target.closest && e.target.closest("[data-reveal]");
-  if (!rv) return;
-  const sl = rv.closest(".slide"), ans = sl.querySelector(".qans"),
-        opening = ans.hidden;
-  ans.hidden = !opening;
-  rv.textContent = opening ? "Hide the answer" : "Show the answer";
-  rv.classList.toggle("done", opening);
-});
-</script>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>

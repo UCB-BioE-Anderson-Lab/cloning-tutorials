@@ -86,40 +86,28 @@ const B = {P:250, a:[320, 500], kP:530, k:[580, 770], kT:806,
 
 const FR = [
 { s:{op:1},
-  cap:"in bacteria, genes come in <b>operons</b>",
-  call:"one promoter, several genes, one terminator",
-  note:"Start with how bacterial genes are actually arranged, because it is not how they are arranged in the organisms most people learn genetics from. Many bacterial genes, probably most of them, sit in operons: one promoter at the front, several open reading frames in a row behind it, and one terminator at the end. The genes in an operon are usually doing related jobs, which is why they are wired to be made together.",
-  desc:"An operon drawn on a line of DNA: a promoter, three genes labelled a, b and c in a row, and a terminator." },
+  cap:"<b>where is the mRNA?</b>",
+  call:"one promoter at the front, one terminator at the end, three genes between",
+  note:"Ask it before you show them, and take answers. The common one is three: one mRNA per gene, because that is how it works in the organisms most people learned genetics in. In bacteria it usually is not. Many bacterial genes, probably most, sit in operons: one promoter at the front, several open reading frames in a row behind it, one terminator at the end. The genes in an operon are usually doing related jobs, which is why they are wired to be made together.",
+  desc:"An operon drawn on a line of DNA: a promoter, three genes labelled a, b and c in a row, and a terminator. The question is where the mRNA is." },
 
 { s:{op:1, tx:1},
   cap:"one promoter, so <b>one</b> mRNA",
   call:"a, b and c all come off the same transcript",
-  note:"Transcription starts at that one promoter and runs to that one terminator, so what comes out is a single messenger RNA spanning the whole operon. All three genes are translated from it. That is the thing to hold on to, because it means the three genes are not independent: anything that stops the transcript stops everything downstream of where it stopped.",
+  note:"One. Transcription starts at that promoter and runs to that terminator, so what comes out is a single messenger RNA spanning the whole operon, and all three genes are translated off it. That is the thing to hold on to for the next thirty seconds, because it means the three genes are not independent: anything that stops the transcript stops everything downstream of where it stopped.",
   desc:"A single mRNA is drawn above the operon, spanning all three genes from the promoter to the terminator." },
 
 { s:{op:1, tx:1, ko:1},
-  cap:"now knock <b>b</b> out, properly",
-  call:"a marker with its own promoter and its own terminator, in place of b",
-  note:"Now do a knockout of the middle gene, exactly the way the last lecture taught you. You replace b with a kanamycin resistance cassette, and that cassette is a complete unit: it has its own promoter so that it is expressed wherever it lands, and its own terminator so that it stops cleanly. Both of those are sensible design decisions in isolation. Watch what they do here.",
-  desc:"The same operon with gene b replaced by a kanamycin resistance gene that carries its own promoter in front of it and its own terminator behind it." },
-
-{ s:{op:1, tx:1, ko:1, tx2:1},
-  cap:"transcribe it again &#183; <b>a</b> is fine",
-  call:"the operon promoter still fires, and still reads through a",
-  note:"Transcribe the new arrangement. The operon's own promoter is untouched and still fires, and the first gene is still where it always was, so a is made exactly as before. Nothing has gone wrong yet.",
-  desc:"Transcription from the operon promoter produces an mRNA covering gene a." },
-
-{ s:{op:1, tx:1, ko:1, tx2:1, tx3:1},
-  cap:"and the marker is expressed from <b>its own</b> promoter",
-  call:"which is the whole reason it was given one",
-  note:"And the cassette is expressed, from the promoter it brought with it. That is exactly what it was for: a marker has to work wherever you put it, so it cannot rely on being downstream of something else's promoter. So far the design is doing its job.",
-  desc:"A second mRNA covering the kanamycin gene, transcribed from the cassette's own promoter." },
+  cap:"knock <b>b</b> out properly &#183; <b>where is the mRNA now?</b>",
+  call:"the marker brought its own promoter and its own terminator",
+  note:"Now the same question on a different molecule. We have replaced b with a kanamycin cassette, exactly the way the last lecture taught you, and that cassette is a complete unit: its own promoter so it is expressed wherever it lands, its own terminator so it stops cleanly. Both of those are sensible decisions in isolation. So ask again, and make them be specific: how many mRNAs are on this molecule now, and where does each one start and stop? Nothing here needs new knowledge. It needs them to read what is actually written.",
+  desc:"The same operon with gene b replaced by a kanamycin resistance gene that carries its own promoter in front of it and its own terminator behind it. The question is asked again: where is the mRNA now?" },
 
 { s:{op:1, tx:1, ko:1, tx2:1, tx3:1, dead:1},
-  cap:"but <b>c</b> is now behind a terminator",
+  cap:"<b>two</b> mRNAs, and neither one reaches <b>c</b>",
   call:"nothing was done to c, and c is gone",
-  note:"And here is the problem. The cassette's terminator sits between the operon's promoter and gene c, so transcription that starts at the operon promoter now stops before it ever reaches c. Gene c was not deleted. It was not mutated. Its sequence is exactly what it always was, and it is silent, because the only promoter that ever drove it is now cut off from it. Phenotypically the cell behaves as though you knocked out two genes. That is a polar mutation: the edit affects the expression of genes downstream of it. It is only one of the ways this can happen, but the lesson generalises. When you design an edit, work out the sequence of the finished genome and read it as the cell will read it, rather than checking that the thing you meant to remove is gone.",
-  desc:"The transcript from the operon promoter now stops at the cassette's terminator, so gene c receives no transcription and is marked as not expressed." }
+  note:"Two, and this is the answer that catches people. The operon promoter still fires and still reads through a, so a is made exactly as before. The cassette is expressed from the promoter it brought with it, which is what that promoter was for. But the cassette also brought a terminator, and that terminator now sits between the operon promoter and gene c, so the transcript that used to reach c stops before it gets there. Gene c was not deleted. It was not mutated. Its sequence is exactly what it always was, and it is silent, because the only promoter that ever drove it is now cut off from it. Phenotypically the cell behaves as though you knocked out two genes. That is a polar mutation: the edit affects the expression of genes downstream of it. It is only one of the ways this can happen, but the lesson generalises. When you design an edit, work out the sequence of the finished genome and read it as the cell will read it, rather than checking that the thing you meant to remove is gone.",
+  desc:"Two mRNAs appear: one from the operon promoter that stops at the cassette's terminator, and one covering the kanamycin gene from its own promoter. Gene c is covered by neither, and is marked as not expressed." }
 ];
 
 window.Deck.sequence("polar", function(slide){
