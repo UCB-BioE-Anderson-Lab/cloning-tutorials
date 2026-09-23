@@ -28,11 +28,19 @@ function path(d, col, w, dash){
   if (dash) a["stroke-dasharray"] = dash;
   return G.el("path", a);
 }
-function mixed(x, y, a, b, size, col){
+/* One line of SVG text whose pieces differ in style.  rich() is for the
+   HTML caption bar and sets innerHTML; el() sets textContent, so a
+   species name inside a sentence has to be its own tspan.  dx rather
+   than a trailing space, which SVG collapses away. */
+function runs(x, y, parts, size, col){
   const t = G.el("text", {x:n1(x), y:n1(y), "font-size":size, fill:col,
     "font-weight":400, "text-anchor":"start"});
-  t.appendChild(G.el("tspan", {}, a));
-  if (b) t.appendChild(G.el("tspan", {"font-style":"italic", dx:7}, b));
+  parts.forEach(function(pc, i){
+    const a = {};
+    if (pc[1]) a["font-style"] = "italic";
+    if (i) a.dx = 6;
+    t.appendChild(G.el("tspan", a, pc[0]));
+  });
   return t;
 }
 function ital(x, y, s, size, col, weight, anchor){
@@ -65,38 +73,29 @@ const DEPOT = [["mammalian", 82381], ["bacterial", 33902], ["yeast", 8431],
                ["insect", 5076], ["plant", 4796], ["worm", 1910]];
 const DTOT = 177561, DX = 900, DW = 420, DY0 = 300, DDY = 62;
 
-/* And inside "bacterial", one level down.  Addgene's host facet stops
-   at kingdom, so this is counted two ways instead, from opposite ends,
-   because neither count is clean on its own.
+/* And inside "bacterial" it is one organism, which is a footnote on
+   this slide rather than a frame of its own.
 
-   By genus name: 2,528 of the 33,902 name a genus other than
-   Escherichia.  E. coli is the unmarked default so it is rarely written
-   down, which pushes the figure down; but a "Bacillus" in the record
-   may be the INSERT's source rather than the host, which pushes it back
-   up.  (That same confound is what makes the mammalian set unusable at
-   genus level -- "Homo sapiens" returns 42,341 there, nearly all of them
-   human genes in human-cell vectors, not a host count.)
+   Addgene's host facet stops at kingdom, so it has to be counted
+   sideways, and neither count is clean alone.  By replicon: 584 of the
+   33,902 name a broad-host-range origin (pSEVA 233, pBBR1 223, RSF1010
+   108, pRK2 18, pAMbeta1 2).  That one is mechanistic -- the origin
+   decides what a plasmid can replicate in -- and an insert cannot fake
+   it, though it is a floor, since a host-specific origin like pUB110
+   also works outside E. coli and is not counted.  By genus name: 2,528
+   name something other than Escherichia, about 7%.  That one is
+   nominal and biased both ways at once -- E. coli is the unmarked
+   default so it goes unwritten, but a "Bacillus" in a record may be the
+   INSERT's source rather than the host.  (That confound is what makes
+   the mammalian set unusable at genus level: "Homo sapiens" returns
+   42,341 there, nearly all human genes in human-cell vectors.)
 
-   By replicon: 584 name a broad-host-range origin -- pSEVA 233, pBBR1
-   223, RSF1010 108, pRK2 18, pAMbeta1 2.  This one is mechanistic
-   rather than nominal, since the origin decides what a plasmid can
-   replicate in, and it cannot be confounded by an insert.  It is a
-   floor: a host-specific origin like pUB110 works outside E. coli too
-   and is not counted here.
+   Two counts, unrelated methods, a factor of four apart, same answer.
+   The replicon one goes on the slide because it is self-contained; the
+   genus one and the six genera worth naming are in the note, which is
+   where "Bacillus is GRAS" belongs anyway.  Retrieved 2026-09-23. */
+const ECOLI = 0.925, BHR = 584;
 
-   The two disagree by a factor of four and still land in the same
-   place, which is the honest way to put the number on a slide.
-   For scale in the other direction: pET alone is 8,724.  All figures
-   retrieved 2026-09-23. */
-const GEN = [["Bacillus", 527, "secretes, and it is GRAS"],
-             ["Pseudomonas", 487, "eats what other things cannot"],
-             ["Streptomyces", 232, "makes the antibiotics"],
-             ["Mycobacterium", 194, "the disease is the reason"],
-             ["Synechocystis", 109, "photosynthesis"],
-             ["Corynebacterium", 43, "industrial amino acids"]];
-const GTOT = 33902, GNAMED = 2528;
-const EVID = [["2,528", "name a genus other than", "Escherichia", "7.5%"],
-              ["584",   "carry a broad-host-range replicon", "", "1.7%"]];
 const Y0 = 216, DY = 22.4;                 /* one row per tip, plus a   */
                                            /* blank row between domains */
 /* pre-compute every tip's row so the spines and labels agree */
@@ -144,14 +143,8 @@ const FR = [
 { s:{tree:1, lit:1, shift:1, dep:1},
   cap:"tools exist almost everywhere &#8212; they are just not spread <b>evenly</b>",
   call:"of <b>177,561</b> plasmids shared at Addgene, two categories are <b>two thirds</b>",
-  note:"Correct the impression the last slide might have given, because tools exist for far more organisms than most people assume. Somebody has made transgenic jellyfish. There are published parts for halophilic archaea. The constraint is not that tooling is absent, it is that it is piled up in a few places. These are deposits at Addgene by expression host, and the shape is stark: mammalian cells are forty-six per cent of everything shared, bacteria another nineteen, and those two together are two thirds of a hundred and seventy-seven thousand plasmids. Yeast is five per cent. Everything else is noise by comparison. And notice the two big ones are big for opposite reasons. Bacteria because they are easy -- fast, transformable, they grow on defined medium, and a century of genetics was done on them before anybody said synthetic biology. Mammalian cells because that is where the medicine is, and people build the tools anyway, in spite of the cells being slow, fragile and expensive. So the honest rule is not that you must pick from a short list. It is that picking outside it means you are also signing up to build the tooling.",
-  desc:"Addgene deposits by expression host: mammalian 82,381, bacterial 33,902, yeast 8,431, insect 5,076, plant 4,796, worm 1,910, out of 177,561 plasmids in total." },
-
-{ s:{tree:1, lit:1, shift:1, gen:1},
-  cap:"and inside &#8220;bacterial&#8221;, it is <b>one organism</b>",
-  call:"counted two ways &#183; every alternative together is about <b>7%</b>",
-  note:"Go one level down, because kingdom is too coarse to be interesting. Of the thirty-four thousand bacterial plasmids, everything that names a genus other than Escherichia comes to about two and a half thousand. Seven per cent. You can check that from the other end, and you should, because neither count is clean on its own: only five hundred and eighty-four carry a broad-host-range replicon -- an origin that can physically replicate outside E. coli. Two counts, made in completely different ways, disagreeing by a factor of four, and both of them still say the same thing. Inside bacterial, this is one organism. Now read the right-hand column, because that is what is actually worth taking away. Not one of those genera is on the list for being easy to work with. Bacillus secretes properly and is generally regarded as safe, so it is where you go for enzymes in food. Pseudomonas eats solvents and aromatics that would kill E. coli. Streptomyces makes most of the antibiotics anybody has ever isolated. Mycobacterium is there because tuberculosis is. Every one of them is being used for a property it already had, and somebody paid to build the tooling afterwards.",
-  desc:"The bacterial category broken down: about 93 per cent is E. coli, supported by two independent counts, and the named alternatives \u2014 Bacillus, Pseudomonas, Streptomyces, Mycobacterium, Synechocystis, Corynebacterium \u2014 are each used for a capability they already had." },
+  note:"Correct the impression the last slide might have given, because tools exist for far more organisms than most people assume. Somebody has made transgenic jellyfish. There are published parts for halophilic archaea. The constraint is not that tooling is absent, it is that it is piled up in a few places. These are deposits at Addgene by expression host, and the shape is stark: mammalian cells are forty-six per cent of everything shared, bacteria another nineteen, and those two together are two thirds of a hundred and seventy-seven thousand plasmids. Yeast is five per cent. Everything else is noise by comparison. And the two big ones are big for opposite reasons. Bacteria because they are easy -- fast, transformable, growing on defined medium, with a century of genetics done on them before anybody said synthetic biology. Mammalian cells because that is where the medicine is, and people build the tools anyway, in spite of the cells being slow, fragile and expensive. Now the line under the bacterial bar, because kingdom is too coarse to be interesting. Inside that thirty-four thousand it is essentially one organism. Only five hundred and eighty-four carry a broad-host-range replicon, meaning an origin that can physically replicate outside E. coli. Count it a completely different way, by genus name, and two and a half thousand say anything other than Escherichia, which is about seven per cent. Two counts, unrelated methods, a factor of four apart, and both of them land in the same place. If they ask what the exceptions are, they are worth naming, because not one of them is on the list for being easy to work with. Bacillus secretes properly and is generally regarded as safe, so it is where you go for enzymes in food. Pseudomonas eats solvents and aromatics that would kill E. coli. Streptomyces makes most of the antibiotics anybody has ever isolated. Mycobacterium is there because tuberculosis is. Synechocystis for photosynthesis, Corynebacterium for industrial amino acids. Every one of them is used for a property it already had, and somebody paid to build the tooling afterwards. So the honest rule is not that you must pick from a short list. It is that picking outside it means you are also signing up to build the tooling.",
+  desc:"Addgene deposits by expression host: mammalian 82,381, bacterial 33,902, yeast 8,431, insect 5,076, plant 4,796, worm 1,910, out of 177,561 plasmids in total. The bacterial bar is annotated: about 93 per cent of it is E. coli, and only 584 of those plasmids carry a replicon that works outside it." },
 
 { s:{tree:1, lit:1, six:1, shift:1},
   cap:"the six you will hear named",
@@ -213,7 +206,9 @@ window.Deck.sequence("chasses", function(slide){
       d.appendChild(G.text(730, DY0 - 26, "177,561 in the repository", 19,
         C.muted, 400, "start"));
       DEPOT.forEach(function(row, i){
-        const y = DY0 + i*DDY, w = DW*row[1]/max;
+        /* the E. coli note lives under the bacterial bar, so everything
+           below it is pushed clear of it */
+        const y = DY0 + i*DDY + (i > 1 ? 34 : 0), w = DW*row[1]/max;
         const hot = i < 2;
         d.appendChild(G.text(884, y + 7, row[0], 21,
           hot ? C.verm : C.muted, hot ? 700 : 400, "end"));
@@ -225,50 +220,21 @@ window.Deck.sequence("chasses", function(slide){
           Math.round(100*row[1]/DTOT) + "%", 19,
           hot ? C.verm : C.muted, hot ? 700 : 400, "start"));
       });
-      d.appendChild(G.text(730, DY0 + 6*DDY + 14,
+      /* kingdom is too coarse, and saying so costs one line rather than
+         a frame: the bacterial bar is almost entirely one organism. */
+      const by = DY0 + DDY, bw = DW*DEPOT[1][1]/max, bs = DX + bw*ECOLI;
+      d.appendChild(path("M"+n1(bs)+" "+n1(by - 14)+"V"+n1(by + 14),
+        C.verm, 2));
+      d.appendChild(path("M"+n1(DX)+" "+n1(by + 24)+"V"+n1(by + 32)+
+        "H"+n1(bs)+"V"+n1(by + 24), C.verm, 1.8));
+      d.appendChild(runs(DX, by + 54,
+        [["about 93% of them are", 0], ["E. coli", 1],
+         ["\u00b7 only " + BHR + " replicate outside it", 0]], 19, C.ink));
+      d.appendChild(G.text(730, DY0 + 6*DDY + 48,
         "two categories, two thirds of everything", 21, C.ink, 700, "start"));
-      d.appendChild(G.text(730, DY0 + 6*DDY + 42,
+      d.appendChild(G.text(730, DY0 + 6*DDY + 76,
         "and they are big for opposite reasons", 19, C.muted, 400, "start"));
       g.appendChild(d);
-    }
-
-    /* ---- and one level down, where it is one organism ------------ */
-    if (v.gen > 0.02){
-      const q = grp(v.gen), BX = 730, BWD = 710, BYY = 262, BHH = 44;
-      const share = 1 - GNAMED/GTOT, split = BX + BWD*share;
-      q.appendChild(G.text(BX, BYY - 20, "the 33,902 \u201cbacterial\u201d plasmids",
-        21, C.muted, 700, "start"));
-      q.appendChild(G.el("rect", {x:BX, y:BYY, width:n1(split - BX), height:BHH,
-        rx:5, fill:C.verm, "fill-opacity":".22", stroke:C.verm, "stroke-width":2.6}));
-      q.appendChild(G.el("rect", {x:n1(split), y:BYY, width:n1(BX + BWD - split),
-        height:BHH, rx:5, fill:C.muted, "fill-opacity":".18", stroke:C.muted,
-        "stroke-width":2.6}));
-      q.appendChild(G.el("text", {x:n1((BX + split)/2), y:n1(BYY + 29),
-        "font-size":22, fill:C.verm, "font-weight":700, "text-anchor":"middle",
-        "font-style":"italic"}, "E. coli"));
-      q.appendChild(path("M"+n1(split)+" "+n1(BYY - 10)+"V"+n1(BYY - 24)+
-        "H"+n1(BX + BWD)+"V"+n1(BYY - 10), C.muted, 2));
-      q.appendChild(G.text(BX + BWD, BYY - 34, "everything else", 19, C.ink, 700, "end"));
-      /* Two counts made in unrelated ways.  Shown side by side because
-         the agreement is the evidence -- either one alone is arguable. */
-      q.appendChild(G.text(BX, BYY + BHH + 42, "counted two ways \u2014",
-        20, C.ink, 700, "start"));
-      EVID.forEach(function(e, i){
-        const y = BYY + BHH + 76 + i*32;
-        q.appendChild(G.text(834, y, e[0], 22, C.verm, 700, "end"));
-        q.appendChild(mixed(850, y, e[1], e[2], 20, C.muted));
-        q.appendChild(G.text(BX + BWD, y, e[3], 20, C.muted, 400, "end"));
-      });
-      GEN.forEach(function(r, i){
-        const y = 462 + i*48;
-        q.appendChild(G.el("text", {x:990, y:n1(y), "font-size":23, fill:C.ink,
-          "font-weight":700, "text-anchor":"end", "font-style":"italic"}, r[0]));
-        q.appendChild(G.text(1012, y, String(r[1]), 21, C.muted, 400, "start"));
-        q.appendChild(G.text(1088, y, r[2], 20, C.verm, 400, "start"));
-      });
-      q.appendChild(G.text(BX, 742,
-        "each one used for something it could already do", 21, C.ink, 700, "start"));
-      g.appendChild(q);
     }
 
     /* ---- the six ------------------------------------------------- */
