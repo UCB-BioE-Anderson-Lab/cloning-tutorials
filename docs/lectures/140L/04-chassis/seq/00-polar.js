@@ -36,6 +36,19 @@ function gene(x0, x1, y, label, col, o){
   g.appendChild(G.text((x0 + x1 - tip)/2, y + 9, label, 25, col, 700));
   return g;
 }
+/* the DNA itself, drawn as segments so it never runs under a gene's
+ * label.  The genes are only faintly filled, so a continuous line
+ * shows straight through the lettering. */
+function backbone(y, gaps){
+  const g = G.el("g", {});
+  let x = X0;
+  gaps.forEach(function(gp){
+    if (gp[0] > x) g.appendChild(path("M"+n1(x)+" "+n1(y)+"H"+n1(gp[0]), C.ink, 3));
+    x = gp[1];
+  });
+  g.appendChild(path("M"+n1(x)+" "+n1(y)+"H"+n1(X1), C.ink, 3));
+  return g;
+}
 /* a promoter: the bent arrow every genetics figure uses */
 function promoter(x, y, col, o){
   const g = grp(o == null ? 1 : o);
@@ -119,7 +132,7 @@ window.Deck.sequence("polar", function(slide){
 
     /* ---- row A: the operon as it stands ------------------------- */
     const a = grp(half(v.op));
-    a.appendChild(path("M"+X0+" "+AY+"H"+X1, C.ink, 3));
+    a.appendChild(backbone(AY, [A.a, A.b, A.c]));
     a.appendChild(promoter(A.P, AY, C.blue));
     a.appendChild(gene(A.a[0], A.a[1], AY, "a", C.blue));
     a.appendChild(gene(A.b[0], A.b[1], AY, "b", C.blue));
@@ -133,7 +146,7 @@ window.Deck.sequence("polar", function(slide){
     /* ---- row B: the same operon, after the knockout ------------- */
     if (half(v.ko) > 0.02){
       const b = grp(half(v.ko));
-      b.appendChild(path("M"+X0+" "+BY+"H"+X1, C.ink, 3));
+      b.appendChild(backbone(BY, [B.a, B.k, B.c]));
       b.appendChild(promoter(B.P, BY, C.blue));
       b.appendChild(gene(B.a[0], B.a[1], BY, "a", C.blue));
       b.appendChild(promoter(B.kP, BY, C.verm));

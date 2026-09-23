@@ -7,22 +7,6 @@
 <meta name="robots" content="noindex,nofollow">
 <title>E. coli &ndash; Chassis</title>
 <link rel="stylesheet" href="../../deck.css">
-<style>
-/* Page-local only.  The taxonomy rank list is a ladder, so it is set as
-   one: fixed-width rank labels down the left so the names line up and
-   the descent reads vertically. */
-.slide dl.rank{margin:0;font-size:27px;line-height:1.5}
-.slide dl.rank div{display:flex;gap:18px}
-.slide dl.rank dt{flex:0 0 150px;color:var(--muted)}
-.slide dl.rank dd{margin:0;font-weight:700}
-.slide dl.rank dd i{font-weight:700}
-.slide ul.genus li{font-size:26px;margin-bottom:6px}
-.slide ul.genus li b{color:var(--vermillion)}
-.slide p.lead{font-size:28px;color:var(--muted);margin:0 0 14px}
-.slide ul.path li{font-size:25px;margin-bottom:8px}
-.slide ul.path li b{color:var(--blue)}
-.slide .books{font-size:21px;color:var(--muted);margin-top:18px;line-height:1.45}
-</style>
 </head>
 <body>
 
@@ -35,93 +19,31 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 14 -->
-<article class="slide">
-  <h1 class="small">The <i>E. coli</i> chassis</h1>
-  <div class="cols">
-    <figure class="fig">
-      <img src="img/02-ecoli-cells.jpg" alt="An electron micrograph of Escherichia coli cells: rods with visible flagella.">
-    </figure>
-    <div>
-      <p class="lead">MG1655 / W3110 lineage &mdash; and B, and W</p>
-      <ul class="tight">
-        <li>Most lab strains descend from one isolate, <b>K-12</b></li>
-        <li><b>MG1655</b> and <b>W3110</b> are nearly identical derivatives of it</li>
-        <li><b>BL21</b> is not a K-12 strain at all &mdash; it is <i>E. coli</i> <b>B</b></li>
-        <li><b>W</b> is a third lineage, used industrially and in some competent cells</li>
-      </ul>
-      <p class="books">
-        <i>Escherichia coli and Salmonella: Cellular and Molecular Biology</i><br>
-        Neidhardt &amp; Curtiss, ASM<br><br>
-        <i>Bacterial and Bacteriophage Genetics</i> &mdash; Birge
-      </p>
-    </div>
-  </div>
-  <template class="notes">The laboratory strains in common use today are almost all descendants of one ancestral isolate called K-12. Two derivatives of that lineage are studied more than any others, MG1655 and W3110, and they are nearly identical, differing by a few modifications. A few strains in regular use are not K-12 at all. BL21 is the obvious one, used heavily in industry and in molecular biology for protein overexpression, and it belongs to the E. coli B lineage, which differs from K-12 in both genotype and phenotype. The W lineage is a third, used industrially and sold in some competent cell products. Keep that in mind, because our strain is one of them. If you want the whole story, the two-volume Neidhardt and Curtiss set is the reference, and Birge is the one to read for the molecular genetics.</template>
-  <template class="desc">A micrograph of E. coli beside the lineage: most lab strains descend from the single K-12 isolate, with MG1655 and W3110 as its two most-used derivatives; BL21 belongs to the separate B lineage and W is a third. Two reference books are cited.</template>
+<article class="slide" data-seq="lineage">
+  <h1 class="small">Where the strains came from</h1>
+  <template class="notes">The laboratory strains in common use are almost all descendants of a single isolate, and the two lineages that are not are the two you are most likely to meet by accident. This is drawn rather than listed because it is a pedigree, and because which root a strain sits under is the thing that decides what you inherit from it. If you want the whole story, the two-volume Neidhardt and Curtiss set is the reference, and Birge is the one to read for the molecular genetics.</template>
+  <template class="desc">A pedigree of the laboratory E. coli strains, grown one branch at a time from three founding isolates: K-12, B and W.</template>
 </article>
 
-<!-- ---------------------------------------------------------------- 15 -->
-<article class="slide">
-  <h1 class="small">Where it sits: &gamma;-proteobacteria</h1>
-  <figure class="fig">
-    <img src="img/01-tree-of-life.png" alt="The same phylogenetic tree of life, with E. coli's position among the gamma-proteobacteria within the bacterial domain.">
-  </figure>
-  <template class="notes">On the big tree, E. coli lives in the bacterial domain among the gamma-proteobacteria.</template>
-  <template class="desc">The tree of life again, marking where E. coli sits: in the bacterial domain, among the gamma-proteobacteria.</template>
-</article>
-
-<!-- ---------------------------------------------------------------- 16 -->
-<article class="slide">
+<!-- ------------------------------------------------------------- 15, 16 -->
+<article class="slide" data-seq="neighbours">
   <h1 class="small">The neighbours</h1>
-  <div class="cols">
-    <dl class="rank">
-      <div><dt>Domain</dt><dd>Bacteria</dd></div>
-      <div><dt>Phylum</dt><dd>Pseudomonadota</dd></div>
-      <div><dt>Class</dt><dd>Gammaproteobacteria</dd></div>
-      <div><dt>Order</dt><dd>Enterobacterales</dd></div>
-      <div><dt>Family</dt><dd>Enterobacteriaceae</dd></div>
-    </dl>
-    <ul class="genus">
-      <li><i>Citrobacter</i></li>
-      <li><i>Escherichia</i></li>
-      <li><i>Klebsiella</i></li>
-      <li><i>Proteus</i></li>
-      <li><i>Salmonella</i> &rarr; <b><i>S. typhi</i></b> (typhoid), <i>S. typhimurium</i></li>
-      <li><i>Serratia</i></li>
-      <li><i>Shigella</i></li>
-      <li><i>Yersinia</i> &rarr; <b><i>Y. pestis</i></b> (bubonic plague)</li>
-    </ul>
-  </div>
-  <template class="notes">Inside the gamma-proteobacteria, E. coli belongs to the enterobacteria, a family that also contains Salmonella and Shigella. Because these organisms reproduce asexually, species and genus are fuzzy concepts here, and in practice a given strain is often as similar to strains in another species as to strains in its own: some Shigella and Escherichia strains differ by only a handful of genes. The family is mostly gut organisms, which is where the name comes from, and they run from commensal to lethal. You have met Salmonella through contaminated chicken and eggs. Salmonella typhi is not one strain but a clade of genetically similar ones defined by their ability to cause typhoid fever. Salmonella typhimurium LT2 is a fairly common lab strain that causes diarrhoea in humans and kills mice, and working with typhimurium is a wildly different proposition from working with typhi. Yersinia pestis is in here too. But despite the famous names, most enterobacterial strains simply live in animal guts as part of the ordinary healthy flora.</template>
-  <template class="desc">The taxonomic ranks from domain down to family, beside the genera in the Enterobacteriaceae: Citrobacter, Escherichia, Klebsiella, Proteus, Salmonella with Salmonella typhi and typhimurium, Serratia, Shigella, and Yersinia with Yersinia pestis.</template>
+  <template class="notes">Two source slides fold together here. The first was the tree of life again with a sentence saying E. coli is a gamma-proteobacterium, which is one rank of the five drawn on this figure; the second was the rank list beside the genus list. They are one picture, so they are drawn as one.</template>
+  <template class="desc">E. coli's position in taxonomy, drawn as nested boxes from Bacteria down to the Enterobacteriaceae, then the genera inside that family.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 17 -->
-<article class="slide">
+<article class="slide" data-seq="pathotypes">
   <h1 class="small"><i>E. coli</i> strains</h1>
-  <ul class="path">
-    <li>Dominant <b>facultative anaerobe</b> of the human large intestine</li>
-    <li>Particular strains can infect most areas of the body, including the brain</li>
-    <li>Most lab strains derive from <b>MG1655</b></li>
-    <li data-build="1"
-        data-note="Note how many of these are commensal. Commensal means they live in a host persistently and do it no observable harm. The MG1655 lineage, E. coli W and E. coli B are all commensal, and between them they cover nearly everything you will use."
-        data-desc="Commensal strains: the MG1655 lineage giving DH10B and MC1061, and also E. coli W and E. coli B, which gives BL21 and Nissle."><b>Commensal</b> &rarr; MG1655 lineage &rarr; DH10B, MC1061 &nbsp;&middot;&nbsp; also <i>E. coli</i> W, <i>E. coli</i> B &rarr; BL21, Nissle</li>
-    <li data-build="2" data-desc="Enterohemorrhagic E. coli, the O157:H7 serotype, and the specific strain CDC B6914-MS1."
-        data-note="The pathotypes are defined by clinical behaviour rather than by descent: where the infection sits, which toxins are present, which antibodies cross-react. O157 refers to carbohydrates on the cell surface and H7 to a gene cluster encoding a flagellum, so the two together describe biochemistry on the outside of the cell, which is what antibodies see. Two strains can share O157 and H7 and differ everywhere else, so O157:H7 is a pattern of co-associated sequences and not a strain. CDC B6914-MS1 is a strain."><b>Enterohemorrhagic</b> (EHEC) &rarr; O157:H7 serotype &rarr; CDC B6914-MS1</li>
-    <li data-build="3" data-desc="Enterotoxigenic E. coli."
-        data-note="Enterotoxigenic. These are the travellers' diarrhoea strains: they colonise the small intestine and secrete an enterotoxin that makes the gut lining dump water. The harm is entirely the toxin."><b>Enterotoxigenic</b> (ETEC)</li>
-    <li data-build="4" data-desc="Enteropathogenic E. coli, including CFT073."
-        data-note="Enteropathogenic. These attach to the gut wall and destroy the microvilli underneath, which is a structural attack rather than a chemical one. A major cause of infant diarrhoea."><b>Enteropathogenic</b> (EPEC) &rarr; CFT073</li>
-    <li data-build="5" data-desc="Enteroinvasive E. coli."
-        data-note="Enteroinvasive. These get inside the epithelial cells and multiply in there, which is essentially what Shigella does, and genetically they are very close to Shigella. This is the vacuole modification category from later in the lecture."><b>Enteroinvasive</b> (EIEC)</li>
-    <li data-build="6" data-desc="Enteroaggregative E. coli."
-        data-note="Enteroaggregative, named for how they stack onto the gut surface in clumps rather than spreading out. Persistent diarrhoea. And note what all six of these categories have in common: none is defined by descent, they are defined by what the strain does to a person."><b>Enteroaggregative</b> (EAggEC)</li>
-  </ul>
   <template class="notes">Pathogenicity is not a property of a species, except where the species is defined by the illness it causes. Prokaryotic species including E. coli are defined by ribosomal RNA sequence, by overall genome similarity, and by a few assayable properties; one of the properties that defines E. coli is that it carries the lactose catabolic genes. Beyond that, strains get sorted by what kind of harm they do, and most of the characterised ones do some, because those are the ones people study.</template>
-  <template class="desc">E. coli strains: the dominant facultative anaerobe of the human large intestine, with particular strains able to infect most areas of the body, and most lab strains derived from MG1655. Then the pathotypes, arriving one at a time: commensal, enterohemorrhagic, enterotoxigenic, enteropathogenic, enteroinvasive and enteroaggregative.</template>
+  <template class="desc">The six categories of E. coli, drawn on a cutaway of the gut wall: a commensal in the lumen, then the five pathotypes, each doing its own damage in its own way.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/02-lineage.js" defer></script>
+<script src="seq/02-neighbours.js" defer></script>
+<script src="seq/02-pathotypes.js" defer></script>
 </body>
 </html>

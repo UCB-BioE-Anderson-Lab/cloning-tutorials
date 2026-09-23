@@ -17,13 +17,13 @@
 .slide .zoo img{width:100%;height:190px;object-fit:cover;border-radius:4px}
 .slide .zoo figcaption{font-size:20px;color:var(--muted);margin-top:8px;line-height:1.3}
 .slide .zoo figcaption i{color:var(--ink)}
-.slide p.lead{font-size:30px;color:var(--muted);margin:0 0 14px}
 .slide .big{font-size:40px;line-height:1.3;max-width:1180px;margin:60px 0 0}
 .slide .big b{color:var(--vermillion)}
-.slide ul.core li{font-size:28px;margin-bottom:10px}
-.slide ul.core li b{color:var(--blue)}
-.slide .facts{margin-top:26px;font-size:26px;color:var(--muted)}
-.slide .facts b{color:var(--ink)}
+/* A picture credit cannot live in .src on a sequence slide: .src sits
+   at bottom 34px and the sequence’s call line is at y 846, so they
+   land on top of each other.  Top right, under the title, is free. */
+.slide .credit{position:absolute;right:110px;top:110px;max-width:600px;
+  text-align:right;font-size:16px;line-height:1.4;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -66,59 +66,19 @@
   <template class="desc">Two lines. The first: no living system has ever been generated without descent from a preexisting one. The second arrives on a click: all strains are derived from a parent strain.</template>
 </article>
 
-<!-- ----------------------------------------------------------------- 8 -->
-<article class="slide">
-  <h1 class="small">Taxonomy</h1>
-  <figure class="fig">
-    <img src="img/01-tree-of-life.png" alt="A phylogenetic tree of life with three domains: Bacteria, Archaea and Eucaryota, each branching into many named groups.">
-  </figure>
-  <template class="notes">And there is no shortage of cells to start from. The problem is not choice, it is knowledge. Our understanding of almost everything on this tree is thin, and the genetic toolkits, the strains, the protocols and the accumulated lore all sit on a very small number of organisms. In practice you choose a chassis from a handful, and you choose it because somebody has already done the work of making it tractable.</template>
-  <template class="desc">A phylogenetic tree of life showing the three domains, Bacteria, Archaea and Eucaryota, with their major branches named.</template>
-</article>
-
-<!-- ----------------------------------------------------------------- 9 -->
-<article class="slide">
+<!-- -------------------------------------------------------------- 8, 9 -->
+<article class="slide" data-seq="chasses">
   <h1 class="small">Popular chasses</h1>
-  <div class="cols">
-    <div>
-      <p class="lead">What people actually use</p>
-      <ul class="tight">
-        <li><i>E. coli</i></li>
-        <li><i>S. cerevisiae</i> (&lsquo;yeast&rsquo;)</li>
-        <li><i>H. sapiens</i></li>
-        <li><i>S. elongatus</i> (&lsquo;cyanobacteria&rsquo;)</li>
-        <li>Various plants</li>
-        <li><i>In vitro</i></li>
-      </ul>
-    </div>
-    <div>
-      <p class="lead">What a chassis has to give you</p>
-      <ul class="tight">
-        <li>Encodes the <b>central dogma</b> processes</li>
-        <li>Represents the <b>initial state</b> of the biochemical system</li>
-        <li><b>Stable replication</b> of DNAs</li>
-        <li>But often provides much more</li>
-      </ul>
-    </div>
-  </div>
-  <template class="notes">These are the ones with the toolkits. The list on the right is the minimum a chassis has to do for you: it has to run the central dogma so that a gene you add gets transcribed and translated, it sets the initial state of the biochemistry your part lands in, and it has to copy your DNA faithfully generation after generation. Note the last entry on the left, in vitro, which is the case where you have decided the chassis is more trouble than it is worth and you supply the machinery yourself.</template>
-  <template class="desc">Two columns. On the left, the popular chasses: E. coli, S. cerevisiae, H. sapiens, S. elongatus, various plants, and in vitro. On the right, what a chassis has to provide: the central dogma processes, the initial state of the biochemical system, stable replication of DNAs, and usually a good deal more.</template>
+  <div class="credit">Micrographs via Wikimedia Commons &mdash; Erbe &amp; Pooley (USDA), Masur, Segura Torres &amp; Vieto Bonilla, Gonzalez &amp; Kerfeld, Chandres &nbsp;&middot;&nbsp; PD, CC&nbsp;BY, CC&nbsp;BY-SA &nbsp;&middot;&nbsp; see img/CREDITS.md</div>
+  <template class="notes">Two source slides fold together here: the tree of life under the title Taxonomy, and the two lists of popular chasses and what a chassis must provide. They are one argument. The tree is redrawn rather than reused, and schematically, as a cladogram, because branch lengths are not what is being argued.</template>
+  <template class="desc">A schematic tree of life with five tips highlighted, then the six chasses people actually use, with a photograph of each.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 10 -->
-<article class="slide">
+<article class="slide" data-seq="genome">
   <h1 class="small">A core bacterial chassis</h1>
-  <ul class="core">
-    <li><b>Cell growth and division</b></li>
-    <li><b>The central dogma</b></li>
-    <li><b>Primary metabolism</b></li>
-    <li><b>Environment sensing</b></li>
-  </ul>
-  <p class="facts">about <b>3000 genes</b> common to all bacteria &nbsp;&middot;&nbsp;
-     encoded by <b>~3 million bases</b> of DNA &nbsp;&middot;&nbsp;
-     almost identical among <b>Enterobacteria</b></p>
-  <template class="notes">Most of the genes in any given prokaryote are the same as the genes in all the others. There is a core set of processes, cell growth and division, the central dogma, primary metabolism and environmental sensing, that every prokaryote has and that vary remarkably little in their details. Together that takes about three thousand genes and about three million bases to encode. Among the enterobacteria those genes are very nearly identical base for base, and they are clearly homologous to the same genes in prokaryotes much further away. So when you pick a bacterial chassis, most of what you are picking is the same whatever you pick.</template>
-  <template class="desc">The four process groups that make up a core bacterial chassis: cell growth and division, the central dogma, primary metabolism and environment sensing. Beneath them, the numbers: about three thousand genes common to all bacteria, about three million bases of DNA, and almost identical among the Enterobacteria.</template>
+  <template class="notes">The source slide states the proportion in words and numbers: about three thousand genes out of four and a half thousand, about three megabases out of four and a half. A proportion drawn to scale says it in one look, and it sets up the next slide, since every phenotype on it is encoded in the piece on the right.</template>
+  <template class="desc">The E. coli genome drawn to scale and split into the core that every bacterium carries and the accessory portion that makes a strain a particular strain.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 11 -->
@@ -143,17 +103,18 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 12 -->
-<article class="slide">
-  <h1 class="small">Construction of minimal genomes</h1>
-  <figure class="fig">
-    <img src="img/01-minimal-genomes.png" alt="A circular map of the E. coli K-12 genome with two rings of marked deletions: an inner ring of regions absent from other enterobacteria, and an outer ring of the regions successfully removed from MG1655 in combination.">
-    <figcaption>Blattner and coworkers, <i>Science</i> 2006 May 19;312(5776):1044&ndash;6</figcaption>
-  </figure>
-  <template class="notes">People have gone at the minimal chassis directly. Blattner's group took the K-12 genome and removed chunk after chunk to see how far down it could be whittled. On this figure the inner rings mark deletions that are already absent from other enterobacteria, and the outer ring marks the ones that were successfully removed from MG1655 in combination. Others have pushed harder from the other direction. The Mycoplasma are pathogens so dependent on their host cells that much of metabolism is simply missing from their genomes, and theirs come in under a megabase, the smallest at five hundred and eighty-two kilobases. The smallest free-living bacterium, Pelagibacter ubique, is one point three megabases. So smaller than three megabases is possible. But most bacteria carry about three megabases of housekeeping, and the additional DNA on top of that is what lets a particular strain survive somewhere particular: in soil, or in competition, or inside another organism. That extra DNA is where all the diversity lives.</template>
-  <template class="desc">A circular map of the E. coli K-12 genome marked with two rings of deletions: an inner set present in other enterobacteria, and an outer set successfully removed from MG1655 in combination. Captioned with the Blattner 2006 Science reference.</template>
+<article class="slide" data-seq="minimal">
+  <h1 class="small">How small can a genome get?</h1>
+  <div class="credit">MDS42: P&oacute;sfai <i>et al</i>, <i>Science</i> 2006 May 19;312(5776):1044&ndash;6<br>Lengths: MG1655 4,641,652 bp &middot; MDS42 3,976,195 bp<br><i>P. ubique</i> HTCC1062 1,308,759 bp &middot; <i>M. genitalium</i> G37 580,076 bp</div>
+  <template class="notes">The source slide is the published ring map from that paper with the deletions marked, and the speaker note compares four genome lengths of which the ring map shows one. Four bars on one scale is the comparison the note was making, and it puts the three-megabase floor on the slide instead of in the telling.</template>
+  <template class="desc">Four genomes drawn as bars on one scale: E. coli MG1655, the reduced strain MDS42, Pelagibacter ubique and Mycoplasma genitalium, with a line marking three megabases.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/01-chasses.js" defer></script>
+<script src="seq/01-genome.js" defer></script>
+<script src="seq/01-minimal.js" defer></script>
 </body>
 </html>
