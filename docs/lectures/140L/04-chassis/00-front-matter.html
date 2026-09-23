@@ -22,8 +22,6 @@
 .slide pre.cf code{font:inherit;color:inherit}
 .slide pre.cf .out{color:var(--blue)}
 .slide p.lead{font-size:28px;color:var(--muted);margin:22px 0 0}
-.slide p.foot{font-size:22px;color:var(--muted);margin:20px 0 0}
-.slide p.foot b{color:var(--vermillion)}
 .slide pre.cf .cmt{color:var(--muted)}
 </style>
 </head>
@@ -50,14 +48,15 @@ Digest    <span class="out">pcrpdt</span>  SpeI       1          <span class="ou
 Ligate    <span class="out">spedig</span>                        <span class="out">lig</span>
 Transform <span class="out">lig</span>     Mach1      Spec       <span class="out">pTarget-aspC1</span></code></pre>
   <p class="lead" data-build="1"
-     data-note="And then the part that is not cloning at all. The cells already carry pCas, and they are grown on arabinose first, so that lambda red is switched on before the break is ever made. Both DNAs go into that one cuvette. Cas9 cuts the chromosome at aspC1, and the only colonies that come up are the ones that repaired the cut off the donor, because E. coli cannot mend a double-strand break on its own. The cut is the selection. Which is also why the guide on its own is useless here: transform pTarget alone into those cells and you do not get an unedited strain, you get an empty plate. Then the two clearing steps, which are the ones that make this worth doing: IPTG switches on the guide pCas carries against the pMB1 origin, so pTarget cuts itself, and 42 degrees clears pCas because its own origin is temperature sensitive. What you are left with is a markerless edit and nothing else in the cell. And notice three of these four lines are just growing the cells, and no two of them are the same growth: one switches lambda red on, one clears pTarget, one clears pCas. Three separate lab days, and none of them optional."
-     data-desc="Then, in the cell: grow the pCas strain on arabinose; transform it with the guide plasmid and the donor together on spectinomycin; then grow it with IPTG and again at 42 degrees to leave Mach1 delta-aspC1 carrying nothing.">Then, in the cell:</p>
-  <pre class="cf" data-build="1"><code>Grow      Mach1/pCas  ara                          <span class="out">pCas*</span>
-Transform <span class="out">pCas*</span>  <span class="out">pTarget-aspC1</span>  donor  Spec     <span class="out">edited</span>
-Grow      <span class="out">edited</span>  IPTG                         <span class="out">cured</span>
-Grow      <span class="out">cured</span>   42&#176;C                         <span class="out">Mach1 &Delta;aspC1</span></code></pre>
-  <p class="foot" data-build="1">&lambda;&#8209;red has to be <b>on before the break is made</b> &mdash; and nothing repairs a double-strand break in <i>E.&nbsp;coli</i> but the donor</p>
-  <template class="notes">Last time we built a plasmid in vitro, ordered a repair template beside it, and put both into a cell that was already carrying a helper. The reactions that followed happened inside the cell and ended in a modified genome. Two things to notice before we move on. Neither DNA does anything alone: the guide without the donor kills the cell, and the donor without the guide is never recombined. And then look at what is on the last line. Every other product in this file is a DNA, and that one is a strain. Mach1 delta-aspC1 is not a molecule you can put in a tube on its own; it is an organism, and everything it does apart from the edit you made is inherited from whatever it was before. That is the subject of today.</template>
+     data-note="And then we have to do something to the cells. Not one step — this regimented procedure of growth, induction, transformation, growth, induction and growth again, and only at the end of all of it is the DNA properly installed. Throughout that, an orchestra of events is going on inside the cell: proteins being expressed, an inducer finding its repressor, a nuclease finding a sequence, a recombinase finding a homology arm. And a great deal of it depends on the specifics of what cell this is and how it was grown. Notice in particular where the edit happens. Not on the transformation line. The electroporation delivers two molecules, and the cutting and the repairing both happen on the growth afterwards, while the cells recover."
+     data-desc="Then, to the cells: grow Mach1 carrying pCas on kanamycin at 30 degrees; grow it again with arabinose to switch on lambda red; transform in the guide plasmid and the donor together; grow on spectinomycin, which is where the cutting and the repair happen; grow with IPTG to clear pTarget; and grow at 42 degrees to clear pCas, leaving Mach1 delta-aspC1 carrying nothing.">Then, to the cells:</p>
+  <pre class="cf" data-build="1"><code>Grow      Mach1/pCas  Kan   30           <span class="out">colony</span>
+Grow      <span class="out">colony</span>      Kan   ara  30      <span class="out">pCas*</span>   <span class="cmt">&#955;-red on</span>
+Transform <span class="out">pCas*</span>  <span class="out">pTarget-aspC1</span>  donor    <span class="out">shocked</span>
+Grow      <span class="out">shocked</span>     Spec  Kan  30      <span class="out">edited</span>  <span class="cmt">cut and repair happen here</span>
+Grow      <span class="out">edited</span>      Kan   IPTG 30      <span class="out">cured</span>   <span class="cmt">pTarget cuts itself</span>
+Grow      <span class="out">cured</span>       42&#176;C               <span class="out">Mach1 &Delta;aspC1</span></code></pre>
+  <template class="notes">We talked last time about this Jiang CRISPR procedure, and we discussed producing the plasmid the experiment needs. That part is cloning, and the construction file says it completely. What comes after is not cloning, and you cannot express it in those terms. The cloning steps were specifically about building a DNA. This is something different, and understanding it means considering everything going on inside the cell: transcription, translation, an inducer binding, which proteins are present and which are not, and what the cell was doing before you arrived. So to describe any of this, we have to talk about the cells themselves. That is the rest of today.</template>
   <template class="desc">The CRISPR construction file from the end of the last lecture: a synthetic donor spanning aspC1, then the guide built by inverse PCR on pTargetF, digested with SpeI, ligated and transformed into Mach1 on spectinomycin to give pTarget-aspC1.</template>
 </article>
 
