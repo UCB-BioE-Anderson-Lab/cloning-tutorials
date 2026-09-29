@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Protein Localization &ndash; Chassis</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* The reasons ARE the slide; the mechanism is a footnote.  It was two
+   columns of bullets that mixed the two, so the reasons -- which is
+   what a student has to decide with -- read as one item of six.
+   It then overcorrected into "three reasons, and they are the only
+   three", which is simply false: there are practical reasons to go to
+   the periplasm on top of the ones the protein forces on you.  So the
+   list is grouped by WHO IS DECIDING instead of being capped, which is
+   the distinction a student actually needs and costs no extra words.
+   Numbering runs 1-6 across both columns -- counter-reset is on the
+   grid, not on each list, or the right column restarts at one. */
+.slide p.ask{font-size:26px;color:var(--muted);margin:0 0 4px;line-height:1.35}
+.slide .why2{display:grid;grid-template-columns:1fr 1fr;gap:0 54px;
+  margin-top:20px;counter-reset:w}
+.slide .why2 h2{font-size:20px;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.06em;font-weight:400;margin:0 0 14px;padding-bottom:7px;
+  border-bottom:1px solid var(--rule)}
+.slide ol.why{margin:0;padding-left:0;list-style:none}
+.slide ol.why li{font-size:24px;margin-bottom:19px;padding-left:40px;position:relative;
+  line-height:1.26;counter-increment:w}
+.slide ol.why li::before{content:counter(w);position:absolute;left:0;top:-1px;
+  font-size:24px;font-weight:700;color:var(--vermillion)}
+.slide ol.why b{color:var(--ink)}
+.slide ol.why .sub{font-size:19px;color:var(--muted)}
+.slide p.how{margin-top:10px;font-size:22px;color:var(--muted);line-height:1.45}
+.slide p.how b{color:var(--blue)}
+/* Page-local only.
+   THE FIVE COMPARTMENTS, as a table rather than a picture with labels
+   scattered round it: the slide's real content is how hard each
+   destination is, and that is a column. */
+.slide table.comp{border-collapse:collapse;width:100%;margin-top:6px}
+.slide table.comp th{text-align:left;font-size:21px;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.06em;padding:0 16px 8px 0;font-weight:400}
+.slide table.comp td{font-size:25px;padding:11px 16px 11px 0;
+  border-top:1px solid var(--rule);vertical-align:top}
+.slide table.comp td.where{font-weight:700;white-space:nowrap}
+.slide table.comp tr.easy td.where{color:var(--blue)}
+.slide table.comp tr.hard td.where{color:var(--vermillion)}
+.slide p.lead{font-size:28px;color:var(--muted);margin:0 0 14px}
+.slide p.src-link{font-size:21px;color:var(--muted);margin:18px 0 0}
+.slide p.try{margin:16px 0 0;display:flex;align-items:center;gap:18px}
+.slide p.try .hint{font-size:20px;color:var(--muted)}
+.slide p.try .hint b{color:var(--blue)}
+.slide p.src-link a{color:var(--blue)}
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:10px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{font-size:38px;font-weight:700}
+.slide p.astep{font-size:30px;margin:24px 0 0}
+.slide p.astep b{color:var(--vermillion)}
+.slide ul.sig li{font-size:25px;margin-bottom:8px}
+.slide ul.sig li b{color:var(--blue)}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 53 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Protein Localization</h1>
+  <ul class="tight">
+    <li>What distinct compartments exist in a bacterium?</li>
+    <li>Where can a protein be directed in the cell?</li>
+  </ul>
+  <template class="notes">Though bacteria lack organelles, they nevertheless have several distinct compartments, and which one your protein ends up in is something you control.</template>
+  <template class="desc">Section divider: Protein Localization. What distinct compartments exist in a bacterium, and where can a protein be directed?</template>
+</article>
+
+<!-- The source has three borrowed figures for this: a labelled
+     cross-section, the same cross-section again with the difficulty of
+     each destination beside it, and a sec translocon diagram.  Three
+     pictures of one thing, and the thing is a journey, so it is drawn
+     once and walked.  The "in a nutshell" table on the next slide is
+     kept, because it is the summary you would want on screen while
+     talking, and the detail slides after it are kept too. -->
+<article class="slide" data-seq="localize">
+  <h1 class="small">Five places a protein can be</h1>
+  <template class="notes">Bacteria have no organelles, but they are not one compartment either. Five, and which one your protein ends up in is something you control — by doing nothing, or by adding twenty amino acids, or by building an apparatus.</template>
+  <template class="desc">The gram-negative envelope in cross-section, and a protein routed to each of its five compartments in turn: staying in the cytoplasm by default, threaded through the inner membrane by the sec translocon after a signal sequence, released into the periplasm when that signal is cleaved, inserted into the outer membrane as a beta barrel, and finally secreted through a dedicated apparatus.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 55 -->
+<article class="slide" data-seq="howhard">
+  <h1 class="small">In a nutshell: how hard is each one?</h1>
+  <template class="notes">The source slide states the answer as five rows of prose. It is a scale, so it goes on the cutaway the section opened with, and drawn that way it turns out to track the number of membranes involved.</template>
+  <template class="desc">The five destinations on the cell cutaway, each with a difficulty rating, and then the pattern: difficulty tracks how many membranes the protein has to cross.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 56 -->
+<!-- The borrowed figure has every object you need and shows them all
+     at once, frozen, so the one thing it cannot show is the order they
+     act in -- which is the content.  Redrawn as the process, on the
+     same cross-section as the rest of the section.  The three bullets
+     about signal-peptide anatomy are gone because the peptide is now
+     drawn with its three regions. -->
+<article class="slide" data-seq="secpath">
+  <h1 class="small">Sec pathway secretion</h1>
+  <template class="notes">The Sec pathway as a sequence of events rather than a diagram of parts. Six beats: what is in the membrane, the signal peptide coming off the ribosome, SRP recognising it and docking at FtsY, SecA threading the chain through SecYEG on ATP, signal peptidase cutting from the periplasmic face, and the mature protein folding on the far side.</template>
+  <template class="desc">The Sec pathway animated across the inner membrane: the machinery first — FtsY, SecDF, the SecYEG channel, SecA and signal peptidase — then a signal peptide emerging from a ribosome, SRP binding its hydrophobic core and docking at FtsY, the chain threaded through the channel by SecA using ATP, the peptide cleaved by signal peptidase from the periplasmic side, and the mature protein folding in the periplasm.</template>
+</article>
+
+<!-- --------------------------------------------------------------- 56b -->
+<!-- The deck had been treating "signal peptide" and "Sec" as one fact,
+     and its own worked example disproves that: the Thermus enzyme in
+     the question at the end of this section is a Tat substrate, 0.99
+     against 0.003. A student shown only Sec has nowhere to put that. -->
+<article class="slide" data-seq="tat">
+  <h1 class="small">Tat &#8212; the twin-arginine route</h1>
+  <template class="notes">The second way across the inner membrane, and the one people do not get told about until it bites them. Same compartment at each end as Sec, same kind of cleavable N-terminal signal, but a different machine, and it moves the protein in a completely different state.</template>
+  <template class="desc">The Tat pathway beside Sec: the inner membrane with two translocons in it, and then the cargo — Sec threading an unfolded chain which folds once it is through, and Tat moving an already folded protein across in one piece.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 57 -->
+<article class="slide">
+  <h1 class="small">Signal peptide prediction</h1>
+  <figure class="fig">
+    <img src="img/06-signalp.png" alt="SignalP output: a plot of cleavage site probability along the first residues of a protein sequence.">
+    <figcaption><a href="https://services.healthtech.dtu.dk/service.php?SignalP-5.0">services.healthtech.dtu.dk &#183; SignalP-5.0</a></figcaption>
+  </figure>
+  <p class="try">
+    <button class="btn copy" type="button" data-copy="phoa-fasta">Copy a sequence to try</button>
+    <span class="hint"><i>E. coli</i> alkaline phosphatase, PhoA &#183; paste it in, pick <b>Gram-negative</b> &#183; expect <b>Sec/SPI</b>, cleaved after A21</span>
+  </p>
+  <pre id="phoa-fasta" hidden>>NP_414917.2 alkaline phosphatase PhoA [Escherichia coli K-12 MG1655]
+MKQSTIALALLPLLFTPVTKARTPEMPVLENRAAQGDITAPGGARRLTGDQTAALRDSLS
+DKPAKNIILLIGDGMGDSEITAARNYAEGAGGFFKGIDALPLTGQYTHYALNKKTGKPDY
+VTDSAASATAWSTGVKTYNGALGVDIHEKDHPTILEMAKAAGLATGNVSTAELQDATPAA
+LVAHVTSRKCYGPSATSEKCPGNALEKGGKGSITEQLLNARADVTLGGGAKTFAETATAG
+EWQGKTLREQAQARGYQLVSDAASLNSVTEANQQKPLLGLFADGNMPVRWLGPKATYHGN
+IDKPAVTCTPNPQRNDSVPTLAQMTDKAIELLSKNEKGFFLQVEGASIDKQDHAANPCGQ
+IGETVDLDEAVQRALEFAKKEGNTLVIVTADHAHASQIVAPDTKAPGLTQALNTKDGAVM
+VMSYGNSEEDSQEHTGSQLRIAAYGPHAANVVGLTDQTDLFYTMKAALGLK</pre>
+  <template class="notes">And you do not have to eyeball it. SignalP will take a sequence and tell you whether it thinks there is a signal peptide on the front of it and where the cleavage site is. Which is the tool you want for the question at the end of this section.</template>
+  <template class="desc">SignalP output: a plot of cleavage site probability along the N-terminal residues of a protein sequence.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 58 -->
+<article class="slide">
+  <h1 class="small">Periplasmic expression</h1>
+  <p class="ask">Some of these the protein forces on you. The rest you choose, because everything after the incubator gets easier.</p>
+  <div class="why2">
+    <div>
+      <h2>the protein decides</h2>
+      <ol class="why">
+        <li><b>It is toxic in the cytoplasm</b><br><span class="sub">and perfectly well behaved on the other side of the membrane</span></li>
+        <li><b>It cannot fold in the cytoplasm</b><br><span class="sub">the periplasm is oxidising, so disulfides form &mdash; antibody fragments are the standard case</span></li>
+        <li><b>It is on its way somewhere else</b><br><span class="sub">anything bound for the outer membrane or the outside goes through here first</span></li>
+      </ol>
+    </div>
+    <div>
+      <h2>you decide</h2>
+      <ol class="why">
+        <li><b>You want the real N-terminus</b><br><span class="sub">the peptidase cuts at a defined site, so no initiator methionine is left on the front</span></li>
+        <li><b>You want a cleaner lysate</b><br><span class="sub">the periplasm is a few per cent of the cell's protein, and osmotic shock releases it on its own</span></li>
+        <li><b>You are displaying it</b><br><span class="sub">phage and surface display both export through here &mdash; there is no cytoplasmic version</span></li>
+      </ol>
+    </div>
+  </div>
+  <p class="how">Getting it there is a <b>prepro</b> signal on the front, and you take one that already works &mdash;
+     <b>pelB</b>, <b>ompA</b>, <b>ompT</b>. A periplasmic leader peptidase, <b>LepB</b> for most proteins
+     and <b>LspA</b> for lipoproteins, cuts it off on arrival.</p>
+  <template class="notes">Why you would want the periplasm at all, which is the question the slide should answer. Split them by who is making the decision, because that is what tells you whether you have a choice. The left column is the protein deciding for you. Some proteins are toxic in the cytoplasm and perfectly fine on the other side of the membrane. Some cannot fold in the cytoplasm at all, because it is a reducing environment and they need disulfides, and antibody fragments are the standard example. And anything destined for the outer membrane or for secretion passes through the periplasm on the way, so you are going there whether you meant to or not. The right column is you deciding, and these are the ones people forget. A signal peptidase cuts at a defined site, so the mature protein starts exactly where you want it to, with no initiator methionine stuck on the front, which matters any time the N-terminus is functional or the protein is a therapeutic. The periplasm is only a few per cent of the cell's protein and an osmotic shock releases it without breaking the inner membrane, so you begin purification from a far simpler mixture than a whole-cell lysate. And if you are building a display library you have no cytoplasmic option at all, because phage and surface display both assemble through this compartment. The mechanism is one line underneath and deliberately so: put a prepro signal on the front, take one from a protein already well expressed in the periplasm rather than designing your own, and a leader peptidase cleaves it when it arrives. LepB does most proteins and LspA does the lipoproteins.</template>
+  <template class="desc">Reasons to target the periplasm, in two groups. The protein decides: cytoplasmic toxicity, a need for the oxidising environment to form disulfides, and being en route to the outer membrane or the outside. You decide: an authentic N-terminus from defined peptidase cleavage, a cleaner starting material because osmotic shock releases the periplasm alone, and display technologies which have no cytoplasmic version. A note underneath gives the mechanism &#8212; a prepro signal borrowed from pelB, ompA or ompT, cleaved by LepB or LspA.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 59 -->
+<article class="slide">
+  <h1 class="small">Outer membrane localization</h1>
+  <div class="cols">
+    <div>
+      <p class="lead">Beta barrel-type proteins</p>
+      <ul class="tight">
+        <li><b>OmpA</b>, <b>OmpT</b>, <b>OmpG</b>, <b>LamB</b></li>
+        <li>Start with <b>sec</b> secretion to the periplasm</li>
+        <li>Then <b>spontaneously insert</b> into the outer membrane</li>
+      </ul>
+      <p class="lead" style="margin-top:22px">Autotransporters / two-partner secretion</p>
+      <ul class="tight">
+        <li><b>Ag43</b> is the well-studied example</li>
+        <li>Often a cleaved &ldquo;passenger&rdquo; &mdash; <b>type V secretion</b></li>
+        <li>A dedicated secretion system for a single protein</li>
+        <li>Also begins with sec secretion</li>
+      </ul>
+    </div>
+    <figure class="fig">
+      <img src="img/06-autotransporter.png" alt="An autotransporter: a beta barrel domain in the outer membrane with the passenger domain threaded through it and displayed on the surface.">
+    </figure>
+  </div>
+  <template class="notes">Outer membrane proteins typically have a beta barrel structure that lets them spontaneously insert into the outer membrane, but the first step is still getting to the periplasm by sec. There are many mechanisms for getting a protein outside the cell, and the simplest is autotransporters and two-partner secretion. Ag43 is the most studied. In an autotransporter, one domain of the protein is a beta barrel that inserts into the outer membrane, and then the passenger domain is pulled through the pore it forms and displayed on the surface. Often the passenger is then cleaved off, which amounts to secretion. Two-partner systems do the same thing with the passenger and the displayer as two separate polypeptides.</template>
+  <template class="desc">Outer membrane localization: beta barrel proteins OmpA, OmpT, OmpG and LamB that reach the periplasm by sec and then insert spontaneously, and autotransporters such as Ag43 that form their own barrel and thread a passenger domain through it.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 60 -->
+<!-- The borrowed three-systems figure had been scaled until its labels
+     were illegible and its membranes were pale grey bands, and it sat
+     beside four bullets saying the same thing in words.  Drawn instead,
+     on the same cross-section as the localization slides, so it is
+     visibly the same cell with the question moved one compartment out. -->
+<article class="slide" data-seq="secrete">
+  <h1 class="small">Extracellular secretion</h1>
+  <template class="notes">Four beats, and the shape of the argument is that the second membrane is the entire problem. A Gram positive has one membrane, so a signal peptide finishes the job. A Gram negative has two, and the signal peptide only ever addressed the first, so the protein lands in the periplasm and stops. Types I, II and III are three different answers to that, and the useful way to hold them is by how many steps they take and where the substrate ends up.</template>
+  <template class="desc">Secretion drawn on the cell cross-section: first a Gram positive with one membrane where a signal peptide secretes directly, then the second membrane added so the same protein is stranded in the periplasm, then type I as a single channel through both membranes, type II as Sec to the periplasm followed by a second outer-membrane apparatus, and type III as a needle reaching through a host cell membrane.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 61 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">Periplasmic expression</div>
+  </div>
+  <p>I want to express alkaline phosphatase from <i>Thermus thermophilus</i> (CAC83793.1)
+     in the periplasm of <i>E. coli</i>. Do I need to alter the CDS to get proper localization?</p>
+  <figure class="fig">
+    <img src="img/06-phoa.png" alt="The N-terminal sequence of the Thermus thermophilus alkaline phosphatase, showing a signal peptide already present.">
+  </figure>
+  <p class="astep" data-build="1"
+     data-note="No. Run it through SignalP and the signal peptide is already on the front of it, because it is a periplasmic protein in its native organism too. But read which kind, because this is the interesting part and it catches people out. SignalP calls it a Tat signal, not a Sec one, and it is not close: Tat scores 0.99 and Sec 0.003. You can see why in the sequence, because a Tat signal carries a twin-arginine motif near the start and this one opens M-K-R-R. That matters, because the two translocons do different things. Sec threads an unfolded chain through and it folds on the far side. Tat exports proteins that are already folded, which is how it moves things that had to pick up a cofactor in the cytoplasm first. E. coli has a Tat system of its own, so the answer to the question is still no, you do not need to alter the coding sequence. But the generalisation people reach for here, that the sec pathway is old and conserved so any signal peptide will be read, is the wrong reason for the right answer. The real lesson is the one that matters at the bench: check before you engineer, because the protein may already be doing what you want, and it may be doing it by a route you did not expect."
+     data-desc="The answer: no, it should already go to the periplasm, because the signal peptide is already present — and SignalP identifies it as a Tat signal rather than a Sec one, scoring 0.99 against 0.003, which the twin-arginine motif at the start of the sequence explains. E. coli has its own Tat system, so the coding sequence still needs no alteration."><b>No.</b> It already carries a signal peptide &mdash; and look again, because it is a
+     <b>Tat</b> signal, not Sec. <i>E. coli</i> has a Tat system too.</p>
+  <template class="notes">No, it should already go to the periplasm.</template>
+  <template class="desc">A question for the room: to express Thermus thermophilus alkaline phosphatase in the E. coli periplasm, does the coding sequence need altering? The sequence is shown. The answer arrives on a click.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 62 -->
+<article class="slide">
+  <h1>Questions?</h1>
+  <template class="notes">That is the chassis. What you inherit when you pick a strain, how to read what has been done to it, and where inside it you can put things.</template>
+  <template class="desc">A slide reading Questions.</template>
+</article>
+
+<script>
+/* Copy-to-clipboard for the SignalP demo sequence.  Delegated, so it
+   survives deck.js cloning the slide into the presenter pane.
+   TWO ROUTES, AND THE SECOND IS NOT DEAD CODE.  navigator.clipboard
+   exists in a secure context and still REJECTS where clipboard-write
+   is withheld by permissions policy -- an embedded or sandboxed frame
+   does this, and a file:// copy of the deck has no secure context at
+   all.  So a rejected promise falls through to the execCommand route
+   rather than reporting failure, because that one only needs the click
+   it already has. */
+document.addEventListener("click", function(e){
+  const b = e.target.closest("button.copy");
+  if (!b) return;
+  const src = document.getElementById(b.dataset.copy);
+  if (!src) return;
+  const text = src.textContent.trim();
+  const LABEL = "Copy a sequence to try";
+
+  function legacy(){
+    const t = document.createElement("textarea");
+    t.value = text;
+    t.setAttribute("readonly", "");
+    t.style.position = "fixed"; t.style.top = "0"; t.style.opacity = "0";
+    document.body.appendChild(t);
+    t.select(); t.setSelectionRange(0, text.length);
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch (err) { ok = false; }
+    document.body.removeChild(t);
+    return ok;
+  }
+  function done(ok){
+    b.textContent = ok ? "Copied \u2713" : "Copy blocked \u2014 see console";
+    b.classList.add("done");
+    if (!ok) console.log("SignalP demo sequence:\n\n" + text);
+    setTimeout(function(){ b.textContent = LABEL; b.classList.remove("done"); },
+      ok ? 2400 : 4000);
+  }
+
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(
+      function(){ done(true); },
+      function(){ done(legacy()); });
+  } else {
+    done(legacy());
+  }
+});
+</script>
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/06-localize.js" defer></script>
+<script src="seq/06-howhard.js" defer></script>
+<script src="seq/06-sec.js" defer></script>
+<script src="seq/06-tat.js" defer></script>
+<script src="seq/06-secrete.js" defer></script>
+</body>
+</html>

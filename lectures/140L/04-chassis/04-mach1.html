@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Mach1 &ndash; Chassis</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* Page-local only.
+   THE SAME GENOTYPE, SEVEN TIMES.  The source walks the Mach1 string one
+   token at a time across seven slides, and the string has to sit in the
+   same place on every one of them or the walk does not read as a walk.
+   So it is one block at one size with one position, and only the
+   highlight moves. */
+.slide pre.gt{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:30px;line-height:1.5;white-space:pre-wrap;margin:12px 0 30px;
+  color:var(--muted)}
+.slide pre.gt .on{color:var(--vermillion);font-weight:700}
+.slide h1.small + p.strain{font-size:34px;font-weight:700;margin:0 0 4px}
+.slide p.lead{font-size:28px;color:var(--muted);margin:0 0 14px}
+.slide p.src-link{font-size:21px;color:var(--muted);margin:20px 0 0}
+.slide p.src-link a{color:var(--blue)}
+/* The comparison grid.  This slide was two cards of eleven bullets each
+   under five sub-headings, which is a specification sheet rather than a
+   slide -- JCA: "that's a lot of words.  Looks painful to present."  It
+   is three rows now, and the detail lives in the notes where a presenter
+   can reach it. */
+.slide p.ask{font-size:28px;margin:0 0 4px}
+.slide p.ask b{color:var(--vermillion)}
+.slide .two{display:grid;grid-template-columns:1fr 1.25fr;gap:56px;margin-top:26px}
+.slide .two .tag{font-size:21px;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.06em;margin:0 0 10px}
+.slide .two .tag b{color:var(--muted)}
+.slide .two .big{font-size:36px;font-weight:700;margin:0 0 16px;color:var(--vermillion)}
+.slide .two .sub{font-size:23px;color:var(--muted);line-height:1.4;margin:0}
+.slide .two ul.pts{margin:0;padding-left:1.1em}
+.slide .two ul.pts li{font-size:24px;margin-bottom:14px;line-height:1.35}
+.slide .cmp{display:grid;grid-template-columns:230px repeat(3,1fr);
+  column-gap:34px;margin-top:30px}
+.slide .cmp .h{font-size:31px;font-weight:700;padding:0 0 12px;
+  border-bottom:2px solid var(--ink)}
+.slide .cmp .h.ref{border-bottom-color:var(--rule);color:var(--muted)}
+.slide .cmp .rl{font-size:20px;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.06em;align-self:center;padding-top:8px}
+.slide .cmp .c{font-size:27px;line-height:1.3;padding:22px 0;
+  border-bottom:1px solid var(--rule)}
+.slide .cmp .c b{color:var(--vermillion)}
+.slide .cmp .c .sub{font-size:21px;color:var(--muted)}
+.slide .cmp .ref,.slide .cmp .ref b{color:var(--muted)}
+.slide .card{border:2px solid var(--rule);border-radius:8px;padding:18px 24px 20px}
+.slide .card h2{font-size:27px;margin:0 0 8px}
+.slide .card ul{margin:0;padding-left:1.1em}
+.slide .card li{font-size:23px;margin-bottom:5px}
+.slide .card .tag{font-size:20px;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.06em;margin:14px 0 4px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 29 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Mach1</h1>
+  <p>The strain on your bench, read one token at a time</p>
+  <template class="notes">And now the one you actually use.</template>
+  <template class="desc">Section divider: Mach1.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 30 -->
+<!-- ----------------------------------------------------------------- *
+     Seven source slides, each reprinting the whole genotype and adding
+     bullets under it.  One walk instead: the string stays put and the
+     tokens light in the order that makes an argument.
+     ----------------------------------------------------------------- -->
+<article class="slide" data-seq="genotype">
+  <h1 class="small">Our chassis</h1>
+  <template class="notes">The Mach1 genotype, walked one token at a time. Seven source slides collapse here; the order is deliberate, and the two lac tokens are last because the first of them raises the question the second answers.</template>
+  <template class="desc">The Mach1 genotype walked one token at a time, each token highlighted in turn with a drawing of what it does.</template>
+</article>
+
+
+
+<!-- ---------------------------------------------------------------- 31 -->
+
+
+<!-- ---------------------------------------------------------------- 32 -->
+
+
+<!-- ---------------------------------------------------------------- 33 -->
+
+
+<!-- ---------------------------------------------------------------- 34 -->
+
+
+<!-- ---------------------------------------------------------------- 35 -->
+
+
+<!-- ---------------------------------------------------------------- 36 -->
+<article class="slide">
+  <h1 class="small">LacZ &beta;-galactosidase</h1>
+  <figure class="fig">
+    <img src="img/04-lacz.jpg" alt="Beta-galactosidase hydrolysing lactose into glucose and galactose.">
+  </figure>
+  <template class="notes">The enzyme itself: beta-galactosidase, which cuts lactose into glucose and galactose. Its natural job is letting the cell eat lactose. Its job in your hands is that it will also cut X-gal, and one of the products of that reaction is blue.</template>
+  <template class="desc">A diagram of beta-galactosidase hydrolysing lactose into glucose and galactose.</template>
+</article>
+
+<!-- The source has two borrowed figures for this, one of them a
+     slideplayer screenshot.  Drawn instead, because the idea is that the
+     enzyme is in two pieces on two different molecules and cloning
+     breaks the small one, and two pieces drawn as two pieces explains
+     itself.  It also pays off the genotype walk three slides back. -->
+<article class="slide" data-seq="lacz">
+  <h1 class="small">LacZ&alpha; complementation</h1>
+  <template class="notes">This is what the phi80 token on the genotype was for. The enzyme is in two pieces on two different molecules, and cloning breaks the small one.</template>
+  <template class="desc">LacZ-alpha complementation drawn out: the chromosome making a beta-galactosidase with a piece missing, the plasmid carrying that missing piece, the two associating into a working enzyme that cuts X-gal and turns a colony blue, and then an insert cloned into the middle of the alpha fragment so that nothing complements and the colony stays white.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 38 -->
+
+
+<!-- ---------------------------------------------------------------- 39 -->
+<article class="slide">
+  <h1 class="small">Why Mach1?</h1>
+  <p class="ask">You have just seen a perfectly good cloning strain. <b>Why not DH10B?</b></p>
+  <div class="two">
+    <div>
+      <p class="tag">as a cloning strain</p>
+      <p class="big">nothing special</p>
+      <p class="sub">the same three mutations, the same complementation, the same blue-white plate. If this were all, it would not matter which you used.</p>
+    </div>
+    <div data-build="1"
+         data-note="And here is the difference, and it is the whole answer. DH10B cannot grow on M9 at all -- you saw why two sections ago, it is an auxotroph. Mach1 grows on minimal medium to high density, on sucrose, which is a cheap feedstock that K-12 strains cannot use at all. And it wastes less carbon as acetate, which is where carbon goes when a cell grows faster than it can respire: wasted feedstock, and toxic on top of that. None of those three matters for a miniprep. All three matter the moment somebody asks you to make a kilogram of something."
+         data-desc="As a production strain: it grows on sucrose, which K-12 strains cannot; it reaches high density on minimal medium, which DH10B cannot; and it wastes little carbon as acetate.">
+      <p class="tag">as a <b>production</b> strain</p>
+      <p class="big">three things K&#8209;12 cannot do</p>
+      <ul class="pts">
+        <li><b>sucrose</b> as a feedstock &mdash; cheap, and K-12 cannot use it</li>
+        <li><b>high density on minimal medium</b> &mdash; DH10B will not grow on M9 at all</li>
+        <li><b>little acetate</b> &mdash; wasted carbon, and toxic at titre</li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">The honest answer to why this strain. As a cloning strain it is unremarkable, and that is worth being plain about, because the first half of this section could have been done on DH10B and nothing would have changed. The reason to pick it is the second column, and the three items there are all about scale rather than about cloning. Dropped from the source list: phage resistance, which the fhuA token already covered; commercial availability; and that it is increasingly in the literature, which is true and is not a reason.</template>
+  <template class="desc">Why Mach1 rather than DH10B: as a cloning strain it is unremarkable, and as a production strain it does three things K-12 strains cannot — grow on sucrose, reach high density on minimal medium, and waste little carbon as acetate.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 40 -->
+<article class="slide">
+  <h1 class="small">Two others worth knowing</h1>
+  <div class="cmp">
+    <div></div>
+    <div class="h ref">Mach1</div>
+    <div class="h" data-build="1"
+         data-note="BL21 first, and the thing to notice is the first row. It is not K-12 and it is not W, it is E. coli B, which is the lineage the phage group standardised on in the nineteen forties. You use it for one job: high-level protein expression, almost always driven by T7. It carries T7 RNA polymerase on a lambda lysogen called DE3 under a lacUV5 promoter, which is what the DE3 in the name means, and it lacks the lon and ompT proteases, so what you express survives longer. It is also recA positive and endA positive, which is exactly what you spent the genotype slide learning to avoid: your plasmid will recombine and your miniprep will be degraded. It is harder to transform than a cloning strain, and pushing expression hard enough can simply kill it. So people keep both on the bench and use each for the one thing it is good at."
+         data-desc="A second column for BL21(DE3): E. coli B lineage, used for protein expression, and a poor cloning strain because it is recA and endA positive.">BL21(DE3)</div>
+    <div class="h" data-build="2"
+         data-note="And Nissle, which is a different kind of thing altogether. Look at the first row again: it is not K-12, not B, not W. It is a wild commensal isolated from a soldier in the First World War, picked because he did not get dysentery when everyone around him did, and it has been sold as a probiotic ever since. It is fully engineerable, so people build live biotherapeutics in it, and the reason to use it rather than a lab strain is exactly that it still does everything a real gut organism does, including interacting with the immune system. Which is also the cost. It is not attenuated. A K-12 derivative has been in flasks for a century and has lost most of what made it a gut organism; Nissle has not. That is a biosafety conversation, not a checkbox, and it is the one you will have to have before you put anything into an animal."
+         data-desc="A third column for Nissle 1917: a wild commensal from neither K-12, B nor W, used for live biotherapeutics, and not attenuated.">Nissle 1917</div>
+
+    <div class="rl">comes from</div>
+    <div class="c ref"><i>E. coli</i> <b>W</b></div>
+    <div class="c" data-build="1"><i>E. coli</i> <b>B</b></div>
+    <div class="c" data-build="2"><b>none of the three</b><br><span class="sub">a wild commensal, 1917</span></div>
+
+    <div class="rl">what it is for</div>
+    <div class="c ref">cloning</div>
+    <div class="c" data-build="1"><b>protein</b><br><span class="sub">T7 polymerase on board</span></div>
+    <div class="c" data-build="2"><b>living in a gut</b><br><span class="sub">live biotherapeutics</span></div>
+
+    <div class="rl">what it costs you</div>
+    <div class="c ref">nothing you have met yet</div>
+    <div class="c" data-build="1"><b>recA&#8314; endA&#8314;</b><br><span class="sub">a bad cloning strain</span></div>
+    <div class="c" data-build="2"><b>not attenuated</b><br><span class="sub">a real biosafety conversation</span></div>
+  </div>
+  <template class="notes">Two strains you will hear named, set against the one you are using so the differences are the content rather than the specifications. Everything else about them is in the per-column notes.</template>
+  <template class="desc">A comparison of three strains: Mach1, which the class uses, and two others arriving one at a time. Three rows: where each comes from, what each is for, and what each costs you.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/token-art.js" defer></script>
+<script src="seq/04-genotype.js" defer></script>
+<script src="seq/04-lacz.js" defer></script>
+</body>
+</html>

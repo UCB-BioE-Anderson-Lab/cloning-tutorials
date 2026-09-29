@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Pathogenicity &ndash; Chassis</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* Page-local only. */
+.slide p.lead{font-size:28px;color:var(--muted);margin:0 0 14px}
+.slide ul.core li{font-size:28px;margin-bottom:10px}
+.slide ul.core li b{color:var(--blue)}
+.slide .facts{margin-top:26px;font-size:26px;color:var(--muted)}
+.slide .facts b{color:var(--ink)}
+.slide .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:8px}
+.slide .row3 img{width:100%;max-height:330px;object-fit:contain;object-position:top}
+.slide .row2{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:8px}
+.slide .row2 img{width:100%;max-height:360px;object-fit:contain;object-position:top}
+.slide ul.vf li{font-size:29px;margin-bottom:12px}
+.slide ul.vf li b{color:var(--vermillion)}
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:10px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{font-size:38px;font-weight:700}
+.slide p.astep{font-size:30px;margin:26px 0 0}
+.slide p.astep b{color:var(--vermillion)}
+.slide p.src-link{font-size:21px;color:var(--muted);margin:18px 0 0}
+.slide p.src-link a{color:var(--blue)}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 42 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Pathogenicity</h1>
+  <ul class="tight">
+    <li>What are virulence factors?</li>
+    <li>What is present in lab strains of <i>E. coli</i>?</li>
+    <li>What other dangers lurk in the genome?</li>
+  </ul>
+  <p class="src-link">Biological Relationships, from BioE132 &nbsp;&middot;&nbsp;
+     <a href="https://www.youtube.com/watch?v=twPkRfnXQVw">youtube.com/watch?v=twPkRfnXQVw</a></p>
+  <template class="notes">If you become a practising genetic engineer, at some point somebody will ask you whether what you are doing is dangerous. The short answer is: sometimes. There are unquestionably dangerous things that can be built, and it is worth understanding the axis of risk and how it arises. Pathogenicity is only one category of concern, but it is the one most people have in mind when they ask, so it is the one to understand.</template>
+  <template class="desc">Section divider: Pathogenicity. Three questions: what are virulence factors, what is present in lab strains of E. coli, and what other dangers lurk in the genome.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 43 -->
+<article class="slide" data-seq="accessory">
+  <h1 class="small">A core bacterial chassis</h1>
+  <template class="notes">The bar from the Parent Strains section, deliberately: the argument is that this is the same genome, so it should be the same figure. The clause the source adds — none of it is enough to make a pathogen — is what the second beat draws.</template>
+  <template class="desc">The E. coli genome bar again, core against accessory, with the five categories of virulence factor hanging off the accessory portion.</template>
+</article>
+
+<!-- Two slides and six photographs in the source, and between them they
+     never show the thing that matters: that a 12 kb cluster at one place
+     in the genome builds a rod that reaches out and grips a sugar on
+     somebody else's cell.  Drawn as one picture with the cluster and the
+     structure on screen together, because the relationship between them
+     is the point. -->
+<article class="slide" data-seq="pili">
+  <h1 class="small">Type I pili</h1>
+  <template class="notes">The one virulence factor a K-12 lab strain has. Watch the division of labour: the rod is reach, the tip is grip, and everything else in the cluster exists to put that one interaction in the right place.</template>
+  <template class="desc">The fim cluster drawn as a gene map above a section of the bacterium's surface and the gut epithelium below it, then the pilus built from it: a helical rod of fimA subunits, the fimH adhesin on the tip, and the tip binding mannose residues on the epithelium.</template>
+</article>
+
+<!-- FOUR SLIDES BECOME ONE.  The source lists the categories, then
+     gives capsules, iron and vacuoles a slide and a borrowed figure
+     each.  Every one of those figures is from a different source and
+     none of them shares a frame with the host, which is the single
+     thing they all have in common: every category is an answer to
+     something a host does.  So one host, one bacterium, and a beat per
+     category.  The list of five still leaves the room, it just arrives
+     attached to what each one is for.  Toxins keep the slide after this
+     one, because that slide is a distinction rather than a mechanism. -->
+<article class="slide" data-seq="virulence">
+  <h1 class="small">(Some) virulence factors</h1>
+  <p class="src-link"><i>Bacterial Disease Mechanisms: An Introduction to Cellular Microbiology</i>
+     &mdash; Wilson, McNab &amp; Henderson</p>
+  <template class="notes">Five categories, and the useful way to hold them is that each one is an answer to something the host does. None of them is on the core chassis.</template>
+  <template class="desc">The five categories of virulence factor walked one at a time against a bacterium and a host surface: adhesion so it is not washed away, siderophores to take iron the host has locked up, a capsule so antibodies cannot reach the surface, vacuole modification to survive being eaten by a phagocyte, and toxins to do actual damage.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 50 -->
+<article class="slide">
+  <h1 class="small">Toxins &mdash; and PAMPs, which are not the same thing</h1>
+  <div class="cols">
+    <div>
+      <p class="lead"><b>PAMPs</b> &mdash; pathogen-associated molecular patterns</p>
+      <ul class="tight">
+        <li>Endotoxin (<b>LPS</b>), lipoprotein, non-CpG DNA, fMet proteins</li>
+        <li>Structural features of <b>ordinary</b> prokaryotic biology</li>
+        <li>Elicit strong immune responses &mdash; and <b>cause sepsis</b></li>
+        <li>But <b>not</b> virulence factors as such</li>
+      </ul>
+      <p class="lead" style="margin-top:22px"><b>Toxins</b> &mdash; which are</p>
+      <ul class="tight">
+        <li>Shiga toxin, botulinum toxin, diphtheria toxin, hemolysins</li>
+        <li>Actively damage host cells: lysing them, or entering and stopping translation</li>
+      </ul>
+    </div>
+    <figure class="fig">
+      <img src="img/05-toxins.jpg" alt="The structure of a bacterial toxin and its route into a host cell.">
+    </figure>
+  </div>
+  <template class="notes">This distinction is worth getting right. LPS is lipopolysaccharide, the molecule containing fatty acids in the outer membrane; lipid A is its lipid portion; endotoxin is the generic term for molecules like it. Most bacteria have PAMPs, because PAMPs are just structural features of being a prokaryote, and the immune system recognises them for exactly that reason. They provoke a strong response and at high dose that response is sepsis, and sepsis kills. But they are not virulence factors, because they are not there to do harm; they are simply what a bacterium is made of. Toxins are different. A toxin is a dedicated molecule whose function is to damage the host: lysing cells, or getting inside them and shutting down translation. Those are virulence factors in the proper sense. Hold on to that distinction, because it decides the answer to the next two slides.</template>
+  <template class="desc">Toxins and PAMPs distinguished. PAMPs — endotoxin or LPS, lipoprotein, non-CpG DNA, fMet proteins — are structural features of ordinary prokaryotic biology that provoke strong immune responses and cause sepsis, but are not virulence factors. Toxins — Shiga, botulinum, diphtheria, hemolysins — actively damage host cells and are.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 51 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">Drinking bacteria</div>
+  </div>
+  <p>Jimmy drank a flask of MG1655. Is he going to die?</p>
+  <p class="astep" data-build="1"
+     data-note="No. Lab strains of E. coli are harmless taken by mouth. They do not survive the journey, they carry no toxin that can be delivered that way, and they have been domesticated to the point of being bad at colonising anything. This is worth saying plainly because people are frightened of the wrong thing."
+     data-desc="The answer: no. Lab strains of E. coli are harmless ingested orally, they do not survive, and no toxin present can be delivered that way."><b>No.</b> Lab strains are harmless by mouth &mdash; they will not survive the trip,
+     and they carry no toxin that can be delivered that way.</p>
+  <template class="notes">No. Lab strains of E. coli are harmless ingested orally. They will not survive, and no toxins are present that can be delivered this way.</template>
+  <template class="desc">A question for the room: Jimmy drank a flask of MG1655, is he going to die? The answer arrives on a click.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 52 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">Injecting bacteria</div>
+  </div>
+  <p>Jill injected herself with MG1655. Is she going to die?</p>
+  <p class="astep" data-build="1"
+     data-note="She might. And the reason is the distinction from two slides ago: it is not a toxin and it is not a virulence factor. It is the LPS. A millilitre of saturated culture is around a billion colony forming units, and injected into a human that is about where sepsis begins. The strain is harmless in the sense that it cannot infect her. It is dangerous in the sense that a billion cells' worth of endotoxin in the bloodstream provokes a response that can kill. Route of exposure is doing all the work here, not the genotype."
+     data-desc="The answer: she might. About a billion colony-forming units, which is one millilitre of saturated culture, injected into a human is where sepsis begins."><b>She might.</b> Around 1&times;10<sup>9</sup> CFU &mdash; one millilitre of saturated
+     culture &mdash; injected into a human is where <b>sepsis</b> begins. Not a toxin. The LPS.</p>
+  <template class="notes">She might. One millilitre of saturated culture, around a billion colony forming units, injected into a human is where sepsis begins.</template>
+  <template class="desc">A second question: Jill injected herself with MG1655, is she going to die? The answer arrives on a click.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/05-accessory.js" defer></script>
+<script src="seq/05-pili.js" defer></script>
+<script src="seq/05-virulence.js" defer></script>
+</body>
+</html>

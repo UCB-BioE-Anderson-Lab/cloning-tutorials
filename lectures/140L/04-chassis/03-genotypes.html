@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Genotypes &ndash; Chassis</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* Page-local only.
+   A GENOTYPE IS A STRING, and it is the string a student has to learn to
+   read, so it is set in monospace at a size you can read from the back and
+   given room to breathe.  The tokens being talked about on a given slide
+   are marked; everything else stays quiet, which is the whole trick of
+   walking one of these. */
+.slide pre.gt{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:27px;line-height:1.5;white-space:pre-wrap;margin:18px 0 26px;
+  color:var(--muted)}
+.slide pre.gt .on{color:var(--vermillion);font-weight:700}
+.slide p.lead{font-size:28px;color:var(--muted);margin:0 0 14px}
+.slide p.src-link{font-size:21px;color:var(--muted);margin:18px 0 0}
+.slide p.src-link a{color:var(--blue)}
+/* The three media as ONE table.  They were three parallel lists plus a
+   glossary underneath, which is ten bullets to say that the recipes
+   differ in two numbers and that only two of the three ingredients feed
+   anything. */
+.slide .rec{display:grid;grid-template-columns:230px repeat(3,110px) 1fr;
+  column-gap:26px;margin-top:26px;align-items:center}
+.slide .rec .h{font-size:27px;font-weight:700;padding-bottom:10px;
+  border-bottom:2px solid var(--ink);text-align:center}
+.slide .rec .h.gives{text-align:left;font-size:22px;color:var(--muted);
+  border-bottom-color:var(--rule)}
+.slide .rec .rl{font-size:25px;font-weight:700;color:var(--blue);padding:20px 0}
+.slide .rec .q{font-size:25px;text-align:center;font-family:ui-monospace,Menlo,monospace}
+.slide .rec .gives{font-size:22px;padding:16px 0;line-height:1.3}
+.slide .rec .gives b{color:var(--vermillion)}
+.slide .rec .gives .sub{font-size:19px;color:var(--muted)}
+.slide p.soc{margin-top:22px;font-size:21px;color:var(--muted)}
+.slide p.punch{margin-top:16px;font-size:26px}
+.slide p.punch b{color:var(--vermillion)}
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:10px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead .q{font-size:38px;font-weight:700}
+.slide p.astep{font-size:29px;margin:24px 0 0}
+.slide p.astep b{color:var(--vermillion)}
+/* Four screenshots in a 2x2.  They are wide and short, so they are capped
+   by height rather than width: at full width the block ran off the bottom
+   of the slide. */
+.slide .grid4{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px;
+  margin-top:6px;min-height:0}
+.slide .grid4 img{width:100%;max-height:255px;object-fit:contain;
+  object-position:left top;border:1px solid var(--rule);border-radius:3px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 18 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Genotypes</h1>
+  <p>The shorthand for what has been done to a strain, and what it cannot do any more</p>
+  <template class="notes">A strain is usually handed to you as a string of abbreviations. Learning to read one is the practical skill in this section.</template>
+  <template class="desc">Section divider: Genotypes.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 19 -->
+<article class="slide">
+  <h1 class="small">Understanding genotypes</h1>
+  <p class="lead">DH10B</p>
+  <pre class="gt">F&minus; endA1 recA1 galE15 galK16 nupG rpsL &Delta;lacX74 &Phi;80lacZ&Delta;M15 araD139 &Delta;(ara,leu)7697 mcrA &Delta;(mrr-hsdRMS-mcrBC) &lambda;&minus;</pre>
+  <p class="src-link">
+    <a href="http://openwetware.org/wiki/E._coli_genotypes">openwetware.org/wiki/E._coli_genotypes</a> &nbsp;&middot;&nbsp;
+    <a href="https://ecgrc.net/">ecgrc.net</a></p>
+  <template class="notes">A strain is usually referred to by a genotype, which is shorthand for the genome modifications it carries relative to MG1655. That is the important part: a genotype is a list of differences from a reference, not a description of the strain. A long list of these is on OpenWetWare, and many more are catalogued at the Coli Genetic Stock Center.</template>
+  <template class="desc">The genotype of DH10B written out in full, with links to the OpenWetWare genotype list and the Coli Genetic Stock Center.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 20 -->
+<article class="slide">
+  <h1 class="small">Using the CGSC</h1>
+  <div class="grid4">
+    <img src="img/03-cgsc-1.png" alt="The CGSC mutation query page.">
+    <img src="img/03-cgsc-2.png" alt="A gene name typed into the CGSC mutation query.">
+    <img src="img/03-cgsc-3.png" alt="The list of catalogued mutations returned for that gene.">
+    <img src="img/03-cgsc-4.png" alt="The detail page for one mutation, describing what it actually is.">
+  </div>
+  <p class="src-link"><a href="https://ecgrc.net/CGSC/Site.php?ID=723">ecgrc.net/CGSC</a></p>
+  <template class="notes">If you want the detail, go to the CGSC, where every catalogued mutation is described properly. Go to mutation query, type in the gene, and it gives you the mutations that have been seen in that gene in some strain. Click one and you get a description of what it actually is. For instance galK16, which you just saw in the DH10B genotype, turns out to be an insertion element at a specific position in galK. An insertion element is a mobile sequence, much like a transposon. Others are point mutations, large deletions, or insertions of phages and other mobile elements. The point is that a genotype token is a name for a specific historical event, not a description of a class of damage.</template>
+  <template class="desc">Four screenshots of the Coli Genetic Stock Center: the mutation query page, a gene typed into it, the list of catalogued mutations returned, and the detail page for one of them.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 21 -->
+<article class="slide" data-seq="dnatok">
+  <h1 class="small">What most lab strains have had removed</h1>
+  <template class="notes">The DH10B genotype walked for the three tokens that are about handling DNA. The same three drawings come back on Mach1 two sections later, deliberately.</template>
+  <template class="desc">The DH10B genotype with its three DNA-handling tokens highlighted one at a time, each with a drawing of what it does.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 22 -->
+<article class="slide">
+  <h1 class="small">Rich media</h1>
+  <div class="rec">
+    <div class="rl"></div><div class="h">LB</div><div class="h">2YT</div>
+    <div class="h">SOB</div><div class="h gives">what it hands the cell</div>
+
+    <div class="rl">peptone</div>
+    <div class="q">10 g</div><div class="q">16 g</div><div class="q">20 g</div>
+    <div class="gives"><b>every amino acid</b>, pre-made<br><span class="sub">a digest of animal protein</span></div>
+
+    <div class="rl">yeast extract</div>
+    <div class="q">5 g</div><div class="q">10 g</div><div class="q">5 g</div>
+    <div class="gives"><b>nucleotides, vitamins, cofactors</b><br><span class="sub">lysed yeast, minus the walls</span></div>
+
+    <div class="rl">sodium chloride</div>
+    <div class="q">5 g</div><div class="q">5 g</div><div class="q">0.5 g</div>
+    <div class="gives"><b>nothing</b><br><span class="sub">osmotic balance only</span></div>
+  </div>
+  <p class="soc">SOC is SOB with glucose added &mdash; which is why it is the recovery medium and not the growth medium</p>
+  <p class="punch">So a strain with a broken biosynthetic pathway grows perfectly well on any of these. <b>The medium is doing the work it cannot.</b></p>
+  <template class="notes">This slide is here because of where we are in the genotype. The tokens we have just been through were about handling DNA. For the rest of the alleles we have to talk about growth media first, because every one of them is about whether the strain can grow under some particular condition, and that question has no answer until you say what is in the plate. Rich medium means the cell is handed nutrients it would otherwise have to make, and that is the whole definition. Peptone is a digest of protein, so all twenty amino acids arrive ready-made and none of them has to be synthesised. Yeast extract is lysed yeast, which brings nucleotides, B vitamins and cofactors, so purine and pyrimidine biosynthesis can be skipped too. Salt does nothing nutritional at all. The three recipes differ only in how much of the first two they carry, which is why they are one table rather than three lists. And the consequence is the line at the bottom: a strain with a broken biosynthetic pathway grows perfectly well on any of them, and you will not find out what is broken until you move it onto something defined.</template>
+  <template class="desc">Three rich media recipes as one table: LB, 2YT and SOB with their quantities of peptone, yeast extract and sodium chloride, and a column saying what each ingredient hands the cell. SOC is SOB plus glucose.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 23 -->
+<article class="slide">
+  <h1 class="small">M9 minimal medium</h1>
+  <div class="cols">
+    <div>
+      <p class="lead">Glucose is the <b>only</b> carbon source</p>
+      <ul class="tight">
+        <li>KH<sub>2</sub>PO<sub>4</sub>, 15 g/L</li>
+        <li>NaCl, 2.5 g/L</li>
+        <li>Na<sub>2</sub>HPO<sub>4</sub>, 33.9 g/L</li>
+        <li>NH<sub>4</sub>Cl, 5 g/L</li>
+      </ul>
+      <p class="gloss"><b>SCHNOPS</b> &mdash; sulfur, carbon, hydrogen, nitrogen,
+         oxygen, phosphorus. Everything a cell is made of has to arrive as one of these.</p>
+    </div>
+    <figure class="fig">
+      <img src="img/03-m9.png" alt="The composition of M9 minimal medium: inorganic salts plus a single carbon source.">
+    </figure>
+  </div>
+  <template class="notes">On a minimal defined medium everything is supplied in simple chemically defined form, and for E. coli the standard one is M9: inorganic salts plus glucose as the only carbon source. Since glucose is the only organic compound present, the cell has to make every amino acid, every nucleotide, every lipid and every cell wall component out of it, which means every biosynthetic enzyme has to be present and expressed. That is what makes M9 a test. And the glucose is a slot rather than a fixture: swap it for glycerol, succinate, galactose or arabinose and you are asking a different question, namely whether the strain can run on that particular carbon source. Some recipes change more than the carbon. GMML, which you will meet if you ever do unnatural amino acid work, is glycerol minimal medium with leucine added and no glucose at all — so it tests carbon utilisation and hands over one amino acid at the same time. Name the medium by what is in it, because M9 with galactose in place of the glucose is not really M9 any more. SCHNOPS is the mnemonic for the elements every cell needs: sulfur for cysteine, methionine and SAM; carbon as the backbone of everything; hydrogen; nitrogen for amino acids, nucleotides and cofactors; oxygen; and phosphorus for nucleotides, ATP and phospholipids. The elements are universal but the usable forms are not, so minimal media differ between organisms and some need extras.</template>
+  <template class="desc">M9 minimal medium: the salt composition, with glucose as the only carbon source and a note that the carbon source can be swapped, and the SCHNOPS mnemonic for the elements every cell requires.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 24 -->
+<article class="slide" data-seq="mettok">
+  <h1 class="small">And what has had its metabolism removed</h1>
+  <template class="notes">The same genotype again, now for the metabolic tokens, and deliberately after the two media slides: on rich medium none of these is visible.</template>
+  <template class="desc">The DH10B genotype with its three metabolic tokens highlighted one at a time, each showing growth on LB and none on minimal medium.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 25 -->
+<article class="slide">
+  <h1 class="small">A genotype is not a sequence</h1>
+  <div class="cols">
+    <figure class="fig">
+      <img src="img/03-dh10b-lineage.png" alt="The documented lineage of DH10B: the sequence of strain constructions that produced it.">
+    </figure>
+    <figure class="fig">
+      <img src="img/03-dh10b-genome.png" alt="The DH10B genome, sequenced and published.">
+    </figure>
+  </div>
+  <p class="gloss">A genotype is the <b>best-known composition</b> of a strain, inferred from the
+     manipulations used to make it and the phenotypes that resulted. <b>Very few have been
+     verified by sequencing.</b></p>
+  <p class="src-link">PMID: 18245285</p>
+  <template class="notes">Two pictures, and the left one is worth spending time on, because it is the actual construction of DH10B read from the top down. Every arrow on it is a step somebody did at a bench, and look at what kind of steps they are. Spontaneous mutants picked out by selection: fhuA near the top and tonA at the bottom are both just plate it, challenge it with phage, keep whatever lives. Conjugations, where a marker is mated in from a donor strain. P1 transductions, where a phage carries a piece of one chromosome into another. And near the end a transposon dropped in and then counterselected with fusaric acid, which leaves behind a deletion whose endpoints nobody specified. This is classical genetics. You mutagenise or you mate, you select, you keep the survivor, and you write down what you think you did. Nothing on this chart was designed at the sequence level and nothing was verified at the time. The figure is not even the whole story: the authors left out a branched pathway of twenty-five further steps running from wild-type K-12 down to HfrC plus at the top of the chart, and that is where most of the old chemical and ultraviolet mutagenesis sits. So the genotype printed underneath is a summary of intent across roughly forty documented manipulations. It records what people were trying to do, not what the chromosome actually became. Which is the point of the right-hand picture: DH10B is one of the very few strains where somebody went back and sequenced it to find out, and when they did they found a hundred and thirteen kilobase tandem duplication, an inversion, and a couple of hundred altered genes that no genotype string had ever mentioned.</template>
+  <template class="desc">On the left, the documented construction of DH10B as a chart running top to bottom: conjugations, P1 transductions, spontaneously arising mutants selected with phage, and a transposon counterselected to leave an unspecified deletion &#8212; classical untargeted genetics, step after step. On the right, the published genome. With the caution that a genotype is the best-known composition of a strain, inferred from its construction and phenotypes, and that very few have been verified by sequencing.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 26 -->
+<article class="slide">
+  <h1 class="small">And when you check</h1>
+  <figure class="fig">
+    <img src="img/03-dh10b-unlisted.png" alt="A comparison of the DH10B genome sequence against its genotype, showing many mutations that the genotype does not account for.">
+  </figure>
+  <p class="src-link">PMID: 18245285</p>
+  <template class="notes">Walk the figure before making the point, because it is dense and all of it is keyed by colour. Both panels are drawn on the same schematic of the chromosome, with the large engineered features marked as blocks along it: the ara-leu deletion at the left end, the lac X74 deletion, the tandem duplication, the e14 excision, the phi80 lacZ delta-M15 insertion, the Tn10 remnant, and the mrr to mcrBC deletion at the right. Panel A is the small-scale changes. Every asterisk is a single base change or a frameshift, and the colour is the type: green is silent, the codon changed and the protein did not; red is missense, one amino acid swapped; black is nonsense, a stop codon introduced part way through; yellow is a frameshift. A caret instead of an asterisk means the change sits between genes, and a number above a mark means more than one change at that spot. Only the genes with a known phenotypic consequence are named. Panel B is the insertion sequences, the mobile elements that have jumped into genes: black where DH10B and MG1655 share the disruption, red where it is DH10B&#8217;s own, each labelled with the element and, in brackets, the gene it landed in. Now count those against the genotype, which lists about a dozen things. There are scores of base changes and dozens of IS insertions on that chart and almost none of them appear in any genotype string anywhere. Most of them presumably have no phenotypic consequence and can be ignored. But it is not at all uncommon for a strain to carry an unlisted mutation that hits a process you care about, and you will not find it by reading the genotype, because it is not in there. One detail worth pointing at while it is up: the frameshift in rph actually corrects the rph-1 defect that MG1655 carries, so DH10B is not simply the more broken of the two.</template>
+  <template class="desc">Two panels, both drawn on the same schematic chromosome, whose large engineered features are marked as blocks: the ara-leu deletion, the lac X74 deletion, a tandem duplication, the e14 excision, the phi80 lacZ delta-M15 insertion, a Tn10 remnant and the mrr to mcrBC deletion. Panel A marks every small-scale change with an asterisk whose colour gives its type &#8212; green for a silent SNP, red for missense, black for nonsense, yellow for a frameshift &#8212; with a caret for a change between genes and a number where a site carries more than one. Panel B marks insertion-sequence disruptions, black where shared with MG1655 and red where unique to DH10B, each labelled with the element and the gene it interrupts. There are scores of marks in all, against a genotype string that lists about a dozen items.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 27 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">JM109 in minimal medium</div>
+  </div>
+  <p>I tried to grow <i>E. coli</i> strain JM109 in minimal medium. Why didn&rsquo;t it grow?
+     What do I need to do to make it grow?</p>
+  <pre class="gt">endA1 recA1 gyrA96 <span class="on">thi</span> hsdR17 (rk&ndash;, mk+) relA1 supE44 &Delta;(lac-<span class="on">proAB</span>) [F&prime; traD36, <span class="on">proAB</span>, laqIqZ&Delta;M15]</pre>
+  <p class="astep" data-build="1"
+     data-note="Walk it token by token. thi means it cannot make thiamine. proAB is deleted, so it cannot make proline either, except that the F prime carries proAB back, so that one is covered. Everything else on the list is about DNA handling rather than metabolism. So the only thing missing is thiamine."
+     data-desc="The answer: thi means it cannot make thiamine, and proAB is deleted but restored on the F prime, so add thiamine.">It is <b>thi</b>. The strain cannot make thiamine &mdash; and <i>proAB</i> is deleted but
+     restored on the F&prime;, so that one is covered. <b>Add thiamine.</b></p>
+  <template class="notes">The thi mutation will require thiamine. The proAB is knocked out but restored on an F plasmid. The other mutations are not related to metabolism. So it should just be thiamine.</template>
+  <template class="desc">A question for the room, marked with the deck's thinking figure: why did JM109 not grow in minimal medium, and what is needed to make it grow? The genotype is printed below. The answer arrives on a click.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 28 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <div class="q">WM3064 on LB</div>
+  </div>
+  <p>I tried streaking strain WM3064 on an LB agar plate, but got no colonies.
+     What do I need to do to make it grow?</p>
+  <pre class="gt">thrB1004 pro thi rpsL hsdS lacZ&Delta;M15 RP4-1360 &Delta;(araBAD)567 <span class="on">&Delta;dapA1341::[erm pir]</span></pre>
+  <p class="astep" data-build="1"
+     data-note="dapA is the one. It makes diaminopimelate, which is a cross-linker in the peptidoglycan of the cell wall, so without it the cell literally cannot build a wall and lyses. Nothing in LB supplies it. And this is not an accident: you met this strain two lectures ago as the conjugation donor, and the whole reason it is a DAP auxotroph is so that you can kill the donor after mating by leaving DAP out of the plate."
+     data-desc="The answer: dapA is deleted, so the strain cannot make diaminopimelate and LB does not supply it. Add DAP.">&Delta;<b>dapA</b> &mdash; it cannot make <b>diaminopimelate</b>, and LB does not supply it.
+     <b>Add DAP.</b> That auxotrophy is deliberate: it is how you kill the donor after a conjugation.</p>
+  <template class="notes">Need to add diaminopimelic acid. And it is worth connecting this back: WM3064 is the conjugation donor from the Genome Editing lecture, and the DAP auxotrophy is exactly what lets you counter-select the donor after mating.</template>
+  <template class="desc">A second question: why did WM3064 not grow on LB, and what is needed? The genotype is printed below with the dapA deletion picked out. The answer arrives on a click.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/parts.js" defer></script>
+<script src="seq/token-art.js" defer></script>
+<script src="seq/03-tokens.js" defer></script>
+</body>
+</html>
