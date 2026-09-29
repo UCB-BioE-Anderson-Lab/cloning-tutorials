@@ -69,6 +69,14 @@ const RY0 = 320, RDY = 72;
 const LBL = 214, RULE = 226, DNA0 = 246, TX_A = 664, RNA_C = 856, TX_B = 1024, PRO0 = 1070;
 const ry = i => RY0 + RDY*i;
 
+/* What GATES each unit, written under its promoter.  Without this the
+   grid says which units are firing but never why, and "why is that one
+   dark?" is the whole move the exercise is trying to teach: look at the
+   promoter, look at the condition, decide.  The label tracks the unit's
+   state, so a dark row and a dark reason read together. */
+const REG = {repa:"always on", cas9:"always on", red:"needs arabinose",
+             g2:"needs IPTG", g1:"always on", donor:null, aspc:"always on"};
+
 const ROWS = [
   {mol:"pcas",  key:"repa",  rna:"repA",         prot:["RepA"]},
   {mol:"pcas",  key:"cas9",  rna:"cas9",         prot:["Cas9"]},
@@ -291,6 +299,17 @@ window.Deck.sequence("trace", function(slide){
           d.appendChild(promoter(DNA0 + 4, y, dcol));
           d.appendChild(gene(DNA0 + 60, 400, y, "aspC1", dcol));
         }
+      }
+
+      /* and what decides whether it fires at all */
+      const gone = r.key === "aspc" && (st.edited || 0) > 0.5;
+      if (REG[r.key]){
+        /* once the locus is deleted the unit is not "off", it is not
+           there, and saying always on under a gap is a lie */
+        const rc = gone ? C.verm : (fire > 0.5 ? C.blue : C.muted);
+        d.appendChild(G.text(DNA0 + 2, y + 32,
+          gone ? "no promoter left" : REG[r.key], 17, rc,
+          gone || fire > 0.5 ? 700 : 400, "start"));
       }
       grid.appendChild(d);
 
