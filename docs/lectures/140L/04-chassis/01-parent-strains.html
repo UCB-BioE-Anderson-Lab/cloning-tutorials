@@ -96,41 +96,23 @@
 </article>
 
 <!-- ----------------------------------------------------------------- 7 -->
+<!-- Was one sentence set large, with the whole argument -- syn1.0, the
+     minimal genomes, the protocells -- in the speaker note.  That is a
+     paragraph to memorise and nothing to point at, and it buried the
+     actual claim: the chassis idea is not good engineering practice
+     here, it is the only route there is.  Drawn as the comparison it
+     always was, against the rover from the slide before. -->
+<article class="slide" data-seq="bootstrap">
+  <h1 class="small">No living system has been generated <b>from scratch</b></h1>
+  <template class="notes">The claim here is stronger than it looks and it is worth landing properly. A lunar rover is a thing somebody built out of components for one job, with no chassis underneath it: more work, nothing carries over, but a real route. The same arrow drawn for a cell does not exist. Nobody has assembled a living cell from non-living components, and that is not a hard problem nearly solved, it is a thing that has not been done. So when synthetic biology borrows the word chassis, it is not borrowing a matter of engineering taste. In a car factory you could start from nothing if you were willing to pay for it. Here you cannot, at any price. Every cell came out of another cell, the chain is unbroken, and your strain sits on the end of it, which is why picking a chassis means joining a lineage and inheriting whatever it already contains.</template>
+  <template class="desc">Three routes compared: parts to a lunar rover, which works; parts to a cell, struck through, which nobody has done; and a chain of cells each giving rise to the next, ending in your strain. Then the three cases people raise, each showing what was inherited.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 7b -->
 <article class="slide">
-  <p class="big">No living system has ever been generated <b>without descent from a preexisting one</b>.</p>
-  <p class="big" data-build="1"
-     data-note="Which means, in practice, the thing that matters to you: whatever you are about to engineer, you are engineering a modification of something. Its parent decides what you inherit."
-     data-desc="A second line: all strains are derived from a parent strain.">All strains are derived from a <b>parent strain</b>.</p>
-  <template class="notes">Nobody has assembled a living cell from non-living components. Several efforts get filed under synthetic life and none of them is that. JCVI-syn1.0 put a chemically synthesised genome into a bacterial cell that had had its own removed, and that cell still booted up on the proteins, RNAs, ribosomes and membranes of the recipient: the genome was synthetic, the chassis was inherited. Minimal genome organisms are heavily engineered but descend from natural cells and run on machinery handed down from them. Protocells, liposomes with RNA or partial expression systems inside, can imitate particular life-like behaviours but do not grow, sustain themselves or evolve. So every genetically engineered organism in research, biotech and industry has a biological ancestor, and the lineage of the essential components is unbroken. Even where the genome is synthetic, the system that reads it came from a previous cell. Life is a bootstrapped process.</template>
-  <template class="desc">Two lines. The first: no living system has ever been generated without descent from a preexisting one. The second arrives on a click: all strains are derived from a parent strain.</template>
-</article>
-
-<!-- ----------------------------------------------------------------- *
-     The minimal-life rework.  The old framing -- a ~3 Mb, ~3000-gene
-     bacterial core made of central dogma plus primary metabolism plus
-     environmental sensing -- is replaced by environmental subsidy as
-     the organising variable.  A genome gets small by moving work into
-     its niche, so the question becomes: how much must the organism
-     encode, given a stated environment?
-     ----------------------------------------------------------------- -->
-<article class="slide" data-seq="minimal">
-  <h1 class="small">How small can a genome get?</h1>
-  <template class="notes">Four landmarks on one scale, each with the caveat that complicates it. The band is shaded rather than lined, because there is no established smallest natural glucose-and-salts prototroph.</template>
-  <template class="desc">JCVI-syn3.0, Pelagibacter, Prochlorococcus and E. coli drawn as bars on one scale, with a shaded 1.5 to 2 megabase neighbourhood.</template>
-</article>
-
-<article class="slide" data-seq="prototroph">
-  <h1 class="small">What is the minimum required for life?</h1>
-  <template class="notes">The definition the rest of the lecture uses, stated as an experiment rather than a philosophy. This is also where the later rich-media and M9 material stops being a microbiology aside.</template>
-  <template class="desc">A defined minimal medium as inputs, a cell, and everything it must build from them: the operational definition of prototrophy.</template>
-</article>
-
-<!-- -------------------------------------------------------------- 8, 9 -->
-<article class="slide" data-seq="chasses">
-  <h1 class="small">Popular chasses</h1>
-  <div class="credit">Micrographs via Wikimedia Commons &mdash; Erbe &amp; Pooley (USDA), Masur, Segura Torres &amp; Vieto Bonilla, Gonzalez &amp; Kerfeld, Chandres &nbsp;&middot;&nbsp; PD, CC&nbsp;BY, CC&nbsp;BY-SA &nbsp;&middot;&nbsp; see img/CREDITS.md<br>Deposit counts: addgene.org, retrieved 2026-09-23</div>
-  <template class="notes">Two source slides fold together here: the tree of life under the title Taxonomy, and the two lists of popular chasses and what a chassis must provide. They are one argument. The tree is redrawn rather than reused, and schematically, as a cladogram, because branch lengths are not what is being argued.</template>
-  <template class="desc">A schematic tree of life with five tips highlighted, then the six chasses people actually use, with a photograph of each.</template>
+  <p class="big">All strains are derived from a <b>parent strain</b>.</p>
+  <template class="notes">Which means, in practice, the thing that matters to you: whatever you are about to engineer, you are engineering a modification of something that already exists, and its parent decides what you inherit. That is what the rest of this section is about.</template>
+  <template class="desc">A single line: all strains are derived from a parent strain.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 11 -->
@@ -185,6 +167,7 @@
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/parts.js" defer></script>
+<script src="seq/01-bootstrap.js" defer></script>
 <script src="seq/01-chasses.js" defer></script>
 <script src="seq/01-prototroph.js" defer></script>
 <script src="seq/01-minimal.js" defer></script>
