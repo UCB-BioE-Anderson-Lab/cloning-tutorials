@@ -15,6 +15,30 @@
  * the phage group standardised on, W as Waksman's soil isolate,
  * ATCC 9637.  TOP10 and DH10B are drawn as one node because that is
  * what they are; the difference is the label on the tube.
+ *
+ * THE CLONING BRANCH WAS WRONG AND IS NOW SOURCED.  It used to read
+ * W1485 -> MC1061 -> DH1 -> {DH5a, DH10B}, which is three false
+ * parentages in one line.  Durfee et al. 2008 (J Bacteriol 190:2597,
+ * "The complete genome sequence of Escherichia coli DH10B"), Fig. 1 and
+ * its legend, give the real chain: wild-type K-12 reaches HfrC+ by a
+ * branched pathway of 25 steps, HfrC+ leads to MC1061, and "MC1061
+ * served as a starting point for Hanahan and coworkers to replace
+ * alleles by using a series of P1 transductions that resulted in
+ * DH10B".  So DH10B descends from MC1061, not from DH1.  DH1 is a
+ * recA gyrA derivative of Meselson's MM294 and is the parent of DH5a,
+ * which is a separate descent that never passes through MC1061 at all.
+ * Neither cloning chain runs through W1485.
+ *
+ * The marker sets say the same thing without reading a paper: DH10B
+ * carries MC1061's araD139, D(ara-leu), DlacX74, galU, galK and rpsL,
+ * and DH5a carries none of them.
+ *
+ * Intermediates are drawn as dashed links with the step count on them
+ * rather than as boxes, because HfrC+ and MM294 mean nothing to the
+ * room and the honest point is only that the chains are long.  One
+ * thing worth saying out loud: DH10B is not purely K-12 -- the region
+ * around its ara-leu deletion came from E. coli B SB3118 by P1
+ * transduction, so the tidy tree has a graft in it.
  * ------------------------------------------------------------------ */
 (function(){
 "use strict";
@@ -51,6 +75,19 @@ function link(ci, y0, l0, cj, y1, l1, col){
   const m = x0 + (x1 - x0)*0.42;
   return path("M"+n1(x0)+" "+n1(y0)+"H"+n1(m)+"V"+n1(y1)+"H"+n1(x1), col, 2.6);
 }
+/* A descent with many steps left out, dashed.  It leaves the parent's
+   BOTTOM rather than its right edge and drops clear before turning: an
+   elbow out of the right edge lays its vertical straight through the
+   reference-strain row, which draws W1485 as the parent of the cloning
+   strains -- the exact claim this pedigree was corrected to stop
+   making. */
+function drop(ci, y0, l0, cj, y1, l1, col){
+  const xs = COL[ci] + wOf(l0)/2 + 46, x1 = COL[cj] - wOf(l1)/2;
+  return path("M"+n1(COL[ci] + wOf(l0)/2)+" "+n1(y0)+"H"+n1(xs)+
+              "V"+n1(y1)+"H"+n1(x1), col, 2.6, "3 8");
+}
+/* where such a descent's step count goes: just right of its vertical */
+const dropX = (ci, l0) => COL[ci] + wOf(l0)/2 + 64;
 /* a note hung off the right of a box */
 function ann(ci, y, label, s, col){
   return G.text(COL[ci] + wOf(label)/2 + 18, y + 7, s, 20, col || C.muted,
@@ -58,8 +95,7 @@ function ann(ci, y, label, s, col){
 }
 
 /* ---- who descends from whom -------------------------------------- */
-const Y = {mg:218, k12:300, mc:396, dh1:396, dh5:340, dh10:452,
-           b:580, w:690};
+const Y = {mg:218, k12:300, mc:382, dh1:472, b:590, w:696};
 
 const FR = [
 { s:{iso:1, em:1},
@@ -75,10 +111,10 @@ const FR = [
   desc:"K-12 gives rise to W1485, which gives rise to MG1655, the sequenced reference genome, and W3110, which despite its name is also a K-12 strain." },
 
 { s:{iso:1, k12:1, clone:1},
-  cap:"and the cloning strains, off the same isolate",
-  call:"DH5&#945;, DH10B, TOP10, MC1061 &#183; one family",
-  note:"The cloning strains are the same lineage again. MC1061 gives DH1, and DH1 gives DH5 alpha and, through a longer series of steps, DH10B. TOP10 is DH10B with a different label on the tube. So every competent cell you have ever thawed, unless it said BL21 or Mach1 on it, is a great-grandchild of that 1922 sample, with a few dozen mutations deliberately added along the way. That is what the next section is about: the genotype is the list of what was done.",
-  desc:"The cloning branch: MC1061 to DH1, and from DH1 both DH5-alpha and DH10B, which is also sold as TOP10." },
+  cap:"the cloning strains &#8212; <b>two</b> descents, not one",
+  call:"<b>DH10B</b> comes from <b>MC1061</b> &#183; <b>DH5&#945;</b> does not",
+  note:"The cloning strains come off the same isolate, but they are not one family, and neither of them runs through the reference strains. MC1061 is the parent of DH10B, and DH10B is what is in most competent cells you will ever thaw. TOP10 is the same strain with a different label on the tube. DH5 alpha comes down a completely different line, through Meselson's MM294 and then DH1, and it is not an MC1061 derivative at all. You can see that in the genotypes without taking my word for it: DH10B carries MC1061's ara and gal and rpsL markers, and DH5 alpha carries none of them. Notice how long these chains are. Getting from the 1922 isolate to MC1061 took about twenty-five documented steps, and that is before any of the steps that made DH10B. So every competent cell you have used, unless it said BL21 or Mach1, is a great-great-grandchild of that stool sample with a few dozen mutations deliberately stacked on top. That is what the next section is about: a genotype is the list of what was done. And one wrinkle worth knowing, because it undercuts the tidiness of the whole picture: DH10B is not purely K-12. The region around its ara-leu deletion was moved in from E. coli B by P1 transduction, so there is a graft in the tree, from the very lineage we are about to draw as separate.",
+  desc:"The cloning branch, as two separate descents from K-12: a dashed twenty-five-step path to MC1061 and then DH10B, also sold as TOP10; and a separate dashed path to DH1 and then DH5-alpha, which is not an MC1061 derivative." },
 
 { s:{iso:1, k12:1, clone:1, b:1},
   cap:"but not everything in the freezer is K-12",
@@ -133,15 +169,25 @@ window.Deck.sequence("lineage", function(slide){
     /* ---- the cloning strains ------------------------------------- */
     if (v.clone > 0.02){
       const c = grp(v.clone);
-      c.appendChild(link(1, Y.k12, "W1485", 2, Y.mc,  "MC1061", C.blue));
-      c.appendChild(node(2, Y.mc,  "MC1061", C.blue));
-      c.appendChild(link(2, Y.mc,  "MC1061", 3, Y.dh1, "DH1", C.blue));
-      c.appendChild(node(3, Y.dh1, "DH1", C.blue));
-      c.appendChild(link(3, Y.dh1, "DH1", 4, Y.dh5,  "DH5α", C.blue));
-      c.appendChild(link(3, Y.dh1, "DH1", 4, Y.dh10, "DH10B / TOP10", C.blue));
-      c.appendChild(node(4, Y.dh5,  "DH5α", C.blue));
-      c.appendChild(node(4, Y.dh10, "DH10B / TOP10", C.blue,
+      /* Two descents, not one, and neither goes through W1485.  The long
+         way back to the isolate is dashed with its step count on it,
+         because the intermediates (HfrC+, MM294) are names the room has
+         no use for -- what matters is that the chains are long. */
+      c.appendChild(drop(0, Y.k12, "K-12", 2, Y.mc, "MC1061", C.blue));
+      c.appendChild(G.text(dropX(0, "K-12"), Y.mc - 14,
+        "about 25 steps, via HfrC", 17, C.muted, 400, "start"));
+      c.appendChild(node(2, Y.mc, "MC1061", C.blue));
+      c.appendChild(link(2, Y.mc, "MC1061", 3, Y.mc, "DH10B / TOP10", C.blue));
+      c.appendChild(node(3, Y.mc, "DH10B / TOP10", C.blue,
         "what is in your competent cells"));
+
+      c.appendChild(drop(0, Y.k12, "K-12", 2, Y.dh1, "DH1", C.blue));
+      c.appendChild(G.text(dropX(0, "K-12"), Y.dh1 - 14,
+        "a separate line, via MM294", 17, C.muted, 400, "start"));
+      c.appendChild(node(2, Y.dh1, "DH1", C.blue));
+      c.appendChild(link(2, Y.dh1, "DH1", 3, Y.dh1, "DH5α", C.blue));
+      c.appendChild(node(3, Y.dh1, "DH5α", C.blue));
+      c.appendChild(ann(3, Y.dh1, "DH5α", "not an MC1061 derivative"));
       g.appendChild(c);
     }
     /* ---- E. coli B ----------------------------------------------- */
