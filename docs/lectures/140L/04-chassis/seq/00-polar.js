@@ -88,7 +88,7 @@ const FR = [
 { s:{op:1},
   cap:"<b>where is the mRNA?</b>",
   call:"one promoter at the front, one terminator at the end, three genes between",
-  note:"Ask it before you show them, and take answers. The common one is three: one mRNA per gene, because that is how it works in the organisms most people learned genetics in. In bacteria it usually is not. Many bacterial genes, probably most, sit in operons: one promoter at the front, several open reading frames in a row behind it, one terminator at the end. The genes in an operon are usually doing related jobs, which is why they are wired to be made together.",
+  note:"The common answer is three: one mRNA per gene, because that is how it works in the organisms most people learned genetics in. In bacteria it usually is not. Many bacterial genes, probably most, sit in operons: one promoter at the front, several open reading frames in a row behind it, one terminator at the end. The genes in an operon are usually doing related jobs, which is why they are wired to be made together.",
   desc:"An operon drawn on a line of DNA: a promoter, three genes labelled a, b and c in a row, and a terminator. The question is where the mRNA is." },
 
 { s:{op:1, tx:1},

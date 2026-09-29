@@ -13,8 +13,27 @@
  * of the PROTEINS, on or off.  A table of promoters was the thing this
  * slide was supposed to replace.
  *
- * The ticker across the top is deliberately the previous slide's six
- * lines, same order, same words.
+ * The ticker across the top is deliberately the previous slide's own
+ * steps, same order, same words.
+ *
+ * ONE COLOUR AXIS, WHICH IS STATE.  The first version coloured the DNA
+ * by which molecule it was (pCas blue, the rest grey) and the RNA and
+ * protein by whether they existed (vermillion / grey), so grey meant
+ * "not in the cell" and "promoter off" at the same time and blue meant
+ * nothing at all.  Worse, pCas was drawn blue in the opening frame, so
+ * a strain that has not been transformed yet looked like it already
+ * carried the plasmid.  Colour now encodes state and only state:
+ *
+ *   ghost (GHOST opacity, muted)  not in the cell yet, or gone
+ *   muted, full opacity           in the cell, promoter not firing
+ *   blue                          firing, and its product is present
+ *   vermillion                    the edit -- the one thing that changed
+ *
+ * Presence and firing are separate inputs, so a molecule can sit in the
+ * cell doing nothing (lambda red before arabinose) and that reads
+ * differently from not being there at all.  The sequence now starts on
+ * wild-type Mach1 with only the chromosome, and each DNA fades up as it
+ * is actually delivered.
  * ------------------------------------------------------------------ */
 (function(){
 "use strict";
@@ -31,9 +50,13 @@ function path(d, col, w, dash){
 }
 
 /* ---- the six conditions, which are the last slide's six lines ----- */
-const STEPS = ["Kan · 30°", "+ arabinose", "transform",
-               "Spec · Kan", "+ IPTG", "42°"];
-const TX0 = 200, TW = 200, TY = 190, TH = 48;
+const STEPS = ["Mach1", "+ pCas", "+ ara", "transform",
+               "recover", "Spec · Kan", "+ IPTG", "42°"];
+const TX0 = 110, TW = 172, TY = 190, TH = 48;
+/* how far down an absent molecule goes.  Low enough to read as "not
+   there", high enough that the parts list is still legible in the
+   opening frame, where nothing but the chromosome is in the cell. */
+const GHOST = 0.2;
 
 /* ---- the grid ------------------------------------------------------ *
  * DNA to RNA to protein is a hierarchy, so it is drawn as one: the gene
@@ -116,53 +139,59 @@ function arrow(x0, x1, y, col){
 }
 
 const FR = [
-{ s:{sc:1, step:0, pcas:1, chr:1, aspc:1},
-  cap:"before we go on — <b>work it out</b>",
+{ s:{sc:1, step:1, chr:1, aspc:1},
+  cap:"before we go on &#8212; <b>work it out</b>",
   call:"which transcription units fire, when, and what does the product then do?",
-  note:"Here is that same experiment as a circuit. It reads left to right, the way the cell does. On the left the DNAs, broken out into the transcription units on each one. In the middle what each unit gets read into. On the right what that RNA makes. Sixteen molecules in all, and two rows worth stopping on: gam, bet and exo are one mRNA making three proteins, and the two guides are RNAs that make nothing. So work along them. At each condition, which promoters are firing? What does that put in the cell? And what does the thing it made then do? Let them have a go at it before you walk it.",
-  desc:"A grid running left to right from DNA to RNA to protein: each plasmid broken into its transcription units, the RNA each one is read into, and the proteins those RNAs make. The six growth conditions run along the top." },
+  note:"Here is that same experiment as a circuit. It reads left to right, the way the cell does. On the left the DNAs, broken into the transcription units on each one. In the middle what each unit is read into. On the right what that RNA makes. Start by looking at what is actually in the cell right now, which is one thing: the chromosome. Everything else on this grid is faded because it has not been delivered yet. That is the parts list, not the contents of the cell. Two rows are worth stopping on before you start: gam, bet and exo are one mRNA making three proteins, and the two guides are RNAs that make no protein at all. Now work along the conditions. At each one, which promoters are firing? What does that put in the cell? And what does the thing it made then do?",
+  desc:"A grid running left to right from DNA to RNA to protein, with every molecule in the experiment listed. Only the chromosome is solid; every other DNA is faded out because it is not in the cell yet. The eight steps of the procedure run along the top." },
 
-{ s:{sc:1, step:1, pcas:1, chr:1, aspc:1, cas9:1, repa:1},
-  cap:"<b>Kan &#183; 30&#176;</b> &#183; the strain on its own",
-  call:"a nuclease with no guide is an expensive way to do nothing",
-  note:"First condition. Kanamycin at thirty degrees, which is just keeping pCas alive. The constitutive promoter fires, so Cas9 appears, and RepA is made and works because thirty degrees is permissive for it. So the cell is now full of Cas9, and Cas9 does nothing at all, because a guide is the only thing that tells it where to go and there is no guide in the cell.",
-  desc:"At Kan and 30 degrees, Cas9 pops up off its constitutive promoter and RepA is working, so two boxes are ticked." },
+{ s:{sc:1, step:2, chr:1, aspc:1, pcas:1, repa:1, cas9:1},
+  cap:"<b>+ pCas</b> &#183; kanamycin at 30&#176; keeps it",
+  call:"<b>cas9</b> has no inducer &#183; it is on from the moment the plasmid lands",
+  note:"Transform pCas in and hold it with kanamycin at thirty degrees. Now look at which of its four units fire. The cas9 promoter is the native one and it is constitutive, so Cas9 appears immediately and stays for the rest of the experiment. That is the thing that gets misread at the IPTG step. RepA is made too, and it works, because thirty degrees is permissive for the temperature-sensitive allele. The other two units are dark: lambda red needs arabinose and there is none, and the anti-pMB1 guide needs IPTG and there is none. So the cell is now full of Cas9, and Cas9 does nothing whatsoever, because a guide is the only thing that tells it where to go and there is no guide in the cell.",
+  desc:"pCas arrives. Its constitutive cas9 promoter fires so Cas9 is present, and RepA is made and works at 30 degrees. The lambda-red and anti-pMB1 units stay dark for want of their inducers." },
 
-{ s:{sc:1, step:2, pcas:1, chr:1, aspc:1, cas9:1, repa:1, red:1},
+{ s:{sc:1, step:3, chr:1, aspc:1, pcas:1, repa:1, cas9:1, red:1},
   cap:"<b>+ arabinose</b> &#183; and now the order starts to matter",
   call:"Gam blocks RecBCD, which is the only reason a linear donor survives",
-  note:"Add arabinose and the araBAD promoter fires, so three more proteins appear: Gam, Bet and Exo. Still nothing to cut. But look at what Gam does, because this is the answer to why the induction has to come first. Gam inhibits RecBCD, and RecBCD is the nuclease that chews up linear DNA in E. coli. The donor is linear. Electroporate it into cells that have not been induced and RecBCD destroys it, the break has nothing to repair from, and every cell dies. The order is not a convention, it is the mechanism.",
-  desc:"Arabinose fires the araBAD promoter and Gam, Bet and Exo pop up, ticking three more boxes." },
+  note:"Add arabinose and the araBAD promoter fires, so three more proteins appear from one mRNA: Gam, Bet and Exo. Still nothing to cut. But look at what Gam does, because this is the answer to why the induction has to come before the electroporation and not after. Gam inhibits RecBCD, and RecBCD is the nuclease that chews up linear DNA in E. coli. The donor is linear. Electroporate it into cells that have not been induced and RecBCD destroys it, the break then has nothing to repair from, and every cell dies. The order is not a convention, it is the mechanism.",
+  desc:"Arabinose fires the araBAD promoter and Gam, Bet and Exo appear from a single mRNA." },
 
-{ s:{sc:1, step:3, pcas:1, chr:1, aspc:1, cas9:1, repa:1, red:1, ptar:1, g1:1, donor:1},
+{ s:{sc:1, step:4, chr:1, aspc:1, pcas:1, repa:1, cas9:1, red:1, ptar:1, g1:1, donor:1},
   cap:"<b>transform</b> &#183; two molecules arrive at once",
-  call:"pTarget&#8217;s guide needs no inducer &#183; Cas9 finally has an address",
-  note:"Now electroporate, and two things land. The donor, which is linear and would already be gone if we had skipped the last step. And pTarget, which replicates from its own pMB1 origin and carries its guide under a constitutive promoter, so the guide appears immediately with no induction step. And watch where it lands on the list: the guide is an RNA, so it ticks on the RNA level and nothing appears under protein. Keep an eye on those three levels, because they are how we will organise everything from here, and a part is a thing that lives on one of them. The moment pTarget is in, Cas9 has an address, and the address is on the chromosome.",
-  desc:"pTarget and the linear donor arrive. pTarget's constitutive promoter makes a guide RNA, which ticks on the RNA level rather than the protein level." },
+  call:"pTarget&#8217;s guide needs no inducer either &#183; Cas9 finally has an address",
+  note:"Now electroporate, and two things land. The donor, which is linear and would already be gone if we had skipped the last step. And pTarget, which replicates off its own pMB1 origin and carries its guide under a constitutive promoter, so that guide appears at once with no induction. Watch which level it lands on: the guide is an RNA, so it lights up in the RNA column and nothing at all appears under protein. Keep an eye on those three levels, because they are how we will organise everything from here, and a part is a thing that lives on one of them. The moment pTarget is in, Cas9 has an address, and the address is on the chromosome.",
+  desc:"pTarget and the linear donor arrive. pTarget's constitutive promoter makes a guide RNA, which appears on the RNA level and makes no protein." },
 
-{ s:{sc:1, step:4, pcas:1, chr:1, cas9:1, repa:1, red:1, ptar:1, g1:1, edited:1},
-  cap:"<b>Spec &#183; Kan</b> &#183; everything happens here",
+{ s:{sc:1, step:5, chr:1, edited:1, pcas:1, repa:1, cas9:1, red:1, ptar:1, g1:1},
+  cap:"<b>recover</b> &#183; nothing selecting, and everything happening",
   call:"the cut, the repair, and the death of everything that failed",
-  note:"And this growth is where the entire experiment happens. Cas9 plus the guide cuts the chromosome at aspC1. The break is lethal on its own, because E. coli has no non-homologous end joining. Gam has kept the donor intact, Exo chews back a strand to leave overhangs, Bet anneals them onto the homology arms, and the deletion is installed. Any cell that failed at that is dead. Notice you never selected for the edit. You selected for two plasmids, and the edit is the only way to survive what those plasmids do to you.",
-  desc:"During the growth, the chromosome is cut and repaired off the donor, the donor is consumed, and the chromosome now reads delta-aspC1." },
+  note:"This is the outgrowth straight after the pulse, with no antibiotic on yet, and it is where the entire experiment happens. Cas9 plus the guide cuts the chromosome at aspC1. That break is lethal on its own, because E. coli has no non-homologous end joining and cannot simply stick it back together. Gam has kept the donor intact, Exo chews back a strand to leave single-stranded overhangs, Bet anneals them onto the homology arms, and the deletion is installed. Any cell that failed at any of that is dead. And watch the grid: the aspC1 row goes dark, because the gene it was reading is no longer there, and the donor goes with it because it has been consumed.",
+  desc:"During the non-selective recovery the chromosome is cut and repaired off the donor. The donor is consumed, the aspC1 row goes dark, and the chromosome now reads delta-aspC1." },
 
-{ s:{sc:1, step:5, pcas:1, chr:1, cas9:1, repa:1, g2:1, edited:1},
+{ s:{sc:1, step:6, chr:1, edited:1, pcas:1, repa:1, cas9:1, red:1, ptar:1, g1:1},
+  cap:"<b>Spec &#183; Kan</b> &#183; and nothing new fires",
+  call:"this selects for the <b>plasmids</b> &#183; it never selected for the edit",
+  note:"Plate on spectinomycin and kanamycin. Notice the grid does not change at all: no promoter turns on or off here, because an antibiotic is not an inducer. So ask what this step is actually doing. Spectinomycin selects for pTarget and kanamycin selects for pCas, and that is all it does. It does not select for the edit. The reason your colonies are mostly edited is not selection, it is that the unedited ones died of an unrepaired double-strand break back in the recovery. That is a completely different argument, and it is why you still have to screen.",
+  desc:"On spectinomycin and kanamycin nothing on the grid changes, because an antibiotic is not an inducer: the step selects for the two plasmids, not for the edit." },
+
+{ s:{sc:1, step:7, chr:1, edited:1, pcas:1, repa:1, cas9:1, g2:1},
   cap:"<b>+ IPTG</b> &#183; the plasmid you built removes itself",
-  call:"pCas has been carrying a guide against pMB1 the whole time",
-  note:"Now IPTG. The lac promoter on pCas fires, and it has been sitting there the whole time carrying a guide aimed at the pMB1 origin. pTarget has a pMB1 origin. So Cas9, which is still present, cuts pTarget, and pTarget is gone and the guide against aspC1 goes with it. pCas survives because its origin is repA101, not pMB1. That is a deliberate design choice and you can read it straight off the cartoon: the one origin the guide can reach is the one you want to lose. Also note the arabinose is gone by now, so lambda red has switched off.",
-  desc:"IPTG fires the lac promoter, making a guide against pMB1, and pTarget is destroyed. Lambda-Red is off again because the arabinose is gone." },
+  call:"no arabinose needed &#8212; <b>Cas9 never left</b>, and the guide is the missing half",
+  note:"Now IPTG. The lac promoter on pCas fires, and it has been sitting there the whole time carrying a guide aimed at the pMB1 origin. pTarget has a pMB1 origin, so it is cut, and it is gone, and the guide against aspC1 goes with it. And the obvious question here is whether you need arabinose on as well for this to work. No, and the grid tells you why. Cutting needs two things, Cas9 and a guide. Cas9 is constitutive, so it has been present since the first step and it never needed an inducer at all. The guide is the only half that was missing, and IPTG supplies it. Lambda red is irrelevant here, because you are destroying this plasmid rather than repairing anything, and by now the arabinose is long gone anyway, so those three proteins have diluted out. And pCas survives its own nuclease because its origin is repA101, not pMB1. You can read that design straight off the cartoon: the one origin the guide can reach is the one you wanted to lose.",
+  desc:"IPTG fires the lac promoter on pCas, making a guide against pMB1, and pTarget is destroyed. Cas9 is still present because it was never inducible, so no arabinose is needed here. Lambda-Red has diluted out." },
 
-{ s:{sc:1, step:6, chr:1, edited:1},
+{ s:{sc:1, step:8, chr:1, edited:1},
   cap:"<b>42&#176;</b> &#183; and the last of it goes",
   call:"RepA is a protein, and 42&#176; is what it cannot do",
-  note:"And finally forty-two degrees. This one is worth saying out loud because people treat it as magic: the temperature does not melt the plasmid, it denatures a protein. RepA101 is the replication initiator, the ts allele stops working at forty-two, pCas cannot replicate, and it is diluted out over a few divisions. And look at the grid: sixteen molecules on it, and exactly one is still there. Both plasmids are gone, both guides are gone, every protein is gone, and what is left is a strain whose chromosome is missing aspC1 and which carries nothing else at all.",
-  desc:"At 42 degrees the temperature-sensitive RepA fails and pCas is lost. Of the sixteen molecules on the grid, only the chromosome remains." },
+  note:"And finally forty-two degrees. This one gets treated as magic, and it is not: the temperature does not melt the plasmid, it denatures a protein. RepA101 is the replication initiator, the temperature-sensitive allele stops folding at forty-two, pCas cannot replicate, and it is diluted out over a few divisions. Now look at the whole grid. Sixteen molecules on it, and exactly one is left. Both plasmids gone, both guides gone, every protein gone, the donor consumed, and what remains is a strain whose chromosome is missing aspC1 and which carries nothing else at all.",
+  desc:"At 42 degrees the temperature-sensitive RepA fails and pCas is lost. Of everything on the grid, only the edited chromosome remains." },
 
-{ s:{sc:1, step:6, chr:1, edited:1, pt:1},
+{ s:{sc:1, step:8, chr:1, edited:1, pt:1},
   cap:"none of that needed a mechanism you did not already have",
   call:"and the next slide is what happens when you skip it",
-  note:"Look back at what we just did. We needed a picture of the promoters, a list of every molecule in the cell sorted by whether it is DNA, RNA or protein, and the conditions in order. Everything else followed from those three things. From here on you are not designing DNA in a tube, you are predicting what a cell will do with the DNA you gave it, and this is how that is done. And the next slide is what happens when you skip it: an edit that is exactly right, in a cell that behaves as though you had deleted a gene you never touched.",
-  desc:"The point of the exercise: the whole procedure followed from the circuit, the proteins it makes, and the order of the conditions." }
+  note:"Look back at what we just did. We needed a picture of the promoters, a list of every molecule in the cell sorted by whether it is DNA, RNA or protein, and the conditions in order. Everything else followed from those three things, including the two questions that catch people out: why the arabinose has to come before the electroporation, and why the IPTG step does not need it. From here on you are not designing DNA in a tube, you are predicting what a cell will do with the DNA you gave it, and this is how that is done. And the next slide is what happens when you skip it: an edit that is exactly right, in a cell that behaves as though you had deleted a gene you never touched.",
+  desc:"The point of the exercise: the whole procedure followed from the circuit, the molecules it makes on three levels, and the order of the conditions." }
 ];
 
 window.Deck.sequence("trace", function(slide){
@@ -194,82 +223,103 @@ window.Deck.sequence("trace", function(slide){
 
     /* ---- which molecule each row belongs to ------------------------ */
     MOLS.forEach(function(m){
-      const on = (v[m[0] === "pCas" ? "pcas" : m[0] === "pTarget" ? "ptar" :
-                    m[0] === "donor" ? "donor" : "chr"] || 0) > 0.5;
-      const y0 = ry(m[1]) - 22, y1 = ry(m[2]) + 22, col = on ? C.blue : C.muted;
-      grid.appendChild(path("M"+n1(RULE)+" "+n1(y0)+"V"+n1(y1), col, 2.4));
-      grid.appendChild(G.text(LBL, (y0 + y1)/2 + 7, m[0], 20, col, 700, "end"));
+      const pres = cl(v[m[0] === "pCas" ? "pcas" : m[0] === "pTarget" ? "ptar" :
+                        m[0] === "donor" ? "donor" : "chr"] || 0, 0, 1);
+      const b = grp(GHOST + (1 - GHOST)*pres);
+      const y0 = ry(m[1]) - 22, y1 = ry(m[2]) + 22;
+      const col = pres > 0.5 ? C.blue : C.muted;
+      b.appendChild(path("M"+n1(RULE)+" "+n1(y0)+"V"+n1(y1), col, 2.4));
+      b.appendChild(G.text(LBL, (y0 + y1)/2 + 7, m[0], 20, col, 700, "end"));
+      grid.appendChild(b);
     });
 
-    /* ---- a row per transcription unit ------------------------------ */
+    /* ---- a row per transcription unit ------------------------------ *
+     * Two independent inputs, never conflated: pres is whether the DNA
+     * is in the cell at all, fire is whether its promoter is running.
+     * Opacity carries presence, colour carries firing, so "not
+     * delivered yet" and "delivered but switched off" cannot be
+     * mistaken for one another.
+     * ---------------------------------------------------------------- */
     ROWS.forEach(function(r, i){
-      const y = ry(i), on = (v[r.key] || 0) > 0.5;
-      const molOn = (v[r.mol] || 0) > 0.5;
-      const dcol = molOn ? C.blue : C.muted;
+      const y = ry(i);
+      const pres = cl(v[r.mol] || 0, 0, 1);
+      const fire = cl(v[r.key] || 0, 0, 1);
+      const dcol = fire > 0.5 ? C.blue : C.muted;
+      const d = grp(GHOST + (1 - GHOST)*pres);
 
       /* the DNA itself */
       if (r.key === "repa"){
-        grid.appendChild(seg(DNA0, 396, y, dcol));
-        grid.appendChild(gene(DNA0 + 4, 390, y, "repA101ts", dcol, 16));
+        d.appendChild(seg(DNA0, 396, y, dcol));
+        d.appendChild(gene(DNA0 + 4, 390, y, "repA101ts", dcol, 16));
       } else if (r.key === "cas9"){
-        grid.appendChild(seg(DNA0, 440, y, dcol));
-        grid.appendChild(promoter(DNA0 + 6, y, dcol));
-        grid.appendChild(gene(DNA0 + 62, 434, y, "cas9", dcol));
+        d.appendChild(seg(DNA0, 440, y, dcol));
+        d.appendChild(promoter(DNA0 + 6, y, dcol));
+        d.appendChild(gene(DNA0 + 62, 434, y, "cas9", dcol));
       } else if (r.key === "red"){
-        grid.appendChild(seg(DNA0, 536, y, dcol));
-        grid.appendChild(promoter(DNA0 + 6, y, dcol));
-        grid.appendChild(gene(DNA0 + 62, 378, y, "gam", dcol, 16));
-        grid.appendChild(gene(382, 456, y, "bet", dcol, 16));
-        grid.appendChild(gene(460, 530, y, "exo", dcol, 16));
+        d.appendChild(seg(DNA0, 536, y, dcol));
+        d.appendChild(promoter(DNA0 + 6, y, dcol));
+        d.appendChild(gene(DNA0 + 62, 378, y, "gam", dcol, 16));
+        d.appendChild(gene(382, 456, y, "bet", dcol, 16));
+        d.appendChild(gene(460, 530, y, "exo", dcol, 16));
       } else if (r.key === "g2"){
-        grid.appendChild(seg(DNA0, 544, y, dcol));
-        grid.appendChild(promoter(DNA0 + 6, y, dcol));
-        grid.appendChild(gene(DNA0 + 62, 538, y, "sgRNA ✕ pMB1", dcol, 16));
+        d.appendChild(seg(DNA0, 544, y, dcol));
+        d.appendChild(promoter(DNA0 + 6, y, dcol));
+        d.appendChild(gene(DNA0 + 62, 538, y, "sgRNA ✕ pMB1", dcol, 16));
       } else if (r.key === "g1"){
-        grid.appendChild(seg(DNA0, 628, y, dcol));
-        grid.appendChild(ori(DNA0, 344, y, "pMB1", dcol));
-        grid.appendChild(promoter(364, y, dcol));
-        grid.appendChild(gene(420, 622, y, "sgRNA ✕ aspC1", dcol, 16));
+        d.appendChild(seg(DNA0, 628, y, dcol));
+        d.appendChild(ori(DNA0, 344, y, "pMB1", dcol));
+        d.appendChild(promoter(364, y, dcol));
+        d.appendChild(gene(420, 622, y, "sgRNA ✕ aspC1", dcol, 16));
       } else if (r.key === "donor"){
-        grid.appendChild(G.el("rect", {x:DNA0, y:n1(y - 13), width:200, height:26,
-          rx:4, fill:dcol, "fill-opacity":".14", stroke:dcol, "stroke-width":2.2}));
-        grid.appendChild(path("M"+n1(DNA0 + 100)+" "+n1(y - 13)+"V"+n1(y + 13),
-          dcol, 2, "5 4"));
-        grid.appendChild(G.text(DNA0 + 50, y + 6, "up", 17, dcol, 700));
-        grid.appendChild(G.text(DNA0 + 150, y + 6, "dn", 17, dcol, 700));
+        d.appendChild(G.el("rect", {x:DNA0, y:n1(y - 13), width:200, height:26,
+          rx:4, fill:C.muted, "fill-opacity":".14", stroke:C.muted,
+          "stroke-width":2.2}));
+        d.appendChild(path("M"+n1(DNA0 + 100)+" "+n1(y - 13)+"V"+n1(y + 13),
+          C.muted, 2, "5 4"));
+        d.appendChild(G.text(DNA0 + 50, y + 6, "up", 17, C.muted, 700));
+        d.appendChild(G.text(DNA0 + 150, y + 6, "dn", 17, C.muted, 700));
       } else {
+        /* the chromosome is never absent, so its backbone stays solid;
+           only the locus changes state */
         const done = (st.edited || 0) > 0.5;
-        grid.appendChild(seg(DNA0 - 10, 600, y, C.ink));
+        d.appendChild(seg(DNA0 - 10, 600, y, C.ink));
         if (done){
-          grid.appendChild(path("M"+n1(DNA0 + 130)+" "+n1(y - 14)+"V"+n1(y + 14),
+          d.appendChild(path("M"+n1(DNA0 + 130)+" "+n1(y - 14)+"V"+n1(y + 14),
             C.verm, 3));
-          grid.appendChild(G.text(DNA0 + 130, y - 22, "ΔaspC1", 18, C.verm, 700));
+          d.appendChild(G.text(DNA0 + 130, y - 22, "ΔaspC1", 18, C.verm, 700));
         } else {
-          grid.appendChild(promoter(DNA0 + 4, y, C.ink));
-          grid.appendChild(gene(DNA0 + 60, 400, y, "aspC1", C.ink));
+          d.appendChild(promoter(DNA0 + 4, y, dcol));
+          d.appendChild(gene(DNA0 + 60, 400, y, "aspC1", dcol));
         }
       }
+      grid.appendChild(d);
 
-      /* the RNA it is read into */
+      /* the RNA it is read into, and whatever that RNA makes: both
+         ride firing, not presence */
+      const o = grp(GHOST + (1 - GHOST)*fire);
+      const ocol = fire > 0.5 ? C.blue : C.muted;
       if (r.rna){
-        grid.appendChild(arrow(TX_A, TX_A + 44, y, on ? C.verm : C.muted));
-        grid.appendChild(wave(RNA_C - 42, y, on ? C.verm : C.muted));
-        grid.appendChild(G.text(RNA_C + 22, y + 7, r.rna, 19,
-          on ? C.verm : C.muted, on ? 700 : 400, "start"));
-      } else {
-        grid.appendChild(G.text(RNA_C - 42, y + 6, "—", 24, C.muted, 400));
+        o.appendChild(arrow(TX_A, TX_A + 44, y, ocol));
+        o.appendChild(wave(RNA_C - 42, y, ocol));
+        o.appendChild(G.text(RNA_C + 22, y + 7, r.rna, 19, ocol,
+          fire > 0.5 ? 700 : 400, "start"));
       }
-
-      /* and whatever that RNA makes */
       if (r.prot.length){
-        grid.appendChild(arrow(TX_B, TX_B + 44, y, on ? C.verm : C.muted));
+        o.appendChild(arrow(TX_B, TX_B + 44, y, ocol));
         r.prot.forEach(function(nm, k){
-          grid.appendChild(blob(PRO0 + 56 + k*112, y, nm,
-            on ? C.verm : C.muted, on));
+          o.appendChild(blob(PRO0 + 56 + k*112, y, nm, ocol, fire > 0.5));
         });
-      } else {
-        grid.appendChild(G.text(PRO0 + 56, y + 6, "—", 24, C.muted, 400));
       }
+      grid.appendChild(o);
+
+      /* a guide makes no protein, and the donor is read into nothing:
+         those dashes are a property of the row, not of its state, so
+         they sit outside the firing group and stay put */
+      const dash = grp(GHOST + (1 - GHOST)*pres);
+      if (!r.rna) dash.appendChild(G.text(RNA_C - 42, y + 6, "—", 24, C.muted, 400));
+      if (!r.prot.length) dash.appendChild(G.text(PRO0 + 56, y + 6, "—", 24,
+        C.muted, 400));
+      grid.appendChild(dash);
     });
     g.appendChild(grid);
 

@@ -113,7 +113,7 @@ const FR = [
 { s:{str:1, lac:1},
   cap:"<b>&Delta;(lac)X74</b> &#183; the whole operon, gone",
   call:"so how is this strain sold as ready for <b>blue-white screening</b>?",
-  note:"This one takes out the entire lac operon and some of what is around it. The full extent is delta cod to mhpF, so lacI, lacZ, lacY, lacA and several neighbours. Now stop on that, because it should bother them. The strain is sold as ready for blue-white screening. Blue-white screening is an assay for beta-galactosidase. Beta-galactosidase is lacZ. And lacZ is not in this cell. Let them sit with it before you click.",
+  note:"This one takes out the entire lac operon and some of what is around it. The full extent is delta cod to mhpF, so lacI, lacZ, lacY, lacA and several neighbours. Now stop on that, because it should bother them. The strain is sold as ready for blue-white screening. Blue-white screening is an assay for beta-galactosidase. Beta-galactosidase is lacZ. And lacZ is not in this cell.",
   desc:"The lac operon token highlighted, showing the deletion of lacI, lacZ, lacY and lacA from the chromosome." },
 
 { s:{str:1, phi:1},
