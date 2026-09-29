@@ -27,8 +27,14 @@ const X0 = 200, PXMB = 245.7, TOT = 4.64, CORE = 3.0;
 const XC = X0 + PXMB*CORE, X1 = X0 + PXMB*TOT;
 const BY = 300, BH = 64;
 
+/* THREE, not four.  The layered genome from the first section has four
+   layers, but the fourth -- the ecological one -- is precisely the
+   accessory portion this slide is contrasting the core against, so it
+   is not one of the core's jobs and it is drawn on the right-hand side
+   of the bar by the next beat instead.  An empty fourth string used to
+   pad this to a 2x2 grid, which drew a rule with nothing beside it. */
 const JOBS = ["information and reproduction", "biosynthesis",
-              "robustness and control", ""];
+              "robustness and control"];
 const VIR = ["adhesion", "iron", "capsule", "vacuole", "toxins"];
 
 const FR = [
