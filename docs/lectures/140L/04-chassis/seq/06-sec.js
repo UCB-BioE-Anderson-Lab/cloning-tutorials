@@ -84,6 +84,21 @@ function ribosome(cx, cy){
   g.appendChild(G.text(cx, cy + 30, "ribosome", 19, C.muted, 700));
   return g;
 }
+/* A polypeptide, not a wire.  The translocating chain used to be a
+   straight black line that met the signal peptide nowhere: two
+   unrelated marks where there is one molecule.  Drawn as a run of
+   small alternating bends it reads as protein, and every beat now
+   draws it CONTINUOUS with the peptide at its leading end. */
+function zig(x, yTop, yBot, col){
+  const n = Math.max(3, Math.round(Math.abs(yBot - yTop)/24));
+  let d = "M"+n1(x)+" "+n1(yBot);
+  for (let i = 0; i < n; i++){
+    const a = yBot + (yTop - yBot)*i/n, b = yBot + (yTop - yBot)*(i + 1)/n;
+    d += "Q"+n1(x + (i % 2 ? -10 : 10))+" "+n1((a + b)/2)+" "+n1(x)+" "+n1(b);
+  }
+  return path(d, col || C.ink, 3.6);
+}
+
 /* the signal peptide: three regions, so its anatomy is something to
    point at rather than a bullet list */
 function signal(x, y, vert){
@@ -176,7 +191,7 @@ window.Deck.sequence("secpath", function(slide){
       /* the peptide fills the gap between the ribosome and the membrane
          exactly, so it never rides up into the bilayer and its label
          has somewhere flat to sit */
-      p.appendChild(path("M"+n1(rx)+" "+n1(top)+"V"+n1(top - 16), C.ink, 3.4));
+      p.appendChild(zig(rx, top - 16, top, C.ink));
       p.appendChild(signal(rx, top - 16, true));
       if (named){
         p.appendChild(path("M"+n1(rx + 13)+" "+n1(top - 78)+
@@ -204,26 +219,33 @@ window.Deck.sequence("secpath", function(slide){
       g.appendChild(m);
     }
 
-    /* through the channel, and the peptide left behind */
+    /* through the channel, as one molecule: the signal peptide is the
+       leading end of the very chain that trails back to the ribosome */
     if (v.thru > 0.02){
-      const t = grp(v.thru);
-      t.appendChild(path("M"+n1(RIB1)+" "+n1(RIBY - 52)+"V"+n1(CYT - 6), C.ink, 3.4));
-      t.appendChild(path("M"+n1(PORE)+" "+n1(IM + 4)+"V"+n1(PERI + 70), C.ink, 3.4));
-      t.appendChild(signal(880, IM + MH - 6, true));
-      t.appendChild(G.text(880, IM - 86, "peptide stays", 19, C.verm, 700));
+      const t = grp(v.thru), SIGB = 448;
+      t.appendChild(zig(PORE, SIGB, RIBY - 52, C.ink));
+      t.appendChild(signal(PORE, SIGB, true));
+      t.appendChild(G.text(PORE + 74, SIGB - 92, "signal peptide first",
+        19, C.verm, 700, "start"));
+      t.appendChild(G.text(PORE + 74, SIGB - 40, "the rest follows it through",
+        19, C.muted, 400, "start"));
       t.appendChild(G.text(SECA, CYT + 100, "ATP → ADP + Pᵢ", 20, C.blue, 700));
       g.appendChild(t);
     }
 
     if (v.fold > 0.02){
-      const d = grp(v.fold), FX = 430, FY = 366;
+      const d = grp(v.fold), FX = 470, FY = 372;
       d.appendChild(G.el("path", {d:"M"+n1(FX - 46)+" "+n1(FY)+
         "c0 -30 20 -46 46 -46 c28 0 46 18 46 46 c0 28 -20 46 -46 46 "+
         "c-26 0 -46 -17 -46 -46 Z", fill:C.blue, "fill-opacity":".18",
         stroke:C.blue, "stroke-width":3.4, "stroke-linejoin":"round"}));
-      d.appendChild(G.text(FX + 66, FY - 8, "folds here", 22, C.blue, 700, "start"));
-      d.appendChild(G.text(FX + 66, FY + 22, "oxidising · disulfides form", 20,
+      d.appendChild(G.text(FX + 66, FY - 8, "the mature protein", 22, C.blue, 700, "start"));
+      d.appendChild(G.text(FX + 66, FY + 22, "folds here · oxidising", 20,
         C.muted, 400, "start"));
+      /* and the front of it, cut off and left in the membrane */
+      d.appendChild(signal(SPASE - 128, IM + MH - 6, true));
+      d.appendChild(G.text(SPASE - 128, IM - 116, "cut off,", 19, C.verm, 700));
+      d.appendChild(G.text(SPASE - 128, IM - 92, "stays behind", 19, C.verm, 400));
       g.appendChild(d);
     }
     return g;
