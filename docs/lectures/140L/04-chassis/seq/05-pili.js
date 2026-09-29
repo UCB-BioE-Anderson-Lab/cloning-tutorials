@@ -134,6 +134,23 @@ window.Deck.sequence("pili", function(slide){
 
   function paint(v, f){
     const g = G.el("g", {});
+
+    /* ---- and what one actually looks like ------------------------ *
+     * The whole left column is clear -- the gene map, the membrane and
+     * the epithelium all start at GX0 -- so the specimen sits beside
+     * the cartoon rather than replacing anything.  It arrives with the
+     * rod, which is the beat where the drawing starts claiming a
+     * shape the room has never seen. */
+    if (v.rod > 0.02){
+      const m = grp(v.rod);
+      m.appendChild(G.el("image", {href:"img/05-mg1655-pili.jpg", x:136, y:392,
+        width:166, height:207, preserveAspectRatio:"xMidYMid meet"}));
+      m.appendChild(G.el("rect", {x:136, y:392, width:166, height:207,
+        fill:"none", stroke:C.muted, "stroke-width":1.6}));
+      m.appendChild(G.text(219, 626, "MG1655", 21, C.ink, 700));
+      m.appendChild(G.text(219, 652, "the real thing", 19, C.muted, 400));
+      g.appendChild(m);
+    }
     const half = x => cl(x*2 - 1, 0, 1);
 
     if (v.gene > 0.02){ const k = grp(half(v.gene));

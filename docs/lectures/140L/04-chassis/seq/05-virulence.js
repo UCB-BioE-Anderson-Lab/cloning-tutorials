@@ -167,8 +167,17 @@ window.Deck.sequence("virulence", function(slide){
       });
       k.appendChild(path("M"+n1(BX-186)+" "+n1(BY-40)+"h34m-10 -8l10 8l-10 8",
         C.blue, 2.6, "6 5"));
-      k.appendChild(G.text(BX - 254, BY - 78, "antibodies", 22, C.blue, 700));
-      k.appendChild(G.text(BX - 254, BY + 112, "cannot reach it", 22, C.blue, 400));
+      k.appendChild(G.text(BX - 236, BY - 78, "antibodies", 22, C.blue, 700));
+      k.appendChild(G.text(BX - 236, BY + 148, "cannot reach it", 22, C.blue, 400));
+      /* The note has always said the micrographs make this vivid, so
+         show one.  It sits left of the drawn halo, clear of the
+         category list at 433 and of the antibodies label at 661. */
+      k.appendChild(G.el("image", {href:"img/05-capsule-em.png", x:446, y:320,
+        width:216, height:184, preserveAspectRatio:"xMidYMid meet"}));
+      k.appendChild(G.el("rect", {x:446, y:320, width:216, height:184,
+        fill:"none", stroke:C.muted, "stroke-width":1.6}));
+      k.appendChild(G.text(554, 534, "the halo is the capsule", 20, C.ink, 700));
+      k.appendChild(G.text(554, 558, "Jann et al., 1990", 18, C.muted, 400));
       g.appendChild(k);
     }
 

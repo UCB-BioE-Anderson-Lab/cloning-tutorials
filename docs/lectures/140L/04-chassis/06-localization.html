@@ -114,6 +114,17 @@
   <template class="desc">The sec translocon threading a protein through the inner membrane, beside the anatomy of a signal sequence: eighteen to thirty amino acids, basic residues near the N-terminus and a central hydrophobic core of at least seven.</template>
 </article>
 
+<!-- --------------------------------------------------------------- 56b -->
+<!-- The deck had been treating "signal peptide" and "Sec" as one fact,
+     and its own worked example disproves that: the Thermus enzyme in
+     the question at the end of this section is a Tat substrate, 0.99
+     against 0.003. A student shown only Sec has nowhere to put that. -->
+<article class="slide" data-seq="tat">
+  <h1 class="small">Tat &#8212; the twin-arginine route</h1>
+  <template class="notes">The second way across the inner membrane, and the one people do not get told about until it bites them. Same compartment at each end as Sec, same kind of cleavable N-terminal signal, but a different machine reading a different motif, and it moves the protein in a completely different state.</template>
+  <template class="desc">The Tat pathway beside Sec: two real signal peptides compared, the twin-arginine motif picked out, and then the two routes drawn across the inner membrane, one threading an unfolded chain and the other moving a folded protein with its cofactor already bound.</template>
+</article>
+
 <!-- ---------------------------------------------------------------- 57 -->
 <article class="slide">
   <h1 class="small">Signal peptide prediction</h1>
@@ -195,27 +206,15 @@ VMSYGNSEEDSQEHTGSQLRIAAYGPHAANVVGLTDQTDLFYTMKAALGLK</pre>
 </article>
 
 <!-- ---------------------------------------------------------------- 60 -->
-<article class="slide">
+<!-- The borrowed three-systems figure had been scaled until its labels
+     were illegible and its membranes were pale grey bands, and it sat
+     beside four bullets saying the same thing in words.  Drawn instead,
+     on the same cross-section as the localization slides, so it is
+     visibly the same cell with the question moved one compartment out. -->
+<article class="slide" data-seq="secrete">
   <h1 class="small">Extracellular secretion</h1>
-  <div class="cols">
-    <div>
-      <p class="lead">In gram positives, like <i>B. subtilis</i></p>
-      <ul class="tight">
-        <li><b>No second membrane</b> to get past</li>
-        <li>So prepro targeting results in <b>extracellular secretion</b> directly</li>
-      </ul>
-      <p class="lead" style="margin-top:22px">Type I, II and III secretion</p>
-      <ul class="tight">
-        <li>One set of genes assembles the <b>pore apparatus</b></li>
-        <li>That apparatus transports a set of substrates through the channel</li>
-      </ul>
-    </div>
-    <figure class="fig">
-      <img src="img/06-secretion-types.png" alt="The types of bacterial secretion system, each spanning the membranes with a different architecture.">
-    </figure>
-  </div>
-  <template class="notes">Targeting a protein for secretion is very simple in a gram positive organism like B. subtilis, because there is no second membrane: a gene that encodes a periplasm-targeted protein in E. coli encodes a secreted protein there. In a gram negative there are other routes. We have already seen autotransporters; types I, II and III are the more elaborate ones, and each needs additional proteins that assemble a channel spanning both membranes so that specific substrates can travel through.</template>
-  <template class="desc">Extracellular secretion: in gram positives like B. subtilis there is no second membrane so prepro targeting secretes directly, while in gram negatives the type I, II and III systems assemble a dedicated pore apparatus to move a set of substrates through.</template>
+  <template class="notes">Four beats, and the shape of the argument is that the second membrane is the entire problem. A Gram positive has one membrane, so a signal peptide finishes the job. A Gram negative has two, and the signal peptide only ever addressed the first, so the protein lands in the periplasm and stops. Types I, II and III are three different answers to that, and the useful way to hold them is by how many steps they take and where the substrate ends up.</template>
+  <template class="desc">Secretion drawn on the cell cross-section: first a Gram positive with one membrane where a signal peptide secretes directly, then the second membrane added so the same protein is stranded in the periplasm, then type I as a single channel through both membranes, type II as Sec to the periplasm followed by a second outer-membrane apparatus, and type III as a needle reaching through a host cell membrane.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 61 -->
@@ -296,5 +295,7 @@ document.addEventListener("click", function(e){
 <script src="seq/parts.js" defer></script>
 <script src="seq/06-localize.js" defer></script>
 <script src="seq/06-howhard.js" defer></script>
+<script src="seq/06-tat.js" defer></script>
+<script src="seq/06-secrete.js" defer></script>
 </body>
 </html>
