@@ -47,6 +47,9 @@
 .slide table.comp tr.hard td.where{color:var(--vermillion)}
 .slide p.lead{font-size:28px;color:var(--muted);margin:0 0 14px}
 .slide p.src-link{font-size:21px;color:var(--muted);margin:18px 0 0}
+.slide p.try{margin:16px 0 0;display:flex;align-items:center;gap:18px}
+.slide p.try .hint{font-size:20px;color:var(--muted)}
+.slide p.try .hint b{color:var(--blue)}
 .slide p.src-link a{color:var(--blue)}
 .slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:10px}
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
@@ -116,8 +119,22 @@
   <h1 class="small">Signal peptide prediction</h1>
   <figure class="fig">
     <img src="img/06-signalp.png" alt="SignalP output: a plot of cleavage site probability along the first residues of a protein sequence.">
-    <figcaption><a href="http://www.cbs.dtu.dk/services/SignalP/">cbs.dtu.dk/services/SignalP</a></figcaption>
+    <figcaption><a href="https://services.healthtech.dtu.dk/service.php?SignalP-5.0">services.healthtech.dtu.dk &#183; SignalP-5.0</a></figcaption>
   </figure>
+  <p class="try">
+    <button class="btn copy" type="button" data-copy="phoa-fasta">Copy a sequence to try</button>
+    <span class="hint">the <i>T. thermophilus</i> alkaline phosphatase from the next slide &#183; paste it in, pick <b>Gram-negative</b></span>
+  </p>
+  <pre id="phoa-fasta" hidden>>CAC83793.1 alkaline phosphatase [Thermus thermophilus HB8]
+MKRRDILKGGLTAGALALLPRGHTQGALQNQPSLGRRYRNLIVFVYDGFSWEDYAIAQAY
+ARRRQGRVLALERLLARYPNGLINTYSLTSYVTESSAAGNAFSCGVKTVNGGLAIHADGT
+PLKPFFAAAKEAGKAVGLVTTTTVTHATPASFVVSNPDRNAEERIAEQYLEFGAEVYLGG
+GDRFFNPARRKDGKDLYAAFAAKGYGVVRTLEELARSNATRLLGVFADGHVPYEIDRRFQ
+GLGVPSLKEMVQAALPRLAAHRGGFVLQVEAGRIDHANHLNDAGATLWDVLAADEVLELL
+TAFVDRNPDTLLIVVSDHATGVGGLYGAGRSYLESSRGVDLLEPQRASFEHMLRVLGQAP
+EASQVKEAFRAMKGVDLEDAEAERVVRAIREKVYWPEGVRQGVQPANTLAWAMAQRNAQK
+PDRPNIGYSSGQHTASPVMLLLYGQGLRFVNLGLVDNTHVFRLMGEALGLRYQNPVMSEE
+EALEILKARPQGMRHPEDVWA</pre>
   <template class="notes">And you do not have to eyeball it. SignalP will take a sequence and tell you whether it thinks there is a signal peptide on the front of it and where the cleavage site is. Which is the tool you want for the question at the end of this section.</template>
   <template class="desc">SignalP output: a plot of cleavage site probability along the N-terminal residues of a protein sequence.</template>
 </article>
@@ -228,6 +245,53 @@
   <template class="desc">A slide reading Questions.</template>
 </article>
 
+<script>
+/* Copy-to-clipboard for the SignalP demo sequence.  Delegated, so it
+   survives deck.js cloning the slide into the presenter pane.
+   TWO ROUTES, AND THE SECOND IS NOT DEAD CODE.  navigator.clipboard
+   exists in a secure context and still REJECTS where clipboard-write
+   is withheld by permissions policy -- an embedded or sandboxed frame
+   does this, and a file:// copy of the deck has no secure context at
+   all.  So a rejected promise falls through to the execCommand route
+   rather than reporting failure, because that one only needs the click
+   it already has. */
+document.addEventListener("click", function(e){
+  const b = e.target.closest("button.copy");
+  if (!b) return;
+  const src = document.getElementById(b.dataset.copy);
+  if (!src) return;
+  const text = src.textContent.trim();
+  const LABEL = "Copy a sequence to try";
+
+  function legacy(){
+    const t = document.createElement("textarea");
+    t.value = text;
+    t.setAttribute("readonly", "");
+    t.style.position = "fixed"; t.style.top = "0"; t.style.opacity = "0";
+    document.body.appendChild(t);
+    t.select(); t.setSelectionRange(0, text.length);
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch (err) { ok = false; }
+    document.body.removeChild(t);
+    return ok;
+  }
+  function done(ok){
+    b.textContent = ok ? "Copied \u2713" : "Copy blocked \u2014 see console";
+    b.classList.add("done");
+    if (!ok) console.log("SignalP demo sequence:\n\n" + text);
+    setTimeout(function(){ b.textContent = LABEL; b.classList.remove("done"); },
+      ok ? 2400 : 4000);
+  }
+
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(
+      function(){ done(true); },
+      function(){ done(legacy()); });
+  } else {
+    done(legacy());
+  }
+});
+</script>
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/parts.js" defer></script>
