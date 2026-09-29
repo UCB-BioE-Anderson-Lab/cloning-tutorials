@@ -94,24 +94,16 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 56 -->
-<article class="slide">
+<!-- The borrowed figure has every object you need and shows them all
+     at once, frozen, so the one thing it cannot show is the order they
+     act in -- which is the content.  Redrawn as the process, on the
+     same cross-section as the rest of the section.  The three bullets
+     about signal-peptide anatomy are gone because the peptide is now
+     drawn with its three regions. -->
+<article class="slide" data-seq="secpath">
   <h1 class="small">Sec pathway secretion</h1>
-  <div class="cols">
-    <figure class="fig">
-      <img src="img/06-sec.png" alt="The sec translocon in the inner membrane, threading a nascent protein through as it is translated.">
-    </figure>
-    <div>
-      <p class="lead">The signal (<i>pre</i>) sequence</p>
-      <p class="lead" style="margin-bottom:18px">also &ldquo;signal sequence&rdquo;, also &ldquo;leader sequence&rdquo;</p>
-      <ul class="sig">
-        <li><b>18&ndash;30 amino acids</b> in length</li>
-        <li>One or more <b>basic</b> residues near the N-terminus</li>
-        <li>A central <b>hydrophobic core</b> of 7 residues or more</li>
-      </ul>
-    </div>
-  </div>
-  <template class="notes">To target a protein to the inner membrane or the periplasm you put a pre sequence on its N-terminus. These are typically eighteen to thirty amino acids, with one or more basic residues near the N-terminus and a hydrophobic core of about seven residues in the middle. It goes by three names, pre sequence, signal sequence and leader sequence, and they all mean the same thing. It is recognised by a set of sec proteins that associate with the ribosome and actively push the protein through the membrane as it is made.</template>
-  <template class="desc">The sec translocon threading a protein through the inner membrane, beside the anatomy of a signal sequence: eighteen to thirty amino acids, basic residues near the N-terminus and a central hydrophobic core of at least seven.</template>
+  <template class="notes">The Sec pathway as a sequence of events rather than a diagram of parts. Six beats: what is in the membrane, the signal peptide coming off the ribosome, SRP recognising it and docking at FtsY, SecA threading the chain through SecYEG on ATP, signal peptidase cutting from the periplasmic face, and the mature protein folding on the far side.</template>
+  <template class="desc">The Sec pathway animated across the inner membrane: the machinery first — FtsY, SecDF, the SecYEG channel, SecA and signal peptidase — then a signal peptide emerging from a ribosome, SRP binding its hydrophobic core and docking at FtsY, the chain threaded through the channel by SecA using ATP, the peptide cleaved by signal peptidase from the periplasmic side, and the mature protein folding in the periplasm.</template>
 </article>
 
 <!-- --------------------------------------------------------------- 56b -->
@@ -295,6 +287,7 @@ document.addEventListener("click", function(e){
 <script src="seq/parts.js" defer></script>
 <script src="seq/06-localize.js" defer></script>
 <script src="seq/06-howhard.js" defer></script>
+<script src="seq/06-sec.js" defer></script>
 <script src="seq/06-tat.js" defer></script>
 <script src="seq/06-secrete.js" defer></script>
 </body>
