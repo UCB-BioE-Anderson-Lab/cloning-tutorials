@@ -38,9 +38,11 @@ const OM = 246, IM = 470;
 const PERI = OM + MH, CYT = IM + MH;
 /* RIB1 puts the ribosome under the channel mouth, so the peptide it
    is carrying arrives AT the translocon rather than beside it */
-const YEG0 = 630, YEG1 = 780, PORE = 700;
-const SECA = 890, SPASE = 1030;
-const RIB0 = 360, RIB1 = 700, RIBY = CYT + 172;
+/* the pore sits right of the body's centre so the translocating
+   chain does not run through the SecYEG label */
+const YEG0 = 630, YEG1 = 790, PORE = 752;
+const SECA = 912, SPASE = 1076;
+const RIB0 = 360, RIB1 = 752, RIBY = CYT + 172;
 
 function bilayer(yTop){
   const g = G.el("g", {}), r = 7, step = 19;
@@ -54,15 +56,16 @@ function bilayer(yTop){
   }
   return g;
 }
-function unit(x0, x1, label, col, lx, dy, h){
+function unit(x0, x1, label, col, dy, h){
   const g = G.el("g", {}), H = h || (MH + 26), y = IM - 13 + (dy || 0);
+  const cx = (x0 + x1)/2, cy = y + H/2, w = label.length*10.6 + 16;
   g.appendChild(G.el("rect", {x:n1(x0), y:n1(y), width:n1(x1 - x0), height:H,
     rx:Math.min(20, (x1 - x0)/2), fill:col, "fill-opacity":".2", stroke:col,
     "stroke-width":3}));
-  const cx = lx == null ? (x0 + x1)/2 : lx;
-  g.appendChild(G.el("text", {x:n1(cx), y:n1(y + H/2 + 6), "font-size":18,
-    fill:col, "font-weight":700, "text-anchor":"middle",
-    transform:"rotate(-90 "+n1(cx)+" "+n1(y + H/2)+")"}, label));
+  /* paper under the name: the beads read straight through it otherwise */
+  g.appendChild(G.el("rect", {x:n1(cx - w/2), y:n1(cy - 16), width:n1(w),
+    height:32, rx:6, fill:C.paper, "fill-opacity":".9"}));
+  g.appendChild(G.text(cx, cy + 7, label, 18, col, 700));
   return g;
 }
 function blob(cx, cy, rx, ry, label, col, size){
@@ -156,11 +159,13 @@ window.Deck.sequence("secpath", function(slide){
     }
     if (v.rib > 0.02){
       const r = grp(v.rib);
+      r.appendChild(path("M"+n1(X0 + 10)+" "+n1(RIBY + 72)+
+        "C"+n1(rx - 190)+" "+n1(RIBY + 58)+" "+n1(rx - 130)+" "+n1(RIBY + 4)+
+        " "+n1(rx)+" "+n1(RIBY + 4)+
+        "C"+n1(rx + 110)+" "+n1(RIBY + 4)+" "+n1(rx + 126)+" "+n1(RIBY + 44)+
+        " "+n1(rx + 158)+" "+n1(RIBY + 62), C.muted, 2.6));
       r.appendChild(ribosome(rx, RIBY));
-      r.appendChild(path("M"+n1(X0 + 10)+" "+n1(RIBY + 78)+
-        "Q"+n1(rx - 150)+" "+n1(RIBY + 122)+" "+n1(rx + 104)+" "+n1(RIBY + 62),
-        C.muted, 2.6));
-      r.appendChild(G.text(X0 + 2, RIBY + 74, "mRNA", 19, C.muted, 400, "end"));
+      r.appendChild(G.text(X0 + 2, RIBY + 68, "mRNA", 19, C.muted, 400, "end"));
       g.appendChild(r);
     }
 
@@ -193,9 +198,9 @@ window.Deck.sequence("secpath", function(slide){
     }
     if (v.sec > 0.02){
       const m = grp(v.sec);
-      m.appendChild(unit(YEG0, YEG1, "SecYEG", C.blue, YEG0 + 30));
+      m.appendChild(unit(YEG0, YEG1, "SecYEG", C.blue));
       m.appendChild(blob(SECA, CYT + 42, 58, 38, "SecA", C.blue, 20));
-      m.appendChild(unit(SPASE - 22, SPASE + 22, "SPase I", C.verm, null, -6, MH + 30));
+      m.appendChild(unit(SPASE - 56, SPASE + 56, "SPase I", C.verm, -6, MH + 30));
       g.appendChild(m);
     }
 
@@ -204,8 +209,8 @@ window.Deck.sequence("secpath", function(slide){
       const t = grp(v.thru);
       t.appendChild(path("M"+n1(RIB1)+" "+n1(RIBY - 52)+"V"+n1(CYT - 6), C.ink, 3.4));
       t.appendChild(path("M"+n1(PORE)+" "+n1(IM + 4)+"V"+n1(PERI + 70), C.ink, 3.4));
-      t.appendChild(signal(862, IM + MH - 6, true));
-      t.appendChild(G.text(862, IM - 86, "peptide stays", 19, C.verm, 700));
+      t.appendChild(signal(880, IM + MH - 6, true));
+      t.appendChild(G.text(880, IM - 86, "peptide stays", 19, C.verm, 700));
       t.appendChild(G.text(SECA, CYT + 100, "ATP → ADP + Pᵢ", 20, C.blue, 700));
       g.appendChild(t);
     }
