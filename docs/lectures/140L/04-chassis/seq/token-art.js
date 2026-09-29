@@ -188,15 +188,31 @@ function draw(k){
       stroke:C.blue, "stroke-width":3}));
     g.appendChild(G.text(862, 428, "survives", 20, C.blue, 700));
   } else {
-    /* gal / ara / leu: one shape, because the lesson is one lesson */
-    const M = {gal:"M9 + galactose", ara:"M9 + arabinose",
-               leu:"M9 \u2014 any carbon"}[k];
-    g.appendChild(flask(420, 500, "LB", true));
-    g.appendChild(G.text(420, 392, "grows", 21, C.blue, 700));
-    g.appendChild(flask(720, 500, M, false));
-    g.appendChild(G.text(720, 392, "does not", 21, C.verm, 700));
-    g.appendChild(G.text(570, 648, "rich medium hands it over \u00b7 minimal does not",
-      21, C.muted, 400));
+    /* gal / ara / leu: one shape, because the lesson is one lesson.
+       The catabolic two are NOT on M9: swapping the carbon source makes
+       a different medium, and calling a galactose plate M9 teaches the
+       wrong thing about what the glucose is doing there. */
+    const M = {gal:"Gal MM", ara:"Ara MM", leu:"M9 \u00b7 any carbon"}[k];
+    const three = k === "leu";
+    const FX = three ? [340, 600, 860] : [420, 720];
+    g.appendChild(flask(FX[0], 500, "LB", true));
+    g.appendChild(G.text(FX[0], 392, "grows", 21, C.blue, 700));
+    g.appendChild(flask(FX[1], 500, M, false));
+    g.appendChild(G.text(FX[1], 392, "does not", 21, C.verm, 700));
+    if (three){
+      /* leucine is an auxotrophy, not a carbon defect, so no carbon
+         source rescues it -- but a medium that simply hands the amino
+         acid over does, and GMML is the one they will actually meet. */
+      g.appendChild(flask(FX[2], 500, "GMML", true));
+      g.appendChild(G.text(FX[2], 392, "grows", 21, C.blue, 700));
+      g.appendChild(G.text(600, 648,
+        "no carbon source rescues it \u00b7 GMML does, because it supplies leucine",
+        21, C.muted, 400));
+    } else {
+      g.appendChild(G.text(570, 648,
+        "rich medium hands it over \u00b7 minimal on that sugar does not",
+        21, C.muted, 400));
+    }
     if (k === "leu"){
       g.appendChild(chrom(724, 260, 900, [[440, 760]]));
       g.appendChild(path("M440 704V744", C.verm, 3));

@@ -134,19 +134,19 @@ build("mettok", [
   desc:"The DH10B genotype again, with none of the metabolic tokens highlighted yet." },
 { s:{str:1, gal:1},
   cap:"<b>galE15 galK16</b> &#183; no galactose",
-  call:"fine on LB &#183; nothing on M9 with galactose as the carbon source",
+  call:"fine on LB &#183; nothing on minimal with galactose as the only carbon source",
   note:"galE and galK are both in the Leloir pathway, so the strain cannot use galactose as a carbon source. On LB that is invisible. Put it on minimal medium with galactose as the only carbon source and it simply does not grow.",
-  desc:"The galE and galK tokens highlighted, with growth on LB and none on M9 with galactose." },
+  desc:"The galE and galK tokens highlighted, with growth on LB and none on galactose minimal medium." },
 { s:{str:1, ara:1},
   cap:"<b>araD139</b> &#183; no arabinose",
   call:"same shape, different sugar",
   note:"araD is a defect in arabinose utilisation, and it is the same story. Worth flagging because arabinose is also an inducer: pBAD systems are induced with arabinose, and in a strain that cannot catabolise it the induction behaves differently from a strain that can, which is sometimes a feature and sometimes a surprise.",
-  desc:"The araD token highlighted, with growth on LB and none on M9 with arabinose." },
+  desc:"The araD token highlighted, with growth on LB and none on arabinose minimal medium." },
 { s:{str:1, leu:1},
   cap:"<b>&Delta;(ara,leu)7697</b> &#183; and this one is a <b>deletion</b>",
   call:"it runs from the arabinose genes to leucine biosynthesis &#183; now it is an auxotroph",
-  note:"And this one is different in kind. It is not a point mutation in a catabolic gene, it is a large deletion that runs from the arabinose catabolic genes all the way to leucine biosynthesis and takes several other things out along the way. So the strain cannot make leucine. Not cannot eat something, cannot make something, which means it will not grow on minimal medium at all unless you add leucine. That is an auxotrophy, and it is exactly the shape of the two questions coming up.",
-  desc:"The ara-leu deletion token highlighted, showing a large chromosomal deletion running from the arabinose genes to leucine biosynthesis, and no growth on minimal medium." }
+  note:"And this one is different in kind. It is not a point mutation in a catabolic gene, it is a large deletion that runs from the arabinose catabolic genes all the way to leucine biosynthesis and takes several other things out along the way. So the strain cannot make leucine. Not cannot eat something, cannot make something, which means it will not grow on minimal medium at all, whatever carbon source you put in it, unless the medium itself hands leucine over. GMML is the one you are most likely to meet doing that: glycerol minimal medium with leucine added and no glucose in it, which is why it is the standard medium for unnatural amino acid work. Swapping the sugar cannot rescue an auxotroph; only supplying the thing it cannot make can.",
+  desc:"The ara-leu deletion token highlighted, showing a large chromosomal deletion running from the arabinose genes to leucine biosynthesis. Three flasks: growth on LB, no growth on minimal medium whatever the carbon source, and growth again on GMML, which is glycerol minimal medium with leucine supplied." }
 ], {
   gal:["no galactose", ["galE and galK, both in the Leloir pathway",
                         "invisible on LB",
@@ -156,6 +156,6 @@ build("mettok", [
                         "which makes induction behave differently"]],
   leu:["an auxotroph", ["a deletion, not a point mutation",
                         "it took leucine biosynthesis with it",
-                        "so minimal medium needs leucine added"]]
+                        "so minimal needs leucine \u2014 GMML has it"]]
 });
 })();
