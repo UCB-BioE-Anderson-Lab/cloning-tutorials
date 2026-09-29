@@ -16,10 +16,13 @@
  * idea is therefore not a matter of good engineering taste here.  It is
  * the only thing on offer.
  *
- * The three cases people raise are the last beat, each drawn as a cell
- * split by what was synthesised (vermillion) and what came from a cell
- * that was already running (muted).  The muted part never empties, and
- * that is the argument.
+ * The three cases people raise are the last beat, each drawn as the
+ * PROCESS it is rather than as a cell with a coloured region.  An
+ * outcome shaded two colours cannot say what was done to get there,
+ * and it pushes the argument into a key.  Drawn as arrows it needs no
+ * key, because the tell is where each chain starts: syn1.0 and the
+ * minimal genomes both start at a cell that was already alive, and the
+ * protocells start at a heap of parts and never reach a living thing.
  * ------------------------------------------------------------------ */
 (function(){
 "use strict";
@@ -67,15 +70,16 @@ function parts(cx, cy, col){
 const DOTS = [[-30,-16],[-34,14],[-6,26],[24,18],[30,-14],[4,-30],[-14,-2],[16,2]];
 function cellIcon(cx, cy, o){
   const g = G.el("g", {}), m = o.machinery || C.muted, gn = o.genome || m;
-  g.appendChild(G.el("ellipse", {cx:n1(cx), cy:n1(cy), rx:o.rx || 62,
-    ry:o.ry || 48, fill:m, "fill-opacity":".08", stroke:m,
-    "stroke-width":o.w || 3}));
-  DOTS.forEach(function(d){
-    g.appendChild(G.el("circle", {cx:n1(cx + d[0]*(o.k || 1)),
-      cy:n1(cy + d[1]*(o.k || 1)), r:4.2, fill:m}));
+  const rx = o.rx || 62, ry = o.ry || 48, k = o.k || 1;
+  g.appendChild(G.el("ellipse", {cx:n1(cx), cy:n1(cy), rx:n1(rx), ry:n1(ry),
+    fill:m, "fill-opacity":".08", stroke:m, "stroke-width":o.w || 3}));
+  DOTS.slice(0, o.n || DOTS.length).forEach(function(d){
+    g.appendChild(G.el("circle", {cx:n1(cx + d[0]*k), cy:n1(cy + d[1]*k),
+      r:4.2, fill:m}));
   });
-  g.appendChild(G.el("circle", {cx:n1(cx), cy:n1(cy), r:(o.rx || 62)*0.34,
-    fill:"none", stroke:gn, "stroke-width":o.w || 3}));
+  if (!o.nogenome)
+    g.appendChild(G.el("circle", {cx:n1(cx), cy:n1(cy), r:n1(rx*(o.gr || 0.34)),
+      fill:"none", stroke:gn, "stroke-width":o.w || 3}));
   return g;
 }
 function cross(cx, cy, col, r){
@@ -92,15 +96,16 @@ function tick(cx, cy, col){
 const RA = 292, RB = 470, RC = 664;        /* the three rows            */
 const LBL = 272, P0 = 400, A0 = 480, A1 = 616;
 
-/* ---- and the three things somebody always brings up ---------------- */
-const CASES = [
-  {x:396, name:"JCVI-syn1.0", made:"synthetic genome",
-   kept:"read by a recipient cell's ribosomes, proteins and membrane", syn:1},
-  {x:800, name:"minimal genomes", made:"stripped to the bone",
-   kept:"engineered down from a natural cell, not up from parts", syn:1},
-  {x:1204, name:"protocells", made:"built from components",
-   kept:"do not grow, sustain themselves or evolve", syn:2}
-];
+/* ---- and the three things somebody always brings up ---------------- *
+ * Drawn as processes, because that is what they are and because the
+ * argument is visible in where each arrow STARTS.  syn1.0 begins at a
+ * living cell and empties it; the minimal genomes begin at a living
+ * cell and cut it down; only the protocells begin at a heap of parts,
+ * and what they reach is not alive.  Three static cells with a coloured
+ * region could not say any of that.
+ * ------------------------------------------------------------------ */
+const CR = [306, 492, 678];
+const CLB = 300, CX0 = 352;
 
 const FR = [
 { s:{eng:1},
@@ -121,11 +126,11 @@ const FR = [
   note:"What happens instead is this. Every cell came out of a cell, and that one came out of another, and the chain runs back without a break to something none of us were there for. Your strain is on the right-hand end of it. That is why the last section was a pedigree rather than a parts list: when you pick a chassis you are joining a lineage, and everything that lineage already contains arrives with it whether you asked for it or not.",
   desc:"The only route that exists: a chain of cells, each giving rise to the next, ending in your strain." },
 
-{ s:{chain:1, cases:1},
+{ s:{cases:1},
   cap:"and the three cases people raise",
-  call:"in each one, something was <b>inherited</b> &#8212; the grey never empties",
+  call:"look at where each arrow <b>starts</b>",
   note:"Three things get filed under synthetic life and it is worth being able to say what each one actually is. JCVI-syn1.0 put a chemically synthesised genome into a bacterial cell that had had its own removed, and that cell booted up on the recipient's ribosomes, proteins, RNAs and membrane. The genome was synthetic; the machinery that read it was inherited. Minimal genome organisms are heavily engineered, but they were cut down from a natural cell rather than built up from components, so the descent is unbroken. Protocells, liposomes with RNA or partial expression systems inside them, genuinely are assembled from parts, and they can imitate particular life-like behaviours, but they do not grow, sustain themselves or evolve. Look at the colour on all three: the red is what somebody made, the grey is what came from a cell that was already running, and in every case the grey is still there. Even where the genome is synthetic, the system that reads it came from a previous cell. Life is a bootstrapped process.",
-  desc:"The three claimed cases, each drawn as a cell: JCVI-syn1.0 with a synthetic genome inside inherited machinery, minimal genomes cut down from a natural cell, and protocells which are built from parts but do not grow or evolve." }
+  desc:"The three claimed cases, each drawn as a process. JCVI-syn1.0: a living cell, its genome taken out, a synthetic one put in. Minimal genomes: a living cell whose genome is cut down. Protocells: a heap of components assembled into a vesicle, marked with a cross because it does not grow, sustain itself or evolve. Two of the three arrows start at a cell; the one that starts at parts does not reach a living thing." }
 ];
 
 window.Deck.sequence("bootstrap", function(slide){
@@ -182,23 +187,48 @@ window.Deck.sequence("bootstrap", function(slide){
     /* ---- the three that get raised ------------------------------- */
     if (v.cases > 0.02){
       const q = grp(v.cases);
-      CASES.forEach(function(k){
-        q.appendChild(cellIcon(k.x, RA + 18, {
-          machinery:k.syn === 2 ? C.verm : C.muted,
-          genome:C.verm, rx:70, ry:54, k:1.08}));
-        q.appendChild(G.text(k.x, RA + 108, k.name, 25, C.ink, 700));
-        q.appendChild(G.text(k.x, RA + 142, k.made, 21, C.verm, 700));
-        G.el("g", {});
-        k.kept.replace(/(.{1,34})(\s|$)/g, "$1\n").trim().split("\n")
-          .forEach(function(ln, i){
-            q.appendChild(G.text(k.x, RA + 176 + i*27, ln, 20, C.muted, 400));
-          });
-      });
-      q.appendChild(G.text(800, RB + 116,
-        "vermillion is what somebody made · grey came from a cell that was already running",
-        22, C.ink, 700));
+      function lab(x, y, t){ q.appendChild(G.text(x, y, t, 18, C.muted, 400)); }
+      function step(x0, x1, y, t){
+        q.appendChild(arrow(x0, x1, y, C.muted, 2.6));
+        lab((x0 + x1)/2, y - 18, t);
+      }
+      function name(y, t){
+        q.appendChild(G.text(CLB, y + 7, t, 23, C.ink, 700, "end"));
+      }
+      function note(x, y, t){
+        q.appendChild(G.text(x, y + 7, t, 20, C.muted, 400, "start"));
+      }
+
+      /* syn1.0: start at a living cell, take its genome out, put a
+         made one in.  The arrow starts at a cell. */
+      name(CR[0], "JCVI-syn1.0");
+      q.appendChild(cellIcon(406, CR[0], {rx:52, ry:40, k:.82}));
+      step(468, 648, CR[0], "genome out");
+      q.appendChild(cellIcon(710, CR[0], {rx:52, ry:40, k:.82, nogenome:1}));
+      step(772, 952, CR[0], "synthetic one in");
+      q.appendChild(cellIcon(1014, CR[0], {rx:52, ry:40, k:.82, genome:C.verm}));
+      note(CX0, CR[0] + 62, "the genome was made \u00b7 the cell that reads it was not");
+
+      /* minimal genomes: start at a living cell and cut it down */
+      name(CR[1], "minimal genomes");
+      q.appendChild(cellIcon(406, CR[1], {rx:52, ry:40, k:.82, gr:.44}));
+      step(468, 648, CR[1], "cut it down");
+      q.appendChild(cellIcon(710, CR[1], {rx:52, ry:40, k:.82, gr:.2,
+        genome:C.verm}));
+      note(CX0, CR[1] + 62, "engineered down from a living cell, never built up");
+
+      /* protocells: the only one that does start at parts, and the only
+         one whose product is not alive */
+      name(CR[2], "protocells");
+      q.appendChild(parts(406, CR[2], C.verm));
+      step(486, 648, CR[2], "assemble");
+      q.appendChild(cellIcon(710, CR[2], {rx:52, ry:40, k:.82, n:4,
+        machinery:C.verm, nogenome:1}));
+      q.appendChild(cross(806, CR[2], C.verm, 17));
+      note(CX0, CR[2] + 62, "assembled from parts \u2014 and it does not grow, sustain itself or evolve");
       g.appendChild(q);
     }
+
     return g;
   }
   return G.run(s, FR, paint);
