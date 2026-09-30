@@ -231,8 +231,59 @@ that distinction is worth keeping clean.
 
 ## Totals
 
-~40 slides, ~182 steps against a 110-minute slot. Compare Chassis: source 62
-slides → rebuilt to 46 slides / 175 steps.
+**Built: 45 slides, 171 steps**, against a 110-minute slot. Compare Chassis:
+source 62 slides → rebuilt to 46 slides / 175 steps.
+
+| Section | Slides | Steps |
+|---|---|---|
+| 0 Introduction | 5 | 18 |
+| 1 The Central Dogma | 3 | 17 |
+| 2 CDS-Based Parts | 10 | 35 |
+| 3 RNA-Based Parts | 8 | 26 |
+| 4 DNA-Based Parts | 8 | 31 |
+| 5 Part Families | 11 | 44 |
+
+Sixteen animated sequences. Every section audits clean: no clipping, no
+console errors, no entities surviving into either channel, median fill 80–94%
+of the content box.
+
+## Source coverage
+
+Every one of source slides 1–53 has a home. 54–59 are the all-hands and are
+out, the same precedent as Chassis and Genome Editing.
+
+| Source | Where it went |
+|---|---|
+| 1 | §0 title |
+| 2 Part Abstractions | §0 the ladder — and the protein is named, which the source never does: it is chloramphenicol acetyltransferase, UniProt P62577 |
+| 3 Parts vs Features | §0 the opening question |
+| 4 Formats · 5 Features · 6 kinds | §0 two definitions, one Formats slide |
+| 7–14 Central Dogma | §1, one animated slide, nine beats |
+| 15 divider · 16 functional classes | §2 divider, folded into "what makes a reporter" |
+| 17 fluorescent | §2 amplification — the colours cannot be drawn in this palette, and were never the point |
+| 18–20 LacZ | §2 the X-gal reaction |
+| 21, 22 phosphatase | §2 one callback to Chassis §6 |
+| 23 markers | §2 three mechanisms |
+| 24 transcription factors | §2 global versus local |
+| **25 Lac repressor** | **§4, with slide 35 — the last source slide to find a home** |
+| 26 P*bad* | §2 the light-switch model |
+| 27 divider · 28 RBS | §3 divider, the 16S pairing |
+| 29, 30, 31 active RNAs | §3 one slide (*ryhB* corrected) |
+| 32 terminators | §3 the intrinsic terminator, animated |
+| 33 divider · 34, 36 promoters | §4 divider, J23101 decomposed, four kinds by what decides |
+| 35 complex promoters | §4, with slide 25 |
+| 37 inducible | §2 the opening exercise |
+| 38 cis elements | §4 three kinds of origin |
+| 39 compatibility | §4 the opening exercise |
+| 40, 41 sites and repeats | §4 one callback to Genome Editing |
+| 42, 43 families | §5 divider, the combinatorial argument |
+| 44, 45 libraries and bins | §5 coverage |
+| 46 (chart) | not recoverable from the source file |
+| 47, 49 insertion | §5 the slot, drawn |
+| 48 rbs.CDS | §3 the conclusion, §5 the arithmetic |
+| 50, 51 orthologs | §5 the real panel, numbers unchanged |
+| 52 codon variants | §3 Kudla, cause corrected |
+| 53 codon scan | §5 five ways — and the source's alanine-scanning citation is still unresolved |
 
 **Seven exercises, at least one per section, every one question-first.** They also all land on
 the same shape the Chassis exercises found, which is worth keeping deliberately:
@@ -247,6 +298,8 @@ immediately before the orthologs — so seven in all.
 
 - Source slide 53's codon-scan citation needs resolving before that slide is
   drawn.
-- §5 has two exercises where every other section has one. That is either the
-  right weighting for the section the course leans on hardest, or one too many
-  for a 38-step section. Decide when it renders.
+- §5 has two exercises where every other section has one. Rendered, it reads
+  as the right weighting for the section the course leans on hardest, but it
+  is the first thing to cut if the deck runs long.
+- Source slide 46 is an unsupported chart object in the .pptx and its data
+  could not be read out. If it matters, it needs the original.
