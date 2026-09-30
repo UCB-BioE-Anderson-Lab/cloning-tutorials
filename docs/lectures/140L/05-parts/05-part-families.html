@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Part Families &ndash; Parts</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * THE SHOW/HIDE RULE FOR SEQUENCE PARTS.  scene() in seq/kit.js marks
+ * everything that comes and goes with class "o" and toggles "in" on it,
+ * and the CSS that makes that mean anything is page-local in every deck
+ * in this course -- it is not in the shared deck.css.  Omit it and
+ * nothing errors, nothing logs, and every part is simply visible from
+ * the first beat, which is how five sections of this deck were built
+ * and audited before anyone noticed.  The auditor cannot catch it: a
+ * settled frame with too much on it is still a settled frame.
+ * --------------------------------------------------------------------- */
+.slide svg .o{opacity:0;transition:opacity .42s ease}
+.slide svg .o.in{opacity:1}
+.slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+@media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead h1{margin:0}
+.slide p.lead{font-size:28px;color:var(--muted);margin:26px 0 0}
+.slide p.punch{font-size:29px;margin:38px 0 0;max-width:1270px}
+.slide p.punch b{color:var(--vermillion)}
+.slide ul.tighter li{margin-bottom:10px}
+.slide dl.kinds{margin:22px 0 0;display:grid;
+  grid-template-columns:auto minmax(0,1fr);column-gap:34px;row-gap:20px;
+  align-items:baseline}
+.slide dl.kinds dt{font-size:26px;font-weight:700;color:var(--blue);
+  white-space:nowrap}
+.slide dl.kinds dd{margin:0;font-size:25px}
+.slide dl.kinds dd em{color:var(--muted);font-style:normal}
+/* the combinatorial arithmetic, set so the two numbers are the slide */
+.slide .sums{display:grid;grid-template-columns:1fr 1fr;gap:40px;
+  margin-top:30px}
+.slide .sums > div{border:2px solid #dfe4ea;border-radius:8px;padding:20px 26px}
+.slide .sums b.n{display:block;font-size:56px;line-height:1.1;
+  color:var(--blue)}
+.slide .sums .bad b.n{color:var(--vermillion)}
+.slide .sums p{font-size:24px;margin:8px 0 0;color:var(--muted)}
+.slide .sums h2{font-size:26px;margin:0 0 10px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 42 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Part Families</h1>
+  <p>What you have when one part is not enough</p>
+  <template class="notes">An important concept in synthetic biology today is combinatorial design, where sets of related parts are used in place of single ones. This is the last section, it is the one this course leans on hardest, and you have been doing it in lab for two weeks.</template>
+  <template class="desc">Section divider: part families.</template>
+</article>
+
+<!-- ------------------------------------------------------------- 42, 43 -->
+<!-- The source opens its families run on "How do we organize information
+     about parts?", which is the right question asked in the abstract.
+     The room has spent two weeks making a concrete instance of the
+     answer, so the question here is what that instance was. -->
+<article class="slide" data-seq="rpu">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="">
+    <h1 class="small">What did pP6 and BestP actually produce?</h1>
+  </div>
+  <template class="notes">Four clones identical but for twelve bases, each with a value measured in a unit defined by one member of the set. That is a part family, and they built one.</template>
+  <template class="desc">Four pP6 clones drawn as identical cassettes differing in one slot, with their measured values on a relative promoter unit axis.</template>
+</article>
+
+<!-- ------------------------------------------------------------- 44, 45 -->
+<article class="slide" data-seq="bins">
+  <h1 class="small">Why a <i>library</i>, and not just a good promoter</h1>
+  <template class="notes">Symbology refers to terminator, promoter and CDS. The library is binned from off through low and medium to uber, so that every level has a member.</template>
+  <template class="desc">The four clones and three references on one axis, then the bins of the full library drawn across three decades, showing coverage.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 43 -->
+<article class="slide">
+  <h1 class="small">Why families at all</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>Say you want a phosphodiesterase expressed in <i>E.&nbsp;coli</i> at a particular level, and you do not know which level.</span></p>
+  <div class="sums" data-build="1">
+    <div class="bad">
+      <h2>one part per slot</h2>
+      <b class="n">1</b>
+      <p>construct, one guess, and a fortnight to find out it was the wrong one. Then guess again.</p>
+    </div>
+    <div>
+      <h2>a family in one slot</h2>
+      <b class="n">12</b>
+      <p>constructs, built in the same reaction, measured in the same plate. The answer is in the data rather than in the next iteration.</p>
+    </div>
+  </div>
+  <p class="punch" data-build="2"
+     data-note="This is the whole economic argument for combinatorial design and it is worth stating plainly, because it sounds like it is about convenience and it is not. Building twelve constructs is not twelve times the work of building one — the cloning is one reaction with a pool in it, and the assay is one plate. It is maybe twice the work. What you are buying with that is the removal of a guess from the critical path. The single-construct route is not cheaper; it is one twelfth of the cost per attempt and it takes as many attempts as it takes, which is a number you find out afterwards."
+     data-desc="The economic argument: twelve constructs cost roughly twice a single one rather than twelve times, because the cloning is one pooled reaction and the assay one plate, and what that buys is the removal of a guess from the critical path."
+     >Twelve is not twelve times the work &mdash; it is one pooled reaction and one plate, so about <b>twice</b>. What you buy is taking a guess off the critical path.</p>
+  <template class="notes">For example, suppose we wanted to express a phosphodiesterase in E. coli at a specific constitutive level. With a family of promoters we build the whole set at once rather than guessing, measuring, and guessing again.</template>
+  <template class="desc">The comparison between building one construct on a guess and building a family of twelve in one pooled reaction, and the point that the second costs about twice rather than twelve times.</template>
+</article>
+
+<!-- ------------------------------------------------------------- 46, 47 -->
+<!-- Source slides 45 to 47 are the TPcon architecture and two insertion
+     diagrams.  The architecture and the assembly are DNA Fabrication
+     section 8, worked at length, so this is what that deck could not
+     say: what the architecture is FOR. -->
+<article class="slide">
+  <h1 class="small">TPcon &mdash; an architecture built for swapping</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>Terminator, promoter, coding sequence, in fixed positions with fixed junctions. <em>You have built these: DNA&nbsp;Fabrication&nbsp;&sect;8.</em></span></p>
+  <p class="lead" data-build="1"
+     data-note="You know how to assemble these, so I am not going through the architecture again. What I want is what it is for, which that lecture had no reason to say. The positions are fixed and the junctions between them are fixed, and that is what makes a slot a slot: any promoter in the collection drops into the promoter position, because every promoter in the collection was built with the same ends. Change the promoter, hold the terminator and the coding sequence, and every construct in the set differs in exactly one place by construction rather than by care."
+     data-desc="What the TPcon architecture is for: fixed positions and fixed junctions mean any member of the promoter collection drops into the promoter slot, so a set differs in one place by construction."
+     >Fixed positions, fixed junctions. That is what makes a slot a <b>slot</b> &mdash; the set differs in one place by <b>construction</b>, not by care.</p>
+  <p class="punch" data-build="2"
+     data-note="And notice that this is the Format question from the first section coming back with a purpose. A Format is a promise about the ends, and the reason to care about that promise is right here: it is what lets a collection behave as a family. Without a shared Format you can still have twelve characterised promoters, but putting each of them into your construct is twelve separate cloning problems, and by the time you have done that nobody builds the library. The Format is not bookkeeping. It is the thing that makes combinatorial design affordable."
+     data-desc="The connection back to Formats: a shared promise about the ends is what lets a characterised collection behave as a family, because without it each member is a separate cloning problem."
+     >This is the <b>Format</b> question from &sect;0, with a purpose attached: without a shared promise about the ends, twelve characterised promoters are twelve cloning problems, and nobody builds the library.</p>
+  <template class="notes">The TPcon parts are organised so that a promoter, a terminator and a coding sequence each occupy a defined position with defined junctions, so that members of a collection are interchangeable within a position.</template>
+  <template class="desc">The TPcon architecture as the mechanism that makes a slot swappable, and the connection back to assembly Formats as what makes combinatorial design affordable.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 48 -->
+<article class="slide">
+  <h1 class="small">rbs.CDS &mdash; a family whose members are composites</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>&sect;3 said define the transcript as the part. Here is what that buys in a family.</span></p>
+  <ul class="tighter" data-build="1">
+    <li><b>The number you look up is the number you get.</b> The site was characterised in front of this gene, which is the only context in which its strength means anything.</li>
+    <li><b>A bacterial gene arrives pre-optimised.</b> Evolution already selected a 5&prime; region that folds acceptably in front of that coding sequence. You are taking the answer rather than searching for it.</li>
+    <li><b>Two parts per gene instead of three.</b> Which is the difference between a library you can build and one you cannot.</li>
+  </ul>
+  <p class="punch" data-build="2"
+     data-note="That third one is worth doing the arithmetic on. Suppose you want to vary a promoter twelve ways, a ribosome binding site twelve ways and a coding sequence seven ways. Three independent slots gives you a thousand and eight members, which is a real library and a real sequencing bill. Fold the site into the coding sequence and you have twelve times seven, which is eighty-four, and eighty-four is a plate. You gave up the ability to tune the site independently, and in exchange the library became something one person can build in a week. That is the trade, and whether it is a good one depends entirely on whether you needed that axis — which, given that the site's strength was never independent of the gene anyway, you mostly did not."
+     data-desc="The arithmetic: three independent slots of twelve, twelve and seven give 1008 members, while folding the site into the coding sequence gives 84, at the cost of an axis that was never independent in the first place."
+     >12 &times; 12 &times; 7 = <b>1008</b>. Fold the site in and it is 12 &times; 7 = <b>84</b>, which is one plate &mdash; and the axis you gave up was never independent anyway.</p>
+  <template class="notes">Secondary structure between an rbs and a CDS is a major determinant of expression, so it may be more robust to objectify the transcript rather than the individual pieces. This also allows a reduction in combinatorial complexity: a gene can be composed from only two parts.</template>
+  <template class="desc">Three consequences of defining the transcript as the part, with the combinatorial arithmetic showing 1008 members reduced to 84.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 50a -->
+<article class="slide" data-seq="duds">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="">
+    <h1 class="small">One hit, six duds &mdash; is the enzyme the problem?</h1>
+  </div>
+  <template class="notes">A panel of orthologs assayed for product, with one member giving product and six at background, and the question of what that licenses you to conclude.</template>
+  <template class="desc">Seven wells with one hit and six at background, and a checklist of what the assay did and did not measure.</template>
+</article>
+
+<!-- ------------------------------------------------------------- 50, 51 -->
+<article class="slide" data-seq="carnosine">
+  <h1 class="small">A real panel</h1>
+  <template class="notes">Carnosine synthase orthologs tested across seven vertebrates, about 76 per cent identical across the panel, assayed as relative carnosine titer in the cell pellet.</template>
+  <template class="desc">The seven orthologs with their species, and the measured carnosine titers on a log axis showing the alligator ortholog 87-fold over the negative control.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 50b -->
+<!-- Not in the source.  The capstone in planning/project_ispA.md is the
+     previous slide's design, and nothing in the course currently says
+     so out loud. -->
+<article class="slide">
+  <h1 class="small">And that is your capstone</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span><i>ispA</i> orthologs in pLYC72 &mdash; the same panel, a different enzyme, and you choose the members.</span></p>
+  <p class="lead" data-build="1"
+     data-note="The lycopene project is the slide you just looked at with a different enzyme in it. You pick ispA orthologs, you put them in pLYC72, and the writeup has to explain why you chose those ones. So let me be direct about what a good answer to that looks like, given the last two slides. It is not a list of the seven highest BLAST hits, because those are seven versions of the same protein from seven close relatives and they will behave the same way. It is a spread, chosen so that if the thing that matters is something you have not thought of, some member of your panel has it. Thermophile and mesophile. Organisms with very different isoprenoid demands. Something a long way out."
+     data-desc="What a good ortholog selection looks like for the capstone: a spread across organisms rather than the seven closest BLAST hits, so that an unanticipated variable is covered by some member."
+     >Not the seven best BLAST hits &mdash; those are one protein seven times. A <b>spread</b>, so that whatever turns out to matter, some member has it.</p>
+  <p class="punch" data-build="2"
+     data-note="And the second half of the writeup is the caveat from the exercise. Say in advance how you will tell an inactive ortholog from an unexpressed one, because your panel will have near-background members and you will have to write a sentence about them. If the answer is that you cannot tell, say that too — a writeup that names the limit of its own assay is a better writeup than one that quietly asserts the conclusion. That is most of what I am looking for when I read these."
+     data-desc="The second half of the capstone writeup: saying in advance how an inactive ortholog will be distinguished from an unexpressed one, and naming the limit where it cannot be."
+     >And say <b>in advance</b> how you will tell an inactive ortholog from an unexpressed one. If you cannot, write that down &mdash; naming the limit beats asserting past it.</p>
+  <template class="notes">The ortholog scan project asks you to build an ispA expression panel in pLYC72 and to explain why you chose your orthologs, which is exactly the design on the previous slide.</template>
+  <template class="desc">The connection from the carnosine panel to the ispA capstone project, with what a good ortholog selection and a good writeup look like.</template>
+</article>
+
+<!-- ------------------------------------------------------------- 52, 53 -->
+<!-- Source slide 53, "Codon scan families", cites the Wikipedia alanine
+     scanning page -- which is a protein mutagenesis scan, not a codon
+     scan.  Resolved by presenting the category correctly: a scanning
+     family is systematic single-position variation, and it exists at
+     both levels, with alanine scanning the canonical protein-level case
+     and Kudla's synonymous library the DNA-level one. -->
+<article class="slide">
+  <h1 class="small">Five ways to make a family</h1>
+  <dl class="kinds">
+    <dt>randomise a slot</dt>
+    <dd>pP6, the Anderson library. <em>You do not know what the members will be until you measure them.</em></dd>
+    <dt data-build="1">collect natural variants</dt>
+    <dd data-build="1">ortholog panels. <em>Evolution generated the diversity; you are sampling it.</em></dd>
+    <dt data-build="2">scan a position</dt>
+    <dd data-build="2">alanine scanning at the protein level, synonymous scanning at the DNA level. <em>Systematic, one position at a time, so a result points at a residue.</em></dd>
+    <dt data-build="3">compose</dt>
+    <dd data-build="3">rbs.CDS. <em>Fold two slots into one where the two were never independent.</em></dd>
+    <dt data-build="3">standardise</dt>
+    <dd data-build="3">TPcon, MoClo. <em>Not diversity at all &mdash; the ends that let any of the others be a family.</em></dd>
+  </dl>
+  <p class="punch" data-build="4"
+     data-note="Five ways, and the first three are ways of generating diversity while the last two are ways of making diversity usable. That distinction is the one to leave with. Anybody can make variants — degenerate oligos are cheap and BLAST is free. What is difficult, and what most of this lecture has been about, is making a set of variants that you can actually build with, which means shared ends so they compose, a shared unit so the numbers travel, and enough coverage that the question you have has an answer in the set. Those three are not biology. They are bookkeeping, done well, and they are the entire difference between a collection of plasmids and a technology."
+     data-desc="The closing distinction: the first three ways generate diversity and the last two make it usable, and what is hard is not generating variants but making a set with shared ends, a shared unit and enough coverage."
+     >The first three <b>make</b> diversity. The last two make it <b>usable</b>, and that is the hard half &mdash; shared ends, a shared unit, and no holes.</p>
+  <template class="notes">Codon scan families and alanine scans are systematic single-position variations, where each member differs from the parent at one defined place, so that a result can be attributed to a position.</template>
+  <template class="desc">Five ways of constructing a part family, split between the three that generate diversity and the two that make it usable.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 54 -->
+<article class="slide">
+  <h1 class="small">Where that leaves us</h1>
+  <ul class="tighter">
+    <li data-build="1"><b>A part is a decision, not a sequence.</b> A feature is what a stretch of DNA does; a part is a feature somebody committed to reusing.</li>
+    <li data-build="2"><b>Ask which molecule does the work.</b> DNA, RNA or protein &mdash; not where the consequence lands. That is the four sections we just did.</li>
+    <li data-build="3"><b>Context dependence is not a defect.</b> An RBS competes with its own messenger; a promoter&rsquo;s ceiling and its operating point are different questions. The parts abstraction leaks, and it leaks in describable places.</li>
+    <li data-build="4"><b>A family is the repair.</b> Identical but for one slot, characterised in one unit, with no holes &mdash; which turns designing into choosing.</li>
+  </ul>
+  <p class="punch" data-build="5"
+     data-note="And the thread through the whole lecture, which I will say once: every failure we looked at today produced a result that looked like a success. Red cells that were responding to nothing. A sequence-verified clone that was dead. An expression level that would not reproduce. Six good genes scored as duds. Not one of them threw an error, and not one of them would have been caught by reading the sequence more carefully. They were caught by asking what the measurement actually measured. That is the habit, and it is worth more than any of the individual facts in this deck. Next week is human practices — biosafety, biosecurity and who gets to decide what gets built — and the pathogenicity from the chassis lecture is the background you will need for it."
+     data-desc="The closing thread: every failure examined in the lecture produced a result that looked like success and was caught by asking what the measurement measured, with a pointer forward to the human practices lecture."
+     >Every failure today looked like a <b>success</b>. Red cells responding to nothing; a verified clone that was dead; a number that would not repeat; six good genes called duds. None threw an error. All were caught by asking what the measurement measured.</p>
+  <template class="notes">Closing summary of the lecture.</template>
+  <template class="desc">The four things to carry out of the lecture, and the closing observation that every failure examined produced a result that looked like a success.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/kit.js" defer></script>
+<script src="seq/05-rpu.js" defer></script>
+<script src="seq/05-bins.js" defer></script>
+<script src="seq/05-duds.js" defer></script>
+<script src="seq/05-carnosine.js" defer></script>
+</body>
+</html>

@@ -8,6 +8,20 @@
 <title>The Central Dogma &ndash; Parts</title>
 <link rel="stylesheet" href="../../deck.css">
 <style>
+/* --------------------------------------------------------------------- *
+ * THE SHOW/HIDE RULE FOR SEQUENCE PARTS.  scene() in seq/kit.js marks
+ * everything that comes and goes with class "o" and toggles "in" on it,
+ * and the CSS that makes that mean anything is page-local in every deck
+ * in this course -- it is not in the shared deck.css.  Omit it and
+ * nothing errors, nothing logs, and every part is simply visible from
+ * the first beat, which is how five sections of this deck were built
+ * and audited before anyone noticed.  The auditor cannot catch it: a
+ * settled frame with too much on it is still a settled frame.
+ * --------------------------------------------------------------------- */
+.slide svg .o{opacity:0;transition:opacity .42s ease}
+.slide svg .o.in{opacity:1}
+.slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+@media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
 .slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
 .slide .qhead h1{margin:0}
