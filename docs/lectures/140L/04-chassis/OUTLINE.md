@@ -44,17 +44,44 @@ Two rules for the rebuild:
 | The construction file, and what it does not say | a CF builds DNA; it stops at the cell door |
 | Then, to the cells | getting it installed is its own procedure, with its own steps |
 
-### 1 · The method — 4 slides
+### 1 · The method — 9 slides
 
-The existing trace exercise, which is the thing to keep. Regulation is now
-drawn on it (each unit carries what gates it), which was the missing piece.
+Not a grid handed over, but the reasoning walked. The DNA is in the cell and
+it is *just DNA*; nothing happens until something reads it. That is the first
+move and it is the one worth slowing down on, because everything else falls
+out of iterating it.
 
 | slide | the one point |
 |---|---|
-| What happens, and in what order? | the grid: every DNA, its RNA, its protein, its gate |
-| *(worked through the conditions)* | a promoter fires or does not, and you can tell which |
-| Polar mutations | the grid does not show everything — neighbours matter |
-| The habit, named | what is on · what does it make · what does that do |
+| The DNA is in. Now what? | the question, asked before any answer |
+| It is just DNA | nothing happens until something transcribes it |
+| So what fires with no input? | everything constitutive — that is round one |
+| What round one makes | the RNAs and proteins that now exist |
+| What those products do | and what that changes about the cell |
+| **The loop** | on → makes → does → changes → *now* what is on? |
+| Worked example: the CRISPR system | the loop run against the conditions |
+| Polar mutations | what the method does not show you |
+| **Group exercise: blue-white** | they run the loop themselves |
+
+The loop is the deliverable. Say it once, name it, then run it twice — once
+from the front, once by them.
+
+**Group exercise — blue-white screening.** Chosen over dapA for this slot
+because it is a real *circuit* rather than a single gene: lacZΔM15 on the
+chromosome, lacZα on the plasmid, lacI repressing, IPTG relieving it, X-gal
+as the readout. Running the loop on it forces every move — what is
+constitutive, what is repressed, what the inducer changes, what two gene
+products do *together*, and what colour the plate goes. It also covers
+Mach1's genotype, so section 4 no longer needs an exercise of its own.
+
+**Optional extension — dynamics.** The loop is qualitative: a unit is on or
+off, a product is present or not. Putting rate equations on the
+constitutive-expression slide and plotting concentration rising to steady
+state would make it quantitative, and it is the natural place for it: one
+promoter, one product, one curve. Worth doing only if the qualitative
+version is landing, because it changes what the exercise tests. My
+suggestion is to build the qualitative loop first, present it once, and add
+the plots the year after if the room is ahead of it.
 
 ### 2 · The chassis is what is already running — 3 slides
 
@@ -128,19 +155,36 @@ end; this is a question with a catalogue behind it.
 
 ## Count
 
+Slides are the wrong unit — the animated deck packs many clicks into one
+slide. Steps are the honest measure of how long it runs.
+
+| version | slides | steps |
+|---|---:|---:|
+| original PowerPoint | 77 | ~84 |
+| what was presented | 50 | **132** |
+| this outline | 31 | ~85 |
+
+Two things fall out of that. The rebuild I did **added 57% more steps than
+the PowerPoint** while cutting slides by a third — more clicks, each
+carrying less. And it still ran short, which means step count was never the
+constraint.
+
+So this outline lands back at roughly the original's step count, but spends
+it differently: five points where the room has to commit to an answer before
+being told, including one full group exercise. Those consume wall-clock time
+that does not show up as frames, which is exactly the time the presented
+version was not using.
+
 | section | slides | ends in an exercise |
 |---|---:|---|
 | 0 where we left off | 2 | — |
-| 1 the method | 4 | it *is* the exercise |
+| 1 the method | 9 | blue-white, as a group |
 | 2 the chassis already running | 3 | — |
 | 3 genotypes | 5 | dapA |
-| 4 our strain | 3 | blue-white |
+| 4 our strain | 3 | — (covered in §1) |
 | 5 localization | 5 | assay prediction |
 | 6 pathogenicity | 4 | is this safe |
-| | **26** | **5 exercises** |
-
-Against 50 slides and 132 frames now. Fewer slides, more clicks per slide,
-and five places where the room has to commit to an answer.
+| | **31** | **4 exercises + 1 group** |
 
 ## Open question
 
