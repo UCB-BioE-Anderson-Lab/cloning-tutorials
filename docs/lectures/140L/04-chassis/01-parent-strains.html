@@ -115,27 +115,17 @@
   <template class="desc">A single line: all strains are derived from a parent strain.</template>
 </article>
 
-<!-- ----------------------------------------------------------------- *
-     The minimal-life rework.  The old framing -- a ~3 Mb, ~3000-gene
-     bacterial core made of central dogma plus primary metabolism plus
-     environmental sensing -- is replaced by environmental subsidy as
-     the organising variable.  A genome gets small by moving work into
-     its niche, so the question becomes: how much must the organism
-     encode, given a stated environment?
-     ----------------------------------------------------------------- -->
-<article class="slide" data-seq="minimal">
-  <h1 class="small">How small can a genome get?</h1>
-  <template class="notes">Four landmarks on one scale, each with the caveat that complicates it. The band is shaded rather than lined, because there is no established smallest natural glucose-and-salts prototroph.</template>
-  <template class="desc">JCVI-syn3.0, Pelagibacter, Prochlorococcus and E. coli drawn as bars on one scale, with a shaded 1.5 to 2 megabase neighbourhood.</template>
-</article>
-
-<article class="slide" data-seq="prototroph">
-  <h1 class="small">What is the minimum required for life?</h1>
-  <template class="notes">The definition the rest of the lecture uses, stated as an experiment rather than a philosophy. This is also where the later rich-media and M9 material stops being a microbiology aside.</template>
-  <template class="desc">A defined minimal medium as inputs, a cell, and everything it must build from them: the operational definition of prototrophy.</template>
-</article>
-
 <!-- -------------------------------------------------------------- 8, 9 -->
+<!-- Housekeeping, which the source deck makes on its slide 10 and this
+     one never quite did.  Replaces the minimal-genome survey and
+     prototrophy-as-a-definition: the layer partition survives because
+     section 6 opens by calling back to it. -->
+<article class="slide" data-seq="housekeeping">
+  <h1 class="small">Most of a bacterium is just a bacterium</h1>
+  <template class="notes">About 3 Mb and 3000 genes of any bacterial genome is housekeeping, and across the enterobacteria it is near-identical base for base. That is the fact the rest of the lecture leans on: whatever makes one strain dangerous or useful is in the 1.6 Mb that is left.</template>
+  <template class="desc">The E. coli genome as a bar: first whole at 4.64 megabases, then split to show the roughly 3 megabase housekeeping core common to every bacterium, then marked as near-identical across the Enterobacteria, then divided into information, biosynthesis, robustness and the outer ecological layer where strains differ.</template>
+</article>
+
 <article class="slide" data-seq="chasses">
   <h1 class="small">Popular chasses</h1>
   <div class="credit">Micrographs via Wikimedia Commons &mdash; Erbe &amp; Pooley (USDA), Masur, Segura Torres &amp; Vieto Bonilla, Gonzalez &amp; Kerfeld, Chandres &nbsp;&middot;&nbsp; PD, CC&nbsp;BY, CC&nbsp;BY-SA &nbsp;&middot;&nbsp; see img/CREDITS.md<br>Deposit counts: addgene.org, retrieved 2026-09-23</div>
@@ -196,8 +186,7 @@
 <script src="lecture.js" defer></script>
 <script src="seq/parts.js" defer></script>
 <script src="seq/01-bootstrap.js" defer></script>
+<script src="seq/01-housekeeping.js" defer></script>
 <script src="seq/01-chasses.js" defer></script>
-<script src="seq/01-prototroph.js" defer></script>
-<script src="seq/01-minimal.js" defer></script>
 </body>
 </html>
