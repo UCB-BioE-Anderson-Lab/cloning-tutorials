@@ -243,9 +243,13 @@ the thing to say out loud when the method is named in section 1.
 
 ### Not done
 
-- **§2 (E. coli)** untouched — 19 steps of pedigree, neighbours and
-  pathotypes, still with no question in it. Named as slack in the time
-  budget; it is the first place to look if the lecture runs long.
+- ~~§2 untouched~~ — **done.** It opens on three strain names now:
+  MG1655, O157:H7 and Nissle 1917. All three are E. coli; one is the
+  reference, one has killed people, one is sold as medicine. So a
+  species name is not a specification, which is the reason to want the
+  lineage and the genotype that follow it. Leaving this section as
+  "slack" was a mistake: arriving in it mid-lecture read as arriving in
+  a different deck.
 - **Dynamics** still not built. The constitutive-expression beat of the
   loop slide remains the natural home for a rate equation and a curve to
   steady state.
