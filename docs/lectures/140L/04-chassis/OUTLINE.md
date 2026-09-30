@@ -153,38 +153,63 @@ That last exercise is the bridge into practices, and it is the reason the
 section exists. The current version is a catalogue with its questions at the
 end; this is a question with a catalogue behind it.
 
-## Count
+## Time budget — this is the real constraint
 
-Slides are the wrong unit — the animated deck packs many clicks into one
-slide. Steps are the honest measure of how long it runs.
+The slot is **1:50**. It ran **1:20**. Thirty minutes of a hundred and ten
+went unused, which is 27% of the lecture.
 
-| version | slides | steps |
-|---|---:|---:|
-| original PowerPoint | 77 | ~84 |
-| what was presented | 50 | **132** |
-| this outline | 31 | ~85 |
+That reframes everything above. 132 steps in 80 minutes is about 36 seconds
+a step, and the first draft of this outline cut to ~85 steps — which would
+have run around 55 minutes and made the problem **worse**. Shorter is the
+wrong direction. The deck is not too long; it is too thin per minute.
 
-Two things fall out of that. The rebuild I did **added 57% more steps than
-the PowerPoint** while cutting slides by a third — more clicks, each
-carrying less. And it still ran short, which means step count was never the
-constraint.
+So the rule for the rebuild is: **cut almost nothing, and add time in the
+form of work the room does.**
 
-So this outline lands back at roughly the original's step count, but spends
-it differently: five points where the room has to commit to an answer before
-being told, including one full group exercise. Those consume wall-clock time
-that does not show up as frames, which is exactly the time the presented
-version was not using.
+| | slides | steps | ~minutes |
+|---|---:|---:|---:|
+| original PowerPoint | 77 | ~84 | — |
+| what was presented | 50 | 132 | **80** |
+| first draft of this outline | 31 | ~85 | ~55 &nbsp;*(wrong)* |
+| **the plan** | ~46 | ~115 | **~105** |
 
-| section | slides | ends in an exercise |
-|---|---:|---|
-| 0 where we left off | 2 | — |
-| 1 the method | 9 | blue-white, as a group |
-| 2 the chassis already running | 3 | — |
-| 3 genotypes | 5 | dapA |
-| 4 our strain | 3 | — (covered in §1) |
-| 5 localization | 5 | assay prediction |
-| 6 pathogenicity | 4 | is this safe |
-| | **31** | **4 exercises + 1 group** |
+### Where the thirty minutes comes from
+
+Not from more slides. From three exercises where the room commits to an
+answer before being told, each long enough to be real work rather than a
+rhetorical pause.
+
+| exercise | section | what it covers | est. |
+|---|---|---|---:|
+| **Blue-white** | §1 | run the loop on a circuit: repression, induction, two products acting together, a plate colour | 12 min |
+| **dapA into WM3064** | §3 | genotypes and media together — predict LB, LB+DAP, minimal | 10 min |
+| **Is this strain safe?** | §6 | given a genotype and a plasmid, what would you check — and the handoff to practices | 12 min |
+
+That is 34 minutes of engaged time. Against ~10 minutes of genuinely dead
+material removed, the deck lands near 105 of the 110.
+
+### What still gets cut
+
+Only what nothing downstream needs, and only about ten minutes of it:
+
+- the tree of life as its own slide (fold the one useful line into chasses)
+- the minimal-genome survey (the housekeeping point is made better by the
+  source's own framing: ~3000 genes, ~3 Mb, nearly identical across the
+  Enterobacteria)
+- prototrophy as a formal definition (keep the layered-genome figure, which
+  §6 depends on; drop the definitional apparatus around it)
+
+**Tat, the secretion systems, the strain pedigree and the Celebrities slide
+all stay.** They are the slack. If an exercise runs short, they absorb it.
+
+### The other fix, which costs nothing
+
+Every question in the presented deck sits at the *end* of its section.
+Pathogenicity has two good ones, arriving after seven slides of catalogue.
+Moving each section's question to the front — pose it, let them fail at it,
+then teach into it — changes engagement without changing the step count at
+all. "Boring" was never a length problem; a catalogue is boring at any
+length.
 
 ## Open question
 
