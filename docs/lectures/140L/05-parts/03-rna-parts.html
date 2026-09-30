@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>RNA-Based Parts &ndash; Parts</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead h1{margin:0}
+.slide p.lead{font-size:28px;color:var(--muted);margin:26px 0 0}
+.slide p.punch{font-size:29px;margin:38px 0 0;max-width:1270px}
+.slide p.punch b{color:var(--vermillion)}
+/* The 16S pairing, set as two aligned strands.  pre.dna is the deck's
+   shared sequence block; the pairing bars go in their own line between
+   them, so the whole thing has to be one pre to stay in column. */
+.slide pre.pair{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:30px;line-height:1.5;letter-spacing:.04em;margin:30px 0 0;
+  white-space:pre}
+.slide pre.pair .sd{color:var(--vermillion);font-weight:700}
+.slide pre.pair .anti{color:var(--blue);font-weight:700}
+.slide pre.pair .lbl{color:var(--muted);font-size:23px}
+.slide ul.tighter li{margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 27 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">RNA-Based Parts</h1>
+  <p>Parts that do their work as RNA &mdash; and the reason parts are hard</p>
+  <template class="notes">RNA-based parts encode functional RNA molecules, or useful regions of a larger mRNA. This is the smallest of the three sections by part count and the most important one conceptually, because the trouble with the whole idea of a part shows up here first and most clearly.</template>
+  <template class="desc">Section divider: RNA-based parts.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 28a -->
+<!-- Not in the source, but its notes on slide 28 say the quiet part:
+     "how best to describe RBS sequences as Parts remains a topic of
+     discussion."  That discussion is the section, so it opens as a
+     failure rather than as an aside in a speaker note. -->
+<article class="slide" data-seq="rbsfail">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="">
+    <h1 class="small">Same RBS, new gene, no protein &mdash; why?</h1>
+  </div>
+  <template class="notes">A construct that worked, rebuilt with the same promoter and the same ribosome binding site in front of a different coding sequence, giving no protein at all with everything verified.</template>
+  <template class="desc">Two messenger RNAs, one working and one dead, with the dead one folding to bury its ribosome binding site in a hairpin.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 28 -->
+<article class="slide">
+  <h1 class="small">What a ribosome binding site actually is</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>A stretch of the messenger that base-pairs with the 3&prime; end of the 16S ribosomal RNA.</span></p>
+  <pre class="pair" data-build="1"
+     data-note="It is base pairing, and that is all it is. The three-prime end of the 16S ribosomal RNA, which is part of the small subunit, ends in a sequence that is complementary to the Shine-Dalgarno. The messenger pairs with it, and that pairing is what positions the start codon in the right place. B0034, the site you have been using, carries AGGAGG right in the middle of it. Notice what this explains about the last slide: the ribosome is competing for that stretch of messenger against the messenger's own folding, and whichever gets there first wins."
+     data-desc="The pairing drawn out: the messenger's AGGAGG Shine-Dalgarno sequence base-paired with the complementary CCUCC at the three-prime end of the 16S ribosomal RNA, positioning the start codon downstream."
+><span class="lbl">mRNA   5&prime;-</span>AAAG<span class="sd">AGGAGG</span>AAAACAT<span class="lbl">AUG ...  3&prime;</span>
+<span class="lbl">            </span>||||||
+<span class="lbl">16S    3&prime;-</span>AUUC<span class="anti">CUCCAC</span>UAG<span class="lbl">             5&prime;</span></pre>
+  <p class="punch" data-build="2"
+     data-note="So a ribosome binding site is a competition, not a signal. There is no receptor here and nothing is being recognised in the way a transcription factor recognises an operator. There is a stretch of messenger that can pair with the ribosome and can also pair with itself, and the strength of the site is really the outcome of that competition. Which is why it is context dependent, and why it was never going to be otherwise."
+     data-desc="The consequence: the ribosome binding site is a competition between pairing with the ribosome and pairing with the rest of the messenger, which is why its strength is context dependent."
+     >So the site is a <b>competition</b>: pair with the ribosome, or pair with itself. That is why context dependence was never avoidable.</p>
+  <template class="notes">Ribosome binding sites are RNA sequences that bind to the 16S rRNA and cause the initiation of translation. How best to describe RBS sequences as parts remains a topic of discussion.</template>
+  <template class="desc">The Shine-Dalgarno sequence base-pairing with the three-prime end of the 16S ribosomal RNA, and the consequence that the site's strength is the outcome of a competition with the messenger's own folding.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 52 -->
+<!-- Source slide 52, brought forward from the families section.  It is
+     the measurement of the mechanism this section has just described,
+     and the source has the two four slides apart with nothing joining
+     them.  Its title also points at the wrong cause; see the file. -->
+<article class="slide" data-seq="kudla">
+  <h1 class="small">How bad is it?</h1>
+  <template class="notes">A hundred and fifty-four synonymous variants of one GFP, differing only at codon wobble positions, spanning 250-fold in expression.</template>
+  <template class="desc">Three synonymous encodings of the same protein, the 250-fold span of the library on a log axis, and the two candidate explanations with their verdicts.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 48 -->
+<!-- Source slide 48's first two bullets, moved here from the families
+     section, because they are the conclusion of the argument this
+     section has been making.  The rest of that slide -- the
+     combinatorial saving, the insertion diagrams -- stays in section 5
+     where the families are. -->
+<article class="slide">
+  <h1 class="small">So stop treating them as two parts</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>If the site&rsquo;s behaviour depends on the gene behind it, then the site and the gene are <b>one object</b>.</span></p>
+  <p class="lead" data-build="1"
+     data-note="This is the design move, and I want to be clear that it is a move and not a discovery. Nothing about the biology changed. What changes is where you draw the boundary of the part. Instead of an RBS part and a CDS part that you combine, you define the transcript — the RBS and the CDS together — as the thing that has a name and a number. Then the number you look up was measured on the object you are actually using, and it means something."
+     data-desc="The design response: define the transcript, the ribosome binding site and coding sequence together, as one part, so that the characterised object is the one being used."
+     >Define the <b>transcript</b> as the part: the site and the coding sequence, characterised together, in one tube.</p>
+  <p class="punch" data-build="2"
+     data-note="Two things follow, and both of them are why section five exists. First, if the coding sequence came from a bacterium, evolution has already selected a five-prime region that folds acceptably in front of that gene — nature did the optimisation and you can take it. Second, a gene now costs you two parts rather than three, which sounds like bookkeeping and is actually the difference between a library you can build and one you cannot. We come back to both of those at the end of the lecture."
+     data-desc="Two consequences: a coding sequence taken from a bacterium arrives with a five-prime region evolution already selected, and a gene costs two parts rather than three, which matters for combinatorial libraries."
+     >And two things follow: a bacterial gene arrives with a 5&prime; region <b>evolution already selected</b>, and a gene now costs two parts instead of three. Both of those are &sect;5.</p>
+  <template class="notes">Secondary structure between an RBS and a CDS is a major determinant of expression, so it may be more robust to objectify the transcript rather than the individual pieces. If the CDS is from bacteria, nature has already selected a working combination. It also allows a reduction in combinatorial complexity: a gene can be composed from two parts rather than three.</template>
+  <template class="desc">The design response to context dependence: define the transcript as the part, which also means a bacterial gene arrives pre-optimised and a gene costs two parts rather than three.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 32 -->
+<article class="slide">
+  <h1 class="small">Terminators</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>A hairpin in the transcript that makes the polymerase let go. The DNA is where you put it; the RNA is what does it.</span></p>
+  <ul class="tighter" data-build="1">
+    <li><b>Intrinsic</b> &mdash; a GC-rich stem followed by a run of U&rsquo;s. Nothing else needed.</li>
+    <li><b>Rho-dependent</b> &mdash; a protein catches up with the polymerase and pulls it off.</li>
+    <li><b>Efficiency varies</b> &mdash; a terminator is not a full stop, it is a probability. Read-through past a weak one is the commonest reason a downstream gene is on when you did not ask for it.</li>
+  </ul>
+  <p class="punch" data-build="2"
+     data-note="And the same problem as the ribosome binding site, for the same reason. A terminator works by folding, and folding depends on what is around it, so the efficiency you looked up was measured in some other context. This is why the answer in the sorting exercise was RNA and not DNA, and it is why terminators in a well-designed collection are always characterised in the position they will be used in. It is the same lesson twice in one section, which is the point: everything on this level has it."
+     data-desc="The closing point: terminators fold, so like ribosome binding sites their efficiency is context dependent, which is why they belong on the RNA level and why they are characterised in position."
+     >Which is the <b>same</b> problem: it works by folding, so its efficiency is context dependent too. Every part on this level has this.</p>
+  <template class="notes">Terminators terminate transcription. Different ones have different efficiencies, there are distinct mechanisms such as Rho-dependence and Rho-independence, and like ribosome binding sites they probably have a secondary-structure context dependence.</template>
+  <template class="desc">The two termination mechanisms, the point that efficiency is a probability rather than a full stop, and the closing note that terminators are context dependent for the same folding reason as ribosome binding sites.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 29-31 -->
+<!-- Source slides 29, 30 and 31, folded to one.  They are riboregulators
+     and tRNAs, riboswitches and aptamers, and short antisense RNAs --
+     three slides of examples with one idea between them, which is that
+     an RNA can do a protein's job. -->
+<article class="slide">
+  <h1 class="small">RNAs that are not messengers</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>An RNA can sense, bind, regulate and catalyse. Everything here is a job you would expect a protein to do.</span></p>
+  <ul class="tighter" data-build="1">
+    <li><b>Riboswitches</b> &mdash; a stretch of messenger folds around a metabolite and changes its own transcription or translation. <em>A sensor with no protein in it &mdash; the metabolite-to-RNA arrow from &sect;1.</em></li>
+    <li><b>Aptamers</b> &mdash; the same trick, selected in vitro for a ligand of your choosing rather than found in a genome.</li>
+    <li><b>Small regulatory RNAs</b> &mdash; <i>ryhB</i> in <i>E. coli</i> pairs with target messengers and marks them for degradation. Iron-responsive, under Fur. <em>Trans-encoded, and it needs Hfq &mdash; not simple antisense.</em></li>
+    <li><b>Suppressor tRNAs</b> &mdash; recode a stop codon as an amino acid, so UAG stops meaning stop in that cell.</li>
+  </ul>
+  <p class="punch" data-build="2"
+     data-note="Two notes on that list. The source deck writes the small RNA as RhyB, with the h and the y the other way round; the gene is ryhB, and it is worth getting right because it is easy to search for the wrong one and find nothing. And it is trans-encoded and works through the chaperone Hfq, so calling it antisense is loose — true antisense is transcribed from the opposite strand of its own target. The suppressor tRNA is the one I would think hardest about, because it is a part that changes the meaning of the genetic code for the entire cell. Every UAG in every gene in that organism is now read differently. There is no other part on this list whose effect is global by construction, and that is both what makes it powerful and what makes it dangerous."
+     data-desc="Two notes: the gene is ryhB rather than RhyB and it is trans-encoded through Hfq rather than simple antisense, and a suppressor tRNA changes the reading of every instance of that stop codon in the cell."
+     >A suppressor tRNA is the odd one: it changes the meaning of a codon for the <b>whole cell</b>, not for your construct. Every UAG in every gene.</p>
+  <template class="notes">Other RNAs encode more nuanced molecules. Riboregulators bind other RNAs; riboswitches and aptamers bind small molecules; short RNAs downregulate gene expression; and tRNAs can be encoded as parts, so that a UAG stop codon can be recoded as an amino acid. Note that siRNA and miRNA are eukaryotic and have no prokaryotic counterpart.</template>
+  <template class="desc">Four classes of non-messenger RNA part: riboswitches, aptamers, small regulatory RNAs, and suppressor tRNAs, with the note that a suppressor tRNA changes the reading of a codon throughout the cell.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/kit.js" defer></script>
+<script src="seq/03-rbsfail.js" defer></script>
+<script src="seq/03-kudla.js" defer></script>
+</body>
+</html>
