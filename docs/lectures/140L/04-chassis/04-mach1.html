@@ -117,6 +117,18 @@
   <template class="desc">LacZ-alpha complementation drawn out: the chromosome making a beta-galactosidase with a piece missing, the plasmid carrying that missing piece, the two associating into a working enzyme that cuts X-gal and turns a colony blue, and then an insert cloned into the middle of the alpha fragment so that nothing complements and the colony stays white.</template>
 </article>
 
+<!-- The section's exercise, placed AFTER the mechanism rather than
+     before it: the other two exercises are predictions from first
+     principles, and alpha-omega complementation is not derivable from
+     anything they have been told.  The mechanism supplies the parts,
+     this makes them run the loop over it -- and the third plate is the
+     one worth the time. -->
+<article class="slide" data-seq="bluewhite">
+  <h1 class="small">All three have X-gal. Which go blue?</h1>
+  <template class="notes">The group exercise. Three plates: vector with no insert plus IPTG, vector with an insert plus IPTG, and vector with no insert and the IPTG forgotten. Almost everyone gets the first two. The third is white as well, so a forgotten inducer is indistinguishable from a tray of perfect clones — which is why the uncut-vector control is the one that makes the screen mean anything.</template>
+  <template class="desc">A group exercise on blue-white screening: three X-gal plates differing in whether the plasmid carries an insert and whether IPTG was added. The first is blue, the second white because the insert disrupts lacZ-alpha, and the third also white because without IPTG no alpha is made at all.</template>
+</article>
+
 <!-- ---------------------------------------------------------------- 38 -->
 
 
@@ -184,5 +196,6 @@
 <script src="seq/token-art.js" defer></script>
 <script src="seq/04-genotype.js" defer></script>
 <script src="seq/04-lacz.js" defer></script>
+<script src="seq/04-bluewhite.js" defer></script>
 </body>
 </html>
