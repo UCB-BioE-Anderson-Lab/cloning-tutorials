@@ -25,19 +25,19 @@
 .slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
 .slide .qhead h1{margin:0}
-.slide p.lead{font-size:28px;color:var(--muted);margin:26px 0 0}
-.slide p.punch{font-size:29px;margin:38px 0 0;max-width:1270px}
+.slide p.lead{font-size:30px;color:var(--muted);margin:32px 0 0}
+.slide p.punch{font-size:31px;margin:48px 0 0;max-width:1300px}
 .slide p.punch b{color:var(--vermillion)}
-.slide ul.tighter li{margin-bottom:10px}
+.slide ul.tighter li{font-size:27px;margin-bottom:18px}
 /* Four kinds of promoter, sorted by what decides rather than by name.
    A grid because the point is that the left-hand column is the
    question and the names are only instances of it. */
 .slide dl.kinds{margin:22px 0 0;display:grid;
-  grid-template-columns:auto minmax(0,1fr);column-gap:34px;row-gap:22px;
+  grid-template-columns:auto minmax(0,1fr);column-gap:34px;row-gap:34px;
   align-items:baseline}
-.slide dl.kinds dt{font-size:27px;font-weight:700;color:var(--blue);
+.slide dl.kinds dt{font-size:30px;font-weight:700;color:var(--blue);
   white-space:nowrap}
-.slide dl.kinds dd{margin:0;font-size:25px}
+.slide dl.kinds dd{margin:0;font-size:28px}
 .slide dl.kinds dd em{color:var(--muted);font-style:normal}
 </style>
 </head>
@@ -93,19 +93,17 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 35 -->
-<article class="slide">
+<!-- ------------------------------------------------------------ 25, 35 -->
+<!-- Source slides 25 and 35 belong together and neither is a slide on
+     its own: 25 is a borrowed lac-repressor figure with no text, 35 is
+     the lac promoter with its notes.  Together they are the worked
+     example of this section's sentence -- the boxes set the ceiling,
+     the sites around them set the range -- and the mechanism behind the
+     IPTG the students have been adding since the Chassis lecture. -->
+<article class="slide" data-seq="lac">
   <h1 class="small">Complex promoters</h1>
-  <p class="step"><span class="arrow">&rarr;</span><span>The same two boxes &mdash; plus other proteins&rsquo; binding sites arranged around them.</span></p>
-  <p class="lead" data-build="1"
-     data-note="The lac promoter has the same architecture as J23101 underneath: a minus thirty-five, a spacer, a minus ten. What makes it complex is what has been built around it. There is an operator overlapping the transcription start where LacI sits, a second operator upstream and a third downstream, and a CAP site just before the minus thirty-five. On its own the lac promoter is quite weak, because its boxes are poor matches to consensus, and that is deliberate — a promoter that is strong on its own cannot be regulated very much, because there is nowhere to go up."
-     data-desc="The lac promoter has the same minus 35 and minus 10 architecture with operators for LacI and a CAP site arranged around it, and its boxes are poor matches to consensus so that it has room to be regulated upward."
-     >The <i>lac</i> promoter is J23101&rsquo;s architecture with operators built around it &mdash; and its boxes are <b>deliberately poor</b>, because a promoter that is already strong has nowhere to go up.</p>
-  <p class="punch" data-build="2"
-     data-note="Which gives you the general rule for reading any promoter you have not seen. Find the two boxes, because they are always there and they set the ceiling. Then look at what is arranged around them, because that is what decides where between zero and the ceiling you actually sit. Those are two separable questions and people routinely merge them into one number called strength, which is why an inducible promoter's strength is a meaningless quantity unless you say in which state."
-     data-desc="The general rule: the two boxes set the ceiling and the surrounding sites decide where between zero and that ceiling the promoter sits, which are two separable questions."
-     >So read any promoter twice: <b>the boxes set the ceiling</b>, and <b>the sites around them decide where you sit under it</b>.</p>
   <template class="notes">This is the lac promoter at base level. The minus 35 and minus 10 bind sigma factor, and the operators and the CAP site around them are what make its behaviour conditional.</template>
-  <template class="desc">Complex promoters as the same core architecture with regulatory sites arranged around it, and the rule that the boxes set the ceiling while the surrounding sites set the operating point.</template>
+  <template class="desc">The lac promoter with its poor boxes, its two operators and its CAP site, animated through LacI looping the DNA, IPTG releasing it, and CAP recruiting polymerase.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 36 -->
@@ -159,5 +157,6 @@
 <script src="seq/kit.js" defer></script>
 <script src="seq/04-incompat.js" defer></script>
 <script src="seq/04-promoter.js" defer></script>
+<script src="seq/04-lac.js" defer></script>
 </body>
 </html>

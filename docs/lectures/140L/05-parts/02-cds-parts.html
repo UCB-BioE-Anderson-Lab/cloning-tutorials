@@ -25,17 +25,17 @@
 .slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
 .slide .qhead h1{margin:0}
-.slide p.lead{font-size:28px;color:var(--muted);margin:26px 0 0}
-.slide p.punch{font-size:29px;margin:40px 0 0;max-width:1260px}
+.slide p.lead{font-size:30px;color:var(--muted);margin:32px 0 0}
+.slide p.punch{font-size:31px;margin:48px 0 0;max-width:1300px}
 .slide p.punch b{color:var(--vermillion)}
 /* Two facing lists where the contrast between them is the content.  Not
    .cols, which is an even two-up: here the left column is the one being
    argued against and is set back. */
 .slide .versus{display:grid;grid-template-columns:1fr 1fr;gap:20px 56px;
   margin-top:26px}
-.slide .versus h2{font-size:28px;margin:0 0 12px}
+.slide .versus h2{font-size:30px;margin:0 0 16px}
 .slide .versus ul{margin:0;padding-left:1.05em}
-.slide .versus li{font-size:25px;margin-bottom:9px}
+.slide .versus li{font-size:28px;margin-bottom:14px}
 .slide .versus .lo h2{color:var(--muted)}
 .slide .versus .hi h2{color:var(--blue)}
 </style>
@@ -86,19 +86,16 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 17 -->
-<article class="slide">
-  <h1 class="small">Fluorescent proteins &mdash; the protein <i>is</i> the signal</h1>
-  <p class="step"><span class="arrow">&rarr;</span><span>GFP, BFP, YFP, RFP, and luciferase, which makes its own light rather than needing any shone at it.</span></p>
-  <p class="lead" data-build="1"
-     data-note="This family you know. The colours are variants of the same fold with different chemistry in the middle of the barrel, and the reason there are so many is that you often want to read two things in one cell. Luciferase is the odd one: it is an enzyme, so it belongs in the other family, but it produces light rather than colour and you read it with no excitation source at all, which makes the background essentially zero. The cost is that it needs a substrate and fluorescent proteins do not. No amplification in either case — one molecule of GFP gives you one molecule's worth of signal, forever."
-     data-desc="A note that the fluorescent colours are variants of one fold, useful for reading two things at once, and that luciferase is an enzyme that produces light with near-zero background but requires a substrate."
-     >One molecule of GFP gives one molecule&rsquo;s worth of signal. There is no turnover, so the number you read is the number of molecules &mdash; which is exactly what makes it good for quantification and bad for detecting something rare.</p>
-  <p class="punch" data-build="2"
-     data-note="And this is the one you are using. BestP measures amilGFP fluorescence, and every number you write down this week is a fluorescent protein reporting that a promoter fired. Go back to the first slide of this section for what that number does and does not mean: it says the promoter fired. It does not say why. That is why you measure J23101 alongside your clones and quote the ratio rather than the raw fluorescence."
-     data-desc="The connection to the current lab: BestP measures amilGFP fluorescence, which reports that a promoter fired, and is quoted as a ratio to J23101 rather than as raw fluorescence."
-     ><b>This is BestP.</b> Every number you record this week is a fluorescent protein saying a promoter fired &mdash; which is why you quote it against J23101 and not on its own.</p>
-  <template class="notes">In the case of fluorescent proteins, the protein itself is the assayable species and no substrate is required. The colour variants exist largely so that more than one thing can be read in one cell.</template>
-  <template class="desc">The fluorescent protein reporters, the point that they do not amplify, and the connection to the amilGFP measurement in BestP.</template>
+<!-- ---------------------------------------------------------------- 17 -->
+<!-- This was prose about the colour set, on a slide whose actual content
+     is what follows from "the protein IS the signal" -- which is
+     amplification, and which is drawable.  The colours are not: the
+     house palette has no green, and a GFP drawn in amber teaches
+     nothing true, so the set is named in the figure instead. -->
+<article class="slide" data-seq="amplify">
+  <h1 class="small">Why it matters which kind you pick</h1>
+  <template class="notes">The two families of reporter differ in whether the signal amplifies, and that decides whether the number can be compared.</template>
+  <template class="desc">Fluorescent protein and enzyme reporters side by side, showing that the enzyme's output grows with molecule count and with time while the fluorescent protein's depends only on molecule count.</template>
 </article>
 
 <!-- ------------------------------------------------------------ 18-20 -->
@@ -188,5 +185,6 @@
 <script src="seq/02-lacz.js" defer></script>
 <script src="seq/02-markers.js" defer></script>
 <script src="seq/02-arac.js" defer></script>
+<script src="seq/02-amplify.js" defer></script>
 </body>
 </html>

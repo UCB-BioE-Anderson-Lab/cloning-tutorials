@@ -25,16 +25,16 @@
 .slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
 .slide .qhead h1{margin:0}
-.slide p.lead{font-size:28px;color:var(--muted);margin:26px 0 0}
-.slide p.punch{font-size:29px;margin:38px 0 0;max-width:1270px}
+.slide p.lead{font-size:30px;color:var(--muted);margin:32px 0 0}
+.slide p.punch{font-size:31px;margin:48px 0 0;max-width:1300px}
 .slide p.punch b{color:var(--vermillion)}
-.slide ul.tighter li{margin-bottom:10px}
+.slide ul.tighter li{font-size:27px;margin-bottom:18px}
 .slide dl.kinds{margin:22px 0 0;display:grid;
-  grid-template-columns:auto minmax(0,1fr);column-gap:34px;row-gap:20px;
+  grid-template-columns:auto minmax(0,1fr);column-gap:34px;row-gap:32px;
   align-items:baseline}
-.slide dl.kinds dt{font-size:26px;font-weight:700;color:var(--blue);
+.slide dl.kinds dt{font-size:30px;font-weight:700;color:var(--blue);
   white-space:nowrap}
-.slide dl.kinds dd{margin:0;font-size:25px}
+.slide dl.kinds dd{margin:0;font-size:28px}
 .slide dl.kinds dd em{color:var(--muted);font-style:normal}
 /* the combinatorial arithmetic, set so the two numbers are the slide */
 .slide .sums{display:grid;grid-template-columns:1fr 1fr;gap:40px;
@@ -45,6 +45,10 @@
 .slide .sums .bad b.n{color:var(--vermillion)}
 .slide .sums p{font-size:24px;margin:8px 0 0;color:var(--muted)}
 .slide .sums h2{font-size:26px;margin:0 0 10px}
+/* The closing slide is the last thing on the screen and was running
+   35 per cent empty.  Its own scale, since nothing else uses .close. */
+.slide.close ul.tighter li{font-size:29px;margin-bottom:26px}
+.slide.close p.punch{font-size:32px;margin:56px 0 0}
 </style>
 </head>
 <body>
@@ -107,19 +111,16 @@
      diagrams.  The architecture and the assembly are DNA Fabrication
      section 8, worked at length, so this is what that deck could not
      say: what the architecture is FOR. -->
-<article class="slide">
+<!-- ------------------------------------------------------------- 47, 49 -->
+<!-- Source slides 47 and 49 are unlabelled grids of 0 1 2 3 against
+     0 1 2 3.  What they are reaching for is the slot, and it was prose
+     here -- the wrong medium for an argument whose entire content is
+     that two ends match.  The junctions are drawn as shapes that fit
+     one way, which is what a defined overhang is. -->
+<article class="slide" data-seq="tpcon">
   <h1 class="small">TPcon &mdash; an architecture built for swapping</h1>
-  <p class="step"><span class="arrow">&rarr;</span><span>Terminator, promoter, coding sequence, in fixed positions with fixed junctions. <em>You have built these: DNA&nbsp;Fabrication&nbsp;&sect;8.</em></span></p>
-  <p class="lead" data-build="1"
-     data-note="You know how to assemble these, so I am not going through the architecture again. What I want is what it is for, which that lecture had no reason to say. The positions are fixed and the junctions between them are fixed, and that is what makes a slot a slot: any promoter in the collection drops into the promoter position, because every promoter in the collection was built with the same ends. Change the promoter, hold the terminator and the coding sequence, and every construct in the set differs in exactly one place by construction rather than by care."
-     data-desc="What the TPcon architecture is for: fixed positions and fixed junctions mean any member of the promoter collection drops into the promoter slot, so a set differs in one place by construction."
-     >Fixed positions, fixed junctions. That is what makes a slot a <b>slot</b> &mdash; the set differs in one place by <b>construction</b>, not by care.</p>
-  <p class="punch" data-build="2"
-     data-note="And notice that this is the Format question from the first section coming back with a purpose. A Format is a promise about the ends, and the reason to care about that promise is right here: it is what lets a collection behave as a family. Without a shared Format you can still have twelve characterised promoters, but putting each of them into your construct is twelve separate cloning problems, and by the time you have done that nobody builds the library. The Format is not bookkeeping. It is the thing that makes combinatorial design affordable."
-     data-desc="The connection back to Formats: a shared promise about the ends is what lets a characterised collection behave as a family, because without it each member is a separate cloning problem."
-     >This is the <b>Format</b> question from &sect;0, with a purpose attached: without a shared promise about the ends, twelve characterised promoters are twelve cloning problems, and nobody builds the library.</p>
   <template class="notes">The TPcon parts are organised so that a promoter, a terminator and a coding sequence each occupy a defined position with defined junctions, so that members of a collection are interchangeable within a position.</template>
-  <template class="desc">The TPcon architecture as the mechanism that makes a slot swappable, and the connection back to assembly Formats as what makes combinatorial design affordable.</template>
+  <template class="desc">The three fixed positions with interlocking junctions, a collection of promoters sharing the same two ends, one dropping into the slot, and the alternative where mismatched ends make each part its own cloning problem.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 48 -->
@@ -205,7 +206,7 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 54 -->
-<article class="slide">
+<article class="slide close">
   <h1 class="small">Where that leaves us</h1>
   <ul class="tighter">
     <li data-build="1"><b>A part is a decision, not a sequence.</b> A feature is what a stretch of DNA does; a part is a feature somebody committed to reusing.</li>
@@ -228,5 +229,6 @@
 <script src="seq/05-bins.js" defer></script>
 <script src="seq/05-duds.js" defer></script>
 <script src="seq/05-carnosine.js" defer></script>
+<script src="seq/05-tpcon.js" defer></script>
 </body>
 </html>

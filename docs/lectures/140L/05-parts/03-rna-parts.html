@@ -25,19 +25,24 @@
 .slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
 .slide .qhead img{width:62px;height:89px;flex:0 0 auto}
 .slide .qhead h1{margin:0}
-.slide p.lead{font-size:28px;color:var(--muted);margin:26px 0 0}
-.slide p.punch{font-size:29px;margin:38px 0 0;max-width:1270px}
+.slide p.lead{font-size:30px;color:var(--muted);margin:32px 0 0}
+.slide p.punch{font-size:31px;margin:48px 0 0;max-width:1300px}
 .slide p.punch b{color:var(--vermillion)}
 /* The 16S pairing, set as two aligned strands.  pre.dna is the deck's
    shared sequence block; the pairing bars go in their own line between
    them, so the whole thing has to be one pre to stay in column. */
 .slide pre.pair{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:30px;line-height:1.5;letter-spacing:.04em;margin:30px 0 0;
+  font-size:34px;line-height:1.5;letter-spacing:.04em;margin:44px 0 0;
   white-space:pre}
 .slide pre.pair .sd{color:var(--vermillion);font-weight:700}
 .slide pre.pair .anti{color:var(--blue);font-weight:700}
-.slide pre.pair .lbl{color:var(--muted);font-size:23px}
-.slide ul.tighter li{margin-bottom:10px}
+/* THE LABELS MUST NOT CARRY A FONT SIZE.  At 23px inside a 30px pre the
+   row prefixes occupied less width than the ten monospace cells they
+   spell, so the three lines stopped sharing a grid and the pairing bars
+   printed under GAGGAA instead of under AGGAGG -- a base-pairing figure
+   showing the wrong bases paired.  Colour only. */
+.slide pre.pair .lbl{color:var(--muted)}
+.slide ul.tighter li{font-size:27px;margin-bottom:18px}
 </style>
 </head>
 <body>
@@ -72,8 +77,8 @@
      data-note="It is base pairing, and that is all it is. The three-prime end of the 16S ribosomal RNA, which is part of the small subunit, ends in a sequence that is complementary to the Shine-Dalgarno. The messenger pairs with it, and that pairing is what positions the start codon in the right place. B0034, the site you have been using, carries AGGAGG right in the middle of it. Notice what this explains about the last slide: the ribosome is competing for that stretch of messenger against the messenger's own folding, and whichever gets there first wins."
      data-desc="The pairing drawn out: the messenger's AGGAGG Shine-Dalgarno sequence base-paired with the complementary CCUCC at the three-prime end of the 16S ribosomal RNA, positioning the start codon downstream."
 ><span class="lbl">mRNA   5&prime;-</span>AAAG<span class="sd">AGGAGG</span>AAAACAT<span class="lbl">AUG ...  3&prime;</span>
-<span class="lbl">            </span>||||||
-<span class="lbl">16S    3&prime;-</span>AUUC<span class="anti">CUCCAC</span>UAG<span class="lbl">             5&prime;</span></pre>
+              ||||||
+<span class="lbl">16S    3&prime;-</span>AUUC<span class="anti">CUCCAC</span>UAG<span class="lbl">        5&prime;</span></pre>
   <p class="punch" data-build="2"
      data-note="So a ribosome binding site is a competition, not a signal. There is no receptor here and nothing is being recognised in the way a transcription factor recognises an operator. There is a stretch of messenger that can pair with the ribosome and can also pair with itself, and the strength of the site is really the outcome of that competition. Which is why it is context dependent, and why it was never going to be otherwise."
      data-desc="The consequence: the ribosome binding site is a competition between pairing with the ribosome and pairing with the rest of the messenger, which is why its strength is context dependent."
@@ -115,20 +120,17 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 32 -->
-<article class="slide">
+<!-- ---------------------------------------------------------------- 32 -->
+<!-- Source slide 32 is four bullets asserting that a terminator is a
+     hairpin, in the one section whose thesis is that folding is the
+     mechanism.  It draws nothing.  Now it draws the hairpin, and both
+     halves of an intrinsic terminator -- the GC stem that stalls the
+     polymerase and the U run that cannot hold on -- which is the thing
+     a bulleted list structurally cannot show. -->
+<article class="slide" data-seq="term">
   <h1 class="small">Terminators</h1>
-  <p class="step"><span class="arrow">&rarr;</span><span>A hairpin in the transcript that makes the polymerase let go. The DNA is where you put it; the RNA is what does it.</span></p>
-  <ul class="tighter" data-build="1">
-    <li><b>Intrinsic</b> &mdash; a GC-rich stem followed by a run of U&rsquo;s. Nothing else needed.</li>
-    <li><b>Rho-dependent</b> &mdash; a protein catches up with the polymerase and pulls it off.</li>
-    <li><b>Efficiency varies</b> &mdash; a terminator is not a full stop, it is a probability. Read-through past a weak one is the commonest reason a downstream gene is on when you did not ask for it.</li>
-  </ul>
-  <p class="punch" data-build="2"
-     data-note="And the same problem as the ribosome binding site, for the same reason. A terminator works by folding, and folding depends on what is around it, so the efficiency you looked up was measured in some other context. This is why the answer in the sorting exercise was RNA and not DNA, and it is why terminators in a well-designed collection are always characterised in the position they will be used in. It is the same lesson twice in one section, which is the point: everything on this level has it."
-     data-desc="The closing point: terminators fold, so like ribosome binding sites their efficiency is context dependent, which is why they belong on the RNA level and why they are characterised in position."
-     >Which is the <b>same</b> problem: it works by folding, so its efficiency is context dependent too. Every part on this level has this.</p>
-  <template class="notes">Terminators terminate transcription. Different ones have different efficiencies, there are distinct mechanisms such as Rho-dependence and Rho-independence, and like ribosome binding sites they probably have a secondary-structure context dependence.</template>
-  <template class="desc">The two termination mechanisms, the point that efficiency is a probability rather than a full stop, and the closing note that terminators are context dependent for the same folding reason as ribosome binding sites.</template>
+  <template class="notes">Terminators terminate transcription. Different ones have different efficiencies, there are distinct mechanisms such as Rho-dependence and Rho-independence, and like ribosome binding sites they have a secondary-structure context dependence.</template>
+  <template class="desc">An intrinsic terminator forming in the emerging transcript: the GC-rich stem stalling the polymerase, the run of uracils holding it to the template by the weakest pairing available, and the release that follows.</template>
 </article>
 
 <!-- ------------------------------------------------------------ 29-31 -->
@@ -158,5 +160,6 @@
 <script src="seq/kit.js" defer></script>
 <script src="seq/03-rbsfail.js" defer></script>
 <script src="seq/03-kudla.js" defer></script>
+<script src="seq/03-term.js" defer></script>
 </body>
 </html>
