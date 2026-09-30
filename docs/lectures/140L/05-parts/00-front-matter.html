@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Introduction &ndash; Parts</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.  deck.css is shared by every lecture in the course and
+ * is not touched from here.
+ *
+ * The question head is the same figure and the same measurements as the
+ * DNA Fabrication and Chassis decks use, because a student reading more
+ * than one of them should meet the same mark for "stop and think".
+ * --------------------------------------------------------------------- */
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead h1{margin:0}
+.slide p.lead{font-size:28px;color:var(--muted);margin:22px 0 0}
+/* A definition: the term, then what it means, set so the two halves are
+   visibly not the same kind of statement.  One is about the DNA and one
+   is about a decision somebody made, and that is the whole slide. */
+.slide dl.def{margin:34px 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);
+  column-gap:34px;row-gap:40px;align-items:baseline}
+.slide dl.def dt{font-size:40px;font-weight:700;color:var(--blue);
+  white-space:nowrap}
+.slide dl.def dd{margin:0;font-size:30px;max-width:1120px}
+.slide dl.def dt.p{color:var(--vermillion)}
+/* The gloss is a BLOCK, not a trailing clause.  Run on, both
+   definitions wrapped with one orphaned word on the second line, and
+   the contrast the slide is built on -- a property of the sequence
+   against a decision somebody made -- was buried mid-sentence.  On its
+   own line under each, the two glosses sit directly above one another
+   and the contrast is the thing you see first. */
+.slide dl.def dd em{display:block;margin-top:6px;color:var(--muted);
+  font-style:normal;font-size:27px}
+.slide ul.kinds{margin:14px 0 0;padding:0;list-style:none;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px 30px}
+.slide ul.kinds li{font-size:28px;font-weight:700;color:var(--blue);
+  border-bottom:2px solid #dfe4ea;padding-bottom:9px}
+.slide p.kindlead{font-size:28px;color:var(--muted);margin:46px 0 0}
+/* The punchline of the Formats slide is not a lead-in, and p.lead is
+   muted -- it came out as the faintest thing on the slide. */
+.slide p.punch{font-size:29px;margin:48px 0 0;max-width:1240px}
+.slide p.punch b{color:var(--vermillion)}
+</style>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- 1 -->
+<article class="slide" data-bg="lecture">
+  <h1>Parts</h1>
+  <template class="notes">Last lecture was about the cell you put DNA into. This one is about the DNA. Specifically, it is about the idea that you can take a stretch of sequence that does something, give it a name and a number, put it in a tube, and then build with it the way you would build with a component rather than rederiving it every time. That idea is what synthetic biology added to molecular biology, and it is not obviously true — most of this lecture is about the ways it is only partly true, because those are the ways that will cost you an experiment. We will sort parts by what molecule actually does the work, go through the three kinds in turn, and finish on what happens when you stop treating a part as one thing and start treating it as one member of a family, which is what you are doing in lab this week whether or not anyone has said so.</template>
+  <template class="desc">Lecture title slide: Parts.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 2 -->
+<!-- Source slide 3 is titled "Parts vs Features" and is a wall of raw
+     sequence with no annotation and no statement of the distinction.  The
+     sequence is a good object and the slide does nothing with it, so it
+     becomes the question the lecture opens on instead.  Question first is
+     the rule for this deck: the Chassis deck put every question at the end
+     of its section and that is most of why it flatlined. -->
+<article class="slide" data-seq="howmany">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="">
+    <h1 class="small">How many parts is this?</h1>
+  </div>
+  <template class="notes">The opening question. Eighty-five bases of real sequence, and three defensible answers.</template>
+  <template class="desc">A stretch of DNA sequence with the question of how many parts it contains.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 3 -->
+<!-- Source slides 4, 5 and 6 fold together here.  Slide 5 defines a
+     Feature, slide 4 defines a Standard Biological Part, and slide 6 lists
+     the kinds.  The two definitions belong on one slide because the whole
+     point is the contrast between them, and the list belongs under them
+     because it is a list of features -- which is the thing the previous
+     slide just showed them counting. -->
+<article class="slide">
+  <h1 class="small">Two words that are not synonyms</h1>
+  <dl class="def">
+    <dt>feature</dt>
+    <dd data-build="1"
+        data-note="So here are the two words, and they get used interchangeably all the time, including by me. A feature is a defined stretch of DNA that encodes a primitive element of biological function. A coding sequence. A promoter. An origin of replication. That is a property of the sequence: this stretch is a promoter whether anybody ever uses it or not, whether it is in a registry or sitting in a soil bacterium nobody has cultured. Features are found."
+        data-desc="The first definition: a feature is a defined stretch of DNA encoding a primitive element of biological function, such as a coding sequence, a promoter or an origin of replication. Features are a property of the sequence."
+        >a defined stretch of DNA encoding a primitive element of biological function<em>a property of the sequence &mdash; it is a promoter whether anyone ever uses it or not</em></dd>
+    <dt class="p" data-build="2">part</dt>
+    <dd data-build="2"
+        data-note="A part is a feature somebody committed to reusing. It has a name, it has a number, and it has a physical tube, and it exists because a person decided it was worth keeping. Parts are made, in the sense that the decision is the thing that makes them. That is why the previous slide had no answer: nothing in the sequence tells you what anyone committed to. And it is why the same sequence can be a part in one lab and not in another, with no disagreement about the biology at all."
+        data-desc="The second definition: a part is a feature someone has committed to reusing, with a name, a number and a physical tube. Parts are a decision, not a property of the sequence."
+        >a feature somebody committed to reusing &mdash; a name, a number, a tube in a box<em>a decision somebody made &mdash; and nothing in the sequence records it</em></dd>
+  </dl>
+  <p class="kindlead" data-build="3"
+     data-note="And these are the kinds of feature this lecture covers. Eight of them, and they are deliberately in no useful order at the moment, because the next section is about the order. I want to make one promise about that. The order is not a taxonomy I am asking you to memorise. It is a question you can ask about any part you have never seen before, in about five seconds, and it will tell you most of what you need to know about how it will behave."
+     data-desc="A list of the eight kinds of feature the lecture covers, presented in no particular order: coding sequences, promoters, RNAs, ribosome binding sites, terminators, origins of replication, recombination sites and terminal repeats."
+     >and these are the kinds &mdash; in no useful order, yet:</p>
+  <ul class="kinds" data-build="3">
+    <li>coding sequences</li>
+    <li>promoters</li>
+    <li>RNAs</li>
+    <li>ribosome binding sites</li>
+    <li>terminators</li>
+    <li>origins of replication</li>
+    <li>recombination sites</li>
+    <li>terminal repeats</li>
+  </ul>
+  <template class="notes">A founding idea of synthetic biology is the objectification of specific DNA sequences as functional primitives that are useful in design. We call these parts, and there are different kinds.</template>
+  <template class="desc">The two definitions, feature and part, set against each other, with the eight kinds of feature the lecture covers listed underneath.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 4 -->
+<article class="slide" data-seq="ladder">
+  <h1 class="small">The same thing written four ways</h1>
+  <template class="notes">Source slide 2. Four levels of abstraction over one gene, each level adding what the one above it could not do.</template>
+  <template class="desc">The protein, coding sequence, transcript and part levels of one gene, drawn as four rungs with each adding sequence to the front of the one above.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 5 -->
+<!-- Source slides 4 (second half) and the Formats list.  This is ONE slide
+     rather than the source's spread, because BioBrick prefix and suffix,
+     BglBricks, Golden Gate and MoClo are four sections of the DNA
+     Fabrication deck -- 04-biobrick-assembly, 06-golden-gate-assembly and
+     08-tpcon6-and-moclo.  Re-teaching them here would be the same material
+     twice in one course.  What this deck needs from Formats is one
+     sentence: it is a promise about the ends. -->
+<article class="slide">
+  <h1 class="small">A Format is a promise about the ends</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>A <b>standard biological part</b> is a part whose ends follow a published rule, so that any two parts in the collection can be joined by the same reaction.</span></p>
+  <p class="lead" data-build="1"
+     data-note="You already know these, and you have done three of them with your own hands. BioBrick parts carry the prefix and suffix from the BioBrick Foundation's standard, and you assembled with them in the fabrication lecture. BglBricks are the same idea with different enzymes. Golden Gate parts are defined by their overhangs rather than by a prefix, and MoClo and TPcon6 are Golden Gate schemes with a position convention on top. I am not going through any of them again. The reason they are on this slide at all is the sentence above: each one is a different answer to the same question, which is where a part stops."
+     data-desc="A list of the Formats the students have already used, each named with the deck section that covers it: BioBrick, BglBricks, Golden Gate, and MoClo with TPcon6."
+     >and you have already built with these:</p>
+  <ul class="tight" data-build="1">
+    <li><b>BioBrick</b> &mdash; a fixed prefix and suffix &middot; <em>DNA&nbsp;Fabrication &sect;4</em></li>
+    <li><b>BglBricks</b> &mdash; the same idea, different enzymes</li>
+    <li><b>Golden Gate</b> &mdash; defined overhangs rather than a prefix &middot; <em>&sect;6</em></li>
+    <li><b>MoClo and TPcon6</b> &mdash; Golden Gate, plus a rule about position &middot; <em>&sect;8</em></li>
+  </ul>
+  <p class="punch" data-build="2"
+     data-note="And here is the thing worth carrying out of it, which is the loose end from the previous slide. The Formats do not agree about where a part stops. A BioBrick coding-sequence part begins at the start codon, so the ribosome binding site is somebody else's part. A transcript part carries its own site. Neither is wrong. But it means that when someone hands you a part, the boundary is a convention you have to look up, and it is the commonest reason two collections will not compose even though both are standard."
+     data-desc="The closing point: the Formats disagree about where a part stops, so the boundary of a part is a convention that must be looked up rather than inferred."
+     ><b>They do not agree about where a part stops</b> &mdash; and that, not the enzymes, is the commonest reason two standard collections will not compose.</p>
+  <template class="notes">Standard biological parts are parts that conform to a particular composition standard, or Format, defined to guarantee their ability to be physically joined into a contiguous DNA molecule. BioBrick parts conform to the standards put forth by the BioBrick Foundation, though the term is often used loosely for parts obeying any assembly protocol. There are now many such Formats.</template>
+  <template class="desc">The definition of a standard biological part as one whose ends follow a published rule, the list of Formats the course has already used, and the closing point that they disagree about where a part stops.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/kit.js" defer></script>
+<script src="seq/00-howmany.js" defer></script>
+<script src="seq/00-ladder.js" defer></script>
+</body>
+</html>

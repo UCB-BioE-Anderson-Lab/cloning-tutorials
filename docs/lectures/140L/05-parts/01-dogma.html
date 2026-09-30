@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>The Central Dogma &ndash; Parts</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead h1{margin:0}
+</style>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- 6 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">The Central Dogma</h1>
+  <p>Which of three molecules actually does the work</p>
+  <template class="notes">This is the shortest section in the lecture and it is the one the other four hang off. The Chassis deck closed its opening exercise by promising that we would organise everything from here on three levels, and that a part is a thing that lives on one of them. This is where that gets cashed.</template>
+  <template class="desc">Section divider: the Central Dogma.</template>
+</article>
+
+<!-- --------------------------------------------------------- 7 to 14 -->
+<!-- Eight source slides, one animated slide.  Slide 7 puts up the four
+     molecules and slides 8 through 14 each add one kind of interaction
+     with a paragraph of narration; nothing else on any of them changes.
+     Collapsing them is what pays for this being its own section rather
+     than a preamble, and the figure is better for being cumulative in
+     front of the room instead of eight near-identical images. -->
+<article class="slide" data-seq="dogma">
+  <h1 class="small">Everything a cell does, on one picture</h1>
+  <template class="notes">We can simplify the complex behaviour of the cell in terms of the central dogma. There is the DNA, which can be transcribed into mRNA or into functional RNA molecules, and the mRNAs can be translated into protein. But there are many more permutations of interaction between these components than the two arrows of the dogma, and going through them is how we get to a useful definition of what kind of thing a part is.</template>
+  <template class="desc">DNA, RNA, protein and metabolites at the four corners of a rectangle, with each of the six possible pairwise interactions plus protein acting on itself added one at a time.</template>
+</article>
+
+<!-- --------------------------------------------------------------- 14b -->
+<!-- Not in the source.  Source slide 14's speaker notes end by stating the
+     three-way split in a sentence and then slide 15 simply begins using
+     it.  A classification stated once and immediately used is a
+     classification nobody has applied, and two of the five rows here are
+     ones almost everybody puts in the wrong column -- lacI because its job
+     is at the DNA level, and the terminator because you order it as DNA.
+     Those two are the section, so they get a slide. -->
+<article class="slide" data-seq="level">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="">
+    <h1 class="small">Which level does each of these act on?</h1>
+  </div>
+  <template class="notes">Sorting five parts by which molecule does the work. Two of the five are the ones that make the rule worth stating.</template>
+  <template class="desc">A grid with five parts down the left and three columns headed DNA, RNA and protein, filled in one row at a time.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/kit.js" defer></script>
+<script src="seq/01-dogma.js" defer></script>
+<script src="seq/01-level.js" defer></script>
+</body>
+</html>
