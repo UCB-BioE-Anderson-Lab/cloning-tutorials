@@ -215,10 +215,22 @@
   <template class="desc">A second question: why did WM3064 not grow on LB, and what is needed? The genotype is printed below with the dapA deletion picked out. The answer arrives on a click.</template>
 </article>
 
+<!-- The genotypes-and-media exercise, placed immediately after the
+     WM3064 question so it lands on a strain and a genotype string they
+     have just read.  The trap is that they stopped reading it after
+     dapA: thrB1004, pro and thi are still broken, so the obvious fix
+     buys LB and buys nothing on minimal. -->
+<article class="slide" data-seq="dapa">
+  <h1 class="small">Now give it a <i>dapA</i> plasmid</h1>
+  <template class="notes">The group exercise for this section. Hand them the obvious fix and ask which of three plates grows. Most rooms say all three. The answer is that LB grows, LB plus DAP grows but proves nothing, and minimal does not grow at all — because the genotype they read a minute ago also says thrB1004, pro and thi, and minimal medium supplies none of them.</template>
+  <template class="desc">A group exercise: WM3064 is given a plasmid carrying dapA, and the room predicts growth on LB, LB plus DAP, and M9 with glucose. The rich plates grow and the minimal plate does not, because three other auxotrophies in the genotype are unaffected by the plasmid.</template>
+</article>
+
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/parts.js" defer></script>
 <script src="seq/token-art.js" defer></script>
 <script src="seq/03-tokens.js" defer></script>
+<script src="seq/03-dapa.js" defer></script>
 </body>
 </html>
