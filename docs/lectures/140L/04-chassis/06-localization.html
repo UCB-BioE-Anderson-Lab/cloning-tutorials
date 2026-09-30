@@ -170,6 +170,17 @@ VMSYGNSEEDSQEHTGSQLRIAAYGPHAANVVGLTDQTDLFYTMKAALGLK</pre>
   <template class="desc">Reasons to target the periplasm, in two groups. The protein decides: cytoplasmic toxicity, a need for the oxidising environment to form disulfides, and being en route to the outer membrane or the outside. You decide: an authentic N-terminus from defined peptidase cleavage, a cleaner starting material because osmotic shock releases the periplasm alone, and display technologies which have no cytoplasmic version. A note underneath gives the mechanism &#8212; a prepro signal borrowed from pelB, ompA or ompT, cleaved by LepB or LspA.</template>
 </article>
 
+<!-- The localization exercise.  Everything before this says where a
+     protein goes; this asks where it turns up when you go looking,
+     which is the question that reaches a bench.  The trap is the one
+     the whole section builds to: a Sec signal addresses one membrane,
+     and in a Gram negative that is the periplasm, not the medium. -->
+<article class="slide" data-seq="fractions">
+  <h1 class="small">Where does it actually show up?</h1>
+  <template class="notes">The group exercise. A pelB signal on your protein, the culture split into lysed cells, an osmotic shock fraction and spun supernatant — which lanes have it? Expect a confident vote for the medium. The answer is precursor in the cytoplasm running high, mature protein in the periplasm running low, and nothing in the medium, because a Sec signal addresses one membrane and there are two. And if you do see a medium band, suspect lysis and blot for a cytoplasmic marker.</template>
+  <template class="desc">A group exercise: a protein carrying a pelB signal peptide is expressed and the culture fractionated into cytoplasm, periplasm and medium. The cytoplasm holds unprocessed precursor running high, the periplasm holds mature cleaved protein, and the medium is empty — with the warning that a band there usually means lysis.</template>
+</article>
+
 <!-- ---------------------------------------------------------------- 59 -->
 <article class="slide">
   <h1 class="small">Outer membrane localization</h1>
@@ -289,6 +300,7 @@ document.addEventListener("click", function(e){
 <script src="seq/06-howhard.js" defer></script>
 <script src="seq/06-sec.js" defer></script>
 <script src="seq/06-tat.js" defer></script>
+<script src="seq/06-fractions.js" defer></script>
 <script src="seq/06-secrete.js" defer></script>
 </body>
 </html>
