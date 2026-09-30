@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>DNA-Based Parts &ndash; Parts</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead h1{margin:0}
+.slide p.lead{font-size:28px;color:var(--muted);margin:26px 0 0}
+.slide p.punch{font-size:29px;margin:38px 0 0;max-width:1270px}
+.slide p.punch b{color:var(--vermillion)}
+.slide ul.tighter li{margin-bottom:10px}
+/* Four kinds of promoter, sorted by what decides rather than by name.
+   A grid because the point is that the left-hand column is the
+   question and the names are only instances of it. */
+.slide dl.kinds{margin:22px 0 0;display:grid;
+  grid-template-columns:auto minmax(0,1fr);column-gap:34px;row-gap:22px;
+  align-items:baseline}
+.slide dl.kinds dt{font-size:27px;font-weight:700;color:var(--blue);
+  white-space:nowrap}
+.slide dl.kinds dd{margin:0;font-size:25px}
+.slide dl.kinds dd em{color:var(--muted);font-style:normal}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 33 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">DNA-Based Parts</h1>
+  <p>Parts that do their work as DNA, where they sit</p>
+  <template class="notes">Parts can also exert their function at the DNA level, by which I mean the molecule that does the work is the double-stranded DNA itself, in place, rather than anything transcribed from it. Nothing in this section has to be made into RNA or protein to do its job.</template>
+  <template class="desc">Section divider: DNA-based parts.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 39 -->
+<article class="slide" data-seq="incompat">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="">
+    <h1 class="small">Why will these numbers not repeat?</h1>
+  </div>
+  <template class="notes">If you have two of the same origin within a cell they compete for the same replication factors, and the copy number control cannot distinguish them.</template>
+  <template class="desc">A lineage of dividing cells sharing a fixed pot of plasmids, drifting until each lineage carries only one kind.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 38 -->
+<!-- Source slide 38's other two thirds.  The exercise before this covers
+     origins of replication completely, so this slide is the part of the
+     source's cis-element list it does not reach: that "origin" names a
+     family of things, and replication is only one of them. -->
+<article class="slide">
+  <h1 class="small">An origin is a <i>handle</i>, and there are three kinds</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>A sequence that makes a whole molecule the substrate of some machine, without encoding any of that machine.</span></p>
+  <dl class="kinds" data-build="1">
+    <dt>of replication</dt>
+    <dd>colE1 &middot; p15A &middot; F &middot; R6K &mdash; <em>this molecule gets copied, and at this copy number</em></dd>
+    <dt data-build="2">of transfer</dt>
+    <dd data-build="2">F &middot; RP4 &mdash; <em>this molecule gets pushed into another cell during mating</em></dd>
+    <dt data-build="3">of packaging</dt>
+    <dd data-build="3">&lambda; &middot; M13 &mdash; <em>this molecule gets stuffed into a phage particle</em></dd>
+  </dl>
+  <p class="punch" data-build="3"
+     data-note="Notice the shape all three share, because it is the thing worth taking from the slide. In every case a short sequence makes the entire molecule it sits on a substrate for some piece of machinery, and the sequence encodes none of that machinery. It is a handle. The machine has to be supplied separately — by the host, or by a helper plasmid, or by a phage — and if it is not there, the handle does nothing at all and you will never know it is broken. RP4 is the one you have already met: WM3064's genotype in the Chassis lecture carries RP4-1360, and that is what lets it conjugate a plasmid into something that cannot be transformed. R6K is the other one worth remembering, because it needs the pir gene to replicate at all, which makes it a conditional origin: a plasmid that lives in one strain and is a suicide vector everywhere else."
+     data-desc="The common shape: a short sequence makes the whole molecule a substrate for machinery it does not encode, so the machinery must be supplied separately. RP4 in WM3064 enables conjugation, and R6K requires pir, making it a conditional origin."
+     >All three are <b>handles</b>: the sequence makes the molecule a substrate, and encodes none of the machine. Supply the machine separately &mdash; or the handle silently does nothing.</p>
+  <template class="notes">There are other DNA elements I will collectively call cis elements. They cause the larger molecule they sit on to be acted upon in some way, without encoding the thing that acts.</template>
+  <template class="desc">The three kinds of origin, of replication, transfer and packaging, with examples, and the common structure that each is a handle requiring machinery supplied from elsewhere.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 34, 36 -->
+<article class="slide" data-seq="promoter">
+  <h1 class="small">What a promoter <i>is</i></h1>
+  <template class="notes">Promoters are defined by their propensity to initiate transcription. The minus 35 and minus 10 boxes bind sigma factor, and the spacing between them is as important as the sequences themselves.</template>
+  <template class="desc">The 35 bases of J23101 decomposed into its minus 35 box, 17-base spacer and minus 10 box, each compared to consensus, with sigma factor reading both and opening the DNA.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 35 -->
+<article class="slide">
+  <h1 class="small">Complex promoters</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>The same two boxes &mdash; plus other proteins&rsquo; binding sites arranged around them.</span></p>
+  <p class="lead" data-build="1"
+     data-note="The lac promoter has the same architecture as J23101 underneath: a minus thirty-five, a spacer, a minus ten. What makes it complex is what has been built around it. There is an operator overlapping the transcription start where LacI sits, a second operator upstream and a third downstream, and a CAP site just before the minus thirty-five. On its own the lac promoter is quite weak, because its boxes are poor matches to consensus, and that is deliberate — a promoter that is strong on its own cannot be regulated very much, because there is nowhere to go up."
+     data-desc="The lac promoter has the same minus 35 and minus 10 architecture with operators for LacI and a CAP site arranged around it, and its boxes are poor matches to consensus so that it has room to be regulated upward."
+     >The <i>lac</i> promoter is J23101&rsquo;s architecture with operators built around it &mdash; and its boxes are <b>deliberately poor</b>, because a promoter that is already strong has nowhere to go up.</p>
+  <p class="punch" data-build="2"
+     data-note="Which gives you the general rule for reading any promoter you have not seen. Find the two boxes, because they are always there and they set the ceiling. Then look at what is arranged around them, because that is what decides where between zero and the ceiling you actually sit. Those are two separable questions and people routinely merge them into one number called strength, which is why an inducible promoter's strength is a meaningless quantity unless you say in which state."
+     data-desc="The general rule: the two boxes set the ceiling and the surrounding sites decide where between zero and that ceiling the promoter sits, which are two separable questions."
+     >So read any promoter twice: <b>the boxes set the ceiling</b>, and <b>the sites around them decide where you sit under it</b>.</p>
+  <template class="notes">This is the lac promoter at base level. The minus 35 and minus 10 bind sigma factor, and the operators and the CAP site around them are what make its behaviour conditional.</template>
+  <template class="desc">Complex promoters as the same core architecture with regulatory sites arranged around it, and the rule that the boxes set the ceiling while the surrounding sites set the operating point.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 36 -->
+<!-- Source slide 36 is nineteen promoter names in four unlabelled
+     groups.  The groups are the content and the source does not name
+     what distinguishes them, so here they are sorted by what decides
+     whether the promoter fires -- which is a question you can ask of
+     any promoter you meet, including ones not on any list. -->
+<article class="slide">
+  <h1 class="small">Four kinds, sorted by <i>what decides</i></h1>
+  <dl class="kinds">
+    <dt>nothing decides</dt>
+    <dd><b>constitutive</b> &mdash; the Anderson library, J23101 and its siblings. <em>Always on, at a level you pick when you pick the part.</em></dd>
+    <dt data-build="1">a small molecule</dt>
+    <dd data-build="1"><b>P<i>bad</i></b> arabinose &middot; <b>P<i>lac</i></b>, P<i>tac</i> IPTG &middot; <b>P<i>sal</i></b> salicylate &middot; P<i>tet</i>. <em>You decide, by what you put in the medium.</em></dd>
+    <dt data-build="2">a polymerase you supply</dt>
+    <dd data-build="2"><b>T7</b> &middot; SP6 &mdash; invisible to the host&rsquo;s own polymerase. <em>Off unless you have also delivered the enzyme that reads it.</em></dd>
+    <dt data-build="3">the cell&rsquo;s own state</dt>
+    <dd data-build="3"><i>fhuA</i> iron &middot; <i>hdeA</i> oxygen &middot; <i>katG</i> stationary phase. <em>The cell decides, and it will not consult you.</em></dd>
+  </dl>
+  <p class="punch" data-build="4"
+     data-note="Read down the left column and it is a ladder of who is in control, from nobody to you to the cell. The last row is the one that catches people out, because those promoters do respond to something and it is something you cannot set. If your construct is on an iron-responsive promoter, it is reporting on your medium batch. And the T7 row is the one worth understanding properly, because it is the trick behind every pET vector you will ever use: the promoter is invisible to E. coli's own polymerase, so a plasmid carrying it is genuinely silent until you put the T7 polymerase gene in the same cell and switch that on. Two levels of control stacked, and the reason you can carry a toxic gene on a pET plasmid at all."
+     data-desc="The four kinds read as a ladder of control, from nobody to the experimenter to the cell, with a note that environmental promoters report on the medium and that T7's invisibility to the host polymerase is what makes pET vectors able to carry toxic genes."
+     >A ladder of <b>who is in control</b> &mdash; nobody, you, the cell. And T7&rsquo;s invisibility to <i>E.&nbsp;coli</i>&rsquo;s own polymerase is the whole reason a pET plasmid can carry a gene that would kill its host.</p>
+  <template class="notes">One category of DNA parts is promoters. They can be sorted into constitutive, inducible, dependent on a transcription factor or a polymerase you supply, and conditional on the environment.</template>
+  <template class="desc">Four kinds of promoter sorted by what decides whether they fire: nothing, a small molecule, a supplied polymerase, or the cell's own state.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 40, 41 -->
+<!-- Source slides 40 and 41 are recombination sites and terminal
+     repeats.  Both are worked sections of the Genome Editing deck --
+     att integrases in section 1, transposons in section 4 -- so this is
+     one callback that places them on the level, not a re-teach. -->
+<article class="slide">
+  <h1 class="small">Sites that an enzyme reacts <i>on</i></h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>Same shape as an origin: a short sequence that makes the molecule a substrate, encoding none of the enzyme.</span></p>
+  <ul class="tighter" data-build="1">
+    <li><b>Recombination sites</b> &mdash; <i>att</i>B and <i>att</i>P for an integrase, FRT for Flp, <i>hix</i> for Hin. Two sites and the enzyme, and what lies between them is excised, inverted or integrated. <em>Genome Editing &sect;1.</em></li>
+    <li><b>Terminal repeats</b> &mdash; the Tn5 mosaic end, <code>CTGTCTCTTATACACATCT</code>. A transposase binds one at each end, and the pair plus the enzyme is a transposome that inserts more or less anywhere it is put. <em>Genome Editing &sect;4.</em></li>
+  </ul>
+  <p class="punch" data-build="2"
+     data-note="You have done both of these, so I am placing them rather than teaching them. What I want you to notice is that this slide and the origins slide are the same slide. A recombination site, a terminal repeat, an origin of replication, an origin of transfer — all of them are short sequences that make the molecule they sit on into a substrate, and none of them encodes the machinery that acts. Which is the defining property of the DNA level, and it is why everything in this section looks alike: the part is a place, the work is done by something else, and if that something else is absent the part is completely silent. There is no assay for a broken handle."
+     data-desc="The closing point: origins, recombination sites and terminal repeats share one structure, a sequence that makes its molecule a substrate without encoding the machinery, which is the defining property of DNA-level parts and means a handle with no machine is silent."
+     >Every part in this section is the same object: <b>a place, not a machine</b>. Which means a handle with nothing to grab it is silent &mdash; and there is no assay for that.</p>
+  <template class="notes">Other DNA sequences are the site of reaction of a DNA-modifying enzyme. Recombination sites are acted on by integrases and recombinases; terminal repeats are the sequences a transposase binds, and the reaction produces a transposome that inserts largely at random.</template>
+  <template class="desc">Recombination sites and terminal repeats as further examples of the same structure as an origin, pointing back to the Genome Editing sections that cover each, and the closing point that every DNA-level part is a place rather than a machine.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/kit.js" defer></script>
+<script src="seq/04-incompat.js" defer></script>
+<script src="seq/04-promoter.js" defer></script>
+</body>
+</html>
