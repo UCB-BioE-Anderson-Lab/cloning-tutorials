@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>CDS-Based Parts &ndash; Parts</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide .qhead{display:flex;align-items:center;gap:30px;margin-bottom:6px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead h1{margin:0}
+.slide p.lead{font-size:28px;color:var(--muted);margin:26px 0 0}
+.slide p.punch{font-size:29px;margin:40px 0 0;max-width:1260px}
+.slide p.punch b{color:var(--vermillion)}
+/* Two facing lists where the contrast between them is the content.  Not
+   .cols, which is an even two-up: here the left column is the one being
+   argued against and is set back. */
+.slide .versus{display:grid;grid-template-columns:1fr 1fr;gap:20px 56px;
+  margin-top:26px}
+.slide .versus h2{font-size:28px;margin:0 0 12px}
+.slide .versus ul{margin:0;padding-left:1.05em}
+.slide .versus li{font-size:25px;margin-bottom:9px}
+.slide .versus .lo h2{color:var(--muted)}
+.slide .versus .hi h2{color:var(--blue)}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 15 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">CDS-Based Parts</h1>
+  <p>Parts that do their work as protein</p>
+  <template class="notes">Though many parts are DNA or RNA elements, most parts encode proteins. At the DNA level the region translated three bases at a time is called the CDS, the coding sequence, and a CDS-based part is one whose function belongs to the protein that comes out of it. This is the biggest of the three sections because it is the biggest of the three classes.</template>
+  <template class="desc">Section divider: CDS-based parts.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 37 -->
+<!-- Source slide 37, moved from near the end of the DNA-parts run to the
+     front of this section.  Asked where the source asks it, the answer
+     has already been given three times over.  Asked first, it is a real
+     question, and its wrong answer is the shape this deck uses
+     throughout: a plausible result that looks like success. -->
+<article class="slide" data-seq="salicylate">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="">
+    <h1 class="small">Red only in salicylate &mdash; what do you build?</h1>
+  </div>
+  <template class="notes">Psal-RFP. Use transcriptional control: put a salicylate-activated promoter in front of the gene you want conditionally expressed.</template>
+  <template class="desc">Two candidate designs for a salicylate-responsive red reporter, each grown with and without salicylate.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 16, 17 -->
+<!-- Source slide 16 is six words for kinds of molecular function and
+     slide 17 opens the reporters.  The six words are a vocabulary list;
+     what earns a slide is the property that makes something a reporter
+     at all, which neither source slide states. -->
+<article class="slide">
+  <h1 class="small">What makes a protein a reporter</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>A <b>reporter</b> is a protein you can quantify in a living cell without knowing anything about the cell.</span></p>
+  <p class="lead" data-build="1"
+     data-note="That is the whole definition and it is worth being precise about, because reporters are not a kind of protein. They are enzymes and binding proteins and structural proteins like everything else — you can classify any protein physically, as an enzyme or a binding protein or a transporter, or biologically, as signalling or structural or a scaffold, and a reporter can be any of those. What makes it a reporter is a pragmatic property: the readout is cheap, it is quantitative, and it does not require you to lyse the cell or know what else is in it. That is a statement about your instruments, not about the protein."
+     data-desc="A note that reporter is not a structural category: any protein can be classified physically as an enzyme, binding protein or transporter, or biologically as signalling, structural or a scaffold, and a reporter may be any of these."
+     >&ldquo;Reporter&rdquo; is not a kind of protein. Any protein is an enzyme, a binding protein, a transporter, a scaffold &mdash; a reporter is one you happen to be able to <b>read</b>.</p>
+  <p class="punch" data-build="2"
+     data-note="And there are two ways to be readable, which is why there are two families of reporter. Either the protein is itself the signal, which is what a fluorescent protein is, or the protein makes the signal by turning over a substrate you supply, which is what an enzyme reporter is. The second one amplifies — one enzyme molecule can produce a great many product molecules — and the first one does not. That trade runs through everything in the rest of this slide and the next two."
+     data-desc="The two families of reporter: the protein is the signal, as with fluorescent proteins, or the protein makes the signal from a supplied substrate, as with enzyme reporters, which amplify."
+     >Two ways to be readable: the protein <b>is</b> the signal, or the protein <b>makes</b> the signal from something you add. The second one amplifies. The first one does not.</p>
+  <template class="notes">Proteins can be classified in terms of pragmatic design abstractions rather than chemistry. Reporter proteins are proteins that can be quantitatively assayed upon expression in a cell.</template>
+  <template class="desc">The definition of a reporter protein, the note that it is a pragmatic rather than a structural category, and the split between reporters that are the signal and reporters that make it.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 17 -->
+<article class="slide">
+  <h1 class="small">Fluorescent proteins &mdash; the protein <i>is</i> the signal</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>GFP, BFP, YFP, RFP, and luciferase, which makes its own light rather than needing any shone at it.</span></p>
+  <p class="lead" data-build="1"
+     data-note="This family you know. The colours are variants of the same fold with different chemistry in the middle of the barrel, and the reason there are so many is that you often want to read two things in one cell. Luciferase is the odd one: it is an enzyme, so it belongs in the other family, but it produces light rather than colour and you read it with no excitation source at all, which makes the background essentially zero. The cost is that it needs a substrate and fluorescent proteins do not. No amplification in either case — one molecule of GFP gives you one molecule's worth of signal, forever."
+     data-desc="A note that the fluorescent colours are variants of one fold, useful for reading two things at once, and that luciferase is an enzyme that produces light with near-zero background but requires a substrate."
+     >One molecule of GFP gives one molecule&rsquo;s worth of signal. There is no turnover, so the number you read is the number of molecules &mdash; which is exactly what makes it good for quantification and bad for detecting something rare.</p>
+  <p class="punch" data-build="2"
+     data-note="And this is the one you are using. BestP measures amilGFP fluorescence, and every number you write down this week is a fluorescent protein reporting that a promoter fired. Go back to the first slide of this section for what that number does and does not mean: it says the promoter fired. It does not say why. That is why you measure J23101 alongside your clones and quote the ratio rather than the raw fluorescence."
+     data-desc="The connection to the current lab: BestP measures amilGFP fluorescence, which reports that a promoter fired, and is quoted as a ratio to J23101 rather than as raw fluorescence."
+     ><b>This is BestP.</b> Every number you record this week is a fluorescent protein saying a promoter fired &mdash; which is why you quote it against J23101 and not on its own.</p>
+  <template class="notes">In the case of fluorescent proteins, the protein itself is the assayable species and no substrate is required. The colour variants exist largely so that more than one thing can be read in one cell.</template>
+  <template class="desc">The fluorescent protein reporters, the point that they do not amplify, and the connection to the amilGFP measurement in BestP.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 18-20 -->
+<!-- Three source slides of beta-galactosidase structure with no reaction
+     on any of them.  The thing worth knowing about LacZ as a reporter is
+     that its product is insoluble, which is why blue/white is a
+     per-colony readout, and the source says it nowhere. -->
+<article class="slide" data-seq="lacz">
+  <h1 class="small">Lac<i>Z</i> &mdash; the protein makes the signal</h1>
+  <template class="notes">Beta-galactosidase is the enzyme reporter you have already used. What happens chemically is worth five minutes, because the property that makes it work as a screen is a property of the product and not of the enzyme.</template>
+  <template class="desc">The X-gal reaction drawn as a sequence: cleavage, a colourless intermediate, oxidative coupling to the blue dimer, and the plate of colonies that follows from its insolubility.</template>
+</article>
+
+<!-- ------------------------------------------------------------ 21, 22 -->
+<!-- Source slides 21 and 22 are alkaline phosphatase and the PelB leader
+     question.  Both are Chassis section 6, where localisation, the Sec
+     pathway and the PhoA fusion are worked through at length.  One
+     callback slide, and the reporter point that section did not need. -->
+<article class="slide">
+  <h1 class="small">Alkaline phosphatase &mdash; a reporter that is also a probe</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>PhoA strips phosphates off almost anything, and folds into an active enzyme <b>only</b> in the periplasm.</span></p>
+  <p class="lead" data-build="1"
+     data-note="You did this in the Chassis lecture, so I am not doing it again — the localisation section there works through the Sec pathway, signal peptides, and the PelB leader experiment where the same enzyme is active with a leader and dead without one. What I want here is the reporter point, which that section did not need. PhoA is a reporter whose signal depends on where the protein ended up, not just on whether it was made. Fuse it to something and a blue plate tells you your protein reached the periplasm. Nothing about the expression level tells you that, and no fluorescent protein can tell you that, because a fluorescent protein folds anywhere."
+     data-desc="A callback to the Chassis localisation section, and the reporter point: PhoA reports where a protein ended up rather than how much of it was made, which a fluorescent protein cannot do."
+     >Chassis &sect;6 works through why: the disulphides it needs cannot form in the cytoplasm. <b>Chassis &sect;6.</b></p>
+  <p class="punch" data-build="2"
+     data-note="And the general lesson, which is the one to carry: the useful reporters are not the ones with the brightest signal. They are the ones whose signal is contingent on something you want to know. PhoA is only active in one compartment, so it reports compartment. LacZ alpha only works when it can find the omega fragment, so it reports whether an insert interrupted it. Choosing a reporter is choosing what its silence means."
+     data-desc="The general lesson: a reporter is chosen for what its signal is contingent on, so choosing a reporter means choosing what its silence will mean."
+     >So it reports <b>where</b>, not how much &mdash; and choosing a reporter is really choosing what its <b>silence</b> will mean.</p>
+  <template class="notes">This enzyme will take the phosphates off pretty much anything, and is only safe to exist outside the cytoplasm, which is what makes it useful as a probe for localisation.</template>
+  <template class="desc">Alkaline phosphatase as a localisation probe, pointing back to the Chassis localisation section, and the general principle that a reporter is chosen for what its signal is contingent on.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 23 -->
+<article class="slide" data-seq="markers">
+  <h1 class="small">Selectable markers &mdash; three mechanisms</h1>
+  <template class="notes">Another functional classification of genes are selectable markers. These are proteins that upon expression determine whether a cell survives a treatment, so that the plate does the screening.</template>
+  <template class="desc">A grid of the three selectable-marker mechanisms against the two conditions, showing which cells grow in each case.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 24 -->
+<!-- Source slide 24 is two lists of transcription factor names, five
+     global and four local.  The names are not the content; the split is,
+     and the source never says what follows from it. -->
+<article class="slide">
+  <h1 class="small">Transcription factors</h1>
+  <p class="step"><span class="arrow">&rarr;</span><span>A protein that binds a <b>particular</b> DNA sequence and changes what transcription does there.</span></p>
+  <div class="versus" data-build="1">
+    <div class="lo">
+      <h2>global &mdash; responds to the cell&rsquo;s state</h2>
+      <ul class="tighter">
+        <li><b>CAP</b> &middot; carbon source</li>
+        <li><b>Fur</b> &middot; iron</li>
+        <li><b>H-NS</b>, <b>IHF</b> &middot; chromosome structure</li>
+        <li>two-component systems &middot; what is outside</li>
+      </ul>
+    </div>
+    <div class="hi">
+      <h2>local &mdash; responds to one ligand</h2>
+      <ul class="tighter">
+        <li><b>Lac<i>I</i></b> &middot; lactose</li>
+        <li><b>AraC</b> &middot; arabinose</li>
+        <li><b>NahR</b> &middot; salicylate</li>
+        <li><b>VirF</b> &middot; virulence genes</li>
+      </ul>
+    </div>
+  </div>
+  <p class="punch" data-build="2"
+     data-note="Read the two columns and the design rule is obvious once stated. A global regulator touches hundreds of promoters, because that is its job — CAP is reporting what the cell is eating, and hundreds of genes need to know. So if you build a circuit on CAP, you have wired your construct to the carbon source, and you have also perturbed everything else that listens to CAP. A local regulator touches one operon and responds to one molecule that does nothing else in E. coli. That is why every inducible system you will ever use is built on a local one. NahR, from the first slide of this section, is a local regulator, and that is exactly why it was the right answer."
+     data-desc="The design rule: global regulators touch hundreds of promoters and wire a construct to the cell's physiology, so inducible systems are built on local regulators that respond to one molecule and control one operon."
+     >You build with the right-hand column. A global regulator drags the rest of the cell along with it &mdash; <b>NahR was the right answer because it is local.</b></p>
+  <template class="notes">Transcription factors are proteins that bind to DNA and modulate transcription at a promoter. Some respond to the cell's global state and act at hundreds of promoters; others respond to a single ligand and act at one operon.</template>
+  <template class="desc">Transcription factors split into global regulators responding to cell state and local regulators responding to one ligand, with the design rule that inducible systems are built on the local ones.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 26 -->
+<article class="slide" data-seq="arac">
+  <h1 class="small">AraC does both</h1>
+  <template class="notes">The interactions between transcription, the promoter and the transcription factors can be simple, and they can be like this. Some transcription factors are only activators, some are only repressors, and some can do either.</template>
+  <template class="desc">The arabinose promoter region animated through the light-switch model: an AraC dimer looping the DNA to repress, then releasing on arabinose to sit beside the promoter and recruit polymerase.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/kit.js" defer></script>
+<script src="seq/02-salicylate.js" defer></script>
+<script src="seq/02-lacz.js" defer></script>
+<script src="seq/02-markers.js" defer></script>
+<script src="seq/02-arac.js" defer></script>
+</body>
+</html>
