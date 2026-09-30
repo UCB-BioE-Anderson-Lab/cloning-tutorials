@@ -68,19 +68,25 @@ const FR = [
   note:"With no arabinose around, a single AraC dimer grabs araO2 with one half and araI1 with the other. The only way one protein can touch two sites two hundred bases apart is for the DNA between them to bend round into a loop, and that is exactly what happens. The promoter is inside that loop, and it is off. Notice what is doing the repressing: not a chemical modification, not a competition for the polymerase. Geometry. The promoter is off because the DNA has been folded.",
   desc:"With no arabinose, an AraC dimer bridges araO2 and araI1, looping the intervening DNA and leaving the promoter inaccessible." },
 
-{ s:{dna:1, ara:1},
-  cap:"arabinose binds, and the dimer lets go of ara<em>O2</em>",
-  call:"the loop opens",
-  note:"Now add arabinose. It binds AraC, and the bound protein prefers a different arrangement: it releases araO2 and puts both halves on the two adjacent sites instead. The loop opens. That is the whole conformational story, and it is why Schleif called it the light switch model.",
-  desc:"Arabinose binds AraC, which releases araO2 so that the loop opens." },
+/* arac has to be in EVERY frame from here on.  It was dropped from the
+   next two, so on the beat where arabinose binds the protein it binds
+   to was not drawn at all -- three amber dots floating over bare DNA --
+   and the caption said the dimer had let go of araO2 while no dimer was
+   on the slide.  A missing key in run() counts as zero, which is how a
+   frame can be internally wrong and still settle correctly. */
+{ s:{dna:1, arac:1, ara:1, both:1},
+  cap:"arabinose binds, and the dimer moves to ara<em>I1</em> and ara<em>I2</em>",
+  call:"the loop opens &#183; and it is now <b>beside</b> the promoter, not across it",
+  note:"Now add arabinose. It binds AraC, and the bound protein prefers a different arrangement: it lets go of araO2 and puts both halves on the two adjacent sites instead. The loop opens — that is the whole conformational story, and it is why Schleif called it the light switch model. And look where the protein has ended up. It has not left. It is sitting on araI1 and araI2, immediately beside the promoter.",
+  desc:"Arabinose binds AraC, which releases araO2 so the loop opens, and the dimer moves onto the adjacent araI1 and araI2 sites beside the promoter." },
 
-{ s:{dna:1, ara:1, both:1},
-  cap:"now it sits on ara<em>I1</em> and ara<em>I2</em>, beside the promoter",
-  call:"and <b>recruits</b> the polymerase",
-  note:"Sitting on araI1 and araI2, the dimer is right beside the promoter, and from there it contacts RNA polymerase and helps it bind. It is no longer in the way — it is doing the recruiting. The promoter fires, and in the Genome Editing procedure you ran, that is the moment lambda Red switches on.",
-  desc:"The AraC dimer now occupies araI1 and araI2 next to the promoter, recruiting RNA polymerase, and transcription begins." },
+{ s:{dna:1, arac:1, ara:1, both:1, pol:1},
+  cap:"and from there it <b>recruits</b> the polymerase",
+  call:"no longer in the way &#8212; now doing the pulling",
+  note:"From there it contacts RNA polymerase and helps it bind. It is no longer in the way; it is doing the recruiting. The promoter fires, and in the Genome Editing procedure you ran, that is the moment lambda Red switches on.",
+  desc:"The AraC dimer beside the promoter recruits RNA polymerase and transcription begins." },
 
-{ s:{dna:1, ara:1, both:1, pol:1}, on:["three"],
+{ s:{dna:1, arac:1, ara:1, both:1, pol:1}, on:["three"],
   cap:"the same protein was the repressor and the activator",
   call:"nothing about it was replaced &#8212; a sugar changed which two sites it prefers",
   note:"And that is the point of the slide. The same protein was the repressor a moment ago and is the activator now, and nothing about it was replaced — a small molecule changed which pair of sites it prefers. So when you meet a transcription factor, do not ask whether it is a repressor or an activator as though that were a property of the protein. LacI only represses. CAP only activates. AraC does both, depending on what is in the medium. What a transcription factor does is bind DNA at particular places, and whether that helps or hinders depends entirely on where those places are relative to the promoter.",
@@ -143,8 +149,10 @@ window.Deck.sequence("arac", function(slide){
         a.appendChild(K.el("circle", {cx:n1(I2 + q[0]), cy:n1(Y - 46 + q[1]), r:7,
           fill:C.amber, stroke:"none"}));
       });
-      /* left of the transcription arrow, which starts at Pbad + 40 */
-      a.appendChild(K.text(I2 - 10, Y - 104, "arabinose", 23, C.amber, 700, "end"));
+      /* To the RIGHT of the dimer and clear of it.  Above the dots it
+         printed on top of the AraC label, which sits just under the
+         protein and moves with it. */
+      a.appendChild(K.text(I2 + 96, Y - 84, "arabinose", 23, C.amber, 700, "start"));
       g.appendChild(a);
     }
 

@@ -134,9 +134,15 @@ window.Deck.sequence("salicylate", function(slide){
       });
     });
 
-    /* No third line of text here.  The caption and the call already
-       carry the takeaway, and a drawn paraphrase above them made three
-       stacked sentences in the bottom 60px of the slide. */
+    /* Restored.  This looked like a third stacked sentence, and it was
+       actually the .o visibility rule missing from the section file --
+       it was showing on every beat instead of only on the last. */
+    if (v.rule > 0.02){
+      const a = K.grp(v.rule);
+      a.appendChild(K.text(800, 762, "both plates, or the number means nothing",
+        27, C.blue, 700));
+      g.appendChild(a);
+    }
     return g;
   }
   return K.run(s, FR, paint);
