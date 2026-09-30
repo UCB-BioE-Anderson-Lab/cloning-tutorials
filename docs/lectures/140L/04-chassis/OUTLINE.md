@@ -218,3 +218,37 @@ same format argues for generalising it into a component that takes a row
 list and a condition list. Worth doing after the second exercise is built by
 hand, not before — the regulation column was not obviously missing until the
 format had been presented once.
+
+---
+
+## First draft — built
+
+All five exercises are in, on `lectures/chassis-housekeeping`. 171 steps
+against the 132 that were presented, which is the direction the timing
+needed.
+
+| § | exercise | step | what it catches |
+|---|---|---:|---|
+| 1 | the loop, taught slowly on pCas | 5 | — |
+| 1 | **IPTG added early** | 21 | silent failure: colonies grow, nothing is edited |
+| 3 | **dapA plasmid into WM3064** | 14 | reading one token of a genotype and stopping |
+| 4 | **which plates go blue** | 19 | forgotten inducer looks like perfect clones |
+| 5 | **where does it show up** | 20 | a Sec signal addresses one membrane, not two |
+| 6 | **would you work with this** | 2 | pathogenicity is not a species property |
+
+Every one of them ends on the same shape: the wrong answer is not an
+error, it is a plausible result that looks like success. That was not
+planned, it fell out of picking real failure modes, and it is probably
+the thing to say out loud when the method is named in section 1.
+
+### Not done
+
+- **§2 (E. coli)** untouched — 19 steps of pedigree, neighbours and
+  pathotypes, still with no question in it. Named as slack in the time
+  budget; it is the first place to look if the lecture runs long.
+- **Dynamics** still not built. The constitutive-expression beat of the
+  loop slide remains the natural home for a rate equation and a curve to
+  steady state.
+- The **question-first reordering** was applied to §6 only. §3, §4 and §5
+  now have exercises, but their older questions still sit at the end of
+  the section.
