@@ -187,24 +187,45 @@ Six sections. Counts are estimates to be reconciled against the rendered deck.
 
 The section the course needs most, given the most room.
 
-1. **Exercise first.** An ortholog panel comes back with one hit and six duds.
-   Is the enzyme the problem? Trap: identical protein, different codons, 250-fold
-   range — a dud may be a badly expressed good enzyme. The plausible-but-wrong
-   conclusion is that the ortholog does not work.
-2. Why families: combinatorial design, hold everything constant but one slot.
-3. The promoter library — J23101 defined as 1 RPU, the Anderson library, the
-   bins from OFF to UBER. **This is pP6 and BestP.** Say so.
+Its place in the deck is fixed by what it depends on, not by what is topical.
+A promoter library is meaningless until §4 has said what a promoter is, and
+rbs.CDS only pays off once §3 has established that an RBS's strength depends on
+what follows it. So §5 cannot move earlier without breaking two dependencies,
+and the fact that pP6 is on the bench this week is not a reason to try. The
+course revisits promoter libraries repeatedly; this deck's job is only to say
+what a family *is*, once, in the one place the parts vocabulary is complete.
+
+Inside the section, the order is by distance from what they already have.
+
+1. **Exercise first, on their own data.** You measured four pP6 clones against
+   J23101. What did you actually produce? Not four numbers — a family: a set of
+   parts identical except in one slot, each with a measured value. The section's
+   whole idea, derived from something they did rather than presented.
+2. The promoter library made explicit — J23101 defined as 1 RPU, the Anderson
+   library, the bins from OFF to UBER. **This is pP6 and BestP.** Say so.
+3. Why families in general: combinatorial design, hold everything constant but
+   one slot. Generalised from the case, not stated ahead of it.
 4. TPcon architecture as a family: swap the promoter, hold terminator and CDS.
    Callback to Fabrication §8 for the assembly, not a re-teach.
 5. rbs.CDS as a composite part — the §3 payoff cashed: two parts per gene
    instead of three, and nature already picked a working pair.
-6. Ortholog families: carnosine synthase. Real data — 76% identity across the
+6. **Second exercise, at its point of use.** An ortholog panel comes back with
+   one hit and six duds. Is the enzyme the problem? Trap: identical protein,
+   different codons, 250-fold range — a dud may be a badly expressed good enzyme.
+   The plausible-but-wrong conclusion is that the ortholog does not work. This
+   sat at the top of the section in the first draft, five slides from the
+   orthologs it motivates, which is the same mistake as putting it at the end.
+7. Ortholog families: carnosine synthase. Real data — 76% identity across the
    panel, and the *Alligator mississippiensis* ortholog at ~87× over the negative
    control while the rest sat near background.
-7. **This is your capstone.** *ispA* in pLYC72, and what "justify your picks"
-   means given slide 6.
-8. Codon and scanning families, with the cause stated correctly.
-9. Close.
+8. **This is your capstone.** *ispA* in pLYC72, and what "justify your picks"
+   means given the slide above.
+9. Codon and scanning families, with the cause stated correctly. Closes the deck
+   on the same fact §3 opened with.
+
+§4 gets a one-line forward pointer where the kinds of promoter are laid out, and
+nothing more — a library is not a kind of promoter, it is a set of them, and
+that distinction is worth keeping clean.
 
 ---
 
@@ -213,15 +234,19 @@ The section the course needs most, given the most room.
 ~40 slides, ~182 steps against a 110-minute slot. Compare Chassis: source 62
 slides → rebuilt to 46 slides / 175 steps.
 
-**Six exercises, one per section, all six question-first.** They also all land on
+**Seven exercises, at least one per section, every one question-first.** They also all land on
 the same shape the Chassis exercises found, which is worth keeping deliberately:
 *the wrong answer is not an error, it is a plausible result that looks like
 success.* Red cells that respond to nothing. A verified clone that is dead. An
 expression level that will not reproduce. A good enzyme scored as a dud.
 
+§5 carries two of them — one to open the section on their own BestP data, one
+immediately before the orthologs — so seven in all.
+
 ## Open
 
 - Source slide 53's codon-scan citation needs resolving before that slide is
   drawn.
-- Whether the promoter library belongs in §5 at all, or whether it should open
-  the deck, given that it is what the students have in their hands this week.
+- §5 has two exercises where every other section has one. That is either the
+  right weighting for the section the course leans on hardest, or one too many
+  for a 38-step section. Decide when it renders.
