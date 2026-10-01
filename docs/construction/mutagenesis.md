@@ -438,7 +438,7 @@ In this quiz, you will design and simulate a site-saturation mutagenesis library
 - Click the **"View all sequences"** link on the Addgene plasmid page.
 - Then click the **GenBank** download link.
 - Open the downloaded `.gbk` file in **ApE** or **Benchling** to view the plasmid map and annotations.
-- A copy of the plasmid map is also available in the tutorial’s `assets` folder as: `addgene-plasmid-13031-sequence-305137.gbk`.
+- Or download it straight from here: [addgene-plasmid-13031-sequence-305137.gbk](../assets/addgene-plasmid-13031-sequence-305137.gbk)
 
 ⚠️ Important: The plasmid contains an internal BsaI site, which would interfere with assembly. To avoid this conflict, use BsmBI instead (recognition site: 5′–CGTCTC(N1/N5)–3′).
 
