@@ -210,6 +210,39 @@ them is edited.  The exception is a tool the lecture is teaching as an algorithm
 rather than as software: the LCA calculator deliberately reproduces the
 spreadsheet's own arithmetic, which is not C6's lca().
 
+THE SHOW/HIDE RULE FOR SEQUENCE PARTS IS PAGE-LOCAL, AND NOTHING WARNS YOU.
+scene() marks everything that comes and goes with class "o" and toggles "in" on
+it, but the CSS that makes that mean anything lives in each section file's own
+<style> block -- it is NOT in deck.css.  Omit it and nothing errors, nothing
+logs, and every part is simply visible from the slide's first beat: answers
+appear before their questions, closing lines sit under figures that have not
+been drawn yet.  check_section cannot catch it, because a settled frame with
+too much on it is still a settled frame.  Six sections of the Parts deck were
+built and audited this way before anyone noticed.  Copy these four lines into
+every new section file that uses a sequence:
+
+    .slide svg .o{opacity:0;transition:opacity .42s ease}
+    .slide svg .o.in{opacity:1}
+    .slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+    @media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
+
+A KEY MISSING FROM A FRAME'S s:{} COUNTS AS ZERO, which is what you want for
+"nothing of this yet" and is a silent deletion anywhere else.  Leave a key out
+of a LATER frame and the thing it draws vanishes mid-sequence, while the
+captions carry on talking about it -- an AraC animation narrated "the dimer
+lets go of araO2" over a slide with no dimer on it.  Every frame has to carry
+every key that should still be on screen.  Worth a scan when a sequence is
+finished: walk the frames in order and print any key present in one and absent
+from the next; the only ones that should show up are the ones you dropped on
+purpose, like a loop opening.
+
+A FONT SIZE ON A SPAN INSIDE A MONOSPACE <pre> BREAKS THE COLUMN GRID.  Row
+labels set smaller than the sequence they label occupy less width than the
+character cells they spell, so lines stop aligning with each other.  In a
+base-pairing figure that means the pairing bars print under the wrong bases --
+the figure still looks like a figure, and it is showing chemistry that is not
+true.  Differentiate label spans by colour only.
+
 AUDITING
 --------
 tools/check_section.js walks a section step by step with settled frames and

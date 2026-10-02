@@ -1,5 +1,48 @@
 # Parts — build plan
 
+## State, for whoever picks this up
+
+**The deck is built and audited.** 45 slides, 171 steps, six sections, sixteen
+animated sequences. `mkdocs build --strict` passes; every section audits with
+no clipping, no console errors, no entities surviving into either channel.
+What remains is a read-through and the two open questions at the bottom of
+this file.
+
+It lives on branch `lectures/parts`, cut from `origin/main`, **not merged and
+not deployed** — deliberately, the same way `lectures/chassis-housekeeping`
+is held for next year. Merging to main publishes nothing on its own; the site
+goes up by a manual `mkdocs gh-deploy`.
+
+The source PowerPoint is not in this repo and never should be — see
+AUTHORING.txt on why. It is:
+
+    ~/Library/CloudStorage/Dropbox/Courses/140L/Stanley 2026/
+        Lectures 2026 140L/2025_10_01-Parts.pptx
+
+Read it with `markitdown` on a copy in a scratch directory.
+
+To work on the deck you need `mkdocs serve` running on 127.0.0.1:8000. Then,
+from `docs/lectures/tools/`:
+
+    node check_section.js 05-parts 02-cds-parts.html /tmp/shots
+    sh make_pdf.sh 05-parts
+
+check_section writes a PNG per step and you have to actually look at them —
+it reports clipping, ink outside the content box and console errors, and it
+cannot see a figure that is drawing the wrong thing correctly. Both of the
+real bugs found while building this deck were of that kind, and both are now
+written up under TRAPS in AUTHORING.txt. **Read that section before editing a
+sequence file.** One of them — the page-local `.slide svg .o` rule — had
+every scene part in all six sections visible from its slide's first beat, for
+the whole build, with a clean audit the entire time.
+
+A note on the PNG filenames: they do not map one-to-one onto the step numbers
+you would compute from the build attributes. Do not reason about which frame
+is which from arithmetic; find the slide by its title in the frame, or search
+the generated PDF's text.
+
+---
+
 Source: `2025_10_01-Parts.pptx`, 59 slides. Slides 54–59 are the weekly
 all-hands (assignments, wetlab status, midterm) and are out, same precedent as
 Chassis and Genome Editing. So the lecture is slides 1–53.
