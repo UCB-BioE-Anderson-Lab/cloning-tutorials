@@ -2,6 +2,31 @@
 
 Working document for next year's version. Not the deck; the plan for it.
 
+## State, for whoever picks this up
+
+**This branch is held, on purpose.** `lectures/chassis-housekeeping` is not
+merged and not deployed. The deck that is live is the one that was presented,
+and it stays that way — these slides were written after that lecture, so
+putting them up now would replace a deck students have already seen with one
+they have not. Merge it when the course next reaches this lecture. (Merging
+to main publishes nothing by itself; the site goes up by a manual
+`mkdocs gh-deploy`.)
+
+Three slides on this branch were restored after being deleted by accident
+from the deployed deck — `minimal`, `prototroph` and `chasses`. Their
+sequence files never stopped loading, so nothing errored and the audit stayed
+clean; the gap was found only because the lecture felt wrong while presenting
+it. Worth remembering as the shape of fault this format produces.
+
+**Before editing any sequence file here, read the TRAPS section of
+`docs/lectures/AUTHORING.txt` on the `lectures/parts` branch** — three faults
+found while building the Parts deck are written up there, and all three
+render cleanly, log nothing, and pass `check_section`. One of them, the
+page-local `.slide svg .o` rule, would make every scene part on a slide
+visible from its first beat. That file belongs on main; it is on a branch
+only because that is where it was written.
+
+
 ## What this is reacting to
 
 The lecture ran short and engagement sagged. From the debrief:
