@@ -2,7 +2,7 @@
    lives — deck.js reads it for prev/next and for the jump menu (G).
 
    The order is NOT the source PowerPoint's.  2025_10_01-Parts.pptx is
-   59 slides, and OUTLINE.md records the two structural edits and why:
+   59 slides, and OUTLINE.txt records the two structural edits and why:
 
    Four of its topics are already whole sections of decks the students
    have seen — the assembly Formats and TPcon in DNA Fabrication,
