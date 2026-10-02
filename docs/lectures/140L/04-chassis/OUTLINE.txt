@@ -19,12 +19,11 @@ clean; the gap was found only because the lecture felt wrong while presenting
 it. Worth remembering as the shape of fault this format produces.
 
 **Before editing any sequence file here, read the TRAPS section of
-`docs/lectures/AUTHORING.txt` on the `lectures/parts` branch** — three faults
-found while building the Parts deck are written up there, and all three
-render cleanly, log nothing, and pass `check_section`. One of them, the
-page-local `.slide svg .o` rule, would make every scene part on a slide
-visible from its first beat. That file belongs on main; it is on a branch
-only because that is where it was written.
+`docs/lectures/AUTHORING.txt`** — it is on main, so you have it whatever
+branch you are on. Three faults found while building the Parts deck are
+written up there, and all three render cleanly, log nothing, and pass
+`check_section`. One of them, the page-local `.slide svg .o` rule, would make
+every scene part on a slide visible from its first beat.
 
 
 ## What this is reacting to
