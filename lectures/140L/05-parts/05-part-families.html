@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Part Families &ndash; Parts</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.
+ *
+ * Several figures in this section were drawn in PowerPoint rather than
+ * placed as pictures -- the bin grid, the two insertion diagrams, the
+ * plasmid cartoons, the ortholog table and both charts.  They are the
+ * source's own artwork, captured from the source deck at 200 dpi and
+ * placed here unchanged, so the figures a student saw are the figures
+ * they still see.  They therefore keep the source's colours rather than
+ * the palette; worth revisiting figure by figure.
+ * --------------------------------------------------------------------- */
+/* page-local show/hide for the sequence on this page */
+.slide svg .o{opacity:0;transition:opacity .42s ease}
+.slide svg .o.in{opacity:1}
+.slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+@media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
+.slide .stack{display:flex;flex-direction:column;gap:26px;flex:1 1 auto;min-height:0}
+.slide .stack figure{margin:0;flex:1 1 auto;min-height:0;display:flex;
+  align-items:center;justify-content:center}
+.slide .stack img{flex:1 1 auto;min-height:0;width:100%;height:100%;object-fit:contain}
+.slide .stack.split figure{flex:1 1 0}
+.slide .stack.split.topheavy figure:first-child{flex:0 0 32%}
+.slide .withtext{display:flex;flex-direction:column;flex:1 1 auto;min-height:0}
+.slide .withtext figure{margin:18px 0 0;flex:1 1 auto;min-height:0;
+  display:flex;align-items:center;justify-content:center}
+.slide .withtext img{flex:1 1 auto;min-height:0;width:100%;height:100%;object-fit:contain}
+.slide .src-link{font-size:20px;color:var(--muted);margin:14px 0 0}
+.slide .src-link a{color:var(--blue)}
+/* the carnosine pathway, whose two enzyme names are text in the source
+   and are kept as text so they stay crisp and recolour with the deck */
+.slide .pathway{position:relative;flex:1 1 auto;min-height:0;
+  display:flex;align-items:center;justify-content:center}
+.slide .pathway svg{width:100%;height:100%}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 42 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Part Families</h1>
+  <p>How do we organize information about parts?</p>
+  <template class="notes">Combinatorial design is one of the central ideas in synthetic biology at the moment. Instead of choosing one sequence for each role in a construct, you take whole sets of related parts and explore them in combination. Which means the first thing you have to do is say what a family of parts actually is.</template>
+  <template class="desc">Section divider: Part Families. How do we organize information about parts?</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 43 -->
+<article class="slide">
+  <h1 class="small">Combinatorial Assembly</h1>
+  <div class="stack split">
+    <figure>
+      <img src="img/06-combi-plasmids.png" alt="Four stacks of plasmids, each stack a set of variants of one part: promoters, ribosome binding sites, enzyme open reading frames and terminators.">
+    </figure>
+    <figure>
+      <img src="img/06-combi-bins.png" alt="The same parts laid out as four bins in a row — promoter, ribosome binding site, coding sequence, terminator — with several variants stacked in each, so that one gene is assembled by picking one from each bin.">
+    </figure>
+  </div>
+  <template class="notes">Say you want to express a phosphodiesterase in E. coli at some particular constitutive level. You know the shape of what you need: a constitutive promoter, a ribosome binding site, the enzyme&rsquo;s open reading frame, and a terminator, which is enough to satisfy the central dogma. But if you simply pick a sequence for each of those, you are unlikely to get what you asked for. The enzyme might not fold in E. coli. The ribosome binding site might pair up with the start of the coding sequence and never get translated. The terminator might do the same thing. The promoter might give you the wrong amount of message. And we have no working theory that tells you in advance which of those choices will go wrong, so the only honest approach is to try a lot of combinations. You start with a library at every position: promoters that differ in transcription rate but are all constitutive, several ribosome binding sites, a set of orthologs of the enzyme, a few terminators. Golden Gate assembly is very good at building parts arranged in bins like this, so you can make the whole library of composite parts and then screen it for the behaviour you were actually after.</template>
+  <template class="desc">Above, sets of plasmids, each set holding variants of one part. Below, the same sets drawn as bins in the order a gene needs them — promoter, ribosome binding site, coding sequence, terminator — with several choices stacked in each bin, so a construct is made by taking one from every bin.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 44 -->
+<article class="slide">
+  <h1 class="small">Promoter libraries</h1>
+  <figure class="fig">
+    <img src="img/06-promoter-library.png" alt="The BBa_J23119 constitutive promoter family: a photograph of culture wells fluorescing at different intensities, the aligned sequences of each family member with their differing bases marked, and a table of measured RFP values running from 1 to 2547.">
+  </figure>
+  <template class="notes">This is the Anderson promoter collection, built here in 2006, and it is probably the most-used part family in synthetic biology. The idea is simple. Take one constitutive promoter and make a set of variants of it that differ by only a handful of bases in and around the minus thirty-five and the minus ten, then measure every one of them in the same reporter construct. What you get out is a graded series spanning something like three orders of magnitude of output, which you can see directly in the wells at the top: same construct, same cell, same medium, and visibly different amounts of protein. The strongest member is J23119, and it is the one carrying the canonical sigma seventy sequence, T-T-G-A-C-A, seventeen bases, T-A-T-A-A-T. Everything weaker in the set is a departure from that consensus. One member, J23101, became the reference standard that promoter activity gets reported against: you measure your promoter and that one side by side in the same construct, and quote the ratio. That is what a relative promoter unit is. And the reason people keep reaching for these is that an enormous amount of applied work needs a knob rather than a switch: you are not asking whether a gene is on, you are asking how much of its product you want, because the titre of some downstream thing depends on it. A metabolic pathway where one enzyme is limiting, or where an intermediate is toxic if it piles up, is exactly that problem. This collection gives you a dial with about a dozen settings on it.</template>
+  <template class="desc">The Anderson promoter collection, the most widely used part family in synthetic biology: a photograph of culture wells fluorescing at visibly different intensities from the same construct, the family members' sequences aligned so the handful of differing bases around the minus-35 and minus-10 can be seen, and the measured output of each, spanning about three orders of magnitude. The strongest member, J23119, carries the canonical sigma-70 consensus TTGACA, seventeen bases, TATAAT; every weaker member is a departure from it.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 45 -->
+<article class="slide" data-seq="tpcongrid">
+  <h1 class="small">TPcon4: the same cores, new company</h1>
+  <template class="notes"></template>
+  <template class="desc">The TPcon4 grid, redrawn with all six cores in order, strongest at the top. Each cell is a terminator and a promoter as one part. A column is a bin: one terminator, one flanking context, the six cores down it. A row is one core, shown in each of the bins it was grafted into.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 46 -->
+<!-- Was a 3D Excel bar chart at about quarter size in the right-hand
+     third of the slide.  3D is the one form that cannot show what this
+     data says: near bars hide far ones and the perspective distorts
+     the heights.  Redrawn as a strip plot from the source deck's own
+     numbers, read out of ppt/charts/chart1.xml. -->
+<article class="slide" data-seq="tpconchart">
+  <h1 class="small">&hellip; and what they actually measured</h1>
+  <template class="notes"></template>
+  <template class="desc">A strip plot of the TPcon library: one row per strength class from OFF to UBER, one dot per measured variant, on a shared logarithmic axis, with a tick at each class median. Three things are then marked: SLOW measures weaker than OFF; LOW, MED, HIGH and UBER all overlap in the same three-to-six-thousand band; and two UBER variants measure below anything in the OFF class.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 47 -->
+<article class="slide">
+  <h1 class="small">Insertion of TPcon parts</h1>
+  <div class="stack split">
+    <figure>
+      <img src="img/06-insert-tpcon-a.png" alt="A construct drawn as a chain: a promoter, then alternating numbered connectors and part slots 0, 1, 2 and 3, ending at a terminator.">
+    </figure>
+    <figure>
+      <img src="img/06-insert-tpcon-b.png" alt="The same chain with a TPcon part inserted between slots 1 and 2: a new terminator and promoter appear in the middle of the construct, so everything downstream is now driven separately.">
+    </figure>
+  </div>
+  <template class="notes">Here is the thing these parts are genuinely good at, and it has nothing to do with how precisely graded they are. A TPcon part carries a terminator and a promoter already paired together, as one piece of DNA. So dropping one into the middle of a construct does two things at once: it stops the transcript that was running through that point, and it starts a new one. Look at what that means. The construct on top is a single operon, one promoter at the front driving everything to the terminator at the end. Put a TPcon part in between slots one and two and you now have two operons, with the second half driven separately and at whatever level that core gives you. You have reorganised the transcriptional structure of the molecule in one cloning step, without redesigning anything around it. That is a real editing operation, and it is available precisely because the terminator and the promoter were pre-paired rather than being two parts you have to fit together yourself.</template>
+  <template class="desc">Above, a construct as a single operon: one promoter at the front, a chain of numbered slots, one terminator at the end. Below, a TPcon part dropped in between slots 1 and 2. Because the part carries a terminator and a promoter already paired, it ends the first transcript and begins a second one, so the construct becomes two separately driven operons in a single cloning step.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 48 -->
+<article class="slide">
+  <h1 class="small">rbs.CDS Parts</h1>
+  <div class="withtext">
+    <ul class="tight">
+      <li>Secondary structure between an rbs and a CDS is a major determinant of expression</li>
+      <li>Thus it may be more robust to objectify the Transcript (rbs and CDS together) rather than the individual features as parts</li>
+      <li>If the CDS is from bacteria, nature has already selected a working combination</li>
+      <li>Also allows for a reduction in combinatorial complexity; a gene can be composed from only 2 parts: 1 TPcon and 1 rbs.CDS</li>
+    </ul>
+    <figure>
+      <img src="img/06-rbs-cds-structure.png" alt="An RNA hairpin in front of a coding sequence opening up as the temperature rises, until the ribosome can bind and translate.">
+    </figure>
+  </div>
+  <p class="src-link">Image from
+     <a href="https://www.ruhr-uni-bochum.de/mikrobiologie/research.html">ruhr-uni-bochum.de/mikrobiologie</a></p>
+  <template class="notes">This is the argument for a second kind of part. A ribosome binding site and the beginning of a coding sequence are one piece of RNA, and what the two of them fold into together is a major determinant of how much protein you get. You will see the evidence for that a few slides from now. Which suggests that the robust thing to objectify is not the RBS and the CDS as separate parts, but the transcript: the pair of them as one part, already known to work together. If the coding sequence came out of a bacterium, nature has usually done that selection for you. And there is a practical dividend on top. If a gene is one TPcon part plus one rbs.CDS part, then a gene is two parts rather than four, and the combinatorial space you have to build and screen gets a great deal smaller.</template>
+  <template class="desc">Why the ribosome binding site and the coding sequence may be better treated as one part: the structure the two form together decides expression. The figure shows a hairpin folded across the start of a coding sequence, opening progressively, until the ribosome can finally bind and translate.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 49 -->
+<article class="slide">
+  <h1 class="small">Insertion of rbs.CDS parts</h1>
+  <div class="stack split">
+    <figure>
+      <img src="img/06-insert-tpcon-a.png" alt="A construct drawn as a chain: a promoter, then alternating numbered connectors and part slots 0, 1, 2 and 3, ending at a terminator.">
+    </figure>
+    <figure>
+      <img src="img/06-insert-rbscds-b.png" alt="The same chain with an rbs.CDS part inserted between slots 1 and 2: a ribosome binding site and a coding sequence are added into the middle, with no new promoter or terminator, so the whole thing stays one transcript.">
+    </figure>
+  </div>
+  <template class="notes">This is the same move as the TPcon insertion, with a different consequence. An rbs.CDS part brings a ribosome binding site and a coding sequence and nothing else, so dropping it in adds a gene to the operon without breaking the transcript: one promoter, one terminator, one message, now with an extra protein on it. And there is a second version of the edit that matters more. Instead of inserting one, you can displace one: take the rbs.CDS that is sitting in a slot out, and put a different one in. Do that systematically and you have an experiment with a name. You take every protein in your network that runs the reaction you care about &mdash; all the versions of it that exist, from whatever organism &mdash; and you treat that set as an ortholog family. Then you synthesise eight of them, or ninety-six, and you build the same construct that many times over, one substitution each. That is an ortholog scan, and it is the same combinatorial habit as the promoter bins, applied to the protein instead of the regulation.</template>
+  <template class="desc">The same construct chain and the same insertion point as the TPcon slide, but with an rbs.CDS part, which brings only a ribosome binding site and a coding sequence. The construct stays one transcript from the single promoter to the single terminator, with an extra gene on it. The same edit run as a displacement rather than an insertion &mdash; swapping one rbs.CDS for another &mdash; is what an ortholog scan is.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 50 -->
+<article class="slide">
+  <h1 class="small">Orthologs:  Carnosine Synthase</h1>
+  <div class="pathway">
+    <!-- The two enzyme names are text boxes in the source, not part of the
+         drawing, so they are text here too, placed at the source's own
+         coordinates (hundredths of an inch on a 10x7.5in slide). -->
+    <svg viewBox="85 240 815 365" role="img" aria-hidden="true">
+      <image href="img/06-carnosine-pathway.png" x="93" y="245" width="797" height="281"/>
+      <g font-family="var(--sans)" font-size="27" font-weight="700" fill="var(--blue)">
+        <text x="231" y="548">Aspartate</text>
+        <text x="231" y="580">1-Decarboxylase</text>
+        <text x="558" y="318">Carnosine</text>
+        <text x="558" y="350">Synthase</text>
+      </g>
+    </svg>
+  </div>
+  <template class="notes">Here is a system we did this on. Carnosine is a dipeptide, and the route to it is two steps: beta-alanine is made from aspartate by a decarboxylase, and then carnosine synthase couples that beta-alanine to histidine. The second step is the one we want to vary. Most birds, reptiles and mammals carry their own carnosine synthase, and on paper they are the same enzyme: same chemical reaction, comparable rates. So that whole set is an ortholog family, and it is exactly the kind of family an ortholog scan is for.</template>
+  <template class="desc">The two-step route to carnosine, drawn as structures. Aspartate 1-decarboxylase removes carbon dioxide from aspartate to give beta-alanine; carnosine synthase then couples that beta-alanine to histidine to give carnosine. The second enzyme is the one the ortholog scan varies.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 51 -->
+<article class="slide">
+  <h1 class="small">Orthologs:  Carnosine Synthase</h1>
+  <div class="stack split topheavy">
+    <figure>
+      <img src="img/06-carnosine-table.png" alt="The carnosine synthase orthologs tested, listed with their accession numbers and source species: gorilla, peregrine falcon, American alligator, giant panda, polar bear, Burmese python and orca. The alligator entry is marked at 76.15% identity.">
+    </figure>
+    <figure>
+      <img src="img/06-carnosine-titer.png" alt="A bar chart of relative carnosine titre in the cell pellet for the negative control and four orthologs, where ca10, the alligator enzyme, produces roughly twenty times more than any of the others.">
+    </figure>
+  </div>
+  <template class="notes">So we made the panel. Orca, panda, python, alligator and the rest, each one synthesised and dropped into the same construct in place of the last, one substitution at a time. And there is a clear winner: the alligator enzyme makes nearly ten times as much product as any of the others. Now sit with that for a second, because it is the best argument in this lecture for the thing I have been circling all the way through. On paper these enzymes are the same. Same reaction, same substrates, same product, comparable rates. If all you had written down was the molecular function, you would have said they were interchangeable and you would have picked whichever one you found first. But they are not the same molecule. They have different protein sequences, so they may translate at different rates and with different pauses, they may pick up different post-translational modifications, they may make different protein-to-protein contacts in this host, and they may be inhibited by different metabolites that happen to be lying around in E. coli. None of that is in the reaction you wrote down. When we talk about the molecular function of an enzyme we are naming a narrow slice of what it actually does, or could do. Everything we said about that slice can be perfectly true, and the system can still behave differently, because other things are going on. Which is why the scan exists: you cannot reason your way to the alligator. You have to build all of them and look.</template>
+  <template class="desc">The ortholog scan and its result. Above, the carnosine synthase orthologs tested, one per species &mdash; gorilla, peregrine falcon, American alligator, giant panda, polar bear, Burmese python and orca &mdash; with the alligator entry marked at 76.15% identity. Below, the carnosine measured in the cell pellet for each: only ca10, the alligator enzyme, produces a substantial amount, close to ten times the next best. On paper every one of these runs the same reaction at a comparable rate; they are different molecules, and they may differ in translation, in post-translational modification, in protein-to-protein contacts and in which host metabolites inhibit them &mdash; none of which appears in the reaction as written.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 52 -->
+<article class="slide">
+  <h1 class="small">Codon variants</h1>
+  <div class="withtext">
+    <ul class="tight">
+      <li>Each of these parts encodes the same protein (GFP), but does so with different codons</li>
+      <li>Observe a 250-fold range of expression levels with different encodings</li>
+    </ul>
+    <figure>
+      <img src="img/06-codon-variants.png" alt="An aligned block of GFP coding sequences, one row per variant, with the bases coloured so that the columns where the encodings differ stand out while the protein they encode stays the same.">
+    </figure>
+  </div>
+  <template class="notes">This is the Plotkin study, and the design is beautifully simple. They took GFP and made a large set of randomly recoded versions of it. Every one produces exactly the same protein, residue for residue. At the DNA level they are completely different sequences, because the codons have been reshuffled all the way through. At the protein level they are identical. So if molecular function were the whole story, these would all behave the same. They span about two hundred and fifty fold in GFP activity. And when they went looking for why, the answer was not mainly codon bias, which is the explanation everyone reaches for first. The strongest determinant was the structure the messenger RNA folds into near its five-prime end, around the ribosome binding site and the start codon. A message that folds up there initiates translation badly no matter how good the codons downstream are. Codon usage mattered as well, but less than people had assumed, and they picked apart several contributions rather than one. Notice that this is the result that justifies the rbs.CDS part we looked at a few slides ago: the ribosome binding site and the start of the coding sequence fold together, as one piece of RNA, so treating them as one part rather than two is not tidiness, it is the mechanism. And the practical point is blunt. Change the codons and you can change expression enormously, for better or for worse, without touching the protein at all.</template>
+  <template class="desc">The Plotkin study: an alignment of many randomly recoded GFP coding sequences, one per row, coloured by base. The columns differ constantly between rows while the protein encoded is identical in every one, and expression across them spans about 250-fold. The dominant cause was not codon bias but the secondary structure the messenger RNA forms near its five-prime end, around the ribosome binding site and the start codon &mdash; which is the result that justifies treating an RBS and a CDS as a single part.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 53 -->
+<!-- Retitled, and the NNK line struck: that is one way to build the
+     library among several, and the slide is about what the library IS.
+     The two experiments were two columns of prose, which makes them
+     look like two different things.  They are not -- an alanine scan
+     is a deep mutational scan with nineteen of the twenty planes left out -- so the
+     contrast is carried by the drawing now. -->
+<article class="slide" data-seq="scanspace">
+  <h1 class="small">Scanning mutagenesis families</h1>
+  <template class="notes"></template>
+  <template class="desc">The two scanning experiments drawn as one space rather than described as two. An alanine scan is a single plane: sequence position across it, one variant per row, and the marked cell on each row is the residue replaced by alanine. Deep mutational scanning is the whole stack of twenty such planes, one per amino acid. The alanine scan is the front slice of it, not a different experiment.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 54 -->
+<article class="slide" data-bg="section">
+  <h1>Questions?</h1>
+  <template class="notes"></template>
+  <template class="desc">Closing slide: Questions?</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/lib.js" defer></script>
+<script src="seq/06-tpcon-grid.js" defer></script>
+<script src="seq/06-scan.js" defer></script>
+<script src="seq/06-tpcon-chart.js" defer></script>
+</body>
+</html>

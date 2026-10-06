@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>RNA-Based Parts &ndash; Parts</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.
+ *
+ * Every slide in this section is one or two borrowed figures with a
+ * caption naming what is in them, so these rules are all about giving a
+ * figure the leftover height and putting its label where the source put
+ * it.  .labelled is a figure whose caption sits beside or under it at
+ * the source's own position rather than centred.
+ * --------------------------------------------------------------------- */
+.slide .stack{display:flex;flex-direction:column;gap:22px;flex:1 1 auto;min-height:0}
+.slide .stack figure{margin:0;flex:1 1 auto;min-height:0;display:flex;
+  align-items:center;justify-content:center}
+.slide .stack img{flex:1 1 auto;min-height:0;width:100%;height:100%;object-fit:contain}
+.slide .side{display:grid;gap:40px;flex:1 1 auto;min-height:0;align-items:center}
+.slide .side.ab{grid-template-columns:1.3fr 1fr}
+.slide .side.wide{grid-template-columns:2.1fr 1fr}
+.slide .side.ba{grid-template-columns:1fr 1fr}
+.slide .side.three{grid-template-columns:1fr 1fr 1.15fr;gap:30px}
+.slide .side figure{margin:0;min-width:0;min-height:0;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center}
+.slide .side img{flex:1 1 auto;min-height:0;width:100%;height:100%;object-fit:contain}
+.slide .side figcaption{flex:0 0 auto;font-size:26px;margin-top:16px;text-align:center}
+.slide .side figcaption span{display:block;font-size:22px;color:var(--muted)}
+.slide p.shout{font-size:26px;color:var(--vermillion);font-weight:700;margin:18px 0 0}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 27 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">RNA-Based Parts</h1>
+  <p>Parts that are a region of an mRNA<br>
+     Parts that encode a functional RNA molecule</p>
+  <template class="notes">RNA-based parts come in two kinds, and it is worth keeping them apart. Some are a region of a larger message that encodes a protein, and they do their job as part of that message: the ribosome binding site at one end, the terminator at the other. The rest are RNAs that are the functional molecule themselves, and those divide again by how they work. Some fold into a shape and the shape does the job. Some find another RNA by base pairing. We will take them in that order.</template>
+  <template class="desc">Section divider: RNA-Based Parts. Parts that are a region of an mRNA, and parts that encode a functional RNA molecule.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 28 -->
+<article class="slide">
+  <h1 class="small">Ribosome Binding Sites</h1>
+  <div class="stack">
+    <figure>
+      <img src="img/04-rbs-16s.png" alt="The 3-prime end of the 16S ribosomal RNA base-paired to a messenger RNA: the Shine-Dalgarno sequence pairs with the 16S, and the AUG start codon sits about eight bases downstream.">
+    </figure>
+    <figure>
+      <img src="img/04-rbs-table.png" alt="A panel of E. coli genes with their ribosome binding site sequences aligned, showing the Shine-Dalgarno region and the start codon, with variable spacing between them and one gene starting at GUG rather than AUG.">
+    </figure>
+  </div>
+  <template class="notes">Ribosome binding sites are RNA sequences that bind to the 16S rRNA and cause the initiation of translation. The ribosome binding site has two regions &ndash; one that binds the 16S, and another that is the first AUG codon, or start codon, of the protein.  Typically these are spaced around 8 bp apart, but as you can see for this panel of arbitrarily chosen E. coli genes, the spacing is variable, and the precise sequence is variable.  To a first approximation, the more similar the orange region, called the Shine-Dalgarno sequence, is to the 16S sequence, the higher the rate of translation initiation. However, expression levels are determined by multiple factors. Also note that not all start codons are AUG. The third gene in this list is a GUG.  GUG codons happen in around 8% of prokaryotic genes, and UUG codons happen around 1% of the time.
+How best to describe RBS sequences as Parts remains a topic of discussion.  Should it be the sequence up to the start codon?  Should it include the start codon?  How far upstream to the 5&rsquo; end should it extend?  To what degree can it be considered in isolation of its downstream sequence? Though there has been some study of this problem, it remains an important and unresolved question.
+(for number refs see http://jb.asm.org/content/183/4/1277.full).</template>
+  <template class="desc">Above, the mechanism: the 3-prime end of the 16S ribosomal RNA pairing with the Shine-Dalgarno sequence of a messenger RNA, with the AUG start codon about eight bases further along. Below, the same two regions picked out in a panel of real E. coli genes, where both the spacing and the sequence vary from gene to gene, and one gene starts at GUG.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 32 -->
+<!-- Two of the source's four bullets named mechanisms without saying
+     what either one does.  Drawn instead: the hairpin and the U tract
+     doing it alone, then Rho doing it to a transcript that cannot. -->
+<article class="slide" data-seq="terminators">
+  <h1 class="small">Terminators</h1>
+  <template class="notes"></template>
+  <template class="desc">The two termination mechanisms animated on one stage. First the intrinsic route: a polymerase runs into a terminator, the inverted repeat folds into a GC-rich hairpin as it leaves the exit channel, a run of U sits behind it in the weakest hybrid there is, and the transcript drops off with no protein involved. Then the same stage reset for the Rho-dependent route: no hairpin, a bare C-rich rut site, Rho loading as a ring threaded by the RNA, translocating along it on ATP, and prising the hybrid apart at the paused polymerase. Closing comparison: intrinsic terminators fold and work anywhere, Rho-dependent ones need a protein and a bare stretch; neither is all-or-nothing, and the fraction that stops depends on what the neighbouring sequence folds into.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 30 -->
+<!-- Merged from two source slides.  The source put riboregulators and
+     tRNAs together under "Active RNA Molecules", which are not alike in
+     any way that matters -- one works by base pairing with another RNA,
+     the other by folding into a shape -- and then gave aptamers and
+     riboswitches, which ARE like tRNAs in exactly that respect, their
+     own slide.  Sorted by mechanism instead: everything here folds, and
+     the fold is what does the work.  The riboregulator moved to the
+     base-pairing slide, where it belongs. -->
+<article class="slide">
+  <h1 class="small">RNAs that fold into a shape</h1>
+  <div class="side three">
+    <figure>
+      <img src="img/04-trna.png" alt="A transfer RNA drawn as a cloverleaf, with the anticodon loop marked CUA.">
+      <figcaption>tRNA<span>reads a codon</span></figcaption>
+    </figure>
+    <figure>
+      <img src="img/04-aptamer.png" alt="The three-dimensional structure of an RNA aptamer folded around its bound ligand.">
+      <figcaption>Aptamer<span>binds a ligand</span></figcaption>
+    </figure>
+    <figure>
+      <img src="img/04-riboswitch.png" alt="A riboswitch in two states: with no metabolite the hairpin leaves the ribosome binding site open and the gene is on; with metabolite bound the structure rearranges and the site is occluded, turning the gene off.">
+      <figcaption>Riboswitch<span>binds a ligand, and the fold moves</span></figcaption>
+    </figure>
+  </div>
+  <template class="notes">The first family of standalone RNA parts all work the same way: the sequence folds into a three-dimensional shape, and the shape does the job. A tRNA is the familiar one. It folds into a cloverleaf, carries an amino acid at one end and reads a codon at the other, and you can encode one as a part. The useful trick is to change the anticodon. Swap it to CUA and the tRNA now reads UAG, which the cell had been using as a stop codon, so UAG starts being translated as whatever amino acid that tRNA carries. Those are called suppressor tRNAs, because they suppress the phenotype of a UAG mutation, and they are the basis of how unnatural amino acids get into proteins.
+An aptamer is the same idea pointed at a different job. It is an RNA selected, usually in vitro, to fold around a particular small molecule or protein and bind it tightly. Functionally it is an antibody made of RNA.
+A riboswitch is an aptamer with a consequence attached. It sits in the message it controls, binds its metabolite, and the binding rearranges the fold. That rearrangement either buries the ribosome binding site or exposes it, or forms a terminator hairpin and ends transcription early. So the gene regulates itself on the concentration of its own product, with no protein involved anywhere. And notice the mechanism it uses to do the burying, because it is the same one as the next slide: a ribosome binding site inside a duplex is a ribosome binding site that nothing can land on.</template>
+  <template class="desc">Three RNAs whose folded shape is the functional thing. A transfer RNA drawn as a cloverleaf with its anticodon loop reading CUA, the change that makes it a suppressor tRNA reading UAG as a sense codon. A synthetic aptamer folded around its bound ligand. And a natural riboswitch in both states: open with the ribosome binding site available and the gene on, and rearranged with the site buried and the gene off once the metabolite binds.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 31 -->
+<!-- Was "Short RNAs": a dense borrowed Dicer/RISC figure with the words
+     "RhyB (Native E. coli antisense RNA)" in the white space beside it.
+     It is RyhB.  Rebuilt around the one mechanism the whole family
+     shares -- one RNA finds another by complementarity -- with the
+     three things that can happen next drawn as three branches off it,
+     so occlusion and nuclease recruitment stop being the same blur.
+     The riboregulator from the old "Active RNA Molecules" slide lands
+     here, which is where it always belonged. -->
+<article class="slide" data-seq="pairing">
+  <h1 class="small">RNAs that work by base pairing</h1>
+  <template class="notes"></template>
+  <template class="desc">One mechanism and three consequences, drawn as a branch. At the top, the step every RNA on this slide shares: a short RNA carrying the complement of a target sequence zips onto it, drawn with AGGAGG on the message and UCCUCC on the antisense RNA. Below it, three fates. Hide the site, so the ribosome cannot land, which is what a riboregulator or an engineered antisense RNA does. Mark the pair for a nuclease, so RNase E destroys both and the small RNA is consumed one for one, which is RyhB. Or carry the nuclease with you, which is Argonaute: it cuts the target at a fixed place along its guide, lets go, and repeats, so one guide silences many messages. That last route is eukaryotes only.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/lib.js" defer></script>
+<script src="seq/04-pairing.js" defer></script>
+<script src="seq/04-terminators.js" defer></script>
+</body>
+</html>

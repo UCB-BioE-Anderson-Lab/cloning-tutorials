@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>CDS-Based Parts &ndash; Parts</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.
+ *
+ * The source sets most of this section as two or three lists side by
+ * side with a heading over each, so that is what these rules do: a
+ * headed column, at the source's own grouping.  The headings carry the
+ * attention colour and the items stay at ink, which is the same
+ * emphasis the source got from putting the headings a size larger.
+ * --------------------------------------------------------------------- */
+/* The show/hide rule for sequence parts is PAGE-LOCAL and is NOT in
+   deck.css.  Omit it and every part of every sequence is visible from
+   the slide's first beat, with nothing erroring and nothing logging. */
+.slide svg .o{opacity:0;transition:opacity .42s ease}
+.slide svg .o.in{opacity:1}
+.slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+@media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
+.slide p.lead2{font-size:28px;color:var(--muted);margin:0 0 30px}
+.slide p.lead2 b{color:var(--ink)}
+.slide .roles{display:grid;grid-template-columns:1fr 1fr;gap:22px 56px;margin:0}
+.slide .roles > div{display:flex;flex-direction:column}
+.slide .roles b{font-size:28px;color:var(--blue)}
+.slide .roles span{font-size:23px;color:var(--muted);margin-top:3px}
+.slide p.punch2{font-size:25px;margin:34px 0 0;max-width:1340px}
+.slide .lists{display:grid;gap:40px 56px;margin-top:22px}
+.slide .lists.two{grid-template-columns:1fr 1fr}
+.slide .lists h2,.slide .withfig h2{font-size:30px;font-weight:700;color:var(--blue);margin:0 0 14px}
+.slide .lists ul{margin:0;padding-left:1.1em}
+.slide .lists li{font-size:26px;margin-bottom:10px}
+/* a column that pairs a headed list with a figure */
+.slide .withfig{display:grid;grid-template-columns:1fr 1.25fr;gap:46px;
+  flex:1 1 auto;min-height:0;align-items:center}
+.slide .withfig > div{min-width:0}
+.slide .withfig figure{margin:0;min-width:0;min-height:0;height:100%;
+  display:flex;align-items:center;justify-content:center}
+.slide .withfig img{flex:1 1 auto;min-height:0;width:100%;height:100%;object-fit:contain}
+/* The fluorescent-protein stack: four names braced to one label, which is
+   how the source draws it. */
+.slide .braced{display:flex;align-items:center;gap:34px;margin-top:66px}
+.slide .braced ul{margin:0;padding:0;list-style:none}
+.slide .braced li{font-size:46px;line-height:1.24;margin:0}
+.slide .braced .brace{align-self:stretch;width:26px;border:3px solid var(--rule);
+  border-left:0;border-radius:0 16px 16px 0}
+.slide .braced .tag{font-size:34px;color:var(--muted)}
+.slide p.lumin{font-size:46px;margin-top:54px}
+.slide p.lumin span{font-size:30px;color:var(--muted)}
+.slide p.sub{font-size:28px;color:var(--muted);margin:0 0 10px}
+/* the question head, matching the other 140L decks */
+.slide .qhead{display:flex;align-items:center;gap:28px;margin-bottom:12px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead h1{margin:0}
+.slide p.ask{font-size:31px;line-height:1.4;max-width:1300px}
+.slide .src-link{font-size:20px;color:var(--muted);margin:16px 0 0}
+.slide .src-link a{color:var(--blue)}
+.slide .pair{display:grid;grid-template-columns:1fr 1.6fr;gap:40px;
+  flex:1 1 auto;min-height:0;align-items:center}
+.slide .pair figure{margin:0;min-height:0;height:100%;display:flex;
+  align-items:center;justify-content:center}
+.slide .pair img{flex:1 1 auto;min-height:0;width:100%;height:100%;object-fit:contain}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 15 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">CDS-Based Parts</h1>
+  <p>Parts that encode functional proteins</p>
+  <template class="notes">Though many parts are DNA or RNA elements, most parts encode proteins.  At the DNA level, the region of the sequence that is directly translated 3-bases at a time into protein is called the CDS, or &lsquo;CoDing Sequence&rsquo;.  The proteins that get made into parts are useful by virtue of their molecular function. If you were to write out some arbitrary protein sequence, there is little chance that this protein would fold into a structure and have a function.  However, rare sequences participate in highly-specific and complicated interactions with other molecules.</template>
+  <template class="desc">Section divider: CDS-Based Parts. Parts that encode functional proteins.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 16 -->
+<!-- Split in two.  The source put the physicochemical words and the
+     biological words on one slide beside a ribosome structure that
+     illustrated neither.  They are two different claims: one says what
+     a molecule DOES, in the plainest chemical terms there are; the
+     other says what it is FOR, which chemistry cannot tell you. -->
+<article class="slide" data-seq="microstates">
+  <h1 class="small">Molecular function, in physicochemical terms</h1>
+  <template class="notes"></template>
+  <template class="desc">Three ways of describing what a protein does, each drawn as the states it can be in and the transitions between them. An enzyme: four states, with exactly one transition that makes or breaks a bond, marked by the substrate changing shape. A binding protein: the same picture with that covalent step removed — two states and one reversible transition. A transporter: no covalent step either, but the states have to record which side of a membrane the cargo is on. The closing line is that every one of these is a set of states and the moves between them.</template>
+</article>
+
+<!-- --------------------------------------------------------------- 16b -->
+<article class="slide">
+  <h1 class="small">&hellip; and in biological terms</h1>
+  <p class="lead2">The same molecules, described by <b>what they are for</b> rather than
+     by what they chemically do</p>
+  <div class="roles">
+    <div><b>Signalling</b><span>kinases, phosphatases, two-component systems</span></div>
+    <div><b>Scaffolds</b><span>which partners meet, and in what order</span></div>
+    <div><b>Structural</b><span>cytoskeleton, polymers, the shape of the cell</span></div>
+    <div><b>Chaperones</b><span>what folds, and what gets a second attempt</span></div>
+    <div><b>Degrons and proteases</b><span>what persists, and for how long</span></div>
+    <div><b>Condensate drivers</b><span>compartments with no membrane around them</span></div>
+  </div>
+  <p class="punch2">None of these is a chemical category. A kinase is an enzyme and a signalling
+     protein at once, and knowing it is a kinase does not tell you which pathway it is in.</p>
+  <template class="notes">Now the other vocabulary, and it is doing a completely different job. These words do not describe a reaction. They describe a position in a network. Signalling proteins are mostly just kinases and phosphatases, which is to say enzymes; what makes them a category is the role they play rather than the chemistry they run. Scaffolds bind several partners at once and decide which of them meet, so they set the topology of a pathway without catalysing anything in it. Structural proteins polymerise and give the cell its shape. Chaperones decide what folds. Degrons and proteases decide what persists and for how long, which is as much a part of a circuit as making the protein in the first place. And condensate drivers organise the cytoplasm into compartments with no membrane around them, which is a category that barely existed when this course started and is now everywhere. The thing to hold on to is that none of these is a chemical category, and the two slides do not compete. A kinase is an enzyme and a signalling protein at the same time. The first description tells you what it does to a molecule; this one tells you what it is for, and you need both.</template>
+  <template class="desc">A second vocabulary for the same molecules, describing what they are for rather than what they chemically do: signalling, scaffolds, structural proteins, chaperones, degrons and proteases, and condensate drivers. The closing point is that none of these is a chemical category — a kinase is an enzyme and a signalling protein at once, and knowing it is a kinase does not tell you which pathway it is in.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 17 -->
+<article class="slide">
+  <h1 class="small">Reporter Proteins</h1>
+  <div class="braced">
+    <ul><li>GFP</li><li>BFP</li><li>YFP</li><li>RFP</li></ul>
+    <div class="brace"></div>
+    <div class="tag">Fluorescent proteins</div>
+  </div>
+  <p class="lumin">Luciferase <span>(Luminescence)</span></p>
+  <template class="notes">Proteins can alternatively be classified in terms of pragmatic design abstractions.  For example, reporter proteins are proteins that can be quantitatively assayed upon expression in a cell. In the case of the fluorescent proteins, they cause the cell to absorb and emit specific wavelengths of light detectable with microscopy, cytometry, or fluorimetry. This categorization of proteins does not define any commonality of biochemical mechanism.  Instead, it corresponds a useful design abstraction corresponding to the commonality of usage between things like fluorescent proteins that turn the cell colors, and enzymes that catalyze reactions and emit light. Thus, the details of what these reporter proteins do mechanistically is decoupled from their utility in design. A reporter gene need not even encode protein.  For example, there are RNA elements that will specifically bind the dye malachite green and become fluorescent.</template>
+  <template class="desc">Reporter proteins. GFP, BFP, YFP and RFP braced together as the fluorescent proteins, and luciferase listed separately, which reports by luminescence instead.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 18 -->
+<article class="slide">
+  <h1 class="small">LacZ (&beta;-galactosidase)</h1>
+  <figure class="fig">
+    <img src="img/03-lacz-xgal.png" alt="The reaction of beta-galactosidase on X-gal: the colourless substrate is cleaved to 5-bromo-4-chloro-3-hydroxyindole, which oxidises to the dark blue dimer, shown beside a tube of cell lysate turning blue over 24 hours.">
+  </figure>
+  <template class="notes">From https://www.ncbi.nlm.nih.gov/pubmed/22952846</template>
+  <template class="desc">The chemistry of the blue readout: beta-galactosidase cleaves colourless X-gal to 5-bromo-4-chloro-3-hydroxyindole, which then oxidises to a dark blue dimer. Below, a tube of lysate photographed before and after 24 hours, colourless then deep blue.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 19 -->
+<article class="slide">
+  <h1 class="small">LacZ (&beta;-galactosidase)</h1>
+  <figure class="fig dark">
+    <img src="img/03-lacz-plate.png" alt="A plate of colonies on X-gal, some blue and some white.">
+  </figure>
+  <template class="notes"></template>
+  <template class="desc">A photograph of a plate carrying hundreds of colonies on X-gal: most are white, and a scattering of them are blue.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 20 -->
+<article class="slide">
+  <h1 class="small">LacZ (&beta;-galactosidase)</h1>
+  <figure class="fig">
+    <img src="img/03-lacz-embryo.png" alt="A whole mouse embryo stained for lacZ expression, with blue marking the tissues where the gene is on.">
+  </figure>
+  <template class="notes"></template>
+  <template class="desc">The same reporter used in a whole animal: a mouse embryo stained for lacZ, with the tissues expressing the gene picked out in blue along the spinal cord, the limb bud and the hindbrain.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 21 -->
+<article class="slide">
+  <h1 class="small">Reporter Proteins</h1>
+  <div class="withfig" style="flex:0 0 auto">
+    <div>
+      <h2>Hydrolytic Enzymes</h2>
+      <ul class="tight">
+        <li>&beta;-galactosidase (<i>lacZ</i>)</li>
+        <li>&beta;-lactamase (<i>bla</i>)</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Alkaline Phosphatase</h2>
+      <ul class="tight">
+        <li>Encoded by <i>phoA</i></li>
+        <li>Not functional in cytoplasm</li>
+        <li>Used as a probe for localization</li>
+      </ul>
+    </div>
+  </div>
+  <figure class="fig" style="margin-top:4px">
+    <img src="img/03-phoa-pnpp.png" alt="The reaction of alkaline phosphatase on p-nitrophenyl phosphate, releasing the yellow p-nitrophenol.">
+  </figure>
+  <template class="notes">In this regard, several enzymes can also be considered as reporter proteins due to their utility in assays for monitoring processes within the cell. LacZ is one very common reporter protein.  It encodes a b-galactosidase which cleaves the monosaccharide galactose from various substrates. Several commercially-availability dyes are converted to chromophores or fluorophores in response to cleavage by a galactosidase.  Another hydrolytic enzyme is beta-lactamase.  Though this enzyme is more typically found in the context of antibiotic resistance to ampillin, it also can be used as a reporter protein.  There is a chemical called nitrocephin that becomes fluorescent upon reaction with b-lactamase.  Another popular reporter protein is alkaline phosphatase.  In E. coli, it is encoded by the phoA gene, and it efficiently removes phosphates from molecules.  One substrate is o-nitro-phenyl-phosphate.  Hydrolysis of the phosphate results in o-nitro-phenol, which is yellow.  Other chromagenic and fluorogenic substrates exist.  One specifical property of alkaline phosphatase is that it requires periplasmic localization or secretion to be functional. Thus, this enzyme is also a useful probe for the location of the protein in the cell.</template>
+  <template class="desc">Enzymes used as reporters. The hydrolytic enzymes beta-galactosidase and beta-lactamase, and then alkaline phosphatase, encoded by phoA, which is not functional in the cytoplasm and is therefore used as a probe for where a protein ends up. Below, the reaction it is assayed by, cleaving p-nitrophenyl phosphate to release the yellow p-nitrophenol.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 22 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <h1 class="small">Alkaline phosphatase</h1>
+  </div>
+  <p class="ask">I made 2 alkaline phosphatase reporter constructs.  One was linked to a PelB
+     leader sequence, and the other had no pre sequence.  Only one hydrolzes o-nitrophenyl
+     phosphate.  Which one and why?</p>
+  <template class="notes">This enzyme will take the phosphates off pretty much anything, and is only safe to exist outside of the cell.  It has evolved a beta roll domain that only allows it to fold in the calcium rich periplasm to avoid killing the cell.  Thus it only folds in the periplasm (or in general outside the cell).  Thus it needs a pre-pro to get to a place where it can fold and be active.</template>
+  <template class="desc">A question for the room, marked with the deck's thinking figure: of two alkaline phosphatase constructs, one carrying a PelB leader sequence and one with no pre sequence, only one hydrolyses o-nitrophenyl phosphate. Which, and why?</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 23 -->
+<article class="slide">
+  <h1 class="small">Selectable Markers</h1>
+  <div class="lists two">
+    <div>
+      <h2>Antibiotic Resistance to:</h2>
+      <ul>
+        <li>Ampicillin</li><li>Chloramphenicol</li><li>Kanamycin</li>
+        <li>Gentamycin</li><li>Hygromycin</li><li>Puromycin</li><li>Vancomycin</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Toxic Genes:</h2>
+      <ul><li>Barnase</li><li>CcdB</li></ul>
+      <h2 style="margin-top:36px">Conditional Lethal:</h2>
+      <ul>
+        <li>NfsA (nitrofurazone)</li>
+        <li>Upp (5-fluorouracil)</li>
+        <li>SacB (sucrose)</li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">Another functional classification of genes are selectable markers.  These are proteins that upon production confer a selectable phenotype to the encoding cell.  Most commonly, these are antibiotic resistance proteins.  These are usually enzymes that chemically modify the antibiotic enabling the cell to selectively grow in their presence. There are also proteins toxic to the cell and can be used in counter-selection.  If a cell produces barnase, it will degrade all RNA and kill the cell.  CcdB similarly will kill the cell by inhibiting DNA gyrase. There are also conditionally-lethal markers.  CcdB, for example, is inhibited by coexpression of CcdA protein, which blocks its lethal action.  Upp is an E. coli gene that facilitates salvage of 5-fluorouracil which is converted ultimately to an inhibitor of dNTP biosynthesis.  Thus, a cell lacking upp is resistant to 5-fluorouracil, and cells containing this marker can be conditionally killed by growth on 5-FU.  A similar process occurs in yeast with the URA2 gene and the related substrate 5-FOA.  SacB is another one of these conditional lethals.  Upon expression, it renders the cell sensitive to growth on sucrose.</template>
+  <template class="desc">Three kinds of selectable marker. Antibiotic resistance to ampicillin, chloramphenicol, kanamycin, gentamycin, hygromycin, puromycin and vancomycin. Toxic genes: barnase and CcdB. And conditional lethals: NfsA with nitrofurazone, Upp with 5-fluorouracil, and SacB with sucrose.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 24 -->
+<article class="slide">
+  <h1 class="small">Transcription Factors</h1>
+  <div class="lists two">
+    <div>
+      <h2>Global Transcription Factors:</h2>
+      <ul>
+        <li>HNS</li><li>IHF</li>
+        <li>CAP (catabolite repression)</li>
+        <li>Fur (iron regulation)</li>
+        <li>Histidine Kinase two-component systems</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Local Transcription Factors:</h2>
+      <ul>
+        <li>LacI (lactose sensing)</li>
+        <li>VirF (virulence-related)</li>
+        <li>NahR (salicylate sensing)</li>
+        <li>AraC (arabinose sensing)</li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">Another important functional class are transcription factors. These are proteins that bind to DNA and affect transcription. Though it is probably not strictly meaningful to distinguish global and local ones, it is clearly the case that some play more diverse roles in the cell than others.  The global transcription factors, also called pleiotropic transcription factors are proteins that bind to many (often hundreds or thousands) of different promoters in bacteria.  Others, like LacI, only affect a few promoters related through their association with a similar process, in this case lactose catabolism.</template>
+  <template class="desc">Transcription factors split into two groups. Global ones, which bind hundreds or thousands of promoters: HNS, IHF, CAP for catabolite repression, Fur for iron regulation, and the histidine kinase two-component systems. Local ones, which affect only a few: LacI for lactose, VirF for virulence, NahR for salicylate, AraC for arabinose.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 25 -->
+<!-- Was the Khan Academy figure, which draws the two states as two
+     stacked panels.  The mechanism is the transition between them --
+     the operator overlapping the promoter, and the repressor letting
+     go rather than leaving -- and two static panels show neither. -->
+<article class="slide" data-seq="lac">
+  <h1 class="small">Lac Repressor</h1>
+  <template class="notes">From Khan Academy
+https://www.khanacademy.org/science/biology/gene-regulation/gene-regulation-in-bacteria/a/the-lac-operon</template>
+  <template class="desc">The lac operon worked through as one run, with a logarithmic level gauge for each molecule running above the drawing. LacI binds the operator, which overlaps the promoter; repression is about a thousand-fold, so a few LacZ and LacY remain; with no glucose, cAMP-CRP is already bound at the CAP site and bending the DNA alongside the repressor, and the operon is still off; lactose is carried in by the few LacY there are; LacZ rearranges a little of it into allolactose, which releases LacI without removing it; and sigma-70 takes the promoter, held there by the alpha subunit reaching the bend. Both inputs had to be satisfied.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 26 -->
+<!-- The source put the two AraC configurations side by side.  Side by
+     side is the one thing this mechanism cannot be: what AraC does is
+     MOVE between pairs of sites, and the loop that the first pair
+     forces is why the first state is off.  A loop forms and collapses;
+     it does not sit in a panel. -->
+<article class="slide" data-seq="arac">
+  <h1 class="small">Example: Pbad Promoter</h1>
+  <ul class="tight">
+    <li>Some TF&rsquo;s are only activators (CAP)</li>
+    <li>Some are only repressors (LacI)</li>
+    <li>Some can do either (AraC)</li>
+  </ul>
+  <template class="notes">The interactions between transcription, the promoter, and transcription factors can be simple.  Some transcription factors are always activators, while others are always repressors.  For example, the tet repressor binds as a dimer to the DNA only when tetracycline is absent, and in response causes repression of its promoters.  Other transcription factors have more complicated interactions with their promoters.</template>
+  <template class="desc">Three kinds of transcription factor — activators only like CAP, repressors only like LacI, and ones that do either like AraC — and then AraC worked through: the dimer holding araO2 and I1 so the DNA between them loops out and the promoter is unusable, arabinose binding, and the dimer releasing araO2 for I2 so the loop collapses and the same protein now recruits polymerase.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/lib.js" defer></script>
+<script src="seq/01-lac.js" defer></script>
+<script src="seq/01-arac.js" defer></script>
+<script src="seq/02-microstates.js" defer></script>
+</body>
+</html>
