@@ -104,7 +104,11 @@ function paint(v, f){
   if (v.term > 0.02){
     const h = G.grp(v.term);
     h.appendChild(G.path("M" + TA + " " + DY + "H" + TB, C.verm, 11));
-    h.appendChild(bracket(TA, TB, DY + 26, false, C.verm, "terminator"));
+    /* in the Rho half, this bracket has to say what it is FOR: the two
+       sites are different places doing different jobs, and the easy
+       misreading is that rut and the terminator are the same thing */
+    h.appendChild(bracket(TA, TB, DY + 26, false, C.verm, "terminator",
+      v.rut > 0.02 ? "where the polymerase pauses" : null));
     g.appendChild(h);
   }
 
@@ -204,24 +208,24 @@ beat({ on:[], s:{gone:1},
   desc:"The transcript releases and falls away from the polymerase, which leaves the template. Nothing but the sequence was involved."});
 
 beat({ on:[], s:{hair:0, utr:0, gone:0, rut:1, paused:1},
-  cap:"the other kind has no hairpin at all", call:"",
-  note:"Now the other mechanism, and it starts from the opposite situation. Same polymerase, same pause, but this transcript folds into nothing useful. What it has instead is this: a stretch of forty to eighty bases that is C-rich, has no secondary structure of its own, and crucially has no ribosome sitting on it. That stretch is called a rut site, for Rho utilisation.",
-  desc:"The stage resets: the same polymerase paused on the template, but with no hairpin in the transcript. Instead a bare stretch of the RNA is bracketed and labelled rut: C-rich, unfolded, with no ribosome on it."});
+  cap:"two different sites, doing two different jobs", call:"",
+  note:"The other mechanism needs a protein called Rho, and it starts from the opposite situation: this transcript folds into nothing useful. What it has instead is a stretch of RNA called a rut site, which stands for Rho utilisation. A good one is C-rich, relatively unstructured, and critically, not covered by a translating ribosome or by anything else that binds RNA. And keep these two things apart, because it is the easy mistake to make: the rut site is on the RNA and it is where Rho loads. The terminator is downstream, on the DNA, and it is where the polymerase pauses and where termination actually happens. They are not the same site.",
+  desc:"The stage resets: the same polymerase paused on the template, but with no hairpin in the transcript. A bare stretch of the RNA is bracketed and labelled rut, the C-rich, unstructured, ribosome-free site where Rho loads, while the terminator bracket on the DNA downstream is labelled as where the polymerase pauses. Two different sites."});
 
 beat({ on:[], s:{rho:1},
-  cap:"Rho is a ring, and the RNA goes through it", call:"",
-  note:"Rho is a hexamer, six subunits in a ring, and that ring is why the rut site has to be bare. The RNA threads through the hole in the middle. Anything else bound there, a fold, a ribosome, and Rho simply cannot load.",
-  desc:"Rho arrives at the rut site, drawn as a ring of six subunits with the transcript threaded through the hole in the centre."});
+  cap:"Rho is a ring, and the RNA runs through it", call:"",
+  note:"Rho is an ATP-powered RNA translocase. Six subunits assemble into a ring, and the transcript is threaded through the channel down the middle of it. That is the reason the rut site has to be exposed: something has to feed through the hole. A fold there, or a ribosome, and Rho never loads at all.",
+  desc:"Rho arrives at the rut site, drawn as a ring of six subunits with the transcript threaded through the central channel."});
 
 beat({ on:[], s:{chase:1}, dur:1900,
-  cap:"it runs along the message, burning ATP", call:"",
-  note:"Once it is on, it translocates along the RNA towards the three prime end, hydrolysing ATP as it goes. So this is a chase. A polymerase moving along DNA, a motor protein moving faster along the message behind it, and the only reason Rho ever catches up is that the polymerase has paused.",
-  desc:"Rho translocates along the transcript towards the polymerase, powered by ATP, closing the gap while the polymerase remains paused."});
+  cap:"it translocates along the RNA, hydrolysing ATP", call:"",
+  note:"Loaded, it hydrolyses ATP to move along the RNA in the five prime to three prime direction, following the polymerase that is making the transcript. So this is a chase, and the polymerase would stay ahead of it indefinitely were it not for the terminator downstream. That is what the pause is for: reaching the termination region makes the polymerase stop, and stopping is what gives Rho time to catch up.",
+  desc:"Rho translocates along the transcript five prime to three prime, powered by ATP, following the polymerase and closing the gap while the polymerase is paused at the terminator."});
 
 beat({ on:[], s:{gone:1},
-  cap:"", call:"Rho prises the hybrid apart",
-  note:"And when it arrives it unwinds the hybrid directly, the same way a helicase would. Transcript off, polymerase off. Exactly the same ending as before, reached by completely different means: there the sequence did it to itself, here a protein came and did it.",
-  desc:"Rho reaches the paused polymerase and unwinds the RNA-DNA hybrid. The transcript releases and the polymerase leaves the template, the same ending as the intrinsic route."});
+  cap:"", call:"the hybrid, and the grip on the DNA, come apart",
+  note:"When Rho reaches the paused complex it disrupts the RNA-DNA hybrid and the interactions holding the polymerase on the template. The RNA is released and transcription ends. Same ending as the intrinsic route, reached by entirely different means. And it leaves a consequence worth remembering: because Rho needs exposed RNA to load on, translation and RNA structure can decide whether a Rho-dependent terminator works at all. A ribosome running over the rut site is enough to switch it off.",
+  desc:"Rho reaches the paused polymerase and disrupts both the RNA-DNA hybrid and the contacts holding the polymerase on the template. The transcript releases and the polymerase leaves, the same ending as the intrinsic route."});
 
 beat({ on:[], s:{sum:1},
   cap:"", call:"",
