@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Introduction &ndash; Parts</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.  deck.css is shared by every lecture in the course and
+ * is not touched from here.
+ *
+ * THE ABSTRACTION STACK.  Four names, each with the sequence that name
+ * refers to, so the reader can see that they are nested views of one
+ * molecule rather than four different things.  The source sets them as a
+ * boxed label over a mono line; kept, because the box is what marks the
+ * protein row as the one that is not DNA.
+ * --------------------------------------------------------------------- */
+.slide .abst{margin:46px 0 0}
+.slide .abst dt{font-size:30px;font-weight:700;margin:0 0 10px}
+.slide .abst dd{margin:0 0 46px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:28px;letter-spacing:.02em;color:var(--ink)}
+.slide .abst dd .start{color:var(--vermillion);font-weight:700}
+.slide .abst .boxed{display:inline-block;border:2px solid var(--rule);border-radius:4px;
+  padding:7px 14px;color:var(--muted)}
+/* THE WHOLE PART, WITH ITS FEATURES INSIDE IT.  One continuous 1.3 kb
+   string, so it has to wrap mid-token -- white-space:pre would run it off
+   the slide.  Three features are marked: the two flanking restriction
+   sites, the coding sequence, and the terminator.  Amber is rung 3 and is
+   normally reserved; it is spent here because this slide genuinely needs
+   three simultaneous distinctions and splitting it would destroy the one
+   point it makes, which is that they are all in the same molecule. */
+.slide pre.whole{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:23px;line-height:1.38;margin:16px 0 0;white-space:pre-wrap;
+  word-break:break-all;letter-spacing:.01em;color:var(--ink)}
+.slide pre.whole .site{color:var(--amber);font-weight:700}
+.slide pre.whole .cds {color:var(--blue);font-weight:700}
+.slide pre.whole .term{color:var(--vermillion);font-weight:700}
+.slide p.key{font-size:22px;color:var(--muted);margin:18px 0 0}
+.slide p.key b{font-weight:700}
+.slide p.key .site{color:var(--amber)}
+.slide p.key .cds{color:var(--blue)}
+.slide p.key .term{color:var(--vermillion)}
+/* The definitions slide: a lead claim, then the formats indented under
+   it, exactly as the source stacks them. */
+.slide p.claim{font-size:29px;line-height:1.4;margin:0 0 26px}
+.slide p.claim b{color:var(--blue)}
+.slide .indent{margin-left:72px}
+.slide .indent p{font-size:26px;line-height:1.38;margin:0 0 20px}
+.slide .indent p b{color:var(--vermillion)}
+/* FEATURE -> MOLECULE -> PHENOTYPE, the three things a sequence turns
+   into, left to right in the source's own order. */
+.slide .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;
+  align-items:center;flex:1 1 auto;min-height:0;margin-top:24px}
+.slide .three > figure{margin:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;min-height:0;height:100%}
+.slide .three img{flex:1 1 auto;min-height:0;width:100%;height:100%;object-fit:contain}
+.slide .three .seqblock{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:17px;line-height:1.3;color:var(--muted);word-break:break-all;
+  max-width:300px;margin:0 0 14px}
+.slide .three figcaption{font-size:20px;color:var(--muted);margin-top:12px;text-align:center}
+/* THE THREE FORMATS, each shown as the boundary it fixes rather than as a
+   name on a list.  The sequence either side of "your part" is the real
+   prefix and suffix, lowercase for the flanking furniture and uppercase
+   for the two sites that ARE the boundary.  The assembly chemistry
+   itself belongs to the DNA Fabrication deck and is not repeated here. */
+.slide .fmts{margin-top:22px}
+.slide .fmt{margin-bottom:19px}
+.slide .fmt h2{font-size:27px;font-weight:700;margin:0 0 8px;color:var(--ink)}
+.slide pre.bnd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:23px;line-height:1.3;margin:0 0 7px;white-space:pre;color:var(--muted)}
+.slide pre.bnd .site{color:var(--blue);font-weight:700}
+.slide pre.bnd .ov{color:var(--vermillion);font-weight:700}
+.slide pre.bnd b{color:var(--ink);font-weight:700}
+.slide p.imp{font-size:23px;margin:0;color:var(--ink)}
+.slide p.imp b{font-weight:700}
+.slide p.imp b.site{color:var(--blue)}
+.slide p.imp b.ov{color:var(--vermillion)}
+.slide p.shared{font-size:28px;margin:20px 0 0}
+.slide p.shared b{color:var(--vermillion)}
+/* The show/hide rule for sequence parts is PAGE-LOCAL and is not in
+   deck.css.  Omit it and nothing errors, nothing logs, and every part
+   of every sequence is visible from the slide's first beat. */
+.slide svg .o{opacity:0;transition:opacity .42s ease}
+.slide svg .o.in{opacity:1}
+.slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+@media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
+.slide .playlist{font-size:24px;margin-top:40px;line-height:1.5}
+.slide .playlist a{color:#fff;text-decoration:underline}
+</style>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- 1 -->
+<article class="slide" data-bg="lecture">
+  <h1>Parts</h1>
+  <p class="playlist">YouTube playlist:<br>
+     <a href="https://www.youtube.com/watch?v=9B5e41QwoBI&amp;list=PL2aPXzks-TgNP1FuAv0v-fS6UhCjy1waN">youtube.com/watch?v=9B5e41QwoBI&amp;list=PL2aPXzks-TgNP1FuAv0v-fS6UhCjy1waN</a></p>
+  <template class="notes"></template>
+  <template class="desc">Lecture title slide: Parts. A link to the course YouTube playlist for this lecture.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 2 -->
+<article class="slide">
+  <h1 class="small">Part Abstractions</h1>
+  <dl class="abst">
+    <dt>Protein</dt>
+    <dd><span class="boxed">MEKKITGYT&hellip;</span></dd>
+    <dt>Feature/CDS</dt>
+    <dd><span class="start">atg</span>gagaaaaaaatcactggatataccac&hellip;</dd>
+    <dt>Transcript</dt>
+    <dd>TAAGGAGGAAAAACAT<span class="start">atg</span>gagaaaaaaatcactggatataccac&hellip;</dd>
+    <dt>BioBrick Part</dt>
+    <dd>tctag<span class="start">atg</span>gagaaaaaaatcactggatataccac&hellip;</dd>
+  </dl>
+  <template class="notes">Parts is a quintessential synthetic biology idea, and it is not used uniformly in the literature. We are associating a function with a specific DNA sequence, but several different sequences fit that, and any one of them might be what somebody means by the part. It could be the open reading frame, the stretch that directly encodes the protein. It could be the transcript, from the five-prime UTR through to wherever transcription stops; both ends of that are fuzzy in a natural system, but it is a real thing and it is functional. It could take in a promoter as well, or it could be a BioBrick part with restriction sites either side of the coding region. These are not competing definitions but different perspectives on one molecule: as a protein, as an RNA, as a primitive for fabricating DNA. Which is most on-the-nose depends on what you are measuring. For a translation rate you mean the transcript; for tracking a sample through an automated facility, the BioBrick part; for the reaction the protein catalyses, the protein itself, however it was encoded.</template>
+  <template class="desc">Four names for nested views of the same molecule, each shown with the sequence it refers to. Protein: the amino acid sequence MEKKITGYT. Feature or CDS: the coding sequence beginning atg, with the start codon marked. Transcript: a ribosome binding site added ahead of that same coding sequence. BioBrick Part: the same again with the assembly prefix in front of it.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 3 -->
+<!-- Moved ahead of the salicylate part, so the fabrication view of a part
+     is established before the slide that shows one breaking the molecular
+     boundaries.  The three Formats were a bare list; each is now shown as
+     what it actually fixes, which is where one part stops and the next
+     begins.  The ligation chemistry itself is NOT re-taught here -- the
+     DNA Fabrication deck owns the scars and the one-pot digest-ligate. -->
+<article class="slide">
+  <h1 class="small">Standard Biological Parts</h1>
+  <p class="claim">&hellip; are parts that conform to a particular set of rules (a composition
+     standard or <b>Format</b>) defined to guarantee their ability to be physically joined
+     into a contiguous DNA molecule</p>
+  <div class="fmts">
+    <div class="fmt" data-build="1"
+      data-note="The original is Tom Knight&rsquo;s RFC10, and its boundary is a pair of restriction sites: XbaI on the front of every part, SpeI on the back. Both leave the same four-base overhang, so the back of any part ligates to the front of any other, and the junction they make is cut by neither one. That is the whole trick, and it is why parts in this format compose pairwise without you having to think about the sequence at the join."
+      data-desc="RFC10, the BioBrick format: every part carries an XbaI site on its front and a SpeI site on its back, and those are the boundary.">
+      <h2>BioBrick&trade; &mdash; RFC10</h2>
+      <pre class="bnd">&hellip;gaattcgcggccgct<span class="site">TCTAGA</span>g <b>&#9656; your part &#9666;</b> t<span class="site">ACTAGT</span>agcggccgctgcag&hellip;</pre>
+      <p class="imp">Tom Knight&rsquo;s original. <b class="site">XbaI</b> on the front,
+         <b class="site">SpeI</b> on the back &mdash; same overhang, so back joins to front.</p>
+    </div>
+    <div class="fmt" data-build="2"
+      data-note="BglBricks does the same job with BglII and BamHI, and the reason to care is the junction. The six bases left behind read GGATCT, glycine then serine, and it is in frame. So two coding parts joined this way give a single protein with a two-residue linker rather than a frameshift. RFC10 cannot, because its scar is not a multiple of three."
+      data-desc="BglBricks: the same idea with BglII and BamHI, whose junction is in frame, so coding parts can be fused into a single protein.">
+      <h2>BglBricks</h2>
+      <pre class="bnd">&hellip;gaattcatg<span class="site">AGATCT</span> <b>&#9656; your part &#9666;</b> <span class="site">GGATCC</span>taactcgag&hellip;</pre>
+      <p class="imp"><b class="site">BglII</b> and <b class="site">BamHI</b>. The junction is
+         <b>in frame</b>, so two coding parts can be fused into one protein.</p>
+    </div>
+    <div class="fmt" data-build="3"
+      data-note="MoClo is the Golden Gate version of this idea, but not the general Golden Gate case, and the distinction matters. BsaI does cut outside its own recognition sequence, so the four bases it leaves standing are not dictated by the enzyme &mdash; but in MoClo they are dictated by the standard. Each code is assigned to a position in a gene: TACT sits between a promoter and a ribosome binding site, GCTT between a coding sequence and a terminator, and so on around the architecture. So the code is not a label you invent for this construct; it states what kind of part this is, and that is what lets a whole set assemble in one tube in the right order. You will meet these positions again in the last section, as the TPcon and rbs.CDS parts."
+      data-desc="MoClo: BsaI cuts outside itself, and the four-base codes it leaves are fixed by the standard to mean positions in a gene — TACT between a promoter and a ribosome binding site, GCTT between a coding sequence and a terminator.">
+      <h2>MoClo &mdash; Golden Gate</h2>
+      <pre class="bnd"><span class="site">GGTCTC</span>n<span class="ov">TACT</span> <b>&#9656; rbs.CDS &#9666;</b> <span class="ov">GCTT</span>n<span class="site">GAGACC</span></pre>
+      <p class="imp"><b class="site">BsaI</b> cuts outside itself, and the
+         <b class="ov">four bases</b> it leaves are a <b>standardised code</b> &mdash;
+         <b class="ov">TACT</b> means promoter-to-rbs, <b class="ov">GCTT</b> means
+         CDS-to-terminator. Not yours to pick.</p>
+    </div>
+    <div class="fmt" data-build="4"
+      data-note="The fourth one breaks the pattern, which is why it is here. A homology standard puts no restriction site at the boundary; it puts a linker there instead, about twenty bases drawn from a fixed orthogonal set, and the same twenty sit at the end of one part and the start of the next. Nothing cuts anything at the junction. You chew the ends back, the two parts find each other because they match over twenty bases, and Gibson or SLIC or yeast closes the gap. So any part ending in linker two joins any part beginning with linker two, and the set of linkers is the standard. MODAL and BASIC are the names you are likely to see. It goes last because the first three can leave you thinking a part boundary has to be an enzyme site. It does not. It only has to be agreed."
+      data-desc="A homology standard: instead of a restriction site, the boundary is a defined linker of about twenty bases from a fixed orthogonal set, and the same twenty bases end one part and begin the next, so a homology reaction joins them with no enzyme acting at the junction.">
+      <h2>Homology &mdash; MODAL, BASIC</h2>
+      <pre class="bnd"><b>&#9656; part A &#9666;</b><span class="ov">[linker 2]</span>&nbsp;&nbsp;&nbsp;<span class="ov">[linker 2]</span><b>&#9656; part B &#9666;</b></pre>
+      <p class="imp">No site, no enzyme at the join. The boundary is <b class="ov">the same
+         ~20&nbsp;bp</b> on both parts, from a fixed set &mdash; and Gibson, SLIC or yeast
+         closes it.</p>
+    </div>
+  </div>
+  <p class="shared" data-build="5"
+     data-note="Four different chemistries, then, and what they share is the thing that matters. Each fixes where a part stops and the next begins, and each states a rule about what may be joined to what. Notice that the last manages it without any enzyme touching the junction, so the fixed boundary is the general idea and the restriction site is only one way of getting it."
+     data-desc="The closing line: four different chemistries, but each fixes where one part stops and the next begins, and states a rule for what may join what — and the boundary need not be a restriction site.">Different chemistries. The shared idea is a <b>fixed boundary</b> and a rule for
+     what may be joined to what &mdash; and it need not be a restriction site at all.</p>
+  <template class="notes"></template>
+  <template class="desc">The definition of a Standard Biological Part: one that conforms to a composition standard, or Format, defined so that parts can be physically joined into a contiguous DNA molecule. Four Formats then arrive one at a time, each shown as the boundary it fixes around a part — three restriction-site boundaries and one homology boundary with no enzyme at the junction.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 4 -->
+<article class="slide">
+  <h1 class="small">Parts <i>vs</i> Features</h1>
+  <pre class="whole"><span class="site">TCTAGA</span>gcgatcccgcgaagaaccaaaaaagctcgacagagggcgcggtcattttaggtcgggcggatcggcgccgccggctcggctggtgtgccgcacagcaccgcctacgtgagctgccagttgatgaacttcccccgttgccagctagggcgcaagcgggctgtataagatcactgcccatcacattgatcggctcggattttttc<span class="cds">TCAATCCGTAAACAGGTCAAACATCAGTTGCCGCAACCAAATATTGGCTAGGTCCTTGTGGTACTTCGCATGCCAGAACATGTTGATGGCTATTTCAGGCAAGACGACTGGGTGCGGCAAGGCGCTTAGGCCGAAGGGCTCCACGCAGCAGTCGGCTAAACGTATCGGCACAGTGGCGAGCAGATCGGTGCGCTGGAGGATGTGGCCAACGGCGGCGAAGTGCGGCACTTCCAGACGGATGTCGCGCCGGATGCCGACCCGTGTCATGTACGTGTCCACCTCGCCGTGGCCGGTGCCAGCGGCGATGACACGCACGTGGCCGTAGGAACAGAAGCGCTCCAGAGTCAGGGGTTCGCGGGTGACTGGATGGTCCTTGCGACATAGGCACACGTAGTGATTCTGGAGCAGCCGGCGCTGAAAGAAGCCAGTTTGCAGATTGGGAAGCAGGCCCACGGCCAAGTCCACGGTTCCGTTCTGCAAGGCCTGCATCAGGCTCATCGAACTGTCGCGCACCGTACTGATCACGCAATTGGGGGCCTGGTGAGCCAGCACATCCATCAGCCGCGGCATGAAGTAGATCTCGCCAATGTCGGTCATGGCCAGGGTGAAGGTACGCTCGCTGGTCAGCGGATCGAAGCTTTCATGGTGCTGTAGGGCGTTGCGCAGTGCGTGCATGGCCGAAGTGACGGGCTCGGCCAGATGCGCGGCATAGGGTGTGGGTTCCATTCCCTGATGTGTGCGCACGAAGAGTGGGTCCTGTAGCGAGGTGCGCAGGCGTTTCAGCGCATTGCTCACGGCAGGCTGGGTCAGGCCCAGGTTCTCCGCAGTGATAGAGACGCGTCTGTCGACCAGCAACTGGTTGAACACCACCAGCAGGTTTAAATCCAGGTCACGCAGTTCCAT</span>ggggcctcgcttgggttattgctggtgcccggccgggcgcaatattcatgttgatgatttattatatatcgagtggtg<span class="term">TATTTATCAATATTGTTTGCTCCGTTATCGTTATTAACAAGTCATCAATAAAGCCATCACGAGT</span>accataga<span class="site">ACTAGT</span></pre>
+  <p class="key">The whole string is the <b>part</b>. Inside it:
+     <b class="site">the flanking restriction sites</b> &middot;
+     <b class="cds"><i>nahR</i></b> &middot;
+     <b class="term">the promoter it activates</b></p>
+  <template class="notes">At this level &mdash; DNA fabrication, where one part ends and the next begins &mdash; those boundaries very often will not line up with where the mRNA or the protein starts and stops. Take this one. It encodes the salicylate promoter: it encodes NahR, but it also carries all the regulation needed to express NahR, and the promoter NahR activates. Its three-prime end runs well past the transcriptional start site, and we may not even know exactly where that start site is. What we do know is that the thing works. We could refactor it into a separate promoter, RBS, CDS and terminator, and the best you would likely achieve is something close to what you started with. Nature evolved this regulon to do the job we are asking of it, in a different genetic context from our strain, so there may be room for improvement &mdash; but these structures are rarely arbitrary, and if it ain&rsquo;t broke, don&rsquo;t try to fix it. So we define a part by its most functionally useful form rather than by the one that matches a clean molecular description, and that leaves a naming problem: what do you call something that maps onto no single chemical entity? One answer is to classify by what it outputs. A promoter outputs transcript; a promoter with an RBS, a CDS and a terminator outputs protein. That is very effective for describing compositions and defining assembly strategies, and rarely enough to tell you what happens when you put the thing in a cell.</template>
+  <template class="desc">A single continuous 1.3 kilobase sequence filling the slide: this is one part. Three features are marked inside it — the six-base restriction sites at each end, the nahR coding sequence written in upper case, and the promoter NahR activates near the far end. Everything between them is lower case and unmarked.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- *
+     The bridge the source deck did not have.  The slide before ends on
+     "classify a part by what it outputs" being enough to compose DNA
+     with and not enough to predict a cell.  This is that, made good:
+     the same part in front of GFP, every step drawn, in order.  The
+     slide after it reduces this diagram back to two pieces of DNA.
+     ----------------------------------------------------------------- -->
+<article class="slide" data-seq="biochem">
+  <h1 class="small">So what happens when you put it in a cell?</h1>
+  <template class="notes">We have a part, and we have a tidy way of describing it: it outputs protein. Now let us actually put it somewhere and see whether that description was enough.</template>
+  <template class="desc">A worked timeline, inside one cell, of everything the salicylate part sets off when it is cloned in front of GFP: sigma seventy already present, nahR transcribed and translated, NahR folding and pairing and binding its operator before any inducer is there, salicylate arriving and binding, the DNA bend relaxing, polymerase recruited, GFP transcribed, translated, and finally maturing its chromophore with oxygen.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 5 -->
+<article class="slide">
+  <p class="claim"><b>Features</b> represent defined DNA sequences encoding primitive elements
+     of biological function such as protein coding sequences, promoter sequences, and origins
+     of replication</p>
+  <div class="three">
+    <figure>
+      <p class="seqblock">atgaaaaacataaatgccgacgacacatacagaataattaataaaattaaagcttgtagaagcaataatgatattaatcaatgcttatctgatatgactaaaatggtacat...</p>
+      <img src="img/01-luxr-arrow.png" alt="A gene arrow labelled luxR.">
+    </figure>
+    <figure>
+      <img src="img/01-luxr-tube.jpg" alt="Precipitated DNA in a tube on a blue light box — the physical molecule, not a culture.">
+    </figure>
+    <figure>
+      <img src="img/01-luxr-protein.png" alt="A ribbon diagram of the LuxR protein.">
+    </figure>
+  </div>
+  <template class="notes">Features are like parts, in that they associate a function with a stretch of DNA, but a feature refers more specifically to the business portion of the molecule it encodes. We are always naming an exact DNA sequence, and yet the function itself might live in the DNA, the RNA or the protein. The central dogma rescues us there: we can treat the RNA and the protein as projections of the DNA sequence, deterministically defined by it and related to it through a lookup table and a few simple rules, so defining the DNA is enough to define both. Now look at these three pictures, because they are three different things and only one is the feature. The feature itself is a conceptual object &mdash; in the computer a DNA string, on a map perhaps only a name or an icon. That is distinct from the physical DNA that happens to contain the sequence, which is the middle picture, a tube of precipitated DNA, and distinct again from the protein itself on the right. The word part gets used loosely for all three. The feature is specifically the one on the left.</template>
+  <template class="desc">Three things side by side, only one of which is the feature. On the left, the feature itself as a conceptual object: a stretch of sequence written out, and the same thing drawn as a gene arrow labelled luxR. In the middle, the physical molecule — precipitated DNA in a tube on a light box. On the right, the protein that sequence encodes, as a ribbon structure. The word part is used loosely for all three; the feature is the one on the left.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/lib.js" defer></script>
+<script src="seq/00-biochem.js" defer></script>
+</body>
+</html>

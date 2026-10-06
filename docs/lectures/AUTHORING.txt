@@ -180,6 +180,41 @@ it is line work in a few flat colours; keep it on a dark panel only when the
 figure's own data colours overlap its line colours, where recolouring destroys
 the data.
 
+  THE SCALE OF THAT, WHEN A WHOLE DECK IS CONVERTED.  Converting the Parts
+  PowerPoint, 8 of its 31 figures were partly or wholly illegible the moment
+  they landed on white, and the audit was clean for every one of them.  Three
+  were white marks on transparency and simply did not exist on the slide -- a
+  tRNA cloverleaf that rendered as a single blue box, a promoter diagram that
+  rendered as an empty panel.  The rest kept their shapes and lost their
+  labels, which is worse, because the figure still looks like a figure.
+
+  check_section cannot see any of this: white ink on a white slide is not ink
+  outside the content box, not a clipped element and not a console error, and
+  the step still measures as well filled because the <img> is the right size.
+  So after converting a source deck, FLATTEN EVERY FIGURE ONTO WHITE AND LOOK
+  AT THEM, as a sheet, before trusting a clean audit.  A quick first pass:
+
+      magick f.png -background white -flatten -resize 330x out.png
+
+  Two cases the straightforward recolour gets wrong.  A figure whose
+  antialiasing is in the ALPHA channel only -- every pixel of a mark carries
+  the same RGB -- recolours exactly with -opaque and a tiny fuzz; one
+  rasterised with RGB blending needs a wide fuzz and leaves a faint halo, so
+  check it rather than assuming.  And white letters sitting INSIDE a filled
+  block turn into ink on a dark fill, which is a different way of being
+  invisible: recolour that block to amber, where ink reads at 6:1.
+
+  WHERE THE FIGURE IS STILL VECTOR IN THE SOURCE .pptx, DO NOT RECOLOUR THE
+  PIXELS AT ALL.  Rewrite the theme's colour scheme -- dk2 and accent1 to
+  accent6 in ppt/theme/*.xml -- to the palette, re-render, and re-crop.  The
+  antialiasing comes out clean and every shape that referenced a theme colour
+  moves at once.  Two things to know: a deck of this age carries NINE themes
+  and five themeOverrides, so edit all of them or the change silently misses
+  the slides you cared about; and shapes often reference a theme colour
+  through a lumMod/lumOff tint, so whatever you map dk2 to will appear
+  somewhere as a 60% lightened version of itself -- map it to blue, not ink,
+  unless a grey arrow is what you want.
+
 A CONTROL ON A SLIDE MUST NOT USE AN id.  Presenter mode clones the NEXT slide
 into its preview pane, so every id on a slide exists twice the moment the slide
 before it is showing, and getElementById can hand you the dead copy.  Find
