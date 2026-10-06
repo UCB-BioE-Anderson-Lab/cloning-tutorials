@@ -143,13 +143,30 @@ function paint(v, f){
   const dy = lerp(PY, DY - 44, v.bound);
   if (G.late(v.nahr) > 0.02){
     const h = G.grp(G.late(v.nahr)*M);
-    const sep = lerp(74, 23, v.dim);
+    /* The pair stays far enough apart to read as TWO protomers, and the
+       second is mirrored.  At a closer separation the two outlines merge
+       into one silhouette and the dimer reads as a single blob sitting
+       on the DNA -- which is exactly how a repressor is drawn. */
+    const sep = lerp(78, 38, v.dim);
     h.appendChild(G.nahr(dx - sep, dy, v.salb, C.blue));
     if (v.dim > 0.02){
       const h2 = G.grp(Math.min(1, v.dim*2));
-      h2.appendChild(G.nahr(dx + sep, dy, v.salb, C.blue));
+      h2.appendChild(G.nahr(dx + sep, dy, v.salb, C.blue, null, true));
       h.appendChild(h2);
     }
+    /* It is an ACTIVATOR, and a protein seated on DNA upstream of a
+       promoter is read as a repressor unless the drawing says so. */
+    if (v.bound > 0.5)
+      h.appendChild(G.text(dx, dy - 82, "NahR dimer — an activator", 20, C.blue, 700));
+    g.appendChild(h);
+  }
+  /* the induced contact: what activation IS here, drawn rather than
+     asserted -- the dimer reaching the polymerase it is recruiting */
+  if (v.salb > 0.3 && v.pol2 > 0.3 && G.early(v.seat2) > 0.6){
+    const h = G.grp(Math.min(1, (v.salb - 0.3)/0.4));
+    h.appendChild(G.path("M" + n2(dx + 58) + " " + n2(dy - 28) +
+      "q36 -22 70 -4", C.blue, 3.4));
+    h.appendChild(G.text(n2(dx + 116), n2(dy - 46), "recruits", 20, C.blue, 700));
     g.appendChild(h);
   }
 
@@ -166,7 +183,7 @@ function paint(v, f){
        above it lands on the sigma lobe.  It also arrived from the left
        wall, so approaching from that side is the honest path. */
     h.appendChild(G.mol("salicylate", lerp(bx, dx - 76, v.salb),
-                        lerp(by, dy - 140, v.salb), 178));
+                        lerp(by, dy - 192, v.salb), 178));
     g.appendChild(h);
   }
 
@@ -224,14 +241,14 @@ beat({ on:[], s:{rib1:1, nahr:1},
 
 beat({ on:[], s:{dim:1},
   cap:"NahR pairs up",
-  call:"",
-  note:"NahR is not functional as a single chain; it has to associate with a second copy of itself. LysR regulators of this family are usually described as binding DNA as a dimer of dimers, and whichever number you prefer, the point for us is that one molecule is not the functional unit. So how much NahR there is, and how fast it is made, both matter.",
+  call:"the functional unit is a dimer, not a chain",
+  note:"NahR is not functional as a single chain. It is a LysR-type regulator, and like the rest of that family its DNA-bound form is a dimer, with higher-order assemblies on top of that depending on the promoter. Two copies have to find each other first, so how much NahR there is, and how fast it is made, both matter.",
   desc:"A second copy of NahR appears and the two associate into a pair."});
 
 beat({ on:[], s:{bound:1},
   cap:"and it binds the operator <b>with no salicylate present</b>",
-  call:"bound — and <b>still off</b>",
-  note:"Now the part people get wrong. NahR goes and sits down on its operator straight away, before there is any salicylate anywhere, and GFP still is not transcribed. Inducible does not mean that nothing is bound. The operator is occupied the whole time, and what induction changes is not whether the regulator is there but how it is sitting on it.",
+  call:"bound — and <b>not yet activating</b>",
+  note:"Now the part people get wrong. NahR is an activator, not a repressor, and yet it goes and sits down on its site straight away, before there is any salicylate anywhere. With it sitting there, transcription of GFP is low but not zero. So inducible does not mean that nothing is bound, and a protein on the DNA does not mean a gene is being held shut. The site is occupied the whole time, and what salicylate changes is not whether the regulator is there, but what it does once it is.",
   desc:"The NahR pair moves down onto the operator and binds it. No transcript is being made from the salicylate promoter."});
 
 beat({ on:[], s:{sal:1},
@@ -242,14 +259,14 @@ beat({ on:[], s:{sal:1},
 
 beat({ on:[], s:{salb:1},
   cap:"it binds the effector domain, and NahR changes shape",
-  call:"and shifts where it sits on the operator",
-  note:"Salicylate binds the other domain, the one that never touches DNA. That changes the shape of the protein, the change is passed through to the DNA-binding domain, and it shifts where it grips. The regulator has not left the operator; it has rearranged on it.",
+  call:"and shifts where it sits on the DNA",
+  note:"Salicylate binds the other domain, the one that never touches DNA. That changes the shape of the protein, the change is passed through to the DNA-binding domain, and it shifts where it grips, sliding towards the promoter. The regulator has not arrived and it has not left; the complex it forms with the DNA has rearranged into a different configuration.",
   desc:"Salicylate docks into the effector domain of NahR, the protein's shape shifts, and the bow in the DNA straightens out."});
 
 beat({ on:[], s:{pol2:1, seat2:1, tx2:1},
   cap:"<b>now</b> polymerase is recruited to P<em>sal</em>",
-  call:"and GFP is transcribed",
-  note:"In that new geometry, polymerase can be recruited productively to the salicylate promoter, and only now does GFP get transcribed. Everything up to this point had to happen first, and all of it took time.",
+  call:"which is what activation means",
+  note:"And in that new configuration the regulator can reach the polymerase and help hold it at the salicylate promoter. That is what activation is: not the removal of a block, but a protein recruiting the machinery. Transcription of GFP goes from a trickle to the real thing. Everything up to this point had to happen first, and all of it took time.",
   desc:"RNA polymerase arrives at the salicylate promoter and a second transcript grows out along the RNA band."});
 
 beat({ on:[], s:{rib2:1, prot:1},

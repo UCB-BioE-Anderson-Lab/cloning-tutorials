@@ -174,8 +174,13 @@ function ribosome(cx, y, col){
  * Two domains, because the mechanism turns on them being different
  * things: a DNA-binding head and an effector-binding body.  open is
  * how far the effector pocket is swung, 0 .. 1.                        */
-function nahr(cx, cy, open, col, lab){
-  const g = el("g", {}), c = col || C.blue, o = open || 0;
+/* mirror draws the second protomer of the dimer as the reflection of the
+   first: an LTTR sits on its site as a two-fold symmetric pair, and two
+   copies facing the same way read as two separate proteins that happen
+   to be adjacent rather than as one functional unit. */
+function nahr(cx, cy, open, col, lab, mirror){
+  const outer = el("g", {}), c = col || C.blue, o = open || 0;
+  const g = el("g", mirror ? {transform:"translate(" + n2(2*cx) + ",0) scale(-1,1)"} : {});
   /* THIS SHAPE HAS BEEN WRONG TWICE.  A lobe stacked on a smaller lobe
      with two linkers read as a cartoon figure with legs; replacing it
      with a rounded silhouette carrying a notch and two bars read as a
@@ -211,8 +216,10 @@ function nahr(cx, cy, open, col, lab){
   g.appendChild(el("rect", {x:cx + 2, y:cy + 6, width:15, height:34, rx:7.5,
     fill:C.paper, stroke:c, "stroke-width":2.8,
     transform:"rotate(11 " + (cx + 9) + " " + (cy + 23) + ")"}));
-  if (lab) g.appendChild(text(cx, cy - 58, lab, 19, c, 700));
-  return g;
+  outer.appendChild(g);
+  /* outside the mirrored group, or the letters come out backwards */
+  if (lab) outer.appendChild(text(cx, cy - 58, lab, 19, c, 700));
+  return outer;
 }
 
 /* ---- GFP --------------------------------------------------------- *
