@@ -1,0 +1,555 @@
+PRACTICES — PLAN FOR THE REBUILT LECTURE
+========================================
+Working document for 140L lecture 7, replacing 2026_10_13-Practices.pptx.
+Delivered 13 October 2026.  Status at bottom.
+
+
+WHY IT IS A REBUILD AND NOT A CONVERSION
+----------------------------------------
+The source deck spent roughly two thirds of its running time on
+biosafety, touched intellectual property in one slide, never mentioned
+business or economics at all, and closed with thirteen slides of course
+admin (all-hands, pP6 closeout, assignments, final project).
+
+The admin slides stay in PowerPoint and are not converted.
+
+Two further problems drove the restructure:
+
+  the biosafety framework underneath the old deck is being replaced.
+  The draft NIH Biosafety Policy for Research Involving Biohazards
+  retires the NIH Guidelines for Research Involving Recombinant or
+  Synthetic Nucleic Acid Molecules.  Teaching the old vocabulary would
+  teach a vocabulary on its way out.
+
+  the economics gap is the one JCA named as the real deficiency.  The
+  field repeatedly skips elementary business arithmetic — biofuels,
+  the 2015 metabolic-engineering wave, and now cell therapy — and a
+  practices lecture that omits it is teaching only half the subject.
+
+
+THE SHAPE
+---------
+Seven sections.  Every section teaches a METHOD and then hands the room
+a hard case to run it on, so the anchor question is the exercise rather
+than a conversation starter.  That is why the anchors can be difficult:
+the students have just been given the tool.
+
+Discussion slides use the section ground (amber) and the .ask class, so
+the deck visibly stops and the room learns within two of them that amber
+means nobody is lecturing.  One picture or one scenario, one line of
+text, and every angle to push on lives in the note channel, aimed at the
+lecturer rather than at the room.
+
+Safety is about a third of the running time rather than two thirds.
+
+
+TIME BUDGET — 110 min total, 101 planned, 9 slack
+-------------------------------------------------
+ §   section                       min   lecture  discussion
+ 00  What practices means            5      4         1
+ 01  Risk, and what we know         13      8         5
+ 02  Is it safe? Who says so?       19     14         5
+ 03  Security                       16     10         6
+ 04  Who owns it                    14      9         5
+ 05  Does it pay?                   20     14         6
+ 06  Who else gets a say            13      7         6
+                                  ----
+                                   100
+
+Closing question bank fills the remaining 5–10 min and absorbs overrun.
+
+Discussion is about 40% of the hour and fifty.  Six anchors run as full
+stops of 4–5 min; the rest are quick beats of about a minute.
+
+
+THE ANCHOR QUESTIONS
+--------------------
+01  THE METAGENOMIC CLUSTER
+    A soil sample, metagenomic sequencing, no cloning yet, and you want
+    to PCR a gene cluster out of it.  What is your biosafety level?
+    The naive chain — what organism, what risk group, carry it over —
+    is dead on arrival because there is no organism.  What you would
+    actually do is BLAST it: even a novel cluster usually has genes
+    identifiable as an abstract type, and that type is associated with
+    virulent organisms or it is not.  So the grey zone does NOT default
+    to RG2.  Part B: now suppose it is already a cloned library in
+    E. coli and expressing, so you cannot BLAST your way out.
+    The resolution to teach: you are not classifying an agent, you are
+    choosing containment for a piece of work.  "Handle at BSL-2 until
+    characterised" is not the claim "this is RG2".
+
+02  YOU ARE THE IBC
+    Express a beta-lactamase from a clinical isolate in lab E. coli, to
+    benchmark a new selection scheme.  Approve, approve with conditions,
+    or refuse.  The room will say it makes the E. coli dangerous.  It
+    does not — no immune evasion, no iron acquisition, no adhesins.
+    The hazard is in the DNA: autoclaving is decontamination, not
+    destruction, and plasmid DNA survives it, so what can leave is a
+    mobile determinant.  Then the questions that actually decide it:
+    novel or characterised sequence, already endemic or not, and what
+    the waste route is.  Then the sting — the same cassette is already
+    in the freezer from Addgene and nobody filed anything.  Ends on:
+    this is IV-3, approvable by one reviewer, are you comfortable?
+
+03  WHAT WOULD THE AI ACTUALLY RUN INTO
+    Two slides.  First: an AI and a liquid handler — walk the chain and
+    find the chokepoints.  Ordering is screened and refused; piecing it
+    from oligos still needs an account, money and an institution; the
+    PI reviews designs and runs independent checks; obtaining material
+    physically needs a human.  And the gap between a sequence and a
+    working organism is enormous — many designs, tissue culture,
+    animals, analytical instruments.  The honest finding is that the
+    barriers are physical and institutional, not informational.
+    Second slide: the humanoid robot at the bench.  Which barriers are
+    left?  Ends unresolved on purpose.
+
+04  CLAIM SCOPING — UC v. ELI LILLY
+    Regents of the University of California v. Eli Lilly, 119 F.3d 1559
+    (Fed. Cir. 1997).  Consider ONLY claim 1 of the '525 patent; keep
+    the '740 out or prosecution history buries the lesson.  It is the
+    University of California, not Berkeley — inventors at UCSF, patent
+    to the Regents.
+    Two-step.  Q1: did Lilly infringe?  Element by element, yes, within
+    the literal scope — and "having the structure of the reverse
+    transcript" is structural, not a method limitation, so chemically
+    synthesised DNA does not escape it.  Q2: so does UC win?  No.  The
+    claims were invalid for want of written description and the court
+    never reached infringement.
+    NUANCE TO PRESERVE: generalising past your examples is normal and
+    allowed.  The sin was UNSUPPORTED breadth.  One example can support
+    a genus when the disclosure reveals a shared structural feature or
+    a representative set.  Do not let the room leave with "one example
+    never supports a genus".
+    Then make it theirs: you characterise Psal-1, induced 50x, and
+    claim "a promoter induced by salicylate".  Same shape.
+
+05  THE ARSENIC BIOSENSOR
+    A ten-cent bacterial test strip for arsenic in well water; a
+    hundred million people are drinking it.  Run the four questions.
+    Units enormous; the buyer is a government or donor, not the person
+    drinking, so it is procurement with one customer; cost at volume is
+    dominated by distribution and training, not fermentation, so the
+    biology is not where the money goes; and cost DOES fall with volume,
+    which makes it the opposite of CAR-T.
+    Then push past the four: Cartagena, because it is a live GMO
+    crossing borders — and does it need to be alive at all?  A
+    lyophilised cell-free version sidesteps most of the regulation and
+    rewrites the science.  Shelf life and cold chain.  Chemical field
+    kits already exist at about a dollar.  Who funds five years with no
+    equity return, and if it is philanthropy, should it be patented?
+    Saved for last: the person has to act on the result, and telling
+    someone their only well is poisoned may not be a benefit.
+
+06  SHIGA TOXIN IN THE REGISTRY
+    JCA's own, unchanged, now landing after provenance, release and
+    access have been covered.
+
+CLOSING BANK, in rough order of bite: the sperm vaccine; fuel versus
+food; the Brazilian CDS and who you owe; open-sourcing as a gift to
+whoever misuses it; Registry Tuesday, provisional Friday; does fifty
+clean years mean safe or lucky.
+
+
+SECTION CONTENTS
+----------------
+00  WHAT PRACTICES MEANS
+    Rabinow and SynBERC, and the honest admission that the term
+    sprawled.  The frame for the day: the five questions anyone outside
+    the lab will ask — is it safe, who says so, who owns it, does it
+    pay, should we.  Quick opener: which of those can you answer today?
+
+01  RISK, AND WHAT WE KNOW
+    The Rumsfeld slide, kept.  Fifty years without an incident, set
+    against the fact that an absence of incidents is not a mechanism.
+    JCA's own point that we assert a GFP-overexpressing E. coli cannot
+    be dangerous without having established the basis for ruling it
+    out.  Cambridge 1976 video, as risk argued with no track record.
+    Anchor: the metagenomic cluster.
+
+02  IS IT SAFE?  WHO SAYS SO?                               [BUILT]
+    Trigger change, drawn.  Who is actually watching (EH&S, CLEB as
+    Berkeley's IBC, ACUC, CPHS; NIH above all of it as a condition of
+    the money).  How risk is assessed — agent x modification x
+    manipulation.  Risk groups as a property of the AGENT; biosafety
+    levels as a property of the WORK, which is the distinction that
+    dissolves most of the confusion.  Select agents and the toxin
+    quantity rule.  Toxins versus virulence factors.  The real Berkeley
+    BUA, with the Section III grid being retired.  IV-1 / IV-2 / IV-3.
+    Incident handling, including what the individual does.
+    Anchor: you are the IBC.
+
+03  SECURITY
+    Biosafety versus biosecurity, defined.  Dual use with the Botox
+    example.  Current DURC/PEPP policy [NEEDS SOURCING].  Why screening
+    exists: the smallpox debate and the 1918 reconstruction.  How
+    screening works, from JCA's own slide — sequence screening against
+    pathogen gene lists, customer screening against denial lists, no PO
+    boxes, eight-year record keeping, refusal and referral to law
+    enforcement.  The federal screening framework [NEEDS SOURCING].
+    Benchtop synthesizers against the screen-at-the-vendor model.
+    Containment by design: crippled strains, auxotrophs, removing
+    high-affinity iron transport, kill switches, and their real escape
+    rates; the Tylenol case; gene drives as the extreme.
+    Anchor: what would the AI actually run into (two slides).
+
+04  WHO OWNS IT
+    Patentable / patented / free to practise.  Anatomy of a claim —
+    preamble, transition (comprising is open), elements, and that
+    infringement needs every element.  Species and genus, and the three
+    doctrines that get conflated: definiteness, enablement, written
+    description.  Then the case, in two steps.  Then Psal-1 as their
+    own version of it.  Then what follows in practice: disclosure
+    starts the clock and the Registry is a disclosure; trade secret as
+    the alternative; BioBrick Public Agreement and open source.
+
+05  DOES IT PAY?                                            [BUILT]
+    CAR-T reprised from the Introduction deck.  The money in three rows
+    — one dose, the whole category, the delivery chain.  Where the cost
+    comes from: the two processes side by side with every step tagged
+    per patient or per batch.  Three waves, one mistake.  The back of
+    the envelope, four questions, the fourth decides.
+    Anchor: the arsenic biosensor.
+
+06  WHO ELSE GETS A SAY
+    Perception, and JCA's point about conflicts of interest.  Asilomar
+    against Cambridge as engagement done two ways.  Environmental
+    release: field trials, Oxitec, drives outside containment.  Nagoya
+    and digital sequence information.  Access and equity.  Provenance
+    and consent, HeLa.
+    Anchor: Shiga toxin.  Spare: the sperm vaccine.
+
+
+RULES THIS DECK FOLLOWS
+-----------------------
+PROVENANCE.  Every business, cost and policy figure carries its source
+in the note channel of the beat it appears in, inline, so it can be
+defended from the podium.  Where a range is contested — CAR-T COGS
+estimates scatter from $78k to over $220k depending on what is counted
+— the note names both ends rather than picking a flattering midpoint.
+Nothing from memory.  Where a claim is chronology rather than a figure,
+the note says so and says what still needs checking.
+
+NO BARE PROPER NOUNS.  Any protein, enzyme or committee named on a
+slide says what it does in the same breath.  A name is not a mechanism.
+
+ONE SLIDE STAYS ONE SLIDE.  A closing beat that wipes the stage and
+replaces it with a panel of text is a second slide wearing the first
+one's title.  Sequences accumulate; nothing is taken away.
+
+BUILDS EARN THEIR CLICKS.  A list does not need one click per line.
+A build is for when the last line changes what the earlier ones mean.
+
+
+STATUS
+------
+BUILT      02-safety.html     12 slides, 23 steps
+           05-economics.html   7 slides, 22 steps
+           seq/lib.js          deck-local drawing shell (window.PR)
+
+NOT BUILT  00, 01, 03, 04, 06
+
+NEEDS AN IMAGE
+           03  the humanoid robot at the bench is in hand
+               (img/03-atlas-pipetting.png); the AI-and-liquid-handler
+               slide that precedes it still needs its figure.
+
+NEEDS SOURCING — could not be verified in session
+           03  the current DURC / PEPP policy status
+           03  the federal nucleic acid synthesis screening framework
+           Both are marked VERIFY in their note channels.  Do not
+           present either as fact until checked against the primary
+           documents.
+
+OPEN
+           04  claim 1 and the holding sentences to be pulled verbatim
+               from the opinion, and the 1977 filing and 1990 suit
+               dates checked against it rather than against a summary.
+           05  the Amyris fuel-to-cosmetics chronology is general
+               record rather than sourced; check against the 10-K
+               history before presenting it as exact.
+           --  the deck is not linked from docs/lectures/140L/index.html
+               until there is a front door (section 00).
+
+
+================================================================
+HOW TO BUILD A SECTION
+================================================================
+Written so that a fresh session, or a subagent with no memory of the
+conversation that produced this plan, can build a section unaided.
+Read docs/lectures/AUTHORING.txt first — it is the house style guide and
+it holds the traps that have already bitten.  This file holds only what
+is specific to the Practices deck.
+
+
+WHERE THINGS ARE
+----------------
+repo root        /Users/jcandersonucb/Documents/GitHub/cloning-tutorials
+deck             docs/lectures/140L/06-practices/
+shared css/js    docs/lectures/deck.css, deck.js, style/palette.css
+house style      docs/lectures/AUTHORING.txt
+auditor          docs/lectures/tools/check_section.js
+pdf builder      docs/lectures/tools/make_pdf.sh
+
+Within the deck:
+  lecture.js            section order — the ONLY place order lives
+  NN-name.html          one section, many <article class="slide">
+  seq/lib.js            drawing shell, exports window.PR
+  seq/NN-name.js        one animated sequence
+  img/                  figures
+
+
+A SECTION FILE
+--------------
+Copy the head of 02-safety.html.  Page-local <style> is for things only
+this section needs, and every rule in it should carry a comment saying
+why it exists.
+
+Each slide is:
+
+  <article class="slide">                       white ground
+  <article class="slide" data-bg="section">     amber — dividers, .ask
+  <article class="slide" data-bg="lecture">     blue  — rare
+  <article class="slide" data-seq="name">       driven by a sequence
+
+  <h1 class="small">Title</h1>
+  ...content...
+  <template class="notes">spoken, verbatim</template>
+  <template class="desc">what is on the screen, for accessibility</template>
+
+A sequence slide carries an EMPTY notes template; its per-beat notes and
+descs come from the sequence file.
+
+data-build="1" on an element reveals it as its own step.  Builds earn
+their clicks: a list does not need one per line.  Use a build when the
+last line changes what the earlier ones mean.
+
+Scripts at the bottom, in this order:
+  ../../deck.js, lecture.js, seq/lib.js, then each seq file.
+
+Add the new file to lecture.js in the right position.
+
+
+A SEQUENCE FILE
+---------------
+  (function(){ "use strict";
+  const G = window.PR, C = G.C;
+  ... drawing helpers ...
+  function paint(v, f){ ...returns one <g>... }
+  const FR = []; let acc = {};
+  function beat(o){ acc = Object.assign({}, acc, o.s || {});
+                    FR.push(Object.assign({}, o, {s:Object.assign({}, acc)})); }
+  beat({ on:[], s:{key:1}, cap:"", call:"", note:"...", desc:"..." });
+  window.Deck.sequence("name", function(slide){
+    const s = G.scene(slide, capY, callY); s.finish();
+    return G.run(s, FR, paint); });
+  })();
+
+s:{} values are 0..1 and tween between beats.  paint(v) receives the
+interpolated values.  dur in ms overrides the 1200 default.
+
+THE ACCUMULATOR IS NOT OPTIONAL.  Every frame must carry every key that
+should still be on screen; a key missing from s:{} counts as zero, which
+is a silent deletion.  beat() above merges into a running object so a
+key can never be lost by omission.  Write beats only through beat().
+
+G.early(v) and G.late(v) split one tweened beat into two halves, for
+when A must visibly happen before B inside a single step.
+
+window.PR provides: C, el, text, path, grp, rich, lines, box, arrow,
+step, stack, scene, run, early, late.  step() is the process box that
+carries a per-patient / per-batch tag as part of the shape.
+
+
+PALETTE
+-------
+ink #111111   blue #004373   vermillion #ba3a13   amber #a99011
+muted #767676   rule #e2e2e2   paper #ffffff
+
+Four rungs of an attention ladder, not a decorative set.  Grounds:
+lecture blue, section amber, content white.  Extending past four needs a
+reason, written down in the file (see the Parts deck's bin chart).
+
+
+THE .ask DISCUSSION SLIDE
+-------------------------
+data-bg="section" plus class="ask".  One picture or one scenario, one
+line, and every angle to push on in the note channel, addressed to the
+lecturer rather than to the room.  Write the notes as: the answer the
+room will give first, why it is wrong or incomplete, the questions that
+actually decide it, and one that tests whether they are reasoning or
+performing.  See 02-safety.html slide 12 and 05-economics.html slide 7.
+
+
+THE AUDIT LOOP
+--------------
+Needs `mkdocs serve` running and Google Chrome installed.  From the repo
+root:
+
+  node docs/lectures/tools/check_section.js 06-practices 02-safety.html /tmp/out
+
+It reports steps, median fill, thin steps, clipping, ink in the margin,
+channel junk and console errors, and writes a PNG per step.  Then LOOK
+at the frames — the auditor cannot see a collision that is merely ugly,
+and it cannot see white ink on a white ground:
+
+  magick /tmp/out/003.png /tmp/out/019.png -resize 880x \
+         -background '#bbb' -append /tmp/look.png
+
+Targets: no clipping, no channel junk, console clean, and a step count
+that matches the time budget — roughly 45–60 s per step for this deck.
+Thin steps are acceptable when a build or a single figure is genuinely
+sparse; check each one rather than chasing the number.
+
+
+TRAPS THAT HAVE ALREADY BITTEN THIS DECK FAMILY
+-----------------------------------------------
+HTML ENTITIES INSIDE JS STRINGS render literally.  &rsquo; in a sequence
+file appears as those eight characters on the slide.  Use the actual
+Unicode character.  The auditor's "channel junk" check catches it.
+
+<b> AND <em> INSIDE G.text DO NOTHING.  Only cap and call go through
+rich().  Use colour and weight instead.
+
+max-height ALONE ON AN IMAGE silently renders a small source at its
+intrinsic size, and a large one over the title.  Always give the figure
+AND the img flex:1 1 auto; min-height:0; width:100%; height:100%;
+object-fit:contain.
+
+A VEIL OVER A BUSY STAGE READS AS A FAULT.  If a closing beat needs the
+stage gone, take it to zero rather than fading it to 10%.
+
+ART DRAWN FOR A GREY GROUND VANISHES ON WHITE, and the auditor cannot
+see it.  See AUTHORING.txt for the flatten-and-look procedure.
+
+
+SOURCE MATERIAL
+---------------
+Source deck:
+  ~/Library/CloudStorage/Dropbox/Courses/140L/Stanley 2026/
+    Lectures 2026 140L/2026_10_13-Practices.pptx
+
+Slide map (1-indexed), and where each lands:
+
+   2  Intro to Human Practices, Rabinow/SynBERC in the notes   -> 00
+   3  Intellectual property; fuel vs food                      -> 04, 06
+   4  Government regulation: OSHA, FDA, ASTM                   -> 02
+   5  Known and unknown risks, Rumsfeld                        -> 01
+   6  Traditional biological risk assessment                   -> 02
+   7  Who oversees what: EH&S, CLEB, ACUC, CPHS                -> 02 [used]
+   8  Elements of biosafety                                    -> 02
+   9  Biohazardous agents                                      -> 02
+  10  Assessment of risk, the factor list                      -> 02 [used]
+  11-13 Classification of agents, RG1-4                        -> 02 [used]
+  14-15 Select agents                                          -> 02 [used]
+  16  Biological Use Authorization — 3 photos of a real BUA    -> 02 [used]
+  17  Enforcement                                              -> 02 [used]
+  18  Dual use, Botox                                          -> 03
+  19  Be aware of                                              -> 03
+  20  Conscientious design in synthetic biology                -> 03
+  21  Smallpox debate                                          -> 03
+  22  1918 influenza reconstitution, PMID 20010599             -> 03
+  23  Screening of DNA synthesis orders, IGSC protocol         -> 03
+  24  Tylenol / biosynthetic acetaminophen, dapD, bleach       -> 03
+  25  Questions to ask yourself                                -> 03
+  26  Payload delivery device, risk-group table,
+        doi 10.1021/sb300107h                                  -> 03
+  27  Gene drives (title only, no notes)                       -> 03 or 06
+  28  Containment strategies: crippled strains, auxotrophs,
+        tonB, kill switches                                    -> 03
+  29  Perception and hypothetical risks                        -> 06
+  30  Cambridge City Council 1976 video                        -> 01
+  31  Hypothetical risks, clip timings                         -> 01
+  33, 36  Shiga toxin in the Registry                          -> 06
+  34-35   Sperm vaccine                                        -> 06
+  38-50   Course admin — NOT CONVERTED, stays in PowerPoint
+
+Six source slides are title-only with no notes, so narration must be
+written rather than transcribed: 16 Biological Use Authorization,
+27 Gene Drives, 32 Questions to Ponder, 34 Sperm Vaccine, and the two
+admin headers.
+
+Images already extracted into img/:
+  05-cart-overview.png    the MSKCC CAR-T cycle, from the Introduction
+                          deck (2026_09_01-Introduction.pptx, slide 13)
+  05-arsenic-test.png     generated illustration for the 05 anchor
+  03-atlas-pipetting.png  generated humanoid robot, for the 03 anchor
+  02-bua-section3.png     crop of the real BUA Section III checkbox grid
+  02-bua-toxins.png       crop of the real BUA toxin table (LD50 column)
+Both BUA crops are clear of the PI's contact details; the uncropped
+pages carry a name, email and phone and should not be used as-is.
+
+
+FACTS ALREADY SOURCED
+---------------------
+Gathered and cited in the built sections' note channels.  Reuse these
+rather than re-deriving them; web search was blocked part-way through
+the session that produced them.
+
+  Kymriah list 2017 $475,000 -> 2025 $593,533
+  Yescarta list 2017 $373,000 -> 2025 $503,580        [BioInformant]
+  Autologous CAR-T COGS: $78-93k supply-chain model,
+    $100-150k working range, $170-220k batch estimates [IntuitionLabs]
+  Global CAR-T market 2024: $4.5B, all products        [Astute/Yahoo]
+  Kymriah 2025 sales $381M, down 14%; Gilead CAR-T
+    sales also eroding                                 [FiercePharma]
+  Gilead/Kite $11.9B, announced 28 Aug 2017            [SEC 8-K, PR]
+  Celgene/Juno ~$9B at $87/share, 22 Jan 2018          [SEC, PR]
+  mAb COGS $50-100/g at commercial scale; $10s-$100s
+    per gram best practice; titres now 8+ g/L     [mAbs journal 2024,
+                                            2025; Gates GCGH paper]
+  Bispecifics cost 30-40% more to make than a
+    conventional mAb                                   [Synapse/PatSnap]
+  Zymergen: >$1B VC, $500M IPO Apr 2021, CEO out after
+    3 months, shares -75%, merger agreement 24 Jul 2022,
+    completed Oct 2022 at $300M all stock              [Ginkgo 424B3]
+  Amyris Chapter 11 Aug 2023, D. Del., $190M DIP  [Bloomberg Law etc.]
+
+  Draft NIH Biosafety Policy for Research Involving Biohazards
+    NOT-OD-26-112; Federal Register 14 Sep 2026; comments close
+    19 Oct 2026.  Replaces the NIH Guidelines.  Scope: all biohazards
+    including wild-type agents, toxins, prions, self-aggregating
+    proteins.  Three oversight tiers (NIH / institutional / investigator)
+    and three approval pathways:
+      IV-1  NIH and IBC approval — agents lacking RG classification
+            (emerging, novel, zoonotic); first request to lower
+            containment for RG3/RG4; first request below BSL-2 for GDMOs
+      IV-2  full IBC approval — RG3/RG4 wild-type, GMOs, Select Agent
+            toxins, prions, deliberate administration to humans
+      IV-3  may be delegated to one member or a subgroup — RG2 agents,
+            genetically modified RG1 agents, transgenics at BSL-1,
+            well-characterised cell lines
+    Serious incidents reported to NIH within 24 h; incident reports and
+    IBC minutes publicly posted 5 years; minor properly-cleaned spills
+    of low-risk agents generally not reportable.
+
+  UC v. Eli Lilly, 119 F.3d 1559 (Fed. Cir. 1997).  Claim 1 of the '525:
+    "A recombinant plasmid replicable in procaryotic host containing
+    within its nucleotide sequence a subsequence having the structure of
+    the reverse transcript of an mRNA of a vertebrate, which mRNA
+    encodes insulin."
+    Claim 2 the same for a microorganism; claims 4 and 5 narrow to
+    mammalian and human.  Disclosed: rat cDNA sequence, plus a
+    constructive example for human giving a method and the amino-acid
+    sequences of the A and B chains.  Held invalid for want of written
+    description; infringement never reached.  Pull the holding verbatim
+    from the opinion before presenting it.
+
+
+BRIEFING A SUBAGENT TO BUILD ONE SECTION
+----------------------------------------
+Give it, in the prompt:
+  - the repo root and the deck directory
+  - "read docs/lectures/AUTHORING.txt and
+     docs/lectures/140L/06-practices/PLAN.txt before writing anything"
+  - "read 02-safety.html and seq/02-ibc.js as the pattern to follow"
+  - the section number, its slide list and its time budget from above
+  - the anchor question in full, including the angles for the notes
+  - any facts it may use, from FACTS ALREADY SOURCED, and an explicit
+    instruction NOT to invent figures or cite from memory: anything not
+    in that list must be marked VERIFY in the note channel
+  - "run the auditor and look at the rendered frames before reporting;
+     report step count, fill, and anything you could not source"
+
+One section per agent.  They touch different files, except lecture.js —
+have the parent add the lecture.js line after each section lands, or
+agents will conflict there.
