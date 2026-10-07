@@ -578,6 +578,15 @@ sparse; check each one rather than chasing the number.
 
 TRAPS THAT HAVE ALREADY BITTEN THIS DECK FAMILY
 -----------------------------------------------
+G.text AND G.lines DO NOT DO RICH TEXT.  Only `cap` and `call` are set
+through innerHTML and run through rich(), so only they understand <b>
+and <em>.  An SVG <text> drawn by G.text or G.lines gets its content as
+textContent, so a <b> in one of those PRINTS ON THE SLIDE, literally,
+as "<b>How</b>".  The auditor does not catch it — it is not clipping,
+it is not channel junk, and the console stays clean.  LOOK AT THE
+FRAME.  To emphasise a word in a drawing, draw it as its own G.text at
+its own size and weight; do not reach for a tag.
+
 HTML ENTITIES INSIDE JS STRINGS render literally.  &rsquo; in a sequence
 file appears as those eight characters on the slide.  Use the actual
 Unicode character.  The auditor's "channel junk" check catches it.
