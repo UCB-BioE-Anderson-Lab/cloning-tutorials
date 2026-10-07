@@ -312,6 +312,57 @@ WHAT STILL NEEDS DOING ON 03, and it is small:
     1600x900 frame.
 
 =========================================================
+FIGURES MUST BE PICTURES OF THINGS — READ BEFORE DRAWING
+=========================================================
+7 Oct, second verdict, and it reverses the first fix.  Told the slides
+were all words, I converted twelve of them to drawn figures in the
+deck's SVG shell.  JCA, on seeing section 06: "really abstract... like
+a round rect with a bunch of dots meaning some sort of social thing —
+that's super abstract and unexplanable."  Then the instruction that
+actually solves it: "look back to my original slides... where we are
+showing photos of microbes and such was better."
+
+This is the SAME failure that got the 140L Parts deck deleted.  It was
+written down and I walked into it anyway.
+
+ABSTRACT means a drawing in which a shape STANDS FOR something — dots
+for people, a circle for a class of genes, boxes for stages, a curve
+for a population.  CONCRETE means a picture of the actual object.
+
+THE TEST, and apply it before writing any drawing code:
+    would a student recognise what is drawn, without the caption?
+A Venn of "knows enough to judge" against "needs it to continue" fails.
+The mosquito pedigree passes.
+
+MINE THE SOURCE POWERPOINT FIRST.  It has 29 images already sitting in
+it, and they are the right kind: an SEM of E. coli, a colourised SEM of
+Salmonella invading cells, crops of the real Berkeley BUA, the MIT
+TechTV page holding the 1976 hearing video, a gene-drive figure with
+real mosquitoes and real alleles.
+
+    unzip the .pptx somewhere, then ppt/media/ for the images and
+    ppt/slides/_rels/*.rels to map each image to its slide.
+
+IMAGE SLIDES USE <figure class="fig">, which claims the leftover height
+and contains the image.  The .forms wrapper is for tall form crops and
+will overflow a wide figure.  Give the figure the slide: one caption,
+at most one line of text, and the argument in the note channel.
+
+WHAT WAS TOSSED, 7 Oct — eleven drawn figures, deleted not revised:
+    06  judge, rooms, frame, drive, chain, border
+    01  taxonomy, claim, cambridge
+    00  word, five
+    04  doctrines, breadth, clock
+WHAT SURVIVED:
+    04-states.js   a matrix of actual yes/no answers, which is a table
+                   of content rather than a shape standing for an idea.
+                   NOT YET BLESSED — ask before building more like it.
+    04-claim.js, 02 and 05's figures — all pre-existing, all accepted.
+WHAT REPLACED THEM SO FAR:
+    06  the gene drive slide, on the source deck's own figure
+    01  Cambridge, on the real MIT TechTV page screenshot
+
+=========================================================
 THE REAL DEFECT: SLIDES WRITTEN TO BE READ
 =========================================================
 JCA's verdict, 7 Oct: the outline is right, the slides are not.  They
