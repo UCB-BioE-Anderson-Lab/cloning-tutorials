@@ -188,8 +188,17 @@ SECTION CONTENTS
     enforcement.  The federal screening framework [NEEDS SOURCING].
     Benchtop synthesizers against the screen-at-the-vendor model.
     Containment by design: crippled strains, auxotrophs, removing
-    high-affinity iron transport, kill switches, and their real escape
-    rates; the Tylenol case; gene drives as the extreme.
+    high-affinity iron transport, kill switches; the Tylenol case;
+    gene drives as the extreme.
+    NOT A TABLE OF ESCAPE FREQUENCIES.  The point is that containment
+    by design is a probability whose failure modes are biological, so
+    unlike an engineering control it degrades with population size and
+    time: cross-feeding defeats an auxotroph, and a kill switch is
+    under continuous selection to break.  The number that carries it is
+    arithmetic the room can do — a litre at 10^9 cells/mL is 10^12
+    cells, so a loss-of-function event at any ordinary frequency means
+    escapees in every flask.  Measured frequencies, where they exist,
+    are garnish for the note channel.
     Anchor: what would the AI actually run into (two slides).
 
 04  WHO OWNS IT
@@ -266,7 +275,14 @@ OPEN
                dates checked against it rather than against a summary.
            05  the Amyris fuel-to-cosmetics chronology is general
                record rather than sourced; check against the 10-K
-               history before presenting it as exact.
+               history before presenting it as exact.  A one-line fix
+               in a built section, not a blocker, and NARROW IT when
+               it is made: the only claim that beat needs is that a
+               company aiming at a commodity fuel ended up selling a
+               specialty ingredient.  Cut the 2023 bankruptcy — it is
+               eleven years downstream of the biofuel wave, it happened
+               for its own reasons, and it turns an argument about
+               arithmetic into a story about a company failing.
            --  the deck is not linked from docs/lectures/140L/index.html
                until there is a front door (section 00).
 
@@ -609,21 +625,26 @@ BUILD AGENT
 
 ORDER OF WORK
 -------------
-PHASE 1 — research, in parallel, before any building
-  A  the current DURC / PEPP policy status; the federal nucleic acid
-     synthesis screening framework; benchtop synthesizer screening
+PHASE 1 — research, two agents in parallel, before any building
+  A  everything section 03 is blocked on, in one brief: the current
+     DURC / PEPP policy status; the federal nucleic acid synthesis
+     screening framework and where benchtop synthesizers sit relative
+     to it; the current IGSC harmonized protocol, since the source deck
+     cites a 2012 PDF; and the containment arithmetic — culture density
+     and ordinary loss-of-function frequency as orders of magnitude,
+     with measured escape frequencies as optional garnish that must not
+     delay the report
      [blocks section 03]
   B  UC v. Eli Lilly: claim 1 and the holding sentences verbatim from
      the opinion, the filing and suit dates, confirmation that
      infringement was never reached
      [blocks section 04]
-  C  containment and escape: published escape frequencies for
-     auxotrophs and kill switches, and the Amyris fuel-to-cosmetics
-     chronology from the 10-K history
-     [improves 03 and 05]
 
-  The overseer merges all three into FACTS ALREADY SOURCED and commits
-  that before phase 2 begins.  Facts live in the file, not in a chat.
+  Amyris is NOT in phase 1.  Section 05 is built and already flags that
+  chronology in its own note channel; it is a one-line fix later.
+
+  The overseer merges both into FACTS ALREADY SOURCED and commits that
+  before phase 2 begins.  Facts live in the file, not in a chat.
 
 PHASE 2 — build, in parallel, one agent per section
   00  What practices means           small, mostly JCA's own material
