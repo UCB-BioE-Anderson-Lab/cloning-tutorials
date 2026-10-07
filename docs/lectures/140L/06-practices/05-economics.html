@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Does It Pay? &ndash; Practices</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.
+ *
+ * Two things this section needs that the shared sheet does not have.
+ *
+ * .envelope is the four-number test: a numbered list where the number
+ * is the point, so it is set large and in the margin rather than as a
+ * list marker.  The fourth item is the one that decides things, so it
+ * gets the vermillion treatment rather than a bullet like the others.
+ *
+ * .ask is the discussion slide type used throughout this deck: section
+ * ground, one picture, one line.  It exists so the room can see from
+ * the back that nobody is lecturing for the next five minutes.
+ * --------------------------------------------------------------------- */
+.slide .envelope{list-style:none;margin:30px 0 0;padding:0}
+.slide .envelope li{display:grid;grid-template-columns:78px 1fr;gap:22px;
+  align-items:baseline;margin-bottom:26px}
+.slide .envelope .n{font-family:var(--slab);font-size:46px;line-height:1;
+  color:var(--muted)}
+.slide .envelope b{font-weight:700}
+.slide .envelope .sub{display:block;font-size:24px;color:var(--muted);margin-top:4px}
+.slide .envelope li.kills .n{color:var(--red)}
+.slide .envelope li.kills b{color:var(--red)}
+
+.slide.ask figure{margin:0;display:flex;flex-direction:column;align-items:center;
+  flex:1 1 auto;min-height:0}
+.slide.ask img{flex:1 1 auto;min-height:0;width:100%;height:100%;object-fit:contain}
+.slide.ask .q{flex:0 0 auto;font-size:38px;font-weight:700;line-height:1.25;
+  text-align:center;margin:26px 0 0}
+.slide.ask .q span{display:block;font-size:26px;font-weight:400;
+  color:rgba(0,0,0,.72);margin-top:12px}
+
+/* the <figure> has to be told to fill too, or the image sizes to its
+   intrinsic height and climbs over the title -- max-height alone is the
+   trap the style guide warns about */
+.slide .wide-fig{display:flex;flex:1 1 auto;min-height:0;align-items:stretch;
+  justify-content:center}
+.slide .wide-fig figure{margin:0;flex:1 1 auto;min-width:0;min-height:0;
+  display:flex;align-items:center;justify-content:center}
+.slide .wide-fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 1 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Does it pay?</h1>
+  <p>The question that is never asked in a biology department,<br>
+     and is the only one some products ever fail.</p>
+  <template class="notes">We have spent most of today on whether the work is safe, who authorises it and who owns it. The remaining question is the one a biology department never asks, and it is the one that actually decides whether anything you build reaches a person. I want to do it with numbers rather than attitude, because the point is not that money is important. The point is that the arithmetic is usually available before the science starts, and the field keeps declining to do it.</template>
+  <template class="desc">Section divider: Does it pay? The question that is never asked in a biology department, and is the only one some products ever fail.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 2 -->
+<!-- The reprise.  This is the same MSKCC figure they were shown in the
+     Introduction lecture, lifted unchanged on purpose: the argument of
+     the next three slides is that the cost structure of a picture they
+     have already accepted is not what they assumed. -->
+<article class="slide">
+  <h1 class="small">CAR T-cell therapy, again</h1>
+  <div class="wide-fig">
+    <figure>
+      <img src="img/05-cart-overview.png" alt="The CAR T-cell therapy cycle: T cells are isolated from the patient, engineered to express chimeric antigen receptors that recognise cancer cells, grown and expanded in culture, and infused back into the patient.">
+    </figure>
+  </div>
+  <p class="src">Memorial Sloan Kettering Cancer Center</p>
+  <template class="notes">You saw this in the first lecture, so this is a reminder rather than a lesson. T cells are taken out of the patient, engineered to carry a chimeric antigen receptor that recognises their cancer, grown up in culture, and given back. It is one of the genuinely great achievements of this field: a living drug, made from the patient, that cures people who had no other option. Every claim I am about to make takes all of that as true. What I want to look at is the four arrows, because each one of them is a step somebody has to pay for, and the figure is drawn in a way that hides how many steps there really are.</template>
+  <template class="desc">A reprise of the CAR T-cell therapy cycle from the Introduction lecture: T cells isolated from the patient, engineered to express chimeric antigen receptors, expanded in culture, and infused back into the patient.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 3 -->
+<article class="slide" data-seq="cartmarket">
+  <h1 class="small">The money, in three rows</h1>
+  <template class="notes"></template>
+  <template class="desc">Three rows of figures built in turn. One dose: a list price of $593,533 against a manufacturing cost of $100,000 to $150,000, so the gross margin on a dose is about 75 per cent and was never the problem. The category: the entire global CAR-T market in 2024 was $4.5 billion, drawn inside the $20.9 billion that Gilead and Celgene paid for Kite and Juno in 2017 and 2018, with Kymriah's 2025 sales of $381 million, down 14 per cent, as a thin sliver. And why: the delivery chain from eligible, to referred, to apheresis, to three or four weeks of manufacturing for one patient, to infusion — every box a place a patient is lost.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 4 -->
+<article class="slide" data-seq="cogs">
+  <h1 class="small">Where the cost actually comes from</h1>
+  <template class="notes"></template>
+  <template class="desc">The two manufacturing processes drawn side by side. Autologous CAR-T as seven steps — apheresis, shipping, activation and transduction, expansion, release testing, cryopreservation and return, infusion — every one tagged as happening once per patient, with release testing picked out as the same regulatory panel that would cover ten thousand doses being run on a batch of one. A bispecific antibody as six steps — master cell bank, seed train, production bioreactor at titres above 8 grams per litre, capture and polish, fill and finish, release testing — every one tagged per batch, and then a final step the CAR-T column has no equivalent of: divide by ten thousand doses. The totals follow: $100,000 to $150,000 per dose against tens of dollars of drug substance per dose.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 5 -->
+<article class="slide" data-seq="waves">
+  <h1 class="small">Three waves, one mistake</h1>
+  <template class="notes"></template>
+  <template class="desc">A three-row table built in turn. Biofuels, about 2007 to 2012: the biology worked and titres climbed, and the number nobody ran was that the selling price is set by crude oil. Metabolic engineering, about 2013 to 2016: pathways worked and strain building was industrialised, and the number nobody ran was the distance from titre, rate and yield to a viable price per kilogram against the capital cost of a plant. Cell therapy from 2017: it cures people, and the number nobody ran was that cost per dose does not fall with volume while the eligible population is small. The closing line: the biology succeeded every time, and the quantity that killed it was computable before the first experiment.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 6 -->
+<article class="slide">
+  <h1 class="small">The back of the envelope</h1>
+  <ol class="envelope">
+    <li data-build="1"><span class="n">1</span>
+      <div><b>How many units a year?</b>
+      <span class="sub">Not the market you can imagine — the one you can reach, and that is allowed to buy it.</span></div></li>
+    <li data-build="2"><span class="n">2</span>
+      <div><b>What will the buyer actually bear?</b>
+      <span class="sub">And who is the buyer? Often not the person who benefits.</span></div></li>
+    <li data-build="3"><span class="n">3</span>
+      <div><b>What does one unit cost to make?</b>
+      <span class="sub">From the process diagram, not from a guess. Count the release testing.</span></div></li>
+    <li data-build="4" class="kills"><span class="n">4</span>
+      <div><b>Does that cost fall as the number rises?</b>
+      <span class="sub">This is the one that decides. If the answer is no, you have a service wearing a product's valuation.</span></div></li>
+  </ol>
+  <p data-build="5" style="font-size:26px;color:var(--muted);margin-top:8px">
+     Then: how much capital, and how many years, before the first unit is sold?</p>
+  <template class="notes">So here is the whole method, and it is four questions you can answer on a napkin before you touch a pipette.
+One. How many units a year. Not the market you can imagine, the market you can physically reach and are permitted to sell into. For CAR-T that is not everyone with the cancer; it is the ones who are eligible, referred, and still well enough.
+Two. What will the buyer bear — and notice that is a different question from what the thing is worth, and that the buyer is very often not the person who benefits. A payer, a government, a donor.
+Three. What one unit costs, taken off the process diagram rather than guessed, and counting the parts people leave out. Release testing. Failed runs. Cold chain.
+Four, and this is the one that decides: does that cost fall as the number rises? If it does, you have a product, and scale is your friend. If it does not, you have a service, and every new customer costs you again. CAR-T is the second kind. So was the whole cell-therapy sector's valuation, which was priced as though it were the first.
+And then the question underneath all four: how much capital, over how many years, before anyone pays you anything. That is what determines whether the answer to the first four even matters.</template>
+  <template class="desc">The four-number test, built one line at a time. One: how many units a year, meaning the market you can reach rather than imagine. Two: what the buyer will bear, and who the buyer actually is. Three: what one unit costs, taken from the process diagram including release testing. Four, highlighted as the one that decides: does that cost fall as the number rises — because if it does not, you have a service wearing a product's valuation. Then a final line: how much capital, and how many years, before the first unit is sold.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 7 -->
+<!-- The anchor.  Figure plus one line on the slide; the whole setup and
+     every angle to push on lives in the note channel, because the slide
+     is a prompt for the room and not a reading. -->
+<article class="slide ask" data-bg="section">
+  <figure>
+    <img src="img/05-arsenic-test.png" alt="A community health worker beside a hand-pump tube well holds up a small test vial of well water that has turned deep magenta, comparing it against a graded colour card while a woman from the household watches.">
+    <p class="q">A ten-cent bacterial test strip for arsenic in well water.
+      <span>A hundred million people are drinking it. Build the business.</span></p>
+  </figure>
+  <template class="notes">Here is the idea, and it is a good one. Arsenic in groundwater across Bangladesh and West Bengal is the largest mass poisoning in history, affecting something on the order of a hundred million people. You can engineer a bacterium with an arsenic-responsive promoter driving a colour output, freeze-dry it into a pellet, and sell it as a single-use vial: add well water, wait, read against a card. Ten cents. Run the four questions on it.
+UNITS — enormous. Tens of millions of wells, re-tested seasonally. This is the only one of the four that looks good.
+THE BUYER — and here it starts coming apart. The person drinking the water is not the buyer; their ability to pay is approximately zero. The buyer is a government or a donor. That is procurement: one customer, political, slow, and merciless on price. Ask them what a company with one customer is worth.
+COST PER UNIT — at ten million units a year the fermentation is nearly free. The cost is distribution, training and the colour card. So the thing you would spend five years optimising, the biology, is not where the money goes. Ask them what they would work on instead.
+DOES IT FALL WITH VOLUME — yes, actually. This one scales. Which makes it the opposite of CAR-T and worth pointing out.
+Then push on the parts the four questions do not reach.
+Regulation: you are distributing a live genetically modified organism to households, across borders. Who approves that? Cartagena. Then the useful follow-up — does it need to be alive at all? A lyophilised cell-free extract sidesteps most of the regulation, and changes the COGS and the shelf life. Notice that a regulatory constraint just rewrote the science.
+Shelf life and cold chain, which is what actually kills field biosensors, not detection limits.
+Competition: chemical field kits already exist for about a dollar and are already deployed. Your advantage has to be cost or accuracy, not novelty.
+Capital: who funds five years of development with no equity return? A foundation. And if it is philanthropy, who owns the result, and should it be patented at all — which is the IP section arriving from the other direction.
+And then the one I would save for last, because it is the one that makes it a practices question rather than an accounting one. The person has to act on the result. Telling someone that their only well is poisoned, when there is no second well, is not obviously a benefit. Does the product end at detection? If the arithmetic says this cannot be a company, is that a reason not to do it — or a reason to notice that the way we fund this field decides which problems get solved?</template>
+  <template class="desc">Discussion slide. A photograph of a community health worker at a hand-pump tube well, holding a test vial of well water that has turned deep magenta and comparing it to a graded colour card while a woman from the household watches. The question: a ten-cent bacterial test strip for arsenic in well water, a hundred million people are drinking it — build the business.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/lib.js" defer></script>
+<script src="seq/05-market.js" defer></script>
+<script src="seq/05-cogs.js" defer></script>
+<script src="seq/05-waves.js" defer></script>
+</body>
+</html>
