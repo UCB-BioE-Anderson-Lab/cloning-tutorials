@@ -553,3 +553,164 @@ Give it, in the prompt:
 One section per agent.  They touch different files, except lecture.js —
 have the parent add the lecture.js line after each section lands, or
 agents will conflict there.
+
+
+================================================================
+RUNNING THIS WITH AGENTS
+================================================================
+The chat session is the OVERSEER and REVIEWER.  It holds the plan, the
+taste and the veto.  It does not search the web, draw graphics or write
+slide files — that work goes to agents, because it is what fills a
+context window and crashes a session.
+
+What the overseer does, and only this:
+  - decides what gets built next and briefs the agent
+  - owns lecture.js and the index entry (the only shared files)
+  - reviews what comes back: reads the rendered frames, reads the note
+    channels, checks that every figure carries a citation
+  - sends it back with specific corrections, or accepts and commits
+  - keeps PLAN.txt current
+
+The overseer should read rendered PNGs and diffs.  It should not read
+whole source files that an agent just wrote unless a review question
+requires it.
+
+
+THE THREE KINDS OF AGENT
+------------------------
+RESEARCH AGENT
+  Verifies facts and returns them with citations.  Never writes into the
+  deck.  Returns a block in exactly the format of FACTS ALREADY SOURCED
+  above, which the overseer appends to this file before any build agent
+  starts.  One agent per topic cluster, not one per fact.
+
+  Rules to put in its brief:
+    - every figure needs a primary or near-primary source: a filing, a
+      federal notice, a journal article, a company release.  Trade press
+      is acceptable when it is the only source, and must be labelled.
+    - where estimates disagree, return the range and both ends, never a
+      midpoint.
+    - return "COULD NOT VERIFY" rather than a plausible number.  That is
+      a success, not a failure.
+    - no slide writing, no opinions about the lecture.
+
+GRAPHICS AGENT
+  Produces images, or writes the image-generation prompt for a tool the
+  user drives.  Extracts and crops figures from the source PowerPoints.
+  Checks the result at slide scale, flattened on white, and confirms
+  there is no personally identifying information in a crop of a real
+  document.  Writes into img/ only.
+
+BUILD AGENT
+  Builds exactly one section: one NN-name.html, its seq/*.js files, and
+  nothing else.  Runs the auditor, looks at its own frames, fixes what
+  it finds, and reports.  Does not touch lecture.js.
+
+
+ORDER OF WORK
+-------------
+PHASE 1 — research, in parallel, before any building
+  A  the current DURC / PEPP policy status; the federal nucleic acid
+     synthesis screening framework; benchtop synthesizer screening
+     [blocks section 03]
+  B  UC v. Eli Lilly: claim 1 and the holding sentences verbatim from
+     the opinion, the filing and suit dates, confirmation that
+     infringement was never reached
+     [blocks section 04]
+  C  containment and escape: published escape frequencies for
+     auxotrophs and kill switches, and the Amyris fuel-to-cosmetics
+     chronology from the 10-K history
+     [improves 03 and 05]
+
+  The overseer merges all three into FACTS ALREADY SOURCED and commits
+  that before phase 2 begins.  Facts live in the file, not in a chat.
+
+PHASE 2 — build, in parallel, one agent per section
+  00  What practices means           small, mostly JCA's own material
+  01  Risk, and what we know         JCA's material plus the anchor
+  03  Security                       needs phase 1A
+  04  Who owns it                    needs phase 1B
+  06  Who else gets a say            JCA's material plus the anchor
+
+  02 and 05 are already built.  Two or three agents at a time is
+  plenty; the overseer has to review everything that comes back and
+  that is the real bottleneck.
+
+PHASE 3 — the overseer, not an agent
+  - add each section to lecture.js as it is accepted
+  - read the whole deck end to end for voice: the sections were written
+    separately and will not sound like one lecture until somebody reads
+    them in order
+  - check the running time against the budget by step count
+  - make the front door: the index entry, once section 00 exists
+  - build the PDFs, commit, deploy
+
+
+WHAT GOES IN A BUILD AGENT'S BRIEF
+----------------------------------
+Everything.  An agent cannot ask the user a question, so an incomplete
+brief produces invented content.  Include:
+
+  1. repo root and deck directory
+  2. "Read docs/lectures/AUTHORING.txt and this file, HOW TO BUILD A
+     SECTION, before writing anything."
+  3. "Read 02-safety.html and seq/02-ibc.js as the pattern."
+  4. the section number, title, slide list and time budget, copied from
+     SECTION CONTENTS above
+  5. the anchor question in full, with the angles for the note channel
+  6. which source pptx slides to draw on, from the slide map
+  7. the facts it may use, pasted from FACTS ALREADY SOURCED, plus:
+     "Anything not in that list must be marked VERIFY in the note
+     channel.  Do not cite from memory.  Do not invent a figure."
+  8. "Run the auditor and LOOK at the rendered frames before reporting.
+     Report: step count, median fill, anything you could not source,
+     and anything you decided that the plan did not specify."
+  9. "Do not touch lecture.js."
+
+
+WHAT THE OVERSEER CHECKS ON REVIEW
+----------------------------------
+Mechanical, from the auditor:
+  no clipping, no channel junk, console clean, step count inside the
+  section's time budget at roughly 45-60 s per step.
+
+By eye, from the frames — the auditor cannot see any of this:
+  collisions that are merely ugly; white ink on white; a figure that
+  rendered at its intrinsic size; a sequence beat that reads as a
+  deletion because a key was dropped; a discussion slide that has
+  become a reading.
+
+By reading the note channels:
+  every number has a source, inline;
+  contested ranges give both ends;
+  nothing is a bare proper noun;
+  the anchor's notes contain the wrong first answer, the counter, and
+  at least one question that tests whether the room is reasoning.
+
+Against the plan:
+  did it build the section that was asked for, at the length asked for,
+  or did it quietly grow?  Growth is the common failure — sections come
+  back 50% over budget because every fact seems worth a slide.
+
+
+A SAMPLE BRIEF
+--------------
+  Build section 04, "Who owns it", of the Practices deck.
+
+  Repo /Users/jcandersonucb/Documents/GitHub/cloning-tutorials, deck
+  docs/lectures/140L/06-practices.  Read docs/lectures/AUTHORING.txt and
+  the deck's PLAN.txt first — in particular HOW TO BUILD A SECTION.  Use
+  02-safety.html and seq/02-ibc.js as your pattern.
+
+  Nine slides, 14 minutes, of which 5 are discussion.  Slide list and
+  anchor question: see SECTION CONTENTS §04 and THE ANCHOR QUESTIONS §04
+  in PLAN.txt, and follow them exactly — including the nuance that the
+  sin was unsupported breadth, not breadth.
+
+  Facts you may use: [paste the UC v. Lilly block, plus whatever phase
+  1B returned].  Anything else must be marked VERIFY in the note
+  channel.  Do not cite from memory.
+
+  Run the auditor and look at your frames before reporting.  Report step
+  count, median fill, what you could not source, and anything you
+  decided that the plan did not specify.  Do not touch lecture.js.
