@@ -37,11 +37,11 @@
  * a sequence is visible from its first beat.
  * --------------------------------------------------------------------- */
 .slide .pair{display:grid;grid-template-columns:1fr 1fr;gap:54px;margin-top:10px}
-.slide .pair h2{font-family:var(--slab);font-size:38px;line-height:1.1;margin:0 0 6px}
-.slide .pair .adv{display:block;font-family:var(--sans);font-size:23px;
-  font-weight:400;color:var(--muted);margin-top:10px}
-.slide .pair ul{margin:18px 0 0;padding-left:1.05em}
-.slide .pair li{font-size:26px;line-height:1.35;margin-bottom:12px}
+.slide .pair h2{font-family:var(--slab);font-size:42px;line-height:1.1;margin:0 0 6px}
+.slide .pair .adv{display:block;font-family:var(--sans);font-size:24px;
+  font-weight:400;color:var(--muted);margin-top:12px}
+.slide .pair ul{margin:22px 0 0;padding-left:1.05em}
+.slide .pair li{font-size:29px;line-height:1.38;margin-bottom:20px}
 .slide .pair .l h2{color:var(--slate)}
 .slide .pair .r h2{color:var(--red)}
 
@@ -54,17 +54,23 @@
    house's five short ones, so they are set larger — same rule, and the
    same reason, as in 01-risk.html: at the default size the ink sits in
    the top third and the room reads it as an unfinished slide. */
-.slide ul.wide li{font-size:32px;line-height:1.4;margin-bottom:26px}
+.slide ul.wide li{font-size:34px;line-height:1.4;margin-bottom:28px}
+.slide ul.tight li{font-size:29px;line-height:1.38;margin-bottom:14px}
+/* the closing line of a slide that carries only two or three bullets:
+   without the extra size and the gap above it, the ink sits in the top
+   half and the room reads the slide as unfinished.  NOT used on the
+   benchtop slide, which already runs to the bottom of the box. */
+.slide .airy{font-size:34px;line-height:1.4;margin-top:48px}
 
 .slide .today{font-family:var(--slab);font-size:34px;line-height:1.2;
   color:var(--red);margin:22px 0 10px}
 
-.slide.ask .q{font-size:42px;font-weight:700;line-height:1.25;margin:40px 0 0}
-.slide.ask .q span{display:block;font-size:28px;font-weight:400;
-  color:rgba(0,0,0,.72);margin-top:20px}
-.slide.ask .chain{display:flex;align-items:stretch;gap:10px;margin-top:52px}
+.slide.ask .q{font-size:46px;font-weight:700;line-height:1.25;margin:54px 0 0}
+.slide.ask .q span{display:block;font-size:30px;font-weight:400;
+  color:rgba(0,0,0,.72);margin-top:24px}
+.slide.ask .chain{display:flex;align-items:stretch;gap:10px;margin-top:104px}
 .slide.ask .chain b{flex:1;border:3px solid var(--ink);border-radius:16px;
-  padding:16px 8px;text-align:center;font-size:24px;line-height:1.25;
+  padding:34px 8px;text-align:center;font-size:26px;line-height:1.25;
   display:flex;align-items:center;justify-content:center}
 .slide.ask .chain i{flex:0 0 auto;align-self:center;font-style:normal;
   font-size:28px;color:rgba(0,0,0,.6)}
@@ -114,7 +120,7 @@
       </ul>
     </div>
   </div>
-  <p data-build="1" class="accent">A biosafety cabinet protects a careless worker from an aerosol.
+  <p data-build="1" class="accent airy">A biosafety cabinet protects a careless worker from an aerosol.
      It does not slow down a careful one who wants the aerosol.</p>
   <template class="notes">Two words that get used as if they were one. Biosafety is about accidents: it protects people and the environment from the work, and its adversary is error. Everything on the left-hand column is designed against a slipped pipette, a tube nobody labelled, an aerosol nobody noticed, a waste bag that went in the wrong stream. Biosecurity is about intent: it protects the materials and the knowledge from people, and its adversary is a person who means it. That could be an outsider, and in practice it is more often somebody who already has legitimate access, which is the uncomfortable part.
 And look at what that does to the controls. The biosafety controls are engineering and habit — containment, technique, training. The biosecurity controls are a completely different family: who has access, who is accountable for what, and screening, which is the one we are going to spend most of this section on.
@@ -135,7 +141,7 @@ The build line is the one to carry. A biosafety cabinet protects a careless work
     <li>It is the <i>same protein</i>, the same gene, and the same production
         problem. The knowledge that makes one makes the other</li>
   </ul>
-  <p class="accent">Dual use is not a feature of a technique that a better technique
+  <p class="accent airy">Dual use is not a feature of a technique that a better technique
      could remove. It is a property of understanding how something works.</p>
   <template class="notes">The canonical example, and it is the one from the original deck. Botulinum neurotoxin is a protease — a protein-cutting enzyme — made by Clostridium botulinum. What it cuts are the proteins a nerve ending uses to fuse a vesicle and release its signal onto a muscle. Cut those, and the muscle never gets told to contract.
 In a wound, or in food, that is botulism: a flaccid paralysis that kills you because the diaphragm is a muscle. In minute quantities, injected into one muscle by a clinician, the same molecule is a treatment for spasticity, for dystonia, for migraine, and it is the most widely used cosmetic procedure in the world. Same protein. Same gene. The same fermentation and purification problem. There is no version of the knowledge that gives you one and not the other.
@@ -156,7 +162,7 @@ VERIFY: the mechanism described here — cleavage of the SNARE proteins of the n
         then <i>rebuilt</i>. A virus that no longer existed was made again
         from its sequence</li>
   </ul>
-  <p class="accent">While the argument about the freezers was going on, the sequence was
+  <p class="accent airy">While the argument about the freezers was going on, the sequence was
      published. A freezer can be emptied. A publication cannot be unpublished
      &mdash; and at that moment the control problem moves from the vial to the
      order form.</p>
