@@ -312,6 +312,47 @@ WHAT STILL NEEDS DOING ON 03, and it is small:
     1600x900 frame.
 
 =========================================================
+THE REAL DEFECT: SLIDES WRITTEN TO BE READ
+=========================================================
+JCA's verdict, 7 Oct: the outline is right, the slides are not.  They
+are documents — text to be read — rather than slides to be presented.
+More graphics, fewer words.
+
+MEASURED, so the scale of it is not a matter of taste:
+
+    slides WITH a drawn figure (14)      3 to 9 words
+    slides WITHOUT one       (40)       85 to 176 words
+
+The deck is bimodal, and that is the useful finding.  Where somebody
+drew a figure the slide is already right — "Three waves, one mistake"
+is four words.  The 40 text slides are simply the ones nobody got to.
+So this is NOT a change of visual language and NOT a rewrite: it is
+finishing the language the deck already has, in seq/lib.js.
+
+WORST FIRST, by density and by how visual the argument already is:
+    06   nine slides, ZERO figures, 99-143 words each
+    04   144, 96, 109, 151 on the un-drawn ones
+    00   the front door, four slides, no figure at all
+    03   six slides 95-176 words — LAST, and see the 03 warning above:
+         drawing it is fine, RE-RENDERING ITS FRAMES is what trips the
+         classifier.  Audit it by reading, or leave it.
+
+THE TEST FOR WHETHER A SLIDE SHOULD BE DRAWN: can you state the
+argument as a geometry, a comparison, a chain or a quantity?  If yes it
+is a figure and the prose is a transcript of the figure.  If it is a
+genuine list of unlike things, it stays a list — but then it is a short
+one, and the sentences belong in the note channel.
+
+DONE SO FAR
+    06 slide 7, "The sample came from somewhere" — 110 words to 5.
+       seq/06-border.js.  Use it as the model: a border, the duty
+       clasped to the crossing, then the file that goes underneath it.
+       Audited clean, frames looked at, two collisions found by LOOKING
+       and fixed.  The auditor reported "clipped none" on the version
+       whose red label ran straight through the blue arrow, which is
+       exactly what the audit loop warns about — it cannot see ugly.
+
+=========================================================
 WORKING RULE — COMMIT AND NOTE AS YOU GO
 =========================================================
 Sessions on this deck get their shell taken away mid-task.  It has
