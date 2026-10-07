@@ -13,7 +13,7 @@
    conversation starter.  The discussion slides sit on the section
    ground, so the deck visibly stops.
 
-   Sections are being built one at a time; this list grows as they land.
+   All seven sections are built and in the order below.
 
    kind: lecture | section — only used to colour the jump menu key. */
 window.LECTURE = {
@@ -23,6 +23,9 @@ window.LECTURE = {
     { file: "00-practices.html", title: "Practices",    kind: "lecture" },
     { file: "01-risk.html",      title: "Risk",         kind: "section" },
     { file: "02-safety.html",    title: "Is It Safe?",  kind: "section" },
-    { file: "05-economics.html", title: "Does It Pay?", kind: "section" }
+    { file: "03-security.html",  title: "Security",     kind: "section" },
+    { file: "04-ownership.html", title: "Who Owns It",  kind: "section" },
+    { file: "05-economics.html", title: "Does It Pay?", kind: "section" },
+    { file: "06-society.html",   title: "Who Else",     kind: "section" }
   ]
 };

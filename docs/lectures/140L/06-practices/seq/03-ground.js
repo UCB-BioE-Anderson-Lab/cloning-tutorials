@@ -83,17 +83,17 @@ function paint(v, f){
 
   if (v.now > 0.02){
     const h = G.grp(v.now);
-    h.appendChild(G.el("rect", {x:150, y:646, width:1300, height:180, rx:16,
+    h.appendChild(G.el("rect", {x:150, y:640, width:1300, height:188, rx:16,
       fill:C.paper, stroke:C.blue, "stroke-width":2.8}));
-    h.appendChild(G.text(180, 692, "20 July 2026", 26, C.blue, 700, "start"));
-    h.appendChild(G.lines(400, 692,
+    h.appendChild(G.text(180, 686, "20 July 2026", 26, C.blue, 700, "start"));
+    h.appendChild(G.lines(400, 686,
       ["Approved: “Stopping High-Risk Life Sciences Research”. It prohibits federal",
        "funding for two things — dangerous gain-of-function research, and",
        "international research of concern."], 25, C.ink, 400, "start", 32));
-    h.appendChild(G.lines(180, 800,
+    h.appendChild(G.lines(180, 786,
       ["It replaces the 2024 policy and three older documents with it. No effective date appears anywhere in it, and the",
        "review bodies and the lists of entities of concern that it calls for are all due after today."],
-      19, C.muted, 400, "start", 25));
+      19, C.muted, 400, "start", 24));
     g.appendChild(h);
   }
   return g;
