@@ -20,6 +20,8 @@ window.LECTURE = {
   title: "Practices",
   course: "140L",
   sections: [
+    { file: "00-practices.html", title: "Practices",    kind: "lecture" },
+    { file: "01-risk.html",      title: "Risk",         kind: "section" },
     { file: "02-safety.html",    title: "Is It Safe?",  kind: "section" },
     { file: "05-economics.html", title: "Does It Pay?", kind: "section" }
   ]
