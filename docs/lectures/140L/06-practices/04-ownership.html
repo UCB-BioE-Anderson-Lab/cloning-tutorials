@@ -92,32 +92,10 @@
 <!-- Deliberately one step.  Three definitions and three crossings is a
      list, and a list does not need a click per line; the crossings are
      the point and they only work when all three are legible at once. -->
-<article class="slide">
+<article class="slide" data-seq="states">
   <h1 class="small">Three states, routinely confused</h1>
-  <ul class="rows">
-    <li><span class="lv">patent<i>able</i></span>
-      <div class="bd">Could a patent be granted on it?
-      <span class="ex">new, not obvious, useful, and the right kind of thing to patent at all</span></div></li>
-    <li><span class="lv">patent<i>ed</i></span>
-      <div class="bd">Has one actually been granted, and is it still in force?
-      <span class="ex">somebody had to file it, argue for it, and keep paying for it</span></div></li>
-    <li class="top"><span class="lv">free to practise</span>
-      <div class="bd">Are you allowed to go and use it?
-      <span class="ex">a different question again &mdash; and the one that stops projects</span></div></li>
-  </ul>
-  <ul class="cross">
-    <li>Unpatentable, and still unusable &mdash; because somebody else holds a
-        patent on a tool you need to make it</li>
-    <li>Patented by someone else, and still perfectly safe to use on this bench
-        &mdash; which is a fact about who gets sued, not a right you hold</li>
-    <li>Free of every patent in the world, and still locked &mdash; because you
-        got the strain under a material transfer agreement you signed</li>
-  </ul>
-  <template class="notes">Three words that sound like the same word, and the confusion between them costs people years.
-Patentable is a question about the thing: could a patent be granted on it — is it new, is it non-obvious to someone working in the field, is it useful, and is it the kind of thing the system will grant a patent on at all. Patented is a question about the world: did somebody actually file, argue it through an examiner, and keep paying the maintenance fees. Most patentable things are not patented, because somebody has to want it enough to spend the money. And free to practise is a third question entirely: are you allowed to go and do it. That is the one that stops projects, and it is the one nobody asks until late.
-Now the three crossings underneath, because each of them is a situation people walk into. First: a thing can be unpatentable and still unusable. Your idea is obvious, nobody can patent it, and you still cannot build it, because making it requires an enzyme or a vector or a screening method that somebody else does own. Second, and this is the one that surprises students most: a thing can be patented by somebody else and absolutely nothing will happen to you for using it in a teaching lab. Notice what I did and did not say. I did not say you have a right. Infringement does not have a general research exemption that covers you — what you have is the fact that nobody sues a class. That protection evaporates the day your project has a customer. Third: a thing can be free of every patent on earth and still be completely locked up, because the strain came from another lab under a material transfer agreement, and that is a contract you signed. An MTA will reach things patents never could — publication, who owns what you make with it, whether you can send it on. Contracts are often the harder constraint and nobody teaches them.
-PROVENANCE: these are definitional distinctions rather than sourced facts, so there is nothing here to cite. The one claim with legal content is the negative one about a research exemption; I have deliberately phrased it as a statement about enforcement rather than about doctrine, and I would keep it that way from the podium. VERIFY the scope of the experimental-use defence before stating anything stronger.</template>
-  <template class="desc">Three states a thing can be in, routinely confused. Patentable: could a patent be granted on it — new, not obvious, useful, and the right kind of thing. Patented: has one actually been granted and is it still in force, since somebody had to file it, argue for it and keep paying. Free to practise: are you allowed to go and use it, which is a different question again and the one that stops projects. Then the three crossings: unpatentable and still unusable, because somebody else holds a patent on a tool you need; patented by someone else and still safe to use on this bench, which is a fact about who gets sued rather than a right; and free of every patent in the world and still locked, because the strain came under a material transfer agreement.</template>
+  <template class="notes"></template>
+  <template class="desc">A matrix. Three columns — patentable, could one be granted; patented, was one granted and is it still alive; free to practise, may you actually use it. Then three situations read across: an obvious idea nobody can patent that still cannot be built because it needs an enzyme someone owns; somebody else's patent used on a teaching bench, where the answer is only "in practice" and is marked not a right; and something free of every patent on earth that is still locked by a material transfer agreement. The third column is then ringed: it does not follow from the first two, and has to be asked separately.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 3 -->
@@ -287,6 +265,7 @@ AND THE CLOSE: none of this tells you what you SHOULD do. It tells you which doo
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/lib.js" defer></script>
+<script src="seq/04-states.js" defer></script>
 <script src="seq/04-claim.js" defer></script>
 </body>
 </html>
