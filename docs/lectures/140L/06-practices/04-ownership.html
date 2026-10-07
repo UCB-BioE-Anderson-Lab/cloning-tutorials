@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Who Owns It &ndash; Practices</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.
+ *
+ * .rows is the deck's "a scale, read down" layout, lifted unchanged from
+ * 01-risk.html and 02-safety.html.  Two slides here use it — the three
+ * states a thing can be in, and the three doctrines — because in both
+ * cases the NAME is what students are trying to learn and the gloss
+ * beside it is what stops the name from being a noise.  Repeating the
+ * shape is the point: by the fourth section the room reads a hanging
+ * indent as "these are the members of a set".
+ *
+ * .cross holds the three sentences that cross between the states.  They
+ * are set apart from the rows above them because they are not a fourth
+ * state; they are the reason the first three had to be separated at all.
+ *
+ * .claimq sets claim 1 of the '525 as a quotation.  It is verbatim from
+ * the opinion, down to "procaryotic" and the missing article, so it is
+ * given a rule and a hanging quote rather than being run into a bullet
+ * where somebody might feel free to tidy it.
+ *
+ * .ask is the deck's discussion slide type, repeated from 01, 02 and 05:
+ * section ground, one scenario, one line, every angle in the notes.
+ * --------------------------------------------------------------------- */
+.slide .rows{list-style:none;margin:30px 0 0;padding:0}
+.slide .rows li{display:grid;grid-template-columns:350px 1fr;gap:30px;
+  align-items:baseline;margin-bottom:34px}
+.slide .rows .lv{font-family:var(--slab);font-size:33px;line-height:1.15;color:var(--slate)}
+.slide .rows li.top .lv{color:var(--red)}
+.slide .rows .bd{font-size:31px;line-height:1.35}
+.slide .rows .ex{display:block;font-size:24px;color:var(--muted);margin-top:8px}
+
+.slide .cross{list-style:none;margin:14px 0 0;padding:26px 0 0;
+  border-top:3px solid var(--rule)}
+.slide .cross li{font-size:26px;line-height:1.4;margin-bottom:18px;
+  padding-left:28px;text-indent:-28px}
+.slide .cross li::before{content:"\2014\00a0";color:var(--muted)}
+
+/* the closing line of a .rows slide: it is the sentence the three rows
+   were built to make, so it is set as a statement rather than a fourth
+   row, and it is what fills the bottom third of those frames */
+.slide .hinge{font-size:38px;line-height:1.3;margin:52px 0 0}
+.slide .hinge + p{margin-top:20px}
+
+.slide .claimq{margin:28px 0 0;padding:16px 0 16px 32px;
+  border-left:5px solid var(--ink);font-size:34px;line-height:1.4}
+.slide .claimq .who{display:block;font-size:22px;font-weight:700;
+  letter-spacing:.05em;margin-bottom:12px;color:rgba(0,0,0,.66)}
+
+.slide.ask .q{font-size:44px;font-weight:700;line-height:1.25;margin:40px 0 0}
+.slide.ask .q span{display:block;font-size:30px;font-weight:400;
+  color:rgba(0,0,0,.72);margin-top:20px}
+.slide.ask .ans{margin:56px 0 0;font-size:38px;font-weight:700;line-height:1.3;
+  border-top:3px solid var(--ink);padding-top:28px}
+.slide.ask .ans b{display:block;font-size:23px;letter-spacing:.06em;
+  font-weight:700;margin-bottom:12px}
+
+/* the practice list runs to four long items and is the last thing the
+   room sees; at the house default it sits in the top two thirds */
+.slide ul.wide li{font-size:29px;line-height:1.42;margin-bottom:26px}
+
+/* The show/hide rule for sequence parts is page-local and nothing warns
+   you when it is missing: omit it and every beat is visible from the
+   slide's first frame.  See AUTHORING.txt. */
+.slide svg .o{opacity:0;transition:opacity .42s ease}
+.slide svg .o.in{opacity:1}
+.slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+@media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 1 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Who owns it</h1>
+  <p>Three abstractions, one court case,<br>
+     and one thing you will do next semester.</p>
+  <template class="notes">You are about to spend fourteen minutes on patent law, and I want to say at the start what it is for, because none of you will ever draft a claim and I am not going to pretend otherwise. Here is what you will actually do. You will read a claim, probably because somebody asks whether your project is clear of it. You will put a sequence into a public registry, which is a legal act with consequences you were not told about. And you will sit across a table from a technology transfer office and have to understand what they are telling you. Everything in this section is aimed at those three moments. If something I say does not eventually cash out in one of them, I have wasted your time.</template>
+  <template class="desc">Section divider: Who owns it. Three abstractions, one court case, and one thing you will do next semester.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 2 -->
+<!-- Deliberately one step.  Three definitions and three crossings is a
+     list, and a list does not need a click per line; the crossings are
+     the point and they only work when all three are legible at once. -->
+<article class="slide">
+  <h1 class="small">Three states, routinely confused</h1>
+  <ul class="rows">
+    <li><span class="lv">patent<i>able</i></span>
+      <div class="bd">Could a patent be granted on it?
+      <span class="ex">new, not obvious, useful, and the right kind of thing to patent at all</span></div></li>
+    <li><span class="lv">patent<i>ed</i></span>
+      <div class="bd">Has one actually been granted, and is it still in force?
+      <span class="ex">somebody had to file it, argue for it, and keep paying for it</span></div></li>
+    <li class="top"><span class="lv">free to practise</span>
+      <div class="bd">Are you allowed to go and use it?
+      <span class="ex">a different question again &mdash; and the one that stops projects</span></div></li>
+  </ul>
+  <ul class="cross">
+    <li>Unpatentable, and still unusable &mdash; because somebody else holds a
+        patent on a tool you need to make it</li>
+    <li>Patented by someone else, and still perfectly safe to use on this bench
+        &mdash; which is a fact about who gets sued, not a right you hold</li>
+    <li>Free of every patent in the world, and still locked &mdash; because you
+        got the strain under a material transfer agreement you signed</li>
+  </ul>
+  <template class="notes">Three words that sound like the same word, and the confusion between them costs people years.
+Patentable is a question about the thing: could a patent be granted on it — is it new, is it non-obvious to someone working in the field, is it useful, and is it the kind of thing the system will grant a patent on at all. Patented is a question about the world: did somebody actually file, argue it through an examiner, and keep paying the maintenance fees. Most patentable things are not patented, because somebody has to want it enough to spend the money. And free to practise is a third question entirely: are you allowed to go and do it. That is the one that stops projects, and it is the one nobody asks until late.
+Now the three crossings underneath, because each of them is a situation people walk into. First: a thing can be unpatentable and still unusable. Your idea is obvious, nobody can patent it, and you still cannot build it, because making it requires an enzyme or a vector or a screening method that somebody else does own. Second, and this is the one that surprises students most: a thing can be patented by somebody else and absolutely nothing will happen to you for using it in a teaching lab. Notice what I did and did not say. I did not say you have a right. Infringement does not have a general research exemption that covers you — what you have is the fact that nobody sues a class. That protection evaporates the day your project has a customer. Third: a thing can be free of every patent on earth and still be completely locked up, because the strain came from another lab under a material transfer agreement, and that is a contract you signed. An MTA will reach things patents never could — publication, who owns what you make with it, whether you can send it on. Contracts are often the harder constraint and nobody teaches them.
+PROVENANCE: these are definitional distinctions rather than sourced facts, so there is nothing here to cite. The one claim with legal content is the negative one about a research exemption; I have deliberately phrased it as a statement about enforcement rather than about doctrine, and I would keep it that way from the podium. VERIFY the scope of the experimental-use defence before stating anything stronger.</template>
+  <template class="desc">Three states a thing can be in, routinely confused. Patentable: could a patent be granted on it — new, not obvious, useful, and the right kind of thing. Patented: has one actually been granted and is it still in force, since somebody had to file it, argue for it and keep paying. Free to practise: are you allowed to go and use it, which is a different question again and the one that stops projects. Then the three crossings: unpatentable and still unusable, because somebody else holds a patent on a tool you need; patented by someone else and still safe to use on this bench, which is a fact about who gets sued rather than a right; and free of every patent in the world and still locked, because the strain came under a material transfer agreement.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 3 -->
+<!-- Five beats on an INVENTED claim.  The real one does not appear until
+     the machinery is in hand; doing it the other way round means the
+     room learns claim structure and the case simultaneously, and gets
+     neither.  The sequence flags the claim as made up on every frame. -->
+<article class="slide" data-seq="claimparts">
+  <h1 class="small">Anatomy of a claim</h1>
+  <p class="src">Invented claim. Nobody owns it.</p>
+  <template class="notes"></template>
+  <template class="desc">An invented claim set out the way a patent prints one, then dissected into preamble, transition and elements, with "comprising" marked as the open transition meaning the thing contains at least these. Two constructs are then tested against it: one with every element plus extras, which infringes, and one in which a luciferase stands in for the fluorescent protein, which is outside the claim entirely. The last beat annotates the third element as a genus, a class of things, against the species it could have been.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 4 -->
+<article class="slide">
+  <h1 class="small">Three doctrines that get run together</h1>
+  <ul class="rows">
+    <li><span class="lv">definiteness</span>
+      <div class="bd">Can a reader tell what is covered?
+      <span class="ex">if nobody can find the edge of the fence, there is no fence</span></div></li>
+    <li><span class="lv">enablement</span>
+      <div class="bd">Could a reader <i>make</i> it, without undue experiment?
+      <span class="ex">a recipe question &mdash; is there enough here to go and do it</span></div></li>
+    <li class="top"><span class="lv">written description</span>
+      <div class="bd">Did you show you actually <i>had</i> it?
+      <span class="ex">a possession question &mdash; asked about the day you filed</span></div></li>
+  </ul>
+  <p data-build="1" class="accent hinge">You can enable something you never possessed.</p>
+  <p data-build="1"><small>Which is why the third one decides cases that look, from the outside,
+     as though they should turn on the second.</small></p>
+  <template class="notes">Three requirements, three different questions, and they get used interchangeably by people who should know better — including, often, by scientists reading their own patents.
+Definiteness asks whether a reader can tell what is covered. It is about the words. If nobody can locate the edge of the fence, then there is no fence, and the claim fails for that reason alone.
+Enablement asks whether somebody skilled in the field could make and use the thing without undue experimentation. It is a recipe question. Is there enough in this document to go and do it.
+Written description asks something that sounds like the same question and is not: did you show that you actually had the invention. Not could someone get there — did you have it, on the day you filed. It is a possession question, asked about a date in the past.
+And now the sentence that the next ten minutes hang on. You can enable something you never possessed. Write out a perfectly good general method for finding a class of genes, and you may well have told the world how to get every member of that class — that is enablement, satisfied. And still have had only one of them in your freezer when you filed, which is written description, failed. Those two can come apart, they do come apart, and when they come apart the patent dies on the one nobody was watching.
+That is why written description is the least intuitive of the three and the one that decides the case we are about to do. A room reading that case cold will keep trying to argue about enablement, because enablement is the one that feels like science. Push them off it.
+PROVENANCE: the three requirements are the ones the Federal Circuit applied in the case that follows, and written description as a requirement separate from enablement is exactly what that opinion holds. The statutory section number is not needed on the slide and is not printed; VERIFY it before putting it on a handout.</template>
+  <template class="desc">Three doctrines that get run together. Definiteness: can a reader tell what is covered — if nobody can find the edge of the fence there is no fence. Enablement: could a reader make it without undue experiment, which is a recipe question. Written description: did you show you actually had it, a possession question asked about the day you filed. The closing line: you can enable something you never possessed, which is why the third doctrine decides cases that look as though they should turn on the second.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 5 -->
+<!-- THE ANCHOR, part one.  Claim 1 is verbatim from the opinion and must
+     stay that way: "procaryotic", no article after "in", and "an mRNA of
+     a vertebrate" rather than "vertebrate mRNA".  The element walk lives
+     in the notes, so the slide stays a question rather than a reading. -->
+<article class="slide ask" data-bg="section">
+  <h1 class="small">Did Lilly infringe?</h1>
+  <p class="claimq"><span class="who">Claim 1 of the &rsquo;525 patent</span>
+     &ldquo;A recombinant plasmid replicable in procaryotic host containing
+     within its nucleotide sequence a subsequence having the structure of the
+     reverse transcript of an mRNA of a vertebrate, which mRNA encodes
+     insulin.&rdquo;</p>
+  <p class="q">Eli Lilly and Company makes human insulin in bacteria.
+     <span>Walk the claim. One element at a time.</span></p>
+  <p class="src">Regents of the University of California v. Eli Lilly &amp; Co.,
+     119 F.3d 1559 (Federal Circuit, 1997). The University of California &mdash;
+     inventors at the San Francisco campus, patent held by the Regents.</p>
+  <template class="notes">Five minutes for this and the next two slides together. Set it up first: this is the University of California suing Eli Lilly and Company, a pharmaceutical manufacturer, over the patent on insulin cDNA. The inventors were at UC San Francisco; the patent is held by the Regents, which is the university as a legal body. Not Berkeley — do not let the room think it is a local story. The application was filed in May 1977. UC sued in 1990, and the Federal Circuit, which is the appeals court that hears all patent appeals in the United States, decided it in 1997.
+Then put them to work. Element by element, out loud, and make them say which element they are on.
+A recombinant plasmid — yes, Lilly has one. Replicable in procaryotic host — note the spelling and the missing article, that is how the patent prints it — yes, it replicates in E. coli. Containing within its nucleotide sequence a subsequence — yes. Having the structure of the reverse transcript of an mRNA of a vertebrate — and here is where the room divides. Which mRNA encodes insulin — human insulin is vertebrate insulin, so yes.
+THE MOVE THEY MISS, and it is the whole reason this element is worth five minutes. Lilly's DNA was chemically synthesised. It was never anywhere near a reverse transcriptase. So the room says: then it does not have the structure of a reverse transcript, because it is not a reverse transcript. Read the words again. "Having the structure of" is a STRUCTURAL limitation, not a method limitation. It describes what the molecule looks like — an uninterrupted coding sequence, no introns — and not what was done to make it. A chemically synthesised gene with that structure satisfies the element, and the history of the molecule is irrelevant. This is the single most transferable thing in the section: a claim constrains what the thing IS unless it says, in terms, how it was made. If you want to design around somebody's claim, read every limitation and ask that question about each one.
+A LINE FOR THE LECTURER, NOT FOR THE SLIDE. We are walking literal scope because it is the clean way to teach what a claim covers. In the actual litigation the '525 claims were asserted only under the doctrine of equivalents, not literally — so this walk is a teaching instrument, not a reconstruction of what UC pleaded. A student who has read the case may raise it. The honest answer is that we simplified on purpose, and that the simplification does not change the answer we are heading for, because the claims never got that far. Say that if it comes up; do not volunteer it in the middle of the walk, because it is a distraction from the structural-limitation point.
+THE ONES THAT TEST WHETHER THEY ARE REASONING. If Lilly had used a rat sequence instead, are they still inside? If they had used a synthetic gene with a deliberately altered codon usage — same protein, different nucleotides — does the element still read on it? And: what single word would you have added to this claim, if you were drafting it, to make it harder to escape?
+PROVENANCE: claim 1 is verbatim from the opinion and is on the slide exactly as the opinion prints it, including "procaryotic" and the absent article. The case name, court and year are safe. Do NOT print a pin cite — the available full text has no star pagination. The characterisation of Lilly's process as chemically synthesised DNA comes from this section's brief and is not in the verified block: VERIFY it before asserting a manufacturing detail from the podium. The teaching point about structural limitations does not depend on it.</template>
+  <template class="desc">Discussion slide. Claim 1 of the '525 patent is quoted verbatim: a recombinant plasmid replicable in procaryotic host containing within its nucleotide sequence a subsequence having the structure of the reverse transcript of an mRNA of a vertebrate, which mRNA encodes insulin. Eli Lilly and Company makes human insulin in bacteria. The room is asked to walk the claim one element at a time. Cited as Regents of the University of California v. Eli Lilly and Company, 119 F.3d 1559, Federal Circuit, 1997, with the inventors at the San Francisco campus and the patent held by the Regents.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 6 -->
+<!-- THE ANCHOR, part two.  The scope care matters: the holding sentence
+     is about the '525 ONLY.  "The court never reached infringement" is
+     right about claim 1 of the '525 and wrong about the case. -->
+<article class="slide ask" data-bg="section">
+  <h1 class="small">So does UC win?</h1>
+  <p class="q">The specification disclosed the <i>rat</i> insulin cDNA sequence.
+     <span>For human, it gave a general method and the amino acid sequences of
+       the A and B chains. No human nucleotide sequence appears in the patent.</span></p>
+  <p class="ans" data-build="1"><b>NO</b>
+     The claims were invalid for want of written description &mdash; and so the
+     court never reached whether Lilly infringed them.</p>
+  <template class="notes">Hold the answer back and make them guess first. A room that has just walked the elements and found Lilly inside the claim will say UC wins, and the gap between that and what happened is the lesson.
+WHAT THE PATENT ACTUALLY DISCLOSED, and this is the whole case. Example 5 of the patent gives the rat insulin cDNA sequences — the real nucleotides, read off a real molecule they had. Example 6 is for human, and in the court's own words it provides only a general method for obtaining the human cDNA, incorporating by reference the method used for the rat, along with the amino acid sequences of the human insulin A and B chains. The court says flatly that no sequence information indicating which nucleotides constitute human cDNA appears in the patent. So: one species in hand, a method for the rest, and a claim to every vertebrate.
+NOW REVEAL THE ANSWER. No. The claims asserted from the '525 were held invalid for want of written description, and the sentence to quote is the court's own: "Because we affirm the district court's ruling that all of the claims of the '525 patent asserted against Lilly are invalid, we need not consider whether Lilly infringed those claims." All that careful element-by-element work, and the court simply never got to it. That is not a trick. It is how patent litigation actually goes: validity is tried alongside infringement and an invalid claim cannot be infringed by anybody, so the infringement question evaporates.
+SCOPE CARE — SAY THIS CORRECTLY OR DO NOT SAY IT. That sentence is about the '525 patent only. There was a second patent in the case, the '740, and the court DID reach infringement on that one, and it reversed the unenforceability holding on both. So "the court never reached infringement" is right about claim 1 of the '525 and wrong about the case as a whole. If a student has read the opinion they will catch this, and they should.
+THE QUESTION THAT TESTS THEM. Ask what UC should have done differently in 1977, and listen for whether the answer is "claim less" or "disclose more". Both are right and they are different strategies with different costs — one gives up value you might have had, the other means not filing until you have more, which means somebody else files first. That tension is real and there is no clean answer to it. Then ask: if the examiner granted this claim, why is it the court's job to take it back? The honest answer is that examination is fast and cheap and litigation is slow and expensive, and the system knowingly puts the careful look at the end.
+PROVENANCE: the holding sentence is verbatim from the opinion. The description of Examples 5 and 6 is the opinion's own characterisation. No issue date and no priority date for the '525 appear in the opinion — do not supply either. The filing is May 1977 and the suit 1990. No pin cite on the slide.</template>
+  <template class="desc">Discussion slide. The specification disclosed the rat insulin cDNA sequence; for human it gave only a general method and the amino acid sequences of the A and B chains, with no human nucleotide sequence anywhere in the patent. The answer, revealed second: no. The claims were invalid for want of written description, and so the court never reached whether Lilly infringed them.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 7 -->
+<!-- The nuance that must survive.  A room that leaves with "one example
+     never supports a genus" has learned something false, and the opinion
+     itself says so in three places.  Hence the quotations. -->
+<article class="slide">
+  <h1 class="small">The sin was unsupported breadth, not breadth</h1>
+  <ul class="rows">
+    <li><span class="lv">breadth is normal</span>
+      <div class="bd">&ldquo;every species in a genus need not be described&rdquo;
+      <span class="ex">and in chemistry, a generic formula is &ldquo;normally an adequate
+        description of the claimed genus&rdquo;</span></div></li>
+    <li><span class="lv">two ways to hold it</span>
+      <div class="bd">A <b>representative number</b> of members, given by sequence
+        &mdash; <i>or</i> <b>structural features common</b> to the members
+      <span class="ex">either one is enough. The court says so in the alternative</span></div></li>
+    <li class="top"><span class="lv">what sank UC</span>
+      <div class="bd">&ldquo;Vertebrate insulin cDNA&rdquo; names a <b>result</b>, and one rat
+        sequence stood behind it
+      <span class="ex">the genus was defined by what the gene <i>does</i>, not by what it
+        <i>is</i></span></div></li>
+  </ul>
+  <p data-build="1" class="accent hinge">A definition by function is not a description of an invention.</p>
+  <template class="notes">This is the slide I would send the room away with if I could only keep one, because the wrong lesson from that case is easy to pick up and actively harmful.
+The wrong lesson is: one example never supports a genus, so never claim broadly. That is not what the court said and it is not the law. Read the first row. The opinion is explicit that these cases "only establish that every species in a genus need not be described in order that a genus meet the written description requirement" — every species need not be described. And in the same passage the court says that in claims involving chemical materials, generic formulae usually indicate with specificity what the generic claims encompass, and that such a formula is "normally an adequate description of the claimed genus". Generic claiming is the normal state of affairs in chemistry. Nothing about wanting the genus is improper.
+Second row: the court gives two routes, and it gives them in the alternative, which matters. A genus of cDNAs may be described by reciting a representative number of them defined by nucleotide sequence, OR by reciting structural features common to the members of the genus, where those features constitute a substantial portion of the genus. Either one. So you do not need every member, and you do not even need many members, if you can point to the structure they share.
+Third row, and this is why UC lost. "Vertebrate insulin cDNA" does neither. It is not a representative set — it is one rat sequence. And it is not a structural feature — it is a statement about what the gene does. In the court's words, a generic statement like that does not distinguish the claimed genus from others, except by function, and a definition by function "is only an indication of what the gene does, rather than what it is". Then the sentence that is the whole doctrine in one line: the requirement is for "a description of an invention, not an indication of a result that one might achieve if one made that invention".
+Put the build line up and leave it up. A definition by function is not a description of an invention. That is the transferable lesson and it is the one that is about to be aimed at them personally.
+PROVENANCE: every quoted fragment on this slide is verbatim from the opinion, which was read directly. The genus sentence with its two alternatives was later adopted by the full Federal Circuit in a case called Ariad; I would not say that from the podium without checking it, and nothing here depends on it — VERIFY before adding. No pin cites.</template>
+  <template class="desc">The sin was unsupported breadth, not breadth. First, breadth is normal: the court states that every species in a genus need not be described, and that in chemistry a generic formula is normally an adequate description of the claimed genus. Second, there are two ways to hold a genus, given in the alternative: a representative number of members defined by sequence, or structural features common to the members. Third, what sank the University of California: "vertebrate insulin cDNA" names a result, backed by one rat sequence, so the genus was defined by what the gene does rather than by what it is. The closing line: a definition by function is not a description of an invention.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 8 -->
+<!-- Make it theirs.  The shape is UC's, and the room should see that for
+     itself; the notes steer, they do not announce. -->
+<article class="slide ask" data-bg="section">
+  <h1 class="small">Now it is your patent</h1>
+  <p class="q">You characterise a promoter, P<sub>sal</sub>-1, induced fiftyfold
+     by salicylate. You file, and you claim:</p>
+  <p class="claimq"><span class="who">Claim 1 &mdash; yours</span>
+     &ldquo;a promoter induced by salicylate&rdquo;</p>
+  <p class="src">Your own data. One promoter, one host, one inducer, one number.</p>
+  <template class="notes">Do not tell them it is the same shape. Let somebody say it. Usually it takes about forty seconds and the recognition is worth more than the explanation.
+THE FIRST ANSWER will be that it is fine, because you measured it and fiftyfold is a real result. Yes — and the result is not the problem. The claim is. Read it back to them slowly: a promoter induced by salicylate. What class of things is that? Every salicylate-responsive promoter that exists, in every organism, including the ones nobody has found yet. You have one, from one host, and you have claimed all of them.
+THEN THE QUESTION THAT DOES THE WORK. How is "a promoter induced by salicylate" different from "vertebrate insulin cDNA"? It is not. Both define a class by what its members DO. Induced by salicylate is a behaviour, not a structure. You have described a result you would like to own.
+SO WHAT WOULD MAKE IT SUPPORTABLE — push them onto the two routes they saw on the last slide, and make them choose which one they would actually do in a semester. A representative set: go and find salicylate-responsive promoters in several different hosts, sequence them, and put them in the application. That is real work and it is weeks. Or the shared structure: align what you have, find the operator sequence the regulator actually binds, and claim promoters containing that operator. That is a claim about what the thing IS, and it is both narrower and far more defensible. Ask them which they would rather own, and then ask which one they could finish before the filing deadline. That tension is the actual job.
+AND THE ONES THAT TEST WHETHER THEY ARE REASONING OR PERFORMING. If you claim only P-sal-1 by its exact sequence, what stops a competitor changing four bases and using it? If you claim the operator, what stops somebody finding a different regulator that responds to salicylate through a mechanism you never saw — are they inside or outside, and does your answer depend on words you have not written yet? And the one worth closing on: you have already put P-sal-1 in a public registry, because that is what this course asks you to do. Does any of this still matter? That is the hand-off to the next slide, and it should land as a small shock.</template>
+  <template class="desc">Discussion slide. You characterise a promoter, Psal-1, induced fiftyfold by salicylate. You file, and you claim "a promoter induced by salicylate". Underneath: your own data, one promoter, one host, one inducer, one number.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 9 -->
+<article class="slide">
+  <h1 class="small">What follows, in practice</h1>
+  <ul class="wide">
+    <li><b>Disclosure starts a clock.</b> Talk, poster, preprint, thesis, tweet
+        &mdash; and a <b>public registry entry is a disclosure</b>. The part page
+        you filled in last month is a publication
+        <small>&mdash; the clock&rsquo;s length differs by country, and in much of
+        the world it is not a grace period at all. Get the number before you post</small></li>
+    <li><b>Trade secret</b> is the alternative: no filing, no disclosure, no
+        expiry &mdash; and no protection at all against someone who works it out
+        independently or takes the product apart. You give up publishing</li>
+    <li><b>Open is a third path</b>, and a deliberate one. Under the
+        <b>BioBrick Public Agreement</b>, a contributor undertakes not to assert
+        patent rights against people using the part they contributed</li>
+    <li><b>Talk to your technology transfer office first</b> &mdash; the office
+        that files patents on the university&rsquo;s behalf. Before you post,
+        not after. They cannot un-publish anything</li>
+  </ul>
+  <template class="notes">Four things that follow, and the first one is the one that will actually happen to somebody in this room.
+Disclosure starts a clock. Any public disclosure — a talk, a poster, a preprint, a thesis in the library, a post — begins a period after which you can no longer file. And here is the part nobody says out loud in a synthetic biology course: a public registry entry is a disclosure. The part page you filled in last month, with the sequence and the characterisation data on it, is a publication. It is a good publication, it is exactly what the registry is for, and it is also a legal event with a date attached. I am not telling you not to post. I am telling you to know that you did it. The length of the clock differs by country and in much of the world there is effectively no grace period at all, so the moment of disclosure is the moment you have lost the option. Get the actual number from somebody who knows it, before you post rather than after. VERIFY: I am deliberately not putting a number of months on the slide, because the figure differs by jurisdiction and I will not state one from memory.
+Trade secret is the genuine alternative and it is underrated. No filing, no fees, no disclosure, no expiry — a secret can outlast any patent. What you give up is everything a patent gives you against independent discovery: if somebody else works it out, or buys your product and takes it apart, you have nothing. And you give up publishing, which for most of you is the whole currency of a career. That is why the choice is usually made by what kind of thing it is: a process inside a fermenter nobody can see can be a secret, a sequence in a product cannot.
+Open is a third path and it is a choice, not a failure to choose. Under the BioBrick Public Agreement, a contributor undertakes not to assert patent rights against people who use the part they contributed. It is the same manoeuvre as an open-source software licence: the legal power is real, and it is used to keep something open rather than to close it. VERIFY the exact operative terms before describing the mechanism in more detail than that sentence — I have deliberately kept the slide to the substance I am sure of, and there is no date or version number on it.
+And the practical one. Talk to your technology transfer office before you post. That is the university office that files patents on the institution's behalf — at a university, the inventions usually belong to the institution rather than to you, which is a sentence worth hearing before it is relevant. They can file quickly when there is a reason to. What they cannot do is un-publish anything, which is why the conversation has to happen first. A five-minute email in September is worth more than any amount of regret in March.
+AND THE CLOSE: none of this tells you what you SHOULD do. It tells you which doors are still open. The decision about which of them to walk through is the subject of the rest of the lecture.</template>
+  <template class="desc">What follows in practice. Disclosure starts a clock — a talk, poster, preprint, thesis or post, and a public registry entry is itself a disclosure, so the part page filled in last month is a publication; the clock's length differs by country and in much of the world is not a grace period at all. Trade secret is the alternative: no filing, no disclosure and no expiry, but no protection against independent discovery or reverse engineering, and you give up publishing. Open is a third and deliberate path: under the BioBrick Public Agreement a contributor undertakes not to assert patent rights against people using the contributed part. And talk to your technology transfer office, the office that files patents on the university's behalf, before you post rather than after, because they cannot un-publish anything.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/lib.js" defer></script>
+<script src="seq/04-claim.js" defer></script>
+</body>
+</html>
