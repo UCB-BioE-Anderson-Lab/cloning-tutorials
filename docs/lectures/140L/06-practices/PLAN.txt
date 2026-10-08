@@ -312,6 +312,46 @@ WHAT STILL NEEDS DOING ON 03, and it is small:
     1600x900 frame.
 
 =========================================================
+PARKED 8 OCT 2026 — STATE OF PLAY
+=========================================================
+Everything is committed and main is pushed to origin.  Working tree
+clean, no stashes.  All seven sections audit clean: no clipping, no
+channel junk, console clean.
+
+WHAT THE DECK IS RIGHT NOW
+  all seven sections are built, wired into lecture.js in order, and
+  reachable from the 140L index (entry 7).
+  04-ownership and 00/01/06 are back to PROSE for most slides, because
+  the drawn figures made for them on 7 Oct were abstract and were
+  deleted.  See the section below — read it before drawing anything.
+  Two slides now carry real images from the source PowerPoint:
+    06  the gene drive pedigree       img/06-gene-drive.png
+    01  the 1976 hearing video page   img/01-cambridge-techtv.png
+  Both need their provenance established before the deck leaves the
+  course; the gene drive note channel carries that VERIFY.
+
+THE OPEN QUESTION, and it is JCA's, not mine
+  seq/04-states.js is the ONE drawn figure from 7 Oct still standing —
+  the three-states matrix, with real yes / no / "in practice" answers
+  in its cells.  Kept on the theory that a table of actual answers is
+  not the same thing as a shape standing for an idea.  NOT BLESSED.
+  Ask before building anything else in that style.
+
+NEXT, in order
+  1. settle 04-states, keep or toss
+  2. section 02 — the biggest block of prose left, and the one the
+     source deck genuinely illustrated: the microbe micrographs and the
+     BUA crops map straight onto its risk groups and its forms.  Mostly
+     placing existing images, not inventing figures.
+  3. section 03 — LAST, in a session of its own, audited by READING.
+  Neither 02 nor 03 should be audited by paging through rendered
+  frames; see the 03 warning further down.
+
+PUBLISHING: pushing main does NOT publish the site.  The site is served
+from the gh-pages branch and is deployed by hand with mkdocs gh-deploy.
+The deck is mid-rebuild and should NOT be deployed yet.
+
+=========================================================
 FIGURES MUST BE PICTURES OF THINGS — READ BEFORE DRAWING
 =========================================================
 7 Oct, second verdict, and it reverses the first fix.  Told the slides
