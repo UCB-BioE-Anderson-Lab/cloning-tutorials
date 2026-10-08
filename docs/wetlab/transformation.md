@@ -5,6 +5,8 @@
     **[KCM Heat-Shock Transformation](../cheatsheets/transformation.pdf)** — the one-page version of this protocol.
     It is the same as the printed copies at the bench.
 
+
+<div class="lab-video" data-video="transform"></div>
 After assembly, the circular plasmid has been generated, but it is mixed with other DNAs—some incomplete or mutant. By passing the material through cells, we isolate a single one of these sequences and amplify it a billion-fold.
 
 **Transformation** is the process in which a bacterium takes up DNA from the environment. While some bacteria (like *B. subtilis*) do this naturally, *E. coli* requires preparation to become “competent.”

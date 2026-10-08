@@ -7,6 +7,8 @@
 
 Before doing this training, complete [Microwave](./microwave.md) and pass the quiz.
 
+<div class="lab-video" data-video="tae"></div>
+
 ## Instructions
 
 Use the agarose gel protocol for the detailed steps:

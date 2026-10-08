@@ -75,6 +75,8 @@ If others in your lab section are also ready to run a gel, set up one gel for th
 
 5) Place the gel in the rig. Fill with **1× TAE buffer** to just cover it.
 
+
+<div class="lab-video" data-video="tae"></div>
 6) Brace the gel with a plastic wedge to keep it from floating.
 
 7) Label all samples on a strip of paper and arrange tubes in loading order.

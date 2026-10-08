@@ -25,6 +25,7 @@
   @media print {
     @page { size: letter portrait; margin: 12mm; }
     html, body { background: #fff !important; }
+    #protocol-videos { display: none; }
     .proto-card { border: none; box-shadow: none; max-width: none; }
     .proto-card { font-size: 12pt; line-height: 1.35; }
     .proto-card h1, .proto-card h2, .proto-card h3 { page-break-after: avoid; break-after: avoid; }
@@ -56,6 +57,9 @@
   <button id="open-print">Open Print View</button>
   <button id="print-now">Print</button>
 </div>
+<!-- Videos for the chosen protocol, from assets/videos.json. Outside the card, so they stay
+     out of the copied markdown and the print view. -->
+<div id="protocol-videos"></div>
 <div id="protocol-output-card" class="proto-card" aria-live="polite">
   <div id="protocol-output" style="white-space:pre-wrap;"></div>
 </div>
@@ -201,6 +205,7 @@ select.addEventListener('change', async ()=>{
       lastProto = { id: currentProtocol, title: proto.title || currentProtocol, text: proto.text || '', html: proto.html || '' };
       $("protocol-output").innerHTML = lastProto.html || '<pre>' + (lastProto.text || '') + '</pre>';
       $("proto-tools").style.display = 'flex';
+      showVideos(currentProtocol, vals);
       const share = buildShareURL(vals, true);
       history.replaceState(null, '', share);
       notify('Recalculated. Tools unlocked.');
@@ -210,7 +215,16 @@ select.addEventListener('change', async ()=>{
     }
   });
 
+  async function showVideos(id, vals){
+    const box = $("protocol-videos");
+    box.replaceChildren();
+    if (!window.LabVideos) return;
+    const cards = (await LabVideos.forProtocol(id, vals)).map(LabVideos.render).filter(Boolean);
+    box.replaceChildren(...cards);
+  }
+
   $("clear").addEventListener('click', ()=>{
+    $("protocol-videos").replaceChildren();
     $("protocol-output").innerHTML = '';
     $("proto-tools").style.display = 'none';
     lastProto = null;
