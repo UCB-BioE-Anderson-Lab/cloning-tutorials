@@ -53,7 +53,7 @@ Popular Alternative: **Qiagen QIAquick Gel Extraction Kit (purple column)**
 - Requires special buffer if binding from a gel  
 - Similar silica-based chemistry
 
-> Note: for small DNA fragments (<250 bp), improve binding by mixing **1 part ADB + 3 parts isopropanol** before loading.
+> **Small fragments (under ~300 bp) need a different protocol.** Bound in ADB alone, a small fragment does not stick to the column and goes out with the flow-through. Use <a href="../../protocols/protocols/?id=zymo_small_fragment_cleanup&autogen=1">Zymo cleanup of a small PCR fragment</a>, which binds in ADB + isopropanol.
 
 ---
 

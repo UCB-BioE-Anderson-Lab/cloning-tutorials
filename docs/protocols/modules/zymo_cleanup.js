@@ -32,8 +32,7 @@ export const inputs = [
   { name: "reactions", type: "number", label: "Number of reactions to clean", default: 1, step: 1 },
   { name: "sample_uL", type: "number", label: "Reaction volume to clean (µL)", default: 50, step: 5 },
   { name: "elution_uL", type: "number", label: "Elution volume (µL)", default: 25, step: 1 },
-  { name: "adb_uL", type: "number", label: "ADB per reaction (µL)", default: 180, step: 10 },
-  { name: "small_fragment", type: "boolean", label: "Fragment under 250 bp?" }
+  { name: "adb_uL", type: "number", label: "ADB per reaction (µL)", default: 180, step: 10 }
 ];
 
 export function factory(values = {}) {
@@ -41,8 +40,6 @@ export function factory(values = {}) {
   const sample = Number(values?.sample_uL ?? 50);
   const elution = Number(values?.elution_uL ?? 25);
   const adb = Number(values?.adb_uL ?? 180);
-  const smallRaw = values?.small_fragment;
-  const small = (smallRaw === true || smallRaw === "true" || smallRaw === "on");
   const pe = 200;
 
   return {
@@ -55,13 +52,16 @@ export function factory(values = {}) {
       elution_uL: elution,
       adb_uL: adb,
       pe_uL: pe,
-      small_fragment: small,
       ...SPIN
     },
     template: `
 **What this removes**
 - Polymerase, dNTPs, salts and most oligos from a PCR.
 - Buffer and restriction enzymes from a digest.
+
+**Small fragments: use the other protocol**
+- For a fragment **under ~300 bp**, use **Zymo cleanup of a small PCR fragment** instead. Bound
+  in ADB alone, a small fragment does not stick to the column and goes out with the flow-through.
 
 **Procedure**
 1. **Side-label one Zymo column per sample** with an **ethanol-resistant pen** — *not* a Sharpie,
@@ -72,9 +72,7 @@ export function factory(values = {}) {
    - **Alternatively**, premix the ADB and the sample in an Eppendorf tube, vortex, spin, then
      transfer to the column. There are several ways to do this; what matters is that the
      solutions end up **well mixed and in the column**.
-${small ? `   - **Fragment under 250 bp:** bind with **1 part ADB + 3 parts isopropanol** instead of ADB
-     alone, or the fragment washes straight through.
-` : ``}4. **Spin ${SPIN.bind_s} s** at full speed. Discard the flow-through.
+4. **Spin ${SPIN.bind_s} s** at full speed. Discard the flow-through.
 5. Add **${pe} µL PE**. **Spin ${SPIN.wash_s} s.** Discard the flow-through.
 6. Add **${pe} µL PE**. **Spin ${SPIN.wash_s} s.** Discard the flow-through.
 7. **Spin ${SPIN.dry_s} s** at full speed to dry the column. PE is 70% ethanol and any carryover
