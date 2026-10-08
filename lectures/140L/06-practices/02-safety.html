@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Is It Safe? &ndash; Practices</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.
+ *
+ * .ask is the deck's discussion slide type: section ground, one picture
+ * or one scenario, one line, with every angle to push on living in the
+ * note channel.  Repeated from the economics section on purpose — by
+ * the third one the room knows that amber means nobody is lecturing.
+ *
+ * .ladder is the risk-group / biosafety-level pair: a row per level
+ * where the level itself is the hanging indent, because the number is
+ * what people are trying to look up.
+ *
+ * .forms holds the two crops of a real Berkeley BUA.  They are evidence
+ * rather than illustration, so they are given width and a caption that
+ * says what to look at.
+ * --------------------------------------------------------------------- */
+.slide .ladder{list-style:none;margin:16px 0 0;padding:0}
+.slide .ladder li{display:grid;grid-template-columns:118px 1fr;gap:20px;
+  align-items:baseline;margin-bottom:18px}
+.slide .ladder .lv{font-family:var(--slab);font-size:30px;line-height:1.1;color:var(--slate)}
+.slide .ladder .ex{display:block;font-size:22px;color:var(--muted);margin-top:2px}
+.slide .ladder li.top .lv{color:var(--red)}
+
+.slide .forms{display:flex;flex-direction:column;gap:18px;flex:1 1 auto;min-height:0}
+.slide .forms figure{margin:0;flex:1 1 auto;min-height:0;display:flex;
+  flex-direction:column;align-items:center;justify-content:center}
+.slide .forms img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide .forms figcaption{flex:0 0 auto;font-size:21px;color:var(--muted);margin-top:8px}
+
+.slide.ask .q{font-size:40px;font-weight:700;line-height:1.25;margin:40px 0 0}
+.slide.ask .q span{display:block;font-size:27px;font-weight:400;
+  color:rgba(0,0,0,.72);margin-top:18px}
+.slide.ask .choices{display:flex;gap:18px;margin-top:46px}
+.slide.ask .choices b{flex:1;border:3px solid var(--ink);border-radius:16px;
+  padding:18px 10px;text-align:center;font-size:28px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 1 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Is it safe? Who says so?</h1>
+  <p>The system that answers those two questions<br>
+     is being rewritten this month.</p>
+  <template class="notes">The next stretch is the part of practices everybody expects: biosafety. I want to do it differently from how it has usually been taught, because the framework underneath it is being replaced right now, and if I teach you the old one you will learn a vocabulary that is on its way out. So we will do the machinery — risk groups, biosafety levels, select agents, committees — but framed by the document that is currently out for comment, because that is the one you will actually work under.</template>
+  <template class="desc">Section divider: Is it safe? Who says so? The system that answers those two questions is being rewritten this month.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 2 -->
+<article class="slide" data-seq="trigger">
+  <h1 class="small">What makes work &ldquo;regulated&rdquo;</h1>
+  <template class="notes"></template>
+  <template class="desc">The old trigger drawn as a small dashed box around genetically modified organisms and synthetic nucleic acids, asking whether you joined nucleic acid molecules. The new boundary expands around a much larger set — wild-type disease agents, toxins, prions, self-aggregating proteins and cells containing any of them — and asks instead whether the thing is a biohazard. The scope goes up while the review burden goes down for low-risk work, because scope and burden are different axes.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 3 -->
+<article class="slide">
+  <h1 class="small">Who is actually watching</h1>
+  <ul>
+    <li>Biohazards &mdash; <b>EH&amp;S</b>, and the Committee for Laboratory
+        &amp; Environmental Biosafety (<b>CLEB</b>), which is Berkeley&rsquo;s IBC</li>
+    <li>Animals &mdash; the Animal Care and Use Committee (<b>ACUC</b>)</li>
+    <li>Human subjects &mdash; the Committee for Protection of
+        Human Subjects (<b>CPHS</b>)</li>
+    <li>Radiation, lasers, chemicals &mdash; <b>EH&amp;S</b> again</li>
+  </ul>
+  <p data-build="1">Above all of them: the NIH, for any institution that takes NIH money
+     &mdash; which is to say, this one.</p>
+  <template class="notes">Before the categories, the cast. At Berkeley, biohazards go to Environment, Health and Safety, and to CLEB, the Committee for Laboratory and Environmental Biosafety, which is this campus's version of what the federal documents call an Institutional Biosafety Committee. Animal work goes to ACUC, human subjects to CPHS, and radiation, lasers and chemicals back to EH and S. These are different committees with different rules and they do not talk to each other as much as you would hope, so a project that touches two of them needs two approvals and you should find that out early rather than late.
+And sitting above all of it is NIH, because the Guidelines — and the policy replacing them — bind any institution that accepts NIH funding, for all of its research, not only the NIH-funded part. That is the lever: it is not a law, it is a condition of the money, and it reaches every lab in the building.</template>
+  <template class="desc">The oversight bodies: EH&amp;S and CLEB, Berkeley's Institutional Biosafety Committee, for biohazards; ACUC for animals; CPHS for human subjects; EH&amp;S for radiation, lasers and chemicals. Above all of them, the NIH, because the policy binds any institution that takes NIH money.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 4 -->
+<article class="slide">
+  <h1 class="small">How risk is actually assessed</h1>
+  <ul>
+    <li>Virulence, pathogenicity, infectious dose <small>&mdash; <i>Shigella</i> takes about ten organisms</small></li>
+    <li>Environmental stability <small>&mdash; spores</small></li>
+    <li>Route of spread and communicability <small>&mdash; influenza</small></li>
+    <li>Quantity, concentration, volume <small>&mdash; a flask is not a fermenter</small></li>
+    <li>Availability of a vaccine or a treatment <small>&mdash; hepatitis B</small></li>
+    <li>Allergenicity, and who is in the room</li>
+  </ul>
+  <p data-build="1" class="accent">agent &times; modification &times; manipulation &mdash; not a lookup</p>
+  <template class="notes">This is the list of things that actually go into deciding how a piece of work should be contained, and it has not changed much in forty years. How virulent is it, and how many organisms does it take — Shigella is the classic, because the infectious dose is around ten organisms, which is nothing. How stable is it outside a host; spores are the problem case. How does it spread, and can it spread person to person. How much of it are you making, because a flask and a fermenter are not the same experiment with the same agent. Is there a vaccine or a treatment if it goes wrong. And is anyone in the room immunocompromised, pregnant, or allergic.
+The reason I am putting this before the risk-group table rather than after it is that the draft policy makes the emphasis explicit: risk assessment is agent, times modification, times manipulation. The agent is one input. What you did to it and what you are about to do with it are the other two, and no table can look those up for you.</template>
+  <template class="desc">The factors in a containment decision: virulence and infectious dose, with Shigella at about ten organisms; environmental stability, such as spores; route of spread and communicability, such as influenza; quantity and volume, since a flask is not a fermenter; availability of a vaccine or treatment; and allergenicity. The framing: agent times modification times manipulation, not a lookup.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 5 -->
+<article class="slide">
+  <h1 class="small">Risk groups: a property of the <i>agent</i></h1>
+  <ul class="ladder">
+    <li><span class="lv">RG1</span>
+      <div>Not associated with disease in healthy adult humans
+      <span class="ex">lab <i>E. coli</i>, <i>S. cerevisiae</i></span></div></li>
+    <li><span class="lv">RG2</span>
+      <div>Associated with human disease that is rarely serious, and for which
+        preventive or therapeutic interventions are <i>often</i> available
+      <span class="ex">Salmonella, Staphylococcus aureus</span></div></li>
+    <li><span class="lv">RG3</span>
+      <div>Serious or lethal disease, for which interventions <i>may</i> be available
+      <span class="ex">Mycobacterium tuberculosis</span></div></li>
+    <li class="top"><span class="lv">RG4</span>
+      <div>Serious or lethal disease, for which interventions are <i>not usually</i> available
+      <span class="ex">Ebola virus</span></div></li>
+  </ul>
+  <p data-build="1"><small>The scale is the WHO&rsquo;s. It classifies organisms that have been
+     studied &mdash; so a thing nobody has characterised has no risk group at all,
+     rather than a high one.</small></p>
+  <template class="notes">Risk groups, one to four, and the scale is the World Health Organisation's — the NIH document adopted it rather than inventing its own. Read the definitions carefully, because the distinctions are about two things at once: how bad is the disease, and can we do anything about it. RG2 is rarely serious and often treatable. RG3 is serious or lethal but interventions may exist. RG4 is serious or lethal and usually nothing exists. Tuberculosis is RG3; Ebola is RG4.
+And the line at the bottom is the one I want you to keep. This scale classifies organisms that somebody has studied. It is a lookup table built from accumulated clinical experience. A thing nobody has characterised does not get a high risk group — it gets no risk group, which is a different situation entirely, and it is the one we walked into with the metagenomic cluster.</template>
+  <template class="desc">The four WHO risk groups with examples: RG1 not associated with disease in healthy adults, such as lab E. coli; RG2 rarely serious and often treatable, such as Salmonella; RG3 serious or lethal with interventions that may be available, such as M. tuberculosis; RG4 serious or lethal with no usual intervention, such as Ebola. The scale classifies organisms that have been studied, so an uncharacterised agent has no risk group rather than a high one.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 6 -->
+<article class="slide">
+  <h1 class="small">Biosafety levels: a property of the <i>work</i></h1>
+  <ul class="ladder">
+    <li><span class="lv">BSL-1</span>
+      <div>Open bench, good technique, handwashing, a door</div></li>
+    <li><span class="lv">BSL-2</span>
+      <div>Biosafety cabinet for anything that aerosolises, restricted access,
+        sharps rules, training, a sign on the door
+      <span class="ex">this is what most of this building runs at</span></div></li>
+    <li><span class="lv">BSL-3</span>
+      <div>Directional airflow, sealed surfaces, respiratory protection,
+        medical surveillance</div></li>
+    <li class="top"><span class="lv">BSL-4</span>
+      <div>Suit, airlock, dedicated building. There are a handful in the country</div></li>
+  </ul>
+  <p data-build="1" class="accent">You choose a level for an experiment. You do not assign one to an organism.</p>
+  <template class="notes">And the other ladder, which gets confused with the first one constantly, including by people who should know better. Biosafety levels are not a classification of agents. They are a description of how you are working: what equipment, what practices, what building. BSL-1 is an open bench and good technique. BSL-2 adds a cabinet for anything that might aerosolise, restricted access, a sign on the door, and is what most of this building runs at. BSL-3 adds directional airflow and medical surveillance. BSL-4 is a suit and a dedicated building, and there are only a handful in the country.
+Here is the sentence I want you to leave with. You choose a biosafety level for an experiment; you do not assign one to an organism. RG2 work is usually done at BSL-2, but a large-volume culture of an RG1 organism might reasonably be handled at BSL-2, and that is not a reclassification of the organism — it is a decision about the work. Which means the honest answer to "we do not know what this is" is never "therefore it is RG2". It is "therefore we will contain it at BSL-2 until we do know", and those are different sentences with different consequences.</template>
+  <template class="desc">The four biosafety levels described as practices rather than classifications: BSL-1, open bench and good technique; BSL-2, a biosafety cabinet for anything that aerosolises, restricted access and training, which is what most of the building runs at; BSL-3, directional airflow and medical surveillance; BSL-4, suit and dedicated building. The key line: you choose a level for an experiment, you do not assign one to an organism.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 7 -->
+<article class="slide">
+  <h1 class="small">Select agents, and the toxin rule</h1>
+  <ul>
+    <li>A short federal list of agents judged a severe threat to public,
+        animal or plant health &mdash; mostly potential bioterrorism agents.
+        <small><i>Bacillus anthracis</i>, botulinum neurotoxin, the reconstructed 1918 influenza</small></li>
+    <li>It names <b>organisms, proteins and small molecules</b> &mdash;
+        a toxin with no organism attached is still on the list</li>
+    <li>Toxins are regulated <b>by amount</b>: below the permissible quantity
+        you are outside the rule, above it you are inside, with the same molecule</li>
+    <li>Registration, inventory, background checks, inspection.
+        Violations carry fines, loss of permits, and for select agents, prison</li>
+  </ul>
+  <p data-build="1" class="accent">If a select agent turns up in your design, that is a reason to redesign,
+     not a reason to start paperwork.</p>
+  <template class="notes">Select agents are a short federal list of things judged to be a severe threat — anthrax, botulinum neurotoxin, the reconstructed 1918 influenza. Mostly these are potential bioterrorism or biowarfare agents, and the regime around them is genuinely heavy: registration, inventory to the vial, background checks on everyone with access, inspections, and criminal penalties including prison.
+Two features matter for you specifically. First, the list names proteins and small molecules, not only organisms. A toxin gene with no pathogen attached is still a select agent. Second, and this is the part that surprises people, toxins are regulated by amount. Each has a permissible quantity, and below it you are outside the regime while above it you are inside — same molecule, same lab, different legal universe. So "how much" is a compliance question, not just a protocol question.
+And the practical advice is the one your predecessors have found useful: if a select agent shows up in your design, the right response is almost always to redesign. It is a signal that you have wandered somewhere you did not mean to go, and the paperwork is not the main cost — the main cost is that your project now takes two years longer.</template>
+  <template class="desc">Select agents: a short federal list of severe threats including Bacillus anthracis, botulinum neurotoxin and the reconstructed 1918 influenza. The list names organisms, proteins and small molecules, so a toxin with no organism attached still counts. Toxins are regulated by amount, with a permissible quantity below which the rule does not apply. Penalties include fines, loss of permits and prison. If a select agent appears in a design, redesign rather than start paperwork.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 8 -->
+<article class="slide">
+  <h1 class="small">Toxins and virulence factors</h1>
+  <div class="forms">
+    <figure>
+      <img src="img/02-bua-toxins.png" alt="The toxins table from a Berkeley Biological Use Authorization form, with columns for toxin common name, source, whether it is a pathogen of humans, animals or plants, LD50 or LDL, and target organ.">
+      <figcaption>The toxin table on a real Berkeley BUA. Note the column that decides it: <b>LD<sub>50</sub></b>.</figcaption>
+    </figure>
+  </div>
+  <ul>
+    <li>A <b>toxin</b> is regulated on potency and quantity. The form asks for an LD<sub>50</sub>
+        because that is the number the rule is written against</li>
+    <li>A <b>virulence factor</b> is a feature implicated in an organism&rsquo;s ability
+        to cause disease &mdash; adhesins, secretion systems, iron acquisition, immune evasion.
+        There are databases of them</li>
+    <li>Neither is automatic: a sequence taken from a pathogen is not thereby
+        regulated, and a sequence from a harmless organism is not thereby safe</li>
+  </ul>
+  <template class="notes">These two words get used interchangeably and they are not the same kind of thing.
+A toxin is a molecule, and it is regulated on potency and quantity. That is why the Berkeley form asks you for an LD50 — the number is not curiosity, it is the quantity the rule is written against. If you cannot fill that column in, you do not yet know whether you are regulated.
+A virulence factor is a feature implicated in an organism's ability to cause disease: an adhesin, a secretion system, an iron acquisition system, something that evades complement. There are curated databases of these, and software that will flag them in a sequence you are about to order. They are not toxins; most of them are harmless on their own and only mean something in the context of an organism that has the rest of the machinery.
+And the point underneath both: neither is automatic in either direction. A sequence taken out of a pathogen is not regulated merely because of where it came from, and a sequence from something harmless is not safe merely because of where it came from. The question is always what it does, in what host, at what quantity.</template>
+  <template class="desc">A crop of the toxins table from a real Berkeley Biological Use Authorization form, with columns for toxin, source, whether it is a human, animal or plant pathogen, LD50 or LDL, and target organ. Toxins are regulated on potency and quantity, which is why the form demands an LD50. Virulence factors are features implicated in causing disease — adhesins, secretion systems, iron acquisition, immune evasion — and there are databases of them. Neither category is automatic: a sequence from a pathogen is not thereby regulated, and one from a harmless organism is not thereby safe.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 9 -->
+<article class="slide">
+  <h1 class="small">The form, and the boxes that are going away</h1>
+  <div class="forms">
+    <figure>
+      <img src="img/02-bua-section3.png" alt="A crop of a Berkeley Biological Use Authorization form showing the checkbox grid for NIH Guidelines Section III-A through III-F, with III-A-1 ticked.">
+      <figcaption>Biological Use Authorization, Berkeley. Every experiment in this
+        building has had one of these boxes ticked for forty years.</figcaption>
+    </figure>
+  </div>
+  <template class="notes">This is a real Biological Use Authorization from this campus — the form a PI files before any of this work can start, and the thing CLEB actually reviews. I have cropped out the administrative page; what is left is the part that classifies the science. Section III-A, III-B, III-C, III-D with its six sub-boxes, III-E with three, III-F.
+Every recombinant experiment done in this building for about forty years has had one of these boxes ticked. It is not an abstraction; it is a checkbox, with a person's name at the top of the page and a date. And it is this grid that the draft policy retires.</template>
+  <template class="desc">A crop of a real Berkeley Biological Use Authorization form showing the NIH Guidelines Section III classification grid: III-A through III-F with their sub-categories, one box ticked. Every recombinant experiment in the building for forty years has had one of these boxes ticked, and this grid is what the draft policy retires.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 10 -->
+<article class="slide" data-seq="ibctiers">
+  <h1 class="small">Three tiers instead of fifteen boxes</h1>
+  <template class="notes"></template>
+  <template class="desc">The old Section III list, sorted by what was done to the DNA, struck through and replaced by three tiers sorted by how much review the risk earns. IV-1 needs both NIH and IBC approval and covers agents with no risk-group classification, first requests to lower containment for RG3 or RG4, and first requests to go below BSL-2 for a gene drive. IV-2 needs full IBC approval and covers RG3 and RG4 wild-type agents, genetically modified organisms, Select Agent toxins, prions, and deliberate administration to human subjects. IV-3 may be delegated to a single IBC member and covers RG2 agents, genetically modified RG1 agents, transgenics at BSL-1 and well-characterised cell lines — which is where all of the students' own work falls.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 11 -->
+<article class="slide">
+  <h1 class="small">When it goes wrong</h1>
+  <ul>
+    <li><b>24 hours</b> to report a serious incident to NIH &mdash;
+        a laboratory-acquired infection, a loss of containment with risk to the
+        community, an injury in BSL-3 or BSL-4, a significant violation</li>
+    <li>Incident reports and IBC minutes stay <b>publicly posted for five years</b></li>
+    <li>A minor spill of a low-risk agent, cleaned and decontaminated with no
+        breach of containment, generally does not need reporting</li>
+    <li data-build="1">And the one nobody teaches: what <i>you</i> do. Stop, contain, wash or
+        irrigate, tell your supervisor the same day, and get it written down &mdash;
+        the record is what protects you later</li>
+  </ul>
+  <template class="notes">The draft adds something the old Guidelines were thin on, which is what happens after an incident. Institutions must report serious incidents to NIH within twenty-four hours: a laboratory-acquired infection, a loss of containment with risk to the community, an injury in a BSL-3 or BSL-4 setting, a significant compliance violation. And incident reports and IBC minutes are to stay publicly posted for five years, which is a real change in posture — it says that this information belongs to the public and not only to the institution.
+A minor spill of a low-risk agent that you cleaned up properly, with no breach of containment, does not need reporting. That exemption matters, because a regime where everything is reportable is a regime where nothing gets reported.
+And then the part no course teaches and everybody needs. If something happens to you: stop what you are doing, contain the spill if you safely can, wash or irrigate — fifteen minutes at the eyewash, not thirty seconds — tell your supervisor the same day, and make sure it gets written down. Not for the institution's benefit. For yours. If you develop something six months later, the contemporaneous record is the thing that connects it to the lab, and if that record does not exist, you are arguing from memory against an institution that has lawyers.</template>
+  <template class="desc">Incident handling under the draft policy: serious incidents reported to NIH within 24 hours, including laboratory-acquired infections, losses of containment with community risk, injuries at BSL-3 or BSL-4, and significant violations. Incident reports and IBC minutes stay publicly posted for five years. Minor spills of low-risk agents that were properly cleaned, with no breach of containment, generally need no report. And what the individual does: stop, contain, wash or irrigate, tell the supervisor the same day, and get it written down, because the contemporaneous record is what protects the worker later.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 12 -->
+<!-- The anchor.  The naive answer is "yes, dangerous, refuse", and the
+     work of the discussion is discovering that the organism is not the
+     hazard and the DNA is. -->
+<article class="slide ask" data-bg="section">
+  <h1 class="small">You are the IBC</h1>
+  <p class="q">A protocol lands on your desk: express a &beta;-lactamase from a clinical
+     isolate in lab <i>E. coli</i>, to benchmark a new selection scheme.
+     <span>You have ten minutes and three options.</span></p>
+  <div class="choices">
+    <b>approve</b>
+    <b>approve with conditions</b>
+    <b>refuse</b>
+  </div>
+  <template class="notes">Let them commit to one of the three before any discussion. Most rooms split between "approve with conditions" and "refuse", and both for the wrong reason.
+THE REASON THEY GIVE will be that it makes the E. coli dangerous. It does not. A lab K-12 strain with a resistance gene is not a pathogen: it has no immune evasion, no iron acquisition system, no adhesins, none of the machinery that lets an organism establish an infection. Too many barriers are missing, and adding one gene does not supply them. Push on this until the room gives it up, because it is the instinct the whole first half of this lecture has been training and it is wrong here.
+SO WHERE IS THE HAZARD. In the DNA, not in the cells. Autoclaving is decontamination, not destruction — plasmid DNA survives it to some extent, and what leaves the building in the waste stream is a mobile resistance determinant that can be taken up by something that does have the rest of the machinery. The unit of concern is a sequence, not an organism. That is the turn of the whole question.
+THEN THE QUESTIONS THAT ACTUALLY DECIDE IT. Is the sequence novel, or characterised? Has it been associated with clinical resistance, or is it already endemic in the local population — because a gene already circulating in the community is a different proposition from one that is not. What is the waste route, and is it validated for nucleic acid destruction rather than for sterility? Is there a carbapenemase in the panel specifically, or a garden-variety TEM?
+AND THE ONES THAT TEST WHETHER THEY ARE REASONING OR PERFORMING. Does your answer change if the PI is senior and impatient? If the person doing the work is an undergraduate in their first semester? What about publishing the construct — is the paper a separate decision from the experiment? And the one that usually lands hardest: the same cassette is already in your freezer, ordered from Addgene last year, and nobody filed anything. Does that change what you should do now, or only how you feel about it?
+WHERE IT SHOULD END UP: this is IV-3 work — a genetically modified RG1 agent — so under the draft it could be approved by a single IBC member without a meeting. Ask them whether they are comfortable with that, having just spent ten minutes finding the real hazard. That is the deregulation-or-proportionality argument, and now they have earned it.</template>
+  <template class="desc">Discussion slide. A protocol arrives: express a beta-lactamase from a clinical isolate in laboratory E. coli to benchmark a new selection scheme. The room must choose to approve, approve with conditions, or refuse.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/lib.js" defer></script>
+<script src="seq/02-trigger.js" defer></script>
+<script src="seq/02-ibc.js" defer></script>
+</body>
+</html>

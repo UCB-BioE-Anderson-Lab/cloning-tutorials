@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Security &ndash; Practices</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.
+ *
+ * .pair is the biosafety / biosecurity split.  Two columns with a heading
+ * apiece, because the whole slide is a contrast and a single bulleted
+ * list would flatten it back into one idea.  The heading carries the
+ * adversary, since the adversary is the distinction.
+ *
+ * .pull sets the consortium's own sentence as a quotation rather than a
+ * bullet.  It is evidence — the industry body saying it about itself —
+ * and evidence should not look like one of the lecturer's claims.
+ *
+ * .today is the one date on the slide that is also the date on the
+ * clock.  Set as a slab line so it reads as a heading rather than as an
+ * item in a list; see the note channel, which tells the lecturer to
+ * confirm it on the morning.
+ *
+ * .ask is the deck's discussion slide type, repeated from 01-risk.html,
+ * 02-safety.html and 05-economics.html: section ground, one scenario,
+ * one line, every angle to push on in the note channel.  .chain is the
+ * row of stages the room is asked to walk; it is the .choices shape from
+ * 02-safety.html with an arrow between the boxes, because here the boxes
+ * are a sequence rather than three options.
+ *
+ * The four .o lines are the show/hide rule for sequence parts.  It is
+ * page-local in every section file by design; omit it and every part of
+ * a sequence is visible from its first beat.
+ * --------------------------------------------------------------------- */
+.slide .pair{display:grid;grid-template-columns:1fr 1fr;gap:54px;margin-top:10px}
+.slide .pair h2{font-family:var(--slab);font-size:42px;line-height:1.1;margin:0 0 6px}
+.slide .pair .adv{display:block;font-family:var(--sans);font-size:24px;
+  font-weight:400;color:var(--muted);margin-top:12px}
+.slide .pair ul{margin:22px 0 0;padding-left:1.05em}
+.slide .pair li{font-size:29px;line-height:1.38;margin-bottom:20px}
+.slide .pair .l h2{color:var(--slate)}
+.slide .pair .r h2{color:var(--red)}
+
+.slide .pull{margin:26px 0 0;padding:6px 0 6px 28px;border-left:5px solid var(--red);
+  font-size:33px;line-height:1.32;font-style:italic}
+.slide .pull b{display:block;font-style:normal;font-size:21px;font-weight:400;
+  color:var(--muted);margin-top:14px}
+
+/* three slides here carry two or three long bullets rather than the
+   house's five short ones, so they are set larger — same rule, and the
+   same reason, as in 01-risk.html: at the default size the ink sits in
+   the top third and the room reads it as an unfinished slide. */
+.slide ul.wide li{font-size:34px;line-height:1.4;margin-bottom:28px}
+.slide ul.tight li{font-size:29px;line-height:1.38;margin-bottom:14px}
+/* the closing line of a slide that carries only two or three bullets:
+   without the extra size and the gap above it, the ink sits in the top
+   half and the room reads the slide as unfinished.  NOT used on the
+   benchtop slide, which already runs to the bottom of the box. */
+.slide .airy{font-size:34px;line-height:1.4;margin-top:48px}
+
+.slide .today{font-family:var(--slab);font-size:34px;line-height:1.2;
+  color:var(--red);margin:22px 0 10px}
+
+.slide.ask .q{font-size:46px;font-weight:700;line-height:1.25;margin:54px 0 0}
+.slide.ask .q span{display:block;font-size:30px;font-weight:400;
+  color:rgba(0,0,0,.72);margin-top:24px}
+.slide.ask .chain{display:flex;align-items:stretch;gap:10px;margin-top:104px}
+.slide.ask .chain b{flex:1;border:3px solid var(--ink);border-radius:16px;
+  padding:34px 8px;text-align:center;font-size:26px;line-height:1.25;
+  display:flex;align-items:center;justify-content:center}
+.slide.ask .chain i{flex:0 0 auto;align-self:center;font-style:normal;
+  font-size:28px;color:rgba(0,0,0,.6)}
+/* the robot is a tall portrait photograph; without all four of these it
+   renders at its intrinsic size, which on a 1600x900 slide is a stamp */
+.slide.ask .cols figure{margin:0;flex:1 1 auto;min-height:0;width:100%;
+  display:flex;flex-direction:column;justify-content:center}
+.slide.ask .cols figure img{flex:1 1 auto;min-height:0;width:100%;height:100%;
+  object-fit:contain}
+
+.slide svg .o{opacity:0;transition:opacity .42s ease}
+.slide svg .o.in{opacity:1}
+.slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+@media (prefers-reduced-motion:reduce){.slide svg .o{transition:none}}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 1 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Security</h1>
+  <p>Everything in the last section was designed<br>
+     against somebody making a mistake.</p>
+  <template class="notes">We have just spent twenty minutes on a system built to stop accidents. Cabinets, autoclaves, risk groups, a sign on the door, a committee that reads your protocol. All of it assumes the person at the bench is trying to get it right and might not. Now change one thing — assume the person is trying to get it wrong — and ask how much of that apparatus is still doing anything. The answer is: very little of it. That is the whole of the next sixteen minutes, and it ends somewhere I genuinely do not know the answer to, which is why it ends in a discussion rather than in a summary.</template>
+  <template class="desc">Section divider: Security. Everything in the last section was designed against somebody making a mistake.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 2 -->
+<article class="slide">
+  <h1 class="small">Same bench, same organism, different adversary</h1>
+  <div class="pair">
+    <div class="l">
+      <h2>Biosafety<span class="adv">the adversary is error</span></h2>
+      <ul>
+        <li>Protects people and the environment <i>from</i> the work</li>
+        <li>A slipped pipette, a tube nobody labelled, an aerosol nobody saw</li>
+        <li>Controls are engineering and habit: containment, technique, training</li>
+      </ul>
+    </div>
+    <div class="r">
+      <h2>Biosecurity<span class="adv">the adversary is intent</span></h2>
+      <ul>
+        <li>Protects the materials, and the knowledge, <i>from</i> people</li>
+        <li>Theft, diversion, misuse &mdash; by an outsider or by the person
+            who already has the key</li>
+        <li>Controls are access, accountability and screening</li>
+      </ul>
+    </div>
+  </div>
+  <p data-build="1" class="accent airy">A biosafety cabinet protects a careless worker from an aerosol.
+     It does not slow down a careful one who wants the aerosol.</p>
+  <template class="notes">Two words that get used as if they were one. Biosafety is about accidents: it protects people and the environment from the work, and its adversary is error. Everything on the left-hand column is designed against a slipped pipette, a tube nobody labelled, an aerosol nobody noticed, a waste bag that went in the wrong stream. Biosecurity is about intent: it protects the materials and the knowledge from people, and its adversary is a person who means it. That could be an outsider, and in practice it is more often somebody who already has legitimate access, which is the uncomfortable part.
+And look at what that does to the controls. The biosafety controls are engineering and habit — containment, technique, training. The biosecurity controls are a completely different family: who has access, who is accountable for what, and screening, which is the one we are going to spend most of this section on.
+The build line is the one to carry. A biosafety cabinet protects a careless worker from an aerosol. It does not slow down a careful one who wants the aerosol. Nearly every control you met in the last section is like that — it is a guard rail, and a guard rail is for somebody who is trying to stay on the road.</template>
+  <template class="desc">Two columns. Biosafety, whose adversary is error: it protects people and the environment from the work; the failure modes are a slipped pipette, an unlabelled tube, an unseen aerosol; its controls are engineering and habit — containment, technique, training. Biosecurity, whose adversary is intent: it protects materials and knowledge from people; the failure modes are theft, diversion and misuse, by an outsider or by someone who already has access; its controls are access, accountability and screening. The closing line: a biosafety cabinet protects a careless worker from an aerosol, and does not slow down a careful one who wants the aerosol.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 3 -->
+<article class="slide">
+  <h1 class="small">Dual use</h1>
+  <ul class="wide">
+    <li><b>Botulinum neurotoxin</b> is a protease made by <i>Clostridium botulinum</i>.
+        It cuts the proteins a nerve ending uses to release its signal onto a
+        muscle, so the muscle stops being told to contract</li>
+    <li>In a wound or in food that is paralysis, and it kills by stopping the
+        diaphragm. In minute doses in a clinic it is a treatment for spasm,
+        and a cosmetic</li>
+    <li>It is the <i>same protein</i>, the same gene, and the same production
+        problem. The knowledge that makes one makes the other</li>
+  </ul>
+  <p class="accent airy">Dual use is not a feature of a technique that a better technique
+     could remove. It is a property of understanding how something works.</p>
+  <template class="notes">The canonical example, and it is the one from the original deck. Botulinum neurotoxin is a protease — a protein-cutting enzyme — made by Clostridium botulinum. What it cuts are the proteins a nerve ending uses to fuse a vesicle and release its signal onto a muscle. Cut those, and the muscle never gets told to contract.
+In a wound, or in food, that is botulism: a flaccid paralysis that kills you because the diaphragm is a muscle. In minute quantities, injected into one muscle by a clinician, the same molecule is a treatment for spasticity, for dystonia, for migraine, and it is the most widely used cosmetic procedure in the world. Same protein. Same gene. The same fermentation and purification problem. There is no version of the knowledge that gives you one and not the other.
+That is what dual use means, and it is why it is not a problem you engineer your way out of. People sometimes hear "dual use" and think it describes a technique that could be redesigned to be single-use. It does not. It describes what happens when you understand a mechanism well enough to intervene in it — at which point you can intervene in either direction. Every therapeutic target in this course is a lesion somebody could cause on purpose.
+BACK-REFERENCE: botulinum neurotoxin is on the select agent list you met last section, and remember the shape of that rule — it is regulated by AMOUNT. The clinical vial and the regulated quantity are the same substance on either side of a number.
+VERIFY: the mechanism described here — cleavage of the SNARE proteins of the neurotransmitter release machinery — is textbook pharmacology and is not in the plan's sourced block. It is stated here without a figure, a dose or a date on purpose. Do not add an LD50 or a potency ranking from memory; that is exactly the kind of number this deck has agreed not to invent.</template>
+  <template class="desc">Dual use, with botulinum neurotoxin as the example. It is a protease from Clostridium botulinum that cuts the proteins a nerve ending uses to release its signal onto a muscle, so the muscle is never told to contract. In a wound or in food that is a paralysis that kills by stopping the diaphragm; in minute clinical doses it treats spasm and is used cosmetically. It is the same protein, the same gene and the same production problem, so the knowledge that makes one makes the other. The closing line: dual use is not a feature of a technique that a better technique could remove, it is a property of understanding how something works.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 4 -->
+<article class="slide">
+  <h1 class="small">Why anyone screens an order at all</h1>
+  <ul class="wide">
+    <li><b>Smallpox.</b> Eradicated in the wild. The world then argued for
+        decades about whether to destroy the last stocks of the virus &mdash;
+        an argument about freezers, and about who holds a key</li>
+    <li><b>The 1918 influenza virus.</b> Sequenced out of preserved tissue, and
+        then <i>rebuilt</i>. A virus that no longer existed was made again
+        from its sequence</li>
+  </ul>
+  <p class="accent airy">While the argument about the freezers was going on, the sequence was
+     published. A freezer can be emptied. A publication cannot be unpublished
+     &mdash; and at that moment the control problem moves from the vial to the
+     order form.</p>
+  <template class="notes">Two episodes, and together they explain why there is a screening regime at all.
+Smallpox was eradicated in the wild, which is one of the few unambiguous triumphs in the history of medicine. What followed was decades of argument about whether to destroy the remaining laboratory stocks or keep them for research. Notice the shape of that argument. It is entirely about physical material — who has a freezer, who holds a key, who inspects it. That is a nineteenth-century security model and it is a perfectly good one, as long as the material is the only way to get the thing.
+And then the 1918 influenza virus. That virus was gone. It was sequenced out of preserved tissue, and then it was reconstructed — built again from the sequence, in a laboratory, decades after the last person who had it died. Whatever you think about whether that should have been done, and reasonable people disagree, it settled a question: a sequence is a recipe, and a published recipe is a permanent one.
+So here is the line I want you to take out of this slide. While the argument about the freezers was still going on, the sequence was published. You can empty a freezer. You cannot unpublish a paper. At that moment the control problem stops being about the vial and starts being about the order form — because the only remaining step between a published sequence and a physical agent is somebody synthesising the DNA. Everything in the rest of this section follows from that one move.
+PROVENANCE AND VERIFY. The 1918 reconstruction comes from the source deck, which cites PMID 20010599 — mark that VERIFY, it has not been fetched and read for this rebuild, and it should not be printed on a handout until it has. The smallpox retention debate is stated here deliberately without dates, without a count of the declared repositories and without naming the deciding body, because none of that is in the plan's sourced block. Do not supply any of it from memory from the podium; the argument does not need it.</template>
+  <template class="desc">Why screening exists, in two episodes. Smallpox: eradicated in the wild, after which the world argued for decades about destroying the last stocks of virus — an argument about freezers and keys. The 1918 influenza virus: sequenced out of preserved tissue and then rebuilt, so a virus that no longer existed was made again from its sequence. The closing line: while the argument about the freezers was going on, the sequence was published; a freezer can be emptied and a publication cannot be unpublished, and at that moment the control problem moves from the vial to the order form.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 5 -->
+<!-- The chronology, drawn.  The teachable thing here is not the contents
+     of any of these policies; it is the speed.  A unified policy was
+     written, implemented, and killed one day before it would have taken
+     effect, and it never operated at all. -->
+<article class="slide" data-seq="ground">
+  <h1 class="small">The ground moves</h1>
+  <template class="notes"></template>
+  <template class="desc">A dated chronology of United States oversight policy for dual use research. In May 2024 a single unified policy is issued covering dual use research of concern and pathogens with enhanced pandemic potential; in January 2025 the NIH tells the institutions it funds how to implement it; it is set to take effect on 6 May 2025. Then, on 5 May 2025 — one day earlier — an executive order suspends federal funding for dangerous gain-of-function research and orders the policy replaced, and the 2024 policy never operates at all. In July 2026 a new policy, Stopping High-Risk Life Sciences Research, is approved and released; it prohibits federal funding for dangerous gain-of-function research and for international research of concern, and it replaces the 2024 policy along with the older dual use and pandemic pathogen guidance. The bodies and lists it calls for are all due after today.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 6 -->
+<article class="slide">
+  <h1 class="small">What a synthesis provider actually does</h1>
+  <ul class="tight">
+    <li><b>Sequence screening.</b> The complete sequence of every order of
+        200 bases or more, against a restricted pathogen database and against
+        the public sequence databases &mdash; translated in all six reading
+        frames and screened as protein, so that a recoded gene does not walk
+        past a nucleotide match</li>
+    <li><b>Automation is a filter, not a decision.</b> Every potential hit goes
+        to a human expert</li>
+    <li><b>Customer screening.</b> Shipping address, institution, country, phone,
+        email, checked against federal denied-party lists &mdash; sanctions,
+        export debarment. <b>No residential addresses. No PO boxes.</b>
+        A regulated sequence goes only to a real institution, with a written
+        statement of intended use that is verified independently</li>
+    <li><b>Records kept at least eight years</b> &mdash; a number chosen to line up
+        with the statute of limitations for use of a weapon of mass destruction</li>
+    <li><b>Refusal, and referral.</b> A member may refuse any order, tell the
+        other members, and call law enforcement &mdash; with whom they keep
+        standing relationships</li>
+  </ul>
+  <p class="src">International Gene Synthesis Consortium, Harmonized Screening
+     Protocol v3.0, 3 September 2024, sections 4 and 7.</p>
+  <template class="notes">This is what actually happens when you press order, and it is more than people expect.
+Sequence screening first. Not a keyword search on the order form — the complete sequence of every order of two hundred bases or more, run against a restricted pathogen database and against the public sequence databases. And the detail that tells you somebody thought about this properly: it is translated in all six reading frames and screened as protein. Codon-optimise a toxin gene until it shares almost no nucleotide identity with anything in GenBank and the protein screen still catches it. That is the difference between a screen designed by lawyers and a screen designed by people who know what you can do to a sequence.
+Second: automated screening is a filter, not a decision. Every potential hit goes to a human expert. The machine's job is to reduce the volume to something a person can read.
+Third, and this is the half people forget: they screen you as well as the sequence. Shipping address, institution, country, phone, email, run against the federal denied-party lists — sanctions lists, export debarment lists. No residential addresses. No PO boxes. For a regulated sequence you need a real institution and a written statement of intended use, and they verify it independently rather than taking your word.
+Fourth, records for at least eight years. The eight was in the original version of this slide with no explanation, and the explanation turns out to be worth having: it is chosen to line up with the statute of limitations for use of a weapon of mass destruction under US law. The record retention is not an accounting policy. It is designed so that an order placed today is still discoverable if it matters in seven years.
+And last, refusal and referral. A member can refuse any order for any reason, tell the other members that it did, and call law enforcement. They maintain standing relationships with law enforcement and intelligence so that the call does not start with an introduction.
+SOURCE, AND A CORRECTION TO THE OLD DECK. All of this is the International Gene Synthesis Consortium's Harmonized Screening Protocol, version 3.0, dated 3 September 2024, sections 4 and 7. The old version of this slide cited a 2012 protocol. That citation is wrong twice: there has never been a 2012 version — the versions are 2009, 2017, 2020 and 2024 — and v3.0 supersedes everything earlier. If anyone has the old handout, that is the fix.
+WHAT THE CONSORTIUM IS: an industry body of gene synthesis providers who agree to screen to a common standard. Which is a sentence worth hearing twice before the next slide.</template>
+  <template class="desc">What a synthesis provider does with an order, from the International Gene Synthesis Consortium's Harmonized Screening Protocol version 3.0 of 3 September 2024. Sequence screening: the complete sequence of every order of 200 bases or more against a restricted pathogen database and the public sequence databases, translated in all six reading frames and screened as protein so a recoded gene cannot escape a nucleotide match. Automated screening is a filter rather than a decision, and every potential hit goes to a human expert. Customer screening: address, institution, country, phone and email against federal denied-party lists, with no residential addresses and no PO boxes, and regulated sequences only to real institutions with an independently verified written statement of intended use. Records kept at least eight years, a figure chosen to align with the statute of limitations for use of a weapon of mass destruction. And refusal and referral: a member may refuse any order, notify other members and contact law enforcement, with whom they keep standing relationships.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 7 -->
+<!-- The sharpest idea in the section.  The build is the consortium's own
+     sentence, and it has to come second: the room needs to believe the
+     screen is a rule before it is told that it is not one. -->
+<article class="slide">
+  <h1 class="small">Who the rule actually binds</h1>
+  <ul class="tight">
+    <li>The federal framework for screening nucleic acid synthesis orders
+        imposes <b>no obligation on the companies that synthesise DNA</b></li>
+    <li>It runs through the <b>purchaser</b>. Federal funders require that
+        synthetic nucleic acids and benchtop synthesis equipment bought with
+        federal life-sciences money be bought from providers who adhere to it
+        &mdash; a condition written into the terms of the award, in force
+        since April 2025</li>
+    <li>Providers join by <b>publicly attesting that they comply</b>. It is an
+        opt-in</li>
+  </ul>
+  <p class="pull" data-build="1">&ldquo;At the time of this publication, no country in the world
+     requires Providers or Manufacturers to screen the sequences they are asked
+     to synthesize.&rdquo;
+     <b>The International Gene Synthesis Consortium, about itself and its own
+        industry. Harmonized Screening Protocol v3.0, section 4.</b></p>
+  <template class="notes">Now the part that surprises everybody, and it is the sharpest idea in this section.
+The federal framework for nucleic acid synthesis screening — the document that all of this hangs from — imposes no obligation whatsoever on the companies that synthesise DNA. It is not a regulation on vendors. There is no inspector, no licence, no penalty for a synthesis company that screens nothing at all.
+What it does instead is run through the purchaser. If you buy synthetic nucleic acids, or a benchtop synthesiser, with federal life sciences money, your funder requires you to buy from a provider who adheres to the framework. It is a condition of the award, written into the terms of the grant, and it has been in force since April 2025. The lever is exactly the same one you met in the last section with the NIH Guidelines: it is not a law, it is a condition of the money. Which means it reaches everybody who takes federal money and nobody who does not.
+And the providers themselves join by publicly attesting that they comply. Self-attestation. An opt-in.
+THEN THE QUOTE, and let it sit for a second before you read it. That is not a critic. That is the International Gene Synthesis Consortium, in its own screening protocol, section four, saying it about its own industry: at the time of publication, no country in the world requires providers to screen the sequences they are asked to synthesise.
+So the screen that protects everybody — the one on the previous slide, which is genuinely good, genuinely thoughtful, genuinely more than you expected — is held up by a funding condition and a voluntary consortium. Both of those are real levers and I am not sneering at them; a funding condition is how most of American research governance actually works. But understand what kind of thing it is. It is not a wall. It is an agreement, and it covers the people who agreed.
+THE QUESTION TO LEAVE HANGING, because the anchor will come back to it: who is outside it? Somebody with no federal funding. Somebody in a country whose providers never joined. And somebody who does not place an order at all, which is the next slide.
+SOURCE: the mechanism and the April 2025 date are from the White House Office of Science and Technology Policy's Framework for Nucleic Acid Synthesis Screening, version 1, April 2024, sections 1 to 3. The quoted sentence is IGSC Harmonized Screening Protocol v3.0, section 4.</template>
+  <template class="desc">Who the screening rule actually binds. The federal framework imposes no obligation on the companies that synthesise DNA. It runs through the purchaser: federal funders require that synthetic nucleic acids and benchtop synthesis equipment bought with federal life-sciences money come from providers who adhere, a condition written into the terms of the award and in force since April 2025. Providers join by publicly attesting that they comply, so it is an opt-in. Then a quotation from the International Gene Synthesis Consortium's own Harmonized Screening Protocol version 3.0, section 4: at the time of this publication, no country in the world requires providers or manufacturers to screen the sequences they are asked to synthesize.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 8 -->
+<article class="slide">
+  <h1 class="small">The box on the bench</h1>
+  <ul class="wide">
+    <li>A benchtop synthesiser makes the DNA in your own lab. There is no order,
+        so there is nothing for the order screen to look at</li>
+    <li>The federal answer is not to re-screen orders. It moves the chokepoint
+        <b>into the device</b>: the manufacturer screens every customer for
+        legitimacy rather than screening orders, and controls proprietary
+        reagents that only its own machine can use</li>
+  </ul>
+  <p class="accent">That is a different trust model, not the same one further down the chain.
+     It rests on device integrity, on firmware, and on a reagent you cannot
+     buy anywhere else.</p>
+  <p class="today" data-build="1">Today &mdash; 13 October 2026 &mdash; three things change:
+     the screening window drops from 200 bases to 50; a sequence of concern no
+     longer has to come from a regulated agent, only to contribute to
+     pathogenicity or toxicity; and benchtop machines should screen inside
+     the instrument.</p>
+  <template class="notes">Here is the obvious objection to everything on the last two slides. If the control is at the order, buy a machine and stop ordering. A benchtop synthesiser sits on your bench and makes the DNA in your own lab. There is no order. There is nothing for the order screen to look at.
+The federal framework does not leave those outside the perimeter, and the way it handles them is worth understanding because it is a genuinely different idea. It does not try to re-screen orders that no longer exist. It moves the chokepoint into the device. The manufacturer screens every benchtop customer for legitimacy — not just the suspicious orders, every customer — and it controls proprietary sole-use reagents, so that only a legitimate user can actually run the machine. The scope reaches biofoundries, cloud labs, core facilities, contract research organisations and resellers, because all of those are ways for a machine to end up somewhere nobody vetted.
+And I want you to see that as a different trust model rather than as the same model applied further down the chain. Order screening trusts a database and a human reviewer. Device screening trusts device integrity, firmware, and a reagent supply chain. Those fail in completely different ways, and if you are the sort of person who thinks about how systems break, that is the interesting sentence on this slide. A screen in firmware is a screen somebody can be tempted to patch.
+THE DATE, AND READ THIS ONE OFF THE CLOCK. Today is the thirteenth of October, 2026, and under the framework today is the day three things change: the screening window drops from two hundred bases to fifty, which is a large change in what is even eligible to be looked at; the definition of a sequence of concern expands to cover sequences that contribute to pathogenicity or toxicity even when they are not derived from a regulated agent; and benchtop synthesisers should integrate sequence screening into the instrument itself.
+LECTURER — CONFIRM THIS ON THE MORNING. The date is in the framework as issued, but implementation dates of this kind get deferred, and this one sits inside a policy environment that has already moved twice in eighteen months. If it has slipped, say so: "this was due today and it has been pushed" is a better version of this slide than the one on the screen, and the argument is unaffected either way, because the point is that a threshold you were taught is a threshold that changes.
+ONE FURTHER DATE, AND DO NOT RECONCILE THEM: the consortium's own members have set themselves a fifty-base-pair deadline of 24 October 2026, eleven days after today. The two documents genuinely give different dates. Report both; the gap between a federal "should" and an industry commitment is itself the lesson.
+SOURCE: OSTP Framework for Nucleic Acid Synthesis Screening, version 1, April 2024. The plan's research block notes it could not confirm whether a revised framework has since issued — none was found as of 7 October 2026 and the agency still lists one as pending, which is not the same as proof that none exists.</template>
+  <template class="desc">Benchtop synthesisers. A benchtop machine makes DNA in your own lab, so there is no order and nothing for the order screen to look at. The federal answer moves the chokepoint into the device: the manufacturer screens every customer for legitimacy rather than screening orders, and controls proprietary reagents that only its own machine can use. That is a different trust model, resting on device integrity, firmware and a reagent you cannot buy elsewhere. Then the date: today, 13 October 2026, three things change — the screening window drops from 200 bases to 50, a sequence of concern no longer has to come from a regulated agent but only to contribute to pathogenicity or toxicity, and benchtop machines should screen inside the instrument.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 9 -->
+<!-- Containment by design.  The slide is not a table of escape
+     frequencies; it is an argument that a biological control degrades
+     with population size and time, and the arithmetic the room can do in
+     its head is what carries it. -->
+<article class="slide" data-seq="escape">
+  <h1 class="small">Containment you build into the organism</h1>
+  <template class="notes"></template>
+  <template class="desc">Four strategies for building containment into an organism: a crippled host that cannot colonise a gut, an auxotroph missing an essential metabolite that only you supply, a strain stripped of high-affinity iron uptake so it cannot compete for the scarce iron inside a host, and a kill switch — a toxin gene held off by an inducer you control. Each is a probability rather than a wall. Then the failure modes, which are biological: a neighbouring wild-type organism can feed an auxotroph, and a costly, highly transcribed kill-switch cassette is a preferred target for insertion-sequence transposition, so its own burden recruits the mechanism that destroys it. Then the arithmetic: a culture at a billion cells per millilitre, at a loss-of-function frequency of one in ten million to one in a million per gene per generation, already contains of order a hundred to a thousand cells per millilitre carrying a broken copy after a single overnight, before any selection. Set against that, the old NIH certification standard for a host-vector system was fewer than one escapee in a hundred million — a standard written for a smaller population than a single overnight culture.</template>
+</article>
+
+<!-- --------------------------------------------------------------- 10 -->
+<!-- The anchor, slide one of two.  The room must reach the conclusion —
+     the barriers are physical and institutional, not informational — so
+     it is not on the slide. -->
+<article class="slide ask" data-bg="section">
+  <h1 class="small">What would it actually run into?</h1>
+  <p class="q">An AI with a cloud account, a budget and a liquid handler is told
+     to make something dangerous.
+     <span>Walk the chain. Where does it actually stop &mdash; and what stops it?</span></p>
+  <div class="chain">
+    <b>order the DNA</b><i>&rarr;</i>
+    <b>or build it from oligos</b><i>&rarr;</i>
+    <b>get the strain,<br>the cells, the animals</b><i>&rarr;</i>
+    <b>make it actually work</b>
+  </div>
+  <template class="notes">Four minutes on this one, and the shape of the exercise is: they walk the chain, and you make them say what the obstacle is at each link and what kind of thing it is.
+THE ANSWER THE ROOM GIVES FIRST is about information. Either "it knows everything, so nothing stops it" or the mirror image, "we should not publish the sequences". Both treat knowing as the bottleneck. Everything that follows is designed to take that apart, so do not correct it — write it on the board and walk the chain.
+LINK ONE, ORDER THE DNA. Screened, as we just did in detail, and refusable. Push them: what does the screen actually catch, and what does it not? It catches a sequence on a list. It does not catch an original design that is dangerous for reasons nobody has written down, and it does not catch a provider who never joined. Good — so it is a filter, not a wall, and it is a filter made of a database.
+LINK TWO, BUILD IT FROM OLIGOS. Short oligos below the screening window, assembled yourself. Technically very doable. So what stops it? Not chemistry — an account, a payment method, a shipping address that is not a house, and an institution willing to be named. Make them notice the kind of obstacle that is: it is an identity obstacle, not a knowledge obstacle.
+LINK THREE, GET THE MATERIAL. A strain from a repository, a cell line, a mouse. Every one of those requires a person — a material transfer agreement with an institutional signature, a vivarium protocol, a delivery to a loading dock where somebody signs. And ask them directly: who signs? Right now, a human. Is that a law or a habit?
+LINK FOUR, AND THIS IS THE ONE THAT IS USUALLY UNDERWEIGHTED. The gap between a correct sequence and a working organism is enormous. Dozens of designs that do not work, expression that is toxic, tissue culture that takes months to get stable, animal work, analytical instruments to even tell whether you succeeded. And most of what makes that work is not written down anywhere. It is tacit — the thing your rotation student cannot get right from the protocol that you can get right without reading it. An agent that has read everything has not read that, because nobody wrote it.
+WHERE IT SHOULD LAND, AND THEY SHOULD SAY IT, NOT YOU: the barriers are physical and institutional, not informational. Money, accounts, signatures, loading docks, hands, instruments, months. If you find yourself saying that sentence before somebody in the room does, you have given away the exercise.
+AND THE PI. Somebody will raise it; if nobody does, you raise it. A supervisor reviews designs and runs independent checks, and that is a real control — but ask them how good it is. What exactly would a PI notice in a sequence they did not design? Would you have noticed?
+THE QUESTIONS THAT TEST WHETHER THEY ARE REASONING OR PERFORMING. Which of the four links would be the cheapest to remove, for somebody who wanted to remove it? Which one is a law and which one is just how things are currently done — and what is the difference between those in five years? Does your answer change if the AI is not trying to be dangerous but has been asked for something that is dangerous by accident? And the one that usually stops the room: every barrier you have just named is one we built for other reasons. Name one that was designed against this.
+HOLD THE LINE ON SCOPE: do not let this become a conversation about whether models should refuse. That is a real question and it is not this one. This question is about the physical world between a sequence and an organism.</template>
+  <template class="desc">Discussion slide. An AI with a cloud account, a budget and a liquid handler is told to make something dangerous; the room is asked to walk the chain and find where it actually stops and what stops it. The chain is drawn as four stages: order the DNA; or build it from oligos; get the strain, the cells and the animals; make it actually work.</template>
+</article>
+
+<!-- --------------------------------------------------------------- 11 -->
+<!-- The second anchor ends unresolved on purpose.  There is no closing
+     line and there should not be one. -->
+<article class="slide ask" data-bg="section">
+  <h1 class="small">And now the hands</h1>
+  <div class="cols wide-right">
+    <div>
+      <p class="q">Which barriers are left?</p>
+    </div>
+    <figure>
+      <img src="img/03-atlas-pipetting.png" alt="A humanoid robot standing at a laboratory bench, holding a pipette in one hand and dispensing into a 96-well plate, surrounded by tube racks and reagent bottles.">
+    </figure>
+  </div>
+  <template class="notes">Two minutes, and it ends without a resolution. That is the design, not an oversight.
+Put the picture up and ask the one question. Every barrier the room just found in the previous four minutes, go back through it with a machine that has hands.
+THE ANSWER THEY GIVE FIRST is that this changes nothing, because the robot still needs an account and a signature. That is true today and it is the comfortable answer, so push once: which of the barriers you just named was actually about hands, and which was about identity? Pipetting was about hands. Signing a material transfer agreement was about identity. The loading dock was about both, and a loading dock is a solved problem.
+THEN THE QUESTION THAT ACTUALLY DECIDES IT, and it is not a technology question: which of those institutional barriers exist because a human had to be physically present, and which exist because somebody decided a human should be accountable? Those have felt like the same thing for a hundred years, because they were always bundled together. They are coming apart, and when they come apart you find out which of your controls was which.
+AND THE ONE THAT TESTS WHETHER THEY ARE REASONING OR PERFORMING: a cloud lab already does most of this, today, with no robot that looks like a person, and we are comfortable with cloud labs. What exactly is different about the picture? If the honest answer is "it looks like a person and that is unsettling", that is worth saying out loud — because a control that depends on how something looks is not a control.
+HOW TO END IT. Do not resolve this. Do not deliver a closing line, and do not reassure them. Let the silence sit for a few seconds after the last answer, and then move on to the next section. The room should leave this slide without an answer, because the field does not have one, and pretending otherwise here would undo the previous four minutes of honest work.</template>
+  <template class="desc">Discussion slide. A photograph of a humanoid robot standing at a laboratory bench, holding a pipette and dispensing into a 96-well plate, with tube racks and reagent bottles around it. One question beside it: which barriers are left?</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/lib.js" defer></script>
+<script src="seq/03-ground.js" defer></script>
+<script src="seq/03-escape.js" defer></script>
+</body>
+</html>

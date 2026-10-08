@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>What Practices Means &ndash; Practices</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.  deck.css is shared by every lecture and is not
+ * touched from here.
+ *
+ * .five is the frame for the whole day: the five questions anyone
+ * outside the lab will ask, each with the part of the lecture that
+ * tries to answer it.  A two-column grid rather than a list, because
+ * the questions are the thing being memorised and the destinations are
+ * a gloss — a bullet would give them equal weight.  The question column
+ * is fixed, so the five questions left-align into a column the eye can
+ * read as a set, which is the entire point of the slide.
+ *
+ * .five li.last is the fifth question.  It is the only one that is not
+ * answerable with evidence, so it is set in vermillion: not decoration,
+ * a mark that it is a different kind of question from the four above.
+ * The distinction is also carried by position and by its own gloss, so
+ * colour is not doing the work alone.
+ *
+ * .ask is the deck's discussion slide type, repeated from the safety and
+ * economics sections on purpose: section ground, one line on screen,
+ * every angle to push on living in the note channel.  This is the first
+ * one the room sees, so it is also where they learn what amber means.
+ * --------------------------------------------------------------------- */
+.slide .five{list-style:none;margin:30px 0 0;padding:0;
+  flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:space-between}
+.slide .five li{display:grid;grid-template-columns:390px 1fr;gap:40px;
+  align-items:baseline;margin:0}
+.slide .five .qn{font-family:var(--slab);font-size:56px;line-height:1.05;color:var(--ink)}
+.slide .five .to{font-size:26px;line-height:1.34;color:var(--muted)}
+.slide .five li.last .qn{color:var(--vermillion)}
+
+/* The origin slide is prose only, so the body is set up from the 30px
+   default — four lines of 34px fill the box without crowding, where the
+   default leaves the lower third empty. */
+.slide p.lede{font-size:34px;line-height:1.45;margin:0 0 34px}
+
+/* One line on an amber ground, sitting optically centred rather than
+   stacked under the title, because there is nothing else on the slide. */
+.slide.ask .q{font-size:46px;font-weight:700;line-height:1.26;margin:auto 0;
+  max-width:1250px}
+.slide.ask .q span{display:block;font-size:30px;font-weight:400;
+  color:rgba(0,0,0,.72);margin-top:30px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 1 -->
+<!-- The lecture's title slide.  This section is the front door, so it
+     carries it; there is no separate front-matter file. -->
+<article class="slide" data-bg="lecture">
+  <h1>Practices</h1>
+  <p><small>BioE 140L &middot; UC Berkeley</small></p>
+  <p style="margin-top:70px"><small>Everything about this work that is not
+     the work: safety, oversight, security,<br>ownership, money, and the
+     people who never set foot in the lab.</small></p>
+  <template class="notes">Today is the lecture that is not about technique. Everything we have done so far has been how to make the molecule; this is about everything that surrounds making it. Whether it is safe, who decides that, who can stop you, who owns it, whether it can possibly pay for itself, and who outside this building gets a say. None of it is optional and most of it is invisible until it is suddenly the only thing that matters — when your order is refused, when your committee sends the protocol back, when the company that licensed your patent discovers it cannot make the thing for less than it sells for. Four of those six will decide whether anything you build ever leaves the bench.</template>
+  <template class="desc">Lecture title slide: Practices, BioE 140L at UC Berkeley. Everything about this work that is not the work: safety, oversight, security, ownership, money, and the people who never set foot in the lab.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 2 -->
+<article class="slide">
+  <h1 class="small">Where the word comes from</h1>
+  <p class="lede">In the early years of <b>SynBERC</b> &mdash; the Synthetic Biology
+     Engineering Research Center, which carried <i>human practices</i> as a
+     thrust alongside its engineering ones &mdash; <b>Paul Rabinow</b>, a
+     Berkeley professor, put that phrase into the vocabulary of genetic
+     engineering.</p>
+  <p class="lede">It has been shortened to <i>practices</i> and stretched ever since.
+     Practitioners now use it for biosafety and biosecurity, intellectual
+     property, government regulation, public perception, and education.</p>
+  <p data-build="1" class="accent lede">Notice what is not on that list: whether any
+     of it can be paid for. That omission is a whole section of this lecture.</p>
+  <template class="notes">A word about the word, because you will meet it and it does not define itself. In the early years of SynBERC — the Synthetic Biology Engineering Research Center, which ran human practices as one of its thrusts next to the engineering ones — Paul Rabinow, a professor here at Berkeley, introduced the phrase human practices into the lexicon of genetic engineering. It was meant to name the study of how the technology meets people's lives, done alongside the technology rather than after it.
+It got shortened to practices, and the scope has been getting broader ever since. People in this field now use the term for biosafety, biosecurity, intellectual property, government regulation, public perception, and education. That breadth is the honest reason it is hard to define: it is a container word. It is also its strength, because those things genuinely do belong together — the committee that reviews your protocol and the patent that covers your construct are both answers to the same kind of question, which is what the world outside the lab is allowed to ask of you.
+VERIFY BEFORE EXPANDING ON THIS FROM THE PODIUM: Rabinow's department, the funding and span of SynBERC, and any specific phrase attributed to him. The sentence above is the whole of what the source notes support, and I have deliberately not put a quotation in his mouth.
+And then the build line. That list of six is from the field's own usage, and money is not in it. That is not an accident of the phrasing — the field genuinely does not treat elementary business arithmetic as part of practices, and it has cost it three times now: biofuels, the metabolic-engineering wave, and cell therapy. We are going to spend twenty minutes on it later precisely because the list does not.</template>
+  <template class="desc">Where the term comes from. In the early years of SynBERC, the Synthetic Biology Engineering Research Center, which carried human practices as a thrust alongside its engineering ones, Berkeley professor Paul Rabinow put that phrase into the vocabulary of genetic engineering. It has since been shortened to practices and stretched to cover biosafety and biosecurity, intellectual property, government regulation, public perception, and education. A closing line notes what is absent from that list: whether any of it can be paid for.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 3 -->
+<!-- The frame for the whole day.  The four answerable questions land as
+     a set on the first beat, because they are a set and clicking them in
+     one at a time would teach the room to read them as a sequence.  The
+     fifth gets its own click, because it is the only one that no amount
+     of evidence settles, and arriving at it changes what the other four
+     were for. -->
+<article class="slide">
+  <h1 class="small">Five questions anyone outside the lab will ask</h1>
+  <ul class="five">
+    <li><span class="qn">is it safe</span>
+      <span class="to">what we actually know about risk, and how work is contained &mdash;
+        including whether someone could misuse it</span></li>
+    <li><span class="qn">who says so</span>
+      <span class="to">the committees, and the draft federal policy that would retire
+        the NIH Guidelines</span></li>
+    <li><span class="qn">who owns it</span>
+      <span class="to">patents, and what a claim actually covers</span></li>
+    <li><span class="qn">does it pay</span>
+      <span class="to">the arithmetic the field keeps declining to do</span></li>
+    <li class="last" data-build="1"><span class="qn">should we</span>
+      <span class="to">everyone who is not in this room &mdash; and the only one of the
+        five that no amount of evidence settles</span></li>
+  </ul>
+  <template class="notes">Here is the shape of the next hundred and ten minutes, and I would like you to be able to see all of it from this one slide.
+Four questions. Is it safe — that is risk, containment, and the question of whether somebody could deliberately turn your work into something else. Say that last part as a deliberate aside: outside the lab it arrives as one question, and the first thing section three does is split it in two, because safety is about accidents and security is about intent, and almost none of the controls we build against the first do anything about the second. The frame is the outsider's, not ours; taking it apart is part of the day. Who says so — the committees, which at this campus means EH and S and an institutional biosafety committee, sitting under a federal policy that is in the middle of being rewritten as we speak. Who owns it — patents, and specifically what a claim does and does not cover, which is narrower and stranger than people assume. Does it pay — the arithmetic, which is the one the field keeps skipping and the one I think is the real deficiency in how this subject is usually taught.
+Those four have answers. Not easy ones, but you can get evidence, and by the end of today you will have a method for each.
+[CLICK] And then the fifth, and it is a different kind of question. Should we. Nothing in the first four settles it. You can have a protocol that is safe, approved, unencumbered and profitable, and the answer to should we can still be no — and it can also be yes for something that fails all four, which is the harder direction and the one people forget. The fifth is not the summary of the other four. It is the one they do not reach, and it is why the last section of the day is about everyone who is not in this room.</template>
+  <template class="desc">The frame for the whole lecture: five questions anyone outside the lab will ask. Is it safe, which is what we know about risk and how work is contained, including misuse. Who says so, which is the committees and the draft federal policy that would retire the NIH Guidelines. Who owns it, which is patents and what a claim covers. Does it pay, which is the arithmetic the field keeps declining to do. And then, arriving separately and set apart in vermillion, should we — everyone who is not in the room, and the only one of the five that no amount of evidence settles.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 4 -->
+<!-- The opener.  A temperature check, not a debate: one minute.  This is
+     the first amber slide the room sees, so it is also where they learn
+     that amber means nobody is lecturing. -->
+<article class="slide ask" data-bg="section">
+  <h1 class="small">Before we start</h1>
+  <p class="q">Which of those five could you answer today, for your own project?
+     <span>One minute. Hands, or shout it out.</span></p>
+  <template class="notes">Keep this to a minute. It is a temperature check, not a debate, and the temptation is to let it become the lecture.
+WHAT THE ROOM WILL SAY FIRST is "is it safe" — almost always, because it is the only one of the five that sounds like a lab question, and because they have all signed training forms and feel that this counts as having an answer. Let it stand for a moment, then push once: can you say what makes it safe, or only that nobody has stopped you? Most of them are reporting the absence of an objection, which is not the same thing, and section one opens on exactly that distinction.
+THE SECOND ANSWER, if you get one, is "who owns it" from anyone who has been told their lab has a patent. Ask who the patent is assigned to and what claim 1 says. Almost nobody knows, and that is a fair and useful embarrassment to have at the start rather than in week three of a startup.
+THE USEFUL COUNTER, and the reason the slide exists: they can answer almost none of these, and that is the point of the next hundred and ten minutes. Say so plainly and move. Do not let it turn into five minutes of hedging — the sections are where the answers are, and this beat is only here so that the room notices it does not have them yet.
+IF THE ROOM IS SILENT, which happens with a 9am section, name a project from the bench yourself and run the five out loud in about thirty seconds. The demonstration does the same work as the discussion.
+AND NOTE THE GROUND. This is the first amber slide of the lecture. Say once, now, that amber means we have stopped and I am not talking: there are six more of these, and the ones later in the day are hard cases with no clean answer. Establishing that here costs ten seconds and buys the whole afternoon.</template>
+  <template class="desc">Discussion slide on the amber section ground. The question: which of those five questions could you answer today, for your own project? One minute, hands or shouted out.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
