@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://UCB-BioE-Anderson-Lab.github.io/cloning-tutorials/protocols/protocols/">
       
       
-        <link rel="prev" href="../../cheatsheets/">
+        <link rel="prev" href="../../videos/">
       
       
         <link rel="next" href="../../labsheets/labsheets/">
@@ -457,6 +457,29 @@
   
   <span class="md-ellipsis">
     8. Transformation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wetlab/controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control Strains and Plasmids
     
   </span>
   
@@ -1095,6 +1118,28 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab Videos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -1108,10 +1153,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
             
   
   
@@ -1124,8 +1169,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             Tools
           </label>
@@ -1370,10 +1415,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
             
   
   
@@ -1386,8 +1431,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             Training & Certification
           </label>
@@ -1738,6 +1783,7 @@
   @media print {
     @page { size: letter portrait; margin: 12mm; }
     html, body { background: #fff !important; }
+    #protocol-videos { display: none; }
     .proto-card { border: none; box-shadow: none; max-width: none; }
     .proto-card { font-size: 12pt; line-height: 1.35; }
     .proto-card h1, .proto-card h2, .proto-card h3 { page-break-after: avoid; break-after: avoid; }
@@ -1769,6 +1815,9 @@
   <button id="open-print">Open Print View</button>
   <button id="print-now">Print</button>
 </div>
+<!-- Videos for the chosen protocol, from assets/videos.json. Outside the card, so they stay
+     out of the copied markdown and the print view. -->
+<div id="protocol-videos"></div>
 <div id="protocol-output-card" class="proto-card" aria-live="polite">
   <div id="protocol-output" style="white-space:pre-wrap;"></div>
 </div>
@@ -1914,6 +1963,7 @@ select.addEventListener('change', async ()=>{
       lastProto = { id: currentProtocol, title: proto.title || currentProtocol, text: proto.text || '', html: proto.html || '' };
       $("protocol-output").innerHTML = lastProto.html || '<pre>' + (lastProto.text || '') + '</pre>';
       $("proto-tools").style.display = 'flex';
+      showVideos(currentProtocol, vals);
       const share = buildShareURL(vals, true);
       history.replaceState(null, '', share);
       notify('Recalculated. Tools unlocked.');
@@ -1923,7 +1973,16 @@ select.addEventListener('change', async ()=>{
     }
   });
 
+  async function showVideos(id, vals){
+    const box = $("protocol-videos");
+    box.replaceChildren();
+    if (!window.LabVideos) return;
+    const cards = (await LabVideos.forProtocol(id, vals)).map(LabVideos.render).filter(Boolean);
+    box.replaceChildren(...cards);
+  }
+
   $("clear").addEventListener('click', ()=>{
+    $("protocol-videos").replaceChildren();
     $("protocol-output").innerHTML = '';
     $("proto-tools").style.display = 'none';
     lastProto = null;
@@ -2166,6 +2225,8 @@ select.addEventListener('change', async ()=>{
         <script src="../../js/launch-apps-script.js"></script>
       
         <script src="../../js/progress_manager.js"></script>
+      
+        <script src="../../js/videos.js"></script>
       
     
   </body>

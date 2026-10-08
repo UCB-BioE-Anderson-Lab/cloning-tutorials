@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "lab_tour",
+    "n": 1,
+    "title": "Lab Safety and Lab Tour (B144)",
+    "youtube": "dWAZlWEpdtI",
+    "blurb": "A walkthrough of B144 covering lab safety rules, protective equipment, and where things are kept. Watch this before working in the lab.",
+    "protocols": []
+  },
+  {
+    "slug": "controls",
+    "n": 2,
+    "title": "Control Strains and Plasmids: Setting Up and Reading Controls",
+    "youtube": "BEZZZkNpBJs",
+    "blurb": "How to set up the control strains and plasmids used alongside your experiments: finding them in the freezer, re-streaking, and transforming the controls. It also shows how to read the control plates the next day and what each result means.",
+    "protocols": []
+  },
+  {
+    "slug": "agar_fresh",
+    "n": 3,
+    "title": "Preparation of LB Agar (250 mL bottles)",
+    "youtube": "yV3qN73Vbnw",
+    "blurb": "Weighing LB agar powder into 250 mL bottles, adding water, and mixing. It shows why the caps must be loosened before sterilizing and how to run the pressure cookers.",
+    "protocols": [{ "id": "preparation_of_lb_agar" }]
+  },
+  {
+    "slug": "broth_2yt",
+    "n": 4,
+    "title": "Preparation of 2YT Broth (250 mL bottles)",
+    "youtube": "vNhTUpdYhDY",
+    "blurb": "Making 2YT liquid growth medium in 250 mL bottles: weighing, adding water, mixing, and sterilizing in the pressure cookers. The steps are almost the same as for LB agar, but with no agar.",
+    "protocols": [{ "id": "preparation_of_2yt_broth" }]
+  },
+  {
+    "slug": "abx_carb",
+    "n": 5,
+    "title": "Antibiotic 1000× Stock: Carbenicillin",
+    "youtube": "tVln7KhEdKU",
+    "blurb": "Making a 1000× carbenicillin stock: weighing the powder into a tube, working out the volume, and dissolving it in sterile water. Carbenicillin isn't stable, so it is made fresh.",
+    "protocols": [{ "id": "preparation_of_antibiotic_1000x_stock", "when": { "antibiotic": "carbenicillin" } }]
+  },
+  {
+    "slug": "abx_spec",
+    "n": 6,
+    "title": "Antibiotic 1000× Stock: Spectinomycin",
+    "youtube": "UWEV5nj6MF8",
+    "blurb": "Making a 1000× spectinomycin stock: weighing, calculating the volume of sterile water from the actual mass, and vortexing until dissolved.",
+    "protocols": [{ "id": "preparation_of_antibiotic_1000x_stock", "when": { "antibiotic": "spectinomycin" } }]
+  },
+  {
+    "slug": "abx_kan",
+    "n": 7,
+    "title": "Antibiotic 1000× Stock: Kanamycin",
+    "youtube": "iWfdyPmQ7Yk",
+    "blurb": "Making a 1000× kanamycin stock at 25 mg/mL, including how to adjust the water volume to match the mass actually weighed out.",
+    "protocols": [{ "id": "preparation_of_antibiotic_1000x_stock", "when": { "antibiotic": "kanamycin" } }]
+  },
+  {
+    "slug": "abx_erm",
+    "n": 8,
+    "title": "Antibiotic 1000× Stock: Erythromycin",
+    "youtube": "Pfw4_5vdqeQ",
+    "blurb": "Making a 1000× erythromycin stock. Unlike the other antibiotics, it is dissolved in 95% ethanol instead of water.",
+    "protocols": [{ "id": "preparation_of_antibiotic_1000x_stock", "when": { "antibiotic": "erythromycin" } }]
+  },
+  {
+    "slug": "agar_remelt",
+    "n": 9,
+    "title": "Re-melting Solidified LB Agar",
+    "youtube": "5LBLzKumS2Q",
+    "blurb": "Melting a bottle of solidified LB agar in the microwave so it can be poured. It shows how quickly agar boils over and why you heat it in short bursts and keep watching it.",
+    "protocols": [{ "id": "remelting_lb_agar" }]
+  },
+  {
+    "slug": "pour_plates",
+    "n": 10,
+    "title": "Pouring Standard Petri Dishes",
+    "youtube": "06BKUcOxgPc",
+    "blurb": "Adding antibiotic to melted agar and pouring standard Petri dishes at the chemical hood, including marking the plates by antibiotic. Pouring uses a Bunsen burner, so it is done only under supervision.",
+    "protocols": [{ "id": "pouring_petri_dishes" }]
+  },
+  {
+    "slug": "parafilm",
+    "n": 11,
+    "title": "Sealing Petri Dishes with Parafilm",
+    "youtube": null,
+    "blurb": "How to cut and stretch a strip of Parafilm around a plate to seal it for storage in the fridge.",
+    "protocols": [{ "id": "parafilm_sealing_plates" }]
+  },
+  {
+    "slug": "tae",
+    "n": 12,
+    "title": "Preparation of 1× TAE Buffer",
+    "youtube": null,
+    "blurb": "Diluting 50× TAE stock into a 4 L jug to make 1× TAE buffer for running agarose gels.",
+    "protocols": [{ "id": "preparation_of_1x_tae" }]
+  },
+  {
+    "slug": "transform",
+    "n": 13,
+    "title": "KCM Heat-Shock Transformation: Minipreps into Cells",
+    "youtube": null,
+    "blurb": "Transforming miniprepped plasmid DNA into competent E. coli by KCM heat shock. It covers mixing DNA with cells, the incubations and the heat shock, plating directly, and setting up rescue cultures in the shaker.",
+    "protocols": [{ "id": "heat_shock_transformation" }]
+  },
+  {
+    "slug": "pick_block",
+    "n": 14,
+    "title": "Picking Colonies into a 24-Well Block",
+    "youtube": null,
+    "blurb": "Picking single colonies into a 24-well culture block for overnight growth: choosing well-separated colonies and keeping track of which well is which. Filmed during the BestP experiment.",
+    "protocols": [{ "id": "picking_colonies_into_block" }]
+  },
+  {
+    "slug": "tecan",
+    "n": 15,
+    "title": "Plate Reader: Fluorescence and OD600 (Tecan Infinite M Nano)",
+    "youtube": null,
+    "blurb": "Measuring fluorescence and OD600 of cultures on the Tecan Infinite M Nano plate reader: loading the plate, running the measurement, and getting the data out. Filmed during the BestP experiment.",
+    "protocols": [{ "id": "plate_reader_fluorescence" }]
+  }
+]
