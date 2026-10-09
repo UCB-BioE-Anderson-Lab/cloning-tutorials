@@ -63,6 +63,12 @@ The PDF pass drives headless Chrome and then asserts, via pdfinfo, that every
 sheet is EXACTLY ONE PAGE. A sheet that grows to two pages fails the build
 rather than reaching the bench. Requires Google Chrome and poppler's pdfinfo.
 
+Each sheet carries a QR code, top right, that opens its protocol in the Protocol
+Builder — not YouTube. The builder page shows the full protocol, and the training
+video above it when one exists, so a sheet gains its video without being reprinted.
+The QR is drawn by segno from the repo venv (venv/bin/python, or set QR_PYTHON).
+Headless Chrome occasionally never exits; each print has a 60 s timeout and retries.
+
 
 WRITING A SHEET
 ---------------
