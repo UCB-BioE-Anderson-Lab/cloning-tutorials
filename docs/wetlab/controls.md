@@ -48,15 +48,22 @@ screen.
 
 ## What is in the box
 
-Controls are organised by antibiotic:
+Samples are named by the antibiotic they select on: **A** for carbenicillin/ampicillin, **K** for
+kanamycin, **S** for spectinomycin, **E** for erythromycin. The tube label is what is written on
+the tube itself.
 
-| Box label | Antibiotic |
-|---|---|
-| `A1` | carbenicillin |
-| `K1` | kanamycin |
-| `S1` | spectinomycin |
-| `E1` | erythromycin |
-| `C1` | chloramphenicol |
+| Sample | Plasmid | Tube label | Selects on |
+|---|---|---|---|
+| `A1` | pJ01 | `pJ01-C 2°` | carbenicillin / ampicillin |
+| `A2` | pJ12 | `pJ12-A 2°` | carbenicillin / ampicillin |
+| `A3` | pJ19 | `pJ19-A 2°` | carbenicillin / ampicillin |
+| `K1` | p20N31 | `p20N31 2°` | kanamycin |
+| `K2` | pKQ-Upp | `pKQ-Upp` | kanamycin |
+| `S1` | pTargetF | `pTargetF` | spectinomycin |
+| `E1` | pTRKH3-slpGFP | | erythromycin |
+
+pJ01, pJ12 and pJ19 express GFP from promoters of different strengths: pJ12 is barely green,
+pJ01 medium, pJ19 bright.
 
 ## Reading the plates
 
