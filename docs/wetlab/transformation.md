@@ -136,6 +136,13 @@ Be consistent and thorough:
 - Match plate name to your **sample ID and lab sheet** entry (e.g., `pP6-79`).
 - Return any used DNA tubes to their storage rack and note usage if needed.
 
+### Controls
+
+If you select with **anything other than carbenicillin**, run the restreak, positive and negative
+controls beside your plates, as your lab sheet lists them. Without them, a blank plate can't tell
+you whether the DNA, the cells or the plates failed. See
+[Control Strains and Plasmids](./controls.md).
+
 ----
 ## 🧪 Quiz: Transformation
 

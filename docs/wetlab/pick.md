@@ -70,6 +70,8 @@ shaking incubator for **16–36 h**. Refrigerate by **36 h**; past that the cult
 
 **Step 6:** Wrap the agar plate with parafilm and place it upside-down in the fridge for recordkeeping.
 
+<div class="lab-video" data-video="parafilm"></div>
+
 **Step 7:** Upload a photo of your plate under blue light to this folder:  
 [Google Drive Folder](https://drive.google.com/drive/folders/1cumFECQCZbFkj-G1cFbsXqGeBUpqBo0D)  
 Name the image as: `pP6-79` (with your number)
