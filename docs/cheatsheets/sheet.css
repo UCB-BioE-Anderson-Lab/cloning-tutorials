@@ -68,6 +68,13 @@ h1 { font-size: 1.45rem; margin: 0; font-weight: 700; letter-spacing: -.01em; }
   white-space: nowrap;
 }
 
+/* QR to the builder page for this protocol, top right, under the slug. */
+.qr { display: flex; align-items: flex-end; gap: .45rem; flex: none; }
+.qr-text { display: flex; flex-direction: column; align-items: flex-end; text-align: right; gap: .1rem; }
+.qr svg { width: 3.6rem; height: 3.6rem; display: block; }
+.qr-cap { font-size: .62rem; line-height: 1.2; color: var(--muted); white-space: nowrap; }
+.top { align-items: flex-end; }
+
 .cols { column-count: 2; column-gap: 1.9rem; column-rule: 1px solid var(--rule); }
 
 /* Single wide column, larger type. For a short procedure that should fill the page
@@ -295,6 +302,8 @@ code {
   .sheet { max-width: none; }
   h1 { font-size: 22pt; }
   .slug { font-size: 9.5pt; }
+  .qr svg { width: 0.55in; height: 0.55in; }
+  .qr-cap { font-size: 7pt; }
   h2 { font-size: 10pt; }
   .cols { column-gap: 1.5rem; }
   .blk { margin-bottom: .42rem; }
