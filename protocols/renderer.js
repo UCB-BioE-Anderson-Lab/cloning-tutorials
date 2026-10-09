@@ -346,3 +346,5 @@ async function runProtocol(rootId, rawValues){
 }
 
 window.Protocols = { loadInputs, runProtocol };
+// Pages whose own scripts may run before this module loads wait for this event.
+window.dispatchEvent(new Event('protocols-ready'));

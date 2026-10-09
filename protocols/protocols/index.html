@@ -2285,8 +2285,15 @@
     }
   }
 
+  // renderer.js is a module, so it can load after this script runs; wait for it before using Protocols.
+  function protocolsReady(){
+    if (window.Protocols) return Promise.resolve();
+    return new Promise(res => window.addEventListener('protocols-ready', res, { once: true }));
+  }
+
   async function loadProtocolInputs(pid){
     if (!pid) return;
+    await protocolsReady();
     try {
       currentInputs = await Protocols.loadInputs(pid);
       currentProtocol = pid;
@@ -2309,6 +2316,7 @@ select.addEventListener('change', async ()=>{
   $("generate").addEventListener('click', async ()=>{
     if (!currentProtocol) return;
     const vals = readValues(currentInputs);
+    await protocolsReady();
     try {
       const proto = await Protocols.runProtocol(currentProtocol, vals);
       lastProto = { id: currentProtocol, title: proto.title || currentProtocol, text: proto.text || '', html: proto.html || '' };
