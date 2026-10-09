@@ -60,7 +60,7 @@ the tube itself.
 | `K1` | p20N31 | `p20N31 2°` | kanamycin |
 | `K2` | pKQ-Upp | `pKQ-Upp` | kanamycin |
 | `S1` | pTargetF | `pTargetF` | spectinomycin |
-| `E1` | pTRKH3-slpGFP | | erythromycin |
+| `E1` | pTRKH3-slpGFP | `pTRKH3-slpGFP` | erythromycin |
 
 pJ01, pJ12 and pJ19 express GFP from promoters of different strengths: pJ12 is barely green,
 pJ01 medium, pJ19 bright.
