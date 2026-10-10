@@ -1,6 +1,10 @@
 // plate_reader_fluorescence.js
 // Read fluorescence and OD600 from cultures in a 96-well plate.
 
+// The only settings changed from iControl's defaults. Named here so the template and the
+// printed cheatsheet read them from one place. amilGFP: excite 483, emit 525.
+const READ = { abs_nm: 600, ex_nm: 483, em_nm: 525, gain: 40 };
+
 export const inputs = [
   { name: "samples", type: "number", label: "Number of cultures", default: 24, step: 1 },
   { name: "technical_replicates", type: "number", label: "Technical replicates per culture", default: 2, step: 1 },
@@ -22,7 +26,7 @@ export function factory(values = {}) {
     name: "Plate Reader: Fluorescence and OD600",
     description: `Read ${samples} cultures in ${reps} technical replicates on the ${instrument}.`,
     includes: { required: [], optional: [] },
-    derived: { samples, technical_replicates: reps, wells_read: wells },
+    derived: { samples, technical_replicates: reps, wells_read: wells, transfer_uL: vol, ...READ },
     template: `
 **Plan**
 - ${samples} cultures × ${reps} technical replicates = **${wells} wells** of 96.
@@ -51,8 +55,9 @@ ${over}
 **Set up the read**
 6. Click **Default script**.
 7. Select the **wells you filled**, and only those.
-8. Add an **Absorbance** step: wavelength **600 nm**.
-9. Add a **Fluorescence Intensity** step: excitation **483 nm**, emission **525 nm**, gain **40**.
+8. Add an **Absorbance** step: wavelength **${READ.abs_nm} nm**.
+9. Add a **Fluorescence Intensity** step: excitation **${READ.ex_nm} nm**, emission **${READ.em_nm} nm**,
+   gain **${READ.gain}**.
    - Leave every other setting at its default.
    - A well that reads **OVER** is out of range: lower the gain. Weak numbers: raise it.
 10. Open the tray (the button in iControl, or the button on the corner of the instrument) and seat
