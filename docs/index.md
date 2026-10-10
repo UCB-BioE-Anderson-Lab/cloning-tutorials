@@ -17,7 +17,7 @@ Each tutorial includes embedded quizzes, videos, and progress tracking. This pla
 A one-page card for each wetlab protocol — the volumes, the order, and the things that go
 wrong quietly. Copies are at the bench; these are the same cards, for looking at beforehand.
 
-**[⬇ All eight in one file](cheatsheets/all-cheatsheets.pdf)**, or individually:
+**[⬇ All nine in one file](cheatsheets/all-cheatsheets.pdf)**, or individually:
 
 | Cheatsheet | Tutorial |
 |---|---|
@@ -29,6 +29,7 @@ wrong quietly. Copies are at the bench; these are the same cards, for looking at
 | [Picking Colonies](cheatsheets/picking.pdf) | [Colony Picking](wetlab/pick.md) |
 | [Qiagen Miniprep](cheatsheets/miniprep.pdf) | [Miniprep](wetlab/miniprep.md) |
 | [Cycle Sequencing](cheatsheets/sequencing.pdf) | [Cycle Sequencing](wetlab/sequencing.md) |
+| [Tecan M Nano: Fluorescence + OD600](cheatsheets/platereader.pdf) | [Measuring Fluorescence](wetlab/bestp.md) |
 
 ## Part A: Wetlab
 

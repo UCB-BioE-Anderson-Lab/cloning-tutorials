@@ -1,5 +1,10 @@
 # BestP: Measuring Fluorescence
 
+<!-- cheatsheet -->
+!!! tip "Bench cheatsheet"
+    **[Tecan M Nano: Fluorescence + OD600](../cheatsheets/platereader.pdf)** — the one-page version of this protocol.
+    It is the same as the printed copies at the bench.
+
 ## Overview
 
 The **BestP** experiment marks a shift from building DNA to **measuring its activity**. The goal is to assign a quantitative value—**Relative Promoter Units (RPU)**—to each promoter you identified in pP6. This allows us to compare their strengths under consistent conditions.
