@@ -38,6 +38,23 @@ check_only=0
 [ "${1:-}" = "--check" ] && check_only=1
 
 drift=0
+# THE THERMOCYCLER PROGRAMS ARE VENDORED TOO, and they have to be: a protocol module that
+# names a program now IMPORTS it rather than restating it — gibson_assembly.js does, and GG1
+# will — so copying `modules/` without `data/thermocycler_programs/` would vendor a module
+# whose import does not resolve. The relative path `../../data/thermocycler_programs/` lands
+# on `docs/data/` here exactly as it lands on `src/labplanner/data/` in C6, which is what
+# makes the same file work in both trees untouched.
+if ! diff -rq "$C6/src/labplanner/data/thermocycler_programs" "$HERE/../data/thermocycler_programs" >/dev/null 2>&1; then
+  drift=1
+  if [ "$check_only" = "1" ]; then
+    diff -rq "$C6/src/labplanner/data/thermocycler_programs" "$HERE/../data/thermocycler_programs" 2>&1 | sed 's/^/  DRIFT  /'
+  else
+    rm -rf "$HERE/../data/thermocycler_programs"
+    mkdir -p "$HERE/../data"
+    cp -R "$C6/src/labplanner/data/thermocycler_programs" "$HERE/../data/thermocycler_programs"
+  fi
+fi
+
 for rel in index.json TIMING.txt; do
   if ! diff -q "$SRC/$rel" "$HERE/$rel" >/dev/null 2>&1; then
     drift=1
