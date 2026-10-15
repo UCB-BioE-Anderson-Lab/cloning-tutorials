@@ -5,6 +5,8 @@
     **[Picking Colonies](../cheatsheets/picking.pdf)** — the one-page version of this protocol.
     It is the same as the printed copies at the bench.
 
+
+<div class="lab-video" data-video="pick_block"></div>
 After plating your transformation and incubating overnight, if everything goes well you will see colonies that look something like this:
 
 ![Two student plates after transformation. Left: a dense plate with a wide range of bright green colonies. Right: a sparser plate with only a few green colonies. A zoomed-in region highlights a green colony surrounded by smaller white colonies.](../images/pp6_plates.png)
@@ -67,6 +69,8 @@ into each tube. It is not always carbenicillin.
 shaking incubator for **16–36 h**. Refrigerate by **36 h**; past that the cultures overgrow.
 
 **Step 6:** Wrap the agar plate with parafilm and place it upside-down in the fridge for recordkeeping.
+
+<div class="lab-video" data-video="parafilm"></div>
 
 **Step 7:** Upload a photo of your plate under blue light to this folder:  
 [Google Drive Folder](https://drive.google.com/drive/folders/1cumFECQCZbFkj-G1cFbsXqGeBUpqBo0D)  

@@ -1,5 +1,10 @@
 # BestP: Measuring Fluorescence
 
+<!-- cheatsheet -->
+!!! tip "Bench cheatsheet"
+    **[Tecan M Nano: Fluorescence + OD600](../cheatsheets/platereader.pdf)** — the one-page version of this protocol.
+    It is the same as the printed copies at the bench.
+
 ## Overview
 
 The **BestP** experiment marks a shift from building DNA to **measuring its activity**. The goal is to assign a quantitative value—**Relative Promoter Units (RPU)**—to each promoter you identified in pP6. This allows us to compare their strengths under consistent conditions.
@@ -42,6 +47,8 @@ Pick **4 colonies per plasmid** into a 24-well block:
 - Grow overnight in the multitron shaker
 - Refrigerate plates and upload a photo (name it `BestP-XX`)
 
+
+<div class="lab-video" data-video="pick_block"></div>
 ### Step 3: Measurement
 
 Measure both **fluorescence** and **OD₆₀₀** for all samples using a plate reader:
@@ -50,6 +57,8 @@ Measure both **fluorescence** and **OD₆₀₀** for all samples using a plate 
 - Use **fluorescein settings** to read amilGFP
 - Save data to the USB stick
 
+
+<div class="lab-video" data-video="tecan"></div>
 ### Step 4: Data Entry
 
 Paste your raw OD and fluorescence readings into the provided spreadsheet. The sheet will:

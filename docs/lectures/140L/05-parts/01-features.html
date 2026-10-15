@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Features &ndash; Parts</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.
+ *
+ * THE CENTRAL DOGMA FIGURE runs across eight source slides.  The drawing
+ * never changes; what changes is the single double-headed arrow laid over
+ * it, naming one pair of molecules that interact.  Each source slide
+ * carries exactly one arrow and its own speaker note, so each is kept as
+ * its own slide here rather than collapsed into a build — the arrows are
+ * not cumulative, and a build cannot take one away again.
+ *
+ * The art was drawn for the source deck's grey ground: the transcription
+ * and translation arrows and the metabolite hexagons were WHITE, and
+ * would have disappeared entirely on this deck's white one.  Both layers
+ * have been recoloured into the palette — DNA to blue, RNA to vermillion,
+ * protein to amber, and every white mark to ink.  See AUTHORING.txt,
+ * "ART DRAWN FOR A GREY GROUND VANISHES ON WHITE".
+ *
+ * The overlay is an SVG in the source deck's own coordinate system,
+ * hundredths of an inch on a 10x7.5in slide, so every arrow sits exactly
+ * where PowerPoint put it.  Arrowheads are drawn as paths rather than
+ * markers, because marker ids collide across slides that are all in the
+ * DOM at once.
+ * --------------------------------------------------------------------- */
+.slide .dogma{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center}
+.slide .dogma svg{width:100%;height:100%;max-height:100%}
+.slide .dogma .lab{font-family:var(--sans);font-size:28px;font-weight:700}
+.slide .dogma .ia{fill:none;stroke:var(--ink);stroke-width:7;
+  stroke-linecap:round;stroke-linejoin:round}
+.slide .dogma .ia.dot{stroke-dasharray:3 13}
+/* the section card's own list, set at the source's size */
+.slide[data-bg="section"] ul.types{margin-top:30px;padding-left:0;list-style:none}
+.slide[data-bg="section"] ul.types li{font-size:38px;margin-bottom:15px}
+</style>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- 6 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">Features</h1>
+  <ul class="types">
+    <li>Coding Sequences</li>
+    <li>Promoters</li>
+    <li>RNAs</li>
+    <li>Ribosome Binding Sites</li>
+    <li>Terminators</li>
+    <li>Origin of replication</li>
+    <li>Recombination Sites</li>
+    <li>Terminal Repeats</li>
+  </ul>
+  <template class="notes">Today we are going to go through the different kinds of features that exist.</template>
+  <template class="desc">Section divider: Features. The eight kinds — coding sequences, promoters, RNAs, ribosome binding sites, terminators, origin of replication, recombination sites, and terminal repeats.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 7 -->
+<article class="slide">
+  <h1 class="small">Central Dogma</h1>
+  <div class="dogma">
+    <svg viewBox="30 100 950 665" role="img" aria-hidden="true">
+      <image href="img/02-dogma-base.png" x="133" y="114" width="761" height="636"/>
+      <image href="img/02-dogma-metabolites.png" x="174" y="114" width="634" height="446"/>
+      <g class="lab">
+        <text x="42"  y="210" fill="var(--ink)">Metabolites</text>
+        <text x="650" y="202" fill="var(--amber)">Protein</text>
+        <text x="758" y="435" fill="var(--vermillion)">RNA</text>
+        <text x="758" y="643" fill="var(--blue)">DNA</text>
+      </g>
+    </svg>
+  </div>
+  <template class="notes">We can simplify the complex behavior of the cell in terms of the central dogma.  There is the DNA which can be transcribed into mRNA or functional RNA molecules, and the mRNAs can be translated into protein.  The sequence of the mRNA is identical to that of the DNA, exchanging T for U.  The protein&rsquo;s sequence is determined through simple rules from the sequence of the mRNA read three bases at a time. Then there are the metabolites of the cell that are made through the action of proteins.  This includes the primary metabolites that make up processes like the Krebs cycle, but also the membrane and various polymeric materials like peptidoglycan. The part concept captures the fact that all genetic information is interpreted according to this model, and the only way to change the persisted behavior of a cell is to make changes to the DNA that underlies the process. Thus, to change the chemical composition of the cell we encode DNAs that result in a set of biochemical interactions that ultimately alter the physical state of the cell.</template>
+  <template class="desc">The central dogma drawn as one picture: a gene on a DNA molecule at the bottom, an arrow up to the messenger RNA drawn as a wave, an arrow up again to a folded protein, and metabolites scattered around as small hexagons. Each of the four is labelled.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 8 -->
+<article class="slide">
+  <h1 class="small">Central Dogma</h1>
+  <div class="dogma">
+    <svg viewBox="30 100 950 665" role="img" aria-hidden="true">
+      <image href="img/02-dogma-base.png" x="133" y="114" width="761" height="636"/>
+      <image href="img/02-dogma-metabolites.png" x="174" y="114" width="634" height="446"/>
+      <path class="ia" d="M350 208L425 216M425 216L412 208M425 216L411 221M350 208L363 216M350 208L364 203"/>
+    </svg>
+  </div>
+  <template class="notes">There are many permutations of interactions that can occur between these encoded components. For example, a protein might interact with a metabolite.  A protein might convert one biochemical to another in which case we&rsquo;d call it an enzyme.  Alternatively, a protein might just bind to the biochemical.  These interactions may be quite complex.  For example, an enzyme might catalyze a reaction on one molecule while being inhibited by another small molecule.</template>
+  <template class="desc">The same figure, with a double-headed arrow drawn between a metabolite and the protein: protein and metabolite interact.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 9 -->
+<article class="slide">
+  <h1 class="small">Central Dogma</h1>
+  <div class="dogma">
+    <svg viewBox="30 100 950 665" role="img" aria-hidden="true">
+      <image href="img/02-dogma-base.png" x="133" y="114" width="761" height="636"/>
+      <image href="img/02-dogma-metabolites.png" x="174" y="114" width="634" height="446"/>
+      <path class="ia" d="M366 324L358 408M358 408L366 394M358 408L354 393M366 324L359 338M366 324L371 339"/>
+    </svg>
+  </div>
+  <template class="notes">There can also be interactions between a metabolite and an mRNA.  For example, riboswitches are RNA elements that bind small molecules and change either the transcription of the gene or translation of its mRNAs.</template>
+  <template class="desc">The same figure, with a double-headed arrow between a metabolite and the messenger RNA: metabolite and RNA interact.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 10 -->
+<article class="slide">
+  <h1 class="small">Central Dogma</h1>
+  <div class="dogma">
+    <svg viewBox="30 100 950 665" role="img" aria-hidden="true">
+      <image href="img/02-dogma-base.png" x="133" y="114" width="761" height="636"/>
+      <image href="img/02-dogma-metabolites.png" x="174" y="114" width="634" height="446"/>
+      <path class="ia dot" d="M183 517L175 675M175 675L182 662M175 675L170 661M183 517L176 530M183 517L188 531"/>
+    </svg>
+  </div>
+  <template class="notes">It is fairly rare for small molecules to interact with DNA.  However, there are examples of chemicals that will do so. Several natural products, including the antitumor agent calicheamicin binds DNA and undergoes a chemical reaction with it resulting in strand cleavage and cell death.</template>
+  <template class="desc">The same figure, with a dotted double-headed arrow between a metabolite and the DNA. The arrow is dotted rather than solid because this interaction is rare.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 11 -->
+<article class="slide">
+  <h1 class="small">Central Dogma</h1>
+  <div class="dogma">
+    <svg viewBox="30 100 950 665" role="img" aria-hidden="true">
+      <image href="img/02-dogma-base.png" x="133" y="114" width="761" height="636"/>
+      <path class="ia" d="M436 264A66 66 0.0 1 1 441 157M441 157L434 143M441 157L427 153M436 264L421 267M436 264L427 277"/>
+    </svg>
+  </div>
+  <template class="notes">Beyond interactions with metabolites, proteins may interact with other proteins.  Two proteins might bind to one another forming a complex. That interaction may be inhibitory to one of the partners, or as is often the case two proteins must come together to give rise to some new molecular function. In some cases, many proteins come together to form a large complex that gives rise to function.  Also, an enzyme might catalyze a reaction that results in a chemical modification of the protein such as phosphorylation of tyrosine residues by a tyrosine kinase.</template>
+  <template class="desc">The figure without the metabolites now, and a double-headed arrow curled back on the protein itself: proteins interact with other proteins.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 12 -->
+<article class="slide">
+  <h1 class="small">Central Dogma</h1>
+  <div class="dogma">
+    <svg viewBox="30 100 950 665" role="img" aria-hidden="true">
+      <image href="img/02-dogma-base.png" x="133" y="114" width="761" height="636"/>
+      <path class="ia" d="M433 267L366 400M366 400L378 391M366 400L367 385M433 267L421 276M433 267L432 282"/>
+    </svg>
+  </div>
+  <template class="notes">Proteins may also interact with RNAs.  For example, RNAse P is an enzyme that does reactions on RNAs composed of a complex of an RNA and a protein.  Some proteins bind to specific sequences of an mRNA.  The ribosome itself is a large complex of RNAs and proteins that interact with small molecules and RNAs to generate proteins.</template>
+  <template class="desc">The same figure, with a double-headed arrow between the protein and the messenger RNA.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 13 -->
+<article class="slide">
+  <h1 class="small">Central Dogma</h1>
+  <div class="dogma">
+    <svg viewBox="30 100 950 665" role="img" aria-hidden="true">
+      <image href="img/02-dogma-base.png" x="133" y="114" width="761" height="636"/>
+      <path class="ia" d="M216 612A206 254 21.5 0 1 439 222M439 222L426 216M439 222L425 228M216 612L216 597M216 612L205 602"/>
+    </svg>
+  </div>
+  <template class="notes">Proteins also interact with DNAs.  They may bind to regions near a promoter and repress transcription.  Transcription itself is performed by proteins that bind to DNA and catalyze the formation of RNA molecules. Proteins mediate the processes of replication, packaging of phage and virus particules, formation of transposomes, and so forth all due to protein:DNA reactions.</template>
+  <template class="desc">The same figure, with a long curved double-headed arrow sweeping from the DNA up to the protein.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 14 -->
+<article class="slide">
+  <h1 class="small">Central Dogma</h1>
+  <div class="dogma">
+    <svg viewBox="30 100 950 665" role="img" aria-hidden="true">
+      <image href="img/02-dogma-base.png" x="133" y="114" width="761" height="636"/>
+      <path class="ia dot" d="M317 459L250 592M250 592L262 583M250 592L251 577M317 459L305 468M317 459L316 474"/>
+    </svg>
+  </div>
+  <template class="notes">It is fairly rare for RNA to interact with DNAs, but there are some examples.  For example, there are RNA enzymes that can cleave DNA.
+Thus, when we encode a Part, we are describing a functional element in the cell composed of either a DNA, RNA, or protein.  At the highest level, we can distinguish types of parts by whether they implement their specific molecular function at the DNA, RNA, or protein stage of the central dogma.</template>
+  <template class="desc">The same figure, with a dotted double-headed arrow between the messenger RNA and the DNA, dotted because this interaction too is rare.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

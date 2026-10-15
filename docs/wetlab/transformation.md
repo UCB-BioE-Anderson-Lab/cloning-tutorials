@@ -5,6 +5,8 @@
     **[KCM Heat-Shock Transformation](../cheatsheets/transformation.pdf)** — the one-page version of this protocol.
     It is the same as the printed copies at the bench.
 
+
+<div class="lab-video" data-video="transform"></div>
 After assembly, the circular plasmid has been generated, but it is mixed with other DNAs—some incomplete or mutant. By passing the material through cells, we isolate a single one of these sequences and amplify it a billion-fold.
 
 **Transformation** is the process in which a bacterium takes up DNA from the environment. While some bacteria (like *B. subtilis*) do this naturally, *E. coli* requires preparation to become “competent.”
@@ -133,6 +135,13 @@ Be consistent and thorough:
 - Write **label, date, and your name** on the plate bottom (not the lid since those can fall off).
 - Match plate name to your **sample ID and lab sheet** entry (e.g., `pP6-79`).
 - Return any used DNA tubes to their storage rack and note usage if needed.
+
+### Controls
+
+If you select with **anything other than carbenicillin**, run the restreak, positive and negative
+controls beside your plates, as your lab sheet lists them. Without them, a blank plate can't tell
+you whether the DNA, the cells or the plates failed. See
+[Control Strains and Plasmids](./controls.md).
 
 ----
 ## 🧪 Quiz: Transformation

@@ -27,32 +27,64 @@ const NO_PDF = process.argv.includes("--no-pdf");
 
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
+// THE QR CODE OPENS THE PROTOCOL BUILDER, NOT YOUTUBE. The builder page is the full protocol,
+// adjustable, with the training video above it when one exists — so a sheet whose protocol has
+// no video yet still links somewhere useful, and gains the video without being reprinted.
+const BUILDER = "https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/protocols/protocols/";
+
+// segno, from the repo venv (requirements.txt). Its SVG is deterministic, so --check stays
+// byte-exact.
+const PYTHON = process.env.QR_PYTHON || join(HERE, "..", "..", "venv", "bin", "python");
+
+/** An inline SVG QR code for the builder page of one protocol module. */
+function qrSvg(moduleId) {
+  const url = `${BUILDER}?id=${encodeURIComponent(moduleId)}&autogen=1`;
+  return execFileSync(
+    PYTHON,
+    [
+      "-c",
+      "import segno,sys; print(segno.make(sys.argv[1], error='l').svg_inline(scale=1, border=0, omitsize=True), end='')",
+      url
+    ],
+    { encoding: "utf8" }
+  );
+}
+
 // The whole set as one file, for printing all of them in one go.
 const ALL_PDF = "all-cheatsheets.pdf";
 
 /** Print one sheet to PDF and return its page count. */
 function toPdf(htmlPath, pdfPath) {
-  execFileSync(
-    CHROME,
-    [
-      "--headless",
-      "--disable-gpu",
-      "--no-pdf-header-footer",
-      // Google Fonts have to arrive before layout is measured, or the sheet is
-      // paginated against a fallback face and the page count is meaningless.
-      "--virtual-time-budget=8000",
-      `--print-to-pdf=${pdfPath}`,
-      `file://${htmlPath}`
-    ],
-    { stdio: "ignore" }
-  );
+  const args = [
+    "--headless",
+    "--disable-gpu",
+    "--no-pdf-header-footer",
+    // Google Fonts have to arrive before layout is measured, or the sheet is
+    // paginated against a fallback face and the page count is meaningless.
+    "--virtual-time-budget=8000",
+    `--print-to-pdf=${pdfPath}`,
+    `file://${htmlPath}`
+  ];
+  // HEADLESS CHROME SOMETIMES NEVER EXITS. Seen 2026-10-08 on two different sheets in a row,
+  // each a run that otherwise takes seconds; with no timeout the build sat for 17 minutes.
+  // A print that finishes takes well under the limit, so a timeout is a hang, and one retry
+  // has cleared it.
+  for (let attempt = 1; ; attempt++) {
+    try {
+      execFileSync(CHROME, args, { stdio: "ignore", timeout: 60_000, killSignal: "SIGKILL" });
+      break;
+    } catch (e) {
+      if (attempt >= 3) throw new Error(`Chrome did not print ${pdfPath} after ${attempt} tries`);
+      console.log(`  (Chrome hung on ${pdfPath.split("/").pop()}; retrying)`);
+    }
+  }
   const info = execFileSync("pdfinfo", [pdfPath], { encoding: "utf8" });
   return Number(/^Pages:\s+(\d+)$/m.exec(info)?.[1] ?? 0);
 }
 
 // A fixed build date keeps rebuilds byte-identical when nothing has actually changed,
 // so `git status` stays honest. Bump it when the sheets are reissued for a term.
-const ISSUED = "2026-09-07";
+const ISSUED = "2026-10-08";
 
 function page(sheet, bodyHtml, moduleId) {
   // "single" is one wide column at a larger type size, for a short procedure that should
@@ -68,7 +100,10 @@ function page(sheet, bodyHtml, moduleId) {
 <div class="sheet">
 <header class="top">
   <h1>${sheet.title}</h1>
-  <span class="slug">${sheet.slug}</span>
+  <div class="qr">
+    <div class="qr-text"><span class="slug">${sheet.slug}</span><span class="qr-cap">scan for the<br>full protocol</span></div>
+    ${qrSvg(moduleId)}
+  </div>
 </header>
 
 <div class="${wrap}">

@@ -4,6 +4,8 @@ This tutorial covers the basic safety rules for students working in B144 Stanley
 
 For the full list of lab rules, see the [Lab Rules – B144 Stanley (PDF)](../assets/Lab_Rules_B144_Stanley.pdf). A printed copy is posted in the Safety Corner.
 
+
+<div class="lab-video" data-video="lab_tour"></div>
 ---
 
 ## General Conduct

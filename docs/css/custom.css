@@ -171,3 +171,11 @@ button:hover {
 .md-footer-meta .md-footer-meta__inner {
     display: none;
 }
+/* Lab training videos — rendered by js/videos.js from assets/videos.json */
+.md-typeset .lab-video__card { margin: 1rem 0 1.5rem; max-width: 720px; display: block; }
+.lab-video__frame { position: relative; aspect-ratio: 16 / 9; background: #000; border-radius: 6px; overflow: hidden; }
+.lab-video__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.md-typeset .lab-video__card figcaption { text-align: left; margin: 0.5rem 0 0; max-width: none; font-size: 0.8rem; font-style: normal; line-height: 1.45; }
+.lab-video__card figcaption strong { display: block; }
+.lab-video__pending { color: var(--md-default-fg-color--light); }
+.lab-video-index__item { margin-bottom: 2rem; }

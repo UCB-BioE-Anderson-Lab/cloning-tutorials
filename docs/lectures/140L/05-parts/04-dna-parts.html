@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>DNA-Based Parts &ndash; Parts</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* --------------------------------------------------------------------- *
+ * Page-local only.
+ *
+ * THE RECOMBINATION DIAGRAM was drawn in PowerPoint rather than placed as
+ * a picture, and it sat on the source deck's grey ground in pale blue and
+ * pink -- both of which fail outright on white.  It is redrawn here as
+ * SVG at the source's own coordinates, hundredths of an inch, with the
+ * recombination sites in blue and the cargo in vermillion.  Nothing moved;
+ * only the colours changed.  The fills are kept rather than opened out
+ * into outlines, because the two site orientations either side of the
+ * cargo are what the figure is about and a filled arrow states a
+ * direction more plainly at the back of a room.
+ * --------------------------------------------------------------------- */
+.slide .recomb{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center}
+.slide .recomb svg{width:100%;height:100%}
+.slide .recomb .bb{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.slide .recomb .site{fill:var(--blue);stroke:var(--blue);stroke-width:2;stroke-linejoin:round}
+.slide .recomb .cargo{fill:var(--vermillion);stroke:var(--vermillion);stroke-width:2;stroke-linejoin:round}
+.slide .recomb .down{fill:none;stroke:var(--ink);stroke-width:4;
+  stroke-linecap:round;stroke-linejoin:round}
+/* promoter taxonomy: four quadrants, as the source positions them, with
+   the group label for the conditional three underneath */
+.slide .quad{display:grid;grid-template-columns:1fr 1fr;gap:26px 56px;
+  flex:1 1 auto;min-height:0;margin-top:10px}
+.slide .quad h2{font-size:28px;font-weight:700;color:var(--blue);margin:0 0 10px}
+.slide .quad ul{margin:0;padding-left:1.1em}
+.slide .quad li{font-size:23px;margin-bottom:6px}
+.slide .quad .boxed{border:2px solid var(--rule);border-radius:5px;padding:14px 18px;
+  display:flex;flex-direction:column;min-height:0}
+.slide .quad .boxed img{margin-top:12px;flex:1 1 auto;min-height:0;width:100%;
+  object-fit:contain;object-position:left center}
+.slide p.grouplab{font-size:25px;color:var(--muted);margin:12px 0 0}
+.slide p.grouplab b{color:var(--ink)}
+/* nested cis-element list: the source indents the examples under each
+   kind of origin, so the structure is a list of lists */
+.slide .origins{margin-top:14px}
+.slide .origins > div{margin-bottom:28px}
+.slide .origins h2{font-size:31px;font-weight:700;color:var(--blue);margin:0 0 8px}
+.slide .origins ul{margin:0;padding-left:1.3em}
+.slide .origins li{font-size:26px;margin-bottom:6px}
+.slide .origins .link{font-size:22px;color:var(--muted)}
+.slide .origins .link a{color:var(--blue)}
+.slide .qhead{display:flex;align-items:center;gap:28px;margin-bottom:12px}
+.slide .qhead img{width:62px;height:89px;flex:0 0 auto}
+.slide .qhead h1{margin:0}
+.slide p.ask{font-size:31px;line-height:1.4;max-width:1300px}
+.slide .src-link{font-size:20px;color:var(--muted);margin:16px 0 0}
+.slide .src-link a{color:var(--blue)}
+.slide .tnpair{display:grid;grid-template-columns:1fr 1.25fr;gap:46px;
+  flex:1 1 auto;min-height:0;align-items:center}
+.slide .tnpair figure{margin:0;min-height:0;height:100%;display:flex;
+  align-items:center;justify-content:center}
+.slide .tnpair img{flex:1 1 auto;min-height:0;width:100%;height:100%;object-fit:contain}
+.slide p.tn{font-size:27px;margin:0 0 20px;line-height:1.35}
+.slide p.tn b{color:var(--blue)}
+.slide p.tn code{font-size:25px;color:var(--amber);font-weight:700;letter-spacing:.03em}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 33 -->
+<article class="slide" data-bg="section">
+  <h1 class="small">DNA-Based Parts</h1>
+  <p>Parts that encode functional DNA molecules</p>
+  <template class="notes">Parts can also exert their function on the cell at the DNA level.  By this, I mean that the molecule that performs specific interactions with other molecules in the cell is the DNA itself, not an RNA or protein that it encodes.</template>
+  <template class="desc">Section divider: DNA-Based Parts. Parts that encode functional DNA molecules.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 34 -->
+<article class="slide">
+  <h1 class="small">Constitutive Promoters</h1>
+  <div class="tnpair">
+    <figure>
+      <img src="img/05-sigma-promoter.png" alt="A promoter drawn with its minus-35 and minus-10 boxes and the plus-one start site, with RNA polymerase and its sigma subunit sitting over them; the sigma-70 consensus sequence TTGACAT and TATAAT is written underneath.">
+    </figure>
+    <figure>
+      <img src="img/05-sigma-factors.png" alt="Four alternative sigma factors shown on RNA polymerase, each paired with the class of gene it transcribes: sigma-70 housekeeping, sigma-32 heat shock, sigma-28 motility, sigma-38 starvation.">
+    </figure>
+  </div>
+  <p class="src-link">From
+     <a href="https://iu.pressbooks.pub/iul211molbiosmehta/chapter/transcription/">iu.pressbooks.pub &mdash; transcription</a></p>
+  <template class="notes">From https://iu.pressbooks.pub/iul211molbiosmehta/chapter/transcription/</template>
+  <template class="desc">On the left, what a constitutive promoter is made of: a minus-35 box and a minus-10 box with the transcription start at plus one, and RNA polymerase with its sigma subunit reading them, under the sigma-70 consensus TTGACAT and TATAAT. On the right, four alternative sigma factors on the same polymerase, each directing it to a different class of gene — housekeeping, heat shock, motility and starvation.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 35 -->
+<article class="slide">
+  <h1 class="small">Complex Promoters</h1>
+  <figure class="fig">
+    <img src="img/05-lac-promoter.jpg" alt="The lac promoter region drawn against a numbered sequence from minus 100 to plus 40, marking the CRP site, the minus-35 and minus-10 boxes, the transcription start, the operator overlapping the minus-10, and the start of the lacZ gene.">
+  </figure>
+  <template class="notes">This is the lac promoter at base level.  The -35 (TTACA here) and -10 (TATGTT) bind to sigma factor, but note that those are different than TTGACA and TATTAT and bind less tightly.  There is also a CRP site which binds to the transcription factor CAP and helps recruit the RNA polymerase.  Then there is the operator which overlaps the -10 site partially.  The lacI (lac repressor) binds to that sequence and blocks the sigma factor.  The result of this is a complex inducible promoter regulated both by glucose availability via CAP and lactose via lacI.</template>
+  <template class="desc">The lac promoter written out base by base from minus 100 to plus 40, with every element marked on the actual sequence: the CRP site where CAP binds, the minus-35 and minus-10 boxes, the transcription start, the operator overlapping the minus-10, and the beginning of the lacZ gene.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 36 -->
+<article class="slide">
+  <h1 class="small">Types of Promoters</h1>
+  <div class="quad">
+    <div class="boxed">
+      <h2>Constitutive Promoters</h2>
+      <img src="img/05-constitutive-inset.png" alt="A constitutive promoter with its minus-35 and minus-10 boxes marked on the sequence.">
+    </div>
+    <div>
+      <h2>Inducible Promoters</h2>
+      <ul>
+        <li>Pbad Promoter (AraC)</li>
+        <li>Tet Promoter (TetR)</li>
+        <li>Plac Promoter (LacI)</li>
+        <li>Pllac Promoter (LacI)</li>
+        <li>Ptac Promoter (LacI)</li>
+        <li>Psal Promoter (NahR)</li>
+        <li>PluxI Promoter (LuxR)</li>
+      </ul>
+    </div>
+    <div>
+      <h2>TF-dependent Promoters:</h2>
+      <ul>
+        <li>T7 Promoter (T7 RNA Pol.)</li>
+        <li>SP6 Promoter (SP6 Pol.)</li>
+        <li><i>spoIIG</i> (Spo0A of <i>B. subtilis</i>)</li>
+        <li>Zinc Finger-activated</li>
+        <li>dCas9-activated</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Environmental:</h2>
+      <ul>
+        <li><i>fhu</i>A Promoter (iron)</li>
+        <li><i>hde</i>A Promoter (O<sub>2</sub>)</li>
+        <li><i>kat</i>G (stationary phase)</li>
+      </ul>
+    </div>
+  </div>
+  <p class="grouplab">Conditional Promoters</p>
+  <template class="notes">One category of DNA parts are promoters.  Promoters are defined by their propensity to initiate formation of a new RNA molecule in transcription. Like protein-coding parts, they can be functionally or mechanistically characterized.  The simplest are the constitutive promoters.  These are sequences that directly bind to sigma factors and initiate transcription.  They do not require or respond to additional proteins like transcription factors. * All other promoters are some type of conditional promoter in the sense that they require something other than just sigma factor for function.  TF-dependent promoters require a transcription factor.  Some promoters use a different polymerase of viral origin to product RNA.  These include the T7 and SP6 promoters which require T7 RNA polymerase and SP6 RNA polymerase respectively. Others employ a normal sigma-factor dependent promoter, but also a transcription factor. spoIIG promoter of B. subtilis is one of these, and it requires a transcriptional activator called Spo0A for function.  Others bind to and are repressed by a transcription factor.  TF-dependent promoters can also be engineered to respond to an engineered transcription factor.  Particularly in eukarytes, a Zinc-finger protein can be engineered into a transcription factor for arbitrarily-chosen sequences. * Promoters can also be categorized by their inducibility with an external chemical trigger. For example, the lac promoter is normally repressed by binding of lacI.  In the presence of IPTG, lacI dissociates from the DNA resulting in expression.  The luxI promoter, in contrast, is activated by its ligand-dependent transcription factor.  LuxR only turns on LuxI when its ligand is present.  Other popular inducible promoters are tet repressor and Pbad.  Mechanistically, these systems are not similar, but for design, they play a similar phenomenological role in the cell of causing transcription in response to an external chemical.  * Finally, there are environmental promoters.  These are promoters that respond to pleiotropic transcription factors in the cell in response to external stimuli.  Examples include responses to iron, oxygen, and stationary phase.</template>
+  <template class="desc">Promoters sorted into four groups. Constitutive, boxed on its own with a picture of one, needing nothing but sigma factor. Then three kinds of conditional promoter: inducible ones, driven by a chemical — Pbad, Tet, Plac, Pllac, Ptac, Psal and PluxI; TF-dependent ones, needing a particular protein — T7, SP6, spoIIG, zinc finger and dCas9 activated; and environmental ones, responding to iron, oxygen and stationary phase.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 37 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <h1 class="small">Inducible expression</h1>
+  </div>
+  <p class="ask">If I want <i>E. coli</i> that fluoresce red only when grown in the presence of
+     salicylate, what should my DNA look like?</p>
+  <template class="notes">Psal-RFP.  Use transcriptional control putting a salicylate-activated promoter in front of genes make the cell red and fluorescent, such as red fluorescent protein.</template>
+  <template class="desc">A question for the room, marked with the deck's thinking figure: what should the DNA look like for E. coli that fluoresce red only when salicylate is present?</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 38 -->
+<article class="slide">
+  <h1 class="small">Cis Elements:  Origins</h1>
+  <div class="origins">
+    <div>
+      <h2>of Replication</h2>
+      <ul>
+        <li>colE1, p15A, F plasmid, R6K</li>
+        <li>Incompatibility Groups</li>
+      </ul>
+      <p class="link">See <a href="http://openwetware.org/wiki/Arking:JCAOligoTutorial8">openwetware.org/wiki/Arking:JCAOligoTutorial8</a></p>
+    </div>
+    <div>
+      <h2>of Transfer</h2>
+      <ul>
+        <li>F plasmid (mating between <i>E. coli</i>)</li>
+        <li>RP4 (mating from <i>E. coli</i> and most things)</li>
+      </ul>
+    </div>
+    <div>
+      <h2>of Packaging</h2>
+      <ul><li>Lambda Phage</li><li>M13 Phage</li></ul>
+    </div>
+  </div>
+  <template class="notes">There are other DNA elements that I&rsquo;ll collectively call cis elements.  They cause the larger DNA encoding them to undergo some reaction.  Origins of replication are a category of these elements that initiate replication on the encoding DNA.  Origins of transfer initiate rolling circle amplification and transfer of the encoding DNA to another cell during conjugation.  Origins of packaging initiate the packaging of the encoding DNA into a phage or virus particle.</template>
+  <template class="desc">Three kinds of origin, each making the DNA that carries it undergo a reaction. Origins of replication — colE1, p15A, F plasmid, R6K — and their incompatibility groups. Origins of transfer — the F plasmid, which mates between E. coli, and RP4, which mates from E. coli into most things. And origins of packaging, from lambda and M13 phage.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 39 -->
+<article class="slide">
+  <div class="qhead">
+    <img src="img/ponder.png" alt="" aria-hidden="true">
+    <h1 class="small">Plasmid compatibility</h1>
+  </div>
+  <p class="ask">When I transform my <i>E. coli</i> with two pBca9145 plasmids I&rsquo;m getting
+     irreproducible expression levels from the proteins.  Why?</p>
+  <template class="notes">If you have two of the same origin within a cell, they will  be competing for replication factors, and often one wins.  Even if a mixture is preserved, there is no control over the relative copy numbers.</template>
+  <template class="desc">A second question for the room: two pBca9145 plasmids transformed into the same E. coli give irreproducible expression levels. Why?</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 40 -->
+<article class="slide">
+  <h1 class="small">Recombination Sites</h1>
+  <div class="recomb">
+    <svg viewBox="85 215 780 295" role="img" aria-hidden="true">
+      <!-- LEFT: sites in the same orientation, so the cargo is excised -->
+      <path class="bb" d="M92 267H417"/>
+      <path class="site" d="M108 258H117V250L150 266L117 283V275H108Z"/>
+      <path class="site" d="M358 258H367V250L400 266L367 283V275H358Z"/>
+      <path class="cargo" d="M192 244H234V225L309 262L234 300V281H192Z"/>
+      <path class="down" d="M250 333V383M250 383L242 370M250 383L258 370"/>
+      <path class="bb" d="M142 467H325"/>
+      <path class="site" d="M225 458H234V450L267 466L234 483V475H225Z"/>
+      <!-- RIGHT: sites opposed, so the cargo is inverted -->
+      <path class="bb" d="M533 267H858"/>
+      <path class="site" d="M550 258H559V250L592 266L559 283V275H550Z"/>
+      <path class="site" d="M842 258H833V250L800 266L833 283V275H842Z"/>
+      <path class="cargo" d="M633 244H675V225L750 262L675 300V281H633Z"/>
+      <path class="down" d="M692 333V383M692 383L684 370M692 383L700 370"/>
+      <path class="bb" d="M533 467H858"/>
+      <path class="site" d="M550 458H559V450L592 466L559 483V475H550Z"/>
+      <path class="site" d="M842 458H833V450L800 466L833 483V475H842Z"/>
+      <path class="cargo" d="M750 444H708V425L633 462L708 500V481H750Z"/>
+    </svg>
+  </div>
+  <ul class="tight">
+    <li>Many similar systems exist including the Flp/FRT and Hin/hix systems</li>
+  </ul>
+  <template class="notes">Other DNA sequences are the site of reaction of a DNA modification enzyme.  For example, the sequence GGATCC is the &lsquo;part&rsquo; that is acted upon by BamHI restriciton enzyme.  Recombination sites are another type of part that are sites for recognition by sequence-specific recombinases and integrases.  We&rsquo;ve seen this before with Lox and its recombinase Cre, FRT sites, and hix sites.</template>
+  <template class="desc">Two outcomes side by side, decided only by how the sites are oriented. On the left both recombination sites point the same way, and the recombinase excises everything between them, leaving one site behind on the DNA. On the right the two sites point at each other, and the same reaction inverts the cargo in place instead, leaving both sites where they were.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 41 -->
+<article class="slide">
+  <h1 class="small">Terminal Repeats</h1>
+  <div class="tnpair">
+    <div>
+      <p class="tn"><b>Tn5:</b><br><code>CTGTCTCTTATACACATCT</code></p>
+      <ul class="tight">
+        <li>Terminal repeats are the sites (in yellow) acted upon by a transposase</li>
+        <li>Reaction results in a transposome DNA-Protein complex</li>
+        <li>The transposome reacts mostly randomly with a recipient DNA</li>
+      </ul>
+    </div>
+    <figure>
+      <img src="img/05-transposon.jpg" alt="A transposon drawn in three steps: the end sequences flanking the transposase gene, the transposase enzyme cutting the transposon out and carrying it, and the transposon inserted at a new location where it disrupts a gene.">
+    </figure>
+  </div>
+  <template class="notes">Terminal repeats are DNA sequences that are acted upon by a transposase.  They are the sequences bound by the transposase, are cleaved by the enzyme, and become covalently attached to it.  This results in a transposome that can go on to randomly integrate into a recipient DNA.</template>
+  <template class="desc">The Tn5 terminal repeat written out, CTGTCTCTTATACACATCT, with what it does: it is the site a transposase acts on, the reaction makes a transposome, a DNA-protein complex, and that transposome then inserts mostly at random into a recipient DNA. The figure beside it shows the three steps, ending with the transposon landing inside another gene and disrupting it.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

@@ -20,4 +20,7 @@ Use the plate pouring protocol for the detailed steps on preparing and pouring p
 
 That protocol contains the step-by-step instructions for making and pouring plates.
 
-The protocol builder at that link also includes protocols for other parts of this workflow, including remelting agar in the microwave, preparing antibiotics, and related steps.
+
+<div class="lab-video" data-video="agar_remelt"></div>
+<div class="lab-video" data-video="pour_plates"></div>
+The rest of the workflow (LB agar, 2YT, antibiotic stocks, sealing plates) is on [Media and Plates](./media_and_plates.md), with a protocol and a video for each step.

@@ -23,6 +23,8 @@
 3. Monitor closely as it nears melting and stop heating once boiling begins.
 4. Allow to cool to 55°C before adding antibiotics and pouring plates.
 
+<div class="lab-video" data-video="agar_remelt"></div>
+
 #### Preparing Agarose for DNA Gels
 1. Weigh 5.5 g agarose powder into a 500 mL glass bottle.
 2. Fill the bottle about 2/3 full with 1x TAE from the bottle by the electrophoresis bench.

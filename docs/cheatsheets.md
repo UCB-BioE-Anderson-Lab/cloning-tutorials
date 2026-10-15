@@ -8,7 +8,7 @@ volumes, the order, and the things that go wrong quietly.
 
 ## The whole set
 
-**[⬇ All eight in one file](cheatsheets/all-cheatsheets.pdf)** — 8 pages, in experiment order.
+**[⬇ All nine in one file](cheatsheets/all-cheatsheets.pdf)** — 9 pages, in experiment order.
 Useful if a bench copy has gone missing and needs reprinting.
 
 ## Individual sheets
@@ -23,6 +23,7 @@ Useful if a bench copy has gone missing and needs reprinting.
 | **[Picking Colonies](cheatsheets/picking.pdf)** | Tubes or a block, which colonies | [Colony Picking](wetlab/pick.md) |
 | **[Qiagen Miniprep](cheatsheets/miniprep.pdf)** | Alkaline lysis and column | [Miniprep](wetlab/miniprep.md) |
 | **[Cycle Sequencing](cheatsheets/sequencing.pdf)** | 13 µL submission, dGTP protocol | [Cycle Sequencing](wetlab/sequencing.md) |
+| **[Tecan M Nano: Fluorescence + OD600](cheatsheets/platereader.pdf)** | Start-up order, read settings, saving | [Measuring Fluorescence](wetlab/bestp.md) |
 
 ## If a sheet looks wrong
 
