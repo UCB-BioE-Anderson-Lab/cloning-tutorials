@@ -78,6 +78,25 @@ into the thermocycler.
 
 ---
 
+### Gibson Assembly — the program **GIB2**
+
+Gibson is isothermal: there is no cycling, because nothing is being cut and re-cut. The
+exonuclease, polymerase and ligase all work at one temperature.
+
+- **50 °C for 1 hour**
+- **16 °C hold**
+
+**There is no "Gibson" preset on the thermocyclers — the program is called GIB2.** If you
+cannot find it, build it: a single 50 °C step of 60 minutes, then a 16 °C hold.
+
+The vendor protocols are shorter. NEB and Takara scale the hold by fragment count — 15 minutes
+for 2–3 fragments, 60 for 4–6 — while Gibson's original 2009 method was 60 minutes flat. **We
+run the full hour whatever the fragment count.** The shorter times are the kit's floor, not a
+better reaction, and one program you can run without thinking is worth more here than four
+minutes saved.
+
+---
+
 ### Lab Sheet Overview
 
 | Label | Fragment | Product |
