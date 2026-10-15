@@ -8,6 +8,11 @@ In the previous tutorial, you used restriction enzymes to insert the INS gene in
 
 In synthetic biology, you often need to assemble multiple parts with precise control over sequence. This is where **Gibson Assembly** shines. It allows you to join DNA fragments without restriction sites—using only sequence overlaps.
 
+!!! note "This page is about designing the assembly"
+    For running one at the bench — the reaction, and the thermocycler program **GIB2** (50 °C
+    for 1 hour, then hold at 16 °C) — see [Assembly](../wetlab/assembly.md). The program is
+    deliberately written down in one place; this page does not restate it.
+
 ---
 
 ## 🔬 How Gibson Assembly Works
