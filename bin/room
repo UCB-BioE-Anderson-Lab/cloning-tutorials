@@ -1,0 +1,232 @@
+#!/usr/bin/env node
+// room — answer where something in B144 is, what is in a storage unit, and what needs reordering.
+//
+// Three questions, read-only, no arguments that write anything:
+//
+//     bin/room where <thing>        where a material lives, by name or synonym
+//     bin/room unit [<slug>]        what is in a storage unit, and who may open it
+//     bin/room restock              items at or under threshold — and what has never been counted
+//
+// All three take --json.
+//
+// IT REUSES docs/tools/lab/js/data.js RATHER THAN PARSING THE FILES AGAIN. That module is the
+// browser lab map's loader: it knows the TSV quoting rule (RFC 4180, "" inside a quoted cell),
+// which columns exist, how synonyms are split, and how chemicals and locations merge. A second
+// parser here would be a second set of answers to the same question, and this repository has
+// already been bitten by that — `AUTHORING.txt` records one program described three ways, two of
+// them wrong. The only thing that module cannot do outside a browser is `fetch`, so that is the
+// only thing this file supplies.
+
+import { readFile } from "node:fs/promises";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { dirname, join, resolve } from "node:path";
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+const DATA = join(HERE, "..", "docs", "assets", "data");
+
+// THE fetch SHIM. Node's own fetch does not read file:// URLs, and data.js calls fetch for every
+// source. Rather than fork the loader, give it the one primitive it is missing.
+const realFetch = globalThis.fetch;
+globalThis.fetch = async (url, opts) => {
+  const s = String(url);
+  if (/^https?:/i.test(s)) return realFetch(s, opts);
+  const p = s.startsWith("file:") ? fileURLToPath(s) : resolve(s);
+  try {
+    const text = await readFile(p, "utf8");
+    return { ok: true, status: 200, text: async () => text };
+  } catch (e) {
+    return { ok: false, status: 404, text: async () => "" };
+  }
+};
+
+const { loadAll } = await import(
+  pathToFileURL(join(HERE, "..", "docs", "tools", "lab", "js", "data.js")).href
+);
+
+const PATHS = {
+  room: join(DATA, "room.json"),
+  benches: join(DATA, "benches.json"),
+  equipment: join(DATA, "equipment.json"),
+  storage: join(DATA, "storage.json"),
+  locations: join(DATA, "locations.tsv"),
+  chemicals: join(DATA, "chemicals.tsv"),
+  consumables: join(DATA, "consumables.tsv")
+};
+
+const argv = process.argv.slice(2);
+const asJSON = argv.includes("--json");
+const args = argv.filter((a) => a !== "--json");
+const verb = args[0];
+const rest = args.slice(1).join(" ").trim();
+
+function out(obj, lines) {
+  if (asJSON) console.log(JSON.stringify(obj, null, 1));
+  else lines.forEach((l) => console.log(l));
+}
+
+function die(msg, code = 2) {
+  console.error("  " + msg);
+  process.exit(code);
+}
+
+const D = await loadAll(PATHS);
+
+// A store that could not be read must not read as a room with nothing in it.
+if (!D.storageJSON || D.itemMap.size === 0) {
+  die("could not read the room model at " + DATA + ".\n" +
+      "  That is 'the data is unreadable', NOT 'B144 holds nothing'.", 3);
+}
+
+if (verb === "where") {
+  if (!rest) die("what are you looking for?  bin/room where <thing>");
+  const q = rest.toLowerCase();
+  const hits = [];
+  for (const item of D.itemMap.values()) {
+    const names = [item.name, ...(item.synonymList || [])];
+    const exact = names.some((n) => String(n).toLowerCase() === q);
+    const part = names.some((n) => String(n).toLowerCase().includes(q));
+    if (exact || part) hits.push({ item, exact });
+  }
+  hits.sort((a, b) => (b.exact - a.exact) || a.item.name.localeCompare(b.item.name));
+  if (!hits.length) {
+    out({ query: rest, hits: [] },
+        [`  nothing in the room model matches ${JSON.stringify(rest)}.`,
+         "  It may still be in B144 — this says the MODEL does not name it, which is a",
+         "  different thing from the shelf being empty."]);
+    process.exit(1);
+  }
+  const rows = hits.map(({ item, exact }) => {
+    // `locations`, not `placements` — the loader's own field name. Guessing it cost one
+    // run that printed "(no location recorded)" for an item whose location was right there.
+    const p = (item.locations && item.locations[0]) || {};
+    return {
+      name: item.name, exact, category: item.category || "",
+      storage_unit: p.storage_unit || "", sublocation: p.sublocation || "",
+      zone: p.zone || "", label: p.label || "",
+      synonyms: item.synonymList || [], notes: p.notes || "",
+      concentration: p.concentration || ""
+    };
+  });
+  out({ query: rest, hits: rows }, rows.map((r) => {
+    const where = [r.storage_unit, r.sublocation].filter(Boolean).join(" / ") || "(no location recorded)";
+    const tag = r.label ? `  [${r.label}]` : "";
+    return `  ${r.name}${tag}\n      ${where}${r.zone ? "   zone " + r.zone : ""}` +
+           (r.notes ? `\n      ${r.notes}` : "");
+  }));
+  process.exit(0);
+}
+
+if (verb === "unit") {
+  const units = D.storageJSON.storage_units || [];
+  if (!rest) {
+    const rows = units.map((u) => ({
+      slug: u.slug, name: u.name, type: u.type || "", zone: u.zone || "",
+      access: u.access || "", sublocations: (u.sublocations || []).map((s) => s.slug)
+    }));
+    out({ units: rows }, rows.map((u) =>
+      `  ${u.slug.padEnd(22)} ${u.name}${u.access ? "   (" + u.access + ")" : ""}`));
+    process.exit(0);
+  }
+  const u = units.find((x) => x.slug === rest || (x.name || "").toLowerCase() === rest.toLowerCase());
+  if (!u) die(`no storage unit called ${JSON.stringify(rest)}.  bin/room unit   lists them.`, 1);
+  const inside = [];
+  for (const item of D.itemMap.values()) {
+    for (const p of item.locations || []) {
+      if (p.storage_unit === u.slug) {
+        inside.push({ name: item.name, sublocation: p.sublocation || "", label: p.label || "" });
+      }
+    }
+  }
+  inside.sort((a, b) => a.name.localeCompare(b.name));
+  out({ unit: u, contents: inside },
+      [`  ${u.name}  (${u.slug})`,
+       `  ${u.type || "storage"}${u.zone ? ", zone " + u.zone : ""}` +
+       (u.access ? `, ${u.access} access` : ""),
+       u.notes ? `  ${u.notes}` : "",
+       "",
+       ...(inside.length
+         ? inside.map((i) => `    ${i.name}${i.sublocation ? "  — " + i.sublocation : ""}` +
+                             (i.label ? `  [${i.label}]` : ""))
+         : ["    nothing in the model is placed here. That is the MODEL's silence, not an",
+            "    empty shelf."])].filter((l) => l !== ""));
+  process.exit(0);
+}
+
+if (verb === "restock") {
+  // NOTHING HAS EVER BEEN COUNTED, AND THIS MUST SAY SO.
+  //
+  // consumables.tsv carries `target` and `threshold` — what SHOULD be there — and there is no
+  // column for what IS there. The counts that would fill it come from the steward sheets, and as
+  // of 2026-10-15 not one has ever been submitted: eight steward folders, every `submitted/`
+  // empty. So the honest answer to "what needs reordering" is that nobody knows, for everything.
+  //
+  // An item with a target and no count is UNMEASURED, not adequately stocked. Printing a short
+  // list of "nothing to reorder" would be the most dangerous possible output: it reads as a
+  // checked room.
+  // THE MAP IS KEYED BY LOCATION, NOT BY ITEM — `zone:storage_unit:sublocation`, with an
+  // `items` array. `target` and `threshold` are set per ROW, so when two items share one
+  // location the LAST row's target is the one that survives. That is a property of the data,
+  // not of this reader, and it is reported rather than smoothed over: a target that silently
+  // belongs to a different item is worse than no target.
+  const locs = Object.entries(D.consumables.map || {});
+  const withTarget = [];
+  const withoutTarget = [];
+  let shared = 0;
+  for (const [key, row] of locs) {
+    const names = row.items || [];
+    if (names.length > 1) shared += 1;
+    const rec = {
+      location: key,
+      items: names,
+      target: row.target ?? null,
+      threshold: row.threshold ?? null,
+      zone: row.zone || "",
+      storage_unit: row.storage_unit || "",
+      sublocation: row.sublocation || "",
+      vendor_url: row.vendor_url || "",
+      campus_source: row.campus_source || "",
+      preferred_acquire: row.preferred_acquire || "",
+      target_may_belong_to_another_item: names.length > 1 && row.target != null
+    };
+    (row.target != null ? withTarget : withoutTarget).push(rec);
+  }
+  const byLoc = (a, b) => String(a.location).localeCompare(String(b.location));
+  withTarget.sort(byLoc);
+  withoutTarget.sort(byLoc);
+  const payload = {
+    counted: 0,
+    stock_level_known_for: 0,
+    locations: locs.length,
+    distinct_items: (D.consumables.items || []).length,
+    with_target: withTarget.length,
+    without_target: withoutTarget.length,
+    shared_locations: shared,
+    unknown_reason: "no steward count has ever been submitted; consumables.tsv records target " +
+                    "and threshold only, and has no column for what is on the shelf",
+    with_target_locations: withTarget,
+    without_target_locations: withoutTarget
+  };
+  out(payload, [
+    `  ${payload.distinct_items} consumable(s) across ${payload.locations} location(s) in the room model.`,
+    "",
+    "  STOCK LEVEL IS UNKNOWN FOR EVERY ONE OF THEM.",
+    "  consumables.tsv records target and threshold — what should be there — and has no",
+    "  column for what is. The counts that would fill it come from the steward sheets, and",
+    "  not one has ever been submitted.",
+    "",
+    `  ${payload.with_target} location(s) have a target to count against;`,
+    `  ${payload.without_target} have none, so even a count would not say whether they are low.`,
+    ...(payload.shared_locations
+      ? [`  ${payload.shared_locations} location(s) hold more than one item. target/threshold are`,
+         "  recorded per ROW, so for those the last row's target is the one that survived — it",
+         "  may describe a different item than the one you are asking about."]
+      : []),
+    "",
+    "  This is NOT a report that nothing needs reordering. It is a report that nobody has",
+    "  looked. `bin/room restock --json` carries the vendor and campus-source columns for",
+    "  whoever does."
+  ]);
+  process.exit(0);
+}
+
+die(`unknown: ${verb || "(nothing)"}.  where · unit · restock`, 2);
