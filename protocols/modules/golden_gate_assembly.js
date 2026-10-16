@@ -11,8 +11,11 @@
 // and holds background down. Noted here for planning; deliberately NOT on the bench card,
 // where the instruction is "run GG1" and nothing else.
 //
-// docs/wetlab/assembly.md describes a third program (extended 37 °C then 65 °C) that
-// matches neither, and is wrong.
+// docs/wetlab/assembly.md ONCE described a third program (extended 37 °C then 65 °C) that
+// matched neither. Checked 2026-10-15: it now states GG1 exactly as defined here. The note
+// stays as the record that three copies of one program disagreed, which is the argument for
+// data/thermocycler_programs/GG1.js being the single home — this module's inline constant
+// should be read from there next, the way gibson_assembly.js reads GIB2.
 
 // The program loaded on our thermocycler.
 const GG1 = {

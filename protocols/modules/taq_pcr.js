@@ -33,6 +33,15 @@ export const inputs = [
   { name: "template_name", type: "text", label: "Template", default: "template_dna" },
   { name: "primer1_name", type: "text", label: "Primer 1 name", default: "forward_oligo" },
   { name: "primer2_name", type: "text", label: "Primer 2 name", default: "reverse_oligo" },
+  // **WITHOUT THIS, THE RECIPE NAMES SOMEBODY ELSE'S PRIMER.** `primestar_pcr` has declared it
+  // since it was written; this module did not, so the design passed `per_sample` and it was
+  // ignored — *"taq_pcr: given per_sample, which this module does not declare"*. A Taq bin with
+  // two different primer pairs would then print one pair as if it applied to both, which is the
+  // error `cycle_sequencing` was fixed for: a plausible, specific, wrong instruction.
+  //
+  // Reachable since 2026-09-13, when a PCR session needing both enzymes became one bin per
+  // enzyme. Before that a Taq bin could only exist alone.
+  { name: "per_sample", type: "boolean", label: "Primers/template differ between reactions" },
   { name: "label_prefix", type: "text", label: "Tube label prefix", default: "pcr" },
   { name: "use_mastermix", type: "boolean", label: "Use master mix?" },
   { name: "overage", type: "number", label: "Master mix overage (fraction)", default: 0.10, step: 0.05 }
@@ -43,6 +52,7 @@ const round1 = (x) => Math.round(x * 10) / 10;
 export function factory(values = {}) {
   const n = Math.max(1, Number(values.reactions ?? 1));
   const template = String(values.template_name ?? "template_dna");
+  const perSample = (values.per_sample === true || values.per_sample === "true");
   const p1 = String(values.primer1_name ?? "forward_oligo");
   const p2 = String(values.primer2_name ?? "reverse_oligo");
   const labelPrefix = String(values.label_prefix ?? "pcr");
@@ -71,7 +81,10 @@ export function factory(values = {}) {
 
   const labels = Array.from({ length: n }, (_, i) => `${labelPrefix}_${i + 1}`);
   const name = "Taq PCR";
-  const description = `Set up ${n} × 50 µL Taq PCR${n > 1 ? "s" : ""} with ${p1}/${p2} on ${template}`;
+  const description = perSample
+    ? `Set up ${n} × 50 µL Taq PCR${n > 1 ? "s" : ""} — the primer pair and template for each are `
+      + `in the Samples table above.`
+    : `Set up ${n} × 50 µL Taq PCR${n > 1 ? "s" : ""} with ${p1}/${p2} on ${template}`;
 
   const templateStr = `
 **Taq, not PrimeSTAR.** This reaction uses a different enzyme *and* a different buffer, and more
@@ -87,8 +100,8 @@ ${useMastermix ? `
 - **${totals.water} µL** ddH₂O
 - **${totals.buffer10x} µL** 10× Taq Buffer
 - **${totals.dNTP} µL** dNTP mix (2 mM each)
-- **${totals.primer1} µL** ${p1} (10 µM)
-- **${totals.primer2} µL** ${p2} (10 µM)
+- **${totals.primer1} µL** ${perSample ? "forward primer — see the Samples table" : `${p1}`} (10 µM)
+- **${totals.primer2} µL** ${perSample ? "reverse primer — see the Samples table" : `${p2}`} (10 µM)
 - **${totals.enzyme} µL** Taq polymerase
 
 - Aliquot **${perMix} µL** of master mix into each labeled tube.
@@ -97,14 +110,14 @@ ${useMastermix ? `
 **Reaction** *(per 50 µL tube; add enzyme last; keep cold)*
 ${useMastermix ? `
 - **${perMix} µL** Master mix
-- **1 µL** ${template}
+- **1 µL** ${perSample ? "the template for THIS reaction — see the Samples table" : `${template}`}
 ` : `
 - **${per.water} µL** ddH₂O *(up to 50 µL)*
 - **5 µL** 10× Taq Buffer
 - **5 µL** dNTP mix (2 mM each)
-- **1 µL** ${p1} (10 µM)
-- **1 µL** ${p2} (10 µM)
-- **1 µL** ${template}
+- **1 µL** ${perSample ? "forward primer — see the Samples table" : `${p1}`} (10 µM)
+- **1 µL** ${perSample ? "reverse primer — see the Samples table" : `${p2}`} (10 µM)
+- **1 µL** ${perSample ? "the template for THIS reaction — see the Samples table" : `${template}`}
 - **1 µL** Taq polymerase
 `}
 

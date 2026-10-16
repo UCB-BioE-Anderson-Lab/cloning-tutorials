@@ -21,6 +21,10 @@ export const inputs = [
   { name: "template_name", type: "text", label: "Template", default: "template_dna" },
   { name: "primer1_name", type: "text", label: "Primer 1 name", default: "forward_oligo" },
   { name: "primer2_name", type: "text", label: "Primer 2 name", default: "reverse_oligo" },
+  // WHETHER THE REACTIONS AGREE ON THEIR INPUTS. Two PCRs with different primer pairs have no
+  // forward oligo, and the caller filling `primer1_name` with one of them would make a specific
+  // claim about both. Set this and the sentence points at the table instead of naming anything.
+  { name: "per_sample", type: "boolean", label: "Primers/template differ between reactions" },
   { name: "label_prefix", type: "text", label: "Tube label prefix", default: "pcr" },
   { name: "use_mastermix", type: "boolean", label: "Use master mix?" },
   { name: "overage", type: "number", label: "Master mix overage (fraction)", default: 0.10, step: 0.05 }
@@ -69,8 +73,18 @@ export function factory(values = {}) {
   const labels = Array.from({ length: n }, (_, i) => `${labelPrefix}_${i + 1}`);
   const labelRange = labels.length <= 10 ? labels.join(", ") : `${labels[0]} … ${labels[labels.length - 1]}`;
 
+  // **THE DESCRIPTION SAID "SEE THE SAMPLES TABLE" AND THE RECIPE BELOW IT DID NOT.** With
+  // differing reactions the caller sends no primer names — `only()` returns null when the samples
+  // disagree — so the recipe fell back to its DEFAULTS and printed `forward_oligo`,
+  // `reverse_oligo` and `template_dna`, which read on a printed page exactly like real oligo
+  // names. A placeholder that looks like an answer is worse than a blank. Found 2026-09-13 while
+  // giving `taq_pcr` the flag this module already had.
+  const perSample = (values.per_sample === true || values.per_sample === "true");
   const name = "PrimeSTAR GXL PCR";
-  const description = `Set up ${n} × 50 µL PCR${n > 1 ? "s" : ""} with ${p1}/${p2} on ${template}`;
+  const description = perSample
+    ? `Set up ${n} × 50 µL PCR${n > 1 ? "s" : ""} — the primer pair and template for each are in `
+      + `the Samples table above.`
+    : `Set up ${n} × 50 µL PCR${n > 1 ? "s" : ""} with ${p1}/${p2} on ${template}`;
 
   const templateStr = `
 1. **Find oligo samples.** For now, locate tubes manually (ideally 10 µM stocks) and the template DNA (miniprep‑level concentration).
@@ -83,8 +97,8 @@ ${useMastermix ? `
 - **${totals.water} µL** ddH₂O
 - **${totals.buffer5x} µL** 5× PrimeSTAR GXL Buffer
 - **${totals.dNTP} µL** dNTP mix (2.5 mM each)
-- **${totals.primer1} µL** ${p1} (10 µM)
-- **${totals.primer2} µL** ${p2} (10 µM)
+- **${totals.primer1} µL** ${perSample ? "forward primer — see the Samples table" : `${p1}`} (10 µM)
+- **${totals.primer2} µL** ${perSample ? "reverse primer — see the Samples table" : `${p2}`} (10 µM)
 - **${totals.enzyme} µL** PrimeSTAR GXL polymerase
 
 - Aliquot **49 µL** of master mix into each labeled tube (**${labelPrefix}_1 … ${labelPrefix}_${n}**).
@@ -94,14 +108,14 @@ ${useMastermix ? `
 **Reaction** *(per ${50} µL tube; add enzyme last; keep cold)*
 ${useMastermix ? `
 - **49 µL** Master mix
-- **1 µL** ${template}
+- **1 µL** ${perSample ? "the template for THIS reaction — see the Samples table" : `${template}`}
 ` : `
 - **32 µL** ddH₂O
 - **10 µL** 5× PrimeSTAR GXL Buffer
 - **4 µL** dNTP mix (2.5 mM each)
-- **1 µL** ${p1} (10 µM)
-- **1 µL** ${p2} (10 µM)
-- **1 µL** ${template}
+- **1 µL** ${perSample ? "forward primer — see the Samples table" : `${p1}`} (10 µM)
+- **1 µL** ${perSample ? "reverse primer — see the Samples table" : `${p2}`} (10 µM)
+- **1 µL** ${perSample ? "the template for THIS reaction — see the Samples table" : `${template}`}
 - **1 µL** PrimeSTAR GXL polymerase
 `}
 
