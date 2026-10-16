@@ -27,7 +27,7 @@ export function factory() {
 {preparation_of_1x_tae}
 
 **Procedure**
-1. Weigh **5.5 g agarose** into a **500 mL bottle**.
+1. Weigh **5 g agarose** into a **500 mL bottle** — 1% once filled to 500 mL.
 2. Fill the bottle about **2/3 full** with **1× TAE** from the bottle by the electrophoresis bench.
 3. Cap and shake well.
 4. Loosen the cap, then microwave for about **2 min** to warm.
