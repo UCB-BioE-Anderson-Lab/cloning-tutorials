@@ -1,0 +1,40 @@
+{
+  "schema": "clotho.sharable/1",
+  "id": "room.unit",
+  "type": "function",
+  "name": "What is in a storage unit, and who may open it",
+  "description": "the ten named storage units of B144 — freezers, fridges, cabinets, shelves — each with its zone, its sublocations, whether a student or only a supervisor may open it, and everything the room model places inside",
+  "phrases": [
+    "what is in the enzyme freezer",
+    "which freezers are there",
+    "can students open that cabinet",
+    "what is in the -80",
+    "list the storage units",
+    "what is in the flammable cabinet"
+  ],
+  "noun": "storage-unit",
+  "verb": "list",
+  "entry": "bin/room unit",
+  "returns": "with no argument, every unit with its access level. With a slug, the unit's type, zone, access and notes, then its contents by sublocation. --json gives {unit, contents} or {units}.",
+  "examples": [
+    {
+      "input": [],
+      "exit": 0
+    }
+  ],
+  "requires": [
+    {
+      "path": "docs/assets/data/storage.json",
+      "note": "the units and their sublocations. `access` is student or supervisor and is a real constraint, not a label."
+    }
+  ],
+  "notes": "ACCESS IS CARRIED BECAUSE IT IS A REAL ANSWER. Three of the ten units are supervisor-only, and \"where is it\" and \"may I open that\" are the same question to somebody standing in the room. A unit with nothing placed in it says the MODEL is silent, never that the shelf is bare.",
+  "tags": [
+    "b144",
+    "room",
+    "inventory",
+    "where"
+  ],
+  "created": "2026-10-15",
+  "updated": "2026-10-15"
+}

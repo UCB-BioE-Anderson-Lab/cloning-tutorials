@@ -1,0 +1,43 @@
+{
+  "schema": "clotho.sharable/1",
+  "id": "room.where",
+  "type": "function",
+  "name": "Where a material is kept in B144",
+  "description": "the storage unit, sublocation, zone and tube label for a material in B144, found by its name or by what people actually call it — \"the green tube\", \"B buffer\", \"sequencing primer\"",
+  "phrases": [
+    "where is the green tube",
+    "where do we keep the polymerase",
+    "which freezer is BsaI in",
+    "where is the sequencing primer",
+    "what box is that reagent in",
+    "find a reagent in B144",
+    "where is the gibson mix"
+  ],
+  "noun": "material",
+  "verb": "where",
+  "entry": "bin/room where",
+  "returns": "one block per match: name, tube label, storage unit / sublocation, zone, and the note that explains what it is. --json gives {query, hits:[{name, exact, category, storage_unit, sublocation, zone, label, synonyms, notes, concentration}]}. Exit 1 and a sentence when the MODEL does not name it, which is not the same as the shelf being empty.",
+  "examples": [
+    {
+      "input": [
+        "green tube"
+      ],
+      "exit": 0
+    }
+  ],
+  "requires": [
+    {
+      "path": "docs/assets/data/locations.tsv",
+      "note": "the materials and their synonyms. The synonyms column is what makes this answer a spoken question rather than a catalogue lookup."
+    }
+  ],
+  "notes": "SYNONYMS ARE THE POINT. A student asks for the green tube, not for PrimeStar PCR Buffer, and locations.tsv carries both. Reads the site's own loader (docs/tools/lab/js/data.js) rather than parsing the TSVs again, so there is one answer to the quoting and column questions rather than two.",
+  "tags": [
+    "b144",
+    "room",
+    "inventory",
+    "where"
+  ],
+  "created": "2026-10-15",
+  "updated": "2026-10-15"
+}

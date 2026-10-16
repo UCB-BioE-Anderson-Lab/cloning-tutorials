@@ -1,0 +1,15 @@
+{
+  "name": "cloning-tutorials",
+  "what": "The lab's teaching site, and with it the model of B144 itself: every named storage unit and what may be opened by a student, the materials in them with the synonyms people actually say out loud (\"green tube\", \"B buffer\"), the consumables with their targets and reorder sources, the chemicals, the benches and the equipment. The protocols and thermocycler programs here are vendored from C6-Multiplatform and belong to it; what is this world's own is the room.",
+  "holds": [
+    "room",
+    "inventory"
+  ],
+  "sharables": "sharables",
+  "bin": "bin",
+  "docs": "docs/C11-CONNECTOR.md",
+  "refresh": {
+    "generated": false,
+    "why": "the room model is maintained by hand — somebody walks the room and edits the TSVs. Nothing derives it from anything, so there is no build to run and no check that could tell current from stale. What WOULD tell you is a steward count, and none has ever been submitted."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "clotho.sharable/1",
+  "id": "room.restock",
+  "type": "function",
+  "name": "What B144 should be stocked with, and what nobody has counted",
+  "description": "the consumables with their target and reorder threshold, their vendor and on-campus source — and the fact that no stock level has ever been recorded for any of them, so nothing here says what is actually low",
+  "phrases": [
+    "what do we need to reorder",
+    "are we low on tips",
+    "what is the target stock for that",
+    "where do we buy this",
+    "what does B144 stock",
+    "has anybody counted the consumables"
+  ],
+  "noun": "consumable",
+  "verb": "restock",
+  "entry": "bin/room restock",
+  "returns": "the counts: how many locations carry a target, how many do not, how many hold more than one item. --json adds every location with its items, target, threshold, vendor_url, campus_source and preferred_acquire.",
+  "examples": [
+    {
+      "input": [],
+      "exit": 0
+    }
+  ],
+  "requires": [
+    {
+      "path": "docs/assets/data/consumables.tsv",
+      "note": "target and threshold per row — what SHOULD be there. There is no column for what IS there, which is why this verb cannot report what is low."
+    }
+  ],
+  "notes": "IT REPORTS THAT NOBODY HAS LOOKED, NOT THAT NOTHING IS NEEDED. consumables.tsv has no column for the amount on the shelf; that number would come from the steward count sheets, and as of 2026-10-15 not one has ever been submitted across eight steward folders. An item with a target and no count is UNMEASURED, and printing a short 'nothing to reorder' list would be the most dangerous possible output because it reads as a checked room. SECOND FINDING, REPORTED RATHER THAN SMOOTHED: target and threshold are recorded per ROW while the map is keyed by LOCATION, so where two items share a location the last row's target is the one that survives and may describe a different item. 3 of 70 locations are like that.",
+  "tags": [
+    "b144",
+    "room",
+    "inventory",
+    "where"
+  ],
+  "created": "2026-10-15",
+  "updated": "2026-10-15"
+}
