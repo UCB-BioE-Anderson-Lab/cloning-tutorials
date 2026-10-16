@@ -62,7 +62,9 @@ export function factory(values = {}) {
 
   return {
     name: "Picking Colonies into a Block",
-    description: `Pick ${per} colonies from each of ${samples} plates into ${blocks} × ${perBlock}-well block${blocks > 1 ? "s" : ""}.`,
+    description: samples === 1
+      ? `Pick ${per} colonies into ${blocks} × ${perBlock}-well block${blocks > 1 ? "s" : ""}.`
+      : `Pick ${per} colonies from each of ${samples} plates into ${blocks} × ${perBlock}-well block${blocks > 1 ? "s" : ""}.`,
     includes: { required: [], optional: ["parafilm_sealing_plates"] },
     derived: {
       samples,
@@ -80,7 +82,7 @@ export function factory(values = {}) {
     },
     template: `
 **Plan**
-- ${samples} plates × ${per} colonies = **${used} cultures**.
+- ${samples} plate${samples > 1 ? "s" : ""} × ${per} colonies = **${used} cultures**.
 ${overflow}
 **Pick into tubes or a block**
 - **Up to ${MAX_TUBES} cultures:** individual **snap-cap culture tubes**, one per clone.
