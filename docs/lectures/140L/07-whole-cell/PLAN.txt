@@ -101,6 +101,100 @@ title's natural margin cuts the bottom box in half.  Crop generously
 below the title, then -fuzz 3% -trim, then add a white border back.
 
 
+=========================================================
+WHERE THIS WAS LEFT — 18 Oct 2026.  READ FIRST.
+=========================================================
+THE MISSION IS NOT FINISHED.  One section of six is converted.
+
+  BUILT     00-front-matter.html   source slides 1-11
+  NOT BUILT 01 02 03 04 05         source slides 12-40
+
+Nothing is half-written: the working tree is clean, 00 audits clean,
+and no file for 01-05 exists yet.  The deck is NOT in the 140L index
+and is not reachable from the site, deliberately, until it is whole.
+
+Only 00-front-matter.html is listed in lecture.js.  Add each section to
+that list as it lands.
+
+TOOLS ARE COMMITTED, so none of the pipeline has to be rediscovered:
+  docs/lectures/tools/recolour_pptx.py   theme + literal recolour, repack
+  docs/lectures/tools/pptx_text.py       verbatim text, notes, emphasis
+
+TO PICK UP, FROM THE REPO ROOT:
+
+  SRC="$HOME/Library/CloudStorage/Dropbox/Courses/140L/Stanley 2025/\
+140L-Fall2025-Lectures/2025_10_16-Whole-Cell Analysis.pptx"
+  python3 docs/lectures/tools/recolour_pptx.py "$SRC" /tmp/wca
+  cd /tmp/wca && soffice --headless --convert-to pdf recoloured.pptx --outdir .
+  mkdir -p pages && pdftoppm -png -r 80 -f 1 -l 40 recoloured.pdf pages/p
+  python3 docs/lectures/tools/pptx_text.py /tmp/wca/unpacked 12 23
+
+The scratch directory does NOT survive between sessions; it was already
+lost once and rebuilt from these two tools in about a minute.  At 80 dpi
+a page is exactly 800x600 px for this deck's 10x7.5in slides, which is
+what the crop boxes below are in.
+
+FIGURE GEOMETRY FOR SECTION 01, ALREADY COMPUTED
+------------------------------------------------
+Bounding box of the non-text shapes on each source slide, in 800x600
+page pixels, derived from a:off/a:ext in the slide XML (EMU * 800/9144000
+across, * 600/6858000 down).  This is the expensive part to redo.
+
+  slide12  240,207 -> 756,520   one picture, image4.png
+  slide13    0,0   -> 344,434   drawn cassette; CROP IT, not a media file
+  slide14   47,20  -> 747,423   image6.png plus one more picture
+  slide15  173,87  -> 666,547   image7.jpeg, the four-panel A/B/C/D figure
+  slide16  173,88  -> 410,316   image8.png, panel A alone
+  slide17  427,87  -> 663,313   image9.png, panel D alone
+  slide18   40,80  -> 753,259   image10.png, the timelapse strip
+  slide19   33,107 -> 771,570   46 drawn shapes; CROP the whole composition
+  slide20   33,107 -> 771,567   88 drawn shapes; CROP
+  slide21   93,93  -> 800,562   photos + a drawn o-nitrophenol structure
+  slide22   93,93  -> 800,326   image16.png and one more
+  slide23   27,107 -> 771,427   65 drawn shapes; CROP the two cell panels
+                                 only, and set the three number rows
+                                 (Fluorescence / OD_600 / Ratio) as HTML
+                                 so they stay text
+
+A NOTE ON THE MEDIA MAPPING.  Reading slide -> image with grep over the
+.rels files gives noisy output when a slide carries several relations;
+write a small parser instead of trusting the grep, or take the picture
+straight out of the rendered page with the box above.
+
+WHAT SECTION 01 CONTAINS, source 12-23
+--------------------------------------
+  12  Fluorescent Reporter Assays   section divider, dark in source
+  13  Fluorescent Reporter Proteins drawn cassette + the FP list as text
+  14  Cytometry                     ONE click build; notes split on *
+  15  Cytometry Data                all four panels
+  16  Cytometry Data                panel A + bullets
+  17  Cytometry Data                panel D + bullets
+  18  Fluorescence Microscopy       timelapse strip + two bullet columns
+  19  Normalization of Signal       ONE click build; notes split on *
+  20  Normalization of Signal       the white-cell control panels
+  21  Spectroscopy                  bullets + photos + structure
+  22  Fluorimetry                   bullets + diagram + photo
+  23  Normalization for OD          two panels + the three-row table
+
+Slides 15, 16 and 17 all carry the title "Cytometry Data" and walk into
+the same figure: all four panels, then A, then D.  Keep them as three
+slides.  They are not a build — the source does not take anything away,
+and each has its own speaker note.
+
+Source 19 and 20 are the same drawing twice, 20 adding a row of white
+(unlabelled control) cells.  CHECK whether that should be a build
+rather than two slides before building it; the notes are separate, so
+the default is two slides.
+
+THE WHITE CELLS ON SLIDE 20 ARE SAFE.  They are white rods drawn on a
+grey panel, and the panel comes with the crop, so they do not vanish
+the way white line art on transparency does.  Do not "fix" them.
+
+JCA HAS EDITS WAITING.  He asked to start making changes and was told
+section 00 is the only thing there to change.  Take those first if they
+are general — they may change how 01-05 get built, and converting all
+of 01-05 first would mean redoing them.
+
 WHAT IS DONE
 ------------
 00-front-matter.html, 11 slides, audited clean: no clipping, no channel
