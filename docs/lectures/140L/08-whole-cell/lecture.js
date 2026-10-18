@@ -25,6 +25,13 @@
    grading, project ideas and wetlab result slides, source slides 41 to 68 —
    is NOT converted and stays in PowerPoint.
 
+   SOURCE 39 AND 40 ARE GONE from the section list.  They were a divider
+   and one slide holding four questions, at the very end.  JCA, 18 Oct
+   2026: go through them individually, and reinforce at the end of each
+   section rather than dumping them at the end.  Each question now closes
+   the section whose tools answer it, verbatim, in the pattern section 00
+   already used.  Source 39's cartoon is deleted.
+
    kind: lecture | section — only used to colour the jump menu key. */
 window.LECTURE = {
   title: "Whole-Cell Analysis",
@@ -34,7 +41,6 @@ window.LECTURE = {
     { file: "01-fluorescent.html", title: "Fluorescent Reporter Assays", kind: "section" },
     { file: "02-biochemical.html", title: "Biochemical Assays", kind: "section" },
     { file: "03-microbiological.html", title: "Microbiological Assays", kind: "section" },
-    { file: "04-experimental.html", title: "Experimental Design", kind: "section" },
-    { file: "05-questions.html", title: "Questions to Ponder", kind: "section" }
+    { file: "04-experimental.html", title: "Experimental Design", kind: "section" }
   ]
 };

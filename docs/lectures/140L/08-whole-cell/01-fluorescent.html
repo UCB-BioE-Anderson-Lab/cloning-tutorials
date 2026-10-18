@@ -41,6 +41,7 @@
 .slide table.od{margin:16px auto 0;border-collapse:collapse;width:1200px}
 .slide table.od td{font-size:30px;padding:2px 0}
 .slide table.od td+td{text-align:center;width:33%}
+.slide.ask p.q{font-size:36px;font-weight:700;line-height:1.35;margin:30px 0 0;max-width:44ch}
 </style>
 </head>
 <body>
@@ -287,6 +288,20 @@ Scattering is a related phenomenon in which light bounces off a particle at a di
   </table>
   <template class="notes">Consider I have these two samples containing the same bacteria.  The only difference is that the cells on the left are twice as concentrated as those on the right.  Fluorescence measurements are linearly related to concentration, thus the sample on the left will give twice the signal as those on the right.  If you take those numbers at face value, you would incorrectly conclude that the cells on the left are more fluorescent than those on the right.</template>
   <template class="desc">Two fields of the same fluorescent bacteria, the left twice as concentrated as the right. Beneath them, fluorescence reads 0.86 on the left and 0.42 on the right.</template>
+</article>
+
+<!-- ------------------------------------------- 40a (moved here, 18 Oct 2026) -->
+<!-- Source slide 40 asked four questions on one slide at the very end of
+     the deck, with all four answers in one note.  JCA: go through them
+     individually, and reinforce at the end of each section instead.  So
+     each question now closes the section whose tools answer it, in the
+     pattern section 00 already used.  Question and answer are VERBATIM;
+     the answer is the matching line of source 40's note. -->
+<article class="slide ask" data-bg="section">
+  <h1>Question to ponder</h1>
+  <p class="q">I am trying to engineer a temperature-sensitive GFP variant.  Experimentally, how do I quantify this effect in live cells?</p>
+  <template class="notes">Put the GFP variants under a constitutive promoter on a plasmid, transform the cells, grow them at different temperatures, measure the fluorescence using a fluorimeter (Tecan), cytometry, or fluorescence microscopy</template>
+  <template class="desc">Question to ponder, on the amber ground: I am trying to engineer a temperature-sensitive GFP variant. Experimentally, how do I quantify this effect in live cells?</template>
 </article>
 
 <script src="../../deck.js" defer></script>

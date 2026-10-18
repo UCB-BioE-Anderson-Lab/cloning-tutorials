@@ -18,6 +18,7 @@
 /* frames of one drawing stacked in a single cell, so a click swaps them */
 .slide .frames{display:grid;min-height:0}
 .slide .frames > img{grid-area:1 / 1}
+.slide.ask p.q{font-size:36px;font-weight:700;line-height:1.35;margin:30px 0 0;max-width:44ch}
 </style>
 </head>
 <body>
@@ -266,6 +267,21 @@
   </div>
   <template class="notes">Another microbiological behavior is adhesion.  Bacteria often stick to surfaces including the surfaces of other cells like human gut epithelial cells  Though it is not synonymous with biofilm formation, it is a highly related phenomenon.  One way to quantify it involves microplate-based adhesion assays.  In this example, we are monitoring the adhesion of bacteria to mannan, a carbohydrate resembling the surfaces of mammalian epithelial cells, via type I pili.</template>
   <template class="desc">A scanning electron micrograph of bacteria attached by pili to a cell surface.</template>
+</article>
+
+<!-- ------------------------------------------- 40b (moved here, 18 Oct 2026) -->
+<!-- Source 40's second and third questions.  They stay together because
+     the third depends on the second; it read "For the system in 2", and
+     with the numbering gone it now reads "For that system", the only
+     change.  Both answers are VERBATIM from source 40's note. -->
+<article class="slide ask" data-bg="section">
+  <h1>Question to ponder</h1>
+  <p class="q">I am trying to engineer bacteria that kill MRSA.  How would I quantify the effect?</p>
+  <p class="q" data-build="1"
+     data-note="Apply the engineered bacteria to a wound infected with MRSA, measure recovery time"
+     data-desc="A second question appears: for that system, how would I demonstrate the clinical utility?">For that system, how would I demonstrate the clinical utility?</p>
+  <template class="notes">Mix the engineered bacteria vs unengineered with MRSA.  After incubation, plate on media that only the MRSA are resistant to.  Count colonies.</template>
+  <template class="desc">Question to ponder, on the amber ground: I am trying to engineer bacteria that kill MRSA. How would I quantify the effect?</template>
 </article>
 
 <script src="../../deck.js" defer></script>
