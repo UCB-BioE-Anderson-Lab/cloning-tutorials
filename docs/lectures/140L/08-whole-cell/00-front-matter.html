@@ -11,6 +11,9 @@
 /* source 6: the three channels of one field, side by side */
 .slide .chans{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:18px}
 .slide .chans img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 4a: the Otis art fills the whole slide, the title over it */
+.slide.otis-slide .otis-stage{position:absolute;top:0;bottom:0;left:100px;right:-100px;margin:0}   /* nudged right so the title clears the tower */
+.slide.otis-slide h1{position:relative;z-index:1}
 /* a slide with a pinned .src credit: stop the figure above it */
 .slide:has(> .src) figure.fig,.slide:has(> .src) .chans{margin-bottom:44px}
 </style>
@@ -55,20 +58,21 @@
 <!-- ----------------------------------------------------------------- 4 -->
 <article class="slide" data-bg="section">
   <h1>The Demonstation</h1>
-  <div class="cols wide-right">
-    <div>
-      <ul class="plain">
-        <li>System Characterization</li>
-        <li>Branding</li>
-      </ul>
-    </div>
-    <figure class="fig">
-      <img src="img/04-otis.png" alt="A black-and-white engraving of Elisha Otis standing on an open elevator platform at an exhibition hall, with a crowd of onlookers in hats below him.">
-    </figure>
-  </div>
-  <template class="notes">A demonstration experiment involves testing a system in a context close to its real-world usage in a manner that highlights the its features, and demonstrates the absence of undesirable features.  It involves system characterization of the complete system in a context similar to its real world usage.  It is often disregarded as cheap advertising, and indeed is highly useful for branding an invention.  However, the utility of a demonstration goes beyond this. The image here is of Otis, of elevator fame, who was demonstrating their new safety system that involved a mechanism that locked the elevator car in place if the hoisting ropes fail. He gathered a crowd of people around as he stood on the elevator platform, and then he cut the rope.  Instead of plunging to his death, the safety mechanism kicked in.
-Now, he could have instead written a report that quantified the load capacity of the breaking mechanism, shown statistics on its rate of failure under test conditions, or provided simulations of the failure process.  However, for the goals of introducing a product, the more direct demonstration is far more tangible and powerful.  By doing the demo live and in person, he is showing that he is willing to trust his life to the invention, and in the process is inducing emotions of anticipation and foreboding in his audience members minds.  Thus they are paying attention, and when the device does not fail, the memory of the experiment is far more tangible than if they read a report.  This is not to say that the report should not be generated &ndash; some people will want a more technical specification about the performance of this device.  However, the report alone is far less compelling than the dramatic demonstration.  Technical reports are only comprehensible to an expert in the subject, and whether the report means the system works well or not is often intangible to a general audience.  However, the demonstration is immediately tangible and communicates exactly what the general audience wants to know:  If I use an Otis elevator, and the rope breaks, I won&rsquo;t die.</template>
-  <template class="desc">Section divider: The Demonstation. Two words name what a demonstration does &mdash; system characterization and branding &mdash; beside an engraving of Elisha Otis on an elevator platform before a crowd, about to cut the hoisting rope.</template>
+  <ul class="plain">
+    <li>System Characterization</li>
+    <li>Branding</li>
+  </ul>
+  <template class="notes">A demonstration experiment involves testing a system in a context close to its real-world usage in a manner that highlights the its features, and demonstrates the absence of undesirable features.  It involves system characterization of the complete system in a context similar to its real world usage.  It is often disregarded as cheap advertising, and indeed is highly useful for branding an invention.  However, the utility of a demonstration goes beyond this.</template>
+  <template class="desc">Section divider: The Demonstation. Two words name what a demonstration does &mdash; system characterization and branding.</template>
+</article>
+
+<!-- ------------------------------------------------ 4a (added, not in source) -->
+<!-- Otis cuts the rope, in four clicks: seq/otis.js over seq/art-otis.js.
+     It replaces the engraving that sat on the card above, and carries the
+     rest of that card's source note, split at its clicks. -->
+<article class="slide otis-slide" data-seq="otis">
+  <figure class="otis-stage"></figure>
+  <h1 class="small">The Demonstation</h1>
 </article>
 
 <!-- ------------------------------------------------- 5a (added, not in source) -->
@@ -193,6 +197,8 @@ Take a mouse, give it cancer, inject with the car-T, and show the mouse after th
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/art-otis.js" defer></script>
+<script src="seq/otis.js" defer></script>
 <script src="seq/brainbow.js" defer></script>
 </body>
 </html>
