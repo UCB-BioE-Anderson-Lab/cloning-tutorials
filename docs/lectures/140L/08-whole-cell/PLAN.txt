@@ -486,3 +486,56 @@ EDITS MADE (the edit pass, from 18 Oct 2026)
         painted at 1.75x, which is fine.  Left alone.
     B6  slide 12's divider is 2.38x, the mildest real case in the deck.
         Optional, not done.
+
+THE QUALITY-PASS SWARM, 18 Oct 2026
+-----------------------------------
+Five parallel sessions, one per section file so none could collide,
+working from IMPROVEMENTS.txt.  Their branches are
+claude/wca-lane-{a,c,d,e,f}-* ; the work was reviewed and copied here,
+nothing was merged by git.  What landed:
+
+  6, 7  (lane A)  The Brainbow 3 panels, cropped from a low-resolution
+      PMC author manuscript, are replaced by Cell Image Library
+      CIL:42753: a Brainbow hippocampus stored as a three-page
+      greyscale TIFF at 1230x841, one page per channel.  Slide 6 shows
+      the three channels AS GREYSCALE, which is how the detector
+      records them and is a better "raw" than the tinted panels were;
+      slide 7 shows the same three merged to red, green and blue.
+      Credited on both slides.  JCA approved splitting and merging
+      ("it is cc from the get go").  Six times the pixels.
+
+  27  (lane C)  Three fixes.  img/27-baclight.png was a product
+      WORDMARK shipped as a bitmap: it is text now.  img/27-antibody.png
+      was line art on the source's grey panel: redrawn as inline SVG in
+      slide 13's vocabulary (cell ink, whatever fluoresces green).
+      Body text 91 words -> 80.  One bullet came off, the one about
+      conjugated antibodies on displayed epitopes, because the redrawn
+      figure now labels exactly that.  LANE C ALSO CUT the bullet about
+      determining the percentage of live bacteria; I PUT IT BACK, since
+      it names what the assay is for and no figure says that, and
+      corrected its source typo "proceedure".
+      C2 (tracing the four structures) was tried and NOT shipped: the
+      sugar labels on S-gal do not survive the tracer.  C3 withdrawn.
+
+  30, 31  (lane D)  Both bar charts were bitmap crops on the source's
+      grey panel.  Redrawn as inline SVG in the palette, with the
+      pixel-to-value calibration recorded in a comment in the file
+      (rows per unit, every bar top, every error-bar cap) and verified
+      against the source to within 0.7 rendered pixels.  32-swarm-plates
+      lifted off its grey panel with the photographs untouched.
+      D3 withdrawn.
+
+  35, 36  (lane E)  The arabinose transfer function, whose points were
+      a pale tint and all but invisible, and the magnesium media chart,
+      a PowerPoint 3D bar chart, are both re-plotted as inline SVG from
+      values measured off the source bitmaps and re-verified on the
+      finished render.  The media chart deliberately carries NO VALUE
+      AXIS: the source's own numbers are unreadable, so none is quoted
+      rather than invented.  COLOUR CHANGED FROM THE SOURCE: PmgtCB,
+      the promoter under test, is blue (the palette's "what to follow")
+      and the phoPp1 control vermillion; the source had them the other
+      way round.  36-and-gate, 36-light-gradient and 38-toggle-circuit
+      lifted off their grey panels.  Both YouTube links on 37 are live.
+
+  39  (lane F)  Nothing.  Its one item was chasing the measurement
+      error and was withdrawn; it reverted and reported clean.

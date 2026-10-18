@@ -18,11 +18,20 @@
 .slide .subs .top{grid-column:1 / 3;display:flex;flex-direction:column;justify-content:center}
 .slide .subs .top ul.plain{list-style:none;padding:0}
 .slide .subs .top ul.plain li{font-size:34px;margin:0 0 4px}
-/* source 27: two columns that change places on the click */
-.slide .swap{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1.1fr 1fr;gap:40px}
-.slide .swap > *{min-height:0;display:flex;flex-direction:column}
-.slide .swap figure.fig{margin:0 0 14px}
-.slide .swap figure.lbl{flex:0 0 auto;height:120px}
+/* source 27: one state swaps for another on the click.  Both are stacked in
+   ONE grid cell (AUTHORING: grid-area:1/1 on each), so each state gets the
+   whole slide rather than half of it; each then splits itself text | figure. */
+.slide .swap{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr}
+.slide .swap > *{grid-area:1/1;min-height:0;display:grid;
+  grid-template-columns:1fr 1.1fr;gap:46px;align-items:center}
+.slide .swap > * > *{min-width:0;min-height:0}
+.slide .swap figure.fig{margin:0}
+/* the antibody cartoon is drawn, not a bitmap: it sizes off its own aspect */
+.slide .swap figure.stain{margin:0}
+.slide .swap figure.stain svg{display:block;width:100%;height:auto}
+/* the product name, which the source deck shipped as a wordmark bitmap */
+.slide .swap .brand{flex:0 0 auto;margin:0 0 16px;font-size:31px;line-height:1.18;
+  font-weight:300;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -104,38 +113,92 @@ I highlight the enzymatic assays because they are commonly used, and there many 
 </article>
 
 <!-- ---------------------------------------------------------------- 27 -->
+<!-- Edit pass (lane C, 18 Oct 2026).  Three separate fixes, none of them
+     touching a note:
+       - img/27-baclight.png was a product WORDMARK shipped as a bitmap.
+         It is set as text below and the file is deleted.
+       - img/27-antibody.png was line art on the source deck's grey panel.
+         Redrawn as inline SVG in the vocabulary of slide 13 of
+         01-fluorescent.html: the cell is ink, whatever fluoresces is
+         green #2b8a3e.  The file is deleted.
+       - 91 body words thinned against what the figures now show.  The
+         bullet about conjugated antibodies on surface epitopes is what
+         the drawing shows; the bullet about a single-cell fluorescence
+         readout of the live fraction was also cut, and has been PUT BACK:
+         it names what the assay is FOR, and the micrograph does not say
+         that.  Its source typo "proceedure" is corrected here, as the
+         deck's other spelling was.  So one bullet comes off, not two.  Every surviving bullet is VERBATIM.
+     The six words labelling the drawing are new and need JCA's review.
+     The notes template and the click's data-note are unchanged. -->
 <article class="slide">
   <h1>Staining Measurements</h1>
   <div class="swap">
     <div data-unbuild="1">
-      <ul class="tighter">
+      <div>
+      <ul class="tight">
         <li>Stains specifically label some biochemical species of a cell, or are used as a probe of permeability or the chemical environment of a cell (pH detection, calcium detection, etc.)</li>
-        <li>Can stain things on the surface of the bacterium (displayed epitopes, proteins) with conjugated antibodies</li>
         <li>Can stain microbiological biochemicals (flagella, pili, carbohydrates) with lectins or antibodies</li>
         <li>Can do chemical stains (gram staining)</li>
       </ul>
-      <figure class="fig">
-        <img src="img/27-antibody.png" alt="A diagram on a grey ground, labelled Antibody: a receptor protein spanning a membrane, marked Out above and In below, is approached by a quantum dot carrying antibodies, labelled 20% aminoQD, which then binds two receptors.">
+      </div>
+      <figure class="fig stain">
+        <svg viewBox="0 0 640 282" aria-hidden="true">
+          <g fill="none" stroke="#111111" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- the cell surface, broken where a protein crosses it -->
+            <path d="M16 192H193M237 192H398M442 192H624"/>
+            <path d="M16 218H193M237 218H398M442 218H624"/>
+            <!-- one antibody on the left protein, three on the particle -->
+            <path d="M193 104L215 74L237 104"/><path d="M215 74V52"/>
+            <path d="M398 104L420 74L442 104"/><path d="M420 74V62"/>
+            <path d="M352.6 38.2L377.7 45L362.7 66.3"/><path d="M377.7 45L391.8 40.2"/>
+            <path d="M487.4 38.2L462.3 45L477.3 66.3"/><path d="M462.3 45L448.2 40.2"/>
+          </g>
+          <!-- two copies of one surface protein; filled white so the
+               membrane lines read behind the protein rather than through it -->
+          <g fill="#ffffff" stroke="#111111" stroke-width="4.2" stroke-linejoin="round">
+            <rect x="197" y="150" width="36" height="112" rx="18"/>
+            <circle cx="215" cy="140" r="28"/>
+            <rect x="402" y="150" width="36" height="112" rx="18"/>
+            <circle cx="420" cy="140" r="28"/>
+          </g>
+          <!-- whatever fluoresces is green, as on slide 13 -->
+          <circle cx="215" cy="41" r="21" fill="#2b8a3e" fill-opacity="0.14"/>
+          <circle cx="215" cy="41" r="11" fill="#2b8a3e"/>
+          <circle cx="420" cy="30" r="44" fill="#2b8a3e" fill-opacity="0.14"/>
+          <circle cx="420" cy="30" r="30" fill="none" stroke="#2b8a3e" stroke-width="4.2"/>
+          <g font-size="21" fill="#111111">
+            <text x="556" y="178">Out</text>
+            <text x="560" y="246">In</text>
+            <text x="150" y="47" text-anchor="end">fluorophore</text>
+            <text x="150" y="103" text-anchor="end">antibody</text>
+            <text x="150" y="252" text-anchor="end">surface protein</text>
+            <text x="502" y="24">particle</text>
+          </g>
+          <g fill="none" stroke="#111111" stroke-width="2.2" stroke-linecap="round">
+            <path d="M158 41H186"/><path d="M158 97H192"/>
+            <path d="M158 246H196"/><path d="M494 18H468"/>
+          </g>
+        </svg>
       </figure>
     </div>
     <div data-build="1"
          data-note="Another general-use staining strategy is to combine cell permeable and impermeable dyes.  In the Live/Dead baclight kit, a live-cell impermeable dye called propidium iodide is mixed with a cell permeable dye called SYTO9.  Only the dead cells will pick up the propidium iodide, but all cells get syto9.  Based on the ratio of the two dyes in the cell, you can tell if the cell is alive or not.  That measurement is done by any of the various fluorescence methods, but most typically cytometry or microscopy."
-         data-desc="The general staining bullets and the antibody diagram leave. On the right appear the LIVE/DEAD BacLight Bacterial Viability Kits name, a micrograph of bacteria stained green and red, and bullets: live-cell impermeable propidium iodide; all-cell permeable SYTO 9; a staining procedure with single-cell fluorescence readout, by cytometry or microscopy, for determining the percentage of live bacteria in a population.">
-      <figure class="fig lbl">
-        <img src="img/27-baclight.png" alt="The product name LIVE/DEAD BacLight Bacterial Viability Kits, set in grey type.">
-      </figure>
-      <figure class="fig">
-        <img src="img/27-live-dead.jpg" alt="A fluorescence micrograph of bacteria on a black ground, the live cells glowing green and the dead cells red.">
-      </figure>
-      <ul class="tighter">
+         data-desc="The staining bullets and the antibody drawing leave. On the right appear the LIVE/DEAD BacLight Bacterial Viability Kits name, a fluorescence micrograph of bacteria stained green and red, and three bullets: live-cell impermeable propidium iodide, all-cell permeable SYTO 9, and a staining procedure with single-cell fluorescence readout, by cytometry or microscopy, for determining the percentage of live bacteria in a population.">
+      <ul class="tight">
         <li>Live-cell impermeable propidium iodide</li>
         <li>All-cell permeable SYTO&reg; 9</li>
-        <li>A staining proceedure with single-cell fluorescence readout (cytometry or microscopy) for determining the percentage of live bacteria in a population</li>
+        <li>A staining procedure with single-cell fluorescence readout (cytometry or microscopy) for determining the percentage of live bacteria in a population</li>
       </ul>
+      <div>
+        <p class="brand">LIVE/DEAD<sup>&reg;</sup> <i>Bac</i>Light<sup>&trade;</sup><br>Bacterial Viability Kits</p>
+        <figure class="fig">
+          <img src="img/27-live-dead.jpg" alt="A fluorescence micrograph of bacteria on a black ground, the live cells glowing green and the dead cells red.">
+        </figure>
+      </div>
     </div>
   </div>
   <template class="notes">Another type of biochemical assay involves stains. Stains specifically label some biochemical species of a cell, or are used as a probe of permeability or the chemical environment of a cell (pH detection, calcium detection, etc.) You can stain things on the surface of the bacterium such as displayed epitopes and surface proteins with conjugated antibodies.  These are reagents constructed from fluorophores and antibodies chemically linked together. They will stain the cell by specific binding to the epitope on the surface of the cell. You can quantify the staining by any of the various fluorescence methods. You can also stain microbiological biochemicals on the cell surface such as flagella, pili, and carbohydrates using lectins or antibodies.  Lectins are binding proteins like antibodies that bind to specific carbohydrate patterns.  There are also more general stains, such as gram stain, that will light up the peptidoglycan and stain many cells generally.</template>
-  <template class="desc">Four bullets: stains label some biochemical species of a cell, or probe permeability or the chemical environment such as pH or calcium; surface things such as displayed epitopes and proteins can be stained with conjugated antibodies; microbiological biochemicals such as flagella, pili and carbohydrates can be stained with lectins or antibodies; and chemical stains such as gram staining. Beneath them, a diagram of an antibody-coated quantum dot binding receptors on a cell membrane.</template>
+  <template class="desc">Three bullets: stains label some biochemical species of a cell, or probe permeability or the chemical environment such as pH or calcium; microbiological biochemicals such as flagella, pili and carbohydrates can be stained with lectins or antibodies; and chemical stains such as gram staining. Beneath them, a drawing of a patch of cell surface, labelled Out above and In below, with two copies of one surface protein crossing it: one is held by an antibody carrying a green fluorophore, the other by a green particle carrying three antibodies.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 28 -->

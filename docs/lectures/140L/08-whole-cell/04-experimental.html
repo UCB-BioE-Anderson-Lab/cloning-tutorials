@@ -18,6 +18,12 @@
 .slide ul.list{list-style:none;padding:0;margin:40px 0 0 640px}
 .slide ul.list li{font-size:36px;margin:0 0 8px}
 .slide .grid a{font-size:20px;color:var(--blue);word-break:break-all}
+.slide .grid svg{width:100%;height:100%;min-height:0;display:block}
+.slide .chart .ax{stroke:var(--ink);stroke-width:1.6;fill:none}
+.slide .chart .gl{stroke:var(--rule);stroke-width:1.4}
+.slide .chart text{fill:var(--ink)}
+.slide .chart .tick{font-size:22px}
+.slide .chart .atitle{font-size:24px}
 </style>
 </head>
 <body>
@@ -48,9 +54,96 @@
          data-desc="A reporter device appears: the P-mgtCB promoter, or the P-phoPp1 control, driving RFP &mdash; a magnesium reporter device.">
     <figure data-build="2"
             data-note="Red fluorescence and OD are measured fluorimetrically after growth in different media.  The signature of a differential expression experiments is the non-continuous nature of the input variable.  In this study, those different inputs are specific medias.  In many industrial-scale fermentation processes, these inputs might be different chemical feedstocks.  The conditions employed are specific things, and it is not relevant to ask about a condition halfway in between."
-            data-desc="A 3D bar chart appears, titled Red Fluorescence Measured by Fluorimetry in Different Media: two rows of bars, P-mgtCB in amber and phoPp1 in blue, across four media &mdash; LB plus 100mM magnesium, DMEM, M9 with 10 micromolar magnesium and calcium, and PBS. The P-mgtCB bar is tallest by far in PBS.">
+            data-desc="A grouped bar chart appears, titled Red Fluorescence Measured by Fluorimetry in Different Media: P-mgtCB in blue beside the phoPp1 control in vermillion, across four media &mdash; LB plus 100mM magnesium, DMEM, M9 with 10 micromolar magnesium and calcium, and PBS. The P-mgtCB bar is tallest by far in PBS.">
       <figcaption>Red Fluorescence Measured by Fluorimetry in Different Media</figcaption>
-      <img src="img/35-media-chart.png" alt="A 3D bar chart of red fluorescence for two promoters, PmgtCB in amber and phoPp1 in blue, across four media: LB plus 100mM Mg2+, DMEM, M9 (10uM Mg2+ and Ca2+), and PBS. PmgtCB rises steadily across the media and is tallest by far in PBS.">
+      <!-- E2.  RE-PLOT of img/35-media-chart.png (860x588), a PowerPoint 3D bar
+           chart: legible type nowhere, and bars that perspective makes
+           impossible to compare.  The bitmap is kept in img/ as the source of
+           record.
+
+           THE SOURCE CHART CARRIES NO VALUE AXIS AT ALL — no y numbers, no y
+           title.  So no number is quoted here either.  The gridlines below are
+           the source's own five wall intervals, unlabelled, exactly as it has
+           them.  The bar heights are the only quantity recovered.
+
+           HOW THE HEIGHTS WERE READ.  Each 3D bar shows three shaded faces.
+           The FRONT face was isolated by exact colour (blue #004C81, amber
+           #BDA112) and its height taken where the face is at full extent:
+
+             bar                       front face, px   screen x   height, px
+             phoPp1  LB+100mM Mg2+        88..151          120         58.5
+             phoPp1  DMEM                250..314          282         88.5
+             phoPp1  M9                  417..483          450        138.5
+             phoPp1  PBS                 589..659          624        202.0
+             PmgtCB  LB+100mM Mg2+       158..218          188         45.5
+             PmgtCB  DMEM                314..376          345        137.5
+             PmgtCB  M9                  476..540          508        149.5
+             PmgtCB  PBS                 644..713          678        430.5
+
+           The projection is a true perspective, so one pixel is not one value
+           everywhere.  Two corrections were applied.  (1) The back wall's
+           gridline spacing runs from 72.9 px at x=180 to 76.75 px at x=770,
+           so u(x) = 72.9 + 0.006525(x-180).  (2) The rows stand in front of
+           that wall, the phoPp1 row further forward than the PmgtCB row; the
+           scale factor was taken from the drawn bar widths (63,64,66,70 px for
+           phoPp1 against 60,62,64,69 px for PmgtCB), giving 1.106 for the
+           phoPp1 row and 1.043 for the PmgtCB row.
+
+           HEIGHTS, in wall-gridline intervals = height_px / (u(x) * row factor)
+
+                                      PmgtCB    phoPp1
+             LB+100mM Mg2+              0.60      0.73
+             DMEM                       1.78      1.09
+             M9 (10uM Mg2+ and Ca2+)    1.91      1.67
+             PBS                        5.41      2.39
+
+           CHECKS.  A second, independent method — height divided by that bar's
+           own drawn width, which needs no wall geometry at all — reproduces the
+           same eight numbers to within 3 parts in 100 of the tallest bar.  And
+           the PBS PmgtCB bar comes out at 5.41 intervals against a wall five
+           intervals tall, which is why in the source it alone overtops the
+           wall; it does so here too.  Residual uncertainty is a few per cent,
+           which is well inside every comparison the slide makes.
+
+           COLOUR, changed from the source: PmgtCB, the promoter under test, is
+           blue (rung 1, what to follow) and the phoPp1 control vermillion.  The
+           source had PmgtCB amber and phoPp1 blue.                          -->
+      <svg class="chart" viewBox="0 0 820 420" role="img"
+           aria-label="A grouped bar chart of red fluorescence for two promoters, PmgtCB in blue and phoPp1 in vermillion, across four media: LB plus 100mM Mg2+, DMEM, M9 with 10uM Mg2+ and Ca2+, and PBS. PmgtCB rises steadily across the media and is more than twice phoPp1 in PBS.">
+        <g class="gl">
+          <line x1="60" y1="278.3" x2="790" y2="278.3"/>
+          <line x1="60" y1="226.6" x2="790" y2="226.6"/>
+          <line x1="60" y1="174.8" x2="790" y2="174.8"/>
+          <line x1="60" y1="123.1" x2="790" y2="123.1"/>
+          <line x1="60" y1="71.4"  x2="790" y2="71.4"/>
+        </g>
+        <g fill="var(--blue)">
+          <path d="M96.2 330.0 V303.0 Q96.2 299.0 100.2 299.0 H144.2 Q148.2 299.0 148.2 303.0 V330.0 Z"/>
+          <path d="M278.8 330.0 V241.9 Q278.8 237.9 282.8 237.9 H326.8 Q330.8 237.9 330.8 241.9 V330.0 Z"/>
+          <path d="M461.2 330.0 V235.2 Q461.2 231.2 465.2 231.2 H509.2 Q513.2 231.2 513.2 235.2 V330.0 Z"/>
+          <path d="M643.8 330.0 V54.2 Q643.8 50.2 647.8 50.2 H691.8 Q695.8 50.2 695.8 54.2 V330.0 Z"/>
+        </g>
+        <g fill="var(--vermillion)">
+          <path d="M154.2 330.0 V296.2 Q154.2 292.2 158.2 292.2 H202.2 Q206.2 292.2 206.2 296.2 V330.0 Z"/>
+          <path d="M336.8 330.0 V277.6 Q336.8 273.6 340.8 273.6 H384.8 Q388.8 273.6 388.8 277.6 V330.0 Z"/>
+          <path d="M519.2 330.0 V247.6 Q519.2 243.6 523.2 243.6 H567.2 Q571.2 243.6 571.2 247.6 V330.0 Z"/>
+          <path d="M701.8 330.0 V210.4 Q701.8 206.4 705.8 206.4 H749.8 Q753.8 206.4 753.8 210.4 V330.0 Z"/>
+        </g>
+        <path class="ax" d="M60 330 L790 330"/>
+        <g class="tick" text-anchor="middle">
+          <text x="151.25" y="358">LB+100mM Mg2+</text>
+          <text x="333.75" y="358">DMEM</text>
+          <text x="516.25" y="358">M9 (10uM Mg2+</text>
+          <text x="516.25" y="384">and Ca2+)</text>
+          <text x="698.75" y="358">PBS</text>
+        </g>
+        <g class="tick" text-anchor="start">
+          <rect x="66" y="34" width="24" height="18" fill="var(--blue)"/>
+          <text x="98" y="50">PmgtCB</text>
+          <rect x="66" y="64" width="24" height="18" fill="var(--vermillion)"/>
+          <text x="98" y="80">phoPp1</text>
+        </g>
+      </svg>
     </figure>
   </div>
   <template class="notes">Differential expression involves performing an assay under different conditions.  In this example, we are trying to characterize the response behavior of a magnesium-responsive promoter in LB medium versus PBS medium.</template>
@@ -72,10 +165,85 @@
     <figure data-build="2" style="grid-area:1 / 2 / 3 / 3"
             data-note="In this example we are showing the response of an AND gate of two different inputs:  arabinose and salicylate.  Thus, the inputs of a transfer function can have more than one axis."
             data-desc="A 3D surface appears: normalized fluorescence of an AND gate across salicylate and arabinose concentrations, high only where both inputs are high. Source: PMID 17700541.">
-      <img src="img/36-and-gate.png" alt="On a grey panel, a 3D surface plot of normalized fluorescence over salicylate and arabinose concentrations from 10^-7 to 10^-3 molar, coloured from purple at 0 to red at 1. The surface is flat and purple except for a peak where both inputs are high.">
+      <img src="img/36-and-gate.png" alt="A 3D surface plot of normalized fluorescence over salicylate and arabinose concentrations from 10^-7 to 10^-3 molar, coloured from purple at 0 to red at 1. The surface is flat and purple except for a peak where both inputs are high.">
       <figcaption class="src">PMID: 17700541</figcaption>
     </figure>
-    <img data-build="1" style="grid-area:3 / 1" src="img/36-arabinose-chart.png" alt="A scatter plot of GFP in arbitrary units by cytometry against arabinose in micrograms per mL on a log axis from 0.01 to 1000: points sit near zero up to about 0.1, then climb steadily to about 11,000.">
+    <!-- E1.  RE-PLOT of img/36-arabinose-chart.png (745x472), whose points were
+         a pale tint of blue and all but invisible on the slide.  Nothing here is
+         invented: the eight marker centroids were read off that bitmap by
+         connected-component analysis and converted with the bitmap's own axis
+         calibration.  The bitmap is kept in img/ as the source of record.
+
+         CALIBRATION, in bitmap pixels
+           x tick marks  0.01 .. 1000  at x = 39.5, 151.5, 263.5, 375.5, 486.5, 598.5
+                         -> 111.8 px per decade, log10(c) = -2 + (x-39.5)/111.8
+           y gridlines   0 .. 12000    at y = 385.5, 325.5, 265.5, 205.5, 145.5, 85.5, 25.5
+                         -> 60 px per 2000 AU, v = (385.5-y)/60*2000
+
+         MARKER CENTROIDS AND THE VALUES THEY GIVE
+           centroid px         [arabinose] ug/mL     GFP (AU)
+            49.50, 381.50          0.0123               133
+           116.66, 379.72          0.0490               193
+           184.00, 371.49          0.196                467
+           251.49, 335.92          0.788               1653
+           318.27, 267.12          3.12                3946
+           385.66, 209.72         12.5                 5859
+           452.66, 118.72         49.6                 8893
+           520.27,  60.73        199.6                10826
+
+         CHECK ON THE X VALUES: consecutive concentrations stand in a ratio of
+         3.96 to 4.02, i.e. the source is a clean four-fold dilution series from
+         200 ug/mL down (200, 50, 12.5, 3.125, 0.781, 0.195, 0.0488, 0.0122).
+         The recovered values agree with that series to better than 1%, which is
+         an independent check that the x calibration is right.  The MEASURED
+         values are what is plotted below, not the idealised series.
+         Marker centroids are good to about 0.3 px: ~10 AU in y, ~0.7% in x.
+         Axis titles and tick labels are the source figure's own; nothing has
+         been added.  The y axis has been moved from the right of the source
+         figure to the left, which is the only change of layout.            -->
+    <svg data-build="1" style="grid-area:3 / 1" class="chart" viewBox="0 0 780 330" role="img"
+         aria-label="A scatter plot of GFP in arbitrary units by cytometry against arabinose in micrograms per mL on a log axis from 0.01 to 1000: points sit near zero up to about 0.1, then climb steadily to about 11,000.">
+      <g class="gl">
+        <line x1="110" y1="250.0" x2="700" y2="250.0"/>
+        <line x1="110" y1="212.3" x2="700" y2="212.3"/>
+        <line x1="110" y1="174.7" x2="700" y2="174.7"/>
+        <line x1="110" y1="137.0" x2="700" y2="137.0"/>
+        <line x1="110" y1="99.3"  x2="700" y2="99.3"/>
+        <line x1="110" y1="61.7"  x2="700" y2="61.7"/>
+        <line x1="110" y1="24.0"  x2="700" y2="24.0"/>
+      </g>
+      <path class="ax" d="M110 24 L110 250 L700 250"/>
+      <g class="tick" text-anchor="end">
+        <text x="96" y="257">0</text>
+        <text x="96" y="219.3">2000</text>
+        <text x="96" y="181.7">4000</text>
+        <text x="96" y="144.0">6000</text>
+        <text x="96" y="106.3">8000</text>
+        <text x="96" y="68.7">10000</text>
+        <text x="96" y="31.0">12000</text>
+      </g>
+      <g class="tick" text-anchor="middle">
+        <text x="110" y="278">0.01</text>
+        <text x="228" y="278">0.10</text>
+        <text x="346" y="278">1.00</text>
+        <text x="464" y="278">10.00</text>
+        <text x="582" y="278">100.00</text>
+        <text x="700" y="278">1000.00</text>
+      </g>
+      <text class="atitle" x="405" y="313" text-anchor="middle">[Arabinose] &#181;g/mL</text>
+      <text class="atitle" x="26" y="137" text-anchor="middle"
+            transform="rotate(-90 26 137)">GFP (AU, by cytometry)</text>
+      <g fill="var(--blue)" stroke="var(--paper)" stroke-width="2">
+        <circle cx="120.6" cy="247.5" r="7"/>
+        <circle cx="191.4" cy="246.4" r="7"/>
+        <circle cx="262.5" cy="241.2" r="7"/>
+        <circle cx="333.8" cy="218.9" r="7"/>
+        <circle cx="404.2" cy="175.7" r="7"/>
+        <circle cx="475.4" cy="139.7" r="7"/>
+        <circle cx="546.1" cy="82.5"  r="7"/>
+        <circle cx="617.4" cy="46.1"  r="7"/>
+      </g>
+    </svg>
     <figure data-build="3" style="grid-area:3 / 2"
             data-note="Finally, we have an example of a continuous range of inputs used to construct a transfer function.  The cells here contain the light sensor circuit from the Voigt lab driving lacZ.  They put a layer of the bacteria on the surface of a petri dish, and then shine light on it through a continuous mask. When the light level is right to turn the system on, lacZ gets produced, and Sgal is turned into a black pigment. They then use image processing to quantify the darkness over the gradient to plot out the transfer function."
             data-desc="Three stacked panels appear: a light mask grading from white to black, the bacterial lawn beneath it darkening along the gradient, and a plot of output against position rising in a sigmoid. Source: PMID 16306980.">
@@ -108,7 +276,7 @@
 <article class="slide">
   <h1>Population Heterogeneity/<br>Phase Variation</h1>
   <div class="grid" style="grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,0.45fr) minmax(0,1fr)">
-    <img src="img/38-toggle-circuit.png" alt="On a grey panel, a genetic circuit labelled Fig 3 (a): a cI gene arrow pointing left, binding sites SDA and SDC, 434 operators, the P-RM and P-R promoters with operators OR1 to OR3, then cI434 and EGFP gene arrows pointing right." style="grid-column:1 / -1">
+    <img src="img/38-toggle-circuit.png" alt="A genetic circuit labelled Fig 3 (a): a cI gene arrow pointing left, binding sites SDA and SDC, 434 operators, the P-RM and P-R promoters with operators OR1 to OR3, then cI434 and EGFP gene arrows pointing right." style="grid-column:1 / -1">
     <img src="img/38-colonies.png" alt="A fluorescence image of many small colonies on a dark ground, almost all green, with a few red.">
     <img src="img/38-colony-closeup.png" alt="A close-up fluorescence image of one colony that is red in its centre and green around it.">
   </div>
