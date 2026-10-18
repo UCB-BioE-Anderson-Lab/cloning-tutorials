@@ -11,6 +11,8 @@
 /* source 6: the three channels of one field, side by side */
 .slide .chans{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:18px}
 .slide .chans img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* a slide with a pinned .src credit: stop the figure above it */
+.slide:has(> .src) figure.fig,.slide:has(> .src) .chans{margin-bottom:44px}
 </style>
 </head>
 <body>
@@ -79,11 +81,11 @@ Now, he could have instead written a report that quantified the load capacity of
 <article class="slide">
   <h1>The Brainbow</h1>
   <figure class="fig">
-    <img src="img/05-brainbow3-purkinje.png" alt="A Brainbow 3.1 micrograph of cerebellum: a row of Purkinje cell bodies along the bottom, each a different colour &mdash; lime green, olive, red, violet, orange, magenta and pale blue &mdash; with their dendritic trees branching up into a tangle of red, blue and green above them.">
+    <img src="img/05-brainbow-brainstem.jpg" alt="A Brainbow micrograph of mouse brainstem packed edge to edge with colour: thousands of short axon segments in red, orange, yellow, green and cyan crowd together in clusters, while a thick bundle of long axons sweeps diagonally across the field and violet fibre tracts weave between the clusters.">
   </figure>
-  <p class="src">Cai et al., <i>Nat Methods</i> 2013, Fig. 2a. PMID 23817127</p>
+  <p class="src">Jean Livet, Lichtman lab. First Prize, 2007 Olympus BioScapes. Cell Image Library CIL:40984, CC BY-NC-ND</p>
   <template class="notes">Demonstrations are also common in the genetic engineering space.  Often they employ beautiful images and videos to entice the reader&rsquo;s attention. In this example, we are looking at a false-color rendering of the Brainbow.  The Brainbow was a genetic circuit composed of three fluorescent proteins randomly expressed at several distinct expression levels. A transgenic animal encodes the device, and each neuron of its brain will express one combination of the fluorescent proteins at specific levels.  Each neuron then has a unique signature relative to its neighbors in terms of the relative fluorescence on the three channels. When they do microscopy on slices of the brain material, they can quantify each channel, determine which combination of levels are present in each cell, and assign a color specific to that combination.  They then false-color the image to generate what is shown here.</template>
-  <template class="desc">The Brainbow: a micrograph of cerebellum from a Brainbow 3.1 mouse, in which a row of Purkinje cells each carries its own hue, so each cell and its dendritic tree can be told apart from its neighbours.</template>
+  <template class="desc">The Brainbow: a prize-winning micrograph of a Brainbow mouse brainstem, packed with axons that each glow their own hue &mdash; red, orange, yellow, green, cyan &mdash; so every neuron can be told apart from its neighbours.</template>
 </article>
 
 <!-- ----------------------------------------------------------------- 6 -->
