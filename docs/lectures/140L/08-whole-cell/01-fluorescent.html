@@ -209,34 +209,31 @@ I’ll unpack this statement in the next slide, but like Cytometry, microscopy r
 </article>
 
 <!-- ---------------------------------------------------------------- 21 -->
-<article class="slide">
+<!-- Edit pass (JCA, 18 Oct 2026): rebuilt like slide 14.  The point is
+     OD (scattering, read like absorbance, tracking cell density), and
+     its generalisation to dyes and chromogenic substrates; the
+     o-nitrophenol structure is gone, because seq/spectro.js shows what it
+     does.  Of the source's five bullets, the two about scattering and
+     OD stay verbatim beside the plate-reader photo; the sequence
+     carries the source note, split across its clicks. -->
+<article class="slide spec" data-seq="spectro">
   <h1>Spectroscopy</h1>
   <h2>(Ensemble measurement of absorbance or scattering)</h2>
-  <div class="cols">
-    <div class="stack">
-      <ul class="tighter">
-        <li>Hit it with a band of light at a particular wavelength, measure what is &ldquo;transmitted&rdquo; through, calculate the &ldquo;<b>absorbance</b>&rdquo;</li>
-        <li>Requires a <b>chromophore</b>, either a colored product in the cell, or the product of a chromogenic substrate</li>
-      </ul>
+  <div class="cyto-grid">
+    <figure class="spec-stage"></figure>
+    <div class="cyto-side">
       <figure class="fig">
-        <img src="img/21-o-nitrophenol.png" alt="The chemical structure of o-nitrophenol: a benzene ring carrying a hydroxyl group, OH, with a nitro group, NO2, on the neighbouring carbon.">
-      </figure>
-    </div>
-    <div class="stack">
-      <figure class="fig" style="flex-direction:row;gap:12px">
         <img src="img/21-plate-reader.png" alt="A photograph of a benchtop microplate absorbance reader with a keypad and display.">
-        <img src="img/21-instrument.png" alt="A photograph of a grey, angular benchtop plate-reading instrument.">
       </figure>
-      <ul class="tighter">
+      <ul class="tight">
         <li><b>Scattering</b> is measured the same way as absorbance (the signals are always superimposed)</li>
-        <li>Based on the <b>deflection</b> of radiation by large(ish) particles</li>
         <li>Typically done for bacteria at <b>600nm</b>, the product of which is an OD_600 measurement, referred to as the <b>&ldquo;optical density&rdquo;</b></li>
       </ul>
     </div>
   </div>
   <template class="notes">Though this does not involve fluorescence, another means of using light to make measurements on a cell is to use spectroscopy.  Here, you hit a sample with a beam of light and quantify how much comes out the other end.  That is its ‘transmittance’ which is inversely related to ‘absorbance’.  This measurement requires the use of a chromophore, which means a molecule that absorbs light.  A very common fluorophore for such experiments is o-nitrophenol which turns yellow.  Cells don’t absorb much yellow light, thus there is little competing signal at this wavelength. Typically o-nitrophenol will be caged with another molecule like phosphate or galactose that prevents the molecule from absorbing light.  An enzyme like alkaline phosphatase or galactosidase can release the alcohol and color results.  Thus, the activity of the enzyme in the cell can be monitored by watching the formation of yellow color.
 Scattering is a related phenomenon in which light bounces off a particle at a different angle than its incident vector. Experimentally, scattering is measured the same way as absorbance though it is a distinct phenomenon.  In spectrometric measurements of cells, the scattering signal will be superimposed over the absorbance signal, and the two signals are additive.  The scattering signal can be isolated by monitoring the cells at 600nm, and this is referred to as the sample’s ‘optical density’.  It is linearly related to the concentration of cells in the sample.</template>
-  <template class="desc">Spectroscopy, the ensemble measurement of absorbance or scattering. Left: hit the sample with light at a particular wavelength, measure what is transmitted, and calculate the absorbance; it requires a chromophore, either a colored product in the cell or the product of a chromogenic substrate &mdash; with the structure of o-nitrophenol beneath. Right: photographs of two plate readers, and bullets: scattering is measured the same way as absorbance and the signals are always superimposed; it is based on deflection of radiation by large-ish particles; for bacteria it is done at 600nm, giving the OD_600, the optical density.</template>
+  <template class="desc">A diagram of a spectrophotometer beside a photograph of a plate reader, with two notes: scattering is measured the same way as absorbance, and the signals are always superimposed; for bacteria it is typically done at 600 nanometres, giving OD600, the optical density.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 22 -->
@@ -289,5 +286,6 @@ Scattering is a related phenomenon in which light bounces off a particle at a di
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/cytometer.js" defer></script>
+<script src="seq/spectro.js" defer></script>
 </body>
 </html>
