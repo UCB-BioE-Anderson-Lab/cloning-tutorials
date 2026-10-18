@@ -23,6 +23,18 @@
 .slide.bf .bf-text li,.slide.bf .bf-text p{font-size:25px;line-height:1.3;margin:0 0 9px}
 .slide.bf .bf-text ul{margin:0 0 6px}
 .slide.bf .bf-text .orr{margin:4px 0 6px;color:var(--muted)}
+.slide.bf .bf-text .later{margin-top:18px;color:var(--vermillion);font-weight:700}
+/* source 10: the audience table, and its closing line */
+.slide table.aud{border-collapse:collapse;margin:6px 0 0;font-size:27px}
+.slide table.aud caption{text-align:left;font-weight:700;font-size:28px;padding:0 0 8px}
+.slide table.aud th{text-align:left;font-weight:700;padding:6px 36px 6px 0;white-space:nowrap}
+.slide table.aud td{padding:6px 36px 6px 0;border-top:1px solid var(--rule)}
+.slide table.aud th{border-top:1px solid var(--rule)}
+.slide table.aud td.pr{color:var(--blue)}
+.slide p.closer{margin:24px 0 0;font-size:28px;font-weight:700}
+/* source 11: one question, with its facts */
+.slide ul.facts li{font-size:26px;margin:0 0 6px}
+.slide p.q.big{font-size:34px;margin-top:22px}
 /* a slide with a pinned .src credit: stop the figure above it */
 .slide:has(> .src) figure.fig,.slide:has(> .src) .chans{margin-bottom:44px}
 </style>
@@ -160,31 +172,49 @@
 </article>
 
 <!-- ----------------------------------------------------------------- 9 -->
-<article class="slide">
-  <h1>Artificial Pancreas Cells</h1>
-  <ul>
-    <li>Find a mouse diabetes model</li>
-    <li>Treat it with the Artificial Pancreas cells</li>
-    <li>Compare treated mouse insulin levels to those of untreated mice</li>
-  </ul>
-  <p class="orr" data-build="1">or&hellip;</p>
-  <ul data-build="1"
-      data-note="In addition, taking a video of the mice running around on a treadmill after treatment demonstrates to the audience that not only are insulin levels normal, but the mice more overtly seem normal.  They don&rsquo;t look fatigued, have weight problems, wounds, or other abnormalities."
-      data-desc="The alternative appears: show happy treated mice running on a treadmill.">
-    <li>Show happy treated mice running on a treadmill</li>
-  </ul>
-  <template class="notes">Here&rsquo;s another example.  Suppose you want to make genetically-engineered cells to replace those that have been killed in patients with diabetes.  The technical experiment would involve identifying a mouse diabetes model, performing the treatment with the engineered cells, and then quantifying insulin levels in treated and untreated mice.</template>
-  <template class="desc">The technical experiment for artificial pancreas cells: find a mouse diabetes model, treat it with the cells, and compare insulin levels in treated and untreated mice.</template>
+<article class="slide bf" data-seq="pancreas">
+  <h1>Pancreatic Gene Therapy</h1>
+  <div class="cols">
+    <div class="bf-text">
+      <ul>
+        <li data-beat="1">Find a mouse diabetes model</li>
+        <li data-beat="2">Treat it with the gene therapy</li>
+        <li data-beat="3">Compare treated mouse insulin levels to those of untreated mice</li>
+      </ul>
+      <p class="orr" data-beat="4">or&hellip;</p>
+      <ul data-beat="4"
+          data-note="In addition, taking a video of the mice running around on a treadmill after treatment demonstrates to the audience that not only are insulin levels normal, but the mice more overtly seem normal.  They don&rsquo;t look fatigued, have weight problems, wounds, or other abnormalities.">
+        <li>Show happy treated mice running on a treadmill</li>
+      </ul>
+      <p class="orr later" data-beat="5"
+         data-note="NEW, for review. Here is the catch. In the autoimmune mice, the effect lasted about four months before the immune system caught up, and the diabetes came back. The treadmill video is real footage, and it still misleads, because it lets you believe the mouse is cured. Compare the Brainbow. Those colours are not real, nobody&rsquo;s neurons look like that, and yet the false colour shows you something true about the data. The treadmill is the opposite: real, and pointing at something untrue. So choosing a demonstration is not only a technical decision. It is a claim you are making to an audience, and that is where this connects back to the Practices lecture.">&hellip;about four months later</p>
+    </div>
+    <figure class="fig bf-stage"></figure>
+  </div>
+  <p class="src">Xiao et al., Cell Stem Cell 2018</p>
+  <template class="notes">Here&rsquo;s another example.  Suppose you want a gene therapy for diabetes.  In one real study, Xiao and colleagues packaged two genes, Pdx1 and MafA, in a virus and infused it into the pancreas of diabetic mice, where it turned the mice&rsquo;s own alpha cells into insulin-making cells.  The technical experiment would involve identifying a mouse diabetes model, performing the treatment with the gene therapy, and then quantifying insulin levels in treated and untreated mice.</template>
+  <template class="desc">The technical test of a gene therapy for diabetes, listed as three steps: find a mouse diabetes model, treat it with the gene therapy, and compare insulin levels in treated and untreated mice.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 10 -->
 <article class="slide">
   <h1>Designing a Demonstration</h1>
-  <ul class="wide">
+  <ul class="tight">
     <li>What is the closest experiment you can get to the <b>&ldquo;real world&rdquo;</b> use of this organism?</li>
     <li>What demonstration experiments are necessary to show that <b>&ldquo;unwanted&rdquo;</b> behavior is absent in the system?</li>
     <li>Is there any interesting in a sensory way (visual, smell, audible, etc.) that will <b>illustrate the functioning</b> of the system?</li>
   </ul>
+  <table class="aud" data-build="1"
+         data-note="NEW, for review. Those three questions are all about the technology. But the demonstration also has to land with somebody, and that brings back the Practices lecture. Every audience is asking a different question. The investor wants to know whether it pays, and that is the cost-per-barrel demonstration. The regulator wants to know whether it is safe, and who gets to say so. And the people who will live next to it want to know whether they want it there at all. Same organism, three different demonstrations, because the demonstration answers the audience, not the technology."
+         data-desc="A table appears under the heading: who has to be convinced, and of what. Investors have to believe it pays, which is the Practices question Does it pay. Regulators have to believe it is safe, which is Is it safe, and who says so. The people who live with it have to believe they want it there, which is Who else gets a say.">
+    <caption>Who has to be convinced, and of what?</caption>
+    <tr><th>Investors</th><td>it pays</td><td class="pr">Practices: <i>Does it pay?</i></td></tr>
+    <tr><th>Regulators</th><td>it is safe</td><td class="pr">Practices: <i>Is it safe? Who says so?</i></td></tr>
+    <tr><th>The people who live with it</th><td>they want it here</td><td class="pr">Practices: <i>Who else gets a say?</i></td></tr>
+  </table>
+  <p class="closer" data-build="2"
+     data-note="NEW, for review. So a demonstration is contextual, not just technical, and some of the best ones are hardly technical at all. Otis had an axe. The biofuel people had a car and a flame. None of those measures anything a reviewer would ask for. They work because they answer the question the audience actually has."
+     data-desc="A closing line appears: the audience picks the demonstration, and some of the best ones are barely technical &mdash; an axe, a car, a flame.">The audience picks the demonstration. Some of the best ones are barely technical: an axe, a car, a flame.</p>
   <template class="notes">When developing a new technology, it will always be valuable to think about what experiments would make good demonstrations.  There will always be additional, more technical experiments that you need to perform to show that specific attributes of your system work as intended, but this is no substitute for the demonstration.  You should ask yourself, What is the closest experiment you can get to the &ldquo;real world&rdquo; use of this organism?
 What demonstration experiments are necessary to show that &ldquo;unwanted&rdquo; behavior is absent in the system?
 Is there any interesting in a sensory way (visual, smell, audible, etc.) that will illustrate the functioning of the system?</template>
@@ -192,18 +222,25 @@ Is there any interesting in a sensory way (visual, smell, audible, etc.) that wi
 </article>
 
 <!-- ---------------------------------------------------------------- 11 -->
+<!-- Rewritten in the edit pass (JCA, 18 Oct 2026): the source's three
+     questions, and their answers in the notes, are replaced by one.
+     The originals are in git history (commit 0809773d and earlier). -->
 <article class="slide ask" data-bg="section">
-  <h1>Questions to ponder</h1>
-  <p class="q">What are some good demonstration experiments for&hellip;</p>
-  <ol class="wide">
-    <li>A sugarcane plant that grows on seawater</li>
-    <li>A plant that grows in zero-G</li>
-    <li>An engineered car-T cell for solid tumors</li>
-  </ol>
-  <template class="notes">Grow a sugarcane plant on seawater, then let the user taste the cane relative to ones grown on regular water
-Put a video camera on a plant growing on the space station
-Take a mouse, give it cancer, inject with the car-T, and show the mouse after the tumors are cleared moving about</template>
-  <template class="desc">Questions to ponder. What are some good demonstration experiments for a sugarcane plant that grows on seawater, a plant that grows in zero-G, and an engineered car-T cell for solid tumors.</template>
+  <h1>Question to ponder</h1>
+  <p class="q">In 2016 the Florida Keys voted on releasing Oxitec&rsquo;s engineered mosquitoes.</p>
+  <ul class="facts">
+    <li>Monroe County as a whole voted yes, about 57%.</li>
+    <li>Key Haven, where the release was planned, voted no: 418 to 212.</li>
+    <li>The vote was non-binding. The release went ahead elsewhere in the Keys, from 2021.</li>
+  </ul>
+  <p class="q big">Design the demonstration that would have won Key Haven. What would it show, who would run it, and who would get to judge it?</p>
+  <template class="notes">NEW, for review. Angles to push on, for the lecturer.
+The technology first. Oxitec releases only males, and male mosquitoes do not bite. The 2020 strain, OX5034, carries a gene that kills female offspring, so the population of the biting species falls. On paper the risk is small, and the county agreed. The site did not.
+So whose demonstration is it? The vote split by who would live with the release. The county could vote yes for a trial in somebody else's neighbourhood. Ask whether the county or Key Haven is the right audience, and whether a vote is the right test at all.
+What would residents need to see? Probably not a paper. Fewer mosquitoes in their own yards, counted in their own traps. No more bites, not fewer. Someone they trust doing the counting: the mosquito control district, a university, the residents themselves, rather than the company that sells the mosquitoes. That is the Practices question of who says it is safe, in a living room.
+Timing. The vote was in November 2016, months after Zika had begun spreading locally in Miami, so the disease the mosquitoes were meant to fight was already news.
+Push them to the political point: the best technical demonstration in the world fails if the people who have to live with it were never its audience.</template>
+  <template class="desc">Question to ponder, on the amber ground. In 2016 the Florida Keys voted on releasing Oxitec's engineered mosquitoes: Monroe County as a whole voted yes, about 57 percent; Key Haven, where the release was planned, voted no, 418 to 212; the vote was non-binding, and the release went ahead elsewhere in the Keys from 2021. The question: design the demonstration that would have won Key Haven &mdash; what would it show, who would run it, and who would get to judge it?</template>
 </article>
 
 <script src="../../deck.js" defer></script>
@@ -213,5 +250,7 @@ Take a mouse, give it cancer, inject with the car-T, and show the mouse after th
 <script src="seq/brainbow.js" defer></script>
 <script src="seq/art-biofuel.js" defer></script>
 <script src="seq/biofuel.js" defer></script>
+<script src="seq/art-pancreas.js" defer></script>
+<script src="seq/pancreas.js" defer></script>
 </body>
 </html>
