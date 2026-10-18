@@ -19,6 +19,11 @@
 .slide .cells svg{width:100%;height:auto}
 .slide .cells figcaption{font-size:22px;line-height:1.3;margin-top:10px}
 .slide .cells figcaption b{display:block;font-size:25px;margin-bottom:4px}
+/* source 14: the cytometer diagram, with the photo and two lines beside it */
+.slide .cyto-grid{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1.85fr 1fr;gap:40px}
+.slide .cyto-grid > *{min-height:0;min-width:0;margin:0}
+.slide .cyto-side{display:flex;flex-direction:column;justify-content:center}
+.slide .cyto-side figure.fig{flex:0 1 auto;max-height:300px;margin:0 0 22px}
 /* a 2x2 field of figures (source 19) */
 .slide .quad{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 1fr;
   grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:22px 60px}
@@ -81,33 +86,29 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 14 -->
-<article class="slide">
+<!-- Edit pass (JCA, 18 Oct 2026): the traced flow-cell schematic and its
+     click-swap are replaced by seq/cytometer.js, a six-click diagram of
+     the instrument working.  Of the source's five bullets, the two the
+     diagram cannot carry stay, verbatim, beside the photo; the other
+     three (labeling, the three measurements, the list of events) are
+     what the diagram now shows.  The sequence carries the source note,
+     split across its clicks; the template below is the fallback. -->
+<article class="slide cyto" data-seq="cytometer">
   <h1>Cytometry</h1>
-  <div class="cols">
-    <div class="stack" data-unbuild="1">
-      <figure class="fig">
-        <img src="img/14-cytometer-schematic.png" alt="A line drawing of a flow cell: the sample enters at the top inside a sheath stream, narrows through the flow chamber into a single file of cells, and crosses a focused laser beam from the laser optics at the bottom.">
-      </figure>
-      <ul class="tight">
-        <li><b>Requires</b> a <b>fluorescent</b> protein or surface labeling of cells with a fluorescent probe</li>
-        <li>Measure fluorescence(s), side-<b>scatter</b> and forward-scatter for each cell as it passes through a light beam</li>
-      </ul>
-    </div>
-    <div class="stack" data-build="1"
-         data-note="Cytometers are primarily designed to work on mammalian cells, but they can also be used for bacteria or yeast cells, though the data is less precise. FACS, or fluorescence-activated cell sorting, is an instrument that adds functionality to a cytometer.  As the cell passes through the laser, a FACS machine can deflect the cell into different collection bins based on the signals that are observed.  Thus, a FACS machine will sort your cells while a cytometer only takes measurements of your cells.  The output of a cytometer is a list of measurement events for each cell that was detected going through the cytometer.  Each event is accompanied by a forward scatter, side-scatter, and fluorescence value presented as a number."
-         data-desc="The flow-cell drawing and its two bullets leave; a photograph of a benchtop cytometer appears on the right with three bullets: primarily used for mammalian cells but can be used for bacteria and yeast; FACS is something different, it recovers the cell population you want; and the experiment generates a long list of fluorescent measurements on single cells.">
+  <div class="cyto-grid">
+    <figure class="cyto-stage"></figure>
+    <div class="cyto-side">
       <figure class="fig">
         <img src="img/14-cytometer.png" alt="A photograph of a benchtop flow cytometer, a large beige instrument cabinet on a lab bench.">
       </figure>
       <ul class="tight">
         <li><b>Primarily</b> used for <b>mammalian</b> cells, but <i>can</i> be used for bacteria/yeast</li>
         <li><b>FACS</b> (fluorescence activated cell sorting) is something different&mdash;it recovers the cell population you want</li>
-        <li>Experiment generates a long list fluorescent <b>measurements</b> taken on single cells (each cell gets multiple measurements)</li>
       </ul>
     </div>
   </div>
   <template class="notes">One workhorse instrument for measuring fluorescence is cytometry.  Here, a dilute sample of cells is passed through a flow chamber.  A laser is directed at a specific region of space along this chamber.  Since the cells are dilute, only one cell passes through the laser at any given time.  If that cell is fluorescent due to the expression of a fluorescent protein or surface labeling with a fluorophore, the cell will emit light as it passes through the laser. The wavelength of that emitted light will be red-shifted relative to the laser’s wavelength, so it is easily detected.  Additionally, the cell will scatter the laser light in directions other than its original vector.  These signals are quantified by placing detectors at alternate angles to the incident beam.  Thus, each cell gives a side-scatter signal, a forward-scatter signal, and one or more fluorescence signals depending on the instrument setup.</template>
-  <template class="desc">A line drawing of a cytometer flow cell: sample in a sheath stream narrowing to single file through a laser beam. Two bullets: cytometry requires a fluorescent protein or surface labeling with a fluorescent probe; and it measures fluorescence, side-scatter and forward-scatter for each cell as it passes through a light beam.</template>
+  <template class="desc">A diagram of a flow cytometer beside a photograph of a real benchtop instrument, with two notes: cytometers are primarily used for mammalian cells but can be used for bacteria and yeast; and FACS is something different, it recovers the cell population you want.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 15 -->
@@ -287,5 +288,6 @@ Scattering is a related phenomenon in which light bounces off a particle at a di
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/cytometer.js" defer></script>
 </body>
 </html>
