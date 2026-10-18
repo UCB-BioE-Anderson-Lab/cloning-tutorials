@@ -11,7 +11,7 @@
  * scales them and swaps them per click; it draws nothing of its own except
  * the white plate and the floor line.
  *
- * WHERE IT LIVES.  Built to sit inside the amber Demonstation card; in
+ * WHERE IT LIVES.  Built to sit inside the amber Demonstration card; in
  * the deck it is a white slide of its own straight after that card, the
  * art at full slide height with the title laid over it (JCA, 18 Oct
  * 2026).  The white plate below is now invisible on the white slide and
@@ -71,7 +71,8 @@ const PLAT = OTIS * 1.65;        // railing (76 px) lands at Otis's hip
 const TOWER = PLAT * 228 / (A.tower.teethR - A.tower.teethL);   // teeth 228 platform px apart
 const CROWD = OTIS * 1.15 * 293;  // a man in the crowd, hat included, is 1.15 Otis: units per crowd height
 const ROPE = 0.62;               // rope reads about 10 units thick
-const STROKE = 2.2;              // every outline, in svg units, whatever its part's scale
+const STROKE = 2.0;              // every outline, in svg units, whatever its part's scale:
+                                 // ~2.8 slide units at full height, scene art (rung 0)
 
 /* where things go */
 const CX = 400;
@@ -94,16 +95,19 @@ function el(name, attrs, parent){
   return e;
 }
 
-/* One part: underlay + line art, in its crop pixels, its strokes rescaled
-   so they draw at STROKE on the slide. */
+/* One part: underlay + line art, in its crop pixels, every stroke set to
+   draw at exactly STROKE on the slide.
+   The tracer gives each path its own measured width (1.0 to 18.6 crop px
+   across these parts), and scaling those proportionally kept every wobble
+   of the drawing's pen, so lines visibly varied within one figure.  The
+   house style is one uniform weight (guide.html section 7), so the
+   measured widths are discarded, not scaled. */
 function part(name, scale){
   const p = window.ART.otis[name];
   const g = el("g", {});
   g.innerHTML = p.under + p.g;
-  const k = STROKE / (p.line * scale);       // p.line: its sheet's outline weight, in crop px
-  g.querySelectorAll("[stroke-width]").forEach(function(n){
-    n.setAttribute("stroke-width", (parseFloat(n.getAttribute("stroke-width")) * k).toFixed(2));
-  });
+  const w = (STROKE / scale).toFixed(3);    // crop px that land as STROKE units
+  g.querySelectorAll("[stroke-width]").forEach(function(n){ n.setAttribute("stroke-width", w); });
   return g;
 }
 
@@ -114,7 +118,7 @@ function place(g, x, y, s){
 
 const STEPS = [
   /* The source note's opening sentences, up to "goes beyond this.", stay
-     on the amber Demonstation card before this slide: they are about its
+     on the amber Demonstration card before this slide: they are about its
      two bullets.  The note resumes here, verbatim, at "The image here". */
   { note:"The image here is of Otis, of elevator fame, who was demonstrating their new safety system that involved a mechanism that locked the elevator car in place if the hoisting ropes fail.",
     desc:"Elisha Otis stands on an open elevator platform raised high in a timber hoist tower, one arm held out as if introducing it. A single red rope runs from a pulley at the top of the tower down to the platform's crossbar. Each tower post carries a rail of amber saw teeth, and at each end of the crossbar an amber catch is folded down, clear of the teeth." },
@@ -122,7 +126,7 @@ const STEPS = [
     desc:"A crowd in 1850s dress, top hats and bonnets, gathers at the foot of the tower on both sides, looking up at Otis." },
   { note:"and then he cut the rope.",
     desc:"Otis swings an axe and cuts the rope. The cut ends fly apart, the platform drops a hair's breadth, and both amber catches swing out sideways into the saw teeth on the rails. The crowd flinches, hands up, one covering their eyes." },
-  { note:"Instead of plunging to his death, the safety mechanism kicked in. Now, he could have instead written a report that quantified the load capacity of the breaking mechanism, shown statistics on its rate of failure under test conditions, or provided simulations of the failure process.  However, for the goals of introducing a product, the more direct demonstration is far more tangible and powerful.  By doing the demo live and in person, he is showing that he is willing to trust his life to the invention, and in the process is inducing emotions of anticipation and foreboding in his audience members minds.  Thus they are paying attention, and when the device does not fail, the memory of the experiment is far more tangible than if they read a report.  This is not to say that the report should not be generated – some people will want a more technical specification about the performance of this device.  However, the report alone is far less compelling than the dramatic demonstration.  Technical reports are only comprehensible to an expert in the subject, and whether the report means the system works well or not is often intangible to a general audience.  However, the demonstration is immediately tangible and communicates exactly what the general audience wants to know:  If I use an Otis elevator, and the rope breaks, I won’t die.",
+  { note:"Instead of plunging to his death, the safety mechanism kicked in. Now, he could have instead written a report that quantified the load capacity of the braking mechanism, shown statistics on its rate of failure under test conditions, or provided simulations of the failure process.  However, for the goals of introducing a product, the more direct demonstration is far more tangible and powerful.  By doing the demo live and in person, he is showing that he is willing to trust his life to the invention, and in the process is inducing emotions of anticipation and foreboding in his audience members minds.  Thus they are paying attention, and when the device does not fail, the memory of the experiment is far more tangible than if they read a report.  This is not to say that the report should not be generated – some people will want a more technical specification about the performance of this device.  However, the report alone is far less compelling than the dramatic demonstration.  Technical reports are only comprehensible to an expert in the subject, and whether the report means the system works well or not is often intangible to a general audience.  However, the demonstration is immediately tangible and communicates exactly what the general audience wants to know:  If I use an Otis elevator, and the rope breaks, I won’t die.",
     desc:"Nothing happens. The platform hangs where it stopped, held by the two catches locked in the rail teeth, with the cut rope dangling from its crossbar. Otis, calm, lifts his top hat to the crowd, who look up again, at ease." }
 ];
 
