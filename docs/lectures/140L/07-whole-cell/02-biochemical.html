@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Biochemical Assays &ndash; Whole-Cell Analysis</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* source 25/26: text or enzymes top-left, the fluorogenic substrate top-right,
+   and three substrate structures in a row underneath, each with its label */
+.slide .subs{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:18px 40px}
+.slide .subs figure{display:flex;flex-direction:column;align-items:center;min-height:0;margin:0}
+.slide .subs img{flex:1 1 auto;min-height:0;width:100%;object-fit:contain}
+.slide .subs figcaption{flex:0 0 auto;font-size:28px;margin-top:6px}
+.slide .subs .top{grid-column:1 / 3;display:flex;flex-direction:column;justify-content:center}
+.slide .subs .top ul.plain{list-style:none;padding:0}
+.slide .subs .top ul.plain li{font-size:34px;margin:0 0 4px}
+/* source 27: two columns that change places on the click */
+.slide .swap{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1.1fr 1fr;gap:40px}
+.slide .swap > *{min-height:0;display:flex;flex-direction:column}
+.slide .swap figure.fig{margin:0 0 14px}
+.slide .swap figure.lbl{flex:0 0 auto;height:120px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 24 -->
+<article class="slide" data-bg="section">
+  <h1>Biochemical Assays</h1>
+  <figure class="fig">
+    <img src="img/24-embryo.png" alt="A photograph of a mouse embryo, pale and curled, with a row of dark blue X-gal stained segments running along the developing spinal cord.">
+  </figure>
+  <template class="notes">Biochemical assays involve the quantification of specific biochemicals or the monitoring of specific biochemical reactions in a cell. The image here is of a mouse embryo in which the lacZ protein is produced in developing cells of the spinal cord. LacZ is one of the biochemical reactions that can be easily monitored using one of these assays.  The compound Xgal will turn blue in its presence allowing the staining of cells that express it.</template>
+  <template class="desc">Section divider: Biochemical Assays. A mouse embryo with a row of blue X-gal stain along its developing spinal cord, where lacZ is expressed.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 25 -->
+<article class="slide">
+  <h1>Enzymatic Reporter Assays</h1>
+  <div class="subs">
+    <div class="top">
+      <ul class="plain">
+        <li>&beta;-galactosidase (<i>lacZ</i>)</li>
+        <li>Alkaline Phosphatase (<i>phoA</i>)</li>
+        <li>&beta;-lactamase (<i>bla</i>)</li>
+      </ul>
+    </div>
+    <figure>
+      <img src="img/25-fluorogenic.png" alt="The chemical structure of a fluorogenic galactoside: a galactose ring linked through oxygen to a three-ring resorufin-type dye.">
+      <figcaption><b>Fluorogenic</b> substrate</figcaption>
+    </figure>
+    <figure>
+      <img src="img/25-xgal.png" alt="The chemical structure of X-gal: a galactose ring linked through oxygen to an indole ring carrying bromine and chlorine.">
+      <figcaption><b>Xgal</b> (blue)</figcaption>
+    </figure>
+    <figure>
+      <img src="img/25-onpg.png" alt="The chemical structure of oNPG: a galactose ring linked through oxygen to a nitrophenyl group.">
+      <figcaption><b>oNPG</b> (yellow)</figcaption>
+    </figure>
+    <figure>
+      <img src="img/25-sgal.png" alt="The chemical structure of S-gal: a galactose ring linked through oxygen to a fused-ring esculetin-type group.">
+      <figcaption><b>Sgal</b> (black)</figcaption>
+    </figure>
+  </div>
+  <template class="notes">LacZ is one of the most commonly used biochemical assays.  It has many variants, and each differs by the type of instrumentation used for the measurement and the specific compound employed.  In each case, the b-galactosidase protein encoded by lacZ will hydrolyze galactose residues off the substrate.  There are substrates that will turn blue, yellow, or black upon hydrolysis.  There are also fluorogenic substrates that that can be detected by cytometry, fluorimetry, or fluorescence microscopy after hydrolysis.
+If you just replace the galactose moiety with phosphate, all the same color-generating chemicals can be used to monitor alkaline phosphatase activity.  Though the same diversity of substrate does not exist for b-lactamase, a limited set of fluorogenic and chromagenic substrates including nitrocephin exist here too.  These enzymatic reporter genes are often used in the same context as GFP and RFP.  The measurements are often more precise and sensitive due to the amplification obtained from watching conversion of a substrate rather than the protein itself.  For example, to get 100x over background signals from GFP in E. coli, you typically must express it from a high-copy plasmid.  However, genomically-encoded LacZ can provide 10,000-signals over background.</template>
+  <template class="desc">Three reporter enzymes are listed: beta-galactosidase (lacZ), alkaline phosphatase (phoA) and beta-lactamase (bla). Around them, the chemical structures of four galactoside substrates: a fluorogenic substrate, Xgal which turns blue, oNPG which turns yellow, and Sgal which turns black.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 26 -->
+<article class="slide">
+  <h1>Enzymatic Reporter Assays</h1>
+  <div class="subs">
+    <div class="top">
+      <ul class="tight">
+        <li>Involves introducing a <b>substrate</b> compound to the cells or a partial lysate of the cells</li>
+        <li>Readout can be <b>absorbance</b>, fluorescence, electrochemical (etc.) based on the choice of substrate</li>
+      </ul>
+    </div>
+    <figure>
+      <img src="img/25-fluorogenic.png" alt="The chemical structure of a fluorogenic galactoside.">
+      <figcaption><b>Fluorogenic</b> substrate</figcaption>
+    </figure>
+    <figure>
+      <img src="img/25-xgal.png" alt="The chemical structure of X-gal.">
+      <figcaption><b>Xgal</b> (blue)</figcaption>
+    </figure>
+    <figure>
+      <img src="img/25-onpg.png" alt="The chemical structure of oNPG.">
+      <figcaption><b>oNPG</b> (yellow)</figcaption>
+    </figure>
+    <figure>
+      <img src="img/25-sgal.png" alt="The chemical structure of S-gal.">
+      <figcaption><b>Sgal</b> (black)</figcaption>
+    </figure>
+  </div>
+  <template class="notes">Many of these chromagenic and fluorogenic substrates are cell permeable, and there are additional chemical modifications that can render them cell permeable when they are not. Thus, you often can perform these assays directly on intact cells.  Alternatively, they can be performed in a partial lysate of the cells.
+Different substrates are read out in different ways.  For bulk absorbance measurmenets using a spectrometer, o-nitrophenol based substrates are usually the best.  For visual readout on colonies in a plate, the insoluble products of Xgal and Sgal are best.  For cytometers, fluorimeters, or microscopy, the fluorogenic substrates are required.  Additionally, there are substrates for these enzymes that change electrochemical properties upon hydrolysis allowing detection with electrodes.
+I highlight the enzymatic assays because they are commonly used, and there many of them.  There are assays for monitoring MAP kinases, for monitoring calcium concentrations, for watching protein:protein interactions, etc.</template>
+  <template class="desc">The same four substrate structures &mdash; fluorogenic, Xgal (blue), oNPG (yellow) and Sgal (black) &mdash; now with two bullets: the assay involves introducing a substrate compound to the cells or a partial lysate; and the readout can be absorbance, fluorescence, electrochemical and so on, depending on the substrate.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 27 -->
+<article class="slide">
+  <h1>Staining Measurements</h1>
+  <div class="swap">
+    <div data-unbuild="1">
+      <ul class="tighter">
+        <li>Stains specifically label some biochemical species of a cell, or are used as a probe of permeability or the chemical environment of a cell (pH detection, calcium detection, etc.)</li>
+        <li>Can stain things on the surface of the bacterium (displayed epitopes, proteins) with conjugated antibodies</li>
+        <li>Can stain microbiological biochemicals (flagella, pili, carbohydrates) with lectins or antibodies</li>
+        <li>Can do chemical stains (gram staining)</li>
+      </ul>
+      <figure class="fig">
+        <img src="img/27-antibody.png" alt="A diagram on a grey ground, labelled Antibody: a receptor protein spanning a membrane, marked Out above and In below, is approached by a quantum dot carrying antibodies, labelled 20% aminoQD, which then binds two receptors.">
+      </figure>
+    </div>
+    <div data-build="1"
+         data-note="Another general-use staining strategy is to combine cell permeable and impermable dyes.  In the Live/Dead baclight kit, a live-cell impermeable dye called propidium iodide is mixed with a cell permeable dye called SYTO9.  Only the dead cells will pick up the propidium iodide, but all cells get syto9.  Based on the ratio of the two dyes in the cell, you can tell if the cell is alive or not.  That measurement is done by any of the various fluorescence methods, but most typically cytometry or microscopy."
+         data-desc="The general staining bullets and the antibody diagram leave. On the right appear the LIVE/DEAD BacLight Bacterial Viability Kits name, a micrograph of bacteria stained green and red, and bullets: live-cell impermeable propidium iodide; all-cell permeable SYTO 9; a staining procedure with single-cell fluorescence readout, by cytometry or microscopy, for determining the percentage of live bacteria in a population.">
+      <figure class="fig lbl">
+        <img src="img/27-baclight.png" alt="The product name LIVE/DEAD BacLight Bacterial Viability Kits, set in grey type.">
+      </figure>
+      <figure class="fig">
+        <img src="img/27-live-dead.jpg" alt="A fluorescence micrograph of bacteria on a black ground, the live cells glowing green and the dead cells red.">
+      </figure>
+      <ul class="tighter">
+        <li>Live-cell impermeable propidium iodide</li>
+        <li>All-cell permeable SYTO&reg; 9</li>
+        <li>A staining proceedure with single-cell fluorescence readout (cytometry or microscopy) for determining the percentage of live bacteria in a population</li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">Another type of biochemical assay involves stains. Stains specifically label some biochemical species of a cell, or are used as a probe of permeability or the chemical environment of a cell (pH detection, calcium detection, etc.) You can stain things on the surface of the bacterium such as displayed epitopes and surface proteins with conjugated antibodies.  These are reagents constructed from fluorophores and antibodies chemically linked together. They will stain the cell by specific binding to the epitope on the surface of the cell. You can quantify the staining by any of the various fluorescence methods. You can also stain microbiological biochemicals on the cell surface such as flagella, pili, and carbohydrates using lectins or antibodies.  Lectins are binding proteins like antibodies that bind to specific carbohydrate patterns.  There are also more general stains, such as gram stain, that will light up the peptidoglycan and stain many cells generally.</template>
+  <template class="desc">Four bullets: stains label some biochemical species of a cell, or probe permeability or the chemical environment such as pH or calcium; surface things such as displayed epitopes and proteins can be stained with conjugated antibodies; microbiological biochemicals such as flagella, pili and carbohydrates can be stained with lectins or antibodies; and chemical stains such as gram staining. Beneath them, a diagram of an antibody-coated quantum dot binding receptors on a cell membrane.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 28 -->
+<article class="slide">
+  <h1>&hellip;but be careful!</h1>
+  <ul>
+    <li>Bacteria are <b>different sizes</b> at different stages of the growth phase</li>
+    <li>Replication, Transcription, and translation <b>rates</b> are different at different stages of the growth phase</li>
+    <li><b>Toxicity</b> in a cell can increase or decrease the normalized activity observed in a cell</li>
+    <li>The &ldquo;proper&rdquo; way to handle the data for such experiments is debatable.  <b>DON&rsquo;T GET FANCY</b> WITH THE MATH!</li>
+  </ul>
+  <template class="notes">There are a number of things you should be careful about when performing biochemical assays that have quantative readouts.  Bacteria are different sizes at different stages of the growth phase.  The process of replication, transcription,a nd translation all have different rates based on the phase of growth, the medium composition, and the genetic composition of your strain.  Additionally, the growth conditions or your genetic modifications can differentially affect the growth of specific strains.
+These differences in cell physiology and growth rates can play havoc with your experiments.  It is very easy to fool yourself into thinking a genetic device is working when in reality it is an artifact of the growth conditions.  It is tempting to do extensive data manipulation to control for deviations in your experiment.  There are many notable examples of scientists performing elaborate corrections to their data that make small differences in original signal look far more dramatic.  Such manipulation is highly discouraged since it is difficult to justify these corrections.  Best practice is to normalize for cell density and for signal strength against a standard, but nothing else.  This does not guarantee that your data will not lie to you, So, be careful, and be cautious in your conclusions.</template>
+  <template class="desc">But be careful. Four cautions: bacteria are different sizes at different stages of the growth phase; replication, transcription and translation rates differ across the growth phase; toxicity in a cell can increase or decrease the normalized activity observed; and the proper way to handle the data is debatable &mdash; don't get fancy with the math.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

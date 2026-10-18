@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Microbiological Assays &ndash; Whole-Cell Analysis</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* figures in a grid that claims the leftover height */
+.slide .grid{flex:1 1 auto;min-height:0;display:grid;gap:22px 50px}
+.slide .grid > *{min-width:0;min-height:0}
+.slide .grid img{width:100%;height:100%;min-height:0;object-fit:contain;display:block}
+.slide .grid ul{margin:0;align-self:center}
+/* frames of one drawing stacked in a single cell, so a click swaps them */
+.slide .frames{display:grid;min-height:0}
+.slide .frames > img{grid-area:1 / 1}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 29 -->
+<article class="slide" data-bg="section">
+  <h1>Microbiological Assays</h1>
+  <figure class="fig">
+    <img src="img/29-swarm-plate.png" alt="A photograph of a petri dish on a dark ground with five pale, cloudy circular colonies of different sizes spreading across soft agar.">
+  </figure>
+  <template class="notes">Microbiological assays are whole cell assays that monitor some non-chemical process in the cell.</template>
+  <template class="desc">Section divider: Microbiological Assays. A petri dish of soft agar with several cloudy, spreading bacterial colonies.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 30 -->
+<article class="slide">
+  <h1>Measuring Toxicity</h1>
+  <ul>
+    <li>Following OD_600 over time provides a growth rate.  When compared to wild-type cells, toxicity can be inferred.</li>
+  </ul>
+  <div class="grid" style="grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) 150px">
+    <img data-build="1" src="img/30-growth-chart.png" alt="A line chart of OD_600 rising over about 46 time points for three series: Series3 in grey and Series2 in vermillion climb to about 0.75, while Series1 in blue lags to about 0.53."
+         data-desc="A line chart appears: OD_600 against time for three cultures, two of them rising together to about 0.75 and the third lagging to about 0.53.">
+    <img data-build="2" src="img/30-growth-rates.png" alt="A bar chart on a grey panel of growth rate in inverse seconds for four strains, RFP, coi, repL and pacA, each with a black bar for LB only and a white bar for with arabinose. The bars are similar for every strain except repL, whose white bar drops to about a quarter of its black one."
+         data-desc="A bar chart appears: growth rate for strains expressing RFP, coi, repL and pacA, in LB only and with arabinose. Only repL's growth rate collapses on induction.">
+    <img src="img/30-pbad-constructs.png" alt="Three constructs drawn as a bent promoter arrow labelled P-BAD driving a coloured gene arrow: coi in amber, repL in pink, and pacA in green." style="grid-column:1 / -1">
+  </div>
+  <template class="notes">Cell growth is one such phenomenon.  By measuring optical density as absorbance at 600nm, you can follow the growth a cell culture over time.  The first derivative of this trace is the growth rate.  In this experiment, we individually place three different protein components of a genetic device under the Pbad promoter and monitor the cells growth as a function of time with and without arabinose induction. An examination of the growth rates shows the RepL is clearly toxic to the cell upon induction, and this knowledge is useful for debugging the circuit.</template>
+  <template class="desc">Following OD_600 over time provides a growth rate, and comparing it to wild-type cells lets toxicity be inferred. Three constructs are shown, each placing one gene &mdash; coi, repL or pacA &mdash; under the P-BAD promoter.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 31 -->
+<article class="slide">
+  <h1>Devices affecting viability</h1>
+  <div class="grid" style="grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) minmax(0,1.6fr)">
+    <ul class="tighter">
+      <li>Mammalian serum (non-cellular component of blood) contains complement.  It kills bacteria.</li>
+      <li>Introduction of K92 and O16 devices place carbohydrate polymers on the surface of <i>E. coli</i> and mask the surface</li>
+    </ul>
+    <ul class="tighter" data-build="2"
+        data-note="In this assay, we incubate the bacteria with horse serum for some amount of time and then spread the mixture on culture plates.  The next day, we count colonies and measure what percentage of the bacteria survived the serum."
+        data-desc="Two bullets appear: in this experiment, bacteria are incubated in horse serum and then plated on LB plates; colonies are counted and plotted.">
+      <li>In this experiment, bacteria are incubated in horse serum and then plated on LB plates</li>
+      <li>Colonies are counted and plotted</li>
+    </ul>
+    <img data-build="1" src="img/31-gene-clusters.png" alt="Two gene clusters drawn as rows of amber arrows lettered with gene names. The O16 gene cluster, spanning rfb and wbb, runs B D A C X glf H I J K, then L in dark brown. The K92 gene cluster, spanning kps, neu and kps, runs M T D B A C E, then S in dark brown, then S C U D E F pointing the other way."
+         data-note="encoded by two large gene cluster. When all these genes are expressed with the right timing, localization, and concentration, the surface of the bacterium becomes heavily decorated with carbohydrates that affect immunological properties of the bacterium.  These modifications allow the bacterium to survive in horse serum. Horse serum, or the non-cellular component of adult horse blood, contains complement which will quickly kill a non-encapsulated bacterium.  However, with a complete set of functioning genes, viability is restored."
+         data-desc="Two gene clusters appear, drawn as rows of gene arrows: the O16 cluster and the K92 cluster.">
+    <img data-build="3" src="img/31-serum-survival.png" alt="A bar chart on a grey panel titled Survival in Adult Horse Serum, percent recovered for five strains marked plus or minus for K92 and O16. Only the strain carrying both K92 and O16 survives, at about 80 percent; the other four, including the lab strain, are near zero."
+         data-desc="A bar chart appears, survival in adult horse serum: only the strain carrying both the K92 and O16 devices is recovered, at about 80 percent; strains with either alone, neither, and the lab strain are near zero.">
+  </div>
+  <template class="notes">Genetically-encoded processes have naturally evolved to improve the fitness of their organism in some environment.  By placing the organism in this environment you can monitor the function of the process by virtue of the organism’s growth.  Here we are monitoring the expression of capsular polysaccharides which are</template>
+  <template class="desc">Two bullets: mammalian serum, the non-cellular component of blood, contains complement, which kills bacteria; and introducing the K92 and O16 devices places carbohydrate polymers on the surface of E. coli and masks the surface.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 32 -->
+<article class="slide">
+  <h1>Chemotaxis/Swarming Assays</h1>
+  <div class="grid" style="grid-template-rows:minmax(0,1fr) minmax(0,1.2fr)">
+    <img src="img/32-aptamer-chez.png" alt="Two RNA structures joined by equilibrium arrows. Left: the ribosome binding site is paired within the aptamer, labelled Ribosome Binding Site Paired, CheZ Not Expressed, Cells Tumble. Adding theophylline, drawn as small teal molecules, shifts it to the right: the aptamer binds theophylline and releases the RBS, labelled Ribosome Binding Site Unpaired, CheZ Expressed, Cells Run and Tumble.">
+    <img data-build="1" src="img/32-swarm-plates.png" alt="On a grey panel, two swarm plates: minus theophylline shows a tight dot of cells at the centre, plus theophylline shows a wide cloudy ring. Beside them a plot of migration radius in millimetres against concentration in millimolar: with theophylline the radius rises to about 12 at 1 millimolar and then falls; with caffeine it stays near zero."
+         data-desc="Two swarm plates appear, without and with theophylline &mdash; a tight dot versus a wide swarm ring &mdash; beside a plot of migration radius against concentration: theophylline drives swarming up to about 12 millimetres at 1 millimolar, while caffeine does nothing.">
+  </div>
+  <p class="src">PMID: 17480075</p>
+  <template class="notes">Beyond growth, there are other processes that organisms do that can be monitored to observe the behavior of a cellular process.  Here, we look at chemotaxis using a swarming assay.  Agar medium is prepared with only a small amount of agar resulting in very soft petri dishes.  A small spot of bacteria is placed in the middle of the dish and then incubated for several hours.  If the bacteria have intact chemotaxis processes, they will swim outwards from the center of the plate forming a clouding circle.  The diameter of the circle is an indirect measure of functionality.  In this particular experiment, they have constructed an E. coli strain with an aptamer controlling the CheZ gene.  CheZ is a protein required for chemotaxis to happen.  By occluding the ribosome binding site in front of CheZ with an aptamer that binds theophyilline, the expression of CheZ is dependent on the concentration of theophylline.  Thus, addition of the small molecule results in more effect swarming.  By doing this assay with many concentrations of theophylline and the related-but-not-functional compound caffeine, they obtain a transfer function relating input concentration of the molecule to the cells output behavior.</template>
+  <template class="desc">A theophylline aptamer controlling CheZ: without theophylline the ribosome binding site is paired, CheZ is not expressed and cells tumble; with theophylline the RBS is unpaired, CheZ is expressed and cells run and tumble. Source: PMID 17480075.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 33 -->
+<article class="slide">
+  <h1>Adhesion Assays</h1>
+  <div class="grid" style="grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,0.8fr) auto minmax(0,1.3fr)">
+    <div class="frames" style="grid-row:1 / -1">
+      <img data-build="1" data-unbuild="2" src="img/33-a-well.png" alt="An empty microplate well drawn side-on as a blue U-shaped outline."
+           data-note="We begin with a well of a 96-well ELISA plate.  You are looking at the plate sideways-on."
+           data-desc="An empty well of a 96-well ELISA plate appears, drawn side-on.">
+      <img data-build="2" data-unbuild="3" src="img/33-b-substrate.png" alt="The same well with a thin amber layer coating its floor, and an arrow from the label Binding Substrate (for example: Mannan binds type I pili) pointing to it."
+           data-note="To each well we’ll add mannan, and it becomes adhered to the surface. We also block the cells with BSA to prohibit further non-specific binding."
+           data-desc="A layer of binding substrate coats the floor of the well, labelled: Binding Substrate (for example, mannan binds type I pili).">
+      <img data-build="3" data-unbuild="4" src="img/33-c-cells.png" alt="The well filled with many pale yellow rod-shaped bacteria scattered throughout, above the substrate layer."
+           data-note="We then add the cells of the strain we wish to test."
+           data-desc="The well fills with bacteria of the strain being tested.">
+      <img data-build="4" src="img/33-d-washed.png" alt="The well after washing: only a single layer of yellow bacteria remains, stuck to the substrate on the floor."
+           data-note="Allow them to adhere, and then wash the unbound cells away."
+           data-desc="After washing, only a layer of bacteria bound to the substrate on the floor remains.">
+    </div>
+    <img src="img/33-sem.png" alt="A scanning electron micrograph of rod-shaped bacteria attached by fine pili to a textured cell surface.">
+    <ul class="tighter" data-build="5"
+        data-note="Finally, we stain the cells with gram stain and obtain a measure of cell adhesion in terms of intensity of purple color."
+        data-desc="A bullet and a photograph appear: adhered bacteria are detected by outgrowth, an OD measurement, or by staining; the photograph shows a microplate whose wells are stained different intensities of purple.">
+      <li>Adhered bacteria are detected by outgrowth (OD measurement) or staining</li>
+    </ul>
+    <img data-build="5" src="img/33-plate.png" alt="A photograph of part of a microplate in which columns of wells are stained deep purple and alternate columns are nearly clear.">
+  </div>
+  <template class="notes">Another microbiological behavior is adhesion.  Bacteria often stick to surfaces including the surfaces of other cells like human gut epithelial cells  Though it is not synonymous with biofilm formation, it is a highly related phenomenon.  One way to quantify it involves microplate-based adhesion assays.  In this example, we are monitoring the adhesion of bacteria to mannan, a carbohydrate resembling the surfaces of mammalian epithelial cells, via type I pili.</template>
+  <template class="desc">A scanning electron micrograph of bacteria attached by pili to a cell surface.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

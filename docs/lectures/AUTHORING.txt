@@ -86,6 +86,16 @@ Any element with data-build="1", "2", ... appears one click at a time:
 Optionally override the channels for that click:
   <li data-build="1" data-note="..." data-desc="...">
 
+An element can also LEAVE on a click, for a source deck's exit animation:
+
+  <figure data-unbuild="1">...</figure>     visible until click 1
+  <figure data-build="1">...</figure>       appears on click 1
+
+Exits only fade; they do not free the space.  To swap one thing for
+another in the same place, stack both in one grid cell
+(grid-area:1/1 on each).  The click's data-note still comes from the
+element carrying data-build for that number.
+
 
 THE TWO TEXT CHANNELS
 ---------------------

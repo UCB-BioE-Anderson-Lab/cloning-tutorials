@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Fluorescent Reporter Assays &ndash; Whole-Cell Analysis</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* the FP list on source 13: four names held by a brace, then one more line */
+.slide .fp{display:grid;grid-template-columns:auto auto 1fr;align-items:center;column-gap:28px;
+  margin:10px 0 0 300px}
+.slide .fp ul{margin:0;padding:0;list-style:none}
+.slide .fp li{font-size:36px;margin:0 0 6px}
+.slide .fp .brace{width:22px;align-self:stretch;margin:8px 0;border:3px solid var(--ink);
+  border-left:0;border-radius:0 18px 18px 0}
+.slide .fp .lbl{font-size:30px}
+.slide .fp .lum{grid-column:1 / -1;font-size:36px;margin:6px 0 0}
+.slide .fp .lum small{font-size:28px;color:inherit}
+/* a 2x2 field of figures (source 19) */
+.slide .quad{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 1fr;
+  grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:22px 60px}
+.slide .quad img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* a column whose figure sits over its bullets */
+.slide .cols > .stack{justify-content:flex-start}
+.slide .stack figure.fig{flex:1 1 auto;margin:0 0 18px}
+/* the three number rows under source 23's two panels */
+.slide table.od{margin:16px auto 0;border-collapse:collapse;width:1200px}
+.slide table.od td{font-size:30px;padding:2px 0}
+.slide table.od td+td{text-align:center;width:33%}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 12 -->
+<article class="slide" data-bg="section">
+  <h1>Fluorescent Reporter Assays</h1>
+  <figure class="fig">
+    <img src="img/12-histograms.png" alt="Four small flow-cytometry histograms in a two-by-two grid, each a green filled distribution of cell counts against fluorescence on a log axis; three are single peaks and the lower-right one has two peaks.">
+  </figure>
+  <template class="notes">The most commonly used whole-cell assay involves the measurement of fluorescence.</template>
+  <template class="desc">Section divider: Fluorescent Reporter Assays. Four green flow-cytometry histograms of fluorescence, in a two-by-two grid.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 13 -->
+<article class="slide">
+  <h1>Fluorescent Reporter Proteins</h1>
+  <figure class="fig" style="flex:0 0 auto;height:150px;align-items:flex-end">
+    <img src="img/13-cassette.png" alt="A gene cassette drawn on a single line: a bent promoter arrow, a ribosome binding site drawn as a half circle, a block arrow labelled RFP, and a terminator drawn as a hexagon.">
+  </figure>
+  <div class="fp">
+    <ul>
+      <li>GFP</li>
+      <li>BFP</li>
+      <li>YFP</li>
+      <li>RFP</li>
+    </ul>
+    <span class="brace" aria-hidden="true"></span>
+    <span class="lbl">Fluorescent<br>proteins</span>
+    <p class="lum">Luciferase <small>(Luminescence)</small></p>
+  </div>
+  <template class="notes">Though there are additional ways of making a cell fluorescent such as using caged fluorophores and enzymes that deprotect them, the most common way of making a cell fluoresce is to express a gene encoding a fluorescent protein. There are a small number of ancestral fluorescent protein genes that have been isolated from jellyfish and other marine organisms.  However, they have been extensively mutated to create additional genes with altered properties. There are many variants of GFP and RFP today with different spectral propertie.  For example, YFP is a mutant of GFP that emits yellow light instead of green.  Also, there are mutants that fluoresce only in the presence of calcium ions.  This is only the tip of the iceberg of fluorescent proteins that exist now, but the main point is that these can be expressed in many types of cells and can fluoresce at wavelengths that the cells do not normally generate.  Thus, these signals can be readily quantified on intact cells using various fluorescence measurements.</template>
+  <template class="desc">A reporter gene cassette &mdash; promoter, ribosome binding site, an RFP coding sequence and a terminator. Below it, GFP, BFP, YFP and RFP are bracketed together as fluorescent proteins, with luciferase listed beneath them as luminescence.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 14 -->
+<article class="slide">
+  <h1>Cytometry</h1>
+  <div class="cols">
+    <div class="stack" data-unbuild="1">
+      <figure class="fig">
+        <img src="img/14-cytometer-schematic.png" alt="A line drawing of a flow cell: the sample enters at the top inside a sheath stream, narrows through the flow chamber into a single file of cells, and crosses a focused laser beam from the laser optics at the bottom.">
+      </figure>
+      <ul class="tight">
+        <li><b>Requires</b> a <b>fluorescent</b> protein or surface labeling of cells with a fluorescent probe</li>
+        <li>Measure fluorescence(s), side-<b>scatter</b> and forward-scatter for each cell as it passes through a light beam</li>
+      </ul>
+    </div>
+    <div class="stack" data-build="1"
+         data-note="Cytometers are primarily designed to work on mammalian cells, but they can also be used for bacteria or yeast cells, though the data is less precise. FACS, or fluoescence-activated cell sorting, is an instrument that adds functionality to a cytometer.  As the cell passes through the laser, a FACS machine can deflect the cell into different collection bins based on the signals that are observed.  Thus, a FACS machine will sort your cells while a cytometer only takes measurements of your cells.  The output of a cytometer is a list of measurement events for each cell that was detected going through the cytometer.  Each event is accompanied by a forward scatter, side-scatter, and fluorescence value presented as a number."
+         data-desc="The flow-cell drawing and its two bullets leave; a photograph of a benchtop cytometer appears on the right with three bullets: primarily used for mammalian cells but can be used for bacteria and yeast; FACS is something different, it recovers the cell population you want; and the experiment generates a long list of fluorescent measurements on single cells.">
+      <figure class="fig">
+        <img src="img/14-cytometer.png" alt="A photograph of a benchtop flow cytometer, a large beige instrument cabinet on a lab bench.">
+      </figure>
+      <ul class="tight">
+        <li><b>Primarily</b> used for <b>mammalian</b> cells, but <i>can</i> be used for bacteria/yeast</li>
+        <li><b>FACS</b> (fluorescence activated cell sorting) is something different&mdash;it recovers the cell population you want</li>
+        <li>Experiment generates a long list fluorescent <b>measurements</b> taken on single cells (each cell gets multiple measurements)</li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">One workhorse instrument for measuring fluorescense is cytometry.  Here, a dilute sample of cells is passed through a flow chamber.  A laser is directed at a specific region of space along this chamber.  Since the cells are dilute, only one cell passes through the laser at any given time.  If that cell is fluorescent due to the expression of a fluorescent protein or surface labeling with a fluorophore, the cell will emit light as it passes through the laser. The wavelength of that emitted light will be red-shifted relative to the laser’s wavelength, so it is easily detected.  Additionally, the cell will scatter the laser light in directions other than its original vector.  These signals are quantified by placing detectors at alternate angles to the incident beam.  Thus, each cell gives a side-scatter signal, a forward-scatter signal, and one or more fluorescence signals depending on the instrument setup.</template>
+  <template class="desc">A line drawing of a cytometer flow cell: sample in a sheath stream narrowing to single file through a laser beam. Two bullets: cytometry requires a fluorescent protein or surface labeling with a fluorescent probe; and it measures fluorescence, side-scatter and forward-scatter for each cell as it passes through a light beam.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 15 -->
+<article class="slide">
+  <h1>Cytometry Data</h1>
+  <figure class="fig">
+    <img src="img/15-cytometry-abcd.jpg" alt="Four cytometry plots labelled A to D. A: a dot plot of side scatter against forward scatter, a cone of blue and green dots. B: side scatter against green fluorescence, with a gate drawn around a green population. C: orange against red fluorescence, with quadrant gates separating blue, green, grey and orange populations. D: a histogram of counts against red fluorescence, a tall red peak at low fluorescence and a small blue peak far to the right, marked with an arrowhead.">
+  </figure>
+  <template class="notes">It is very rare to look at the raw data from a cytometry run.  There are typically 10,000 events are more in the dataset requiring the use of visualizations to be meaningful.  Here is a typical series of visualizations.  Panels A, B, and C are each dot plots, while D is a histogram.</template>
+  <template class="desc">Four panels of cytometry data. A, B and C are dot plots &mdash; side scatter against forward scatter, side scatter against green fluorescence, and orange against red fluorescence, with gates drawn on B and C. D is a histogram of counts against red fluorescence.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 16 -->
+<article class="slide">
+  <h1>Cytometry Data</h1>
+  <figure class="fig">
+    <img src="img/16-panel-a.png" alt="Panel A alone: a dot plot of side scatter (SSC) against forward scatter (FSC), with thousands of blue, green and orange dots spreading in a cone from the lower left.">
+  </figure>
+  <ul>
+    <li>Dot Plot&mdash;each dot represents one <b>event</b> (presumably a cell)</li>
+    <li>Plot any combination of <b>2 measurements</b></li>
+    <li>Can &ldquo;<b>gate</b>&rdquo; based on choosing a region of a scatter plot</li>
+  </ul>
+  <template class="notes">Each dot in the chart represents one cell that passed through the laser.  In each plot, the axis are two different signals.  In A, it is side scatter versus forward scatter. These scatter measurments are related to the size and shape of the cell.  With mammalian cells, these signals are more clustered.  For bacteria, as shown here, there is a cone of responses primarily as a result of their smaller size, but also their rod shape – there is more surface area to scatter off of if the bacterium passes through the laser side-on rather than end-on.  I</template>
+  <template class="desc">Panel A on its own, a dot plot of side scatter against forward scatter. Bullets: in a dot plot each dot represents one event, presumably a cell; any combination of two measurements can be plotted; and you can gate by choosing a region of the scatter plot.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 17 -->
+<article class="slide">
+  <h1>Cytometry Data</h1>
+  <figure class="fig">
+    <img src="img/17-panel-d.png" alt="Panel D alone: a histogram of count against red fluorescence on a log axis, with a tall red peak at low fluorescence, an arrowhead pointing at its shoulder, and a small blue peak far to the right.">
+  </figure>
+  <ul class="tight">
+    <li>Histogram&mdash;<b>number of counts</b> at each level of fluorescence</li>
+    <li>Can plot for any <b>1 measurement</b></li>
+    <li>RFP intensity is X axis, Y axis is how <b>prevalent</b> that is in the sample</li>
+    <li>Is usually plotted on a <b>semi-log</b> scale</li>
+    <li>Can also calculate <b>averages</b>/stdevs from data</li>
+  </ul>
+  <template class="notes">In panel D, we have a different type of plot called a histogram.  Here we plot the number of events that were observed for a narrow range of measured values.  Here they are computing the distribution of red fluorescense measurments within the population.  So, a dot plot compares two different measurements, while a histogram shows the distribution of only one measurment.
+Typically fluorescense measurements are presented on log scale due to the wide range of signals, and the low precision of the measruements.  Though the value observed during any single event has low precision, many events can be averaged together to get more confident values.</template>
+  <template class="desc">Panel D on its own, a histogram of counts against red fluorescence. Bullets: a histogram is the number of counts at each level of fluorescence; it can be plotted for any one measurement; RFP intensity is the X axis and the Y axis is how prevalent that is in the sample; it is usually plotted on a semi-log scale; and averages and standard deviations can be calculated from the data.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 18 -->
+<article class="slide">
+  <h1>Fluorescence Microscopy</h1>
+  <figure class="fig" style="flex:0 0 auto;height:250px;margin:0 0 22px">
+    <img src="img/18-timelapse.png" alt="A timelapse strip of eight frames in two rows: row a shows fluorescence images, dark with a few bright cells; row b shows the matching phase-contrast images of a growing microcolony of rod-shaped bacteria. Arrows in every frame track the same cell lineage.">
+  </figure>
+  <div class="cols">
+    <ul class="tighter" data-unbuild="1">
+      <li>Loosely immobilize bacteria on an &ldquo;<b>agar pad</b>&rdquo; on a slide</li>
+      <li>Excite with a laser and take <b>images/videos</b> of fluorescence</li>
+      <li><b>Lower throughput</b>, lower precision than cytometry</li>
+      <li>Allows <b>timelapse</b> measurements on a single population of bacterium, whereas cytometry only works for a <b>single timepoint</b> per cell</li>
+    </ul>
+    <ul class="tighter" data-build="1"
+        data-note="Like cytometry, depending on your instrument’s setup you might be able to monitor multiple colors simultaneously. For larger cells, you can also monitor sub-cellular localization,  You can also see morphological changes in the population. This allows you to correlate morphological variation with fluorescence variation which is information typically missed with other forms of measurment.  You can track the heredity of fluorescence activity for a lineage of cells.
+I’ll unpack this statement in the next slide, but like Cytometry, microscopy requires normalization of signal, but not normalization of optical density"
+        data-desc="The left column of bullets leaves and the right column appears: microscopy can do multiple colors, sub-cellular localization, see morphological changes, correlate morphological variation with fluorescence variation, and track the heredity of fluorescence activity. In bold: like cytometry, it requires normalization of signal, but not normalization of optical density.">
+      <li>Can do <b>multiple colors</b></li>
+      <li>Can do <b>sub-cellular localization</b></li>
+      <li>Can see <b>morphological</b> changes</li>
+      <li>Can <b>correlate</b> morphological variation with fluorescence variation</li>
+      <li>Can track the <b>heredity</b> of fluorescence activity</li>
+      <li><b>Like Cytometry, requires normalization of signal, but not normalization of optical density</b></li>
+    </ul>
+  </div>
+  <template class="notes">Another common way of measuring fluorescence is to use microscopy.  In this experiment, the engineeris loosely immobilize bacteria on an “agar pad” on a slide.  They then excite with a laser and take images or videos of fluorescence.  Microscopy has lower throughput and lower precision than cytometry.  However, it allows timelapse measurements on the same population of bacteria, whereas cytometry only works for a single timepoint per cell</template>
+  <template class="desc">A timelapse strip of a bacterial microcolony growing, fluorescence above and phase contrast below, with arrows tracking one lineage. Bullets: loosely immobilize bacteria on an agar pad on a slide; excite with a laser and take images or videos of fluorescence; lower throughput and lower precision than cytometry; allows timelapse measurements on a single population, whereas cytometry gives a single timepoint per cell.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 19 -->
+<article class="slide">
+  <h1>Normalization of Signal</h1>
+  <div class="quad">
+    <img src="img/19-cells-left.png" alt="A grey field of rod-shaped bacteria drawn in strong vermillion: brightly fluorescent cells.">
+    <img src="img/19-cells-right.png" alt="The same field of bacteria drawn in a pale tint of vermillion: dimly fluorescent cells.">
+    <img data-build="1" src="img/19-histogram-left.png" alt="A cytometry histogram under the bright cells: one blue peak sitting toward the left, low end of the fluorescence axis."
+         data-note="Surprisingly, the instrument is telling me that the cells on the right are more fluorescent than those on the left.  The problem here is that the sensitivity of the instrument will drift over time.  There are dials you can tune that can make the signal be any number you want it to be.  Thus, you must in some way standardize the signal to get consistent measurments across experiments."
+         data-desc="A histogram appears under each field. The bright cells on the left give a peak at the low end of the axis; the dim cells on the right give a peak at the high end.">
+    <img data-build="1" src="img/19-histogram-right.png" alt="A cytometry histogram under the dim cells: one blue peak sitting toward the right, high end of the fluorescence axis.">
+  </div>
+  <template class="notes">Suppose I use my God’s eye view of what’s going on in two samples of bacteria encoding RFP.  On the left, the cells are much more fluoescent than those on the right.  On two different days, I run one of the samples on the cytometer and collect a histogram.</template>
+  <template class="desc">Two grey fields of rod-shaped bacteria side by side: on the left the cells are strong vermillion, brightly fluorescent; on the right the same cells are a pale tint, dimly fluorescent.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 20 -->
+<article class="slide">
+  <h1>Normalization of Signal</h1>
+  <figure class="fig">
+    <img src="img/20-cells.png" alt="Four grey fields of rod-shaped bacteria in two rows. Top row: bright vermillion cells on the left, pale vermillion cells on the right. Bottom row: under each, a field of white, non-fluorescent control cells.">
+  </figure>
+  <template class="notes">For cytometry, this normalization is typically done by comparison to cells that lack the fluorophore, such as unmodified bacteria grown under similar conditions to the test sample.  You run the white cells through the cytometer then adjust the gain on the instrument such that the signal is centered in the first decade.  You then measure your test samples with these settings.</template>
+  <template class="desc">The bright and dim cell fields again, each now paired with a field of white control cells beneath it &mdash; cells lacking the fluorophore, run alongside each sample.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 21 -->
+<article class="slide">
+  <h1>Spectroscopy</h1>
+  <h2>(Ensemble measurement of absorbance or scattering)</h2>
+  <div class="cols">
+    <div class="stack">
+      <ul class="tighter">
+        <li>Hit it with a band of light at a particular wavelength, measure what is &ldquo;transmitted&rdquo; through, calculate the &ldquo;<b>absorbance</b>&rdquo;</li>
+        <li>Requires a <b>chromophore</b>, either a colored product in the cell, or the product of a chromogenic substrate</li>
+      </ul>
+      <figure class="fig">
+        <img src="img/21-o-nitrophenol.png" alt="The chemical structure of o-nitrophenol: a benzene ring carrying a hydroxyl group, OH, with a nitro group, NO2, on the neighbouring carbon.">
+      </figure>
+    </div>
+    <div class="stack">
+      <figure class="fig" style="flex-direction:row;gap:12px">
+        <img src="img/21-plate-reader.png" alt="A photograph of a benchtop microplate absorbance reader with a keypad and display.">
+        <img src="img/21-instrument.png" alt="A photograph of a grey, angular benchtop plate-reading instrument.">
+      </figure>
+      <ul class="tighter">
+        <li><b>Scattering</b> is measured the same way as absorbance (the signals are always superimposed)</li>
+        <li>Based on the <b>deflection</b> of radiation by large(ish) particles</li>
+        <li>Typically done for bacteria at <b>600nm</b>, the product of which is an OD_600 measurement, referred to as the <b>&ldquo;optical density&rdquo;</b></li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">Though this does not involve fluorescence, another means of using light to make measurments on a cell is to use spectroscopy.  Here, you hit a sample with a beam of light and quantify how much comes out the other end.  That is its ‘transmittance’ which is inversely related to ‘absorbance’.  This measurment requires the use of a chromophore, which means a molecule that absorbs light.  A very common fluorophore for such experiments is o-nitrophenol which turns yellow.  Cells don’t absorb much yellow light, thus there is little competing signal at this wavelength. Typically o-nitrophenol will be caged with another molecule like phosphate or galactose that prevents the molecule from absorbing light.  An enzyme like alkalaine phosphatase or galactosidase can release the alcohol and color results.  Thus, the activity of the enzyme in the cell can be monitored by watching the formation of yellow color.
+Scattering is a related phenomenon in which light bounces off a particle at a different angle than its incident vector. Experimentally, scattering is measured the same way as absorbance though it is a distinct phenomenon.  In spectrometric measurements of cells, the scattering signal will be superimposed over the absorbance signal, and the two signals are additive.  The scattering signal can be isolated by monitoring the cells at 600nm, and this is referred to as the sample’s ‘optical density’.  It is linearly related to the concentration of cells in the sample.</template>
+  <template class="desc">Spectroscopy, the ensemble measurement of absorbance or scattering. Left: hit the sample with light at a particular wavelength, measure what is transmitted, and calculate the absorbance; it requires a chromophore, either a colored product in the cell or the product of a chromogenic substrate &mdash; with the structure of o-nitrophenol beneath. Right: photographs of two plate readers, and bullets: scattering is measured the same way as absorbance and the signals are always superimposed; it is based on deflection of radiation by large-ish particles; for bacteria it is done at 600nm, giving the OD_600, the optical density.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 22 -->
+<article class="slide">
+  <h1>Fluorimetry</h1>
+  <h2>(Ensemble measurement of fluorescence)</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="fig">
+        <img src="img/22-fluorimeter.png" alt="A schematic of a fluorimeter: a lamp, drawn as a blue circle with a cross, feeds a yellow filter labelled lambda; the beam passes into a grey sample chamber, and the emitted light leaves at ninety degrees through a teal path labelled lambda-one down to a round detector.">
+      </figure>
+      <ul class="tighter">
+        <li>Hit it with a band of light with one color at the &ldquo;<b>Excitation</b> Wavelength,&rdquo; monitor the &ldquo;<b>Emission</b> Wavelength&rdquo;</li>
+        <li>Requires a small molecule <b>fluorophore</b> or fluorescent protein</li>
+        <li>There is always an <b>autofluorescence</b> background that can mask low signals</li>
+      </ul>
+    </div>
+    <div class="stack">
+      <figure class="fig">
+        <img src="img/21-instrument.png" alt="A photograph of a grey, angular benchtop plate-reading instrument.">
+      </figure>
+      <ul class="tighter">
+        <li><b>Requires normalization of the signal for optical density</b></li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">Fluorimetry is highly related to spectroscopy, and a fluorimeter can also perform absorbance measurements.  In spectroscopy, we hit with one wavelength and monitor the amount of light coming through the sample.  In fluorimetry, we hit with one wavelength and monitor the light emitted at 90 degree angle to the incident beam and at a higher wavelegth.  Thus, there is an excitation wavelength at which we probe the sample, and an emission wavelength at which we observe the response.  Such experiments require the presence of a small molecule fluorophore or a fluorescent protein.  Like chromophores, these molecules absorb light.  However, instead of simply irradiating heat, these molecules release the energy as photons of higher wavelength.  Cells contain some mildly-fluorescent fluorophores such as tryptophan which produce a background signal in these measurements.  This autofluorescense can mask low signals.  Like cytometry and microscopy, you must normalize the signal against some standard such as white cells in fluorimetry and spectrometry.  Additionally, you must normalize for cell density.</template>
+  <template class="desc">Fluorimetry, the ensemble measurement of fluorescence. A schematic of a fluorimeter with excitation light entering the sample and emission collected at ninety degrees, beside a photograph of a plate reader. Bullets: hit the sample with one color at the excitation wavelength and monitor the emission wavelength; it requires a small-molecule fluorophore or fluorescent protein; there is always an autofluorescence background that can mask low signals; and it requires normalization of the signal for optical density.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 23 -->
+<article class="slide">
+  <h1>Normalization for OD</h1>
+  <h2>(<b>O</b>ptical <b>D</b>ensity,  for ensemble measurements)</h2>
+  <figure class="fig">
+    <img src="img/23-cells.png" alt="Two grey fields of vermillion rod-shaped bacteria side by side; the left field is crowded with about twice as many cells as the right.">
+  </figure>
+  <table class="od">
+    <tr><td>Fluorescence</td><td>0.86</td><td>0.42</td></tr>
+    <tr data-build="1"
+        data-note="So, you must normalize for cell density.  This is most easily obtained by measuring the optical density, or OD, which is the absorbance at 600nm caused by scattering.  That signal is linearly related to the concentration of the cells.  Thus, the ratio of these two values will reflect the per-cell fluorescence."
+        data-desc="A second row appears: OD_600 is 0.44 on the left and 0.22 on the right."><td>OD_600</td><td>0.44</td><td>0.22</td></tr>
+    <tr data-build="2"
+        data-desc="A third row appears: the ratio of fluorescence to OD is 2.0 on the left and 1.9 on the right."><td>Ratio</td><td>2.0</td><td>1.9</td></tr>
+  </table>
+  <template class="notes">Consider I have these two samples containing the same bacteria.  The only difference is that the cells on the left are twice as concentrated as those on the right.  Fluorescence measurments are linearly related to concentration, thus the sample on the left will give twice the signal as those on the right.  If you take those numbers at face value, you would incorrectly conclude that the cells on the left are more fluorescent than those on the right.</template>
+  <template class="desc">Two fields of the same fluorescent bacteria, the left twice as concentrated as the right. Beneath them, fluorescence reads 0.86 on the left and 0.42 on the right.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

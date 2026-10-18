@@ -82,7 +82,9 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);o
 /* progressive builds */
 .slide [data-build]{opacity:0;transition:opacity .32s ease}
 .slide [data-build].in{opacity:1}
-@media (prefers-reduced-motion:reduce){.slide [data-build]{transition:none}}
+.slide [data-unbuild]{transition:opacity .32s ease}
+.slide [data-unbuild].out{opacity:0}
+@media (prefers-reduced-motion:reduce){.slide [data-build],.slide [data-unbuild]{transition:none}}
 
 /* ---- control bar ---- */
 #bar{position:absolute;right:18px;bottom:14px;display:flex;align-items:center;gap:2px;

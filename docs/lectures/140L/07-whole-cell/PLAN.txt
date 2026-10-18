@@ -41,13 +41,13 @@ THE SECTION SPLIT
 On the source deck's own divider slides.
 
   00-front-matter.html   source  1-11   Introduction          [BUILT]
-  01-fluorescent.html    source 12-23   Fluorescent Reporter Assays
-  02-biochemical.html    source 24-28   Biochemical Assays
-  03-microbiological.html source 29-33  Microbiological Assays
-  04-experimental.html   source 34-38   Experimental Design
-  05-questions.html      source 39-40   Questions to Ponder
+  01-fluorescent.html    source 12-23   Fluorescent Reporter Assays  [BUILT]
+  02-biochemical.html    source 24-28   Biochemical Assays    [BUILT]
+  03-microbiological.html source 29-33  Microbiological Assays [BUILT]
+  04-experimental.html   source 34-38   Experimental Design   [BUILT]
+  05-questions.html      source 39-40   Questions to Ponder   [BUILT]
 
-Only 00 is in lecture.js so far; add each as it lands.
+All six are in lecture.js.
 
 
 HOW THE COLOUR CONVERSION IS DONE — DO NOT RECOLOUR PIXELS
@@ -102,115 +102,128 @@ below the title, then -fuzz 3% -trim, then add a white border back.
 
 
 =========================================================
-WHERE THIS WAS LEFT — 18 Oct 2026.  READ FIRST.
+WHERE THIS STANDS — 18 Oct 2026.  READ FIRST.
 =========================================================
-THE MISSION IS NOT FINISHED.  One section of six is converted.
+THE LITERAL CONVERSION IS COMPLETE.  All 40 lecture slides are built,
+in six sections, and every section audits clean with check_section:
+no clipping, no channel junk, console clean.  Every figure was looked
+at flattened on white, section by section, before trusting the audit.
 
-  BUILT     00-front-matter.html   source slides 1-11
-  NOT BUILT 01 02 03 04 05         source slides 12-40
+The deck is still NOT in any index and not reachable from the site.
+Linking it (docs/index.md, per AUTHORING "ADDING A LECTURE") is JCA's
+call, now that it is whole.
 
-Nothing is half-written: the working tree is clean, 00 audits clean,
-and no file for 01-05 exists yet.  The deck is NOT in the 140L index
-and is not reachable from the site, deliberately, until it is whole.
+NEXT: slide-specific edits with JCA, from this baseline.  Nothing has
+been edited yet beyond the conversion itself.
 
-Only 00-front-matter.html is listed in lecture.js.  Add each section to
-that list as it lands.
+EDITS COME AFTER THE WHOLE CONVERSION.  JCA's instruction (18 Oct
+2026): convert all of 01-05 literally first, then make slide-specific
+edits from that complete baseline.  That condition is now met.
 
-TOOLS ARE COMMITTED, so none of the pipeline has to be rediscovered:
-  docs/lectures/tools/recolour_pptx.py   theme + literal recolour, repack
-  docs/lectures/tools/pptx_text.py       verbatim text, notes, emphasis
 
-TO PICK UP, FROM THE REPO ROOT:
-
+TO REBUILD THE SCRATCH RENDER, FROM THE REPO ROOT
+------------------------------------------------
   SRC="$HOME/Library/CloudStorage/Dropbox/Courses/140L/Stanley 2025/\
 140L-Fall2025-Lectures/2025_10_16-Whole-Cell Analysis.pptx"
-  python3 docs/lectures/tools/recolour_pptx.py "$SRC" /tmp/wca
-  cd /tmp/wca && soffice --headless --convert-to pdf recoloured.pptx --outdir .
-  mkdir -p pages && pdftoppm -png -r 80 -f 1 -l 40 recoloured.pdf pages/p
-  python3 docs/lectures/tools/pptx_text.py /tmp/wca/unpacked 12 23
+  python3 docs/lectures/tools/recolour_pptx.py "$SRC" <scratch>
+  cd <scratch> && soffice --headless --convert-to pdf recoloured.pptx --outdir .
+  python3 docs/lectures/tools/pptx_text.py <scratch>/unpacked 12 40
 
-The scratch directory does NOT survive between sessions; it was already
-lost once and rebuilt from these two tools in about a minute.  At 80 dpi
-a page is exactly 800x600 px for this deck's 10x7.5in slides, which is
-what the crop boxes below are in.
+Use the scratchpad, not /tmp.  The recoloured render keeps the source's
+dark grey ground, so it is right for READING the slides and wrong for
+CROPPING them.  See the next section.
 
-FIGURE GEOMETRY FOR SECTION 01, ALREADY COMPUTED
-------------------------------------------------
-Bounding box of the non-text shapes on each source slide, in 800x600
-page pixels, derived from a:off/a:ext in the slide XML (EMU * 800/9144000
-across, * 600/6858000 down).  This is the expensive part to redo.
 
-  slide12  240,207 -> 756,520   one picture, image4.png
-  slide13    0,0   -> 344,434   drawn cassette; CROP IT, not a media file
-  slide14   47,20  -> 747,423   image6.png plus one more picture
-  slide15  173,87  -> 666,547   image7.jpeg, the four-panel A/B/C/D figure
-  slide16  173,88  -> 410,316   image8.png, panel A alone
-  slide17  427,87  -> 663,313   image9.png, panel D alone
-  slide18   40,80  -> 753,259   image10.png, the timelapse strip
-  slide19   33,107 -> 771,570   46 drawn shapes; CROP the whole composition
-  slide20   33,107 -> 771,567   88 drawn shapes; CROP
-  slide21   93,93  -> 800,562   photos + a drawn o-nitrophenol structure
-  slide22   93,93  -> 800,326   image16.png and one more
-  slide23   27,107 -> 771,427   65 drawn shapes; CROP the two cell panels
-                                 only, and set the three number rows
-                                 (Fluorescence / OD_600 / Ratio) as HTML
-                                 so they stay text
+HOW SECTIONS 01-05 WERE CROPPED: A WHITE-GROUND RENDER
+------------------------------------------------------
+Source slides 12-40 sit on a dark grey master ground; 1-11 mostly did
+not.  Cropping a drawn figure off the grey render carries the grey with
+it.  So a second copy of the deck was rendered with a white <p:bg>
+injected into every slide 12-40, at 160 dpi (1600x1200 px, i.e. EMU *
+1600/9144000), and drawn figures were cropped from that.
 
-A NOTE ON THE MEDIA MAPPING.  Reading slide -> image with grep over the
-.rels files gives noisy output when a slide carries several relations;
-write a small parser instead of trusting the grep, or take the picture
-straight out of the rendered page with the box above.
+What that render also had to change, all in the scratch copy only:
+  - the three charts (ppt/charts/chart1-3.xml) set their axis text in
+    bg1, white on the old ground.  Rewritten to ink.
+  - source 33's well walls were a 20% tint of accent1, invisible on
+    white -> solid blue.  Its substrate label and arrow -> ink.
+  - source 35/36's promoter labels (tx2) -> ink; 35's caption tint
+    removed; 36's GFP and PBAD boxes widened, because LibreOffice
+    breaks "GFP" into "GF / P" where PowerPoint does not.
+  - text that is set as HTML on the slide was dropped from the render,
+    so it does not ride along inside a crop.
+  - source 33's four build states were rendered as four separate
+    slides (the well alone; + substrate; + cells; washed), each
+    cropped with the SAME box and no trim, so they swap in register.
 
-WHAT SECTION 01 CONTAINS, source 12-23
---------------------------------------
-  12  Fluorescent Reporter Assays   section divider, dark in source
-  13  Fluorescent Reporter Proteins drawn cassette + the FP list as text
-  14  Cytometry                     ONE click build; notes split on *
-  15  Cytometry Data                all four panels
-  16  Cytometry Data                panel A + bullets
-  17  Cytometry Data                panel D + bullets
-  18  Fluorescence Microscopy       timelapse strip + two bullet columns
-  19  Normalization of Signal       ONE click build; notes split on *
-  20  Normalization of Signal       the white-cell control panels
-  21  Spectroscopy                  bullets + photos + structure
-  22  Fluorimetry                   bullets + diagram + photo
-  23  Normalization for OD          two panels + the three-row table
+Two traps from this, both cost a re-render:
+  - `zip` run with cwd= the scratch tree resolves a RELATIVE archive
+    path against that cwd.  Pass an absolute destination or the archive
+    silently is not updated and the "new" render is the old one.
+  - swapping <a:schemeClr ...> for <a:srgbClr .../> with a plain string
+    replace leaves an orphaned </a:schemeClr> whenever the scheme colour
+    carries lumMod/lumOff children.  Replace the whole element.
 
-Slides 15, 16 and 17 all carry the title "Cytometry Data" and walk into
-the same figure: all four panels, then A, then D.  Keep them as three
-slides.  They are not a build — the source does not take anything away,
-and each has its own speaker note.
+RASTER FIGURES WITH WHITE MARKS (the real cost of this deck)
+------------------------------------------------------------
+Many pictures in 25-38 are PNGs drawn white-on-transparency for the
+grey ground: chart axes and legends, gene labels, structure line art.
+Each was looked at on white and handled one of three ways:
 
-Source 19 and 20 are the same drawing twice, 20 adding a row of white
-(unlabelled control) cells.  CHECK whether that should be a build
-rather than two slides before building it; the notes are separate, so
-the default is two slides.
+  recoloured to ink  white line art with no black data in it
+                     (14 flow cell, 21 o-nitrophenol, 25 all four
+                     substrate structures, 30 P-BAD constructs, 31 gene
+                     clusters, 32 aptamer/CheZ)
+  grey panel         white marks that ARE data next to black data, so
+                     recolouring would merge them: black-vs-white bar
+                     charts (30 growth rates, 31 serum survival), dark
+                     plates with white swarm halos (32), the 3D surface
+                     (36), white letters inside dark arrows (38), the
+                     quantum-dot antibody diagram (27).  Flattened onto
+                     the source's own grey, rgb(89,89,89), with a border.
+  left alone         photographs and figures already drawn for white
 
-THE WHITE CELLS ON SLIDE 20 ARE SAFE.  They are white rods drawn on a
-grey panel, and the panel comes with the crop, so they do not vanish
-the way white line art on transparency does.  Do not "fix" them.
+31's gene clusters needed both: recoloured, then the two dark brown
+arrows (L and S) pasted back from the original, because their white
+letters had turned to ink on a dark fill.
 
-JCA HAS EDITS WAITING.  He asked to start making changes and was told
-section 00 is the only thing there to change.  Take those first if they
-are general — they may change how 01-05 get built, and converting all
-of 01-05 first would mean redoing them.
 
-WHAT IS DONE
-------------
-00-front-matter.html, 11 slides, audited clean: no clipping, no channel
-junk, console clean.  Every figure looked at on white.
-  - the DBTL cycle, re-rendered from vector in house blue
-  - the Otis engraving, flattened
-  - both Brainbow micrographs, untouched (they are data, and their own
-    colours are the point)
-  - source slides 8 and 9 carry click builds; the source speaker notes
-    mark each click with a bare asterisk on its own line, and those
-    split cleanly onto data-note attributes per build step
+deck.js NOW HAS data-unbuild
+----------------------------
+Source slides 14, 18, 27 and 33 animate things OUT on a click, which
+deck.js could not do.  data-unbuild="N" (documented in AUTHORING,
+BUILDS) fades an element out at click N.  It is additive and nothing
+else in the course uses it.
 
-NEXT
-----
-01-fluorescent.html, source 12-23.  It holds the cytometry and
-microscopy figures and the two "Normalization of Signal" cell-field
-slides, which are the drawn-vector ones the recolour pipeline exists
-for.  Source 19 and 20 are the same drawing twice, with the second
-adding a row — check whether that is a build rather than two slides.
+
+NOTES ON CLICKS — WHERE THE SOURCE'S MARKERS DID NOT LINE UP
+------------------------------------------------------------
+The rule is still the author's bare asterisk.  Where the source gave
+fewer markers than clicks, this is what was done; all are open for
+JCA to change in the edit pass:
+
+  18  one click, no asterisk.  Split on the paragraph break: the first
+      paragraph is exactly the left column, the rest the right.
+  23  two clicks, one asterisk.  The OD row carries the second half of
+      the notes; the Ratio row's click has no narration.
+  30  two clicks, no asterisk.  All narration on the base step.
+  31  three clicks, two markers, one of them INLINE mid-sentence
+      ("which are * encoded by two large gene cluster").  Honoured as
+      written, so the base step's note ends mid-sentence and the gene
+      cluster click picks it up.  The serum-survival chart's click has
+      no narration.
+  32  one click, no asterisk.  All narration on the base step.
+
+
+FOR THE EDIT PASS — THINGS NOTICED, NOT CHANGED
+-----------------------------------------------
+  - the source typo on slide 4, "The Demonstation", is still there.
+  - 13: the promoter arrow on the cassette is a pale tint of blue.
+  - 22: the two wavelength labels (lambda) on the fluorimeter diagram
+    are pale grey on white.
+  - 36: the arabinose scatter points are a pale tint; the chart's
+    series colour comes from chart style 8, not from an explicit fill.
+  - 27: the antibody diagram on its grey panel is muddy.
+  - 37: two YouTube links from the source, not checked for liveness.
+  - notes keep the source's own typos (propertie, fluoescent,
+    measurments, ...) verbatim, as 00 did.

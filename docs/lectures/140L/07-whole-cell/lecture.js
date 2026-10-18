@@ -15,6 +15,12 @@
    the deck was then re-rendered and re-cropped.  See AUTHORING.txt, "WHERE
    THE FIGURE IS STILL VECTOR IN THE SOURCE .pptx".
 
+   Source slides 12-40 sit on a dark grey ground, so their drawn figures
+   were cropped from a second render with a white ground, and raster
+   figures carrying white labels were either recoloured to ink or, where
+   the white marks are data beside black data, kept on the source's own
+   grey as a panel.  PLAN.txt has the per-figure list.
+
    The source deck's course-admin tail — the all-hands, final project,
    grading, project ideas and wetlab result slides, source slides 41 to 68 —
    is NOT converted and stays in PowerPoint.
@@ -24,6 +30,11 @@ window.LECTURE = {
   title: "Whole-Cell Analysis",
   course: "140L",
   sections: [
-    { file: "00-front-matter.html", title: "Introduction", kind: "lecture" }
+    { file: "00-front-matter.html", title: "Introduction", kind: "lecture" },
+    { file: "01-fluorescent.html", title: "Fluorescent Reporter Assays", kind: "section" },
+    { file: "02-biochemical.html", title: "Biochemical Assays", kind: "section" },
+    { file: "03-microbiological.html", title: "Microbiological Assays", kind: "section" },
+    { file: "04-experimental.html", title: "Experimental Design", kind: "section" },
+    { file: "05-questions.html", title: "Questions to Ponder", kind: "section" }
   ]
 };

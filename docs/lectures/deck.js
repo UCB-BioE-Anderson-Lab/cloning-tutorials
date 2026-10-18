@@ -9,6 +9,8 @@
  * A slide is  <article class="slide" data-bg="white|blue|green|red|black">
  * with optional <template class="notes"> and <template class="desc">.
  * Children carrying data-build="1", "2", ... appear one click at a time.
+ * Children carrying data-unbuild="N" leave on click N (a source deck's
+ * exit animation); one element may carry both.
  * A slide with data-seq="name" is driven by a registered sequence.
  * ------------------------------------------------------------------ */
 (function(){
@@ -78,8 +80,10 @@ function buildSteps(){
       return;
     }
 
-    const groups = Array.from(slide.querySelectorAll("[data-build]"))
-      .map(el => parseInt(el.getAttribute("data-build"), 10) || 1)
+    const groups = Array.from(slide.querySelectorAll("[data-build],[data-unbuild]"))
+      .map(el => parseInt(el.getAttribute(el.hasAttribute("data-build") ? "data-build" : "data-unbuild"), 10) || 1)
+      .concat(Array.from(slide.querySelectorAll("[data-build][data-unbuild]"))
+      .map(el => parseInt(el.getAttribute("data-unbuild"), 10) || 1))
       .filter((v, i, a) => a.indexOf(v) === i)
       .sort((a, b) => a - b);
     slide._groups = groups;
@@ -109,6 +113,9 @@ function paintStep(i, animated){
       st.slide.querySelectorAll('[data-build="' + g + '"]').forEach(function(el){
         el.classList.toggle("in", g <= st.builds);
       });
+    });
+    st.slide.querySelectorAll("[data-unbuild]").forEach(function(el){
+      el.classList.toggle("out", st.builds >= (parseInt(el.getAttribute("data-unbuild"), 10) || 1));
     });
   }
   if (st.seq) st.seq.go(st.seqIndex, animated !== false);
@@ -218,6 +225,9 @@ function syncPanel(){
     clone.querySelectorAll("[data-build]").forEach(function(el){
       const g = parseInt(el.getAttribute("data-build"), 10) || 1;
       el.classList.toggle("in", g <= steps[index + 1].builds);
+    });
+    clone.querySelectorAll("[data-unbuild]").forEach(function(el){
+      el.classList.toggle("out", steps[index + 1].builds >= (parseInt(el.getAttribute("data-unbuild"), 10) || 1));
     });
     shot.appendChild(clone);
     nn.textContent = "";
