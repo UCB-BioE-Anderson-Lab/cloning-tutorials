@@ -7,6 +7,11 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Introduction &ndash; Whole-Cell Analysis</title>
 <link rel="stylesheet" href="../../deck.css">
+<style>
+/* source 6: the three channels of one field, side by side */
+.slide .chans{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:18px}
+.slide .chans img{width:100%;height:100%;min-height:0;object-fit:contain}
+</style>
 </head>
 <body>
 
@@ -36,8 +41,10 @@
 <!-- ----------------------------------------------------------------- 3 -->
 <article class="slide">
   <h1>The DBTL cycle</h1>
-  <figure class="fig">
-    <img src="img/03-dbtl.png" alt="A four-stage cycle drawn as rounded boxes joined by curved arrows running clockwise: Design, then Build, then Test, then Learn, and back to Design.">
+  <figure class="fig" style="display:grid;grid-template-rows:minmax(0,1fr)">
+    <img style="grid-area:1 / 1" src="img/03-dbtl.png" alt="A four-stage cycle drawn as rounded boxes joined by curved arrows running clockwise: Design, then Build, then Test, then Learn, and back to Design.">
+    <img style="grid-area:1 / 1" data-build="1" src="img/03-dbtl-test.png" alt="The same cycle with the Test box now filled vermillion, singling it out from the three blue boxes."
+         data-desc="The Test box turns vermillion, singling out the Test phase &mdash; the subject of today's lecture.">
   </figure>
   <template class="notes">More generally, we are discussing a subset of concerns related to the Test phase of the design build test learn cycle.  When you go to do a genetic engineering experiment, you will start with Design.  You will decide the composition of your strains in terms of what genes will used in the project, which combinations of those genes go into each strain composition, what regulatory elements you will add, and whether you want to put the genes on a plasmid or in the genome, and which plasmids and which sites in the genome. For each design, you will generate construction files describing how to go about fabricating the strains described by your composition designs. You then enter the build phase where you do all the oligo synthesis, gene synthesis, assembly, and transformation needed to construct your strain.  You then enter test, the subject of our lecture today, in which you take measurments on the cells to extract information about the function of your design.  In the Learn phase, the experimental data is interpreted and information is encapsulated for use in the next round of design.  As of 2014, this process is all done in peoples heads.  However, much of the software infrastructure needed to automated every step of this cycle is almost mature and will be deployed in early 2015.</template>
   <template class="desc">The design-build-test-learn cycle drawn as four boxes joined by arrows running clockwise: Design, Build, Test, Learn, and back to Design. Today's lecture is the Test phase.</template>
@@ -62,34 +69,45 @@ Now, he could have instead written a report that quantified the load capacity of
   <template class="desc">Section divider: The Demonstation. Two words name what a demonstration does &mdash; system characterization and branding &mdash; beside an engraving of Elisha Otis on an elevator platform before a crowd, about to cut the hoisting rope.</template>
 </article>
 
+<!-- ------------------------------------------------- 5a (added, not in source) -->
+<article class="slide" data-seq="brainbow">
+  <h1>The Brainbow</h1>
+  <p class="src">Brainbow 3.1: Cai et al., <i>Nat Methods</i> 2013, PMID 23817127</p>
+</article>
+
 <!-- ----------------------------------------------------------------- 5 -->
 <article class="slide">
   <h1>The Brainbow</h1>
   <figure class="fig">
-    <img src="img/05-brainbow-colour.png" alt="A false-colour fluorescence micrograph of a slice of brain tissue, in which a curving band of neuron cell bodies and their trailing axons each glow a different hue &mdash; green, red, magenta, cyan and yellow &mdash; against a dark field.">
+    <img src="img/05-brainbow3-purkinje.png" alt="A Brainbow 3.1 micrograph of cerebellum: a row of Purkinje cell bodies along the bottom, each a different colour &mdash; lime green, olive, red, violet, orange, magenta and pale blue &mdash; with their dendritic trees branching up into a tangle of red, blue and green above them.">
   </figure>
+  <p class="src">Cai et al., <i>Nat Methods</i> 2013, Fig. 2a. PMID 23817127</p>
   <template class="notes">Demonstrations are also common in the genetic engineering space.  Often they employ beautiful images and videos to entice the reader&rsquo;s attention. In this example, we are looking at a false-color rendering of the Brainbow.  The Brainbow was a genetic circuit composed of three fluorescent proteins randomly expressed at several distinct expression levels. A transgenic animal encodes the device, and each neuron of its brain will express one combination of the fluorescent proteins at specific levels.  Each neuron then has a unique signature relative to its neighbors in terms of the relative fluorescence on the three channels. When they do microscopy on slices of the brain material, they can quantify each channel, determine which combination of levels are present in each cell, and assign a color specific to that combination.  They then false-color the image to generate what is shown here.</template>
-  <template class="desc">The Brainbow: a false-colour micrograph of brain tissue in which every neuron carries its own hue, so individual cells and their axons can be told apart from their neighbours.</template>
+  <template class="desc">The Brainbow: a micrograph of cerebellum from a Brainbow 3.1 mouse, in which a row of Purkinje cells each carries its own hue, so each cell and its dendritic tree can be told apart from its neighbours.</template>
 </article>
 
 <!-- ----------------------------------------------------------------- 6 -->
 <article class="slide">
   <h1>The Brainbow</h1>
-  <figure class="fig">
-    <img src="img/06-brainbow-raw.png" alt="The same kind of brain-tissue micrograph without false colouring: a dense, largely monochrome green field in which individual neurons and their processes are difficult to tell apart.">
-  </figure>
+  <div class="chans">
+    <img src="img/06-brainbow3-ch-blue.png" alt="One fluorescence channel alone: a dark field of ring-shaped cell outlines in blue, some brighter than others.">
+    <img src="img/06-brainbow3-ch-green.png" alt="A second channel of the same field: ring-shaped outlines in green, a different subset bright.">
+    <img src="img/06-brainbow3-ch-red.png" alt="A third channel of the same field: outlines in red, again a different subset bright.">
+  </div>
+  <p class="src">Cai et al., <i>Nat Methods</i> 2013, Fig. 2f&ndash;h. PMID 23817127</p>
   <template class="notes">In reality, what the scientists probably saw under a microscope looked something like this. And they could have published that image, and the technical merit and utility of the technique is in no way compromised. They could have provided graphs showing statistics about how well they can distinguish two cells, or other more technical measures of performance.  However, without the false coloring the ability to distinguish the neurons is not communicated, and the utility of the technique would be lost.  It might be understandable to software, but this ability is not communicated without the false-color contrivance. Additionally, the technique is simply not as tantalizing and interesting as when they produce the beautiful image.</template>
-  <template class="desc">The same tissue as it actually appears down the microscope, without false colouring: a dense field in which one neuron cannot readily be told from the next.</template>
+  <template class="desc">One field of cerebellar granule cells as the microscope records it: three separate fluorescence channels side by side, each a field of similar ring-shaped outlines. In any one channel, one neuron cannot readily be told from the next.</template>
 </article>
 
 <!-- ----------------------------------------------------------------- 7 -->
 <article class="slide">
   <h1>The Brainbow</h1>
   <figure class="fig">
-    <img src="img/05-brainbow-colour.png" alt="The false-colour Brainbow micrograph again, shown after the uncoloured version for comparison: each neuron and its axon carries a distinct hue.">
+    <img src="img/07-brainbow3-merged.png" alt="The same field with the three channels merged: the ring-shaped cells now each carry a distinct hue &mdash; blue, green, red, yellow, magenta, cyan &mdash; so neighbouring cells are easy to tell apart.">
   </figure>
+  <p class="src">Cai et al., <i>Nat Methods</i> 2013, Fig. 2e. PMID 23817127</p>
   <template class="notes">The colorful version communicates to the reader not only that this labeling method allows the tracking of individual cells, but you also get an impression for how well this methodology can distinguish the axons of one cell from another.</template>
-  <template class="desc">The false-coloured version again, immediately after the raw one, so the difference in what each communicates is visible side by side in time.</template>
+  <template class="desc">The same field with its three channels merged into one colour image, immediately after the separate channels, so the difference in what each communicates is visible side by side in time.</template>
 </article>
 
 <!-- ----------------------------------------------------------------- 8 -->
@@ -173,5 +191,6 @@ Take a mouse, give it cancer, inject with the car-T, and show the mouse after th
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/brainbow.js" defer></script>
 </body>
 </html>
