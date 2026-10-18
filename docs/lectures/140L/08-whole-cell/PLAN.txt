@@ -321,3 +321,21 @@ EDITS MADE (the edit pass, from 18 Oct 2026)
       svg units, about 2.8 slide units at full height: scene art).
       seq/otis.js in the repo now DIFFERS from the copy in
       ~/Downloads/demoanimation; port this change before rebuilding there.
+
+  8   Biofuel-Producing Yeast: now a sequence, seq/biofuel.js over
+      seq/art-biofuel.js, 8 clicks (JCA kept 8 over the guide's 6).
+      Bullets in a left column, one per click (data-beat; a sequence
+      slide gets no deck builds); art in a panel: tank, yeast and
+      filling, straw fed in, pipe to a drum, "$ per barrel" tag (no
+      figure); then car, flask with a floating layer, flame.  Art is
+      ChatGPT line art traced once with trace_lineart.py and split by
+      bounding box; liquids, yeast, pipe and tag are drawn in the
+      sequence.  NOTES: click 1 the source note, 6-8 the source
+      data-notes, verbatim, and they are the repo's spell-fixed notes
+      (the build's own copy of the slide predated the spelling pass);
+      2-5 deliberately silent (each does visible work).  The eight
+      DESCRIPTIONS are new.  The price tag is white-filled (a fill, so
+      its text reads over the fuel).  Bale: the sheet's cut end traced
+      as a tangle, so it was redrawn on its own (bale-v2).  Built in
+      ~/Downloads/demoanimation/biofuel, whose README and tools rebuild
+      the art.

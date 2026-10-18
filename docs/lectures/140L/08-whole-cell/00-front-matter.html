@@ -14,6 +14,15 @@
 /* source 4a: the Otis art fills the whole slide, the title over it */
 .slide.otis-slide .otis-stage{position:absolute;top:0;bottom:0;left:100px;right:-100px;margin:0}   /* nudged right so the title clears the tower */
 .slide.otis-slide h1{position:relative;z-index:1}
+/* source 8: the bullets in a column, the art in a panel beside them.
+   Smaller than body text so all eight lines and three "or…" fit beside
+   the panel without reflowing as they appear; seq/biofuel.js reveals them
+   with visibility, so their space is held from the start. */
+.slide.bf .cols{grid-template-columns:1fr 1fr}
+.slide.bf .bf-text{justify-content:flex-start}
+.slide.bf .bf-text li,.slide.bf .bf-text p{font-size:25px;line-height:1.3;margin:0 0 9px}
+.slide.bf .bf-text ul{margin:0 0 6px}
+.slide.bf .bf-text .orr{margin:4px 0 6px;color:var(--muted)}
 /* a slide with a pinned .src credit: stop the figure above it */
 .slide:has(> .src) figure.fig,.slide:has(> .src) .chans{margin-bottom:44px}
 </style>
@@ -117,33 +126,35 @@
 </article>
 
 <!-- ----------------------------------------------------------------- 8 -->
-<article class="slide">
+<article class="slide bf" data-seq="biofuel">
   <h1>Biofuel-Producing Yeast</h1>
-  <ul>
-    <li>Build a biorefinery</li>
-    <li>Put the yeast into a bioreactor</li>
-    <li>Give it some cellulose-derived carbon source</li>
-    <li>Collect the biofuel</li>
-    <li>Show how much it cost to make a barrel of biofuel</li>
-  </ul>
-  <p class="orr" data-build="1">or&hellip;</p>
-  <ul data-build="1"
-      data-note="A real world demonstration might be to run a car on the biofuel.  In this way, they can show that the car runs just fine, that there aren&rsquo;t obvious bad smells, and that it is a product indistinguishable from normal fuel."
-      data-desc="A first alternative appears: run a car on biofuel.">
-    <li>Run a car on biofuel</li>
-  </ul>
-  <p class="orr" data-build="2">or&hellip;</p>
-  <ul data-build="2"
-      data-note="Or, at an early phase of develop the company might how an image of the culture after fermentation under a microscope showing how the fuel separates from the medium in blobs."
-      data-desc="A second alternative: show images of cultures with a layer of biofuel floating on the surface.">
-    <li>Show images of cultures with a layer of biofuel floating on the surface</li>
-  </ul>
-  <p class="orr" data-build="3">or&hellip;</p>
-  <ul data-build="3"
-      data-note="Or, they might put the culture in a flask and light it on fire.  All three of these demonstration experiments have been performed during the course of biofuel research, and they answer less technical questions about the technology, and do so in a way that better communicates the technology to their audience."
-      data-desc="A third alternative: light a culture of the bacteria on fire.">
-    <li>Light a culture of the bacteria on fire</li>
-  </ul>
+  <div class="cols">
+    <div class="bf-text">
+      <ul>
+        <li data-beat="1">Build a biorefinery</li>
+        <li data-beat="2">Put the yeast into a bioreactor</li>
+        <li data-beat="3">Give it some cellulose-derived carbon source</li>
+        <li data-beat="4">Collect the biofuel</li>
+        <li data-beat="5">Show how much it cost to make a barrel of biofuel</li>
+      </ul>
+      <p class="orr" data-beat="6">or&hellip;</p>
+      <ul data-beat="6"
+          data-note="A real world demonstration might be to run a car on the biofuel.  In this way, they can show that the car runs just fine, that there aren&rsquo;t obvious bad smells, and that it is a product indistinguishable from normal fuel.">
+        <li>Run a car on biofuel</li>
+      </ul>
+      <p class="orr" data-beat="7">or&hellip;</p>
+      <ul data-beat="7"
+          data-note="Or, at an early phase of develop the company might how an image of the culture after fermentation under a microscope showing how the fuel separates from the medium in blobs.">
+        <li>Show images of cultures with a layer of biofuel floating on the surface</li>
+      </ul>
+      <p class="orr" data-beat="8">or&hellip;</p>
+      <ul data-beat="8"
+          data-note="Or, they might put the culture in a flask and light it on fire.  All three of these demonstration experiments have been performed during the course of biofuel research, and they answer less technical questions about the technology, and do so in a way that better communicates the technology to their audience.">
+        <li>Light a culture of the bacteria on fire</li>
+      </ul>
+    </div>
+    <figure class="fig bf-stage"></figure>
+  </div>
   <template class="notes">Let&rsquo;s look at a more current example.  Suppose we want to make Biofuel-producing yeast.  For technical characterization, we will need to build a biorefinery, put the bugs into it and grow it up at scale using cellulose or sugar as a carbon source, collect the biofuel, and then compute the cost of producing it.  If I were an investor, I would want to know this quantitative technical information to be confident that the company can produce a commercially-viable product.  However, it&rsquo;s just going to look like a page of numbers to the non-expert.  Additionally, the company might be hiding details such as the presence of a contaminant in the fuel that makes your car smell like rotten eggs.</template>
   <template class="desc">The technical characterization of a biofuel yeast, listed as five steps: build a biorefinery, put the yeast in a bioreactor, give it a cellulose-derived carbon source, collect the biofuel, and show what a barrel cost to make.</template>
 </article>
@@ -200,5 +211,7 @@ Take a mouse, give it cancer, inject with the car-T, and show the mouse after th
 <script src="seq/art-otis.js" defer></script>
 <script src="seq/otis.js" defer></script>
 <script src="seq/brainbow.js" defer></script>
+<script src="seq/art-biofuel.js" defer></script>
+<script src="seq/biofuel.js" defer></script>
 </body>
 </html>
