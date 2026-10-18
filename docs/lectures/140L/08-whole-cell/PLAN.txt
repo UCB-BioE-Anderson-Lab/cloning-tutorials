@@ -27,8 +27,8 @@ original, change the colour and font palette, and edit from there.
 So: do not improve a slide while converting it.  If a slide is a wall
 of text in the source, it is a wall of text here.  Edits come later,
 with JCA, from a faithful baseline.  The source's own typo on slide 4,
-"The Demonstation", is preserved verbatim — flag it, do not fix it
-silently.
+"The Demonstation", was preserved verbatim through the conversion,
+and fixed in the edit pass at JCA's request (see EDITS MADE).
 
 
 SCOPE
@@ -223,7 +223,6 @@ JCA to change in the edit pass:
 
 FOR THE EDIT PASS — THINGS NOTICED, NOT CHANGED
 -----------------------------------------------
-  - the source typo on slide 4, "The Demonstation", is still there.
   - 13: the promoter arrow on the cassette is a pale tint of blue.
   - 22: the two wavelength labels (lambda) on the fluorimeter diagram
     are pale grey on white.
@@ -277,7 +276,7 @@ EDITS MADE (the edit pass, from 18 Oct 2026)
       image under the same licence, was the runner-up.)
       Slides 5-7 also keep their figures clear of the pinned credit.
 
-  4   The amber Demonstation card keeps its title and two bullets; the
+  4   The amber Demonstration card keeps its title and two bullets; the
       Otis engraving is gone (img/04-otis.png deleted).  Its note keeps
       the source's opening, up to "goes beyond this."
   4a  NEW SLIDE, not in the source: Otis cuts the rope, in four clicks
@@ -291,3 +290,34 @@ EDITS MADE (the edit pass, from 18 Oct 2026)
       credits its figures.  Known nits in the art, from that README: a
       stray tab at the top of the tower's left post, and wobbly rail
       teeth.
+
+  4, 4a, 10  "Demonstation" fixed to "Demonstration" everywhere: both
+      titles, the card's description, and the two in source 10's speaker
+      note ("demonstations", "demonstation").  JCA, 18 Oct 2026.
+
+  all  Speaker-note spelling fixed across 00-05 and seq/otis.js, at JCA's
+      request; only inside notes, nothing else on the slides.  35 fixes:
+      measurment(s) x9, fluorescense x3, chromagenic x2, and one each of
+      alkalaine, autofluorescense, engineeris (-> engineers),
+      fluoescence, fluoescent, impermable, measruements, measurmenets,
+      microsopy, propertie, quantative, relavent, souce, theophyilline,
+      unegineered, wavelegth, undeer, "transcription,a nd", igem (-> iGEM),
+      tecan (-> Tecan), "breaking mechanism" (-> braking).
+      LEFT AS IS, wording rather than spelling, for JCA to decide:
+        4   "highlights the its features"
+        8   "at an early phase of develop the company might how an image"
+        15  "10,000 events are more" (or more)
+        16  the note ends in a stray "I"
+        21  "A very common fluorophore ... is o-nitrophenol" (a chromophore)
+        22  "instead of simply irradiating heat"
+        25  "fluorogenic substrates that that can be detected"
+        26  "and there many of them"
+        34  "that must be including in the Test phase"
+
+  4a  Line weight evened out.  The tracer gives every path its own
+      measured width (1.0 to 18.6 crop px), and otis.js scaled those
+      proportionally, so weight varied visibly inside one figure (worst in
+      the right-hand crowd).  part() now sets EVERY stroke to STROKE (2.0
+      svg units, about 2.8 slide units at full height: scene art).
+      seq/otis.js in the repo now DIFFERS from the copy in
+      ~/Downloads/demoanimation; port this change before rebuilding there.
