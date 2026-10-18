@@ -4,6 +4,52 @@ Written 18 Oct 2026, after the slides JCA had already reworked
 (3, 4/4a, 5-7, 8, 9, 10, 11, 13, 14, 21).  PLAN.txt holds the history
 of those; this file is the plan for everything else.
 
+=====================================================================
+CORRECTION, 18 Oct 2026, SAME DAY — READ THIS BEFORE ACTING ON P1
+=====================================================================
+THE FIRST UPSCALE MEASUREMENT WAS WRONG AND MOST OF P1 EVAPORATES.
+
+It measured the <img> ELEMENT's width.  Nearly every figure in this
+deck is styled width:100%;height:100%;object-fit:contain inside a flex
+box, so the element is as wide as its column while the PICTURE inside
+it is letterboxed to fit the box's HEIGHT.  The painted picture is
+usually far smaller than the element.  The true number is
+
+    painted width = min(box width, box height * aspect ratio)
+
+and Appendix 1 below has been replaced with it.  What survives:
+
+  3.31  07-brainbow3-merged.png   slide 7   genuinely bad
+  2.38  12-histograms.png         slide 12  mild
+  2.11  06-brainbow3-ch-*.png     slide 6   mild
+  1.97  25-sgal.png               25, 26    mild
+  everything else is at or below 1.8, which is fine
+
+SO THESE ITEMS ARE WITHDRAWN, they were chasing a measurement error:
+  B4  cytometry data 15/16/17 (really 1.35, 1.58, 1.38) - nothing to do
+  C3  the embryo divider      (really 1.60)             - nothing to do
+  D3  the swarm plate divider (really 1.39)             - nothing to do
+  F1  the ponder cartoon      (really 1.61)             - nothing to do
+
+AND THESE ARE DOWNGRADED:
+  B5  slide 18's strip is 1.75, fine.  Its 87 words are still worth
+      thinning, so the TEXT half of B5 stands and the image half goes.
+  B6  slide 12's divider at 2.38 is the mildest real case; optional.
+  C2  the structures are 1.69 and 1.97, so tracing them is now a
+      cosmetic nicety, not a fix.  Do it only if C1 is finished.
+
+WHAT IS UNAFFECTED, because none of it was ever about resolution:
+  - A1, the Brainbow slides: still the worst images in the deck
+  - P2, figures on the source's grey panel (27, 30, 31, 32, 36, 38)
+  - P3, slides carrying too much text (27, 18, 28, 31)
+  - P4, the three mechanism slides that should animate
+  - E1 and E2: the arabinose chart's points are too pale to see and the
+    media chart is an illegible 3D bar chart.  Both are contrast and
+    design problems, not resolution problems, and both still stand.
+
+THE LESSON, worth keeping: object-fit:contain means the element size
+tells you nothing about the picture size.  Measure what is painted.
+
 SCOPE, FROM JCA
 ---------------
 "Generally I don't think we are changing the content in terms of scope
@@ -369,29 +415,28 @@ WHAT IS NOT CHANGING
   - the course-admin tail, source 41-68, stays in PowerPoint
 
 
-APPENDIX 1 — IMAGE UPSCALE, WORST FIRST
----------------------------------------
-Measured 18 Oct 2026 at a 1600-unit slide width.
+APPENDIX 1 — IMAGE UPSCALE, CORRECTED (PAINTED WIDTH)
+-----------------------------------------------------
+Measured 18 Oct 2026 at a 1600-unit slide width, as painted, with
+every build forced visible.  Script: scratchpad/measure2.js.
 
-  6.57  07-brainbow3-merged.png      210 ->1380   slide 7
-  5.75  39-ponder.png                240 ->1380   slide 39
-  5.66  24-embryo.png                244 ->1380   slide 24
-  4.88  17-panel-d.png               283 ->1380   slide 17
-  4.86  16-panel-a.png               284 ->1380   slide 16
-  4.57  21-instrument.png            146 -> 667   slide 22
-  3.92  22-fluorimeter.png           170 -> 667   slide 22
-  3.58  12-histograms.png            385 ->1380   slide 12
-  3.29  29-swarm-plate.png           420 ->1380   slide 29
-  2.95  19-histogram-left/right.png  224 -> 660   slide 19
-  2.74  15-cytometry-abcd.jpg        504 ->1380   slide 15
-  2.42  18-timelapse.png             570 ->1380   slide 18
-  2.11  06-brainbow3-ch-*.png        210 -> 444   slide 6
-  2.11  33-plate.png                 315 -> 665   slide 33
-  2.09  32-swarm-plates.png          661 ->1380   slide 32
-  1.97  25-sgal.png                  220 -> 433   slides 25, 26
-  1.94  32-aptamer-chez.png          711 ->1380   slide 32
-  1.67  38-toggle-circuit.png        828 ->1380   slide 38
-  everything else is at or below 1.5
+  3.31  07-brainbow3-merged.png    210 -> 696   slide 7
+  2.38  12-histograms.png          385 -> 915   slide 12
+  2.11  06-brainbow3-ch-*.png      210 -> 444   slide 6
+  1.97  25-sgal.png                220 -> 433   slides 25, 26
+  1.75  18-timelapse.png           570 -> 997   slide 18
+  1.72  19-histogram-left/right    224 -> 386   slide 19
+  1.69  25-onpg.png                256 -> 433   slides 25, 26
+  1.61  39-ponder.png              240 -> 387   slide 39
+  1.60  24-embryo.png              244 -> 390   slide 24
+  1.58  16-panel-a.png             284 -> 448   slide 16
+  1.43  27-antibody.png            491 -> 702   slide 27
+  1.39  29-swarm-plate.png         420 -> 584   slide 29
+  1.38  17-panel-d.png             283 -> 391   slide 17
+  1.36  32-aptamer-chez.png        711 -> 970   slide 32
+  1.35  15-cytometry-abcd.jpg      504 -> 680   slide 15
+  1.31  32-swarm-plates.png        661 -> 864   slide 32
+  everything else is at or below 1.12
 
 APPENDIX 2 — BODY WORDS PER SLIDE, HEAVIEST FIRST
 -------------------------------------------------

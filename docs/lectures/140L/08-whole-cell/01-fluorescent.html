@@ -237,31 +237,28 @@ Scattering is a related phenomenon in which light bounces off a particle at a di
 </article>
 
 <!-- ---------------------------------------------------------------- 22 -->
-<article class="slide">
+<!-- Quality pass (IMPROVEMENTS.txt item B1): the schematic and the
+     second instrument photo were the deck's 4th and 7th most stretched
+     images (3.9x and 4.6x).  Both are gone, replaced by
+     seq/fluorimeter.js, which is seq/spectro.js with the detector moved
+     to ninety degrees.  Of the four source bullets, the two the
+     animation now shows came off; the two it cannot carry stay
+     verbatim.  The sequence carries the source note, split across its
+     clicks; the template below is the fallback. -->
+<article class="slide fluo" data-seq="fluorimeter">
   <h1>Fluorimetry</h1>
   <h2>(Ensemble measurement of fluorescence)</h2>
-  <div class="cols">
-    <div class="stack">
-      <figure class="fig">
-        <img src="img/22-fluorimeter.png" alt="A schematic of a fluorimeter: a lamp, drawn as a blue circle with a cross, feeds a yellow filter labelled lambda; the beam passes into a grey sample chamber, and the emitted light leaves at ninety degrees through a teal path labelled lambda-one down to a round detector.">
-      </figure>
-      <ul class="tighter">
-        <li>Hit it with a band of light with one color at the &ldquo;<b>Excitation</b> Wavelength,&rdquo; monitor the &ldquo;<b>Emission</b> Wavelength&rdquo;</li>
+  <div class="cyto-grid">
+    <figure class="fluo-stage"></figure>
+    <div class="cyto-side">
+      <ul class="tight">
         <li>Requires a small molecule <b>fluorophore</b> or fluorescent protein</li>
-        <li>There is always an <b>autofluorescence</b> background that can mask low signals</li>
-      </ul>
-    </div>
-    <div class="stack">
-      <figure class="fig">
-        <img src="img/21-instrument.png" alt="A photograph of a grey, angular benchtop plate-reading instrument.">
-      </figure>
-      <ul class="tighter">
         <li><b>Requires normalization of the signal for optical density</b></li>
       </ul>
     </div>
   </div>
   <template class="notes">Fluorimetry is highly related to spectroscopy, and a fluorimeter can also perform absorbance measurements.  In spectroscopy, we hit with one wavelength and monitor the amount of light coming through the sample.  In fluorimetry, we hit with one wavelength and monitor the light emitted at 90 degree angle to the incident beam and at a higher wavelength.  Thus, there is an excitation wavelength at which we probe the sample, and an emission wavelength at which we observe the response.  Such experiments require the presence of a small molecule fluorophore or a fluorescent protein.  Like chromophores, these molecules absorb light.  However, instead of simply irradiating heat, these molecules release the energy as photons of higher wavelength.  Cells contain some mildly-fluorescent fluorophores such as tryptophan which produce a background signal in these measurements.  This autofluorescence can mask low signals.  Like cytometry and microscopy, you must normalize the signal against some standard such as white cells in fluorimetry and spectrometry.  Additionally, you must normalize for cell density.</template>
-  <template class="desc">Fluorimetry, the ensemble measurement of fluorescence. A schematic of a fluorimeter with excitation light entering the sample and emission collected at ninety degrees, beside a photograph of a plate reader. Bullets: hit the sample with one color at the excitation wavelength and monitor the emission wavelength; it requires a small-molecule fluorophore or fluorescent protein; there is always an autofluorescence background that can mask low signals; and it requires normalization of the signal for optical density.</template>
+  <template class="desc">A diagram of a fluorimeter: the spectrophotometer of the previous slide with its detector moved to ninety degrees, behind an emission filter. Two notes beside it: fluorimetry requires a small-molecule fluorophore or a fluorescent protein, and the signal must be normalized for optical density.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 23 -->
@@ -287,5 +284,6 @@ Scattering is a related phenomenon in which light bounces off a particle at a di
 <script src="lecture.js" defer></script>
 <script src="seq/cytometer.js" defer></script>
 <script src="seq/spectro.js" defer></script>
+<script src="seq/fluorimeter.js" defer></script>
 </body>
 </html>
