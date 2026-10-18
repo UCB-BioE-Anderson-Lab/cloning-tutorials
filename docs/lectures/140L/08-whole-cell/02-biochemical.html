@@ -32,6 +32,9 @@
 /* the product name, which the source deck shipped as a wordmark bitmap */
 .slide .swap .brand{flex:0 0 auto;margin:0 0 16px;font-size:31px;line-height:1.18;
   font-weight:300;color:var(--muted)}
+.slide.ask p.q{font-size:36px;font-weight:700;line-height:1.35;margin:26px 0 0;max-width:44ch}
+.slide.ask ol.qlist{margin:30px 0 0;padding-left:1.5em;max-width:none}
+.slide.ask ol.qlist li{font-size:32px;font-weight:700;line-height:1.3;margin:0 0 20px}
 </style>
 </head>
 <body>
@@ -213,6 +216,32 @@ I highlight the enzymatic assays because they are commonly used, and there many 
   <template class="notes">There are a number of things you should be careful about when performing biochemical assays that have quantitative readouts.  Bacteria are different sizes at different stages of the growth phase.  The process of replication, transcription, and translation all have different rates based on the phase of growth, the medium composition, and the genetic composition of your strain.  Additionally, the growth conditions or your genetic modifications can differentially affect the growth of specific strains.
 These differences in cell physiology and growth rates can play havoc with your experiments.  It is very easy to fool yourself into thinking a genetic device is working when in reality it is an artifact of the growth conditions.  It is tempting to do extensive data manipulation to control for deviations in your experiment.  There are many notable examples of scientists performing elaborate corrections to their data that make small differences in original signal look far more dramatic.  Such manipulation is highly discouraged since it is difficult to justify these corrections.  Best practice is to normalize for cell density and for signal strength against a standard, but nothing else.  This does not guarantee that your data will not lie to you, So, be careful, and be cautious in your conclusions.</template>
   <template class="desc">But be careful. Four cautions: bacteria are different sizes at different stages of the growth phase; replication, transcription and translation rates differ across the growth phase; toxicity in a cell can increase or decrease the normalized activity observed; and the proper way to handle the data is debatable &mdash; don't get fancy with the math.</template>
+</article>
+
+<!-- ------------------------------------------- 28a (new, 18 Oct 2026) -->
+<!-- Section 02 had no closing question: none of the source deck's four is
+     a biochemical one.  JCA asked for one, on a phenotype the slides do
+     not cover directly.  Lysis: the enzymes of slide 25 used backwards,
+     to report WHERE a protein is rather than whether a gene is on, and
+     it runs straight into slide 28's growth-phase caution.  Everything
+     on this slide and in its notes is NEW and needs JCA's review. -->
+<article class="slide ask" data-bg="section">
+  <h1>Question to ponder</h1>
+  <p class="q">You have engineered a phage-derived lysis circuit in <i>E.&nbsp;coli</i>. How would you measure it?</p>
+  <ol class="qlist">
+    <li>What fraction of the cells actually lyse?</li>
+    <li data-build="1"
+        data-note="How fast. Now it is a time course, and the question becomes how often you can sample. A plate reader will read OD every minute unattended, which is slide 21's instrument doing the easy part; an enzyme assay needs a sample pulled, spun and developed, so your time resolution is minutes at best. And a population average hides the shape: if every cell lyses at once you get the same mean as if they trickle out over an hour. Microscopy is the only one that gives you the distribution rather than the mean."
+        data-desc="A second question appears: how fast?">How fast?</li>
+    <li data-build="2"
+        data-note="What it needs. This is slide 28 arriving in person. Vary the medium, the temperature, the growth phase at induction, and repeat the time course for each. The trap is that every one of those also changes the growth rate, so you must measure growth rate alongside, the way slide 30 does, or you cannot tell a circuit that works poorly in minimal medium from cells that are simply growing slowly."
+        data-desc="A third question appears: what does it need, in medium, temperature and growth phase?">What does it need: medium, temperature, growth phase?</li>
+    <li data-build="3"
+        data-note="Whether it tracks replication. This one cannot be answered by any bulk assay at all, and that is why it is here. An average over a flask cannot tell you whether a cell lysed just after it divided. You need to watch single cells over time and keep their lineage, which is the timelapse microscopy of slide 18 and the one capability on that slide that nothing else replaces. Worth saying out loud: the right assay is not the most sensitive one, it is the one whose units match the question."
+        data-desc="A fourth question appears: does lysis track with replication?">Does lysis track with replication?</li>
+  </ol>
+  <template class="notes">What fraction. The obvious move is OD600, and it is the weakest: OD falls as cells break, but the debris still scatters, so it understates lysis, and it is an average over the flask. Better is to use the section's own enzymes backwards. A cytoplasmic enzyme such as beta-galactosidase appearing in the cell-free supernatant reports that cells have broken open, not that a gene has turned on; run a fully lysed sample alongside as the hundred per cent, and the ratio is your fraction. Better still, count: a live/dead stain read on the cytometer gives the fraction of intact cells directly, one cell at a time. Ask the room which of those three actually answers the question asked.</template>
+  <template class="desc">Question to ponder, on the amber ground. You have engineered a phage-derived lysis circuit in E. coli: how would you measure it? The first question is what fraction of the cells actually lyse.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
