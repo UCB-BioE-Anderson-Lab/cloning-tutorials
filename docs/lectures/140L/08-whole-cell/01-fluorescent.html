@@ -24,6 +24,12 @@
 .slide .cyto-grid > *{min-height:0;min-width:0;margin:0}
 .slide .cyto-side{display:flex;flex-direction:column;justify-content:center}
 .slide .cyto-side figure.fig{flex:0 1 auto;max-height:300px;margin:0 0 22px}
+/* sources 19 and 20: cell fields above, drawn histograms below */
+.slide .gain-grid{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 1fr;
+  grid-template-rows:minmax(0,1fr) minmax(0,1.15fr);gap:10px 60px;align-items:center}
+.slide .gain-grid.one{grid-template-columns:1fr;grid-template-rows:minmax(0,1.5fr) minmax(0,1fr)}
+.slide .gain-grid img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide .gain-grid .gain-stage{grid-column:1 / -1;min-height:0;margin:0;height:100%}
 /* a 2x2 field of figures (source 19) */
 .slide .quad{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 1fr;
   grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:22px 60px}
@@ -184,26 +190,29 @@ I’ll unpack this statement in the next slide, but like Cytometry, microscopy r
 </article>
 
 <!-- ---------------------------------------------------------------- 19 -->
-<article class="slide">
+<!-- Quality pass (IMPROVEMENTS.txt item B2): the two histograms were
+     pasted-in pictures, so the slide could only assert that the peak
+     moves with the gain.  They are drawn in seq/gain.js now and the
+     peak actually moves.  The cell fields are unchanged.  Two slides,
+     not one: the source gives 19 and 20 separate notes. -->
+<article class="slide" data-seq="gain1">
   <h1>Normalization of Signal</h1>
-  <div class="quad">
+  <div class="gain-grid">
     <img src="img/19-cells-left.png" alt="A grey field of rod-shaped bacteria drawn in strong vermillion: brightly fluorescent cells.">
     <img src="img/19-cells-right.png" alt="The same field of bacteria drawn in a pale tint of vermillion: dimly fluorescent cells.">
-    <img data-build="1" src="img/19-histogram-left.png" alt="A cytometry histogram under the bright cells: one blue peak sitting toward the left, low end of the fluorescence axis."
-         data-note="Surprisingly, the instrument is telling me that the cells on the right are more fluorescent than those on the left.  The problem here is that the sensitivity of the instrument will drift over time.  There are dials you can tune that can make the signal be any number you want it to be.  Thus, you must in some way standardize the signal to get consistent measurements across experiments."
-         data-desc="A histogram appears under each field. The bright cells on the left give a peak at the low end of the axis; the dim cells on the right give a peak at the high end.">
-    <img data-build="1" src="img/19-histogram-right.png" alt="A cytometry histogram under the dim cells: one blue peak sitting toward the right, high end of the fluorescence axis.">
+    <figure class="gain-stage"></figure>
   </div>
   <template class="notes">Suppose I use my God’s eye view of what’s going on in two samples of bacteria encoding RFP.  On the left, the cells are much more fluorescent than those on the right.  On two different days, I run one of the samples on the cytometer and collect a histogram.</template>
   <template class="desc">Two grey fields of rod-shaped bacteria side by side: on the left the cells are strong vermillion, brightly fluorescent; on the right the same cells are a pale tint, dimly fluorescent.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 20 -->
-<article class="slide">
+<article class="slide" data-seq="gain2">
   <h1>Normalization of Signal</h1>
-  <figure class="fig">
+  <div class="gain-grid one">
     <img src="img/20-cells.png" alt="Four grey fields of rod-shaped bacteria in two rows. Top row: bright vermillion cells on the left, pale vermillion cells on the right. Bottom row: under each, a field of white, non-fluorescent control cells.">
-  </figure>
+    <figure class="gain-stage"></figure>
+  </div>
   <template class="notes">For cytometry, this normalization is typically done by comparison to cells that lack the fluorophore, such as unmodified bacteria grown under similar conditions to the test sample.  You run the white cells through the cytometer then adjust the gain on the instrument such that the signal is centered in the first decade.  You then measure your test samples with these settings.</template>
   <template class="desc">The bright and dim cell fields again, each now paired with a field of white control cells beneath it &mdash; cells lacking the fluorophore, run alongside each sample.</template>
 </article>
@@ -285,5 +294,6 @@ Scattering is a related phenomenon in which light bounces off a particle at a di
 <script src="seq/cytometer.js" defer></script>
 <script src="seq/spectro.js" defer></script>
 <script src="seq/fluorimeter.js" defer></script>
+<script src="seq/gain.js" defer></script>
 </body>
 </html>
