@@ -381,14 +381,20 @@ EDITS MADE (the edit pass, from 18 Oct 2026)
       questions and their answers were removed (in git history).
 
   13  "Fluorescent Reporter Proteins" -> "Making a Cell Fluorescent":
-      one table of the modalities for making a cell fluorescent for
-      cytometry (JCA: explain the range, not fun pictures; luciferase
-      does not belong).  Rows: fluorescent protein, sensor (GCaMP), dye
-      (calcein-AM, uncaged by the cell's esterases; SYTO 9), surface
-      label (labelled antibody to a displayed epitope), fluorescent
-      particle (bead, nanocapsule, quantum dot).  Columns: where the
-      light comes from, made by the cell?, example.  The examples point
-      ahead to slides 14 (surface labeling) and 27 (SYTO 9, quantum
-      dots).  Note VERBATIM; table and description NEW.  A four-photo
-      version was committed first (c3a666cc) and replaced the same day;
-      its images and img/13-cassette.png are deleted.
+      the modalities for making a cell fluorescent for cytometry, as
+      five cartoon cells, one per click (JCA: explain the range, not fun
+      pictures; luciferase does not belong; no table).  Fluorescent
+      protein, sensor, dye (outside still ink = caged; inside green),
+      surface label (antibody on a receptor), fluorescent particle (bead
+      or nanocapsule on a tether).  Line art: one ChatGPT sheet of five
+      matched rod cells, traced once with trace_lineart.py --uniform-width
+      and split by panel; inline SVG in the slide, no sequence file.
+      Source sheet and trace kept in ~/Downloads/demoanimation/cells/.
+      COLOUR: whatever fluoresces is green, #2b8a3e (4.4:1 on white),
+      deliberately OUTSIDE the palette because here it is the signal
+      itself; the cell is ink.
+      Note VERBATIM on the base step (it covers protein, sensor, caged
+      dye); builds 2-3 silent, builds 4-5 carry NEW notes for review
+      (surface label, particle).  Captions and descriptions NEW.
+      Superseded the same day: a four-photo version (c3a666cc) and a
+      table (31b7b444); their images and img/13-cassette.png are deleted.
