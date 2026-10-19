@@ -72,7 +72,7 @@ const STEPS = [
     note:"In fluorimetry, we hit with one wavelength and monitor the light emitted at 90 degree angle to the incident beam and at a higher wavelength.  Thus, there is an excitation wavelength at which we probe the sample, and an emission wavelength at which we observe the response.",
     desc:"The in-line detector is gone. A second detector appears below the cuvette, at ninety degrees to the beam, behind its own filter: the excitation filter picks the wavelength going in, the emission filter the longer wavelength coming out." },
   { s:{ thru:0, emit:1, lit:1, cells:1, auto:0, norm:0, read:1 },
-    note:"Such experiments require the presence of a small molecule fluorophore or a fluorescent protein.  Like chromophores, these molecules absorb light.  However, instead of simply irradiating heat, these molecules release the energy as photons of higher wavelength.",
+    note:"Such experiments require the presence of a small molecule fluorophore or a fluorescent protein.  Like chromophores, these molecules absorb light.  However, instead of simply radiating heat, these molecules release the energy as photons of higher wavelength.",
     desc:"Cells carrying a fluorophore fill the cuvette, drawn as green rods. Where the blue beam crosses them, green light leaves at ninety degrees, down through the emission filter to the detector, which reads a strong signal." },
   { s:{ thru:0, emit:1, lit:1, cells:1, auto:1, norm:0, read:2 },
     note:"Cells contain some mildly-fluorescent fluorophores such as tryptophan which produce a background signal in these measurements.  This autofluorescence can mask low signals.",
