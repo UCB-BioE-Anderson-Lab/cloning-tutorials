@@ -25,6 +25,16 @@
 .slide .chart .tick{font-size:22px}
 .slide .chart .atitle{font-size:24px}
 .slide.ask p.q{font-size:36px;font-weight:700;line-height:1.35;margin:30px 0 0;max-width:44ch}
+/* source 37: the two clips, embedded.  A fixed 16:9 media box so the
+   poster still and the iframe that covers it are the same shape. */
+.slide .vids{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:54px;
+  align-content:center}
+.slide .vidbox{margin:0;display:flex;flex-direction:column;min-width:0}
+.slide .vmedia{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden}
+.slide .vmedia img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slide .vid{position:absolute;inset:0}
+.slide .vid iframe{width:100%;height:100%;border:0;display:block}
+.slide .vlink{font-size:20px;color:var(--muted);margin-top:12px;word-break:break-all}
 </style>
 </head>
 <body>
@@ -257,20 +267,39 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 37 -->
+<!-- Edit pass (JCA, 20 Oct 2026): "embed the videos and have them loop
+     on click".  Each clip is a YouTube iframe that is created only when
+     its own click arrives and destroyed when you leave it, so nothing
+     is loaded or playing until he asks for it.  One at a time: the left
+     clip stops when the right one starts (data-unbuild), because two
+     looping videos at once is noise.  The still stays behind each as a
+     poster, so the slide still reads with no network.
+     Under prefers-reduced-motion nothing autoplays; the player appears
+     and the presenter presses play.  That is the one concession to
+     AUTHORING's rule against ambient motion, which a looping clip
+     otherwise breaks on purpose. -->
 <article class="slide">
   <h1>Dynamics</h1>
-  <div class="grid" style="grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) auto minmax(0,1fr) auto">
-    <img src="img/37-oscillator.png" alt="A microscope frame of a microcolony of rod-shaped bacteria, some glowing bright green and others dim, on a grey phase-contrast ground.">
-    <span></span>
-    <a href="http://www.youtube.com/watch?v=qWkLS-u982A">http://www.youtube.com/watch?v=qWkLS-u982A</a>
-    <span></span>
-    <span></span>
-    <img src="img/37-blue.png" alt="A video frame on black of a dense population of cells glowing blue, brighter toward the top.">
-    <span></span>
-    <a href="http://www.youtube.com/watch?v=IknK-7THoIc">http://www.youtube.com/watch?v=IknK-7THoIc</a>
+  <div class="vids">
+    <figure class="vidbox">
+      <div class="vmedia">
+        <img src="img/37-oscillator.png" alt="A microscope frame of a microcolony of rod-shaped bacteria, some glowing bright green and others dim, on a grey phase-contrast ground.">
+        <div class="vid" data-build="1" data-unbuild="2" data-yt="qWkLS-u982A"
+             data-desc="The first clip starts and loops: a microcolony of bacteria under the microscope, individual cells brightening and dimming as the oscillator runs."></div>
+      </div>
+      <a class="vlink" href="http://www.youtube.com/watch?v=qWkLS-u982A">youtube.com/watch?v=qWkLS-u982A</a>
+    </figure>
+    <figure class="vidbox">
+      <div class="vmedia">
+        <img src="img/37-blue.png" alt="A video frame on black of a dense population of cells glowing blue, brighter toward the top.">
+        <div class="vid" data-build="2" data-yt="IknK-7THoIc"
+             data-desc="The first clip stops and the second starts, looping: a dense population of cells glowing blue, waves of brightness travelling through it."></div>
+      </div>
+      <a class="vlink" href="http://www.youtube.com/watch?v=IknK-7THoIc">youtube.com/watch?v=IknK-7THoIc</a>
+    </figure>
   </div>
   <template class="notes">I’ll show you these two clips after this presentation, but these are two examples of following the dynamics of single cells containing a genetic circuit over time. These oscillating genetic circuits require monitoring the behavior of individual cells over time. Currently, the only way to do this is fluorescence microscopy and thus such assays only work for fluorescence readouts.  It would be extremely challenging to, for example, monitor single-cell dynamics of a cell biosynthesizing a biofuel.</template>
-  <template class="desc">Dynamics. Two video stills of genetic circuits followed over time in single cells, each with its YouTube link: a microcolony of bacteria with some cells glowing green, and a population of cells glowing blue.</template>
+  <template class="desc">Dynamics. Two video stills of genetic circuits followed over time in single cells, each with its YouTube link below it: a microcolony of bacteria with some cells glowing green, and a population of cells glowing blue. Each plays on its own click.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 38 -->
@@ -298,5 +327,33 @@
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script defer>
+/* Create each clip's iframe only when its click is showing, and destroy it
+   when it is not, so nothing loads or plays before it is asked for and
+   nothing keeps looping once the slide is left.  Scoped to #stage, which
+   leaves presenter mode's cloned preview alone: that clone lives in
+   #nextshot, and giving it a second copy of the player would start the
+   video twice (AUTHORING's warning about ids and the cloned next slide). */
+document.addEventListener("deck:step", function(){
+  var live = document.querySelector("#stage .slide.on");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll("#stage .slide .vid").forEach(function(v){
+    var on = live && live.contains(v) &&
+             v.classList.contains("in") && !v.classList.contains("out");
+    if (on && !v.firstChild){
+      var id = v.getAttribute("data-yt"), f = document.createElement("iframe");
+      f.src = "https://www.youtube.com/embed/" + id +
+              "?autoplay=" + (reduce ? 0 : 1) + "&mute=1&loop=1&playlist=" + id +
+              "&rel=0&modestbranding=1&playsinline=1";
+      f.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture");
+      f.setAttribute("allowfullscreen", "");
+      f.setAttribute("title", "clip");
+      v.appendChild(f);
+    } else if (!on && v.firstChild){
+      v.innerHTML = "";
+    }
+  });
+});
+</script>
 </body>
 </html>

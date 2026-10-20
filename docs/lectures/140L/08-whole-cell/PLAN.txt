@@ -698,3 +698,26 @@ nothing was merged by git.  What landed:
       shrank the whole figure, since it is scaled to fit its box.  The
       plot was flattened and widened instead so the figure fills the
       slide width and the cells came up with it.
+
+  37  Dynamics: the two clips are EMBEDDED and loop (JCA, 20 Oct 2026:
+      "embed the videos and have them loop on click").  Each is a
+      YouTube iframe built only when its own click arrives and torn
+      down when it is not showing, so nothing loads or plays until he
+      asks and nothing keeps looping once he leaves the slide.  One at
+      a time: the left clip stops as the right starts (data-unbuild),
+      because two looping clips at once is noise.  The old stills stay
+      as posters behind them, so the slide still reads with no network.
+      The player is created by a small page-local listener on deck.js's
+      "deck:step" event, scoped to #stage.  That scoping matters: in
+      presenter mode the NEXT slide is cloned into #nextshot, and
+      without it the clone would get a second player and the video
+      would start twice (the AUTHORING trap about ids and the cloned
+      next slide, in a new form).
+      KNOWN TENSION, deliberate: AUTHORING forbids ambient motion, and
+      a looping clip is exactly that.  JCA asked for it.  The
+      concession is prefers-reduced-motion, under which nothing
+      autoplays and the presenter presses play.
+      Verified in a real browser: at the base step no iframe exists, at
+      click 1 the left one is created with autoplay, at click 2 the
+      left is destroyed and the right created, and on leaving the slide
+      both are destroyed.
