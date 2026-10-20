@@ -727,3 +727,45 @@ nothing was merged by git.  What landed:
       about the exam sitting between the title and the DBTL cycle.  It
       is in git history if it is ever wanted.  The lecture now opens on
       the title and goes straight to the DBTL cycle.
+
+  QUESTION ANSWERS MADE SPECIFIC, 20 Oct 2026.  JCA: "your questions to
+      ponder don't really give answers.  They give meta answers, but
+      don't actually propose anything.  Get specific."  The source's own
+      answers (40b, and the first line of 40a and 40c) were already
+      concrete; it was the ones written here that named a category of
+      experiment instead of an experiment.  Rewritten:
+        11   each audience now gets a protocol, not a want.  Strip
+             trials with alternating treated and untreated strips, four
+             or five repeats, harvested on the farmer's own combine, run
+             again at half the usual nitrogen rate.  A marked strain and
+             a soil grid sampled at season end and the next spring, by
+             plating or qPCR.  Grain assayed for the organism and its
+             protein with a stated detection limit.  Cost per acre
+             against urea.  Well water tested for nitrate before and
+             after.  And it ends by choosing one: the strip trial, on a
+             farm the other farmers already watch.
+        28a  ONPG on the cleared supernatant reading A420, with a
+             chloroform-or-sonication sample as the hundred per cent;
+             sampling every five minutes then every fifteen, and reading
+             time to half maximum; an eight-way grid of LB and M9
+             glycerol, 30 and 37 degrees, induced at OD 0.2 and 1.0,
+             with lysis plotted against growth rate rather than medium;
+             and an agar pad imaged every minute, segmented and tracked,
+             asking how long each lysed cell had lived against a
+             generation time.
+        40c  after the source's one line, how to actually do it: image
+             every two minutes for two hours, induce in the pad, report
+             time to peak, peak height and decay; a no-IPTG pad and a
+             constitutive reporter in another colour as controls; and a
+             sparsely-imaged pad to catch your own photobleaching.
+
+  37, full slide  JCA: the click should make a clip "go full screen and
+      loop until the next click which goes to the next video which after
+      click goes to next slide".  Each .vid is now a direct child of the
+      article at inset:0, so a playing clip covers the slide, padding
+      and title included.  FULL SCREEN HERE MEANS FULL SLIDE: the deck
+      is already full screen when presenting, and the Fullscreen API is
+      refused without a gesture and dropped on navigation (AUTHORING).
+      Verified: base shows the two stills, click one fills the slide
+      with clip one, click two swaps in clip two and tears down the
+      first, click three is the next slide and both are torn down.
