@@ -1,17 +1,23 @@
 /* ------------------------------------------------------------------ *
  * spectro.js: absorbance, a chromogenic substrate, scattering, and OD,
- * on one drawn spectrophotometer.                          (6 clicks)
+ * on one drawn spectrophotometer.                          (3 clicks)
  *
  *   0  lamp, wavelength filter, cuvette, detector: light in, light out,
  *      absorbance from how much gets through
- *   1  a yellow chromophore (o-nitrophenol) absorbs the 420 nm light
- *   2  a caged, colourless substrate; the cells' enzyme uncages it and
- *      the yellow forms: enzyme activity read as colour
- *   3  the cells also scatter light out of the beam: the reading is
+ *   1  cells and a caged, colourless substrate; the cells' enzyme
+ *      uncages it, the yellow forms and absorbs the 420 nm light:
+ *      enzyme activity read as colour
+ *   2  the cells also scatter light out of the beam: the reading is
  *      absorbance plus scattering, added
- *   4  at 600 nm the yellow does not absorb: what is left is scattering,
+ *   3  at 600 nm the yellow does not absorb: what is left is scattering,
  *      the optical density, OD600
- *   5  twice the cells, twice the OD
+ *
+ * CUT FROM SIX CLICKS TO THREE (JCA, 20 Oct 2026: "that animation is
+ * tmi, too many clicks").  Two beats went.  A pure yellow dye absorbing,
+ * which the chromogenic substrate beat then did again with the cells
+ * present; and doubling the cells to double the OD, which slide 23 shows
+ * properly with its two fields and its ratio.  No sentence of the source
+ * note was dropped: the fourteen are redistributed over four steps.
  *
  * Drawn here, in the manner of seq/cytometer.js on slide 14.  Colours
  * stay in the palette: 420 nm light is blue, 600 nm light vermillion,
@@ -67,23 +73,17 @@ const SUBS = [[465,195],[505,185],[450,260],[497,250],[520,310],[470,320],[445,3
    A is the reading; parts splits it into absorbance + scattering. */
 const STEPS = [
   { s:{ wl:0, yellow:0, cells:0, subs:0, uncage:0, scat:0, A:0.00, parts:0 },
-    note:"Though this does not involve fluorescence, another means of using light to make measurements on a cell is to use spectroscopy.  Here, you hit a sample with a beam of light and quantify how much comes out the other end.  That is its ‘transmittance’ which is inversely related to ‘absorbance’.",
+    note:"Though this does not involve fluorescence, another means of using light to make measurements on a cell is to use spectroscopy.  Here, you hit a sample with a beam of light and quantify how much comes out the other end.  That is its \u2018transmittance\u2019 which is inversely related to \u2018absorbance\u2019.",
     desc:"A spectrophotometer drawn in outline: a lamp, a filter that passes one wavelength, 420 nanometres, a cuvette of clear liquid, and a detector. The beam goes in at full strength, I zero, and comes out at full strength, I. The reading is an absorbance of 0.00." },
-  { s:{ wl:0, yellow:1, cells:0, subs:0, uncage:0, scat:0, A:0.80, parts:0 },
-    note:"This measurement requires the use of a chromophore, which means a molecule that absorbs light.  A very common chromophore for such experiments is o-nitrophenol which turns yellow.  Cells don’t absorb much yellow light, thus there is little competing signal at this wavelength.",
-    desc:"The liquid in the cuvette turns yellow with o-nitrophenol. The beam leaving the cuvette is much thinner: most of the 420 nanometre light has been absorbed. The absorbance reads 0.80." },
   { s:{ wl:0, yellow:1, cells:8, subs:1, uncage:1, scat:0, A:0.92, parts:0 },
-    note:"Typically o-nitrophenol will be caged with another molecule like phosphate or galactose that prevents the molecule from absorbing light.  An enzyme like alkaline phosphatase or galactosidase can release the alcohol and color results.  Thus, the activity of the enzyme in the cell can be monitored by watching the formation of yellow color.",
-    desc:"A fresh cuvette: cells, and a colourless substrate drawn as small hexagons each carrying a cage. The cells' enzyme removes the cages, the hexagons turn yellow, the liquid yellows, and the absorbance climbs to 0.92: the enzyme's activity read as colour." },
+    note:"This measurement requires the use of a chromophore, which means a molecule that absorbs light.  A very common chromophore for such experiments is o-nitrophenol which turns yellow.  Cells don\u2019t absorb much yellow light, thus there is little competing signal at this wavelength.  Typically o-nitrophenol will be caged with another molecule like phosphate or galactose that prevents the molecule from absorbing light.  An enzyme like alkaline phosphatase or galactosidase can release the alcohol and color results.  Thus, the activity of the enzyme in the cell can be monitored by watching the formation of yellow color.",
+    desc:"The cuvette fills with cells and with a colourless substrate, drawn as small hexagons each carrying a cage. The cells\u2019 enzyme takes the cages off, the hexagons turn yellow, the liquid yellows with them, and the beam leaving the cuvette thins as the 420 nanometre light is absorbed. The absorbance climbs to 0.92: the enzyme\u2019s activity read as colour." },
   { s:{ wl:0, yellow:1, cells:8, subs:1, uncage:1, scat:1, A:0.92, parts:1 },
     note:"Scattering is a related phenomenon in which light bounces off a particle at a different angle than its incident vector. Experimentally, scattering is measured the same way as absorbance though it is a distinct phenomenon.  In spectrometric measurements of cells, the scattering signal will be superimposed over the absorbance signal, and the two signals are additive.",
     desc:"Short rays of light bounce off the cells at angles, away from the detector. The reading is split: 0.80 from absorbance by the yellow product plus 0.12 from scattering by the cells, adding to 0.92." },
   { s:{ wl:1, yellow:1, cells:8, subs:1, uncage:1, scat:1, A:0.10, parts:2 },
-    note:"The scattering signal can be isolated by monitoring the cells at 600nm, and this is referred to as the sample’s ‘optical density’.",
-    desc:"The filter switches to 600 nanometres and the beam turns orange-red. The yellow product does not absorb at this wavelength, so only the cells' scattering removes light. The reading becomes the optical density, OD600, 0.10." },
-  { s:{ wl:1, yellow:1, cells:16, subs:1, uncage:1, scat:1, A:0.20, parts:2 },
-    note:"It is linearly related to the concentration of cells in the sample.",
-    desc:"Twice as many cells fill the cuvette, more light scatters out of the beam, and OD600 doubles to 0.20." }
+    note:"The scattering signal can be isolated by monitoring the cells at 600nm, and this is referred to as the sample\u2019s \u2018optical density\u2019.  It is linearly related to the concentration of cells in the sample.",
+    desc:"The filter switches to 600 nanometres and the beam turns orange-red. The yellow product does not absorb at this wavelength, so only the cells\u2019 scattering takes light out of the beam. The reading is now the optical density, OD600, 0.10, and it rises and falls with how many cells are in the tube." }
 ];
 const KEYS = ["wl", "yellow", "cells", "subs", "uncage", "scat", "A", "parts"];
 

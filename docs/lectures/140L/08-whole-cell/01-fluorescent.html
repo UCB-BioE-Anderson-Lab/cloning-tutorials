@@ -300,7 +300,13 @@ Scattering is a related phenomenon in which light bounces off a particle at a di
 <article class="slide ask" data-bg="section">
   <h1>Question to ponder</h1>
   <p class="q">I am trying to engineer a temperature-sensitive GFP variant.  Experimentally, how do I quantify this effect in live cells?</p>
-  <template class="notes">Put the GFP variants under a constitutive promoter on a plasmid, transform the cells, grow them at different temperatures, measure the fluorescence using a fluorimeter (Tecan), cytometry, or fluorescence microscopy</template>
+  <template class="notes">Put the GFP variants under a constitutive promoter on a plasmid, transform the cells, grow them at different temperatures, measure the fluorescence using a fluorimeter (Tecan), cytometry, or fluorescence microscopy
+Now tell me your controls, because that experiment on its own will not survive a question.
+The one people forget is the parent GFP.  Run the original alongside the variant at every temperature.  Ordinary GFP is already a little temperature sensitive, and without that lane you cannot tell what your mutation did from what the protein always does.
+You want cells carrying no fluorophore at all at every temperature too.  Autofluorescence is not the same in a culture at 25 degrees and a culture at 42, and that is also what you set the gain against.
+And you have to normalize for cell density.  The cultures will not grow at the same rate at different temperatures, so by the time you read them you have different numbers of cells in the tube.
+Here is the one that is easy to miss.  If the signal drops at the high temperature, is the protein failing to fold, or are the cells simply making less of it?  Those are different claims, and fluorescence alone cannot tell them apart.  So measure how much protein is there, or put a second reporter in another colour behind the same promoter and see whether it drops too.
+If you want to know whether it is misfolding rather than being degraded, shift the culture back down and see whether the fluorescence comes back.</template>
   <template class="desc">Question to ponder, on the amber ground: I am trying to engineer a temperature-sensitive GFP variant. Experimentally, how do I quantify this effect in live cells?</template>
 </article>
 
