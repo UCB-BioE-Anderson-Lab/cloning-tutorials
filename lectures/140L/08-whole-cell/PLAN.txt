@@ -1,0 +1,771 @@
+WHOLE-CELL ANALYSIS — CONVERSION PLAN
+=====================================
+140L lecture 8, and the folder is 08-whole-cell to match.  Folders 01-05
+run one behind the course numbering because the course's intro lecture
+was never converted; from this deck on, the folder number IS the
+lecture number.  The earlier folders are deliberately left as they are
+for now.
+
+A LITERAL conversion of
+
+  ~/Library/CloudStorage/Dropbox/Courses/140L/Stanley 2025/
+    140L-Fall2025-Lectures/2025_10_16-Whole-Cell Analysis.pptx
+
+Same slides, same order, same words, same speaker notes, same figures.
+What changes is the presentation only: grounds, type and colour come
+from the house palette.  Nothing is rewritten, re-argued, split or
+merged, and nothing is invented.
+
+WHY IT IS LITERAL, AND WHY THAT IS THE BRIEF
+--------------------------------------------
+The previous deck in this family, Practices, was rebuilt rather than
+converted, and it failed twice — once for being walls of text and once
+for replacing that text with abstract figures.  Both rebuilds were
+thrown away.  The instruction for this deck is explicit: reproduce the
+original, change the colour and font palette, and edit from there.
+
+So: do not improve a slide while converting it.  If a slide is a wall
+of text in the source, it is a wall of text here.  Edits come later,
+with JCA, from a faithful baseline.  The source's own typo on slide 4,
+"The Demonstation", was preserved verbatim through the conversion,
+and fixed in the edit pass at JCA's request (see EDITS MADE).
+
+
+SCOPE
+-----
+Source slides 1-40 are the lecture and are converted.
+
+Source slides 41-68 are the course-admin and wetlab tail — all-hands,
+final project, grading, project ideas, sequencing results — and are NOT
+converted.  They stay in PowerPoint, the same decision the Practices
+plan made.  If any of them is wanted later, it is an addition, not an
+omission to be fixed.
+
+
+THE SECTION SPLIT
+-----------------
+On the source deck's own divider slides.
+
+  00-front-matter.html   source  1-11   Introduction          [BUILT]
+  01-fluorescent.html    source 12-23   Fluorescent Reporter Assays  [BUILT]
+  02-biochemical.html    source 24-28   Biochemical Assays    [BUILT]
+  03-microbiological.html source 29-33  Microbiological Assays [BUILT]
+  04-experimental.html   source 34-38   Experimental Design   [BUILT]
+  05-questions.html      source 39-40   Questions to Ponder   [BUILT]
+
+All six are in lecture.js.
+
+
+HOW THE COLOUR CONVERSION IS DONE — DO NOT RECOLOUR PIXELS
+----------------------------------------------------------
+Most of this deck's art is still VECTOR inside the .pptx, so the pixels
+are never touched.  Per AUTHORING.txt, "WHERE THE FIGURE IS STILL
+VECTOR IN THE SOURCE .pptx": rewrite the theme colour scheme, re-render,
+re-crop.
+
+    python3 docs/lectures/tools/recolour_pptx.py "<source.pptx>" <scratch>
+    cd <scratch> && soffice --headless --convert-to pdf recoloured.pptx \
+        --outdir .
+    pdftoppm -png -r 80 recoloured.pdf pages/p
+
+Then crop each figure out of pages/p-NN.png.
+
+TWO THINGS THAT COST TIME HERE, both now handled by the tool:
+
+  THIRTEEN THEMES AND TEN THEME OVERRIDES.  Editing theme1.xml alone
+  changes almost nothing.  207 colour slots had to move.
+
+  THE DRAWN FIGURES BYPASS THE THEME ENTIRELY.  The cell fields are
+  literal FF0000 and FF8989 on the shapes themselves, not schemeClr
+  references, so a theme-only rewrite leaves every cell pure red.  The
+  tool rewrites literal hexes across slides, layouts, masters and notes
+  as well.  FF8989 maps to a pale tint of vermillion rather than to a
+  second palette colour, because the pair is one hue at two
+  brightnesses — that contrast IS the slide's argument.
+
+  ImageMagick cannot rasterise the PDF without ghostscript, which is
+  not installed on this machine.  pdftoppm does it.
+
+
+TRAPS ALREADY HIT IN THIS DECK
+------------------------------
+REPACKING THE .pptx FROM SCRATCH PRODUCES A FILE LIBREOFFICE SILENTLY
+REFUSES.  `zip -r` over the unpacked tree yields no PDF and no error
+worth reading.  Copy the original and `zip` the changed XML into the
+copy instead; the tool does this.
+
+THE OTIS ENGRAVING HAS AN ALPHA CHANNEL.  Dropped straight onto the
+amber section ground it turns into a muddy yellow block — the engraving
+is black line work on transparency.  Flattened onto white it reads as a
+mounted plate.  Any source image on a coloured ground needs this check:
+
+    magick identify -format "%A" img.png        # Blend means alpha
+
+CROPPING A FIGURE: trim is not enough on its own.  The DBTL cycle sits
+lower on the slide than it looks, and a crop box that stops at the
+title's natural margin cuts the bottom box in half.  Crop generously
+below the title, then -fuzz 3% -trim, then add a white border back.
+
+
+=========================================================
+WHERE THIS STANDS — 18 Oct 2026.  READ FIRST.
+=========================================================
+THE LITERAL CONVERSION IS COMPLETE.  All 40 lecture slides are built,
+in six sections, and every section audits clean with check_section:
+no clipping, no channel junk, console clean.  Every figure was looked
+at flattened on white, section by section, before trusting the audit.
+
+The deck is still NOT in any index and not reachable from the site.
+Linking it (docs/index.md, per AUTHORING "ADDING A LECTURE") is JCA's
+call, now that it is whole.
+
+NEXT: slide-specific edits with JCA, from this baseline.  Nothing has
+been edited yet beyond the conversion itself.
+
+EDITS COME AFTER THE WHOLE CONVERSION.  JCA's instruction (18 Oct
+2026): convert all of 01-05 literally first, then make slide-specific
+edits from that complete baseline.  That condition is now met.
+
+
+TO REBUILD THE SCRATCH RENDER, FROM THE REPO ROOT
+------------------------------------------------
+  SRC="$HOME/Library/CloudStorage/Dropbox/Courses/140L/Stanley 2025/\
+140L-Fall2025-Lectures/2025_10_16-Whole-Cell Analysis.pptx"
+  python3 docs/lectures/tools/recolour_pptx.py "$SRC" <scratch>
+  cd <scratch> && soffice --headless --convert-to pdf recoloured.pptx --outdir .
+  python3 docs/lectures/tools/pptx_text.py <scratch>/unpacked 12 40
+
+Use the scratchpad, not /tmp.  The recoloured render keeps the source's
+dark grey ground, so it is right for READING the slides and wrong for
+CROPPING them.  See the next section.
+
+
+HOW SECTIONS 01-05 WERE CROPPED: A WHITE-GROUND RENDER
+------------------------------------------------------
+Source slides 12-40 sit on a dark grey master ground; 1-11 mostly did
+not.  Cropping a drawn figure off the grey render carries the grey with
+it.  So a second copy of the deck was rendered with a white <p:bg>
+injected into every slide 12-40, at 160 dpi (1600x1200 px, i.e. EMU *
+1600/9144000), and drawn figures were cropped from that.
+
+What that render also had to change, all in the scratch copy only:
+  - the three charts (ppt/charts/chart1-3.xml) set their axis text in
+    bg1, white on the old ground.  Rewritten to ink.
+  - source 33's well walls were a 20% tint of accent1, invisible on
+    white -> solid blue.  Its substrate label and arrow -> ink.
+  - source 35/36's promoter labels (tx2) -> ink; 35's caption tint
+    removed; 36's GFP and PBAD boxes widened, because LibreOffice
+    breaks "GFP" into "GF / P" where PowerPoint does not.
+  - text that is set as HTML on the slide was dropped from the render,
+    so it does not ride along inside a crop.
+  - source 33's four build states were rendered as four separate
+    slides (the well alone; + substrate; + cells; washed), each
+    cropped with the SAME box and no trim, so they swap in register.
+
+Two traps from this, both cost a re-render:
+  - `zip` run with cwd= the scratch tree resolves a RELATIVE archive
+    path against that cwd.  Pass an absolute destination or the archive
+    silently is not updated and the "new" render is the old one.
+  - swapping <a:schemeClr ...> for <a:srgbClr .../> with a plain string
+    replace leaves an orphaned </a:schemeClr> whenever the scheme colour
+    carries lumMod/lumOff children.  Replace the whole element.
+
+RASTER FIGURES WITH WHITE MARKS (the real cost of this deck)
+------------------------------------------------------------
+Many pictures in 25-38 are PNGs drawn white-on-transparency for the
+grey ground: chart axes and legends, gene labels, structure line art.
+Each was looked at on white and handled one of three ways:
+
+  recoloured to ink  white line art with no black data in it
+                     (14 flow cell, 21 o-nitrophenol, 25 all four
+                     substrate structures, 30 P-BAD constructs, 31 gene
+                     clusters, 32 aptamer/CheZ)
+  grey panel         white marks that ARE data next to black data, so
+                     recolouring would merge them: black-vs-white bar
+                     charts (30 growth rates, 31 serum survival), dark
+                     plates with white swarm halos (32), the 3D surface
+                     (36), white letters inside dark arrows (38), the
+                     quantum-dot antibody diagram (27).  Flattened onto
+                     the source's own grey, rgb(89,89,89), with a border.
+  left alone         photographs and figures already drawn for white
+
+31's gene clusters needed both: recoloured, then the two dark brown
+arrows (L and S) pasted back from the original, because their white
+letters had turned to ink on a dark fill.
+
+
+deck.js NOW HAS data-unbuild
+----------------------------
+Source slides 14, 18, 27 and 33 animate things OUT on a click, which
+deck.js could not do.  data-unbuild="N" (documented in AUTHORING,
+BUILDS) fades an element out at click N.  It is additive and nothing
+else in the course uses it.
+
+
+NOTES ON CLICKS — WHERE THE SOURCE'S MARKERS DID NOT LINE UP
+------------------------------------------------------------
+The rule is still the author's bare asterisk.  Where the source gave
+fewer markers than clicks, this is what was done; all are open for
+JCA to change in the edit pass:
+
+  18  one click, no asterisk.  Split on the paragraph break: the first
+      paragraph is exactly the left column, the rest the right.
+  23  two clicks, one asterisk.  The OD row carries the second half of
+      the notes; the Ratio row's click has no narration.
+  30  two clicks, no asterisk.  All narration on the base step.
+  31  three clicks, two markers, one of them INLINE mid-sentence
+      ("which are * encoded by two large gene cluster").  Honoured as
+      written, so the base step's note ends mid-sentence and the gene
+      cluster click picks it up.  The serum-survival chart's click has
+      no narration.
+  32  one click, no asterisk.  All narration on the base step.
+
+
+FOR THE EDIT PASS — THINGS NOTICED, NOT CHANGED
+-----------------------------------------------
+  - 13: the promoter arrow on the cassette is a pale tint of blue.
+  - 22: the two wavelength labels (lambda) on the fluorimeter diagram
+    are pale grey on white.
+  - 36: the arabinose scatter points are a pale tint; the chart's
+    series colour comes from chart style 8, not from an explicit fill.
+  - 27: the antibody diagram on its grey panel is muddy.
+  - 37: two YouTube links from the source, not checked for liveness.
+  - notes keep the source's own typos (propertie, fluoescent,
+    measurments, ...) verbatim, as 00 did.
+
+
+EDITS MADE (the edit pass, from 18 Oct 2026)
+--------------------------------------------
+  3   The DBTL cycle: one click turns the Test box vermillion
+      (img/03-dbtl-test.png, the same render with that box recoloured,
+      stacked over the original).  The box, not the word: vermillion
+      type on the blue box would be about 1.8:1.  The notes stay on
+      the first step; the click has no narration yet.
+
+  5a  NEW SLIDE, not in the source: seq/brainbow.js animates the
+      Brainbow 3.1 cassette (Cai et al., Nat Methods 2013, Fig. 1c,
+      PMID 23817127) and Cre excising each lox pair in turn, then the
+      three products.  It is EXCISION, not inversion: all six lox sites
+      point the same way (inversion was Brainbow 2).  Drawn with the
+      recombinase.js primitives so it matches the enzymes lecture.  Its
+      narration is NEW, written for this slide, not from the source.
+
+  5-7 New imagery, same story and the same source notes, all from Cai
+      et al. 2013 Fig. 2 (PMC author manuscript, nihms464888f2.jpg):
+        5  REPLACED, see below
+        6  Fig. 2f-h  the three channels of one field, side by side
+        7  Fig. 2e  that same field, channels merged
+      6 and 7 are the same field, so the raw-versus-rendered contrast
+      is now literal.  The old 05/06 Brainbow images stay in img/ but
+      are no longer used.
+      Two things for JCA: slide 7's source note talks about telling
+      "the axons of one cell from another", and the new field is
+      granule-cell bodies, not axons; and the images are small
+      (about 210 px across in the PMC figure), so they are shown at
+      moderate size rather than full slide.
+
+  5   Replaced again, at JCA's request for a more striking opener: the
+      Brainbow brainstem montage by Jean Livet, Lichtman lab, First
+      Prize 2007 Olympus BioScapes, Cell Image Library CIL:40984
+      (img/05-brainbow-brainstem.jpg).  That is Brainbow 1.0, from the
+      2007 Nature paper, not 3.x; 6 and 7 stay Brainbow 3.
+      LICENCE: CC BY-NC-ND.  Credit is on the slide.  No derivatives,
+      so it is shown whole, never cropped.  The CIL file is three
+      greyscale channel pages; the slide image is those three pages
+      merged as R, G and B and nothing else.  (CIL:42753, a hippocampus
+      image under the same licence, was the runner-up.)
+      Slides 5-7 also keep their figures clear of the pinned credit.
+
+  4   The amber Demonstration card keeps its title and two bullets; the
+      Otis engraving is gone (img/04-otis.png deleted).  Its note keeps
+      the source's opening, up to "goes beyond this."
+  4a  NEW SLIDE, not in the source: Otis cuts the rope, in four clicks
+      (seq/otis.js over seq/art-otis.js), on white at full slide height
+      with the title over it, nudged 100 units right so the title clears
+      the tower.  The rest of source 4's note is split verbatim across
+      the four clicks; checked: card note + click notes == source note.
+      Built outside the repo in ~/Downloads/demoanimation (its README
+      and tools rebuild art-otis.js).  The art is AI-generated (ChatGPT)
+      line art, traced with lineart-trace; say so if the deck ever
+      credits its figures.  Known nits in the art, from that README: a
+      stray tab at the top of the tower's left post, and wobbly rail
+      teeth.
+
+  4, 4a, 10  "Demonstation" fixed to "Demonstration" everywhere: both
+      titles, the card's description, and the two in source 10's speaker
+      note ("demonstations", "demonstation").  JCA, 18 Oct 2026.
+
+  all  Speaker-note spelling fixed across 00-05 and seq/otis.js, at JCA's
+      request; only inside notes, nothing else on the slides.  35 fixes:
+      measurment(s) x9, fluorescense x3, chromagenic x2, and one each of
+      alkalaine, autofluorescense, engineeris (-> engineers),
+      fluoescence, fluoescent, impermable, measruements, measurmenets,
+      microsopy, propertie, quantative, relavent, souce, theophyilline,
+      unegineered, wavelegth, undeer, "transcription,a nd", igem (-> iGEM),
+      tecan (-> Tecan), "breaking mechanism" (-> braking).
+      WORDING SLIPS: all nine FIXED on JCA's go-ahead, 18 Oct 2026.
+      Two of them appear twice, once in a slide's <template class="notes">
+      and once in the sequence file that carries that note split across
+      its clicks, so both copies were changed and the concatenation test
+      re-run for slides 21 and 22.  What changed:
+        4   "highlights the its features"   -> "highlights its features"
+        8   "at an early phase of develop the company might how an
+            image" -> "...phase of development the company might show
+            an image"
+        15  "10,000 events are more"        -> "10,000 events or more"
+        16  the note ended with a stray "I" -> dropped
+        21  "A very common fluorophore ... is o-nitrophenol"
+            -> "A very common chromophore ..." (it absorbs, it does not
+            fluoresce; the slide's own bullet already called it a
+            chromophore).  Also in seq/spectro.js.
+        22  "instead of simply irradiating heat" -> "radiating heat"
+            (irradiate means to shine on, not to give off).  Also in
+            seq/fluorimeter.js.
+        25  "substrates that that can be"   -> "substrates that can be"
+        26  "and there many of them"        -> "and there are many of them"
+        34  "must be including in the Test phase" -> "must be included"
+
+  4a  Line weight evened out.  The tracer gives every path its own
+      measured width (1.0 to 18.6 crop px), and otis.js scaled those
+      proportionally, so weight varied visibly inside one figure (worst in
+      the right-hand crowd).  part() now sets EVERY stroke to STROKE (2.0
+      svg units, about 2.8 slide units at full height: scene art).
+      seq/otis.js in the repo now DIFFERS from the copy in
+      ~/Downloads/demoanimation; port this change before rebuilding there.
+
+  8   Biofuel-Producing Yeast: now a sequence, seq/biofuel.js over
+      seq/art-biofuel.js, 8 clicks (JCA kept 8 over the guide's 6).
+      Bullets in a left column, one per click (data-beat; a sequence
+      slide gets no deck builds); art in a panel: tank, yeast and
+      filling, straw fed in, pipe to a drum, "$ per barrel" tag (no
+      figure); then car, flask with a floating layer, flame.  Art is
+      ChatGPT line art traced once with trace_lineart.py and split by
+      bounding box; liquids, yeast, pipe and tag are drawn in the
+      sequence.  NOTES: click 1 the source note, 6-8 the source
+      data-notes, verbatim, and they are the repo's spell-fixed notes
+      (the build's own copy of the slide predated the spelling pass);
+      2-5 deliberately silent (each does visible work).  The eight
+      DESCRIPTIONS are new.  The price tag is white-filled (a fill, so
+      its text reads over the fuel).  Bale: the sheet's cut end traced
+      as a tangle, so it was redrawn on its own (bale-v2).  Built in
+      ~/Downloads/demoanimation/biofuel, whose README and tools rebuild
+      the art.
+
+  9   RE-ARGUED and animated, at JCA's request: "Artificial Pancreas
+      Cells" (a cell therapy, which JCA judged an economically false
+      promise) is now "Pancreatic Gene Therapy", after Xiao et al., Cell
+      Stem Cell 2018, PMID 29304344 (AAV8 Pdx1+MafA infused into the
+      pancreatic duct; alpha cells turned insulin-producing; about 4
+      months in autoimmune NOD mice).  NEW: the h1, bullet 2, the first
+      part of the notes, the .src credit, all descriptions.  VERBATIM:
+      bullets 1 and 3, the treadmill bullet and its data-note.
+      seq/pancreas.js over seq/art-pancreas.js, same layout as slide 8
+      (class bf, data-beat); clicks 2 and 3 deliberately silent.  Built
+      in ~/Downloads/demoanimation/pancreas.
+      ADDED HERE, not in that build: a FIFTH click, "...about four months
+      later", where the running mouse slumps back on the still treadmill.
+      It is the segue to ethics (JCA): Brainbow's false colour is unreal
+      but true to the data; the treadmill is real footage that implies a
+      cure that did not last.  The four-month caveat moved from click 1's
+      note to this click, whose note is NEW and needs JCA's review.
+      seq/pancreas.js in the repo now DIFFERS from the Downloads copy.
+
+  10  Designing a Demonstration: the three source questions stay, with
+      their note.  Two NEW builds, notes flagged NEW for review:
+        1  a table, "Who has to be convinced, and of what?": investors /
+           it pays / Practices "Does it pay?"; regulators / it is safe /
+           "Is it safe? Who says so?"; the people who live with it /
+           they want it here / "Who else gets a say?"
+        2  "The audience picks the demonstration. Some of the best ones
+           are barely technical: an axe, a car, a flame."
+      The Practices section titles are those of the parked Practices
+      deck (branch lectures/140L-practices, commit fa8001da).
+
+  11  Questions to ponder -> ONE question, NEW and HYPOTHETICAL: an
+      engineered soil bacterium that lets corn grow with less nitrogen
+      fertilizer.  One demonstration experiment is allowed, and the
+      room must name the audience first: "It is 2026.  Who is your
+      audience, what do they need to believe, and what would you show
+      them?"  Drafted with ChatGPT from a brief that asked for a
+      hypothetical with many defensible demonstrations.
+      TWO CASE-STUDY DRAFTS WERE REJECTED FIRST, and the reason is the
+      design rule here: Oxitec in the Florida Keys (JCA: a practices
+      question, not a demonstration one) and the Golden Rice feeding
+      trial (JCA: "that is a case student, there is no discussion
+      question to it").  A case has a right answer and nothing to argue.
+      The note is NEW: one audience per paragraph, each with the
+      question it actually asks - the farmer, does it pay this season
+      on my soil; the regulator, spread, persistence, gene transfer,
+      can you recall it; the food company, what is in the kernel and is
+      it an allergen; the investor, who owns it and does the farmer
+      rebuy; the neighbours, what is in the water and who asked us -
+      then the conflicts between them, and what 2026 does to who trusts
+      whom.  Both earlier drafts are in git history.
+
+  13  "Fluorescent Reporter Proteins" -> "Making a Cell Fluorescent":
+      the modalities for making a cell fluorescent for cytometry, as
+      five cartoon cells, one per click (JCA: explain the range, not fun
+      pictures; luciferase does not belong; no table).  Fluorescent
+      protein, sensor, dye (outside still ink = caged; inside green),
+      surface label (antibody on a receptor), fluorescent particle (bead
+      or nanocapsule on a tether).  Line art: one ChatGPT sheet of five
+      matched rod cells, traced once with trace_lineart.py --uniform-width
+      and split by panel; inline SVG in the slide, no sequence file.
+      Source sheet and trace kept in ~/Downloads/demoanimation/cells/.
+      COLOUR: whatever fluoresces is green, #2b8a3e (4.4:1 on white),
+      deliberately OUTSIDE the palette because here it is the signal
+      itself; the cell is ink.
+      Note VERBATIM on the base step (it covers protein, sensor, caged
+      dye); builds 2-3 silent, builds 4-5 carry NEW notes for review
+      (surface label, particle).  Captions and descriptions NEW.
+      Superseded the same day: a four-photo version (c3a666cc) and a
+      table (31b7b444); their images and img/13-cassette.png are deleted.
+
+  14  Cytometry: the traced flow-cell schematic and its click-swap are
+      replaced by seq/cytometer.js, a six-click diagram drawn in SVG
+      (not traced): cells in single file in a sheath stream; the laser;
+      a green cell fluoresces and FL reads it; FSC and SSC read every
+      cell, green or not; FACS sorts the green droplet; the event table
+      fills.  Green rods as on slide 13; laser and scatter blue (488 nm
+      is blue); fluorescence green.  The source note is VERBATIM, split
+      at sentence boundaries across the clicks in its own order; the
+      descriptions are NEW; the table's numbers are illustrative and say
+      so on the slide.  Text thinned: of the five source bullets, the
+      two the diagram cannot carry stay verbatim beside the instrument
+      photo (mammalian vs bacteria/yeast; FACS); the other three are
+      what the diagram shows.  img/14-cytometer-schematic.png deleted.
+
+  21  Spectroscopy rebuilt like 14 (JCA: the point is OD, scattering read
+      like absorbance and tracking cell density, generalised to dyes and
+      chromogenic substrates; the dye structure was unexplained).
+      seq/spectro.js, six clicks on one drawn spectrophotometer: clear
+      cuvette (A 0.00); yellow o-nitrophenol absorbs 420 nm (0.80); caged
+      substrate uncaged by the cells' enzyme, yellow forms (0.92); the
+      cells scatter, so 0.92 = 0.80 absorbance + 0.12 scattering; at
+      600 nm only scattering is left, OD600 0.10; twice the cells, 0.20.
+      Palette only: 420 nm blue, 600 nm vermillion, the yellow amber.
+      The source note is VERBATIM, split across the clicks in order (it
+      keeps "a very common fluorophore" for o-nitrophenol, the known
+      slip).  Readings illustrative and labelled so.  Bullets: the two
+      about scattering and OD stay verbatim beside the plate-reader
+      photo.  img/21-o-nitrophenol.png deleted; 21-instrument.png stays
+      (slide 22 uses it).
+
+  notes  The "NEW, for review." prefix is REMOVED from every note (JCA:
+      it would be read aloud).  PLAN.txt is now the only record of which
+      notes are new: slide 9's fifth click, slide 10's two builds, slide
+      11, slide 13's last two builds, plus every description written in
+      the edit pass.
+
+  22  Fluorimetry rebuilt like 14 and 21 (IMPROVEMENTS.txt item B1).
+      seq/fluorimeter.js is seq/spectro.js with the detector moved to
+      ninety degrees: spectroscopy's in-line detector, then the 90
+      degree path behind an emission filter, then cells with a
+      fluorophore giving a strong signal, then cells without giving the
+      autofluorescence floor, then signal less background over OD,
+      which hands to slide 23.  Source note VERBATIM, split across the
+      five clicks in its own order and checked by concatenation.
+      Of the four source bullets the two the animation shows came off;
+      the fluorophore line and the normalisation line stay verbatim.
+      img/22-fluorimeter.png and img/21-instrument.png deleted (the
+      second was the only other use of that photo).  Descriptions NEW;
+      the readings are illustrative and the slide says so.
+
+  19, 20  Normalization of Signal: the four histogram bitmaps are gone
+      and the histograms are drawn in seq/gain.js, so the peak MOVES
+      when the gain changes — which is the argument these two slides
+      make and which two fixed pictures could only assert.  The cell
+      fields are untouched.  Still two slides, because the source gives
+      each its own note: sequences "gain1" (2 clicks) and "gain2" (3).
+      Notes VERBATIM, checked by concatenation against the originals.
+      The brightness and gain numbers are illustrative and the slide
+      says so; the claim they illustrate is the source's.
+      img/19-histogram-left.png and -right.png deleted.
+
+  NOT DONE, and why (IMPROVEMENTS.txt items I withdrew after looking):
+    B3  slide 23 already shows the dilution and already builds the
+        three rows to the ratio.  Animating it further would add a
+        click that the end state already makes; the style guide's own
+        test ("if the animation were replaced by its end state, what
+        would be lost?") says leave it.
+    B4  withdrawn with the measurement error: 15, 16 and 17 are painted
+        at 1.35x, 1.58x and 1.38x, which is fine.
+    B5  slide 18's ten bullets are a LIST OF CAPABILITIES, and the
+        source's point is the breadth of the list.  Cutting half of it
+        would remove content, not text, and JCA's instruction for this
+        pass was that scope and content do not change.  Its strip is
+        painted at 1.75x, which is fine.  Left alone.
+    B6  slide 12's divider is 2.38x, the mildest real case in the deck.
+        Optional, not done.
+
+THE QUALITY-PASS SWARM, 18 Oct 2026
+-----------------------------------
+Five parallel sessions, one per section file so none could collide,
+working from IMPROVEMENTS.txt.  Their branches are
+claude/wca-lane-{a,c,d,e,f}-* ; the work was reviewed and copied here,
+nothing was merged by git.  What landed:
+
+  6, 7  (lane A)  The Brainbow 3 panels, cropped from a low-resolution
+      PMC author manuscript, are replaced by Cell Image Library
+      CIL:42753: a Brainbow hippocampus stored as a three-page
+      greyscale TIFF at 1230x841, one page per channel.  Slide 6 shows
+      the three channels AS GREYSCALE, which is how the detector
+      records them and is a better "raw" than the tinted panels were;
+      slide 7 shows the same three merged to red, green and blue.
+      Credited on both slides.  JCA approved splitting and merging
+      ("it is cc from the get go").  Six times the pixels.
+
+  27  (lane C)  Three fixes.  img/27-baclight.png was a product
+      WORDMARK shipped as a bitmap: it is text now.  img/27-antibody.png
+      was line art on the source's grey panel: redrawn as inline SVG in
+      slide 13's vocabulary (cell ink, whatever fluoresces green).
+      Body text 91 words -> 80.  One bullet came off, the one about
+      conjugated antibodies on displayed epitopes, because the redrawn
+      figure now labels exactly that.  LANE C ALSO CUT the bullet about
+      determining the percentage of live bacteria; I PUT IT BACK, since
+      it names what the assay is for and no figure says that, and
+      corrected its source typo "proceedure".
+      C2 (tracing the four structures) was tried and NOT shipped: the
+      sugar labels on S-gal do not survive the tracer.  C3 withdrawn.
+
+  30, 31  (lane D)  Both bar charts were bitmap crops on the source's
+      grey panel.  Redrawn as inline SVG in the palette, with the
+      pixel-to-value calibration recorded in a comment in the file
+      (rows per unit, every bar top, every error-bar cap) and verified
+      against the source to within 0.7 rendered pixels.  32-swarm-plates
+      lifted off its grey panel with the photographs untouched.
+      D3 withdrawn.
+
+  35, 36  (lane E)  The arabinose transfer function, whose points were
+      a pale tint and all but invisible, and the magnesium media chart,
+      a PowerPoint 3D bar chart, are both re-plotted as inline SVG from
+      values measured off the source bitmaps and re-verified on the
+      finished render.  The media chart deliberately carries NO VALUE
+      AXIS: the source's own numbers are unreadable, so none is quoted
+      rather than invented.  COLOUR CHANGED FROM THE SOURCE: PmgtCB,
+      the promoter under test, is blue (the palette's "what to follow")
+      and the phoPp1 control vermillion; the source had them the other
+      way round.  36-and-gate, 36-light-gradient and 38-toggle-circuit
+      lifted off their grey panels.  Both YouTube links on 37 are live.
+
+  39  (lane F)  Nothing.  Its one item was chasing the measurement
+      error and was withdrawn; it reverted and reported clean.
+
+  39, 40 -> GONE, and the questions redistributed (JCA, 18 Oct 2026:
+      "you dump all the questions at once.  We need to go through them
+      individually... we could also move questions to earlier, like the
+      end of each section have a reinforcing question.  Right now, we do
+      that for the first one but not later ones").
+      Section 05 is deleted entirely, with its divider and its cartoon
+      (img/39-ponder.png): a divider for a one-slide section, and the
+      cartoon was a white box on the amber ground.  lecture.js now lists
+      four sections after the introduction.
+      Source 40's four questions, VERBATIM, now close the section whose
+      tools answer them, in the pattern section 00 already used, each
+      carrying its own line of source 40's note as its answer:
+        01  the temperature-sensitive GFP variant   (fluorimeter,
+            cytometry, microscopy: all section 01)
+        03  the MRSA killers, then the clinical utility one on a click,
+            because the second depends on the first
+        04  the 30-minute GFP pulse  (following cells over time)
+      ONE WORDING CHANGE: question three read "For the system in 2";
+      with the numbering gone it reads "For that system".
+  28a  NEW SLIDE, section 02's closing question, written at JCA's
+      request because none of the source's four is a biochemical one.
+      A phage-derived lysis circuit in E. coli: a phenotype the slides
+      never name, and the enzymes of slide 25 used BACKWARDS, to report
+      where a protein is rather than whether a gene is on.
+      Four questions, one per click, each a different assay design
+      (JCA: "I think we could pose different questions about it"):
+        1  what fraction actually lyse?   OD understates it, because
+           debris still scatters; a cytoplasmic enzyme in the cell-free
+           supernatant against a fully lysed 100% control gives the
+           ratio; a live/dead stain on the cytometer counts it directly
+        2  how fast?                      a time course, and the sampling
+           rate is the constraint; a population average hides whether
+           all at once or a trickle
+        3  what does it need?             slide 28's caution in person:
+           every condition you vary also changes the growth rate, so
+           measure growth rate alongside, as slide 30 does
+        4  does it track replication?     no bulk assay can answer it;
+           needs the lineage-tracking timelapse of slide 18
+      EVERYTHING on this slide and in its notes is NEW and needs JCA's
+      review: the scenario, the four questions, the four answers.
+
+  dividers  All four section-divider images were opaque WHITE BOXES on
+      the amber ground (the AUTHORING trap about a source image on a
+      coloured ground, which the Otis engraving already hit).  The three
+      that remain now carry an even white border so they read as mounted
+      plates rather than as a tight crop, which is the same move the
+      conversion made for Otis.  Slide 39's cartoon went with section 05.
+
+  28  "...but be careful!" was four bullets and an empty lower half.
+      It gains an illustrative growth curve, OD600 against time on a
+      log axis, with lag, exponential and stationary marked on it.
+      Drawn, not traced; labelled illustrative, as the deck's other
+      drawn readouts are.  It was the optional item C4 in
+      IMPROVEMENTS.txt and was done because the new lysis question that
+      follows it leans on exactly this caution.  Note VERBATIM.
+      First attempt had no lag phase: a logistic on a log axis rises
+      from t=0, so the point labelled "lag" sat on a rising segment.
+      Redrawn flat until the lag ends.
+
+  VOICE OF THE NEW NOTES, fixed 18 Oct 2026.  JCA: a note that opens
+      "Make them pick an audience before they design anything" reads as
+      a message to the lecturer, not as narration for the students, and
+      it should be in his voice rather than an AI's.
+      THE CONVENTION, from the source deck: a note is what he SAYS.
+      First person, "I" and "we", students addressed as "you", opening
+      with a framing move ("Let's look at a more current example",
+      "Here's another example", "Suppose I use my God's eye view",
+      "Consider I have these two samples").  Plain and a little loose.
+      No stage directions, no aphorisms.
+      Every note written in this edit pass was re-read against that.
+      ALREADY RIGHT, left alone: slide 10's two builds, slide 13's two
+      builds, the five Brainbow cassette notes in seq/brainbow.js, and
+      the pancreas relapse note.
+      REWRITTEN, they were stage directions:
+        11   "Make them pick an audience... Push on the conflicts...
+             And ask what 2026 does to each one" -> "Before you design
+             anything, I want you to tell me who you are trying to
+             convince... Now look at how those fight each other...
+             Who does your audience trust?"
+        28a  the base note ended "Ask the room which of those three
+             actually answers the question asked" -> "So we have three
+             answers and they are not equally good.  Which one actually
+             answers the question I asked?"  Its four click notes began
+             with cheat-sheet fragments ("How fast.", "What it needs.",
+             "Whether it tracks replication.") and ended on "Worth
+             saying out loud"; all four now open and close as speech.
+      CHECKED AFTERWARDS: every sentence of every source note still
+      appears somewhere in the deck, except the ones we changed on
+      purpose and recorded here (slide 9 re-argued to a gene therapy,
+      slide 11 replaced, source 4's note split across the Otis clicks).
+
+  21  Spectroscopy cut from six clicks to three (JCA, 20 Oct 2026:
+      "that animation is tmi -- too many clicks").  Two beats went:
+      a pure yellow dye absorbing, which the next beat then did again
+      with the cells present, and doubling the cells to double the OD,
+      which slide 23 already shows with its two fields and its ratio.
+      Four steps now: what absorbance is; cells and a caged substrate,
+      uncaged by their enzyme, the yellow absorbing; the cells also
+      scatter, so the reading is the two added; at 600 nm only the
+      scattering is left, which is OD.
+      NO SENTENCE OF THE NOTE WAS DROPPED: all fourteen are
+      redistributed over the four steps, and the concatenation test
+      passes.  While retyping one I had written "the concentration of
+      the cells" where the source says "the concentration of cells";
+      caught by that test and corrected.
+
+  40a  The temperature-sensitive GFP question's note gains a discussion
+      of CONTROLS, at JCA's request.  The source's own answer stays
+      first and verbatim; what follows is NEW: the parent GFP run at
+      every temperature, because GFP is already a little temperature
+      sensitive; cells with no fluorophore at each temperature, which
+      is also what you set the gain against; normalising for cell
+      density, because the cultures do not grow at the same rate at
+      different temperatures; separating "not folding" from "making
+      less of it", with a second reporter or a protein measurement;
+      and shifting the culture back down to tell misfolding from
+      degradation.
+
+  dividers, finally  The white border did not fix it.  JCA, 20 Oct
+      2026, looking at the Biochemical Assays card: "Graphically,
+      that's just not nice to have the white box.  Maybe ditch the
+      picture."  The objection is to the white box as a device, and it
+      applied to all three, so all three images are gone and their
+      files deleted: img/12-histograms.png, 24-embryo.png,
+      29-swarm-plate.png.
+      Every divider is now a title on the amber ground, which is what
+      Experimental Design has always been, so the four are consistent.
+      If a divider ever wants art again, it needs an image whose
+      background is the ground, not a rectangle sitting on it.
+
+  28, cells on the curve  JCA, 20 Oct 2026: "make some sort of
+      illustration of what is happening to cell size on that chart".
+      The first bullet says bacteria are different sizes at different
+      stages and the curve alone could not show it.  Under each of the
+      three marked points, joined to it by a dotted leader, the cells
+      are now drawn to one scale: two short rods in lag, three long
+      rods in exponential with one caught mid-division, and four small
+      rounded cells in stationary.  That is the growth-rate/size
+      relation, bigger cells when they are growing fast and small
+      rounded ones once they starve, and it is why the same OD can
+      mean different amounts of cell.
+      Drawn, not traced, and the figure still says illustrative.  Note
+      VERBATIM; the description was extended to cover the cells.
+      First pass had them too small to read: making the SVG taller
+      shrank the whole figure, since it is scaled to fit its box.  The
+      plot was flattened and widened instead so the figure fills the
+      slide width and the cells came up with it.
+
+  37  Dynamics: the two clips are EMBEDDED and loop (JCA, 20 Oct 2026:
+      "embed the videos and have them loop on click").  Each is a
+      YouTube iframe built only when its own click arrives and torn
+      down when it is not showing, so nothing loads or plays until he
+      asks and nothing keeps looping once he leaves the slide.  One at
+      a time: the left clip stops as the right starts (data-unbuild),
+      because two looping clips at once is noise.  The old stills stay
+      as posters behind them, so the slide still reads with no network.
+      The player is created by a small page-local listener on deck.js's
+      "deck:step" event, scoped to #stage.  That scoping matters: in
+      presenter mode the NEXT slide is cloned into #nextshot, and
+      without it the clone would get a second player and the video
+      would start twice (the AUTHORING trap about ids and the cloned
+      next slide, in a new form).
+      KNOWN TENSION, deliberate: AUTHORING forbids ambient motion, and
+      a looping clip is exactly that.  JCA asked for it.  The
+      concession is prefers-reduced-motion, under which nothing
+      autoplays and the presenter presses play.
+      Verified in a real browser: at the base step no iframe exists, at
+      click 1 the left one is created with autoplay, at click 2 the
+      left is destroyed and the right created, and on leaving the slide
+      both are destroyed.
+
+  2   Final Exam slide REMOVED (JCA, 20 Oct 2026: "remove the early
+      final exam slide").  Source slide 2, five lines of course admin
+      about the exam sitting between the title and the DBTL cycle.  It
+      is in git history if it is ever wanted.  The lecture now opens on
+      the title and goes straight to the DBTL cycle.
+
+  QUESTION ANSWERS MADE SPECIFIC, 20 Oct 2026.  JCA: "your questions to
+      ponder don't really give answers.  They give meta answers, but
+      don't actually propose anything.  Get specific."  The source's own
+      answers (40b, and the first line of 40a and 40c) were already
+      concrete; it was the ones written here that named a category of
+      experiment instead of an experiment.  Rewritten:
+        11   each audience now gets a protocol, not a want.  Strip
+             trials with alternating treated and untreated strips, four
+             or five repeats, harvested on the farmer's own combine, run
+             again at half the usual nitrogen rate.  A marked strain and
+             a soil grid sampled at season end and the next spring, by
+             plating or qPCR.  Grain assayed for the organism and its
+             protein with a stated detection limit.  Cost per acre
+             against urea.  Well water tested for nitrate before and
+             after.  And it ends by choosing one: the strip trial, on a
+             farm the other farmers already watch.
+        28a  ONPG on the cleared supernatant reading A420, with a
+             chloroform-or-sonication sample as the hundred per cent;
+             sampling every five minutes then every fifteen, and reading
+             time to half maximum; an eight-way grid of LB and M9
+             glycerol, 30 and 37 degrees, induced at OD 0.2 and 1.0,
+             with lysis plotted against growth rate rather than medium;
+             and an agar pad imaged every minute, segmented and tracked,
+             asking how long each lysed cell had lived against a
+             generation time.
+        40c  after the source's one line, how to actually do it: image
+             every two minutes for two hours, induce in the pad, report
+             time to peak, peak height and decay; a no-IPTG pad and a
+             constitutive reporter in another colour as controls; and a
+             sparsely-imaged pad to catch your own photobleaching.
+
+  37, full slide  JCA: the click should make a clip "go full screen and
+      loop until the next click which goes to the next video which after
+      click goes to next slide".  Each .vid is now a direct child of the
+      article at inset:0, so a playing clip covers the slide, padding
+      and title included.  FULL SCREEN HERE MEANS FULL SLIDE: the deck
+      is already full screen when presenting, and the Fullscreen API is
+      refused without a gesture and dropped on navigation (AUTHORING).
+      Verified: base shows the two stills, click one fills the slide
+      with clip one, click two swaps in clip two and tears down the
+      first, click three is the next slide and both are torn down.

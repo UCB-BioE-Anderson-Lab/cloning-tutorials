@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Introduction &ndash; Whole-Cell Analysis</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* source 6: the three channels of one field, side by side */
+.slide .chans{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:18px}
+.slide .chans img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 4a: the Otis art fills the whole slide, the title over it */
+.slide.otis-slide .otis-stage{position:absolute;top:0;bottom:0;left:100px;right:-100px;margin:0}   /* nudged right so the title clears the tower */
+.slide.otis-slide h1{position:relative;z-index:1}
+/* source 8: the bullets in a column, the art in a panel beside them.
+   Smaller than body text so all eight lines and three "or…" fit beside
+   the panel without reflowing as they appear; seq/biofuel.js reveals them
+   with visibility, so their space is held from the start. */
+.slide.bf .cols{grid-template-columns:1fr 1fr}
+.slide.bf .bf-text{justify-content:flex-start}
+.slide.bf .bf-text li,.slide.bf .bf-text p{font-size:25px;line-height:1.3;margin:0 0 9px}
+.slide.bf .bf-text ul{margin:0 0 6px}
+.slide.bf .bf-text .orr{margin:4px 0 6px;color:var(--muted)}
+.slide.bf .bf-text .later{margin-top:18px;color:var(--vermillion);font-weight:700}
+/* source 10: the audience table, and its closing line */
+.slide table.aud{border-collapse:collapse;margin:6px 0 0;font-size:27px}
+.slide table.aud caption{text-align:left;font-weight:700;font-size:28px;padding:0 0 8px}
+.slide table.aud th{text-align:left;font-weight:700;padding:6px 36px 6px 0;white-space:nowrap}
+.slide table.aud td{padding:6px 36px 6px 0;border-top:1px solid var(--rule)}
+.slide table.aud th{border-top:1px solid var(--rule)}
+.slide table.aud td.pr{color:var(--blue)}
+.slide p.closer{margin:24px 0 0;font-size:28px;font-weight:700}
+/* source 11: one question, with its facts */
+.slide ul.facts li{font-size:26px;margin:0 0 6px}
+.slide p.q.big{font-size:34px;margin-top:22px}
+/* a slide with a pinned .src credit: stop the figure above it */
+.slide:has(> .src) figure.fig,.slide:has(> .src) .chans{margin-bottom:44px}
+</style>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- 1 -->
+<article class="slide" data-bg="lecture">
+  <h1>Whole-Cell Analysis</h1>
+  <p class="playlist">YouTube playlist:<br>
+     <a href="https://www.youtube.com/watch?v=plOc9Ei5nvY&amp;list=PL2aPXzks-TgMo_x6XhYmfoZDezm4m-DcL">youtube.com/watch?v=plOc9Ei5nvY&amp;list=PL2aPXzks-TgMo_x6XhYmfoZDezm4m-DcL</a></p>
+  <template class="notes"></template>
+  <template class="desc">Lecture title slide: Whole-Cell Analysis. A link to the course YouTube playlist for this lecture.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 3 -->
+<article class="slide">
+  <h1>The DBTL cycle</h1>
+  <figure class="fig" style="display:grid;grid-template-rows:minmax(0,1fr)">
+    <img style="grid-area:1 / 1" src="img/03-dbtl.png" alt="A four-stage cycle drawn as rounded boxes joined by curved arrows running clockwise: Design, then Build, then Test, then Learn, and back to Design.">
+    <img style="grid-area:1 / 1" data-build="1" src="img/03-dbtl-test.png" alt="The same cycle with the Test box now filled vermillion, singling it out from the three blue boxes."
+         data-desc="The Test box turns vermillion, singling out the Test phase &mdash; the subject of today's lecture.">
+  </figure>
+  <template class="notes">More generally, we are discussing a subset of concerns related to the Test phase of the design build test learn cycle.  When you go to do a genetic engineering experiment, you will start with Design.  You will decide the composition of your strains in terms of what genes will used in the project, which combinations of those genes go into each strain composition, what regulatory elements you will add, and whether you want to put the genes on a plasmid or in the genome, and which plasmids and which sites in the genome. For each design, you will generate construction files describing how to go about fabricating the strains described by your composition designs. You then enter the build phase where you do all the oligo synthesis, gene synthesis, assembly, and transformation needed to construct your strain.  You then enter test, the subject of our lecture today, in which you take measurements on the cells to extract information about the function of your design.  In the Learn phase, the experimental data is interpreted and information is encapsulated for use in the next round of design.  As of 2014, this process is all done in peoples heads.  However, much of the software infrastructure needed to automated every step of this cycle is almost mature and will be deployed in early 2015.</template>
+  <template class="desc">The design-build-test-learn cycle drawn as four boxes joined by arrows running clockwise: Design, Build, Test, Learn, and back to Design. Today's lecture is the Test phase.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 4 -->
+<article class="slide" data-bg="section">
+  <h1>The Demonstration</h1>
+  <ul class="plain">
+    <li>System Characterization</li>
+    <li>Branding</li>
+  </ul>
+  <template class="notes">A demonstration experiment involves testing a system in a context close to its real-world usage in a manner that highlights its features, and demonstrates the absence of undesirable features.  It involves system characterization of the complete system in a context similar to its real world usage.  It is often disregarded as cheap advertising, and indeed is highly useful for branding an invention.  However, the utility of a demonstration goes beyond this.</template>
+  <template class="desc">Section divider: The Demonstration. Two words name what a demonstration does &mdash; system characterization and branding.</template>
+</article>
+
+<!-- ------------------------------------------------ 4a (added, not in source) -->
+<!-- Otis cuts the rope, in four clicks: seq/otis.js over seq/art-otis.js.
+     It replaces the engraving that sat on the card above, and carries the
+     rest of that card's source note, split at its clicks. -->
+<article class="slide otis-slide" data-seq="otis">
+  <figure class="otis-stage"></figure>
+  <h1 class="small">The Demonstration</h1>
+</article>
+
+<!-- ------------------------------------------------- 5a (added, not in source) -->
+<article class="slide" data-seq="brainbow">
+  <h1>The Brainbow</h1>
+  <p class="src">Brainbow 3.1: Cai et al., <i>Nat Methods</i> 2013, PMID 23817127</p>
+</article>
+
+<!-- ----------------------------------------------------------------- 5 -->
+<article class="slide">
+  <h1>The Brainbow</h1>
+  <figure class="fig">
+    <img src="img/05-brainbow-brainstem.jpg" alt="A Brainbow micrograph of mouse brainstem packed edge to edge with colour: thousands of short axon segments in red, orange, yellow, green and cyan crowd together in clusters, while a thick bundle of long axons sweeps diagonally across the field and violet fibre tracts weave between the clusters.">
+  </figure>
+  <p class="src">Jean Livet, Lichtman lab. First Prize, 2007 Olympus BioScapes. Cell Image Library CIL:40984, CC BY-NC-ND</p>
+  <template class="notes">Demonstrations are also common in the genetic engineering space.  Often they employ beautiful images and videos to entice the reader&rsquo;s attention. In this example, we are looking at a false-color rendering of the Brainbow.  The Brainbow was a genetic circuit composed of three fluorescent proteins randomly expressed at several distinct expression levels. A transgenic animal encodes the device, and each neuron of its brain will express one combination of the fluorescent proteins at specific levels.  Each neuron then has a unique signature relative to its neighbors in terms of the relative fluorescence on the three channels. When they do microscopy on slices of the brain material, they can quantify each channel, determine which combination of levels are present in each cell, and assign a color specific to that combination.  They then false-color the image to generate what is shown here.</template>
+  <template class="desc">The Brainbow: a prize-winning micrograph of a Brainbow mouse brainstem, packed with axons that each glow their own hue &mdash; red, orange, yellow, green, cyan &mdash; so every neuron can be told apart from its neighbours.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 6 -->
+<article class="slide">
+  <h1>The Brainbow</h1>
+  <div class="chans">
+    <img src="img/06-brainbow-ch1.jpg" alt="One fluorescence channel of a Brainbow hippocampus, in greyscale as the detector records it: a dense band of pyramidal cell bodies with their dendrites rising above, every cell a similar grey.">
+    <img src="img/06-brainbow-ch2.jpg" alt="A second channel of the same field, also greyscale: the same band of cells, with a different subset of them brighter.">
+    <img src="img/06-brainbow-ch3.jpg" alt="A third channel of the same field, also greyscale: again the same cells, again a different subset brighter.">
+  </div>
+  <p class="src">Jean Livet, Lichtman lab. Honorable Mention, 2007 Olympus BioScapes. Cell Image Library CIL:42753, CC BY-NC-ND</p>
+  <template class="notes">In reality, what the scientists probably saw under a microscope looked something like this. And they could have published that image, and the technical merit and utility of the technique is in no way compromised. They could have provided graphs showing statistics about how well they can distinguish two cells, or other more technical measures of performance.  However, without the false coloring the ability to distinguish the neurons is not communicated, and the utility of the technique would be lost.  It might be understandable to software, but this ability is not communicated without the false-color contrivance. Additionally, the technique is simply not as tantalizing and interesting as when they produce the beautiful image.</template>
+  <template class="desc">One field of Brainbow hippocampus as the microscope records it: the three fluorescence channels side by side in greyscale, each a band of densely packed pyramidal cells. In any one channel, one neuron cannot readily be told from the next.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 7 -->
+<article class="slide">
+  <h1>The Brainbow</h1>
+  <figure class="fig">
+    <img src="img/07-brainbow-merged.jpg" alt="The same three channels merged as red, green and blue: the band of pyramidal cells now reads as hundreds of separate neurons, each a different colour &mdash; magenta, yellow, cyan, orange, violet &mdash; with their dendrites traceable up through the layer above.">
+  </figure>
+  <p class="src">The same three channels, merged as red, green and blue. Jean Livet, Lichtman lab. Honorable Mention, 2007 Olympus BioScapes. Cell Image Library CIL:42753, CC BY-NC-ND</p>
+  <template class="notes">The colorful version communicates to the reader not only that this labeling method allows the tracking of individual cells, but you also get an impression for how well this methodology can distinguish the axons of one cell from another.</template>
+  <template class="desc">The same field again, its three channels merged as red, green and blue so that every neuron takes its own colour. Nothing has been added to the data since the previous slide; only the rendering has changed, and only now can the cells be told apart.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 8 -->
+<article class="slide bf" data-seq="biofuel">
+  <h1>Biofuel-Producing Yeast</h1>
+  <div class="cols">
+    <div class="bf-text">
+      <ul>
+        <li data-beat="1">Build a biorefinery</li>
+        <li data-beat="2">Put the yeast into a bioreactor</li>
+        <li data-beat="3">Give it some cellulose-derived carbon source</li>
+        <li data-beat="4">Collect the biofuel</li>
+        <li data-beat="5">Show how much it cost to make a barrel of biofuel</li>
+      </ul>
+      <p class="orr" data-beat="6">or&hellip;</p>
+      <ul data-beat="6"
+          data-note="A real world demonstration might be to run a car on the biofuel.  In this way, they can show that the car runs just fine, that there aren&rsquo;t obvious bad smells, and that it is a product indistinguishable from normal fuel.">
+        <li>Run a car on biofuel</li>
+      </ul>
+      <p class="orr" data-beat="7">or&hellip;</p>
+      <ul data-beat="7"
+          data-note="Or, at an early phase of development the company might show an image of the culture after fermentation under a microscope showing how the fuel separates from the medium in blobs.">
+        <li>Show images of cultures with a layer of biofuel floating on the surface</li>
+      </ul>
+      <p class="orr" data-beat="8">or&hellip;</p>
+      <ul data-beat="8"
+          data-note="Or, they might put the culture in a flask and light it on fire.  All three of these demonstration experiments have been performed during the course of biofuel research, and they answer less technical questions about the technology, and do so in a way that better communicates the technology to their audience.">
+        <li>Light a culture of the bacteria on fire</li>
+      </ul>
+    </div>
+    <figure class="fig bf-stage"></figure>
+  </div>
+  <template class="notes">Let&rsquo;s look at a more current example.  Suppose we want to make Biofuel-producing yeast.  For technical characterization, we will need to build a biorefinery, put the bugs into it and grow it up at scale using cellulose or sugar as a carbon source, collect the biofuel, and then compute the cost of producing it.  If I were an investor, I would want to know this quantitative technical information to be confident that the company can produce a commercially-viable product.  However, it&rsquo;s just going to look like a page of numbers to the non-expert.  Additionally, the company might be hiding details such as the presence of a contaminant in the fuel that makes your car smell like rotten eggs.</template>
+  <template class="desc">The technical characterization of a biofuel yeast, listed as five steps: build a biorefinery, put the yeast in a bioreactor, give it a cellulose-derived carbon source, collect the biofuel, and show what a barrel cost to make.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 9 -->
+<article class="slide bf" data-seq="pancreas">
+  <h1>Pancreatic Gene Therapy</h1>
+  <div class="cols">
+    <div class="bf-text">
+      <ul>
+        <li data-beat="1">Find a mouse diabetes model</li>
+        <li data-beat="2">Treat it with the gene therapy</li>
+        <li data-beat="3">Compare treated mouse insulin levels to those of untreated mice</li>
+      </ul>
+      <p class="orr" data-beat="4">or&hellip;</p>
+      <ul data-beat="4"
+          data-note="In addition, taking a video of the mice running around on a treadmill after treatment demonstrates to the audience that not only are insulin levels normal, but the mice more overtly seem normal.  They don&rsquo;t look fatigued, have weight problems, wounds, or other abnormalities.">
+        <li>Show happy treated mice running on a treadmill</li>
+      </ul>
+      <p class="orr later" data-beat="5"
+         data-note="Here is the catch. In the autoimmune mice, the effect lasted about four months before the immune system caught up, and the diabetes came back. The treadmill video is real footage, and it still misleads, because it lets you believe the mouse is cured. Compare the Brainbow. Those colours are not real, nobody&rsquo;s neurons look like that, and yet the false colour shows you something true about the data. The treadmill is the opposite: real, and pointing at something untrue. So choosing a demonstration is not only a technical decision. It is a claim you are making to an audience, and that is where this connects back to the Practices lecture.">&hellip;about four months later</p>
+    </div>
+    <figure class="fig bf-stage"></figure>
+  </div>
+  <p class="src">Xiao et al., Cell Stem Cell 2018</p>
+  <template class="notes">Here&rsquo;s another example.  Suppose you want a gene therapy for diabetes.  In one real study, Xiao and colleagues packaged two genes, Pdx1 and MafA, in a virus and infused it into the pancreas of diabetic mice, where it turned the mice&rsquo;s own alpha cells into insulin-making cells.  The technical experiment would involve identifying a mouse diabetes model, performing the treatment with the gene therapy, and then quantifying insulin levels in treated and untreated mice.</template>
+  <template class="desc">The technical test of a gene therapy for diabetes, listed as three steps: find a mouse diabetes model, treat it with the gene therapy, and compare insulin levels in treated and untreated mice.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 10 -->
+<article class="slide">
+  <h1>Designing a Demonstration</h1>
+  <ul class="tight">
+    <li>What is the closest experiment you can get to the <b>&ldquo;real world&rdquo;</b> use of this organism?</li>
+    <li>What demonstration experiments are necessary to show that <b>&ldquo;unwanted&rdquo;</b> behavior is absent in the system?</li>
+    <li>Is there any interesting in a sensory way (visual, smell, audible, etc.) that will <b>illustrate the functioning</b> of the system?</li>
+  </ul>
+  <table class="aud" data-build="1"
+         data-note="Those three questions are all about the technology. But the demonstration also has to land with somebody, and that brings back the Practices lecture. Every audience is asking a different question. The investor wants to know whether it pays, and that is the cost-per-barrel demonstration. The regulator wants to know whether it is safe, and who gets to say so. And the people who will live next to it want to know whether they want it there at all. Same organism, three different demonstrations, because the demonstration answers the audience, not the technology."
+         data-desc="A table appears under the heading: who has to be convinced, and of what. Investors have to believe it pays, which is the Practices question Does it pay. Regulators have to believe it is safe, which is Is it safe, and who says so. The people who live with it have to believe they want it there, which is Who else gets a say.">
+    <caption>Who has to be convinced, and of what?</caption>
+    <tr><th>Investors</th><td>it pays</td><td class="pr">Practices: <i>Does it pay?</i></td></tr>
+    <tr><th>Regulators</th><td>it is safe</td><td class="pr">Practices: <i>Is it safe? Who says so?</i></td></tr>
+    <tr><th>The people who live with it</th><td>they want it here</td><td class="pr">Practices: <i>Who else gets a say?</i></td></tr>
+  </table>
+  <p class="closer" data-build="2"
+     data-note="So a demonstration is contextual, not just technical, and some of the best ones are hardly technical at all. Otis had an axe. The biofuel people had a car and a flame. None of those measures anything a reviewer would ask for. They work because they answer the question the audience actually has."
+     data-desc="A closing line appears: the audience picks the demonstration, and some of the best ones are barely technical &mdash; an axe, a car, a flame.">The audience picks the demonstration. Some of the best ones are barely technical: an axe, a car, a flame.</p>
+  <template class="notes">When developing a new technology, it will always be valuable to think about what experiments would make good demonstrations.  There will always be additional, more technical experiments that you need to perform to show that specific attributes of your system work as intended, but this is no substitute for the demonstration.  You should ask yourself, What is the closest experiment you can get to the &ldquo;real world&rdquo; use of this organism?
+What demonstration experiments are necessary to show that &ldquo;unwanted&rdquo; behavior is absent in the system?
+Is there any interesting in a sensory way (visual, smell, audible, etc.) that will illustrate the functioning of the system?</template>
+  <template class="desc">Three questions to ask when designing a demonstration: what is the closest experiment to the real-world use of the organism; what demonstrations show that unwanted behaviour is absent; and is there anything sensory &mdash; visual, smell, audible &mdash; that will illustrate the system working.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 11 -->
+<!-- Rewritten in the edit pass (JCA, 18 Oct 2026): the source's three
+     questions, and their answers in the notes, are replaced by one
+     hypothetical, which is the point: a case study has a right answer
+     and no argument in it.  Two case-study drafts came first and were
+     dropped, Oxitec in the Florida Keys and the Golden Rice feeding
+     trial.  The originals are in git history (0809773d and later). -->
+<article class="slide ask" data-bg="section">
+  <h1>Question to ponder</h1>
+  <p class="q">An engineered soil bacterium lets corn grow with less nitrogen fertilizer.</p>
+  <p class="q">You get to run <i>one</i> demonstration experiment before asking someone to adopt, approve, fund or accept it.</p>
+  <p class="q big">It is 2026. Who is your audience, what do they need to believe, and what would you show them?</p>
+  <template class="notes">Before you design anything, tell me who you are trying to convince.  Then I want an actual experiment out of you, not a category.
+For the farmer, strip trials.  Same field, same planting date, treated and untreated strips alternating across it, four or five repeats so a wet corner does not fool you.  Harvest with the farmer&rsquo;s own combine and weigh it.  Then run it again at the nitrogen rate they normally buy and at half that rate, because what you are selling is &ldquo;you can cut your fertilizer&rdquo;, not &ldquo;you get more corn&rdquo;.  One season on one farm is a story.  Twenty farms over two states is a product.
+For the regulator, mark the strain so you can find it again.  Sample soil on a grid running out from the plot, at the end of the season and again the next spring, and look for your marker by plating or by qPCR.  Sample the root zone of whatever is planted next.  What they want out of you is a distance, a time, and whether anything else picked up the gene.
+For the food company, take grain from the treated plots and look for the organism and its protein in the kernel.  If it is not there, say how hard you looked.  &ldquo;Not detected at one cell per gram&rdquo; is a claim.  &ldquo;We did not see any&rdquo; is not.
+For the investor, cost per acre against the fertilizer it replaces at today&rsquo;s urea price, and how many acres you have to treat before the plant pays for itself.
+For the neighbours, test their well water for nitrate before and after, and hand them the numbers whichever way they come out.
+Now, you only get one.  I would run the strip trial, on a farm the other farmers already watch, because it is the only one on that list that makes a believer out of somebody who is not you.</template>
+  <template class="desc">Question to ponder, on the amber ground. An engineered soil bacterium lets corn grow with less nitrogen fertilizer. You get to run one demonstration experiment before asking someone to adopt, approve, fund or accept it. It is 2026: who is your audience, what do they need to believe, and what would you show them?</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/art-otis.js" defer></script>
+<script src="seq/otis.js" defer></script>
+<script src="seq/brainbow.js" defer></script>
+<script src="seq/art-biofuel.js" defer></script>
+<script src="seq/biofuel.js" defer></script>
+<script src="seq/art-pancreas.js" defer></script>
+<script src="seq/pancreas.js" defer></script>
+</body>
+</html>

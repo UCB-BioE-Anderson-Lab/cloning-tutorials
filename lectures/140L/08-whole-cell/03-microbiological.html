@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Microbiological Assays &ndash; Whole-Cell Analysis</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* figures in a grid that claims the leftover height */
+.slide .grid{flex:1 1 auto;min-height:0;display:grid;gap:22px 50px}
+.slide .grid > *{min-width:0;min-height:0}
+.slide .grid img{width:100%;height:100%;min-height:0;object-fit:contain;display:block}
+.slide .grid ul{margin:0;align-self:center}
+/* a redrawn chart is inline SVG, and fills its cell the way an img does */
+.slide .grid svg.chart{width:100%;height:100%;min-height:0;display:block}
+/* frames of one drawing stacked in a single cell, so a click swaps them */
+.slide .frames{display:grid;min-height:0}
+.slide .frames > img{grid-area:1 / 1}
+.slide.ask p.q{font-size:36px;font-weight:700;line-height:1.35;margin:30px 0 0;max-width:44ch}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 29 -->
+<article class="slide" data-bg="section">
+  <h1>Microbiological Assays</h1>
+  <template class="notes">Microbiological assays are whole cell assays that monitor some non-chemical process in the cell.</template>
+  <template class="desc">Section divider: Microbiological Assays.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 30 -->
+<article class="slide">
+  <h1>Measuring Toxicity</h1>
+  <ul>
+    <li>Following OD_600 over time provides a growth rate.  When compared to wild-type cells, toxicity can be inferred.</li>
+  </ul>
+  <div class="grid" style="grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) 150px">
+    <img data-build="1" src="img/30-growth-chart.png" alt="A line chart of OD_600 rising over about 46 time points for three series: Series3 in grey and Series2 in vermillion climb to about 0.75, while Series1 in blue lags to about 0.53."
+         data-desc="A line chart appears: OD_600 against time for three cultures, two of them rising together to about 0.75 and the third lagging to about 0.53.">
+    <!-- GROWTH RATES: re-plotted from the published figure, not invented.
+         The source is the bitmap that was img/30-growth-rates.png (slide 30 of
+         the source deck, ppt/media/image27.png, 726x643).  Every value below was
+         read off that file at full resolution; the pixel measurement it came
+         from is given beside it.
+
+         CALIBRATION.  The y-axis tick labels 0.0018 ... 0 sit at pixel rows
+         13.5, 75.5, 137.5, 199.5, 261.5, 322.5, 384.5, 446.5, 508.5 and 570.5 --
+         evenly spaced, 61.889 px per 0.0002.  So value = (570.5 - row) x 3.2316e-6.
+         A bar's top is its white outline row; an error bar's caps are the two
+         short white horizontal runs at the bar's centre line.
+
+                     bar top row   value       caps (rows)    caps (values)
+           RFP  LB        161      0.001323    145.5 / 176.0  0.001373 / 0.001275
+           RFP  Ara       174      0.001281    162.0 / (186)  0.001320 / 0.001242
+           coi  LB        250      0.001036    235.5 / 266.0  0.001083 / 0.000984
+           coi  Ara       253      0.001026    241.5 / (264)  0.001063 / 0.000989
+           repL LB        199      0.001201    149.0 / 252.0  0.001362 / 0.001029
+           repL Ara       472      0.000318    430.0 / (514)  0.000454 / 0.000182
+           pacA LB        164      0.001314     45.0 / 285.0  0.001698 / 0.000923
+           pacA Ara       178      0.001268    146.5 / (210)  0.001370 / 0.001166
+
+         A cap in brackets is the one that falls INSIDE a white bar, where it is
+         white on white and cannot be seen; it is the visible cap mirrored about
+         the bar top.  Where both caps are visible their midpoint lands within
+         1.5 px of the bar top, so the source's error bars are symmetric and the
+         mirroring is sound.
+         Axis labels, legend wording and strain names are the source figure's own.
+         Nothing has been added: no value, no axis number, no label. -->
+    <svg data-build="2" class="chart" viewBox="0 0 665 390" role="img"
+         data-desc="A bar chart appears: growth rate for strains expressing RFP, coi, repL and pacA, in LB only and with arabinose. Only repL's growth rate collapses on induction.">
+      <title>Growth rate in inverse seconds for four strains &ndash; RFP, coi, repL and pacA &ndash; each with a bar for LB only beside a bar for with arabinose, error bars on both. The two bars match for every strain except repL, where induction drops the growth rate from about 0.0012 to about 0.0003 per second.</title>
+      <g class="axis" fill="none" stroke="#111111" stroke-width="2.2" stroke-linecap="round">
+        <path d="M120 26 V324 H657"/>
+        <path d="M111 324 H120"/>
+        <path d="M111 290.9 H120"/>
+        <path d="M111 257.8 H120"/>
+        <path d="M111 224.7 H120"/>
+        <path d="M111 191.6 H120"/>
+        <path d="M111 158.4 H120"/>
+        <path d="M111 125.3 H120"/>
+        <path d="M111 92.2 H120"/>
+        <path d="M111 59.1 H120"/>
+        <path d="M111 26 H120"/>
+      </g>
+      <g font-size="22" fill="#111111" text-anchor="end">
+        <text x="104" y="331">0</text>
+        <text x="104" y="297.9">0.0002</text>
+        <text x="104" y="264.8">0.0004</text>
+        <text x="104" y="231.7">0.0006</text>
+        <text x="104" y="198.6">0.0008</text>
+        <text x="104" y="165.4">0.001</text>
+        <text x="104" y="132.3">0.0012</text>
+        <text x="104" y="99.2">0.0014</text>
+        <text x="104" y="66.1">0.0016</text>
+        <text x="104" y="33">0.0018</text>
+      </g>
+      <text transform="translate(26 175) rotate(-90)" text-anchor="middle" font-size="24" fill="#111111">Growth Rate (s<tspan baseline-shift="super" font-size="15">&#8722;1</tspan>)</text>
+      <rect x="137.1" y="105" width="46" height="219" fill="#004373"/>
+      <path d="M160.1 96.7 V112.9 M148.1 96.7 H172.1 M148.1 112.9 H172.1" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+      <rect x="191.1" y="111.9" width="46" height="212.1" fill="#ba3a13"/>
+      <path d="M214.1 105.5 V118.4 M202.1 105.5 H226.1 M202.1 118.4 H226.1" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+      <text x="187.1" y="358" text-anchor="middle" font-size="27" font-style="italic" fill="#111111">RFP</text>
+      <rect x="271.4" y="152.5" width="46" height="171.5" fill="#004373"/>
+      <path d="M294.4 144.7 V161.1 M282.4 144.7 H306.4 M282.4 161.1 H306.4" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+      <rect x="325.4" y="154.1" width="46" height="169.9" fill="#ba3a13"/>
+      <path d="M348.4 148 V160.3 M336.4 148 H360.4 M336.4 160.3 H360.4" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+      <text x="321.4" y="358" text-anchor="middle" font-size="27" font-style="italic" fill="#111111">coi</text>
+      <rect x="405.6" y="125.2" width="46" height="198.8" fill="#004373"/>
+      <path d="M428.6 98.5 V153.6 M416.6 98.5 H440.6 M416.6 153.6 H440.6" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+      <rect x="459.6" y="271.4" width="46" height="52.6" fill="#ba3a13"/>
+      <path d="M482.6 248.8 V293.9 M470.6 248.8 H494.6 M470.6 293.9 H494.6" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+      <text x="455.6" y="358" text-anchor="middle" font-size="27" font-style="italic" fill="#111111">repL</text>
+      <rect x="539.9" y="106.5" width="46" height="217.5" fill="#004373"/>
+      <path d="M562.9 42.9 V171.2 M550.9 42.9 H574.9 M550.9 171.2 H574.9" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+      <rect x="593.9" y="114.1" width="46" height="209.9" fill="#ba3a13"/>
+      <path d="M616.9 97.2 V131 M604.9 97.2 H628.9 M604.9 131 H628.9" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+      <text x="589.9" y="358" text-anchor="middle" font-size="27" font-style="italic" fill="#111111">pacA</text>
+      <g font-size="24" fill="#111111">
+        <rect x="162" y="34" width="26" height="22" fill="#004373"/><text x="198" y="53">LB only</text>
+        <rect x="320" y="34" width="26" height="22" fill="#ba3a13"/><text x="356" y="53">With Arabinose</text>
+      </g>
+    </svg>
+    <img src="img/30-pbad-constructs.png" alt="Three constructs drawn as a bent promoter arrow labelled P-BAD driving a coloured gene arrow: coi in amber, repL in pink, and pacA in green." style="grid-column:1 / -1">
+  </div>
+  <template class="notes">Cell growth is one such phenomenon.  By measuring optical density as absorbance at 600nm, you can follow the growth a cell culture over time.  The first derivative of this trace is the growth rate.  In this experiment, we individually place three different protein components of a genetic device under the Pbad promoter and monitor the cells growth as a function of time with and without arabinose induction. An examination of the growth rates shows the RepL is clearly toxic to the cell upon induction, and this knowledge is useful for debugging the circuit.</template>
+  <template class="desc">Following OD_600 over time provides a growth rate, and comparing it to wild-type cells lets toxicity be inferred. Three constructs are shown, each placing one gene &mdash; coi, repL or pacA &mdash; under the P-BAD promoter.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 31 -->
+<article class="slide">
+  <h1>Devices affecting viability</h1>
+  <div class="grid" style="grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) minmax(0,1.6fr)">
+    <ul class="tighter">
+      <li>Mammalian serum (non-cellular component of blood) contains complement.  It kills bacteria.</li>
+      <li>Introduction of K92 and O16 devices place carbohydrate polymers on the surface of <i>E. coli</i> and mask the surface</li>
+    </ul>
+    <ul class="tighter" data-build="2"
+        data-note="In this assay, we incubate the bacteria with horse serum for some amount of time and then spread the mixture on culture plates.  The next day, we count colonies and measure what percentage of the bacteria survived the serum."
+        data-desc="A bullet appears: in this experiment, bacteria are incubated in horse serum and then plated on LB plates.">
+      <li>In this experiment, bacteria are incubated in horse serum and then plated on LB plates</li>
+    </ul>
+    <img data-build="1" src="img/31-gene-clusters.png" alt="Two gene clusters drawn as rows of amber arrows lettered with gene names. The O16 gene cluster, spanning rfb and wbb, runs B D A C X glf H I J K, then L in dark brown. The K92 gene cluster, spanning kps, neu and kps, runs M T D B A C E, then S in dark brown, then S C U D E F pointing the other way."
+         data-note="encoded by two large gene cluster. When all these genes are expressed with the right timing, localization, and concentration, the surface of the bacterium becomes heavily decorated with carbohydrates that affect immunological properties of the bacterium.  These modifications allow the bacterium to survive in horse serum. Horse serum, or the non-cellular component of adult horse blood, contains complement which will quickly kill a non-encapsulated bacterium.  However, with a complete set of functioning genes, viability is restored."
+         data-desc="Two gene clusters appear, drawn as rows of gene arrows: the O16 cluster and the K92 cluster.">
+    <!-- SERUM SURVIVAL: re-plotted from the published figure, not invented.
+         The source is the bitmap that was img/31-serum-survival.png (slide 31 of
+         the source deck, ppt/media/image28.png, 656x777).
+
+         CALIBRATION.  The y-axis tick labels 100, 75, 50, 25, 0 sit at pixel rows
+         131, 234, 337, 440 and 543 -- exactly 103 px per 25 percent.  The figure's
+         one gridline lands at row 441, which agrees.  So value = (543 - row)/4.12.
+
+                        bar top row   value     caps (rows)     caps (values)
+           K92 + O16 +      203       82.5 %    149.5 / 260.0   95.5 % / 68.7 %
+           K92 - O16 +      none       0        none
+           K92 + O16 -      none       0        none
+           K92 - O16 -      none       0        none
+           lab strain       none       0        none
+
+         "none" is literal: in the source figure there is not one non-background
+         pixel above the axis in any of those four columns, so the figure plots
+         them at zero and so does this.  They are drawn as no bar, exactly as the
+         source draws them; the colour key below the axis and the plus/minus rows
+         are what identify the columns, which is also how the source does it.
+         Title, axis label, legend wording and the K92/O16 rows are the source
+         figure's own. -->
+    <svg data-build="3" class="chart" viewBox="0 0 665 400" role="img"
+         data-desc="A bar chart appears, survival in adult horse serum: only the strain carrying both the K92 and O16 devices is recovered, at about 80 percent; strains with either alone, neither, and the lab strain are near zero.">
+      <title>A bar chart, Survival in Adult Horse Serum, percent recovered for five strains marked plus or minus for K92 and O16. Only the strain carrying both reaches the axis, at 82 percent with an error bar from 69 to 96 percent; the strain with O16 alone, the strain with K92 alone, the strain with neither and the lab strain all plot at zero.</title>
+      <text x="397" y="30" text-anchor="middle" font-size="27" fill="#111111">Survival in Adult Horse Serum</text>
+      <g stroke="#e2e2e2" stroke-width="1.6" fill="none">
+        <path d="M146 194 H648"/>
+        <path d="M146 148 H648"/>
+        <path d="M146 102 H648"/>
+        <path d="M146 56 H648"/>
+      </g>
+      <g fill="none" stroke="#111111" stroke-width="2.2" stroke-linecap="round">
+        <path d="M146 56 V240 H648"/>
+        <path d="M137 240 H146"/>
+        <path d="M137 194 H146"/>
+        <path d="M137 148 H146"/>
+        <path d="M137 102 H146"/>
+        <path d="M137 56 H146"/>
+      </g>
+      <g font-size="22" fill="#111111" text-anchor="end">
+        <text x="130" y="247">0</text>
+        <text x="130" y="201">25</text>
+        <text x="130" y="155">50</text>
+        <text x="130" y="109">75</text>
+        <text x="130" y="63">100</text>
+      </g>
+      <text transform="translate(26 148) rotate(-90)" text-anchor="middle" font-size="24" fill="#111111">Percent Recovered</text>
+      <rect x="168.2" y="88.2" width="56" height="151.8" fill="#004373"/>
+      <path d="M196.2 64.3 V113.6 M182.2 64.3 H210.2 M182.2 113.6 H210.2" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+      <rect x="168.2" y="252" width="56" height="19" fill="#004373"/>
+      <text x="196.2" y="314" text-anchor="middle" font-size="30" fill="#111111">+</text>
+      <text x="196.2" y="356" text-anchor="middle" font-size="30" fill="#111111">+</text>
+      <rect x="268.6" y="252" width="56" height="19" fill="#004373"/>
+      <text x="296.6" y="314" text-anchor="middle" font-size="30" fill="#111111">−</text>
+      <text x="296.6" y="356" text-anchor="middle" font-size="30" fill="#111111">+</text>
+      <rect x="369" y="252" width="56" height="19" fill="#004373"/>
+      <text x="397" y="314" text-anchor="middle" font-size="30" fill="#111111">+</text>
+      <text x="397" y="356" text-anchor="middle" font-size="30" fill="#111111">−</text>
+      <rect x="469.4" y="252" width="56" height="19" fill="#004373"/>
+      <text x="497.4" y="314" text-anchor="middle" font-size="30" fill="#111111">−</text>
+      <text x="497.4" y="356" text-anchor="middle" font-size="30" fill="#111111">−</text>
+      <rect x="569.8" y="252" width="56" height="19" fill="#ba3a13"/>
+      <text x="597.8" y="314" text-anchor="middle" font-size="30" fill="#111111">−</text>
+      <text x="597.8" y="356" text-anchor="middle" font-size="30" fill="#111111">−</text>
+      <g font-size="25" fill="#111111" text-anchor="end">
+        <text x="132" y="314">K92</text>
+        <text x="132" y="356">O16</text>
+      </g>
+      <g font-size="23" fill="#111111">
+        <rect x="330" y="76" width="26" height="21" fill="#004373"/><text x="366" y="94">O16:K92 Strain</text>
+        <rect x="330" y="112" width="26" height="21" fill="#ba3a13"/><text x="366" y="130">Lab Strain</text>
+      </g>
+    </svg>
+  </div>
+  <template class="notes">Genetically-encoded processes have naturally evolved to improve the fitness of their organism in some environment.  By placing the organism in this environment you can monitor the function of the process by virtue of the organism’s growth.  Here we are monitoring the expression of capsular polysaccharides which are</template>
+  <template class="desc">Two bullets: mammalian serum, the non-cellular component of blood, contains complement, which kills bacteria; and introducing the K92 and O16 devices places carbohydrate polymers on the surface of E. coli and masks the surface.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 32 -->
+<article class="slide">
+  <h1>Chemotaxis/Swarming Assays</h1>
+  <div class="grid" style="grid-template-rows:minmax(0,1fr) minmax(0,1.2fr)">
+    <img src="img/32-aptamer-chez.png" alt="Two RNA structures joined by equilibrium arrows. Left: the ribosome binding site is paired within the aptamer, labelled Ribosome Binding Site Paired, CheZ Not Expressed, Cells Tumble. Adding theophylline, drawn as small teal molecules, shifts it to the right: the aptamer binds theophylline and releases the RBS, labelled Ribosome Binding Site Unpaired, CheZ Expressed, Cells Run and Tumble.">
+    <img data-build="1" src="img/32-swarm-plates.png" alt="Two swarm plates: minus theophylline shows a tight dot of cells at the centre, plus theophylline shows a wide cloudy ring. Beside them a plot of migration radius in millimetres against concentration in millimolar: with theophylline the radius rises to about 12 at 1 millimolar and then falls; with caffeine it stays near zero."
+         data-desc="Two swarm plates appear, without and with theophylline &mdash; a tight dot versus a wide swarm ring &mdash; beside a plot of migration radius against concentration: theophylline drives swarming up to about 12 millimetres at 1 millimolar, while caffeine does nothing.">
+  </div>
+  <p class="src">PMID: 17480075</p>
+  <template class="notes">Beyond growth, there are other processes that organisms do that can be monitored to observe the behavior of a cellular process.  Here, we look at chemotaxis using a swarming assay.  Agar medium is prepared with only a small amount of agar resulting in very soft petri dishes.  A small spot of bacteria is placed in the middle of the dish and then incubated for several hours.  If the bacteria have intact chemotaxis processes, they will swim outwards from the center of the plate forming a clouding circle.  The diameter of the circle is an indirect measure of functionality.  In this particular experiment, they have constructed an E. coli strain with an aptamer controlling the CheZ gene.  CheZ is a protein required for chemotaxis to happen.  By occluding the ribosome binding site in front of CheZ with an aptamer that binds theophylline, the expression of CheZ is dependent on the concentration of theophylline.  Thus, addition of the small molecule results in more effect swarming.  By doing this assay with many concentrations of theophylline and the related-but-not-functional compound caffeine, they obtain a transfer function relating input concentration of the molecule to the cells output behavior.</template>
+  <template class="desc">A theophylline aptamer controlling CheZ: without theophylline the ribosome binding site is paired, CheZ is not expressed and cells tumble; with theophylline the RBS is unpaired, CheZ is expressed and cells run and tumble. Source: PMID 17480075.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 33 -->
+<article class="slide">
+  <h1>Adhesion Assays</h1>
+  <div class="grid" style="grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,0.8fr) auto minmax(0,1.3fr)">
+    <div class="frames" style="grid-row:1 / -1">
+      <img data-build="1" data-unbuild="2" src="img/33-a-well.png" alt="An empty microplate well drawn side-on as a blue U-shaped outline."
+           data-note="We begin with a well of a 96-well ELISA plate.  You are looking at the plate sideways-on."
+           data-desc="An empty well of a 96-well ELISA plate appears, drawn side-on.">
+      <img data-build="2" data-unbuild="3" src="img/33-b-substrate.png" alt="The same well with a thin amber layer coating its floor, and an arrow from the label Binding Substrate (for example: Mannan binds type I pili) pointing to it."
+           data-note="To each well we’ll add mannan, and it becomes adhered to the surface. We also block the cells with BSA to prohibit further non-specific binding."
+           data-desc="A layer of binding substrate coats the floor of the well, labelled: Binding Substrate (for example, mannan binds type I pili).">
+      <img data-build="3" data-unbuild="4" src="img/33-c-cells.png" alt="The well filled with many pale yellow rod-shaped bacteria scattered throughout, above the substrate layer."
+           data-note="We then add the cells of the strain we wish to test."
+           data-desc="The well fills with bacteria of the strain being tested.">
+      <img data-build="4" src="img/33-d-washed.png" alt="The well after washing: only a single layer of yellow bacteria remains, stuck to the substrate on the floor."
+           data-note="Allow them to adhere, and then wash the unbound cells away."
+           data-desc="After washing, only a layer of bacteria bound to the substrate on the floor remains.">
+    </div>
+    <img src="img/33-sem.png" alt="A scanning electron micrograph of rod-shaped bacteria attached by fine pili to a textured cell surface.">
+    <ul class="tighter" data-build="5"
+        data-note="Finally, we stain the cells with gram stain and obtain a measure of cell adhesion in terms of intensity of purple color."
+        data-desc="A bullet and a photograph appear: adhered bacteria are detected by outgrowth, an OD measurement, or by staining; the photograph shows a microplate whose wells are stained different intensities of purple.">
+      <li>Adhered bacteria are detected by outgrowth (OD measurement) or staining</li>
+    </ul>
+    <img data-build="5" src="img/33-plate.png" alt="A photograph of part of a microplate in which columns of wells are stained deep purple and alternate columns are nearly clear.">
+  </div>
+  <template class="notes">Another microbiological behavior is adhesion.  Bacteria often stick to surfaces including the surfaces of other cells like human gut epithelial cells  Though it is not synonymous with biofilm formation, it is a highly related phenomenon.  One way to quantify it involves microplate-based adhesion assays.  In this example, we are monitoring the adhesion of bacteria to mannan, a carbohydrate resembling the surfaces of mammalian epithelial cells, via type I pili.</template>
+  <template class="desc">A scanning electron micrograph of bacteria attached by pili to a cell surface.</template>
+</article>
+
+<!-- ------------------------------------------- 40b (moved here, 18 Oct 2026) -->
+<!-- Source 40's second and third questions.  They stay together because
+     the third depends on the second; it read "For the system in 2", and
+     with the numbering gone it now reads "For that system", the only
+     change.  Both answers are VERBATIM from source 40's note. -->
+<article class="slide ask" data-bg="section">
+  <h1>Question to ponder</h1>
+  <p class="q">I am trying to engineer bacteria that kill MRSA.  How would I quantify the effect?</p>
+  <p class="q" data-build="1"
+     data-note="Apply the engineered bacteria to a wound infected with MRSA, measure recovery time"
+     data-desc="A second question appears: for that system, how would I demonstrate the clinical utility?">For that system, how would I demonstrate the clinical utility?</p>
+  <template class="notes">Mix the engineered bacteria vs unengineered with MRSA.  After incubation, plate on media that only the MRSA are resistant to.  Count colonies.</template>
+  <template class="desc">Question to ponder, on the amber ground: I am trying to engineer bacteria that kill MRSA. How would I quantify the effect?</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

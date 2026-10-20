@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Biochemical Assays &ndash; Whole-Cell Analysis</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* source 25/26: text or enzymes top-left, the fluorogenic substrate top-right,
+   and three substrate structures in a row underneath, each with its label */
+.slide .subs{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:18px 40px}
+.slide .subs figure{display:flex;flex-direction:column;align-items:center;min-height:0;margin:0}
+.slide .subs img{flex:1 1 auto;min-height:0;width:100%;object-fit:contain}
+.slide .subs figcaption{flex:0 0 auto;font-size:28px;margin-top:6px}
+.slide .subs .top{grid-column:1 / 3;display:flex;flex-direction:column;justify-content:center}
+.slide .subs .top ul.plain{list-style:none;padding:0}
+.slide .subs .top ul.plain li{font-size:34px;margin:0 0 4px}
+/* source 27: one state swaps for another on the click.  Both are stacked in
+   ONE grid cell (AUTHORING: grid-area:1/1 on each), so each state gets the
+   whole slide rather than half of it; each then splits itself text | figure. */
+.slide .swap{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr}
+.slide .swap > *{grid-area:1/1;min-height:0;display:grid;
+  grid-template-columns:1fr 1.1fr;gap:46px;align-items:center}
+.slide .swap > * > *{min-width:0;min-height:0}
+.slide .swap figure.fig{margin:0}
+/* the antibody cartoon is drawn, not a bitmap: it sizes off its own aspect */
+.slide .swap figure.stain{margin:0}
+.slide .swap figure.stain svg{display:block;width:100%;height:auto}
+/* the product name, which the source deck shipped as a wordmark bitmap */
+.slide .swap .brand{flex:0 0 auto;margin:0 0 16px;font-size:31px;line-height:1.18;
+  font-weight:300;color:var(--muted)}
+.slide.ask p.q{font-size:36px;font-weight:700;line-height:1.35;margin:26px 0 0;max-width:44ch}
+.slide.ask ol.qlist{margin:30px 0 0;padding-left:1.5em;max-width:none}
+.slide.ask ol.qlist li{font-size:32px;font-weight:700;line-height:1.3;margin:0 0 20px}
+.slide figure.growth{flex:1 1 auto;min-height:0;margin:18px 0 0}
+.slide figure.growth svg{width:100%;height:100%;max-height:100%;display:block}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 24 -->
+<article class="slide" data-bg="section">
+  <h1>Biochemical Assays</h1>
+  <template class="notes">Biochemical assays involve the quantification of specific biochemicals or the monitoring of specific biochemical reactions in a cell. The image here is of a mouse embryo in which the lacZ protein is produced in developing cells of the spinal cord. LacZ is one of the biochemical reactions that can be easily monitored using one of these assays.  The compound Xgal will turn blue in its presence allowing the staining of cells that express it.</template>
+  <template class="desc">Section divider: Biochemical Assays.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 25 -->
+<article class="slide">
+  <h1>Enzymatic Reporter Assays</h1>
+  <div class="subs">
+    <div class="top">
+      <ul class="plain">
+        <li>&beta;-galactosidase (<i>lacZ</i>)</li>
+        <li>Alkaline Phosphatase (<i>phoA</i>)</li>
+        <li>&beta;-lactamase (<i>bla</i>)</li>
+      </ul>
+    </div>
+    <figure>
+      <img src="img/25-fluorogenic.png" alt="The chemical structure of a fluorogenic galactoside: a galactose ring linked through oxygen to a three-ring resorufin-type dye.">
+      <figcaption><b>Fluorogenic</b> substrate</figcaption>
+    </figure>
+    <figure>
+      <img src="img/25-xgal.png" alt="The chemical structure of X-gal: a galactose ring linked through oxygen to an indole ring carrying bromine and chlorine.">
+      <figcaption><b>Xgal</b> (blue)</figcaption>
+    </figure>
+    <figure>
+      <img src="img/25-onpg.png" alt="The chemical structure of oNPG: a galactose ring linked through oxygen to a nitrophenyl group.">
+      <figcaption><b>oNPG</b> (yellow)</figcaption>
+    </figure>
+    <figure>
+      <img src="img/25-sgal.png" alt="The chemical structure of S-gal: a galactose ring linked through oxygen to a fused-ring esculetin-type group.">
+      <figcaption><b>Sgal</b> (black)</figcaption>
+    </figure>
+  </div>
+  <template class="notes">LacZ is one of the most commonly used biochemical assays.  It has many variants, and each differs by the type of instrumentation used for the measurement and the specific compound employed.  In each case, the b-galactosidase protein encoded by lacZ will hydrolyze galactose residues off the substrate.  There are substrates that will turn blue, yellow, or black upon hydrolysis.  There are also fluorogenic substrates that can be detected by cytometry, fluorimetry, or fluorescence microscopy after hydrolysis.
+If you just replace the galactose moiety with phosphate, all the same color-generating chemicals can be used to monitor alkaline phosphatase activity.  Though the same diversity of substrate does not exist for b-lactamase, a limited set of fluorogenic and chromogenic substrates including nitrocephin exist here too.  These enzymatic reporter genes are often used in the same context as GFP and RFP.  The measurements are often more precise and sensitive due to the amplification obtained from watching conversion of a substrate rather than the protein itself.  For example, to get 100x over background signals from GFP in E. coli, you typically must express it from a high-copy plasmid.  However, genomically-encoded LacZ can provide 10,000-signals over background.</template>
+  <template class="desc">Three reporter enzymes are listed: beta-galactosidase (lacZ), alkaline phosphatase (phoA) and beta-lactamase (bla). Around them, the chemical structures of four galactoside substrates: a fluorogenic substrate, Xgal which turns blue, oNPG which turns yellow, and Sgal which turns black.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 26 -->
+<article class="slide">
+  <h1>Enzymatic Reporter Assays</h1>
+  <div class="subs">
+    <div class="top">
+      <ul class="tight">
+        <li>Involves introducing a <b>substrate</b> compound to the cells or a partial lysate of the cells</li>
+        <li>Readout can be <b>absorbance</b>, fluorescence, electrochemical (etc.) based on the choice of substrate</li>
+      </ul>
+    </div>
+    <figure>
+      <img src="img/25-fluorogenic.png" alt="The chemical structure of a fluorogenic galactoside.">
+      <figcaption><b>Fluorogenic</b> substrate</figcaption>
+    </figure>
+    <figure>
+      <img src="img/25-xgal.png" alt="The chemical structure of X-gal.">
+      <figcaption><b>Xgal</b> (blue)</figcaption>
+    </figure>
+    <figure>
+      <img src="img/25-onpg.png" alt="The chemical structure of oNPG.">
+      <figcaption><b>oNPG</b> (yellow)</figcaption>
+    </figure>
+    <figure>
+      <img src="img/25-sgal.png" alt="The chemical structure of S-gal.">
+      <figcaption><b>Sgal</b> (black)</figcaption>
+    </figure>
+  </div>
+  <template class="notes">Many of these chromogenic and fluorogenic substrates are cell permeable, and there are additional chemical modifications that can render them cell permeable when they are not. Thus, you often can perform these assays directly on intact cells.  Alternatively, they can be performed in a partial lysate of the cells.
+Different substrates are read out in different ways.  For bulk absorbance measurements using a spectrometer, o-nitrophenol based substrates are usually the best.  For visual readout on colonies in a plate, the insoluble products of Xgal and Sgal are best.  For cytometers, fluorimeters, or microscopy, the fluorogenic substrates are required.  Additionally, there are substrates for these enzymes that change electrochemical properties upon hydrolysis allowing detection with electrodes.
+I highlight the enzymatic assays because they are commonly used, and there are many of them.  There are assays for monitoring MAP kinases, for monitoring calcium concentrations, for watching protein:protein interactions, etc.</template>
+  <template class="desc">The same four substrate structures &mdash; fluorogenic, Xgal (blue), oNPG (yellow) and Sgal (black) &mdash; now with two bullets: the assay involves introducing a substrate compound to the cells or a partial lysate; and the readout can be absorbance, fluorescence, electrochemical and so on, depending on the substrate.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 27 -->
+<!-- Edit pass (lane C, 18 Oct 2026).  Three separate fixes, none of them
+     touching a note:
+       - img/27-baclight.png was a product WORDMARK shipped as a bitmap.
+         It is set as text below and the file is deleted.
+       - img/27-antibody.png was line art on the source deck's grey panel.
+         Redrawn as inline SVG in the vocabulary of slide 13 of
+         01-fluorescent.html: the cell is ink, whatever fluoresces is
+         green #2b8a3e.  The file is deleted.
+       - 91 body words thinned against what the figures now show.  The
+         bullet about conjugated antibodies on surface epitopes is what
+         the drawing shows; the bullet about a single-cell fluorescence
+         readout of the live fraction was also cut, and has been PUT BACK:
+         it names what the assay is FOR, and the micrograph does not say
+         that.  Its source typo "proceedure" is corrected here, as the
+         deck's other spelling was.  So one bullet comes off, not two.  Every surviving bullet is VERBATIM.
+     The six words labelling the drawing are new and need JCA's review.
+     The notes template and the click's data-note are unchanged. -->
+<article class="slide">
+  <h1>Staining Measurements</h1>
+  <div class="swap">
+    <div data-unbuild="1">
+      <div>
+      <ul class="tight">
+        <li>Stains specifically label some biochemical species of a cell, or are used as a probe of permeability or the chemical environment of a cell (pH detection, calcium detection, etc.)</li>
+        <li>Can stain microbiological biochemicals (flagella, pili, carbohydrates) with lectins or antibodies</li>
+        <li>Can do chemical stains (gram staining)</li>
+      </ul>
+      </div>
+      <figure class="fig stain">
+        <svg viewBox="0 0 640 282" aria-hidden="true">
+          <g fill="none" stroke="#111111" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- the cell surface, broken where a protein crosses it -->
+            <path d="M16 192H193M237 192H398M442 192H624"/>
+            <path d="M16 218H193M237 218H398M442 218H624"/>
+            <!-- one antibody on the left protein, three on the particle -->
+            <path d="M193 104L215 74L237 104"/><path d="M215 74V52"/>
+            <path d="M398 104L420 74L442 104"/><path d="M420 74V62"/>
+            <path d="M352.6 38.2L377.7 45L362.7 66.3"/><path d="M377.7 45L391.8 40.2"/>
+            <path d="M487.4 38.2L462.3 45L477.3 66.3"/><path d="M462.3 45L448.2 40.2"/>
+          </g>
+          <!-- two copies of one surface protein; filled white so the
+               membrane lines read behind the protein rather than through it -->
+          <g fill="#ffffff" stroke="#111111" stroke-width="4.2" stroke-linejoin="round">
+            <rect x="197" y="150" width="36" height="112" rx="18"/>
+            <circle cx="215" cy="140" r="28"/>
+            <rect x="402" y="150" width="36" height="112" rx="18"/>
+            <circle cx="420" cy="140" r="28"/>
+          </g>
+          <!-- whatever fluoresces is green, as on slide 13 -->
+          <circle cx="215" cy="41" r="21" fill="#2b8a3e" fill-opacity="0.14"/>
+          <circle cx="215" cy="41" r="11" fill="#2b8a3e"/>
+          <circle cx="420" cy="30" r="44" fill="#2b8a3e" fill-opacity="0.14"/>
+          <circle cx="420" cy="30" r="30" fill="none" stroke="#2b8a3e" stroke-width="4.2"/>
+          <g font-size="21" fill="#111111">
+            <text x="556" y="178">Out</text>
+            <text x="560" y="246">In</text>
+            <text x="150" y="47" text-anchor="end">fluorophore</text>
+            <text x="150" y="103" text-anchor="end">antibody</text>
+            <text x="150" y="252" text-anchor="end">surface protein</text>
+            <text x="502" y="24">particle</text>
+          </g>
+          <g fill="none" stroke="#111111" stroke-width="2.2" stroke-linecap="round">
+            <path d="M158 41H186"/><path d="M158 97H192"/>
+            <path d="M158 246H196"/><path d="M494 18H468"/>
+          </g>
+        </svg>
+      </figure>
+    </div>
+    <div data-build="1"
+         data-note="Another general-use staining strategy is to combine cell permeable and impermeable dyes.  In the Live/Dead baclight kit, a live-cell impermeable dye called propidium iodide is mixed with a cell permeable dye called SYTO9.  Only the dead cells will pick up the propidium iodide, but all cells get syto9.  Based on the ratio of the two dyes in the cell, you can tell if the cell is alive or not.  That measurement is done by any of the various fluorescence methods, but most typically cytometry or microscopy."
+         data-desc="The staining bullets and the antibody drawing leave. On the right appear the LIVE/DEAD BacLight Bacterial Viability Kits name, a fluorescence micrograph of bacteria stained green and red, and three bullets: live-cell impermeable propidium iodide, all-cell permeable SYTO 9, and a staining procedure with single-cell fluorescence readout, by cytometry or microscopy, for determining the percentage of live bacteria in a population.">
+      <ul class="tight">
+        <li>Live-cell impermeable propidium iodide</li>
+        <li>All-cell permeable SYTO&reg; 9</li>
+        <li>A staining procedure with single-cell fluorescence readout (cytometry or microscopy) for determining the percentage of live bacteria in a population</li>
+      </ul>
+      <div>
+        <p class="brand">LIVE/DEAD<sup>&reg;</sup> <i>Bac</i>Light<sup>&trade;</sup><br>Bacterial Viability Kits</p>
+        <figure class="fig">
+          <img src="img/27-live-dead.jpg" alt="A fluorescence micrograph of bacteria on a black ground, the live cells glowing green and the dead cells red.">
+        </figure>
+      </div>
+    </div>
+  </div>
+  <template class="notes">Another type of biochemical assay involves stains. Stains specifically label some biochemical species of a cell, or are used as a probe of permeability or the chemical environment of a cell (pH detection, calcium detection, etc.) You can stain things on the surface of the bacterium such as displayed epitopes and surface proteins with conjugated antibodies.  These are reagents constructed from fluorophores and antibodies chemically linked together. They will stain the cell by specific binding to the epitope on the surface of the cell. You can quantify the staining by any of the various fluorescence methods. You can also stain microbiological biochemicals on the cell surface such as flagella, pili, and carbohydrates using lectins or antibodies.  Lectins are binding proteins like antibodies that bind to specific carbohydrate patterns.  There are also more general stains, such as gram stain, that will light up the peptidoglycan and stain many cells generally.</template>
+  <template class="desc">Three bullets: stains label some biochemical species of a cell, or probe permeability or the chemical environment such as pH or calcium; microbiological biochemicals such as flagella, pili and carbohydrates can be stained with lectins or antibodies; and chemical stains such as gram staining. Beneath them, a drawing of a patch of cell surface, labelled Out above and In below, with two copies of one surface protein crossing it: one is held by an antibody carrying a green fluorophore, the other by a green particle carrying three antibodies.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 28 -->
+<article class="slide">
+  <h1>&hellip;but be careful!</h1>
+  <ul>
+    <li>Bacteria are <b>different sizes</b> at different stages of the growth phase</li>
+    <li>Replication, Transcription, and translation <b>rates</b> are different at different stages of the growth phase</li>
+    <li><b>Toxicity</b> in a cell can increase or decrease the normalized activity observed in a cell</li>
+    <li>The &ldquo;proper&rdquo; way to handle the data for such experiments is debatable.  <b>DON&rsquo;T GET FANCY</b> WITH THE MATH!</li>
+  </ul>
+  <figure class="fig growth">
+    <svg viewBox="0 0 1400 380" aria-hidden="true">
+      <path d="M150 26V196H1310" fill="none" stroke="#111111" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M140 196.0H150" stroke="#111111" stroke-width="2"/><text x="132" y="204.0" text-anchor="end" font-size="24" fill="#767676">0.01</text><path d="M140 127.4H150" stroke="#111111" stroke-width="2"/><text x="132" y="135.4" text-anchor="end" font-size="24" fill="#767676">0.1</text><path d="M140 58.7H150" stroke="#111111" stroke-width="2"/><text x="132" y="66.7" text-anchor="end" font-size="24" fill="#767676">1</text>
+      <text x="72" y="111" text-anchor="middle" font-size="25" fill="#767676" transform="rotate(-90 72 111)">OD<tspan font-size="19" dy="6">600</tspan></text>
+      <text x="730" y="236" text-anchor="middle" font-size="25" fill="#767676">time</text>
+      <path d="M150.0 175.3 L153.9 175.3 L157.7 175.3 L161.6 175.3 L165.5 175.3 L169.3 175.3 L173.2 175.3 L177.1 175.3 L180.9 175.3 L184.8 175.3 L188.7 175.3 L192.5 175.3 L196.4 175.3 L200.3 175.3 L204.1 175.3 L208.0 175.3 L211.9 175.3 L215.7 175.3 L219.6 175.3 L223.5 175.3 L227.3 175.3 L231.2 175.3 L235.1 175.3 L238.9 175.3 L242.8 175.3 L246.7 175.3 L250.5 175.3 L254.4 175.3 L258.3 175.3 L262.1 175.3 L266.0 175.3 L269.9 175.3 L273.7 175.3 L277.6 175.3 L281.5 175.3 L285.3 175.3 L289.2 175.3 L293.1 175.3 L296.9 175.3 L300.8 175.3 L304.7 175.3 L308.5 175.3 L312.4 175.3 L316.3 175.3 L320.1 175.3 L324.0 175.3 L327.9 175.3 L331.7 175.3 L335.6 175.3 L339.5 175.3 L343.3 175.3 L347.2 175.3 L351.1 175.3 L354.9 175.3 L358.8 175.3 L362.7 175.3 L366.5 175.3 L370.4 175.3 L374.3 175.3 L378.1 175.3 L382.0 175.3 L385.9 174.1 L389.7 172.8 L393.6 171.6 L397.5 170.3 L401.3 169.1 L405.2 167.8 L409.1 166.5 L412.9 165.3 L416.8 164.0 L420.7 162.8 L424.5 161.5 L428.4 160.3 L432.3 159.0 L436.1 157.8 L440.0 156.5 L443.9 155.3 L447.7 154.0 L451.6 152.8 L455.5 151.5 L459.3 150.3 L463.2 149.1 L467.1 147.8 L470.9 146.6 L474.8 145.3 L478.7 144.1 L482.5 142.9 L486.4 141.6 L490.3 140.4 L494.1 139.2 L498.0 138.0 L501.9 136.7 L505.7 135.5 L509.6 134.3 L513.5 133.1 L517.3 131.8 L521.2 130.6 L525.1 129.4 L528.9 128.2 L532.8 127.0 L536.7 125.8 L540.5 124.6 L544.4 123.4 L548.3 122.2 L552.1 121.0 L556.0 119.8 L559.9 118.6 L563.7 117.4 L567.6 116.2 L571.5 115.1 L575.3 113.9 L579.2 112.7 L583.1 111.6 L586.9 110.4 L590.8 109.2 L594.7 108.1 L598.5 106.9 L602.4 105.8 L606.3 104.7 L610.1 103.5 L614.0 102.4 L617.9 101.3 L621.7 100.2 L625.6 99.1 L629.5 97.9 L633.3 96.9 L637.2 95.8 L641.1 94.7 L644.9 93.6 L648.8 92.5 L652.7 91.5 L656.5 90.4 L660.4 89.4 L664.3 88.3 L668.1 87.3 L672.0 86.3 L675.9 85.2 L679.7 84.2 L683.6 83.2 L687.5 82.3 L691.3 81.3 L695.2 80.3 L699.1 79.4 L702.9 78.4 L706.8 77.5 L710.7 76.5 L714.5 75.6 L718.4 74.7 L722.3 73.8 L726.1 72.9 L730.0 72.1 L733.9 71.2 L737.7 70.4 L741.6 69.5 L745.5 68.7 L749.3 67.9 L753.2 67.1 L757.1 66.3 L760.9 65.5 L764.8 64.8 L768.7 64.0 L772.5 63.3 L776.4 62.6 L780.3 61.9 L784.1 61.2 L788.0 60.5 L791.9 59.8 L795.7 59.2 L799.6 58.6 L803.5 57.9 L807.3 57.3 L811.2 56.7 L815.1 56.1 L818.9 55.6 L822.8 55.0 L826.7 54.5 L830.5 53.9 L834.4 53.4 L838.3 52.9 L842.1 52.4 L846.0 51.9 L849.9 51.5 L853.7 51.0 L857.6 50.6 L861.5 50.1 L865.3 49.7 L869.2 49.3 L873.1 48.9 L876.9 48.5 L880.8 48.2 L884.7 47.8 L888.5 47.5 L892.4 47.1 L896.3 46.8 L900.1 46.5 L904.0 46.2 L907.9 45.9 L911.7 45.6 L915.6 45.3 L919.5 45.0 L923.3 44.8 L927.2 44.5 L931.1 44.3 L934.9 44.1 L938.8 43.8 L942.7 43.6 L946.5 43.4 L950.4 43.2 L954.3 43.0 L958.1 42.8 L962.0 42.6 L965.9 42.4 L969.7 42.3 L973.6 42.1 L977.5 42.0 L981.3 41.8 L985.2 41.7 L989.1 41.5 L992.9 41.4 L996.8 41.3 L1000.7 41.1 L1004.5 41.0 L1008.4 40.9 L1012.3 40.8 L1016.1 40.7 L1020.0 40.6 L1023.9 40.5 L1027.7 40.4 L1031.6 40.3 L1035.5 40.2 L1039.3 40.1 L1043.2 40.0 L1047.1 39.9 L1050.9 39.9 L1054.8 39.8 L1058.7 39.7 L1062.5 39.7 L1066.4 39.6 L1070.3 39.5 L1074.1 39.5 L1078.0 39.4 L1081.9 39.4 L1085.7 39.3 L1089.6 39.3 L1093.5 39.2 L1097.3 39.2 L1101.2 39.1 L1105.1 39.1 L1108.9 39.0 L1112.8 39.0 L1116.7 39.0 L1120.5 38.9 L1124.4 38.9 L1128.3 38.9 L1132.1 38.8 L1136.0 38.8 L1139.9 38.8 L1143.7 38.7 L1147.6 38.7 L1151.5 38.7 L1155.3 38.7 L1159.2 38.6 L1163.1 38.6 L1166.9 38.6 L1170.8 38.6 L1174.7 38.6 L1178.5 38.5 L1182.4 38.5 L1186.3 38.5 L1190.1 38.5 L1194.0 38.5 L1197.9 38.4 L1201.7 38.4 L1205.6 38.4 L1209.5 38.4 L1213.3 38.4 L1217.2 38.4 L1221.1 38.4 L1224.9 38.4 L1228.8 38.3 L1232.7 38.3 L1236.5 38.3 L1240.4 38.3 L1244.3 38.3 L1248.1 38.3 L1252.0 38.3 L1255.9 38.3 L1259.7 38.3 L1263.6 38.3 L1267.5 38.3 L1271.3 38.2 L1275.2 38.2 L1279.1 38.2 L1282.9 38.2 L1286.8 38.2 L1290.7 38.2 L1294.5 38.2 L1298.4 38.2 L1302.3 38.2 L1306.1 38.2 L1310.0 38.2" fill="none" stroke="#004373" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M266.0 191.3V276.5" stroke="#767676" stroke-width="2" stroke-dasharray="3 7"/><path d="M628.5 114.2V271.0" stroke="#767676" stroke-width="2" stroke-dasharray="3 7"/><path d="M1194.0 54.5V275.0" stroke="#767676" stroke-width="2" stroke-dasharray="3 7"/><circle cx="266.0" cy="175.3" r="9" fill="#ba3a13"/><circle cx="628.5" cy="98.2" r="9" fill="#ba3a13"/><circle cx="1194.0" cy="38.5" r="9" fill="#ba3a13"/><text x="266.0" y="151.3" text-anchor="middle" font-size="26" font-weight="700" fill="#ba3a13">lag</text><text x="628.5" y="74.2" text-anchor="middle" font-size="26" font-weight="700" fill="#ba3a13">exponential</text><text x="1194.0" y="14.5" text-anchor="middle" font-size="26" font-weight="700" fill="#ba3a13">stationary</text>
+      <text x="132" y="309" text-anchor="end" font-size="25" fill="#767676">the cells</text>
+      <rect x="212.0" y="290.5" width="48" height="19" rx="9.5" fill="none" stroke="#111111" stroke-width="3"/><rect x="272.0" y="290.5" width="48" height="19" rx="9.5" fill="none" stroke="#111111" stroke-width="3"/><rect x="484.5" y="285.0" width="88" height="30" rx="15.0" fill="none" stroke="#111111" stroke-width="3"/><rect x="584.5" y="285.0" width="88" height="30" rx="15.0" fill="none" stroke="#111111" stroke-width="3"/><path d="M628.5 285.0V315.0" stroke="#111111" stroke-width="3"/><rect x="684.5" y="285.0" width="88" height="30" rx="15.0" fill="none" stroke="#111111" stroke-width="3"/><rect x="1116.0" y="289.0" width="30" height="22" rx="11.0" fill="none" stroke="#111111" stroke-width="3"/><rect x="1158.0" y="289.0" width="30" height="22" rx="11.0" fill="none" stroke="#111111" stroke-width="3"/><rect x="1200.0" y="289.0" width="30" height="22" rx="11.0" fill="none" stroke="#111111" stroke-width="3"/><rect x="1242.0" y="289.0" width="30" height="22" rx="11.0" fill="none" stroke="#111111" stroke-width="3"/>
+      <text x="1310" y="370" text-anchor="end" font-size="22" fill="#767676">illustrative</text>
+    </svg>
+  </figure>
+  <template class="notes">There are a number of things you should be careful about when performing biochemical assays that have quantitative readouts.  Bacteria are different sizes at different stages of the growth phase.  The process of replication, transcription, and translation all have different rates based on the phase of growth, the medium composition, and the genetic composition of your strain.  Additionally, the growth conditions or your genetic modifications can differentially affect the growth of specific strains.
+These differences in cell physiology and growth rates can play havoc with your experiments.  It is very easy to fool yourself into thinking a genetic device is working when in reality it is an artifact of the growth conditions.  It is tempting to do extensive data manipulation to control for deviations in your experiment.  There are many notable examples of scientists performing elaborate corrections to their data that make small differences in original signal look far more dramatic.  Such manipulation is highly discouraged since it is difficult to justify these corrections.  Best practice is to normalize for cell density and for signal strength against a standard, but nothing else.  This does not guarantee that your data will not lie to you, So, be careful, and be cautious in your conclusions.</template>
+  <template class="desc">But be careful. Four cautions: bacteria are different sizes at different stages of the growth phase; replication, transcription and translation rates differ across the growth phase; toxicity in a cell can increase or decrease the normalized activity observed; and the proper way to handle the data is debatable &mdash; don't get fancy with the math. Below them, an illustrative growth curve of OD600 against time on a log axis, with three sampling points marked on it: lag, exponential and stationary. Under each point, drawn to the same scale, the cells as they would be at that moment: a couple of short rods in lag, longer rods in exponential with one caught dividing, and a crowd of small rounded cells in stationary.</template>
+</article>
+
+<!-- ------------------------------------------- 28a (new, 18 Oct 2026) -->
+<!-- Section 02 had no closing question: none of the source deck's four is
+     a biochemical one.  JCA asked for one, on a phenotype the slides do
+     not cover directly.  Lysis: the enzymes of slide 25 used backwards,
+     to report WHERE a protein is rather than whether a gene is on, and
+     it runs straight into slide 28's growth-phase caution.  Everything
+     on this slide and in its notes is NEW and needs JCA's review. -->
+<article class="slide ask" data-bg="section">
+  <h1>Question to ponder</h1>
+  <p class="q">You have engineered a phage-derived lysis circuit in <i>E.&nbsp;coli</i>. How would you measure it?</p>
+  <ol class="qlist">
+    <li>What fraction of the cells actually lyse?</li>
+    <li data-build="1"
+        data-note="Now it is a time course, and the question becomes how often you can take a reading.  Put the culture in a plate reader and let it take an OD every minute all night without you.  For the enzyme assay you are pulling samples by hand, so say every five minutes for the first half hour and every fifteen after that, and you have committed your afternoon.  Plot it and read off the time to half maximum.  But remember an average hides the shape.  If every cell lyses at once you get the same mean as if they trickle out over an hour.  Only microscopy gives you the spread, and the spread is usually the interesting part."
+        data-desc="A second question appears: how fast?">How fast?</li>
+    <li data-build="2"
+        data-note="This is the caution we just finished on, showing up in a real experiment.  Pick a grid and run it: LB and M9 glycerol, 30 degrees and 37, induced at an OD of 0.2 and again at 1.0.  That is eight time courses and a plate reader will run them at once.  The trap is that every one of those conditions also changes how fast the cells are growing, so take the growth rate off the same curves, before induction, and put it on the axis.  Plot your lysis rate against growth rate, not against the medium.  Otherwise you cannot tell a circuit that works badly in minimal medium from cells that are just growing slowly."
+        data-desc="A third question appears: what does it need, in medium, temperature and growth phase?">What does it need: medium, temperature, growth phase?</li>
+    <li data-build="3"
+        data-note="This last one no bulk assay can answer, and that is why I put it last.  An average over a flask will never tell you whether a cell lysed right after it divided, no matter how precisely you measure it.
+So: agar pad, phase contrast, an image every minute for a few hours, and induce on the pad so you catch the whole thing.  Then segment the cells and track them, so every cell has a parent and a birth time.  Now you can ask the question properly.  For each cell that lysed, how long had it been since it was born, and how does that compare to a generation time?  If lysis is tied to division you get a peak, and if it is not you get a flat distribution.
+The general point is that the best assay is not the most sensitive one.  It is the one that measures the same thing the question is about."
+        data-desc="A fourth question appears: does lysis track with replication?">Does lysis track with replication?</li>
+  </ol>
+  <template class="notes">Start with the obvious one, OD600, because it is also the weakest.  The OD does fall as cells break, but the debris still scatters light, so you will understate how much of the culture lysed, and it is an average over the whole flask anyway.
+A better move is to use the enzymes we just talked about, backwards.  Give the strain a cytoplasmic enzyme it would not otherwise have, lacZ say.  Pull a sample, spin it two minutes in a microfuge so the intact cells go down, and assay the supernatant with ONPG, watching A420 come up.  Enzyme out there means cells broke open.  For your hundred per cent, take a matched sample, lyse it yourself with a drop of chloroform or a few seconds of sonication, and assay it the same way.  Your fraction is one over the other.
+Better still, count them.  Stain with the live/dead kit, run it on the cytometer, and gate on the intact cells.  That gives you the fraction directly, cell by cell, and it does not care what the debris is doing.
+So we have three answers and they are not equally good.  Which one actually answers the question I asked?</template>
+  <template class="desc">Question to ponder, on the amber ground. You have engineered a phage-derived lysis circuit in E. coli: how would you measure it? The first question is what fraction of the cells actually lyse.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,524 @@
+WHOLE-CELL ANALYSIS — QUALITY PASS OVER THE REST OF THE DECK
+============================================================
+Written 18 Oct 2026, after the slides JCA had already reworked
+(3, 4/4a, 5-7, 8, 9, 10, 11, 13, 14, 21).  PLAN.txt holds the history
+of those; this file is the plan for everything else.
+
+=====================================================================
+CORRECTION, 18 Oct 2026, SAME DAY — READ THIS BEFORE ACTING ON P1
+=====================================================================
+THE FIRST UPSCALE MEASUREMENT WAS WRONG AND MOST OF P1 EVAPORATES.
+
+It measured the <img> ELEMENT's width.  Nearly every figure in this
+deck is styled width:100%;height:100%;object-fit:contain inside a flex
+box, so the element is as wide as its column while the PICTURE inside
+it is letterboxed to fit the box's HEIGHT.  The painted picture is
+usually far smaller than the element.  The true number is
+
+    painted width = min(box width, box height * aspect ratio)
+
+and Appendix 1 below has been replaced with it.  What survives:
+
+  3.31  07-brainbow3-merged.png   slide 7   genuinely bad
+  2.38  12-histograms.png         slide 12  mild
+  2.11  06-brainbow3-ch-*.png     slide 6   mild
+  1.97  25-sgal.png               25, 26    mild
+  everything else is at or below 1.8, which is fine
+
+SO THESE ITEMS ARE WITHDRAWN, they were chasing a measurement error:
+  B4  cytometry data 15/16/17 (really 1.35, 1.58, 1.38) - nothing to do
+  C3  the embryo divider      (really 1.60)             - nothing to do
+  D3  the swarm plate divider (really 1.39)             - nothing to do
+  F1  the ponder cartoon      (really 1.61)             - nothing to do
+
+AND THESE ARE DOWNGRADED:
+  B5  slide 18's strip is 1.75, fine.  Its 87 words are still worth
+      thinning, so the TEXT half of B5 stands and the image half goes.
+  B6  slide 12's divider at 2.38 is the mildest real case; optional.
+  C2  the structures are 1.69 and 1.97, so tracing them is now a
+      cosmetic nicety, not a fix.  Do it only if C1 is finished.
+
+WHAT IS UNAFFECTED, because none of it was ever about resolution:
+  - A1, the Brainbow slides: still the worst images in the deck
+  - P2, figures on the source's grey panel (27, 30, 31, 32, 36, 38)
+  - P3, slides carrying too much text (27, 18, 28, 31)
+  - P4, the three mechanism slides that should animate
+  - E1 and E2: the arabinose chart's points are too pale to see and the
+    media chart is an illegible 3D bar chart.  Both are contrast and
+    design problems, not resolution problems, and both still stand.
+
+THE LESSON, worth keeping: object-fit:contain means the element size
+tells you nothing about the picture size.  Measure what is painted.
+
+=====================================================================
+CLOSED, 18 Oct 2026.  WHERE EVERY ITEM ENDED UP.
+=====================================================================
+The pass is finished.  No image in the deck is now drawn above 2.0x its
+own resolution, no figure sits on the source deck's grey panel, and the
+three mechanism slides animate.  Dispositions:
+
+  DONE
+    A1  Brainbow 6 and 7: CIL:42753, three greyscale channels at
+        1230x841 and their merge.  3.31x -> under 1.0x.
+    B1  Fluorimetry is seq/fluorimeter.js, five clicks.  Two bitmap
+        schematics deleted.
+    B2  Normalization of Signal is seq/gain.js over two slides.  The
+        histograms are drawn, so the peak moves with the gain.
+    C1  Staining: wordmark -> text, antibody figure -> inline SVG,
+        91 words -> 80.
+    C4  "...but be careful!" gains an illustrative growth curve with
+        lag, exponential and stationary marked.  Taken off the optional
+        list because the new lysis question leans on this slide.
+    D1  Both bar charts redrawn as SVG, values calibrated in-file and
+        verified bar by bar.
+    D2  32-swarm-plates lifted off its grey panel, photographs intact.
+    E1  The arabinose transfer function redrawn; its points were a pale
+        tint and all but invisible.
+    E2  The 3D media chart re-plotted flat.
+    E3  Surface plot and light gradient lifted off their grey panels.
+    E4  38-toggle-circuit lifted off its grey panel.
+    E5  Both YouTube links on 37 resolve.
+    --  Every section-divider image was an opaque white box on the
+        amber ground.  The three that remain carry an even white
+        border and read as mounted plates.
+    --  Source 39 and 40 deleted; their four questions now close the
+        sections whose tools answer them, and a new lysis question
+        closes 02.  See PLAN.txt.
+
+  WITHDRAWN, they were chasing the element-width measurement error
+    B4  cytometry data 15/16/17   1.35x, 1.58x, 1.38x
+    C3  the embryo divider        1.43x
+    D3  the swarm plate divider   1.22x
+    F1  the ponder cartoon        went with section 05
+
+  LOOKED AT AND NOT DONE, with reasons in PLAN.txt
+    B3  slide 23 already shows the dilution and builds to the ratio.
+    B5  slide 18's ten bullets are a list of capabilities; cutting them
+        would remove content, not excess text.
+    B6  slide 12's divider was 2.38x and is 1.95x now, because the
+        white border it gained enlarged the source file.
+    C2  the four structures were traced and NOT shipped: S-gal's sugar
+        labels do not survive the tracer, and at 1.97x and below they
+        did not need it.
+
+  STILL OPEN, deferred by JCA
+    The nine wording slips in the source speaker notes, listed in
+    PLAN.txt under "FOR THE EDIT PASS": "the its features", "develop
+    the company might how an image", "10,000 events are more", the
+    stray "I" ending slide 16's note, o-nitrophenol called a
+    fluorophore rather than a chromophore, "irradiating heat", "that
+    that", "and there many of them", "must be including in the Test
+    phase".  Spelling was fixed; these are wording and need JCA.
+
+FINAL MEASUREMENT, painted width, 18 Oct 2026
+  1.97  25-sgal.png       1.95  12-histograms.png   1.75  18-timelapse
+  1.69  25-onpg.png       1.58  16-panel-a.png      1.46  32-swarm-plates
+  1.43  24-embryo.png     1.38  17-panel-d.png      1.36  32-aptamer-chez
+  1.35  15-cytometry-abcd 1.22  29-swarm-plate      everything else <=1.12
+
+SCOPE, FROM JCA
+---------------
+"Generally I don't think we are changing the content in terms of scope
+and flow.  But many of them have bad quality graphics, some too much
+text, some could have animations."
+
+So: no slide is added, removed, reordered or re-argued.  Speaker notes
+stay verbatim unless a slide becomes a sequence, in which case the note
+is SPLIT across its clicks and not reworded.  What changes is how a
+slide looks and how it reveals.
+
+
+WHAT WAS MEASURED, AND HOW
+--------------------------
+Every image in the deck was measured for how far it is stretched: its
+natural pixel width against the width it is drawn at in slide units
+(the slide box is 1600 wide).  An upscale of 1.0 means the image is
+drawn at its own resolution.
+
+  >= 3.0   visibly soft at projection; reads as a blurry screenshot
+  2.0-3.0  soft, noticeable on a big screen
+  <= 1.8   fine
+
+Word counts are body text only, notes excluded.  Both tables are at
+the end of this file.  Re-measure with the script in
+scratchpad/measure.js (puppeteer, waitUntil domcontentloaded — the
+mkdocs livereload socket never lets a page go idle).
+
+
+THE FOUR PROBLEMS, IN PRIORITY ORDER
+------------------------------------
+
+P1.  IMAGES STRETCHED PAST 2.4x
+     Eleven images.  Three different fixes apply, and which one is
+     right depends on whether more pixels exist:
+
+     (a) more pixels DO exist, so re-fetch     slides 6, 7
+     (b) no more pixels exist, so stop         slides 12, 15, 16, 17,
+         stretching and rebalance the layout   18, 24, 29
+     (c) the image should not be a bitmap      slides 19, 22, 39
+         at all; draw or trace it
+
+P2.  FIGURES THAT ARE BITMAP CROPS ON THE SOURCE'S GREY PANEL
+     Six of them: 27-antibody, 30-growth-rates, 31-serum-survival,
+     32-swarm-plates, 36-and-gate, 38-toggle-circuit.  They were kept
+     on grey during the conversion because their white marks are data
+     beside black data, so recolouring would merge them (PLAN.txt).
+     That was right for a conversion and is wrong for a finished deck:
+     a grey box pasted on a white slide reads as a screenshot.
+     The bar charts among them can be REDRAWN as SVG from the values
+     in the published figure, which is re-plotting, not inventing.
+     The micrographs and the 3D surface cannot, and stay as they are.
+
+P3.  SLIDES CARRYING TOO MUCH TEXT
+     27 (91 words), 18 (87), 28 (61), 31 (53), 22 (52).
+     The rule used on 14 and 21: a bullet that the figure now shows
+     comes off; a bullet the figure cannot carry stays, verbatim.
+
+P4.  SLIDES THAT SHOULD ANIMATE
+     Three are clear, and they are the three remaining MECHANISM
+     slides in a deck whose other mechanism slides now animate:
+     22 (fluorimetry), 19+20 (gain drift), 23 (normalising for OD).
+     Everything else is a figure, not a mechanism, and should not
+     animate just because it can.
+
+
+WORK ITEMS
+==========
+Each item names the files it owns.  Nothing outside that list is
+touched.  "Check" is what has to be true before it is handed back.
+
+---- LANE A: 00-front-matter.html ----------------------------------
+
+A1  BRAINBOW SLIDES 6 AND 7 ARE THE WORST IMAGES IN THE DECK.
+    07-brainbow3-merged.png is 210 px drawn at 1380: 6.6x.  The three
+    channel panels on slide 6 are 210 px at 444: 2.1x.  They came from
+    the PMC author manuscript, whose figure file is only 924 px wide.
+    Do, in this order:
+      1. Try for more pixels: the PMC Open Access package for
+         PMC3713494 (the OA web service, or the figure on the
+         publisher's site) may carry a higher-resolution Fig. 2.
+      2. If that fails, there is a second route already on disk.
+         Cell Image Library CIL:42753 (scratchpad/cil/42753.tif, the
+         hippocampus runner-up from the slide 5 search) is a THREE-PAGE
+         greyscale TIFF at 1230x841 — one page per fluorescence
+         channel.  That is exactly the slide 6 / slide 7 story at six
+         times the resolution: three channels, then the merge.
+         LICENCE: SETTLED, 18 Oct 2026.  JCA: "I'm not worried about
+         the license.  I assume you can reuse and split and merge and
+         reorganize those as needed since it is cc from the get go."
+         So splitting the channels and merging them is fine.  Keep the
+         credit line on the slide, as slide 5 has.
+         The file is at
+         https://cildata.crbs.ucsd.edu/media/images/42753/42753.tif
+         (a three-page greyscale TIFF; page order is the channel
+         order).  curl it; it needs -k on this machine.
+      3. If both fail, stop stretching: draw the merged panel at about
+         500 units, not 1380, and let the slide's own framing carry
+         the rest.
+    Check: no image on 6 or 7 above 2.0x; the raw-versus-rendered
+    comparison still works as three slides.
+
+A2  Slide 2, Final Exam, is five lines of course admin on a white
+    slide.  Leave it.  Listed here so nobody "improves" it.
+
+---- LANE B: 01-fluorescent.html -----------------------------------
+     owns also: seq/fluorimeter.js, seq/gain.js (new), img/12*, 15*,
+     16*, 17*, 18*, 19*, 22*
+
+B1  FLUORIMETRY (22) BECOMES AN ANIMATION.  Highest value in the deck.
+    It is the third instrument slide, it sits between two that now
+    animate, and it carries the deck's two worst-stretched schematics:
+    22-fluorimeter at 3.9x and 21-instrument reused at 4.6x.
+    Build seq/fluorimeter.js in the manner of seq/spectro.js, which it
+    should read first: the same lamp, filter and cuvette geometry, with
+    the detector moved to 90 degrees and an emission filter added.
+    Clicks, from the source note's own order:
+      1  excitation at one wavelength goes in
+      2  the fluorophore emits at a longer wavelength, collected at 90
+         degrees (this is the whole difference from slide 21; make the
+         90-degree path the thing that moves)
+      3  autofluorescence: a dim signal with no fluorophore present,
+         the floor that masks small signals
+      4  the reading has to be divided by OD — which hands straight
+         over to slide 23
+    Source note VERBATIM, split at sentence boundaries in its own
+    order.  Both bitmap schematics are then deleted.
+    Palette: excitation blue, emission green (the green of slide 13 and
+    14, #2b8a3e, which on these slides is the signal itself).
+    Check: 22-fluorimeter.png and the slide-22 use of 21-instrument.png
+    are gone; no new bitmap; audit clean.
+
+B2  NORMALIZATION OF SIGNAL (19 + 20) BECOMES ONE SEQUENCE.
+    Today: two slides, one click, four bitmaps, histograms at 3.0x.
+    The source makes a single argument across them — the instrument's
+    gain drifts, so a brighter sample can read dimmer, and you fix it
+    by setting the gain against cells that carry no fluorophore.
+    Build seq/gain.js: the two cell fields (19-cells-left/right and
+    20-cells are good crops at ~1.0x, keep them), with the HISTOGRAMS
+    REDRAWN IN SVG so the peak can actually move under a gain knob.
+    Clicks: bright and dim fields; run each on the cytometer and get
+    the wrong answer; show the gain control that caused it; put the
+    white cells in; set the gain on them; re-run and get the right
+    order.
+    KEEP IT AS TWO SLIDES unless JCA says otherwise — PLAN.txt records
+    that the source's two notes are separate, which is why the
+    conversion kept two.  A sequence can span two slides by giving each
+    its own data-seq and splitting the frames; if that is awkward, make
+    19 the sequence and leave 20 as it is.
+    The redrawn histograms are illustrative and must say so on the
+    slide, as the cytometer and spectro readouts do.
+    Check: no histogram bitmap above 1.8x; the gain story readable
+    without the note.
+
+B3  NORMALIZATION FOR OD (23) GAINS THE DILUTION.
+    It already has two clicks and a good cell figure (0.9x).  Add the
+    step the numbers imply: the same culture at half the concentration,
+    both fluorescence and OD halving, the ratio unchanged.  That is
+    what makes the third row mean something.  Small, cheap, and it is
+    the pay-off of B1's last click.
+    Check: the ratio row still arrives last; note unchanged.
+
+B4  CYTOMETRY DATA (15, 16, 17): STOP STRETCHING, REBALANCE.
+    15-cytometry-abcd.jpg is 504 px at 1380 (2.7x); 16-panel-a and
+    17-panel-d are 284 px at 1380 (4.9x).  These are REAL DATA from
+    the source deck and its media folder holds no bigger copy, so
+    there are no more pixels and they must not be redrawn — a redrawn
+    dot plot is invented data.
+    Cap each figure so it lands at or below 1.8x (about 500 units for
+    the panels, 900 for the four-panel figure) and let the bullets
+    take the freed width.  On 15, which has only a title and the
+    figure, centre it and leave the space.
+    Check: nothing above 1.8x; no data redrawn; notes untouched.
+
+B5  FLUORESCENCE MICROSCOPY (18): 87 words, and the timelapse strip at
+    2.4x.  Thin the text the way 14 was thinned: the bullets that the
+    strip itself shows (timelapse, single population over time) come
+    off; the ones it cannot show (agar pad, throughput and precision
+    against cytometry, the normalisation line that sets up 19) stay
+    verbatim.  Draw the strip at or below 1.8x.
+    The two-column build (data-unbuild) stays.
+
+B6  THE SECTION DIVIDER (12): 12-histograms.png at 3.6x.  No more
+    pixels in the source.  Draw it small, or replace it with a crop of
+    the four-panel figure used on 15 at honest size.  Divider art is
+    decoration; it does not need to be large.
+
+---- LANE C: 02-biochemical.html -----------------------------------
+     owns also: img/24*, 25*, 27*
+
+C1  STAINING MEASUREMENTS (27) IS THE WORST TEXT SLIDE: 91 words.
+    Three separate problems:
+      - 27-baclight.png is a WORDMARK SHIPPED AS AN IMAGE.  Set it as
+        text and delete the file.  It is also the only thing on the
+        slide that looks like an advertisement.
+      - 27-antibody.png sits on the source's grey panel and is muddy
+        (PLAN.txt already flags it).  It is line work: trace it, or
+        redraw the quantum-dot-on-receptor cartoon in SVG.  Slide 13's
+        surface-label and particle cells are the house vocabulary for
+        exactly this; match them.
+      - thin the bullets against what the figures show.
+    Check: no wordmark bitmap; no grey panel; under about 60 words.
+
+C2  ENZYMATIC REPORTER ASSAYS (25, 26) REPEAT ONE FIGURE ACROSS TWO
+    SLIDES.  That is faithful to the source, which built it that way,
+    so DO NOT MERGE THEM WITHOUT JCA.  What can be done without
+    touching the flow: the four structure bitmaps are drawn at 1.4x to
+    2.0x and are plain black line chemistry — trace them once with
+    trace_lineart.py and use the vectors on both slides.  They then
+    scale to any size and match the deck's line weight.
+    Note that slide 21 now ANIMATES uncaging, so 25's text should not
+    re-explain it; thin accordingly.
+    Check: structures vector, identical on both slides, line weight
+    matching the house 2.4-3.0.
+
+C3  THE SECTION DIVIDER (24): the lacZ-stained embryo at 5.7x, the
+    second-worst image in the deck.  The source media is 244 px.  Look
+    for a better image of a lacZ/X-gal stained embryo or tissue with a
+    usable licence (Wikimedia Commons, or a PMC open-access figure);
+    otherwise draw it small.
+    Check: nothing above 2.0x; any new image credited on the slide.
+
+C4  "...BUT BE CAREFUL!" (28): 61 words, four cautions, no figure.
+    OPTIONAL and the lowest-value item here.  If anything, one small
+    drawn growth curve with sample points at different phases makes
+    the first two cautions concrete.  Do not add an abstract figure;
+    PLAN.txt and the standing feedback are explicit that a shape
+    standing for an idea is worse than the text it replaced.
+
+---- LANE D: 03-microbiological.html -------------------------------
+     owns also: img/29*, 30*, 31*, 32*
+
+D1  REDRAW THE TWO BAR CHARTS AS SVG.
+    30-growth-rates (growth rate for four strains, LB only against
+    with arabinose, black and white bars on grey) and 31-serum-survival
+    (percent recovered for five strain combinations, on grey).  Both
+    are bar charts whose values can be read off the published figure
+    and re-plotted.  That is re-plotting published data, not inventing
+    it: read the values from the rendered source at high resolution,
+    state them in a comment in the file, and keep the axis labels and
+    the strain names exactly as the figure has them.
+    Re-plot in the palette: ink axes, blue and vermillion bars, error
+    bars kept.  The grey panels then go.
+    VERIFY before shipping: overlay the redrawn chart on the original
+    crop and check every bar height against it.  If a value cannot be
+    read confidently, keep the bitmap rather than guess.
+    Check: no grey panel on either; bar heights verified; the source's
+    own labels preserved.
+
+D2  32-swarm-plates stays a bitmap: it is photographs of plates, and
+    the white swarm halo on a dark plate IS the data.  Lift it off the
+    grey panel only if that can be done without touching the
+    photographs.  32-aptamer-chez at 1.9x is acceptable; leave it.
+
+D3  THE SECTION DIVIDER (29): swarm plate at 3.3x.  Same treatment as
+    C3: find a better plate photograph with a usable licence, or draw
+    it small.
+
+D4  DEVICES AFFECTING VIABILITY (31): 53 words across two bullet
+    columns and three clicks.  After D1 makes the chart legible, thin
+    the bullets that the chart now carries.
+
+---- LANE E: 04-experimental.html ----------------------------------
+     owns also: img/35*, 36*, 38*
+
+E1  THE ARABINOSE TRANSFER FUNCTION (36-arabinose-chart) IS NEARLY
+    INVISIBLE: pale scatter points on white, which PLAN.txt already
+    flags.  It is a simple x-y scatter on a log axis, eleven or so
+    points.  Redraw it in SVG from the points in the published figure,
+    in blue, with the axis labels the source uses.  Same verification
+    rule as D1.
+
+E2  THE MAGNESIUM MEDIA CHART (35-media-chart) is a 3D bar chart
+    rendered by PowerPoint: two series across four media, drawn at
+    0.9x but illegible because the type inside it is tiny and the 3D
+    perspective makes the bars hard to compare.  Re-plot as a flat
+    grouped bar chart in SVG.  A 3D bar chart is also the one chart
+    type the dataviz guidance rules out.
+    Same verification rule as D1.
+
+E3  36-and-gate (3D surface on grey) STAYS A BITMAP: a surface plot
+    cannot be re-plotted from a picture of itself, and its colour
+    scale is the data.  36-light-gradient likewise.  Lift them off the
+    grey panel only if that can be done cleanly.
+
+E4  38-toggle-circuit sits on a grey panel because its dark gene
+    arrows carry white letters.  It is a published circuit diagram in
+    flat colours: trace it, or recolour it the way 31-gene-clusters
+    was (recolour, then paste the dark arrows back from the original —
+    PLAN.txt describes that fix).
+
+E5  DYNAMICS (37): two video stills and two YouTube links that have
+    never been checked.  Check both links resolve; if either is dead,
+    tell JCA rather than substituting a video.
+
+---- LANE F: 05-questions.html -------------------------------------
+     owns also: img/39*
+
+F1  39-ponder.png, the thinking cartoon, is drawn at 5.8x — the worst
+    ratio in the deck after slide 7.  It is flat line art with no
+    data in it, which is the ideal case for trace_lineart.py: trace it
+    to vectors once and it scales to any size at the house line
+    weight.  ~/Downloads/demoanimation/cells/ has the worked example
+    of tracing and recolouring a sheet.
+    Check: vector, line weight matching the deck, no bitmap left.
+
+F2  The four closing questions (40) stay as they are.  JCA's "make it
+    one meaty question" instruction was about slide 11 and has been
+    done there.  Do not apply it here without asking.
+
+
+RUNNING THIS AS A SWARM
+=======================
+LANES ARE FILE-DISJOINT ON PURPOSE.  Each lane owns exactly one
+section .html plus its own img/ and seq/ files.  No two lanes write
+the same file, so they can run at once.
+
+DO NOT LET ANY LANE TOUCH:
+  docs/lectures/deck.css, deck.js, AUTHORING.txt
+  docs/lectures/style/palette.css
+  docs/lectures/140L/08-whole-cell/PLAN.txt
+  docs/lectures/140L/08-whole-cell/lecture.js
+Shared changes are made once, before the lanes start, or handed back
+as a request.  PLAN.txt is merged at the end from each lane's report.
+
+EACH LANE RUNS ITS OWN SERVER.  mkdocs livereload reloads every open
+page whenever any file changes, and AUTHORING.txt records that a
+reload mid-run gives false check_section readings.  With six lanes
+editing at once, a shared server on port 8000 would make every audit
+unreliable.  Copy the pattern from ~/Downloads/demoanimation/biofuel:
+a check_section.js whose base URL comes from CHECK_BASE, and one
+mkdocs or static server per lane on its own port.
+
+EVERY LANE REPORTS BACK:
+  - what it changed, slide by slide
+  - the before and after upscale number for every image it touched
+  - which notes it split, and proof the split is verbatim (the test
+    used for slide 4a: card note plus click notes equals source note)
+  - anything new it wrote that JCA has not approved: every caption,
+    description and any narration
+  - what it left alone and why
+Nothing is committed by a lane.  Changes come back for review.
+
+ORDER, IF RUN IN BATCHES RATHER THAN ALL AT ONCE:
+  first   B1 (fluorimetry animation) and A1 (Brainbow pixels) — the
+          two highest-value items, and A1 needs a decision from JCA
+  then    D1, E1, E2 (the charts) — the most repetitive work, and the
+          one place a mistake would put wrong numbers on a slide
+  then    B2, B3, B4, B5, C1, C2, E4, F1
+  last    the dividers (B6, C3, D3) and the optional C4
+
+
+WHAT IS NOT CHANGING
+--------------------
+  - no slide added, removed, reordered or re-argued
+  - no speaker note reworded; splitting across clicks is the only
+    permitted change, and it must be verifiably verbatim
+  - the source's own typos in the notes stay (PLAN.txt lists the nine
+    wording slips JCA has not ruled on)
+  - 15, 16, 17 keep their real cytometry data as images
+  - 25 and 26 stay two slides
+  - 40 keeps its four questions
+  - the course-admin tail, source 41-68, stays in PowerPoint
+
+
+APPENDIX 1 — IMAGE UPSCALE, CORRECTED (PAINTED WIDTH)
+-----------------------------------------------------
+Measured 18 Oct 2026 at a 1600-unit slide width, as painted, with
+every build forced visible.  Script: scratchpad/measure2.js.
+
+  3.31  07-brainbow3-merged.png    210 -> 696   slide 7
+  2.38  12-histograms.png          385 -> 915   slide 12
+  2.11  06-brainbow3-ch-*.png      210 -> 444   slide 6
+  1.97  25-sgal.png                220 -> 433   slides 25, 26
+  1.75  18-timelapse.png           570 -> 997   slide 18
+  1.72  19-histogram-left/right    224 -> 386   slide 19
+  1.69  25-onpg.png                256 -> 433   slides 25, 26
+  1.61  39-ponder.png              240 -> 387   slide 39
+  1.60  24-embryo.png              244 -> 390   slide 24
+  1.58  16-panel-a.png             284 -> 448   slide 16
+  1.43  27-antibody.png            491 -> 702   slide 27
+  1.39  29-swarm-plate.png         420 -> 584   slide 29
+  1.38  17-panel-d.png             283 -> 391   slide 17
+  1.36  32-aptamer-chez.png        711 -> 970   slide 32
+  1.35  15-cytometry-abcd.jpg      504 -> 680   slide 15
+  1.31  32-swarm-plates.png        661 -> 864   slide 32
+  everything else is at or below 1.12
+
+APPENDIX 2 — BODY WORDS PER SLIDE, HEAVIEST FIRST
+-------------------------------------------------
+  115  10  Designing a Demonstration   (already reworked; a table)
+   91  27  Staining Measurements
+   87  18  Fluorescence Microscopy
+   77  40  the four closing questions
+   63  13  Making a Cell Fluorescent   (already reworked; captions)
+   61  28  ...but be careful!
+   60   8  Biofuel-Producing Yeast     (already a sequence)
+   53  31  Devices affecting viability
+   52  22  Fluorimetry
+   46  17  Cytometry Data
+   44   9  Pancreatic Gene Therapy     (already a sequence)
+   42  35  Differential Expression
+   40  26  Enzymatic Reporter Assays
+   39  36  Transfer Functions
+   30  16  Cytometry Data
+   everything else is under 25
