@@ -32,10 +32,14 @@
 .slide .vidbox{margin:0;display:flex;flex-direction:column;min-width:0}
 .slide .vmedia{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden}
 .slide .vmedia img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-/* a playing clip covers the whole slide, padding and title included */
+/* a playing clip covers the whole slide, padding and title included.
+   The still sits inside it as a real <img>, not a CSS background: the
+   PDF capture prints with backgrounds off, so a background colour or
+   image comes out blank, and this way the page shows the frame. */
 .slide.dyn .vid{position:absolute;inset:0;z-index:5;background:#000;pointer-events:none}
 .slide.dyn .vid.in{pointer-events:auto}
-.slide.dyn .vid iframe{width:100%;height:100%;border:0;display:block}
+.slide.dyn .vid .vposter{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.slide.dyn .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 .slide .vlink{font-size:20px;color:var(--muted);margin-top:12px;word-break:break-all}
 </style>
 </head>
@@ -299,9 +303,11 @@
     </figure>
   </div>
   <div class="vid" data-build="1" data-unbuild="2" data-yt="qWkLS-u982A"
-       data-desc="The first clip fills the slide and loops: a microcolony of bacteria under the microscope, individual cells brightening and dimming as the oscillator runs."></div>
+       data-desc="The first clip fills the slide and loops: a microcolony of bacteria under the microscope, individual cells brightening and dimming as the oscillator runs.">
+    <img class="vposter" src="img/37-oscillator.png" alt=""></div>
   <div class="vid" data-build="2" data-yt="IknK-7THoIc"
-       data-desc="The first clip gives way to the second, filling the slide and looping: a dense population of cells glowing blue, waves of brightness travelling through it."></div>
+       data-desc="The first clip gives way to the second, filling the slide and looping: a dense population of cells glowing blue, waves of brightness travelling through it.">
+    <img class="vposter" src="img/37-blue.png" alt=""></div>
   <template class="notes">I’ll show you these two clips after this presentation, but these are two examples of following the dynamics of single cells containing a genetic circuit over time. These oscillating genetic circuits require monitoring the behavior of individual cells over time. Currently, the only way to do this is fluorescence microscopy and thus such assays only work for fluorescence readouts.  It would be extremely challenging to, for example, monitor single-cell dynamics of a cell biosynthesizing a biofuel.</template>
   <template class="desc">Dynamics. Two video stills of genetic circuits followed over time in single cells, each with its YouTube link below it: a microcolony of bacteria with some cells glowing green, and a population of cells glowing blue. Each fills the slide and loops on its own click.</template>
 </article>
@@ -340,24 +346,31 @@ And watch your own photobleaching.  You are taking sixty exposures of the same c
    nothing keeps looping once the slide is left.  Scoped to #stage, which
    leaves presenter mode's cloned preview alone: that clone lives in
    #nextshot, and giving it a second copy of the player would start the
-   video twice (AUTHORING's warning about ids and the cloned next slide). */
+   video twice (AUTHORING's warning about ids and the cloned next slide).
+   UNDER prefers-reduced-motion NO PLAYER IS BUILT AT ALL and the clip's
+   still fills the slide instead.  That is the concession to AUTHORING's
+   rule against ambient motion, and it is also what makes the PDF right:
+   pdf_capture emulates reduced motion, and a cross-origin iframe prints
+   blank, so without this the clip pages came out as white sheets with
+   the still hidden behind them. */
 document.addEventListener("deck:step", function(){
   var live = document.querySelector("#stage .slide.on");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.querySelectorAll("#stage .slide .vid").forEach(function(v){
     var on = live && live.contains(v) &&
              v.classList.contains("in") && !v.classList.contains("out");
-    if (on && !v.firstChild){
+    if (on && !reduce && !v.querySelector("iframe")){
       var id = v.getAttribute("data-yt"), f = document.createElement("iframe");
       f.src = "https://www.youtube.com/embed/" + id +
-              "?autoplay=" + (reduce ? 0 : 1) + "&mute=1&loop=1&playlist=" + id +
+              "?autoplay=1&mute=1&loop=1&playlist=" + id +
               "&rel=0&modestbranding=1&playsinline=1";
       f.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture");
       f.setAttribute("allowfullscreen", "");
       f.setAttribute("title", "clip");
       v.appendChild(f);
-    } else if (!on && v.firstChild){
-      v.innerHTML = "";
+    } else if (!on || reduce){
+      var f0 = v.querySelector("iframe");
+      if (f0) f0.remove();
     }
   });
 });

@@ -769,3 +769,16 @@ nothing was merged by git.  What landed:
       Verified: base shows the two stills, click one fills the slide
       with clip one, click two swaps in clip two and tears down the
       first, click three is the next slide and both are torn down.
+
+  37, and the PDF  The first PDF built after the clips went in had two
+      BLANK WHITE PAGES where the clips should be.  A cross-origin
+      iframe prints blank, and the player was sitting on top of the
+      still.  Two fixes, both worth keeping:
+        - the still is now a real <img> inside the overlay rather than
+          a CSS background, so it survives printing;
+        - under prefers-reduced-motion no player is built at all, and
+          pdf_capture emulates reduced motion, so the capture gets the
+          still full-bleed.  A reader who asks for reduced motion gets
+          the same thing, which is the right answer for them anyway.
+      Checked on pages 105 to 107 of the slides PDF: the two stills,
+      then each clip's frame filling the page.
