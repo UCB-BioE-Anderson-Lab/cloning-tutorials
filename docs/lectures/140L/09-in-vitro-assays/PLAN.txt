@@ -92,6 +92,14 @@ So the bacterium is drawn once, in seq/cell.js, and its parts move.  One
 drawing serves five slides (cell5 .. cell9).  The contents, the labels,
 the destinations and the order are the source's; the notes are verbatim.
 
+SOURCE 43, because its shapes share names.  It builds the ELISA sandwich
+in six clicks, a layer at a time — but several of its shapes carry the
+same cNvPr name, so deleting "the shapes that arrive later" deletes the
+wrong ones: three of the seven states render empty and one jumps two
+layers.  There is no intermediate state to crop.  seq/elisa.js redraws
+it, layer for layer, and the six labels are HTML beside it rather than
+type baked into a bitmap.
+
 SOURCE 35-38, because of the colour.  These are JCA's own drawings and
 they convert cleanly in SHAPE — but they were drawn for the grey master,
 in a pale blue (#8AB0DD) and a pale yellow that read on dark grey and
@@ -177,6 +185,33 @@ WHERE THIS STANDS
   02-purification.html   source 10-18  DONE   (12 steps, audit clean)
   03-detection.html      source 19-29  DONE   (17 steps, audit clean)
   04-enzymatic.html      source 30-38  DONE   (18 steps, audit clean)
-  05-binding.html        source 39-45  not started
-  the four questions     source 47-48  last, after the conversion
-  source 46, 49, 50                    still need a home
+  05-binding.html        source 39-46  DONE   (16 steps, audit clean)
+  the four questions     source 48      DONE, distributed
+
+THE FOUR QUESTIONS, AND WHERE THEY WENT
+---------------------------------------
+Source 48's four questions now sit at the end of the section that makes
+each answerable, on the amber ground, each carrying its own paragraph of
+source 48's note as the spoken answer.  All four paragraphs are verbatim;
+only their ORDER changed, which is what the verifier shows when the four
+are concatenated and diffed against source 48.
+
+  01 Extraction   the lutein yellow pigment device   (answer: extract it)
+  03 Detection    the HIV biosensor                  (answer: differential)
+  04 Enzymatic    the phage protein on 5' DNA        (answer: purify, gel)
+  05 Binding      the adhesion device's lectin       (answer: ELISA)
+
+Source 47, the "Questions to Ponder" divider, is gone with them, as it
+went in the Whole-Cell deck.  Source 49, the carotenoid chart, is now its
+own white slide just ahead of the lutein question it illustrates: it is a
+bitmap with a white background, and on the amber ask slide it read as a
+hole punched in the ground.  Source 50, a bare "Questions?" card, is
+dropped — the Whole-Cell deck dropped its equivalent on JCA's ruling.
+
+ONE NOTE DROPPED
+----------------
+Source 39, the Binding Assays divider, carries a speaker note about a
+ChemAxon licence, a Hello_ChemAxon project and an "RO package".  None of
+that is in this lecture; it is boilerplate left behind from another
+deck.  Dropped.  It is the only note not carried over, and the verifier
+reports it every run so the decision stays visible.
