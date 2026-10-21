@@ -24,6 +24,7 @@ window.LECTURE = {
     { file: "00-front-matter.html", title: "Introduction",  kind: "lecture" },
     { file: "01-extraction.html",   title: "Extraction",    kind: "section" },
     { file: "02-purification.html", title: "Purification",  kind: "section" },
-    { file: "03-detection.html",    title: "Detection",     kind: "section" }
+    { file: "03-detection.html",    title: "Detection",     kind: "section" },
+    { file: "04-enzymatic.html",    title: "Enzymatic Assays", kind: "section" }
   ]
 };
