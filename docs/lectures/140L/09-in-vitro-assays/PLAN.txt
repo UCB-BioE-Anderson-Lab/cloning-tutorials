@@ -105,31 +105,50 @@ TWO DELIBERATE DEPARTURES FROM VERBATIM, both proved by concat.py:
             a bare period is nonsense, so the click falls after it.  The
             concatenated text is character-identical.
 
-ONE THING DROPPED IN SECTION 02
--------------------------------
-Source 13 carries a stock clipart figure of a thinking person beside the
-title.  It is decoration, not content, and it is the same clipart JCA
-rejected on the Whole-Cell section divider ("the white background of the
-blue person is graphically bad").  Dropped.  Nothing else was.
+WHAT WAS DROPPED, AND WHAT WAS CHANGED
+--------------------------------------
+Source 13 and 26 each carry the same stock clipart of a thinking person
+beside the title.  It is decoration, not content, and it is the clipart
+JCA rejected on the Whole-Cell section divider ("the white background of
+the blue person is graphically bad").  Dropped on both.
+
+Source 26 reveals all four of its answers on ONE click.  Here each
+answer arrives on its own click.  This is the only place the click
+structure departs from the source, and it is there because JCA has
+already ruled on the pattern once, on the Whole-Cell questions slide:
+"you dump all the questions at once.  We need to go through them
+individually."  The slide has no speaker note, so nothing was split.
+
+Source 27 marks one wrapped line of the methods paragraph in green.
+Green is spoken for in this deck's palette, so the mark is vermillion.
+The span marked is the source's own, to the character.
+
+Image credits that were inside the spoken notes are now .src lines on
+their slides: source 4, 12, 18, 20, 24, 25, 29.  tools/verify.py checks
+every other note character for character against the pptx.
 
 REDRAW LIST, as it stands
 -------------------------
-Every figure in section 02 is borrowed raster with type set for a
-textbook page, not a lecture hall.  In priority order:
+Every figure in sections 02 and 03 is borrowed raster with type set for
+a textbook page, not a lecture hall.  In priority order:
   17  the HIS-TAG bar is RED on GREEN, which is the one colour pair a
       red-green colourblind student cannot read.  Redraw first.
   11  chromatography columns        16  affinity load/wash/elute
   12  anion exchange, three panels  17  the Ni-NTA chelate
   15  size exclusion + chromatogram 18  SPE cartridge series
   14  the silica/DNA complex
-Source 13's kit photograph is a photograph and stays.
+  20  the HPLC schematic            24  the NMR spectrum
+  21  the mass spectrometer         25  the crystallography route
+  23  the LCMS heat map             28  the bromine mechanism
+Photographs stay as photographs: the Qiagen kit (13), the LCMS bench
+(22), the test tubes (28) and the oil test paper pack (29).
 
 WHERE THIS STANDS
 -----------------
   00-front-matter.html   source 1-2    DONE
   01-extraction.html     source 3-9    DONE   (22 steps, audit clean)
   02-purification.html   source 10-18  DONE   (12 steps, audit clean)
-  03-detection.html      source 19-29  not started
+  03-detection.html      source 19-29  DONE   (17 steps, audit clean)
   04-enzymatic.html      source 30-38  not started
   05-binding.html        source 39-45  not started
   the four questions     source 47-48  last, after the conversion
