@@ -11,7 +11,7 @@
  * the same objects.  Drawn as one picture that moves, the objects stay
  * put and only their state changes, which is what the assay is: the same
  * three proteins, and the question of which of them is still there at
- * the end.  The colours follow the house palette rather than the
+ * the end.  The colors follow the house palette rather than the
  * vendor's: vermillion bait, blue prey, grey for everything else.
  *
  * The speaker note is the source's, verbatim, split at its own sentence

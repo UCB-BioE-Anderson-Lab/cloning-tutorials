@@ -4,7 +4,7 @@
    This deck is a straight conversion of 2025_10_23-In vitro assays.pptx:
    the same slides in the same order, the same words, the same speaker notes,
    and the same figures.  What changed is the presentation — the grounds, the
-   type and the content colours come from the house palette instead of the
+   type and the content colors come from the house palette instead of the
    source deck's grey/blue scheme.  Nothing has been rewritten or re-argued.
 
    The source deck is JCA's own 2026 rebuild and he judged it solid, so this
@@ -16,7 +16,7 @@
 
    The sections are the source deck's own dividers.
 
-   kind: lecture | section — only used to colour the jump menu key. */
+   kind: lecture | section — only used to color the jump menu key. */
 window.LECTURE = {
   title: "In vitro Assays",
   course: "140L",

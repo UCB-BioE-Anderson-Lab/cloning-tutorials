@@ -64,10 +64,10 @@ function el(name, attrs, parent){
 }
 
 /* one traced object, drawn at its own origin; place() moves it */
-function object(parent, name, colour){
+function object(parent, name, color){
   const a = window.ART.pancreas[name];
   const g = el("g", {}, parent);
-  const p = el("path", { d:a.d, fill:"none", stroke:colour || INK,
+  const p = el("path", { d:a.d, fill:"none", stroke:color || INK,
                "stroke-linecap":"round", "stroke-linejoin":"round" }, g);
   return { g:g, a:a, place:function(x, y, s, rot){
     g.setAttribute("transform", "translate(" + n1(x) + " " + n1(y) + ")" +

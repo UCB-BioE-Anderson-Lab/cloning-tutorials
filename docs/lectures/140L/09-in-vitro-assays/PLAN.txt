@@ -253,6 +253,81 @@ ONE TYPO FIXED.  Source 40 reads "you get the Bait proteinattached to a
 solid support".  The two words are separated in seq/pulldown.js, which is
 the only reason that sequence does not verify clean.
 
+THE NOTES HAVE HAD AN EDITORIAL PASS (21 Oct 2026)
+---------------------------------------------------
+Up to this point every note was the source's, verbatim, and
+verify_notes.py proved it.  JCA then asked for an audit: every slide
+should carry a note, it should read as narration to a student rather
+than a status report, and spelling and grammar should be corrected.  So
+the notes are no longer verbatim, and the verifier will now report
+differences on the slides listed here.  It is still the right tool for
+catching an accidental change; these are the intended ones.
+
+TWENTY-FOUR SPELLING AND GRAMMAR FIXES, which change no meaning:
+  11 "a large set of methods" -> "a large number of methods"
+  12 missing space after "...positively charged ones."
+  12 missing period after "...wash out the other species"
+  14 "miniprepping early" -> "miniprepping earlier"
+  15 "by there size" -> "by their size"
+  20 "I the illustration" -> "In the illustration"
+  20 "the same oompound" -> "the same compound"
+  21 "back-calulate" -> "back-calculate"; "Qudrupole" -> "Quadrupole";
+     missing period after "Triple Quadrupole"
+  24 "spectroscopy.." -> "spectroscopy."; "the the spin" -> "the spin";
+     "the the number" -> "the number";
+     "This image of the simplest experiment" -> "This image is of..."
+  25 "xrays" -> "X-rays"
+  31 "chromagenic" -> "chromogenic"
+  33 "beurocracy" -> "bureaucracy"; "chromatrography" -> "chromatography"
+  43 "maxisorb" -> "MaxiSorp"; "suface" -> "surface";
+     "hydroxgen peroxide" -> "hydrogen peroxide"
+  48 "yellownes" -> "yellowness"; "quanidinium" -> "guanidinium";
+     "covelent" -> "covalent"
+  40 "proteinattached" -> "protein attached"  (done earlier)
+British spellings that had crept into the NEW writing in both this deck
+and the Whole-Cell deck were put back to US, to match the source notes.
+
+NINE SLIDES HAD NO NOTE AND NOW DO.  All nine are new writing:
+  2 the two-step process        30 the Enzymatic Assays divider
+ 13 the plasmid question        34 the aminoacylation question
+ 19 the Detection divider       39 the Binding Assays divider
+ 26 detecting isopimaradiene    42 the affibody question
+ 49 the carotenoids
+Source 1's note was a status report ("This lecture has been modified
+extensively relative to the YouTube videos") rather than something said
+to a student; it now says the same thing in the first person.
+
+SIX STATEMENTS WERE CORRECTED, with the reason:
+  17  "proteins that do not contain histidine residues do not bind" --
+      nearly every protein has a histidine; it is the six in a row that
+      hold on.  Also, the metal ion is held by a chelator that is
+      covalently attached, not covalently attached itself.
+  21  the note described magnetic deflection next to a list of
+      instruments that mostly do not use it (a quadrupole filters on an
+      oscillating electric field, TOF times the flight, an Orbitrap uses
+      an electrostatic orbit).  Now scoped to the instrument drawn, with
+      the others named.
+  24  splitting was attributed to coupling with H's on the SAME carbon;
+      it is coupling to the neighboring carbon's hydrogens.
+  28  "ketones aren't abundant in primary metabolism" -- pyruvate,
+      oxaloacetate, alpha-ketoglutarate and fructose all are.  The
+      sentence now claims only what is true of isolated alkenes.
+  32  "This molecule isn't detectable by photometry" -- caffeine absorbs
+      strongly near 273 nm, and the chromatogram on this very slide has
+      an absorbance axis with a labeled caffeine peak.  The real point is
+      that substrate and product share a chromophore.
+  45  hydroxylamine is a mutagen rather than a standard footprinting
+      probe; replaced with dimethyl sulfate and hydroxyl radical.
+  46  the textbook title is now title-cased.  WHICH book is still open:
+      Skoog's are "Fundamentals of Analytical Chemistry" and "Principles
+      of Instrumental Analysis"; there is also a "Principles of
+      Analytical Chemistry" by Valcarcel.
+
+DELIBERATELY NOT CHANGED.  Source 13's answer says the Qiagen Midi and
+Maxi kits bind at low pH.  That is right: P3 is 3 M potassium acetate at
+pH 5.5, so the cleared lysate going onto the tip is acidic.  (The one
+loose word is "neutral" for the elution, since QF is Tris at pH 8.5.)
+
 WHERE THIS STANDS
 -----------------
   00-front-matter.html   source 1-2    DONE

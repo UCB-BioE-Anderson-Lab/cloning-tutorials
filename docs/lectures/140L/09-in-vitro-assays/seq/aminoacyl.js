@@ -10,7 +10,7 @@
  * they convert cleanly in shape — but they were drawn FOR THE GREY
  * MASTER, in a pale blue (#8AB0DD) and a pale yellow that are legible on
  * dark grey and nearly invisible on the white ground this deck uses.
- * Cropping them carries that colour over.  They also build across ten
+ * Cropping them carries that color over.  They also build across ten
  * states between them, including an EXIT on 38 (the unreacted hot
  * tyrosine washing out), which a render cannot give you at all.
  *
@@ -64,7 +64,7 @@ function trna(p, cx, cy, s){
   el("circle", Object.assign({ cx:0,   cy:23, r:11 }, S), g);
   return g;
 }
-/* tritium-labelled tyrosine: one dot, as on the source slides */
+/* tritium-labeled tyrosine: one dot, as on the source slides */
 const hot = (p, cx, cy, r) => el("circle", { cx:cx, cy:cy, r:r || 15, fill:AMBER }, p);
 
 /* the expression construct: promoter, gene, tag */
@@ -145,7 +145,7 @@ function scene36(host){
 const S36 = [
   { on:["setup"],
     note:"We also purchase Tritium-labeled tyrosine.  You can buy radioactive versions of many of the common metabolites and cofactors, and all the amino acids are available.  You will incubate the tRNA sample, the synthetase sample, ATP, and hot tyrosine in a reaction.",
-    desc:"The reaction laid out: a tRNA, the synthetase, ATP, and a single amber dot standing for tritium-labelled tyrosine." },
+    desc:"The reaction laid out: a tRNA, the synthetase, ATP, and a single amber dot standing for tritium-labeled tyrosine." },
   { on:["setup","charged"],
     note:"The tritium-labeled tyrosine becomes covalently attached to the 3’ end of the tRNA.",
     desc:"An arrow, and the same tRNA again with the amber dot now sitting on the tip of its acceptor stem." }

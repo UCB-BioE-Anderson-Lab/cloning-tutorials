@@ -4,12 +4,12 @@
    This deck is a straight conversion of 2025_10_16-Whole-Cell Analysis.pptx:
    the same slides in the same order, the same words, the same speaker notes,
    and the same figures.  What changed is the presentation — the grounds, the
-   type and the content colours come from the house palette instead of the
+   type and the content colors come from the house palette instead of the
    source deck's blue/red/grey scheme.  Nothing has been rewritten, re-argued,
    split or merged.
 
    HOW THE FIGURES WERE RECOLOURED.  Most of this deck's art is still vector
-   inside the .pptx, so the pixels were never touched.  The theme colour
+   inside the .pptx, so the pixels were never touched.  The theme color
    scheme was rewritten to the palette across all 13 themes and 10 theme
    overrides, together with the literal hexes the shapes carry directly, and
    the deck was then re-rendered and re-cropped.  See AUTHORING.txt, "WHERE
@@ -32,7 +32,7 @@
    the section whose tools answer it, verbatim, in the pattern section 00
    already used.  Source 39's cartoon is deleted.
 
-   kind: lecture | section — only used to colour the jump menu key. */
+   kind: lecture | section — only used to color the jump menu key. */
 window.LECTURE = {
   title: "Whole-Cell Analysis",
   course: "140L",

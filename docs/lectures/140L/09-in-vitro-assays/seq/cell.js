@@ -140,7 +140,7 @@ function build(host){
     preserveAspectRatio:"xMidYMid meet", style:"width:100%;height:100%;display:block" });
   host.appendChild(svg);
 
-  /* the two zone labels, in the source's own words and colour */
+  /* the two zone labels, in the source's own words and color */
   const zExtract = tx(svg, 1360, 40, "Extract", { size:33, weight:700, fill:BLUE, anchor:"end" });
   const zDebris  = tx(svg, 1360, 692, "Debris Pellet", { size:33, weight:700, fill:BLUE, anchor:"end" });
 
@@ -282,14 +282,14 @@ const cp = o => Object.assign({}, ALL, o || {});
 const S5 = [
   { s:{ env:"intact", where:{} },
     note:null,
-    desc:"A bacterium drawn in cross-section: an outer membrane, a tan band of peptidoglycan gel filling the periplasm, and an inner membrane enclosing the cytoplasm. Each of the four is labelled." }
+    desc:"A bacterium drawn in cross-section: an outer membrane, a tan band of peptidoglycan gel filling the periplasm, and an inner membrane enclosing the cytoplasm. Each of the four is labeled." }
 ];
 
 /* ---- source 6: what is in it, one class at a time ----------------- */
 const S6 = [
   { s:{ env:"intact", where:{ prot:"cell" } },
     note:"Chemically, there are proteins of various types in the cytoplasm, periplasm, and membranes",
-    desc:"Inside the cytoplasm, four proteins appear, drawn as coloured discs with a wedge bitten out of each." },
+    desc:"Inside the cytoplasm, four proteins appear, drawn as colored discs with a wedge bitten out of each." },
   { s:{ env:"intact", where:{ prot:"cell", dna:"cell", rna:"cell", plas:"cell" } },
     note:"There are genomic DNAs, plasmid DNAs, and tRNAs",
     desc:"Beside them, the nucleic acids: a double helix, a cloverleaf tRNA, and a small closed circle of plasmid DNA." },
@@ -298,7 +298,7 @@ const S6 = [
     desc:"To their right, three ring structures stand for the small molecule metabolites." },
   { s:{ env:"intact", where:{ prot:"cell", dna:"cell", rna:"cell", plas:"cell", sm:"cell", lip:"cell" } },
     note:"we also have lipids or other fat soluble compounds associated with the membranes",
-    desc:"Short marks appear within the membrane itself, labelled as the lipids." },
+    desc:"Short marks appear within the membrane itself, labeled as the lipids." },
   { s:{ env:"intact", where:cp({ q:null }) },
     note:"and finally we have various surface-displayed carbohydrates.",
     desc:"On the outside of the outer membrane, a branched chain of sugar rings appears." },
@@ -370,7 +370,7 @@ const S9 = [
         where:cp({ sm:"extract", prot:"debris", dna:"debris", rna:"debris",
                    plas:"debris", lip:"debris", carb:"debris" }) },
     note:"All that biopolymer is collected as a debris pellet after the spin. So, you get a solution of the small molecule fraction in methanol in the supernatant.",
-    desc:"The pile at the bottom is labelled the Debris Pellet; the small molecules alone are the supernatant." },
+    desc:"The pile at the bottom is labeled the Debris Pellet; the small molecules alone are the supernatant." },
   { s:{ env:"gone", zones:"ed",
         where:cp({ sm:"extract", prot:"debris", dna:"debris", rna:"debris",
                    plas:"debris", lip:"debris", carb:"debris" }) },

@@ -19,7 +19,7 @@
 .slide .stack img{max-width:100%;max-height:100%;min-height:0;object-fit:contain}
 .slide .stack ul{margin:0;padding-left:1.1em;list-style:none}
 .slide .stack li{font-size:27px;margin:0 0 13px}
-/* source 33: the reaction, the labelled cofactor, the plate it is read on */
+/* source 33: the reaction, the labeled cofactor, the plate it is read on */
 .slide .rad{flex:1 1 auto;min-height:0;display:grid;
   grid-template-rows:minmax(0,0.72fr) minmax(0,1.45fr) minmax(0,1.1fr);gap:12px}
 .slide .rad > *{min-width:0;min-height:0;display:flex;justify-content:center}
@@ -51,7 +51,7 @@
 <!-- ---------------------------------------------------------------- 30 -->
 <article class="slide" data-bg="section">
   <h1>Enzymatic Assays</h1>
-  <template class="notes"></template>
+  <template class="notes">So far we have been asking what is in the tube.  Now we ask what it does.  An enzymatic assay watches a reaction run and puts a rate on it, and the whole problem is finding something in that reaction you can actually see.</template>
   <template class="desc">Section divider: Enzymatic Assays.</template>
 </article>
 
@@ -64,7 +64,7 @@
     </figure>
     <div class="row">
       <figure>
-        <img src="img/31-construct.png" alt="The construct that supplies the enzyme: a promoter drawn as a bent arrow driving the phoA gene, with a His6 tag box on its end, and an arrow from it to a cloud labelled PhoA.">
+        <img src="img/31-construct.png" alt="The construct that supplies the enzyme: a promoter drawn as a bent arrow driving the phoA gene, with a His6 tag box on its end, and an arrow from it to a cloud labeled PhoA.">
       </figure>
       <ul>
         <li>Purify protein</li>
@@ -73,7 +73,7 @@
       </ul>
     </div>
   </div>
-  <template class="notes">Here is a simple example.   We encode the phoA gene with a C-terminal His tag on a plasmid and put it in the cell. This results in production of PhoA protein which we purify by Ni-NTA chromatography.  We then perform an enzymatic assay.  We add the chromagenic substrate p-nitrophenyl phosphate which gets hydrolyzed to p-nitrophenol which is yellow.  The color is easily quantified by photometry.  By monitoring the formation of color over time with different amounts of substrate, we can calculate parameters such as Kcat and Km for the enzyme.</template>
+  <template class="notes">Here is a simple example.   We encode the phoA gene with a C-terminal His tag on a plasmid and put it in the cell. This results in production of PhoA protein which we purify by Ni-NTA chromatography.  We then perform an enzymatic assay.  We add the chromogenic substrate p-nitrophenyl phosphate which gets hydrolyzed to p-nitrophenol which is yellow.  The color is easily quantified by photometry.  By monitoring the formation of color over time with different amounts of substrate, we can calculate parameters such as Kcat and Km for the enzyme.</template>
   <template class="desc">The easy case: a tagged enzyme, a colourless substrate it turns yellow, and three steps &mdash; purify, add reagent, read the absorbance.</template>
 </article>
 
@@ -88,7 +88,7 @@
       <figure data-build="1"
               data-note="The workhorse method for analytics is LC-MS or GC-MS.  Here, you perform an extraction of the small molecules in your sample, and then run them through a column to separate them typically based on hydrophobicity.  As the molecules emerge from the end of the column, they are ionized and separated by mass spectrometry.  From the resulting spectrum, the molecule you wish to quantify can be identified by its mass."
               data-desc="An HPLC system appears beneath the reaction &mdash; solvent, pump, injector, column, detector, waste, and a computer collecting the data &mdash; with the chromatogram it produces, four resolved peaks including caffeine. The recipe appears beside it: purify the protein, mix with substrates, run HPLC, quantify the product peak.">
-        <img src="img/32-hplc.png" alt="An HPLC system drawn as a flow diagram: a solvent flask feeds a pump, past an injector, through the HPLC column to a detector and on to waste, with a computer labelled Data. Beside it, the trace it produces: four sharp peaks, labelled acetaminophen, caffeine, 7-hydroxycoumarin and coumarin.">
+        <img src="img/32-hplc.png" alt="An HPLC system drawn as a flow diagram: a solvent flask feeds a pump, past an injector, through the HPLC column to a detector and on to waste, with a computer labeled Data. Beside it, the trace it produces: four sharp peaks, labeled acetaminophen, caffeine, 7-hydroxycoumarin and coumarin.">
       </figure>
       <ul data-build="1">
         <li>Purify protein</li>
@@ -98,7 +98,7 @@
       </ul>
     </div>
   </div>
-  <template class="notes">However, most enzymes aren&rsquo;t amenable to simple colorimetric assays.  For example, suppose we wish to monitor methylation by caffeine synthase.  This molecule isn&rsquo;t detectable by photometry and thus more sophisticated analytical methods are required.</template>
+  <template class="notes">However, most enzymes aren&rsquo;t amenable to simple colorimetric assays.  For example, suppose we wish to monitor methylation by caffeine synthase.  Substrate and product absorb at the same wavelength, so nothing about the tube changes as the reaction runs, and more sophisticated analytical methods are required.</template>
   <template class="desc">A methylation by caffeine synthase: a reaction that produces nothing you can see, so nothing you can read on a photometer.</template>
 </article>
 
@@ -112,15 +112,15 @@
     <figure data-build="1"
             data-note="Suppose I want to monitor this reaction that consumes ATP."
             data-desc="The structure of ATP appears, with its alpha phosphorus marked 32P: the position the label sits on.">
-      <img src="img/33-atp.svg" alt="The structure of ATP, adenine on ribose carrying three phosphates labelled alpha, beta and gamma, with the alpha phosphorus marked 32P.">
+      <img src="img/33-atp.svg" alt="The structure of ATP, adenine on ribose carrying three phosphates labeled alpha, beta and gamma, with the alpha phosphorus marked 32P.">
     </figure>
     <figure data-build="2"
-            data-note="I can purchase radioactive ATP that is labeled at the alpha position with 32P.  If I dope some of this reagent into my reaction, it will be hydrolyzed to ADP.  I then separate the molecules in my sample by thin-layer chromatography.  Like the other chromatrography methods we have encountered, this one uses a stationary phase typically composed of silica gel.  You place one end of the plate in a solvent and allow it to soak into the plate.  As the solvent spreads through the plate, it will separate the compounds along the vertical axis of the plate.  Thus, the ATP and ADP will separate.  By placing the plate on a piece of radiation-sensitive film, you get an image of where the radioactive compounds came out.  Based on the density of the bands, you can calculate the degree of chemical conversion."
+            data-note="I can purchase radioactive ATP that is labeled at the alpha position with 32P.  If I dope some of this reagent into my reaction, it will be hydrolyzed to ADP.  I then separate the molecules in my sample by thin-layer chromatography.  Like the other chromatography methods we have encountered, this one uses a stationary phase typically composed of silica gel.  You place one end of the plate in a solvent and allow it to soak into the plate.  As the solvent spreads through the plate, it will separate the compounds along the vertical axis of the plate.  Thus, the ATP and ADP will separate.  By placing the plate on a piece of radiation-sensitive film, you get an image of where the radioactive compounds came out.  Based on the density of the bands, you can calculate the degree of chemical conversion."
             data-desc="The thin-layer chromatography that reads the reaction out appears: a schematic of a plate standing in solvent, a photograph of a developed plate, and an autoradiograph in which the ADP and ATP spots are separated and quantified across five lanes.">
-      <img src="img/33-tlc.png" alt="Three pictures of thin-layer chromatography: a schematic of a plate standing in a tank of solvent with coloured spots rising up it, a photograph of a developed plate in someone's hand, and an autoradiograph with an ADP row above an ATP row across five lanes, each lane quantified underneath.">
+      <img src="img/33-tlc.png" alt="Three pictures of thin-layer chromatography: a schematic of a plate standing in a tank of solvent with colored spots rising up it, a photograph of a developed plate in someone's hand, and an autoradiograph with an ADP row above an ATP row across five lanes, each lane quantified underneath.">
     </figure>
   </div>
-  <template class="notes">Though they are disfavored due to the dangers of working with radiation and the associated logistics and beurocracy of such work, radiation-based assays are powerful tools for monitoring biochemical reactions.</template>
+  <template class="notes">Though they are disfavored due to the dangers of working with radiation and the associated logistics and bureaucracy of such work, radiation-based assays are powerful tools for monitoring biochemical reactions.</template>
   <template class="desc">Radioactive substrates: awkward to work with, and still the most sensitive way to watch a reaction run.</template>
 </article>
 
@@ -128,7 +128,7 @@
 <article class="slide">
   <h1>Observing aminoacylation</h1>
   <p class="prompt">I have expressed the <i>M. jannaschii</i> tyrosine synthetase in <i>E. coli</i>, and purified it by its His-TAG, then dialyzed it into PBS medium. I want to assay whether it will aminoacylate any <i>E. coli</i> tRNAs.  How can I do that?</p>
-  <template class="notes"></template>
+  <template class="notes">Here is a real problem.  You have a purified tRNA synthetase from an archaeon and a tube of E. coli total tRNA, and you want to know whether the enzyme will charge any of it.  Nothing about that reaction changes color, and the mass change is one amino acid on a 76-mer.  Think about what you would actually measure before we go on.</template>
   <template class="desc">A question: the M. jannaschii tyrosine synthetase has been expressed in E. coli, purified on its His-tag and dialyzed into PBS. How would you assay whether it charges any E. coli tRNA?</template>
 </article>
 
@@ -170,7 +170,7 @@
 <article class="slide ask" data-bg="section">
   <h1>Question to ponder</h1>
   <p class="q">I&rsquo;ve read that a phage protein will covalently attach itself to the 5&rsquo; hydroxy of a DNA with a 5&rsquo; phosphate.  I made a part out of the coding sequence.  What should I do to characterize the activity of this part?</p>
-  <template class="notes">Express the phage protein with a His tag and purify it.  Then, incubate the protein with the DNA.  Perhaps you make that DNA as a PCR product with a fluorophore on the 5&rsquo; end.  You then quench the reaction with something denaturing like urea or quanidinium chloride or SDS.  You then run an SDS-PAGE gel.  If the interaction is covelent, it will survive denaturation and give a band that is the mass of the DNA as well as the protein, which should be distinguishable from the two substrates.  Alternatively, you could do various things with radioactivity.</template>
+  <template class="notes">Express the phage protein with a His tag and purify it.  Then, incubate the protein with the DNA.  Perhaps you make that DNA as a PCR product with a fluorophore on the 5&rsquo; end.  You then quench the reaction with something denaturing like urea or guanidinium chloride or SDS.  You then run an SDS-PAGE gel.  If the interaction is covalent, it will survive denaturation and give a band that is the mass of the DNA as well as the protein, which should be distinguishable from the two substrates.  Alternatively, you could do various things with radioactivity.</template>
   <template class="desc">Question to ponder, on the amber ground: a phage protein is reported to attach covalently to the 5-prime end of a DNA. A part has been made from its coding sequence. What characterizes its activity?</template>
 </article>
 

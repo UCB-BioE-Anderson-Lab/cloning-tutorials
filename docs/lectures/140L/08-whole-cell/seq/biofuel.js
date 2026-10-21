@@ -83,10 +83,10 @@ function at(name, p){ const o = PLACE[name]; return [o.x + p[0] * o.s, o.y + p[1
 
 /* One traced object as a group at its place.  Its strokes are a uniform
    LINE on the slide, whatever its scale. */
-function object(parent, name, colour){
+function object(parent, name, color){
   const a = window.ART.biofuel[name], o = PLACE[name];
   const g = el("g", { transform:"translate(" + o.x + " " + o.y + ") scale(" + o.s + ")" }, parent);
-  el("path", { d:a.d, fill:"none", stroke:colour || INK, "stroke-width":(LINE / o.s).toFixed(2),
+  el("path", { d:a.d, fill:"none", stroke:color || INK, "stroke-width":(LINE / o.s).toFixed(2),
                "stroke-linecap":"round", "stroke-linejoin":"round" }, g);
   return g;
 }
@@ -94,15 +94,15 @@ function object(parent, name, colour){
 /* A liquid inside an object: a tint plus a surface line, clipped to the
    object's interior.  set(level) takes a y in the object's coordinates. */
 let clipN = 0;
-function liquid(parent, name, colour, tint){
+function liquid(parent, name, color, tint){
   const a = window.ART.biofuel[name], o = PLACE[name];
   const id = "bf-clip-" + (++clipN) + "-" + Math.random().toString(36).slice(2, 7);
   const defs = el("defs", {}, parent);
   el("path", { d:a.inside }, el("clipPath", { id:id }, defs));
   const g = el("g", { transform:"translate(" + o.x + " " + o.y + ") scale(" + o.s + ")",
                       "clip-path":"url(#" + id + ")" }, parent);
-  const body = el("rect", { x:-10, width:a.w + 20, fill:colour, "fill-opacity":tint }, g);
-  const top = el("path", { fill:"none", stroke:colour, "stroke-width":(LINE / o.s).toFixed(2) }, g);
+  const body = el("rect", { x:-10, width:a.w + 20, fill:color, "fill-opacity":tint }, g);
+  const top = el("path", { fill:"none", stroke:color, "stroke-width":(LINE / o.s).toFixed(2) }, g);
   return {
     g: g,
     set: function(y, y1){

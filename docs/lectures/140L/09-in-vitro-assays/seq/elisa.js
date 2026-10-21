@@ -120,7 +120,7 @@ function scene(host){
 
 const STEPS = [
   { on:[],
-    note:"I start with a maxisorb plate.  ELISA plates are distinct from those used to culture cells.  The polymer suface is sticky towards proteins.  So, when we",
+    note:"I start with a MaxiSorp plate.  ELISA plates are distinct from those used to culture cells.  The polymer surface is sticky towards proteins.  So, when we",
     desc:"An empty ELISA well, its floor drawn as a row of grey beads: the MaxiSorp surface, which protein sticks to." },
   { on:["alb"],
     note:"add the human serum albumin or rat sample to the well, the protein becomes immobilized on the surface of the plate.  We then",
@@ -138,8 +138,8 @@ const STEPS = [
     note:"We then add streptavidin-HRP conjugate which will  bind to the Biotin.",
     desc:"A darker oval lands on each of those: streptavidin, carrying horseradish peroxidase, caught by the biotin underneath." },
   { on:["alb","milk","aff","igg","hrp","abts"],
-    note:"Finally, we add hydroxgen peroxide and a chemical substrate called ABTS.  Upon reaction with HRP a detectable product results.  Thus, ultimately we are monitoring HRP reactions, but the HRP will only still be present in the well if all these other non-covalent reactions took place.",
-    desc:"An arrow over the stack turns ABTS into a yellow product. That colour is the readout, and it only appears if every binding step below it happened." }
+    note:"Finally, we add hydrogen peroxide and a chemical substrate called ABTS.  Upon reaction with HRP a detectable product results.  Thus, ultimately we are monitoring HRP reactions, but the HRP will only still be present in the well if all these other non-covalent reactions took place.",
+    desc:"An arrow over the stack turns ABTS into a yellow product. That color is the readout, and it only appears if every binding step below it happened." }
 ];
 
 window.Deck.sequence("elisa", function(slide){

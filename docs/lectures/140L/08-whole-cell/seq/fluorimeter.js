@@ -76,10 +76,10 @@ const STEPS = [
     desc:"Cells carrying a fluorophore fill the cuvette, drawn as green rods. Where the blue beam crosses them, green light leaves at ninety degrees, down through the emission filter to the detector, which reads a strong signal." },
   { s:{ thru:0, emit:1, lit:1, cells:1, auto:1, norm:0, read:2 },
     note:"Cells contain some mildly-fluorescent fluorophores such as tryptophan which produce a background signal in these measurements.  This autofluorescence can mask low signals.",
-    desc:"A second cuvette of cells carrying no fluorophore at all, drawn as plain outlines. The green path is much fainter but it is not gone: the detector still reads a small signal, labelled autofluorescence. That floor is what hides a weak signal." },
+    desc:"A second cuvette of cells carrying no fluorophore at all, drawn as plain outlines. The green path is much fainter but it is not gone: the detector still reads a small signal, labeled autofluorescence. That floor is what hides a weak signal." },
   { s:{ thru:0, emit:1, lit:1, cells:1, auto:1, norm:1, read:3 },
     note:"Like cytometry and microscopy, you must normalize the signal against some standard such as white cells in fluorimetry and spectrometry.  Additionally, you must normalize for cell density.",
-    desc:"The two readings are set against each other: the signal from the labelled cells, less the background from the unlabelled ones, and then divided by the optical density, so the number is per cell rather than per tube." }
+    desc:"The two readings are set against each other: the signal from the labeled cells, less the background from the unlabeled ones, and then divided by the optical density, so the number is per cell rather than per tube." }
 ];
 const KEYS = ["thru", "emit", "lit", "cells", "auto", "norm", "read"];
 
@@ -148,17 +148,17 @@ window.Deck.sequence("fluorimeter", function(slide){
     show(emitG, s.emit > 0.01); emitG.setAttribute("opacity", n2(clamp01(s.emit)));
     /* the cells: green once a fluorophore is in them, plain outlines when
        the point is that there is none */
-    const labelled = s.auto > 0.5 ? 0 : clamp01(s.cells);
+    const labeled = s.auto > 0.5 ? 0 : clamp01(s.cells);
     show(rodG, s.cells > 0.01);
     ROD.forEach(function(r){
-      r.setAttribute("fill", labelled > 0.5 ? GREEN : "#ffffff");
-      r.setAttribute("fill-opacity", labelled > 0.5 ? 0.85 : 1);
-      r.setAttribute("stroke", labelled > 0.5 ? GREEN : INK);
+      r.setAttribute("fill", labeled > 0.5 ? GREEN : "#ffffff");
+      r.setAttribute("fill-opacity", labeled > 0.5 ? 0.85 : 1);
+      r.setAttribute("stroke", labeled > 0.5 ? GREEN : INK);
     });
-    liquid.setAttribute("fill-opacity", n2(0.14 * labelled));
+    liquid.setAttribute("fill-opacity", n2(0.14 * labeled));
     cuvLabel.textContent = s.cells < 0.5 ? "cuvette"
       : (s.auto > 0.5 ? "cells with no fluorophore" : "cells carrying a fluorophore");
-    /* the emitted light: strong from labelled cells, a floor from bare ones */
+    /* the emitted light: strong from labeled cells, a floor from bare ones */
     const strength = s.lit < 0.5 ? 0 : (s.auto > 0.5 ? 0.18 : 1);
     ray.setAttribute("opacity", n2(strength));
     ray.setAttribute("stroke-width", n2(3 + 8 * strength));

@@ -62,9 +62,9 @@ function antigen(p, cx, base){
 }
 /* an antibody as a Y.  dir -1 grips downward, +1 grips upward.
    jy is where the arms meet; the stem runs the other way. */
-function antibody(p, cx, jy, dir, colour, label){
+function antibody(p, cx, jy, dir, color, label){
   const g = el("g", {}, p);
-  const S = { stroke:colour, "stroke-width":8, fill:"none", "stroke-linecap":"round" };
+  const S = { stroke:color, "stroke-width":8, fill:"none", "stroke-linecap":"round" };
   el("path", Object.assign({ d:"M" + cx + " " + jy + "l-28 " + (38 * dir) }, S), g);
   el("path", Object.assign({ d:"M" + cx + " " + jy + "l28 " + (38 * dir) }, S), g);
   el("path", Object.assign({ d:"M" + cx + " " + jy + "V" + (jy - 54 * dir) }, S), g);
@@ -85,7 +85,7 @@ function build(host){
   antigen(P.direct, WELL[0], FLOOR);
   antibody(P.direct, WELL[0], FLOOR - 112, -1, BLUE, VERM);
 
-  /* ---- indirect: an unlabelled first antibody, a labelled second ---- */
+  /* ---- indirect: an unlabeled first antibody, a labeled second ---- */
   P.indirect = o(el("g", {}, svg));
   well(P.indirect, WELL[1], "Indirect");
   antigen(P.indirect, WELL[1], FLOOR);
@@ -108,24 +108,24 @@ function build(host){
     tx(P.label, x + 32, 640, outcome, { size:24, fill:MUTED, anchor:"start" });
   };
   tx(P.label, 90, 562, "the label on the detecting antibody:", { size:25, fill:MUTED, anchor:"start" });
-  chip(130, VERM, "HRP", "turns a substrate a colour you read on a plate reader");
-  chip(800, AMBER, "fluorophore", "no developing step, and two colours in one well");
+  chip(130, VERM, "HRP", "turns a substrate a color you read on a plate reader");
+  chip(800, AMBER, "fluorophore", "no developing step, and two colors in one well");
   return P;
 }
 
 const STEPS = [
   { on:["direct"],
     note:"A more high-throughput and lower detection limit option is an ELISA assay.  This makes use of MaxiSorp plates, which are 96-well plates with a sticky base.",
-    desc:"One well of an ELISA plate, its floor drawn as sticky polymer beads with the antigen stuck to them, and a single labelled antibody bound to the antigen: the direct format." },
+    desc:"One well of an ELISA plate, its floor drawn as sticky polymer beads with the antigen stuck to them, and a single labeled antibody bound to the antigen: the direct format." },
   { on:["direct","indirect"],
-    note:"The direct version is one antibody: the antigen is stuck to the plastic and the antibody that binds it is the one carrying the label.  Add a second antibody and you have the indirect version.  The first one binds the antigen and carries nothing, and the second one binds the first and carries the label.  You get more signal, because several labelled antibodies can land on one primary, and you get cheaper reagents, because one labelled anti-rabbit works for every rabbit antibody in your freezer.",
+    note:"The direct version is one antibody: the antigen is stuck to the plastic and the antibody that binds it is the one carrying the label.  Add a second antibody and you have the indirect version.  The first one binds the antigen and carries nothing, and the second one binds the first and carries the label.  You get more signal, because several labeled antibodies can land on one primary, and you get cheaper reagents, because one labeled anti-rabbit works for every rabbit antibody in your freezer.",
     desc:"A second well beside it: the antibody on the antigen now carries no label, and a second antibody binds that one and carries the label instead." },
   { on:["direct","indirect","sandwich"],
     note:"In a sandwich assay you stop relying on the antigen sticking to the plastic at all.  You coat the plate with a capture antibody, that antibody holds the antigen, and a detection antibody binds a different part of it.  Two antibodies have to agree before you see anything, so this is the most specific of the three, and it is what you use on a crude sample where plenty of other things would have stuck to the plate.",
     desc:"A third well: an antibody now stands on the plate holding the antigen up, and the detection antibody binds the antigen from above." },
   { on:["direct","indirect","sandwich","label"],
-    note:"What you hang on that last antibody is a separate decision.  Horseradish peroxidase turns a substrate a colour you read on a plate reader, and because the enzyme keeps turning over it usually wins on sensitivity.  A fluorophore skips the enzyme, so there is nothing to develop and nothing to stop, and you can put two colours in the same well and read both.",
-    desc:"Beneath the three wells, the two choices of label: horseradish peroxidase, which turns a substrate a colour, or a fluorophore, which needs no developing step and allows two colours in one well." }
+    note:"What you hang on that last antibody is a separate decision.  Horseradish peroxidase turns a substrate a color you read on a plate reader, and because the enzyme keeps turning over it usually wins on sensitivity.  A fluorophore skips the enzyme, so there is nothing to develop and nothing to stop, and you can put two colors in the same well and read both.",
+    desc:"Beneath the three wells, the two choices of label: horseradish peroxidase, which turns a substrate a color, or a fluorophore, which needs no developing step and allows two colors in one well." }
 ];
 
 window.Deck.sequence("formats", function(slide){
