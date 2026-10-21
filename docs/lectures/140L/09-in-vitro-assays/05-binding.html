@@ -28,6 +28,8 @@
 .slide[data-step="3"] :is(.e4,.e5,.e6),
 .slide[data-step="4"] :is(.e5,.e6),
 .slide[data-step="5"] .e6{opacity:0}
+.slide .pd-stage,.slide .fmt-stage,.slide .spr-stage{flex:1 1 auto;min-height:0;
+  display:flex;flex-direction:column;justify-content:center}
 .slide svg .o{opacity:0;transition:opacity .42s ease}
 .slide svg .o.in{opacity:1}
 .slide svg .nofx .o,.slide svg.nofx .o{transition:none}
@@ -58,24 +60,15 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 40 -->
-<article class="slide">
+<article class="slide" data-seq="pulldown">
   <h1>Pulldown Assay</h1>
-  <figure class="fig">
-    <img src="img/40-pulldown.png" alt="A pulldown in three stages down the page. A bait protein held on an affinity ligand is mixed with a lysate containing the prey among other material; after incubation the prey is bound to the bait; after washing only that pair is left. Eluting gives bait and prey together, and an SDS-PAGE gel beside it shows a bait band in the bait-only lane and both a bait and a prey band in the sample lane.">
-  </figure>
-  <p class="src">After lifeasible.com</p>
-  <template class="notes">If you want to observe an interaction between two biomolecules (typically two proteins, or one protein and one something else), one workhorse technique is a pulldown assay. We will refer to one of the proteins as the Bait, and the other as the Prey. First, you get the Bait proteinattached to a solid support.  Typically, this is done by something like fusing GST to the Bait&rsquo;s open reading frame to express a fusion protein, which can then be isolated on glutathione beads based on affinity chromatography.  You then incubate those beads with a lysate containing the Prey protein amongst other cell goop.  If there is a stable interaction, the prey will become attached to the Bait on the Bead, and upon washing it will be retained.  Finally, you elute the beads by denaturing them with detergent, and run an SDS-PAGE gel.  If there was an interaction, you should get a band for the Prey as well as the Bait.</template>
-  <template class="desc">A bait protein on a bead, a lysate washed over it, and an SDS-PAGE gel at the end: a prey band means the two interact.</template>
+  <div class="pd-stage"></div>
 </article>
 
 <!-- ---------------------------------------------------------------- 41 -->
-<article class="slide">
+<article class="slide" data-seq="formats">
   <h1>ELISA assay</h1>
-  <figure class="fig">
-    <img src="img/41-formats.png" alt="Six ELISA formats drawn as wells, three above three: direct, indirect, and signal amplification with an avidin-biotin complex; sandwich, competitive, and multiplex. In each, antibodies and antigens are stacked differently on the sticky floor of the well.">
-  </figure>
-  <template class="notes">A more high-throughput and lower detection limit option is an ELISA assay.  This makes use of MaxiSorp plates, which are 96-well plates with a sticky base.</template>
-  <template class="desc">Six ways to arrange an ELISA in a well: direct, indirect, signal-amplified, sandwich, competitive and multiplex.</template>
+  <div class="fmt-stage"></div>
 </article>
 
 <!-- ---------------------------------------------------------------- 42 -->
@@ -113,14 +106,9 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 44 -->
-<article class="slide">
+<article class="slide" data-seq="spr">
   <h1>Surface-Plasmon Resonance (SPR)</h1>
-  <figure class="fig">
-    <img src="img/44-spr.png" alt="An SPR chip: a gold film carrying immobilised bait protein, with analyte flowing across it above and binding to the bait. Below the film, polarised light from a source passes through a prism, reflects off the underside, and is read by an optical detection unit.">
-  </figure>
-  <p class="src">After iba-lifesciences.com</p>
-  <template class="notes">In SPR, you have these gold film-coated chips that you buy as a kit.  You get your Bait protein attached to the chip through affinity interactions, and then put it into a special instrument.  A common one is called a Biacore. It has a light beam bouncing off the surface of the chip. It also has a flow cell that passes your Prey sample, or a small molecule, or whatever over the surface.  If this &lsquo;analyte&rsquo; sticks to your Bait protein, the refractive index of the surface changes affecting the amount of light that reaches a detector.  The changes in the light  are proportional to the concentration of bound analyte.  SPR is usually the most quantitative technique.  You can also get kinetic information out which is rarely possible with the other methods.</template>
-  <template class="desc">A gold chip carrying bait protein, analyte flowing over it, and a light beam reading the refractive index of the surface as the analyte binds.</template>
+  <div class="spr-stage"></div>
 </article>
 
 <!-- ---------------------------------------------------------------- 45 -->
@@ -166,5 +154,8 @@
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/elisa.js" defer></script>
+<script src="seq/pulldown.js" defer></script>
+<script src="seq/formats.js" defer></script>
+<script src="seq/spr.js" defer></script>
 </body>
 </html>
