@@ -1,0 +1,117 @@
+IN VITRO ASSAYS — CONVERSION PLAN
+=================================
+140L lecture 9, and the folder is 09-in-vitro-assays to match (the
+numbering rule set with the Whole-Cell deck: from 08 on, the folder
+number IS the lecture number).  A LITERAL conversion of
+
+  ~/Library/CloudStorage/Dropbox/Courses/140L/Stanley 2026/
+    Lectures 2026 140L/2025_10_23-In vitro assays.pptx
+
+WHY IT IS A CONVERSION
+----------------------
+JCA, 21 Oct 2026: "I just remade this last year, extensively with AI,
+and I still think it is solid.  So, we are just converting this one,
+maybe some color changes, but lots to redraw."
+
+So: same slides, same order, same words, same speaker notes.  What
+changes is the presentation, and then a REDRAW pass over the borrowed
+figures.  Nothing is re-argued.
+
+THE SOURCE, AS SURVEYED
+-----------------------
+  50 slides, all of them lecture: there is NO course-admin tail to
+  leave behind, unlike the Whole-Cell deck.
+  41 slides carry speaker notes, about 4,400 words in all.
+  48 media files, no charts.
+  Slides with click builds: 6, 7, 8, 9, 13, 14, 16, 23, 26, 28, 32,
+  33, 35, 36, 38, 41.  Several of 6-9 are MOTION PATHS, molecules
+  moving between cell compartments, which is the spine of the
+  extraction story and does not survive as a plain reveal.
+
+THE SECTION SPLIT
+-----------------
+On the source deck's own divider slides.
+
+  00-front-matter.html    source  1-2    Introduction
+  01-extraction.html      source  3-9    Extraction
+  02-purification.html    source 10-18   Purification
+  03-detection.html       source 19-29   Detection
+  04-enzymatic.html       source 30-38   Enzymatic Assays
+  05-binding.html         source 39-45   Binding Assays
+
+  Source 46 ("This is Analytical Chemistry!"), 49 (the carotenoid
+  structures) and 50 ("Questions?") still need a home.
+  Source 47-48 are the four closing questions.  JCA, 21 Oct 2026:
+  distribute them to the ends of their sections, as the Whole-Cell
+  deck now does.  That is the LAST step, after the literal conversion.
+
+CONVENTIONS CARRIED OVER FROM THE WHOLE-CELL DECK
+-------------------------------------------------
+Read that deck's PLAN.txt before touching this one; it was settled the
+hard way and the same rules apply here.
+  - A NOTE IS WHAT HE SAYS.  First person, students addressed as "you",
+    no stage directions.  Source notes are verbatim; a note may be
+    SPLIT across clicks but never reworded, and the split is proved by
+    concatenating it back.
+  - SECTION DIVIDERS ARE A TITLE ON THE AMBER GROUND, with no picture.
+    A source image on a coloured ground is a white box and reads as a
+    mistake.
+  - FIGURES MUST PICTURE REAL THINGS.  No shape standing for an idea.
+  - MEASURE PAINTED WIDTH, not the <img> element: nearly every figure
+    is object-fit:contain in a flex box, so the element is as wide as
+    its column while the picture is letterboxed to the box's height.
+  - Readings invented for an illustration are labelled illustrative.
+
+THE RENDER PIPELINE
+-------------------
+  python3 docs/lectures/tools/recolour_pptx.py "<src.pptx>" <scratch>
+  cd <scratch> && soffice --headless --convert-to pdf recoloured.pptx --outdir .
+  pdftoppm -png -r 70 recoloured.pdf pages/p
+  python3 docs/lectures/tools/pptx_text.py <scratch>/raw 1 50
+
+This deck uses the grey master widely, not only on the dividers:
+source 35-38, 46 and 50 are grey as well.  Cropping a drawn figure off
+the grey render carries the grey with it, so a SECOND render with a
+white background injected is needed for those, exactly as the
+Whole-Cell deck needed (see its PLAN.txt, "HOW SECTIONS 01-05 WERE
+CROPPED").
+
+SOURCE 5-9 ARE DRAWN, NOT CROPPED
+---------------------------------
+The one place the literal pass could not be literal.  Source 7, 8 and 9
+are MOTION PATH animations: the cell's contents travel out to an Extract
+zone or down to a Debris Pellet, and WHICH contents go WHERE is the whole
+argument of each slide.  LibreOffice renders a motion-path shape where it
+STARTS, so a render of those slides is every object sitting in its home
+position with the "Extract" label lying across the cell.  There is no
+still to crop, and variants.py cannot help: it deletes shapes that arrive
+later, which captures entrances and nothing else.
+
+So the bacterium is drawn once, in seq/cell.js, and its parts move.  One
+drawing serves five slides (cell5 .. cell9).  The contents, the labels,
+the destinations and the order are the source's; the notes are verbatim.
+
+A slide that also carries a list arriving on its last click (7, 9) or a
+closing line (8) keeps that in HTML beside the stage: cell.js writes
+data-step on the slide and the section's CSS reads it, because a slide
+with data-seq has its data-build attributes ignored by deck.js.
+
+TWO DELIBERATE DEPARTURES FROM VERBATIM, both proved by concat.py:
+  source 4  the image credit ("Image from handling-solutions.eppendorf
+            .com/...") came out of the spoken note and onto the slide as
+            a .src line, which is the deck convention for credits.
+  source 9  one period moved across a click boundary.  The source reads
+            "...and precipitates <click>."; a spoken note that opens with
+            a bare period is nonsense, so the click falls after it.  The
+            concatenated text is character-identical.
+
+WHERE THIS STANDS
+-----------------
+  00-front-matter.html   source 1-2    DONE
+  01-extraction.html     source 3-9    DONE   (22 steps, audit clean)
+  02-purification.html   source 10-18  not started
+  03-detection.html      source 19-29  not started
+  04-enzymatic.html      source 30-38  not started
+  05-binding.html        source 39-45  not started
+  the four questions     source 47-48  last, after the conversion
+  source 46, 49, 50                    still need a home
