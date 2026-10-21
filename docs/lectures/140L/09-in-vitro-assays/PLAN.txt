@@ -171,15 +171,33 @@ are drawn in the same orientation and the only thing that moves between
 them is the group the enzyme put there.  That is the whole point of such
 a picture, and two independent depictions lose it.
 
-  source 32  theobromine -> caffeine, caffeine synthase, AdoMet/AdoHcy
-    python3 ../../tools/draw_reaction.py img/32-caffeine.svg \
-      "Cn1cnc2c1c(=O)[nH]c(=O)n2C" "Cn1c(=O)c2c(ncn2C)n(C)c1=O" \
-      --enzyme "caffeine synthase" --cofactor-in AdoMet --cofactor-out AdoHcy
+Every SMILES came from PubChem by name, and each structure carries its
+published molecular formula, which the tool asserts before it draws.
+The carotenoid chart's ten structures and their CIDs are in
+spec/carotenoids.json.
 
-The other borrowed chemical structures are candidates for the same
-treatment: source 25's fluorogenic substrates, source 31's p-nitrophenyl
-phosphate, source 33's ATP, source 14's guanidinium chloride and source
-49's carotenoids.
+  14  guanidinium chloride                      molecule
+  31  p-nitrophenyl phosphate -> p-nitrophenol  reaction, alkaline phosphatase
+  32  theobromine -> caffeine                   reaction, caffeine synthase
+  33  ATP, alpha phosphorus marked 32P          molecule, with alpha/beta/gamma
+  49  the ten carotenoids                       grid
+
+A FORMULA CHECK IS NOT ENOUGH, and this deck proved it.  A SMILES that
+reuses a ring-closure digit the scaffold has already opened fuses two
+rings into one macrocycle while leaving every atom and bond count
+identical, so the formula still matches and only the picture is wrong.
+That is what happened to the Whole-Cell deck's Sgal.  chemdraw.py takes
+--contains for that: assert the fragments that must really be present.
+
+RDKit's own font has no Greek letters, so its atomNote lands in the SVG
+as an empty path and nothing shows.  ATP's alpha, beta and gamma are
+drawn by the tool from the phosphorus atoms' own drawing coordinates, in
+the deck's typeface.
+
+Source 33's ATP bitmap and source 31's construct cartoon were cropped
+from the same slide as the structures they sat beside, so both crops
+carried a tail of the structure above them.  Re-cropped once the
+structures became vector.
 
 REDRAW LIST, as it stands
 -------------------------

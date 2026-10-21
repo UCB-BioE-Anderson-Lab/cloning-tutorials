@@ -9,15 +9,8 @@
 <link rel="stylesheet" href="../../deck.css">
 <style>
 .slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
-/* source 31: the chemistry and the construct on the left, the recipe right */
-.slide .case{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1.5fr 1fr;
-  grid-template-rows:minmax(0,1fr);gap:50px;align-items:center}
-.slide .case > *{min-width:0;min-height:0}
-.slide .case figure{height:100%;display:flex}
-.slide .case figure img{width:100%;height:100%;min-height:0;object-fit:contain}
-.slide .case ul{margin:0;padding-left:1.1em;list-style:none}
-.slide .case li{font-size:29px;margin:0 0 16px}
-/* source 32: the reaction, then the instrument that reads it, then the recipe */
+/* sources 31 and 32: the reaction across the top, then the thing that reads
+   it beside the recipe.  Both slides have the same shape, so they share it. */
 .slide .stack{flex:1 1 auto;min-height:0;display:grid;
   grid-template-rows:minmax(0,1.2fr) minmax(0,1.25fr);gap:16px}
 .slide .stack > *{min-width:0;min-height:0}
@@ -28,7 +21,7 @@
 .slide .stack li{font-size:27px;margin:0 0 13px}
 /* source 33: the reaction, the labelled cofactor, the plate it is read on */
 .slide .rad{flex:1 1 auto;min-height:0;display:grid;
-  grid-template-rows:minmax(0,0.8fr) minmax(0,1.1fr) minmax(0,1.2fr);gap:12px}
+  grid-template-rows:minmax(0,0.72fr) minmax(0,1.45fr) minmax(0,1.1fr);gap:12px}
 .slide .rad > *{min-width:0;min-height:0;display:flex;justify-content:center}
 .slide .rad img{max-width:100%;max-height:100%;min-height:0;object-fit:contain}
 /* source 34: one question, set large */
@@ -65,15 +58,20 @@
 <!-- ---------------------------------------------------------------- 31 -->
 <article class="slide">
   <h1>Simplest case</h1>
-  <div class="case">
+  <div class="stack">
     <figure>
-      <img src="img/31-phoa.png" alt="Above, the reaction: p-nitrophenyl phosphate plus water, over an arrow labelled alkaline phosphatase, gives p-nitrophenol and phosphate. Below, the construct that supplies the enzyme &mdash; a promoter driving the phoA gene with a His6 tag &mdash; with an arrow to a cloud labelled PhoA.">
+      <img src="img/31-pnpp.svg" alt="The reaction, drawn out: p-nitrophenyl phosphate on the left and p-nitrophenol on the right, in the same orientation so the only difference is the phosphate group. Over the arrow, alkaline phosphatase; under it, a curve taking water in and putting phosphoric acid out.">
     </figure>
-    <ul>
-      <li>Purify protein</li>
-      <li>Add reagent</li>
-      <li>Measure absorbance (fluorescence)</li>
-    </ul>
+    <div class="row">
+      <figure>
+        <img src="img/31-construct.png" alt="The construct that supplies the enzyme: a promoter drawn as a bent arrow driving the phoA gene, with a His6 tag box on its end, and an arrow from it to a cloud labelled PhoA.">
+      </figure>
+      <ul>
+        <li>Purify protein</li>
+        <li>Add reagent</li>
+        <li>Measure absorbance (fluorescence)</li>
+      </ul>
+    </div>
   </div>
   <template class="notes">Here is a simple example.   We encode the phoA gene with a C-terminal His tag on a plasmid and put it in the cell. This results in production of PhoA protein which we purify by Ni-NTA chromatography.  We then perform an enzymatic assay.  We add the chromagenic substrate p-nitrophenyl phosphate which gets hydrolyzed to p-nitrophenol which is yellow.  The color is easily quantified by photometry.  By monitoring the formation of color over time with different amounts of substrate, we can calculate parameters such as Kcat and Km for the enzyme.</template>
   <template class="desc">The easy case: a tagged enzyme, a colourless substrate it turns yellow, and three steps &mdash; purify, add reagent, read the absorbance.</template>
@@ -114,7 +112,7 @@
     <figure data-build="1"
             data-note="Suppose I want to monitor this reaction that consumes ATP."
             data-desc="The structure of ATP appears, with its alpha phosphorus marked 32P: the position the label sits on.">
-      <img src="img/33-atp.png" alt="The structure of ATP, adenine on ribose carrying three phosphates labelled alpha, beta and gamma, with the alpha phosphorus marked 32P.">
+      <img src="img/33-atp.svg" alt="The structure of ATP, adenine on ribose carrying three phosphates labelled alpha, beta and gamma, with the alpha phosphorus marked 32P.">
     </figure>
     <figure data-build="2"
             data-note="I can purchase radioactive ATP that is labeled at the alpha position with 32P.  If I dope some of this reagent into my reaction, it will be hydrolyzed to ADP.  I then separate the molecules in my sample by thin-layer chromatography.  Like the other chromatrography methods we have encountered, this one uses a stationary phase typically composed of silica gel.  You place one end of the plate in a solvent and allow it to soak into the plate.  As the solvent spreads through the plate, it will separate the compounds along the vertical axis of the plate.  Thus, the ATP and ADP will separate.  By placing the plate on a piece of radiation-sensitive film, you get an image of where the radioactive compounds came out.  Based on the density of the bands, you can calculate the degree of chemical conversion."
