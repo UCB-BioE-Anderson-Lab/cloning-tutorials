@@ -162,6 +162,25 @@ Source 33 keeps the source's three beats, but its reaction is on screen
 from the first: the source shows it from the start too, and variants.py
 could not prove that because two shapes on that slide share a name.
 
+STRUCTURES ARE REDRAWN WITH RDKIT
+---------------------------------
+tools/draw_reaction.py takes two SMILES and writes the reaction as SVG.
+It lays the PRODUCT out first and then fits the substrate onto the
+product's coordinates through their maximum common substructure, so both
+are drawn in the same orientation and the only thing that moves between
+them is the group the enzyme put there.  That is the whole point of such
+a picture, and two independent depictions lose it.
+
+  source 32  theobromine -> caffeine, caffeine synthase, AdoMet/AdoHcy
+    python3 ../../tools/draw_reaction.py img/32-caffeine.svg \
+      "Cn1cnc2c1c(=O)[nH]c(=O)n2C" "Cn1c(=O)c2c(ncn2C)n(C)c1=O" \
+      --enzyme "caffeine synthase" --cofactor-in AdoMet --cofactor-out AdoHcy
+
+The other borrowed chemical structures are candidates for the same
+treatment: source 25's fluorogenic substrates, source 31's p-nitrophenyl
+phosphate, source 33's ATP, source 14's guanidinium chloride and source
+49's carotenoids.
+
 REDRAW LIST, as it stands
 -------------------------
 Every figure in sections 02 and 03 is borrowed raster with type set for
