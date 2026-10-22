@@ -57,8 +57,11 @@ Cool the agar, add the antibiotic, pour, and mark the plates by antibiotic.
 
 ## 6. Sealing plates with parafilm
 
-Sealed plates keep in the fridge without drying out. The same wrap goes on any plate you keep
-after picking colonies.
+Sealing slows drying; it does not stop it. Seal fresh plates (or close them in a bag), store
+them upside-down at 4 °C, and label the bag with the antibiotic and the pour date. Carbenicillin
+plates are good for 4 weeks from that date. The same wrap goes on any plate you keep after
+picking colonies. See
+[Plate Hygiene and Freshness](../wetlab/transformation.md#plate-hygiene-and-freshness).
 
 [Parafilm protocol](https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/protocols/protocols/?id=parafilm_sealing_plates&autogen=1)
 

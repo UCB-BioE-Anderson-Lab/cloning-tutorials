@@ -85,6 +85,61 @@ Note: You will not make your own competent cells. We prepare large batches once 
 
 ---
 
+### Plate Hygiene and Freshness
+
+A petri dish is not a shelf-stable reagent. Before you plate, check that the plate you are about
+to use is still good. A bad plate costs you a day and can give you colonies that do not carry
+your plasmid.
+
+**How long fresh plates keep.** Plates are stored **sealed, upside-down, at 4 °C**, in a bag
+labeled with the **antibiotic and the pour date**.
+
+- **Carbenicillin plates: use within 4 weeks of the pour date.** Throw them out at 6 weeks no
+  matter how they look.
+- **Ampicillin plates: use within 2 weeks.** Ampicillin breaks down faster than carbenicillin.
+- A bag with no pour date on it is treated as expired.
+
+*Why that number:* standard cloning practice puts β-lactam (amp/carb) plates at about one month
+at 4 °C. Carbenicillin is more stable than ampicillin, so it gets the longer window.
+
+**Contamination spreads through a bag.**
+
+- If **one** plate in a bag is contaminated, the others are at risk. Mold spores and bacteria
+  move between plates in the bag, and they keep growing slowly in the fridge. The longer a bag
+  sits, the more contaminated it gets.
+- If you see **any** growth on an unused plate, treat the whole bag as suspect. Don't use its
+  plates, and tell whoever pours plates.
+- Take out only the plates you need and close the bag right away. **Do not put unused plates
+  back** once they have been at the bench.
+- Keep plates **upside-down** so condensation drips onto the lid, not onto the agar.
+
+**Plates dry out.**
+
+- Plates must be wrapped in **saran wrap**, sealed with **parafilm**, or kept in a **closed
+  bag**. Even then they slowly dry out. Sealing slows drying; it does not stop it.
+- **Signs a plate is too dry:** the agar **pulls away from the side** of the dish, shrinks or
+  cracks, or turns a **darker brown**. Cells grow poorly on it, colonies come up small, and
+  the antibiotic is more concentrated than intended. Throw it out.
+
+**Antibiotics are unstable.**
+
+- Ampicillin and carbenicillin break down over time, and faster when warm. A plate left out on
+  the bench ages quickly — put plates back in the fridge.
+- **What an old plate looks like:** lots of **satellite colonies** (small colonies crowded
+  around a real one, growing where the antibiotic has been used up), or growth on a plate
+  that should have none. On a plate with weakened antibiotic, colonies without your plasmid
+  can survive.
+
+**After your plates have grown.**
+
+- Grown plates go in the **culture fridge**, not back with the fresh plates. Wrap them in
+  parafilm and store them upside-down.
+- They still dry out, and the cells on them die. **Expect 1–2 weeks** even when wrapped.
+- **A grown plate is a record, not storage.** To keep a clone, restreak it onto a fresh plate
+  or make a glycerol stock at −80 °C.
+
+---
+
 ### Plating
 
 Plating is done with **sterile glass beads** at one of the lab's **two sterile benches**.
@@ -182,6 +237,14 @@ you whether the DNA, the cells or the plates failed. See
   <label><input type="checkbox" name="q5" value="d"> Vortex competent cells vigorously</label><br>
   <p id="transformation_res_q5"></p>
 
+  <h3>6️⃣ Plate Freshness</h3>
+  <p>You find a bag of carbenicillin plates in the fridge. The bag says it was poured 7 weeks ago. One plate in the bag has a fuzzy spot, and on some plates the agar has pulled away from the side of the dish. What should you do?</p>
+  <label><input type="radio" name="q6" value="a"> Use the plates that look clean; only the fuzzy one is contaminated</label><br>
+  <label><input type="radio" name="q6" value="b"> Use them, but add extra cells to make up for the old plates</label><br>
+  <label><input type="radio" name="q6" value="c"> Don't use any plate from the bag, and tell whoever pours plates</label><br>
+  <label><input type="radio" name="q6" value="d"> Re-wrap the bag in parafilm and use it next week</label><br>
+  <p id="transformation_res_q6"></p>
+
   <button type="button" id="transformation_submit_btn">Check Answers</button>
 </form>
 
@@ -191,10 +254,11 @@ you whether the DNA, the cells or the plates failed. See
       q1: "b",
       q2: "b",
       q3: "b",
-      q4: "b"
+      q4: "b",
+      q6: "c"
     };
 
-    ["q1", "q2", "q3", "q4"].forEach(function (q) {
+    ["q1", "q2", "q3", "q4", "q6"].forEach(function (q) {
       const selected = document.querySelector(`input[name="${q}"]:checked`);
       const result = document.getElementById(`transformation_res_${q}`);
       if (selected && selected.value === answers[q]) {

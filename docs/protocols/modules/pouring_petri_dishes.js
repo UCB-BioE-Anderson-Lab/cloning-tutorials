@@ -57,6 +57,7 @@ export function factory(values = {}) {
 2. **Pour ~25 mL** per plate (about **3/16 inch** thick). You can also watch for the moment the added volume **breaks surface tension and spreads** to fill the plate—this is a practical visual cue for the right amount.  
 3. If bubbles form, hold the burner by the base and briefly **pass the flame** over the surface to pop them.  
 4. **Replace lids** and set plates aside to **solidify**. Turn off the flame when finished.
+5. Once set, **bag or seal** the plates, store them **upside-down at 4 °C**, and label the bag with the **antibiotic and the pour date**. Carbenicillin plates are good for **4 weeks**, ampicillin plates for **2 weeks**.
 
 **Marking conventions (common codes)**
 - **Carbenicillin/Ampicillin:** red stripes on side; “A”, “Amp”, or “Carb” on plate bottom  

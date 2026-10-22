@@ -68,7 +68,10 @@ into each tube. It is not always carbenicillin.
 **Step 5:** Cover the tube — caps on loosely, so the culture can breathe — and grow in the
 shaking incubator for **16–36 h**. Refrigerate by **36 h**; past that the cultures overgrow.
 
-**Step 6:** Wrap the agar plate with parafilm and place it upside-down in the fridge for recordkeeping.
+**Step 6:** Wrap the agar plate with parafilm and place it upside-down in the culture fridge for recordkeeping.
+The plate is a record, not a stock: the cells on it last **1–2 weeks** even when wrapped. To keep
+a clone longer, restreak it or make a glycerol stock. See
+[Plate Hygiene and Freshness](./transformation.md#plate-hygiene-and-freshness).
 
 <div class="lab-video" data-video="parafilm"></div>
 

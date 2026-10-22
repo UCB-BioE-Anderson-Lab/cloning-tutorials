@@ -113,8 +113,8 @@ ${overflow}
 5. **Cover.** Tubes: their caps, loosely, so they can breathe. Block: the **airpore sheet**.
 6. Grow in the **shaking incubator**, **${GROW_MIN_H}–${GROW_MAX_H} h**. Refrigerate by
    **${GROW_MAX_H} h** — past that the cultures overgrow.
-7. **Wrap the plates with parafilm** and store them **upside-down in the fridge**. You may need
-   to go back to them.
+7. **Wrap the plates with parafilm** and store them **upside-down in the culture fridge**. You may need
+   to go back to them within **1–2 weeks**; after that the cells die. A plate is a record, not storage.
 `
   };
 }
