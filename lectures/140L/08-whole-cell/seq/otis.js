@@ -15,7 +15,7 @@
  * the deck it is a white slide of its own straight after that card, the
  * art at full slide height with the title laid over it (JCA, 18 Oct
  * 2026).  The white plate below is now invisible on the white slide and
- * is kept so the file still works on a coloured ground.
+ * is kept so the file still works on a colored ground.
  *
  * The art is AI-generated (ChatGPT) line art, traced with lineart-trace;
  * built outside the repo in ~/Downloads/demoanimation, whose README and

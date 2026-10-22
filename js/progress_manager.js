@@ -326,7 +326,7 @@ function sortSignableArrays(signable) {
               "gel": ["gel_q1", "gel_q2", "gel_q3"],
               "cleanup": ["cleanup_q1", "cleanup_q2", "cleanup_q3"],
               "assembly": ["assembly_q1", "assembly_q2"],
-              "transformation": ["transformation_q1", "transformation_q2", "transformation_q3", "transformation_q4", "transformation_q5"],
+              "transformation": ["transformation_q1", "transformation_q2", "transformation_q3", "transformation_q4", "transformation_q5", "transformation_q6"],
               "pick": ["pick_q1", "pick_q2", "pick_q3"],
               "miniprep": ["miniprep_q1", "miniprep_q2"],
               "sequencing": ["sequencing_q1", "sequencing_q2", "sequencing_q3", "sequencing_q4"],

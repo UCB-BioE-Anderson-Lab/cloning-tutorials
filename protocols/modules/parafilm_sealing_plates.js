@@ -26,10 +26,13 @@ export function factory() {
    - When the strip overlaps the starting point, **pull it off the roll** and press the end down firmly to seal it to itself.
 
 5. **Inspect.**
-   - Ensure the seal is smooth and continuous around the plate. This prevents the plate from drying out, helps the lid stay in place if dropped, and keeps condensation and contents contained.
+   - Ensure the seal is smooth and continuous around the plate. This slows drying (it does not stop it), helps the lid stay in place if dropped, and keeps condensation and contents contained.
 
 6. **Storage.**
-   - Store the sealed plates **inverted in the refrigerator**. They remain stable for about **1–2 weeks**.
+   - Store the sealed plates **inverted in the refrigerator**.
+   - **Fresh (unused) carbenicillin plates:** use within **4 weeks** of the pour date; ampicillin plates within **2 weeks**.
+   - **Plates with grown colonies:** the cells last about **1–2 weeks**. A plate is a record, not storage; restreak or make a glycerol stock to keep a clone.
+   - Too dry to use: agar pulling away from the side, shrinking, or turning darker brown.
    - ⚠️ *Do not Parafilm plates that will be incubated* — cells need airflow to grow properly.
 
 `; 

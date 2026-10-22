@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Purification &ndash; In vitro Assays</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* a figure that is the whole slide */
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 13: the question, then the answer and the kit arrive together */
+.slide .qa{flex:1 1 auto;min-height:0;display:grid;grid-template-rows:auto auto minmax(0,1fr);
+  gap:10px 0}
+.slide .qa p.ask{font-size:38px;line-height:1.3;margin:0;max-width:34ch}
+.slide .qa p.yes{font-size:38px;font-weight:700;color:var(--blue);margin:0}
+.slide .qa figure{min-height:0;display:flex;justify-content:flex-start}
+.slide .qa img{max-width:100%;max-height:100%;object-fit:contain}
+/* source 14: the binding chemistry on the left, the reagent and the kit
+   range on the right, the range arriving on the click */
+.slide .kits{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1.25fr 1fr;
+  grid-template-rows:minmax(0,1fr);gap:40px;align-items:stretch}
+.slide .kits > *{min-width:0;min-height:0}
+.slide .kits figure.left{height:100%;display:flex}
+.slide .kits figure.left img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide .kits .right{display:flex;flex-direction:column;justify-content:center;gap:16px}
+.slide .kits .gcl{display:flex;align-items:center;gap:20px}
+.slide .kits .gcl img{height:250px;width:auto}
+.slide .kits .gcl b{font-size:28px}
+.slide .kits h2{font-size:27px;color:var(--blue);margin:0 0 6px}
+.slide .kits ul{margin:0;padding-left:1.1em}
+.slide .kits li{font-size:25px;color:var(--blue);margin:0 0 5px}
+/* source 16: the column cartoon beside the ligand table */
+.slide table.lig{border-collapse:collapse;font-size:26px}
+.slide table.lig th{text-align:left;font-weight:700;padding:5px 34px 5px 0;white-space:nowrap;
+  border-bottom:1px solid var(--rule)}
+.slide table.lig td{padding:5px 34px 5px 0;color:var(--blue);white-space:nowrap}
+/* source 17: the protocol and the tag on the left, the chelate on the right */
+.slide .imac p.def{font-size:26px;margin:0 0 10px}
+.slide .imac img.tag{width:100%;max-width:560px;height:auto;margin:0 0 18px}
+.slide .imac li{font-size:27px;margin:0 0 9px}
+.slide .imac figure{flex:1 1 auto;height:100%;display:flex;min-height:0}
+.slide .imac figure img{width:100%;height:100%;min-height:0;object-fit:contain}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 10 -->
+<article class="slide" data-bg="section">
+  <h1>Purification</h1>
+  <template class="notes">From the complex soup resulting from extraction, often it is necessary to purify further a fraction.  This is most commonly true with proteins.</template>
+  <template class="desc">Section divider: Purification.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 11 -->
+<article class="slide">
+  <h1>Chromatography</h1>
+  <figure class="fig">
+    <img src="img/11-column.png" alt="A column of solid matrix above a porous plug, drawn five times across a time axis. The sample is applied as a dark band at the top; solvent runs continuously through from a reservoir; the band resolves into a red and a green band that travel down at different speeds; each is collected into its own test tube as it drips off the bottom.">
+  </figure>
+  <template class="notes">There are a large number of methods used to do purification.  Chromatographic methods are some of the most popular.  Here, you pack a column with a resin that will separate the components of your sample as they travel through. You load the sample at the top of the column, then pass solvent through the column to wash it through. By collecting samples at different time points coming off the column, different chemicals will come out in different bins.  There are many different chromatography methods.</template>
+  <template class="desc">A packed column run over time: one loaded band separates into two that elute at different times and are collected into separate tubes.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 12 -->
+<article class="slide">
+  <h1>Anion Exchange Chromatography</h1>
+  <figure class="fig">
+    <img src="img/12-anion.png" alt="Three panels. In the first, a mix of positively and negatively charged amino acids flows down between two walls of immobilised positive charges. In the second, the negatively charged ones have stuck to those walls while the positive ones keep moving. In the third, the positive ones have run off the bottom, leaving the negative ones held on the surface.">
+  </figure>
+  <p class="src">After <i>Ion Chromatography</i>, Skoog et al., chem.libretexts.org</p>
+  <template class="notes">What determines the type of separation and degree of separation is the chemistry of the solid support and the mobile phase solution.  If you have a positively charged solid support, such as beads coated with amino groups, negatively charged chemicals will be impeded as they move through the column and thus come out later than the positively charged ones.  You call this anion exchange chromatography.  There is also cation exchange chromatography where you put negative charges like carboxylate groups on the beads. Sometimes, this binding is transient and some compounds come off a little later than others.  However, if the retention is strong enough, this essentially becomes Boolean where the negatively charged species are stuck on the column and you can essentially wash indefinitely without the compound coming off.  In these cases, you can get the substance very clean because you can extensively wash out the other species.  To elute the negatively charged species off, you can change the mobile phase to a salty solution, or perhaps play with the pH, or switch to a different solvent to knock them off.</template>
+  <template class="desc">Charged amino acids flowing past an immobilised positively charged surface: the negatively charged ones are retained, the positively charged ones wash through.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 13 -->
+<article class="slide">
+  <h1>Purify plasmids</h1>
+  <div class="qa">
+    <p class="ask">Could I use anion exchange chromatography to purify DNA?</p>
+    <p class="yes" data-build="1"
+       data-note="Yes, the Qiagen Midi and Maxi kit is different from your miniprep kits &ndash; it is based on anion exchange binding at low pH, and then later eluting at neutral pH but high salt.  The solutions have been optimized to get the DNA efficiently and selectively bound, and later selectively releasing it."
+       data-desc="The answer: yes. A photograph of the Qiagen plasmid midi kit appears &mdash; its box, its buffer bottles and a rack of columns.">Yes.</p>
+    <figure data-build="1">
+      <img src="img/13-kit.png" alt="A photograph of a Qiagen plasmid purification kit laid out: the printed box, half a dozen reagent bottles of different sizes, a row of disposable columns and their caps.">
+    </figure>
+  </div>
+  <template class="notes">You have just seen how anion exchange works, and DNA is about as negatively charged as a molecule gets.  Take a second and decide what you think the answer is.</template>
+  <template class="desc">A question: could anion exchange chromatography be used to purify DNA?</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 14 -->
+<article class="slide">
+  <h1>QIAPrep and Zymo Purification</h1>
+  <div class="kits">
+    <figure class="left">
+      <img src="img/14-silica.png" alt="A spin column drawn beside a magnified view of its silica surface: wavy lines of linked Si-O groups, protonated at the top so that a DNA double helix sits against them, with sodium ions bridging to the deprotonated groups below.">
+    </figure>
+    <div class="right">
+      <p class="gcl"><img src="img/14-guanidinium.svg" alt="The structure of guanidinium chloride: a central carbon double-bonded to a positively charged NH2 and single-bonded to two more NH2 groups, with a chloride counter-ion."><b>Guanidinium Chloride</b></p>
+      <div data-build="1"
+           data-note="There are Qiagen kits based on this chemical principle for isolating pretty much any type of DNA or RNA from any type of sample.  They each have slightly different protocols and reagents, but it all comes in optimized kits."
+           data-desc="A list appears of the sample types Qiagen sells a kit for: plasmid DNA, genomic DNA, total RNA, small RNA, environmental microbe DNA, blood RNA, and DNA in gels.">
+        <h2>There are Qiagen protocols for:</h2>
+        <ul>
+          <li>Plasmid DNA</li>
+          <li>Genomic DNA</li>
+          <li>Total RNA</li>
+          <li>Small RNA</li>
+          <li>Environmental microbe DNA</li>
+          <li>Blood RNA</li>
+          <li>DNA in gels</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <template class="notes">When we talked about miniprepping earlier we discussed that most DNA purification methods involve a silica resin that forms a special complex with the DNA and guanidinium chloride.  These are eluted ultimately in pure water, so they are much faster, but actually not as clean as the anion exchange approach.</template>
+  <template class="desc">A spin column and, magnified, the silica surface it is packed with: DNA held against the charged Si-O network, with guanidinium chloride drawn beside it as the reagent that makes the complex form.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 15 -->
+<article class="slide">
+  <h1>Size Exclusion Chromatography</h1>
+  <figure class="fig">
+    <img src="img/15-sec.png" alt="Two panels. On the left, a column packed with porous beads, with one bead magnified to show particles small enough to enter its pores and particles too large to. On the right, a chromatogram of signal against elution volume with three peaks, the largest particle eluting first and the smallest last.">
+  </figure>
+  <template class="notes">Another way to separate chemicals is by their size.  In size exclusion chromatography the solid phase is a bead with pores in its surface.  As the sample moves through, the smaller molecules can get into these little pores more so than larger molecules.  Thus, the smaller compounds spend more time associated with the stationary phase and elute later.</template>
+  <template class="desc">A column of porous beads and the chromatogram it produces: the larger a particle, the less of the bead interior it can reach, and the earlier it comes off.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 16 -->
+<article class="slide">
+  <h1>Affinity Chromatography</h1>
+  <div class="cols wide-left">
+    <figure class="fig">
+      <img src="img/16-affinity.png" alt="A spin column of resin whose beads carry an immobilised ligand, magnified to show the target protein caught on it while non-specific proteins are not. Three stages run left to right: load, wash, elute, with the flow-through collected in a tube beneath each.">
+    </figure>
+    <table class="lig" data-build="1"
+           data-note="Examples of ligands are antibodies and antigens, or you could flip that around and have the antigen on the support.  Lectins are proteins that bind to carbohydrates, GST binds glutathione-coated beads (glutathione is a small molecule), Chitin binding domain and cellulose binding domain are proteins that bind to the polysaccharides chitin and cellulose, respectively.  They are small protein domains and are often fused to the gene of interest."
+           data-desc="A table of ligand and target pairs: antibody with antigen or epitope, lectin with carbohydrates, glutathione with glutathione S-transferase, chitin with chitin binding domain, cellulose with cellulose binding domain.">
+      <tr><th>Ligand</th><th>Target</th></tr>
+      <tr><td>Antibody</td><td>Antigen/Epitope</td></tr>
+      <tr><td>Lectin</td><td>Carbohydrates</td></tr>
+      <tr><td>Glutathione</td><td>Glutathione S-transferase</td></tr>
+      <tr><td>Chitin</td><td>Chitin Binding Domain</td></tr>
+      <tr><td>Cellulose</td><td>Cellulose Binding Domain</td></tr>
+    </table>
+  </div>
+  <template class="notes">In affinity chromatography, you have a stationary phase bound to some ligand.  That ligand is something that will bind through intermolecular interactions with some target protein (or RNA, or complex, or whatever).  You pass a complex mixture, such as a cell lysate, over the column, and the target gets bound to the support.  Everything else is washed through leaving the target on the support in mobile phase buffer.  You then elute the column by changing the composition of the buffer.  Often this is done by adding more of the ligand in solution, which can compete off the protein.  Other times, you can do it with a pH shift.</template>
+  <template class="desc">A resin carrying an immobilised ligand, run through load, wash and elute: the target protein is held while everything else passes through.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 17 -->
+<article class="slide imac">
+  <h1 class="small">His-TAG Purification on Ni-NTA (IMAC)</h1>
+  <div class="cols wide-left">
+    <div>
+      <p class="def">His6-Tag = HHHHHH (6 histidines in a row, on N or C terminus)</p>
+      <img class="tag" src="img/17-tag.png" alt="A gene drawn as a bar: a short red segment labeled HIS-TAG at the left end, fused to a long green segment labeled DNA encoding Protein.">
+      <ul>
+        <li>Spin down and lyse cells, spin out debris</li>
+        <li>Bind to Ni-NTA resin</li>
+        <li>Wash away unbound material</li>
+        <li>Elute in Imidazole</li>
+        <li>Dialyze out the imidazole</li>
+      </ul>
+    </div>
+    <figure class="fig">
+      <img src="img/17-nta.png" alt="The chemistry of the resin: a bead joined by a linker to a nitrilotriacetic acid group whose carboxylates and nitrogen chelate a nickel ion, with the remaining coordination sites taken by the imidazole rings of a run of histidines.">
+    </figure>
+  </div>
+  <template class="notes">The most common thing to do is His-TAG, which is more generally called immobilized metal affinity chromatography (IMAC). In IMAC, the stationary phase consists of a metal ion (such as nickel, cobalt, or zinc) held by a chelator that is covalently attached to a solid support (such as agarose beads or magnetic beads). The His-tagged protein of interest is then bound to the metal ion through coordination with the histidine residues in the His-tag. Nearly every protein in the lysate has a histidine somewhere, but one histidine binds the nickel too weakly to be retained.  It is the six in a row that hold on, and everything else is removed in the wash steps. The His-tagged protein is then eluted from the column using a buffer that disrupts the interaction between the metal ion and the histidine residues, such as imidazole or EDTA.</template>
+  <template class="desc">A six-histidine tag fused to the gene of interest, and the nickel-NTA chelate that holds it: the five-step purification runs alongside, from lysis through binding, washing, imidazole elution and dialysis.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 18 -->
+<article class="slide">
+  <h1>Solid-Phase Extraction</h1>
+  <figure class="fig">
+    <img src="img/18-spe.png" alt="Six cartridges in a row. The first is conditioned with a nonpolar solvent; the second is loaded with a black three-dye mixture; the next three are washed and eluted with progressively more polar solvents, releasing a yellow, then a blue, then a red dye into separate collections; the last is the spent cartridge, discarded.">
+  </figure>
+  <p class="src">After Waters, <i>Beginner&rsquo;s Guide to SPE</i>, waters.com</p>
+  <template class="notes">Solid phase extraction (SPE) is a chromatographic technique used for the isolation and purification of small molecules from complex mixtures. In SPE, a solid phase (such as silica gel, activated carbon, or polystyrene) is packed into a column and used to selectively adsorb the target small molecules from a sample. The unwanted components are then washed away, and the target molecules are eluted from the column using an appropriate solvent.</template>
+  <template class="desc">A cartridge run through condition, load, and three elutions of increasing solvent strength: a three-dye mixture comes off one color at a time.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

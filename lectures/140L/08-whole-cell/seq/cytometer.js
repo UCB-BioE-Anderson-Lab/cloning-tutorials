@@ -128,9 +128,9 @@ window.Deck.sequence("cytometer", function(slide){
   el("rect", { x:570, y:BY - 16, width:10, height:32, fill:INK }, laserG);      // the beam stop
 
   /* ---- detectors ---- */
-  function detector(parent, x, y, label, sub, colour){
+  function detector(parent, x, y, label, sub, color){
     const g = el("g", {}, parent);
-    const box = el("rect", { x:x, y:y, width:84, height:48, rx:6, fill:colour, "fill-opacity":0,
+    const box = el("rect", { x:x, y:y, width:84, height:48, rx:6, fill:color, "fill-opacity":0,
                              stroke:INK, "stroke-width":LINE }, g);
     text(g, x + 42, y + 33, label, { size:26, weight:700 });
     text(g, x + 42, y + 78, sub, { size:24, fill:MUTED });

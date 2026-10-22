@@ -6,7 +6,7 @@
  *      absorbance from how much gets through
  *   1  cells and a caged, colourless substrate; the cells' enzyme
  *      uncages it, the yellow forms and absorbs the 420 nm light:
- *      enzyme activity read as colour
+ *      enzyme activity read as color
  *   2  the cells also scatter light out of the beam: the reading is
  *      absorbance plus scattering, added
  *   3  at 600 nm the yellow does not absorb: what is left is scattering,
@@ -19,7 +19,7 @@
  * properly with its two fields and its ratio.  No sentence of the source
  * note was dropped: the fourteen are redistributed over four steps.
  *
- * Drawn here, in the manner of seq/cytometer.js on slide 14.  Colours
+ * Drawn here, in the manner of seq/cytometer.js on slide 14.  Colors
  * stay in the palette: 420 nm light is blue, 600 nm light vermillion,
  * the yellow of o-nitrophenol amber; cells and apparatus ink.
  *
@@ -77,7 +77,7 @@ const STEPS = [
     desc:"A spectrophotometer drawn in outline: a lamp, a filter that passes one wavelength, 420 nanometres, a cuvette of clear liquid, and a detector. The beam goes in at full strength, I zero, and comes out at full strength, I. The reading is an absorbance of 0.00." },
   { s:{ wl:0, yellow:1, cells:8, subs:1, uncage:1, scat:0, A:0.92, parts:0 },
     note:"This measurement requires the use of a chromophore, which means a molecule that absorbs light.  A very common chromophore for such experiments is o-nitrophenol which turns yellow.  Cells don\u2019t absorb much yellow light, thus there is little competing signal at this wavelength.  Typically o-nitrophenol will be caged with another molecule like phosphate or galactose that prevents the molecule from absorbing light.  An enzyme like alkaline phosphatase or galactosidase can release the alcohol and color results.  Thus, the activity of the enzyme in the cell can be monitored by watching the formation of yellow color.",
-    desc:"The cuvette fills with cells and with a colourless substrate, drawn as small hexagons each carrying a cage. The cells\u2019 enzyme takes the cages off, the hexagons turn yellow, the liquid yellows with them, and the beam leaving the cuvette thins as the 420 nanometre light is absorbed. The absorbance climbs to 0.92: the enzyme\u2019s activity read as colour." },
+    desc:"The cuvette fills with cells and with a colourless substrate, drawn as small hexagons each carrying a cage. The cells\u2019 enzyme takes the cages off, the hexagons turn yellow, the liquid yellows with them, and the beam leaving the cuvette thins as the 420 nanometre light is absorbed. The absorbance climbs to 0.92: the enzyme\u2019s activity read as color." },
   { s:{ wl:0, yellow:1, cells:8, subs:1, uncage:1, scat:1, A:0.92, parts:1 },
     note:"Scattering is a related phenomenon in which light bounces off a particle at a different angle than its incident vector. Experimentally, scattering is measured the same way as absorbance though it is a distinct phenomenon.  In spectrometric measurements of cells, the scattering signal will be superimposed over the absorbance signal, and the two signals are additive.",
     desc:"Short rays of light bounce off the cells at angles, away from the detector. The reading is split: 0.80 from absorbance by the yellow product plus 0.12 from scattering by the cells, adding to 0.92." },

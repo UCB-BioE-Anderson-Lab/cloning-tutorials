@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Extraction &ndash; In vitro Assays</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* a section divider's epigraph, as the source deck set it */
+.slide[data-bg="section"] p.epigraph{font-style:italic;font-size:30px;line-height:1.4;
+  margin:40px 0 0;max-width:32ch;color:rgba(0,0,0,.78)}
+/* source 4: the tube on the left, what each fraction holds on the right */
+.slide .spin{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:300px 1fr;
+  grid-template-rows:minmax(0,1fr);gap:60px;align-items:stretch;margin-bottom:40px}
+.slide .spin > *{min-width:0;min-height:0}
+.slide .spin figure{height:100%;min-height:0;display:flex}
+.slide .spin img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide .spin > div{display:flex;flex-direction:column;justify-content:center}
+.slide .spin h2{font-size:32px;color:var(--blue);margin:0 0 10px}
+.slide .spin ul{margin:0 0 42px;padding-left:1.1em}
+.slide .spin ul:last-child{margin-bottom:0}
+.slide .spin li{font-size:27px;line-height:1.35;margin:0 0 7px}
+/* sources 5-9: one drawn cell, driven by seq/cell.js.  Where a slide also
+   carries a list that arrives on its last click, the stage shares the row
+   with it; cell.js writes data-step on the slide and the list reads it. */
+.slide .cellrow{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr;
+  gap:40px;align-items:center}
+.slide .cellrow.aside{grid-template-columns:1fr 290px}
+.slide .cellrow > *{min-width:0;min-height:0}
+.slide .cell-stage{height:100%;display:flex;flex-direction:column;justify-content:center}
+.slide ul.meth{margin:0;padding-left:1.1em;list-style:none}
+.slide ul.meth li{font-size:26px;line-height:1.3;margin:0 0 12px}
+.slide .late{opacity:0;transition:opacity .4s ease}
+.slide[data-step="2"] .late.k2,.slide[data-step="3"] .late.k3,
+.slide[data-step="5"] .late.k5{opacity:1}
+.slide p.rnase{font-size:27px;line-height:1.35;margin:0}
+@media (prefers-reduced-motion:reduce){.slide .late{transition:none}}
+.slide.ask p.q{font-size:36px;font-weight:700;line-height:1.35;margin:26px 0 0;max-width:46ch}
+/* source 49: the carotenoid structures, on their own white ground &mdash;
+   a bitmap with a white background on the amber ask slide reads as a hole */
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+</style>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- 3 -->
+<article class="slide" data-bg="section">
+  <h1>Extraction</h1>
+  <p class="epigraph">If people have studied it, there must be some way to isolate and detect it</p>
+  <template class="notes">During extraction you are releasing fractions of the cell and collecting them in solution by centrifugation.</template>
+  <template class="desc">Section divider: Extraction. Beneath it, the line &ldquo;If people have studied it, there must be some way to isolate and detect it.&rdquo;</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 4 -->
+<article class="slide">
+  <h1>Spin down the cells</h1>
+  <div class="spin">
+    <figure>
+      <img src="img/04-tube.png" alt="A capped centrifuge tube after a spin: a tall pale pink column of supernatant above a small dark red pellet packed into the conical bottom.">
+    </figure>
+    <div>
+      <h2>Supernatant</h2>
+      <ul>
+        <li>Unconsumed media compounds (sugars, salts, etc.)</li>
+        <li>Secreted metabolites</li>
+        <li>Freely permeable metabolites (i.e. acetaminophen)</li>
+        <li>Secreted proteins</li>
+        <li>Secreted polysaccharides</li>
+      </ul>
+      <h2>Cell Pellet</h2>
+      <ul>
+        <li>Whole intact cells</li>
+        <li>Everything in or associated with the cells</li>
+      </ul>
+    </div>
+  </div>
+  <p class="src">Tube after Eppendorf, <i>Basics in Centrifugation</i>, handling-solutions.eppendorf.com</p>
+  <template class="notes">The first thing you can do is spin down the cells with a centrifuge.  This leaves behind a cell pellet composed of intact cells, and a liquid supernatant.  That supernatant contains the materials that were fed originally to the cells as well as anything that they modified or secreted.  You can decant off the supernatant leaving behind a cell pellet.  That is our simplest type of extraction.</template>
+  <template class="desc">A spun tube, with what ends up in each of its two fractions listed beside it: the supernatant holds unconsumed media, secreted and freely permeable metabolites, secreted proteins and polysaccharides; the pellet holds the whole intact cells and everything in or on them.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 5 -->
+<article class="slide" data-seq="cell5">
+  <h1>What&rsquo;s in a cell?</h1>
+  <div class="cellrow aside"><div class="cell-stage"></div><div></div></div>
+  <template class="notes">We understand the general structure of these cells as being a cytoplasm enclosed by an inner membrane, which is supported by a crosslinked gel of peptidoglycan in the periplasm, and then an outer membrane encompassing the periplasm.</template>
+  <template class="desc">A bacterium in cross-section, with its four compartments named: outer membrane, periplasm, inner membrane, cytoplasm.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 6 -->
+<article class="slide" data-seq="cell6">
+  <h1>What&rsquo;s in a cell?</h1>
+  <div class="cellrow aside"><div class="cell-stage"></div><div></div></div>
+</article>
+
+<!-- ----------------------------------------------------------------- 7 -->
+<article class="slide" data-seq="cell7">
+  <h1>Cell lysis: Sonication</h1>
+  <div class="cellrow aside">
+    <div class="cell-stage"></div>
+    <ul class="meth late k2">
+      <li>Osmotic Shock</li>
+      <li>Freeze/Thaw</li>
+      <li>Lysozymes</li>
+      <li>BugBuster detergent</li>
+      <li>Bead Milling</li>
+      <li>French Press</li>
+    </ul>
+  </div>
+</article>
+
+<!-- ----------------------------------------------------------------- 8 -->
+<article class="slide" data-seq="cell8">
+  <h1>Denaturing methods: Alkaline lysis</h1>
+  <div class="cellrow aside">
+    <div class="cell-stage"></div>
+    <p class="rnase late k5">If also add RNAse A, the RNA is degraded and removed too</p>
+  </div>
+</article>
+
+<!-- ----------------------------------------------------------------- 9 -->
+<article class="slide" data-seq="cell9">
+  <h1>Small molecule extraction: Methanol</h1>
+  <div class="cellrow aside">
+    <div class="cell-stage"></div>
+    <ul class="meth late k3">
+      <li>Acetone</li>
+      <li>Toluenization</li>
+      <li>Chloroform-Methanol</li>
+      <li>Bligh-Dyer method</li>
+    </ul>
+  </div>
+</article>
+
+
+<!-- ---------------------------------------------------------------- 49 -->
+<article class="slide">
+  <h1>The carotenoids</h1>
+  <figure class="fig">
+    <img src="img/49-carotenoids.svg" alt="A chart of the carotenoids. On the left the carotenes &mdash; lycopene and beta-carotene &mdash; pure hydrocarbon chains of conjugated double bonds. On the right the xanthophylls: violaxanthin, zeaxanthin, astaxanthin, spirilloxanthin, neoxanthin, lutein, fucoxanthin and canthaxanthin, the same backbones carrying oxygen.">
+  </figure>
+  <template class="notes">Lutein is one of these.  The carotenoids split in two: the carotenes are pure hydrocarbon, and the xanthophylls are the same backbones carrying oxygen.  Lutein is a xanthophyll, and that matters for the next slide &mdash; those two hydroxyls make it less hydrophobic than beta-carotene, which changes what you extract it with.</template>
+  <template class="desc">The carotenoid family: the carotenes are pure hydrocarbon, the xanthophylls are the same backbones carrying oxygen. Lutein is one of the xanthophylls.</template>
+</article>
+
+<!-- --------------------------------------------------- 48, question 1 -->
+<article class="slide ask" data-bg="section">
+  <h1>Question to ponder</h1>
+  <p class="q">I&rsquo;ve constructed a &ldquo;yellow pigment device&rdquo; that makes lutein.  My cells are turning yellow.  What type of experiment should I do to characterize my device?</p>
+  <template class="notes">You&rsquo;ll want to confirm that the yellowness is indeed lutein, and probably quantify how much of it you are making.  You would do some sort of extraction, such as a methanolic extraction.  Since this compound is very hydrophobic and similar to carotene in structure, you might instead use something like acetone.  You can then do LCMS to quantify and detect it.</template>
+  <template class="desc">Question to ponder, on the amber ground: a yellow pigment device makes lutein and the cells have turned yellow. What experiment characterizes the device?</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/cell.js" defer></script>
+</body>
+</html>

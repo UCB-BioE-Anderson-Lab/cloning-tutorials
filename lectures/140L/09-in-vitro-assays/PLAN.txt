@@ -1,0 +1,367 @@
+IN VITRO ASSAYS — CONVERSION PLAN
+=================================
+140L lecture 9, and the folder is 09-in-vitro-assays to match (the
+numbering rule set with the Whole-Cell deck: from 08 on, the folder
+number IS the lecture number).  A LITERAL conversion of
+
+  ~/Library/CloudStorage/Dropbox/Courses/140L/Stanley 2026/
+    Lectures 2026 140L/2025_10_23-In vitro assays.pptx
+
+WHY IT IS A CONVERSION
+----------------------
+JCA, 21 Oct 2026: "I just remade this last year, extensively with AI,
+and I still think it is solid.  So, we are just converting this one,
+maybe some color changes, but lots to redraw."
+
+So: same slides, same order, same words, same speaker notes.  What
+changes is the presentation, and then a REDRAW pass over the borrowed
+figures.  Nothing is re-argued.
+
+THE SOURCE, AS SURVEYED
+-----------------------
+  50 slides, all of them lecture: there is NO course-admin tail to
+  leave behind, unlike the Whole-Cell deck.
+  41 slides carry speaker notes, about 4,400 words in all.
+  48 media files, no charts.
+  Slides with click builds: 6, 7, 8, 9, 13, 14, 16, 23, 26, 28, 32,
+  33, 35, 36, 38, 41.  Several of 6-9 are MOTION PATHS, molecules
+  moving between cell compartments, which is the spine of the
+  extraction story and does not survive as a plain reveal.
+
+THE SECTION SPLIT
+-----------------
+On the source deck's own divider slides.
+
+  00-front-matter.html    source  1-2    Introduction
+  01-extraction.html      source  3-9    Extraction
+  02-purification.html    source 10-18   Purification
+  03-detection.html       source 19-29   Detection
+  04-enzymatic.html       source 30-38   Enzymatic Assays
+  05-binding.html         source 39-45   Binding Assays
+
+  Source 46 ("This is Analytical Chemistry!"), 49 (the carotenoid
+  structures) and 50 ("Questions?") still need a home.
+  Source 47-48 are the four closing questions.  JCA, 21 Oct 2026:
+  distribute them to the ends of their sections, as the Whole-Cell
+  deck now does.  That is the LAST step, after the literal conversion.
+
+CONVENTIONS CARRIED OVER FROM THE WHOLE-CELL DECK
+-------------------------------------------------
+Read that deck's PLAN.txt before touching this one; it was settled the
+hard way and the same rules apply here.
+  - A NOTE IS WHAT HE SAYS.  First person, students addressed as "you",
+    no stage directions.  Source notes are verbatim; a note may be
+    SPLIT across clicks but never reworded, and the split is proved by
+    concatenating it back.
+  - SECTION DIVIDERS ARE A TITLE ON THE AMBER GROUND, with no picture.
+    A source image on a coloured ground is a white box and reads as a
+    mistake.
+  - FIGURES MUST PICTURE REAL THINGS.  No shape standing for an idea.
+  - MEASURE PAINTED WIDTH, not the <img> element: nearly every figure
+    is object-fit:contain in a flex box, so the element is as wide as
+    its column while the picture is letterboxed to the box's height.
+  - Readings invented for an illustration are labelled illustrative.
+
+THE RENDER PIPELINE
+-------------------
+  python3 docs/lectures/tools/recolour_pptx.py "<src.pptx>" <scratch>
+  cd <scratch> && soffice --headless --convert-to pdf recoloured.pptx --outdir .
+  pdftoppm -png -r 70 recoloured.pdf pages/p
+  python3 docs/lectures/tools/pptx_text.py <scratch>/raw 1 50
+
+This deck uses the grey master widely, not only on the dividers:
+source 35-38, 46 and 50 are grey as well.  Cropping a drawn figure off
+the grey render carries the grey with it, so a SECOND render with a
+white background injected is needed for those, exactly as the
+Whole-Cell deck needed (see its PLAN.txt, "HOW SECTIONS 01-05 WERE
+CROPPED").
+
+TWO SETS OF SLIDES ARE DRAWN, NOT CROPPED
+-----------------------------------------
+SOURCE 5-9, because they are motion paths.
+The one place the literal pass could not be literal.  Source 7, 8 and 9
+are MOTION PATH animations: the cell's contents travel out to an Extract
+zone or down to a Debris Pellet, and WHICH contents go WHERE is the whole
+argument of each slide.  LibreOffice renders a motion-path shape where it
+STARTS, so a render of those slides is every object sitting in its home
+position with the "Extract" label lying across the cell.  There is no
+still to crop, and variants.py cannot help: it deletes shapes that arrive
+later, which captures entrances and nothing else.
+
+So the bacterium is drawn once, in seq/cell.js, and its parts move.  One
+drawing serves five slides (cell5 .. cell9).  The contents, the labels,
+the destinations and the order are the source's; the notes are verbatim.
+
+SOURCE 43, because its shapes share names.  It builds the ELISA sandwich
+in six clicks, a layer at a time — but several of its shapes carry the
+same cNvPr name, so deleting "the shapes that arrive later" deletes the
+wrong ones: three of the seven states render empty and one jumps two
+layers.  There is no intermediate state to crop.  seq/elisa.js redraws
+it, layer for layer, and the six labels are HTML beside it rather than
+type baked into a bitmap.
+
+SOURCE 35-38, because of the colour.  These are JCA's own drawings and
+they convert cleanly in SHAPE — but they were drawn for the grey master,
+in a pale blue (#8AB0DD) and a pale yellow that read on dark grey and
+nearly vanish on the white ground this deck uses.  Cropping carries that
+colour over.  They also build across ten states between them, including
+an EXIT on 38 (the unreacted hot tyrosine washing out of the paper),
+which no render can give you.  seq/aminoacyl.js redraws them in the house
+palette, shape for shape: the synthetase is still a pac-man, the tRNAs
+are still cloverleaves, the hot tyrosine is still one dot, the TCA paper
+is still a tan disc.
+
+A slide that also carries a list arriving on its last click (7, 9) or a
+closing line (8) keeps that in HTML beside the stage: cell.js writes
+data-step on the slide and the section's CSS reads it, because a slide
+with data-seq has its data-build attributes ignored by deck.js.
+
+TWO DELIBERATE DEPARTURES FROM VERBATIM, both proved by concat.py:
+  source 4  the image credit ("Image from handling-solutions.eppendorf
+            .com/...") came out of the spoken note and onto the slide as
+            a .src line, which is the deck convention for credits.
+  source 9  one period moved across a click boundary.  The source reads
+            "...and precipitates <click>."; a spoken note that opens with
+            a bare period is nonsense, so the click falls after it.  The
+            concatenated text is character-identical.
+
+WHAT WAS DROPPED, AND WHAT WAS CHANGED
+--------------------------------------
+Source 13 and 26 each carry the same stock clipart of a thinking person
+beside the title.  It is decoration, not content, and it is the clipart
+JCA rejected on the Whole-Cell section divider ("the white background of
+the blue person is graphically bad").  Dropped on both.
+
+Source 26 reveals all four of its answers on ONE click.  Here each
+answer arrives on its own click.  This is the only place the click
+structure departs from the source, and it is there because JCA has
+already ruled on the pattern once, on the Whole-Cell questions slide:
+"you dump all the questions at once.  We need to go through them
+individually."  The slide has no speaker note, so nothing was split.
+
+Source 27 marks one wrapped line of the methods paragraph in green.
+Green is spoken for in this deck's palette, so the mark is vermillion.
+The span marked is the source's own, to the character.
+
+Image credits that were inside the spoken notes are now .src lines on
+their slides: source 4, 12, 18, 20, 24, 25, 29.
+
+CHECKING THE NOTES
+------------------
+  python3 ../../tools/verify_notes.py <unpacked-pptx> *.html
+  python3 ../../tools/verify_notes.py <unpacked-pptx> --seq seq/cell.js \
+          S6=6 S7=7 S8=8 S9=9
+  python3 ../../tools/verify_notes.py <unpacked-pptx> --seq seq/aminoacyl.js \
+          S35=35 S36=36 S37=37 S38=38
+It concatenates each slide's note pieces and diffs them against the pptx.
+Everything passes; the one standing difference is source 9's period,
+above.  Slides driven by a sequence keep their notes in the sequence
+file, so the HTML pass names them and the --seq pass checks them.
+
+Source 33 keeps the source's three beats, but its reaction is on screen
+from the first: the source shows it from the start too, and variants.py
+could not prove that because two shapes on that slide share a name.
+
+STRUCTURES ARE REDRAWN WITH RDKIT
+---------------------------------
+tools/draw_reaction.py takes two SMILES and writes the reaction as SVG.
+It lays the PRODUCT out first and then fits the substrate onto the
+product's coordinates through their maximum common substructure, so both
+are drawn in the same orientation and the only thing that moves between
+them is the group the enzyme put there.  That is the whole point of such
+a picture, and two independent depictions lose it.
+
+Every SMILES came from PubChem by name, and each structure carries its
+published molecular formula, which the tool asserts before it draws.
+The carotenoid chart's ten structures and their CIDs are in
+spec/carotenoids.json.
+
+  14  guanidinium chloride                      molecule
+  31  p-nitrophenyl phosphate -> p-nitrophenol  reaction, alkaline phosphatase
+  32  theobromine -> caffeine                   reaction, caffeine synthase
+  33  ATP, alpha phosphorus marked 32P          molecule, with alpha/beta/gamma
+  49  the ten carotenoids                       grid
+
+A FORMULA CHECK IS NOT ENOUGH, and this deck proved it.  A SMILES that
+reuses a ring-closure digit the scaffold has already opened fuses two
+rings into one macrocycle while leaving every atom and bond count
+identical, so the formula still matches and only the picture is wrong.
+That is what happened to the Whole-Cell deck's Sgal.  chemdraw.py takes
+--contains for that: assert the fragments that must really be present.
+
+RDKit's own font has no Greek letters, so its atomNote lands in the SVG
+as an empty path and nothing shows.  ATP's alpha, beta and gamma are
+drawn by the tool from the phosphorus atoms' own drawing coordinates, in
+the deck's typeface.
+
+Source 33's ATP bitmap and source 31's construct cartoon were cropped
+from the same slide as the structures they sat beside, so both crops
+carried a tail of the structure above them.  Re-cropped once the
+structures became vector.
+
+REDRAW LIST, as it stands
+-------------------------
+Every figure in sections 02 and 03 is borrowed raster with type set for
+a textbook page, not a lecture hall.  In priority order:
+  17  the HIS-TAG bar is RED on GREEN, which is the one colour pair a
+      red-green colourblind student cannot read.  Redraw first.
+  11  chromatography columns        16  affinity load/wash/elute
+  12  anion exchange, three panels  17  the Ni-NTA chelate
+  15  size exclusion + chromatogram 18  SPE cartridge series
+  14  the silica/DNA complex
+  20  the HPLC schematic            24  the NMR spectrum
+  21  the mass spectrometer         25  the crystallography route
+  23  the LCMS heat map             28  the bromine mechanism
+Photographs stay as photographs: the Qiagen kit (13), the LCMS bench
+(22), the test tubes (28) and the oil test paper pack (29).
+
+THREE SLIDES IN SECTION 05 ARE NOW ANIMATED (21 Oct 2026)
+---------------------------------------------------------
+JCA asked for these after walking the deck.  All three were borrowed
+vendor cartoons that showed several little pictures of the same objects
+stacked down a page; drawn as one picture that moves, the objects stay
+put and only their state changes, which is what each assay actually is.
+
+  40  seq/pulldown.js  5 beats  "three proteins, two bind, one doesn't,
+      add the bead, the bound one pulls down with it on spin"
+  41  seq/formats.js   4 beats  direct, indirect, sandwich, then the
+      label: "just a few of the major variations on 'sandwich assay'"
+  44  seq/spr.js       4 beats  the chip, then a SENSORGRAM, which the
+      source figure never showed although its note ends by promising
+      kinetics: "could be an animation and explained better"
+
+Source 41's competitive and multiplex panels are dropped.  They are
+variations on reading a result rather than on building the stack, and
+source 43 walks one stack click by click immediately afterwards.
+
+NARRATION THAT IS NOT THE SOURCE'S — NEEDS REVIEW
+--------------------------------------------------
+Source 40's note carries all five beats and is verbatim, split at its own
+sentence boundaries.  The other two had no clicks in the source and so no
+note for the beats the animation adds.  These lines are NEW and want
+JCA's eye before the deck is presented from:
+
+  41  beats 1, 2 and 3 in seq/formats.js  (direct vs indirect, what the
+      sandwich buys you, HRP against a fluorophore)
+  44  one sentence on beat 1 ("With only buffer going past, the trace
+      sits flat, and that flat line is your baseline") and one on beat 3
+      ("Switch back to buffer and watch it come off, and the shape of
+      the climb gives you the on-rate while the shape of the fall gives
+      you the off-rate").  Everything else on 44 is the source's.
+
+ONE TYPO FIXED.  Source 40 reads "you get the Bait proteinattached to a
+solid support".  The two words are separated in seq/pulldown.js, which is
+the only reason that sequence does not verify clean.
+
+THE NOTES HAVE HAD AN EDITORIAL PASS (21 Oct 2026)
+---------------------------------------------------
+Up to this point every note was the source's, verbatim, and
+verify_notes.py proved it.  JCA then asked for an audit: every slide
+should carry a note, it should read as narration to a student rather
+than a status report, and spelling and grammar should be corrected.  So
+the notes are no longer verbatim, and the verifier will now report
+differences on the slides listed here.  It is still the right tool for
+catching an accidental change; these are the intended ones.
+
+TWENTY-FOUR SPELLING AND GRAMMAR FIXES, which change no meaning:
+  11 "a large set of methods" -> "a large number of methods"
+  12 missing space after "...positively charged ones."
+  12 missing period after "...wash out the other species"
+  14 "miniprepping early" -> "miniprepping earlier"
+  15 "by there size" -> "by their size"
+  20 "I the illustration" -> "In the illustration"
+  20 "the same oompound" -> "the same compound"
+  21 "back-calulate" -> "back-calculate"; "Qudrupole" -> "Quadrupole";
+     missing period after "Triple Quadrupole"
+  24 "spectroscopy.." -> "spectroscopy."; "the the spin" -> "the spin";
+     "the the number" -> "the number";
+     "This image of the simplest experiment" -> "This image is of..."
+  25 "xrays" -> "X-rays"
+  31 "chromagenic" -> "chromogenic"
+  33 "beurocracy" -> "bureaucracy"; "chromatrography" -> "chromatography"
+  43 "maxisorb" -> "MaxiSorp"; "suface" -> "surface";
+     "hydroxgen peroxide" -> "hydrogen peroxide"
+  48 "yellownes" -> "yellowness"; "quanidinium" -> "guanidinium";
+     "covelent" -> "covalent"
+  40 "proteinattached" -> "protein attached"  (done earlier)
+British spellings that had crept into the NEW writing in both this deck
+and the Whole-Cell deck were put back to US, to match the source notes.
+
+NINE SLIDES HAD NO NOTE AND NOW DO.  All nine are new writing:
+  2 the two-step process        30 the Enzymatic Assays divider
+ 13 the plasmid question        34 the aminoacylation question
+ 19 the Detection divider       39 the Binding Assays divider
+ 26 detecting isopimaradiene    42 the affibody question
+ 49 the carotenoids
+Source 1's note was a status report ("This lecture has been modified
+extensively relative to the YouTube videos") rather than something said
+to a student; it now says the same thing in the first person.
+
+SIX STATEMENTS WERE CORRECTED, with the reason:
+  17  "proteins that do not contain histidine residues do not bind" --
+      nearly every protein has a histidine; it is the six in a row that
+      hold on.  Also, the metal ion is held by a chelator that is
+      covalently attached, not covalently attached itself.
+  21  the note described magnetic deflection next to a list of
+      instruments that mostly do not use it (a quadrupole filters on an
+      oscillating electric field, TOF times the flight, an Orbitrap uses
+      an electrostatic orbit).  Now scoped to the instrument drawn, with
+      the others named.
+  24  splitting was attributed to coupling with H's on the SAME carbon;
+      it is coupling to the neighboring carbon's hydrogens.
+  28  "ketones aren't abundant in primary metabolism" -- pyruvate,
+      oxaloacetate, alpha-ketoglutarate and fructose all are.  The
+      sentence now claims only what is true of isolated alkenes.
+  32  "This molecule isn't detectable by photometry" -- caffeine absorbs
+      strongly near 273 nm, and the chromatogram on this very slide has
+      an absorbance axis with a labeled caffeine peak.  The real point is
+      that substrate and product share a chromophore.
+  45  hydroxylamine is a mutagen rather than a standard footprinting
+      probe; replaced with dimethyl sulfate and hydroxyl radical.
+  46  the textbook was named "principles of analytical chemistry".  JCA
+      confirmed he means Skoog's "Principles of Instrumental Analysis",
+      which is also the book the ion-chromatography figure credited on
+      source 12 comes from.
+
+DELIBERATELY NOT CHANGED.  Source 13's answer says the Qiagen Midi and
+Maxi kits bind at low pH.  That is right: P3 is 3 M potassium acetate at
+pH 5.5, so the cleared lysate going onto the tip is acidic.  (The one
+loose word is "neutral" for the elution, since QF is Tris at pH 8.5.)
+
+WHERE THIS STANDS
+-----------------
+  00-front-matter.html   source 1-2    DONE
+  01-extraction.html     source 3-9    DONE   (22 steps, audit clean)
+  02-purification.html   source 10-18  DONE   (12 steps, audit clean)
+  03-detection.html      source 19-29  DONE   (17 steps, audit clean)
+  04-enzymatic.html      source 30-38  DONE   (18 steps, audit clean)
+  05-binding.html        source 39-46  DONE   (26 steps, audit clean)
+  the four questions     source 48      DONE, distributed
+
+THE FOUR QUESTIONS, AND WHERE THEY WENT
+---------------------------------------
+Source 48's four questions now sit at the end of the section that makes
+each answerable, on the amber ground, each carrying its own paragraph of
+source 48's note as the spoken answer.  All four paragraphs are verbatim;
+only their ORDER changed, which is what the verifier shows when the four
+are concatenated and diffed against source 48.
+
+  01 Extraction   the lutein yellow pigment device   (answer: extract it)
+  03 Detection    the HIV biosensor                  (answer: differential)
+  04 Enzymatic    the phage protein on 5' DNA        (answer: purify, gel)
+  05 Binding      the adhesion device's lectin       (answer: ELISA)
+
+Source 47, the "Questions to Ponder" divider, is gone with them, as it
+went in the Whole-Cell deck.  Source 49, the carotenoid chart, is now its
+own white slide just ahead of the lutein question it illustrates: it is a
+bitmap with a white background, and on the amber ask slide it read as a
+hole punched in the ground.  Source 50, a bare "Questions?" card, is
+dropped — the Whole-Cell deck dropped its equivalent on JCA's ruling.
+
+ONE NOTE DROPPED
+----------------
+Source 39, the Binding Assays divider, carries a speaker note about a
+ChemAxon licence, a Hello_ChemAxon project and an "RO package".  None of
+that is in this lecture; it is boilerplate left behind from another
+deck.  Dropped.  It is the only note not carried over, and the verifier
+reports it every run so the decision stays visible.

@@ -23,7 +23,7 @@
  * 25 for the dim one, 1 for cells carrying no fluorophore at all.
  *   slide 19  day one gain 0.3, day two gain 4.0 — drift, nobody
  *             standardised anything, and the dim sample reads higher
- *   slide 20  both days set so the unlabelled cells land in the first
+ *   slide 20  both days set so the unlabeled cells land in the first
  *             decade: gain 3.0, and the order comes out right
  * Those are illustrative numbers and the slide says so.  They are not
  * in the source; what IS in the source is the claim they illustrate.
@@ -73,7 +73,7 @@ function panel(parent, x0, w, title){
   text(g, x0 + w / 2, AX.y + 74, "fluorescence", { size:23, fill:MUTED });
   text(g, x0 + w / 2, 36, title, { size:26, weight:700 });
   const dial = text(g, x0 + w / 2, 70, "", { size:24, fill:BLUE });
-  /* two curves: the labelled sample, and the cells carrying nothing */
+  /* two curves: the labeled sample, and the cells carrying nothing */
   const lab = el("path", { fill:VERM, "fill-opacity":0.18, stroke:VERM, "stroke-width":LINE,
                            "stroke-linejoin":"round" }, g);
   const bare = el("path", { fill:MUTED, "fill-opacity":0.16, stroke:MUTED, "stroke-width":2.4,
@@ -135,7 +135,7 @@ const S20 = [
     desc:"The first decade of each axis is shaded. The gain on each day is turned until the grey peak sits inside that band, and both days end at the same gain." },
   { s:{ lab:1, bare:1, gL:3, gR:3, showGain:1, band:1 },
     note:"You then measure your test samples with these settings.",
-    desc:"The labelled samples are run again at those settings. Now the bright sample peaks well to the right of the dim one: the order matches the cells themselves." }
+    desc:"The labeled samples are run again at those settings. Now the bright sample peaks well to the right of the dim one: the order matches the cells themselves." }
 ];
 
 function driver(host, STEPS, slide){

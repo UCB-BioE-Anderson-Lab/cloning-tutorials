@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Detection &ndash; In vitro Assays</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 21: the instrument schematic, the device types listed beside it */
+.slide .ms{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 300px;
+  grid-template-rows:minmax(0,1fr);gap:30px;align-items:stretch}
+.slide .ms > *{min-width:0;min-height:0}
+.slide .ms figure{height:100%;display:flex}
+.slide .ms ul{margin:auto 0;padding-left:1.1em;list-style:none}
+.slide .ms li{font-size:28px;margin:0 0 14px}
+/* source 23: the 3D plot, then the slice through one mass */
+.slide .lcms{flex:1 1 auto;min-height:0;display:grid;grid-template-rows:minmax(0,1.55fr) minmax(0,1fr);
+  gap:14px}
+.slide .lcms > *{min-width:0;min-height:0;display:flex}
+.slide .lcms img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 26: four questions, each answered on its own click */
+.slide .qs{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 330px;
+  gap:40px;align-items:center}
+.slide .qs > *{min-width:0;min-height:0}
+.slide .qs dl{margin:0}
+.slide .qs dt{font-size:31px;line-height:1.25;margin:0 0 4px}
+.slide .qs dd{font-size:28px;line-height:1.25;margin:0 0 24px 0;color:var(--blue);font-weight:700}
+.slide .qs dd:last-child{margin-bottom:0}
+.slide .qs figure{display:flex;justify-content:center}
+.slide .qs img{max-width:100%;max-height:100%;object-fit:contain}
+/* source 27: the methods paragraph of the paper it comes from */
+.slide blockquote.meth{margin:0;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center}
+.slide blockquote.meth p{font-size:25px;line-height:1.45;margin:0;max-width:62ch}
+.slide blockquote.meth mark{background:none;color:var(--vermillion);font-weight:700}
+/* source 28: the reaction, the mechanism, and the tubes that arrive on the click */
+.slide .swap{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr}
+.slide .swap > *{grid-area:1/1;min-height:0;display:flex}
+.slide .swap img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 29: the pack beside what it is rated for */
+.slide .strip{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:330px 1fr;
+  grid-template-rows:minmax(0,1fr);gap:56px;align-items:stretch}
+.slide .strip > *{min-width:0;min-height:0}
+.slide .strip figure{height:100%;display:flex}
+.slide .strip figure img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide .strip .spec{display:flex;flex-direction:column;justify-content:center}
+.slide .strip .spec b{font-size:28px;display:block;margin:0 0 14px}
+.slide .strip .spec li{font-size:26px;margin:0 0 9px}
+.slide.ask p.q{font-size:36px;font-weight:700;line-height:1.35;margin:26px 0 0;max-width:46ch}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 19 -->
+<article class="slide" data-bg="section">
+  <h1>Detection</h1>
+  <template class="notes">We have the molecule out of the cell and cleaned up.  Now the second half of the problem: how do you actually see it, and how do you put a number on how much of it there is?</template>
+  <template class="desc">Section divider: Detection.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 20 -->
+<article class="slide">
+  <h1>Analytical HPLC with UV detection</h1>
+  <figure class="fig">
+    <img src="img/20-hplc.png" alt="An HPLC schematic: a solvent bottle feeds a pump, a sample is injected into the stream, the stream passes through the HPLC column where a mixture separates into bands, then through a UV-Vis detector which plots absorbance against time, with the flow going on to waste. Beneath it, a photograph of the stainless steel column itself.">
+  </figure>
+  <template class="notes">A common way to detect both small molecules and proteins is HPLC outfitted with a spectrometer.  In HPLC, there is a high-pressure pump pushing the mobile phase through a stainless-steel column filled with particles (typically coated in C18 carbon chains).  There is also an injection port where you can insert your sample into the stream.  The other end of the column is hooked up to a spectrometer which usually is observing UV light (but other wavelengths are available on some instruments).  As different species come off the column at different times characteristic of their size, polarity, and other properties, a UV signal is observed.  Thus you can plot the absorbance versus the retention time (the time from when you injected the sample to when it came out the other end). In the illustration, there are 3 peaks of compounds coming off, presumably each is a different structure. This retention time is consistent across runs for the same compound.  Thus, if you have a pure standard of the compound, you can compare its retention time to your chromatogram and identify which peak is the right one to look at.  Additionally, the UV signal is proportional to concentration, so you can make a standard curve from standards of known concentration and back-calculate the concentration of the analyte in the sample.</template>
+  <template class="desc">An HPLC from solvent bottle to waste flask, with a UV-Vis detector on the column outlet producing a trace of absorbance against time.</template>
+  <p class="src">Schematic after microbenotes.com; column photograph after hawach.com</p>
+</article>
+
+<!-- ---------------------------------------------------------------- 21 -->
+<article class="slide">
+  <h1>Mass Spectrometry</h1>
+  <div class="ms">
+    <figure>
+      <img src="img/21-massspec.png" alt="A mass spectrometer in section: the sample is injected, heated to vapour, and ionised by an electron beam; the resulting charged particle beam is accelerated between the poles of a magnet, which bends the light ions more sharply than the heavy ones, so each mass lands at its own place on the detector.">
+    </figure>
+    <ul>
+      <li>Quadrupole</li>
+      <li>Triple Quad</li>
+      <li>Time of Flight (TOF)</li>
+      <li>Orbitrap</li>
+      <li>FTICR</li>
+    </ul>
+  </div>
+  <template class="notes">Alternatively, you can hook up an HPLC to a mass spectrometer of which there are many types.  As the chemicals elute from the column, they get injected into an ionization chamber.  In the instrument drawn here, the ions are accelerated through a magnetic field and their path gets deflected according to their mass.  Based on where they are detected hitting the detector, you can back-calculate the m/z (mass divided by charge, where charge is usually 1, so mainly just mass) of the ions.  Other designs separate the same ions a different way &mdash; a quadrupole filters them with an oscillating electric field, and a time-of-flight tube simply times how long they take to arrive &mdash; but all of them report m/z.
+The most typical Mass Spec devices for biology are TOF (Time of Flight), Quadrupole and Triple Quadrupole.
+There is a very fancy device called FTICR (Fourier-transform ion cyclotron resonance) that is the Rolls-Royce of these devices (It&rsquo;s extremely expensive to buy and operate).  As you go up in cost, you also go up in resolution and resolving power.</template>
+  <template class="desc">A mass spectrometer in section, with the five analyser types listed beside it: quadrupole, triple quad, time of flight, Orbitrap and FTICR.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 22 -->
+<article class="slide">
+  <h1>GCMS/LCMS Instruments</h1>
+  <figure class="fig">
+    <img src="img/22-lcms.png" alt="A photograph of a benchtop LCMS: a tall autosampler tower on the left over a wide instrument cabinet with a keypad and display. Beside it, three small glass autosampler vials holding blue, pink and orange solutions.">
+  </figure>
+  <template class="notes">This is a modern LCMS.  Somewhere in this box there is a column, the top section is an autosampler that automatically loads samples like the glass vials top right.  There are many different types of mass spectrometer.  The most expensive ones (~$1M) used for metabolites are Orbitraps, which have mass resolutions of 0.001 Da, or about 1/1000th the mass of a proton.  At the opposite end of the price spectrum (more like $200K) there are quadrupole-based mass specs that have a resolution around 1 Da.
+A GCMS is a very similar setup, the only major difference being that the mobile &lsquo;solvent&rsquo; is instead an inert gas like Helium.</template>
+  <template class="desc">A benchtop LCMS with its autosampler tower, and the small glass vials it loads samples from.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 23 -->
+<article class="slide">
+  <h1>LCMS Data</h1>
+  <div class="lcms">
+    <figure>
+      <img src="img/23-heatmap.png" alt="A two-dimensional LCMS data file: retention time across fifteen minutes on the horizontal axis, m over z on the vertical, and intensity as a heat map from black through red to yellow and white. Arrows mark where the sample was injected, where the gradient reaches 99 percent acetonitrile, and where it returns to 99 percent water.">
+    </figure>
+    <figure data-build="1"
+            data-note="here we have pulled out an &lsquo;extracted chromatogram&rsquo; at a single mass of 611 Da.  Given the structure of your compound, you can compute the likely ions and their masses.  So, you feed some software this mass, and it returns you a plot of abundance versus retention time at that mass.  That abundance is the signal at that mass on the detection device, and it equates with the color in the 3D plot.  The area under the curve is also proportional to the concentration of the ion, so you can calculate concentrations against standards."
+            data-desc="Beneath the heat map, one horizontal slice through it: the extracted chromatogram at m over z 611, a flat baseline with a single sharp peak at 24.45 minutes.">
+      <img src="img/23-extracted.png" alt="A plot of abundance against retention time labeled extracted chromatogram at m over z 611: a flat baseline across fifty-five minutes broken by one narrow peak at 24.45 minutes.">
+    </figure>
+  </div>
+  <template class="notes">LCMS data looks like this, and always like this for the same instrument.  By this, I mean that at the superficial level they are all the same, and it is only when you examine the details at very high resolution, on the scale of 1 pixel in this image, do you actually see peaks.  In this diagram, the color is a heat map from low (black) to high (white) with red and then yellow then white in the middle.  There is background signal in the file seen from run to run, and this is not the relevant information.  Chemical peaks are much smaller than this. Keep in mind that the mass axis is at 0.01 Da resolution over 1000 Da range, so there are 100,000 lines on this axis.
+So, usually you don&rsquo;t look at the data as a 3D plot like this, instead you focus on a horizontal slice through a single mass.</template>
+  <template class="desc">A whole LCMS data file drawn as a heat map of intensity against retention time and mass.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 24 -->
+<article class="slide">
+  <h1>Nuclear Magnetic Resonance (NMR)</h1>
+  <figure class="fig">
+    <img src="img/24-nmr.png" alt="A proton NMR spectrum of 1-phenyl-1-propanol, its structure drawn above. Five groups of peaks run from 7 to 0 ppm, each with a step-shaped integral over it giving 5, 1, 1, 2 and 3 hydrogens; the groups at 4 and 2 ppm are visibly split into multiplets.">
+  </figure>
+  <p class="src">After pharmacy180.com</p>
+  <template class="notes">If you are able to collect enough of a product to clean it up to 95%+ purity, you can run NMR (nuclear magnetic resonance) on it.  Here, you put a pure sample of a compound in a strong magnetic field.  The field aligns the nuclear spin (a quantum mechanical property of nuclei).  When hit with a radio wave pulse of  exactly the right frequency, the nuclear spins undergo transitions between energy levels, a process somewhat analogous to absorbance in spectroscopy.  Subsequently, the spin will relax back to the original state and in the process emit RF photons.  These emitted photons are detected, similar to the emission in fluorescence.
+Except for determining stereochemistry and sometimes isomers, you can typically determine the structure of a compound by interpreting NMR spectra. This image is of the simplest experiment:  1H (proton) NMR. The area under the peaks is proportionate to the number of hydrogens, so you can deduce the integer number of the H&rsquo;s that caused the peak, here 5, 1,1, 2, and 3.  Based on the peak positions (PPM value) you know whether you are dealing with SP2 or SP3 carbon atoms attached to the hydrogens. Within each peak, the splitting pattern comes from coupling to the H&rsquo;s on the neighboring carbon, so the number of lines tells you how many hydrogens sit next door.  This is a simple NMR &ndash; there are much fancier things that allow you to extract even more structural &lsquo;hints&rsquo; about the structure that ultimately allow you to narrow it down to only one possible option (or stereoisomers thereof).</template>
+  <template class="desc">A proton NMR spectrum with its integrals: the peak positions say what kind of carbon each hydrogen is on, the integral areas say how many, and the splitting says how many neighbours.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 25 -->
+<article class="slide">
+  <h1>X-ray Crystallography</h1>
+  <figure class="fig">
+    <img src="img/25-xray.png" alt="X-rays strike a crystal and scatter onto a plate as a pattern of spots; a Fourier transformation turns that pattern into an electron density map drawn as fuzzy blobs; dashed arrows run from each blob to an atom in the fitted ball-and-stick model.">
+  </figure>
+  <p class="src">After wiki.aalto.fi</p>
+  <template class="notes">Similarly, if you can get your sample really pure, you might be able to crystallize it, and if so you can do X-ray crystallography.  There is a core facility where you can send the crystal, they will bombard the crystal with X-rays and collect the diffraction pattern.  The electron density map of the unit cell of the crystal can be calculated from the diffraction pattern, and this basically shows you where the atoms are in space.  From this, software can often fit a 3D structure model of the compound to this electron density map to find the most consistent structure and conformation. This gives you information about the absolute stereochemistry and is typically sufficient to resolve any uncertainty about isomers. This can even be done with large protein complexes, though it is much much easier and cheaper to do with small molecule products.</template>
+  <template class="desc">The route from a crystal to a structure: diffraction pattern, Fourier transformation, electron density map, and the atomic model fitted into it.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 26 -->
+<article class="slide">
+  <h1>Detecting isopimaradiene</h1>
+  <div class="qs">
+    <dl>
+      <dt>How could we detect isopimaradiene production?</dt>
+      <dd data-build="1" data-desc="The answer to the first: GC-MS, which the next slides take up.">GC-MS, see next slides</dd>
+      <dt>How can we confirm its structure?</dt>
+      <dd data-build="2" data-desc="The answer to the second: make a lot of it, purify it, and take an NMR.">Make a lot, purify it, take an NMR</dd>
+      <dt>How could we determine its absolute stereochemistry?</dt>
+      <dd data-build="3" data-desc="The answer to the third: make a lot, purify it, crystallize it, and hit it with X-rays.">Make a lot, purify it, crystalize it, hit with x-rays</dd>
+      <dt>How could we quantify its titer?</dt>
+      <dd data-build="4" data-desc="The answer to the fourth: GC-MS again.">GC-MS, see next slides</dd>
+    </dl>
+    <figure>
+      <img src="img/26-isopim.png" alt="The structure of isopimaradiene: three fused six-membered rings with a vinyl group and a methyl on the same quaternary carbon, two more methyls on the far ring, and one trisubstituted double bond in the middle ring.">
+    </figure>
+  </div>
+  <template class="notes">Let&rsquo;s put all of that together on one compound.  Isopimaradiene is a diterpene &mdash; twenty carbons, a couple of double bonds, no color, no charge, nothing that fluoresces.  Four questions, four answers, and notice that two of them are the same answer: detecting it and quantifying it are both GC-MS, which is the next few slides.  Confirming the structure means making a lot of it, purifying it, and taking an NMR.  Pinning down the absolute stereochemistry means getting a crystal and hitting it with X-rays.  The hard part of those last two is not the instrument, it is making enough material.</template>
+  <template class="desc">Four questions about one compound, isopimaradiene, whose structure is drawn beside them: how to detect it, how to confirm its structure, how to settle its absolute stereochemistry, and how to quantify its titer.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 27 -->
+<article class="slide">
+  <h1>Peter&rsquo;s paper</h1>
+  <blockquote class="meth">
+    <p>Recombinant strains. Analysis <mark>Gas chromatography-mass spectrometry
+    (GC-MS) was performed on organic extracts using an HP1-MS column on an</mark>
+    Agilent (Palo Alto, CA) 6890N GC instrument with 5973N mass selective
+    detector in electron-ionization mode (70eV) located in the W.M. Keck
+    Metabolomics Research laboratory at Iowa State University, much as
+    previously described.<sup>5</sup> Briefly, 5 &micro;L of sample was injected at 40&deg;C in
+    splitless mode, the oven temperature held at 40&deg;C for 3 min., then
+    raised at 20&deg;C/min. to 300&deg;C, and held there for 3 min. MS data was
+    collected from 50 to 500 m/z during the temperature ramp and final
+    hold. The biosynthetically produced diterpenes were identified by
+    comparison of retention time and mass spectra to authentic samples
+    (see Supporting Figure). The amount of diterpene produced was
+    determined by comparison of the biosynthetic organic extracts to a
+    standard curve constructed with the use of known quantities of
+    cembrene (Acros Organics, Geel, Belgium)</p>
+  </blockquote>
+  <template class="notes">This is the materials and methods section from the Reuben Peters paper where they make the various isopimaradienes.  They used a GC-MS to detect products in the microgram/L concentration, so super dilute.  This probably the only method that could detect it at such low concentrations.  Generally, when choosing an analytical method, you look for papers where they isolated and quantified something very similar to what you are trying to detect, and try that.</template>
+  <template class="desc">The materials and methods paragraph of the paper, with the sentence naming the GC-MS instrument and column picked out.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 28 -->
+<article class="slide">
+  <h1>Bromine detection of alkenes</h1>
+  <div class="swap">
+    <figure data-unbuild="1">
+      <img src="img/28-bromine-0.png" alt="The structure of isopimaradiene, and beside it the reaction of a simple alkene with red bromine to give a colourless dibromide, with the bromonium ion mechanism drawn as a cycle of curly arrows below.">
+    </figure>
+    <figure data-build="1"
+            data-note="Alkenes react with red-colored bromine directly.  Upon reaction, the color goes away.  Spectrometric measurements of red absorbance enable the back calculation of the alkene concentration.  Isolated alkenes are not common in primary metabolism, so bromine often reacts selectively with a biosynthesized product like this one."
+            data-desc="A photograph appears between the structures: two test tubes side by side, the one on the left colourless where the bromine has reacted away, the one on the right still deep red.">
+      <img src="img/28-bromine-1.png" alt="The same reaction and mechanism, with a photograph of two test tubes added: the left one colourless because the bromine has been consumed by the alkene, the right one still deep red.">
+    </figure>
+  </div>
+  <template class="notes">If you had higher concentrations, the structure of isopimaradiene gives some added options.  Compounds with double bonds can be detected with bromine.</template>
+  <template class="desc">Isopimaradiene beside the addition of bromine across a double bond, with the bromonium ion mechanism drawn out.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 29 -->
+<article class="slide">
+  <h1>Hydrocarbon test strips</h1>
+  <div class="strip">
+    <figure>
+      <img src="img/29-strip.png" alt="A pack of Macherey-Nagel 907 60 oil test paper with one of its blue strips laid beside it.">
+    </figure>
+    <div class="spec">
+      <b>Macherey-Nagel 90760, Oil Test Paper, Box of 100 Strips</b>
+      <ul class="tight">
+        <li>Qualitative test paper, 100 strips, 20&nbsp;&times;&nbsp;70&nbsp;mm</li>
+        <li>Color reaction: pale blue &rarr; dark blue</li>
+        <li>Petroleum ether: 250&nbsp;mg/L</li>
+        <li>Gasoline: 10&nbsp;mg/L</li>
+        <li>Fuel oil: 5&nbsp;mg/L</li>
+      </ul>
+    </div>
+  </div>
+  <p class="src">Patent EP0580070A2</p>
+  <template class="notes">For some compounds, there are off-the-shelf consumer products that can detect them.  For isopimaradiene and other hydrocarbons, these oil test strips likely could detect the product in a drop of culture.  They work on mg per L concentrations of gasoline, pet ether, and fuel oil, which is similar in terms of chemical properties and concentrations to our situation.</template>
+  <template class="desc">A commercial pack of oil test paper and its limits of sensitivity: 250 mg per litre for petroleum ether, 10 for gasoline, 5 for fuel oil.</template>
+</article>
+
+
+<!-- --------------------------------------------------- 48, question 2 -->
+<article class="slide ask" data-bg="section">
+  <h1>Question to ponder</h1>
+  <p class="q">I&rsquo;ve taken my yellow pigment device and joined it to an HIV biosensor device.  What experiment should I do to characterize the entire system?</p>
+  <template class="notes">You don&rsquo;t really need to confirm the lutein structure again &ndash; that is unlikely to change, instead you need to compare the system with and without HIV particles present.  How you do the measurement is whatever is easiest.  You could do the same extraction and LCMS as in #1, but you probably could get away with taking a picture of the cells, or perhaps an absorbance measurement of the yellowness.  The key is it is a differential measurement comparing one sample to another, as discussed in the last lecture.</template>
+  <template class="desc">Question to ponder, on the amber ground: the yellow pigment device has been joined to an HIV biosensor device. What experiment characterizes the whole system?</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

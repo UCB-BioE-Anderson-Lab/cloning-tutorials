@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Binding Assays &ndash; In vitro Assays</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 42: the problem, then how you would go at it */
+.slide .ask2{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center}
+.slide .ask2 p.q{font-size:36px;line-height:1.35;margin:0 0 40px;max-width:40ch}
+.slide .ask2 ul{margin:0;padding-left:1.3em}
+.slide .ask2 li{font-size:30px;line-height:1.3;margin:0 0 16px;color:var(--blue);font-weight:700}
+/* source 43: the labels in a column, the sandwich drawn beside them */
+.slide .elisarow{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:420px 1fr;
+  gap:46px;align-items:center}
+.slide .elisarow > *{min-width:0;min-height:0}
+.slide .elisa-stage{height:100%;display:flex;flex-direction:column;justify-content:center}
+.slide .elab{margin:0;text-align:right;transition:opacity .4s ease}
+.slide .elab li{list-style:none;font-size:26px;line-height:1.25;margin:0 0 26px}
+.slide .elab small{display:block;font-size:19px}
+.slide[data-step="0"] :is(.e1,.e2,.e3,.e4,.e5,.e6),
+.slide[data-step="1"] :is(.e2,.e3,.e4,.e5,.e6),
+.slide[data-step="2"] :is(.e3,.e4,.e5,.e6),
+.slide[data-step="3"] :is(.e4,.e5,.e6),
+.slide[data-step="4"] :is(.e5,.e6),
+.slide[data-step="5"] .e6{opacity:0}
+.slide .pd-stage,.slide .fmt-stage,.slide .spr-stage{flex:1 1 auto;min-height:0;
+  display:flex;flex-direction:column;justify-content:center}
+.slide svg .o{opacity:0;transition:opacity .42s ease}
+.slide svg .o.in{opacity:1}
+.slide svg .nofx .o,.slide svg.nofx .o{transition:none}
+@media (prefers-reduced-motion:reduce){.slide svg .o,.slide .elab{transition:none}}
+/* source 45: the recipe on the left, the gel it produces on the right */
+.slide .foot{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 420px;
+  grid-template-rows:minmax(0,1fr);gap:50px;align-items:stretch}
+.slide .foot > *{min-width:0;min-height:0}
+.slide .foot ul{margin:auto 0;padding-left:1.2em}
+.slide .foot li{font-size:28px;line-height:1.3;margin:0 0 20px}
+.slide .foot li.aside{list-style:none;margin-left:-1.2em;color:var(--muted);margin-top:34px}
+.slide .foot figure{height:100%;display:flex}
+.slide .foot figure img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 46: the closing point, and what to do about it */
+.slide.closer h1{color:var(--vermillion)}
+.slide.closer ul{margin:auto 0;padding-left:1.3em;max-width:1180px}   /* px: ch would resolve on the UL's 16px, not the LI's 40px */
+.slide.closer li{font-size:40px;line-height:1.3;margin:0 0 46px;color:var(--blue)}
+.slide.ask p.q{font-size:36px;font-weight:700;line-height:1.35;margin:26px 0 0;max-width:46ch}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 39 -->
+<article class="slide" data-bg="section">
+  <h1>Binding Assays</h1>
+  <template class="notes">The last category.  Here we are not asking what a molecule does, we are asking what it sticks to &mdash; and in the last case, where on the DNA it sticks.</template>
+  <template class="desc">Section divider: Binding Assays.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 40 -->
+<article class="slide" data-seq="pulldown">
+  <h1>Pulldown Assay</h1>
+  <div class="pd-stage"></div>
+</article>
+
+<!-- ---------------------------------------------------------------- 41 -->
+<article class="slide" data-seq="formats">
+  <h1>ELISA assay</h1>
+  <div class="fmt-stage"></div>
+</article>
+
+<!-- ---------------------------------------------------------------- 42 -->
+<article class="slide">
+  <h1>Human Serum Albumin Affibody</h1>
+  <div class="ask2">
+    <p class="q">I am trying to engineer a protein that binds human serum albumin. How can I assay the candidate proteins?</p>
+    <ul data-build="1"
+        data-desc="The approach: put the individual genes into an E. coli expression system, lyse the cells, and screen by ELISA for the ones that are human-specific &mdash; that is, that do not also bind rat serum albumin.">
+      <li>Put individual genes in an <i>E. coli</i> expression system</li>
+      <li>Lyse the cells</li>
+      <li>Use ELISA to screen for ones that are human-specific (don&rsquo;t bind to Rat Serum Albumin)</li>
+    </ul>
+  </div>
+  <template class="notes">This is what you would run in a directed evolution campaign.  You have a library of candidate binders and you need an assay that gives a yes or no for each one, cheaply, many times over.  And specificity matters as much as binding here: human and rat serum albumin are close relatives, so a binder that cannot tell them apart is no use to you.  ELISA does both &mdash; it is a plate assay, so you run ninety-six at once, and you run every candidate against both albumins.</template>
+  <template class="desc">A question: how would you assay candidate proteins engineered to bind human serum albumin?</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 43 -->
+<article class="slide" data-seq="elisa">
+  <h1>ELISA assay</h1>
+  <div class="elisarow">
+    <ul class="elab">
+      <li class="e6">Detect with H<sub>2</sub>O<sub>2</sub>/ABTS
+        <small>(2,2'-azino-bis-(3-benzthiazoline-6-sulfonic acid))</small></li>
+      <li class="e5">Add Streptavidin-HRP conjugate</li>
+      <li class="e4">Add anti-protein A IgG/Biotin conjugate</li>
+      <li class="e3">Add affibody</li>
+      <li class="e2">Block with milk <small>why?</small></li>
+      <li class="e1">Human Serum Albumin</li>
+    </ul>
+    <div class="elisa-stage"></div>
+  </div>
+  <p class="src">PMID: 18499681</p>
+</article>
+
+<!-- ---------------------------------------------------------------- 44 -->
+<article class="slide" data-seq="spr">
+  <h1>Surface-Plasmon Resonance (SPR)</h1>
+  <div class="spr-stage"></div>
+</article>
+
+<!-- ---------------------------------------------------------------- 45 -->
+<article class="slide">
+  <h1>Footprinting</h1>
+  <div class="foot">
+    <ul>
+      <li>Make a PCR product of the DNA with biotin on the 5&rsquo; end</li>
+      <li>Incubate it with the binding protein</li>
+      <li>Add dilute DNAse I.  It cuts where the DNA is not protected.</li>
+      <li>Quench the reaction and isolate the DNA fragments with streptavidin</li>
+      <li>Run a gel</li>
+      <li class="aside">Photocrosslinking is a related method for mapping binding sites in protein:protein interactions</li>
+    </ul>
+    <figure>
+      <img src="img/45-footprint.png" alt="A footprinting experiment down the page: a protein binds a stretch of labeled DNA, dilute DNAse I cuts everywhere else, and the fragments are run out as a ladder. Across three protein concentrations a gap opens in the ladder where the protein sat &mdash; the footprint.">
+    </figure>
+  </div>
+  <p class="src">After slideserve.com</p>
+  <template class="notes">Footprinting methods are used to map where a protein binds to a nucleic acid.  So, it is not so much to ask whether the protein is bound, but where is it bound.  When a protein binds to a DNA, it blocks reagents from modifying the DNA.  Typically, that modifier is DNAse I, or a chemical probe like dimethyl sulfate or hydroxyl radical.  By looking at the pattern of where the modifier reacted, you can deduce where the protein was bound.</template>
+  <template class="desc">Footprinting asks not whether a protein is bound but where: it protects its own stretch of DNA from nuclease, and that stretch shows up as a gap in the ladder.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 46 -->
+<article class="slide closer">
+  <h1>This is Analytical Chemistry!</h1>
+  <ul>
+    <li>Search for papers where they analyze the biomolecules you are interested in</li>
+    <li>Read the materials and methods section and see how they quantified it</li>
+  </ul>
+  <template class="notes">What we&rsquo;ve been discussing is analytical chemistry, and there is a great textbook covering all aspects of the field, Skoog&rsquo;s &lsquo;Principles of Instrumental Analysis&rsquo;.  In the real world, your choices about the appropriate test protocol will begin with a literature search.  You will locate papers where the experimentalists analyzed molecules similar to yours, then look in the materials and methods section for how they did it.</template>
+  <template class="desc">The closing point: all of this is analytical chemistry, and in practice you start by finding a paper that measured something like your molecule and reading its methods.</template>
+</article>
+
+<!-- --------------------------------------------------- 48, question 3 -->
+<article class="slide ask" data-bg="section">
+  <h1>Question to ponder</h1>
+  <p class="q">I&rsquo;m trying to make a &ldquo;cancer cell adhesion device&rdquo; that displays a Thomsen-Friedenreich antigen binding lectin on <i>E. coli</i>&rsquo;s surface.  It isn&rsquo;t working, and I think my lectin part might be a dud.  What should I make with the lectin part, and what experiment should I do to see if it works?</p>
+  <template class="notes">You can express the lectin with a His tag, purify it, then do a binding assay like ELISA.</template>
+  <template class="desc">Question to ponder, on the amber ground: a cancer cell adhesion device displaying a Thomsen-Friedenreich antigen binding lectin on the surface of E. coli is not working, and the lectin part is the suspect. What would you build with that part, and what experiment would show whether it works?</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+<script src="seq/elisa.js" defer></script>
+<script src="seq/pulldown.js" defer></script>
+<script src="seq/formats.js" defer></script>
+<script src="seq/spr.js" defer></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------ *
- * brainbow.js — how a Brainbow 3.1 cassette picks a colour.
+ * brainbow.js — how a Brainbow 3.1 cassette picks a color.
  *
  *   brainbow   the cassette as built, then Cre excising each of the
  *              three lox pairs in turn, then the three products side
@@ -21,9 +21,9 @@
  * geometry) are lifted from 01-dna-enzymes/seq/recombinase.js, so a
  * lox site, a gene and an excised circle look the same here as in the
  * enzymes lecture where Cre is introduced.  The expressed protein is
- * filled vermillion, the attention colour, rather than in its own
- * emission colour: the palette has no green, and the caption names
- * the colour.  The real colours arrive on the next slide, in the data.
+ * filled vermillion, the attention color, rather than in its own
+ * emission color: the palette has no green, and the caption names
+ * the color.  The real colors arrive on the next slide, in the data.
  * ------------------------------------------------------------------ */
 (function(){
 "use strict";
@@ -195,8 +195,8 @@ window.Deck.sequence("brainbow", function(slide){
     { s:{o0:1,oP:0,tP:0,o2:0,t2:0,oN:0,tN:0,oS:0},
       cap:"one promoter, three pairs of lox sites, three fluorescent proteins",
       sub:"as built, the promoter reads into a non-fluorescent protein, so the neuron is dark",
-      note:"So how do you get a hundred colours out of three proteins? This is the construct, Brainbow 3.1. A Thy1 promoter, which is on in neurons. Then three different lox sites in a row: loxP, lox2272 and loxN. Cre will only recombine a site with another site of the same kind, so these three never react with each other. Then a protein that does not fluoresce, with a stop after it. Then the three fluorescent proteins, mOrange2, EGFP and mKate2, each one sitting just after the second copy of one of the lox sites. As built, the promoter reads into the dark protein and stops, so before Cre the neuron makes no colour at all.",
-      desc:"A cassette drawn on a DNA line: a promoter labelled Thy1; three lox sites in a row marked P, 2 and N; a non-fluorescent gene, ØNFP, then a polyA stop; then a P site, mOrange2 and pA; a 2 site, EGFP and pA; and an N site, mKate2 and pA. Every lox arrow points right." },
+      note:"So how do you get a hundred colors out of three proteins? This is the construct, Brainbow 3.1. A Thy1 promoter, which is on in neurons. Then three different lox sites in a row: loxP, lox2272 and loxN. Cre will only recombine a site with another site of the same kind, so these three never react with each other. Then a protein that does not fluoresce, with a stop after it. Then the three fluorescent proteins, mOrange2, EGFP and mKate2, each one sitting just after the second copy of one of the lox sites. As built, the promoter reads into the dark protein and stops, so before Cre the neuron makes no color at all.",
+      desc:"A cassette drawn on a DNA line: a promoter labeled Thy1; three lox sites in a row marked P, 2 and N; a non-fluorescent gene, ØNFP, then a polyA stop; then a P site, mOrange2 and pA; a 2 site, EGFP and pA; and an N site, mKate2 and pA. Every lox arrow points right." },
 
     { s:{o0:0,oP:1,tP:1,o2:0,t2:0,oN:0,tN:0,oS:0},
       cap:"Cre pairs the two loxP sites  →  mOrange2",
@@ -219,8 +219,8 @@ window.Deck.sequence("brainbow", function(slide){
     { s:{o0:0,oP:0,tP:1,o2:0,t2:1,oN:0,tN:1,oS:1},
       cap:"three possible products from one cassette",
       sub:"each neuron carries several copies, each copy chooses on its own, and the mix sets the hue",
-      note:"So one copy gives you one of three colours. The trick is that each neuron carries several copies of the cassette, and every copy makes its own choice. Two orange and one red is a different hue from one of each. It is the ratio of the three proteins that gives each neuron its own colour, and that is what you are about to see.",
-      desc:"The three possible products stacked in rows, each with Thy1 directly before one filled gene: mOrange2, labelled orange; EGFP, labelled green; and mKate2, labelled red." }
+      note:"So one copy gives you one of three colors. The trick is that each neuron carries several copies of the cassette, and every copy makes its own choice. Two orange and one red is a different hue from one of each. It is the ratio of the three proteins that gives each neuron its own color, and that is what you are about to see.",
+      desc:"The three possible products stacked in rows, each with Thy1 directly before one filled gene: mOrange2, labeled orange; EGFP, labeled green; and mKate2, labeled red." }
   ];
 
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");

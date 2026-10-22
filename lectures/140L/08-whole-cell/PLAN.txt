@@ -782,3 +782,30 @@ nothing was merged by git.  What landed:
           the same thing, which is the right answer for them anyway.
       Checked on pages 105 to 107 of the slides PDF: the two stills,
       then each clip's frame filling the page.
+
+
+THE SOURCE 25 STRUCTURES ARE REDRAWN (21 Oct 2026)
+--------------------------------------------------
+All four galactosides on "Enzymatic Reporter Assays" were low-resolution
+bitmaps.  They are now vector, drawn by tools/chemdraw.py from SMILES
+fetched from PubChem by name, with each one's published molecular formula
+asserted before it draws:
+
+  fluorogenic  resorufin beta-D-galactopyranoside     C18H17NO8     CID 125273
+  Xgal         5-bromo-4-chloro-3-indolyl galactoside C14H15BrClNO6 CID 65181
+  oNPG         2-nitrophenyl beta-D-galactoside       C12H15NO8     CID 96647
+  Sgal         3,4-cyclohexenoesculetin galactoside   C19H22O9      built by hand
+
+ONE CORRECTION.  The slide has always been labelled oNPG, and oNPG is the
+reagent people actually use -- but the bitmap it carried drew the PARA
+isomer, with the nitro group across the ring from the sugar.  The redrawn
+structure is the ORTHO isomer, which is what the label says and what is
+in the bottle.  Nothing else about the slide changed.
+
+Sgal has no usable PubChem entry under that name, so its SMILES was built
+by hand, and the first attempt was wrong in a way the formula check could
+not see: the sugar reused a ring-closure digit the lactone had already
+opened, which fused the two rings into one macrocycle while leaving every
+atom and bond count identical.  chemdraw.py now takes --contains, and
+Sgal draws only if a coumarin core and a galactopyranoside ring are both
+really there.

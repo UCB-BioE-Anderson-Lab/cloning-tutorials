@@ -1,0 +1,32 @@
+{
+  "_source": "SMILES from PubChem by name; the formula on each item is the published formula and chemdraw.py refuses to draw if RDKit computes anything else.",
+  "title": "CAROTENOIDS",
+  "cell": [520, 168],
+  "gap": 26,
+  "groups": [
+    { "title": "CAROTENES", "cols": 1, "items": [
+      { "name": "Lycopene", "formula": "C40H56", "cid": 446925,
+        "smiles": "CC(=CCC/C(=C/C=C/C(=C/C=C/C(=C/C=C/C=C(/C=C/C=C(/C=C/C=C(/CCC=C(C)C)\\C)\\C)\\C)/C)/C)/C)C" },
+      { "name": "β-carotene", "formula": "C40H56", "cid": 5280489,
+        "smiles": "CC1=C(C(CCC1)(C)C)/C=C/C(=C/C=C/C(=C/C=C/C=C(/C=C/C=C(/C=C/C2=C(CCCC2(C)C)C)\\C)\\C)/C)/C" }
+    ]},
+    { "title": "XANTHOPHYLLS", "cols": 2, "items": [
+      { "name": "Violaxanthin", "formula": "C40H56O4", "cid": 448438,
+        "smiles": "C/C(=C\\C=C\\C=C(\\C=C\\C=C(\\C=C\\[C@@]12O[C@@]1(C[C@H](CC2(C)C)O)C)/C)/C)/C=C/C=C(/C=C/[C@@]34O[C@@]3(C[C@H](CC4(C)C)O)C)\\C" },
+      { "name": "Neoxanthin", "formula": "C40H56O4", "cid": 5282217,
+        "smiles": "C/C(=C\\C=C\\C=C(/C)\\C=C\\C=C(/C)\\C=C=C1[C@](C[C@H](CC1(C)C)O)(C)O)/C=C/C=C(/C)\\C=C\\[C@]23[C@](O2)(C[C@H](CC3(C)C)O)C" },
+      { "name": "Zeaxanthin", "formula": "C40H56O2", "cid": 5280899,
+        "smiles": "CC1=C(C(C[C@@H](C1)O)(C)C)/C=C/C(=C/C=C/C(=C/C=C/C=C(/C=C/C=C(/C=C/C2=C(C[C@H](CC2(C)C)O)C)\\C)\\C)/C)/C" },
+      { "name": "Lutein", "formula": "C40H56O2", "cid": 5281243,
+        "smiles": "CC1=C(C(C[C@@H](C1)O)(C)C)/C=C/C(=C/C=C/C(=C/C=C/C=C(\\C)/C=C/C=C(\\C)/C=C/[C@H]2C(=C[C@@H](CC2(C)C)O)C)/C)/C" },
+      { "name": "Astaxanthin", "formula": "C40H52O4", "cid": 5281224,
+        "smiles": "CC1=C(C(C[C@@H](C1=O)O)(C)C)/C=C/C(=C/C=C/C(=C/C=C/C=C(/C=C/C=C(/C=C/C2=C(C(=O)[C@H](CC2(C)C)O)C)\\C)\\C)/C)/C" },
+      { "name": "Fucoxanthin", "formula": "C42H58O6", "cid": 5281239,
+        "smiles": "C/C(=C\\C=C\\C=C(/C)\\C=C\\C=C(/C)\\C(=O)C[C@]12[C@](O1)(C[C@H](CC2(C)C)O)C)/C=C/C=C(\\C)/C=C=C3[C@](C[C@H](CC3(C)C)OC(=O)C)(C)O" },
+      { "name": "Spirilloxanthin", "formula": "C42H60O2", "cid": 5366506,
+        "smiles": "C/C(=C\\C=C\\C(=C\\C=C\\C(=C\\C=C\\C=C(\\C=C\\C=C(\\C=C\\C=C(\\C=C\\CC(OC)(C)C)/C)/C)/C)\\C)\\C)/C=C/CC(OC)(C)C" },
+      { "name": "Canthaxanthin", "formula": "C40H52O2", "cid": 5281227,
+        "smiles": "CC1=C(C(CCC1=O)(C)C)/C=C/C(=C/C=C/C(=C/C=C/C=C(/C=C/C=C(/C=C/C2=C(C(=O)CCC2(C)C)C)\\C)\\C)/C)/C" }
+    ]}
+  ]
+}
