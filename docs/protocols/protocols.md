@@ -14,6 +14,26 @@
   @media (max-width: 639px) {
     #controls { grid-template-columns: 1fr !important; }
   }
+
+  .proto-combo { position: relative; }
+  .proto-combo input { width: 100%; box-sizing: border-box; margin-top: 0.35rem; }
+  #protocol_options {
+    position: absolute; z-index: 60; left: 0; right: 0; top: 100%;
+    margin: 0.15rem 0 0; padding: 0; list-style: none;
+    max-height: 18rem; overflow-y: auto;
+    border: 1px solid var(--md-default-fg-color--lighter, #ccc); border-radius: 4px;
+    background: var(--md-default-bg-color, #fff); box-shadow: 0 4px 14px rgba(0,0,0,.14);
+  }
+  #protocol_options li { padding: 0.35rem 0.6rem; cursor: pointer; line-height: 1.25; }
+  #protocol_options li[aria-selected="true"], #protocol_options li:hover {
+    background: var(--md-accent-fg-color--transparent, #e3f2fd);
+  }
+  #protocol_options li .pid { display: block; opacity: 0.62; font-size: 0.82em; }
+  #protocol_options li.proto-none { color: var(--md-default-fg-color--light, #777); cursor: default; }
+  #protocol_options li.proto-none:hover { background: none; }
+  .proto-vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+              clip: rect(0 0 0 0); white-space: nowrap; }
+  @media print { .proto-combo { display: none; } }
 </style>
 <style>
   .proto-card { border: 1px solid #ddd; border-radius: 6px; padding: 16px; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
@@ -35,8 +55,14 @@
 </style>
 
 <div id="controls" style="display:grid;gap:0.75rem;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));align-items:end;margin:1rem 0;">
-  <label>Choose protocol
-    <select id="protocol_select"></select>
+  <label for="protocol_filter">Choose protocol
+    <div class="proto-combo">
+      <input id="protocol_filter" type="text" role="combobox" aria-expanded="false"
+             aria-controls="protocol_options" aria-autocomplete="list" autocomplete="off"
+             placeholder="Type to search — tss, miniprep, gel…">
+      <ul id="protocol_options" role="listbox" aria-label="Protocols" hidden></ul>
+    </div>
+    <select id="protocol_select" class="proto-vh" tabindex="-1" aria-hidden="true"></select>
   </label>
 </div>
 
@@ -158,6 +184,14 @@
   let currentInputs = [];
   let currentProtocol = null;
 
+  // THE SELECT IS STILL THE VALUE, the combobox is only a way of reaching it.
+  //
+  // Everything downstream — bootFromQuery, the share links, the change handler — reads
+  // select.value, so replacing the element outright would have meant touching all of it. The
+  // select stays in the DOM holding the answer and the combobox writes to it, which keeps the
+  // ?id=… links working untouched.
+  let comboItems = [];
+
   async function populateSelect(){
     select.innerHTML = '';
     const opt0 = document.createElement('option');
@@ -173,8 +207,99 @@
         opt.textContent = item.title ? `${item.title} — ${item.id}` : item.id;
         select.appendChild(opt);
       }
+      comboItems = index.map(it => ({
+        id: it.id,
+        title: it.title || it.id,
+        hay: `${it.title || ''} ${it.id} ${String(it.id).replace(/_/g, ' ')}`.toLowerCase()
+      }));
     }
   }
+
+  // ---- combobox ----------------------------------------------------------
+  const filterEl = $("protocol_filter");
+  const listEl = $("protocol_options");
+  let shown = [];
+  let active = -1;
+
+  // EVERY WORD HAS TO MATCH, IN ANY ORDER. "tss prep" and "prep tss" both find Preparation of
+  // TSS, and the id is searched with underscores turned to spaces so "comp cells" finds
+  // tss_comp_cells. Substring rather than prefix, because people type the distinctive middle of
+  // a name — "kcm", "zymo", "600" — far more often than its first word.
+  function matches(q){
+    const toks = q.toLowerCase().split(/\s+/).filter(Boolean);
+    if (!toks.length) return comboItems.slice();
+    return comboItems.filter(it => toks.every(t => it.hay.includes(t)));
+  }
+
+  function closeList(){
+    listEl.hidden = true;
+    filterEl.setAttribute('aria-expanded', 'false');
+    active = -1;
+  }
+
+  function renderList(q){
+    shown = matches(q);
+    listEl.innerHTML = '';
+    if (!shown.length){
+      const li = document.createElement('li');
+      li.className = 'proto-none';
+      li.textContent = `No protocol matches “${q}”`;
+      listEl.appendChild(li);
+    } else {
+      shown.forEach((it, i) => {
+        const li = document.createElement('li');
+        li.setAttribute('role', 'option');
+        li.id = `proto_opt_${i}`;
+        li.setAttribute('aria-selected', String(i === active));
+        li.innerHTML = `${it.title.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}<span class="pid">${it.id}</span>`;
+        li.addEventListener('mousedown', (e) => { e.preventDefault(); choose(i); });
+        listEl.appendChild(li);
+      });
+    }
+    listEl.hidden = false;
+    filterEl.setAttribute('aria-expanded', 'true');
+  }
+
+  function highlight(i){
+    active = i;
+    [...listEl.children].forEach((li, k) => li.setAttribute('aria-selected', String(k === i)));
+    const el = listEl.children[i];
+    if (el && el.scrollIntoView) el.scrollIntoView({ block: 'nearest' });
+    filterEl.setAttribute('aria-activedescendant', el ? el.id : '');
+  }
+
+  function choose(i){
+    const it = shown[i];
+    if (!it) return;
+    filterEl.value = it.title;
+    select.value = it.id;
+    closeList();
+    select.dispatchEvent(new Event('change'));
+  }
+
+  filterEl.addEventListener('input', () => renderList(filterEl.value));
+  filterEl.addEventListener('focus', () => renderList(filterEl.value));
+  filterEl.addEventListener('blur', () => setTimeout(closeList, 120));
+  filterEl.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+      e.preventDefault();
+      if (listEl.hidden) { renderList(filterEl.value); }
+      if (!shown.length) return;
+      highlight(e.key === 'ArrowDown'
+        ? (active + 1) % shown.length
+        : (active <= 0 ? shown.length - 1 : active - 1));
+    } else if (e.key === 'Enter'){
+      // ENTER WITH ONE MATCH TAKES IT even if nothing is highlighted: having typed enough to
+      // leave a single protocol standing, being made to press Down first is a keystroke that
+      // tells you nothing.
+      if (!listEl.hidden && (active >= 0 || shown.length === 1)){
+        e.preventDefault();
+        choose(active >= 0 ? active : 0);
+      }
+    } else if (e.key === 'Escape'){
+      closeList();
+    }
+  });
 
   // renderer.js is a module, so it can load after this script runs; wait for it before using Protocols.
   function protocolsReady(){
@@ -397,6 +522,8 @@ select.addEventListener('change', async ()=>{
     const id = q.get('id');
     if (!id) return;
     if ([...select.options].some(o => o.value === id)) select.value = id;
+    const hit = comboItems.find(it => it.id === id);
+    if (hit) filterEl.value = hit.title;
     await loadProtocolInputs(id);
     (currentInputs || []).forEach(inp=>{
       const el = document.getElementById(`in_${inp.name}`);

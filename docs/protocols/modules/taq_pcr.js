@@ -5,8 +5,8 @@
 // instead of primestar… The recipe is different for taq too -- different enzyme and buffer, same
 // dntps."* The recipe below is his, given 2026-09-10:
 //
-//     5 uL 10x Taq Buffer · 5 uL 2 mM in each dNTP · 1 uL 10 uM primer1 · 1 uL 10 uM primer2
-//     1 uL template · 1 uL Taq Polymerase · up to 50 uL with ddH2O
+//     25 uL Taq PCR Master Mix (2x) · 1 uL 10 uM primer1 · 1 uL 10 uM primer2
+//     1 uL template · up to 50 uL with RNase-free water
 //
 // NOTE THE dNTPs ARE NOT THE PRIMESTAR ONES. "Same dNTPs" means the same *stock* is used, and it
 // goes in at 5 µL of 2 mM each here against 4 µL of 2.5 mM each in the PrimeSTAR reaction. Two
@@ -14,7 +14,7 @@
 // swapping the recipe produces a reaction that looks set up correctly.
 //
 // The programs are bare numbers — `45`, `55` — where PrimeSTAR's are `PG<kb>K<anneal>`. Taq is
-// used here for products under 250 bp, so there is no extension-length digit to carry.
+// used here for products under 280 bp, so there is no extension-length digit to carry.
 
 // Timing — see docs/protocols/TIMING.txt. Minutes.
 export const timing = {
@@ -63,19 +63,18 @@ export function factory(values = {}) {
   const useMastermix = (mmRaw === undefined ? (n >= 4) : mmParsed);
 
   // Per-reaction volumes (µL), 50 µL total. Water is "up to 50", i.e. whatever is left.
-  const per = { buffer10x: 5, dNTP: 5, primer1: 1, primer2: 1, template: 1, enzyme: 1 };
-  const named = per.buffer10x + per.dNTP + per.primer1 + per.primer2 + per.template + per.enzyme;
-  per.water = 50 - named;                                   // 36 µL
+  // The 2x master mix is half the reaction by definition, so it is 25 and not a tunable number.
+  const per = { mastermix: 25, primer1: 1, primer2: 1, template: 1 };
+  const named = per.mastermix + per.primer1 + per.primer2 + per.template;
+  per.water = 50 - named;                                   // 22 µL
 
   const perMix = 50 - per.template;                         // everything but the template
   const mixFactor = n * (1 + overage);
   const totals = {
     water: round1(per.water * mixFactor),
-    buffer10x: round1(per.buffer10x * mixFactor),
-    dNTP: round1(per.dNTP * mixFactor),
+    mastermix: round1(per.mastermix * mixFactor),
     primer1: round1(per.primer1 * mixFactor),
     primer2: round1(per.primer2 * mixFactor),
-    enzyme: round1(per.enzyme * mixFactor),
     mixTotal: round1(perMix * mixFactor)
   };
 
@@ -87,8 +86,9 @@ export function factory(values = {}) {
     : `Set up ${n} × 50 µL Taq PCR${n > 1 ? "s" : ""} with ${p1}/${p2} on ${template}`;
 
   const templateStr = `
-**Taq, not PrimeSTAR.** This reaction uses a different enzyme *and* a different buffer, and more
-dNTP mix at a lower concentration. Do not set it up from memory of the PrimeSTAR sheet.
+**Taq, not PrimeSTAR.** This is the 2× Taq PCR Master Mix: the buffer, the dNTPs and the enzyme
+are already in it, so there is no separate buffer tube and no separate dNTP tube. Do not set it up
+from memory of the PrimeSTAR sheet.
 
 1. **Find oligo samples.** Locate the 10 µM stocks and the template DNA.
 2. **Prepare oligo dilutions if needed.**
@@ -97,28 +97,24 @@ dNTP mix at a lower concentration. Do not set it up from memory of the PrimeSTAR
 
 ${useMastermix ? `
 **Master Mix** *(for ${n} reactions; includes ${Math.round(overage * 100)}% overage)*
-- **${totals.water} µL** ddH₂O
-- **${totals.buffer10x} µL** 10× Taq Buffer
-- **${totals.dNTP} µL** dNTP mix (2 mM each)
+- **${totals.water} µL** RNase-free water
+- **${totals.mastermix} µL** Taq PCR Master Mix (2×)
 - **${totals.primer1} µL** ${perSample ? "forward primer — see the Samples table" : `${p1}`} (10 µM)
 - **${totals.primer2} µL** ${perSample ? "reverse primer — see the Samples table" : `${p2}`} (10 µM)
-- **${totals.enzyme} µL** Taq polymerase
 
 - Aliquot **${perMix} µL** of master mix into each labeled tube.
 ` : ``}
 
-**Reaction** *(per 50 µL tube; add enzyme last; keep cold)*
+**Reaction** *(per 50 µL tube; add the master mix last; keep cold)*
 ${useMastermix ? `
 - **${perMix} µL** Master mix
 - **1 µL** ${perSample ? "the template for THIS reaction — see the Samples table" : `${template}`}
 ` : `
-- **${per.water} µL** ddH₂O *(up to 50 µL)*
-- **5 µL** 10× Taq Buffer
-- **5 µL** dNTP mix (2 mM each)
+- **${per.water} µL** RNase-free water *(up to 50 µL)*
 - **1 µL** ${perSample ? "forward primer — see the Samples table" : `${p1}`} (10 µM)
 - **1 µL** ${perSample ? "reverse primer — see the Samples table" : `${p2}`} (10 µM)
 - **1 µL** ${perSample ? "the template for THIS reaction — see the Samples table" : `${template}`}
-- **1 µL** Taq polymerase
+- **25 µL** Taq PCR Master Mix (2×)
 `}
 
 1. **Cap the tube.**
