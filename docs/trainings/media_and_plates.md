@@ -1,7 +1,7 @@
 # Media and Plates
 
-How the lab's liquid media, antibiotic stocks and agar plates get made, in the order you would make
-them. Each step links to its protocol in the [Protocol Builder](../protocols/protocols.md), which
+How the lab's liquid media, antibiotic stocks, agar plates and competent-cell solutions get made,
+in the order you would make them. Each step links to its protocol in the [Protocol Builder](../protocols/protocols.md), which
 does the arithmetic for your batch size, and has a video of it being done in B144.
 
 Pouring plates uses a Bunsen burner and is **supervisor-only**; see
@@ -66,6 +66,28 @@ picking colonies. See
 [Parafilm protocol](https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/protocols/protocols/?id=parafilm_sealing_plates&autogen=1)
 
 <div class="lab-video" data-video="parafilm"></div>
+
+## 7. TSS
+
+The solution competent cells are made in *and* frozen in — LB with PEG, DMSO and magnesium. Made
+once a year in a large batch; a litre serves roughly 20 L of culture.
+
+**Never autoclave it.** It precipitates, and the batch looks fine until the cells do not transform
+a week later. Filter sterilise only, and set the pH to 6.5 *before* you do, because afterwards you
+cannot put a probe in it. If your filter is not DMSO-resistant — cellulose nitrate is not — filter
+first and add the DMSO to the sterile filtrate.
+
+[TSS protocol](https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/protocols/protocols/?id=preparation_of_tss&autogen=1)
+
+## 8. 5× KCM
+
+The salt mix added to a thawed aliquot of competent cells just before the DNA. Unlike TSS, this one
+autoclaves fine — there is no PEG or DMSO in it.
+
+Weigh from the right bottle: the protocol gives hydrated and anhydrous masses, and using the
+hydrated figure out of an anhydrous bottle gives the wrong molarity.
+
+[5× KCM protocol](https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/protocols/protocols/?id=preparation_of_5x_kcm&autogen=1)
 
 ## New plates need controls
 

@@ -29,7 +29,7 @@ Electroporation involves preparing cells in salt-free, ice-cold water or 10% gly
 ### 🌡️ Heat Shock (used in pP6)
 
 We use the **TSS method** for heat shock, where cells are suspended in a PEG-salt mix. You add DNA and a small amount of KCM buffer, chill, then heat shock at 42°C for 90 seconds.  
-📄 [Full TSS protocol](https://www.protocols.io/view/tss-competent-cells-and-transformation-csnqwddw.html)
+📄 How the two solutions are made: [TSS](../trainings/media_and_plates.md#7-tss) and [5× KCM](../trainings/media_and_plates.md#8-5-kcm). The method is from [Chung, Niemela & Miller, PNAS 1989](https://pmc.ncbi.nlm.nih.gov/articles/PMC286873).
 
 TSS cells can be frozen in aliquots and remain competent for years. TSS cells are easier to work with during transformation and are well-suited for routine cloning workflows.
 
