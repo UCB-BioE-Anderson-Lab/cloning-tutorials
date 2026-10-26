@@ -258,6 +258,9 @@ async function renderFromGraphHTML(graph, id, values, depth = 0){
   details.proto-optional, details.proto-inline-optional { margin: 0.5rem 0; }
   details.proto-optional > summary, details.proto-inline-optional > summary { cursor: pointer; font-weight: 600; }
   .include-inline { display: inline-block; }
+  table.proto-table { border-collapse: collapse; margin: 0.75rem 0; }
+  table.proto-table th, table.proto-table td { border: 1px solid rgba(128,128,128,0.4); padding: 0.3rem 0.6rem; }
+  table.proto-table th { text-align: left; }
 </style>
 ` : '';
 
@@ -277,20 +280,65 @@ function formatInline(s){
   return out;
 }
 
+// A PIPE TABLE IS THE ONLY WAY TO WRITE A TABLE OF AMOUNTS, and until now this renderer had no
+// branch for one, so the rows fell through to the paragraph collector and were joined with spaces
+// into a line of literal pipes. No module used a table, so nothing caught it; preparation_of_tss
+// and preparation_of_5x_kcm are the first, and both are tables of weights the person at the bench
+// reads off while weighing. The header row may be empty — `| | |` over `|---|---|` — because an
+// amounts table has no column names worth printing, and an empty <thead> is a blank first row
+// rather than no row, so it is dropped.
+const TABLE_SEP = /^\s*\|?[\s:|-]*-[\s:|-]*\|?\s*$/;
+const isTableRow = (l) => /^\s*\|.*\|\s*$/.test(l || '');
+function splitRow(line){
+  return line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(c => c.trim());
+}
+function alignOf(sepCells){
+  return sepCells.map((c) => {
+    const l = c.startsWith(':'), r = c.endsWith(':');
+    return l && r ? 'center' : r ? 'right' : l ? 'left' : '';
+  });
+}
+
 function textToHTMLBlocks(text){
   const lines = String(text || '').split(/\n/);
   const blocks = [];
   let i = 0;
   while (i < lines.length){
+    // collect a pipe table: a row, a separator row, then rows until something else
+    if (isTableRow(lines[i]) && TABLE_SEP.test(lines[i + 1] || '') && isTableRow(lines[i + 1])){
+      const head = splitRow(lines[i]);
+      const align = alignOf(splitRow(lines[i + 1]));
+      i += 2;
+      const rows = [];
+      while (i < lines.length && isTableRow(lines[i])){ rows.push(splitRow(lines[i])); i++; }
+      const cell = (tag, v, n) => {
+        const a = align[n] ? ` style="text-align:${align[n]}"` : '';
+        return `<${tag}${a}>${formatInline(v)}</${tag}>`;
+      };
+      const thead = head.some(c => c !== '')
+        ? `<thead><tr>${head.map((c, n) => cell('th', c, n)).join('')}</tr></thead>`
+        : '';
+      const tbody = `<tbody>${rows.map(r => `<tr>${r.map((c, n) => cell('td', c, n)).join('')}</tr>`).join('')}</tbody>`;
+      blocks.push(`<table class="proto-table">${thead}${tbody}</table>`);
+      continue;
+    }
     // collect ordered list if present
     if (/^\s*\d+\.\s+/.test(lines[i])){
       // Honour the number the author wrote. A run of steps interrupted by bullets is still
       // the same list, so 8. must render as 8, not restart at 1.
       const first = Number((lines[i].match(/^\s*(\d+)\./) || [])[1] || 1);
+      // A STEP MAY WRAP. An indented line under a numbered step is the rest of that step, and
+      // was being flushed as a paragraph of its own — TSS step 3 broke in half mid-sentence.
       const items = [];
       while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])){
-        items.push(lines[i].replace(/^\s*\d+\.\s+/, ''));
+        let item = lines[i].replace(/^\s*\d+\.\s+/, '');
         i++;
+        while (i < lines.length && /^\s+\S/.test(lines[i])
+               && !/^\s*\d+\.\s+/.test(lines[i]) && !/^\s*[-*]\s+/.test(lines[i])){
+          item += ' ' + lines[i].trim();
+          i++;
+        }
+        items.push(item);
       }
       const startAttr = first > 1 ? ` start="${first}"` : '';
       blocks.push(`<ol${startAttr}>` + items.map(s=>`<li>${formatInline(s)}</li>`).join('') + `</ol>`);
