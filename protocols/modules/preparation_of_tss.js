@@ -2,7 +2,7 @@ export const inputs = [
   { name: "volume_mL", type: "number", label: "TSS to make (mL)", default: 1000, step: 50 },
   { name: "mg_mM", type: "select", label: "Magnesium", options: ["30", "50"], default: "30" },
   { name: "route", type: "select", label: "Sterilisation",
-    options: ["filter the whole base", "autoclave the parts separately"], default: "filter the whole base" },
+    options: ["autoclave the parts separately", "filter the whole base"], default: "autoclave the parts separately" },
   { name: "dmso_resistant_filter", type: "boolean", label: "Is the filter DMSO-resistant?", default: false }
 ];
 
@@ -29,12 +29,12 @@ const MG_PER_L = { 30: 30, 50: 50 };   // mL of 1 M MgCl2 per litre == mM, conve
 // The split route matters at a litre, where filtering 950 mL of 10 % PEG through 0.22 um is the
 // slowest step in the prep by a wide margin. It also dissolves the PEG for free, which is
 // otherwise the other slow step.
-const ROUTE_SPLIT = "autoclave the parts separately";
+const ROUTE_FILTER = "filter the whole base";
 
 export function factory(values) {
   const volume_mL = Number(values?.volume_mL ?? 1000);
   const mg_mM = String(values?.mg_mM ?? "30");
-  const split = String(values?.route ?? "") === ROUTE_SPLIT;
+  const split = String(values?.route ?? "") !== ROUTE_FILTER;   // the split route is the default
   const resistant = !!(values?.dmso_resistant_filter);
   const L = volume_mL / 1000;
   const r1 = (x) => Math.round(x * 10) / 10;
@@ -54,8 +54,7 @@ export function factory(values) {
   // The split route's three parts, which must sum to the final volume.
   const lb2x_mL = r1(volume_mL / 2);                             // 2x LB -> 1x in the final
   const peg_mL  = r1(volume_mL - lb2x_mL - dmso_mL - mgcl2_mL);  // PEG and MgCl2 carrier
-  const pegmg_mL = r1(peg_mL + mgcl2_mL);                        // if they share one bottle
-  const peg_pct = r1(100 * peg_g / pegmg_mL);
+  const peg_pct = r1(100 * peg_g / peg_mL);                      // strength of part B as made up
 
   const dmsoStep = resistant
     ? `Add the **${dmso_mL} mL DMSO**, then filter sterilise through 0.22 µm.`
@@ -78,24 +77,28 @@ export function factory(values) {
 `;
 
   const splitBody = `
-Three parts. The first two are autoclaved **apart from each other**, cooled, then combined.
+Four parts, each made up on its own. Nothing is mixed until everything is cool.
 
 | part | make up | autoclave |
 |---|---|---|
 | **A** 2× LB | ${lb2x_mL} mL, pH to **6.5** before it goes in | yes |
-| **B** PEG + MgCl₂ | **${peg_g} g** PEG 8000 and **${mgcl2_mL} mL** 1 M MgCl₂ (or ${mgcl2_g} g MgCl₂·6H₂O), water to **${pegmg_mL} mL** — about ${peg_pct} % PEG | yes |
-| **C** DMSO | **${dmso_mL} mL** | **no** |
+| **B** PEG 8000 | **${peg_g} g**, water to **${peg_mL} mL** — about ${peg_pct} % w/v | yes |
+| **C** 1 M MgCl₂ | **${mgcl2_mL} mL** (or ${mgcl2_g} g MgCl₂·6H₂O made to ${mgcl2_mL} mL) | yes |
+| **D** DMSO | **${dmso_mL} mL** | **no** |
 
-1. **pH part A to 6.5 before autoclaving.** Once everything is sterile you cannot put a probe in it.
-2. Autoclave A and B **separately**. Do not autoclave them together and do not autoclave the mixture afterwards — a made-up TSS precipitates in the autoclave.
-3. Let both reach room temperature. The PEG dissolves on the way, which is the slow step you would otherwise be stirring through.
-4. Combine A and B in a sterile bottle, then add the **${dmso_mL} mL DMSO**. Total ${volume_mL} mL.
+1. **pH part A to 6.5 before it is autoclaved.** Once everything is sterile you cannot put a probe in it.
+2. Autoclave A, B and C **in separate bottles**. A standing 1 M MgCl₂ stock serves as C.
+3. Let them reach room temperature. The PEG dissolves on the way, which is otherwise the slowest step in the prep.
+4. Combine A, B and C in a sterile bottle, then add the **${dmso_mL} mL DMSO**. Total ${volume_mL} mL.
 5. Check the pH of a **discarded aliquot** — never the bottle — and write down what it read.
 6. Store at 4 °C or −20 °C.
 
-**Why the magnesium rides with the PEG and not the LB.** LB carries phosphate from the tryptone
-and yeast extract, and phosphate with 30–50 mM Mg²⁺ at autoclave temperature is how you get a
-precipitate. Keeping them in different bottles until both are cool is the whole point of the split.
+**Do not autoclave it once it is mixed.** That is the step that precipitates, and it is the only
+one this rule is about.
+
+**Why the salt and the LB are autoclaved apart.** LB carries phosphate from the tryptone and yeast
+extract, and phosphate with 30–50 mM Mg²⁺ at autoclave temperature is the precipitate you are
+avoiding. They can meet once both are cool.
 `;
 
   return {
@@ -103,20 +106,21 @@ precipitate. Keeping them in different bottles until both are cool is the whole 
     description: `${volume_mL} mL of Transformation and Storage Solution, ${mg_mM} mM Mg²⁺, ${split ? "autoclaved in parts" : "filter sterilised"}.`,
     derived: { volume_mL, peg_g, mgcl2_mL, dmso_mL, base_mL, mg_mM: Number(mg_mM) },
     template: `
-**Never autoclave TSS once it is mixed — it precipitates.** The parts may be autoclaved before
-they are combined; the finished solution may not.
+**Make the parts separately and autoclave them apart.** It is faster than filtering, it dissolves
+the PEG for you, and it is what the published protocols do. The one thing that must never go in an
+autoclave is TSS that has already been mixed — that is the step that precipitates.
 ${split ? splitBody : filterBody}
-**The LB ends up 1× here**, because the volume is made up with LB (filter route) or with 2× LB at
-half the final volume (split route). Recipes that carry the PEG in water land nearer 0.7×, which
-also works — the LB in TSS is there to keep the cells alive, not to grow them.
+**The LB ends up 1×** — 2× LB at half the final volume on the split route, or made up to volume
+with LB on the filter route. Recipes that carry the PEG in water and top up with 1× LB land nearer
+0.7×, which also works; the LB in TSS is there to keep the cells alive, not to grow them.
 
 **Magnesium here is ${mg_mM} mM.** The source paper says 50 mM, the OpenWetWare recipe this lab's
 cells have been made from works out at 30 mM, and published versions run 20–50. Write down which
 you used; the choice is invisible in the bottle.
 
 **PEG 3350 beats PEG 8000** in the original paper. Other sizes work with some loss of efficiency.
-Autoclaving the PEG is published practice and is what the split route does, but if you are chasing
-maximum efficiency, filter that part instead.
+Autoclaving the PEG is published practice — C. French autoclaves a 40 % PEG 3350 stock — but if you
+are chasing maximum efficiency, filter part B instead of autoclaving it.
 
 Recipe: \`c6-solutions TSS\`. Used by the TSS competent cell prep at about 5 % of culture volume,
 so ${volume_mL} mL serves roughly ${Math.round(volume_mL * 20 / 1000)} L of culture.
