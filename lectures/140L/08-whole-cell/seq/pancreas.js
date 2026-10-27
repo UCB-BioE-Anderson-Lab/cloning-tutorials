@@ -95,7 +95,7 @@ const A = {
   beltTop: 37,                 // y of the treadmill belt's upper run
   needle: [0, 38]              // the syringe's needle tip
 };
-const SICK1 = { s:1.15, x:132, feet:330 };            // beats 1-2: the mouse, alone, centre
+const SICK1 = { s:1.15, x:132, feet:330 };            // beats 1-2: the mouse, alone, center
 const TREATED = { s:0.82, x:22, feet:330 };           // beat 3, left: the same mouse, treated
 const UNTREATED = { s:0.82, x:352, feet:330 };        // beat 3, right: a second, untreated mouse
 const BARS = { base:560, w:64, tall:170, short:46 };

@@ -22,7 +22,7 @@
  * decades of log fluorescence.  Set B = 100 for the bright sample,
  * 25 for the dim one, 1 for cells carrying no fluorophore at all.
  *   slide 19  day one gain 0.3, day two gain 4.0 — drift, nobody
- *             standardised anything, and the dim sample reads higher
+ *             standardized anything, and the dim sample reads higher
  *   slide 20  both days set so the unlabeled cells land in the first
  *             decade: gain 3.0, and the order comes out right
  * Those are illustrative numbers and the slide says so.  They are not

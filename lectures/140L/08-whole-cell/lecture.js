@@ -17,7 +17,7 @@
 
    Source slides 12-40 sit on a dark grey ground, so their drawn figures
    were cropped from a second render with a white ground, and raster
-   figures carrying white labels were either recoloured to ink or, where
+   figures carrying white labels were either recolored to ink or, where
    the white marks are data beside black data, kept on the source's own
    grey as a panel.  PLAN.txt has the per-figure list.
 
