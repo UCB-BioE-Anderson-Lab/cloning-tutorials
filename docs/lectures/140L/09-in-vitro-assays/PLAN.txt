@@ -76,8 +76,41 @@ white background injected is needed for those, exactly as the
 Whole-Cell deck needed (see its PLAN.txt, "HOW SECTIONS 01-05 WERE
 CROPPED").
 
-TWO SETS OF SLIDES ARE DRAWN, NOT CROPPED
------------------------------------------
+THE SOURCE 5-9 ANIMATION WAS REBUILT AFTER IT FAILED IN CLASS
+--------------------------------------------------------------
+27 Oct 2026.  JCA: "the animations at the start weren't right.  They
+were a mess.  You need to remake those much closer to the original
+slides."  Four things were wrong, each checked against the pptx:
+
+  IT DELETED THE CELL.  On source 8 and 9 the envelope is still drawn
+  after lysis.  The first version set it to opacity 0, so the middle of
+  the slide went empty and the contents read as debris in a void.  The
+  envelope now fades to 0.45 and STAYS.
+
+  IT SCATTERED EVERYTHING.  Every group had its own slot in a far-off
+  zone, so groups crossed each other on the way and their labels
+  collided on arrival.  Now every group keeps its x and moves only in
+  y — one distance up to the Extract, one down to the Debris Pellet —
+  so the left-to-right order survives and nothing can cross.  The one
+  exception is declared in the file: the carbohydrates hang off the
+  OUTSIDE of the top membrane, so the shared drop would land them
+  inside the cell they just came off, and they fall further.
+
+  IT WAS THE WRONG COLOURS.  The source colour-codes the molecule
+  classes and that coding is what the slide is for.  seq/cell.js now
+  uses the source's own: blue #558ED5, yellow #FFFF00, green #00B050,
+  orange #F79646, navy #1F497D, periplasm #C4BD97.  This is a
+  deliberate exception to the house palette and the only one in the
+  deck that is about fidelity rather than legibility.
+
+  IT LEFT OUT THE SONICATOR.  Source 7 draws pale rods tearing across
+  the cell.  They are back, clipped to the cell and spaced irregularly,
+  because evenly spaced bars at alternating angles read as a lattice,
+  and a lattice is a structure where this is damage.
+
+Sources 5 and 6 reserve no Extract or Debris band, so they crop to the
+cell and draw it large, the way the source slide has it.
+
 SOURCE 5-9, because they are motion paths.
 The one place the literal pass could not be literal.  Source 7, 8 and 9
 are MOTION PATH animations: the cell's contents travel out to an Extract
@@ -356,25 +389,32 @@ WHERE THIS STANDS
   05-binding.html        source 39-46  DONE   (26 steps, audit clean)
   the four questions     source 48      DONE, distributed
 
-THE FOUR QUESTIONS, AND WHERE THEY WENT
----------------------------------------
-Source 48's four questions now sit at the end of the section that makes
-each answerable, on the amber ground, each carrying its own paragraph of
-source 48's note as the spoken answer.  All four paragraphs are verbatim;
-only their ORDER changed, which is what the verifier shows when the four
-are concatenated and diffed against source 48.
+THE FOUR QUESTIONS ARE BACK WHERE THE SOURCE PUT THEM (27 Oct 2026)
+-------------------------------------------------------------------
+They were distributed to the ends of the sections, one per section, on
+JCA's instruction of 21 Oct.  That was tried in front of a class on
+27 Oct and failed on the first one:
 
-  01 Extraction   the lutein yellow pigment device   (answer: extract it)
-  03 Detection    the HIV biosensor                  (answer: differential)
-  04 Enzymatic    the phage protein on 5' DNA        (answer: purify, gel)
-  05 Binding      the adhesion device's lectin       (answer: ELISA)
+  "I hit the end of the first section, realized the question on lutein
+   was unanswerable at that step, and switched to the old slides."
 
-Source 47, the "Questions to Ponder" divider, is gone with them, as it
-went in the Whole-Cell deck.  Source 49, the carotenoid chart, is now its
-own white slide just ahead of the lutein question it illustrates: it is a
-bitmap with a white background, and on the amber ask slide it read as a
-hole punched in the ground.  Source 50, a bare "Questions?" card, is
-dropped — the Whole-Cell deck dropped its equivalent on JCA's ruling.
+The reason is structural and it applies to all four, not just the first.
+Question 1's answer is "extract it, then run LCMS" — extraction is
+section 01 and LCMS is section 03.  Question 2 wants a differential
+measurement, question 3 wants a His tag AND an ELISA, question 4 wants a
+purification AND a gel.  Not one of them is answerable from inside a
+single section, so there is no section end that is the right place for
+any of them.  They belong where the source had them: at the END, after
+everything, which is also what makes them worth asking.
+
+So 06-questions.html now holds source 47 (the divider), source 48 (all
+four questions on one slide, the four answers as its note) and source 49
+(the carotenoid chart, which illustrates question 1).  The wording is the
+source's; the only changes are the three spelling fixes from the notes
+audit.  Source 48 carries no title of its own because the source slide
+has none — the divider before it says it.
+
+Source 50, a bare "Questions?" card, is still dropped.
 
 ONE NOTE DROPPED
 ----------------
