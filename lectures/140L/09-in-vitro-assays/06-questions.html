@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Questions to Ponder &ndash; In vitro Assays</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* source 48: the four questions, as the source has them — all four on
+   one slide, at the END of the deck, because each one needs methods from
+   more than one section to answer */
+.slide ol.ponder{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center;margin:0;padding-left:1.5em;max-width:1240px}
+.slide ol.ponder li{font-size:33px;line-height:1.33;margin:0 0 36px;color:var(--blue)}
+.slide ol.ponder li:last-child{margin-bottom:0}
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 47 -->
+<article class="slide" data-bg="section">
+  <h1>Questions to Ponder</h1>
+  <template class="notes">Four of these, and none of them is answered by one section on its own.  Each one asks you to pick a method out of the whole lecture, which is the thing I actually want you to be able to do.</template>
+  <template class="desc">Section divider: Questions to Ponder.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 48 -->
+<article class="slide">
+  <ol class="ponder">
+    <li>I&rsquo;ve constructed a &ldquo;yellow pigment device&rdquo; that makes lutein.  My cells are turning yellow.  What type of experiment should I do to characterize my device?</li>
+    <li>I&rsquo;ve taken my yellow pigment device and joined it to an HIV biosensor device.  What experiment should I do to characterize the entire system?</li>
+    <li>I&rsquo;m trying to make a &ldquo;cancer cell adhesion device&rdquo; that displays a Thomsen-Friedenreich antigen binding lectin on <i>E. coli</i>&rsquo;s surface.  It isn&rsquo;t working, and I think my lectin part might be a dud.  What should I make with the lectin part, and what experiment should I do to see if it works?</li>
+    <li>I&rsquo;ve read that a phage protein will covalently attach itself to the 5&rsquo; hydroxy of a DNA with a 5&rsquo; phosphate.  I made a part out of the coding sequence.  What should I do to characterize the activity of this part?</li>
+  </ol>
+  <template class="notes">You&rsquo;ll want to confirm that the yellowness is indeed lutein, and probably quantify how much of it you are making.  You would do some sort of extraction, such as a methanolic extraction.  Since this compound is very hydrophobic and similar to carotene in structure, you might instead use something like acetone.  You can then do LCMS to quantify and detect it.
+You don&rsquo;t really need to confirm the lutein structure again &ndash; that is unlikely to change, instead you need to compare the system with and without HIV particles present.  How you do the measurement is whatever is easiest.  You could do the same extraction and LCMS as in #1, but you probably could get away with taking a picture of the cells, or perhaps an absorbance measurement of the yellowness.  The key is it is a differential measurement comparing one sample to another, as discussed in the last lecture.
+You can express the lectin with a His tag, purify it, then do a binding assay like ELISA.
+Express the phage protein with a His tag and purify it.  Then, incubate the protein with the DNA.  Perhaps you make that DNA as a PCR product with a fluorophore on the 5&rsquo; end.  You then quench the reaction with something denaturing like urea or guanidinium chloride or SDS.  You then run an SDS-PAGE gel.  If the interaction is covalent, it will survive denaturation and give a band that is the mass of the DNA as well as the protein, which should be distinguishable from the two substrates.  Alternatively, you could do various things with radioactivity.</template>
+  <template class="desc">Four questions to ponder: characterizing a lutein-producing yellow pigment device; characterizing that device joined to an HIV biosensor; testing a suspect lectin part from a cancer cell adhesion device; and characterizing a phage protein that attaches covalently to the 5-prime end of a DNA.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 49 -->
+<article class="slide">
+  <h1>The carotenoids</h1>
+  <figure class="fig">
+    <img src="img/49-carotenoids.svg" alt="A chart of the carotenoids. On the left the carotenes &mdash; lycopene and beta-carotene &mdash; pure hydrocarbon chains of conjugated double bonds. On the right the xanthophylls: violaxanthin, zeaxanthin, astaxanthin, spirilloxanthin, neoxanthin, lutein, fucoxanthin and canthaxanthin, the same backbones carrying oxygen.">
+  </figure>
+  <template class="notes">Lutein is one of these.  The carotenoids split in two: the carotenes are pure hydrocarbon, and the xanthophylls are the same backbones carrying oxygen.  Lutein is a xanthophyll, and those two hydroxyls make it less hydrophobic than beta-carotene, which is what decides whether methanol or acetone is the better extraction for question one.</template>
+  <template class="desc">The carotenoid family: the carotenes are pure hydrocarbon, the xanthophylls are the same backbones carrying oxygen. Lutein is one of the xanthophylls.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

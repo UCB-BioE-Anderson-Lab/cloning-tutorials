@@ -26,6 +26,7 @@ window.LECTURE = {
     { file: "02-purification.html", title: "Purification",  kind: "section" },
     { file: "03-detection.html",    title: "Detection",     kind: "section" },
     { file: "04-enzymatic.html",    title: "Enzymatic Assays", kind: "section" },
-    { file: "05-binding.html",      title: "Binding Assays", kind: "section" }
+    { file: "05-binding.html",      title: "Binding Assays", kind: "section" },
+    { file: "06-questions.html",    title: "Questions to Ponder", kind: "section" }
   ]
 };
