@@ -224,11 +224,28 @@ put and only their state changes, which is what each assay actually is.
 
   40  seq/pulldown.js  5 beats  "three proteins, two bind, one doesn't,
       add the bead, the bound one pulls down with it on spin"
-  41  seq/formats.js   4 beats  direct, indirect, sandwich, then the
-      label: "just a few of the major variations on 'sandwich assay'"
+  41  seq/formats.js   5 beats  the antigen on the plate, then direct,
+      indirect, sandwich, then the label: "just a few of the major
+      variations on 'sandwich assay'"
   44  seq/spr.js       4 beats  the chip, then a SENSORGRAM, which the
       source figure never showed although its note ends by promising
       kinetics: "could be an animation and explained better"
+
+SOURCE 41 WAS REWORKED ON 27 Oct 2026.  JCA: "the labels come at the
+end, so it is unclear what is what.  I think the analyte is yellow, so
+that's the first beat."  It now opens on the plate and the antigen
+alone, named, and every glyph is named in the first well as it appears,
+so the closing HRP / fluorophore legend only has to expand one word that
+has been on screen for three beats.  Colour is a rule rather than
+decoration: blue is the antibody carrying the label, grey is one that is
+not, in all three formats.
+
+That pass also turned up a real bug.  The antibody helper took a
+direction argument whose sense was inverted at every call, so each Y was
+drawn upside down -- arms pointing away from what it was supposed to be
+holding, and the label buried inside the antigen instead of sitting at
+the free end of the stem.  The argument is now named `grip` and
+documented as the way the ARMS point.
 
 Source 41's competitive and multiplex panels are dropped.  They are
 variations on reading a result rather than on building the stack, and
@@ -241,8 +258,9 @@ sentence boundaries.  The other two had no clicks in the source and so no
 note for the beats the animation adds.  These lines are NEW and want
 JCA's eye before the deck is presented from:
 
-  41  beats 1, 2 and 3 in seq/formats.js  (direct vs indirect, what the
-      sandwich buys you, HRP against a fluorophore)
+  41  beats 1 to 4 in seq/formats.js  (the direct format, what a second
+      antibody buys you, what the sandwich buys you, HRP against a
+      fluorophore)
   44  one sentence on beat 1 ("With only buffer going past, the trace
       sits flat, and that flat line is your baseline") and one on beat 3
       ("Switch back to buffer and watch it come off, and the shape of
