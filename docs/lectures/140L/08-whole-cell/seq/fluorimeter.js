@@ -10,7 +10,7 @@
  *      absorb blue and give back green
  *   3  autofluorescence: cells with no fluorophore still give a dim
  *      signal, and that floor is what masks a small one
- *   4  so the reading is normalised against those cells, and then
+ *   4  so the reading is normalized against those cells, and then
  *      divided by OD - which is slide 23
  *
  * Built on seq/spectro.js, slide 21: read that first.  Same lamp,

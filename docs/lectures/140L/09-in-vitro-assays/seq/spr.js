@@ -78,7 +78,7 @@ function build(host){
     el("path", { d:"M" + x + " " + CHIP + "v-34", stroke:BLUE, "stroke-width":6 }, P.chip);
     el("circle", { cx:x, cy:CHIP - 52, r:22, fill:BLUE }, P.chip);
   }
-  tx(P.chip, 370, CHIP - 132, "Bait, immobilised on the chip", { size:25, fill:BLUE });
+  tx(P.chip, 370, CHIP - 132, "Bait, immobilized on the chip", { size:25, fill:BLUE });
   /* the optics: a beam in, a beam out */
   el("path", { d:"M110 560L300 " + (CHIP + 20), stroke:AMBER, "stroke-width":5 }, P.chip);
   el("path", { d:"M300 " + (CHIP + 20) + "L560 560", stroke:AMBER, "stroke-width":5 }, P.chip);
@@ -126,7 +126,7 @@ function build(host){
 const STEPS = [
   { on:["chip"], frac:0,
     note:"In SPR, you have these gold film-coated chips that you buy as a kit.  You get your Bait protein attached to the chip through affinity interactions, and then put it into a special instrument.  A common one is called a Biacore. It has a light beam bouncing off the surface of the chip.",
-    desc:"A gold-filmed chip with bait protein immobilised on its upper face, and a beam of light entering underneath, reflecting off the film and leaving towards a detector." },
+    desc:"A gold-filmed chip with bait protein immobilized on its upper face, and a beam of light entering underneath, reflecting off the film and leaving towards a detector." },
   { on:["chip","flow","free","plot"], frac:0,
     note:"It also has a flow cell that passes your Prey sample, or a small molecule, or whatever over the surface.  With only buffer going past, the trace sits flat, and that flat line is your baseline.",
     desc:"A flow cell runs across the top of the chip and analyte sweeps past without binding. Beside it, an empty set of axes, response against time, with the trace flat along the bottom." },
