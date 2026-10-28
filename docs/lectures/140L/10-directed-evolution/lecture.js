@@ -17,6 +17,7 @@ window.LECTURE = {
   title: "Directed Evolution",
   course: "140L",
   sections: [
-    { file: "00-front-matter.html", title: "Introduction", kind: "lecture" }
+    { file: "00-front-matter.html", title: "Introduction", kind: "lecture" },
+    { file: "01-library-approaches.html", title: "Library Approaches", kind: "section" }
   ]
 };

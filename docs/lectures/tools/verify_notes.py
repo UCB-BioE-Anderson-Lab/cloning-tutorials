@@ -49,7 +49,10 @@ def norm(s):
     for a, b in SUBS:
         s = s.replace(a, b)
     s = s.replace("<click>", "")
-    s = re.sub(r"(?<=\s)\*(?=\s)", "", s)         # the deck's other click marker
+    # The deck's other click marker.  A RUN of them, because an author who
+    # wants a second marker on the same slide writes ** for it, as source 10
+    # of the Directed Evolution deck does.
+    s = re.sub(r"(?<=\s)\*+(?=\s)", "", s)
     s = re.sub(r"<[^>]+>", "", s)
     return re.sub(r"\s+", " ", s).strip()
 

@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Library Approaches &ndash; Directed Evolution</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 9: the divider carries the three topics and the source's mound */
+.slide .divtop{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:1fr 440px;grid-template-rows:minmax(0,1fr);
+  gap:60px;align-items:center}
+.slide .divtop > *{min-width:0;min-height:0}
+.slide .divtop ul{list-style:none;margin:0;padding:0}
+.slide .divtop li{font-size:36px;margin:0 0 20px}
+.slide .divtop figure{margin:0;height:100%;display:flex;align-items:center}
+.slide .divtop img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* sources 10-11: the library drawn from the source's own ovals and arrows.
+   The geometry is lifted shape for shape out of the slide XML — nine
+   ovals, nine arrows, one of them tan — so the picture a student sees is
+   the picture that was on the source slide.  It is an SVG rather than a
+   crop because the two slides differ only in which shapes are showing,
+   and a render has them all showing at once. */
+.slide svg.lib{flex:1 1 auto;min-height:0;width:100%;height:100%}
+.slide svg.lib .ov{fill:none;stroke:#77746a;stroke-width:1.6}
+.slide svg.lib .ar{fill:#4f81bd;stroke:#27405e;stroke-width:2}
+.slide svg.lib .ar.one{fill:#e5b8b7;stroke:#d99694}
+/* sources 16 and 18: both figures are drawn in white on the source's
+   grey master, so they keep a grey panel under them here — on the house
+   white ground their labels would simply disappear. */
+.slide figure.fig.grey{background:#595959;border-radius:4px;padding:18px}
+/* source 14: three Fab structures rendered on black, side by side */
+.slide .three{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:repeat(3,1fr);grid-template-rows:minmax(0,1fr);
+  gap:30px;background:#000;border-radius:4px;padding:18px 18px 10px}
+.slide .three > figure{margin:0;min-width:0;min-height:0;display:flex;
+  flex-direction:column}
+.slide .three img{flex:1 1 auto;min-height:0;width:100%;height:100%;
+  object-fit:contain}
+.slide .three figcaption{flex:0 0 auto;text-align:center;color:#fff;
+  font-size:22px;padding-top:8px}
+/* source 17: the heavy-chain arithmetic, three blocks that build */
+.slide .vdj{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center}
+.slide .vdj p{font-size:27px;margin:0 0 10px}
+.slide .vdj .blk{margin:26px 0 0}
+.slide .vdj h2{font-size:30px;color:var(--blue);margin:0 0 10px}
+.slide .vdj ul{margin:0 0 10px;padding-left:1.1em}
+.slide .vdj li{font-size:27px;margin:0 0 6px}
+.slide .vdj p.sum{font-size:28px;font-weight:700;margin:0}
+.slide .vdj p.sum span{font-weight:400;display:block;font-size:26px;margin-top:6px}
+/* source 19: two named mechanisms, each with what it does */
+.slide .mech h2{font-size:32px;color:var(--blue);margin:30px 0 10px}
+.slide .mech h2:first-child{margin-top:0}
+.slide .mech p{font-size:27px;margin:0 0 10px;max-width:1180px}
+/* source 20: the two engineering methods set against each other */
+.slide .meth{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center}
+.slide .meth h2{font-size:34px;margin:0 0 12px}
+.slide .meth .blk + .blk{margin-top:46px}
+.slide .meth ul{margin:0;padding-left:1.1em}
+.slide .meth li{font-size:28px;margin:0 0 8px}
+/* sources 21-22: the sequence-space landscape, with the source's own
+   labels, starting point and spread laid back over it */
+.slide svg.land{flex:1 1 auto;min-height:0;width:100%;height:100%}
+.slide svg.land text{fill:#fff;font-family:var(--sans);font-size:406.4px;
+  paint-order:stroke;stroke:rgba(0,0,0,.55);stroke-width:40px}
+</style>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- 9 -->
+<article class="slide" data-bg="section">
+  <h1>Library Approaches</h1>
+  <div class="divtop">
+    <ul>
+      <li>Antibody selection</li>
+      <li>Directed Evolution</li>
+      <li>Combinatorial Libraries</li>
+    </ul>
+    <figure>
+      <img src="img/09-mound.png" alt="A blue, densely furred mound rising from a flat base, drawn as a heap of countless fine fibres &mdash; a library pictured as a pile of many individual sequences.">
+    </figure>
+  </div>
+  <template class="notes">Library approaches to genetic engineering can be either directed evolution strategies or combinatorial methods.</template>
+  <template class="desc">Section divider: Library Approaches &mdash; antibody selection, directed evolution, and combinatorial libraries. Beside them, a mound built of countless fine fibres.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 10 -->
+<article class="slide">
+  <h1>Diversity Generation</h1>
+  <svg class="lib" viewBox="100 108 832 544" role="img"
+       aria-label="Nine arrows scattered across the field, eight of them blue and one tan. On the click each arrow is enclosed in its own oval compartment.">
+    <g data-build="1">
+      <ellipse class="ov" cx="232" cy="172" rx="120" ry="60"/>
+      <ellipse class="ov" cx="632" cy="180" rx="120" ry="60"/>
+      <ellipse class="ov" cx="408" cy="300" rx="120" ry="60"/>
+      <ellipse class="ov" cx="720" cy="364" rx="120" ry="60"/>
+      <ellipse class="ov" cx="224" cy="396" rx="120" ry="60"/>
+      <ellipse class="ov" cx="552" cy="588" rx="120" ry="60"/>
+      <ellipse class="ov" cx="256" cy="548" rx="120" ry="60"/>
+      <ellipse class="ov" cx="488" cy="436" rx="120" ry="60"/>
+      <ellipse class="ov" cx="808" cy="516" rx="120" ry="60"/>
+    </g>
+    <g>
+      <path class="ar" transform="translate(192,144)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(592,152)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar one" transform="translate(368,272)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(680,336)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(184,368)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(512,560)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(216,520)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(448,408)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(768,488)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+    </g>
+  </svg>
+  <p data-build="1" data-note="In all cases, we must have a linkage between the gene sequence and the protein it encodes.  This can be achieved by compartmentalizing the gene in a cell or micelle.  Alternatively, there are phage and ribosome display methods for connecting genotype to phenotype.  We then apply some selective pressure to remove all the uninteresting variants and expand the gene variant with desired activity."><b>Cells</b>, phages, ribosomes, or microemulsions</p>
+  <template class="notes">In all library methods, there is first diversity generation and then selection of desired variants.  Here we illustrate a library of genes in which the one in tan has a property that is distinct from the others.</template>
+  <template class="desc">A library of genes drawn as nine arrows scattered over the field, one of them tan &mdash; the variant with a property the others lack. On the click every arrow is shut inside its own oval compartment: a cell, a phage, a ribosome or a microemulsion, each one tying a gene to the protein it encodes.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 11 -->
+<article class="slide">
+  <h1>Selection</h1>
+  <svg class="lib" viewBox="100 108 832 544" role="img"
+       aria-label="The same nine compartments. On the click all of them fade but the tan one, which is left alone on the field.">
+    <g data-unbuild="1">
+      <ellipse class="ov" cx="232" cy="172" rx="120" ry="60"/>
+      <ellipse class="ov" cx="632" cy="180" rx="120" ry="60"/>
+      <ellipse class="ov" cx="720" cy="364" rx="120" ry="60"/>
+      <ellipse class="ov" cx="224" cy="396" rx="120" ry="60"/>
+      <ellipse class="ov" cx="552" cy="588" rx="120" ry="60"/>
+      <ellipse class="ov" cx="256" cy="548" rx="120" ry="60"/>
+      <ellipse class="ov" cx="488" cy="436" rx="120" ry="60"/>
+      <ellipse class="ov" cx="808" cy="516" rx="120" ry="60"/>
+      <path class="ar" transform="translate(192,144)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(592,152)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(680,336)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(184,368)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(512,560)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(216,520)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(448,408)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+      <path class="ar" transform="translate(768,488)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+    </g>
+    <g>
+      <ellipse class="ov" cx="408" cy="300" rx="120" ry="60"/>
+      <path class="ar one" transform="translate(368,272)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
+    </g>
+  </svg>
+  <template class="notes"></template>
+  <template class="desc">The same nine compartments. On the click the eight blue ones fade away and the tan variant is left alone on the field.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 12 -->
+<article class="slide">
+  <h1>Selections and Screens</h1>
+  <p>A <b>Selection</b> involves a procedure applied to the library population that results in selective survival of the desired population</p>
+  <p>A <b>Screen</b> involves individually examining members of the library and choosing those members with the desired activity</p>
+  <template class="notes">There are many ways of generating the genetic diversity, several ways of associating genotype with phenotype, and many ways of enriching for desirable variants.  The enrichment process can be either a selection or screen.  In a selection, you apply a procedure to the library population that results in selective survival of the desired population.  In a screen, you individually assay each member of the population and choose those with desired activity.</template>
+  <template class="desc">The two ways of enriching a library, set against each other: a selection acts on the whole population at once and lets only the desired members survive, while a screen examines members one at a time.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 13 -->
+<article class="slide">
+  <h1>F<sub>ab</sub> Antibody Fragments</h1>
+  <figure class="fig">
+    <img src="img/13-fab.png" alt="An antibody anatomy diagram. Across the top, IgM drawn as a ten-armed pentamer, IgG as the familiar Y, and IgA as a four-armed dimer. Lines lead down from the IgG to an enlarged Y labelled domain by domain: the two antigen binding sites at the tips, the light chain in pale blue folded over the heavy chain in gold, the hinge region with its disulphide bonds, and an oligosaccharide on the stem. A key marks the hypervariable region, the variable region and the constant region, and brackets mark off the Fab, Fv and Fc fragments.">
+  </figure>
+  <template class="notes">These types of experiments were inspired by the naturally occurring process involved in generating antibodies.  The warhead of an antibody is the Fab fragment.  IgM antibodies have 10 of these, IgG&rsquo;s have 2, and IgA&rsquo;s have 4.  The tip of the antibody is called the Fv fragment with the VH and VL domains.  The majority of the diversity in antibodies is contained within these two domains.  The minimum sized fragment of an antibody that can exist in its native form and be stable and functional is the Fab fragment containing 4 domains: VH and VL, and CH and CL.</template>
+  <template class="desc">The anatomy of an antibody: IgM, IgG and IgA above, and below them one arm opened out to show the light and heavy chains, the variable and constant domains, and where the Fab, Fv and Fc fragments begin and end.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 14 -->
+<article class="slide">
+  <h1>Antibody Selection</h1>
+  <div class="three">
+    <figure>
+      <img src="img/14-1nsn.png" alt="A Fab fragment crystal structure on black: the heavy chain in blue and the light chain in yellow, two columns of beta sandwich domains side by side, with the CDR loops picked out in orange at the top. The binding surface here is broad and flat.">
+      <figcaption>1NSN</figcaption>
+    </figure>
+    <figure>
+      <img src="img/14-2adf.png" alt="A second Fab fragment in the same orientation, blue and yellow chains with orange CDR loops. Outside the loops the fold is identical to the first; the loops themselves close into a narrower pocket.">
+      <figcaption>2ADF</figcaption>
+    </figure>
+    <figure>
+      <img src="img/14-2dqu.png" alt="A third Fab fragment, again blue and yellow with orange loops in the same orientation. Its CDR loops pack so tightly that the pocket they form is little more than a slot buried in the surface.">
+      <figcaption>2DQU</figcaption>
+    </figure>
+  </div>
+  <template class="notes">Though Directed Evolution and Combinatorial Libraries are genetic engineering techniques, analogs of these processes occur naturally during the production of antibodies in mammalian B cells.
+Shown here are 3 crystal structures of Fab fragments of antibodies that each bind a different substrate.  I&rsquo;ve put them all in the same orientation such that you can see their structural similarity.  The blue and yellow regions correspond to the heavy and light chains. Note that we are looking at just the Fab fragment of a larger protein molecule.  Mature antibodies are typically IgG antibodies that contain two of these Fab fragments.  Thus, an IgG molecule is composed of 4 polypeptides:  two light chains and two heavy chains.  Each Fab fragment is composed of 2 polypeptides:  one light, one heavy.
+The CDR loops, in orange, are the primary source of variability from one antibody to the next, and it is this region of the molecule that binds one specific epitope.  Notice that outside this orange region, the molecules are structurally identical.  The size of the binding pocket formed by the CDR loops depends entirely on their sequence, which is specific to each antibody.  In 1NSN, we have a very broad flat pocket.  In 2ADF, we have a more narrow pocket.  In 2DQU, the antigen is a small molecule and the binding pocket is so small that it is almost entirely embedded within the antibody when it binds.  Thus, the CDR loops are highly diverse structurally.  Our concern here is how these CDR loop sequences are identified by the immune system.</template>
+  <template class="desc">Three Fab fragment crystal structures side by side in the same orientation &mdash; 1NSN, 2ADF and 2DQU &mdash; heavy chain blue, light chain yellow, CDR loops orange. Away from the orange loops the three are the same molecule; at the loops they are three different binding pockets, broad and flat, narrow, and all but closed.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 15 -->
+<article class="slide">
+  <h1>Antibody Selection</h1>
+  <figure class="fig">
+    <img src="img/15-hybridoma.png" alt="The route from antigen to monoclonal antibody, left to right: a syringe of antigen injected into a mouse; B cells harvested from the mouse, drawn as a cluster of orange cells; myeloma cells in red; the two fused into hybridomas, each one a pair; and at the end a single Y-shaped monoclonal antibody.">
+  </figure>
+  <template class="notes">The traditional way to make specific antibodies involved injecting a mouse with the antigen.  This process of antibody generation happens within the mouse, and the cells that contain the genes for the antibody and thus produce each antibody are B cells. Different B cells will produce different antibodies. These cells are harvested from the mouse, and then immortalized by fusion with myeloma cells.  The resulting hybridomas are identified as clones that each produce one specific antibody.  Those clones can be expanded by re-injection into a mouse or growth in vitro to produce as much of the monoclonal antibody as desired.  Also the genes can be cloned out and expressed in a bacterium or animal cell line.</template>
+  <template class="desc">Making a monoclonal antibody the traditional way: inject the antigen into a mouse, harvest its B cells, fuse them with myeloma cells to immortalize them, and pick the hybridoma clone that makes the antibody you want.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 16 -->
+<article class="slide">
+  <h1>VDJ Recombination</h1>
+  <figure class="fig grey">
+    <img src="img/16-vdj.png" alt="A light chain gene maturing, read top to bottom. At the top, germline DNA holding a long row of V segments in turquoise, a run of J segments in violet and a single C segment in orange. Below it the recombined DNA, one V joined to one J. Then the primary transcript RNA, then the spliced light-chain mRNA carrying V, J and C alone, and finally the light chain protein, drawn as a turquoise variable domain and an orange constant domain docking into a whole antibody.">
+  </figure>
+  <template class="notes">So, the question is what is happening within the mouse?  In each mouse cell, there are gene clusters that encode the components for constructing heavy and light chains.  The heavy chain genes are split into V, J, D, and C coding sequences.  There are multiple Variable, Diversity, and Joining segments (VDJ), and a single constant domain. These VDJ regions encode the CDR loops of the antibody. As a B cell matures, it randomly selects one combination of V, D, and J by recombination of its genome.  That VDJ combination specifies a specific antibody sequence that will be expressed by the B cell, and different B cells will produce different VDJ combinations. In this figure, we are showing the maturation of a light chain gene, which is similar to the heavy chain but lacks D segments.</template>
+  <template class="desc">A light chain gene maturing: from germline DNA carrying many V segments and many J segments, through recombination to a single V&ndash;J join, to the transcript, the spliced mRNA and finally the light chain itself in the assembled antibody.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 17 -->
+<article class="slide">
+  <h1>VDJ Recombination</h1>
+  <div class="vdj">
+    <p>Heavy chain gene &ndash; located on chromosome 14</p>
+    <p>Light chain kappa (&kappa;) gene &ndash; located on chromosome 2</p>
+    <p>Light chain lambda (&lambda;) gene &ndash; located chromosome 22</p>
+    <div class="blk" data-build="1" data-note="During early B cell development in the bone marrow&mdash;before any infection&mdash;B cells undergo VDJ recombination. The heavy chain locus contains: 65 Variable (V) domains 27 Diversity (D) domains 6 Joining (J) domains">
+      <h2>Heavy Chain in Genome</h2>
+      <ul>
+        <li>65 Variable (V) domains</li>
+        <li>27 Diversity (D) domains</li>
+        <li>6 Joining (J) domains</li>
+      </ul>
+    </div>
+    <div class="blk" data-build="2" data-note="These combine in 65 &times; 27 &times; 6 = 10,530 unique ways. The light chains also recombine (VJ only), adding further diversity.">
+      <p class="sum">65 V genes x 27 D genes x 6 J Genes = 10530 combinations
+        <span>Light Chain similarly has V and J recombination</span></p>
+    </div>
+    <div class="blk" data-build="3" data-note="This process produces a specific antibody gene combination, not random sequences. The first expressed antibody is IgM, determined by the constant (C) region. IgM forms a pentamer with up to 10 Fab regions, allowing strong binding to repetitive structures like viruses through avidity, despite initially low affinity. Analogy: Like ordering at Chipotle&mdash;selecting base, protein, and toppings leads to many defined combinations&mdash;VDJ recombination builds a large, specific antibody repertoire from genomic choices.">
+      <p>VDJ recombination results in one antibody gene of the IgM form.  An initial &ldquo;hit&rdquo; that binds the antigen (weakly) is selected from a single B cell expressing a single IgM</p>
+    </div>
+  </div>
+  <template class="notes">All cells in the mouse begin with identical heavy and light chain gene sequences. The heavy chain gene is located on chromosome 14, while the light chain genes&mdash;kappa (&kappa;) and lambda (&lambda;)&mdash;are found on chromosomes 2 and 22, respectively.</template>
+  <template class="desc">Where the antibody genes sit &mdash; heavy chain on chromosome 14, the two light chains on 2 and 22 &mdash; then the heavy chain locus counted out: 65 V, 27 D and 6 J segments, 10,530 combinations, and a light chain recombining the same way. What comes out is one IgM gene per B cell.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 18 -->
+<article class="slide">
+  <h1>Affinity Maturation</h1>
+  <h2>The process by which B-cells produce antibody genes with increased affinity for antigen</h2>
+  <figure class="fig grey">
+    <img src="img/18-vh.png" alt="A V-heavy domain laid out as a sequence ruler from residue 1 to 100, with three hypervariable regions HV1, HV2 and HV3 boxed along it. Below the ruler, a stack of sequences: the T15 germline gene at the top, then five IgM clones which match it almost exactly, then five IgG clones which carry scattered substitutions. Two arrows point up at HV1 and HV2, where the substitutions cluster.">
+  </figure>
+  <template class="notes">If a B-cell becomes activated by binding to an antigen, it will begin the process of affinity maturation.  In this diagram, we show the VH domain.  VH is the region of the Fab fragment on the heavy chain that contains the CDR loops  --  it combined with the VL domain are the two balls of protein that directly bind the antigen.  Thus, this diagram speaks only of one such domain.  The VDJ recombination results in regions of the protein called the hypervariable loops, which is the same as the CDR loops.  During affinity maturation, mutations are focused on the hypervariable regions to further improve the avidity and specificity of the antibody.</template>
+  <template class="desc">One V-heavy domain, residue 1 to 100, with its three hypervariable regions marked. Beneath, clone sequences compared against the germline: the IgM clones barely differ from it, while the IgG clones carry substitutions, and those substitutions fall inside the hypervariable regions.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 19 -->
+<article class="slide">
+  <h1>Affinity Maturation</h1>
+  <div class="mech">
+    <h2>Somatic Hypermutation</h2>
+    <p>Activation-Induced (Cytidine) Deaminase (AID): mutates C&rsquo;s to U&rsquo;s in the variable regions</p>
+    <p>The G:U mismatch is repaired by a DNA repair mechanism involving an error-prone DNA polymerase</p>
+    <p>Additional mechanisms introduce codon insertions/deletions in the variable regions</p>
+    <h2>Class Switching</h2>
+    <p>Replacement of the heavy-chain IgM constant region with an IgG version</p>
+  </div>
+  <template class="notes">There are several genetic modifications happening during affinity maturation.  In somatic hypermutation, a cytidine deaminase mutates C residues to U within these hypervariable regions.  This results in a G:U mismatch which is repaired in a sloppy manner to generate random mutations.  There are additional genetic modifications taking place that result in insertions and deletions of triplets encoding additional codons into these hypervariable regions.  This combination of mutations results in amino acid substitutions, insertions, and deletions in the CDR loops. Some of these mutations will improve binding to the antigen and the encoding B cell will be expanded further than those cells in which the mutation disrupts binding.
+In parallel, affinity maturation involves class switching.  Here, the C segment encoding the constant region of the antibody is switched from one encoding an IgM to one encoding an IgG.  With only 2 Fab regions, the IgG must have higher affinity for the substrate than IgM.  So, class switching increases the stringency of the selection.
+Through iterative rounds of affinity maturation, the population of B cells make better and better antibodies for their antigens.</template>
+  <template class="desc">The two mechanisms of affinity maturation. Somatic hypermutation: AID deaminates C to U in the variable regions, the G:U mismatch is repaired sloppily by an error-prone polymerase, and further mechanisms add and remove whole codons. Class switching: the IgM constant region is swapped for an IgG one.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 20 -->
+<article class="slide">
+  <h1>Engineering Methods</h1>
+  <div class="meth">
+    <div class="blk">
+      <h2>Combinatorial Libraries &#8776; VDJ Recombination</h2>
+      <ul>
+        <li>Usually involves large libraries (&gt;10<sup>6</sup>) and selections</li>
+        <li>Used to find activities that do not pre-exist</li>
+        <li>Typically involves a single round of mutagenesis</li>
+      </ul>
+    </div>
+    <div class="blk">
+      <h2>Directed Evolution &#8776; Affinity Maturation</h2>
+      <ul>
+        <li>Usually smaller libraries (&lt;10<sup>5</sup>) and screens</li>
+        <li>Used to improve or modify a nascent activity</li>
+        <li>Involves iterative rounds of mutagenesis</li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">The VDJ recombination process is analogous to combinatorial methods:  it constructs a large, sparse matrix of variants encoding many different functions.  These processes typically involve large libraries with more than a million members, and this large number of variants usually requires the use of selections rather than screens.  Combinatorial libraries are most useful for identifying activities that do not already exist, and they typically involve only a single round of diversity generation.
+The process of affinity maturation is analogous to directed evolution:  it involves iterative improvements to a nascent activity through point modifications.  In the wetlab, directed evolution libraries are typically smaller and the enrichment process can be done with screens.  They are used to improve or modify a nascent activity through iterative rounds of mutagenesis and screening.</template>
+  <template class="desc">The two wetlab methods set against their natural counterparts. Combinatorial libraries stand to VDJ recombination: big libraries, selections, one round, finding activities that did not exist. Directed evolution stands to affinity maturation: smaller libraries, screens, iterative rounds, improving an activity that is already there.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 21 -->
+<article class="slide">
+  <h1>Combinatorial Libraries</h1>
+  <svg class="land" viewBox="838.2 990.602 7620 5660.571" role="img"
+       aria-label="A rugged grey landscape of many hills standing for sequence space. Three hills are named GFP, RFP and phoA. A green dot marks a starting sequence, and a rectangular grid of red dots spreads across a region of the terrain well away from it.">
+    <image x="838.2" y="990.602" width="7620" height="5660.571" href="img/21-landscape.png" preserveAspectRatio="none"/>
+    <g data-build="1" data-note="Perhaps some of these hills correspond to GFP, RFP, and alkaline phosphatase-encoding sequences. Most sequences in this space have no activity, but there are hills where sequences similar in sequence have similar functionality, with some a little better than the others.  In a combinatorial experiment,">
+      <text x="6217.4" y="1806.2">RFP</text>
+      <text x="5425.4" y="2111.0">GFP</text>
+      <text x="1996.4" y="2873.0">phoA</text>
+    </g>
+    <circle data-build="2" data-note="we start with some region of sequence space" cx="4267.2" cy="3733.8" r="76.2" fill="#92d050"/>
+    <g data-build="3" data-note="and produce a sparse matrix of constructs with the intent of finding another hill of activity.  In this case, the spread of variants hits 4 additional hills of activity, but they are different hills than where our search began." fill="#ff0000" transform="translate(990.6,1219.2) scale(0.001)">
+        <circle cx="1447800" cy="2286000" r="76200"/>
+        <circle cx="1447800" cy="2540000" r="76200"/>
+        <circle cx="1447800" cy="2794000" r="76200"/>
+        <circle cx="1447800" cy="3048000" r="76200"/>
+        <circle cx="1447800" cy="3302000" r="76200"/>
+        <circle cx="1447800" cy="3556000" r="76200"/>
+        <circle cx="1447800" cy="3810000" r="76200"/>
+        <circle cx="1676400" cy="2286000" r="76200"/>
+        <circle cx="1676400" cy="2540000" r="76200"/>
+        <circle cx="1676400" cy="2794000" r="76200"/>
+        <circle cx="1676400" cy="3048000" r="76200"/>
+        <circle cx="1676400" cy="3302000" r="76200"/>
+        <circle cx="1676400" cy="3556000" r="76200"/>
+        <circle cx="1676400" cy="3810000" r="76200"/>
+        <circle cx="1905000" cy="2286000" r="76200"/>
+        <circle cx="1905000" cy="2540000" r="76200"/>
+        <circle cx="1905000" cy="2794000" r="76200"/>
+        <circle cx="1905000" cy="3048000" r="76200"/>
+        <circle cx="1905000" cy="3302000" r="76200"/>
+        <circle cx="1905000" cy="3556000" r="76200"/>
+        <circle cx="1905000" cy="3810000" r="76200"/>
+        <circle cx="2133600" cy="2286000" r="76200"/>
+        <circle cx="2133600" cy="2540000" r="76200"/>
+        <circle cx="2133600" cy="2794000" r="76200"/>
+        <circle cx="2133600" cy="3048000" r="76200"/>
+        <circle cx="2133600" cy="3302000" r="76200"/>
+        <circle cx="2133600" cy="3556000" r="76200"/>
+        <circle cx="2133600" cy="3810000" r="76200"/>
+        <circle cx="2362200" cy="2286000" r="76200"/>
+        <circle cx="2362200" cy="2540000" r="76200"/>
+        <circle cx="2362200" cy="2794000" r="76200"/>
+        <circle cx="2362200" cy="3048000" r="76200"/>
+        <circle cx="2362200" cy="3302000" r="76200"/>
+        <circle cx="2362200" cy="3556000" r="76200"/>
+        <circle cx="2362200" cy="3810000" r="76200"/>
+        <circle cx="2590800" cy="2286000" r="76200"/>
+        <circle cx="2590800" cy="2540000" r="76200"/>
+        <circle cx="2590800" cy="2794000" r="76200"/>
+        <circle cx="2590800" cy="3048000" r="76200"/>
+        <circle cx="2590800" cy="3302000" r="76200"/>
+        <circle cx="2590800" cy="3556000" r="76200"/>
+        <circle cx="2590800" cy="3810000" r="76200"/>
+        <circle cx="2819400" cy="2286000" r="76200"/>
+        <circle cx="2819400" cy="2540000" r="76200"/>
+        <circle cx="2819400" cy="2794000" r="76200"/>
+        <circle cx="2819400" cy="3048000" r="76200"/>
+        <circle cx="2819400" cy="3302000" r="76200"/>
+        <circle cx="2819400" cy="3556000" r="76200"/>
+        <circle cx="2819400" cy="3810000" r="76200"/>
+        <circle cx="3048000" cy="2286000" r="76200"/>
+        <circle cx="3048000" cy="2540000" r="76200"/>
+        <circle cx="3048000" cy="2794000" r="76200"/>
+        <circle cx="3048000" cy="3048000" r="76200"/>
+        <circle cx="3048000" cy="3302000" r="76200"/>
+        <circle cx="3048000" cy="3556000" r="76200"/>
+        <circle cx="3048000" cy="3810000" r="76200"/>
+        <circle cx="3276600" cy="2286000" r="76200"/>
+        <circle cx="3276600" cy="2794000" r="76200"/>
+        <circle cx="3276600" cy="3048000" r="76200"/>
+        <circle cx="3276600" cy="3302000" r="76200"/>
+        <circle cx="3276600" cy="3556000" r="76200"/>
+        <circle cx="3276600" cy="3810000" r="76200"/>
+        <circle cx="3505200" cy="2286000" r="76200"/>
+        <circle cx="3505200" cy="2540000" r="76200"/>
+        <circle cx="3505200" cy="2794000" r="76200"/>
+        <circle cx="3505200" cy="3048000" r="76200"/>
+        <circle cx="3505200" cy="3302000" r="76200"/>
+        <circle cx="3505200" cy="3556000" r="76200"/>
+        <circle cx="3505200" cy="3810000" r="76200"/>
+        <circle cx="3733800" cy="2286000" r="76200"/>
+        <circle cx="3733800" cy="2540000" r="76200"/>
+        <circle cx="3733800" cy="2794000" r="76200"/>
+        <circle cx="3733800" cy="3048000" r="76200"/>
+        <circle cx="3733800" cy="3302000" r="76200"/>
+        <circle cx="3733800" cy="3556000" r="76200"/>
+        <circle cx="3733800" cy="3810000" r="76200"/>
+        <circle cx="3962400" cy="2286000" r="76200"/>
+        <circle cx="3962400" cy="2540000" r="76200"/>
+        <circle cx="3962400" cy="2794000" r="76200"/>
+        <circle cx="3962400" cy="3048000" r="76200"/>
+        <circle cx="3962400" cy="3302000" r="76200"/>
+        <circle cx="3962400" cy="3556000" r="76200"/>
+        <circle cx="3962400" cy="3810000" r="76200"/>
+    </g>
+  </svg>
+  <template class="notes">Another way to think about this is to consider a topological landscape.  The X and Y coordinates of the terrain correspond to sequences, and the height of each hill is functionality.</template>
+  <template class="desc">Sequence space drawn as a landscape: position is sequence, height is function. Three of the hills are named &mdash; GFP, RFP and alkaline phosphatase. A green dot marks where the search starts; a rectangular grid of red dots marks the sparse matrix of variants a combinatorial library throws across the terrain, landing on hills quite different from the one it began on.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 22 -->
+<article class="slide">
+  <h1>Directed Evolution</h1>
+  <svg class="land" viewBox="838.2 990.602 7620 5660.571" role="img"
+       aria-label="The same landscape. A green dot marks a starting sequence partway up one hill, and a red line is traced from it up the slope to that hill's summit.">
+    <image x="838.2" y="990.602" width="7620" height="5660.571" href="img/21-landscape.png" preserveAspectRatio="none"/>
+    <circle data-build="1" data-note="start with a sequence on one of these hills of activity, but our goal is to" cx="3352.8" cy="4495.8" r="76.2" fill="#92d050"/>
+    <path data-build="2" data-note="climb to the local maximal activity of that hill through incremental changes." transform="translate(2949.983,4121.15) scale(0.001)" fill="none" stroke="#ff0000" stroke-width="38100"
+          d="M371068,381000 C356251,383117 341294,384415 326618,387350 C320054,388663 314154,392503 307568,393700 C290778,396753 273601,397245 256768,400050 C248160,401485 240028,405318 231368,406400 C206077,409561 180568,410633 155168,412750 C135454,410560 96040,415040 78968,393700 C74787,388473 74735,381000 72618,374650 C74735,368300 74235,360333 78968,355600 C83701,350867 91432,350447 98018,349250 C207028,329430 106922,353374 174218,336550 C180568,332317 186442,327263 193268,323850 C199255,320857 207585,322233 212318,317500 C223111,306707 237718,279400 237718,279400 C239835,268817 244068,258443 244068,247650 C244068,238923 242559,229512 237718,222250 C233485,215900 226184,210876 218668,209550 C189411,204387 159401,205317 129768,203200 C121301,205317 112759,207152 104368,209550 C97932,211389 92011,215900 85318,215900 C77256,215900 37964,205649 28168,203200 C21818,198967 12904,197126 9118,190500 C1303,176823 0,140677 9118,127000 C12831,121431 21674,122273 28168,120650 C38639,118032 49382,116641 59918,114300 C68437,112407 76851,110067 85318,107950 C83201,82550 82337,57014 78968,31750 C78083,25115 76062,18440 72618,12700 C69538,7566 64151,4233 59918,0"/>
+  </svg>
+  <template class="notes">In directed evolution, we similarly</template>
+  <template class="desc">The same landscape. A green dot marks a sequence already partway up one hill, and a red track winds from it up the slope to the top of that same hill &mdash; small steps, one hill, the local maximum.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

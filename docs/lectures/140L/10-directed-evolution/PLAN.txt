@@ -74,6 +74,21 @@ screenshot and three "A new project idea" slides in red.  They are
 converted, because dropping them would change the flow and that is not
 mine to do.  If they should come out, say so and they come out.
 
+TWO DECISIONS MADE WHILE CONVERTING SECTION 01
+-----------------------------------------------
+Source 10 carries TWO note markers, * and **, but only ONE click.  The
+** segment ("We then apply some selective pressure...") is what JCA says
+as he advances to source 11, which carries no note of its own.  Moving it
+to 11 would put a note on a slide that has none and would fail the
+concatenation check against the pptx, so it stays on 10, joined to the
+first build's note.  No click was invented to carry it.
+
+Sources 10 and 11 are the one figure in this section drawn rather than
+cropped.  They are the same nine ovals and nine arrows in both slides and
+differ only in which of them are showing, so a render has them all showing
+at once and there is nothing to crop.  The geometry, the fills and the
+strokes are lifted shape for shape out of the slide XML.
+
 CHECKING THE NOTES
 ------------------
   python3 ../../tools/verify_notes.py <unpacked-pptx> --keep-urls *.html
@@ -97,12 +112,14 @@ carry the lecture's opening narration; it belongs to slide 6.  Fixed to
 resolve through the rels, as verify_notes.py always did.  Anything read
 out of this deck before that fix is suspect and was re-read.
 
-verify_notes.py gained --keep-urls, above.
+verify_notes.py gained --keep-urls, above.  It also now strips a RUN of
+asterisks, not just a single one, because source 10 uses ** for its second
+marker and the single-asterisk rule left the stray ** in the comparison.
 
 WHERE THIS STANDS
 -----------------
   00-front-matter.html        source  1-8    DONE  (8 steps, audit clean)
-  01-library-approaches.html  source  9-22   not started
+  01-library-approaches.html  source  9-22   DONE  (24 steps, audit clean)
   02-directed-evolution.html  source 23-29   not started
   03-diversity-screening.html source 30-37   not started
   04-vector-editing.html      source 38-47   not started
