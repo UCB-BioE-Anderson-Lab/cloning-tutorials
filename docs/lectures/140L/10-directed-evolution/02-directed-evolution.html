@@ -19,17 +19,15 @@
 /* sources 25-28: the worked example runs under a two-line title */
 .slide h1.ex{font-size:46px;line-height:1.16;margin:0 0 16px}
 .slide h1.ex span{display:block}
-/* sources 27 and 28: both figures are drawn in white line on the source's
-   grey and black masters, so they keep a panel under them here — on the
-   house white ground they would be blank paper.  Source 25 no longer needs
-   one: its structures are redrawn with RDKit, black on white. */
+/* source 28: the structure is a photographic render on the source's black
+   master and keeps that ground.  Sources 25 and 27 no longer need a panel:
+   both are redrawn, black on white. */
 .slide figure.fig.grey{background:#595959;border-radius:4px;padding:18px}
-/* source 27: the lineage on the left, the fitness it bought on the right */
-.slide .pair{flex:1 1 auto;min-height:0;display:grid;
-  grid-template-columns:0.82fr 1fr;grid-template-rows:minmax(0,1fr);gap:28px}
-.slide .pair > figure{margin:0;min-width:0;min-height:0;display:flex;
-  background:#595959;border-radius:4px;padding:16px}
-.slide .pair img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 27: the lineage on the left, the fitness it bought on the right.
+   Redrawn black on white so it can be built generation by generation —
+   the borrowed scan is white line art that needed a grey panel, and it
+   arrived whole. */
+.slide svg.prosar{flex:1 1 auto;min-height:0;width:100%;height:100%}
 /* source 28: the structure with its key beside it */
 .slide .keyed{flex:1 1 auto;min-height:0;display:grid;
   grid-template-columns:1fr 280px;grid-template-rows:minmax(0,1fr);
@@ -338,16 +336,178 @@
 <!-- ---------------------------------------------------------------- 27 -->
 <article class="slide">
   <h1 class="ex">Example:<span><i>p</i>-Nitrobenzyl Esterase Evolution</span></h1>
-  <div class="pair">
-    <figure>
-      <img src="img/27-lineage.png" alt="A lineage of the five rounds, generation 0 at the top and generation 5 at the bottom. The wild type branches to three first-round clones; one of them, carrying H322R and Y370F, is chosen as the template for round two, and so on down. Each chosen clone's box lists the mutations it has accumulated, the list growing one line per generation. At the bottom the surviving mutations are combined into a single clone, 5-1A12, carrying six substitutions.">
-    </figure>
-    <figure data-build="1" data-note="With these mutants identified, they then performed more careful assays of their fitness and plot them out.  Through the course of incremental mutation and screening, they generate mutants improved in their tolerance for DMF.">
-      <img src="img/27-fitness.png" alt="A plot of ln(kcat over KM) against generation, wild type through generation four. Two staircases climb left to right: the upper one measured in 1% DMF, rising from about 6.5 to nearly 9, and the lower one in 15% DMF, rising from about 2.4 to about 5.5. Each step is one generation, and at the right three generation-four clones fan out to slightly different heights.">
-    </figure>
-  </div>
-  <template class="notes">They perform 5 rounds of directed evolution.  In the first round, they identified 3 improved mutants, and one of them was chosen as the template for the next round.  So, all variants in round 2 contain the mutations identified in round 1.  They identify 3 additional mutants, and again pick the best one to go into round 3.  In the final step, they combined all the beneficial mutations they found into a single construct.</template>
-  <template class="desc">On the left, the lineage: five rounds, each one picking a winner and handing its mutations down, ending in a single clone that carries all of them. On the right, what that bought &mdash; a staircase of activity against generation, measured in 1% and in 15% DMF.</template>
+  <svg class="prosar" viewBox="0 0 1400 700" role="img" aria-label="The five rounds as a lineage, and what they bought. On the left a tree: the wild type branches to three first-round clones, one is chosen, and its mutations are carried down to the next round, the chosen clone's box gaining one line per generation, until generation five combines them into a single clone carrying six substitutions. On the right a plot of the natural log of k-cat over K-M against generation: two staircases, one measured in 1% DMF rising from about 6.5 to nearly 9, one in 15% DMF rising from about 2.4 to about 5.5, each step a generation, and three generation-four clones fanning out at the right.">
+  <defs><marker id="t" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="7" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 4L0 8z" fill="#111111"/></marker></defs>
+  <text x="648" y="24" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">Generation</text>
+  <g>
+  <text x="310" y="52" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">0-WT</text>
+  <text x="648" y="52" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">0</text>
+  </g>
+  <g data-build="1" data-note="In the first round, they identified 3 improved mutants, and one of them was chosen as the template for the next round.">
+  <path d="M310 60L110 88" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 60L310 88" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 60L510 88" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <text x="110" y="102" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">1-2G3</text>
+  <text x="310" y="102" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">1-1H9</text>
+  <text x="510" y="102" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">1-7H9</text>
+  <rect x="277.0" y="110" width="66" height="40" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="310" y="124" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="310" y="139" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="648" y="102" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">1</text>
+  </g>
+  <g data-build="2" data-note="So, all variants in round 2 contain the mutations identified in round 1.">
+  <path d="M310 154L105 184" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 154L310 184" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 154L515 184" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <text x="105" y="198" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">2-13F3</text>
+  <text x="310" y="198" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">2-19E10</text>
+  <text x="515" y="198" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">2-23E1</text>
+  <rect x="72.0" y="206" width="66" height="70" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="105" y="220" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="105" y="235" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="105" y="250" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">N96S</text>
+  <text x="105" y="265" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <rect x="277.0" y="206" width="66" height="55" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="310" y="220" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="310" y="235" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="310" y="250" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <rect x="482.0" y="206" width="66" height="70" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="515" y="220" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="515" y="235" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="515" y="250" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">F271L</text>
+  <text x="515" y="265" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">A343V</text>
+  <text x="648" y="198" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">2</text>
+  </g>
+  <g data-build="3" data-note="They identify 3 additional mutants, and again pick the best one to go into round 3.">
+  <path d="M310 265L105 300" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 265L310 300" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 265L515 300" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <text x="105" y="314" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">3-7D5</text>
+  <text x="310" y="314" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">3-10C4</text>
+  <text x="515" y="314" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">3-9E10</text>
+  <rect x="277.0" y="322" width="66" height="70" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="310" y="336" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="310" y="351" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="310" y="366" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <text x="310" y="381" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L144M</text>
+  <text x="648" y="314" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">3</text>
+  </g>
+  <g data-build="4" data-note="In the final step, they combined all the beneficial mutations they found into a single construct.">
+  <path d="M310 396L80 426" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 396L240 426" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 396L395 426" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 396L550 426" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <text x="80" y="440" text-anchor="middle" font-size="13" font-weight="700" fill="#111111">4-38B9, 4-73B4</text>
+  <rect x="47.0" y="448" width="66" height="85" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="80" y="462" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="80" y="477" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="80" y="492" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <text x="80" y="507" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L144M</text>
+  <text x="80" y="522" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">I60V</text>
+  <text x="240" y="440" text-anchor="middle" font-size="13" font-weight="700" fill="#111111">4-43E7</text>
+  <rect x="207.0" y="448" width="66" height="100" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="240" y="462" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="240" y="477" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="240" y="492" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <text x="240" y="507" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L144M</text>
+  <text x="240" y="522" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">S94G</text>
+  <text x="240" y="537" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L334V</text>
+  <text x="395" y="440" text-anchor="middle" font-size="13" font-weight="700" fill="#111111">4-53D5</text>
+  <rect x="362.0" y="448" width="66" height="85" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="395" y="462" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="395" y="477" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="395" y="492" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <text x="395" y="507" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L144M</text>
+  <text x="395" y="522" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">A343V</text>
+  <text x="550" y="440" text-anchor="middle" font-size="13" font-weight="700" fill="#111111">4-54B9</text>
+  <rect x="517.0" y="448" width="66" height="100" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="550" y="462" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="550" y="477" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="550" y="492" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <text x="550" y="507" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L144M</text>
+  <text x="550" y="522" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">K267R</text>
+  <text x="550" y="537" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L334S</text>
+  <text x="648" y="440" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">4</text>
+  <path d="M80 552L276 578" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M550 552L344 578" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <text x="310" y="592" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">5-1A12</text>
+  <rect x="277.0" y="600" width="66" height="100" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="310" y="614" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="310" y="629" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="310" y="644" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <text x="310" y="659" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L144M</text>
+  <text x="310" y="674" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">I60V</text>
+  <text x="310" y="689" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L334S</text>
+  <text x="648" y="592" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">5</text>
+  </g>
+  <g data-build="5" data-note="With these mutants identified, they then performed more careful assays of their fitness and plot them out.  Through the course of incremental mutation and screening, they generate mutants improved in their tolerance for DMF.">
+  <rect x="790" y="56" width="506" height="548" fill="none" stroke="#111111" stroke-width="1.6"/>
+  <path d="M783 604.0H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="609.0" text-anchor="end" font-size="14" font-weight="400" fill="#111111">2.0</text>
+  <path d="M783 525.7142857142857H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="530.7142857142857" text-anchor="end" font-size="14" font-weight="400" fill="#111111">3.0</text>
+  <path d="M783 447.42857142857144H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="452.42857142857144" text-anchor="end" font-size="14" font-weight="400" fill="#111111">4.0</text>
+  <path d="M783 369.1428571428571H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="374.1428571428571" text-anchor="end" font-size="14" font-weight="400" fill="#111111">5.0</text>
+  <path d="M783 290.85714285714283H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="295.85714285714283" text-anchor="end" font-size="14" font-weight="400" fill="#111111">6.0</text>
+  <path d="M783 212.57142857142856H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="217.57142857142856" text-anchor="end" font-size="14" font-weight="400" fill="#111111">7.0</text>
+  <path d="M783 134.28571428571428H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="139.28571428571428" text-anchor="end" font-size="14" font-weight="400" fill="#111111">8.0</text>
+  <path d="M783 56.0H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="61.0" text-anchor="end" font-size="14" font-weight="400" fill="#111111">9.0</text>
+  <path d="M826 604V611" stroke="#111111" stroke-width="1.6"/>
+  <text x="826" y="628" text-anchor="middle" font-size="14" font-weight="400" fill="#111111">WT</text>
+  <path d="M930 604V611" stroke="#111111" stroke-width="1.6"/>
+  <text x="930" y="628" text-anchor="middle" font-size="14" font-weight="400" fill="#111111">1-1H9</text>
+  <path d="M1034 604V611" stroke="#111111" stroke-width="1.6"/>
+  <text x="1034" y="628" text-anchor="middle" font-size="14" font-weight="400" fill="#111111">2-19E10</text>
+  <path d="M1138 604V611" stroke="#111111" stroke-width="1.6"/>
+  <text x="1138" y="628" text-anchor="middle" font-size="14" font-weight="400" fill="#111111">3-10C4</text>
+  <path d="M1240 604V611" stroke="#111111" stroke-width="1.6"/>
+  <text x="1240" y="628" text-anchor="middle" font-size="14" font-weight="400" fill="#111111">4</text>
+  <text x="738" y="330.0" text-anchor="middle" font-size="16" font-weight="400" fill="#111111" transform="rotate(-90 738 330.0)">ln (k<tspan font-size='10'>cat</tspan>/K<tspan font-size='10'>M</tspan>)</text>
+  <text x="1043.0" y="652" text-anchor="middle" font-size="16" font-weight="400" fill="#111111">Generation</text>
+  <path d="M802 251.71428571428572H850" stroke="#111111" stroke-width="4"/>
+  <path d="M906 228.2285714285714H954" stroke="#111111" stroke-width="4"/>
+  <path d="M1010 173.42857142857144H1058" stroke="#111111" stroke-width="4"/>
+  <path d="M1114 181.2571428571428H1162" stroke="#111111" stroke-width="4"/>
+  <path d="M854 251.71428571428572L902 228.2285714285714" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M958 228.2285714285714L1006 173.42857142857144" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1062 173.42857142857144L1110 181.2571428571428" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1166 181.2571428571428L1210 71.65714285714273" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1214 71.65714285714273H1262" stroke="#111111" stroke-width="4"/>
+  <text x="1304" y="76.65714285714273" text-anchor="start" font-size="14" font-weight="400" fill="#111111">4-54B9</text>
+  <path d="M1166 181.2571428571428L1210 102.97142857142853" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1214 102.97142857142853H1262" stroke="#111111" stroke-width="4"/>
+  <text x="1304" y="107.97142857142853" text-anchor="start" font-size="14" font-weight="400" fill="#111111">4-43E7</text>
+  <path d="M1166 181.2571428571428L1210 122.54285714285709" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1214 122.54285714285709H1262" stroke="#111111" stroke-width="4"/>
+  <text x="1304" y="127.54285714285709" text-anchor="start" font-size="14" font-weight="400" fill="#111111">4-38B9</text>
+  <text x="814" y="225.71428571428572" text-anchor="middle" font-size="16" font-weight="700" fill="#111111">1% DMF</text>
+  <path d="M802 572.6857142857143H850" stroke="#111111" stroke-width="4"/>
+  <path d="M906 549.2H954" stroke="#111111" stroke-width="4"/>
+  <path d="M1010 478.74285714285713H1058" stroke="#111111" stroke-width="4"/>
+  <path d="M1114 431.77142857142854H1162" stroke="#111111" stroke-width="4"/>
+  <path d="M854 572.6857142857143L902 549.2" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M958 549.2L1006 478.74285714285713" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1062 478.74285714285713L1110 431.77142857142854" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1166 431.77142857142854L1210 330.0" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1214 330.0H1262" stroke="#111111" stroke-width="4"/>
+  <text x="1304" y="335.0" text-anchor="start" font-size="14" font-weight="400" fill="#111111">4-54B9</text>
+  <path d="M1166 431.77142857142854L1210 376.97142857142853" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1214 376.97142857142853H1262" stroke="#111111" stroke-width="4"/>
+  <text x="1304" y="381.97142857142853" text-anchor="start" font-size="14" font-weight="400" fill="#111111">4-43E7</text>
+  <path d="M1166 431.77142857142854L1210 396.5428571428571" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1214 396.5428571428571H1262" stroke="#111111" stroke-width="4"/>
+  <text x="1304" y="401.5428571428571" text-anchor="start" font-size="14" font-weight="400" fill="#111111">4-38B9</text>
+  <text x="814" y="546.6857142857143" text-anchor="middle" font-size="16" font-weight="700" fill="#111111">15% DMF</text>
+  </g>
+  </svg>
+  <template class="notes">They perform 5 rounds of directed evolution.</template>
+  <template class="desc">On the left, the lineage, built one generation at a time: each round picks a winner and hands its mutations down, the chosen clone&rsquo;s list growing a line per generation, until round five combines them into one clone. On the right, what that bought &mdash; a staircase of activity against generation, measured in 1% and in 15% DMF.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 28 -->
