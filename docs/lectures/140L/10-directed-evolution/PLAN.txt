@@ -94,11 +94,47 @@ the beats at SENTENCE boundaries and still concatenates to the pptx note
 exactly -- verify_notes.py passes on all 46 slides.  Nothing was reworded
 and no note was written.
 
-STILL TO DISCUSS
-----------------
-Sources 34-35, the ProSAR method.  JCA, 28 Oct 2026: ProSAR is old, this
-is where the deck gets into computational protein engineering, and it
-wants research and an update rather than a redraw.  Not started.
+TWO SLIDES THAT ARE NOT IN THE SOURCE
+-------------------------------------
+JCA, 28 Oct 2026, on the ProSAR pair: it is old, it is where the deck
+gets into computational protein engineering, and it wants an update
+rather than a redraw.  The progression he asked for is
+
+    the core cycle, random mutagenesis          sources 23-24, 30-33
+    -> a transition deviating from that cycle
+       to bring computation in                  NEW, with one click
+    -> the ProSAR math                          sources 34-35
+    -> a transition from that math to the
+       case with a protein model                NEW, with one click
+
+So section 03 now runs 33, NEW, 34, 35, NEW, 36.  Both are marked
+<!-- NEW --> in the HTML.
+
+  "Using the Whole Library" reuses the source 24 cycle figure as a
+  deliberate callback.  Base state is the loop they already saw; the click
+  takes the arrow off the single winning well, feeds the WHOLE plate into
+  a model, and relabels what travels round the ribbon from NEXT GENERATION
+  to NEXT LIBRARY.  The point is that the 90% neutral and 9% dead that
+  source 29 already told them about cost the same to make and assay as the
+  winner, and from here on they are data.
+
+  "Protein Language Models" lifts one term out of the ProSAR equation.
+  In ProSAR x is 1 or 0 for "is this substitution present", so Y370F and
+  Y370W are unrelated columns and every c must come from your own
+  measurements.  The click replaces x with a description of the
+  substitution from a model trained on every deposited sequence: the fit
+  converges on hundreds rather than thousands, the model on top need no
+  longer be a sum, and mutations can be ranked before anything is built.
+  EVOLVEpro (Science 2025;387:eadr6006) is named as the one system.
+
+THE ONE THING THAT IS NOT VERBATIM
+-----------------------------------
+These two slides carry the only speaker notes in this deck that are not
+the source's.  JCA asked for drafts to edit later, so they are mine and
+they are his to change.  verify_notes.py now recognises <!-- NEW --> as a
+slide boundary and skips it: without that its notes would be swept into
+the previous slide's and fail THAT slide, which is a nasty way to find
+out.  Everything else still concatenates to the pptx exactly.
 
 THE ONE SLIDE SET THAT IS NOT IN THE DECK
 ------------------------------------------

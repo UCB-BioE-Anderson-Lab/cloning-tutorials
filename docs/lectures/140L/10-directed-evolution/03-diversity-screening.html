@@ -17,6 +17,13 @@
    transition keeps the ring type and a transversion swaps it.  That is
    why there are four rows in one column and eight in the other. */
 .slide svg.subs{flex:1 1 auto;min-height:0;width:100%;height:100%}
+/* The two slides that are NOT in the source pptx.  JCA asked for them on
+   28 Oct 2026: a transition out of the classical cycle and into computation
+   before the ProSAR pair, and a transition out of ProSAR's math and into a
+   protein model after it.  Their speaker notes are the only ones in this
+   deck that are not the source's verbatim. */
+.slide svg.cycle{flex:1 1 auto;min-height:0;width:100%;height:100%}
+.slide svg.xswap{flex:0 0 auto;width:100%;height:auto;max-height:46%;margin-bottom:8px}
 .slide figure.fig.grey{background:#595959;border-radius:4px;padding:18px}
 .slide p.cred{font-size:18px;color:var(--muted);margin:12px 0 0}
 .slide p.cred span{display:block}
@@ -239,6 +246,234 @@
   <template class="desc">What shuffling itself does to the sequence. Beside the count, the two words drawn out: A and G are purines, C and T pyrimidines, so a transition keeps the ring type and a transversion swaps it &mdash; four of the one, eight of the other. The counts come from 4437 bases of shuffled lacZ, a rate of 0.7% with no frameshifts. Shuffling is error-prone in its own right.</template>
 </article>
 
+<!-- NEW -->
+<article class="slide">
+  <h1>Using the Whole Library</h1>
+  <svg class="cycle" viewBox="0 0 1400 700" role="img" aria-label="The directed evolution cycle from earlier in the lecture, drawn again whole. On the click the end of it changes: the arrow from the screened plate no longer picks out a single winning well, it carries the whole plate into a box marked model, and what travels round the yellow ribbon to start the next round is relabelled from NEXT GENERATION to NEXT LIBRARY.">
+  <defs><marker id="ah" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="7" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L12 5L0 10z" fill="#111111"/></marker><marker id="ab" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="7" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L12 5L0 10z" fill="#004373"/></marker></defs>
+  <rect x="150" y="111.5" width="180" height="13" rx="6.5" fill="#1f4ea1"/><circle cx="330" cy="118" r="8.06" fill="#5b8fd6"/>
+  <text x="240" y="158" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Parental genes</text>
+  <text x="437" y="64" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Random</text>
+  <text x="437" y="90" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">mutagenesis</text>
+  <path d="M372 118L500 118" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="437" y="152" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">1</text>
+  <text x="648" y="44" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">DIVERSITY</text>
+  <text x="648" y="70" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">(LIBRARY)</text>
+  <rect x="548" y="90.0" width="190" height="12" rx="6.0" fill="#1f4ea1"/><circle cx="738" cy="96" r="7.4399999999999995" fill="#5b8fd6"/><path d="M606 87 L608.7 93.3 L615 96 L608.7 98.7 L606 105 L603.3 98.7 L597 96 L603.3 93.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <rect x="548" y="116.0" width="190" height="12" rx="6.0" fill="#1f4ea1"/><circle cx="738" cy="122" r="7.4399999999999995" fill="#5b8fd6"/><path d="M652 113 L654.7 119.3 L661 122 L654.7 124.7 L652 131 L649.3 124.7 L643 122 L649.3 119.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <rect x="548" y="142.0" width="190" height="12" rx="6.0" fill="#1f4ea1"/><circle cx="738" cy="148" r="7.4399999999999995" fill="#5b8fd6"/><path d="M698 139 L700.7 145.3 L707 148 L700.7 150.7 L698 157 L695.3 150.7 L689 148 L695.3 145.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <path d="M660 196L700 160" stroke="#111111" stroke-width="1.6"/>
+  <text x="628" y="214" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">mutation</text>
+  <path d="M770 132L1100 182" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="950" y="128" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">2</text>
+  <path d="M1180 148A52 52 0 0 1 1223 232" fill="none" stroke="#1f4ea1" stroke-width="11" stroke-linecap="round"/>
+  <path d="M1213 250A52 52 0 1 1 1163 150" fill="none" stroke="#d81e05" stroke-width="11" stroke-linecap="round"/>
+  <path d="M1215 181 L1217.7 187.3 L1224 190 L1217.7 192.7 L1215 199 L1212.3 192.7 L1206 190 L1212.3 187.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <text x="1020" y="296" text-anchor="end" font-size="23" font-weight="400" fill="#111111">Transformation of</text>
+  <text x="1020" y="322" text-anchor="end" font-size="23" font-weight="400" fill="#111111">microorganisms (<tspan font-style="italic">E. coli</tspan> or</text>
+  <text x="1020" y="348" text-anchor="end" font-size="23" font-weight="400" fill="#111111">yeast) with the library</text>
+  <path d="M1180 272L1180 352" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="1212" y="322" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">3</text>
+  <ellipse cx="1180" cy="430" rx="94" ry="62" fill="#efe0c0" stroke="#e8761e" stroke-width="4"/>
+  <path d="M1215 428A22 22 0 0 1 1233 449" fill="none" stroke="#1f4ea1" stroke-width="6" stroke-linecap="round"/>
+  <path d="M1229 457A22 22 0 1 1 1206 425" fill="none" stroke="#d81e05" stroke-width="6" stroke-linecap="round"/>
+  <path d="M1092 478L985 522" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="1058" y="534" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">4</text>
+  <ellipse cx="880" cy="548" rx="92" ry="35" fill="#fffbd0" stroke="#b9a84a" stroke-width="3"/>
+  <circle cx="838" cy="536" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="872" cy="530" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="906" cy="541" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="848" cy="560" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="884" cy="562" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="918" cy="553" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="802" cy="548" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="930" cy="566" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="866" cy="546" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <text x="735" y="470" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Transfer of colonies to</text>
+  <text x="735" y="496" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">96-well plates</text>
+  <path d="M778 548L690 548" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="735" y="590" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">5</text>
+  <rect x="562" y="516" width="108" height="66" fill="#fdfdfd" stroke="#6a6a6a" stroke-width="2.6"/>
+  <circle cx="572" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <path d="M548 534L462 498" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="508" y="556" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">6</text>
+  <rect x="470" y="398" width="286" height="42" fill="#f6a800"/>
+  <text x="613" y="428" text-anchor="middle" font-size="26" font-weight="700" fill="#111111">SCREENING</text>
+  <rect x="238" y="400" width="222" height="146" fill="#fdfdfd" stroke="#6a6a6a" stroke-width="3"/>
+  <circle cx="252.0" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="447.8" r="5" fill="#ffd200" stroke="#7a6000" stroke-width="1.4"/>
+  <path d="M196 330C128 300 118 222 150 168" fill="none" stroke="#ffd200" stroke-width="26"/>
+  <path d="M126 182L150 128L176 180Z" fill="#ffd200"/>
+  <g data-unbuild="1">
+  <path d="M288 440L268 362" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="243" y="404" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">7</text>
+  <rect x="232" y="332.0" width="150" height="12" rx="6.0" fill="#1f4ea1"/><circle cx="382" cy="338" r="7.4399999999999995" fill="#5b8fd6"/><path d="M328 329 L330.7 335.3 L337 338 L330.7 340.7 L328 347 L325.3 340.7 L319 338 L325.3 335.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <text x="466" y="332" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">&ldquo;winner&rdquo;</text>
+  <text x="292" y="244" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">NEXT</text>
+  <text x="292" y="270" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">GENERATION</text>
+  </g>
+  <g data-build="1" data-note="So fit a model to the whole plate instead, the dead wells included, and let it tell you what to build next.  What goes back round the loop is then no longer a single winner to be mutagenized again &mdash; it is a library you designed.  The next two slides are about how that is done.">
+  <path d="M320 440L320 374" stroke="#004373" stroke-width="3.4" marker-end="url(#ab)"/>
+  <rect x="206" y="300" width="230" height="66" rx="8" fill="#eef3f8" stroke="#004373" stroke-width="3"/>
+  <text x="321" y="344" text-anchor="middle" font-size="31" font-weight="700" fill="#004373">model</text>
+  <text x="456" y="324" text-anchor="start" font-size="23" font-weight="400" fill="#004373">every variant,</text>
+  <text x="456" y="350" text-anchor="start" font-size="23" font-weight="400" fill="#004373">not just the winner</text>
+  <text x="292" y="244" text-anchor="middle" font-size="22" font-weight="700" fill="#004373">NEXT</text>
+  <text x="292" y="270" text-anchor="middle" font-size="22" font-weight="700" fill="#004373">LIBRARY</text>
+  </g>
+  </svg>
+  <template class="notes">Notice what happens to the plate at the end of every cycle we have drawn so far.  You screen it, you keep the best well, and everything else goes in the bin.  The neutral variants and the dead ones cost you exactly as much to build and to assay as the winner did, and you learn nothing at all from them.</template>
+  <template class="desc">The cycle from earlier in the lecture, drawn again. On the click its last step changes: instead of picking one winning well out of the screened plate, the whole plate &mdash; dead wells included &mdash; feeds a model, and what goes round to start the next round is a designed library rather than a single winner.</template>
+</article>
+
 <!-- ---------------------------------------------------------------- 34 -->
 <article class="slide">
   <h1>ProSAR Method</h1>
@@ -274,6 +509,36 @@
   <p class="cred">Nat Biotechnol. 2007 Mar;25(3):338-44. PMID: 17322872</p>
   <template class="notes">You then write out some equations.  You will have one equation for each clone that you assay.  The measured fitness for each clone is y.  Each X1a-like value is either 1 or 0 for the presence of each possible base substitution.  The C1a-like values are the fitness contributions associated with each mutation.  These are unknowns that we are trying to measure.  If you assume that the contribution of most mtuations is additive, then you can describe the fitness observed for each variant as a linear combination of each mutation.  In practice, this additivity is usually true with the exception of mutations in the active site of the protein.  After solving the equations for each c value, you do additional design of experiment calculations to choose those mutation combinations that will be most informative to test in combination during the next round of mutagenesis.</template>
   <template class="desc">The second half of ProSAR: one linear equation per assayed clone, with the measured fitness on the left and, on the right, a one-or-zero term for every possible substitution times that substitution's own unknown contribution. Solve for the contributions, then design the next round's combinations from them.</template>
+</article>
+
+<!-- NEW -->
+<article class="slide">
+  <h1>Protein Language Models</h1>
+  <svg class="xswap" viewBox="0 0 1400 390" role="img" aria-label="One term lifted out of the ProSAR equation. Underneath it, what x actually is: in ProSAR a 1 or a 0 for whether that substitution is present, so Y370F and Y370W are two unrelated columns. On the click that is replaced by a row of numbers &mdash; a description of the substitution produced by a model trained on every deposited protein sequence.">
+  <text x="700" y="44" text-anchor="middle" font-size="27" font-weight="400" fill="#767676"><tspan font-style="italic">y</tspan> = <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.58em" dy="13" fill="#111111">1a</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.58em" dy="13" fill="#111111">1a</tspan><tspan dy="-13"> </tspan>+ <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.58em" dy="13" fill="#111111">1b</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.58em" dy="13" fill="#111111">1b</tspan><tspan dy="-13"> </tspan>+ <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.58em" dy="13" fill="#111111">2a</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.58em" dy="13" fill="#111111">2a</tspan><tspan dy="-13"> </tspan>+ <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.58em" dy="13" fill="#111111">2b</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.58em" dy="13" fill="#111111">2b</tspan><tspan dy="-13"> </tspan>+ &#8230;</text>
+  <text x="700" y="146" text-anchor="middle" font-size="70" font-weight="400" fill="#111111"><tspan font-style="italic" fill="#767676">c</tspan><tspan font-size="0.58em" dy="13" fill="#767676">1a</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#ba3a13">x</tspan><tspan font-size="0.58em" dy="13" fill="#ba3a13">1a</tspan><tspan dy="-13"> </tspan></text>
+  <path d="M742 176V214" stroke="#767676" stroke-width="2"/>
+  <g data-unbuild="1">
+  <text x="700" y="264" text-anchor="middle" font-size="42" font-weight="700" fill="#111111"><tspan font-style="italic">x</tspan> = 1 or 0</text>
+  <text x="700" y="316" text-anchor="middle" font-size="30" font-weight="400" fill="#111111">Y370F &#8594; 1&#160;&#160;&#160;&#160;&#160;&#160;Y370W &#8594; 0</text>
+  <text x="700" y="362" text-anchor="middle" font-size="25" font-weight="400" fill="#767676">present or absent &mdash; two unrelated columns</text>
+  </g>
+  <g data-build="1">
+  <text x="700" y="264" text-anchor="middle" font-size="40" font-weight="700" fill="#004373"><tspan font-style="italic">x</tspan> = a description of the substitution</text>
+  <rect x="446" y="288" width="508" height="44" rx="6" fill="#eef3f8" stroke="#004373" stroke-width="2"/>
+  <text x="700" y="318" text-anchor="middle" font-size="28" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">&#8722;0.42&#160;&#160;1.08&#160;&#160;0.17&#160;&#160;&#8230;&#160;&#160;0.55</text>
+  <text x="700" y="362" text-anchor="middle" font-size="25" font-weight="400" fill="#767676">from a model trained on every deposited protein sequence</text>
+  </g>
+  </svg>
+  <ul class="tight">
+    <li>Each <i>x</i> is 1 or 0: is this substitution present?  The equation knows nothing else about it, so every <i>c</i> has to be learned from your own measurements &mdash; which is why it takes thousands of clones</li>
+    <li data-build="1" data-note="The newer version of this idea replaces each x with a description of the substitution that comes out of a model trained on every protein sequence anyone has deposited.  The column now carries something before you have measured anything, so the same fit converges on hundreds of clones rather than thousands, and you can rank mutations before you build the first library.  You also no longer need the equation to be a sum, so the model can represent the case where two mutations do nothing on their own and only work together.  EVOLVEpro is one system built this way:  the language model supplies the description of each variant, a regression model sits on top of it, and both are retrained after every round.">Replace <i>x</i> with a description of the substitution from a model trained on every deposited protein sequence, and the same fit converges on hundreds</li>
+    <li data-build="1">The model on top no longer has to be a sum, so it can represent mutations that only work in combination</li>
+    <li data-build="1">And it can rank mutations before you build anything at all</li>
+  </ul>
+  <p class="cred">Science. 2025;387:eadr6006 (EVOLVEpro)</p>
+  <template class="notes">Look at what those <i>x</i> values in the equation actually are.  Each one is a 1 or a 0 &mdash; is this particular substitution present in this clone, or is it not.  That is the whole of what the equation knows about it.  It has no idea that Y370F and Y370W are changes at the same position, or that one of them is conservative and the other is not; they are simply two different columns.  Every one of those <i>c</i> values therefore has to be learned from your own measurements, and that is why the method needs thousands of clones.</template>
+  <template class="desc">The same equation, with one term lifted out. In ProSAR each x is a 1 or a 0 for whether a substitution is present, so the fit starts from nothing and needs thousands of clones. Replace x with a description of the substitution from a model trained on every deposited sequence and the fit converges on hundreds, the model need no longer be a sum, and mutations can be ranked before anything is built.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 36 -->

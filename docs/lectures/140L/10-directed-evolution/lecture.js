@@ -12,6 +12,13 @@
 
    The sections are the source deck's own dividers.
 
+   Two slides in section 03 are NOT in the source: a transition out of the
+   classical cycle and into computation before the ProSAR pair, and a
+   transition out of ProSAR's math and into a protein model after it.  JCA
+   asked for both on 28 Oct 2026.  They are marked <!-- NEW --> in the HTML
+   and verify_notes.py skips them, since there is nothing to compare their
+   notes against.
+
    kind: lecture | section — only used to colour the jump menu key. */
 window.LECTURE = {
   title: "Directed Evolution",

@@ -103,7 +103,16 @@ if args and args[0] == "--seq":
 for f in args:
     h = open(f, encoding="utf-8").read()
     print("=== " + os.path.basename(f))
-    for m in re.finditer(r"<!--[-\s]*(\d+)\s*-->([\s\S]*?)(?=<!--[-\s]*\d+\s*-->|<script )", h):
+    # A slide marked <!-- NEW --> has no counterpart in the pptx: it was added
+    # on the author's instruction, so its notes are his or mine rather than the
+    # source's and there is nothing to compare them against.  It still has to
+    # be recognised as a slide boundary, or its notes would be swept into the
+    # previous slide's and fail that slide instead.
+    for m in re.finditer(r"<!--[-\s]*(\d+|NEW)\s*-->([\s\S]*?)"
+                         r"(?=<!--[-\s]*(?:\d+|NEW)\s*-->|<script )", h):
+        if m.group(1) == "NEW":
+            print("  added slide: not in the source, nothing to check")
+            continue
         n = int(m.group(1))
         body = m.group(2)
         seq = re.search(r'<article class="slide[^"]*" data-seq="([^"]+)"', body)
