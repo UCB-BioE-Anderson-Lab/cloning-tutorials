@@ -134,6 +134,13 @@ verify_notes.py gained --keep-urls, above.  It also now strips a RUN of
 asterisks, not just a single one, because source 10 uses ** for its second
 marker and the single-asterisk rule left the stray ** in the comparison.
 
+WHAT IS STILL OPEN
+------------------
+JCA kept sources 1-4, the course-admin head, on 28 Oct 2026.
+
+The deck is not deployed.  The site publishes from gh-pages by a manual
+mkdocs gh-deploy; merging to main publishes nothing.
+
 WHERE THIS STANDS
 -----------------
   00-front-matter.html        source  1-8    DONE  (8 steps, audit clean)
