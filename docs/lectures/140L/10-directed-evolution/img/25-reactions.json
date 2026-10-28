@@ -1,0 +1,93 @@
+{
+ "cell": [
+  400,
+  300
+ ],
+ "cap_line": 27,
+ "op_width": 110,
+ "row_gap": 46,
+ "rows": [
+  {
+   "items": [
+    {
+     "smiles": "N[C@H]3[C@@H]4CCC(Cl)=C(N4C3=O)C(=O)OCc5ccc(cc5)[N+](=O)[O-]",
+     "formula": "C15H14ClN3O5",
+     "contains": [
+      "O=C1CCN1",
+      "c1ccc(cc1)[N+](=O)[O-]",
+      "C(=O)OCc1ccccc1"
+     ],
+     "scale": 1.15,
+     "caption": [
+      "Loracarbef nucleus-",
+      "p-nitrobenzyl",
+      "(LCN-pNB)"
+     ]
+    },
+    {
+     "op": "arrow"
+    },
+    {
+     "smiles": "N[C@H]3[C@@H]4CCC(Cl)=C(N4C3=O)C(O)=O",
+     "formula": "C8H9ClN2O3",
+     "contains": [
+      "O=C1CCN1",
+      "C(=O)O"
+     ],
+     "caption": [
+      "Loracarbef nucleus",
+      "(LCN)"
+     ]
+    },
+    {
+     "op": "plus"
+    },
+    {
+     "smiles": "OCc1ccc(cc1)[N+](=O)[O-]",
+     "formula": "C7H7NO3",
+     "contains": [
+      "OCc1ccccc1",
+      "c1ccc(cc1)[N+](=O)[O-]"
+     ],
+     "caption": [
+      "p-Nitrobenzyl alcohol",
+      "(pNB)"
+     ]
+    }
+   ]
+  },
+  {
+   "items": [
+    {
+     "smiles": "CC(=O)Oc1ccc(cc1)[N+](=O)[O-]",
+     "formula": "C8H7NO4",
+     "contains": [
+      "CC(=O)Oc1ccccc1",
+      "c1ccc(cc1)[N+](=O)[O-]"
+     ],
+     "scale": 1.15
+    },
+    {
+     "op": "arrow"
+    },
+    {
+     "smiles": "CC(O)=O",
+     "formula": "C2H4O2",
+     "scale": 0.45
+    },
+    {
+     "op": "plus"
+    },
+    {
+     "smiles": "Oc1ccc(cc1)[N+](=O)[O-]",
+     "formula": "C6H5NO3",
+     "contains": [
+      "Oc1ccccc1",
+      "c1ccc(cc1)[N+](=O)[O-]"
+     ],
+     "scale": 0.8
+    }
+   ]
+  }
+ ]
+}

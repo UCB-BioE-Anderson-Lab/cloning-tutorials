@@ -19,9 +19,10 @@
 /* sources 25-28: the worked example runs under a two-line title */
 .slide h1.ex{font-size:46px;line-height:1.16;margin:0 0 16px}
 .slide h1.ex span{display:block}
-/* sources 25, 27 and 28: all three figures are drawn in white line on the
-   source's grey and black masters, so they keep a panel under them here —
-   on the house white ground they would be blank paper. */
+/* sources 27 and 28: both figures are drawn in white line on the source's
+   grey and black masters, so they keep a panel under them here — on the
+   house white ground they would be blank paper.  Source 25 no longer needs
+   one: its structures are redrawn with RDKit, black on white. */
 .slide figure.fig.grey{background:#595959;border-radius:4px;padding:18px}
 /* source 27: the lineage on the left, the fitness it bought on the right */
 .slide .pair{flex:1 1 auto;min-height:0;display:grid;
@@ -88,8 +89,8 @@
 <article class="slide">
   <h1 class="ex">Example:<span><i>p</i>-Nitrobenzyl Esterase Evolution</span></h1>
   <h2>Wanted to generate an esterase that would remove nitrobenzyl ester protecting groups under conditions involving an organic solvent</h2>
-  <figure class="fig grey">
-    <img src="img/25-reactions.png" alt="Two hydrolysis reactions, drawn one above the other. Above, the real substrate: the loracarbef nucleus carrying a p-nitrobenzyl ester, which splits into the free loracarbef nucleus (LCN) and p-nitrobenzyl alcohol (pNB). Below, the stand-in: p-nitrophenyl acetate, a far smaller ester, which splits into acetic acid and p-nitrophenol.">
+  <figure class="fig">
+    <img src="img/25-reactions.svg" alt="Two hydrolysis reactions, drawn one above the other. Above, the real substrate: the loracarbef nucleus &mdash; a beta-lactam fused to a chlorinated six-membered ring, with a free amine on the lactam &mdash; carrying its carboxyl as a p-nitrobenzyl ester. It splits into the free loracarbef nucleus (LCN), now a carboxylic acid, and p-nitrobenzyl alcohol (pNB). Below, the stand-in: p-nitrophenyl acetate, a far smaller ester, which splits into acetic acid and p-nitrophenol.">
   </figure>
   <p class="cred">Nat Biotechnol. 1996 Apr;14(4):458-67 PMID: 9630920</p>
   <template class="notes">Let&rsquo;s look at an example from the early days of this experiment from Francis Arnold.  During the synthesis of beta-lactam antibiotics, there is a difficult deprotection step that the authors wish to perform with an enzyme.  They need to the enzyme to hydrolyze this nitrobenzyl ester.  Unfortunately, the chemical is sparingly soluble in water, so they must add DMF to the reaction. Unfortunately, the enzyme loses activity in the presence of DMF.  So, they want to improve the stability of their enzyme in DMF/water mixtures.  The specific reaction they want to perform is difficult to assay.  Neither the starting material nor products are chromophores, so the only way to watch this reaction would be LC-MS.  For directed evolution, you typically need to assay around 10,000 variants to find useful variants.  A typical LC-MS instrument takes 15 minutes per run, so this would be a very long project!  So, the experimentalists note that this enzyme will also catalyze the hydrolysis of p-nitrophenyl esters such as this acetate ester.  Though it has one carbon less than their &lsquo;real&rsquo; substrate, t is structurally a very similar molecule and is also tolerated by the enzyme.  P-nitrophenol, though, is yellow, so they can readily detect whether this reaction occurred without the need for cumbersome instruments.</template>

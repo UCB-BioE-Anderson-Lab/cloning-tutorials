@@ -3,6 +3,7 @@
   chemdraw.py reaction  out.svg SUB PROD [--enzyme X] [--cofactor-in A --cofactor-out B]
   chemdraw.py molecule  out.svg SMILES [--caption X] [--note i:text] [--isotope i:n]
   chemdraw.py grid      out.svg spec.json
+  chemdraw.py scheme    out.svg spec.json
 
 Why a tool and not a one-off: the source decks carry their structures as
 low-resolution bitmaps lifted from papers and vendor pages, with type set
@@ -220,6 +221,61 @@ def do_grid(a):
             body.append(text(ix + cw / 2, iy + ch + 26, item["name"], size=23))
     return frame(body, W, H)
 
+# ----------------------------------------------------------------- scheme
+
+def do_scheme(a):
+    """Rows of substrate -> product + product, each structure captioned.
+
+    `reaction` draws one substrate and one product; a hydrolysis has two
+    products, and the source slides caption each structure under itself.
+    The spec is a list of rows, each a list of items that are either a
+    structure {smiles, formula?, contains?, caption?, scale?} or an
+    operator {op: "arrow"|"plus"}.  Captions are a list of lines.
+
+        {"cell": [430, 300], "cap_line": 27,
+         "rows": [{"items": [...]}, {"items": [...]}]}
+    """
+    spec = json.load(open(a.spec, encoding="utf-8"))
+    cw, ch = spec.get("cell", [430, 300])
+    line = spec.get("cap_line", 27)
+    opw = spec.get("op_width", 120)
+    rgap = spec.get("row_gap", 40)
+
+    def width(it):
+        return opw if "op" in it else int(cw * it.get("scale", 1.0))
+
+    W = max(sum(width(i) for i in r["items"]) for r in spec["rows"])
+    caps = [max([len(i.get("caption", [])) for i in r["items"]] + [0])
+            for r in spec["rows"]]
+    heights = [ch + 14 + c * line for c in caps]
+    H = sum(heights) + rgap * (len(spec["rows"]) - 1)
+
+    body, y = [], 0
+    for r, cap_n, rh in zip(spec["rows"], caps, heights):
+        x = (W - sum(width(i) for i in r["items"])) / 2
+        for it in r["items"]:
+            w = width(it)
+            if it.get("op") == "arrow":
+                ay = y + ch / 2
+                body.append(f'<path d="M{x + 18} {ay}H{x + w - 40}" stroke="{INK}" '
+                            f'stroke-width="3.2"/>')
+                body.append(f'<path d="M{x + w - 44} {ay - 11}l22 11l-22 11z" fill="{INK}"/>')
+            elif it.get("op") == "plus":
+                body.append(text(x + w / 2, y + ch / 2 + 13, "+", size=38))
+            else:
+                m = parse(it["smiles"], it.get("formula"),
+                          it.get("caption", ["structure"])[0], it.get("contains"))
+                (rdCoordGen.AddCoords if it.get("coordgen")
+                 else rdDepictor.Compute2DCoords)(m)
+                rdDepictor.StraightenDepiction(m)
+                body.append(f'<g transform="translate({x},{y})">'
+                            f'{render(m, w, ch)[0]}</g>')
+                for k, ln in enumerate(it.get("caption", [])):
+                    body.append(text(x + w / 2, y + ch + 24 + k * line, ln, size=23))
+            x += w
+        y += rh + rgap
+    return frame(body, W, H)
+
 # ------------------------------------------------------------------ main
 
 def main():
@@ -247,6 +303,9 @@ def main():
 
     g = sub.add_parser("grid"); g.set_defaults(fn=do_grid)
     g.add_argument("out"); g.add_argument("spec")
+
+    c = sub.add_parser("scheme"); c.set_defaults(fn=do_scheme)
+    c.add_argument("out"); c.add_argument("spec")
 
     for q in (r, m):
         q.add_argument("--mol-width", type=int, default=380)
