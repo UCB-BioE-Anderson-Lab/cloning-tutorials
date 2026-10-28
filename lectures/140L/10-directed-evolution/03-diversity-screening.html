@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Diversity Generation and Screening &ndash; Directed Evolution</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* Nothing in this section sits on a grey panel any more.  Sources 32 and 33
+   are redrawn; source 34's chart was the paper's own black-on-white line art
+   inverted for the grey master, and has been inverted back; source 35's
+   equation is now drawn as SVG with the terms worked out. */
+/* source 33: the paper's table, with the two words it turns on drawn out
+   beside it -- A and G are the purines, C and T the pyrimidines, so a
+   transition keeps the ring type and a transversion swaps it.  That is
+   why there are four rows in one column and eight in the other. */
+.slide svg.subs{flex:1 1 auto;min-height:0;width:100%;height:100%}
+/* The two slides that are NOT in the source pptx.  JCA asked for them on
+   28 Oct 2026: a transition out of the classical cycle and into computation
+   before the ProSAR pair, and a transition out of ProSAR's math and into a
+   protein model after it.  Their speaker notes are the only ones in this
+   deck that are not the source's verbatim. */
+.slide svg.cycle{flex:1 1 auto;min-height:0;width:100%;height:100%}
+.slide svg.xswap{flex:0 0 auto;width:100%;height:auto;max-height:46%;margin-bottom:8px}
+.slide p.cred{font-size:18px;color:var(--muted);margin:12px 0 0}
+.slide p.cred span{display:block}
+/* source 31: four ways of making point mutations, each a named method
+   and then what it is.  The source sets the method larger than the
+   description; so does this. */
+.slide .methods{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center}
+.slide .methods p{font-size:25px;line-height:1.4;margin:0 0 38px}
+.slide .methods p:last-child{margin-bottom:0}
+.slide .methods b{font-size:31px;color:var(--blue)}
+.slide .methods .url{font-size:22px;word-break:break-all}
+/* source 32: the shuffling scheme on the left, the protocol on the right.
+   Redrawn black-on-white and built in three clicks, so the fragments and
+   the mosaic they reassemble into arrive as they are talked about; the
+   borrowed scan was white line art on the grey master and landed whole. */
+.slide .shuf{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:520px 1fr;grid-template-rows:minmax(0,1fr);gap:56px}
+.slide .shuf > *{min-width:0;min-height:0}
+.slide .shuf > svg{width:100%;height:100%;min-height:0}
+.slide .shuf ul{margin:0;padding-left:1.1em;align-self:center}
+.slide .shuf li{font-size:28px;margin:0 0 16px}
+/* source 34: what you do, then what it gets you */
+.slide .overfig{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+.slide .overfig ul{margin:0 0 18px;padding-left:1.1em;flex:0 0 auto}
+.slide .overfig li{font-size:27px;margin:0 0 10px}
+.slide .overfig figure{margin:0;flex:1 1 auto;min-height:0;display:flex}
+.slide .overfig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 35: the equation worked on two real clones out of the esterase
+   lineage, so the 1s and 0s are something they have already met.  Drawn
+   rather than screenshotted, which also gets it off the grey panel. */
+.slide svg.prosar-eq{flex:0 0 auto;width:100%;height:auto;margin:0 0 16px}
+/* sources 36-37: a method, then the ways it is done */
+.slide .grouped h2{font-size:31px;color:var(--blue);margin:26px 0 10px}
+.slide .grouped h2:first-child{margin-top:0}
+.slide .grouped ul{margin:0;padding-left:1.1em}
+.slide .grouped li{font-size:27px;margin:0 0 8px}
+.slide ul.apps li{font-size:28px;margin:0 0 16px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 30 -->
+<article class="slide" data-bg="section">
+  <h1>Diversity Generation<br>and Screening</h1>
+  <template class="notes">The diversity explored in a directed evolution experiment typically involves point mutants.  By this, we mean that each member of library varies from some ancestral sequence by single-base substitutions encoding single changes in amino acid identity.</template>
+  <template class="desc">Section divider: Diversity Generation and Screening.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 31 -->
+<article class="slide">
+  <h1>Point Mutation Generation</h1>
+  <div class="methods">
+    <p><b>Error-Prone PCR:</b>  A <i>Taq</i> PCR reaction containing higher concentrations of C and T, added Mn<sup>2+</sup>, higher Mg<sup>2+</sup> than usual.  See <span class="url">http://www.msg.ucsf.edu/agard/Protocols/PCR_Random_Mutagenesis.htm</span></p>
+    <p><b>GeneMorph II Random Mutagenesis Kit (Stratagene):</b>  PCR with a special error-prone polymerase.  Similar mutation rate to error-prone, but works better for longer templates</p>
+    <p><b>XL1 Red (Stratagene):</b>  An <i>E. coli</i> strain with high replication error rate.  Gives less mutations per KB.  Also generates errors such as recombinations, truncations, insertion element transposition</p>
+    <p><b>Mutagenic strains:</b>  New ideas involves expressing the enzyme involved in affinity maturation for targeted mutagenesis (AID), CRISPR-targeted mutagensesis (EvolvR), or plasmids replicating with an orthogonal mutagenic polymerase.</p>
+  </div>
+  <template class="notes">One common way of generating such libraries is error-prone PCR.  This is just like any other PCR in terms of it containing a Buffer, a thermostable polymerase, two oligos and a template.  The difference is that you tweak the concentrations of the dNTPs, add manganese, and additional magnesium.  This set of conditions causes the polymerase to make errors at elevated rates, and to do so randomly.  The conditions sometimes have the unfortunate consequence of also decreasing the robustness of the pcr reaction, and sometimes you won&rsquo;t get product out.  There are optimized commercial kits that can handle longer PCR products and do some more reliably.  The GeneMorph II kit is one that works by using a mutant error-prone polymerase.  It generates a similar spectrum of mutations to error-prone pcr, but it works on longer templates.  One older method is the XL1 red strain.  This E. coli strain replicates with a high error rate.  Thus, you simply passage your plasmid through this strain to introduce mutations.  The rate of mutation is significantly lower than in vitro mutatgenesis, but the in vivo nature of the method makes some interesting experiments possible.  For example, if you passage a plasmid encoding a slightly toxic protein through this strain, the selective pressure towards relieving the toxicity will result in the enrichment for mutants that solve the problem.  When you sequence such variants, you will often see trivial nonsense mutations (which means stop codons) but other times you will find point mutants or other types of errors such as insertion elements.  When coupled with a positive selection for function, these experiments can be very informative about how to &lsquo;fix&rsquo; a toxic protein. The main issue with XL1 Red is that the mutagenesis is global.  The genome is also being mutated at a high rate rendering these cells erratic and slow growers.  They can be finicky to work with, and mutations to the genome can also be selected for in an experiment. A popular research topic today is trying to engineer cells that focus mutagenesis on a particular region of an introduced plasmid, thereby restricting errors to where it is useful.</template>
+  <template class="desc">Four ways to put point mutations into a gene: error-prone PCR, run with skewed dNTPs, manganese and extra magnesium; the GeneMorph II kit, which uses an error-prone polymerase and copes with longer templates; XL1 Red, an E. coli strain that mutates whatever you passage through it; and newer mutagenic strains that aim the mutagenesis at one region.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 32 -->
+<article class="slide">
+  <h1>Shuffling</h1>
+  <div class="shuf">
+      <svg class="shuf" viewBox="12 14 352 512" role="img" aria-label="DNA shuffling, built one step at a time. Three parental genes, each in its own colour and each carrying its own red crosses where its mutations are. DNaseI fragmentation breaks them into a scatter of short pieces that still carry the crosses. A PCR with no exogenous primer reassembles the pieces into a full-length gene that is now a mosaic of all three colours, carrying mutations from more than one parent. A second PCR with terminal primers caps and amplifies it, giving a family of novel, genetically diverse genes.">
+      <g>
+      <rect x="44" y="24.5" width="248" height="11" rx="2" fill="#7fd4c1"/>
+      <path d="M90 24L102 36M102 24L90 36" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <rect x="100" y="52.5" width="248" height="11" rx="2" fill="#8aa9dc"/>
+      <path d="M230 52L242 64M242 52L230 64" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <rect x="22" y="80.5" width="248" height="11" rx="2" fill="#f6cba3"/>
+      <path d="M86 80L98 92M98 80L86 92" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M140 80L152 92M152 80L140 92" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      </g>
+      <g data-build="1" data-note="You then digest the DNA into 50bp frgments with DNAse I.">
+      <path d="M108 108V138" stroke="#6cbf4b" stroke-width="9"/>
+      <path d="M98 136L108 148L118 136Z" fill="#6cbf4b"/>
+      <text x="133" y="134" font-size="16" font-weight="700" fill="#111111">Fragmentation</text>
+      <rect x="30" y="167.5" width="34" height="9" rx="2" fill="#7fd4c1"/>
+      <rect x="86" y="167.5" width="26" height="9" rx="2" fill="#f6cba3"/>
+      <rect x="140" y="167.5" width="30" height="9" rx="2" fill="#8aa9dc"/>
+      <path d="M149 167L159 177M159 167L149 177" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <rect x="196" y="167.5" width="24" height="9" rx="2" fill="#f6cba3"/>
+      <rect x="250" y="167.5" width="38" height="9" rx="2" fill="#7fd4c1"/>
+      <rect x="310" y="167.5" width="26" height="9" rx="2" fill="#8aa9dc"/>
+      <rect x="26" y="195.5" width="30" height="9" rx="2" fill="#8aa9dc"/>
+      <rect x="78" y="195.5" width="36" height="9" rx="2" fill="#f6cba3"/>
+      <rect x="140" y="195.5" width="26" height="9" rx="2" fill="#7fd4c1"/>
+      <rect x="190" y="195.5" width="34" height="9" rx="2" fill="#8aa9dc"/>
+      <rect x="248" y="195.5" width="28" height="9" rx="2" fill="#f6cba3"/>
+      <rect x="300" y="195.5" width="32" height="9" rx="2" fill="#7fd4c1"/>
+      <path d="M307 195L317 205M317 195L307 205" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <rect x="56" y="223.5" width="30" height="9" rx="2" fill="#7fd4c1"/>
+      <rect x="110" y="223.5" width="34" height="9" rx="2" fill="#f6cba3"/>
+      <rect x="172" y="223.5" width="28" height="9" rx="2" fill="#8aa9dc"/>
+      <rect x="228" y="223.5" width="36" height="9" rx="2" fill="#7fd4c1"/>
+      <rect x="288" y="223.5" width="30" height="9" rx="2" fill="#f6cba3"/>
+      </g>
+      <g data-build="2" data-note="You then recombine those fragments in a PCR reaction which is very similar to PCA gene synthesis in terms of how things reassemble.">
+      <path d="M108 250V298" stroke="#6cbf4b" stroke-width="9"/>
+      <path d="M98 296L108 308L118 296Z" fill="#6cbf4b"/>
+      <text x="133" y="266" font-size="16" font-weight="700" fill="#111111">PCR amplification</text>
+      <text x="133" y="284" font-size="16" font-weight="700" fill="#111111">with no exogenous</text>
+      <text x="133" y="302" font-size="16" font-weight="700" fill="#111111">primer</text>
+      <rect x="46" y="326.5" width="54" height="11" rx="2" fill="#7fd4c1"/>
+      <rect x="100" y="326.5" width="52" height="11" rx="2" fill="#8aa9dc"/>
+      <rect x="152" y="326.5" width="56" height="11" rx="2" fill="#f6cba3"/>
+      <rect x="208" y="326.5" width="46" height="11" rx="2" fill="#7fd4c1"/>
+      <rect x="254" y="326.5" width="42" height="11" rx="2" fill="#8aa9dc"/>
+      <rect x="296" y="326.5" width="46" height="11" rx="2" fill="#f6cba3"/>
+      <path d="M70 326L82 338M82 326L70 338" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M226 326L238 338M238 326L226 338" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <text x="18" y="339" font-size="20" font-weight="700" fill="#111111">...</text>
+      <text x="344" y="339" font-size="20" font-weight="700" fill="#111111">...</text>
+      </g>
+      <g data-build="3" data-note="You then reamplify with external primers and subclone the material into a plasmid and transform.">
+      <path d="M108 352V400" stroke="#6cbf4b" stroke-width="9"/>
+      <path d="M98 398L108 410L118 398Z" fill="#6cbf4b"/>
+      <text x="133" y="368" font-size="16" font-weight="700" fill="#111111">PCR amplification</text>
+      <text x="133" y="386" font-size="16" font-weight="700" fill="#111111">with terminal</text>
+      <text x="133" y="404" font-size="16" font-weight="700" fill="#111111">primers</text>
+      <rect x="26" y="428.5" width="28" height="11" rx="2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1"/>
+      <rect x="54" y="428.5" width="54" height="11" rx="2" fill="#7fd4c1"/>
+      <rect x="108" y="428.5" width="52" height="11" rx="2" fill="#8aa9dc"/>
+      <rect x="160" y="428.5" width="56" height="11" rx="2" fill="#f6cba3"/>
+      <rect x="216" y="428.5" width="46" height="11" rx="2" fill="#7fd4c1"/>
+      <rect x="262" y="428.5" width="42" height="11" rx="2" fill="#8aa9dc"/>
+      <rect x="304" y="428.5" width="46" height="11" rx="2" fill="#f6cba3"/>
+      <rect x="322" y="428.5" width="28" height="11" rx="2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1"/>
+      <path d="M108 454V502" stroke="#6cbf4b" stroke-width="9"/>
+      <path d="M98 500L108 512L118 500Z" fill="#6cbf4b"/>
+      <text x="133" y="470" font-size="16" font-weight="700" fill="#111111">Family of novel</text>
+      <text x="133" y="488" font-size="16" font-weight="700" fill="#111111">genetically diverse</text>
+      <text x="133" y="506" font-size="16" font-weight="700" fill="#111111">genes</text>
+      </g>
+      </svg>
+    <ul>
+      <li>Pool the first-round hits</li>
+      <li>PCR the genes with external primers</li>
+      <li>Digest the PCR product to 50bp fragments with DNaseI</li>
+      <li>Recombine fragments in a PCR reaction (analogous to PCA gene synthesis)</li>
+      <li>Reamplify with external primers</li>
+      <li>Subclone into plasmids</li>
+    </ul>
+  </div>
+  <p class="cred">Nature. 1994 Aug 4;370(6488):389-91.
+    <span>Proc Natl Acad Sci U S A. 1994 Oct 25;91(22):10747-51.</span></p>
+  <template class="notes">DNA Shuffling is related to error-prone pcr.  The experiment starts with a pool of point mutation variants of a gene.  These mutants  might be the hits identified in a previous round of directed evolution.  First, you PCR up the genes with external primers.</template>
+  <template class="desc">DNA shuffling. On the left the scheme: parental genes each carrying their own mutations, cut by DNaseI into fragments, reassembled by a primerless PCR into genes that now carry mutations from several parents, then amplified with terminal primers. On the right the same thing as a protocol, six steps from pooling the hits to subcloning.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 33 -->
+<article class="slide">
+  <h1>Shuffling</h1>
+  <svg class="subs" viewBox="0 0 1400 600" role="img" aria-label="On the left, what the two words mean: A and G sit together as the purines, C and T as the pyrimidines. The two thick arrows join A to G and C to T &mdash; a transition keeps the ring type, and there are only four of them. The four thin arrows cross between the groups &mdash; a transversion swaps the ring type, and there are eight. On the right, Table 1, mutations introduced by mutagenic shuffling. Transitions: G to A six, A to G four, C to T seven, T to C three. Transversions: A to T one, A to C two, C to A one, C to G none, G to C three, G to T two, T to A one, T to G two. A total of 4437 bases of shuffled lacZ DNA were sequenced; the mutation rate was 0.7 percent, eleven of the twelve possible substitutions were found, and there were no frameshifts.">
+  <defs><marker id="b2" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="5.5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 4L0 8z" fill="#004373"/></marker><marker id="v2" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="5.5" orient="auto-start-reverse"><path d="M0 0L10 4L0 8z" fill="#ba3a13"/></marker></defs>
+  <text x="245" y="76" text-anchor="middle" font-size="23" font-weight="700" fill="#767676">purines</text>
+  <text x="245" y="462" text-anchor="middle" font-size="23" font-weight="700" fill="#767676">pyrimidines</text>
+  <path d="M130.0 192.0L130.0 338.0" stroke="#ba3a13" stroke-width="2.4" marker-start="url(#v2)" marker-end="url(#v2)"/>
+  <path d="M360.0 192.0L360.0 338.0" stroke="#ba3a13" stroke-width="2.4" marker-start="url(#v2)" marker-end="url(#v2)"/>
+  <path d="M159.7 179.7L330.3 350.3" stroke="#ba3a13" stroke-width="2.4" marker-start="url(#v2)" marker-end="url(#v2)"/>
+  <path d="M330.3 179.7L159.7 350.3" stroke="#ba3a13" stroke-width="2.4" marker-start="url(#v2)" marker-end="url(#v2)"/>
+  <path d="M172.0 150.0L318.0 150.0" stroke="#004373" stroke-width="5" marker-start="url(#b2)" marker-end="url(#b2)"/>
+  <path d="M172.0 380.0L318.0 380.0" stroke="#004373" stroke-width="5" marker-start="url(#b2)" marker-end="url(#b2)"/>
+  <circle cx="130" cy="150" r="34" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="130" y="162" text-anchor="middle" font-size="34" font-weight="700" fill="#111111">A</text>
+  <circle cx="360" cy="150" r="34" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="360" y="162" text-anchor="middle" font-size="34" font-weight="700" fill="#111111">G</text>
+  <circle cx="130" cy="380" r="34" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="130" y="392" text-anchor="middle" font-size="34" font-weight="700" fill="#111111">C</text>
+  <circle cx="360" cy="380" r="34" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="360" y="392" text-anchor="middle" font-size="34" font-weight="700" fill="#111111">T</text>
+  <path d="M60 522H110" stroke="#004373" stroke-width="5"/>
+  <text x="124" y="529" text-anchor="start" font-size="21" font-weight="400" fill="#111111">transition &mdash; the ring type is kept</text>
+  <path d="M60 562H110" stroke="#ba3a13" stroke-width="2.4"/>
+  <text x="124" y="569" text-anchor="start" font-size="21" font-weight="400" fill="#111111">transversion &mdash; the ring type is swapped</text>
+  <text x="636" y="36" text-anchor="start" font-size="24" font-weight="700" fill="#111111">Table 1.</text>
+  <text x="740" y="36" text-anchor="start" font-size="24" font-weight="400" fill="#111111">Mutations introduced by mutagenic shuffling</text>
+  <path d="M636 52H1392" stroke="#111111" stroke-width="2"/>
+  <text x="740" y="92" text-anchor="middle" font-size="23" font-weight="700" fill="#111111">Transition</text>
+  <text x="900" y="92" text-anchor="middle" font-size="23" font-weight="700" fill="#111111">Frequency</text>
+  <text x="1120" y="92" text-anchor="middle" font-size="23" font-weight="700" fill="#111111">Transversion</text>
+  <text x="1300" y="92" text-anchor="middle" font-size="23" font-weight="700" fill="#111111">Frequency</text>
+  <path d="M636 108H1392" stroke="#111111" stroke-width="1.4"/>
+  <text x="740" y="152" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">G &#8594; A</text>
+  <text x="900" y="152" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">6</text>
+  <text x="740" y="194" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">A &#8594; G</text>
+  <text x="900" y="194" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">4</text>
+  <text x="740" y="236" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">C &#8594; T</text>
+  <text x="900" y="236" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">7</text>
+  <text x="740" y="278" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">T &#8594; C</text>
+  <text x="900" y="278" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">3</text>
+  <text x="1120" y="152" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">A &#8594; T</text>
+  <text x="1300" y="152" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">1</text>
+  <text x="1120" y="194" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">A &#8594; C</text>
+  <text x="1300" y="194" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">2</text>
+  <text x="1120" y="236" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">C &#8594; A</text>
+  <text x="1300" y="236" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">1</text>
+  <text x="1120" y="278" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">C &#8594; G</text>
+  <text x="1300" y="278" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">0</text>
+  <text x="1120" y="320" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">G &#8594; C</text>
+  <text x="1300" y="320" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">3</text>
+  <text x="1120" y="362" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">G &#8594; T</text>
+  <text x="1300" y="362" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">2</text>
+  <text x="1120" y="404" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">T &#8594; A</text>
+  <text x="1300" y="404" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">1</text>
+  <text x="1120" y="446" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">T &#8594; G</text>
+  <text x="1300" y="446" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">2</text>
+  <path d="M636 494H1392" stroke="#111111" stroke-width="2"/>
+  <text x="636" y="530" text-anchor="start" font-size="22" font-weight="400" fill="#111111">A total of 4437 bases of shuffled <tspan font-style="italic">lacZ</tspan> DNA were sequenced.</text>
+  <text x="636" y="560" text-anchor="start" font-size="22" font-weight="400" fill="#111111">The mutation rate was 0.7%; 11/12 types of base substitutions</text>
+  <text x="636" y="590" text-anchor="start" font-size="22" font-weight="400" fill="#111111">were found, but there were no frameshifts.</text>
+  </svg>
+  <p class="cred">Nature. 1994 Aug 4;370(6488):389-91.
+    <span>Proc Natl Acad Sci U S A. 1994 Oct 25;91(22):10747-51.</span></p>
+  <template class="notes">Shuffling has largely replaced error-prone pcr because it does double-duty:  it not only recombines the mutations contained in a population of genes, it is also error prone itself causing a similar spectrume of point mutations to error-prone PCR.</template>
+  <template class="desc">What shuffling itself does to the sequence. Beside the count, the two words drawn out: A and G are purines, C and T pyrimidines, so a transition keeps the ring type and a transversion swaps it &mdash; four of the one, eight of the other. The counts come from 4437 bases of shuffled lacZ, a rate of 0.7% with no frameshifts. Shuffling is error-prone in its own right.</template>
+</article>
+
+<!-- NEW -->
+<article class="slide">
+  <h1>Using the Whole Library</h1>
+  <svg class="cycle" viewBox="0 0 1400 700" role="img" aria-label="The directed evolution cycle from earlier in the lecture, drawn again whole. On the click the end of it changes: the arrow from the screened plate no longer picks out a single winning well, it carries the whole plate into a box marked model, and what travels round the yellow ribbon to start the next round is relabelled from NEXT GENERATION to NEXT LIBRARY.">
+  <defs><marker id="ah" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="7" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L12 5L0 10z" fill="#111111"/></marker><marker id="ab" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="7" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L12 5L0 10z" fill="#004373"/></marker><marker id="yh" viewBox="0 0 10 8" refX="0" refY="4" markerWidth="1.75" markerHeight="1.75" orient="auto"><path d="M0 0L10 4L0 8z" fill="#ffd200"/></marker></defs>
+  <rect x="150" y="111.5" width="180" height="13" rx="6.5" fill="#1f4ea1"/><circle cx="330" cy="118" r="8.06" fill="#5b8fd6"/>
+  <text x="240" y="158" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Parental genes</text>
+  <text x="437" y="64" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Random</text>
+  <text x="437" y="90" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">mutagenesis</text>
+  <path d="M372 118L500 118" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="437" y="152" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">1</text>
+  <text x="648" y="44" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">DIVERSITY</text>
+  <text x="648" y="70" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">(LIBRARY)</text>
+  <rect x="548" y="90.0" width="190" height="12" rx="6.0" fill="#1f4ea1"/><circle cx="738" cy="96" r="7.4399999999999995" fill="#5b8fd6"/><path d="M606 87 L608.7 93.3 L615 96 L608.7 98.7 L606 105 L603.3 98.7 L597 96 L603.3 93.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <rect x="548" y="116.0" width="190" height="12" rx="6.0" fill="#1f4ea1"/><circle cx="738" cy="122" r="7.4399999999999995" fill="#5b8fd6"/><path d="M652 113 L654.7 119.3 L661 122 L654.7 124.7 L652 131 L649.3 124.7 L643 122 L649.3 119.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <rect x="548" y="142.0" width="190" height="12" rx="6.0" fill="#1f4ea1"/><circle cx="738" cy="148" r="7.4399999999999995" fill="#5b8fd6"/><path d="M698 139 L700.7 145.3 L707 148 L700.7 150.7 L698 157 L695.3 150.7 L689 148 L695.3 145.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <path d="M660 196L700 160" stroke="#111111" stroke-width="1.6"/>
+  <text x="628" y="214" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">mutation</text>
+  <path d="M770 132L1100 182" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="950" y="128" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">2</text>
+  <path d="M1180 148A52 52 0 0 1 1223 232" fill="none" stroke="#1f4ea1" stroke-width="11" stroke-linecap="round"/>
+  <path d="M1213 250A52 52 0 1 1 1163 150" fill="none" stroke="#d81e05" stroke-width="11" stroke-linecap="round"/>
+  <path d="M1215 181 L1217.7 187.3 L1224 190 L1217.7 192.7 L1215 199 L1212.3 192.7 L1206 190 L1212.3 187.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <text x="1020" y="296" text-anchor="end" font-size="23" font-weight="400" fill="#111111">Transformation of</text>
+  <text x="1020" y="322" text-anchor="end" font-size="23" font-weight="400" fill="#111111">microorganisms (<tspan font-style="italic">E. coli</tspan> or</text>
+  <text x="1020" y="348" text-anchor="end" font-size="23" font-weight="400" fill="#111111">yeast) with the library</text>
+  <path d="M1180 272L1180 352" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="1212" y="322" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">3</text>
+  <ellipse cx="1180" cy="430" rx="94" ry="62" fill="#efe0c0" stroke="#e8761e" stroke-width="4"/>
+  <path d="M1215 428A22 22 0 0 1 1233 449" fill="none" stroke="#1f4ea1" stroke-width="6" stroke-linecap="round"/>
+  <path d="M1229 457A22 22 0 1 1 1206 425" fill="none" stroke="#d81e05" stroke-width="6" stroke-linecap="round"/>
+  <path d="M1092 478L985 522" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="1058" y="534" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">4</text>
+  <ellipse cx="880" cy="548" rx="92" ry="35" fill="#fffbd0" stroke="#b9a84a" stroke-width="3"/>
+  <circle cx="838" cy="536" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="872" cy="530" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="906" cy="541" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="848" cy="560" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="884" cy="562" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="918" cy="553" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="802" cy="548" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="930" cy="566" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="866" cy="546" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <text x="735" y="470" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Transfer of colonies to</text>
+  <text x="735" y="496" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">96-well plates</text>
+  <path d="M778 548L690 548" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="735" y="590" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">5</text>
+  <rect x="562" y="516" width="108" height="66" fill="#fdfdfd" stroke="#6a6a6a" stroke-width="2.6"/>
+  <circle cx="572" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <path d="M548 534L462 498" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="508" y="556" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">6</text>
+  <rect x="470" y="398" width="286" height="42" fill="#f6a800"/>
+  <text x="613" y="428" text-anchor="middle" font-size="26" font-weight="700" fill="#111111">SCREENING</text>
+  <rect x="238" y="400" width="222" height="146" fill="#fdfdfd" stroke="#6a6a6a" stroke-width="3"/>
+  <circle cx="252.0" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="447.8" r="5" fill="#ffd200" stroke="#7a6000" stroke-width="1.4"/>
+  <path d="M196 330C128 300 138 226 150 176" fill="none" stroke="#ffd200" stroke-width="26" marker-end="url(#yh)"/>
+  <g data-unbuild="1">
+  <path d="M288 440L268 362" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="243" y="404" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">7</text>
+  <rect x="232" y="332.0" width="150" height="12" rx="6.0" fill="#1f4ea1"/><circle cx="382" cy="338" r="7.4399999999999995" fill="#5b8fd6"/><path d="M328 329 L330.7 335.3 L337 338 L330.7 340.7 L328 347 L325.3 340.7 L319 338 L325.3 335.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <text x="466" y="332" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">&ldquo;winner&rdquo;</text>
+  <text x="292" y="244" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">NEXT</text>
+  <text x="292" y="270" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">GENERATION</text>
+  </g>
+  <g data-build="1" data-note="So fit a model to the whole plate instead, the dead wells included, and let it tell you what to build next.  What goes back round the loop is then no longer a single winner to be mutagenized again &mdash; it is a library you designed.  The next two slides are about how that is done.">
+  <path d="M320 440L320 374" stroke="#004373" stroke-width="3.4" marker-end="url(#ab)"/>
+  <rect x="206" y="300" width="230" height="66" rx="8" fill="#eef3f8" stroke="#004373" stroke-width="3"/>
+  <text x="321" y="344" text-anchor="middle" font-size="31" font-weight="700" fill="#004373">model</text>
+  <text x="456" y="324" text-anchor="start" font-size="23" font-weight="400" fill="#004373">every variant,</text>
+  <text x="456" y="350" text-anchor="start" font-size="23" font-weight="400" fill="#004373">not just the winner</text>
+  <text x="292" y="244" text-anchor="middle" font-size="22" font-weight="700" fill="#004373">NEXT</text>
+  <text x="292" y="270" text-anchor="middle" font-size="22" font-weight="700" fill="#004373">LIBRARY</text>
+  </g>
+  </svg>
+  <template class="notes">Notice what happens to the plate at the end of every cycle we have drawn so far.  You screen it, you keep the best well, and everything else goes in the bin.  The neutral variants and the dead ones cost you exactly as much to build and to assay as the winner did, and you learn nothing at all from them.</template>
+  <template class="desc">The cycle from earlier in the lecture, drawn again. On the click its last step changes: instead of picking one winning well out of the screened plate, the whole plate &mdash; dead wells included &mdash; feeds a model, and what goes round to start the next round is a designed library rather than a single winner.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 34 -->
+<article class="slide">
+  <h1>ProSAR Method</h1>
+  <div class="overfig">
+    <ul>
+      <li>Do an initial round of random mutagenesis</li>
+      <li>Or, make all possible amino acid substitutions (for a 300 aa proteins, there would be 300*20 = 6000 variants)</li>
+      <li>Measure the activity/fitness of each one</li>
+    </ul>
+    <figure>
+      <img src="img/34-chart.png" alt="A bar chart of the effect of each single mutation, from plus 0.25 to minus 0.25, with the mutations ranked left to right from most helpful to most harmful. Each mutation has two bars, one for the initial measurement and one after a thermal challenge. A handful at the left, headed by V245A, help; most of the rest sit near zero or below, and the thermal-challenge bar often disagrees in sign with the initial one.">
+    </figure>
+  </div>
+  <p class="cred">Nat Biotechnol. 2007 Mar;25(3):338-44. Epub 2007 Feb 18.</p>
+  <template class="notes">There are also strategies for combining computational design with directed evolution.  ProSAR is one such method developed at Codexis.  The first step is to generate an initial library.  This can be done by error-prone, shuffling.  You can also explicitly synthesize each single-amino acid mutant of a protein using gene synthesis.  For a typical 300 amino acid protein, there are only 6000 such variants.  As microarray-based gene synthesis becomes more available, this approach will be greatly enabled.  You then measure the activity of each variant.  In this example, they are doing directed evolution of thermal stability, so they are comparing activity with and without a heat challenge.</template>
+  <template class="desc">The first half of ProSAR: build a library, by random mutagenesis or by simply synthesizing every single amino acid substitution, then measure every variant. The chart shows the result for one such experiment &mdash; each mutation's effect, before and after a thermal challenge.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 35 -->
+<article class="slide">
+  <h1>ProSAR Method</h1>
+  <svg class="prosar-eq" viewBox="0 0 1400 332" role="img" aria-label="The equation worked on two real clones from the esterase lineage. For 1-1H9 the measured improvement y is 0.3, and the terms read: the contribution of H322R times 1, plus Y370F times 1, plus M358V times 0, plus L144M times 0, and so on. For 2-19E10, y is 1.0 and M358V's term is now times 1. On the click, subtracting the first equation from the second leaves the contribution of M358V alone as 0.7 &mdash; a mutation that was never built on its own.">
+  <text x="700" y="36" text-anchor="middle" font-size="27" font-weight="400" fill="#767676"><tspan font-style="italic">y</tspan> = <tspan font-style="italic">c</tspan><tspan font-size="0.6em" dy="9">1a</tspan><tspan dy="-9"> </tspan><tspan font-style="italic">x</tspan><tspan font-size="0.6em" dy="9">1a</tspan><tspan dy="-9"> </tspan>+ <tspan font-style="italic">c</tspan><tspan font-size="0.6em" dy="9">1b</tspan><tspan dy="-9"> </tspan><tspan font-style="italic">x</tspan><tspan font-size="0.6em" dy="9">1b</tspan><tspan dy="-9"> </tspan>+ <tspan font-style="italic">c</tspan><tspan font-size="0.6em" dy="9">2a</tspan><tspan dy="-9"> </tspan><tspan font-style="italic">x</tspan><tspan font-size="0.6em" dy="9">2a</tspan><tspan dy="-9"> </tspan>+ <tspan font-style="italic">c</tspan><tspan font-size="0.6em" dy="9">2b</tspan><tspan dy="-9"> </tspan><tspan font-style="italic">x</tspan><tspan font-size="0.6em" dy="9">2b</tspan><tspan dy="-9"> </tspan>+ &#8230;</text>
+  <text x="700" y="76" text-anchor="middle" font-size="22" font-weight="400" fill="#767676">the same two clones from the esterase lineage, as improvement over wild type</text>
+  <text x="50" y="142" text-anchor="start" font-size="26" font-weight="700" fill="#111111">1-1H9</text>
+  <text x="196" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111"><tspan font-style="italic">y</tspan> = 0.3</text>
+  <text x="300" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111">=</text>
+  <text x="344" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111"><tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">H322R</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#004373">1</tspan></text>
+  <text x="540" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ <tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">Y370F</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#004373">1</tspan></text>
+  <text x="736" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ <tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">M358V</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#767676">0</tspan></text>
+  <text x="932" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ <tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">L144M</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#767676">0</tspan></text>
+  <text x="1128" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ &#8230;</text>
+  <text x="50" y="198" text-anchor="start" font-size="26" font-weight="700" fill="#111111">2-19E10</text>
+  <text x="196" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111"><tspan font-style="italic">y</tspan> = 1.0</text>
+  <text x="300" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111">=</text>
+  <text x="344" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111"><tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">H322R</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#004373">1</tspan></text>
+  <text x="540" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ <tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">Y370F</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#004373">1</tspan></text>
+  <text x="736" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ <tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">M358V</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#004373">1</tspan></text>
+  <text x="932" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ <tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">L144M</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#767676">0</tspan></text>
+  <text x="1128" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ &#8230;</text>
+  <g data-build="1" data-note="After solving the equations for each c value, you do additional design of experiment calculations to choose those mutation combinations that will be most informative to test in combination during the next round of mutagenesis.">
+  <path d="M50 272H1240" stroke="#767676" stroke-width="1.4"/>
+  <text x="196" y="312" text-anchor="start" font-size="24" font-weight="400" fill="#767676">subtract</text>
+  <text x="300" y="312" text-anchor="start" font-size="27" font-weight="400" fill="#111111"><tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">M358V</tspan><tspan dy="-9"> &#160;= &#160;1.0 &#8722; 0.3 &#160;= &#160;</tspan><tspan font-weight="700" fill="#004373">0.7</tspan></text>
+  <text x="700" y="312" text-anchor="start" font-size="23" font-weight="400" fill="#ba3a13">&#8212; and M358V was never built on its own</text>
+  </g>
+  </svg>
+  <ul class="tighter">
+    <li>Write one equation for each clone</li>
+    <li>The measured fitness for each clone is y</li>
+    <li>X<sub>1a</sub> values are 1 or 0 for the presence of each possible base substitution</li>
+    <li>c<sub>1a</sub> are the fitness contributions associated with each mutation (which cannot be directly measured)</li>
+    <li>The contribution of most mutations is additive except active-site residues, or when two residues directly interact in the structure</li>
+    <li>Design of Experiment calculations can then be used to design an optimal set of combinations of mutations that are most likely to produce an optimal clone</li>
+  </ul>
+  <p class="cred">Nat Biotechnol. 2007 Mar;25(3):338-44. PMID: 17322872</p>
+  <template class="notes">You then write out some equations.  You will have one equation for each clone that you assay.  The measured fitness for each clone is y.  Each X1a-like value is either 1 or 0 for the presence of each possible base substitution.  The C1a-like values are the fitness contributions associated with each mutation.  These are unknowns that we are trying to measure.  If you assume that the contribution of most mtuations is additive, then you can describe the fitness observed for each variant as a linear combination of each mutation.  In practice, this additivity is usually true with the exception of mutations in the active site of the protein.</template>
+  <template class="desc">The second half of ProSAR, worked on two clones from the esterase lineage. One linear equation per assayed clone: the measured fitness on the left, and on the right a one-or-zero term for every possible substitution times that substitution&rsquo;s own unknown contribution. Subtracting 1-1H9 from 2-19E10 leaves the contribution of M358V on its own &mdash; a clone that was never built.</template>
+</article>
+
+<!-- NEW -->
+<article class="slide">
+  <h1>Protein Language Models</h1>
+  <svg class="xswap" viewBox="0 0 1400 390" role="img" aria-label="One term lifted out of the ProSAR equation. Underneath it, what x actually is: in ProSAR a 1 or a 0 for whether that substitution is present, so Y370F and Y370W are two unrelated columns. On the click that is replaced by a row of numbers &mdash; a description of the substitution produced by a model trained on every deposited protein sequence.">
+  <text x="700" y="44" text-anchor="middle" font-size="27" font-weight="400" fill="#767676"><tspan font-style="italic">y</tspan> = <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.58em" dy="13" fill="#111111">1a</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.58em" dy="13" fill="#111111">1a</tspan><tspan dy="-13"> </tspan>+ <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.58em" dy="13" fill="#111111">1b</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.58em" dy="13" fill="#111111">1b</tspan><tspan dy="-13"> </tspan>+ <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.58em" dy="13" fill="#111111">2a</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.58em" dy="13" fill="#111111">2a</tspan><tspan dy="-13"> </tspan>+ <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.58em" dy="13" fill="#111111">2b</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.58em" dy="13" fill="#111111">2b</tspan><tspan dy="-13"> </tspan>+ &#8230;</text>
+  <text x="700" y="146" text-anchor="middle" font-size="70" font-weight="400" fill="#111111"><tspan font-style="italic" fill="#767676">c</tspan><tspan font-size="0.58em" dy="13" fill="#767676">1a</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#ba3a13">x</tspan><tspan font-size="0.58em" dy="13" fill="#ba3a13">1a</tspan><tspan dy="-13"> </tspan></text>
+  <path d="M742 176V214" stroke="#767676" stroke-width="2"/>
+  <g data-unbuild="1">
+  <text x="700" y="264" text-anchor="middle" font-size="42" font-weight="700" fill="#111111"><tspan font-style="italic">x</tspan> = 1 or 0</text>
+  <text x="700" y="316" text-anchor="middle" font-size="30" font-weight="400" fill="#111111">Y370F &#8594; 1&#160;&#160;&#160;&#160;&#160;&#160;Y370W &#8594; 0</text>
+  <text x="700" y="362" text-anchor="middle" font-size="25" font-weight="400" fill="#767676">present or absent &mdash; two unrelated columns</text>
+  </g>
+  <g data-build="1">
+  <text x="700" y="264" text-anchor="middle" font-size="40" font-weight="700" fill="#004373"><tspan font-style="italic">x</tspan> = a description of the substitution</text>
+  <rect x="446" y="288" width="508" height="44" rx="6" fill="#eef3f8" stroke="#004373" stroke-width="2"/>
+  <text x="700" y="318" text-anchor="middle" font-size="28" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">&#8722;0.42&#160;&#160;1.08&#160;&#160;0.17&#160;&#160;&#8230;&#160;&#160;0.55</text>
+  <text x="700" y="362" text-anchor="middle" font-size="25" font-weight="400" fill="#767676">from a model trained on every deposited protein sequence</text>
+  </g>
+  </svg>
+  <ul class="tight">
+    <li>Each <i>x</i> is 1 or 0: is this substitution present?  The equation knows nothing else about it, so every <i>c</i> has to be learned from your own measurements &mdash; which is why it takes thousands of clones</li>
+    <li data-build="1" data-note="The newer version of this idea replaces each x with a description of the substitution that comes out of a model trained on every protein sequence anyone has deposited.  The column now carries something before you have measured anything, so the same fit converges on hundreds of clones rather than thousands, and you can rank mutations before you build the first library.  You also no longer need the equation to be a sum, so the model can represent the case where two mutations do nothing on their own and only work together.  EVOLVEpro is one system built this way:  the language model supplies the description of each variant, a regression model sits on top of it, and both are retrained after every round.">Replace <i>x</i> with a description of the substitution from a model trained on every deposited protein sequence, and the same fit converges on hundreds</li>
+    <li data-build="1">The model on top no longer has to be a sum, so it can represent mutations that only work in combination</li>
+    <li data-build="1">And it can rank mutations before you build anything at all</li>
+  </ul>
+  <p class="cred">Science. 2025;387:eadr6006 (EVOLVEpro)</p>
+  <template class="notes">Look at what those <i>x</i> values in the equation actually are.  Each one is a 1 or a 0 &mdash; is this particular substitution present in this clone, or is it not.  That is the whole of what the equation knows about it.  It has no idea that Y370F and Y370W are changes at the same position, or that one of them is conservative and the other is not; they are simply two different columns.  Every one of those <i>c</i> values therefore has to be learned from your own measurements, and that is why the method needs thousands of clones.</template>
+  <template class="desc">The same equation, with one term lifted out. In ProSAR each x is a 1 or a 0 for whether a substitution is present, so the fit starts from nothing and needs thousands of clones. Replace x with a description of the substitution from a model trained on every deposited sequence and the fit converges on hundreds, the model need no longer be a sum, and mutations can be ranked before anything is built.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 36 -->
+<article class="slide">
+  <h1>Screening Methods</h1>
+  <div class="grouped">
+    <h2>Mass spectrometry screens</h2>
+    <ul>
+      <li>High-throughput &ldquo;Product Study&rdquo;</li>
+      <li>Has been automated by companies such as Maxygen, Codexis, and Diversa</li>
+    </ul>
+    <h2>Colorimetric or fluorometric assays</h2>
+    <ul>
+      <li>Fusing a target gene to GFP to watch expression</li>
+      <li>Use a cell-permeable substrate (think Xgal/lacZ) for the reaction</li>
+    </ul>
+  </div>
+  <template class="notes">In addition to a mutagenesis strategy, your directed evolution experiment requires a screening method.  In a company that specializes in directed evolution, they may have high-throughput mass spec instruments that can do LC-MS assays at more reasonable throughput, and thus many chemical transformations can be observed. Effectively, this is doing less-precise but faster &lsquo;product studies&rsquo; on each mutant.
+For the less expensive experiments often done in academia and small companies, plate-based methods using colorimetric or fluorometric assays are the norm.  For example, you might fuse GFP to your protein to link the amount of your protein to a detectable signal.  You might also use cell-permeable substrates as Arnold did with the p-nitrobenzyl esterase. Thus, these are analogous to the whole-cell assays we previously discussed. Typically you will want to grow the colonies in 384-well plates to normalize the amount of cells and then perform these assays on those more consistent cultures.  This can be done somewhat easily at the 10,000-sample scale.
+Basically, any quantitative assay that you can do on a single strain could be considered for use in directed evolution.  The only concern is how many of those assays your labor force and materials costs enable you to do.  There are companies that optimize protein expression by running each variant on a gel.  Though that sounds low-throughput, if the diversity you are able to pay for is lower than the diversity required to obtain the data you need, the assay will do.</template>
+  <template class="desc">Two kinds of screen. Mass spectrometry, run as a fast product study on every mutant and automated by the directed-evolution companies; and the cheaper plate-based colorimetric and fluorometric assays, where the signal comes from a GFP fusion or from a cell-permeable substrate.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 37 -->
+<article class="slide">
+  <h1>Applications</h1>
+  <ul class="apps">
+    <li>Improving the catalytic efficiency of an enzyme</li>
+    <li>Improving the expression/solubility of a protein</li>
+    <li>Improving the efficiency of a protein towards a non-native substrate</li>
+    <li>Improving the thermostability or buffer stability of a protein</li>
+    <li>Improving the function of a protein in the presence of toxicants (organic solvents)</li>
+    <li><b>Any application in which one or two point mutations give rise to a detectable change in activity, and a selection or screen can identify those changes</b></li>
+  </ul>
+  <template class="notes">There are all sorts of things you can use directed evolution to improve.  You can improve catalytic efficiency sometimes, but more typically you improve expression or solubility of your protein.  You can also improve the catalytic parameters, usually Km, for a non-native substrate.  You can also improve the thermostability, buffer stability, and solvent-tolerance of a gene.  In a nutshell, any application in which one or two point mutations give rise to a detectable change in activity, and a selection or screen can identify those changes, can be accessed with directed evolution.</template>
+  <template class="desc">What directed evolution is good for: catalytic efficiency, expression and solubility, activity on a non-native substrate, thermal and buffer stability, and tolerance of organic solvents &mdash; and, in general, anything where one or two point mutations make a detectable difference you can screen or select for.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

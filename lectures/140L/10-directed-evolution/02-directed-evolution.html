@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Directed Evolution &ndash; Directed Evolution</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 23: the divider carries the source's climber */
+.slide .divtop{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:1fr 360px;grid-template-rows:minmax(0,1fr);
+  gap:60px;align-items:center}
+.slide .divtop > *{min-width:0;min-height:0}
+.slide .divtop figure{margin:0;height:100%;display:flex;align-items:center}
+.slide .divtop img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* sources 25-28: the worked example runs under a two-line title */
+.slide h1.ex{font-size:46px;line-height:1.16;margin:0 0 16px}
+.slide h1.ex span{display:block}
+/* source 28: the structure is a photographic render on the source's black
+   master and keeps that ground.  Sources 25 and 27 no longer need a panel:
+   both are redrawn, black on white. */
+/* source 27: the lineage on the left, the fitness it bought on the right.
+   Redrawn black on white so it can be built generation by generation —
+   the borrowed scan is white line art that needed a grey panel, and it
+   arrived whole. */
+.slide svg.prosar{flex:1 1 auto;min-height:0;width:100%;height:100%}
+/* source 28: the structure with its key beside it */
+.slide .keyed{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:1fr 280px;grid-template-rows:minmax(0,1fr);
+  gap:36px;align-items:center}
+.slide .keyed > *{min-width:0;min-height:0}
+.slide .keyed figure{margin:0;height:100%;display:flex;background:#000;
+  border-radius:4px;padding:14px}
+.slide .keyed img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide .keyed ul{list-style:none;margin:0;padding:0}
+.slide .keyed li{font-size:32px;margin:0 0 20px;display:flex;align-items:center;gap:16px}
+.slide .keyed li::before{content:"";width:26px;height:26px;border-radius:50%;
+  flex:none;background:currentColor;border:1px solid var(--rule)}
+.slide .keyed li.sub{color:var(--ink)}
+.slide .keyed li.sub::before{background:#fff}
+.slide .keyed li.neu{color:#0078a8}
+.slide .keyed li.imp{color:#8a7400}
+/* source 29: the three outcomes of a missense mutation */
+.slide .rates{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center}
+.slide .rates > p{font-size:28px;margin:0 0 26px}
+.slide .rates h2{font-size:32px;margin:0 0 10px}
+.slide .rates .blk{margin:0 0 26px}
+.slide .rates .blk:last-child{margin-bottom:0}
+.slide .rates ul{margin:0;padding-left:1.1em}
+.slide .rates li{font-size:26px;margin:0 0 6px}
+/* the source's citation sits UNDER the figure, not over it: .src is
+   absolutely positioned and would land inside the grey panel */
+.slide p.cred{font-size:18px;color:var(--muted);margin:12px 0 0}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 23 -->
+<article class="slide" data-bg="section">
+  <h1>Directed Evolution</h1>
+  <div class="divtop">
+    <div></div>
+    <figure>
+      <img src="img/23-climber.png" alt="A cartoon climber in a blue cap and backpack working up the steep side of a white peak, ice axe in hand, with the summit still above.">
+    </figure>
+  </div>
+  <template class="notes">In a typical directed evolution experiment, we begin with a specific gene sequence.  We then apply random mutagenesis to this sequence to generate diversity and screen for variants with an improved property.  We then repeat the experiment from these improved mutants.</template>
+  <template class="desc">Section divider: Directed Evolution, with a climber working up a peak.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 24 -->
+<article class="slide">
+  <h1>Overview</h1>
+  <svg class="cycle" viewBox="0 0 1400 700" role="img" aria-label="The directed evolution cycle, built up one step at a time. A parental gene is mutagenized into a diversity library whose members each carry a mutation (1); the library is cloned into a plasmid (2) and transformed into E. coli or yeast (3); the cells are plated (4), the colonies transferred to a 96-well plate (5) and screened (6); and the winner (7) is carried by a broad yellow arrow back to the start as the next generation.">
+  <defs><marker id="ah" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="7" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L12 5L0 10z" fill="#111111"/></marker><marker id="yh" viewBox="0 0 10 8" refX="0" refY="4" markerWidth="1.75" markerHeight="1.75" orient="auto"><path d="M0 0L10 4L0 8z" fill="#ffd200"/></marker></defs>
+  <g>
+  <rect x="150" y="111.5" width="180" height="13" rx="6.5" fill="#1f4ea1"/><circle cx="330" cy="118" r="8.06" fill="#5b8fd6"/>
+  <text x="240" y="158" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Parental genes</text>
+  </g>
+  <g data-build="1">
+  <text x="437" y="64" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Random</text>
+  <text x="437" y="90" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">mutagenesis</text>
+  <path d="M372 118L500 118" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="437" y="152" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">1</text>
+  <text x="648" y="44" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">DIVERSITY</text>
+  <text x="648" y="70" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">(LIBRARY)</text>
+  <rect x="548" y="90.0" width="190" height="12" rx="6.0" fill="#1f4ea1"/><circle cx="738" cy="96" r="7.4399999999999995" fill="#5b8fd6"/><path d="M606 87 L608.7 93.3 L615 96 L608.7 98.7 L606 105 L603.3 98.7 L597 96 L603.3 93.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <rect x="548" y="116.0" width="190" height="12" rx="6.0" fill="#1f4ea1"/><circle cx="738" cy="122" r="7.4399999999999995" fill="#5b8fd6"/><path d="M652 113 L654.7 119.3 L661 122 L654.7 124.7 L652 131 L649.3 124.7 L643 122 L649.3 119.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <rect x="548" y="142.0" width="190" height="12" rx="6.0" fill="#1f4ea1"/><circle cx="738" cy="148" r="7.4399999999999995" fill="#5b8fd6"/><path d="M698 139 L700.7 145.3 L707 148 L700.7 150.7 L698 157 L695.3 150.7 L689 148 L695.3 145.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <path d="M660 196L700 160" stroke="#111111" stroke-width="1.6"/>
+  <text x="628" y="214" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">mutation</text>
+  </g>
+  <g data-build="2" data-note="These procedures typically involve PCR, and then you subclone the library into a vector and transform cells.">
+  <path d="M770 132L1100 182" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="950" y="128" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">2</text>
+  <path d="M1180 148A52 52 0 0 1 1223 232" fill="none" stroke="#1f4ea1" stroke-width="11" stroke-linecap="round"/>
+  <path d="M1213 250A52 52 0 1 1 1163 150" fill="none" stroke="#d81e05" stroke-width="11" stroke-linecap="round"/>
+  <path d="M1215 181 L1217.7 187.3 L1224 190 L1217.7 192.7 L1215 199 L1212.3 192.7 L1206 190 L1212.3 187.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  </g>
+  <g data-build="3">
+  <text x="1020" y="296" text-anchor="end" font-size="23" font-weight="400" fill="#111111">Transformation of</text>
+  <text x="1020" y="322" text-anchor="end" font-size="23" font-weight="400" fill="#111111">microorganisms (<tspan font-style="italic">E. coli</tspan> or</text>
+  <text x="1020" y="348" text-anchor="end" font-size="23" font-weight="400" fill="#111111">yeast) with the library</text>
+  <path d="M1180 272L1180 352" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="1212" y="322" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">3</text>
+  <ellipse cx="1180" cy="430" rx="94" ry="62" fill="#efe0c0" stroke="#e8761e" stroke-width="4"/>
+  <path d="M1215 428A22 22 0 0 1 1233 449" fill="none" stroke="#1f4ea1" stroke-width="6" stroke-linecap="round"/>
+  <path d="M1229 457A22 22 0 1 1 1206 425" fill="none" stroke="#d81e05" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g data-build="4">
+  <path d="M1092 478L985 522" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="1058" y="534" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">4</text>
+  <ellipse cx="880" cy="548" rx="92" ry="35" fill="#fffbd0" stroke="#b9a84a" stroke-width="3"/>
+  <circle cx="838" cy="536" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="872" cy="530" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="906" cy="541" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="848" cy="560" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="884" cy="562" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="918" cy="553" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="802" cy="548" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="930" cy="566" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  <circle cx="866" cy="546" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
+  </g>
+  <g data-build="5">
+  <text x="735" y="470" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Transfer of colonies to</text>
+  <text x="735" y="496" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">96-well plates</text>
+  <path d="M778 548L690 548" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="735" y="590" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">5</text>
+  <rect x="562" y="516" width="108" height="66" fill="#fdfdfd" stroke="#6a6a6a" stroke-width="2.6"/>
+  <circle cx="572" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="526" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="537" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="548" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="559" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="570" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="572" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="583" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="594" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="605" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="616" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="627" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="638" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="649" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  <circle cx="660" cy="581" r="3.1" fill="none" stroke="#6a6a6a" stroke-width="1"/>
+  </g>
+  <g data-build="6" data-note="You then pick individual colonies of the library, screen each one for activity, then cherry-pick the &lsquo;winners&rsquo; with improved activity.">
+  <path d="M548 534L462 498" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="508" y="556" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">6</text>
+  <rect x="470" y="398" width="286" height="42" fill="#f6a800"/>
+  <text x="613" y="428" text-anchor="middle" font-size="26" font-weight="700" fill="#111111">SCREENING</text>
+  <rect x="238" y="400" width="222" height="146" fill="#fdfdfd" stroke="#6a6a6a" stroke-width="3"/>
+  <circle cx="252.0" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="413.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="430.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="447.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="465.2" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="482.6" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="500.0" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="517.4" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="252.0" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="269.4" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="304.2" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="321.6" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="339.0" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="356.4" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="373.79999999999995" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="391.2" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="408.6" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="426.0" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="443.4" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
+  <circle cx="286.8" cy="447.8" r="5" fill="#ffd200" stroke="#7a6000" stroke-width="1.4"/>
+  </g>
+  <g data-build="7" data-note="Those go back into the cycle.">
+  <path d="M288 440L268 362" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
+  <text x="243" y="404" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">7</text>
+  <rect x="232" y="332.0" width="150" height="12" rx="6.0" fill="#1f4ea1"/><circle cx="382" cy="338" r="7.4399999999999995" fill="#5b8fd6"/><path d="M328 329 L330.7 335.3 L337 338 L330.7 340.7 L328 347 L325.3 340.7 L319 338 L325.3 335.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
+  <text x="466" y="332" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">&ldquo;winner&rdquo;</text>
+  <path d="M196 330C128 300 138 226 150 176" fill="none" stroke="#ffd200" stroke-width="26" marker-end="url(#yh)"/>
+  <text x="292" y="244" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">NEXT</text>
+  <text x="292" y="270" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">GENERATION</text>
+  </g>
+  </svg>
+  <template class="notes">There are two common techniques for generating diversity:  random mutagenesis, or recombining parental genes.</template>
+  <template class="desc">One turn of the directed evolution cycle, built a step at a time: mutagenize the parental gene, clone the library, transform, plate, pick colonies into 96-well plates, screen them, and take the winner back round as the next generation.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 25 -->
+<article class="slide">
+  <h1 class="ex">Example:<span><i>p</i>-Nitrobenzyl Esterase Evolution</span></h1>
+  <h2>Wanted to generate an esterase that would remove nitrobenzyl ester protecting groups under conditions involving an organic solvent</h2>
+  <figure class="fig">
+    <img src="img/25-reactions.svg" alt="Two hydrolysis reactions, drawn one above the other. Above, the real substrate: the loracarbef nucleus &mdash; a beta-lactam fused to a chlorinated six-membered ring, with a free amine on the lactam &mdash; carrying its carboxyl as a p-nitrobenzyl ester. It splits into the free loracarbef nucleus (LCN), now a carboxylic acid, and p-nitrobenzyl alcohol (pNB). Below, the stand-in: p-nitrophenyl acetate, a far smaller ester, which splits into acetic acid and p-nitrophenol.">
+  </figure>
+  <p class="cred">Nat Biotechnol. 1996 Apr;14(4):458-67 PMID: 9630920</p>
+  <template class="notes">Let&rsquo;s look at an example from the early days of this experiment from Francis Arnold.  During the synthesis of beta-lactam antibiotics, there is a difficult deprotection step that the authors wish to perform with an enzyme.  They need to the enzyme to hydrolyze this nitrobenzyl ester.  Unfortunately, the chemical is sparingly soluble in water, so they must add DMF to the reaction. Unfortunately, the enzyme loses activity in the presence of DMF.  So, they want to improve the stability of their enzyme in DMF/water mixtures.  The specific reaction they want to perform is difficult to assay.  Neither the starting material nor products are chromophores, so the only way to watch this reaction would be LC-MS.  For directed evolution, you typically need to assay around 10,000 variants to find useful variants.  A typical LC-MS instrument takes 15 minutes per run, so this would be a very long project!  So, the experimentalists note that this enzyme will also catalyze the hydrolysis of p-nitrophenyl esters such as this acetate ester.  Though it has one carbon less than their &lsquo;real&rsquo; substrate, t is structurally a very similar molecule and is also tolerated by the enzyme.  P-nitrophenol, though, is yellow, so they can readily detect whether this reaction occurred without the need for cumbersome instruments.</template>
+  <template class="desc">The reaction they actually wanted, above: an esterase cutting the p-nitrobenzyl protecting group off the loracarbef nucleus. The reaction they could watch, below: the same enzyme cutting p-nitrophenyl acetate, which releases yellow p-nitrophenol.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 26 -->
+<article class="slide">
+  <h1 class="ex">Example:<span><i>p</i>-Nitrobenzyl Esterase Evolution</span></h1>
+  <ul class="tight">
+    <li>Start with a plasmid encoding pNB esterase</li>
+    <li>Use &ldquo;error-prone PCR&rdquo; to introduce point mutations throughout the gene at a rate of 1 to 5 mutations per gene</li>
+    <li>Put one variant plasmid into each <i>E. coli</i> cell</li>
+    <li>Colonies were <b>screened</b> by picking them into a buffer containing the pNP substrate and DMF</li>
+    <li>Each clone was scored for activity</li>
+    <li>Clones showing improved activity were taken into a second round of error-prone PCR</li>
+  </ul>
+  <template class="notes">Experimentally, they begin with a plasmid encoding the pNB esterase.  They then use a variation on your normal PCR protocol, called error-prone PCR to introduce point mutations throughout the gene at a rate of 1 to 5 mutations per gene.  They then subclone the PCR products back into the plasmid and transform cells to make their library.  They pick many individual colonies and then screen each one by placing the cells in a buffer contining the p-nitrophenyl acetate substrate and DMF.  They then quantify the yellow absorbance of each sample to get a score for the fitness of each variant.  They then cherry pick out those clones showing improved activity and take them into another round of directed evolution.</template>
+  <template class="desc">The experiment step by step: error-prone PCR over the esterase gene at one to five mutations per gene, one variant plasmid per cell, colonies picked into buffer with the p-nitrophenyl substrate and DMF, each clone scored, and the improved ones carried into a second round.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 27 -->
+<article class="slide">
+  <h1 class="ex">Example:<span><i>p</i>-Nitrobenzyl Esterase Evolution</span></h1>
+  <svg class="prosar" viewBox="0 0 1400 700" role="img" aria-label="The five rounds as a lineage, and what they bought. On the left a tree: the wild type branches to three first-round clones, one is chosen, and its mutations are carried down to the next round, the chosen clone's box gaining one line per generation, until generation five combines them into a single clone carrying six substitutions. On the right a plot of the natural log of k-cat over K-M against generation: two staircases, one measured in 1% DMF rising from about 6.5 to nearly 9, one in 15% DMF rising from about 2.4 to about 5.5, each step a generation, and three generation-four clones fanning out at the right.">
+  <defs><marker id="t" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="7" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 4L0 8z" fill="#111111"/></marker></defs>
+  <text x="648" y="24" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">Generation</text>
+  <g>
+  <text x="310" y="52" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">0-WT</text>
+  <text x="648" y="52" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">0</text>
+  </g>
+  <g data-build="1" data-note="In the first round, they identified 3 improved mutants, and one of them was chosen as the template for the next round.">
+  <path d="M310 60L110 88" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 60L310 88" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 60L510 88" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <text x="110" y="102" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">1-2G3</text>
+  <text x="310" y="102" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">1-1H9</text>
+  <text x="510" y="102" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">1-7H9</text>
+  <rect x="277.0" y="110" width="66" height="40" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="310" y="124" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="310" y="139" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="648" y="102" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">1</text>
+  </g>
+  <g data-build="2" data-note="So, all variants in round 2 contain the mutations identified in round 1.">
+  <path d="M310 154L105 184" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 154L310 184" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 154L515 184" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <text x="105" y="198" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">2-13F3</text>
+  <text x="310" y="198" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">2-19E10</text>
+  <text x="515" y="198" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">2-23E1</text>
+  <rect x="72.0" y="206" width="66" height="70" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="105" y="220" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="105" y="235" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="105" y="250" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">N96S</text>
+  <text x="105" y="265" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <rect x="277.0" y="206" width="66" height="55" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="310" y="220" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="310" y="235" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="310" y="250" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <rect x="482.0" y="206" width="66" height="70" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="515" y="220" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="515" y="235" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="515" y="250" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">F271L</text>
+  <text x="515" y="265" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">A343V</text>
+  <text x="648" y="198" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">2</text>
+  </g>
+  <g data-build="3" data-note="They identify 3 additional mutants, and again pick the best one to go into round 3.">
+  <path d="M310 265L105 300" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 265L310 300" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 265L515 300" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <text x="105" y="314" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">3-7D5</text>
+  <text x="310" y="314" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">3-10C4</text>
+  <text x="515" y="314" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">3-9E10</text>
+  <rect x="277.0" y="322" width="66" height="70" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="310" y="336" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="310" y="351" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="310" y="366" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <text x="310" y="381" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L144M</text>
+  <text x="648" y="314" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">3</text>
+  </g>
+  <g data-build="4" data-note="In the final step, they combined all the beneficial mutations they found into a single construct.">
+  <path d="M310 396L80 426" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 396L240 426" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 396L395 426" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M310 396L550 426" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <text x="80" y="440" text-anchor="middle" font-size="13" font-weight="700" fill="#111111">4-38B9, 4-73B4</text>
+  <rect x="47.0" y="448" width="66" height="85" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="80" y="462" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="80" y="477" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="80" y="492" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <text x="80" y="507" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L144M</text>
+  <text x="80" y="522" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">I60V</text>
+  <text x="240" y="440" text-anchor="middle" font-size="13" font-weight="700" fill="#111111">4-43E7</text>
+  <rect x="207.0" y="448" width="66" height="100" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="240" y="462" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="240" y="477" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="240" y="492" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <text x="240" y="507" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L144M</text>
+  <text x="240" y="522" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">S94G</text>
+  <text x="240" y="537" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L334V</text>
+  <text x="395" y="440" text-anchor="middle" font-size="13" font-weight="700" fill="#111111">4-53D5</text>
+  <rect x="362.0" y="448" width="66" height="85" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="395" y="462" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="395" y="477" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="395" y="492" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <text x="395" y="507" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L144M</text>
+  <text x="395" y="522" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">A343V</text>
+  <text x="550" y="440" text-anchor="middle" font-size="13" font-weight="700" fill="#111111">4-54B9</text>
+  <rect x="517.0" y="448" width="66" height="100" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="550" y="462" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="550" y="477" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="550" y="492" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <text x="550" y="507" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L144M</text>
+  <text x="550" y="522" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">K267R</text>
+  <text x="550" y="537" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L334S</text>
+  <text x="648" y="440" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">4</text>
+  <path d="M80 552L276 578" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <path d="M550 552L344 578" stroke="#111111" stroke-width="1.6" marker-end="url(#t)"/>
+  <text x="310" y="592" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">5-1A12</text>
+  <rect x="277.0" y="600" width="66" height="100" fill="none" stroke="#111111" stroke-width="1.4"/>
+  <text x="310" y="614" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">H322R</text>
+  <text x="310" y="629" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">Y370F</text>
+  <text x="310" y="644" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">M358V</text>
+  <text x="310" y="659" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L144M</text>
+  <text x="310" y="674" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">I60V</text>
+  <text x="310" y="689" text-anchor="middle" font-size="12.5" font-weight="400" fill="#111111">L334S</text>
+  <text x="648" y="592" text-anchor="middle" font-size="15" font-weight="400" fill="#111111" font-style="italic">5</text>
+  </g>
+  <g data-build="5" data-note="With these mutants identified, they then performed more careful assays of their fitness and plot them out.  Through the course of incremental mutation and screening, they generate mutants improved in their tolerance for DMF.">
+  <rect x="790" y="56" width="506" height="548" fill="none" stroke="#111111" stroke-width="1.6"/>
+  <path d="M783 604.0H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="609.0" text-anchor="end" font-size="14" font-weight="400" fill="#111111">2.0</text>
+  <path d="M783 525.7142857142857H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="530.7142857142857" text-anchor="end" font-size="14" font-weight="400" fill="#111111">3.0</text>
+  <path d="M783 447.42857142857144H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="452.42857142857144" text-anchor="end" font-size="14" font-weight="400" fill="#111111">4.0</text>
+  <path d="M783 369.1428571428571H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="374.1428571428571" text-anchor="end" font-size="14" font-weight="400" fill="#111111">5.0</text>
+  <path d="M783 290.85714285714283H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="295.85714285714283" text-anchor="end" font-size="14" font-weight="400" fill="#111111">6.0</text>
+  <path d="M783 212.57142857142856H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="217.57142857142856" text-anchor="end" font-size="14" font-weight="400" fill="#111111">7.0</text>
+  <path d="M783 134.28571428571428H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="139.28571428571428" text-anchor="end" font-size="14" font-weight="400" fill="#111111">8.0</text>
+  <path d="M783 56.0H790" stroke="#111111" stroke-width="1.6"/>
+  <text x="777" y="61.0" text-anchor="end" font-size="14" font-weight="400" fill="#111111">9.0</text>
+  <path d="M826 604V611" stroke="#111111" stroke-width="1.6"/>
+  <text x="826" y="628" text-anchor="middle" font-size="14" font-weight="400" fill="#111111">WT</text>
+  <path d="M930 604V611" stroke="#111111" stroke-width="1.6"/>
+  <text x="930" y="628" text-anchor="middle" font-size="14" font-weight="400" fill="#111111">1-1H9</text>
+  <path d="M1034 604V611" stroke="#111111" stroke-width="1.6"/>
+  <text x="1034" y="628" text-anchor="middle" font-size="14" font-weight="400" fill="#111111">2-19E10</text>
+  <path d="M1138 604V611" stroke="#111111" stroke-width="1.6"/>
+  <text x="1138" y="628" text-anchor="middle" font-size="14" font-weight="400" fill="#111111">3-10C4</text>
+  <path d="M1240 604V611" stroke="#111111" stroke-width="1.6"/>
+  <text x="1240" y="628" text-anchor="middle" font-size="14" font-weight="400" fill="#111111">4</text>
+  <text x="738" y="330.0" text-anchor="middle" font-size="16" font-weight="400" fill="#111111" transform="rotate(-90 738 330.0)">ln (k<tspan font-size='10'>cat</tspan>/K<tspan font-size='10'>M</tspan>)</text>
+  <text x="1043.0" y="652" text-anchor="middle" font-size="16" font-weight="400" fill="#111111">Generation</text>
+  <path d="M802 251.71428571428572H850" stroke="#111111" stroke-width="4"/>
+  <path d="M906 228.2285714285714H954" stroke="#111111" stroke-width="4"/>
+  <path d="M1010 173.42857142857144H1058" stroke="#111111" stroke-width="4"/>
+  <path d="M1114 181.2571428571428H1162" stroke="#111111" stroke-width="4"/>
+  <path d="M854 251.71428571428572L902 228.2285714285714" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M958 228.2285714285714L1006 173.42857142857144" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1062 173.42857142857144L1110 181.2571428571428" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1166 181.2571428571428L1210 71.65714285714273" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1214 71.65714285714273H1262" stroke="#111111" stroke-width="4"/>
+  <text x="1304" y="76.65714285714273" text-anchor="start" font-size="14" font-weight="400" fill="#111111">4-54B9</text>
+  <path d="M1166 181.2571428571428L1210 102.97142857142853" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1214 102.97142857142853H1262" stroke="#111111" stroke-width="4"/>
+  <text x="1304" y="107.97142857142853" text-anchor="start" font-size="14" font-weight="400" fill="#111111">4-43E7</text>
+  <path d="M1166 181.2571428571428L1210 122.54285714285709" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1214 122.54285714285709H1262" stroke="#111111" stroke-width="4"/>
+  <text x="1304" y="127.54285714285709" text-anchor="start" font-size="14" font-weight="400" fill="#111111">4-38B9</text>
+  <text x="814" y="225.71428571428572" text-anchor="middle" font-size="16" font-weight="700" fill="#111111">1% DMF</text>
+  <path d="M802 572.6857142857143H850" stroke="#111111" stroke-width="4"/>
+  <path d="M906 549.2H954" stroke="#111111" stroke-width="4"/>
+  <path d="M1010 478.74285714285713H1058" stroke="#111111" stroke-width="4"/>
+  <path d="M1114 431.77142857142854H1162" stroke="#111111" stroke-width="4"/>
+  <path d="M854 572.6857142857143L902 549.2" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M958 549.2L1006 478.74285714285713" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1062 478.74285714285713L1110 431.77142857142854" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1166 431.77142857142854L1210 330.0" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1214 330.0H1262" stroke="#111111" stroke-width="4"/>
+  <text x="1304" y="335.0" text-anchor="start" font-size="14" font-weight="400" fill="#111111">4-54B9</text>
+  <path d="M1166 431.77142857142854L1210 376.97142857142853" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1214 376.97142857142853H1262" stroke="#111111" stroke-width="4"/>
+  <text x="1304" y="381.97142857142853" text-anchor="start" font-size="14" font-weight="400" fill="#111111">4-43E7</text>
+  <path d="M1166 431.77142857142854L1210 396.5428571428571" stroke="#111111" stroke-width="2" marker-end="url(#t)"/>
+  <path d="M1214 396.5428571428571H1262" stroke="#111111" stroke-width="4"/>
+  <text x="1304" y="401.5428571428571" text-anchor="start" font-size="14" font-weight="400" fill="#111111">4-38B9</text>
+  <text x="814" y="546.6857142857143" text-anchor="middle" font-size="16" font-weight="700" fill="#111111">15% DMF</text>
+  </g>
+  </svg>
+  <template class="notes">They perform 5 rounds of directed evolution.</template>
+  <template class="desc">On the left, the lineage, built one generation at a time: each round picks a winner and hands its mutations down, the chosen clone&rsquo;s list growing a line per generation, until round five combines them into one clone. On the right, what that bought &mdash; a staircase of activity against generation, measured in 1% and in 15% DMF.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 28 -->
+<article class="slide">
+  <h1 class="ex">Example:<span><i>p</i>-Nitrobenzyl Esterase Evolution</span></h1>
+  <div class="keyed">
+    <figure>
+      <img src="img/28-structure.png" alt="The esterase drawn as a green ribbon. A cluster of white spheres sits in the middle, filling the active site. Scattered around the outside, mostly well away from that cluster, are side chains picked out in yellow and labelled V60, G94, S96, M144, V343, S334, V334 and V358; two more in cyan, R322 and F370; and the catalytic residues in red near the substrate.">
+    </figure>
+    <ul>
+      <li class="sub">Substrate</li>
+      <li class="neu">Neutral</li>
+      <li class="imp">Improved</li>
+    </ul>
+  </div>
+  <template class="notes">They then look at the crystal structure of the protein to determine where these mutations lie.  The big white blob in the middle of this protein is the substrate.  The mutations identified in their screens are in yellow.  Note that the mutations are quite far from the active site, and this is frequently the case.  When screening for properties such as relaxation in substrate specificity, or improvements to folding, expression, thermal, or chemical stability, the mutations with increased fitness rarely are the ones that directly contact the substrate. Additionally, any mechanistic explanation of why these mutations improve chemical stability would require detailed energetic calculations about the structure.  As of 2014, the computational tools still cannot reliably predict the sorts of mutations that come out of directed evolution studies, and rarely do the mutations make any intuitive sense.</template>
+  <template class="desc">Where the winning mutations actually sit. The substrate is the white cluster at the centre of the structure; the improved positions are the yellow side chains, and nearly all of them are out on the surface, far from the substrate they are supposed to be acting on.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 29 -->
+<article class="slide">
+  <h1>Mutation Types</h1>
+  <div class="rates">
+    <p>Very approximate values of occurrence:</p>
+    <div class="blk"><h2>90% of missense mutations are neutral</h2></div>
+    <div class="blk">
+      <h2>9% of missense mutations are deleterious</h2>
+      <ul>
+        <li>Most substitutions to the hydrophobic core eliminate the ability to fold</li>
+        <li>Most active site substitutions will have a deleterious effect on activity but not on folding</li>
+      </ul>
+    </div>
+    <div class="blk"><h2>1% of missense mutations result in altered activity</h2></div>
+  </div>
+  <template class="notes">When you introduce mutations into a protein coding sequence, the effect of the mutation on activity can be neutral, deleterious, or enabling.  The extreme majority of amino acid substitutions have no effect on function &ndash; they are the same as wild-type.  That is around 90% of mutants.  Around 9% are deleterious.  Typically mutations to the hydrophobic core will eliminate the ability to fold, and very often this 9% represents core mutations.  Similarly, residues that directly contact the substrate or within the second shell around those residues are necessary for activity.  Substitutions to those sites have a deleterious effect on activity.  It is the rare 1% of missense mutaons that result in some altered activity such an improvement in thermostability or a change in sustrate specificity.  Thus, you must screen many mutants to identify those that are useful.</template>
+  <template class="desc">Roughly what a missense mutation does: nine in ten change nothing, nine in a hundred are damaging &mdash; the core ones stop the protein folding, the active-site ones stop it working &mdash; and one in a hundred alters the activity in a way worth having.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

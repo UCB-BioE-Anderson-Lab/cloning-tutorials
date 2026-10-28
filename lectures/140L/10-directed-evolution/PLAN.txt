@@ -1,0 +1,255 @@
+DIRECTED EVOLUTION — CONVERSION PLAN
+====================================
+140L lecture 10, folder 10-directed-evolution (the numbering rule set
+with the Whole-Cell deck: from 08 on, the folder number IS the lecture
+number).  Source:
+
+  ~/Library/CloudStorage/Dropbox/Courses/140L/Stanley 2026/
+    Lectures 2026 140L/2025_10_30-Directed Evolution.pptx
+
+THE RULE FOR THIS DECK, AND IT IS THE WHOLE BRIEF
+--------------------------------------------------
+JCA, 27 Oct 2026: "Don't get creative there -- don't modify the flow.
+Not content, just formatting."
+
+That is a ruling, and it was earned.  The In vitro deck before this one
+was converted with initiative: figures redrawn into new animations,
+closing questions distributed to the ends of sections, speaker notes
+written for slides that had none.  It was presented from, and it broke —
+the first redistributed question turned out to be unanswerable where it
+had been put, and the opening animations were, in his words, a mess.
+Both had to be rebuilt against the pptx.
+
+So for THIS deck:
+
+  EVERY slide is converted, in the source's order, including the four
+  course-admin slides at the head and the "Questions?" card at the end.
+  Dropping a slide is a change to the flow.
+
+  NO slide is split, merged, reordered or moved between sections.
+
+  NO figure is reimagined.  A borrowed raster is cropped and placed.
+  A figure is redrawn ONLY where it cannot be cropped at all — a motion
+  path has no still to crop — and then shape for shape, not reinvented.
+
+  NO new speaker notes.  17 slides here carry no note (1-5, 7, 11, 38,
+  40-43, 45-48, 50) and they stay that way.  Notes are the source's,
+  verbatim, with spelling and grammar corrected and nothing else.
+
+  NO new narration, no added sentences, no "better" explanations.
+
+  What DOES change is formatting: the house grounds and type, the house
+  palette for the deck's own chrome, section dividers set as dividers,
+  and figures cropped off the slide and placed in HTML.
+
+Anything that feels like an improvement is out of scope.  Write it down
+here instead and let JCA decide.
+
+THE SOURCE, AS SURVEYED
+-----------------------
+  50 slides, 4:3, 46 notes slides, 25 media files, no charts.
+  Click builds on slides 10, 11, 17, 21, 22, 27, 42, 43.
+  Note markers: an asterisk on 9, 20 and 21 (this deck's marker, as the
+  Whole-Cell deck used, not the <click> of the In vitro deck).
+  Masters: white for most, GREY for 16-22 and 25-37ish, and a GREEN
+  ground for the five section dividers.  The grey ones need the
+  white-background re-render trick before their figures can be cropped
+  (see the Whole-Cell PLAN.txt, "HOW SECTIONS 01-05 WERE CROPPED").
+
+THE SECTION SPLIT
+-----------------
+On the source deck's own divider slides.  No slide moves.
+
+  00-front-matter.html        source  1-8    admin, title, overview, tutorials
+  01-library-approaches.html  source  9-22   Library Approaches
+  02-directed-evolution.html  source 23-29   Directed Evolution
+  03-diversity-screening.html source 30-37   Diversity Generation and Screening
+  04-vector-editing.html      source 38-47   Vector Editing
+  05-questions.html           source 48-50   Questions to Ponder
+
+WHAT JCA ASKED FOR AFTER THE CONVERSION WAS DONE, 28 Oct 2026
+--------------------------------------------------------------
+The rule above governed the CONVERSION.  Once the deck was complete and
+he could walk it, he asked for five figures to be redrawn.  Each of these
+is his call, not an editorial decision made while converting:
+
+  24  the overview cycle      -> redrawn as an SVG that builds in seven
+                                 clicks, one per numbered step
+  25  the two hydrolyses      -> redrawn with RDKit, black on white
+                                 (img/25-reactions.json is the spec)
+  27  lineage + fitness plot  -> redrawn black on white, the tree built a
+                                 generation at a time
+  32  the shuffling scheme    -> redrawn black on white, built in three
+                                 clicks
+  34  the effect-of-mutation chart -> the paper's own black-on-white line
+                                 art, inverted for the grey master.
+                                 Inverted straight back; no grey panel.
+  35  the ProSAR equation      -> redrawn as SVG and WORKED on two real
+                                 clones out of the esterase lineage
+                                 (1-1H9 and 2-19E10), so the 1s and 0s are
+                                 mutations they have already met.  One
+                                 click subtracts the two equations and
+                                 leaves c(M358V) = 0.7 on its own -- a
+                                 clone that was never built.  Its last
+                                 sentence rides that click.
+  16  the VDJ maturation figure -> redrawn.  White line art on the grey
+                                 master, and in COLOUR, so unlike source
+                                 34 it could not simply be inverted.
+                                 Drawn flat rather than pseudo-3D, but
+                                 segment for segment and label for label.
+  18  the V-heavy clone chart  -> redrawn, same reason.  IgM clones are
+                                 solid bars (identical to germline), IgG
+                                 clones open bars with their substitutions
+                                 ticked, and the two arrows point at where
+                                 those ticks fall: inside HV1 and HV2.
+  33  the substitution table  -> redrawn, with the two words it turns on
+                                 drawn out beside it: A and G are purines,
+                                 C and T pyrimidines, so a transition keeps
+                                 the ring type and a transversion swaps it.
+                                 That is why one column has four rows and
+                                 the other eight.
+
+The yellow NEXT GENERATION ribbon on sources 24 and on the added cycle was
+a constant-width stroke with a triangle bolted on the end.  A stroke's end
+face is perpendicular to its own tilted direction of travel while the
+triangle was axis-aligned, so above thumbnail size the stroke's corner
+poked out beside the head.  It is now a marker with orient="auto", which
+is rotated to the path's end tangent and anchored at the end point, so the
+two cannot come apart.
+
+No figure in this deck sits on a grey panel any more.  The test for what
+could be inverted rather than redrawn: a monochrome scan inverts back
+exactly (source 34), a figure carrying colour does not (sources 16, 18).
+
+In every case the CONTENT is the source's and the speaker notes are still
+the source's, verbatim.  Where a figure now builds, the note is split onto
+the beats at SENTENCE boundaries and still concatenates to the pptx note
+exactly -- verify_notes.py passes on all 46 slides.  Nothing was reworded
+and no note was written.
+
+TWO SLIDES THAT ARE NOT IN THE SOURCE
+-------------------------------------
+JCA, 28 Oct 2026, on the ProSAR pair: it is old, it is where the deck
+gets into computational protein engineering, and it wants an update
+rather than a redraw.  The progression he asked for is
+
+    the core cycle, random mutagenesis          sources 23-24, 30-33
+    -> a transition deviating from that cycle
+       to bring computation in                  NEW, with one click
+    -> the ProSAR math                          sources 34-35
+    -> a transition from that math to the
+       case with a protein model                NEW, with one click
+
+So section 03 now runs 33, NEW, 34, 35, NEW, 36.  Both are marked
+<!-- NEW --> in the HTML.
+
+  "Using the Whole Library" reuses the source 24 cycle figure as a
+  deliberate callback.  Base state is the loop they already saw; the click
+  takes the arrow off the single winning well, feeds the WHOLE plate into
+  a model, and relabels what travels round the ribbon from NEXT GENERATION
+  to NEXT LIBRARY.  The point is that the 90% neutral and 9% dead that
+  source 29 already told them about cost the same to make and assay as the
+  winner, and from here on they are data.
+
+  "Protein Language Models" lifts one term out of the ProSAR equation.
+  In ProSAR x is 1 or 0 for "is this substitution present", so Y370F and
+  Y370W are unrelated columns and every c must come from your own
+  measurements.  The click replaces x with a description of the
+  substitution from a model trained on every deposited sequence: the fit
+  converges on hundreds rather than thousands, the model on top need no
+  longer be a sum, and mutations can be ranked before anything is built.
+  EVOLVEpro (Science 2025;387:eadr6006) is named as the one system.
+
+THE ONE THING THAT IS NOT VERBATIM
+-----------------------------------
+These two slides carry the only speaker notes in this deck that are not
+the source's.  JCA asked for drafts to edit later, so they are mine and
+they are his to change.  verify_notes.py now recognises <!-- NEW --> as a
+slide boundary and skips it: without that its notes would be swept into
+the previous slide's and fail THAT slide, which is a nasty way to find
+out.  Everything else still concatenates to the pptx exactly.
+
+THE ONE SLIDE SET THAT IS NOT IN THE DECK
+------------------------------------------
+Source 1-4 are course admin for Independent Project week 1: a Canvas
+screenshot and three "A new project idea" slides.  They were converted
+first, because dropping a slide is a change to the flow and that was not
+mine to do.  JCA took them out on 28 Oct 2026 — they are stale and are
+not being shown.  So the deck opens on source 5, the title card.
+
+That is the one and only departure from the source's slide list.  It was
+his call, not an editorial decision made while converting.
+
+TWO DECISIONS MADE WHILE CONVERTING SECTION 01
+-----------------------------------------------
+Source 10 carries TWO note markers, * and **, but only ONE click.  The
+** segment ("We then apply some selective pressure...") is what JCA says
+as he advances to source 11, which carries no note of its own.  Moving it
+to 11 would put a note on a slide that has none and would fail the
+concatenation check against the pptx, so it stays on 10, joined to the
+first build's note.  No click was invented to carry it.
+
+Sources 10 and 11 are the one figure in this section drawn rather than
+cropped.  They are the same nine ovals and nine arrows in both slides and
+differ only in which of them are showing, so a render has them all showing
+at once and there is nothing to crop.  The geometry, the fills and the
+strokes are lifted shape for shape out of the slide XML.
+
+HOW SOURCES 42 AND 43 WERE CROPPED
+-----------------------------------
+Both are built entirely from native PowerPoint shapes — several hundred
+part glyphs each — so there is no media file to borrow and redrawing them
+is not on.  They also have clicks that bring shapes IN and take shapes
+OUT, and LibreOffice draws every shape of a slide whether animated or
+not, so the one still it gives you is the union of all three states.
+
+var/render.py in the scratchpad removes shapes by their cNvPr id and
+re-renders, which gives each state as it was actually on screen.  The
+three stills are then cropped to ONE shared box so they register when the
+deck cross-fades between them.
+
+It parses with ElementTree rather than a regex.  A group holds groups,
+and a non-greedy <p:grpSp>...</p:grpSp> closes on the first INNER tag and
+swallows the rest of the shape tree with it — the first attempt did
+exactly that and silently dropped shapes from both states.
+
+CHECKING THE NOTES
+------------------
+  python3 ../../tools/verify_notes.py <unpacked-pptx> --keep-urls *.html
+
+--keep-urls matters here.  The In vitro deck moved its image credits out
+of the notes and onto the slides, so a bare leading URL there is a credit
+and the verifier strips it.  Nothing is moved in THIS deck, and some of
+its notes ARE just URLs — source 8's note is the two links for the
+optional structural biology tutorial — so without the flag the verifier
+reports a difference that is not there.
+
+TWO TOOL BUGS FOUND WHILE SURVEYING THIS DECK
+----------------------------------------------
+pptx_text.py opened notesSlideN.xml for slideN.  The notesSlides are
+numbered in their own sequence, so the moment one slide has no note the
+two numberings part company and every slide after it is handed the note
+belonging to a different slide — silently.  This deck has exactly that
+shape: slide 1 carries no note, so every note the tool printed was the
+NEXT slide's.  Caught because slide 5, a bare title card, appeared to
+carry the lecture's opening narration; it belongs to slide 6.  Fixed to
+resolve through the rels, as verify_notes.py always did.  Anything read
+out of this deck before that fix is suspect and was re-read.
+
+verify_notes.py gained --keep-urls, above.  It also now strips a RUN of
+asterisks, not just a single one, because source 10 uses ** for its second
+marker and the single-asterisk rule left the stray ** in the comparison.
+
+WHAT IS STILL OPEN
+------------------
+The deck is not deployed.  The site publishes from gh-pages by a manual
+mkdocs gh-deploy; merging to main publishes nothing.
+
+WHERE THIS STANDS
+-----------------
+  00-front-matter.html        source  5-8    DONE  (4 steps; 1-4 dropped, above)
+  01-library-approaches.html  source  9-22   DONE  (24 steps, audit clean)
+  02-directed-evolution.html  source 23-29   not started
+  03-diversity-screening.html source 30-37   DONE  (8 steps, audit clean)
+  04-vector-editing.html      source 38-47   DONE  (14 steps, audit clean)
+  05-questions.html           source 48-50   DONE  (3 steps, audit clean)

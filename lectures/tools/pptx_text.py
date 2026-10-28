@@ -55,7 +55,25 @@ def paragraphs(xml):
 
 
 def notes(base, n):
-    p = os.path.join(base, "ppt", "notesSlides", "notesSlide%d.xml" % n)
+    """The note for slide n, found through that slide's relationship file.
+
+    NOT notesSlideN.xml.  The notesSlides are numbered in their own
+    sequence, so the moment one slide has no note the two numberings
+    part company and every note after it belongs to a different slide.
+    This deck's source had exactly that: slide 1 carries no note, so the
+    old lookup handed every slide the note belonging to the NEXT one, and
+    it did it silently.  Always go through the rels."""
+    rels = os.path.join(base, "ppt", "slides", "_rels", "slide%d.xml.rels" % n)
+    if not os.path.exists(rels):
+        return ""
+    m = re.search(r'Type="[^"]*/notesSlide"[^>]*Target="([^"]+)"',
+                  open(rels, encoding="utf8").read())
+    if not m:
+        m = re.search(r'Target="([^"]+)"[^>]*Type="[^"]*/notesSlide"',
+                      open(rels, encoding="utf8").read())
+    if not m:
+        return ""
+    p = os.path.normpath(os.path.join(base, "ppt", "slides", m.group(1)))
     if not os.path.exists(p):
         return ""
     s = open(p, encoding="utf8").read()

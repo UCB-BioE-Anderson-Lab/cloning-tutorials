@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Questions to Ponder &ndash; Directed Evolution</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+/* source 48: the divider carries the source's pondering face */
+.slide .divtop{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:1fr 330px;grid-template-rows:minmax(0,1fr);
+  gap:60px;align-items:center}
+.slide .divtop > *{min-width:0;min-height:0}
+.slide .divtop figure{margin:0;height:100%;display:flex;align-items:center}
+.slide .divtop img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 49: the four questions, as the source sets them, on one slide.
+   The answers are the slide's note, one paragraph per question. */
+.slide ol.qs{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center;margin:0;padding-left:1.5em;list-style-type:decimal}
+.slide ol.qs li{font-size:28px;line-height:1.36;margin:0 0 26px;padding-left:6px}
+.slide ol.qs li:last-child{margin-bottom:0}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 48 -->
+<article class="slide" data-bg="section">
+  <h1>Questions to Ponder</h1>
+  <div class="divtop">
+    <div></div>
+    <figure>
+      <img src="img/48-ponder.png" alt="A cartoon of a person with a wild head of hair, chin resting on one hand, eyes turned upward in thought.">
+    </figure>
+  </div>
+  <template class="notes"></template>
+  <template class="desc">Section divider: Questions to Ponder, with a cartoon figure caught mid-thought.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 49 -->
+<article class="slide">
+  <ol class="qs">
+    <li>Suppose I have a P450 enzyme that won&rsquo;t express in <i>E. coli</i>.  Design an experiment to evolve a variant of the protein that does express.</li>
+    <li>In the pNP esterase evolution experiment, many of the identified mutations that improved activity were not located in the active site.  Why do you suppose that is?</li>
+    <li>I applied random mutagenesis to a 4kb gene to evolve its activity using the same conditions I used for another gene that was 1kb long.  I observed 6 improved-activity variants from the 1kb gene, but none for the 4kb gene.  What might cause the difference?</li>
+    <li>I want to evolve a p-nitrobenzyl esterase into a fatty acid esterase.  Would this work?</li>
+  </ol>
+  <template class="notes">First find an assay, such a chromagenic substrate or high-throughput mass spectrometer.  Then do error-prone PCR on the gene and insert it downstream of a promoter in a plasmid.  Pick ~1000 clones, assay for activity, and pick the best ones.
+They were trying to evolve solvent tolerance, which is related to the stability of the protein&rsquo;s fold.  Thus the property they are screening for does not require changes in the active site as they are not changing how the enzyme interacts with substrates.
+Deleterious mutations are 10x more common, and dominant over beneficial mutations.  For example, a mutation that improves solvent tolerance would become inactive if combined with a mutation that disrupts the protein&rsquo;s fold.  Thus, you can over-mutate a gene and end up with a library full of dead variants.  Provided a constant per-base error rate, longer genes will contain more mutations than shorter genes.
+Directed evolution with point mutations only works when 1 or 2 mutations will produce a measurable change in activity.  There are some examples of small numbers of mutations dramatically changing the specificity of an enzyme, but this is not typical.  Find such big jumps in structure often requires more changes than this.</template>
+  <template class="desc">Four questions on the lecture: designing an evolution experiment for a P450 that will not express; why the esterase mutations landed away from the active site; why the same mutagenesis worked on a 1kb gene but not a 4kb one; and whether a p-nitrobenzyl esterase can be evolved into a fatty acid esterase.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 50 -->
+<article class="slide">
+  <h1>Questions?</h1>
+  <template class="notes"></template>
+  <template class="desc">Closing slide: Questions?</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

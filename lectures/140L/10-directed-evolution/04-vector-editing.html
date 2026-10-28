@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Vector Editing &ndash; Directed Evolution</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 39: the tutorial site, then where it lives */
+.slide .tutlink{flex:0 0 auto;margin:14px 0 0}
+.slide .tutlink b{color:var(--blue);font-size:26px}
+.slide .tutlink span{display:block;font-size:22px;word-break:break-all}
+/* source 40: the five steps, numbered as the source numbers them */
+.slide ol.steps{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center;margin:0;padding-left:1.4em}
+.slide ol.steps li{font-size:32px;line-height:1.35;margin:0 0 28px;padding-left:8px}
+.slide ol.steps li:last-child{margin-bottom:0}
+/* source 41: the example, then the four bins it describes */
+.slide .overfig{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+.slide .overfig ul{margin:0 0 18px;padding-left:1.1em;flex:0 0 auto}
+.slide .overfig li{font-size:28px;margin:0 0 12px}
+.slide .overfig figure{margin:0;flex:1 1 auto;min-height:0;display:flex}
+.slide .overfig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* sources 42-43: one figure in three states.  The states are renders of
+   the source slide with the shapes each click adds or removes taken out,
+   cropped to one shared box so they register when they cross-fade. */
+.slide .states{flex:1 1 auto;min-height:0;position:relative}
+.slide .states img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 38 -->
+<article class="slide" data-bg="section">
+  <h1>Vector<br>Editing</h1>
+  <template class="notes"></template>
+  <template class="desc">Section divider: Vector Editing.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 39 -->
+<article class="slide">
+  <h1>Cloning-tutorials (for Final Project)</h1>
+  <figure class="fig">
+    <img src="img/39-tutorials.png" alt="A screenshot of the SynBio Project Tutorials site. A sidebar lists Overview, Metals, Cloning Techniques and Project Planning, with Project Planning open on its own numbered chapters. The page itself is headed Project Setup and Nomenclature and explains the naming and documentation conventions a project is expected to follow.">
+  </figure>
+  <p class="tutlink"><b>Project Planning</b>
+    <span>https://ucb-bioe-anderson-lab.github.io/cloning-tutorials/</span></p>
+  <template class="notes">If you are doing any of the wetlab design projects for your final project, you will go through these tutorials.  They describe the design of an ortholog scan, which is an example of what I call &lsquo;vector editing&rsquo;</template>
+  <template class="desc">The cloning-tutorials site, open at Project Planning &mdash; the chapters a wetlab design project is worked through, including the ortholog scan this section is about.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 40 -->
+<article class="slide">
+  <h1>Vector editing</h1>
+  <ol class="steps">
+    <li>Design the prototype plasmid with clear part boundaries</li>
+    <li>For each part, define a family of edits (the vector)</li>
+    <li>Make each single part edit variant of the prototype in parallel</li>
+    <li>Test each and find the best one (currbest)</li>
+    <li>Repeat 3 with currbest</li>
+  </ol>
+  <template class="notes"></template>
+  <template class="desc">Vector editing in five steps: draw a prototype plasmid with clear part boundaries, define a family of edits for each part, build every single-part variant of the prototype in parallel, test them and keep the best, then repeat from that one.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 41 -->
+<article class="slide">
+  <div class="overfig">
+    <ul>
+      <li>For example, replace the ORF encoding the GGPP synthase with 8 different orthologs from other organisms</li>
+      <li>Or, replace a promoter with 6 of different strength</li>
+    </ul>
+    <figure>
+      <img src="img/41-bins.png" alt="Four bins side by side, labelled bin0, bin1, bin2 and bin4, each drawn in its own colour &mdash; green, orange, blue and red. Each bin shows one part glyph on the backbone and, fanning down and to the right behind it, a deep stack of alternative versions of that same part.">
+    </figure>
+  </div>
+  <template class="notes"></template>
+  <template class="desc">What a bin is: one position in the construct and the family of parts that could go in it. Four bins, each holding a stack of alternatives &mdash; eight orthologs of a GGPP synthase in one, six promoters of different strength in another.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 42 -->
+<article class="slide">
+  <div class="states">
+    <img src="img/42-step0.png" data-unbuild="1" alt="A single construct, the prototype: six parts in order along the backbone, labelled prototype.">
+    <img src="img/42-step1.png" data-build="1" data-unbuild="2" alt="The prototype above, and beneath it the full set of single-part variants &mdash; four blocks of rows, each row the prototype with exactly one of its parts swapped for an alternative.">
+    <img src="img/42-step2.png" data-build="2" alt="The same set of variants with one row picked out in a yellow highlight.">
+  </div>
+  <template class="notes"></template>
+  <template class="desc">The prototype, then every single-part edit of it laid out in rows &mdash; one part changed per row, the rest held fixed &mdash; and then the one row that tested best picked out in yellow.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 43 -->
+<article class="slide">
+  <div class="states">
+    <img src="img/43-step0.png" data-unbuild="1" alt="The winning construct from the last round at the top, labelled currbest, with a fresh set of single-part variants built from it beneath.">
+    <img src="img/43-step1.png" data-build="1" data-unbuild="2" alt="The same, with the currbest label cleared.">
+    <img src="img/43-step2.png" data-build="2" alt="The same set of variants with one row picked out in a yellow highlight.">
+  </div>
+  <template class="notes"></template>
+  <template class="desc">The next round of the same loop: the winner of the last round becomes currbest, a new set of single-part variants is built from it, and one of those is picked out in turn.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 44 -->
+<article class="slide">
+  <h1>Bins divided by spacers</h1>
+  <figure class="fig">
+    <img src="img/44-bins.png" alt="Above, a sequence editor window open on the prototype plasmid, its feature table listing BsaI and XbaI sites, a GAPDH spacer and the GGPPS gene, with the sequence itself below. Under the window, the same construct drawn as parts: an orange promoter, then alternating pink arrows and white ribosome binding sites, with a cyan block between every pair, ending in an orange terminator. The cyan blocks are the 40 base pair spacers that divide one bin from the next.">
+  </figure>
+  <template class="notes">Orange:  coming from the GG vector
+Aqua: 40 bp spacers for PCR amplification and Golden Gate or Gibson reactions
+Pink:  orfs for the enzymes
+White:  ribosome binding sites</template>
+  <template class="desc">The same construct seen twice: as a sequence in the editor, and as a row of parts. Between every pair of parts sits a 40 base pair spacer, which is what makes each bin independently amplifiable and swappable.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 45 -->
+<article class="slide">
+  <h1>Swapping out an rbs.CDS part</h1>
+  <figure class="fig">
+    <img src="img/45-swap.png" alt="Three stages down the slide. At the top the prototype construct, with a pair of red outward-facing primer arrows set either side of one rbs and its open reading frame. In the middle, the IPCR product: the whole plasmid amplified with that part gone, leaving a gap. At the bottom, three candidate replacement parts, each a ribosome binding site and a coding sequence flanked by the spacer sequences, ready to be assembled into the gap.">
+  </figure>
+  <template class="notes"></template>
+  <template class="desc">How one bin is actually edited. Inverse PCR amplifies the whole plasmid outward from the spacers either side of the part, leaving the part out; the replacement parts carry the same spacer ends, so any of them can be assembled straight back into the gap.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 46 -->
+<article class="slide">
+  <h1>Swapping out an rbs.CDS part</h1>
+  <figure class="fig">
+    <img src="img/46-swap.png" alt="The second half of the same operation. At the top the IPCR product with its gap, and one replacement part drawn beneath it. An arrow marked Assemble leads down to the finished construct, the new blue coding sequence now sitting in the gap between its spacers with the rest of the plasmid unchanged.">
+  </figure>
+  <template class="notes"></template>
+  <template class="desc">The assembly step: one replacement part goes into the gap the inverse PCR left, and the construct that comes out differs from the prototype at exactly that one bin.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 47 -->
+<article class="slide">
+  <h1>Inserting a TPcon part</h1>
+  <figure class="fig">
+    <img src="img/47-tpcon.png" alt="The same procedure applied to a different kind of part. At the top the construct, promoter to terminator, with outward-facing primers set around the chosen spacer. In the middle the IPCR product with its gap. At the bottom three candidate transcriptional connector parts, each a terminator and a promoter back to back between spacer ends, ready to assemble in.">
+  </figure>
+  <template class="notes"></template>
+  <template class="desc">The same inverse-PCR-and-assemble move used to put something new in rather than swap something out: a transcriptional connector, a terminator and promoter together, inserted at a spacer to split one transcript into two.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
