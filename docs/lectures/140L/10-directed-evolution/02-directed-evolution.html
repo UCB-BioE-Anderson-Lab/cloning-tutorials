@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Directed Evolution &ndash; Directed Evolution</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 23: the divider carries the source's climber */
+.slide .divtop{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:1fr 360px;grid-template-rows:minmax(0,1fr);
+  gap:60px;align-items:center}
+.slide .divtop > *{min-width:0;min-height:0}
+.slide .divtop figure{margin:0;height:100%;display:flex;align-items:center}
+.slide .divtop img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* sources 25-28: the worked example runs under a two-line title */
+.slide h1.ex{font-size:46px;line-height:1.16;margin:0 0 16px}
+.slide h1.ex span{display:block}
+/* sources 25, 27 and 28: all three figures are drawn in white line on the
+   source's grey and black masters, so they keep a panel under them here —
+   on the house white ground they would be blank paper. */
+.slide figure.fig.grey{background:#595959;border-radius:4px;padding:18px}
+/* source 27: the lineage on the left, the fitness it bought on the right */
+.slide .pair{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:0.82fr 1fr;grid-template-rows:minmax(0,1fr);gap:28px}
+.slide .pair > figure{margin:0;min-width:0;min-height:0;display:flex;
+  background:#595959;border-radius:4px;padding:16px}
+.slide .pair img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 28: the structure with its key beside it */
+.slide .keyed{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:1fr 280px;grid-template-rows:minmax(0,1fr);
+  gap:36px;align-items:center}
+.slide .keyed > *{min-width:0;min-height:0}
+.slide .keyed figure{margin:0;height:100%;display:flex;background:#000;
+  border-radius:4px;padding:14px}
+.slide .keyed img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide .keyed ul{list-style:none;margin:0;padding:0}
+.slide .keyed li{font-size:32px;margin:0 0 20px;display:flex;align-items:center;gap:16px}
+.slide .keyed li::before{content:"";width:26px;height:26px;border-radius:50%;
+  flex:none;background:currentColor;border:1px solid var(--rule)}
+.slide .keyed li.sub{color:var(--ink)}
+.slide .keyed li.sub::before{background:#fff}
+.slide .keyed li.neu{color:#0078a8}
+.slide .keyed li.imp{color:#8a7400}
+/* source 29: the three outcomes of a missense mutation */
+.slide .rates{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center}
+.slide .rates > p{font-size:28px;margin:0 0 26px}
+.slide .rates h2{font-size:32px;margin:0 0 10px}
+.slide .rates .blk{margin:0 0 26px}
+.slide .rates .blk:last-child{margin-bottom:0}
+.slide .rates ul{margin:0;padding-left:1.1em}
+.slide .rates li{font-size:26px;margin:0 0 6px}
+/* the source's citation sits UNDER the figure, not over it: .src is
+   absolutely positioned and would land inside the grey panel */
+.slide p.cred{font-size:18px;color:var(--muted);margin:12px 0 0}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 23 -->
+<article class="slide" data-bg="section">
+  <h1>Directed Evolution</h1>
+  <div class="divtop">
+    <div></div>
+    <figure>
+      <img src="img/23-climber.png" alt="A cartoon climber in a blue cap and backpack working up the steep side of a white peak, ice axe in hand, with the summit still above.">
+    </figure>
+  </div>
+  <template class="notes">In a typical directed evolution experiment, we begin with a specific gene sequence.  We then apply random mutagenesis to this sequence to generate diversity and screen for variants with an improved property.  We then repeat the experiment from these improved mutants.</template>
+  <template class="desc">Section divider: Directed Evolution, with a climber working up a peak.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 24 -->
+<article class="slide">
+  <h1>Overview</h1>
+  <figure class="fig">
+    <img src="img/24-cycle.png" alt="The directed evolution cycle drawn as a loop with seven numbered steps. A parental gene is taken through random mutagenesis to a diversity library whose members carry scattered mutations (1), the library is built into a plasmid (2), transformed into E. coli or yeast (3), plated (4), the colonies transferred to 96-well plates (5, 6) and screened, and the winner (7) is carried by a broad yellow arrow back to the start as the next generation.">
+  </figure>
+  <template class="notes">There are two common techniques for generating diversity:  random mutagenesis, or recombining parental genes.  These procedures typically involve PCR, and then you subclone the library into a vector and transform cells.  You then pick individual colonies of the library, screen each one for activity, then cherry-pick the &lsquo;winners&rsquo; with improved activity.  Those go back into the cycle.</template>
+  <template class="desc">One turn of the directed evolution cycle, numbered one to seven: mutagenize the parental gene, clone the library, transform, plate, pick colonies into 96-well plates, screen them, and take the winner back round as the next generation.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 25 -->
+<article class="slide">
+  <h1 class="ex">Example:<span><i>p</i>-Nitrobenzyl Esterase Evolution</span></h1>
+  <h2>Wanted to generate an esterase that would remove nitrobenzyl ester protecting groups under conditions involving an organic solvent</h2>
+  <figure class="fig grey">
+    <img src="img/25-reactions.png" alt="Two hydrolysis reactions, drawn one above the other. Above, the real substrate: the loracarbef nucleus carrying a p-nitrobenzyl ester, which splits into the free loracarbef nucleus (LCN) and p-nitrobenzyl alcohol (pNB). Below, the stand-in: p-nitrophenyl acetate, a far smaller ester, which splits into acetic acid and p-nitrophenol.">
+  </figure>
+  <p class="cred">Nat Biotechnol. 1996 Apr;14(4):458-67 PMID: 9630920</p>
+  <template class="notes">Let&rsquo;s look at an example from the early days of this experiment from Francis Arnold.  During the synthesis of beta-lactam antibiotics, there is a difficult deprotection step that the authors wish to perform with an enzyme.  They need to the enzyme to hydrolyze this nitrobenzyl ester.  Unfortunately, the chemical is sparingly soluble in water, so they must add DMF to the reaction. Unfortunately, the enzyme loses activity in the presence of DMF.  So, they want to improve the stability of their enzyme in DMF/water mixtures.  The specific reaction they want to perform is difficult to assay.  Neither the starting material nor products are chromophores, so the only way to watch this reaction would be LC-MS.  For directed evolution, you typically need to assay around 10,000 variants to find useful variants.  A typical LC-MS instrument takes 15 minutes per run, so this would be a very long project!  So, the experimentalists note that this enzyme will also catalyze the hydrolysis of p-nitrophenyl esters such as this acetate ester.  Though it has one carbon less than their &lsquo;real&rsquo; substrate, t is structurally a very similar molecule and is also tolerated by the enzyme.  P-nitrophenol, though, is yellow, so they can readily detect whether this reaction occurred without the need for cumbersome instruments.</template>
+  <template class="desc">The reaction they actually wanted, above: an esterase cutting the p-nitrobenzyl protecting group off the loracarbef nucleus. The reaction they could watch, below: the same enzyme cutting p-nitrophenyl acetate, which releases yellow p-nitrophenol.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 26 -->
+<article class="slide">
+  <h1 class="ex">Example:<span><i>p</i>-Nitrobenzyl Esterase Evolution</span></h1>
+  <ul class="tight">
+    <li>Start with a plasmid encoding pNB esterase</li>
+    <li>Use &ldquo;error-prone PCR&rdquo; to introduce point mutations throughout the gene at a rate of 1 to 5 mutations per gene</li>
+    <li>Put one variant plasmid into each <i>E. coli</i> cell</li>
+    <li>Colonies were <b>screened</b> by picking them into a buffer containing the pNP substrate and DMF</li>
+    <li>Each clone was scored for activity</li>
+    <li>Clones showing improved activity were taken into a second round of error-prone PCR</li>
+  </ul>
+  <template class="notes">Experimentally, they begin with a plasmid encoding the pNB esterase.  They then use a variation on your normal PCR protocol, called error-prone PCR to introduce point mutations throughout the gene at a rate of 1 to 5 mutations per gene.  They then subclone the PCR products back into the plasmid and transform cells to make their library.  They pick many individual colonies and then screen each one by placing the cells in a buffer contining the p-nitrophenyl acetate substrate and DMF.  They then quantify the yellow absorbance of each sample to get a score for the fitness of each variant.  They then cherry pick out those clones showing improved activity and take them into another round of directed evolution.</template>
+  <template class="desc">The experiment step by step: error-prone PCR over the esterase gene at one to five mutations per gene, one variant plasmid per cell, colonies picked into buffer with the p-nitrophenyl substrate and DMF, each clone scored, and the improved ones carried into a second round.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 27 -->
+<article class="slide">
+  <h1 class="ex">Example:<span><i>p</i>-Nitrobenzyl Esterase Evolution</span></h1>
+  <div class="pair">
+    <figure>
+      <img src="img/27-lineage.png" alt="A lineage of the five rounds, generation 0 at the top and generation 5 at the bottom. The wild type branches to three first-round clones; one of them, carrying H322R and Y370F, is chosen as the template for round two, and so on down. Each chosen clone's box lists the mutations it has accumulated, the list growing one line per generation. At the bottom the surviving mutations are combined into a single clone, 5-1A12, carrying six substitutions.">
+    </figure>
+    <figure data-build="1" data-note="With these mutants identified, they then performed more careful assays of their fitness and plot them out.  Through the course of incremental mutation and screening, they generate mutants improved in their tolerance for DMF.">
+      <img src="img/27-fitness.png" alt="A plot of ln(kcat over KM) against generation, wild type through generation four. Two staircases climb left to right: the upper one measured in 1% DMF, rising from about 6.5 to nearly 9, and the lower one in 15% DMF, rising from about 2.4 to about 5.5. Each step is one generation, and at the right three generation-four clones fan out to slightly different heights.">
+    </figure>
+  </div>
+  <template class="notes">They perform 5 rounds of directed evolution.  In the first round, they identified 3 improved mutants, and one of them was chosen as the template for the next round.  So, all variants in round 2 contain the mutations identified in round 1.  They identify 3 additional mutants, and again pick the best one to go into round 3.  In the final step, they combined all the beneficial mutations they found into a single construct.</template>
+  <template class="desc">On the left, the lineage: five rounds, each one picking a winner and handing its mutations down, ending in a single clone that carries all of them. On the right, what that bought &mdash; a staircase of activity against generation, measured in 1% and in 15% DMF.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 28 -->
+<article class="slide">
+  <h1 class="ex">Example:<span><i>p</i>-Nitrobenzyl Esterase Evolution</span></h1>
+  <div class="keyed">
+    <figure>
+      <img src="img/28-structure.png" alt="The esterase drawn as a green ribbon. A cluster of white spheres sits in the middle, filling the active site. Scattered around the outside, mostly well away from that cluster, are side chains picked out in yellow and labelled V60, G94, S96, M144, V343, S334, V334 and V358; two more in cyan, R322 and F370; and the catalytic residues in red near the substrate.">
+    </figure>
+    <ul>
+      <li class="sub">Substrate</li>
+      <li class="neu">Neutral</li>
+      <li class="imp">Improved</li>
+    </ul>
+  </div>
+  <template class="notes">They then look at the crystal structure of the protein to determine where these mutations lie.  The big white blob in the middle of this protein is the substrate.  The mutations identified in their screens are in yellow.  Note that the mutations are quite far from the active site, and this is frequently the case.  When screening for properties such as relaxation in substrate specificity, or improvements to folding, expression, thermal, or chemical stability, the mutations with increased fitness rarely are the ones that directly contact the substrate. Additionally, any mechanistic explanation of why these mutations improve chemical stability would require detailed energetic calculations about the structure.  As of 2014, the computational tools still cannot reliably predict the sorts of mutations that come out of directed evolution studies, and rarely do the mutations make any intuitive sense.</template>
+  <template class="desc">Where the winning mutations actually sit. The substrate is the white cluster at the centre of the structure; the improved positions are the yellow side chains, and nearly all of them are out on the surface, far from the substrate they are supposed to be acting on.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 29 -->
+<article class="slide">
+  <h1>Mutation Types</h1>
+  <div class="rates">
+    <p>Very approximate values of occurrence:</p>
+    <div class="blk"><h2>90% of missense mutations are neutral</h2></div>
+    <div class="blk">
+      <h2>9% of missense mutations are deleterious</h2>
+      <ul>
+        <li>Most substitutions to the hydrophobic core eliminate the ability to fold</li>
+        <li>Most active site substitutions will have a deleterious effect on activity but not on folding</li>
+      </ul>
+    </div>
+    <div class="blk"><h2>1% of missense mutations result in altered activity</h2></div>
+  </div>
+  <template class="notes">When you introduce mutations into a protein coding sequence, the effect of the mutation on activity can be neutral, deleterious, or enabling.  The extreme majority of amino acid substitutions have no effect on function &ndash; they are the same as wild-type.  That is around 90% of mutants.  Around 9% are deleterious.  Typically mutations to the hydrophobic core will eliminate the ability to fold, and very often this 9% represents core mutations.  Similarly, residues that directly contact the substrate or within the second shell around those residues are necessary for activity.  Substitutions to those sites have a deleterious effect on activity.  It is the rare 1% of missense mutaons that result in some altered activity such an improvement in thermostability or a change in sustrate specificity.  Thus, you must screen many mutants to identify those that are useful.</template>
+  <template class="desc">Roughly what a missense mutation does: nine in ten change nothing, nine in a hundred are damaging &mdash; the core ones stop the protein folding, the active-site ones stop it working &mdash; and one in a hundred alters the activity in a way worth having.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
