@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Diversity Generation and Screening &ndash; Directed Evolution</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* Sources 32-35 all borrow white line art drawn for the source's grey
+   master, so each keeps a grey panel under it. */
+.slide figure.fig.grey{background:#595959;border-radius:4px;padding:18px}
+.slide p.cred{font-size:18px;color:var(--muted);margin:12px 0 0}
+.slide p.cred span{display:block}
+/* source 31: four ways of making point mutations, each a named method
+   and then what it is.  The source sets the method larger than the
+   description; so does this. */
+.slide .methods{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center}
+.slide .methods p{font-size:25px;line-height:1.4;margin:0 0 38px}
+.slide .methods p:last-child{margin-bottom:0}
+.slide .methods b{font-size:31px;color:var(--blue)}
+.slide .methods .url{font-size:22px;word-break:break-all}
+/* source 32: the shuffling scheme on the left, the protocol on the right.
+   The nine red crosses are the source's own text boxes, laid back over
+   the figure at the offsets the slide XML gives them. */
+.slide .shuf{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:420px 1fr;grid-template-rows:minmax(0,1fr);gap:56px}
+.slide .shuf > *{min-width:0;min-height:0}
+.slide .shuf .pane{background:#595959;border-radius:4px;padding:14px;display:flex}
+.slide .shuf svg{width:100%;height:100%;min-height:0}
+.slide .shuf svg text{fill:#ff0000;font-family:var(--sans);font-size:228.6px}
+.slide .shuf ul{margin:0;padding-left:1.1em;align-self:center}
+.slide .shuf li{font-size:28px;margin:0 0 16px}
+/* source 34: what you do, then what it gets you */
+.slide .overfig{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+.slide .overfig ul{margin:0 0 18px;padding-left:1.1em;flex:0 0 auto}
+.slide .overfig li{font-size:27px;margin:0 0 10px}
+.slide .overfig figure{margin:0;flex:1 1 auto;min-height:0;display:flex;
+  background:#595959;border-radius:4px;padding:14px}
+.slide .overfig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 35: the equation, then what each term in it is */
+.slide figure.eqn{margin:0 0 20px;background:#595959;border-radius:4px;
+  padding:16px 20px}
+.slide figure.eqn img{display:block;width:100%;height:auto}
+/* sources 36-37: a method, then the ways it is done */
+.slide .grouped h2{font-size:31px;color:var(--blue);margin:26px 0 10px}
+.slide .grouped h2:first-child{margin-top:0}
+.slide .grouped ul{margin:0;padding-left:1.1em}
+.slide .grouped li{font-size:27px;margin:0 0 8px}
+.slide ul.apps li{font-size:28px;margin:0 0 16px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 30 -->
+<article class="slide" data-bg="section">
+  <h1>Diversity Generation<br>and Screening</h1>
+  <template class="notes">The diversity explored in a directed evolution experiment typically involves point mutants.  By this, we mean that each member of library varies from some ancestral sequence by single-base substitutions encoding single changes in amino acid identity.</template>
+  <template class="desc">Section divider: Diversity Generation and Screening.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 31 -->
+<article class="slide">
+  <h1>Point Mutation Generation</h1>
+  <div class="methods">
+    <p><b>Error-Prone PCR:</b>  A <i>Taq</i> PCR reaction containing higher concentrations of C and T, added Mn<sup>2+</sup>, higher Mg<sup>2+</sup> than usual.  See <span class="url">http://www.msg.ucsf.edu/agard/Protocols/PCR_Random_Mutagenesis.htm</span></p>
+    <p><b>GeneMorph II Random Mutagenesis Kit (Stratagene):</b>  PCR with a special error-prone polymerase.  Similar mutation rate to error-prone, but works better for longer templates</p>
+    <p><b>XL1 Red (Stratagene):</b>  An <i>E. coli</i> strain with high replication error rate.  Gives less mutations per KB.  Also generates errors such as recombinations, truncations, insertion element transposition</p>
+    <p><b>Mutagenic strains:</b>  New ideas involves expressing the enzyme involved in affinity maturation for targeted mutagenesis (AID), CRISPR-targeted mutagensesis (EvolvR), or plasmids replicating with an orthogonal mutagenic polymerase.</p>
+  </div>
+  <template class="notes">One common way of generating such libraries is error-prone PCR.  This is just like any other PCR in terms of it containing a Buffer, a thermostable polymerase, two oligos and a template.  The difference is that you tweak the concentrations of the dNTPs, add manganese, and additional magnesium.  This set of conditions causes the polymerase to make errors at elevated rates, and to do so randomly.  The conditions sometimes have the unfortunate consequence of also decreasing the robustness of the pcr reaction, and sometimes you won&rsquo;t get product out.  There are optimized commercial kits that can handle longer PCR products and do some more reliably.  The GeneMorph II kit is one that works by using a mutant error-prone polymerase.  It generates a similar spectrum of mutations to error-prone pcr, but it works on longer templates.  One older method is the XL1 red strain.  This E. coli strain replicates with a high error rate.  Thus, you simply passage your plasmid through this strain to introduce mutations.  The rate of mutation is significantly lower than in vitro mutatgenesis, but the in vivo nature of the method makes some interesting experiments possible.  For example, if you passage a plasmid encoding a slightly toxic protein through this strain, the selective pressure towards relieving the toxicity will result in the enrichment for mutants that solve the problem.  When you sequence such variants, you will often see trivial nonsense mutations (which means stop codons) but other times you will find point mutants or other types of errors such as insertion elements.  When coupled with a positive selection for function, these experiments can be very informative about how to &lsquo;fix&rsquo; a toxic protein. The main issue with XL1 Red is that the mutagenesis is global.  The genome is also being mutated at a high rate rendering these cells erratic and slow growers.  They can be finicky to work with, and mutations to the genome can also be selected for in an experiment. A popular research topic today is trying to engineer cells that focus mutagenesis on a particular region of an introduced plasmid, thereby restricting errors to where it is useful.</template>
+  <template class="desc">Four ways to put point mutations into a gene: error-prone PCR, run with skewed dNTPs, manganese and extra magnesium; the GeneMorph II kit, which uses an error-prone polymerase and copes with longer templates; XL1 Red, an E. coli strain that mutates whatever you passage through it; and newer mutagenic strains that aim the mutagenesis at one region.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 32 -->
+<article class="slide">
+  <h1>Shuffling</h1>
+  <div class="shuf">
+    <div class="pane">
+      <svg viewBox="457.2 914.4 3124.2 5758.942" role="img"
+           aria-label="The shuffling scheme, top to bottom. Three parental genes, each carrying its own red crosses where its mutations are. DNaseI fragmentation breaks them into short pieces that still carry the crosses. A primerless PCR reassembles the pieces into full-length genes that now mix mutations from different parents. A second PCR with terminal primers amplifies them, giving a family of novel, genetically diverse genes.">
+        <image x="457.2" y="914.4" width="3124.2" height="5758.942" href="img/32-shuffle.png" preserveAspectRatio="none"/>
+        <text x="1463.04" y="1242.06">x</text>
+        <text x="2702.99" y="1494.00">x</text>
+        <text x="2017.19" y="1710.93">x</text>
+        <text x="1483.79" y="1710.93">x</text>
+        <text x="1539.24" y="2701.53">x</text>
+        <text x="2148.84" y="2625.33">x</text>
+        <text x="2072.64" y="3234.93">x</text>
+        <text x="1386.84" y="4225.53">x</text>
+        <text x="2148.84" y="4225.53">x</text>
+      </svg>
+    </div>
+    <ul>
+      <li>Pool the first-round hits</li>
+      <li>PCR the genes with external primers</li>
+      <li>Digest the PCR product to 50bp fragments with DNaseI</li>
+      <li>Recombine fragments in a PCR reaction (analogous to PCA gene synthesis)</li>
+      <li>Reamplify with external primers</li>
+      <li>Subclone into plasmids</li>
+    </ul>
+  </div>
+  <p class="cred">Nature. 1994 Aug 4;370(6488):389-91.
+    <span>Proc Natl Acad Sci U S A. 1994 Oct 25;91(22):10747-51.</span></p>
+  <template class="notes">DNA Shuffling is related to error-prone pcr.  The experiment starts with a pool of point mutation variants of a gene.  These mutants  might be the hits identified in a previous round of directed evolution.  First, you PCR up the genes with external primers.  You then digest the DNA into 50bp frgments with DNAse I.  You then recombine those fragments in a PCR reaction which is very similar to PCA gene synthesis in terms of how things reassemble.  You then reamplify with external primers and subclone the material into a plasmid and transform.</template>
+  <template class="desc">DNA shuffling. On the left the scheme: parental genes each carrying their own mutations, cut by DNaseI into fragments, reassembled by a primerless PCR into genes that now carry mutations from several parents, then amplified with terminal primers. On the right the same thing as a protocol, six steps from pooling the hits to subcloning.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 33 -->
+<article class="slide">
+  <h1>Shuffling</h1>
+  <figure class="fig grey">
+    <img src="img/33-table.png" alt="Table 1, mutations introduced by mutagenic shuffling. Transitions: G to A six times, A to G four, C to T seven, T to C three. Transversions: A to T one, A to C two, C to A one, C to G none, G to C three, G to T two, T to A one, T to G two. Below the table: 4437 bases of shuffled lacZ DNA were sequenced, the mutation rate was 0.7%, eleven of the twelve possible base substitutions were found, and there were no frameshifts.">
+  </figure>
+  <p class="cred">Nature. 1994 Aug 4;370(6488):389-91.
+    <span>Proc Natl Acad Sci U S A. 1994 Oct 25;91(22):10747-51.</span></p>
+  <template class="notes">Shuffling has largely replaced error-prone pcr because it does double-duty:  it not only recombines the mutations contained in a population of genes, it is also error prone itself causing a similar spectrume of point mutations to error-prone PCR.</template>
+  <template class="desc">What shuffling itself does to the sequence: a count of every substitution found in 4437 bases of shuffled lacZ, transitions and transversions alike, at a rate of 0.7% and with no frameshifts. Shuffling is error-prone in its own right.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 34 -->
+<article class="slide">
+  <h1>ProSAR Method</h1>
+  <div class="overfig">
+    <ul>
+      <li>Do an initial round of random mutagenesis</li>
+      <li>Or, make all possible amino acid substitutions (for a 300 aa proteins, there would be 300*20 = 6000 variants)</li>
+      <li>Measure the activity/fitness of each one</li>
+    </ul>
+    <figure>
+      <img src="img/34-chart.png" alt="A bar chart of the effect of each single mutation, from plus 0.25 to minus 0.25, with the mutations ranked left to right from most helpful to most harmful. Each mutation has two bars, one for the initial measurement and one after a thermal challenge. A handful at the left, headed by V245A, help; most of the rest sit near zero or below, and the thermal-challenge bar often disagrees in sign with the initial one.">
+    </figure>
+  </div>
+  <p class="cred">Nat Biotechnol. 2007 Mar;25(3):338-44. Epub 2007 Feb 18.</p>
+  <template class="notes">There are also strategies for combining computational design with directed evolution.  ProSAR is one such method developed at Codexis.  The first step is to generate an initial library.  This can be done by error-prone, shuffling.  You can also explicitly synthesize each single-amino acid mutant of a protein using gene synthesis.  For a typical 300 amino acid protein, there are only 6000 such variants.  As microarray-based gene synthesis becomes more available, this approach will be greatly enabled.  You then measure the activity of each variant.  In this example, they are doing directed evolution of thermal stability, so they are comparing activity with and without a heat challenge.</template>
+  <template class="desc">The first half of ProSAR: build a library, by random mutagenesis or by simply synthesizing every single amino acid substitution, then measure every variant. The chart shows the result for one such experiment &mdash; each mutation's effect, before and after a thermal challenge.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 35 -->
+<article class="slide">
+  <h1>ProSAR Method</h1>
+  <figure class="eqn">
+    <img src="img/35-equation.png" alt="The ProSAR equation: y equals c-1a times x-1a, plus c-1b times x-1b, plus c-2a times x-2a, plus c-2b times x-2b, and so on through c-ja times x-ja, c-jb times x-jb, and further terms.">
+  </figure>
+  <ul class="tight">
+    <li>Write one equation for each clone</li>
+    <li>The measured fitness for each clone is y</li>
+    <li>X<sub>1a</sub> values are 1 or 0 for the presence of each possible base substitution</li>
+    <li>c<sub>1a</sub> are the fitness contributions associated with each mutation (which cannot be directly measured)</li>
+    <li>The contribution of most mutations is additive except active-site residues, or when two residues directly interact in the structure</li>
+    <li>Design of Experiment calculations can then be used to design an optimal set of combinations of mutations that are most likely to produce an optimal clone</li>
+  </ul>
+  <p class="cred">Nat Biotechnol. 2007 Mar;25(3):338-44. PMID: 17322872</p>
+  <template class="notes">You then write out some equations.  You will have one equation for each clone that you assay.  The measured fitness for each clone is y.  Each X1a-like value is either 1 or 0 for the presence of each possible base substitution.  The C1a-like values are the fitness contributions associated with each mutation.  These are unknowns that we are trying to measure.  If you assume that the contribution of most mtuations is additive, then you can describe the fitness observed for each variant as a linear combination of each mutation.  In practice, this additivity is usually true with the exception of mutations in the active site of the protein.  After solving the equations for each c value, you do additional design of experiment calculations to choose those mutation combinations that will be most informative to test in combination during the next round of mutagenesis.</template>
+  <template class="desc">The second half of ProSAR: one linear equation per assayed clone, with the measured fitness on the left and, on the right, a one-or-zero term for every possible substitution times that substitution's own unknown contribution. Solve for the contributions, then design the next round's combinations from them.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 36 -->
+<article class="slide">
+  <h1>Screening Methods</h1>
+  <div class="grouped">
+    <h2>Mass spectrometry screens</h2>
+    <ul>
+      <li>High-throughput &ldquo;Product Study&rdquo;</li>
+      <li>Has been automated by companies such as Maxygen, Codexis, and Diversa</li>
+    </ul>
+    <h2>Colorimetric or fluorometric assays</h2>
+    <ul>
+      <li>Fusing a target gene to GFP to watch expression</li>
+      <li>Use a cell-permeable substrate (think Xgal/lacZ) for the reaction</li>
+    </ul>
+  </div>
+  <template class="notes">In addition to a mutagenesis strategy, your directed evolution experiment requires a screening method.  In a company that specializes in directed evolution, they may have high-throughput mass spec instruments that can do LC-MS assays at more reasonable throughput, and thus many chemical transformations can be observed. Effectively, this is doing less-precise but faster &lsquo;product studies&rsquo; on each mutant.
+For the less expensive experiments often done in academia and small companies, plate-based methods using colorimetric or fluorometric assays are the norm.  For example, you might fuse GFP to your protein to link the amount of your protein to a detectable signal.  You might also use cell-permeable substrates as Arnold did with the p-nitrobenzyl esterase. Thus, these are analogous to the whole-cell assays we previously discussed. Typically you will want to grow the colonies in 384-well plates to normalize the amount of cells and then perform these assays on those more consistent cultures.  This can be done somewhat easily at the 10,000-sample scale.
+Basically, any quantitative assay that you can do on a single strain could be considered for use in directed evolution.  The only concern is how many of those assays your labor force and materials costs enable you to do.  There are companies that optimize protein expression by running each variant on a gel.  Though that sounds low-throughput, if the diversity you are able to pay for is lower than the diversity required to obtain the data you need, the assay will do.</template>
+  <template class="desc">Two kinds of screen. Mass spectrometry, run as a fast product study on every mutant and automated by the directed-evolution companies; and the cheaper plate-based colorimetric and fluorometric assays, where the signal comes from a GFP fusion or from a cell-permeable substrate.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 37 -->
+<article class="slide">
+  <h1>Applications</h1>
+  <ul class="apps">
+    <li>Improving the catalytic efficiency of an enzyme</li>
+    <li>Improving the expression/solubility of a protein</li>
+    <li>Improving the efficiency of a protein towards a non-native substrate</li>
+    <li>Improving the thermostability or buffer stability of a protein</li>
+    <li>Improving the function of a protein in the presence of toxicants (organic solvents)</li>
+    <li><b>Any application in which one or two point mutations give rise to a detectable change in activity, and a selection or screen can identify those changes</b></li>
+  </ul>
+  <template class="notes">There are all sorts of things you can use directed evolution to improve.  You can improve catalytic efficiency sometimes, but more typically you improve expression or solubility of your protein.  You can also improve the catalytic parameters, usually Km, for a non-native substrate.  You can also improve the thermostability, buffer stability, and solvent-tolerance of a gene.  In a nutshell, any application in which one or two point mutations give rise to a detectable change in activity, and a selection or screen can identify those changes, can be accessed with directed evolution.</template>
+  <template class="desc">What directed evolution is good for: catalytic efficiency, expression and solubility, activity on a non-native substrate, thermal and buffer stability, and tolerance of organic solvents &mdash; and, in general, anything where one or two point mutations make a detectable difference you can screen or select for.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
