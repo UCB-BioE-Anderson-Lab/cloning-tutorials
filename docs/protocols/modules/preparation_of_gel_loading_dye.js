@@ -2,16 +2,15 @@
 // How the three tubes behind an analytical gel get made: BLUE JUICE (keeps), the 10% DNA dye
 // (keeps), and LOAD, the mix of the two that the gel protocol actually uses (does not keep).
 //
-// Source: JCA, 2026-10-28, by email. Two facts were not settled when this was written and the
-// text says so rather than hiding them:
-//   - The stain is SYBR Safe as far as the lab's chemicals list knows (it lists "SYBR Safe DNA gel
-//     stain" under the CAS number of DMSO, which is what the 10,000x concentrate is supplied in).
-//   - Whether the 10% dye is diluted in water or DMSO. DMSO is written here, because the
-//     concentrate is in DMSO and the dye is less stable in water. Change DILUENT if that is wrong.
+// Source: JCA, 2026-10-28, by email. The stain is Biotium GelGreen, the 10,000x concentrate in
+// WATER (biotium.com/product/gelgreen-nucleic-acid-gel-stain), and the 10% dye is diluted in
+// water, not DMSO (JCA, 2026-10-28: "It's the gelgreen in water. The answer is water. We aren't
+// using dmso."). The first version of this module guessed SYBR Safe in DMSO from the chemicals
+// list; that was wrong.
 //
 // The LOAD figures (100 µL + 1 µL, fresh within 2 days) are the same ones analytical_gel uses.
 
-const DILUENT = "DMSO";
+const DILUENT = "water";
 
 const LOAD = { blue_juice_uL: 100, dye_uL: 1, fresh_days: 2 };
 
@@ -37,7 +36,7 @@ export function factory(values) {
 **What these are**
 - **Blue juice** is the loading buffer: 1× TAE, 10% glycerol, and the bromophenol blue / xylene
   cyanol dye mix. The glycerol sinks the sample into the well; the blue dyes show how far the gel has run.
-- **10% DNA dye** is the commercial gel stain (**SYBR Safe**, 10,000× concentrate) diluted one in ten.
+- **10% DNA dye** is the commercial gel stain (**Biotium GelGreen**, 10,000× in water) diluted one in ten in water.
 - **LOAD** is blue juice with the DNA dye in it. It is what the analytical gel protocol uses, and
   it is the only one of the three that goes off.
 
@@ -58,7 +57,7 @@ export function factory(values) {
 **2. 10% DNA dye** *(100 µL — keeps; store dark)*
 
 5. In a brown or foil-wrapped Eppendorf tube, add **90 µL ${DILUENT}**.
-6. Add **10 µL SYBR Safe** (10,000× concentrate). Mix and quick spin.
+6. Add **10 µL GelGreen** (10,000× in water). Mix and quick spin.
 7. Label **10% DNA DYE** with the date. Store in the dark at room temperature.
 
 **3. LOAD** *(make as needed — use within ${LOAD.fresh_days} days)*
@@ -67,12 +66,13 @@ export function factory(values) {
 9. Label **LOAD** with the date.
 
 **Notes**
-- **LOAD does not keep.** Once the stain is in an aqueous buffer it degrades within a couple of
-  days, and a stale LOAD gives a gel with no bands — which looks exactly like a failed PCR. If in
+- **LOAD does not keep.** The lab remakes it within ${LOAD.fresh_days} days, and a stale LOAD gives a gel with no bands — which looks exactly like a failed PCR. If in
   doubt, remake it; it is two pipetting steps.
 - Blue juice and the 10% dye are made separately for exactly that reason: both keep, so they can be
   made in bulk, and only the 101 µL of LOAD is ever thrown away.
-- SYBR Safe is far less hazardous than ethidium bromide, but it binds DNA. Wear gloves.
+- GelGreen is the **in-water** format, not the in-DMSO one Biotium also sells; dilute it in water.
+- GelGreen is far less hazardous than ethidium bromide, but it binds DNA. Wear gloves. It images on
+  the blue-light box.
 
 Recipe: \`c6-solutions "blue juice"\`.
 `
