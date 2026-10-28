@@ -1,0 +1,109 @@
+DIRECTED EVOLUTION — CONVERSION PLAN
+====================================
+140L lecture 10, folder 10-directed-evolution (the numbering rule set
+with the Whole-Cell deck: from 08 on, the folder number IS the lecture
+number).  Source:
+
+  ~/Library/CloudStorage/Dropbox/Courses/140L/Stanley 2026/
+    Lectures 2026 140L/2025_10_30-Directed Evolution.pptx
+
+THE RULE FOR THIS DECK, AND IT IS THE WHOLE BRIEF
+--------------------------------------------------
+JCA, 27 Oct 2026: "Don't get creative there -- don't modify the flow.
+Not content, just formatting."
+
+That is a ruling, and it was earned.  The In vitro deck before this one
+was converted with initiative: figures redrawn into new animations,
+closing questions distributed to the ends of sections, speaker notes
+written for slides that had none.  It was presented from, and it broke —
+the first redistributed question turned out to be unanswerable where it
+had been put, and the opening animations were, in his words, a mess.
+Both had to be rebuilt against the pptx.
+
+So for THIS deck:
+
+  EVERY slide is converted, in the source's order, including the four
+  course-admin slides at the head and the "Questions?" card at the end.
+  Dropping a slide is a change to the flow.
+
+  NO slide is split, merged, reordered or moved between sections.
+
+  NO figure is reimagined.  A borrowed raster is cropped and placed.
+  A figure is redrawn ONLY where it cannot be cropped at all — a motion
+  path has no still to crop — and then shape for shape, not reinvented.
+
+  NO new speaker notes.  17 slides here carry no note (1-5, 7, 11, 38,
+  40-43, 45-48, 50) and they stay that way.  Notes are the source's,
+  verbatim, with spelling and grammar corrected and nothing else.
+
+  NO new narration, no added sentences, no "better" explanations.
+
+  What DOES change is formatting: the house grounds and type, the house
+  palette for the deck's own chrome, section dividers set as dividers,
+  and figures cropped off the slide and placed in HTML.
+
+Anything that feels like an improvement is out of scope.  Write it down
+here instead and let JCA decide.
+
+THE SOURCE, AS SURVEYED
+-----------------------
+  50 slides, 4:3, 46 notes slides, 25 media files, no charts.
+  Click builds on slides 10, 11, 17, 21, 22, 27, 42, 43.
+  Note markers: an asterisk on 9, 20 and 21 (this deck's marker, as the
+  Whole-Cell deck used, not the <click> of the In vitro deck).
+  Masters: white for most, GREY for 16-22 and 25-37ish, and a GREEN
+  ground for the five section dividers.  The grey ones need the
+  white-background re-render trick before their figures can be cropped
+  (see the Whole-Cell PLAN.txt, "HOW SECTIONS 01-05 WERE CROPPED").
+
+THE SECTION SPLIT
+-----------------
+On the source deck's own divider slides.  No slide moves.
+
+  00-front-matter.html        source  1-8    admin, title, overview, tutorials
+  01-library-approaches.html  source  9-22   Library Approaches
+  02-directed-evolution.html  source 23-29   Directed Evolution
+  03-diversity-screening.html source 30-37   Diversity Generation and Screening
+  04-vector-editing.html      source 38-47   Vector Editing
+  05-questions.html           source 48-50   Questions to Ponder
+
+ONE THING FOR JCA TO DECIDE
+---------------------------
+Source 1-4 are course admin for Independent Project week 1: a Canvas
+screenshot and three "A new project idea" slides in red.  They are
+converted, because dropping them would change the flow and that is not
+mine to do.  If they should come out, say so and they come out.
+
+CHECKING THE NOTES
+------------------
+  python3 ../../tools/verify_notes.py <unpacked-pptx> --keep-urls *.html
+
+--keep-urls matters here.  The In vitro deck moved its image credits out
+of the notes and onto the slides, so a bare leading URL there is a credit
+and the verifier strips it.  Nothing is moved in THIS deck, and some of
+its notes ARE just URLs — source 8's note is the two links for the
+optional structural biology tutorial — so without the flag the verifier
+reports a difference that is not there.
+
+TWO TOOL BUGS FOUND WHILE SURVEYING THIS DECK
+----------------------------------------------
+pptx_text.py opened notesSlideN.xml for slideN.  The notesSlides are
+numbered in their own sequence, so the moment one slide has no note the
+two numberings part company and every slide after it is handed the note
+belonging to a different slide — silently.  This deck has exactly that
+shape: slide 1 carries no note, so every note the tool printed was the
+NEXT slide's.  Caught because slide 5, a bare title card, appeared to
+carry the lecture's opening narration; it belongs to slide 6.  Fixed to
+resolve through the rels, as verify_notes.py always did.  Anything read
+out of this deck before that fix is suspect and was re-read.
+
+verify_notes.py gained --keep-urls, above.
+
+WHERE THIS STANDS
+-----------------
+  00-front-matter.html        source  1-8    DONE  (8 steps, audit clean)
+  01-library-approaches.html  source  9-22   not started
+  02-directed-evolution.html  source 23-29   not started
+  03-diversity-screening.html source 30-37   not started
+  04-vector-editing.html      source 38-47   not started
+  05-questions.html           source 48-50   not started

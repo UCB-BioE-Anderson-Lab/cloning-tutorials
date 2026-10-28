@@ -1,7 +1,7 @@
 """Check that a converted deck's speaker notes are still the source's.
 
-  python3 verify_notes.py <unpacked-pptx> <section.html> ...
-  python3 verify_notes.py <unpacked-pptx> --seq <seq.js> <NAME>=<slide> ...
+  python3 verify_notes.py <unpacked-pptx> [--keep-urls] <section.html> ...
+  python3 verify_notes.py <unpacked-pptx> [--keep-urls] --seq <seq.js> <NAME>=<slide> ...
 
 A slide's note pieces are its <template class="notes"> plus each data-note,
 in document order; they are concatenated and diffed against the source
@@ -54,7 +54,15 @@ def norm(s):
     return re.sub(r"\s+", " ", s).strip()
 
 def strip_credit(s):
-    """An image credit at the head of a note lives on the slide instead."""
+    """An image credit at the head of a note lives on the slide instead.
+
+    --keep-urls turns this off.  The In vitro deck moved its credits onto
+    the slides as .src lines, so a bare leading URL there is a credit and
+    is stripped.  The Directed Evolution deck does not move anything, and
+    some of its notes ARE just URLs — the links for an optional tutorial —
+    so stripping them would report a difference that is not there."""
+    if KEEP_URLS:
+        return s.replace("\\", "").strip()
     s = re.sub(r"^Images?:?\s*(from\s+)?(https?://\S+\s*)+", "", s)
     s = re.sub(r"^From https?://\S+\s*", "", s)
     s = re.sub(r"^https?://\S+\s*", "", s)
@@ -71,6 +79,8 @@ def report(label, want, got):
     return 1
 
 args = sys.argv[2:]
+KEEP_URLS = "--keep-urls" in args
+args = [a for a in args if a != "--keep-urls"]
 bad = 0
 if args and args[0] == "--seq":
     js = open(args[1], encoding="utf-8").read()

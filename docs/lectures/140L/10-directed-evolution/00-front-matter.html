@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Introduction &ndash; Directed Evolution</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* sources 2-4: a project idea — the brief, then the line in red that says
+   what it is.  The source sets that line in pure red; it is the house
+   vermillion here, which is the only thing about these slides that moved */
+.slide .idea{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center}
+.slide .idea p{font-size:30px;line-height:1.4;margin:0 0 26px;max-width:46ch}
+.slide .idea p.tag{color:var(--vermillion);font-weight:700;margin:14px 0 0}
+/* sources 7-8: an optional tutorial — what it is, then where it lives */
+.slide h1 .opt{display:block;font-family:var(--sans);font-size:27px;font-weight:700;
+  line-height:1;margin-top:8px}
+.slide .tut{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 1.15fr;
+  grid-template-rows:minmax(0,1fr);gap:48px;align-items:center}
+.slide .tut > *{min-width:0;min-height:0}
+.slide .tut ul{margin:0;padding-left:1.1em}
+.slide .tut li{font-size:29px;margin:0 0 14px}
+.slide .tut figure{height:100%;display:flex}
+.slide .tut figure img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide p.link{font-size:24px;word-break:break-all}
+</style>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- 1 -->
+<article class="slide">
+  <figure class="fig">
+    <img src="img/01-canvas.png" alt="A screenshot of the course Canvas page for Independent Project: Week 1. It asks the student to choose a project and provide the name, and says that if they are doing a My Idea project they should describe what they are proposing to do. It is worth 5 points, submitted as a text entry box, available from October 22 and due November 5, closing December 21.">
+  </figure>
+  <template class="notes"></template>
+  <template class="desc">The Canvas assignment page for Independent Project week 1: choose a project and name it, or describe your own idea. Five points, due 5 November.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 2 -->
+<article class="slide">
+  <h1>Multi-gene knockouts in wild-type strains</h1>
+  <div class="idea">
+    <p>Identify, describe, and compare the methods available to generate multiple knockouts in a wild-type strain of <i>E. coli</i>, such as Nissle or pathogenic strains.  By this, I mean like there are 4 different genes in the genome, and all 4 are knocked out deliberately.  For the options, think through how much work is involved and the efficiency of the process to determine the most practical method.</p>
+    <p class="tag">This is what I am most eager to read about right now</p>
+  </div>
+  <template class="notes"></template>
+  <template class="desc">A project idea: compare the methods for making multiple deliberate gene knockouts in a wild-type E. coli such as Nissle or a pathogen, weighing the work involved against the efficiency. Marked as the one he is most eager to read about.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 3 -->
+<article class="slide">
+  <h1>Microscopes of B144</h1>
+  <div class="idea">
+    <p>Examine the microscopes in Stanley B144.  Find out what they are and what they can do.  Read their manuals.  Try them out and determine how functional they are.  In addition to a report, write a tutorial (like the cloning-tutorials sites) explaining what it can do in the context of bacterial or eukaryotic synthetic biology work and how to use it.</p>
+    <p class="tag">A new project idea</p>
+  </div>
+  <template class="notes"></template>
+  <template class="desc">A project idea: work out what the microscopes in Stanley B144 are and what they can do, then write both a report and a tutorial on using them for synthetic biology work.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 4 -->
+<article class="slide">
+  <h1>Tlib3</h1>
+  <div class="idea">
+    <p>Review Tlib1 and Tlib2 (the experiments used to make the terminator parts from OLS pools) and design Tlib3 with another group of terminators. You will want to examine the terminators that were chosen for Tlib2 and what worked and what didn&rsquo;t to justify your choices for the new set. This is a wetlab design project, so follow the tutorial guidelines on how to document it.</p>
+    <p>If you want to do this, contact JCA for the Tlib1 and Tlib2 data.</p>
+    <p class="tag">A new project idea</p>
+  </div>
+  <template class="notes"></template>
+  <template class="desc">A project idea: review the Tlib1 and Tlib2 terminator library experiments and design a third set, justifying the choice of terminators from what worked before. A wetlab design project.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 5 -->
+<article class="slide" data-bg="lecture">
+  <h1>Directed Evolution</h1>
+  <p class="playlist">YouTube playlist:<br>
+     <a href="https://www.youtube.com/watch?v=1wWyTrUroGM&amp;list=PL2aPXzks-TgOOPfxneYJ3pBwTlqzv9Ezn">youtube.com/watch?v=1wWyTrUroGM&amp;list=PL2aPXzks-TgOOPfxneYJ3pBwTlqzv9Ezn</a></p>
+  <template class="notes"></template>
+  <template class="desc">Lecture title slide: Directed Evolution. A link to the course YouTube playlist for this lecture.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 6 -->
+<article class="slide">
+  <h1>Protein Engineering Overview</h1>
+  <ul>
+    <li>Rational design (look at the crystal structure or multiple-sequence alignments)</li>
+    <li>Computational algorithm-based design (example:  Rosetta)</li>
+    <li>Modular design (fusing domains together)</li>
+    <li>Library strategies (directed evolution and combinatorial methods)</li>
+  </ul>
+  <template class="notes">Directed evolution involves making iterative changes to a sequence to improve its function.  Though its use is not restricted to optimizing protein-coding sequences, most applications of directed evolution involve optimizing protein sequences.  Directed evolution approaches are only one technique useful in protein engineering.  One approach is &lsquo;rational design&rsquo;, meaning, a person looks at a crystal structure, multiple sequence alignments, and mutagenesis data and forms hypothesis in their head about modifications to a protein that will improve whatever property they need to optimize.  They then design a few genetic constructs and test their hypothesis in the lab.  There are also computational tools to do this sort of logic in silico.  The most popular of these tools is Rosetta which is excellent for predicting improvements to protein folding, and is making headway into many other functional aspects of a protein sequence.  There is also an area of protein engineering about modular design in which you fuse coding sequences together either to create new function or improve the folding, stability, or localization of your protein.  The focus of this series of lectures are the library strategies directed evolution and combinatorial methods.  The term &lsquo;directed evolution&rsquo; is often applied to a broader swath of experiments that includes the combinatorial methods, but I will draw a distinction between the two for these lectures.  Our focus for now is the more narrowly defined directed evolution involving iterative changes to a sequence that each produce an incremental improvement of some aspect of its function.</template>
+  <template class="desc">Four ways to engineer a protein: rational design from a structure or an alignment, computational design with a tool like Rosetta, modular design by fusing domains, and library strategies &mdash; directed evolution and combinatorial methods, which are the subject of this lecture.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 7 -->
+<article class="slide">
+  <h1>Translational Fusions Tutorial<span class="opt">(optional)</span></h1>
+  <figure class="fig">
+    <img src="img/07-fusions.png" alt="A translational fusion drawn as a chain of interlocking coloured blocks: V-heavy in dark blue, a grey linker, V-light in red, a second blue linker, and pIII in green. Beneath, the same five blocks are listed one per row against the part name each stands for: V_H, linker1, V_L, linker2 and p3.">
+  </figure>
+  <p class="src">openwetware.org/wiki/Arking:JCAOligoTutoria20</p>
+  <template class="notes"></template>
+  <template class="desc">An optional tutorial on translational fusions: five parts &mdash; a heavy chain variable domain, a linker, a light chain variable domain, a second linker and pIII &mdash; joined into one open reading frame, with the part name for each.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 8 -->
+<article class="slide">
+  <h1>Structural Biology Tutorial<span class="opt">(optional)</span></h1>
+  <div class="tut">
+    <ul>
+      <li>Introduction to Structural Biology and Part Engineering</li>
+      <li>DeepView Basics</li>
+      <li>Tour of Structural Biology</li>
+    </ul>
+    <figure>
+      <img src="img/08-structbio.png" alt="A protein structure rendered in DeepView against a black background: the backbone drawn as a white ribbon mesh, side chains as thin coloured lines, and a dotted surface around the whole molecule.">
+    </figure>
+  </div>
+  <template class="notes">https://openwetware.org/wiki/Arking:JCAOligoTutoria24
+https://openwetware.org/wiki/Arking:JCAOligoTutoria25</template>
+  <template class="desc">An optional tutorial on structural biology in three parts: an introduction to structural biology and part engineering, DeepView basics, and a tour of structural biology. Beside them, a protein rendered in DeepView.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
