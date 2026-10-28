@@ -24,14 +24,13 @@
 .slide .methods b{font-size:31px;color:var(--blue)}
 .slide .methods .url{font-size:22px;word-break:break-all}
 /* source 32: the shuffling scheme on the left, the protocol on the right.
-   The nine red crosses are the source's own text boxes, laid back over
-   the figure at the offsets the slide XML gives them. */
+   Redrawn black-on-white and built in three clicks, so the fragments and
+   the mosaic they reassemble into arrive as they are talked about; the
+   borrowed scan was white line art on the grey master and landed whole. */
 .slide .shuf{flex:1 1 auto;min-height:0;display:grid;
-  grid-template-columns:420px 1fr;grid-template-rows:minmax(0,1fr);gap:56px}
+  grid-template-columns:520px 1fr;grid-template-rows:minmax(0,1fr);gap:56px}
 .slide .shuf > *{min-width:0;min-height:0}
-.slide .shuf .pane{background:#595959;border-radius:4px;padding:14px;display:flex}
-.slide .shuf svg{width:100%;height:100%;min-height:0}
-.slide .shuf svg text{fill:#ff0000;font-family:var(--sans);font-size:228.6px}
+.slide .shuf > svg{width:100%;height:100%;min-height:0}
 .slide .shuf ul{margin:0;padding-left:1.1em;align-self:center}
 .slide .shuf li{font-size:28px;margin:0 0 16px}
 /* source 34: what you do, then what it gets you */
@@ -79,21 +78,78 @@
 <article class="slide">
   <h1>Shuffling</h1>
   <div class="shuf">
-    <div class="pane">
-      <svg viewBox="457.2 914.4 3124.2 5758.942" role="img"
-           aria-label="The shuffling scheme, top to bottom. Three parental genes, each carrying its own red crosses where its mutations are. DNaseI fragmentation breaks them into short pieces that still carry the crosses. A primerless PCR reassembles the pieces into full-length genes that now mix mutations from different parents. A second PCR with terminal primers amplifies them, giving a family of novel, genetically diverse genes.">
-        <image x="457.2" y="914.4" width="3124.2" height="5758.942" href="img/32-shuffle.png" preserveAspectRatio="none"/>
-        <text x="1463.04" y="1242.06">x</text>
-        <text x="2702.99" y="1494.00">x</text>
-        <text x="2017.19" y="1710.93">x</text>
-        <text x="1483.79" y="1710.93">x</text>
-        <text x="1539.24" y="2701.53">x</text>
-        <text x="2148.84" y="2625.33">x</text>
-        <text x="2072.64" y="3234.93">x</text>
-        <text x="1386.84" y="4225.53">x</text>
-        <text x="2148.84" y="4225.53">x</text>
+      <svg class="shuf" viewBox="12 14 352 512" role="img" aria-label="DNA shuffling, built one step at a time. Three parental genes, each in its own colour and each carrying its own red crosses where its mutations are. DNaseI fragmentation breaks them into a scatter of short pieces that still carry the crosses. A PCR with no exogenous primer reassembles the pieces into a full-length gene that is now a mosaic of all three colours, carrying mutations from more than one parent. A second PCR with terminal primers caps and amplifies it, giving a family of novel, genetically diverse genes.">
+      <g>
+      <rect x="44" y="24.5" width="248" height="11" rx="2" fill="#7fd4c1"/>
+      <path d="M90 24L102 36M102 24L90 36" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <rect x="100" y="52.5" width="248" height="11" rx="2" fill="#8aa9dc"/>
+      <path d="M230 52L242 64M242 52L230 64" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <rect x="22" y="80.5" width="248" height="11" rx="2" fill="#f6cba3"/>
+      <path d="M86 80L98 92M98 80L86 92" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M140 80L152 92M152 80L140 92" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      </g>
+      <g data-build="1" data-note="You then digest the DNA into 50bp frgments with DNAse I.">
+      <path d="M108 108V138" stroke="#6cbf4b" stroke-width="9"/>
+      <path d="M98 136L108 148L118 136Z" fill="#6cbf4b"/>
+      <text x="133" y="134" font-size="16" font-weight="700" fill="#111111">Fragmentation</text>
+      <rect x="30" y="167.5" width="34" height="9" rx="2" fill="#7fd4c1"/>
+      <rect x="86" y="167.5" width="26" height="9" rx="2" fill="#f6cba3"/>
+      <rect x="140" y="167.5" width="30" height="9" rx="2" fill="#8aa9dc"/>
+      <path d="M149 167L159 177M159 167L149 177" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <rect x="196" y="167.5" width="24" height="9" rx="2" fill="#f6cba3"/>
+      <rect x="250" y="167.5" width="38" height="9" rx="2" fill="#7fd4c1"/>
+      <rect x="310" y="167.5" width="26" height="9" rx="2" fill="#8aa9dc"/>
+      <rect x="26" y="195.5" width="30" height="9" rx="2" fill="#8aa9dc"/>
+      <rect x="78" y="195.5" width="36" height="9" rx="2" fill="#f6cba3"/>
+      <rect x="140" y="195.5" width="26" height="9" rx="2" fill="#7fd4c1"/>
+      <rect x="190" y="195.5" width="34" height="9" rx="2" fill="#8aa9dc"/>
+      <rect x="248" y="195.5" width="28" height="9" rx="2" fill="#f6cba3"/>
+      <rect x="300" y="195.5" width="32" height="9" rx="2" fill="#7fd4c1"/>
+      <path d="M307 195L317 205M317 195L307 205" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <rect x="56" y="223.5" width="30" height="9" rx="2" fill="#7fd4c1"/>
+      <rect x="110" y="223.5" width="34" height="9" rx="2" fill="#f6cba3"/>
+      <rect x="172" y="223.5" width="28" height="9" rx="2" fill="#8aa9dc"/>
+      <rect x="228" y="223.5" width="36" height="9" rx="2" fill="#7fd4c1"/>
+      <rect x="288" y="223.5" width="30" height="9" rx="2" fill="#f6cba3"/>
+      </g>
+      <g data-build="2" data-note="You then recombine those fragments in a PCR reaction which is very similar to PCA gene synthesis in terms of how things reassemble.">
+      <path d="M108 250V298" stroke="#6cbf4b" stroke-width="9"/>
+      <path d="M98 296L108 308L118 296Z" fill="#6cbf4b"/>
+      <text x="133" y="266" font-size="16" font-weight="700" fill="#111111">PCR amplification</text>
+      <text x="133" y="284" font-size="16" font-weight="700" fill="#111111">with no exogenous</text>
+      <text x="133" y="302" font-size="16" font-weight="700" fill="#111111">primer</text>
+      <rect x="46" y="326.5" width="54" height="11" rx="2" fill="#7fd4c1"/>
+      <rect x="100" y="326.5" width="52" height="11" rx="2" fill="#8aa9dc"/>
+      <rect x="152" y="326.5" width="56" height="11" rx="2" fill="#f6cba3"/>
+      <rect x="208" y="326.5" width="46" height="11" rx="2" fill="#7fd4c1"/>
+      <rect x="254" y="326.5" width="42" height="11" rx="2" fill="#8aa9dc"/>
+      <rect x="296" y="326.5" width="46" height="11" rx="2" fill="#f6cba3"/>
+      <path d="M70 326L82 338M82 326L70 338" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M226 326L238 338M238 326L226 338" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
+      <text x="18" y="339" font-size="20" font-weight="700" fill="#111111">...</text>
+      <text x="344" y="339" font-size="20" font-weight="700" fill="#111111">...</text>
+      </g>
+      <g data-build="3" data-note="You then reamplify with external primers and subclone the material into a plasmid and transform.">
+      <path d="M108 352V400" stroke="#6cbf4b" stroke-width="9"/>
+      <path d="M98 398L108 410L118 398Z" fill="#6cbf4b"/>
+      <text x="133" y="368" font-size="16" font-weight="700" fill="#111111">PCR amplification</text>
+      <text x="133" y="386" font-size="16" font-weight="700" fill="#111111">with terminal</text>
+      <text x="133" y="404" font-size="16" font-weight="700" fill="#111111">primers</text>
+      <rect x="26" y="428.5" width="28" height="11" rx="2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1"/>
+      <rect x="54" y="428.5" width="54" height="11" rx="2" fill="#7fd4c1"/>
+      <rect x="108" y="428.5" width="52" height="11" rx="2" fill="#8aa9dc"/>
+      <rect x="160" y="428.5" width="56" height="11" rx="2" fill="#f6cba3"/>
+      <rect x="216" y="428.5" width="46" height="11" rx="2" fill="#7fd4c1"/>
+      <rect x="262" y="428.5" width="42" height="11" rx="2" fill="#8aa9dc"/>
+      <rect x="304" y="428.5" width="46" height="11" rx="2" fill="#f6cba3"/>
+      <rect x="322" y="428.5" width="28" height="11" rx="2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1"/>
+      <path d="M108 454V502" stroke="#6cbf4b" stroke-width="9"/>
+      <path d="M98 500L108 512L118 500Z" fill="#6cbf4b"/>
+      <text x="133" y="470" font-size="16" font-weight="700" fill="#111111">Family of novel</text>
+      <text x="133" y="488" font-size="16" font-weight="700" fill="#111111">genetically diverse</text>
+      <text x="133" y="506" font-size="16" font-weight="700" fill="#111111">genes</text>
+      </g>
       </svg>
-    </div>
     <ul>
       <li>Pool the first-round hits</li>
       <li>PCR the genes with external primers</li>
@@ -105,7 +161,7 @@
   </div>
   <p class="cred">Nature. 1994 Aug 4;370(6488):389-91.
     <span>Proc Natl Acad Sci U S A. 1994 Oct 25;91(22):10747-51.</span></p>
-  <template class="notes">DNA Shuffling is related to error-prone pcr.  The experiment starts with a pool of point mutation variants of a gene.  These mutants  might be the hits identified in a previous round of directed evolution.  First, you PCR up the genes with external primers.  You then digest the DNA into 50bp frgments with DNAse I.  You then recombine those fragments in a PCR reaction which is very similar to PCA gene synthesis in terms of how things reassemble.  You then reamplify with external primers and subclone the material into a plasmid and transform.</template>
+  <template class="notes">DNA Shuffling is related to error-prone pcr.  The experiment starts with a pool of point mutation variants of a gene.  These mutants  might be the hits identified in a previous round of directed evolution.  First, you PCR up the genes with external primers.</template>
   <template class="desc">DNA shuffling. On the left the scheme: parental genes each carrying their own mutations, cut by DNaseI into fragments, reassembled by a primerless PCR into genes that now carry mutations from several parents, then amplified with terminal primers. On the right the same thing as a protocol, six steps from pooling the hits to subcloning.</template>
 </article>
 
