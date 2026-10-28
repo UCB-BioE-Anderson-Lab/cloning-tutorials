@@ -9,9 +9,10 @@
 <link rel="stylesheet" href="../../deck.css">
 <style>
 .slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
-/* Sources 34 and 35 borrow white line art drawn for the source's grey
-   master, so each keeps a grey panel under it.  Sources 32 and 33 are
-   redrawn black on white and no longer need one. */
+/* Nothing in this section sits on a grey panel any more.  Sources 32 and 33
+   are redrawn; source 34's chart was the paper's own black-on-white line art
+   inverted for the grey master, and has been inverted back; source 35's
+   equation is now drawn as SVG with the terms worked out. */
 /* source 33: the paper's table, with the two words it turns on drawn out
    beside it -- A and G are the purines, C and T the pyrimidines, so a
    transition keeps the ring type and a transversion swaps it.  That is
@@ -50,13 +51,12 @@
 .slide .overfig{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
 .slide .overfig ul{margin:0 0 18px;padding-left:1.1em;flex:0 0 auto}
 .slide .overfig li{font-size:27px;margin:0 0 10px}
-.slide .overfig figure{margin:0;flex:1 1 auto;min-height:0;display:flex;
-  background:#595959;border-radius:4px;padding:14px}
+.slide .overfig figure{margin:0;flex:1 1 auto;min-height:0;display:flex}
 .slide .overfig img{width:100%;height:100%;min-height:0;object-fit:contain}
-/* source 35: the equation, then what each term in it is */
-.slide figure.eqn{margin:0 0 20px;background:#595959;border-radius:4px;
-  padding:16px 20px}
-.slide figure.eqn img{display:block;width:100%;height:auto}
+/* source 35: the equation worked on two real clones out of the esterase
+   lineage, so the 1s and 0s are something they have already met.  Drawn
+   rather than screenshotted, which also gets it off the grey panel. */
+.slide svg.prosar-eq{flex:0 0 auto;width:100%;height:auto;margin:0 0 16px}
 /* sources 36-37: a method, then the ways it is done */
 .slide .grouped h2{font-size:31px;color:var(--blue);margin:26px 0 10px}
 .slide .grouped h2:first-child{margin-top:0}
@@ -250,7 +250,7 @@
 <article class="slide">
   <h1>Using the Whole Library</h1>
   <svg class="cycle" viewBox="0 0 1400 700" role="img" aria-label="The directed evolution cycle from earlier in the lecture, drawn again whole. On the click the end of it changes: the arrow from the screened plate no longer picks out a single winning well, it carries the whole plate into a box marked model, and what travels round the yellow ribbon to start the next round is relabelled from NEXT GENERATION to NEXT LIBRARY.">
-  <defs><marker id="ah" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="7" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L12 5L0 10z" fill="#111111"/></marker><marker id="ab" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="7" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L12 5L0 10z" fill="#004373"/></marker></defs>
+  <defs><marker id="ah" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="7" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L12 5L0 10z" fill="#111111"/></marker><marker id="ab" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="7" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L12 5L0 10z" fill="#004373"/></marker><marker id="yh" viewBox="0 0 10 8" refX="0" refY="4" markerWidth="1.75" markerHeight="1.75" orient="auto"><path d="M0 0L10 4L0 8z" fill="#ffd200"/></marker></defs>
   <rect x="150" y="111.5" width="180" height="13" rx="6.5" fill="#1f4ea1"/><circle cx="330" cy="118" r="8.06" fill="#5b8fd6"/>
   <text x="240" y="158" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Parental genes</text>
   <text x="437" y="64" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Random</text>
@@ -450,8 +450,7 @@
   <circle cx="426.0" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
   <circle cx="443.4" cy="534.8" r="5" fill="#f1efe2" stroke="#6a6a6a" stroke-width="1.2"/>
   <circle cx="286.8" cy="447.8" r="5" fill="#ffd200" stroke="#7a6000" stroke-width="1.4"/>
-  <path d="M196 330C128 300 118 222 150 168" fill="none" stroke="#ffd200" stroke-width="26"/>
-  <path d="M126 182L150 128L176 180Z" fill="#ffd200"/>
+  <path d="M196 330C128 300 138 226 150 176" fill="none" stroke="#ffd200" stroke-width="26" marker-end="url(#yh)"/>
   <g data-unbuild="1">
   <path d="M288 440L268 362" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
   <text x="243" y="404" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">7</text>
@@ -495,10 +494,33 @@
 <!-- ---------------------------------------------------------------- 35 -->
 <article class="slide">
   <h1>ProSAR Method</h1>
-  <figure class="eqn">
-    <img src="img/35-equation.png" alt="The ProSAR equation: y equals c-1a times x-1a, plus c-1b times x-1b, plus c-2a times x-2a, plus c-2b times x-2b, and so on through c-ja times x-ja, c-jb times x-jb, and further terms.">
-  </figure>
-  <ul class="tight">
+  <svg class="prosar-eq" viewBox="0 0 1400 332" role="img" aria-label="The equation worked on two real clones from the esterase lineage. For 1-1H9 the measured improvement y is 0.3, and the terms read: the contribution of H322R times 1, plus Y370F times 1, plus M358V times 0, plus L144M times 0, and so on. For 2-19E10, y is 1.0 and M358V's term is now times 1. On the click, subtracting the first equation from the second leaves the contribution of M358V alone as 0.7 &mdash; a mutation that was never built on its own.">
+  <text x="700" y="36" text-anchor="middle" font-size="27" font-weight="400" fill="#767676"><tspan font-style="italic">y</tspan> = <tspan font-style="italic">c</tspan><tspan font-size="0.6em" dy="9">1a</tspan><tspan dy="-9"> </tspan><tspan font-style="italic">x</tspan><tspan font-size="0.6em" dy="9">1a</tspan><tspan dy="-9"> </tspan>+ <tspan font-style="italic">c</tspan><tspan font-size="0.6em" dy="9">1b</tspan><tspan dy="-9"> </tspan><tspan font-style="italic">x</tspan><tspan font-size="0.6em" dy="9">1b</tspan><tspan dy="-9"> </tspan>+ <tspan font-style="italic">c</tspan><tspan font-size="0.6em" dy="9">2a</tspan><tspan dy="-9"> </tspan><tspan font-style="italic">x</tspan><tspan font-size="0.6em" dy="9">2a</tspan><tspan dy="-9"> </tspan>+ <tspan font-style="italic">c</tspan><tspan font-size="0.6em" dy="9">2b</tspan><tspan dy="-9"> </tspan><tspan font-style="italic">x</tspan><tspan font-size="0.6em" dy="9">2b</tspan><tspan dy="-9"> </tspan>+ &#8230;</text>
+  <text x="700" y="76" text-anchor="middle" font-size="22" font-weight="400" fill="#767676">the same two clones from the esterase lineage, as improvement over wild type</text>
+  <text x="50" y="142" text-anchor="start" font-size="26" font-weight="700" fill="#111111">1-1H9</text>
+  <text x="196" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111"><tspan font-style="italic">y</tspan> = 0.3</text>
+  <text x="300" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111">=</text>
+  <text x="344" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111"><tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">H322R</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#004373">1</tspan></text>
+  <text x="540" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ <tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">Y370F</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#004373">1</tspan></text>
+  <text x="736" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ <tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">M358V</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#767676">0</tspan></text>
+  <text x="932" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ <tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">L144M</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#767676">0</tspan></text>
+  <text x="1128" y="142" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ &#8230;</text>
+  <text x="50" y="198" text-anchor="start" font-size="26" font-weight="700" fill="#111111">2-19E10</text>
+  <text x="196" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111"><tspan font-style="italic">y</tspan> = 1.0</text>
+  <text x="300" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111">=</text>
+  <text x="344" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111"><tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">H322R</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#004373">1</tspan></text>
+  <text x="540" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ <tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">Y370F</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#004373">1</tspan></text>
+  <text x="736" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ <tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">M358V</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#004373">1</tspan></text>
+  <text x="932" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ <tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">L144M</tspan><tspan dy="-9">&#183;</tspan><tspan font-weight="700" fill="#767676">0</tspan></text>
+  <text x="1128" y="198" text-anchor="start" font-size="27" font-weight="400" fill="#111111">+ &#8230;</text>
+  <g data-build="1" data-note="After solving the equations for each c value, you do additional design of experiment calculations to choose those mutation combinations that will be most informative to test in combination during the next round of mutagenesis.">
+  <path d="M50 272H1240" stroke="#767676" stroke-width="1.4"/>
+  <text x="196" y="312" text-anchor="start" font-size="24" font-weight="400" fill="#767676">subtract</text>
+  <text x="300" y="312" text-anchor="start" font-size="27" font-weight="400" fill="#111111"><tspan font-style="italic">c</tspan><tspan font-size="0.66em" dy="9">M358V</tspan><tspan dy="-9"> &#160;= &#160;1.0 &#8722; 0.3 &#160;= &#160;</tspan><tspan font-weight="700" fill="#004373">0.7</tspan></text>
+  <text x="700" y="312" text-anchor="start" font-size="23" font-weight="400" fill="#ba3a13">&#8212; and M358V was never built on its own</text>
+  </g>
+  </svg>
+  <ul class="tighter">
     <li>Write one equation for each clone</li>
     <li>The measured fitness for each clone is y</li>
     <li>X<sub>1a</sub> values are 1 or 0 for the presence of each possible base substitution</li>
@@ -507,8 +529,8 @@
     <li>Design of Experiment calculations can then be used to design an optimal set of combinations of mutations that are most likely to produce an optimal clone</li>
   </ul>
   <p class="cred">Nat Biotechnol. 2007 Mar;25(3):338-44. PMID: 17322872</p>
-  <template class="notes">You then write out some equations.  You will have one equation for each clone that you assay.  The measured fitness for each clone is y.  Each X1a-like value is either 1 or 0 for the presence of each possible base substitution.  The C1a-like values are the fitness contributions associated with each mutation.  These are unknowns that we are trying to measure.  If you assume that the contribution of most mtuations is additive, then you can describe the fitness observed for each variant as a linear combination of each mutation.  In practice, this additivity is usually true with the exception of mutations in the active site of the protein.  After solving the equations for each c value, you do additional design of experiment calculations to choose those mutation combinations that will be most informative to test in combination during the next round of mutagenesis.</template>
-  <template class="desc">The second half of ProSAR: one linear equation per assayed clone, with the measured fitness on the left and, on the right, a one-or-zero term for every possible substitution times that substitution's own unknown contribution. Solve for the contributions, then design the next round's combinations from them.</template>
+  <template class="notes">You then write out some equations.  You will have one equation for each clone that you assay.  The measured fitness for each clone is y.  Each X1a-like value is either 1 or 0 for the presence of each possible base substitution.  The C1a-like values are the fitness contributions associated with each mutation.  These are unknowns that we are trying to measure.  If you assume that the contribution of most mtuations is additive, then you can describe the fitness observed for each variant as a linear combination of each mutation.  In practice, this additivity is usually true with the exception of mutations in the active site of the protein.</template>
+  <template class="desc">The second half of ProSAR, worked on two clones from the esterase lineage. One linear equation per assayed clone: the measured fitness on the left, and on the right a one-or-zero term for every possible substitution times that substitution&rsquo;s own unknown contribution. Subtracting 1-1H9 from 2-19E10 leaves the contribution of M358V on its own &mdash; a clone that was never built.</template>
 </article>
 
 <!-- NEW -->
