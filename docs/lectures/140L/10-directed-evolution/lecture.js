@@ -20,6 +20,8 @@ window.LECTURE = {
     { file: "00-front-matter.html", title: "Introduction", kind: "lecture" },
     { file: "01-library-approaches.html", title: "Library Approaches", kind: "section" },
     { file: "02-directed-evolution.html", title: "Directed Evolution", kind: "section" },
-    { file: "03-diversity-screening.html", title: "Diversity Generation and Screening", kind: "section" }
+    { file: "03-diversity-screening.html", title: "Diversity Generation and Screening", kind: "section" },
+    { file: "04-vector-editing.html", title: "Vector Editing", kind: "section" },
+    { file: "05-questions.html", title: "Questions to Ponder", kind: "section" }
   ]
 };

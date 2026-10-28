@@ -89,6 +89,24 @@ differ only in which of them are showing, so a render has them all showing
 at once and there is nothing to crop.  The geometry, the fills and the
 strokes are lifted shape for shape out of the slide XML.
 
+HOW SOURCES 42 AND 43 WERE CROPPED
+-----------------------------------
+Both are built entirely from native PowerPoint shapes — several hundred
+part glyphs each — so there is no media file to borrow and redrawing them
+is not on.  They also have clicks that bring shapes IN and take shapes
+OUT, and LibreOffice draws every shape of a slide whether animated or
+not, so the one still it gives you is the union of all three states.
+
+var/render.py in the scratchpad removes shapes by their cNvPr id and
+re-renders, which gives each state as it was actually on screen.  The
+three stills are then cropped to ONE shared box so they register when the
+deck cross-fades between them.
+
+It parses with ElementTree rather than a regex.  A group holds groups,
+and a non-greedy <p:grpSp>...</p:grpSp> closes on the first INNER tag and
+swallows the rest of the shape tree with it — the first attempt did
+exactly that and silently dropped shapes from both states.
+
 CHECKING THE NOTES
 ------------------
   python3 ../../tools/verify_notes.py <unpacked-pptx> --keep-urls *.html
@@ -122,5 +140,5 @@ WHERE THIS STANDS
   01-library-approaches.html  source  9-22   DONE  (24 steps, audit clean)
   02-directed-evolution.html  source 23-29   not started
   03-diversity-screening.html source 30-37   DONE  (8 steps, audit clean)
-  04-vector-editing.html      source 38-47   not started
-  05-questions.html           source 48-50   not started
+  04-vector-editing.html      source 38-47   DONE  (14 steps, audit clean)
+  05-questions.html           source 48-50   DONE  (3 steps, audit clean)
