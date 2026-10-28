@@ -9,8 +9,14 @@
 <link rel="stylesheet" href="../../deck.css">
 <style>
 .slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
-/* Sources 32-35 all borrow white line art drawn for the source's grey
-   master, so each keeps a grey panel under it. */
+/* Sources 34 and 35 borrow white line art drawn for the source's grey
+   master, so each keeps a grey panel under it.  Sources 32 and 33 are
+   redrawn black on white and no longer need one. */
+/* source 33: the paper's table, with the two words it turns on drawn out
+   beside it -- A and G are the purines, C and T the pyrimidines, so a
+   transition keeps the ring type and a transversion swaps it.  That is
+   why there are four rows in one column and eight in the other. */
+.slide svg.subs{flex:1 1 auto;min-height:0;width:100%;height:100%}
 .slide figure.fig.grey{background:#595959;border-radius:4px;padding:18px}
 .slide p.cred{font-size:18px;color:var(--muted);margin:12px 0 0}
 .slide p.cred span{display:block}
@@ -168,13 +174,69 @@
 <!-- ---------------------------------------------------------------- 33 -->
 <article class="slide">
   <h1>Shuffling</h1>
-  <figure class="fig grey">
-    <img src="img/33-table.png" alt="Table 1, mutations introduced by mutagenic shuffling. Transitions: G to A six times, A to G four, C to T seven, T to C three. Transversions: A to T one, A to C two, C to A one, C to G none, G to C three, G to T two, T to A one, T to G two. Below the table: 4437 bases of shuffled lacZ DNA were sequenced, the mutation rate was 0.7%, eleven of the twelve possible base substitutions were found, and there were no frameshifts.">
-  </figure>
+  <svg class="subs" viewBox="0 0 1400 600" role="img" aria-label="On the left, what the two words mean: A and G sit together as the purines, C and T as the pyrimidines. The two thick arrows join A to G and C to T &mdash; a transition keeps the ring type, and there are only four of them. The four thin arrows cross between the groups &mdash; a transversion swaps the ring type, and there are eight. On the right, Table 1, mutations introduced by mutagenic shuffling. Transitions: G to A six, A to G four, C to T seven, T to C three. Transversions: A to T one, A to C two, C to A one, C to G none, G to C three, G to T two, T to A one, T to G two. A total of 4437 bases of shuffled lacZ DNA were sequenced; the mutation rate was 0.7 percent, eleven of the twelve possible substitutions were found, and there were no frameshifts.">
+  <defs><marker id="b2" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="5.5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 4L0 8z" fill="#004373"/></marker><marker id="v2" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="5.5" orient="auto-start-reverse"><path d="M0 0L10 4L0 8z" fill="#ba3a13"/></marker></defs>
+  <text x="245" y="76" text-anchor="middle" font-size="23" font-weight="700" fill="#767676">purines</text>
+  <text x="245" y="462" text-anchor="middle" font-size="23" font-weight="700" fill="#767676">pyrimidines</text>
+  <path d="M130.0 192.0L130.0 338.0" stroke="#ba3a13" stroke-width="2.4" marker-start="url(#v2)" marker-end="url(#v2)"/>
+  <path d="M360.0 192.0L360.0 338.0" stroke="#ba3a13" stroke-width="2.4" marker-start="url(#v2)" marker-end="url(#v2)"/>
+  <path d="M159.7 179.7L330.3 350.3" stroke="#ba3a13" stroke-width="2.4" marker-start="url(#v2)" marker-end="url(#v2)"/>
+  <path d="M330.3 179.7L159.7 350.3" stroke="#ba3a13" stroke-width="2.4" marker-start="url(#v2)" marker-end="url(#v2)"/>
+  <path d="M172.0 150.0L318.0 150.0" stroke="#004373" stroke-width="5" marker-start="url(#b2)" marker-end="url(#b2)"/>
+  <path d="M172.0 380.0L318.0 380.0" stroke="#004373" stroke-width="5" marker-start="url(#b2)" marker-end="url(#b2)"/>
+  <circle cx="130" cy="150" r="34" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="130" y="162" text-anchor="middle" font-size="34" font-weight="700" fill="#111111">A</text>
+  <circle cx="360" cy="150" r="34" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="360" y="162" text-anchor="middle" font-size="34" font-weight="700" fill="#111111">G</text>
+  <circle cx="130" cy="380" r="34" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="130" y="392" text-anchor="middle" font-size="34" font-weight="700" fill="#111111">C</text>
+  <circle cx="360" cy="380" r="34" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="360" y="392" text-anchor="middle" font-size="34" font-weight="700" fill="#111111">T</text>
+  <path d="M60 522H110" stroke="#004373" stroke-width="5"/>
+  <text x="124" y="529" text-anchor="start" font-size="21" font-weight="400" fill="#111111">transition &mdash; the ring type is kept</text>
+  <path d="M60 562H110" stroke="#ba3a13" stroke-width="2.4"/>
+  <text x="124" y="569" text-anchor="start" font-size="21" font-weight="400" fill="#111111">transversion &mdash; the ring type is swapped</text>
+  <text x="636" y="36" text-anchor="start" font-size="24" font-weight="700" fill="#111111">Table 1.</text>
+  <text x="740" y="36" text-anchor="start" font-size="24" font-weight="400" fill="#111111">Mutations introduced by mutagenic shuffling</text>
+  <path d="M636 52H1392" stroke="#111111" stroke-width="2"/>
+  <text x="740" y="92" text-anchor="middle" font-size="23" font-weight="700" fill="#111111">Transition</text>
+  <text x="900" y="92" text-anchor="middle" font-size="23" font-weight="700" fill="#111111">Frequency</text>
+  <text x="1120" y="92" text-anchor="middle" font-size="23" font-weight="700" fill="#111111">Transversion</text>
+  <text x="1300" y="92" text-anchor="middle" font-size="23" font-weight="700" fill="#111111">Frequency</text>
+  <path d="M636 108H1392" stroke="#111111" stroke-width="1.4"/>
+  <text x="740" y="152" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">G &#8594; A</text>
+  <text x="900" y="152" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">6</text>
+  <text x="740" y="194" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">A &#8594; G</text>
+  <text x="900" y="194" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">4</text>
+  <text x="740" y="236" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">C &#8594; T</text>
+  <text x="900" y="236" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">7</text>
+  <text x="740" y="278" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">T &#8594; C</text>
+  <text x="900" y="278" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">3</text>
+  <text x="1120" y="152" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">A &#8594; T</text>
+  <text x="1300" y="152" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">1</text>
+  <text x="1120" y="194" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">A &#8594; C</text>
+  <text x="1300" y="194" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">2</text>
+  <text x="1120" y="236" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">C &#8594; A</text>
+  <text x="1300" y="236" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">1</text>
+  <text x="1120" y="278" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">C &#8594; G</text>
+  <text x="1300" y="278" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">0</text>
+  <text x="1120" y="320" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">G &#8594; C</text>
+  <text x="1300" y="320" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">3</text>
+  <text x="1120" y="362" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">G &#8594; T</text>
+  <text x="1300" y="362" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">2</text>
+  <text x="1120" y="404" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">T &#8594; A</text>
+  <text x="1300" y="404" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">1</text>
+  <text x="1120" y="446" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">T &#8594; G</text>
+  <text x="1300" y="446" text-anchor="middle" font-size="24" font-weight="700" fill="#111111">2</text>
+  <path d="M636 494H1392" stroke="#111111" stroke-width="2"/>
+  <text x="636" y="530" text-anchor="start" font-size="22" font-weight="400" fill="#111111">A total of 4437 bases of shuffled <tspan font-style="italic">lacZ</tspan> DNA were sequenced.</text>
+  <text x="636" y="560" text-anchor="start" font-size="22" font-weight="400" fill="#111111">The mutation rate was 0.7%; 11/12 types of base substitutions</text>
+  <text x="636" y="590" text-anchor="start" font-size="22" font-weight="400" fill="#111111">were found, but there were no frameshifts.</text>
+  </svg>
   <p class="cred">Nature. 1994 Aug 4;370(6488):389-91.
     <span>Proc Natl Acad Sci U S A. 1994 Oct 25;91(22):10747-51.</span></p>
   <template class="notes">Shuffling has largely replaced error-prone pcr because it does double-duty:  it not only recombines the mutations contained in a population of genes, it is also error prone itself causing a similar spectrume of point mutations to error-prone PCR.</template>
-  <template class="desc">What shuffling itself does to the sequence: a count of every substitution found in 4437 bases of shuffled lacZ, transitions and transversions alike, at a rate of 0.7% and with no frameshifts. Shuffling is error-prone in its own right.</template>
+  <template class="desc">What shuffling itself does to the sequence. Beside the count, the two words drawn out: A and G are purines, C and T pyrimidines, so a transition keeps the ring type and a transversion swaps it &mdash; four of the one, eight of the other. The counts come from 4437 bases of shuffled lacZ, a rate of 0.7% with no frameshifts. Shuffling is error-prone in its own right.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 34 -->

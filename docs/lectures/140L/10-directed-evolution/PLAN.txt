@@ -67,6 +67,39 @@ On the source deck's own divider slides.  No slide moves.
   04-vector-editing.html      source 38-47   Vector Editing
   05-questions.html           source 48-50   Questions to Ponder
 
+WHAT JCA ASKED FOR AFTER THE CONVERSION WAS DONE, 28 Oct 2026
+--------------------------------------------------------------
+The rule above governed the CONVERSION.  Once the deck was complete and
+he could walk it, he asked for five figures to be redrawn.  Each of these
+is his call, not an editorial decision made while converting:
+
+  24  the overview cycle      -> redrawn as an SVG that builds in seven
+                                 clicks, one per numbered step
+  25  the two hydrolyses      -> redrawn with RDKit, black on white
+                                 (img/25-reactions.json is the spec)
+  27  lineage + fitness plot  -> redrawn black on white, the tree built a
+                                 generation at a time
+  32  the shuffling scheme    -> redrawn black on white, built in three
+                                 clicks
+  33  the substitution table  -> redrawn, with the two words it turns on
+                                 drawn out beside it: A and G are purines,
+                                 C and T pyrimidines, so a transition keeps
+                                 the ring type and a transversion swaps it.
+                                 That is why one column has four rows and
+                                 the other eight.
+
+In every case the CONTENT is the source's and the speaker notes are still
+the source's, verbatim.  Where a figure now builds, the note is split onto
+the beats at SENTENCE boundaries and still concatenates to the pptx note
+exactly -- verify_notes.py passes on all 46 slides.  Nothing was reworded
+and no note was written.
+
+STILL TO DISCUSS
+----------------
+Sources 34-35, the ProSAR method.  JCA, 28 Oct 2026: ProSAR is old, this
+is where the deck gets into computational protein engineering, and it
+wants research and an update rather than a redraw.  Not started.
+
 THE ONE SLIDE SET THAT IS NOT IN THE DECK
 ------------------------------------------
 Source 1-4 are course admin for Independent Project week 1: a Canvas
