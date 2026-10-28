@@ -28,10 +28,11 @@
 .slide svg.lib .ov{fill:none;stroke:#77746a;stroke-width:1.6}
 .slide svg.lib .ar{fill:#4f81bd;stroke:#27405e;stroke-width:2}
 .slide svg.lib .ar.one{fill:#e5b8b7;stroke:#d99694}
-/* sources 16 and 18: both figures are drawn in white on the source's
-   grey master, so they keep a grey panel under them here — on the house
-   white ground their labels would simply disappear. */
-.slide figure.fig.grey{background:#595959;border-radius:4px;padding:18px}
+/* sources 16 and 18: redrawn.  Both were white line art on the source's
+   grey master, and both carry colour, so neither could simply be inverted
+   the way a monochrome scan can.  Drawn flat instead of pseudo-3D, but
+   segment for segment and label for label. */
+.slide svg.vdj,.slide svg.vh{flex:1 1 auto;min-height:0;width:100%;height:100%}
 /* source 14: three Fab structures rendered on black, side by side */
 .slide .three{flex:1 1 auto;min-height:0;display:grid;
   grid-template-columns:repeat(3,1fr);grid-template-rows:minmax(0,1fr);
@@ -209,9 +210,139 @@ The CDR loops, in orange, are the primary source of variability from one antibod
 <!-- ---------------------------------------------------------------- 16 -->
 <article class="slide">
   <h1>VDJ Recombination</h1>
-  <figure class="fig grey">
-    <img src="img/16-vdj.png" alt="A light chain gene maturing, read top to bottom. At the top, germline DNA holding a long row of V segments in turquoise, a run of J segments in violet and a single C segment in orange. Below it the recombined DNA, one V joined to one J. Then the primary transcript RNA, then the spliced light-chain mRNA carrying V, J and C alone, and finally the light chain protein, drawn as a turquoise variable domain and an orange constant domain docking into a whole antibody.">
-  </figure>
+  <svg class="vdj" viewBox="0 0 1400 740" role="img" aria-label="A light chain gene maturing, read down the page. Germline DNA carries five V segments, a run of five J segments and a single C segment. Somatic recombination joins one V to one J and deletes what lies between. Transcription gives the primary transcript, splicing cuts it back to V, J and C alone, and translation gives the light chain itself &mdash; a variable domain and a constant domain &mdash; which takes its place on the outside of one arm of the assembled antibody.">
+  <text x="60" y="70" text-anchor="start" font-size="27" font-weight="700" fill="#767676">DNA</text>
+  <text x="60" y="330" text-anchor="start" font-size="27" font-weight="700" fill="#767676">RNA</text>
+  <text x="60" y="560" text-anchor="start" font-size="27" font-weight="700" fill="#767676">Protein</text>
+  <text x="280" y="64" text-anchor="middle" font-size="22" font-weight="400" fill="#111111">Germ-line DNA</text>
+  <rect x="150" y="84" width="260" height="38" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
+  <text x="280" y="110" text-anchor="middle" font-size="21" font-weight="400" fill="#111111">Somatic recombination</text>
+  <path d="M268 128h24v18h10l-22 22l-22 -22h10z" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
+  <text x="280" y="194" text-anchor="middle" font-size="22" font-weight="400" fill="#111111">VJ-joined rearranged DNA</text>
+  <rect x="150" y="214" width="260" height="38" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
+  <text x="280" y="240" text-anchor="middle" font-size="21" font-weight="400" fill="#111111">Transcription</text>
+  <path d="M268 258h24v18h10l-22 22l-22 -22h10z" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
+  <text x="280" y="324" text-anchor="middle" font-size="22" font-weight="400" fill="#111111">Primary transcript RNA</text>
+  <rect x="150" y="344" width="260" height="38" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
+  <text x="280" y="370" text-anchor="middle" font-size="21" font-weight="400" fill="#111111">Splicing</text>
+  <path d="M268 388h24v18h10l-22 22l-22 -22h10z" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
+  <text x="280" y="454" text-anchor="middle" font-size="22" font-weight="400" fill="#111111">Light-chain mRNA</text>
+  <rect x="150" y="474" width="260" height="38" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
+  <text x="280" y="500" text-anchor="middle" font-size="21" font-weight="400" fill="#111111">Translation</text>
+  <path d="M268 518h24v18h10l-22 22l-22 -22h10z" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
+  <text x="280" y="584" text-anchor="middle" font-size="22" font-weight="400" fill="#111111">Light chain protein</text>
+  <path d="M484 81.0C497.2 51.0 514.8 51.0 528 81.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
+  <path d="M484 51.0C497.2 81.0 514.8 81.0 528 51.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
+  <rect x="530" y="52.0" width="72" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="566.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
+  <rect x="607" y="52.0" width="14" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="626" y="52.0" width="72" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="662.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
+  <rect x="703" y="52.0" width="14" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="722" y="52.0" width="72" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="758.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
+  <rect x="799" y="52.0" width="14" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="818" y="52.0" width="72" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="854.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
+  <rect x="895" y="52.0" width="14" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="914" y="52.0" width="72" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="950.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
+  <rect x="991" y="52.0" width="14" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1010" y="52.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1023.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="1041" y="52.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1056" y="52.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1069.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="1087" y="52.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1102" y="52.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1115.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="1133" y="52.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1148" y="52.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1161.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="1179" y="52.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1194" y="52.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1207.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="1225" y="52.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1240" y="52.0" width="104" height="28" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1292.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">C</text>
+  <path d="M1350 81.0C1363.2 51.0 1380.8 51.0 1394 81.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
+  <path d="M1350 51.0C1363.2 81.0 1380.8 81.0 1394 51.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
+  <path d="M654 211.0C667.2 181.0 684.8 181.0 698 211.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
+  <path d="M654 181.0C667.2 211.0 684.8 211.0 698 181.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
+  <rect x="700" y="182.0" width="70" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="735.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
+  <rect x="775" y="182.0" width="14" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="794" y="182.0" width="70" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="829.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
+  <rect x="869" y="182.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="882.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="900" y="182.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="915" y="182.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="928.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="946" y="182.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="961" y="182.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="974.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="992" y="182.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1007" y="182.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1020.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="1038" y="182.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1053" y="182.0" width="104" height="28" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1105.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">C</text>
+  <path d="M1163 211.0C1176.2 181.0 1193.8 181.0 1207 211.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
+  <path d="M1163 181.0C1176.2 211.0 1193.8 211.0 1207 181.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
+  <rect x="760" y="312.0" width="52" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="817" y="312.0" width="70" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="852.0" y="300" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
+  <rect x="892" y="312.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="905.0" y="300" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="923" y="312.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="938" y="312.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="951.0" y="300" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="969" y="312.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="984" y="312.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="997.0" y="300" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="1015" y="312.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1030" y="312.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1043.0" y="300" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="1061" y="312.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1076" y="312.0" width="104" height="28" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1128.0" y="300" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">C</text>
+  <rect x="1185" y="312.0" width="46" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <path d="M1277 312C1257.0 318 1245.0 300 1237 312" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
+  <path d="M1277 340C1257.0 334 1245.0 352 1237 340" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
+  <rect x="820" y="442.0" width="70" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="895" y="442.0" width="70" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="930.0" y="430" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
+  <rect x="970" y="442.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="983.0" y="430" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
+  <rect x="1001" y="442.0" width="104" height="28" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1053.0" y="430" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">C</text>
+  <rect x="1110" y="442.0" width="64" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <path d="M1220 442C1200.0 448 1188.0 430 1180 442" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
+  <path d="M1220 470C1200.0 464 1188.0 482 1180 470" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
+  <rect x="640" y="587.0" width="96" height="34" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="688" y="613" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff">V</text>
+  <rect x="741" y="587.0" width="120" height="34" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="801" y="613" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff">C</text>
+  <text x="750" y="652" text-anchor="middle" font-size="20" font-weight="400" fill="#767676">light chain</text>
+  <g transform="rotate(-40 1120 596)">
+  <rect x="1087.0" y="517.0" width="32" height="46" rx="7" fill="#e07a30" stroke="#111111" stroke-width="2"/>
+  <rect x="1121.0" y="517.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <rect x="1087.0" y="461.0" width="32" height="46" rx="7" fill="#2fb8b0" stroke="#111111" stroke-width="2"/>
+  <rect x="1121.0" y="461.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  </g>
+  <g transform="rotate(40 1120 596)">
+  <rect x="1121.0" y="517.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <rect x="1087.0" y="517.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <rect x="1121.0" y="461.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <rect x="1087.0" y="461.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  </g>
+  <rect x="1087.0" y="625.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <rect x="1121.0" y="625.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <rect x="1087.0" y="681.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <rect x="1121.0" y="681.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <path d="M1103 582V622M1137 582V622" stroke="#111111" stroke-width="2"/>
+  </svg>
   <template class="notes">So, the question is what is happening within the mouse?  In each mouse cell, there are gene clusters that encode the components for constructing heavy and light chains.  The heavy chain genes are split into V, J, D, and C coding sequences.  There are multiple Variable, Diversity, and Joining segments (VDJ), and a single constant domain. These VDJ regions encode the CDR loops of the antibody. As a B cell matures, it randomly selects one combination of V, D, and J by recombination of its genome.  That VDJ combination specifies a specific antibody sequence that will be expressed by the B cell, and different B cells will produce different VDJ combinations. In this figure, we are showing the maturation of a light chain gene, which is similar to the heavy chain but lacks D segments.</template>
   <template class="desc">A light chain gene maturing: from germline DNA carrying many V segments and many J segments, through recombination to a single V&ndash;J join, to the transcript, the spliced mRNA and finally the light chain itself in the assembled antibody.</template>
 </article>
@@ -247,9 +378,164 @@ The CDR loops, in orange, are the primary source of variability from one antibod
 <article class="slide">
   <h1>Affinity Maturation</h1>
   <h2>The process by which B-cells produce antibody genes with increased affinity for antigen</h2>
-  <figure class="fig grey">
-    <img src="img/18-vh.png" alt="A V-heavy domain laid out as a sequence ruler from residue 1 to 100, with three hypervariable regions HV1, HV2 and HV3 boxed along it. Below the ruler, a stack of sequences: the T15 germline gene at the top, then five IgM clones which match it almost exactly, then five IgG clones which carry scattered substitutions. Two arrows point up at HV1 and HV2, where the substitutions cluster.">
-  </figure>
+  <svg class="vh" viewBox="0 0 1400 600" role="img" aria-label="A V-heavy domain laid out from residue 1 to 100, with three hypervariable regions HV1, HV2 and HV3 picked out along it. Below the ruler, the T15 germline sequence, then five IgM clones which are solid bars &mdash; identical to the germline &mdash; and then five IgG clones drawn as open bars carrying scattered substitutions. Two arrows point up at the substitutions, and they fall inside HV1 and HV2.">
+  <text x="170" y="64" text-anchor="middle" font-size="38" font-weight="700" fill="#111111">V<tspan font-size="0.62em" dy="7">H</tspan></text>
+  <text x="900" y="54" text-anchor="middle" font-size="27" font-weight="700" fill="#004373">Hypervariable region (HV)</text>
+  <rect x="330" y="76" width="1020" height="36" fill="#e9e9e9" stroke="#9a9a9a" stroke-width="1.4"/>
+  <rect x="597.8787878787879" y="76" width="92.72727272727275" height="36" fill="#004373"/>
+  <text x="644.2424242424242" y="103" text-anchor="middle" font-size="23" font-weight="700" fill="#ffffff">HV1</text>
+  <rect x="824.5454545454545" y="76" width="92.72727272727275" height="36" fill="#004373"/>
+  <text x="870.9090909090909" y="103" text-anchor="middle" font-size="23" font-weight="700" fill="#ffffff">HV2</text>
+  <rect x="1226.3636363636365" y="76" width="113.33333333333326" height="36" fill="#004373"/>
+  <text x="1283.030303030303" y="103" text-anchor="middle" font-size="23" font-weight="700" fill="#ffffff">HV3</text>
+  <text x="316" y="138" text-anchor="end" font-size="21" font-weight="700" fill="#111111">T15</text>
+  <text x="316" y="160" text-anchor="end" font-size="21" font-weight="700" fill="#111111">germ line</text>
+  <circle cx="330.0" cy="148" r="5.4" fill="#d7e2f0" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="340.3" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="350.6" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="360.9" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="371.2" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="381.5" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="391.8" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="402.1" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="412.4" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="422.7" cy="148" r="5.4" fill="#d7e2f0" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="433.0" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="443.3" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="453.6" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="463.9" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="474.2" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="484.5" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="494.8" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="505.2" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="515.5" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="525.8" cy="148" r="5.4" fill="#d7e2f0" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="536.1" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="546.4" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="556.7" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="567.0" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="577.3" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="587.6" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="597.9" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="608.2" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="618.5" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="628.8" cy="148" r="5.4" fill="#d7e2f0" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="639.1" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="649.4" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="659.7" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="670.0" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="680.3" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="690.6" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="700.9" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="711.2" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="721.5" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="731.8" cy="148" r="5.4" fill="#d7e2f0" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="742.1" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="752.4" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="762.7" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="773.0" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="783.3" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="793.6" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="803.9" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="814.2" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="824.5" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="834.8" cy="148" r="5.4" fill="#d7e2f0" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="845.2" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="855.5" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="865.8" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="876.1" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="886.4" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="896.7" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="907.0" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="917.3" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="927.6" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="937.9" cy="148" r="5.4" fill="#d7e2f0" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="948.2" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="958.5" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="968.8" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="979.1" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="989.4" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="999.7" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1010.0" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1020.3" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1030.6" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1040.9" cy="148" r="5.4" fill="#d7e2f0" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1051.2" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1061.5" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1071.8" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1082.1" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1092.4" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1102.7" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1113.0" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1123.3" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1133.6" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1143.9" cy="148" r="5.4" fill="#d7e2f0" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1154.2" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1164.5" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1174.8" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1185.2" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1195.5" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1205.8" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1216.1" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1226.4" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1236.7" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1247.0" cy="148" r="5.4" fill="#d7e2f0" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1257.3" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1267.6" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1277.9" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1288.2" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1298.5" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1308.8" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1319.1" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1329.4" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1339.7" cy="148" r="4.2" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.1"/>
+  <circle cx="1350.0" cy="148" r="5.4" fill="#d7e2f0" stroke="#9a9a9a" stroke-width="1.1"/>
+  <text x="330.0" y="186" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">1</text>
+  <text x="422.72727272727275" y="186" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">10</text>
+  <text x="525.7575757575758" y="186" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">20</text>
+  <text x="628.7878787878788" y="186" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">30</text>
+  <text x="731.8181818181818" y="186" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">40</text>
+  <text x="834.8484848484849" y="186" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">50</text>
+  <text x="937.8787878787879" y="186" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">60</text>
+  <text x="1040.909090909091" y="186" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">70</text>
+  <text x="1143.939393939394" y="186" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">80</text>
+  <text x="1246.969696969697" y="186" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">90</text>
+  <text x="1350.0" y="186" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">100</text>
+  <text x="170" y="268" text-anchor="middle" font-size="32" font-weight="700" fill="#111111">IgM</text>
+  <text x="316" y="221" text-anchor="end" font-size="20" font-weight="400" fill="#111111">HPCM1</text>
+  <rect x="330" y="206" width="1020" height="21" fill="#8aa9dc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="316" y="253" text-anchor="end" font-size="20" font-weight="400" fill="#111111">HPCM2</text>
+  <rect x="330" y="238" width="1020" height="21" fill="#8aa9dc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="316" y="285" text-anchor="end" font-size="20" font-weight="400" fill="#111111">HPCM3</text>
+  <rect x="330" y="270" width="1020" height="21" fill="#8aa9dc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="316" y="317" text-anchor="end" font-size="20" font-weight="400" fill="#111111">HPCM4</text>
+  <rect x="330" y="302" width="1020" height="21" fill="#8aa9dc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="316" y="349" text-anchor="end" font-size="20" font-weight="400" fill="#111111">HPCM6</text>
+  <rect x="330" y="334" width="1020" height="21" fill="#8aa9dc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="170" y="432" text-anchor="middle" font-size="32" font-weight="700" fill="#111111">IgG</text>
+  <text x="316" y="385" text-anchor="end" font-size="20" font-weight="400" fill="#111111">HPCG 8</text>
+  <rect x="330" y="370" width="1020" height="21" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.4"/>
+  <rect x="881.9" y="370" width="9" height="21" fill="#2f6fb5"/>
+  <text x="316" y="417" text-anchor="end" font-size="20" font-weight="400" fill="#111111">HPCG11</text>
+  <rect x="330" y="402" width="1020" height="21" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.4"/>
+  <rect x="624.3" y="402" width="9" height="21" fill="#2f6fb5"/>
+  <rect x="881.9" y="402" width="9" height="21" fill="#2f6fb5"/>
+  <text x="316" y="449" text-anchor="end" font-size="20" font-weight="400" fill="#111111">HPCG12</text>
+  <rect x="330" y="434" width="1020" height="21" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.4"/>
+  <rect x="624.3" y="434" width="9" height="21" fill="#2f6fb5"/>
+  <text x="316" y="481" text-anchor="end" font-size="20" font-weight="400" fill="#111111">HPCG13</text>
+  <rect x="330" y="466" width="1020" height="21" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.4"/>
+  <rect x="634.6" y="466" width="9" height="21" fill="#2f6fb5"/>
+  <rect x="737.6" y="466" width="9" height="21" fill="#2f6fb5"/>
+  <rect x="881.9" y="466" width="9" height="21" fill="#2f6fb5"/>
+  <rect x="902.5" y="466" width="9" height="21" fill="#2f6fb5"/>
+  <text x="316" y="513" text-anchor="end" font-size="20" font-weight="400" fill="#111111">HPCG14</text>
+  <rect x="330" y="498" width="1020" height="21" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.4"/>
+  <rect x="655.2" y="498" width="9" height="21" fill="#2f6fb5"/>
+  <rect x="1057.0" y="498" width="9" height="21" fill="#2f6fb5"/>
+  <path d="M630.1 578V550L620.1 550L639.1 528L658.1 550L648.1 550V578Z" fill="#ffffff" stroke="#004373" stroke-width="2.6"/>
+  <path d="M877.4 578V550L867.4 550L886.4 528L905.4 550L895.4 550V578Z" fill="#ffffff" stroke="#004373" stroke-width="2.6"/>
+  </svg>
   <template class="notes">If a B-cell becomes activated by binding to an antigen, it will begin the process of affinity maturation.  In this diagram, we show the VH domain.  VH is the region of the Fab fragment on the heavy chain that contains the CDR loops  --  it combined with the VL domain are the two balls of protein that directly bind the antigen.  Thus, this diagram speaks only of one such domain.  The VDJ recombination results in regions of the protein called the hypervariable loops, which is the same as the CDR loops.  During affinity maturation, mutations are focused on the hypervariable regions to further improve the avidity and specificity of the antibody.</template>
   <template class="desc">One V-heavy domain, residue 1 to 100, with its three hypervariable regions marked. Beneath, clone sequences compared against the germline: the IgM clones barely differ from it, while the IgG clones carry substitutions, and those substitutions fall inside the hypervariable regions.</template>
 </article>
