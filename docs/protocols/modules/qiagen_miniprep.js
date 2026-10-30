@@ -32,13 +32,21 @@ export const timing = {
 };
 
 export const inputs = [
-  { name: "culture_mL", type: "number", label: "Culture volume to pellet (mL)", default: 4, step: 1 },
+  { name: "culture_mL", type: "number", label: "Culture volume grown (mL)", default: 4, step: 1 },
   { name: "elution_uL", type: "number", label: "Elution volume (µL)", default: 50, step: 5 }
 ];
 
 export function factory(values = {}) {
   const culture = Number(values?.culture_mL ?? 4);
   const elution = Number(values?.elution_uL ?? 50);
+
+  // GROWN IS NOT PELLETED. JCA, 2026-10-30: *"They grow 4 mL, but typically they transfer 2 mL
+  // into a 2mL tube and process only that. I believe the handbook recommends 1 mL to 5 mL, and
+  // you don't change the p1/p2/n3 numbers for any of that."* So `culture_mL` is what the cells
+  // grew in, and what goes in the tube is one 2 mL tube of it — or all of it, if less was grown.
+  const tube_mL = 2;
+  const pellet = Math.min(tube_mL, culture);
+  const handbook = { handbook_min_mL: 1, handbook_max_mL: 5 };
 
   // Buffer volumes, named so the printed cheatsheet reads them from here rather than
   // carrying its own copy.
@@ -58,14 +66,17 @@ export function factory(values = {}) {
     name: "Qiagen Miniprep",
     description: "Purify plasmid DNA from a saturated culture by alkaline lysis and spin column.",
     includes: { required: [], optional: [] },
-    derived: { culture_mL: culture, elution_uL: elution, ...q, ...SPIN },
+    derived: { culture_mL: culture, pellet_mL: pellet, tube_mL, elution_uL: elution, ...handbook, ...q, ...SPIN },
     template: `
 **Reagents**
 - **P1** (with RNase A added) · **P2** (NaOH/SDS) · **N3** (acidic, guanidinium)
 - **PB** (protein and endotoxin removal) · **PE** (70% ethanol) · **EB** (elution)
 
 **Alkaline lysis**
-1. **Pellet** ${culture} mL of saturated culture in a microcentrifuge tube.
+1. ${pellet < culture
+     ? `**Pellet ${pellet} mL** of the ${culture} mL saturated culture: fill a ${tube_mL} mL microcentrifuge tube and spin.`
+     : `**Pellet** the ${culture} mL of saturated culture in a microcentrifuge tube.`}
+   The handbook takes ${handbook.handbook_min_mL}–${handbook.handbook_max_mL} mL of culture; the buffer volumes below are the same whatever you pellet.
 2. **Resuspend** in **${q.p1_uL} µL P1**. The RNase A must already be in the P1.
 3. **Lyse** with **${q.p2_uL} µL P2** and mix gently — **do not vortex**.
    - **At least ${q.p2_min_s} s, no more than ${q.p2_max_min} min before you add N3.** Too short and lysis is incomplete; past ${q.p2_max_min} min the alkali starts nicking the plasmid.

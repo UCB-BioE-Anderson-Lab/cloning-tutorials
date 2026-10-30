@@ -14,7 +14,7 @@ export default {
         steps([
           "For each clone, <b>top-label a 1.5 mL tube</b> with the clone ID from the labsheet. This is the tube you will elute into.",
 
-          `<b>Pellet ${d.culture_mL} mL</b> of saturated culture. Spin ${d.pellet_min} min, pour off the supernatant — <b>bleach it</b> before it goes down the drain.`,
+          `<b>Pellet ${d.pellet_mL} mL</b> of the ${d.culture_mL} mL saturated culture — fill a ${d.tube_mL} mL tube. Spin ${d.pellet_min} min, pour off the supernatant — <b>bleach it</b> before it goes down the drain. The buffer volumes are the same for anything from ${d.handbook_min_mL} to ${d.handbook_max_mL} mL.`,
 
           `<b>Resuspend</b> in <b>${d.p1_uL} µL P1</b>. No clumps. The RNase A must already be in the P1.`,
 

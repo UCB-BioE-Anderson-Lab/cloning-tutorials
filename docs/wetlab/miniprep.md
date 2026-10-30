@@ -57,7 +57,8 @@ The protocol below is adapted from Qiagen's handbook, which includes detailed gu
 
 ### 🧫 Alkaline Lysis
 
-1. **Pellet** 4 mL saturated culture in a microcentrifuge tube.
+1. **Pellet** 2 mL of the 4 mL saturated culture: fill a 2 mL microcentrifuge tube and spin.
+    - The handbook takes 1–5 mL of culture. The P1, P2 and N3 volumes are the same whatever you pellet.
 2. **Resuspend** in 250 µL P1 (RNase A must be added).
 3. **Lyse** by adding 250 µL P2, mix gently (do **not** vortex).
     - Leave it **at least 30 seconds** and **no more than 5 minutes** before adding N3.
