@@ -69,7 +69,7 @@
 <!-- ---------------------------------------------------------------- 30 -->
 <article class="slide" data-bg="section">
   <h1>Diversity Generation<br>and Screening</h1>
-  <template class="notes">The diversity explored in a directed evolution experiment typically involves point mutants.  By this, we mean that each member of library varies from some ancestral sequence by single-base substitutions encoding single changes in amino acid identity.</template>
+  <template class="notes">The diversity explored in a directed evolution experiment typically involves point mutants.  By this, we mean that each member of the library varies from some ancestral sequence by single-base substitutions encoding single changes in amino acid identity.</template>
   <template class="desc">Section divider: Diversity Generation and Screening.</template>
 </article>
 
@@ -80,9 +80,9 @@
     <p><b>Error-Prone PCR:</b>  A <i>Taq</i> PCR reaction containing higher concentrations of C and T, added Mn<sup>2+</sup>, higher Mg<sup>2+</sup> than usual.  See <span class="url">http://www.msg.ucsf.edu/agard/Protocols/PCR_Random_Mutagenesis.htm</span></p>
     <p><b>GeneMorph II Random Mutagenesis Kit (Stratagene):</b>  PCR with a special error-prone polymerase.  Similar mutation rate to error-prone, but works better for longer templates</p>
     <p><b>XL1 Red (Stratagene):</b>  An <i>E. coli</i> strain with high replication error rate.  Gives less mutations per KB.  Also generates errors such as recombinations, truncations, insertion element transposition</p>
-    <p><b>Mutagenic strains:</b>  New ideas involves expressing the enzyme involved in affinity maturation for targeted mutagenesis (AID), CRISPR-targeted mutagensesis (EvolvR), or plasmids replicating with an orthogonal mutagenic polymerase.</p>
+    <p><b>Mutagenic strains:</b>  New ideas involves expressing the enzyme involved in affinity maturation for targeted mutagenesis (AID), CRISPR-targeted mutagenesis (EvolvR), or plasmids replicating with an orthogonal mutagenic polymerase.</p>
   </div>
-  <template class="notes">One common way of generating such libraries is error-prone PCR.  This is just like any other PCR in terms of it containing a Buffer, a thermostable polymerase, two oligos and a template.  The difference is that you tweak the concentrations of the dNTPs, add manganese, and additional magnesium.  This set of conditions causes the polymerase to make errors at elevated rates, and to do so randomly.  The conditions sometimes have the unfortunate consequence of also decreasing the robustness of the pcr reaction, and sometimes you won&rsquo;t get product out.  There are optimized commercial kits that can handle longer PCR products and do some more reliably.  The GeneMorph II kit is one that works by using a mutant error-prone polymerase.  It generates a similar spectrum of mutations to error-prone pcr, but it works on longer templates.  One older method is the XL1 red strain.  This E. coli strain replicates with a high error rate.  Thus, you simply passage your plasmid through this strain to introduce mutations.  The rate of mutation is significantly lower than in vitro mutatgenesis, but the in vivo nature of the method makes some interesting experiments possible.  For example, if you passage a plasmid encoding a slightly toxic protein through this strain, the selective pressure towards relieving the toxicity will result in the enrichment for mutants that solve the problem.  When you sequence such variants, you will often see trivial nonsense mutations (which means stop codons) but other times you will find point mutants or other types of errors such as insertion elements.  When coupled with a positive selection for function, these experiments can be very informative about how to &lsquo;fix&rsquo; a toxic protein. The main issue with XL1 Red is that the mutagenesis is global.  The genome is also being mutated at a high rate rendering these cells erratic and slow growers.  They can be finicky to work with, and mutations to the genome can also be selected for in an experiment. A popular research topic today is trying to engineer cells that focus mutagenesis on a particular region of an introduced plasmid, thereby restricting errors to where it is useful.</template>
+  <template class="notes">One common way of generating such libraries is error-prone PCR.  This is just like any other PCR in terms of it containing a Buffer, a thermostable polymerase, two oligos and a template.  The difference is that you tweak the concentrations of the dNTPs, add manganese, and additional magnesium.  This set of conditions causes the polymerase to make errors at elevated rates, and to do so randomly.  The conditions sometimes have the unfortunate consequence of also decreasing the robustness of the pcr reaction, and sometimes you won&rsquo;t get product out.  There are optimized commercial kits that can handle longer PCR products and do so more reliably.  The GeneMorph II kit is one that works by using a mutant error-prone polymerase.  It generates a similar spectrum of mutations to error-prone pcr, but it works on longer templates.  One older method is the XL1 red strain.  This E. coli strain replicates with a high error rate.  Thus, you simply passage your plasmid through this strain to introduce mutations.  The rate of mutation is significantly lower than in vitro mutagenesis, but the in vivo nature of the method makes some interesting experiments possible.  For example, if you passage a plasmid encoding a slightly toxic protein through this strain, the selective pressure towards relieving the toxicity will result in the enrichment for mutants that solve the problem.  When you sequence such variants, you will often see trivial nonsense mutations (which means stop codons) but other times you will find point mutants or other types of errors such as insertion elements.  When coupled with a positive selection for function, these experiments can be very informative about how to &lsquo;fix&rsquo; a toxic protein. The main issue with XL1 Red is that the mutagenesis is global.  The genome is also being mutated at a high rate rendering these cells erratic and slow growers.  They can be finicky to work with, and mutations to the genome can also be selected for in an experiment. A popular research topic today is trying to engineer cells that focus mutagenesis on a particular region of an introduced plasmid, thereby restricting errors to where it is useful.</template>
   <template class="desc">Four ways to put point mutations into a gene: error-prone PCR, run with skewed dNTPs, manganese and extra magnesium; the GeneMorph II kit, which uses an error-prone polymerase and copes with longer templates; XL1 Red, an E. coli strain that mutates whatever you passage through it; and newer mutagenic strains that aim the mutagenesis at one region.</template>
 </article>
 
@@ -100,7 +100,7 @@
       <path d="M86 80L98 92M98 80L86 92" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
       <path d="M140 80L152 92M152 80L140 92" stroke="#dd2020" stroke-width="2.6" stroke-linecap="round"/>
       </g>
-      <g data-build="1" data-note="You then digest the DNA into 50bp frgments with DNAse I.">
+      <g data-build="1" data-note="You then digest the DNA into 50bp fragments with DNase I.">
       <path d="M108 108V138" stroke="#6cbf4b" stroke-width="9"/>
       <path d="M98 136L108 148L118 136Z" fill="#6cbf4b"/>
       <text x="133" y="134" font-size="16" font-weight="700" fill="#111111">Fragmentation</text>
@@ -165,7 +165,7 @@
     <ul>
       <li>Pool the first-round hits</li>
       <li>PCR the genes with external primers</li>
-      <li>Digest the PCR product to 50bp fragments with DNaseI</li>
+      <li>Digest the PCR product to 50bp fragments with DNase I</li>
       <li>Recombine fragments in a PCR reaction (analogous to PCA gene synthesis)</li>
       <li>Reamplify with external primers</li>
       <li>Subclone into plasmids</li>
@@ -241,7 +241,7 @@
   </svg>
   <p class="cred">Nature. 1994 Aug 4;370(6488):389-91.
     <span>Proc Natl Acad Sci U S A. 1994 Oct 25;91(22):10747-51.</span></p>
-  <template class="notes">Shuffling has largely replaced error-prone pcr because it does double-duty:  it not only recombines the mutations contained in a population of genes, it is also error prone itself causing a similar spectrume of point mutations to error-prone PCR.</template>
+  <template class="notes">Shuffling has largely replaced error-prone pcr because it does double-duty:  it not only recombines the mutations contained in a population of genes, it is also error prone itself causing a similar spectrum of point mutations to error-prone PCR.</template>
   <template class="desc">What shuffling itself does to the sequence. Beside the count, the two words drawn out: A and G are purines, C and T pyrimidines, so a transition keeps the ring type and a transversion swaps it &mdash; four of the one, eight of the other. The counts come from 4437 bases of shuffled lacZ, a rate of 0.7% with no frameshifts. Shuffling is error-prone in its own right.</template>
 </article>
 
@@ -484,7 +484,7 @@
   <div class="overfig">
     <ul>
       <li>Do an initial round of random mutagenesis</li>
-      <li>Or, make all possible amino acid substitutions (for a 300 aa proteins, there would be 300*20 = 6000 variants)</li>
+      <li>Or, make all possible amino acid substitutions (for a 300 aa protein, there would be 300*20 = 6000 variants)</li>
       <li>Measure the activity/fitness of each one</li>
     </ul>
     <figure>
@@ -492,7 +492,7 @@
     </figure>
   </div>
   <p class="cred">Nat Biotechnol. 2007 Mar;25(3):338-44. Epub 2007 Feb 18.</p>
-  <template class="notes">There are also strategies for combining computational design with directed evolution.  ProSAR is one such method developed at Codexis.  The first step is to generate an initial library.  This can be done by error-prone, shuffling.  You can also explicitly synthesize each single-amino acid mutant of a protein using gene synthesis.  For a typical 300 amino acid protein, there are only 6000 such variants.  As microarray-based gene synthesis becomes more available, this approach will be greatly enabled.  You then measure the activity of each variant.  In this example, they are doing directed evolution of thermal stability, so they are comparing activity with and without a heat challenge.</template>
+  <template class="notes">There are also strategies for combining computational design with directed evolution.  ProSAR is one such method developed at Codexis.  The first step is to generate an initial library.  This can be done by error-prone PCR or shuffling.  You can also explicitly synthesize each single-amino acid mutant of a protein using gene synthesis.  For a typical 300 amino acid protein, there are only 6000 such variants.  As microarray-based gene synthesis becomes more available, this approach will be greatly enabled.  You then measure the activity of each variant.  In this example, they are doing directed evolution of thermal stability, so they are comparing activity with and without a heat challenge.</template>
   <template class="desc">The first half of ProSAR: build a library, by random mutagenesis or by simply synthesizing every single amino acid substitution, then measure every variant. The chart shows the result for one such experiment &mdash; each mutation's effect, before and after a thermal challenge.</template>
 </article>
 

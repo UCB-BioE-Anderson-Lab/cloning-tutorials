@@ -1,0 +1,49 @@
+# Spelling and grammar corrections applied to the speaker notes of this deck.
+#
+# PLAN.txt allows exactly this and nothing else: "Notes are the source's,
+# verbatim, with spelling and grammar corrected and nothing else."  Every
+# correction has to be listed here, and verify_notes.py applies this list to
+# the PPTX text before comparing -- so the check still proves that nothing
+# BUT these corrections changed.  Adding a line here is a deliberate act and
+# shows up in the diff; silently editing a note does not.
+#
+#   wrong text | corrected text
+#
+# --- source 6
+forms hypothesis in their head|forms hypotheses in their head
+The focus of this series of lectures are the library strategies|The focus of this series of lectures is the library strategies
+# --- source 19
+the population of B cells make better and better|the population of B cells makes better and better
+# --- source 25
+They need to the enzyme to hydrolyze|They need the enzyme to hydrolyze
+substrate, t is structurally|substrate, it is structurally
+# --- source 26
+a buffer contining the p-nitrophenyl|a buffer containing the p-nitrophenyl
+# --- source 29
+rare 1% of missense mutaons|rare 1% of missense mutations
+altered activity such an improvement|altered activity such as an improvement
+a change in sustrate specificity|a change in substrate specificity
+# --- source 30
+each member of library varies|each member of the library varies
+# --- source 31
+lower than in vitro mutatgenesis|lower than in vitro mutagenesis
+longer PCR products and do some more reliably|longer PCR products and do so more reliably
+# --- source 32
+50bp frgments with DNAse I|50bp fragments with DNase I
+# --- source 33
+a similar spectrume of point mutations|a similar spectrum of point mutations
+# --- source 34
+This can be done by error-prone, shuffling.|This can be done by error-prone PCR or shuffling.
+# --- source 49
+an assay, such a chromagenic substrate|an assay, such as a chromogenic substrate
+Find such big jumps in structure often requires|Finding such big jumps in structure often requires
+
+# --- source 17: the segment counts, corrected on JCA's instruction 3 Nov 2026.
+# The slide mixed TOTAL and FUNCTIONAL counts: IMGT lists 123-129 IGHV, 27
+# IGHD and 9 IGHJ in total, but 38-46, 23 and 6 FUNCTIONAL, and only the
+# functional ones can combine into an antibody.  The 65 matched neither.
+# IMGT states the resulting combinatorial diversity itself: 38 x 23 x 6 =
+# 5244 minimum, 46 x 23 x 6 = 6348 maximum.
+# imgt.org/IMGTrepertoire/LocusGenes/genetable/human/geneNumber.html
+65 Variable (V) domains 27 Diversity (D) domains 6 Joining (J) domains|38 to 46 functional Variable (V) genes 23 Diversity (D) genes 6 Joining (J) genes
+These combine in 65 × 27 × 6 = 10,530 unique ways.|These combine in 38-46 × 23 × 6 = 5,244 to 6,348 unique ways.

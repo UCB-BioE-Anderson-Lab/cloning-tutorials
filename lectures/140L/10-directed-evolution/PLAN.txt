@@ -382,9 +382,62 @@ and a non-greedy <p:grpSp>...</p:grpSp> closes on the first INNER tag and
 swallows the rest of the shape tree with it — the first attempt did
 exactly that and silently dropped shapes from both states.
 
+SPELLING AND GRAMMAR: note-corrections.txt
+-------------------------------------------
+The conversion rule allows the notes to be corrected for spelling and
+grammar and nothing else.  Doing that silently would break the verbatim
+check, and switching the check off to allow it is how a guarantee rots.
+
+So every correction is a line in note-corrections.txt, and verify_notes.py
+applies that list to the PPTX side before comparing.  The check still
+proves nothing BUT these corrections diverged, and adding a line is a
+deliberate act that shows in the diff.  Run it WITHOUT the flag and 11
+slides fail, which is the proof the list is doing real work:
+
+  python3 ../../tools/verify_notes.py <raw> --keep-urls \
+      --corrections note-corrections.txt *.html
+
+Seventeen note corrections, 3 Nov 2026: mutaons, sustrate, frgments,
+spectrume, mutatgenesis, contining, chromagenic, "need to the enzyme",
+", t is structurally", "such an improvement", "do some more reliably",
+"each member of library", "Find such big jumps", "forms hypothesis",
+"the focus ... are", "B cells make", and "by error-prone, shuffling".
+Four more in the visible slide text, which the verifier does not cover:
+mutagensesis, "a 300 aa proteins", "located chromosome 22", DNaseI.
+
+WHAT IS CITED, AND WHAT IS NOT
+-------------------------------
+Cited on the slide: sources 25-27 (Nat Biotechnol 1996), 32-33 (Nature
+1994 and PNAS 1994), 34-35 (Nat Biotechnol 2007), 18 (Gearhart, Nature
+1981), 28 (PDB 1QE3 and Spiller, PNAS 1999;96:12305-10), and the added
+protein-models slide (Science 2025).  Source 14 names its structures by
+PDB ID, which is its own citation.
+
+SETTLED, 3 Nov 2026:
+
+  17  The counts were wrong, not merely uncited: the slide mixed TOTAL and
+      FUNCTIONAL segment numbers.  IMGT lists 123-129 IGHV, 27 IGHD and 9
+      IGHJ in total but 38-46, 23 and 6 FUNCTIONAL, and only functional
+      genes can combine into an antibody.  The 65 matched neither count.
+      IMGT states the product itself: 38 x 23 x 6 = 5244 minimum, 46 x 23
+      x 6 = 6348 maximum.  Slide, note and desc now say 38-46 x 23 x 6 =
+      5,244 to 6,348, and the slide cites IMGT.
+  13  Redrawn.  The three classes with their Fab counts, the domains, the
+      hinge, and where Fv, Fab and Fc begin and end.
+  15  Redrawn.  Antigen, mouse, B cells, myeloma, hybridoma, antibody.
+  21, 22  Redrawn as a CONTOUR MAP computed by tools/landscape.py from a
+      sum of Gaussians -- which is what the note actually describes, "the
+      height of each hill is functionality".  The hills are real maxima of
+      a real function, not drawing.  One shared img/landscape.svg under
+      two overlays that share its viewBox, so labels and marks register.
+
+  29  Left alone on JCA's instruction.  The slide says "very approximate"
+      and that is enough.
+
 CHECKING THE NOTES
 ------------------
-  python3 ../../tools/verify_notes.py <unpacked-pptx> --keep-urls *.html
+  python3 ../../tools/verify_notes.py <unpacked-pptx> --keep-urls \
+      --corrections note-corrections.txt *.html
 
 --keep-urls matters here.  The In vitro deck moved its image credits out
 of the notes and onto the slides, so a bare leading URL there is a credit
