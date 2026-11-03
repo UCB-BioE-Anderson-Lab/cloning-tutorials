@@ -217,7 +217,35 @@ So section 03 now runs 33, NEW, 34, 35, NEW, 36.  Both are marked
   source 29 already told them about cost the same to make and assay as the
   winner, and from here on they are data.
 
-  "Protein Language Models" lifts one term out of the ProSAR equation.
+  "Protein Language Models" was REBUILT on 3 Nov 2026.  The first version
+  lifted one x out of the equation and replaced it with a row of numbers
+  from an embedding, under four bullets.  JCA: "You got a wall of text
+  here.  Hard to present that.  We need a more clear graphical
+  explanation" -- and, more usefully, he gave the argument:
+
+      the transition is that in practice these features AREN'T unique.
+      We have many natural examples of sequences that all 'work', and so
+      in practice we can infer much more about the importance of a
+      position.
+
+  That is the real bridge and a row of embedding numbers explains none of
+  it.  The slide is now two panels.  Left: the four substitutions as four
+  separate boxes, each holding a question mark, nothing joining them --
+  which is exactly what a linear model sees.  Click: an ALIGNMENT of
+  natural homologs appears on the right, with one column that never varies
+  (a catalytic residue, leave it alone) and one that varies freely (a
+  surface position, change it cheaply).  The point lands without a bullet
+  list: the columns were never unique.  A second click adds the one line
+  about what a language model adds on top -- every deposited sequence, and
+  combinations of positions rather than one at a time.
+
+  The alignment is schematic, and the two annotated columns are generic --
+  "a catalytic residue" and "a surface position" -- rather than real
+  positions in the esterase, because no alignment was actually computed.
+  It ties back to source 28 all the same: that is where the winning
+  mutations turned out to be.
+
+  The ORIGINAL version lifted one term out of the ProSAR equation.
   In ProSAR x is 1 or 0 for "is this substitution present", so Y370F and
   Y370W are unrelated columns and every c must come from your own
   measurements.  The click replaces x with a description of the
