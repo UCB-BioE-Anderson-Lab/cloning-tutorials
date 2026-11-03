@@ -1,0 +1,123 @@
+#!/usr/bin/env python3
+"""Generate seq/esterase-data.js for source 28 of the Directed Evolution deck.
+
+    curl -o 1qe3.pdb https://files.rcsb.org/download/1QE3.pdb
+    python3 pdb_esterase.py 1qe3.pdb ../140L/10-directed-evolution/seq/esterase-data.js
+
+WHY THIS STRUCTURE.  1QE3 is p-nitrobenzyl esterase (Spiller, Gershenson,
+Arnold & Stevens 1999), the structure the source slide's figure was made
+from.  The check that licenses using it is at the bottom of this file and
+runs on every build: the slide labels the MUTANT residue at each site, and
+1QE3 is wild type, so position 60 must read ILE for the slide's V60, 94
+SER for G94, and so on.  All eleven match, as do the catalytic triad
+Ser189, Glu310 and His399.  If a future edit breaks that, this refuses.
+
+THE SUBSTRATE IS NOT IN THE FILE.  1QE3 is apo -- a sulfate 21 A from the
+active site and nothing else -- so the white blob cannot be a ligand.  It
+is the buried cavity next to the nucleophile, which is the space the
+substrate has to occupy.  Finding it needs BOTH tests:
+
+    clearance   no protein atom within 3.2 A
+    burial      at least 24 of 26 rays out of the point hit protein
+
+Clearance alone finds bulk solvent just outside the surface, which is
+exactly what the first pass did -- the blob came out stuck to the outside
+of the fold like a balloon.
+"""
+import itertools, json, math, sys
+import numpy as np
+
+WANT = {60:'ILE', 94:'SER', 96:'ASN', 144:'LEU', 267:'LYS', 271:'PHE',
+        322:'HIS', 334:'LEU', 343:'ALA', 358:'MET', 370:'TYR'}
+TRIAD = {189:'SER', 310:'GLU', 399:'HIS'}
+SITES = [(60,'V60','imp'), (94,'G94','imp'), (96,'S96','imp'), (144,'M144','imp'),
+         (334,'S334 V334','imp'), (343,'V343','imp'), (358,'V358','imp'),
+         (322,'R322','neu'), (370,'F370','neu'), (267,'R267','oth'), (271,'L271','oth')]
+DIRS = np.array([d for d in itertools.product((-1, 0, 1), repeat=3) if any(d)], float)
+DIRS /= np.linalg.norm(DIRS, axis=1)[:, None]
+
+
+def read(path):
+    res, ss = {}, {}
+    for l in open(path):
+        if l.startswith('ATOM') and l[21] == 'A':
+            n = int(l[22:26])
+            res.setdefault(n, {'name': l[17:20].strip(), 'at': {}})
+            res[n]['at'][l[12:16].strip()] = (float(l[30:38]), float(l[38:46]), float(l[46:54]))
+        elif l.startswith('HELIX') and l[19] == 'A':
+            for n in range(int(l[21:25]), int(l[33:37]) + 1): ss[n] = 'H'
+        elif l.startswith('SHEET') and l[21] == 'A':
+            for n in range(int(l[22:26]), int(l[33:37]) + 1): ss[n] = 'E'
+    return res, ss
+
+
+def main():
+    src, out = sys.argv[1], sys.argv[2]
+    res, ss = read(src)
+    for n, exp in list(WANT.items()) + list(TRIAD.items()):
+        got = res.get(n, {}).get('name')
+        if got != exp:
+            sys.exit(f"residue {n} is {got}, expected {exp} -- wrong structure or numbering")
+
+    nums = sorted(k for k in res if 'CA' in res[k]['at'])
+    ca = np.array([res[n]['at']['CA'] for n in nums])
+    prot = np.array([v for r in res.values() for v in r['at'].values()])
+    ctr, OG = ca.mean(axis=0), np.array(res[189]['at']['OG'])
+
+    def clear(p): return float(np.min(np.linalg.norm(prot - p, axis=1)))
+
+    def buried(p):
+        v = prot - p; dd = np.linalg.norm(v, axis=1); m = dd < 14
+        if m.sum() < 10: return 0
+        return int(((DIRS @ (v[m] / dd[m][:, None]).T).max(axis=1) >= 0.93).sum())
+
+    best, g = None, np.arange(-12, 12.01, 0.8)
+    for d in itertools.product(g, g, g):
+        p = OG + np.array(d)
+        if np.linalg.norm(p - OG) > 12: continue
+        r = clear(p)
+        if r < 3.2 or (best and r <= best[1]): continue
+        if buried(p) >= 24: best = (p, r)
+    if best is None:
+        sys.exit("no buried cavity found next to the nucleophile")
+    pocket = best[0]
+    blob = []
+    for t in (0.35, 0.68, 1.0):
+        p = OG + t * (pocket - OG)
+        blob.append([round(float(x), 2) for x in (p - ctr)] + [round(min(clear(p), 3.7), 2)])
+
+    def tip(n):
+        a = res[n]['at']
+        side = [v for k, v in a.items() if k not in ('N', 'CA', 'C', 'O')]
+        return np.array(side).mean(axis=0) if side else np.array(a['CA'])
+
+    def dmin(n): return min(math.dist(v, OG) for v in res[n]['at'].values())
+
+    data = {
+        "trace": [[round(float(x), 1) for x in (p - ctr)] for p in ca],
+        "ss": "".join(ss.get(n, 'C') for n in nums),
+        "blob": blob,
+        "sites": [{"lab": lab, "k": k, "d": round(dmin(n), 1),
+                   "p": [round(float(x), 2) for x in (tip(n) - ctr)]} for n, lab, k in SITES],
+        "triad": [{"lab": lab, "d": round(dmin(n), 1),
+                   "p": [round(float(x), 2) for x in (tip(n) - ctr)]}
+                  for n, lab in ((189, 'S189'), (310, 'E310'), (399, 'H399'))],
+    }
+    imp = sorted(s["d"] for s in data["sites"] if s["k"] == "imp")
+    data["stat"] = {"median": imp[len(imp) // 2],
+                    "near10": sum(1 for d in imp if d < 10), "n": len(imp)}
+    open(out, "w").write(
+        "/* GENERATED by tools/pdb_esterase.py from PDB 1QE3.  Do not hand-edit.\n"
+        "   Angstroms, centred on the Ca centroid.  `blob` is the BURIED cavity\n"
+        "   beside the nucleophile, not a modelled ligand pose: 1QE3 is apo.\n"
+        "   The generator refuses to run if the residue numbering stops matching\n"
+        "   the labels the source slide uses. */\n"
+        "window.ESTERASE = " + json.dumps(data, separators=(",", ":")) + ";\n")
+    print("ok: %d residues, pocket %.1f A from Ser189 OG (clearance %.1f, burial %d/26)"
+          % (len(nums), np.linalg.norm(pocket - OG), best[1], buried(pocket)))
+    print("   improved sites: median %.1f A, %d of %d within 10 A"
+          % (data["stat"]["median"], data["stat"]["near10"], data["stat"]["n"]))
+
+
+if __name__ == "__main__":
+    main()
