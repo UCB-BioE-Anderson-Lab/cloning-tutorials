@@ -33,6 +33,7 @@
    the way a monochrome scan can.  Drawn flat instead of pseudo-3D, but
    segment for segment and label for label. */
 .slide svg.vdj,.slide svg.vh{flex:1 1 auto;min-height:0;width:100%;height:100%}
+.slide svg.vdj [data-build],.slide svg.vdj [data-unbuild]{transition:opacity .3s ease}
 /* source 14: three Fab structures rendered on black, side by side */
 .slide .three{flex:1 1 auto;min-height:0;display:grid;
   grid-template-columns:repeat(3,1fr);grid-template-rows:minmax(0,1fr);
@@ -210,141 +211,314 @@ The CDR loops, in orange, are the primary source of variability from one antibod
 <!-- ---------------------------------------------------------------- 16 -->
 <article class="slide">
   <h1>VDJ Recombination</h1>
-  <svg class="vdj" viewBox="0 0 1400 740" role="img" aria-label="A light chain gene maturing, read down the page. Germline DNA carries five V segments, a run of five J segments and a single C segment. Somatic recombination joins one V to one J and deletes what lies between. Transcription gives the primary transcript, splicing cuts it back to V, J and C alone, and translation gives the light chain itself &mdash; a variable domain and a constant domain &mdash; which takes its place on the outside of one arm of the assembled antibody.">
-  <text x="60" y="70" text-anchor="start" font-size="27" font-weight="700" fill="#767676">DNA</text>
-  <text x="60" y="330" text-anchor="start" font-size="27" font-weight="700" fill="#767676">RNA</text>
-  <text x="60" y="560" text-anchor="start" font-size="27" font-weight="700" fill="#767676">Protein</text>
-  <text x="280" y="64" text-anchor="middle" font-size="22" font-weight="400" fill="#111111">Germ-line DNA</text>
-  <rect x="150" y="84" width="260" height="38" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
-  <text x="280" y="110" text-anchor="middle" font-size="21" font-weight="400" fill="#111111">Somatic recombination</text>
-  <path d="M268 128h24v18h10l-22 22l-22 -22h10z" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
-  <text x="280" y="194" text-anchor="middle" font-size="22" font-weight="400" fill="#111111">VJ-joined rearranged DNA</text>
-  <rect x="150" y="214" width="260" height="38" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
-  <text x="280" y="240" text-anchor="middle" font-size="21" font-weight="400" fill="#111111">Transcription</text>
-  <path d="M268 258h24v18h10l-22 22l-22 -22h10z" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
-  <text x="280" y="324" text-anchor="middle" font-size="22" font-weight="400" fill="#111111">Primary transcript RNA</text>
-  <rect x="150" y="344" width="260" height="38" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
-  <text x="280" y="370" text-anchor="middle" font-size="21" font-weight="400" fill="#111111">Splicing</text>
-  <path d="M268 388h24v18h10l-22 22l-22 -22h10z" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
-  <text x="280" y="454" text-anchor="middle" font-size="22" font-weight="400" fill="#111111">Light-chain mRNA</text>
-  <rect x="150" y="474" width="260" height="38" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
-  <text x="280" y="500" text-anchor="middle" font-size="21" font-weight="400" fill="#111111">Translation</text>
-  <path d="M268 518h24v18h10l-22 22l-22 -22h10z" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
-  <text x="280" y="584" text-anchor="middle" font-size="22" font-weight="400" fill="#111111">Light chain protein</text>
-  <path d="M484 81.0C497.2 51.0 514.8 51.0 528 81.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
-  <path d="M484 51.0C497.2 81.0 514.8 81.0 528 51.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
-  <rect x="530" y="52.0" width="72" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="566.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
-  <rect x="607" y="52.0" width="14" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="626" y="52.0" width="72" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="662.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
-  <rect x="703" y="52.0" width="14" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="722" y="52.0" width="72" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="758.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
-  <rect x="799" y="52.0" width="14" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="818" y="52.0" width="72" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="854.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
-  <rect x="895" y="52.0" width="14" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="914" y="52.0" width="72" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="950.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
-  <rect x="991" y="52.0" width="14" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="1010" y="52.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="1023.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="1041" y="52.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="1056" y="52.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="1069.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="1087" y="52.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="1102" y="52.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="1115.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="1133" y="52.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="1148" y="52.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="1161.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="1179" y="52.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="1194" y="52.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="1207.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="1225" y="52.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="1240" y="52.0" width="104" height="28" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="1292.0" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">C</text>
-  <path d="M1350 81.0C1363.2 51.0 1380.8 51.0 1394 81.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
-  <path d="M1350 51.0C1363.2 81.0 1380.8 81.0 1394 51.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
-  <path d="M654 211.0C667.2 181.0 684.8 181.0 698 211.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
-  <path d="M654 181.0C667.2 211.0 684.8 211.0 698 181.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
-  <rect x="700" y="182.0" width="70" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="735.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
-  <rect x="775" y="182.0" width="14" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="794" y="182.0" width="70" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="829.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
-  <rect x="869" y="182.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="882.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="900" y="182.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="915" y="182.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="928.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="946" y="182.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="961" y="182.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="974.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="992" y="182.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="1007" y="182.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="1020.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="1038" y="182.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="1053" y="182.0" width="104" height="28" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="1105.0" y="170" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">C</text>
-  <path d="M1163 211.0C1176.2 181.0 1193.8 181.0 1207 211.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
-  <path d="M1163 181.0C1176.2 211.0 1193.8 211.0 1207 181.0" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
-  <rect x="760" y="312.0" width="52" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="817" y="312.0" width="70" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="852.0" y="300" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
-  <rect x="892" y="312.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="905.0" y="300" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="923" y="312.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="938" y="312.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="951.0" y="300" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="969" y="312.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="984" y="312.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="997.0" y="300" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="1015" y="312.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="1030" y="312.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="1043.0" y="300" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="1061" y="312.0" width="10" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="1076" y="312.0" width="104" height="28" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="1128.0" y="300" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">C</text>
-  <rect x="1185" y="312.0" width="46" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <path d="M1277 312C1257.0 318 1245.0 300 1237 312" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
-  <path d="M1277 340C1257.0 334 1245.0 352 1237 340" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
-  <rect x="820" y="442.0" width="70" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <rect x="895" y="442.0" width="70" height="28" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="930.0" y="430" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">V</text>
-  <rect x="970" y="442.0" width="26" height="28" rx="3" fill="#4a4ad0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="983.0" y="430" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">J</text>
-  <rect x="1001" y="442.0" width="104" height="28" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="1053.0" y="430" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">C</text>
-  <rect x="1110" y="442.0" width="64" height="28" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
-  <path d="M1220 442C1200.0 448 1188.0 430 1180 442" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
-  <path d="M1220 470C1200.0 464 1188.0 482 1180 470" fill="none" stroke="#9a9a9a" stroke-width="2.6"/>
-  <rect x="640" y="587.0" width="96" height="34" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="688" y="613" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff">V</text>
-  <rect x="741" y="587.0" width="120" height="34" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
-  <text x="801" y="613" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff">C</text>
-  <text x="750" y="652" text-anchor="middle" font-size="20" font-weight="400" fill="#767676">light chain</text>
-  <g transform="rotate(-40 1120 596)">
-  <rect x="1087.0" y="517.0" width="32" height="46" rx="7" fill="#e07a30" stroke="#111111" stroke-width="2"/>
-  <rect x="1121.0" y="517.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
-  <rect x="1087.0" y="461.0" width="32" height="46" rx="7" fill="#2fb8b0" stroke="#111111" stroke-width="2"/>
-  <rect x="1121.0" y="461.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <svg class="vdj" viewBox="0 0 1400 700" role="img" aria-label="The heavy chain locus, rearranged one step at a time, against a rail on the left that says which phase each step belongs to. It starts as germline DNA carrying many V segments, many D segments, many J segments and a single C. One D and one J are picked out and joined, and the DNA lying between them is cut out and lost; then one V is picked and joined to that DJ, and again the DNA between is gone. What is left carries exactly one V, one D and one J, for the life of that cell. It is transcribed, and the primary transcript still carries the intron before C; splicing removes that from the transcript alone, leaving the genome untouched. Translation gives the heavy chain, whose V, D and J make the part that binds antigen. The light chain does the same with one V and one J, having no D segments at all.">
+  <rect x="40" y="106" width="260" height="132" rx="7" fill="#f6f7f9"/>
+  <text x="58" y="150" text-anchor="start" font-size="28" font-weight="700" fill="#111111">DNA</text>
+  <text x="58" y="180" text-anchor="start" font-size="19" font-weight="700" fill="#004373">genome rearrangement</text>
+  <text x="58" y="206" text-anchor="start" font-size="16" font-weight="400" fill="#767676">permanent: the DNA</text>
+  <text x="58" y="226" text-anchor="start" font-size="16" font-weight="400" fill="#767676">between is deleted</text>
+  <rect x="40" y="338" width="260" height="132" rx="7" fill="#f6f7f9"/>
+  <text x="58" y="382" text-anchor="start" font-size="28" font-weight="700" fill="#111111">RNA</text>
+  <text x="58" y="412" text-anchor="start" font-size="19" font-weight="700" fill="#004373">splicing</text>
+  <text x="58" y="438" text-anchor="start" font-size="16" font-weight="400" fill="#767676">per transcript: the</text>
+  <text x="58" y="458" text-anchor="start" font-size="16" font-weight="400" fill="#767676">DNA is untouched</text>
+  <rect x="40" y="548" width="260" height="66" rx="7" fill="#f6f7f9"/>
+  <text x="58" y="592" text-anchor="start" font-size="28" font-weight="700" fill="#111111">protein</text>
+  <rect data-unbuild="3" x="40" y="106" width="260" height="132" rx="7" fill="none" stroke="#004373" stroke-width="3"/>
+  <rect data-build="3" data-unbuild="4" x="40" y="338" width="260" height="132" rx="7" fill="none" stroke="#004373" stroke-width="3"/>
+  <rect data-build="4" x="40" y="548" width="260" height="66" rx="7" fill="none" stroke="#004373" stroke-width="3"/>
+  <g data-unbuild="1">
+  <text x="860" y="120" text-anchor="middle" font-size="24" font-weight="700" fill="#767676">germline DNA</text>
+  <path d="M340 214C351 186 367 186 378 214" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M340 186C351 214 367 214 378 186" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <rect x="382" y="185" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="425" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="475" y="185" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="518" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="568" y="185" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="611" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="661" y="185" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="704" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="754" y="185" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="797" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="847" y="185" width="10" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="864" y="185" width="32" height="30" rx="3" fill="#b05ccc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="880" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">D</text>
+  <rect x="903" y="185" width="32" height="30" rx="3" fill="#b05ccc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="919" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">D</text>
+  <rect x="942" y="185" width="32" height="30" rx="3" fill="#b05ccc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="958" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">D</text>
+  <rect x="981" y="185" width="32" height="30" rx="3" fill="#b05ccc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="997" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">D</text>
+  <rect x="1020" y="185" width="10" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1037" y="185" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1051" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="1072" y="185" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1086" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="1107" y="185" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1121" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="1142" y="185" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1156" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="1177" y="185" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1191" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="1212" y="185" width="12" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1231" y="185" width="124" height="30" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1293" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">C</text>
+  <path d="M1366 214C1377 186 1393 186 1404 214" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M1366 186C1377 214 1393 214 1404 186" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <text x="860" y="272" text-anchor="middle" font-size="22" font-weight="400" fill="#767676">many V, many D, many J &mdash; and one C</text>
   </g>
-  <g transform="rotate(40 1120 596)">
-  <rect x="1121.0" y="517.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
-  <rect x="1087.0" y="517.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
-  <rect x="1121.0" y="461.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
-  <rect x="1087.0" y="461.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <g data-build="1" data-desc="One D and one J are picked out of the many and joined; the DNA lying between them is cut out and lost." data-note="As a B cell matures, it randomly selects one combination of V, D, and J by recombination of its genome." data-unbuild="2">
+  <text x="860" y="120" text-anchor="middle" font-size="24" font-weight="700" fill="#004373">D&ndash;J joining</text>
+  <path d="M340 214C351 186 367 186 378 214" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M340 186C351 214 367 214 378 186" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <rect x="382" y="185" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="425" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="475" y="185" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="518" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="568" y="185" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="611" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="661" y="185" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="704" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="754" y="185" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="797" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="847" y="185" width="10" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="864" y="185" width="32" height="30" rx="3" fill="#e8e8e8" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="880" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#767676" opacity="0.4">D</text>
+  <rect x="903" y="185" width="32" height="30" rx="3" fill="#e8e8e8" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="919" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#767676" opacity="0.4">D</text>
+  <rect x="942" y="185" width="32" height="30" rx="3" fill="#b05ccc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="958" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">D</text>
+  <rect x="981" y="185" width="32" height="30" rx="3" fill="#e8e8e8" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="997" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#767676" opacity="0.4">D</text>
+  <rect x="1020" y="185" width="10" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1037" y="185" width="28" height="30" rx="3" fill="#e8e8e8" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1051" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#767676" opacity="0.4">J</text>
+  <rect x="1072" y="185" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1086" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="1107" y="185" width="28" height="30" rx="3" fill="#e8e8e8" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1121" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#767676" opacity="0.4">J</text>
+  <rect x="1142" y="185" width="28" height="30" rx="3" fill="#e8e8e8" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1156" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#767676" opacity="0.4">J</text>
+  <rect x="1177" y="185" width="28" height="30" rx="3" fill="#e8e8e8" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1191" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#767676" opacity="0.4">J</text>
+  <rect x="1212" y="185" width="12" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1231" y="185" width="124" height="30" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1293" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">C</text>
+  <path d="M1366 214C1377 186 1393 186 1404 214" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M1366 186C1377 214 1393 214 1404 186" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M860 238V322" stroke="#004373" stroke-width="7"/>
+  <path d="M849 320L860 334L871 320Z" fill="#004373"/>
+  <text x="882" y="293" text-anchor="start" font-size="21" font-weight="700" fill="#004373">the DNA between is deleted</text>
+  <path d="M340 418C351 390 367 390 378 418" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M340 390C351 418 367 418 378 390" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <rect x="382" y="389" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="425" y="380" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="475" y="389" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="518" y="380" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="568" y="389" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="611" y="380" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="661" y="389" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="704" y="380" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="754" y="389" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="797" y="380" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="847" y="389" width="10" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="864" y="389" width="32" height="30" rx="3" fill="#b05ccc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="880" y="380" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">D</text>
+  <rect x="903" y="389" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="917" y="380" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="938" y="389" width="12" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="957" y="389" width="124" height="30" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1019" y="380" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">C</text>
+  <path d="M1092 418C1103 390 1119 390 1130 418" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M1092 390C1103 418 1119 418 1130 390" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
   </g>
-  <rect x="1087.0" y="625.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
-  <rect x="1121.0" y="625.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
-  <rect x="1087.0" y="681.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
-  <rect x="1121.0" y="681.0" width="32" height="46" rx="7" fill="#ffffff" stroke="#111111" stroke-width="2"/>
-  <path d="M1103 582V622M1137 582V622" stroke="#111111" stroke-width="2"/>
+  <g data-build="2" data-desc="One V is picked and joined to that DJ, the DNA between it again deleted. What is left carries exactly one V, one D and one J." data-note="That VDJ combination specifies a specific antibody sequence that will be expressed by the B cell, and different B cells will produce different VDJ combinations." data-unbuild="3">
+  <text x="860" y="120" text-anchor="middle" font-size="24" font-weight="700" fill="#004373">V&ndash;DJ joining</text>
+  <path d="M340 214C351 186 367 186 378 214" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M340 186C351 214 367 214 378 186" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <rect x="382" y="185" width="86" height="30" rx="3" fill="#e8e8e8" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="425" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#767676" opacity="0.4">V</text>
+  <rect x="475" y="185" width="86" height="30" rx="3" fill="#e8e8e8" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="518" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#767676" opacity="0.4">V</text>
+  <rect x="568" y="185" width="86" height="30" rx="3" fill="#e8e8e8" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="611" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#767676" opacity="0.4">V</text>
+  <rect x="661" y="185" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="704" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="754" y="185" width="86" height="30" rx="3" fill="#e8e8e8" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="797" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#767676" opacity="0.4">V</text>
+  <rect x="847" y="185" width="10" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="864" y="185" width="32" height="30" rx="3" fill="#b05ccc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="880" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">D</text>
+  <rect x="903" y="185" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="917" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="938" y="185" width="12" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="957" y="185" width="124" height="30" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1019" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">C</text>
+  <path d="M1092 214C1103 186 1119 186 1130 214" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M1092 186C1103 214 1119 214 1130 186" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M860 238V322" stroke="#004373" stroke-width="7"/>
+  <path d="M849 320L860 334L871 320Z" fill="#004373"/>
+  <text x="882" y="293" text-anchor="start" font-size="21" font-weight="700" fill="#004373">the DNA between is deleted</text>
+  <path d="M340 418C351 390 367 390 378 418" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M340 390C351 418 367 418 378 390" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <rect x="382" y="389" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="425" y="380" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="475" y="389" width="32" height="30" rx="3" fill="#b05ccc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="491" y="380" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">D</text>
+  <rect x="514" y="389" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="528" y="380" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="549" y="389" width="12" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="568" y="389" width="124" height="30" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="630" y="380" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">C</text>
+  <path d="M703 418C714 390 730 390 741 418" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M703 390C714 418 730 418 741 390" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <text x="860" y="478" text-anchor="middle" font-size="22" font-weight="400" fill="#767676">rearranged DNA &mdash; one V, one D, one J, for the life of this cell</text>
+  </g>
+  <g data-build="3" data-desc="The rearranged locus is transcribed. The primary transcript still carries the intron before C; splicing removes it from the transcript alone, and the genome is untouched." data-unbuild="4">
+  <text x="860" y="108" text-anchor="middle" font-size="24" font-weight="700" fill="#004373">transcription, then splicing</text>
+  <path d="M340 186C351 158 367 158 378 186" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M340 158C351 186 367 186 378 158" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <rect x="382" y="157" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="425" y="148" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="475" y="157" width="32" height="30" rx="3" fill="#b05ccc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="491" y="148" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">D</text>
+  <rect x="514" y="157" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="528" y="148" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="549" y="157" width="12" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="568" y="157" width="124" height="30" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="630" y="148" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">C</text>
+  <path d="M703 186C714 158 730 158 741 186" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M703 158C714 186 730 186 741 158" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M860 206V286" stroke="#004373" stroke-width="7"/>
+  <path d="M849 284L860 298L871 284Z" fill="#004373"/>
+  <text x="882" y="259" text-anchor="start" font-size="21" font-weight="700" fill="#004373">transcription</text>
+  <path d="M376 337C358 343 347 325 340 337" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M376 363C358 357 347 375 340 363" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <rect x="382" y="335" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="425" y="326" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="475" y="335" width="32" height="30" rx="3" fill="#b05ccc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="491" y="326" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">D</text>
+  <rect x="514" y="335" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="528" y="326" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="549" y="335" width="118" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="674" y="335" width="124" height="30" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="736" y="326" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">C</text>
+  <path d="M845 337C827 343 816 325 809 337" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M845 363C827 357 816 375 809 363" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <text x="860" y="400" text-anchor="middle" font-size="20" font-weight="400" fill="#767676">the primary transcript still carries the intron</text>
+  <path d="M860 428V508" stroke="#004373" stroke-width="7"/>
+  <path d="M849 506L860 520L871 506Z" fill="#004373"/>
+  <text x="882" y="481" text-anchor="start" font-size="21" font-weight="700" fill="#004373">splicing</text>
+  <path d="M376 559C358 565 347 547 340 559" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M376 585C358 579 347 597 340 585" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <rect x="382" y="557" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="425" y="548" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="475" y="557" width="32" height="30" rx="3" fill="#b05ccc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="491" y="548" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">D</text>
+  <rect x="514" y="557" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="528" y="548" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="549" y="557" width="124" height="30" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="611" y="548" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">C</text>
+  <path d="M720 559C702 565 691 547 684 559" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M720 585C702 579 691 597 684 585" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <text x="860" y="626" text-anchor="middle" font-size="20" font-weight="400" fill="#767676">nothing is lost from the genome &mdash; only from this transcript</text>
+  </g>
+  <g data-build="4" data-desc="Translation gives the heavy chain: V, D and J make the part that binds antigen, and two of them take their place in the antibody." data-unbuild="5">
+  <text x="860" y="140" text-anchor="middle" font-size="24" font-weight="700" fill="#004373">translation</text>
+  <path d="M376 207C358 213 347 195 340 207" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M376 233C358 227 347 245 340 233" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <rect x="382" y="205" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="425" y="196" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="475" y="205" width="32" height="30" rx="3" fill="#b05ccc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="491" y="196" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">D</text>
+  <rect x="514" y="205" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="528" y="196" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="549" y="205" width="124" height="30" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="611" y="196" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">C</text>
+  <path d="M720 207C702 213 691 195 684 207" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M720 233C702 227 691 245 684 233" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M700 262V340" stroke="#004373" stroke-width="7"/>
+  <path d="M689 338L700 352L711 338Z" fill="#004373"/>
+  <rect x="452" y="392" width="160" height="44" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="532" y="426" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">V</text>
+  <rect x="617" y="392" width="62" height="44" rx="3" fill="#b05ccc" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="648" y="426" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">D</text>
+  <rect x="684" y="392" width="58" height="44" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="713" y="426" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">J</text>
+  <rect x="747" y="392" width="180" height="44" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="837" y="426" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">C</text>
+  <text x="690" y="484" text-anchor="middle" font-size="21" font-weight="400" fill="#767676">heavy chain &mdash; V, D and J make the part that binds antigen</text>
+  <g transform="rotate(-40 1150 470)">
+  <rect x="1111.0" y="379.0" width="38" height="54" rx="8" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <rect x="1151.0" y="379.0" width="38" height="54" rx="8" fill="#e07a30" stroke="#111111" stroke-width="2"/>
+  <rect x="1111.0" y="315.0" width="38" height="54" rx="8" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <rect x="1151.0" y="315.0" width="38" height="54" rx="8" fill="#2fb8b0" stroke="#111111" stroke-width="2"/>
+  </g>
+  <g transform="rotate(40 1150 470)">
+  <rect x="1151.0" y="379.0" width="38" height="54" rx="8" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <rect x="1111.0" y="379.0" width="38" height="54" rx="8" fill="#e07a30" stroke="#111111" stroke-width="2"/>
+  <rect x="1151.0" y="315.0" width="38" height="54" rx="8" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <rect x="1111.0" y="315.0" width="38" height="54" rx="8" fill="#2fb8b0" stroke="#111111" stroke-width="2"/>
+  </g>
+  <rect x="1111.0" y="479.0" width="38" height="54" rx="8" fill="#e07a30" stroke="#111111" stroke-width="2"/>
+  <rect x="1151.0" y="479.0" width="38" height="54" rx="8" fill="#e07a30" stroke="#111111" stroke-width="2"/>
+  <rect x="1111.0" y="543.0" width="38" height="54" rx="8" fill="#e07a30" stroke="#111111" stroke-width="2"/>
+  <rect x="1151.0" y="543.0" width="38" height="54" rx="8" fill="#e07a30" stroke="#111111" stroke-width="2"/>
+  <path d="M1130 448V508M1170 448V508" stroke="#111111" stroke-width="2"/>
+  <text x="1150" y="638" text-anchor="middle" font-size="20" font-weight="400" fill="#767676">the heavy chain, twice over</text>
+  </g>
+  <g data-build="5" data-desc="The light chain locus, for comparison: many V and many J but no D segments at all, joining one of each." data-note="In this figure, we are showing the maturation of a light chain gene, which is similar to the heavy chain but lacks D segments.">
+  <text x="860" y="130" text-anchor="middle" font-size="24" font-weight="700" fill="#004373">the light chain, for comparison</text>
+  <path d="M340 230C351 202 367 202 378 230" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M340 202C351 230 367 230 378 202" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <rect x="382" y="201" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="425" y="192" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="475" y="201" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="518" y="192" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="568" y="201" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="611" y="192" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="661" y="201" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="704" y="192" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="754" y="201" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="797" y="192" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="847" y="201" width="10" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="864" y="201" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="878" y="192" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="899" y="201" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="913" y="192" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="934" y="201" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="948" y="192" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="969" y="201" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="983" y="192" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="1004" y="201" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1018" y="192" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="1039" y="201" width="12" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="1058" y="201" width="124" height="30" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="1120" y="192" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">C</text>
+  <path d="M1193 230C1204 202 1220 202 1231 230" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M1193 202C1204 230 1220 230 1231 202" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <text x="860" y="288" text-anchor="middle" font-size="24" font-weight="700" fill="#b05ccc">no D segments at all</text>
+  <path d="M860 320V402" stroke="#004373" stroke-width="7"/>
+  <path d="M849 400L860 414L871 400Z" fill="#004373"/>
+  <path d="M340 496C351 468 367 468 378 496" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M340 468C351 496 367 496 378 468" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <rect x="382" y="467" width="86" height="30" rx="3" fill="#2fb8b0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="425" y="458" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">V</text>
+  <rect x="475" y="467" width="28" height="30" rx="3" fill="#4a7fd0" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="489" y="458" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">J</text>
+  <rect x="510" y="467" width="12" height="30" rx="3" fill="#dcdcdc" stroke="#9a9a9a" stroke-width="1"/>
+  <rect x="529" y="467" width="124" height="30" rx="3" fill="#e07a30" stroke="#9a9a9a" stroke-width="1"/>
+  <text x="591" y="458" text-anchor="middle" font-size="21" font-weight="700" fill="#111111">C</text>
+  <path d="M664 496C675 468 691 468 702 496" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <path d="M664 468C675 496 691 496 702 468" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
+  <text x="860" y="560" text-anchor="middle" font-size="22" font-weight="400" fill="#767676">one V and one J, and otherwise the same story</text>
+  </g>
   </svg>
-  <template class="notes">So, the question is what is happening within the mouse?  In each mouse cell, there are gene clusters that encode the components for constructing heavy and light chains.  The heavy chain genes are split into V, J, D, and C coding sequences.  There are multiple Variable, Diversity, and Joining segments (VDJ), and a single constant domain. These VDJ regions encode the CDR loops of the antibody. As a B cell matures, it randomly selects one combination of V, D, and J by recombination of its genome.  That VDJ combination specifies a specific antibody sequence that will be expressed by the B cell, and different B cells will produce different VDJ combinations. In this figure, we are showing the maturation of a light chain gene, which is similar to the heavy chain but lacks D segments.</template>
-  <template class="desc">A light chain gene maturing: from germline DNA carrying many V segments and many J segments, through recombination to a single V&ndash;J join, to the transcript, the spliced mRNA and finally the light chain itself in the assembled antibody.</template>
+  
+  
+  <template class="notes">So, the question is what is happening within the mouse?  In each mouse cell, there are gene clusters that encode the components for constructing heavy and light chains.  The heavy chain genes are split into V, J, D, and C coding sequences.  There are multiple Variable, Diversity, and Joining segments (VDJ), and a single constant domain. These VDJ regions encode the CDR loops of the antibody.</template>
+  <template class="desc">The germline heavy chain locus: many V segments, many D segments, many J segments, and one C.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 17 -->
@@ -378,7 +552,7 @@ The CDR loops, in orange, are the primary source of variability from one antibod
 <article class="slide">
   <h1>Affinity Maturation</h1>
   <h2>The process by which B-cells produce antibody genes with increased affinity for antigen</h2>
-  <svg class="vh" viewBox="0 0 1400 600" role="img" aria-label="A V-heavy domain laid out from residue 1 to 100, with three hypervariable regions HV1, HV2 and HV3 picked out along it. Below the ruler, the T15 germline sequence, then five IgM clones which are solid bars &mdash; identical to the germline &mdash; and then five IgG clones drawn as open bars carrying scattered substitutions. Two arrows point up at the substitutions, and they fall inside HV1 and HV2.">
+  <svg class="vh" viewBox="0 0 1400 700" role="img" aria-label="A V-heavy domain laid out from residue 1 to 100, with three hypervariable regions HV1, HV2 and HV3 picked out along it. Below the ruler, the T15 germline sequence, then five IgM clones which are solid bars &mdash; identical to the germline &mdash; and then five IgG clones drawn as open bars carrying scattered substitutions. Two arrows point up at the substitutions, and they fall inside HV1 and HV2.">
   <text x="170" y="64" text-anchor="middle" font-size="38" font-weight="700" fill="#111111">V<tspan font-size="0.62em" dy="7">H</tspan></text>
   <text x="900" y="54" text-anchor="middle" font-size="27" font-weight="700" fill="#004373">Hypervariable region (HV)</text>
   <rect x="330" y="76" width="1020" height="36" fill="#e9e9e9" stroke="#9a9a9a" stroke-width="1.4"/>
@@ -535,9 +709,15 @@ The CDR loops, in orange, are the primary source of variability from one antibod
   <rect x="1057.0" y="498" width="9" height="21" fill="#2f6fb5"/>
   <path d="M630.1 578V550L620.1 550L639.1 528L658.1 550L648.1 550V578Z" fill="#ffffff" stroke="#004373" stroke-width="2.6"/>
   <path d="M877.4 578V550L867.4 550L886.4 528L905.4 550L895.4 550V578Z" fill="#ffffff" stroke="#004373" stroke-width="2.6"/>
+  <text x="156" y="294" text-anchor="middle" font-size="16" font-weight="400" fill="#767676">before maturation</text>
+  <text x="156" y="458" text-anchor="middle" font-size="16" font-weight="400" fill="#767676">after class switching</text>
+  <text x="763" y="612" text-anchor="middle" font-size="21" font-weight="400" fill="#004373">the substitutions cluster in the hypervariable loops</text>
+  <text x="330" y="652" text-anchor="start" font-size="20" font-weight="400" fill="#767676">Ten hybridoma clones from mice immunized with phosphorylcholine, the antigen on the surface of <tspan font-style="italic">Streptococcus pneumoniae</tspan>.</text>
+  <text x="330" y="678" text-anchor="start" font-size="20" font-weight="400" fill="#767676">T15 is the unmutated germline V<tspan font-size="0.62em" dy="5">H</tspan><tspan dy="-5"> that dominates the first response; each tick is one amino acid substitution away from it.</tspan></text>
   </svg>
+  <p class="src">Gearhart et al. Nature. 1981;291:29-34. PMID: 7231520</p>
   <template class="notes">If a B-cell becomes activated by binding to an antigen, it will begin the process of affinity maturation.  In this diagram, we show the VH domain.  VH is the region of the Fab fragment on the heavy chain that contains the CDR loops  --  it combined with the VL domain are the two balls of protein that directly bind the antigen.  Thus, this diagram speaks only of one such domain.  The VDJ recombination results in regions of the protein called the hypervariable loops, which is the same as the CDR loops.  During affinity maturation, mutations are focused on the hypervariable regions to further improve the avidity and specificity of the antibody.</template>
-  <template class="desc">One V-heavy domain, residue 1 to 100, with its three hypervariable regions marked. Beneath, clone sequences compared against the germline: the IgM clones barely differ from it, while the IgG clones carry substitutions, and those substitutions fall inside the hypervariable regions.</template>
+  <template class="desc">One V-heavy domain, residue 1 to 100, with its three hypervariable regions marked. Beneath it, ten hybridoma clones raised in mice against phosphorylcholine, each compared against T15 &mdash; the unmutated germline sequence that dominates the first response. The five IgM clones, taken before maturation, are identical to it. The five IgG clones, taken after class switching, each carry a few amino acid substitutions, and the arrows mark where those substitutions fall: inside the hypervariable loops.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 19 -->
