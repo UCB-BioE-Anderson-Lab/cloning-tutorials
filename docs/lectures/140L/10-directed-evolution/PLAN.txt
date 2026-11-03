@@ -382,9 +382,54 @@ and a non-greedy <p:grpSp>...</p:grpSp> closes on the first INNER tag and
 swallows the rest of the shape tree with it — the first attempt did
 exactly that and silently dropped shapes from both states.
 
+SPELLING AND GRAMMAR: note-corrections.txt
+-------------------------------------------
+The conversion rule allows the notes to be corrected for spelling and
+grammar and nothing else.  Doing that silently would break the verbatim
+check, and switching the check off to allow it is how a guarantee rots.
+
+So every correction is a line in note-corrections.txt, and verify_notes.py
+applies that list to the PPTX side before comparing.  The check still
+proves nothing BUT these corrections diverged, and adding a line is a
+deliberate act that shows in the diff.  Run it WITHOUT the flag and 11
+slides fail, which is the proof the list is doing real work:
+
+  python3 ../../tools/verify_notes.py <raw> --keep-urls \
+      --corrections note-corrections.txt *.html
+
+Seventeen note corrections, 3 Nov 2026: mutaons, sustrate, frgments,
+spectrume, mutatgenesis, contining, chromagenic, "need to the enzyme",
+", t is structurally", "such an improvement", "do some more reliably",
+"each member of library", "Find such big jumps", "forms hypothesis",
+"the focus ... are", "B cells make", and "by error-prone, shuffling".
+Four more in the visible slide text, which the verifier does not cover:
+mutagensesis, "a 300 aa proteins", "located chromosome 22", DNaseI.
+
+WHAT IS CITED, AND WHAT IS NOT
+-------------------------------
+Cited on the slide: sources 25-27 (Nat Biotechnol 1996), 32-33 (Nature
+1994 and PNAS 1994), 34-35 (Nat Biotechnol 2007), 18 (Gearhart, Nature
+1981), 28 (PDB 1QE3 and Spiller, PNAS 1999;96:12305-10), and the added
+protein-models slide (Science 2025).  Source 14 names its structures by
+PDB ID, which is its own citation.
+
+STILL UNCITED, and JCA's to settle:
+
+  17  "65 V x 27 D x 6 J = 10530".  No source given, and published counts
+      differ by what they count: IMGT lists 27 IGHD and 6 functional IGHJ,
+      which match, but gives roughly 38-46 FUNCTIONAL IGHV against the 65
+      here.  65 is plausible as a total-or-ORF count.  Worth pinning to
+      whichever source he took it from, because students will look it up.
+  29  the 90% / 9% / 1% split.  The slide already says "very approximate",
+      but a number that round invites "says who?".
+  13  the antibody anatomy figure, borrowed, uncredited.
+  15  the mouse-to-hybridoma figure, borrowed, uncredited.
+  21, 22  the sequence-space landscape photograph, borrowed, uncredited.
+
 CHECKING THE NOTES
 ------------------
-  python3 ../../tools/verify_notes.py <unpacked-pptx> --keep-urls *.html
+  python3 ../../tools/verify_notes.py <unpacked-pptx> --keep-urls \
+      --corrections note-corrections.txt *.html
 
 --keep-urls matters here.  The In vitro deck moved its image credits out
 of the notes and onto the slides, so a bare leading URL there is a credit

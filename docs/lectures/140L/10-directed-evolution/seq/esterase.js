@@ -10,7 +10,8 @@
  * makes you take on trust.
  *
  * So the coordinates are the real ones.  esterase-data.js is generated
- * from PDB 1QE3 (p-nitrobenzyl esterase, Spiller et al. 1999), which is
+ * from PDB 1QE3 (Spiller, Gershenson, Arnold & Stevens, PNAS 1999;96:
+ * 12305-10, PMID 10535917), which is
  * the structure the source figure was made from: every one of the eleven
  * residue numbers the slide labels matches 1QE3's wild-type identity,
  * the labels being the MUTANT identity (V60 at ILE60, G94 at SER94, and

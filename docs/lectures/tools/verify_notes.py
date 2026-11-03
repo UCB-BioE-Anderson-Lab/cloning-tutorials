@@ -84,6 +84,27 @@ def report(label, want, got):
 args = sys.argv[2:]
 KEEP_URLS = "--keep-urls" in args
 args = [a for a in args if a != "--keep-urls"]
+
+# A deck may correct spelling and grammar in the speaker notes -- and only
+# that.  The corrections are listed in a file, applied to the PPTX side here,
+# so the comparison still proves nothing ELSE diverged.  Without this the
+# choice is a deck full of the source's typos or a check that has been
+# switched off, and the second one rots quietly.
+CORRECTIONS = []
+if "--corrections" in args:
+    i = args.index("--corrections")
+    for line in open(args[i + 1], encoding="utf-8"):
+        line = line.rstrip("\n")
+        if not line.strip() or line.lstrip().startswith("#") or "|" not in line:
+            continue
+        a, b = line.split("|", 1)
+        CORRECTIONS.append((a, b))
+    del args[i:i + 2]
+
+def correct(t):
+    for a, b in CORRECTIONS:
+        t = t.replace(a, b)
+    return t
 bad = 0
 if args and args[0] == "--seq":
     js = open(args[1], encoding="utf-8").read()
@@ -97,7 +118,7 @@ if args and args[0] == "--seq":
                   re.finditer(r'\n    note:"((?:[^"\\]|\\.)*)"', js[i:j])]
         pieces = [p.replace('\\"', '"').replace("\\\\", "\\") for p in pieces]
         bad += report(f"{name} (source {n}, {len(pieces)} pieces)",
-                      norm(strip_credit(srcnote(n))), norm(" ".join(pieces)))
+                      norm(correct(strip_credit(srcnote(n)))), norm(" ".join(pieces)))
     sys.exit(1 if bad else 0)
 
 for f in args:
@@ -121,5 +142,5 @@ for f in args:
             continue
         tpl = re.search(r'<template class="notes">([\s\S]*?)</template>', body)
         pieces = [tpl.group(1) if tpl else ""] + re.findall(r'data-note="([^"]*)"', body)
-        bad += report(f"source {n}", norm(strip_credit(srcnote(n))), norm(" ".join(pieces)))
+        bad += report(f"source {n}", norm(correct(strip_credit(srcnote(n)))), norm(" ".join(pieces)))
 sys.exit(1 if bad else 0)
