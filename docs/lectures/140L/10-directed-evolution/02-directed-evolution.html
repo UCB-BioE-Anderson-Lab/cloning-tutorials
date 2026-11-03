@@ -27,7 +27,12 @@
    the borrowed scan is white line art that needed a grey panel, and it
    arrived whole. */
 .slide svg.prosar{flex:1 1 auto;min-height:0;width:100%;height:100%}
-/* source 28: the structure with its key beside it */
+/* source 28: the structure, drawn from PDB 1QE3 and turning, by
+   seq/esterase.js.  The source slide is a photographic render on a
+   near-black ground and the slide's argument is a spatial one, so a
+   still of one viewpoint made you take it on trust. */
+.slide svg.prot{flex:1 1 auto;min-height:0;width:100%;height:100%}
+/* source 28, as it was: the structure with its key beside it */
 .slide .keyed{flex:1 1 auto;min-height:0;display:grid;
   grid-template-columns:1fr 280px;grid-template-rows:minmax(0,1fr);
   gap:36px;align-items:center}
@@ -509,20 +514,24 @@
 </article>
 
 <!-- ---------------------------------------------------------------- 28 -->
-<article class="slide">
+<article class="slide" data-seq="esterase">
   <h1 class="ex">Example:<span><i>p</i>-Nitrobenzyl Esterase Evolution</span></h1>
-  <div class="keyed">
-    <figure>
-      <img src="img/28-structure.png" alt="The esterase drawn as a green ribbon. A cluster of white spheres sits in the middle, filling the active site. Scattered around the outside, mostly well away from that cluster, are side chains picked out in yellow and labelled V60, G94, S96, M144, V343, S334, V334 and V358; two more in cyan, R322 and F370; and the catalytic residues in red near the substrate.">
-    </figure>
-    <ul>
-      <li class="sub">Substrate</li>
-      <li class="neu">Neutral</li>
-      <li class="imp">Improved</li>
-    </ul>
-  </div>
-  <template class="notes">They then look at the crystal structure of the protein to determine where these mutations lie.  The big white blob in the middle of this protein is the substrate.  The mutations identified in their screens are in yellow.  Note that the mutations are quite far from the active site, and this is frequently the case.  When screening for properties such as relaxation in substrate specificity, or improvements to folding, expression, thermal, or chemical stability, the mutations with increased fitness rarely are the ones that directly contact the substrate. Additionally, any mechanistic explanation of why these mutations improve chemical stability would require detailed energetic calculations about the structure.  As of 2014, the computational tools still cannot reliably predict the sorts of mutations that come out of directed evolution studies, and rarely do the mutations make any intuitive sense.</template>
-  <template class="desc">Where the winning mutations actually sit. The substrate is the white cluster at the centre of the structure; the improved positions are the yellow side chains, and nearly all of them are out on the surface, far from the substrate they are supposed to be acting on.</template>
+  <svg class="prot" viewBox="0 0 1400 660" role="img" aria-label="The esterase from its crystal structure, drawn as a backbone trace that turns slowly: helices heavy, strands medium, loops fine. A cluster of white spheres marks the cavity beside the catalytic serine where substrate has to bind, with the catalytic triad in red beside it. The substitution sites appear as spheres &mdash; seven in yellow for the ones the screens called improved, two in blue for neutral &mdash; and nearly all of them sit out on the surface, well away from the cavity. A line is then drawn from each improved site to the substrate carrying its measured distance: six of the seven are more than 10 angstroms from the catalytic serine and the median is 17.4, where the catalytic histidine is 2.8.">
+    <circle cx="1012" cy="199" r="10" fill="#ffffff" stroke="#111111" stroke-width="1.6"/>
+    <text x="1038" y="206" text-anchor="start" font-size="24" font-weight="400" fill="#111111">Substrate</text>
+    <circle cx="1012" cy="245" r="10" fill="#004373" stroke="#ffffff" stroke-width="1.4"/>
+    <text x="1038" y="252" text-anchor="start" font-size="24" font-weight="700" fill="#004373">Neutral</text>
+    <circle cx="1012" cy="291" r="10" fill="#a99011" stroke="#ffffff" stroke-width="1.4"/>
+    <text x="1038" y="298" text-anchor="start" font-size="24" font-weight="700" fill="#a99011">Improved</text>
+    <path d="M1004 348H1370" stroke="#e2e2e2" stroke-width="1.4"/>
+    <text x="1004" y="392" text-anchor="start" font-size="21" font-weight="400" fill="#767676">Distance to the catalytic serine</text>
+    <text x="1004" y="436" text-anchor="start" font-size="30" font-weight="700" fill="#a99011">median 17.4 &#8491;</text>
+    <text x="1004" y="474" text-anchor="start" font-size="21" font-weight="400" fill="#767676">six of seven beyond 10 &#8491;</text>
+    <path d="M1004 506H1370" stroke="#e2e2e2" stroke-width="1.4"/>
+    <text x="1004" y="548" text-anchor="start" font-size="21" font-weight="400" fill="#767676">for scale, the catalytic</text>
+    <text x="1004" y="574" text-anchor="start" font-size="21" font-weight="400" fill="#767676">histidine is 2.8 &#8491; away</text>
+    <text x="1004" y="626" text-anchor="start" font-size="19" font-weight="400" fill="#767676">PDB 1QE3</text>
+  </svg>
 </article>
 
 <!-- ---------------------------------------------------------------- 29 -->
@@ -545,6 +554,8 @@
 </article>
 
 <script src="../../deck.js" defer></script>
+<script src="seq/esterase-data.js" defer></script>
+<script src="seq/esterase.js" defer></script>
 <script src="lecture.js" defer></script>
 </body>
 </html>

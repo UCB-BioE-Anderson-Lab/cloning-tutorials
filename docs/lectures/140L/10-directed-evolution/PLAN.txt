@@ -92,6 +92,41 @@ is his call, not an editorial decision made while converting:
                                  leaves c(M358V) = 0.7 on its own -- a
                                  clone that was never built.  Its last
                                  sentence rides that click.
+  28  the esterase structure    -> redrawn from the REAL COORDINATES and
+                                 set turning.  JCA, 3 Nov 2026: "it is so
+                                 dark it is hard to see what's going on,
+                                 and we aren't taking full advantage of
+                                 our tech."  seq/esterase.js draws PDB
+                                 1QE3 as a smoothed backbone trace, built
+                                 over four beats, spinning about the
+                                 vertical.  tools/pdb_esterase.py builds
+                                 the data and REFUSES unless the residue
+                                 numbering still matches the slide's own
+                                 labels: those are the mutant identity on
+                                 wild-type numbering, so 60 must read ILE
+                                 for V60, 94 SER for G94, and so on.  All
+                                 eleven matched, which is what licensed
+                                 using that structure at all.
+
+                                 The distances are measured, not claimed.
+                                 Minimum heavy-atom distance from each
+                                 improved site to the catalytic Ser189 OG:
+                                 median 17.4 A, six of seven beyond 10 A.
+                                 His399 of the triad is 2.8 A, which is
+                                 the scale bar that makes 17 A mean
+                                 something.
+
+                                 The white blob is the one thing NOT taken
+                                 from the file.  1QE3 is apo -- a sulfate
+                                 21 A from the active site and nothing
+                                 else -- so it is the buried cavity beside
+                                 the nucleophile, which is the space a
+                                 substrate has to occupy.  Finding it
+                                 needs clearance AND burial: clearance
+                                 alone finds bulk solvent just outside the
+                                 surface, and the first pass did exactly
+                                 that, leaving the blob stuck to the
+                                 outside of the fold like a balloon.
   16  the VDJ maturation figure -> redrawn.  White line art on the grey
                                  master, and in COLOUR, so unlike source
                                  34 it could not simply be inverted.
@@ -159,6 +194,14 @@ So section 03 now runs 33, NEW, 34, 35, NEW, 36.  Both are marked
   converges on hundreds rather than thousands, the model on top need no
   longer be a sum, and mutations can be ranked before anything is built.
   EVOLVEpro (Science 2025;387:eadr6006) is named as the one system.
+
+WHERE THE SPEAKER NOTES LIVE NOW
+---------------------------------
+Source 28 is the deck's only data-seq slide, so its notes live in
+seq/esterase.js rather than in the HTML, and the plain verifier says so
+rather than checking them.  Check that one with
+
+  python3 ../../tools/verify_notes.py <raw> --seq seq/esterase.js S28=28
 
 THE ONE THING THAT IS NOT VERBATIM
 -----------------------------------
