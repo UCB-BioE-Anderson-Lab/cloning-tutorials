@@ -273,15 +273,33 @@ keeps the crossed pair; RNA now gets one strand.
 The lesson for any figure in this deck: a size or a count chosen to make a
 label fit is a claim about the biology, and students read it as one.
 
-THE BUG THAT HID THE DESCRIPTIONS
-----------------------------------
-deck.js takes a step's note and desc from `querySelector('[data-build=N]')`
--- the FIRST element with that number in document order.  The phase rail's
-highlight rects were emitted before the content groups and carry build
-numbers of their own, so for beats 3 and 4 the rail rect won and those
-beats showed the BASE slide's description instead of their own.  The rail
-rects now come last in the SVG.  If a slide ever has two elements sharing
-a build number, the one carrying the text has to be first.
+THE BUG THAT HID THE NOTES, AND THE SWEEP THAT FOUND THE REST
+--------------------------------------------------------------
+deck.js took a step's note and desc from `querySelector('[data-build=N]')`
+-- the FIRST element with that number in document order.  A build group is
+usually several elements (a figure group, a caption, a legend swatch) and
+the text can sit on any of them, so whenever a silent <g> happened to be
+written above the element carrying the note, that beat went silent.
+
+It now takes the first element that CARRIES text.  Fixed in deck.js, not
+per slide, so it cannot come back.  Three slides were losing notes this
+way and nobody had noticed: source 10, and both added slides in section 03.
+
+Found by sweeping every beat of every section for "slide has a note but
+this beat shows none" -- worth re-running after any build is added:
+
+  walk window.Deck 0..length, compare #pnote against template.notes
+
+The same sweep turned up two beats of source 24 and four of the VDJ slide
+with no narration at all, which is the thing JCA keeps catching.  Those now
+carry data-note-add.
+
+AND ONE SELF-INFLICTED WOUND.  Moving the rail rects with
+`s.replace('  </svg>', ... , 1)` hit the FIRST </svg> IN THE FILE, which is
+source 10's figure, not source 16's.  Three phase-rail rects sat inside the
+Diversity Generation drawing for two commits, giving that slide two phantom
+build groups.  When editing one slide's SVG in a multi-slide file, anchor
+the replace inside that slide's block.
 
 THE ONE THING THAT IS NOT VERBATIM
 -----------------------------------

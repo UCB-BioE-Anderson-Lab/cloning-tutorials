@@ -36,8 +36,8 @@
 "use strict";
 const INK = "#111111", COIL = "#c2c2c2", STRAND = "#9a9a9a", HELIX = "#7e7e7e";
 const AMBER = "#a99011", BLUE = "#004373", VERM = "#ba3a13", MUTED = "#767676";
-const CX = 470, CY = 332;
-const BOXW = 860, BOXH = 600;               /* the room the fold gets */
+const CX = 530, CY = 340;
+const BOXW = 1020, BOXH = 644;              /* the room the fold gets */
 const SPIN = 0.0032;                         /* radians per frame */
 const REST = 0.55;                           /* the still orientation */
 

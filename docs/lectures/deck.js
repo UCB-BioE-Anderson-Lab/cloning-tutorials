@@ -102,10 +102,17 @@ function buildSteps(){
 
     steps.push({ slide:slide, builds:0, note:note, desc:desc });
     groups.forEach(function(g){
-      const el = slide.querySelector('[data-build="' + g + '"]');
+      /* A build group is often several elements -- a figure group, a caption,
+         a legend swatch -- and the text may sit on any of them.  Take the
+         first that CARRIES text, not simply the first in document order:
+         that cost source 10 and two others their notes entirely, because a
+         silent <g> happened to be written above the element with the note. */
+      const els = Array.from(slide.querySelectorAll('[data-build="' + g + '"]'));
+      const nEl = els.find(e => e.hasAttribute("data-note") || e.hasAttribute("data-note-add"));
+      const dEl = els.find(e => e.hasAttribute("data-desc"));
       steps.push({ slide:slide, builds:g,
-                   note: noteOf(el),
-                   desc: el && el.hasAttribute("data-desc") ? el.getAttribute("data-desc") : desc });
+                   note: noteOf(nEl),
+                   desc: dEl ? dEl.getAttribute("data-desc") : desc });
     });
   });
   built = true;
