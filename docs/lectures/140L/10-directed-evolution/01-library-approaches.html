@@ -48,6 +48,11 @@
 .slide .vdj{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
   justify-content:center}
 .slide .vdj p{font-size:27px;margin:0 0 10px}
+/* the chromosome numbers on this slide are HUMAN (mouse would be 12, 6
+   and 16) and so are the IMGT gene counts, while the note is framed on
+   the mouse.  Say which, so the slide does not have to be narrated to
+   be unambiguous. */
+.slide .vdj p.sp{font-size:21px;font-weight:700;color:var(--blue);margin:0 0 8px}
 .slide .vdj .blk{margin:26px 0 0}
 .slide .vdj h2{font-size:30px;color:var(--blue);margin:0 0 10px}
 .slide .vdj ul{margin:0 0 10px;padding-left:1.1em}
@@ -190,16 +195,12 @@
   <rect x="274.0" y="193.0" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(284 277.9 200.0)"/><rect x="260.3" y="189.6" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(284 264.2 196.6)"/><rect x="286.9" y="183.5" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(364 290.8 190.6)"/><rect x="287.9" y="169.5" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(364 291.8 176.6)"/><rect x="293.4" y="206.1" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(504 297.3 213.1)"/><rect x="301.7" y="217.4" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(504 305.6 224.5)"/>
   <rect x="205.3" y="183.5" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(356 209.2 190.6)"/><rect x="204.3" y="169.5" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(356 208.2 176.6)"/><rect x="218.2" y="193.0" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(436 222.1 200.0)"/><rect x="231.9" y="189.6" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(436 235.8 196.6)"/><rect x="198.8" y="206.1" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(576 202.7 213.1)"/><rect x="190.5" y="217.4" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(576 194.4 224.5)"/>
   <rect x="193.0" y="115.3" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(428 196.9 122.3)"/><rect x="206.0" y="110.0" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(428 209.9 117.1)"/><rect x="188.0" y="130.6" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(508 191.9 137.6)"/><rect x="195.5" y="142.5" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(508 199.4 149.5)"/><rect x="169.6" y="116.1" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(648 173.5 123.1)"/><rect x="156.2" y="111.8" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(648 160.1 118.8)"/>
-  <circle cx="250" cy="148" r="20" fill="#ffffff" stroke="#111111" stroke-width="2"/>
-  <text x="250" y="155" text-anchor="middle" font-size="18" font-weight="700" fill="#767676">J</text>
   <text x="250" y="250" text-anchor="middle" font-size="21" font-weight="400" fill="#767676">10 Fab arms</text>
   <rect x="677.1" y="88.1" width="15.0" height="27.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(-40 684.6 101.6)"/><rect x="659.7" y="67.4" width="15.0" height="27.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(-40 667.2 80.9)"/><rect x="707.9" y="88.1" width="15.0" height="27.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(40 715.4 101.6)"/><rect x="725.3" y="67.4" width="15.0" height="27.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(40 732.8 80.9)"/><rect x="692.5" y="130.5" width="15.0" height="27.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(180 700.0 144.0)"/><rect x="692.5" y="157.5" width="15.0" height="27.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(180 700.0 171.0)"/>
   <text x="700" y="250" text-anchor="middle" font-size="21" font-weight="400" fill="#767676">2 Fab arms</text>
   <rect x="1044.7" y="98.7" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(-40 1049.7 107.7)"/><rect x="1033.1" y="85.0" width="10.0" height="18.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(-40 1038.1 94.0)"/><rect x="1065.3" y="98.7" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(40 1070.3 107.7)"/><rect x="1076.9" y="85.0" width="10.0" height="18.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(40 1081.9 94.0)"/><rect x="1055.0" y="127.0" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(180 1060.0 136.0)"/><rect x="1055.0" y="145.0" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(180 1060.0 154.0)"/>
   <rect x="1185.3" y="123.3" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(140 1190.3 132.3)"/><rect x="1196.9" y="137.0" width="10.0" height="18.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(140 1201.9 146.0)"/><rect x="1164.7" y="123.3" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(220 1169.7 132.3)"/><rect x="1153.1" y="137.0" width="10.0" height="18.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(220 1158.1 146.0)"/><rect x="1175.0" y="95.0" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(360 1180.0 104.0)"/><rect x="1175.0" y="77.0" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(360 1180.0 86.0)"/>
   <path d="M1092 120H1148" stroke="#111111" stroke-width="3"/>
-  <circle cx="1120" cy="120" r="15" fill="#ffffff" stroke="#111111" stroke-width="2"/>
-  <text x="1120" y="126" text-anchor="middle" font-size="16" font-weight="700" fill="#767676">J</text>
   <text x="1120" y="250" text-anchor="middle" font-size="21" font-weight="400" fill="#767676">4 Fab arms</text>
   <path d="M90 292H1310" stroke="#e2e2e2" stroke-width="1.6"/>
   <g transform="rotate(-38 491.49012533082384 554.5423595771429)"><rect x="471.5" y="526.5" width="40" height="56" rx="8" fill="#dfe4ea" stroke="#111111" stroke-width="2"/></g>
@@ -233,17 +234,19 @@
   <path d="M534 574V642M586 574V642" stroke="#111111" stroke-width="2"/>
   <path d="M534 604H586M534 620H586" stroke="#004373" stroke-width="3"/>
   <text x="634" y="616" text-anchor="start" font-size="19" font-weight="400" fill="#004373">hinge, with disulphides</text>
-  <text x="330" y="404" text-anchor="middle" font-size="24" font-weight="700" fill="#ba3a13">Fv</text>
-  <text x="330" y="432" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">the two V domains</text>
-  <path d="M384 414L572 540" stroke="#ba3a13" stroke-width="2" stroke-dasharray="6 5" fill="none"/>
-  <text x="236" y="566" text-anchor="middle" font-size="24" font-weight="700" fill="#2fb8b0">Fab</text>
-  <text x="236" y="594" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">one whole arm</text>
-  <path d="M300 578L560 600" stroke="#2fb8b0" stroke-width="2" stroke-dasharray="6 5" fill="none"/>
-  <text x="760" y="740" text-anchor="middle" font-size="24" font-weight="700" fill="#767676">Fc</text>
-  <text x="760" y="768" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">the stem</text>
-  <path d="M726 752L604 752" stroke="#767676" stroke-width="2" stroke-dasharray="6 5" fill="none"/>
+  <text x="728" y="508" text-anchor="start" font-size="24" font-weight="700" fill="#ba3a13">Fv</text>
+  <text x="728" y="534" text-anchor="start" font-size="18" font-weight="400" fill="#767676">the two V domains</text>
+  <text x="418" y="552" text-anchor="end" font-size="24" font-weight="700" fill="#2fb8b0">Fab</text>
+  <text x="418" y="578" text-anchor="end" font-size="18" font-weight="400" fill="#767676">one whole arm</text>
+  <text x="650" y="712" text-anchor="start" font-size="24" font-weight="700" fill="#767676">Fc</text>
+  <text x="650" y="738" text-anchor="start" font-size="18" font-weight="400" fill="#767676">the stem</text>
+  <g fill="none" stroke-width="2.6" stroke-linejoin="round">
+    <g transform="rotate(-38 560 600)"><path d="M508 570H498V404H508" stroke="#2fb8b0"/></g>
+    <g transform="rotate(38 560 600)"><path d="M608 472H618V404H608" stroke="#ba3a13"/></g>
+    <path d="M616 648H626V788H616" stroke="#767676"/>
+    <path d="M520 374L478 432M600 374L642 432" stroke="#ba3a13" stroke-width="2" stroke-dasharray="6 5"/>
+  </g>
   <text x="560" y="352" text-anchor="middle" font-size="20" font-weight="700" fill="#ba3a13">antigen binds here</text>
-  <path d="M560 366L596 520" stroke="#ba3a13" stroke-width="2" stroke-dasharray="6 5" fill="none"/>
   <rect x="1000" y="400" width="300" height="190" rx="8" fill="#f6f7f9"/>
   <rect x="1026" y="436" width="34" height="22" rx="5" fill="#ba3a13" stroke="#111111" stroke-width="2"/>
   <text x="1076" y="453" text-anchor="start" font-size="21" font-weight="400" fill="#111111">hypervariable (CDR)</text>
@@ -658,11 +661,12 @@ The CDR loops, in orange, are the primary source of variability from one antibod
 <article class="slide">
   <h1>VDJ Recombination</h1>
   <div class="vdj">
+    <p class="sp">In the human genome</p>
     <p>Heavy chain gene &ndash; located on chromosome 14</p>
     <p>Light chain kappa (&kappa;) gene &ndash; located on chromosome 2</p>
     <p>Light chain lambda (&lambda;) gene &ndash; located on chromosome 22</p>
     <div class="blk" data-build="1" data-note="During early B cell development in the bone marrow&mdash;before any infection&mdash;B cells undergo VDJ recombination. The heavy chain locus contains: 38 to 46 functional Variable (V) genes 23 Diversity (D) genes 6 Joining (J) genes">
-      <h2>Heavy Chain in Genome</h2>
+      <h2>Heavy Chain in the Human Genome</h2>
       <ul>
         <li>38&ndash;46 functional Variable (V) genes</li>
         <li>23 Diversity (D) genes</li>
@@ -679,7 +683,7 @@ The CDR loops, in orange, are the primary source of variability from one antibod
   </div>
   <p class="src">Gene counts: IMGT, human IGH locus (imgt.org)</p>
   <template class="notes">All cells in the mouse begin with identical heavy and light chain gene sequences. The heavy chain gene is located on chromosome 14, while the light chain genes&mdash;kappa (&kappa;) and lambda (&lambda;)&mdash;are found on chromosomes 2 and 22, respectively.</template>
-  <template class="desc">Where the antibody genes sit &mdash; heavy chain on chromosome 14, the two light chains on 2 and 22 &mdash; then the heavy chain locus counted out: 38&ndash;46 functional V, 23 D and 6 J genes, 5,244 to 6,348 combinations, and a light chain recombining the same way. What comes out is one IgM gene per B cell.</template>
+  <template class="desc">Where the antibody genes sit in the human genome &mdash; heavy chain on chromosome 14, the two light chains on 2 and 22 &mdash; then the heavy chain locus counted out: 38&ndash;46 functional V, 23 D and 6 J genes, 5,244 to 6,348 combinations, and a light chain recombining the same way. What comes out is one IgM gene per B cell.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 18 -->
@@ -900,106 +904,101 @@ The process of affinity maturation is analogous to directed evolution:  it invol
 <!-- ---------------------------------------------------------------- 21 -->
 <article class="slide">
   <h1>Combinatorial Libraries</h1>
-  <div class="land">
-    <img src="img/landscape.svg" alt="">
-    <svg viewBox="0 0 1180 560" role="img" aria-label="A contour map of sequence space: position is sequence, height is function. Three hills are named RFP, GFP and phoA. A green dot marks where the search starts, out on flat ground; then a rectangular grid of red dots is scattered across a region well away from it, falling across several unnamed hills.">
-      <g data-build="1" data-note="Perhaps some of these hills correspond to GFP, RFP, and alkaline phosphatase-encoding sequences. Most sequences in this space have no activity, but there are hills where sequences similar in sequence have similar functionality, with some a little better than the others.  In a combinatorial experiment,">
-      <text x="867" y="104" text-anchor="middle" font-size="27" font-weight="700" fill="#111111" paint-order="stroke" stroke="#ffffff" stroke-width="5">RFP</text>
-      <text x="714" y="157" text-anchor="middle" font-size="27" font-weight="700" fill="#111111" paint-order="stroke" stroke="#ffffff" stroke-width="5">GFP</text>
-      <text x="230" y="207" text-anchor="middle" font-size="27" font-weight="700" fill="#111111" paint-order="stroke" stroke="#ffffff" stroke-width="5">phoA</text>
-      </g>
-      <g data-build="2" data-note="we start with some region of sequence space">
-      <circle cx="1012" cy="318" r="11" fill="#1f8a3b" stroke="#ffffff" stroke-width="2"/>
-      <text x="1012" y="356" text-anchor="middle" font-size="21" font-weight="400" fill="#1f8a3b" paint-order="stroke" stroke="#ffffff" stroke-width="5">start here</text>
-      </g>
-      <g data-build="3" data-note="and produce a sparse matrix of constructs with the intent of finding another hill of activity.  In this case, the spread of variants hits 4 additional hills of activity, but they are different hills than where our search began." fill="#cc2222">
-      <circle cx="296" cy="274" r="5.4" fill="#cc2222"/>
-      <circle cx="333" cy="274" r="5.4" fill="#cc2222"/>
-      <circle cx="370" cy="274" r="5.4" fill="#cc2222"/>
-      <circle cx="407" cy="274" r="5.4" fill="#cc2222"/>
-      <circle cx="444" cy="274" r="5.4" fill="#cc2222"/>
-      <circle cx="481" cy="274" r="5.4" fill="#cc2222"/>
-      <circle cx="518" cy="274" r="5.4" fill="#cc2222"/>
-      <circle cx="555" cy="274" r="5.4" fill="#cc2222"/>
-      <circle cx="592" cy="274" r="5.4" fill="#cc2222"/>
-      <circle cx="629" cy="274" r="5.4" fill="#cc2222"/>
-      <circle cx="666" cy="274" r="5.4" fill="#cc2222"/>
-      <circle cx="703" cy="274" r="5.4" fill="#cc2222"/>
-      <circle cx="296" cy="307" r="5.4" fill="#cc2222"/>
-      <circle cx="333" cy="307" r="5.4" fill="#cc2222"/>
-      <circle cx="370" cy="307" r="5.4" fill="#cc2222"/>
-      <circle cx="407" cy="307" r="5.4" fill="#cc2222"/>
-      <circle cx="444" cy="307" r="5.4" fill="#cc2222"/>
-      <circle cx="481" cy="307" r="5.4" fill="#cc2222"/>
-      <circle cx="518" cy="307" r="5.4" fill="#cc2222"/>
-      <circle cx="555" cy="307" r="5.4" fill="#cc2222"/>
-      <circle cx="592" cy="307" r="5.4" fill="#cc2222"/>
-      <circle cx="629" cy="307" r="5.4" fill="#cc2222"/>
-      <circle cx="666" cy="307" r="5.4" fill="#cc2222"/>
-      <circle cx="703" cy="307" r="5.4" fill="#cc2222"/>
-      <circle cx="296" cy="340" r="5.4" fill="#cc2222"/>
-      <circle cx="333" cy="340" r="5.4" fill="#cc2222"/>
-      <circle cx="370" cy="340" r="5.4" fill="#cc2222"/>
-      <circle cx="407" cy="340" r="5.4" fill="#cc2222"/>
-      <circle cx="444" cy="340" r="5.4" fill="#cc2222"/>
-      <circle cx="481" cy="340" r="5.4" fill="#cc2222"/>
-      <circle cx="518" cy="340" r="5.4" fill="#cc2222"/>
-      <circle cx="555" cy="340" r="5.4" fill="#cc2222"/>
-      <circle cx="592" cy="340" r="5.4" fill="#cc2222"/>
-      <circle cx="629" cy="340" r="5.4" fill="#cc2222"/>
-      <circle cx="666" cy="340" r="5.4" fill="#cc2222"/>
-      <circle cx="703" cy="340" r="5.4" fill="#cc2222"/>
-      <circle cx="296" cy="373" r="5.4" fill="#cc2222"/>
-      <circle cx="333" cy="373" r="5.4" fill="#cc2222"/>
-      <circle cx="370" cy="373" r="5.4" fill="#cc2222"/>
-      <circle cx="407" cy="373" r="5.4" fill="#cc2222"/>
-      <circle cx="444" cy="373" r="5.4" fill="#cc2222"/>
-      <circle cx="481" cy="373" r="5.4" fill="#cc2222"/>
-      <circle cx="518" cy="373" r="5.4" fill="#cc2222"/>
-      <circle cx="555" cy="373" r="5.4" fill="#cc2222"/>
-      <circle cx="592" cy="373" r="5.4" fill="#cc2222"/>
-      <circle cx="629" cy="373" r="5.4" fill="#cc2222"/>
-      <circle cx="666" cy="373" r="5.4" fill="#cc2222"/>
-      <circle cx="703" cy="373" r="5.4" fill="#cc2222"/>
-      <circle cx="296" cy="406" r="5.4" fill="#cc2222"/>
-      <circle cx="333" cy="406" r="5.4" fill="#cc2222"/>
-      <circle cx="370" cy="406" r="5.4" fill="#cc2222"/>
-      <circle cx="407" cy="406" r="5.4" fill="#cc2222"/>
-      <circle cx="444" cy="406" r="5.4" fill="#cc2222"/>
-      <circle cx="481" cy="406" r="5.4" fill="#cc2222"/>
-      <circle cx="518" cy="406" r="5.4" fill="#cc2222"/>
-      <circle cx="555" cy="406" r="5.4" fill="#cc2222"/>
-      <circle cx="592" cy="406" r="5.4" fill="#cc2222"/>
-      <circle cx="629" cy="406" r="5.4" fill="#cc2222"/>
-      <circle cx="666" cy="406" r="5.4" fill="#cc2222"/>
-      <circle cx="703" cy="406" r="5.4" fill="#cc2222"/>
-      <circle cx="296" cy="439" r="5.4" fill="#cc2222"/>
-      <circle cx="333" cy="439" r="5.4" fill="#cc2222"/>
-      <circle cx="370" cy="439" r="5.4" fill="#cc2222"/>
-      <circle cx="407" cy="439" r="5.4" fill="#cc2222"/>
-      <circle cx="444" cy="439" r="5.4" fill="#cc2222"/>
-      <circle cx="481" cy="439" r="5.4" fill="#cc2222"/>
-      <circle cx="518" cy="439" r="5.4" fill="#cc2222"/>
-      <circle cx="555" cy="439" r="5.4" fill="#cc2222"/>
-      <circle cx="592" cy="439" r="5.4" fill="#cc2222"/>
-      <circle cx="629" cy="439" r="5.4" fill="#cc2222"/>
-      <circle cx="666" cy="439" r="5.4" fill="#cc2222"/>
-      <circle cx="703" cy="439" r="5.4" fill="#cc2222"/>
-      <circle cx="296" cy="472" r="5.4" fill="#cc2222"/>
-      <circle cx="333" cy="472" r="5.4" fill="#cc2222"/>
-      <circle cx="370" cy="472" r="5.4" fill="#cc2222"/>
-      <circle cx="407" cy="472" r="5.4" fill="#cc2222"/>
-      <circle cx="444" cy="472" r="5.4" fill="#cc2222"/>
-      <circle cx="481" cy="472" r="5.4" fill="#cc2222"/>
-      <circle cx="518" cy="472" r="5.4" fill="#cc2222"/>
-      <circle cx="555" cy="472" r="5.4" fill="#cc2222"/>
-      <circle cx="592" cy="472" r="5.4" fill="#cc2222"/>
-      <circle cx="629" cy="472" r="5.4" fill="#cc2222"/>
-      <circle cx="666" cy="472" r="5.4" fill="#cc2222"/>
-      <circle cx="703" cy="472" r="5.4" fill="#cc2222"/>
-      </g>
-    </svg>
-  </div>
+  <svg class="land" viewBox="838.2 990.602 7620 5660.571" role="img"
+       aria-label="A rugged grey landscape of many hills standing for sequence space. Three hills are named GFP, RFP and phoA. A green dot marks a starting sequence, and a rectangular grid of red dots spreads across a region of the terrain well away from it.">
+    <image x="838.2" y="990.602" width="7620" height="5660.571" href="img/21-landscape.png" preserveAspectRatio="none"/>
+    <g data-build="1" data-note="Perhaps some of these hills correspond to GFP, RFP, and alkaline phosphatase-encoding sequences. Most sequences in this space have no activity, but there are hills where sequences similar in sequence have similar functionality, with some a little better than the others.  In a combinatorial experiment,">
+      <text x="6217.4" y="1806.2">RFP</text>
+      <text x="5425.4" y="2111.0">GFP</text>
+      <text x="1996.4" y="2873.0">phoA</text>
+    </g>
+    <circle data-build="2" data-note="we start with some region of sequence space" cx="4267.2" cy="3733.8" r="76.2" fill="#92d050"/>
+    <g data-build="3" data-note="and produce a sparse matrix of constructs with the intent of finding another hill of activity.  In this case, the spread of variants hits 4 additional hills of activity, but they are different hills than where our search began." fill="#ff0000" transform="translate(990.6,1219.2) scale(0.001)">
+        <circle cx="1447800" cy="2286000" r="76200"/>
+        <circle cx="1447800" cy="2540000" r="76200"/>
+        <circle cx="1447800" cy="2794000" r="76200"/>
+        <circle cx="1447800" cy="3048000" r="76200"/>
+        <circle cx="1447800" cy="3302000" r="76200"/>
+        <circle cx="1447800" cy="3556000" r="76200"/>
+        <circle cx="1447800" cy="3810000" r="76200"/>
+        <circle cx="1676400" cy="2286000" r="76200"/>
+        <circle cx="1676400" cy="2540000" r="76200"/>
+        <circle cx="1676400" cy="2794000" r="76200"/>
+        <circle cx="1676400" cy="3048000" r="76200"/>
+        <circle cx="1676400" cy="3302000" r="76200"/>
+        <circle cx="1676400" cy="3556000" r="76200"/>
+        <circle cx="1676400" cy="3810000" r="76200"/>
+        <circle cx="1905000" cy="2286000" r="76200"/>
+        <circle cx="1905000" cy="2540000" r="76200"/>
+        <circle cx="1905000" cy="2794000" r="76200"/>
+        <circle cx="1905000" cy="3048000" r="76200"/>
+        <circle cx="1905000" cy="3302000" r="76200"/>
+        <circle cx="1905000" cy="3556000" r="76200"/>
+        <circle cx="1905000" cy="3810000" r="76200"/>
+        <circle cx="2133600" cy="2286000" r="76200"/>
+        <circle cx="2133600" cy="2540000" r="76200"/>
+        <circle cx="2133600" cy="2794000" r="76200"/>
+        <circle cx="2133600" cy="3048000" r="76200"/>
+        <circle cx="2133600" cy="3302000" r="76200"/>
+        <circle cx="2133600" cy="3556000" r="76200"/>
+        <circle cx="2133600" cy="3810000" r="76200"/>
+        <circle cx="2362200" cy="2286000" r="76200"/>
+        <circle cx="2362200" cy="2540000" r="76200"/>
+        <circle cx="2362200" cy="2794000" r="76200"/>
+        <circle cx="2362200" cy="3048000" r="76200"/>
+        <circle cx="2362200" cy="3302000" r="76200"/>
+        <circle cx="2362200" cy="3556000" r="76200"/>
+        <circle cx="2362200" cy="3810000" r="76200"/>
+        <circle cx="2590800" cy="2286000" r="76200"/>
+        <circle cx="2590800" cy="2540000" r="76200"/>
+        <circle cx="2590800" cy="2794000" r="76200"/>
+        <circle cx="2590800" cy="3048000" r="76200"/>
+        <circle cx="2590800" cy="3302000" r="76200"/>
+        <circle cx="2590800" cy="3556000" r="76200"/>
+        <circle cx="2590800" cy="3810000" r="76200"/>
+        <circle cx="2819400" cy="2286000" r="76200"/>
+        <circle cx="2819400" cy="2540000" r="76200"/>
+        <circle cx="2819400" cy="2794000" r="76200"/>
+        <circle cx="2819400" cy="3048000" r="76200"/>
+        <circle cx="2819400" cy="3302000" r="76200"/>
+        <circle cx="2819400" cy="3556000" r="76200"/>
+        <circle cx="2819400" cy="3810000" r="76200"/>
+        <circle cx="3048000" cy="2286000" r="76200"/>
+        <circle cx="3048000" cy="2540000" r="76200"/>
+        <circle cx="3048000" cy="2794000" r="76200"/>
+        <circle cx="3048000" cy="3048000" r="76200"/>
+        <circle cx="3048000" cy="3302000" r="76200"/>
+        <circle cx="3048000" cy="3556000" r="76200"/>
+        <circle cx="3048000" cy="3810000" r="76200"/>
+        <circle cx="3276600" cy="2286000" r="76200"/>
+        <circle cx="3276600" cy="2794000" r="76200"/>
+        <circle cx="3276600" cy="3048000" r="76200"/>
+        <circle cx="3276600" cy="3302000" r="76200"/>
+        <circle cx="3276600" cy="3556000" r="76200"/>
+        <circle cx="3276600" cy="3810000" r="76200"/>
+        <circle cx="3505200" cy="2286000" r="76200"/>
+        <circle cx="3505200" cy="2540000" r="76200"/>
+        <circle cx="3505200" cy="2794000" r="76200"/>
+        <circle cx="3505200" cy="3048000" r="76200"/>
+        <circle cx="3505200" cy="3302000" r="76200"/>
+        <circle cx="3505200" cy="3556000" r="76200"/>
+        <circle cx="3505200" cy="3810000" r="76200"/>
+        <circle cx="3733800" cy="2286000" r="76200"/>
+        <circle cx="3733800" cy="2540000" r="76200"/>
+        <circle cx="3733800" cy="2794000" r="76200"/>
+        <circle cx="3733800" cy="3048000" r="76200"/>
+        <circle cx="3733800" cy="3302000" r="76200"/>
+        <circle cx="3733800" cy="3556000" r="76200"/>
+        <circle cx="3733800" cy="3810000" r="76200"/>
+        <circle cx="3962400" cy="2286000" r="76200"/>
+        <circle cx="3962400" cy="2540000" r="76200"/>
+        <circle cx="3962400" cy="2794000" r="76200"/>
+        <circle cx="3962400" cy="3048000" r="76200"/>
+        <circle cx="3962400" cy="3302000" r="76200"/>
+        <circle cx="3962400" cy="3556000" r="76200"/>
+        <circle cx="3962400" cy="3810000" r="76200"/>
+    </g>
+  </svg>
   <template class="notes">Another way to think about this is to consider a topological landscape.  The X and Y coordinates of the terrain correspond to sequences, and the height of each hill is functionality.</template>
   <template class="desc">Sequence space drawn as a landscape: position is sequence, height is function. Three of the hills are named &mdash; GFP, RFP and alkaline phosphatase. A green dot marks where the search starts; a rectangular grid of red dots marks the sparse matrix of variants a combinatorial library throws across the terrain, landing on hills quite different from the one it began on.</template>
 </article>
@@ -1007,26 +1006,13 @@ The process of affinity maturation is analogous to directed evolution:  it invol
 <!-- ---------------------------------------------------------------- 22 -->
 <article class="slide">
   <h1>Directed Evolution</h1>
-  <div class="land">
-    <img src="img/landscape.svg" alt="">
-    <svg viewBox="0 0 1180 560" role="img" aria-label="The same contour map. A green dot marks a sequence partway up one hill, and a red track of small steps climbs from it to that hill's summit, marked the local maximum. It never leaves the hill it started on.">
-      <defs><marker id="climb" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="5" markerHeight="4.5" orient="auto"><path d="M0 0L10 4L0 8z" fill="#cc2222"/></marker></defs>
-      <g data-build="1" data-note="start with a sequence on one of these hills of activity, but our goal is to">
-      <circle cx="470" cy="452" r="11" fill="#1f8a3b" stroke="#ffffff" stroke-width="2"/>
-      <text x="470" y="492" text-anchor="middle" font-size="21" font-weight="400" fill="#1f8a3b" paint-order="stroke" stroke="#ffffff" stroke-width="5">start here</text>
-      </g>
-      <g data-build="2" data-note="climb to the local maximal activity of that hill through incremental changes.">
-      <path d="M470 452 L455 438 L447 420 L433 412 L428 398 L414 392 L407 386" fill="none" stroke="#cc2222" stroke-width="4" stroke-linejoin="round" marker-end="url(#climb)"/>
-      <circle cx="455" cy="438" r="4.6" fill="#cc2222"/>
-      <circle cx="447" cy="420" r="4.6" fill="#cc2222"/>
-      <circle cx="433" cy="412" r="4.6" fill="#cc2222"/>
-      <circle cx="428" cy="398" r="4.6" fill="#cc2222"/>
-      <circle cx="414" cy="392" r="4.6" fill="#cc2222"/>
-      <circle cx="407" cy="386" r="10" fill="#cc2222" stroke="#ffffff" stroke-width="2"/>
-      <text x="407" y="352" text-anchor="middle" font-size="21" font-weight="400" fill="#cc2222" paint-order="stroke" stroke="#ffffff" stroke-width="5">local maximum</text>
-      </g>
-    </svg>
-  </div>
+  <svg class="land" viewBox="838.2 990.602 7620 5660.571" role="img"
+       aria-label="The same landscape. A green dot marks a starting sequence partway up one hill, and a red line is traced from it up the slope to that hill's summit.">
+    <image x="838.2" y="990.602" width="7620" height="5660.571" href="img/21-landscape.png" preserveAspectRatio="none"/>
+    <circle data-build="1" data-note="start with a sequence on one of these hills of activity, but our goal is to" cx="3352.8" cy="4495.8" r="76.2" fill="#92d050"/>
+    <path data-build="2" data-note="climb to the local maximal activity of that hill through incremental changes." transform="translate(2949.983,4121.15) scale(0.001)" fill="none" stroke="#ff0000" stroke-width="38100"
+          d="M371068,381000 C356251,383117 341294,384415 326618,387350 C320054,388663 314154,392503 307568,393700 C290778,396753 273601,397245 256768,400050 C248160,401485 240028,405318 231368,406400 C206077,409561 180568,410633 155168,412750 C135454,410560 96040,415040 78968,393700 C74787,388473 74735,381000 72618,374650 C74735,368300 74235,360333 78968,355600 C83701,350867 91432,350447 98018,349250 C207028,329430 106922,353374 174218,336550 C180568,332317 186442,327263 193268,323850 C199255,320857 207585,322233 212318,317500 C223111,306707 237718,279400 237718,279400 C239835,268817 244068,258443 244068,247650 C244068,238923 242559,229512 237718,222250 C233485,215900 226184,210876 218668,209550 C189411,204387 159401,205317 129768,203200 C121301,205317 112759,207152 104368,209550 C97932,211389 92011,215900 85318,215900 C77256,215900 37964,205649 28168,203200 C21818,198967 12904,197126 9118,190500 C1303,176823 0,140677 9118,127000 C12831,121431 21674,122273 28168,120650 C38639,118032 49382,116641 59918,114300 C68437,112407 76851,110067 85318,107950 C83201,82550 82337,57014 78968,31750 C78083,25115 76062,18440 72618,12700 C69538,7566 64151,4233 59918,0"/>
+  </svg>
   <template class="notes">In directed evolution, we similarly</template>
   <template class="desc">The same landscape. A green dot marks a sequence already partway up one hill, and a red track winds from it up the slope to the top of that same hill &mdash; small steps, one hill, the local maximum.</template>
 </article>
