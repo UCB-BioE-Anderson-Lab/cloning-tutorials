@@ -364,6 +364,24 @@ differ only in which of them are showing, so a render has them all showing
 at once and there is nothing to crop.  The geometry, the fills and the
 strokes are lifted shape for shape out of the slide XML.
 
+LIBREOFFICE IGNORES AN EXPLICIT EMPTY effectLst
+------------------------------------------------
+JCA, 3 Nov 2026, on sources 45-47: "the white box has a shadow behind it.
+Get rid of the shadow.  It is not meant to be a visible object -- it is
+just hiding the line below it."
+
+He was right and it was never in his slide.  The masking rectangle carries
+BOTH an explicit <a:effectLst/>, which PowerPoint reads as "no effects",
+AND a <p:style> whose <a:effectRef idx="2"> is a drop shadow.  PowerPoint
+lets the explicit empty list win.  LibreOffice does not: it applies the
+style shadow anyway, so the render grew a shadow the real slide has not
+got, and the crop baked it in.
+
+The fix is to point the effectRef at idx 0, so there is no effect to
+apply, then re-render and re-crop.  Worth checking on ANY shape that is
+meant to be invisible furniture -- a mask, a spacer, a white cover -- in
+any slide cropped from a LibreOffice render.
+
 HOW SOURCES 42 AND 43 WERE CROPPED
 -----------------------------------
 Both are built entirely from native PowerPoint shapes — several hundred
@@ -423,13 +441,31 @@ SETTLED, 3 Nov 2026:
       x 6 = 6348 maximum.  Slide, note and desc now say 38-46 x 23 x 6 =
       5,244 to 6,348, and the slide cites IMGT.
   13  Redrawn.  The three classes with their Fab counts, the domains, the
-      hinge, and where Fv, Fab and Fc begin and end.
+      hinge, and where Fv, Fab and Fc begin and end.  Two corrections
+      after JCA walked it: the J-chain circles were mine and the note
+      never mentions a J chain, so they are gone; and the Fv/Fab/Fc
+      labels now carry BRACKETS that enclose the region rather than
+      dashed leaders, which could not show scope.
   15  Redrawn.  Antigen, mouse, B cells, myeloma, hybridoma, antibody.
-  21, 22  Redrawn as a CONTOUR MAP computed by tools/landscape.py from a
-      sum of Gaussians -- which is what the note actually describes, "the
-      height of each hill is functionality".  The hills are real maxima of
-      a real function, not drawing.  One shared img/landscape.svg under
-      two overlays that share its viewBox, so labels and marks register.
+  21, 22  REVERTED to the source photograph.  A contour map computed from
+      a sum of Gaussians was tried -- the note does describe a topological
+      landscape whose height is functionality, and the hills were real
+      maxima of a real function.  JCA, 3 Nov 2026: "revert these landscape
+      slides to the original.  Yours suck."  So they are the borrowed
+      photograph again, with the source's own labels, start point, spread
+      and climb laid over it.  tools/landscape.py and img/landscape.svg
+      are gone; git has them at b6426edb if anyone wants another go.
+      The figure remains uncredited, which is a known gap, not an
+      oversight.
+
+  17  SPECIES.  The chromosome numbers on that slide are HUMAN -- mouse
+      would be 12, 6 and 16 -- and so are the IMGT counts, while the note
+      is framed on the mouse ("All cells in the mouse begin with...").
+      That mismatch predates the conversion.  The slide now says "In the
+      human genome" and "Heavy Chain in the Human Genome" so it is
+      unambiguous unnarrated.  THE NOTE STILL SAYS MOUSE and is JCA's to
+      settle: either the narration switches species at this slide and
+      should say so, or the slide should carry mouse numbers instead.
 
   29  Left alone on JCA's instruction.  The slide says "very approximate"
       and that is enough.
