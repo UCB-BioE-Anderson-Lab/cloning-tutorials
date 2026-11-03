@@ -24,7 +24,7 @@
    protein model after it.  Their speaker notes are the only ones in this
    deck that are not the source's verbatim. */
 .slide svg.cycle{flex:1 1 auto;min-height:0;width:100%;height:100%}
-.slide svg.xswap{flex:0 0 auto;width:100%;height:auto;max-height:46%;margin-bottom:8px}
+.slide svg.plm{flex:1 1 auto;min-height:0;width:100%;height:100%}
 .slide p.cred{font-size:18px;color:var(--muted);margin:12px 0 0}
 .slide p.cred span{display:block}
 /* source 31: four ways of making point mutations, each a named method
@@ -541,31 +541,165 @@
 <!-- NEW -->
 <article class="slide">
   <h1>Protein Language Models</h1>
-  <svg class="xswap" viewBox="0 0 1400 390" role="img" aria-label="One term lifted out of the ProSAR equation. Underneath it, what x actually is: in ProSAR a 1 or a 0 for whether that substitution is present, so Y370F and Y370W are two unrelated columns. On the click that is replaced by a row of numbers &mdash; a description of the substitution produced by a model trained on every deposited protein sequence.">
-  <text x="700" y="44" text-anchor="middle" font-size="27" font-weight="400" fill="#767676"><tspan font-style="italic">y</tspan> = <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.58em" dy="13" fill="#111111">1a</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.58em" dy="13" fill="#111111">1a</tspan><tspan dy="-13"> </tspan>+ <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.58em" dy="13" fill="#111111">1b</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.58em" dy="13" fill="#111111">1b</tspan><tspan dy="-13"> </tspan>+ <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.58em" dy="13" fill="#111111">2a</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.58em" dy="13" fill="#111111">2a</tspan><tspan dy="-13"> </tspan>+ <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.58em" dy="13" fill="#111111">2b</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.58em" dy="13" fill="#111111">2b</tspan><tspan dy="-13"> </tspan>+ &#8230;</text>
-  <text x="700" y="146" text-anchor="middle" font-size="70" font-weight="400" fill="#111111"><tspan font-style="italic" fill="#767676">c</tspan><tspan font-size="0.58em" dy="13" fill="#767676">1a</tspan><tspan dy="-13"> </tspan><tspan font-style="italic" fill="#ba3a13">x</tspan><tspan font-size="0.58em" dy="13" fill="#ba3a13">1a</tspan><tspan dy="-13"> </tspan></text>
-  <path d="M742 176V214" stroke="#767676" stroke-width="2"/>
-  <g data-unbuild="1">
-  <text x="700" y="264" text-anchor="middle" font-size="42" font-weight="700" fill="#111111"><tspan font-style="italic">x</tspan> = 1 or 0</text>
-  <text x="700" y="316" text-anchor="middle" font-size="30" font-weight="400" fill="#111111">Y370F &#8594; 1&#160;&#160;&#160;&#160;&#160;&#160;Y370W &#8594; 0</text>
-  <text x="700" y="362" text-anchor="middle" font-size="25" font-weight="400" fill="#767676">present or absent &mdash; two unrelated columns</text>
+  <svg class="plm" viewBox="0 0 1400 626" role="img" aria-label="On the left, what the linear model sees: four substitutions drawn as four separate boxes, each holding a question mark, with nothing connecting them &mdash; every coefficient has to come from your own clones. On the click, an alignment appears on the right: eight natural homologs of the protein, all of which work. One column never varies and is marked as a catalytic residue not to touch; another varies freely and is marked a surface position that can be changed cheaply. The columns were never unique. A last line adds that a protein language model is this same idea over every deposited sequence, and over combinations of positions rather than one at a time.">
+  <text x="700" y="40" text-anchor="middle" font-size="24" font-weight="400" fill="#767676"><tspan font-style="italic">y</tspan> = <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.6em" dy="9" fill="#111111">1a</tspan><tspan dy="-9"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.6em" dy="9" fill="#111111">1a</tspan><tspan dy="-9"> </tspan>+ <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.6em" dy="9" fill="#111111">1b</tspan><tspan dy="-9"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.6em" dy="9" fill="#111111">1b</tspan><tspan dy="-9"> </tspan>+ <tspan font-style="italic" fill="#111111">c</tspan><tspan font-size="0.6em" dy="9" fill="#111111">2a</tspan><tspan dy="-9"> </tspan><tspan font-style="italic" fill="#111111">x</tspan><tspan font-size="0.6em" dy="9" fill="#111111">2a</tspan><tspan dy="-9"> </tspan>+ &#8230;</text>
+  <text x="350" y="104" text-anchor="middle" font-size="25" font-weight="700" fill="#767676">what the equation sees</text>
+  <rect x="110" y="138" width="112" height="118" rx="6" fill="#ffffff" stroke="#c8c8c8" stroke-width="2"/>
+  <text x="166" y="168" text-anchor="middle" font-size="21" font-weight="700" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">Y370F</text>
+  <text x="166" y="228" text-anchor="middle" font-size="42" font-weight="700" fill="#c8c8c8">?</text>
+  <rect x="238" y="138" width="112" height="118" rx="6" fill="#ffffff" stroke="#c8c8c8" stroke-width="2"/>
+  <text x="294" y="168" text-anchor="middle" font-size="21" font-weight="700" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">M358V</text>
+  <text x="294" y="228" text-anchor="middle" font-size="42" font-weight="700" fill="#c8c8c8">?</text>
+  <rect x="366" y="138" width="112" height="118" rx="6" fill="#ffffff" stroke="#c8c8c8" stroke-width="2"/>
+  <text x="422" y="168" text-anchor="middle" font-size="21" font-weight="700" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">L144M</text>
+  <text x="422" y="228" text-anchor="middle" font-size="42" font-weight="700" fill="#c8c8c8">?</text>
+  <rect x="494" y="138" width="112" height="118" rx="6" fill="#ffffff" stroke="#c8c8c8" stroke-width="2"/>
+  <text x="550" y="168" text-anchor="middle" font-size="21" font-weight="700" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">S94G</text>
+  <text x="550" y="228" text-anchor="middle" font-size="42" font-weight="700" fill="#c8c8c8">?</text>
+  <text x="350" y="300" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">four columns, and nothing connects them</text>
+  <text x="350" y="336" text-anchor="middle" font-size="21" font-weight="400" fill="#767676">every <tspan font-style="italic">c</tspan> has to come from your own clones</text>
+  <text x="350" y="364" text-anchor="middle" font-size="21" font-weight="400" fill="#767676">&mdash; thousands of them</text>
+  <g data-build="1" data-note-add="But those columns were never really unique, and that is the opening.  Your protein is not the only one of its kind &mdash; there are thousands of natural sequences doing the same job in other organisms, and every one of them is a variant that already works.  Line them up and the positions tell on themselves.  A column that never varies in any of them is one you should leave alone; it is almost always something the chemistry needs, like the catalytic serine we just looked at.  A column that varies freely is one you can change cheaply.  You have learned something about that position without building a single clone." data-desc="An alignment of eight natural homologs appears beside the four isolated columns. One position never varies and is marked as a catalytic residue; another varies freely and is marked a surface position.">
+  <text x="1082" y="104" text-anchor="middle" font-size="25" font-weight="700" fill="#004373">what the sequences already know</text>
+  <rect x="921" y="118" width="38" height="236" rx="4" fill="#004373" opacity="0.14"/>
+  <rect x="1215" y="118" width="38" height="236" rx="4" fill="#a99011" opacity="0.14"/>
+  <text x="812" y="140" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">L</text>
+  <text x="854" y="140" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">K</text>
+  <text x="896" y="140" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">P</text>
+  <text x="938" y="140" text-anchor="middle" font-size="23" font-weight="700" fill="#004373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">G</text>
+  <text x="980" y="140" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">S</text>
+  <text x="1022" y="140" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">A</text>
+  <text x="1064" y="140" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">I</text>
+  <text x="1106" y="140" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">V</text>
+  <text x="1148" y="140" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">N</text>
+  <text x="1190" y="140" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">D</text>
+  <text x="1232" y="140" text-anchor="middle" font-size="23" font-weight="700" fill="#a99011" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">Y</text>
+  <text x="1274" y="140" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">T</text>
+  <text x="1316" y="140" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">R</text>
+  <text x="1358" y="140" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">E</text>
+  <text x="812" y="168" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">L</text>
+  <text x="854" y="168" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">K</text>
+  <text x="896" y="168" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">P</text>
+  <text x="938" y="168" text-anchor="middle" font-size="23" font-weight="700" fill="#004373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">G</text>
+  <text x="980" y="168" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">S</text>
+  <text x="1022" y="168" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">A</text>
+  <text x="1064" y="168" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">I</text>
+  <text x="1106" y="168" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">V</text>
+  <text x="1148" y="168" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">N</text>
+  <text x="1190" y="168" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">D</text>
+  <text x="1232" y="168" text-anchor="middle" font-size="23" font-weight="700" fill="#a99011" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">F</text>
+  <text x="1274" y="168" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">T</text>
+  <text x="1316" y="168" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">R</text>
+  <text x="1358" y="168" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">E</text>
+  <text x="812" y="196" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">L</text>
+  <text x="854" y="196" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">R</text>
+  <text x="896" y="196" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">P</text>
+  <text x="938" y="196" text-anchor="middle" font-size="23" font-weight="700" fill="#004373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">G</text>
+  <text x="980" y="196" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">S</text>
+  <text x="1022" y="196" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">A</text>
+  <text x="1064" y="196" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">V</text>
+  <text x="1106" y="196" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">V</text>
+  <text x="1148" y="196" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">N</text>
+  <text x="1190" y="196" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">D</text>
+  <text x="1232" y="196" text-anchor="middle" font-size="23" font-weight="700" fill="#a99011" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">Y</text>
+  <text x="1274" y="196" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">T</text>
+  <text x="1316" y="196" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">R</text>
+  <text x="1358" y="196" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">E</text>
+  <text x="812" y="224" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">L</text>
+  <text x="854" y="224" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">K</text>
+  <text x="896" y="224" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">P</text>
+  <text x="938" y="224" text-anchor="middle" font-size="23" font-weight="700" fill="#004373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">G</text>
+  <text x="980" y="224" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">T</text>
+  <text x="1022" y="224" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">A</text>
+  <text x="1064" y="224" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">I</text>
+  <text x="1106" y="224" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">V</text>
+  <text x="1148" y="224" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">N</text>
+  <text x="1190" y="224" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">E</text>
+  <text x="1232" y="224" text-anchor="middle" font-size="23" font-weight="700" fill="#a99011" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">W</text>
+  <text x="1274" y="224" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">T</text>
+  <text x="1316" y="224" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">R</text>
+  <text x="1358" y="224" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">E</text>
+  <text x="812" y="252" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">L</text>
+  <text x="854" y="252" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">K</text>
+  <text x="896" y="252" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">P</text>
+  <text x="938" y="252" text-anchor="middle" font-size="23" font-weight="700" fill="#004373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">G</text>
+  <text x="980" y="252" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">S</text>
+  <text x="1022" y="252" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">A</text>
+  <text x="1064" y="252" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">L</text>
+  <text x="1106" y="252" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">V</text>
+  <text x="1148" y="252" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">N</text>
+  <text x="1190" y="252" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">D</text>
+  <text x="1232" y="252" text-anchor="middle" font-size="23" font-weight="700" fill="#a99011" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">F</text>
+  <text x="1274" y="252" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">T</text>
+  <text x="1316" y="252" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">R</text>
+  <text x="1358" y="252" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">E</text>
+  <text x="812" y="280" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">L</text>
+  <text x="854" y="280" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">K</text>
+  <text x="896" y="280" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">A</text>
+  <text x="938" y="280" text-anchor="middle" font-size="23" font-weight="700" fill="#004373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">G</text>
+  <text x="980" y="280" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">S</text>
+  <text x="1022" y="280" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">A</text>
+  <text x="1064" y="280" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">I</text>
+  <text x="1106" y="280" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">V</text>
+  <text x="1148" y="280" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">N</text>
+  <text x="1190" y="280" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">D</text>
+  <text x="1232" y="280" text-anchor="middle" font-size="23" font-weight="700" fill="#a99011" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">Y</text>
+  <text x="1274" y="280" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">T</text>
+  <text x="1316" y="280" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">R</text>
+  <text x="1358" y="280" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">E</text>
+  <text x="812" y="308" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">L</text>
+  <text x="854" y="308" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">K</text>
+  <text x="896" y="308" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">P</text>
+  <text x="938" y="308" text-anchor="middle" font-size="23" font-weight="700" fill="#004373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">G</text>
+  <text x="980" y="308" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">S</text>
+  <text x="1022" y="308" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">A</text>
+  <text x="1064" y="308" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">I</text>
+  <text x="1106" y="308" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">V</text>
+  <text x="1148" y="308" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">N</text>
+  <text x="1190" y="308" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">D</text>
+  <text x="1232" y="308" text-anchor="middle" font-size="23" font-weight="700" fill="#a99011" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">H</text>
+  <text x="1274" y="308" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">T</text>
+  <text x="1316" y="308" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">R</text>
+  <text x="1358" y="308" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">E</text>
+  <text x="812" y="336" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">L</text>
+  <text x="854" y="336" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">K</text>
+  <text x="896" y="336" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">P</text>
+  <text x="938" y="336" text-anchor="middle" font-size="23" font-weight="700" fill="#004373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">G</text>
+  <text x="980" y="336" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">S</text>
+  <text x="1022" y="336" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">V</text>
+  <text x="1064" y="336" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">I</text>
+  <text x="1106" y="336" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">V</text>
+  <text x="1148" y="336" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">N</text>
+  <text x="1190" y="336" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">D</text>
+  <text x="1232" y="336" text-anchor="middle" font-size="23" font-weight="700" fill="#a99011" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">F</text>
+  <text x="1274" y="336" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">T</text>
+  <text x="1316" y="336" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">R</text>
+  <text x="1358" y="336" text-anchor="middle" font-size="23" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">E</text>
+  <text x="748" y="214" text-anchor="end" font-size="20" font-weight="400" fill="#767676">thousands of</text>
+  <text x="748" y="238" text-anchor="end" font-size="20" font-weight="400" fill="#767676">natural homologs</text>
+  <text x="748" y="262" text-anchor="end" font-size="20" font-weight="400" fill="#767676">that all work</text>
+  <path d="M902 372V394" stroke="#004373" stroke-width="2"/>
+  <text x="938" y="420" text-anchor="middle" font-size="22" font-weight="700" fill="#004373">never varies</text>
+  <text x="938" y="446" text-anchor="middle" font-size="19" font-weight="400" fill="#767676">a catalytic residue:</text>
+  <text x="938" y="468" text-anchor="middle" font-size="19" font-weight="400" fill="#767676">do not touch it</text>
+  <path d="M1196 372V394" stroke="#a99011" stroke-width="2"/>
+  <text x="1232" y="420" text-anchor="middle" font-size="22" font-weight="700" fill="#a99011">varies freely</text>
+  <text x="1232" y="446" text-anchor="middle" font-size="19" font-weight="400" fill="#767676">a surface position:</text>
+  <text x="1232" y="468" text-anchor="middle" font-size="19" font-weight="400" fill="#767676">change it cheaply</text>
+  <path d="M110 420H620" stroke="#c8c8c8" stroke-width="1.6"/>
+  <text x="350" y="462" text-anchor="middle" font-size="24" font-weight="700" fill="#004373">the columns were never unique</text>
+  <text x="350" y="496" text-anchor="middle" font-size="21" font-weight="400" fill="#767676">your protein is one of thousands</text>
+  <text x="350" y="522" text-anchor="middle" font-size="21" font-weight="400" fill="#767676">that already do this job</text>
   </g>
-  <g data-build="1">
-  <text x="700" y="264" text-anchor="middle" font-size="40" font-weight="700" fill="#004373"><tspan font-style="italic">x</tspan> = a description of the substitution</text>
-  <rect x="446" y="288" width="508" height="44" rx="6" fill="#eef3f8" stroke="#004373" stroke-width="2"/>
-  <text x="700" y="318" text-anchor="middle" font-size="28" font-weight="400" fill="#111111" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">&#8722;0.42&#160;&#160;1.08&#160;&#160;0.17&#160;&#160;&#8230;&#160;&#160;0.55</text>
-  <text x="700" y="362" text-anchor="middle" font-size="25" font-weight="400" fill="#767676">from a model trained on every deposited protein sequence</text>
+  <g data-build="2" data-note-add="A protein language model is that idea taken as far as it will go.  Instead of one alignment it is trained on every sequence anyone has deposited, and instead of asking what sits at a position on its own it learns which combinations of positions go together.  That is what lets it rank substitutions before the first round, and it is why the model sitting on top of the equation no longer has to be a plain sum." data-desc="A closing line: a protein language model is the same idea over every deposited sequence, and over combinations of positions rather than one at a time.">
+  <rect x="110" y="556" width="1180" height="58" rx="7" fill="#eef3f8"/>
+  <text x="700" y="594" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">a protein language model is this over every sequence ever deposited &mdash; and over <tspan font-weight="700">combinations</tspan> of positions, not one at a time</text>
   </g>
   </svg>
-  <ul class="tight">
-    <li>Each <i>x</i> is 1 or 0: is this substitution present?  The equation knows nothing else about it, so every <i>c</i> has to be learned from your own measurements &mdash; which is why it takes thousands of clones</li>
-    <li data-build="1" data-note="The newer version of this idea replaces each x with a description of the substitution that comes out of a model trained on every protein sequence anyone has deposited.  The column now carries something before you have measured anything, so the same fit converges on hundreds of clones rather than thousands, and you can rank mutations before you build the first library.  You also no longer need the equation to be a sum, so the model can represent the case where two mutations do nothing on their own and only work together.  EVOLVEpro is one system built this way:  the language model supplies the description of each variant, a regression model sits on top of it, and both are retrained after every round.">Replace <i>x</i> with a description of the substitution from a model trained on every deposited protein sequence, and the same fit converges on hundreds</li>
-    <li data-build="1">The model on top no longer has to be a sum, so it can represent mutations that only work in combination</li>
-    <li data-build="1">And it can rank mutations before you build anything at all</li>
-  </ul>
+  
   <p class="cred">Science. 2025;387:eadr6006 (EVOLVEpro)</p>
-  <template class="notes">Look at what those <i>x</i> values in the equation actually are.  Each one is a 1 or a 0 &mdash; is this particular substitution present in this clone, or is it not.  That is the whole of what the equation knows about it.  It has no idea that Y370F and Y370W are changes at the same position, or that one of them is conservative and the other is not; they are simply two different columns.  Every one of those <i>c</i> values therefore has to be learned from your own measurements, and that is why the method needs thousands of clones.</template>
-  <template class="desc">The same equation, with one term lifted out. In ProSAR each x is a 1 or a 0 for whether a substitution is present, so the fit starts from nothing and needs thousands of clones. Replace x with a description of the substitution from a model trained on every deposited sequence and the fit converges on hundreds, the model need no longer be a sum, and mutations can be ranked before anything is built.</template>
+  <template class="notes">Look at what those <i>x</i> values actually are.  Each one is a 1 or a 0 &mdash; is this particular substitution present in this clone, or is it not &mdash; and that is the whole of what the equation knows about it.  It has no idea that Y370F and Y370W are changes at the same position, or that one of them is conservative and the other is not.  They are four separate columns with nothing joining them, so every one of those <i>c</i> values has to be learned from your own measurements.  That is why the method needs thousands of clones.</template>
+  <template class="desc">Four substitutions drawn as four separate boxes, each holding a question mark, with nothing connecting them &mdash; which is what the linear model sees, and why every coefficient has to come from your own clones.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 36 -->

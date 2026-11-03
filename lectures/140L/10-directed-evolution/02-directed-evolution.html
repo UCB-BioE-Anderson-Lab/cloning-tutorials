@@ -86,7 +86,7 @@
   <rect x="150" y="111.5" width="180" height="13" rx="6.5" fill="#1f4ea1"/><circle cx="330" cy="118" r="8.06" fill="#5b8fd6"/>
   <text x="240" y="158" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Parental genes</text>
   </g>
-  <g data-build="1">
+  <g data-build="1" data-note-add="Random mutagenesis first, and that gives you the library &mdash; every gene in it carrying a mutation or two of its own, drawn here as the stars.">
   <text x="437" y="64" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Random</text>
   <text x="437" y="90" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">mutagenesis</text>
   <path d="M372 118L500 118" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
@@ -106,7 +106,7 @@
   <path d="M1213 250A52 52 0 1 1 1163 150" fill="none" stroke="#d81e05" stroke-width="11" stroke-linecap="round"/>
   <path d="M1215 181 L1217.7 187.3 L1224 190 L1217.7 192.7 L1215 199 L1212.3 192.7 L1206 190 L1212.3 187.3 Z" fill="#ffd200" stroke="#7a6000" stroke-width="1.2"/>
   </g>
-  <g data-build="3">
+  <g data-build="3" data-note-add="That library of plasmids then goes into cells, one plasmid per cell, so every colony you get back is a single variant rather than a mixture.">
   <text x="1020" y="296" text-anchor="end" font-size="23" font-weight="400" fill="#111111">Transformation of</text>
   <text x="1020" y="322" text-anchor="end" font-size="23" font-weight="400" fill="#111111">microorganisms (<tspan font-style="italic">E. coli</tspan> or</text>
   <text x="1020" y="348" text-anchor="end" font-size="23" font-weight="400" fill="#111111">yeast) with the library</text>
@@ -116,7 +116,7 @@
   <path d="M1215 428A22 22 0 0 1 1233 449" fill="none" stroke="#1f4ea1" stroke-width="6" stroke-linecap="round"/>
   <path d="M1229 457A22 22 0 1 1 1206 425" fill="none" stroke="#d81e05" stroke-width="6" stroke-linecap="round"/>
   </g>
-  <g data-build="4">
+  <g data-build="4" data-note-add="Plate them out and each colony on that plate is a different member of the library.">
   <path d="M1092 478L985 522" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
   <text x="1058" y="534" text-anchor="middle" font-size="34" font-weight="700" fill="#2e9e30">4</text>
   <ellipse cx="880" cy="548" rx="92" ry="35" fill="#fffbd0" stroke="#b9a84a" stroke-width="3"/>
@@ -130,7 +130,7 @@
   <circle cx="930" cy="566" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
   <circle cx="866" cy="546" r="5.4" fill="#fff8b0" stroke="#b9a84a" stroke-width="1.4"/>
   </g>
-  <g data-build="5">
+  <g data-build="5" data-note-add="Pick those colonies into 96-well plates, so each variant is growing on its own and can be assayed on its own.">
   <text x="735" y="470" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">Transfer of colonies to</text>
   <text x="735" y="496" text-anchor="middle" font-size="23" font-weight="400" fill="#111111">96-well plates</text>
   <path d="M778 548L690 548" stroke="#111111" stroke-width="3" marker-end="url(#ah)"/>
@@ -517,20 +517,23 @@
 <article class="slide" data-seq="esterase">
   <h1 class="ex">Example:<span><i>p</i>-Nitrobenzyl Esterase Evolution</span></h1>
   <svg class="prot" viewBox="0 0 1400 660" role="img" aria-label="The esterase from its crystal structure, drawn as a backbone trace that turns slowly: helices heavy, strands medium, loops fine. A cluster of white spheres marks the cavity beside the catalytic serine where substrate has to bind, with the catalytic triad in red beside it. The substitution sites appear as spheres &mdash; seven in yellow for the ones the screens called improved, two in blue for neutral &mdash; and nearly all of them sit out on the surface, well away from the cavity. A line is then drawn from each improved site to the substrate carrying its measured distance: six of the seven are more than 10 angstroms from the catalytic serine and the median is 17.4, where the catalytic histidine is 2.8.">
-    <circle cx="1012" cy="199" r="10" fill="#ffffff" stroke="#111111" stroke-width="1.6"/>
-    <text x="1038" y="206" text-anchor="start" font-size="24" font-weight="400" fill="#111111">Substrate</text>
-    <circle cx="1012" cy="245" r="10" fill="#004373" stroke="#ffffff" stroke-width="1.4"/>
-    <text x="1038" y="252" text-anchor="start" font-size="24" font-weight="700" fill="#004373">Neutral</text>
-    <circle cx="1012" cy="291" r="10" fill="#a99011" stroke="#ffffff" stroke-width="1.4"/>
-    <text x="1038" y="298" text-anchor="start" font-size="24" font-weight="700" fill="#a99011">Improved</text>
-    <path d="M1004 348H1370" stroke="#e2e2e2" stroke-width="1.4"/>
-    <text x="1004" y="392" text-anchor="start" font-size="21" font-weight="400" fill="#767676">Distance to the catalytic serine</text>
-    <text x="1004" y="436" text-anchor="start" font-size="30" font-weight="700" fill="#a99011">median 17.4 &#8491;</text>
-    <text x="1004" y="474" text-anchor="start" font-size="21" font-weight="400" fill="#767676">six of seven beyond 10 &#8491;</text>
-    <path d="M1004 506H1370" stroke="#e2e2e2" stroke-width="1.4"/>
-    <text x="1004" y="548" text-anchor="start" font-size="21" font-weight="400" fill="#767676">for scale, the catalytic</text>
-    <text x="1004" y="574" text-anchor="start" font-size="21" font-weight="400" fill="#767676">histidine is 2.8 &#8491; away</text>
-    <text x="1004" y="626" text-anchor="start" font-size="19" font-weight="400" fill="#767676">PDB 1QE3</text>
+    <circle cx="1128" cy="169" r="10" fill="#ffffff" stroke="#111111" stroke-width="1.6"/>
+    <text x="1154" y="176" text-anchor="start" font-size="24" font-weight="400" fill="#111111">Substrate</text>
+    <circle cx="1128" cy="217" r="10" fill="#ba3a13" stroke="#ffffff" stroke-width="1.4"/>
+    <text x="1154" y="224" text-anchor="start" font-size="24" font-weight="700" fill="#ba3a13">Catalytic triad</text>
+    <text x="1154" y="250" text-anchor="start" font-size="18" font-weight="400" fill="#767676">Ser189 &#183; Glu310 &#183; His399</text>
+    <circle cx="1128" cy="293" r="10" fill="#004373" stroke="#ffffff" stroke-width="1.4"/>
+    <text x="1154" y="300" text-anchor="start" font-size="24" font-weight="700" fill="#004373">Neutral</text>
+    <circle cx="1128" cy="341" r="10" fill="#a99011" stroke="#ffffff" stroke-width="1.4"/>
+    <text x="1154" y="348" text-anchor="start" font-size="24" font-weight="700" fill="#a99011">Improved</text>
+    <path d="M1120 390H1380" stroke="#e2e2e2" stroke-width="1.4"/>
+    <text x="1120" y="432" text-anchor="start" font-size="20" font-weight="400" fill="#767676">Distance to the catalytic serine</text>
+    <text x="1120" y="476" text-anchor="start" font-size="30" font-weight="700" fill="#a99011">median 17.4 &#8491;</text>
+    <text x="1120" y="512" text-anchor="start" font-size="20" font-weight="400" fill="#767676">six of seven beyond 10 &#8491;</text>
+    <path d="M1120 544H1380" stroke="#e2e2e2" stroke-width="1.4"/>
+    <text x="1120" y="586" text-anchor="start" font-size="20" font-weight="400" fill="#767676">for scale, the catalytic</text>
+    <text x="1120" y="610" text-anchor="start" font-size="20" font-weight="400" fill="#767676">histidine is 2.8 &#8491; away</text>
+    <text x="1120" y="650" text-anchor="start" font-size="18" font-weight="400" fill="#767676">PDB 1QE3</text>
   </svg>
 </article>
 

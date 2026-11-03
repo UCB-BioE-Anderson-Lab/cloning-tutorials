@@ -217,7 +217,35 @@ So section 03 now runs 33, NEW, 34, 35, NEW, 36.  Both are marked
   source 29 already told them about cost the same to make and assay as the
   winner, and from here on they are data.
 
-  "Protein Language Models" lifts one term out of the ProSAR equation.
+  "Protein Language Models" was REBUILT on 3 Nov 2026.  The first version
+  lifted one x out of the equation and replaced it with a row of numbers
+  from an embedding, under four bullets.  JCA: "You got a wall of text
+  here.  Hard to present that.  We need a more clear graphical
+  explanation" -- and, more usefully, he gave the argument:
+
+      the transition is that in practice these features AREN'T unique.
+      We have many natural examples of sequences that all 'work', and so
+      in practice we can infer much more about the importance of a
+      position.
+
+  That is the real bridge and a row of embedding numbers explains none of
+  it.  The slide is now two panels.  Left: the four substitutions as four
+  separate boxes, each holding a question mark, nothing joining them --
+  which is exactly what a linear model sees.  Click: an ALIGNMENT of
+  natural homologs appears on the right, with one column that never varies
+  (a catalytic residue, leave it alone) and one that varies freely (a
+  surface position, change it cheaply).  The point lands without a bullet
+  list: the columns were never unique.  A second click adds the one line
+  about what a language model adds on top -- every deposited sequence, and
+  combinations of positions rather than one at a time.
+
+  The alignment is schematic, and the two annotated columns are generic --
+  "a catalytic residue" and "a surface position" -- rather than real
+  positions in the esterase, because no alignment was actually computed.
+  It ties back to source 28 all the same: that is where the winning
+  mutations turned out to be.
+
+  The ORIGINAL version lifted one term out of the ProSAR equation.
   In ProSAR x is 1 or 0 for "is this substitution present", so Y370F and
   Y370W are unrelated columns and every c must come from your own
   measurements.  The click replaces x with a description of the
@@ -233,6 +261,73 @@ seq/esterase.js rather than in the HTML, and the plain verifier says so
 rather than checking them.  Check that one with
 
   python3 ../../tools/verify_notes.py <raw> --seq seq/esterase.js S28=28
+
+NOTES THAT THE SOURCE NEVER WROTE: data-note-add
+-------------------------------------------------
+Source 16's note jumps straight from recombination to the light chain and
+says nothing at all about transcription or splicing -- so once that slide
+became a six-beat build, two beats had no narration.  JCA, 3 Nov 2026,
+looking at the splicing beat: "I don't understand this frame, and there is
+no note."
+
+Those two beats carry a `data-note-add` attribute, written for the deck.
+deck.js appends it to `data-note`; verify_notes.py collects `data-note`
+ONLY, and `data-note-add="..."` does not contain the string `data-note="`,
+so the verbatim parts still have to concatenate exactly and do.  Anything
+in a data-note-add is mine and is JCA's to rewrite.
+
+A SENTENCE CANNOT MOVE TO A LATER BEAT.  The first attempt put "These VDJ
+regions encode the CDR loops of the antibody" on the translation beat,
+where it reads beautifully -- and the verifier rejected it, correctly,
+because in the source it comes BEFORE "As a B cell matures".  The
+concatenation is ordered.  Split the note where you like, but never
+reorder it.
+
+TWO THINGS THE DRAWING SAID THAT ARE NOT TRUE
+----------------------------------------------
+Both caught by JCA walking source 16 on 3 Nov 2026, and both were real.
+
+"Why does the intron get larger?  Is that real?"  No.  The J-to-C gap was
+drawn 12px wide in the DNA row and 118px in the transcript, purely so the
+label would fit -- which says transcription CREATES the intron.  It is
+copied at the length it already has.  One constant, INT, now sets that gap
+in every row that has one, DNA and pre-splice RNA alike, and V was narrowed
+to pay for the width.
+
+"Why is the RNA double stranded?"  It is not.  The end-squiggle routine
+drew two strands, and it was used for the RNA rows as well as DNA.  DNA
+keeps the crossed pair; RNA now gets one strand.
+
+The lesson for any figure in this deck: a size or a count chosen to make a
+label fit is a claim about the biology, and students read it as one.
+
+THE BUG THAT HID THE NOTES, AND THE SWEEP THAT FOUND THE REST
+--------------------------------------------------------------
+deck.js took a step's note and desc from `querySelector('[data-build=N]')`
+-- the FIRST element with that number in document order.  A build group is
+usually several elements (a figure group, a caption, a legend swatch) and
+the text can sit on any of them, so whenever a silent <g> happened to be
+written above the element carrying the note, that beat went silent.
+
+It now takes the first element that CARRIES text.  Fixed in deck.js, not
+per slide, so it cannot come back.  Three slides were losing notes this
+way and nobody had noticed: source 10, and both added slides in section 03.
+
+Found by sweeping every beat of every section for "slide has a note but
+this beat shows none" -- worth re-running after any build is added:
+
+  walk window.Deck 0..length, compare #pnote against template.notes
+
+The same sweep turned up two beats of source 24 and four of the VDJ slide
+with no narration at all, which is the thing JCA keeps catching.  Those now
+carry data-note-add.
+
+AND ONE SELF-INFLICTED WOUND.  Moving the rail rects with
+`s.replace('  </svg>', ... , 1)` hit the FIRST </svg> IN THE FILE, which is
+source 10's figure, not source 16's.  Three phase-rail rects sat inside the
+Diversity Generation drawing for two commits, giving that slide two phantom
+build groups.  When editing one slide's SVG in a multi-slide file, anchor
+the replace inside that slide's block.
 
 THE ONE THING THAT IS NOT VERBATIM
 -----------------------------------
