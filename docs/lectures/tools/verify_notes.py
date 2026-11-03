@@ -102,8 +102,10 @@ if "--corrections" in args:
     del args[i:i + 2]
 
 def correct(t):
+    """Applied to the NORMALISED source text, so a correction can be written
+    as one sentence even where the pptx broke it across paragraphs."""
     for a, b in CORRECTIONS:
-        t = t.replace(a, b)
+        t = t.replace(norm(a), norm(b))
     return t
 bad = 0
 if args and args[0] == "--seq":
@@ -118,7 +120,7 @@ if args and args[0] == "--seq":
                   re.finditer(r'\n    note:"((?:[^"\\]|\\.)*)"', js[i:j])]
         pieces = [p.replace('\\"', '"').replace("\\\\", "\\") for p in pieces]
         bad += report(f"{name} (source {n}, {len(pieces)} pieces)",
-                      norm(correct(strip_credit(srcnote(n)))), norm(" ".join(pieces)))
+                      correct(norm(strip_credit(srcnote(n)))), norm(" ".join(pieces)))
     sys.exit(1 if bad else 0)
 
 for f in args:
@@ -142,5 +144,5 @@ for f in args:
             continue
         tpl = re.search(r'<template class="notes">([\s\S]*?)</template>', body)
         pieces = [tpl.group(1) if tpl else ""] + re.findall(r'data-note="([^"]*)"', body)
-        bad += report(f"source {n}", norm(correct(strip_credit(srcnote(n)))), norm(" ".join(pieces)))
+        bad += report(f"source {n}", correct(norm(strip_credit(srcnote(n)))), norm(" ".join(pieces)))
 sys.exit(1 if bad else 0)

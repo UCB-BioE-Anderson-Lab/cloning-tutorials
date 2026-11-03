@@ -67,7 +67,20 @@
 .slide .meth li{font-size:28px;margin:0 0 8px}
 /* sources 21-22: the sequence-space landscape, with the source's own
    labels, starting point and spread laid back over it */
-.slide svg.land{flex:1 1 auto;min-height:0;width:100%;height:100%}
+/* sources 21-22: the sequence-space landscape.  The source slides use a
+   borrowed photograph of a rendered terrain; this is a contour map computed
+   from a sum of Gaussians by tools/landscape.py, which is what the note
+   actually describes -- position is sequence, height is function -- and is
+   ours to use.  The map is one shared file; each slide lays its own labels
+   and marks over it in an SVG that shares the viewBox, so the two register. */
+/* source 13: the antibody anatomy, redrawn.  The source borrows an
+   uncredited textbook diagram; this is drawn here, and says the same
+   things -- the three classes and their Fab counts, the domains, the
+   hinge, and where Fv, Fab and Fc begin and end. */
+.slide svg.fab,.slide svg.hyb{flex:1 1 auto;min-height:0;width:100%;height:100%}
+.slide .land{flex:1 1 auto;min-height:0;position:relative}
+.slide .land > img,.slide .land > svg{position:absolute;inset:0;width:100%;height:100%}
+.slide .land > img{object-fit:contain}
 .slide svg.land text{fill:#fff;font-family:var(--sans);font-size:406.4px;
   paint-order:stroke;stroke:rgba(0,0,0,.55);stroke-width:40px}
 </style>
@@ -168,9 +181,78 @@
 <!-- ---------------------------------------------------------------- 13 -->
 <article class="slide">
   <h1>F<sub>ab</sub> Antibody Fragments</h1>
-  <figure class="fig">
-    <img src="img/13-fab.png" alt="An antibody anatomy diagram. Across the top, IgM drawn as a ten-armed pentamer, IgG as the familiar Y, and IgA as a four-armed dimer. Lines lead down from the IgG to an enlarged Y labelled domain by domain: the two antigen binding sites at the tips, the light chain in pale blue folded over the heavy chain in gold, the hinge region with its disulphide bonds, and an oligosaccharide on the stem. A key marks the hypervariable region, the variable region and the constant region, and brackets mark off the Fab, Fv and Fc fragments.">
-  </figure>
+  <svg class="fab" viewBox="0 0 1400 800" role="img" aria-label="Antibody anatomy. Across the top, the three classes with the number of Fab arms each carries: IgM as a pentamer with ten, IgG as a single Y with two, IgA as a dimer with four. Below, one antibody opened out: two heavy chains and two light chains, each arm carrying a variable domain capped by its hypervariable CDR and a constant domain, joined at a hinge with disulphide bonds to a stem of four constant domains. The Fv is the two variable domains at the tip, the Fab one whole arm, the Fc the stem. A key gives the three region types.">
+  <text x="250" y="52" text-anchor="middle" font-size="27" font-weight="700" fill="#111111">IgM</text>
+  <text x="700" y="52" text-anchor="middle" font-size="27" font-weight="700" fill="#111111">IgG</text>
+  <text x="1120" y="52" text-anchor="middle" font-size="27" font-weight="700" fill="#111111">IgA</text>
+  <rect x="254.1" y="82.5" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(140 258.0 89.6)"/><rect x="263.1" y="93.3" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(140 267.0 100.3)"/><rect x="238.1" y="82.5" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(220 242.0 89.6)"/><rect x="229.1" y="93.3" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(220 233.0 100.3)"/><rect x="246.1" y="60.5" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(360 250.0 67.5)"/><rect x="246.1" y="46.5" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(360 250.0 53.5)"/>
+  <rect x="304.2" y="130.6" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(212 308.1 137.6)"/><rect x="296.7" y="142.5" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(212 300.6 149.5)"/><rect x="299.2" y="115.3" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(292 303.1 122.3)"/><rect x="286.2" y="110.0" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(292 290.1 117.1)"/><rect x="322.6" y="116.1" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(432 326.5 123.1)"/><rect x="336.0" y="111.8" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(432 339.9 118.8)"/>
+  <rect x="274.0" y="193.0" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(284 277.9 200.0)"/><rect x="260.3" y="189.6" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(284 264.2 196.6)"/><rect x="286.9" y="183.5" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(364 290.8 190.6)"/><rect x="287.9" y="169.5" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(364 291.8 176.6)"/><rect x="293.4" y="206.1" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(504 297.3 213.1)"/><rect x="301.7" y="217.4" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(504 305.6 224.5)"/>
+  <rect x="205.3" y="183.5" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(356 209.2 190.6)"/><rect x="204.3" y="169.5" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(356 208.2 176.6)"/><rect x="218.2" y="193.0" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(436 222.1 200.0)"/><rect x="231.9" y="189.6" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(436 235.8 196.6)"/><rect x="198.8" y="206.1" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(576 202.7 213.1)"/><rect x="190.5" y="217.4" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(576 194.4 224.5)"/>
+  <rect x="193.0" y="115.3" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(428 196.9 122.3)"/><rect x="206.0" y="110.0" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(428 209.9 117.1)"/><rect x="188.0" y="130.6" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(508 191.9 137.6)"/><rect x="195.5" y="142.5" width="7.8" height="14.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(508 199.4 149.5)"/><rect x="169.6" y="116.1" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(648 173.5 123.1)"/><rect x="156.2" y="111.8" width="7.8" height="14.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(648 160.1 118.8)"/>
+  <circle cx="250" cy="148" r="20" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="250" y="155" text-anchor="middle" font-size="18" font-weight="700" fill="#767676">J</text>
+  <text x="250" y="250" text-anchor="middle" font-size="21" font-weight="400" fill="#767676">10 Fab arms</text>
+  <rect x="677.1" y="88.1" width="15.0" height="27.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(-40 684.6 101.6)"/><rect x="659.7" y="67.4" width="15.0" height="27.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(-40 667.2 80.9)"/><rect x="707.9" y="88.1" width="15.0" height="27.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(40 715.4 101.6)"/><rect x="725.3" y="67.4" width="15.0" height="27.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(40 732.8 80.9)"/><rect x="692.5" y="130.5" width="15.0" height="27.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(180 700.0 144.0)"/><rect x="692.5" y="157.5" width="15.0" height="27.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(180 700.0 171.0)"/>
+  <text x="700" y="250" text-anchor="middle" font-size="21" font-weight="400" fill="#767676">2 Fab arms</text>
+  <rect x="1044.7" y="98.7" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(-40 1049.7 107.7)"/><rect x="1033.1" y="85.0" width="10.0" height="18.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(-40 1038.1 94.0)"/><rect x="1065.3" y="98.7" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(40 1070.3 107.7)"/><rect x="1076.9" y="85.0" width="10.0" height="18.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(40 1081.9 94.0)"/><rect x="1055.0" y="127.0" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(180 1060.0 136.0)"/><rect x="1055.0" y="145.0" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(180 1060.0 154.0)"/>
+  <rect x="1185.3" y="123.3" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(140 1190.3 132.3)"/><rect x="1196.9" y="137.0" width="10.0" height="18.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(140 1201.9 146.0)"/><rect x="1164.7" y="123.3" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(220 1169.7 132.3)"/><rect x="1153.1" y="137.0" width="10.0" height="18.0" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.4" transform="rotate(220 1158.1 146.0)"/><rect x="1175.0" y="95.0" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(360 1180.0 104.0)"/><rect x="1175.0" y="77.0" width="10.0" height="18.0" rx="3" fill="#dfe4ea" stroke="#111111" stroke-width="1.4" transform="rotate(360 1180.0 86.0)"/>
+  <path d="M1092 120H1148" stroke="#111111" stroke-width="3"/>
+  <circle cx="1120" cy="120" r="15" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="1120" y="126" text-anchor="middle" font-size="16" font-weight="700" fill="#767676">J</text>
+  <text x="1120" y="250" text-anchor="middle" font-size="21" font-weight="400" fill="#767676">4 Fab arms</text>
+  <path d="M90 292H1310" stroke="#e2e2e2" stroke-width="1.6"/>
+  <g transform="rotate(-38 491.49012533082384 554.5423595771429)"><rect x="471.5" y="526.5" width="40" height="56" rx="8" fill="#dfe4ea" stroke="#111111" stroke-width="2"/></g>
+  <text x="491" y="562" text-anchor="middle" font-size="18" font-weight="700" fill="#111111">CL</text>
+  <g transform="rotate(-38 532.4666845183734 522.5279628602086)"><rect x="512.5" y="494.5" width="40" height="56" rx="8" fill="#dfe4ea" stroke="#111111" stroke-width="2"/></g>
+  <text x="532" y="530" text-anchor="middle" font-size="18" font-weight="700" fill="#111111">CH1</text>
+  <g transform="rotate(-38 442.23720730477123 491.50149928860503)"><rect x="422.2" y="463.5" width="40" height="56" rx="8" fill="#2fb8b0" stroke="#111111" stroke-width="2"/></g>
+  <text x="442" y="499" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">VL</text>
+  <g transform="rotate(-38 428.7 474.2)"><rect x="408.7" y="467.2" width="40" height="14" rx="5" fill="#ba3a13" stroke="#111111" stroke-width="2"/></g>
+  <g transform="rotate(-38 483.2137664923208 459.4871025716708)"><rect x="463.2" y="431.5" width="40" height="56" rx="8" fill="#2fb8b0" stroke="#111111" stroke-width="2"/></g>
+  <text x="483" y="466" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">VH</text>
+  <g transform="rotate(-38 469.7 442.2)"><rect x="449.7" y="435.2" width="40" height="14" rx="5" fill="#ba3a13" stroke="#111111" stroke-width="2"/></g>
+  <g transform="rotate(38 628.5098746691762 554.5423595771429)"><rect x="608.5" y="526.5" width="40" height="56" rx="8" fill="#dfe4ea" stroke="#111111" stroke-width="2"/></g>
+  <text x="629" y="562" text-anchor="middle" font-size="18" font-weight="700" fill="#111111">CL</text>
+  <g transform="rotate(38 587.5333154816266 522.5279628602086)"><rect x="567.5" y="494.5" width="40" height="56" rx="8" fill="#dfe4ea" stroke="#111111" stroke-width="2"/></g>
+  <text x="588" y="530" text-anchor="middle" font-size="18" font-weight="700" fill="#111111">CH1</text>
+  <g transform="rotate(38 677.7627926952288 491.50149928860503)"><rect x="657.8" y="463.5" width="40" height="56" rx="8" fill="#2fb8b0" stroke="#111111" stroke-width="2"/></g>
+  <text x="678" y="499" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">VL</text>
+  <g transform="rotate(38 691.3 474.2)"><rect x="671.3" y="467.2" width="40" height="14" rx="5" fill="#ba3a13" stroke="#111111" stroke-width="2"/></g>
+  <g transform="rotate(38 636.7862335076792 459.4871025716708)"><rect x="616.8" y="431.5" width="40" height="56" rx="8" fill="#2fb8b0" stroke="#111111" stroke-width="2"/></g>
+  <text x="637" y="466" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">VH</text>
+  <g transform="rotate(38 650.3 442.2)"><rect x="630.3" y="435.2" width="40" height="14" rx="5" fill="#ba3a13" stroke="#111111" stroke-width="2"/></g>
+  <g transform="rotate(0 534 678)"><rect x="514.0" y="650.0" width="40" height="56" rx="8" fill="#dfe4ea" stroke="#111111" stroke-width="2"/></g>
+  <text x="534" y="685" text-anchor="middle" font-size="18" font-weight="700" fill="#111111">CH2</text>
+  <g transform="rotate(0 586 678)"><rect x="566.0" y="650.0" width="40" height="56" rx="8" fill="#dfe4ea" stroke="#111111" stroke-width="2"/></g>
+  <text x="586" y="685" text-anchor="middle" font-size="18" font-weight="700" fill="#111111">CH2</text>
+  <g transform="rotate(0 534 758)"><rect x="514.0" y="730.0" width="40" height="56" rx="8" fill="#dfe4ea" stroke="#111111" stroke-width="2"/></g>
+  <text x="534" y="765" text-anchor="middle" font-size="18" font-weight="700" fill="#111111">CH3</text>
+  <g transform="rotate(0 586 758)"><rect x="566.0" y="730.0" width="40" height="56" rx="8" fill="#dfe4ea" stroke="#111111" stroke-width="2"/></g>
+  <text x="586" y="765" text-anchor="middle" font-size="18" font-weight="700" fill="#111111">CH3</text>
+  <path d="M534 574V642M586 574V642" stroke="#111111" stroke-width="2"/>
+  <path d="M534 604H586M534 620H586" stroke="#004373" stroke-width="3"/>
+  <text x="634" y="616" text-anchor="start" font-size="19" font-weight="400" fill="#004373">hinge, with disulphides</text>
+  <text x="330" y="404" text-anchor="middle" font-size="24" font-weight="700" fill="#ba3a13">Fv</text>
+  <text x="330" y="432" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">the two V domains</text>
+  <path d="M384 414L572 540" stroke="#ba3a13" stroke-width="2" stroke-dasharray="6 5" fill="none"/>
+  <text x="236" y="566" text-anchor="middle" font-size="24" font-weight="700" fill="#2fb8b0">Fab</text>
+  <text x="236" y="594" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">one whole arm</text>
+  <path d="M300 578L560 600" stroke="#2fb8b0" stroke-width="2" stroke-dasharray="6 5" fill="none"/>
+  <text x="760" y="740" text-anchor="middle" font-size="24" font-weight="700" fill="#767676">Fc</text>
+  <text x="760" y="768" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">the stem</text>
+  <path d="M726 752L604 752" stroke="#767676" stroke-width="2" stroke-dasharray="6 5" fill="none"/>
+  <text x="560" y="352" text-anchor="middle" font-size="20" font-weight="700" fill="#ba3a13">antigen binds here</text>
+  <path d="M560 366L596 520" stroke="#ba3a13" stroke-width="2" stroke-dasharray="6 5" fill="none"/>
+  <rect x="1000" y="400" width="300" height="190" rx="8" fill="#f6f7f9"/>
+  <rect x="1026" y="436" width="34" height="22" rx="5" fill="#ba3a13" stroke="#111111" stroke-width="2"/>
+  <text x="1076" y="453" text-anchor="start" font-size="21" font-weight="400" fill="#111111">hypervariable (CDR)</text>
+  <rect x="1026" y="484" width="34" height="22" rx="5" fill="#2fb8b0" stroke="#111111" stroke-width="2"/>
+  <text x="1076" y="501" text-anchor="start" font-size="21" font-weight="400" fill="#111111">variable</text>
+  <rect x="1026" y="532" width="34" height="22" rx="5" fill="#dfe4ea" stroke="#111111" stroke-width="2"/>
+  <text x="1076" y="549" text-anchor="start" font-size="21" font-weight="400" fill="#111111">constant</text>
+  </svg>
+  
   <template class="notes">These types of experiments were inspired by the naturally occurring process involved in generating antibodies.  The warhead of an antibody is the Fab fragment.  IgM antibodies have 10 of these, IgG&rsquo;s have 2, and IgA&rsquo;s have 4.  The tip of the antibody is called the Fv fragment with the VH and VL domains.  The majority of the diversity in antibodies is contained within these two domains.  The minimum sized fragment of an antibody that can exist in its native form and be stable and functional is the Fab fragment containing 4 domains: VH and VL, and CH and CL.</template>
   <template class="desc">The anatomy of an antibody: IgM, IgG and IgA above, and below them one arm opened out to show the light and heavy chains, the variable and constant domains, and where the Fab, Fv and Fc fragments begin and end.</template>
 </article>
@@ -201,9 +283,65 @@ The CDR loops, in orange, are the primary source of variability from one antibod
 <!-- ---------------------------------------------------------------- 15 -->
 <article class="slide">
   <h1>Antibody Selection</h1>
-  <figure class="fig">
-    <img src="img/15-hybridoma.png" alt="The route from antigen to monoclonal antibody, left to right: a syringe of antigen injected into a mouse; B cells harvested from the mouse, drawn as a cluster of orange cells; myeloma cells in red; the two fused into hybridomas, each one a pair; and at the end a single Y-shaped monoclonal antibody.">
-  </figure>
+  <svg class="hyb" viewBox="0 0 1400 560" role="img" aria-label="Making a monoclonal antibody. A syringe of antigen is injected into a mouse; B cells are harvested from it, each one making a single antibody; those are fused with immortal myeloma cells, giving hybridomas that carry a nucleus from each and grow indefinitely; and one hybridoma clone yields one antibody, drawn as a Y.">
+  <rect x="60" y="174" width="86" height="32" rx="4" fill="#e9edf2" stroke="#111111" stroke-width="2.4"/>
+  <rect x="38" y="180" width="24" height="20" rx="3" fill="#111111"/>
+  <path d="M146 190H186" stroke="#111111" stroke-width="3"/>
+  <circle cx="196" cy="166" r="5" fill="#004373"/>
+  <circle cx="211" cy="175" r="5" fill="#004373"/>
+  <circle cx="226" cy="184" r="5" fill="#004373"/>
+  <text x="112" y="246" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">antigen</text>
+  <path d="M236 190H302" stroke="#111111" stroke-width="3"/>
+  <path d="M300 181L316 190L300 199Z" fill="#111111"/>
+  <text x="276" y="170" text-anchor="middle" font-size="19" font-weight="700" fill="#004373">inject</text>
+  <ellipse cx="400" cy="196" rx="62" ry="38" fill="#e9edf2" stroke="#111111" stroke-width="2.6"/>
+  <circle cx="466" cy="184" r="26" fill="#e9edf2" stroke="#111111" stroke-width="2.6"/>
+  <circle cx="452" cy="162" r="12" fill="#e9edf2" stroke="#111111" stroke-width="2.4"/>
+  <circle cx="478" cy="180" r="3.4" fill="#111111"/>
+  <path d="M340 206C300 224 300 180 324 186" fill="none" stroke="#111111" stroke-width="2.6"/>
+  <text x="400" y="276" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">mouse</text>
+  <path d="M516 190H606" stroke="#111111" stroke-width="3"/>
+  <path d="M604 181L620 190L604 199Z" fill="#111111"/>
+  <text x="568" y="170" text-anchor="middle" font-size="19" font-weight="700" fill="#004373">harvest</text>
+  <circle cx="690" cy="156" r="21" fill="#2fb8b0" fill-opacity="0.3" stroke="#2fb8b0" stroke-width="2.6"/>
+  <circle cx="690" cy="156" r="8.82" fill="#2fb8b0"/>
+  <circle cx="720" cy="196" r="21" fill="#2fb8b0" fill-opacity="0.3" stroke="#2fb8b0" stroke-width="2.6"/>
+  <circle cx="720" cy="196" r="8.82" fill="#2fb8b0"/>
+  <circle cx="664" cy="206" r="21" fill="#2fb8b0" fill-opacity="0.3" stroke="#2fb8b0" stroke-width="2.6"/>
+  <circle cx="664" cy="206" r="8.82" fill="#2fb8b0"/>
+  <circle cx="698" cy="236" r="21" fill="#2fb8b0" fill-opacity="0.3" stroke="#2fb8b0" stroke-width="2.6"/>
+  <circle cx="698" cy="236" r="8.82" fill="#2fb8b0"/>
+  <text x="690" y="294" text-anchor="middle" font-size="22" font-weight="700" fill="#2fb8b0">B cells</text>
+  <text x="690" y="322" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">each makes one antibody</text>
+  <text x="830" y="198" text-anchor="middle" font-size="44" font-weight="700" fill="#767676">+</text>
+  <circle cx="950" cy="160" r="23" fill="#ba3a13" fill-opacity="0.3" stroke="#ba3a13" stroke-width="2.6"/>
+  <circle cx="950" cy="160" r="9.66" fill="#ba3a13"/>
+  <circle cx="978" cy="200" r="23" fill="#ba3a13" fill-opacity="0.3" stroke="#ba3a13" stroke-width="2.6"/>
+  <circle cx="978" cy="200" r="9.66" fill="#ba3a13"/>
+  <circle cx="926" cy="208" r="23" fill="#ba3a13" fill-opacity="0.3" stroke="#ba3a13" stroke-width="2.6"/>
+  <circle cx="926" cy="208" r="9.66" fill="#ba3a13"/>
+  <text x="950" y="294" text-anchor="middle" font-size="22" font-weight="700" fill="#ba3a13">myeloma cells</text>
+  <text x="950" y="322" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">immortal</text>
+  <path d="M1046 190H1128" stroke="#111111" stroke-width="3"/>
+  <path d="M1126 181L1142 190L1126 199Z" fill="#111111"/>
+  <text x="1094" y="170" text-anchor="middle" font-size="19" font-weight="700" fill="#004373">fuse</text>
+  <circle cx="1196" cy="190" r="34" fill="#8a7fb5" fill-opacity="0.3" stroke="#8a7fb5" stroke-width="2.6"/>
+  <circle cx="1185.12" cy="190" r="11.22" fill="#2fb8b0"/>
+  <circle cx="1206.88" cy="190" r="11.22" fill="#ba3a13"/>
+  <text x="1196" y="266" text-anchor="middle" font-size="22" font-weight="700" fill="#8a7fb5">hybridoma</text>
+  <text x="1196" y="294" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">one clone, one antibody,</text>
+  <text x="1196" y="318" text-anchor="middle" font-size="18" font-weight="400" fill="#767676">grows for ever</text>
+  <path d="M1196 340V396" stroke="#111111" stroke-width="3"/>
+  <path d="M1187 394L1196 410L1205 394Z" fill="#111111"/>
+  <rect x="1178.4" y="433.2" width="12" height="22" rx="3" fill="#e9edf2" stroke="#111111" stroke-width="1.6" transform="rotate(-40 1184.4 444.2)"/>
+  <rect x="1165.6" y="417.9" width="12" height="22" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.6" transform="rotate(-40 1171.6 428.9)"/>
+  <rect x="1201.6" y="433.2" width="12" height="22" rx="3" fill="#e9edf2" stroke="#111111" stroke-width="1.6" transform="rotate(40 1207.6 444.2)"/>
+  <rect x="1214.4" y="417.9" width="12" height="22" rx="3" fill="#2fb8b0" stroke="#111111" stroke-width="1.6" transform="rotate(40 1220.4 428.9)"/>
+  <rect x="1190.0" y="465.0" width="12" height="22" rx="3" fill="#e9edf2" stroke="#111111" stroke-width="1.6" transform="rotate(180 1196.0 476.0)"/>
+  <rect x="1190.0" y="485.0" width="12" height="22" rx="3" fill="#e9edf2" stroke="#111111" stroke-width="1.6" transform="rotate(180 1196.0 496.0)"/>
+  <text x="1196" y="540" text-anchor="middle" font-size="22" font-weight="700" fill="#111111">monoclonal antibody</text>
+  </svg>
+  
   <template class="notes">The traditional way to make specific antibodies involved injecting a mouse with the antigen.  This process of antibody generation happens within the mouse, and the cells that contain the genes for the antibody and thus produce each antibody are B cells. Different B cells will produce different antibodies. These cells are harvested from the mouse, and then immortalized by fusion with myeloma cells.  The resulting hybridomas are identified as clones that each produce one specific antibody.  Those clones can be expanded by re-injection into a mouse or growth in vitro to produce as much of the monoclonal antibody as desired.  Also the genes can be cloned out and expressed in a bacterium or animal cell line.</template>
   <template class="desc">Making a monoclonal antibody the traditional way: inject the antigen into a mouse, harvest its B cells, fuse them with myeloma cells to immortalize them, and pick the hybridoma clone that makes the antibody you want.</template>
 </article>
@@ -523,24 +661,25 @@ The CDR loops, in orange, are the primary source of variability from one antibod
     <p>Heavy chain gene &ndash; located on chromosome 14</p>
     <p>Light chain kappa (&kappa;) gene &ndash; located on chromosome 2</p>
     <p>Light chain lambda (&lambda;) gene &ndash; located on chromosome 22</p>
-    <div class="blk" data-build="1" data-note="During early B cell development in the bone marrow&mdash;before any infection&mdash;B cells undergo VDJ recombination. The heavy chain locus contains: 65 Variable (V) domains 27 Diversity (D) domains 6 Joining (J) domains">
+    <div class="blk" data-build="1" data-note="During early B cell development in the bone marrow&mdash;before any infection&mdash;B cells undergo VDJ recombination. The heavy chain locus contains: 38 to 46 functional Variable (V) genes 23 Diversity (D) genes 6 Joining (J) genes">
       <h2>Heavy Chain in Genome</h2>
       <ul>
-        <li>65 Variable (V) domains</li>
-        <li>27 Diversity (D) domains</li>
-        <li>6 Joining (J) domains</li>
+        <li>38&ndash;46 functional Variable (V) genes</li>
+        <li>23 Diversity (D) genes</li>
+        <li>6 Joining (J) genes</li>
       </ul>
     </div>
-    <div class="blk" data-build="2" data-note="These combine in 65 &times; 27 &times; 6 = 10,530 unique ways. The light chains also recombine (VJ only), adding further diversity.">
-      <p class="sum">65 V genes x 27 D genes x 6 J Genes = 10530 combinations
+    <div class="blk" data-build="2" data-note="These combine in 38-46 &times; 23 &times; 6 = 5,244 to 6,348 unique ways. The light chains also recombine (VJ only), adding further diversity.">
+      <p class="sum">38&ndash;46 V &times; 23 D &times; 6 J = 5,244 to 6,348 combinations
         <span>Light Chain similarly has V and J recombination</span></p>
     </div>
     <div class="blk" data-build="3" data-note="This process produces a specific antibody gene combination, not random sequences. The first expressed antibody is IgM, determined by the constant (C) region. IgM forms a pentamer with up to 10 Fab regions, allowing strong binding to repetitive structures like viruses through avidity, despite initially low affinity. Analogy: Like ordering at Chipotle&mdash;selecting base, protein, and toppings leads to many defined combinations&mdash;VDJ recombination builds a large, specific antibody repertoire from genomic choices.">
       <p>VDJ recombination results in one antibody gene of the IgM form.  An initial &ldquo;hit&rdquo; that binds the antigen (weakly) is selected from a single B cell expressing a single IgM</p>
     </div>
   </div>
+  <p class="src">Gene counts: IMGT, human IGH locus (imgt.org)</p>
   <template class="notes">All cells in the mouse begin with identical heavy and light chain gene sequences. The heavy chain gene is located on chromosome 14, while the light chain genes&mdash;kappa (&kappa;) and lambda (&lambda;)&mdash;are found on chromosomes 2 and 22, respectively.</template>
-  <template class="desc">Where the antibody genes sit &mdash; heavy chain on chromosome 14, the two light chains on 2 and 22 &mdash; then the heavy chain locus counted out: 65 V, 27 D and 6 J segments, 10,530 combinations, and a light chain recombining the same way. What comes out is one IgM gene per B cell.</template>
+  <template class="desc">Where the antibody genes sit &mdash; heavy chain on chromosome 14, the two light chains on 2 and 22 &mdash; then the heavy chain locus counted out: 38&ndash;46 functional V, 23 D and 6 J genes, 5,244 to 6,348 combinations, and a light chain recombining the same way. What comes out is one IgM gene per B cell.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 18 -->
@@ -761,101 +900,106 @@ The process of affinity maturation is analogous to directed evolution:  it invol
 <!-- ---------------------------------------------------------------- 21 -->
 <article class="slide">
   <h1>Combinatorial Libraries</h1>
-  <svg class="land" viewBox="838.2 990.602 7620 5660.571" role="img"
-       aria-label="A rugged grey landscape of many hills standing for sequence space. Three hills are named GFP, RFP and phoA. A green dot marks a starting sequence, and a rectangular grid of red dots spreads across a region of the terrain well away from it.">
-    <image x="838.2" y="990.602" width="7620" height="5660.571" href="img/21-landscape.png" preserveAspectRatio="none"/>
-    <g data-build="1" data-note="Perhaps some of these hills correspond to GFP, RFP, and alkaline phosphatase-encoding sequences. Most sequences in this space have no activity, but there are hills where sequences similar in sequence have similar functionality, with some a little better than the others.  In a combinatorial experiment,">
-      <text x="6217.4" y="1806.2">RFP</text>
-      <text x="5425.4" y="2111.0">GFP</text>
-      <text x="1996.4" y="2873.0">phoA</text>
-    </g>
-    <circle data-build="2" data-note="we start with some region of sequence space" cx="4267.2" cy="3733.8" r="76.2" fill="#92d050"/>
-    <g data-build="3" data-note="and produce a sparse matrix of constructs with the intent of finding another hill of activity.  In this case, the spread of variants hits 4 additional hills of activity, but they are different hills than where our search began." fill="#ff0000" transform="translate(990.6,1219.2) scale(0.001)">
-        <circle cx="1447800" cy="2286000" r="76200"/>
-        <circle cx="1447800" cy="2540000" r="76200"/>
-        <circle cx="1447800" cy="2794000" r="76200"/>
-        <circle cx="1447800" cy="3048000" r="76200"/>
-        <circle cx="1447800" cy="3302000" r="76200"/>
-        <circle cx="1447800" cy="3556000" r="76200"/>
-        <circle cx="1447800" cy="3810000" r="76200"/>
-        <circle cx="1676400" cy="2286000" r="76200"/>
-        <circle cx="1676400" cy="2540000" r="76200"/>
-        <circle cx="1676400" cy="2794000" r="76200"/>
-        <circle cx="1676400" cy="3048000" r="76200"/>
-        <circle cx="1676400" cy="3302000" r="76200"/>
-        <circle cx="1676400" cy="3556000" r="76200"/>
-        <circle cx="1676400" cy="3810000" r="76200"/>
-        <circle cx="1905000" cy="2286000" r="76200"/>
-        <circle cx="1905000" cy="2540000" r="76200"/>
-        <circle cx="1905000" cy="2794000" r="76200"/>
-        <circle cx="1905000" cy="3048000" r="76200"/>
-        <circle cx="1905000" cy="3302000" r="76200"/>
-        <circle cx="1905000" cy="3556000" r="76200"/>
-        <circle cx="1905000" cy="3810000" r="76200"/>
-        <circle cx="2133600" cy="2286000" r="76200"/>
-        <circle cx="2133600" cy="2540000" r="76200"/>
-        <circle cx="2133600" cy="2794000" r="76200"/>
-        <circle cx="2133600" cy="3048000" r="76200"/>
-        <circle cx="2133600" cy="3302000" r="76200"/>
-        <circle cx="2133600" cy="3556000" r="76200"/>
-        <circle cx="2133600" cy="3810000" r="76200"/>
-        <circle cx="2362200" cy="2286000" r="76200"/>
-        <circle cx="2362200" cy="2540000" r="76200"/>
-        <circle cx="2362200" cy="2794000" r="76200"/>
-        <circle cx="2362200" cy="3048000" r="76200"/>
-        <circle cx="2362200" cy="3302000" r="76200"/>
-        <circle cx="2362200" cy="3556000" r="76200"/>
-        <circle cx="2362200" cy="3810000" r="76200"/>
-        <circle cx="2590800" cy="2286000" r="76200"/>
-        <circle cx="2590800" cy="2540000" r="76200"/>
-        <circle cx="2590800" cy="2794000" r="76200"/>
-        <circle cx="2590800" cy="3048000" r="76200"/>
-        <circle cx="2590800" cy="3302000" r="76200"/>
-        <circle cx="2590800" cy="3556000" r="76200"/>
-        <circle cx="2590800" cy="3810000" r="76200"/>
-        <circle cx="2819400" cy="2286000" r="76200"/>
-        <circle cx="2819400" cy="2540000" r="76200"/>
-        <circle cx="2819400" cy="2794000" r="76200"/>
-        <circle cx="2819400" cy="3048000" r="76200"/>
-        <circle cx="2819400" cy="3302000" r="76200"/>
-        <circle cx="2819400" cy="3556000" r="76200"/>
-        <circle cx="2819400" cy="3810000" r="76200"/>
-        <circle cx="3048000" cy="2286000" r="76200"/>
-        <circle cx="3048000" cy="2540000" r="76200"/>
-        <circle cx="3048000" cy="2794000" r="76200"/>
-        <circle cx="3048000" cy="3048000" r="76200"/>
-        <circle cx="3048000" cy="3302000" r="76200"/>
-        <circle cx="3048000" cy="3556000" r="76200"/>
-        <circle cx="3048000" cy="3810000" r="76200"/>
-        <circle cx="3276600" cy="2286000" r="76200"/>
-        <circle cx="3276600" cy="2794000" r="76200"/>
-        <circle cx="3276600" cy="3048000" r="76200"/>
-        <circle cx="3276600" cy="3302000" r="76200"/>
-        <circle cx="3276600" cy="3556000" r="76200"/>
-        <circle cx="3276600" cy="3810000" r="76200"/>
-        <circle cx="3505200" cy="2286000" r="76200"/>
-        <circle cx="3505200" cy="2540000" r="76200"/>
-        <circle cx="3505200" cy="2794000" r="76200"/>
-        <circle cx="3505200" cy="3048000" r="76200"/>
-        <circle cx="3505200" cy="3302000" r="76200"/>
-        <circle cx="3505200" cy="3556000" r="76200"/>
-        <circle cx="3505200" cy="3810000" r="76200"/>
-        <circle cx="3733800" cy="2286000" r="76200"/>
-        <circle cx="3733800" cy="2540000" r="76200"/>
-        <circle cx="3733800" cy="2794000" r="76200"/>
-        <circle cx="3733800" cy="3048000" r="76200"/>
-        <circle cx="3733800" cy="3302000" r="76200"/>
-        <circle cx="3733800" cy="3556000" r="76200"/>
-        <circle cx="3733800" cy="3810000" r="76200"/>
-        <circle cx="3962400" cy="2286000" r="76200"/>
-        <circle cx="3962400" cy="2540000" r="76200"/>
-        <circle cx="3962400" cy="2794000" r="76200"/>
-        <circle cx="3962400" cy="3048000" r="76200"/>
-        <circle cx="3962400" cy="3302000" r="76200"/>
-        <circle cx="3962400" cy="3556000" r="76200"/>
-        <circle cx="3962400" cy="3810000" r="76200"/>
-    </g>
-  </svg>
+  <div class="land">
+    <img src="img/landscape.svg" alt="">
+    <svg viewBox="0 0 1180 560" role="img" aria-label="A contour map of sequence space: position is sequence, height is function. Three hills are named RFP, GFP and phoA. A green dot marks where the search starts, out on flat ground; then a rectangular grid of red dots is scattered across a region well away from it, falling across several unnamed hills.">
+      <g data-build="1" data-note="Perhaps some of these hills correspond to GFP, RFP, and alkaline phosphatase-encoding sequences. Most sequences in this space have no activity, but there are hills where sequences similar in sequence have similar functionality, with some a little better than the others.  In a combinatorial experiment,">
+      <text x="867" y="104" text-anchor="middle" font-size="27" font-weight="700" fill="#111111" paint-order="stroke" stroke="#ffffff" stroke-width="5">RFP</text>
+      <text x="714" y="157" text-anchor="middle" font-size="27" font-weight="700" fill="#111111" paint-order="stroke" stroke="#ffffff" stroke-width="5">GFP</text>
+      <text x="230" y="207" text-anchor="middle" font-size="27" font-weight="700" fill="#111111" paint-order="stroke" stroke="#ffffff" stroke-width="5">phoA</text>
+      </g>
+      <g data-build="2" data-note="we start with some region of sequence space">
+      <circle cx="1012" cy="318" r="11" fill="#1f8a3b" stroke="#ffffff" stroke-width="2"/>
+      <text x="1012" y="356" text-anchor="middle" font-size="21" font-weight="400" fill="#1f8a3b" paint-order="stroke" stroke="#ffffff" stroke-width="5">start here</text>
+      </g>
+      <g data-build="3" data-note="and produce a sparse matrix of constructs with the intent of finding another hill of activity.  In this case, the spread of variants hits 4 additional hills of activity, but they are different hills than where our search began." fill="#cc2222">
+      <circle cx="296" cy="274" r="5.4" fill="#cc2222"/>
+      <circle cx="333" cy="274" r="5.4" fill="#cc2222"/>
+      <circle cx="370" cy="274" r="5.4" fill="#cc2222"/>
+      <circle cx="407" cy="274" r="5.4" fill="#cc2222"/>
+      <circle cx="444" cy="274" r="5.4" fill="#cc2222"/>
+      <circle cx="481" cy="274" r="5.4" fill="#cc2222"/>
+      <circle cx="518" cy="274" r="5.4" fill="#cc2222"/>
+      <circle cx="555" cy="274" r="5.4" fill="#cc2222"/>
+      <circle cx="592" cy="274" r="5.4" fill="#cc2222"/>
+      <circle cx="629" cy="274" r="5.4" fill="#cc2222"/>
+      <circle cx="666" cy="274" r="5.4" fill="#cc2222"/>
+      <circle cx="703" cy="274" r="5.4" fill="#cc2222"/>
+      <circle cx="296" cy="307" r="5.4" fill="#cc2222"/>
+      <circle cx="333" cy="307" r="5.4" fill="#cc2222"/>
+      <circle cx="370" cy="307" r="5.4" fill="#cc2222"/>
+      <circle cx="407" cy="307" r="5.4" fill="#cc2222"/>
+      <circle cx="444" cy="307" r="5.4" fill="#cc2222"/>
+      <circle cx="481" cy="307" r="5.4" fill="#cc2222"/>
+      <circle cx="518" cy="307" r="5.4" fill="#cc2222"/>
+      <circle cx="555" cy="307" r="5.4" fill="#cc2222"/>
+      <circle cx="592" cy="307" r="5.4" fill="#cc2222"/>
+      <circle cx="629" cy="307" r="5.4" fill="#cc2222"/>
+      <circle cx="666" cy="307" r="5.4" fill="#cc2222"/>
+      <circle cx="703" cy="307" r="5.4" fill="#cc2222"/>
+      <circle cx="296" cy="340" r="5.4" fill="#cc2222"/>
+      <circle cx="333" cy="340" r="5.4" fill="#cc2222"/>
+      <circle cx="370" cy="340" r="5.4" fill="#cc2222"/>
+      <circle cx="407" cy="340" r="5.4" fill="#cc2222"/>
+      <circle cx="444" cy="340" r="5.4" fill="#cc2222"/>
+      <circle cx="481" cy="340" r="5.4" fill="#cc2222"/>
+      <circle cx="518" cy="340" r="5.4" fill="#cc2222"/>
+      <circle cx="555" cy="340" r="5.4" fill="#cc2222"/>
+      <circle cx="592" cy="340" r="5.4" fill="#cc2222"/>
+      <circle cx="629" cy="340" r="5.4" fill="#cc2222"/>
+      <circle cx="666" cy="340" r="5.4" fill="#cc2222"/>
+      <circle cx="703" cy="340" r="5.4" fill="#cc2222"/>
+      <circle cx="296" cy="373" r="5.4" fill="#cc2222"/>
+      <circle cx="333" cy="373" r="5.4" fill="#cc2222"/>
+      <circle cx="370" cy="373" r="5.4" fill="#cc2222"/>
+      <circle cx="407" cy="373" r="5.4" fill="#cc2222"/>
+      <circle cx="444" cy="373" r="5.4" fill="#cc2222"/>
+      <circle cx="481" cy="373" r="5.4" fill="#cc2222"/>
+      <circle cx="518" cy="373" r="5.4" fill="#cc2222"/>
+      <circle cx="555" cy="373" r="5.4" fill="#cc2222"/>
+      <circle cx="592" cy="373" r="5.4" fill="#cc2222"/>
+      <circle cx="629" cy="373" r="5.4" fill="#cc2222"/>
+      <circle cx="666" cy="373" r="5.4" fill="#cc2222"/>
+      <circle cx="703" cy="373" r="5.4" fill="#cc2222"/>
+      <circle cx="296" cy="406" r="5.4" fill="#cc2222"/>
+      <circle cx="333" cy="406" r="5.4" fill="#cc2222"/>
+      <circle cx="370" cy="406" r="5.4" fill="#cc2222"/>
+      <circle cx="407" cy="406" r="5.4" fill="#cc2222"/>
+      <circle cx="444" cy="406" r="5.4" fill="#cc2222"/>
+      <circle cx="481" cy="406" r="5.4" fill="#cc2222"/>
+      <circle cx="518" cy="406" r="5.4" fill="#cc2222"/>
+      <circle cx="555" cy="406" r="5.4" fill="#cc2222"/>
+      <circle cx="592" cy="406" r="5.4" fill="#cc2222"/>
+      <circle cx="629" cy="406" r="5.4" fill="#cc2222"/>
+      <circle cx="666" cy="406" r="5.4" fill="#cc2222"/>
+      <circle cx="703" cy="406" r="5.4" fill="#cc2222"/>
+      <circle cx="296" cy="439" r="5.4" fill="#cc2222"/>
+      <circle cx="333" cy="439" r="5.4" fill="#cc2222"/>
+      <circle cx="370" cy="439" r="5.4" fill="#cc2222"/>
+      <circle cx="407" cy="439" r="5.4" fill="#cc2222"/>
+      <circle cx="444" cy="439" r="5.4" fill="#cc2222"/>
+      <circle cx="481" cy="439" r="5.4" fill="#cc2222"/>
+      <circle cx="518" cy="439" r="5.4" fill="#cc2222"/>
+      <circle cx="555" cy="439" r="5.4" fill="#cc2222"/>
+      <circle cx="592" cy="439" r="5.4" fill="#cc2222"/>
+      <circle cx="629" cy="439" r="5.4" fill="#cc2222"/>
+      <circle cx="666" cy="439" r="5.4" fill="#cc2222"/>
+      <circle cx="703" cy="439" r="5.4" fill="#cc2222"/>
+      <circle cx="296" cy="472" r="5.4" fill="#cc2222"/>
+      <circle cx="333" cy="472" r="5.4" fill="#cc2222"/>
+      <circle cx="370" cy="472" r="5.4" fill="#cc2222"/>
+      <circle cx="407" cy="472" r="5.4" fill="#cc2222"/>
+      <circle cx="444" cy="472" r="5.4" fill="#cc2222"/>
+      <circle cx="481" cy="472" r="5.4" fill="#cc2222"/>
+      <circle cx="518" cy="472" r="5.4" fill="#cc2222"/>
+      <circle cx="555" cy="472" r="5.4" fill="#cc2222"/>
+      <circle cx="592" cy="472" r="5.4" fill="#cc2222"/>
+      <circle cx="629" cy="472" r="5.4" fill="#cc2222"/>
+      <circle cx="666" cy="472" r="5.4" fill="#cc2222"/>
+      <circle cx="703" cy="472" r="5.4" fill="#cc2222"/>
+      </g>
+    </svg>
+  </div>
   <template class="notes">Another way to think about this is to consider a topological landscape.  The X and Y coordinates of the terrain correspond to sequences, and the height of each hill is functionality.</template>
   <template class="desc">Sequence space drawn as a landscape: position is sequence, height is function. Three of the hills are named &mdash; GFP, RFP and alkaline phosphatase. A green dot marks where the search starts; a rectangular grid of red dots marks the sparse matrix of variants a combinatorial library throws across the terrain, landing on hills quite different from the one it began on.</template>
 </article>
@@ -863,13 +1007,26 @@ The process of affinity maturation is analogous to directed evolution:  it invol
 <!-- ---------------------------------------------------------------- 22 -->
 <article class="slide">
   <h1>Directed Evolution</h1>
-  <svg class="land" viewBox="838.2 990.602 7620 5660.571" role="img"
-       aria-label="The same landscape. A green dot marks a starting sequence partway up one hill, and a red line is traced from it up the slope to that hill's summit.">
-    <image x="838.2" y="990.602" width="7620" height="5660.571" href="img/21-landscape.png" preserveAspectRatio="none"/>
-    <circle data-build="1" data-note="start with a sequence on one of these hills of activity, but our goal is to" cx="3352.8" cy="4495.8" r="76.2" fill="#92d050"/>
-    <path data-build="2" data-note="climb to the local maximal activity of that hill through incremental changes." transform="translate(2949.983,4121.15) scale(0.001)" fill="none" stroke="#ff0000" stroke-width="38100"
-          d="M371068,381000 C356251,383117 341294,384415 326618,387350 C320054,388663 314154,392503 307568,393700 C290778,396753 273601,397245 256768,400050 C248160,401485 240028,405318 231368,406400 C206077,409561 180568,410633 155168,412750 C135454,410560 96040,415040 78968,393700 C74787,388473 74735,381000 72618,374650 C74735,368300 74235,360333 78968,355600 C83701,350867 91432,350447 98018,349250 C207028,329430 106922,353374 174218,336550 C180568,332317 186442,327263 193268,323850 C199255,320857 207585,322233 212318,317500 C223111,306707 237718,279400 237718,279400 C239835,268817 244068,258443 244068,247650 C244068,238923 242559,229512 237718,222250 C233485,215900 226184,210876 218668,209550 C189411,204387 159401,205317 129768,203200 C121301,205317 112759,207152 104368,209550 C97932,211389 92011,215900 85318,215900 C77256,215900 37964,205649 28168,203200 C21818,198967 12904,197126 9118,190500 C1303,176823 0,140677 9118,127000 C12831,121431 21674,122273 28168,120650 C38639,118032 49382,116641 59918,114300 C68437,112407 76851,110067 85318,107950 C83201,82550 82337,57014 78968,31750 C78083,25115 76062,18440 72618,12700 C69538,7566 64151,4233 59918,0"/>
-  </svg>
+  <div class="land">
+    <img src="img/landscape.svg" alt="">
+    <svg viewBox="0 0 1180 560" role="img" aria-label="The same contour map. A green dot marks a sequence partway up one hill, and a red track of small steps climbs from it to that hill's summit, marked the local maximum. It never leaves the hill it started on.">
+      <defs><marker id="climb" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="5" markerHeight="4.5" orient="auto"><path d="M0 0L10 4L0 8z" fill="#cc2222"/></marker></defs>
+      <g data-build="1" data-note="start with a sequence on one of these hills of activity, but our goal is to">
+      <circle cx="470" cy="452" r="11" fill="#1f8a3b" stroke="#ffffff" stroke-width="2"/>
+      <text x="470" y="492" text-anchor="middle" font-size="21" font-weight="400" fill="#1f8a3b" paint-order="stroke" stroke="#ffffff" stroke-width="5">start here</text>
+      </g>
+      <g data-build="2" data-note="climb to the local maximal activity of that hill through incremental changes.">
+      <path d="M470 452 L455 438 L447 420 L433 412 L428 398 L414 392 L407 386" fill="none" stroke="#cc2222" stroke-width="4" stroke-linejoin="round" marker-end="url(#climb)"/>
+      <circle cx="455" cy="438" r="4.6" fill="#cc2222"/>
+      <circle cx="447" cy="420" r="4.6" fill="#cc2222"/>
+      <circle cx="433" cy="412" r="4.6" fill="#cc2222"/>
+      <circle cx="428" cy="398" r="4.6" fill="#cc2222"/>
+      <circle cx="414" cy="392" r="4.6" fill="#cc2222"/>
+      <circle cx="407" cy="386" r="10" fill="#cc2222" stroke="#ffffff" stroke-width="2"/>
+      <text x="407" y="352" text-anchor="middle" font-size="21" font-weight="400" fill="#cc2222" paint-order="stroke" stroke="#ffffff" stroke-width="5">local maximum</text>
+      </g>
+    </svg>
+  </div>
   <template class="notes">In directed evolution, we similarly</template>
   <template class="desc">The same landscape. A green dot marks a sequence already partway up one hill, and a red track winds from it up the slope to the top of that same hill &mdash; small steps, one hill, the local maximum.</template>
 </article>

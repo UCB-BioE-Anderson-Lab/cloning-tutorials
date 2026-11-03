@@ -413,18 +413,26 @@ Cited on the slide: sources 25-27 (Nat Biotechnol 1996), 32-33 (Nature
 protein-models slide (Science 2025).  Source 14 names its structures by
 PDB ID, which is its own citation.
 
-STILL UNCITED, and JCA's to settle:
+SETTLED, 3 Nov 2026:
 
-  17  "65 V x 27 D x 6 J = 10530".  No source given, and published counts
-      differ by what they count: IMGT lists 27 IGHD and 6 functional IGHJ,
-      which match, but gives roughly 38-46 FUNCTIONAL IGHV against the 65
-      here.  65 is plausible as a total-or-ORF count.  Worth pinning to
-      whichever source he took it from, because students will look it up.
-  29  the 90% / 9% / 1% split.  The slide already says "very approximate",
-      but a number that round invites "says who?".
-  13  the antibody anatomy figure, borrowed, uncredited.
-  15  the mouse-to-hybridoma figure, borrowed, uncredited.
-  21, 22  the sequence-space landscape photograph, borrowed, uncredited.
+  17  The counts were wrong, not merely uncited: the slide mixed TOTAL and
+      FUNCTIONAL segment numbers.  IMGT lists 123-129 IGHV, 27 IGHD and 9
+      IGHJ in total but 38-46, 23 and 6 FUNCTIONAL, and only functional
+      genes can combine into an antibody.  The 65 matched neither count.
+      IMGT states the product itself: 38 x 23 x 6 = 5244 minimum, 46 x 23
+      x 6 = 6348 maximum.  Slide, note and desc now say 38-46 x 23 x 6 =
+      5,244 to 6,348, and the slide cites IMGT.
+  13  Redrawn.  The three classes with their Fab counts, the domains, the
+      hinge, and where Fv, Fab and Fc begin and end.
+  15  Redrawn.  Antigen, mouse, B cells, myeloma, hybridoma, antibody.
+  21, 22  Redrawn as a CONTOUR MAP computed by tools/landscape.py from a
+      sum of Gaussians -- which is what the note actually describes, "the
+      height of each hill is functionality".  The hills are real maxima of
+      a real function, not drawing.  One shared img/landscape.svg under
+      two overlays that share its viewBox, so labels and marks register.
+
+  29  Left alone on JCA's instruction.  The slide says "very approximate"
+      and that is enough.
 
 CHECKING THE NOTES
 ------------------

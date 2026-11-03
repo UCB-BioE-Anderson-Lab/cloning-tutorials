@@ -37,3 +37,13 @@ This can be done by error-prone, shuffling.|This can be done by error-prone PCR 
 # --- source 49
 an assay, such a chromagenic substrate|an assay, such as a chromogenic substrate
 Find such big jumps in structure often requires|Finding such big jumps in structure often requires
+
+# --- source 17: the segment counts, corrected on JCA's instruction 3 Nov 2026.
+# The slide mixed TOTAL and FUNCTIONAL counts: IMGT lists 123-129 IGHV, 27
+# IGHD and 9 IGHJ in total, but 38-46, 23 and 6 FUNCTIONAL, and only the
+# functional ones can combine into an antibody.  The 65 matched neither.
+# IMGT states the resulting combinatorial diversity itself: 38 x 23 x 6 =
+# 5244 minimum, 46 x 23 x 6 = 6348 maximum.
+# imgt.org/IMGTrepertoire/LocusGenes/genetable/human/geneNumber.html
+65 Variable (V) domains 27 Diversity (D) domains 6 Joining (J) domains|38 to 46 functional Variable (V) genes 23 Diversity (D) genes 6 Joining (J) genes
+These combine in 65 × 27 × 6 = 10,530 unique ways.|These combine in 38-46 × 23 × 6 = 5,244 to 6,348 unique ways.
