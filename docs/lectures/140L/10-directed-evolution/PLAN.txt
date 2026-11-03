@@ -255,6 +255,24 @@ because in the source it comes BEFORE "As a B cell matures".  The
 concatenation is ordered.  Split the note where you like, but never
 reorder it.
 
+TWO THINGS THE DRAWING SAID THAT ARE NOT TRUE
+----------------------------------------------
+Both caught by JCA walking source 16 on 3 Nov 2026, and both were real.
+
+"Why does the intron get larger?  Is that real?"  No.  The J-to-C gap was
+drawn 12px wide in the DNA row and 118px in the transcript, purely so the
+label would fit -- which says transcription CREATES the intron.  It is
+copied at the length it already has.  One constant, INT, now sets that gap
+in every row that has one, DNA and pre-splice RNA alike, and V was narrowed
+to pay for the width.
+
+"Why is the RNA double stranded?"  It is not.  The end-squiggle routine
+drew two strands, and it was used for the RNA rows as well as DNA.  DNA
+keeps the crossed pair; RNA now gets one strand.
+
+The lesson for any figure in this deck: a size or a count chosen to make a
+label fit is a claim about the biology, and students read it as one.
+
 THE BUG THAT HID THE DESCRIPTIONS
 ----------------------------------
 deck.js takes a step's note and desc from `querySelector('[data-build=N]')`
