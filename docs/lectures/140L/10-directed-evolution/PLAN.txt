@@ -364,6 +364,24 @@ differ only in which of them are showing, so a render has them all showing
 at once and there is nothing to crop.  The geometry, the fills and the
 strokes are lifted shape for shape out of the slide XML.
 
+LIBREOFFICE IGNORES AN EXPLICIT EMPTY effectLst
+------------------------------------------------
+JCA, 3 Nov 2026, on sources 45-47: "the white box has a shadow behind it.
+Get rid of the shadow.  It is not meant to be a visible object -- it is
+just hiding the line below it."
+
+He was right and it was never in his slide.  The masking rectangle carries
+BOTH an explicit <a:effectLst/>, which PowerPoint reads as "no effects",
+AND a <p:style> whose <a:effectRef idx="2"> is a drop shadow.  PowerPoint
+lets the explicit empty list win.  LibreOffice does not: it applies the
+style shadow anyway, so the render grew a shadow the real slide has not
+got, and the crop baked it in.
+
+The fix is to point the effectRef at idx 0, so there is no effect to
+apply, then re-render and re-crop.  Worth checking on ANY shape that is
+meant to be invisible furniture -- a mask, a spacer, a white cover -- in
+any slide cropped from a LibreOffice render.
+
 HOW SOURCES 42 AND 43 WERE CROPPED
 -----------------------------------
 Both are built entirely from native PowerPoint shapes — several hundred
