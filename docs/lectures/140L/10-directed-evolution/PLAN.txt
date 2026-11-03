@@ -234,6 +234,37 @@ rather than checking them.  Check that one with
 
   python3 ../../tools/verify_notes.py <raw> --seq seq/esterase.js S28=28
 
+NOTES THAT THE SOURCE NEVER WROTE: data-note-add
+-------------------------------------------------
+Source 16's note jumps straight from recombination to the light chain and
+says nothing at all about transcription or splicing -- so once that slide
+became a six-beat build, two beats had no narration.  JCA, 3 Nov 2026,
+looking at the splicing beat: "I don't understand this frame, and there is
+no note."
+
+Those two beats carry a `data-note-add` attribute, written for the deck.
+deck.js appends it to `data-note`; verify_notes.py collects `data-note`
+ONLY, and `data-note-add="..."` does not contain the string `data-note="`,
+so the verbatim parts still have to concatenate exactly and do.  Anything
+in a data-note-add is mine and is JCA's to rewrite.
+
+A SENTENCE CANNOT MOVE TO A LATER BEAT.  The first attempt put "These VDJ
+regions encode the CDR loops of the antibody" on the translation beat,
+where it reads beautifully -- and the verifier rejected it, correctly,
+because in the source it comes BEFORE "As a B cell matures".  The
+concatenation is ordered.  Split the note where you like, but never
+reorder it.
+
+THE BUG THAT HID THE DESCRIPTIONS
+----------------------------------
+deck.js takes a step's note and desc from `querySelector('[data-build=N]')`
+-- the FIRST element with that number in document order.  The phase rail's
+highlight rects were emitted before the content groups and carry build
+numbers of their own, so for beats 3 and 4 the rail rect won and those
+beats showed the BASE slide's description instead of their own.  The rail
+rects now come last in the SVG.  If a slide ever has two elements sharing
+a build number, the one carrying the text has to be first.
+
 THE ONE THING THAT IS NOT VERBATIM
 -----------------------------------
 These two slides carry the only speaker notes in this deck that are not

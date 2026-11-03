@@ -62,6 +62,18 @@ function tpl(slide, cls){
   return t ? t.content.textContent.replace(/\s+/g, " ").trim() : "";
 }
 
+/* A step's note is the source deck's, verbatim.  Where a build has no
+   sentence of its own in the source -- because the pptx's own notes never
+   covered that beat -- data-note-add carries written-for-the-deck text
+   instead.  It is a SEPARATE attribute so verify_notes.py, which collects
+   data-note only, still proves the verbatim parts concatenate exactly. */
+function noteOf(el){
+  if (!el) return "";
+  const a = el.getAttribute("data-note") || "";
+  const b = el.getAttribute("data-note-add") || "";
+  return a && b ? a + "  " + b : a || b;
+}
+
 function buildSteps(){
   const slides = Array.from(document.querySelectorAll("#stage .slide"));
   steps = [];
@@ -92,7 +104,7 @@ function buildSteps(){
     groups.forEach(function(g){
       const el = slide.querySelector('[data-build="' + g + '"]');
       steps.push({ slide:slide, builds:g,
-                   note: el && el.hasAttribute("data-note") ? el.getAttribute("data-note") : "",
+                   note: noteOf(el),
                    desc: el && el.hasAttribute("data-desc") ? el.getAttribute("data-desc") : desc });
     });
   });

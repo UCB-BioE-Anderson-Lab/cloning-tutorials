@@ -118,6 +118,9 @@
       <path class="ar" transform="translate(448,408)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
       <path class="ar" transform="translate(768,488)" d="M0,16 L56,16 L56,0 L88,32 L56,64 L56,48 L0,48 Z"/>
     </g>
+  <rect data-unbuild="3" x="40" y="106" width="260" height="132" rx="7" fill="none" stroke="#004373" stroke-width="3"/>
+  <rect data-build="3" data-unbuild="4" x="40" y="338" width="260" height="132" rx="7" fill="none" stroke="#004373" stroke-width="3"/>
+  <rect data-build="4" x="40" y="548" width="260" height="66" rx="7" fill="none" stroke="#004373" stroke-width="3"/>
   </svg>
   <p data-build="1" data-note="In all cases, we must have a linkage between the gene sequence and the protein it encodes.  This can be achieved by compartmentalizing the gene in a cell or micelle.  Alternatively, there are phage and ribosome display methods for connecting genotype to phenotype.  We then apply some selective pressure to remove all the uninteresting variants and expand the gene variant with desired activity."><b>Cells</b>, phages, ribosomes, or microemulsions</p>
   <template class="notes">In all library methods, there is first diversity generation and then selection of desired variants.  Here we illustrate a library of genes in which the one in tan has a property that is distinct from the others.</template>
@@ -224,9 +227,6 @@ The CDR loops, in orange, are the primary source of variability from one antibod
   <text x="58" y="458" text-anchor="start" font-size="16" font-weight="400" fill="#767676">DNA is untouched</text>
   <rect x="40" y="548" width="260" height="66" rx="7" fill="#f6f7f9"/>
   <text x="58" y="592" text-anchor="start" font-size="28" font-weight="700" fill="#111111">protein</text>
-  <rect data-unbuild="3" x="40" y="106" width="260" height="132" rx="7" fill="none" stroke="#004373" stroke-width="3"/>
-  <rect data-build="3" data-unbuild="4" x="40" y="338" width="260" height="132" rx="7" fill="none" stroke="#004373" stroke-width="3"/>
-  <rect data-build="4" x="40" y="548" width="260" height="66" rx="7" fill="none" stroke="#004373" stroke-width="3"/>
   <g data-unbuild="1">
   <text x="860" y="120" text-anchor="middle" font-size="24" font-weight="700" fill="#767676">germline DNA</text>
   <path d="M340 214C351 186 367 186 378 214" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
@@ -375,7 +375,7 @@ The CDR loops, in orange, are the primary source of variability from one antibod
   <path d="M703 390C714 418 730 418 741 390" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
   <text x="860" y="478" text-anchor="middle" font-size="22" font-weight="400" fill="#767676">rearranged DNA &mdash; one V, one D, one J, for the life of this cell</text>
   </g>
-  <g data-build="3" data-desc="The rearranged locus is transcribed. The primary transcript still carries the intron before C; splicing removes it from the transcript alone, and the genome is untouched." data-unbuild="4">
+  <g data-build="3" data-note-add="Now the rearranged gene gets read out.  Transcription copies the whole locus, so the primary transcript still carries the intron sitting between the J segment and the C segment, and splicing takes that out.  Notice this is a different kind of cut from the one before:  the recombination removed DNA from the genome and it is gone for good, while splicing only edits this one transcript and leaves the gene exactly as it was." data-desc="The rearranged locus is transcribed. The primary transcript still carries the intron before C; splicing removes it from the transcript alone, and the genome is untouched." data-unbuild="4">
   <text x="860" y="108" text-anchor="middle" font-size="24" font-weight="700" fill="#004373">transcription, then splicing</text>
   <path d="M340 186C351 158 367 158 378 186" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
   <path d="M340 158C351 186 367 186 378 158" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
@@ -424,7 +424,7 @@ The CDR loops, in orange, are the primary source of variability from one antibod
   <path d="M720 585C702 579 691 597 684 585" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
   <text x="860" y="626" text-anchor="middle" font-size="20" font-weight="400" fill="#767676">nothing is lost from the genome &mdash; only from this transcript</text>
   </g>
-  <g data-build="4" data-desc="Translation gives the heavy chain: V, D and J make the part that binds antigen, and two of them take their place in the antibody." data-unbuild="5">
+  <g data-build="4" data-note-add="And that is the chain it finally makes.  The V, D and J you just picked fold up into one domain at the tip of the arm, and that domain is what touches the antigen; everything from C onward is the same in every antibody of this class." data-desc="Translation gives the heavy chain: V, D and J make the part that binds antigen, and two of them take their place in the antibody." data-unbuild="5">
   <text x="860" y="140" text-anchor="middle" font-size="24" font-weight="700" fill="#004373">translation</text>
   <path d="M376 207C358 213 347 195 340 207" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
   <path d="M376 233C358 227 347 245 340 233" fill="none" stroke="#9a9a9a" stroke-width="2.4"/>
