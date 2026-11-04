@@ -117,14 +117,56 @@ Worth re-reading AUTHORING.txt's "art drawn for a grey ground vanishes on
 white" next to this: both failures are a shape that is still there, still
 the right size, and no longer visible.
 
+THE SPLOTCHES: -opaque IGNORES ALPHA
+-------------------------------------
+JCA, 4 Nov 2026, walking the deck on localhost, on source 18 and then on
+21, 27, 28 and 29: "redownload or redraw that image.  It's splotchy."
+
+He was looking at a defect the inkify pass had introduced, and it is the
+kind that only shows at slide size.  `-opaque white` compares RGB and
+IGNORES the alpha channel.  A pixel that is white at alpha 0.08 becomes
+INK at alpha 0.08, which flattens to a pale grey smudge.  And these
+rasters are almost entirely that: measured over the fifteen inked
+figures, 78 to 96 PERCENT of every one of them is halo under alpha 0.6.
+They are JPEGs wearing a PNG, and the compression ring around every mark
+got painted.  Blown up three times from a 500 px scan, the rings read as
+dirt.
+
+The fix is one step and it goes FIRST: threshold the alpha channel at
+60%, so the halo is gone before anything is painted.
+
+  -channel A -threshold 60% +channel        <- this, then
+  -channel RGB -fuzz N% -fill #111 -opaque white +channel
+  -background white -flatten
+
+Two things the same pass had got wrong, both found by looking rather than
+by any check:
+
+  source 27, the M13 particle.  Its labels were white and wanted inking,
+  but a 35% fuzz also paints the white highlight on every pVIII subunit
+  and the whole phage goes to a dark blob.  It is inked at 12%, which
+  takes the labels and leader lines and leaves the shading.
+
+  source 21, the invasin recovery chart.  It is NOT inked and must not
+  be.  Its three series are black bars, grey bars and WHITE bars, and
+  its axis labels are white letters with a thin dark outline -- white is
+  DATA here, so painting it would both fill the white bars and destroy
+  the distinction between the series.  AUTHORING.txt's answer for "white
+  marks that ARE data next to black data" is a grey panel, so that
+  figure keeps its alpha, is NOT cropped off the render at all, and sits
+  on --muted in the section file.  Its legend, which is native shapes
+  rather than part of the raster, is set as HTML beside the plot where
+  the source puts it.
+
 THE RENDER TREE IS A SCRIPT, NOT A SEQUENCE OF COMMANDS
 -------------------------------------------------------
-build_white.py (beside this file) rebuilds wh/ from rc/unpacked in one go: white
-<p:bg> into every slide, the selective detint, and the per-figure inkify.
-It had to be run four times while this deck was converted -- every time a
-figure turned out to be white line art, and once when the detint went too
-far -- and each run has to produce the SAME tree, or the crop boxes in
-crops.txt stop meaning anything.  Then:
+build_white.py (beside this file) rebuilds wh/ from rc/unpacked in one go:
+white <p:bg> into every slide, the selective detint, the shape drops, and
+the per-figure inkify.  It had to be run SIX times while this deck was
+converted -- every time a figure turned out to be white line art, once
+when the detint went too far, once for a label that sat inside a figure's
+box, and once for the alpha bug above -- and each run has to produce the
+SAME tree, or the crop boxes in crops.txt stop meaning anything.  Then:
 
   cd wh && zip -qr ../white.pptx . -x '.*'
   soffice --headless --convert-to pdf white.pptx --outdir ..
@@ -133,6 +175,12 @@ crops.txt stop meaning anything.  Then:
 and crops.txt is replayed against wpages/.  (zip run with cwd inside the
 tree resolves a RELATIVE archive path against that cwd, which is how the
 Whole-Cell deck once re-rendered the old bytes; pass an absolute path.)
+
+A NOTE ON REPLAYING crops.txt.  Four divider photographs and the source
+21 chart are NOT in that list -- they are copied straight out of the
+pptx because they need their alpha.  An earlier replay overwrote all
+four with white-ground crops and put a white card back on the amber
+dividers.  crops.txt says so at the bottom; read it before replaying.
 
 WHAT IS CITED
 -------------

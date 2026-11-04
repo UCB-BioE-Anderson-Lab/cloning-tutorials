@@ -9,7 +9,14 @@ from.  Three things happen to a copy of the recoloured tree:
      this deck draws its GREY furniture (source 37's promoter arrow), and
      stripping that turns the shape white and it silently disappears;
   3. white line art is painted into ink, per figure, at a fuzz that does not
-     also eat a pale fill;
+     also eat a pale fill -- AFTER the alpha channel is thresholded.  That
+     order is the whole trick.  `-opaque white` compares RGB and ignores
+     alpha, so a pixel that is white at alpha 0.08 -- and 80 to 96 PERCENT of
+     every one of these rasters is halo like that, they are JPEGs wearing a
+     PNG -- becomes INK at alpha 0.08, which flattens to a grey smudge.  The
+     figures came out visibly splotchy and it only showed at slide size,
+     where a 500 px scan is blown up three times.  Thresholding alpha first
+     throws the halo away before anything is painted;
   4. a few text shapes are DROPPED.  Source 30's "Yeast Display:" label sits
      inside the bounding box of the figure beside it, so any crop that takes
      the whole figure takes half the label with it -- and that label is set
@@ -29,12 +36,20 @@ BG = ('<p:bg><p:bgPr><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill>'
       '<a:effectLst/></p:bgPr></p:bg>')
 # tints on these slots draw grey furniture; leave them alone
 KEEP = {"bg1", "bg2", "lt1", "lt2", "dk1", "tx1"}
+# image28 is deliberately absent from INK: its white bars are DATA, so the
+# figure goes on a grey panel in the section file instead (AUTHORING.txt,
+# "white marks that ARE data next to black data").
+
 # (slide number, cNvPr id) of shapes to remove before rendering
 DROP = [(30, "13")]
 INK = [("image18", 35), ("image19", 35), ("image22", 35), ("image23", 35),
-       ("image30", 35), ("image31", 35), ("image32", 35), ("image33", 35),
+       ("image30", 35), ("image31", 35), ("image32", 35),
        ("image34", 35), ("image35", 35), ("image37", 35), ("image39", 35),
-       ("image43", 35), ("image36", 20), ("image17", 40)]
+       ("image43", 35), ("image36", 20), ("image17", 40),
+       # The M13 particle wants only its labels and leader lines, never its
+       # coat: a wide fuzz paints the white highlights on every pVIII subunit
+       # and the whole phage goes dark.
+       ("image33", 12)]
 
 if os.path.isdir(DST):
     shutil.rmtree(DST)
@@ -84,7 +99,9 @@ print("shapes dropped:", len(DROP))
 
 for name, fuzz in INK:
     p = "%s/ppt/media/%s.png" % (DST, name)
-    subprocess.run(["magick", p, "-channel", "RGB", "-fuzz", "%d%%" % fuzz,
+    subprocess.run(["magick", p,
+                    "-channel", "A", "-threshold", "60%", "+channel",
+                    "-channel", "RGB", "-fuzz", "%d%%" % fuzz,
                     "-fill", "#111111", "-opaque", "white", "+channel",
                     "-background", "white", "-flatten", p], check=True)
 print("figures inked:", len(INK))

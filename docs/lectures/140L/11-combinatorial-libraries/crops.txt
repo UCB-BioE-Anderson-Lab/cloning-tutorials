@@ -26,7 +26,6 @@
 20-plate.png      20  838x851+1118+233
 20-c6.png         20  1700x246+138+1219
 21-constructs.png 21  567x483+250+183
-21-recovery.png   21  1830x745+130+670
 23-selex.png      23  1383x1236+250+200
 24-rounds.png     24  958x900+0+383       trim
 24-aptamers.png   24  833x669+1033+500    trim
@@ -49,18 +48,22 @@
 47-j23119.png     47  1377x1369+316+197   trim
 48-iub.png        48  1085x271+205+251
 
-# After cropping: the six photographs are re-saved as JPEG at quality 86
-# (02-landscape, 03-grid, 05-gumballs, 11-books, 16-arac, 20-plate) and every
-# other figure is quantised to 256 colours.  That takes the directory from
-# 15 MB to 4.2 MB with no visible loss -- these are line art and screenshots,
-# and a 200 dpi true-colour PNG of either is almost all noise.
+# After cropping: the four photographs that came off the render are re-saved
+# as JPEG at quality 86 (02-landscape, 03-grid, 16-arac, 20-plate) and every
+# other cropped figure is quantised to 256 colours.  That takes the directory
+# from 15 MB to 4 MB with no visible loss -- these are line art and
+# screenshots, and a 200 dpi true-colour PNG of either is almost all noise.
+# The five files listed below are copied, not cropped, and are left alone.
 
-# FOUR FIGURES ARE NOT CROPPED FROM THE RENDER.  The photographs on the four
+# FIVE FIGURES ARE NOT CROPPED FROM THE RENDER.  The photographs on the four
 # section dividers sit on a COLOURED ground, and the source files carry an
 # alpha channel -- cropping them off a white-ground render bakes in a white
 # card that then floats on the amber.  They are copied straight out of the
 # pptx instead, alpha intact, and composite on whatever ground they land on:
 #
+#   21-recovery.png  <- ppt/media/image28.png   (white bars are DATA; it
+#                                                 goes on a grey panel, so
+#                                                 it must keep its alpha)
 #   05-gumballs.png  <- ppt/media/image2.png
 #   11-books.png     <- ppt/media/image16.png
 #   22-divider.png   <- ppt/media/image29.png
