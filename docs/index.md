@@ -124,5 +124,5 @@ Each tutorial includes **step-by-step instructions, videos, and interactive exam
 
 Slide decks from the BioE courses, built to run in a browser: the arrow keys advance one step at a time, **G** jumps between sections, and **P** opens presenter view with the narration. Start at the **[lecture index](lectures/)**.
 
-- **[BioE 140L](lectures/140L/)** — thirteen lectures, from an overview of the field through the enzymes and DNA fabrication methods the bench work depends on, to how engineered cells are assayed and characterised. Two decks are built so far.
+- **[BioE 140L](lectures/140L/)** — thirteen lectures, from an overview of the field through the enzymes and DNA fabrication methods the bench work depends on, to how engineered cells are assayed and characterised. Nine decks are built so far.
 - **BioE 234** — next semester.

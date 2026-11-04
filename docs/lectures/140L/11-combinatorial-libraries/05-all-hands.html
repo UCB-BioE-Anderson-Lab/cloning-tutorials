@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>All-Hands &ndash; Combinatorial Libraries</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide .big{flex:1 1 auto;display:flex;align-items:center;justify-content:center}
+.slide .big p{font-size:96px;font-family:var(--sans);font-weight:700;margin:0}
+.slide p.link{font-size:23px;word-break:break-all;margin:0}
+.slide p.link b{display:block;font-size:25px;margin-bottom:4px}
+/* source 45: the project plan, with the four part names in the gutter */
+.slide ol.plan{flex:1 1 auto;min-height:0;margin:0;padding-left:0;list-style:none;
+  counter-reset:step;display:flex;flex-direction:column;justify-content:center}
+.slide ol.plan li{display:grid;grid-template-columns:140px 40px 1fr;gap:0 10px;
+  font-size:25px;margin-bottom:14px;align-items:baseline}
+.slide ol.plan li::before{counter-increment:step;content:counter(step) ")";
+  grid-column:2;grid-row:1;color:var(--muted)}
+.slide ol.plan li .mk{grid-column:1;grid-row:1;color:var(--vermillion);font-weight:700}
+.slide ol.plan li .tx{grid-column:3;grid-row:1}
+.slide ol.plan li.todo .tx{color:var(--blue)}
+.slide ol.plan li .note{color:var(--muted)}
+/* source 48: the degeneracy table over the library design and its arithmetic */
+.slide .plib{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:12px}
+.slide .plib img.iub{width:62%;height:auto;object-fit:contain}
+.slide .plib .rows{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;
+  font-size:22px;align-items:baseline}
+.slide .plib .rows .k{color:var(--ink)}
+.slide .plib .rows .v{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  word-break:break-all}
+.slide .plib .rows .v.deg{color:var(--vermillion);font-weight:700}
+.slide .plib .rows .v.lib{color:var(--blue)}
+.slide .plib p.q{font-size:27px;margin:4px 0 0}
+.slide .plib pre.calc{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:24px;line-height:1.5;margin:0}
+.slide .plib pre.calc b{color:var(--vermillion)}
+.slide .pp6head{display:flex;align-items:center;gap:20px;margin-bottom:10px}
+.slide .pp6head img.ava{height:84px;width:auto}
+.slide .pp6head h1{margin:0}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 43 -->
+<article class="slide" data-bg="lecture">
+  <div class="big"><p>All-Hands</p></div>
+  <template class="notes"></template>
+  <template class="desc">Divider: the All-Hands part of the session, where the class's own wetlab experiment is set up.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 44 -->
+<article class="slide" data-bg="section">
+  <h1>Plib</h1>
+  <p class="link"><b>Plib LabSheets:</b>
+    <a href="https://docs.google.com/spreadsheets/d/15423iKeYZLnmwzpUZ2D4Q5brP2FLdhdbQyuIkiQEYVs/edit?usp=sharing">https://docs.google.com/spreadsheets/d/15423iKeYZLnmwzpUZ2D4Q5brP2FLdhdbQyuIkiQEYVs/edit?usp=sharing</a></p>
+  <template class="notes"></template>
+  <template class="desc">Divider: Plib, with a link to the Plib LabSheets.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 45 -->
+<article class="slide">
+  <h1>Wetlab project plan</h1>
+  <ol class="plan">
+    <li><span class="tx">Make a reporter plasmid to screen and test new terminator parts <span class="note">(pTP2, done)</span></span></li>
+    <li><span class="tx">Screen a library of terminators derived from phages and identify the best ones <span class="note">(Tlib2, done-ish)</span></span></li>
+    <li class="todo"><span class="mk">pP6</span><span class="tx">Screen libraries of UBER strength promoters to identify new ones <span class="note">(pP6, your first experiment)</span></span></li>
+    <li class="todo"><span class="mk">BestP</span><span class="tx">Compare the activity of pP6 hits to quantitatively determine the best ones</span></li>
+    <li class="todo"><span class="mk">TPjoin</span><span class="tx">Join the best UBER promoters and terminators to make the UBER parent to a new TPcon6 family</span></li>
+    <li class="todo"><span class="mk">Plib</span><span class="tx">Diversify the -35 and -10 regions to identify a family of mutants</span></li>
+    <li class="todo"><span class="tx">Apply the new family to a promoter scan of the current lycopene plasmid</span></li>
+  </ol>
+  <template class="notes">The last step of building out a TPcon6 family is to diversify the -35 and -10 regions.</template>
+  <template class="desc">The whole wetlab arc, with the four remaining steps named after the constructs they produce: pP6, BestP, TPjoin and Plib. The first two steps are already done; Plib is the one this lecture sets up.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 46 -->
+<article class="slide">
+  <h1>TPcon6 architecture</h1>
+  <figure class="fig">
+    <img src="img/46-tpcon6.png" alt="A cassette drawn left to right: a GCTT overhang, a 20 bp spacer, an octagon marking the terminator, a second 20 bp spacer, a bent arrow marking the promoter, a third 20 bp spacer, and a TACT overhang.">
+  </figure>
+  <template class="notes">Coming out of Pjoin, we have plasmids with cassettes like this, where there are BsaI sites flanking a terminator and promoter</template>
+  <template class="desc">The TPcon6 cassette: a terminator and a promoter separated by fixed 20 bp spacers, with GCTT and TACT overhangs on the ends for assembly.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 47 -->
+<article class="slide">
+  <h1>Promoter libraries</h1>
+  <figure class="fig">
+    <img src="img/47-j23119.png" alt="The registry page for Part BBa_J23119, a constitutive promoter family member: a photograph of culture tubes fluorescing at different brightnesses, an alignment of the family members with their -35 and -10 regions marked, and a table of variant RFP values running from 1 up to 2547.">
+  </figure>
+  <template class="notes">The Plib experiment is essentially the same as the original J23100 family, but the plasmid architecture is TPcon6-style.</template>
+  <template class="desc">The original constitutive promoter family: the same experiment done once before, where varying the -35 and -10 gave a family of promoters spanning three orders of magnitude in output.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 48 -->
+<article class="slide">
+  <div class="pp6head">
+    <img class="ava" src="img/15-ponder.png" alt="">
+    <h1 class="small">Plib diversity</h1>
+  </div>
+  <div class="plib">
+    <img class="iub" src="img/48-iub.png" alt="The IUB degeneracy code table again: the single letters that stand for two, three or four bases.">
+    <p><i>Reassemble the sequence with degenerate sequences for -35 and -10</i></p>
+    <div class="rows">
+      <span class="k">-35 lib</span><span class="v deg">YTKAYR</span>
+      <span class="k">-10 lib</span><span class="v deg">KAYWRT</span>
+      <span class="k">Library</span><span class="v lib">GTACCTAGCCTACGACGAGTCGTGAYTKAYRTCTGGCCGATCCCAGCCKAYWRTCTGTCCaTGAGGTGAGACTTCCCCTTC</span>
+    </div>
+    <p class="q">What is the theoretical diversity of this library? How many do I need to screen to have observed 99%?</p>
+    <pre class="calc" data-build="1" data-desc="The twelve degenerate positions written out: Y T K A Y R and K A Y W R T."><b>Y   T   K   A   Y   R   K   A   Y   W   R   T</b></pre>
+    <pre class="calc" data-build="2" data-desc="Each one multiplied out: two choices wherever the code stands for two bases, one wherever it is a fixed base.">2 * 1 * 2 * 2 * 1 * 2 * 2 * 1 * 2 * 2 * 2 * 1   =2^8 = 256</pre>
+    <pre class="calc" data-build="3" data-desc="And the coverage: 256 times 4.6 is 1178 colonies to screen.">Screen 256 * 4.6 = 1178 colonies</pre>
+  </div>
+  <template class="notes"></template>
+  <template class="desc">The students' own Plib library: six degenerate bases across the -35 and six across the -10, written as YTKAYR and KAYWRT, in the context of the full reassembled promoter.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 49 -->
+<article class="slide">
+  <h1>Plib overview</h1>
+  <ul class="fill">
+    <li>The LabSheet will calculate oligos you need for your experiment</li>
+    <li>Check that the simulation is successful (it is calculated in the LabSheet)</li>
+    <li>Send those oligo sequences to me to order (copy and paste the table in an email)</li>
+    <li>It will take 2 to 3 days for your oligos to arrive, assuming it all goes well</li>
+    <li>You then do EIPCR, transform, pick a lot of colonies in 96-well plates, Tecan assay their fluorescence, choose a subset for miniprepping and sequencing</li>
+    <li>Summarize the variants identified, consolidate the samples</li>
+    <li>Teams of 2 (or even 3) are highly suggested for this &ndash; it is a much bigger experiment than the ones you have done previously</li>
+  </ul>
+  <template class="notes"></template>
+  <template class="desc">How the Plib experiment runs: the LabSheet designs the oligos and simulates the construction, the oligos are ordered and arrive in two or three days, then EIPCR, transformation, picking into 96-well plates, a Tecan read, and sequencing a subset. Work in teams of two or three.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 50 -->
+<article class="slide">
+  <div class="big">
+    <p style="font-size:44px;font-weight:400;text-align:center">(go through labsheet)<br><br>
+      <a style="font-size:24px;word-break:break-all" href="https://docs.google.com/spreadsheets/d/15423iKeYZLnmwzpUZ2D4Q5brP2FLdhdbQyuIkiQEYVs/edit?usp=sharing">https://docs.google.com/spreadsheets/d/15423iKeYZLnmwzpUZ2D4Q5brP2FLdhdbQyuIkiQEYVs/edit?usp=sharing</a></p>
+  </div>
+  <template class="notes"></template>
+  <template class="desc">A cue to open the Plib LabSheet and walk through it with the class, with the link.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

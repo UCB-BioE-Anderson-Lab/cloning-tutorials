@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Questions to Ponder &ndash; Combinatorial Libraries</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide .divtop{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr;
+  grid-template-rows:minmax(0,1fr);align-items:center}
+.slide .divtop figure{height:100%;display:flex;justify-content:center;margin:0}
+.slide .divtop img{max-height:100%;width:auto;object-fit:contain}
+.slide ol.ponder{flex:1 1 auto;min-height:0;margin:0;padding-left:1.4em;
+  list-style:none;counter-reset:q;
+  display:flex;flex-direction:column;justify-content:center}
+.slide ol.ponder li::before{counter-increment:q;content:counter(q) ") ";
+  display:inline-block;width:1.4em;margin-left:-1.4em;color:var(--muted)}
+.slide ol.ponder li{font-size:27px;margin-bottom:22px}
+.slide .big{flex:1 1 auto;display:flex;align-items:center;justify-content:center}
+.slide .big p{font-size:96px;font-family:var(--sans);font-weight:700;margin:0}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 40 -->
+<article class="slide" data-bg="section">
+  <h1>Questions to Ponder</h1>
+  <div class="divtop">
+    <figure>
+      <img src="img/40-ponder.png" alt="A cartoon of a person with one hand against their cheek and eyes turned upward, thinking something over.">
+    </figure>
+  </div>
+  <template class="notes"></template>
+  <template class="desc">Section divider: Questions to Ponder.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 41 -->
+<article class="slide">
+  <ol class="ponder">
+    <li>In slide 31, what is the diversity of the CQSGQX<sub>2</sub>CX<sub>7</sub>CX<sub>2</sub>GGS peptide library assuming that X is encoded by the degenerate codon NNS? Can we cover this library experimentally?</li>
+    <li>If I created a library out of pim3, in which I replaced the promoter in the front of GGPPS with all 6 strengths (UBER, HIGH, MED, etc.), and replaced the CDS  with 8 different orthologs, simultaneously. How many distinct members would I obtain?</li>
+    <li>How many members of the library in 2 do I need to pick to cover 99% of the library?</li>
+    <li>What method could I use to identify an scFv that binds to GGPP synthase?</li>
+    <li>What method could I use to generate a nanobody that inhibits Cas9?</li>
+  </ol>
+  <template class="notes">Genetically, NNS encodes 32 distinct codons, and there are 11 sites, so the diversity is 32^11 DNAs.  The peptide diversity is 20 amino acids per X site, so 20^11 variants.  The wording of this question is ambiguous as to which of these two values is requested.  However, we can still answer the second part.  The smaller of the numbers is 20^11 = 2.048E+14, which is 200x more than 1E12.  We would thus need to transform 4.6 * 200 = about 920 liters of E. coli to cover the library.  So, no.  If you made this library from 1 L of culture, you would be undersampling by a factor of 920, which effectively means that every time you make the library you will be creating an entirely different set of sequences, for hundreds of experiments.  Nevertheless, you will still find hits.  They will just be different hits every time.
+We have 6 different strengths of promoter, and 8 different source GGPPS, so there are 6*8 = 48 combinations.  This is a representative final question, but on the low end of difficulty.  I expect you to be able to think through the combinatorial math of modestly complex part library experiments such as we deal with in our wetlab experiment.
+Multiply 48 x 4.6.  This concept should be clear in your mind.  You should be able to regurgitate the number 4.6 and what it means.  You should understand how you would adjust the math to find a higher or lower degree of coverage if presented the slide figures.
+I&rsquo;d go with a combinatorial library of scFv&rsquo;s displayed on M13 phage, and do panning experiments against purified GGPP synthase bound to a microtiter plate.  I choose this because 1) I will need a big library to find a random binding protein.  Minimally this will need 1 million variants.  So, I need a selection.  I could also do cell-surface display, bind with fluorescently labeled GGPPS, and FACS sort.  But the phage is the more typical approach.
+I could do the same thing as in 5, but this won&rsquo;t guarantee me an inhibitor, just a binder.  Instead, I would probably need a selection based on Cas9 itself.  I would probably need a synthetic selection for this of some sort, in which I can select against Cas9 activity. There are many options here, but one would be to put Cas9 and a pMB1-directed guide RNA on a plasmid (like pCas), then put the library of nanobodies on a pMB1 origin plasmid.  If upon cotransforming the two plasmids (put both into the same cell) I get a colony, then presumably the nanobody is inhibiting the cas9 preventing its encoding plasmid&rsquo;s destruction.  This would probably be too challenging a question for the final exam, though you should be able to recognize whether a given selection method is sufficient to find the activity requested.</template>
+  <template class="desc">Five questions to work through: the diversity of a constrained peptide library and whether it can be covered; the size of a promoter-by-ortholog combinatorial library; how many of those to pick for 99% coverage; how to find an scFv against GGPP synthase; and how to find a nanobody that inhibits Cas9.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 42 -->
+<article class="slide" data-bg="lecture">
+  <div class="big"><p>Questions?</p></div>
+  <template class="notes"></template>
+  <template class="desc">A pause for questions.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

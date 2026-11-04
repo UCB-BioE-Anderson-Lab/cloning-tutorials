@@ -1,0 +1,70 @@
+# Every figure in this deck, and the box it was cropped from.
+#
+#   file  slide  WxH+X+Y  [trim]   -- boxes are in the 200 dpi white-ground
+#                                     render (2000x1500 px); EMU/4572.
+# Rebuild the render with build_white.py, beside this file (PLAN.txt has the
+# soffice and pdftoppm lines), then replay this list.  "trim" means -trim
+# +repage afterwards.
+02-landscape.png   2  1666x1238+183+216
+03-grid.png        3  1666x1238+183+216
+06-grid.png        6  1460x750+20+620
+08-hexamer.png     8  940x170+428+308
+10-twist.png      10  1012x1105+40+195
+10-kinds.png      10  908x1266+1058+169
+12-aptamer.png    12  1350x652+516+847
+13-trna.png       13  880x860+160+160     trim
+13-klenow.png     13  640x500+1190+325
+14-iub.png        14  1950x487+49+183
+15-ponder.png     15  135x190+42+15       trim
+16-arac.png       16  1042x1250+0+250     trim
+16-arrow.png      16  880x340+1085+320
+17-soeing.png     17  1900x930+60+290
+18-eipcr.png      18  1733x1193+166+183
+19-rbs.png        19  1700x480+110+240
+19-chart.png      19  1605x794+200+705
+20-pwm.png        20  998x627+48+492
+20-plate.png      20  838x851+1118+233
+20-c6.png         20  1700x246+138+1219
+21-constructs.png 21  567x483+250+183
+21-recovery.png   21  1830x745+130+670
+23-selex.png      23  1383x1236+250+200
+24-rounds.png     24  958x900+0+383       trim
+24-aptamers.png   24  833x669+1033+500    trim
+26-before.png     26  670x670+175+330
+26-after.png      26  670x670+1162+330
+27-m13.png        27  1710x1075+180+260   trim
+28-panning.png    28  1661x1300+204+176   trim
+29-scfv.png       29  820x1265+0+250      trim
+30-yeast.png      30  1111x1047+516+333   trim
+31-facs.png       31  1319x427+333+300    trim
+31-ompx.png       31  900x520+60+798      trim
+31-table.png      31  847x450+1083+866    trim
+33-chorismate.png 33  1066x1017+50+332    trim
+35-amber.png      35  1190x916+350+333    trim
+37-luxr.png       37  1790x1020+20+350
+38-dual.png       38  1720x990+160+440
+38-key.png        38  575x285+1258+28
+39-onoff.png      39  1431x1066+283+300   trim
+46-tpcon6.png     46  1790x700+70+390
+47-j23119.png     47  1377x1369+316+197   trim
+48-iub.png        48  1085x271+205+251
+
+# After cropping: the six photographs are re-saved as JPEG at quality 86
+# (02-landscape, 03-grid, 05-gumballs, 11-books, 16-arac, 20-plate) and every
+# other figure is quantised to 256 colours.  That takes the directory from
+# 15 MB to 4.2 MB with no visible loss -- these are line art and screenshots,
+# and a 200 dpi true-colour PNG of either is almost all noise.
+
+# FOUR FIGURES ARE NOT CROPPED FROM THE RENDER.  The photographs on the four
+# section dividers sit on a COLOURED ground, and the source files carry an
+# alpha channel -- cropping them off a white-ground render bakes in a white
+# card that then floats on the amber.  They are copied straight out of the
+# pptx instead, alpha intact, and composite on whatever ground they land on:
+#
+#   05-gumballs.png  <- ppt/media/image2.png
+#   11-books.png     <- ppt/media/image16.png
+#   22-divider.png   <- ppt/media/image29.png
+#   40-ponder.png    <- ppt/media/image20.png
+#
+# They are small (a few hundred pixels) and the source slide already blew
+# them up four or five times, so the deck is no blurrier than the pptx.

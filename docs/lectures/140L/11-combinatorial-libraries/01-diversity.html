@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Diversity and Sampling &ndash; Combinatorial Libraries</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 5: the divider carries the gumball jar the whole section runs on */
+.slide .divtop{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:1fr;grid-template-rows:minmax(0,1fr);align-items:center}
+.slide .divtop figure{height:100%;display:flex;justify-content:center}
+.slide .divtop img{max-height:100%;width:auto;object-fit:contain}
+/* source 6: the sampling grid, and the product underneath it */
+.slide .grid6{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px}
+.slide .grid6 img{max-height:430px;width:auto;object-fit:contain}
+.slide p.prod{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:30px;color:var(--vermillion);margin:0}
+/* source 8: the hexamer, then the oversampling algebra */
+.slide .hex{align-self:flex-start;height:92px;width:auto;margin:6px 0 14px 150px}
+.slide .algebra{display:grid;grid-template-columns:1fr 1fr;gap:20px 40px;
+  align-items:center;margin-top:10px}
+.slide .algebra p{margin:0}
+.slide .lede{font-size:26px;color:var(--vermillion)}
+.slide .legend{font-size:25px;color:var(--vermillion);line-height:1.4}
+.slide p.eq{font-family:var(--slab);font-size:44px;grid-column:1/3;margin:0}
+.slide p.eq .tail{margin-left:10px}
+/* source 9: two headed groups of quality problems */
+/* A plain bullet slide: auto block margins centre the list in the flex
+   column WITHOUT making the <ul> a flex container, which would drop the
+   markers. */
+.slide ul.fill{margin-top:auto;margin-bottom:auto}
+.slide ul.fill li{font-size:30px;margin-bottom:22px}
+.slide .qual{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center;gap:30px}
+.slide .qual h2{color:var(--vermillion);font-size:34px;margin:0 0 10px}
+.slide .qual ul{margin:0}
+.slide .qual li{font-size:28px;margin-bottom:8px}
+/* source 10: the vendor page beside the kinds of library it sells */
+.slide .twopic{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:1.1fr 1fr;grid-template-rows:minmax(0,1fr);gap:40px}
+.slide .twopic > *{min-width:0;min-height:0;display:flex;flex-direction:column}
+.slide .twopic img{flex:1 1 auto;min-height:0;width:100%;object-fit:contain}
+.slide .twopic figcaption{flex:0 0 auto;font-size:19px;color:var(--muted);
+  margin-top:10px;word-break:break-all}
+</style>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- 5 -->
+<article class="slide" data-bg="section">
+  <h1>Diversity and Sampling</h1>
+  <div class="divtop">
+    <figure>
+      <img src="img/05-gumballs.png" alt="A heap of about fifty gumballs in a dozen flat colours &mdash; pink, green, yellow, blue, red, purple, orange, black and one white &mdash; piled on a white surface.">
+    </figure>
+  </div>
+  <template class="notes">One critical thing you must understand about combinatorial libraries is the means of calculating diversity.  For this, let&rsquo;s consider combinations of gumballs.</template>
+  <template class="desc">Section divider: Diversity and Sampling, illustrated by a pile of gumballs in many colours &mdash; the analogy the whole section is built on.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 6 -->
+<article class="slide">
+  <h1>Theoretical Diversity</h1>
+  <ul class="tight">
+    <li>Consider you have a gumball machine, and there are 20 different colors of gumballs inside, each occurring at the same frequency</li>
+    <li data-build="1" data-note="If you pick 6 of them and get sequences of 6 colors, how many different permutations of these sequences are there?" data-desc="A second question appears, and under it three sampled sequences: rows Seq1, Seq2 and Seq3, each six gumballs long, drawn from the same twenty colours at six numbered positions.">If you pick 6 of them and get sequences of 6 colors, how many different permutations of these sequences are there?</li>
+  </ul>
+  <div class="grid6">
+    <figure data-build="1">
+      <img src="img/06-grid.png" alt="A three-by-six grid. The columns are numbered 1 to 6 and the rows are labelled Seq1, Seq2 and Seq3. Each cell holds one gumball, and the colours differ freely from cell to cell: Seq1 reads green, crimson, magenta, yellow, black, blue; Seq2 white, black, crimson, crimson, black, magenta; Seq3 black, black, black, blue, yellow, blue.">
+    </figure>
+    <p class="prod" data-build="2" data-note="So, there are 20 at this position, 20 at that position, and so on for 6 positions, so there are 20^6 permutations, or around 60 million variants that potentially could exist within this space." data-desc="The count written out underneath, one factor per column: 20 choices at each of six positions.">20*&nbsp; 20*&nbsp; 20*&nbsp; 20*&nbsp; 20*&nbsp; 20 = 20^6 = 6.4E7</p>
+  </div>
+  <template class="notes">Suppose we have a gumball machine, and there are 20 different colors of gumballs inside, each occurring at the same frequency.</template>
+  <template class="desc">Twenty colours of gumball, all equally common, and a question: how many different six-long sequences could you draw from them?</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 7 -->
+<article class="slide">
+  <h1>Measuring library size</h1>
+  <ul class="fill">
+    <li>When transforming plasmids into cells, it is generally assumed that the limiting step is transformation</li>
+    <li>You should assume that each colony is derived from a single random member of the library</li>
+    <li>The actual diversity of a library is therefore the number of colonies observed following transformation</li>
+    <li>Due to the large numbers involved, this is usually quantified by plating dilutions of the library on multiple plates and then back-calculating the diversity</li>
+    <li>This is referred to as &ldquo;titering the library&rdquo;</li>
+  </ul>
+  <template class="notes">When transforming plasmids into cells, it is generally assumed that by far the limiting step is transformation.  You can assume that there are a few orders of magnitude more DNAs in the reaction than actually get into a cell, so you only need to consider transformation.  This of course assumes that you are using cells in your experiment.  For all in-vitro experiments, you must use other strategies to determine the diversity which involve following how much DNA is present at every step of the experiment.
+You should assume that each colony is derived from a single unique member of the library.
+So, the diversity of a library is the number of colonies observed following transformation.  It is very common for multiple plasmids to enter a single cell under the concentrated conditions used in these fabrication schemes&mdash;you must use a lot of DNA to hit these high colony counts.  However, that extra diversity is difficult to measure and will depend on the quality and amount of your ligation product.  For large libraries, the existence of this cotransformation background can affect the outcome of selections, but it does not erode the confidence that your library is sufficiently inclusive.  Your diversity is minimally the number of transformants you observe&mdash;it might be a little higher in practice.
+Due to the large numbers involved, this is usually quantified by plating dilutions of the library on multiple plates and then back-calculating the diversity
+This is referred to as &ldquo;titering the library&rdquo;</template>
+  <template class="desc">How library size is actually measured: transformation is the bottleneck, so one colony means one library member, the diversity is the colony count, and the count itself comes from plating dilutions and multiplying back up &mdash; titering the library.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 8 -->
+<article class="slide">
+  <h1>Oversampling</h1>
+  <ul class="tight">
+    <li>Let&rsquo;s say I glue the 6 gumballs together into hexamers:</li>
+  </ul>
+  <img class="hex" src="img/08-hexamer.png" alt="Six gumballs &mdash; green, crimson, magenta, yellow, black and blue &mdash; pressed into a row so that they touch, one glued hexamer.">
+  <ul class="tight">
+    <li>How many of these random hexamers do I have to make to have a 99% probability that I have at least one of each theoretical member?</li>
+  </ul>
+  <div class="algebra">
+    <p class="lede" data-build="2" data-desc="A label over the algebra: this is the probability that a single member exists at least once in the library.">Probability that a single member exists only once in a library:</p>
+    <p class="legend" data-build="1"
+       data-note="N is the theoretical diversity which we calculated as 60 million.  P is the actual diversity that we&rsquo;ll measure when we titer the library."
+       data-desc="The two symbols are named: little p is the number of hexamers made, which is the library size, and n is the theoretical diversity."><i>p</i> = number of hexamers chosen<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(library size)<br><i>n</i> = theoretical diversity</p>
+    <p class="eq">
+      <span data-build="2" data-note="So, we need to determine what value of P is sufficient to have confidence that at least one of every theoretical member is represented by the library.  That calculation, whose derivation is provided in this reference, is given by P= 1-e^-p/n."><i>P</i> = 1 &minus; <i>e</i><sup>&minus;<i>p</i>/<i>n</i></sup></span><span class="tail" data-build="3" data-note="If we set that value to .99.  We can solve for p in terms of n." data-desc="The probability is set to 0.99 &mdash; 99% confidence that every theoretical member is there.">= 0.99</span>
+    </p>
+    <p class="eq" data-build="4"
+       data-note="And we find out that that this all boils down to a simple calculation of multiplying the theoretical diversity by 4.6 to get the number of colonies you must hit to have confidence that the library is complete."
+       data-desc="Solved for p: the number you have to make is 4.6 times the theoretical diversity."><i>p</i> = <i>n</i> &middot; ln(0.01) = 4.6<i>n</i></p>
+  </div>
+  <p class="src">Nucleic Acids Res. 1998 Feb 15;26(4):879-86. PMID: 9461443</p>
+  <template class="notes">When you construct a combinatorial library, you are not explicitly synthesizing each member of the library.  You are sampling this combinatorial space randomly, so there are issues of diversity and inclusion in your library.  So, in practice you need to make more library members than are actually present in the theoretical library. Let&rsquo;s say I glue the 6 gumballs together into hexamers.  The analogy of the gumballs is to amino acids (hence 20), or to bases (of which there are 4), or to a set of parts that could be any number.  Each member of the library can be considered as the list of chosen members at each site, and here we represent that as a hexamer of gumballs glued together.
+How many of these random hexamers do I have to make to have a 99% probability that I have at least one of each theoretical member?</template>
+  <template class="desc">Six gumballs glued into one hexamer &mdash; one library member &mdash; and the question that follows: how many must you make before you can be 99% sure every possible hexamer is in the bag?</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 9 -->
+<article class="slide">
+  <h1>Library Quality issues:</h1>
+  <div class="qual">
+    <section>
+      <h2>Diversity/Bias</h2>
+      <ul>
+        <li>Synthesis-derived base bias</li>
+        <li>Cloning-derived base bias / biased annealing</li>
+        <li>Differential growth rates</li>
+        <li>Uneven spreading on plates</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Non-canonical members</h2>
+      <ul>
+        <li>Parent vector bleedthrough</li>
+        <li>Deletions and insertions</li>
+        <li>Stop codons</li>
+      </ul>
+    </section>
+  </div>
+  <template class="notes">The other issues with sampling are bias and general library quality.  Either of these mechanisms can lead to a library that does not contain all theoretical members.
+When you order N&rsquo;s in an oligo sequence, you don&rsquo;t always get an equimolar mix of the bases.  So, you need to sequence a few clones and confirm that they came out well balanced.  Over the years, oligo quality has improved, and usually this isn&rsquo;t a big problem, but you do need to check it.  If they are not random, resynthesizing the oligo usually will fix the problem.
+Even if the oligos are truly random, some methods used for fabrication, notably QuikChange, can cause bias due to biased annealing of the oligos.  Let&rsquo;s say you put an extended run of N&rsquo;s in an oligo.  When that sits down on a DNA during PCR, those oligos that have higher homology to the substrate will have a higher Tm and under some circumstances will preferentially bind.  This can be improved by making sure you include at least 20bp of homology in the annealing region of your oligos and avoiding any situation in which you are annealing to N-containing regions of an oligo against each other.
+In the early days of doing this, much interest was in antibodies, and many of these genes were toxic to the cells.  When you make libraries, many of the variants will be altered not just in their molecular function properties, but also in terms of their expression and toxicity profiles within the cell.  So, some members will grow better than others and can (in the worst case scenario) take over the library.
+You can also cause bias by growing your cells unevenly or over-diluting them during an outgrowth step.  For example, let&rsquo;s say you spread your library on plates, but you do not do so uniformly.  You get some regions of the plate that are very sparse and others very dense with colonies.  Since colony size is dependent on the local density, you&rsquo;ll get smaller colonies in dense regions.  As a result, those colonies that landed in a sparse region of the plate will become overrepresented in your library causing bias.
+There are also some general quality issues you must consider in your library.  For example, if you are not careful to choose a vector in which the insert is 1/3 to &frac14; the size of the entire plasmid, you&rsquo;ll get monocut vector in your digest that gives rise to a parent vector background.  So, it is not uncommon to make a large library that in practice is 90% parent plasmid.  If you get this problem, you can fix it by pasting in a differently-sized spacer into your plasmid, and then making a new digest from that clone.
+The processes of oligo fabrication and assembly can cause other kinds of errors.  It is not uncommon to have a high frequency of point deletions around NNK sites in a library.  This often can be resolved by re-synthesizing the oligos, but sometimes it is caused by the assembly steps in which case you might consider a different fabrication strategy.
+If you do NNK mutagenesis, there will be TAG codons present.  If you are seeing TAAs or TGAs, then those aren&rsquo;t supposed to be present and you should be worried.  If you are seeing TAG codons at a rate higher than 1 in 32, then there is bias in your library that is likely resulting from toxicity of the full-length protein.</template>
+  <template class="desc">The two families of library defect. Bias, which makes some members commoner than others: biased synthesis, biased annealing during cloning, variants that grow at different rates, and uneven spreading on the plate. And members that should not be there at all: parent vector that was never cut, deletions and insertions, and stop codons.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 10 -->
+<article class="slide">
+  <h1>Library Construction:  Synthesis</h1>
+  <div class="twopic">
+    <figure>
+      <img src="img/10-twist.png" alt="A screenshot of a gene synthesis vendor's product page, headed Variant Libraries, under the breadcrumb Products / Variant Libraries, with a short blurb and an Explore Data button.">
+      <figcaption>https://www.twistbioscience.com/products/libraries</figcaption>
+    </figure>
+    <figure>
+      <img src="img/10-kinds.png" alt="Three kinds of variant library offered as products, each drawn as a row of coloured circles standing for residues. A combinatorial variant library mutates multiple sites, a stretch, or several stretches with length variation. A site saturation library changes one position to every residue in turn. A spread-out low diversity library changes scattered single sites.">
+    </figure>
+  </div>
+  <template class="notes">Several gene synthesis companies offer combinatorial libraries as a product.  Personally, I&rsquo;ve never used such services since they tend to be expensive.  However, combinatorial library fabrication can be very difficult, particularly for someone doing it the first time in a setting devoid of experience.  So, it&rsquo;s something to consider.  Whoever makes the library, there are a finite number of methods used to make them, so let&rsquo;s go through them.</template>
+  <template class="desc">You can buy a combinatorial library rather than build one: a synthesis vendor's catalogue page, and beside it the three shapes of library they sell &mdash; many sites at once, one site saturated, or scattered single changes.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
