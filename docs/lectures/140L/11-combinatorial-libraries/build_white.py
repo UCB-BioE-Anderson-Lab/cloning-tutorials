@@ -17,10 +17,14 @@ from.  Three things happen to a copy of the recoloured tree:
      figures came out visibly splotchy and it only showed at slide size,
      where a 500 px scan is blown up three times.  Thresholding alpha first
      throws the halo away before anything is painted;
-  4. a few text shapes are DROPPED.  Source 30's "Yeast Display:" label sits
-     inside the bounding box of the figure beside it, so any crop that takes
-     the whole figure takes half the label with it -- and that label is set
-     as HTML on the slide, so it would appear twice.  The shape is removed by
+  4. a few text shapes are DROPPED, because they are set as HTML on the slide
+     instead.  Source 30's "Yeast Display:" label sits inside the bounding box
+     of the figure beside it, so any crop that takes the whole figure takes
+     half the label with it, and it would then appear twice.  Source 3's RFP,
+     GFP and phoA labels sit ON the photograph: baked into the crop they are
+     a pale tint of blue over a grey landscape, and re-set as HTML they are
+     white, which is what the Directed Evolution deck does with this same
+     photograph.  The shape is removed by
      cNvPr id before rendering.  Removal is done with ElementTree, never a
      regex: a group holds groups, and a non-greedy <p:grpSp>...</p:grpSp>
      closes on the first INNER tag and swallows the rest of the shape tree.
@@ -41,7 +45,8 @@ KEEP = {"bg1", "bg2", "lt1", "lt2", "dk1", "tx1"}
 # "white marks that ARE data next to black data").
 
 # (slide number, cNvPr id) of shapes to remove before rendering
-DROP = [(30, "13")]
+DROP = [(30, "13"),              # "Yeast Display:" sits inside the figure's box
+        (3, "133"), (3, "134"), (3, "135")]   # RFP / GFP / phoA, re-set as HTML
 INK = [("image18", 35), ("image19", 35), ("image22", 35), ("image23", 35),
        ("image30", 35), ("image31", 35), ("image32", 35),
        ("image34", 35), ("image35", 35), ("image37", 35), ("image39", 35),

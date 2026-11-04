@@ -158,11 +158,53 @@ by any check:
   rather than part of the raster, is set as HTML beside the plot where
   the source puts it.
 
+THE SWEEP THAT FOLLOWED, AND WHAT IT DID NOT FIND
+--------------------------------------------------
+JCA, 4 Nov 2026: "look for more such issues".  Two sweeps, because the
+ink pass can fail in two opposite directions and neither one errors.
+
+TOO LITTLE INK, or smudge left behind.  Every figure was flattened onto
+white and measured for the fraction of pixels in the mid-grey band that
+clean line art should hardly have, then all 45 were looked at as four
+sheets, which is what AUTHORING.txt asks for.  Nothing else was splotchy.
+
+TOO MUCH INK, or a shape that vanished.  A CONTROL tree was rendered --
+white ground only, no detint, no inkify -- and diffed against the build
+slide by slide: ink present in the control and absent from the build is
+a shape the pipeline ate.  Every slide came back clean.  Where the build
+has LESS ink than the control (18, 19, 28, 29, 30, at most 2%) it is the
+halo that went, and an A/B of those five confirms the build is strictly
+more legible.  Re-run that diff after any change to build_white.py; it
+is the only check that would have caught the source 37 arrow.
+
+THREE THINGS THE SWEEP FOUND THAT ARE THE SOURCE'S, NOT THE CONVERSION'S
+------------------------------------------------------------------------
+Each is white or near-white type sitting INSIDE a filled block of a
+borrowed raster, which is the one case neither inking nor a panel fixes
+without redrawing the figure.  None was touched.
+
+  21  the three invasin constructs: Inv, AraC and the promoter names are
+      white letters on light green and yellow arrows, about 1.6:1.  They
+      were the same on the source's grey master.
+  30  Aga2, Aga1 and "protein of interest" are now dark grey inside their
+      green and blue blocks -- a consequence of inking the figure so that
+      the disulfides and "cell wall" would appear at all.  Legible, and
+      the weakest type in the deck.
+  18  a little pink residue around the BsaI recognition site in the primer
+      sequences.  That highlight is in the source file.
+
+  FIXED, because these labels were NATIVE SHAPES rather than part of a
+  raster: source 3's RFP, GFP and phoA.  Baked into the crop they were a
+  pale tint of blue over a grey landscape.  They are dropped from the
+  render and set as HTML over the photograph in white, which is what the
+  Directed Evolution deck does with this same image.  Percentages come
+  from the shapes' own positions in the picture box.
+
 THE RENDER TREE IS A SCRIPT, NOT A SEQUENCE OF COMMANDS
 -------------------------------------------------------
 build_white.py (beside this file) rebuilds wh/ from rc/unpacked in one go:
 white <p:bg> into every slide, the selective detint, the shape drops, and
-the per-figure inkify.  It had to be run SIX times while this deck was
+the per-figure inkify.  It had to be run SEVEN times while this deck was
 converted -- every time a figure turned out to be white line art, once
 when the detint went too far, once for a label that sat inside a figure's
 box, and once for the alpha bug above -- and each run has to produce the
