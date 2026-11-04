@@ -1,0 +1,291 @@
+COMBINATORIAL LIBRARIES — CONVERSION PLAN
+=========================================
+140L lecture 11, folder 11-combinatorial-libraries (the numbering rule
+set with the Whole-Cell deck: from 08 on, the folder number IS the
+lecture number).  Source:
+
+  ~/Library/CloudStorage/Dropbox/Courses/140L/Stanley 2026/
+    Lectures 2026 140L/2025_11_05-Combinatorial Libraries.pptx
+
+THE RULE FOR THIS DECK
+----------------------
+The same one that governed Directed Evolution, and for the same reason.
+JCA, 27 Oct 2026: "Don't get creative there -- don't modify the flow.
+Not content, just formatting."  10-directed-evolution/PLAN.txt records
+what that ruling cost to earn.
+
+  EVERY slide is converted, in the source's order.
+  NO slide is split, merged, reordered or moved between sections.
+  NO figure is reimagined.  A borrowed raster is cropped and placed.
+  NO new speaker notes.  Slides with no note stay that way.
+  Notes are the source's, verbatim, spelling and grammar corrected
+  through note-corrections.txt and nothing else.
+
+What DOES change is formatting: the house grounds and type, the house
+palette for the deck's own chrome, section dividers set as dividers,
+and figures cropped off the slide and placed in HTML.
+
+Anything that feels like an improvement is out of scope.  Write it down
+here instead and let JCA decide.
+
+THE SOURCE, AS SURVEYED
+-----------------------
+  50 slides, 4:3, 45 media files, no charts.
+  Notes on 41 of 50.  No note: 1, 20, 38, 40, 42, 43, 44, 48, 49, 50.
+  Masters: a BLUE title ground (1), a GREY body master for most of the
+  deck, a DARK ground for the four section dividers (5, 11, 22, 40) and
+  for 42/43, and WHITE for the All-Hands block (44-50) plus 15 and 35.
+  Click builds, read out of p:timing rather than guessed:
+      6   2 clicks   bullet 2 + the gumball grid, then the 20^6 product
+      8   4 clicks   the p/n legend, P=1-e^-p/n, p=4.6n, the citation
+     14   1 click    the whole NNK block
+     15   1 click    the 4^31 answer            (note has no marker)
+     19   1 click    the fluorescence chart     (note has no marker)
+     20   2 clicks   the plate photo, then the C6-Tools table (no note)
+     26   1 click    the enrichment quotient
+     31   1 click    the FACS panels + citation
+     34   1 click    the last bullet
+     48   3 clicks   the Y/T/K row, the product, the 4.6x line (no note)
+  Note markers: "(click)" on 6 and 8, "<click>" on 14, 26, 31, 34.
+  Slide 8 has a trailing (click) with no narration after it — that is
+  the advance OFF the slide, and it is not a step.
+
+THE SECTION SPLIT
+-----------------
+On the source deck's own divider slides.  No slide moves.
+
+  00-front-matter.html     source  1-4    title, and the contrast with
+                                          directed evolution
+  01-diversity.html        source  5-10   Diversity and Sampling
+  02-construction.html     source 11-21   Combinatorial Libraries
+                                          (how they are built)
+  03-selections.html       source 22-39   Selection Methods
+  04-questions.html        source 40-42   Questions to Ponder
+  05-all-hands.html        source 43-50   All-Hands (the Plib experiment)
+
+HOW THE FIGURES WERE CROPPED
+----------------------------
+Two renders of the deck live in the scratch directory:
+
+  rc/   recoloured into the house palette by tools/recolour_pptx.py,
+        80 dpi, for reading the deck
+  wh/   the same tree with a white <p:bg> injected into every slide and
+        rendered at 200 dpi (2000x1500 px), which is what figures are
+        cropped from.  EMU -> px is EMU/4572 at that resolution.
+
+WHITE-ON-TRANSPARENCY, AND THE SWEEP THAT FOUND IT
+---------------------------------------------------
+AUTHORING.txt warns that line art drawn for a grey ground vanishes on
+white and that no audit catches it.  This deck has a lot of it.  Every
+one of the 45 media files was flattened onto white and onto mid grey and
+the two standard deviations compared; a figure whose contrast COLLAPSES
+on white is white line art.  The ones that failed:
+
+  image18  slide 13  Klenow tRNA         pure white, invisible
+  image19  slide 14  degeneracy table    white rules and type
+  image30  slide 23  SELEX cartoon       white labels over colour
+  image31  slide 24  dopamine chart      white axes and data
+  image32  slide 24  SL1-SL4 structures  white
+  image34  slide 28  phage display cycle white labels over colour
+  image36  slide 30  yeast display       white labels over colour
+  image37  slide 31  OmpX/CPX schematic  white, invisible
+  image39  slide 31  Table 1             white type
+  image43  slide 39  pluxCAT/pluxBLIP    white
+
+  image10/11/12  slide 8's three equations: not white line art but a
+  pale pink raster that is too light to read on white.  They are simple
+  enough to set as text, so they are, and no raster is carried.
+
+THE DETINT, AND THE SHAPE IT MADE DISAPPEAR
+-------------------------------------------
+recolour_pptx.py maps a theme slot to a palette colour, but a shape that
+reaches its colour through a lumMod/lumOff TINT comes out as a pale wash
+of it -- source 13's Klenow strands, source 16's NNK labels and the whole
+of source 17 were a 40% vermillion that reads as pink on white.  So the
+white-ground tree also strips those tints from the slides.
+
+The first pass stripped them from EVERY colour and broke source 37: its
+promoter arrow and bent arrow are a TINT OF bg1, which is how this deck
+draws grey furniture.  Undo the tint and they become pure white, and the
+figure simply loses two shapes -- no error, no warning, and the slide
+still looks like a slide.  JCA would have been shown a promoter driving
+nothing.
+
+So the rule is: strip a tint off a TEXT or ACCENT slot, keep it on a
+BACKGROUND slot (bg1, bg2, lt1, lt2, dk1, tx1).  build_white.py holds it.
+Worth re-reading AUTHORING.txt's "art drawn for a grey ground vanishes on
+white" next to this: both failures are a shape that is still there, still
+the right size, and no longer visible.
+
+THE SPLOTCHES: -opaque IGNORES ALPHA
+-------------------------------------
+JCA, 4 Nov 2026, walking the deck on localhost, on source 18 and then on
+21, 27, 28 and 29: "redownload or redraw that image.  It's splotchy."
+
+He was looking at a defect the inkify pass had introduced, and it is the
+kind that only shows at slide size.  `-opaque white` compares RGB and
+IGNORES the alpha channel.  A pixel that is white at alpha 0.08 becomes
+INK at alpha 0.08, which flattens to a pale grey smudge.  And these
+rasters are almost entirely that: measured over the fifteen inked
+figures, 78 to 96 PERCENT of every one of them is halo under alpha 0.6.
+They are JPEGs wearing a PNG, and the compression ring around every mark
+got painted.  Blown up three times from a 500 px scan, the rings read as
+dirt.
+
+The fix is one step and it goes FIRST: threshold the alpha channel at
+60%, so the halo is gone before anything is painted.
+
+  -channel A -threshold 60% +channel        <- this, then
+  -channel RGB -fuzz N% -fill #111 -opaque white +channel
+  -background white -flatten
+
+Two things the same pass had got wrong, both found by looking rather than
+by any check:
+
+  source 27, the M13 particle.  Its labels were white and wanted inking,
+  but a 35% fuzz also paints the white highlight on every pVIII subunit
+  and the whole phage goes to a dark blob.  It is inked at 12%, which
+  takes the labels and leader lines and leaves the shading.
+
+  source 21, the invasin recovery chart.  It is NOT inked and must not
+  be.  Its three series are black bars, grey bars and WHITE bars, and
+  its axis labels are white letters with a thin dark outline -- white is
+  DATA here, so painting it would both fill the white bars and destroy
+  the distinction between the series.  AUTHORING.txt's answer for "white
+  marks that ARE data next to black data" is a grey panel, so that
+  figure keeps its alpha, is NOT cropped off the render at all, and sits
+  on --muted in the section file.  Its legend, which is native shapes
+  rather than part of the raster, is set as HTML beside the plot where
+  the source puts it.
+
+THE SWEEP THAT FOLLOWED, AND WHAT IT DID NOT FIND
+--------------------------------------------------
+JCA, 4 Nov 2026: "look for more such issues".  Two sweeps, because the
+ink pass can fail in two opposite directions and neither one errors.
+
+TOO LITTLE INK, or smudge left behind.  Every figure was flattened onto
+white and measured for the fraction of pixels in the mid-grey band that
+clean line art should hardly have, then all 45 were looked at as four
+sheets, which is what AUTHORING.txt asks for.  Nothing else was splotchy.
+
+TOO MUCH INK, or a shape that vanished.  A CONTROL tree was rendered --
+white ground only, no detint, no inkify -- and diffed against the build
+slide by slide: ink present in the control and absent from the build is
+a shape the pipeline ate.  Every slide came back clean.  Where the build
+has LESS ink than the control (18, 19, 28, 29, 30, at most 2%) it is the
+halo that went, and an A/B of those five confirms the build is strictly
+more legible.  Re-run that diff after any change to build_white.py; it
+is the only check that would have caught the source 37 arrow.
+
+THREE THINGS THE SWEEP FOUND THAT ARE THE SOURCE'S, NOT THE CONVERSION'S
+------------------------------------------------------------------------
+Each is white or near-white type sitting INSIDE a filled block of a
+borrowed raster, which is the one case neither inking nor a panel fixes
+without redrawing the figure.  None was touched.
+
+  21  the three invasin constructs: Inv, AraC and the promoter names are
+      white letters on light green and yellow arrows, about 1.6:1.  They
+      were the same on the source's grey master.
+  30  Aga2, Aga1 and "protein of interest" are now dark grey inside their
+      green and blue blocks -- a consequence of inking the figure so that
+      the disulfides and "cell wall" would appear at all.  Legible, and
+      the weakest type in the deck.
+  18  a little pink residue around the BsaI recognition site in the primer
+      sequences.  That highlight is in the source file.
+
+  FIXED, because these labels were NATIVE SHAPES rather than part of a
+  raster: source 3's RFP, GFP and phoA.  Baked into the crop they were a
+  pale tint of blue over a grey landscape.  They are dropped from the
+  render and set as HTML over the photograph in white, which is what the
+  Directed Evolution deck does with this same image.  Percentages come
+  from the shapes' own positions in the picture box.
+
+THE RENDER TREE IS A SCRIPT, NOT A SEQUENCE OF COMMANDS
+-------------------------------------------------------
+build_white.py (beside this file) rebuilds wh/ from rc/unpacked in one go:
+white <p:bg> into every slide, the selective detint, the shape drops, and
+the per-figure inkify.  It had to be run SEVEN times while this deck was
+converted -- every time a figure turned out to be white line art, once
+when the detint went too far, once for a label that sat inside a figure's
+box, and once for the alpha bug above -- and each run has to produce the
+SAME tree, or the crop boxes in crops.txt stop meaning anything.  Then:
+
+  cd wh && zip -qr ../white.pptx . -x '.*'
+  soffice --headless --convert-to pdf white.pptx --outdir ..
+  pdftoppm -png -r 200 white.pdf wpages/w
+
+and crops.txt is replayed against wpages/.  (zip run with cwd inside the
+tree resolves a RELATIVE archive path against that cwd, which is how the
+Whole-Cell deck once re-rendered the old bytes; pass an absolute path.)
+
+A NOTE ON REPLAYING crops.txt.  Four divider photographs and the source
+21 chart are NOT in that list -- they are copied straight out of the
+pptx because they need their alpha.  An earlier replay overwrote all
+four with white-ground crops and put a white card back on the amber
+dividers.  crops.txt says so at the bottom; read it before replaying.
+
+WHAT IS CITED
+-------------
+Cited on the slide, as the source cites it: 8 (Nucleic Acids Res 1998),
+13 (J Mol Biol 2001), 18 (Nat Protoc 2007 and Biotechniques 1992), 21
+(J Mol Biol 2006), 24 (Biochemistry 1997), 29 (three antibody-phage
+references), 31 (Protein Sci 2006), 33 (Science 1998), 37 and 39 (Nat
+Biotechnol 2006).
+
+NOT cited, and these are the source's gaps rather than the conversion's:
+  10  the Twist product page is credited by its URL, which is enough
+  12  the guanine riboswitch aptamer figure
+  16  the AraC active site
+  23, 27, 28, 30  the SELEX, phage and yeast display cartoons
+  35  the amber suppression scheme
+  47  the registry page is a Berkeley iGEM part of JCA's own
+
+SPELLING AND GRAMMAR: note-corrections.txt
+-------------------------------------------
+Same mechanism as the Directed Evolution deck.  Every correction is a
+wrong|right line, applied to the PPTX side before the comparison, so the
+check still proves nothing ELSE diverged and each correction shows in the
+diff.  Run it WITHOUT the flag and 18 slides fail, which is the proof the
+list is doing real work:
+
+  python3 ../../tools/verify_notes.py <raw> --keep-urls \
+      --corrections note-corrections.txt *.html
+
+Twenty-five corrections.  Three kinds: plain typos (stratetgies, fluoresent,
+biosythesis, consitutive, consistutively, consititively, specifity, errode,
+Multily, celI, to to), proper nouns the source lower-cased or misspelled
+(ecori/psti, EcorI, Shine-Delgarno, Vibrio fisherii, quorem, Gly/phe/ser),
+and grammar (So, The diversity; can effect; if you do not be careful; can be
+resolve; mixtures DNAs; handle-full length; out fo; the the).
+
+A TOOL CHANGE THIS DECK NEEDED
+-------------------------------
+verify_notes.py knew two click markers, <click> and a bare asterisk.  This
+deck writes "(click)" on sources 6 and 8, which would have been compared as
+narration.  All three now come out.  They are the author's note to himself
+about where he advances, never something he says.
+
+WHAT IS NOT IN THE DECK
+-----------------------
+Nothing.  All 50 source slides are converted, in the source's order, and
+no slide is split, merged or moved.  There are no added slides.
+
+WHERE THIS STANDS
+-----------------
+  00-front-matter.html     source  1-4    DONE  (4 steps, audit clean)
+  01-diversity.html        source  5-10   DONE  (12 steps, audit clean)
+  02-construction.html     source 11-21   DONE  (16 steps, audit clean)
+  03-selections.html       source 22-39   DONE  (21 steps, audit clean)
+  04-questions.html        source 40-42   DONE  (3 steps, audit clean)
+  05-all-hands.html        source 43-50   DONE  (11 steps, audit clean)
+
+  67 steps in all.  verify_notes.py passes on all 41 slides that carry a
+  note.  Linked from 140L/index.html and counted in docs/index.md.
+
+  NOT DEPLOYED.  The site publishes from gh-pages by a manual
+  mkdocs gh-deploy; merging to main publishes nothing.
+
+CHECKING THE NOTES
+------------------
+  python3 ../../tools/verify_notes.py <unpacked-pptx> --keep-urls \
+      --corrections note-corrections.txt *.html

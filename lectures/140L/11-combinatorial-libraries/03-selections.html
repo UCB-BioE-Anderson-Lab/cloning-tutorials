@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Selection Methods &ndash; Combinatorial Libraries</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide figure.fig.cited{padding-bottom:52px}
+.slide .divtop{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr;
+  grid-template-rows:minmax(0,1fr);align-items:center}
+.slide .divtop figure{height:100%;display:flex;justify-content:center}
+.slide .divtop img{max-height:100%;width:auto;object-fit:contain}
+/* A grid of figure panels.  Both the cell (min-height:0) and the <img>
+   (height:100%) are needed, or the image sits at its intrinsic size. */
+.slide .panels{flex:1 1 auto;min-height:0;display:grid;gap:16px 36px}
+.slide .panels > *{min-width:0;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin:0}
+.slide .panels img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide .panels figcaption{font-size:20px;color:var(--muted)}
+/* a two-line "Example:" head, as the source sets it */
+.slide h1.eg{font-size:46px;margin-bottom:18px}
+.slide h1.eg span{display:block;font-size:34px;font-weight:700;margin-top:6px}
+/* source 24: rounds of selection beside the aptamers that came out */
+.slide .r24{grid-template-columns:1.1fr 1fr;grid-template-rows:minmax(0,1fr);
+  padding-bottom:46px}
+/* source 25: three definitions, nothing else */
+.slide .defs{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center;gap:34px}
+.slide .defs p{font-size:33px;margin:0;max-width:1300px}
+.slide .defs b{color:var(--vermillion)}
+/* source 26: two plates, their counts, and the quotient */
+.slide .enr{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:1fr 1fr;grid-template-rows:auto minmax(0,1fr) auto auto;
+  gap:6px 60px;justify-items:center}
+.slide .enr h2{margin:0;font-size:34px;font-weight:400}
+.slide .enr figure{min-height:0;display:flex;margin:0}
+.slide .enr figure img{height:100%;width:auto;max-width:100%;object-fit:contain}
+.slide .enr p.count{font-size:25px;margin:6px 0 0;text-align:center;line-height:1.35}
+.slide .enr p.tot{grid-column:1/3;font-size:32px;font-weight:700;margin:10px 0 0}
+/* source 29, 33: a figure beside a block of bullets */
+.slide .pair{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-rows:minmax(0,1fr);gap:40px;padding-bottom:46px}
+.slide .pair.l{grid-template-columns:0.85fr 1.15fr}
+.slide .pair > *{min-width:0;min-height:0;display:flex;flex-direction:column;
+  justify-content:center;margin:0}
+.slide .pair img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide .pair li{font-size:26px;margin-bottom:10px}
+.slide .pair p{font-size:26px;margin:0 0 20px}
+/* source 30: a side label beside the figure */
+.slide .named{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:auto minmax(0,1fr);grid-template-rows:minmax(0,1fr);
+  gap:30px;align-items:center}
+.slide .named p{font-size:32px;color:var(--vermillion);margin:0;white-space:nowrap}
+.slide .named img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 31: the construct, then the sort and what came out of it */
+.slide .r31{grid-template-columns:1fr 1fr;
+  grid-template-rows:0.9fr 1.1fr;padding-bottom:46px}
+.slide .r31 .facs{grid-column:1/3;grid-row:1}
+.slide .r31 .ompx{grid-column:1;grid-row:2}
+.slide .r31 .tab{grid-column:2;grid-row:2}
+/* source 38: the key sits top right, the populations below it */
+.slide .r38{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+.slide .r38 .key{justify-content:flex-end;align-items:flex-start}
+.slide .r38 .key img{width:auto;height:auto;max-height:130px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 22 -->
+<article class="slide" data-bg="section">
+  <h1>Selection Methods</h1>
+  <div class="divtop">
+    <figure>
+      <img src="img/22-divider.png" alt="A dense blue cloud of thousands of fine specks, loosely shaped like two overlapping lobes &mdash; a population of library members from which a few will be selected.">
+    </figure>
+  </div>
+  <template class="notes">Combinatorial libraries are typically quite large and require selections.  There are some cases, such as with rbs libraries, in which the libraries aren&rsquo;t too big for screening.  You need to calculate the theoretical diversity during design of your experiment and determine what type of screen or selection is required.</template>
+  <template class="desc">Section divider: Selection Methods. A cloud of many thousands of individual marks stands for a library too big to screen one member at a time.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 23 -->
+<article class="slide">
+  <h1>Adhesion Selections:  SELEX</h1>
+  <figure class="fig">
+    <img src="img/23-selex.png" alt="The SELEX cycle. A random DNA pool of squiggles is passed over a column where the target protein is immobilised; most of the pool is lost as flowthrough, a few squiggles stick and are eluted, and PCR amplification turns them back into a DNA pool for the next cycle of selection.">
+  </figure>
+  <template class="notes">The oldest method is SELEX which can be used to identify RNA or single-stranded DNA sequences that bind to a chemical or protein target.  You begin with a library of DNA or RNA, typically with 10^15 membership generated by enzymatic processing of oligonucleotides with degenerate bases, as we discussed earlier.
+You also need a column in which the target is immobilized.  One method involves mixing cyanogen bromide-treated agarose beads with the protein target to get it covalently attached, but there are other strategies.  You pass the library over the column, and very rare members will bind specifically to the target and become immobilized.  Most of the library (&gt;99%) will flow right through the column and be discarded.  You then elute the bound DNAs from the resin and amplify them by RT-PCR.  That gives you a new library of DNAs that can be reverse transcribed for another round of selection.  You often have to perform selex multiple times.  There is a great deal of non-specific binding during this process, so not only are the specific hits carried through in each round &ndash; you are simply enriching for these hits.</template>
+  <template class="desc">SELEX as a loop: bind the library to an immobilised target, wash the rest away, elute what stuck, amplify it, and go round again.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 24 -->
+<article class="slide">
+  <h1 class="eg">Example:<span>SELEX of dopamine aptamers</span></h1>
+  <div class="panels r24">
+    <figure>
+      <img src="img/24-rounds.png" alt="A plot of RNA eluted as a percentage of total against selection round, one through nine. Nothing comes off for the first five rounds; at round six about eight percent elutes, and it climbs steeply to nearly sixty percent by round nine. Inset, the structure of dopamine attached to the resin.">
+    </figure>
+    <figure>
+      <img src="img/24-aptamers.png" alt="The secondary structure of a selected dopamine aptamer drawn base by base as four stem-loops labelled SL1 to SL4 radiating from a central junction.">
+    </figure>
+  </div>
+  <p class="src">Biochemistry. 1997 Aug 12;36(32):9726-34. PMID: 9245404</p>
+  <template class="notes">Typically it takes around 5 or 6 rounds of selection to see a signal, but if all goes well and you have hits, you&rsquo;ll eventually get to a point where more of the material begins appearing after elution.  At this point you would clone the library, pick individual members to sequence, and then characterize those hits further individually.  New improvements to SELEX involve using microfluidic platforms for improved enrichment, and as we&rsquo;ll talk about in the multiplex lecture, applying deep sequencing to characterize the hit pool.</template>
+  <template class="desc">What a working SELEX looks like: five rounds of nothing, then the eluted fraction climbs from a few percent to most of the pool, and the sequences that came out of it fold into a defined four-stem structure.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 25 -->
+<article class="slide">
+  <h1>Performance of a Selection</h1>
+  <div class="defs">
+    <p><b>Specificity</b>  -  how well the selection prefers the hit over the non-hit</p>
+    <p><b>Recovery</b>  -  what fraction of the hits survive the selection</p>
+    <p><b>Enrichment</b> &ndash; the fraction of hits in the final population divided by the initial population</p>
+  </div>
+  <template class="notes">Before we see some additional examples, let&rsquo;s discuss this concept of enrichment.  These terms &lsquo;enrichment&rsquo; &lsquo;specificity&rsquo; and &lsquo;recovery&rsquo; are quantitative measures of changes in the diversity of a library towards a subpopulation of &lsquo;hits&rsquo;. They are similar to the ideas of precision and recall in data science, but specific to describing genetic selections.  Enrichment is the main one which is just the frequency of your hits within the final population divided by their frequency in the initial population.  Enrichment is determined by the specificity and recovery.  Specificity is how well the selection prefers the hit over the non-hit, while recovery quantifies how efficient the selection is at retaining the hits.  Typically you don&rsquo;t need to worry about specificity and recovery, since they are rolled into enrichment, so let&rsquo;s do an example of how enrichment is calculated.</template>
+  <template class="desc">The three numbers that describe a selection: specificity, how strongly it prefers hits; recovery, what fraction of the hits it keeps; and enrichment, the ratio of hit frequency after to hit frequency before.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 26 -->
+<article class="slide">
+  <h1>Calculation of enrichment</h1>
+  <div class="enr">
+    <h2>Before</h2>
+    <h2>After</h2>
+    <figure>
+      <img src="img/26-before.png" alt="A plate of about ninety-four colonies, almost all of them blue, with a single red one among them.">
+    </figure>
+    <figure>
+      <img src="img/26-after.png" alt="A plate of about a hundred and eighty-six colonies, nearly all red, with three blue ones among them.">
+    </figure>
+    <p class="count">93 blue<br>1 red<br>red/(red+blue) = 0.0106</p>
+    <p class="count">3 blue<br>183 red<br>red/(red+blue) = 0.984</p>
+    <p class="tot" data-build="1" data-note="If we take the frequency after selection and divide by the frequency before selection, we get the enrichment, which here would be 92." data-desc="Dividing the two frequencies gives the enrichment: ninety-two fold.">Enrichment = 0.984/0.0106 =  92</p>
+  </div>
+  <template class="notes">The calculation of enrichment requires that you follow the frequency of hits within your population before and after selection.  Let&rsquo;s consider the scenario of a cell that turns fluorescent red when a hit is present, and is blue otherwise.  If we dilute and plate around 100 colonies of the na&iuml;ve library on a plate, we can count the red and blue colonies, and then calculate the frequency of reds in the population.  Now we apply a selection such as a FACS sorting, and repeat the plating experiment.  Now we see that the frequency of reds is much higher.</template>
+  <template class="desc">Two plates, before and after a sort. Before: ninety-three blue colonies and one red, so reds are one percent. After: three blue and a hundred and eighty-three red, so reds are ninety-eight percent.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 27 -->
+<article class="slide">
+  <h1>Phage Display:  M13 Phagemids</h1>
+  <figure class="fig">
+    <img src="img/27-m13.png" alt="An M13 particle drawn as a long body of repeating pVIII coat subunits wrapped around the phagemid DNA, with a cluster of pIII proteins at one tip. Labels point to the antibody gene carried on the phagemid, the phage coat, gene III, and the pVIII and pIII proteins.">
+  </figure>
+  <template class="notes">To apply selections for binding to peptides and proteins, there is a challenge of connecting up the DNA encoding the protein with the protein molecule.  Phage display is one of the earliest and most commonly-used strategy for doing this.  The M13 phage particle is a long filamentous object which looks ultimately more like a pencil than what is illustrated here.  The P8 protein coats the sheath of the particle and can be used for multivalent display of very short peptides (like, &lt;8 aas).  Longer proteins can be presented at single copy by fusion to the P3 protein at the tip of the particle.  Operationally, you would begin the experiment with a Phagemid that encoded the P3 protein.  A phagemid is just a plasmid that has an additional cis element required for packaging the DNA into an M13 particle.  Otherwise, it is just like a normal pUC plasmid.  You would make your library by fusion of things to P3 as you have done before in one of the tutorials.  You&rsquo;ll transform that library of phagemids into E. coli, and typically you can make up to 10^11 member libraries with this approach.  The remainder of the M13 gene functions are provided by a helper phage.  It&rsquo;s basically a slightly crippled variant of M13.  You infect the library with helper, and the progeny will be primarily packaged with the phagemid DNA and display the P3 fusion protein.  You can then purify this phage material from the culture by precipitation and subject it to various selections.</template>
+  <template class="desc">How phage display links a protein to the gene that encodes it: the phagemid carrying the antibody gene is packaged inside the same particle that displays the antibody on its pIII tip.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 28 -->
+<article class="slide">
+  <h1>Phage Display</h1>
+  <figure class="fig">
+    <img src="img/28-panning.png" alt="The phage display panning cycle drawn as a loop: variants displayed on the surface of phages are added to a coated well, bound particles stay while the rest are washed away, the bound phage are eluted, amplified in E. coli, stocked and titrated, and go round again, with analysis at the end.">
+  </figure>
+  <template class="notes">The panning experiment used to select for peptides, antibodies, or the like that bind to a target of interest from a phage display library are very similar to SELEX.  Because the particles are large, they tend to get stuck in agarose beads, so you typically do phage selections within the wells of a maxisorp plate such as is used for ELISA assays.  You immobilize your target to the surface of the wells of the plate, block with milk or BSA, then add your library.  If a phage binds, it will become immobilized and won&rsquo;t wash off.  You can then elute and infect the recovered particles onto E. coli to amplify them for subsequent rounds.  The enrichments for phage display are similar to those of SELEX, so you will typically need to do multiple rounds of panning to enrich the hits away from non-specific binders.</template>
+  <template class="desc">Panning: bind, wash, elute, amplify, repeat &mdash; the same loop as SELEX, run in a microtitre well rather than on a column because the particles are too big for beads.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 29 -->
+<article class="slide">
+  <h1>Engineering scFv Antibodies</h1>
+  <div class="pair l">
+    <figure>
+      <img src="img/29-scfv.png" alt="A scheme for building a synthetic antibody library: CDRs are amplified from many sources of cDNA to give separate CDR1, CDR2 and CDR3 libraries, these are combined with a single master set of framework oligonucleotides by overlap extension PCR, and a linker joins the halves into scFvs that combine CDRs from different germlines.">
+    </figure>
+    <div>
+      <ul>
+        <li>Antibodies are primary drug scaffolds of modern big pharma</li>
+        <li>Many drug pipelines in industry around phage display technologies</li>
+        <li>Phage display allows mimetic methods of both affinity maturation and VDJ recombination</li>
+        <li>Can start with fully human versions of antibodies</li>
+        <li>Excellent for hard-to-immunize targets</li>
+      </ul>
+    </div>
+  </div>
+  <p class="src">&ldquo;antibody phage display&rdquo; = 2419 hits in pubmed<br>Nat Biotechnol. 2002 Dec;20(12):1189-90. PMID: 12454662 &middot; Mol Cells. 2009 Feb;27(2):225-35. PMID: 19277506 &middot; Nat Protoc. 2007;2(11):3001-8. PMID: 18007636</p>
+  <template class="notes">The most common use of phage display is for antibodies.  Companies that make antibody drugs, like Genentech, generate their therapeutics in this way.  Though there are other scaffolds such as affibodies, nanobodies, and monobodies that do similar things to antibodies, the immunological properties of antibodies are unmatched by another scaffold, and these are therefore the most popular scaffold for therapeutics.
+By using fancy variations on library fabrication, it is possible to reconstitute the space of human-derived na&iuml;ve antibodies in vitro and display them on phage.  Because of this, phage display has largely eclipsed mouse immunization since you get something out of the experiment that can be directly used in humans.
+Phage display also has the advantage here that some targets, particularly those associated with cancer, often do not elicit immune responses in animals.  Many of the epitopes upregulated in cancer are associated with early embryonic development, and the antibodies to these targets are eliminated as self-reactive members.  So, they have already been eliminated from the B-cell population.  When you do the experiment in vitro, there is no such constraint and antibodies can be made against any target.</template>
+  <template class="desc">Rebuilding the antibody repertoire in a tube: CDR loops amplified from many donors, recombined onto one framework, and displayed as single-chain Fvs on phage &mdash; which is how most antibody drugs are now found.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 30 -->
+<article class="slide">
+  <h1>Cell Surface Display</h1>
+  <div class="named">
+    <p>Yeast Display:</p>
+    <img src="img/30-yeast.png" alt="A yeast cell wall drawn as a curved band, with Aga1 anchored in it and Aga2 held to Aga1 by two disulfide bonds. The protein of interest is fused to Aga2 and so sits on the outside of the cell.">
+  </div>
+  <template class="notes">Another strategy for binding-based selections is cell-surface display.  Here, you will decorate the surface of the cell with the protein encoded on a plasmid within the cell to couple genotype and phenotype.  It can be done in multiple organisms including E. coli and yeast, and different systems are useful for different things.  Shown here is yeast display.  You fuse your gene to this protein Aga2 which gets exported and deposited on the surface with disulfide bonds.  This yeast system can handle full-length proteins, but the transformation efficiency of yeast limits the library to 10^7.</template>
+  <template class="desc">Yeast display: the protein of interest is fused to Aga2, which is tethered by disulfides to Aga1 in the cell wall, so the protein ends up on the outside of the cell that carries its gene.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 31 -->
+<article class="slide">
+  <h1 class="eg">Example:<span>Selection of streptavidin-binding peptides</span></h1>
+  <div class="panels r31">
+    <figure class="facs" data-build="1" data-note="It is possible to do selections with magnetic beads or maxisorp plates, but such experiments often result in the selection of flocculating mutants or weak binders due to the multivalent display.  So, in practice that strategy is unlikely to work.  Instead, you label the surface of the cell with a fluorescently-tagged version of your template and then sort the fluorescent cells with a cytometer.  Such reagents can be made by cloning your gene into an overexpression vector, expressing it in some cell, purifying the protein, and then reacting it with FITC, TrITC, or other reactive dyes.  After several rounds of labeling and sorting, you get a fluorescence signal, and at that point you can clone and sequence your library." data-desc="Above, three cytometry plots: the unselected library, the library after labelling, and a sorted population in which a clear arm of bright cells has appeared. Beside the construct, a table of the peptide sequences recovered from the OmpX library, nearly all of them carrying a cysteine pair around a short motif.">
+      <img src="img/31-facs.png" alt="Three two-colour cytometry plots labelled A, B and C. A and B show a diffuse cloud inside the gate; C shows a dense streak of cells running up into the high red-fluorescence corner of the gate.">
+    </figure>
+    <figure class="ompx">
+      <img src="img/31-ompx.png" alt="Two outer membrane display scaffolds drawn as barrels: OmpX, with the random peptide GQSGQ-X2-C-X7-C-X2-GGS inserted into Loop2 between residues S53 and S54, and CPX, the circularly permuted version, which carries the same peptide at its new N terminus.">
+    </figure>
+    <figure class="tab" data-build="1">
+      <img src="img/31-table.png" alt="Table 1, streptavidin binding peptides identified using OmpX or CPX bacterial display libraries: seven clones, OX7-S1 to OX7-S7, with their recovered sequences, most containing the motif HPM or HPQ between the two cysteines.">
+    </figure>
+  </div>
+  <p class="src">Protein Sci. 2006 Apr;15(4):825-36. PMID: 16600968</p>
+  <template class="notes">The E. coli systems are all based on inserting or fusing a peptide into a cell-surface display protein.  There are many such systems including OmpX and CPX which are outer membrane barrel proteins derived from E. coli.  Probably the most robust is ice nucleation protein.  You can reliably display peptides up to ~80 amino acids on the surface, but longer proteins have a much lower success rate.  In this version, they are placing an X2CX7CX2 peptide in a loop of the protein.  They show that the disulfides are helpful in constraining the conformation of the peptide resulting in better hits.</template>
+  <template class="desc">Bacterial surface display: a constrained peptide, two cysteines around seven random residues, dropped into a loop of the OmpX barrel or onto the end of its circular permutant.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 32 -->
+<article class="slide">
+  <h1>Direct Complementation</h1>
+  <ul class="fill">
+    <li>Create a strain with a deletion in the activity of interest</li>
+    <li>Identify growth conditions that allow wild-type to survive, but mutants die</li>
+    <li>Transform in a library of plasmids containing potential activities that would &ldquo;complement&rdquo; the deletion</li>
+    <li>Select for growth under the non-permissive conditions</li>
+  </ul>
+  <template class="notes">The remainder of these selection methods are all in vivo selections.  Meaning, they are selections applied to live cells and they are somehow based on the survival of the cells.  There is also a class of liposome and micelle-based selections, but we&rsquo;ll save that for the multiplex lecture.  The simplest one is complementation, which has been a staple of genetics since the 1950s.  Much of what we know of biology comes from a process of generating mutants and then screening for DNA fragments that correct or complement them.  For example, you might treat E. coli with radiation, then pick a bunch of colonies and try to grow each one on a minimal media.  If it is unable to produce even one of its metabolites, the cell will be unable to grow.  You call such mutants auxotrophs.  Usually the defect will be present in only one gene, and introduction of a functional copy of this gene will restore growth.  So, if you transform these cells with a library of plasmids encoding fragments of the genome, or a genomic dna library, only those transformants that receive the functional copy will survive, and then you can sequence the plasmid to find out what you hit.
+That experiment falls under the category of &lsquo;forward genetics&rsquo; and it is no longer so prominently used.  The advent of genome engineering strategies allows you to knockout a gene directly now, allowing a more hypothesis-driven approach.
+When used in the context of genetic engineering, you employ complementation in a more targeted way.  You construct a strain with a deletion in the activity of interest and then play with growth conditions until you find ones in which the wild-type survives and the mutants die.  You then make a library out of the knocked out gene, or perhaps with other proteins you think might satisfy the required function of this gene, and you introduce that into the mutant cells.  You then grow the library under non-permissive conditions and collect your hits.</template>
+  <template class="desc">Complementation as a selection: knock the activity out, find a condition where the knockout dies, put the library in, and let growth do the picking.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 33 -->
+<article class="slide">
+  <h1 class="eg">Example:<span>Selection of a monomeric chorismate mutase</span></h1>
+  <div class="pair l">
+    <figure>
+      <img src="img/33-chorismate.png" alt="Two ribbon structures side by side. On the left, the domain-swapped dimer of chorismate mutase, its two chains drawn in green and blue. On the right, the monomeric version, in which the chains have been cut and rejoined through a red linker so that one polypeptide forms the whole fold; Arg77 and Glu20a are picked out in the active site.">
+    </figure>
+    <div>
+      <p>Linker Library:<br>-Leu20-Lys21-Xaa-Xaa-Xaa-Xaa-Xaa-Xaa-Leu20a-Lys21a</p>
+      <p>KA12/pKIMPUAUC:  <i>E. coli</i> strain with chorismate mutase gene knocked out</p>
+      <p>Grow library on minimal media (without supplying aromatic amino acids)</p>
+    </div>
+  </div>
+  <p class="src">Science. 1998 Mar 20;279(5358):1958-61. PMID: 9506949</p>
+  <template class="notes">Here is an example of protein engineering using a complementation selection by Hilvert.  They begin with a chorismate mutase knockout strain.  This enzyme is involved in the biosynthesis of the aromatic amino acids, so mutants need to be fed aromatic amino acids (tyrosine, phenylalanine) to survive on minimal media.  They then construct a library derived from the original gene.  Wild-type chorismate mutase is a domain-swapped dimer, and they examined the crystal structure to identify a site in which each monomer could be cleaved in half, and then rejoined by a random linker.  If the linker can satisfy the structural constraints, the topology of the enzyme would be changed resulting in a monomeric version.  The library contained 6 X sites (or NNK sites).  They insert the library into the knockout strain and then grow on minimal media.  They pull out hits and go on to confirm that they are indeed monomers.</template>
+  <template class="desc">A complementation selection that changed a protein's topology: six random residues used as a linker to rejoin the halves of a domain-swapped dimer, selected simply by whether the knockout strain could grow without aromatic amino acids.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 34 -->
+<article class="slide">
+  <h1>Synthetic Selections</h1>
+  <ul class="fill">
+    <li>Often any selection involving DNA as the library is referred to as &ldquo;genetic selection&rdquo;</li>
+    <li>That would include complementation selections</li>
+    <li>Sometimes it specifically refers to &ldquo;in vivo selections&rdquo; meaning a selection in which the activity of the library member is linked to the viability of the cell</li>
+    <li data-build="1" data-note="There isn&rsquo;t a consistent name for what I&rsquo;ll call here a &lsquo;synthetic selection&rsquo;, but they involve some type of genetic circuit that links the target gene&rsquo;s activity to survival of the cell in a more circuitous way.  These methods are often the only way to probe the function of a gene, particularly when it is not a native activity of the cell." data-desc="A fourth line appears: a synthetic selection, where the link between the activity and survival is one you built rather than one the cell already had.">Synthetic selections involve some contrived linkage between genotype and selection</li>
+  </ul>
+  <template class="notes">Many people refer to the class of selections that involve linkage of a gene&rsquo;s function to its ability to grow as a &lsquo;genetic selection&rsquo;.  Some folks use the term to more generally mean any selection that enriches for DNA sequences including SELEX.  &lsquo;In vivo selections&rsquo; is usually reserved to specifically mean the condition in which the viability of the cell is linked to a target gene.</template>
+  <template class="desc">What the words mean: genetic selection for anything that enriches DNA, in vivo selection for the case where the cell's life depends on the gene.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 35 -->
+<article class="slide">
+  <h1 class="eg">Example:<span>Amber suppression</span></h1>
+  <figure class="fig">
+    <img src="img/35-amber.png" alt="Left, a plasmid called pRSV CATam27 carrying a chloramphenicol acetyltransferase gene with a UAG amber codon written into it. Right, a suppressor tRNA drawn as a cloverleaf with CUA in its anticodon loop. An arrow leads from the pair to transfection and an assay for CAT activity.">
+  </figure>
+  <template class="notes">Synthetic selections and genetic selections have only been constructed for a handful of systems.  Another successful one is with suppressor tRNAs.  These selections form the basis for most work in site-directed incorporation of unnatural amino acids.  Here, you place a TAG stop codon (the amber stop codon) somewhere in the gene for a selectable marker, here chloramphenicol acetyltransferase which confers resistance to chloramphenicol.  When the ribosome reads the mRNA&rsquo;s of this gene, it encounters the stop and prematurely terminates, and the cells are unable to grow on media containing chloramphenicol.  If you introduce a library of suppressor tRNAs in which the anticodon is replaced with CUA, some of these tRNAs may get charged by an amino acid and allow decoding of the amber stop leading to full-length product and survival.  Thus, you can select for functional suppressor tRNAs.
+You can construct a synthetic selection for any situation in which you can link the function of interest to expression of a selectable marker.  You can control expression of a selectable marker at the DNA level (such as selection for recombinases) at the transcriptional level (transcriptional initiation, elongation, or termination) or at the translation level.  Amber suppression is an example of translational control during elongation, but you can also do selections based on translation initiation or termination.  For example, you could place riboregulators upstream of a selectable marker that hide the ribosome binding site, and then select for RNAs or proteins that disrupt the secondary structure and reveal the RBS.</template>
+  <template class="desc">A synthetic selection built out of translation: an amber codon dropped into a resistance marker, so only a tRNA that can read through it lets the cell live.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 36 -->
+<article class="slide">
+  <h1 class="small">Dual Selections<br><small>aka double sieve selections, positive/negative selections</small></h1>
+  <ul class="fill">
+    <li>An &ldquo;Indirect&rdquo; genetic selection</li>
+    <li>The activity of interest is linked in a synthetic way to the viability of the cell</li>
+    <li>Requires linkage in both a positive and a negative mode such that the cell can be made to survive or die in response to the desired activity</li>
+    <li>A stimulus of some sort must be present to switch on or off the desired activity</li>
+    <li>Great for changing the specificity of a nascent biological activity</li>
+  </ul>
+  <template class="notes">Thus far we&rsquo;ve considered exclusively direct selections:  the aptamers bound to the beads during selex and survived, the bait protein bound to the prey in the two hybrid, and the tRNA suppressed the mutation and survived.  In some cases, what you are trying to identify from a library is not this activity, but rather this activity conditioned on some constraint.  For example, you might want a tRNA that suppresses amber stops, but it does so only when an aminoacyl-tRNA synthetase is present.  Or, you might want a transcription factor that activates a promoter in the presence of a small molecule, but you may also want to require that it does not activate the promoter when the small molecule is absent.
+For these sorts of situations, the established way to do it is a dual selection.  However, with the advent of deep sequencing there are new approaches which we&rsquo;ll discuss in the multiplex characterization lecture.  In a dual selection, you start with a synthetic selection, but your selectable marker can be positive (as we did before) or negative.  Meaning, we have a reporter gene that when activated will kill the cell.  Such experiments also require a stimulus.  In the case of the tRNA that requires a specific synthetase, that stimulus is the synthetase.  In the case of the transcription factor that requires a small molecule, the stimulus is the small molecule.  You perform dual selections in two rounds:  you first apply the positive selection in the presence of the stimulus, and then you withhold the stimulus and apply the negative selection.</template>
+  <template class="desc">A dual selection needs the activity wired up twice &mdash; once so that having it keeps the cell alive, and once so that having it kills the cell &mdash; with a stimulus to switch between the two.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 37 -->
+<article class="slide">
+  <h1 class="eg">Example:<span>Changing the specificity of LuxR</span></h1>
+  <figure class="fig cited">
+    <img src="img/37-luxr.png" alt="LuxR drawn as a blue circle with a small AHL ligand bound to its side, labelled 3OC6HSL or C10HSL, beside the chemical structure of a homoserine lactone with its fatty acid acyl chain. Below, the luxR gene as an arrow, and the PluxI promoter it activates driving a positive or negative selectable marker.">
+  </figure>
+  <p class="src">Nat Biotechnol. 2006 Jun;24(6):708-12. PMID: 16715074</p>
+  <template class="notes">Let&rsquo;s look at an example of a synthetic selection.  Let&rsquo;s say you want to engineer the substrate specificity of LuxR.  LuxR is a transcription factor from Vibrio fischeri that binds to a homoserine lactone small molecule and in response activates transcription from the LuxI promoter.  It&rsquo;s a component of quorum sensing systems and a very popular gene in synthetic biology.  You want to make a library out of the LuxR active site and then select for variants that respond to a different small molecule.  There is no LuxR-like activity in E. coli natively, so there is no gene to knockout that it would complement, so those experiments are out.  Perhaps you could do a panning experiment against the new substrate immobilized on a column, but that would be a selection for binding, not for the combination of binding and transduction.
+The easiest solution here is going to be some type of synthetic selection.  There probably are better micelle-based solutions to be developed, but of the existing technologies an in vivo selection will do the job the best.  Here, Arnold has placed a chloramphenicol resistance gene downstream of luxI. If a functional luxR is present, then the luxI promoter will turn on. If luxI promoter gets activated, the cell will survive in the presence of chloramphenicol.  So, operationally, you would construct a strain with this PluxI-CmR cassette, usually on a plasmid, and then introduce a library of LuxR variants then select for survival on the new small molecule (here, C10HSL) and sequence what survives.
+This type of genetic selection can be applied to any transcriptional process &ndash; whatever it is you want to select for, if it turns on a promoter in the end you can hook it up to a selectable marker and make it selectable.  That also applies to any singular interaction within a transcriptional activation process.</template>
+  <template class="desc">The circuit behind the selection: LuxR binds a homoserine lactone and turns on PluxI, so putting a selectable marker downstream of PluxI makes the cell's fate depend on which lactone LuxR will accept.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 38 -->
+<article class="slide">
+  <h1>Dual Selections</h1>
+  <div class="panels r38">
+    <figure class="key">
+      <img src="img/38-key.png" alt="Key: a filled blue circle is wild type, an open circle is a dead mutant, a filled red circle is a variant with changed specificity.">
+    </figure>
+    <figure>
+      <img src="img/38-dual.png" alt="Three populations drawn as scattered circles. The naive population is mostly open circles &mdash; dead mutants &mdash; with a few blue wild types and two red changed-specificity variants. After the positive selection with the stimulus, the dead mutants are gone and blues and reds remain. After the negative selection without the stimulus, only the red changed-specificity variants are left.">
+    </figure>
+  </div>
+  <template class="notes"></template>
+  <template class="desc">What the two rounds do to the population: the positive selection clears out everything dead, leaving wild type and changed-specificity variants together; the negative selection then removes the wild type, because it still responds to the old stimulus, and only the changed specificity survives both.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 39 -->
+<article class="slide">
+  <h1 class="eg">Example:<span>Changing the specificity of LuxR</span></h1>
+  <figure class="fig cited">
+    <img src="img/39-onoff.png" alt="Two panels. Panel a, the ON selection: PluxI drives cat, so an active LuxR makes the cell chloramphenicol resistant and an inactive one leaves it sensitive. Panel b, the OFF selection: PluxI drives the beta-lactamase inhibitory protein bli while bla is expressed constitutively, so an active LuxR inactivates the beta-lactamase and the cell becomes carbenicillin sensitive, while an inactive LuxR leaves it resistant.">
+  </figure>
+  <p class="src">Nat Biotechnol. 2006 Jun;24(6):708-12. PMID: 16715074</p>
+  <template class="notes">For positive selection, they employ the PluxI-cat construct as discussed before.  For the negative selection, the LuxI promoter drives the blip gene encoding a beta-lactamase inhibitory protein.  They also provide a constitutively-expressed Bla gene.  The selection strain here is ampicillin resistant.  However, if PluxI is activated, BLIP is expressed, Bla is inactivated, and the cells die on the antibiotic.  So, you can select against a functional LuxR.
+Operationally, they first apply the ON selection in the presence of their new small molecule C10HSL.  They then apply the negative selection in the presence of the old small molecule 3OC6HSL.  If you just apply the positive selection in such an experiment, you tend to pull out many variants that are constitutively on either by responding to an endogenous metabolite or by an internal conformation change.  However, when you include the negative selection, the only things that can pass both selections are the ones specific to the small molecule.</template>
+  <template class="desc">The two halves of the dual selection drawn out: PluxI driving chloramphenicol resistance for the ON round, and PluxI driving a beta-lactamase inhibitor for the OFF round, so the same promoter can be made to save the cell or kill it.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

@@ -5,8 +5,8 @@
 
 A slide's note pieces are its <template class="notes"> plus each data-note,
 in document order; they are concatenated and diffed against the source
-slide's note, normalised for whitespace, curly quotes and the deck's two
-click markers (<click> and a bare asterisk).  The source slide number is
+slide's note, normalised for whitespace, curly quotes and the three
+click markers the decks use (<click>, (click) and a bare asterisk).  The source slide number is
 read from the HTML comment before each <article>.
 
 A slide driven by a sequence keeps its notes in the sequence file, so
@@ -48,7 +48,11 @@ def norm(s):
     s = html.unescape(s)
     for a, b in SUBS:
         s = s.replace(a, b)
-    s = s.replace("<click>", "")
+    # Three spellings of the same marker across decks: <click> (In vitro),
+    # a bare asterisk (Whole-Cell, Directed Evolution) and (click)
+    # (Combinatorial Libraries).  They are the author's own note to himself
+    # about where he advances, never narration, so all three come out.
+    s = s.replace("<click>", "").replace("(click)", "")
     # The deck's other click marker.  A RUN of them, because an author who
     # wants a second marker on the same slide writes ** for it, as source 10
     # of the Directed Evolution deck does.

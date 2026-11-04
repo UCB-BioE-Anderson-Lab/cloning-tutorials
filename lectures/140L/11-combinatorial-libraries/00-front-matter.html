@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Introduction &ndash; Combinatorial Libraries</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 3: the three peak names are set HERE rather than baked into the
+   crop.  On the slide they are a pale tint of blue over a grey landscape;
+   white is what the Directed Evolution deck uses over this same photograph,
+   and it is the only thing that reads on it.  Percentages are the shapes'
+   own positions in the picture box, from the slide XML. */
+.slide .onphoto{flex:1 1 auto;min-height:0;display:flex;
+  justify-content:center;margin-top:18px}
+/* the labels are placed against the IMAGE, so the positioned box has to be
+   the image's own box and not the figure's -- which is full slide width. */
+.slide .onphoto .ph{position:relative;display:inline-block;height:100%}
+.slide .onphoto .ph img{display:block;height:100%;width:auto;max-width:100%}
+.slide .onphoto .peak{position:absolute;color:#fff;font-size:34px;
+  font-family:var(--sans);text-shadow:0 1px 4px rgba(0,0,0,.85);
+  pointer-events:none}
+/* source 4: two named engineering methods, each with its own bullets */
+.slide .meth{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center;gap:38px}
+.slide .meth h2{color:var(--vermillion);font-size:34px;margin:0 0 12px}
+.slide .meth ul{margin:0}
+.slide .meth li{font-size:29px;margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- 1 -->
+<article class="slide" data-bg="lecture">
+  <h1>Combinatorial Libraries</h1>
+  <p class="playlist">YouTube playlist:<br>
+     <a href="https://www.youtube.com/watch?v=8BDTS9NK7Zg&amp;list=PL2aPXzks-TgNF957XOSBB3rPdFbtvsWYI">youtube.com/watch?v=8BDTS9NK7Zg&amp;list=PL2aPXzks-TgNF957XOSBB3rPdFbtvsWYI</a></p>
+  <template class="notes"></template>
+  <template class="desc">Lecture title slide: Combinatorial Libraries. A link to the course YouTube playlist for this lecture.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 2 -->
+<article class="slide">
+  <h1>Directed Evolution</h1>
+  <figure class="fig">
+    <img src="img/02-landscape.jpg" alt="A fitness landscape drawn as a grey aerial view of hills, forests and rocky peaks. A single small flag with a green dot beside it stands part-way up one wooded slope, marking one starting sequence that is slowly climbing.">
+  </figure>
+  <template class="notes">Last time we talked about directed evolution, which involves optimizing some nascent activity through the introduction of iterative small perturbations.  These mutations are generally introduced through error-prone PCR, and the improved variants are identified by screening methods.</template>
+  <template class="desc">The fitness landscape from the previous lecture, with a single marker part-way up one hill: directed evolution starts from one sequence that already works a little and walks it uphill in small steps.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 3 -->
+<article class="slide">
+  <h1>Combinatorial Libraries</h1>
+  <figure class="fig onphoto">
+    <span class="ph">
+      <img src="img/03-grid.jpg" alt="The same grey fitness landscape, now with a regular grid of about seventy orange dots laid over one region of it, sampling that region evenly rather than climbing from one point.">
+      <span class="peak" style="left:69.4%;top:6.8%">RFP</span>
+      <span class="peak" style="left:59.0%;top:12.1%">GFP</span>
+      <span class="peak" style="left:14.0%;top:25.6%">phoA</span>
+    </span>
+  </figure>
+  <template class="notes">This is in contrast to combinatorial methods in which often a preexisting activity is not present, and a sparse grid of library members is generated to make a large leap in function or to systematically explore a region of sequence space.</template>
+  <template class="desc">The same landscape, sampled instead of climbed: a regular grid of library members dropped across a whole region of sequence space, with other known activities &mdash; RFP, GFP, phoA &mdash; sitting on separate peaks elsewhere on the map.</template>
+</article>
+
+<!-- ----------------------------------------------------------------- 4 -->
+<article class="slide">
+  <h1>Engineering Methods</h1>
+  <div class="meth">
+    <section>
+      <h2>Combinatorial Libraries</h2>
+      <ul>
+        <li>Usually involves large libraries (&gt;10<sup>6</sup>) and selections</li>
+        <li>Used to find activities that do not pre-exist</li>
+        <li>Typically involves a single round of mutagenesis</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Directed Evolution</h2>
+      <ul>
+        <li>Usually smaller libraries (&lt;10<sup>5</sup>) and screens</li>
+        <li>Used to improve or modify a nascent activity</li>
+        <li>Involves iterative rounds of mutagenesis</li>
+      </ul>
+    </section>
+  </div>
+  <template class="notes">Directed evolution experiments typically involve smaller libraries and therefore can be screened individually.  They are used to improve or tweak a nascent activity, and they are usually iterative&mdash;you make small advances in fitness in each round of mutagenesis.
+Combinatorial libraries typically are quite large (greater than 1 million) and therefore require selections.  You can use them to find activities that do not pre-exist, and you typically do them only once.  It is common to start an experiment with a combinatorial library to get an initial hit, and then optimize that hit through directed evolution methods.</template>
+  <template class="desc">The two library strategies set side by side. Combinatorial libraries: large, over a million members, read out by selection, used to find an activity that is not there yet, and usually done once. Directed evolution: smaller, under a hundred thousand, read out by screening, used to improve an activity that already exists, and done over and over.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

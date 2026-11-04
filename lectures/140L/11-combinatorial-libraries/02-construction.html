@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Library Construction &ndash; Combinatorial Libraries</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide .divtop{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr;
+  grid-template-rows:minmax(0,1fr);align-items:center}
+.slide .divtop figure{height:100%;display:flex;justify-content:center}
+.slide .divtop img{max-height:100%;width:auto;object-fit:contain}
+/* sequence blocks: the source marks sites and elements by highlight, which
+   becomes the palette's attention ladder here — the enzyme sites carry the
+   colour, the promoter elements a pale ground. */
+.slide pre.seq{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:24px;line-height:1.5;margin:0 0 14px;white-space:pre-wrap;
+  word-break:break-all;color:var(--ink)}
+.slide pre.seq.sm{font-size:20px;line-height:1.45}
+.slide pre.seq b.site{color:var(--vermillion);font-weight:700}
+.slide pre.seq b.site2{color:var(--blue);font-weight:700}
+.slide pre.seq b.el{background:#f2ead2;font-weight:700}
+.slide pre.seq i.deg{font-style:normal;color:var(--muted)}
+.slide p.lbl{font-size:24px;color:var(--vermillion);margin:0 0 6px}
+.slide .fill2{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center}
+/* source 13: the two halves of the figure side by side above the oligos */
+.slide .klen{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;
+  align-items:center;margin-bottom:10px}
+.slide .klen img{width:100%;max-height:420px;object-fit:contain}
+/* source 14: a figure over a block of bullets */
+.slide .overfig{flex:0 0 auto;width:100%;margin:0 0 18px;display:flex;
+  justify-content:center}
+.slide .overfig img{max-width:100%;max-height:290px;width:auto;object-fit:contain}
+/* source 18: the figure must stop above the absolutely-placed .src line */
+.slide figure.fig.cited{padding-bottom:52px}
+/* source 15: the construction file sits to the right of the title */
+.slide .pp6head{display:flex;align-items:flex-start;gap:24px}
+.slide .pp6head img.ava{height:96px;width:auto}
+.slide .pp6head h1{flex:0 0 auto;margin:0}
+.slide .pp6head pre{margin:0 0 0 auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:21px;line-height:1.5;color:var(--ink)}
+.slide p.ask{font-size:30px;text-align:center;margin:18px 0 10px}
+.slide p.ans{font-size:30px;text-align:center;margin:0;font-weight:700}
+/* source 16: structure on the left, the saturation map and bullets right */
+.slide .sat{flex:1 1 auto;min-height:0;display:grid;
+  grid-template-columns:1fr 1.15fr;grid-template-rows:minmax(0,1fr);gap:40px}
+.slide .sat > *{min-width:0;min-height:0;display:flex;flex-direction:column;
+  justify-content:center}
+.slide .sat img.struct{width:100%;height:100%;min-height:0;object-fit:contain;
+  background:#000;border:1px solid var(--rule);border-radius:4px}
+.slide .sat img.arrow{width:100%;height:auto;max-height:190px;object-fit:contain;
+  margin-bottom:18px}
+.slide .sat li{font-size:27px;margin-bottom:10px}
+/* GRID PANELS.  A <figure> in a grid cell needs BOTH min-height:0 on the cell
+   and height:100% on the <img>; max-height:100% alone leaves the image at its
+   intrinsic size inside a flex box, which is how these came out thumbnail-sized
+   the first time. */
+.slide .panels{flex:1 1 auto;min-height:0;display:grid;gap:16px 36px}
+.slide .panels > *{min-width:0;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin:0}
+.slide .panels img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 19: the library over the data it produced */
+.slide .r19{grid-template-rows:0.85fr 1.15fr}
+/* source 20: four panels, two of them built */
+.slide .r20{grid-template-columns:1.05fr 1fr;
+  grid-template-rows:auto minmax(0,1fr) auto}
+.slide .r20 pre{grid-column:1;grid-row:1;margin:0;font-size:22px;align-self:start;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.5}
+.slide .r20 .chart{grid-column:1;grid-row:2}
+.slide .r20 .plate{grid-column:2;grid-row:1/3}
+.slide .r20 .c6{grid-column:1/3;grid-row:3;flex-direction:column;
+  align-items:stretch}
+.slide .r20 .c6 p{font-size:22px;margin:0 0 4px}
+.slide .r20 .c6 img{height:auto;max-height:150px}
+/* source 21: constructs and their labels over the recovery chart.
+   THE CHART SITS ON A GREY PANEL, and that is not decoration.  Its three
+   series are black bars, grey bars and WHITE bars, and its axis labels are
+   white letters with a thin dark outline -- so white is DATA here and the
+   usual trick of painting white line art into ink would both fill the white
+   bars and destroy the distinction.  AUTHORING.txt's answer for "white marks
+   that ARE data next to black data" is a grey panel, so it keeps its alpha
+   and gets one.  --muted is the lightest grey the palette defines: white
+   reads 3.4:1 on it and black 4.1:1, so both series clear the 3:1 floor for
+   a graphical object. */
+.slide .r21{grid-template-columns:1fr 330px;
+  grid-template-rows:0.75fr 1.25fr;padding-bottom:46px}
+.slide .r21 .con{grid-column:1;grid-row:1}
+.slide .r21 ul{grid-column:2;grid-row:1;margin:0;padding-left:1.1em;
+  align-self:center;display:block}
+.slide .r21 li{font-size:24px;margin-bottom:8px}
+/* the key sits beside the plot, where the source puts it */
+.slide .r21 .key{grid-column:2;grid-row:2;align-items:center;
+  justify-content:flex-start}
+.slide .r21 .key dl{display:grid;grid-template-columns:auto auto;gap:12px 14px;
+  margin:0;align-items:center}
+.slide .r21 .key dt{width:30px;height:22px;border:1px solid var(--ink)}
+.slide .r21 .key dt.b{background:#000}
+.slide .r21 .key dt.g{background:#9a9a9a}
+.slide .r21 .key dt.w{background:#fff}
+.slide .r21 .key dd{margin:0;font-size:22px}
+.slide .r21 .rec{grid-column:1;grid-row:2}
+/* the panel hugs the chart rather than spanning the slide */
+.slide .r21 .rec img{width:auto;max-width:100%;height:100%;
+  background:var(--muted);border-radius:4px;padding:12px 16px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 11 -->
+<article class="slide" data-bg="section">
+  <h1>Combinatorial Libraries</h1>
+  <div class="divtop">
+    <figure>
+      <img src="img/11-books.png" alt="A large untidy heap of hardback books, spines every which way &mdash; a library in the ordinary sense, standing in for a library of sequences.">
+    </figure>
+  </div>
+  <template class="notes">The methods for fabricating combinatorial libraries are essentially the same techniques used to do normal cloning such as overlap extensions, pcr, soeing, eipcr, and so forth.  But with a tweak&mdash;often the oligos will contain degenerate bases or you will employ mixtures of DNAs.</template>
+  <template class="desc">Section divider: Combinatorial Libraries &mdash; how they are built. A heap of books stands for the library.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 12 -->
+<article class="slide">
+  <h1>RNA Libraries:  SELEX</h1>
+  <p class="lbl">Template oligos:</p>
+  <pre class="seq">GAGGATCCCGAACGGAC<i class="deg">NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN</i>GCACACGCGGAATT<b class="site2">CCCTATAGTGAGTCGTATTA</b></pre>
+  <p class="lbl">T7 Universal Promoter Oligo:</p>
+  <pre class="seq"><b class="site2">TAATACGACTCACTATAGGG</b></pre>
+  <figure class="fig">
+    <img src="img/12-aptamer.png" alt="Left, the secondary structure of the Bacillus subtilis xpt guanine riboswitch aptamer drawn as lettered loops and stems &mdash; L1, P2, P1, P3, L2 &mdash; with one C picked out in orange. Centre, the chemical structure of guanine. Right, the guanine aptamer binding site, with the bound guanine in red surrounded by three uracils, U-I, U-II and U-III, and the orange C, hydrogen bonds drawn as dotted lines.">
+  </figure>
+  <template class="notes">Alright, let&rsquo;s look at some examples of types of popular libraries.  The oldest and still very commonly used library are aptamer libraries.  Here we illustrate a library used to generate guanine-binding RNA aptamers.  You order a template oligo sequence like this one with around 40 or more N&rsquo;s in a row.  On the ends there are constant sequence such that the sequence can be amplified by PCR.  One of these sites is the T7 promoter sequence.  If you also order the T7 universal oligo, you can anneal these two DNAs, and this is sufficient for in vitro transcription with T7 RNA polymerase.  Typically 10^15 member libraries are used in aptamer and ribozyme libraries, and when you do the math of how that plays out, you are dealing with a transcription reaction on the scale of 500 uL or so.  So, this is something you can do in a normal eppendorf tube.
+You can just anneal the oligos and then make transcript, but it is fairly common to first do an overlap extension step and then use the double-stranded product as template for transcription as a quality control adjustment.</template>
+  <template class="desc">An aptamer library: one long template oligo with a run of about ninety-six N's between two constant ends, one of which is the reverse complement of the T7 promoter, plus the short universal T7 oligo that anneals to it. Below, the guanine riboswitch aptamer this kind of library was used to find, and the pocket in which it holds guanine.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 13 -->
+<article class="slide">
+  <h1>Library Construction:  Klenow</h1>
+  <div class="klen">
+    <img src="img/13-trna.png" alt="The cloverleaf secondary structure of a serine tRNA gene drawn base by base, with the anticodon loop replaced by eight N's; the wild-type version is labelled tRNA2-Ser and the library version tRNA-Ser(N8).">
+    <img src="img/13-klenow.png" alt="Two oligos drawn as arrows pointing toward each other and overlapping at their 3' ends, with an arrow labelled Polymerase leading down to the filled-in double-stranded product.">
+  </div>
+  <pre class="seq sm">Oca939F  Forward construction of N8 library
+Ccata<b class="site">gaattc</b>ggagagatgccggagcggctgaacggaccggt<i class="deg">NNNNNNNN</i>accggagtaggggcaactctacc
+Oca939R  Reverse construction of N8 library
+gtcatc<b class="site">tgcag</b>tggcggagagagggggatttgaacccccggtagagttgcccctactccgg</pre>
+  <p class="src">J Mol Biol. 2001 Mar 30;307(3):755-69. PMID: 11273699</p>
+  <template class="notes">One of the simplest ways of making a combinatorial library is to employ an overlap extension reaction also known as a Klenow extension or wobble.  The differences between these terms deal with the details of which polymerase and temperature conditions you employ, but the oligo design is the same for each.  You learned this method as a means of making short parts on the size range of 30 to 130 bp in length, and those size constraints similarly apply here.  This approach is useful when all the diversity you wish to create is localized to a small region of the sequence, and you can have restriction sites fairly close to that site.
+Here we&rsquo;re looking at a library of tRNA-coding genes in which the anticodon loop is replaced by 8 random nucleotides.  You would order two oligos with 5&rsquo; tails, in this case EcoRI and PstI restriction sites, and then the tRNA sequence.  The last 20 bp of the oligos need to be complementary to one another so that they can anneal, and then a DNA polymerase will extend the sequences to full length.  You&rsquo;d then digest with EcoRI and PstI and ligate the material into a vector containing promoters and such.</template>
+  <template class="desc">A Klenow or wobble library: a tRNA gene whose anticodon loop has been replaced by eight N's, built from two oligos that overlap by twenty bases at their 3' ends and are filled in by a polymerase. The 5' tails carry an EcoRI site on one oligo and a PstI site on the other, for cloning into a vector.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 14 -->
+<article class="slide">
+  <h1>Degeneracy Codes</h1>
+  <figure class="overfig">
+    <img src="img/14-iub.png" alt="The IUB degeneracy code table. The four bases A, C, G, T plus U and I; then the codes for any two bases &mdash; M is A and C, R is A and G, W is A and T, S is G and C, Y is C and T, K is G and T; then for any three &mdash; V is A, G and C; H is A, C and T; D is A, G and T; B is G, T and C; and N, which is any of the four.">
+  </figure>
+  <div class="fill2" data-build="1"
+       data-note="This sequence, NNK, is very commonly used in combinatorial experiments since it can be used for saturation mutagenesis.  It allows you to replace a single codon of protein, that say, encoding threonine, to instead encode all 20 amino acids plus one stop codon.  The sequence has two N&rsquo;s with diversity of 4 (so, A,T,C,G that&rsquo;s four options), and one K with diversity of 2 (G or T).  So the diversity of the NNK sequence is 4^2*2^1, which is 32 possibilities.  The reason you use NNK instead of NNN for saturation mutagenesis is that the full 64 codons are more biased &ndash; there are 6 codons for some amino acids and only 1 for others.  In NNK, there is either 1 or 2 of each amino acid, so it is more balanced and you have less bias thereby requiring a smaller library.
+There are TAG stops included in NNK, but only this stop codon.
+An alternative degenerate codon is NNS, which has basically the same balance profile as NNK, and you&rsquo;ll see that pretty frequently used too.
+If you want to include just a few amino acids at a site, such as just the hydrophobic residues, there are other degeneracy codes for this.  At the URL below, there is a webtool that allows you to type in the amino acids you want, and it will list out the options for you.
+For an extra charge, you can ask that the bases be &lsquo;premixed&rsquo; rather than mixed online.  What this means is that they will put A, T, C, and G at equal amounts (adjusted for coupling efficiency) into a single bottle, and then draw aliquots of bases from this.  In contrast, online mixing does the mixing on the column, and it can lead to low amounts of bias.  This is more an issue with the aptamer-style libraries than protein libraries, and online mixing is usually sufficient for short runs of N&rsquo;s.
+You can also order premixed triplets.  So, for example, you could ask them to mix triplet phosphoramidites like GGG and TTT and AGC which would encode three and only three amino acids (Gly, Phe, and Ser).  However, it&rsquo;s very expensive and comes on and off the market as a product."
+       data-desc="Underneath the table, what NNK is for: saturating one codon with all twenty amino acids while leaving only one stop, how NNS does the same job, how other codes bias toward particular residue types, and the premixing options that reduce base bias.">
+    <h2>NNK replacement of codons</h2>
+    <ul class="tighter">
+      <li>For &ldquo;Saturation Mutagenesis&rdquo; of proteins (not relevant to RNA/rbs/promoter/etc.)</li>
+      <li>Theoretically, there are 32 possible &ldquo;NNK&rdquo; codons</li>
+      <li>Eliminates all stops but TAG, fairly equal balance of all amino acids</li>
+      <li>Codon NNS mutagenesis is popular, achieves a similar balance</li>
+      <li>Other degeneracies can bias towards particular types of amino acids</li>
+      <li>For an extra charge, bases can be &ldquo;premixed&rdquo; which often results in less bias towards particular bases</li>
+      <li>Can also now premix triplet phosphoramidites</li>
+    </ul>
+  </div>
+  <template class="notes">Most combinatorial libraries involve degenerate bases.  This diversity is introduced during oligonucleotide synthesis by mixing together phosphoramidites prior to a round of coupling.  You order this mixing in an oligo by putting degeneracy codes instead of A,T,C, or G into the sequence.  So, a sequence like GGCATNNKCCATG can be pasted directly into the web interface, and they will interpret that as mixtures.</template>
+  <template class="desc">The IUB degeneracy codes: the single letters that stand for a mixture of bases, which is how diversity is ordered into an oligo during synthesis.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 15 -->
+<article class="slide">
+  <div class="pp6head">
+    <img class="ava" src="img/15-ponder.png" alt="">
+    <h1 class="small">pP6 diversity</h1>
+    <pre>PCR P6libF/P6libR on pTP1   (3583bp, P6)
+Assemble P6                 (BsaI, pP6)
+Transform pP6               (Mach1, Amp)</pre>
+  </div>
+  <p class="lbl">P6libF</p>
+  <pre class="seq sm">ccaaa<b class="site">ggtctc</b>A<b class="el">TTATA</b><i class="deg">NNNNNNNNNNNNNNNNN</i><b class="el">TGTCAA</b><i class="deg">NNNN</i><b class="el">GA</b>acccagga<b class="site2">ctcctc</b>gaagtcgttcttaagacaac</pre>
+  <p class="lbl">P6libR</p>
+  <pre class="seq sm">Cagtt<b class="site">GGTCTC</b>A<b class="el">ATAAT</b><i class="deg">NNNNNN</i><b class="el">A</b><i class="deg">NNNN</i><b class="el">GT</b>tagtatt<b class="site2">tctcctc</b>gtctacggttaactgatactc</pre>
+  <p class="lbl">pP6</p>
+  <pre class="seq sm"><b class="site2">GAGGAG</b>TCCTGGGTTC<i class="deg">NNNN</i><b class="el">TTGACA</b><i class="deg">NNNNNNNNNNNNNNNNN</i><b class="el">TATAAT</b><i class="deg">NNNNNN</i><b class="el">A</b><i class="deg">NNNN</i><b class="el">GT</b>TAGTATTT<b class="site2">CTCCTC</b>
+<span style="color:var(--muted)">BseRI                -35                    -10       +1              BseRI</span></pre>
+  <p class="ask">What is the theoretical diversity of this library?</p>
+  <p class="ans" data-build="1" data-desc="The answer: thirty-one degenerate positions, so four to the thirty-first &mdash; about 4.6 times ten to the eighteenth possible sequences.">4^31 variants = 4.6x10^18 possible sequences</p>
+  <template class="notes">Count the number of each degenerate base, multiple each by the number of bases represented by each degeneracy code.  Multiply all those together.</template>
+  <template class="desc">The students' own pP6 library, written out: two oligos, P6libF and P6libR, each carrying a BsaI site and a run of N's, assembled into pP6, whose promoter has degenerate bases scattered around a fixed -35 and -10. Thirty-one of the positions are N.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 16 -->
+<article class="slide">
+  <h1>Active-Site Saturation</h1>
+  <div class="sat">
+    <div>
+      <img class="struct" src="img/16-arac.jpg" alt="The arabinose binding pocket of AraC rendered as a blue ribbon beta barrel, with the side chains lying within five angstroms of the bound arabinose drawn as green sticks and the sugar itself in the centre.">
+    </div>
+    <div>
+      <img class="arrow" src="img/16-arrow.png" alt="A gene drawn as a long arrow with five tick marks on it, grouped as NNKNNK, NNKNNK and NNK &mdash; two pairs of adjacent codons and one lone codon, saturated at the positions that line the pocket.">
+      <ul>
+        <li>With NNK saturation can mutate up to 6 sites</li>
+        <li>Libraries of this type have a very high percentage of members with no activity</li>
+        <li>The rare &ldquo;hits&rdquo; require selections</li>
+        <li>Best strategy for large leaps in substrate specificity</li>
+      </ul>
+    </div>
+  </div>
+  <template class="notes">A very common application is active site saturation.  On the left is the crystal structure of AraC, the transcription factor that binds arabinose, and I&rsquo;ve highlighted the residues within 5 angstroms of the arabinose ligand.  At most, you can cover the library of up to around 7 amino acids with full NNK saturation.  With larger libraries, you will undersample the library and might get an all-dead set of members.  This type of library is best achieved by EIPCR, but it can also be done by SOEing as discussed before.  These libraries get huge quick, and you will usually see them paired with powerful selections.  This type of library is the best strategy for achieving large leaps in substrate specificity such as changing the ligand of a transcription factor, or the substrate specificity of an enzyme.</template>
+  <template class="desc">Saturating the residues that line a binding pocket: the arabinose site of AraC with its contacting side chains, and the gene beside it with NNK codons placed at exactly those positions &mdash; six of them, which is about as far as full saturation will stretch.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 17 -->
+<article class="slide">
+  <h1>Library Construction:  SOEing</h1>
+  <figure class="fig">
+    <img src="img/17-soeing.png" alt="A gene drawn as a wavy line with three pairs of PCR primers along it. Each pair carries an NNK codon on one primer and the complementary NNM on the other, so each PCR gives a short double-stranded fragment with a saturated codon at its end. The three fragments share about twenty base pairs of homology with their neighbours, and a final PCR sews them into one full-length product flanked by EcoRI and BamHI.">
+  </figure>
+  <template class="notes">A more traditional but still popular option is to employ SOEing.  In this context, it is often called other names like cassette mutagenesis, but all the nomenclature in this space is a little ambiguous.  The bottom line is you will use PCR to construct a series of short double-stranded fragments that span the length of your gene.  Each fragment shares around 20 bp of homology to the next such that they can be assembled together by SOEing.  You design the break points in the strategy to be right next to the sites of saturation and incorporate the NNK sequences into the oligos.
+This method is a double-diamond level of difficulty.  It&rsquo;s something that very experienced molecular biologists can do pretty well, but is deceptively difficult for a first-timer.  In general, most applications in which you might consider doing SOEing can be more easily done by EIPCR.  Though SOEing on paper is the faster experiment, it is also more likely to require a lot of tuning of the fragment concentrations and conditions to make the thing assemble properly.  So, in practice it usually takes more time than the iterative EIPCR approach.</template>
+  <template class="desc">Building a saturated gene by SOEing: three PCRs make three short fragments, each carrying an NNK codon at a break point chosen to sit beside a site you want to saturate, and a final PCR sews the overlapping fragments into one piece with EcoRI and BamHI on the ends.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 18 -->
+<article class="slide">
+  <h1>Library Construction:  EIPCR</h1>
+  <figure class="fig cited">
+    <img src="img/18-eipcr.png" alt="A plasmid carrying an aminoacyl-tRNA synthetase sublibrary and a kanamycin marker, with two primers pointing outward from it. Each primer carries a BsaI site and NNK or NNM degenerate bases, so the inverse PCR copies the whole plasmid while writing the degeneracy into the ends; BsaI digestion then leaves matching overhangs that close the circle scarlessly.">
+  </figure>
+  <p class="src">Nat Protoc. 2007;2(10):2590-600. PMID: 17948002<br>Biotechniques. 1992 Aug;13(2):214-20. PMID: 1327007</p>
+  <template class="notes">For very short regions, such as those less than 30 bp, EIPCR is the method of choice. Here you PCR off a wildtype template introducing degenerate bases into the PCR oligos.  You then digest and ligate to close the circle back into a plasmid.  An overlap extension library is the least biased route, but it requires good restriction sites nearby which is often problematic, particularly when the target sequence is in the middle of the protein.  EIPCR can be done with type IIS restriction sites leading to scarless closure of the circle.  It therefore is very useful for NNK saturation mutagenesis since you can iteratively perform EIPCR at each site. So, if there are 3 distinct zones that need to be saturated, you&rsquo;d hit one site first, then use that sublibrary as a template to mutate the second site, and then this for the third. For large saturation libraries, this is the most robust option.  You can typically expect around 10^6 colonies from an EIPCR, so you will need to employ additional tricks to get to libraries larger than this.</template>
+  <template class="desc">EIPCR for a short saturated region: inverse PCR round the whole plasmid with degenerate bases and a type IIS site written into the primer tails, then cut and close the circle without a scar &mdash; which is what lets you do it again at the next site.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 19 -->
+<article class="slide">
+  <h1>RBS Libraries</h1>
+  <div class="panels r19">
+    <figure>
+      <img src="img/19-rbs.png" alt="Two 5' untranslated sequences one above the other, labelled Wt and library, with the ribosome binding site and the start codon marked above them. The wild type reads CAAGGAATTAACCATG; the library replaces the three bases just upstream of the Shine-Dalgarno with NNN and the first base of the start codon with R.">
+    </figure>
+    <figure data-build="1" data-desc="The result, measured: a rank-ordered bar chart of red fluorescence over about a hundred clones. Roughly half the library is flat on the floor, and the rest spreads smoothly from the brightest clone down to the dead ones.">
+      <img src="img/19-chart.png" alt="A rank-ordered bar chart, fluorescence in arbitrary units against clone. The first forty or so clones fall smoothly from about 35,000 down to a few thousand; the remainder sit at essentially zero.">
+    </figure>
+  </div>
+  <template class="notes">Here is one example of an RBS library, but other such perturbations give very similar results.  We start with some wild-type sequence, and here I am showing the 5&rsquo; UTR with the start codon and Shine-Dalgarno sequence (otherwise known as the RBS or ribosome binding site).  If you saturate the bases partially overlapping the RBS and the first base of the start codon, you get a library that is 50% dead but the other 50% has a nice distribution of activity levels.  Here, we show data for doing this experiment with RFP showing the profile of activity present.</template>
+  <template class="desc">An RBS library: three saturated bases just upstream of the Shine-Dalgarno and a degenerate first base of the start codon, which is enough to tune expression across a wide range.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 20 -->
+<article class="slide">
+  <h1>PWM-Derived RBS Library</h1>
+  <div class="panels r20">
+    <pre>L1    5R     aatARRRRAaatactagRTG
+L2    4D     aatADDDDAaatactagATG
+L3    N3R    aNNNggagaaatactagRTG
+L4    PWM    aatNVWGGRDatactagATG</pre>
+    <div class="chart" data-build="1" data-desc="A rank-ordered chart of normalised expression across about ninety-six members of the PWM library, climbing smoothly from zero to one, and beside it a plate of the library under blue light with colonies at every brightness from dark to bright green.">
+      <img src="img/20-pwm.png" alt="A rank-ordered bar chart of normalised expression over about ninety-six clones, rising smoothly from zero at the left to one at the right.">
+    </div>
+    <div class="plate" data-build="1">
+      <img src="img/20-plate.jpg" alt="A photograph of a plate of transformants under blue light, the colonies ranging from dark through dim to bright green.">
+    </div>
+    <div class="c6" data-build="2" data-desc="And where to get one: the C6-Tools ribosome binding site library designer, which takes the open reading frame and its 5' untranslated region and writes out the degenerate forward oligo.">
+      <p>In C6-Tools:</p>
+      <img src="img/20-c6.png" alt="A spreadsheet row from C6-Tools headed 'Design a ribosome binding site library', taking an open reading frame and its 5' UTR as inputs and returning the pwm library forward oligo.">
+    </div>
+  </div>
+  <template class="notes"></template>
+  <template class="desc">Four ways to write an RBS library as a degenerate sequence: two that spread the degeneracy evenly, one that randomises three bases outright, and one derived from a position weight matrix over working ribosome binding sites.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 21 -->
+<article class="slide">
+  <h1>RBS Libraries</h1>
+  <div class="panels r21">
+    <figure class="con">
+      <img src="img/21-constructs.png" alt="Three constructs, each a promoter driving the invasin gene: the anaerobically induced fdhF promoter, the arabinose-induced BAD promoter with its AraC regulator, and the constitutive tet promoter.">
+    </figure>
+    <ul>
+      <li>FdhInv - Anaerobic Induction</li>
+      <li>AraInv - Arabinose Induction</li>
+      <li>TetInv - Constitutive</li>
+    </ul>
+    <div class="key">
+      <dl>
+        <dt class="b"></dt><dd>Normal Growth</dd>
+        <dt class="g"></dt><dd>Arabinose</dd>
+        <dt class="w"></dt><dd>Anaerobic</dd>
+      </dl>
+    </div>
+    <figure class="rec">
+      <img src="img/21-recovery.png" alt="A log-scale chart of the fraction of cells recovered for wild type and for each invasin construct, under normal growth, with arabinose, and anaerobically. The FdhInv strain is recovered only in the anaerobic condition, AraInv only with arabinose, and TetInv in all three; an asterisk marks every condition that fell below the limit of detection.">
+    </figure>
+  </div>
+  <p class="src">J Mol Biol. 2006 Jan 27;355(4):619-27 PMID: 16330045</p>
+  <template class="notes">Saturation mutagenesis can also be applied to regulatory elements.  A very common trick in synthetic biology is to construct RBS libraries out of a genetic construct.  Here, we are trying to adjust the RBS of a gene called invasin such that the expression of the gene is dependent on the promoter upstream.  When you simply put a promoter in front of gene, very often you will get a constitutive on or off device because the rates don&rsquo;t match up.  By adjusting the RBS, you can tune the amount of protein made per transcript up or down and make them match.</template>
+  <template class="desc">An RBS library used to make a device actually obey its promoter: three invasin constructs under an anaerobic, an arabinose-inducible and a constitutive promoter, and the invasion assay showing each one responding to its own signal and nothing else.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>
