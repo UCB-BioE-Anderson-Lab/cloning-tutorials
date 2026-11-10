@@ -142,6 +142,10 @@
 .slide .r18 span{display:block;width:100%;height:100%;min-height:0}
 .slide .r18 svg{width:100%;height:100%;display:block}
 
+/* source 46: the LabSheet link, moved here when JCA deleted the amber
+   Plib divider (source 44) on 2026-11-10 */
+.slide p.link{font-size:23px;word-break:break-all;margin:6px 0 0}
+.slide p.link b{display:block;font-size:25px;margin-bottom:4px}
 /* source 48: the degeneracy table over the library design and its arithmetic */
 .slide .plib{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:12px}
 .slide .plib img.iub{width:62%;height:auto;object-fit:contain}
@@ -375,24 +379,16 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
      ascending order across the deck, and verify_notes.py reads each
      slide's own comment rather than assuming a run.
      ================================================================= -->
-<!-- ---------------------------------------------------------------- 44 -->
-<article class="slide" data-bg="section">
-  <h1>Plib</h1>
-  <p class="link"><b>Plib LabSheets:</b>
-    <a href="https://docs.google.com/spreadsheets/d/15423iKeYZLnmwzpUZ2D4Q5brP2FLdhdbQyuIkiQEYVs/edit?usp=sharing">https://docs.google.com/spreadsheets/d/15423iKeYZLnmwzpUZ2D4Q5brP2FLdhdbQyuIkiQEYVs/edit?usp=sharing</a></p>
-  <template class="notes"></template>
-  <template class="notes-add">Now to your own experiment. This is Plib, and the LabSheet is linked here. Everything from this point is what you will actually be doing at the bench over the next few weeks, and it is the same combinatorial math we just did, applied to a promoter library that you design and build yourself.</template>
-  <template class="desc">Divider: Plib, with a link to the Plib LabSheets.</template>
-</article>
-
 <!-- ---------------------------------------------------------------- 46 -->
 <article class="slide">
   <h1>TPcon6 architecture</h1>
   <figure class="fig">
     <img src="img/46-tpcon6.png" alt="A cassette drawn left to right: a GCTT overhang, a 20 bp spacer, an octagon marking the terminator, a second 20 bp spacer, a bent arrow marking the promoter, a third 20 bp spacer, and a TACT overhang.">
   </figure>
+  <p class="link"><b>Plib LabSheets:</b>
+    <a href="https://docs.google.com/spreadsheets/d/15423iKeYZLnmwzpUZ2D4Q5brP2FLdhdbQyuIkiQEYVs/edit?usp=sharing">https://docs.google.com/spreadsheets/d/15423iKeYZLnmwzpUZ2D4Q5brP2FLdhdbQyuIkiQEYVs/edit?usp=sharing</a></p>
   <template class="notes">Coming out of Pjoin, we have plasmids with cassettes like this, where there are BsaI sites flanking a terminator and promoter</template>
-  <template class="notes-add">Those BsaI sites are the handle for everything that comes next. You cut there, you drop in a new terminator-promoter pair, and the cassette closes back up scarlessly, which is the whole reason the architecture is built this way. For Plib you are not swapping in a part you already have. You are cutting there and putting back a library.</template>
+  <template class="notes-add">Now to your own experiment. This is Plib, the LabSheet is linked here, and everything from this point is what you will actually be doing at the bench over the next few weeks. Those BsaI sites are the handle for all of it. You cut there, you drop in a new terminator-promoter pair, and the cassette closes back up scarlessly, which is the whole reason the architecture is built this way. For Plib you are not swapping in a part you already have. You are cutting there and putting back a library.</template>
   <template class="desc">The TPcon6 cassette: a terminator and a promoter separated by fixed 20 bp spacers, with GCTT and TACT overhangs on the ends for assembly.</template>
 </article>
 

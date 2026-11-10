@@ -384,8 +384,8 @@ alone as the historical source except where noted.
    02-construction.html after the RBS libraries slide, which is where
    they belong: Plib IS a promoter/RBS library and the class builds
    it.  05-all-hands.html is gone and lecture.js is five sections.
-   02-construction.html therefore runs source 11-21 and then 44, 46,
-   47, 48 -- source numbers are no longer ascending across the deck,
+   02-construction.html therefore runs source 11-21 and then 46, 47,
+   48 -- source numbers are no longer ascending across the deck,
    which verify_notes.py does not care about because it reads each
    slide's own comment.
 
@@ -413,18 +413,21 @@ alone as the historical source except where noted.
    kills what is active.  With only two kinds either round alone would
    do, which is exactly why the slide needs two.
 
-5b. AND THREE OF THE PLIB SLIDES ARE CUT, same day, on JCA's
-   instruction: 45 (Wetlab project plan), 49 (Plib overview) and 50
-   (the bare "go through labsheet" link).  The LabSheet link survives
-   on the Plib divider, source 44, which is where it was already.
+5b. AND FOUR OF THE PLIB SLIDES ARE CUT, same day, on JCA's
+   instruction: 45 (Wetlab project plan), 49 (Plib overview), 50 (the
+   bare "go through labsheet" link) and 44, the amber Plib divider.
+   The LabSheet link moved off 44 and on to 46, under the TPcon6
+   cassette, so it is still in front of the class at the point the
+   Plib run begins -- 46 now opens that run, and carries the divider's
+   narration at the head of its written note.
 
 WHERE THE SOURCE NUMBERS LIVE NOW
   00-front-matter.html   1-4
   01-diversity.html      5-10
-  02-construction.html   11-21, then 44, 46, 47, 48
+  02-construction.html   11-21, then 46, 47, 48
   03-selections.html     22-39
   04-questions.html      40-42
-  43, 45, 49 and 50 are deleted.
+  43, 44, 45, 49 and 50 are deleted.
 
 THE SECOND NOTE CHANNEL, ADDED 2026-11-10
 -----------------------------------------
@@ -472,11 +475,11 @@ WHERE THIS STANDS
 -----------------
   00-front-matter.html     source  1-4         DONE  (4 steps)
   01-diversity.html        source  5-10        DONE  (15 steps)
-  02-construction.html     source 11-21, 44, 46-48  DONE  (24 steps)
+  02-construction.html     source 11-21, 46-48  DONE  (23 steps)
   03-selections.html       source 22-39        DONE  (25 steps)
   04-questions.html        source 40-42        DONE  (3 steps)
 
-  71 steps in all.  verify_notes.py passes on all 41 slides that carry a
+  70 steps in all.  verify_notes.py passes on all 41 slides that carry a
   note.  Linked from 140L/index.html and counted in docs/index.md.
 
   NOT DEPLOYED.  The site publishes from gh-pages by a manual
