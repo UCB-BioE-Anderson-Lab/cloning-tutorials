@@ -299,6 +299,24 @@ never into the annealing region. That is the whole design trick, and it is what 
 | Insertion | Split the inserted sequence across the 5′ tails of both primers (practical up to ~25 bp) |
 | Deletion | Just move the primers apart — anneal outside the region to be removed |
 
+### Where KLD is the most efficient option: truncations
+
+The deletion row is where this method beats the alternatives outright. To truncate a gene — lop off
+a C-terminal domain, remove a tag, delete a regulatory region — you put the two primers on either
+side of the region you want gone, pointing away from each other, and the PCR simply never copies
+it. A stop codon, if you need one, rides on the 5′ tail of the primer that reads out of the
+retained coding sequence.
+
+![Four-step cartoon of a truncation by KLD: back-to-back primers flank the region to be removed on the parent plasmid, PCR gives a linear blunt product with 5-prime hydroxyl ends that lacks the region, T4 PNK phosphorylates both 5-prime ends, and T4 ligase circularizes the product into the truncated plasmid.](../images/kld_truncation.png)
+
+Nothing about the work changes with the size of the deletion: removing 30 bp and removing 3 kb are
+the same two oligos, the same PCR and the same KLD reaction. Compare that with the alternatives —
+EIPCR needs a restriction site placed and cut, Gibson needs homology arms and a separate assembly,
+and QuickChange manages only short deletions, because both of its primers must still overlap each
+other across the join. The thing to watch is the one KLD always asks of you: this is a long PCR
+over the whole plasmid, and blunt ligation punishes a dirty product, so check it on a gel before
+adding the KLD mix.
+
 ### Example: the same C96S mutation, by KLD
 
 Using the same pET-INS target as the QuickChange example above, the primers abut at the C96 codon.
