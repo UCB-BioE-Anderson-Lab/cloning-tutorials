@@ -343,7 +343,7 @@ alone as the historical source except where noted.
    1.6e9 transformants.  seq/07-titer.js, which carries the numbers
    and the reasoning.
 
-4. SEVEN FIGURES REDRAWN.  JCA called them
+4. EIGHT FIGURES REDRAWN.  JCA called them
    blotchy or splotchy one at a time; they turned out to be two faults
    repeating.
 
@@ -355,9 +355,10 @@ alone as the historical source except where noted.
        source 28 panning      image31.png  685x643  shown ~1300 wide
        source 18 EIPCR        image22.png  558x384  shown ~1400 wide
        source 30 yeast        image36.png  400x377  shown ~1100 wide
-   All seven are now vector, in seq/18-eipcr.js, seq/21-invasin.js,
-   seq/23-selex.js, seq/27-m13.js, seq/28-panning.js and
-   seq/30-yeast.js.  Same shapes, on JCA's
+       source 35 amber        a small scan, shown ~1200 wide
+   All eight are now vector, in seq/18-eipcr.js, seq/21-invasin.js,
+   seq/23-selex.js, seq/27-m13.js, seq/28-panning.js, seq/30-yeast.js
+   and seq/35-amber.js.  Same shapes, on JCA's
    instruction; the colours are new and each file argues its own.
 
    THE SECOND FAULT IS WHITE TYPE ON TRANSPARENCY -- figures drawn for
@@ -387,6 +388,30 @@ alone as the historical source except where noted.
    47, 48 -- source numbers are no longer ascending across the deck,
    which verify_notes.py does not care about because it reads each
    slide's own comment.
+
+5a. TWO SLIDES THAT WERE BULLETS ONLY NOW HAVE DIAGRAMS, both asked
+   for on 2026-11-10 and both built as data-note-add beats, so the
+   spoken notes stay verbatim.
+
+   SOURCE 32, direct complementation (seq/32-complement.js).  Four
+   beats: a wild-type cell with a closed genome; the same cell with a
+   gene-shaped block in RED OUTLINE on that genome and the caption
+   changed to "knock out a gene"; the library arriving, one plasmid
+   carrying THE SAME SHAPE FILLED; and the split on to a permissive
+   plate and a non-permissive one.  Outline is the hole and fill is
+   the thing that fits it -- both come out of one function so they
+   cannot drift.  JCA specified this shape-for-shape; an earlier draft
+   drew the deletion as a gap with a delta and it read as a smudge.
+
+   SOURCE 36, dual selections (seq/36-dual.js).  The bullet that needs
+   it is "requires linkage in both a positive and a negative mode",
+   which no re-reading makes obvious.  Drawn as a double sieve with
+   THREE kinds of variant, which is the minimum that makes the point:
+   conditional (wanted), constitutive, and dead.  Round 1 with the
+   stimulus removes the dead; round 2 without it removes the
+   constitutive, because they are still active and the negative marker
+   kills what is active.  With only two kinds either round alone would
+   do, which is exactly why the slide needs two.
 
 5b. AND THREE OF THE PLIB SLIDES ARE CUT, same day, on JCA's
    instruction: 45 (Wetlab project plan), 49 (Plib overview) and 50

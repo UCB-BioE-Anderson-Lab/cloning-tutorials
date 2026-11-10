@@ -27,10 +27,18 @@
  * library member that does not complement is not wrong, it is just
  * not the answer.
  *
- * THE DELETION IS DRAWN AS A GAP IN THE GENOME, not as a cross or a
- * shaded box, because a deletion is missing DNA and the circle should
- * actually be open.  The plasmid's insert is drawn the same width as
- * the gap, which is what "complement" means here.
+ * HOW THE DELETION IS DRAWN, to JCA's specification of 2026-11-10.
+ * The first beat is a WILD-TYPE cell: a closed genome, nothing marked.
+ * On the click a gene-shaped block appears on that genome in RED
+ * OUTLINE -- outline, because the gene is the thing that is no longer
+ * there -- and the caption changes from "wild type" to "knock out a
+ * gene".  The plasmid then arrives carrying THE SAME SHAPE, FILLED.
+ * Outline is the hole, fill is the thing that fits it, and the two
+ * are drawn from one function so they cannot drift apart.  That is
+ * what "complement" means, said in shapes rather than in a bullet.
+ *
+ * An earlier draft drew the deletion as a gap in the circle with a
+ * delta beside it.  It was accurate and it read as a smudge.
  *
  * Authored at 1400x500.
  * ------------------------------------------------------------------ */
@@ -42,49 +50,40 @@ const INK = "#111111", VERM = "#ba3a13", MUTED = "#767676",
 const n2 = v => Math.round(v * 10) / 10;
 const R2 = Math.PI / 180;
 
-/* ---- a cell: a capsule with a genome in it ------------------------- *
- * gap: the deletion, in degrees of the genome circle.  plasmid: a
- * colour, or null for a cell that has not been transformed yet.
+/* ---- the gene, as a shape ------------------------------------------ *
+ * One block arrow, drawn outlined when it is the hole in the genome
+ * and filled when it is the copy on the plasmid.  Same call, same
+ * geometry, so the two always match.
  * ------------------------------------------------------------------ */
-function cell(cx, cy, plasmid){
-  const w = 244, h = 136, r = h/2;
-  let s = '<rect x="' + n2(cx - w/2) + '" y="' + n2(cy - h/2) + '" width="' + w +
-          '" height="' + h + '" rx="' + r + '" fill="' + PALE + '" stroke="' +
-          INK + '" stroke-width="3"/>';
-  /* the genome, open where the activity used to be */
-  const gx = cx - 42, gr = 38, a0 = -46, a1 = 286;
-  const p0 = [gx + Math.cos(a0*R2)*gr, cy + Math.sin(a0*R2)*gr];
-  const p1 = [gx + Math.cos(a1*R2)*gr, cy + Math.sin(a1*R2)*gr];
-  s += '<path d="M ' + n2(p0[0]) + ' ' + n2(p0[1]) + ' A ' + gr + ' ' + gr +
-       ' 0 1 1 ' + n2(p1[0]) + ' ' + n2(p1[1]) + '" fill="none" stroke="' + INK +
-       '" stroke-width="5"/>';
-  /* the gap, named */
-  s += '<text x="' + n2(gx + 54) + '" y="' + n2(cy - 46) + '" ' +
-       'font-family="inherit" font-size="25" font-weight="700" fill="' + VERM +
-       '">Δ</text>';
-
-  if (plasmid){
-    const px = cx + 62, pr = 25;
-    s += '<circle cx="' + px + '" cy="' + cy + '" r="' + pr + '" fill="none" ' +
-         'stroke="' + INK + '" stroke-width="4"/>';
-    s += arcSeg(px, cy, pr, -58, 58, plasmid, 8);
-  }
-  return s;
+function gene(x, y, len, h, rot, filled){
+  const hd = h * 0.9, hh = h * 0.42;
+  const d = 'M ' + n2(-len/2) + ' ' + n2(-h/2) +
+            ' L ' + n2(len/2 - hd) + ' ' + n2(-h/2) +
+            ' L ' + n2(len/2 - hd) + ' ' + n2(-h/2 - hh) +
+            ' L ' + n2(len/2) + ' 0' +
+            ' L ' + n2(len/2 - hd) + ' ' + n2(h/2 + hh) +
+            ' L ' + n2(len/2 - hd) + ' ' + n2(h/2) +
+            ' L ' + n2(-len/2) + ' ' + n2(h/2) + ' Z';
+  return '<g transform="translate(' + n2(x) + ',' + n2(y) + ') rotate(' + n2(rot) +
+         ')"><path d="' + d + '" fill="' + (filled ? VERM : "#ffffff") +
+         '" stroke="' + VERM + '" stroke-width="3" stroke-linejoin="round"/></g>';
 }
-function arcSeg(cx, cy, r, a0, a1, colour, w){
-  const p0 = [cx + Math.cos(a0*R2)*r, cy + Math.sin(a0*R2)*r];
-  const p1 = [cx + Math.cos(a1*R2)*r, cy + Math.sin(a1*R2)*r];
-  return '<path d="M ' + n2(p0[0]) + ' ' + n2(p0[1]) + ' A ' + r + ' ' + r +
-         ' 0 ' + ((a1-a0) > 180 ? 1 : 0) + ' 1 ' + n2(p1[0]) + ' ' + n2(p1[1]) +
-         '" fill="none" stroke="' + colour + '" stroke-width="' + (w || 7) +
-         '" stroke-linecap="round"/>';
+/* the same shape, sitting tangent on a ring at the given angle */
+function geneOn(cx, cy, r, deg, filled, len){
+  const a = deg * R2;
+  return gene(cx + Math.cos(a)*r, cy + Math.sin(a)*r, len || 58, 19, deg + 90, filled);
 }
 
-/* a loose plasmid, for the library cloud */
-function plasmid(cx, cy, r, colour){
+/* ---- a cell -------------------------------------------------------- */
+function capsule(cx, cy){
+  const w = 244, h = 136;
+  return '<rect x="' + n2(cx - w/2) + '" y="' + n2(cy - h/2) + '" width="' + w +
+         '" height="' + h + '" rx="' + (h/2) + '" fill="' + PALE + '" stroke="' +
+         INK + '" stroke-width="3"/>';
+}
+function ring(cx, cy, r, w){
   return '<circle cx="' + n2(cx) + '" cy="' + n2(cy) + '" r="' + r + '" ' +
-         'fill="none" stroke="' + INK + '" stroke-width="3"/>' +
-         arcSeg(cx, cy, r, -58, 58, colour, 7);
+         'fill="none" stroke="' + INK + '" stroke-width="' + (w||5) + '"/>';
 }
 
 /* ---- a plate ------------------------------------------------------- */
@@ -92,7 +91,7 @@ function plate(cx, cy, r, spec, seed){
   const rand = window.LotteryBall.rng(seed);
   let s = '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="#fbfbfb" ' +
           'stroke="' + INK + '" stroke-width="3"/>';
-  let placed = [];
+  const placed = [];
   spec.forEach(function(sp){
     let guard = 0;
     while (placed.length < sp.n && guard++ < sp.n * 80){
@@ -103,7 +102,6 @@ function plate(cx, cy, r, spec, seed){
       s += '<circle cx="' + n2(x) + '" cy="' + n2(y) + '" r="' + sp.r +
            '" fill="' + sp.fill + '"/>';
     }
-    placed = placed.slice();
   });
   return s;
 }
@@ -124,44 +122,61 @@ function cap(x, y, txt, colour, size, anchor, weight){
 }
 
 function complement(){
-  const CY = 210;
+  const CY = 210, AX = 176, BX = 566;
   let s = "";
 
-  /* ---- 1. the knockout strain ---- */
-  s += '<g data-build="1" data-note-add="So you start with a strain that has ' +
-       'the activity deleted from its genome. On its own, under the ' +
-       'non-permissive condition, this cell is dead.">';
-  s += cell(176, CY, null);
-  s += cap(176, CY + 104, "Δ strain", INK, 26, "middle", 700);
-  s += cap(176, CY + 136, "cannot grow", MUTED, 23);
+  /* ---- 1. the wild type ---- */
+  s += '<g data-build="1" data-note-add="Start with the wild type. Its genome ' +
+       'is intact and it grows anywhere.">';
+  s += capsule(AX, CY);
+  s += ring(AX, CY, 42);
+  s += '</g>';
+  s += '<text data-build="1" data-unbuild="2" x="' + AX + '" y="' + (CY + 104) +
+       '" text-anchor="middle" font-family="inherit" font-size="26" ' +
+       'font-weight="700" fill="' + INK + '">wild type</text>';
+
+  /* ---- 2. knock the gene out ---- */
+  s += '<g data-build="2" data-note-add="Knock out the activity of interest. ' +
+       'The gene is gone, which is drawn here as its outline on the genome: ' +
+       'the shape is still the right shape, there is just nothing in it. ' +
+       'Under the non-permissive condition this cell is dead.">';
+  s += geneOn(AX, CY, 42, -90, false);
+  s += cap(AX, CY + 104, "knock out a gene", INK, 26, "middle", 700);
+  s += cap(AX, CY + 136, "cannot grow", MUTED, 23);
   s += '</g>';
 
-  /* ---- 2. the library goes in ---- */
-  s += '<g data-build="2" data-note-add="Then you transform in the library. ' +
-       'Most of the plasmids carry something that does not do the job, and ' +
-       'one of them carries something that does.">';
+  /* ---- 3. the library goes in ---- */
+  s += '<g data-build="3" data-note-add="Then transform in the library. Most ' +
+       'of the plasmids carry something that does not fit. One of them carries ' +
+       'the same shape, filled in -- a working copy of what was removed.">';
   s += arrow(312, CY, 404, CY);
-  /* the library, as a small cloud above the arrow */
-  [[352, CY-104, MUTED], [410, CY-128, MUTED], [470, CY-104, VERM],
-   [412, CY-70, MUTED]].forEach(function(q){
-    s += plasmid(q[0], q[1], 24, q[2]);
-  });
-  s += cap(410, CY-162, "plasmid library", INK, 24);
-  s += arrow(432, CY-48, 466, CY-14, MUTED);
-  s += cell(566, CY, VERM);
-  s += cap(566, CY + 104, "transformants", INK, 26, "middle", 700);
-  s += cap(566, CY + 136, "one plasmid each", MUTED, 23);
+  [[348, CY-108, false], [410, CY-134, false], [412, CY-66, false]]
+    .forEach(function(q){
+      s += '<circle cx="' + q[0] + '" cy="' + q[1] + '" r="26" fill="none" ' +
+           'stroke="' + MUTED + '" stroke-width="3.5"/>';
+    });
+  s += '<circle cx="478" cy="' + (CY-108) + '" r="26" fill="none" stroke="' + INK +
+       '" stroke-width="3.5"/>';
+  s += geneOn(478, CY-108, 26, -90, true, 46);
+  s += cap(410, CY-178, "plasmid library", INK, 24);
+  s += arrow(470, CY-70, 500, CY-34, MUTED);
+
+  s += capsule(BX, CY);
+  s += ring(BX - 48, CY, 42);
+  s += geneOn(BX - 48, CY, 42, -90, false);
+  s += '<circle cx="' + (BX + 66) + '" cy="' + CY + '" r="26" fill="none" ' +
+       'stroke="' + INK + '" stroke-width="3.5"/>';
+  s += geneOn(BX + 66, CY, 26, -90, true, 46);
+  s += cap(BX, CY + 104, "transformants", INK, 26, "middle", 700);
+  s += cap(BX, CY + 136, "one plasmid each", MUTED, 23);
   s += '</g>';
 
-  /* ---- 3. the two plates, which are the whole argument ---- */
-  /* Stacked, and far enough apart that the upper plate's two caption
-     lines clear the lower plate -- the first pass put them 196 apart
-     with 84-radius plates and the captions landed inside the rim. */
-  s += '<g data-build="3" data-note-add="Split that population on to two ' +
-       'plates. On the permissive plate everything grows, which tells you ' +
-       'how many transformants you had. On the non-permissive plate only ' +
-       'the cells whose plasmid complements the deletion can grow, and ' +
-       'those are your hits.">';
+  /* ---- 4. the two plates, which are the whole argument ---- */
+  s += '<g data-build="4" data-note-add="Split that population on to two ' +
+       'plates. On the permissive plate everything grows, which tells you how ' +
+       'many transformants you had. On the non-permissive plate only the cells ' +
+       'whose plasmid complements the deletion can grow, and those are your ' +
+       'hits.">';
   const PR = 70, PYT = 96, PYB = 342;
   s += arrow(700, CY - 26, 812, PYT + 40);
   s += arrow(700, CY + 26, 812, PYB - 40);
@@ -179,14 +194,14 @@ function complement(){
   s += '</g>';
 
   return '<svg viewBox="0 0 1400 500" xmlns="http://www.w3.org/2000/svg" ' +
-    'role="img" aria-label="Direct complementation in three steps. First a ' +
-    'cell whose genome is drawn as an open circle with a gap where the ' +
-    'activity was deleted; on its own it cannot grow. Then a library of ' +
-    'plasmids, three grey and one red, is transformed in, giving cells that ' +
-    'each carry one plasmid. The population is split on to two plates: the ' +
-    'permissive plate is a lawn of ninety colonies, and the non-permissive ' +
-    'plate has only four, drawn in red, which are the cells whose plasmid ' +
-    'complements the deletion. Those are the ones whose plasmid you ' +
+    'role="img" aria-label="Direct complementation in four steps. A wild-type ' +
+    'cell with a closed genome. Then a gene-shaped block appears on that ' +
+    'genome in red outline, the knockout: the shape is right but nothing is ' +
+    'in it, and the cell cannot grow. A library of plasmids is transformed in, ' +
+    'three of them empty and one carrying the same shape filled solid red. ' +
+    'The transformants are split on to two plates: the permissive plate is a ' +
+    'lawn, and the non-permissive plate has only four red colonies, the cells ' +
+    'whose plasmid complements the deletion, and those are the plasmids you ' +
     'sequence.">' + s + '</svg>';
 }
 

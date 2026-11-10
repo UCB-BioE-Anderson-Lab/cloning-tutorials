@@ -268,9 +268,7 @@ When used in the context of genetic engineering, you employ complementation in a
 <!-- ---------------------------------------------------------------- 35 -->
 <article class="slide">
   <h1 class="eg">Example:<span>Amber suppression</span></h1>
-  <figure class="fig">
-    <img src="img/35-amber.png" alt="Left, a plasmid called pRSV CATam27 carrying a chloramphenicol acetyltransferase gene with a UAG amber codon written into it. Right, a suppressor tRNA drawn as a cloverleaf with CUA in its anticodon loop. An arrow leads from the pair to transfection and an assay for CAT activity.">
-  </figure>
+  <figure class="fig vec"><span data-fig="amber"></span></figure>
   <template class="notes">Synthetic selections and genetic selections have only been constructed for a handful of systems.  Another successful one is with suppressor tRNAs.  These selections form the basis for most work in site-directed incorporation of unnatural amino acids.  Here, you place a TAG stop codon (the amber stop codon) somewhere in the gene for a selectable marker, here chloramphenicol acetyltransferase which confers resistance to chloramphenicol.  When the ribosome reads the mRNA&rsquo;s of this gene, it encounters the stop and prematurely terminates, and the cells are unable to grow on media containing chloramphenicol.  If you introduce a library of suppressor tRNAs in which the anticodon is replaced with CUA, some of these tRNAs may get charged by an amino acid and allow decoding of the amber stop leading to full-length product and survival.  Thus, you can select for functional suppressor tRNAs.
 You can construct a synthetic selection for any situation in which you can link the function of interest to expression of a selectable marker.  You can control expression of a selectable marker at the DNA level (such as selection for recombinases) at the transcriptional level (transcriptional initiation, elongation, or termination) or at the translation level.  Amber suppression is an example of translational control during elongation, but you can also do selections based on translation initiation or termination.  For example, you could place riboregulators upstream of a selectable marker that hide the ribosome binding site, and then select for RNAs or proteins that disrupt the secondary structure and reveal the RBS.</template>
   <template class="desc">A synthetic selection built out of translation: an amber codon dropped into a resistance marker, so only a tRNA that can read through it lets the cell live.</template>
@@ -279,13 +277,14 @@ You can construct a synthetic selection for any situation in which you can link 
 <!-- ---------------------------------------------------------------- 36 -->
 <article class="slide">
   <h1 class="small">Dual Selections<br><small>aka double sieve selections, positive/negative selections</small></h1>
-  <ul class="fill">
+  <ul class="tight">
     <li>An &ldquo;Indirect&rdquo; genetic selection</li>
     <li>The activity of interest is linked in a synthetic way to the viability of the cell</li>
     <li>Requires linkage in both a positive and a negative mode such that the cell can be made to survive or die in response to the desired activity</li>
     <li>A stimulus of some sort must be present to switch on or off the desired activity</li>
     <li>Great for changing the specificity of a nascent biological activity</li>
   </ul>
+  <div class="cplx" data-fig="dual"></div>
   <template class="notes">Thus far we&rsquo;ve considered exclusively direct selections:  the aptamers bound to the beads during selex and survived, the bait protein bound to the prey in the two hybrid, and the tRNA suppressed the mutation and survived.  In some cases, what you are trying to identify from a library is not this activity, but rather this activity conditioned on some constraint.  For example, you might want a tRNA that suppresses amber stops, but it does so only when an aminoacyl-tRNA synthetase is present.  Or, you might want a transcription factor that activates a promoter in the presence of a small molecule, but you may also want to require that it does not activate the promoter when the small molecule is absent.
 For these sorts of situations, the established way to do it is a dual selection.  However, with the advent of deep sequencing there are new approaches which we&rsquo;ll discuss in the multiplex characterization lecture.  In a dual selection, you start with a synthetic selection, but your selectable marker can be positive (as we did before) or negative.  Meaning, we have a reporter gene that when activated will kill the cell.  Such experiments also require a stimulus.  In the case of the tRNA that requires a specific synthetase, that stimulus is the synthetase.  In the case of the transcription factor that requires a small molecule, the stimulus is the small molecule.  You perform dual selections in two rounds:  you first apply the positive selection in the presence of the stimulus, and then you withhold the stimulus and apply the negative selection.</template>
   <template class="desc">A dual selection needs the activity wired up twice &mdash; once so that having it keeps the cell alive, and once so that having it kills the cell &mdash; with a stimulus to switch between the two.</template>
@@ -338,6 +337,8 @@ Operationally, they first apply the ON selection in the presence of their new sm
 <script src="seq/27-m13.js" defer></script>
 <script src="seq/30-yeast.js" defer></script>
 <script src="seq/32-complement.js" defer></script>
+<script src="seq/35-amber.js" defer></script>
+<script src="seq/36-dual.js" defer></script>
 <script src="seq/28-panning.js" defer></script>
 </body>
 </html>
