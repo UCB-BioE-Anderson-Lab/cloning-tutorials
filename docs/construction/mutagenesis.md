@@ -318,6 +318,48 @@ Reverse Primer (ol_C96S_KLD_R)
 Ligating those two blunt ends restores `...ggcattgtggaacaa` + `AGT` + `tgtaccagcatctg...`, which
 is the edited plasmid.
 
+### Construction File
+
+A KLD is three steps in a construction file: the PCR, a **Phosphorylate** step for the kinase, and
+a **Ligate** step that closes the blunt product. As always, simulate it before ordering oligos.
+
+<pre id="cf_kld_example" style="background:#f8f8f8; border:1px solid #ccc; padding:10px; border-radius:4px; overflow-x:auto; white-space:pre;">
+oligo          ol_C96S_KLD_F   AGTtgtaccagcatctgctccctctac
+oligo          ol_C96S_KLD_R   ttgttccacaatgccacgcttc
+
+PCR            ol_C96S_KLD_F   ol_C96S_KLD_R   pET-INS   kldpcr
+Phosphorylate  kldpcr                                    pkldpcr
+Ligate         pkldpcr                                   pET-INS-C96S
+</pre>
+<button id="copyKLDBtn" style="margin-top:5px;">Copy Example</button>
+<script>
+  document.getElementById("copyKLDBtn").addEventListener("click", function () {
+    const btn = this;
+    const content = document.getElementById("cf_kld_example").innerText;
+    navigator.clipboard.writeText(content).then(() => {
+      const originalText = btn.innerText;
+      btn.innerText = "✅ Copied!";
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerText = originalText;
+        btn.disabled = false;
+      }, 2000);
+    });
+  });
+</script>
+
+Simulating this returns a circular 5566 bp product — the same length as pET-INS, with `TGC`
+replaced by `AGT` at the junction the two primers' 5′ ends make.
+
+Two things the file does **not** say, both deliberate:
+
+- **The `Phosphorylate` step is not optional.** A PCR product comes off the machine with 5′
+  hydroxyls, and `Ligate` refuses to join ends with no phosphate — `PCR` then `Ligate` is a
+  simulation error, not a silent pass. In the tube, the PNK in the KLD mix is what this step
+  stands for.
+- **There is no DpnI step.** DpnI destroys the template rather than producing the next product, so
+  it is part of the KLD reaction rather than a construction step.
+
 ### Workflow
 
 1. **PCR** the whole plasmid with the back-to-back primers, using a high-fidelity polymerase.
