@@ -47,7 +47,12 @@ KEEP = {"bg1", "bg2", "lt1", "lt2", "dk1", "tx1"}
 # (slide number, cNvPr id) of shapes to remove before rendering
 DROP = [(30, "13"),              # "Yeast Display:" sits inside the figure's box
         (3, "133"), (3, "134"), (3, "135")]   # RFP / GFP / phoA, re-set as HTML
-INK = [("image18", 35), ("image19", 35), ("image22", 35), ("image23", 35),
+# image22 (source 18) is NOT in this list, and must not be put back.  It
+# is white type on transparency, drawn for a dark slide: inking it paints
+# every antialiased glyph edge into grey speckle, which is the "blotchy"
+# JCA reported on 2026-11-04 and again on 2026-11-10.  It is served from
+# the untouched media file on a charcoal panel instead -- see 02-construction.html.
+INK = [("image18", 35), ("image19", 35), ("image23", 35),
        ("image30", 35), ("image31", 35), ("image32", 35),
        ("image34", 35), ("image35", 35), ("image37", 35), ("image39", 35),
        ("image43", 35), ("image36", 20), ("image17", 40),

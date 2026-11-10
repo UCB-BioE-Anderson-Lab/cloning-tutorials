@@ -19,7 +19,6 @@
 16-arac.png       16  1042x1250+0+250     trim
 16-arrow.png      16  880x340+1085+320
 17-soeing.png     17  1900x930+60+290
-18-eipcr.png      18  1733x1193+166+183
 19-rbs.png        19  1700x480+110+240
 19-chart.png      19  1605x794+200+705
 20-pwm.png        20  998x627+48+492
@@ -71,3 +70,21 @@
 #
 # They are small (a few hundred pixels) and the source slide already blew
 # them up four or five times, so the deck is no blurrier than the pptx.
+
+AND A SIXTH, ADDED 2026-11-10
+  18-eipcr.png   <- ppt/media/image22.png   (white type on transparency)
+  Every label in that figure is WHITE -- it was drawn for a dark slide.
+  Cropped from the white render and inked it came out as grey speckle;
+  JCA called it blotchy twice.  It is now the untouched media file,
+  trimmed and doubled with Lanczos, quantised to 192 colours WITH its
+  alpha, and served on a charcoal panel.  Do not add it back to the
+  crop list and do not put image22 back in build_white.py INK.
+      magick ppt/media/image22.png -trim +repage \
+             -channel A -level 22%,100% +channel \
+             -filter Lanczos -resize 200% -colors 192 img/18-eipcr.png
+  The alpha level lifts the near-transparent JPEG noise off the ground
+  WITHOUT painting anything: the glyph edges keep their ramp, the faint
+  speckle in the empty areas goes to zero.
+  The residual limit is resolution: the original is 558x384, so it is
+  soft at slide size.  That is the source file, not the pipeline, and
+  only a redraw or a clean copy from the paper fixes it.

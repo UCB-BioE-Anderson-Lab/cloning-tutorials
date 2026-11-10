@@ -86,8 +86,11 @@
    and gets one.  --muted is the lightest grey the palette defines: white
    reads 3.4:1 on it and black 4.1:1, so both series clear the 3:1 floor for
    a graphical object. */
-.slide .r21{grid-template-columns:1fr 330px;
-  grid-template-rows:0.75fr 1.25fr;padding-bottom:46px}
+/* the right-hand column carries three short bullets and a three-row key
+   and nothing else, so it is given only what it needs; the drawings are
+   vector now and grow into whatever is left. */
+.slide .r21{grid-template-columns:1fr 290px;
+  grid-template-rows:0.78fr 1.22fr;gap:4px 28px}
 .slide .r21 .con{grid-column:1;grid-row:1}
 .slide .r21 ul{grid-column:2;grid-row:1;margin:0;padding-left:1.1em;
   align-self:center;display:block}
@@ -97,15 +100,47 @@
   justify-content:flex-start}
 .slide .r21 .key dl{display:grid;grid-template-columns:auto auto;gap:12px 14px;
   margin:0;align-items:center}
+/* the swatch colours are set by seq/21-invasin.js, from the same
+   SERIES table the bars are drawn from, so a key and a chart that
+   disagree is not a thing that can happen */
 .slide .r21 .key dt{width:30px;height:22px;border:1px solid var(--ink)}
-.slide .r21 .key dt.b{background:#000}
-.slide .r21 .key dt.g{background:#9a9a9a}
-.slide .r21 .key dt.w{background:#fff}
 .slide .r21 .key dd{margin:0;font-size:22px}
 .slide .r21 .rec{grid-column:1;grid-row:2}
 /* the panel hugs the chart rather than spanning the slide */
-.slide .r21 .rec img{width:auto;max-width:100%;height:100%;
-  background:var(--muted);border-radius:4px;padding:12px 16px}
+/* no panel any more: the chart is drawn on the paper, because its
+   three series are ink, amber and blue rather than black, grey and
+   white.  The panel only ever existed to let white bars exist. */
+.slide .r21 .rec span,.slide .r21 .con span{display:block;width:100%;height:100%}
+.slide .r21 .rec svg,.slide .r21 .con svg{width:100%;height:100%;
+  display:block;object-fit:contain}
+
+/* source 18: THE EIPCR FIGURE IS WHITE-ON-DARK, and that is the whole
+   story of why it looked the way it did.  Every label in it -- EcYRS,
+   KanR, N-term, the primer sequences, "Inverse PCR", "BsaI digestion",
+   the restriction sites round the plasmid -- is WHITE type on a
+   transparent ground, because the source deck it was pasted into had a
+   dark background.  Landing it on this deck's paper and painting the
+   white into ink did what that always does: 80% of the file is
+   transparent, the antialiased edge of every glyph is white at low
+   alpha, and the ink pass turned all of it into grey speckle.  JCA
+   called it blotchy twice, and he was right both times.
+
+   The fix is not a better threshold.  It is the same call source 21
+   got: a figure whose white marks ARE the content keeps its alpha and
+   is given a ground to sit on.  Here the ground is charcoal, which is
+   what the figure was drawn against -- white reads 11:1 on it, the
+   blue KanR blocks and the mauve EcYRS blocks keep their own contrast,
+   and the orange BsaI sites and green NNK codons come back.
+
+   It is also no longer cropped out of the white render.  It is the
+   untouched ppt/media/image22.png, trimmed and doubled, so nothing in
+   the pipeline has retouched a pixel of it.  crops.txt records that. */
+.slide .r18{flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  /* the .src citation is pinned at bottom:34px and this panel is opaque,
+     so the figure has to stop short of it rather than sit on top of it */
+  justify-content:center;margin:4px 0 78px}
+.slide .r18 img{max-width:100%;max-height:100%;width:auto;height:auto;
+  background:#3f444b;border-radius:6px;padding:20px 26px}
 </style>
 </head>
 <body>
@@ -240,7 +275,7 @@ This method is a double-diamond level of difficulty.  It&rsquo;s something that 
 <!-- ---------------------------------------------------------------- 18 -->
 <article class="slide">
   <h1>Library Construction:  EIPCR</h1>
-  <figure class="fig cited">
+  <figure class="r18 cited">
     <img src="img/18-eipcr.png" alt="A plasmid carrying an aminoacyl-tRNA synthetase sublibrary and a kanamycin marker, with two primers pointing outward from it. Each primer carries a BsaI site and NNK or NNM degenerate bases, so the inverse PCR copies the whole plasmid while writing the degeneracy into the ends; BsaI digestion then leaves matching overhangs that close the circle scarlessly.">
   </figure>
   <p class="src">Nat Protoc. 2007;2(10):2590-600. PMID: 17948002<br>Biotechniques. 1992 Aug;13(2):214-20. PMID: 1327007</p>
@@ -290,9 +325,7 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
 <article class="slide">
   <h1>RBS Libraries</h1>
   <div class="panels r21">
-    <figure class="con">
-      <img src="img/21-constructs.png" alt="Three constructs, each a promoter driving the invasin gene: the anaerobically induced fdhF promoter, the arabinose-induced BAD promoter with its AraC regulator, and the constitutive tet promoter.">
-    </figure>
+    <figure class="con"><span data-fig="constructs"></span></figure>
     <ul>
       <li>FdhInv - Anaerobic Induction</li>
       <li>AraInv - Arabinose Induction</li>
@@ -300,14 +333,12 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
     </ul>
     <div class="key">
       <dl>
-        <dt class="b"></dt><dd>Normal Growth</dd>
-        <dt class="g"></dt><dd>Arabinose</dd>
-        <dt class="w"></dt><dd>Anaerobic</dd>
+        <dt data-s="normal"></dt><dd>Normal growth</dd>
+        <dt data-s="arabinose"></dt><dd>Arabinose</dd>
+        <dt data-s="anaerobic"></dt><dd>Anaerobic</dd>
       </dl>
     </div>
-    <figure class="rec">
-      <img src="img/21-recovery.png" alt="A log-scale chart of the fraction of cells recovered for wild type and for each invasin construct, under normal growth, with arabinose, and anaerobically. The FdhInv strain is recovered only in the anaerobic condition, AraInv only with arabinose, and TetInv in all three; an asterisk marks every condition that fell below the limit of detection.">
-    </figure>
+    <figure class="rec"><span data-fig="invasin"></span></figure>
   </div>
   <p class="src">J Mol Biol. 2006 Jan 27;355(4):619-27 PMID: 16330045</p>
   <template class="notes">Saturation mutagenesis can also be applied to regulatory elements.  A very common trick in synthetic biology is to construct RBS libraries out of a genetic construct.  Here, we are trying to adjust the RBS of a gene called invasin such that the expression of the gene is dependent on the promoter upstream.  When you simply put a promoter in front of gene, very often you will get a constitutive on or off device because the rates don&rsquo;t match up.  By adjusting the RBS, you can tune the amount of protein made per transcript up or down and make them match.</template>
@@ -316,5 +347,6 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/21-invasin.js" defer></script>
 </body>
 </html>
