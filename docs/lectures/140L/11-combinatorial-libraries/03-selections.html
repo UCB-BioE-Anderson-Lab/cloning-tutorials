@@ -59,6 +59,10 @@
   gap:30px;align-items:center}
 .slide .named p{font-size:32px;color:var(--vermillion);margin:0;white-space:nowrap}
 .slide .named img{width:100%;height:100%;min-height:0;object-fit:contain}
+/* source 32: the complementation diagram under its four bullets */
+.slide .cplx{flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin-top:10px}
+.slide .cplx svg{width:100%;height:100%;display:block;object-fit:contain}
 .slide .named span{display:block;width:100%;height:100%;min-height:0}
 .slide .named svg{width:100%;height:100%;display:block}
 /* source 31: the construct, then the sort and what came out of it */
@@ -217,12 +221,13 @@ Phage display also has the advantage here that some targets, particularly those 
 <!-- ---------------------------------------------------------------- 32 -->
 <article class="slide">
   <h1>Direct Complementation</h1>
-  <ul class="fill">
+  <ul class="tight">
     <li>Create a strain with a deletion in the activity of interest</li>
     <li>Identify growth conditions that allow wild-type to survive, but mutants die</li>
     <li>Transform in a library of plasmids containing potential activities that would &ldquo;complement&rdquo; the deletion</li>
     <li>Select for growth under the non-permissive conditions</li>
   </ul>
+  <div class="cplx" data-fig="complement"></div>
   <template class="notes">The remainder of these selection methods are all in vivo selections.  Meaning, they are selections applied to live cells and they are somehow based on the survival of the cells.  There is also a class of liposome and micelle-based selections, but we&rsquo;ll save that for the multiplex lecture.  The simplest one is complementation, which has been a staple of genetics since the 1950s.  Much of what we know of biology comes from a process of generating mutants and then screening for DNA fragments that correct or complement them.  For example, you might treat E. coli with radiation, then pick a bunch of colonies and try to grow each one on a minimal media.  If it is unable to produce even one of its metabolites, the cell will be unable to grow.  You call such mutants auxotrophs.  Usually the defect will be present in only one gene, and introduction of a functional copy of this gene will restore growth.  So, if you transform these cells with a library of plasmids encoding fragments of the genome, or a genomic dna library, only those transformants that receive the functional copy will survive, and then you can sequence the plasmid to find out what you hit.
 That experiment falls under the category of &lsquo;forward genetics&rsquo; and it is no longer so prominently used.  The advent of genome engineering strategies allows you to knockout a gene directly now, allowing a more hypothesis-driven approach.
 When used in the context of genetic engineering, you employ complementation in a more targeted way.  You construct a strain with a deletion in the activity of interest and then play with growth conditions until you find ones in which the wild-type survives and the mutants die.  You then make a library out of the knocked out gene, or perhaps with other proteins you think might satisfy the required function of this gene, and you introduce that into the mutant cells.  You then grow the library under non-permissive conditions and collect your hits.</template>
@@ -332,6 +337,7 @@ Operationally, they first apply the ON selection in the presence of their new sm
 <script src="seq/23-selex.js" defer></script>
 <script src="seq/27-m13.js" defer></script>
 <script src="seq/30-yeast.js" defer></script>
+<script src="seq/32-complement.js" defer></script>
 <script src="seq/28-panning.js" defer></script>
 </body>
 </html>
