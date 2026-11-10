@@ -9,25 +9,38 @@
 <link rel="stylesheet" href="../../deck.css">
 <style>
 .slide figure.fig img{width:100%;height:100%;min-height:0;object-fit:contain}
-/* source 5: the divider carries the gumball jar the whole section runs on */
+/* source 5: the divider carries the heap of lottery balls the section runs on */
 .slide .divtop{flex:1 1 auto;min-height:0;display:grid;
   grid-template-columns:1fr;grid-template-rows:minmax(0,1fr);align-items:center}
-.slide .divtop figure{height:100%;display:flex;justify-content:center}
-.slide .divtop img{max-height:100%;width:auto;object-fit:contain}
-/* source 6: the sampling grid, and the product underneath it */
-.slide .grid6{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:10px}
-.slide .grid6 img{max-height:430px;width:auto;object-fit:contain}
+.slide .divtop figure{height:100%;display:flex;justify-content:center;margin:0}
+.slide .divtop .pile{height:100%;display:block}
+.slide .divtop .pile svg{height:100%;width:auto;display:block}
+/* source 6 and 7: a sequence paints the whole content area, so its host is
+   the slide's own box and the prose rides above it.  Both drawings are
+   authored at 1600x900, which is .slide's own frame, so nothing scales
+   twice and a coordinate in the sequence file is a coordinate on screen. */
+.slide .draw,.slide .titer{position:absolute;inset:0;pointer-events:none}
+.slide .draw svg,.slide .titer svg{width:100%;height:100%;display:block}
+.slide .overprose{position:relative;z-index:1}
+.slide .overprose li[data-b2]{transition:opacity .25s ease}
+/* source 8: one lottery ticket, where the glued hexamer used to be,
+   then the oversampling algebra */
+.slide .ticket{align-self:flex-start;display:block;height:132px;margin:4px 0 10px 150px}
+.slide .ticket svg{height:100%;width:auto;display:block}
+.slide p.cash{grid-column:2;align-self:center;font-size:27px;
+  color:var(--muted);line-height:1.5;margin:0}
 .slide p.prod{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
   font-size:30px;color:var(--vermillion);margin:0}
-/* source 8: the hexamer, then the oversampling algebra */
-.slide .hex{align-self:flex-start;height:92px;width:auto;margin:6px 0 14px 150px}
 .slide .algebra{display:grid;grid-template-columns:1fr 1fr;gap:20px 40px;
   align-items:center;margin-top:10px}
 .slide .algebra p{margin:0}
 .slide .lede{font-size:26px;color:var(--vermillion)}
 .slide .legend{font-size:25px;color:var(--vermillion);line-height:1.4}
-.slide p.eq{font-family:var(--slab);font-size:44px;grid-column:1/3;margin:0}
+/* the equations take the left column only, so the concrete number can
+   sit beside them in the right one -- spanning both put it under the
+   algebra, where it landed on the citation and left the right half of
+   the slide empty */
+.slide p.eq{font-family:var(--slab);font-size:44px;grid-column:1;margin:0}
 .slide p.eq .tail{margin-left:10px}
 /* source 9: two headed groups of quality problems */
 /* A plain bullet slide: auto block margins centre the list in the flex
@@ -56,74 +69,69 @@
   <h1>Diversity and Sampling</h1>
   <div class="divtop">
     <figure>
-      <img src="img/05-gumballs.png" alt="A heap of about fifty gumballs in a dozen flat colours &mdash; pink, green, yellow, blue, red, purple, orange, black and one white &mdash; piled on a white surface.">
+      <span class="pile" data-heap="34" data-seed="1105" role="img"
+            aria-label="A heap of about thirty-four lottery balls in many colours, each with a white disc carrying a number between 1 and 20, piled three deep."></span>
     </figure>
   </div>
-  <template class="notes">One critical thing you must understand about combinatorial libraries is the means of calculating diversity.  For this, let&rsquo;s consider combinations of gumballs.</template>
-  <template class="desc">Section divider: Diversity and Sampling, illustrated by a pile of gumballs in many colours &mdash; the analogy the whole section is built on.</template>
+  <template class="notes">One critical thing you must understand about combinatorial libraries is the means of calculating diversity.  For this, let&rsquo;s consider a lottery draw.</template>
+  <template class="desc">Section divider: Diversity and Sampling, illustrated by a heap of numbered lottery balls &mdash; the analogy the whole section is built on.</template>
 </article>
 
 <!-- ----------------------------------------------------------------- 6 -->
-<article class="slide">
+<article class="slide" data-seq="lottery">
   <h1>Theoretical Diversity</h1>
-  <ul class="tight">
-    <li>Consider you have a gumball machine, and there are 20 different colors of gumballs inside, each occurring at the same frequency</li>
-    <li data-build="1" data-note="If you pick 6 of them and get sequences of 6 colors, how many different permutations of these sequences are there?" data-desc="A second question appears, and under it three sampled sequences: rows Seq1, Seq2 and Seq3, each six gumballs long, drawn from the same twenty colours at six numbered positions.">If you pick 6 of them and get sequences of 6 colors, how many different permutations of these sequences are there?</li>
+  <ul class="tight overprose">
+    <li>Consider a lottery machine loaded with balls numbered 1 to 20, with equal numbers of each, and every ball put back after it is drawn</li>
+    <li data-b2 style="opacity:0">If you pick 6 of them and get sequences of 6 numbers, how many different sequences are possible?</li>
   </ul>
-  <div class="grid6">
-    <figure data-build="1">
-      <img src="img/06-grid.png" alt="A three-by-six grid. The columns are numbered 1 to 6 and the rows are labelled Seq1, Seq2 and Seq3. Each cell holds one gumball, and the colours differ freely from cell to cell: Seq1 reads green, crimson, magenta, yellow, black, blue; Seq2 white, black, crimson, crimson, black, magenta; Seq3 black, black, black, blue, yellow, blue.">
-    </figure>
-    <p class="prod" data-build="2" data-note="So, there are 20 at this position, 20 at that position, and so on for 6 positions, so there are 20^6 permutations, or around 60 million variants that potentially could exist within this space." data-desc="The count written out underneath, one factor per column: 20 choices at each of six positions.">20*&nbsp; 20*&nbsp; 20*&nbsp; 20*&nbsp; 20*&nbsp; 20 = 20^6 = 6.4E7</p>
-  </div>
-  <template class="notes">Suppose we have a gumball machine, and there are 20 different colors of gumballs inside, each occurring at the same frequency.</template>
-  <template class="desc">Twenty colours of gumball, all equally common, and a question: how many different six-long sequences could you draw from them?</template>
+  <div class="draw" data-draw></div>
 </article>
 
 <!-- ----------------------------------------------------------------- 7 -->
-<article class="slide">
+<article class="slide" data-seq="titer">
   <h1>Measuring library size</h1>
-  <ul class="fill">
-    <li>When transforming plasmids into cells, it is generally assumed that the limiting step is transformation</li>
-    <li>You should assume that each colony is derived from a single random member of the library</li>
-    <li>The actual diversity of a library is therefore the number of colonies observed following transformation</li>
-    <li>Due to the large numbers involved, this is usually quantified by plating dilutions of the library on multiple plates and then back-calculating the diversity</li>
-    <li>This is referred to as &ldquo;titering the library&rdquo;</li>
+  <ul class="tight overprose">
+    <li>Transformation is the limiting step, and each colony comes from one random member of the library</li>
+    <li>So the diversity of the library is the number of colonies you get</li>
+    <li>Too many to count directly: plate dilutions, count one plate, and back-calculate &mdash; &ldquo;titering the library&rdquo;</li>
   </ul>
-  <template class="notes">When transforming plasmids into cells, it is generally assumed that by far the limiting step is transformation.  You can assume that there are a few orders of magnitude more DNAs in the reaction than actually get into a cell, so you only need to consider transformation.  This of course assumes that you are using cells in your experiment.  For all in-vitro experiments, you must use other strategies to determine the diversity which involve following how much DNA is present at every step of the experiment.
-You should assume that each colony is derived from a single unique member of the library.
-So, the diversity of a library is the number of colonies observed following transformation.  It is very common for multiple plasmids to enter a single cell under the concentrated conditions used in these fabrication schemes&mdash;you must use a lot of DNA to hit these high colony counts.  However, that extra diversity is difficult to measure and will depend on the quality and amount of your ligation product.  For large libraries, the existence of this cotransformation background can affect the outcome of selections, but it does not erode the confidence that your library is sufficiently inclusive.  Your diversity is minimally the number of transformants you observe&mdash;it might be a little higher in practice.
-Due to the large numbers involved, this is usually quantified by plating dilutions of the library on multiple plates and then back-calculating the diversity
-This is referred to as &ldquo;titering the library&rdquo;</template>
-  <template class="desc">How library size is actually measured: transformation is the bottleneck, so one colony means one library member, the diversity is the colony count, and the count itself comes from plating dilutions and multiplying back up &mdash; titering the library.</template>
+  <div class="titer" data-titer style="opacity:0"></div>
+  <!-- Notes and descriptions for this slide live in seq/07-titer.js, one
+       per beat, because the sequence supplies the steps.  They are not
+       duplicated here: two copies of a verbatim note is one copy too
+       many, and verify_notes.py reads the sequence file. -->
 </article>
 
 <!-- ----------------------------------------------------------------- 8 -->
 <article class="slide">
   <h1>Oversampling</h1>
   <ul class="tight">
-    <li>Let&rsquo;s say I glue the 6 gumballs together into hexamers:</li>
+    <li>Let&rsquo;s say each draw of 6 numbers is one lottery ticket:</li>
   </ul>
-  <img class="hex" src="img/08-hexamer.png" alt="Six gumballs &mdash; green, crimson, magenta, yellow, black and blue &mdash; pressed into a row so that they touch, one glued hexamer.">
+  <span class="ticket" data-ticket="6,3,14,1,8,2" role="img"
+        aria-label="A lottery ticket with a torn stub down the left, carrying the six drawn balls &mdash; 6, 3, 14, 1, 8 and 2 &mdash; in a row."></span>
   <ul class="tight">
-    <li>How many of these random hexamers do I have to make to have a 99% probability that I have at least one of each theoretical member?</li>
+    <li>How many random tickets do I have to buy to have a 99% chance that I hold the winning one?</li>
   </ul>
   <div class="algebra">
-    <p class="lede" data-build="2" data-desc="A label over the algebra: this is the probability that a single member exists at least once in the library.">Probability that a single member exists only once in a library:</p>
+    <p class="lede" data-build="2" data-desc="A label over the algebra: this is the probability that one particular ticket is among the ones you bought.">Probability that a given ticket is among the ones you bought:</p>
     <p class="legend" data-build="1"
        data-note="N is the theoretical diversity which we calculated as 60 million.  P is the actual diversity that we&rsquo;ll measure when we titer the library."
-       data-desc="The two symbols are named: little p is the number of hexamers made, which is the library size, and n is the theoretical diversity."><i>p</i> = number of hexamers chosen<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(library size)<br><i>n</i> = theoretical diversity</p>
+       data-desc="The two symbols are named: little p is the number of tickets bought, which is the library size, and n is the number of possible tickets."><i>p</i> = number of tickets bought<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(library size)<br><i>n</i> = number of possible tickets<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(theoretical diversity)</p>
     <p class="eq">
       <span data-build="2" data-note="So, we need to determine what value of P is sufficient to have confidence that at least one of every theoretical member is represented by the library.  That calculation, whose derivation is provided in this reference, is given by P= 1-e^-p/n."><i>P</i> = 1 &minus; <i>e</i><sup>&minus;<i>p</i>/<i>n</i></sup></span><span class="tail" data-build="3" data-note="If we set that value to .99.  We can solve for p in terms of n." data-desc="The probability is set to 0.99 &mdash; 99% confidence that every theoretical member is there.">= 0.99</span>
     </p>
     <p class="eq" data-build="4"
        data-note="And we find out that that this all boils down to a simple calculation of multiplying the theoretical diversity by 4.6 to get the number of colonies you must hit to have confidence that the library is complete."
-       data-desc="Solved for p: the number you have to make is 4.6 times the theoretical diversity."><i>p</i> = <i>n</i> &middot; ln(0.01) = 4.6<i>n</i></p>
+       data-desc="Solved for p: the number you have to buy is 4.6 times the number of possible tickets."><i>p</i> = <i>n</i> &middot; ln(0.01) = 4.6<i>n</i></p>
+    <p class="cash" data-build="4"
+       data-note-add="And for our six numbers out of twenty, that is four point six times sixty-four million. You would have to buy two hundred and ninety million tickets."
+       data-desc="And the number, for this lottery: 4.6 times 6.4 times ten to the seventh is 2.9 times ten to the eighth tickets.">6 numbers out of 20:<br><i>n</i> = 6.4&times;10<sup>7</sup> possible tickets,<br>so <i>p</i> = 2.9&times;10<sup>8</sup> tickets</p>
   </div>
   <p class="src">Nucleic Acids Res. 1998 Feb 15;26(4):879-86. PMID: 9461443</p>
-  <template class="notes">When you construct a combinatorial library, you are not explicitly synthesizing each member of the library.  You are sampling this combinatorial space randomly, so there are issues of diversity and inclusion in your library.  So, in practice you need to make more library members than are actually present in the theoretical library. Let&rsquo;s say I glue the 6 gumballs together into hexamers.  The analogy of the gumballs is to amino acids (hence 20), or to bases (of which there are 4), or to a set of parts that could be any number.  Each member of the library can be considered as the list of chosen members at each site, and here we represent that as a hexamer of gumballs glued together.
-How many of these random hexamers do I have to make to have a 99% probability that I have at least one of each theoretical member?</template>
-  <template class="desc">Six gumballs glued into one hexamer &mdash; one library member &mdash; and the question that follows: how many must you make before you can be 99% sure every possible hexamer is in the bag?</template>
+  <template class="notes">When you construct a combinatorial library, you are not explicitly synthesizing each member of the library.  You are sampling this combinatorial space randomly, so there are issues of diversity and inclusion in your library.  So, in practice you need to make more library members than are actually present in the theoretical library. Let&rsquo;s say each draw of six numbers is one lottery ticket.  The analogy of the numbers is to amino acids (hence 20), or to bases (of which there are 4), or to a set of parts that could be any number.  Each member of the library can be considered as the list of chosen members at each site, and here we represent that as one lottery ticket.
+How many of these random tickets do I have to buy to have a 99% probability that I hold the winning one?</template>
+  <template class="desc">One lottery ticket carrying the six drawn numbers &mdash; one library member &mdash; and the question that follows: how many random tickets must you buy to be 99% sure you hold the winning one?</template>
 </article>
 
 <!-- ----------------------------------------------------------------- 9 -->
@@ -176,6 +184,9 @@ If you do NNK mutagenesis, there will be TAG codons present.  If you are seeing 
 </article>
 
 <script src="../../deck.js" defer></script>
+<script src="seq/balls.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/06-lottery.js" defer></script>
+<script src="seq/07-titer.js" defer></script>
 </body>
 </html>

@@ -7,8 +7,6 @@
 # +repage afterwards.
 02-landscape.png   2  1666x1238+183+216
 03-grid.png        3  1666x1238+183+216
-06-grid.png        6  1460x750+20+620
-08-hexamer.png     8  940x170+428+308
 10-twist.png      10  1012x1105+40+195
 10-kinds.png      10  908x1266+1058+169
 12-aptamer.png    12  1350x652+516+847
@@ -19,20 +17,15 @@
 16-arac.png       16  1042x1250+0+250     trim
 16-arrow.png      16  880x340+1085+320
 17-soeing.png     17  1900x930+60+290
-18-eipcr.png      18  1733x1193+166+183
 19-rbs.png        19  1700x480+110+240
 19-chart.png      19  1605x794+200+705
 20-pwm.png        20  998x627+48+492
 20-plate.png      20  838x851+1118+233
 20-c6.png         20  1700x246+138+1219
-21-constructs.png 21  567x483+250+183
-23-selex.png      23  1383x1236+250+200
 24-rounds.png     24  958x900+0+383       trim
 24-aptamers.png   24  833x669+1033+500    trim
 26-before.png     26  670x670+175+330
 26-after.png      26  670x670+1162+330
-27-m13.png        27  1710x1075+180+260   trim
-28-panning.png    28  1661x1300+204+176   trim
 29-scfv.png       29  820x1265+0+250      trim
 30-yeast.png      30  1111x1047+516+333   trim
 31-facs.png       31  1319x427+333+300    trim
@@ -61,13 +54,38 @@
 # card that then floats on the amber.  They are copied straight out of the
 # pptx instead, alpha intact, and composite on whatever ground they land on:
 #
-#   21-recovery.png  <- ppt/media/image28.png   (white bars are DATA; it
 #                                                 goes on a grey panel, so
 #                                                 it must keep its alpha)
-#   05-gumballs.png  <- ppt/media/image2.png
 #   11-books.png     <- ppt/media/image16.png
 #   22-divider.png   <- ppt/media/image29.png
 #   40-ponder.png    <- ppt/media/image20.png
 #
 # They are small (a few hundred pixels) and the source slide already blew
 # them up four or five times, so the deck is no blurrier than the pptx.
+
+SOURCE 18 IS REDRAWN, 2026-11-10 (this entry replaces the charcoal-panel
+one that stood here for a few hours)
+  ppt/media/image22.png is 558x384 shown about 1400px wide AND is white
+  type on transparency, drawn for a dark slide.  Serving it untouched on
+  a charcoal panel fixed the white type and the speckle but not the
+  four-fold upscale.  JCA asked for the paper or a redraw; Nature
+  Protocols 2007 is paywalled with no PMC deposit, so it is redrawn, in
+  seq/18-eipcr.js.  img/18-eipcr.png is deleted and .r18 no longer has a
+  panel.  Every base in the redraw was read off the original at 5x and
+  checked against BsaI GGTCTC(1/5); the two four-base overhangs come out
+  complementary, which is the figure's whole point.
+
+EIGHT FIGURES ARE NO LONGER CROPPED AT ALL, 2026-11-10
+  Deleted from img/ because nothing references them any more:
+    05-gumballs 06-grid 08-hexamer   the gumball analogy, now a lottery
+                                      draw drawn in seq/balls.js and
+                                      seq/06-lottery.js
+    21-constructs 21-recovery        redrawn in seq/21-invasin.js
+    23-selex                         redrawn in seq/23-selex.js
+    27-m13                           redrawn in seq/27-m13.js
+    28-panning                       redrawn in seq/28-panning.js
+    18-eipcr                         redrawn in seq/18-eipcr.js
+    30-yeast                         redrawn in seq/30-yeast.js
+  The redraws were all the same fault: a 300-700px original shown
+  four or five times up.  PLAN.txt has the table and the sizes.  Do not
+  re-crop them -- the vector is the figure now.
