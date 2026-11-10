@@ -74,6 +74,10 @@
 .slide .r31 .ompx span{display:block;width:100%;height:100%;min-height:0}
 .slide .r31 .ompx svg{width:100%;height:100%;display:block}
 /* source 38: one drawing now, key and all */
+/* source 39: the two selection constructs, one beat at a time */
+.slide .luxsel{flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin:2px 0 46px}
+.slide .luxsel svg{width:100%;height:100%;display:block}
 .slide .luxr{flex:1 1 auto;min-height:0;display:flex;align-items:center;
   justify-content:center;margin-top:4px}
 .slide .luxr svg{width:100%;height:100%;display:block}
@@ -313,15 +317,10 @@ This type of genetic selection can be applied to any transcriptional process &nd
 </article>
 
 <!-- ---------------------------------------------------------------- 39 -->
-<article class="slide">
+<article class="slide" data-seq="luxsel">
   <h1 class="eg">Example:<span>Changing the specificity of LuxR</span></h1>
-  <figure class="fig cited">
-    <img src="img/39-onoff.png" alt="Two panels. Panel a, the ON selection: PluxI drives cat, so an active LuxR makes the cell chloramphenicol resistant and an inactive one leaves it sensitive. Panel b, the OFF selection: PluxI drives the beta-lactamase inhibitory protein bli while bla is expressed constitutively, so an active LuxR inactivates the beta-lactamase and the cell becomes carbenicillin sensitive, while an inactive LuxR leaves it resistant.">
-  </figure>
+  <div class="luxsel" data-luxsel></div>
   <p class="src">Nat Biotechnol. 2006 Jun;24(6):708-12. PMID: 16715074</p>
-  <template class="notes">For positive selection, they employ the PluxI-cat construct as discussed before.  For the negative selection, the LuxI promoter drives the blip gene encoding a beta-lactamase inhibitory protein.  They also provide a constitutively-expressed Bla gene.  The selection strain here is ampicillin resistant.  However, if PluxI is activated, BLIP is expressed, Bla is inactivated, and the cells die on the antibiotic.  So, you can select against a functional LuxR.
-Operationally, they first apply the ON selection in the presence of their new small molecule C10HSL.  They then apply the negative selection in the presence of the old small molecule 3OC6HSL.  If you just apply the positive selection in such an experiment, you tend to pull out many variants that are constitutively on either by responding to an endogenous metabolite or by an internal conformation change.  However, when you include the negative selection, the only things that can pass both selections are the ones specific to the small molecule.</template>
-  <template class="desc">The two halves of the dual selection drawn out: PluxI driving chloramphenicol resistance for the ON round, and PluxI driving a beta-lactamase inhibitor for the OFF round, so the same promoter can be made to save the cell or kill it.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
@@ -332,6 +331,7 @@ Operationally, they first apply the ON selection in the presence of their new sm
 <script src="seq/30-yeast.js" defer></script>
 <script src="seq/31-ompx.js" defer></script>
 <script src="seq/38-luxr.js" defer></script>
+<script src="seq/39-luxsel.js" defer></script>
 <script src="seq/32-complement.js" defer></script>
 <script src="seq/35-amber.js" defer></script>
 <script src="seq/36-dual.js" defer></script>

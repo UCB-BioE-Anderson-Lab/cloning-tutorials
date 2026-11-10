@@ -343,7 +343,7 @@ alone as the historical source except where noted.
    1.6e9 transformants.  seq/07-titer.js, which carries the numbers
    and the reasoning.
 
-4. TEN FIGURES REDRAWN.  JCA called them
+4. ELEVEN FIGURES REDRAWN.  JCA called them
    blotchy or splotchy one at a time; they turned out to be two faults
    repeating.
 
@@ -358,9 +358,20 @@ alone as the historical source except where noted.
        source 35 amber        a small scan, shown ~1200 wide
        source 31 OmpX/CPX     image38.png  1186x384, journal scan
        source 38 dual sel.    1720x990, but relabelled rather than rescued
-   All ten are now vector, in seq/18-eipcr.js, seq/21-invasin.js,
+       source 39 ON/OFF sel.  made a click-through, not just redrawn
+   All eleven are now vector, in seq/18-eipcr.js, seq/21-invasin.js,
    seq/23-selex.js, seq/27-m13.js, seq/28-panning.js, seq/30-yeast.js,
-   seq/31-ompx.js, seq/35-amber.js and seq/38-luxr.js.
+   seq/31-ompx.js, seq/35-amber.js, seq/38-luxr.js and seq/39-luxsel.js.
+
+   SOURCE 39 BECAME A CLICK-THROUGH on JCA's instruction.  The source
+   is a 2x2 -- two reporters, each drawn twice, once with the lux
+   promoter on and once off -- four static cartoons you have to hold
+   in your head together.  It is five beats now: the pair of
+   reporters, then one beat per cell of that table, with the panel
+   not under discussion faded.  Read the two LIVES beats against
+   each other and the point falls out: same transcription factor,
+   two reporters, cell survives in opposite cases.  His note splits
+   across the five, verbatim, checked with --seq.
 
    SOURCE 38 WAS REDRAWN TO BE RELABELLED, not for resolution.  JCA
    asked for it to name the actual experiment instead of talking
@@ -535,10 +546,10 @@ WHERE THIS STANDS
   00-front-matter.html     source  1-4         DONE  (4 steps)
   01-diversity.html        source  5-10        DONE  (15 steps)
   02-construction.html     source 11-21, 46-48  DONE  (30 steps)
-  03-selections.html       source 22-39        DONE  (25 steps)
+  03-selections.html       source 22-39        DONE  (29 steps)
   04-questions.html        source 40-42        DONE  (3 steps)
 
-  77 steps in all.  verify_notes.py passes on all 41 slides that carry a
+  81 steps in all.  verify_notes.py passes on all 41 slides that carry a
   note.  Linked from 140L/index.html and counted in docs/index.md.
 
   NOT DEPLOYED.  The site publishes from gh-pages by a manual
