@@ -63,23 +63,17 @@
 # They are small (a few hundred pixels) and the source slide already blew
 # them up four or five times, so the deck is no blurrier than the pptx.
 
-AND A SIXTH, ADDED 2026-11-10
-  18-eipcr.png   <- ppt/media/image22.png   (white type on transparency)
-  Every label in that figure is WHITE -- it was drawn for a dark slide.
-  Cropped from the white render and inked it came out as grey speckle;
-  JCA called it blotchy twice.  It is now the untouched media file,
-  trimmed and doubled with Lanczos, quantised to 192 colours WITH its
-  alpha, and served on a charcoal panel.  Do not add it back to the
-  crop list and do not put image22 back in build_white.py INK.
-      magick ppt/media/image22.png -trim +repage \
-             -channel A -level 22%,100% +channel \
-             -filter Lanczos -resize 200% -colors 192 img/18-eipcr.png
-  The alpha level lifts the near-transparent JPEG noise off the ground
-  WITHOUT painting anything: the glyph edges keep their ramp, the faint
-  speckle in the empty areas goes to zero.
-  The residual limit is resolution: the original is 558x384, so it is
-  soft at slide size.  That is the source file, not the pipeline, and
-  only a redraw or a clean copy from the paper fixes it.
+SOURCE 18 IS REDRAWN, 2026-11-10 (this entry replaces the charcoal-panel
+one that stood here for a few hours)
+  ppt/media/image22.png is 558x384 shown about 1400px wide AND is white
+  type on transparency, drawn for a dark slide.  Serving it untouched on
+  a charcoal panel fixed the white type and the speckle but not the
+  four-fold upscale.  JCA asked for the paper or a redraw; Nature
+  Protocols 2007 is paywalled with no PMC deposit, so it is redrawn, in
+  seq/18-eipcr.js.  img/18-eipcr.png is deleted and .r18 no longer has a
+  panel.  Every base in the redraw was read off the original at 5x and
+  checked against BsaI GGTCTC(1/5); the two four-base overhangs come out
+  complementary, which is the figure's whole point.
 
 EIGHT FIGURES ARE NO LONGER CROPPED AT ALL, 2026-11-10
   Deleted from img/ because nothing references them any more:

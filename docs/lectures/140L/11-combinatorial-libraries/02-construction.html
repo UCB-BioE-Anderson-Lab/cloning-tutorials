@@ -138,9 +138,9 @@
 .slide .r18{flex:1 1 auto;min-height:0;display:flex;align-items:center;
   /* the .src citation is pinned at bottom:34px and this panel is opaque,
      so the figure has to stop short of it rather than sit on top of it */
-  justify-content:center;margin:4px 0 78px}
-.slide .r18 img{max-width:100%;max-height:100%;width:auto;height:auto;
-  background:#3f444b;border-radius:6px;padding:20px 26px}
+  justify-content:center;margin:2px 0 56px}
+.slide .r18 span{display:block;width:100%;height:100%;min-height:0}
+.slide .r18 svg{width:100%;height:100%;display:block}
 
 .slide .big{flex:1 1 auto;display:flex;align-items:center;justify-content:center}
 .slide .big p{font-size:96px;font-family:var(--sans);font-weight:700;margin:0}
@@ -308,9 +308,7 @@ This method is a double-diamond level of difficulty.  It&rsquo;s something that 
 <!-- ---------------------------------------------------------------- 18 -->
 <article class="slide">
   <h1>Library Construction:  EIPCR</h1>
-  <figure class="r18 cited">
-    <img src="img/18-eipcr.png" alt="A plasmid carrying an aminoacyl-tRNA synthetase sublibrary and a kanamycin marker, with two primers pointing outward from it. Each primer carries a BsaI site and NNK or NNM degenerate bases, so the inverse PCR copies the whole plasmid while writing the degeneracy into the ends; BsaI digestion then leaves matching overhangs that close the circle scarlessly.">
-  </figure>
+  <figure class="r18 cited"><span data-fig="eipcr"></span></figure>
   <p class="src">Nat Protoc. 2007;2(10):2590-600. PMID: 17948002<br>Biotechniques. 1992 Aug;13(2):214-20. PMID: 1327007</p>
   <template class="notes">For very short regions, such as those less than 30 bp, EIPCR is the method of choice. Here you PCR off a wildtype template introducing degenerate bases into the PCR oligos.  You then digest and ligate to close the circle back into a plasmid.  An overlap extension library is the least biased route, but it requires good restriction sites nearby which is often problematic, particularly when the target sequence is in the middle of the protein.  EIPCR can be done with type IIS restriction sites leading to scarless closure of the circle.  It therefore is very useful for NNK saturation mutagenesis since you can iteratively perform EIPCR at each site. So, if there are 3 distinct zones that need to be saturated, you&rsquo;d hit one site first, then use that sublibrary as a template to mutate the second site, and then this for the third. For large saturation libraries, this is the most robust option.  You can typically expect around 10^6 colonies from an EIPCR, so you will need to employ additional tricks to get to libraries larger than this.</template>
   <template class="desc">EIPCR for a short saturated region: inverse PCR round the whole plasmid with degenerate bases and a type IIS site written into the primer tails, then cut and close the circle without a scar &mdash; which is what lets you do it again at the next site.</template>
@@ -484,6 +482,7 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/18-eipcr.js" defer></script>
 <script src="seq/21-invasin.js" defer></script>
 </body>
 </html>
