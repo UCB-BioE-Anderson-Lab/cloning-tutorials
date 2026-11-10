@@ -265,6 +265,24 @@ deck writes "(click)" on sources 6 and 8, which would have been compared as
 narration.  All three now come out.  They are the author's note to himself
 about where he advances, never something he says.
 
+THE ONE WORD THAT WAS CHANGED, AND WHY IT IS NOT A CONVERSION EDIT
+-----------------------------------------------------------------
+Source 6's second bullet read "how many different permutations of these
+sequences are there?"  A permutation OF a sequence is a rearrangement of
+it, so read literally the bullet asks for the 720 shuffles of Seq1.  What
+the slide computes is 20^6: ordered, WITH repetition, which is why Seq2
+and Seq3 reuse black.  The bullet now reads
+
+    how many different sequences are possible?
+
+JCA made the call on 2026-11-10.  The change was made in the SOURCE .pptx
+first (ppt/slides/slide6.xml, the one visible run) and then in the HTML, so
+the two do not drift.  The SPOKEN note is untouched: it still says
+"permutations", and so does the next build's note ("there are 20^6
+permutations"), which is the ordinary loose usage and contradicts nothing.
+verify_notes.py therefore still passes unchanged -- the notes channel is
+verbatim as always, and only the visible bullet moved.
+
 WHAT IS NOT IN THE DECK
 -----------------------
 Nothing.  All 50 source slides are converted, in the source's order, and
