@@ -142,21 +142,6 @@
 .slide .r18 span{display:block;width:100%;height:100%;min-height:0}
 .slide .r18 svg{width:100%;height:100%;display:block}
 
-.slide .big{flex:1 1 auto;display:flex;align-items:center;justify-content:center}
-.slide .big p{font-size:96px;font-family:var(--sans);font-weight:700;margin:0}
-.slide p.link{font-size:23px;word-break:break-all;margin:0}
-.slide p.link b{display:block;font-size:25px;margin-bottom:4px}
-/* source 45: the project plan, with the four part names in the gutter */
-.slide ol.plan{flex:1 1 auto;min-height:0;margin:0;padding-left:0;list-style:none;
-  counter-reset:step;display:flex;flex-direction:column;justify-content:center}
-.slide ol.plan li{display:grid;grid-template-columns:140px 40px 1fr;gap:0 10px;
-  font-size:25px;margin-bottom:14px;align-items:baseline}
-.slide ol.plan li::before{counter-increment:step;content:counter(step) ")";
-  grid-column:2;grid-row:1;color:var(--muted)}
-.slide ol.plan li .mk{grid-column:1;grid-row:1;color:var(--vermillion);font-weight:700}
-.slide ol.plan li .tx{grid-column:3;grid-row:1}
-.slide ol.plan li.todo .tx{color:var(--blue)}
-.slide ol.plan li .note{color:var(--muted)}
 /* source 48: the degeneracy table over the library design and its arithmetic */
 .slide .plib{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:12px}
 .slide .plib img.iub{width:62%;height:auto;object-fit:contain}
@@ -395,22 +380,6 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
   <template class="desc">Divider: Plib, with a link to the Plib LabSheets.</template>
 </article>
 
-<!-- ---------------------------------------------------------------- 45 -->
-<article class="slide">
-  <h1>Wetlab project plan</h1>
-  <ol class="plan">
-    <li><span class="tx">Make a reporter plasmid to screen and test new terminator parts <span class="note">(pTP2, done)</span></span></li>
-    <li><span class="tx">Screen a library of terminators derived from phages and identify the best ones <span class="note">(Tlib2, done-ish)</span></span></li>
-    <li class="todo"><span class="mk">pP6</span><span class="tx">Screen libraries of UBER strength promoters to identify new ones <span class="note">(pP6, your first experiment)</span></span></li>
-    <li class="todo"><span class="mk">BestP</span><span class="tx">Compare the activity of pP6 hits to quantitatively determine the best ones</span></li>
-    <li class="todo"><span class="mk">TPjoin</span><span class="tx">Join the best UBER promoters and terminators to make the UBER parent to a new TPcon6 family</span></li>
-    <li class="todo"><span class="mk">Plib</span><span class="tx">Diversify the -35 and -10 regions to identify a family of mutants</span></li>
-    <li class="todo"><span class="tx">Apply the new family to a promoter scan of the current lycopene plasmid</span></li>
-  </ol>
-  <template class="notes">The last step of building out a TPcon6 family is to diversify the -35 and -10 regions.</template>
-  <template class="desc">The whole wetlab arc, with the four remaining steps named after the constructs they produce: pP6, BestP, TPjoin and Plib. The first two steps are already done; Plib is the one this lecture sets up.</template>
-</article>
-
 <!-- ---------------------------------------------------------------- 46 -->
 <article class="slide">
   <h1>TPcon6 architecture</h1>
@@ -452,32 +421,6 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
   </div>
   <template class="notes"></template>
   <template class="desc">The students' own Plib library: six degenerate bases across the -35 and six across the -10, written as YTKAYR and KAYWRT, in the context of the full reassembled promoter.</template>
-</article>
-
-<!-- ---------------------------------------------------------------- 49 -->
-<article class="slide">
-  <h1>Plib overview</h1>
-  <ul class="fill">
-    <li>The LabSheet will calculate oligos you need for your experiment</li>
-    <li>Check that the simulation is successful (it is calculated in the LabSheet)</li>
-    <li>Send those oligo sequences to me to order (copy and paste the table in an email)</li>
-    <li>It will take 2 to 3 days for your oligos to arrive, assuming it all goes well</li>
-    <li>You then do EIPCR, transform, pick a lot of colonies in 96-well plates, Tecan assay their fluorescence, choose a subset for miniprepping and sequencing</li>
-    <li>Summarize the variants identified, consolidate the samples</li>
-    <li>Teams of 2 (or even 3) are highly suggested for this &ndash; it is a much bigger experiment than the ones you have done previously</li>
-  </ul>
-  <template class="notes"></template>
-  <template class="desc">How the Plib experiment runs: the LabSheet designs the oligos and simulates the construction, the oligos are ordered and arrive in two or three days, then EIPCR, transformation, picking into 96-well plates, a Tecan read, and sequencing a subset. Work in teams of two or three.</template>
-</article>
-
-<!-- ---------------------------------------------------------------- 50 -->
-<article class="slide">
-  <div class="big">
-    <p style="font-size:44px;font-weight:400;text-align:center">(go through labsheet)<br><br>
-      <a style="font-size:24px;word-break:break-all" href="https://docs.google.com/spreadsheets/d/15423iKeYZLnmwzpUZ2D4Q5brP2FLdhdbQyuIkiQEYVs/edit?usp=sharing">https://docs.google.com/spreadsheets/d/15423iKeYZLnmwzpUZ2D4Q5brP2FLdhdbQyuIkiQEYVs/edit?usp=sharing</a></p>
-  </div>
-  <template class="notes"></template>
-  <template class="desc">A cue to open the Plib LabSheet and walk through it with the class, with the link.</template>
 </article>
 
 <script src="../../deck.js" defer></script>

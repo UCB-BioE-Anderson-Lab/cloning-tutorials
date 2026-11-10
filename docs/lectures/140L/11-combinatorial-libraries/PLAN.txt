@@ -343,7 +343,7 @@ alone as the historical source except where noted.
    1.6e9 transformants.  seq/07-titer.js, which carries the numbers
    and the reasoning.
 
-4. SIX FIGURES REDRAWN.  JCA called them
+4. SEVEN FIGURES REDRAWN.  JCA called them
    blotchy or splotchy one at a time; they turned out to be two faults
    repeating.
 
@@ -354,8 +354,10 @@ alone as the historical source except where noted.
        source 27 M13          image33.png  408x243  shown ~1650 wide
        source 28 panning      image31.png  685x643  shown ~1300 wide
        source 18 EIPCR        image22.png  558x384  shown ~1400 wide
-   All six are now vector, in seq/18-eipcr.js, seq/21-invasin.js,
-   seq/23-selex.js, seq/27-m13.js and seq/28-panning.js.  Same shapes, on JCA's
+       source 30 yeast        image36.png  400x377  shown ~1100 wide
+   All seven are now vector, in seq/18-eipcr.js, seq/21-invasin.js,
+   seq/23-selex.js, seq/27-m13.js, seq/28-panning.js and
+   seq/30-yeast.js.  Same shapes, on JCA's
    instruction; the colours are new and each file argues its own.
 
    THE SECOND FAULT IS WHITE TYPE ON TRANSPARENCY -- figures drawn for
@@ -369,10 +371,11 @@ alone as the historical source except where noted.
    seq/18-eipcr.js, and the panel is gone.  That makes six redraws.
    Source 27 had both faults as well, and redrawing fixed both.
 
-   THE THREE LEGIBILITY GAPS RECORDED ABOVE AS "THE SOURCE'S, NOT THE
-   CONVERSION'S" ARE NOW CLOSED.  Source 21's white-on-light-green
-   labels and source 30's dark-grey-in-green are gone with the
-   redraws; source 18's pink BsaI residue is visible and correct on
+   ALL THREE LEGIBILITY GAPS RECORDED ABOVE AS "THE SOURCE'S, NOT THE
+   CONVERSION'S" ARE NOW CLOSED, each by a redraw rather than by a
+   workaround.  Source 21's white-on-light-green labels and source
+   30's dark-grey-in-pale-green -- the weakest type in the deck --
+   are gone; source 18's pink BsaI residue is visible and correct on
    the charcoal panel, which is what it was drawn against.
 
 5. THE ALL-HANDS SECTION IS DISSOLVED.  Source 43, the blue All-Hands
@@ -380,18 +383,23 @@ alone as the historical source except where noted.
    02-construction.html after the RBS libraries slide, which is where
    they belong: Plib IS a promoter/RBS library and the class builds
    it.  05-all-hands.html is gone and lecture.js is five sections.
-   02-construction.html therefore runs source 11-21 and then 44-50 --
-   source numbers are no longer ascending across the deck, which
-   verify_notes.py does not care about because it reads each slide's
-   own comment.
+   02-construction.html therefore runs source 11-21 and then 44, 46,
+   47, 48 -- source numbers are no longer ascending across the deck,
+   which verify_notes.py does not care about because it reads each
+   slide's own comment.
+
+5b. AND THREE OF THE PLIB SLIDES ARE CUT, same day, on JCA's
+   instruction: 45 (Wetlab project plan), 49 (Plib overview) and 50
+   (the bare "go through labsheet" link).  The LabSheet link survives
+   on the Plib divider, source 44, which is where it was already.
 
 WHERE THE SOURCE NUMBERS LIVE NOW
   00-front-matter.html   1-4
   01-diversity.html      5-10
-  02-construction.html   11-21, then 44-50
+  02-construction.html   11-21, then 44, 46, 47, 48
   03-selections.html     22-39
   04-questions.html      40-42
-  43 is deleted.
+  43, 45, 49 and 50 are deleted.
 
 CHECKING A SEQUENCE'S NOTES
   Two slides keep their notes in a sequence file now, so they need
@@ -410,11 +418,11 @@ WHERE THIS STANDS
 -----------------
   00-front-matter.html     source  1-4         DONE  (4 steps)
   01-diversity.html        source  5-10        DONE  (15 steps)
-  02-construction.html     source 11-21, 44-50 DONE  (26 steps)
+  02-construction.html     source 11-21, 44, 46-48  DONE  (23 steps)
   03-selections.html       source 22-39        DONE  (21 steps)
   04-questions.html        source 40-42        DONE  (3 steps)
 
-  69 steps in all.  verify_notes.py passes on all 41 slides that carry a
+  66 steps in all.  verify_notes.py passes on all 41 slides that carry a
   note.  Linked from 140L/index.html and counted in docs/index.md.
 
   NOT DEPLOYED.  The site publishes from gh-pages by a manual

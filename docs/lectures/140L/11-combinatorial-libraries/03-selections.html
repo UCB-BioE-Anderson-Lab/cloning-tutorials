@@ -59,6 +59,8 @@
   gap:30px;align-items:center}
 .slide .named p{font-size:32px;color:var(--vermillion);margin:0;white-space:nowrap}
 .slide .named img{width:100%;height:100%;min-height:0;object-fit:contain}
+.slide .named span{display:block;width:100%;height:100%;min-height:0}
+.slide .named svg{width:100%;height:100%;display:block}
 /* source 31: the construct, then the sort and what came out of it */
 .slide .r31{grid-template-columns:1fr 1fr;
   grid-template-rows:0.9fr 1.1fr;padding-bottom:46px}
@@ -187,7 +189,7 @@ Phage display also has the advantage here that some targets, particularly those 
   <h1>Cell Surface Display</h1>
   <div class="named">
     <p>Yeast Display:</p>
-    <img src="img/30-yeast.png" alt="A yeast cell wall drawn as a curved band, with Aga1 anchored in it and Aga2 held to Aga1 by two disulfide bonds. The protein of interest is fused to Aga2 and so sits on the outside of the cell.">
+    <span data-fig="yeast"></span>
   </div>
   <template class="notes">Another strategy for binding-based selections is cell-surface display.  Here, you will decorate the surface of the cell with the protein encoded on a plasmid within the cell to couple genotype and phenotype.  It can be done in multiple organisms including E. coli and yeast, and different systems are useful for different things.  Shown here is yeast display.  You fuse your gene to this protein Aga2 which gets exported and deposited on the surface with disulfide bonds.  This yeast system can handle full-length proteins, but the transformation efficiency of yeast limits the library to 10^7.</template>
   <template class="desc">Yeast display: the protein of interest is fused to Aga2, which is tethered by disulfides to Aga1 in the cell wall, so the protein ends up on the outside of the cell that carries its gene.</template>
@@ -329,6 +331,7 @@ Operationally, they first apply the ON selection in the presence of their new sm
 <script src="lecture.js" defer></script>
 <script src="seq/23-selex.js" defer></script>
 <script src="seq/27-m13.js" defer></script>
+<script src="seq/30-yeast.js" defer></script>
 <script src="seq/28-panning.js" defer></script>
 </body>
 </html>
