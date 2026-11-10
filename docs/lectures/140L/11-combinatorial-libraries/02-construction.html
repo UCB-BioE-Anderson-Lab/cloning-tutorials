@@ -253,7 +253,7 @@ Transform pP6               (Mach1, Amp)</pre>
   <pre class="seq sm"><b class="site2">GAGGAG</b>TCCTGGGTTC<i class="deg">NNNN</i><b class="el">TTGACA</b><i class="deg">NNNNNNNNNNNNNNNNN</i><b class="el">TATAAT</b><i class="deg">NNNNNN</i><b class="el">A</b><i class="deg">NNNN</i><b class="el">GT</b>TAGTATTT<b class="site2">CTCCTC</b>
 <span style="color:var(--muted)">BseRI                -35                    -10       +1              BseRI</span></pre>
   <p class="ask">What is the theoretical diversity of this library?</p>
-  <p class="ans" data-build="1" data-desc="The answer: thirty-one degenerate positions, so four to the thirty-first &mdash; about 4.6 times ten to the eighteenth possible sequences.">4^31 variants = 4.6x10^18 possible sequences</p>
+  <p class="ans" data-build="1" data-desc="The answer: thirty-one degenerate positions, so four to the thirty-first &mdash; about 4.6 times ten to the eighteenth possible sequences." data-note-add="And when you do that for pP6 you get four to the thirty-first, which is 4.6 times ten to the eighteenth. There is no version of this experiment where you cover that. You are sampling it, and the whole lecture is about knowing by how much.">4^31 variants = 4.6x10^18 possible sequences</p>
   <template class="notes">Count the number of each degenerate base, multiple each by the number of bases represented by each degeneracy code.  Multiply all those together.</template>
   <template class="desc">The students' own pP6 library, written out: two oligos, P6libF and P6libR, each carrying a BsaI site and a run of N's, assembled into pP6, whose promoter has degenerate bases scattered around a fixed -35 and -10. Thirty-one of the positions are N.</template>
 </article>
@@ -306,7 +306,7 @@ This method is a double-diamond level of difficulty.  It&rsquo;s something that 
     <figure>
       <img src="img/19-rbs.png" alt="Two 5' untranslated sequences one above the other, labelled Wt and library, with the ribosome binding site and the start codon marked above them. The wild type reads CAAGGAATTAACCATG; the library replaces the three bases just upstream of the Shine-Dalgarno with NNN and the first base of the start codon with R.">
     </figure>
-    <figure data-build="1" data-desc="The result, measured: a rank-ordered bar chart of red fluorescence over about a hundred clones. Roughly half the library is flat on the floor, and the rest spreads smoothly from the brightest clone down to the dead ones.">
+    <figure data-build="1" data-desc="The result, measured: a rank-ordered bar chart of red fluorescence over about a hundred clones. Roughly half the library is flat on the floor, and the rest spreads smoothly from the brightest clone down to the dead ones." data-note-add="And here is the measurement. Rank-order about a hundred clones by red fluorescence and you can see both halves of what I just said: roughly half the library is flat on the floor, dead, and the half that is alive spreads smoothly from the brightest clone all the way down. Losing half your library to nothing sounds bad, but a smooth spread across the survivors is exactly what you were after.">
       <img src="img/19-chart.png" alt="A rank-ordered bar chart, fluorescence in arbitrary units against clone. The first forty or so clones fall smoothly from about 35,000 down to a few thousand; the remainder sit at essentially zero.">
     </figure>
   </div>
@@ -322,13 +322,13 @@ This method is a double-diamond level of difficulty.  It&rsquo;s something that 
 L2    4D     aatADDDDAaatactagATG
 L3    N3R    aNNNggagaaatactagRTG
 L4    PWM    aatNVWGGRDatactagATG</pre>
-    <div class="chart" data-build="1" data-desc="A rank-ordered chart of normalised expression across about ninety-six members of the PWM library, climbing smoothly from zero to one, and beside it a plate of the library under blue light with colonies at every brightness from dark to bright green.">
+    <div class="chart" data-build="1" data-desc="A rank-ordered chart of normalised expression across about ninety-six members of the PWM library, climbing smoothly from zero to one, and beside it a plate of the library under blue light with colonies at every brightness from dark to bright green." data-note-add="Rank-order the members by expression, which is what this chart is, and you get a smooth climb from off to full on across about ninety-six clones. You can see the same thing on the plate: colonies at every brightness from dark through dim to bright green. That spread is what you want out of an RBS library.">
       <img src="img/20-pwm.png" alt="A rank-ordered bar chart of normalised expression over about ninety-six clones, rising smoothly from zero at the left to one at the right.">
     </div>
     <div class="plate" data-build="1">
       <img src="img/20-plate.jpg" alt="A photograph of a plate of transformants under blue light, the colonies ranging from dark through dim to bright green.">
     </div>
-    <div class="c6" data-build="2" data-desc="And where to get one: the C6-Tools ribosome binding site library designer, which takes the open reading frame and its 5' untranslated region and writes out the degenerate forward oligo.">
+    <div class="c6" data-build="2" data-desc="And where to get one: the C6-Tools ribosome binding site library designer, which takes the open reading frame and its 5' untranslated region and writes out the degenerate forward oligo." data-note-add="And you do not have to work these out yourself. C6-Tools will take the open reading frame and its five prime UTR and write the degenerate forward oligo for you.">
       <p>In C6-Tools:</p>
       <img src="img/20-c6.png" alt="A spreadsheet row from C6-Tools headed 'Design a ribosome binding site library', taking an open reading frame and its 5' UTR as inputs and returning the pwm library forward oligo.">
     </div>
@@ -337,6 +337,7 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
      data-note-add="One more thing worth knowing, because it is the same idea done the other way round. The PWM library on this slide comes from a position weight matrix over ribosome binding sites that are known to work, so it is generic: the same degenerate sequence is a reasonable bet in front of anything. RedLibs, from the Panke lab, is gene-specific instead. You run an RBS predictor, the Salis calculator, over a fully degenerate site in front of your gene in its actual context, and you get back a table of every sequence with its predicted translation initiation rate. For eight Ns that is sixty-five thousand of them, and the distribution is badly skewed. For mCherry, more than ninety-nine and a half percent of those sequences land in the bottom tenth of the expression range, so nearly every colony you pick tells you the same thing. Then you give it two more inputs: the distribution you actually want, usually uniform across the range, and the size of library you are willing to screen. RedLibs scores every partially degenerate sequence of that size against your target distribution, by how far its cumulative distribution departs from the one you asked for, and hands the best ones back ranked. The answer is still a single degenerate sequence, so you order one oligo and clone it in one pot exactly like this one. They work at four, twelve and twenty-four members, against the hundred and forty-four that the PWM sequence here gives you. Fewer distinct levels to land on, but you screen two dozen colonies instead of a few hundred, and when the assay is the expensive part, which for a pathway it always is, that is the trade you want."
      data-desc="A citation appears: RedLibs, which takes a predicted translation-rate table for your own gene and a target distribution, and returns the best small degenerate sequence of whatever size you ask for.">Nat Commun. 2016 Mar 31;7:11163. PMID: 27029461</p>
   <template class="notes"></template>
+  <template class="notes-add">Here are four different ways of writing an RBS library as a single degenerate sequence. The first two, 5R and 4D, just spread degeneracy across the Shine-Dalgarno evenly. The third, N3R, randomizes three bases outright and leaves the rest of the site alone. The fourth is the one I use. It comes from a position weight matrix built over ribosome binding sites that are known to work, so every member of the library is a plausible RBS rather than a random string that happens to be sitting in the right place.</template>
   <template class="desc">Four ways to write an RBS library as a degenerate sequence: two that spread the degeneracy evenly, one that randomises three bases outright, and one derived from a position weight matrix over working ribosome binding sites.</template>
 </article>
 
@@ -380,6 +381,7 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
   <p class="link"><b>Plib LabSheets:</b>
     <a href="https://docs.google.com/spreadsheets/d/15423iKeYZLnmwzpUZ2D4Q5brP2FLdhdbQyuIkiQEYVs/edit?usp=sharing">https://docs.google.com/spreadsheets/d/15423iKeYZLnmwzpUZ2D4Q5brP2FLdhdbQyuIkiQEYVs/edit?usp=sharing</a></p>
   <template class="notes"></template>
+  <template class="notes-add">Now to your own experiment. This is Plib, and the LabSheet is linked here. Everything from this point is what you will actually be doing at the bench over the next few weeks, and it is the same combinatorial math we just did, applied to a promoter library that you design and build yourself.</template>
   <template class="desc">Divider: Plib, with a link to the Plib LabSheets.</template>
 </article>
 
@@ -390,6 +392,7 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
     <img src="img/46-tpcon6.png" alt="A cassette drawn left to right: a GCTT overhang, a 20 bp spacer, an octagon marking the terminator, a second 20 bp spacer, a bent arrow marking the promoter, a third 20 bp spacer, and a TACT overhang.">
   </figure>
   <template class="notes">Coming out of Pjoin, we have plasmids with cassettes like this, where there are BsaI sites flanking a terminator and promoter</template>
+  <template class="notes-add">Those BsaI sites are the handle for everything that comes next. You cut there, you drop in a new terminator-promoter pair, and the cassette closes back up scarlessly, which is the whole reason the architecture is built this way. For Plib you are not swapping in a part you already have. You are cutting there and putting back a library.</template>
   <template class="desc">The TPcon6 cassette: a terminator and a promoter separated by fixed 20 bp spacers, with GCTT and TACT overhangs on the ends for assembly.</template>
 </article>
 
@@ -400,6 +403,7 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
     <img src="img/47-j23119.png" alt="The registry page for Part BBa_J23119, a constitutive promoter family member: a photograph of culture tubes fluorescing at different brightnesses, an alignment of the family members with their -35 and -10 regions marked, and a table of variant RFP values running from 1 up to 2547.">
   </figure>
   <template class="notes">The Plib experiment is essentially the same as the original J23100 family, but the plasmid architecture is TPcon6-style.</template>
+  <template class="notes-add">So the biology is nothing new. What is new is that you are making the family rather than ordering it, and you are making it in a plasmid that is already set up to accept it. You saturate the bases in and around the minus thirty-five and the minus ten, the same positions that made J23100 a graded series in the first place, and then you measure what you got.</template>
   <template class="desc">The original constitutive promoter family: the same experiment done once before, where varying the -35 and -10 gave a family of promoters spanning three orders of magnitude in output.</template>
 </article>
 
@@ -418,11 +422,12 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
       <span class="k">Library</span><span class="v lib">GTACCTAGCCTACGACGAGTCGTGAYTKAYRTCTGGCCGATCCCAGCCKAYWRTCTGTCCaTGAGGTGAGACTTCCCCTTC</span>
     </div>
     <p class="q">What is the theoretical diversity of this library? How many do I need to screen to have observed 99%?</p>
-    <pre class="calc" data-build="1" data-desc="The twelve degenerate positions written out: Y T K A Y R and K A Y W R T."><b>Y   T   K   A   Y   R   K   A   Y   W   R   T</b></pre>
-    <pre class="calc" data-build="2" data-desc="Each one multiplied out: two choices wherever the code stands for two bases, one wherever it is a fixed base.">2 * 1 * 2 * 2 * 1 * 2 * 2 * 1 * 2 * 2 * 2 * 1   =2^8 = 256</pre>
-    <pre class="calc" data-build="3" data-desc="And the coverage: 256 times 4.6 is 1178 colonies to screen.">Screen 256 * 4.6 = 1178 colonies</pre>
+    <pre class="calc" data-build="1" data-desc="The twelve degenerate positions written out: Y T K A Y R and K A Y W R T." data-note-add="Go through it code by code and count how many bases each one stands for. In YTKAYR the Y, the K, the Y and the R are each two bases, and the T and the A are fixed, so that is four twos. The minus ten is the same, four twos."><b>Y   T   K   A   Y   R   K   A   Y   W   R   T</b></pre>
+    <pre class="calc" data-build="2" data-desc="Each one multiplied out: two choices wherever the code stands for two bases, one wherever it is a fixed base." data-note-add="Eight degenerate positions in all, each one twofold, so multiply them together and the theoretical diversity is two to the eighth, which is 256. That is your n.">2 * 1 * 2 * 2 * 1 * 2 * 2 * 1 * 2 * 2 * 2 * 1   =2^8 = 256</pre>
+    <pre class="calc" data-build="3" data-desc="And the coverage: 256 times 4.6 is 1178 colonies to screen." data-note-add="Then multiply by 4.6, and you need to screen about 1178 colonies to be confident you have seen essentially all of them. Notice how quickly that grows. Eight degenerate bases, only 256 members, and you are already looking at more than a thousand picks. That is exactly why you keep a library like this small and deliberate instead of writing N's across the whole promoter and hoping.">Screen 256 * 4.6 = 1178 colonies</pre>
   </div>
   <template class="notes"></template>
+  <template class="notes-add">So let&rsquo;s do the calculation we have been doing all lecture, on your own library. You reassemble the promoter with degenerate sequences at the minus thirty-five and the minus ten. What is the theoretical diversity of that, and how many colonies do you have to screen to have seen 99% of it?</template>
   <template class="desc">The students' own Plib library: six degenerate bases across the -35 and six across the -10, written as YTKAYR and KAYWRT, in the context of the full reassembled promoter.</template>
 </article>
 
