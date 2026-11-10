@@ -55,11 +55,25 @@ const PLATES = [
 ];
 const TUBES = [1, 2, 3, 4, 5];
 
-/* ---- geometry ------------------------------------------------------ */
-const FLX = 232, FLY = 470;              /* flask centre               */
-const TUBE0 = 452, TUBEW = 128, TUBEY = 406;
-const PLATEY = 648, PLATER = 60;
-const MATHX = 1012;
+/* ---- geometry ------------------------------------------------------ *
+ * THE LAYOUT, SECOND TIME.  The first one put the three plates under
+ * the last three tubes on the RIGHT and the arithmetic in a column
+ * beside them, and the two collided: the plates ran under the sum, the
+ * "100 uL" tags landed on top of it, and the three count labels
+ * overlapped each other because the tubes were closer together than
+ * the words were wide.
+ *
+ * The fix is to use the space the slide actually has.  The flask sits
+ * top-left, the tube row runs the full width beside it, the plates
+ * hang under the last three tubes, and the arithmetic goes in the big
+ * empty quarter UNDER the flask -- which the first layout left blank
+ * while crowding everything else.  Tube spacing is now 148, wider than
+ * any label that sits under it.
+ * -------------------------------------------------------------------- */
+const FLX = 244, FLY = 418;              /* flask centre               */
+const TUBE0 = 440, TUBEW = 148, TUBEY = 376;
+const PLATEY = 664, PLATER = 66;
+const MATHX = 128, MATHY = 616;          /* the sum, under the flask   */
 
 function sci(m, e){
   return m + ' × 10<tspan baseline-shift="super" ' +
@@ -159,31 +173,37 @@ function plate(k){
            '" fill="#fbfbfb" stroke="' + (p.use ? VERM : INK) +
            '" stroke-width="' + (p.use ? 4 : 2.5) + '"/>' + dots +
          '<text x="' + cx + '" y="' + (cy + PLATER + 34) + '" text-anchor="middle" ' +
-           'font-family="inherit" font-size="26" font-weight="' +
+           'font-family="inherit" font-size="24" font-weight="' +
            (p.use ? "700" : "400") + '" fill="' + col + '">' + p.count +
            ' colonies</text>';
 }
 
-/* ---- the sum -------------------------------------------------------- */
+/* ---- the sum -------------------------------------------------------- *
+ * Five lines, left-aligned under the flask.  The exponents are real
+ * tspans, not hyphens in a string -- the first version printed
+ * "10-3 dilution" in running text next to a properly set 10^-3 on the
+ * tube, which reads as two different numbers.
+ * -------------------------------------------------------------------- */
+function sup(base, e){
+  return base + '<tspan baseline-shift="super" font-size="0.62em">' + e + '</tspan>';
+}
 function sum(){
-  const L = 44;
-  let y = 396, s = "";
+  const L = 42;
+  let y = MATHY, s = "";
   function line(txt, colour, size, weight){
     s += '<text x="' + MATHX + '" y="' + y + '" font-family="inherit" ' +
          'font-size="' + (size || 27) + '" font-weight="' + (weight || 400) +
          '" fill="' + (colour || INK) + '">' + txt + '</text>';
     y += L;
   }
-  line("Count the plate in range:", MUTED, 25);
-  line("160 colonies, from 100 µL", INK);
-  line("of the 10−3 dilution", INK);
-  y += 10;
-  line("160 ÷ 0.1 mL = " + sci("1.6", "3") + " /mL", INK);
-  line("× 10³ dilution = " + sci("1.6", "6") + " /mL", INK);
-  y += 10;
-  line("× 1000 mL =", INK);
-  y -= 6;
-  line(sci("1.6", "9") + " transformants", VERM, 36, 700);
+  line("Count the plate in range:", MUTED, 24);
+  line("160 colonies, from 100 \u00b5L of the " + sup("10", "\u22123") +
+       " dilution", INK, 26);
+  line("160 \u00f7 0.1 mL = " + sci("1.6", "3") + " /mL", INK, 26);
+  line("\u00d7 " + sup("10", "3") + " dilution = " + sci("1.6", "6") + " /mL",
+       INK, 26);
+  y += 6;
+  line("\u00d7 1000 mL = " + sci("1.6", "9") + " transformants", VERM, 31, 700);
   return s;
 }
 
@@ -191,7 +211,7 @@ function sum(){
 function build(){
   let s = "";
   /* the series */
-  s += arrow(FLX + 96, TUBEY + 44, TUBE0 - 36, TUBEY + 44, INK);
+  s += arrow(FLX + 104, TUBEY + 44, TUBE0 - 38, TUBEY + 44, INK);
   TUBES.forEach(function(_, i){
     s += tube(i);
     if (i < TUBES.length - 1){
@@ -199,7 +219,9 @@ function build(){
                  TUBE0 + TUBEW*(i+1) - 34, TUBEY + 44, INK);
     }
   });
-  s += '<text x="' + n2(TUBE0 + TUBEW * 2) + '" y="' + (TUBEY + 126) +
+  /* under the FIRST gap, not the middle: the middle is where the plate
+     arrows drop, and the caption was landing on them */
+  s += '<text x="' + n2(TUBE0 + TUBEW * 0.5) + '" y="' + (TUBEY + 126) +
        '" text-anchor="middle" font-family="inherit" font-size="24" fill="' +
        MUTED + '">each step 1:10</text>';
   s += flask();
@@ -207,16 +229,12 @@ function build(){
   /* down to the plates */
   PLATES.forEach(function(p, k){
     const x = TUBE0 + TUBEW * (2 + k);
-    s += arrow(x, TUBEY + 150, x, PLATEY - PLATER - 12,
-               p.use ? VERM : MUTED);
-    s += '<text x="' + (x + 9) + '" y="' + (TUBEY + 178) +
-         '" font-family="inherit" font-size="22" fill="' + MUTED +
-         '">100 µL</text>';
+    s += arrow(x, TUBEY + 162, x, PLATEY - PLATER - 14, p.use ? VERM : MUTED);
+    s += '<text x="' + (x + 11) + '" y="' + (TUBEY + 196) +
+         '" font-family="inherit" font-size="21" fill="' + MUTED +
+         '">100 \u00b5L</text>';
   });
   PLATES.forEach(function(_, k){ s += plate(k); });
-
-  s += '<line x1="' + (MATHX - 44) + '" y1="356" x2="' + (MATHX - 44) +
-       '" y2="792" stroke="' + RULE + '" stroke-width="2"/>';
   return s;
 }
 
