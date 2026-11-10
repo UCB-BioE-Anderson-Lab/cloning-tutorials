@@ -333,6 +333,9 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
       <img src="img/20-c6.png" alt="A spreadsheet row from C6-Tools headed 'Design a ribosome binding site library', taking an open reading frame and its 5' UTR as inputs and returning the pwm library forward oligo.">
     </div>
   </div>
+  <p class="src" data-build="3"
+     data-note-add="One more thing worth knowing about this approach. The Panke lab published an algorithm called RedLibs that takes the same idea and pushes it the other way. Instead of a library that covers the expression range densely, it searches for the smallest degenerate sequence whose predicted translation initiation rates are still spread evenly over the whole range. The libraries they build that way are four, twelve and twenty-four members, against the hundred and forty-four that the PWM sequence on this slide gives you. You lose diversity and you lose granularity, in the sense that there are fewer distinct expression levels you can land on, but you screen twenty-four colonies instead of a few hundred. When the assay is the expensive part of the experiment, and for a pathway it usually is, that is the right trade."
+     data-desc="A citation appears: RedLibs, an algorithm that designs much smaller degenerate libraries with the same intention &mdash; a handful of members that still sample the whole expression range.">Nat Commun. 2016 Mar 31;7:11163. PMID: 27029461</p>
   <template class="notes"></template>
   <template class="desc">Four ways to write an RBS library as a degenerate sequence: two that spread the degeneracy evenly, one that randomises three bases outright, and one derived from a position weight matrix over working ribosome binding sites.</template>
 </article>
