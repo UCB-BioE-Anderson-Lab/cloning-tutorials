@@ -343,7 +343,7 @@ alone as the historical source except where noted.
    1.6e9 transformants.  seq/07-titer.js, which carries the numbers
    and the reasoning.
 
-4. EIGHT FIGURES REDRAWN.  JCA called them
+4. TEN FIGURES REDRAWN.  JCA called them
    blotchy or splotchy one at a time; they turned out to be two faults
    repeating.
 
@@ -356,9 +356,30 @@ alone as the historical source except where noted.
        source 18 EIPCR        image22.png  558x384  shown ~1400 wide
        source 30 yeast        image36.png  400x377  shown ~1100 wide
        source 35 amber        a small scan, shown ~1200 wide
-   All eight are now vector, in seq/18-eipcr.js, seq/21-invasin.js,
-   seq/23-selex.js, seq/27-m13.js, seq/28-panning.js, seq/30-yeast.js
-   and seq/35-amber.js.  Same shapes, on JCA's
+       source 31 OmpX/CPX     image38.png  1186x384, journal scan
+       source 38 dual sel.    1720x990, but relabelled rather than rescued
+   All ten are now vector, in seq/18-eipcr.js, seq/21-invasin.js,
+   seq/23-selex.js, seq/27-m13.js, seq/28-panning.js, seq/30-yeast.js,
+   seq/31-ompx.js, seq/35-amber.js and seq/38-luxr.js.
+
+   SOURCE 38 WAS REDRAWN TO BE RELABELLED, not for resolution.  JCA
+   asked for it to name the actual experiment instead of talking
+   about an abstract stimulus, and its labels were baked into the
+   raster.  Doing it turned up an error: the raster's second panel
+   read "(- stimulus)", but source 39's note says the negative
+   selection is run IN THE PRESENCE of the old ligand -- "they then
+   apply the negative selection in the presence of the old small
+   molecule 3OC6HSL".  It reads "+ 3OC6HSL, the old ligand" now.
+   The general phrasing on source 36, where his note does say
+   "withhold the stimulus", is correct there and is left alone.
+
+   SOURCE 31 IS THE CASE WHERE COLOUR CARRIES THE ARGUMENT.  CPX is a
+   circular permutant of OmpX, and the source tells the two domains
+   apart only by the DIRECTION of their hatching, which at slide size
+   nobody can see -- so the permutation, the one fact the figure
+   exists to show, is invisible.  A1-S53 is blue and S54-F148 grey in
+   both rows now, and the blue block visibly moves from the front of
+   OmpX to the back of CPX.  The hatching is kept as well.  Same shapes, on JCA's
    instruction; the colours are new and each file argues its own.
 
    THE SECOND FAULT IS WHITE TYPE ON TRANSPARENCY -- figures drawn for
@@ -384,8 +405,8 @@ alone as the historical source except where noted.
    02-construction.html after the RBS libraries slide, which is where
    they belong: Plib IS a promoter/RBS library and the class builds
    it.  05-all-hands.html is gone and lecture.js is five sections.
-   02-construction.html therefore runs source 11-21 and then 44, 46,
-   47, 48 -- source numbers are no longer ascending across the deck,
+   02-construction.html therefore runs source 11-21 and then 46, 47,
+   48 -- source numbers are no longer ascending across the deck,
    which verify_notes.py does not care about because it reads each
    slide's own comment.
 
@@ -413,18 +434,88 @@ alone as the historical source except where noted.
    kills what is active.  With only two kinds either round alone would
    do, which is exactly why the slide needs two.
 
-5b. AND THREE OF THE PLIB SLIDES ARE CUT, same day, on JCA's
-   instruction: 45 (Wetlab project plan), 49 (Plib overview) and 50
-   (the bare "go through labsheet" link).  The LabSheet link survives
-   on the Plib divider, source 44, which is where it was already.
+5b. AND FOUR OF THE PLIB SLIDES ARE CUT, same day, on JCA's
+   instruction: 45 (Wetlab project plan), 49 (Plib overview), 50 (the
+   bare "go through labsheet" link) and 44, the amber Plib divider.
+   The LabSheet link moved off 44 and on to 46, under the TPcon6
+   cassette, so it is still in front of the class at the point the
+   Plib run begins -- 46 now opens that run, and carries the divider's
+   narration at the head of its written note.
 
 WHERE THE SOURCE NUMBERS LIVE NOW
   00-front-matter.html   1-4
   01-diversity.html      5-10
-  02-construction.html   11-21, then 44, 46, 47, 48
+  02-construction.html   11-21, then 46, 47, 48
   03-selections.html     22-39
   04-questions.html      40-42
-  43, 45, 49 and 50 are deleted.
+  43, 44, 45, 49 and 50 are deleted.
+
+THE SECOND NOTE CHANNEL, ADDED 2026-11-10
+-----------------------------------------
+JCA asked for the empty notes to be filled, in his voice, using his own
+text wherever it exists.  Seven source slides have NO note in the pptx
+at all -- 1, 20, 38, 40, 42, 44 and 48 -- and several builds have no
+sentence of their own.  Writing into <template class="notes"> would
+have broken the one guarantee this deck makes about its notes, so there
+is now a second channel:
+
+  <template class="notes">      the source's words, verbatim, checked
+  <template class="notes-add">  written for this deck, not checked
+
+deck.js concatenates them for the speech and presenter panels; the CSS
+class ".notes" does not match class="notes-add", so neither verify_notes.py
+nor deck.js's own tpl() can confuse the two.  It is the slide-level twin
+of data-note-add, which already did this for individual builds.
+
+So the claim the deck makes is still exactly provable: every word in a
+notes template is the author's, every word in a notes-add template was
+written for the deck.  Count them with
+
+    grep -c 'class="notes-add"' *.html
+    grep -c 'data-note-add='   *.html
+
+WHERE HIS OWN TEXT EXISTED IT WAS KEPT.  Sources 46 and 47 had one
+terse sentence each; those sentences are untouched in the notes
+template and the notes-add carries what follows them.  No existing note
+was edited, shortened or rephrased anywhere in this pass.
+
+SOURCE 21 IS THREE SLIDES, 2026-11-10
+--------------------------------------
+JCA split it: the source slide carried three separate arguments and
+opened on construct cartoons without ever saying what the device was
+for.  It is now
+
+  21a  Invasin             what it does.  An E. coli studded with
+                           invasin binds a mammalian cell and is
+                           phagocytosed -- animated, because that is a
+                           sequence of events and a still frame cannot
+                           show that anything was caused.  Then the
+                           tumour cues it should be conditioned on,
+                           then the three constructs.
+  21b  Impedance matching  three transfer functions in a row --
+                           promoter, RBS, phenotype -- with the two
+                           states traced through all three.  A steep
+                           RBS line puts BOTH on the phenotype plateau,
+                           which is the failure his note describes as
+                           "the rates don't match up"; a shallower one
+                           separates them.  It is also why the answer
+                           has to be a library: you cannot calculate
+                           the slope, so you build a few hundred.
+  21c  RBS Libraries       the assay data, unchanged.
+
+HIS ONE NOTE SPLITS ACROSS THEM, in order, and nothing is paraphrased:
+21a opens with the first two sentences and takes the invasin sentence
+on its last beat; 21b carries the two sentences that ARE the impedance
+argument; 21c is written for the deck.  verify_notes.py now collects
+pieces per source number -- across several articles in one HTML file,
+and across several sequence files -- and compares once, so the check is
+exactly as strong as it was:
+
+  python3 ../../tools/verify_notes.py <raw> --keep-urls \
+      --corrections note-corrections.txt \
+      --seq seq/06-lottery.js lottery=6 seq/07-titer.js titer=7 \
+           seq/21a-invasion.js invasion=21 \
+           seq/21b-impedance.js impedanceSteps=21
 
 CHECKING A SEQUENCE'S NOTES
   Two slides keep their notes in a sequence file now, so they need
@@ -443,11 +534,11 @@ WHERE THIS STANDS
 -----------------
   00-front-matter.html     source  1-4         DONE  (4 steps)
   01-diversity.html        source  5-10        DONE  (15 steps)
-  02-construction.html     source 11-21, 44, 46-48  DONE  (23 steps)
-  03-selections.html       source 22-39        DONE  (21 steps)
+  02-construction.html     source 11-21, 46-48  DONE  (30 steps)
+  03-selections.html       source 22-39        DONE  (25 steps)
   04-questions.html        source 40-42        DONE  (3 steps)
 
-  66 steps in all.  verify_notes.py passes on all 41 slides that carry a
+  77 steps in all.  verify_notes.py passes on all 41 slides that carry a
   note.  Linked from 140L/index.html and counted in docs/index.md.
 
   NOT DEPLOYED.  The site publishes from gh-pages by a manual

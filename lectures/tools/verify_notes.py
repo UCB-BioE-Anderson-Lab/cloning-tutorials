@@ -12,6 +12,11 @@ read from the HTML comment before each <article>.
 A slide driven by a sequence keeps its notes in the sequence file, so
 --seq reads the note: strings out of a named STEPS array instead.
 
+One source slide may be presented as several slides -- source 21 is three --
+and then its note splits across them in document order.  Pieces are collected
+per source number and compared once, so the concatenation still has to equal
+the pptx note exactly.
+
 The only differences that should ever show up are the ones PLAN.txt
 lists: an image credit moved out of a spoken note onto its slide as a
 .src line, and one period moved across a click boundary on source 9.
@@ -113,18 +118,39 @@ def correct(t):
     return t
 bad = 0
 if args and args[0] == "--seq":
-    js = open(args[1], encoding="utf-8").read()
-    print("=== " + os.path.basename(args[1]))
-    for spec in args[2:]:
-        name, n = spec.split("=")
+    # Arguments after --seq are a stream: a token with "=" in it is a
+    # <NAME>=<slide> spec belonging to the js file most recently named, and
+    # anything else is the next js file.  That lets ONE source slide's note
+    # live in SEVERAL sequence files -- source 21 is split across
+    # 21a-invasion.js and 21b-impedance.js -- with the pieces concatenated
+    # in the order given and compared to the pptx note once.
+    group, order, where = {}, [], {}
+    js = None
+    for tok in args[1:]:
+        if "=" not in tok:
+            js = open(tok, encoding="utf-8").read()
+            print("=== " + os.path.basename(tok))
+            where["_file"] = os.path.basename(tok)
+            continue
+        if js is None:
+            sys.exit("--seq: a NAME=slide spec came before any .js file")
+        name, n = tok.split("=")
         n = int(n)
         i = js.index("const " + name + " = [")
         j = js.index("\n];", i)
         pieces = [m.group(1) for m in
                   re.finditer(r'\n    note:"((?:[^"\\]|\\.)*)"', js[i:j])]
         pieces = [p.replace('\\"', '"').replace("\\\\", "\\") for p in pieces]
-        bad += report(f"{name} (source {n}, {len(pieces)} pieces)",
-                      correct(norm(strip_credit(srcnote(n)))), norm(" ".join(pieces)))
+        if n not in group:
+            group[n], where[n] = [], []
+            order.append(n)
+        group[n] += pieces
+        where[n].append(f"{name} in {where['_file']}")
+    for n in order:
+        bad += report(f"source {n} ({len(group[n])} pieces: " +
+                      ", ".join(where[n]) + ")",
+                      correct(norm(strip_credit(srcnote(n)))),
+                      norm(" ".join(group[n])))
     sys.exit(1 if bad else 0)
 
 for f in args:
@@ -135,6 +161,14 @@ for f in args:
     # source's and there is nothing to compare them against.  It still has to
     # be recognised as a slide boundary, or its notes would be swept into the
     # previous slide's and fail that slide instead.
+    #
+    # ONE SOURCE SLIDE MAY BE PRESENTED AS SEVERAL.  JCA split source 21 into
+    # three on 2026-11-10 -- what invasin does, impedance matching, then the
+    # library data -- and his single note splits across them in order.  So the
+    # pieces are collected PER SOURCE NUMBER across every article carrying it
+    # and compared once.  That keeps the guarantee exactly as strong: the
+    # concatenation still has to equal the pptx note, word for word.
+    group, order, seqof, count = {}, [], {}, {}
     for m in re.finditer(r"<!--[-\s]*(\d+|NEW)\s*-->([\s\S]*?)"
                          r"(?=<!--[-\s]*(?:\d+|NEW)\s*-->|<script )", h):
         if m.group(1) == "NEW":
@@ -142,11 +176,24 @@ for f in args:
             continue
         n = int(m.group(1))
         body = m.group(2)
+        if n not in group:
+            group[n], count[n] = [], 0
+            order.append(n)
+        count[n] += 1
         seq = re.search(r'<article class="slide[^"]*" data-seq="([^"]+)"', body)
         if seq:
-            print(f"  source {n}: notes live in sequence {seq.group(1)} (check with --seq)")
+            seqof[n] = seq.group(1)
             continue
         tpl = re.search(r'<template class="notes">([\s\S]*?)</template>', body)
-        pieces = [tpl.group(1) if tpl else ""] + re.findall(r'data-note="([^"]*)"', body)
-        bad += report(f"source {n}", correct(norm(strip_credit(srcnote(n)))), norm(" ".join(pieces)))
+        group[n].append(tpl.group(1) if tpl else "")
+        group[n] += re.findall(r'data-note="([^"]*)"', body)
+    for n in order:
+        if n in seqof and not any(p.strip() for p in group[n]):
+            print(f"  source {n}: notes live in sequence {seqof[n]} (check with --seq)")
+            continue
+        label = f"source {n}"
+        if count[n] > 1:
+            label += f" (split across {count[n]} slides)"
+        bad += report(label, correct(norm(strip_credit(srcnote(n)))),
+                      norm(" ".join(group[n])))
 sys.exit(1 if bad else 0)

@@ -71,10 +71,12 @@
 .slide .r31 .facs{grid-column:1/3;grid-row:1}
 .slide .r31 .ompx{grid-column:1;grid-row:2}
 .slide .r31 .tab{grid-column:2;grid-row:2}
-/* source 38: the key sits top right, the populations below it */
-.slide .r38{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
-.slide .r38 .key{justify-content:flex-end;align-items:flex-start}
-.slide .r38 .key img{width:auto;height:auto;max-height:130px}
+.slide .r31 .ompx span{display:block;width:100%;height:100%;min-height:0}
+.slide .r31 .ompx svg{width:100%;height:100%;display:block}
+/* source 38: one drawing now, key and all */
+.slide .luxr{flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin-top:4px}
+.slide .luxr svg{width:100%;height:100%;display:block}
 </style>
 </head>
 <body>
@@ -206,9 +208,7 @@ Phage display also has the advantage here that some targets, particularly those 
     <figure class="facs" data-build="1" data-note="It is possible to do selections with magnetic beads or maxisorp plates, but such experiments often result in the selection of flocculating mutants or weak binders due to the multivalent display.  So, in practice that strategy is unlikely to work.  Instead, you label the surface of the cell with a fluorescently-tagged version of your template and then sort the fluorescent cells with a cytometer.  Such reagents can be made by cloning your gene into an overexpression vector, expressing it in some cell, purifying the protein, and then reacting it with FITC, TrITC, or other reactive dyes.  After several rounds of labeling and sorting, you get a fluorescence signal, and at that point you can clone and sequence your library." data-desc="Above, three cytometry plots: the unselected library, the library after labelling, and a sorted population in which a clear arm of bright cells has appeared. Beside the construct, a table of the peptide sequences recovered from the OmpX library, nearly all of them carrying a cysteine pair around a short motif.">
       <img src="img/31-facs.png" alt="Three two-colour cytometry plots labelled A, B and C. A and B show a diffuse cloud inside the gate; C shows a dense streak of cells running up into the high red-fluorescence corner of the gate.">
     </figure>
-    <figure class="ompx">
-      <img src="img/31-ompx.png" alt="Two outer membrane display scaffolds drawn as barrels: OmpX, with the random peptide GQSGQ-X2-C-X7-C-X2-GGS inserted into Loop2 between residues S53 and S54, and CPX, the circularly permuted version, which carries the same peptide at its new N terminus.">
-    </figure>
+    <figure class="ompx"><span data-fig="ompx"></span></figure>
     <figure class="tab" data-build="1">
       <img src="img/31-table.png" alt="Table 1, streptavidin binding peptides identified using OmpX or CPX bacterial display libraries: seven clones, OX7-S1 to OX7-S7, with their recovered sequences, most containing the motif HPM or HPQ between the two cysteines.">
     </figure>
@@ -306,15 +306,9 @@ This type of genetic selection can be applied to any transcriptional process &nd
 <!-- ---------------------------------------------------------------- 38 -->
 <article class="slide">
   <h1>Dual Selections</h1>
-  <div class="panels r38">
-    <figure class="key">
-      <img src="img/38-key.png" alt="Key: a filled blue circle is wild type, an open circle is a dead mutant, a filled red circle is a variant with changed specificity.">
-    </figure>
-    <figure>
-      <img src="img/38-dual.png" alt="Three populations drawn as scattered circles. The naive population is mostly open circles &mdash; dead mutants &mdash; with a few blue wild types and two red changed-specificity variants. After the positive selection with the stimulus, the dead mutants are gone and blues and reds remain. After the negative selection without the stimulus, only the red changed-specificity variants are left.">
-    </figure>
-  </div>
+  <div class="luxr" data-fig="luxr"></div>
   <template class="notes"></template>
+  <template class="notes-add">Here is what the two rounds actually do to the population. You start with the library, and most of it is dead, meaning those variants do not activate the promoter in response to anything. The positive selection, run in the presence of the new small molecule, clears all of that out. What you are left with is a mixture of two things: variants that have genuinely changed their specificity, and wild-type LuxR that is responding to something it was always able to respond to. That mixture is the whole problem, and it is why the positive selection on its own does not finish the job. The negative selection then runs in the presence of the old small molecule, and anything that still answers to the old ligand now kills itself. What comes through both rounds is the thing you asked for, which is a LuxR that responds to the new molecule and not to the old one.</template>
   <template class="desc">What the two rounds do to the population: the positive selection clears out everything dead, leaving wild type and changed-specificity variants together; the negative selection then removes the wild type, because it still responds to the old stimulus, and only the changed specificity survives both.</template>
 </article>
 
@@ -336,6 +330,8 @@ Operationally, they first apply the ON selection in the presence of their new sm
 <script src="seq/23-selex.js" defer></script>
 <script src="seq/27-m13.js" defer></script>
 <script src="seq/30-yeast.js" defer></script>
+<script src="seq/31-ompx.js" defer></script>
+<script src="seq/38-luxr.js" defer></script>
 <script src="seq/32-complement.js" defer></script>
 <script src="seq/35-amber.js" defer></script>
 <script src="seq/36-dual.js" defer></script>

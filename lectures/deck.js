@@ -6,8 +6,10 @@
  *     <script src="lecture.js"    defer></script>   sets window.LECTURE
  *     <script src="seq/foo.js"    defer></script>   optional animations
  *
- * A slide is  <article class="slide" data-bg="white|blue|green|red|black">
- * with optional <template class="notes"> and <template class="desc">.
+XX|blue|green|red|black">
+ * with optional <template class="notes"> (the source deck's own words,
+ * verbatim), <template class="notes-add"> (written for this deck, for
+ * slides the source narrated without a note) and <template class="desc">.
  * Children carrying data-build="1", "2", ... appear one click at a time.
  * Children carrying data-unbuild="N" leave on click N (a source deck's
  * exit animation); one element may carry both.
@@ -67,18 +69,33 @@ function tpl(slide, cls){
    covered that beat -- data-note-add carries written-for-the-deck text
    instead.  It is a SEPARATE attribute so verify_notes.py, which collects
    data-note only, still proves the verbatim parts concatenate exactly. */
+function noteWith(a, b){
+  return a && b ? a + "  " + b : a || b || "";
+}
 function noteOf(el){
   if (!el) return "";
-  const a = el.getAttribute("data-note") || "";
-  const b = el.getAttribute("data-note-add") || "";
-  return a && b ? a + "  " + b : a || b;
+  return noteWith(el.getAttribute("data-note") || "",
+                  el.getAttribute("data-note-add") || "");
 }
 
 function buildSteps(){
   const slides = Array.from(document.querySelectorAll("#stage .slide"));
   steps = [];
   slides.forEach(function(slide){
-    const note = tpl(slide, "notes"), desc = tpl(slide, "desc");
+    /* Two note channels, and the distinction is load-bearing.
+       <template class="notes"> is the SOURCE deck's own words, verbatim,
+       and verify_notes.py checks it against the pptx.  Some source
+       slides have no note at all -- a divider, a title, a worked answer
+       the author narrated from the board -- and those get
+       <template class="notes-add">, which is written for the deck in the
+       author's voice and which the verifier does not read.  It is the
+       slide-level twin of data-note-add, and it exists for the same
+       reason: so that "the notes are his, verbatim" stays a claim that
+       proves itself rather than one you have to take on trust.
+       `.notes` does not match class="notes-add", so neither channel can
+       leak into the other. */
+    const note = noteWith(tpl(slide, "notes"), tpl(slide, "notes-add"));
+    const desc = tpl(slide, "desc");
     const seqName = slide.getAttribute("data-seq");
 
     if (seqName && SEQ[seqName]){

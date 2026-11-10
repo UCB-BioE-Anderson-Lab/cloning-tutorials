@@ -29,6 +29,16 @@
  * ends below (GCACTCNNK over AGNNM, ATC over TAGCGTG) are the source's
  * own, and they agree with that arithmetic.
  *
+ * THE 5' TAILS, added on JCA's instruction, 2026-11-10.  Both primers
+ * carry ccata outside the BsaI site -- written atacc on the reverse
+ * one, which is drawn 3' to 5'.  A type IIS enzyme will not cut at a
+ * blunt end: it needs a few bases beyond its recognition sequence to
+ * sit on, so a primer beginning GGTCTC straight off, which is how the
+ * source figure draws it, does not work at the bench.  The tails are
+ * MUTED because they are scaffolding, and the bottom row is the proof:
+ * after the digest they are gone.  It is the same five-base tail
+ * C6-Tools writes on the PWM library oligo over on source 20.
+ *
  * COLOUR.  Two things are being tracked and they get the two rungs:
  * the BsaI sites are VERMILLION and the degenerate codon is BLUE, in
  * the primers and again in the product, so you can follow each one
@@ -183,12 +193,12 @@ function eipcr(){
   /* ---- the PCR, with its two primers ---- */
   const Y1 = 452;
   /* forward primer, above the left end */
-  s += seq(28, Y1 - 44, [["5′", INK], ["GGTCTC", VERM],
+  s += seq(28, Y1 - 44, [["5′", INK], ["ccata", MUTED], ["GGTCTC", VERM],
                          ["AGCACTC", INK], ["NNK", BLUE]]);
   const fEnd = seq.end;
   s += arrowH(fEnd + 10, fEnd + 62, Y1 - 52);
   /* the BsaI bracket, over GGTCTC only */
-  const b0 = 28 + 1*CW, b1 = 28 + 7*CW;
+  const b0 = 28 + 6*CW, b1 = 28 + 12*CW;
   s += '<path d="M ' + n2(b0) + ' ' + (Y1-72) + ' L ' + n2(b0) + ' ' + (Y1-80) +
        ' L ' + n2(b1) + ' ' + (Y1-80) + ' L ' + n2(b1) + ' ' + (Y1-72) +
        '" fill="none" stroke="' + INK + '" stroke-width="2"/>';
@@ -196,12 +206,18 @@ function eipcr(){
        'font-family="inherit" font-style="italic" font-size="24" fill="' + INK +
        '">Bsa I site</text>';
 
+  s += '<text x="28" y="' + (Y1 - 2) + '" font-family="inherit" font-size="21" ' +
+       'fill="' + MUTED + '">5\u2032 tails give Bsa\u2009I room to bind</text>';
+
   s += map(Y1);
 
   /* reverse primer, below the right end, written 3' to 5' as the source does */
   const rY = Y1 + 56;
   s += arrowH(1268, 1216, rY - 8);
-  s += seq(972, rY, [["TAGCGTGA", INK], ["CTCTGG", VERM], ["-5′", INK]]);
+  /* drawn 3' to 5', as the source draws it, so THIS primer's tail is on
+     the right-hand end: ccata reversed is atacc */
+  s += seq(896, rY, [["TAGCGTGA", INK], ["CTCTGG", VERM], ["atacc", MUTED],
+                     ["-5′", INK]]);
 
   s += arrowV(PX, 520, 592, "Bsa I digestion");
 

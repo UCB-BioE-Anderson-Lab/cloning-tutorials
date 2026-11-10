@@ -999,13 +999,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-saturation-mutagenesis" class="md-nav__link">
+  <a href="#3-kld-kinase-ligase-dpni" class="md-nav__link">
     <span class="md-ellipsis">
-      3) Saturation Mutagenesis
+      3) KLD (Kinase, Ligase, DpnI)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3) Saturation Mutagenesis">
+    <nav class="md-nav" aria-label="3) KLD (Kinase, Ligase, DpnI)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-the-same-c96s-mutation-by-kld" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: the same C96S mutation, by KLD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-notes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-saturation-mutagenesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      4) Saturation Mutagenesis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4) Saturation Mutagenesis">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2177,13 +2219,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-saturation-mutagenesis" class="md-nav__link">
+  <a href="#3-kld-kinase-ligase-dpni" class="md-nav__link">
     <span class="md-ellipsis">
-      3) Saturation Mutagenesis
+      3) KLD (Kinase, Ligase, DpnI)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3) Saturation Mutagenesis">
+    <nav class="md-nav" aria-label="3) KLD (Kinase, Ligase, DpnI)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-the-same-c96s-mutation-by-kld" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: the same C96S mutation, by KLD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-notes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-saturation-mutagenesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      4) Saturation Mutagenesis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4) Saturation Mutagenesis">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2549,7 +2633,79 @@ Reverse complement of forward primer
 <li>Ideal for single codon changes, but less robust than EIPCR for large insertions.</li>
 </ul>
 <hr />
-<h2 id="3-saturation-mutagenesis">3) Saturation Mutagenesis<a class="headerlink" href="#3-saturation-mutagenesis" title="Permanent link">&para;</a></h2>
+<h2 id="3-kld-kinase-ligase-dpni">3) KLD (Kinase, Ligase, DpnI)<a class="headerlink" href="#3-kld-kinase-ligase-dpni" title="Permanent link">&para;</a></h2>
+<p><strong>KLD</strong> is the method behind kits like NEB's Q5 Site-Directed Mutagenesis. The name is the three
+enzymes in the single tube used after PCR: a <strong>kinase</strong> (T4 PNK), a <strong>ligase</strong> (T4 DNA ligase),
+and <strong>DpnI</strong>.</p>
+<p>Like QuickChange, you amplify the whole plasmid and there is no restriction site involved. The
+difference is in the primers and in how the plasmid re-closes:</p>
+<ul>
+<li>QuickChange primers <strong>overlap</strong>, and the nicked product is repaired <strong>in vivo</strong>.</li>
+<li>KLD primers sit <strong>back-to-back</strong>: their 5′ ends abut, pointing away from each other around the
+  plasmid. PCR gives a <strong>linear, blunt</strong> full-length product, which is then <strong>phosphorylated and
+  ligated in vitro</strong> before transformation.</li>
+</ul>
+<p>Because the two 5′ ends are what get joined, <strong>the edit is written into the 5′ end of a primer</strong>,
+never into the annealing region. That is the whole design trick, and it is what makes KLD flexible:</p>
+<table>
+<thead>
+<tr>
+<th>Edit</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Substitution</td>
+<td>Put the changed bases as a 5′ tail on one primer</td>
+</tr>
+<tr>
+<td>Insertion</td>
+<td>Split the inserted sequence across the 5′ tails of both primers (practical up to ~25 bp)</td>
+</tr>
+<tr>
+<td>Deletion</td>
+<td>Just move the primers apart — anneal outside the region to be removed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example-the-same-c96s-mutation-by-kld">Example: the same C96S mutation, by KLD<a class="headerlink" href="#example-the-same-c96s-mutation-by-kld" title="Permanent link">&para;</a></h3>
+<p>Using the same pET-INS target as the QuickChange example above, the primers abut at the C96 codon.
+The mutant codon <code>AGT</code> rides on the 5′ end of the forward primer; both annealing regions are
+perfectly wild-type.</p>
+<div class="highlight"><pre><span></span><code>Forward Primer (ol_C96S_KLD_F)
+   [MUTATED CODON]  [anneal, ~24 bp]
+5’-AGTtgtaccagcatctgctccctctac-3’
+
+Reverse Primer (ol_C96S_KLD_R)
+   [anneal, ~22 bp — reverse complement of the sequence immediately upstream of the codon]
+5’-ttgttccacaatgccacgcttc-3’
+</code></pre></div>
+<p>Ligating those two blunt ends restores <code>...ggcattgtggaacaa</code> + <code>AGT</code> + <code>tgtaccagcatctg...</code>, which
+is the edited plasmid.</p>
+<h3 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>PCR</strong> the whole plasmid with the back-to-back primers, using a high-fidelity polymerase.</li>
+<li><strong>KLD reaction</strong> — typically ~5 minutes at room temperature. PNK phosphorylates the 5′ ends,
+   ligase circularizes the blunt product, DpnI digests the methylated parental template.</li>
+<li><strong>Transform</strong> directly from the KLD reaction.</li>
+</ol>
+<h3 id="final-notes_1">Final Notes<a class="headerlink" href="#final-notes_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>No restriction site is needed</strong> (unlike EIPCR) and <strong>no primer overlap</strong> (unlike QuickChange),
+  so you can edit anywhere on a plasmid.</li>
+<li>Because PNK is in the mix, <strong>ordinary unphosphorylated oligos are fine</strong>. If you run the ligation
+  yourself without PNK, you must order 5′-phosphorylated oligos or nothing will close.</li>
+<li><strong>DpnI only cuts methylated DNA.</strong> A template grown in a standard <em>E. coli</em> strain is methylated
+  and will be destroyed; a template that came from a PCR product or a <em>dam⁻</em> strain will not be,
+  and you will get a background of unedited parent.</li>
+<li>Blunt ligation is the weak step. Keep the PCR clean — a smeary or multi-band PCR ligates into
+  junk, so check the product on a gel before adding KLD.</li>
+<li>Good for single substitutions, small insertions and deletions. For larger insertions or
+  replacements, EIPCR or Gibson-style assembly is the better tool.</li>
+</ul>
+<hr />
+<h2 id="4-saturation-mutagenesis">4) Saturation Mutagenesis<a class="headerlink" href="#4-saturation-mutagenesis" title="Permanent link">&para;</a></h2>
 <p>When you began the wetlab portion of the pP6 experiment, you used Golden Gate-style site-directed mutagenesis not to create a single edited clone, but an entire <strong>library</strong> of variants. This approach is called <strong>saturation mutagenesis</strong>.</p>
 <p>Instead of targeting one mutation, saturation mutagenesis introduces <strong>degenerate bases</strong>—for example, <code>"N"</code> represents a mix of all four nucleotides (A, T, C, G). There are other codes like:</p>
 <ul>
