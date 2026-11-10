@@ -458,6 +458,44 @@ terse sentence each; those sentences are untouched in the notes
 template and the notes-add carries what follows them.  No existing note
 was edited, shortened or rephrased anywhere in this pass.
 
+SOURCE 21 IS THREE SLIDES, 2026-11-10
+--------------------------------------
+JCA split it: the source slide carried three separate arguments and
+opened on construct cartoons without ever saying what the device was
+for.  It is now
+
+  21a  Invasin             what it does.  An E. coli studded with
+                           invasin binds a mammalian cell and is
+                           phagocytosed -- animated, because that is a
+                           sequence of events and a still frame cannot
+                           show that anything was caused.  Then the
+                           tumour cues it should be conditioned on,
+                           then the three constructs.
+  21b  Impedance matching  three transfer functions in a row --
+                           promoter, RBS, phenotype -- with the two
+                           states traced through all three.  A steep
+                           RBS line puts BOTH on the phenotype plateau,
+                           which is the failure his note describes as
+                           "the rates don't match up"; a shallower one
+                           separates them.  It is also why the answer
+                           has to be a library: you cannot calculate
+                           the slope, so you build a few hundred.
+  21c  RBS Libraries       the assay data, unchanged.
+
+HIS ONE NOTE SPLITS ACROSS THEM, in order, and nothing is paraphrased:
+21a opens with the first two sentences and takes the invasin sentence
+on its last beat; 21b carries the two sentences that ARE the impedance
+argument; 21c is written for the deck.  verify_notes.py now collects
+pieces per source number -- across several articles in one HTML file,
+and across several sequence files -- and compares once, so the check is
+exactly as strong as it was:
+
+  python3 ../../tools/verify_notes.py <raw> --keep-urls \
+      --corrections note-corrections.txt \
+      --seq seq/06-lottery.js lottery=6 seq/07-titer.js titer=7 \
+           seq/21a-invasion.js invasion=21 \
+           seq/21b-impedance.js impedanceSteps=21
+
 CHECKING A SEQUENCE'S NOTES
   Two slides keep their notes in a sequence file now, so they need
   their own invocation:
@@ -475,11 +513,11 @@ WHERE THIS STANDS
 -----------------
   00-front-matter.html     source  1-4         DONE  (4 steps)
   01-diversity.html        source  5-10        DONE  (15 steps)
-  02-construction.html     source 11-21, 46-48  DONE  (23 steps)
+  02-construction.html     source 11-21, 46-48  DONE  (30 steps)
   03-selections.html       source 22-39        DONE  (25 steps)
   04-questions.html        source 40-42        DONE  (3 steps)
 
-  70 steps in all.  verify_notes.py passes on all 41 slides that carry a
+  77 steps in all.  verify_notes.py passes on all 41 slides that carry a
   note.  Linked from 140L/index.html and counted in docs/index.md.
 
   NOT DEPLOYED.  The site publishes from gh-pages by a manual

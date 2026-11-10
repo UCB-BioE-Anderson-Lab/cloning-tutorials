@@ -32,10 +32,13 @@
  * The coat itself is a warm tan, which is the source's own colour and
  * carries no meaning -- it is the bag, not the argument.
  *
- * THE ONE ADDITION.  The source has a grey arrow pointing up at the
- * petals with no label on it at all.  An unlabelled leader is a riddle,
- * so it is labelled "Displayed antibody" here.  Nothing else on the
- * slide is new.
+ * ALL SIX OF THE SOURCE'S LABELS ARE HERE.  A projected recording of
+ * the original shows them: pVIII Protein, Antibody gene, Phage coat,
+ * Phagemid, Gene III and pIII Protein.  The first pass of this redraw
+ * worked from the degraded pptx copy, dropped pVIII because its label
+ * had not survived the scan, and guessed "Displayed antibody" for the
+ * grey arrow at the foot -- which actually labels pIII.  Both fixed on
+ * JCA's correction, 2026-11-10.  Nothing on the slide is invented.
  *
  * Authored at 1420x800 and scaled to the cell.
  * ------------------------------------------------------------------ */
@@ -70,18 +73,25 @@ const BODY0 = 0, BODY1 = 880, HW = 52, BR = 29, STEP = 45;
 function particle(){
   let s = "";
 
-  /* the phagemid: a long flattened loop of single-stranded DNA, with
-     the two genes drawn as lenses on it, exactly as the source does */
-  const g0 = 128, g1 = 760;
-  s += '<path d="M ' + g0 + ' 0 C ' + (g0+40) + ' -21 ' + (g1-40) + ' -21 ' + g1 + ' 0 ' +
-       'C ' + (g1-40) + ' 21 ' + (g0+40) + ' 21 ' + g0 + ' 0 Z" fill="#9fa8b0" ' +
-       'stroke="#5d666e" stroke-width="3"/>';
-  /* antibody gene, on the upper strand */
-  s += '<ellipse cx="600" cy="-19" rx="96" ry="11" fill="' + VERM +
-       '" stroke="' + INK + '" stroke-width="2.5" transform="rotate(-2 600 -19)"/>';
-  /* gene III, on the lower strand, nearer the tail it builds */
-  s += '<ellipse cx="268" cy="17" rx="72" ry="11" fill="' + AMBER +
-       '" stroke="' + INK + '" stroke-width="2.5" transform="rotate(3 268 17)"/>';
+  /* THE PHAGEMID IS DNA AND HAS TO LOOK LIKE DNA.  The first draft drew
+     it as a filled grey lens, which JCA correctly read as a protein --
+     a solid blob is a domain, not a molecule of DNA.  It is drawn now
+     as what it is: one closed loop of single-stranded DNA, an open
+     outline with nothing inside it, squeezed long by the particle it
+     is packed into.  The two genes are SEGMENTS OF THAT STRAND, thicker
+     and coloured, rather than objects lying on top of it. */
+  const g0 = 150, g1 = 742, gh = 21;
+  s += '<path d="M ' + (g0+gh) + ' ' + (-gh) + ' L ' + (g1-gh) + ' ' + (-gh) +
+       ' A ' + gh + ' ' + gh + ' 0 0 1 ' + (g1-gh) + ' ' + gh +
+       ' L ' + (g0+gh) + ' ' + gh +
+       ' A ' + gh + ' ' + gh + ' 0 0 1 ' + (g0+gh) + ' ' + (-gh) + ' Z" ' +
+       'fill="none" stroke="#3f474e" stroke-width="5"/>';
+  /* antibody gene: a stretch of the TOP strand */
+  s += '<line x1="506" y1="' + (-gh) + '" x2="694" y2="' + (-gh) + '" stroke="' +
+       VERM + '" stroke-width="11" stroke-linecap="butt"/>';
+  /* gene III: a stretch of the BOTTOM strand, down by the tail it builds */
+  s += '<line x1="206" y1="' + gh + '" x2="340" y2="' + gh + '" stroke="' +
+       AMBER + '" stroke-width="11" stroke-linecap="butt"/>';
 
   /* the coat: two rows of pVIII, drawn after the DNA so they overlap it
      the way a coat does */
@@ -166,23 +176,33 @@ function label(x, y, txt, anchor){
 function m13(){
   let s = particle() + antibody();  /* antibody() records where it landed */
 
-  const ag = P(600, -19), pc = P(760, 52), pm = P(640, 22), g3 = P(268, 17);
+  const ag = P(600, -21), pc = P(760, 52), pm = P(660, 21), g3 = P(273, 21);
+  /* pVIII: the coat subunit itself, which the source labels and the
+     first draft of this redraw dropped */
+  const p8 = P(300, -52);
 
   s += leader(ag[0], 118, ag[0], ag[1]-12, INK);
   s += label(ag[0], 92, "Antibody gene");
 
+  s += leader(p8[0] - 150, p8[1] - 96, p8[0] - 26, p8[1] - 22, INK);
+  s += label(p8[0] - 162, p8[1] - 104, "pVIII protein", "end");
+
   s += leader(1276, pc[1]+6, pc[0]+24, pc[1], INK);
   s += label(1292, pc[1]+16, "Phage coat", "start");
 
-  s += leader(pm[0]+40, 688, pm[0]+6, pm[1]+16, INK);
-  s += label(pm[0]+52, 722, "Phagemid", "start");
+  s += leader(pm[0]+46, 700, pm[0]+8, pm[1]+18, INK);
+  s += label(pm[0]+58, 734, "Phagemid", "start");
 
-  s += leader(g3[0]-16, 712, g3[0]-2, g3[1]+16, INK);
-  s += label(g3[0]-28, 748, "Gene III", "end");
+  s += leader(g3[0]-10, 726, g3[0]+2, g3[1]+18, INK);
+  s += label(g3[0]-22, 762, "Gene III", "end");
 
-  const at = antibody.at;
-  s += leader(at[0]-40, 700, at[0]-6, at[1]+74, MUTED);
-  s += label(at[0]-48, 736, "Displayed antibody", "end");
+  /* the source's own grey arrow at the foot of the petals, which it
+     labels pIII Protein.  The first draft guessed "Displayed antibody"
+     for it -- wrong: the arrow points at the tail fibres, not at the
+     scFv hanging off one of them. */
+  const petal = P(-96, 40);
+  s += leader(petal[0] - 20, 760, petal[0] - 4, petal[1] + 40, MUTED);
+  s += label(petal[0] - 32, 796, "pIII protein", "end");
 
   return '<svg viewBox="0 0 1420 800" xmlns="http://www.w3.org/2000/svg" ' +
     'role="img" aria-label="An M13 phagemid particle lying on a diagonal. Its ' +

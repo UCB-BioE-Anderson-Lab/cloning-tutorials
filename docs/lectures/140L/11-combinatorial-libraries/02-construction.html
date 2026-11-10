@@ -90,13 +90,13 @@
    and nothing else, so it is given only what it needs; the drawings are
    vector now and grow into whatever is left. */
 .slide .r21{grid-template-columns:1fr 290px;
-  grid-template-rows:0.78fr 1.22fr;gap:4px 28px}
+  grid-template-rows:minmax(0,1fr);gap:4px 28px;align-items:center}
 .slide .r21 .con{grid-column:1;grid-row:1}
 .slide .r21 ul{grid-column:2;grid-row:1;margin:0;padding-left:1.1em;
   align-self:center;display:block}
 .slide .r21 li{font-size:24px;margin-bottom:8px}
 /* the key sits beside the plot, where the source puts it */
-.slide .r21 .key{grid-column:2;grid-row:2;align-items:center;
+.slide .r21 .key{grid-column:2;grid-row:1;align-items:center;
   justify-content:flex-start}
 .slide .r21 .key dl{display:grid;grid-template-columns:auto auto;gap:12px 14px;
   margin:0;align-items:center}
@@ -105,7 +105,7 @@
    disagree is not a thing that can happen */
 .slide .r21 .key dt{width:30px;height:22px;border:1px solid var(--ink)}
 .slide .r21 .key dd{margin:0;font-size:22px}
-.slide .r21 .rec{grid-column:1;grid-row:2}
+.slide .r21 .rec{grid-column:1;grid-row:1}
 /* the panel hugs the chart rather than spanning the slide */
 /* no panel any more: the chart is drawn on the paper, because its
    three series are ink, amber and blue rather than black, grey and
@@ -142,6 +142,20 @@
 .slide .r18 span{display:block;width:100%;height:100%;min-height:0}
 .slide .r18 svg{width:100%;height:100%;display:block}
 
+/* source 21, first slide: the invasion scene fills the slide's own frame
+   and the constructs come in on the right, over it */
+.slide .scene{position:absolute;inset:0;pointer-events:none}
+.slide .scene svg{width:100%;height:100%;display:block}
+.slide .rhs{position:absolute;right:110px;top:150px;width:610px;z-index:1;
+  transition:opacity .3s ease}
+.slide .rhs span{display:block;width:100%}
+.slide .rhs svg{width:100%;height:auto;display:block}
+.slide .rhs ul{margin:14px 0 0;padding-left:1.1em}
+.slide .rhs li{font-size:27px;margin-bottom:8px}
+/* source 21, second slide: the three transfer functions */
+.slide .imp{flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin-top:6px}
+.slide .imp svg{width:100%;height:100%;display:block}
 /* source 46: the LabSheet link, moved here when JCA deleted the amber
    Plib divider (source 44) on 2026-11-10 */
 .slide p.link{font-size:23px;word-break:break-all;margin:6px 0 0}
@@ -346,15 +360,34 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
 </article>
 
 <!-- ---------------------------------------------------------------- 21 -->
+<!-- Source 21 is three slides now.  JCA split it on 2026-11-10: what the
+     device is for, why its RBS had to be retuned, then the data.  His one
+     note splits across them in order and verify_notes.py concatenates the
+     pieces per source number, so the verbatim check is unchanged. -->
+<article class="slide" data-seq="invasion">
+  <h1>Invasin</h1>
+  <div class="scene" data-scene></div>
+  <div class="rhs" data-right style="opacity:0">
+    <span data-fig="constructs"></span>
+    <ul>
+      <li>FdhInv &ndash; anaerobic induction</li>
+      <li>AraInv &ndash; arabinose induction</li>
+      <li>TetInv &ndash; constitutive</li>
+    </ul>
+  </div>
+  <p class="src">J Mol Biol. 2006 Jan 27;355(4):619-27 PMID: 16330045</p>
+</article>
+
+<!-- ---------------------------------------------------------------- 21 -->
+<article class="slide" data-seq="impedance">
+  <h1>Impedance matching</h1>
+  <div class="imp" data-imp></div>
+</article>
+
+<!-- ---------------------------------------------------------------- 21 -->
 <article class="slide">
   <h1>RBS Libraries</h1>
   <div class="panels r21">
-    <figure class="con"><span data-fig="constructs"></span></figure>
-    <ul>
-      <li>FdhInv - Anaerobic Induction</li>
-      <li>AraInv - Arabinose Induction</li>
-      <li>TetInv - Constitutive</li>
-    </ul>
     <div class="key">
       <dl>
         <dt data-s="normal"></dt><dd>Normal growth</dd>
@@ -365,8 +398,9 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
     <figure class="rec"><span data-fig="invasin"></span></figure>
   </div>
   <p class="src">J Mol Biol. 2006 Jan 27;355(4):619-27 PMID: 16330045</p>
-  <template class="notes">Saturation mutagenesis can also be applied to regulatory elements.  A very common trick in synthetic biology is to construct RBS libraries out of a genetic construct.  Here, we are trying to adjust the RBS of a gene called invasin such that the expression of the gene is dependent on the promoter upstream.  When you simply put a promoter in front of gene, very often you will get a constitutive on or off device because the rates don&rsquo;t match up.  By adjusting the RBS, you can tune the amount of protein made per transcript up or down and make them match.</template>
-  <template class="desc">An RBS library used to make a device actually obey its promoter: three invasin constructs under an anaerobic, an arabinose-inducible and a constitutive promoter, and the invasion assay showing each one responding to its own signal and nothing else.</template>
+  <template class="notes"></template>
+  <template class="notes-add">So you make the library. Saturate the bases around the ribosome binding site of invasin in all three constructs, screen them, and keep the member whose slope puts the two states either side of that knee. Here is what comes out. FdhInv is recovered only anaerobically, AraInv only with arabinose, and every other condition for those two is below the limit of detection, which is the asterisks. TetInv invades in all three, which is what constitutive is supposed to look like and is how you know the assay is working. That is three devices that each answer to their own signal and to nothing else, and the only thing that was changed to get there was the ribosome binding site.</template>
+  <template class="desc">The invasion assay: each construct is recovered only under its own condition, and the constitutive one under all of them.</template>
 </article>
 
 <!-- =================================================================
@@ -431,5 +465,7 @@ L4    PWM    aatNVWGGRDatactagATG</pre>
 <script src="lecture.js" defer></script>
 <script src="seq/18-eipcr.js" defer></script>
 <script src="seq/21-invasin.js" defer></script>
+<script src="seq/21a-invasion.js" defer></script>
+<script src="seq/21b-impedance.js" defer></script>
 </body>
 </html>
