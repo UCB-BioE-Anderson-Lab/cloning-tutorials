@@ -276,7 +276,72 @@ Reverse complement of forward primer
 
 ---
 
-## 3) Saturation Mutagenesis
+## 3) KLD (Kinase, Ligase, DpnI)
+
+**KLD** is the method behind kits like NEB's Q5 Site-Directed Mutagenesis. The name is the three
+enzymes in the single tube used after PCR: a **kinase** (T4 PNK), a **ligase** (T4 DNA ligase),
+and **DpnI**.
+
+Like QuickChange, you amplify the whole plasmid and there is no restriction site involved. The
+difference is in the primers and in how the plasmid re-closes:
+
+- QuickChange primers **overlap**, and the nicked product is repaired **in vivo**.
+- KLD primers sit **back-to-back**: their 5′ ends abut, pointing away from each other around the
+  plasmid. PCR gives a **linear, blunt** full-length product, which is then **phosphorylated and
+  ligated in vitro** before transformation.
+
+Because the two 5′ ends are what get joined, **the edit is written into the 5′ end of a primer**,
+never into the annealing region. That is the whole design trick, and it is what makes KLD flexible:
+
+| Edit | How |
+|------|-----|
+| Substitution | Put the changed bases as a 5′ tail on one primer |
+| Insertion | Split the inserted sequence across the 5′ tails of both primers (practical up to ~25 bp) |
+| Deletion | Just move the primers apart — anneal outside the region to be removed |
+
+### Example: the same C96S mutation, by KLD
+
+Using the same pET-INS target as the QuickChange example above, the primers abut at the C96 codon.
+The mutant codon `AGT` rides on the 5′ end of the forward primer; both annealing regions are
+perfectly wild-type.
+
+```
+Forward Primer (ol_C96S_KLD_F)
+   [MUTATED CODON]  [anneal, ~24 bp]
+5’-AGTtgtaccagcatctgctccctctac-3’
+
+Reverse Primer (ol_C96S_KLD_R)
+   [anneal, ~22 bp — reverse complement of the sequence immediately upstream of the codon]
+5’-ttgttccacaatgccacgcttc-3’
+```
+
+Ligating those two blunt ends restores `...ggcattgtggaacaa` + `AGT` + `tgtaccagcatctg...`, which
+is the edited plasmid.
+
+### Workflow
+
+1. **PCR** the whole plasmid with the back-to-back primers, using a high-fidelity polymerase.
+2. **KLD reaction** — typically ~5 minutes at room temperature. PNK phosphorylates the 5′ ends,
+   ligase circularizes the blunt product, DpnI digests the methylated parental template.
+3. **Transform** directly from the KLD reaction.
+
+### Final Notes
+
+- **No restriction site is needed** (unlike EIPCR) and **no primer overlap** (unlike QuickChange),
+  so you can edit anywhere on a plasmid.
+- Because PNK is in the mix, **ordinary unphosphorylated oligos are fine**. If you run the ligation
+  yourself without PNK, you must order 5′-phosphorylated oligos or nothing will close.
+- **DpnI only cuts methylated DNA.** A template grown in a standard *E. coli* strain is methylated
+  and will be destroyed; a template that came from a PCR product or a *dam⁻* strain will not be,
+  and you will get a background of unedited parent.
+- Blunt ligation is the weak step. Keep the PCR clean — a smeary or multi-band PCR ligates into
+  junk, so check the product on a gel before adding KLD.
+- Good for single substitutions, small insertions and deletions. For larger insertions or
+  replacements, EIPCR or Gibson-style assembly is the better tool.
+
+---
+
+## 4) Saturation Mutagenesis
 
 When you began the wetlab portion of the pP6 experiment, you used Golden Gate-style site-directed mutagenesis not to create a single edited clone, but an entire **library** of variants. This approach is called **saturation mutagenesis**.
 
