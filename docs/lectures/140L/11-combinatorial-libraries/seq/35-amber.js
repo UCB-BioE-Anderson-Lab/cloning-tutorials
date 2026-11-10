@@ -79,46 +79,75 @@ function plasmid(){
 const TX = 1010, TY = 288;
 
 function trna(){
-  const W = 15;
-  const L = function(x1,y1,x2,y2){
-    return '<line x1="' + n2(TX+x1) + '" y1="' + n2(TY+y1) + '" x2="' + n2(TX+x2) +
-           '" y2="' + n2(TY+y2) + '" stroke="' + INK + '" stroke-width="' + W +
-           '" stroke-linecap="round"/>';
-  };
-  const ring = function(cx,cy,r){
-    return '<circle cx="' + n2(TX+cx) + '" cy="' + n2(TY+cy) + '" r="' + r +
-           '" fill="none" stroke="' + INK + '" stroke-width="' + W + '"/>';
-  };
-  let s = "";
-  /* the acceptor stem, two strands, running off the top */
-  s += L(0, -200, 0, -24);
-  s += L(34, -200, 34, -104);
-  /* the D and T arms */
-  s += L(-134, -24, 134, -24);
-  s += ring(-170, -24, 36);
-  s += ring(170, -24, 36);
-  /* the anticodon arm and its loop */
-  s += L(0, -24, 0, 128);
-  s += ring(0, 164, 36);
-  /* the variable arm: ON the anticodon stem, where the source puts
-     it -- floated out at x=62 it read as a stray dot */
-  s += ring(40, 34, 18);
+  const W = 26, LW = 9;                 /* strand gap, and stroke       */
+  const D2 = Math.PI / 180;
+
+  /* ---- one arm: a base-paired stem that opens into a loop ---------- *
+   * The first draft drew every arm as ONE thick line with a separate
+   * ring stuck on the end, which is why JCA called it wonky: a stem is
+   * two strands, and a loop is those same two strands continuing round.
+   * So an arm is a single open path -- out along one strand, round the
+   * loop, back along the other -- and the loop is where the strands
+   * separate, which is what a loop actually is.
+   *
+   * The strands run tangent to the loop circle, so they meet it at
+   * sqrt(r^2 - (W/2)^2) back from its centre.  That is the whole trick;
+   * get it wrong and the stem either floats off the loop or cuts a
+   * chord across it.
+   * ------------------------------------------------------------------ */
+  function arm(deg, stem, r){
+    const a = deg * D2, ux = Math.cos(a), uy = Math.sin(a);
+    const px = -uy, py = ux, h = W/2;
+    const d = Math.sqrt(Math.max(1, r*r - h*h));
+    const cx = ux * (stem + d), cy = uy * (stem + d);
+    const ax = cx - ux*d + px*h, ay = cy - uy*d + py*h;
+    const bx = cx - ux*d - px*h, by = cy - uy*d - py*h;
+    return '<path d="M ' + n2(px*h) + ' ' + n2(py*h) +
+           ' L ' + n2(ax) + ' ' + n2(ay) +
+           ' A ' + r + ' ' + r + ' 0 1 0 ' + n2(bx) + ' ' + n2(by) +
+           ' L ' + n2(-px*h) + ' ' + n2(-py*h) + '" fill="none" stroke="' +
+           INK + '" stroke-width="' + LW + '" stroke-linejoin="round" ' +
+           'stroke-linecap="round"/>';
+  }
+
+  /* the acceptor stem does NOT end in a loop -- it ends in the single
+     stranded CCA that gets charged, so it is drawn open */
+  function acceptor(len){
+    const h = W/2;
+    return '<path d="M ' + (-h) + ' 0 L ' + (-h) + ' ' + (-len) +
+           '" fill="none" stroke="' + INK + '" stroke-width="' + LW +
+           '" stroke-linecap="round"/>' +
+           '<path d="M ' + h + ' 0 L ' + h + ' ' + (-len) +
+           ' l 0 ' + (-28) + '" fill="none" stroke="' + INK + '" stroke-width="' +
+           LW + '" stroke-linecap="round"/>';
+  }
+
+  let g = '<g transform="translate(' + TX + ',' + TY + ')">';
+  g += acceptor(150);
+  g += arm(180, 96, 44);                /* D arm,  left  */
+  g += arm(0,   96, 44);                /* T arm,  right */
+  g += arm(90, 132, 48);                /* anticodon, down */
+  /* the variable loop: a short stub off the anticodon stem, which is
+     where it sits on a real tRNA */
+  g += '<g transform="translate(' + n2(W/2) + ',72)">' + arm(16, 24, 19) + '</g>';
+  g += '</g>';
+
   /* CUA, on the same pennant the plasmid's UAG uses */
-  const tip = [TX, TY + 200];
-  const bx = TX - 52, by = TY + 254, w = 104, h = 46;
-  s += '<path d="M ' + n2(tip[0]) + ' ' + n2(tip[1]) + ' L ' + n2(bx) + ' ' +
+  const tip = [TX, TY + 236];
+  const bx = TX - 52, by = TY + 282, w = 104, h = 46;
+  g += '<path d="M ' + n2(tip[0]) + ' ' + n2(tip[1]) + ' L ' + n2(bx) + ' ' +
        n2(by) + ' L ' + n2(bx + w) + ' ' + n2(by) + ' Z" fill="none" stroke="' +
        VERM + '" stroke-width="2.5"/>';
-  s += '<rect x="' + n2(bx) + '" y="' + n2(by) + '" width="' + w + '" height="' +
+  g += '<rect x="' + n2(bx) + '" y="' + n2(by) + '" width="' + w + '" height="' +
        h + '" rx="4" fill="#ffffff" stroke="' + VERM + '" stroke-width="3"/>';
-  s += '<text x="' + n2(bx + w/2) + '" y="' + n2(by + h/2 + 1) + '" ' +
+  g += '<text x="' + n2(bx + w/2) + '" y="' + n2(by + h/2 + 1) + '" ' +
        'text-anchor="middle" dominant-baseline="central" ' +
        'font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="28" ' +
        'font-weight="700" fill="' + VERM + '">CUA</text>';
-  s += '<text x="' + TX + '" y="' + (TY - 232) + '" text-anchor="middle" ' +
+  g += '<text x="' + TX + '" y="' + (TY - 212) + '" text-anchor="middle" ' +
        'font-family="inherit" font-size="30" fill="' + INK +
        '">suppressor tRNA</text>';
-  return s;
+  return g;
 }
 
 function curve(x0, y0, cx, cy, x1, y1){
