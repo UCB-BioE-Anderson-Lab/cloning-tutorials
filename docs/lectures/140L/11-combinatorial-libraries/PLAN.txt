@@ -288,16 +288,112 @@ WHAT IS NOT IN THE DECK
 Nothing.  All 50 source slides are converted, in the source's order, and
 no slide is split, merged or moved.  There are no added slides.
 
+
+=====================================================================
+WHAT JCA CHANGED ON 2026-11-10, AND WHY THE CONVERSION RULE NO LONGER
+GOVERNS THIS DECK
+=====================================================================
+The 27 Oct 2026 ruling -- "Don't get creative there -- don't modify
+the flow.  Not content, just formatting." -- governed the CONVERSION.
+On 10 Nov 2026 JCA revised the deck himself, instruction by
+instruction.  Each change below is his, not the conversion's, and the
+deck is no longer a straight render of the pptx.  The .pptx is left
+alone as the historical source except where noted.
+
+1. SOURCE 6'S BULLET.  "how many different permutations of these
+   sequences are there?" -> "how many different sequences are
+   possible?"  A permutation OF a sequence is a rearrangement of it,
+   so read literally it asked for the 720 shuffles of Seq1.  Changed
+   in the .pptx first (ppt/slides/slide6.xml) and then here.
+
+2. THE LOTTERY REFRAME, sources 5, 6 and 8.  The gumball machine is
+   now a lottery draw.  Same arithmetic, a more familiar picture.
+   Source 6 is animated: seq/06-lottery.js runs a globe of churning
+   balls and six roll out of the chute on a click.
+   THE TRAP, and the reason the bullet says what it says: a real
+   lottery draws WITHOUT replacement, which gives P(20,6) = 27,907,200
+   and not 20^6.  So the globe holds MANY balls of each of twenty
+   numbers and every ball is replaced -- the gumball machine's premise
+   kept exactly -- and the slide says so in words.  Seq2 and Seq3
+   repeat numbers on purpose.
+   The spoken notes follow the artwork, through note-corrections.txt,
+   in a block clearly marked as not-typos.
+
+3. SOURCE 7.  Five bullets became three, tightened, and the slide
+   gained the calculation drawn out: a 1 L flask, five ten-fold
+   dilutions, 100 uL plated from the last three, and plates of 160, 15
+   and 2 colonies.  Only the 160 plate is in the countable range, and
+   the arithmetic rests on it alone: 160 / 0.1 mL x 10^3 x 1000 mL =
+   1.6e9 transformants.  seq/07-titer.js, which carries the numbers
+   and the reasoning.
+
+4. FIVE FIGURES REDRAWN, and ONE put on a panel.  JCA called them
+   blotchy or splotchy one at a time; they turned out to be two faults
+   repeating.
+
+   THE FIRST FAULT IS UPSCALE, and nothing fixes it but redrawing:
+       source 21 constructs   image27.png  283x241  shown ~1400 wide
+       source 21 chart        image28.png  625x361  shown ~1400 wide
+       source 23 SELEX        image30.png  367x328  shown ~1380 wide
+       source 27 M13          image33.png  408x243  shown ~1650 wide
+       source 28 panning      image31.png  685x643  shown ~1300 wide
+   All five are now vector, in seq/21-invasin.js, seq/23-selex.js,
+   seq/27-m13.js and seq/28-panning.js.  Same shapes, on JCA's
+   instruction; the colours are new and each file argues its own.
+
+   THE SECOND FAULT IS WHITE TYPE ON TRANSPARENCY -- figures drawn for
+   a dark slide.  Source 18 (image22.png) is the pure case: 80% of the
+   file is transparent and every label is white, so flattening it on
+   paper and painting the white into ink produced grey speckle.  It is
+   now the untouched media file on a charcoal panel.  Source 27 had
+   the same fault on top of the upscale, and redrawing fixed both.
+
+   THE THREE LEGIBILITY GAPS RECORDED ABOVE AS "THE SOURCE'S, NOT THE
+   CONVERSION'S" ARE NOW CLOSED.  Source 21's white-on-light-green
+   labels and source 30's dark-grey-in-green are gone with the
+   redraws; source 18's pink BsaI residue is visible and correct on
+   the charcoal panel, which is what it was drawn against.
+
+5. THE ALL-HANDS SECTION IS DISSOLVED.  Source 43, the blue All-Hands
+   divider, is deleted.  Sources 44-50, the Plib material, moved into
+   02-construction.html after the RBS libraries slide, which is where
+   they belong: Plib IS a promoter/RBS library and the class builds
+   it.  05-all-hands.html is gone and lecture.js is five sections.
+   02-construction.html therefore runs source 11-21 and then 44-50 --
+   source numbers are no longer ascending across the deck, which
+   verify_notes.py does not care about because it reads each slide's
+   own comment.
+
+WHERE THE SOURCE NUMBERS LIVE NOW
+  00-front-matter.html   1-4
+  01-diversity.html      5-10
+  02-construction.html   11-21, then 44-50
+  03-selections.html     22-39
+  04-questions.html      40-42
+  43 is deleted.
+
+CHECKING A SEQUENCE'S NOTES
+  Two slides keep their notes in a sequence file now, so they need
+  their own invocation:
+     python3 ../../tools/verify_notes.py <raw> --keep-urls \
+         --corrections note-corrections.txt --seq seq/06-lottery.js lottery=6
+     python3 ../../tools/verify_notes.py <raw> --keep-urls \
+         --corrections note-corrections.txt --seq seq/07-titer.js titer=7
+  The tool wants  const <NAME> = [  with one  note:"  per line at a
+  four-space indent.  A step the source never covered carries add:
+  instead, which is spoken but is NOT part of what the verifier
+  concatenates -- the data-note-add rule, in the form a sequence can
+  hold.
+
 WHERE THIS STANDS
 -----------------
-  00-front-matter.html     source  1-4    DONE  (4 steps, audit clean)
-  01-diversity.html        source  5-10   DONE  (12 steps, audit clean)
-  02-construction.html     source 11-21   DONE  (16 steps, audit clean)
-  03-selections.html       source 22-39   DONE  (21 steps, audit clean)
-  04-questions.html        source 40-42   DONE  (3 steps, audit clean)
-  05-all-hands.html        source 43-50   DONE  (11 steps, audit clean)
+  00-front-matter.html     source  1-4         DONE  (4 steps)
+  01-diversity.html        source  5-10        DONE  (15 steps)
+  02-construction.html     source 11-21, 44-50 DONE  (26 steps)
+  03-selections.html       source 22-39        DONE  (21 steps)
+  04-questions.html        source 40-42        DONE  (3 steps)
 
-  67 steps in all.  verify_notes.py passes on all 41 slides that carry a
+  69 steps in all.  verify_notes.py passes on all 41 slides that carry a
   note.  Linked from 140L/index.html and counted in docs/index.md.
 
   NOT DEPLOYED.  The site publishes from gh-pages by a manual
