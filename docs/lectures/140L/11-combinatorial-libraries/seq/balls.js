@@ -190,6 +190,40 @@ function fill(){
     el.innerHTML = svgWrap((-r - 3) + " " + (-r - 3) + " " + w + " " + (r * 2 + 6), s);
   });
 
+  /* ---- a lottery ticket ------------------------------------------- *
+   * Source 8 used to glue the six balls into a "hexamer".  JCA
+   * reframed it on 2026-11-10: one draw of six numbers is one TICKET,
+   * and the question becomes how many random tickets you must buy for
+   * a 99% chance of holding the winning one.  Same arithmetic, and a
+   * far better picture of what a library member is -- a ticket is
+   * obviously ONE thing made of six choices, which is exactly what a
+   * library member is and what a row of glued spheres never quite
+   * looked like.
+   *
+   * Drawn as a card with a torn stub down the left, because that is
+   * what makes a rectangle read as a ticket and not as a table.
+   * ------------------------------------------------------------------ */
+  document.querySelectorAll("[data-ticket]").forEach(function(el){
+    const list = el.getAttribute("data-ticket").split(",")
+                   .map(v => parseInt(v.trim(), 10)).filter(v => v > 0);
+    const R = 42, GAP = 96, PADX = 46, PADY = 34, STUB = 56;
+    const inner = GAP * (list.length - 1) + R * 2;
+    const W = STUB + PADX * 2 + inner, H = R * 2 + PADY * 2 + 46;
+    let s = '<rect x="2" y="2" width="' + (W-4) + '" height="' + (H-4) +
+            '" rx="12" fill="#ffffff" stroke="#111111" stroke-width="3.5"/>';
+    /* the perforation */
+    s += '<line x1="' + STUB + '" y1="10" x2="' + STUB + '" y2="' + (H-10) +
+         '" stroke="#111111" stroke-width="2.5" stroke-dasharray="7 9" ' +
+         'opacity="0.55"/>';
+    s += '<text x="' + (STUB/2) + '" y="' + (H/2) + '" text-anchor="middle" ' +
+         'dominant-baseline="central" font-family="var(--sans, system-ui, sans-serif)" ' +
+         'font-size="21" font-weight="700" fill="#767676" ' +
+         'transform="rotate(-90 ' + (STUB/2) + ' ' + (H/2) + ')">TICKET</text>';
+    const x0 = STUB + PADX + R;
+    list.forEach(function(n, i){ s += ballAt(n, x0 + i * GAP, PADY + R + 30, R); });
+    el.innerHTML = svgWrap("0 0 " + W + " " + H, s);
+  });
+
   document.querySelectorAll("[data-heap]").forEach(function(el){
     const n = parseInt(el.getAttribute("data-heap"), 10) || 30;
     const seed = parseInt(el.getAttribute("data-seed"), 10) || 7;

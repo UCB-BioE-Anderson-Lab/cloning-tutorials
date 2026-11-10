@@ -67,12 +67,18 @@ const TUBES = [1, 2, 3, 4, 5];
  * top-left, the tube row runs the full width beside it, the plates
  * hang under the last three tubes, and the arithmetic goes in the big
  * empty quarter UNDER the flask -- which the first layout left blank
- * while crowding everything else.  Tube spacing is now 148, wider than
- * any label that sits under it.
+ * while crowding everything else.
+ *
+ * THIRD PASS, same day: the row still stopped around x=1060 and left
+ * 400px of empty paper on the right, so JCA asked for the drawing to
+ * open out into it.  Tube pitch went 148 -> 200 and the plates grew
+ * with it, 66 -> 86 radius.  The plates are the thing worth looking
+ * at on this slide -- they are the measurement -- so they get the
+ * space rather than the margin keeping it.
  * -------------------------------------------------------------------- */
 const FLX = 244, FLY = 418;              /* flask centre               */
-const TUBE0 = 440, TUBEW = 148, TUBEY = 376;
-const PLATEY = 664, PLATER = 66;
+const TUBE0 = 490, TUBEW = 200, TUBEY = 376;
+const PLATEY = 662, PLATER = 86;
 const MATHX = 128, MATHY = 616;          /* the sum, under the flask   */
 
 function sci(m, e){
@@ -158,7 +164,9 @@ function plate(k){
   const col = p.use ? VERM : MUTED;
   const rand = window.LotteryBall.rng(9000 + k * 31);
   let dots = "", placed = [];
-  const dr = p.count > 100 ? 3.1 : p.count > 10 ? 4.4 : 5.6;
+  /* proportional to the plate, so growing the plate does not turn a
+     crowded lawn into a sparse one */
+  const dr = PLATER * (p.count > 100 ? 0.047 : p.count > 10 ? 0.067 : 0.085);
   let guard = 0;
   while (placed.length < p.count && guard++ < p.count * 60){
     const a = rand() * Math.PI * 2;
@@ -229,8 +237,8 @@ function build(){
   /* down to the plates */
   PLATES.forEach(function(p, k){
     const x = TUBE0 + TUBEW * (2 + k);
-    s += arrow(x, TUBEY + 162, x, PLATEY - PLATER - 14, p.use ? VERM : MUTED);
-    s += '<text x="' + (x + 11) + '" y="' + (TUBEY + 196) +
+    s += arrow(x, TUBEY + 118, x, PLATEY - PLATER - 14, p.use ? VERM : MUTED);
+    s += '<text x="' + (x + 11) + '" y="' + (TUBEY + 160) +
          '" font-family="inherit" font-size="21" fill="' + MUTED +
          '">100 \u00b5L</text>';
   });

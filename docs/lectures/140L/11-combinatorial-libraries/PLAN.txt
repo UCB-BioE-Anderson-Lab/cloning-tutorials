@@ -319,6 +319,22 @@ alone as the historical source except where noted.
    The spoken notes follow the artwork, through note-corrections.txt,
    in a block clearly marked as not-typos.
 
+2b. SOURCE 8 IS A LOTTERY TICKET, not a hexamer.  One draw of six
+   numbers is one ticket, and the question is "how many random tickets
+   do I have to buy to have a 99% chance that I hold the winning one?"
+   THIS IS ALSO THE MORE ACCURATE QUESTION.  P = 1 - e^(-p/n) = 0.99
+   gives p = 4.6n for ONE named member -- the winning ticket.  The
+   source's second bullet asked for "at least one of each theoretical
+   member", which is the coupon-collector problem and needs n.ln(n),
+   about 18n here, not 4.6n.  The slide's own lede always said "a
+   single member", so the formula and the lede agreed and only the
+   bullet overstated it.  The reframe fixes that by accident and the
+   slide is now self-consistent.
+   The ticket is drawn in seq/balls.js (data-ticket), and the slide
+   gained one muted line putting a number on it: n = 6.4e7 possible
+   tickets, so p = 2.9e8 tickets.  That line is new to the deck and
+   carries data-note-add rather than a verbatim note.
+
 3. SOURCE 7.  Five bullets became three, tightened, and the slide
    gained the calculation drawn out: a 1 L flask, five ten-fold
    dilutions, 100 uL plated from the last three, and plates of 160, 15

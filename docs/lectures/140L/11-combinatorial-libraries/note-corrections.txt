@@ -96,6 +96,15 @@ and get sequences of 6 colors|and get sequences of 6 numbers
 how many different permutations of these sequences are there?|how many different sequences are possible?
 
 # --- source 8
-Let's say I glue the 6 gumballs together|Let's say I glue the 6 balls together
-The analogy of the gumballs is to amino acids|The analogy of the balls is to amino acids
-a hexamer of gumballs glued together|a hexamer of balls glued together
+# JCA, later the same day: the hexamer is a LOTTERY TICKET.  One draw of
+# six numbers is one ticket, and the question becomes how many random
+# tickets you must buy for a 99% chance of holding the winning one.
+# That is also the more accurate question: P = 1 - e^(-p/n) = 0.99 gives
+# 4.6n for ONE named member, which is the winning ticket.  The source's
+# "at least one of each theoretical member" is the coupon-collector
+# problem and would need n.ln(n), not 4.6n -- so the reframe quietly
+# fixes a real overstatement rather than only changing the picture.
+Let's say I glue the 6 gumballs together into hexamers|Let's say each draw of six numbers is one lottery ticket
+The analogy of the gumballs is to amino acids|The analogy of the numbers is to amino acids
+a hexamer of gumballs glued together|one lottery ticket
+How many of these random hexamers do I have to make to have a 99% probability that I have at least one of each theoretical member?|How many of these random tickets do I have to buy to have a 99% probability that I hold the winning one?
