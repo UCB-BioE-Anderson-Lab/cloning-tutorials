@@ -73,10 +73,10 @@
 .slide .r31 .tab{grid-column:2;grid-row:2}
 .slide .r31 .ompx span{display:block;width:100%;height:100%;min-height:0}
 .slide .r31 .ompx svg{width:100%;height:100%;display:block}
-/* source 38: the key sits top right, the populations below it */
-.slide .r38{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
-.slide .r38 .key{justify-content:flex-end;align-items:flex-start}
-.slide .r38 .key img{width:auto;height:auto;max-height:130px}
+/* source 38: one drawing now, key and all */
+.slide .luxr{flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin-top:4px}
+.slide .luxr svg{width:100%;height:100%;display:block}
 </style>
 </head>
 <body>
@@ -306,14 +306,7 @@ This type of genetic selection can be applied to any transcriptional process &nd
 <!-- ---------------------------------------------------------------- 38 -->
 <article class="slide">
   <h1>Dual Selections</h1>
-  <div class="panels r38">
-    <figure class="key">
-      <img src="img/38-key.png" alt="Key: a filled blue circle is wild type, an open circle is a dead mutant, a filled red circle is a variant with changed specificity.">
-    </figure>
-    <figure>
-      <img src="img/38-dual.png" alt="Three populations drawn as scattered circles. The naive population is mostly open circles &mdash; dead mutants &mdash; with a few blue wild types and two red changed-specificity variants. After the positive selection with the stimulus, the dead mutants are gone and blues and reds remain. After the negative selection without the stimulus, only the red changed-specificity variants are left.">
-    </figure>
-  </div>
+  <div class="luxr" data-fig="luxr"></div>
   <template class="notes"></template>
   <template class="notes-add">Here is what the two rounds actually do to the population. You start with the library, and most of it is dead, meaning those variants do not activate the promoter in response to anything. The positive selection, run in the presence of the new small molecule, clears all of that out. What you are left with is a mixture of two things: variants that have genuinely changed their specificity, and wild-type LuxR that is responding to something it was always able to respond to. That mixture is the whole problem, and it is why the positive selection on its own does not finish the job. The negative selection then runs in the presence of the old small molecule, and anything that still answers to the old ligand now kills itself. What comes through both rounds is the thing you asked for, which is a LuxR that responds to the new molecule and not to the old one.</template>
   <template class="desc">What the two rounds do to the population: the positive selection clears out everything dead, leaving wild type and changed-specificity variants together; the negative selection then removes the wild type, because it still responds to the old stimulus, and only the changed specificity survives both.</template>
@@ -338,6 +331,7 @@ Operationally, they first apply the ON selection in the presence of their new sm
 <script src="seq/27-m13.js" defer></script>
 <script src="seq/30-yeast.js" defer></script>
 <script src="seq/31-ompx.js" defer></script>
+<script src="seq/38-luxr.js" defer></script>
 <script src="seq/32-complement.js" defer></script>
 <script src="seq/35-amber.js" defer></script>
 <script src="seq/36-dual.js" defer></script>
