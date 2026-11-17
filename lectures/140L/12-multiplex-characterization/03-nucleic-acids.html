@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Functional Nucleic Acids &ndash; Multiplex Characterization</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig{flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin:6px 0 0}
+.slide figure.fig img{max-width:100%;max-height:100%;width:auto;height:auto;
+  object-fit:contain}
+.slide ul.tight li{font-size:28px;margin-bottom:12px}
+.slide ul.fill{margin-top:auto;margin-bottom:auto}
+.slide ul.fill li{font-size:28px;margin-bottom:18px}
+.slide pre.seqblock{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:13px;line-height:1.35;white-space:pre-wrap;word-break:break-all;
+  margin:10px 0 0;color:var(--ink)}
+.slide p.sub{font-size:26px;color:var(--muted);margin:0 0 6px}
+/* Source 25 is TWO separate plots, each with its own caption and a leader
+   arrow pointing into it.  The rough cut cropped the union of the two
+   PICTURE boxes, which swallowed the "Deep Sequencing" caption (it falls
+   inside that rectangle) while leaving the SELEX caption outside it -- so
+   one printed twice, baked into the bitmap AND as a bullet, and the other
+   lost its arrow.  The plots are now placed separately, straight from the
+   pptx media, with both captions as real text.
+   The source stacks the two plots diagonally, which is a 4:3 habit; at
+   16:9 with both plots at a size a room can read they sit side by side
+   instead.  What the diagonal carried -- which caption belongs to which
+   plot -- is carried by the panels and the leader arrows. */
+.slide .selex{flex:1 1 auto;min-height:0;display:flex;gap:70px;
+  align-items:stretch;margin-top:6px}
+.slide .selex .panel{flex:1 1 0;min-width:0;display:flex;flex-direction:column;
+  margin:0}
+.slide .selex figcaption{font-size:26px;line-height:1.3;margin-bottom:4px}
+.slide .selex .lead{width:90px;height:52px;flex:0 0 auto;margin:0 0 2px 18px}
+/* The media are 368x321 and 255x241, and the source slide itself shows
+   them at about 1.5x that, so filling the panel is what the original
+   does too.  max-height clamps the taller one rather than letting it
+   push the caption off the slide. */
+.slide .selex img{min-height:0;width:100%;height:auto;max-height:100%;
+  object-fit:contain;align-self:flex-start}
+.slide .fg{flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin-top:4px}
+.slide .fg svg{width:100%;height:100%;display:block}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 24 -->
+<article class="slide" data-bg="section">
+  <h1>Multiplex characterization of functional nucleic acids</h1>
+  <template class="notes">Since RNA and DNA libraries can be readily amplified by rtPCR or PCR directly, such libraries are prime candidates for analysis by deep sequencing.  Let’s look at some examples.</template>
+  <template class="notes-add">That is the end of the toolkit; everything from here on is somebody using it. To be clear about what this section is, the four examples coming up are all functional nucleic acids &#8212; molecules that fold up and do something, like an aptamer that binds a protein or a structured region of an mRNA. The other thing people deep sequence RNA for is how much of it there is, and we did that one already as RNA-seq back among the tools. Here the question is what the molecule does, not how much of it is around.</template>
+  <template class="desc">Section divider on the amber ground: Multiplex characterization of functional nucleic acids.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 25 -->
+<article class="slide">
+  <h1>SELEX with Deep Sequencing</h1>
+  <div class="selex">
+    <figure class="panel">
+      <figcaption>Microfluidic-based SELEX of DNA Aptamer library</figcaption>
+      <svg class="lead" viewBox="0 0 90 70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="6" y1="6" x2="70" y2="52" stroke="#767676" stroke-width="2.5"/><path d="M 82 61 L 65 58 L 72 46 Z" fill="#767676"/></svg>
+      <img src="img/25-selex-curve.png" alt="A binding curve: fluorescence intensity against single-stranded DNA concentration, for the initial library pool and the pools after rounds one, two and three. The first three lie almost flat together; the round-three pool rises steeply and saturates far above them.">
+    </figure>
+    <figure class="panel">
+      <figcaption>Deep Sequencing</figcaption>
+      <svg class="lead" viewBox="0 0 90 70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="6" y1="6" x2="70" y2="52" stroke="#767676" stroke-width="2.5"/><path d="M 82 61 L 65 58 L 72 46 Z" fill="#767676"/></svg>
+      <img src="img/25-selex-enrich.png" alt="Sequence counts against round-three over round-one enrichment fold. The great majority of sequences sit at low enrichment near the axis; a thin tail of individually rare sequences runs out to several thousand-fold.">
+    </figure>
+  </div>
+  <p class="src">PMID: 20705898</p>
+  <template class="notes">Here is an example from Tom Soh in which deep sequencing is used as the readout after a SELEX experiment.  They begin with a typical poly-N oligonucleotide containing PCR priming sites on both ends, then subject this library to selection for binding to a protein.  In this variant, they employ a microfluidic device to perform the separation of bound and unbound DNAs, however, this step of the experiment might also be done by more traditional columns or panning.  The sample is then prepped for deep sequencing, and they calculate the frequency of observed sequences within the hit population.  From this, they can identify the most promising sequences for further analysis.</template>
+  <template class="desc">Two plots side by side, each with its caption above it and a short arrow leading down into it. Left, captioned microfluidic-based SELEX of DNA aptamer library: fluorescence intensity against single-stranded DNA concentration, with the starting pool and the round one and round two pools lying almost flat together and the round three pool rising steeply and saturating well above them. Right, captioned deep sequencing: sequence counts against round-three over round-one enrichment fold, with most sequences bunched at low enrichment near the axis and a thin tail running out to several thousand-fold.</template>
+</article>
+
+
+<!-- ---------------------------------------------------------------- 27 -->
+<article class="slide">
+  <h1>PARS:  Cleavage with RNAses</h1>
+  <figure class="fig"><img src="img/27-pars.png" alt="The PARS workflow in three parts. A capped, polyadenylated mRNA is folded in vitro and split down two arms. In arm a it is digested with RNase V1, which cuts double-stranded regions; in arm b with S1 nuclease, which cuts single-stranded ones. Each arm is then randomly fragmented, prepared as a sequencing library and deep sequenced, giving a profile of read counts along the sequence. In part c the two profiles are combined as the log base two of V1 over S1, the PARS score, plotted as a bar for each base above and below zero."></figure>
+  <p class="src">PMID: 20811459</p>
+  <template class="notes">Deep sequencing also allows us to ask more chemical questions about a biomolecule.  Here, the PARS method allows you to map out the secondary structure of an RNA in a multiplex fashion.  Samples of mRNA with a 5’ barcode are treated with enzymes that cleave various secondary structures.  These fragments are then subjected to deep sequencing revealing the fragments in between these secondary structural elements.  Effectively, it’s a lot like fingerprinting assays, but done more easily and on more sequences in parallel.</template>
+  <template class="desc">A published figure in three parts. A capped, polyadenylated mRNA is folded and split down two arms: in one it is digested with RNase V1, which cuts double-stranded regions, in the other with S1 nuclease, which cuts single-stranded ones. Each arm is then randomly fragmented, made into a sequencing library and deep sequenced, giving a profile of read counts along the sequence. In the third part the two profiles are combined as the log base two of V1 over S1 and drawn as a bar for each base, above or below zero.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 28 -->
+<article class="slide">
+  <h1>SHAPE-Seq</h1>
+  <figure class="fig"><img src="img/28-shape.png" alt="A reaction scheme. A constrained RNA with a free two-prime hydroxyl is in equilibrium with a flexible form; only the flexible form reacts appreciably with the reagent 1M7, whose structure is drawn above the arrow. The reaction releases carbon dioxide and leaves a two-prime O adduct on the ribose, drawn at the right."></figure>
+  <p class="src">PMID: 21642531, 17367143, 20554050, 17406453</p>
+  <template class="notes">The SHAPE reaction (Weeks) allows you to chemically distinguish residues on an mRNA that are flexible or constrained.  The 2’OH of an RNA base is more reactive when it is flexible, so it is more likely to react with this reagent 1M7.  Once incorporated, the 2’-adduct blocks reverse transcription resulting in fragment sequences.  The method provides a series of structural constraints that when combined with modeling methods provides insights in the tertiary structure and molecular dynamics of the molecule.</template>
+  <template class="desc">A reaction scheme. At the left, a constrained RNA with a free two-prime hydroxyl sits in equilibrium with a flexible form of the same RNA. The reagent 1M7 is drawn above the reaction arrow; only the flexible form reacts with it appreciably. The reaction releases carbon dioxide and leaves a two-prime O adduct on the ribose, drawn at the right.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 29 -->
+<article class="slide">
+  <h1>SHAPE-Seq</h1>
+  <figure class="fig"><img src="img/29-shapeseq.png" alt="The SHAPE-Seq protocol in two halves. In A, input RNAs are treated either with 1M7 or with a DMSO control; reverse transcription from a plus or minus handle primer stops wherever an adduct sits; the RNA is hydrolyzed, single-stranded DNA is ligated on, and the products are read as paired-end reads on an Illumina Genome Analyzer, with two adapter types marked. In B, reads are binned by handle, aligned and separated by barcode for each RNA; the plus and minus handle counts are plotted back to back along the sequence, passed through automated maximum likelihood estimation to give a reactivity for each base, and the reactivities constrain a predicted secondary structure."></figure>
+  <template class="notes">SHAPE-Seq is a method developed in the Arkin lab by Julius Lucks that enables the readout of the SHAPE reaction by deep sequencing using a barcoding strategy.  This allows them to analyze the structural properties of libraries RNAs.</template>
+  <template class="desc">A published protocol figure in two panels. In panel A, input RNAs are treated either with 1M7 or with a DMSO control; reverse transcription from a plus or minus handle primer stops wherever an adduct sits; the RNA is hydrolyzed, single-stranded DNA is ligated on, and the products are read as paired-end Illumina reads, with two adapter types marked. In panel B, the reads are binned by handle, aligned and separated by barcode for each RNA, the plus and minus counts are plotted back to back along the sequence, passed through maximum likelihood estimation to give a reactivity for each base, and those reactivities constrain a drawn secondary structure.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

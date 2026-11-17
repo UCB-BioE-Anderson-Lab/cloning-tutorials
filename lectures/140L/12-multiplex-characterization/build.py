@@ -1,3 +1,17 @@
+"""SUPERSEDED -- DO NOT RUN.  2026-11-17.
+
+This generated the rough cut on 2026-11-10 and nothing since.  The deck it
+describes no longer exists: sources 35 and 42 have been removed, four slides
+have been added, RNA-seq has moved into Tools, the old "RNAs and DNAs"
+section has been split into functional nucleic acids and regulatory DNA, and
+every section file below has been renumbered or renamed.
+
+Running this would overwrite all of that with the rough cut again -- every
+redrawn figure, every piece of narration, every correction.  It is kept only
+as the record of how the conversion was first done.  The live structure lives
+in lecture.js, and PLAN.txt says why it is what it is.
+"""
+
 import xml.etree.ElementTree as ET, os, html, re, glob
 A='{http://schemas.openxmlformats.org/drawingml/2006/main}'
 P='{http://schemas.openxmlformats.org/presentationml/2006/main}'

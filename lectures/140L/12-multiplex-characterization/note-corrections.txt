@@ -1,5 +1,39 @@
-# Spelling and grammar corrections applied to the SOURCE note before the
-# verbatim comparison.  Format: wrong|right.  Nothing else may go in here.
+# Edits applied to the SOURCE note before the verbatim comparison, so that
+# comparison still proves nothing ELSE diverged.  Format: wrong|right.
 #
 # Run verify_notes.py WITHOUT --corrections to see which slides this list is
-# actually holding up.  Empty so far: the rough cut has not been proofread.
+# actually holding up.
+#
+# TWO KINDS OF ENTRY, AND THE DIFFERENCE MATTERS.
+#
+# [1] SPELLING AND GRAMMAR.  The source's own slips.  These need no reason;
+#     the right-hand side speaks for itself.  Lectures 10 and 11 carry 19 and
+#     38 of these and nothing else.
+#
+# [2] DELIBERATE REVISION, where JCA has decided the note should now SAY
+#     SOMETHING DIFFERENT -- a claim that has stopped being true, or a line
+#     he no longer wants to deliver.  This file originally said only spelling
+#     and grammar could go in here, and that restriction existed for a good
+#     reason: a content rewrite smuggled in as a "correction" is exactly how
+#     this check would rot.  So revisions are allowed, but ONLY under this
+#     heading, and each one carries the date and the reason.  Nothing is
+#     hidden: the diff still proves every other word is the source's.
+#
+# ---- [1] spelling and grammar ----
+# (none yet; this deck's notes needed no proofreading)
+#
+# ---- [2] deliberate revisions ----
+#
+# 2026-11-17, source 11.  JCA: "Remove the 'easy' sentence.  it isn't
+# 'easy'."  Building a thousand-member synthetic ortholog library is not
+# easy, and the sentence undercuts the slide either side of it.
+without the need for specialized equipment.  It’s pretty easy.|without the need for specialized equipment.
+#
+# 2026-11-17, source 14.  The slide's numbers were updated the same day from
+# the vendors' current specification pages, and four claims in this note
+# contradicted the slide that would be on screen while it was read.  The
+# nanopore and PacBio accuracy claims were true when the note was written and
+# are not now; see PLAN.txt, "SOURCE 14 IS CURRENT AGAIN".
+Numbers from Google|Numbers from the vendors’ specification pages
+which can be interpreted as a low-accuracy sequence.  The lower resolution of these instruments makes them atypical choices for multiplex characterization—you can’t read barcodes, there are probably use cases for it.  The data would be adequate for part-level diversification.  New methods of error-correction could ultimately make this an all-purpose tool.|which can be interpreted as sequence.  Accuracy used to be the objection here—the reads were too rough to call barcodes reliably—but raw-read accuracy is now around 99.75%, so that objection has gone and these are reasonable instruments for multiplex characterization.
+results in very long low accuracy reads analogous to a nanopore.|results in very long reads; in HiFi mode about 90% of bases are called at Q30 or better.

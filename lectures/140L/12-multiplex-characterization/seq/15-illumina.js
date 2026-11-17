@@ -5,7 +5,7 @@
  *
  * WHY THIS EXISTS.  The rough cut of 2026-11-10 rendered five slides'
  * worth of this construct as one undifferentiated run of about 660
- * monospace characters.  In the source every region is COLOURED and
+ * monospace characters.  In the source every region is COLORED and
  * five of them are LABELLED with their own text boxes, so the rough
  * cut threw away the entire content of sources 15-19 and kept only
  * their raw bases.  PLAN.txt called it the single biggest gap in that
@@ -14,7 +14,7 @@
  * WHAT IS DRAWN.  Two things per slide, which is one more than the
  * source had: a MAP of the construct with the regions named, and under
  * it the ACTUAL SEQUENCE, character for character as the pptx has it,
- * coloured by region.  The map is schematic -- segment widths are
+ * colored by region.  The map is schematic -- segment widths are
  * chosen so the labels fit, not scaled to length, and the middle is
  * compressed hard.  The sequence is exact.  Keeping those two jobs in
  * separate objects is what lets the map stay readable without ever
@@ -24,58 +24,89 @@
  * length before being typed here.  The totals are 664, 664, 660, 192
  * and 192 characters.  If you edit a sequence, re-check the total.
  *
- * THREE THINGS IN THE SOURCE'S COLOURING ARE WRONG, AND ARE FIXED HERE.
- * All three are recorded because they are changes to JCA's slides:
+ * THE COLORING WAS REWORKED ON 2026-11-17.  The first cut of this
+ * file gave every region its own hue, following the source's, and
+ * printed a legend decoding them.  That is an identity map and
+ * palette.css forbids it; seven of the nine hues were not palette
+ * values at all.  JCA caught it while walking the deck.  How it works
+ * now is described at REGION below.  What the rework kept, and what
+ * it made unnecessary, from the source's own coloring:
  *
- * 1. THE TWO "MiSeq Primer Binding" LABELS HAVE DIFFERENT COLOURS.
- *    The near one is 00B0F0 cyan, the far one is accent4 purple, and
- *    both label text boxes carry the same words.  Two labels reading
- *    the same thing in two colours means colour is not identity, which
- *    defeats the figure.  Both are cyan here.
+ * KEPT -- THE SOURCE'S FAULTS ARE STILL FIXED, JUST NOT WITH HUE.
+ *   The source's two "MiSeq Primer Binding" labels were different
+ *   colors (00B0F0 cyan and accent4 purple) although both say the
+ *   same words; accent4 meanwhile also meant the spacer; and the two
+ *   20 bp library-specific sites -- the very thing JCA's note for
+ *   source 15 is about, "and then 20bp sites specific to your
+ *   experiment" -- were drawn in bg1, white on white, invisible.
+ *   None of those can happen now: a region is named by its label, the
+ *   same label every time, and the 20 bp sites are the focus of
+ *   source 15 and so are the one thing in blue on it.
  *
- * 2. accent4 IS ALSO THE VARIABLE-LENGTH SPACER.  Having been freed by
- *    (1), accent4 purple now means the spacer and only the spacer,
- *    which is what its own label said it meant.
+ * KEPT -- THE OPEN READING FRAME IS STILL DRAWN.  It is uncoloured in
+ *   the source, buried in a run of N, but source 18's whole argument
+ *   is that the read runs out before the gene can identify itself,
+ *   which you cannot see unless the gene is visible.  It is named and
+ *   in focus on 18 and 19.
  *
- * 3. THE 20 bp LIBRARY-SPECIFIC SITES ARE DRAWN IN bg1 -- WHITE ON
- *    WHITE, SO INVISIBLE.  There are exactly two runs of exactly 20 N,
- *    and JCA's note for source 15 says "and then 20bp sites specific
- *    to your experiment", so these are the thing the note is about and
- *    they could not be seen at all.  They are amber here.
+ * ADDED -- THE WORDS ON THE MAP THAT THE SOURCE DOES NOT HAVE.  The
+ *   contract says every change to JCA's slide is listed, and these are
+ *   changes: the source labels only P5, P7, the two MiSeq sites and the
+ *   spacer.  Everything else written on the map is ours.
+ *     "your 20 bp site"  names the region the source drew invisibly
+ *        (bg1 on white) and that JCA's own note for 15 describes.
+ *     "what you are characterizing"  names the long run of N in the
+ *        middle, which the source leaves unnamed; without it the
+ *        biggest segment of the map is the only mute one.
+ *     "the gene" / "the gene itself"  the ORF, see KEPT above.
+ *     "constant flanking context" (17)  is the note's own phrase for
+ *        the bases either side of the barcode.
+ *     "this much is what comes back in the data file" (16)  states in
+ *        words what the source made with color alone.
+ *     "the gene runs on; the read does not" (18, 19)  likewise, for
+ *        the truncation the source shows by simply stopping.
+ *     "NNN bases"  the character count of the run above it.  Not a
+ *        source figure, but not an invented one either: it is counted
+ *        off the source's own sequence at draw time.
+ *   The source's "P5 Illumina adapter" and "P7 Illumina adapter" are
+ *   shortened to "P5 adapter" and "P7 adapter" on the map so the
+ *   labels fit their segments; the full names are what the alt text
+ *   and REGION carry.
  *
- * ONE THING IS ADDED: the open reading frame at the end of sources 18
- * and 19 is uncoloured in the source, buried in a run of N.  Source
- * 18's whole argument is that the read runs out before the gene can
- * identify itself, which you cannot see unless the gene is visible.
- * It is blue.
- *
- * WHY 17-19 LOOK FADED.  The source drops the architecture colours on
- * those three slides and leaves only the barcode in green -- a
- * deliberate change of emphasis, since those slides are about the
- * barcode and not about the adapters.  Rather than either ignore that
- * or lose the orientation the colours give, the architecture is drawn
- * DESATURATED there and the barcode at full strength.  The map above
- * keeps its labels on every slide, so nothing is ever unnamed.
+ * DROPPED -- THE DESATURATION PASS.  17-19 used to draw the whole
+ *   architecture in washed-out versions of its hues so the barcode
+ *   could stand out.  With one focus color and context in --rule
+ *   there is nothing to wash out; the effect is the same and it
+ *   costs no invented values.
  * ------------------------------------------------------------------ */
 (function(){
 "use strict";
 
 /* ---- the regions -------------------------------------------------- *
- * Hues follow the source's own choices wherever the source was
- * self-consistent: red P5, cyan MiSeq, purple spacer, orange P7, green
- * barcode, brick T7.  They are a categorical inventory, not the house
- * attention ladder, so they are allowed to sit outside the palette.
+ * NAMES ONLY.  These used to carry a hue each -- red P5, cyan MiSeq,
+ * purple spacer, green barcode and so on, nine in all, with a printed
+ * legend mapping hue to region.  That is an IDENTITY MAP, which
+ * palette.css forbids outright ("do not assign a color to a class of
+ * object"), and seven of the nine hues were not in the palette at all.
+ * JCA caught it on 2026-11-17.
+ *
+ * Identity is now carried where it always should have been: the map
+ * LABELS every region, on every slide.  Color is freed to do its own
+ * job, which is attention -- and these five slides each have a
+ * different subject, so on each one the region that slide is about is
+ * promoted to blue and everything else stays context.  The legend is
+ * gone; it existed only to decode hues that no longer mean anything.
  * ------------------------------------------------------------------ */
 const REGION = {
-  p5:  { c: "#c0392b", name: "P5 Illumina adapter" },
-  ms:  { c: "#0a7fb8", name: "MiSeq primer binding" },
-  sp:  { c: "#7a5aa6", name: "variable-length spacer" },
-  lib: { c: "#a07d0c", name: "your 20 bp site" },
-  mid: { c: "#8a8a8a", name: "what you are characterising" },
-  p7:  { c: "#d4761f", name: "P7 Illumina adapter" },
-  bc:  { c: "#00843d", name: "barcode" },
-  t7:  { c: "#b0504d", name: "reverse priming site (T7 universal)" },
-  orf: { c: "#004373", name: "the gene itself" }
+  p5:  { name: "P5 Illumina adapter" },
+  ms:  { name: "MiSeq primer binding" },
+  sp:  { name: "variable-length spacer" },
+  lib: { name: "your 20 bp site" },
+  mid: { name: "what you are characterizing" },
+  p7:  { name: "P7 Illumina adapter" },
+  bc:  { name: "barcode" },
+  t7:  { name: "reverse priming site (T7 universal)" },
+  orf: { name: "the gene itself" }
 };
 
 const N = n => new Array(n + 1).join("N");
@@ -122,7 +153,7 @@ const READ_T7 = [
  * labels fit; it is not proportional to length and is not pretending to
  * be.  row is u1/u2 above the bar, d1/d2 below it, "in" for a label
  * written inside the bar, or "" for a segment that is not labelled
- * because another segment of the same colour already is.
+ * because another segment of the same color already is.
  * ------------------------------------------------------------------ */
 const MAP_FULL = [
   [25, "p5",  "P5 adapter",           "u2"],
@@ -169,39 +200,41 @@ const MAP_READ_T7 = [
 ];
 
 /* ---- per slide ----------------------------------------------------- *
- * faded: true draws the architecture desaturated and leaves only the
- * regions named in `bright` at full strength -- the source's own
- * emphasis on 17-19.
+ * `focus` names the regions THIS slide is about.  They are drawn in
+ * blue; every other region is context.  The sets for 16-19 are the
+ * source's own emphasis.  15's is new, and it is the subject of JCA's
+ * own note for that slide -- "and then 20bp sites specific to your
+ * experiment", the one part of the construct that is yours rather
+ * than Illumina's.
  * ------------------------------------------------------------------ */
 const SLIDES = {
-  "15": { seq: FULL,        map: MAP_FULL },
+  "15": { seq: FULL,        map: MAP_FULL, focus: ["lib"] },
   "16": { seq: FULL,        map: MAP_FULL,
-          bright: ["sp", "lib", "mid"],
+          focus: ["sp", "lib", "mid"],
           bracket: [2, 6, "this much is what comes back in the data file"] },
-  "17": { seq: BARCODED,    map: MAP_BARCODED, bright: ["bc"] },
-  "18": { seq: READ_PLAIN,  map: MAP_READ_PLAIN, bright: ["bc", "orf"],
+  "17": { seq: BARCODED,    map: MAP_BARCODED, focus: ["bc"] },
+  "18": { seq: READ_PLAIN,  map: MAP_READ_PLAIN, focus: ["bc", "orf"],
           truncated: "the gene runs on; the read does not" },
-  "19": { seq: READ_T7,     map: MAP_READ_T7,  bright: ["bc", "t7", "orf"],
+  "19": { seq: READ_T7,     map: MAP_READ_T7,  focus: ["bc", "t7", "orf"],
           truncated: "the gene runs on; the read does not" }
 };
 
 /* ------------------------------------------------------------------ */
-const INK = "#111111", MUTED = "#767676", FADE = "#c9c9c9";
+/* every value here is from palette.css and nowhere else */
+const INK = "#111111", BLUE = "#004373", MUTED = "#767676",
+      RULE = "#e2e2e2", PAPER = "#ffffff";
 
-function dim(hex){
-  /* mix a region colour most of the way to paper, so it still reads as
-     itself but stops competing with whatever is at full strength */
-  const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16),
-        b = parseInt(hex.slice(5, 7), 16), t = 0.72;
-  const m = v => Math.round(v + (255 - v) * t);
-  return "rgb(" + m(r) + "," + m(g) + "," + m(b) + ")";
+function isFocus(spec, key){
+  return !!spec.focus && spec.focus.indexOf(key) >= 0;
 }
-
-function colourOf(spec, key){
-  const c = REGION[key].c;
-  if (!spec.bright) return c;
-  return spec.bright.indexOf(key) >= 0 ? c : dim(c);
-}
+function barFill(spec, key){ return isFocus(spec, key) ? BLUE : RULE; }
+/* a name sits INSIDE its segment, so it must clear what is under it:
+   white on blue is 10.2:1, ink on --rule is 16.8:1 */
+function barText(spec, key){ return isFocus(spec, key) ? PAPER : INK; }
+/* a name on a leader outside the bar, and the leader itself */
+function labelColour(spec, key){ return isFocus(spec, key) ? BLUE : MUTED; }
+/* the bases themselves */
+function seqColour(spec, key){ return isFocus(spec, key) ? BLUE : MUTED; }
 
 /* ---- the map ------------------------------------------------------- */
 const MW = 1480, BAR_Y = 92, BAR_H = 34;
@@ -228,24 +261,27 @@ function mapSvg(spec){
 
   segs.forEach(function(seg){
     const w = seg[0] / total * W, key = seg[1], lab = seg[2], row = seg[3];
-    const col = colourOf(spec, key);
     s += '<rect x="' + x.toFixed(1) + '" y="' + BAR_Y + '" width="' + w.toFixed(1) +
-         '" height="' + BAR_H + '" fill="' + col + '" stroke="#ffffff" ' +
-         'stroke-width="1.5"/>';
+         '" height="' + BAR_H + '" fill="' + barFill(spec, key) +
+         '" stroke="' + PAPER + '" stroke-width="1.5"/>';
     if (row === "in"){
       s += '<text x="' + (x + w/2).toFixed(1) + '" y="' + (BAR_Y + BAR_H/2 + 7) +
            '" text-anchor="middle" font-family="inherit" font-size="19" ' +
-           'fill="#ffffff">' + REGION[key].name + '</text>';
+           'fill="' + barText(spec, key) + '">' + REGION[key].name + '</text>';
     } else if (lab && ROW[row] !== undefined){
-      ticks.push([x + w/2, ROW[row], lab, col, row[0] === "u"]);
+      ticks.push([x + w/2, ROW[row], lab, labelColour(spec, key),
+                  row[0] === "u", isFocus(spec, key)]);
     }
     x += w;
   });
 
   ticks.forEach(function(t){
     const cx = t[0], y = t[1], up = t[4];
+    /* weight backs up hue, so the focused region still stands out in
+       greyscale and to a viewer who cannot separate the two */
     s += '<text x="' + cx.toFixed(1) + '" y="' + y + '" text-anchor="middle" ' +
-         'font-family="inherit" font-size="21" font-weight="700" fill="' + t[3] +
+         'font-family="inherit" font-size="21" font-weight="' +
+         (t[5] ? "700" : "400") + '" fill="' + t[3] +
          '">' + t[2] + '</text>';
     s += '<line x1="' + cx.toFixed(1) + '" y1="' + (up ? y + 8 : y - 20) +
          '" x2="' + cx.toFixed(1) + '" y2="' + (up ? BAR_Y : BAR_Y + BAR_H) +
@@ -268,7 +304,7 @@ function mapSvg(spec){
   }
 
   if (spec.truncated){
-    const last = segs[segs.length - 1], col = colourOf(spec, last[1]);
+    const last = segs[segs.length - 1], col = barFill(spec, last[1]);
     /* stepped blocks rather than a gradient: a gradient needs an id, and
        ids on this deck are page-global with several drawings per page */
     for (let i = 0; i < 5; i++){
@@ -279,7 +315,7 @@ function mapSvg(spec){
     s += '<line x1="' + (X0 + W) + '" y1="' + (BAR_Y - 14) + '" x2="' +
          (X0 + W) + '" y2="' + (BAR_Y + BAR_H + 14) + '" stroke="' + INK +
          '" stroke-width="2.5" stroke-dasharray="5 4"/>';
-    /* anchored to the right edge, not centred on the fade: centred, the
+    /* anchored to the right edge, not centered on the fade: centered, the
        sentence ran off the end of the viewBox and lost its last word */
     s += '<text x="' + (MW - 20) + '" y="' + (BAR_Y - 24) +
          '" text-anchor="end" font-family="inherit" font-size="18" ' +
@@ -304,21 +340,7 @@ function mapAlt(spec){
 function seqHtml(spec){
   let s = "";
   spec.seq.forEach(function(run){
-    s += '<span style="color:' + colourOf(spec, run[0]) + '">' + run[1] + '</span>';
-  });
-  return s;
-}
-
-/* ---- the legend ----------------------------------------------------- */
-function legendHtml(spec){
-  const seen = [];
-  let s = "";
-  spec.seq.forEach(function(run){
-    if (seen.indexOf(run[0]) >= 0) return;
-    seen.push(run[0]);
-    const c = colourOf(spec, run[0]);
-    s += '<span class="chip"><i style="background:' + c + '"></i>' +
-         REGION[run[0]].name + '</span>';
+    s += '<span style="color:' + seqColour(spec, run[0]) + '">' + run[1] + '</span>';
   });
   return s;
 }
@@ -332,7 +354,7 @@ function fill(){
     el.innerHTML =
       '<div class="conmap">' + mapSvg(spec) + '</div>' +
       '<pre class="conseq">' + seqHtml(spec) + '</pre>' +
-      '<div class="conkey">' + legendHtml(spec) +
+      '<div class="conkey">' +
       '<span class="chip len">' + total + ' bases</span></div>';
   });
 }

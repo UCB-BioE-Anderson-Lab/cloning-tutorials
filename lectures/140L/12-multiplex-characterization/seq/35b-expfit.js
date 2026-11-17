@@ -50,13 +50,27 @@
  * relative fitness, 1 at the top.  So every curve starts top-left and
  * can only fall; what differs is WHEN and HOW.
  *
- * Authored at 1420x720.
+ * Authored at 1480x600 -- see LAYOUT below.
+ *
+ * STYLE AUDIT, 2026-11-17.  Three palette faults, fixed.  (1) Each of
+ * the three pathways was drawn in its own hue -- blue, amber,
+ * vermillion -- which is a color per class of object, the one thing
+ * palette.css forbids in as many words, and it reached amber, the rung
+ * the guide says is almost never needed.  The three pathways are in
+ * separate, labelled panels, so hue was adding nothing identity was
+ * not already carrying.  Every median line is now blue, the thing to
+ * follow in its panel.  (2) The per-gene lines were the row's hue at
+ * opacity 0.30, which is an invented pale tint; they are now --muted
+ * at full strength, which is what context is for, and the thin/thick
+ * distinction survives greyscale on weight alone.  (3) --rule was
+ * mistyped #e4e4e4 and is now the palette's #e2e2e2.  The three 17px
+ * texts went to 19px, the contract's floor for small print.
  * ------------------------------------------------------------------ */
 (function(){
 "use strict";
 
-const INK = "#111111", VERM = "#ba3a13", BLUE = "#004373",
-      AMBER = "#a99011", MUTED = "#767676", RULE = "#e4e4e4";
+const INK = "#111111", BLUE = "#004373",
+      MUTED = "#767676", RULE = "#e2e2e2";
 const n2 = v => Math.round(v * 10) / 10;
 
 /* ---- LAYOUT -------------------------------------------------------- *
@@ -93,20 +107,40 @@ function fPeptidoglycan(x){
   return 0.05 + 0.93 / (1 + Math.exp((x - 0.62) * 22));
 }
 
+/* No `color` field: the pathway is named in the label beside its row
+   and the panels are physically separate, so hue has no identity work
+   left to do.  Blue is the median line in every panel -- the thing to
+   follow -- and the per-gene lines behind it are context. */
 const ROWS = [
-  { f: fCofactor,      colour: BLUE,
+  { f: fCofactor,
     name: "cofactor biosynthesis", gloss: "robust",
     say:  "partial knockdown costs almost nothing" },
-  { f: fTranslation,   colour: AMBER,
+  { f: fTranslation,
     name: "translation", gloss: "linear",
     say:  "a buffer, then fitness falls in step" },
-  { f: fPeptidoglycan, colour: VERM,
+  { f: fPeptidoglycan,
     name: "peptidoglycan precursors", gloss: "bimodal",
     say:  "tolerated, tolerated, then they lyse" }
 ];
 
-/* how many genes each panel draws, per the paper */
-const NGENES = [[24, 26], [59, 62], [10, 10]];
+/* How many genes each panel COUNTS -- the label printed in the corner.
+   Every pair is quoted from PMC7704046, column 0 B. subtilis, column 1
+   E. coli, in the paper's own order:
+     cofactors      "KEGG pathways under 'Metabolism of cofactors and
+                     vitamins'; B. subtilis: 25 genes, E. coli: 36 genes"
+     translation    "KEGG pathways under 'Translation' ... B. subtilis:
+                     59 genes, E. coli: 62 genes"
+     peptidoglycan  "KEGG ko00550; B. subtilis: 10 genes, E. coli: 10
+                     genes"
+   The cofactor pair read 24 and 26 until 2026-11-17.  Neither number is
+   in the paper; they were invented when this file was written and the
+   comment above them claimed they were the paper's.  An audit caught
+   that the other two pairs had their sentences recorded in this header
+   and this one did not.  If a number here has no quote beside it, it is
+   not trustworthy -- check it before it goes on a slide.
+   NOTE these are COUNTS, not the number of lines drawn: the drawing
+   caps at 10 thin lines a panel for legibility. */
+const NGENES = [[25, 36], [59, 62], [10, 10]];
 
 function px(c, x){ return COLX[c] + x * PW; }
 function py(r, y){ return ROWY[r] + PH - y * PH; }
@@ -136,20 +170,20 @@ function lines(r, c){
       const y = Math.max(0, Math.min(1, 1 - (1 - v) * sy));
       d += (i ? " L " : "M ") + n2(px(c, x)) + " " + n2(py(r, y));
     }
-    s += '<path d="' + d + '" fill="none" stroke="' + row.colour +
-         '" stroke-width="1.6" opacity="0.30"/>';
+    s += '<path d="' + d + '" fill="none" stroke="' + MUTED +
+         '" stroke-width="1.6"/>';
   }
   let d = "";
   for (let i = 0; i <= 80; i++){
     const x = i / 80;
     d += (i ? " L " : "M ") + n2(px(c, x)) + " " + n2(py(r, row.f(x)));
   }
-  s += '<path d="' + d + '" fill="none" stroke="' + row.colour + '" stroke-width="4.5"/>';
+  s += '<path d="' + d + '" fill="none" stroke="' + BLUE + '" stroke-width="4.5"/>';
   /* bottom LEFT, not bottom right: every one of these curves starts high
      on the left and falls, so the lower left corner is the only one that
      is empty in all six panels.  Bottom right sits on the bimodal curve. */
   s += '<text x="' + (COLX[c] + 10) + '" y="' + (ROWY[r] + PH - 12) +
-       '" font-family="inherit" font-size="17" fill="' + MUTED +
+       '" font-family="inherit" font-size="19" fill="' + MUTED +
        '">' + NGENES[r][c] + ' genes</text>';
   return s;
 }
@@ -182,10 +216,10 @@ function figure(){
     s += '<text x="' + LABX + '" y="' + (ROWY[r] + 38) + '" font-family="inherit" ' +
          'font-size="23" font-weight="700" fill="' + INK + '">' + row.name + '</text>';
     s += '<text x="' + LABX + '" y="' + (ROWY[r] + 76) + '" font-family="inherit" ' +
-         'font-size="30" font-weight="700" fill="' + row.colour + '">' +
+         'font-size="30" font-weight="700" fill="' + BLUE + '">' +
          row.gloss + '</text>';
     s += '<text x="' + LABX + '" y="' + (ROWY[r] + 104) + '" font-family="inherit" ' +
-         'font-size="17" fill="' + MUTED + '">' + row.say + '</text>';
+         'font-size="19" fill="' + MUTED + '">' + row.say + '</text>';
     s += lines(r, 0) + lines(r, 1);
     s += '</g>';
   });
@@ -197,7 +231,7 @@ function figure(){
   s += '<text x="' + SAYX + '" y="' + (ROWY[0] + 30) + '" font-family="inherit" ' +
        'font-size="25" font-weight="700" fill="' + INK + '">Read across.</text>';
   const say = ["E. coli and B. subtilis are", "about 2 billion years apart.",
-               "Most essential homologues", "still have the same shape",
+               "Most essential homologs", "still have the same shape",
                "of curve.", "",
                "The shape is a property of", "the pathway, not of the",
                "organism."];
@@ -209,7 +243,7 @@ function figure(){
   s += '</g>';
 
   s += '<text x="1450" y="592" text-anchor="end" font-family="inherit" ' +
-       'font-size="17" fill="' + MUTED + '">curve shapes after Hawkins et al., ' +
+       'font-size="19" fill="' + MUTED + '">curve shapes after Hawkins et al., ' +
        'Cell Syst 2020, Fig. 4 &#183; drawn to the described forms, not to scale</text>';
 
   return '<svg viewBox="0 0 1480 600" xmlns="http://www.w3.org/2000/svg" ' +
@@ -230,13 +264,13 @@ function figure(){
 
 const steps = [
   {
-    add:"So what do thirty thousand of those strains actually tell you? This is the shape of the answer. Every one of these six panels has knockdown along the bottom — left is the gene untouched, right is the gene shut right down — and fitness up the side. Every curve starts at the top left, because an unrepressed cell is a healthy cell, and from there it can only fall. The question is when, and how. Three pathways going down, two organisms going across. Each thin line is one gene; the thick one is the median for the pathway.",
+    add:"So that is thirty thousand strains, each one carrying a known amount of knockdown of a known gene, and this is the shape of what comes back. Every one of these six panels has knockdown along the bottom — left is the gene untouched, right is the gene shut right down — and fitness up the side. Every curve starts at the top left, because an unrepressed cell is a healthy cell, and from there it can only fall. The question is when, and how. Three pathways going down, two organisms going across. Each thin line is one gene; the thick one is the median for the pathway.",
     desc:"Six empty chart frames, three pathways down and two organisms across, with knockdown on the x axis and fitness on the y axis." },
   {
-    add:"Cofactor biosynthesis first, and this one is almost a flat line. You can take these genes down a long way and the cell barely notices. Which is worth sitting with for a second, because these are ESSENTIAL genes — delete them and the cell dies. But essential turns out not to mean what we usually let it mean. There is an enormous amount of headroom in how much of this enzyme the cell is actually carrying, and a knockout experiment, which is the only experiment anyone could do before this, would have told you precisely none of that.",
+    add:"Cofactor biosynthesis first, and this one is almost a flat line. You can take these genes down a long way and the cell barely notices. And these are ESSENTIAL genes — delete one and the cell dies — so essential turns out not to mean what we usually let it mean. There is an enormous amount of headroom in how much of this enzyme the cell is actually carrying, and a knockout experiment, which is the only experiment anyone could do before this, would have told you precisely none of that.",
     desc:"The cofactor biosynthesis row fills in: curves that stay almost flat across the whole knockdown range in both organisms." },
   {
-    add:"Translation is a different animal. There is a short buffer at the start where nothing much happens, and then once you have used that up, fitness falls in a straight line with knockdown. And that makes mechanistic sense — growth rate in these organisms tracks the number of working ribosomes, so if you take ribosomal protein expression down linearly, you take growth down linearly with it. Notice that the shape is telling you something about the biology. A straight line means no spare capacity and no feedback to rescue you.",
+    add:"Translation does not behave that way at all. There is a short buffer at the start where nothing much happens, and then once you have used that up, fitness falls in a straight line with knockdown. And that makes mechanistic sense — growth rate in these organisms tracks the number of working ribosomes, so if you take ribosomal protein expression down linearly, you take growth down linearly with it. Notice that the shape is telling you something about the biology. A straight line means no spare capacity and no feedback to rescue you.",
     desc:"The translation row fills in: a flat buffer at low knockdown, then an approximately linear decline in both organisms." },
   {
     add:"And then peptidoglycan precursor synthesis does the thing you would never have guessed. It is bimodal. Partial repression is tolerated completely — the curve is flat, the cells are fine — and then you cross a threshold and they lyse. There is no graded middle at all. The cell is either building a wall or it is bursting. Now look back at lecture eleven for a moment: this is an impedance curve. It is the same object we drew when we were tuning a ribosome binding site to put a device's two states either side of a knee. Here it has been measured rather than guessed, and these three rows are three completely different knees.",

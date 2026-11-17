@@ -5,16 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="robots" content="noindex,nofollow">
-<title>Biological Properties &ndash; Multiplex Characterization</title>
+<title>Regulatory DNA &ndash; Multiplex Characterization</title>
 <link rel="stylesheet" href="../../deck.css">
 <style>
 .slide figure.fig{flex:1 1 auto;min-height:0;display:flex;align-items:center;
   justify-content:center;margin:6px 0 0}
 .slide figure.fig img{max-width:100%;max-height:100%;width:auto;height:auto;
   object-fit:contain}
-.slide .big{flex:1 1 auto;display:flex;align-items:center;justify-content:center}
-.slide .big p{font-size:84px;font-family:var(--sans);font-weight:700;margin:0;
-  text-align:center;line-height:1.1}
 .slide ul.tight li{font-size:28px;margin-bottom:12px}
 .slide ul.fill{margin-top:auto;margin-bottom:auto}
 .slide ul.fill li{font-size:28px;margin-bottom:18px}
@@ -29,49 +26,25 @@
 </head>
 <body>
 
-<!-- ---------------------------------------------------------------- 34 -->
+<!-- ---------------------------------------------------------------- NEW -->
 <article class="slide" data-bg="section">
-  <div class="big"><p>Multiplex characterization of biological properties</p></div>
-  <template class="notes">Multiplex characterization experiments are not limited to analyzing the biochemical functions of genes.  They also can be used to ask more systems-level questions about growth behavior or expression properties.</template>
-  <template class="desc">Multiplex characterization of biological properties.</template>
-</article>
-
-<!-- ---------------------------------------------------------------- NEW -->
-<!-- Replaces source 35, TRMR/Genome Barcoding, on JCA's instruction of
-     2026-11-16: "I think we should replace trmr with something more
-     modern."  TRMR survives as one sentence in the fourth step's note,
-     which is where its lineage belongs.  Two slides, not three: an
-     application in this deck gets one or two, and this was the
-     thinnest section in the lecture.  See seq/35-mmcrispri.js. -->
-<article class="slide" data-seq="mmcrispri">
-  <h1>Turning the knob, not the switch</h1>
-  <p class="sub">Mismatch-CRISPRi &#183; PMID: 33080209</p>
-  <div class="mm" data-mm></div>
-</article>
-
-<!-- ---------------------------------------------------------------- NEW -->
-<!-- The data that comes out of it.  See seq/35b-expfit.js. -->
-<article class="slide" data-seq="expfit">
-  <h1>Expression&#8211;fitness relationships</h1>
-  <p class="sub">every essential gene, two organisms, one experiment</p>
-  <div class="ef" data-ef></div>
+  <h1>Multiplex characterization of regulatory DNA</h1>
+  <template class="notes-add">Those last four were nucleic acids that fold up and do something themselves. Now take the other kind of DNA, which does nothing itself and only decides how much of something else gets made &#8212; a promoter, an enhancer, a ribosome binding site. These are about the easiest things in biology to make a library of, since they are short enough to come straight off an oligo pool, and they are among the hardest to predict. That combination is exactly the case for measuring the whole population instead of guessing which members to test.</template>
+  <template class="desc">Section divider on the amber ground: Multiplex characterization of regulatory DNA.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 36 -->
 <article class="slide">
   <h1>CRE-Seq</h1>
-  <ul class="tight">
-    <li>PMID: 23129659</li>
-  </ul>
-  <figure class="fig"><img src="img/36-creseq.png" alt="Figure from the slide CRE-Seq."></figure>
+  <figure class="fig"><img src="img/36-creseq.png" alt="A column of constructs, CRE variant 1 through variant n, each followed by a DsRed gene and its own barcode BC1 to BCn, with a transcription arrow over the junction. They are electroporated as a pool into a dissected retina, which is grown in explant. For each variant the expression E is the ratio of its barcode's abundance in the cDNA to its abundance in the input DNA."></figure>
+  <p class="src">PMID: 23129659</p>
   <template class="notes">CRE here means “Cis-regulatory elements”, not to be confused with Cre recombinase, which is unrelated.
 Another use of multiplex characterization is for promoters.  In this variation, a library of promoter elements is placed upstream of an RFP gene and a barcode.  The barcode is unique to each promoter variant and will be incorporated into the mRNA if the gene is expressed.  The library of DNAs is introduced into retinal cells by electroporation, and then the mRNA was extracted.  If the promoter expressed during the experiment, then mRNAs will be present containing its barcode within this mixed mRNA sample.  After reverse transcription and PCR, the pool is sequenced, and the frequency of each barcode is calculated.  By normalizing against the frequency of each barcode in a deep sequence sample generated from the DNA present in the original sample, the relative expression of each gene can be quantified.  In this manner, the effect of different mutations of a promoter can be mapped out in one experiment.</template>
-  <template class="desc">CRE-Seq.</template>
+  <template class="notes-add">Notice that nothing here is new machinery. It is the barcoding we drew back in the tools section, read out by the RNA-seq we did right after it, with one extra step: you sequence the input DNA as well so you can divide by it. That division is the whole measurement, because a barcode can be abundant in the mRNA either because its promoter is strong or because there was simply more of that construct in the pool to begin with.</template>
+  <template class="desc">CRE-Seq: a library of cis-regulatory element variants, each upstream of DsRed and its own barcode, electroporated into retina; the barcode's abundance in the mRNA over its abundance in the input DNA gives each variant's expression.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
-<script src="seq/35-mmcrispri.js" defer></script>
-<script src="seq/35b-expfit.js" defer></script>
 </body>
 </html>

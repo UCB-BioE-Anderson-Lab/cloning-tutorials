@@ -12,9 +12,6 @@
   justify-content:center;margin:6px 0 0}
 .slide figure.fig img{max-width:100%;max-height:100%;width:auto;height:auto;
   object-fit:contain}
-.slide .big{flex:1 1 auto;display:flex;align-items:center;justify-content:center}
-.slide .big p{font-size:84px;font-family:var(--sans);font-weight:700;margin:0;
-  text-align:center;line-height:1.1}
 .slide ul.tight li{font-size:28px;margin-bottom:12px}
 .slide ul.fill{margin-top:auto;margin-bottom:auto}
 .slide ul.fill li{font-size:28px;margin-bottom:18px}
@@ -31,20 +28,18 @@
 
 <!-- ---------------------------------------------------------------- 30 -->
 <article class="slide" data-bg="section">
-  <div class="big"><p>Multiplex characterization of protein function</p></div>
+  <h1>Multiplex characterization of protein function</h1>
   <template class="notes">Multiplex characterization of protein functions is less advanced then its used on DNA and RNA, but such methods are feasible here too.</template>
-  <template class="desc">Multiplex characterization of protein function.</template>
+  <template class="desc">Section divider: multiplex characterization of protein function.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 31 -->
 <article class="slide">
   <h1>Coupled with Phage Display</h1>
-  <ul class="tight">
-    <li>PMID: 20711194</li>
-  </ul>
-  <figure class="fig"><img src="img/31-phage.png" alt="Figure from the slide Coupled with Phage Display."></figure>
+  <figure class="fig"><img src="img/31-phage.png" alt="A phage-display cycle drawn as a loop. A library of variant sequences is ligated, packaged into phage and amplified; the phage bind to peptide-coated beads; unbound phage are washed away and the bound ones eluted; the eluted pool is amplified and used to construct Illumina sequencing libraries, which are read as paired-end 76 base-pair reads. Three read pairs are shown at the top right, each aligned to its reverse complement with the substituted bases picked out, and the recovered sequences feed back into the next round of the loop."></figure>
+  <p class="src">PMID: 20711194</p>
   <template class="notes">Just as you can deep sequence the pool of selectants from a SELEX experiment, you can also deep sequence the selectants from panning a phage-display library.  Here, Fowler demonstrates that deep sequencing can be used to analyze the results of phage display and thereby characterize mutant WW domains.</template>
-  <template class="desc">Coupled with Phage Display.</template>
+  <template class="desc">A phage-display cycle drawn as a loop: a library of variant sequences is ligated, packaged into phage and amplified; the phage bind to peptide-coated beads; unbound phage are washed away and the bound ones eluted; the eluted pool is amplified and made into Illumina sequencing libraries, read as paired-end 76 base-pair reads, and fed back into the next round. At the top right, three read pairs are shown, each aligned to its reverse complement with the substituted bases picked out.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- NEW -->
@@ -55,40 +50,38 @@
      JCA's instruction of 2026-11-16.  See seq/31-dms.js. -->
 <article class="slide" data-seq="dms">
   <h1>Deep mutational scanning</h1>
-  <p class="sub">what source 31 started &#183; Fowler et al. 2010, PMID: 20711194</p>
+  <p class="sub">what Fowler et al. began in 2010</p>
   <div class="dms" data-dms></div>
+  <p class="src">PMID: 20711194</p>
 </article>
 
 <!-- ---------------------------------------------------------------- NEW -->
 <!-- And what it is for.  See seq/31b-brca1.js. -->
 <article class="slide" data-seq="brca1">
   <h1>Variants of uncertain significance</h1>
-  <p class="sub">saturation genome editing of BRCA1 &#183; PMID: 30209399</p>
+  <p class="sub">saturation genome editing of BRCA1</p>
   <div class="brca" data-brca></div>
+  <p class="src">PMID: 30209399</p>
 </article>
 
 <!-- ---------------------------------------------------------------- 32 -->
 <article class="slide">
   <h1>One-hybrid multiplexing</h1>
-  <ul class="tight">
-    <li>Kosuri, Church, Harvard iGEM 2011</li>
-  </ul>
-  <figure class="fig"><img src="img/32-onehybrid.png" alt="Figure from the slide One-hybrid multiplexing."></figure>
+  <figure class="fig"><img src="img/32-onehybrid.png" alt="Two panels of a yeast one-hybrid reporter. In A, three zinc fingers ZF3, ZF2 and ZF1 sit on a ZF binding site upstream of His3 and Ura3; a tether from ZF1 holds the omega subunit, RNA polymerase is recruited to the DNA, and a heavy arrow marks strong transcription. In B, the same three fingers fail to engage the binding site, the polymerase stays away, and a thin arrow marks weak transcription, so the markers barely express."></figure>
+  <p class="src">Kosuri, Church, Harvard iGEM 2011</p>
   <template class="notes">Genetic selections provide one of the most promising routes towards applying deep sequencing to protein functions.  Here is an illustration from the 2011 harvard igem team with Sri Kosuri and George Church in which they adapt a one-hybrid system to characterize a library of 55,000 zinc finger genes.
 This is a normal way in which zinc fingers are been assayed.  You construct a yeast strain that reports transcription by expression of selectable markers.  If the zinc finger binds to a probe sequence inserted upstream of the promoter, RNA polymerase is recruited to the DNA, the markers express, and the cell survives.  Therefore, transcription becomes linked to survival of the cells.
 The Harvard experiment employs a library of computationally-designed ZF’s and synthesizes 55,000 of them on one Agilent OLS array.  After selection, the survivers are deep-sequenced.</template>
-  <template class="desc">One-hybrid multiplexing.</template>
+  <template class="desc">Two panels of a yeast one-hybrid reporter. In panel A, three zinc fingers sit on a zinc-finger binding site upstream of His3 and Ura3; a tether from the first finger holds the omega subunit, RNA polymerase is drawn at the DNA, and a heavy arrow marks strong transcription. In panel B, the same three fingers fail to engage the binding site, the polymerase stays away, and a thin arrow marks weak transcription.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 33 -->
 <article class="slide">
   <h1>One-hybrid multiplexing</h1>
-  <ul class="tight">
-    <li>Kosuri, Church, Harvard iGEM 2011</li>
-  </ul>
-  <figure class="fig"><img src="img/33-logos.png" alt="Figure from the slide One-hybrid multiplexing."></figure>
+  <figure class="fig"><img src="img/33-logos.png" alt="On the left, an alignment of eighteen selected zinc-finger sequences named CBbot_A2 through CBbot_B11, each about twenty-four residues long, with a consensus row above them reading F Q C R I C M R N F S R S D H L V X H I R T H. Most positions are identical down the column and a handful vary. On the right, two sequence logos, labelled AAA and CTG, in which the height of each stacked letter gives how strongly that residue is preferred at that position."></figure>
+  <p class="src">Kosuri, Church, Harvard iGEM 2011</p>
   <template class="notes">From this, they get a bag of zinc finger sequences that all bind to the probe sequence. From such data, models encapsulating the binding specificity of each designed zinc finger can be calculated.  What’s represented on the right are ‘sequence logos’ that visually represent the pattern of sequences that work for different triplets.  However, there are also hidden markov-style models that can be constructed from such data that enable prediction of interactions between a zinc finger and a given DNA.</template>
-  <template class="desc">One-hybrid multiplexing.</template>
+  <template class="desc">On the left, an alignment of eighteen selected zinc-finger sequences, each about twenty-four residues long, under a consensus row; most positions are identical down the column and a handful vary. On the right, two sequence logos, labeled AAA and CTG, in which the height of each stacked letter gives how strongly that residue is preferred at that position.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
