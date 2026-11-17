@@ -252,3 +252,11 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);o
   border:1px solid rgba(255,255,255,.5);border-radius:4px;padding:6px 14px;
   cursor:pointer}
 .vidovl .vidclose:hover{background:rgba(0,0,0,.85)}
+
+/* ---- reference URLs lifted out of a speaker note (deck.js splitRefs) ----
+   These are the author's own references for the slide, not narration, so
+   they sit under it, quieter, and wrap rather than stretching the panel. */
+#pnoterefs{margin-top:2px;display:flex;flex-direction:column;gap:4px}
+#pnoterefs a{font-size:12px;line-height:1.35;color:var(--muted);
+  word-break:break-all;text-decoration:underline}
+#pnoterefs a:hover{color:var(--slate)}

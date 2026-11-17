@@ -91,40 +91,20 @@ Also called Massively Parallel Sequencing (MPS)</template>
 <!-- ---------------------------------------------------------------- 14 -->
 <article class="slide">
   <h1>Next-Gen Sequencing (NGS)</h1>
-  <!-- Numbers on this slide, each with the source that carries it.  Checked
-       2026-11-17.  CONTENT CHANGE to JCA's slide, made at his request: the
-       source slide's figures are HiSeq-2500 era and the HiSeq line is retired.
-       Illumina NovaSeq X, 25B flow cell: "~52-70 billion" paired-end reads
-         passing filter per flow cell; run time "~48 hr" at 2 x 150 bp --
+  <p class="sub">Illumina</p>
+  <!-- Sources for the Illumina numbers, checked 2026-11-17.
+       NovaSeq X, 25B flow cell: "~52-70 billion" paired-end reads passing
+         filter per flow cell; "~48 hr" at 2 x 150 bp --
          illumina.com/systems/sequencing-platforms/novaseq-x-plus/specifications.html
-       Illumina MiSeq i100, 25M flow cell: "25M single-end or 50M paired-end";
-         series run time "~4-24 hr" --
+       MiSeq i100, 25M flow cell: "25M single-end or 50M paired-end"; series
+         run time "~4-24 hr" --
          illumina.com/systems/sequencing-platforms/miseq-i100/specifications.html
-       Reagent cost per flow cell: MiSeq i100 25M, 300 cycles, $1,125 internal;
-         NovaSeq X 25B, 150x150 bp, $2,600 internal.  University of Utah HTG
-         core rate card, MiSeq section "Updated August 2026", NovaSeq section
-         "Updated January 2026" --
+       Reagent cost per flow cell: MiSeq i100 25M 300 cycles $1,125; NovaSeq X
+         25B 150x150 $2,600.  University of Utah HTG core rate card --
          uofuhealth.utah.edu/huntsman/shared-resources/gcb/htg/pricing
-       HiSeq retired: Illumina's end-of-life schedule supplies HiSeq 1500/2500/
-         3000 reagents through 28 Feb 2023, HiSeq 4000 and X through 31 Mar
-         2024 -- knowledge.illumina.com/instrumentation/general/
-         instrumentation-general-faq-list/000006963
-       454 retired: "In October 2013, Roche announced that it would shut down
-         454, and stop supporting the platform by mid-2016" --
-         en.wikipedia.org/wiki/454_Life_Sciences, and GenomeWeb, "Roche
-         Shutting Down 454 Sequencing Business" (the 454 sequencers "will be
-         phased out in mid-2016")
-       Ion Torrent still sold: Thermo Fisher's Genexus system page takes quote
-         requests and sells Genexus kits, and "delivers NGS test results in as
-         little as 24 hours" -- thermofisher.com, Ion Torrent Genexus System
-       Nanopore accuracy: "Oxford Nanopore raw reads now achieve 99.75% (Q26)
-         accuracy" with Dorado v5 basecalling models, Ligation Sequencing Kit
-         V14 on R10.4.1 flow cells -- nanoporetech.com/accuracy
-       PacBio HiFi: "90% of bases Q30+ and median read accuracy >=Q30";
-         comparison table gives read length 15-20 kb; a 0.5-5 kb library gives
-         "6-8 million reads" per SMRT Cell at 12 hr run time -- pacb.com/revio
-       NOT established, so not written: a current per-read cost for PacBio or
-       nanopore, and any read-length figure for nanopore. -->
+       HiSeq retired: reagents through 28 Feb 2023 (1500/2500/3000) and
+         31 Mar 2024 (4000, X) -- knowledge.illumina.com/instrumentation/
+         general/instrumentation-general-faq-list/000006963 -->
   <ul class="spec">
     <li>Illumina NovaSeq X (25B flow cell):</li>
     <li class="in">52-70 billion paired-end reads per run</li>
@@ -133,30 +113,48 @@ Also called Massively Parallel Sequencing (MPS)</template>
     <li class="in">50 million paired-end reads per run</li>
     <li class="in">run time 4-24 hours</li>
     <li class="in grp">Reagents run ~$1,100 a flow cell on the MiSeq to ~$2,600 on the NovaSeq X</li>
-    <li class="grp">Ion Torrent and 454 Sequencing:</li>
-    <li class="in">Ion Torrent still sold; 454 retired in 2016, HiSeq in 2024</li>
-    <li class="grp">Nanopore sequencing:</li>
-    <li class="in">Long reads; raw reads now 99.75% (Q26), no longer low accuracy</li>
-    <li class="grp">Pacific Biosciences (HiFi):</li>
-    <li class="in">15-20 kb reads, 90% of bases Q30+; millions of reads, not billions</li>
   </ul>
-  <template class="notes">Numbers from the vendors’ specification pages
-A nanopore instrument uses a voltage to drive the DNA through a protein-based hole in a membrane.  As the DNA goes through, there are current differences depending on the base passing through, which can be interpreted as sequence.  Accuracy used to be the objection here—the reads were too rough to call barcodes reliably—but raw-read accuracy is now around 99.75%, so that objection has gone and these are reasonable instruments for multiplex characterization.
-https://en.wikipedia.org/wiki/Nanopore_sequencing
-The Pacific Biosciences method is a single-molecule sequencing-by-synthesis approach that results in very long reads; in HiFi mode about 90% of bases are called at Q30 or better.  The read lengths are very long-- in the 10’s of thousands of bases per read. The use cases would be similar to nanopore in the context of multiplex characterization.
-https://en.wikipedia.org/wiki/Single-molecule_real-time_sequencing</template>
-  <template class="notes-add">The note takes up the long-read instruments at the bottom; before that, the two Illumina lines at the top are the choice you are actually going to make. They run the same chemistry you just saw, on the same kind of flow cell, and what you are trading off is depth against turnaround. The NovaSeq is for a library whose diversity is enormous, and you wait about two days for the run. The MiSeq comes back the same day, and fifty million reads is already far more than most of the experiments in this lecture need, so a classroom-scale multiplex experiment is almost always a MiSeq run. That is why the next few slides talk about MiSeq primer sites rather than anything else. The one number here that has barely moved in a decade is the price of a flow cell; what has moved is how many reads the same money buys you.</template>
-  <template class="desc">A specification list of sequencing platforms, in five groups. Illumina NovaSeq X on a 25B flow cell, 52 to 70 billion paired-end reads per run, about 48 hours at 2 by 150 bp. Illumina MiSeq i100 on a 25M flow cell, 50 million paired-end reads, 4 to 24 hours, with a line giving reagent cost from about $1,100 a flow cell on the MiSeq to about $2,600 on the NovaSeq X. Ion Torrent and 454, noting Ion Torrent is still sold while 454 retired in 2016 and HiSeq in 2024. Nanopore, long reads, raw reads now 99.75 percent, no longer low accuracy. Pacific Biosciences HiFi, 15 to 20 kb reads, 90 percent of bases Q30 or better, millions of reads rather than billions.</template>
+  <template class="notes">Numbers from the vendors’ specification pages</template>
+  <template class="notes-add">These two are the choice you are actually going to make. They run the chemistry you just saw, on the same kind of flow cell, and what you are trading off is depth against turnaround. The NovaSeq is for a library whose diversity is enormous, and you wait about two days. The MiSeq comes back the same day, and fifty million reads is already far more than most multiplex characterization experiments need, so a classroom-scale multiplex experiment is almost always a MiSeq run. That is why the primer sites you will be designing onto your own constructs are MiSeq ones. The price of a flow cell has barely moved in a decade; what has moved is how many reads the same money buys you.</template>
+  <template class="desc">A specification list for two Illumina instruments. NovaSeq X on a 25B flow cell, 52 to 70 billion paired-end reads per run, about 48 hours at 2 by 150 bp. MiSeq i100 on a 25M flow cell, 50 million paired-end reads, 4 to 24 hours. A line underneath gives reagent cost from about $1,100 a flow cell on the MiSeq to about $2,600 on the NovaSeq X.</template>
 </article>
 
-<!-- ---------------------------------------------------------------- 26 -->
+<!-- ---------------------------------------------------------------- 14 -->
 <article class="slide">
-  <h1>RNA Seq</h1>
-  <div class="fg" data-fig="26"></div>
-  <template class="notes">In a more analytical usage, RNA seq has become the most popular way of analyzing gene expression in cells and has largely replaced microarrays for this application.  Here, a mRNA is extracted from the sample and then converted to cDNA using reverse transcription.  In the process, the adapter sequences for deep sequencing are incorporated, and then read.  By counting the number of reads of each sequence, one gets a measure of the relative expression level of these genes in the original sample.  By comparing the frequency of a given gene across different samples, one can determine whether that gene is upregulated or downregulated under some conditions.</template>
-  <template class="notes-add">That is the instrument; this is the most common thing anyone does with it, and it is worth seeing before we get to the sample you have to hand it. RNA-seq is not a characterization experiment in the sense of the rest of the lecture, because nobody built this library — the cell did. But the arithmetic is the same one we use everywhere from here on: you count reads, and the count stands in for how much of something was there. Every experiment in the rest of this lecture is a way of arranging for the thing you care about to show up as a count. What all of them need is a PCR product with the right sequences on its ends, and that is what the next few slides are about.</template>
-  <template class="desc">A workflow drawn left to right, schematic. At the left, under the heading mRNA, three transcript species stacked in their own lanes: four long copies, eleven of a shorter one, two shorter still, each with a poly(A) tail. Two curved routes lead right, one labeled fragmentation then RT and the other RT then fragmentation, and both arrive at the sequence library, where each lane's fragments sit between adapters, four, six and two of them. An arrow runs to a box labeled Sequencer, and from it down to a field of short sequence reads in the same three lanes, sixteen, twenty-eight and four.</template>
+  <h1>Nanopore sequencing</h1>
+  <p class="sub">a different way to read a molecule</p>
+  <div class="fg" data-nano></div>
+  <p class="src">After nanoporetech.com</p>
+  <template class="notes">A nanopore instrument uses a voltage to drive the DNA through a protein-based hole in a membrane.  As the DNA goes through, there are current differences depending on the base passing through, which can be interpreted as sequence.  Accuracy used to be the objection here—the reads were too rough to call barcodes reliably—but raw-read accuracy is now around 99.75%, so that objection has gone and these are reasonable instruments for multiplex characterization.
+https://en.wikipedia.org/wiki/Nanopore_sequencing</template>
+  <template class="desc">An animated diagram of nanopore sequencing, built up in stages.</template>
 </article>
+
+<!-- ---------------------------------------------------------------- 14 -->
+<article class="slide">
+  <h1>The other platforms</h1>
+  <!-- PacBio HiFi: "90% of bases Q30+ and median read accuracy >=Q30";
+         read length 15-20 kb; 6-8 million reads per SMRT Cell -- pacb.com/revio
+       Ion Torrent still sold: Thermo Fisher Genexus system page, results "in
+         as little as 24 hours" -- thermofisher.com
+       454 retired: "In October 2013, Roche announced that it would shut down
+         454, and stop supporting the platform by mid-2016" --
+         en.wikipedia.org/wiki/454_Life_Sciences -->
+  <ul class="spec">
+    <li>Pacific Biosciences (HiFi):</li>
+    <li class="in">15-20 kb reads, 90% of bases Q30+</li>
+    <li class="in">millions of reads per cell, not billions</li>
+    <li class="grp">Ion Torrent:</li>
+    <li class="in">still sold; semiconductor detection rather than optics</li>
+    <li class="grp">454 Sequencing:</li>
+    <li class="in">retired in 2016, as HiSeq was in 2024</li>
+  </ul>
+  <template class="notes">The Pacific Biosciences method is a single-molecule sequencing-by-synthesis approach that results in very long reads; in HiFi mode about 90% of bases are called at Q30 or better.  The read lengths are very long-- in the 10’s of thousands of bases per read. The use cases would be similar to nanopore in the context of multiplex characterization.
+https://en.wikipedia.org/wiki/Single-molecule_real-time_sequencing</template>
+  <template class="notes-add">PacBio is the other long-read instrument, and for our purposes it sits in the same place as nanopore: long molecules read whole, at an accuracy that is no longer the objection, but millions of reads rather than billions. The last two are here so the names are not a mystery when you meet them. Ion Torrent is still sold and detects a proton release on a semiconductor chip instead of imaging a fluorophore. 454 was the first of the massively parallel instruments and is gone, retired in 2016, the same way the HiSeq went in 2024 — which is worth noticing, because the instrument names in this field turn over faster than the ideas do.</template>
+  <template class="desc">A specification list for three more platforms. Pacific Biosciences HiFi, 15 to 20 kb reads with 90 percent of bases Q30 or better, millions of reads per cell rather than billions. Ion Torrent, still sold, using semiconductor detection rather than optics. 454 Sequencing, retired in 2016, as HiSeq was in 2024.</template>
+</article>
+
 
 <!-- ---------------------------------------------------------------- 15 -->
 <article class="slide">
@@ -208,8 +206,7 @@ https://en.wikipedia.org/wiki/Single-molecule_real-time_sequencing</template>
 <article class="slide">
   <h1>Emulsions and Liposomes</h1>
   <figure class="fig"><img src="img/20-emulsion.png" alt="Left, cutaway drawings of three lipid assemblies labelled micelle, liposome and bilayer sheet, each drawn as circular head groups with tails packed between them; the liposome encloses an aqueous center. Right, a micrograph of a polydisperse emulsion: round droplets of many sizes packed together."></figure>
-  <p class="src">http://people.umass.edu/mcclemen/Group_files/image005.jpg</p>
-  <p class="src">http://lamp.tu-graz.ac.at/~hadley/nanoscience/week4/assemble.gif</p>
+  <p class="src">After lamp.tu-graz.ac.at and people.umass.edu</p>
   <template class="notes">Putting DNAs into cells often becomes a limiting component of a characterization experiment, so there is a lot of interest in moving to in vitro methods.  The simplest artificial ‘cell’ is an Eppendorf tube, but much smaller compartments can be constructed using very simple methods such as emulsions or liposomes.
 You can encapsulate pretty much any aqueous liquid you want into an oil-based micelle which results in an emulsion such as shown in the image.  You just vortex together mineral oil, surfactant, and your aqueous sample, and you get little droplets.  Technologies for making liposomes also exist, and there are methods of controlling the sizes and polydispersity of these things.  For example, Fletcher lab has developed an instrument that injects liquid across a bilayer to form highly self-similar liposomes.  A common method is to dilute a DNA sample to the level at which typically 1 DNA molecule becomes isolated within a micelle, and then biochemical reactions occur to that one molecule.</template>
   <template class="desc">A diagram of a micelle, a liposome and a bilayer sheet drawn as lipid monolayers and bilayers, beside a micrograph of an actual emulsion showing droplets of many sizes.</template>
@@ -219,10 +216,10 @@ You can encapsulate pretty much any aqueous liquid you want into an oil-based mi
 <article class="slide">
   <h1>Digital Droplet PCR</h1>
   <figure class="fig"><img src="img/21-ddpcr.png" alt="A three-step workflow. 1, make droplets: a microfluidic junction pinches off uniform droplets, on a droplet generator. 2, cycle droplets: a close-packed field of droplets, a few of them fluorescent green, on a bulk PCR thermal cycler. 3, read droplets: droplets pass single file through an optical reader and give a train of fluorescence peaks. The instrument for each step is photographed beneath it."></figure>
-  <p class="src">bio-rad.com</p>
+  <p class="src">After bio-rad.com</p>
   <template class="notes">There are also now instruments for generating very precise emulsions, and they are commercially available for doing digital droplet PCR.
 https://www.youtube.com/watch?v=e5cl0HEUY_c</template>
-  <template class="notes-add">The reason that instrument exists is counting. You dilute the sample so that most droplets get either one template or none, run the thermocycler on the whole emulsion, and then every droplet is simply positive or negative. You count droplets rather than comparing an amplification curve against a standard, which is where the word digital comes from. So this is the same dilution trick as the slide before, used to quantify rather than to isolate. Used to isolate, with a primer-coated bead put into each droplet, it gives you the next slide.</template>
+  <template class="notes-add">The reason that instrument exists is counting. You dilute the sample so that most droplets get either one template or none, run the thermocycler on the whole emulsion, and then every droplet is simply positive or negative. You count droplets rather than comparing an amplification curve against a standard, which is where the word digital comes from. It is the same dilution trick as an emulsion, turned to counting rather than to isolation. Put a primer-coated bead in each droplet instead and the same partitioning gives you clonal amplification on beads.</template>
   <template class="desc">A three-step cartoon of digital droplet PCR: make droplets, cycle them in a bulk thermal cycler, then read them on an optical reader, with the instrument for each step underneath.</template>
 </article>
 
@@ -243,7 +240,7 @@ https://www.youtube.com/watch?v=e5cl0HEUY_c</template>
     <li><span class="k">PureExpress (NEB):</span> Tl only</li>
     <li><span class="k">S30 Extract:</span> TxTl</li>
   </ul>
-  <p class="src">http://www.invitrogen.com/etc/medialib/en/images/ics_organized/applications/nucleic_acid_amplification/data_image/560_wide.Par.5532.Image.504.322.1..gif</p>
+  <p class="src">After invitrogen.com</p>
   <template class="notes">Finally, we have in vitro translation.  These are basically fractions of E. coli, wheat germ, or rabbit reticulosites that are able to biosynthesize proteins in vitro. There are two types:  TxTl and Tl.  This is something that can be made in the lab, and many labs do that.  It is also commercially available from NEB and the like.  The PURExpress® kit from NEB are more pure version of Tl– it only includes the ribosomes, tRNAs, synthetases, amino acids, ATP, and elongation factors needed to support translation.  There are more complex preps like an S30 extract that also have some transcriptional activity and other cellular processes, hence the name TxTl.  It is very common to include T7 RNA polymerase to a Tx or TxTl mix to provide a large amount of mRNA of your gene of interest.
 In vitro translation systems are their own subject of synthetic biology, and Jewett and Swartz are the labs most known for developing the biochemistry of modern systems.  Richard Murray also has pioneered development of ‘breadboarding’ with small TxTl reactions carried out in parallel.  When combined with micelles or liposomes, you obtain a sort of pseudo-cell that is very easy to produce at high volume simply by vortexing together liquids.</template>
   <template class="desc">A flow diagram of in vitro translation: purified RNA, isolated from tissue or cells or made in vitro, added to a tube and translated for one hour at 30 degrees. An enlargement shows an mRNA with an optional Kozak sequence and an initiator codon threading through a ribosome to give the protein N-met-ala-cys-asn. Below, product analysis as an autoradiograph of an SDS-PAGE gel and a TCA precipitation bar chart, each comparing minus RNA with plus RNA. Under the figure, two lines: PureExpress (NEB), Tl only; S30 Extract, TxTl.</template>
@@ -253,6 +250,6 @@ In vitro translation systems are their own subject of synthetic biology, and Jew
 <script src="lecture.js" defer></script>
 <script src="seq/15-illumina.js" defer></script>
 <script src="seq/13-video.js" defer></script>
-<script src="seq/26-rnaseq.js" defer></script>
+<script src="seq/14-nanopore.js" defer></script>
 </body>
 </html>

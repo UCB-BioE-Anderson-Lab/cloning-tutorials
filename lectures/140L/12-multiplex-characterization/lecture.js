@@ -5,7 +5,8 @@
    moved into Tools, the old "RNAs and DNAs" split into functional
    nucleic acids and regulatory DNA, and CRE-Seq moved across into the
    latter.  Sources 35 and 42 are gone and four slides were added, so
-   this is 45 slides from 41 source ones.  See PLAN.txt.
+   and sources 40 and 41 were removed too, so the deck no longer
+   has an All-Hands section.  See PLAN.txt.
 
    kind: lecture | section — only used to colour the jump menu key. */
 window.LECTURE = {
@@ -19,7 +20,6 @@ window.LECTURE = {
     { file: "04-regulatory-dna.html", title: "Regulatory DNA", kind: "section" },
     { file: "05-protein.html", title: "Protein Function", kind: "section" },
     { file: "06-properties.html", title: "Biological Properties", kind: "section" },
-    { file: "07-questions.html", title: "Questions to Ponder", kind: "section" },
-    { file: "08-all-hands.html", title: "All-Hands", kind: "section" }
+    { file: "07-questions.html", title: "Questions to Ponder", kind: "section" }
   ]
 };

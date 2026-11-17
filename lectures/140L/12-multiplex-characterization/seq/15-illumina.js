@@ -98,16 +98,17 @@
  * gone; it existed only to decode hues that no longer mean anything.
  * ------------------------------------------------------------------ */
 const REGION = {
-  p5:  { name: "P5 Illumina adapter" },
-  ms:  { name: "MiSeq primer binding" },
-  sp:  { name: "variable-length spacer" },
-  lib: { name: "your 20 bp site" },
-  mid: { name: "what you are characterizing" },
-  p7:  { name: "P7 Illumina adapter" },
-  bc:  { name: "barcode" },
-  t7:  { name: "reverse priming site (T7 universal)" },
-  orf: { name: "the gene itself" }
+  p5:  { c: "ink",   name: "P5 Illumina adapter" },
+  ms:  { c: "ink",   name: "MiSeq primer binding" },
+  sp:  { c: "muted", name: "variable-length spacer" },
+  lib: { c: "blue",  name: "your 20 bp site" },
+  mid: { c: "rule",  name: "what you are characterizing" },
+  p7:  { c: "ink",   name: "P7 Illumina adapter" },
+  bc:  { c: "verm",  name: "barcode" },
+  t7:  { c: "amber", name: "reverse priming site (T7 universal)" },
+  orf: { c: "blue",  name: "the gene itself" }
 };
+
 
 const N = n => new Array(n + 1).join("N");
 
@@ -221,20 +222,36 @@ const SLIDES = {
 
 /* ------------------------------------------------------------------ */
 /* every value here is from palette.css and nowhere else */
-const INK = "#111111", BLUE = "#004373", MUTED = "#767676",
-      RULE = "#e2e2e2", PAPER = "#ffffff";
+const INK = "#111111", BLUE = "#004373", VERM = "#ba3a13",
+      AMBER = "#a99011", MUTED = "#767676", RULE = "#e2e2e2",
+      PAPER = "#ffffff";
+
+/* Fill for a region, and the text colour that clears it.  Every value is
+   from palette.css, and the text pairings are the ones palette.css itself
+   measures -- including the one that catches people out: AMBER TAKES
+   BLACK.  White on amber fails. */
+const FILL   = { ink: INK, blue: BLUE, verm: VERM, amber: AMBER,
+                 muted: MUTED, rule: RULE };
+const ONFILL = { ink: PAPER, blue: PAPER, verm: PAPER, amber: INK,
+                 muted: PAPER, rule: INK };
 
 function isFocus(spec, key){
   return !!spec.focus && spec.focus.indexOf(key) >= 0;
 }
-function barFill(spec, key){ return isFocus(spec, key) ? BLUE : RULE; }
+function barFill(spec, key){ return FILL[REGION[key].c]; }
 /* a name sits INSIDE its segment, so it must clear what is under it:
    white on blue is 10.2:1, ink on --rule is 16.8:1 */
-function barText(spec, key){ return isFocus(spec, key) ? PAPER : INK; }
+function barText(spec, key){ return ONFILL[REGION[key].c]; }
 /* a name on a leader outside the bar, and the leader itself */
-function labelColour(spec, key){ return isFocus(spec, key) ? BLUE : MUTED; }
+function labelColour(spec, key){
+  const c = REGION[key].c;
+  return c === "rule" ? MUTED : FILL[c];   /* a --rule label would vanish */
+}
 /* the bases themselves */
-function seqColour(spec, key){ return isFocus(spec, key) ? BLUE : MUTED; }
+function seqColour(spec, key){
+  const c = REGION[key].c;
+  return c === "rule" ? MUTED : FILL[c];   /* same: bases must stay legible */
+}
 
 /* ---- the map ------------------------------------------------------- */
 const MW = 1480, BAR_Y = 92, BAR_H = 34;

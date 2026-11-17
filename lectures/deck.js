@@ -69,8 +69,51 @@ function tpl(slide, cls){
    covered that beat -- data-note-add carries written-for-the-deck text
    instead.  It is a SEPARATE attribute so verify_notes.py, which collects
    data-note only, still proves the verbatim parts concatenate exactly. */
-function noteWith(a, b){
-  return a && b ? a + "  " + b : a || b || "";
+/* The added narration normally follows the source note, because it is
+   usually an addendum.  Sometimes it is a LEAD-IN instead: source 14 of
+   lecture 12 is two thirds Illumina, but its source note opens straight
+   onto nanopore, so the room hears about the wrong instrument first.
+   JCA, 2026-11-17: "The narration is off on this slide.  It starts
+   talking about nanopore instead of continuing from illumina."
+   data-note-order="add-first" on the <article> puts the added narration
+   before his, which fixes the order without touching a verbatim word. */
+function noteWith(a, b, addFirst){
+  if (a && b) return addFirst ? b + "  " + a : a + "  " + b;
+  return a || b || "";
+}
+
+/* A handful of source notes are, or contain, a bare URL -- the author's
+   reference for the slide, not something he says out loud.  Rendered as
+   narration they ran straight into the prose ("https://www.agilent.com/
+   en/solutions/... Every library so far has been made from DNA you
+   already had"), and the speech channel read the URL aloud character by
+   character.  So they are lifted out here: the prose goes in the
+   narration, the URLs go underneath it as links, and speech never sees
+   them.  Nothing is lost and the note templates are untouched. */
+/* One of these references is a 300-character ad-tracking URL.  Linked in
+   full it is unreadable and fills the panel, so the LABEL is the host and
+   path only -- the href still carries every character, so the link goes
+   exactly where the author's note pointed. */
+function refLabel(u){
+  try {
+    const p = new URL(u);
+    let t = p.hostname.replace(/^www\./, "") + p.pathname.replace(/\/$/, "");
+    if (t.length > 58) t = t.slice(0, 57) + "\u2026";
+    return t + (p.search ? " \u2026" : "");
+  } catch (e) {
+    return u.length > 58 ? u.slice(0, 57) + "\u2026" : u;
+  }
+}
+
+function splitRefs(text){
+  if (!text) return { prose: "", refs: [] };
+  const refs = [];
+  const prose = text.replace(/https?:\/\/\S+/g, function(u){
+    u = u.replace(/[.,;)]+$/, "");          /* trailing sentence punctuation */
+    if (refs.indexOf(u) < 0) refs.push(u);
+    return " ";
+  }).replace(/\s{2,}/g, " ").trim();
+  return { prose: prose, refs: refs };
 }
 function noteOf(el){
   if (!el) return "";
@@ -94,7 +137,8 @@ function buildSteps(){
        proves itself rather than one you have to take on trust.
        `.notes` does not match class="notes-add", so neither channel can
        leak into the other. */
-    const note = noteWith(tpl(slide, "notes"), tpl(slide, "notes-add"));
+    const note = noteWith(tpl(slide, "notes"), tpl(slide, "notes-add"),
+                          slide.getAttribute("data-note-order") === "add-first");
     const desc = tpl(slide, "desc");
     const seqName = slide.getAttribute("data-seq");
 
@@ -247,8 +291,25 @@ function syncPanel(){
 
   const ch = channels();
   const pn = document.getElementById("pnote"), pd = document.getElementById("pdesc");
-  pn.textContent = ch.note || "(no narration on this slide)";
-  pn.className = ch.note ? "" : "empty";
+  const split = splitRefs(ch.note);
+  /* a note that was ONLY a URL used to leave this blank */
+  pn.textContent = split.prose || "(no narration on this slide)";
+  pn.className = split.prose ? "" : "empty";
+  const pr = document.getElementById("pnoterefs");
+  if (pr){
+    pr.textContent = "";
+    split.refs.forEach(function(u){
+      /* built as nodes, never innerHTML, and only http(s) is linked */
+      const a = document.createElement("a");
+      a.href = u;
+      a.textContent = refLabel(u);        /* readable; href keeps the lot */
+      a.title = u;
+      a.target = "_blank"; a.rel = "noopener noreferrer";
+      pr.appendChild(a);
+    });
+    const box = document.getElementById("prefs");
+    if (box) box.hidden = split.refs.length === 0;
+  }
   pd.textContent = ch.description || "(no description written yet)";
   pd.className = ch.description ? "" : "empty";
 
@@ -356,7 +417,7 @@ let speaking = false;
 function speak(ch){
   if (!("speechSynthesis" in window)) return;
   speechSynthesis.cancel();
-  [ch.note, ch.description].filter(Boolean).forEach(function(t){
+  [splitRefs(ch.note).prose, ch.description].filter(Boolean).forEach(function(t){
     speechSynthesis.speak(new SpeechSynthesisUtterance(t));
   });
 }
@@ -428,6 +489,12 @@ function injectChrome(){
       '<div id="psection"></div>' +
       '<div class="chan note"><h2>Narration</h2><p id="pnote"></p></div>' +
       '<div class="chan"><h2>Visual description</h2><p id="pdesc"></p></div>' +
+      /* References sit here, under the description and outside the
+         narration, because they are neither: JCA, 2026-11-17, "having
+         those urls in the narration totally wrecks the voiceover.  They
+         should probably be in the caption rather than the note." */
+      '<div class="chan" id="prefs" hidden><h2>References</h2>' +
+        '<div id="pnoterefs"></div></div>' +
       '<div id="nextwrap"><h2>Next</h2><div id="nextshot" aria-hidden="true" inert></div><div id="nextnote"></div></div>' +
       '<div id="speakrow"><button id="bspeak" aria-pressed="false">Speak channels</button></div>' +
     '</aside>';

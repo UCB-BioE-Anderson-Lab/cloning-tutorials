@@ -863,3 +863,275 @@ THE FOUR CONFLICTS, FIXED 2026-11-17
     reaching for: after the sequencing itself, everything in the
     section is a way of keeping a genotype attached to what you
     measured, in sequence, in space or on a surface.
+
+THE dCas9 FIGURE, REDRAWN 2026-11-17
+-------------------------------------
+JCA: "that graphic is incomprehensible.  I think you need to show the
+dna where the rnap binds, where the grna anneals (the protospacer) and
+show dcas9.grna sitting above it."
+
+He was right, and the diagnosis is exact.  The first version drew the
+gene as a block arrow, STOPPED the DNA duplex dead where that arrow
+began, and floated RNAP and dCas9 on top as two ellipses with a red bar
+between them.  So the duplex vanished precisely where it was needed,
+and the one thing the slide is about -- WHERE on the DNA the guide
+anneals -- was not drawn at all.
+
+Now: one continuous duplex across the full width, never broken; the
+promoter and RNAP on it at the left; the protospacer drawn as a stretch
+OF the top strand with its PAM immediately 3' of it; dCas9 above,
+holding the sgRNA, whose spacer lies along the protospacer with
+base-pairing ticks between the two so "anneals" is shown and not
+asserted; and RNAP's transcript running out and stopping against it,
+which is the actual mechanism -- a roadblock to elongation, not a cut.
+
+ORIENTATION IS LOAD-BEARING.  The dial drawn to the right of this
+counts from the PAM, so the sgRNA spacer runs 5' at the left to 3' at
+the right and its 3' end -- the seed -- sits against the PAM, where the
+dial also puts it.  The 3' end carries a HALF barb, not a full
+arrowhead, per house convention for nucleic acid ends.
+
+The first redraw was also too small, using about half the band, and
+four labels collided.  It now uses the whole of x 30-560 and the height
+of band A.
+
+ALL-HANDS IS GONE, 2026-11-17
+------------------------------
+JCA: "get rid of the all hands and Plib slides."  Sources 40 and 41
+removed.  Source 43, "Questions?", was NOT part of that instruction and
+is kept -- it moved to the end of 07-questions.html, which is where
+every other deck in the course puts it (03-genome-editing, 04-chassis
+and 10-directed-evolution all close on a white h1 "Questions?" as the
+last slide of their last section).  08-all-hands.html is deleted and
+the deck no longer has an All-Hands section.
+
+Neither removed slide had a speaker note in the pptx, so nothing of the
+source is lost; the narration written for them earlier today goes with
+them.
+
+The deck is now 44 slides: 39 of the 43 source slides (35, 40, 41 and
+42 are gone) plus the 4 added ones.
+
+URLs ARE REFERENCES, NOT NARRATION, 2026-11-17
+-----------------------------------------------
+JCA, seeing the presenter view: the Agilent URL ran straight into the
+narration -- "https://www.agilent.com/en/solutions/... Every library so
+far has been made from DNA you already had" -- and the Twist one is a
+300-character ad-tracking URL.  Then: "having those urls in the
+narration totally wrecks the voiceover.  They should probably be in the
+caption rather than the note."
+
+Fixed in deck.js, which is shared, so this applies to every deck.  The
+source notes themselves are UNTOUCHED -- nothing is deleted from them
+and verify_notes.py is unaffected.  At render time:
+
+  - splitRefs() lifts bare URLs out of the note text.  The prose goes
+    to the Narration block; the URLs go to a THIRD panel block,
+    "References", after the Visual description.  They are in neither
+    spoken channel.
+  - speak() reads the prose only, so the voiceover no longer spells out
+    a tracking URL character by character.
+  - a long URL is LABELLED by host and path only; the href still
+    carries all 391 characters, so the link goes exactly where the
+    note pointed.  Links are built as DOM nodes, never innerHTML, and
+    carry rel="noopener noreferrer".
+  - a note that was ONLY a URL used to leave the Narration block
+    blank; it now reads "(no narration on this slide)", which is true.
+  - the References block hides itself when a slide has none.
+
+12 notes across three decks carry URLs: 05-parts (4),
+10-directed-evolution (2) and this one (6).  All three were checked.
+
+ONE THING FOR JCA, IN LECTURE 10, NOT FIXED: its title slide's note
+carries two URLs ending "Arking:JCAOligoTutoria24" and
+"...Tutoria25".  Those look like "JCAOligoTutorial" with a trailing
+slide number stuck on rather than real page names, in which case both
+links are broken.  They are verbatim source in another deck and were
+not touched.
+
+SOURCE 10 RENAMED, 2026-11-17
+------------------------------
+JCA: "'Next-gen Synthesis' -- that probably has a more precise name
+than 'next gen', no?"  It does.  The paper on the slide is Kosuri et
+al., Nat Biotechnol 2011, PMID 21113165, "Scalable gene synthesis by
+selective amplification of DNA pools from high-fidelity microchips",
+and the field's term for it is chip-based gene synthesis.  The figure
+shows exactly that: a DNA microchip, the oligos sheared off into an OLS
+pool, then assembled into full-length genes.
+
+  "Next-gen Synthesis"  ->  h1 "Chip-based gene synthesis"
+                            sub "genes assembled from a microarray
+                            oligo pool"
+
+"Next-gen" is also doing double duty in a deck where NGS means
+sequencing, two slides after a section about sequencing instruments.
+
+ONE THING LEFT FOR JCA.  "next-gen" is not a slip in the title; it is
+his own term, and it appears THREE TIMES inside verbatim source notes
+-- twice in this slide's own note ("what's new in this library
+fabrication domain is next-gen gene synthesis", "the power of next-gen
+synthesis is that you get to write around 1000 genes") and once in
+source 11's ("Next-gen synthesis allows you to make all sorts of
+libraries").  Those notes are untouched, so he will say "next-gen
+synthesis" while the slide reads "chip-based gene synthesis".  Not a
+contradiction -- two names for one thing -- but if he wants them to
+agree, that is three more deliberate revisions and they are his to
+approve.
+
+SOURCE 11 REDRAWN AGAIN, 2026-11-17
+------------------------------------
+JCA: "In metagenomic libraries, this graphic is somewhat
+incomprehensible.  reexamine the original pptx for that.  It looks like
+you are showing fragments of orfs, which isn't right.  redraw that."
+
+Re-rendered the source at 200 dpi and looked.  Its four arrows are
+PLAIN AND SOLID -- one block of theme colour each, blue, yellow, green,
+purple, and no internal structure of any kind.  The earlier redraw had
+given each of them three dark internal blocks, to carry "shared
+architecture, divergent detail" without using four hues.  That was an
+invention, and a misleading one: for a bacterial gene those blocks read
+as exons, which these do not have, or as fragments of an ORF, which is
+what JCA saw.
+
+Removed.  The four genes are now plain outlines differing only in
+LENGTH, which is honest -- orthologs of one element really do differ in
+length -- and is what the source's own arrows differ in once the theme
+colours come off.  Which element they are is carried by the slide's own
+caption line, "Synthesize orthologs of a class of genetic elements".
+
+The genes also moved from --rule/ink to blue, because they are the one
+thing on this slide worth following and BLUE had been left unused by
+the removal.  In 03-libraries.js a gene arrow is context in --rule;
+palette.css is explicit that the same object may change rung as focus
+moves between slides, and here the genes are the focus.
+
+THE LESSON, which is the same one as sources 3-6: the failure was
+inventing structure to carry a distinction the palette would not.  When
+hue runs out, reduce the number of categories or use position and
+length -- do not draw anatomy that is not there.
+
+IMAGE CREDITS, TIDIED 2026-11-17
+---------------------------------
+JCA: "Handle those image credit urls more cleanly in the caption
+throughout the deck."
+
+There were exactly three raw-URL credits in the WHOLE COURSE, all on
+two slides of this deck.  Everywhere else the later lectures already
+had a convention and this deck had simply not been brought into line:
+09-in-vitro-assays and 10-directed-evolution write credits as short
+prose -- "After wiki.aalto.fi", "Schematic after microbenotes.com;
+column photograph after hawach.com", "Tube after Eppendorf, Basics in
+Centrifugation, handling-solutions.eppendorf.com".  So this is not a
+new style, it is the house one.
+
+  source 20   http://people.umass.edu/mcclemen/Group_files/image005.jpg
+              http://lamp.tu-graz.ac.at/~hadley/nanoscience/week4/assemble.gif
+              -> "After lamp.tu-graz.ac.at and people.umass.edu"
+  source 23   http://www.invitrogen.com/etc/medialib/en/images/
+              ics_organized/applications/nucleic_acid_amplification/
+              data_image/560_wide.Par.5532.Image.504.322.1..gif
+              -> "After invitrogen.com"
+
+The full URLs are written out above so nothing is lost by shortening
+them on the slide.
+
+SOURCE 20'S TWO CREDITS ARE NOT ASSIGNED TO THEIR IMAGES, deliberately.
+That slide carries a lipid schematic and an emulsion micrograph, and
+the house style elsewhere does assign ("schematic after X; photograph
+after Y").  A nanoscience page called assemble.gif is very probably the
+schematic and a food-emulsions group page very probably the micrograph
+-- but that is an inference, and a credit that guesses wrong is worse
+than one that does not guess.  If JCA knows which is which, the
+assigning form is better.
+
+Three slides in this deck carry a domain-only credit WE added rather
+than one the source printed -- agilent.com, twistbioscience.com,
+bio-rad.com.  Those were already in house form.
+
+AND THE THREE DOMAIN CREDITS WE ADDED got the same "After" prefix --
+After agilent.com, After twistbioscience.com, After bio-rad.com.  A
+bare domain and an "After <domain>" on neighbouring slides was a
+distinction nobody would read as meaningful, and deck 09 uses "After"
+for third-party material whether it was cropped or redrawn.  One rule,
+not two.
+
+SOURCES 15-19 ARE COLOURED BY REGION AGAIN, 2026-11-17
+-------------------------------------------------------
+JCA: "You need to use more of your colors to highlight all the
+annotated regions in that sequence, do for this whole slide sequence."
+
+This partly reverses this morning's change, and the distinction matters
+rather than being a flip-flop.  What was removed this morning was NINE
+INVENTED HUES, seven of which were not palette values at all, plus a
+printed legend decoding them.  What is here now is the palette's OWN
+four content colours and two neutrals, used as a categorical set on a
+sequence map -- which is what a sequence map is for.  No value is
+invented and there is still no legend, because every region is labelled.
+
+  P5, MiSeq primer sites, P7   ink     Illumina's own fixed sequence
+  variable-length spacer       muted   filler
+  what you are characterizing  --rule  the payload, and the largest area
+  your 20 bp site              blue    the part that is yours
+  barcode                      verm    the subject of 17-19
+  reverse priming site (T7)    amber
+  the gene itself              blue    also yours; never on a slide
+                                       that also shows the 20 bp site
+
+Text on each fill is the pairing palette.css measures, including the
+one that catches people out: AMBER TAKES BLACK, white on amber fails.
+
+The map and the SEQUENCE use the same assignment, so a region can be
+matched between them by eye -- which was JCA's point.  Where a region's
+fill is --rule the label and its bases use muted instead, because a
+--rule label on white is invisible.
+
+Per-slide emphasis is now carried by WEIGHT, not by desaturating
+everything else: the region a slide is about has a bold label.
+
+SOURCE 14 EXPANDED, 2026-11-17
+-------------------------------
+JCA: "We first do the video and specs on illumina.  Then transition and
+make an animation explaining nanopore and provide it's stats.  Then
+mention the other tech."
+
+Source 14 is now THREE slides, all marked <!-- 14 -->.  verify_notes.py
+groups note pieces per source number across every article carrying it,
+so JCA's note splits with them and the concatenation still has to equal
+the pptx note exactly:
+
+  Illumina          "Numbers from the vendors' specification pages"
+  Nanopore          the nanopore paragraph and its Wikipedia link
+  Other platforms   the PacBio paragraph and its link
+
+A TRAP WORTH RECORDING.  The nanopore slide was first built with
+data-seq, which is how the other animated slides in this deck work.
+That silently broke the note check: verify_notes.py SKIPS the note
+template of any article carrying data-seq, because a sequence slide is
+expected to keep its notes in the module and be checked with --seq.
+The slide reported MISMATCH with its paragraph simply missing.
+The fix is data-build, which animates an ORDINARY slide -- four other
+decks already use it -- so the verbatim paragraph stays in the HTML
+where the checker reads it.  Use data-build, not data-seq, on any
+animated slide that carries part of a source note.
+
+The animation itself is seq/14-nanopore.js: the apparatus is on screen
+when the slide arrives, then four clicks add the strand threading
+through a motor and the pore, a magnified constriction with the bases
+standing in it, the current trace with the called sequence under it,
+and a stats strip.  Blue is spent on exactly one thing and followed the
+whole way -- the DNA strand, continuing as the current trace it
+produces -- and vermillion marks only the moment of measurement.
+
+ONE NUMBER IS PRINTED, with its conditions, because a nanopore accuracy
+figure means nothing without them: 99.75% raw-read accuracy, Q26,
+Dorado v5, Kit V14, R10.4.1 flow cells, from nanoporetech.com/accuracy.
+NO READ-LENGTH FIGURE appears anywhere -- none could be sourced, and
+the strip says "long reads" instead of inventing a number.
+
+A SCRATCH FILE GOT INTO THE DECK while this was being built --
+02-tools-nanocheck.html, a copy of the section used for testing.
+Deleted.  Two reasons it mattered: anything under docs/ is published by
+mkdocs, so it would have become a live page; and verify_notes.py counts
+every file handed to it, so 0*.html made the run report 51 "source N:
+ok" lines instead of 39, which is exactly how a real mismatch would get
+hidden.  Scratch copies belong outside docs/.

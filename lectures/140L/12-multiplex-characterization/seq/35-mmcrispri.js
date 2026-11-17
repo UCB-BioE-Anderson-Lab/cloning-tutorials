@@ -78,63 +78,121 @@ const n2 = v => Math.round(v * 10) / 10;
  *   band C  y 470-570   the strip that names the space
  * ------------------------------------------------------------------ */
 
-/* ---- band A, left: dCas9 sitting on the gene ----------------------- */
+/* ---- band A, left: dCas9 sitting on the DNA ------------------------ *
+ * REDRAWN 2026-11-17.  JCA: "that graphic is incomprehensible.  I think
+ * you need to show the dna where the rnap binds, where the grna anneals
+ * (the protospacer) and show dcas9.grna sitting above it."  He was
+ * right.  The first version drew the gene as a block arrow, stopped the
+ * DNA duplex dead where that arrow began, and floated RNAP and dCas9 on
+ * top of it as two ellipses with a red bar between them.  So the one
+ * thing the slide is about -- WHERE on the DNA the guide anneals -- was
+ * not drawn at all, and the duplex disappeared exactly where it was
+ * needed.
+ *
+ * Now: one continuous duplex across the whole width; the promoter and
+ * RNAP at the left, on it; the protospacer marked as a stretch OF the
+ * duplex with its PAM immediately 3' of it; and dCas9 above, holding
+ * the sgRNA, whose spacer lies along the protospacer with base-pairing
+ * ticks drawn between them.  RNAP's transcript runs out and stops
+ * against dCas9, which is the actual mechanism -- a roadblock to
+ * elongation, not a cut.
+ *
+ * ORIENTATION IS LOad-BEARING, because the dial to the right of this
+ * drawing is numbered from the PAM.  The sgRNA spacer runs 5' at the
+ * left to 3' at the right, so its 3' end -- the seed -- sits against
+ * the PAM, which is where the dial puts it too.  The 3' end carries a
+ * HALF barb, not a full arrowhead, per house convention for nucleic
+ * acid ends.
+ * -------------------------------------------------------------------- */
 function molecular(){
-  const Y = 200, GAP = 26;
+  /* band A runs y 30-340 and the dial starts at x 580, so this drawing
+     gets the whole of x 30-560 and most of the height.  The first cut
+     used half of it and everything collided. */
+  const TOP = 266, BOT = 294;            /* the two strands            */
+  const X0 = 50, X1 = 556;               /* how far the duplex runs    */
+  const PS0 = 300, PS1 = 428;            /* the protospacer            */
+  const PAM0 = PS1 + 7, PAM1 = PAM0 + 34;
+  const CAS = (PS0 + PS1) / 2, CASY = 158, CRX = 86, CRY = 56;
   let s = "";
 
   s += '<text x="30" y="60" font-family="inherit" font-size="25" ' +
        'font-weight="700" fill="' + MUTED + '">dCas9 does not cut &#8212; it sits</text>';
 
-  /* the gene, a block arrow */
-  const g0 = 170, g1 = 460, h = 28, head = 30, mid = Y + GAP/2;
-  s += '<path d="M ' + g0 + ' ' + (mid - h/2) +
-       ' L ' + (g1 - head) + ' ' + (mid - h/2) +
-       ' L ' + (g1 - head) + ' ' + (mid - h/2 - 11) +
-       ' L ' + g1 + ' ' + mid +
-       ' L ' + (g1 - head) + ' ' + (mid + h/2 + 11) +
-       ' L ' + (g1 - head) + ' ' + (mid + h/2) +
-       ' L ' + g0 + ' ' + (mid + h/2) + ' Z" ' +
-       'fill="' + PAPER + '" stroke="' + BLUE + '" stroke-width="3"/>';
-
-  /* upstream duplex */
-  [0, GAP].forEach(function(dy){
-    s += '<line x1="50" y1="' + (Y + dy) + '" x2="' + (g0 + 4) + '" y2="' +
-         (Y + dy) + '" stroke="' + INK + '" stroke-width="3"/>';
+  /* ---- the DNA, one continuous duplex, drawn first and never broken */
+  [TOP, BOT].forEach(function(y){
+    s += '<line x1="' + X0 + '" y1="' + y + '" x2="' + X1 + '" y2="' + y +
+         '" stroke="' + INK + '" stroke-width="3"/>';
   });
 
-  /* promoter */
-  s += '<path d="M 72 ' + (Y + GAP) + ' L 72 120 L 124 120" fill="none" ' +
-       'stroke="' + INK + '" stroke-width="3"/>';
-  s += '<path d="M 140 120 L 122 111 L 122 129 Z" fill="' + INK + '"/>';
+  /* ---- the promoter, and RNAP on it */
+  s += '<path d="M 86 ' + BOT + ' L 86 208 L 132 208" fill="none" stroke="' +
+       INK + '" stroke-width="3"/>';
+  s += '<path d="M 150 208 L 130 199 L 130 217 Z" fill="' + INK + '"/>';
+  s += '<ellipse cx="152" cy="' + ((TOP + BOT) / 2) + '" rx="32" ry="28" fill="' +
+       PAPER + '" stroke="' + MUTED + '" stroke-width="3"/>';
+  s += '<text x="152" y="' + ((TOP + BOT) / 2 + 6) + '" text-anchor="middle" ' +
+       'font-family="inherit" font-size="17" fill="' + MUTED + '">RNAP</text>';
 
-  /* RNA polymerase, elongating, and dCas9 in its way */
-  s += '<ellipse cx="212" cy="' + mid + '" rx="28" ry="34" fill="' + PAPER + '" ' +
-       'stroke="' + MUTED + '" stroke-width="3"/>';
-  s += '<text x="212" y="' + (mid + 7) + '" text-anchor="middle" ' +
-       'font-family="inherit" font-size="18" fill="' + MUTED + '">RNAP</text>';
+  /* ---- the transcript, running out and stopping against dCas9 */
+  s += '<line x1="184" y1="' + (TOP - 16) + '" x2="' + (PS0 - 26) + '" y2="' +
+       (TOP - 16) + '" stroke="' + MUTED + '" stroke-width="3"/>';
+  s += '<line x1="' + (PS0 - 20) + '" y1="' + (TOP - 30) + '" x2="' + (PS0 - 20) +
+       '" y2="' + (TOP - 2) + '" stroke="' + VERM + '" stroke-width="5"/>';
 
-  s += '<ellipse cx="306" cy="' + mid + '" rx="44" ry="52" fill="' + RULE + '" ' +
-       'stroke="' + BLUE + '" stroke-width="4"/>';
-  s += '<text x="306" y="' + (mid + 8) + '" text-anchor="middle" ' +
+  /* ---- the protospacer: a stretch OF the duplex, not a thing on top */
+  s += '<line x1="' + PS0 + '" y1="' + TOP + '" x2="' + PS1 + '" y2="' + TOP +
+       '" stroke="' + VERM + '" stroke-width="7"/>';
+  /* the PAM, immediately 3' of it */
+  s += '<rect x="' + PAM0 + '" y="' + (TOP - 9) + '" width="' + (PAM1 - PAM0) +
+       '" height="18" rx="3" fill="' + RULE + '" stroke="' + INK + '" stroke-width="2"/>';
+  /* both of these go UNDER the duplex, far enough apart not to touch:
+     protospacer centred on itself, PAM centred on its box */
+  s += '<text x="' + ((PS0 + PS1) / 2 - 18) + '" y="' + (BOT + 24) +
+       '" text-anchor="middle" font-family="inherit" font-size="19" fill="' +
+       VERM + '">protospacer</text>';
+  s += '<text x="' + ((PAM0 + PAM1) / 2 + 4) + '" y="' + (BOT + 24) +
+       '" text-anchor="middle" font-family="inherit" font-size="17" fill="' +
+       INK + '">PAM</text>';
+
+  /* ---- dCas9, above the DNA, over the protospacer */
+  s += '<ellipse cx="' + CAS + '" cy="' + CASY + '" rx="' + CRX + '" ry="' + CRY +
+       '" fill="' + RULE + '" stroke="' + BLUE + '" stroke-width="4"/>';
+  s += '<text x="' + CAS + '" y="' + (CASY - 4) + '" text-anchor="middle" ' +
        'font-family="inherit" font-size="22" font-weight="700" fill="' + BLUE +
        '">dCas9</text>';
 
-  /* the sgRNA, a vermillion curl off the top of dCas9 */
-  s += '<path d="M 306 ' + (mid - 52) + ' q 38 -26 18 -50 q -18 -22 -46 -12" ' +
-       'fill="none" stroke="' + VERM + '" stroke-width="5" stroke-linecap="round"/>';
-  s += '<text x="356" y="' + (mid - 112) + '" text-anchor="middle" ' +
+  /* ---- the sgRNA: scaffold inside dCas9, spacer annealed below it */
+  const SP = TOP - 13;                   /* the spacer lies just above  */
+  s += '<path d="M ' + (CAS - 34) + ' ' + (CASY + 20) +
+       ' q -26 26 -18 52" fill="none" stroke="' + VERM +
+       '" stroke-width="5" stroke-linecap="round"/>';
+  s += '<line x1="' + PS0 + '" y1="' + SP + '" x2="' + (PS1 - 10) + '" y2="' + SP +
+       '" stroke="' + VERM + '" stroke-width="5"/>';
+  /* base pairing, drawn so "anneals" is visible rather than asserted */
+  for (let x = PS0 + 8; x < PS1 - 8; x += 14){
+    s += '<line x1="' + x + '" y1="' + (SP + 3) + '" x2="' + x + '" y2="' +
+         (TOP - 4) + '" stroke="' + VERM + '" stroke-width="1.5" opacity="0.8"/>';
+  }
+  /* 3' end: a HALF barb, house convention -- and it points at the PAM,
+     which is where the seed is and where the dial starts counting */
+  s += '<path d="M ' + (PS1 - 10) + ' ' + SP + ' L ' + (PS1 - 24) + ' ' + (SP - 9) +
+       '" fill="none" stroke="' + VERM + '" stroke-width="4" stroke-linecap="round"/>';
+  s += '<text x="' + (PS1 + 4) + '" y="' + (SP - 8) + '" font-family="inherit" ' +
+       'font-size="15" fill="' + VERM + '">3&#8242;</text>';
+  s += '<text x="' + (PS0 - 26) + '" y="' + (SP + 4) + '" font-family="inherit" ' +
+       'font-size="15" fill="' + VERM + '">5&#8242;</text>';
+  s += '<text x="' + (CAS + 92) + '" y="' + (CASY - 26) + '" ' +
        'font-family="inherit" font-size="21" fill="' + VERM + '">sgRNA</text>';
+  s += '<path d="M ' + (CAS + 88) + ' ' + (CASY - 32) + ' q -22 -6 -34 10" ' +
+       'fill="none" stroke="' + VERM + '" stroke-width="2"/>';
 
-  /* the block */
-  s += '<line x1="258" y1="' + (mid - 46) + '" x2="258" y2="' + (mid + 46) +
-       '" stroke="' + VERM + '" stroke-width="6"/>';
-
-  s += '<text x="402" y="' + (mid + 84) + '" text-anchor="middle" ' +
-       'font-family="inherit" font-size="21" fill="' + BLUE + '">essential gene</text>';
-  s += '<text x="186" y="' + (mid + 84) + '" text-anchor="middle" ' +
-       'font-family="inherit" font-size="21" fill="' + VERM +
-       '">transcription blocked</text>';
+  /* ---- what it costs */
+  s += '<text x="' + (PS0 - 28) + '" y="' + (TOP - 28) + '" text-anchor="end" ' +
+       'font-family="inherit" font-size="19" fill="' + VERM +
+       '">elongation blocked</text>';
+  s += '<text x="' + (X1 - 6) + '" y="' + (BOT + 48) + '" text-anchor="end" ' +
+       'font-family="inherit" font-size="19" fill="' + BLUE +
+       '">essential gene</text>';
   return s;
 }
 
@@ -300,7 +358,7 @@ const steps = [
     add:"Here is the trick that turns the switch into a dial. The guide pairs over twenty bases, and a single mismatch does not affect it equally everywhere. Out at the distal end, away from the PAM, one mismatch barely matters and you keep almost all the knockdown. Down in the seed, the seven bases nearest the PAM, one mismatch nearly abolishes it. And in between you can get anything you want. So by choosing WHERE you put one mismatch, you order a particular strength of knockdown — and they built a model that predicts it well enough to design to.",
     desc:"The 20-base pairing region split into distal, middle and seed regions, with bars showing how much knockdown a mismatch at each position leaves intact." },
   {
-    add:"Now it multiplexes, and this is the part that matters for this lecture. Instead of one guide per gene, you order a hundred: ten guides against the gene, each with nine mismatched variants, chosen to spread right across the knockdown range. Do that for every essential gene in the organism — about three hundred of them — and the library is over thirty thousand members. Grow the whole pool together for ten doublings, keeping it in exponential phase, and sequence the guide cassettes at the start and at the end. A guide that got rarer belongs to a strain that grew badly. The change in frequency is the fitness measurement, and it comes for every one of those thirty thousand strains out of one experiment.",
+    add:"Now it multiplexes, which is the part that matters for characterizing a whole library at once. Instead of one guide per gene, you order a hundred: ten guides against the gene, each with nine mismatched variants, chosen to spread right across the knockdown range. Do that for every essential gene in the organism — about three hundred of them — and the library is over thirty thousand members. Grow the whole pool together for ten doublings, keeping it in exponential phase, and sequence the guide cassettes at the start and at the end. A guide that got rarer belongs to a strain that grew badly. The change in frequency is the fitness measurement, and it comes for every one of those thirty thousand strains out of one experiment.",
     desc:"The pooled workflow: a hundred sgRNAs per gene, over thirty thousand per library, grown ten doublings and read out by sequencing the guides." },
   {
     add:"And for orientation, this is one corner of a much bigger space. Tn-seq disrupts genes at random and needs no separate barcode, because the insertion site is its own identifier. Ordinary CRISPRi knocks down on purpose, but all the way. Mismatch CRISPRi, the one we just drew, knocks down by an amount you choose. And Perturb-seq does any of these but reads the answer out of single cells as whole transcriptomes, so the phenotype is not one number but thousands. The older version of this idea is TRMR, from Ryan Gill's lab in 2010 — same ambition, tuning genes up and down with barcoded genomic edits made by recombineering, before CRISPR made the aiming easy.",

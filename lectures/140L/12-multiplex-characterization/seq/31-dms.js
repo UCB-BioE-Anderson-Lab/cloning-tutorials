@@ -294,7 +294,7 @@ function figure(){
 
 const steps = [
   {
-    add:"That phage display experiment we just looked at was Fowler, 2010, and I want to give it its proper name, because it started a method. It is called deep mutational scanning. The idea is this. Instead of picking a handful of mutations you think matter and making them one at a time, you make every substitution at every position in the domain, and you put them all in one tube.",
+    add:"The phage display experiment was Fowler, 2010, and it deserves its proper name, because it started a method. It is called deep mutational scanning. The idea is this. Instead of picking a handful of mutations you think matter and making them one at a time, you make every substitution at every position in the domain, and you put them all in one tube.",
     desc:"The first two steps of the pipeline: make every substitution at every position, and pool them." },
   {
     add:"Then you do an assay that sorts the good from the bad — for Fowler that was phage display selecting for binding to the WW domain's peptide ligand, but it can be growth, or fluorescence, or anything you can select on. And here is the multiplexing move, which by now should be familiar: you sequence the pool before the selection and after it. A variant that got rarer was a bad variant. The change in frequency is that variant's score, and you get one for every member at once. Fowler tracked over six hundred thousand variants that way.",

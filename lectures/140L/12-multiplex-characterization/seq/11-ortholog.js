@@ -184,29 +184,37 @@ function connector(){
  * ------------------------------------------------------------------ */
 const GX = 680, GW = 760, GH = 86, GGAP = 48, HEAD = 52, WAIST = 32;
 
-const GENES = [
-  [0.91, [[0.09, 0.14], [0.34, 0.19], [0.63, 0.13]]],
-  [1.00, [[0.12, 0.12], [0.38, 0.21], [0.69, 0.16]]],
-  [0.83, [[0.07, 0.16], [0.31, 0.16], [0.58, 0.12]]],
-  [0.94, [[0.11, 0.13], [0.36, 0.23], [0.66, 0.14]]]
-];
+/* The source's four arrows are PLAIN AND SOLID -- one block of colour
+   each, no internal structure of any kind.  The first redraw gave them
+   three dark blocks apiece to suggest shared architecture with
+   divergent detail.  JCA, 2026-11-17: "It looks like you are showing
+   fragments of orfs, which isn't right."  He is right twice over: it
+   was not in his slide, and for a bacterial gene it reads as exons,
+   which these do not have.  The blocks are gone.
 
-function gene(spec, yc){
-  const L = spec[0] * GW, tip = GX + L, shoulder = tip - HEAD;
-  let s = '<path d="M ' + GX + ' ' + (yc - WAIST) +
-          ' H ' + n1(shoulder) + ' V ' + (yc - GH / 2) +
-          ' L ' + n1(tip) + ' ' + yc +
-          ' L ' + n1(shoulder) + ' ' + (yc + GH / 2) +
-          ' V ' + (yc + WAIST) + ' H ' + GX + ' Z" fill="' + PAPER +
-          '" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/>';
+   That leaves length as the only thing separating them, which is
+   honest -- orthologs of one element really do differ in length -- and
+   it is what the source's own four arrows differ in once their four
+   theme colours come off.  The identity of each is carried by the
+   caption, which is the slide's own line: these are orthologs of ONE
+   class of element.
 
-  spec[1].forEach(function(b){
-    const x = GX + b[0] * GW, w = Math.min(b[1] * GW, shoulder - 6 - x);
-    if (w <= 0) return;
-    s += '<rect x="' + n1(x) + '" y="' + (yc - WAIST + 5) + '" width="' + n1(w) +
-         '" height="' + (WAIST * 2 - 10) + '" fill="' + BLUE + '"/>';
-  });
-  return s;
+   The genes are the one thing promoted to blue here.  Everything else
+   -- the record, the database, the arrow -- is the scene that produced
+   them, and in 03-libraries.js a gene arrow is context drawn in --rule.
+   palette.css is explicit that the same object may change rung as the
+   focus moves between slides, and on this slide the genes ARE the
+   focus. */
+const GENES = [0.91, 1.00, 0.83, 0.94];
+
+function gene(lenFrac, yc){
+  const L = lenFrac * GW, tip = GX + L, shoulder = tip - HEAD;
+  return '<path d="M ' + GX + ' ' + (yc - WAIST) +
+         ' H ' + n1(shoulder) + ' V ' + (yc - GH / 2) +
+         ' L ' + n1(tip) + ' ' + yc +
+         ' L ' + n1(shoulder) + ' ' + (yc + GH / 2) +
+         ' V ' + (yc + WAIST) + ' H ' + GX + ' Z" fill="' + PAPER +
+         '" stroke="' + BLUE + '" stroke-width="3" stroke-linejoin="round"/>';
 }
 
 function genes(){
@@ -219,10 +227,8 @@ function genes(){
 const ALT =
   "A database sequence record at left, with a database symbol over it, " +
   "and an arrow from it to four gene arrows stacked at right.  The four " +
-  "genes are drawn alike -- the same outline, the same three dark blocks " +
-  "in the same order -- but each has a different length and its blocks " +
-  "fall at slightly different places and widths: one class of element, " +
-  "four different members of it.";
+  "are drawn the same way and differ only in length: four members of one " +
+  "class of genetic element, pulled out of the database.";
 
 function draw(){
   return record() + connector() + genes();
