@@ -15,8 +15,9 @@ that means here, precisely:
             worth not losing: if a correction ever becomes necessary it
             should be added deliberately, not to make a check pass
   DONE      figures cropped and placed, sections split, index linked
-  NOT DONE  the figure treatment.  Every figure is a straight crop from
-            a 200 dpi render of the source.  None is redrawn.
+  PARTLY    the figure treatment.  Sources 15-19 are now drawn (see
+            below) and source 35 was replaced outright.  Every other
+            figure is still a straight crop from a 200 dpi render.
   NOT DONE  alt text and the desc channel.  Both carry a provisional
             line built from the slide's own title: true, but thin.  Alt
             was NOT left as the literal string "TODO" because a screen
@@ -48,17 +49,36 @@ SECTIONS
   43 steps in all; no slide has builds, because the source has no
   p:timing on any slide.
 
-THE FIRST THING TO FIX: SOURCES 15 TO 19
------------------------------------------
-Five slides carry the Illumina construct as a single ~700-character run
-of bases.  In the source these are COLOURED and LABELLED -- P5 adapter,
-MiSeq primer binding, variable-length spacer, P7 adapter, and on 17-19 a
-barcode picked out in green -- and the labels are separate text boxes
-pointing at regions of the sequence.  The rough cut renders the run as
-one monospace block and loses all of it, which makes those five slides
-close to meaningless.  They want the lecture-11 treatment: the sequence
-set as HTML with each region in its own colour, and the region names as
-labels.  That is the single biggest gap in this pass.
+SOURCES 15 TO 19: DONE, 2026-11-16
+-----------------------------------
+This was the biggest gap in the rough cut.  Five slides carried the
+Illumina construct as one undifferentiated run of ~660 monospace
+characters; in the source every region is COLOURED and five of them are
+LABELLED with their own text boxes, so the conversion had kept the raw
+bases and thrown away everything they meant.
+
+seq/15-illumina.js now draws, on each of the five, a MAP of the
+construct with the regions named, and under it the ACTUAL SEQUENCE
+coloured by region.  The map is schematic -- segment widths are chosen
+so the labels fit and the middle is compressed hard.  The sequence is
+exact: all five were diffed against the runs read out of
+ppt/slides/slide1[5-9].xml and are character-for-character identical
+(664, 664, 660, 192, 192).  Re-check the totals if you edit one.
+
+THREE FAULTS IN THE SOURCE'S OWN COLOURING ARE FIXED, and because
+these are changes to JCA's slides they are written out in full in the
+file's header.  In short: the two "MiSeq Primer Binding" labels had
+different colours; accent4 meant both the spacer and one of those
+primer sites; and the 20 bp library-specific sites -- the thing source
+15's note is actually about -- were drawn in bg1, white on white, and
+so could not be seen at all.  One thing is added: the open reading
+frame at the end of 18 and 19 is coloured, because source 18's whole
+argument is that the read runs out before the gene can identify itself
+and that is invisible while the gene is buried in a run of N.
+
+Sources 17-19 draw the architecture desaturated and only the barcode
+(and on 19 the T7 site) at full strength, which is the source's own
+change of emphasis on those slides, kept.
 
 WHAT ELSE IS THIN, AND WHOSE FAULT IT IS
 -----------------------------------------
