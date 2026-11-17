@@ -22,6 +22,22 @@
   font-size:13px;line-height:1.35;white-space:pre-wrap;word-break:break-all;
   margin:10px 0 0;color:var(--ink)}
 .slide p.sub{font-size:26px;color:var(--muted);margin:0 0 6px}
+.slide .con{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:center;gap:22px;margin-top:6px}
+.slide .conmap{flex:0 0 auto}
+.slide .conmap svg{width:100%;height:auto;display:block}
+/* 18px, not the 13px the rough cut used: these are real adapter
+   sequences a student may want to read a base at a time, and at 13px
+   the whole figure sat in a band with half the slide empty under it */
+.slide pre.conseq{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:18px;line-height:1.6;white-space:pre-wrap;word-break:break-all;
+  margin:0}
+.slide .conkey{display:flex;flex-wrap:wrap;align-items:center;gap:6px 24px;
+  font-size:19px;color:var(--muted)}
+.slide .conkey .chip{display:inline-flex;align-items:center;gap:7px}
+.slide .conkey .chip i{width:14px;height:14px;border-radius:3px;
+  display:inline-block;flex:0 0 auto}
+.slide .conkey .len{margin-left:auto;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -81,22 +97,7 @@ https://en.wikipedia.org/wiki/Single-molecule_real-time_sequencing</template>
 <!-- ---------------------------------------------------------------- 15 -->
 <article class="slide">
   <h1>Paired-end Illumina samples</h1>
-  <pre class="seqblock">AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCTN..NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN..NAGATCGGAAGAGCACACGTCTGAACTCCAGTCACATCTCGTATGCCGTCTTCTGCTTG</pre>
-  <ul class="tight">
-    <li>P5 Illumina adapter</li>
-  </ul>
-  <ul class="tight">
-    <li>MiSeq Primer Binding</li>
-  </ul>
-  <ul class="tight">
-    <li>MiSeq Primer Binding</li>
-  </ul>
-  <ul class="tight">
-    <li>P7 Illumina adapter</li>
-  </ul>
-  <ul class="tight">
-    <li>Variable-length Spacer</li>
-  </ul>
+  <div class="con" data-con="15"></div>
   <template class="notes">The PCR products for illumina sequencing look something like this.  The P5 and P7 sequences are on the ends followed by MiSeq primer binding sequences, and then a variable-length spacer, and then 20bp sites specific to your experiment.  Inclusion of the variable-length spacer is a technicality.  The likely high-sequence similarity of a multiplex characterization sample messes up the reading, so you have to create some variability by putting randomness here.  A sample like the above can be read in both directions (that’s paired-end reads) or just one, and based on which instrument and which run you do, it can be 30bp reads up to 300bp reads.</template>
   <template class="desc">Paired-end Illumina samples.</template>
 </article>
@@ -104,7 +105,7 @@ https://en.wikipedia.org/wiki/Single-molecule_real-time_sequencing</template>
 <!-- ---------------------------------------------------------------- 16 -->
 <article class="slide">
   <h1>MiSeq Data</h1>
-  <pre class="seqblock">AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCTN..NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN..NAGATCGGAAGAGCACACGTCTGAACTCCAGTCACATCTCGTATGCCGTCTTCTGCTTG</pre>
+  <div class="con" data-con="16"></div>
   <template class="notes">So, if you did paired-end reads of a sequence like this, what you’d actually get in the data file is something like the sequence here starting with the variable region and including whatever library-specific priming sites you used.</template>
   <template class="desc">MiSeq Data.</template>
 </article>
@@ -112,7 +113,7 @@ https://en.wikipedia.org/wiki/Single-molecule_real-time_sequencing</template>
 <!-- ---------------------------------------------------------------- 17 -->
 <article class="slide">
   <h1>Barcoding</h1>
-  <pre class="seqblock">AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCTN..NNNNNNctcccaggctaaNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN..NAGATCGGAAGAGCACACGTCTGAACTCCAGTCACATCTCGTATGCCGTCTTCTGCTTG</pre>
+  <div class="con" data-con="17"></div>
   <template class="notes">A very common trick in using deep sequencing as an analytical tool involves writing dna barcodes, as noted here in green.  If you keep constant the bases flanking a custom barcode, you can algorithmically extract the barcode from the sequence by scanning for the context.  At first glance, it may not be obvious why you’d need to barcode a gene when you could just use the gene itself as an identity marker.</template>
   <template class="desc">Barcoding.</template>
 </article>
@@ -120,7 +121,7 @@ https://en.wikipedia.org/wiki/Single-molecule_real-time_sequencing</template>
 <!-- ---------------------------------------------------------------- 18 -->
 <article class="slide">
   <h1>Barcoding</h1>
-  <pre class="seqblock">NNNNNNNNNctcccaggctaaNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNatgaaaataattgctgatagtaagcttattagaaaaagaatgattgatttaaatattaatagcatt</pre>
+  <div class="con" data-con="18"></div>
   <ul class="tight">
     <li>In practice, your read will be only 250bp or shorter</li>
   </ul>
@@ -131,7 +132,7 @@ https://en.wikipedia.org/wiki/Single-molecule_real-time_sequencing</template>
 <!-- ---------------------------------------------------------------- 19 -->
 <article class="slide">
   <h1>Barcoding</h1>
-  <pre class="seqblock">NNNNNNNNNctcccaggctaaNNNNNNNNNNNNNNNNNNNCCCTATAGTGAGTCGTATTANNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNatgaaaataattgctgatagtaagcttattagaaaaagaatgattgatttaaatattaatagcatt</pre>
+  <div class="con" data-con="19"></div>
   <ul class="tight">
     <li>Reverse priming site.  Here, T7 Universal</li>
   </ul>
@@ -186,5 +187,6 @@ In vitro translation systems are their own subject of synthetic biology, and Jew
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/15-illumina.js" defer></script>
 </body>
 </html>
