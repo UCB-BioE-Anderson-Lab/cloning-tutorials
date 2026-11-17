@@ -30,18 +30,10 @@
    16:9 with both plots at a size a room can read they sit side by side
    instead.  What the diagonal carried -- which caption belongs to which
    plot -- is carried by the panels and the leader arrows. */
-.slide .selex{flex:1 1 auto;min-height:0;display:flex;gap:70px;
-  align-items:stretch;margin-top:6px}
-.slide .selex .panel{flex:1 1 0;min-width:0;display:flex;flex-direction:column;
-  margin:0}
-.slide .selex figcaption{font-size:26px;line-height:1.3;margin-bottom:4px}
-.slide .selex .lead{width:90px;height:52px;flex:0 0 auto;margin:0 0 2px 18px}
 /* The media are 368x321 and 255x241, and the source slide itself shows
    them at about 1.5x that, so filling the panel is what the original
    does too.  max-height clamps the taller one rather than letting it
    push the caption off the slide. */
-.slide .selex img{min-height:0;width:100%;height:auto;max-height:100%;
-  object-fit:contain;align-self:flex-start}
 .slide .fg{flex:1 1 auto;min-height:0;display:flex;align-items:center;
   justify-content:center;margin-top:4px}
 .slide .fg svg{width:100%;height:100%;display:block}
@@ -60,22 +52,11 @@
 <!-- ---------------------------------------------------------------- 25 -->
 <article class="slide">
   <h1>SELEX with Deep Sequencing</h1>
-  <div class="selex">
-    <figure class="panel">
-      <figcaption>Microfluidic-based SELEX of DNA Aptamer library</figcaption>
-      <svg class="lead" viewBox="0 0 90 70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="6" y1="6" x2="70" y2="52" stroke="#767676" stroke-width="2.5"/><path d="M 82 61 L 65 58 L 72 46 Z" fill="#767676"/></svg>
-      <img src="img/25-selex-curve.png" alt="A binding curve: fluorescence intensity against single-stranded DNA concentration, for the initial library pool and the pools after rounds one, two and three. The first three lie almost flat together; the round-three pool rises steeply and saturates far above them.">
-    </figure>
-    <figure class="panel">
-      <figcaption>Deep Sequencing</figcaption>
-      <svg class="lead" viewBox="0 0 90 70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="6" y1="6" x2="70" y2="52" stroke="#767676" stroke-width="2.5"/><path d="M 82 61 L 65 58 L 72 46 Z" fill="#767676"/></svg>
-      <img src="img/25-selex-enrich.png" alt="Sequence counts against round-three over round-one enrichment fold. The great majority of sequences sit at low enrichment near the axis; a thin tail of individually rare sequences runs out to several thousand-fold.">
-    </figure>
-  </div>
+  <div class="fg" data-fig="selex"></div>
   <p class="src">PMID: 20705898</p>
   <template class="notes">Here is an example from Tom Soh in which deep sequencing is used as the readout after a SELEX experiment.  They begin with a typical poly-N oligonucleotide containing PCR priming sites on both ends, then subject this library to selection for binding to a protein.  In this variant, they employ a microfluidic device to perform the separation of bound and unbound DNAs, however, this step of the experiment might also be done by more traditional columns or panning.  The sample is then prepped for deep sequencing, and they calculate the frequency of observed sequences within the hit population.  From this, they can identify the most promising sequences for further analysis.</template>
-  <template class="notes-add">The paper is Cho and Xiao in Tom Soh&#8217;s lab at Santa Barbara, with Ron Stewart and Jamie Thomson in Wisconsin on the sequencing, PNAS 2010. They call it QSAS, quantitative selection of aptamers through sequencing, the separation is done on a micromagnetic separation device, and the target is PDGF-BB. What is worth taking seriously is what they do with the reads. They do not simply look at what is abundant at the end. They sequence after every round and follow more than ten million individual sequences through all of them, so each sequence carries a copy number and, more usefully, an enrichment-fold from one round to the next. That distinction is the whole method, because abundance on its own is a trap: a sequence can be common at the end because it binds the target, or because it amplifies well, or because it stuck to something it should not have, and a frequency cannot tell those apart. An enrichment measured across rounds can, because an amplification artifact does not keep getting better at binding, and they make exactly that argument &#8212; the method discriminates sequences that arise from experimental bias from ones that are really high-affinity binders. It also means the pool never has to converge. A conventional selection runs until a handful of sequences dominate, because that is what makes it affordable to clone and sequence a few dozen of them; here you can stop while the pool is still diverse and read the winners out of the data. They got aptamers to PDGF-BB with a Kd under 3 nM in three rounds, and against what conventional cloning pulled out they were three- to eight-fold better in affinity and two- to four-fold better in specificity.</template>
-  <template class="desc">Two plots side by side, each with its caption above it and a short arrow leading down into it. Left, captioned microfluidic-based SELEX of DNA aptamer library: fluorescence intensity against single-stranded DNA concentration, with the starting pool and the round one and round two pools lying almost flat together and the round three pool rising steeply and saturating well above them. Right, captioned deep sequencing: sequence counts against round-three over round-one enrichment fold, with most sequences bunched at low enrichment near the axis and a thin tail running out to several thousand-fold.</template>
+  <template class="notes-add">The device is the Soh lab&#8217;s own. Two streams run side by side without mixing, nickel strips in the floor of the channel are magnetized from outside, and the target-coated beads get walked up across the streamlines into the clean buffer while everything unbound carries straight on to waste. What the sequencing adds is the second panel. Because they read the pool after every round, each sequence carries not just a count but a change in count, and that is what separates a real binder from a sequence that is merely good at being amplified. Cho and Xiao got aptamers to PDGF-BB with a Kd under 3 nM in three rounds, without ever waiting for the pool to converge.</template>
+  <template class="desc">Two drawn panels. Left, one round on the chip: a microfluidic channel fed by a buffer stream above and a sample stream below, the sample being the library plus magnetic beads coated with the target, with a dashed line marking that the two do not mix. Diagonal nickel strips magnetized from outside cross the channel, and the beads walk up along them out of the sample stream and out through the product outlet, while everything unbound stays low and goes to waste; the product is then amplified and run again. Right, what the sequencing adds: three sequences, each with a round one bar and a round three bar. The first starts tiny and ends large and is marked climbs, the second is large in both rounds and is marked flat, the third shrinks and is marked falls. Abundance at the end cannot tell the first from the second; the change across rounds can. Bar heights are schematic.</template>
 </article>
 
 
@@ -111,6 +92,7 @@
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/25-selex.js" defer></script>
 <script src="seq/29-shapeseq.js" defer></script>
 </body>
 </html>
