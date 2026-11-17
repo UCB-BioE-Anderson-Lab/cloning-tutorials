@@ -19,6 +19,9 @@
   font-size:13px;line-height:1.35;white-space:pre-wrap;word-break:break-all;
   margin:10px 0 0;color:var(--ink)}
 .slide p.sub{font-size:26px;color:var(--muted);margin:0 0 6px}
+.slide .fg{flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin:6px 0 0}
+.slide .fg svg{width:100%;height:100%;display:block}
 .slide .mm,.slide .ef{flex:1 1 auto;min-height:0;display:flex;align-items:center;
   justify-content:center;margin-top:4px}
 .slide .mm svg,.slide .ef svg{width:100%;height:100%;display:block}
@@ -29,8 +32,17 @@
 <!-- ---------------------------------------------------------------- NEW -->
 <article class="slide" data-bg="section">
   <h1>Multiplex characterization of regulatory DNA</h1>
-  <template class="notes-add">Those last four were nucleic acids that fold up and do something themselves. Now take the other kind of DNA, which does nothing itself and only decides how much of something else gets made &#8212; a promoter, an enhancer, a ribosome binding site. These are about the easiest things in biology to make a library of, since they are short enough to come straight off an oligo pool, and they are among the hardest to predict. That combination is exactly the case for measuring the whole population instead of guessing which members to test.</template>
+  <template class="notes-add">Those last examples were nucleic acids that fold up and do something themselves. Now take the other kind of DNA, which does nothing itself and only decides how much of something else gets made &#8212; a promoter, an enhancer, a ribosome binding site. These are about the easiest things in biology to make a library of, since they are short enough to come straight off an oligo pool, and they are among the hardest to predict. The measurement for them starts from the most ordinary sequencing experiment there is, which is counting transcripts, and what you have to add to it is a way of telling whose transcript you are counting.</template>
   <template class="desc">Section divider on the amber ground: Multiplex characterization of regulatory DNA.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 26 -->
+<article class="slide">
+  <h1>RNA Seq</h1>
+  <div class="fg" data-fig="26"></div>
+  <template class="notes">In a more analytical usage, RNA seq has become the most popular way of analyzing gene expression in cells and has largely replaced microarrays for this application.  Here, a mRNA is extracted from the sample and then converted to cDNA using reverse transcription.  In the process, the adapter sequences for deep sequencing are incorporated, and then read.  By counting the number of reads of each sequence, one gets a measure of the relative expression level of these genes in the original sample.  By comparing the frequency of a given gene across different samples, one can determine whether that gene is upregulated or downregulated under some conditions.</template>
+  <template class="notes-add">It is worth being precise about what a read count is here. You are not measuring a promoter. You are measuring the steady-state amount of each message, which is transcription and degradation together, and you are measuring it relative to everything else in the same sample, because the number of reads a run gives you is set by the instrument and not by the cell. That is why these experiments are always framed as one condition against another rather than as an absolute number. The part to carry forward is how a transcript gets identified: by its own sequence. That works when the transcripts differ from each other, and it stops working the moment you want to compare a thousand versions of the same promoter driving the same gene, because then every message in the sample reads the same.</template>
+  <template class="desc">A workflow drawn left to right, schematic. At the left, under the heading mRNA, three transcript species stacked in their own lanes: four long copies, eleven of a shorter one, two shorter still, each with a poly(A) tail. Two curved routes lead right, one labeled fragmentation then RT and the other RT then fragmentation, and both arrive at the sequence library, where each lane's fragments sit between adapters, four, six and two of them. An arrow runs to a box labeled Sequencer, and from it down to a field of short sequence reads in the same three lanes, sixteen, twenty-eight and four.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 36 -->
@@ -40,10 +52,34 @@
   <p class="src">PMID: 23129659</p>
   <template class="notes">CRE here means “Cis-regulatory elements”, not to be confused with Cre recombinase, which is unrelated.
 Another use of multiplex characterization is for promoters.  In this variation, a library of promoter elements is placed upstream of an RFP gene and a barcode.  The barcode is unique to each promoter variant and will be incorporated into the mRNA if the gene is expressed.  The library of DNAs is introduced into retinal cells by electroporation, and then the mRNA was extracted.  If the promoter expressed during the experiment, then mRNAs will be present containing its barcode within this mixed mRNA sample.  After reverse transcription and PCR, the pool is sequenced, and the frequency of each barcode is calculated.  By normalizing against the frequency of each barcode in a deep sequence sample generated from the DNA present in the original sample, the relative expression of each gene can be quantified.  In this manner, the effect of different mutations of a promoter can be mapped out in one experiment.</template>
-  <template class="notes-add">Notice that nothing here is new machinery. It is the barcoding we drew back in the tools section, read out by the RNA-seq we did right after it, with one extra step: you sequence the input DNA as well so you can divide by it. That division is the whole measurement, because a barcode can be abundant in the mRNA either because its promoter is strong or because there was simply more of that construct in the pool to begin with.</template>
+  <template class="notes-add">So CRE-Seq is that same RNA-seq experiment with two things added. The first is the barcode. Every variant gets a short tag downstream of the reporter, so the message carries a label saying which promoter made it, and a thousand transcripts that would otherwise read identically become countable one by one. The second is the denominator. You deep sequence the input DNA as well and divide by it, because a barcode can be abundant in the mRNA either because its promoter is strong or because there was simply more of that construct in the cells to begin with, and only the ratio separates those. The paper is Jamie Kwasnieski in Barak Cohen&#8217;s lab at Washington University, working with Joseph Corbo, PNAS 2012. They took a 52 base pair element out of the rhodopsin promoter, which drives strong photoreceptor-specific expression, and assayed over a thousand single and double nucleotide mutations of it. Eighty-six percent of the single substitutions changed regulatory activity significantly, and that is the result worth remembering: a short regulatory element is not a few binding sites sitting on neutral background, and most of the bases in it are doing something.</template>
   <template class="desc">CRE-Seq: a library of cis-regulatory element variants, each upstream of DsRed and its own barcode, electroporated into retina; the barcode's abundance in the mRNA over its abundance in the input DNA gives each variant's expression.</template>
 </article>
 
+<!-- ---------------------------------------------------------------- NEW -->
+<!-- Kosuri 2013, added at JCA's request; see seq/36b-compose.js. -->
+<article class="slide">
+  <h1>Composing promoters and RBSs</h1>
+  <p class="sub">every combination, measured at DNA, RNA and protein</p>
+  <div class="fg" data-fig="compose"></div>
+  <p class="src">PMID: 23924614</p>
+  <template class="notes-add">Sri Kosuri and Dan Goodman in George Church&#8217;s lab, with the BIOFAB group at Berkeley and Drew Endy at Stanford, PNAS 2013. The question is the one you hit the moment you try to build anything: you have a promoter you have characterized and a ribosome binding site you have characterized, and you want to know what you get when you put the two together. So they made every combination. A hundred and fourteen promoters against a hundred and eleven ribosome binding sites is 12,653 constructs, and all of it came off one Agilent oligo pool and was cloned as a single library driving superfolder GFP. The mCherry sitting on the same plasmid is under a constant promoter and never changes; it is there so that every number can be a ratio, which divides out differences in copy number and growth from one cell to the next. Then three measurements on that one pool. DNA sequencing says how many copies of each construct are in there. RNA sequencing says how much message each one makes, which you report per copy of its DNA for the same reason the barcodes were divided by the input a moment ago. And for protein they sort the cells by their GFP to mCherry ratio into twelve bins, sequence each bin separately, and reconstruct from the read counts where each construct&#8217;s cells landed. They call that FlowSeq, and it is the same move as everything else here: a measurement you could never make on twelve thousand things one at a time becomes a sequencing experiment.</template>
+  <template class="desc">A drawn figure. One construct runs along a plasmid: promoter, ribosome binding site, superfolder GFP, barcode, with the promoter and the ribosome binding site marked as the two slots that vary, 114 of one and 111 of the other, every combination made as one oligo pool of 12,653 constructs. Below it on the same plasmid, quietly, PLTetO-1 drives mCherry at a constant level as the internal standard every ratio is taken against. Beneath that, one pool and three measurements: DNA-seq for how many copies of each construct are in the pool, RNA-seq for how much message each makes per copy of its DNA, and FlowSeq, which sorts the cells by GFP over mCherry into twelve log-spaced bins, drawn as a row of twelve boxes from dimmer to brighter, and sequences each bin.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- NEW -->
+<article class="slide">
+  <h1>Expected versus measured</h1>
+  <p class="sub">a model built from the library&#8217;s own averages, scored against it</p>
+  <div class="fg" data-fig="expected"></div>
+  <p class="src">PMID: 23924614</p>
+  <template class="notes-add">Now the test. Give every promoter a strength and every ribosome binding site a strength, multiply the two, and see how close that lands. Notice how generous a test that is. The strengths are not taken off somebody else&#8217;s datasheet; each one is that element&#8217;s own average across this very library, so the model is being scored on the data it was fitted to. Even then, RNA comes within twofold of prediction eighty percent of the time and protein only sixty-four percent, with R-squared values of 0.92 and 0.76. Transcription composes reasonably well and translation does not, which makes sense if you think about what the two parts are: the ribosome binding site and the beginning of the gene fold up as one piece of RNA, so what the ribosome finds there depends on both of them together and not on either one alone. The number to keep, though, is the tail. When this fails it fails hard &#8212; the worst five percent of protein predictions are off by thirteen-fold on average, and in a pathway of five genes you have a fair chance of owning one of those. Their own conclusion is the honest one, and it is the argument for this entire lecture: rather than relying on prediction or standardization, we can screen synthetic libraries for desired behavior. You do not calculate the expression level you want. You build a few thousand and measure which one has it.</template>
+  <template class="desc">Two proportion bars. For RNA, R squared 0.92, with eighty percent of the bar filled to mark eighty percent of predictions within twofold and twenty percent further off. For protein, R squared 0.76, sixty-four percent within twofold and thirty-six percent further off. The bars are ordered best to worst, and a bracket under the last five percent of the protein bar reads: the worst 5 percent miss by 13-fold on average.</template>
+</article>
+
+<script src="seq/26-rnaseq.js" defer></script>
+<script src="seq/36b-compose.js" defer></script>
+<script src="seq/36c-expected.js" defer></script>
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 </body>

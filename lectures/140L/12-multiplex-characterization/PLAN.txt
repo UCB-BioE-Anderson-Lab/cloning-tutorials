@@ -1273,3 +1273,105 @@ way through is what makes that readable.
 The host box is 2.13:1 against a 2.39:1 viewBox, so about 11% of the
 vertical is slack.  Left as is; 1480x695 would fill it exactly if the
 slide ever needs the room.
+
+
+RNA-SEQ MOVED AGAIN, AND CRE-SEQ REFRAMED, 2026-11-17
+------------------------------------------------------------
+JCA: "move rna seq to the beginning of Multiplex characterization of
+regulatory DNA.  Essentially cre-seq is a lot like rna seq but
+pulling a pool of the rna, and including barcodes, so it is an
+extension of the rna-seq idea."
+
+Source 26 moved out of Functional Nucleic Acids and into Regulatory
+DNA, directly after the divider and directly before CRE-Seq.  Its
+module script and the .fg CSS rule moved with it.
+
+Four notes were rewritten so the arc holds:
+  nucleic acids divider  no longer opens by splitting RNA questions
+                         into "how much" and "what it does", since
+                         the "how much" half is no longer in that
+                         section
+  regulatory divider     now ends on the hand-off: the measurement
+                         starts from counting transcripts, and what
+                         you add is a way of telling WHOSE transcript
+  source 26 (new add)    what a read count actually is, ending on the
+                         fact that identification is by sequence --
+                         which stops working for a thousand copies of
+                         one promoter driving one gene
+  source 36              rewritten as "that same RNA-seq experiment
+                         with two things added": the barcode and the
+                         denominator.  Also now carries the paper --
+                         Kwasnieski in Barak Cohen's lab with Joseph
+                         Corbo, PNAS 2012, a 52 bp element from the
+                         rhodopsin promoter, >1000 single and double
+                         mutants, 86% of single substitutions
+                         significant (PMID 23129659, abstract read
+                         directly).
+
+KOSURI ADDED TO REGULATORY DNA, 2026-11-17
+------------------------------------------------------------
+JCA said to fill the section out with Kosuri's composability work.
+Two slides, both added (not in the pptx), both PMID 23924614:
+
+  Composing promoters and RBSs   seq/36b-compose.js
+  Expected versus measured       seq/36c-expected.js
+
+Read from the authors' own PDF at arep.med.harvard.edu, because the
+PMC record is abstract-only.  THE ABSTRACT'S "12,563" IS A
+TRANSPOSITION: Results says all combinations of 114 promoters and 111
+RBSs, "12,653 constructs in total; one combination resulted in an
+incompatible restriction site", and 114 x 111 = 12,654.  12,653 is
+what the slides print.
+
+The second slide's subtitle is the load-bearing part.  Element
+strengths were not measured independently; the paper calculated them
+"by averaging transcription levels and translation efficiency
+(protein/RNA)" ACROSS THIS LIBRARY, so the model is scored on the data
+it was fitted to.  That makes 80% / 64% within twofold, and a worst 5%
+off by 13-fold, the generous case rather than the harsh one.
+
+Both figures are drawn in palette only and print no number that was
+not read in a sentence of the paper.  The deviations are drawn as two
+proportion bars rather than as a distribution, because the shape of
+that distribution is in their Fig. 4 and we do not have it.
+
+FOUR SLIDES CUT BACK OR CUT, 2026-11-17
+------------------------------------------------------------
+SHAPE-SEQ, per-beat narration.  JCA: "shape seq is improved, but the
+narration is still not right.  You need to explain each beat."  The
+four build groups in seq/29-shapeseq.js now carry data-note-add
+attributes, one per beat, and the article carries a notes-add for the
+opening state.  deck.js already reads data-note/data-note-add off a
+build group; nothing in the deck had used it from inside a module
+before.  The article's desc was also stale -- it still described the
+published two-panel figure the drawing replaced -- and was rewritten.
+
+DEEP MUTATIONAL SCANNING.  JCA: "there are too many clicks on this
+slide.  It doesn't need that many.  And I think this is fabricated
+data -- it shows W as being dead too."  Both right, and the second was
+a real error, not a schematic liberty: the wild-type residue's score
+is a thing divided by itself, so it is zero at every position
+INCLUDING the conserved tryptophans.  Drawing those columns solid blue
+said the protein cannot tolerate its own sequence.  SCORE is now
+forced to zero at the wild-type row and that cell is outlined, with a
+line in the key saying so.  Four steps became two.
+
+EXPRESSION-FITNESS.  JCA: "why are you going into so much detail about
+this?  Why is this useful to talk about?  I don't get it.  So what
+that these have shapes?"  Fair, and the old narration never answered
+it -- it spent its last beat on a cross-reference to lecture 11's
+impedance curves.  Five steps became two, and the first beat now says
+what the curve is FOR before any curve is drawn: these are essential
+genes, a knockout gives you one bit, and if you want to dial a gene
+down to redirect flux you need to know how far down you can go.  The
+second beat keeps the three shapes and the conservation result and
+ends on "the shape belongs to the pathway, not to the organism".
+
+VARIANTS OF UNCERTAIN SIGNIFICANCE, REMOVED.  JCA: "This slide is
+crap.  Unpresentable.  Too many numbers.  Too many clicks.  And it
+isn't even a synthetic biology relevant example."  The slide and
+seq/31b-brca1.js are gone, with the orphaned .brca CSS.  It was an
+added slide, so nothing of his was lost.  Deep mutational scanning
+still carries the method; what went with it was the clinical payoff,
+and there is no synthetic-biology example of saturation editing in
+this deck to put in its place.

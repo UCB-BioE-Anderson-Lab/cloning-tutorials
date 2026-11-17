@@ -232,7 +232,7 @@ function opening(){
 
 /* ---- 1. the adduct, on one arm only -------------------------------- */
 function adduct(){
-  let s = '<g data-build="1">';
+  let s = '<g data-build="1" data-note-add="1M7 is an acylating reagent with a short half-life in water, and it reacts with the 2-prime hydroxyl of the ribose. Whether it gets there depends on the local backbone: a nucleotide that is base paired or packed against something is held still and reacts poorly, and one in a loop or a bulge is free to move and reacts well. So the adduct lands preferentially where the molecule is flexible, and it lands somewhere different on every molecule in the tube. The minus tube gets the DMSO the reagent was dissolved in and nothing else, so no adduct forms in it at all.">';
   s += line(ADDUCT_X, PLUS_Y - 4, ADDUCT_X, PLUS_Y - 30, VERM, 4);
   s += '<circle cx="' + ADDUCT_X + '" cy="' + (PLUS_Y - 40) + '" r="11" fill="' +
        VERM + '"/>';
@@ -247,7 +247,7 @@ function adduct(){
 
 /* ---- 2. reverse transcription, from the handle leftwards ----------- */
 function extension(){
-  let s = '<g data-build="2">';
+  let s = '<g data-build="2" data-note-add="Now you read where the adduct is, and you read it by failing to copy past it. A primer anneals to the handle on the 3-prime end and reverse transcriptase runs leftward along the RNA. The 2-prime adduct sits in the minor groove and the enzyme falls off when it reaches it, leaving a cDNA whose own 3-prime end is one base short of the modified nucleotide. The length of that cDNA is the measurement. In the minus tube there is nothing in the way, so the enzyme runs to the 5-prime end, and that is exactly what that tube is for: reverse transcriptase drops off on its own at structured places, and if you did not measure that separately you would read its ordinary failures as chemistry.">';
 
   /* (+): primer on the handle, cDNA stopping one base before the dot */
   s += line(1030, PLUS_Y + 36, STOP_X, PLUS_Y + 36, BLUE, 5);
@@ -274,7 +274,7 @@ const BC_Y = [446, 496, 546], BC_X0 = 150, BC_X1 = 590;
 const BC_H0 = 420, BC_H1 = 560;        /* the handle block on each stub  */
 
 function barcode(){
-  let s = '<g data-build="3">';
+  let s = '<g data-build="3" data-note-add="The barcode is what makes this multiplex rather than one RNA at a time. It sits in the handle, four nucleotides, one per RNA, so every cDNA carries a label saying which molecule it came off. You modify, extend and sequence the whole set in one tube, and sort the reads back out by barcode afterward. That is the same trick as the barcoded promoter library, used on structure instead of expression.">';
   s += '<line x1="60" y1="366" x2="1440" y2="366" stroke="' + RULE +
        '" stroke-width="2"/>';
   s += txt(60, 412, 23, VERM, "many RNAs in one tube", {bold:true});
@@ -305,7 +305,7 @@ const PLUS_H  = [5,8,6,52,9,7,62,12,8,6,72,11,8,40,9,6,12,56,8,6];
 const MINUS_H = [6,8,5, 9,7,8,11, 7,5,8,12, 7,5,38,7,5, 8, 9,7,5];
 
 function counts(){
-  let s = '<g data-build="4">';
+  let s = '<g data-build="4" data-note-add="What comes off the sequencer is a pile of cDNAs, and what you want from each one is only where it stopped. Count the stops at every position, in the plus channel and in the minus channel, and take the difference base by base. That difference is the reactivity, and it is what you hand to a folding program as a constraint: a high number says this base was flexible, so do not pair it, and a low number says it was held. Julius Lucks and Stefanie Mortimer did this in the Arkin lab with Kevin Weeks, and the estimate is a maximum likelihood fit rather than a straight subtraction, because a stop at one position hides every adduct further along the same molecule.">';
   s += txt(700, 412, 23, BLUE, "count where it stopped", {bold:true});
   s += txt(1440, 412, 19, MUTED, "schematic; counts are not data",
            {anchor:"end"});

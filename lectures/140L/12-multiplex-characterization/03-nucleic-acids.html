@@ -53,7 +53,7 @@
 <article class="slide" data-bg="section">
   <h1>Multiplex characterization of functional nucleic acids</h1>
   <template class="notes">Since RNA and DNA libraries can be readily amplified by rtPCR or PCR directly, such libraries are prime candidates for analysis by deep sequencing.  Let’s look at some examples.</template>
-  <template class="notes-add">Deep sequencing asks two quite different questions of RNA. One is how much of it there is, which is RNA-seq and is the commonest sequencing experiment anybody runs. The other is what the molecule does — an aptamer that binds a protein, a structured region of an mRNA whose shape is the whole point. Both are nucleic acids being characterized by counting reads, but the thing being counted is different, and it is worth keeping track of which question each experiment is answering.</template>
+  <template class="notes-add">The examples coming up are nucleic acids that do something themselves rather than code for something that does. An aptamer folds up and binds a protein; a structured region of a message has a shape that is the whole point of it. You characterize both by counting reads, as you do everything else here, but what the counts stand for changes from one experiment to the next. In a selection, a count is how often a sequence survived a round. In a structure experiment, it is where a reagent or an enzyme could reach the molecule. Keeping track of what is actually being counted is most of what it takes to read these papers.</template>
   <template class="desc">Section divider on the amber ground: Multiplex characterization of functional nucleic acids.</template>
 </article>
 
@@ -79,13 +79,6 @@
 </article>
 
 
-<!-- ---------------------------------------------------------------- 26 -->
-<article class="slide">
-  <h1>RNA Seq</h1>
-  <div class="fg" data-fig="26"></div>
-  <template class="notes">In a more analytical usage, RNA seq has become the most popular way of analyzing gene expression in cells and has largely replaced microarrays for this application.  Here, a mRNA is extracted from the sample and then converted to cDNA using reverse transcription.  In the process, the adapter sequences for deep sequencing are incorporated, and then read.  By counting the number of reads of each sequence, one gets a measure of the relative expression level of these genes in the original sample.  By comparing the frequency of a given gene across different samples, one can determine whether that gene is upregulated or downregulated under some conditions.</template>
-  <template class="desc">A workflow drawn left to right, schematic. At the left, under the heading mRNA, three transcript species stacked in their own lanes: four long copies, eleven of a shorter one, two shorter still, each with a poly(A) tail. Two curved routes lead right, one labeled fragmentation then RT and the other RT then fragmentation, and both arrive at the sequence library, where each lane's fragments sit between adapters, four, six and two of them. An arrow runs to a box labeled Sequencer, and from it down to a field of short sequence reads in the same three lanes, sixteen, twenty-eight and four.</template>
-</article>
 
 <!-- ---------------------------------------------------------------- 27 -->
 <article class="slide">
@@ -112,12 +105,12 @@
   <div class="fg" data-shape></div>
   <p class="src">PMID: 21642531</p>
   <template class="notes">SHAPE-Seq is a method developed in the Arkin lab by Julius Lucks that enables the readout of the SHAPE reaction by deep sequencing using a barcoding strategy.  This allows them to analyze the structural properties of libraries RNAs.</template>
-  <template class="desc">A published protocol figure in two panels. In panel A, input RNAs are treated either with 1M7 or with a DMSO control; reverse transcription from a plus or minus handle primer stops wherever an adduct sits; the RNA is hydrolyzed, single-stranded DNA is ligated on, and the products are read as paired-end Illumina reads, with two adapter types marked. In panel B, the reads are binned by handle, aligned and separated by barcode for each RNA, the plus and minus counts are plotted back to back along the sequence, passed through maximum likelihood estimation to give a reactivity for each base, and those reactivities constrain a drawn secondary structure.</template>
+  <template class="notes-add">Start with what is in the two tubes, because the whole method is a comparison between them. One RNA preparation is split in half. Both halves carry the same thing on the 3&#8242; end, a handle holding a primer binding site and a barcode, which is there so the molecule can be copied and identified later. One half sees 1M7 and the other sees only the DMSO it was dissolved in, and nothing else differs between them. Everything that follows is done to both tubes side by side.</template>
+  <template class="desc">A drawn figure, built up in four steps. One RNA is split into two tubes, drawn one above the other, each a horizontal strand running 5&#8242; to 3&#8242; with a handle block near its 3&#8242; end labeled primer site plus barcode; the upper is labeled plus 1M7 and the lower minus DMSO, the control. A 2&#8242;-O adduct then appears on the upper strand only, marked modified where the RNA is flexible, while the lower is marked nothing modified. A primer anneals to each handle and reverse transcription runs leftward: in the upper tube it stops one base before the adduct, in the lower it runs all the way to the 5&#8242; end, which is what that tube measures. Below, three RNAs in one tube each carry their own four-nucleotide barcode. At the lower right, stop-position counts are drawn back to back along the sequence, plus above the axis and minus below, labeled schematic, counts are not data, with the note that each molecule is modified somewhere different and the difference at each base is its reactivity.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
-<script src="seq/26-rnaseq.js" defer></script>
 <script src="seq/29-shapeseq.js" defer></script>
 </body>
 </html>
