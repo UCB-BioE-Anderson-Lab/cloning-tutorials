@@ -42,12 +42,14 @@ SECTIONS
   01-libraries.html      2-11     Types of Libraries
   02-tools.html          12-23    Tools of the Trade
   03-rna-dna.html        24-29    RNAs and DNAs
-  04-protein.html        30-33    Protein Function
+  04-protein.html       30, 31, NEW, NEW, 32, 33   Protein Function
   05-properties.html     34, NEW, NEW, 36   Biological Properties
   06-questions.html      37-39    Questions to Ponder
   07-all-hands.html      40-43    All-Hands
-  43 steps in all; no slide has builds, because the source has no
-  p:timing on any slide.
+  42 of the 43 source slides (35 was replaced) plus 4 added ones.
+  No SOURCE slide has builds, because the pptx has no p:timing
+  anywhere; the four added slides are sequences and carry 4, 5, 4 and
+  4 steps, so the deck runs 59 steps in all.
 
 SOURCES 15 TO 19: DONE, 2026-11-16
 -----------------------------------
@@ -86,6 +88,50 @@ Sources 3, 4, 5, 6 are a title and one or two bullets with everything
 else in the spoken note.  check_section.js flags them as under 40% fill.
 That is the SOURCE's design, not the conversion's -- do not invent
 content to fill them.
+
+DEEP MUTATIONAL SCANNING WAS ALREADY HERE, UNNAMED
+---------------------------------------------------
+2026-11-16.  I told JCA that deep mutational scanning was missing from
+Protein Function and should be added.  That was wrong, and the way it
+was wrong decided the design of the fix.  SOURCE 31 IS PMID 20711194 --
+Fowler et al., Nat Methods 2010 -- which is the paper that FOUNDED deep
+mutational scanning and named it.  It was already in the deck, framed
+as a thing you can do to a phage display experiment rather than as the
+start of a method.
+
+So the two new slides go immediately AFTER 31 and give that experiment
+its name, rather than introducing the method cold somewhere else:
+
+  seq/31-dms.js     "Deep mutational scanning".  The five-step pipeline
+                    down the left, and the position-by-amino-acid map
+                    it produces on the right, with four columns picked
+                    out to teach you how such a map reads.  4 steps.
+  seq/31b-brca1.js  "Variants of uncertain significance".  Findlay
+                    et al., Nature 2018, PMID 30209399: the VUS problem,
+                    saturation genome editing of BRCA1, and the bimodal
+                    distribution that makes the variants classifiable.
+                    4 steps.
+
+TWO NUMBERS THAT MUST NOT BE MERGED.  Fowler tracked ">600,000
+variants" of a WW domain, but a WW domain is about 35 residues, so its
+single substitutions number in the hundreds -- his library carried
+multiples as well.  The slide says "every substitution at every
+position" for the MODERN form of the method and gives 600,000
+separately as Fowler's own figure.
+
+THE HEATMAP AND THE HISTOGRAM ARE BOTH SCHEMATIC and both say so.  What
+is faithful in the heatmap is how it READS; the two conserved
+tryptophans are real, because a WW domain is named for them.  What is
+faithful in the histogram is its SHAPE -- bimodal with a sparse valley
+-- and the counts printed beside it are the paper's own.
+
+THE CLOSER ON THE BRCA1 SLIDE IS DELIBERATELY HEDGED.  The paper says
+"We predict that these results will be immediately useful for the
+clinical interpretation of BRCA1 variants".  That is a prediction about
+utility, not a report that any clinic adopted the data, and the note
+says so in those terms.  JCA pulled me up earlier in this deck for
+claiming variants "actually go into patient reports", which I could not
+support; do not let that claim back in.
 
 TRMR IS GONE; MISMATCH-CRISPRi IS IN ITS PLACE
 -----------------------------------------------

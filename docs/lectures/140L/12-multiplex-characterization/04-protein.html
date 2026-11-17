@@ -22,6 +22,9 @@
   font-size:13px;line-height:1.35;white-space:pre-wrap;word-break:break-all;
   margin:10px 0 0;color:var(--ink)}
 .slide p.sub{font-size:26px;color:var(--muted);margin:0 0 6px}
+.slide .dms,.slide .brca{flex:1 1 auto;min-height:0;display:flex;
+  align-items:center;justify-content:center;margin-top:4px}
+.slide .dms svg,.slide .brca svg{width:100%;height:100%;display:block}
 </style>
 </head>
 <body>
@@ -42,6 +45,26 @@
   <figure class="fig"><img src="img/31-phage.png" alt="Figure from the slide Coupled with Phage Display."></figure>
   <template class="notes">Just as you can deep sequence the pool of selectants from a SELEX experiment, you can also deep sequence the selectants from panning a phage-display library.  Here, Fowler demonstrates that deep sequencing can be used to analyze the results of phage display and thereby characterize mutant WW domains.</template>
   <template class="desc">Coupled with Phage Display.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- NEW -->
+<!-- Source 31 is PMID 20711194 -- Fowler 2010 -- which is the paper that
+     founded deep mutational scanning.  It is already in this deck but
+     framed as a thing you can do to a phage display experiment, so these
+     two slides go immediately after it and give it its name.  Added on
+     JCA's instruction of 2026-11-16.  See seq/31-dms.js. -->
+<article class="slide" data-seq="dms">
+  <h1>Deep mutational scanning</h1>
+  <p class="sub">what source 31 started &#183; Fowler et al. 2010, PMID: 20711194</p>
+  <div class="dms" data-dms></div>
+</article>
+
+<!-- ---------------------------------------------------------------- NEW -->
+<!-- And what it is for.  See seq/31b-brca1.js. -->
+<article class="slide" data-seq="brca1">
+  <h1>Variants of uncertain significance</h1>
+  <p class="sub">saturation genome editing of BRCA1 &#183; PMID: 30209399</p>
+  <div class="brca" data-brca></div>
 </article>
 
 <!-- ---------------------------------------------------------------- 32 -->
@@ -70,5 +93,7 @@ The Harvard experiment employs a library of computationally-designed ZF’s and 
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/31-dms.js" defer></script>
+<script src="seq/31b-brca1.js" defer></script>
 </body>
 </html>
