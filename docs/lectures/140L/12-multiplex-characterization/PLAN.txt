@@ -42,7 +42,7 @@ SECTIONS
   02-tools.html          12-23    Tools of the Trade
   03-rna-dna.html        24-29    RNAs and DNAs
   04-protein.html        30-33    Protein Function
-  05-properties.html     34-36    Biological Properties
+  05-properties.html     34, NEW, NEW, 36   Biological Properties
   06-questions.html      37-39    Questions to Ponder
   07-all-hands.html      40-43    All-Hands
   43 steps in all; no slide has builds, because the source has no
@@ -66,6 +66,52 @@ Sources 3, 4, 5, 6 are a title and one or two bullets with everything
 else in the spoken note.  check_section.js flags them as under 40% fill.
 That is the SOURCE's design, not the conversion's -- do not invent
 content to fill them.
+
+TRMR IS GONE; MISMATCH-CRISPRi IS IN ITS PLACE
+-----------------------------------------------
+2026-11-16.  JCA: "I think we should replace trmr with something more
+modern, and name the techniques on the slide very briefly explaining
+the distinctions.  But generally, focus on explaining just one
+graphically and showing some data about what comes from it."
+
+Source 35, TRMR/Genome Barcoding, was deleted and TWO new slides put in
+its place.  They are marked <!-- NEW --> so verify_notes.py knows there
+is nothing in the pptx to check them against, and their notes live in
+their sequence files rather than in a <template class="notes">, because
+the words are JCA's voice and mine, not the source's.
+
+  seq/35-mmcrispri.js   "Turning the knob, not the switch".  dCas9 on
+                        an essential gene; the 20-base pairing region
+                        as a dial, seed vs middle vs distal; the pooled
+                        experiment as a pipeline; and a strip along the
+                        bottom naming Tn-seq, CRISPRi, mismatch-CRISPRi
+                        and Perturb-seq.  4 steps.
+  seq/35b-expfit.js     "Expression-fitness relationships".  Three
+                        pathways down, two organisms across, after
+                        Hawkins et al. Fig. 4.  Robust, linear, bimodal
+                        -- then read across for the conservation.
+                        5 steps.
+
+WHY TWO AND NOT THREE.  JCA asked how much time this idea is worth
+against the rest of the lecture.  Measured: an application in this deck
+gets one or two slides (SHAPE-seq 2, one-hybrid 2, phage display 1,
+SELEX 1), and Biological Properties was the THINNEST section in the
+lecture -- and thinner still once CRE-Seq moves to regulatory DNA.
+Three slides would have made the replacement the deepest-treated
+application in the deck.  So naming the space became furniture along
+the bottom of the first slide instead of a slide of its own.
+
+EVERY NUMBER ON THOSE SLIDES IS THE PAPER'S, read from the PMC full
+text of PMID 33080209 (PMC7704046) and recorded in each file's header
+with the sentence it came from.  The CURVES AND THE ACTIVITY BARS ARE
+SCHEMATIC -- drawn to the shapes the paper describes in words, not
+traced off its figures -- and both slides say so in small print.  Do
+not let anyone read a value off either one.
+
+WHERE THE REMAINING TIME IN THIS LECTURE ACTUALLY WANTS TO GO, raised
+with JCA on 2026-11-16 and not yet acted on: sources 15-19 below, and
+the absence of deep mutational scanning from Protein Function, which
+has only two topics and both are display-based.
 
 THE ALL-HANDS SECTION IS STILL HERE
 ------------------------------------

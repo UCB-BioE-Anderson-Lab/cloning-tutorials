@@ -22,6 +22,9 @@
   font-size:13px;line-height:1.35;white-space:pre-wrap;word-break:break-all;
   margin:10px 0 0;color:var(--ink)}
 .slide p.sub{font-size:26px;color:var(--muted);margin:0 0 6px}
+.slide .mm,.slide .ef{flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin-top:4px}
+.slide .mm svg,.slide .ef svg{width:100%;height:100%;display:block}
 </style>
 </head>
 <body>
@@ -33,15 +36,25 @@
   <template class="desc">Multiplex characterization of biological properties.</template>
 </article>
 
-<!-- ---------------------------------------------------------------- 35 -->
-<article class="slide">
-  <h1>TRMR/Genome Barcoding</h1>
-  <ul class="tight">
-    <li>PMID: 20639866</li>
-  </ul>
-  <figure class="fig"><img src="img/35-trmr.png" alt="Figure from the slide TRMR/Genome Barcoding."></figure>
-  <template class="notes">TRMR is a method developed by Ryan Gill that involves the generation of genomic mutations from oligonucleotides.  These oligos are generated from chips and designed to target specific sites in specific genes with mutations and a barcode.  The procedure to introduce these mutations involve MAGE-like reactions involving homologous recombination enhanced by lambda red.  The result is a library of strains in which up and down mutations to the genes are tagged with barcodes.  Typically there is one such modification to each genome.  This population of bacteria is subjected to selections such as a challenge with a toxic metabolite.  Those mutations that enhance performance under these conditions become enriched while those that reduce performance are diminished.  After selection, the barcodes are PCR’d out of the sample and subjected to deep sequencing.  Based on the observed frequency of each barcode, the relevance of each mutation to a growth challenge can be inferred.</template>
-  <template class="desc">TRMR/Genome Barcoding.</template>
+<!-- ---------------------------------------------------------------- NEW -->
+<!-- Replaces source 35, TRMR/Genome Barcoding, on JCA's instruction of
+     2026-11-16: "I think we should replace trmr with something more
+     modern."  TRMR survives as one sentence in the fourth step's note,
+     which is where its lineage belongs.  Two slides, not three: an
+     application in this deck gets one or two, and this was the
+     thinnest section in the lecture.  See seq/35-mmcrispri.js. -->
+<article class="slide" data-seq="mmcrispri">
+  <h1>Turning the knob, not the switch</h1>
+  <p class="sub">Mismatch-CRISPRi &#183; PMID: 33080209</p>
+  <div class="mm" data-mm></div>
+</article>
+
+<!-- ---------------------------------------------------------------- NEW -->
+<!-- The data that comes out of it.  See seq/35b-expfit.js. -->
+<article class="slide" data-seq="expfit">
+  <h1>Expression&#8211;fitness relationships</h1>
+  <p class="sub">every essential gene, two organisms, one experiment</p>
+  <div class="ef" data-ef></div>
 </article>
 
 <!-- ---------------------------------------------------------------- 36 -->
@@ -58,5 +71,7 @@ Another use of multiplex characterization is for promoters.  In this variation, 
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/35-mmcrispri.js" defer></script>
+<script src="seq/35b-expfit.js" defer></script>
 </body>
 </html>
