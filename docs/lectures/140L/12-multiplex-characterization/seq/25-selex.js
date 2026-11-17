@@ -23,6 +23,31 @@
  *   panel here is drawn from that paper's full text, read in full,
  *   not from the 2010 abstract.
  *
+ * SECOND DRAFT, AND WHY.  The first version drew the chip as a plain
+ * rectangle with diagonals in it.  JCA: "That does not resemble any
+ * apparatus, and it is too abstract to be comprehensible."  He was
+ * right, and the cause was the oldest mistake in FIGURE-CONTRACT.md:
+ * it was built from the Methods prose without rendering Lou et al.
+ * Fig. 2 and LOOKING at it.  Rendered at 130 dpi and redrawn against
+ * it.  What the figure shows that the prose did not:
+ *   - the channel is a LENS, wide in the middle and tapered at both
+ *     ends, not a rectangle;
+ *   - there are THREE inlets, not two: sample, buffer, sample, with
+ *     the buffer in the MIDDLE and a sample stream on either side of
+ *     it.  The first draft had buffer above and sample below, which
+ *     is simply not the device;
+ *   - likewise three outlets: waste, product, waste, product in the
+ *     middle;
+ *   - the beads start at BOTH outer edges and converge on the
+ *     centreline as they travel, which is the picture;
+ *   - the syringe pumps, the chip body and the external magnet are
+ *     all in Fig. 2A, and they are what make the thing read as an
+ *     apparatus rather than a diagram.
+ * The text confirms the geometry: beads "are selectively transported
+ * from the sample stream into the buffer stream", and "After the
+ * magnetic particles reach the buffer stream at the center of the
+ * device, they are eluted through the Product outlet."
+ *
  * WHAT THE DEVICE PANEL CLAIMS, AND WHERE EACH BIT COMES FROM.  All
  * from Lou et al.'s Fig. 2 legend and Methods, quoted here so nobody
  * has to take it on trust:
@@ -113,115 +138,162 @@ function dot(x, y, r, fill){
          fill + '"/>';
 }
 
-/* ---- left: one round on the chip ----------------------------------- */
-const CX0 = 150, CX1 = 600, CY0 = 150, CY1 = 300, MID = 225;
+/* ---- left: one round on the chip ----------------------------------- *
+ * Geometry from Lou et al. Fig. 2A (the photograph: two syringe pumps,
+ * the chip, the magnet area, the collection tube) and Fig. 2C (the
+ * schematic: three inlets, lens-shaped channel, nickel strips, three
+ * outlets, beads converging on the centreline).
+ * ------------------------------------------------------------------ */
+const CL = 240;                       /* the channel's centreline      */
+
+function syringe(y, label){
+  let s = rect(58, y - 18, 75, 36, PAPER, INK, 2);
+  s += line(50, y - 16, 50, y + 16, INK, 3);     /* plunger flange     */
+  s += line(50, y, 78, y, INK, 3);               /* plunger rod        */
+  s += rect(133, y - 5, 11, 10, INK);            /* nozzle             */
+  s += text(50, y + 44, label, 17, MUTED);
+  return s;
+}
 
 function chip(){
-  let s = text(40, 56, "one round on the chip", 24, INK, null, 700);
+  let s = text(40, 60, "one round on the chip", 24, INK, null, 700);
 
-  s += rect(CX0, CY0, CX1 - CX0, CY1 - CY0, PAPER, INK, 2);
-  /* the two streams run side by side and never mix */
-  s += line(CX0, MID, CX1, MID, MUTED, 1.6, "6 5");
+  /* the two pumps, and the tubing into the three ports */
+  s += syringe(168, "buffer");
+  s += syringe(348, "sample: library + beads");
+  s += '<path d="M144 168 L210 168 L210 ' + CL + ' L250 ' + CL +
+       '" fill="none" stroke="' + MUTED + '" stroke-width="2.5"/>';
+  s += '<path d="M144 348 L185 348 L185 196 L250 196" fill="none" '
+     + 'stroke="' + MUTED + '" stroke-width="2.5"/>';
+  s += '<path d="M185 294 L250 294" fill="none" stroke="' + MUTED
+     + '" stroke-width="2.5"/>';
 
-  /* the ferromagnetic patterns the beads are walked along */
-  for (let i = 0; i < 6; i++)
-    s += line(200 + i * 65, CY1 - 5, 270 + i * 65, CY0 + 5, MUTED, 2);
-  s += text(CX0 + 24, 138, "nickel strips, magnetized from outside",
-            17, MUTED);
+  /* the chip itself */
+  s += '<rect x="250" y="140" width="470" height="200" rx="12" fill="'
+     + PAPER + '" stroke="' + INK + '" stroke-width="2"/>';
 
-  /* beads crossing out of the sample stream into the buffer stream */
-  [[210,285],[285,250],[360,215],[435,190],[510,175],[585,170]]
-    .forEach(function(p){ s += dot(p[0], p[1], 7, BLUE); });
+  /* three feed channels in, three out, converging on the lens tips */
+  [[250,196,300,232],[250,CL,300,CL],[250,294,300,248]].forEach(function(c){
+    s += '<line x1="' + c[0] + '" y1="' + c[1] + '" x2="' + c[2] +
+         '" y2="' + c[3] + '" stroke="' + RULE +
+         '" stroke-width="11" stroke-linecap="round"/>';
+  });
+  [[670,232,720,196],[670,CL,720,CL],[670,248,720,294]].forEach(function(c){
+    s += '<line x1="' + c[0] + '" y1="' + c[1] + '" x2="' + c[2] +
+         '" y2="' + c[3] + '" stroke="' + RULE +
+         '" stroke-width="11" stroke-linecap="round"/>';
+  });
 
-  /* everything unbound stays low and carries straight on */
-  for (let i = 0; i < 6; i++)
-    s += line(225 + i * 65, 292, 253 + i * 65, 292, MUTED, 2.5);
+  /* the channel: a lens, wide in the middle, tapered at both ends */
+  s += '<path d="M300 ' + CL + ' L360 180 L610 180 L670 ' + CL
+     + ' L610 300 L360 300 Z" fill="' + RULE + '" stroke="' + INK
+     + '" stroke-width="1.8"/>';
 
-  /* inlets and outlets */
-  s += text(40, 193, "buffer", 19, MUTED);
-  s += arrow(100, 187, CX0, MUTED);
-  s += text(40, 268, "sample", 19, MUTED);
-  s += arrow(100, 262, CX0, MUTED);
+  /* the ferromagnetic strips the beads are walked along */
+  for (let i = 0; i < 6; i++){
+    const x0 = 368 + i * 34;
+    s += line(x0, 296, x0 + 50, 184, MUTED, 3);
+  }
 
-  s += arrow(CX1, 187, 680, INK);
-  s += text(690, 194, "product", 19, INK, null, 700);
-  s += arrow(CX1, 262, 680, MUTED);
-  s += text(690, 269, "waste", 19, MUTED);
+  /* unbound DNA stays in its own stream, top and bottom */
+  for (let i = 0; i < 6; i++){
+    s += line(390 + i * 40, 190, 408 + i * 40, 190, MUTED, 2.5);
+    s += line(390 + i * 40, 290, 408 + i * 40, 290, MUTED, 2.5);
+  }
 
-  s += text(40, 342,
-       "sample = the library, plus magnetic beads coated with the target",
-       18, MUTED);
-  s += text(40, 384,
-       "product: the beads, and whatever stayed stuck to them", 20, INK);
-  s += text(40, 412,
-       "waste: everything that did not", 20, MUTED);
-  s += text(40, 456,
+  /* the beads leave both sample streams and converge on the middle */
+  for (let i = 0; i < 6; i++){
+    s += dot(378 + i * 38, 200 + i * 8, 6.5, BLUE);
+    s += dot(378 + i * 38, 280 - i * 8, 6.5, BLUE);
+  }
+  s += dot(620, CL, 6.5, BLUE);
+
+  /* out: waste above and below, product down the middle */
+  s += line(720, 196, 768, 196, MUTED, 2.5);
+  s += text(776, 202, "waste", 17, MUTED);
+  s += line(720, 294, 768, 294, MUTED, 2.5);
+  s += text(776, 300, "waste", 17, MUTED);
+  s += line(720, CL, 836, CL, INK, 2.5);
+  s += '<path d="M838 222 L872 222 L872 282 L855 300 L838 282 Z" fill="'
+     + PAPER + '" stroke="' + INK + '" stroke-width="2"/>';
+  s += text(855, 322, "product", 18, INK, "middle", 700);
+
+  /* the magnet sits under the chip, outside it */
+  s += '<rect x="360" y="352" width="250" height="26" fill="none" '
+     + 'stroke="' + MUTED + '" stroke-width="2" stroke-dasharray="6 5"/>';
+  s += text(520, 398, "external magnet, under the chip", 17, MUTED,
+            "middle");
+
+  s += text(40, 452,
+       "the beads cross out of the sample streams into the buffer", 19,
+       INK);
+  s += text(40, 478,
+       "unbound DNA never leaves its own stream, so it all goes to waste",
+       19, MUTED);
+  s += text(40, 510,
        "then PCR the product, make it single-stranded, and run it again",
-       20, INK);
+       19, INK);
   return s;
 }
 
 /* ---- right: what the sequencing adds ------------------------------- */
-const RX = 820, B0 = 980, BMAX = 280;
+const RX = 960, B0 = 960, BMAX = 300;
 
 const SEQS = [
-  { r1:  20, r3: 260, word: "climbs", hot: true  },
-  { r1: 240, r3: 250, word: "flat",   hot: false },
-  { r1: 120, r3:  55, word: "falls",  hot: false }
+  { r1:  20, r3: 280, word: "climbs", hot: true  },
+  { r1: 255, r3: 268, word: "flat",   hot: false },
+  { r1: 130, r3:  58, word: "falls",  hot: false }
 ];
 
 function reads(){
-  let s = text(RX, 56, "what the sequencing adds", 24, INK, null, 700);
-  s += text(RX, 92, "reads for each sequence, round 1 against round 3",
-            19, MUTED);
+  let s = text(RX, 60, "what the sequencing adds", 24, INK, null, 700);
+  s += text(RX, 92, "upper bar: round 1", 17, MUTED);
+  s += text(RX, 114, "lower bar: round 3", 17, MUTED);
 
   SEQS.forEach(function(q, i){
-    const y = 140 + i * 90;
-    s += text(RX, y + 26, "sequence " + (i + 1), 20, INK, null, 700);
-    s += text(965, y + 14, "R1", 15, MUTED, "end");
-    s += text(965, y + 38, "R3", 15, MUTED, "end");
-    s += rect(B0, y,      BMAX * q.r1 / 280, 18, MUTED);
-    s += rect(B0, y + 24, BMAX * q.r3 / 280, 18, BLUE);
-    s += text(1290, y + 28, q.word, 20, q.hot ? VERM : MUTED, null,
+    const y = 160 + i * 86;
+    s += text(RX, y, "sequence " + (i + 1), 19, INK, null, 700);
+    s += rect(B0, y + 10, BMAX * q.r1 / 280, 17, MUTED);
+    s += rect(B0, y + 32, BMAX * q.r3 / 280, 17, BLUE);
+    s += text(1290, y + 2, q.word, 20, q.hot ? VERM : MUTED, null,
               q.hot ? 700 : null);
   });
 
-  s += text(RX, 420,
-       "abundance at the end cannot tell sequence 1 from sequence 2.",
-       21, INK);
-  s += text(RX, 450, "The change across rounds can.", 21, INK, null, 700);
-  s += text(RX, 492,
-       "more than 10 million sequences followed through every round;",
-       18, MUTED);
-  s += text(RX, 516,
-       "aptamers to PDGF-BB with a Kd under 3 nM in three rounds",
-       18, MUTED);
-  s += text(1440, 544, "bar heights schematic", 16, MUTED, "end");
+  s += text(RX, 452,
+       "abundance at the end cannot tell", 19, INK);
+  s += text(RX, 478,
+       "sequence 1 from sequence 2. The change", 19, INK);
+  s += text(RX, 504,
+       "across rounds can.", 19, INK, null, 700);
+  s += text(1440, 538, "bar heights schematic", 15, MUTED, "end");
   return s;
 }
 
 function draw(){
-  return chip() + line(790, 100, 790, 520, RULE, 2) + reads();
+  return chip() + line(930, 100, 930, 540, RULE, 2) + reads();
 }
 
-const ALT = "Two panels. On the left, one round on the chip: a "
-  + "microfluidic channel with two inlets, buffer above and sample "
-  + "below, the sample being the library plus magnetic beads coated "
-  + "with the target. A dashed line down the middle marks that the "
-  + "two streams do not mix. Diagonal nickel strips, magnetized from "
-  + "outside, cross the channel, and the beads are drawn walking up "
-  + "along them out of the sample stream and into the buffer stream, "
-  + "leaving by the product outlet, while everything unbound stays "
-  + "low and carries straight on to waste. The product is then PCR'd, "
-  + "made single-stranded and run again. On the right, what the "
-  + "sequencing adds: for each of three sequences, a round one bar "
-  + "and a round three bar. Sequence one starts tiny and ends large, "
-  + "marked climbs. Sequence two is large in both rounds, marked "
-  + "flat. Sequence three shrinks, marked falls. Abundance at the end "
-  + "cannot tell sequence one from sequence two; the change across "
-  + "rounds can. More than ten million sequences were followed "
-  + "through every round, giving aptamers to PDGF-BB with a Kd under "
-  + "3 nM in three rounds. The bar heights are schematic.";
+const ALT = "Two panels. On the left, one round on the chip, drawn "
+  + "as the apparatus: two syringe pumps at the far left, one of "
+  + "buffer and one of sample, the sample being the library plus "
+  + "magnetic beads coated with the target. Tubing runs into a chip "
+  + "with three feed channels, the sample splitting to the outer two "
+  + "and the buffer going to the middle. They converge into one "
+  + "lens-shaped channel, wide in the middle and tapered at both "
+  + "ends, crossed by diagonal nickel strips magnetized by a magnet "
+  + "drawn underneath the chip. The beads are shown leaving both "
+  + "outer sample streams and converging on the centreline as they "
+  + "travel, while unbound DNA stays in its own stream at the top and "
+  + "bottom edges. Three channels leave: waste above, waste below, "
+  + "and the product down the middle into a collection tube. The "
+  + "product is then amplified, made single-stranded and run again. "
+  + "On the right, what the sequencing adds: for each of three "
+  + "sequences, an upper bar for round one and a lower bar for round "
+  + "three. Sequence one starts tiny and ends large, marked climbs. "
+  + "Sequence two is large in both, marked flat. Sequence three "
+  + "shrinks, marked falls. Abundance at the end cannot tell "
+  + "sequence one from sequence two; the change across rounds can. "
+  + "The bar heights are schematic.";
 
 function fill(){
   const el = document.querySelector('[data-fig="selex"]');
