@@ -66,6 +66,7 @@
   <p class="sub">Emulsions/Liposomes</p>
   <p class="sub">On-bead PCR</p>
   <p class="sub">In vitro translation (TxTl)</p>
+  <template class="notes-add">One way to hold this section together: after the sequencing itself, everything here is a way of keeping a genotype attached to whatever you measured about it, long enough to read both off together. The barcode does it in sequence, the emulsion and the liposome do it in space, the bead does it on a surface. Almost every design problem in a multiplex experiment turns out to be that linkage problem wearing a different hat, so it is worth noticing which one each example is using as we go.</template>
   <template class="notes">Before we get into examples, let’s talk about some of the components of a multiplex characterization experiment. (list them).
 For starters, here’s a video that nicely describes how deep sequencing works on the Illumina platform.  The video describes how you process genomic DNAs for sequencing, which is the normal use.  There is a step in the video in which a PCR product is loaded onto a flowcell.  That is the part where the multiplex characterization experiment and the genome sequencing become the same.  In our characterization experiments, we’ll generate a similar PCR product through some other means.</template>
   <template class="desc">The section divider for Tools of the Trade, listing what is coming: deep sequencing, barcoding, emulsions and liposomes, on-bead PCR, and in vitro translation.</template>
@@ -75,7 +76,7 @@ For starters, here’s a video that nicely describes how deep sequencing works o
 <article class="slide">
   <h1>Next-Gen Sequencing (NGS)</h1>
   <ul class="tight">
-    <li>HiSeq: Sequencing by Synthesis</li>
+    <li>Illumina: Sequencing by Synthesis</li>
     <li><button type="button" class="playvid" data-yt="fCd6B5HRaZ8"
       data-title="Illumina sequencing by synthesis">Play the video full screen</button>
       <a class="vidurl" href="https://www.youtube.com/watch?v=fCd6B5HRaZ8">youtube.com/watch?v=fCd6B5HRaZ8</a></li>
@@ -177,7 +178,7 @@ https://en.wikipedia.org/wiki/Single-molecule_real-time_sequencing</template>
 <article class="slide">
   <h1>Barcoding</h1>
   <div class="con" data-con="17"></div>
-  <template class="notes">A very common trick in using deep sequencing as an analytical tool involves writing dna barcodes, as noted here in green.  If you keep constant the bases flanking a custom barcode, you can algorithmically extract the barcode from the sequence by scanning for the context.  At first glance, it may not be obvious why you’d need to barcode a gene when you could just use the gene itself as an identity marker.</template>
+  <template class="notes">A very common trick in using deep sequencing as an analytical tool involves writing dna barcodes, as noted here in blue.  If you keep constant the bases flanking a custom barcode, you can algorithmically extract the barcode from the sequence by scanning for the context.  At first glance, it may not be obvious why you’d need to barcode a gene when you could just use the gene itself as an identity marker.</template>
   <template class="desc">The same construct with one change to the map: the near 20 bp site is split into a short segment labeled constant flanking context, a twelve-base segment labeled barcode, and a shorter flank after it. The barcode is the only solid segment; everything else is pale. The sequence under the map carries the barcode in lower case between runs of N, and the count reads 660 bases.</template>
 </article>
 
