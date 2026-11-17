@@ -1436,3 +1436,46 @@ The text confirms the geometry: the beads "are selectively transported
 from the sample stream into the buffer stream", and "After the
 magnetic particles reach the buffer stream at the center of the
 device, they are eluted through the Product outlet."
+
+SELEX, THIRD DRAFT -- PHOTOGRAPH AND REAL DATA, 2026-11-17
+------------------------------------------------------------
+Two drawn versions of the apparatus were rejected: "That does not
+resemble any apparatus", then "this is still a shit slide".  Asked
+which way to go, JCA chose the paper's own photograph, and asked that
+the data half be redone with "real data from the paper, but something
+making the point about tracking individual sequences through the
+selection process".
+
+THE APPARATUS IS NOW LOU ET AL. 2009 FIG. 2A, cropped to
+img/25-cmacs.png at 300 dpi and credited on the slide as a second
+<p class="src"> (PMID 19202068, distinct from the slide's own PMID
+20705898).  It shows the two syringe pumps, the channel in blue dye
+between four brass ports, the dashed circle where the external magnet
+sits, the 10 mm scale and the waste and product tubes.  Nothing drawn
+was ever going to beat it.
+
+THE DATA HALF IS NOW THE PAPER'S OWN RESULT.  The 2010 full text is
+readable at pmc.ncbi.nlm.nih.gov/articles/PMC2932614/ even though
+efetch returns only the abstract -- worth remembering, because two
+drafts were written off the abstract alone.  Two classes of sequence:
+
+  the ten most abundant   "the same ten sequences were identified with
+                          the highest copy numbers in all three pools
+                          (R1, R2, and R3), but none of them displayed
+                          significant enrichment-fold"; the authors
+                          put them down to "biases during library
+                          synthesis or PCR"
+  the enriched one        "the sequences with highest enrichment-fold
+                          (e.g., 2,347-fold for R3/R1...) appear
+                          infrequently in earlier rounds"
+
+Each gets a mini-plot across R1, R2, R3 that carries SHAPE ONLY -- flat
+for the first, low-then-steep for the second.  Both shapes are stated
+in the text.  No copy numbers are plotted, because the per-round counts
+of any single sequence are not published and inventing them is
+forbidden.  2,347-fold is the only printed number besides the 10
+million.
+
+A LAYOUT TRAP WORTH RECORDING: a figure div that flexes to the bottom
+of the slide runs underneath <p class="src">, and this slide has TWO
+credit lines.  Fixed with a .fg.low variant carrying margin-bottom.

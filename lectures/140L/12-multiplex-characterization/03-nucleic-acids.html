@@ -34,9 +34,13 @@
    them at about 1.5x that, so filling the panel is what the original
    does too.  max-height clamps the taller one rather than letting it
    push the caption off the slide. */
+.slide .dev{display:flex;justify-content:center;margin:10px 0 0}
+.slide .dev img{max-width:100%;max-height:300px;width:auto;height:auto}
+.slide .devcap{font-size:19px;color:var(--muted);margin:6px 0 0;text-align:center}
 .slide .fg{flex:1 1 auto;min-height:0;display:flex;align-items:center;
   justify-content:center;margin-top:4px}
 .slide .fg svg{width:100%;height:100%;display:block}
+.slide .fg.low{margin-bottom:72px}
 </style>
 </head>
 <body>
@@ -52,11 +56,14 @@
 <!-- ---------------------------------------------------------------- 25 -->
 <article class="slide">
   <h1>SELEX with Deep Sequencing</h1>
-  <div class="fg" data-fig="selex"></div>
+  <figure class="dev"><img src="img/25-cmacs.png" alt="A photograph of the micromagnetic separation chip. Two syringe pumps at the left, labeled buffer pump and sample pump, feed tubing into a flat chip on which the channel is picked out in blue dye between four brass ports; a dashed circle in the middle marks where the external magnet sits, and a ten millimetre scale bar runs beneath it. Two tubes at the right collect the waste and the product."></figure>
+  <p class="devcap">the separation chip: beads with their binders leave by one port, everything unbound by the other</p>
+  <div class="fg low" data-fig="selex"></div>
   <p class="src">PMID: 20705898</p>
+  <p class="src">device photograph: PMID 19202068</p>
   <template class="notes">Here is an example from Tom Soh in which deep sequencing is used as the readout after a SELEX experiment.  They begin with a typical poly-N oligonucleotide containing PCR priming sites on both ends, then subject this library to selection for binding to a protein.  In this variant, they employ a microfluidic device to perform the separation of bound and unbound DNAs, however, this step of the experiment might also be done by more traditional columns or panning.  The sample is then prepped for deep sequencing, and they calculate the frequency of observed sequences within the hit population.  From this, they can identify the most promising sequences for further analysis.</template>
-  <template class="notes-add">The device is the Soh lab&#8217;s own. Two streams run side by side without mixing, nickel strips in the floor of the channel are magnetized from outside, and the target-coated beads get walked up across the streamlines into the clean buffer while everything unbound carries straight on to waste. What the sequencing adds is the second panel. Because they read the pool after every round, each sequence carries not just a count but a change in count, and that is what separates a real binder from a sequence that is merely good at being amplified. Cho and Xiao got aptamers to PDGF-BB with a Kd under 3 nM in three rounds, without ever waiting for the pool to converge.</template>
-  <template class="desc">Two drawn panels. Left, one round on the chip, drawn as the apparatus: two syringe pumps feeding a chip through three channels, the sample splitting to the outer two and the buffer going to the middle, converging into one lens-shaped channel crossed by diagonal nickel strips that an external magnet below the chip magnetizes. The beads leave both outer sample streams and converge on the centerline as they travel, while unbound DNA stays in its own stream at the top and bottom edges; waste leaves above and below and the product leaves down the middle into a collection tube, to be amplified and run again. Right, what the sequencing adds: three sequences, each with an upper bar for round one and a lower bar for round three. The first starts tiny and ends large and is marked climbs, the second is large in both and is marked flat, the third shrinks and is marked falls. Abundance at the end cannot tell the first from the second; the change across rounds can. Bar heights are schematic.</template>
+  <template class="notes-add">That is the actual device, from the Soh lab&#8217;s earlier paper: two syringe pumps, a channel with the library and the target-coated beads running through it, a magnet sitting under the middle, and two tubes at the end, one for the beads with whatever stuck to them and one for everything else. What makes it a multiplex experiment is that they sequenced the pool after every round, so each of more than ten million sequences carries a count in round one, round two and round three rather than just a frequency at the end. The comparison below is the result worth knowing. The ten most abundant sequences were the same ten in all three rounds and not one of them was enriched, which marks them as artifacts of library synthesis or PCR, while the sequence enriched 2,347-fold had been too rare to notice at the start. Picking what was abundant at the end would have handed you the wrong molecules.</template>
+  <template class="desc">A photograph of the separation chip above, and a drawn comparison below. In the photograph, two syringe pumps feed a flat chip whose channel is picked out in blue dye between four brass ports, with a dashed circle where the external magnet sits and tubes at the right collecting waste and product. Below it, two classes of sequence side by side, each with a small plot across rounds one, two and three that carries shape only and no values. Flat on the left: the ten most abundant sequences were the same ten in all three rounds and not one was enriched, making them artifacts of library synthesis and PCR. Low then steeply climbing on the right: the sequence that was enriched was too rare to notice in round one and 2,347-fold up by round three, a real binder. What is abundant at the end would have given the wrong molecules; what changed across rounds gave the right ones.</template>
 </article>
 
 
