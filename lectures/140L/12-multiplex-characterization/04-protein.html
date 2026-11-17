@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Protein Function &ndash; Multiplex Characterization</title>
+<link rel="stylesheet" href="../../deck.css">
+<style>
+.slide figure.fig{flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin:6px 0 0}
+.slide figure.fig img{max-width:100%;max-height:100%;width:auto;height:auto;
+  object-fit:contain}
+.slide .big{flex:1 1 auto;display:flex;align-items:center;justify-content:center}
+.slide .big p{font-size:84px;font-family:var(--sans);font-weight:700;margin:0;
+  text-align:center;line-height:1.1}
+.slide ul.tight li{font-size:28px;margin-bottom:12px}
+.slide ul.fill{margin-top:auto;margin-bottom:auto}
+.slide ul.fill li{font-size:28px;margin-bottom:18px}
+.slide pre.seqblock{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:13px;line-height:1.35;white-space:pre-wrap;word-break:break-all;
+  margin:10px 0 0;color:var(--ink)}
+.slide p.sub{font-size:26px;color:var(--muted);margin:0 0 6px}
+</style>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- 30 -->
+<article class="slide" data-bg="section">
+  <div class="big"><p>Multiplex characterization of protein function</p></div>
+  <template class="notes">Multiplex characterization of protein functions is less advanced then its used on DNA and RNA, but such methods are feasible here too.</template>
+  <template class="desc">Multiplex characterization of protein function.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 31 -->
+<article class="slide">
+  <h1>Coupled with Phage Display</h1>
+  <ul class="tight">
+    <li>PMID: 20711194</li>
+  </ul>
+  <figure class="fig"><img src="img/31-phage.png" alt="Figure from the slide Coupled with Phage Display."></figure>
+  <template class="notes">Just as you can deep sequence the pool of selectants from a SELEX experiment, you can also deep sequence the selectants from panning a phage-display library.  Here, Fowler demonstrates that deep sequencing can be used to analyze the results of phage display and thereby characterize mutant WW domains.</template>
+  <template class="desc">Coupled with Phage Display.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 32 -->
+<article class="slide">
+  <h1>One-hybrid multiplexing</h1>
+  <ul class="tight">
+    <li>Kosuri, Church, Harvard iGEM 2011</li>
+  </ul>
+  <figure class="fig"><img src="img/32-onehybrid.png" alt="Figure from the slide One-hybrid multiplexing."></figure>
+  <template class="notes">Genetic selections provide one of the most promising routes towards applying deep sequencing to protein functions.  Here is an illustration from the 2011 harvard igem team with Sri Kosuri and George Church in which they adapt a one-hybrid system to characterize a library of 55,000 zinc finger genes.
+This is a normal way in which zinc fingers are been assayed.  You construct a yeast strain that reports transcription by expression of selectable markers.  If the zinc finger binds to a probe sequence inserted upstream of the promoter, RNA polymerase is recruited to the DNA, the markers express, and the cell survives.  Therefore, transcription becomes linked to survival of the cells.
+The Harvard experiment employs a library of computationally-designed ZF’s and synthesizes 55,000 of them on one Agilent OLS array.  After selection, the survivers are deep-sequenced.</template>
+  <template class="desc">One-hybrid multiplexing.</template>
+</article>
+
+<!-- ---------------------------------------------------------------- 33 -->
+<article class="slide">
+  <h1>One-hybrid multiplexing</h1>
+  <ul class="tight">
+    <li>Kosuri, Church, Harvard iGEM 2011</li>
+  </ul>
+  <figure class="fig"><img src="img/33-logos.png" alt="Figure from the slide One-hybrid multiplexing."></figure>
+  <template class="notes">From this, they get a bag of zinc finger sequences that all bind to the probe sequence. From such data, models encapsulating the binding specificity of each designed zinc finger can be calculated.  What’s represented on the right are ‘sequence logos’ that visually represent the pattern of sequences that work for different triplets.  However, there are also hidden markov-style models that can be constructed from such data that enable prediction of interactions between a zinc finger and a given DNA.</template>
+  <template class="desc">One-hybrid multiplexing.</template>
+</article>
+
+<script src="../../deck.js" defer></script>
+<script src="lecture.js" defer></script>
+</body>
+</html>

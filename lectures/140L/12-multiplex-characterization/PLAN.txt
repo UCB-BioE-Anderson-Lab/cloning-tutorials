@@ -1,0 +1,127 @@
+MULTIPLEX CHARACTERIZATION -- CONVERSION RECORD
+================================================
+Source: ~/Library/CloudStorage/Dropbox/Courses/140L/Stanley 2026/
+        Lectures 2026 140L/2025_11_13-Multiplex Characterization.pptx
+        43 slides, 4:3, 32 media files, no click timing anywhere.
+
+THIS IS A ROUGH CUT.  JCA asked on 2026-11-10 to "rough it out".  What
+that means here, precisely:
+
+  DONE      all 43 source slides, in the source's order, nothing split,
+            merged, added or dropped
+  DONE      every speaker note, VERBATIM.  43 of 43 verify against the
+            pptx with an EMPTY note-corrections.txt -- this deck needed
+            no spelling or grammar fixes at all, which is unusual and
+            worth not losing: if a correction ever becomes necessary it
+            should be added deliberately, not to make a check pass
+  DONE      figures cropped and placed, sections split, index linked
+  NOT DONE  the figure treatment.  Every figure is a straight crop from
+            a 200 dpi render of the source.  None is redrawn.
+  NOT DONE  alt text and the desc channel.  Both carry a provisional
+            line built from the slide's own title: true, but thin.  Alt
+            was NOT left as the literal string "TODO" because a screen
+            reader would read that out.
+
+WHY NO WHITE-GROUND RENDER WAS NEEDED
+--------------------------------------
+Unlike lectures 10 and 11, this source deck already puts its content on
+WHITE.  Only the title and the section dividers use the blue master.  So
+the figures are cropped straight from a render of the untouched pptx --
+no recolour_pptx.py, no build_white.py, no inking pass, and therefore
+none of the halo and speckle problems those passes caused in lecture 11.
+
+The crops are the union of every picture's bounding box on a slide, read
+from each p:pic's a:xfrm and converted at 200 dpi (EMU / 4572 on this
+9144000 x 6858000 page).  Anchor on a:xfrm, never on .//a:ext -- a:ext
+is also the extension-list element and matches first.
+
+SECTIONS
+--------
+  00-front-matter.html   1        Introduction
+  01-libraries.html      2-11     Types of Libraries
+  02-tools.html          12-23    Tools of the Trade
+  03-rna-dna.html        24-29    RNAs and DNAs
+  04-protein.html        30-33    Protein Function
+  05-properties.html     34, NEW, NEW, 36   Biological Properties
+  06-questions.html      37-39    Questions to Ponder
+  07-all-hands.html      40-43    All-Hands
+  43 steps in all; no slide has builds, because the source has no
+  p:timing on any slide.
+
+THE FIRST THING TO FIX: SOURCES 15 TO 19
+-----------------------------------------
+Five slides carry the Illumina construct as a single ~700-character run
+of bases.  In the source these are COLOURED and LABELLED -- P5 adapter,
+MiSeq primer binding, variable-length spacer, P7 adapter, and on 17-19 a
+barcode picked out in green -- and the labels are separate text boxes
+pointing at regions of the sequence.  The rough cut renders the run as
+one monospace block and loses all of it, which makes those five slides
+close to meaningless.  They want the lecture-11 treatment: the sequence
+set as HTML with each region in its own colour, and the region names as
+labels.  That is the single biggest gap in this pass.
+
+WHAT ELSE IS THIN, AND WHOSE FAULT IT IS
+-----------------------------------------
+Sources 3, 4, 5, 6 are a title and one or two bullets with everything
+else in the spoken note.  check_section.js flags them as under 40% fill.
+That is the SOURCE's design, not the conversion's -- do not invent
+content to fill them.
+
+TRMR IS GONE; MISMATCH-CRISPRi IS IN ITS PLACE
+-----------------------------------------------
+2026-11-16.  JCA: "I think we should replace trmr with something more
+modern, and name the techniques on the slide very briefly explaining
+the distinctions.  But generally, focus on explaining just one
+graphically and showing some data about what comes from it."
+
+Source 35, TRMR/Genome Barcoding, was deleted and TWO new slides put in
+its place.  They are marked <!-- NEW --> so verify_notes.py knows there
+is nothing in the pptx to check them against, and their notes live in
+their sequence files rather than in a <template class="notes">, because
+the words are JCA's voice and mine, not the source's.
+
+  seq/35-mmcrispri.js   "Turning the knob, not the switch".  dCas9 on
+                        an essential gene; the 20-base pairing region
+                        as a dial, seed vs middle vs distal; the pooled
+                        experiment as a pipeline; and a strip along the
+                        bottom naming Tn-seq, CRISPRi, mismatch-CRISPRi
+                        and Perturb-seq.  4 steps.
+  seq/35b-expfit.js     "Expression-fitness relationships".  Three
+                        pathways down, two organisms across, after
+                        Hawkins et al. Fig. 4.  Robust, linear, bimodal
+                        -- then read across for the conservation.
+                        5 steps.
+
+WHY TWO AND NOT THREE.  JCA asked how much time this idea is worth
+against the rest of the lecture.  Measured: an application in this deck
+gets one or two slides (SHAPE-seq 2, one-hybrid 2, phage display 1,
+SELEX 1), and Biological Properties was the THINNEST section in the
+lecture -- and thinner still once CRE-Seq moves to regulatory DNA.
+Three slides would have made the replacement the deepest-treated
+application in the deck.  So naming the space became furniture along
+the bottom of the first slide instead of a slide of its own.
+
+EVERY NUMBER ON THOSE SLIDES IS THE PAPER'S, read from the PMC full
+text of PMID 33080209 (PMC7704046) and recorded in each file's header
+with the sentence it came from.  The CURVES AND THE ACTIVITY BARS ARE
+SCHEMATIC -- drawn to the shapes the paper describes in words, not
+traced off its figures -- and both slides say so in small print.  Do
+not let anyone read a value off either one.
+
+WHERE THE REMAINING TIME IN THIS LECTURE ACTUALLY WANTS TO GO, raised
+with JCA on 2026-11-16 and not yet acted on: sources 15-19 below, and
+the absence of deep mutational scanning from Protein Function, which
+has only two topics and both are display-based.
+
+THE ALL-HANDS SECTION IS STILL HERE
+------------------------------------
+Sources 40-43 are All-Hands, Plib, Independent Projects, Questions.
+Lecture 11's All-Hands was dissolved on JCA's instruction -- its blue
+divider deleted and its Plib material folded into Library Construction.
+Whether the same should happen here is HIS call and has not been asked.
+Left intact.
+
+CHECKING THE NOTES
+------------------
+  python3 ../../tools/verify_notes.py <unpacked-pptx> --keep-urls \
+      --corrections note-corrections.txt *.html
