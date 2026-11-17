@@ -55,3 +55,15 @@ as noted here in green.|as noted here in blue.
 # untouched: a read count is still vastly smaller than N40 diversity.
 There are some other NGS technologies such as Nanopore and Pacific Biosystems that do long reads with low per-base accuracy.|There are some other NGS technologies such as Nanopore and Pacific Biosciences that do long reads, and their per-base accuracy is now comparable to short-read sequencing.
 The HiSeq is as high-density as the data gets but it is still only 300 million, which is far less than the diversity of N40.|A NovaSeq X is as high-density as the data gets but it is still only tens of billions of reads, which is far less than the diversity of N40.
+#
+# 2026-11-17, source 38.  The two ponder questions on this slide asked
+# about a HiSeq, and source 14 now records that the HiSeq line was
+# retired in 2024.  JCA: "I think we need to rewrite that around miseq,
+# no?"  The question text is slide body and was changed directly; these
+# three are the answers in the note, which would otherwise name a
+# different instrument from the question they answer.  Nothing about the
+# arithmetic changes -- 150 bp is still 150 bp, and 32768 members are
+# still far fewer than the reads either instrument gives.
+No, HiSeq and many of the other NGS sequencing methods give short reads|No, the MiSeq and many of the other NGS sequencing methods give short reads
+we have plenty enough reads from a HiSeq or MiSeq to cover all members|we have plenty enough reads from a MiSeq to cover all members
+So, you probably aren’t even going to see the hits in a HiSeq read.|So, you probably aren’t even going to see the hits in a MiSeq read.

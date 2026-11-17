@@ -83,10 +83,23 @@ const n2 = v => Math.round(v * 10) / 10;
  *   panels      x  400-1060     two columns, three rows
  *   read-across x 1100-1450     the punchline
  * ------------------------------------------------------------------ */
-const PW = 300, PH = 140;
-const COLX = [400, 760];
-const ROWY = [56, 232, 408];
-const LABX = 30, SAYX = 1100;
+/* ONE PANEL, not six.  JCA, 2026-11-17: "Focus on explaining the
+   concept and the mechanistic aspects of it, and simplify with just one
+   example of what comes out.  All these specific numbers on the slide
+   are just distraction from the core idea."
+   It was a three-by-two grid -- three pathways down, two organisms
+   across -- with a gene count printed in every panel.  The core idea
+   needs none of that: knock a gene down by a controlled amount, measure
+   fitness, and what comes out is a CURVE rather than a number, and the
+   curve has a different shape depending on the gene.  One set of axes
+   with three labelled curves says exactly that.
+   The second organism and the gene counts are not lost; the fact that
+   both species give the same shapes is a sentence in the narration,
+   which is where it belongs. */
+const PW = 760, PH = 330;
+const COLX = [430];
+const ROWY = [120];
+const LABX = 30, SAYX = 1250;
 
 /* deterministic jitter, so the thin lines never move between loads */
 function rng(seed){
@@ -181,7 +194,7 @@ function lines(r, c){
   s += '<path d="' + d + '" fill="none" stroke="' + BLUE + '" stroke-width="4.5"/>';
   /* bottom LEFT, not bottom right: every one of these curves starts high
      on the left and falls, so the lower left corner is the only one that
-     is empty in all six panels.  Bottom right sits on the bimodal curve. */
+     is empty.  Bottom right sits on the bimodal curve. */
   s += '<text x="' + (COLX[c] + 10) + '" y="' + (ROWY[r] + PH - 12) +
        '" font-family="inherit" font-size="19" fill="' + MUTED +
        '">' + NGENES[r][c] + ' genes</text>';
@@ -190,82 +203,52 @@ function lines(r, c){
 
 function figure(){
   let s = "";
+  s += frame(0, 0);
+  s += '<text transform="translate(' + (COLX[0] - 26) + ',' + (ROWY[0] + PH / 2) +
+       ') rotate(-90)" text-anchor="middle" font-family="inherit" font-size="21" ' +
+       'fill="' + INK + '">fitness</text>';
+  s += '<text x="' + (COLX[0] + PW / 2) + '" y="' + (ROWY[0] + PH + 42) +
+       '" text-anchor="middle" font-family="inherit" font-size="21" fill="' + INK +
+       '">how hard the gene is knocked down &#8594;</text>';
 
-  /* column headings */
-  ["B. subtilis", "E. coli"].forEach(function(t, c){
-    s += '<text x="' + (COLX[c] + PW/2) + '" y="' + (ROWY[0] - 20) +
-         '" text-anchor="middle" font-family="inherit" font-size="25" ' +
-         'font-weight="700" font-style="italic" fill="' + INK + '">' + t + '</text>';
-  });
-
-  /* every frame is there from the start, so the grid reads as one object */
-  for (let r = 0; r < 3; r++)
-    for (let c = 0; c < 2; c++) s += frame(r, c);
-
-  /* axes, labelled once, on the bottom row */
-  s += '<text x="' + (COLX[0] + PW/2) + '" y="' + (ROWY[2] + PH + 32) +
-       '" text-anchor="middle" font-family="inherit" font-size="20" fill="' +
-       INK + '">knockdown &#8594;</text>';
-  s += '<text transform="translate(' + (COLX[0] - 20) + ',' + (ROWY[2] + PH/2) +
-       ') rotate(-90)" text-anchor="middle" font-family="inherit" ' +
-       'font-size="20" fill="' + INK + '">fitness</text>';
-
-  /* each row: the label on the left, then the curves */
   ROWS.forEach(function(row, r){
     s += '<g data-r="row' + r + '" opacity="0">';
-    s += '<text x="' + LABX + '" y="' + (ROWY[r] + 38) + '" font-family="inherit" ' +
-         'font-size="23" font-weight="700" fill="' + INK + '">' + row.name + '</text>';
-    s += '<text x="' + LABX + '" y="' + (ROWY[r] + 76) + '" font-family="inherit" ' +
-         'font-size="30" font-weight="700" fill="' + BLUE + '">' +
-         row.gloss + '</text>';
-    s += '<text x="' + LABX + '" y="' + (ROWY[r] + 104) + '" font-family="inherit" ' +
-         'font-size="19" fill="' + MUTED + '">' + row.say + '</text>';
-    s += lines(r, 0) + lines(r, 1);
+    let d = "";
+    for (let i = 0; i <= 60; i++){
+      const x = i / 60;
+      d += (i ? " L " : "M ") + n2(px(0, x)) + " " + n2(py(0, row.f(x)));
+    }
+    s += '<path d="' + d + '" fill="none" stroke="' + BLUE +
+         '" stroke-width="' + (3.5 + r * 0) + '" stroke-linejoin="round"/>';
+    /* each curve is named where it ends, so no legend is needed */
+    const dy = [0, -22, 30][r];          /* keeps the two low curves apart */
+    s += '<text x="' + (px(0, 1) + 14) + '" y="' + (py(0, row.f(1)) + 7 + dy) +
+         '" font-family="inherit" font-size="21" font-weight="700" fill="' + BLUE +
+         '">' + row.gloss + '</text>';
+    s += '<text x="' + (px(0, 1) + 14) + '" y="' + (py(0, row.f(1)) + 31 + dy) +
+         '" font-family="inherit" font-size="19" fill="' + MUTED + '">' +
+         row.name + '</text>';
     s += '</g>';
   });
 
-  /* the punchline */
-  s += '<g data-r="conserved" opacity="0">';
-  s += '<path d="M 1080 ' + (ROWY[0] + PH/2) + ' L 1080 ' + (ROWY[2] + PH/2) +
-       '" fill="none" stroke="' + MUTED + '" stroke-width="2" stroke-dasharray="4 6"/>';
-  s += '<text x="' + SAYX + '" y="' + (ROWY[0] + 30) + '" font-family="inherit" ' +
-       'font-size="25" font-weight="700" fill="' + INK + '">Read across.</text>';
-  const say = ["E. coli and B. subtilis are", "about 2 billion years apart.",
-               "Most essential homologs", "still have the same shape",
-               "of curve.", "",
-               "The shape is a property of", "the pathway, not of the",
-               "organism."];
-  say.forEach(function(t, i){
-    s += '<text x="' + SAYX + '" y="' + (ROWY[0] + 66 + i * 28) +
-         '" font-family="inherit" font-size="20" fill="' +
-         (i > 5 ? INK : MUTED) + '">' + t + '</text>';
-  });
-  s += '</g>';
+  s += '<text x="' + LABX + '" y="' + (ROWY[0] + PH + 100) + '" font-family="inherit" ' +
+       'font-size="19" fill="' + MUTED +
+       '">curve shapes after Hawkins et al., Cell Syst 2020, Fig. 4 &#183; ' +
+       'drawn to the described forms, not to scale</text>';
 
-  s += '<text x="1450" y="592" text-anchor="end" font-family="inherit" ' +
-       'font-size="19" fill="' + MUTED + '">curve shapes after Hawkins et al., ' +
-       'Cell Syst 2020, Fig. 4 &#183; drawn to the described forms, not to scale</text>';
-
-  return '<svg viewBox="0 0 1480 600" xmlns="http://www.w3.org/2000/svg" ' +
-    'role="img" aria-label="A grid of six charts, three pathways down and two ' +
-    'organisms across, B. subtilis and E. coli. In every chart the horizontal ' +
-    'axis is how hard the gene is knocked down and the vertical axis is ' +
-    'fitness, so each curve starts at full fitness on the left and can only ' +
-    'fall. Cofactor biosynthesis genes are robust: the curve stays almost flat ' +
-    'all the way across. Translation genes are linear: a short buffer where ' +
-    'nothing happens, then fitness falls in step with knockdown. Peptidoglycan ' +
-    'precursor genes are bimodal: partial repression is tolerated completely, ' +
-    'and then past a threshold the cells lyse and fitness collapses. Each ' +
-    'chart shows thin lines for individual genes and a thick line for the ' +
-    'median. Reading across each row, the same shape appears in both ' +
-    'organisms, which are about two billion years apart, so the shape is a ' +
-    'property of the pathway rather than of the organism.">' + s + '</svg>';
+  return '<svg viewBox="0 0 1480 600" xmlns="http://www.w3.org/2000/svg" role="img" ' +
+    'aria-label="One set of axes, fitness against how hard a gene is knocked down, ' +
+    'carrying three curves. The cofactor biosynthesis curve stays almost flat until ' +
+    'the very end. The translation curve holds, then falls steadily. The ' +
+    'peptidoglycan curve holds and then drops abruptly to the floor. Each is ' +
+    'labelled where it ends.">' + s + '</svg>';
 }
+
 
 const steps = [
   {
-    add:"So that is thirty thousand strains, each one carrying a known amount of knockdown of a known gene, and this is the shape of what comes back. Every one of these six panels has knockdown along the bottom — left is the gene untouched, right is the gene shut right down — and fitness up the side. Every curve starts at the top left, because an unrepressed cell is a healthy cell, and from there it can only fall. The question is when, and how. Three pathways going down, two organisms going across. Each thin line is one gene; the thick one is the median for the pathway.",
-    desc:"Six empty chart frames, three pathways down and two organisms across, with knockdown on the x axis and fitness on the y axis." },
+    add:"So that is thirty thousand strains, each one carrying a known amount of knockdown of a known gene, and this is the shape of what comes back. Knockdown runs along the bottom — left is the gene untouched, right is the gene shut right down — and fitness up the side. Every curve starts at the top left, because an unrepressed cell is a healthy cell, and from there it can only fall. The question is when it falls, and how.",
+    desc:"One set of axes, knockdown along the bottom and fitness up the side, with no curves drawn yet." },
   {
     add:"Cofactor biosynthesis first, and this one is almost a flat line. You can take these genes down a long way and the cell barely notices. And these are ESSENTIAL genes — delete one and the cell dies — so essential turns out not to mean what we usually let it mean. There is an enormous amount of headroom in how much of this enzyme the cell is actually carrying, and a knockout experiment, which is the only experiment anyone could do before this, would have told you precisely none of that.",
     desc:"The cofactor biosynthesis row fills in: curves that stay almost flat across the whole knockdown range in both organisms." },
@@ -276,7 +259,7 @@ const steps = [
     add:"And then peptidoglycan precursor synthesis does the thing you would never have guessed. It is bimodal. Partial repression is tolerated completely — the curve is flat, the cells are fine — and then you cross a threshold and they lyse. There is no graded middle at all. The cell is either building a wall or it is bursting. Now look back at lecture eleven for a moment: this is an impedance curve. It is the same object we drew when we were tuning a ribosome binding site to put a device's two states either side of a knee. Here it has been measured rather than guessed, and these three rows are three completely different knees.",
     desc:"The peptidoglycan row fills in: flat while partially repressed, then a sharp collapse past a threshold." },
   {
-    add:"Here is the part I would hang the whole lecture on. Read across instead of down. E. coli and B. subtilis are separated by something like two billion years of evolution, they are on opposite sides of the Gram stain, and the curves still match row for row. The shape belongs to the pathway, not to the organism. That is a real biological result — not a methods result — and there is no way to get it one gene at a time. You need every essential gene, at every level of knockdown, in two organisms at once, which is thirty thousand measurements, which is this technique. That is what multiplexing buys you.",
+    add:"Here is the part I would hang the whole lecture on. They did this in E. coli and in B. subtilis, organisms separated by something like two billion years of evolution and sitting on opposite sides of the Gram stain, and the curves come out the same shape in both. The shape belongs to the pathway, not to the organism. That is a real biological result — not a methods result — and there is no way to get it one gene at a time. You need every essential gene, at every level of knockdown, which is this technique. That is what multiplexing buys you.",
     desc:"The conservation statement: the same shapes appear in both organisms despite about two billion years of separation." }
 ];
 

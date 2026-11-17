@@ -276,6 +276,9 @@ function dial(){
 /* ---- band B: the pooled experiment --------------------------------- */
 const COLS = [30, 395, 760, 1125];
 
+/* NO LONGER DRAWN.  Kept because it is correct and may be wanted
+   back; see the note on figure() for why the slide was cut to two
+   bands.  If it stays unused much longer, delete it. */
 function pipeline(){
   const Y = 392;
   const steps = [
@@ -302,6 +305,9 @@ function pipeline(){
 }
 
 /* ---- band C: the strip that names the space ------------------------ */
+/* NO LONGER DRAWN.  Kept because it is correct and may be wanted
+   back; see the note on figure() for why the slide was cut to two
+   bands.  If it stays unused much longer, delete it. */
 function strip(){
   const Y = 498;
   const items = [
@@ -325,11 +331,19 @@ function strip(){
 }
 
 function figure(){
+  /* TWO bands, not four.  JCA, 2026-11-17: "This whole sequence on
+     crispr-i is too complicated and nuanced.  I can't present that
+     either."  The slide carried four separate ideas -- the dCas9
+     mechanism, the mismatch dial, the pooled-library pipeline, and a
+     strip naming four other methods -- and any one of them is a
+     slide's worth.  The two the lecture needs are kept: dCas9 blocks
+     rather than cuts, and WHERE you put one mismatch sets how hard it
+     blocks.  The pipeline numbers and the comparison with Tn-seq,
+     CRISPRi and Perturb-seq are not lost, they moved into the
+     narration, where they can be said rather than drawn. */
   let s = "";
   s += '<g data-r="mol" opacity="0">' + molecular() + '</g>';
   s += '<g data-r="dial" opacity="0">' + dial() + '</g>';
-  s += '<g data-r="pipe" opacity="0">' + pipeline() + '</g>';
-  s += '<g data-r="strip" opacity="0">' + strip() + '</g>';
   s += '<text x="1450" y="592" text-anchor="end" font-family="inherit" ' +
        'font-size="19" fill="' + MUTED + '">activity profile schematic, after ' +
        'Hawkins et al., Cell Syst 2020, Fig. 1C</text>';
@@ -356,13 +370,7 @@ const steps = [
     desc:"dCas9 guided by an sgRNA sits on an essential gene and blocks an elongating RNA polymerase." },
   {
     add:"Here is the trick that turns the switch into a dial. The guide pairs over twenty bases, and a single mismatch does not affect it equally everywhere. Out at the distal end, away from the PAM, one mismatch barely matters and you keep almost all the knockdown. Down in the seed, the seven bases nearest the PAM, one mismatch nearly abolishes it. And in between you can get anything you want. So by choosing WHERE you put one mismatch, you order a particular strength of knockdown — and they built a model that predicts it well enough to design to.",
-    desc:"The 20-base pairing region split into distal, middle and seed regions, with bars showing how much knockdown a mismatch at each position leaves intact." },
-  {
-    add:"Now it multiplexes, which is the part that matters for characterizing a whole library at once. Instead of one guide per gene, you order a hundred: ten guides against the gene, each with nine mismatched variants, chosen to spread right across the knockdown range. Do that for every essential gene in the organism — about three hundred of them — and the library is over thirty thousand members. Grow the whole pool together for ten doublings, keeping it in exponential phase, and sequence the guide cassettes at the start and at the end. A guide that got rarer belongs to a strain that grew badly. The change in frequency is the fitness measurement, and it comes for every one of those thirty thousand strains out of one experiment.",
-    desc:"The pooled workflow: a hundred sgRNAs per gene, over thirty thousand per library, grown ten doublings and read out by sequencing the guides." },
-  {
-    add:"And for orientation, this is one corner of a much bigger space. Tn-seq disrupts genes at random and needs no separate barcode, because the insertion site is its own identifier. Ordinary CRISPRi knocks down on purpose, but all the way. Mismatch CRISPRi, the one we just drew, knocks down by an amount you choose. And Perturb-seq does any of these but reads the answer out of single cells as whole transcriptomes, so the phenotype is not one number but thousands. The older version of this idea is TRMR, from Ryan Gill's lab in 2010 — same ambition, tuning genes up and down with barcoded genomic edits made by recombineering, before CRISPR made the aiming easy.",
-    desc:"A strip naming Tn-seq, CRISPRi, mismatch CRISPRi and Perturb-seq, with the distinction each one draws." }
+    desc:"The 20-base pairing region split into distal, middle and seed regions, with bars showing how much knockdown a mismatch at each position leaves intact." }
 ];
 
 window.Deck.sequence("mmcrispri", function(slide){
@@ -376,8 +384,6 @@ window.Deck.sequence("mmcrispri", function(slide){
     const set = (k, on) => r[k] && r[k].setAttribute("opacity", on ? "1" : "0");
     set("mol", i >= 0);
     set("dial", i >= 1);
-    set("pipe", i >= 2);
-    set("strip", i >= 3);
   }
   go(0);
 

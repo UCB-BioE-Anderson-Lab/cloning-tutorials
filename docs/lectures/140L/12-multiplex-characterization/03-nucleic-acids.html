@@ -109,7 +109,8 @@
 <!-- ---------------------------------------------------------------- 29 -->
 <article class="slide">
   <h1>SHAPE-Seq</h1>
-  <figure class="fig"><img src="img/29-shapeseq.png" alt="The SHAPE-Seq protocol in two halves. In A, input RNAs are treated either with 1M7 or with a DMSO control; reverse transcription from a plus or minus handle primer stops wherever an adduct sits; the RNA is hydrolyzed, single-stranded DNA is ligated on, and the products are read as paired-end reads on an Illumina Genome Analyzer, with two adapter types marked. In B, reads are binned by handle, aligned and separated by barcode for each RNA; the plus and minus handle counts are plotted back to back along the sequence, passed through automated maximum likelihood estimation to give a reactivity for each base, and the reactivities constrain a predicted secondary structure."></figure>
+  <div class="fg" data-shape></div>
+  <p class="src">PMID: 21642531</p>
   <template class="notes">SHAPE-Seq is a method developed in the Arkin lab by Julius Lucks that enables the readout of the SHAPE reaction by deep sequencing using a barcoding strategy.  This allows them to analyze the structural properties of libraries RNAs.</template>
   <template class="desc">A published protocol figure in two panels. In panel A, input RNAs are treated either with 1M7 or with a DMSO control; reverse transcription from a plus or minus handle primer stops wherever an adduct sits; the RNA is hydrolyzed, single-stranded DNA is ligated on, and the products are read as paired-end Illumina reads, with two adapter types marked. In panel B, the reads are binned by handle, aligned and separated by barcode for each RNA, the plus and minus counts are plotted back to back along the sequence, passed through maximum likelihood estimation to give a reactivity for each base, and those reactivities constrain a drawn secondary structure.</template>
 </article>
@@ -117,5 +118,6 @@
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/26-rnaseq.js" defer></script>
+<script src="seq/29-shapeseq.js" defer></script>
 </body>
 </html>

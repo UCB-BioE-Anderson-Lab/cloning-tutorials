@@ -391,3 +391,22 @@ Rewrite by naming the thing instead of its position:
 Referring to content already covered is fine — "that phage display
 experiment was Fowler, 2010" names a result, not a slide number. The test
 is whether the sentence would still make sense if the deck were reordered.
+
+## A built slide must not go silent
+
+`deck.js` gives step 0 of a built slide the slide's own note, and gives
+each later build step whatever `data-note` sits on an element in that
+group. A group drawn by a module has no such attribute, so until
+2026-11-17 every click after the first showed "(no narration on this
+slide)" — on thirteen slides across the course.
+
+It now falls back to the slide's note, and a group carrying its own
+`data-note` still overrides. Two things follow for anyone writing a
+figure module:
+
+- **Do not try to put narration on the SVG.** The narration is the
+  lecturer's verbatim note on the article, and `verify_notes.py` reads it
+  from the HTML. A `data-note` injected by JavaScript is invisible to the
+  checker and would split the note across two places.
+- **Step through every build state in the presenter view**, not just the
+  slide. A figure can be perfect and the slide still silent.
