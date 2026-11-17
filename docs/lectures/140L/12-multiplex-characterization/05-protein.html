@@ -19,6 +19,9 @@
   font-size:13px;line-height:1.35;white-space:pre-wrap;word-break:break-all;
   margin:10px 0 0;color:var(--ink)}
 .slide p.sub{font-size:26px;color:var(--muted);margin:0 0 6px}
+.slide .fg{flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin:6px 0 0}
+.slide .fg svg{width:100%;height:100%;display:block}
 .slide .dms{flex:1 1 auto;min-height:0;display:flex;
   align-items:center;justify-content:center;margin-top:4px}
 .slide .dms svg{width:100%;height:100%;display:block}
@@ -55,6 +58,17 @@
   <p class="src">PMID: 20711194</p>
 </article>
 
+<!-- ---------------------------------------------------------------- NEW -->
+<!-- And what it costs to stack them.  See seq/31b-avgfp.js. -->
+<article class="slide">
+  <h1>Mutations do not add</h1>
+  <p class="sub">the local fitness landscape of avGFP</p>
+  <div class="fg" data-fig="avgfp"></div>
+  <p class="src">PMID: 27193686</p>
+  <template class="notes-add">Fowler&#8217;s experiment was one mutation at a time, and the obvious next question is what happens when you put several of them together, which is what you are always doing when you engineer a protein. Karen Sarkisyan and Fyodor Kondrashov&#8217;s group asked it on the one protein everybody in this room has already used: avGFP, the wild-type jellyfish protein that every GFP variant on your shelf descends from. They made tens of thousands of derivatives carrying random combinations of mutations and read the fluorescence of each one by sorting the cells and sequencing the bins, which is the same readout we have been using all through this lecture. Single mutations are mostly survivable. Three quarters of them leave the protein dimmer, but it is still green. Put four together and half the genotypes are completely dark, which is far worse than you get by multiplying the single effects together. The reason is on the right. Most of these mutations cost a small amount of folding stability, and the protein does not care about that until the total crosses a threshold, at which point it stops folding and the fluorescence goes off a cliff. They found interactions of that kind in up to thirty percent of the multiple mutants. The practical version is the one worth leaving with: you cannot characterize your mutations one at a time and then add them up. That is the same thing the promoter and ribosome binding site library told us, now happening inside a single protein.</template>
+  <template class="desc">Two panels. On the left, under the heading what the mutations cost, two proportion bars: for one mutation, three quarters filled and labeled three of four are dimmer than avGFP, and for four mutations, half filled and labeled one of two are completely dark, with a note that fluorescence was read for tens of thousands of genotypes by sorting and sequencing. On the right, under the heading why four is worse than four times one, a staircase descends one step per mutation against an axis of folding stability and crosses a dashed threshold at the fourth step, below which the region is labeled dark. The stability panel is schematic, and epistasis of this kind was found in up to thirty percent of the multiple mutants.</template>
+</article>
+
 <!-- ---------------------------------------------------------------- 32 -->
 <article class="slide">
   <h1>One-hybrid multiplexing</h1>
@@ -78,5 +92,6 @@ The Harvard experiment employs a library of computationally-designed ZF’s and 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
 <script src="seq/31-dms.js" defer></script>
+<script src="seq/31b-avgfp.js" defer></script>
 </body>
 </html>
