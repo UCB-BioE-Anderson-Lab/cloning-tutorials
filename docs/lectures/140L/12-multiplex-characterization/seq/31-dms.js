@@ -121,6 +121,17 @@ const WT = (function(){
   return w;
 })();
 
+/* THE WILD TYPE IS NOT A SUBSTITUTION.  JCA, looking at the first draft:
+   "I think this is fabricated data -- it shows W as being dead too."  He
+   is right, and it was a real error, not just a schematic liberty: the
+   score at the wild-type residue is the ratio of a thing to itself, so it
+   is zero at every position, including the two conserved tryptophans where
+   every OTHER residue is dead.  Drawing those columns solid blue said the
+   protein cannot tolerate its own sequence.  Forced to zero here, and the
+   cell is outlined below so the white square reads as the wild type rather
+   than as one more tolerated substitution. */
+for (let c = 0; c < NCOL; c++) SCORE[c][WT[c]] = 0;
+
 /* blue for depleted, paper for neutral, vermillion for enriched --
    the convention these maps are normally drawn in, in house colors */
 function heat(v){
@@ -142,10 +153,14 @@ function heatmap(){
            heat(SCORE[c][r]) + '"/>';
     }
   }
-  /* the wild-type residue, marked the way these maps usually mark it */
+  /* the wild-type residue: outlined, and dotted, so a white cell inside a
+     dead column reads as "this is the residue that is there" */
   for (let c = 0; c < NCOL; c++){
+    s += '<rect x="' + n2(HX + c * CW) + '" y="' + n2(HY + WT[c] * CH) +
+         '" width="' + n2(CW) + '" height="' + n2(CH) +
+         '" fill="none" stroke="#111111" stroke-width="1.2"/>';
     s += '<circle cx="' + n2(HX + c * CW + CW/2) + '" cy="' +
-         n2(HY + WT[c] * CH + CH/2) + '" r="2.2" fill="#111111" opacity="0.5"/>';
+         n2(HY + WT[c] * CH + CH/2) + '" r="2.2" fill="#111111"/>';
   }
   s += '<rect x="' + HX + '" y="' + HY + '" width="' + n2(NCOL * CW) +
        '" height="' + n2(AA.length * CH) + '" fill="none" stroke="' + RULE +
@@ -261,6 +276,9 @@ function key(){
        'font-family="inherit" font-size="16" fill="' + MUTED + '">lost</text>';
   s += '<text x="' + (X + W + 10) + '" y="' + (Y + 13) + '" font-family="inherit" ' +
        'font-size="16" fill="' + MUTED + '">enriched</text>';
+  s += '<text x="880" y="' + (Y + 13) + '" font-family="inherit" ' +
+       'font-size="16" fill="' + MUTED +
+       '">outlined: the wild-type residue, zero by definition</text>';
   s += '<text x="1450" y="' + (Y + 48) + '" text-anchor="end" ' +
        'font-family="inherit" font-size="16" fill="' + MUTED +
        /* the attribution is already on the slide, in p.sub ("Fowler et al.
@@ -272,10 +290,8 @@ function key(){
 
 function figure(){
   let s = "";
-  s += '<g data-r="p0">' + pipeline(1) + '</g>';
-  s += '<g data-r="p1" opacity="0">' + pipeline(4) + '</g>';
-  s += '<g data-r="map" opacity="0">' + heatmap() + key() + '</g>';
-  s += '<g data-r="read" opacity="0">' + callouts() + '</g>';
+  s += '<g data-r="p0">' + pipeline(4) + '</g>';
+  s += '<g data-r="map" opacity="0">' + heatmap() + key() + callouts() + '</g>';
   return '<svg viewBox="0 0 1480 600" xmlns="http://www.w3.org/2000/svg" ' +
     'role="img" aria-label="Deep mutational scanning. Down the left, a five ' +
     'step pipeline: make every substitution at every position, pool them, ' +
@@ -294,17 +310,11 @@ function figure(){
 
 const steps = [
   {
-    add:"The phage display experiment was Fowler, 2010, and it deserves its proper name, because it started a method. It is called deep mutational scanning. The idea is this. Instead of picking a handful of mutations you think matter and making them one at a time, you make every substitution at every position in the domain, and you put them all in one tube.",
-    desc:"The first two steps of the pipeline: make every substitution at every position, and pool them." },
+    add:"The phage display experiment was Fowler, 2010, and it deserves its proper name, because it started a method. It is called deep mutational scanning. Instead of picking a handful of mutations you think matter and making them one at a time, you make every substitution at every position in the domain and put them all in one tube. Then you run an assay that sorts the good from the bad \u2014 for Fowler that was phage display selecting for binding to the WW domain\u2019s peptide ligand, but it can be growth, or fluorescence, or anything you can select on. And then comes the multiplexing move, which by now should be familiar: you sequence the pool before the selection and after it. A variant that got rarer was a bad variant. The change in frequency is that variant\u2019s score, and you get one for every member at once. Fowler tracked over six hundred thousand variants that way.",
+    desc:"A five step pipeline down the left: make every substitution at every position, pool them, select, sequence the pool before and after, and score each variant by how much it was enriched or lost." },
   {
-    add:"Then you do an assay that sorts the good from the bad — for Fowler that was phage display selecting for binding to the WW domain's peptide ligand, but it can be growth, or fluorescence, or anything you can select on. And here is the multiplexing move, which by now should be familiar: you sequence the pool before the selection and after it. A variant that got rarer was a bad variant. The change in frequency is that variant's score, and you get one for every member at once. Fowler tracked over six hundred thousand variants that way.",
-    desc:"The remaining three steps: select, sequence the pool before and after, and score each variant by its change in frequency." },
-  {
-    add:"What comes out is not a list, it is a matrix — a score for every amino acid at every position. Position runs across the bottom, the twenty amino acids run down the side, and I have grouped them by chemistry rather than alphabetically, because that is what makes this thing readable. Blue means that substitution was lost, red means it was enriched, and white means the protein did not much care.",
-    desc:"The heat map appears: positions across, the twenty amino acids down the side grouped by chemistry, colored by score." },
-  {
-    add:"And now look at what you can read straight off it. These two columns are solid blue — nothing substitutes there at all. Those are the two tryptophans a WW domain is literally named after. This column is blue everywhere except across the hydrophobic rows: that is a buried position, and it does not care which hydrophobic you give it as long as you give it one. And this one is pale all the way down — a surface position that will take anything. That is three completely different kinds of constraint, and Fowler's own sentence about it is the one I would have you remember: each position had unique features that could not be captured by a few representative mutations. That is the argument for doing this instead of alanine scanning, from the paper that first did it.",
-    desc:"Four positions are picked out: the two conserved tryptophans where nothing substitutes, a buried position that takes only hydrophobics, and a surface position that takes anything." }
+    add:"What comes out is not a list, it is a matrix \u2014 a score for every amino acid at every position. Position runs across the bottom, the twenty amino acids run down the side, grouped by chemistry rather than alphabetically, because that is what makes the thing readable. Blue means that substitution was lost, red means it was enriched, white means the protein did not much care, and the outlined cell in each column is the residue that is actually there, which scores zero because it is being compared with itself. Now read the columns. These two are blue top to bottom except for that one cell: nothing substitutes for them, and the residue they will not give up is tryptophan, which is what a WW domain is named for. This column is blue everywhere except across the hydrophobic rows, so it is a buried position, and it does not care which hydrophobic you give it as long as you give it one. And this one is pale all the way down, a surface position that will take anything. That is three completely different kinds of constraint on one protein, and Fowler\u2019s own sentence about it is the one worth remembering: each position had unique features that could not be captured by a few representative mutations. That is the argument for doing this instead of alanine scanning, from the paper that first did it.",
+    desc:"The heat map appears with its reading marked: positions across, the twenty amino acids down the side grouped by chemistry, colored blue for lost and red for enriched, the wild-type cell in each column outlined. Four positions are picked out: the two conserved tryptophans where nothing else substitutes, a buried position that takes only hydrophobics, and a surface position that takes anything." }
 ];
 
 window.Deck.sequence("dms", function(slide){
@@ -316,10 +326,7 @@ window.Deck.sequence("dms", function(slide){
 
   function go(i){
     const set = (k, on) => r[k] && r[k].setAttribute("opacity", on ? "1" : "0");
-    set("p0", i < 1);
-    set("p1", i >= 1);
-    set("map", i >= 2);
-    set("read", i >= 3);
+    set("map", i >= 1);
   }
   go(0);
 

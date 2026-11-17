@@ -247,20 +247,11 @@ function figure(){
 
 const steps = [
   {
-    add:"So that is thirty thousand strains, each one carrying a known amount of knockdown of a known gene, and this is the shape of what comes back. Knockdown runs along the bottom — left is the gene untouched, right is the gene shut right down — and fitness up the side. Every curve starts at the top left, because an unrepressed cell is a healthy cell, and from there it can only fall. The question is when it falls, and how.",
-    desc:"One set of axes, knockdown along the bottom and fitness up the side, with no curves drawn yet." },
+    add:"So that is thirty thousand strains, each carrying a known amount of knockdown of a known gene, and here is the useful thing that falls out of it. Knockdown runs along the bottom, from the gene untouched to the gene shut right down, and fitness runs up the side. Every one of these genes is essential, so the knockout experiment \u2014 which is all anybody could do before this \u2014 gives you exactly one bit of information, which is dead. What you actually need, if you are going to dial a gene down to redirect flux through a pathway rather than delete it, is how far down you can go before the cell starts to suffer. That is a curve, not a bit, and this technique is what gets you the curve.",
+    desc:"One set of axes, how hard the gene is knocked down along the bottom and fitness up the side, with no curves drawn yet." },
   {
-    add:"Cofactor biosynthesis first, and this one is almost a flat line. You can take these genes down a long way and the cell barely notices. And these are ESSENTIAL genes — delete one and the cell dies — so essential turns out not to mean what we usually let it mean. There is an enormous amount of headroom in how much of this enzyme the cell is actually carrying, and a knockout experiment, which is the only experiment anyone could do before this, would have told you precisely none of that.",
-    desc:"The cofactor biosynthesis row fills in: curves that stay almost flat across the whole knockdown range in both organisms." },
-  {
-    add:"Translation does not behave that way at all. There is a short buffer at the start where nothing much happens, and then once you have used that up, fitness falls in a straight line with knockdown. And that makes mechanistic sense — growth rate in these organisms tracks the number of working ribosomes, so if you take ribosomal protein expression down linearly, you take growth down linearly with it. Notice that the shape is telling you something about the biology. A straight line means no spare capacity and no feedback to rescue you.",
-    desc:"The translation row fills in: a flat buffer at low knockdown, then an approximately linear decline in both organisms." },
-  {
-    add:"And then peptidoglycan precursor synthesis does the thing you would never have guessed. It is bimodal. Partial repression is tolerated completely — the curve is flat, the cells are fine — and then you cross a threshold and they lyse. There is no graded middle at all. The cell is either building a wall or it is bursting. Now look back at lecture eleven for a moment: this is an impedance curve. It is the same object we drew when we were tuning a ribosome binding site to put a device's two states either side of a knee. Here it has been measured rather than guessed, and these three rows are three completely different knees.",
-    desc:"The peptidoglycan row fills in: flat while partially repressed, then a sharp collapse past a threshold." },
-  {
-    add:"Here is the part I would hang the whole lecture on. They did this in E. coli and in B. subtilis, organisms separated by something like two billion years of evolution and sitting on opposite sides of the Gram stain, and the curves come out the same shape in both. The shape belongs to the pathway, not to the organism. That is a real biological result — not a methods result — and there is no way to get it one gene at a time. You need every essential gene, at every level of knockdown, which is this technique. That is what multiplexing buys you.",
-    desc:"The conservation statement: the same shapes appear in both organisms despite about two billion years of separation." }
+    add:"And the curves are not the same shape, which is the whole point. Cofactor biosynthesis is nearly flat: you can take those genes a long way down and the cell barely notices, so there is a lot of headroom to work with. Translation holds for a short buffer and then falls in a straight line, which is what no spare capacity looks like \u2014 growth tracks the number of working ribosomes, so linear in gives you linear out. Peptidoglycan precursor synthesis is bimodal: partial repression is tolerated completely, and then past a threshold the cells lyse, with no graded middle at all. So how far you can knock a gene down is different for every gene and you cannot guess it from what the gene does. And the part worth keeping: they did this in E. coli and in B. subtilis, organisms on opposite sides of the Gram stain and about two billion years apart, and the shapes come out the same in both. The shape belongs to the pathway, not to the organism. There is no way to learn that one gene at a time.",
+    desc:"All three curves fill in and are labeled where they end: cofactor biosynthesis almost flat, translation falling steadily after a short buffer, peptidoglycan precursors holding and then dropping abruptly to the floor." }
 ];
 
 window.Deck.sequence("expfit", function(slide){
@@ -273,9 +264,8 @@ window.Deck.sequence("expfit", function(slide){
   function go(i){
     const set = (k, on) => r[k] && r[k].setAttribute("opacity", on ? "1" : "0");
     set("row0", i >= 1);
-    set("row1", i >= 2);
-    set("row2", i >= 3);
-    set("conserved", i >= 4);
+    set("row1", i >= 1);
+    set("row2", i >= 1);
   }
   go(0);
 
