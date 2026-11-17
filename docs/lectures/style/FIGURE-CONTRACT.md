@@ -360,3 +360,34 @@ for someone who cannot see it. It is not a second place to teach. Describe
 the figure's content and structure, in order, plainly. No argument, no
 takeaway, no "this shows that…". If the slide's figure is schematic rather
 than real data, the desc says so.
+
+## Narration is never about the deck
+
+JCA, 2026-11-17, on "…and that is what the next few slides are about":
+
+> These are lame transitions. Narration should never be self-referential
+> like this. It's tacky. The narrative talks about the domain knowledge,
+> not about itself.
+
+So: no "the next few slides", "this slide", "the slide before", "the note
+above", "in this section". The lecture is about sequencing and libraries,
+not about its own running order.
+
+A transition is made by carrying an IDEA forward, not by announcing a
+move. His own notes do it that way every time — "Next-gen synthesis
+allows you to make all sorts of libraries, but one of the more pertinent
+ones is…", "Finally, we have in vitro translation", "Here is an example
+from Tom Soh in which…". The connective is about the subject.
+
+Rewrite by naming the thing instead of its position:
+
+| tacky | the same point, about the domain |
+|---|---|
+| "that is what the next few slides are about" | name the thing: "what all of them need is a PCR product with the right ends on it" |
+| "the same trick as the slide before" | "the same dilution trick as an emulsion" |
+| "contrast that with the map on the slide before" | "contrast that with a deep mutational scan of a protein domain" |
+| "question five is the one we take up on the next slide" | "protein-protein interactions are what the yeast two-hybrid was built for" |
+
+Referring to content already covered is fine — "that phage display
+experiment was Fowler, 2010" names a result, not a slide number. The test
+is whether the sentence would still make sense if the deck were reordered.

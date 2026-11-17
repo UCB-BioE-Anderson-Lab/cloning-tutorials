@@ -102,9 +102,9 @@ Typically these are made from a single organism and thus have all the informatio
     <li>Can be much longer than traditional CPG oligos</li>
   </ul>
   <figure class="fig"><img src="img/08-pools.png" alt="An inkjet-style DNA synthesizer: four reservoirs labelled A, C, T and G feeding nozzles that print spots onto a plate, with a close-up of the nozzles and of the growing oligos."></figure>
-  <p class="src">agilent.com</p>
+  <p class="src">After agilent.com</p>
   <template class="notes">https://www.agilent.com/en/solutions/genomics-applications-solutions/ols</template>
-    <template class="notes-add">Every library so far has been made from DNA you already had in hand, whether that is a gene you cloned or a genome you extracted. From here on the library gets written from scratch, and an oligo pool is where that starts. What makes a pool different from ordering a tube of primer is that you are making an enormous number of different sequences and almost none of each. Agilent pioneered doing it by printing: inkjet heads deposit the phosphoramidite chemistry onto a glass surface, one spot per sequence, much the way a microarray is made. Twist runs the same chemistry but miniaturizes it into wells etched in a silicon chip, which cuts the reaction volume by orders of magnitude and fits far more sequences onto one wafer. Either way you end up with a single tube holding tens of thousands of distinct sequences at a fraction of a femtomole each, which is why the first thing you ever do with a pool is amplify it.</template>
+    <template class="notes-add">Error-prone PCR, alanine scans, saturation libraries, genomic fragments — those all start from DNA you already have in hand, a gene you cloned or a genome you extracted. An oligo pool is the other kind of library: the sequence is written from scratch. What makes a pool different from ordering a tube of primer is that you are making an enormous number of different sequences and almost none of each. Agilent pioneered doing it by printing: inkjet heads deposit the phosphoramidite chemistry onto a glass surface, one spot per sequence, much the way a microarray is made. Twist runs the same chemistry but miniaturizes it into wells etched in a silicon chip, which cuts the reaction volume by orders of magnitude and fits far more sequences onto one wafer. Either way you end up with a single tube holding tens of thousands of distinct sequences at a fraction of a femtomole each, which is why the first thing you ever do with a pool is amplify it.</template>
   <template class="desc">A drawing of an inkjet-style synthesizer: four reservoirs labelled A, C, T and G feeding print nozzles that deposit spots on a plate, with a close-up of the nozzles and of the growing oligos.</template>
 </article>
 
@@ -123,7 +123,7 @@ Typically these are made from a single organism and thus have all the informatio
       <tr><th scope="row">Price</th><td>Industry-leading pricing</td></tr>
     </tbody>
   </table>
-  <p class="src">twistbioscience.com</p>
+  <p class="src">After twistbioscience.com</p>
   <template class="notes">https://www.twistbioscience.com/products/oligopools?utm_content=kwd-504223262862&amp;utm_source=google&amp;utm_medium=cpc&amp;utm_campaign=PSR-GLBL-FY21-1808-MULTI-Branded&amp;adgroup=114820227583&amp;utm_term=twist%20oligo&amp;creative=491329828705&amp;device=c&amp;matchtype=b&amp;location=1013585&amp;gad_source=1&amp;gclid=Cj0KCQjwztOwBhD7ARIsAPDKnkBIa0oPvCKfDXsFKpe_jK_fgixvaNG1niHMkagocmBnsMglxgY0pnoaArTkEALw_wcB&amp;tab=oligo-pools
 Many of these products (IDT, Twist, Agilent, Synbio Technologies) have oligos up to 300 nt with good quality.  That is not long enough to directly encode most proteins, but genetic elements like promoters, terminators, CRISPR guide RNAs, siRNAs, etc can all be made directly this way.
 You use the product typically as template for PCR, then clone the library or do something else in vitro.</template>
@@ -132,7 +132,8 @@ You use the product typically as template for PCR, then clone the library or do 
 
 <!-- ---------------------------------------------------------------- 10 -->
 <article class="slide">
-  <h1>Next-gen Synthesis</h1>
+  <h1>Chip-based gene synthesis</h1>
+  <p class="sub">genes assembled from a microarray oligo pool</p>
   <figure class="fig"><img src="img/10-nextgen.png" alt="Oligos printed on a DNA microchip, sheared off into an OLS pool, split into two subpools and assembled into full-length genes."></figure>
   <p class="src">PMID: 21113165</p>
   <template class="notes">What’s new in this library fabrication domain is next-gen gene synthesis.  Most strategies begin with a custom DNA microarray onto which around 55,000 oligonucleotides have been printed.  The oligos are sheared off the chip and collected as a single sample referred to as an OLS library.  There are several different protocols for assembling these oligos into full-length DNAs, but in general they are similar in setup to Ligase Chain Assembly and Polymerase Chain Assembly, which we’ve talked about before.  Here we illustrate one of the methods developed within the Church lab by Sri Kosuri.  The power of next-gen synthesis is that you get to write around 1000 genes, and it is possible to make them assemble all in one pot without the use of robotics.  So, you can write large libraries of designer genes using these microarrays.
