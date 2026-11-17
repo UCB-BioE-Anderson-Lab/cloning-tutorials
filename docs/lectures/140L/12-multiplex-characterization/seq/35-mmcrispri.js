@@ -43,13 +43,26 @@
  * Figure 1C, not its values -- and the slide says so in small print.
  * Do not quote numbers off those bars.
  *
- * Authored at 1420x720.
+ * Authored at 1480x600 -- see LAYOUT below.
+ *
+ * STYLE AUDIT, 2026-11-17.  Four palette faults were found and fixed:
+ * five invented pale tints (#eef2f6, #e7eef4, #f6f2e2, #f7e8e2,
+ * #eceff2) became --paper or --rule, which is what the contract says a
+ * fill lighter than its stroke may be; the three region cells were
+ * tinted one hue each, which is an identity map, and are now all
+ * white, with the regions named by their brackets as they already
+ * were; the activity bars were drawn in three hues at opacity 0.78 --
+ * a hue per region AND a pale tint of each -- and are now one solid
+ * ink series, since they are one quantity; and amber, the rung the
+ * guide says is almost never reached, is gone.  Only the seed bracket
+ * is promoted, to vermillion, because the seed is what the band is
+ * about.  The small print was 17px and is now 19px, the floor.
  * ------------------------------------------------------------------ */
 (function(){
 "use strict";
 
 const INK = "#111111", VERM = "#ba3a13", BLUE = "#004373",
-      AMBER = "#a99011", MUTED = "#767676", RULE = "#e2e2e2";
+      MUTED = "#767676", RULE = "#e2e2e2", PAPER = "#ffffff";
 const n2 = v => Math.round(v * 10) / 10;
 
 /* ---- LAYOUT -------------------------------------------------------- *
@@ -82,7 +95,7 @@ function molecular(){
        ' L ' + (g1 - head) + ' ' + (mid + h/2 + 11) +
        ' L ' + (g1 - head) + ' ' + (mid + h/2) +
        ' L ' + g0 + ' ' + (mid + h/2) + ' Z" ' +
-       'fill="#eef2f6" stroke="' + BLUE + '" stroke-width="3"/>';
+       'fill="' + PAPER + '" stroke="' + BLUE + '" stroke-width="3"/>';
 
   /* upstream duplex */
   [0, GAP].forEach(function(dy){
@@ -96,12 +109,12 @@ function molecular(){
   s += '<path d="M 140 120 L 122 111 L 122 129 Z" fill="' + INK + '"/>';
 
   /* RNA polymerase, elongating, and dCas9 in its way */
-  s += '<ellipse cx="212" cy="' + mid + '" rx="28" ry="34" fill="#ffffff" ' +
+  s += '<ellipse cx="212" cy="' + mid + '" rx="28" ry="34" fill="' + PAPER + '" ' +
        'stroke="' + MUTED + '" stroke-width="3"/>';
   s += '<text x="212" y="' + (mid + 7) + '" text-anchor="middle" ' +
        'font-family="inherit" font-size="18" fill="' + MUTED + '">RNAP</text>';
 
-  s += '<ellipse cx="306" cy="' + mid + '" rx="44" ry="52" fill="#e7eef4" ' +
+  s += '<ellipse cx="306" cy="' + mid + '" rx="44" ry="52" fill="' + RULE + '" ' +
        'stroke="' + BLUE + '" stroke-width="4"/>';
   s += '<text x="306" y="' + (mid + 8) + '" text-anchor="middle" ' +
        'font-family="inherit" font-size="22" font-weight="700" fill="' + BLUE +
@@ -151,20 +164,23 @@ function dial(){
        'font-size="22" fill="' + INK +
        '">the 20-base pairing region of the sgRNA</text>';
 
+  /* all twenty cells are white: the regions are named by the brackets
+     under them, and a tint per region would be an identity map */
   for (let i = 0; i < 20; i++){
-    const reg = i < 8 ? 0 : i < 13 ? 1 : 2;
     s += '<rect x="' + (DX + i * DW) + '" y="' + DY + '" width="' + DW +
-         '" height="' + DH + '" fill="' + ["#ffffff","#f6f2e2","#f7e8e2"][reg] +
+         '" height="' + DH + '" fill="' + PAPER +
          '" stroke="' + MUTED + '" stroke-width="1.5"/>';
   }
   s += '<rect x="' + (DRIGHT + 8) + '" y="' + DY + '" width="56" height="' + DH +
-       '" rx="4" fill="#eceff2" stroke="' + INK + '" stroke-width="2"/>';
+       '" rx="4" fill="' + RULE + '" stroke="' + INK + '" stroke-width="2"/>';
   s += '<text x="' + (DRIGHT + 36) + '" y="' + (DY + DH/2 + 7) +
        '" text-anchor="middle" font-family="inherit" font-size="20" fill="' +
        INK + '">PAM</text>';
 
   /* region brackets */
-  [[0, 8, "distal", MUTED], [8, 13, "middle", AMBER], [13, 20, "seed", VERM]]
+  /* only the seed is promoted -- it is what this band is about.  Distal
+     and middle are context and are told apart by their labels. */
+  [[0, 8, "distal", MUTED], [8, 13, "middle", MUTED], [13, 20, "seed", VERM]]
   .forEach(function(r){
     const x0 = DX + r[0] * DW, x1 = DX + r[1] * DW, y = DY + DH + 10;
     s += '<path d="M ' + x0 + ' ' + y + ' L ' + x0 + ' ' + (y + 9) + ' L ' +
@@ -185,8 +201,7 @@ function dial(){
   for (let i = 0; i < 20; i++){
     const h = KEEP[i] * BH;
     s += '<rect x="' + (DX + i * DW + 3) + '" y="' + n2(BY + BH - h) + '" width="' +
-         (DW - 6) + '" height="' + n2(h) + '" fill="' +
-         (i < 8 ? MUTED : i < 13 ? AMBER : VERM) + '" opacity="0.78"/>';
+         (DW - 6) + '" height="' + n2(h) + '" fill="' + INK + '"/>';
   }
   s += '<text transform="translate(' + (DX - 22) + ',' + (BY + BH/2) +
        ') rotate(-90)" text-anchor="middle" font-family="inherit" ' +
@@ -258,7 +273,7 @@ function figure(){
   s += '<g data-r="pipe" opacity="0">' + pipeline() + '</g>';
   s += '<g data-r="strip" opacity="0">' + strip() + '</g>';
   s += '<text x="1450" y="592" text-anchor="end" font-family="inherit" ' +
-       'font-size="17" fill="' + MUTED + '">activity profile schematic, after ' +
+       'font-size="19" fill="' + MUTED + '">activity profile schematic, after ' +
        'Hawkins et al., Cell Syst 2020, Fig. 1C</text>';
   return '<svg viewBox="0 0 1480 600" xmlns="http://www.w3.org/2000/svg" ' +
     'role="img" aria-label="Mismatch CRISPRi. On the left, dCas9 guided by an ' +
@@ -279,7 +294,7 @@ function figure(){
 
 const steps = [
   {
-    add:"Start with ordinary CRISPRi. This is dCas9, so it has no nuclease activity at all — it does not cut the gene, it just parks on it and gets in the way of an elongating polymerase. Point the guide at an essential gene and you knock that gene down. The trouble is that this is a switch. You get the knockdown the guide gives you, and the only way to ask what a cell does at half that level is to go and build something else.",
+    add:"To ask that question you need a way to turn a gene down by a controlled amount, and the modern way to do it is CRISPR interference. Start with the ordinary version. This is dCas9, so it has no nuclease activity at all — it does not cut the gene, it parks on it and gets in the way of an elongating polymerase. Point the guide at an essential gene and you knock that gene down. The trouble is that this is a switch. You get the knockdown the guide gives you, and the only way to ask what a cell does at half that level is to go and build something else.",
     desc:"dCas9 guided by an sgRNA sits on an essential gene and blocks an elongating RNA polymerase." },
   {
     add:"Here is the trick that turns the switch into a dial. The guide pairs over twenty bases, and a single mismatch does not affect it equally everywhere. Out at the distal end, away from the PAM, one mismatch barely matters and you keep almost all the knockdown. Down in the seed, the seven bases nearest the PAM, one mismatch nearly abolishes it. And in between you can get anything you want. So by choosing WHERE you put one mismatch, you order a particular strength of knockdown — and they built a model that predicts it well enough to design to.",

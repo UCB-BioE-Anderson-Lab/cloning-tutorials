@@ -12,9 +12,6 @@
   justify-content:center;margin:6px 0 0}
 .slide figure.fig img{max-width:100%;max-height:100%;width:auto;height:auto;
   object-fit:contain}
-.slide .big{flex:1 1 auto;display:flex;align-items:center;justify-content:center}
-.slide .big p{font-size:84px;font-family:var(--sans);font-weight:700;margin:0;
-  text-align:center;line-height:1.1}
 .slide ul.tight li{font-size:28px;margin-bottom:12px}
 .slide ul.fill{margin-top:auto;margin-bottom:auto}
 .slide ul.fill li{font-size:28px;margin-bottom:18px}
@@ -22,42 +19,67 @@
   font-size:13px;line-height:1.35;white-space:pre-wrap;word-break:break-all;
   margin:10px 0 0;color:var(--ink)}
 .slide p.sub{font-size:26px;color:var(--muted);margin:0 0 6px}
+.slide .fg{flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  justify-content:center;margin-top:4px}
+.slide .fg svg{width:100%;height:100%;display:block}
+/* the divider's clip art, sized as lecture 11's Questions to Ponder */
+.slide .divtop{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr;
+  grid-template-rows:minmax(0,1fr);align-items:center}
+.slide .divtop figure{height:100%;display:flex;justify-content:center;margin:0}
+.slide .divtop img{max-height:100%;width:auto;object-fit:contain}
+/* the source's five questions are one numbered list of equal rank */
+.slide ol.ponder{flex:1 1 auto;min-height:0;margin:0;padding-left:1.4em;
+  list-style:none;counter-reset:q;
+  display:flex;flex-direction:column;justify-content:center}
+.slide ol.ponder li::before{counter-increment:q;content:counter(q) ") ";
+  display:inline-block;width:1.4em;margin-left:-1.4em;color:var(--muted)}
+.slide ol.ponder li{font-size:27px;margin-bottom:22px}
 </style>
 </head>
 <body>
 
 <!-- ---------------------------------------------------------------- 37 -->
 <article class="slide" data-bg="section">
-  <div class="big"><p>Questions to Ponder</p></div>
+  <h1>Questions to Ponder</h1>
+  <div class="divtop">
+    <figure>
+      <img src="img/37-ponder.png" alt="A cartoon of a person with one hand against their cheek and eyes turned upward, thinking something over.">
+    </figure>
+  </div>
   <template class="notes"></template>
-  <template class="desc">Questions to Ponder.</template>
+  <template class="notes-add">That is the argument of the whole lecture in one line: you already knew how to make a library and how to select from it, and the third thing you can do is sequence the population and let the frequency of each member be the measurement. Everything we looked at today &#8212; SELEX, SHAPE-Seq, phage display, deep mutational scanning, CRE-Seq, mismatch-CRISPRi &#8212; is that one move applied to a different kind of library. Before we stop, here are some questions to think about. They are mostly about whether a given experiment is even possible, which is where these designs usually fail.</template>
+  <template class="desc">Section divider on the amber ground, Questions to Ponder, with a cartoon of a person resting a hand against one cheek and looking upward, thinking something over.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 38 -->
 <article class="slide">
-  <h1>I have a 300 amino acid protein with 3 sites saturated by NNK mutagenesis distributed about the length of the gene.  Can I decode this library using HiSeq NGS sequencing?</h1>
-  <p class="sub">I have done SELEX on an N40 RNA library one time for binders to my protein of interest.  I used a HiSeq to sequence it, but see no evidence of enriched sequences.  Why not?</p>
-  <p class="sub">Why do we use next gen sequencing instead of cycle sequencing in these multiplex methods?  What are the differences in  utility between the different sequencing methods?</p>
-  <p class="sub">How can multiplex characterization be utilized to examine the influence of variations in promoter, ribosome binding site (RBS), spacer, and terminator elements on gene expression in E. coli?</p>
-  <p class="sub">How could you use multiplex characterization to obtain information about protein-protein interactions?</p>
+  <ol class="ponder">
+    <li>I have a 300 amino acid protein with 3 sites saturated by NNK mutagenesis distributed about the length of the gene.  Can I decode this library using HiSeq NGS sequencing?</li>
+    <li>I have done SELEX on an N<sub>40</sub> RNA library one time for binders to my protein of interest.  I used a HiSeq to sequence it, but see no evidence of enriched sequences.  Why not?</li>
+    <li>Why do we use next gen sequencing instead of cycle sequencing in these multiplex methods?  What are the differences in  utility between the different sequencing methods?</li>
+    <li>How can multiplex characterization be utilized to examine the influence of variations in promoter, ribosome binding site (RBS), spacer, and terminator elements on gene expression in E. coli?</li>
+    <li>How could you use multiplex characterization to obtain information about protein-protein interactions?</li>
+  </ol>
   <template class="notes">No, HiSeq and many of the other NGS sequencing methods give short reads – like 150 max. Since the library has only 32^3 =32768 members, we have plenty enough reads from a HiSeq or MiSeq to cover all members of the library.  However, you only see the ends of the PCR product, so you will not be able to read an entire 900 bp sequence.  There are some other NGS technologies such as Nanopore and Pacific Biosystems that do long reads with low per-base accuracy.  That might be an option.  But in general, you often have to use barcodes instead of looking at the gene sequence itself.
 You need to keep in mind the combinatorics math and the number of reads you get from the instrument.  The HiSeq is as high-density as the data gets but it is still only 300 million, which is far less than the diversity of N40.  So, you are just sampling the hit space.  It has been through a round of selection, so the hits would be 10 to 100x enriched in the population, but supposing you started with 1E15 variants, you still have a hit frequency of at best 1 in 1E13.  So, you probably aren’t even going to see the hits in a HiSeq read.
 You might be able to get some data out of cycle sequencing – you can submit a library instead of a pure plasmid, and you will get a chromatogram back.  However, you only get one chromatogram/read back, and in general the goal of multiplex characterization is to get millions of reads back.  Cycle sequencing is much more direct than NGS—you don’t have to sheer or specially prepare the DNA.  It’s just a plasmid and an oligo, that’s all.  So, there is less manipulation in between the experiment and the instrument to introduce error and bias.  When you submit a library, you can calculate the relative abundance of each base at mixed positions from the overlapping signals.  But in general it would be more accurate to pick individual clonal colonies and sequence those instead.
 To study the effects of genetic variation on gene expression in E. coli, a library of synthetic gene variants can be generated, each containing different combinations of promoter, ribosome binding site (RBS), spacer, and terminator elements. To enrich for variants that have higher levels of gene expression, a selectable marker such as an antibiotic resistance gene can be included in the library. The library can be cloned into a plasmid containing the selectable marker, and the surviving cells can be grown in the presence of the antibiotic.To barcode the library of variants for multiplex characterization, DNA barcodes can be incorporated into each variant during library preparation. Short-read sequencing can be used to identify and quantify each variant in the library. By analyzing the sequencing data, it is possible to identify which combinations of regulatory elements result in the highest levels of gene expression, and to engineer synthetic gene circuits with specific expression levels and dynamics. You could also use nanopore sequencing to identify which elements were included (assuming they are pretty different in sequence and not just point mutant variants).  You could also watch mRNA levels more directly by barcoding and RNA-seq.
 One approach to studying protein-protein interactions is to use a yeast two-hybrid assay, in which one protein is fused to a DNA-binding domain and another protein is fused to an activation domain. If the two proteins interact, they bring the two domains together and activate a reporter gene. By using a library of fusion proteins and multiplex sequencing to identify which fusion proteins interact with each other, it is possible to obtain a comprehensive map of protein-protein interactions within the library.</template>
-  <template class="desc">I have a 300 amino acid protein with 3 sites saturated by NNK mutagenesis distributed about the length of the gene.  Can I decode this library using HiSeq NGS sequencing?.</template>
+  <template class="notes-add">The five are independent of each other, so you can take them in any order and leave some for section. The note above answers them in the order they are listed, one paragraph each. The first three are really the same question asked three ways &#8212; how much diversity is there, how many reads does the instrument give you, and how much of each molecule do you actually get to see &#8212; and the last two are design questions, where the answer is some arrangement of a barcode and a selection. Question five is the one we take up on the next slide.</template>
+  <template class="desc">Five questions to work through: whether a HiSeq can decode three NNK-saturated sites spread along a 900 bp gene; why one round of SELEX on an N40 library shows no enrichment on a HiSeq; why these methods use next-generation rather than cycle sequencing; how to measure promoter, RBS, spacer and terminator variation in E. coli by multiplexing; and how to get protein-protein interactions out of a multiplex experiment.</template>
 </article>
 
 <!-- ---------------------------------------------------------------- 39 -->
 <article class="slide">
   <h1>Yeast Two-Hybrid Assay</h1>
-  <figure class="fig"><img src="img/39-y2h.png" alt="Figure from the slide Yeast Two-Hybrid Assay."></figure>
+  <div class="fg" data-fig="39"></div>
   <template class="notes">The yeast two-hybrid assay is a widely used method for studying protein-protein interactions. In this assay, one protein of interest is fused to a DNA-binding domain and another protein of interest is fused to an activation domain. If the two proteins interact, they bring the two domains together and activate a reporter gene, providing a readout of the interaction. By using a library of fusion proteins in which one domain is fused to a diverse set of proteins, and the other domain is fused to another set of diverse proteins, it is possible to screen for interactions between thousands of proteins in parallel.
 To use the yeast two-hybrid assay for multiplex characterization of protein-protein interactions, one could generate a library of fusion proteins in which one domain is fused to a diverse set of proteins and the other domain is fused to a diverse set of peptides. The library would then be screened for interactions between the proteins and peptides using the yeast two-hybrid assay, with each interaction resulting in the activation of a reporter gene. The library could be sequenced using multiplex sequencing to identify which protein-peptide interactions are present in the library, providing a comprehensive map of protein-peptide interactions. This approach could be used to study the specificity of protein-peptide interactions, and to identify peptides that interact with specific proteins of interest.</template>
-  <template class="desc">Yeast Two-Hybrid Assay.</template>
+  <template class="desc">The yeast two-hybrid assay in three rows: the activation domain fused to Y alone, with no transcription of the reporter; the binding domain fused to X alone, also silent; and both together, where X and Y touch, the two domains are brought to the UAS and the reporter gene is transcribed.</template>
 </article>
 
 <script src="../../deck.js" defer></script>
 <script src="lecture.js" defer></script>
+<script src="seq/39-y2h.js" defer></script>
 </body>
 </html>

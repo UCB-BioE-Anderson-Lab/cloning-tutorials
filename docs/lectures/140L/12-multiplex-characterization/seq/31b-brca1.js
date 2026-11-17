@@ -41,12 +41,18 @@
  * mode and a larger functional one.  The counts printed beside it are
  * the paper's real ones.  Nothing should be read off the bars.
  *
- * WHY BIMODAL MATTERS HERE, and why this follows the CRISPRi slides
- * well: those curves were continuous, and the lesson was that
- * essentiality is quantitative.  This one is the opposite, and that is
- * the finding -- the variants fall into two camps with a gap between,
- * which is exactly what makes them classifiable.  A continuous
- * distribution would have been much less useful clinically.
+ * WHY BIMODAL MATTERS HERE, and what it is contrasted against.  The
+ * note sets it against THE SLIDE BEFORE THIS ONE -- the DMS heat map,
+ * whose scores run continuously from dead through neutral to enriched.
+ * This one is the opposite, and that is the finding: the variants fall
+ * into two camps with a gap between, which is exactly what makes them
+ * classifiable.  A continuous distribution would have been much less
+ * useful clinically.
+ * DO NOT point this contrast at the mismatch-CRISPRi curves, as an
+ * earlier draft did.  Those are in Biological Properties, which comes
+ * AFTER Protein Function in the section order (see lecture.js), so
+ * "the curves we just looked at" was a forward reference to a slide the
+ * room has not seen.  Corrected 2026-11-17.
  *
  * Authored at 1480x600.
  * ------------------------------------------------------------------ */
@@ -54,7 +60,7 @@
 "use strict";
 
 const INK = "#111111", VERM = "#ba3a13", BLUE = "#004373",
-      MUTED = "#767676", RULE = "#e4e4e4";
+      MUTED = "#767676", RULE = "#e2e2e2";
 const n2 = v => Math.round(v * 10) / 10;
 
 /* ---- left: the problem --------------------------------------------- */
@@ -67,7 +73,7 @@ function problem(){
   /* a stretch of BRCA1 with variants on it, most of them unknown */
   const BY = 186, BW = 380;
   s += '<rect x="' + X + '" y="' + BY + '" width="' + BW + '" height="26" rx="4" ' +
-       'fill="#eef2f6" stroke="' + BLUE + '" stroke-width="2.5"/>';
+       'fill="#ffffff" stroke="' + BLUE + '" stroke-width="2.5"/>';
   s += '<text x="' + (X + BW/2) + '" y="' + (BY + 19) + '" text-anchor="middle" ' +
        'font-family="inherit" font-size="18" fill="' + BLUE + '">BRCA1</text>';
 
@@ -214,7 +220,9 @@ function figure(){
   s += '<g data-r="conc" opacity="0">' + concordance() + '</g>';
   s += '<text x="1450" y="' + (PY - 44) + '" text-anchor="end" ' +
        'font-family="inherit" font-size="17" fill="' + MUTED +
-       '">Findlay et al., Nature 2018 &#183; PMID 30209399 &#183; distribution ' +
+       /* the PMID lives in the slide's <p class="src">, which is the deck's
+   credit slot -- it was printed here too and showed twice */
+       '">Findlay et al., Nature 2018 &#183; distribution ' +
        'drawn to the described shape; the counts are the paper\'s</text>';
   return '<svg viewBox="0 0 1480 600" xmlns="http://www.w3.org/2000/svg" ' +
     'role="img" aria-label="Why deep mutational scanning matters. On the ' +
@@ -235,13 +243,13 @@ function figure(){
 
 const steps = [
   {
-    add:"So what is all that actually for? Here is the case I find most convincing. BRCA1 is a tumour suppressor, and germline loss-of-function variants in it predispose women to breast and ovarian cancer. It has been sequenced in millions of women. But sequencing someone only tells you which variant they have — it does not tell you whether that variant does anything. And most variants are rare, so when a new one turns up, there is often no evidence either way. That is what a variant of uncertain significance is, and it is the thing that limits how useful any of this sequencing actually is.",
+    add:"So what is all that actually for? Here is the case I find most convincing. BRCA1 is a tumor suppressor, and germline loss-of-function variants in it predispose women to breast and ovarian cancer. It has been sequenced in millions of women. But sequencing someone only tells you which variant they have — it does not tell you whether that variant does anything. And most variants are rare, so when a new one turns up, there is often no evidence either way. That is what a variant of uncertain significance is, and it is the thing that limits how useful any of this sequencing actually is.",
     desc:"A stretch of BRCA1 with twelve variants on it, most marked with question marks rather than known." },
   {
     add:"Findlay and colleagues went at it the way we have just been describing. Saturation genome editing — so these are real edits to the cell's own copy of the gene, not a plasmid — covering ninety-six and a half percent of every single-nucleotide variant it is possible to have in thirteen exons, the ones encoding the functionally critical domains. Nearly four thousand variants, each with a measured effect on function.",
     desc:"The experiment: saturation genome editing of 96.5% of all possible SNVs in 13 exons, nearly 4,000 variants scored." },
   {
-    add:"And this is the distribution of what came back. Look at the shape, because the shape is the result. It is bimodal. There is a non-functional population over here and a functional population over there and remarkably little in between. Now contrast that with the CRISPRi curves we just looked at, where the whole lesson was that essentiality is continuous and quantitative. This is the opposite, and it is a piece of luck: a gene whose variants fall cleanly into two camps is a gene whose variants you can classify.",
+    add:"And this is the distribution of what came back. Look at the shape, because the shape is the result. It is bimodal. There is a non-functional population over here and a functional population over there and remarkably little in between. Now contrast that with the map on the slide before, where the substitutions came in every shade from dead through neutral to enriched and the effects were continuous. This is the opposite, and it is a piece of luck: a gene whose variants fall cleanly into two camps is a gene whose variants you can classify.",
     desc:"The histogram of function scores: a smaller non-functional peak, a sparse valley, and a larger functional peak." },
   {
     add:"Here is the part that makes it trustworthy. Take the variants whose status was already settled — the ones independently known to be pathogenic, and the ones known to be benign — and ask where they land. The pathogenic ones sit under the left peak and the benign ones under the right. Almost perfectly concordant, in their words. So the assay reproduces what careful clinical assessment had already worked out, one variant at a time, over years. Which means you can trust it on the ones nobody has assessed: four hundred-odd non-functional missense variants, and about three hundred more that wreck expression. The authors' claim is that this should be immediately useful for clinical interpretation — and I'd flag that as a prediction about utility, not a report that any clinic has adopted it. But the measurement exists now, before anybody walks in with that variant, and that is the thing multiplexing bought.",

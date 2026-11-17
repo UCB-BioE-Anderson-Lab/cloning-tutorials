@@ -48,7 +48,7 @@
 "use strict";
 
 const INK = "#111111", VERM = "#ba3a13", BLUE = "#004373",
-      MUTED = "#767676", RULE = "#e4e4e4";
+      MUTED = "#767676", RULE = "#e2e2e2";
 const n2 = v => Math.round(v * 10) / 10;
 
 /* amino acids grouped by chemistry, which is what makes the rows
@@ -64,7 +64,7 @@ const GROUP = ["hydrophobic", "special", "polar", "acidic", "basic"];
 
 const NCOL = 34;
 /* CH was 19 on the first pass, which put the map's bottom edge at 484 and
-   left the callouts, the axis label and the colour key all trying to live
+   left the callouts, the axis label and the color key all trying to live
    in the same 60 units.  At 17 the map ends at 436 and each gets a line. */
 const HX = 566, HY = 96, CW = 24.5, CH = 17;
 
@@ -122,7 +122,7 @@ const WT = (function(){
 })();
 
 /* blue for depleted, paper for neutral, vermillion for enriched --
-   the convention these maps are normally drawn in, in house colours */
+   the convention these maps are normally drawn in, in house colors */
 function heat(v){
   const mix = (a, b, t) => a.map((x, i) => Math.round(x + (b[i] - x) * t));
   const paper = [255, 255, 255],
@@ -154,8 +154,8 @@ function heatmap(){
   /* amino-acid labels, and the chemistry brackets beside them */
   AA.forEach(function(a, r){
     s += '<text x="' + (HX - 12) + '" y="' + n2(HY + r * CH + CH/2 + 5) +
-         '" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,' +
-         'monospace" font-size="14" fill="' + INK + '">' + a[0] + '</text>';
+         '" text-anchor="end" font-family="inherit"' +
+         ' font-size="14" fill="' + INK + '">' + a[0] + '</text>';
   });
   let start = 0;
   GROUP.forEach(function(g, gi){
@@ -247,7 +247,7 @@ function pipeline(upTo){
   return s;
 }
 
-/* ---- the colour key ------------------------------------------------ */
+/* ---- the color key ------------------------------------------------ */
 function key(){
   const X = 566, Y = 530, W = 190;
   let s = "";
@@ -263,8 +263,10 @@ function key(){
        'font-size="16" fill="' + MUTED + '">enriched</text>';
   s += '<text x="1450" y="' + (Y + 48) + '" text-anchor="end" ' +
        'font-family="inherit" font-size="16" fill="' + MUTED +
-       '">map schematic &#183; drawn to show how one reads, not measured data ' +
-       '&#183; after Fowler et al. 2010</text>';
+       /* the attribution is already on the slide, in p.sub ("Fowler et al.
+          2010"); a figure does not repeat what the slide already says */
+       '">map schematic &#183; drawn to show how one reads, ' +
+       'not measured data</text>';
   return s;
 }
 
@@ -292,14 +294,14 @@ function figure(){
 
 const steps = [
   {
-    add:"Source 31 was Fowler, 2010, and I want to give that experiment its proper name, because it started a method. It is called deep mutational scanning. The idea is this. Instead of picking a handful of mutations you think matter and making them one at a time, you make every substitution at every position in the domain, and you put them all in one tube.",
+    add:"That phage display experiment we just looked at was Fowler, 2010, and I want to give it its proper name, because it started a method. It is called deep mutational scanning. The idea is this. Instead of picking a handful of mutations you think matter and making them one at a time, you make every substitution at every position in the domain, and you put them all in one tube.",
     desc:"The first two steps of the pipeline: make every substitution at every position, and pool them." },
   {
     add:"Then you do an assay that sorts the good from the bad — for Fowler that was phage display selecting for binding to the WW domain's peptide ligand, but it can be growth, or fluorescence, or anything you can select on. And here is the multiplexing move, which by now should be familiar: you sequence the pool before the selection and after it. A variant that got rarer was a bad variant. The change in frequency is that variant's score, and you get one for every member at once. Fowler tracked over six hundred thousand variants that way.",
     desc:"The remaining three steps: select, sequence the pool before and after, and score each variant by its change in frequency." },
   {
     add:"What comes out is not a list, it is a matrix — a score for every amino acid at every position. Position runs across the bottom, the twenty amino acids run down the side, and I have grouped them by chemistry rather than alphabetically, because that is what makes this thing readable. Blue means that substitution was lost, red means it was enriched, and white means the protein did not much care.",
-    desc:"The heat map appears: positions across, the twenty amino acids down the side grouped by chemistry, coloured by score." },
+    desc:"The heat map appears: positions across, the twenty amino acids down the side grouped by chemistry, colored by score." },
   {
     add:"And now look at what you can read straight off it. These two columns are solid blue — nothing substitutes there at all. Those are the two tryptophans a WW domain is literally named after. This column is blue everywhere except across the hydrophobic rows: that is a buried position, and it does not care which hydrophobic you give it as long as you give it one. And this one is pale all the way down — a surface position that will take anything. That is three completely different kinds of constraint, and Fowler's own sentence about it is the one I would have you remember: each position had unique features that could not be captured by a few representative mutations. That is the argument for doing this instead of alanine scanning, from the paper that first did it.",
     desc:"Four positions are picked out: the two conserved tryptophans where nothing substitutes, a buried position that takes only hydrophobics, and a surface position that takes anything." }

@@ -15,13 +15,16 @@ that means here, precisely:
             worth not losing: if a correction ever becomes necessary it
             should be added deliberately, not to make a check pass
   DONE      figures cropped and placed, sections split, index linked
-  PARTLY    the figure treatment.  Sources 15-19 are now drawn (see
-            below) and source 35 was replaced outright.  Every other
-            figure is still a straight crop from a 200 dpi render.
-  NOT DONE  alt text and the desc channel.  Both carry a provisional
-            line built from the slide's own title: true, but thin.  Alt
-            was NOT left as the literal string "TODO" because a screen
-            reader would read that out.
+  PARTLY    the figure treatment.  Drawn so far: 3-6, 7, 11, 15-19,
+            26, 39, and 35 replaced outright.  The rest are still
+            straight crops from a 200 dpi render -- see THE FIGURE
+            PASS below for which of those can ever be redrawn.
+  DONE      alt text and the desc channel, 2026-11-17.  Both had been
+            a provisional line built from the slide's own title: true,
+            but thin.  Now every img carries a real description of what
+            is in it, and all 42 non-sequence slides carry a real desc.
+            The four sequence slides carry a desc PER STEP inside their
+            modules instead, which is the right place for them.
 
 WHY NO WHITE-GROUND RENDER WAS NEEDED
 --------------------------------------
@@ -38,14 +41,17 @@ is also the extension-list element and matches first.
 
 SECTIONS
 --------
-  00-front-matter.html   1        Introduction
-  01-libraries.html      2-11     Types of Libraries
-  02-tools.html          12-23    Tools of the Trade
-  03-rna-dna.html        24-29    RNAs and DNAs
-  04-protein.html       30, 31, NEW, NEW, 32, 33   Protein Function
-  05-properties.html     34, NEW, NEW, 36   Biological Properties
-  06-questions.html      37-39    Questions to Ponder
-  07-all-hands.html      40-43    All-Hands
+  (REORGANISED 2026-11-17 -- this is no longer the source's order)
+  00-front-matter.html    1                        Introduction
+  01-libraries.html       2-11                     Types of Libraries
+  02-tools.html           12-23 + 26               Tools of the Trade
+  03-nucleic-acids.html   24, 25, 27, 28, 29       Functional Nucleic Acids
+  04-regulatory-dna.html  NEW + 36                 Regulatory DNA
+  05-protein.html         30, 31, NEW, NEW, 32, 33 Protein Function
+  06-properties.html      34, NEW, NEW             Biological Properties
+  07-questions.html       37-39                    Questions to Ponder
+  08-all-hands.html       40, 41, 43               All-Hands
+  (35 was replaced, 42 was removed)
   42 of the 43 source slides (35 was replaced) plus 4 added ones.
   No SOURCE slide has builds, because the pptx has no p:timing
   anywhere; the four added slides are sequences and carry 4, 5, 4 and
@@ -191,3 +197,632 @@ CHECKING THE NOTES
 ------------------
   python3 ../../tools/verify_notes.py <unpacked-pptx> --keep-urls \
       --corrections note-corrections.txt *.html
+
+  <unpacked-pptx> is a directory the pptx has been unzipped into:
+      mkdir -p /tmp/mx && cd /tmp/mx && unzip -o "<the pptx>"
+
+READ THE LINE ABOVE BEFORE RUNNING ANYTHING.  On 2026-11-17 this was
+ignored and the check was run as
+
+      python3 ../../tools/verify_notes.py .            # WRONG
+
+for a whole working session, by one session and four agents.  That form
+EXITS 0 AND PRINTS NOTHING.  argv[1] is the unpacked pptx, not the deck,
+and the html files are the arguments after it -- so passing "." gives it
+a pptx root that contains no slides and a list of zero files to check.
+It does not error.  It reports success at checking nothing.
+
+Every "notes verify" claimed that day was worthless.  The deck did turn
+out to be clean when the check was finally run properly, but that was
+luck, not evidence.
+
+HOW TO KNOW THE CHECK IS REALLY RUNNING: it prints one "source N: ok"
+line per slide, 42 of them for this deck.  Silence means it checked
+NOTHING.  If you want to be sure, corrupt a note on purpose, confirm it
+reports MISMATCH, and put it back.
+
+
+THE FIGURE PASS, 2026-11-17
+----------------------------
+JCA: "up to Genomic DNA libraries, the slides have no graphics.  I
+don't think that's what was in the original slides."  He was right,
+and then: "the deviation from the style guide (fonts/colors) is
+present on many slides."  Also right.  Two separate faults.
+
+FAULT ONE: FOUR SLIDES LOST THEIR FIGURES ENTIRELY.
+The rough cut cropped figures by taking the union of every <p:pic>
+bounding box on a slide.  Sources 3, 4, 5 and 6 contain NO PICTURE --
+their figures are built from autoshapes and connectors (slide 5 alone
+has 21 connectors).  The pass found nothing to crop, so they came
+through as a title plus the one text box that in the source sits
+BESIDE the drawing.  Source 6 came through as a title and a note,
+with nothing on screen.  Across all 43 sources exactly six slides are
+picture-free with real drawings on them; the other two were 15 and 16,
+done on 2026-11-16.  There are now none left.
+
+FAULT TWO: THE FIGURES THAT DID COME THROUGH LOOK LIKE POWERPOINT.
+Calibri, theme blue, theme yellow, pure #FF0000.  23 slides carried
+cropped bitmaps.  Most of them are OTHER PEOPLE'S PUBLISHED FIGURES
+and product photographs -- Illumina's sequencing diagram, Bio-Rad's
+ddPCR, the PARS, SHAPE-Seq, SELEX, phage-display and CRE-Seq figures,
+each with its PMID on the slide.  Those cannot be restyled, only
+cropped, and they stay as they are.  Six were JCA's own drawings or
+pasted third-party pictures that we can simply draw ourselves:
+
+  7   genomic DNA libraries   DONE  seq/07-genome.js
+  11  metagenomic orthologs   DONE  seq/11-ortholog.js
+  26  RNA-seq                 DONE  seq/26-rnaseq.js
+  39  yeast two-hybrid        DONE  seq/39-y2h.js
+  9   Twist specifications    OPEN  a screenshot of a spec table; it
+                                    wants to be a real HTML table, not
+                                    a figure at all
+  32  one-hybrid multiplexing OPEN  borderline -- credited to Kosuri,
+                                    Church, Harvard iGEM 2011, so it
+                                    may be theirs and not ours to
+                                    redraw.  ASK JCA.
+
+7 and 26 were pasted third-party images, so redrawing them removed
+the image AND the <p class="src"> credit that described it.  Both
+credits are gone; no other credit was touched.
+
+HOW THESE WERE DRAWN, AND ONE MISTAKE WORTH NOT REPEATING
+The first cut of 3-6 was reconstructed from the slide XML without
+ever looking at the slides.  It was wrong in ways the shape tree
+cannot show: white arrows where the source fills them solid, an
+invented parts palette down the left of source 6 that duplicated the
+figure beside it, invented labels and footer lines, and it missed
+that source 6's fourth construct is FLIPPED onto the other strand.
+JCA rejected it.  The rule now, written into the contract, is: render
+the pptx and LOOK at it first, every time.
+
+    soffice --headless --convert-to pdf --outdir OUT src.pptx
+    pdftoppm -r 100 -png OUT/src.pdf OUT/s
+
+THE CONTRACT
+docs/lectures/style/FIGURE-CONTRACT.md now holds the rules every one
+of these modules follows: look at the original first; the palette is
+an attention ladder and NOT an identity map, so no colour is assigned
+to a class of object and no fifth hue or pale tint is invented; fonts
+come from the slide via font-family="inherit" and are never named in
+an SVG; author at viewBox 1480x640; fill-on-load IIFE, never a
+Deck.sequence, because no source slide in this deck has builds; draw
+what is there and nothing else; record every change to JCA's slides
+in the module header.
+
+Verified after the pass: the only hex values in any of the five
+modules are #111111, #004373, #ba3a13, #a99011, #767676, #e2e2e2 and
+#ffffff, and no figure names a font.
+
+STEP COUNT IS UNCHANGED.  All of these are fill-on-load modules, not
+sequences, so the deck still runs 59 steps.
+
+ORPHANED CROPS
+img/07-genome.png, img/11-ortholog.png, img/26-rnaseq.png,
+img/39-y2h.png and img/35-trmr.png are no longer referenced by any
+slide.  Left in place deliberately -- deleting them is a separate
+decision and they cost nothing until someone makes it.
+
+THE WALK, 2026-11-17
+---------------------
+JCA walked the deck slide by slide.  Four things came out of it.
+
+1.  SOURCES 15-19 WERE THE WORST STYLE VIOLATION IN THE DECK, and they
+    were ours, written the day before.  seq/15-illumina.js gave each
+    region of the construct its own hue -- nine of them, seven not
+    palette values at all (#c0392b, #0a7fb8, #7a5aa6, #a07d0c,
+    #d4761f, #00843d, #b0504d) -- and printed a legend decoding hue
+    to region.  That is an identity map across five slides, which
+    palette.css forbids in as many words.
+    FIXED.  Identity moved to the labels, which the map already had on
+    every region of every slide.  Colour now does attention: each of
+    the five slides has a different subject, so the region that slide
+    is about is blue and the rest is context in --rule.  Focused
+    labels are also bold, so the distinction survives greyscale.  The
+    legend is gone -- it existed only to decode hues.  Source 15's
+    focus is the two 20 bp library sites, which is what JCA's own note
+    for that slide is about and the one part of the construct that is
+    the experimenter's rather than Illumina's.
+    The file now contains five hex values and all five are palette:
+    #111111 #004373 #767676 #e2e2e2 #ffffff.
+
+2.  THE SECTION DIVIDERS CARRIED THE LEAST LEGIBLE TEXT IN THE DECK.
+    Each divider lists its contents in p.sub, which is --muted
+    #767676.  On the amber section ground that measures about 1.4:1;
+    body text needs 4.5:1.  deck.css already had hand-measured
+    overrides for .src and small on that ground, so this was a gap in
+    an otherwise careful set, not an oversight of principle.
+    FIXED in deck.css: .slide[data-bg="section"] p.sub takes --ink,
+    which palette.css measures at 6.01:1 on amber.
+
+3.  SOURCE 20 PRINTED ITS TWO CREDITS ON TOP OF EACH OTHER.  .src is
+    position:absolute at bottom:34px and that slide is the only one in
+    the deck crediting two images.
+    FIXED in deck.css: .slide .src:has(+ .src) lifts the first one.
+
+4.  TWO THINGS LEFT FOR JCA, both conventions rather than defects:
+    - Ten slides carry a bare "PMID: nnnnnnnn" as a bullet, and source
+      28 is four PMIDs and nothing else, while 15-19 put the PMID in a
+      p.sub.  One convention should win.
+    - Source 14 is thirteen bullets of HiSeq/MiSeq read counts, run
+      times and prices.  It is a wall, and the numbers are old enough
+      to be worth checking before they are read out to a class.
+
+PMID CONVENTION, SETTLED 2026-11-17
+------------------------------------
+A PMID is provenance, exactly like the image-credit URLs, so it goes in
+the deck's credit slot:
+
+    <p class="src">PMID: 20811459</p>
+
+placed after the figure.  Several on one slide go on one line, comma
+separated.  NOT a bullet, NOT appended to a p.sub.
+
+This is not a new invention -- 140L/08-whole-cell/03-microbiological.html
+and 140L/09-in-vitro-assays/05-binding.html already did it this way.  The
+rough cut of lecture 12 put PMIDs in bullets instead, which spent the
+content area of the slide on an identifier and, on source 28, left a
+slide whose entire body was four PMIDs.  .src is already styled,
+positioned and contrast-corrected against all three grounds.
+
+13 PMIDs moved in lecture 12.  Where a p.sub carried both a description
+and a PMID, the description stays and only the identifier moves:
+source 31's sub keeps "what source 31 started &#183; Fowler et al. 2010".
+
+One figure, 31b-brca1.js, also printed its PMID inside the drawing; with
+the credit line now carrying it that showed twice, so the drawing keeps
+"Findlay et al., Nature 2018" and the caveat and drops the number.
+
+THE FULL AUDIT, 2026-11-17
+---------------------------
+Every slide checked against its render for REPRODUCTION (is this what
+the source slide was?) and STYLE (does it follow the guide?).  The
+checklists are in docs/lectures/style/FIGURE-CONTRACT.md.
+
+REPRODUCTION FAULTS FOUND AND FIXED -- all of them from the rough cut:
+  37  LOST ITS FIGURE.  The clip-art thinker was never carried over;
+      the slide was words only.  Restored, using the pptx's own
+      transparent image30.png rather than the crop, whose grey ground
+      was baked in and would have printed a grey box on amber.
+  38  FIVE EQUAL QUESTIONS HAD BEEN RANKED.  Question 1 became a
+      three-line h1 and the other four became p.sub in --muted.
+      Rebuilt as an ordered list of five equals, as lecture 11 does.
+      N40 restored to a real subscript.
+  41  WAS TURNED INTO A SECOND AMBER DIVIDER back-to-back with
+      All-Hands, inventing a section break the source has not got.  It
+      is an ordinary white content slide in the pptx.  Put back.
+  14  OVERFLOWED THE SLIDE and had lost its structure: the source has
+      five instrument headings with indented lines and no bullets; the
+      rough cut flattened it to thirteen bullets, ~765px in a 652px
+      box.  Rebuilt.  Not one word changed.
+  8   PRINTED ITS OWN BULLETS TWICE -- the crop's bounding box had
+      swallowed the slide's text box, so the words appeared both as
+      HTML and baked into the bitmap.  Bitmap trimmed; original kept
+      at scratchpad/08-pools.orig.png.
+  23  "In vitro" was roman; the source italicises it.  And its two
+      product lines sat above the figure as bullets with their tab
+      collapsed; the source puts them under the figure as a pair.
+  32, 33  the Kosuri/Church credit sat at the TOP of the content area;
+      in the source it is in the bottom credit slot.
+
+STYLE FAULTS FOUND AND FIXED:
+  - Invented pale tints in four modules: five in 35-mmcrispri, one in
+    31b-brca1, plus #e4e4e4 twice as a near-miss of --rule.  All gone.
+  - Identity maps in three modules: mismatch-CRISPRi's dial regions and
+    activity bars, expfit's one-hue-per-pathway rows (which also
+    reached amber), and 15-19's nine-hue region legend.  All now use
+    the ladder; labels carry identity.
+  - A monospace family named inside an SVG in 31-dms.
+  - Text below the 18px floor in two modules, raised.
+  - deck.css: a duplicated `.slide[data-bg="section"] small` rule whose
+    later copy silently killed the hand-measured one, leaving small
+    text on amber at ~3.8:1 against a 4.5:1 floor.
+
+A WRONG NUMBER, WHICH IS THE ONE THAT MATTERS:
+  35b-expfit.js printed "24 genes" and "26 genes" for the cofactor row
+  under a comment saying "per the paper".  PMC7704046 says B. subtilis
+  25, E. coli 36.  Both invented.  The two pairs either side had their
+  sentences quoted in the header and this one did not -- which is
+  exactly how the audit caught it.  Corrected, and all three pairs now
+  carry the paper's own sentence beside them.  The contract now says:
+  never write a number you did not read, and put the quote in the
+  header next to it.
+
+ACCESSIBILITY, LARGELY CLEARED:
+  Alt text went from 17 of 17 provisional to 0 of 18.  The desc channel
+  went from 33 title-echoes to 12.  The remaining 12 are the ones no
+  agent owned.
+
+STILL OPEN, FOR JCA:
+  32  closed as LEAVE: credited third-party, so the contract's
+      "published figures stay" applies.
+  The All-Hands section is still intact, pending the call on dissolving
+  it as lecture 11's was.
+
+VERIFIED AFTER THE PASS: node --check clean on all ten modules; the
+only hexes in live code are the seven palette values; no font named in
+any SVG; verify_notes.py prints 42 'ok' lines, so all 42 source notes match the
+pptx verbatim; no console errors; 59 steps unchanged.
+
+SOURCES 9 AND 42 ARE HTML NOW, 2026-11-17
+------------------------------------------
+Both were screenshots of text.  Both are markup.
+
+  9   Twist's specification table.  Seven rows transcribed from a 260
+      dpi render of the source into a real <table class="spec">: label
+      column in --muted, values in --ink, rows ruled in --rule.  The
+      asterisk on "As few as 3 days*" is the vendor's own and has NO
+      footnote anywhere on the source slide, so none was invented.
+      Every number is now selectable, searchable and read aloud.
+  42  The course site's "Independent Project: Week 2" page.  The
+      paragraph, the "Things to consider:" line and the five questions
+      are transcribed verbatim as h1 + p + ul.  The page's own chrome
+      -- Published badge, Edit button, kebab menu, resize grip -- is
+      dropped: it was on the slide only because it was inside the
+      screenshot.
+
+img/09-twist.png and img/42-projects.png join the orphaned crops.
+
+Both renders were read at 260 dpi, not from the 100 dpi contact sheet,
+because transcribing a number you cannot clearly see is how a wrong
+number gets onto a slide -- see the cofactor counts above.
+
+ACCESSIBILITY IS DONE, 2026-11-17
+----------------------------------
+  img alt     17 of 17 provisional  ->  0 of 16
+  desc        33 title echoes       ->  0
+The two img counts differ because sources 9 and 42 stopped being images
+at all; sources 7, 11, 26 and 39 likewise, offset by nothing new.
+Counted by the script at the end of this file's audit section; re-run it
+before claiming this is still true.
+
+SOURCE 25 IS TWO PANELS NOW, 2026-11-17
+----------------------------------------
+Not a recrop in the end -- the crop was the fault.
+
+Source 25 holds TWO separate plots, each with its own caption and a
+leader arrow pointing into it.  The rough cut cropped the union of the
+two <p:pic> boxes: x 212.5-979.2, y 223.6-700.1 in slide units.  The
+"Deep Sequencing" caption sits at y 256.9, INSIDE that rectangle, so it
+was baked into the bitmap -- and the conversion also emitted it as a
+bullet, so it printed twice.  The other caption, "Microfluidic-based
+SELEX of DNA Aptamer library", sits at y 125, outside the rectangle, so
+it became a bullet and its arrow was lost.  One crop, three faults.
+
+Fixed by not unioning them.  Both plots are now placed separately,
+copied straight from ppt/media (image18.png and image19.png) as
+img/25-selex-curve.png and img/25-selex-enrich.png, with both captions
+as real text and both leader arrows drawn.
+
+ONE SOURCE EDIT REPRODUCED: slide25.xml has Rectangle 7, a bg1-filled
+box at x 629.2 y 358.3, 29.2 x 41.7, sitting over the top-left corner of
+Picture 5.  It masks the published figure's own "A" panel letter.  That
+is a deliberate edit of JCA's and the raw media would have brought the
+letter back, so the mask is reproduced on the extracted PNG -- 22 x 23
+px, computed from the rectangle's fraction of the picture box.
+
+ONE THING NOT REPRODUCED, DELIBERATELY: the source stacks the two plots
+diagonally.  That is a 4:3 habit; at 16:9, with both plots at a size a
+room can actually read, they sit side by side.  What the diagonal
+carried -- which caption goes with which plot -- is carried by the two
+panels and their arrows instead.
+
+img/25-selex.png joins the orphaned crops.
+
+THE ONE NOTE THAT IS NOT IN THE DECK, 2026-11-17
+-------------------------------------------------
+JCA asked for any note from the original slides to be added back.  All 43
+notes were checked against the deck, comparing with whitespace stripped
+because the pptx splits runs mid-word ("SHAPE- Seq", spaced URLs) and a
+naive compare reports false misses.
+
+42 of 43 are present and verbatim.  The one absent is source 35's, and it
+is absent because source 35 is TRMR, which JCA replaced outright on
+2026-11-16 with the two mismatch-CRISPRi slides.  The note belongs to a
+slide that no longer exists, so it has not been attached to anything
+else.  It is kept here so it is not lost:
+
+  TRMR is a method developed by Ryan Gill that involves the generation of genomic mutations from oligonucleotides.
+  These oligos are generated from chips and designed to target specific sites in specific genes with mutations and a barcode.
+  The procedure to introduce these mutations involve MAGE-like reactions involving homologous recombination enhanced by lambda red.
+  The result is a library of strains in which up and down mutations to the genes are tagged with barcodes.
+  Typically there is one such modification to each genome.
+  This population of bacteria is subjected to selections such as a challenge with a toxic metabolite.
+  Those mutations that enhance performance under these conditions become enriched while those that reduce performance are diminished.
+  After selection, the barcodes are PCR’d out of the sample and subjected to deep sequencing.
+  Based on the observed frequency of each barcode, the relevance of each mutation to a growth challenge can be inferred.
+
+If TRMR ever comes back, this is its note.
+
+THREE CORRECTIONS FROM JCA, 2026-11-17
+---------------------------------------
+1.  THE TITLE SLIDE AND THE DIVIDERS WERE IN THE WRONG FONT.  JCA: "already
+    on slide 1 there is a break in the style ... I think the same is true of
+    the division slides."  He was right, and it was structural, not a
+    one-off: lecture 12 marked its title slide and six of its seven dividers
+    as <div class="big"><p>, which deck.css sets in --sans and centres.
+    Every other deck uses <h1>, which is --slab and left-aligned.  Counted
+    across the site: 64 dividers use h1 and the only 6 that do not were
+    lecture 12's, and all ten other decks use h1 for the title slide.
+    All seven converted.  .big is now unused in lecture 12 and its dead CSS
+    is removed from all eight section files.  .big survives site-wide in
+    exactly one place, lecture 11's closing "Questions?" slide.
+    STILL DIFFERENT, for JCA to settle: lecture 11 closes on a blue
+    lecture-ground "Questions?" in .big; lecture 12 closes on a white
+    content slide with an h1.  Same font now, different ground.
+
+2.  SOURCE 6'S OVERLAPPING SHAPES WERE UNREADABLE.  JCA: "the lines are
+    screwy here.  Maybe use red and blue instead of black-over-white for
+    those overlapping shapes."  The open variant was a white core stroked
+    over a coloured one, plus an inset outline on the gene, so every open
+    shape had two or three stacked edges.  Now blue and vermillion, one
+    solid shape each.  This is a deliberate exception to the no-identity-map
+    rule; it and the two attempts before it are written into the module
+    header, and the exception is now in FIGURE-CONTRACT.md with the
+    conditions under which it applies.
+
+3.  ALL 43 SOURCE NOTES WERE CHECKED, not just the ones the verifier covers.
+    verify_notes.py only checks slides still in the deck, so a dropped
+    slide's note would never be flagged.  42 of 43 are present and verbatim.
+    The one absent is source 35's, TRMR, which is absent because JCA
+    replaced that slide; its full text is preserved above rather than
+    attached to some unrelated slide.
+    Note for anyone repeating this: compare with ALL whitespace stripped.
+    The pptx splits runs mid-word -- "SHAPE- Seq", spaced URLs -- and a
+    naive comparison reports seven false misses.
+
+NARRATION, 2026-11-17
+----------------------
+Some source notes are a bare URL, or a line like "There are no youtube
+videos for this one", which leaves the presenter view with nothing to
+say.  Those notes are VERBATIM SOURCE and are not touched.  Narration
+written for the deck goes in the SECOND channel, <template
+class="notes-add">, which the presenter view prints under the same
+"Narration" heading after the source note.  Lecture 11's title slide
+already did it this way.
+
+Written so far:
+  1  the title slide.  JCA's own framing: multiplex characterization as
+     an extension of directed evolution and the combinatorial methods,
+     sequencing the population instead of just the hits.
+  8  Oligo Pools, whose source note is only the Agilent URL.  Covers
+     what JCA asked for: printing tiny amounts of very many different
+     oligos, Agilent by inkjet onto glass, Twist by miniaturising the
+     same chemistry into wells on a silicon chip.
+     ONE CORRECTION TO WHAT JCA SAID: he said Twist uses "nanopores (or
+     whatever it is)".  It is nanoWELLS -- wells etched into a silicon
+     chip that cut the reaction volume by orders of magnitude.
+     Nanopores are a sequencing technology, not a synthesis one, and on
+     a slide two along from a sequencing comparison that confusion
+     would stick.  The narration says wells.
+
+THE CLOSING SLIDE NEEDS NO CHANGE
+----------------------------------
+Flagged earlier as a possible inconsistency because lecture 11 closes on
+a blue lecture-ground "Questions?" in .big and lecture 12 closes on a
+white slide with an h1.  Checked across every deck: 03-genome-editing,
+04-chassis and 10-directed-evolution all close exactly as lecture 12
+does -- white ground, <h1>Questions?</h1>.  Lecture 11 is the outlier,
+not lecture 12.  Lecture 12 is left alone.  Whether lecture 11 should be
+brought into line is a question about lecture 11.
+
+SOURCE 21 IS CREDITED, NOT REDRAWN
+-----------------------------------
+The Digital Droplet PCR slide carries Bio-Rad's cartoon and instrument
+photographs with no credit.  JCA: "let's credit bio-rad, not redraw.
+Those are nice real photos."  Credited as bio-rad.com, domain only, per
+the convention for a credit we add rather than one the source printed.
+
+SOURCE 14 IS CURRENT AGAIN, 2026-11-17
+---------------------------------------
+JCA approved changing the numbers.  Every figure on the slide now comes
+from a source that was read, and the source sits in a block comment
+directly above the list, each quote next to the figure it carries.
+
+  HiSeq, 300M reads, 1 week   ->  NovaSeq X 25B, 52-70 billion
+                                  paired-end reads, ~48 h at 2 x 150 bp
+  MiSeq, 25M reads, 1 day     ->  MiSeq i100 25M, 50 million paired-end
+                                  reads, 4-24 h
+  ~$1000-$3000 per run        ->  ~$1,100 a flow cell on the MiSeq to
+                                  ~$2,600 on the NovaSeq X
+  454 and Ion Torrent         ->  Ion Torrent still sold; 454 retired in
+     "similar to Illumina"        2016, HiSeq in 2024
+  Nanopore "lower resolution" ->  raw reads 99.75% (Q26)
+  PacBio "lower resolution,   ->  15-20 kb reads, 90% of bases Q30+;
+     higher cost per read"        millions of reads, not billions
+
+The $1000-$3000 band turned out to be RIGHT, which was not expected: a
+full NovaSeq X flow cell still sits inside it.  What changed is that the
+same money now buys about sixty billion reads instead of three hundred
+million.  The band is kept and each end attached to a named instrument
+so the point lands.
+
+NOT WRITTEN, because no source was found: a current per-read cost for
+PacBio or nanopore, and any read-length figure for nanopore.  The
+nanopore line says "Long reads" with no number rather than carry one
+nobody read.
+
+THE SPEAKER NOTE NOW CONTRADICTS THE SLIDE -- JCA'S CALL
+---------------------------------------------------------
+The note is verbatim source and was not touched, so slide 14 now reads
+one way and its note another.  Four places, quoting the note:
+
+  "Numbers from Google"
+  "...which can be interpreted as a low-accuracy sequence.  The lower
+   resolution of these instruments makes them atypical choices for
+   multiplex characterization--you can't read barcodes..."
+  "New methods of error-correction could ultimately make this an
+   all-purpose tool."
+  on PacBio: "results in very long low accuracy reads analogous to a
+   nanopore"
+
+So the lecturer would read "you can't read barcodes on nanopore" off a
+slide saying nanopore is 99.75% accurate.  At Q26 barcode reading is
+routine, and the note's "could ultimately" has already happened.
+
+Resolving it means editing a note, which would be the FIRST entry in
+note-corrections.txt -- this deck has held an empty one since
+conversion, which PLAN records as unusual and worth not losing.  That
+trade is JCA's to make, not ours.  Options: correct the note and accept
+the first correction; leave the note and speak around it; or rewrite the
+narration in a notes-add while leaving the source note intact, which is
+the only option that costs nothing.
+
+SOURCE 21 IS CREDITED
+----------------------
+bio-rad.com, domain only.  Not redrawn: JCA wanted the real photographs
+kept.
+
+SOURCE 42 IS REMOVED, 2026-11-17
+---------------------------------
+JCA, shown the slide's content: "Remove that slide."  It was the course
+site's "Independent Project: Week 2" assignment page -- rebuilt from a
+screenshot into real HTML earlier the same day, which turned out to be
+work on something that was going to go.  Removed article and all.
+
+Its source note would be kept here, as TRMR's is, so that nothing of
+the source is lost by a deletion -- but source 42 HAS no speaker note
+in the pptx.  There is nothing to keep.  The slide's own words survive
+in the removal commit's diff if they are ever wanted.
+
+The deck is now 45 slides: 41 of the 43 source slides (35 and 42 are
+gone) plus the 4 added ones.  img/42-projects.png was already orphaned
+when the slide became HTML; it stays orphaned.
+
+SOURCE 13: NARRATION AND AN EMBEDDED VIDEO, 2026-11-17
+-------------------------------------------------------
+The source note for this slide is a nanohub URL and the line "Also
+called Massively Parallel Sequencing (MPS)", which leaves the presenter
+nothing to say about how the thing works.  Narration added in
+notes-add: sequencing by synthesis as one ordinary sequencing reaction
+run tens of millions of times at once -- clonal patches on the flow
+cell, then the cycle of add-all-four-blocked-bases, wash, photograph the
+whole surface, strip the dye and the block, repeat -- and why that
+matters to us, which is the parallelism and not the chemistry.
+
+THE VIDEO.  The source slide prints a YouTube URL as a line of text,
+which somebody would otherwise have to read out and type.  It is now a
+control that plays the video FULL SCREEN, with the URL kept beside it as
+a link so nothing of the source is lost.  seq/13-video.js, driven by
+  <button class="playvid" data-yt="...">
+so any slide in any deck can use it.
+
+NOTHING LOADS UNTIL IT IS PRESSED.  An iframe sitting on the slide would
+contact Google on every visit to the section whether or not anyone
+watches, and would put a focusable element in the tab order of a slide
+that is not about the video.  The embed is youtube-nocookie.com.
+
+THE KEY TRAP IS THE WHOLE TRICK.  deck.js listens for keydown on
+document and advances on ArrowRight, ArrowDown, Space, PageDown and "n".
+Space is also how you pause a video.  Without a trap, pausing the video
+advances the slide behind it and the presenter leaves the video
+somewhere they did not expect.  While the overlay is open every keydown
+is stopped in the CAPTURE phase, before deck.js sees it, and only
+Escape is acted on.  Tested: with the overlay open, Space, ArrowRight,
+ArrowDown, PageDown and n all leave the deck exactly where it was;
+Escape closes the overlay and focus returns to the control.
+
+The overlay CSS lives in deck.css, position:fixed with a high z-index --
+a .slide ancestor is transformed, which would otherwise make it the
+containing block and clip a full-screen child.
+
+THE SECTION REORGANISATION, 2026-11-17
+---------------------------------------
+The deck no longer follows the source's section order.  Three of the four
+items on the revision list are done; the fourth is deliberately not, and
+why is below.
+
+DONE
+  RNA-seq (source 26) moved out of the RNA/DNA section and into Tools,
+    placed straight after the two NGS slides, where it reads as "and
+    here is what you do with that instrument".
+  The old "RNAs and DNAs" section split.  What is left of it --
+    SELEX, PARS and the two SHAPE-Seq slides -- is now "functional
+    nucleic acids", which is what those four actually are: molecules
+    that fold and do something.  Source 24's divider title was changed
+    to match, which is a change to JCA's slide and is recorded here.
+  A new "regulatory DNA" section, with CRE-Seq moved across into it.
+    Its divider is a NEW slide and carries notes-add, not a source note.
+
+FILES RENUMBERED.  lecture.js is the single place the order lives, and
+docs/lectures/140L/index.html is the only thing outside the folder that
+links to the section files; both are updated.  build.py describes the
+old structure and would overwrite everything if run, so it now opens
+with a SUPERSEDED banner.
+
+NOT DONE: "REFRAME TOOLS OF THE TRADE AS LINKAGE STRATEGIES"
+On looking at what is actually in that section, the rename fights its
+contents.  Linkage strategies -- ways of keeping genotype attached to
+measurement -- is a fair description of barcoding, emulsions, on-bead
+PCR, ddPCR and in vitro translation.  It is NOT a description of the
+two NGS slides or of RNA-seq, which are readouts, and RNA-seq was just
+moved INTO the section by the same revision list.  So the section would
+be called linkage strategies while opening with three slides that are
+not linkage strategies.
+Two ways out, both JCA's call: split the section into readout and
+linkage, which is a real structural change and more slides; or leave
+the name and do the reframing in the divider's narration, which costs
+nothing and is probably what was meant.  Left as "Tools of the Trade"
+until he says.
+
+REGULATORY DNA IS THIN: one content slide.  Candidates to join it, if
+it should be fuller: Kosuri's composability work (PMID 23924614, a
+combinatorial promoter/RBS library read out by sequencing) which was on
+the revision list as a maybe, and arguably the two one-hybrid slides
+(32, 33), which are about what binds a regulatory site and currently
+sit in Protein Function.  Neither was moved; moving slides out of
+Protein Function was not on the list.
+
+VERIFIED AFTER THE MOVE: 41 of 41 source notes verify; every seq module
+and every image referenced by every section still resolves; section to
+section navigation works in the new order; no console errors.
+
+THE NOTES AND CAPTIONS AUDIT, 2026-11-17
+-----------------------------------------
+JCA: check every note is present, explains the slide in the context of
+the whole lecture, has good transitions, and is in his voice.  His voice
+was written down first, from his own source notes, and lives in
+FIGURE-CONTRACT.md under "Writing in JCA's voice" -- second person for
+the experimenter and "we" for the lecture's movement, opening on a
+connective that says where we are (which is where his transitions
+actually live), naming real people and labs, hedging honestly, ending on
+the point or the hand-off, American spelling, no metaphor and no
+rhetorical questions.
+
+NARRATION COVERAGE IS NOW COMPLETE: 0 of 46 slides without narration,
+down from 4.  The four that had none -- the Questions to Ponder divider
+and all three All-Hands slides -- have genuinely EMPTY notes in the
+pptx, so the presenter view had nothing for the four slides that land
+the lecture.  All four now carry notes-add.
+
+21 DESC WERE WRONG, not merely thin, and the commonest fault was being
+STALE: they described figures that had been replaced earlier the same
+day.  Source 9's still called the Twist table "a screenshot" after it
+became a real HTML table; source 14's still described HiSeq and MiSeq
+after the slide was rewritten to NovaSeq X and MiSeq i100; source 26's
+described the pasted third-party image rather than the drawing that
+replaced it.  A visual description that describes the previous version
+of a figure is worse than a thin one: it tells a screen-reader user
+something that is not there.
+The second fault was teaching in the desc channel -- "so binding becomes
+survival", "which runs off the end of the read before it can identify
+itself".  That is narration; the desc says what is drawn.
+
+TWO FORWARD REFERENCES were found and fixed, both ours:
+  - the new regulatory-DNA divider said "the last two sections were
+    about molecules that do something -- an RNA that folds, a protein
+    that binds".  Protein Function comes AFTER this section in the new
+    order, so it pointed at a section the room has not seen.
+  - 31b-brca1.js said "contrast that with the CRISPRi curves we just
+    looked at".  Mismatch-CRISPRi is in the NEXT section.  This one was
+    wrong in the source's order too; the reorganisation did not cause
+    it.  Re-pointed at the DMS heat map immediately before it.
+
+SPELLING.  His notes are consistently American (characterization,
+normalizing, specialized, synthesize).  British forms had crept into OUR
+text -- characterising, colour, centre, grey, synthesiser, homologues,
+tumour, normalised, analysed, hydrolysed.  One was ON SCREEN on five
+slides: the construct map labelled its middle region "what you are
+characterising".  All normalized, with every verbatim source note
+protected during the pass.
+
+ONE NOTE WAS BROKEN BY OUR OWN RESTYLE -- see below.
