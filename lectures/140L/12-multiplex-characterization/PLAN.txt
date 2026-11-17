@@ -1055,38 +1055,47 @@ distinction nobody would read as meaningful, and deck 09 uses "After"
 for third-party material whether it was cropped or redrawn.  One rule,
 not two.
 
-SOURCES 15-19 ARE COLOURED BY REGION AGAIN, 2026-11-17
--------------------------------------------------------
-JCA: "You need to use more of your colors to highlight all the
-annotated regions in that sequence, do for this whole slide sequence."
+SOURCES 15-19 ARE COLOURED BY REGION, 2026-11-17
+-------------------------------------------------
+Two passes, and the second one is the one that stands.
 
-This partly reverses this morning's change, and the distinction matters
-rather than being a flip-flop.  What was removed this morning was NINE
-INVENTED HUES, seven of which were not palette values at all, plus a
-printed legend decoding them.  What is here now is the palette's OWN
-four content colours and two neutrals, used as a categorical set on a
-sequence map -- which is what a sequence map is for.  No value is
-invented and there is still no legend, because every region is labelled.
+FIRST PASS removed NINE INVENTED HUES, seven of which were not palette
+values at all, plus a printed legend decoding them.  That was right:
+an identity map built out of colours nobody chose.
 
-  P5, MiSeq primer sites, P7   ink     Illumina's own fixed sequence
-  variable-length spacer       muted   filler
-  what you are characterizing  --rule  the payload, and the largest area
-  your 20 bp site              blue    the part that is yours
-  barcode                      verm    the subject of 17-19
-  reverse priming site (T7)    amber
-  the gene itself              blue    also yours; never on a slide
-                                       that also shows the 20 bp site
+SECOND PASS, after JCA: "I told you to use more color here.  There is
+no red or yellow.  You have multiple annotations as just black, and you
+are only showing them in the diagram and not on the sequence."  All
+three were true.  The first attempt at recolouring put P5, both MiSeq
+primer sites and P7 all in ink, which collapsed four separate
+annotations into one colour and left vermillion and amber unused.
 
-Text on each fill is the pairing palette.css measures, including the
-one that catches people out: AMBER TAKES BLACK, white on amber fails.
+  P5 adapter, P7 adapter       ink
+  MiSeq primer binding         vermillion
+  variable-length spacer       muted
+  your 20 bp site              blue
+  what you are characterizing  --rule
+  barcode                      amber
+  reverse priming site (T7)    vermillion
+  the gene itself              blue
 
-The map and the SEQUENCE use the same assignment, so a region can be
-matched between them by eye -- which was JCA's point.  Where a region's
-fill is --rule the label and its bases use muted instead, because a
---rule label on white is invisible.
+Every annotated region on a given slide is a different colour.  The one
+pair that shares a value is P5 and P7, deliberately: they are the two
+flow-cell adapters, the matched pair at the two ends, and their labels
+name them apart.  T7 borrows vermillion and the gene borrows blue only
+on the read slides, where the regions they borrow from are not present.
 
-Per-slide emphasis is now carried by WEIGHT, not by desaturating
-everything else: the region a slide is about has a bold label.
+THE MAP AND THE SEQUENCE SHARE THE ASSIGNMENT, which was the other half
+of the complaint.  A region is the same colour in both, so it can be
+found in the bases.  Where a region's fill is --rule its bases are
+drawn muted, because --rule on white is invisible; that puts the
+characterized region and the spacer in the same grey in the sequence,
+which is fine because the spacer is written as an ellipsis and is told
+apart by shape.
+
+Per-slide emphasis is carried by WEIGHT: the region a slide is about
+has a bold label.  All five visual descriptions were rewritten, since
+they still described the previous scheme.
 
 SOURCE 14 EXPANDED, 2026-11-17
 -------------------------------
@@ -1135,3 +1144,132 @@ mkdocs, so it would have become a live page; and verify_notes.py counts
 every file handed to it, so 0*.html made the run report 51 "source N:
 ok" lines instead of 39, which is exactly how a real mismatch would get
 hidden.  Scratch copies belong outside docs/.
+
+THE NANOPORE NOTE, FINISHED 2026-11-17
+---------------------------------------
+JCA's source paragraph gives the mechanism in outline -- voltage, pore,
+current differences read as sequence -- and stops.  A notes-add carries
+the rest, and it was written against sources rather than from memory:
+
+  the motor         A protein on the mouth of the pore captures the
+                    strand and advances it roughly a nucleotide at a
+                    time; without it the field pulls the DNA through
+                    far too fast to measure.  (technologynetworks.com,
+                    "Oxford Nanopore Sequencing: How It Works".)
+  not one base      The current level is set by the stretch of strand
+                    occupying the narrow part of the pore, so
+                    basecalling is a learned model over the signal.
+  the R10 pore      Longer, and reads at TWO pinch points rather than
+                    one, which is part of why accuracy moved.  (noted
+                    in the DeepMod2 methylation work on R10.4 flow
+                    cells.)
+  modifications     Nothing is copied, so a methylated base is still
+                    methylated going through: 5mC, 5hmC and 6mA come
+                    out of the same signal, no bisulfite.
+                    (nanoporetech.com resource centre; corroborated by
+                    the 2024 methylation-tool benchmarking preprint.)
+  99.75% / Q26      Oxford Nanopore's own figure, quoted for Dorado v5,
+                    Kit V14, R10.4.1 -- nanoporetech.com/accuracy.
+
+A NUMBER DELIBERATELY NOT WRITTEN: how many bases sit in the
+constriction.  Figures of this kind usually say five or so, and the
+literature is full of k-mer values -- but those k values describe the
+BASECALLER'S ANALYSIS WINDOW, not the pore's geometry, and a search for
+the constriction figure itself did not produce one.  The note says "a
+stretch of the strand" and gives no number.  Do not add one without a
+source that is actually about the pore.
+
+THE CRISPRi SLIDES, CUT BACK 2026-11-17
+----------------------------------------
+JCA: "This whole sequence on crispr-i is too complicated and nuanced.
+I can't present that either.  Too complicated."  And then: "Focus on
+explaining the concept and the mechanistic aspects of it, and simplify
+with just one example of what comes out.  All these specific numbers on
+the slide are just distraction from the core idea."
+
+FIRST SLIDE went from four bands to two, and from four steps to two.
+It had been carrying the dCas9 mechanism, the mismatch dial, the
+pooled-library pipeline AND a strip naming Tn-seq, CRISPRi,
+mismatch-CRISPRi and Perturb-seq.  Any one of those is a slide's worth.
+Kept: dCas9 blocks rather than cuts, and WHERE one mismatch goes sets
+how hard it blocks.  pipeline() and strip() are still in the file,
+marked as no longer drawn, because they are correct and may be wanted.
+
+SECOND SLIDE went from six panels to one.  It was a three-by-two grid,
+three pathways down and two organisms across, with a gene count printed
+in every panel.  The core idea needs none of that: knock a gene down by
+a controlled amount, measure fitness, and what comes back is a CURVE
+rather than a number, whose shape depends on the gene.  One set of axes
+with three labelled curves says exactly that.  No gene counts, no
+species columns.
+
+WHAT THE NUMBERS COST, and this is the lesson: 30,000 strains, 300
+genes, 100 guides per gene, 25/36/59/62/10/10 genes per panel -- every
+one of them was true and sourced, and together they buried the idea.
+Sourced is not the same as worth showing.  They are all still in the
+narration, where they can be said in a sentence by someone who has
+already made the point.
+
+STALE TEXT THAT CAME WITH THE CUT, all fixed: the opening narration
+still described "six panels ... two organisms going across ... each
+thin line is one gene"; the closing step said "read across instead of
+down"; the slide's own subtitle said "every essential gene, two
+organisms, one experiment"; and one desc described six empty frames.
+A figure that loses half its content takes its narration with it.
+
+A BUILT SLIDE WENT SILENT AFTER ITS FIRST CLICK, 2026-11-17
+------------------------------------------------------------
+JCA on the fully-built nanopore slide: "there are still no notes on
+this."  The note was there -- his verbatim paragraph plus a notes-add,
+both on the article -- but the presenter view said "(no narration on
+this slide)".
+
+THE CAUSE IS IN deck.js AND IT AFFECTS EVERY DECK.  For a slide with
+data-build groups, buildSteps pushes step 0 with the slide's note and
+then pushes one step per build group carrying `note: noteOf(nEl)`,
+where nEl is an element inside that group carrying data-note or
+data-note-add.  Build groups generated inside an SVG by a module have
+no such attribute -- and could not sensibly have one, since the
+narration is the lecturer's verbatim note on the article and
+verify_notes.py reads that from the HTML, not from JS-injected markup.
+So every click after the first showed nothing.
+
+Fixed by falling back: `note: noteOf(nEl) || note`.  A group that DOES
+carry its own data-note still overrides, so hand-authored per-build
+narration is unaffected.
+
+THIRTEEN BUILT SLIDES ACROSS THE COURSE had at least one step with no
+narration, so this was never a lecture-12 problem.  Anyone presenting
+from a built slide in any deck has been clicking into silence.
+
+
+SHAPE-SEQ REDRAWN, 2026-11-17
+------------------------------------------------------------
+JCA on the cropped paper figure at source 29: "This graphic is really
+incomprehensible.  I think you should rethink how to present this and
+draw your own thing that is simpler and more understandable."
+
+Replaced img/29-shapeseq.png with seq/29-shapeseq.js, built as an
+opening state plus four data-build steps (data-build, not data-seq --
+the article carries the lecturer's verbatim note and verify_notes.py
+skips the note template of any data-seq article):
+
+  open  one RNA split into two tubes, (+) 1M7 and (-) DMSO, each with
+        the 3' handle block (primer site + barcode) drawn on it
+  1     the 2'-O adduct lands where the RNA is flexible; the control
+        tube gets nothing
+  2     reverse transcription runs 3' to 5' and stops one base BEFORE
+        the adduct; in the control it runs to the 5' end, which is
+        what that tube measures
+  3     many RNAs in one tube, a four-nucleotide barcode per RNA
+  4     stop-position counts, (+) above and (-) below a shared axis,
+        labelled "schematic; counts are not data"
+
+The point the figure has to carry is that the (-) tube is not a blank:
+reverse transcriptase stops on its own, and the DIFFERENCE at each
+base is the reactivity.  Drawing the two tubes back to back the whole
+way through is what makes that readable.
+
+The host box is 2.13:1 against a 2.39:1 viewBox, so about 11% of the
+vertical is slack.  Left as is; 1480x695 would fill it exactly if the
+slide ever needs the room.

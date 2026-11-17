@@ -171,8 +171,16 @@ function buildSteps(){
       const els = Array.from(slide.querySelectorAll('[data-build="' + g + '"]'));
       const nEl = els.find(e => e.hasAttribute("data-note") || e.hasAttribute("data-note-add"));
       const dEl = els.find(e => e.hasAttribute("data-desc"));
+      /* A build group with no note of its own KEEPS THE SLIDE'S note
+         rather than going silent.  Before this, only the first step of a
+         built slide had any narration and every click after it showed
+         "(no narration on this slide)" -- which is what JCA saw on the
+         nanopore slide, whose narration is his own verbatim note on the
+         article and so was never going to be on a <g> inside the SVG.
+         A group that DOES carry data-note still overrides, so per-build
+         narration is unaffected. */
       steps.push({ slide:slide, builds:g,
-                   note: noteOf(nEl),
+                   note: noteOf(nEl) || note,
                    desc: dEl ? dEl.getAttribute("data-desc") : desc });
     });
   });

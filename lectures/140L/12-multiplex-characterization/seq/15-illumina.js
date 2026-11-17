@@ -99,15 +99,39 @@
  * ------------------------------------------------------------------ */
 const REGION = {
   p5:  { c: "ink",   name: "P5 Illumina adapter" },
-  ms:  { c: "ink",   name: "MiSeq primer binding" },
+  ms:  { c: "verm",  name: "MiSeq primer binding" },
   sp:  { c: "muted", name: "variable-length spacer" },
   lib: { c: "blue",  name: "your 20 bp site" },
   mid: { c: "rule",  name: "what you are characterizing" },
   p7:  { c: "ink",   name: "P7 Illumina adapter" },
-  bc:  { c: "verm",  name: "barcode" },
-  t7:  { c: "amber", name: "reverse priming site (T7 universal)" },
+  bc:  { c: "amber", name: "barcode" },
+  t7:  { c: "verm",  name: "reverse priming site (T7 universal)" },
   orf: { c: "blue",  name: "the gene itself" }
 };
+
+/* WHY THESE, after JCA on 2026-11-17: "I told you to use more color
+   here.  There is no red or yellow.  You have multiple annotations as
+   just black, and you are only showing them in the diagram and not on
+   the sequence."
+   All four content colours are now in play and every annotated region
+   on a given slide is a different one.  The only pair that shares a
+   value is P5 and P7, and that is deliberate rather than a collapse:
+   they are the two flow-cell adapters, the matched pair at the two
+   ends of the molecule, and their labels name them apart.  What used
+   to be lumped in with them -- the MiSeq primer binding sites -- is
+   vermillion now.
+   Per slide, nothing collides: the full construct uses ink, vermillion,
+   blue, muted and rule; the barcoded one adds amber; the read slides
+   drop the adapters and reuse vermillion for the T7 site and blue for
+   the gene, neither of which ever appears beside the region it borrows
+   from.
+   The MAP AND THE SEQUENCE share this assignment, which was the other
+   half of the complaint -- a region is the same colour in both, so you
+   can find it in the bases.  Where a region's fill is --rule its bases
+   are drawn in muted instead, because --rule on white is invisible;
+   that puts "what you are characterizing" and the spacer in the same
+   grey, which is fine because the spacer is written as an ellipsis and
+   is told apart by shape, not colour. */
 
 
 const N = n => new Array(n + 1).join("N");
