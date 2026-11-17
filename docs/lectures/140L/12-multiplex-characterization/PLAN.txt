@@ -1479,3 +1479,39 @@ million.
 A LAYOUT TRAP WORTH RECORDING: a figure div that flexes to the bottom
 of the slide runs underneath <p class="src">, and this slide has TWO
 credit lines.  Fixed with a .fg.low variant carrying margin-bottom.
+
+SELEX, FOURTH AND SETTLED, 2026-11-17
+------------------------------------------------------------
+JCA: "let's use the attached on the right, and a conceptual diagram of
+the electrophoresis and pooling and sequencing on the left.  Basically,
+an illustration/animation on the left that explains the experiment, and
+this one piece of data on the right."
+
+RIGHT: the paper's Fig. 3A, img/25-enrich.png, every sequence placed by
+its R3/R1 enrichment fold against the log of how many sequences share
+it.  The shape is the argument -- everything crushed at zero, a thin
+tail of individually rare sequences out to 2,347-fold.  Credited by the
+slide's own PMID, since it is that paper's figure.
+
+LEFT: seq/25-selex.js, three data-build beats -- the library, one round
+of selection (incubate / separate / PCR, with a dashed loop back
+labelled three rounds), and sequencing the pool from every round, drawn
+as R1, R2 and R3 rows with one molecule going 1, 3 then 9 copies out of
+sixteen, ending on R3 divided by R1.
+
+ON "ELECTROPHORESIS", WHICH IS NOT WHAT THIS PAPER DOES.  It separates
+on target-coated magnetic beads in a microfluidic chip.  Other SELEX
+variants do run a gel shift, and JCA's own source note says the step
+"might also be done by more traditional columns or panning", so the
+separation is drawn with NO apparatus committed to: bound stays,
+unbound washes away.  That stays true for every version, and the chip
+is named in the narration rather than drawn.  Raised with JCA.
+
+THE POOL ROWS ARE A CARTOON AND SAY SO ("counts schematic").  The real
+per-round copy numbers of any one sequence are not published; the only
+real number on the slide is the 2,347 on the plot's own axis.
+
+The CMACS photograph used in the third draft is gone with that draft,
+and img/25-cmacs.png is deleted.  The paper's five figures are in
+refs/selex-cho-2010/, which .gitignore keeps out of the repository --
+they are copyrighted and this repository is public.

@@ -34,13 +34,18 @@
    them at about 1.5x that, so filling the panel is what the original
    does too.  max-height clamps the taller one rather than letting it
    push the caption off the slide. */
-.slide .dev{display:flex;justify-content:center;margin:10px 0 0}
-.slide .dev img{max-width:100%;max-height:300px;width:auto;height:auto}
-.slide .devcap{font-size:19px;color:var(--muted);margin:6px 0 0;text-align:center}
 .slide .fg{flex:1 1 auto;min-height:0;display:flex;align-items:center;
   justify-content:center;margin-top:4px}
 .slide .fg svg{width:100%;height:100%;display:block}
-.slide .fg.low{margin-bottom:72px}
+.slide .two{display:flex;gap:46px;flex:1 1 auto;min-height:0;
+  align-items:center;margin:10px 0 60px}
+.slide .two .fg{flex:1 1 56%;margin:0}
+.slide .two figure.plot{flex:0 1 40%;display:flex;flex-direction:column;
+  align-items:center;margin:0;min-width:0}
+.slide .two figure.plot img{max-width:100%;max-height:100%;width:auto;
+  height:auto;object-fit:contain}
+.slide .two figure.plot figcaption{font-size:18px;color:var(--muted);
+  margin-top:10px;text-align:center;line-height:1.35}
 </style>
 </head>
 <body>
@@ -56,14 +61,17 @@
 <!-- ---------------------------------------------------------------- 25 -->
 <article class="slide">
   <h1>SELEX with Deep Sequencing</h1>
-  <figure class="dev"><img src="img/25-cmacs.png" alt="A photograph of the micromagnetic separation chip. Two syringe pumps at the left, labeled buffer pump and sample pump, feed tubing into a flat chip on which the channel is picked out in blue dye between four brass ports; a dashed circle in the middle marks where the external magnet sits, and a ten millimetre scale bar runs beneath it. Two tubes at the right collect the waste and the product."></figure>
-  <p class="devcap">the separation chip: beads with their binders leave by one port, everything unbound by the other</p>
-  <div class="fg low" data-fig="selex"></div>
+  <div class="two">
+    <div class="fg" data-fig="selex"></div>
+    <figure class="plot">
+      <img src="img/25-enrich.png" alt="A scatter plot from the paper. The horizontal axis is R3 over R1 enrichment fold, running from zero to 2,347; the vertical axis is the log base ten of the number of sequences, zero to five. Almost every point is crushed against the left-hand edge at low enrichment, and a thin scatter of individually rare sequences trails out to the right, the furthest sitting alone at 2,347-fold.">
+      <figcaption>how much each sequence grew, round 1 to round 3</figcaption>
+    </figure>
+  </div>
   <p class="src">PMID: 20705898</p>
-  <p class="src">device photograph: PMID 19202068</p>
   <template class="notes">Here is an example from Tom Soh in which deep sequencing is used as the readout after a SELEX experiment.  They begin with a typical poly-N oligonucleotide containing PCR priming sites on both ends, then subject this library to selection for binding to a protein.  In this variant, they employ a microfluidic device to perform the separation of bound and unbound DNAs, however, this step of the experiment might also be done by more traditional columns or panning.  The sample is then prepped for deep sequencing, and they calculate the frequency of observed sequences within the hit population.  From this, they can identify the most promising sequences for further analysis.</template>
-  <template class="notes-add">That is the actual device, from the Soh lab&#8217;s earlier paper: two syringe pumps, a channel with the library and the target-coated beads running through it, a magnet sitting under the middle, and two tubes at the end, one for the beads with whatever stuck to them and one for everything else. What makes it a multiplex experiment is that they sequenced the pool after every round, so each of more than ten million sequences carries a count in round one, round two and round three rather than just a frequency at the end. The comparison below is the result worth knowing. The ten most abundant sequences were the same ten in all three rounds and not one of them was enriched, which marks them as artifacts of library synthesis or PCR, while the sequence enriched 2,347-fold had been too rare to notice at the start. Picking what was abundant at the end would have handed you the wrong molecules.</template>
-  <template class="desc">A photograph of the separation chip above, and a drawn comparison below. In the photograph, two syringe pumps feed a flat chip whose channel is picked out in blue dye between four brass ports, with a dashed circle where the external magnet sits and tubes at the right collecting waste and product. Below it, two classes of sequence side by side, each with a small plot across rounds one, two and three that carries shape only and no values. Flat on the left: the ten most abundant sequences were the same ten in all three rounds and not one was enriched, making them artifacts of library synthesis and PCR. Low then steeply climbing on the right: the sequence that was enriched was too rare to notice in round one and 2,347-fold up by round three, a real binder. What is abundant at the end would have given the wrong molecules; what changed across rounds gave the right ones.</template>
+  <template class="notes-add">Start with what you are selecting from. The library is one synthesis: a forty-base random core with a fixed primer site at either end, so every molecule can be amplified by the same pair of primers no matter what it does. Follow the blue one through, because the whole experiment is about what happens to one molecule among a great many. And keep an eye on the plot at the right, because that is where this ends up: every sequence in the experiment, placed by how much it grew.</template>
+  <template class="desc">On the left, an explanation of the experiment built up in three steps: the library, drawn as single strands of different shapes with one in blue to follow, described as a 40-base random core between two fixed primer sites; one round of selection, left to right, incubate with the target carried on a bead, separate so that the bound strand stays and the rest wash away, then PCR what was kept, with a dashed arrow looping back labeled three rounds; and sequence the pool from every round, drawn as three rows of sixteen squares labeled R1, R2 and R3 with one, three and nine of them blue, the same molecule counted in every round, R3 divided by R1 giving the enrichment fold. Those counts are schematic. On the right, the paper's own plot: every sequence placed by its round 3 over round 1 enrichment fold against the log of how many sequences share it, almost all of them crushed against zero and a thin tail of individually rare sequences running out to 2,347-fold.</template>
 </article>
 
 
