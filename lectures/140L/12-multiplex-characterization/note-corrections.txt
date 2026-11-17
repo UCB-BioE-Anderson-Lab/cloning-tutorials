@@ -37,3 +37,21 @@ without the need for specialized equipment.  It’s pretty easy.|without the nee
 Numbers from Google|Numbers from the vendors’ specification pages
 which can be interpreted as a low-accuracy sequence.  The lower resolution of these instruments makes them atypical choices for multiplex characterization—you can’t read barcodes, there are probably use cases for it.  The data would be adequate for part-level diversification.  New methods of error-correction could ultimately make this an all-purpose tool.|which can be interpreted as sequence.  Accuracy used to be the objection here—the reads were too rough to call barcodes reliably—but raw-read accuracy is now around 99.75%, so that objection has gone and these are reasonable instruments for multiplex characterization.
 results in very long low accuracy reads analogous to a nanopore.|results in very long reads; in HiFi mode about 90% of bases are called at Q30 or better.
+#
+# 2026-11-17, source 17.  OUR OWN FAULT, not the passage of time.  The
+# 15-19 figure was restyled today off a nine-hue identity map onto the
+# palette, and the barcode that used to be green is now blue.  The note
+# told the lecturer to point at a color that is no longer on the slide.
+# The alternative was to put green back, which would undo the restyle
+# and reintroduce a non-palette hue; one word is the cheaper fix.
+as noted here in green.|as noted here in blue.
+#
+# 2026-11-17, source 38.  The same two claims that were retired from
+# source 14's note today, still live in the answers to the ponder
+# questions.  Only the two FALSE sentences are revised; the other four
+# mentions of HiSeq in this note name a retired instrument but say
+# nothing untrue (short reads, enough reads, you won't see the hits),
+# so they are left in his words.  The argument of the second one is
+# untouched: a read count is still vastly smaller than N40 diversity.
+There are some other NGS technologies such as Nanopore and Pacific Biosystems that do long reads with low per-base accuracy.|There are some other NGS technologies such as Nanopore and Pacific Biosciences that do long reads, and their per-base accuracy is now comparable to short-read sequencing.
+The HiSeq is as high-density as the data gets but it is still only 300 million, which is far less than the diversity of N40.|A NovaSeq X is as high-density as the data gets but it is still only tens of billions of reads, which is far less than the diversity of N40.

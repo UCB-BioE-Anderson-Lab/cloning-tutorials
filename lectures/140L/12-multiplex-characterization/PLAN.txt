@@ -826,3 +826,40 @@ characterising".  All normalized, with every verbatim source note
 protected during the pass.
 
 ONE NOTE WAS BROKEN BY OUR OWN RESTYLE -- see below.
+
+THE FOUR CONFLICTS, FIXED 2026-11-17
+-------------------------------------
+1.  SOURCE 17'S NOTE SAID THE BARCODE IS "noted here in green".  OUR
+    fault, not age: today's restyle of 15-19 took that figure off a
+    nine-hue identity map and onto the palette, and the barcode went
+    from green to blue.  The lecturer would have pointed at a blue bar
+    and said green.  Every source note in the deck was swept for color
+    words against the figures that were redrawn; this was the only one
+    broken.  Revised to "in blue" rather than putting green back, which
+    would have undone the restyle for one word.
+
+2.  SOURCE 38 REPEATED TWO CLAIMS RETIRED FROM SOURCE 14 EARLIER TODAY.
+    Both revised: nanopore and PacBio are no longer described as low
+    per-base accuracy, and "The HiSeq ... only 300 million" becomes a
+    NovaSeq X at tens of billions.  The argument is untouched -- a read
+    count is still vastly smaller than N40 diversity either way.
+    FOUR OTHER MENTIONS OF HiSeq IN THAT NOTE WERE LEFT ALONE.  They
+    name a retired instrument but say nothing untrue (short reads,
+    enough reads to cover the library, you won't see the hits).  Dated
+    is not the same as wrong, and these are his words.
+
+3.  SLIDE 13'S BULLET read "HiSeq: Sequencing by Synthesis" one slide
+    before slide 14 said HiSeq retired in 2024.  Slide body text, not a
+    note, so note-corrections.txt could not reach it.  Now "Illumina:
+    Sequencing by Synthesis" -- the chemistry on that figure is generic
+    Illumina SBS, so the general name is both current and true.
+
+4.  THE "LINKAGE STRATEGIES" REFRAMING, done in narration on the
+    section divider rather than by renaming the section.  Renaming was
+    rejected because the section opens with three slides -- two on the
+    instrument and one on RNA-seq -- that are readouts, not linkage
+    strategies, so the name would have contradicted its own contents
+    from the first slide.  The notes-add says the thing the rename was
+    reaching for: after the sequencing itself, everything in the
+    section is a way of keeping a genotype attached to what you
+    measured, in sequence, in space or on a surface.
