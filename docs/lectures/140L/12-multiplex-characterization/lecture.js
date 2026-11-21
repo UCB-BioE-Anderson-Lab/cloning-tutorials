@@ -11,7 +11,7 @@
    kind: lecture | section — only used to colour the jump menu key. */
 window.LECTURE = {
   title: "Multiplex Characterization",
-  course: "140L",
+  course: "BioE 140L",
   sections: [
     { file: "00-front-matter.html", title: "Introduction", kind: "lecture" },
     { file: "01-libraries.html", title: "Types of Libraries", kind: "section" },

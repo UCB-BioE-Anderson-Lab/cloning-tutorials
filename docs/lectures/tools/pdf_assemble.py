@@ -28,9 +28,9 @@ _M    = json.load(open(os.path.join(D, "manifest.json")))
 # form; the list form is what the very first build wrote and is long gone.
 MAN   = _M["frames"]
 TITLE = _M["title"]
-COURSE= _M.get("course", "140L")
+COURSE= _M.get("course", "")
 SLUG  = _M["slug"]
-NAME  = "%s - BioE %s" % (TITLE, COURSE)
+NAME  = "%s - %s" % (TITLE, COURSE) if COURSE else TITLE   # course is lecture.js's, verbatim
 W, H = 1600, 900
 NOTE_H = 420                       # strip under the slide in the notes build
 

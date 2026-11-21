@@ -20,7 +20,7 @@
    kind: lecture | section — only used to colour the jump menu key. */
 window.LECTURE = {
   title: "Genome Editing",
-  course: "140L",
+  course: "BioE 140L",
   /* Sections are added here as they are built.  deck.js walks this list
      for prev/next, so a file named before it exists is a 404 off the end
      of the slide before it.  The full plan is in the comment above. */

@@ -1,6 +1,20 @@
 140L LECTURE SLIDES — how this is put together
 ==============================================
 
+THE ENGINE IS VENDORED.  deck.js, deck.css, anim.js, style/guide.html and
+the generic tools (check_section, pdf_capture, pdf_assemble, make_pdf,
+trace_lineart, root.js) come from the lecture-deck repository and are
+GENERATED here: edit them there, then
+
+    bash docs/lectures/sync-engine.sh            # refresh
+    bash docs/lectures/sync-engine.sh --check    # before a deploy
+
+lecture-deck.txt names the commit.  lecture-deck's own AUTHORING.txt is the
+engine's manual, including window.DeckArt (anim.js), the shared shell for
+sequences that new decks should build on rather than copying parts.js.
+This file keeps what is true of THIS site: mkdocs, 140L, C6, the source
+PowerPoints.  style/palette.css and tools/deck-root.txt are this site's own.
+
 WHY IT LIVES IN docs/
 ---------------------
 `mkdocs gh-deploy` copies everything under docs/ verbatim into the gh-pages
@@ -26,8 +40,10 @@ Local:     mkdocs serve  ->  http://127.0.0.1:8000/cloning-tutorials/lectures/
 LAYOUT
 ------
 docs/lectures/
-  deck.css                     shared styling for every slide
-  deck.js                      shared runtime: nav, modes, channels, jump menu
+  deck.css                     shared styling for every slide      (vendored)
+  deck.js                      shared runtime: nav, modes, channels, jump menu  (vendored)
+  anim.js                      DeckArt, the sequence shell          (vendored)
+  sync-engine.sh               refreshes the vendored engine from lecture-deck
   index.html                   the private index of lectures
   AUTHORING.txt                this file
   140L/

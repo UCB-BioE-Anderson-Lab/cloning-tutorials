@@ -12,10 +12,10 @@
  * unanimated path.
  *
  *   npm install puppeteer-core        (Chrome itself is the browser)
- *   mkdocs serve                      (the deck is driven live)
+ *   a server for the decks            (the deck is driven live; see root.js)
  *   node pdf_capture.js <outdir> <deck-dir> [00-intro.html,...]
  *
- * deck-dir is a directory under lectures/140L/, e.g. 02-dna-fabrication.
+ * deck-dir is a directory under the deck root (root.js), e.g. 02-dna-fabrication.
  * The section list, the lecture title and the slug the PDFs are named
  * after all come out of that deck's own lecture.js, which is fetched and
  * evaluated rather than parsed: it is already the one place the order
@@ -26,7 +26,7 @@ const puppeteer = require(require.resolve('puppeteer-core', {paths:[process.cwd(
 const fs = require('fs');
 const path = require('path');
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const ROOT = 'http://127.0.0.1:8000/cloning-tutorials/lectures/140L/';
+const ROOT = require('./root.js')();       /* $DECK_ROOT, deck-root.txt, or bin/serve */
 const OUT = process.argv[2];
 const DECK = process.argv[3];
 const ONLY = process.argv[4] ? process.argv[4].split(',') : null;

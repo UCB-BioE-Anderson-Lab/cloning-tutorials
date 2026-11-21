@@ -1,12 +1,14 @@
 /* ------------------------------------------------------------------ *
- * deck.js — shared runtime for the 140L lecture slides.
+ * deck.js — the lecture-deck runtime: navigation, builds, sequences,
+ * presenter and text-channel views, speech.  Project-neutral; a project
+ * vendors this file and never edits its copy.
  *
  * Each section is a standalone page.  Load order in a section page:
  *     <script src="../../deck.js" defer></script>
  *     <script src="lecture.js"    defer></script>   sets window.LECTURE
  *     <script src="seq/foo.js"    defer></script>   optional animations
  *
-XX|blue|green|red|black">
+ * Each slide is <article class="slide" data-bg="lecture|section"> (data-bg optional)
  * with optional <template class="notes"> (the source deck's own words,
  * verbatim), <template class="notes-add"> (written for this deck, for
  * slides the source narrated without a note) and <template class="desc">.

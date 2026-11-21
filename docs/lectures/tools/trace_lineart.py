@@ -31,16 +31,22 @@ def _load():
         pass
     # Convenience for working from a checkout sitting beside this repo, which
     # is how the package is usually developed. Installing it is the norm.
-    here = os.path.dirname(os.path.abspath(__file__))
-    sibling = os.path.normpath(
-        os.path.join(here, "..", "..", "..", "..", "lineart-trace"))
-    if os.path.isdir(os.path.join(sibling, "lineart_trace")):
-        sys.path.insert(0, sibling)
-        try:
-            from lineart_trace.cli import main
-            return main
-        except ImportError:
-            pass
+    # The engine is vendored at different depths in different projects, so
+    # look for a lineart-trace checkout beside ANY ancestor, nearest first.
+    d = os.path.dirname(os.path.abspath(__file__))
+    while True:
+        sibling = os.path.join(os.path.dirname(d), "lineart-trace")
+        if os.path.isdir(os.path.join(sibling, "lineart_trace")):
+            sys.path.insert(0, sibling)
+            try:
+                from lineart_trace.cli import main
+                return main
+            except ImportError:
+                pass
+            break
+        if os.path.dirname(d) == d:
+            break
+        d = os.path.dirname(d)
     sys.exit(
         "trace_lineart: the lineart-trace package is not installed.\n"
         "  pip install git+https://github.com/UCB-BioE-Anderson-Lab/"
