@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------ *
- * deck.js — the lecture-deck runtime: navigation, builds, sequences,
+ * deck.js: the lecture-deck runtime: navigation, builds, sequences,
  * presenter and text-channel views, speech.  Project-neutral; a project
  * vendors this file and never edits its copy.
  *

@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------ *
- * anim.js — the drawing shell for animated sequences.  window.DeckArt.
+ * anim.js: the drawing shell for animated sequences.  window.DeckArt.
  *
  * Load after deck.js and before any seq/*.js that uses it:
  *
