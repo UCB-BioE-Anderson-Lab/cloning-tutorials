@@ -1,0 +1,150 @@
+---
+slug: where_diversity_enters_an_eipcr_library
+difficulty: easy
+topic: Locating where diversity enters a construction
+question: |
+  You build a promoter library by EIPCR: a pair of primers amplifies the entire plasmid outward from the promoter, and one primer carries degenerate bases in its 5' tail. Where does the diversity in the finished library come from?
+choices:
+  A: From errors introduced by the polymerase during the long amplification.
+  B: From the mixture of molecules in the degenerate primer, copied into every product.
+  C: From the template plasmid, which must already contain promoter variants.
+  D: From the ligation, which joins ends in several alternative registers.
+  E: From the competent cells, which recombine the product after transformation.
+answer: B
+explanation: |
+  A degenerate oligo is not one sequence but a mixture synthesized in parallel, and each molecule in that mixture primes its own product. The library is therefore made at the moment of synthesis and merely carried through the PCR. A describes mutagenesis, which is a different experiment with a far lower and uncontrolled rate. C would require the library to already exist. D and E invent sources of variation that the workflow does not have.
+---
+slug: degenerate_oligo_versus_oligo_pool
+difficulty: medium
+topic: Choosing between degenerate synthesis and a defined oligo pool
+question: |
+  You want every single amino acid substitution at each of 250 positions in a protein, with no stop codons and no wild-type carryover. Which synthesis route fits that specification?
+choices:
+  A: A degenerate oligo with NNK at every codon, used in one EIPCR reaction.
+  B: A chip-synthesized oligo pool in which each intended variant is specified individually.
+  C: Error-prone PCR across the gene at a tuned mutation rate.
+  D: A degenerate oligo with NNN at every codon, which covers all possibilities.
+  E: DNA shuffling of the gene against its closest orthologs.
+answer: B
+explanation: |
+  The specification is a defined list, so the synthesis has to be defined too. An oligo pool writes each variant as its own sequence, which is what lets you exclude stops and the wild type and get one substitution per molecule. A and D give random combinations across positions, including multiple substitutions per clone and stop codons, and no control over which members appear. C has no control over position or identity. E recombines existing variation rather than enumerating substitutions.
+---
+slug: klenow_fill_in_for_a_short_cassette
+difficulty: medium
+topic: Recognizing Klenow fill-in as a route to a degenerate cassette
+question: |
+  You need a short double-stranded cassette carrying eight random bases, and you have no template containing that region. Two partially complementary oligos are annealed and Klenow is added. What is Klenow doing?
+choices:
+  A: Amplifying the annealed pair exponentially, as in PCR.
+  B: Extending each strand on the other as template to fill the single-stranded overhangs.
+  C: Cutting the annealed duplex at the degenerate positions.
+  D: Ligating the two oligos into a closed circle.
+  E: Removing the random bases to leave a defined sequence.
+answer: B
+explanation: |
+  The two oligos overlap only in part, so annealing leaves recessed 3' ends. Klenow extends from each 3' end using the other strand as template, converting the partial duplex into a full one in a single isothermal step. A is wrong because there is no thermal cycling and no exponential amplification. C, D and E attribute activities to Klenow that belong to restriction enzymes, ligase and nothing at all, respectively.
+---
+slug: soeing_places_diversity_at_a_junction
+difficulty: medium
+topic: Using overlap extension to place diversity at a junction
+question: |
+  You want a library in which the linker between two protein domains is randomized, and the two domains come from separate plasmids. Why is SOEing a natural choice?
+choices:
+  A: It eliminates the need to transform the product into cells.
+  B: The overlapping primers that join the two fragments can carry the degenerate linker.
+  C: It raises the theoretical diversity beyond what the degenerate code allows.
+  D: It avoids the restriction sites that would otherwise appear in the linker.
+  E: It removes the need to sequence the finished library.
+answer: B
+explanation: |
+  In overlap extension the two fragments are joined through a shared sequence written into the primers, so whatever you put in that shared region ends up at the junction. A degenerate linker is exactly that kind of insertion. A and E are false at any scale. C is wrong because the diversity is set by the code, not the assembly method. D is backwards: SOEing is useful partly because it does not require sites, but the linker's content is a design choice either way.
+---
+slug: reading_lowercase_tails_in_a_construction_oligo
+difficulty: medium
+topic: Reading a construction oligo and its tails
+question: |
+  A construction file digests a PCR product with BamHI and EcoRI, and the forward oligo reads GAGTTggatccTTTNVWGGRDTTAAATTatgatggttttccagccaatc. What is the lowercase ggatcc doing?
+choices:
+  A: It marks the degenerate region that generates the library.
+  B: It is the BamHI site, added as a tail so the product can be cut and ligated.
+  C: It is the ribosome binding site for the downstream gene.
+  D: It is the annealing region that binds the template.
+  E: It is a spacer with no function other than setting the product length.
+answer: B
+explanation: |
+  By convention in these files the lowercase runs mark sequence added by the oligo rather than copied from the template, and GGATCC is the BamHI recognition sequence. The GAGTT in front of it is the short flank the enzyme needs in order to cut near the end. A points at the wrong element, since the degenerate region is the NVW and RD stretch. C names the wrong element again. D is wrong because the annealing region is the 3' end that matches the template. E ignores a functional site.
+---
+slug: pp6_promoter_library_design
+difficulty: medium
+topic: Reading a promoter library design
+question: |
+  The pP6 library is built by reassembling a promoter with degenerate sequence at the -35 and -10 boxes while the rest of the promoter is held fixed. Why randomize those two regions rather than the whole promoter?
+choices:
+  A: Because synthesis cannot produce degenerate bases outside those regions.
+  B: Because those boxes are where the polymerase holoenzyme makes contact, so they set strength.
+  C: Because the regions between them are not transcribed and so cannot matter.
+  D: Because randomizing the whole promoter would exceed the diversity a single oligo can encode.
+  E: Because the spacer length between the boxes cannot be varied experimentally.
+answer: B
+explanation: |
+  Sigma factor contacts the -35 and -10 hexamers, so sequence changes there change how readily open complex forms, which is what a promoter strength library is trying to sample. Confining diversity to those positions keeps the library small enough to cover while still spanning a wide range of strengths. A is false. C misstates the biology, since the intervening spacer is part of the promoter and does affect strength. D is a real consideration at some scales but is not the design reason here. E is false; spacer length is a legitimate variable, just not the one varied in this design.
+---
+slug: pwm_derived_library_purpose
+difficulty: hard
+topic: Using a position weight matrix to shape a library design
+question: |
+  Instead of putting N at every position of a ribosome binding site, you derive the degenerate code from a position weight matrix built from known functional sites. What does that buy you?
+choices:
+  A: It guarantees that every member of the library is functional.
+  B: It concentrates the library on sequences likely to work, so fewer clones are wasted on dead members.
+  C: It increases the theoretical diversity for the same oligo length.
+  D: It removes the need to measure the resulting expression levels.
+  E: It makes the library uniform in strength rather than spread across a range.
+answer: B
+explanation: |
+  A weight matrix records which bases appear at which positions among sequences that are known to function, so a code drawn from it biases the library toward that region of sequence space. The payoff is efficiency: a greater fraction of the clones you pick are worth measuring. A overstates it, since a matrix is a statistical summary and not a guarantee. C is wrong, as constraining positions lowers diversity rather than raising it. D is wrong because the point is still to measure. E is backwards, since a spread of strengths is the goal.
+---
+slug: diversity_must_survive_the_cloning
+difficulty: hard
+topic: Checking that designed diversity survives the construction
+question: |
+  Your degenerate bases sit in the 5' tail of a primer, upstream of the restriction site used to clone the product. What happens to the library?
+choices:
+  A: Nothing; tails are retained in the final construct.
+  B: The diversity is cut away with the flank during the digest, leaving a non-library product.
+  C: The diversity moves into the vector backbone rather than the insert.
+  D: The diversity is retained but inverted relative to the design.
+  E: The diversity doubles, since both orientations of the tail are cloned.
+answer: B
+explanation: |
+  A restriction digest discards everything outside the recognition site, including the short flank that was there to let the enzyme cut. Degenerate bases placed outside the site therefore end up in the discarded fragment, and every clone is identical. This is a real design error and the reason the degenerate region in a working oligo sits between the site and the annealing region. A ignores what the digest removes. C, D and E describe rearrangements that do not occur.
+---
+slug: pooled_versus_arrayed_variant_construction
+difficulty: hard
+topic: Deciding between pooled and arrayed construction
+question: |
+  You need twelve specific promoter variants, each one to be measured separately and kept as a named strain. Why would you build these one at a time rather than as a pooled degenerate library?
+choices:
+  A: Because degenerate synthesis cannot produce only twelve sequences.
+  B: Because a pooled library would require deep sequencing to find and separate the twelve you wanted.
+  C: Because pooled libraries cannot be transformed into competent cells.
+  D: Because twelve variants exceed the diversity a single oligo can carry.
+  E: Because named strains cannot be derived from a library by any means.
+answer: B
+explanation: |
+  Pooling is worth the trouble when the number of variants is larger than you can handle individually. At twelve, building each on purpose gives you identified strains immediately, whereas pooling means screening or sequencing to work out which clone is which and then isolating them. A is essentially true as stated but is not the operative reason, since a small pool of defined oligos could be ordered. C and E are false. D inverts the scale problem.
+---
+slug: synthesis_route_for_a_whole_gene_variant_set
+difficulty: hard
+topic: Matching the synthesis route to the kind of variation wanted
+question: |
+  You want to test forty orthologs of one enzyme, each a different natural sequence of about 1.2 kb. What is the appropriate construction route?
+choices:
+  A: A degenerate oligo covering the positions at which the orthologs differ.
+  B: Chip-based synthesis of the forty genes, amplified from the pool and assembled individually.
+  C: Error-prone PCR of the host's own copy at a high mutation rate.
+  D: EIPCR with a degenerate primer at the active site.
+  E: A Klenow fill-in of forty annealed oligo pairs.
+answer: B
+explanation: |
+  Forty full-length genes are forty defined sequences, which is the case chip synthesis exists to serve: the genes are written on a microarray, released as a pool, and selectively amplified and assembled. A is unworkable because orthologs differ at hundreds of positions in combinations that degenerate codes cannot specify. C and D generate variation around one sequence rather than reproducing forty real ones. E is limited to short cassettes, far shorter than a 1.2 kb gene.
