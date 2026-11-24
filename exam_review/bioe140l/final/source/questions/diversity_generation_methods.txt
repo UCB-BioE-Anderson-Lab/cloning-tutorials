@@ -1,0 +1,150 @@
+---
+slug: error_prone_pcr_conditions
+difficulty: easy
+topic: Recognizing how error-prone PCR is made error-prone
+question: |
+  An error-prone PCR differs from an ordinary PCR in which way?
+choices:
+  A: One of the two primers is left out of the reaction
+  B: Skewed dNTPs, added manganese and extra magnesium
+  C: A proofreading polymerase at a lower extension temperature
+  D: Degenerate oligos in place of the ordinary primers
+  E: Many more cycles, so that errors accumulate over time
+answer: B
+explanation: |
+  The reaction has the same parts as any PCR, with buffer, polymerase, two primers and template, and the mutagenesis comes from conditions that make the enzyme sloppy. A proofreading enzyme would lower the error rate instead, degenerate oligos build a defined combinatorial library rather than a random one, and extra cycles amplify copies without meaningfully raising the per-base error rate.
+---
+slug: what_error_prone_pcr_produces
+difficulty: easy
+topic: Describing the product of random point mutagenesis
+question: |
+  What kind of library does error-prone PCR across a gene produce?
+choices:
+  A: Every single amino acid substitution, one per clone
+  B: Recombinants interleaving blocks from several parents
+  C: Point mutations scattered at random throughout the gene
+  D: A defined set of substitutions at chosen positions
+  E: Insertions and deletions at a controlled spacing
+answer: C
+explanation: |
+  The method gives no control over where mutations fall or what they change; it sets an average rate and scatters substitutions accordingly. An exhaustive single-substitution set comes from synthesis, interleaved blocks come from DNA shuffling, and chosen positions mean saturation or site-directed mutagenesis. Indels are not what the method makes, and the shuffling data showed no frameshifts at all.
+---
+slug: shuffling_fragment_and_reassemble
+difficulty: medium
+topic: Describing the steps of DNA shuffling
+question: |
+  Pooled parental genes are digested to about 50 bp with DNase I, then put through a PCR with no added primers. What does that reaction do?
+choices:
+  A: The fragments prime on each other and reassemble genes
+  B: It amplifies the fragments so each can be cloned apart
+  C: It adds restriction sites onto the fragment ends
+  D: It selects those fragments carrying useful mutations
+  E: It degrades the fragments further to single nucleotides
+answer: A
+explanation: |
+  Overlapping fragments from different parents anneal to each other and act as each other's primers, so each round of extension stitches sequence from several templates into one molecule, which is the same chemistry as primerless assembly in gene synthesis. The terminal primers come afterward to amplify the reassembled full-length product, and the remaining options assign the reaction activities it does not have.
+---
+slug: what_shuffling_adds_over_error_prone_pcr
+difficulty: medium
+topic: Explaining why shuffling largely replaced error-prone PCR
+question: |
+  Why has DNA shuffling largely replaced error-prone PCR as a diversification step?
+choices:
+  A: Because it avoids point mutations, which are mostly harmful
+  B: Because it needs no prior round of mutagenesis to work
+  C: Because it yields a defined rather than a random library
+  D: Because it recombines existing mutations and is error-prone itself
+  E: Because it removes the need for a screen after the library
+answer: D
+explanation: |
+  Shuffling does double duty: it brings together mutations that arose in different clones, which point mutagenesis alone cannot do, and the reassembly introduces substitutions at a rate comparable to error-prone PCR. Its input is a pool of variants, usually the hits from a previous round, so a prior round is part of the premise. The library stays random, and a screen is still required.
+---
+slug: transition_versus_transversion
+difficulty: medium
+topic: Classifying base substitutions
+question: |
+  G to A is a transition and G to T is a transversion. What distinguishes the two?
+choices:
+  A: A transition changes the amino acid and a transversion does not
+  B: A transition keeps the ring type and a transversion swaps it
+  C: A transition is on the coding strand, a transversion the template
+  D: A transition is one base and a transversion two adjacent bases
+  E: A transition comes from polymerase error, a transversion DNase I
+answer: B
+explanation: |
+  A and G are purines while C and T are pyrimidines, so keeping the ring type is a transition and swapping it is a transversion. That is a property of the chemistry rather than of the consequence, and whether the amino acid changes depends on the codon. The remaining options invent distinctions involving strands, run lengths and enzymes that do not exist.
+---
+slug: mutation_outcome_distribution
+difficulty: medium
+topic: Reasoning from the distribution of mutational effects
+question: |
+  About 90 percent of missense mutations are neutral, 9 percent deleterious and 1 percent usefully altering. What follows for the experiment?
+choices:
+  A: Mutagenesis is rarely worth doing, as most changes do nothing
+  B: The rate should rise until most clones carry a useful change
+  C: Deleterious mutants can be ignored as the smallest class
+  D: Screening can be replaced by sequencing the library instead
+  E: Many clones must be screened, as useful variants are rare
+answer: E
+explanation: |
+  If one clone in a hundred carries an altered activity and most of the rest are indistinguishable from wild type, the only way to find the rare ones is to look at a great many. Raising the rate piles deleterious changes on top of each other and destroys function rather than enriching for improvements, the deleterious class is not the smallest, and sequencing assumes the predictive power the experiment exists to supply.
+---
+slug: where_deleterious_mutations_fall
+difficulty: medium
+topic: Locating the mutations that destroy function
+question: |
+  Within the deleterious 9 percent, which structural explanation matches which effect?
+choices:
+  A: Core changes kill activity; active-site changes kill folding
+  B: Both core and active-site changes act by destabilizing the fold
+  C: Surface substitutions account for most deleterious mutations
+  D: Core changes stop folding; active-site changes stop catalysis
+  E: Deleterious mutations fall uniformly across the sequence
+answer: D
+explanation: |
+  Packing the hydrophobic core is what holds the fold together, so substitutions there tend to stop the protein folding at all, while residues contacting the substrate and the shell behind them are needed for catalysis, so changes there leave a folded but inactive protein. Surface positions are the ones that tolerate change, and collapsing the distinction or ignoring structure both lose the useful part of the answer.
+---
+slug: mutation_rate_and_active_fraction
+difficulty: hard
+topic: Reasoning about how mutations per clone compound
+question: |
+  You raise the rate so each clone carries about fifteen substitutions rather than two. What happens to the library?
+choices:
+  A: More of sequence space is sampled, improving the odds
+  B: Nothing, as the useful fraction is the same at any rate
+  C: The library becomes defined rather than random in character
+  D: The library can no longer be transformed into competent cells
+  E: Almost every clone draws a function-destroying change
+answer: E
+explanation: |
+  With roughly one mutation in ten being deleterious, fifteen substitutions per clone means nearly every clone takes at least one, so the active fraction collapses and a useful change tends to arrive inside a dead protein. That compounding is the real content of the rate question, and it is why the useful fraction is not constant across rates. Transformation and library character are unaffected.
+---
+slug: choosing_shuffling_for_combining_hits
+difficulty: hard
+topic: Matching the diversification method to the goal
+question: |
+  Three rounds have each produced a different improved variant with one substitution apiece, and you want all three together. Which method fits?
+choices:
+  A: Error-prone PCR on whichever of the three is best
+  B: Saturation mutagenesis at a fourth chosen position
+  C: DNA shuffling of the three, recombining their mutations
+  D: Chip synthesis of every double substitution in the gene
+  E: Passaging the best variant through the XL1 Red strain
+answer: C
+explanation: |
+  The mutations already exist and sit in different molecules, so what is needed is recombination rather than further mutation: shuffling fragments the three and reassembles genes drawing from all of them. Error-prone PCR and the mutator strain add new random changes without bringing the existing ones together, saturation diversifies somewhere else, and enumerating doubles is an expensive way to miss the three known mutations.
+---
+slug: mutagenic_strain_versus_in_vitro
+difficulty: hard
+topic: Comparing in vivo and in vitro mutagenesis
+question: |
+  You passage a plasmid through XL1 Red rather than running error-prone PCR. What differs in the product?
+choices:
+  A: A higher mutation rate per kilobase than error-prone PCR gives
+  B: Mutations confined to the region between the two primers
+  C: Only transitions, where error-prone PCR gives only transversions
+  D: No mutations at all, as plasmid genes are not affected
+  E: Fewer mutations per kb, plus recombinations and truncations
+answer: E
+explanation: |
+  Replication in the strain is error-prone but less so than a tuned PCR, and because the whole plasmid replicates in a live cell you also collect rearrangements, truncations and insertion-element events that the in vitro reaction never makes. Those extra lesion types are why the method is now less used. Confinement to an amplicon is what PCR gives, and neither method produces only one substitution class.

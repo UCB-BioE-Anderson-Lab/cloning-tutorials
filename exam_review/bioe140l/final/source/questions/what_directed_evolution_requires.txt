@@ -1,0 +1,150 @@
+---
+slug: the_directed_evolution_cycle
+difficulty: easy
+topic: Ordering the steps of one round
+question: |
+  Which sequence describes one turn of a directed evolution cycle?
+choices:
+  A: Screen the parent, mutagenize the winner, transform, repeat
+  B: Transform, select on a drug, sequence survivors, synthesize a consensus
+  C: Build every single substitution, measure all, report the best
+  D: Mutagenize, build and transform, pick and screen, recycle the winner
+  E: Mutagenize, sequence the library, compute the best without assaying
+answer: D
+explanation: |
+  The cycle is diversify, build, assay, and feed the best result back in as the starting point for the next round, and its defining feature is that it iterates, which is what lets small improvements accumulate. One exhaustive round is not a cycle, a drug selection with no iteration is a different workflow, and computing the winner omits the measurement the method depends on.
+---
+slug: what_the_screen_must_report
+difficulty: easy
+topic: Identifying the role of the assay in a campaign
+question: |
+  Of the things a directed evolution campaign needs, what job does the screen do?
+choices:
+  A: It generates the diversity the next round will draw on
+  B: It reports which variants are better at the property wanted
+  C: It establishes that the fitness landscape has one maximum
+  D: It confirms the library sequence matches the design file
+  E: It links each variant's genotype to its own phenotype
+answer: B
+explanation: |
+  The screen is what turns a library into information: it has to report the property you actually care about, well enough to rank variants, since the winner of each round becomes the next parent. Diversity generation is the mutagenesis step, linkage is supplied by the cell or display format, and sequence verification is a separate check that says nothing about function.
+---
+slug: assay_must_report_the_property
+difficulty: medium
+topic: Matching the assay to the property being evolved
+question: |
+  You want greater activity on a new substrate and screen variants by fusing the enzyme to GFP and reading fluorescence. What is wrong?
+choices:
+  A: GFP fusions cannot be expressed in E. coli at all
+  B: GFP fluorescence is too dim to read in a plate assay
+  C: Fluorescence reports abundance, so you select for expression
+  D: The fusion would stop the library being transformed
+  E: Nothing, as expression and activity are equivalent readouts
+answer: C
+explanation: |
+  You get what you screen for. A fusion reporter measures how much protein is present, so the winners will be variants that express or fold well, which may have nothing to do with activity on the new substrate; the right screen uses the reaction itself, as a cell-permeable chromogenic substrate does. The objections about expression, brightness and transformation are all false as stated.
+---
+slug: local_versus_global_optimum
+difficulty: medium
+topic: Understanding what the landscape picture claims
+question: |
+  Directed evolution is drawn as a climber taking small steps up one hill from partway up its slope. What does that assert?
+choices:
+  A: That the method is guaranteed to find the highest point
+  B: That the landscape must have one peak for this to work
+  C: That large jumps across the landscape are the normal mode
+  D: That the starting sequence must have no activity at all
+  E: That it climbs to a nearby maximum, not necessarily the global one
+answer: E
+explanation: |
+  Iterated small changes with selection at each step walk uphill from wherever you started, so the method finds the top of the hill it is on, which is both its strength, since it needs no model of the landscape, and its limit. Large sparse jumps describe combinatorial library approaches instead, and a nascent activity to improve is a precondition rather than something ruled out.
+---
+slug: combinatorial_versus_directed_evolution
+difficulty: medium
+topic: Contrasting combinatorial libraries with directed evolution
+question: |
+  Which contrast between combinatorial library approaches and directed evolution is correct?
+choices:
+  A: Combinatorial are smaller and screened; evolution larger and selected
+  B: Both use iterative rounds, differing only in the library size
+  C: Combinatorial libraries require a structure; directed evolution does not
+  D: Combinatorial are large and selected, one round, for new activities
+  E: Directed evolution finds new activities; combinatorial improves old ones
+answer: D
+explanation: |
+  The two differ along several axes at once and map onto the immune system's two processes, with combinatorial libraries standing to VDJ recombination and directed evolution to affinity maturation. Combinatorial work runs large libraries through selections in a single round to find activities that did not pre-exist, while directed evolution runs smaller libraries through screens over iterative rounds to improve one that is already there.
+---
+slug: iteration_is_the_point
+difficulty: medium
+topic: Explaining why rounds are repeated
+question: |
+  Why does directed evolution run round after round rather than building one very large library?
+choices:
+  A: Because improvements accumulate stepwise from a better parent
+  B: Because very large libraries cannot be transformed at all
+  C: Because the assay loses sensitivity above a few thousand clones
+  D: Because the mutation rate declines as activity improves
+  E: Because each round repairs the damage done by the one before
+answer: A
+explanation: |
+  Multiple improving mutations almost never occur together in a single randomly mutagenized clone, so the practical route is to find one, fix it, and mutagenize again from there, with each round starting further uphill. Transformation and assay sensitivity are not what limits this, the mutation rate is set by the chemistry rather than by the gene, and a round selects rather than repairs.
+---
+slug: structure_is_not_a_requirement
+difficulty: hard
+topic: Separating helpful information from requirements
+question: |
+  A reviewer says your campaign should be rejected because no crystal structure of the enzyme exists. What is the right answer?
+choices:
+  A: Agree, since mutations cannot be designed without a structure
+  B: Agree, since the fitness landscape cannot be computed without one
+  C: A structure aids targeting but a functional screen finds hits regardless
+  D: Point out that a sequence model replaces the structure entirely
+  E: Point out that the screen can be dropped if no structure exists
+answer: C
+explanation: |
+  The method's appeal is that it need not know in advance which residues matter, because the screen sorts that out empirically, which is why it is used on systems nobody can model. A structure makes a campaign more efficient and tells you which substitutions are likely additive, but it is a convenience rather than a precondition. Sequence models do not replace it outright, and dropping the screen discards the one thing that is required.
+---
+slug: prosar_learns_from_losers
+difficulty: hard
+topic: Understanding what ProSAR does with the whole plate
+question: |
+  A conventional round keeps the best well and discards the rest. What does ProSAR do instead?
+choices:
+  A: It screens more clones per plate, raising overall throughput
+  B: It replaces the screen with a selection that removes losers
+  C: It sequences only the winner, which costs less than the plate
+  D: It raises the mutation rate so that fewer rounds are needed
+  E: It fits a model to every well and designs the next combinations
+answer: E
+explanation: |
+  Every well cost the same to build and assay, and the ones that failed carry information about which mutations hurt. Fitting fitness as a sum of per-mutation contributions across all the clones turns the whole plate into data, and the next library becomes a designed set of combinations rather than a fresh random one. The other options each describe a change the method does not make.
+---
+slug: prosar_additivity_assumption
+difficulty: hard
+topic: Reasoning about the additivity assumption
+question: |
+  ProSAR writes each clone's fitness as a sum of per-mutation contributions. Where does that break down?
+choices:
+  A: At surface positions, where mutations have no effect at all
+  B: At active-site residues and at pairs that contact each other
+  C: Whenever more than two mutations are present in one clone
+  D: Whenever the mutations are transversions rather than transitions
+  E: It does not break down, as fitness is additive by definition
+answer: B
+explanation: |
+  Additivity says a mutation contributes the same amount whatever else is present, which holds well enough for most positions but fails where residues interact: in the active site, and between residues in direct structural contact. That is why the model is a useful approximation to be tested rather than trusted. Surface positions are where additivity works best, and the substitution class and the count of mutations are beside the point.
+---
+slug: prosar_inferring_an_unbuilt_mutation
+difficulty: hard
+topic: Reading a contribution out of two measured clones
+question: |
+  Two esterase clones differ only in that the second also carries M358V, with improvements over wild type of 0.3 and 1.0. What is M358V worth, and why is that notable?
+choices:
+  A: 1.3, and it was measured directly in a single mutant clone
+  B: 0.3, which is the fitness of the clone that lacks it
+  C: 3.3, the ratio between the two measured improvements
+  D: 0.7 by subtraction, though that single mutant was never built
+  E: It cannot be found, as the clones differ at several positions
+answer: D
+explanation: |
+  Under additivity the two equations differ only in the M358V term, so subtracting gives 1.0 minus 0.3. The point of the method is that this number comes out of clones built for other reasons, and the single mutant was never made. Adding instead of subtracting, taking a ratio of quantities that enter as a sum, or reporting the other clone's fitness all miss that, and the premise states the clones differ only in that mutation.

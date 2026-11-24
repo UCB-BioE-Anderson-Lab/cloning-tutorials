@@ -1,150 +1,150 @@
 ---
-slug: rbs_library_expected_outcome
+slug: spread_is_the_product_not_a_defect
 difficulty: easy
-topic: Predicting the phenotype distribution a library produces
+topic: Interpreting the spread a library produces
 question: |
-  You place a library of ribosome binding sites upstream of a reporter gene in E. coli and plate the transformants. What is the most likely outcome?
+  You pick twenty clones from a ribosome binding site library and find reporter levels spanning about fortyfold. How should you read that spread?
 choices:
-  A: Every clone expresses the reporter at the same level but reaches it at a different time.
-  B: The clones span a range of reporter levels across the population.
-  C: Only clones with a strong ribosome binding site express at all, because the promoter represses the rest.
-  D: The clones differ in plasmid copy number rather than in reporter level.
-  E: The reporter level is unchanged, because the ribosome binding site acts on transcription.
+  A: As contamination, since one construct gives one level
+  B: As the intended result, since the library varies initiation
+  C: As evidence the ligation included empty vector
+  D: As clone-to-clone noise that averaging will remove
+  E: As a sign the reporter is unstable in this host
 answer: B
 explanation: |
-  Changing the ribosome binding site changes how efficiently ribosomes initiate on the message, so the library produces a spread of protein levels. That spread is the product, which is why these libraries are built. A substitutes timing for level with no mechanism. C invents repression that is not in the design. D confuses a translational element with the origin of replication. E misassigns the ribosome binding site to transcription.
+  Changing the ribosome binding site changes how efficiently ribosomes initiate on the message, so a range of protein levels is what the library was built to produce. Treating the spread as a defect to be cleaned up discards the whole point. The spread is far too large and too reproducible per clone to be measurement noise, and empty vector or an unstable reporter would show up as a loss of signal rather than as a graded series.
 ---
-slug: promoter_library_acts_on_transcription
+slug: promoter_versus_rbs_step
 difficulty: easy
-topic: Matching a genetic element to the step it controls
+topic: Matching an element to the step it controls
 question: |
-  A promoter library and a ribosome binding site library both give a range of protein output. At which step does each act?
+  A promoter library and a ribosome binding site library both change protein output. Which step does each one act on?
 choices:
-  A: Both act on transcription, differing only in magnitude.
-  B: The promoter library acts on transcription; the ribosome binding site library acts on translation initiation.
-  C: The promoter library acts on translation; the ribosome binding site library acts on mRNA stability.
-  D: Both act on translation, since protein is the readout in each case.
-  E: The promoter library acts on copy number; the ribosome binding site library acts on transcription.
-answer: B
+  A: Both on transcription, differing only in magnitude
+  B: Promoter on translation; RBS on message stability
+  C: Both on translation, since protein is the readout
+  D: Promoter on copy number; RBS on transcription
+  E: Promoter on transcription; RBS on translation initiation
+answer: E
 explanation: |
-  The promoter determines how often RNA polymerase initiates, so a promoter library varies the amount of message. The ribosome binding site determines how readily the ribosome loads onto that message, so an RBS library varies protein made per message. Both end up changing protein, which is why D is tempting, but the step being varied is what the question asks. A, C and E each swap the two assignments or substitute copy number.
+  The promoter sets how often polymerase initiates, so a promoter library varies the amount of message, while the ribosome binding site sets how readily the ribosome loads onto that message, so an RBS library varies protein made per message. Both end up changing protein, which is what makes the shared readout tempting, but the question is which step is being varied. The other options swap the two assignments or substitute copy number.
 ---
 slug: tuning_a_ratio_within_an_operon
 difficulty: medium
 topic: Choosing which element to vary for a stated goal
 question: |
-  Two enzymes are expressed from one operon behind a single promoter, and you need more of the first and less of the second. Which change gives you that?
+  Two enzymes are expressed from one operon behind a single promoter, and you need more of the first and less of the second. Which change does that?
 choices:
-  A: Replace the promoter with a stronger one.
-  B: Vary the ribosome binding site in front of the second gene.
-  C: Move the operon to a higher copy number origin.
-  D: Add a second copy of the promoter upstream of the operon.
-  E: Change the codon usage of both genes together.
-answer: B
+  A: Replace the promoter with a stronger one
+  B: Move the operon to a higher copy number origin
+  C: Vary the ribosome binding site of the second gene
+  D: Add a second promoter copy upstream of the operon
+  E: Change the codon usage of both genes together
+answer: C
 explanation: |
-  Everything upstream of the operon acts on both genes at once, so a stronger promoter or a higher copy number raises both and leaves the ratio where it was. The ribosome binding site sits in front of one coding sequence and sets translation of that one, which is the only element in this list that can move the two independently. A, C and D all scale the pair. E acts on both genes and is a blunt instrument for level in any case.
+  Everything upstream of the operon acts on both genes at once, so a stronger promoter, an extra promoter, or a higher copy number raises both and leaves the ratio where it was. The ribosome binding site sits in front of one coding sequence and sets translation of that one, which makes it the only element here that can move the two independently. Recoding acts on both genes and is a blunt instrument for level in any case.
 ---
 slug: terminator_library_readout
 difficulty: medium
 topic: Identifying the measured quantity for a terminator library
 question: |
-  You build a library of terminator sequences between an upstream and a downstream fluorescent reporter. What does the experiment measure for each library member?
+  A terminator library sits between an upstream and a downstream fluorescent reporter. What does the construct measure for each member?
 choices:
-  A: The absolute brightness of the upstream reporter.
-  B: The fraction of transcripts that read through the terminator, read as the ratio of downstream to upstream signal.
-  C: The plasmid copy number of each clone.
-  D: The rate at which the upstream reporter protein folds.
-  E: The translation initiation rate of the downstream reporter.
-answer: B
+  A: The absolute brightness of the upstream reporter
+  B: The plasmid copy number of each individual clone
+  C: The folding rate of the upstream reporter protein
+  D: The downstream to upstream ratio, that is read-through
+  E: The translation initiation rate of the downstream gene
+answer: D
 explanation: |
-  A terminator is judged by how much transcription it stops, and the way to see that without being confused by clone-to-clone differences in copy number or growth is to put a reporter on each side and take a ratio. The upstream reporter is the internal reference and the downstream one reports read-through. A would vary with copy number and growth rather than with the terminator. C, D and E name quantities the construct does not isolate.
+  A terminator is judged by how much transcription it stops, and the way to see that without being confused by clone-to-clone differences in copy number or growth is to put a reporter on each side and take a ratio. The upstream reporter is the internal reference and the downstream one reports read-through. Absolute brightness would vary with copy number and growth rather than with the terminator, and the remaining options name quantities the construct does not isolate.
 ---
 slug: rbs_library_with_no_effect
 difficulty: medium
 topic: Interpreting a library that produces no spread
 question: |
-  You screen a ribosome binding site library in front of an enzyme and find that every clone gives the same pathway output. Which explanation is most plausible?
+  An RBS library in front of a pathway enzyme gives the same pathway output for every clone. What is the most plausible explanation?
 choices:
-  A: The ribosome binding site does not affect translation in E. coli.
-  B: The enzyme is not the step limiting pathway output, so changing its level changes nothing downstream.
-  C: The library has no diversity, since identical output implies identical sequence.
-  D: The reporter must be measured by cytometry rather than a plate reader.
-  E: The promoter must have been deleted during cloning.
-answer: B
+  A: That enzyme is not the step limiting pathway output
+  B: The library has no diversity, since output is identical
+  C: The promoter was deleted during the cloning
+  D: Cytometry rather than a plate reader is required
+  E: The ribosome binding site does not act in E. coli
+answer: A
 explanation: |
-  The library almost certainly produced a range of enzyme levels; what the experiment shows is that pathway output does not respond to that range, which is what it looks like when some other step is the bottleneck. A contradicts the premise of the method. C is the right thing to check but the wrong inference, since sequencing would settle it and identical output has an easier explanation. D changes the instrument, not the result, for a bulk pathway measurement. E would abolish output rather than fix it at one level.
+  The library almost certainly produced a range of enzyme levels; what the experiment shows is that pathway output does not respond to that range, which is what it looks like when some other step is the bottleneck. Sequencing is worth doing but identical output has an easier explanation than identical sequence, a deleted promoter would abolish output rather than fix it at one level, and changing the instrument changes nothing for a bulk pathway measurement.
 ---
 slug: copy_number_versus_element_strength
 difficulty: medium
 topic: Separating dosage from element strength
 question: |
-  You move a reporter construct from a p15A origin to a high-copy origin and the signal rises fourfold. Your colleague concludes the promoter is stronger. What is wrong with that?
+  Moving a reporter from a p15A origin to a high-copy origin raises the signal fourfold, and a colleague concludes the promoter is stronger. What is wrong?
 choices:
-  A: Nothing; promoter strength and copy number are the same quantity.
-  B: Copy number multiplies everything on the plasmid, so per-template initiation rate is unchanged.
-  C: High-copy origins silence promoters, so the signal should have fallen.
-  D: The comparison is invalid because fluorescence cannot be compared between strains.
-  E: The promoter is weaker, since the same output is now spread over more templates.
-answer: B
+  A: Copy number multiplies templates, leaving initiation rate alone
+  B: Nothing, as strength and copy number are one quantity
+  C: High-copy origins silence promoters, so signal should fall
+  D: Fluorescence cannot be compared between two strains
+  E: The promoter is weaker, as output is spread over more templates
+answer: A
 explanation: |
-  Promoter strength is a property of one template: how often polymerase initiates there. Raising copy number gives you more templates, each initiating at the same rate, so total output rises while the promoter is untouched. This is the distinction every expression comparison depends on. A collapses two different quantities. C invents an effect. D is too strong, since the comparison is routine with proper normalization. E confuses total with per-template but draws the opposite wrong conclusion.
+  Promoter strength is a property of one template: how often polymerase initiates there. Raising copy number gives more templates, each initiating at the same rate, so total output rises while the promoter is untouched. This is the distinction every expression comparison depends on. Silencing is invented, the comparison is routine given proper normalization, and the last option confuses total with per-template while drawing the opposite wrong conclusion.
 ---
 slug: library_is_a_distribution_not_an_answer
 difficulty: hard
 topic: Treating a library as a distribution to be sampled
 question: |
-  A colleague says the purpose of a ribosome binding site library is to find the strongest ribosome binding site. What is the better description of what the library gives you?
+  A colleague says the purpose of an RBS library is to find the strongest ribosome binding site. What is the better description?
 choices:
-  A: A distribution of expression levels, from which the screen picks whichever level the application needs.
-  B: A single optimal sequence, which sequencing of the pool reveals directly.
-  C: A measurement of the maximum expression the host can sustain.
-  D: A set of clones all at the same level, differing only in sequence.
-  E: A prediction of expression level from sequence, usable without any measurement.
-answer: A
+  A: A single optimum, which sequencing the pool reveals
+  B: A measure of the maximum expression the host sustains
+  C: A set of clones at one level, differing only in sequence
+  D: A distribution, from which the screen picks the level needed
+  E: A prediction of level from sequence, needing no measurement
+answer: D
 explanation: |
-  The library is a population spanning a range, and what counts as the best member depends on the goal: a pathway enzyme may need a middling level, and a toxic product may need a weak one. Treating the library as a search for a maximum discards most of its value. B is wrong because sequencing the pool tells you what is there, not what works. C is a different experiment. D contradicts the method. E describes a model, which libraries are used to build rather than to replace.
+  The library is a population spanning a range, and what counts as the best member depends on the goal: a pathway enzyme may need a middling level and a toxic product a weak one. Treating the library as a search for a maximum discards most of its value. Sequencing the pool tells you what is there rather than what works, the host maximum is a different experiment, uniform levels contradict the method, and a predictive model is what libraries are used to build rather than to replace.
 ---
 slug: toxic_product_distorts_a_recovered_library
 difficulty: hard
 topic: Recognizing survivor bias in a recovered library
 question: |
-  You build a ribosome binding site library in front of a gene whose product is toxic above a certain level, transform, and grow the transformants overnight before picking. What does the recovered library look like relative to the one you designed?
+  You transform an RBS library in front of a gene whose product is toxic above some level, then grow overnight before picking. How does the recovered library differ from the design?
 choices:
-  A: Unchanged, since toxicity affects growth rate rather than survival.
-  B: Depleted of the strongest members, because those clones grow poorly or not at all.
-  C: Depleted of the weakest members, because they are outcompeted.
-  D: Enriched for the strongest members, since high expression gives a selective advantage.
-  E: Unchanged in composition but uniformly lower in copy number.
-answer: B
+  A: Unchanged, since toxicity affects rate rather than survival
+  B: Depleted of the weakest members, which are outcompeted
+  C: Depleted of the strongest, which grow poorly or not at all
+  D: Enriched for the strongest, which gain an advantage
+  E: Unchanged in composition but lower in copy number
+answer: C
 explanation: |
-  Overnight outgrowth is a selection whether or not you intended one. Clones expressing the toxic product most strongly divide slowly or die, so the high end of the designed distribution is thinned out or missing from what you pick. This is the same logic as plasmid loss under antibiotic: the population you measure is the population that survived the measurement. A understates it, since a growth-rate difference over many generations becomes a composition difference. C and D have the direction backwards. E invents an unrelated effect.
+  Overnight outgrowth is a selection whether or not you intended one. Clones expressing the toxic product most strongly divide slowly or die, so the high end of the designed distribution is thinned out or missing from what you pick. This is the same logic as plasmid loss under antibiotic: the population you measure is the population that survived the measurement. A growth-rate difference over many generations does become a composition difference, and the other options have the direction backwards or invent an unrelated effect.
 ---
 slug: why_an_rbs_library_rather_than_codon_changes
 difficulty: medium
 topic: Choosing a tuning handle with a predictable effect
 question: |
-  You need to tune the level of one enzyme across a wide range. Why is a ribosome binding site library a better handle than recoding the gene with alternative synonymous codons?
+  Why is an RBS library a better handle on one enzyme's level than recoding the gene with synonymous codons?
 choices:
-  A: Codon changes cannot alter protein level at all.
-  B: The ribosome binding site is a small, separable element whose variation spans a wide range without touching the protein sequence.
-  C: Codon changes require chip synthesis, which is unavailable for genes this size.
-  D: The ribosome binding site determines the protein's folding, which codons do not.
-  E: Synonymous codon changes alter the amino acid sequence and so confound the result.
+  A: Codon changes cannot alter protein level at all
+  B: A short separable element spans a wide range untouched protein
+  C: Codon changes need chip synthesis, unavailable at this size
+  D: The ribosome binding site determines how the protein folds
+  E: Synonymous changes alter the amino acid sequence
 answer: B
 explanation: |
-  Varying a short element upstream of the start codon gives a broad, roughly monotonic range of initiation rates while leaving the coding sequence untouched, which keeps the enzyme itself out of the comparison. Recoding does shift expression, but through several entangled mechanisms including message structure and elongation, and across the whole gene. A and E are false; synonymous changes do affect expression and by definition do not change the protein. C is false. D misattributes folding to the ribosome binding site.
+  Varying a short element upstream of the start codon gives a broad and roughly monotonic range of initiation rates while leaving the coding sequence alone, which keeps the enzyme itself out of the comparison. Recoding does shift expression, but through several entangled mechanisms including message structure and elongation, and across the whole gene. Synonymous changes by definition do not change the protein, and folding is not set by the ribosome binding site.
 ---
 slug: holding_the_context_constant_in_a_part_library
 difficulty: hard
 topic: Controlling the context around a varied part
 question: |
-  In the course's terminator work, each candidate terminator is cloned into the same position in the same reporter plasmid rather than tested in whatever vector it arrived in. Why does that matter?
+  Each candidate terminator is cloned into the same position in the same reporter plasmid rather than tested in the vector it arrived in. Why does that matter?
 choices:
-  A: It raises the theoretical diversity of the library.
-  B: It keeps everything other than the part under test identical, so differences in signal can be assigned to the part.
-  C: It is required for the parts to be sequenced by cycle sequencing.
-  D: It increases the copy number of the construct and so the signal.
-  E: It eliminates the need for an upstream reference reporter.
-answer: B
+  A: It raises the theoretical diversity of the library
+  B: It is required for the parts to be cycle sequenced
+  C: It raises the copy number and so the signal
+  D: It removes the need for an upstream reference reporter
+  E: It holds everything but the part under test identical
+answer: E
 explanation: |
-  A part's measured behavior depends on its surroundings: promoter, copy number, growth, and the reporters on either side. Putting every candidate into one fixed context makes the measurements comparable with each other, which is the whole premise of characterizing parts. A has nothing to do with it. C is false. D is incidental and not the reason. E is backwards, since the internal reference is still needed to handle clone-to-clone variation.
+  A part's measured behavior depends on its surroundings: promoter, copy number, growth, and the reporters on either side. Putting every candidate into one fixed context makes the measurements comparable with each other, which is the premise of characterizing parts at all. Diversity and sequencing are unrelated, any copy number change is incidental rather than the reason, and the internal reference is still needed to handle clone-to-clone variation.

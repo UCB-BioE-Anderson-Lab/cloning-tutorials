@@ -45,7 +45,7 @@ bioe140l_final:
       tuning_a_circuit_threshold:
         title: Moving the threshold of a sensor
         scope: |
-          Students should be able to work out which component of a repressor-promoter sensor sets the concentration at which it responds, and which components only change the size of the output. For a circuit in the shape of ArsR on Pars, TetR on Ptet or LacI on Plac, the ligand affinity of the repressor sets the detection threshold, while reporter output can be rescaled without moving it.
+          Students should be able to work out which component of a repressor-promoter sensor sets the concentration at which it responds, and which components only change the size of the output. The ligand affinity of the repressor sets the threshold, and repressor dosage shifts it too, while the reporter's ribosome binding site, the promoter and the copy number rescale the output without moving it. They should also be able to read a dose-response curve and say whether the threshold, the maximum or the steepness changed.
 
   whole_cell_analysis:
     title: Whole-cell analysis

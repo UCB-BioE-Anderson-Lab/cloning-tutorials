@@ -1,0 +1,150 @@
+---
+slug: which_step_sets_the_threshold
+difficulty: easy
+topic: Identifying where a sensor's threshold lives
+question: |
+  In a repressor-promoter sensor, at which step is the ligand concentration that triggers the response actually decided?
+choices:
+  A: At the ribosome binding site in front of the reporter gene
+  B: At the origin of replication setting the plasmid copy number
+  C: Where the repressor binds the ligand and changes conformation
+  D: At the maturation of the fluorescent reporter protein
+  E: At the promoter's contact with RNA polymerase holoenzyme
+answer: C
+explanation: |
+  The concentration at which the circuit flips is decided where the ligand is actually read, which is the repressor's binding site for it. Everything downstream converts that same decision into more or less signal: the ribosome binding site, the copy number and the promoter all scale the output without moving the point at which it appears, and maturation changes when you see the signal rather than at what concentration.
+---
+slug: stronger_reporter_rbs_effect
+difficulty: easy
+topic: Predicting the effect of changing the reporter's RBS
+question: |
+  A TetR-Ptet reporter gets a stronger ribosome binding site. What happens to its dose-response curve?
+choices:
+  A: It shifts toward lower inducer concentrations than before
+  B: It rises at every inducing concentration, turning on at the same one
+  C: It shifts toward higher inducer concentrations than before
+  D: It grows steeper without any change in its height
+  E: It disappears, as the reporter is no longer regulated
+answer: B
+explanation: |
+  A stronger ribosome binding site makes more reporter protein per message, so the whole curve scales up, baseline included, while the concentration at which the repressor lets go is untouched because nothing about ligand binding changed. A horizontal shift in either direction would require changing how the ligand is sensed, a steeper transition is a change in cooperativity, and regulation is unaffected.
+---
+slug: distinguishing_sensitivity_from_threshold
+difficulty: medium
+topic: Separating instrument sensitivity from circuit threshold
+question: |
+  When is it true that a biosensor's detection limit can be improved with a better plate reader?
+choices:
+  A: Always, since detection limit is a property of the measurement
+  B: Never, since instrument sensitivity affects no measurement at all
+  C: Only for enzymatic reporters, and not for fluorescent ones
+  D: Only when the reporter sits on a high copy number plasmid
+  E: When the signal is too faint to read, not when the circuit is silent
+answer: E
+explanation: |
+  Two different limits wear the same name. If the circuit does respond but the output falls below what the instrument can resolve, better optics help; if the repressor does not register the ligand at that concentration there is no signal to amplify and the instrument is irrelevant. The reporter chemistry and the copy number do not decide which of the two limits is binding.
+---
+slug: output_range_versus_threshold
+difficulty: medium
+topic: Distinguishing dynamic range from threshold
+question: |
+  Two sensor variants turn on at the same ligand concentration, but one reaches a tenfold higher maximum. Which quantity differs?
+choices:
+  A: The affinity of the repressor for its ligand
+  B: The cooperativity of repressor binding at the operator
+  C: The concentration at which the circuit is detected to respond
+  D: The dynamic range, which depends on reporter expression
+  E: Nothing measurable, as the two are equivalent sensors
+answer: D
+explanation: |
+  Identical turn-on points mean the sensing step is the same in both, so the difference lies downstream in how much reporter a derepressed promoter makes. Affinity and threshold are the quantities the question states are unchanged, cooperativity would alter the steepness of the transition rather than its height, and a tenfold difference in maximum is plainly measurable.
+---
+slug: transfer_function_three_features
+difficulty: medium
+topic: Reading which feature of a transfer function changed
+question: |
+  A modified sensor goes from barely on to fully on over a narrower range, with the midpoint and maximum unchanged. What was altered?
+choices:
+  A: The repressor's ligand affinity, which sets the midpoint
+  B: The strength of the ribosome binding site on the reporter
+  C: The cooperativity, rather than the threshold or the output level
+  D: The copy number of the plasmid carrying the reporter
+  E: The maturation rate of the fluorescent reporter protein
+answer: C
+explanation: |
+  Three features of a transfer function move independently: where it turns on, how high it goes, and how sharply it makes the transition. Only the third changed here, which is cooperativity, arising from multiple operator sites or from oligomeric repressor binding. Affinity sets the midpoint, which is stated to be unchanged, the ribosome binding site and copy number rescale the height, and maturation affects timing.
+---
+slug: repressor_dosage_moves_the_threshold
+difficulty: medium
+topic: Reasoning about repressor dosage
+question: |
+  You raise expression of the repressor severalfold and change nothing else. What happens to the dose-response curve?
+choices:
+  A: It shifts higher, as more inducer is needed to relieve repression
+  B: It shifts lower, as more protein is there to bind the ligand
+  C: Its maximum output rises with no shift along the axis
+  D: It is unaffected, since the repressor's affinity is unchanged
+  E: Its baseline rises, because excess repressor becomes leaky
+answer: A
+explanation: |
+  Affinity is unchanged, but there is more repressor to titrate, so a higher inducer concentration is needed before enough of it lets go to turn the promoter on. This is one of the few changes outside the binding site that genuinely moves a threshold, and it is why repressor dosage must be held constant when affinity variants are compared. More repressor tightens rather than loosens the off state.
+---
+slug: reading_two_dose_response_curves
+difficulty: hard
+topic: Interpreting two dose-response curves
+question: |
+  Variant one turns on at 1 micromolar and plateaus at 5000 units; variant two turns on at 10 micromolar with the same plateau. Which detects a 2 micromolar sample?
+choices:
+  A: Variant two, as a higher threshold gives a cleaner background
+  B: Either one, since both reach the same maximum signal
+  C: Neither, as a 5000 unit plateau is too low to read reliably
+  D: Variant two, as its curve sits where the assay is most accurate
+  E: Variant one, as 2 micromolar is above its threshold alone
+answer: E
+explanation: |
+  At 2 micromolar variant one is responding and variant two has not begun, so only one of them reports anything at all. The matched plateaus are the distraction here: equal maximum output says nothing about where the response begins. The cleaner-background and accuracy arguments assert benefits not in evidence, and a plateau is not a limitation on reading the signal.
+---
+slug: diagnosing_a_shifted_curve
+difficulty: hard
+topic: Inferring which component changed from a shifted curve
+question: |
+  After a round of mutagenesis on the repressor, a variant's curve shifts to lower ligand with the same maximum. What does that indicate?
+choices:
+  A: The repressor now binds its ligand more tightly than before
+  B: The plasmid is being maintained at a higher copy number
+  C: The reporter protein folds and matures faster than before
+  D: The reporter gene is being translated more efficiently now
+  E: The promoter has lost one of its operator sites entirely
+answer: A
+explanation: |
+  A horizontal shift with the height unchanged points at the sensing step, and since the mutagenesis was aimed at the repressor the straightforward reading is tighter ligand binding, so less ligand is needed to derepress. Translation, copy number and maturation would all change the height or the timing instead, and losing an operator would raise the baseline toward constitutive expression.
+---
+slug: directed_evolution_of_a_sensor
+difficulty: hard
+topic: Designing a campaign to retune a sensor
+question: |
+  You want a repressor that responds to a new small molecule and not to the original one. Which design fits?
+choices:
+  A: One round of mutagenesis, picking the brightest colony on the new ligand
+  B: A library of reporter ribosome binding sites read with the new ligand
+  C: Raising the copy number of the sensor plasmid and remeasuring
+  D: Replacing the reporter with a marker and plating on the old ligand
+  E: Mutagenize the binding domain, positive on new, negative on old, iterate
+answer: E
+explanation: |
+  Two things are asked for at once, gaining a response to the new ligand and losing the response to the old, and that pair of requirements is what a dual selection is for; iteration is needed because a specificity shift is usually built from several mutations. Testing only the gain in one round leaves wild type in the pool, the ribosome binding site and copy number change output rather than specificity, and plating on the old ligand selects against what you want to keep.
+---
+slug: what_a_threshold_change_requires
+difficulty: hard
+topic: Recognizing which changes cannot move a threshold
+question: |
+  Several groups report sensors with shifted thresholds. Which reported change could not, on its own, have moved one?
+choices:
+  A: A brighter reporter protein in place of the original one
+  B: A repressor variant with altered ligand dissociation kinetics
+  C: A severalfold change in how much repressor is expressed
+  D: Substitutions in the ligand-binding pocket of the repressor
+  E: A chimeric repressor with a binding domain from a homolog
+answer: A
+explanation: |
+  Swapping in a brighter reporter multiplies the output of a decision already made, so the curve rises without moving along the concentration axis. The other four all act on how the ligand is read or how much repressor must be titrated: pocket substitutions, altered binding kinetics, a swapped binding domain, and repressor dosage can each change the concentration at which the circuit responds.
