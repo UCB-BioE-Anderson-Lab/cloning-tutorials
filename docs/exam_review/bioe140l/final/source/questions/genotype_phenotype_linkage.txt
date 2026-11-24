@@ -1,0 +1,150 @@
+---
+slug: why_linkage_is_needed
+difficulty: easy
+topic: Understanding why a pooled selection needs linkage
+question: |
+  Why does a pooled selection require the molecule that performs the activity to stay physically associated with the DNA that encodes it?
+choices:
+  A: Because the DNA is what carries out the activity being selected.
+  B: Because the selection recovers a physical object, and you can only learn its identity by sequencing the DNA that came with it.
+  C: Because unlinked DNA is degraded during the selection step.
+  D: Because the selection cannot proceed unless the protein is encoded on a plasmid.
+  E: Because linkage increases the enrichment per round.
+answer: B
+explanation: |
+  A selection hands you back a captured or surviving sample, not a label. The only way to find out what you captured is to read the attached DNA, so the attachment has to survive the selection. A reverses the roles of protein and gene. C invents a mechanism. D names one implementation rather than the requirement. E confuses a precondition with a performance measure.
+---
+slug: pIII_fusion_in_phage_display
+difficulty: easy
+topic: Identifying how phage display achieves linkage
+question: |
+  In M13 phage display, how is a displayed antibody fragment connected to the gene encoding it?
+choices:
+  A: The gene is chemically crosslinked to the protein after the particle is assembled.
+  B: The protein is expressed as a fusion to P3 at the tip of the particle, and the phagemid encoding it is packaged inside that same particle.
+  C: The gene is displayed on the surface alongside the protein.
+  D: The protein is secreted into the medium while the gene stays in the cell.
+  E: The protein is fused to P8, which is the only coat protein that permits linkage.
+answer: B
+explanation: |
+  The particle is the link: the phagemid carrying the fusion gene is packaged into the very particle whose tip displays the fusion protein, so binding a protein captures its gene. A is not how phage display works. C is physically wrong. D breaks linkage entirely, which is the error this question checks. E names the wrong coat protein for a protein of this size, since P8 is used for multivalent display of very short peptides.
+---
+slug: selex_linkage_is_the_molecule_itself
+difficulty: medium
+topic: Recognizing that SELEX needs no separate linkage
+question: |
+  SELEX selects aptamers from a library of nucleic acids. Why does it not require a display system or a fusion protein?
+choices:
+  A: Because aptamers are selected by growth rather than by binding.
+  B: Because the molecule that binds is itself the nucleic acid, so genotype and phenotype are the same object.
+  C: Because the target is immobilized rather than the library.
+  D: Because reverse transcription recreates the linkage after elution.
+  E: Because aptamer libraries are small enough to screen individually.
+answer: B
+explanation: |
+  The whole problem of linkage comes from the activity residing in a protein while the information resides in DNA. In SELEX the binder is the DNA or RNA, so what you elute is directly amplifiable and sequenceable. A is false. C is true of the setup but is not the reason linkage is unnecessary. D has it backwards, since amplification is possible precisely because the linkage was never broken. E is false; these libraries reach ten to the fifteenth.
+---
+slug: yeast_display_mechanism
+difficulty: medium
+topic: Identifying the tether in yeast surface display
+question: |
+  In yeast surface display, what puts the protein of interest on the outside of the cell that carries its gene?
+choices:
+  A: Fusion to Aga2, which is tethered by disulfide bonds to Aga1 in the cell wall.
+  B: Insertion into a loop of an outer membrane barrel protein.
+  C: Packaging into a secreted vesicle along with the plasmid.
+  D: Fusion to P3 followed by infection with a helper phage.
+  E: Covalent attachment to agarose beads treated with cyanogen bromide.
+answer: A
+explanation: |
+  Aga2 is exported and held to the wall-anchored Aga1 through disulfides, carrying the fused protein with it, so the displayed protein and its plasmid stay in the same cell. B describes bacterial display with OmpX or a similar barrel. D is phage display. E is the column chemistry used to immobilize a SELEX target. C invents a mechanism.
+---
+slug: display_capacity_differences
+difficulty: medium
+topic: Choosing a display system from size and library limits
+question: |
+  You need to display a full-length protein of 400 amino acids and want the largest library you can get. Which pairing of system and constraint is correct?
+choices:
+  A: Bacterial display on OmpX, which handles full-length proteins at libraries of ten to the eleventh.
+  B: Yeast display handles full-length proteins but transformation limits the library to about ten to the seventh; phage display reaches about ten to the eleventh.
+  C: Phage display is limited to about ten to the seventh and yeast display to ten to the eleventh.
+  D: Both systems are limited by the diversity of the degenerate oligo rather than by transformation.
+  E: Neither system can display a protein of this length, so SELEX is the only option.
+answer: B
+explanation: |
+  The two systems trade off against each other: yeast tolerates full-length proteins but its transformation efficiency caps the library around ten to the seventh, while phage reaches about ten to the eleventh. A misstates bacterial display, which reliably handles peptides up to roughly eighty amino acids and is unreliable for longer proteins. C swaps the two numbers. D names the wrong limiting step. E is false and SELEX selects nucleic acids, not proteins.
+---
+slug: bulk_assay_breaks_linkage
+difficulty: medium
+topic: Recognizing a proposal that breaks linkage
+question: |
+  A colleague proposes selecting an improved secreted enzyme by growing the pooled library in one flask, assaying the culture supernatant, and keeping the pool if activity is high. What is wrong?
+choices:
+  A: Nothing, provided the assay is sensitive enough.
+  B: The secreted enzyme diffuses away from the cell that made it, so activity in the supernatant cannot be traced back to any genotype.
+  C: Secreted enzymes cannot be assayed outside the cell.
+  D: The pool would need to be sequenced before the assay rather than after.
+  E: The flask would need to be grown under antibiotic selection.
+answer: B
+explanation: |
+  Once the product leaves the cell it mixes with everything else in the flask, so a high reading tells you only that the pool as a whole contains something active. This is the classic linkage failure, and the fixes are to confine the product with the cell, in a droplet or a liposome, or to keep it on the surface. A ignores the problem entirely. C is false. D and E address unrelated steps.
+---
+slug: compartmentalization_restores_linkage
+difficulty: hard
+topic: Using compartmentalization to supply linkage
+question: |
+  Why does running a pooled assay on a secreted or soluble product inside water-in-oil droplets or liposomes rescue the experiment?
+choices:
+  A: Because the compartment raises the expression level of each variant.
+  B: Because each compartment holds one gene and the product it makes, so the product cannot mix with products of other variants.
+  C: Because compartments eliminate the need for sequencing the hits.
+  D: Because the compartment protects the DNA from nuclease degradation.
+  E: Because compartments allow the library to be larger than transformation would permit.
+answer: B
+explanation: |
+  A compartment is an artificial cell: it keeps one template and whatever that template produces in the same tiny volume, which restores the association the bulk flask destroyed. Sorting the compartments then sorts the genes. A, C and D are incidental or false. E confuses the linkage problem with the library size problem, although cell-free compartments do avoid transformation for other reasons.
+---
+slug: complementation_linkage
+difficulty: hard
+topic: Explaining linkage in a complementation selection
+question: |
+  In the chorismate mutase linker selection, the library is grown on minimal medium lacking aromatic amino acids in a knockout strain. What provides the genotype-phenotype link?
+choices:
+  A: The enzyme is displayed on the cell surface during growth.
+  B: The plasmid encoding the linker variant is inside the cell whose survival depends on that variant working.
+  C: The enzyme is covalently attached to its own gene during translation.
+  D: The knockout strain carries a barcode identifying each variant.
+  E: Each variant is grown in a separate well, so no linkage is needed.
+answer: B
+explanation: |
+  The cell is the compartment. A variant whose linker lets the enzyme fold into a working monomer makes aromatic amino acids and the cell divides, and the colony that results carries the plasmid you sequence. This is why in vivo selections need no display machinery at all. A and C invent mechanisms. D is not part of this design. E contradicts the pooled nature of the selection.
+---
+slug: inferring_genotype_from_expression
+difficulty: hard
+topic: Recognizing an invalid substitute for linkage
+question: |
+  A proposal for a pooled protein library suggests identifying the best variant by measuring, for the whole pool, which variants are most highly expressed. Why does that not answer the question?
+choices:
+  A: Expression cannot be measured in a pooled library.
+  B: Expression level and the activity being selected for are different properties, so abundance in the pool does not identify the best performer.
+  C: Expression is only measurable by cycle sequencing, which does not work on pools.
+  D: Expression differences are too small to detect by sequencing.
+  E: It would work, provided the pool is sequenced deeply enough.
+answer: B
+explanation: |
+  Abundance tells you which variants are present in quantity, which may reflect how well they clone, fold, or tolerate being made rather than how well they perform. The lesson is the same one the SELEX data makes: the most abundant sequences in a pool were not the enriched ones. A and C are false; pooled expression is read by counting reads. D is false. E compounds the error by proposing more of a measurement that answers a different question.
+---
+slug: linkage_requirement_for_a_small_molecule_product
+difficulty: hard
+topic: Choosing a linkage strategy for a diffusible product
+question: |
+  You have a library of enzyme variants whose product is a diffusible small molecule, and you want to select variants that make more of it. Which approach preserves linkage?
+choices:
+  A: Phage display of the enzyme followed by panning against the product.
+  B: A biosensor inside the same cell that turns on a selectable marker in response to the product.
+  C: Assaying the pooled culture supernatant by mass spectrometry.
+  D: Immobilizing the product on a column and passing the library over it.
+  E: Yeast surface display of the enzyme with the product detected in the medium.
+answer: B
+explanation: |
+  A biosensor keeps the readout inside the same cell as the gene, so a variant that makes more product makes its own cell survive, and the plasmid is recovered from the colony. A and D select for binding to the product rather than for making it. C is the bulk assay that destroys linkage. E links the enzyme to its gene but reads the product in the shared medium, so the readout is still pooled.

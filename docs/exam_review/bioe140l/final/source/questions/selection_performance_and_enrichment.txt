@@ -1,0 +1,150 @@
+---
+slug: definition_of_enrichment
+difficulty: easy
+topic: Defining enrichment
+question: |
+  Enrichment for a selection step is defined as which of the following?
+choices:
+  A: The number of hits recovered after the selection.
+  B: The frequency of hits in the final population divided by their frequency in the starting population.
+  C: The fraction of hits that survive the selection.
+  D: How strongly the selection prefers a hit over a non-hit.
+  E: The number of rounds required before hits become detectable.
+answer: B
+explanation: |
+  Enrichment is a ratio of frequencies, before and after, which is why it can be large even when very few molecules come through. C is the definition of recovery and D is the definition of specificity; both feed into enrichment but are not it. A is a count rather than a frequency and says nothing about the starting population. E is an observation about the campaign, not a definition.
+---
+slug: definition_of_specificity_and_recovery
+difficulty: easy
+topic: Distinguishing specificity from recovery
+question: |
+  A selection retains 90 percent of the hits in the library and also lets through 1 percent of the non-hits. Which statement names these quantities correctly?
+choices:
+  A: Recovery is 90 percent; the preference for hits over non-hits is the specificity.
+  B: Specificity is 90 percent; the enrichment is 1 percent.
+  C: Recovery is 1 percent; specificity is 90 percent.
+  D: Both numbers describe the enrichment, which is their sum.
+  E: Recovery is 90 percent and specificity cannot be stated without the number of rounds.
+answer: A
+explanation: |
+  Recovery asks what fraction of the hits survive, which is the 90 percent. Specificity asks how strongly the step prefers a hit to a non-hit, which is what the contrast between 90 percent and 1 percent expresses. B and C swap the two. D invents an arithmetic relation; enrichment is determined by both but is not a sum. E is wrong because specificity is a property of a single step.
+---
+slug: enrichment_calculation_from_plates
+difficulty: medium
+topic: Computing enrichment from colony counts
+question: |
+  Before a sort you plate the library and count 93 blue colonies and 1 red, where red marks a hit. After the sort you plate again and count 3 blue and 183 red. What is the enrichment?
+choices:
+  A: About 183, the number of red colonies recovered.
+  B: About 92.
+  C: About 2, the ratio of the two plate counts.
+  D: About 61, the ratio of red to blue after the sort.
+  E: It cannot be calculated without knowing the total library size.
+answer: B
+explanation: |
+  The frequency of reds before is 1 divided by 94, or 0.0106, and after is 183 divided by 186, or 0.984. The ratio of those two frequencies is about 92. A reports a raw count, which depends on how much was plated. C and D compute ratios that are not frequencies before over frequencies after. E is wrong because enrichment uses frequencies, so the library size cancels.
+---
+slug: why_multiple_rounds
+difficulty: medium
+topic: Explaining why selections are run for several rounds
+question: |
+  SELEX and phage panning typically take five or six rounds. Why is one round not enough?
+choices:
+  A: Because the library has to be resynthesized between rounds.
+  B: Because the enrichment per round is modest against a large background of non-specific binding, so the hit frequency has to be raised repeatedly.
+  C: Because the target degrades and must be replaced each round.
+  D: Because each round can only sample a fraction of the library.
+  E: Because the amplification step reduces diversity, which later rounds restore.
+answer: B
+explanation: |
+  Non-specific binding carries a great deal of the library through every round, so a single pass raises the hit frequency by a factor that is far short of what is needed to go from one in ten to the fifteenth to a workable pool. Repeating multiplies the enrichment. A is false; the pool is amplified, not rebuilt. C is incidental. D misstates the mechanism, since the whole library is passed over the target. E has the effect of amplification backwards.
+---
+slug: compounding_enrichment_across_rounds
+difficulty: medium
+topic: Reasoning about enrichment over several rounds
+question: |
+  A selection step gives an enrichment of about 20. Starting from a hit frequency of one in a million, roughly what is the hit frequency after three rounds, assuming each round performs the same?
+choices:
+  A: About one in a hundred and twenty-five, since the per-round enrichments multiply to about 8000.
+  B: About one in a million still, since enrichment does not accumulate.
+  C: About one in seventeen thousand, since the per-round enrichments add to about 60.
+  D: About one in sixty, since three rounds of twenty are equivalent to one round of sixty.
+  E: It cannot be estimated without knowing the recovery.
+answer: A
+explanation: |
+  Each round multiplies the hit frequency by the enrichment, so three rounds give 20 cubed, which is 8000, and one in a million becomes roughly one in a hundred and twenty-five. C and D both add the per-round figures instead of multiplying them, which is the usual error and which badly understates how quickly a selection converges. B denies compounding altogether. E is wrong because recovery is already folded into the enrichment figure.
+---
+slug: recovery_versus_enrichment_tradeoff
+difficulty: medium
+topic: Trading recovery against enrichment
+question: |
+  You make the washes in a panning experiment much more stringent. What is the likely effect?
+choices:
+  A: Both recovery and enrichment fall.
+  B: Enrichment per round rises because more non-specific binders are removed, while recovery of true hits falls.
+  C: Recovery rises because only true binders are left.
+  D: Neither changes, since washing affects only the volume recovered.
+  E: Enrichment falls because fewer molecules are recovered.
+answer: B
+explanation: |
+  Harsher washing discriminates more sharply, so the surviving pool is purer, but weakly binding real hits are lost along with the background. That trade is the reason stringency is tuned rather than maximized, and it is why early rounds are often run gently. A and E confuse the number of molecules recovered with the frequency of hits among them. C misuses recovery, which refers to the hits specifically. D ignores the mechanism.
+---
+slug: abundance_is_not_enrichment
+difficulty: hard
+topic: Separating abundance from enrichment in a sequenced pool
+question: |
+  You deep-sequence the final round of a selection and find ten sequences with by far the highest copy numbers. Why can you not conclude that these are your best binders?
+choices:
+  A: Because copy number cannot be measured accurately by sequencing.
+  B: Because a sequence can be abundant for reasons unrelated to the selection, such as efficient synthesis or amplification, and only a rising frequency across rounds shows selection acting.
+  C: Because the best binders are always rare in the final pool.
+  D: Because the final round is always dominated by the starting library.
+  E: Because abundance reflects binding affinity, which is not the same as specificity.
+answer: B
+explanation: |
+  Abundance at the end is a snapshot and has no before to compare against. In the published case the ten most abundant sequences in the final pool were the same ten in every round and showed no enrichment at all, while real hits appeared at low frequency early and climbed by thousands of fold. Reading the end point alone is exactly the error. A is false. C overstates it into a rule. D is false. E misdiagnoses the problem as a distinction between affinity and specificity.
+---
+slug: enrichment_requires_a_before_measurement
+difficulty: hard
+topic: Recognizing what an enrichment calculation requires
+question: |
+  You sorted a library and recovered a pool in which 95 percent of clones are hits, but you did not plate the library before sorting. What can you report?
+choices:
+  A: The enrichment, since the starting frequency of a random library is known to be negligible.
+  B: The final hit frequency, but not the enrichment, which requires the starting frequency.
+  C: Both the specificity and the recovery of the sort.
+  D: The recovery, since 95 percent of what came through were hits.
+  E: Nothing quantitative at all.
+answer: B
+explanation: |
+  Enrichment is a ratio and the denominator is a measurement you either made or did not. Without the before plate you have a perfectly good final frequency and no enrichment. A substitutes an assumption for a measurement, which is the habit this question is testing. C requires knowing what happened to hits and non-hits separately. D misreads the 95 percent, which is a purity rather than a fraction of hits retained. E is too pessimistic.
+---
+slug: diagnosing_a_failed_selection
+difficulty: hard
+topic: Diagnosing a selection that fails to enrich
+question: |
+  After six rounds, the eluted fraction has not risen and sequencing shows the pool is as diverse as the starting library. Which explanation is most consistent with that result?
+choices:
+  A: Recovery is too low, so the hits were lost even though the specificity was high.
+  B: Either the library contains no hits, or the step has essentially no specificity, so hits and non-hits come through alike.
+  C: The enrichment was too high, collapsing the pool prematurely.
+  D: The amplification step introduced too much diversity between rounds.
+  E: The target was immobilized too densely.
+answer: B
+explanation: |
+  Undiminished diversity and a flat elution signal mean the population is not being sorted at all, which happens when there is nothing to find or when the step cannot tell hits from background. A would reduce the amount recovered but would still leave the survivors skewed toward hits. C describes the opposite result. D attributes a thousandfold diversity to PCR error, which it cannot produce. E would be expected to raise, not abolish, binding.
+---
+slug: negative_selection_in_a_dual_scheme
+difficulty: hard
+topic: Explaining why a positive selection alone is insufficient
+question: |
+  In the LuxR specificity work, the positive selection is run with the new small molecule and clears out everything that does not activate the promoter. Why is a negative selection still required?
+choices:
+  A: Because the positive selection also removes variants with the desired new specificity.
+  B: Because wild-type LuxR survives the positive round by responding to something it could already respond to, and only a round that kills responders to the old ligand removes it.
+  C: Because the positive selection leaves too few survivors to sequence.
+  D: Because the negative selection raises the recovery of the desired variants.
+  E: Because chloramphenicol resistance decays over successive rounds.
+answer: B
+explanation: |
+  The survivors of the positive round are a mixture of genuinely reprogrammed variants and wild type, because activating the promoter is not by itself evidence of new specificity. The negative round, run with the old ligand and a counter-selectable marker, removes anything that still answers to the old stimulus. A contradicts the purpose of the positive round. C is not the stated problem. D misattributes the effect, since the negative round removes rather than retains. E invents a mechanism.
