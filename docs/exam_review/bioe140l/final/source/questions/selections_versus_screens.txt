@@ -5,119 +5,119 @@ topic: Distinguishing a selection from a screen
 question: |
   What is the defining difference between a selection and a screen?
 choices:
-  A: A selection measures every member of the library; a screen measures only a sample of it.
-  B: In a selection the hits survive or are captured and the rest are lost; in a screen every member is measured individually.
-  C: A selection is done in vitro and a screen is done in living cells.
-  D: A selection reports a quantitative value for each member; a screen reports only survival.
-  E: A selection requires sequencing and a screen does not.
-answer: B
+  A: A selection measures every member; a screen samples some
+  B: A selection runs in vitro; a screen runs in living cells
+  C: A selection reports a value per member; a screen reports survival
+  D: In a selection hits persist and the rest are lost; a screen assays each
+  E: A selection needs sequencing afterward and a screen does not
+answer: D
 explanation: |
-  A selection applies a condition under which hits persist and non-hits are removed, so the library sorts itself and you never handle the losers. A screen assays members one at a time, so you learn something about each one but your effort scales with the library. A reverses the two. C is false; complementation and amber suppression are in vivo selections and SELEX is in vitro. D inverts the readouts, since the quantitative per-member value is what a screen gives you. E is unrelated.
+  A selection applies a condition under which hits persist and non-hits are removed, so the library sorts itself and you never handle the losers. A screen assays members one at a time, so you learn something about each one but your effort scales with the library. Both run in vitro and in vivo, as SELEX and complementation show, and it is the screen rather than the selection that returns a quantitative value per member.
 ---
 slug: why_large_libraries_need_selection
 difficulty: easy
 topic: Matching the method to library size
 question: |
-  Why are combinatorial libraries usually handled by selection rather than by screening each clone?
+  Why are combinatorial libraries usually handled by selection rather than clone-by-clone screening?
 choices:
-  A: Because screening cannot be made quantitative.
-  B: Because the libraries are far larger than the number of clones anyone can assay one at a time.
-  C: Because selections are cheaper per clone but otherwise equivalent in information.
-  D: Because screening requires sequencing every member first.
-  E: Because selections avoid the need for genotype-phenotype linkage.
+  A: Because screening can never be made quantitative
+  B: Because they hold far more members than anyone can assay singly
+  C: Because selections are cheaper but otherwise equivalent
+  D: Because screening requires sequencing every member first
+  E: Because selections avoid needing genotype-phenotype linkage
 answer: B
 explanation: |
-  A SELEX library is on the order of ten to the fifteenth and a phage display library can reach ten to the eleventh, while picking and assaying clones by hand tops out in the hundreds. The mismatch in scale is the entire reason selections exist. A is false. C understates the difference, since a selection also discards the information a screen would have collected. D is false. E is backwards: linkage is precisely what a pooled selection requires and a clone-by-clone screen does not.
+  A SELEX library runs to about ten to the fifteenth and a phage display library can reach ten to the eleventh, while picking and assaying clones by hand tops out in the hundreds. That mismatch in scale is the entire reason selections exist. A selection also discards the information a screen would have collected, so the two are not equivalent, and linkage is precisely what a pooled selection requires and a screen does not.
 ---
 slug: rbs_library_can_be_screened
 difficulty: medium
 topic: Recognizing a library small enough to screen
 question: |
-  The course notes that some libraries, such as ribosome binding site libraries, are not too big to screen. What makes that true?
+  Some libraries, such as ribosome binding site libraries, are not too big to screen. What makes that true?
 choices:
-  A: Ribosome binding sites have no sequence diversity to speak of.
-  B: The degenerate region is short, so the theoretical diversity is small enough that a plate of picked clones covers a useful fraction of it.
-  C: Ribosome binding site libraries cannot be selected, so screening is the only option.
-  D: Expression level cannot be linked to survival under any circumstances.
-  E: Screening becomes practical only when the library is built by EIPCR.
-answer: B
+  A: Ribosome binding sites carry no real sequence diversity
+  B: Such libraries cannot be selected, leaving screening only
+  C: Expression can never be coupled to the survival of a cell
+  D: Screening is practical only for libraries built by EIPCR
+  E: A short degenerate region keeps the diversity in the hundreds
+answer: E
 explanation: |
-  An RBS library with a handful of degenerate positions has a diversity in the hundreds or low thousands, so picking a plate of colonies and reading a reporter samples enough of it to be informative. The decision is made from the theoretical diversity during design, which is why you calculate it before you build. A is false. C and D are both false, since expression can be coupled to a selectable marker. E confuses the construction method with the scale.
+  An RBS library with a handful of degenerate positions has a diversity in the hundreds or low thousands, so a plate of picked colonies samples enough of it to be informative. That decision is made from the theoretical diversity during design, which is why you calculate it before you build. Expression is readily coupled to a selectable marker, so selection remains available, and the construction method has no bearing on the scale.
 ---
 slug: diversity_calculation_precedes_the_choice
 difficulty: medium
 topic: Deciding screen or selection during design
 question: |
-  At what point in a library experiment should you decide whether you will screen or select, and on what basis?
+  When should you decide whether to screen or select, and on what basis?
 choices:
-  A: After transformation, based on how many colonies appeared.
-  B: During design, based on the theoretical diversity of the library you are about to build.
-  C: After the first round of assays, based on whether any hits were found.
-  D: During design, based on which sequencing platform is available.
-  E: It does not matter, since a screen can always be converted into a selection afterward.
+  A: After transformation, from how many colonies appeared
+  B: During design, from the theoretical diversity of the library
+  C: After the first assays, from whether any hits were found
+  D: During design, from which sequencing platform is available
+  E: It does not matter, as a screen converts to a selection later
 answer: B
 explanation: |
-  The theoretical diversity is known from the design before any DNA is made, and it determines whether a clone-by-clone assay can cover the library at all. Deciding afterward means you may have built something you have no way to interrogate. A is too late and conflates coverage with method. C is later still. D is a downstream consideration. E is false, since a selection requires a genotype-phenotype link that most screens do not provide.
+  The theoretical diversity is known from the design before any DNA is made, and it determines whether a clone-by-clone assay can cover the library at all. Deciding afterward means you may have built something you have no way to interrogate. The colony count conflates coverage with method and comes too late, the platform is a downstream consideration, and converting a screen to a selection requires a genotype-phenotype link most screens do not provide.
 ---
 slug: enrichment_then_individual_characterization
 difficulty: medium
-topic: Sequencing the order of selection and characterization
+topic: Sequencing selection and characterization
 question: |
-  In SELEX, what is done after the rounds of selection are complete and the eluted fraction has climbed?
+  After the rounds of a SELEX are complete and the eluted fraction has climbed, what happens next?
 choices:
-  A: The pool is reported as the answer, since selection has already identified the best binder.
-  B: The library is cloned, individual members are picked and sequenced, and those hits are characterized separately.
-  C: The pool is subjected to further rounds until only one sequence remains.
-  D: The pool is screened clone by clone before any selection is applied.
-  E: The pool is discarded and the experiment is repeated with a fresh library.
-answer: B
+  A: The pool is reported, as selection already found the best binder
+  B: Further rounds are run until a single sequence remains
+  C: The pool is cloned, members are picked, sequenced and characterized
+  D: The pool is screened clone by clone before selection is applied
+  E: The pool is discarded and a fresh library is selected again
+answer: C
 explanation: |
-  A selection narrows a library from an unmanageable size to a pool small enough to handle individually, and that is where the clone-by-clone work begins: clone the pool, pick members, sequence them, and measure their affinity on their own. A treats enrichment as a final answer when the pool still contains non-specific binders. C is not how the rounds behave and is not the goal. D inverts the order. E discards the result.
+  A selection narrows a library from an unmanageable size to a pool small enough to handle individually, and that is where clone-by-clone work begins: clone the pool, pick members, sequence them, and measure affinity on their own. Reporting the pool treats enrichment as a final answer when it still contains non-specific binders, and running to a single sequence is neither how the rounds behave nor the goal.
 ---
 slug: selection_discards_information
 difficulty: medium
 topic: Recognizing what a selection does not tell you
 question: |
-  A selection recovers hits from a library of ten million. What information does it not give you that a screen of the same library would have?
+  A selection recovers hits from a library of ten million. What does it not tell you that a screen would have?
 choices:
-  A: The sequence of the recovered hits.
-  B: A measured value for every member, including those that failed and by how much.
-  C: Whether the recovered clones are viable.
-  D: The theoretical diversity of the library.
-  E: Nothing; a selection gives strictly more information than a screen.
-answer: B
+  A: The sequences of the clones that were recovered
+  B: Whether the recovered clones are viable at all
+  C: The theoretical diversity of the starting library
+  D: A value for every member, including failures and by how much
+  E: Nothing, as a selection yields strictly more than a screen
+answer: D
 explanation: |
-  Non-hits are physically removed in a selection, so there is no record of how any of them performed; you learn which members passed a threshold and nothing about the shape of the distribution behind it. That is a trade you accept in exchange for handling a library no screen could cover. A is wrong because recovered hits are sequenced. C and D are unaffected by the choice. E is the error this question is checking.
+  Non-hits are physically removed in a selection, so no record survives of how any of them performed; you learn which members passed a threshold and nothing about the distribution behind it. That is the trade you accept in exchange for handling a library no screen could cover. Recovered hits are of course sequenced, and viability and theoretical diversity are unaffected by the choice of method.
 ---
 slug: screen_scale_arithmetic
 difficulty: medium
 topic: Comparing library size against screening capacity
 question: |
-  Your library has a diversity of about ten to the sixth and a single clone takes a minute to pick and assay. Why is a screen not an option?
+  Your library has diversity near a million and one clone takes a minute to pick and assay. Why is a screen not an option?
 choices:
-  A: Because the assay would lose sensitivity at that scale.
-  B: Because a million minutes is roughly two years of continuous work.
-  C: Because libraries above ten thousand members cannot be transformed.
-  D: Because the clones would be too similar to distinguish.
-  E: Because screens require a selectable marker, which this library lacks.
-answer: B
+  A: Because the assay loses sensitivity at that scale
+  B: Because libraries above ten thousand cannot be transformed
+  C: Because a million minutes is on the order of two years
+  D: Because the clones would be too similar to tell apart
+  E: Because screens need a selectable marker this library lacks
+answer: C
 explanation: |
-  The argument is arithmetic, not biology: a million one-minute assays is on the order of two years, which settles the matter before any question of sensitivity arises. Recognizing when the scale alone rules out a method is the point of the exercise. A is a distraction. C is false. D does not follow. E has it backwards, since it is selections that need the marker.
+  The argument is arithmetic rather than biology: a million one-minute assays is roughly two years of continuous work, which settles the matter before any question of sensitivity arises. Recognizing when the scale alone rules out a method is the point. Libraries far above ten thousand are transformed routinely, and it is selections rather than screens that need the marker.
 ---
 slug: fluorescence_sorting_as_a_selection
 difficulty: hard
 topic: Classifying a sort as a selection
 question: |
-  You scrape a library off a plate, sort it by fluorescence on a cytometer, and keep the brightest fraction. Is that a screen or a selection?
+  You scrape a library off a plate, sort by fluorescence, and keep the brightest fraction. Is that a screen or a selection?
 choices:
-  A: A screen, because fluorescence is measured on each cell.
-  B: A selection, because the population is partitioned and the non-hits are discarded without being recorded.
-  C: Neither, since cytometry is an analytical method rather than an enrichment.
-  D: A screen, because no cells are killed.
-  E: A selection only if a kill step such as an antibiotic is included.
+  A: A screen, because fluorescence is measured on each cell
+  B: A selection, as the pool is partitioned with no record kept
+  C: Neither, since cytometry analyzes rather than enriches
+  D: A screen, because none of the cells are actually killed
+  E: A selection only if a kill step such as a drug is included
 answer: B
 explanation: |
-  The instrument does measure each cell, which is what makes A tempting, but no per-clone value is retained and the unselected cells are thrown away: what comes out is an enriched population, not a table of results. Survival is not the criterion that defines a selection; partitioning without a per-member record is. C is false, since sorting is routinely used to enrich. D makes survival the test. E adds a requirement that does not exist.
+  The instrument does measure each cell, which is what makes the screen answer tempting, but no per-clone value is retained and the unselected cells are discarded: what comes out is an enriched population rather than a table of results. Survival is not what defines a selection; partitioning without a per-member record is. Sorting is used to enrich all the time, so it is not merely analytical.
 ---
 slug: arraying_as_the_middle_ground
 difficulty: hard
@@ -125,26 +125,26 @@ topic: Placing arrayed screening between picking and selection
 question: |
   You need per-variant expression values for about two thousand library members. Which workflow fits?
 choices:
-  A: A pooled selection, since two thousand is too many to handle individually.
-  B: Arraying the clones into microtiter plates with a colony picker and reading them on a plate reader.
-  C: Picking and assaying the clones one at a time in tubes.
-  D: SELEX against an immobilized target.
-  E: Sorting the pool by fluorescence and keeping the brightest fraction.
-answer: B
+  A: A pooled selection, as two thousand is too many to handle
+  B: Picking and assaying the clones one at a time in tubes
+  C: SELEX against the target protein immobilized on a column
+  D: Sorting the pool and keeping only the brightest fraction
+  E: A colony picker arraying into plates read on a plate reader
+answer: E
 explanation: |
-  The requirement is a value for each member, which rules out anything pooled, and two thousand is well within reach of a colony picker and a few dozen plates. This is the regime automation exists to serve. A and E both discard the per-variant values that were asked for. C would work in principle but is an unnecessary two thousand manual assays. D is a binding selection and reports nothing about expression.
+  The requirement is a value for each member, which rules out anything pooled, and two thousand is well within reach of a colony picker and a few dozen plates. This is the regime automation exists to serve. Pooling and sorting both discard the per-variant values that were asked for, picking by hand would work but means two thousand manual assays, and a binding selection reports nothing about expression.
 ---
 slug: selection_cannot_report_a_distribution
 difficulty: hard
 topic: Matching the method to the question rather than the scale
 question: |
-  You want to know how promoter strength is distributed across a library of fifty thousand variants, not merely to find the strongest. Why is a growth selection on a resistance marker a poor fit?
+  You want the distribution of promoter strengths across fifty thousand variants, not just the strongest. Why is a growth selection a poor fit?
 choices:
-  A: Fifty thousand members is too small a library for a selection.
-  B: A growth selection reports only whether each variant cleared a threshold, so the shape of the distribution is lost.
-  C: Resistance markers cannot be driven by variable promoters.
-  D: Selections require long-read sequencing, which is unavailable at this scale.
-  E: Promoter strength cannot be linked to survival in any way.
-answer: B
+  A: Fifty thousand members is too small a library to select on
+  B: Resistance markers cannot be driven by a variable promoter
+  C: Selections require long reads, unavailable at this scale
+  D: It reports only whether each variant cleared a threshold
+  E: Promoter strength cannot be linked to survival in any way
+answer: D
 explanation: |
-  The question asked for a distribution, and a survival selection gives a binary outcome per variant set by the drug concentration. The right instrument here is a pooled measurement that returns counts per variant, such as barcode sequencing of transcripts, which preserves the whole range. A inverts the scale argument. C and E are both false; this coupling is exactly how such selections are built. D invents a requirement.
+  The question asked for a distribution, and a survival selection gives a binary outcome per variant set by the drug concentration. The right instrument is a pooled measurement returning counts per variant, such as barcode sequencing of transcripts, which preserves the whole range. Coupling promoter strength to a resistance marker is exactly how such selections are built, so the coupling objections are false.

@@ -1,154 +1,154 @@
 {
   "library_diversity_and_coverage": [
     {
-      "slug": "diversity_product_of_degenerate_positions",
+      "slug": "diversity_is_a_product",
       "difficulty": "easy",
       "topic": "Computing theoretical diversity from degenerate positions",
-      "question": "An oligo for a saturation library contains the stretch 5'-...AANDSNRYT...-3', where the degenerate positions are N, D, S, N, R and Y. Which expression gives the theoretical diversity of the library?\n",
+      "question": "A cassette carries the degenerate stretch S-W-H, where S is two bases, W is two and H is three. Which expression gives its theoretical diversity?\n",
       "choices": {
-        "A": "4 + 3 + 2 + 4 + 2 + 2",
-        "B": "4 x 3 x 2 x 4 x 2 x 2",
-        "C": "4^6",
-        "D": "6^4",
-        "E": "(4 x 3) + (2 x 4) + (2 x 2)"
+        "A": "2 x 2 x 3, multiplying the options at each position",
+        "B": "2 + 2 + 3, summing the options at each position",
+        "C": "3^3, three options at three positions",
+        "D": "3^2, three positions squared",
+        "E": "(2 x 2) + 3, grouping the pair first"
       },
-      "answer": "B",
-      "explanation": "Each degenerate code stands for a set of bases: N is any of four, D is three, S is two, R is two and Y is two. The positions vary independently within one molecule, so the number of distinct sequences is the product across positions. A and E add instead of multiplying, which is the single most common error on this kind of question. C assumes every degenerate position is N. D inverts the roles of base count and position count."
+      "answer": "A",
+      "explanation": "Each position varies independently within one molecule, so the number of distinct sequences is the product across positions. Adding gives the number of options you have altogether, not the number of combinations, and it is the most common error on this kind of question. Treating every position as three-fold ignores the specific codes, and squaring the position count inverts the roles of bases and positions."
+    },
+    {
+      "slug": "choosing_a_code_for_a_target_diversity",
+      "difficulty": "easy",
+      "topic": "Working backward from a target diversity",
+      "question": "You want exactly 16 variants from two degenerate positions. Which pair of codes gives that?\n",
+      "choices": {
+        "A": "N and N, since 4 x 4 is 16",
+        "B": "N and S, since 4 x 2 is 16",
+        "C": "W and W, since 2 x 2 is 16",
+        "D": "N and D, since 4 x 3 is 16",
+        "E": "H and H, since 3 x 3 is 16"
+      },
+      "answer": "A",
+      "explanation": "N stands for all four bases, so two N positions give four times four. The others state their own arithmetic correctly but reach 8, 4, 12 and 9 rather than 16, so the work is in knowing how many bases each letter covers: N is four, D and H and V and B are three, and the rest are two."
     },
     {
       "slug": "nnk_versus_nnn_codon_choice",
       "difficulty": "easy",
       "topic": "Why NNK is used for saturation mutagenesis",
-      "question": "You are saturating three positions in a protein and your colleague asks why the oligo specifies NNK at each codon rather than NNN. What is the real reason?\n",
+      "question": "Why does a saturation oligo usually specify NNK at each codon rather than NNN?\n",
       "choices": {
-        "A": "NNK removes every stop codon from the library.",
-        "B": "NNK samples all twenty amino acids with fewer codons and only one stop.",
-        "C": "NNK gives each of the twenty amino acids an equal chance of appearing.",
-        "D": "NNK is the only degenerate code a DNA synthesizer can produce reliably.",
-        "E": "NNK restricts the library to the subset of amino acids found in the wild-type protein."
+        "A": "NNK removes every stop codon from the library",
+        "B": "NNK still covers all twenty amino acids but leaves only one stop",
+        "C": "NNK gives all twenty amino acids an equal chance of appearing",
+        "D": "NNK is the only code a DNA synthesizer makes reliably",
+        "E": "NNK restricts the library to the wild-type amino acids"
       },
       "answer": "B",
-      "explanation": "NNK is thirty-two codons rather than sixty-four. It still encodes all twenty amino acids, but it leaves only one stop codon instead of three, so a smaller library carries a smaller dead fraction. A is the attractive wrong answer: the amber stop survives in NNK. C is false because codon redundancy still differs between amino acids, so leucine and serine remain over-represented relative to methionine and tryptophan. D and E are inventions."
+      "explanation": "NNK is 32 codons rather than 64. It still encodes all twenty amino acids, but it carries one stop instead of three, so a smaller library carries a smaller dead fraction. The attractive wrong answer is that it removes every stop: the amber stop survives in NNK. Codon redundancy still differs between amino acids, so leucine and serine stay over-represented relative to methionine and tryptophan."
     },
     {
       "slug": "transformation_is_the_ceiling",
       "difficulty": "medium",
       "topic": "Identifying the step that limits library size",
-      "question": "You design a degenerate library with a theoretical diversity of about ten to the ninth, amplify it by PCR, ligate it and transform it into competent cells. Which step sets the practical ceiling on how many distinct variants you end up able to screen?\n",
+      "question": "A degenerate library is amplified by PCR, ligated and transformed. Which step sets the practical ceiling on how many distinct variants you can screen?\n",
       "choices": {
-        "A": "The number of PCR cycles used to amplify the degenerate product.",
-        "B": "The transformation, because the number of colonies bounds the number of distinct clones.",
-        "C": "The plasmid copy number, because each cell can only hold so many variants.",
-        "D": "The synthesis scale of the degenerate oligo, which caps the number of sequences made.",
-        "E": "The sequencing depth used later to check the library."
+        "A": "The number of cycles in the amplification",
+        "B": "The plasmid copy number maintained within each cell",
+        "C": "The transformation, since colonies bound distinct clones",
+        "D": "The synthesis scale of the degenerate oligo",
+        "E": "The sequencing depth used to check the library"
       },
-      "answer": "B",
-      "explanation": "The DNA pool coming off a synthesizer and through PCR easily contains far more distinct molecules than the design calls for. What you can actually clone, grow and assay is bounded by how many independent transformants you obtain, which is why library construction is reported in transformants. A is wrong because cycles amplify copies, not variety. C confuses copies per cell with variants per library. D is wrong at any ordinary synthesis scale, which yields picomoles of molecules. E is a measurement made afterward and changes nothing about what the library contains."
+      "answer": "C",
+      "explanation": "The DNA coming off a synthesizer and through PCR contains far more distinct molecules than any design calls for. What you can clone, grow and assay is bounded by how many independent transformants you obtain, which is why library construction is reported in transformants. Cycles amplify copies rather than variety, copy number is copies per cell rather than variants per library, and ordinary synthesis yields picomoles of molecules."
     },
     {
       "slug": "coverage_factor_meaning",
       "difficulty": "medium",
-      "topic": "Interpreting the coverage requirement for a library",
-      "question": "For a library of theoretical diversity n, you are told you need roughly 4.6 x n transformants. What does that number mean?\n",
+      "topic": "Interpreting the coverage requirement",
+      "question": "For a library of diversity n you are told to collect about 4.6 x n transformants. What does that factor mean?\n",
       "choices": {
-        "A": "It is the number of transformants at which about 99 percent of designed members are present at least once.",
-        "B": "It is the number of PCR reactions needed to build the library.",
-        "C": "It is the number of transformants at which every member is present exactly once.",
-        "D": "It is the fold-excess of oligo over template required during the construction PCR.",
-        "E": "It is the number of colonies you must sequence to confirm the library."
+        "A": "The point at which about 99 percent of members appear at least once",
+        "B": "The fold-excess of oligo over template in the PCR",
+        "C": "The number of colonies you must sequence to confirm the design",
+        "D": "The point at which every member is present exactly once",
+        "E": "The number of pooled reactions the construction requires"
       },
       "answer": "A",
-      "explanation": "Sampling n variants at random into a pool of transformants follows a Poisson distribution, and the chance a given member is missed after sampling k x n times is about e to the minus k. Setting that to one percent gives k of about 4.6. B confuses coverage with construction, which takes one reaction whatever n is. C is impossible, since random sampling never gives a uniform one copy each. D and E attach the number to unrelated steps."
+      "explanation": "Sampling n variants at random follows a Poisson distribution, and the chance a given member is missed after sampling k x n times is about e to the minus k. Setting that to one percent gives k of about 4.6. Exactly one copy each is impossible, since random sampling piles copies onto some members while missing others, and the remaining options attach the factor to steps it has nothing to do with."
     },
     {
       "slug": "coverage_at_two_fold_sampling",
       "difficulty": "medium",
-      "topic": "Estimating the missing fraction from the sampling depth",
-      "question": "Your library has a theoretical diversity of ten thousand and you recover twenty thousand transformants. Roughly what fraction of designed members do you expect to be absent entirely?\n",
+      "topic": "Estimating the missing fraction from sampling depth",
+      "question": "Your library has diversity n and you recover 2 x n transformants. Roughly what fraction of designed members is absent?\n",
       "choices": {
-        "A": "None, because you collected twice as many colonies as there are members.",
-        "B": "About half, because colonies are shared between duplicates and new members.",
-        "C": "About thirteen percent.",
-        "D": "About one percent, since twice the diversity is the standard coverage target.",
-        "E": "About eighty-six percent."
+        "A": "None, since you collected twice as many colonies as members",
+        "B": "About e to the minus 2, or roughly an eighth",
+        "C": "About half, since colonies are shared among duplicates",
+        "D": "About 1 percent, the standard coverage target",
+        "E": "About seven eighths, the complement of the covered share"
       },
-      "answer": "C",
-      "explanation": "At a sampling depth of k times the diversity, the expected fraction missed is about e to the minus k, and e to the minus two is about 0.135. A is the intuition the Poisson result exists to correct: random sampling piles multiple copies onto some members while missing others entirely. B has no basis. D quotes the right target but the wrong depth, since one percent missing needs about 4.6 x n. E inverts the answer and reports the fraction covered as the fraction missing."
+      "answer": "B",
+      "explanation": "At a sampling depth of k times the diversity the expected fraction missed is about e to the minus k, and e to the minus 2 is a little over 0.13. Expecting none is the intuition the Poisson result exists to correct, since random sampling misses some members entirely. One percent is the right target quoted at the wrong depth, which needs about 4.6 x n, and seven eighths reports the covered share as the missing one."
     },
     {
       "slug": "scaling_degeneracy_and_reaction_count",
       "difficulty": "medium",
-      "topic": "Separating library diversity from the number of reactions",
-      "question": "You revise a degenerate oligo from two NNK codons to four, raising the theoretical diversity from about a thousand to about a million. How does the number of PCR reactions needed to build the library change?\n",
+      "topic": "Separating diversity from the number of reactions",
+      "question": "You widen a degenerate oligo so the diversity rises about a thousandfold. Which downstream quantity scales with that change?\n",
       "choices": {
-        "A": "It rises in proportion to the diversity.",
-        "B": "It rises by a factor of 4.6 to maintain coverage.",
-        "C": "It does not change; the library is built in one pooled reaction either way.",
-        "D": "It rises with the square root of the diversity.",
-        "E": "It falls, because longer degenerate tracts amplify more efficiently."
+        "A": "The number of pooled construction reactions",
+        "B": "The number of degenerate oligos you must order",
+        "C": "The transformants needed to cover the library",
+        "D": "The number of ligations the workflow requires",
+        "E": "The volume of competent cells per transformation"
       },
       "answer": "C",
-      "explanation": "A degenerate oligo is a mixture of molecules, so a single reaction containing that mixture produces the whole library at once. Diversity changes what is in the tube, not how many tubes there are. What does scale with diversity is downstream: more transformants for coverage, and more clones or more reads to characterize it. A, B and D all attach the coverage requirement to the wrong step, and E invents a benefit that does not exist."
+      "explanation": "A degenerate oligo is a mixture of molecules, so one reaction containing that mixture produces the whole library however wide it is. Diversity changes what is in the tube, not how many tubes there are, and the same is true of the oligo order and the ligation. What does scale is coverage: more transformants to sample the larger design, and more clones or reads to characterize it."
     },
     {
       "slug": "theoretical_versus_held_diversity",
       "difficulty": "medium",
       "topic": "Distinguishing designed diversity from the library in hand",
-      "question": "You design a library of theoretical diversity one million, transform it, and count ten thousand colonies on your plates. Your labmate says you have a million-member library because the ligation contains all one million sequences. What is the accurate statement?\n",
+      "question": "You design a library of diversity one million, transform it, and count ten thousand colonies. How large is the library you can actually screen?\n",
       "choices": {
-        "A": "The library is one million members, since the DNA pool contains them all.",
-        "B": "The library is ten thousand members, since each colony is one variant you can test.",
-        "C": "The library is ten billion members, the product of the design and the colony count.",
-        "D": "The library is one hundred members, the square root of the colony count.",
-        "E": "The diversity cannot be stated at all without sequencing the pool."
+        "A": "One million, since the ligation contains them all",
+        "B": "Ten billion, the design times the colony count",
+        "C": "One hundred, the square root of the colony count",
+        "D": "At most ten thousand, since each colony is one clone",
+        "E": "Indeterminate without sequencing the ligation"
       },
-      "answer": "B",
-      "explanation": "Both statements about the DNA are true and neither helps: the ligation probably does contain nearly all designed sequences, but what you can screen is the set of clones you actually isolated. Ten thousand colonies is at most ten thousand distinct variants, and in practice fewer because of resampling. A is the error of reporting the design rather than the experiment. C and D combine the two numbers arbitrarily. E overstates the problem, since the colony count already gives a hard upper bound."
+      "answer": "D",
+      "explanation": "The ligation probably does contain nearly all the designed sequences, and that fact does not help: what you can screen is the set of clones you isolated. Ten thousand colonies is at most ten thousand distinct variants, and fewer in practice because of resampling. Reporting the design rather than the experiment is the error here, and the colony count already gives a hard upper bound without any sequencing."
     },
     {
       "slug": "synthesis_bias_versus_designed_diversity",
       "difficulty": "hard",
-      "topic": "Reasoning about bias between designed and realized libraries",
-      "question": "Your coverage calculation assumes every designed member is equally likely. You then sequence your library and find that variants carrying G at the first degenerate position are three times as common as those carrying T. What does this do to the number of transformants you need?\n",
+      "topic": "Reasoning about bias between design and realization",
+      "question": "Sequencing shows variants carrying G at one degenerate position are threefold commoner than those carrying T. What does that do to the transformants you need?\n",
       "choices": {
-        "A": "Nothing, because coverage depends only on theoretical diversity.",
-        "B": "It lowers the requirement, because the library is less diverse than designed.",
-        "C": "It raises the requirement, because the rarest members now need deeper sampling to appear.",
-        "D": "It makes the library unusable, since biased libraries cannot be screened.",
-        "E": "It raises the requirement only if the bias falls inside the coding sequence."
+        "A": "Nothing, since coverage depends only on diversity",
+        "B": "Lowers it, since the library is less diverse than designed",
+        "C": "Makes the library unusable, as biased pools cannot be screened",
+        "D": "Raises it, since the rarest members need deeper sampling",
+        "E": "Raises it only if the bias falls in the coding sequence"
       },
-      "answer": "C",
-      "explanation": "The 4.6 x n rule assumes uniform sampling. Once some members are systematically rarer, those are the ones that go missing, and you have to sample deeper to be confident they are present. Bias of this kind comes from the phosphoramidite mixture used for the degenerate position and from amplification, and it is why a library is worth sequencing before it is trusted. A ignores the assumption behind the formula. B confuses skew with reduced diversity; the member count is unchanged. D is too strong, since biased libraries are screened all the time. E invents an irrelevant condition."
+      "answer": "D",
+      "explanation": "The 4.6 x n rule assumes uniform sampling. Once some members are systematically rarer, those are the ones that go missing, and you must sample deeper to be confident they are present. The bias comes from the phosphoramidite mixture at the degenerate position and from amplification, and it is why a library is worth sequencing before it is trusted. Skew is not reduced diversity, since the member count is unchanged, and biased libraries are screened all the time."
     },
     {
-      "slug": "diversity_of_a_mixed_code_rbs_library",
+      "slug": "coverage_target_versus_screening_capacity",
       "difficulty": "hard",
-      "topic": "Reading a construction oligo and computing library size",
-      "question": "An EIPCR oligo carries the ribosome binding site region 5'-...TTTRVWGGHDTT...-3', with the degenerate positions R, V, W, H and D. What is the theoretical diversity of the resulting library?\n",
+      "topic": "Reconciling coverage with screening capacity",
+      "question": "Your design has diversity five thousand and you can assay four hundred clones. Which conclusion follows?\n",
       "choices": {
-        "A": 108,
-        "B": 5,
-        "C": 1024,
-        "D": 54,
-        "E": 243
-      },
-      "answer": "A",
-      "explanation": "R is two bases, V is three, W is two, H is three and D is three, so the product is 2 x 3 x 2 x 3 x 3, which is 108. D is the same product with one of the three-base codes read as two. E treats every position as three-fold. C treats the region as five N positions. B counts the degenerate positions rather than the sequences they generate, which is the error of reporting the design's width rather than its size."
-    },
-    {
-      "slug": "coverage_target_for_a_screen_you_can_afford",
-      "difficulty": "hard",
-      "topic": "Reconciling coverage requirements with screening capacity",
-      "question": "You design a library of theoretical diversity five thousand. You can comfortably pick and assay four hundred clones. Which conclusion follows?\n",
-      "choices": {
-        "A": "The screen is adequate, because four hundred clones sample the library randomly.",
-        "B": "You should reduce the designed diversity, or move to a selection rather than a clone-by-clone screen.",
-        "C": "You should pick four hundred clones and report the best as the library optimum.",
-        "D": "You should raise the number of transformants to 4.6 x n, which solves the screening problem.",
-        "E": "You should sequence the four hundred clones, which recovers the missing members computationally."
+        "A": "The screen is adequate, since the clones sample randomly",
+        "B": "Shrink the design, or replace the screen with a selection",
+        "C": "Pick the four hundred and report the best as the optimum",
+        "D": "Raise the transformants to 4.6 x n, which fixes the problem",
+        "E": "Sequence the four hundred to recover the missing members"
       },
       "answer": "B",
-      "explanation": "Four hundred clones out of five thousand designed members samples under ten percent of the library, so the best variant is probably never tested. The two honest fixes are to shrink the design so the screen can cover it, or to replace the screen with a selection or sort that handles the whole population at once. A mistakes random sampling for adequate sampling. C is the error of calling a sampled maximum the true one. D fixes coverage of the library in the freezer but not coverage of the assay, which is the binding constraint here. E cannot recover variants that were never assayed."
+      "explanation": "Four hundred clones out of five thousand designed members samples under a tenth of the library, so the best variant is probably never tested. The two honest fixes are to shrink the design until the screen can cover it, or to hand the whole population to a selection or a sort. Random sampling is not adequate sampling, a sampled maximum is not the true one, raising transformants fixes coverage of the freezer rather than of the assay, and nothing recovers variants that were never assayed."
     }
   ],
   "library_construction_methods": [
@@ -156,303 +156,303 @@
       "slug": "where_diversity_enters_an_eipcr_library",
       "difficulty": "easy",
       "topic": "Locating where diversity enters a construction",
-      "question": "You build a promoter library by EIPCR: a pair of primers amplifies the entire plasmid outward from the promoter, and one primer carries degenerate bases in its 5' tail. Where does the diversity in the finished library come from?\n",
+      "question": "In an EIPCR library, a pair of primers amplifies the whole plasmid outward and one primer carries degenerate bases in its 5' tail. Where does the diversity come from?\n",
       "choices": {
-        "A": "From errors introduced by the polymerase during the long amplification.",
-        "B": "From the mixture of molecules in the degenerate primer, copied into every product.",
-        "C": "From the template plasmid, which must already contain promoter variants.",
-        "D": "From the ligation, which joins ends in several alternative registers.",
-        "E": "From the competent cells, which recombine the product after transformation."
+        "A": "Polymerase errors during the long amplification",
+        "B": "The template plasmid, which holds variants already",
+        "C": "The mixture of molecules in the degenerate primer",
+        "D": "The ligation, which joins ends in several registers",
+        "E": "The competent cells, which recombine the product"
+      },
+      "answer": "C",
+      "explanation": "A degenerate oligo is not one sequence but a mixture synthesized in parallel, and every molecule in that mixture primes its own product. The library is therefore made at the moment of synthesis and merely carried through the PCR. Polymerase error is a different experiment with a far lower and uncontrolled rate, a template holding the variants already would mean the library existed before you built it, and the last two name sources of variation the workflow does not have."
+    },
+    {
+      "slug": "klenow_fill_in_for_a_short_cassette",
+      "difficulty": "easy",
+      "topic": "Recognizing Klenow fill-in as a route to a cassette",
+      "question": "Two partially complementary oligos are annealed and Klenow is added. What is Klenow doing?\n",
+      "choices": {
+        "A": "Amplifying the annealed pair exponentially",
+        "B": "Extending each 3' end on the other strand as template",
+        "C": "Cutting the duplex at the degenerate positions",
+        "D": "Ligating the two oligos into a closed circle",
+        "E": "Removing the random bases to leave a fixed sequence"
       },
       "answer": "B",
-      "explanation": "A degenerate oligo is not one sequence but a mixture synthesized in parallel, and each molecule in that mixture primes its own product. The library is therefore made at the moment of synthesis and merely carried through the PCR. A describes mutagenesis, which is a different experiment with a far lower and uncontrolled rate. C would require the library to already exist. D and E invent sources of variation that the workflow does not have."
+      "explanation": "The oligos overlap only in part, so annealing leaves recessed 3' ends. Klenow extends from each of those ends using the other strand as template, turning a partial duplex into a full one in a single isothermal step. There is no thermal cycling and so no exponential amplification, and the remaining options assign Klenow activities belonging to restriction enzymes, to ligase, and to nothing at all."
     },
     {
       "slug": "degenerate_oligo_versus_oligo_pool",
       "difficulty": "medium",
-      "topic": "Choosing between degenerate synthesis and a defined oligo pool",
-      "question": "You want every single amino acid substitution at each of 250 positions in a protein, with no stop codons and no wild-type carryover. Which synthesis route fits that specification?\n",
+      "topic": "Choosing between degenerate synthesis and a defined pool",
+      "question": "You want every single amino acid substitution at each of 250 positions, with no stops and no wild-type carryover. Which route fits?\n",
       "choices": {
-        "A": "A degenerate oligo with NNK at every codon, used in one EIPCR reaction.",
-        "B": "A chip-synthesized oligo pool in which each intended variant is specified individually.",
-        "C": "Error-prone PCR across the gene at a tuned mutation rate.",
-        "D": "A degenerate oligo with NNN at every codon, which covers all possibilities.",
-        "E": "DNA shuffling of the gene against its closest orthologs."
+        "A": "A chip-synthesized pool specifying each variant",
+        "B": "A degenerate oligo with NNN at every codon",
+        "C": "Error-prone PCR across the gene at a tuned rate",
+        "D": "A degenerate oligo with NNK at every codon",
+        "E": "DNA shuffling against the closest orthologs"
       },
-      "answer": "B",
-      "explanation": "The specification is a defined list, so the synthesis has to be defined too. An oligo pool writes each variant as its own sequence, which is what lets you exclude stops and the wild type and get one substitution per molecule. A and D give random combinations across positions, including multiple substitutions per clone and stop codons, and no control over which members appear. C has no control over position or identity. E recombines existing variation rather than enumerating substitutions."
-    },
-    {
-      "slug": "klenow_fill_in_for_a_short_cassette",
-      "difficulty": "medium",
-      "topic": "Recognizing Klenow fill-in as a route to a degenerate cassette",
-      "question": "You need a short double-stranded cassette carrying eight random bases, and you have no template containing that region. Two partially complementary oligos are annealed and Klenow is added. What is Klenow doing?\n",
-      "choices": {
-        "A": "Amplifying the annealed pair exponentially, as in PCR.",
-        "B": "Extending each strand on the other as template to fill the single-stranded overhangs.",
-        "C": "Cutting the annealed duplex at the degenerate positions.",
-        "D": "Ligating the two oligos into a closed circle.",
-        "E": "Removing the random bases to leave a defined sequence."
-      },
-      "answer": "B",
-      "explanation": "The two oligos overlap only in part, so annealing leaves recessed 3' ends. Klenow extends from each 3' end using the other strand as template, converting the partial duplex into a full one in a single isothermal step. A is wrong because there is no thermal cycling and no exponential amplification. C, D and E attribute activities to Klenow that belong to restriction enzymes, ligase and nothing at all, respectively."
-    },
-    {
-      "slug": "soeing_places_diversity_at_a_junction",
-      "difficulty": "medium",
-      "topic": "Using overlap extension to place diversity at a junction",
-      "question": "You want a library in which the linker between two protein domains is randomized, and the two domains come from separate plasmids. Why is SOEing a natural choice?\n",
-      "choices": {
-        "A": "It eliminates the need to transform the product into cells.",
-        "B": "The overlapping primers that join the two fragments can carry the degenerate linker.",
-        "C": "It raises the theoretical diversity beyond what the degenerate code allows.",
-        "D": "It avoids the restriction sites that would otherwise appear in the linker.",
-        "E": "It removes the need to sequence the finished library."
-      },
-      "answer": "B",
-      "explanation": "In overlap extension the two fragments are joined through a shared sequence written into the primers, so whatever you put in that shared region ends up at the junction. A degenerate linker is exactly that kind of insertion. A and E are false at any scale. C is wrong because the diversity is set by the code, not the assembly method. D is backwards: SOEing is useful partly because it does not require sites, but the linker's content is a design choice either way."
+      "answer": "A",
+      "explanation": "The specification is a defined list, so the synthesis has to be defined too: an oligo pool writes each variant as its own sequence, which is what excludes stops and the wild type and gives one substitution per molecule. Both degenerate codes give random combinations across positions, including multiple substitutions per clone and stops, with no control over which members appear. Error-prone PCR controls neither position nor identity, and shuffling recombines variation rather than enumerating substitutions."
     },
     {
       "slug": "reading_lowercase_tails_in_a_construction_oligo",
       "difficulty": "medium",
       "topic": "Reading a construction oligo and its tails",
-      "question": "A construction file digests a PCR product with BamHI and EcoRI, and the forward oligo reads GAGTTggatccTTTNVWGGRDTTAAATTatgatggttttccagccaatc. What is the lowercase ggatcc doing?\n",
+      "question": "A file digests a product with NheI and SalI. The forward oligo reads CAACTgctagcAAAGHDWCCTNRAAGGcatgaccgaaaccgtttctcg. What is the lowercase gctagc?\n",
       "choices": {
-        "A": "It marks the degenerate region that generates the library.",
-        "B": "It is the BamHI site, added as a tail so the product can be cut and ligated.",
-        "C": "It is the ribosome binding site for the downstream gene.",
-        "D": "It is the annealing region that binds the template.",
-        "E": "It is a spacer with no function other than setting the product length."
+        "A": "The NheI site, added as a tail for cutting",
+        "B": "The ribosome binding site for the downstream gene",
+        "C": "The region that anneals to the template",
+        "D": "A spacer that only sets the product length",
+        "E": "The degenerate region that makes the library"
       },
-      "answer": "B",
-      "explanation": "By convention in these files the lowercase runs mark sequence added by the oligo rather than copied from the template, and GGATCC is the BamHI recognition sequence. The GAGTT in front of it is the short flank the enzyme needs in order to cut near the end. A points at the wrong element, since the degenerate region is the NVW and RD stretch. C names the wrong element again. D is wrong because the annealing region is the 3' end that matches the template. E ignores a functional site."
+      "answer": "A",
+      "explanation": "By convention in these files the lowercase runs mark sequence added by the oligo rather than copied from the template, and GCTAGC is the NheI recognition sequence. The CAACT in front of it is the short flank the enzyme needs in order to cut near the end of a fragment. The degenerate region is the GHDW and NR stretch further along, the annealing region is the 3' end that matches the template, and nothing here is a spacer without function."
+    },
+    {
+      "slug": "soeing_places_diversity_at_a_junction",
+      "difficulty": "medium",
+      "topic": "Using overlap extension to place diversity at a junction",
+      "question": "You want a randomized linker between two protein domains that sit on separate plasmids. Why is SOEing a natural choice?\n",
+      "choices": {
+        "A": "The overlapping primers that join them carry the linker",
+        "B": "It removes the need to transform the product into cells",
+        "C": "It raises diversity beyond what the code allows",
+        "D": "It avoids restriction sites appearing in the linker",
+        "E": "It removes the need to sequence the finished library"
+      },
+      "answer": "A",
+      "explanation": "In overlap extension the two fragments are joined through a sequence written into the primers, so whatever you put in that shared region ends up at the junction, and a degenerate linker is exactly that kind of insertion. Transformation and sequencing are needed at any scale, diversity is set by the degenerate code rather than by the assembly method, and while SOEing does avoid needing sites, the linker's content is a design choice either way."
     },
     {
       "slug": "pp6_promoter_library_design",
       "difficulty": "medium",
       "topic": "Reading a promoter library design",
-      "question": "The pP6 library is built by reassembling a promoter with degenerate sequence at the -35 and -10 boxes while the rest of the promoter is held fixed. Why randomize those two regions rather than the whole promoter?\n",
+      "question": "A promoter library randomizes the -35 and -10 boxes and holds the rest of the promoter fixed. Why those two regions?\n",
       "choices": {
-        "A": "Because synthesis cannot produce degenerate bases outside those regions.",
-        "B": "Because those boxes are where the polymerase holoenzyme makes contact, so they set strength.",
-        "C": "Because the regions between them are not transcribed and so cannot matter.",
-        "D": "Because randomizing the whole promoter would exceed the diversity a single oligo can encode.",
-        "E": "Because the spacer length between the boxes cannot be varied experimentally."
+        "A": "Sigma factor contacts them, so they set strength",
+        "B": "Synthesis cannot place degenerate bases elsewhere",
+        "C": "The sequence between them is not transcribed",
+        "D": "Randomizing the whole promoter would exceed one oligo",
+        "E": "The spacer between them cannot be varied at all"
       },
-      "answer": "B",
-      "explanation": "Sigma factor contacts the -35 and -10 hexamers, so sequence changes there change how readily open complex forms, which is what a promoter strength library is trying to sample. Confining diversity to those positions keeps the library small enough to cover while still spanning a wide range of strengths. A is false. C misstates the biology, since the intervening spacer is part of the promoter and does affect strength. D is a real consideration at some scales but is not the design reason here. E is false; spacer length is a legitimate variable, just not the one varied in this design."
+      "answer": "A",
+      "explanation": "Sigma factor contacts the two hexamers, so changes there change how readily open complex forms, which is what a promoter strength library is sampling. Confining diversity to those positions also keeps the library small enough to cover while still spanning a wide range of strengths. The intervening spacer is part of the promoter and does affect strength, its length is a legitimate variable that this design simply does not use, and synthesis places degenerate bases wherever you ask."
     },
     {
       "slug": "pwm_derived_library_purpose",
       "difficulty": "hard",
-      "topic": "Using a position weight matrix to shape a library design",
-      "question": "Instead of putting N at every position of a ribosome binding site, you derive the degenerate code from a position weight matrix built from known functional sites. What does that buy you?\n",
+      "topic": "Using a position weight matrix to shape a design",
+      "question": "Instead of N at every position, you draw the degenerate code from a weight matrix built from known functional sites. What does that buy you?\n",
       "choices": {
-        "A": "It guarantees that every member of the library is functional.",
-        "B": "It concentrates the library on sequences likely to work, so fewer clones are wasted on dead members.",
-        "C": "It increases the theoretical diversity for the same oligo length.",
-        "D": "It removes the need to measure the resulting expression levels.",
-        "E": "It makes the library uniform in strength rather than spread across a range."
+        "A": "A guarantee that every member is functional",
+        "B": "A higher theoretical diversity for the same length",
+        "C": "A library concentrated on sequences likely to work",
+        "D": "Freedom from having to measure the resulting levels",
+        "E": "A library uniform in strength rather than spread"
       },
-      "answer": "B",
-      "explanation": "A weight matrix records which bases appear at which positions among sequences that are known to function, so a code drawn from it biases the library toward that region of sequence space. The payoff is efficiency: a greater fraction of the clones you pick are worth measuring. A overstates it, since a matrix is a statistical summary and not a guarantee. C is wrong, as constraining positions lowers diversity rather than raising it. D is wrong because the point is still to measure. E is backwards, since a spread of strengths is the goal."
+      "answer": "C",
+      "explanation": "A weight matrix records which bases appear at which positions among sequences known to function, so a code drawn from it biases the library toward that region of sequence space, and the payoff is that a greater fraction of the clones you pick are worth measuring. A matrix is a statistical summary rather than a guarantee, constraining positions lowers diversity rather than raising it, the point is still to measure, and a spread of strengths is the goal."
     },
     {
       "slug": "diversity_must_survive_the_cloning",
       "difficulty": "hard",
-      "topic": "Checking that designed diversity survives the construction",
-      "question": "Your degenerate bases sit in the 5' tail of a primer, upstream of the restriction site used to clone the product. What happens to the library?\n",
+      "topic": "Checking that designed diversity survives construction",
+      "question": "Your degenerate bases sit in the primer tail upstream of the restriction site used for cloning. What happens to the library?\n",
       "choices": {
-        "A": "Nothing; tails are retained in the final construct.",
-        "B": "The diversity is cut away with the flank during the digest, leaving a non-library product.",
-        "C": "The diversity moves into the vector backbone rather than the insert.",
-        "D": "The diversity is retained but inverted relative to the design.",
-        "E": "The diversity doubles, since both orientations of the tail are cloned."
+        "A": "Nothing, since primer tails are retained in the product",
+        "B": "The diversity moves into the backbone, not the insert",
+        "C": "The diversity is retained but inverted in the design",
+        "D": "The diversity doubles, as both orientations clone",
+        "E": "The digest discards it along with the outer flank"
       },
-      "answer": "B",
-      "explanation": "A restriction digest discards everything outside the recognition site, including the short flank that was there to let the enzyme cut. Degenerate bases placed outside the site therefore end up in the discarded fragment, and every clone is identical. This is a real design error and the reason the degenerate region in a working oligo sits between the site and the annealing region. A ignores what the digest removes. C, D and E describe rearrangements that do not occur."
+      "answer": "E",
+      "explanation": "A restriction digest throws away everything outside the recognition site, including the short flank that was there to let the enzyme cut, so degenerate bases placed outside the site end up in the discarded fragment and every clone is identical. This is a real design error and the reason the degenerate region in a working oligo sits between the site and the annealing region. The other options describe rearrangements that do not occur."
     },
     {
       "slug": "pooled_versus_arrayed_variant_construction",
       "difficulty": "hard",
       "topic": "Deciding between pooled and arrayed construction",
-      "question": "You need twelve specific promoter variants, each one to be measured separately and kept as a named strain. Why would you build these one at a time rather than as a pooled degenerate library?\n",
+      "question": "You need twelve specific promoter variants, each measured separately and kept as a named strain. Why build them one at a time?\n",
       "choices": {
-        "A": "Because degenerate synthesis cannot produce only twelve sequences.",
-        "B": "Because a pooled library would require deep sequencing to find and separate the twelve you wanted.",
-        "C": "Because pooled libraries cannot be transformed into competent cells.",
-        "D": "Because twelve variants exceed the diversity a single oligo can carry.",
-        "E": "Because named strains cannot be derived from a library by any means."
+        "A": "Degenerate synthesis cannot make only twelve sequences",
+        "B": "A pool would need deep sequencing to find and separate them",
+        "C": "Pooled libraries cannot be transformed into competent cells",
+        "D": "Twelve variants exceed what a single oligo can carry",
+        "E": "Named strains cannot be derived from a library at all"
       },
       "answer": "B",
-      "explanation": "Pooling is worth the trouble when the number of variants is larger than you can handle individually. At twelve, building each on purpose gives you identified strains immediately, whereas pooling means screening or sequencing to work out which clone is which and then isolating them. A is essentially true as stated but is not the operative reason, since a small pool of defined oligos could be ordered. C and E are false. D inverts the scale problem."
+      "explanation": "Pooling is worth the trouble when the number of variants is larger than you can handle individually. At twelve, building each on purpose gives identified strains immediately, while pooling means screening or sequencing to work out which clone is which and then isolating them. A small pool of defined oligos could in fact be ordered, pooled libraries are routinely transformed, named strains are routinely picked out of libraries, and twelve is far below any oligo limit."
     },
     {
       "slug": "synthesis_route_for_a_whole_gene_variant_set",
       "difficulty": "hard",
-      "topic": "Matching the synthesis route to the kind of variation wanted",
-      "question": "You want to test forty orthologs of one enzyme, each a different natural sequence of about 1.2 kb. What is the appropriate construction route?\n",
+      "topic": "Matching the synthesis route to the variation wanted",
+      "question": "You want to test forty orthologs of one enzyme, each a different natural sequence of about 1.2 kb. Which route fits?\n",
       "choices": {
-        "A": "A degenerate oligo covering the positions at which the orthologs differ.",
-        "B": "Chip-based synthesis of the forty genes, amplified from the pool and assembled individually.",
-        "C": "Error-prone PCR of the host's own copy at a high mutation rate.",
-        "D": "EIPCR with a degenerate primer at the active site.",
-        "E": "A Klenow fill-in of forty annealed oligo pairs."
+        "A": "A degenerate oligo covering the differing positions",
+        "B": "Error-prone PCR of the host copy at a high rate",
+        "C": "EIPCR with a degenerate primer at the active site",
+        "D": "Chip synthesis of the forty genes, then assembly",
+        "E": "A Klenow fill-in of forty annealed oligo pairs"
       },
-      "answer": "B",
-      "explanation": "Forty full-length genes are forty defined sequences, which is the case chip synthesis exists to serve: the genes are written on a microarray, released as a pool, and selectively amplified and assembled. A is unworkable because orthologs differ at hundreds of positions in combinations that degenerate codes cannot specify. C and D generate variation around one sequence rather than reproducing forty real ones. E is limited to short cassettes, far shorter than a 1.2 kb gene."
+      "answer": "D",
+      "explanation": "Forty full-length genes are forty defined sequences, which is the case chip synthesis exists to serve: the genes are written on a microarray, released as a pool, and selectively amplified and assembled. Orthologs differ at hundreds of positions in combinations no degenerate code can specify, mutagenesis of one sequence does not reproduce forty real ones, and a fill-in is limited to short cassettes far shorter than 1.2 kb."
     }
   ],
   "what_an_element_library_tunes": [
     {
-      "slug": "rbs_library_expected_outcome",
+      "slug": "spread_is_the_product_not_a_defect",
       "difficulty": "easy",
-      "topic": "Predicting the phenotype distribution a library produces",
-      "question": "You place a library of ribosome binding sites upstream of a reporter gene in E. coli and plate the transformants. What is the most likely outcome?\n",
+      "topic": "Interpreting the spread a library produces",
+      "question": "You pick twenty clones from a ribosome binding site library and find reporter levels spanning about fortyfold. How should you read that spread?\n",
       "choices": {
-        "A": "Every clone expresses the reporter at the same level but reaches it at a different time.",
-        "B": "The clones span a range of reporter levels across the population.",
-        "C": "Only clones with a strong ribosome binding site express at all, because the promoter represses the rest.",
-        "D": "The clones differ in plasmid copy number rather than in reporter level.",
-        "E": "The reporter level is unchanged, because the ribosome binding site acts on transcription."
+        "A": "As contamination, since one construct gives one level",
+        "B": "As the intended result, since the library varies initiation",
+        "C": "As evidence the ligation included empty vector",
+        "D": "As clone-to-clone noise that averaging will remove",
+        "E": "As a sign the reporter is unstable in this host"
       },
       "answer": "B",
-      "explanation": "Changing the ribosome binding site changes how efficiently ribosomes initiate on the message, so the library produces a spread of protein levels. That spread is the product, which is why these libraries are built. A substitutes timing for level with no mechanism. C invents repression that is not in the design. D confuses a translational element with the origin of replication. E misassigns the ribosome binding site to transcription."
+      "explanation": "Changing the ribosome binding site changes how efficiently ribosomes initiate on the message, so a range of protein levels is what the library was built to produce. Treating the spread as a defect to be cleaned up discards the whole point. The spread is far too large and too reproducible per clone to be measurement noise, and empty vector or an unstable reporter would show up as a loss of signal rather than as a graded series."
     },
     {
-      "slug": "promoter_library_acts_on_transcription",
+      "slug": "promoter_versus_rbs_step",
       "difficulty": "easy",
-      "topic": "Matching a genetic element to the step it controls",
-      "question": "A promoter library and a ribosome binding site library both give a range of protein output. At which step does each act?\n",
+      "topic": "Matching an element to the step it controls",
+      "question": "A promoter library and a ribosome binding site library both change protein output. Which step does each one act on?\n",
       "choices": {
-        "A": "Both act on transcription, differing only in magnitude.",
-        "B": "The promoter library acts on transcription; the ribosome binding site library acts on translation initiation.",
-        "C": "The promoter library acts on translation; the ribosome binding site library acts on mRNA stability.",
-        "D": "Both act on translation, since protein is the readout in each case.",
-        "E": "The promoter library acts on copy number; the ribosome binding site library acts on transcription."
+        "A": "Both on transcription, differing only in magnitude",
+        "B": "Promoter on translation; RBS on message stability",
+        "C": "Both on translation, since protein is the readout",
+        "D": "Promoter on copy number; RBS on transcription",
+        "E": "Promoter on transcription; RBS on translation initiation"
       },
-      "answer": "B",
-      "explanation": "The promoter determines how often RNA polymerase initiates, so a promoter library varies the amount of message. The ribosome binding site determines how readily the ribosome loads onto that message, so an RBS library varies protein made per message. Both end up changing protein, which is why D is tempting, but the step being varied is what the question asks. A, C and E each swap the two assignments or substitute copy number."
+      "answer": "E",
+      "explanation": "The promoter sets how often polymerase initiates, so a promoter library varies the amount of message, while the ribosome binding site sets how readily the ribosome loads onto that message, so an RBS library varies protein made per message. Both end up changing protein, which is what makes the shared readout tempting, but the question is which step is being varied. The other options swap the two assignments or substitute copy number."
     },
     {
       "slug": "tuning_a_ratio_within_an_operon",
       "difficulty": "medium",
       "topic": "Choosing which element to vary for a stated goal",
-      "question": "Two enzymes are expressed from one operon behind a single promoter, and you need more of the first and less of the second. Which change gives you that?\n",
+      "question": "Two enzymes are expressed from one operon behind a single promoter, and you need more of the first and less of the second. Which change does that?\n",
       "choices": {
-        "A": "Replace the promoter with a stronger one.",
-        "B": "Vary the ribosome binding site in front of the second gene.",
-        "C": "Move the operon to a higher copy number origin.",
-        "D": "Add a second copy of the promoter upstream of the operon.",
-        "E": "Change the codon usage of both genes together."
+        "A": "Replace the promoter with a stronger one",
+        "B": "Move the operon to a higher copy number origin",
+        "C": "Vary the ribosome binding site of the second gene",
+        "D": "Add a second promoter copy upstream of the operon",
+        "E": "Change the codon usage of both genes together"
       },
-      "answer": "B",
-      "explanation": "Everything upstream of the operon acts on both genes at once, so a stronger promoter or a higher copy number raises both and leaves the ratio where it was. The ribosome binding site sits in front of one coding sequence and sets translation of that one, which is the only element in this list that can move the two independently. A, C and D all scale the pair. E acts on both genes and is a blunt instrument for level in any case."
+      "answer": "C",
+      "explanation": "Everything upstream of the operon acts on both genes at once, so a stronger promoter, an extra promoter, or a higher copy number raises both and leaves the ratio where it was. The ribosome binding site sits in front of one coding sequence and sets translation of that one, which makes it the only element here that can move the two independently. Recoding acts on both genes and is a blunt instrument for level in any case."
     },
     {
       "slug": "terminator_library_readout",
       "difficulty": "medium",
       "topic": "Identifying the measured quantity for a terminator library",
-      "question": "You build a library of terminator sequences between an upstream and a downstream fluorescent reporter. What does the experiment measure for each library member?\n",
+      "question": "A terminator library sits between an upstream and a downstream fluorescent reporter. What does the construct measure for each member?\n",
       "choices": {
-        "A": "The absolute brightness of the upstream reporter.",
-        "B": "The fraction of transcripts that read through the terminator, read as the ratio of downstream to upstream signal.",
-        "C": "The plasmid copy number of each clone.",
-        "D": "The rate at which the upstream reporter protein folds.",
-        "E": "The translation initiation rate of the downstream reporter."
+        "A": "The absolute brightness of the upstream reporter",
+        "B": "The plasmid copy number of each individual clone",
+        "C": "The folding rate of the upstream reporter protein",
+        "D": "The downstream to upstream ratio, that is read-through",
+        "E": "The translation initiation rate of the downstream gene"
       },
-      "answer": "B",
-      "explanation": "A terminator is judged by how much transcription it stops, and the way to see that without being confused by clone-to-clone differences in copy number or growth is to put a reporter on each side and take a ratio. The upstream reporter is the internal reference and the downstream one reports read-through. A would vary with copy number and growth rather than with the terminator. C, D and E name quantities the construct does not isolate."
+      "answer": "D",
+      "explanation": "A terminator is judged by how much transcription it stops, and the way to see that without being confused by clone-to-clone differences in copy number or growth is to put a reporter on each side and take a ratio. The upstream reporter is the internal reference and the downstream one reports read-through. Absolute brightness would vary with copy number and growth rather than with the terminator, and the remaining options name quantities the construct does not isolate."
     },
     {
       "slug": "rbs_library_with_no_effect",
       "difficulty": "medium",
       "topic": "Interpreting a library that produces no spread",
-      "question": "You screen a ribosome binding site library in front of an enzyme and find that every clone gives the same pathway output. Which explanation is most plausible?\n",
+      "question": "An RBS library in front of a pathway enzyme gives the same pathway output for every clone. What is the most plausible explanation?\n",
       "choices": {
-        "A": "The ribosome binding site does not affect translation in E. coli.",
-        "B": "The enzyme is not the step limiting pathway output, so changing its level changes nothing downstream.",
-        "C": "The library has no diversity, since identical output implies identical sequence.",
-        "D": "The reporter must be measured by cytometry rather than a plate reader.",
-        "E": "The promoter must have been deleted during cloning."
+        "A": "That enzyme is not the step limiting pathway output",
+        "B": "The library has no diversity, since output is identical",
+        "C": "The promoter was deleted during the cloning",
+        "D": "Cytometry rather than a plate reader is required",
+        "E": "The ribosome binding site does not act in E. coli"
       },
-      "answer": "B",
-      "explanation": "The library almost certainly produced a range of enzyme levels; what the experiment shows is that pathway output does not respond to that range, which is what it looks like when some other step is the bottleneck. A contradicts the premise of the method. C is the right thing to check but the wrong inference, since sequencing would settle it and identical output has an easier explanation. D changes the instrument, not the result, for a bulk pathway measurement. E would abolish output rather than fix it at one level."
+      "answer": "A",
+      "explanation": "The library almost certainly produced a range of enzyme levels; what the experiment shows is that pathway output does not respond to that range, which is what it looks like when some other step is the bottleneck. Sequencing is worth doing but identical output has an easier explanation than identical sequence, a deleted promoter would abolish output rather than fix it at one level, and changing the instrument changes nothing for a bulk pathway measurement."
     },
     {
       "slug": "copy_number_versus_element_strength",
       "difficulty": "medium",
       "topic": "Separating dosage from element strength",
-      "question": "You move a reporter construct from a p15A origin to a high-copy origin and the signal rises fourfold. Your colleague concludes the promoter is stronger. What is wrong with that?\n",
+      "question": "Moving a reporter from a p15A origin to a high-copy origin raises the signal fourfold, and a colleague concludes the promoter is stronger. What is wrong?\n",
       "choices": {
-        "A": "Nothing; promoter strength and copy number are the same quantity.",
-        "B": "Copy number multiplies everything on the plasmid, so per-template initiation rate is unchanged.",
-        "C": "High-copy origins silence promoters, so the signal should have fallen.",
-        "D": "The comparison is invalid because fluorescence cannot be compared between strains.",
-        "E": "The promoter is weaker, since the same output is now spread over more templates."
+        "A": "Copy number multiplies templates, leaving initiation rate alone",
+        "B": "Nothing, as strength and copy number are one quantity",
+        "C": "High-copy origins silence promoters, so signal should fall",
+        "D": "Fluorescence cannot be compared between two strains",
+        "E": "The promoter is weaker, as output is spread over more templates"
       },
-      "answer": "B",
-      "explanation": "Promoter strength is a property of one template: how often polymerase initiates there. Raising copy number gives you more templates, each initiating at the same rate, so total output rises while the promoter is untouched. This is the distinction every expression comparison depends on. A collapses two different quantities. C invents an effect. D is too strong, since the comparison is routine with proper normalization. E confuses total with per-template but draws the opposite wrong conclusion."
+      "answer": "A",
+      "explanation": "Promoter strength is a property of one template: how often polymerase initiates there. Raising copy number gives more templates, each initiating at the same rate, so total output rises while the promoter is untouched. This is the distinction every expression comparison depends on. Silencing is invented, the comparison is routine given proper normalization, and the last option confuses total with per-template while drawing the opposite wrong conclusion."
     },
     {
       "slug": "library_is_a_distribution_not_an_answer",
       "difficulty": "hard",
       "topic": "Treating a library as a distribution to be sampled",
-      "question": "A colleague says the purpose of a ribosome binding site library is to find the strongest ribosome binding site. What is the better description of what the library gives you?\n",
+      "question": "A colleague says the purpose of an RBS library is to find the strongest ribosome binding site. What is the better description?\n",
       "choices": {
-        "A": "A distribution of expression levels, from which the screen picks whichever level the application needs.",
-        "B": "A single optimal sequence, which sequencing of the pool reveals directly.",
-        "C": "A measurement of the maximum expression the host can sustain.",
-        "D": "A set of clones all at the same level, differing only in sequence.",
-        "E": "A prediction of expression level from sequence, usable without any measurement."
+        "A": "A single optimum, which sequencing the pool reveals",
+        "B": "A measure of the maximum expression the host sustains",
+        "C": "A set of clones at one level, differing only in sequence",
+        "D": "A distribution, from which the screen picks the level needed",
+        "E": "A prediction of level from sequence, needing no measurement"
       },
-      "answer": "A",
-      "explanation": "The library is a population spanning a range, and what counts as the best member depends on the goal: a pathway enzyme may need a middling level, and a toxic product may need a weak one. Treating the library as a search for a maximum discards most of its value. B is wrong because sequencing the pool tells you what is there, not what works. C is a different experiment. D contradicts the method. E describes a model, which libraries are used to build rather than to replace."
+      "answer": "D",
+      "explanation": "The library is a population spanning a range, and what counts as the best member depends on the goal: a pathway enzyme may need a middling level and a toxic product a weak one. Treating the library as a search for a maximum discards most of its value. Sequencing the pool tells you what is there rather than what works, the host maximum is a different experiment, uniform levels contradict the method, and a predictive model is what libraries are used to build rather than to replace."
     },
     {
       "slug": "toxic_product_distorts_a_recovered_library",
       "difficulty": "hard",
       "topic": "Recognizing survivor bias in a recovered library",
-      "question": "You build a ribosome binding site library in front of a gene whose product is toxic above a certain level, transform, and grow the transformants overnight before picking. What does the recovered library look like relative to the one you designed?\n",
+      "question": "You transform an RBS library in front of a gene whose product is toxic above some level, then grow overnight before picking. How does the recovered library differ from the design?\n",
       "choices": {
-        "A": "Unchanged, since toxicity affects growth rate rather than survival.",
-        "B": "Depleted of the strongest members, because those clones grow poorly or not at all.",
-        "C": "Depleted of the weakest members, because they are outcompeted.",
-        "D": "Enriched for the strongest members, since high expression gives a selective advantage.",
-        "E": "Unchanged in composition but uniformly lower in copy number."
+        "A": "Unchanged, since toxicity affects rate rather than survival",
+        "B": "Depleted of the weakest members, which are outcompeted",
+        "C": "Depleted of the strongest, which grow poorly or not at all",
+        "D": "Enriched for the strongest, which gain an advantage",
+        "E": "Unchanged in composition but lower in copy number"
       },
-      "answer": "B",
-      "explanation": "Overnight outgrowth is a selection whether or not you intended one. Clones expressing the toxic product most strongly divide slowly or die, so the high end of the designed distribution is thinned out or missing from what you pick. This is the same logic as plasmid loss under antibiotic: the population you measure is the population that survived the measurement. A understates it, since a growth-rate difference over many generations becomes a composition difference. C and D have the direction backwards. E invents an unrelated effect."
+      "answer": "C",
+      "explanation": "Overnight outgrowth is a selection whether or not you intended one. Clones expressing the toxic product most strongly divide slowly or die, so the high end of the designed distribution is thinned out or missing from what you pick. This is the same logic as plasmid loss under antibiotic: the population you measure is the population that survived the measurement. A growth-rate difference over many generations does become a composition difference, and the other options have the direction backwards or invent an unrelated effect."
     },
     {
       "slug": "why_an_rbs_library_rather_than_codon_changes",
       "difficulty": "medium",
       "topic": "Choosing a tuning handle with a predictable effect",
-      "question": "You need to tune the level of one enzyme across a wide range. Why is a ribosome binding site library a better handle than recoding the gene with alternative synonymous codons?\n",
+      "question": "Why is an RBS library a better handle on one enzyme's level than recoding the gene with synonymous codons?\n",
       "choices": {
-        "A": "Codon changes cannot alter protein level at all.",
-        "B": "The ribosome binding site is a small, separable element whose variation spans a wide range without touching the protein sequence.",
-        "C": "Codon changes require chip synthesis, which is unavailable for genes this size.",
-        "D": "The ribosome binding site determines the protein's folding, which codons do not.",
-        "E": "Synonymous codon changes alter the amino acid sequence and so confound the result."
+        "A": "Codon changes cannot alter protein level at all",
+        "B": "A short separable element spans a wide range untouched protein",
+        "C": "Codon changes need chip synthesis, unavailable at this size",
+        "D": "The ribosome binding site determines how the protein folds",
+        "E": "Synonymous changes alter the amino acid sequence"
       },
       "answer": "B",
-      "explanation": "Varying a short element upstream of the start codon gives a broad, roughly monotonic range of initiation rates while leaving the coding sequence untouched, which keeps the enzyme itself out of the comparison. Recoding does shift expression, but through several entangled mechanisms including message structure and elongation, and across the whole gene. A and E are false; synonymous changes do affect expression and by definition do not change the protein. C is false. D misattributes folding to the ribosome binding site."
+      "explanation": "Varying a short element upstream of the start codon gives a broad and roughly monotonic range of initiation rates while leaving the coding sequence alone, which keeps the enzyme itself out of the comparison. Recoding does shift expression, but through several entangled mechanisms including message structure and elongation, and across the whole gene. Synonymous changes by definition do not change the protein, and folding is not set by the ribosome binding site."
     },
     {
       "slug": "holding_the_context_constant_in_a_part_library",
       "difficulty": "hard",
       "topic": "Controlling the context around a varied part",
-      "question": "In the course's terminator work, each candidate terminator is cloned into the same position in the same reporter plasmid rather than tested in whatever vector it arrived in. Why does that matter?\n",
+      "question": "Each candidate terminator is cloned into the same position in the same reporter plasmid rather than tested in the vector it arrived in. Why does that matter?\n",
       "choices": {
-        "A": "It raises the theoretical diversity of the library.",
-        "B": "It keeps everything other than the part under test identical, so differences in signal can be assigned to the part.",
-        "C": "It is required for the parts to be sequenced by cycle sequencing.",
-        "D": "It increases the copy number of the construct and so the signal.",
-        "E": "It eliminates the need for an upstream reference reporter."
+        "A": "It raises the theoretical diversity of the library",
+        "B": "It is required for the parts to be cycle sequenced",
+        "C": "It raises the copy number and so the signal",
+        "D": "It removes the need for an upstream reference reporter",
+        "E": "It holds everything but the part under test identical"
       },
-      "answer": "B",
-      "explanation": "A part's measured behavior depends on its surroundings: promoter, copy number, growth, and the reporters on either side. Putting every candidate into one fixed context makes the measurements comparable with each other, which is the whole premise of characterizing parts. A has nothing to do with it. C is false. D is incidental and not the reason. E is backwards, since the internal reference is still needed to handle clone-to-clone variation."
+      "answer": "E",
+      "explanation": "A part's measured behavior depends on its surroundings: promoter, copy number, growth, and the reporters on either side. Putting every candidate into one fixed context makes the measurements comparable with each other, which is the premise of characterizing parts at all. Diversity and sequencing are unrelated, any copy number change is incidental rather than the reason, and the internal reference is still needed to handle clone-to-clone variation."
     }
   ],
   "selections_versus_screens": [
@@ -462,119 +462,119 @@
       "topic": "Distinguishing a selection from a screen",
       "question": "What is the defining difference between a selection and a screen?\n",
       "choices": {
-        "A": "A selection measures every member of the library; a screen measures only a sample of it.",
-        "B": "In a selection the hits survive or are captured and the rest are lost; in a screen every member is measured individually.",
-        "C": "A selection is done in vitro and a screen is done in living cells.",
-        "D": "A selection reports a quantitative value for each member; a screen reports only survival.",
-        "E": "A selection requires sequencing and a screen does not."
+        "A": "A selection measures every member; a screen samples some",
+        "B": "A selection runs in vitro; a screen runs in living cells",
+        "C": "A selection reports a value per member; a screen reports survival",
+        "D": "In a selection hits persist and the rest are lost; a screen assays each",
+        "E": "A selection needs sequencing afterward and a screen does not"
       },
-      "answer": "B",
-      "explanation": "A selection applies a condition under which hits persist and non-hits are removed, so the library sorts itself and you never handle the losers. A screen assays members one at a time, so you learn something about each one but your effort scales with the library. A reverses the two. C is false; complementation and amber suppression are in vivo selections and SELEX is in vitro. D inverts the readouts, since the quantitative per-member value is what a screen gives you. E is unrelated."
+      "answer": "D",
+      "explanation": "A selection applies a condition under which hits persist and non-hits are removed, so the library sorts itself and you never handle the losers. A screen assays members one at a time, so you learn something about each one but your effort scales with the library. Both run in vitro and in vivo, as SELEX and complementation show, and it is the screen rather than the selection that returns a quantitative value per member."
     },
     {
       "slug": "why_large_libraries_need_selection",
       "difficulty": "easy",
       "topic": "Matching the method to library size",
-      "question": "Why are combinatorial libraries usually handled by selection rather than by screening each clone?\n",
+      "question": "Why are combinatorial libraries usually handled by selection rather than clone-by-clone screening?\n",
       "choices": {
-        "A": "Because screening cannot be made quantitative.",
-        "B": "Because the libraries are far larger than the number of clones anyone can assay one at a time.",
-        "C": "Because selections are cheaper per clone but otherwise equivalent in information.",
-        "D": "Because screening requires sequencing every member first.",
-        "E": "Because selections avoid the need for genotype-phenotype linkage."
+        "A": "Because screening can never be made quantitative",
+        "B": "Because they hold far more members than anyone can assay singly",
+        "C": "Because selections are cheaper but otherwise equivalent",
+        "D": "Because screening requires sequencing every member first",
+        "E": "Because selections avoid needing genotype-phenotype linkage"
       },
       "answer": "B",
-      "explanation": "A SELEX library is on the order of ten to the fifteenth and a phage display library can reach ten to the eleventh, while picking and assaying clones by hand tops out in the hundreds. The mismatch in scale is the entire reason selections exist. A is false. C understates the difference, since a selection also discards the information a screen would have collected. D is false. E is backwards: linkage is precisely what a pooled selection requires and a clone-by-clone screen does not."
+      "explanation": "A SELEX library runs to about ten to the fifteenth and a phage display library can reach ten to the eleventh, while picking and assaying clones by hand tops out in the hundreds. That mismatch in scale is the entire reason selections exist. A selection also discards the information a screen would have collected, so the two are not equivalent, and linkage is precisely what a pooled selection requires and a screen does not."
     },
     {
       "slug": "rbs_library_can_be_screened",
       "difficulty": "medium",
       "topic": "Recognizing a library small enough to screen",
-      "question": "The course notes that some libraries, such as ribosome binding site libraries, are not too big to screen. What makes that true?\n",
+      "question": "Some libraries, such as ribosome binding site libraries, are not too big to screen. What makes that true?\n",
       "choices": {
-        "A": "Ribosome binding sites have no sequence diversity to speak of.",
-        "B": "The degenerate region is short, so the theoretical diversity is small enough that a plate of picked clones covers a useful fraction of it.",
-        "C": "Ribosome binding site libraries cannot be selected, so screening is the only option.",
-        "D": "Expression level cannot be linked to survival under any circumstances.",
-        "E": "Screening becomes practical only when the library is built by EIPCR."
+        "A": "Ribosome binding sites carry no real sequence diversity",
+        "B": "Such libraries cannot be selected, leaving screening only",
+        "C": "Expression can never be coupled to the survival of a cell",
+        "D": "Screening is practical only for libraries built by EIPCR",
+        "E": "A short degenerate region keeps the diversity in the hundreds"
       },
-      "answer": "B",
-      "explanation": "An RBS library with a handful of degenerate positions has a diversity in the hundreds or low thousands, so picking a plate of colonies and reading a reporter samples enough of it to be informative. The decision is made from the theoretical diversity during design, which is why you calculate it before you build. A is false. C and D are both false, since expression can be coupled to a selectable marker. E confuses the construction method with the scale."
+      "answer": "E",
+      "explanation": "An RBS library with a handful of degenerate positions has a diversity in the hundreds or low thousands, so a plate of picked colonies samples enough of it to be informative. That decision is made from the theoretical diversity during design, which is why you calculate it before you build. Expression is readily coupled to a selectable marker, so selection remains available, and the construction method has no bearing on the scale."
     },
     {
       "slug": "diversity_calculation_precedes_the_choice",
       "difficulty": "medium",
       "topic": "Deciding screen or selection during design",
-      "question": "At what point in a library experiment should you decide whether you will screen or select, and on what basis?\n",
+      "question": "When should you decide whether to screen or select, and on what basis?\n",
       "choices": {
-        "A": "After transformation, based on how many colonies appeared.",
-        "B": "During design, based on the theoretical diversity of the library you are about to build.",
-        "C": "After the first round of assays, based on whether any hits were found.",
-        "D": "During design, based on which sequencing platform is available.",
-        "E": "It does not matter, since a screen can always be converted into a selection afterward."
+        "A": "After transformation, from how many colonies appeared",
+        "B": "During design, from the theoretical diversity of the library",
+        "C": "After the first assays, from whether any hits were found",
+        "D": "During design, from which sequencing platform is available",
+        "E": "It does not matter, as a screen converts to a selection later"
       },
       "answer": "B",
-      "explanation": "The theoretical diversity is known from the design before any DNA is made, and it determines whether a clone-by-clone assay can cover the library at all. Deciding afterward means you may have built something you have no way to interrogate. A is too late and conflates coverage with method. C is later still. D is a downstream consideration. E is false, since a selection requires a genotype-phenotype link that most screens do not provide."
+      "explanation": "The theoretical diversity is known from the design before any DNA is made, and it determines whether a clone-by-clone assay can cover the library at all. Deciding afterward means you may have built something you have no way to interrogate. The colony count conflates coverage with method and comes too late, the platform is a downstream consideration, and converting a screen to a selection requires a genotype-phenotype link most screens do not provide."
     },
     {
       "slug": "enrichment_then_individual_characterization",
       "difficulty": "medium",
-      "topic": "Sequencing the order of selection and characterization",
-      "question": "In SELEX, what is done after the rounds of selection are complete and the eluted fraction has climbed?\n",
+      "topic": "Sequencing selection and characterization",
+      "question": "After the rounds of a SELEX are complete and the eluted fraction has climbed, what happens next?\n",
       "choices": {
-        "A": "The pool is reported as the answer, since selection has already identified the best binder.",
-        "B": "The library is cloned, individual members are picked and sequenced, and those hits are characterized separately.",
-        "C": "The pool is subjected to further rounds until only one sequence remains.",
-        "D": "The pool is screened clone by clone before any selection is applied.",
-        "E": "The pool is discarded and the experiment is repeated with a fresh library."
+        "A": "The pool is reported, as selection already found the best binder",
+        "B": "Further rounds are run until a single sequence remains",
+        "C": "The pool is cloned, members are picked, sequenced and characterized",
+        "D": "The pool is screened clone by clone before selection is applied",
+        "E": "The pool is discarded and a fresh library is selected again"
       },
-      "answer": "B",
-      "explanation": "A selection narrows a library from an unmanageable size to a pool small enough to handle individually, and that is where the clone-by-clone work begins: clone the pool, pick members, sequence them, and measure their affinity on their own. A treats enrichment as a final answer when the pool still contains non-specific binders. C is not how the rounds behave and is not the goal. D inverts the order. E discards the result."
+      "answer": "C",
+      "explanation": "A selection narrows a library from an unmanageable size to a pool small enough to handle individually, and that is where clone-by-clone work begins: clone the pool, pick members, sequence them, and measure affinity on their own. Reporting the pool treats enrichment as a final answer when it still contains non-specific binders, and running to a single sequence is neither how the rounds behave nor the goal."
     },
     {
       "slug": "selection_discards_information",
       "difficulty": "medium",
       "topic": "Recognizing what a selection does not tell you",
-      "question": "A selection recovers hits from a library of ten million. What information does it not give you that a screen of the same library would have?\n",
+      "question": "A selection recovers hits from a library of ten million. What does it not tell you that a screen would have?\n",
       "choices": {
-        "A": "The sequence of the recovered hits.",
-        "B": "A measured value for every member, including those that failed and by how much.",
-        "C": "Whether the recovered clones are viable.",
-        "D": "The theoretical diversity of the library.",
-        "E": "Nothing; a selection gives strictly more information than a screen."
+        "A": "The sequences of the clones that were recovered",
+        "B": "Whether the recovered clones are viable at all",
+        "C": "The theoretical diversity of the starting library",
+        "D": "A value for every member, including failures and by how much",
+        "E": "Nothing, as a selection yields strictly more than a screen"
       },
-      "answer": "B",
-      "explanation": "Non-hits are physically removed in a selection, so there is no record of how any of them performed; you learn which members passed a threshold and nothing about the shape of the distribution behind it. That is a trade you accept in exchange for handling a library no screen could cover. A is wrong because recovered hits are sequenced. C and D are unaffected by the choice. E is the error this question is checking."
+      "answer": "D",
+      "explanation": "Non-hits are physically removed in a selection, so no record survives of how any of them performed; you learn which members passed a threshold and nothing about the distribution behind it. That is the trade you accept in exchange for handling a library no screen could cover. Recovered hits are of course sequenced, and viability and theoretical diversity are unaffected by the choice of method."
     },
     {
       "slug": "screen_scale_arithmetic",
       "difficulty": "medium",
       "topic": "Comparing library size against screening capacity",
-      "question": "Your library has a diversity of about ten to the sixth and a single clone takes a minute to pick and assay. Why is a screen not an option?\n",
+      "question": "Your library has diversity near a million and one clone takes a minute to pick and assay. Why is a screen not an option?\n",
       "choices": {
-        "A": "Because the assay would lose sensitivity at that scale.",
-        "B": "Because a million minutes is roughly two years of continuous work.",
-        "C": "Because libraries above ten thousand members cannot be transformed.",
-        "D": "Because the clones would be too similar to distinguish.",
-        "E": "Because screens require a selectable marker, which this library lacks."
+        "A": "Because the assay loses sensitivity at that scale",
+        "B": "Because libraries above ten thousand cannot be transformed",
+        "C": "Because a million minutes is on the order of two years",
+        "D": "Because the clones would be too similar to tell apart",
+        "E": "Because screens need a selectable marker this library lacks"
       },
-      "answer": "B",
-      "explanation": "The argument is arithmetic, not biology: a million one-minute assays is on the order of two years, which settles the matter before any question of sensitivity arises. Recognizing when the scale alone rules out a method is the point of the exercise. A is a distraction. C is false. D does not follow. E has it backwards, since it is selections that need the marker."
+      "answer": "C",
+      "explanation": "The argument is arithmetic rather than biology: a million one-minute assays is roughly two years of continuous work, which settles the matter before any question of sensitivity arises. Recognizing when the scale alone rules out a method is the point. Libraries far above ten thousand are transformed routinely, and it is selections rather than screens that need the marker."
     },
     {
       "slug": "fluorescence_sorting_as_a_selection",
       "difficulty": "hard",
       "topic": "Classifying a sort as a selection",
-      "question": "You scrape a library off a plate, sort it by fluorescence on a cytometer, and keep the brightest fraction. Is that a screen or a selection?\n",
+      "question": "You scrape a library off a plate, sort by fluorescence, and keep the brightest fraction. Is that a screen or a selection?\n",
       "choices": {
-        "A": "A screen, because fluorescence is measured on each cell.",
-        "B": "A selection, because the population is partitioned and the non-hits are discarded without being recorded.",
-        "C": "Neither, since cytometry is an analytical method rather than an enrichment.",
-        "D": "A screen, because no cells are killed.",
-        "E": "A selection only if a kill step such as an antibiotic is included."
+        "A": "A screen, because fluorescence is measured on each cell",
+        "B": "A selection, as the pool is partitioned with no record kept",
+        "C": "Neither, since cytometry analyzes rather than enriches",
+        "D": "A screen, because none of the cells are actually killed",
+        "E": "A selection only if a kill step such as a drug is included"
       },
       "answer": "B",
-      "explanation": "The instrument does measure each cell, which is what makes A tempting, but no per-clone value is retained and the unselected cells are thrown away: what comes out is an enriched population, not a table of results. Survival is not the criterion that defines a selection; partitioning without a per-member record is. C is false, since sorting is routinely used to enrich. D makes survival the test. E adds a requirement that does not exist."
+      "explanation": "The instrument does measure each cell, which is what makes the screen answer tempting, but no per-clone value is retained and the unselected cells are discarded: what comes out is an enriched population rather than a table of results. Survival is not what defines a selection; partitioning without a per-member record is. Sorting is used to enrich all the time, so it is not merely analytical."
     },
     {
       "slug": "arraying_as_the_middle_ground",
@@ -582,29 +582,29 @@
       "topic": "Placing arrayed screening between picking and selection",
       "question": "You need per-variant expression values for about two thousand library members. Which workflow fits?\n",
       "choices": {
-        "A": "A pooled selection, since two thousand is too many to handle individually.",
-        "B": "Arraying the clones into microtiter plates with a colony picker and reading them on a plate reader.",
-        "C": "Picking and assaying the clones one at a time in tubes.",
-        "D": "SELEX against an immobilized target.",
-        "E": "Sorting the pool by fluorescence and keeping the brightest fraction."
+        "A": "A pooled selection, as two thousand is too many to handle",
+        "B": "Picking and assaying the clones one at a time in tubes",
+        "C": "SELEX against the target protein immobilized on a column",
+        "D": "Sorting the pool and keeping only the brightest fraction",
+        "E": "A colony picker arraying into plates read on a plate reader"
       },
-      "answer": "B",
-      "explanation": "The requirement is a value for each member, which rules out anything pooled, and two thousand is well within reach of a colony picker and a few dozen plates. This is the regime automation exists to serve. A and E both discard the per-variant values that were asked for. C would work in principle but is an unnecessary two thousand manual assays. D is a binding selection and reports nothing about expression."
+      "answer": "E",
+      "explanation": "The requirement is a value for each member, which rules out anything pooled, and two thousand is well within reach of a colony picker and a few dozen plates. This is the regime automation exists to serve. Pooling and sorting both discard the per-variant values that were asked for, picking by hand would work but means two thousand manual assays, and a binding selection reports nothing about expression."
     },
     {
       "slug": "selection_cannot_report_a_distribution",
       "difficulty": "hard",
       "topic": "Matching the method to the question rather than the scale",
-      "question": "You want to know how promoter strength is distributed across a library of fifty thousand variants, not merely to find the strongest. Why is a growth selection on a resistance marker a poor fit?\n",
+      "question": "You want the distribution of promoter strengths across fifty thousand variants, not just the strongest. Why is a growth selection a poor fit?\n",
       "choices": {
-        "A": "Fifty thousand members is too small a library for a selection.",
-        "B": "A growth selection reports only whether each variant cleared a threshold, so the shape of the distribution is lost.",
-        "C": "Resistance markers cannot be driven by variable promoters.",
-        "D": "Selections require long-read sequencing, which is unavailable at this scale.",
-        "E": "Promoter strength cannot be linked to survival in any way."
+        "A": "Fifty thousand members is too small a library to select on",
+        "B": "Resistance markers cannot be driven by a variable promoter",
+        "C": "Selections require long reads, unavailable at this scale",
+        "D": "It reports only whether each variant cleared a threshold",
+        "E": "Promoter strength cannot be linked to survival in any way"
       },
-      "answer": "B",
-      "explanation": "The question asked for a distribution, and a survival selection gives a binary outcome per variant set by the drug concentration. The right instrument here is a pooled measurement that returns counts per variant, such as barcode sequencing of transcripts, which preserves the whole range. A inverts the scale argument. C and E are both false; this coupling is exactly how such selections are built. D invents a requirement."
+      "answer": "D",
+      "explanation": "The question asked for a distribution, and a survival selection gives a binary outcome per variant set by the drug concentration. The right instrument is a pooled measurement returning counts per variant, such as barcode sequencing of transcripts, which preserves the whole range. Coupling promoter strength to a resistance marker is exactly how such selections are built, so the coupling objections are false."
     }
   ],
   "genotype_phenotype_linkage": [
@@ -612,151 +612,151 @@
       "slug": "why_linkage_is_needed",
       "difficulty": "easy",
       "topic": "Understanding why a pooled selection needs linkage",
-      "question": "Why does a pooled selection require the molecule that performs the activity to stay physically associated with the DNA that encodes it?\n",
+      "question": "Why must the molecule performing the activity stay physically associated with the DNA encoding it?\n",
       "choices": {
-        "A": "Because the DNA is what carries out the activity being selected.",
-        "B": "Because the selection recovers a physical object, and you can only learn its identity by sequencing the DNA that came with it.",
-        "C": "Because unlinked DNA is degraded during the selection step.",
-        "D": "Because the selection cannot proceed unless the protein is encoded on a plasmid.",
-        "E": "Because linkage increases the enrichment per round."
+        "A": "Because the DNA is what carries out the activity selected",
+        "B": "Because unlinked DNA is degraded during the selection step",
+        "C": "Because a selection cannot run unless the gene is on a plasmid",
+        "D": "Because linkage raises the enrichment achieved per round",
+        "E": "Because you recover an object and must sequence it to name it"
       },
-      "answer": "B",
-      "explanation": "A selection hands you back a captured or surviving sample, not a label. The only way to find out what you captured is to read the attached DNA, so the attachment has to survive the selection. A reverses the roles of protein and gene. C invents a mechanism. D names one implementation rather than the requirement. E confuses a precondition with a performance measure."
+      "answer": "E",
+      "explanation": "A selection hands back a captured or surviving sample, not a label. The only way to find out what you captured is to read the attached DNA, so that attachment has to survive the selection. Plasmids are one implementation of the requirement rather than the requirement itself, and linkage is a precondition rather than a performance measure, so it does not by itself change the enrichment."
     },
     {
       "slug": "pIII_fusion_in_phage_display",
       "difficulty": "easy",
       "topic": "Identifying how phage display achieves linkage",
-      "question": "In M13 phage display, how is a displayed antibody fragment connected to the gene encoding it?\n",
+      "question": "In M13 phage display, how is a displayed antibody fragment connected to its gene?\n",
       "choices": {
-        "A": "The gene is chemically crosslinked to the protein after the particle is assembled.",
-        "B": "The protein is expressed as a fusion to P3 at the tip of the particle, and the phagemid encoding it is packaged inside that same particle.",
-        "C": "The gene is displayed on the surface alongside the protein.",
-        "D": "The protein is secreted into the medium while the gene stays in the cell.",
-        "E": "The protein is fused to P8, which is the only coat protein that permits linkage."
+        "A": "The gene is crosslinked to the protein after assembly",
+        "B": "The fusion is on P3 and the phagemid is packaged inside",
+        "C": "The gene is displayed on the surface beside the protein",
+        "D": "The protein is secreted while the gene stays in the cell",
+        "E": "The fusion is on P8, the only coat protein permitting it"
       },
       "answer": "B",
-      "explanation": "The particle is the link: the phagemid carrying the fusion gene is packaged into the very particle whose tip displays the fusion protein, so binding a protein captures its gene. A is not how phage display works. C is physically wrong. D breaks linkage entirely, which is the error this question checks. E names the wrong coat protein for a protein of this size, since P8 is used for multivalent display of very short peptides."
+      "explanation": "The particle is the link: the phagemid carrying the fusion gene is packaged into the very particle whose tip displays the fusion protein, so capturing a protein captures its gene. Secretion would break linkage entirely, which is the error worth spotting here. P8 is used for multivalent display of very short peptides rather than for a fragment this size, and no crosslinking step is involved."
     },
     {
       "slug": "selex_linkage_is_the_molecule_itself",
       "difficulty": "medium",
       "topic": "Recognizing that SELEX needs no separate linkage",
-      "question": "SELEX selects aptamers from a library of nucleic acids. Why does it not require a display system or a fusion protein?\n",
+      "question": "Why does SELEX need no display system or fusion protein?\n",
       "choices": {
-        "A": "Because aptamers are selected by growth rather than by binding.",
-        "B": "Because the molecule that binds is itself the nucleic acid, so genotype and phenotype are the same object.",
-        "C": "Because the target is immobilized rather than the library.",
-        "D": "Because reverse transcription recreates the linkage after elution.",
-        "E": "Because aptamer libraries are small enough to screen individually."
+        "A": "Because aptamers are selected by growth rather than binding",
+        "B": "Because the target is immobilized rather than the library",
+        "C": "Because the binder is the nucleic acid, so both are one object",
+        "D": "Because reverse transcription recreates linkage after elution",
+        "E": "Because aptamer libraries are small enough to screen singly"
       },
-      "answer": "B",
-      "explanation": "The whole problem of linkage comes from the activity residing in a protein while the information resides in DNA. In SELEX the binder is the DNA or RNA, so what you elute is directly amplifiable and sequenceable. A is false. C is true of the setup but is not the reason linkage is unnecessary. D has it backwards, since amplification is possible precisely because the linkage was never broken. E is false; these libraries reach ten to the fifteenth."
+      "answer": "C",
+      "explanation": "The linkage problem arises because the activity sits in a protein while the information sits in DNA. In SELEX the binder is the DNA or RNA, so what you elute is directly amplifiable and sequenceable. Immobilizing the target is part of the setup but not why linkage is unnecessary, amplification works precisely because linkage was never broken, and these libraries reach about ten to the fifteenth."
     },
     {
       "slug": "yeast_display_mechanism",
       "difficulty": "medium",
       "topic": "Identifying the tether in yeast surface display",
-      "question": "In yeast surface display, what puts the protein of interest on the outside of the cell that carries its gene?\n",
+      "question": "In yeast surface display, what puts the protein on the outside of the cell carrying its gene?\n",
       "choices": {
-        "A": "Fusion to Aga2, which is tethered by disulfide bonds to Aga1 in the cell wall.",
-        "B": "Insertion into a loop of an outer membrane barrel protein.",
-        "C": "Packaging into a secreted vesicle along with the plasmid.",
-        "D": "Fusion to P3 followed by infection with a helper phage.",
-        "E": "Covalent attachment to agarose beads treated with cyanogen bromide."
+        "A": "Fusion to Aga2, held by disulfides to Aga1 in the wall",
+        "B": "Insertion into a loop of an outer membrane barrel protein",
+        "C": "Packaging into a secreted vesicle along with the plasmid",
+        "D": "Fusion to P3 followed by infection with a helper phage",
+        "E": "Covalent coupling to agarose beads treated with cyanogen bromide"
       },
       "answer": "A",
-      "explanation": "Aga2 is exported and held to the wall-anchored Aga1 through disulfides, carrying the fused protein with it, so the displayed protein and its plasmid stay in the same cell. B describes bacterial display with OmpX or a similar barrel. D is phage display. E is the column chemistry used to immobilize a SELEX target. C invents a mechanism."
+      "explanation": "Aga2 is exported and held to the wall-anchored Aga1 through disulfide bonds, carrying the fused protein with it, so the displayed protein and its plasmid stay in the same cell. The barrel loop describes bacterial display with OmpX or a circular permutant of it, the phage route is a different system entirely, and the bead chemistry is how a SELEX target is immobilized."
     },
     {
       "slug": "display_capacity_differences",
       "difficulty": "medium",
       "topic": "Choosing a display system from size and library limits",
-      "question": "You need to display a full-length protein of 400 amino acids and want the largest library you can get. Which pairing of system and constraint is correct?\n",
+      "question": "You need to display a full-length 400 amino acid protein at the largest library you can get. Which statement is correct?\n",
       "choices": {
-        "A": "Bacterial display on OmpX, which handles full-length proteins at libraries of ten to the eleventh.",
-        "B": "Yeast display handles full-length proteins but transformation limits the library to about ten to the seventh; phage display reaches about ten to the eleventh.",
-        "C": "Phage display is limited to about ten to the seventh and yeast display to ten to the eleventh.",
-        "D": "Both systems are limited by the diversity of the degenerate oligo rather than by transformation.",
-        "E": "Neither system can display a protein of this length, so SELEX is the only option."
+        "A": "Bacterial display on OmpX handles full-length at ten to the eleventh",
+        "B": "Phage reaches about ten to the seventh and yeast ten to the eleventh",
+        "C": "Both systems are limited by oligo diversity, not transformation",
+        "D": "Yeast takes full-length but caps near ten to the seventh; phage reaches higher",
+        "E": "Neither can display this length, so SELEX is the only route"
       },
-      "answer": "B",
-      "explanation": "The two systems trade off against each other: yeast tolerates full-length proteins but its transformation efficiency caps the library around ten to the seventh, while phage reaches about ten to the eleventh. A misstates bacterial display, which reliably handles peptides up to roughly eighty amino acids and is unreliable for longer proteins. C swaps the two numbers. D names the wrong limiting step. E is false and SELEX selects nucleic acids, not proteins."
+      "answer": "D",
+      "explanation": "The two systems trade against each other: yeast tolerates full-length proteins but its transformation efficiency caps the library around ten to the seventh, while phage reaches about ten to the eleventh. Bacterial display reliably handles peptides up to roughly eighty amino acids and is unreliable beyond that, transformation rather than oligo diversity is the limiting step, and SELEX selects nucleic acids rather than proteins."
     },
     {
       "slug": "bulk_assay_breaks_linkage",
       "difficulty": "medium",
       "topic": "Recognizing a proposal that breaks linkage",
-      "question": "A colleague proposes selecting an improved secreted enzyme by growing the pooled library in one flask, assaying the culture supernatant, and keeping the pool if activity is high. What is wrong?\n",
+      "question": "A pooled library of secreted enzymes is grown in one flask and the supernatant assayed, keeping the pool if activity is high. What is wrong?\n",
       "choices": {
-        "A": "Nothing, provided the assay is sensitive enough.",
-        "B": "The secreted enzyme diffuses away from the cell that made it, so activity in the supernatant cannot be traced back to any genotype.",
-        "C": "Secreted enzymes cannot be assayed outside the cell.",
-        "D": "The pool would need to be sequenced before the assay rather than after.",
-        "E": "The flask would need to be grown under antibiotic selection."
+        "A": "Nothing, provided the activity assay is sensitive enough",
+        "B": "Secreted enzymes cannot be assayed outside the cell at all",
+        "C": "The pool must be sequenced before the assay, not after",
+        "D": "The flask would need to be grown under antibiotic selection",
+        "E": "The product diffuses away, so activity names no genotype"
       },
-      "answer": "B",
-      "explanation": "Once the product leaves the cell it mixes with everything else in the flask, so a high reading tells you only that the pool as a whole contains something active. This is the classic linkage failure, and the fixes are to confine the product with the cell, in a droplet or a liposome, or to keep it on the surface. A ignores the problem entirely. C is false. D and E address unrelated steps."
+      "answer": "E",
+      "explanation": "Once the product leaves the cell it mixes with everything else in the flask, so a high reading says only that the pool as a whole contains something active. This is the classic linkage failure, and the fixes are to confine the product with the cell, in a droplet or liposome, or to keep it on the surface. Sensitivity does not address the problem, and the sequencing and antibiotic objections concern unrelated steps."
     },
     {
       "slug": "compartmentalization_restores_linkage",
       "difficulty": "hard",
       "topic": "Using compartmentalization to supply linkage",
-      "question": "Why does running a pooled assay on a secreted or soluble product inside water-in-oil droplets or liposomes rescue the experiment?\n",
+      "question": "Why does running a pooled assay inside water-in-oil droplets or liposomes rescue a diffusible product?\n",
       "choices": {
-        "A": "Because the compartment raises the expression level of each variant.",
-        "B": "Because each compartment holds one gene and the product it makes, so the product cannot mix with products of other variants.",
-        "C": "Because compartments eliminate the need for sequencing the hits.",
-        "D": "Because the compartment protects the DNA from nuclease degradation.",
-        "E": "Because compartments allow the library to be larger than transformation would permit."
+        "A": "Because the compartment raises each variant's expression level",
+        "B": "Because each compartment holds one gene and its own product",
+        "C": "Because compartments remove the need to sequence the hits",
+        "D": "Because the compartment shields the DNA from nucleases",
+        "E": "Because compartments allow libraries beyond transformation limits"
       },
       "answer": "B",
-      "explanation": "A compartment is an artificial cell: it keeps one template and whatever that template produces in the same tiny volume, which restores the association the bulk flask destroyed. Sorting the compartments then sorts the genes. A, C and D are incidental or false. E confuses the linkage problem with the library size problem, although cell-free compartments do avoid transformation for other reasons."
+      "explanation": "A compartment is an artificial cell: it keeps one template and whatever that template produces in the same tiny volume, which restores the association the bulk flask destroyed, and sorting the compartments then sorts the genes. Expression levels and nuclease protection are incidental, hits still have to be sequenced, and escaping transformation limits is a separate benefit of cell-free formats rather than the linkage argument."
     },
     {
       "slug": "complementation_linkage",
       "difficulty": "hard",
       "topic": "Explaining linkage in a complementation selection",
-      "question": "In the chorismate mutase linker selection, the library is grown on minimal medium lacking aromatic amino acids in a knockout strain. What provides the genotype-phenotype link?\n",
+      "question": "A linker library is grown in a chorismate mutase knockout on medium lacking aromatic amino acids. What provides the linkage?\n",
       "choices": {
-        "A": "The enzyme is displayed on the cell surface during growth.",
-        "B": "The plasmid encoding the linker variant is inside the cell whose survival depends on that variant working.",
-        "C": "The enzyme is covalently attached to its own gene during translation.",
-        "D": "The knockout strain carries a barcode identifying each variant.",
-        "E": "Each variant is grown in a separate well, so no linkage is needed."
+        "A": "The enzyme is displayed on the cell surface during growth",
+        "B": "The enzyme is attached to its own gene during translation",
+        "C": "The knockout strain carries a barcode for each variant",
+        "D": "Each variant grows in a separate well, so none is needed",
+        "E": "The plasmid sits inside the cell whose survival depends on it"
       },
-      "answer": "B",
-      "explanation": "The cell is the compartment. A variant whose linker lets the enzyme fold into a working monomer makes aromatic amino acids and the cell divides, and the colony that results carries the plasmid you sequence. This is why in vivo selections need no display machinery at all. A and C invent mechanisms. D is not part of this design. E contradicts the pooled nature of the selection."
+      "answer": "E",
+      "explanation": "The cell is the compartment. A variant whose linker lets the enzyme fold into a working monomer makes aromatic amino acids and the cell divides, and the colony that results carries the plasmid you sequence. This is why in vivo selections need no display machinery at all. Surface display and translational attachment are mechanisms from other systems, no barcode is part of this design, and separate wells would contradict the pooled nature of the selection."
     },
     {
       "slug": "inferring_genotype_from_expression",
       "difficulty": "hard",
       "topic": "Recognizing an invalid substitute for linkage",
-      "question": "A proposal for a pooled protein library suggests identifying the best variant by measuring, for the whole pool, which variants are most highly expressed. Why does that not answer the question?\n",
+      "question": "A proposal identifies the best variant in a pooled protein library by finding which variants are most abundant. Why does that fail?\n",
       "choices": {
-        "A": "Expression cannot be measured in a pooled library.",
-        "B": "Expression level and the activity being selected for are different properties, so abundance in the pool does not identify the best performer.",
-        "C": "Expression is only measurable by cycle sequencing, which does not work on pools.",
-        "D": "Expression differences are too small to detect by sequencing.",
-        "E": "It would work, provided the pool is sequenced deeply enough."
+        "A": "Because expression cannot be measured in a pooled library",
+        "B": "Because expression is readable only by cycle sequencing",
+        "C": "Because abundance and the selected activity are different properties",
+        "D": "Because expression differences are too small to detect by reads",
+        "E": "It would work, given sufficient sequencing depth on the pool"
       },
-      "answer": "B",
-      "explanation": "Abundance tells you which variants are present in quantity, which may reflect how well they clone, fold, or tolerate being made rather than how well they perform. The lesson is the same one the SELEX data makes: the most abundant sequences in a pool were not the enriched ones. A and C are false; pooled expression is read by counting reads. D is false. E compounds the error by proposing more of a measurement that answers a different question."
+      "answer": "C",
+      "explanation": "Abundance tells you which variants are present in quantity, which may reflect how well they clone, fold, or tolerate being made rather than how well they perform. The lesson is the one the SELEX data makes: the most abundant sequences in a final pool were not the enriched ones. Pooled expression is read by counting reads, and more depth only measures the wrong quantity more precisely."
     },
     {
-      "slug": "linkage_requirement_for_a_small_molecule_product",
+      "slug": "linkage_for_a_small_molecule_product",
       "difficulty": "hard",
       "topic": "Choosing a linkage strategy for a diffusible product",
-      "question": "You have a library of enzyme variants whose product is a diffusible small molecule, and you want to select variants that make more of it. Which approach preserves linkage?\n",
+      "question": "Enzyme variants make a diffusible small molecule and you want those making more of it. Which approach keeps linkage?\n",
       "choices": {
-        "A": "Phage display of the enzyme followed by panning against the product.",
-        "B": "A biosensor inside the same cell that turns on a selectable marker in response to the product.",
-        "C": "Assaying the pooled culture supernatant by mass spectrometry.",
-        "D": "Immobilizing the product on a column and passing the library over it.",
-        "E": "Yeast surface display of the enzyme with the product detected in the medium."
+        "A": "Phage display of the enzyme, then panning against the product",
+        "B": "Assaying the pooled culture supernatant by mass spectrometry",
+        "C": "Immobilizing the product and passing the library over it",
+        "D": "Yeast display of the enzyme, reading the product in the medium",
+        "E": "A biosensor in the same cell driving a selectable marker"
       },
-      "answer": "B",
-      "explanation": "A biosensor keeps the readout inside the same cell as the gene, so a variant that makes more product makes its own cell survive, and the plasmid is recovered from the colony. A and D select for binding to the product rather than for making it. C is the bulk assay that destroys linkage. E links the enzyme to its gene but reads the product in the shared medium, so the readout is still pooled."
+      "answer": "E",
+      "explanation": "A biosensor keeps the readout inside the same cell as the gene, so a variant that makes more product makes its own cell survive and the plasmid is recovered from the colony. Panning and immobilized product both select for binding the product rather than for making it, the pooled supernatant is the bulk assay that destroys linkage, and displaying the enzyme links the enzyme to its gene while still reading the product in shared medium."
     }
   ],
   "selection_performance_and_enrichment": [
@@ -766,74 +766,74 @@
       "topic": "Defining enrichment",
       "question": "Enrichment for a selection step is defined as which of the following?\n",
       "choices": {
-        "A": "The number of hits recovered after the selection.",
-        "B": "The frequency of hits in the final population divided by their frequency in the starting population.",
-        "C": "The fraction of hits that survive the selection.",
-        "D": "How strongly the selection prefers a hit over a non-hit.",
-        "E": "The number of rounds required before hits become detectable."
+        "A": "The number of hits recovered after the selection is run",
+        "B": "The fraction of the hits that survive the selection step",
+        "C": "How strongly the selection prefers a hit over a non-hit",
+        "D": "The hit frequency after the step divided by the frequency before",
+        "E": "The number of rounds before hits become detectable at all"
       },
-      "answer": "B",
-      "explanation": "Enrichment is a ratio of frequencies, before and after, which is why it can be large even when very few molecules come through. C is the definition of recovery and D is the definition of specificity; both feed into enrichment but are not it. A is a count rather than a frequency and says nothing about the starting population. E is an observation about the campaign, not a definition."
+      "answer": "D",
+      "explanation": "Enrichment is a ratio of frequencies, before and after, which is why it can be large even when very few molecules come through. The fraction of hits surviving is recovery and the preference for hits over non-hits is specificity; both feed into enrichment without being it. A raw count says nothing about the starting population, and the number of rounds is an observation about the campaign rather than a definition."
     },
     {
       "slug": "definition_of_specificity_and_recovery",
       "difficulty": "easy",
       "topic": "Distinguishing specificity from recovery",
-      "question": "A selection retains 90 percent of the hits in the library and also lets through 1 percent of the non-hits. Which statement names these quantities correctly?\n",
+      "question": "A step retains 90 percent of the hits and lets through 1 percent of the non-hits. Which statement names these correctly?\n",
       "choices": {
-        "A": "Recovery is 90 percent; the preference for hits over non-hits is the specificity.",
-        "B": "Specificity is 90 percent; the enrichment is 1 percent.",
-        "C": "Recovery is 1 percent; specificity is 90 percent.",
-        "D": "Both numbers describe the enrichment, which is their sum.",
-        "E": "Recovery is 90 percent and specificity cannot be stated without the number of rounds."
+        "A": "Recovery is 90 percent; the preference for hits is specificity",
+        "B": "Specificity is 90 percent and the enrichment is 1 percent",
+        "C": "Recovery is 1 percent and specificity is 90 percent",
+        "D": "Both figures describe enrichment, which is their sum",
+        "E": "Recovery is 90 percent; specificity needs the round count"
       },
       "answer": "A",
-      "explanation": "Recovery asks what fraction of the hits survive, which is the 90 percent. Specificity asks how strongly the step prefers a hit to a non-hit, which is what the contrast between 90 percent and 1 percent expresses. B and C swap the two. D invents an arithmetic relation; enrichment is determined by both but is not a sum. E is wrong because specificity is a property of a single step."
+      "explanation": "Recovery asks what fraction of the hits survive, which is the 90 percent. Specificity asks how strongly the step prefers a hit to a non-hit, which is what the contrast between 90 percent and 1 percent expresses. Two of the options simply swap the two terms, enrichment is determined by both without being their sum, and specificity is a property of a single step and needs no round count."
     },
     {
       "slug": "enrichment_calculation_from_plates",
       "difficulty": "medium",
       "topic": "Computing enrichment from colony counts",
-      "question": "Before a sort you plate the library and count 93 blue colonies and 1 red, where red marks a hit. After the sort you plate again and count 3 blue and 183 red. What is the enrichment?\n",
+      "question": "Before a sort you count 93 blue colonies and 1 red, red marking a hit. After it you count 3 blue and 183 red. Which expression gives the enrichment?\n",
       "choices": {
-        "A": "About 183, the number of red colonies recovered.",
-        "B": "About 92.",
-        "C": "About 2, the ratio of the two plate counts.",
-        "D": "About 61, the ratio of red to blue after the sort.",
-        "E": "It cannot be calculated without knowing the total library size."
+        "A": "183 / 1, the red counts after over before",
+        "B": "183 / 3, the red to blue ratio after the sort",
+        "C": "(183 / 186) / (1 / 94), the two red frequencies",
+        "D": "(183 + 3) / (93 + 1), the totals after over before",
+        "E": "(183 / 186) - (1 / 94), the change in red frequency"
       },
-      "answer": "B",
-      "explanation": "The frequency of reds before is 1 divided by 94, or 0.0106, and after is 183 divided by 186, or 0.984. The ratio of those two frequencies is about 92. A reports a raw count, which depends on how much was plated. C and D compute ratios that are not frequencies before over frequencies after. E is wrong because enrichment uses frequencies, so the library size cancels."
+      "answer": "C",
+      "explanation": "Enrichment is the frequency of hits after divided by the frequency before, so each plate is first turned into a frequency by dividing reds by the total of that plate, and the two frequencies are then divided. Raw counts depend on how much was plated and so cannot be compared directly, the red to blue ratio is not a frequency, and subtracting frequencies gives a difference rather than a fold change."
     },
     {
       "slug": "why_multiple_rounds",
       "difficulty": "medium",
-      "topic": "Explaining why selections are run for several rounds",
-      "question": "SELEX and phage panning typically take five or six rounds. Why is one round not enough?\n",
+      "topic": "Explaining why selections run for several rounds",
+      "question": "SELEX and phage panning typically take five or six rounds. Why is one not enough?\n",
       "choices": {
-        "A": "Because the library has to be resynthesized between rounds.",
-        "B": "Because the enrichment per round is modest against a large background of non-specific binding, so the hit frequency has to be raised repeatedly.",
-        "C": "Because the target degrades and must be replaced each round.",
-        "D": "Because each round can only sample a fraction of the library.",
-        "E": "Because the amplification step reduces diversity, which later rounds restore."
+        "A": "Because modest per-round gains against background must compound",
+        "B": "Because the target degrades and is replaced each round",
+        "C": "Because each round samples only a fraction of the library",
+        "D": "Because amplification cuts diversity, which later rounds restore",
+        "E": "Because the library has to be resynthesized between rounds"
       },
-      "answer": "B",
-      "explanation": "Non-specific binding carries a great deal of the library through every round, so a single pass raises the hit frequency by a factor that is far short of what is needed to go from one in ten to the fifteenth to a workable pool. Repeating multiplies the enrichment. A is false; the pool is amplified, not rebuilt. C is incidental. D misstates the mechanism, since the whole library is passed over the target. E has the effect of amplification backwards."
+      "answer": "A",
+      "explanation": "Non-specific binding carries much of the library through every round, so a single pass raises the hit frequency by a factor far short of what is needed to go from one in ten to the fifteenth to a workable pool, and repeating multiplies the enrichment. The pool is amplified rather than rebuilt, the whole library is passed over the target each round, and amplification does not restore diversity."
     },
     {
       "slug": "compounding_enrichment_across_rounds",
       "difficulty": "medium",
       "topic": "Reasoning about enrichment over several rounds",
-      "question": "A selection step gives an enrichment of about 20. Starting from a hit frequency of one in a million, roughly what is the hit frequency after three rounds, assuming each round performs the same?\n",
+      "question": "A step enriches about twentyfold. Starting from a hit frequency of one in a million, which expression gives the frequency after three rounds?\n",
       "choices": {
-        "A": "About one in a hundred and twenty-five, since the per-round enrichments multiply to about 8000.",
-        "B": "About one in a million still, since enrichment does not accumulate.",
-        "C": "About one in seventeen thousand, since the per-round enrichments add to about 60.",
-        "D": "About one in sixty, since three rounds of twenty are equivalent to one round of sixty.",
-        "E": "It cannot be estimated without knowing the recovery."
+        "A": "20^3 / 10^6, since the per-round factors multiply",
+        "B": "(20 x 3) / 10^6, since the per-round factors add",
+        "C": "20 / 10^6, since the enrichment is a fixed property",
+        "D": "10^6 / 20^3, since enrichment divides the frequency",
+        "E": "20^3 x 10^6, since both quantities scale together"
       },
       "answer": "A",
-      "explanation": "Each round multiplies the hit frequency by the enrichment, so three rounds give 20 cubed, which is 8000, and one in a million becomes roughly one in a hundred and twenty-five. C and D both add the per-round figures instead of multiplying them, which is the usual error and which badly understates how quickly a selection converges. B denies compounding altogether. E is wrong because recovery is already folded into the enrichment figure."
+      "explanation": "Each round multiplies the hit frequency by the enrichment, so three rounds contribute twenty cubed and the starting frequency is multiplied by that. Adding the per-round factors is the usual error and badly understates how fast a selection converges, using a single round ignores compounding altogether, and the remaining options divide or multiply in the wrong direction."
     },
     {
       "slug": "recovery_versus_enrichment_tradeoff",
@@ -841,79 +841,532 @@
       "topic": "Trading recovery against enrichment",
       "question": "You make the washes in a panning experiment much more stringent. What is the likely effect?\n",
       "choices": {
-        "A": "Both recovery and enrichment fall.",
-        "B": "Enrichment per round rises because more non-specific binders are removed, while recovery of true hits falls.",
-        "C": "Recovery rises because only true binders are left.",
-        "D": "Neither changes, since washing affects only the volume recovered.",
-        "E": "Enrichment falls because fewer molecules are recovered."
+        "A": "Both the recovery and the enrichment per round fall",
+        "B": "Recovery rises, since only true binders remain bound",
+        "C": "Neither changes, as washing affects only the volume",
+        "D": "Enrichment falls, since fewer molecules are recovered",
+        "E": "Enrichment per round rises while recovery of real hits falls"
       },
-      "answer": "B",
-      "explanation": "Harsher washing discriminates more sharply, so the surviving pool is purer, but weakly binding real hits are lost along with the background. That trade is the reason stringency is tuned rather than maximized, and it is why early rounds are often run gently. A and E confuse the number of molecules recovered with the frequency of hits among them. C misuses recovery, which refers to the hits specifically. D ignores the mechanism."
+      "answer": "E",
+      "explanation": "Harsher washing discriminates more sharply, so the surviving pool is purer, but weakly binding real hits are lost along with the background. That trade is why stringency is tuned rather than maximized, and why early rounds are often run gently. Two of the options confuse the number of molecules recovered with the frequency of hits among them, and recovery refers to the hits specifically rather than to whatever remains bound."
     },
     {
       "slug": "abundance_is_not_enrichment",
       "difficulty": "hard",
       "topic": "Separating abundance from enrichment in a sequenced pool",
-      "question": "You deep-sequence the final round of a selection and find ten sequences with by far the highest copy numbers. Why can you not conclude that these are your best binders?\n",
+      "question": "Deep sequencing the final round shows ten sequences with by far the highest copy numbers. Why are these not necessarily your best binders?\n",
       "choices": {
-        "A": "Because copy number cannot be measured accurately by sequencing.",
-        "B": "Because a sequence can be abundant for reasons unrelated to the selection, such as efficient synthesis or amplification, and only a rising frequency across rounds shows selection acting.",
-        "C": "Because the best binders are always rare in the final pool.",
-        "D": "Because the final round is always dominated by the starting library.",
-        "E": "Because abundance reflects binding affinity, which is not the same as specificity."
+        "A": "Because copy number cannot be measured accurately by reads",
+        "B": "Because the best binders are always rare in a final pool",
+        "C": "Because a sequence can be abundant for reasons other than selection",
+        "D": "Because the final round is always dominated by the input library",
+        "E": "Because abundance reflects affinity, which is not specificity"
       },
-      "answer": "B",
-      "explanation": "Abundance at the end is a snapshot and has no before to compare against. In the published case the ten most abundant sequences in the final pool were the same ten in every round and showed no enrichment at all, while real hits appeared at low frequency early and climbed by thousands of fold. Reading the end point alone is exactly the error. A is false. C overstates it into a rule. D is false. E misdiagnoses the problem as a distinction between affinity and specificity."
+      "answer": "C",
+      "explanation": "Abundance at the end is a snapshot with no before to compare against, and a sequence can be common because it synthesizes or amplifies well. In the published case the ten most abundant sequences in the final pool were the same ten in every round and showed no enrichment at all, while the real hits appeared infrequently early and climbed by thousands of fold. Rarity is not a rule, and the last option misdiagnoses the issue as affinity versus specificity."
     },
     {
       "slug": "enrichment_requires_a_before_measurement",
       "difficulty": "hard",
       "topic": "Recognizing what an enrichment calculation requires",
-      "question": "You sorted a library and recovered a pool in which 95 percent of clones are hits, but you did not plate the library before sorting. What can you report?\n",
+      "question": "You sorted a library into a pool that is 95 percent hits, but never plated the library beforehand. What can you report?\n",
       "choices": {
-        "A": "The enrichment, since the starting frequency of a random library is known to be negligible.",
-        "B": "The final hit frequency, but not the enrichment, which requires the starting frequency.",
-        "C": "Both the specificity and the recovery of the sort.",
-        "D": "The recovery, since 95 percent of what came through were hits.",
-        "E": "Nothing quantitative at all."
+        "A": "The enrichment, as a naive library's frequency is negligible",
+        "B": "Both the specificity and the recovery of the sorting step",
+        "C": "The recovery, since 95 percent of what came through were hits",
+        "D": "Nothing quantitative can be reported about this experiment",
+        "E": "The final hit frequency, but not the enrichment"
       },
-      "answer": "B",
-      "explanation": "Enrichment is a ratio and the denominator is a measurement you either made or did not. Without the before plate you have a perfectly good final frequency and no enrichment. A substitutes an assumption for a measurement, which is the habit this question is testing. C requires knowing what happened to hits and non-hits separately. D misreads the 95 percent, which is a purity rather than a fraction of hits retained. E is too pessimistic."
+      "answer": "E",
+      "explanation": "Enrichment is a ratio and the denominator is a measurement you either made or did not, so without the before plate you have a perfectly good final frequency and no enrichment. Substituting an assumption for that measurement is the habit worth breaking. Specificity and recovery would require tracking hits and non-hits separately, and the 95 percent is a purity rather than a fraction of hits retained."
     },
     {
       "slug": "diagnosing_a_failed_selection",
       "difficulty": "hard",
       "topic": "Diagnosing a selection that fails to enrich",
-      "question": "After six rounds, the eluted fraction has not risen and sequencing shows the pool is as diverse as the starting library. Which explanation is most consistent with that result?\n",
+      "question": "After six rounds the eluted fraction has not risen and the pool is as diverse as the input. Which explanation fits?\n",
       "choices": {
-        "A": "Recovery is too low, so the hits were lost even though the specificity was high.",
-        "B": "Either the library contains no hits, or the step has essentially no specificity, so hits and non-hits come through alike.",
-        "C": "The enrichment was too high, collapsing the pool prematurely.",
-        "D": "The amplification step introduced too much diversity between rounds.",
-        "E": "The target was immobilized too densely."
+        "A": "Recovery is too low, so hits were lost despite high specificity",
+        "B": "Enrichment was too high, collapsing the pool prematurely",
+        "C": "Amplification introduced too much diversity between rounds",
+        "D": "The target was immobilized at too high a density",
+        "E": "Either there are no hits, or the step has almost no specificity"
       },
-      "answer": "B",
-      "explanation": "Undiminished diversity and a flat elution signal mean the population is not being sorted at all, which happens when there is nothing to find or when the step cannot tell hits from background. A would reduce the amount recovered but would still leave the survivors skewed toward hits. C describes the opposite result. D attributes a thousandfold diversity to PCR error, which it cannot produce. E would be expected to raise, not abolish, binding."
+      "answer": "E",
+      "explanation": "Undiminished diversity and a flat elution signal mean the population is not being sorted at all, which happens when there is nothing to find or when the step cannot tell hits from background. Low recovery would reduce the amount recovered while still leaving the survivors skewed toward hits, excessive enrichment describes the opposite outcome, PCR cannot generate diversity on this scale, and dense target would raise binding rather than abolish it."
     },
     {
       "slug": "negative_selection_in_a_dual_scheme",
       "difficulty": "hard",
       "topic": "Explaining why a positive selection alone is insufficient",
-      "question": "In the LuxR specificity work, the positive selection is run with the new small molecule and clears out everything that does not activate the promoter. Why is a negative selection still required?\n",
+      "question": "A positive selection with the new ligand clears everything that fails to activate the promoter. Why is a negative selection still needed?\n",
       "choices": {
-        "A": "Because the positive selection also removes variants with the desired new specificity.",
-        "B": "Because wild-type LuxR survives the positive round by responding to something it could already respond to, and only a round that kills responders to the old ligand removes it.",
-        "C": "Because the positive selection leaves too few survivors to sequence.",
-        "D": "Because the negative selection raises the recovery of the desired variants.",
-        "E": "Because chloramphenicol resistance decays over successive rounds."
+        "A": "Because the positive round also removes the desired variants",
+        "B": "Because too few survivors remain after it to be sequenced",
+        "C": "Because the negative round raises recovery of the wanted clones",
+        "D": "Because wild type survives by answering the ligand it always could",
+        "E": "Because resistance to the drug decays over successive rounds"
       },
-      "answer": "B",
-      "explanation": "The survivors of the positive round are a mixture of genuinely reprogrammed variants and wild type, because activating the promoter is not by itself evidence of new specificity. The negative round, run with the old ligand and a counter-selectable marker, removes anything that still answers to the old stimulus. A contradicts the purpose of the positive round. C is not the stated problem. D misattributes the effect, since the negative round removes rather than retains. E invents a mechanism."
+      "answer": "D",
+      "explanation": "Survivors of the positive round are a mixture of genuinely reprogrammed variants and wild type, because activating the promoter is not by itself evidence of new specificity. The negative round, run with the old ligand and a counter-selectable marker, removes anything still answering the old stimulus. The negative round removes rather than retains clones, so it cannot raise recovery, and the remaining options contradict the purpose of the positive round or invent a mechanism."
     }
   ],
-  "diversity_generation_methods": [],
-  "what_directed_evolution_requires": [],
-  "tuning_a_circuit_threshold": [],
+  "diversity_generation_methods": [
+    {
+      "slug": "error_prone_pcr_conditions",
+      "difficulty": "easy",
+      "topic": "Recognizing how error-prone PCR is made error-prone",
+      "question": "An error-prone PCR differs from an ordinary PCR in which way?\n",
+      "choices": {
+        "A": "One of the two primers is left out of the reaction",
+        "B": "Skewed dNTPs, added manganese and extra magnesium",
+        "C": "A proofreading polymerase at a lower extension temperature",
+        "D": "Degenerate oligos in place of the ordinary primers",
+        "E": "Many more cycles, so that errors accumulate over time"
+      },
+      "answer": "B",
+      "explanation": "The reaction has the same parts as any PCR, with buffer, polymerase, two primers and template, and the mutagenesis comes from conditions that make the enzyme sloppy. A proofreading enzyme would lower the error rate instead, degenerate oligos build a defined combinatorial library rather than a random one, and extra cycles amplify copies without meaningfully raising the per-base error rate."
+    },
+    {
+      "slug": "what_error_prone_pcr_produces",
+      "difficulty": "easy",
+      "topic": "Describing the product of random point mutagenesis",
+      "question": "What kind of library does error-prone PCR across a gene produce?\n",
+      "choices": {
+        "A": "Every single amino acid substitution, one per clone",
+        "B": "Recombinants interleaving blocks from several parents",
+        "C": "Point mutations scattered at random throughout the gene",
+        "D": "A defined set of substitutions at chosen positions",
+        "E": "Insertions and deletions at a controlled spacing"
+      },
+      "answer": "C",
+      "explanation": "The method gives no control over where mutations fall or what they change; it sets an average rate and scatters substitutions accordingly. An exhaustive single-substitution set comes from synthesis, interleaved blocks come from DNA shuffling, and chosen positions mean saturation or site-directed mutagenesis. Indels are not what the method makes, and the shuffling data showed no frameshifts at all."
+    },
+    {
+      "slug": "shuffling_fragment_and_reassemble",
+      "difficulty": "medium",
+      "topic": "Describing the steps of DNA shuffling",
+      "question": "Pooled parental genes are digested to about 50 bp with DNase I, then put through a PCR with no added primers. What does that reaction do?\n",
+      "choices": {
+        "A": "The fragments prime on each other and reassemble genes",
+        "B": "It amplifies the fragments so each can be cloned apart",
+        "C": "It adds restriction sites onto the fragment ends",
+        "D": "It selects those fragments carrying useful mutations",
+        "E": "It degrades the fragments further to single nucleotides"
+      },
+      "answer": "A",
+      "explanation": "Overlapping fragments from different parents anneal to each other and act as each other's primers, so each round of extension stitches sequence from several templates into one molecule, which is the same chemistry as primerless assembly in gene synthesis. The terminal primers come afterward to amplify the reassembled full-length product, and the remaining options assign the reaction activities it does not have."
+    },
+    {
+      "slug": "what_shuffling_adds_over_error_prone_pcr",
+      "difficulty": "medium",
+      "topic": "Explaining why shuffling largely replaced error-prone PCR",
+      "question": "Why has DNA shuffling largely replaced error-prone PCR as a diversification step?\n",
+      "choices": {
+        "A": "Because it avoids point mutations, which are mostly harmful",
+        "B": "Because it needs no prior round of mutagenesis to work",
+        "C": "Because it yields a defined rather than a random library",
+        "D": "Because it recombines existing mutations and is error-prone itself",
+        "E": "Because it removes the need for a screen after the library"
+      },
+      "answer": "D",
+      "explanation": "Shuffling does double duty: it brings together mutations that arose in different clones, which point mutagenesis alone cannot do, and the reassembly introduces substitutions at a rate comparable to error-prone PCR. Its input is a pool of variants, usually the hits from a previous round, so a prior round is part of the premise. The library stays random, and a screen is still required."
+    },
+    {
+      "slug": "transition_versus_transversion",
+      "difficulty": "medium",
+      "topic": "Classifying base substitutions",
+      "question": "G to A is a transition and G to T is a transversion. What distinguishes the two?\n",
+      "choices": {
+        "A": "A transition changes the amino acid and a transversion does not",
+        "B": "A transition keeps the ring type and a transversion swaps it",
+        "C": "A transition is on the coding strand, a transversion the template",
+        "D": "A transition is one base and a transversion two adjacent bases",
+        "E": "A transition comes from polymerase error, a transversion DNase I"
+      },
+      "answer": "B",
+      "explanation": "A and G are purines while C and T are pyrimidines, so keeping the ring type is a transition and swapping it is a transversion. That is a property of the chemistry rather than of the consequence, and whether the amino acid changes depends on the codon. The remaining options invent distinctions involving strands, run lengths and enzymes that do not exist."
+    },
+    {
+      "slug": "mutation_outcome_distribution",
+      "difficulty": "medium",
+      "topic": "Reasoning from the distribution of mutational effects",
+      "question": "About 90 percent of missense mutations are neutral, 9 percent deleterious and 1 percent usefully altering. What follows for the experiment?\n",
+      "choices": {
+        "A": "Mutagenesis is rarely worth doing, as most changes do nothing",
+        "B": "The rate should rise until most clones carry a useful change",
+        "C": "Deleterious mutants can be ignored as the smallest class",
+        "D": "Screening can be replaced by sequencing the library instead",
+        "E": "Many clones must be screened, as useful variants are rare"
+      },
+      "answer": "E",
+      "explanation": "If one clone in a hundred carries an altered activity and most of the rest are indistinguishable from wild type, the only way to find the rare ones is to look at a great many. Raising the rate piles deleterious changes on top of each other and destroys function rather than enriching for improvements, the deleterious class is not the smallest, and sequencing assumes the predictive power the experiment exists to supply."
+    },
+    {
+      "slug": "where_deleterious_mutations_fall",
+      "difficulty": "medium",
+      "topic": "Locating the mutations that destroy function",
+      "question": "Within the deleterious 9 percent, which structural explanation matches which effect?\n",
+      "choices": {
+        "A": "Core changes kill activity; active-site changes kill folding",
+        "B": "Both core and active-site changes act by destabilizing the fold",
+        "C": "Surface substitutions account for most deleterious mutations",
+        "D": "Core changes stop folding; active-site changes stop catalysis",
+        "E": "Deleterious mutations fall uniformly across the sequence"
+      },
+      "answer": "D",
+      "explanation": "Packing the hydrophobic core is what holds the fold together, so substitutions there tend to stop the protein folding at all, while residues contacting the substrate and the shell behind them are needed for catalysis, so changes there leave a folded but inactive protein. Surface positions are the ones that tolerate change, and collapsing the distinction or ignoring structure both lose the useful part of the answer."
+    },
+    {
+      "slug": "mutation_rate_and_active_fraction",
+      "difficulty": "hard",
+      "topic": "Reasoning about how mutations per clone compound",
+      "question": "You raise the rate so each clone carries about fifteen substitutions rather than two. What happens to the library?\n",
+      "choices": {
+        "A": "More of sequence space is sampled, improving the odds",
+        "B": "Nothing, as the useful fraction is the same at any rate",
+        "C": "The library becomes defined rather than random in character",
+        "D": "The library can no longer be transformed into competent cells",
+        "E": "Almost every clone draws a function-destroying change"
+      },
+      "answer": "E",
+      "explanation": "With roughly one mutation in ten being deleterious, fifteen substitutions per clone means nearly every clone takes at least one, so the active fraction collapses and a useful change tends to arrive inside a dead protein. That compounding is the real content of the rate question, and it is why the useful fraction is not constant across rates. Transformation and library character are unaffected."
+    },
+    {
+      "slug": "choosing_shuffling_for_combining_hits",
+      "difficulty": "hard",
+      "topic": "Matching the diversification method to the goal",
+      "question": "Three rounds have each produced a different improved variant with one substitution apiece, and you want all three together. Which method fits?\n",
+      "choices": {
+        "A": "Error-prone PCR on whichever of the three is best",
+        "B": "Saturation mutagenesis at a fourth chosen position",
+        "C": "DNA shuffling of the three, recombining their mutations",
+        "D": "Chip synthesis of every double substitution in the gene",
+        "E": "Passaging the best variant through the XL1 Red strain"
+      },
+      "answer": "C",
+      "explanation": "The mutations already exist and sit in different molecules, so what is needed is recombination rather than further mutation: shuffling fragments the three and reassembles genes drawing from all of them. Error-prone PCR and the mutator strain add new random changes without bringing the existing ones together, saturation diversifies somewhere else, and enumerating doubles is an expensive way to miss the three known mutations."
+    },
+    {
+      "slug": "mutagenic_strain_versus_in_vitro",
+      "difficulty": "hard",
+      "topic": "Comparing in vivo and in vitro mutagenesis",
+      "question": "You passage a plasmid through XL1 Red rather than running error-prone PCR. What differs in the product?\n",
+      "choices": {
+        "A": "A higher mutation rate per kilobase than error-prone PCR gives",
+        "B": "Mutations confined to the region between the two primers",
+        "C": "Only transitions, where error-prone PCR gives only transversions",
+        "D": "No mutations at all, as plasmid genes are not affected",
+        "E": "Fewer mutations per kb, plus recombinations and truncations"
+      },
+      "answer": "E",
+      "explanation": "Replication in the strain is error-prone but less so than a tuned PCR, and because the whole plasmid replicates in a live cell you also collect rearrangements, truncations and insertion-element events that the in vitro reaction never makes. Those extra lesion types are why the method is now less used. Confinement to an amplicon is what PCR gives, and neither method produces only one substitution class."
+    }
+  ],
+  "what_directed_evolution_requires": [
+    {
+      "slug": "the_directed_evolution_cycle",
+      "difficulty": "easy",
+      "topic": "Ordering the steps of one round",
+      "question": "Which sequence describes one turn of a directed evolution cycle?\n",
+      "choices": {
+        "A": "Screen the parent, mutagenize the winner, transform, repeat",
+        "B": "Transform, select on a drug, sequence survivors, synthesize a consensus",
+        "C": "Build every single substitution, measure all, report the best",
+        "D": "Mutagenize, build and transform, pick and screen, recycle the winner",
+        "E": "Mutagenize, sequence the library, compute the best without assaying"
+      },
+      "answer": "D",
+      "explanation": "The cycle is diversify, build, assay, and feed the best result back in as the starting point for the next round, and its defining feature is that it iterates, which is what lets small improvements accumulate. One exhaustive round is not a cycle, a drug selection with no iteration is a different workflow, and computing the winner omits the measurement the method depends on."
+    },
+    {
+      "slug": "what_the_screen_must_report",
+      "difficulty": "easy",
+      "topic": "Identifying the role of the assay in a campaign",
+      "question": "Of the things a directed evolution campaign needs, what job does the screen do?\n",
+      "choices": {
+        "A": "It generates the diversity the next round will draw on",
+        "B": "It reports which variants are better at the property wanted",
+        "C": "It establishes that the fitness landscape has one maximum",
+        "D": "It confirms the library sequence matches the design file",
+        "E": "It links each variant's genotype to its own phenotype"
+      },
+      "answer": "B",
+      "explanation": "The screen is what turns a library into information: it has to report the property you actually care about, well enough to rank variants, since the winner of each round becomes the next parent. Diversity generation is the mutagenesis step, linkage is supplied by the cell or display format, and sequence verification is a separate check that says nothing about function."
+    },
+    {
+      "slug": "assay_must_report_the_property",
+      "difficulty": "medium",
+      "topic": "Matching the assay to the property being evolved",
+      "question": "You want greater activity on a new substrate and screen variants by fusing the enzyme to GFP and reading fluorescence. What is wrong?\n",
+      "choices": {
+        "A": "GFP fusions cannot be expressed in E. coli at all",
+        "B": "GFP fluorescence is too dim to read in a plate assay",
+        "C": "Fluorescence reports abundance, so you select for expression",
+        "D": "The fusion would stop the library being transformed",
+        "E": "Nothing, as expression and activity are equivalent readouts"
+      },
+      "answer": "C",
+      "explanation": "You get what you screen for. A fusion reporter measures how much protein is present, so the winners will be variants that express or fold well, which may have nothing to do with activity on the new substrate; the right screen uses the reaction itself, as a cell-permeable chromogenic substrate does. The objections about expression, brightness and transformation are all false as stated."
+    },
+    {
+      "slug": "local_versus_global_optimum",
+      "difficulty": "medium",
+      "topic": "Understanding what the landscape picture claims",
+      "question": "Directed evolution is drawn as a climber taking small steps up one hill from partway up its slope. What does that assert?\n",
+      "choices": {
+        "A": "That the method is guaranteed to find the highest point",
+        "B": "That the landscape must have one peak for this to work",
+        "C": "That large jumps across the landscape are the normal mode",
+        "D": "That the starting sequence must have no activity at all",
+        "E": "That it climbs to a nearby maximum, not necessarily the global one"
+      },
+      "answer": "E",
+      "explanation": "Iterated small changes with selection at each step walk uphill from wherever you started, so the method finds the top of the hill it is on, which is both its strength, since it needs no model of the landscape, and its limit. Large sparse jumps describe combinatorial library approaches instead, and a nascent activity to improve is a precondition rather than something ruled out."
+    },
+    {
+      "slug": "combinatorial_versus_directed_evolution",
+      "difficulty": "medium",
+      "topic": "Contrasting combinatorial libraries with directed evolution",
+      "question": "Which contrast between combinatorial library approaches and directed evolution is correct?\n",
+      "choices": {
+        "A": "Combinatorial are smaller and screened; evolution larger and selected",
+        "B": "Both use iterative rounds, differing only in the library size",
+        "C": "Combinatorial libraries require a structure; directed evolution does not",
+        "D": "Combinatorial are large and selected, one round, for new activities",
+        "E": "Directed evolution finds new activities; combinatorial improves old ones"
+      },
+      "answer": "D",
+      "explanation": "The two differ along several axes at once and map onto the immune system's two processes, with combinatorial libraries standing to VDJ recombination and directed evolution to affinity maturation. Combinatorial work runs large libraries through selections in a single round to find activities that did not pre-exist, while directed evolution runs smaller libraries through screens over iterative rounds to improve one that is already there."
+    },
+    {
+      "slug": "iteration_is_the_point",
+      "difficulty": "medium",
+      "topic": "Explaining why rounds are repeated",
+      "question": "Why does directed evolution run round after round rather than building one very large library?\n",
+      "choices": {
+        "A": "Because improvements accumulate stepwise from a better parent",
+        "B": "Because very large libraries cannot be transformed at all",
+        "C": "Because the assay loses sensitivity above a few thousand clones",
+        "D": "Because the mutation rate declines as activity improves",
+        "E": "Because each round repairs the damage done by the one before"
+      },
+      "answer": "A",
+      "explanation": "Multiple improving mutations almost never occur together in a single randomly mutagenized clone, so the practical route is to find one, fix it, and mutagenize again from there, with each round starting further uphill. Transformation and assay sensitivity are not what limits this, the mutation rate is set by the chemistry rather than by the gene, and a round selects rather than repairs."
+    },
+    {
+      "slug": "structure_is_not_a_requirement",
+      "difficulty": "hard",
+      "topic": "Separating helpful information from requirements",
+      "question": "A reviewer says your campaign should be rejected because no crystal structure of the enzyme exists. What is the right answer?\n",
+      "choices": {
+        "A": "Agree, since mutations cannot be designed without a structure",
+        "B": "Agree, since the fitness landscape cannot be computed without one",
+        "C": "A structure aids targeting but a functional screen finds hits regardless",
+        "D": "Point out that a sequence model replaces the structure entirely",
+        "E": "Point out that the screen can be dropped if no structure exists"
+      },
+      "answer": "C",
+      "explanation": "The method's appeal is that it need not know in advance which residues matter, because the screen sorts that out empirically, which is why it is used on systems nobody can model. A structure makes a campaign more efficient and tells you which substitutions are likely additive, but it is a convenience rather than a precondition. Sequence models do not replace it outright, and dropping the screen discards the one thing that is required."
+    },
+    {
+      "slug": "prosar_learns_from_losers",
+      "difficulty": "hard",
+      "topic": "Understanding what ProSAR does with the whole plate",
+      "question": "A conventional round keeps the best well and discards the rest. What does ProSAR do instead?\n",
+      "choices": {
+        "A": "It screens more clones per plate, raising overall throughput",
+        "B": "It replaces the screen with a selection that removes losers",
+        "C": "It sequences only the winner, which costs less than the plate",
+        "D": "It raises the mutation rate so that fewer rounds are needed",
+        "E": "It fits a model to every well and designs the next combinations"
+      },
+      "answer": "E",
+      "explanation": "Every well cost the same to build and assay, and the ones that failed carry information about which mutations hurt. Fitting fitness as a sum of per-mutation contributions across all the clones turns the whole plate into data, and the next library becomes a designed set of combinations rather than a fresh random one. The other options each describe a change the method does not make."
+    },
+    {
+      "slug": "prosar_additivity_assumption",
+      "difficulty": "hard",
+      "topic": "Reasoning about the additivity assumption",
+      "question": "ProSAR writes each clone's fitness as a sum of per-mutation contributions. Where does that break down?\n",
+      "choices": {
+        "A": "At surface positions, where mutations have no effect at all",
+        "B": "At active-site residues and at pairs that contact each other",
+        "C": "Whenever more than two mutations are present in one clone",
+        "D": "Whenever the mutations are transversions rather than transitions",
+        "E": "It does not break down, as fitness is additive by definition"
+      },
+      "answer": "B",
+      "explanation": "Additivity says a mutation contributes the same amount whatever else is present, which holds well enough for most positions but fails where residues interact: in the active site, and between residues in direct structural contact. That is why the model is a useful approximation to be tested rather than trusted. Surface positions are where additivity works best, and the substitution class and the count of mutations are beside the point."
+    },
+    {
+      "slug": "prosar_inferring_an_unbuilt_mutation",
+      "difficulty": "hard",
+      "topic": "Reading a contribution out of two measured clones",
+      "question": "Two esterase clones differ only in that the second also carries M358V, with improvements over wild type of 0.3 and 1.0. What is M358V worth, and why is that notable?\n",
+      "choices": {
+        "A": "1.3, and it was measured directly in a single mutant clone",
+        "B": "0.3, which is the fitness of the clone that lacks it",
+        "C": "3.3, the ratio between the two measured improvements",
+        "D": "0.7 by subtraction, though that single mutant was never built",
+        "E": "It cannot be found, as the clones differ at several positions"
+      },
+      "answer": "D",
+      "explanation": "Under additivity the two equations differ only in the M358V term, so subtracting gives 1.0 minus 0.3. The point of the method is that this number comes out of clones built for other reasons, and the single mutant was never made. Adding instead of subtracting, taking a ratio of quantities that enter as a sum, or reporting the other clone's fitness all miss that, and the premise states the clones differ only in that mutation."
+    }
+  ],
+  "tuning_a_circuit_threshold": [
+    {
+      "slug": "which_step_sets_the_threshold",
+      "difficulty": "easy",
+      "topic": "Identifying where a sensor's threshold lives",
+      "question": "In a repressor-promoter sensor, at which step is the ligand concentration that triggers the response actually decided?\n",
+      "choices": {
+        "A": "At the ribosome binding site in front of the reporter gene",
+        "B": "At the origin of replication setting the plasmid copy number",
+        "C": "Where the repressor binds the ligand and changes conformation",
+        "D": "At the maturation of the fluorescent reporter protein",
+        "E": "At the promoter's contact with RNA polymerase holoenzyme"
+      },
+      "answer": "C",
+      "explanation": "The concentration at which the circuit flips is decided where the ligand is actually read, which is the repressor's binding site for it. Everything downstream converts that same decision into more or less signal: the ribosome binding site, the copy number and the promoter all scale the output without moving the point at which it appears, and maturation changes when you see the signal rather than at what concentration."
+    },
+    {
+      "slug": "stronger_reporter_rbs_effect",
+      "difficulty": "easy",
+      "topic": "Predicting the effect of changing the reporter's RBS",
+      "question": "A TetR-Ptet reporter gets a stronger ribosome binding site. What happens to its dose-response curve?\n",
+      "choices": {
+        "A": "It shifts toward lower inducer concentrations than before",
+        "B": "It rises at every inducing concentration, turning on at the same one",
+        "C": "It shifts toward higher inducer concentrations than before",
+        "D": "It grows steeper without any change in its height",
+        "E": "It disappears, as the reporter is no longer regulated"
+      },
+      "answer": "B",
+      "explanation": "A stronger ribosome binding site makes more reporter protein per message, so the whole curve scales up, baseline included, while the concentration at which the repressor lets go is untouched because nothing about ligand binding changed. A horizontal shift in either direction would require changing how the ligand is sensed, a steeper transition is a change in cooperativity, and regulation is unaffected."
+    },
+    {
+      "slug": "distinguishing_sensitivity_from_threshold",
+      "difficulty": "medium",
+      "topic": "Separating instrument sensitivity from circuit threshold",
+      "question": "When is it true that a biosensor's detection limit can be improved with a better plate reader?\n",
+      "choices": {
+        "A": "Always, since detection limit is a property of the measurement",
+        "B": "Never, since instrument sensitivity affects no measurement at all",
+        "C": "Only for enzymatic reporters, and not for fluorescent ones",
+        "D": "Only when the reporter sits on a high copy number plasmid",
+        "E": "When the signal is too faint to read, not when the circuit is silent"
+      },
+      "answer": "E",
+      "explanation": "Two different limits wear the same name. If the circuit does respond but the output falls below what the instrument can resolve, better optics help; if the repressor does not register the ligand at that concentration there is no signal to amplify and the instrument is irrelevant. The reporter chemistry and the copy number do not decide which of the two limits is binding."
+    },
+    {
+      "slug": "output_range_versus_threshold",
+      "difficulty": "medium",
+      "topic": "Distinguishing dynamic range from threshold",
+      "question": "Two sensor variants turn on at the same ligand concentration, but one reaches a tenfold higher maximum. Which quantity differs?\n",
+      "choices": {
+        "A": "The affinity of the repressor for its ligand",
+        "B": "The cooperativity of repressor binding at the operator",
+        "C": "The concentration at which the circuit is detected to respond",
+        "D": "The dynamic range, which depends on reporter expression",
+        "E": "Nothing measurable, as the two are equivalent sensors"
+      },
+      "answer": "D",
+      "explanation": "Identical turn-on points mean the sensing step is the same in both, so the difference lies downstream in how much reporter a derepressed promoter makes. Affinity and threshold are the quantities the question states are unchanged, cooperativity would alter the steepness of the transition rather than its height, and a tenfold difference in maximum is plainly measurable."
+    },
+    {
+      "slug": "transfer_function_three_features",
+      "difficulty": "medium",
+      "topic": "Reading which feature of a transfer function changed",
+      "question": "A modified sensor goes from barely on to fully on over a narrower range, with the midpoint and maximum unchanged. What was altered?\n",
+      "choices": {
+        "A": "The repressor's ligand affinity, which sets the midpoint",
+        "B": "The strength of the ribosome binding site on the reporter",
+        "C": "The cooperativity, rather than the threshold or the output level",
+        "D": "The copy number of the plasmid carrying the reporter",
+        "E": "The maturation rate of the fluorescent reporter protein"
+      },
+      "answer": "C",
+      "explanation": "Three features of a transfer function move independently: where it turns on, how high it goes, and how sharply it makes the transition. Only the third changed here, which is cooperativity, arising from multiple operator sites or from oligomeric repressor binding. Affinity sets the midpoint, which is stated to be unchanged, the ribosome binding site and copy number rescale the height, and maturation affects timing."
+    },
+    {
+      "slug": "repressor_dosage_moves_the_threshold",
+      "difficulty": "medium",
+      "topic": "Reasoning about repressor dosage",
+      "question": "You raise expression of the repressor severalfold and change nothing else. What happens to the dose-response curve?\n",
+      "choices": {
+        "A": "It shifts higher, as more inducer is needed to relieve repression",
+        "B": "It shifts lower, as more protein is there to bind the ligand",
+        "C": "Its maximum output rises with no shift along the axis",
+        "D": "It is unaffected, since the repressor's affinity is unchanged",
+        "E": "Its baseline rises, because excess repressor becomes leaky"
+      },
+      "answer": "A",
+      "explanation": "Affinity is unchanged, but there is more repressor to titrate, so a higher inducer concentration is needed before enough of it lets go to turn the promoter on. This is one of the few changes outside the binding site that genuinely moves a threshold, and it is why repressor dosage must be held constant when affinity variants are compared. More repressor tightens rather than loosens the off state."
+    },
+    {
+      "slug": "reading_two_dose_response_curves",
+      "difficulty": "hard",
+      "topic": "Interpreting two dose-response curves",
+      "question": "Variant one turns on at 1 micromolar and plateaus at 5000 units; variant two turns on at 10 micromolar with the same plateau. Which detects a 2 micromolar sample?\n",
+      "choices": {
+        "A": "Variant two, as a higher threshold gives a cleaner background",
+        "B": "Either one, since both reach the same maximum signal",
+        "C": "Neither, as a 5000 unit plateau is too low to read reliably",
+        "D": "Variant two, as its curve sits where the assay is most accurate",
+        "E": "Variant one, as 2 micromolar is above its threshold alone"
+      },
+      "answer": "E",
+      "explanation": "At 2 micromolar variant one is responding and variant two has not begun, so only one of them reports anything at all. The matched plateaus are the distraction here: equal maximum output says nothing about where the response begins. The cleaner-background and accuracy arguments assert benefits not in evidence, and a plateau is not a limitation on reading the signal."
+    },
+    {
+      "slug": "diagnosing_a_shifted_curve",
+      "difficulty": "hard",
+      "topic": "Inferring which component changed from a shifted curve",
+      "question": "After a round of mutagenesis on the repressor, a variant's curve shifts to lower ligand with the same maximum. What does that indicate?\n",
+      "choices": {
+        "A": "The repressor now binds its ligand more tightly than before",
+        "B": "The plasmid is being maintained at a higher copy number",
+        "C": "The reporter protein folds and matures faster than before",
+        "D": "The reporter gene is being translated more efficiently now",
+        "E": "The promoter has lost one of its operator sites entirely"
+      },
+      "answer": "A",
+      "explanation": "A horizontal shift with the height unchanged points at the sensing step, and since the mutagenesis was aimed at the repressor the straightforward reading is tighter ligand binding, so less ligand is needed to derepress. Translation, copy number and maturation would all change the height or the timing instead, and losing an operator would raise the baseline toward constitutive expression."
+    },
+    {
+      "slug": "directed_evolution_of_a_sensor",
+      "difficulty": "hard",
+      "topic": "Designing a campaign to retune a sensor",
+      "question": "You want a repressor that responds to a new small molecule and not to the original one. Which design fits?\n",
+      "choices": {
+        "A": "One round of mutagenesis, picking the brightest colony on the new ligand",
+        "B": "A library of reporter ribosome binding sites read with the new ligand",
+        "C": "Raising the copy number of the sensor plasmid and remeasuring",
+        "D": "Replacing the reporter with a marker and plating on the old ligand",
+        "E": "Mutagenize the binding domain, positive on new, negative on old, iterate"
+      },
+      "answer": "E",
+      "explanation": "Two things are asked for at once, gaining a response to the new ligand and losing the response to the old, and that pair of requirements is what a dual selection is for; iteration is needed because a specificity shift is usually built from several mutations. Testing only the gain in one round leaves wild type in the pool, the ribosome binding site and copy number change output rather than specificity, and plating on the old ligand selects against what you want to keep."
+    },
+    {
+      "slug": "what_a_threshold_change_requires",
+      "difficulty": "hard",
+      "topic": "Recognizing which changes cannot move a threshold",
+      "question": "Several groups report sensors with shifted thresholds. Which reported change could not, on its own, have moved one?\n",
+      "choices": {
+        "A": "A brighter reporter protein in place of the original one",
+        "B": "A repressor variant with altered ligand dissociation kinetics",
+        "C": "A severalfold change in how much repressor is expressed",
+        "D": "Substitutions in the ligand-binding pocket of the repressor",
+        "E": "A chimeric repressor with a binding domain from a homolog"
+      },
+      "answer": "A",
+      "explanation": "Swapping in a brighter reporter multiplies the output of a decision already made, so the curve rises without moving along the concentration axis. The other four all act on how the ligand is read or how much repressor must be titrated: pocket substitutions, altered binding kinetics, a swapped binding domain, and repressor dosage can each change the concentration at which the circuit responds."
+    }
+  ],
   "reporters_and_normalization": [],
   "differential_expression_and_transfer_functions": [],
   "population_measurements_and_plasmid_retention": [],

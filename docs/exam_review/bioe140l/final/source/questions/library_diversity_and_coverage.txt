@@ -1,150 +1,150 @@
 ---
-slug: diversity_product_of_degenerate_positions
+slug: diversity_is_a_product
 difficulty: easy
 topic: Computing theoretical diversity from degenerate positions
 question: |
-  An oligo for a saturation library contains the stretch 5'-...AANDSNRYT...-3', where the degenerate positions are N, D, S, N, R and Y. Which expression gives the theoretical diversity of the library?
+  A cassette carries the degenerate stretch S-W-H, where S is two bases, W is two and H is three. Which expression gives its theoretical diversity?
 choices:
-  A: 4 + 3 + 2 + 4 + 2 + 2
-  B: 4 x 3 x 2 x 4 x 2 x 2
-  C: 4^6
-  D: 6^4
-  E: (4 x 3) + (2 x 4) + (2 x 2)
-answer: B
+  A: 2 x 2 x 3, multiplying the options at each position
+  B: 2 + 2 + 3, summing the options at each position
+  C: 3^3, three options at three positions
+  D: 3^2, three positions squared
+  E: (2 x 2) + 3, grouping the pair first
+answer: A
 explanation: |
-  Each degenerate code stands for a set of bases: N is any of four, D is three, S is two, R is two and Y is two. The positions vary independently within one molecule, so the number of distinct sequences is the product across positions. A and E add instead of multiplying, which is the single most common error on this kind of question. C assumes every degenerate position is N. D inverts the roles of base count and position count.
+  Each position varies independently within one molecule, so the number of distinct sequences is the product across positions. Adding gives the number of options you have altogether, not the number of combinations, and it is the most common error on this kind of question. Treating every position as three-fold ignores the specific codes, and squaring the position count inverts the roles of bases and positions.
+---
+slug: choosing_a_code_for_a_target_diversity
+difficulty: easy
+topic: Working backward from a target diversity
+question: |
+  You want exactly 16 variants from two degenerate positions. Which pair of codes gives that?
+choices:
+  A: N and N, since 4 x 4 is 16
+  B: N and S, since 4 x 2 is 16
+  C: W and W, since 2 x 2 is 16
+  D: N and D, since 4 x 3 is 16
+  E: H and H, since 3 x 3 is 16
+answer: A
+explanation: |
+  N stands for all four bases, so two N positions give four times four. The others state their own arithmetic correctly but reach 8, 4, 12 and 9 rather than 16, so the work is in knowing how many bases each letter covers: N is four, D and H and V and B are three, and the rest are two.
 ---
 slug: nnk_versus_nnn_codon_choice
 difficulty: easy
 topic: Why NNK is used for saturation mutagenesis
 question: |
-  You are saturating three positions in a protein and your colleague asks why the oligo specifies NNK at each codon rather than NNN. What is the real reason?
+  Why does a saturation oligo usually specify NNK at each codon rather than NNN?
 choices:
-  A: NNK removes every stop codon from the library.
-  B: NNK samples all twenty amino acids with fewer codons and only one stop.
-  C: NNK gives each of the twenty amino acids an equal chance of appearing.
-  D: NNK is the only degenerate code a DNA synthesizer can produce reliably.
-  E: NNK restricts the library to the subset of amino acids found in the wild-type protein.
+  A: NNK removes every stop codon from the library
+  B: NNK still covers all twenty amino acids but leaves only one stop
+  C: NNK gives all twenty amino acids an equal chance of appearing
+  D: NNK is the only code a DNA synthesizer makes reliably
+  E: NNK restricts the library to the wild-type amino acids
 answer: B
 explanation: |
-  NNK is thirty-two codons rather than sixty-four. It still encodes all twenty amino acids, but it leaves only one stop codon instead of three, so a smaller library carries a smaller dead fraction. A is the attractive wrong answer: the amber stop survives in NNK. C is false because codon redundancy still differs between amino acids, so leucine and serine remain over-represented relative to methionine and tryptophan. D and E are inventions.
+  NNK is 32 codons rather than 64. It still encodes all twenty amino acids, but it carries one stop instead of three, so a smaller library carries a smaller dead fraction. The attractive wrong answer is that it removes every stop: the amber stop survives in NNK. Codon redundancy still differs between amino acids, so leucine and serine stay over-represented relative to methionine and tryptophan.
 ---
 slug: transformation_is_the_ceiling
 difficulty: medium
 topic: Identifying the step that limits library size
 question: |
-  You design a degenerate library with a theoretical diversity of about ten to the ninth, amplify it by PCR, ligate it and transform it into competent cells. Which step sets the practical ceiling on how many distinct variants you end up able to screen?
+  A degenerate library is amplified by PCR, ligated and transformed. Which step sets the practical ceiling on how many distinct variants you can screen?
 choices:
-  A: The number of PCR cycles used to amplify the degenerate product.
-  B: The transformation, because the number of colonies bounds the number of distinct clones.
-  C: The plasmid copy number, because each cell can only hold so many variants.
-  D: The synthesis scale of the degenerate oligo, which caps the number of sequences made.
-  E: The sequencing depth used later to check the library.
-answer: B
+  A: The number of cycles in the amplification
+  B: The plasmid copy number maintained within each cell
+  C: The transformation, since colonies bound distinct clones
+  D: The synthesis scale of the degenerate oligo
+  E: The sequencing depth used to check the library
+answer: C
 explanation: |
-  The DNA pool coming off a synthesizer and through PCR easily contains far more distinct molecules than the design calls for. What you can actually clone, grow and assay is bounded by how many independent transformants you obtain, which is why library construction is reported in transformants. A is wrong because cycles amplify copies, not variety. C confuses copies per cell with variants per library. D is wrong at any ordinary synthesis scale, which yields picomoles of molecules. E is a measurement made afterward and changes nothing about what the library contains.
+  The DNA coming off a synthesizer and through PCR contains far more distinct molecules than any design calls for. What you can clone, grow and assay is bounded by how many independent transformants you obtain, which is why library construction is reported in transformants. Cycles amplify copies rather than variety, copy number is copies per cell rather than variants per library, and ordinary synthesis yields picomoles of molecules.
 ---
 slug: coverage_factor_meaning
 difficulty: medium
-topic: Interpreting the coverage requirement for a library
+topic: Interpreting the coverage requirement
 question: |
-  For a library of theoretical diversity n, you are told you need roughly 4.6 x n transformants. What does that number mean?
+  For a library of diversity n you are told to collect about 4.6 x n transformants. What does that factor mean?
 choices:
-  A: It is the number of transformants at which about 99 percent of designed members are present at least once.
-  B: It is the number of PCR reactions needed to build the library.
-  C: It is the number of transformants at which every member is present exactly once.
-  D: It is the fold-excess of oligo over template required during the construction PCR.
-  E: It is the number of colonies you must sequence to confirm the library.
+  A: The point at which about 99 percent of members appear at least once
+  B: The fold-excess of oligo over template in the PCR
+  C: The number of colonies you must sequence to confirm the design
+  D: The point at which every member is present exactly once
+  E: The number of pooled reactions the construction requires
 answer: A
 explanation: |
-  Sampling n variants at random into a pool of transformants follows a Poisson distribution, and the chance a given member is missed after sampling k x n times is about e to the minus k. Setting that to one percent gives k of about 4.6. B confuses coverage with construction, which takes one reaction whatever n is. C is impossible, since random sampling never gives a uniform one copy each. D and E attach the number to unrelated steps.
+  Sampling n variants at random follows a Poisson distribution, and the chance a given member is missed after sampling k x n times is about e to the minus k. Setting that to one percent gives k of about 4.6. Exactly one copy each is impossible, since random sampling piles copies onto some members while missing others, and the remaining options attach the factor to steps it has nothing to do with.
 ---
 slug: coverage_at_two_fold_sampling
 difficulty: medium
-topic: Estimating the missing fraction from the sampling depth
+topic: Estimating the missing fraction from sampling depth
 question: |
-  Your library has a theoretical diversity of ten thousand and you recover twenty thousand transformants. Roughly what fraction of designed members do you expect to be absent entirely?
+  Your library has diversity n and you recover 2 x n transformants. Roughly what fraction of designed members is absent?
 choices:
-  A: None, because you collected twice as many colonies as there are members.
-  B: About half, because colonies are shared between duplicates and new members.
-  C: About thirteen percent.
-  D: About one percent, since twice the diversity is the standard coverage target.
-  E: About eighty-six percent.
-answer: C
+  A: None, since you collected twice as many colonies as members
+  B: About e to the minus 2, or roughly an eighth
+  C: About half, since colonies are shared among duplicates
+  D: About 1 percent, the standard coverage target
+  E: About seven eighths, the complement of the covered share
+answer: B
 explanation: |
-  At a sampling depth of k times the diversity, the expected fraction missed is about e to the minus k, and e to the minus two is about 0.135. A is the intuition the Poisson result exists to correct: random sampling piles multiple copies onto some members while missing others entirely. B has no basis. D quotes the right target but the wrong depth, since one percent missing needs about 4.6 x n. E inverts the answer and reports the fraction covered as the fraction missing.
+  At a sampling depth of k times the diversity the expected fraction missed is about e to the minus k, and e to the minus 2 is a little over 0.13. Expecting none is the intuition the Poisson result exists to correct, since random sampling misses some members entirely. One percent is the right target quoted at the wrong depth, which needs about 4.6 x n, and seven eighths reports the covered share as the missing one.
 ---
 slug: scaling_degeneracy_and_reaction_count
 difficulty: medium
-topic: Separating library diversity from the number of reactions
+topic: Separating diversity from the number of reactions
 question: |
-  You revise a degenerate oligo from two NNK codons to four, raising the theoretical diversity from about a thousand to about a million. How does the number of PCR reactions needed to build the library change?
+  You widen a degenerate oligo so the diversity rises about a thousandfold. Which downstream quantity scales with that change?
 choices:
-  A: It rises in proportion to the diversity.
-  B: It rises by a factor of 4.6 to maintain coverage.
-  C: It does not change; the library is built in one pooled reaction either way.
-  D: It rises with the square root of the diversity.
-  E: It falls, because longer degenerate tracts amplify more efficiently.
+  A: The number of pooled construction reactions
+  B: The number of degenerate oligos you must order
+  C: The transformants needed to cover the library
+  D: The number of ligations the workflow requires
+  E: The volume of competent cells per transformation
 answer: C
 explanation: |
-  A degenerate oligo is a mixture of molecules, so a single reaction containing that mixture produces the whole library at once. Diversity changes what is in the tube, not how many tubes there are. What does scale with diversity is downstream: more transformants for coverage, and more clones or more reads to characterize it. A, B and D all attach the coverage requirement to the wrong step, and E invents a benefit that does not exist.
+  A degenerate oligo is a mixture of molecules, so one reaction containing that mixture produces the whole library however wide it is. Diversity changes what is in the tube, not how many tubes there are, and the same is true of the oligo order and the ligation. What does scale is coverage: more transformants to sample the larger design, and more clones or reads to characterize it.
 ---
 slug: theoretical_versus_held_diversity
 difficulty: medium
 topic: Distinguishing designed diversity from the library in hand
 question: |
-  You design a library of theoretical diversity one million, transform it, and count ten thousand colonies on your plates. Your labmate says you have a million-member library because the ligation contains all one million sequences. What is the accurate statement?
+  You design a library of diversity one million, transform it, and count ten thousand colonies. How large is the library you can actually screen?
 choices:
-  A: The library is one million members, since the DNA pool contains them all.
-  B: The library is ten thousand members, since each colony is one variant you can test.
-  C: The library is ten billion members, the product of the design and the colony count.
-  D: The library is one hundred members, the square root of the colony count.
-  E: The diversity cannot be stated at all without sequencing the pool.
-answer: B
+  A: One million, since the ligation contains them all
+  B: Ten billion, the design times the colony count
+  C: One hundred, the square root of the colony count
+  D: At most ten thousand, since each colony is one clone
+  E: Indeterminate without sequencing the ligation
+answer: D
 explanation: |
-  Both statements about the DNA are true and neither helps: the ligation probably does contain nearly all designed sequences, but what you can screen is the set of clones you actually isolated. Ten thousand colonies is at most ten thousand distinct variants, and in practice fewer because of resampling. A is the error of reporting the design rather than the experiment. C and D combine the two numbers arbitrarily. E overstates the problem, since the colony count already gives a hard upper bound.
+  The ligation probably does contain nearly all the designed sequences, and that fact does not help: what you can screen is the set of clones you isolated. Ten thousand colonies is at most ten thousand distinct variants, and fewer in practice because of resampling. Reporting the design rather than the experiment is the error here, and the colony count already gives a hard upper bound without any sequencing.
 ---
 slug: synthesis_bias_versus_designed_diversity
 difficulty: hard
-topic: Reasoning about bias between designed and realized libraries
+topic: Reasoning about bias between design and realization
 question: |
-  Your coverage calculation assumes every designed member is equally likely. You then sequence your library and find that variants carrying G at the first degenerate position are three times as common as those carrying T. What does this do to the number of transformants you need?
+  Sequencing shows variants carrying G at one degenerate position are threefold commoner than those carrying T. What does that do to the transformants you need?
 choices:
-  A: Nothing, because coverage depends only on theoretical diversity.
-  B: It lowers the requirement, because the library is less diverse than designed.
-  C: It raises the requirement, because the rarest members now need deeper sampling to appear.
-  D: It makes the library unusable, since biased libraries cannot be screened.
-  E: It raises the requirement only if the bias falls inside the coding sequence.
-answer: C
+  A: Nothing, since coverage depends only on diversity
+  B: Lowers it, since the library is less diverse than designed
+  C: Makes the library unusable, as biased pools cannot be screened
+  D: Raises it, since the rarest members need deeper sampling
+  E: Raises it only if the bias falls in the coding sequence
+answer: D
 explanation: |
-  The 4.6 x n rule assumes uniform sampling. Once some members are systematically rarer, those are the ones that go missing, and you have to sample deeper to be confident they are present. Bias of this kind comes from the phosphoramidite mixture used for the degenerate position and from amplification, and it is why a library is worth sequencing before it is trusted. A ignores the assumption behind the formula. B confuses skew with reduced diversity; the member count is unchanged. D is too strong, since biased libraries are screened all the time. E invents an irrelevant condition.
+  The 4.6 x n rule assumes uniform sampling. Once some members are systematically rarer, those are the ones that go missing, and you must sample deeper to be confident they are present. The bias comes from the phosphoramidite mixture at the degenerate position and from amplification, and it is why a library is worth sequencing before it is trusted. Skew is not reduced diversity, since the member count is unchanged, and biased libraries are screened all the time.
 ---
-slug: diversity_of_a_mixed_code_rbs_library
+slug: coverage_target_versus_screening_capacity
 difficulty: hard
-topic: Reading a construction oligo and computing library size
+topic: Reconciling coverage with screening capacity
 question: |
-  An EIPCR oligo carries the ribosome binding site region 5'-...TTTRVWGGHDTT...-3', with the degenerate positions R, V, W, H and D. What is the theoretical diversity of the resulting library?
+  Your design has diversity five thousand and you can assay four hundred clones. Which conclusion follows?
 choices:
-  A: 108
-  B: 5
-  C: 1024
-  D: 54
-  E: 243
-answer: A
-explanation: |
-  R is two bases, V is three, W is two, H is three and D is three, so the product is 2 x 3 x 2 x 3 x 3, which is 108. D is the same product with one of the three-base codes read as two. E treats every position as three-fold. C treats the region as five N positions. B counts the degenerate positions rather than the sequences they generate, which is the error of reporting the design's width rather than its size.
----
-slug: coverage_target_for_a_screen_you_can_afford
-difficulty: hard
-topic: Reconciling coverage requirements with screening capacity
-question: |
-  You design a library of theoretical diversity five thousand. You can comfortably pick and assay four hundred clones. Which conclusion follows?
-choices:
-  A: The screen is adequate, because four hundred clones sample the library randomly.
-  B: You should reduce the designed diversity, or move to a selection rather than a clone-by-clone screen.
-  C: You should pick four hundred clones and report the best as the library optimum.
-  D: You should raise the number of transformants to 4.6 x n, which solves the screening problem.
-  E: You should sequence the four hundred clones, which recovers the missing members computationally.
+  A: The screen is adequate, since the clones sample randomly
+  B: Shrink the design, or replace the screen with a selection
+  C: Pick the four hundred and report the best as the optimum
+  D: Raise the transformants to 4.6 x n, which fixes the problem
+  E: Sequence the four hundred to recover the missing members
 answer: B
 explanation: |
-  Four hundred clones out of five thousand designed members samples under ten percent of the library, so the best variant is probably never tested. The two honest fixes are to shrink the design so the screen can cover it, or to replace the screen with a selection or sort that handles the whole population at once. A mistakes random sampling for adequate sampling. C is the error of calling a sampled maximum the true one. D fixes coverage of the library in the freezer but not coverage of the assay, which is the binding constraint here. E cannot recover variants that were never assayed.
+  Four hundred clones out of five thousand designed members samples under a tenth of the library, so the best variant is probably never tested. The two honest fixes are to shrink the design until the screen can cover it, or to hand the whole population to a selection or a sort. Random sampling is not adequate sampling, a sampled maximum is not the true one, raising transformants fixes coverage of the freezer rather than of the assay, and nothing recovers variants that were never assayed.
