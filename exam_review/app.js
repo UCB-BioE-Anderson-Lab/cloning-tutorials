@@ -502,7 +502,7 @@ function render(state) {
       <div style="${layoutGridStyle}">
         <div class="biocad-col-left" style="${leftColStyle}">
           <div class="biocad-card" style="padding:1rem">
-            <div class="biocad-muted biocad-small">Topics (1–16)</div>
+            <div class="biocad-muted biocad-small">Topics (1–${state.tabs.length})</div>
             <div style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.5rem">
               ${leftTabsHtml}
             </div>

@@ -1,0 +1,148 @@
+bioe140l_final:
+  combinatorial_libraries:
+    title: Combinatorial libraries
+    subtopics:
+      library_diversity_and_coverage:
+        title: Diversity and coverage
+        scope: |
+          Students should be able to read degenerate bases in an oligo and compute theoretical diversity as a product across positions, not a sum. They should know the standard degeneracy codes, what NNK does and why it is used instead of NNN, and the difference between theoretical diversity and the number of variants they actually hold. They should understand that transformation, not PCR, is the step that limits library size, that roughly 4.6 times the diversity is needed for about 99 percent coverage, and that one pooled reaction builds the whole library however large the diversity is.
+      library_construction_methods:
+        title: Building a library
+        scope: |
+          Students should know the routes to a combinatorial library and when each applies: ordered oligo pools and chip synthesis, Klenow fill-in of a degenerate template, SOEing, and EIPCR with a degenerate oligo. They should be able to reason about where diversity actually enters the construct, how an RBS or promoter library is laid out, how the pP6 and Plib designs are built, and where synthesis bias and base bias distort a library relative to its design.
+      what_an_element_library_tunes:
+        title: What varying an element does
+        scope: |
+          Students should be able to say what changes when a particular genetic element is varied, and what does not. A ribosome binding site library tunes translation initiation and produces a range of protein levels across the population; it does not change transcription, timing or plasmid copy number. A promoter library tunes transcription. They should be able to predict the distribution of phenotypes a library produces rather than a single outcome.
+
+  selection_methods:
+    title: Selection methods
+    subtopics:
+      selections_versus_screens:
+        title: Selections versus screens
+        scope: |
+          Students should distinguish a selection, in which survival or capture does the work, from a screen, in which every member is measured. They should be able to match a method to the size of the library, recognize when a library is too large to screen clone by clone, and understand why an enrichment step must precede individual testing when the library is in the millions.
+      genotype_phenotype_linkage:
+        title: Linking genotype to phenotype
+        scope: |
+          Students should understand why a pooled selection only works when the molecule that acts stays physically attached to the DNA that encodes it. They should be able to explain how phage display with a pIII fusion, cell surface and yeast display, SELEX, compartmentalization, direct complementation and synthetic genetic selections each make that link, and to recognize proposals that break it, such as bulk assays on a pooled culture or inferring genotype from expression.
+      selection_performance_and_enrichment:
+        title: Specificity, recovery and enrichment
+        scope: |
+          Students should be able to reason quantitatively about a selection step: specificity as how strongly it prefers a hit over a non-hit, recovery as the fraction of hits that survive, and enrichment as the ratio of hit frequency after to before. They should understand why several rounds are usually needed, and why a frequency measured at the end cannot by itself separate a real hit from something that amplifies well.
+
+  directed_evolution:
+    title: Directed evolution
+    subtopics:
+      diversity_generation_methods:
+        title: Generating diversity
+        scope: |
+          Students should know how diversity is generated for directed evolution and what each method produces. Error-prone PCR scatters point mutations across a gene; DNA shuffling fragments a set of related genes and reassembles them so that mutations recombine; saturation mutagenesis targets chosen positions. They should be able to tell these apart from site-directed mutagenesis and from high-fidelity amplification, and to reason about which is appropriate for a given goal.
+      what_directed_evolution_requires:
+        title: What the experiment requires to work
+        scope: |
+          Students should understand the preconditions for a directed evolution campaign: a library with usable diversity, a screen or selection that reports the property of interest, and a fitness landscape in which a small number of mutations measurably improves the property. They should recognize that structural data, a single global optimum, and exhaustive coverage of sequence space are not requirements, and that mutation rate is a trade-off between exploring diversity and retaining function.
+      tuning_a_circuit_threshold:
+        title: Moving the threshold of a sensor
+        scope: |
+          Students should be able to work out which component of a repressor-promoter sensor sets the concentration at which it responds, and which components only change the size of the output. For a circuit in the shape of ArsR on Pars, TetR on Ptet or LacI on Plac, the ligand affinity of the repressor sets the detection threshold, while reporter output can be rescaled without moving it.
+
+  whole_cell_analysis:
+    title: Whole-cell analysis
+    subtopics:
+      reporters_and_normalization:
+        title: Reporters and normalization
+        scope: |
+          Students should understand what fluorescent and enzymatic reporters measure and why raw signal must be normalized. They should distinguish total signal from signal per cell, interpret a linear rise in fluorescence with optical density as constant per-cell expression rather than induction, and choose between plate reader, cytometry and microscopy according to whether the question is about the population average, the distribution across single cells, or localization.
+      differential_expression_and_transfer_functions:
+        title: Differential expression and transfer functions
+        scope: |
+          Students should be able to tell apart the main shapes of whole-cell experiment: comparing one condition against another, measuring a response across a series of a single input, and following a system over time. They should know which controls each requires, in particular why a constitutive reporter has to be run alongside an inducible one, and should be able to read a result where cell density has been held constant.
+      population_measurements_and_plasmid_retention:
+        title: Populations, heterogeneity and plasmid retention
+        scope: |
+          Students should understand that a population is not uniform, and be able to design a measurement of how a subpopulation changes over time. For plasmid loss this means counting fluorescent and non-fluorescent colonies on non-selective plates, reading single-cell distributions by cytometry, or quantifying plasmid against a chromosomal reference by digital droplet PCR, and recognizing that growing the culture under selection destroys the very population being measured.
+
+  in_vitro_assays:
+    title: In vitro assays
+    subtopics:
+      extraction_and_purification:
+        title: Extraction and purification
+        scope: |
+          Students should know how a component of interest is separated from the rest of a cell, and what each method separates on. Methanol extraction recovers small molecules while precipitating protein and nucleic acid; anion exchange separates by charge; size exclusion by hydrodynamic size, which is how oligomeric state is read; affinity chromatography by a specific interaction, as with a polyhistidine tag on nickel. They should be able to choose a method from the property being exploited.
+      detection_and_structure_determination:
+        title: Detection and structure determination
+        scope: |
+          Students should be able to match an analytical method to the question asked of a purified molecule. This includes HPLC with ultraviolet detection, the difference between gas and liquid chromatography and when each is usable, mass spectrometry with internal standards for quantitation, nuclear magnetic resonance, and X-ray crystallography for absolute stereochemistry. They should know what each method can and cannot establish.
+      activity_and_binding_assays:
+        title: Activity and binding assays
+        scope: |
+          Students should know the standard ways to measure what a protein does rather than that it is present: coupled and direct enzymatic assays, radiolabeled substrates, filter binding, pulldowns, ELISA, surface plasmon resonance for real-time label-free binding, and footprinting for where a protein sits on DNA. They should be able to pick one from what the experiment needs to report and to recognize a method applied to a question it cannot answer.
+      cell_free_expression:
+        title: Cell-free expression
+        scope: |
+          Students should understand what a transcription-translation extract is, how one is prepared, and why it is used for early characterization: a circuit can be tested without transformation and without the regulation, growth and burden of a living cell. They should also know its limits, and not credit it with higher yields, easier folding analysis or control it does not have.
+
+  multiplex_characterization:
+    title: Multiplex characterization
+    subtopics:
+      choosing_a_sequencing_platform:
+        title: Choosing a sequencing platform
+        scope: |
+          Students should be able to choose a sequencing method from what the experiment needs to recover. Cycle sequencing reads one clone at a time and is what confirms a picked colony. Short-read sequencing counts millions of short features such as barcodes cheaply and deeply. Long-read sequencing keeps a whole variant on one molecule, which is what preserves linkage across a gene-length insert. They should be able to say which requirement rules out which platform.
+      counting_barcodes_and_normalizing:
+        title: Counting, barcodes and normalization
+        scope: |
+          Students should understand that multiplex characterization turns a measurement into a counting problem, and that a count only becomes a measurement when it is divided by the right denominator. This includes barcoding to tell otherwise identical constructs apart, dividing message counts by input DNA, comparing counts between selection rounds rather than reading abundance at the end, and recognizing what a read count cannot tell you on its own.
+      designing_a_library_readout:
+        title: Designing the readout
+        scope: |
+          Students should be able to work out what has to be on a molecule before it can be read in a pooled experiment: the priming and adapter sequences the instrument needs, a barcode where variants are otherwise identical, and a layout that keeps the informative region inside the read length. They should be able to judge whether a proposed library can actually be decoded on the instrument chosen for it.
+
+  automation_and_dbtl:
+    title: Automation and the DBTL cycle
+    subtopics:
+      why_automate:
+        title: Why automate
+        scope: |
+          Students should be able to give the real reasons to automate: correctness, reproducibility, throughput, and the ability to catch design errors before any reagent is used. They should recognize claims that automation does not support, such as removing the need for controls, lowering synthesis costs by itself, or guaranteeing that a construct works.
+      laboratory_instruments:
+        title: Instruments and what they are for
+        scope: |
+          Students should know what the common pieces of automation do and the scale each works at: tip-based liquid handlers, acoustic droplet ejection for contactless nanoliter transfers, dispensing robots, microfluidics, colony pickers, plate sealers and 2D barcoding. They should be able to pick the instrument that fits a stated volume, throughput or sample type, and to recognize when a proposed instrument cannot do the job asked of it.
+      design_and_verification_software:
+        title: Design and verification software
+        scope: |
+          Students should understand the tools that sit on either side of the bench: sequence editors, construction file simulation as verification, BLAST and ortholog searching, structure and protein design tools, and pathway design from reaction databases. They should be able to say which questions a large language model can answer reliably from a paper, such as reading a resistance marker off a plasmid description, and which it cannot, such as predicting a full sequence, a titer or the effect of a promoter swap.
+      prototyping_versus_optimization:
+        title: Prototyping versus optimization
+        scope: |
+          Students should distinguish the two modes of the design-build-test-learn cycle. Prototyping builds a plausible first design under uncertainty, and its purpose is to learn how the system behaves, not to meet a specification. Optimization starts from the current best construct and makes focused edits, which is what makes part boundaries and vector editing worth designing for in advance.
+
+  practices:
+    title: Synthetic biology practices
+    subtopics:
+      risk_groups_and_select_agents:
+        title: Risk groups and select agents
+        scope: |
+          Students should be able to classify an engineered strain. They should know what the risk groups mean, that the risk group of a construct is set by the worst of the host and what has been put into it, that a chemical hazard is not by itself a biological one, and that what makes something a select agent is its potential for deliberate misuse rather than its laboratory hazard alone.
+      controls_and_oversight:
+        title: Controls and oversight
+        scope: |
+          Students should distinguish administrative controls, which are policies and procedures such as screening synthesis orders, training and standard operating procedures, from engineering controls such as cabinets and kill switches, from personal protective equipment, and from procedural steps such as autoclaving waste. They should know who oversees work of this kind and what a biological use authorization is for.
+      release_dual_use_and_perception:
+        title: Release, dual use and perception
+        scope: |
+          Students should be able to identify the question that actually governs a field deployment: whether the organism can survive, replicate and exchange genes outside the laboratory. They should be able to separate that from usability, intellectual property and instrument sensitivity, reason about dual use and gene drives, and recognize where public perception of risk diverges from the assessed risk.
+
+  comprehensive:
+    title: Comprehensive
+    subtopics:
+      sequence_and_construction_file_fundamentals:
+        title: Sequences and construction files
+        scope: |
+          Students should be able to do the sequence work the rest of the exam rests on: take a reverse complement and write it in the correct orientation, read a construction file as a series of operations with named products, follow which oligo anneals where, and identify restriction sites and degenerate positions inside an oligo.
+      matching_method_to_scale:
+        title: Matching the method to the scale
+        scope: |
+          Students should be able to take a stated number of variants and choose a workflow that can actually handle it, from picking a few colonies by hand, through arraying into plates, to sorting a scraped library by fluorescence before any clone is grown. They should recognize both the method that cannot reach the scale and the one that is heavier than the problem requires.

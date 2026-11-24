@@ -3,10 +3,10 @@
 #   ./make_pdf.sh <deck-dir> [outdir]      outdir default: ~/Downloads
 #   ./make_pdf.sh 01-dna-enzymes
 #   ./make_pdf.sh 02-dna-fabrication
-# The deck dir is a directory under docs/lectures/140L/.  The section list,
+# The deck dir is a directory under the deck root (see root.js).  The section list,
 # the title and the output filenames all come from that deck's lecture.js,
 # so there is no list to keep in step here.
-# Needs a running `mkdocs serve` on 127.0.0.1:8000, Google Chrome, and
+# Needs a running server for the decks (root.js says where), Google Chrome, and
 # puppeteer-core (installed into a scratch dir here if missing).
 set -e
 DIR=$(cd "$(dirname "$0")" && pwd)

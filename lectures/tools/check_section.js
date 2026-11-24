@@ -20,7 +20,7 @@
  * _seq.go(k, false). A mid-tween screenshot measures nothing.
  *
  *   npm install puppeteer-core       (Chrome is the browser)
- *   mkdocs serve
+ *   a server for the decks (bin/serve, mkdocs serve, ...) -- see root.js
  *   node check_section.js <lecture-dir> <file.html> [outdir]
  *
  * e.g. node check_section.js 02-dna-fabrication 05-homology.html /tmp/shots
@@ -30,7 +30,7 @@ const fs = require('fs'), path = require('path');
 const { PNG } = (() => { try { return require(require.resolve('pngjs', {paths:[process.cwd(), __dirname]})); }
                          catch (e) { return {}; } })();
 
-const BASE = 'http://127.0.0.1:8000/cloning-tutorials/lectures/140L/';
+const BASE = require('./root.js')();       /* $DECK_ROOT, deck-root.txt, or bin/serve */
 const CB = {x0:110, y0:86, x1:1490, y1:830};
 /* Two different questions, and an earlier version of this tool conflated them.
    The padding box is where FLOWED content belongs, and it drives the fill

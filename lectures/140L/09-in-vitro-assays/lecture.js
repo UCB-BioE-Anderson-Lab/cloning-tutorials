@@ -19,7 +19,7 @@
    kind: lecture | section — only used to color the jump menu key. */
 window.LECTURE = {
   title: "In vitro Assays",
-  course: "140L",
+  course: "BioE 140L",
   sections: [
     { file: "00-front-matter.html", title: "Introduction",  kind: "lecture" },
     { file: "01-extraction.html",   title: "Extraction",    kind: "section" },
