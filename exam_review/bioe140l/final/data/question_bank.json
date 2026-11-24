@@ -1435,12 +1435,12 @@
       "question": "Sample one reads 0.86 fluorescence at OD 0.44 and sample two reads 0.42 at OD 0.22. What do you conclude?\n",
       "choices": {
         "A": "Sample one is about twice as bright per cell as sample two",
-        "B": "Sample two expresses the reporter about twice as strongly per cell",
-        "C": "The two express the reporter at about the same level per cell",
+        "B": "The two express the reporter at about the same level per cell",
+        "C": "Sample two expresses the reporter about twice as strongly per cell",
         "D": "Nothing, since the two optical densities are not identical",
         "E": "Sample one has about twice the plasmid copy number of sample two"
       },
-      "answer": "C",
+      "answer": "B",
       "explanation": "The ratios are 0.86 over 0.44 and 0.42 over 0.22, which come to about 2.0 and 1.9, so the cells are equally bright and the only difference is that one culture is twice as dense. Reading the raw fluorescence instead is exactly the error normalization prevents. Differing optical densities are not an obstacle, since dividing by them is the point, and nothing here speaks to copy number."
     },
     {
@@ -1496,11 +1496,11 @@
       "choices": {
         "A": "Propidium iodide enters all cells; SYTO 9 enters only dead ones",
         "B": "Both stains enter all cells, and the dead ones bind more of each",
-        "C": "Propidium iodide enters only cells whose membrane has failed",
-        "D": "SYTO 9 stains the medium, so dead cells appear as dark gaps",
+        "C": "SYTO 9 stains the medium, so dead cells appear as dark gaps",
+        "D": "Propidium iodide enters only cells whose membrane has failed",
         "E": "Propidium iodide is enzymatically activated inside living cells"
       },
-      "answer": "C",
+      "answer": "D",
       "explanation": "The logic rests on permeability: SYTO 9 crosses intact membranes and so labels the whole population, while propidium iodide is excluded from live cells and enters only those whose membrane has been compromised. Cells carrying both signals are the dead fraction, read per cell by cytometry or microscopy. Reversing the two permeabilities inverts the assay, and no enzymatic activation is involved."
     },
     {
@@ -2288,11 +2288,11 @@
       "choices": {
         "A": "Intact cells permeabilized so that reagents can enter them",
         "B": "Purified polymerase and ribosomes reconstituted from components",
-        "C": "A cell lysate with the machinery, plus energy and nucleotides",
-        "D": "A mixture of purified messenger RNA and amino acids only",
+        "C": "A mixture of purified messenger RNA and amino acids only",
+        "D": "A cell lysate with the machinery, plus energy and nucleotides",
         "E": "Membrane vesicles that carry out transcription internally"
       },
-      "answer": "C",
+      "answer": "D",
       "explanation": "The usual extract is made by lysing cells and clearing the debris, which leaves the polymerase, ribosomes, transfer RNAs and factors in solution, and that lysate is then supplemented with an energy system, nucleotides and amino acids so synthesis can run. Fully reconstituted systems built from purified components do exist, but they are a different and much more expensive preparation."
     },
     {
@@ -2889,19 +2889,19 @@
   ],
   "why_automate": [
     {
-      "slug": "automation_catches_design_errors",
+      "slug": "controls_in_an_automated_workflow",
       "difficulty": "easy",
-      "topic": "Identifying a real benefit of automation",
-      "question": "Which benefit of automating a construction workflow is genuine?\n",
+      "topic": "Reasoning about controls under automation",
+      "question": "A workflow that was run by hand is moved onto a liquid handler. What happens to the controls it needed?\n",
       "choices": {
-        "A": "It halves the cost of synthesizing the DNA required",
-        "B": "It removes the need to run experimental controls",
-        "C": "It guarantees higher transformation efficiency throughout",
-        "D": "Design errors can be caught before any reagent is used",
-        "E": "It ensures the expressed protein folds in any host"
+        "A": "They are still required, since automation changes execution only",
+        "B": "They can be dropped, since the instrument transfers consistently",
+        "C": "They are replaced by the instrument's own calibration records",
+        "D": "They need only be run once, when the method is first validated",
+        "E": "They become unnecessary once the run log shows no errors"
       },
-      "answer": "D",
-      "explanation": "When a construction is written down as a machine-readable procedure it can be simulated, so a primer that will not anneal or a digest that cuts twice is found while it still costs nothing. Automation does not negotiate synthesis prices, and controls, transformation efficiency and folding are properties of the biology that no amount of scripting changes."
+      "answer": "A",
+      "explanation": "Controls exist to tell you whether the biology and the reagents behaved, and a machine making the transfers does not speak to either. What automation removes is variability in how the steps were carried out, which is a different source of error from the ones a control detects. Calibration records and run logs attest to the instrument rather than to the experiment."
     },
     {
       "slug": "reproducibility_as_a_reason",
@@ -3086,19 +3086,19 @@
       "explanation": "The picker images the plate, identifies discrete colonies, and moves each into its own well, which is the step that converts a plate of thousands of clones into an addressable array that the rest of the automation can handle. It is what makes arrayed screening of thousands feasible; sorting a pooled population by fluorescence is a cytometer's job."
     },
     {
-      "slug": "choosing_by_volume",
+      "slug": "nanoliter_transfer_without_tips",
       "difficulty": "medium",
-      "topic": "Choosing an instrument from the volume required",
-      "question": "A protocol requires 25 nanoliters of each of forty reagents into each of 384 wells. Which instrument fits?\n",
+      "topic": "Reasoning about why contactless transfer is needed",
+      "question": "A screen requires 25 nanoliters of each of forty reagents into every well of many plates. Why is tip-based transfer the wrong tool?\n",
       "choices": {
-        "A": "A multichannel pipetting robot with disposable tips",
-        "B": "A plate washer fitted with a vacuum manifold",
-        "C": "A colony picker driven by image recognition",
-        "D": "An acoustic dispenser transferring without contact",
-        "E": "A plate reader with an integrated stacker"
+        "A": "Tips cannot be changed quickly enough between the transfers",
+        "B": "Tips are below their accurate range and would be consumed in thousands",
+        "C": "Tips cannot aspirate from a plate, only from a trough reservoir",
+        "D": "Tips would dilute the reagents by retaining buffer internally",
+        "E": "Tips cannot reach the bottom of a 384-well plate reliably"
       },
-      "answer": "D",
-      "explanation": "Twenty-five nanoliters is well below what tip-based transfer handles accurately, and forty reagents into 384 wells would consume an impractical number of tips besides. Acoustic transfer is built for exactly this: small volumes, many combinations, no carryover. The remaining instruments wash, pick colonies and read plates rather than dispensing reagents."
+      "answer": "B",
+      "explanation": "Two things fail at once. Twenty-five nanoliters sits well below the volume a disposable tip dispenses accurately, and forty reagents across many plates means tens of thousands of tip changes if carryover is to be avoided. Contactless acoustic transfer answers both, since the droplet is ejected by sound from the source well and nothing is dipped into the liquid at all."
     },
     {
       "slug": "microfluidics_regime",
@@ -3193,19 +3193,19 @@
   ],
   "design_and_verification_software": [
     {
-      "slug": "what_a_language_model_answers_reliably",
+      "slug": "treating_a_model_answer_as_a_hypothesis",
       "difficulty": "easy",
-      "topic": "Judging what a language model can answer from a paper",
-      "question": "A paper describes a plasmid carrying an AmpR marker and a p15A origin. Which question can a language model answer reliably from that text?\n",
+      "topic": "Deciding how much to trust a generated answer",
+      "question": "You ask a language model what product your construction file yields and it returns a confident, detailed answer. What should you do with it?\n",
       "choices": {
-        "A": "Whether cells carrying it grow on ampicillin plates",
-        "B": "What the plasmid's full DNA sequence is, base by base",
-        "C": "What titer the pathway on it will reach in a new host",
-        "D": "What its copy number is in mid-exponential culture",
-        "E": "Whether a stronger promoter would improve the yield"
+        "A": "Accept it, since the file contains all the needed information",
+        "B": "Accept it if it agrees with what you expected the product to be",
+        "C": "Check it with a simulator, which computes the answer outright",
+        "D": "Discard it, since such tools cannot reason about sequences",
+        "E": "Ask again and accept the answer if the two responses agree"
       },
-      "answer": "A",
-      "explanation": "Reading a resistance marker off a description and saying what it confers is a straightforward deduction from text that is actually present. Predicting a full sequence, a titer, a measured copy number or the effect of a promoter swap each require information the paper does not contain and reasoning the model cannot check, which is where confident and wrong answers come from."
+      "answer": "C",
+      "explanation": "This question has a determinate answer that a simulator computes from the actual sequences and the stated operations, so there is no reason to accept a prediction when you can have the result. Accepting it because it matches your expectation checks the model against the very assumption you were trying to test, and asking twice measures consistency rather than correctness."
     },
     {
       "slug": "why_sequence_prediction_fails",
@@ -3345,19 +3345,19 @@
   ],
   "prototyping_versus_optimization": [
     {
-      "slug": "purpose_of_prototyping",
+      "slug": "reading_a_weak_prototype",
       "difficulty": "easy",
-      "topic": "Identifying the purpose of an early design",
-      "question": "Your first version of a circuit is built and its output is weaker than hoped. What was the point of building it?\n",
+      "topic": "Judging what makes a first-round result useful",
+      "question": "A first circuit gives output well below target, but it tracks inducer concentration in the direction and roughly the shape predicted. How should that be read?\n",
       "choices": {
-        "A": "To confirm that the final design meets its specification",
-        "B": "To learn how the system behaves so the next design is better",
-        "C": "To compare titers across chassis strains under fermentation",
-        "D": "To verify that the DNA matches the design file exactly",
-        "E": "To minimize the metabolic burden the host must carry"
+        "A": "As a failure, since the output misses the target by a wide margin",
+        "B": "As inconclusive until the output reaches the specified level",
+        "C": "As a reason to abandon this architecture for a different one",
+        "D": "As a successful prototype, since the system behaves understandably",
+        "E": "As evidence the assay rather than the circuit needs attention"
       },
-      "answer": "B",
-      "explanation": "A prototype is built under uncertainty to find out how the system responds, so a weak output is information rather than a failure. The specification is what later rounds chase. Sequence verification is a step within the build rather than the reason for it, and comparing chassis and tuning burden are production-phase concerns that come much later."
+      "answer": "D",
+      "explanation": "A prototype earns its keep by being interpretable, and a circuit responding in the predicted direction with roughly the predicted shape tells you the architecture works and only the magnitude needs attention, which is what later focused edits are for. A weak but well-behaved first result is a far better starting point than a strong one you cannot account for."
     },
     {
       "slug": "prototype_versus_optimize",
@@ -3649,19 +3649,19 @@
   ],
   "controls_and_oversight": [
     {
-      "slug": "what_an_administrative_control_is",
+      "slug": "classifying_a_control_measure",
       "difficulty": "easy",
-      "topic": "Defining an administrative control",
-      "question": "Which of these is an administrative control?\n",
+      "topic": "Classifying control measures by type",
+      "question": "A rule requires two people to sign the inventory before a regulated strain leaves the freezer. What kind of control is that?\n",
       "choices": {
-        "A": "Wearing gloves while handling bacterial cultures",
-        "B": "Working with viral samples in a biosafety cabinet",
-        "C": "Engineering a kill switch into a released organism",
-        "D": "A standard operating procedure governing how work is done",
-        "E": "Autoclaving contaminated waste before it is discarded"
+        "A": "An engineering control, since the freezer restricts access",
+        "B": "Personal protective equipment for the people handling it",
+        "C": "An administrative control, being a procedure governing the work",
+        "D": "A biological containment measure applied to the strain",
+        "E": "A procedural control carried out during the experiment"
       },
-      "answer": "D",
-      "explanation": "Administrative controls are policies and procedures: written procedures, required training, authorization to begin work, and the screening of synthesis orders. Gloves are protective equipment, a cabinet is an engineering control, a kill switch is built into the biology, and autoclaving is a procedural step within the work rather than a policy governing it."
+      "answer": "C",
+      "explanation": "Administrative controls are the policies that govern who may do what and under what conditions, and a required countersignature is exactly that: it constrains the work rather than containing the hazard. A lock on the freezer would be an engineering control addressing the same concern, and the distinction matters because the two fail in different ways."
     },
     {
       "slug": "synthesis_order_screening",
@@ -3801,19 +3801,19 @@
   ],
   "release_dual_use_and_perception": [
     {
-      "slug": "governing_question_for_release",
+      "slug": "evidence_for_environmental_survival",
       "difficulty": "easy",
-      "topic": "Identifying what governs a deliberate release",
-      "question": "An engineered organism is proposed for use outside containment. Which question most directly governs whether that is acceptable?\n",
+      "topic": "Identifying evidence that addresses persistence",
+      "question": "An assessment must address whether an engineered strain could persist outside the laboratory. What evidence speaks to that?\n",
       "choices": {
-        "A": "Whether the product it makes has regulatory approval for food",
-        "B": "Whether it can survive, replicate and exchange genes outside the lab",
-        "C": "Whether the technology can be protected by patents internationally",
-        "D": "Whether the intended users can interpret the output correctly",
-        "E": "Whether its sensitivity exceeds that of the laboratory method"
+        "A": "Its growth rate in rich medium at thirty-seven degrees",
+        "B": "The copy number of the plasmid it carries in culture",
+        "C": "The brightness of its reporter when the inducer is present",
+        "D": "Survival in environmental samples at ambient temperature and nutrients",
+        "E": "Its transformation efficiency when made chemically competent"
       },
-      "answer": "B",
-      "explanation": "Release is governed by what the organism can do once it is no longer contained: whether it persists, multiplies, spreads, and passes its genes to organisms already there. Usability, intellectual property, food approval and analytical performance all matter to whether the thing is worth deploying, and none of them is what the environmental assessment turns on."
+      "answer": "D",
+      "explanation": "Persistence is a question about the conditions the organism would actually meet, so the informative experiment puts it into those conditions: soil or water from the site, at ambient temperature, with the nutrients available there, followed over time. Laboratory growth in rich medium at body temperature is the measurement that tells you least about this, since it is the condition the strain was domesticated for."
     },
     {
       "slug": "why_horizontal_transfer_matters",
@@ -4135,19 +4135,19 @@
       "explanation": "Three thousand is beyond what anyone wants to pipette by hand and well within what a picker and a few dozen plates handle, which is exactly the regime laboratory automation was built for. The pooled approaches would discard the per-variant values that were asked for, and sequencing reports identity rather than activity."
     },
     {
-      "slug": "a_million_colonies",
-      "difficulty": "medium",
-      "topic": "Choosing a workflow at the million scale",
-      "question": "A plate carries about a million colonies and you want the single brightest clone. What fits?\n",
+      "slug": "recovering_many_good_variants",
+      "difficulty": "easy",
+      "topic": "Choosing a workflow when many winners are wanted",
+      "question": "From a library of about a million you want the best several hundred variants, not just the single best. What fits?\n",
       "choices": {
-        "A": "Inspecting the plate by eye and picking the brightest colony",
-        "B": "Arraying the colonies into plates and reading them all",
-        "C": "Picking a thousand at random and assaying those",
-        "D": "Scraping into liquid, sorting by fluorescence, then rescreening",
-        "E": "Picking into blocks and assaying with a fast fluorimeter"
+        "A": "Array the whole library into plates and rank every clone",
+        "B": "Pick several hundred colonies at random and rank those",
+        "C": "Run a growth selection and keep every surviving colony",
+        "D": "Sort the top fraction and sequence the sorted pool as a whole",
+        "E": "Inspect the plate by eye and pick the several hundred brightest"
       },
       "answer": "D",
-      "explanation": "A million is past any arrayed approach, so the population has to be narrowed before any clone is handled individually: scrape the library, sort the brightest fraction on a cytometer, then plate that enriched pool and screen the survivors one at a time. Judging by eye is subjective at this density, and a thousand random picks samples a thousandth of the library and will miss a rare best performer."
+      "explanation": "Wanting many winners rather than one changes what the readout must do: sorting the top fraction and sequencing it as a pool reports which variants are enriched among the best performers, which is a set rather than a champion. Arraying a million clones is out of reach, random picks sample a fraction of a percent, and a survival selection returns everything above a threshold without ranking it."
     },
     {
       "slug": "method_heavier_than_the_problem",

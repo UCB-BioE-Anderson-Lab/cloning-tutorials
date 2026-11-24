@@ -29,20 +29,20 @@ answer: C
 explanation: |
   Three thousand is beyond what anyone wants to pipette by hand and well within what a picker and a few dozen plates handle, which is exactly the regime laboratory automation was built for. The pooled approaches would discard the per-variant values that were asked for, and sequencing reports identity rather than activity.
 ---
-slug: a_million_colonies
-difficulty: medium
-topic: Choosing a workflow at the million scale
+slug: recovering_many_good_variants
+difficulty: easy
+topic: Choosing a workflow when many winners are wanted
 question: |
-  A plate carries about a million colonies and you want the single brightest clone. What fits?
+  From a library of about a million you want the best several hundred variants, not just the single best. What fits?
 choices:
-  A: Inspecting the plate by eye and picking the brightest colony
-  B: Arraying the colonies into plates and reading them all
-  C: Picking a thousand at random and assaying those
-  D: Scraping into liquid, sorting by fluorescence, then rescreening
-  E: Picking into blocks and assaying with a fast fluorimeter
+  A: Array the whole library into plates and rank every clone
+  B: Pick several hundred colonies at random and rank those
+  C: Run a growth selection and keep every surviving colony
+  D: Sort the top fraction and sequence the sorted pool as a whole
+  E: Inspect the plate by eye and pick the several hundred brightest
 answer: D
 explanation: |
-  A million is past any arrayed approach, so the population has to be narrowed before any clone is handled individually: scrape the library, sort the brightest fraction on a cytometer, then plate that enriched pool and screen the survivors one at a time. Judging by eye is subjective at this density, and a thousand random picks samples a thousandth of the library and will miss a rare best performer.
+  Wanting many winners rather than one changes what the readout must do: sorting the top fraction and sequencing it as a pool reports which variants are enriched among the best performers, which is a set rather than a champion. Arraying a million clones is out of reach, random picks sample a fraction of a percent, and a survival selection returns everything above a threshold without ranking it.
 ---
 slug: method_heavier_than_the_problem
 difficulty: medium

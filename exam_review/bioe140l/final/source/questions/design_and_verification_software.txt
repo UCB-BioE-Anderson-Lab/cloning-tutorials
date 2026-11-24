@@ -1,18 +1,18 @@
 ---
-slug: what_a_language_model_answers_reliably
+slug: treating_a_model_answer_as_a_hypothesis
 difficulty: easy
-topic: Judging what a language model can answer from a paper
+topic: Deciding how much to trust a generated answer
 question: |
-  A paper describes a plasmid carrying an AmpR marker and a p15A origin. Which question can a language model answer reliably from that text?
+  You ask a language model what product your construction file yields and it returns a confident, detailed answer. What should you do with it?
 choices:
-  A: Whether cells carrying it grow on ampicillin plates
-  B: What the plasmid's full DNA sequence is, base by base
-  C: What titer the pathway on it will reach in a new host
-  D: What its copy number is in mid-exponential culture
-  E: Whether a stronger promoter would improve the yield
-answer: A
+  A: Accept it, since the file contains all the needed information
+  B: Accept it if it agrees with what you expected the product to be
+  C: Check it with a simulator, which computes the answer outright
+  D: Discard it, since such tools cannot reason about sequences
+  E: Ask again and accept the answer if the two responses agree
+answer: C
 explanation: |
-  Reading a resistance marker off a description and saying what it confers is a straightforward deduction from text that is actually present. Predicting a full sequence, a titer, a measured copy number or the effect of a promoter swap each require information the paper does not contain and reasoning the model cannot check, which is where confident and wrong answers come from.
+  This question has a determinate answer that a simulator computes from the actual sequences and the stated operations, so there is no reason to accept a prediction when you can have the result. Accepting it because it matches your expectation checks the model against the very assumption you were trying to test, and asking twice measures consistency rather than correctness.
 ---
 slug: why_sequence_prediction_fails
 difficulty: easy

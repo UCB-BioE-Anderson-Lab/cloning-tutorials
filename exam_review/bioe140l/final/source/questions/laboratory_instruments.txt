@@ -44,20 +44,20 @@ answer: E
 explanation: |
   The picker images the plate, identifies discrete colonies, and moves each into its own well, which is the step that converts a plate of thousands of clones into an addressable array that the rest of the automation can handle. It is what makes arrayed screening of thousands feasible; sorting a pooled population by fluorescence is a cytometer's job.
 ---
-slug: choosing_by_volume
+slug: nanoliter_transfer_without_tips
 difficulty: medium
-topic: Choosing an instrument from the volume required
+topic: Reasoning about why contactless transfer is needed
 question: |
-  A protocol requires 25 nanoliters of each of forty reagents into each of 384 wells. Which instrument fits?
+  A screen requires 25 nanoliters of each of forty reagents into every well of many plates. Why is tip-based transfer the wrong tool?
 choices:
-  A: A multichannel pipetting robot with disposable tips
-  B: A plate washer fitted with a vacuum manifold
-  C: A colony picker driven by image recognition
-  D: An acoustic dispenser transferring without contact
-  E: A plate reader with an integrated stacker
-answer: D
+  A: Tips cannot be changed quickly enough between the transfers
+  B: Tips are below their accurate range and would be consumed in thousands
+  C: Tips cannot aspirate from a plate, only from a trough reservoir
+  D: Tips would dilute the reagents by retaining buffer internally
+  E: Tips cannot reach the bottom of a 384-well plate reliably
+answer: B
 explanation: |
-  Twenty-five nanoliters is well below what tip-based transfer handles accurately, and forty reagents into 384 wells would consume an impractical number of tips besides. Acoustic transfer is built for exactly this: small volumes, many combinations, no carryover. The remaining instruments wash, pick colonies and read plates rather than dispensing reagents.
+  Two things fail at once. Twenty-five nanoliters sits well below the volume a disposable tip dispenses accurately, and forty reagents across many plates means tens of thousands of tip changes if carryover is to be avoided. Contactless acoustic transfer answers both, since the droplet is ejected by sound from the source well and nothing is dipped into the liquid at all.
 ---
 slug: microfluidics_regime
 difficulty: medium
