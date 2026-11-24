@@ -455,9 +455,462 @@
       "explanation": "A part's measured behavior depends on its surroundings: promoter, copy number, growth, and the reporters on either side. Putting every candidate into one fixed context makes the measurements comparable with each other, which is the whole premise of characterizing parts. A has nothing to do with it. C is false. D is incidental and not the reason. E is backwards, since the internal reference is still needed to handle clone-to-clone variation."
     }
   ],
-  "selections_versus_screens": [],
-  "genotype_phenotype_linkage": [],
-  "selection_performance_and_enrichment": [],
+  "selections_versus_screens": [
+    {
+      "slug": "definition_of_selection_versus_screen",
+      "difficulty": "easy",
+      "topic": "Distinguishing a selection from a screen",
+      "question": "What is the defining difference between a selection and a screen?\n",
+      "choices": {
+        "A": "A selection measures every member of the library; a screen measures only a sample of it.",
+        "B": "In a selection the hits survive or are captured and the rest are lost; in a screen every member is measured individually.",
+        "C": "A selection is done in vitro and a screen is done in living cells.",
+        "D": "A selection reports a quantitative value for each member; a screen reports only survival.",
+        "E": "A selection requires sequencing and a screen does not."
+      },
+      "answer": "B",
+      "explanation": "A selection applies a condition under which hits persist and non-hits are removed, so the library sorts itself and you never handle the losers. A screen assays members one at a time, so you learn something about each one but your effort scales with the library. A reverses the two. C is false; complementation and amber suppression are in vivo selections and SELEX is in vitro. D inverts the readouts, since the quantitative per-member value is what a screen gives you. E is unrelated."
+    },
+    {
+      "slug": "why_large_libraries_need_selection",
+      "difficulty": "easy",
+      "topic": "Matching the method to library size",
+      "question": "Why are combinatorial libraries usually handled by selection rather than by screening each clone?\n",
+      "choices": {
+        "A": "Because screening cannot be made quantitative.",
+        "B": "Because the libraries are far larger than the number of clones anyone can assay one at a time.",
+        "C": "Because selections are cheaper per clone but otherwise equivalent in information.",
+        "D": "Because screening requires sequencing every member first.",
+        "E": "Because selections avoid the need for genotype-phenotype linkage."
+      },
+      "answer": "B",
+      "explanation": "A SELEX library is on the order of ten to the fifteenth and a phage display library can reach ten to the eleventh, while picking and assaying clones by hand tops out in the hundreds. The mismatch in scale is the entire reason selections exist. A is false. C understates the difference, since a selection also discards the information a screen would have collected. D is false. E is backwards: linkage is precisely what a pooled selection requires and a clone-by-clone screen does not."
+    },
+    {
+      "slug": "rbs_library_can_be_screened",
+      "difficulty": "medium",
+      "topic": "Recognizing a library small enough to screen",
+      "question": "The course notes that some libraries, such as ribosome binding site libraries, are not too big to screen. What makes that true?\n",
+      "choices": {
+        "A": "Ribosome binding sites have no sequence diversity to speak of.",
+        "B": "The degenerate region is short, so the theoretical diversity is small enough that a plate of picked clones covers a useful fraction of it.",
+        "C": "Ribosome binding site libraries cannot be selected, so screening is the only option.",
+        "D": "Expression level cannot be linked to survival under any circumstances.",
+        "E": "Screening becomes practical only when the library is built by EIPCR."
+      },
+      "answer": "B",
+      "explanation": "An RBS library with a handful of degenerate positions has a diversity in the hundreds or low thousands, so picking a plate of colonies and reading a reporter samples enough of it to be informative. The decision is made from the theoretical diversity during design, which is why you calculate it before you build. A is false. C and D are both false, since expression can be coupled to a selectable marker. E confuses the construction method with the scale."
+    },
+    {
+      "slug": "diversity_calculation_precedes_the_choice",
+      "difficulty": "medium",
+      "topic": "Deciding screen or selection during design",
+      "question": "At what point in a library experiment should you decide whether you will screen or select, and on what basis?\n",
+      "choices": {
+        "A": "After transformation, based on how many colonies appeared.",
+        "B": "During design, based on the theoretical diversity of the library you are about to build.",
+        "C": "After the first round of assays, based on whether any hits were found.",
+        "D": "During design, based on which sequencing platform is available.",
+        "E": "It does not matter, since a screen can always be converted into a selection afterward."
+      },
+      "answer": "B",
+      "explanation": "The theoretical diversity is known from the design before any DNA is made, and it determines whether a clone-by-clone assay can cover the library at all. Deciding afterward means you may have built something you have no way to interrogate. A is too late and conflates coverage with method. C is later still. D is a downstream consideration. E is false, since a selection requires a genotype-phenotype link that most screens do not provide."
+    },
+    {
+      "slug": "enrichment_then_individual_characterization",
+      "difficulty": "medium",
+      "topic": "Sequencing the order of selection and characterization",
+      "question": "In SELEX, what is done after the rounds of selection are complete and the eluted fraction has climbed?\n",
+      "choices": {
+        "A": "The pool is reported as the answer, since selection has already identified the best binder.",
+        "B": "The library is cloned, individual members are picked and sequenced, and those hits are characterized separately.",
+        "C": "The pool is subjected to further rounds until only one sequence remains.",
+        "D": "The pool is screened clone by clone before any selection is applied.",
+        "E": "The pool is discarded and the experiment is repeated with a fresh library."
+      },
+      "answer": "B",
+      "explanation": "A selection narrows a library from an unmanageable size to a pool small enough to handle individually, and that is where the clone-by-clone work begins: clone the pool, pick members, sequence them, and measure their affinity on their own. A treats enrichment as a final answer when the pool still contains non-specific binders. C is not how the rounds behave and is not the goal. D inverts the order. E discards the result."
+    },
+    {
+      "slug": "selection_discards_information",
+      "difficulty": "medium",
+      "topic": "Recognizing what a selection does not tell you",
+      "question": "A selection recovers hits from a library of ten million. What information does it not give you that a screen of the same library would have?\n",
+      "choices": {
+        "A": "The sequence of the recovered hits.",
+        "B": "A measured value for every member, including those that failed and by how much.",
+        "C": "Whether the recovered clones are viable.",
+        "D": "The theoretical diversity of the library.",
+        "E": "Nothing; a selection gives strictly more information than a screen."
+      },
+      "answer": "B",
+      "explanation": "Non-hits are physically removed in a selection, so there is no record of how any of them performed; you learn which members passed a threshold and nothing about the shape of the distribution behind it. That is a trade you accept in exchange for handling a library no screen could cover. A is wrong because recovered hits are sequenced. C and D are unaffected by the choice. E is the error this question is checking."
+    },
+    {
+      "slug": "screen_scale_arithmetic",
+      "difficulty": "medium",
+      "topic": "Comparing library size against screening capacity",
+      "question": "Your library has a diversity of about ten to the sixth and a single clone takes a minute to pick and assay. Why is a screen not an option?\n",
+      "choices": {
+        "A": "Because the assay would lose sensitivity at that scale.",
+        "B": "Because a million minutes is roughly two years of continuous work.",
+        "C": "Because libraries above ten thousand members cannot be transformed.",
+        "D": "Because the clones would be too similar to distinguish.",
+        "E": "Because screens require a selectable marker, which this library lacks."
+      },
+      "answer": "B",
+      "explanation": "The argument is arithmetic, not biology: a million one-minute assays is on the order of two years, which settles the matter before any question of sensitivity arises. Recognizing when the scale alone rules out a method is the point of the exercise. A is a distraction. C is false. D does not follow. E has it backwards, since it is selections that need the marker."
+    },
+    {
+      "slug": "fluorescence_sorting_as_a_selection",
+      "difficulty": "hard",
+      "topic": "Classifying a sort as a selection",
+      "question": "You scrape a library off a plate, sort it by fluorescence on a cytometer, and keep the brightest fraction. Is that a screen or a selection?\n",
+      "choices": {
+        "A": "A screen, because fluorescence is measured on each cell.",
+        "B": "A selection, because the population is partitioned and the non-hits are discarded without being recorded.",
+        "C": "Neither, since cytometry is an analytical method rather than an enrichment.",
+        "D": "A screen, because no cells are killed.",
+        "E": "A selection only if a kill step such as an antibiotic is included."
+      },
+      "answer": "B",
+      "explanation": "The instrument does measure each cell, which is what makes A tempting, but no per-clone value is retained and the unselected cells are thrown away: what comes out is an enriched population, not a table of results. Survival is not the criterion that defines a selection; partitioning without a per-member record is. C is false, since sorting is routinely used to enrich. D makes survival the test. E adds a requirement that does not exist."
+    },
+    {
+      "slug": "arraying_as_the_middle_ground",
+      "difficulty": "hard",
+      "topic": "Placing arrayed screening between picking and selection",
+      "question": "You need per-variant expression values for about two thousand library members. Which workflow fits?\n",
+      "choices": {
+        "A": "A pooled selection, since two thousand is too many to handle individually.",
+        "B": "Arraying the clones into microtiter plates with a colony picker and reading them on a plate reader.",
+        "C": "Picking and assaying the clones one at a time in tubes.",
+        "D": "SELEX against an immobilized target.",
+        "E": "Sorting the pool by fluorescence and keeping the brightest fraction."
+      },
+      "answer": "B",
+      "explanation": "The requirement is a value for each member, which rules out anything pooled, and two thousand is well within reach of a colony picker and a few dozen plates. This is the regime automation exists to serve. A and E both discard the per-variant values that were asked for. C would work in principle but is an unnecessary two thousand manual assays. D is a binding selection and reports nothing about expression."
+    },
+    {
+      "slug": "selection_cannot_report_a_distribution",
+      "difficulty": "hard",
+      "topic": "Matching the method to the question rather than the scale",
+      "question": "You want to know how promoter strength is distributed across a library of fifty thousand variants, not merely to find the strongest. Why is a growth selection on a resistance marker a poor fit?\n",
+      "choices": {
+        "A": "Fifty thousand members is too small a library for a selection.",
+        "B": "A growth selection reports only whether each variant cleared a threshold, so the shape of the distribution is lost.",
+        "C": "Resistance markers cannot be driven by variable promoters.",
+        "D": "Selections require long-read sequencing, which is unavailable at this scale.",
+        "E": "Promoter strength cannot be linked to survival in any way."
+      },
+      "answer": "B",
+      "explanation": "The question asked for a distribution, and a survival selection gives a binary outcome per variant set by the drug concentration. The right instrument here is a pooled measurement that returns counts per variant, such as barcode sequencing of transcripts, which preserves the whole range. A inverts the scale argument. C and E are both false; this coupling is exactly how such selections are built. D invents a requirement."
+    }
+  ],
+  "genotype_phenotype_linkage": [
+    {
+      "slug": "why_linkage_is_needed",
+      "difficulty": "easy",
+      "topic": "Understanding why a pooled selection needs linkage",
+      "question": "Why does a pooled selection require the molecule that performs the activity to stay physically associated with the DNA that encodes it?\n",
+      "choices": {
+        "A": "Because the DNA is what carries out the activity being selected.",
+        "B": "Because the selection recovers a physical object, and you can only learn its identity by sequencing the DNA that came with it.",
+        "C": "Because unlinked DNA is degraded during the selection step.",
+        "D": "Because the selection cannot proceed unless the protein is encoded on a plasmid.",
+        "E": "Because linkage increases the enrichment per round."
+      },
+      "answer": "B",
+      "explanation": "A selection hands you back a captured or surviving sample, not a label. The only way to find out what you captured is to read the attached DNA, so the attachment has to survive the selection. A reverses the roles of protein and gene. C invents a mechanism. D names one implementation rather than the requirement. E confuses a precondition with a performance measure."
+    },
+    {
+      "slug": "pIII_fusion_in_phage_display",
+      "difficulty": "easy",
+      "topic": "Identifying how phage display achieves linkage",
+      "question": "In M13 phage display, how is a displayed antibody fragment connected to the gene encoding it?\n",
+      "choices": {
+        "A": "The gene is chemically crosslinked to the protein after the particle is assembled.",
+        "B": "The protein is expressed as a fusion to P3 at the tip of the particle, and the phagemid encoding it is packaged inside that same particle.",
+        "C": "The gene is displayed on the surface alongside the protein.",
+        "D": "The protein is secreted into the medium while the gene stays in the cell.",
+        "E": "The protein is fused to P8, which is the only coat protein that permits linkage."
+      },
+      "answer": "B",
+      "explanation": "The particle is the link: the phagemid carrying the fusion gene is packaged into the very particle whose tip displays the fusion protein, so binding a protein captures its gene. A is not how phage display works. C is physically wrong. D breaks linkage entirely, which is the error this question checks. E names the wrong coat protein for a protein of this size, since P8 is used for multivalent display of very short peptides."
+    },
+    {
+      "slug": "selex_linkage_is_the_molecule_itself",
+      "difficulty": "medium",
+      "topic": "Recognizing that SELEX needs no separate linkage",
+      "question": "SELEX selects aptamers from a library of nucleic acids. Why does it not require a display system or a fusion protein?\n",
+      "choices": {
+        "A": "Because aptamers are selected by growth rather than by binding.",
+        "B": "Because the molecule that binds is itself the nucleic acid, so genotype and phenotype are the same object.",
+        "C": "Because the target is immobilized rather than the library.",
+        "D": "Because reverse transcription recreates the linkage after elution.",
+        "E": "Because aptamer libraries are small enough to screen individually."
+      },
+      "answer": "B",
+      "explanation": "The whole problem of linkage comes from the activity residing in a protein while the information resides in DNA. In SELEX the binder is the DNA or RNA, so what you elute is directly amplifiable and sequenceable. A is false. C is true of the setup but is not the reason linkage is unnecessary. D has it backwards, since amplification is possible precisely because the linkage was never broken. E is false; these libraries reach ten to the fifteenth."
+    },
+    {
+      "slug": "yeast_display_mechanism",
+      "difficulty": "medium",
+      "topic": "Identifying the tether in yeast surface display",
+      "question": "In yeast surface display, what puts the protein of interest on the outside of the cell that carries its gene?\n",
+      "choices": {
+        "A": "Fusion to Aga2, which is tethered by disulfide bonds to Aga1 in the cell wall.",
+        "B": "Insertion into a loop of an outer membrane barrel protein.",
+        "C": "Packaging into a secreted vesicle along with the plasmid.",
+        "D": "Fusion to P3 followed by infection with a helper phage.",
+        "E": "Covalent attachment to agarose beads treated with cyanogen bromide."
+      },
+      "answer": "A",
+      "explanation": "Aga2 is exported and held to the wall-anchored Aga1 through disulfides, carrying the fused protein with it, so the displayed protein and its plasmid stay in the same cell. B describes bacterial display with OmpX or a similar barrel. D is phage display. E is the column chemistry used to immobilize a SELEX target. C invents a mechanism."
+    },
+    {
+      "slug": "display_capacity_differences",
+      "difficulty": "medium",
+      "topic": "Choosing a display system from size and library limits",
+      "question": "You need to display a full-length protein of 400 amino acids and want the largest library you can get. Which pairing of system and constraint is correct?\n",
+      "choices": {
+        "A": "Bacterial display on OmpX, which handles full-length proteins at libraries of ten to the eleventh.",
+        "B": "Yeast display handles full-length proteins but transformation limits the library to about ten to the seventh; phage display reaches about ten to the eleventh.",
+        "C": "Phage display is limited to about ten to the seventh and yeast display to ten to the eleventh.",
+        "D": "Both systems are limited by the diversity of the degenerate oligo rather than by transformation.",
+        "E": "Neither system can display a protein of this length, so SELEX is the only option."
+      },
+      "answer": "B",
+      "explanation": "The two systems trade off against each other: yeast tolerates full-length proteins but its transformation efficiency caps the library around ten to the seventh, while phage reaches about ten to the eleventh. A misstates bacterial display, which reliably handles peptides up to roughly eighty amino acids and is unreliable for longer proteins. C swaps the two numbers. D names the wrong limiting step. E is false and SELEX selects nucleic acids, not proteins."
+    },
+    {
+      "slug": "bulk_assay_breaks_linkage",
+      "difficulty": "medium",
+      "topic": "Recognizing a proposal that breaks linkage",
+      "question": "A colleague proposes selecting an improved secreted enzyme by growing the pooled library in one flask, assaying the culture supernatant, and keeping the pool if activity is high. What is wrong?\n",
+      "choices": {
+        "A": "Nothing, provided the assay is sensitive enough.",
+        "B": "The secreted enzyme diffuses away from the cell that made it, so activity in the supernatant cannot be traced back to any genotype.",
+        "C": "Secreted enzymes cannot be assayed outside the cell.",
+        "D": "The pool would need to be sequenced before the assay rather than after.",
+        "E": "The flask would need to be grown under antibiotic selection."
+      },
+      "answer": "B",
+      "explanation": "Once the product leaves the cell it mixes with everything else in the flask, so a high reading tells you only that the pool as a whole contains something active. This is the classic linkage failure, and the fixes are to confine the product with the cell, in a droplet or a liposome, or to keep it on the surface. A ignores the problem entirely. C is false. D and E address unrelated steps."
+    },
+    {
+      "slug": "compartmentalization_restores_linkage",
+      "difficulty": "hard",
+      "topic": "Using compartmentalization to supply linkage",
+      "question": "Why does running a pooled assay on a secreted or soluble product inside water-in-oil droplets or liposomes rescue the experiment?\n",
+      "choices": {
+        "A": "Because the compartment raises the expression level of each variant.",
+        "B": "Because each compartment holds one gene and the product it makes, so the product cannot mix with products of other variants.",
+        "C": "Because compartments eliminate the need for sequencing the hits.",
+        "D": "Because the compartment protects the DNA from nuclease degradation.",
+        "E": "Because compartments allow the library to be larger than transformation would permit."
+      },
+      "answer": "B",
+      "explanation": "A compartment is an artificial cell: it keeps one template and whatever that template produces in the same tiny volume, which restores the association the bulk flask destroyed. Sorting the compartments then sorts the genes. A, C and D are incidental or false. E confuses the linkage problem with the library size problem, although cell-free compartments do avoid transformation for other reasons."
+    },
+    {
+      "slug": "complementation_linkage",
+      "difficulty": "hard",
+      "topic": "Explaining linkage in a complementation selection",
+      "question": "In the chorismate mutase linker selection, the library is grown on minimal medium lacking aromatic amino acids in a knockout strain. What provides the genotype-phenotype link?\n",
+      "choices": {
+        "A": "The enzyme is displayed on the cell surface during growth.",
+        "B": "The plasmid encoding the linker variant is inside the cell whose survival depends on that variant working.",
+        "C": "The enzyme is covalently attached to its own gene during translation.",
+        "D": "The knockout strain carries a barcode identifying each variant.",
+        "E": "Each variant is grown in a separate well, so no linkage is needed."
+      },
+      "answer": "B",
+      "explanation": "The cell is the compartment. A variant whose linker lets the enzyme fold into a working monomer makes aromatic amino acids and the cell divides, and the colony that results carries the plasmid you sequence. This is why in vivo selections need no display machinery at all. A and C invent mechanisms. D is not part of this design. E contradicts the pooled nature of the selection."
+    },
+    {
+      "slug": "inferring_genotype_from_expression",
+      "difficulty": "hard",
+      "topic": "Recognizing an invalid substitute for linkage",
+      "question": "A proposal for a pooled protein library suggests identifying the best variant by measuring, for the whole pool, which variants are most highly expressed. Why does that not answer the question?\n",
+      "choices": {
+        "A": "Expression cannot be measured in a pooled library.",
+        "B": "Expression level and the activity being selected for are different properties, so abundance in the pool does not identify the best performer.",
+        "C": "Expression is only measurable by cycle sequencing, which does not work on pools.",
+        "D": "Expression differences are too small to detect by sequencing.",
+        "E": "It would work, provided the pool is sequenced deeply enough."
+      },
+      "answer": "B",
+      "explanation": "Abundance tells you which variants are present in quantity, which may reflect how well they clone, fold, or tolerate being made rather than how well they perform. The lesson is the same one the SELEX data makes: the most abundant sequences in a pool were not the enriched ones. A and C are false; pooled expression is read by counting reads. D is false. E compounds the error by proposing more of a measurement that answers a different question."
+    },
+    {
+      "slug": "linkage_requirement_for_a_small_molecule_product",
+      "difficulty": "hard",
+      "topic": "Choosing a linkage strategy for a diffusible product",
+      "question": "You have a library of enzyme variants whose product is a diffusible small molecule, and you want to select variants that make more of it. Which approach preserves linkage?\n",
+      "choices": {
+        "A": "Phage display of the enzyme followed by panning against the product.",
+        "B": "A biosensor inside the same cell that turns on a selectable marker in response to the product.",
+        "C": "Assaying the pooled culture supernatant by mass spectrometry.",
+        "D": "Immobilizing the product on a column and passing the library over it.",
+        "E": "Yeast surface display of the enzyme with the product detected in the medium."
+      },
+      "answer": "B",
+      "explanation": "A biosensor keeps the readout inside the same cell as the gene, so a variant that makes more product makes its own cell survive, and the plasmid is recovered from the colony. A and D select for binding to the product rather than for making it. C is the bulk assay that destroys linkage. E links the enzyme to its gene but reads the product in the shared medium, so the readout is still pooled."
+    }
+  ],
+  "selection_performance_and_enrichment": [
+    {
+      "slug": "definition_of_enrichment",
+      "difficulty": "easy",
+      "topic": "Defining enrichment",
+      "question": "Enrichment for a selection step is defined as which of the following?\n",
+      "choices": {
+        "A": "The number of hits recovered after the selection.",
+        "B": "The frequency of hits in the final population divided by their frequency in the starting population.",
+        "C": "The fraction of hits that survive the selection.",
+        "D": "How strongly the selection prefers a hit over a non-hit.",
+        "E": "The number of rounds required before hits become detectable."
+      },
+      "answer": "B",
+      "explanation": "Enrichment is a ratio of frequencies, before and after, which is why it can be large even when very few molecules come through. C is the definition of recovery and D is the definition of specificity; both feed into enrichment but are not it. A is a count rather than a frequency and says nothing about the starting population. E is an observation about the campaign, not a definition."
+    },
+    {
+      "slug": "definition_of_specificity_and_recovery",
+      "difficulty": "easy",
+      "topic": "Distinguishing specificity from recovery",
+      "question": "A selection retains 90 percent of the hits in the library and also lets through 1 percent of the non-hits. Which statement names these quantities correctly?\n",
+      "choices": {
+        "A": "Recovery is 90 percent; the preference for hits over non-hits is the specificity.",
+        "B": "Specificity is 90 percent; the enrichment is 1 percent.",
+        "C": "Recovery is 1 percent; specificity is 90 percent.",
+        "D": "Both numbers describe the enrichment, which is their sum.",
+        "E": "Recovery is 90 percent and specificity cannot be stated without the number of rounds."
+      },
+      "answer": "A",
+      "explanation": "Recovery asks what fraction of the hits survive, which is the 90 percent. Specificity asks how strongly the step prefers a hit to a non-hit, which is what the contrast between 90 percent and 1 percent expresses. B and C swap the two. D invents an arithmetic relation; enrichment is determined by both but is not a sum. E is wrong because specificity is a property of a single step."
+    },
+    {
+      "slug": "enrichment_calculation_from_plates",
+      "difficulty": "medium",
+      "topic": "Computing enrichment from colony counts",
+      "question": "Before a sort you plate the library and count 93 blue colonies and 1 red, where red marks a hit. After the sort you plate again and count 3 blue and 183 red. What is the enrichment?\n",
+      "choices": {
+        "A": "About 183, the number of red colonies recovered.",
+        "B": "About 92.",
+        "C": "About 2, the ratio of the two plate counts.",
+        "D": "About 61, the ratio of red to blue after the sort.",
+        "E": "It cannot be calculated without knowing the total library size."
+      },
+      "answer": "B",
+      "explanation": "The frequency of reds before is 1 divided by 94, or 0.0106, and after is 183 divided by 186, or 0.984. The ratio of those two frequencies is about 92. A reports a raw count, which depends on how much was plated. C and D compute ratios that are not frequencies before over frequencies after. E is wrong because enrichment uses frequencies, so the library size cancels."
+    },
+    {
+      "slug": "why_multiple_rounds",
+      "difficulty": "medium",
+      "topic": "Explaining why selections are run for several rounds",
+      "question": "SELEX and phage panning typically take five or six rounds. Why is one round not enough?\n",
+      "choices": {
+        "A": "Because the library has to be resynthesized between rounds.",
+        "B": "Because the enrichment per round is modest against a large background of non-specific binding, so the hit frequency has to be raised repeatedly.",
+        "C": "Because the target degrades and must be replaced each round.",
+        "D": "Because each round can only sample a fraction of the library.",
+        "E": "Because the amplification step reduces diversity, which later rounds restore."
+      },
+      "answer": "B",
+      "explanation": "Non-specific binding carries a great deal of the library through every round, so a single pass raises the hit frequency by a factor that is far short of what is needed to go from one in ten to the fifteenth to a workable pool. Repeating multiplies the enrichment. A is false; the pool is amplified, not rebuilt. C is incidental. D misstates the mechanism, since the whole library is passed over the target. E has the effect of amplification backwards."
+    },
+    {
+      "slug": "compounding_enrichment_across_rounds",
+      "difficulty": "medium",
+      "topic": "Reasoning about enrichment over several rounds",
+      "question": "A selection step gives an enrichment of about 20. Starting from a hit frequency of one in a million, roughly what is the hit frequency after three rounds, assuming each round performs the same?\n",
+      "choices": {
+        "A": "About one in a hundred and twenty-five, since the per-round enrichments multiply to about 8000.",
+        "B": "About one in a million still, since enrichment does not accumulate.",
+        "C": "About one in seventeen thousand, since the per-round enrichments add to about 60.",
+        "D": "About one in sixty, since three rounds of twenty are equivalent to one round of sixty.",
+        "E": "It cannot be estimated without knowing the recovery."
+      },
+      "answer": "A",
+      "explanation": "Each round multiplies the hit frequency by the enrichment, so three rounds give 20 cubed, which is 8000, and one in a million becomes roughly one in a hundred and twenty-five. C and D both add the per-round figures instead of multiplying them, which is the usual error and which badly understates how quickly a selection converges. B denies compounding altogether. E is wrong because recovery is already folded into the enrichment figure."
+    },
+    {
+      "slug": "recovery_versus_enrichment_tradeoff",
+      "difficulty": "medium",
+      "topic": "Trading recovery against enrichment",
+      "question": "You make the washes in a panning experiment much more stringent. What is the likely effect?\n",
+      "choices": {
+        "A": "Both recovery and enrichment fall.",
+        "B": "Enrichment per round rises because more non-specific binders are removed, while recovery of true hits falls.",
+        "C": "Recovery rises because only true binders are left.",
+        "D": "Neither changes, since washing affects only the volume recovered.",
+        "E": "Enrichment falls because fewer molecules are recovered."
+      },
+      "answer": "B",
+      "explanation": "Harsher washing discriminates more sharply, so the surviving pool is purer, but weakly binding real hits are lost along with the background. That trade is the reason stringency is tuned rather than maximized, and it is why early rounds are often run gently. A and E confuse the number of molecules recovered with the frequency of hits among them. C misuses recovery, which refers to the hits specifically. D ignores the mechanism."
+    },
+    {
+      "slug": "abundance_is_not_enrichment",
+      "difficulty": "hard",
+      "topic": "Separating abundance from enrichment in a sequenced pool",
+      "question": "You deep-sequence the final round of a selection and find ten sequences with by far the highest copy numbers. Why can you not conclude that these are your best binders?\n",
+      "choices": {
+        "A": "Because copy number cannot be measured accurately by sequencing.",
+        "B": "Because a sequence can be abundant for reasons unrelated to the selection, such as efficient synthesis or amplification, and only a rising frequency across rounds shows selection acting.",
+        "C": "Because the best binders are always rare in the final pool.",
+        "D": "Because the final round is always dominated by the starting library.",
+        "E": "Because abundance reflects binding affinity, which is not the same as specificity."
+      },
+      "answer": "B",
+      "explanation": "Abundance at the end is a snapshot and has no before to compare against. In the published case the ten most abundant sequences in the final pool were the same ten in every round and showed no enrichment at all, while real hits appeared at low frequency early and climbed by thousands of fold. Reading the end point alone is exactly the error. A is false. C overstates it into a rule. D is false. E misdiagnoses the problem as a distinction between affinity and specificity."
+    },
+    {
+      "slug": "enrichment_requires_a_before_measurement",
+      "difficulty": "hard",
+      "topic": "Recognizing what an enrichment calculation requires",
+      "question": "You sorted a library and recovered a pool in which 95 percent of clones are hits, but you did not plate the library before sorting. What can you report?\n",
+      "choices": {
+        "A": "The enrichment, since the starting frequency of a random library is known to be negligible.",
+        "B": "The final hit frequency, but not the enrichment, which requires the starting frequency.",
+        "C": "Both the specificity and the recovery of the sort.",
+        "D": "The recovery, since 95 percent of what came through were hits.",
+        "E": "Nothing quantitative at all."
+      },
+      "answer": "B",
+      "explanation": "Enrichment is a ratio and the denominator is a measurement you either made or did not. Without the before plate you have a perfectly good final frequency and no enrichment. A substitutes an assumption for a measurement, which is the habit this question is testing. C requires knowing what happened to hits and non-hits separately. D misreads the 95 percent, which is a purity rather than a fraction of hits retained. E is too pessimistic."
+    },
+    {
+      "slug": "diagnosing_a_failed_selection",
+      "difficulty": "hard",
+      "topic": "Diagnosing a selection that fails to enrich",
+      "question": "After six rounds, the eluted fraction has not risen and sequencing shows the pool is as diverse as the starting library. Which explanation is most consistent with that result?\n",
+      "choices": {
+        "A": "Recovery is too low, so the hits were lost even though the specificity was high.",
+        "B": "Either the library contains no hits, or the step has essentially no specificity, so hits and non-hits come through alike.",
+        "C": "The enrichment was too high, collapsing the pool prematurely.",
+        "D": "The amplification step introduced too much diversity between rounds.",
+        "E": "The target was immobilized too densely."
+      },
+      "answer": "B",
+      "explanation": "Undiminished diversity and a flat elution signal mean the population is not being sorted at all, which happens when there is nothing to find or when the step cannot tell hits from background. A would reduce the amount recovered but would still leave the survivors skewed toward hits. C describes the opposite result. D attributes a thousandfold diversity to PCR error, which it cannot produce. E would be expected to raise, not abolish, binding."
+    },
+    {
+      "slug": "negative_selection_in_a_dual_scheme",
+      "difficulty": "hard",
+      "topic": "Explaining why a positive selection alone is insufficient",
+      "question": "In the LuxR specificity work, the positive selection is run with the new small molecule and clears out everything that does not activate the promoter. Why is a negative selection still required?\n",
+      "choices": {
+        "A": "Because the positive selection also removes variants with the desired new specificity.",
+        "B": "Because wild-type LuxR survives the positive round by responding to something it could already respond to, and only a round that kills responders to the old ligand removes it.",
+        "C": "Because the positive selection leaves too few survivors to sequence.",
+        "D": "Because the negative selection raises the recovery of the desired variants.",
+        "E": "Because chloramphenicol resistance decays over successive rounds."
+      },
+      "answer": "B",
+      "explanation": "The survivors of the positive round are a mixture of genuinely reprogrammed variants and wild type, because activating the promoter is not by itself evidence of new specificity. The negative round, run with the old ligand and a counter-selectable marker, removes anything that still answers to the old stimulus. A contradicts the purpose of the positive round. C is not the stated problem. D misattributes the effect, since the negative round removes rather than retains. E invents a mechanism."
+    }
+  ],
   "diversity_generation_methods": [],
   "what_directed_evolution_requires": [],
   "tuning_a_circuit_threshold": [],
