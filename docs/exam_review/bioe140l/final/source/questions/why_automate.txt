@@ -1,18 +1,18 @@
 ---
-slug: automation_catches_design_errors
+slug: controls_in_an_automated_workflow
 difficulty: easy
-topic: Identifying a real benefit of automation
+topic: Reasoning about controls under automation
 question: |
-  Which benefit of automating a construction workflow is genuine?
+  A workflow that was run by hand is moved onto a liquid handler. What happens to the controls it needed?
 choices:
-  A: It halves the cost of synthesizing the DNA required
-  B: It removes the need to run experimental controls
-  C: It guarantees higher transformation efficiency throughout
-  D: Design errors can be caught before any reagent is used
-  E: It ensures the expressed protein folds in any host
-answer: D
+  A: They are still required, since automation changes execution only
+  B: They can be dropped, since the instrument transfers consistently
+  C: They are replaced by the instrument's own calibration records
+  D: They need only be run once, when the method is first validated
+  E: They become unnecessary once the run log shows no errors
+answer: A
 explanation: |
-  When a construction is written down as a machine-readable procedure it can be simulated, so a primer that will not anneal or a digest that cuts twice is found while it still costs nothing. Automation does not negotiate synthesis prices, and controls, transformation efficiency and folding are properties of the biology that no amount of scripting changes.
+  Controls exist to tell you whether the biology and the reagents behaved, and a machine making the transfers does not speak to either. What automation removes is variability in how the steps were carried out, which is a different source of error from the ones a control detects. Calibration records and run logs attest to the instrument rather than to the experiment.
 ---
 slug: reproducibility_as_a_reason
 difficulty: easy

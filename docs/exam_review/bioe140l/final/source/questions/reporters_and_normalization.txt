@@ -66,11 +66,11 @@ question: |
   Sample one reads 0.86 fluorescence at OD 0.44 and sample two reads 0.42 at OD 0.22. What do you conclude?
 choices:
   A: Sample one is about twice as bright per cell as sample two
-  B: Sample two expresses the reporter about twice as strongly per cell
-  C: The two express the reporter at about the same level per cell
+  B: The two express the reporter at about the same level per cell
+  C: Sample two expresses the reporter about twice as strongly per cell
   D: Nothing, since the two optical densities are not identical
   E: Sample one has about twice the plasmid copy number of sample two
-answer: C
+answer: B
 explanation: |
   The ratios are 0.86 over 0.44 and 0.42 over 0.22, which come to about 2.0 and 1.9, so the cells are equally bright and the only difference is that one culture is twice as dense. Reading the raw fluorescence instead is exactly the error normalization prevents. Differing optical densities are not an obstacle, since dividing by them is the point, and nothing here speaks to copy number.
 ---
@@ -127,10 +127,10 @@ question: |
 choices:
   A: Propidium iodide enters all cells; SYTO 9 enters only dead ones
   B: Both stains enter all cells, and the dead ones bind more of each
-  C: Propidium iodide enters only cells whose membrane has failed
-  D: SYTO 9 stains the medium, so dead cells appear as dark gaps
+  C: SYTO 9 stains the medium, so dead cells appear as dark gaps
+  D: Propidium iodide enters only cells whose membrane has failed
   E: Propidium iodide is enzymatically activated inside living cells
-answer: C
+answer: D
 explanation: |
   The logic rests on permeability: SYTO 9 crosses intact membranes and so labels the whole population, while propidium iodide is excluded from live cells and enters only those whose membrane has been compromised. Cells carrying both signals are the dead fraction, read per cell by cytometry or microscopy. Reversing the two permeabilities inverts the assay, and no enzymatic activation is involved.
 ---

@@ -1,18 +1,18 @@
 ---
-slug: purpose_of_prototyping
+slug: reading_a_weak_prototype
 difficulty: easy
-topic: Identifying the purpose of an early design
+topic: Judging what makes a first-round result useful
 question: |
-  Your first version of a circuit is built and its output is weaker than hoped. What was the point of building it?
+  A first circuit gives output well below target, but it tracks inducer concentration in the direction and roughly the shape predicted. How should that be read?
 choices:
-  A: To confirm that the final design meets its specification
-  B: To learn how the system behaves so the next design is better
-  C: To compare titers across chassis strains under fermentation
-  D: To verify that the DNA matches the design file exactly
-  E: To minimize the metabolic burden the host must carry
-answer: B
+  A: As a failure, since the output misses the target by a wide margin
+  B: As inconclusive until the output reaches the specified level
+  C: As a reason to abandon this architecture for a different one
+  D: As a successful prototype, since the system behaves understandably
+  E: As evidence the assay rather than the circuit needs attention
+answer: D
 explanation: |
-  A prototype is built under uncertainty to find out how the system responds, so a weak output is information rather than a failure. The specification is what later rounds chase. Sequence verification is a step within the build rather than the reason for it, and comparing chassis and tuning burden are production-phase concerns that come much later.
+  A prototype earns its keep by being interpretable, and a circuit responding in the predicted direction with roughly the predicted shape tells you the architecture works and only the magnitude needs attention, which is what later focused edits are for. A weak but well-behaved first result is a far better starting point than a strong one you cannot account for.
 ---
 slug: prototype_versus_optimize
 difficulty: easy
