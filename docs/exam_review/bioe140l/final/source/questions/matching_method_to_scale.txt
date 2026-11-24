@@ -1,0 +1,150 @@
+---
+slug: a_handful_of_variants
+difficulty: easy
+topic: Choosing a workflow for a few variants
+question: |
+  You have eight defined promoter variants to characterize individually. What fits?
+choices:
+  A: Build each, pick a colony of each, and assay them in tubes
+  B: Build a pooled library and sort the brightest by cytometry
+  C: Array a picked library into plates with a colony picker
+  D: Run a selection on a resistance marker and sequence survivors
+  E: Barcode each variant and count transcripts by sequencing
+answer: A
+explanation: |
+  Eight is a number you can simply handle: build each on purpose, grow it, measure it, and keep it as a named strain. Everything heavier exists to cope with numbers you cannot handle individually, and applying a pooled method here means doing extra work to recover identities you already had.
+---
+slug: thousands_of_variants
+difficulty: easy
+topic: Choosing a workflow at the thousand scale
+question: |
+  You need a per-variant value for roughly three thousand clones. What fits?
+choices:
+  A: Picking and assaying each clone by hand in tubes
+  B: A pooled growth selection, sequencing the survivors
+  C: A colony picker arraying into plates, read on a plate reader
+  D: Scraping the library and sorting the brightest fraction
+  E: Cycle sequencing each clone to infer its activity
+answer: C
+explanation: |
+  Three thousand is beyond what anyone wants to pipette by hand and well within what a picker and a few dozen plates handle, which is exactly the regime laboratory automation was built for. The pooled approaches would discard the per-variant values that were asked for, and sequencing reports identity rather than activity.
+---
+slug: a_million_colonies
+difficulty: medium
+topic: Choosing a workflow at the million scale
+question: |
+  A plate carries about a million colonies and you want the single brightest clone. What fits?
+choices:
+  A: Inspecting the plate by eye and picking the brightest colony
+  B: Arraying the colonies into plates and reading them all
+  C: Picking a thousand at random and assaying those
+  D: Scraping into liquid, sorting by fluorescence, then rescreening
+  E: Picking into blocks and assaying with a fast fluorimeter
+answer: D
+explanation: |
+  A million is past any arrayed approach, so the population has to be narrowed before any clone is handled individually: scrape the library, sort the brightest fraction on a cytometer, then plate that enriched pool and screen the survivors one at a time. Judging by eye is subjective at this density, and a thousand random picks samples a thousandth of the library and will miss a rare best performer.
+---
+slug: method_heavier_than_the_problem
+difficulty: medium
+topic: Recognizing a method heavier than the question requires
+question: |
+  You need expression values for twelve named constructs. Why not barcode them and count transcripts by sequencing?
+choices:
+  A: Because barcodes cannot be designed for only twelve members
+  B: Because twelve constructs cannot be pooled in one culture
+  C: Because the method costs far more effort than reading twelve wells
+  D: Because sequencing cannot resolve twelve barcodes reliably
+  E: Because transcript counts do not report expression level
+answer: C
+explanation: |
+  The pooled readout is a solution to not being able to measure members separately, and with twelve you can, in a single plate, for a fraction of the effort and cost. Choosing the heavier method is as much a mismatch as choosing one that cannot reach the scale, which is the symmetry worth noticing. Each of the technical objections offered is false.
+---
+slug: why_enrich_before_arraying
+difficulty: medium
+topic: Reasoning about enrichment before individual handling
+question: |
+  Why does a sort precede plating and rescreening rather than replacing it?
+choices:
+  A: Because sorting enriches a population without identifying clones
+  B: Because a sorter cannot distinguish bright cells reliably
+  C: Because sorted cells must be regrown before they can be read
+  D: Because the sorter's gates must be calibrated on pure clones
+  E: Because rescreening confirms the sorter's calibration was correct
+answer: A
+explanation: |
+  A sort hands back an enriched population, not a list of winners, so you still have to isolate individuals from it and measure them to find the best one and to keep it as a strain. The two steps do different jobs: the sort makes the number tractable and the rescreen turns the population into identified clones with values attached.
+---
+slug: scale_and_the_screen_selection_choice
+difficulty: hard
+topic: Connecting scale to the screen or selection decision
+question: |
+  Which pairing of library size and approach is appropriate?
+choices:
+  A: Ten thousand members assayed individually in separate tubes
+  B: Ten to the twelfth handled by arraying into microtiter plates
+  C: Five hundred members handled by a pooled growth selection
+  D: Ten to the ninth members handled by a pooled selection
+  E: A million members assayed individually by hand over weeks
+answer: D
+explanation: |
+  A library in the billions can only be handled as a population, which is what a selection does, so that pairing is the one that matches. Arraying cannot approach that scale, individual assays cannot reach ten thousand by hand or a million at all, and a pooled selection on five hundred members is heavier than the problem when a plate of picks would answer it.
+---
+slug: coverage_constrains_the_design
+difficulty: hard
+topic: Reconciling the design with what can be screened
+question: |
+  Your design has a diversity of twenty thousand and your screen reaches two thousand clones. What is the better response?
+choices:
+  A: Screen two thousand and report the best as the optimum
+  B: Sequence the two thousand to infer the untested members
+  C: Collect 4.6 times the diversity in transformants and rescreen
+  D: Assume random sampling makes the two thousand representative
+  E: Narrow the degenerate code so the design fits the screen
+answer: E
+explanation: |
+  Only a tenth of the design can be looked at, so the honest options are to shrink the design until the screen covers it, using a weight matrix or fewer degenerate positions, or to switch to a selection that handles the whole population. Collecting more transformants fixes coverage of the library in the freezer rather than of the assay, and a sampled maximum is not the true one.
+---
+slug: identifying_the_binding_constraint
+difficulty: hard
+topic: Identifying which step limits an experiment
+question: |
+  A library of fifty thousand is built, fully covered in transformants, and assayed clone by clone at five hundred clones per week. What limits the experiment?
+choices:
+  A: The transformation, which bounds the variants in hand
+  B: The sequencing depth needed to confirm the library
+  C: The construction, which must be repeated for each variant
+  D: The coverage, which is insufficient at this diversity
+  E: The assay throughput, which would take two years to finish
+answer: E
+explanation: |
+  Coverage is stated to be adequate and the library exists, so the library is not the problem; fifty thousand clones at five hundred a week is about two years, which is the constraint that actually bites. Recognizing which step is binding is what tells you whether to change the design, the assay or the approach, and here it points at replacing the clone-by-clone assay.
+---
+slug: pooled_readout_for_per_variant_values
+difficulty: hard
+topic: Choosing a pooled method that still returns per-variant values
+question: |
+  You need a value for each of fifty thousand promoter variants, which is too many to array. What approach returns per-variant values?
+choices:
+  A: A growth selection, reporting which variants survived the drug
+  B: A sort, keeping the brightest fraction for further work
+  C: Barcoded transcript counting, normalized against input DNA
+  D: Cycle sequencing of a few hundred picked colonies
+  E: A plate reader measurement of the pooled culture
+answer: C
+explanation: |
+  A pooled measurement that counts a tag per variant gives a number for every member rather than a surviving subset, which is what distinguishes it from a selection or a sort. Dividing message counts by the barcode's share of the input DNA turns those counts into expression levels. Picking a few hundred samples under one percent of the library, and a bulk reading returns one number for everything.
+---
+slug: scale_decision_comes_first
+difficulty: hard
+topic: Placing the scale decision in the workflow
+question: |
+  At what point is the scale of the workflow decided, and by what?
+choices:
+  A: After transformation, by how many colonies were recovered
+  B: After sequencing, by how well the library was represented
+  C: After the first assays, by how variable the results proved
+  D: At the readout stage, by which instrument is available
+  E: At the design stage, by the diversity and the values required
+answer: E
+explanation: |
+  Two things settle it and both are known before any DNA is made: how many members the design has, and whether you need a value for each one or only the best few. Those decide whether the work is a handful of tubes, an arrayed screen, a pooled counting experiment or a selection, and deciding afterward risks building a library you have no way to interrogate.

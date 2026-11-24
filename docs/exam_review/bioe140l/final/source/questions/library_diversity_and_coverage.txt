@@ -52,10 +52,10 @@ question: |
 choices:
   A: The number of cycles in the amplification
   B: The plasmid copy number maintained within each cell
-  C: The transformation, since colonies bound distinct clones
+  C: The sequencing depth used to check the library
   D: The synthesis scale of the degenerate oligo
-  E: The sequencing depth used to check the library
-answer: C
+  E: The transformation, since colonies bound distinct clones
+answer: E
 explanation: |
   The DNA coming off a synthesizer and through PCR contains far more distinct molecules than any design calls for. What you can clone, grow and assay is bounded by how many independent transformants you obtain, which is why library construction is reported in transformants. Cycles amplify copies rather than variety, copy number is copies per cell rather than variants per library, and ordinary synthesis yields picomoles of molecules.
 ---
@@ -81,11 +81,11 @@ question: |
   Your library has diversity n and you recover 2 x n transformants. Roughly what fraction of designed members is absent?
 choices:
   A: None, since you collected twice as many colonies as members
-  B: About e to the minus 2, or roughly an eighth
+  B: About 1 percent, the standard coverage target
   C: About half, since colonies are shared among duplicates
-  D: About 1 percent, the standard coverage target
+  D: About e to the minus 2, or roughly an eighth
   E: About seven eighths, the complement of the covered share
-answer: B
+answer: D
 explanation: |
   At a sampling depth of k times the diversity the expected fraction missed is about e to the minus k, and e to the minus 2 is a little over 0.13. Expecting none is the intuition the Poisson result exists to correct, since random sampling misses some members entirely. One percent is the right target quoted at the wrong depth, which needs about 4.6 x n, and seven eighths reports the covered share as the missing one.
 ---
@@ -95,12 +95,12 @@ topic: Separating diversity from the number of reactions
 question: |
   You widen a degenerate oligo so the diversity rises about a thousandfold. Which downstream quantity scales with that change?
 choices:
-  A: The number of pooled construction reactions
+  A: The transformants needed to cover the library
   B: The number of degenerate oligos you must order
-  C: The transformants needed to cover the library
+  C: The number of pooled construction reactions
   D: The number of ligations the workflow requires
   E: The volume of competent cells per transformation
-answer: C
+answer: A
 explanation: |
   A degenerate oligo is a mixture of molecules, so one reaction containing that mixture produces the whole library however wide it is. Diversity changes what is in the tube, not how many tubes there are, and the same is true of the oligo order and the ligation. What does scale is coverage: more transformants to sample the larger design, and more clones or reads to characterize it.
 ---

@@ -1,0 +1,150 @@
+---
+slug: shapes_of_whole_cell_experiment
+difficulty: easy
+topic: Telling the three experiment shapes apart
+question: |
+  A device is assayed in rich medium and in phosphate buffer, with nothing else varied. Which shape of experiment is that?
+choices:
+  A: A transfer function, since two input levels are compared
+  B: A dynamics experiment, since medium changes over the growth
+  C: A differential expression experiment, comparing two conditions
+  D: A heterogeneity experiment, since cells differ between media
+  E: A dose-response, since buffer is a diluted form of the medium
+answer: C
+explanation: |
+  Differential expression means two or more discrete conditions compared against each other to ask whether the device behaves differently in them. A transfer function needs a graded series of one input rather than two separate media, a dynamics experiment follows one condition over time, and heterogeneity is about variation between cells within a single sample.
+---
+slug: what_makes_it_a_transfer_function
+difficulty: easy
+topic: Identifying a transfer function
+question: |
+  What distinguishes a transfer function experiment from a differential expression experiment?
+choices:
+  A: The stimulus is graded, giving a function relating input to output
+  B: The readout is fluorescence rather than an enzymatic product
+  C: The measurement is made on single cells rather than on a culture
+  D: The experiment runs over time rather than at one timepoint
+  E: The device is compared against a constitutive reference strain
+answer: A
+explanation: |
+  Both relate an input to a measured response; the difference is that a transfer function varies the input across a graded series, usually a dilution series of an inducer, so what comes out is a curve rather than a comparison of two points. The readout, the instrument and the presence of a reference strain can be the same in either shape of experiment.
+---
+slug: dilution_series_design
+difficulty: medium
+topic: Designing the input series for a transfer function
+question: |
+  You are measuring the response of an arabinose promoter across concentrations. How should the series be spaced?
+choices:
+  A: Evenly in concentration, so the steps are equal in size
+  B: In a fourfold dilution series, spanning several decades
+  C: At two concentrations, the highest and the lowest usable
+  D: Randomly, so that no concentration biases the fitted curve
+  E: Clustered at the top, where the output is largest and clearest
+answer: B
+explanation: |
+  A transfer function is read on a logarithmic concentration axis because the response spans orders of magnitude, so a constant-fold dilution series puts the points at even spacing along the axis that matters and captures both the baseline and the plateau. Even spacing in concentration crowds nearly every point into the top decade, and two points cannot define a curve at all.
+---
+slug: constitutive_control_alongside_inducible
+difficulty: medium
+topic: Knowing which control a differential experiment needs
+question: |
+  Why does a strain carrying a candidate inducible promoter have to be assayed alongside a constitutive one in the same conditions?
+choices:
+  A: To establish the maximum output the host can sustain
+  B: To normalize for optical density across the two conditions
+  C: To confirm the inducible promoter's sequence is correct
+  D: To check the reporter folds correctly in both media
+  E: To separate a real response from an effect of the condition itself
+answer: E
+explanation: |
+  A condition can change the reading for reasons that have nothing to do with the promoter under test, by altering growth, expression capacity, or the fluorescence of the medium. A constitutive reporter run in the same conditions shows what the condition does to a promoter that cannot respond, so a change seen only in the inducible strain is attributable to induction. Density normalization is a separate step applied to both strains.
+---
+slug: reading_a_constitutive_control
+difficulty: medium
+topic: Interpreting a differential experiment with its control
+question: |
+  Adding salt raises the inducible strain's signal and leaves the constitutive strain's unchanged, with density held constant. What does that show?
+choices:
+  A: Salt quenches the fluorescence of the reporter protein
+  B: Salt slows growth, which concentrates the reporter in the cells
+  C: The result is inconclusive without following it over time
+  D: The inducible promoter responds to salt, as intended
+  E: Salt raises fluorescence generally, in both of the strains
+answer: D
+explanation: |
+  The control strain is the test of whether the condition itself moved the reading, and it did not, so the rise in the inducible strain is a response of that promoter. Quenching would lower rather than raise the signal, growth effects are excluded because the densities are matched, and a general effect of salt would have shown up in the control. A time course would add information without being needed for this conclusion.
+---
+slug: dynamics_requires_microscopy
+difficulty: medium
+topic: Choosing an instrument for single-cell dynamics
+question: |
+  An oscillating circuit must be followed in single cells over time. Why is microscopy the only practical readout?
+choices:
+  A: Because oscillations are too fast for a cytometer to sample
+  B: Because oscillations only appear in cells immobilized on agar
+  C: Because oscillating circuits use reporters a cytometer cannot see
+  D: Because a plate reader averages away the oscillation entirely
+  E: Because a cytometer reads each cell once and cannot revisit it
+answer: E
+explanation: |
+  Following a trajectory means measuring the same cell repeatedly, and a cytometer sees each cell exactly once as it passes the beam. Immobilized cells can be imaged over and over, which is what makes the time axis available. A plate reader does average over the population, which is a real limitation, but it is not the reason microscopy rather than cytometry is required.
+---
+slug: what_a_bulk_assay_cannot_see
+difficulty: hard
+topic: Recognizing the limits of a bulk measurement
+question: |
+  A pathway is expressed in only about a tenth of the cells. What does a plate reader measurement of the culture show?
+choices:
+  A: A bimodal signal revealing the two subpopulations present
+  B: A signal about a tenth of the fully induced level, with no hint why
+  C: No signal at all, since the majority of cells are silent
+  D: The same signal as a uniformly expressing culture of equal mean
+  E: A signal that fluctuates as the subpopulations interconvert
+answer: B
+explanation: |
+  A bulk instrument returns one number for the whole sample, so a tenth of the cells expressing strongly reads the same as every cell expressing weakly. The reduced signal is visible but its cause is not, which is precisely why heterogeneity has to be chased with a single-cell method. A bulk reading cannot be bimodal, and a culture with the same mean is exactly what it cannot be told apart from.
+---
+slug: dynamics_limited_to_fluorescence
+difficulty: hard
+topic: Recognizing which properties can be followed over time
+question: |
+  Why is it impractical to follow single-cell dynamics of a cell making a biofuel?
+choices:
+  A: Because biofuel production is too slow to resolve in a timelapse
+  B: Because the product leaves the cell and so cannot be imaged in it
+  C: Because timelapse readouts are restricted to fluorescence signals
+  D: Because microscopy cannot be done on cells producing solvents
+  E: Because the biofuel quenches any fluorescent reporter present
+answer: C
+explanation: |
+  A timelapse needs a signal that can be read optically from the same cell again and again without destroying it, and in practice that means fluorescence. A metabolite has to be extracted and run on an instrument, which consumes the sample and ends the trajectory. The product diffusing out is a real complication for a different reason, and the remaining claims are invented.
+---
+slug: toxicity_from_a_growth_curve
+difficulty: hard
+topic: Inferring toxicity from growth measurements
+question: |
+  Four strains are grown with and without arabinose, and for one of them induction drops the growth rate about fourfold. What does that show?
+choices:
+  A: That the induced component is toxic to the cell when expressed
+  B: That arabinose itself is toxic to that particular strain
+  C: That the promoter in that strain is leakier than in the others
+  D: That the reporter signal in that strain will be artifactually high
+  E: That the strain has lost its plasmid during the induction
+answer: A
+explanation: |
+  Following optical density over time gives a growth rate, and comparing induced against uninduced for the same strain isolates the effect of expressing the component. The other three strains carry the same sugar and the same promoter and are unaffected, which rules out the sugar and points at the component itself. Toxicity in fact tends to distort normalized activity rather than simply raise it.
+---
+slug: choosing_the_experiment_shape
+difficulty: hard
+topic: Matching the experiment shape to the question asked
+question: |
+  You want to know the inducer concentration at which a sensor reaches half its maximum output. Which experiment answers that?
+choices:
+  A: Two conditions, with and without the inducer present
+  B: A timelapse of single cells carrying the sensor construct
+  C: A cytometry histogram of the fully induced population
+  D: A graded inducer series read as a transfer function
+  E: A growth curve with and without the inducer added
+answer: D
+explanation: |
+  A half-maximal point is a feature of a curve, so you need the curve: a graded series of inducer concentrations with the output measured at each one. Two conditions give you only the endpoints and cannot locate the midpoint between them, a histogram describes the spread at one concentration, and a timelapse and a growth curve answer questions about time and fitness rather than about dose.

@@ -6,11 +6,11 @@ question: |
   An error-prone PCR differs from an ordinary PCR in which way?
 choices:
   A: One of the two primers is left out of the reaction
-  B: Skewed dNTPs, added manganese and extra magnesium
+  B: Many more cycles, so that errors accumulate over time
   C: A proofreading polymerase at a lower extension temperature
   D: Degenerate oligos in place of the ordinary primers
-  E: Many more cycles, so that errors accumulate over time
-answer: B
+  E: Skewed dNTPs, added manganese and extra magnesium
+answer: E
 explanation: |
   The reaction has the same parts as any PCR, with buffer, polymerase, two primers and template, and the mutagenesis comes from conditions that make the enzyme sloppy. A proofreading enzyme would lower the error rate instead, degenerate oligos build a defined combinatorial library rather than a random one, and extra cycles amplify copies without meaningfully raising the per-base error rate.
 ---

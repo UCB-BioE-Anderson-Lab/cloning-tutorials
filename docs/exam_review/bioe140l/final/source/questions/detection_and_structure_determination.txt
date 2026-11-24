@@ -1,0 +1,150 @@
+---
+slug: what_hplc_uv_reports
+difficulty: easy
+topic: Reading an HPLC trace
+question: |
+  An HPLC with a UV detector gives three peaks. What is plotted, and what identifies a compound?
+choices:
+  A: Absorbance against retention time, with retention identifying it
+  B: Mass against charge, with the ratio identifying the compound
+  C: Absorbance against wavelength, with the maximum identifying it
+  D: Concentration against time, with the slope identifying it
+  E: Retention time against pressure, with the ratio identifying it
+answer: A
+explanation: |
+  The detector watches the eluate as it comes off the column, so the trace is absorbance against the time since injection, and each species appears as a peak at a retention time characteristic of its size, polarity and interaction with the stationary phase. That retention time is reproducible between runs, which is what allows a peak to be assigned by comparison with a standard.
+---
+slug: gc_versus_lc
+difficulty: easy
+topic: Choosing between gas and liquid chromatography
+question: |
+  What distinguishes a GCMS from an LCMS, and what does that imply about the sample?
+choices:
+  A: The gas instrument has higher mass resolution than the liquid one
+  B: The mobile phase is water, so the analyte must be water soluble
+  C: The gas instrument ionizes the sample and the liquid one does not
+  D: The gas instrument measures mass and the liquid one measures charge
+  E: The mobile phase is an inert gas, so the analyte must be volatile
+answer: E
+explanation: |
+  The two setups are very similar apart from what carries the sample through the column: a GCMS uses an inert gas such as helium, which means the analyte has to survive being vaporized, while an LCMS uses a liquid mobile phase and so handles involatile and thermally fragile compounds. Both ionize the eluate and both report mass over charge.
+---
+slug: mass_resolution_and_cost
+difficulty: medium
+topic: Relating mass resolution to the instrument
+question: |
+  A metabolite must be distinguished from a contaminant differing by 0.01 Da. Which instrument can do that?
+choices:
+  A: A quadrupole instrument, resolving to about 1 Da
+  B: A gas chromatograph with a flame ionization detector
+  C: A triple quadrupole operated in scanning mode
+  D: An HPLC with ultraviolet absorbance detection
+  E: An Orbitrap, resolving to about 0.001 Da
+answer: E
+explanation: |
+  Resolution is what decides this, and the instruments differ by three orders of magnitude in it: an Orbitrap resolves to about a thousandth of a dalton, roughly a thousandth of a proton mass, while a quadrupole resolves to about a dalton and would see the two species as one peak. That resolution is also why Orbitraps cost around five times what a quadrupole instrument does.
+---
+slug: why_an_internal_standard
+difficulty: medium
+topic: Understanding why quantitation needs an internal standard
+question: |
+  Why does quantitative mass spectrometry require an internal standard rather than a peak area alone?
+choices:
+  A: Because the detector saturates at high analyte concentrations
+  B: Because retention times drift between successive injections
+  C: Because peak area is proportional to mass rather than to moles
+  D: Because ionization efficiency varies with sample and run
+  E: Because the instrument cannot measure absolute mass accurately
+answer: D
+explanation: |
+  How readily a molecule ionizes depends on what else is in the sample and on the state of the source, so the same amount of compound can give different signal from run to run. A standard added in a known amount and carried through the same sample experiences the same conditions, so the ratio of analyte to standard is stable even when the absolute signal is not.
+---
+slug: what_nmr_determines
+difficulty: medium
+topic: Knowing what NMR can establish
+question: |
+  You have a few milligrams of a purified product at high purity. What does proton NMR tell you?
+choices:
+  A: The absolute stereochemistry of every chiral center present
+  B: The exact mass of the compound to within a millidalton
+  C: The three-dimensional conformation the molecule adopts in a crystal
+  D: The concentration of the compound in the original culture
+  E: The connectivity and the number of hydrogens in each environment
+answer: E
+explanation: |
+  Proton NMR reports on hydrogens in distinct chemical environments, and because the area under a peak is proportional to how many hydrogens give rise to it, you can count them and piece the structure together. That is usually enough to determine a structure, with the standing exceptions of absolute stereochemistry and sometimes isomers. Mass is read on a spectrometer and crystal conformation by diffraction.
+---
+slug: what_crystallography_requires
+difficulty: medium
+topic: Knowing the requirement for a diffraction experiment
+question: |
+  What does X-ray crystallography require of the sample that NMR does not?
+choices:
+  A: Isotopic labeling of the carbon atoms in the molecule
+  B: That the compound crystallize, which not everything will do
+  C: That the compound be volatile enough to enter the gas phase
+  D: That the compound carry a chromophore absorbing ultraviolet light
+  E: That the compound be present at micromolar concentration only
+answer: B
+explanation: |
+  Both methods need a clean sample, but diffraction needs that sample arranged in a periodic lattice, and whether a given compound will grow a usable crystal is not something you can count on. When it does, the diffraction pattern yields an electron density map that shows where the atoms sit, which settles absolute stereochemistry and resolves isomer questions that NMR leaves open.
+---
+slug: no_visible_change_in_the_tube
+difficulty: hard
+topic: Choosing a readout when the reaction is invisible
+question: |
+  A methylation reaction leaves substrate and product absorbing at the same wavelength. Why does that rule out a photometer?
+choices:
+  A: Because methyl groups do not absorb ultraviolet light at all
+  B: Because the reaction runs too slowly to follow in a cuvette
+  C: Because the product is unstable and decays during the reading
+  D: Because nothing about the tube changes as the reaction proceeds
+  E: Because the enzyme itself absorbs more strongly than either
+answer: D
+explanation: |
+  A photometric assay works only when the conversion changes what the sample absorbs. If substrate and product have the same absorbance, the reading is identical before and after and the instrument reports nothing, however well the reaction ran. The way forward is to separate them first, which is what running the mixture on an HPLC and quantifying the product peak accomplishes.
+---
+slug: choosing_detection_for_a_known_compound
+difficulty: hard
+topic: Matching the detection method to the question asked
+question: |
+  You know your product's structure and simply need the amount made in each of forty cultures. Which approach fits?
+choices:
+  A: NMR on each sample, integrating the diagnostic proton peaks
+  B: Crystallography on each sample to confirm the structure first
+  C: LCMS against an internal standard, reading the product peak
+  D: A footprinting experiment on the biosynthetic gene cluster
+  E: Size exclusion chromatography of each culture supernatant
+answer: C
+explanation: |
+  The structure is not in question, so the job is quantitation across many samples, which is what a chromatographic separation with a mass detector and a known standard does well and quickly. NMR needs milligrams of pure material per sample and crystallography needs a crystal, neither of which is practical forty times over, and the remaining methods answer entirely different questions.
+---
+slug: structure_unknown_route
+difficulty: hard
+topic: Sequencing the methods for an unknown product
+question: |
+  A strain makes an unexpected compound of unknown structure. In what order would you characterize it?
+choices:
+  A: Crystallize it first, then purify it, then run NMR for the mass
+  B: Run NMR on the crude extract, then purify what the spectrum shows
+  C: Quantify it by LCMS first, then infer the structure from its retention
+  D: Sequence the host genome, then predict the structure from the pathway
+  E: Extract and purify it, get a mass, then solve the structure by NMR
+answer: E
+explanation: |
+  You need the compound clean before any structural method will work, and the cheapest structural information is the mass, which narrows the formula before you commit to a long experiment. NMR then builds the connectivity, with diffraction held in reserve for stereochemistry. A crude extract gives an uninterpretable spectrum, retention time identifies a known compound rather than describing an unknown one, and a predicted pathway is a hypothesis rather than a structure.
+---
+slug: resolution_versus_separation
+difficulty: hard
+topic: Distinguishing chromatographic separation from mass resolution
+question: |
+  Two isomers of identical formula co-elute on your column and the mass spectrometer reports one peak. What fixes it?
+choices:
+  A: A change in the chromatography, since their masses are identical
+  B: An internal standard, which corrects for the overlapping signal
+  C: A higher resolution mass analyzer, which will split the two
+  D: A longer acquisition, which improves the counting statistics
+  E: A UV detector in series, since isomers differ in absorbance
+answer: A
+explanation: |
+  Isomers have the same formula and therefore the same exact mass, so no amount of mass resolution will separate them; the discrimination has to come from the column, by changing the stationary phase, the gradient or the temperature until their retention times differ. Internal standards correct for ionization rather than for overlap, and longer acquisition sharpens a peak without splitting it.

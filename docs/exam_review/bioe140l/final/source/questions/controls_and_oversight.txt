@@ -1,0 +1,150 @@
+---
+slug: what_an_administrative_control_is
+difficulty: easy
+topic: Defining an administrative control
+question: |
+  Which of these is an administrative control?
+choices:
+  A: Wearing gloves while handling bacterial cultures
+  B: Working with viral samples in a biosafety cabinet
+  C: Engineering a kill switch into a released organism
+  D: A standard operating procedure governing how work is done
+  E: Autoclaving contaminated waste before it is discarded
+answer: D
+explanation: |
+  Administrative controls are policies and procedures: written procedures, required training, authorization to begin work, and the screening of synthesis orders. Gloves are protective equipment, a cabinet is an engineering control, a kill switch is built into the biology, and autoclaving is a procedural step within the work rather than a policy governing it.
+---
+slug: synthesis_order_screening
+difficulty: easy
+topic: Classifying the screening of synthesis orders
+question: |
+  A synthesis company checks incoming orders against sequences of concern. What kind of control is that?
+choices:
+  A: An engineering control, since it is performed by software
+  B: An administrative control, being a policy applied to the work
+  C: Personal protective equipment for the people synthesizing
+  D: A procedural control applied after the synthesis is complete
+  E: A biological containment measure built into the product
+answer: B
+explanation: |
+  Screening is a policy that governs what work is accepted, applied before anything is made, which puts it with training and standard procedures among the administrative controls. That it is implemented in software does not make it an engineering control, since engineering controls are physical features of the workplace such as cabinets and ventilation.
+---
+slug: engineering_control_examples
+difficulty: medium
+topic: Identifying engineering controls
+question: |
+  Which pair are both engineering controls?
+choices:
+  A: A biosafety cabinet and a kill switch in the organism
+  B: A respirator and a standard operating procedure
+  C: Required training and an autoclave cycle for waste
+  D: A laboratory coat and a signed use authorization
+  E: Gloves and a sequence screening policy for orders
+answer: A
+explanation: |
+  Engineering controls are features built into the equipment or the organism so that safety does not rely on someone remembering: a cabinet that contains aerosols, interlocks, directional airflow, and biological containment such as a kill switch or an auxotrophy. Respirators, coats and gloves protect the individual wearing them, and training, procedures and screening are administrative.
+---
+slug: hierarchy_of_controls
+difficulty: medium
+topic: Reasoning about why control types are ranked
+question: |
+  Why is an engineering control generally preferred to personal protective equipment for the same hazard?
+choices:
+  A: It costs less to install than the equipment costs to supply
+  B: It protects without depending on correct use each time
+  C: It is required by regulation where equipment is optional
+  D: It removes the need for any administrative controls
+  E: It protects the individual rather than the whole laboratory
+answer: B
+explanation: |
+  Protective equipment works only when it is worn, worn properly and changed when it should be, which puts a human decision between the hazard and the person every single time. A cabinet or an interlock contains the hazard whether or not anyone is paying attention, which is why the hierarchy puts it higher, and it protects everyone in the room rather than one wearer.
+---
+slug: what_a_bua_is_for
+difficulty: medium
+topic: Knowing what a biological use authorization covers
+question: |
+  What is a biological use authorization?
+choices:
+  A: A certificate that the laboratory's cabinet has been serviced
+  B: Institutional approval to perform specified work with an agent
+  C: A permit issued by a national agency for each experiment
+  D: A record of training completed by every laboratory member
+  E: A license required to purchase a regulated organism
+answer: B
+explanation: |
+  It is the institution's written approval of a described piece of work, covering the agents, the procedures, the containment and the people, and it has to be in place before the work begins. Equipment certification and training records support the application rather than constituting it, and it is an institutional authorization rather than a per-experiment national permit.
+---
+slug: who_provides_oversight
+difficulty: hard
+topic: Knowing who reviews work of this kind
+question: |
+  Who reviews a proposal to work with recombinant organisms at a university?
+choices:
+  A: The journal's editors at the point of publication
+  B: The funding agency's program officers, during review
+  C: An institutional biosafety committee established for the purpose
+  D: The laboratory's own members, by internal agreement
+  E: The national regulator, which reviews each proposal directly
+answer: C
+explanation: |
+  Review sits with a standing institutional committee that includes biosafety expertise and members from outside the research group, and it is that body which authorizes the work and sets conditions on it. Funders and journals assess merit and reporting rather than containment, and national frameworks generally operate through such local committees instead of reviewing every project centrally.
+---
+slug: procedural_versus_administrative
+difficulty: hard
+topic: Distinguishing a procedural step from a policy
+question: |
+  Autoclaving waste is often called a procedural control rather than an administrative one. What is the distinction?
+choices:
+  A: It is performed by equipment rather than by a person
+  B: It applies to waste rather than to the live organism
+  C: It is a step within the work, not a policy governing it
+  D: It is optional, whereas administrative controls are required
+  E: It is verified by indicators, whereas policies are not
+answer: C
+explanation: |
+  Administrative controls decide what work may be done, by whom, and under what conditions, while a procedural control is an operation inside that work, carried out at the bench each time. The requirement that waste be autoclaved is itself administrative; the autoclaving is the procedure that satisfies it, which is why the two are easy to run together.
+---
+slug: controls_for_an_aerosol_risk
+difficulty: hard
+topic: Choosing controls for a specific hazard
+question: |
+  A procedure on an RG2 organism generates aerosols. Which combination addresses that?
+choices:
+  A: Gloves and a laboratory coat, changed between procedures
+  B: Training in the procedure, plus autoclaving of the waste
+  C: A cabinet containing the aerosol, with procedure and training
+  D: A kill switch engineered into the organism being handled
+  E: A signed use authorization naming the procedure performed
+answer: C
+explanation: |
+  The hazard is airborne, so the first line is a physical barrier that captures the aerosol at source, supported by a written procedure for working in it and training in that procedure. Gloves and a coat do not protect against inhalation, waste handling addresses a different route, a kill switch addresses release rather than exposure, and an authorization permits the work without containing anything.
+---
+slug: control_that_fails_safe
+difficulty: hard
+topic: Reasoning about dependence on human compliance
+question: |
+  Which control continues to protect if the person performing the work forgets a step?
+choices:
+  A: A standard operating procedure describing the correct steps
+  B: Required annual training in handling the organism
+  C: A record kept of each procedure as it is performed
+  D: A policy requiring waste to be autoclaved before disposal
+  E: A cabinet whose airflow contains material regardless
+answer: E
+explanation: |
+  This is the reason the hierarchy exists. Procedures, training, policies and records all work through someone doing the right thing, and they fail together the moment attention lapses. Directional airflow in a cabinet keeps containing material whether or not anyone is thinking about it, which is what makes an engineering control the more robust answer to the same hazard.
+---
+slug: screening_and_dual_use_overlap
+difficulty: hard
+topic: Connecting order screening to misuse concerns
+question: |
+  Why do synthesis providers screen orders rather than relying on the purchaser's institution?
+choices:
+  A: Because institutions lack the sequence databases required
+  B: Because screening is cheaper to perform at the provider
+  C: Because institutional committees review only published work
+  D: Because synthesis is the point where a sequence becomes material
+  E: Because purchasers are not obliged to disclose their intent
+answer: D
+explanation: |
+  A hazardous sequence is only information until someone makes DNA out of it, so the synthesis step is the natural chokepoint at which a control can act, and it catches orders that never pass any institutional review. That is a reason of position rather than of capability, and the control works alongside institutional oversight rather than in place of it.

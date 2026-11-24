@@ -1,0 +1,150 @@
+---
+slug: automation_catches_design_errors
+difficulty: easy
+topic: Identifying a real benefit of automation
+question: |
+  Which benefit of automating a construction workflow is genuine?
+choices:
+  A: It halves the cost of synthesizing the DNA required
+  B: It removes the need to run experimental controls
+  C: It guarantees higher transformation efficiency throughout
+  D: Design errors can be caught before any reagent is used
+  E: It ensures the expressed protein folds in any host
+answer: D
+explanation: |
+  When a construction is written down as a machine-readable procedure it can be simulated, so a primer that will not anneal or a digest that cuts twice is found while it still costs nothing. Automation does not negotiate synthesis prices, and controls, transformation efficiency and folding are properties of the biology that no amount of scripting changes.
+---
+slug: reproducibility_as_a_reason
+difficulty: easy
+topic: Understanding reproducibility as a motive
+question: |
+  In what sense does automation improve reproducibility?
+choices:
+  A: It eliminates biological variation between replicate cultures
+  B: It standardizes the reagents supplied by the manufacturer
+  C: It removes the need to repeat an experiment at all
+  D: It makes every result statistically significant by design
+  E: The same operations are performed the same way every run
+answer: E
+explanation: |
+  A liquid handler executing a written protocol makes the same transfers in the same order with the same timing, which removes the day-to-day and person-to-person drift that makes manual work hard to repeat. The biology still varies, replicates are still required, and significance comes from the design and the data rather than from the instrument.
+---
+slug: correctness_versus_throughput
+difficulty: medium
+topic: Separating the reasons to automate
+question: |
+  A lab automates a workflow that it only runs a few times a year. What justifies that?
+choices:
+  A: Throughput, since the instrument runs faster than a person
+  B: Cost, since instrument time is cheaper than technician time
+  C: Nothing, since automation pays only at high throughput
+  D: Correctness and reproducibility, which matter at any scale
+  E: Reduced reagent consumption on every individual run
+answer: D
+explanation: |
+  Throughput is only one of the reasons and it is the one that needs volume to pay off. Getting the procedure right, having it recorded exactly, and being able to check it before it runs are worth having whether you execute it twice or two thousand times, and for a rarely run but intricate protocol they are often the whole justification.
+---
+slug: what_automation_does_not_fix
+difficulty: medium
+topic: Rejecting overstated claims about automation
+question: |
+  Which claim about automating an experiment is not supportable?
+choices:
+  A: It records exactly which operations were performed
+  B: It allows a protocol to be simulated before execution
+  C: It performs transfers more consistently than a person
+  D: It scales a workflow to many more samples at once
+  E: It assures that the resulting construct will function
+answer: E
+explanation: |
+  Whether a construct works is a question about biology, and executing a flawed design perfectly produces a perfectly executed flawed design. What automation delivers is faithful execution, a record of it, the chance to check the plan in advance, and scale. Confusing careful execution with a guarantee of success is the error to avoid.
+---
+slug: simulation_as_verification
+difficulty: medium
+topic: Understanding construction file simulation
+question: |
+  What does simulating a construction file actually verify?
+choices:
+  A: That the designed product follows from the stated operations
+  B: That the enzymes in the protocol are still active in the freezer
+  C: That the final construct will express at the intended level
+  D: That the transformation will yield sufficient colonies
+  E: That the oligos were synthesized without any errors
+answer: A
+explanation: |
+  The simulation applies each operation to the sequences as written and reports what comes out, so it catches a primer that anneals in the wrong place, a digest with an unintended site, or a product that is not what the file claims. It says nothing about reagent quality, about how the construct behaves in a cell, or about what the synthesizer actually delivered.
+---
+slug: why_record_the_operations
+difficulty: hard
+topic: Valuing the record automation produces
+question: |
+  Why is the record of what an automated run performed valuable even when the run succeeds?
+choices:
+  A: Because it can be submitted in place of a laboratory notebook
+  B: Because it is required before results may be published
+  C: Because it establishes which operator is responsible
+  D: Because it proves the reagents were within their shelf life
+  E: Because it allows the run to be repeated or diagnosed exactly
+answer: E
+explanation: |
+  A successful run you cannot reconstruct is a result you cannot build on. An exact record lets the same procedure be executed again months later, lets a later failure be compared against what worked, and lets someone else run it without relearning the details. That is the same argument as writing a construction file rather than describing the cloning in prose.
+---
+slug: automation_and_scale_of_screening
+difficulty: hard
+topic: Connecting automation to screening capacity
+question: |
+  How does automation change which library sizes can be screened clone by clone?
+choices:
+  A: It removes the need for genotype-phenotype linkage in a pool
+  B: It makes selections unnecessary for libraries of any scale
+  C: It allows libraries of any size to be screened individually
+  D: It raises the practical ceiling from hundreds into the thousands
+  E: It lowers the coverage a library must be built to
+answer: D
+explanation: |
+  Picking and assaying by hand tops out in the hundreds, and a colony picker with plate handling moves that into the thousands or tens of thousands, which is a real extension of the arrayed regime. It does not reach the millions, so the largest libraries still require pooled selections, and nothing about automation changes the coverage a design demands.
+---
+slug: error_classes_automation_addresses
+difficulty: hard
+topic: Distinguishing errors automation prevents from those it does not
+question: |
+  Which failure would automation most plausibly have prevented?
+choices:
+  A: A promoter that proves weaker in the host than expected
+  B: A library skewed by bias in the degenerate phosphoramidite mix
+  C: A toxic gene product that slows the growth of the culture
+  D: A plasmid lost from the population during outgrowth
+  E: Two samples swapped between wells during a manual transfer
+answer: E
+explanation: |
+  Automation addresses execution errors: transfers made in the wrong order, to the wrong well, or at the wrong volume, and the barcoding and tracking that go with it make a swap both less likely and discoverable afterward. Promoter strength, synthesis bias, toxicity and plasmid loss are all properties of the chemistry or the biology that execute faithfully whatever you do.
+---
+slug: when_not_to_automate
+difficulty: hard
+topic: Recognizing when automation is not warranted
+question: |
+  When is writing and validating an automated protocol not worth it?
+choices:
+  A: When the procedure will be repeated many times over months
+  B: When the procedure is intricate and easy to get wrong by hand
+  C: When the run must be documented precisely for later repetition
+  D: When a handful of samples are handled once and never again
+  E: When the sample count exceeds what a person can pipette
+answer: D
+explanation: |
+  Automating has its own cost in method development and validation, which is repaid by repetition, by intricacy, or by scale. A one-off handful of samples offers none of those, so the honest answer is to pipette them. The other situations are the cases where the investment pays, which is why they are the standard arguments for automating.
+---
+slug: verification_before_reagents
+difficulty: hard
+topic: Reasoning about where verification sits in the workflow
+question: |
+  Why is it valuable that a design can be checked before any reagent is consumed?
+choices:
+  A: Because reagents degrade once a protocol has begun running
+  B: Because a failure found at the bench costs days and materials
+  C: Because simulated constructs need not be sequence verified
+  D: Because errors found later cannot be corrected in the design
+  E: Because checking afterward requires sequencing every clone
+answer: B
+explanation: |
+  A design error discovered after cloning has already cost the oligos, the enzymes, the transformations and the week spent on them, and it still has to be fixed and run again. Catching the same error in a simulation costs minutes. Errors found later can of course be corrected, which is precisely why the comparison is about cost rather than about possibility.

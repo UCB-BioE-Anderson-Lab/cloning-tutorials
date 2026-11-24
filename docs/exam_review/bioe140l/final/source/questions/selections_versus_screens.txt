@@ -21,11 +21,11 @@ question: |
   Why are combinatorial libraries usually handled by selection rather than clone-by-clone screening?
 choices:
   A: Because screening can never be made quantitative
-  B: Because they hold far more members than anyone can assay singly
+  B: Because selections avoid needing genotype-phenotype linkage
   C: Because selections are cheaper but otherwise equivalent
   D: Because screening requires sequencing every member first
-  E: Because selections avoid needing genotype-phenotype linkage
-answer: B
+  E: Because they hold far more members than anyone can assay singly
+answer: E
 explanation: |
   A SELEX library runs to about ten to the fifteenth and a phage display library can reach ten to the eleventh, while picking and assaying clones by hand tops out in the hundreds. That mismatch in scale is the entire reason selections exist. A selection also discards the information a screen would have collected, so the two are not equivalent, and linkage is precisely what a pooled selection requires and a screen does not.
 ---

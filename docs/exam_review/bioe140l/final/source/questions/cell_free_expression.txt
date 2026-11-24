@@ -1,0 +1,150 @@
+---
+slug: what_is_in_an_extract
+difficulty: easy
+topic: Knowing what a transcription-translation extract contains
+question: |
+  What does a cell-free transcription-translation reaction supply?
+choices:
+  A: Intact cells permeabilized so that reagents can enter them
+  B: Purified polymerase and ribosomes reconstituted from components
+  C: A cell lysate with the machinery, plus energy and nucleotides
+  D: A mixture of purified messenger RNA and amino acids only
+  E: Membrane vesicles that carry out transcription internally
+answer: C
+explanation: |
+  The usual extract is made by lysing cells and clearing the debris, which leaves the polymerase, ribosomes, transfer RNAs and factors in solution, and that lysate is then supplemented with an energy system, nucleotides and amino acids so synthesis can run. Fully reconstituted systems built from purified components do exist, but they are a different and much more expensive preparation.
+---
+slug: no_transformation_needed
+difficulty: easy
+topic: Recognizing what cell-free skips
+question: |
+  Which step of a conventional characterization does a cell-free reaction let you skip?
+choices:
+  A: Sequencing the construct before it is tested
+  B: Assembling the DNA that encodes the circuit
+  C: Normalizing the readout against a reference
+  D: Transforming the construct into a living host
+  E: Measuring the output on an instrument afterward
+answer: D
+explanation: |
+  You add DNA directly to the reaction, so there is no transformation, no outgrowth and no colony to pick, which is what compresses the turnaround from days to hours. Everything else still applies: the DNA has to be built and verified, and the output still has to be measured and normalized like any other assay.
+---
+slug: why_prototype_without_a_cell
+difficulty: medium
+topic: Understanding what removing the cell buys you
+question: |
+  Testing a circuit in extract rather than in cells removes which complication?
+choices:
+  A: The need to supply an energy source for synthesis
+  B: Growth, burden and native regulation acting on the circuit
+  C: The requirement that the construct be sequence verified
+  D: Variation between replicate reactions on the same day
+  E: The dependence of the readout on the reporter chosen
+answer: B
+explanation: |
+  In a living host the circuit competes for ribosomes, is affected by growth rate and stress, and sits inside native regulation that may act on its parts, all of which make a confusing result hard to attribute. An extract strips those away so the behavior you see is closer to the parts themselves. Energy must in fact be supplied deliberately, and replicate variation does not disappear.
+---
+slug: cell_free_does_not_raise_yield
+difficulty: medium
+topic: Rejecting claims cell-free does not support
+question: |
+  Which claim about cell-free expression is not supported?
+choices:
+  A: It permits a construct to be tested without transformation
+  B: It removes native regulation that would act on the circuit
+  C: It shortens the time from DNA in hand to a measurement
+  D: It allows reaction conditions to be set by the experimenter
+  E: It produces higher protein yields than living cells do
+answer: E
+explanation: |
+  Cell-free is convenient rather than productive: a living culture concentrates machinery and regenerates energy continuously, and extracts are often outperformed on yield per volume. The genuine advantages are speed, the absence of transformation, the removal of cellular regulation, and direct control of the reaction conditions, which is also what makes it useful for prototyping.
+---
+slug: setting_dna_concentration
+difficulty: medium
+topic: Recognizing a control available only without cells
+question: |
+  What can you set directly in an extract reaction that you cannot set in a cell?
+choices:
+  A: The concentration of each DNA template in the reaction
+  B: The identity of the promoter driving the reporter gene
+  C: The sequence of the ribosome binding site being tested
+  D: The wavelength at which the reporter is read out
+  E: The number of replicates included in the experiment
+answer: A
+explanation: |
+  Template amount in a cell is set by copy number and by how the plasmid is maintained, neither of which you dial precisely, whereas in a reaction you pipette exactly how much of each template you want and can titrate one against another. The promoter, the ribosome binding site and the readout are design choices available in both formats.
+---
+slug: linear_dna_in_extract
+difficulty: hard
+topic: Reasoning about template form in an extract
+question: |
+  Why can a PCR product be used directly as the template in many cell-free reactions?
+choices:
+  A: Because extracts replicate linear DNA before transcribing it
+  B: Because no transformation or replication of the template is needed
+  C: Because linear DNA is transcribed more efficiently than plasmid
+  D: Because the reaction circularizes the fragment before expressing it
+  E: Because exonucleases in the lysate stabilize the free ends
+answer: B
+explanation: |
+  The template only has to be transcribed, not maintained, so it needs neither an origin nor a cell to live in, and a fragment straight off a PCR will do. That removes cloning from the loop entirely for a quick test. Extracts do not replicate or circularize the template, and exonucleases in the lysate degrade free ends rather than protecting them, which is why some systems add an inhibitor.
+---
+slug: what_cell_free_cannot_tell_you
+difficulty: hard
+topic: Knowing the limits of a cell-free result
+question: |
+  A circuit behaves as designed in extract. What does that not establish?
+choices:
+  A: That the parts can drive transcription and translation at all
+  B: That the construct's sequence corresponds to the design
+  C: That the reporter can be detected on your instrument
+  D: That it will behave the same way inside a growing cell
+  E: That the template was added at the intended concentration
+answer: D
+explanation: |
+  The very thing an extract removes is the context the circuit will finally have to work in, so a clean result says the parts function while leaving open how they behave under burden, growth and native regulation. That is why cell-free is used for early triage and the promising designs are then moved into cells, rather than being treated as the final test.
+---
+slug: cell_free_versus_whole_cell_choice
+difficulty: hard
+topic: Choosing between cell-free and whole-cell characterization
+question: |
+  You must rank twenty candidate ribosome binding sites by tomorrow, with no cloned constructs yet. Which route fits?
+choices:
+  A: Transform each into cells and assay the colonies by plate reader
+  B: Express each from a PCR product in extract and read the reporter
+  C: Build a pooled library and sort the brightest cells by cytometry
+  D: Assay each in cells and confirm the ranking by cycle sequencing
+  E: Purify the reporter from each and quantify it by mass spectrometry
+answer: B
+explanation: |
+  The constraint is time and the absence of clones, and adding PCR products straight to reactions skips cloning, transformation and outgrowth, which are the days you do not have. Every route through living cells needs transformation first, pooling answers a different question than ranking twenty defined candidates, and purifying each reporter is far heavier than the question requires.
+---
+slug: how_an_extract_is_prepared
+difficulty: hard
+topic: Knowing how an extract is made
+question: |
+  How is a transcription-translation extract typically prepared?
+choices:
+  A: Cells are grown, lysed, and the debris cleared by centrifugation
+  B: Each component is purified separately and then recombined
+  C: Cells are permeabilized with detergent and used whole
+  D: Ribosomes are isolated on a sucrose gradient and used alone
+  E: Spent culture medium is concentrated and then buffered
+answer: A
+explanation: |
+  Growing cells in mid-exponential phase, breaking them open, and spinning out the membranes and debris leaves a soluble fraction containing the machinery of expression, which is then supplemented and often dialyzed. Reconstitution from purified parts gives a cleaner but costlier system, and the remaining options would leave out the ribosomes, the factors, or both.
+---
+slug: diagnosing_a_cell_free_failure
+difficulty: hard
+topic: Diagnosing a reaction that produces nothing
+question: |
+  A construct gives no reporter in extract while a known-good control template works in the same batch. What does that indicate?
+choices:
+  A: The extract has lost activity and should be replaced
+  B: The energy system has been exhausted during the reaction
+  C: The problem lies with that construct rather than the reaction
+  D: The reporter cannot be detected at the chosen wavelength
+  E: The template concentration was too high and inhibited synthesis
+answer: C
+explanation: |
+  That is what the control template is in the reaction for. Since it expressed in the same batch, under the same energy system and read on the same instrument, the machinery, the reagents and the detection are all working, which localizes the failure to the construct itself: its sequence, its parts, or how much of it was added.

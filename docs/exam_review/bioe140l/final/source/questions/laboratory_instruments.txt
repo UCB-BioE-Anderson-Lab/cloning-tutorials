@@ -1,0 +1,150 @@
+---
+slug: acoustic_dispensing_mechanism
+difficulty: easy
+topic: Knowing how acoustic droplet ejection works
+question: |
+  What is distinctive about how an acoustic droplet ejection instrument transfers liquid?
+choices:
+  A: It uses sound to eject nanoliter droplets with no contact
+  B: It uses disposable tips to transfer microliter volumes
+  C: It uses a vacuum manifold to draw liquid between plates
+  D: It uses positive displacement through a fixed steel needle
+  E: It uses capillary action along a coated glass filament
+answer: A
+explanation: |
+  A focused acoustic pulse from beneath the source well throws a precisely sized droplet upward into a plate held above it, so nothing touches the liquid and there are no tips to change or wash. That is what makes it the answer when the volumes are in nanoliters and carryover between samples must be impossible.
+---
+slug: tip_based_handler_regime
+difficulty: easy
+topic: Placing a tip-based liquid handler
+question: |
+  What is a tip-based liquid handler best suited to?
+choices:
+  A: Contactless transfer of nanoliter volumes between plates
+  B: Microliter transfers across plates, with tips changed between
+  C: Picking individual colonies from an agar plate into wells
+  D: Sealing plates so that cultures do not evaporate overnight
+  E: Reading absorbance and fluorescence from a plate of samples
+answer: B
+explanation: |
+  A tip-based machine is the workhorse for the microliter regime: aspirating and dispensing reagents and samples around plates, with fresh tips wherever carryover matters. It cannot reach nanoliter accuracy reliably and it does not touch solid colonies. The other options describe the colony picker, the plate sealer and the plate reader.
+---
+slug: colony_picker_role
+difficulty: medium
+topic: Knowing what a colony picker does
+question: |
+  What does a colony picker with image recognition contribute to a screening workflow?
+choices:
+  A: It transfers nanoliter volumes between source and destination
+  B: It sorts cells by fluorescence into separate collection tubes
+  C: It seals and barcodes the plates once they have been filled
+  D: It reads the fluorescence of each colony while on the plate
+  E: It arrays individual colonies from plates into microtiter wells
+answer: E
+explanation: |
+  The picker images the plate, identifies discrete colonies, and moves each into its own well, which is the step that converts a plate of thousands of clones into an addressable array that the rest of the automation can handle. It is what makes arrayed screening of thousands feasible; sorting a pooled population by fluorescence is a cytometer's job.
+---
+slug: choosing_by_volume
+difficulty: medium
+topic: Choosing an instrument from the volume required
+question: |
+  A protocol requires 25 nanoliters of each of forty reagents into each of 384 wells. Which instrument fits?
+choices:
+  A: A multichannel pipetting robot with disposable tips
+  B: A plate washer fitted with a vacuum manifold
+  C: A colony picker driven by image recognition
+  D: An acoustic dispenser transferring without contact
+  E: A plate reader with an integrated stacker
+answer: D
+explanation: |
+  Twenty-five nanoliters is well below what tip-based transfer handles accurately, and forty reagents into 384 wells would consume an impractical number of tips besides. Acoustic transfer is built for exactly this: small volumes, many combinations, no carryover. The remaining instruments wash, pick colonies and read plates rather than dispensing reagents.
+---
+slug: microfluidics_regime
+difficulty: medium
+topic: Placing microfluidics among the instruments
+question: |
+  What does a microfluidic device offer that a plate-based workflow does not?
+choices:
+  A: Reactions in very small volumes, often compartmentalized
+  B: Higher reagent volumes per reaction for better precision
+  C: The ability to pick and array individual colonies
+  D: Direct sequencing of the samples it processes
+  E: Barcoded tracking of each sample through the workflow
+answer: A
+explanation: |
+  Channels and droplets let reactions run in volumes far below a well, which saves reagent and, when each droplet is its own compartment, keeps a template with whatever it produces. That compartmentalization is what makes microfluidics a route to genotype-phenotype linkage as well as a way to miniaturize. Tracking and picking belong to other parts of the automation.
+---
+slug: barcoding_tubes_and_plates
+difficulty: hard
+topic: Understanding sample tracking in an automated lab
+question: |
+  What problem does putting a two-dimensional barcode on every tube solve?
+choices:
+  A: It identifies which library member each tube contains
+  B: It allows the tube's contents to be sequenced without opening it
+  C: It records which samples went where across a long workflow
+  D: It prevents evaporation from the tube during storage
+  E: It replaces the need to label plates with their contents
+answer: C
+explanation: |
+  As soon as samples move through many plates and many steps, the hardest thing to maintain is the mapping between a physical position and what is supposed to be in it. A machine-readable code on each tube lets every transfer be recorded against identity rather than against a position someone wrote down, which is what makes a swap discoverable. It does not know what is inside the tube, only which tube it is.
+---
+slug: plate_sealer_purpose
+difficulty: medium
+topic: Knowing what a plate sealer is for
+question: |
+  Why is a plate sealer part of an automated culture workflow?
+choices:
+  A: It sterilizes the plate surface before the cultures are added
+  B: It arrays the colonies into the wells of a fresh plate
+  C: It mixes the wells by applying pressure across the plate
+  D: It normalizes the volume in every well of the plate
+  E: It applies a film so cultures do not evaporate or cross-contaminate
+answer: E
+explanation: |
+  Small culture volumes in a warm incubator evaporate quickly, and the edge wells go first, which is one of the commonest sources of a spurious pattern across a plate. A sealing film holds the volume and keeps wells from splashing into one another, while still allowing gas exchange in the breathable versions used for growth.
+---
+slug: instrument_cannot_do_the_job
+difficulty: hard
+topic: Recognizing an instrument applied to the wrong job
+question: |
+  A proposal picks the brightest clones from a million-colony plate using a colony picker. What is wrong?
+choices:
+  A: A picker cannot distinguish colonies from one another at all
+  B: A picker transfers liquid rather than solid colony material
+  C: A picker cannot array into plates without a liquid handler
+  D: A picker arrays thousands, far short of a million colonies
+  E: A picker requires the colonies to be fluorescent to find them
+answer: D
+explanation: |
+  The instrument is capable of what it does but not at this scale: arraying into 96-well or 384-well plates puts a ceiling in the thousands or tens of thousands, and a million colonies would need thousands of plates. A library this size has to be enriched first, by scraping and sorting, before any clone is arrayed and grown.
+---
+slug: matching_instrument_to_sample_type
+difficulty: hard
+topic: Matching the instrument to the kind of sample
+question: |
+  Which instrument handles a solid sample rather than a liquid one?
+choices:
+  A: The acoustic dispenser, which ejects droplets upward
+  B: The plate reader, which illuminates the well contents
+  C: The plate washer, which aspirates and refills wells
+  D: The tip-based handler, which aspirates from a reservoir
+  E: The colony picker, which lifts cells from agar
+answer: E
+explanation: |
+  Everything else in a typical automation stack moves or measures liquid, and the colony picker is the one that engages with cells growing on a solid surface, lifting material from a chosen colony into a well of medium. That is why it sits at the boundary between plating and the liquid-handling part of the workflow.
+---
+slug: stacker_and_walkaway_operation
+difficulty: hard
+topic: Reasoning about unattended operation
+question: |
+  Why is a plate reader fitted with a stacker rather than loaded by hand?
+choices:
+  A: Because the stacker improves the precision of each reading
+  B: Because reading many plates unattended needs them fed in turn
+  C: Because the stacker normalizes the plates against one another
+  D: Because the reader cannot be opened once a run has started
+  E: Because the stacker seals the plates between the readings
+answer: B
+explanation: |
+  The point is unattended operation: dozens of plates can be queued and read in sequence without anyone present, which is what lets a time course or a large screen run overnight. The stacker moves plates and nothing more, so it does not change the precision of a reading, normalize anything, or seal the plates.

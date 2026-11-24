@@ -35,12 +35,12 @@ topic: Computing enrichment from colony counts
 question: |
   Before a sort you count 93 blue colonies and 1 red, red marking a hit. After it you count 3 blue and 183 red. Which expression gives the enrichment?
 choices:
-  A: 183 / 1, the red counts after over before
+  A: (183 / 186) / (1 / 94), the two red frequencies
   B: 183 / 3, the red to blue ratio after the sort
-  C: (183 / 186) / (1 / 94), the two red frequencies
+  C: 183 / 1, the red counts after over before
   D: (183 + 3) / (93 + 1), the totals after over before
   E: (183 / 186) - (1 / 94), the change in red frequency
-answer: C
+answer: A
 explanation: |
   Enrichment is the frequency of hits after divided by the frequency before, so each plate is first turned into a frequency by dividing reds by the total of that plate, and the two frequencies are then divided. Raw counts depend on how much was plated and so cannot be compared directly, the red to blue ratio is not a frequency, and subtracting frequencies gives a difference rather than a fold change.
 ---

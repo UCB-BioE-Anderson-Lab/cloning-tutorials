@@ -1,0 +1,150 @@
+---
+slug: what_risk_groups_describe
+difficulty: easy
+topic: Understanding what a risk group classification means
+question: |
+  What does an organism's risk group describe?
+choices:
+  A: The hazard it presents to the individuals working with it
+  B: The probability that it will escape the laboratory entirely
+  C: The chemical hazard of the compounds it is engineered to make
+  D: The monetary value of the research it is being used for
+  E: The level of government approval its use requires in writing
+answer: A
+explanation: |
+  The risk groups rank organisms by the hazard they pose in a laboratory exposure, from agents unlikely to cause disease in healthy adults up through those causing severe disease with no available treatment. Containment requirements follow from the classification rather than defining it, and the chemistry of what the organism produces is assessed separately.
+---
+slug: risk_group_of_a_construct
+difficulty: easy
+topic: Classifying an engineered strain
+question: |
+  How is the risk group of an engineered strain determined?
+choices:
+  A: By the host strain alone, since the inserts are not organisms
+  B: By the worst of the host and whatever has been put into it
+  C: By averaging the risk groups of the host and the inserts
+  D: By the containment level of the laboratory it is used in
+  E: By the risk group of the organism the insert came from
+answer: B
+explanation: |
+  Taking a harmless host and giving it a virulence determinant produces something more hazardous than the host was, so the classification has to account for both the chassis and its cargo and settles on the more serious of them. Neither the host alone nor the donor alone decides it, and the laboratory's containment is what the classification obliges rather than what sets it.
+---
+slug: chemical_hazard_is_not_biological
+difficulty: medium
+topic: Separating chemical from biological hazard
+question: |
+  A non-pathogenic E. coli is engineered to make a flammable hydrocarbon using genes from soil bacteria. What is its risk group?
+choices:
+  A: RG2, because the product presents a hazard to workers
+  B: A select agent, because fuels have potential for misuse
+  C: RG1, because no biological hazard has been added
+  D: RG3, because flammable products require stronger containment
+  E: It cannot be classified until the product is characterized
+answer: C
+explanation: |
+  The host is harmless and the donors are non-pathogenic, so nothing has been added that makes the organism more dangerous to the people handling it. The flammability of the product is a real hazard and is managed as a chemical one, with the appropriate storage and fire precautions, but it does not move the strain's biological classification.
+---
+slug: adding_a_virulence_factor
+difficulty: medium
+topic: Reasoning about a virulence determinant in a safe host
+question: |
+  A routine cloning strain is engineered to display a functional adhesin that lets it attach to and invade human epithelial cells. How should it be classified?
+choices:
+  A: RG1, since the parent cloning strain is itself harmless
+  B: RG3, since the donor organism causes serious disease
+  C: A select agent, because an invasion gene has been moved
+  D: RG2, since the added function raises what an exposure could do
+  E: Unclassifiable, since adhesins act only on cultured cell lines
+answer: D
+explanation: |
+  The chassis was innocuous and now carries a function that lets it enter human cells, which changes what an accidental exposure could lead to and so lifts the classification above the host's own. It does not simply inherit the donor's classification, since one determinant is not the whole pathogen, and nothing in the description raises the deliberate-misuse concern that defines a select agent.
+---
+slug: what_makes_a_select_agent
+difficulty: medium
+topic: Understanding the select agent concept
+question: |
+  What distinguishes a select agent from an organism that is merely high risk group?
+choices:
+  A: Its requirement for a biosafety cabinet during handling
+  B: Its resistance to the antibiotics used in the laboratory
+  C: Its potential for deliberate misuse against people or crops
+  D: Its ability to survive outside the laboratory environment
+  E: Its classification by the institution rather than by statute
+answer: C
+explanation: |
+  Risk group speaks to accidental harm to a worker, while the select agent lists exist because an agent could be used deliberately to cause mass harm, which brings registration, inventory control and personnel vetting with it. Containment equipment, drug resistance and environmental persistence may accompany such agents without being what puts them on the list.
+---
+slug: misuse_potential_classification
+difficulty: hard
+topic: Classifying an agent by its misuse potential
+question: |
+  A plant pathogen capable of destroying a staple cereal crop is on a federal list requiring registration, inventory control and personnel vetting. What does that status reflect?
+choices:
+  A: That it is classified in the highest risk group available
+  B: That no treatment exists for the disease it causes
+  C: That it is assessed as a target for deliberate misuse
+  D: That it requires the strictest containment to handle safely
+  E: That it cannot be transferred between institutions at all
+answer: C
+explanation: |
+  Registration, inventory control and vetting of the people with access are the controls attached to agents judged capable of being used deliberately to cause mass harm, to people, livestock or crops. That is a different question from how dangerous the organism is to the person handling it, which is what risk group and containment level describe, and an agent can be hazardous in a laboratory without appearing on such a list.
+---
+slug: risk_group_versus_containment_level
+difficulty: hard
+topic: Distinguishing risk group from biosafety level
+question: |
+  How do risk group and biosafety level differ?
+choices:
+  A: Risk group ranks the agent; biosafety level describes the practices
+  B: They are the same scale under two different names
+  C: Risk group applies to bacteria and biosafety level to viruses
+  D: Risk group is assigned locally and biosafety level nationally
+  E: Risk group covers accidents and biosafety level covers misuse
+answer: A
+explanation: |
+  One classifies the agent and the other prescribes how work with it is conducted: the facility, the equipment and the procedures. They usually correspond, but not always, because the containment required also depends on what is being done, so a procedure generating aerosols with a lower risk group agent may be carried out at a higher containment level.
+---
+slug: host_attenuation_and_classification
+difficulty: hard
+topic: Reasoning about a deliberately weakened host
+question: |
+  Why are laboratory E. coli strains such as the common cloning hosts treated as low risk?
+choices:
+  A: Because they cannot take up foreign DNA from the environment
+  B: Because they carry mutations leaving them poorly able to colonize
+  C: Because they are killed by the antibiotics used in the medium
+  D: Because they grow only at temperatures below body temperature
+  E: Because they lack the ability to replicate plasmids efficiently
+answer: B
+explanation: |
+  Decades of laboratory passage and deliberate modification have left these strains dependent on rich medium and poor at colonizing a human gut, which is a large part of why routine cloning is low risk work. They take up DNA readily, which is the point of them, replicate plasmids well, and grow perfectly happily at body temperature.
+---
+slug: classifying_before_the_work_begins
+difficulty: hard
+topic: Knowing when classification must happen
+question: |
+  At what point should an engineered strain's risk classification be settled?
+choices:
+  A: After the first results indicate whether it is hazardous
+  B: Before the work begins, as part of the approval for it
+  C: At publication, when the construct is described in full
+  D: Whenever an exposure incident occurs in the laboratory
+  E: Only if the strain is to be transferred to another laboratory
+answer: B
+explanation: |
+  The classification determines where the work may be done, what equipment is required and what training the people need, all of which have to be in place before anyone handles the organism. Deciding afterward means the work has already been done at whatever containment happened to be convenient, and an incident is the worst possible moment to discover the answer.
+---
+slug: reclassifying_after_a_modification
+difficulty: hard
+topic: Recognizing when a modification changes the classification
+question: |
+  Which modification to an RG1 host would most clearly require reassessment of its classification?
+choices:
+  A: Codon optimizing an existing gene for better expression
+  B: Replacing the plasmid origin with a higher copy number one
+  C: Adding a gene conferring resistance to a clinical antibiotic
+  D: Adding a fluorescent protein for tracking the strain
+  E: Adding a terminator downstream of the reporter gene
+answer: C
+explanation: |
+  Resistance to a drug used to treat human infection changes what an exposure would mean and how an infection could be managed, which is a change in hazard rather than in performance. Codon changes, copy number, reporters and terminators all alter how the construct behaves without altering what harm the organism could do to a person.

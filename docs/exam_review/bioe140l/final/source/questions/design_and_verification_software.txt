@@ -1,0 +1,150 @@
+---
+slug: what_a_language_model_answers_reliably
+difficulty: easy
+topic: Judging what a language model can answer from a paper
+question: |
+  A paper describes a plasmid carrying an AmpR marker and a p15A origin. Which question can a language model answer reliably from that text?
+choices:
+  A: Whether cells carrying it grow on ampicillin plates
+  B: What the plasmid's full DNA sequence is, base by base
+  C: What titer the pathway on it will reach in a new host
+  D: What its copy number is in mid-exponential culture
+  E: Whether a stronger promoter would improve the yield
+answer: A
+explanation: |
+  Reading a resistance marker off a description and saying what it confers is a straightforward deduction from text that is actually present. Predicting a full sequence, a titer, a measured copy number or the effect of a promoter swap each require information the paper does not contain and reasoning the model cannot check, which is where confident and wrong answers come from.
+---
+slug: why_sequence_prediction_fails
+difficulty: easy
+topic: Understanding why a full sequence cannot be inferred
+question: |
+  Why can a language model not reconstruct a plasmid's full sequence from its cloning steps and oligo table?
+choices:
+  A: Because cloning steps are always described incompletely
+  B: Because the exact sequence depends on parts the text omits
+  C: Because sequence prediction requires a structural model
+  D: Because oligo tables are proprietary and withheld
+  E: Because the model cannot perform string operations at all
+answer: B
+explanation: |
+  A paper names the vector and the inserts but rarely spells out every base of the backbone, every junction and every silent change, so the sequence simply is not recoverable from what is written. A simulator given the actual parent sequences and the operations can produce it exactly, which is the right tool for the job and is why construction files are written down.
+---
+slug: simulation_versus_a_model
+difficulty: medium
+topic: Choosing between simulation and a predictive model
+question: |
+  You want to know what product a stated series of digests and ligations yields. Which tool answers that?
+choices:
+  A: A language model asked to reason through the steps
+  B: A structure prediction tool applied to the encoded protein
+  C: A construction file simulator applied to the parent sequences
+  D: A BLAST search of the inserts against the parent vector
+  E: A pathway design tool drawing on a reaction database
+answer: C
+explanation: |
+  This is a deterministic question about sequence manipulation, so it should be computed rather than predicted: the simulator applies each operation to the actual sequences and returns the product or an error. A language model may be right and offers no way to tell, and the other tools answer questions about homology, structure and pathways instead.
+---
+slug: what_blast_is_for
+difficulty: medium
+topic: Knowing what a homology search answers
+question: |
+  What does a BLAST search tell you about a gene of interest?
+choices:
+  A: Which sequences in the databases resemble it, and how closely
+  B: Whether the protein it encodes will fold in E. coli
+  C: What expression level it will reach under a given promoter
+  D: Which restriction enzymes will cut the sequence once
+  E: What the three-dimensional structure of the product is
+answer: A
+explanation: |
+  A homology search reports similar sequences with alignments and scores, which is how orthologs are found for a library of natural variants and how an unknown reading frame gets a provisional annotation. It says nothing by itself about folding, expression or structure, and finding unique cut sites is an ordinary sequence search rather than a homology question.
+---
+slug: ortholog_searching_purpose
+difficulty: medium
+topic: Using homology searching to build a variant set
+question: |
+  Why search for orthologs before committing to one enzyme for a pathway?
+choices:
+  A: Because orthologs reveal the host's codon usage preferences
+  B: Because natural variants differ in activity, stability and expression
+  C: Because orthologs are cheaper to synthesize than the original
+  D: Because orthologs are guaranteed to work where the original fails
+  E: Because ortholog sequences are required for a BLAST search
+answer: B
+explanation: |
+  The same reaction carried out in many organisms gives you a set of sequences that already work, and they differ in exactly the properties that decide whether a pathway step performs: how fast, how stable, and how well expressed in your host. Testing several is usually cheaper than optimizing one, which is why these variant sets are built, but none of them is guaranteed.
+---
+slug: sequence_editor_role
+difficulty: medium
+topic: Knowing what a sequence editor is for
+question: |
+  What role does a sequence editor play in a design workflow?
+choices:
+  A: It predicts how strongly a designed construct will express
+  B: It simulates the thermocycling conditions of each reaction
+  C: It holds annotated sequences and supports the editing of them
+  D: It searches the databases for homologs of the insert
+  E: It schedules the operations for the liquid handling robot
+answer: C
+explanation: |
+  The editor is where the sequences and their annotations live, and where features are inspected, sites are found and edits are made and kept track of. It is the record the rest of the tools act on, which is why the annotations being right matters so much. Prediction, homology searching and scheduling are all handled elsewhere.
+---
+slug: structure_tools_and_their_limits
+difficulty: hard
+topic: Judging what a structure prediction supports
+question: |
+  A structure prediction gives a confident model of your enzyme. What does that support?
+choices:
+  A: A claim that the enzyme is active on the new substrate
+  B: A prediction of the titer the pathway will reach
+  C: A choice of which residues to target for mutagenesis
+  D: A conclusion that the protein will express solubly
+  E: A measurement of the enzyme's thermal stability
+answer: C
+explanation: |
+  A model is most useful for deciding where to look: which residues line the pocket, which are buried, which sit at a domain interface, all of which focus a library on positions worth varying. It does not establish activity, solubility, stability or yield, every one of which is a measurement, and treating a confident model as evidence for them is the error to avoid.
+---
+slug: pathway_design_from_databases
+difficulty: hard
+topic: Understanding what a pathway design tool produces
+question: |
+  What does a pathway design tool drawing on a reaction database give you?
+choices:
+  A: A candidate route from an available substrate to the target
+  B: The expression levels each enzyme in the route will need
+  C: An assurance that the route will carry flux in the host
+  D: The sequences of the enzymes, verified for the chosen host
+  E: A construction file for assembling the pathway genes
+answer: A
+explanation: |
+  The tool searches known reactions for a chain connecting something the host already makes to the compound you want, and returns the chemistry of a candidate route. Whether that route actually carries flux, what expression each step needs, which enzyme sequences to use, and how to build it are all downstream questions, and the first of them is settled only at the bench.
+---
+slug: verification_in_the_loop
+difficulty: hard
+topic: Placing verification between design and the bench
+question: |
+  Where does construction file simulation sit in the design-build-test-learn cycle?
+choices:
+  A: In the test phase, as an alternative to assaying the construct
+  B: Outside the cycle, as a purely documentary exercise
+  C: In the learn phase, explaining why a construct behaved oddly
+  D: After the build, confirming that the clone is correct
+  E: Between design and build, checking the plan before execution
+answer: E
+explanation: |
+  Simulation is a check on the plan, so it belongs after the design is written and before any reagent is consumed, which is what makes the error it catches cheap. Confirming that the clone you actually built is correct is a separate step done by sequencing, and no simulation substitutes for assaying what the construct does.
+---
+slug: choosing_a_tool_for_the_question
+difficulty: hard
+topic: Matching a computational tool to the question
+question: |
+  You must find a unique restriction site in a 6 kb plasmid for a planned insertion. Which tool fits?
+choices:
+  A: A language model asked to read the published map
+  B: A homology search of the plasmid against the databases
+  C: A structure prediction of the encoded protein product
+  D: A pathway design tool searching a reaction database
+  E: A sequence editor searching the sequence for cut sites
+answer: E
+explanation: |
+  Finding where an enzyme cuts and how many times is an exact search over a sequence you already have, which an editor does definitively and in a moment. A language model reading a map may be right without any way to confirm it, and homology, structure and pathway tools are addressed to entirely different questions.

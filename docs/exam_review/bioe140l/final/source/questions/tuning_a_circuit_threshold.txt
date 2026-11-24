@@ -7,10 +7,10 @@ question: |
 choices:
   A: At the ribosome binding site in front of the reporter gene
   B: At the origin of replication setting the plasmid copy number
-  C: Where the repressor binds the ligand and changes conformation
+  C: At the promoter's contact with RNA polymerase holoenzyme
   D: At the maturation of the fluorescent reporter protein
-  E: At the promoter's contact with RNA polymerase holoenzyme
-answer: C
+  E: Where the repressor binds the ligand and changes conformation
+answer: E
 explanation: |
   The concentration at which the circuit flips is decided where the ligand is actually read, which is the repressor's binding site for it. Everything downstream converts that same decision into more or less signal: the ribosome binding site, the copy number and the promoter all scale the output without moving the point at which it appears, and maturation changes when you see the signal rather than at what concentration.
 ---
@@ -67,10 +67,10 @@ question: |
 choices:
   A: The repressor's ligand affinity, which sets the midpoint
   B: The strength of the ribosome binding site on the reporter
-  C: The cooperativity, rather than the threshold or the output level
+  C: The maturation rate of the fluorescent reporter protein
   D: The copy number of the plasmid carrying the reporter
-  E: The maturation rate of the fluorescent reporter protein
-answer: C
+  E: The cooperativity, rather than the threshold or the output level
+answer: E
 explanation: |
   Three features of a transfer function move independently: where it turns on, how high it goes, and how sharply it makes the transition. Only the third changed here, which is cooperativity, arising from multiple operator sites or from oligomeric repressor binding. Affinity sets the midpoint, which is stated to be unchanged, the ribosome binding site and copy number rescale the height, and maturation affects timing.
 ---

@@ -1,0 +1,150 @@
+---
+slug: how_illumina_works
+difficulty: easy
+topic: Understanding sequencing by synthesis
+question: |
+  What makes a cluster on an Illumina flow cell bright enough to read?
+choices:
+  A: Each fragment is amplified in place into a clonal patch
+  B: Each fragment carries many dye molecules along its length
+  C: The polymerase incorporates several labeled bases per cycle
+  D: The flow cell is coated in a fluorophore that the base displaces
+  E: Each fragment is read many times over in successive passes
+answer: A
+explanation: |
+  A single molecule does not give enough signal to photograph, so every bound fragment is amplified where it sits into a small patch of identical copies that all add one base at the same time. The chemistry then allows exactly one base per cycle, carrying both a dye and a blocking group, so each patch gives one color per cycle across a few hundred cycles.
+---
+slug: why_one_base_per_cycle
+difficulty: easy
+topic: Understanding the reversible terminator chemistry
+question: |
+  Why does each Illumina cycle add exactly one base, even though all four are present?
+choices:
+  A: Each base carries a blocking group that stops further addition
+  B: Only one base is complementary at any given position
+  C: The polymerase is inactivated after each incorporation event
+  D: The wash step removes the polymerase between additions
+  E: The camera exposure is short enough to catch only one base
+answer: A
+explanation: |
+  All four bases are supplied together, each with a dye and a reversible blocking group, so whichever one is incorporated terminates the extension until the block is chemically stripped. That is what keeps the patches in step with one another: wash, photograph the whole surface, strip the dye and the block, and go again. Complementarity decides which base goes in, not how many.
+---
+slug: read_length_and_linkage
+difficulty: medium
+topic: Reasoning about what a read length preserves
+question: |
+  Your library's variants differ at positions spread across 1.2 kb of a gene, and you need to know which differences occur together. What does that require?
+choices:
+  A: Deeper coverage on a short-read instrument than usual
+  B: Paired-end rather than single-end short reads
+  C: Reads long enough to span the gene on one molecule
+  D: A larger number of total reads from the same instrument
+  E: A shorter amplicon spanning only the variable positions
+answer: C
+explanation: |
+  Which differences travel together is a property of a single molecule, and a short read sees only a fragment of each one, so it reports which variants exist without saying how they are combined. Only a read covering the whole gene keeps that linkage intact. More depth and more reads give better counting of the same fragmentary information, and paired ends extend the span only a little.
+---
+slug: when_short_reads_are_right
+difficulty: medium
+topic: Choosing short reads for a counting problem
+question: |
+  You need to count how often each of a million short barcodes appears in a pool. Why is a short-read instrument the right choice?
+choices:
+  A: Because short reads are more accurate per base than long reads
+  B: Because it returns enough reads to count every barcode deeply
+  C: Because only short-read chemistry can resolve a barcode at all
+  D: Because barcodes cannot be read by a nanopore instrument
+  E: Because short reads preserve linkage across the construct
+answer: B
+explanation: |
+  The barcode is short, so read length is not the constraint; what matters is how many reads you get, and a short-read run returns them in the billions at the lowest cost per read, which is what deep counting requires. Long-read instruments return millions rather than billions. Raw accuracy on nanopore is now around 99.75 percent, so calling barcodes is no longer the objection it once was.
+---
+slug: how_nanopore_reads
+difficulty: medium
+topic: Understanding nanopore sequencing
+question: |
+  What is measured as DNA passes through a nanopore, and what controls the speed?
+choices:
+  A: Fluorescence from each base, with the voltage setting the speed
+  B: Mass of each nucleotide, with a pump controlling the flow rate
+  C: Current through the pore, with a motor protein ratcheting the strand
+  D: Current through the pore, with the voltage alone setting the speed
+  E: Light scattered by the strand, with a motor feeding it through
+answer: C
+explanation: |
+  A voltage drives the strand through the pore and the ionic current changes according to what is occupying the narrow part of it, which is read as sequence. On its own the field pulls the DNA through far too fast to measure, so a motor protein at the mouth of the pore feeds the strand a step at a time, which is what turns a translocation into a read.
+---
+slug: nanopore_current_is_not_one_base
+difficulty: hard
+topic: Reasoning about what the pore current reports
+question: |
+  Why does the current level in a nanopore not correspond to a single base?
+choices:
+  A: Because the motor protein advances the strand by several bases
+  B: Because the dye on each base takes time to be stripped away
+  C: Because the current is averaged over the whole read for accuracy
+  D: Because both strands of the duplex pass through together
+  E: Because several bases occupy the narrow constriction at once
+answer: E
+explanation: |
+  A stretch of the strand sits in the constriction at any moment, so the measured level is a function of several neighboring bases rather than of one, and the sequence has to be inferred from the series of levels rather than read off them directly. That is why basecalling is a model-fitting problem on this platform, and why its accuracy improved so much as the models did.
+---
+slug: pacbio_and_nanopore_use_case
+difficulty: hard
+topic: Placing the long-read platforms
+question: |
+  Where do PacBio HiFi and nanopore sit relative to a short-read instrument?
+choices:
+  A: They give more reads, which makes them better for counting
+  B: They give shorter reads at higher accuracy per base
+  C: They are the only platforms that can read a barcode reliably
+  D: They give long reads at millions, not billions, of reads
+  E: They read DNA without any amplification of the library
+answer: D
+explanation: |
+  Both long-read platforms deliver reads in the tens of thousands of bases, with HiFi mode calling about ninety percent of bases at Q30 or better, but they return millions of reads per cell rather than billions. That pairing is what decides their use: they are the answer when a whole variant must stay on one molecule, and the wrong answer when the job is deep counting of short features.
+---
+slug: retired_and_current_platforms
+difficulty: hard
+topic: Knowing which platforms remain available
+question: |
+  Which statement about platform availability is correct?
+choices:
+  A: Ion Torrent was retired in 2016 and 454 remains on sale
+  B: Both 454 and Ion Torrent were retired in the same year
+  C: Nanopore was withdrawn once accuracy objections were raised
+  D: HiSeq remains the current Illumina production instrument
+  E: 454 was retired in 2016; Ion Torrent is still sold
+answer: E
+explanation: |
+  Roche announced the end of 454 in 2013 and stopped supporting it by mid-2016, while Ion Torrent is still sold and remains distinctive for detecting incorporation semiconductor-electrically rather than optically. Illumina retired HiSeq in 2024 in favor of newer instruments, and nanopore is very much current, with its accuracy objection largely answered.
+---
+slug: platform_for_confirming_one_clone
+difficulty: medium
+topic: Choosing a method for a single isolate
+question: |
+  You have picked one colony and want to confirm the construct it carries. Which method fits, and why?
+choices:
+  A: Short-read sequencing, since it gives the deepest coverage
+  B: Nanopore, since only long reads span a whole plasmid
+  C: Cycle sequencing, since the sample is a single clonal template
+  D: Digital droplet PCR, since it counts molecules precisely
+  E: Paired-end sequencing, since both strands must be read
+answer: C
+explanation: |
+  One colony is one sequence, so there is nothing to deconvolute and no counting to do: an ordinary cycle sequencing reaction on the purified plasmid reads it directly and cheaply. The massively parallel platforms exist to read many different molecules at once, which is effort and expense wasted on a single clonal template, and droplet PCR counts rather than sequences.
+---
+slug: cost_per_read_versus_per_base
+difficulty: hard
+topic: Reasoning about what a platform choice costs
+question: |
+  Why is cost per read, rather than cost per base, the figure that matters for a barcode counting experiment?
+choices:
+  A: Because reads are priced individually by the sequencing provider
+  B: Because each barcode needs one read regardless of read length
+  C: Because longer reads cost less per base than shorter ones do
+  D: Because the instrument charges by run rather than by sample
+  E: Because barcode reads are shorter than the instrument minimum
+answer: B
+explanation: |
+  Counting is a matter of how many observations you collect, and each observation of a barcode consumes one read whatever that read's length. Paying for a platform that reads twenty thousand bases per read buys length you throw away while limiting how many observations you can afford, which is precisely the mismatch between a long-read instrument and a counting problem.

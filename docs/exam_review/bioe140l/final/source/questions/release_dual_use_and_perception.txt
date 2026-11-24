@@ -1,0 +1,150 @@
+---
+slug: governing_question_for_release
+difficulty: easy
+topic: Identifying what governs a deliberate release
+question: |
+  An engineered organism is proposed for use outside containment. Which question most directly governs whether that is acceptable?
+choices:
+  A: Whether the product it makes has regulatory approval for food
+  B: Whether it can survive, replicate and exchange genes outside the lab
+  C: Whether the technology can be protected by patents internationally
+  D: Whether the intended users can interpret the output correctly
+  E: Whether its sensitivity exceeds that of the laboratory method
+answer: B
+explanation: |
+  Release is governed by what the organism can do once it is no longer contained: whether it persists, multiplies, spreads, and passes its genes to organisms already there. Usability, intellectual property, food approval and analytical performance all matter to whether the thing is worth deploying, and none of them is what the environmental assessment turns on.
+---
+slug: why_horizontal_transfer_matters
+difficulty: easy
+topic: Understanding why gene exchange is assessed
+question: |
+  Why does an assessment ask whether a released organism could exchange genes with native species?
+choices:
+  A: Because transfer would dilute the construct and reduce performance
+  B: Because native species cannot take up plasmid DNA at all
+  C: Because recipients would become classifiable as select agents
+  D: Because transfer would prevent the organism from being recovered
+  E: Because an introduced gene could persist even if the host does not
+answer: E
+explanation: |
+  The engineered strain may well die out, but a resistance marker or a metabolic function it carried can move into organisms that are already established and stay in the environment indefinitely. That makes the consequence outlast the organism, which is why transfer is assessed separately from survival, and it is part of why markers are chosen carefully for anything intended to leave containment.
+---
+slug: containment_strategies_for_release
+difficulty: medium
+topic: Recognizing biological containment approaches
+question: |
+  Which approach is a biological containment measure for an organism intended to leave the laboratory?
+choices:
+  A: Autoclaving the culture before it is taken to the field
+  B: Requiring the operators to wear gloves while sampling
+  C: Making the strain dependent on a compound not found in nature
+  D: Obtaining an institutional authorization for the field work
+  E: Keeping the organism in a sealed cartridge during sampling
+answer: C
+explanation: |
+  Engineering a dependence on a synthetic nutrient, or a kill switch that fires outside defined conditions, builds the limit into the organism so that escape does not become establishment. A sealed cartridge is a genuine physical containment that may well be the right answer for a field device, but it is engineering rather than biological containment, and authorizations and gloves address other things entirely.
+---
+slug: what_dual_use_means
+difficulty: medium
+topic: Defining dual use research of concern
+question: |
+  What makes a piece of research dual use?
+choices:
+  A: It is funded by both civilian and military sources
+  B: Its results are published in two different fields at once
+  C: Its findings could enable harm as readily as benefit
+  D: It uses organisms classified in two different risk groups
+  E: It can be performed in either academic or industrial settings
+answer: C
+explanation: |
+  The concern is about the knowledge rather than the funding or the venue: work done for an entirely legitimate reason may also tell someone how to make a pathogen more transmissible, more virulent, or harder to treat. That is why the question is asked of the findings and their publication rather than of the investigator's motives, and why it arises in ordinary laboratories.
+---
+slug: gene_drive_distinguishing_feature
+difficulty: medium
+topic: Understanding what makes a gene drive different
+question: |
+  What distinguishes a gene drive from an ordinary engineered trait in a wild population?
+choices:
+  A: It spreads through the population faster than inheritance allows
+  B: It persists only as long as the released individuals survive
+  C: It can be reversed by ceasing to release the organism
+  D: It acts on somatic cells rather than on the germ line
+  E: It requires continuous release to maintain its frequency
+answer: A
+explanation: |
+  A drive biases its own inheritance, so it can increase in frequency even when it carries a fitness cost and spread from a small release through a whole interbreeding population. That is precisely what makes it powerful against a disease vector and what makes it hard to recall, since stopping releases does not stop the spread the way it would for an ordinary trait.
+---
+slug: perception_versus_assessed_risk
+difficulty: hard
+topic: Reasoning about public perception of risk
+question: |
+  Public concern about an engineered organism is far greater than the assessed risk. How should that be handled?
+choices:
+  A: As irrelevant, since the assessment is the technical answer
+  B: As evidence the assessment has underestimated the hazard
+  C: As a real constraint to be engaged, distinct from the hazard
+  D: As a problem solved by withholding details of the work
+  E: As grounds to proceed only once concern has subsided
+answer: C
+explanation: |
+  Perception and assessed hazard are different quantities and both are real: the assessment tells you what the organism can do, and public acceptance determines whether the work can proceed at all and on what terms. Treating concern as ignorance to be overridden, or as a hazard signal in itself, both misread it, and withholding information reliably makes it worse.
+---
+slug: field_device_versus_release
+difficulty: hard
+topic: Distinguishing a contained field use from a release
+question: |
+  A whole-cell biosensor is used on samples brought to a sealed cartridge and autoclaved afterward. How does that change the assessment?
+choices:
+  A: It does not, since the organism has left the laboratory
+  B: It becomes a question of containment in the field, not of release
+  C: It removes the need for any institutional authorization
+  D: It makes the organism's survival in the environment irrelevant
+  E: It converts the work into dual use research of concern
+answer: B
+explanation: |
+  Taking the sample to a contained organism is a different proposition from putting the organism into the environment, and the questions become whether the containment holds in field conditions and whether the waste is reliably inactivated. Survival outside is not irrelevant, since it is what a containment failure would mean, and authorization is still required.
+---
+slug: markers_in_a_released_organism
+difficulty: hard
+topic: Reasoning about marker choice for release
+question: |
+  Why would an antibiotic resistance marker be avoided in an organism intended for environmental use?
+choices:
+  A: Because resistance genes are unstable outside the laboratory
+  B: Because the antibiotic cannot be supplied in the field
+  C: Because the marker could transfer and persist in the environment
+  D: Because resistance markers raise the strain's risk group
+  E: Because markers interfere with the sensing function itself
+answer: C
+explanation: |
+  A resistance gene is the clearest case of something whose consequences outlive the organism carrying it, since it can move into resident bacteria and remain in a setting where that resistance matters clinically. Selection in the field is a practical problem too, which is why auxotrophic or synthetic-dependency markers are preferred, but the transfer concern is the governing one.
+---
+slug: reversibility_of_a_release
+difficulty: hard
+topic: Reasoning about whether a release can be undone
+question: |
+  Why is reversibility a central question for a deliberate release?
+choices:
+  A: Because regulators require a disposal plan for all materials
+  B: Because an established population cannot simply be recalled
+  C: Because irreversible releases are prohibited under all frameworks
+  D: Because reversibility determines the organism's risk group
+  E: Because an unrecoverable organism cannot be studied further
+answer: B
+explanation: |
+  Once an organism establishes and reproduces in the environment there is often no way to withdraw it, so the decision cannot be revisited in the light of what is learned afterward, which is the opposite of how laboratory work proceeds. That asymmetry is why the assessment is made so carefully beforehand and why built-in limits on persistence carry so much weight.
+---
+slug: publication_and_dual_use
+difficulty: hard
+topic: Reasoning about publishing dual use findings
+question: |
+  A result would help defend against a pathogen and also show how to make it more transmissible. What does the dual use framework ask?
+choices:
+  A: That the work be classified and withheld from publication entirely
+  B: That the benefit and the misuse potential be weighed before publishing
+  C: That the work be abandoned, since the risk cannot be eliminated
+  D: That publication proceed, since open science resolves such tensions
+  E: That the decision be left to the journal's editors alone
+answer: B
+explanation: |
+  The framework asks for deliberate consideration rather than a fixed answer: what the result enables for defense, what it enables for harm, who already has it, and whether some of it can be communicated differently. Automatic publication and automatic suppression both skip that judgment, and the decision involves the investigators, the institution and the funder as well as the journal.

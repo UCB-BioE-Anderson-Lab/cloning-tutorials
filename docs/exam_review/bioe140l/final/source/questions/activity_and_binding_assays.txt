@@ -1,0 +1,150 @@
+---
+slug: simplest_enzymatic_assay
+difficulty: easy
+topic: Recognizing a direct colorimetric assay
+question: |
+  Purified alkaline phosphatase is given p-nitrophenyl phosphate and the tube turns yellow. What makes this the simple case?
+choices:
+  A: The enzyme is immobilized, so the product stays in one place
+  B: The reaction itself produces a product you can read directly
+  C: The substrate is radioactive, which makes detection sensitive
+  D: A second enzyme converts the product to a colored species
+  E: The enzyme is read by antibody rather than by its activity
+answer: B
+explanation: |
+  Hydrolysis releases p-nitrophenol, which is yellow, so the progress of the reaction is visible in the tube and can be read on a photometer without any further steps. Following the color over time at several substrate concentrations is what yields the kinetic parameters. A second enzyme in the readout is the coupled case, and antibody detection reports abundance rather than activity.
+---
+slug: coupled_versus_direct
+difficulty: easy
+topic: Distinguishing a coupled assay from a direct one
+question: |
+  What defines a coupled enzymatic assay?
+choices:
+  A: Two substrates are supplied to the enzyme at the same time
+  B: The assay is run in both the forward and the reverse direction
+  C: A second reaction converts the product into something readable
+  D: The enzyme is assayed while still attached to the display host
+  E: Two enzymes compete for the same substrate in one tube
+answer: C
+explanation: |
+  When the reaction of interest produces nothing you can see, you can sometimes attach a second, well-behaved reaction whose own readout is easy, so that the product of the first becomes the substrate of the second. The coupling is in the detection rather than in the chemistry being studied, and the reporting reaction has to be fast enough not to become the step you are measuring.
+---
+slug: why_radioactive_substrates
+difficulty: medium
+topic: Knowing when a radioactive substrate is warranted
+question: |
+  Radioactive substrates are disfavored for their handling burden. Why are they still used?
+choices:
+  A: They report the stereochemistry of the product formed
+  B: They work without purifying the enzyme beforehand
+  C: They are the most sensitive way to follow a reaction run
+  D: They avoid the need for any separation step at all
+  E: They allow the reaction to be followed inside living cells
+answer: C
+explanation: |
+  A labeled substrate puts a signal on the reaction that can be counted at very low amounts, which remains the most sensitive way to watch a conversion that produces no color and little mass change. The cost is the radiation itself, with the licensing, waste handling and bureaucracy that goes with it, which is why the method is kept for cases that need the sensitivity.
+---
+slug: filter_binding_logic
+difficulty: medium
+topic: Understanding what a filter binding assay separates
+question: |
+  A filter binding assay dispenses the reaction on TCA-soaked paper and washes repeatedly with TCA. What does that accomplish?
+choices:
+  A: It hydrolyzes the product so the label can be counted freely
+  B: It retains precipitated macromolecules and washes small molecules away
+  C: It separates the species by charge as they move through the paper
+  D: It concentrates the sample by evaporating the aqueous solvent
+  E: It quenches the enzyme so no further turnover can occur
+answer: B
+explanation: |
+  Acid precipitates macromolecules onto the filter while unincorporated small molecules, including free labeled amino acid, wash straight through. What stays on the paper is therefore label that became attached to something large, which after drying is counted by scintillation. Reading charged tRNA is the classic case, where nothing about the reaction changes color and the mass shift is one amino acid on a 76-mer.
+---
+slug: pulldown_versus_elisa
+difficulty: medium
+topic: Distinguishing a pulldown from an ELISA
+question: |
+  How does a pulldown differ from an ELISA in what it reports?
+choices:
+  A: A pulldown reports binding in real time without any label
+  B: A pulldown maps where on a nucleic acid the protein binds
+  C: A pulldown recovers the partner itself for further analysis
+  D: A pulldown reports the dissociation constant of the pair
+  E: A pulldown requires the antigen to be adsorbed to a plate
+answer: C
+explanation: |
+  A pulldown immobilizes a bait and captures whatever binds it from a mixture, and the point is that the captured partner comes off with it and can be run on a gel or identified by mass spectrometry. An ELISA asks whether and how much of a known partner is present through a layered colorimetric readout. Real-time label-free kinetics are what surface plasmon resonance provides, and footprinting is what locates a binding site.
+---
+slug: why_block_with_milk
+difficulty: hard
+topic: Understanding the blocking step
+question: |
+  An ELISA immobilizes the antigen and then blocks the well with milk before anything else is added. Why?
+choices:
+  A: To supply the enzyme substrate that the final step requires
+  B: To raise the local pH so the antibody will bind the antigen
+  C: To cross-link the antigen so it cannot wash off the surface
+  D: To occupy the remaining surface so later reagents cannot stick
+  E: To remove antigen that failed to adsorb to the plastic surface
+answer: D
+explanation: |
+  Plastic adsorbs protein indiscriminately, so a well that has been coated with antigen still has bare surface that would bind the detection antibody and the conjugate directly and give signal with no specific binding at all. Flooding that surface with an irrelevant protein leaves the specific interaction as the only route to signal, which is why every well, including the controls, is blocked.
+---
+slug: elisa_layers
+difficulty: hard
+topic: Reasoning about the layers of a sandwich readout
+question: |
+  An ELISA adds affibody, then a biotinylated anti-protein A antibody, then streptavidin-HRP, then peroxide and ABTS. What is the amplification?
+choices:
+  A: Each layer binds several of the layer beneath it, ending in turnover
+  B: Each wash step concentrates the signal into a smaller volume
+  C: The peroxide oxidizes the antigen, releasing many colored products
+  D: The streptavidin binds four biotins, which is the whole of the gain
+  E: The affibody is present in excess, which drives the binding forward
+answer: A
+explanation: |
+  Two things multiply. The stack is built so that each tier can engage more than one of the tier below, and the final tier carries an enzyme that keeps converting substrate for as long as the development runs. The biotin-streptavidin valency is one contribution rather than the whole of it, and nothing in the scheme oxidizes the antigen.
+---
+slug: spr_reports_kinetics
+difficulty: hard
+topic: Knowing what surface plasmon resonance uniquely provides
+question: |
+  What does surface plasmon resonance give that an ELISA does not?
+choices:
+  A: A measurement made without purifying either binding partner
+  B: The association and dissociation followed in real time, unlabeled
+  C: Identification of an unknown partner from a complex mixture
+  D: The position of the binding site on the immobilized partner
+  E: A result that needs no immobilization of either partner
+answer: B
+explanation: |
+  Both methods immobilize one partner and flow the other over it, but plasmon resonance watches mass accumulate at the surface as it happens, so you see the binding phase and then the release when buffer replaces analyte, which gives rate constants rather than a single endpoint, and does so with no label on either partner. Identifying an unknown partner is what a pulldown is for.
+---
+slug: footprinting_asks_where
+difficulty: hard
+topic: Understanding what footprinting reports
+question: |
+  A footprinting experiment incubates end-labeled DNA with a protein, adds dilute DNase I, and runs the fragments on a gel. What is read out?
+choices:
+  A: Whether the protein binds the DNA at all under these conditions
+  B: The dissociation constant of the protein for that DNA sequence
+  C: How many protein molecules are bound to each DNA fragment
+  D: The stretch the protein covered, seen as a gap in the ladder
+  E: The rate at which the nuclease cuts the unprotected regions
+answer: D
+explanation: |
+  The protein shields the bases it sits on, so the nuclease cuts everywhere except there, and the fragment ladder on the gel shows a gap at the positions that were covered. The experiment answers where rather than whether, which is the distinction to keep: whether a protein is bound is a simpler question that a pulldown or a shift assay settles.
+---
+slug: choosing_an_assay_for_the_question
+difficulty: hard
+topic: Matching an assay to what it must report
+question: |
+  You have a purified transcription factor and need to know which promoter region it occupies. Which experiment answers that?
+choices:
+  A: An ELISA against the factor, read colorimetrically on a plate
+  B: A filter binding assay with a radiolabeled amino acid substrate
+  C: Surface plasmon resonance with the factor flowed over the chip
+  D: A footprinting experiment with a nuclease on labeled promoter DNA
+  E: A sizing column to establish the factor's oligomeric state
+answer: D
+explanation: |
+  The question is positional, and footprinting is the method that returns a position. An ELISA quantifies the protein, plasmon resonance gives the kinetics of binding without saying where on the DNA it happens, and the sizing column characterizes the protein itself. The filter binding assay as described is set up for aminoacylation rather than for protein-DNA interaction at all.
