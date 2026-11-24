@@ -1,0 +1,150 @@
+---
+slug: why_barcode_at_all
+difficulty: easy
+topic: Understanding why constructs are barcoded
+question: |
+  Why attach a barcode to each member of a library rather than reading the variant region itself?
+choices:
+  A: Because the variant region cannot be amplified by any primer pair
+  B: Because a short fixed-position tag is cheap and uniform to read
+  C: Because barcodes are more accurate per base than variant sequence
+  D: Because the barcode protects the variant region from degradation
+  E: Because sequencing a coding region requires a long-read platform
+answer: B
+explanation: |
+  A barcode turns reading the identity of a variant into reading a short sequence that sits in a known place and is the same length for everyone, which is cheap, uniform and easy to count. The variants themselves may differ in length and in sequence context, which is exactly what makes reading them directly awkward and biased.
+---
+slug: barcode_length_for_a_library
+difficulty: easy
+topic: Choosing a barcode length from the diversity needed
+question: |
+  Roughly how long must a barcode be to label a library of about a billion members?
+choices:
+  A: About 15 bases, since 4^15 is on the order of 10^9
+  B: About 9 bases, since 9 x 4 is close to 10^9
+  C: About 30 bases, since each base labels two members
+  D: About 20 bases, since 20^4 is on the order of 10^9
+  E: About 5 bases, since 4^5 covers a billion sequences
+answer: A
+explanation: |
+  The number of distinct barcodes is four raised to the length, so a billion needs about fifteen bases because four to the fifteenth is around a billion. This is the same product-across-positions arithmetic as library diversity, applied to a tag rather than to a design. Multiplying the length by four, or raising the length to the fourth power, both invert the roles of base count and position count.
+---
+slug: why_separate_barcode_from_gene
+difficulty: medium
+topic: Understanding why the barcode is placed apart from the variant
+question: |
+  Why is the barcode put somewhere other than inside the sequence being characterized, with a priming site between them?
+choices:
+  A: So the barcode is transcribed while the variant region is not
+  B: So that the barcode can be read without sequencing the variant
+  C: So every amplicon has the same length and sequence context
+  D: So the variant region is shielded from polymerase errors
+  E: So the barcode can be removed before the library is cloned
+answer: C
+explanation: |
+  If the genes differ in length or in flanking sequence you cannot amplify them all evenly, and unequal amplification corrupts the counts. Putting a standard priming site between the barcode and the gene means the product you sequence has the same length and much the same sequence whatever variant it came from, so what you count reflects abundance rather than how well each one amplified.
+---
+slug: why_the_variable_spacer
+difficulty: medium
+topic: Explaining the variable-length spacer in the construct
+question: |
+  An Illumina amplicon for a multiplex experiment carries a variable-length spacer before the region of interest. What is it for?
+choices:
+  A: To standardize the total length of every amplicon in the pool
+  B: To create sequence diversity in the early cycles of the run
+  C: To provide a second priming site for the reverse read
+  D: To separate the two adapters by a defined distance
+  E: To act as a second barcode identifying the sample
+answer: B
+explanation: |
+  A multiplex library is largely the same sequence in every molecule, and a flow cell reading identical bases across the whole surface at once calls them badly. Staggering where each molecule starts by inserting a random-length spacer restores base diversity in those early cycles, which is a technicality of the instrument rather than anything to do with the biology.
+---
+slug: what_a_read_count_alone_means
+difficulty: medium
+topic: Recognizing the limits of a raw read count
+question: |
+  A variant accounts for five percent of the reads from a pool. What does that number tell you on its own?
+choices:
+  A: That the variant is five percent more active than average
+  B: That five percent of cells carried that variant originally
+  C: That the variant makes up five percent of this pool, no more
+  D: That the variant was enriched fivefold during the experiment
+  E: That the variant's expression is five percent of the maximum
+answer: C
+explanation: |
+  A read fraction is a composition of the sample you sequenced, and nothing else. Turning it into a measurement needs a denominator: the same variant's share in the input, in the DNA, or in an earlier round. Without that comparison a large share may reflect how well the variant clones or amplifies rather than anything about its function, which is the lesson the SELEX data makes.
+---
+slug: cre_seq_normalization
+difficulty: hard
+topic: Identifying the denominator in a barcoded expression experiment
+question: |
+  In CRE-Seq, barcode frequencies in the mRNA pool are divided by what, and why?
+choices:
+  A: By the total read count, to correct for run-to-run depth
+  B: By the frequency of a spiked-in synthetic control barcode
+  C: By their frequencies in the DNA of the same input sample
+  D: By the barcode frequencies measured in an uninduced control
+  E: By the length of each promoter element being characterized
+answer: C
+explanation: |
+  Each variant is present in the transfected population at its own abundance, so a barcode can be common in the message simply because its construct was common in the DNA. Sequencing the input DNA gives each barcode's starting share, and dividing message by DNA converts an abundance into an expression level per construct. Total depth is handled by working in frequencies throughout.
+---
+slug: rna_seq_measures_steady_state
+difficulty: hard
+topic: Being precise about what RNA-seq measures
+question: |
+  What does an RNA-seq read count for a gene actually report?
+choices:
+  A: The activity of that gene's promoter in the sampled cells
+  B: The absolute number of transcripts per cell in the sample
+  C: The rate at which that gene is being transcribed per minute
+  D: The steady-state message share, transcription and decay together
+  E: The amount of protein produced from that gene in the sample
+answer: D
+explanation: |
+  You are measuring how much message is present at the moment of extraction, which is set by synthesis and degradation together rather than by transcription alone, and you are measuring it as a share of everything else in the same sample because total reads are set by the instrument. That is why these experiments are framed as one condition against another rather than as absolute quantities.
+---
+slug: comparing_rounds_not_endpoints
+difficulty: hard
+topic: Comparing counts between rounds rather than reading an endpoint
+question: |
+  Why are selection experiments read by comparing counts between rounds rather than by ranking the final pool?
+choices:
+  A: Because the final round contains too few reads to rank reliably
+  B: Because sequencing error accumulates across successive rounds
+  C: Because a rising share, not a large share, shows selection acting
+  D: Because the earlier rounds are more diverse and so more informative
+  E: Because the final pool is dominated by the input library
+answer: C
+explanation: |
+  Abundance at the end has no reference point, and a sequence can be plentiful because it synthesizes and amplifies well. A trajectory across rounds supplies the before, so what you report is how much each sequence grew. In the published case the ten most abundant sequences were the same in every round and showed no enrichment, while the real hits started rare and climbed by thousands of fold.
+---
+slug: ddpcr_counts_droplets
+difficulty: hard
+topic: Understanding what makes droplet PCR digital
+question: |
+  Why is digital droplet PCR described as digital?
+choices:
+  A: The amplification curve is read digitally rather than on film
+  B: Each droplet scores positive or negative, and droplets are counted
+  C: The instrument reports copy number as a binary representation
+  D: The reaction is cycled digitally without a thermal gradient
+  E: Each droplet is sequenced to determine what it contained
+answer: B
+explanation: |
+  The sample is diluted until most droplets receive either one template or none, so after cycling each droplet is simply yes or no, and the concentration follows from counting how many were positive. That replaces comparing an amplification curve against a standard curve with direct counting. Putting a primer-coated bead in each droplet turns the same partitioning into clonal amplification on beads.
+---
+slug: designing_the_denominator
+difficulty: hard
+topic: Choosing the right denominator for a pooled measurement
+question: |
+  A pooled library of ribosome binding sites is read by counting barcoded transcripts. What must be measured alongside?
+choices:
+  A: The growth rate of the pooled culture during the experiment
+  B: The total number of reads returned by the sequencing run
+  C: The barcode composition of the DNA going into the experiment
+  D: The fluorescence of the pool measured on a plate reader
+  E: The length of each barcode in the designed library
+answer: C
+explanation: |
+  Transcript counts per barcode are meaningless until divided by how much of that construct was present to be transcribed, so the input DNA has to be sequenced as its own sample. That denominator absorbs uneven representation from the cloning and the transformation, leaving a per-construct expression level. Total reads cancel once everything is expressed as frequencies.

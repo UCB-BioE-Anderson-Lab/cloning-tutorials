@@ -311,7 +311,9 @@ function topicAreaLabel(t) {
 function makeState(topics, bank) {
   const topicMap = bySlug(topics);
   const withQ = topicsWithQuestions(topics, bank);
-  const tabs = withQ.slice(0, 16);
+  // Cap exists to keep the tab column sane, not because 16 is meaningful:
+  // the BioE134 bank happened to have exactly 16 topics. The 140L bank has 28.
+  const tabs = withQ.slice(0, 64);
   const firstSlug = tabs[0]?.topic_slug ?? null;
 
   return {
@@ -608,7 +610,7 @@ function runSelfTest(state) {
   console.log("SELFTEST: fetched URLs:");
   for (const u of FETCH_LOG) console.log(u);
 
-  assert(state.tabs.length <= 16, `tabs length is ${state.tabs.length} (>16)`);
+  assert(state.tabs.length <= 64, `tabs length is ${state.tabs.length} (>64)`);
   assert(state.tabs.length > 0, "no topics with questions available for tabs");
 
   const slug = state.tabs[0].topic_slug;

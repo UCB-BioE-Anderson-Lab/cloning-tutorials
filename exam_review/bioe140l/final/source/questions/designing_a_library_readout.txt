@@ -1,0 +1,150 @@
+---
+slug: what_must_be_on_the_molecule
+difficulty: easy
+topic: Listing what a molecule needs to be read on an instrument
+question: |
+  What must be present on a molecule before it can be read in a pooled Illumina experiment?
+choices:
+  A: A barcode and a selectable marker for the host strain
+  B: An origin of replication and a promoter for the insert
+  C: A polyadenylation signal at the 3' end of the construct
+  D: A restriction site flanking each end of the variable region
+  E: The adapters and primer binding sites the instrument needs
+answer: E
+explanation: |
+  The flow cell binds molecules through defined adapter sequences and the sequencing primers anneal to fixed sites inside them, so a fragment without that architecture is simply not read. Markers, origins and promoters matter for propagating and expressing the library in cells, and restriction sites are a construction convenience rather than an instrument requirement.
+---
+slug: informative_region_inside_the_read
+difficulty: easy
+topic: Checking that the informative region falls within the read
+question: |
+  Your variable region sits 400 bases from the sequencing primer and the run gives 150 base reads. What happens?
+choices:
+  A: The read covers the region at reduced accuracy near its end
+  B: The instrument extends the read automatically to reach it
+  C: The read stops well short, so the region is never seen
+  D: The paired read from the other end compensates for the gap
+  E: The region is recovered by assembling overlapping reads
+answer: C
+explanation: |
+  Reading begins at the primer site and runs for as many cycles as the run was configured for, so anything beyond that distance is never visited. The layout has to put the informative region within the read length of a priming site, which is a design decision made before the library is built rather than something recoverable afterward. Paired ends read inward from the other adapter and do not bridge an arbitrary gap.
+---
+slug: barcode_needed_when_variants_identical
+difficulty: medium
+topic: Knowing when a barcode is necessary
+question: |
+  In which case must the construct carry a barcode rather than being identified by its own sequence?
+choices:
+  A: When the variants differ only in a region outside the read
+  B: When the variants differ by single substitutions across a gene
+  C: When the library contains more members than can be transformed
+  D: When the readout is fluorescence rather than sequencing
+  E: When the variants are all of exactly the same length
+answer: A
+explanation: |
+  If what distinguishes the variants cannot be reached by the read, nothing about the molecule you sequence identifies it, so a tag has to be placed where the read can see it and associated with the variant once, by long reads or by clone-by-clone sequencing. Variants differing within the read can be told apart directly, and being the same length is a convenience rather than a reason.
+---
+slug: associating_barcode_with_variant
+difficulty: medium
+topic: Linking a barcode to the variant it labels
+question: |
+  You have barcoded a library of gene-length variants. How is each barcode associated with the variant it tags?
+choices:
+  A: By the order in which the barcodes were synthesized
+  B: By sequencing barcode and variant together on long reads
+  C: By the position of the barcode within the construct
+  D: By counting how often each barcode appears in the pool
+  E: By designing each barcode to encode its variant's sequence
+answer: B
+explanation: |
+  A barcode means nothing until you know what it labels, and establishing that requires reading the tag and the variant on the same molecule, which is a long-read job done once for the library. After that the cheap short-read counting runs can read barcodes alone. Counting frequencies measures abundance rather than identity, and a fifteen-base tag cannot encode a gene.
+---
+slug: amplification_bias_from_length
+difficulty: medium
+topic: Recognizing amplification bias in a pooled readout
+question: |
+  Why does amplifying variants that differ in length distort the counts?
+choices:
+  A: Because longer products carry more polymerase errors per molecule
+  B: Because length changes which adapters can ligate to the ends
+  C: Because longer products bind the flow cell more readily
+  D: Because shorter products are lost during the cleanup steps
+  E: Because shorter products amplify more efficiently in the same reaction
+answer: E
+explanation: |
+  In a shared reaction the shorter template finishes extension sooner and competes better cycle after cycle, so its share of the product grows relative to the longer one regardless of how abundant each was to begin with. The counts then report amplification rather than composition, which is why the readout is designed so that every amplicon is the same length.
+---
+slug: judging_a_proposed_readout
+difficulty: hard
+topic: Judging whether a proposed library can be decoded
+question: |
+  A proposal barcodes a promoter library but places the barcode on the plasmid outside the transcript. Can expression be read?
+choices:
+  A: Yes, since the barcode still identifies the construct in the DNA
+  B: Yes, provided the plasmid is sequenced alongside the messages
+  C: No, since the barcode must appear in the message to be counted
+  D: No, since barcodes cannot be placed outside a coding sequence
+  E: Yes, if the barcode is read by long-read sequencing instead
+answer: C
+explanation: |
+  The readout counts messages, so the tag has to be transcribed along with the reporter in order to appear in the pool you sequence. A barcode present only in the plasmid identifies constructs in the DNA sample, which is the denominator, and leaves the numerator with nothing to count. Placing the barcode in the transcribed region, downstream of the reporter, is the fix.
+---
+slug: readout_for_a_structural_measurement
+difficulty: hard
+topic: Designing a readout that records positions
+question: |
+  A probing experiment must record, for each molecule, where reverse transcription stopped. What makes that countable?
+choices:
+  A: A barcode identifying which RNA each cDNA came from
+  B: A long read spanning the whole of every RNA in the pool
+  C: An adapter ligated to the cDNA 3' end, fixing the stop position
+  D: A fluorescent label on the reverse transcription primer
+  E: A restriction digest that cuts at every stop position
+answer: C
+explanation: |
+  The information is in where the enzyme fell off, so the end created by that event has to be captured and turned into something a sequencer can locate. Ligating an adapter to the new 3' end makes every truncated product amplifiable and puts the stop position at a defined distance from a priming site, so counting reads by length reports the distribution of stops.
+---
+slug: depth_needed_per_member
+difficulty: hard
+topic: Reasoning about reads required per library member
+question: |
+  A library has 10^5 members and you want about 100 reads each. Which expression gives the reads needed?
+choices:
+  A: 10^5 x 100, the members times the reads wanted each
+  B: 10^5 / 100, the members divided by the depth wanted
+  C: 100^5, the depth raised to the member count
+  D: 10^5 + 100, the members plus the depth wanted
+  E: 4^15, the number of barcodes the library requires
+answer: A
+explanation: |
+  Depth per member times the number of members gives the total observations required, so a hundred reads each across a hundred thousand members needs about ten million reads, which is comfortably within one short-read run. Doing the arithmetic before the run is what tells you whether the experiment fits on the instrument and how much of a run to buy.
+---
+slug: uneven_representation_and_depth
+difficulty: hard
+topic: Accounting for uneven representation when choosing depth
+question: |
+  Your library is known to be skewed, with some members tenfold rarer than the mean. How does that affect the sequencing depth?
+choices:
+  A: It does not, since depth is set by the member count alone
+  B: It lowers the requirement, since fewer members are present
+  C: It makes the experiment impossible to interpret at any depth
+  D: It raises it only if the skew lies within the barcode region
+  E: It raises it, since the rarest members set the depth needed
+answer: E
+explanation: |
+  Average depth is not what limits the result; the members you are most likely to miss or to count badly are the rare ones, so the run has to be deep enough that even those receive enough reads to be measured. This is the same reasoning as coverage in library construction, where uniform sampling is assumed and skew forces you to sample deeper.
+---
+slug: order_of_design_decisions
+difficulty: hard
+topic: Sequencing the design decisions for a pooled readout
+question: |
+  In what order should a pooled characterization be designed?
+choices:
+  A: Build the library, then choose a platform that can read it
+  B: Choose the platform, then design the layout the question needs
+  C: Decide what must be read together, then pick platform, then layout
+  D: Design the layout first, then decide what the question requires
+  E: Sequence a pilot pool, then decide what the readout should be
+answer: C
+explanation: |
+  The question dictates what has to stay on one molecule and what merely has to be counted, which decides the platform, which in turn fixes the read length and so the layout of adapters, barcode and informative region. Building first and shopping for an instrument afterward is how libraries end up undecodable, since no run can recover linkage the construct never preserved.

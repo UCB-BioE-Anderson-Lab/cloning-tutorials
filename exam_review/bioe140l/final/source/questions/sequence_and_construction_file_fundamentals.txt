@@ -1,0 +1,150 @@
+---
+slug: reverse_complement_orientation
+difficulty: easy
+topic: Writing a reverse complement in the correct orientation
+question: |
+  What is the reverse complement of 5'-GGACTT-3'?
+choices:
+  A: 5'-AAGTCC-3'
+  B: 5'-CCTGAA-3'
+  C: 3'-GGACTT-5'
+  D: 5'-TTCAGG-3'
+  E: 5'-GGACTT-3'
+answer: A
+explanation: |
+  Complement each base and then reverse the order, or equivalently read the complement from the other end, and write the result conventionally with the 5' end on the left. Taking the complement without reversing gives CCTGAA, reversing without complementing gives TTCAGG, and simply relabeling the ends leaves the original sequence described from the other direction rather than its partner strand.
+---
+slug: what_an_oligo_3_prime_does
+difficulty: easy
+topic: Understanding which part of an oligo anneals
+question: |
+  In a PCR oligo carrying a 5' tail, which part determines where it binds the template?
+choices:
+  A: The 3' region, which matches the template sequence
+  B: The 5' tail, which is read first by the polymerase
+  C: The whole oligo, since all of it must match to anneal
+  D: The middle, where any degenerate bases are placed
+  E: Whichever region has the higher melting temperature
+answer: A
+explanation: |
+  The 3' end is where extension begins and it is the region matched to the template, so that is what sets the priming site. The 5' tail carries whatever you are adding, such as a restriction site or degenerate bases, and need not match anything, which is exactly why it is possible to add sequence that was not in the template at all.
+---
+slug: lowercase_convention
+difficulty: medium
+topic: Reading the case convention in a construction file
+question: |
+  In these construction files, what does a lowercase run inside an oligo sequence indicate?
+choices:
+  A: Sequence added by the oligo rather than copied from the template
+  B: Sequence that is degenerate at one or more positions
+  C: Sequence that will be removed during the restriction digest
+  D: Sequence that anneals to the template during the reaction
+  E: Sequence that encodes the protein's active site residues
+answer: A
+explanation: |
+  The case is a reading aid marking which bases the oligo contributes and which ones correspond to the template, which makes it easy to see at a glance where a site or a tag is being introduced. Whether that added sequence survives the digest depends on where it sits relative to the recognition site, and degenerate positions are marked by their own letters.
+---
+slug: why_a_flank_before_a_site
+difficulty: medium
+topic: Explaining the short flank outside a restriction site
+question: |
+  Why does an oligo carry a few extra bases 5' of the restriction site in its tail?
+choices:
+  A: To raise the melting temperature of the whole oligo
+  B: Because enzymes cut poorly at the very end of a fragment
+  C: To keep the product in frame with the downstream gene
+  D: To provide a second site in case the first fails to cut
+  E: To mark where the degenerate region begins in the design
+answer: B
+explanation: |
+  Most restriction enzymes need some duplex on both sides of their recognition sequence to bind and cut efficiently, so a site sitting flush with the end of a PCR product is cut badly or not at all. A short flank solves that, and it is discarded along with the end of the fragment when the digest runs, which is why nothing functional should be placed there.
+---
+slug: reading_a_construction_file
+difficulty: medium
+topic: Reading a construction file as named operations
+question: |
+  A construction file lists PCR, Digest, Digest, Ligate and Transform, each with a named product. What do the names accomplish?
+choices:
+  A: They record which enzyme was used at each separate step
+  B: They let each operation refer to the output of an earlier one
+  C: They indicate the order in which the steps must be performed
+  D: They identify which products must be sequence verified
+  E: They specify the volume of each reaction to be set up
+answer: B
+explanation: |
+  Naming the product of each step turns the file into a graph rather than a list: a digest takes the PCR's product by name, the ligation takes both digests' products, and the whole thing can be simulated because every input is defined. Order is implied by those dependencies rather than by the sequence of lines, and enzymes and volumes are recorded in the step's own parameters.
+---
+slug: identifying_a_site_in_an_oligo
+difficulty: medium
+topic: Finding a restriction site within an oligo
+question: |
+  An oligo reads CAGTTgaattcGGTNDWCCAatgaccgcattgcg. Which run is the EcoRI site?
+choices:
+  A: CAGTT, the five bases at the 5' end of the oligo
+  B: gaattc, the lowercase run following the short flank
+  C: GGTNDWCCA, the run containing the degenerate bases
+  D: atgaccgcattgcg, the region matching the template
+  E: TNDW, the degenerate positions taken by themselves
+answer: B
+explanation: |
+  EcoRI recognizes GAATTC, which appears here as the lowercase run just inside the short flank, placing it where the enzyme can cut with a few bases on either side. The leading CAGTT is that flank, the degenerate stretch is the library region, and the lowercase-to-uppercase transition near the end marks where the oligo begins matching the template.
+---
+slug: degenerate_position_in_an_oligo
+difficulty: hard
+topic: Locating and counting degenerate positions
+question: |
+  In the stretch GGTNDWCCA, which expression gives the number of distinct sequences it represents?
+choices:
+  A: 4 x 3 x 2, for the N, D and W positions
+  B: 4 + 3 + 2, summing the options at those positions
+  C: 9^3, the length raised to the number of codes
+  D: 3^9, three options at each of nine positions
+  E: 4 x 3 x 2 x 9, including the fixed bases as well
+answer: A
+explanation: |
+  Only three positions vary, with N standing for four bases, D for three and W for two, so the diversity is their product and the fixed bases contribute a factor of one each. Adding gives the number of choices rather than combinations, including the fixed positions multiplies by nine for no reason, and the two exponential forms invert bases and positions.
+---
+slug: orientation_of_a_reverse_oligo
+difficulty: hard
+topic: Reasoning about how a reverse oligo is written
+question: |
+  A reverse oligo is listed as CCATAgaattcTTATATTGACAGCGCACAGAG. How does its 3' region relate to the published top strand?
+choices:
+  A: It matches the top strand exactly over that region
+  B: It is the reverse complement of the top strand there
+  C: It is the complement of the top strand without reversal
+  D: It matches the top strand read in the 3' to 5' direction
+  E: It is unrelated, since reverse oligos carry only tails
+answer: B
+explanation: |
+  A reverse oligo primes on the top strand and extends back along it, so the sequence written in the file, read conventionally 5' to 3', is the reverse complement of the top strand across its annealing region. Expecting it to match the top strand is the usual confusion, and it is why a reverse oligo looks unfamiliar when compared directly against the published sequence.
+---
+slug: tracing_a_product_through_a_digest
+difficulty: hard
+topic: Following what survives a digest
+question: |
+  A PCR product carries a flank, then a BamHI site, then a degenerate region, then template-matching sequence. After digestion with BamHI, what remains in the insert?
+choices:
+  A: The flank and the site, with the degenerate region removed
+  B: Only the template-matching region, with the tail removed
+  C: The degenerate region and the sequence inward of it
+  D: The whole product, since digestion removes nothing
+  E: The flank only, released as a short separate fragment
+answer: C
+explanation: |
+  The enzyme cuts within its recognition sequence, so everything outside the site, meaning the short flank, is released as a tiny fragment and discarded, while everything inward of the cut stays with the insert. That is why the degenerate region must sit between the site and the annealing region: placed outside the site, it would leave with the flank and the library would be lost.
+---
+slug: why_write_a_construction_file
+difficulty: hard
+topic: Explaining the purpose of writing the construction down
+question: |
+  Why record a cloning plan as a construction file rather than as prose in a notebook?
+choices:
+  A: Because prose descriptions cannot record oligo sequences
+  B: Because it can be simulated and executed exactly as written
+  C: Because journals require this format for published methods
+  D: Because it removes the need to sequence verify the product
+  E: Because it guarantees the resulting construct will function
+answer: B
+explanation: |
+  A file with explicit operations, named products and the actual sequences is something a program can apply, which both predicts the product and catches a plan that does not do what its author thought. It is also unambiguous for whoever repeats it. Prose can contain the same sequences while leaving the operations open to interpretation, and no plan removes the need to verify the clone.

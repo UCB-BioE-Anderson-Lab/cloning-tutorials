@@ -1,0 +1,150 @@
+---
+slug: purpose_of_prototyping
+difficulty: easy
+topic: Identifying the purpose of an early design
+question: |
+  Your first version of a circuit is built and its output is weaker than hoped. What was the point of building it?
+choices:
+  A: To confirm that the final design meets its specification
+  B: To learn how the system behaves so the next design is better
+  C: To compare titers across chassis strains under fermentation
+  D: To verify that the DNA matches the design file exactly
+  E: To minimize the metabolic burden the host must carry
+answer: B
+explanation: |
+  A prototype is built under uncertainty to find out how the system responds, so a weak output is information rather than a failure. The specification is what later rounds chase. Sequence verification is a step within the build rather than the reason for it, and comparing chassis and tuning burden are production-phase concerns that come much later.
+---
+slug: prototype_versus_optimize
+difficulty: easy
+topic: Distinguishing the two modes
+question: |
+  What distinguishes optimization from prototyping in the design-build-test-learn cycle?
+choices:
+  A: Optimization starts from the current best and edits it narrowly
+  B: Optimization uses a larger library than prototyping does
+  C: Optimization is done in cells and prototyping in extract
+  D: Optimization requires automation and prototyping does not
+  E: Optimization happens before the first design is built
+answer: A
+explanation: |
+  Prototyping builds a plausible design from scratch to see what happens, while optimization takes the construct that currently works best and makes focused changes to it, measuring each one against the last. The distinction is in where the design comes from and how far it moves, not in the format, the scale or the equipment used.
+---
+slug: why_part_boundaries_matter
+difficulty: medium
+topic: Explaining why part boundaries are designed in advance
+question: |
+  Why is it worth defining clean part boundaries and editable junctions in a first construct?
+choices:
+  A: Because they raise the expression level of the assembled circuit
+  B: Because they reduce the number of transformants needed
+  C: Because boundaries are required for the construct to be simulated
+  D: Because later optimization means swapping parts one at a time
+  E: Because they prevent recombination between repeated sequences
+answer: D
+explanation: |
+  Optimization proceeds by changing one element and measuring, which is cheap if the promoter or the ribosome binding site can be exchanged on its own and expensive if the construct has to be rebuilt each time. Designing those seams in before you know which part you will want to change is what makes the later rounds fast, and it costs nothing at the first build.
+---
+slug: what_the_test_phase_returns
+difficulty: medium
+topic: Knowing what each phase of the cycle contributes
+question: |
+  In the design-build-test-learn cycle, what does the learn phase contribute?
+choices:
+  A: The assembled construct, ready to be assayed in the host
+  B: The measurements of how the construct actually performed
+  C: The specification the finished system has to satisfy
+  D: The verification that the construct matches its design
+  E: A revised understanding that changes the next design
+answer: E
+explanation: |
+  Measurement is the test phase; learning is what you do with it, which is to revise your picture of the system so that the next design differs for a reason. A cycle that measures and then builds the next version without that step is iterating rather than learning, and tends to wander. The construct and its verification belong to the build.
+---
+slug: prototype_in_the_wrong_mode
+difficulty: medium
+topic: Recognizing an early design judged by the wrong standard
+question: |
+  A reviewer rejects a first-round circuit because its output falls short of the production target. What is wrong with that judgment?
+choices:
+  A: Nothing, since a design that misses its target has failed
+  B: The target cannot be assessed without fermentation data
+  C: A first design is built to be informative, not to hit a target
+  D: The output should be normalized before it is compared
+  E: Production targets apply only to pathways, not to circuits
+answer: C
+explanation: |
+  Holding a prototype to a production specification mistakes which phase the work is in. The question to ask of a first design is whether it behaves understandably and tells you what to change, and a circuit that is weak but responds as predicted is a good prototype. Normalization matters for comparing measurements but is not what makes the judgment wrong.
+---
+slug: when_to_stop_prototyping
+difficulty: hard
+topic: Knowing when to move from prototyping to optimization
+question: |
+  What indicates that a project should move from prototyping into optimization?
+choices:
+  A: The first construct has been sequence verified successfully
+  B: Automation has been set up for the construction workflow
+  C: The available library size has been fully screened through
+  D: A design behaves predictably and the limiting step is identified
+  E: The output has reached the production specification already
+answer: D
+explanation: |
+  Optimization is focused editing, and it pays only once you know what to edit, which means the system behaves in a way you can anticipate and you can say which step is holding the output back. Before that, further focused edits are guesses. Reaching the specification would mean the work is finished rather than entering a new phase.
+---
+slug: vector_editing_for_later_rounds
+difficulty: hard
+topic: Reasoning about designing for later edits
+question: |
+  Why design a vector so that a promoter can be replaced without rebuilding the whole construct?
+choices:
+  A: Because promoters are the only part worth varying later
+  B: Because the vector will otherwise recombine during growth
+  C: Because each optimization round then costs one cloning step
+  D: Because replacing a promoter requires unique flanking sites
+  E: Because the construct cannot otherwise be sequence verified
+answer: C
+explanation: |
+  The economics of optimization are set by what each iteration costs, and a construct whose promoter sits between usable unique sites can be retuned with a single digest and ligation rather than a fresh assembly. Promoters are not the only part worth varying, which is an argument for designing several such seams rather than for ignoring them.
+---
+slug: learning_from_a_failed_prototype
+difficulty: hard
+topic: Extracting information from a design that did not work
+question: |
+  A prototype produces no detectable output at all. What is the most useful next step?
+choices:
+  A: Rebuild the same design and assay it a second time
+  B: Move directly to optimizing the strongest available promoter
+  C: Abandon the architecture and design a different circuit
+  D: Test the parts separately to find which step is failing
+  E: Raise the plasmid copy number and reassay the construct
+answer: D
+explanation: |
+  A null result does not say where the fault lies, so the informative move is to decompose it: confirm that the reporter can be seen at all, that the promoter fires, and that each part behaves as a part before asking the assembly to work. Rebuilding unchanged tests reproducibility rather than cause, and tuning or abandoning the design commits before you know what is broken.
+---
+slug: cell_free_in_the_prototyping_phase
+difficulty: hard
+topic: Placing cell-free work within the cycle
+question: |
+  Why does cell-free expression sit naturally in the prototyping phase rather than in optimization?
+choices:
+  A: Because extracts give higher output than living cells do
+  B: Because it tests parts quickly, without the context they will face
+  C: Because optimization requires linkage that extracts cannot provide
+  D: Because extracts cannot express more than one gene at a time
+  E: Because prototypes are always built from linear DNA templates
+answer: B
+explanation: |
+  Prototyping asks whether the parts do roughly what you think, and an extract answers that in hours from a PCR product, stripped of growth and native regulation. Optimization is about performance in the context the system will actually run in, so it has to be done there. Extracts do not outperform cells on yield and are not limited to a single gene.
+---
+slug: iteration_cost_drives_design
+difficulty: hard
+topic: Reasoning about what sets the pace of the cycle
+question: |
+  What most directly determines how many design-build-test-learn rounds a project can run?
+choices:
+  A: The theoretical diversity of the libraries being constructed
+  B: The sequencing platform chosen for verifying each construct
+  C: The number of parts in the registry available for use
+  D: The time and cost of completing one full turn of the cycle
+  E: The transformation efficiency of the chosen host strain
+answer: D
+explanation: |
+  Rounds are the currency of this kind of work, and how many you get is set by how long and how much one of them takes, which is why so much effort goes into shortening the build and test steps through cloning strategy, automation and cell-free triage. Library diversity, part availability and transformation efficiency bear on individual steps rather than on the pace of the loop.

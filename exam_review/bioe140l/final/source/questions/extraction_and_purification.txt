@@ -1,0 +1,150 @@
+---
+slug: the_two_step_shape
+difficulty: easy
+topic: Recognizing the shape of an in vitro assay
+question: |
+  Every in vitro assay in this course has the same two steps. What are they?
+choices:
+  A: Grow the culture to saturation, then read the optical density
+  B: Purify the component of interest, then observe what you purified
+  C: Lyse the cells, then transform the lysate into a fresh host
+  D: Label the component, then follow it inside the living cell
+  E: Sequence the construct, then confirm it matches the design
+answer: B
+explanation: |
+  First you separate the thing you care about from everything else, which destroys the cells and is why these are called in vitro assays, and then you look at its activity, its structure, or simply how much of it there is. The first half of the problem is the purifying and the second half is the looking, and nearly every method in the lecture is one or the other.
+---
+slug: methanol_extraction_selects_small_molecules
+difficulty: easy
+topic: Knowing what a methanol extraction recovers
+question: |
+  You add methanol to a cell pellet to recover a small-molecule product. What does the methanol do to the rest of the cell?
+choices:
+  A: It denatures the membranes while keeping proteins soluble
+  B: It solubilizes nucleic acids and leaves the proteins intact
+  C: It precipitates protein and nucleic acid, which stay behind
+  D: It digests the cell wall so the contents can be decanted
+  E: It converts the product to a more volatile derivative
+answer: C
+explanation: |
+  An organic solvent that dissolves small molecules will not keep large charged polymers in solution, so protein and nucleic acid crash out and the metabolites come away in the supernatant. That is what makes it a selective first step rather than a general lysis. Acetone, chloroform-methanol and the Bligh-Dyer method work on the same principle for different classes of compound.
+---
+slug: sonication_versus_alkaline_lysis
+difficulty: medium
+topic: Choosing a lysis method for the component wanted
+question: |
+  You need active enzyme from a cell pellet. Why is sonication appropriate and alkaline lysis not?
+choices:
+  A: Alkaline lysis denatures protein, while sonication breaks cells open
+  B: Alkaline lysis cannot break the cell wall of E. coli at all
+  C: Sonication is gentler on small molecules than alkali is
+  D: Alkaline lysis requires a French press to complete the lysis
+  E: Sonication selectively releases cytoplasmic over periplasmic protein
+answer: A
+explanation: |
+  Alkaline lysis is a denaturing method, which is exactly what you want when the thing you are recovering is plasmid DNA and the protein is in the way, and exactly what you must avoid when the protein is the product. Sonication, osmotic shock, freeze-thaw, lysozyme, detergent, bead milling and the French press all break cells without destroying what is inside.
+---
+slug: anion_exchange_separates_on_charge
+difficulty: medium
+topic: Knowing what an ion exchange column separates on
+question: |
+  A column is packed with beads carrying amino groups. Which species are retained longest?
+choices:
+  A: The largest species, since they cannot enter the bead pores
+  B: The most hydrophobic species, which partition into the resin
+  C: The smallest species, which penetrate furthest into the beads
+  D: Whichever species carries an affinity tag for those groups
+  E: The negatively charged species, attracted to the positive support
+answer: E
+explanation: |
+  Amino groups make the support positively charged, so negatively charged molecules are impeded and elute later, which is anion exchange; putting carboxylates on the beads gives the cation exchange counterpart. If retention is strong enough the separation becomes effectively all-or-nothing, so the column can be washed extensively and the product comes off very clean. Size and hydrophobicity are what other column chemistries exploit.
+---
+slug: size_exclusion_elution_order
+difficulty: medium
+topic: Reasoning about size exclusion elution order
+question: |
+  In size exclusion chromatography, why do larger molecules come off the column earlier?
+choices:
+  A: Because larger molecules diffuse faster through the mobile phase
+  B: Because the beads bind small molecules through weak interactions
+  C: Because larger molecules carry more charge and are repelled
+  D: Because larger molecules reach less of the porous bead interior
+  E: Because smaller molecules are retained by the frit at the outlet
+answer: D
+explanation: |
+  The stationary phase is a bead riddled with pores, and the smaller a molecule is the more of that interior volume it can wander into, so it takes a longer path and elutes later. Large molecules are excluded from the pores and travel more or less straight through. Nothing is binding anything here, which is what makes the method so gentle and why the elution order maps onto size.
+---
+slug: affinity_ligand_pairs
+difficulty: medium
+topic: Matching an affinity ligand to its binding partner
+question: |
+  Which pairing of immobilized ligand and captured partner is used in affinity chromatography?
+choices:
+  A: Glutathione on the resin, capturing glutathione S-transferase fusions
+  B: Streptavidin on the resin, capturing histidine-tagged proteins
+  C: Nickel on the resin, capturing chitin binding domain fusions
+  D: Lectin on the resin, capturing single-stranded nucleic acids
+  E: Cellulose on the resin, capturing glutathione S-transferase fusions
+answer: A
+explanation: |
+  Each affinity system pairs a ligand with the domain that binds it: glutathione with GST, chitin with the chitin binding domain, cellulose with the cellulose binding domain, lectins with carbohydrates, and antibodies with their epitopes. The remaining options cross those pairs, matching a resin with a tag that does not bind it, which would wash the target straight through.
+---
+slug: how_an_affinity_column_is_eluted
+difficulty: hard
+topic: Understanding how a bound target is released
+question: |
+  Your tagged protein is bound to an affinity resin and the contaminants are washed away. How is it released?
+choices:
+  A: By raising the ionic strength until the protein precipitates
+  B: By digesting the resin with a protease specific to the support
+  C: By running the column backward to reverse the flow direction
+  D: By adding free ligand to compete it off, or by shifting the pH
+  E: By heating the column until the interaction becomes unstable
+answer: D
+explanation: |
+  The target is held by a specific interaction, so the way to let go of it is to compete for the same interaction, usually by flooding the column with the soluble ligand, or to weaken it with a change in pH. That is also why the method cleans so well: everything that was not bound has already been washed through, and the elution is specific to the thing that was.
+---
+slug: reading_oligomeric_state
+difficulty: hard
+topic: Inferring oligomeric state from an elution volume
+question: |
+  A purified 30 kDa protein elutes from a sizing column where a 90 kDa standard elutes. What does that suggest?
+choices:
+  A: The protein is a trimer in solution under these conditions
+  B: The protein has been proteolyzed into smaller fragments
+  C: The column was overloaded, shifting the elution earlier
+  D: The protein carries a charge that excludes it from the beads
+  E: The protein is a monomer that is unusually tightly folded
+answer: A
+explanation: |
+  A sizing column separates on hydrodynamic size, so a protein running at three times its subunit mass is behaving as a particle three times that size, which for a 30 kDa subunit means three copies traveling together. Proteolysis would move it later rather than earlier, a tightly folded monomer runs at or below its mass, and charge is not what this chemistry responds to.
+---
+slug: choosing_purification_from_the_property
+difficulty: hard
+topic: Choosing a purification from the property exploited
+question: |
+  You must separate your untagged protein from a contaminant of identical mass but opposite net charge. Which method works?
+choices:
+  A: Ion exchange, which retains them differently by their charge
+  B: Size exclusion, which resolves them by hydrodynamic radius
+  C: Methanol extraction, which precipitates one but not the other
+  D: Affinity chromatography on a nickel-charged resin column
+  E: Solid-phase extraction, which separates them by volatility
+answer: A
+explanation: |
+  Every purification exploits some property in which the target and the contaminant differ, so the method follows from where the difference lies. Identical mass makes a sizing column useless, and with no tag there is nothing for an affinity resin to grip, while opposite net charge is precisely what an exchange column reads. Methanol would precipitate both proteins together.
+---
+slug: order_of_purification_steps
+difficulty: hard
+topic: Reasoning about the order of purification steps
+question: |
+  Why is an affinity capture usually run before a sizing column rather than after it?
+choices:
+  A: Because sizing columns cannot be loaded with crude cell lysate
+  B: Because affinity resins are destroyed by concentrated samples
+  C: Because capture from lysate removes most contaminants in one step
+  D: Because sizing columns separate better at higher ionic strength
+  E: Because the affinity tag must be removed before sizing is possible
+answer: C
+explanation: |
+  An affinity step takes a complex lysate down to nearly pure target in a single pass, which is an enormous reduction in complexity for very little work, so it belongs first. A sizing column is low in capacity and resolves only by size, which makes it a good polishing step on an already simple sample and a poor way to attack a lysate. The tag need not be removed for either step.

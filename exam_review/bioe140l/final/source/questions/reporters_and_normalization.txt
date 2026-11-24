@@ -1,0 +1,150 @@
+---
+slug: what_cytometry_measures
+difficulty: easy
+topic: Identifying what a cytometer reports
+question: |
+  What does a flow cytometer report for each cell that passes the laser?
+choices:
+  A: Forward scatter, side scatter and one or more fluorescence signals
+  B: The total fluorescence of the culture divided by its optical density
+  C: A timelapse of that cell's fluorescence over several generations
+  D: The subcellular location of the fluorescent protein in that cell
+  E: The absorbance of the cell at six hundred nanometers
+answer: A
+explanation: |
+  Cells pass the beam one at a time, so each one gives scatter in the forward and side directions plus whatever fluorescence channels the instrument carries. A culture-level ratio is what a fluorimeter and an OD reading give, a timelapse and subcellular detail require microscopy, and absorbance at six hundred nanometers is a bulk density measurement rather than anything recorded per cell.
+---
+slug: facs_is_not_cytometry
+difficulty: easy
+topic: Distinguishing analytical cytometry from sorting
+question: |
+  How does FACS differ from ordinary analytical flow cytometry?
+choices:
+  A: FACS measures scatter while cytometry measures only fluorescence
+  B: FACS works on bacteria while cytometry works only on mammalian cells
+  C: FACS requires a fluorogenic substrate rather than a fluorescent protein
+  D: FACS reports a population average instead of single-cell values
+  E: FACS recovers the cell population you want, rather than just reading it
+answer: E
+explanation: |
+  Both instruments read the same per-cell signals; the difference is that sorting physically diverts the cells you selected into a tube so you can grow them, which is what makes it an enrichment step rather than a measurement. Both are used mainly on mammalian cells and both work on bacteria and yeast with care, and neither is restricted to a particular kind of reporter.
+---
+slug: when_microscopy_rather_than_cytometry
+difficulty: medium
+topic: Choosing between microscopy and cytometry
+question: |
+  You need to follow fluorescence in the same cells over several divisions. Which instrument does that, and why?
+choices:
+  A: Cytometry, since it gives precise per-cell values quickly
+  B: A fluorimeter, since it follows a culture continuously over time
+  C: A plate reader, since it can read the same well repeatedly
+  D: Microscopy, since cytometry gives one timepoint per cell only
+  E: Either instrument, since both track individual cells over time
+answer: D
+explanation: |
+  A cytometer destroys the arrangement it measures: a cell passes the laser once and is gone, so you get a single timepoint per cell. Cells immobilized on an agar pad can be imaged repeatedly, which is what allows timelapse, lineage tracking and correlation of morphology with signal, at the cost of throughput and precision. Culture-level instruments cannot resolve individual cells at all.
+---
+slug: why_normalize_for_optical_density
+difficulty: medium
+topic: Understanding OD normalization
+question: |
+  Two cultures of the same strain are read on a fluorimeter, one twice as concentrated as the other. Why must the signal be divided by OD?
+choices:
+  A: Because autofluorescence from tryptophan scales with the signal
+  B: Because fluorescence scales with concentration, not brightness per cell
+  C: Because the excitation and emission wavelengths differ in the two samples
+  D: Because optical density is measured at a longer wavelength than emission
+  E: Because the fluorimeter cannot read absorbance and fluorescence together
+answer: B
+explanation: |
+  Fluorescence from a bulk sample is linear in how many cells are in the beam, so the denser culture gives roughly twice the signal from cells that are no brighter at all. Dividing by optical density converts the reading into a per-cell quantity, which is the comparison you meant to make. Autofluorescence is a separate background problem, and a fluorimeter does read absorbance as well.
+---
+slug: reading_a_normalized_pair
+difficulty: medium
+topic: Reading a normalized measurement
+question: |
+  Sample one reads 0.86 fluorescence at OD 0.44 and sample two reads 0.42 at OD 0.22. What do you conclude?
+choices:
+  A: Sample one is about twice as bright per cell as sample two
+  B: Sample two expresses the reporter about twice as strongly per cell
+  C: The two express the reporter at about the same level per cell
+  D: Nothing, since the two optical densities are not identical
+  E: Sample one has about twice the plasmid copy number of sample two
+answer: C
+explanation: |
+  The ratios are 0.86 over 0.44 and 0.42 over 0.22, which come to about 2.0 and 1.9, so the cells are equally bright and the only difference is that one culture is twice as dense. Reading the raw fluorescence instead is exactly the error normalization prevents. Differing optical densities are not an obstacle, since dividing by them is the point, and nothing here speaks to copy number.
+---
+slug: which_measurements_need_od_normalization
+difficulty: medium
+topic: Knowing which readouts require OD normalization
+question: |
+  Which readout requires normalization for optical density, and which does not?
+choices:
+  A: Both fluorimetry and microscopy require optical density normalization
+  B: Neither requires it, provided the signal itself is normalized
+  C: Microscopy requires it; fluorimetry reports per-cell values already
+  D: Fluorimetry requires it; microscopy already resolves single cells
+  E: Only enzymatic reporter assays require it, not fluorescent ones
+answer: D
+explanation: |
+  Ensemble measurements sum over however many cells are present, so a fluorimeter reading has to be divided by density to become a per-cell number. Microscopy and cytometry already resolve individual cells, so there is nothing to divide out, although both still need the signal itself normalized against a standard so that readings taken on different days can be compared.
+---
+slug: enzymatic_reporter_substrates
+difficulty: medium
+topic: Matching enzymatic reporters to their substrates
+question: |
+  Which pairing of reporter gene and readout is correct?
+choices:
+  A: lacZ with nitrocefin, which turns yellow upon hydrolysis
+  B: bla with Xgal, which turns blue when the lactam is opened
+  C: phoA with oNPG, since phosphatases cleave galactosides
+  D: lacZ with Xgal, oNPG or Sgal, giving blue, yellow or black
+  E: bla with Sgal, which turns black when galactose is released
+answer: D
+explanation: |
+  Beta-galactosidase hydrolyzes galactose from its substrate, and the same chemistry is available in several colors: Xgal gives blue, oNPG yellow and Sgal black, with fluorogenic versions for cytometry and microscopy. Replacing the galactose with phosphate gives the corresponding alkaline phosphatase substrates, while beta-lactamase is read with lactam substrates such as nitrocefin and has a narrower set.
+---
+slug: why_enzymatic_reporters_are_sensitive
+difficulty: hard
+topic: Explaining the sensitivity of enzymatic reporters
+question: |
+  Why is an enzymatic reporter often more sensitive than a fluorescent protein?
+choices:
+  A: Because the enzyme is expressed from a stronger promoter
+  B: Because one enzyme converts many substrate molecules over time
+  C: Because enzymes fold faster than fluorescent proteins do
+  D: Because the substrate is consumed stoichiometrically with enzyme
+  E: Because enzymatic readouts need no normalization of signal
+answer: B
+explanation: |
+  A fluorescent protein gives one unit of signal per molecule, while an enzyme keeps turning over substrate for as long as the assay runs, so a small amount of protein builds a large amount of product. That amplification is why these assays are often more precise and sensitive. Stoichiometric consumption would remove the amplification, and the promoter and folding are not what distinguishes the two.
+---
+slug: live_dead_staining_logic
+difficulty: hard
+topic: Reasoning about a two-stain viability assay
+question: |
+  A viability kit pairs propidium iodide with SYTO 9. How does the pair report the dead fraction?
+choices:
+  A: Propidium iodide enters all cells; SYTO 9 enters only dead ones
+  B: Both stains enter all cells, and the dead ones bind more of each
+  C: Propidium iodide enters only cells whose membrane has failed
+  D: SYTO 9 stains the medium, so dead cells appear as dark gaps
+  E: Propidium iodide is enzymatically activated inside living cells
+answer: C
+explanation: |
+  The logic rests on permeability: SYTO 9 crosses intact membranes and so labels the whole population, while propidium iodide is excluded from live cells and enters only those whose membrane has been compromised. Cells carrying both signals are the dead fraction, read per cell by cytometry or microscopy. Reversing the two permeabilities inverts the assay, and no enzymatic activation is involved.
+---
+slug: growth_phase_confounds_a_normalized_assay
+difficulty: hard
+topic: Recognizing growth-phase artifacts in a normalized assay
+question: |
+  Your normalized reporter signal differs between two strains, and one grows more slowly. Why is that comparison treacherous?
+choices:
+  A: Because slower growth lowers the optical density below readable range
+  B: Because normalization is invalid whenever growth rates differ at all
+  C: Because slower cultures autofluoresce more strongly than faster ones
+  D: Because cell size and expression rates both shift with growth phase
+  E: Because fluorescence is not linear in concentration during lag phase
+answer: D
+explanation: |
+  Bacteria are different sizes at different points in growth, and replication, transcription and translation all run at different rates, so two strains sampled at the same optical density may not be in comparable physiological states. The honest fix is to sample at matched growth stages and interpret with care rather than to elaborate the arithmetic. Normalization is still worth doing, and the remaining claims are invented.

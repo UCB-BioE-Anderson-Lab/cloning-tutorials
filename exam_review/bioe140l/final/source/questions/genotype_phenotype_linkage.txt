@@ -96,11 +96,11 @@ question: |
   Why does running a pooled assay inside water-in-oil droplets or liposomes rescue a diffusible product?
 choices:
   A: Because the compartment raises each variant's expression level
-  B: Because each compartment holds one gene and its own product
+  B: Because compartments allow libraries beyond transformation limits
   C: Because compartments remove the need to sequence the hits
   D: Because the compartment shields the DNA from nucleases
-  E: Because compartments allow libraries beyond transformation limits
-answer: B
+  E: Because each compartment holds one gene and its own product
+answer: E
 explanation: |
   A compartment is an artificial cell: it keeps one template and whatever that template produces in the same tiny volume, which restores the association the bulk flask destroyed, and sorting the compartments then sorts the genes. Expression levels and nuclease protection are incidental, hits still have to be sequenced, and escaping transformation limits is a separate benefit of cell-free formats rather than the linkage argument.
 ---
@@ -127,10 +127,10 @@ question: |
 choices:
   A: Because expression cannot be measured in a pooled library
   B: Because expression is readable only by cycle sequencing
-  C: Because abundance and the selected activity are different properties
-  D: Because expression differences are too small to detect by reads
+  C: Because expression differences are too small to detect by reads
+  D: Because abundance and the selected activity are different properties
   E: It would work, given sufficient sequencing depth on the pool
-answer: C
+answer: D
 explanation: |
   Abundance tells you which variants are present in quantity, which may reflect how well they clone, fold, or tolerate being made rather than how well they perform. The lesson is the one the SELEX data makes: the most abundant sequences in a final pool were not the enriched ones. Pooled expression is read by counting reads, and more depth only measures the wrong quantity more precisely.
 ---

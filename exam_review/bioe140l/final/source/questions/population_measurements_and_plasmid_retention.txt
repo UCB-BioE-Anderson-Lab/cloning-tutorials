@@ -1,0 +1,150 @@
+---
+slug: why_plate_without_selection
+difficulty: easy
+topic: Understanding why retention is scored without selection
+question: |
+  To score what fraction of a culture still carries a plasmid, you plate on agar without antibiotic. Why leave the drug out?
+choices:
+  A: Because the antibiotic would interfere with the reporter signal
+  B: Because plasmid-free cells must be able to form colonies too
+  C: Because the drug degrades during the incubation anyway
+  D: Because antibiotic plates give smaller and harder colonies
+  E: Because the plasmid is lost faster in the presence of the drug
+answer: B
+explanation: |
+  The quantity you want is the proportion of the population that has lost the plasmid, so those cells have to survive long enough to be counted. On a selective plate they never form colonies, and every colony you count carries the plasmid by construction, which makes the measured retention one hundred percent whatever the truth is. The drug does not degrade or alter the reporter on this timescale.
+---
+slug: selection_destroys_the_measurement
+difficulty: easy
+topic: Recognizing a measurement that destroys its own population
+question: |
+  A proposal grows the culture in antibiotic throughout and counts fluorescent colonies on selective plates at each timepoint. What is wrong?
+choices:
+  A: Nothing, provided enough timepoints are taken across the growth
+  B: Fluorescence cannot be scored on plates containing antibiotic
+  C: The plasmid-free cells are killed before they can be counted
+  D: Colony counts are too imprecise to estimate a rate of loss
+  E: The antibiotic selects for plasmids with higher copy number
+answer: C
+explanation: |
+  Selection removes the very subpopulation whose appearance you are trying to time, so the surviving population is plasmid-bearing by definition and no rate can be inferred from it. This is the same survivor-bias logic as recovering a library of toxic variants after an overnight outgrowth: the population you measure is the one that survived the measurement.
+---
+slug: ddpcr_needs_a_chromosomal_reference
+difficulty: medium
+topic: Understanding the reference in a digital droplet measurement
+question: |
+  Digital droplet PCR quantifies a plasmid-borne gene against a chromosomal locus. What does the chromosomal target provide?
+choices:
+  A: A positive control showing the PCR reaction worked at all
+  B: A measure of how much DNA was lost during the extraction
+  C: A sequence against which the plasmid primers are designed
+  D: A per-genome denominator, so the result is copies per cell
+  E: A check that the plasmid has not recombined into the genome
+answer: D
+explanation: |
+  Counting plasmid molecules alone tells you how much plasmid was in the tube, which depends on how many cells you extracted and how well the extraction worked. Dividing by a single-copy chromosomal locus converts the count into plasmid copies per genome, which is the quantity that can be compared between timepoints. Extraction losses affect both targets and so divide out, which is part of why the ratio works.
+---
+slug: cytometry_reveals_subpopulations
+difficulty: medium
+topic: Using single-cell distributions to see a subpopulation
+question: |
+  Why does flow cytometry detect a growing plasmid-free fraction that a plate reader misses?
+choices:
+  A: Because it resolves the population into two distinct peaks
+  B: Because cytometry does not require normalization for density
+  C: Because cytometry is more sensitive to dim fluorescence signals
+  D: Because it counts colonies rather than averaging over a culture
+  E: Because plate readers cannot read green fluorescent protein
+answer: A
+explanation: |
+  A culture containing bright and dark cells reads on a plate reader as one intermediate number, indistinguishable from every cell being moderately bright. Cytometry reports a value per cell, so the two groups appear as separate peaks whose relative areas give the fraction directly. Sensitivity is not the issue, and cytometry counts cells rather than colonies.
+---
+slug: three_routes_to_a_retention_rate
+difficulty: medium
+topic: Recognizing valid approaches to measuring retention
+question: |
+  Which combination of methods can each, on its own, give a plasmid-loss rate over time?
+choices:
+  A: Selective plating, bulk fluorescence, and growth rate measurement
+  B: Non-selective plating, single-cell cytometry, and droplet PCR
+  C: Cycle sequencing, colony PCR, and restriction digest of isolates
+  D: Microscopy of a single timepoint, plus a final endpoint plate count
+  E: Optical density over time, plus the doubling time of the host
+answer: B
+explanation: |
+  Each of the three counts the plasmid-bearing share of the population in a different currency: colonies scored for fluorescence on a plate where both kinds can grow, cells scored individually by their fluorescence, and plasmid molecules scored against a chromosomal reference. Selective plating removes the subpopulation of interest, and growth or density measurements describe the culture without resolving who carries what.
+---
+slug: heterogeneity_versus_mean
+difficulty: medium
+topic: Distinguishing heterogeneity from a shifted mean
+question: |
+  Two cultures give the same mean reporter signal, but one is uniform and the other is a mix of bright and dark cells. Which measurement tells them apart?
+choices:
+  A: A fluorimeter reading normalized for optical density
+  B: A growth curve followed through to stationary phase
+  C: An enzymatic reporter assay read on a plate reader
+  D: A single-cell readout such as cytometry or microscopy
+  E: Digital droplet PCR against a chromosomal reference
+answer: D
+explanation: |
+  Any instrument that sums over the sample returns the mean and nothing else, so two populations with the same mean are identical to it by construction. Only a readout that reports per cell can show that one distribution is narrow and the other has two modes. Droplet PCR counts molecules rather than describing how expression is distributed among cells.
+---
+slug: designing_a_retention_time_course
+difficulty: hard
+topic: Designing a time course for plasmid loss
+question: |
+  How should a culture be handled across a retention time course?
+choices:
+  A: Grown without selection and sampled repeatedly as it passages
+  B: Grown with selection and sampled only at the final timepoint
+  C: Grown without selection but sampled once, at stationary phase
+  D: Grown with selection, diluting into fresh drug at each sampling
+  E: Grown without selection and plated only on selective agar
+answer: A
+explanation: |
+  Loss accumulates over generations, so the culture has to be passaged without selection and sampled along the way, which gives the fraction as a function of how many doublings have elapsed. Selection at any stage removes the cells you are counting, a single endpoint gives one fraction and so no rate, and plating on selective agar discards the plasmid-free colonies at the final step.
+---
+slug: what_a_colony_count_ratio_means
+difficulty: hard
+topic: Interpreting fluorescent and non-fluorescent colony counts
+question: |
+  After twenty generations without selection, a non-selective plate shows 180 fluorescent and 20 non-fluorescent colonies. What is the plasmid-free fraction?
+choices:
+  A: 20 / 180, the non-fluorescent against the fluorescent count
+  B: 20 / 20, since only the non-fluorescent colonies are counted
+  C: 180 / 200, the fluorescent share of all the colonies counted
+  D: 20 / 200, the non-fluorescent share of all colonies counted
+  E: 20 / 20 x 180, the counts combined across both classes
+answer: D
+explanation: |
+  A fraction of the population is the count of interest over the total counted, so the plasmid-free share is twenty out of the two hundred colonies on the plate. Dividing by the fluorescent count alone gives an odds ratio rather than a fraction, and the fluorescent share answers the complementary question of how many still carry the plasmid.
+---
+slug: cause_of_heterogeneity
+difficulty: hard
+topic: Distinguishing genetic from non-genetic heterogeneity
+question: |
+  A subpopulation has stopped expressing a pathway. How would you tell a mutation from a regulatory switch?
+choices:
+  A: Repeat the cytometry with a brighter fluorescent reporter
+  B: Sort the dark cells, regrow them, and see whether they stay dark
+  C: Compare the bulk signal against an uninduced control culture
+  D: Follow the optical density of the culture over several passages
+  E: Measure the plasmid copy number by droplet PCR on the culture
+answer: B
+explanation: |
+  A mutation is heritable and a regulatory state usually is not, so isolating the dark cells and letting them grow up distinguishes the two: a population that stays dark has changed its sequence, while one that recovers a mixture was switching. Sequencing the sorted cells settles it outright. Brighter reporters, bulk comparisons and density measurements cannot address heredity at all.
+---
+slug: why_heterogeneity_matters_for_a_pathway
+difficulty: hard
+topic: Reasoning about the consequence of a silent subpopulation
+question: |
+  A tenth of the cells carry out a biosynthesis and the rest do not. Why does that matter beyond the lower titer?
+choices:
+  A: Because the non-producers will outgrow the producers over time
+  B: Because the pathway genes will be lost from the population entirely
+  C: Because the producing cells must be sorted before every assay
+  D: Because bulk assays report the shortfall without revealing its cause
+  E: Because titer cannot be measured at all in a mixed population
+answer: D
+explanation: |
+  The diagnosis is what is at stake. A bulk measurement shows output below expectation, which looks the same as every cell working badly, and those two situations call for opposite fixes: one is a problem of expression in a subpopulation and the other of pathway flux. Non-producers often do grow faster, since they carry less burden, but that is a separate consequence rather than the measurement problem.
