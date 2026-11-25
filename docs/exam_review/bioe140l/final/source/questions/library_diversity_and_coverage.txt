@@ -18,7 +18,12 @@ slug: choosing_a_code_for_a_target_diversity
 difficulty: easy
 topic: Working backward from a target diversity
 question: |
-  You want exactly 16 variants from two degenerate positions. Which pair of codes gives that?
+  Using the degeneracy codes below, you want exactly 16 variants from two degenerate positions. Which pair of codes gives that?
+  <pre>
+  N = A, C, G or T     B = C, G or T     S = G or C     R = A or G
+  V = A, C or G        D = A, G or T     W = A or T     Y = C or T
+  H = A, C or T                          K = G or T     M = A or C
+  </pre>
 choices:
   A: N and N, since 4 x 4 is 16
   B: N and S, since 4 x 2 is 16
@@ -33,7 +38,7 @@ slug: nnk_versus_nnn_codon_choice
 difficulty: easy
 topic: Why NNK is used for saturation mutagenesis
 question: |
-  Why does a saturation oligo usually specify NNK at each codon rather than NNN?
+  Taking N as any base and K as G or T, why does a saturation oligo usually specify NNK at each codon rather than NNN?
 choices:
   A: NNK removes every stop codon from the library
   B: NNK still covers all twenty amino acids but leaves only one stop

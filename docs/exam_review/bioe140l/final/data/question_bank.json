@@ -19,7 +19,7 @@
       "slug": "choosing_a_code_for_a_target_diversity",
       "difficulty": "easy",
       "topic": "Working backward from a target diversity",
-      "question": "You want exactly 16 variants from two degenerate positions. Which pair of codes gives that?\n",
+      "question": "Using the degeneracy codes below, you want exactly 16 variants from two degenerate positions. Which pair of codes gives that?\n<pre>\nN = A, C, G or T     B = C, G or T     S = G or C     R = A or G\nV = A, C or G        D = A, G or T     W = A or T     Y = C or T\nH = A, C or T                          K = G or T     M = A or C\n</pre>\n",
       "choices": {
         "A": "N and N, since 4 x 4 is 16",
         "B": "N and S, since 4 x 2 is 16",
@@ -34,7 +34,7 @@
       "slug": "nnk_versus_nnn_codon_choice",
       "difficulty": "easy",
       "topic": "Why NNK is used for saturation mutagenesis",
-      "question": "Why does a saturation oligo usually specify NNK at each codon rather than NNN?\n",
+      "question": "Taking N as any base and K as G or T, why does a saturation oligo usually specify NNK at each codon rather than NNN?\n",
       "choices": {
         "A": "NNK removes every stop codon from the library",
         "B": "NNK still covers all twenty amino acids but leaves only one stop",
@@ -201,7 +201,7 @@
       "slug": "reading_lowercase_tails_in_a_construction_oligo",
       "difficulty": "medium",
       "topic": "Reading a construction oligo and its tails",
-      "question": "A file digests a product with NheI and SalI. The forward oligo reads CAACTgctagcAAAGHDWCCTNRAAGGcatgaccgaaaccgtttctcg. What is the lowercase gctagc?\n",
+      "question": "A file digests a product with NheI (GCTAGC) and SalI (GTCGAC). The forward oligo reads CAACTgctagcAAAGHDWCCTNRAAGGcatgaccgaaaccgtttctcg. What is the lowercase gctagc?\n",
       "choices": {
         "A": "The NheI site, added as a tail for cutting",
         "B": "The ribosome binding site for the downstream gene",
@@ -4061,7 +4061,7 @@
       "slug": "identifying_a_site_in_an_oligo",
       "difficulty": "medium",
       "topic": "Finding a restriction site within an oligo",
-      "question": "An oligo reads CAGTTgaattcGGTNDWCCAatgaccgcattgcg. Which run is the EcoRI site?\n",
+      "question": "EcoRI cuts GAATTC. An oligo reads CAGTTgaattcGGTNDWCCAatgaccgcattgcg. Which run is the EcoRI site?\n",
       "choices": {
         "A": "CAGTT, the five bases at the 5' end of the oligo",
         "B": "gaattc, the lowercase run following the short flank",
