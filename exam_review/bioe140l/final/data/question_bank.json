@@ -677,7 +677,7 @@
         "A": "Bacterial display on OmpX handles full-length at ten to the eleventh",
         "B": "Phage reaches about ten to the seventh and yeast ten to the eleventh",
         "C": "Both systems are limited by oligo diversity, not transformation",
-        "D": "Yeast takes full-length but caps near ten to the seventh; phage reaches higher",
+        "D": "Yeast takes full-length but caps near ten to the seventh clones",
         "E": "Neither can display this length, so SELEX is the only route"
       },
       "answer": "D",
@@ -1119,7 +1119,7 @@
         "B": "That the landscape must have one peak for this to work",
         "C": "That large jumps across the landscape are the normal mode",
         "D": "That the starting sequence must have no activity at all",
-        "E": "That it climbs to a nearby maximum, not necessarily the global one"
+        "E": "That it climbs to a nearby maximum, not the global one"
       },
       "answer": "E",
       "explanation": "Iterated small changes with selection at each step walk uphill from wherever you started, so the method finds the top of the hill it is on, which is both its strength, since it needs no model of the landscape, and its limit. Large sparse jumps describe combinatorial library approaches instead, and a nascent activity to improve is a precondition rather than something ruled out."
@@ -1238,7 +1238,7 @@
       "question": "A TetR-Ptet reporter gets a stronger ribosome binding site. What happens to its dose-response curve?\n",
       "choices": {
         "A": "It shifts toward lower inducer concentrations than before",
-        "B": "It rises at every inducing concentration, turning on at the same one",
+        "B": "It rises at every concentration, turning on at the same one",
         "C": "It shifts toward higher inducer concentrations than before",
         "D": "It grows steeper without any change in its height",
         "E": "It disappears, as the reporter is no longer regulated"
@@ -3824,7 +3824,7 @@
         "A": "Its growth rate in rich medium at thirty-seven degrees",
         "B": "The copy number of the plasmid it carries in culture",
         "C": "The brightness of its reporter when the inducer is present",
-        "D": "Survival in environmental samples at ambient temperature and nutrients",
+        "D": "Survival in environmental samples at ambient temperature",
         "E": "Its transformation efficiency when made chemically competent"
       },
       "answer": "D",

@@ -54,7 +54,7 @@ choices:
   B: That the landscape must have one peak for this to work
   C: That large jumps across the landscape are the normal mode
   D: That the starting sequence must have no activity at all
-  E: That it climbs to a nearby maximum, not necessarily the global one
+  E: That it climbs to a nearby maximum, not the global one
 answer: E
 explanation: |
   Iterated small changes with selection at each step walk uphill from wherever you started, so the method finds the top of the hill it is on, which is both its strength, since it needs no model of the landscape, and its limit. Large sparse jumps describe combinatorial library approaches instead, and a nascent activity to improve is a precondition rather than something ruled out.
