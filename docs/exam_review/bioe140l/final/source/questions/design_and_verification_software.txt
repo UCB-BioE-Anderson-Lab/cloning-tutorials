@@ -148,3 +148,18 @@ choices:
 answer: E
 explanation: |
   Finding where an enzyme cuts and how many times is an exact search over a sequence you already have, which an editor does definitively and in a moment. A language model reading a map may be right without any way to confirm it, and homology, structure and pathway tools are addressed to entirely different questions.
+---
+slug: which_question_a_model_answers_from_a_paper
+difficulty: medium
+topic: Sorting questions a model can answer from ones it cannot
+question: |
+  You give a language model a paper describing a cellulase expressed from a T7 promoter in BL21(DE3). Which question is it most likely to answer correctly?
+choices:
+  A: What fraction of the expressed enzyme ends up in inclusion bodies
+  B: Which inducer the construct needs, given its promoter and strain
+  C: Which single residue change would broaden the substrate range
+  D: How many hours of induction give the highest activity
+  E: What turnover number the enzyme reaches on this substrate
+answer: B
+explanation: |
+  One of these follows from what the paper already names: the promoter and the strain between them fix the induction chemistry, and no measurement is needed to say so. The rest are predictions about how a particular protein behaves in a particular host, and each would be settled by an experiment rather than by reading. Solubility, the effect of a substitution, a time course and a kinetic constant are all quantities the text does not contain, so a confident answer about any of them is generated rather than derived. The test is not whether the question sounds technical but whether the answer is already present in what was supplied.
